@@ -1,0 +1,25 @@
+{
+  "name": "蕭閔謙醫師 · 眼科衛教及學習筆記",
+  "short_name": "HsiaoEye",
+  "description": "蕭閔謙醫師(眼科)的眼科衛教與學習筆記網站。",
+  "lang": "zh-TW",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f7f5f0",
+  "theme_color": "#3a5a7c",
+  "categories": ["medical", "education", "health"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "衛教文章", "short_name": "文章", "url": "/blog/" },
+    { "name": "乾眼症 8 大迷思", "short_name": "乾眼迷思", "url": "/blog/dry-eye-myths" },
+    { "name": "關於我", "short_name": "關於", "url": "/about" }
+  ]
+}

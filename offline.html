@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>離線中 · HsiaoEye</title>
+<meta name="robots" content="noindex,nofollow" />
+<meta name="theme-color" content="#3a5a7c" />
+<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+<link rel="icon" sizes="any" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.json" />
+<style>
+  *,*::before,*::after{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; min-height:100dvh; background:#f7f5f0; color:#1f2937; font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; -webkit-font-smoothing:antialiased; }
+  body::before{ content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:radial-gradient(800px 500px at 12% -8%, rgba(143,179,212,.18), transparent 60%),
+               linear-gradient(180deg,#f7f5f0 0%, #fbfaf6 50%, #f7f5f0 100%); }
+  main{ min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  .wrap{ max-width:520px; width:100%; text-align:center; }
+  .icon{ width:80px; height:80px; margin:0 auto 18px; border-radius:24px; background:linear-gradient(135deg,#8fb3d4,#243b56); display:flex; align-items:center; justify-content:center; color:#fff; font-size:34px; box-shadow:0 14px 30px -12px rgba(58,90,124,.45); animation:float 4s ease-in-out infinite; }
+  @keyframes float{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-6px); } }
+  h1{ font-family:'Noto Serif TC',Georgia,serif; font-size:28px; margin:0 0 10px; }
+  .blue-text{ background:linear-gradient(180deg,#6b8caf,#243b56); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  p{ color:#4b5563; font-size:14px; line-height:1.7; margin:0 0 22px; }
+  .btn{ display:inline-flex; align-items:center; gap:6px; padding:.75rem 1.4rem; background:linear-gradient(180deg,#8fb3d4,#3a5a7c 50%,#243b56); color:#fff; border-radius:12px; font-weight:600; box-shadow:0 8px 18px -8px rgba(58,90,124,.45); cursor:pointer; border:none; font-size:14px; transition:transform .15s; }
+  .btn:hover, .btn:active{ transform:translateY(-1px); }
+  .hint{ margin-top:18px; font-size:12px; color:#9ca3af; }
+  ul.cached{ list-style:none; margin:18px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  ul.cached a{ display:block; padding:9px 12px; border-radius:10px; background:#fff; border:1px solid #d6e4f0; color:#1f2937; text-decoration:none; font-size:13.5px; transition:all .15s; }
+  ul.cached a:hover{ border-color:rgba(58,90,124,.5); transform:translateX(3px); color:#3a5a7c; }
+</style>
+</head>
+<body>
+<main>
+  <div class="wrap">
+    <div class="icon" aria-hidden="true">📡</div>
+    <h1>網路<span class="blue-text">暫時離線</span></h1>
+    <p>沒辦法連上 HsiaoEye。<br/>請檢查您的網路,或瀏覽以下已儲存的離線文章。</p>
+    <button class="btn" onclick="location.reload()">↻ 重新嘗試連線</button>
+    <ul class="cached">
+      <li><a href="/">首頁(離線可讀)</a></li>
+      <li><a href="/blog/">衛教文章索引</a></li>
+      <li><a href="/blog/dry-eye-myths">乾眼症 8 大迷思</a></li>
+    </ul>
+    <p class="hint">已快取的頁面在離線時仍可閱讀。</p>
+  </div>
+</main>
+<script>
+  window.addEventListener('online', () => location.reload());
+</script>
+</body>
+</html>

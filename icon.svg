@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#faf7f1"/><stop offset="1" stop-color="#d6e4f0"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#8fb3d4"/><stop offset="0.55" stop-color="#3a5a7c"/><stop offset="1" stop-color="#243b56"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <!-- almond-shaped eye outline -->
+  <path d="M76 256 Q256 96 436 256 Q256 416 76 256 Z" fill="none" stroke="url(#blue)" stroke-width="18" stroke-linejoin="round"/>
+  <!-- iris -->
+  <circle cx="256" cy="256" r="78" fill="none" stroke="url(#blue)" stroke-width="14"/>
+  <!-- pupil -->
+  <circle cx="256" cy="256" r="30" fill="url(#blue)"/>
+  <!-- catchlight -->
+  <circle cx="232" cy="232" r="10" fill="#faf7f1"/>
+</svg>
