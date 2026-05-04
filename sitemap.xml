@@ -54,4 +54,12 @@
     <image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>兒童近視控制 8 大迷思</image:title></image:image>
   </url>
 
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>飛蚊症 6 大警訊</image:title></image:image>
+  </url>
+
 </urlset>

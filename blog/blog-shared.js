@@ -44,8 +44,9 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
-    { slug:'dry-eye-myths',           title:'乾眼症 8 大迷思',         cat:'myth', tag:'乾眼症',     date:'2026-05-04', tag_en:'Dry Eye' },
-    { slug:'pediatric-myopia-control', title:'兒童近視控制 8 大迷思',  cat:'myth', tag:'兒童近視',   date:'2026-05-04', tag_en:'Myopia control' }
+    { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         cat:'myth', tag:'乾眼症',     date:'2026-05-04', tag_en:'Dry Eye' },
+    { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  cat:'myth', tag:'兒童近視',   date:'2026-05-04', tag_en:'Myopia control' },
+    { slug:'floaters-retinal-detachment', title:'飛蚊症 6 大警訊',         cat:'myth', tag:'飛蚊症',     date:'2026-05-04', tag_en:'Floaters' }
   ];
   DN.totalArticles = DN.ARTICLES.length;
 
@@ -696,7 +697,7 @@
     mount.innerHTML =
       '<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:32px 0 24px;box-shadow:0 8px 18px -10px rgba(58,90,124,.18)">' +
         '<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">' +
-          '<div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#d6e4f0,#8fb3d4);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;flex-shrink:0">👁️</div>' +
+          '<img src="/SUNN1302.jpg" alt="蕭閔謙 醫師" width="54" height="54" loading="lazy" style="width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:2px solid #fff;box-shadow:0 4px 10px -2px rgba(58,90,124,.3);background:var(--blue-soft)" />' +
           '<div style="flex:1;min-width:200px">' +
             '<div style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:16px;font-weight:700;color:var(--ink)">' +
               '<span data-zh="' + DN.AUTHOR_NAME_ZH + '" data-en="' + DN.AUTHOR_NAME_EN + '">' + DN.AUTHOR_NAME_ZH + '</span>' +
@@ -815,7 +816,7 @@
   // Populates two homepage <ol> lists from DN.ARTICLES.
   //   #hs-recent-list  — most recent by date desc
   //   #hs-popular-list — curated by DN.POPULAR_SLUGS, falls back to recent
-  DN.POPULAR_SLUGS = ['dry-eye-myths', 'pediatric-myopia-control'];   // edit this list to curate
+  DN.POPULAR_SLUGS = ['floaters-retinal-detachment', 'pediatric-myopia-control', 'dry-eye-myths'];   // edit this list to curate
   DN.injectSpotlight = function () {
     const all = (DN.ARTICLES || []).slice();
     if (!all.length) return;

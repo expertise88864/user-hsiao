@@ -1,8 +1,8 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v2: + pediatric-myopia-control article, RSS/Atom feeds
+ * v3: + floaters-retinal-detachment article
  */
-const CACHE = 'hs-v2';
-const RUNTIME = 'hs-runtime-v2';
+const CACHE = 'hs-v3';
+const RUNTIME = 'hs-runtime-v3';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
@@ -25,7 +25,8 @@ const PRECACHE = [
   '/blog/feed.xml',
   '/blog/atom.xml',
   '/blog/dry-eye-myths',
-  '/blog/pediatric-myopia-control'
+  '/blog/pediatric-myopia-control',
+  '/blog/floaters-retinal-detachment'
 ];
 
 self.addEventListener('install', (e) => {
