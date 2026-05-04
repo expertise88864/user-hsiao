@@ -23,8 +23,8 @@
   DN.SITE_URL        = 'https://hsiao.chendermatologist.com';
   DN.AUTHOR_NAME_ZH  = '蕭閔謙 醫師';
   DN.AUTHOR_NAME_EN  = 'Min-Chien Hsiao, MD';
-  DN.AUTHOR_AFFIL_ZH = '彰化基督教醫院 眼科';
-  DN.AUTHOR_AFFIL_EN = 'Changhua Christian Hospital, Department of Ophthalmology';
+  DN.AUTHOR_AFFIL_ZH = '眼科';
+  DN.AUTHOR_AFFIL_EN = 'Ophthalmology';
   DN.AUTHOR_ROLE_ZH  = '住院醫師 R2';
   DN.AUTHOR_ROLE_EN  = 'Ophthalmology PGY-2';
   DN.AUTHOR_EMAIL    = 'hsiao.minchien@gmail.com';   // placeholder — update when wife confirms
@@ -303,9 +303,9 @@
               '<span style="font-size:11.5px;font-weight:600;color:var(--blue-deep);margin-left:8px;padding:2px 8px;border-radius:6px;background:var(--blue-soft);border:1px solid #b8cfe3;font-family:Inter,sans-serif" data-zh="眼科 R2" data-en="Ophthalmology PGY-2">眼科 R2</span>' +
             '</div>' +
             '<div style="font-size:13px;color:#334155;line-height:1.85;margin-top:6px" ' +
-              'data-zh="<strong>現職</strong>:' + DN.AUTHOR_AFFIL_ZH + ' 住院醫師<br/><strong>學歷</strong>:高雄醫學大學 學士後醫學系" ' +
-              'data-en="<strong>Position</strong>: Resident, ' + DN.AUTHOR_AFFIL_EN + '<br/><strong>Education</strong>: KMU School of Post-Baccalaureate Medicine">' +
-              '<strong>現職</strong>:' + DN.AUTHOR_AFFIL_ZH + ' 住院醫師<br/>' +
+              'data-zh="<strong>現職</strong>:眼科住院醫師<br/><strong>學歷</strong>:高雄醫學大學 學士後醫學系" ' +
+              'data-en="<strong>Position</strong>: Ophthalmology Resident<br/><strong>Education</strong>: KMU School of Post-Baccalaureate Medicine">' +
+              '<strong>現職</strong>:眼科住院醫師<br/>' +
               '<strong>學歷</strong>:高雄醫學大學 學士後醫學系' +
             '</div>' +
           '</div>' +

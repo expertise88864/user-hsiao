@@ -90,15 +90,15 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   .lang-select:focus{ outline:none; border-color:rgba(58,90,124,.6); box-shadow:0 0 0 3px rgba(143,179,212,.25); }
 
   /* Hero */
-  .hero{ display:grid; grid-template-columns: 1fr 200px; gap:36px; align-items:center; padding:48px 0 32px; }
+  .hero{ display:grid; grid-template-columns: 1fr 220px; gap:36px; align-items:center; padding:48px 0 32px; }
   .hero h1{ font-family:'Noto Serif TC',Georgia,serif; font-size:42px; font-weight:700; line-height:1.18; color:var(--ink); }
   .hero h1 .blue-text{ display:block; }
   .hero p.lede{ margin-top:18px; font-size:16px; line-height:1.85; color:var(--ink-2); max-width:540px; }
-  .hero-photo{ width:200px; height:200px; border-radius:50%; object-fit:cover; box-shadow: 0 18px 36px -16px rgba(58,90,124,.45); border:4px solid #fff; background:var(--blue-soft); }
+  .hero-photo{ width:220px; height:220px; border-radius:50%; object-fit:cover; object-position:center top; box-shadow: 0 18px 36px -16px rgba(58,90,124,.45); border:4px solid #fff; background:var(--blue-soft); }
   @media (max-width:720px){
     .hero{ grid-template-columns:1fr; gap:24px; padding-top:32px; }
     .hero h1{ font-size:30px; }
-    .hero-photo{ width:140px; height:140px; margin:0 auto; }
+    .hero-photo{ width:160px; height:160px; margin:0 auto; }
     .hero-meta{ text-align:center; }
   }
 
@@ -124,6 +124,17 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   .quick-find{ display:flex; flex-wrap:wrap; gap:8px; }
   .quick-find a{ padding:7px 14px; border-radius:9999px; background:#fff; border:1px solid var(--border); color:var(--ink-2); font-size:12.5px; font-weight:600; text-decoration:none; transition:all .15s; }
   .quick-find a:hover{ border-color:rgba(58,90,124,.5); color:var(--blue-deep); transform:translateY(-1px); }
+
+  /* About timeline (same as /about) */
+  .info-card{ background:#fff; border:1px solid var(--border); border-radius:18px; padding:24px 26px; box-shadow:0 1px 2px rgba(15,23,42,.04); }
+  .info-card h3{ font-family:'Noto Serif TC',Georgia,serif; font-size:18px; font-weight:700; color:var(--ink); margin:0 0 12px; padding-left:14px; border-left:3px solid var(--blue); }
+  .timeline{ position:relative; padding-left:24px; margin:24px 0; }
+  .timeline::before{ content:''; position:absolute; left:8px; top:8px; bottom:8px; width:2px; background:linear-gradient(180deg,#8fb3d4,#243b56); border-radius:2px; }
+  .timeline-item{ position:relative; padding:14px 0 14px 22px; }
+  .timeline-item::before{ content:''; position:absolute; left:-19px; top:20px; width:14px; height:14px; border-radius:50%; background:#fff; border:3px solid var(--blue-deep); box-shadow:0 0 0 3px #f7f5f0; }
+  .timeline-item .yr{ display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.06em; color:var(--blue-deep); background:var(--blue-soft); padding:2px 10px; border-radius:9999px; border:1px solid #b8cfe3; }
+  .timeline-item h4{ font-family:'Noto Serif TC',Georgia,serif; font-size:16.5px; font-weight:700; color:var(--ink); margin:6px 0 4px; }
+  .timeline-item p{ font-size:13.5px; color:var(--ink-2); line-height:1.75; margin:0; }
 
   @media (max-width:640px){ .hide-sm{display:none} }
 </style>
@@ -172,8 +183,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   "alternateName":"Min-Chien Hsiao, MD",
   "url":"https://hsiao.chendermatologist.com/about",
   "image":"https://hsiao.chendermatologist.com/SUNN1302.jpg",
-  "jobTitle":"Resident Physician, Department of Ophthalmology",
-  "worksFor":{"@type":"Hospital","name":"Changhua Christian Hospital","sameAs":"https://www.cch.org.tw/"},
+  "jobTitle":"Resident Physician, Ophthalmology",
   "alumniOf":{"@type":"CollegeOrUniversity","name":"高雄醫學大學 學士後醫學系"}
 }
 </script>
@@ -223,7 +233,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
       </div>
     </div>
     <div class="hero-meta">
-      <img src="/SUNN1302.jpg" alt="蕭閔謙 醫師" class="hero-photo" width="200" height="200" fetchpriority="high" />
+      <img src="/SUNN1302.jpg" alt="蕭閔謙 醫師" class="hero-photo" width="220" height="220" fetchpriority="high" />
     </div>
   </div>
 </section>
@@ -265,14 +275,25 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </section>
 
-<!-- About brief -->
+<!-- About: 學經歷 timeline (same format as /about) -->
 <section class="max-w-5xl mx-auto px-5 sm:px-8 mt-12 mb-16">
-  <div style="background:#fff; border:1px solid var(--border); border-radius:18px; padding:28px;">
-    <div style="font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--blue-deep); font-weight:700" data-zh="關於我" data-en="About">關於我</div>
-    <h2 class="font-display text-[22px] font-bold mt-2 mb-3" data-zh="蕭閔謙 醫師" data-en="Dr. Min-Chien Hsiao">蕭閔謙 醫師</h2>
-    <p style="font-size:14.5px; line-height:1.85; color:var(--ink-2)" data-zh="高雄醫學大學 學士後醫學系畢業,完成 PGY 與不分科住院醫師訓練,目前為眼科住院醫師。臨床上最常被問到「眼睛紅、眼睛痠、看不清楚」三件事,本站把答案一次整理清楚。" data-en="KMU School of Post-Baccalaureate Medicine graduate. Completed PGY and unspecialized residency before entering ophthalmology training. The three most common clinic complaints — red eyes, eye strain, blurred vision — are organized into clear notes here.">
-      高雄醫學大學 學士後醫學系畢業,完成 PGY 與不分科住院醫師訓練,目前為眼科住院醫師。臨床上最常被問到「眼睛紅、眼睛痠、看不清楚」三件事,本站把答案一次整理清楚。
-    </p>
+  <div class="info-card">
+    <h3 data-zh="學經歷" data-en="Education &amp; Training">學經歷</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="yr" data-zh="不分科 R" data-en="Resident R">不分科 R</span>
+        <h4 data-zh="不分科住院醫師" data-en="Unspecialized Resident Physician">不分科住院醫師</h4>
+      </div>
+      <div class="timeline-item">
+        <span class="yr" data-zh="PGY" data-en="PGY">PGY</span>
+        <h4 data-zh="台中榮民總醫院 · 不分科住院醫師(PGY)" data-en="Post-Graduate Year (PGY), Taichung Veterans General Hospital">台中榮民總醫院 · 不分科住院醫師（PGY）</h4>
+      </div>
+      <div class="timeline-item">
+        <span class="yr" data-zh="醫學系" data-en="MD program">醫學系</span>
+        <h4 data-zh="高雄醫學大學 · 學士後醫學系" data-en="KMU School of Post-Baccalaureate Medicine">高雄醫學大學 · 學士後醫學系</h4>
+        <p data-zh="醫學士 (M.D.)" data-en="Doctor of Medicine (M.D.)">醫學士 (M.D.)</p>
+      </div>
+    </div>
     <a href="/about" style="display:inline-flex;margin-top:14px;align-items:center;gap:4px;padding:8px 14px;border-radius:9999px;background:var(--blue-soft);border:1px solid #b8cfe3;color:var(--blue-deep);font-size:13px;font-weight:600;text-decoration:none" data-zh="完整自介 →" data-en="Full bio →">完整自介 →</a>
   </div>
 </section>
