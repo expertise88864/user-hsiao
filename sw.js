@@ -1,8 +1,8 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v3: + floaters-retinal-detachment article
+ * v4: blog-shared.js cache-bust ?v=20260505 (force refresh of SW-cached old script)
  */
-const CACHE = 'hs-v3';
-const RUNTIME = 'hs-runtime-v3';
+const CACHE = 'hs-v4';
+const RUNTIME = 'hs-runtime-v4';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
