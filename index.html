@@ -6,7 +6,7 @@
 <title>蕭閔謙醫師 眼科筆記 · 乾眼、近視控制、白內障衛教</title>
 <meta name="description" content="蕭閔謙醫師(眼科住院醫師)的個人衛教網站。乾眼症、兒童近視控制、白內障、視網膜疾病等民眾最常見的眼科問題與學習筆記。" />
 <meta name="theme-color" content="#3a5a7c" />
-<meta name="keywords" content="蕭閔謙醫師,眼科衛教,乾眼症,兒童近視,白內障,視網膜,HsiaoEye" />
+<meta name="keywords" content="蕭閔謙醫師,眼科衛教,乾眼症,兒童近視,白內障,視網膜,飛蚊症,青光眼,葉黃素,HsiaoEye" />
 <meta name="author" content="蕭閔謙 醫師 · HsiaoEye" />
 
 <link rel="canonical" href="https://hsiao.chendermatologist.com/" />
@@ -15,6 +15,8 @@
 <link rel="alternate" hreflang="x-default" href="https://hsiao.chendermatologist.com/" />
 <link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/" />
 <link rel="alternate" hreflang="en" href="https://hsiao.chendermatologist.com/" />
+<link rel="alternate" type="application/rss+xml" title="HsiaoEye RSS" href="/blog/feed.xml" />
+<link rel="alternate" type="application/atom+xml" title="HsiaoEye Atom" href="/blog/atom.xml" />
 
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
@@ -63,20 +65,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = { theme: { extend: {
-    colors: {
-      sand: { 50:'#faf9f5', 100:'#f7f5f0', 200:'#ede8da' },
-      sky:  { 50:'#f3f7fb', 100:'#e6eef6', 200:'#d6e4f0', 400:'#8fb3d4', 500:'#6b8caf', 600:'#3a5a7c', 700:'#243b56' },
-      gold: { 500:'#c9a961' },
-      ink:  { 900:'#0f172a', 800:'#1e293b', 700:'#334155', 500:'#64748b', 400:'#94a3b8' }
-    },
-    fontFamily: {
-      display: ['"Noto Serif TC"', 'Georgia', 'serif'],
-      sans:    ['Inter', '"Microsoft JhengHei"', '"PingFang TC"', 'system-ui', 'sans-serif']
-    }
-  } } }
-</script>
 <style>
   :root{
     --bg:#f7f5f0; --surface:#ffffff; --ink:#1f2937; --ink-2:#4b5563; --muted:#9ca3af;
@@ -108,28 +96,12 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
   .pill{ display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:9999px; background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; font-size:12px; font-weight:600; letter-spacing:.04em; }
 
-  /* Article card */
-  .article-card{ display:flex; gap:18px; padding:22px 24px; background:#fff; border:1px solid var(--border); border-radius:18px; transition:all .18s ease; text-decoration:none; box-shadow:0 1px 2px rgba(15,23,42,.04); }
-  .article-card:hover{ border-color:rgba(58,90,124,.5); box-shadow:0 14px 32px -14px rgba(58,90,124,.25); transform:translateX(4px); }
-  .article-card::before{ content:''; display:block; width:3px; height:36px; background:linear-gradient(180deg,#8fb3d4,#243b56); border-radius:9999px; flex-shrink:0; align-self:center; }
-  .article-card .ac-body{ flex:1; min-width:0; }
-  .article-card .ac-meta{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:6px; }
-  .article-card .chip{ display:inline-flex; align-items:center; padding:2px 9px; border-radius:9999px; font-size:11px; font-weight:600; line-height:1.4; }
-  .article-card .chip.cat-myth{ background:#fef3c7; color:#854d0e; border:1px solid #fcd34d; }
-  .article-card .chip.tag{ background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; }
-  .article-card time{ font-size:11px; color:var(--muted); margin-left:auto; }
-  .article-card h3{ font-size:19px; font-family:'Noto Serif TC',Georgia,serif; font-weight:700; color:var(--ink); margin:0 0 6px; line-height:1.4; }
-  .article-card p{ font-size:13.5px; color:var(--ink-2); margin:0; line-height:1.75; }
-  .article-card .ac-arrow{ align-self:center; color:var(--blue-deep); font-size:22px; flex-shrink:0; opacity:.55; transition:all .15s ease; font-weight:600; }
-  .article-card:hover .ac-arrow{ opacity:1; transform:translateX(3px); }
-
-  .placeholder-card{ padding:24px; background:rgba(255,255,255,.5); border:1px dashed var(--border); border-radius:18px; text-align:center; color:var(--muted); font-size:13.5px; }
-
+  /* Quick find chips */
   .quick-find{ display:flex; flex-wrap:wrap; gap:8px; }
   .quick-find a{ padding:7px 14px; border-radius:9999px; background:#fff; border:1px solid var(--border); color:var(--ink-2); font-size:12.5px; font-weight:600; text-decoration:none; transition:all .15s; }
   .quick-find a:hover{ border-color:rgba(58,90,124,.5); color:var(--blue-deep); transform:translateY(-1px); }
 
-  /* About timeline (same as /about) */
+  /* About timeline */
   .info-card{ background:#fff; border:1px solid var(--border); border-radius:18px; padding:24px 26px; box-shadow:0 1px 2px rgba(15,23,42,.04); }
   .info-card h3{ font-family:'Noto Serif TC',Georgia,serif; font-size:18px; font-weight:700; color:var(--ink); margin:0 0 12px; padding-left:14px; border-left:3px solid var(--blue); }
   .timeline{ position:relative; padding-left:24px; margin:24px 0; }
@@ -140,13 +112,29 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   .timeline-item h4{ font-family:'Noto Serif TC',Georgia,serif; font-size:16.5px; font-weight:700; color:var(--ink); margin:6px 0 4px; }
   .timeline-item p{ font-size:13.5px; color:var(--ink-2); line-height:1.75; margin:0; }
 
+  /* FAQ collapsible */
+  .home-faq{ display:flex; flex-direction:column; gap:8px; margin-top:16px; }
+  details.hf{ background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color .2s, box-shadow .2s; }
+  details.hf[open]{ border-color:rgba(58,90,124,.5); box-shadow:0 8px 18px -10px rgba(58,90,124,.22); }
+  details.hf summary{ padding:14px 18px 14px 50px; cursor:pointer; position:relative; font-family:'Noto Serif TC',Georgia,serif; font-size:14.5px; font-weight:600; color:var(--ink); list-style:none; line-height:1.55; }
+  details.hf summary::-webkit-details-marker{ display:none; }
+  details.hf summary::before{ content:'Q'; position:absolute; left:14px; top:14px; width:26px; height:26px; border-radius:8px; background:linear-gradient(135deg,var(--blue-soft),#b8cfe3); border:1px solid rgba(58,90,124,.45); color:var(--blue-deep); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; font-family:Inter,sans-serif; }
+  details.hf summary::after{ content:'+'; position:absolute; right:18px; top:14px; font-size:22px; color:var(--blue-deep); transition:transform .25s; line-height:1; }
+  details.hf[open] summary::after{ transform:rotate(45deg); }
+  details.hf .ans{ padding:12px 18px 16px 50px; font-size:13.8px; color:var(--ink-2); line-height:1.85; border-top:1px dashed var(--line); }
+  details.hf .ans a{ color:var(--blue-deep); font-weight:600; text-decoration:underline; text-underline-offset:3px; }
+
+  /* Disclaimer */
+  .disclaimer-box{ background:#fef9f0; border:1px solid #f4dfae; border-radius:14px; padding:14px 18px; color:#7a5a18; font-size:13px; line-height:1.85; }
+  .disclaimer-box strong{ color:#5a4012; }
+
   @media (max-width:640px){ .hide-sm{display:none} }
 </style>
 <style id="hs-global-ux">
   body { padding-bottom: env(safe-area-inset-bottom); }
   header.sticky { padding-top: env(safe-area-inset-top); }
   @media (hover: none) and (pointer: coarse) {
-    a, button, select, .article-card, .lang-select { min-height: 40px; }
+    a, button, select, .lang-select { min-height: 40px; }
     select, button { touch-action: manipulation; }
   }
   :focus-visible { outline: 2px solid rgba(143,179,212,.7); outline-offset: 2px; border-radius: 4px; }
@@ -177,6 +165,24 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   "url":"https://hsiao.chendermatologist.com/",
   "inLanguage":["zh-TW","en"],
   "publisher":{"@type":"Person","name":"蕭閔謙 醫師","url":"https://hsiao.chendermatologist.com/about"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"HsiaoEye",
+  "alternateName":"蕭閔謙醫師 眼科筆記",
+  "url":"https://hsiao.chendermatologist.com/",
+  "logo":{
+    "@type":"ImageObject",
+    "url":"https://hsiao.chendermatologist.com/logo-512.png",
+    "width":512,
+    "height":512
+  },
+  "founder":{"@type":"Person","name":"蕭閔謙 醫師"},
+  "email":"f94001115@gmail.com",
+  "sameAs":[]
 }
 </script>
 <script type="application/ld+json">
@@ -232,7 +238,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
         從乾眼症、兒童近視控制,到白內障與視網膜疾病 — 把眼科診間最常被問的問題,整理成讀得懂的衛教與學習筆記。內容依據國際醫學文獻與臨床指引,僅作為一般教育用途。
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
-        <a href="/blog/dry-eye-myths" style="display:inline-flex;align-items:center;gap:6px;padding:11px 20px;background:linear-gradient(180deg,#8fb3d4 0%, #3a5a7c 50%, #243b56 100%); color:#fff; border-radius:12px; font-weight:600; text-decoration:none; box-shadow:0 8px 18px -8px rgba(58,90,124,.55)" data-zh="閱讀乾眼症 8 大迷思 →" data-en="Read: 8 dry-eye myths →">閱讀乾眼症 8 大迷思 →</a>
+        <a href="/blog/" style="display:inline-flex;align-items:center;gap:6px;padding:11px 20px;background:linear-gradient(180deg,#8fb3d4 0%, #3a5a7c 50%, #243b56 100%); color:#fff; border-radius:12px; font-weight:600; text-decoration:none; box-shadow:0 8px 18px -8px rgba(58,90,124,.55)" data-zh="閱讀衛教文章 →" data-en="Read articles →">閱讀衛教文章 →</a>
         <a href="/about" style="display:inline-flex;align-items:center;gap:6px;padding:11px 20px;background:#fff;border:1px solid var(--border);border-radius:12px;font-weight:600;color:var(--ink);text-decoration:none" data-zh="關於我" data-en="About me">關於我</a>
       </div>
     </div>
@@ -242,45 +248,112 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </section>
 
-<!-- Quick find -->
+<!-- Quick find — only existing topics, no 籌備中 placeholders -->
 <section class="max-w-5xl mx-auto px-5 sm:px-8 mt-4">
   <div style="background:#fff; border:1px solid var(--border); border-radius:18px; padding:20px 22px;">
     <div style="font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--blue-deep); font-weight:700; margin-bottom:10px" data-zh="快速找眼科主題" data-en="Quick find by topic">快速找眼科主題</div>
     <div class="quick-find">
       <a href="/blog/dry-eye-myths">乾眼症</a>
-      <a href="/blog/" data-zh="兒童近視控制(籌備中)" data-en="Pediatric myopia (coming)">兒童近視控制（籌備中）</a>
-      <a href="/blog/" data-zh="白內障(籌備中)" data-en="Cataract (coming)">白內障（籌備中）</a>
-      <a href="/blog/" data-zh="青光眼(籌備中)" data-en="Glaucoma (coming)">青光眼（籌備中）</a>
-      <a href="/blog/" data-zh="飛蚊症(籌備中)" data-en="Floaters (coming)">飛蚊症（籌備中）</a>
+      <a href="/blog/pediatric-myopia-control" data-zh="兒童近視控制" data-en="Pediatric myopia">兒童近視控制</a>
+      <a href="/blog/">所有文章 →</a>
     </div>
   </div>
 </section>
 
-<!-- Articles -->
-<section class="max-w-5xl mx-auto px-5 sm:px-8 mt-10">
-  <div class="flex items-baseline justify-between mb-4">
-    <h2 class="font-display text-[22px] font-bold" data-zh="最新衛教文章" data-en="Latest articles">最新衛教文章</h2>
-    <a href="/blog/" class="text-[13px] font-semibold" style="color:var(--blue-deep)" data-zh="全部文章 →" data-en="All articles →">全部文章 →</a>
-  </div>
-  <div class="flex flex-col gap-3">
-    <a href="/blog/dry-eye-myths" class="article-card">
-      <div class="ac-body">
-        <div class="ac-meta">
-          <span class="chip cat-myth" data-zh="迷思澄清" data-en="Myths">迷思澄清</span>
-          <span class="chip tag" data-zh="乾眼症" data-en="Dry Eye">乾眼症</span>
-          <time datetime="2026-05-04">2026-05-04</time>
+<!-- 最近更新 + 熱門推薦 + 閱讀進度 -->
+<section class="py-8" id="hs-spotlight">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8">
+    <div id="hs-read-progress" style="margin-bottom:24px"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a5a7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span class="text-[11px] uppercase tracking-[.24em] font-semibold" style="color:var(--blue-deep)" data-zh="最近更新" data-en="Recently Updated">最近更新</span>
         </div>
-        <h3 data-zh="乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎?" data-en="8 dry-eye myths — do artificial tears really make eyes drier?">乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎?</h3>
-        <p data-zh="眼睛狂流淚就一定不是乾眼?葉黃素能治乾眼?熱敷沒科學根據?8 個民眾最常誤會的乾眼觀念,完整破解。" data-en="Watery eyes are never dry? Lutein cures dry eye? Warm compresses are pseudoscience? 8 common misconceptions, debunked.">眼睛狂流淚就一定不是乾眼?葉黃素能治乾眼?熱敷沒科學根據?8 個民眾最常誤會的乾眼觀念,完整破解。</p>
+        <ol id="hs-recent-list" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          <li style="padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--ink-2)">載入中⋯</li>
+        </ol>
       </div>
-      <div class="ac-arrow">→</div>
-    </a>
-    <div class="placeholder-card" data-zh="更多文章持續整理中 — 兒童近視控制、白內障、青光眼、飛蚊症 即將上線。" data-en="More articles coming soon — pediatric myopia, cataract, glaucoma, floaters.">更多文章持續整理中 — 兒童近視控制、白內障、青光眼、飛蚊症 即將上線。</div>
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a5a7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span class="text-[11px] uppercase tracking-[.24em] font-semibold" style="color:var(--blue-deep)" data-zh="熱門推薦" data-en="Editor's Picks">熱門推薦</span>
+        </div>
+        <ol id="hs-popular-list" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          <li style="padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--ink-2)">載入中⋯</li>
+        </ol>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- About: 學經歷 timeline (same format as /about) -->
-<section class="max-w-5xl mx-auto px-5 sm:px-8 mt-12 mb-16">
+<!-- HOMEPAGE FAQ — 民眾搜尋最多的眼科問題 -->
+<section class="py-10">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8">
+    <div class="text-[11px] uppercase tracking-[.24em] font-semibold" style="color:var(--blue-deep)" data-zh="常見問題" data-en="Frequently Asked">常見問題</div>
+    <h2 class="font-display font-bold text-[26px] sm:text-[32px] mt-3 leading-tight" data-zh="民眾搜尋最多的 15 個眼科問題" data-en="The 15 most-searched ophthalmology questions">民眾搜尋最多的 15 個眼科問題</h2>
+    <p class="mt-3 text-[14px] leading-[1.85]" style="color:var(--ink-2)" data-zh="點擊問題展開答案。每題都有對應的詳細衛教文章可深入閱讀。" data-en="Click any question to expand. Each links to a full deep-dive article.">點擊問題展開答案。每題都有對應的詳細衛教文章可深入閱讀。</p>
+
+    <div class="home-faq mt-6">
+      <details class="hf"><summary>點人工淚液會越點越乾嗎?會依賴嗎?</summary><div class="ans">不會 — 真正會傷眼的是裡面的 <strong>BAK 防腐劑</strong>(多劑型瓶裝幾乎都有)。一天使用 4 次以上請選 <strong>preservative-free</strong>(無防腐劑)單支裝。所謂「越點越要點」其實是底層的瞼板腺機能障礙(MGD)持續惡化,不是淚液造成。完整看 <a href="/blog/dry-eye-myths">乾眼症 8 大迷思</a>。</div></details>
+
+      <details class="hf"><summary>眼睛狂流淚就一定不是乾眼嗎?</summary><div class="ans">恰好相反 — 狂流淚反而是<strong>蒸發型乾眼</strong>(85% 乾眼屬此型)的典型表現。淚膜油脂層不足 → 蒸發太快 → 三叉神經反射 → 副淚腺爆量分泌「水樣淚」。患者會一邊狂流淚、一邊覺得乾刺糊。詳見 <a href="/blog/dry-eye-myths">乾眼症 8 大迷思</a>。</div></details>
+
+      <details class="hf"><summary>葉黃素能治乾眼或近視嗎?</summary><div class="ans">不能。<strong>葉黃素 + 玉米黃素</strong>主要保<strong>黃斑部</strong>(對年齡相關性黃斑部病變 AMD 有實證,AREDS2 研究),對乾眼、近視幾乎沒幫助。對乾眼有理論基礎的營養補充是 <strong>Omega-3</strong>(EPA/DHA),但 DREAM 試驗(NEJM 2018)結果為陰性,AAO 列為 conditional recommendation。詳見 <a href="/blog/dry-eye-myths">乾眼症 8 大迷思</a>。</div></details>
+
+      <details class="hf"><summary>兒童近視一定要控制嗎?幾歲開始?</summary><div class="ans">要,且越早越好。台灣小六近視率 70%、高三近視率 80%+,高度近視(>500 度)會大幅增加未來<strong>視網膜剝離、青光眼、白內障、黃斑部病變</strong>風險。實證有效的方式:<strong>低濃度阿托品(Atropine 0.05%)</strong>、<strong>角膜塑型片(OK 鏡)</strong>、<strong>多焦點離焦鏡片(DIMS)</strong>。一般小一以後開始,有家族史可更早諮詢。詳見 <a href="/blog/pediatric-myopia-control">兒童近視控制完整衛教</a>。</div></details>
+
+      <details class="hf"><summary>低濃度阿托品(Atropine)0.01% / 0.05% 哪個好?</summary><div class="ans">2019 年香港 LAMP 研究(Yam JC et al)頭對頭比較三種濃度:<strong>0.05% 效果最佳</strong>(平均控制 67%),0.025% 中等,0.01% 較弱(約 27%)。但 0.05% 副作用(畏光、近距離模糊)也較高。建議先嘗試 0.05%,不耐受再降階。詳見 <a href="/blog/pediatric-myopia-control">兒童近視控制完整衛教</a>。</div></details>
+
+      <details class="hf"><summary>飛蚊症 — 何時要立刻看醫生?</summary><div class="ans">飛蚊症(玻璃體混濁陰影)多數是良性的後玻璃體剝離(PVD)。但如果出現以下任一情況,<strong>請當天看眼科</strong>:(1) 突然新發大量飛蚊;(2) 看到閃光(photopsia)如閃電;(3) 視野出現黑影、簾幕狀缺損;(4) 視力突然下降。這些是<strong>視網膜裂孔或剝離</strong>的警訊,延誤治療可能失明。即將上線文章。</div></details>
+
+      <details class="hf"><summary>紅眼睛 — 過敏性結膜炎還是病毒性?</summary><div class="ans">過敏性結膜炎:<strong>雙眼、奇癢無比、清水樣分泌物、有過敏史</strong>。病毒性(腺病毒,「紅眼症」):<strong>單側發病 1-2 天後傳到另一眼、強烈眼紅、清水樣分泌物、耳前淋巴結腫、傳染力極強</strong>。細菌性:單眼、黃膿分泌物、晨起黏住眼皮。三者治療完全不同 — 過敏要抗組織胺、病毒要冷敷+隔離、細菌要抗生素。即將上線文章。</div></details>
+
+      <details class="hf"><summary>白內障一定要等熟了才能開刀嗎?</summary><div class="ans">早就不用「等熟」了 — 那是 1980 年代用大切口手術時代的觀念。現在白內障手術用 <strong>超音波乳化(phacoemulsification)+ 人工水晶體植入</strong>,2-3 mm 微小切口、20 分鐘完成,反而<strong>越早越輕鬆</strong>(過熟反而硬、難打)。視力影響日常生活(<0.5 或夜間眩光嚴重)就可考慮手術。即將上線文章。</div></details>
+
+      <details class="hf"><summary>近視雷射手術(LASIK / SMILE)適合誰?</summary><div class="ans">基本條件:<strong>20 歲以上、近視度數穩定 ≥ 1 年、角膜厚度足夠、無嚴重乾眼或圓錐角膜、非懷孕哺乳</strong>。LASIK 製作角膜瓣、適用範圍廣;SMILE 微創無瓣、適合運動員/軍警/重度乾眼;PRK/TransPRK 表淺、適合角膜薄者。術前完整評估非常重要。即將上線文章。</div></details>
+
+      <details class="hf"><summary>麥粒腫(針眼)為何反覆長?要開刀嗎?</summary><div class="ans">「針眼」是<strong>瞼板腺(meibomian gland)阻塞發炎</strong>。反覆長通常是因為<strong>瞼緣炎、油脂分泌異常、化妝習慣、未徹底卸妝</strong>。第一線治療:溫熱敷(40°C × 10 分鐘 × 一天 3-4 次)+ 瞼緣清潔。化膿凸起 1-2 週未消才需要切開引流。請避免自行擠破。即將上線文章。</div></details>
+
+      <details class="hf"><summary>3C 螢幕真的會傷眼嗎?藍光要不要擋?</summary><div class="ans">3C 真正的傷害是<strong>瞬目率下降</strong>(從 15-20 次/分掉到 5-7 次/分)→ 乾眼、瞼板腺阻塞;以及<strong>近距離用眼促進近視</strong>。但「藍光傷視網膜」目前<strong>沒有強實證</strong> — AAO 2017 立場是「日常 3C 藍光劑量不足以傷害視網膜」。藍光眼鏡可緩解眼疲勞但無法護網膜。最有效:<strong>20-20-20 原則</strong>(每 20 分鐘看 20 英尺外 20 秒)+ 提高房內照度。詳見 <a href="/blog/dry-eye-myths">乾眼症 8 大迷思</a>。</div></details>
+
+      <details class="hf"><summary>青光眼為什麼沒症狀也要追蹤?</summary><div class="ans">青光眼(隅角開放型,占多數)是「<strong>沉默的視力小偷</strong>」 — <strong>視神經先壞、周邊視野先缺損,中心視力最後才壞</strong>,患者往往視野缺損 30-50% 才察覺。已喪失的視神經<strong>不可逆</strong>。40 歲以上、家族史、高度近視(>600 度)、糖尿病者建議每年眼壓 + 視野 + OCT 視神經檢查。即將上線文章。</div></details>
+
+      <details class="hf"><summary>視網膜剝離 — 警訊有哪些?</summary><div class="ans">四大警訊任一出現請<strong>當天就醫</strong>:(1) <strong>突然增多的飛蚊</strong>(尤其大量黑點如墨汁);(2) <strong>閃光感</strong>(photopsia,類似閃電的光點);(3) <strong>視野缺損</strong>(像窗簾從周邊往中央拉);(4) <strong>視力突然模糊</strong>。高度近視(>600 度)、白內障術後、外傷者風險較高。黃金治療期是 <strong>72 小時內</strong>。即將上線文章。</div></details>
+
+      <details class="hf"><summary>戴隱形眼鏡會「磨損」眼睛嗎?</summary><div class="ans">隱形眼鏡會<strong>降低角膜含氧量、改變淚膜、增加感染風險</strong>。長期過度配戴可能造成:角膜新生血管、慢性結膜炎、嚴重乾眼、巨乳突結膜炎,極少數會角膜潰瘍致盲。安全戴法:<strong>單日拋優於月拋、避免戴超過 8 小時、絕不戴著睡覺、絕不沖洗液重複使用、定期看眼科</strong>。詳見 <a href="/blog/dry-eye-myths">乾眼症 8 大迷思</a>。</div></details>
+
+      <details class="hf"><summary>老花眼一定要戴眼鏡嗎?有手術嗎?</summary><div class="ans">老花是<strong>水晶體調節力下降</strong>,40 歲後幾乎所有人都會。處理選項:(1) <strong>老花眼鏡</strong>(最簡單),(2) 雙焦/漸進多焦鏡片,(3) 多焦點隱形眼鏡,(4) <strong>雷射老花矯正(PresbyLASIK)</strong>,(5) <strong>白內障手術同時換多焦點人工水晶體</strong>(中老年常見)。沒有「絕對要戴」 — 看你是否影響日常閱讀。即將上線文章。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 訂閱新文章通知 -->
+<section class="py-10" id="hs-subscribe">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8">
+    <div style="background:linear-gradient(135deg,#f3f7fb 0%,#e6eef6 100%);border:1px solid #b8cfe3;border-radius:18px;padding:24px 28px;text-align:center">
+      <div class="text-[11px] uppercase tracking-[.24em] font-semibold mb-2" style="color:var(--blue-deep)" data-zh="新文章不錯過" data-en="Stay updated">新文章不錯過</div>
+      <h2 class="font-display font-bold text-[20px] sm:text-[22px] mt-1 leading-tight" style="color:var(--ink)" data-zh="新文章 / 指引更新通知" data-en="New articles &amp; guideline updates">新文章 / 指引更新通知</h2>
+      <p class="mt-2 text-[13.5px] leading-[1.8] max-w-xl mx-auto" style="color:var(--ink-2)" data-zh="每月最多 1-2 封、只在發表新文章或重要指引更新時寄出。無業配、無贊助、可隨時退訂。" data-en="At most 1-2 emails per month — only for new articles or major guideline updates. No affiliate, no resale, unsubscribe anytime.">每月最多 1-2 封、只在發表新文章或重要指引更新時寄出。無業配、無贊助、可隨時退訂。</p>
+
+      <div class="mt-4 flex flex-wrap gap-3 justify-center">
+        <a href="mailto:f94001115@gmail.com?subject=%E8%A8%82%E9%96%B1%20HsiaoEye%20%E6%96%B0%E6%96%87%E7%AB%A0%E9%80%9A%E7%9F%A5&body=%E8%95%AD%E9%86%AB%E5%B8%AB%E6%82%A8%E5%A5%BD%EF%BC%8C%0A%0A%E6%88%91%E6%83%B3%E8%A8%82%E9%96%B1%20HsiaoEye%20%E7%9A%84%E6%96%B0%E6%96%87%E7%AB%A0%E9%80%9A%E7%9F%A5%E3%80%82%0A%0A%E5%A7%93%E5%90%8D%EF%BC%88%E5%8F%AF%E5%8C%BF%E5%90%8D%EF%BC%89%EF%BC%9A%0A%E5%B0%88%E6%A5%AD%E8%83%8C%E6%99%AF%EF%BC%88%E9%86%AB%E8%AD%B7%E4%BA%BA%E5%93%A1%20%2F%20%E4%B8%80%E8%88%AC%E6%B0%91%E7%9C%BE%EF%BC%89%EF%BC%9A%0A%0A%E8%AC%9D%E8%AC%9D%E8%95%AD%E9%86%AB%E5%B8%AB%21" data-subscribe-link
+           style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:9999px;background:linear-gradient(180deg,#8fb3d4 0%, #3a5a7c 50%, #243b56 100%);color:#fff;text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 8px 18px -8px rgba(58,90,124,.45)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span data-zh="Email 訂閱" data-en="Subscribe by email">Email 訂閱</span>
+        </a>
+        <a href="/blog/feed.xml" target="_blank" rel="noopener"
+           style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:9999px;background:#fff;color:var(--ink-2);border:1px solid var(--border);text-decoration:none;font-size:13px;font-weight:700">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+          <span data-zh="RSS / Atom" data-en="RSS / Atom">RSS / Atom</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About: 學經歷 timeline -->
+<section class="max-w-5xl mx-auto px-5 sm:px-8 mb-12">
   <div class="info-card">
     <h3 data-zh="學經歷" data-en="Education &amp; Training">學經歷</h3>
     <div class="timeline">
@@ -306,15 +379,28 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </section>
 
+<!-- 醫療免責聲明 -->
+<section class="pb-12">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8">
+    <div class="disclaimer-box">
+      <strong data-zh="醫療免責聲明 · " data-en="Medical disclaimer · ">醫療免責聲明 · </strong>
+      <span data-zh="本站所有內容僅作為一般醫學教育與資訊參考,不構成個別醫療建議,亦不能取代面對面的問診、檢查與處方。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。" data-en="All content here is for general educational reference only. It is not individualized medical advice and cannot replace an in-person consultation, examination, or prescription. Any decision to start, stop, or change a medication should be made with your treating physician.">本站所有內容僅作為一般醫學教育與資訊參考,不構成個別醫療建議,亦不能取代面對面的問診、檢查與處方。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。</span>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer class="border-t" style="border-color:var(--border); background:rgba(255,255,255,.4)">
-  <div class="max-w-5xl mx-auto px-5 sm:px-8 py-10">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10">
     <div class="grid sm:grid-cols-3 gap-8">
       <div>
         <div class="font-display font-bold text-[18px] blue-text">HsiaoEye</div>
         <div class="text-[12.5px] mt-1" style="color:var(--ink-2)" data-zh="眼科衛教及學習筆記" data-en="Ophthalmology patient education &amp; study notes">眼科衛教及學習筆記</div>
-        <div class="text-[13px] mt-3 leading-[1.8]"><strong data-zh="蕭閔謙 醫師" data-en="Min-Chien Hsiao, MD">蕭閔謙 醫師</strong></div>
+        <div class="text-[13px] mt-3 leading-[1.8]">
+          <strong style="color:var(--ink)" data-zh="蕭閔謙 醫師" data-en="Min-Chien Hsiao, MD">蕭閔謙 醫師</strong><br/>
+          <span style="color:var(--muted)" data-zh="眼科住院醫師" data-en="Ophthalmology Resident">眼科住院醫師</span>
+        </div>
       </div>
       <div></div>
       <div>
@@ -324,11 +410,16 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
           <li><a class="hover:underline" href="/blog/" data-zh="衛教文章" data-en="Articles">衛教文章</a></li>
           <li><a class="hover:underline" href="/about" data-zh="關於我" data-en="About">關於我</a></li>
           <li><a class="hover:underline" href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li>
+          <li><a class="hover:underline" href="/blog/feed.xml">RSS</a></li>
         </ul>
       </div>
     </div>
-    <div class="mt-8 pt-6 border-t text-[11.5px] flex flex-wrap items-center justify-between gap-2" style="border-color:var(--line); color:var(--muted)">
-      <div data-zh="本站僅作教育參考,不構成醫療建議。" data-en="Educational use only — not medical advice.">本站僅作教育參考,不構成醫療建議。</div>
+    <div class="mt-8 pt-6 border-t text-center text-[12.5px]" style="border-color:var(--line); color:var(--muted)">
+      <span data-zh="網站內容更正 / 學術引用詢問 / 媒體合作請寄:" data-en="Site corrections, citations, or media inquiries:">網站內容更正 / 學術引用詢問 / 媒體合作請寄:</span>
+      <a href="mailto:f94001115@gmail.com" style="color:var(--blue-deep); font-weight:700; text-decoration:underline; margin-left:4px">f94001115@gmail.com</a>
+    </div>
+    <div class="mt-4 text-[11.5px] flex flex-wrap items-center justify-between gap-2" style="color:var(--muted)">
+      <div data-zh="本站僅作教育參考,不構成醫療建議。任何用藥或就醫決定請以您的主治醫師判斷為準。" data-en="Educational use only — not medical advice. Always consult your physician for treatment decisions.">本站僅作教育參考,不構成醫療建議。任何用藥或就醫決定請以您的主治醫師判斷為準。</div>
       <div>© <span id="yr">2026</span> HsiaoEye · 蕭閔謙 醫師</div>
     </div>
   </div>

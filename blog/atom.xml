@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-TW">
+  <title>HsiaoEye · 蕭閔謙醫師 眼科筆記</title>
+  <subtitle>眼科衛教與學習筆記</subtitle>
+  <link href="https://hsiao.chendermatologist.com/blog/atom.xml" rel="self" />
+  <link href="https://hsiao.chendermatologist.com/" />
+  <id>https://hsiao.chendermatologist.com/</id>
+  <updated>2026-05-04T00:00:00+08:00</updated>
+  <author>
+    <name>蕭閔謙 醫師</name>
+    <email>f94001115@gmail.com</email>
+    <uri>https://hsiao.chendermatologist.com/about</uri>
+  </author>
+  <rights>© 2026 HsiaoEye · 蕭閔謙 醫師</rights>
+  <icon>https://hsiao.chendermatologist.com/icon.svg</icon>
+  <logo>https://hsiao.chendermatologist.com/logo-512.png</logo>
+
+  <entry>
+    <title>兒童近視控制 8 大迷思 — 阿托品、OK 鏡、紅光、戶外時間</title>
+    <link href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" />
+    <id>https://hsiao.chendermatologist.com/blog/pediatric-myopia-control</id>
+    <published>2026-05-04T00:00:00+08:00</published>
+    <updated>2026-05-04T00:00:00+08:00</updated>
+    <author><name>蕭閔謙 醫師</name></author>
+    <category term="迷思澄清" />
+    <category term="兒童近視" />
+    <summary>阿托品 0.05% 最有效、OK 鏡可控制 50%、DIMS 鏡片 60%、戶外 2 小時預防新發近視。引用 LAMP / ATOM / DIMS / RLRL 等大型研究。</summary>
+  </entry>
+
+  <entry>
+    <title>乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎?</title>
+    <link href="https://hsiao.chendermatologist.com/blog/dry-eye-myths" />
+    <id>https://hsiao.chendermatologist.com/blog/dry-eye-myths</id>
+    <published>2026-05-04T00:00:00+08:00</published>
+    <updated>2026-05-04T00:00:00+08:00</updated>
+    <author><name>蕭閔謙 醫師</name></author>
+    <category term="迷思澄清" />
+    <category term="乾眼症" />
+    <summary>人工淚液不會依賴、流淚不代表不乾、葉黃素不治乾眼、熱敷 40°C 才有效。</summary>
+  </entry>
+
+</feed>

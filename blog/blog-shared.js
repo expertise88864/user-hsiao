@@ -1,14 +1,24 @@
 /* ============================================================
  * HsiaoEye - shared runtime (zh / en)
- *   - language detection + 2-button / dropdown toggle
- *   - reading progress bar
+ *
+ * Includes:
+ *   - language detection + 2-button / dropdown toggle (toggles #proseZh/#proseEn)
+ *   - reading progress bar at top
  *   - scroll-to-top button
  *   - mobile hamburger drawer
  *   - reveal-on-scroll, view transitions
  *   - service worker registration + update toast
  *   - prefetch on idle
- *   - author bio injector, share toolbar, footer year, breadcrumbs
- *   - article TOC auto-build
+ *   - article: inline TOC (collapsible, top of article)
+ *   - article: floating TOC sidebar (desktop ≥1280px)
+ *   - article: scroll-position memory + "continue reading" toast
+ *   - article: reading time + last-reviewed badges
+ *   - article: floating font sizer (S/M/L)
+ *   - article: share toolbar
+ *   - article: author bio block
+ *   - article: related articles (with ItemList JSON-LD)
+ *   - read-tracker: localStorage record of which articles user has read
+ *   - footer year, BMC button (skipped if URL empty)
  *
  * Usage on every page:
  *   <script src="/blog/blog-shared.js" defer></script>
@@ -26,15 +36,23 @@
   DN.AUTHOR_AFFIL_ZH = '眼科';
   DN.AUTHOR_AFFIL_EN = 'Ophthalmology';
   DN.AUTHOR_ROLE_ZH  = '住院醫師 R2';
-  DN.AUTHOR_ROLE_EN  = 'Ophthalmology PGY-2';
-  DN.AUTHOR_EMAIL    = 'hsiao.minchien@gmail.com';   // placeholder — update when wife confirms
-  DN.BMC_URL         = '';                            // empty until BMC account is created
+  DN.AUTHOR_ROLE_EN  = 'Ophthalmology Resident';
+  DN.AUTHOR_EMAIL    = 'f94001115@gmail.com';
+  DN.BMC_URL         = '';
   DN.AUTHOR_BIO_URL  = '/about';
+  DN.READ_KEY        = 'hs:read:slugs';
 
-  // ---------- article catalog (single source of truth) ----------
+  // ---------- article catalog ----------
   DN.ARTICLES = [
-    { slug:'dry-eye-myths', title:'乾眼症 8 大迷思', cat:'myth', tag:'乾眼症', date:'2026-05-04', tag_en:'Dry Eye' }
+    { slug:'dry-eye-myths',           title:'乾眼症 8 大迷思',         cat:'myth', tag:'乾眼症',     date:'2026-05-04', tag_en:'Dry Eye' },
+    { slug:'pediatric-myopia-control', title:'兒童近視控制 8 大迷思',  cat:'myth', tag:'兒童近視',   date:'2026-05-04', tag_en:'Myopia control' }
   ];
+  DN.totalArticles = DN.ARTICLES.length;
+
+  DN.currentSlug = function () {
+    const m = location.pathname.match(/\/blog\/([a-z0-9-]+)\/?$/i);
+    return m ? m[1] : null;
+  };
 
   // ---------- language helpers ----------
   DN.LANGS = [
@@ -65,7 +83,7 @@
 
   DN.setLang = function (code) {
     if (!DN.LANG_KEY[code]) return;
-    try { localStorage.setItem('hs_lang', code); } catch (e) { /* ignore */ }
+    try { localStorage.setItem('hs_lang', code); } catch (e) {}
     DN.cookieSet('hs_lang', code);
   };
 
@@ -288,8 +306,390 @@
     if (el) el.textContent = String(new Date().getFullYear());
   };
 
-  // ---------- author bio block (injected at article footer) ----------
-  // 醫療法 §85-86: 醫院全名只允許在 /about + 文章末作者 bio
+  // ---------- read tracker (localStorage) ----------
+  DN.getReadSlugs = function () {
+    try {
+      const raw = localStorage.getItem(DN.READ_KEY);
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) { return []; }
+  };
+  DN.markRead = function (slug) {
+    if (!slug) return;
+    const slugs = DN.getReadSlugs();
+    if (slugs.indexOf(slug) !== -1) return;
+    slugs.push(slug);
+    try {
+      localStorage.setItem(DN.READ_KEY, JSON.stringify(slugs));
+      window.dispatchEvent(new CustomEvent('hs-read-updated'));
+    } catch (e) {}
+  };
+  DN.getReadCount = function () { return DN.getReadSlugs().length; };
+  DN.resetRead = function () {
+    try { localStorage.removeItem(DN.READ_KEY); window.dispatchEvent(new CustomEvent('hs-read-updated')); } catch (e) {}
+  };
+
+  // ---------- read-progress widget (mounts into #hs-read-progress) ----------
+  DN.injectReadProgress = function () {
+    const host = document.getElementById('hs-read-progress');
+    if (!host) return;
+    function render() {
+      const read = DN.getReadCount();
+      const total = DN.totalArticles || 1;
+      const pct = Math.round((read / total) * 100);
+      host.innerHTML =
+        '<div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 22px;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">' +
+            '<div>' +
+              '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:2px" data-zh="閱讀進度" data-en="Reading progress">閱讀進度</div>' +
+              '<div style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:18px;font-weight:700;color:var(--ink)">' +
+                '<span data-zh="已讀" data-en="Read">已讀</span> <span style="color:var(--blue-deep)">' + read + '</span> / ' + total + ' <span data-zh="篇" data-en="">篇</span> ' +
+                '<span style="font-size:13px;font-weight:500;color:var(--ink-2)">(' + pct + '%)</span>' +
+              '</div>' +
+            '</div>' +
+            (read > 0
+              ? '<button id="hs-read-reset" type="button" style="background:#fff;border:1px solid var(--border);color:var(--ink-2);padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer" data-zh="重設" data-en="Reset">重設</button>'
+              : '<span style="font-size:12px;color:var(--muted);font-style:italic" data-zh="閱讀後自動記錄" data-en="Auto-tracked">閱讀後自動記錄</span>') +
+          '</div>' +
+          '<div style="height:8px;background:var(--blue-soft);border-radius:9999px;overflow:hidden">' +
+            '<div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,#8fb3d4,#243b56);transition:width .35s ease;"></div>' +
+          '</div>' +
+        '</div>';
+      const resetBtn = document.getElementById('hs-read-reset');
+      if (resetBtn) resetBtn.addEventListener('click', function () {
+        if (confirm('要重設閱讀進度嗎? 本動作只會清除本裝置的紀錄,不會影響網站。')) DN.resetRead();
+      });
+    }
+    render();
+    window.addEventListener('hs-read-updated', render);
+    window.addEventListener('storage', function (e) { if (e.key === DN.READ_KEY) render(); });
+  };
+
+  // ---------- article reading-meta (reading time + last-reviewed badges) ----------
+  DN.addReadingMeta = function () {
+    const proseEl = document.getElementById('proseZh') || document.querySelector('article .prose');
+    if (!proseEl) return;
+    if (document.getElementById('hs-reading-meta')) return;
+
+    const text = (proseEl.textContent || '').replace(/\s+/g, '');
+    const cjkChars = (text.match(/[一-鿿]/g) || []).length;
+    const otherWords = (text.match(/[A-Za-z0-9]+/g) || []).length;
+    const minutes = Math.max(2, Math.round(cjkChars / 350 + otherWords / 200));
+
+    const slug = DN.currentSlug();
+    const meta = (DN.ARTICLES || []).find(function (a) { return a.slug === slug; });
+    const reviewedDate = meta ? meta.date : '';
+
+    const h1 = document.querySelector('article h1, section h1');
+    const lead = h1 ? h1.parentElement.querySelector('p') : null;
+    const target = lead || h1;
+    if (!target) return;
+
+    const bar = document.createElement('div');
+    bar.id = 'hs-reading-meta';
+    bar.style.cssText = 'display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0 8px;font-size:12.5px;color:var(--ink-2);';
+    bar.innerHTML =
+      '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:9999px;background:var(--blue-soft);border:1px solid #b8cfe3;color:var(--blue-deep);font-weight:600">' +
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+        '<span data-zh="閱讀約 ' + minutes + ' 分鐘" data-en="' + minutes + ' min read">閱讀約 ' + minutes + ' 分鐘</span>' +
+      '</span>' +
+      (reviewedDate ?
+      '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:9999px;background:#dcfce7;border:1px solid #86efac;color:#14532d;font-weight:600">' +
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+        '<span data-zh="最後審閱 ' + reviewedDate + '" data-en="Last reviewed · ' + reviewedDate + '">最後審閱 ' + reviewedDate + '</span>' +
+      '</span>' : '') +
+      '<a href="' + DN.AUTHOR_BIO_URL + '" style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:9999px;background:#fff;border:1px solid var(--border);color:var(--blue-deep);text-decoration:none;font-weight:600" data-zh="蕭閔謙 醫師 →" data-en="Dr. Hsiao →">蕭閔謙 醫師 →</a>';
+    target.parentNode.insertBefore(bar, target.nextSibling);
+
+    if (slug) DN.markRead(slug);
+  };
+
+  // ---------- inline TOC (collapsible card at top of article) ----------
+  DN.addInlineTOC = function () {
+    const proseEl = document.getElementById('proseZh') || document.querySelector('article .prose');
+    if (!proseEl) return;
+    if (document.getElementById('hs-inline-toc')) return;
+    const h2s = proseEl.querySelectorAll('h2[id]');
+    if (h2s.length < 3) return;
+
+    const details = document.createElement('details');
+    details.id = 'hs-inline-toc';
+    details.open = true;
+    details.style.cssText = 'margin:18px 0 24px;background:linear-gradient(135deg,#f3f7fb 0%,#e6eef6 100%);border:1px solid #b8cfe3;border-radius:14px;padding:0;overflow:hidden';
+
+    const summary = document.createElement('summary');
+    summary.style.cssText = 'cursor:pointer;list-style:none;padding:14px 18px;font-size:13px;font-weight:700;color:var(--blue-deep);display:flex;align-items:center;justify-content:space-between;gap:8px;user-select:none';
+    summary.innerHTML =
+      '<span style="display:inline-flex;align-items:center;gap:8px">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>' +
+          '<line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' +
+        '</svg>' +
+        '<span data-zh="本篇大綱" data-en="In this article">本篇大綱</span>' +
+        '<span style="font-size:11px;font-weight:600;color:var(--ink-2);opacity:.7">· ' + h2s.length + ' 段</span>' +
+      '</span>' +
+      '<span style="font-size:11px;color:var(--ink-2);opacity:.7" data-zh="點擊收合" data-en="Click to collapse">點擊收合</span>';
+    details.appendChild(summary);
+
+    const ol = document.createElement('ol');
+    ol.style.cssText = 'list-style:none;counter-reset:toc;padding:4px 18px 14px;margin:0;display:flex;flex-direction:column;gap:2px';
+    h2s.forEach(function (h, i) {
+      const li = document.createElement('li');
+      li.style.cssText = 'counter-increment:toc;position:relative;padding:5px 4px 5px 32px';
+      li.innerHTML =
+        '<span style="position:absolute;left:0;top:5px;width:24px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:var(--blue-deep);background:#fff;border:1px solid #b8cfe3;border-radius:6px">' + (i + 1) + '</span>' +
+        '<a href="#' + h.id + '" data-toc-inline="' + h.id + '" style="display:block;color:var(--ink-2);text-decoration:none;font-size:13.5px;line-height:1.6;font-weight:500">' + (h.textContent || ('Section ' + (i + 1))) + '</a>';
+      ol.appendChild(li);
+    });
+    details.appendChild(ol);
+
+    const articleEl = document.querySelector('article');
+    if (articleEl && articleEl.firstElementChild) {
+      const h1 = articleEl.querySelector('h1');
+      if (h1 && h1.parentNode) h1.parentNode.insertBefore(details, h1.nextSibling);
+      else articleEl.insertBefore(details, articleEl.firstElementChild);
+    } else {
+      proseEl.parentNode.insertBefore(details, proseEl);
+    }
+
+    ol.addEventListener('click', function (e) {
+      const a = e.target.closest('a[data-toc-inline]');
+      if (!a) return;
+      e.preventDefault();
+      const id = a.dataset.tocInline;
+      const target = document.getElementById(id);
+      if (target) {
+        const top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        history.pushState(null, '', '#' + id);
+      }
+    });
+  };
+
+  // ---------- floating sidebar TOC (desktop ≥1280px) ----------
+  DN.addFloatingTOC = function () {
+    if (window.innerWidth < 1280) return;
+    const proseEl = document.getElementById('proseZh') || document.querySelector('article .prose');
+    if (!proseEl) return;
+    const h2s = proseEl.querySelectorAll('h2[id]');
+    if (h2s.length < 3) return;
+    if (document.getElementById('hs-toc-float')) return;
+
+    const aside = document.createElement('aside');
+    aside.id = 'hs-toc-float';
+    aside.style.cssText = 'position:fixed;left:max(16px,calc(50% - 720px));top:120px;width:200px;max-height:calc(100vh - 160px);overflow-y:auto;padding:14px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 28px -14px rgba(58,90,124,.22);font-size:12.5px;line-height:1.7;z-index:30;';
+    let html = '<div style="font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--blue-deep);font-weight:700;margin-bottom:8px" data-zh="本篇大綱" data-en="Contents">本篇大綱</div><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px" id="hs-toc-list">';
+    h2s.forEach(function (h, i) {
+      html += '<li><a href="#' + h.id + '" data-toc="' + h.id + '" style="display:block;padding:5px 8px;border-radius:6px;color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;transition:all .15s">' + (h.textContent || ('Section ' + (i + 1))).slice(0, 28) + '</a></li>';
+    });
+    html += '</ul>';
+    aside.innerHTML = html;
+    document.body.appendChild(aside);
+
+    const links = aside.querySelectorAll('a[data-toc]');
+    function setActive(id) {
+      links.forEach(function (l) {
+        const active = l.dataset.toc === id;
+        l.style.color = active ? 'var(--blue-deep)' : 'var(--ink-2)';
+        l.style.background = active ? 'var(--blue-soft)' : 'transparent';
+        l.style.borderLeftColor = active ? 'var(--blue)' : 'transparent';
+        l.style.fontWeight = active ? '700' : '500';
+      });
+    }
+    const io = new IntersectionObserver(function (entries) {
+      const visible = entries.filter(function (e) { return e.isIntersecting; });
+      if (visible.length) setActive(visible[0].target.id);
+    }, { rootMargin: '-30% 0px -50% 0px' });
+    h2s.forEach(function (h) { io.observe(h); });
+
+    window.addEventListener('resize', function () {
+      aside.style.display = (window.innerWidth >= 1280) ? '' : 'none';
+    });
+
+    aside.addEventListener('click', function (e) {
+      const a = e.target.closest('a[data-toc]');
+      if (!a) return;
+      e.preventDefault();
+      const id = a.dataset.toc;
+      const target = document.getElementById(id);
+      if (target) {
+        const top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        history.pushState(null, '', '#' + id);
+      }
+    });
+  };
+
+  // ---------- scroll memory + "continue reading" toast ----------
+  DN.bindScrollMemory = function () {
+    const slug = DN.currentSlug();
+    if (!slug) return;
+    const proseEl = document.getElementById('proseZh') || document.querySelector('article .prose');
+    if (!proseEl) return;
+    const KEY = 'hs:scroll:' + slug;
+    const MAX_AGE_MS = 14 * 24 * 60 * 60 * 1000;
+
+    function saveNow() {
+      try {
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        if (docH < 100) return;
+        const y = window.pageYOffset;
+        const pct = Math.min(100, Math.max(0, Math.round((y / docH) * 100)));
+        if (pct < 3 || pct > 97) { localStorage.removeItem(KEY); return; }
+        const h2s = proseEl.querySelectorAll('h2[id]');
+        let nearest = null;
+        let nearestIdx = 0;
+        for (let i = 0; i < h2s.length; i++) {
+          const top = h2s[i].getBoundingClientRect().top + window.pageYOffset;
+          if (top <= y + 120) { nearest = h2s[i]; nearestIdx = i; }
+          else break;
+        }
+        const data = {
+          y: y, pct: pct, ts: Date.now(),
+          h2: nearest ? (nearest.textContent || '').slice(0, 40) : '',
+          h2i: nearestIdx
+        };
+        localStorage.setItem(KEY, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    let saveTimer = null;
+    window.addEventListener('scroll', function () {
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(saveNow, 500);
+    }, { passive: true });
+    window.addEventListener('beforeunload', saveNow);
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') saveNow();
+    });
+
+    function maybePrompt() {
+      if (window.location.hash) return;
+      let raw;
+      try { raw = localStorage.getItem(KEY); } catch (e) { return; }
+      if (!raw) return;
+      let data;
+      try { data = JSON.parse(raw); } catch (e) { localStorage.removeItem(KEY); return; }
+      if (!data || !data.y || !data.pct) return;
+      if (Date.now() - (data.ts || 0) > MAX_AGE_MS) { localStorage.removeItem(KEY); return; }
+      if (data.pct < 5 || data.pct > 95) return;
+
+      const toast = document.createElement('div');
+      toast.id = 'hs-resume-toast';
+      toast.style.cssText =
+        'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;' +
+        'background:#fff;border:1px solid #b8cfe3;border-radius:14px;' +
+        'box-shadow:0 18px 40px -16px rgba(58,90,124,.35),0 4px 10px rgba(15,23,42,.08);' +
+        'padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;' +
+        'max-width:calc(100vw - 32px);font-size:13.5px;color:var(--ink);' +
+        'animation:hs-toast-in .35s cubic-bezier(.2,.7,.3,1)';
+      const label = data.h2 ? '「' + data.h2 + '」' : '';
+      toast.innerHTML =
+        '<div style="display:flex;align-items:center;gap:10px;flex:1;min-width:200px">' +
+          '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3a5a7c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.8 1 6.5 2.6L21 8"/><path d="M21 3v5h-5"/>' +
+          '</svg>' +
+          '<div style="line-height:1.5">' +
+            '<div style="font-weight:700;color:var(--blue-deep)">上次讀到 ' + data.pct + '%</div>' +
+            (label ? '<div style="font-size:12px;color:var(--ink-2);margin-top:2px">' + label + '</div>' : '') +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:8px;flex-shrink:0">' +
+          '<button data-resume-yes style="padding:7px 14px;border-radius:9999px;background:var(--blue-deep);color:#fff;border:0;font-weight:700;font-size:12.5px;cursor:pointer">繼續閱讀</button>' +
+          '<button data-resume-no style="padding:7px 12px;border-radius:9999px;background:#fff;color:var(--ink-2);border:1px solid var(--border);font-weight:600;font-size:12.5px;cursor:pointer">從頭開始</button>' +
+        '</div>';
+      if (!document.getElementById('hs-resume-style')) {
+        const st = document.createElement('style');
+        st.id = 'hs-resume-style';
+        st.textContent = '@keyframes hs-toast-in{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}';
+        document.head.appendChild(st);
+      }
+      document.body.appendChild(toast);
+
+      function dismiss() { if (toast.parentNode) toast.parentNode.removeChild(toast); }
+      toast.querySelector('[data-resume-yes]').addEventListener('click', function () {
+        window.scrollTo({ top: data.y, behavior: 'smooth' });
+        dismiss();
+      });
+      toast.querySelector('[data-resume-no]').addEventListener('click', function () {
+        try { localStorage.removeItem(KEY); } catch (e) {}
+        dismiss();
+      });
+      setTimeout(function () { if (toast.parentNode) toast.style.opacity = '0', setTimeout(dismiss, 350); }, 12000);
+    }
+    setTimeout(maybePrompt, 600);
+  };
+
+  // ---------- font sizer (S/M/L floating button) ----------
+  DN.addFontSizer = function () {
+    if (document.getElementById('hs-font-sizer')) return;
+    if (!document.querySelector('.prose, #proseZh, #proseEn')) return;
+
+    const savedSize = (function(){ try { return localStorage.getItem('hs-font-size') || 'M'; } catch(e){ return 'M'; } })();
+    const sizeMap = { 'S': '15px', 'M': '16.5px', 'L': '18.5px' };
+    function applyFontSize(s) {
+      let styleEl = document.getElementById('hs-font-size-style');
+      if (!styleEl) {
+        styleEl = document.createElement('style');
+        styleEl.id = 'hs-font-size-style';
+        document.head.appendChild(styleEl);
+      }
+      styleEl.textContent =
+        '.prose, #proseZh, #proseEn { font-size: ' + sizeMap[s] + ' !important; }' +
+        '.prose p, #proseZh p, #proseEn p { font-size: ' + sizeMap[s] + ' !important; }';
+      try { localStorage.setItem('hs-font-size', s); } catch (e) {}
+    }
+    applyFontSize(savedSize);
+
+    const wrap = document.createElement('div');
+    wrap.id = 'hs-font-sizer';
+    wrap.setAttribute('aria-label', '字型大小調整');
+    wrap.style.cssText =
+      'position:fixed;right:18px;bottom:74px;z-index:49;display:flex;flex-direction:column;' +
+      'background:#fff;border:1px solid var(--border);border-radius:22px;' +
+      'box-shadow:0 6px 18px -8px rgba(58,90,124,.45);overflow:hidden;opacity:0;' +
+      'pointer-events:none;transition:opacity .25s;';
+
+    ['S', 'M', 'L'].forEach(function (s) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.size = s;
+      b.style.cssText =
+        'width:38px;height:32px;border:0;cursor:pointer;font-weight:700;' +
+        'background:' + (s === savedSize ? 'linear-gradient(180deg,#8fb3d4,#3a5a7c)' : 'transparent') + ';' +
+        'color:' + (s === savedSize ? '#fff' : '#3a5a7c') + ';';
+      b.style.fontSize = s === 'S' ? '11px' : (s === 'M' ? '13px' : '15px');
+      b.textContent = s === 'S' ? '小' : (s === 'M' ? '中' : '大');
+      b.setAttribute('aria-label', '字型大小 ' + s);
+      b.title = '字型大小 ' + (s === 'S' ? '小' : (s === 'M' ? '中' : '大'));
+      b.addEventListener('click', function () {
+        applyFontSize(s);
+        wrap.querySelectorAll('button').forEach(function (x) {
+          x.style.background = 'transparent';
+          x.style.color = '#3a5a7c';
+        });
+        b.style.background = 'linear-gradient(180deg,#8fb3d4,#3a5a7c)';
+        b.style.color = '#fff';
+      });
+      wrap.appendChild(b);
+    });
+    document.body.appendChild(wrap);
+
+    let ticking = false;
+    function update() {
+      const scrolled = window.scrollY > 400;
+      wrap.style.opacity = scrolled ? '1' : '0';
+      wrap.style.pointerEvents = scrolled ? 'auto' : 'none';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  };
+
+  // ---------- author bio + disclaimer (mounted at #hs-author-bio) ----------
   DN.injectAuthorBio = function (mountId) {
     const mount = document.getElementById(mountId || 'hs-author-bio');
     if (!mount) return;
@@ -312,9 +712,9 @@
           '<a href="' + DN.AUTHOR_BIO_URL + '" style="padding:8px 14px;border-radius:9999px;background:var(--blue-deep);color:#fff;font-size:13px;font-weight:600;text-decoration:none;flex-shrink:0" data-zh="完整自介 →" data-en="Full bio →">完整自介 →</a>' +
         '</div>' +
         '<div style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:12px;line-height:1.75;color:#64748b" ' +
-          'data-zh="本文為眼科住院醫師的<strong>衛教與學習筆記</strong>,內容依據國際醫學文獻與臨床指引整理,僅作為<strong>一般教育用途</strong>。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。" ' +
-          'data-en="This article is a residency-level patient-education note, compiled from international literature. For general education only — not medical advice.">' +
-          '本文為眼科住院醫師的<strong>衛教與學習筆記</strong>,內容依據國際醫學文獻與臨床指引整理,僅作為<strong>一般教育用途</strong>。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。' +
+          'data-zh="本文為眼科住院醫師的<strong>衛教與學習筆記</strong>,內容依據國際醫學文獻與臨床指引整理,僅作為<strong>一般教育用途</strong>。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。本網站不涉及任何藥品、醫療器材、療程或診所之推薦或業配。依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。" ' +
+          'data-en="This article is a residency-level patient-education note, compiled from international literature for general education only — not individual medical advice. This site does not endorse any drug, device, procedure, or clinic. Per Taiwan Medical Care Act §§85–86, individual outcomes vary.">' +
+          '本文為眼科住院醫師的<strong>衛教與學習筆記</strong>,內容依據國際醫學文獻與臨床指引整理,僅作為<strong>一般教育用途</strong>。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。本網站不涉及任何藥品、醫療器材、療程或診所之推薦或業配。依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。' +
         '</div>' +
       '</div>';
   };
@@ -364,49 +764,137 @@
       '</a>';
   };
 
-  // ---------- TOC auto-build (from h2[id] inside article) ----------
-  DN.buildTOC = function (mountId, articleSelector) {
-    const mount = document.getElementById(mountId || 'hs-toc');
-    if (!mount) return;
-    const article = document.querySelector(articleSelector || 'article');
-    if (!article) return;
-    const heads = article.querySelectorAll('h2[id]');
-    if (!heads.length) { mount.style.display = 'none'; return; }
-    let html = '<h4 data-zh="本文目錄" data-en="Contents">本文目錄</h4><ol>';
-    heads.forEach(function (h) {
-      const id = h.id;
-      const text = (h.dataset.zh || h.textContent).replace(/<[^>]+>/g, '');
-      html += '<li><a href="#' + id + '" data-zh="' + text + '">' + text + '</a></li>';
+  // ---------- related articles + ItemList JSON-LD ----------
+  DN.addRelatedArticles = function () {
+    const article = document.querySelector('article');
+    if (!article || document.getElementById('hs-related')) return;
+    const slug = DN.currentSlug();
+    if (!slug) return;
+    const all = DN.ARTICLES || [];
+    const cur = all.find(function (a) { return a.slug === slug; });
+    if (!cur) return;
+    const others = all.filter(function (a) { return a.slug !== slug; });
+    if (!others.length) return;
+
+    const scored = others
+      .map(function (a) { return { a: a, s: (a.cat === cur.cat ? 2 : 1) + Math.random() * 0.5 }; })
+      .sort(function (x, y) { return y.s - x.s; })
+      .slice(0, 3)
+      .map(function (x) { return x.a; });
+
+    const wrap = document.createElement('section');
+    wrap.id = 'hs-related';
+    wrap.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-10';
+    let html = '<div style="border-top:1px solid var(--line);padding-top:24px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:12px" data-zh="你可能也會想看" data-en="Related reads">你可能也會想看</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">';
+    scored.forEach(function (a) {
+      html += '<a href="/blog/' + a.slug + '" style="display:flex;flex-direction:column;gap:6px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
+        '<span style="font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--blue-deep);text-transform:uppercase">' + (a.tag_en || a.tag) + '</span>' +
+        '<span style="font-size:14px;font-weight:700;line-height:1.4;font-family:Noto Serif TC,Georgia,serif">' + a.title + '</span>' +
+        '<span style="font-size:11.5px;color:var(--muted)">' + a.tag + ' · ' + a.date + '</span>' +
+      '</a>';
     });
-    html += '</ol>';
-    mount.innerHTML = html;
+    html += '</div></div>';
+    wrap.innerHTML = html;
+    article.parentNode.insertBefore(wrap, article.nextSibling);
+
+    const ld = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      'name': 'Related ophthalmology articles',
+      'itemListElement': scored.map(function (a, i) {
+        return { '@type': 'ListItem', 'position': i + 1, 'url': DN.SITE_URL + '/blog/' + a.slug, 'name': a.title };
+      })
+    };
+    const ldEl = document.createElement('script');
+    ldEl.type = 'application/ld+json';
+    ldEl.textContent = JSON.stringify(ld);
+    document.head.appendChild(ldEl);
   };
 
-  // ---------- service worker registration ----------
+  // ---------- spotlight (最近更新 + 熱門推薦) ----------
+  // Populates two homepage <ol> lists from DN.ARTICLES.
+  //   #hs-recent-list  — most recent by date desc
+  //   #hs-popular-list — curated by DN.POPULAR_SLUGS, falls back to recent
+  DN.POPULAR_SLUGS = ['dry-eye-myths', 'pediatric-myopia-control'];   // edit this list to curate
+  DN.injectSpotlight = function () {
+    const all = (DN.ARTICLES || []).slice();
+    if (!all.length) return;
+    const byDate = all.slice().sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+    const recent = byDate.slice(0, 5);
+    const popularSet = new Set(DN.POPULAR_SLUGS);
+    const popular = all.filter(function (a) { return popularSet.has(a.slug); });
+    const popularFinal = popular.length ? popular : recent;
+
+    function render(host, items, emptyText) {
+      if (!host) return;
+      if (!items.length) { host.innerHTML = '<li style="padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--muted)">' + emptyText + '</li>'; return; }
+      host.innerHTML = items.map(function (a) {
+        return '<li><a href="/blog/' + a.slug + '" style="display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
+          '<span style="flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--blue-soft);color:var(--blue-deep);font-weight:700;font-size:11px;display:inline-flex;align-items:center;justify-content:center;letter-spacing:.04em">' + (a.tag_en || a.tag || '').slice(0, 4) + '</span>' +
+          '<span style="flex:1;min-width:0">' +
+            '<span style="display:block;font-family:\'Noto Serif TC\',Georgia,serif;font-size:14.5px;font-weight:700;line-height:1.4;color:var(--ink)">' + a.title + '</span>' +
+            '<span style="display:block;font-size:11.5px;color:var(--muted);margin-top:4px">' + a.tag + ' · ' + a.date + '</span>' +
+          '</span>' +
+        '</a></li>';
+      }).join('');
+    }
+    render(document.getElementById('hs-recent-list'), recent, '尚無文章');
+    render(document.getElementById('hs-popular-list'), popularFinal, '尚無文章');
+  };
+
+  // ---------- service worker ----------
   DN.registerSW = function () {
     if (!('serviceWorker' in navigator)) return;
     navigator.serviceWorker.register('/sw.js').then(function (reg) {
       DN.bindSWUpdateToast(reg);
-    }).catch(function () { /* ignore */ });
+      setInterval(function () {
+        if (document.visibilityState === 'visible') reg.update().catch(function () {});
+      }, 30 * 60 * 1000);
+    }).catch(function () {});
   };
 
   // ---------- orchestrator ----------
   DN.initBlog = function (opts) {
     opts = opts || {};
-    const lang = DN.detectLang();
-    DN.applyTextOnly(lang);
-    DN.bindLangToggle(function (l) { DN.applyTextOnly(l); });
-    DN.injectFooterYear();
+    let curLang = DN.detectLang();
+
+    function apply(lang) {
+      curLang = lang;
+      DN.applyTextOnly(lang);
+      const isZh = (lang === 'zh');
+      const ze = document.getElementById(opts.proseZh || 'proseZh');
+      const en = document.getElementById(opts.proseEn || 'proseEn');
+      if (ze) ze.style.display = isZh ? '' : 'none';
+      if (en) en.style.display = isZh ? 'none' : '';
+      if (typeof opts.onChange === 'function') opts.onChange(lang);
+    }
+
     DN.injectMobileMenu();
+    DN.bindLangToggle(apply);
+    apply(curLang);
+    DN.injectFooterYear();
     DN.addReadingProgress();
     DN.addScrollToTop();
     DN.bindRevealOnScroll();
     DN.bindViewTransitions();
     DN.prefetchOnIdle();
-    DN.injectAuthorBio('hs-author-bio');
-    DN.injectShareToolbar('hs-share');
-    DN.injectBMC('hs-bmc');
-    DN.buildTOC('hs-toc', opts.articleSelector || 'article');
+
+    // Article-only enhancements
+    if (document.getElementById('proseZh') || document.querySelector('article .prose')) {
+      DN.addReadingMeta();
+      DN.addInlineTOC();
+      DN.addFloatingTOC();
+      DN.bindScrollMemory();
+      DN.injectAuthorBio('hs-author-bio');
+      DN.injectShareToolbar('hs-share');
+      DN.injectBMC('hs-bmc');
+      DN.addRelatedArticles();
+    }
+    DN.addFontSizer();
+    DN.injectReadProgress();
+    DN.injectSpotlight();
     DN.registerSW();
+
+    return { applyLang: apply };
   };
 })();

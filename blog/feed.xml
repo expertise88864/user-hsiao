@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+  <title>HsiaoEye · 蕭閔謙醫師 眼科筆記</title>
+  <link>https://hsiao.chendermatologist.com/</link>
+  <atom:link href="https://hsiao.chendermatologist.com/blog/feed.xml" rel="self" type="application/rss+xml" />
+  <description>蕭閔謙醫師(眼科)整理的眼科衛教與學習筆記。每月最多 1-2 篇新文章。</description>
+  <language>zh-TW</language>
+  <copyright>© 2026 HsiaoEye · 蕭閔謙 醫師</copyright>
+  <managingEditor>f94001115@gmail.com (蕭閔謙 醫師)</managingEditor>
+  <webMaster>f94001115@gmail.com (蕭閔謙 醫師)</webMaster>
+  <pubDate>Mon, 04 May 2026 00:00:00 +0800</pubDate>
+  <lastBuildDate>Mon, 04 May 2026 00:00:00 +0800</lastBuildDate>
+  <generator>HsiaoEye static site</generator>
+  <image>
+    <url>https://hsiao.chendermatologist.com/logo-512.png</url>
+    <title>HsiaoEye</title>
+    <link>https://hsiao.chendermatologist.com/</link>
+    <width>144</width>
+    <height>144</height>
+  </image>
+
+  <item>
+    <title>兒童近視控制 8 大迷思 — 阿托品、OK 鏡、紅光、戶外時間</title>
+    <link>https://hsiao.chendermatologist.com/blog/pediatric-myopia-control</link>
+    <guid isPermaLink="true">https://hsiao.chendermatologist.com/blog/pediatric-myopia-control</guid>
+    <pubDate>Mon, 04 May 2026 00:00:00 +0800</pubDate>
+    <dc:creator>蕭閔謙 醫師</dc:creator>
+    <category>迷思澄清</category>
+    <category>兒童近視</category>
+    <description><![CDATA[阿托品 0.01% / 0.05% 哪個有效?OK 鏡會傷角膜嗎?紅光治療安全嗎?多焦點離焦鏡片是什麼?戶外 2 小時真的能預防近視?8 個家長最常問的兒童近視控制問題,引用 LAMP / ATOM / DIMS / RLRL 等大型研究。]]></description>
+  </item>
+
+  <item>
+    <title>乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎?</title>
+    <link>https://hsiao.chendermatologist.com/blog/dry-eye-myths</link>
+    <guid isPermaLink="true">https://hsiao.chendermatologist.com/blog/dry-eye-myths</guid>
+    <pubDate>Mon, 04 May 2026 00:00:00 +0800</pubDate>
+    <dc:creator>蕭閔謙 醫師</dc:creator>
+    <category>迷思澄清</category>
+    <category>乾眼症</category>
+    <description><![CDATA[點人工淚液會依賴?眼睛狂流淚就不是乾眼?葉黃素能治乾眼?熱敷沒科學根據?8 個民眾最常誤會的乾眼觀念。]]></description>
+  </item>
+
+</channel>
+</rss>
