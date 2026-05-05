@@ -41,8 +41,7 @@
 <meta name="google-site-verification" content="ptLFsBUrBRXmB3HiFIGEK0GO4wOijz03YSWPrDtwfDg" />
 <meta name="msvalidate.01" content="E0C80549746F44CC7041C29DBBE89452" />
 
-<!-- ===== Google Analytics 4 (paste GA4 ID here when ready) ===== -->
-<!--
+<!-- ===== Google Analytics 4 — replace G-XXXXXXXXXX with your measurement ID ===== -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -50,7 +49,6 @@
   gtag('js', new Date());
   gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true });
 </script>
--->
 
 <!-- ===== Microsoft Clarity (paste Clarity ID here when ready) ===== -->
 <!--
@@ -61,10 +59,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 </script>
 -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com" defer></script>
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -299,8 +296,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
         <span class="mag-title-line" data-zh="從診間到日常," data-en="From the clinic to">從診間到日常,</span>
         <span class="mag-title-line italic" data-zh="好好照顧你的眼睛。" data-en="your everyday eyes.">好好照顧你的眼睛。</span>
       </h1>
-      <p class="mag-lede" data-zh="這裡記錄住院醫師訓練中遇到的真實問題、研究新知與護眼觀念。每一篇都是我希望病人帶回家慢慢讀的內容。" data-en="A resident ophthalmologist's field notes — patient questions, new evidence, and the daily basics of caring for your eyes. Written to be read slowly, at home.">
-        這裡記錄住院醫師訓練中遇到的真實問題、研究新知與護眼觀念。每一篇都是我希望病人帶回家慢慢讀的內容。
+      <p class="mag-lede" data-zh="這裡記錄住院醫師訓練中遇到的真實問題、研究新知與護眼觀念。" data-en="A resident ophthalmologist's field notes — patient questions, new evidence, and the daily basics of caring for your eyes.">
+        這裡記錄住院醫師訓練中遇到的真實問題、研究新知與護眼觀念。
       </p>
       <div class="mag-ctas">
         <a href="/blog/" class="btn btn-teal" data-zh="閱讀最新文章 →" data-en="Read latest articles →">閱讀最新文章 →</a>
@@ -387,12 +384,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
     </div>
     <div class="quick-find">
       <a href="/blog/" data-zh="全部主題" data-en="All topics">全部主題</a>
-      <a href="/blog/dry-eye-myths">乾眼症</a>
+      <a href="/blog/dry-eye-myths" data-zh="乾眼症" data-en="Dry eye">乾眼症</a>
       <a href="/blog/pediatric-myopia-control" data-zh="兒童近視控制" data-en="Pediatric myopia">兒童近視控制</a>
       <a href="/blog/floaters-retinal-detachment" data-zh="飛蚊症 / 視網膜剝離" data-en="Floaters / RD">飛蚊症 / 視網膜剝離</a>
-      <a href="/blog/" data-zh="白內障（籌備中）" data-en="Cataract (coming)" style="opacity:.5">白內障（籌備中）</a>
-      <a href="/blog/" data-zh="葉黃素（籌備中）" data-en="Lutein (coming)" style="opacity:.5">葉黃素（籌備中）</a>
-      <a href="/blog/" data-zh="青光眼（籌備中）" data-en="Glaucoma (coming)" style="opacity:.5">青光眼（籌備中）</a>
     </div>
   </div>
 </section>
@@ -411,14 +405,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   <div class="article-list" id="dn-article-list">
 
     <a href="/blog/floaters-retinal-detachment" class="article-list-item">
-      <div class="al-icon"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        <ellipse cx="20" cy="20" rx="16" ry="11" fill="#fff" stroke="#2a2620" stroke-width="1.6"/>
-        <circle cx="20" cy="20" r="6" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1.2"/>
-        <circle cx="20" cy="20" r="2.6" fill="#2a2620"/>
-        <circle cx="9" cy="14" r="1.3" fill="#2a2620" opacity=".6"/>
-        <ellipse cx="33" cy="13" rx="1.5" ry="0.8" fill="#2a2620" opacity=".55" transform="rotate(-15 33 13)"/>
-        <circle cx="32" cy="26" r="1" fill="#2a2620" opacity=".5"/>
-      </svg></div>
       <div class="al-body">
         <div class="al-meta">
           <span class="chip cat-alert" data-zh="警訊辨識" data-en="Red Flags">警訊辨識</span>
@@ -432,15 +418,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
     </a>
 
     <a href="/blog/pediatric-myopia-control" class="article-list-item">
-      <div class="al-icon"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        <circle cx="13" cy="22" r="8" fill="#fff" stroke="#2a2620" stroke-width="1.6"/>
-        <circle cx="27" cy="22" r="8" fill="#fff" stroke="#2a2620" stroke-width="1.6"/>
-        <circle cx="13" cy="22" r="7" fill="#a4c4dd" opacity=".5"/>
-        <circle cx="27" cy="22" r="7" fill="#a4c4dd" opacity=".5"/>
-        <line x1="20.5" y1="22" x2="19.5" y2="22" stroke="#2a2620" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="6" y1="20" x2="3" y2="18" stroke="#2a2620" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="34" y1="20" x2="37" y2="18" stroke="#2a2620" stroke-width="1.6" stroke-linecap="round"/>
-      </svg></div>
       <div class="al-body">
         <div class="al-meta">
           <span class="chip cat-myth" data-zh="迷思澄清" data-en="Myth-busting">迷思澄清</span>
@@ -454,13 +431,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
     </a>
 
     <a href="/blog/dry-eye-myths" class="article-list-item">
-      <div class="al-icon"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        <rect x="14" y="14" width="12" height="20" rx="2" fill="#a4c4dd" stroke="#2a2620" stroke-width="1.6"/>
-        <rect x="15.5" y="11" width="9" height="4" rx="1" fill="#3a5a7c" stroke="#2a2620" stroke-width="1.2"/>
-        <rect x="18" y="7.5" width="4" height="4" fill="#3a5a7c" stroke="#2a2620" stroke-width="1"/>
-        <path d="M 20 2 C 18 5.5 17.5 7.5 20 8 C 22.5 7.5 22 5.5 20 2 Z" fill="#a4c4dd" stroke="#2a2620" stroke-width="1.2"/>
-        <rect x="16" y="20" width="8" height="6" fill="#faf7f2" stroke="#2a2620" stroke-width="0.8"/>
-      </svg></div>
       <div class="al-body">
         <div class="al-meta">
           <span class="chip cat-myth" data-zh="迷思澄清" data-en="Myth-busting">迷思澄清</span>
@@ -536,23 +506,23 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
       <details class="hf"><summary>飛蚊症 — 何時要立刻看醫生？</summary><div class="ans">飛蚊症（玻璃體混濁陰影）多數是良性的後玻璃體剝離（PVD)。但如果出現以下任一情況,<strong>請當天看眼科</strong>:(1) 突然新發大量飛蚊;(2) 看到閃光（photopsia）如閃電;(3) 視野出現黑影、簾幕狀缺損;(4) 視力突然下降。這些是<strong>視網膜裂孔或剝離</strong>的警訊，延誤治療可能失明。完整看 <a href="/blog/floaters-retinal-detachment">飛蚊症 6 大警訊</a>。</div></details>
 
-      <details class="hf"><summary>紅眼睛 — 過敏性結膜炎還是病毒性？</summary><div class="ans">過敏性結膜炎:<strong>雙眼、奇癢無比、清水樣分泌物、有過敏史</strong>。病毒性（腺病毒,「紅眼症」):<strong>單側發病 1-2 天後傳到另一眼、強烈眼紅、清水樣分泌物、耳前淋巴結腫、傳染力極強</strong>。細菌性:單眼、黃膿分泌物、晨起黏住眼皮。三者治療完全不同 — 過敏要抗組織胺、病毒要冷敷+隔離、細菌要抗生素。即將上線文章。</div></details>
+      <details class="hf"><summary>紅眼睛 — 過敏性結膜炎還是病毒性？</summary><div class="ans">過敏性結膜炎:<strong>雙眼、奇癢無比、清水樣分泌物、有過敏史</strong>。病毒性（腺病毒,「紅眼症」):<strong>單側發病 1-2 天後傳到另一眼、強烈眼紅、清水樣分泌物、耳前淋巴結腫、傳染力極強</strong>。細菌性:單眼、黃膿分泌物、晨起黏住眼皮。三者治療完全不同 — 過敏要抗組織胺、病毒要冷敷+隔離、細菌要抗生素。</div></details>
 
-      <details class="hf"><summary>白內障一定要等熟了才能開刀嗎？</summary><div class="ans">早就不用「等熟」了 — 那是 1980 年代用大切口手術時代的觀念。現在白內障手術用 <strong>超音波乳化（phacoemulsification)+ 人工水晶體植入</strong>,2-3 mm 微小切口、20 分鐘完成，反而<strong>越早越輕鬆</strong>（過熟反而硬、難打）。視力影響日常生活（<0.5 或夜間眩光嚴重）就可考慮手術。即將上線文章。</div></details>
+      <details class="hf"><summary>白內障一定要等熟了才能開刀嗎？</summary><div class="ans">早就不用「等熟」了 — 那是 1980 年代用大切口手術時代的觀念。現在白內障手術用 <strong>超音波乳化（phacoemulsification)+ 人工水晶體植入</strong>,2-3 mm 微小切口、20 分鐘完成，反而<strong>越早越輕鬆</strong>（過熟反而硬、難打）。視力影響日常生活（<0.5 或夜間眩光嚴重）就可考慮手術。</div></details>
 
-      <details class="hf"><summary>近視雷射手術（LASIK / SMILE）適合誰？</summary><div class="ans">基本條件:<strong>20 歲以上、近視度數穩定 ≥ 1 年、角膜厚度足夠、無嚴重乾眼或圓錐角膜、非懷孕哺乳</strong>。LASIK 製作角膜瓣、適用範圍廣;SMILE 微創無瓣、適合運動員/軍警/重度乾眼;PRK/TransPRK 表淺、適合角膜薄者。術前完整評估非常重要。即將上線文章。</div></details>
+      <details class="hf"><summary>近視雷射手術（LASIK / SMILE）適合誰？</summary><div class="ans">基本條件:<strong>20 歲以上、近視度數穩定 ≥ 1 年、角膜厚度足夠、無嚴重乾眼或圓錐角膜、非懷孕哺乳</strong>。LASIK 製作角膜瓣、適用範圍廣;SMILE 微創無瓣、適合運動員/軍警/重度乾眼;PRK/TransPRK 表淺、適合角膜薄者。術前完整評估非常重要。</div></details>
 
-      <details class="hf"><summary>麥粒腫（針眼）為何反覆長？要開刀嗎？</summary><div class="ans">「針眼」是<strong>瞼板腺（meibomian gland）阻塞發炎</strong>。反覆長通常是因為<strong>瞼緣炎、油脂分泌異常、化妝習慣、未徹底卸妝</strong>。第一線治療:溫熱敷（40°C × 10 分鐘 × 一天 3-4 次）+ 瞼緣清潔。化膿凸起 1-2 週未消才需要切開引流。請避免自行擠破。即將上線文章。</div></details>
+      <details class="hf"><summary>麥粒腫（針眼）為何反覆長？要開刀嗎？</summary><div class="ans">「針眼」是<strong>瞼板腺（meibomian gland）阻塞發炎</strong>。反覆長通常是因為<strong>瞼緣炎、油脂分泌異常、化妝習慣、未徹底卸妝</strong>。第一線治療:溫熱敷（40°C × 10 分鐘 × 一天 3-4 次）+ 瞼緣清潔。化膿凸起 1-2 週未消才需要切開引流。請避免自行擠破。</div></details>
 
       <details class="hf"><summary>3C 螢幕真的會傷眼嗎？藍光要不要擋？</summary><div class="ans">3C 真正的傷害是<strong>瞬目率下降</strong>（從 15-20 次/分掉到 5-7 次/分）→ 乾眼、瞼板腺阻塞；以及<strong>近距離用眼促進近視</strong>。但「藍光傷視網膜」目前<strong>沒有強實證</strong> — AAO 2017 立場是「日常 3C 藍光劑量不足以傷害視網膜」。藍光眼鏡可緩解眼疲勞但無法護網膜。最有效:<strong>20-20-20 原則</strong>（每 20 分鐘看 20 英尺外 20 秒）+ 提高房內照度。詳見 <a href="/blog/dry-eye-myths">乾眼症 8 大迷思</a>。</div></details>
 
-      <details class="hf"><summary>青光眼為什麼沒症狀也要追蹤？</summary><div class="ans">青光眼（隅角開放型，占多數）是「<strong>沉默的視力小偷</strong>」 — <strong>視神經先壞、周邊視野先缺損，中心視力最後才壞</strong>,患者往往視野缺損 30-50% 才察覺。已喪失的視神經<strong>不可逆</strong>。40 歲以上、家族史、高度近視（>600 度）、糖尿病者建議每年眼壓 + 視野 + OCT 視神經檢查。即將上線文章。</div></details>
+      <details class="hf"><summary>青光眼為什麼沒症狀也要追蹤？</summary><div class="ans">青光眼（隅角開放型，占多數）是「<strong>沉默的視力小偷</strong>」 — <strong>視神經先壞、周邊視野先缺損，中心視力最後才壞</strong>,患者往往視野缺損 30-50% 才察覺。已喪失的視神經<strong>不可逆</strong>。40 歲以上、家族史、高度近視（>600 度）、糖尿病者建議每年眼壓 + 視野 + OCT 視神經檢查。</div></details>
 
       <details class="hf"><summary>視網膜剝離 — 警訊有哪些？</summary><div class="ans">四大警訊任一出現請<strong>當天就醫</strong>:(1) <strong>突然增多的飛蚊</strong>（尤其大量黑點如墨汁）;(2) <strong>閃光感</strong>(photopsia,類似閃電的光點）;(3) <strong>視野缺損</strong>（像窗簾從周邊往中央拉）;(4) <strong>視力突然模糊</strong>。高度近視（>600 度）、白內障術後、外傷者風險較高。黃金治療期是 <strong>72 小時內</strong>。完整看 <a href="/blog/floaters-retinal-detachment">飛蚊症 6 大警訊</a>。</div></details>
 
       <details class="hf"><summary>戴隱形眼鏡會「磨損」眼睛嗎？</summary><div class="ans">隱形眼鏡會<strong>降低角膜含氧量、改變淚膜、增加感染風險</strong>。長期過度配戴可能造成:角膜新生血管、慢性結膜炎、嚴重乾眼、巨乳突結膜炎，極少數會角膜潰瘍致盲。安全戴法:<strong>單日拋優於月拋、避免戴超過 8 小時、絕不戴著睡覺、絕不沖洗液重複使用、定期看眼科</strong>。詳見 <a href="/blog/dry-eye-myths">乾眼症 8 大迷思</a>。</div></details>
 
-      <details class="hf"><summary>老花眼一定要戴眼鏡嗎？有手術嗎？</summary><div class="ans">老花是<strong>水晶體調節力下降</strong>,40 歲後幾乎所有人都會。處理選項:(1) <strong>老花眼鏡</strong>（最簡單）,(2) 雙焦/漸進多焦鏡片,(3) 多焦點隱形眼鏡,(4) <strong>雷射老花矯正（PresbyLASIK)</strong>,(5) <strong>白內障手術同時換多焦點人工水晶體</strong>（中老年常見）。沒有「絕對要戴」 — 看你是否影響日常閱讀。即將上線文章。</div></details>
+      <details class="hf"><summary>老花眼一定要戴眼鏡嗎？有手術嗎？</summary><div class="ans">老花是<strong>水晶體調節力下降</strong>,40 歲後幾乎所有人都會。處理選項:(1) <strong>老花眼鏡</strong>（最簡單）,(2) 雙焦/漸進多焦鏡片,(3) 多焦點隱形眼鏡,(4) <strong>雷射老花矯正（PresbyLASIK)</strong>,(5) <strong>白內障手術同時換多焦點人工水晶體</strong>（中老年常見）。沒有「絕對要戴」 — 看你是否影響日常閱讀。</div></details>
     </div>
   </div>
 </section>
@@ -562,25 +532,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   <div class="ad-slot" data-zh="廣告位 · AdSense" data-en="Ad slot · AdSense">廣告位 · AdSense</div>
 </section>
 
-<!-- 訂閱新文章通知 -->
-<section class="py-10" id="hs-subscribe">
-  <div class="max-w-3xl mx-auto px-5 sm:px-8">
-    <div style="background:linear-gradient(135deg,#f3f7fb 0%,#e6eef6 100%);border:1px solid #b8cfe3;border-radius:18px;padding:24px 28px;text-align:center">
-      <div class="text-[11px] uppercase tracking-[.24em] font-semibold mb-2" style="color:var(--blue-deep)" data-zh="新文章不錯過" data-en="Stay updated">新文章不錯過</div>
-      <h2 class="font-display font-bold text-[20px] sm:text-[22px] mt-1 leading-tight" style="color:var(--ink)" data-zh="新文章 / 指引更新通知" data-en="New articles &amp; guideline updates">新文章 / 指引更新通知</h2>
-      <p class="mt-2 text-[13.5px] leading-[1.8] max-w-xl mx-auto" style="color:var(--ink-2)" data-zh="每月最多 1-2 封、只在發表新文章或重要指引更新時寄出。無業配、無贊助、可隨時退訂。" data-en="At most 1-2 emails per month — only for new articles or major guideline updates. No affiliate, no resale, unsubscribe anytime.">每月最多 1-2 封、只在發表新文章或重要指引更新時寄出。無業配、無贊助、可隨時退訂。</p>
 
-      <div class="mt-4 flex flex-wrap gap-3 justify-center">
-        
-        <a href="/blog/feed.xml" target="_blank" rel="noopener"
-           style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:9999px;background:#fff;color:var(--ink-2);border:1px solid var(--border);text-decoration:none;font-size:13px;font-weight:700">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
-          <span data-zh="RSS / Atom" data-en="RSS / Atom">RSS / Atom</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- About: 學經歷 timeline -->
 <section class="max-w-5xl mx-auto px-5 sm:px-8 mb-12">
@@ -643,7 +595,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   <div class="mag-foot-top">
     <div class="mag-foot-brand">
       <h3 data-zh="HsiaoEye · 蕭閔謙醫師 眼科筆記" data-en="HsiaoEye · Dr. Min-Chien Hsiao Ophthalmology Notes">HsiaoEye · 蕭閔謙醫師 眼科筆記</h3>
-      <p data-zh="從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。" data-en="From the clinic to your everyday eyes. All notes written by Dr. Hsiao. No ads, no sponsorships.">從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。</p>
+      <p data-zh="從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。" data-en="From the clinic to your everyday eyes.">從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。</p>
     </div>
     <div class="mag-foot-cols">
       <div>
@@ -683,7 +635,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260508" defer></script>
+<script src="/blog/blog-shared.js?v=20260509" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>

@@ -843,6 +843,125 @@
     render(document.getElementById('hs-popular-list'), popularFinal, '尚無文章');
   };
 
+  // ---------- dark mode toggle (☀ / ☾) ----------
+  DN.bindThemeToggle = function () {
+    if (document.getElementById('hs-theme-toggle')) return;
+    const root = document.documentElement;
+    let stored = null;
+    try { stored = localStorage.getItem('hs_theme'); } catch (e) {}
+    const initial = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    root.dataset.theme = initial;
+
+    // Inject dark-mode CSS once
+    if (!document.getElementById('hs-theme-style')) {
+      const st = document.createElement('style');
+      st.id = 'hs-theme-style';
+      st.textContent =
+        ':root[data-theme="dark"]{' +
+          '--bg:#1a1815;--surface:#252220;--ink:#f5f0e6;--ink-2:#c9c0b0;--muted:#8a8275;' +
+          '--border:#3a352d;--line:#2f2a23;--mint-soft:#2a2620;' +
+          '--blue-soft:#1f2e42;--teal-bright:#5e7c98;' +
+        '}' +
+        ':root[data-theme="dark"] body::before{opacity:.5}' +
+        ':root[data-theme="dark"] .myth-card,' +
+        ':root[data-theme="dark"] .info-card,' +
+        ':root[data-theme="dark"] .article-list-item,' +
+        ':root[data-theme="dark"] .topic-card,' +
+        ':root[data-theme="dark"] .ad-slot,' +
+        ':root[data-theme="dark"] .home-faq details.hf,' +
+        ':root[data-theme="dark"] .quick-find a,' +
+        ':root[data-theme="dark"] .keypoint,' +
+        ':root[data-theme="dark"] .selfcheck,' +
+        ':root[data-theme="dark"] .references,' +
+        ':root[data-theme="dark"] table.dn,' +
+        ':root[data-theme="dark"] .placeholder-card,' +
+        ':root[data-theme="dark"] .mag-card,' +
+        ':root[data-theme="dark"] .dn-search-input,' +
+        ':root[data-theme="dark"] header.sticky,' +
+        ':root[data-theme="dark"] .lang-select{background:var(--surface)!important;color:var(--ink)}' +
+        ':root[data-theme="dark"] .disclaimer{background:#2a2418;color:#e8d9b0;border-color:#5a4720}' +
+        ':root[data-theme="dark"] .alert-card{background:#3a1f1f;border-color:#7a3a3a}' +
+        ':root[data-theme="dark"] .alert-card h4,' +
+        ':root[data-theme="dark"] .alert-card li{color:#fcaaaa}' +
+        ':root[data-theme="dark"] .myth-card .myth{color:#fca5a5}' +
+        ':root[data-theme="dark"] .myth-card .truth{color:#86efac}' +
+        ':root[data-theme="dark"] header.sticky{background:rgba(37,34,32,.94)}';
+      document.head.appendChild(st);
+    }
+
+    const header = document.querySelector('header.sticky .h-16') || document.querySelector('header');
+    if (!header) return;
+    const right = header.querySelector('.flex.items-center.gap-2') || header.lastElementChild;
+    if (!right) return;
+
+    const btn = document.createElement('button');
+    btn.id = 'hs-theme-toggle';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Toggle theme');
+    btn.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9999px;background:transparent;border:1px solid var(--border);color:var(--ink);cursor:pointer;flex-shrink:0;font-size:15px;line-height:1;transition:all .15s';
+    function render() {
+      const isDark = root.dataset.theme === 'dark';
+      btn.innerHTML = isDark
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      btn.title = isDark ? 'Switch to light' : 'Switch to dark';
+    }
+    render();
+    btn.addEventListener('click', function () {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem('hs_theme', root.dataset.theme); } catch (e) {}
+      render();
+    });
+    right.insertBefore(btn, right.firstChild);
+  };
+
+  // ---------- mobile bottom-fixed nav (3 buttons: Articles / Search / About) ----------
+  DN.injectMobileBottomNav = function () {
+    if (document.getElementById('hs-mobile-nav')) return;
+    if (!document.getElementById('hs-mobile-nav-style')) {
+      const st = document.createElement('style');
+      st.id = 'hs-mobile-nav-style';
+      st.textContent =
+        '#hs-mobile-nav{display:none}' +
+        '@media (max-width:720px){' +
+          '#hs-mobile-nav{position:fixed;bottom:0;left:0;right:0;z-index:55;display:flex;background:rgba(247,243,236,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:0.5px solid var(--border);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -8px 20px -10px rgba(58,90,124,.18)}' +
+          ':root[data-theme="dark"] #hs-mobile-nav{background:rgba(37,34,32,.96)}' +
+          '#hs-mobile-nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 6px;color:var(--ink-2);text-decoration:none;font-family:"Noto Sans TC",Inter,sans-serif;font-size:11px;font-weight:600;border-radius:10px;transition:color .15s,background .15s}' +
+          '#hs-mobile-nav a:active,#hs-mobile-nav a:hover{color:var(--teal-deep);background:var(--blue-soft)}' +
+          '#hs-mobile-nav svg{width:20px;height:20px;flex-shrink:0}' +
+          'body{padding-bottom:calc(64px + env(safe-area-inset-bottom))!important}' +
+        '}';
+      document.head.appendChild(st);
+    }
+    const nav = document.createElement('nav');
+    nav.id = 'hs-mobile-nav';
+    nav.setAttribute('aria-label', 'Mobile navigation');
+    nav.innerHTML =
+      '<a href="/blog/">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>' +
+        '<span data-zh="最新文章" data-en="Articles">最新文章</span>' +
+      '</a>' +
+      '<a href="/#dn-search-input" id="hs-mn-search">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>' +
+        '<span data-zh="找文章" data-en="Search">找文章</span>' +
+      '</a>' +
+      '<a href="/about">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' +
+        '<span data-zh="關於我" data-en="About">關於我</span>' +
+      '</a>';
+    document.body.appendChild(nav);
+    // Search button: focus search input if on homepage
+    const searchBtn = document.getElementById('hs-mn-search');
+    if (searchBtn) searchBtn.addEventListener('click', function (e) {
+      const input = document.getElementById('dn-search-input');
+      if (input && location.pathname === '/') {
+        e.preventDefault();
+        input.focus();
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  };
+
   // ---------- home search (filter article-list-item by title/tag/text) ----------
   DN.bindHomeSearch = function () {
     const input = document.getElementById('dn-search-input');
@@ -919,7 +1038,15 @@
     DN.injectReadProgress();
     DN.injectSpotlight();
     DN.bindHomeSearch();
+    DN.bindThemeToggle();
+    DN.injectMobileBottomNav();
     DN.registerSW();
+
+    // CRITICAL: re-apply lang to all DOM (including JS-injected elements like
+    // author bio / share toolbar / related articles / spotlight / mobile nav /
+    // theme toggle). Without this, those injected elements stay in zh until
+    // user manually toggles language.
+    DN.applyTextOnly(curLang);
 
     return { applyLang: apply };
   };

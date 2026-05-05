@@ -1,13 +1,13 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v7: homepage restructured to mirror DermNotes flow:
+ * v8: dark mode + mobile bottom-fixed nav + i18n re-apply fix + GA active + perf (Tailwind defer)
  *     hero → quick-find (search input + chips) → article-list-item
  *     → 3-button row (browse all / topics / notes) → reading progress
  *     → recent + popular dual column → FAQ → AdSense → subscribe → disclaimer
  *     + new stub pages /blog/topics + /notes
  *     cache-bust ?v=20260508
  */
-const CACHE = 'hs-v7';
-const RUNTIME = 'hs-runtime-v7';
+const CACHE = 'hs-v8';
+const RUNTIME = 'hs-runtime-v8';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
