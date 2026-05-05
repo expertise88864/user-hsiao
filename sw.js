@@ -1,8 +1,9 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v4: blog-shared.js cache-bust ?v=20260505 (force refresh of SW-cached old script)
+ * v5: magazine template (paper cream + ink black + Tiffany blue/navy + Fraunces italic)
+ *     + blog-shared.js cache-bust ?v=20260506
  */
-const CACHE = 'hs-v4';
-const RUNTIME = 'hs-runtime-v4';
+const CACHE = 'hs-v5';
+const RUNTIME = 'hs-runtime-v5';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [

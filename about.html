@@ -35,13 +35,14 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root{
-    --bg:#f7f5f0; --surface:#ffffff; --ink:#1f2937; --ink-2:#4b5563; --muted:#9ca3af;
+    --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
+    --teal:#6b8caf; --teal-deep:#3a5a7c; --teal-bright:#a4c4dd; --mint-soft:#dcd9d1;
     --blue:#6b8caf; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0;
-    --gold:#c9a961; --border:#d8d2c4; --line:#e9e4d6;
+    --gold:#c9a961; --ochre:#c9a961; --border:#dcd5c8; --line:#ebe4d8;
   }
   html,body{ background:var(--bg); color:var(--ink); font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; }
   body::before{ content:''; position:fixed; inset:0; pointer-events:none; z-index:-1;
@@ -186,37 +187,69 @@
 
 </main>
 
-<footer class="border-t mt-12" style="border-color:var(--border); background:rgba(255,255,255,.4)">
-  <div class="max-w-5xl mx-auto px-5 sm:px-8 py-10">
-    <div class="grid sm:grid-cols-3 gap-8">
+<!-- ============= MAGAZINE FOOTER (deep ink, editorial) ============= -->
+<style>
+  .mag-footer{ background:var(--ink); color:var(--bg); padding:80px clamp(20px,5vw,72px) 32px; margin-top:clamp(40px,6vw,80px); }
+  .mag-foot-top{ max-width:1440px; margin:0 auto; display:grid; grid-template-columns:1.4fr 2fr; gap:clamp(32px,5vw,80px); padding-bottom:48px; border-bottom:0.5px solid rgba(247,243,236,.16); }
+  .mag-foot-brand h3{ font-family:'Noto Serif TC','Fraunces',Georgia,serif; font-style:italic; font-weight:600; font-size:clamp(26px,3vw,34px); margin:0 0 12px; letter-spacing:-0.01em; color:var(--bg); }
+  .mag-foot-brand p{ font-family:'Noto Serif TC',Georgia,serif; font-size:15.5px; line-height:1.7; color:rgba(247,243,236,.7); margin:0; max-width:42ch; }
+  .mag-foot-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .mag-foot-cols h5{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); margin:0 0 16px; font-weight:500; }
+  .mag-foot-cols ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .mag-foot-cols a{ font-size:14px; color:rgba(247,243,236,.85); text-decoration:none; transition:color .15s; }
+  .mag-foot-cols a:hover{ color:var(--teal-bright); }
+  .mag-foot-disclaimer{ max-width:1440px; margin:32px auto 0; display:grid; grid-template-columns:120px 1fr; gap:24px; padding:24px 0; border-bottom:0.5px solid rgba(247,243,236,.16); }
+  .mag-disc-tag{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); padding-top:4px; }
+  .mag-foot-disclaimer p{ margin:0; font-size:13px; line-height:1.7; color:rgba(247,243,236,.78); max-width:84ch; }
+  .mag-foot-bot{ max-width:1440px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.1em; color:rgba(247,243,236,.55); flex-wrap:wrap; }
+  @media (max-width:980px){ .mag-foot-top{ grid-template-columns:1fr; } .mag-foot-disclaimer{ grid-template-columns:1fr; } .mag-foot-cols{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .mag-foot-cols{ grid-template-columns:1fr; } }
+</style>
+<footer class="mag-footer">
+  <div class="mag-foot-top">
+    <div class="mag-foot-brand">
+      <h3 data-zh="HsiaoEye · 蕭閔謙醫師 眼科筆記" data-en="HsiaoEye · Dr. Min-Chien Hsiao Ophthalmology Notes">HsiaoEye · 蕭閔謙醫師 眼科筆記</h3>
+      <p data-zh="從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。" data-en="From the clinic to your everyday eyes. All notes written by Dr. Hsiao. No ads, no sponsorships.">從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。</p>
+    </div>
+    <div class="mag-foot-cols">
       <div>
-        <div class="font-display font-bold text-[18px] blue-text">HsiaoEye</div>
-        <div class="text-[12.5px] mt-1" style="color:var(--ink-2)" data-zh="眼科衛教及學習筆記" data-en="Ophthalmology patient education &amp; study notes">眼科衛教及學習筆記</div>
-        <div class="text-[13px] mt-3 leading-[1.8]"><strong data-zh="蕭閔謙 醫師" data-en="Min-Chien Hsiao, MD">蕭閔謙 醫師</strong></div>
+        <h5 data-zh="網站" data-en="Site">網站</h5>
+        <ul>
+          <li><a href="/" data-zh="首頁" data-en="Home">首頁</a></li>
+          <li><a href="/blog/" data-zh="衛教文章" data-en="Articles">衛教文章</a></li>
+          <li><a href="/about" data-zh="關於作者" data-en="About">關於作者</a></li>
+        </ul>
       </div>
-      <div></div>
       <div>
-        <div class="text-[11px] uppercase tracking-[.22em] font-semibold mb-2" style="color:var(--blue-deep)" data-zh="網站" data-en="Site">網站</div>
-        <ul class="space-y-1 text-[13px]">
-          <li><a class="hover:underline" href="/" data-zh="首頁" data-en="Home">首頁</a></li>
-          <li><a class="hover:underline" href="/blog/" data-zh="衛教文章" data-en="Articles">衛教文章</a></li>
-          <li><a class="hover:underline" href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li>
-          <li><a class="hover:underline" href="/blog/feed.xml">RSS</a></li>
+        <h5 data-zh="關於" data-en="About">關於</h5>
+        <ul>
+          <li><a href="/about" data-zh="作者簡介" data-en="Author">作者簡介</a></li>
+          <li><a href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li>
+          <li><a href="mailto:f94001115@gmail.com" data-zh="聯絡 Email" data-en="Contact">聯絡 Email</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 data-zh="訂閱" data-en="Subscribe">訂閱</h5>
+        <ul>
+          <li><a href="/blog/feed.xml">RSS Feed</a></li>
+          <li><a href="/blog/atom.xml">Atom Feed</a></li>
         </ul>
       </div>
     </div>
-    <div class="mt-8 pt-6 border-t text-center text-[12.5px]" style="border-color:var(--line); color:var(--muted)">
-      <span data-zh="網站內容更正 / 學術引用詢問 / 媒體合作請寄:" data-en="Site corrections, citations, or media inquiries:">網站內容更正 / 學術引用詢問 / 媒體合作請寄:</span>
-      <a href="mailto:f94001115@gmail.com" style="color:var(--blue-deep); font-weight:700; text-decoration:underline; margin-left:4px">f94001115@gmail.com</a>
-    </div>
-    <div class="mt-4 text-[11.5px] flex flex-wrap items-center justify-between gap-2" style="color:var(--muted)">
-      <div data-zh="本站僅作教育參考，不構成醫療建議。" data-en="Educational use only — not medical advice.">本站僅作教育參考，不構成醫療建議。</div>
-      <div>© <span id="yr">2026</span> HsiaoEye · 蕭閔謙 醫師</div>
-    </div>
+  </div>
+
+  <div class="mag-foot-disclaimer">
+    <span class="mag-disc-tag">Disclaimer</span>
+    <p data-zh="本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。" data-en="All content is for general educational reference only, does not constitute individual medical advice, and cannot replace an in-person consultation. This site does not engage in medical advertising and does not endorse any clinic, hospital, drug, or procedure. Per Taiwan Medical Care Act §§85–86 and Physicians Act §17, individual outcomes vary; no result is guaranteed.">本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。</p>
+  </div>
+
+  <div class="mag-foot-bot">
+    <span>© <span id="yr">2026</span> Min-Chien Hsiao M.D. · <span data-zh="眼科衛教筆記" data-en="Ophthalmology Notes">眼科衛教筆記</span></span>
+    <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260505" defer></script>
+<script src="/blog/blog-shared.js?v=20260506" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>

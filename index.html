@@ -63,13 +63,14 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root{
-    --bg:#f7f5f0; --surface:#ffffff; --ink:#1f2937; --ink-2:#4b5563; --muted:#9ca3af;
+    --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
+    --teal:#6b8caf; --teal-deep:#3a5a7c; --teal-bright:#a4c4dd; --mint-soft:#dcd9d1;
     --blue:#6b8caf; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0;
-    --gold:#c9a961; --border:#d8d2c4; --line:#e9e4d6;
+    --gold:#c9a961; --ochre:#c9a961; --border:#dcd5c8; --line:#ebe4d8;
   }
   html,body{ background:var(--bg); color:var(--ink); font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; }
   body::before{ content:''; position:fixed; inset:0; pointer-events:none; z-index:-1;
@@ -129,6 +130,40 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   .disclaimer-box strong{ color:#5a4012; }
 
   @media (max-width:640px){ .hide-sm{display:none} }
+
+  /* ============= MAGAZINE HERO (DermNotes template) ============= */
+  .mag-hero{ max-width:1280px; margin:0 auto; padding:clamp(28px,5vw,56px) clamp(20px,4vw,56px) clamp(36px,5vw,72px); }
+  .mag-hero-meta{ display:flex; gap:14px; align-items:center; font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); padding-bottom:16px; border-bottom:0.5px solid var(--border); margin-bottom:36px; flex-wrap:wrap; }
+  .mag-hero-meta-dot{ color:var(--teal-deep); }
+  .mag-hero-grid{ display:grid; grid-template-columns:1.05fr 1fr; gap:clamp(40px,5vw,80px); align-items:start; }
+  .mag-eyebrow{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--teal-deep); font-weight:600; margin-bottom:8px; }
+  .mag-title{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-weight:600; font-size:clamp(40px,6vw,72px); line-height:1.1; letter-spacing:-0.02em; margin:16px 0 28px; color:var(--ink); text-wrap:pretty; }
+  .mag-title-line{ display:block; }
+  .mag-title-line.italic{ font-style:italic; color:var(--teal-deep); font-weight:500; }
+  .mag-lede{ font-family:'Noto Serif TC',Georgia,serif; font-size:clamp(16px,1.5vw,20px); line-height:1.75; color:var(--ink-2); max-width:54ch; margin:0 0 32px; text-wrap:pretty; }
+  .mag-ctas{ display:flex; flex-wrap:wrap; gap:12px; }
+  .btn{ display:inline-flex; align-items:center; gap:6px; padding:12px 22px; border-radius:9999px; font-weight:600; font-size:14px; text-decoration:none; transition:transform .15s, box-shadow .15s, background .15s; font-family:'Noto Sans TC',Inter,sans-serif; }
+  .btn-teal{ background:linear-gradient(180deg,var(--teal),var(--teal-deep)); color:#fff; box-shadow:0 8px 18px -8px rgba(58,90,124,.55); }
+  .btn-teal:hover{ transform:translateY(-1px); box-shadow:0 12px 24px -10px rgba(58,90,124,.65); }
+  .btn-ghost{ background:#fff; color:var(--ink); border:0.5px solid var(--border); }
+  .btn-ghost:hover{ border-color:var(--teal-deep); color:var(--teal-deep); }
+  .mag-feature{ display:grid; grid-template-columns:1fr; grid-template-rows:auto auto; gap:18px; }
+  .mag-card{ display:block; position:relative; border:0.5px solid var(--border); background:#fff; overflow:hidden; transition:transform .3s, box-shadow .3s; text-decoration:none; }
+  .mag-card:hover{ transform:translateY(-2px); box-shadow:0 24px 48px -24px rgba(58,90,124,.35); }
+  .mag-card-cover{ aspect-ratio:4/3; overflow:hidden; background:var(--mint-soft); }
+  .mag-card-cover svg{ width:100%; height:100%; display:block; }
+  .mag-card-body{ padding:22px 24px 24px; }
+  .mag-card-tag{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-deep); display:block; margin-bottom:6px; font-weight:600; }
+  .mag-card h3{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-weight:600; font-size:clamp(20px,2.2vw,26px); line-height:1.25; letter-spacing:-0.01em; margin:8px 0 8px; color:var(--ink); text-wrap:pretty; }
+  .mag-card-meta{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; color:var(--muted); letter-spacing:.06em; }
+  .mag-card-side{ display:grid; grid-template-columns:120px 1fr; gap:18px; padding:14px; align-items:center; }
+  .mag-card-side .mag-card-cover{ aspect-ratio:1/1; }
+  .mag-card-side h4{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-weight:600; font-size:16.5px; line-height:1.3; margin:4px 0 0; color:var(--ink); text-wrap:pretty; }
+  .mag-defs{ position:absolute; width:0; height:0; }
+  @media (max-width:980px){ .mag-hero-grid{ grid-template-columns:1fr; } }
+
+  /* Editorial brand mark in sticky header */
+  .brand-mark{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-style:italic; font-weight:600; font-size:18px; letter-spacing:-0.01em; color:var(--ink); }
 </style>
 <style id="hs-global-ux">
   body { padding-bottom: env(safe-area-inset-bottom); }
@@ -225,37 +260,122 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
 <main id="main-content">
 
-<!-- Hero -->
-<section class="max-w-5xl mx-auto px-5 sm:px-8">
-  <div class="hero">
+<!-- Reusable SVG defs (hand-drawn rough filter + dot pattern) -->
+<svg class="mag-defs" aria-hidden="true">
+  <defs>
+    <filter id="mag-rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="1" />
+      <feDisplacementMap in="SourceGraphic" scale="1.6" />
+    </filter>
+    <pattern id="mag-dots" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.7" fill="#2a2620" opacity="0.4" />
+    </pattern>
+  </defs>
+</svg>
+
+<!-- ============= MAGAZINE HERO ============= -->
+<section class="mag-hero">
+  <div class="mag-hero-meta">
+    <span data-zh="Vol.01" data-en="Vol.01">Vol.01</span>
+    <span class="mag-hero-meta-dot">·</span>
+    <span data-zh="2026 春季號" data-en="2026 Spring">2026 春季號</span>
+    <span class="mag-hero-meta-dot">·</span>
+    <span data-zh="3 篇衛教 · 持續更新" data-en="3 articles · ongoing">3 篇衛教 · 持續更新</span>
+  </div>
+  <div class="mag-hero-grid">
     <div>
-      <span class="pill" data-zh="眼科 · 衛教與筆記" data-en="Ophthalmology · Notes">眼科 · 衛教與筆記</span>
-      <h1 class="mt-4">
-        <span data-zh="您信任的眼科醫師" data-en="Your trusted eye doctor">您信任的眼科醫師</span>
-        <span class="blue-text mt-1" data-zh="蕭閔謙 醫師" data-en="Dr. Min-Chien Hsiao">蕭閔謙 醫師</span>
+      <div class="mag-eyebrow" data-zh="眼科衛教筆記" data-en="Ophthalmology Patient-Education Notes">眼科衛教筆記</div>
+      <h1 class="mag-title">
+        <span class="mag-title-line" data-zh="從診間到日常," data-en="From the clinic to">從診間到日常,</span>
+        <span class="mag-title-line italic" data-zh="好好照顧你的眼睛。" data-en="your everyday eyes.">好好照顧你的眼睛。</span>
       </h1>
-      <p class="lede" data-zh="從乾眼症、兒童近視控制，到白內障與視網膜疾病 — 把眼科診間最常被問的問題，整理成讀得懂的衛教與學習筆記。內容依據國際醫學文獻與臨床指引，僅作為一般教育用途。" data-en="From dry eye and pediatric myopia control to cataract and retinal disease — patient-friendly notes on the questions most often asked in clinic. Educational use only — not medical advice.">
-        從乾眼症、兒童近視控制，到白內障與視網膜疾病 — 把眼科診間最常被問的問題，整理成讀得懂的衛教與學習筆記。內容依據國際醫學文獻與臨床指引，僅作為一般教育用途。
+      <p class="mag-lede" data-zh="這裡記錄住院醫師訓練中遇到的真實問題、研究新知與護眼觀念。每一篇都是我希望病人帶回家慢慢讀的內容。" data-en="A resident ophthalmologist's field notes — patient questions, new evidence, and the daily basics of caring for your eyes. Written to be read slowly, at home.">
+        這裡記錄住院醫師訓練中遇到的真實問題、研究新知與護眼觀念。每一篇都是我希望病人帶回家慢慢讀的內容。
       </p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a href="/blog/" style="display:inline-flex;align-items:center;gap:6px;padding:11px 20px;background:linear-gradient(180deg,#8fb3d4 0%, #3a5a7c 50%, #243b56 100%); color:#fff; border-radius:12px; font-weight:600; text-decoration:none; box-shadow:0 8px 18px -8px rgba(58,90,124,.55)" data-zh="閱讀衛教文章 →" data-en="Read articles →">閱讀衛教文章 →</a>
-        <a href="/about" style="display:inline-flex;align-items:center;gap:6px;padding:11px 20px;background:#fff;border:1px solid var(--border);border-radius:12px;font-weight:600;color:var(--ink);text-decoration:none" data-zh="關於我" data-en="About me">關於我</a>
+      <div class="mag-ctas">
+        <a href="/blog/" class="btn btn-teal" data-zh="閱讀最新文章 →" data-en="Read latest articles →">閱讀最新文章 →</a>
+        <a href="/about" class="btn btn-ghost" data-zh="關於作者" data-en="About">關於作者</a>
       </div>
     </div>
-    <div class="hero-meta">
-      <img src="/SUNN1302.jpg" alt="蕭閔謙 醫師" class="hero-photo" width="220" height="220" fetchpriority="high" />
+    <div class="mag-feature">
+      <!-- Cover Story: Floaters / Retinal Detachment (newest, emergency) -->
+      <a class="mag-card" href="/blog/floaters-retinal-detachment">
+        <div class="mag-card-cover">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="300" fill="#dcd9d1" />
+            <g filter="url(#mag-rough)">
+              <!-- Almond-shaped eye outline -->
+              <path d="M 60 150 Q 200 50 340 150 Q 200 250 60 150 Z" fill="#fff" stroke="#2a2620" stroke-width="2.5" stroke-linejoin="round" />
+              <!-- Iris (Tiffany blue) -->
+              <circle cx="200" cy="150" r="58" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="2" />
+              <!-- Pupil -->
+              <circle cx="200" cy="150" r="24" fill="#2a2620" />
+              <!-- Catchlight -->
+              <circle cx="186" cy="138" r="8" fill="#faf7f2" />
+              <!-- Floaters: drifting dots -->
+              <circle cx="120" cy="100" r="4" fill="#2a2620" opacity="0.65" />
+              <ellipse cx="138" cy="112" rx="6" ry="2" fill="#2a2620" opacity="0.55" transform="rotate(-25 138 112)" />
+              <circle cx="280" cy="118" r="3.5" fill="#2a2620" opacity="0.55" />
+              <ellipse cx="295" cy="195" rx="5" ry="2" fill="#2a2620" opacity="0.45" transform="rotate(20 295 195)" />
+              <circle cx="105" cy="195" r="3" fill="#2a2620" opacity="0.5" />
+              <!-- Lashes (top) -->
+              <line x1="100" y1="100" x2="92" y2="80" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />
+              <line x1="150" y1="76" x2="148" y2="56" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />
+              <line x1="200" y1="68" x2="200" y2="46" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />
+              <line x1="250" y1="76" x2="252" y2="56" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />
+              <line x1="300" y1="100" x2="308" y2="80" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />
+              <!-- Brow stroke (ochre) -->
+              <path d="M 90 50 Q 200 30 310 50" fill="none" stroke="#c9a961" stroke-width="4" stroke-linecap="round" opacity="0.85" />
+            </g>
+            <rect width="400" height="300" fill="url(#mag-dots)" opacity="0.35" />
+          </svg>
+        </div>
+        <div class="mag-card-body">
+          <span class="mag-card-tag" data-zh="封面故事 · COVER STORY" data-en="Cover Story">封面故事 · COVER STORY</span>
+          <h3 data-zh="飛蚊症 6 大警訊 — 何時要立刻衝眼科?" data-en="6 Floater Red Flags — when do floaters mean retinal emergency?">飛蚊症 6 大警訊 — 何時要立刻衝眼科？</h3>
+          <div class="mag-card-meta" data-zh="2026.05 · 9 分鐘 · 警訊辨識" data-en="2026.05 · 9 min · Red flags">2026.05 · 9 分鐘 · 警訊辨識</div>
+        </div>
+      </a>
+
+      <!-- Editor's Pick: Pediatric Myopia (high search volume) -->
+      <a class="mag-card mag-card-side" href="/blog/pediatric-myopia-control">
+        <div class="mag-card-cover">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="300" fill="#ebe4d8" />
+            <g filter="url(#mag-rough)">
+              <!-- Eyeglasses: two circles + bridge + temples -->
+              <circle cx="135" cy="150" r="62" fill="#fff" stroke="#2a2620" stroke-width="3" />
+              <circle cx="265" cy="150" r="62" fill="#fff" stroke="#2a2620" stroke-width="3" />
+              <line x1="195" y1="150" x2="205" y2="150" stroke="#2a2620" stroke-width="3" stroke-linecap="round" />
+              <line x1="73" y1="138" x2="40" y2="118" stroke="#2a2620" stroke-width="3" stroke-linecap="round" />
+              <line x1="327" y1="138" x2="360" y2="118" stroke="#2a2620" stroke-width="3" stroke-linecap="round" />
+              <!-- Tinted lenses (Tiffany blue tint) -->
+              <circle cx="135" cy="150" r="58" fill="#a4c4dd" opacity="0.4" />
+              <circle cx="265" cy="150" r="58" fill="#a4c4dd" opacity="0.4" />
+              <!-- Highlight -->
+              <path d="M 105 125 Q 130 115 155 130" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.7" />
+              <path d="M 235 125 Q 260 115 285 130" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.7" />
+            </g>
+          </svg>
+        </div>
+        <div>
+          <span class="mag-card-tag" data-zh="本期推薦" data-en="Editor's Pick">本期推薦</span>
+          <h4 data-zh="兒童近視控制 — 阿托品、OK 鏡、紅光、戶外哪個有效?" data-en="Pediatric myopia control — atropine, ortho-K, red light, outdoor: what works?">兒童近視控制 — 阿托品、OK 鏡、紅光、戶外哪個有效？</h4>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Quick find — only existing topics, no 籌備中 placeholders -->
+<!-- Quick find chips -->
 <section class="max-w-5xl mx-auto px-5 sm:px-8 mt-4">
-  <div style="background:#fff; border:1px solid var(--border); border-radius:18px; padding:20px 22px;">
-    <div style="font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--blue-deep); font-weight:700; margin-bottom:10px" data-zh="快速找眼科主題" data-en="Quick find by topic">快速找眼科主題</div>
+  <div style="background:#fff; border:0.5px solid var(--border); border-radius:18px; padding:20px 22px;">
+    <div style="font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--teal-deep); font-weight:600; margin-bottom:10px" data-zh="快速找眼科主題" data-en="Quick find by topic">快速找眼科主題</div>
     <div class="quick-find">
       <a href="/blog/dry-eye-myths">乾眼症</a>
       <a href="/blog/pediatric-myopia-control" data-zh="兒童近視控制" data-en="Pediatric myopia">兒童近視控制</a>
-      <a href="/blog/">所有文章 →</a>
+      <a href="/blog/floaters-retinal-detachment" data-zh="飛蚊症 / 視網膜剝離" data-en="Floaters / RD">飛蚊症 / 視網膜剝離</a>
+      <a href="/blog/" data-zh="所有文章 →" data-en="All articles →">所有文章 →</a>
     </div>
   </div>
 </section>
@@ -337,11 +457,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
       <p class="mt-2 text-[13.5px] leading-[1.8] max-w-xl mx-auto" style="color:var(--ink-2)" data-zh="每月最多 1-2 封、只在發表新文章或重要指引更新時寄出。無業配、無贊助、可隨時退訂。" data-en="At most 1-2 emails per month — only for new articles or major guideline updates. No affiliate, no resale, unsubscribe anytime.">每月最多 1-2 封、只在發表新文章或重要指引更新時寄出。無業配、無贊助、可隨時退訂。</p>
 
       <div class="mt-4 flex flex-wrap gap-3 justify-center">
-        <a href="mailto:f94001115@gmail.com?subject=%E8%A8%82%E9%96%B1%20HsiaoEye%20%E6%96%B0%E6%96%87%E7%AB%A0%E9%80%9A%E7%9F%A5&body=%E8%95%AD%E9%86%AB%E5%B8%AB%E6%82%A8%E5%A5%BD%EF%BC%8C%0A%0A%E6%88%91%E6%83%B3%E8%A8%82%E9%96%B1%20HsiaoEye%20%E7%9A%84%E6%96%B0%E6%96%87%E7%AB%A0%E9%80%9A%E7%9F%A5%E3%80%82%0A%0A%E5%A7%93%E5%90%8D%EF%BC%88%E5%8F%AF%E5%8C%BF%E5%90%8D%EF%BC%89%EF%BC%9A%0A%E5%B0%88%E6%A5%AD%E8%83%8C%E6%99%AF%EF%BC%88%E9%86%AB%E8%AD%B7%E4%BA%BA%E5%93%A1%20%2F%20%E4%B8%80%E8%88%AC%E6%B0%91%E7%9C%BE%EF%BC%89%EF%BC%9A%0A%0A%E8%AC%9D%E8%AC%9D%E8%95%AD%E9%86%AB%E5%B8%AB%21" data-subscribe-link
-           style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:9999px;background:linear-gradient(180deg,#8fb3d4 0%, #3a5a7c 50%, #243b56 100%);color:#fff;text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 8px 18px -8px rgba(58,90,124,.45)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span data-zh="Email 訂閱" data-en="Subscribe by email">Email 訂閱</span>
-        </a>
+        
         <a href="/blog/feed.xml" target="_blank" rel="noopener"
            style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:9999px;background:#fff;color:var(--ink-2);border:1px solid var(--border);text-decoration:none;font-size:13px;font-weight:700">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
@@ -391,41 +507,69 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
 </main>
 
-<footer class="border-t" style="border-color:var(--border); background:rgba(255,255,255,.4)">
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10">
-    <div class="grid sm:grid-cols-3 gap-8">
+<!-- ============= MAGAZINE FOOTER (deep ink, editorial) ============= -->
+<style>
+  .mag-footer{ background:var(--ink); color:var(--bg); padding:80px clamp(20px,5vw,72px) 32px; margin-top:clamp(40px,6vw,80px); }
+  .mag-foot-top{ max-width:1440px; margin:0 auto; display:grid; grid-template-columns:1.4fr 2fr; gap:clamp(32px,5vw,80px); padding-bottom:48px; border-bottom:0.5px solid rgba(247,243,236,.16); }
+  .mag-foot-brand h3{ font-family:'Noto Serif TC','Fraunces',Georgia,serif; font-style:italic; font-weight:600; font-size:clamp(26px,3vw,34px); margin:0 0 12px; letter-spacing:-0.01em; color:var(--bg); }
+  .mag-foot-brand p{ font-family:'Noto Serif TC',Georgia,serif; font-size:15.5px; line-height:1.7; color:rgba(247,243,236,.7); margin:0; max-width:42ch; }
+  .mag-foot-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .mag-foot-cols h5{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); margin:0 0 16px; font-weight:500; }
+  .mag-foot-cols ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .mag-foot-cols a{ font-size:14px; color:rgba(247,243,236,.85); text-decoration:none; transition:color .15s; }
+  .mag-foot-cols a:hover{ color:var(--teal-bright); }
+  .mag-foot-disclaimer{ max-width:1440px; margin:32px auto 0; display:grid; grid-template-columns:120px 1fr; gap:24px; padding:24px 0; border-bottom:0.5px solid rgba(247,243,236,.16); }
+  .mag-disc-tag{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); padding-top:4px; }
+  .mag-foot-disclaimer p{ margin:0; font-size:13px; line-height:1.7; color:rgba(247,243,236,.78); max-width:84ch; }
+  .mag-foot-bot{ max-width:1440px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.1em; color:rgba(247,243,236,.55); flex-wrap:wrap; }
+  @media (max-width:980px){ .mag-foot-top{ grid-template-columns:1fr; } .mag-foot-disclaimer{ grid-template-columns:1fr; } .mag-foot-cols{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .mag-foot-cols{ grid-template-columns:1fr; } }
+</style>
+<footer class="mag-footer">
+  <div class="mag-foot-top">
+    <div class="mag-foot-brand">
+      <h3 data-zh="HsiaoEye · 蕭閔謙醫師 眼科筆記" data-en="HsiaoEye · Dr. Min-Chien Hsiao Ophthalmology Notes">HsiaoEye · 蕭閔謙醫師 眼科筆記</h3>
+      <p data-zh="從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。" data-en="From the clinic to your everyday eyes. All notes written by Dr. Hsiao. No ads, no sponsorships.">從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。</p>
+    </div>
+    <div class="mag-foot-cols">
       <div>
-        <div class="font-display font-bold text-[18px] blue-text">HsiaoEye</div>
-        <div class="text-[12.5px] mt-1" style="color:var(--ink-2)" data-zh="眼科衛教及學習筆記" data-en="Ophthalmology patient education &amp; study notes">眼科衛教及學習筆記</div>
-        <div class="text-[13px] mt-3 leading-[1.8]">
-          <strong style="color:var(--ink)" data-zh="蕭閔謙 醫師" data-en="Min-Chien Hsiao, MD">蕭閔謙 醫師</strong><br/>
-          <span style="color:var(--muted)" data-zh="眼科住院醫師" data-en="Ophthalmology Resident">眼科住院醫師</span>
-        </div>
+        <h5 data-zh="網站" data-en="Site">網站</h5>
+        <ul>
+          <li><a href="/" data-zh="首頁" data-en="Home">首頁</a></li>
+          <li><a href="/blog/" data-zh="衛教文章" data-en="Articles">衛教文章</a></li>
+          <li><a href="/about" data-zh="關於作者" data-en="About">關於作者</a></li>
+        </ul>
       </div>
-      <div></div>
       <div>
-        <div class="text-[11px] uppercase tracking-[.22em] font-semibold mb-2" style="color:var(--blue-deep)" data-zh="網站" data-en="Site">網站</div>
-        <ul class="space-y-1 text-[13px]">
-          <li><a class="hover:underline" href="/" data-zh="首頁" data-en="Home">首頁</a></li>
-          <li><a class="hover:underline" href="/blog/" data-zh="衛教文章" data-en="Articles">衛教文章</a></li>
-          <li><a class="hover:underline" href="/about" data-zh="關於我" data-en="About">關於我</a></li>
-          <li><a class="hover:underline" href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li>
-          <li><a class="hover:underline" href="/blog/feed.xml">RSS</a></li>
+        <h5 data-zh="關於" data-en="About">關於</h5>
+        <ul>
+          <li><a href="/about" data-zh="作者簡介" data-en="Author">作者簡介</a></li>
+          <li><a href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li>
+          <li><a href="mailto:f94001115@gmail.com" data-zh="聯絡 Email" data-en="Contact">聯絡 Email</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 data-zh="訂閱" data-en="Subscribe">訂閱</h5>
+        <ul>
+          <li><a href="/blog/feed.xml">RSS Feed</a></li>
+          <li><a href="/blog/atom.xml">Atom Feed</a></li>
         </ul>
       </div>
     </div>
-    <div class="mt-8 pt-6 border-t text-center text-[12.5px]" style="border-color:var(--line); color:var(--muted)">
-      <span data-zh="網站內容更正 / 學術引用詢問 / 媒體合作請寄:" data-en="Site corrections, citations, or media inquiries:">網站內容更正 / 學術引用詢問 / 媒體合作請寄:</span>
-      <a href="mailto:f94001115@gmail.com" style="color:var(--blue-deep); font-weight:700; text-decoration:underline; margin-left:4px">f94001115@gmail.com</a>
-    </div>
-    <div class="mt-4 text-[11.5px] flex flex-wrap items-center justify-between gap-2" style="color:var(--muted)">
-      <div data-zh="本站僅作教育參考，不構成醫療建議。任何用藥或就醫決定請以您的主治醫師判斷為準。" data-en="Educational use only — not medical advice. Always consult your physician for treatment decisions.">本站僅作教育參考，不構成醫療建議。任何用藥或就醫決定請以您的主治醫師判斷為準。</div>
-      <div>© <span id="yr">2026</span> HsiaoEye · 蕭閔謙 醫師</div>
-    </div>
+  </div>
+
+  <div class="mag-foot-disclaimer">
+    <span class="mag-disc-tag">Disclaimer</span>
+    <p data-zh="本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。" data-en="All content is for general educational reference only, does not constitute individual medical advice, and cannot replace an in-person consultation. This site does not engage in medical advertising and does not endorse any clinic, hospital, drug, or procedure. Per Taiwan Medical Care Act §§85–86 and Physicians Act §17, individual outcomes vary; no result is guaranteed.">本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。</p>
+  </div>
+
+  <div class="mag-foot-bot">
+    <span>© <span id="yr">2026</span> Min-Chien Hsiao M.D. · <span data-zh="眼科衛教筆記" data-en="Ophthalmology Notes">眼科衛教筆記</span></span>
+    <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260505" defer></script>
+<script src="/blog/blog-shared.js?v=20260506" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>
