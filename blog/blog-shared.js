@@ -433,14 +433,22 @@
       '<span style="font-size:11px;color:var(--ink-2);opacity:.7" data-zh="點擊收合" data-en="Click to collapse">點擊收合</span>';
     details.appendChild(summary);
 
+    // Match each h2[id] in proseZh with its English counterpart in proseEn (id + "-en")
+    const proseEnInline = document.getElementById('proseEn');
+    function attrEscInline(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
+
     const ol = document.createElement('ol');
     ol.style.cssText = 'list-style:none;counter-reset:toc;padding:4px 18px 14px;margin:0;display:flex;flex-direction:column;gap:2px';
     h2s.forEach(function (h, i) {
+      const idZh = h.id;
+      const textZh = (h.textContent || ('Section ' + (i + 1))).trim();
+      const enH = proseEnInline ? proseEnInline.querySelector('#' + idZh + '-en') : null;
+      const textEn = (enH && (enH.textContent || '').trim()) || textZh;
       const li = document.createElement('li');
       li.style.cssText = 'counter-increment:toc;position:relative;padding:5px 4px 5px 32px';
       li.innerHTML =
         '<span style="position:absolute;left:0;top:5px;width:24px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:var(--blue-deep);background:#fff;border:1px solid #b8cfe3;border-radius:6px">' + (i + 1) + '</span>' +
-        '<a href="#' + h.id + '" data-toc-inline="' + h.id + '" style="display:block;color:var(--ink-2);text-decoration:none;font-size:13.5px;line-height:1.6;font-weight:500">' + (h.textContent || ('Section ' + (i + 1))) + '</a>';
+        '<a href="#' + idZh + '" data-toc-inline="' + idZh + '" data-zh="' + attrEscInline(textZh) + '" data-en="' + attrEscInline(textEn) + '" style="display:block;color:var(--ink-2);text-decoration:none;font-size:13.5px;line-height:1.6;font-weight:500">' + textZh + '</a>';
       ol.appendChild(li);
     });
     details.appendChild(ol);
@@ -480,9 +488,15 @@
     const aside = document.createElement('aside');
     aside.id = 'hs-toc-float';
     aside.style.cssText = 'position:fixed;left:max(16px,calc(50% - 720px));top:120px;width:200px;max-height:calc(100vh - 160px);overflow-y:auto;padding:14px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 28px -14px rgba(58,90,124,.22);font-size:12.5px;line-height:1.7;z-index:30;';
+    const proseEnFloat = document.getElementById('proseEn');
+    function attrEscFloat(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
     let html = '<div style="font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--blue-deep);font-weight:700;margin-bottom:8px" data-zh="本篇大綱" data-en="Contents">本篇大綱</div><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px" id="hs-toc-list">';
     h2s.forEach(function (h, i) {
-      html += '<li><a href="#' + h.id + '" data-toc="' + h.id + '" style="display:block;padding:5px 8px;border-radius:6px;color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;transition:all .15s">' + (h.textContent || ('Section ' + (i + 1))).slice(0, 28) + '</a></li>';
+      const idZh = h.id;
+      const textZh = (h.textContent || ('Section ' + (i + 1))).trim().slice(0, 28);
+      const enH = proseEnFloat ? proseEnFloat.querySelector('#' + idZh + '-en') : null;
+      const textEn = (enH && (enH.textContent || '').trim().slice(0, 28)) || textZh;
+      html += '<li><a href="#' + idZh + '" data-toc="' + idZh + '" data-zh="' + attrEscFloat(textZh) + '" data-en="' + attrEscFloat(textEn) + '" style="display:block;padding:5px 8px;border-radius:6px;color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;transition:all .15s">' + textZh + '</a></li>';
     });
     html += '</ul>';
     aside.innerHTML = html;
@@ -700,8 +714,7 @@
           '<img src="/SUNN1302.jpg" alt="蕭閔謙 醫師" width="54" height="54" loading="lazy" style="width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:2px solid #fff;box-shadow:0 4px 10px -2px rgba(58,90,124,.3);background:var(--blue-soft)" />' +
           '<div style="flex:1;min-width:200px">' +
             '<div style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:16px;font-weight:700;color:var(--ink)">' +
-              '<span data-zh="' + DN.AUTHOR_NAME_ZH + '" data-en="' + DN.AUTHOR_NAME_EN + '">' + DN.AUTHOR_NAME_ZH + '</span>' +
-              '<span style="font-size:11.5px;font-weight:600;color:var(--blue-deep);margin-left:8px;padding:2px 8px;border-radius:6px;background:var(--blue-soft);border:1px solid #b8cfe3;font-family:Inter,sans-serif" data-zh="眼科 R2" data-en="Ophthalmology PGY-2">眼科 R2</span>' +
+              '<span data-zh="' + DN.AUTHOR_NAME_ZH + '" data-en="' + DN.AUTHOR_NAME_EN + '">' + DN.AUTHOR_NAME_ZH + '</span>' + 
             '</div>' +
             '<div style="font-size:13px;color:#334155;line-height:1.85;margin-top:6px" ' +
               'data-zh="<strong>現職</strong>:眼科住院醫師<br/><strong>學歷</strong>:高雄醫學大學 學士後醫學系" ' +

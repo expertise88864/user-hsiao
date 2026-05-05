@@ -1,13 +1,13 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v10: + 4 landing pages (cataract / glaucoma / contact-lens / red-eye); FAQ deep-link; theme-toggle position; ads.txt + humans.txt + CSP/HSTS
+ * v11: + Tailwind CDN removed (local /assets/app.css), TOC i18n, floaters renumbered, CI workflow, R2 badge removed
  *     hero → quick-find (search input + chips) → article-list-item
  *     → 3-button row (browse all / topics / notes) → reading progress
  *     → recent + popular dual column → FAQ → AdSense → subscribe → disclaimer
  *     + new stub pages /blog/topics + /notes
  *     cache-bust ?v=20260508
  */
-const CACHE = 'hs-v10';
-const RUNTIME = 'hs-runtime-v10';
+const CACHE = 'hs-v11';
+const RUNTIME = 'hs-runtime-v11';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
@@ -26,6 +26,7 @@ const PRECACHE = [
   '/logo-512.png',
   '/manifest.json',
   '/blog/',
+  '/assets/app.css',
   '/blog/blog-shared.js',
   '/blog/feed.xml',
   '/blog/atom.xml',

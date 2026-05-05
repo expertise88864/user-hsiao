@@ -1,0 +1,96 @@
+name: quality
+
+# Quality gates for HsiaoEye:
+#   1. validate.py — title / description / canonical / OG / Twitter / hreflang /
+#                    JSON-LD / img alt+dimensions / internal links
+#   2. JSON-LD parse check (separate, deeper)
+#   3. Lighthouse CI on production URL after Vercel deploy
+#
+# To enable Lighthouse on PRs against Vercel preview deploys, set the
+# repository secret VERCEL_PREVIEW_URL or use the official Vercel Action.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: HTML validation + SEO check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run validate.py
+        run: python validate.py
+
+      - name: Run halfwidth idempotency check
+        run: |
+          python halfwidth_to_fullwidth.py --dry-run
+          # If the dry run reports ANY replacement count > 0 the diff
+          # would land — fail the build so author runs the real script.
+          OUTPUT=$(python halfwidth_to_fullwidth.py --dry-run | tail -1)
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -qE 'WOULD WRITE: 0 files'; then
+            echo "✓ All half-width punctuation already converted"
+          else
+            echo "✗ Half-width punctuation found — run python halfwidth_to_fullwidth.py before pushing"
+            exit 1
+          fi
+
+      - name: JSON-LD parse check
+        run: |
+          python -X utf8 -c "
+          import json, re, glob, sys
+          errors = 0
+          for fp in glob.glob('**/*.html', recursive=True):
+              text = open(fp, encoding='utf-8').read()
+              for i, b in enumerate(re.findall(r'<script type=\"application/ld\+json\">(.*?)</script>', text, re.DOTALL)):
+                  try: json.loads(b.strip())
+                  except Exception as e:
+                      print(f'  FAIL {fp}#LD{i+1}: {e}')
+                      errors += 1
+          sys.exit(1 if errors else 0)
+          "
+
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for Vercel deploy (60s)
+        run: sleep 60
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://hsiao.chendermatologist.com/
+            https://hsiao.chendermatologist.com/blog/
+            https://hsiao.chendermatologist.com/blog/dry-eye-myths
+            https://hsiao.chendermatologist.com/blog/pediatric-myopia-control
+            https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          configPath: ./.github/workflows/lighthouserc.json
+
+  link-check:
+    name: Internal link check
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for broken internal links
+        run: |
+          # validate.py already does internal link checking against the
+          # filesystem. Just re-run with strict mode so warnings count.
+          python validate.py --strict || echo "::warning::SEO/link warnings present"
