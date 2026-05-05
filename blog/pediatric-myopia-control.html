@@ -164,6 +164,69 @@
 <article class="max-w-3xl mx-auto px-5 sm:px-8 mb-16">
 
 <!-- Chinese version -->
+<figure class="article-fig" style="margin:24px auto 8px;padding:18px 22px;background:#fff;border:0.5px solid var(--border);border-radius:14px;max-width:680px">
+  <svg viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block" aria-labelledby="axial-title" role="img">
+    <title id="axial-title">Normal vs myopic eye — axial elongation</title>
+    <!-- LEFT: normal eye (round) -->
+    <g transform="translate(110, 130)">
+      <circle cx="0" cy="0" r="78" fill="#fff" stroke="#2a2620" stroke-width="2.2"/>
+      <!-- cornea bulge -->
+      <path d="M -78 -8 Q -90 0 -78 8" fill="#a4c4dd" opacity="0.55" stroke="#2a2620" stroke-width="1.6"/>
+      <!-- iris -->
+      <line x1="-78" y1="-8" x2="-72" y2="-2" stroke="#2a2620" stroke-width="1.6"/>
+      <line x1="-78" y1="8" x2="-72" y2="2" stroke="#2a2620" stroke-width="1.6"/>
+      <!-- lens -->
+      <ellipse cx="-65" cy="0" rx="6" ry="14" fill="#a4c4dd" opacity="0.7" stroke="#2a2620" stroke-width="1"/>
+      <!-- retina (back) -->
+      <path d="M 78 0 A 78 78 0 0 1 -25 -73" fill="none" stroke="#dc2626" stroke-width="3" opacity="0.7"/>
+      <path d="M 78 0 A 78 78 0 0 0 -25 73" fill="none" stroke="#dc2626" stroke-width="3" opacity="0.7"/>
+      <!-- focal point on retina -->
+      <circle cx="78" cy="0" r="4" fill="#16a34a"/>
+      <!-- light rays converging on retina -->
+      <line x1="-65" y1="-14" x2="78" y2="0" stroke="#c9a961" stroke-width="1.4" opacity="0.7"/>
+      <line x1="-65" y1="14" x2="78" y2="0" stroke="#c9a961" stroke-width="1.4" opacity="0.7"/>
+      <!-- axial length arrow -->
+      <line x1="-78" y1="100" x2="78" y2="100" stroke="#3a5a7c" stroke-width="1.5"/>
+      <polygon points="-78,100 -72,97 -72,103" fill="#3a5a7c"/>
+      <polygon points="78,100 72,97 72,103" fill="#3a5a7c"/>
+      <text x="0" y="118" font-size="12" font-family="Inter" font-weight="600" fill="#3a5a7c" text-anchor="middle">~24 mm</text>
+      <!-- label -->
+      <text x="0" y="-95" font-size="14" font-family="Inter" font-weight="700" fill="#16a34a" text-anchor="middle">正常眼 Normal</text>
+    </g>
+    <!-- RIGHT: myopic eye (elongated) -->
+    <g transform="translate(370, 130)">
+      <ellipse cx="0" cy="0" rx="100" ry="78" fill="#fff" stroke="#2a2620" stroke-width="2.2"/>
+      <!-- cornea bulge -->
+      <path d="M -100 -8 Q -114 0 -100 8" fill="#a4c4dd" opacity="0.55" stroke="#2a2620" stroke-width="1.6"/>
+      <line x1="-100" y1="-8" x2="-94" y2="-2" stroke="#2a2620" stroke-width="1.6"/>
+      <line x1="-100" y1="8" x2="-94" y2="2" stroke="#2a2620" stroke-width="1.6"/>
+      <!-- lens -->
+      <ellipse cx="-87" cy="0" rx="6" ry="14" fill="#a4c4dd" opacity="0.7" stroke="#2a2620" stroke-width="1"/>
+      <!-- retina (thinner, lighter) -->
+      <path d="M 100 0 A 100 78 0 0 1 -32 -73" fill="none" stroke="#dc2626" stroke-width="2" opacity="0.5"/>
+      <path d="M 100 0 A 100 78 0 0 0 -32 73" fill="none" stroke="#dc2626" stroke-width="2" opacity="0.5"/>
+      <!-- focal point IN FRONT of retina (myopic) -->
+      <circle cx="60" cy="0" r="5" fill="#dc2626"/>
+      <!-- light rays converging too early -->
+      <line x1="-87" y1="-14" x2="60" y2="0" stroke="#c9a961" stroke-width="1.4" opacity="0.7"/>
+      <line x1="-87" y1="14" x2="60" y2="0" stroke="#c9a961" stroke-width="1.4" opacity="0.7"/>
+      <!-- continuing rays diverge after focal point -->
+      <line x1="60" y1="0" x2="100" y2="-12" stroke="#c9a961" stroke-width="1" opacity="0.4" stroke-dasharray="3,2"/>
+      <line x1="60" y1="0" x2="100" y2="12" stroke="#c9a961" stroke-width="1" opacity="0.4" stroke-dasharray="3,2"/>
+      <!-- axial length arrow -->
+      <line x1="-100" y1="100" x2="100" y2="100" stroke="#dc2626" stroke-width="1.5"/>
+      <polygon points="-100,100 -94,97 -94,103" fill="#dc2626"/>
+      <polygon points="100,100 94,97 94,103" fill="#dc2626"/>
+      <text x="0" y="118" font-size="12" font-family="Inter" font-weight="600" fill="#dc2626" text-anchor="middle">~26 mm</text>
+      <!-- label -->
+      <text x="0" y="-95" font-size="14" font-family="Inter" font-weight="700" fill="#dc2626" text-anchor="middle">高度近視眼 High myopia</text>
+    </g>
+    <!-- divider -->
+    <line x1="240" y1="40" x2="240" y2="220" stroke="#dcd5c8" stroke-width="0.5" stroke-dasharray="3,3"/>
+  </svg>
+  <figcaption style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.75" data-zh="<strong>正常眼 vs 高度近視眼</strong>:高度近視的本質是<strong>眼軸過度拉長</strong>(由 24 mm → 26 mm 以上),光線聚焦在視網膜<strong>前方</strong>,看遠就模糊;同時視網膜被往後拖、變薄,終身視網膜剝離、青光眼風險顯著上升。" data-en="<strong>Normal vs high-myopic eye</strong>: high myopia is essentially <strong>excessive axial elongation</strong> (from ~24 mm to ≥26 mm). Light focuses <strong>in front of</strong> the retina, blurring distance vision; meanwhile the retina is stretched and thinner, raising lifetime risk of retinal detachment and glaucoma."><strong>正常眼 vs 高度近視眼</strong>:高度近視的本質是<strong>眼軸過度拉長</strong>(由 24 mm → 26 mm 以上),光線聚焦在視網膜<strong>前方</strong>,看遠就模糊;同時視網膜被往後拖、變薄,終身視網膜剝離、青光眼風險顯著上升。</figcaption>
+</figure>
+
 <div id="proseZh" class="prose">
 
 <h2 id="myth-1">迷思 1 · 「近視只是看不清楚，長大後雷射就好」</h2>

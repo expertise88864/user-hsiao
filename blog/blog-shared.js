@@ -44,9 +44,9 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
-    { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         cat:'myth', tag:'乾眼症',     date:'2026-05-04', tag_en:'Dry Eye' },
-    { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  cat:'myth', tag:'兒童近視',   date:'2026-05-04', tag_en:'Myopia control' },
-    { slug:'floaters-retinal-detachment', title:'飛蚊症 6 大警訊',         cat:'myth', tag:'飛蚊症',     date:'2026-05-04', tag_en:'Floaters' }
+    { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         title_en:'8 Dry-Eye Myths',                        cat:'myth', tag:'乾眼症',     tag_en:'Dry Eye',         date:'2026-05-04' },
+    { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  title_en:'8 Pediatric Myopia Control Myths',         cat:'myth', tag:'兒童近視',   tag_en:'Myopia control',  date:'2026-05-04' },
+    { slug:'floaters-retinal-detachment', title:'飛蚊症 6 大警訊',         title_en:'6 Floater Red Flags',                     cat:'myth', tag:'飛蚊症',     tag_en:'Floaters',        date:'2026-05-04' }
   ];
   DN.totalArticles = DN.ARTICLES.length;
 
@@ -826,15 +826,22 @@
     const popular = all.filter(function (a) { return popularSet.has(a.slug); }).slice(0, 3);
     const popularFinal = popular.length ? popular : recent;
 
+    function attr(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
     function render(host, items, emptyText) {
       if (!host) return;
       if (!items.length) { host.innerHTML = '<li style="padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--muted)">' + emptyText + '</li>'; return; }
       host.innerHTML = items.map(function (a) {
+        var titleZh = a.title || '';
+        var titleEn = a.title_en || a.title || '';
+        var tagZh = a.tag || '';
+        var tagEn = a.tag_en || a.tag || '';
+        var tagShortZh = tagZh.slice(0, 4);
+        var tagShortEn = (a.tag_en || tagZh).slice(0, 4);
         return '<li><a href="/blog/' + a.slug + '" style="display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
-          '<span style="flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--blue-soft);color:var(--blue-deep);font-weight:700;font-size:11px;display:inline-flex;align-items:center;justify-content:center;letter-spacing:.04em">' + (a.tag_en || a.tag || '').slice(0, 4) + '</span>' +
+          '<span data-zh="' + attr(tagShortZh) + '" data-en="' + attr(tagShortEn) + '" style="flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--blue-soft);color:var(--blue-deep);font-weight:700;font-size:11px;display:inline-flex;align-items:center;justify-content:center;letter-spacing:.04em">' + tagShortZh + '</span>' +
           '<span style="flex:1;min-width:0">' +
-            '<span style="display:block;font-family:\'Noto Serif TC\',Georgia,serif;font-size:14.5px;font-weight:700;line-height:1.4;color:var(--ink)">' + a.title + '</span>' +
-            '<span style="display:block;font-size:11.5px;color:var(--muted);margin-top:4px">' + a.tag + ' · ' + a.date + '</span>' +
+            '<span data-zh="' + attr(titleZh) + '" data-en="' + attr(titleEn) + '" style="display:block;font-family:\'Noto Serif TC\',Georgia,serif;font-size:14.5px;font-weight:700;line-height:1.4;color:var(--ink)">' + titleZh + '</span>' +
+            '<span data-zh="' + attr(tagZh + ' · ' + a.date) + '" data-en="' + attr(tagEn + ' · ' + a.date) + '" style="display:block;font-size:11.5px;color:var(--muted);margin-top:4px">' + tagZh + ' · ' + a.date + '</span>' +
           '</span>' +
         '</a></li>';
       }).join('');
