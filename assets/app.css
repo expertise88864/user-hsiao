@@ -116,8 +116,12 @@ img, video { max-width: 100%; height: auto; }
 .gap-6 { gap: 1.5rem; }
 .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
 
-/* ---- Typography ---- */
-.font-display    { font-family: 'Fraunces', 'Noto Serif TC', Georgia, serif; }
+/* ---- Typography ----
+   Chinese-first font order to match DermNotes: Noto Serif TC handles
+   CJK glyphs natively, Fraunces only kicks in for Latin characters
+   inside the same heading (e.g., "Dr. Hsiao"). Mixing the order avoids
+   FOUT-related visual flicker when Fraunces is still loading.            */
+.font-display    { font-family: 'Noto Serif TC', 'Fraunces', Georgia, serif; }
 .font-sans       { font-family: Inter, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif; }
 .font-bold       { font-weight: 700; }
 .font-semibold   { font-weight: 600; }
