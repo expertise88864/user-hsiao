@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>主題地圖 | HsiaoEye · 蕭閔謙醫師 眼科筆記</title>
+<meta name="description" content="HsiaoEye 全部眼科衛教主題地圖 — 乾眼症、兒童近視控制、飛蚊症、白內障、青光眼、葉黃素等。" />
+<meta name="theme-color" content="#3a5a7c" />
+<link rel="canonical" href="https://hsiao.chendermatologist.com/blog/topics" />
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/topics" />
+<link rel="alternate" hreflang="en" href="https://hsiao.chendermatologist.com/blog/topics" />
+<link rel="alternate" type="application/rss+xml" title="HsiaoEye RSS" href="/blog/feed.xml" />
+<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+<link rel="icon" sizes="any" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.json" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
+    --teal:#6b8caf; --teal-deep:#3a5a7c; --teal-bright:#a4c4dd; --mint-soft:#dcd9d1;
+    --blue:#6b8caf; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0;
+    --gold:#c9a961; --ochre:#c9a961; --border:#dcd5c8; --line:#ebe4d8;
+  }
+  html,body{ background:var(--bg); color:var(--ink); font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; }
+  .blue-text{ background:linear-gradient(180deg,#6b8caf 0%, #243b56 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lang-select{ appearance:none; -webkit-appearance:none; padding:6px 26px 6px 12px; font-size:12px; font-weight:600; color:var(--ink); border:1px solid var(--border); border-radius:9999px; background:#fff; cursor:pointer; }
+  .topic-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:14px; margin-top:28px; }
+  .topic-card{ display:flex; flex-direction:column; gap:8px; padding:18px 20px; background:#fff; border:0.5px solid var(--border); border-radius:14px; text-decoration:none; transition:all .18s; box-shadow:0 1px 2px rgba(15,23,42,.04); }
+  .topic-card:hover{ border-color:var(--teal-deep); transform:translateY(-2px); box-shadow:0 14px 32px -14px rgba(58,90,124,.25); }
+  .topic-card.placeholder{ opacity:.55; pointer-events:none; }
+  .topic-card .tag{ font-family:'JetBrains Mono',Inter,monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-deep); font-weight:600; }
+  .topic-card h3{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:17px; font-weight:600; color:var(--ink); margin:0; line-height:1.35; letter-spacing:-0.01em; }
+  .topic-card p{ font-size:12.5px; color:var(--muted); margin:0; }
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(250,247,242,.92); border-color:var(--border)">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="h-16 flex items-center justify-between gap-4">
+      <a href="/" class="flex items-center gap-3 min-w-0">
+        <img src="/icon.svg" alt="HsiaoEye" class="w-9 h-9 rounded-lg flex-shrink-0" width="36" height="36" />
+        <div class="min-w-0 leading-tight">
+          <div class="font-display font-semibold text-[16px] sm:text-[18px] blue-text">HsiaoEye</div>
+          <div class="text-[10.5px] sm:text-[11.5px] mt-0.5 truncate" style="color:var(--muted)">蕭閔謙醫師 · 眼科衛教筆記</div>
+        </div>
+      </a>
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <a href="/blog/" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
+        <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
+        <select id="langToggle" class="lang-select" aria-label="Language">
+          <option value="zh">中文</option><option value="en">EN</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-5 sm:px-8 py-12">
+  <div style="font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--teal-deep); font-weight:600" data-zh="主題地圖" data-en="Topic Map">主題地圖</div>
+  <h1 style="font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:clamp(30px,4vw,44px); font-weight:600; letter-spacing:-0.01em; line-height:1.2; color:var(--ink); margin:8px 0 12px" data-zh="眼科主題一覽" data-en="All ophthalmology topics">眼科主題一覽</h1>
+  <p style="font-family:'Noto Serif TC',Georgia,serif; font-size:16px; line-height:1.75; color:var(--ink-2); max-width:54ch" data-zh="從乾眼到視網膜疾病，網站全部主題分類整理。淡色為籌備中，寫好會立刻上線。" data-en="From dry eye to retinal disease — all topics on this site, organized. Faded items are in preparation.">從乾眼到視網膜疾病，網站全部主題分類整理。淡色為籌備中，寫好會立刻上線。</p>
+
+  <h2 style="font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:22px; font-weight:600; margin:36px 0 0; padding-bottom:8px; border-bottom:0.5px solid var(--border)" data-zh="眼前段 · 角結膜" data-en="Anterior segment · Cornea & conjunctiva">眼前段 · 角結膜</h2>
+  <div class="topic-grid">
+    <a href="/blog/dry-eye-myths" class="topic-card">
+      <span class="tag" data-zh="迷思澄清" data-en="Myth-busting">迷思澄清</span>
+      <h3 data-zh="乾眼症 8 大迷思" data-en="8 Dry-Eye Myths">乾眼症 8 大迷思</h3>
+      <p data-zh="人工淚液、BAK、瞼板腺、Omega-3" data-en="Artificial tears, BAK, MGD, Omega-3">人工淚液、BAK、瞼板腺、Omega-3</p>
+    </a>
+    <a href="/blog/" class="topic-card placeholder"><span class="tag" data-zh="即將上線" data-en="Coming">即將上線</span><h3 data-zh="紅眼症 — 過敏 vs 病毒 vs 細菌" data-en="Red eye — allergy vs virus vs bacteria">紅眼症 — 過敏 vs 病毒 vs 細菌</h3><p data-zh="結膜炎鑑別" data-en="Conjunctivitis differential">結膜炎鑑別</p></a>
+    <a href="/blog/" class="topic-card placeholder"><span class="tag" data-zh="即將上線" data-en="Coming">即將上線</span><h3 data-zh="麥粒腫 / 針眼" data-en="Hordeolum / Stye">麥粒腫 / 針眼</h3><p data-zh="瞼板腺發炎、熱敷、切開" data-en="MGD inflammation, warm compress">瞼板腺發炎、熱敷、切開</p></a>
+  </div>
+
+  <h2 style="font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:22px; font-weight:600; margin:36px 0 0; padding-bottom:8px; border-bottom:0.5px solid var(--border)" data-zh="屈光 · 兒童眼科" data-en="Refractive · Pediatric">屈光 · 兒童眼科</h2>
+  <div class="topic-grid">
+    <a href="/blog/pediatric-myopia-control" class="topic-card">
+      <span class="tag" data-zh="迷思澄清" data-en="Myth-busting">迷思澄清</span>
+      <h3 data-zh="兒童近視控制 8 大迷思" data-en="8 Pediatric Myopia Myths">兒童近視控制 8 大迷思</h3>
+      <p data-zh="阿托品、OK 鏡、紅光、戶外" data-en="Atropine, ortho-K, RLRL, outdoor">阿托品、OK 鏡、紅光、戶外</p>
+    </a>
+    <a href="/blog/" class="topic-card placeholder"><span class="tag" data-zh="即將上線" data-en="Coming">即將上線</span><h3 data-zh="近視雷射手術 — LASIK vs SMILE" data-en="LASIK vs SMILE">近視雷射手術 — LASIK vs SMILE</h3><p data-zh="術前評估、適應症" data-en="Pre-op, indications">術前評估、適應症</p></a>
+    <a href="/blog/" class="topic-card placeholder"><span class="tag" data-zh="即將上線" data-en="Coming">即將上線</span><h3 data-zh="老花眼處理選項" data-en="Presbyopia options">老花眼處理選項</h3><p data-zh="眼鏡、隱眼、雷射、IOL" data-en="Glasses, CL, laser, IOL">眼鏡、隱眼、雷射、IOL</p></a>
+  </div>
+
+  <h2 style="font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:22px; font-weight:600; margin:36px 0 0; padding-bottom:8px; border-bottom:0.5px solid var(--border)" data-zh="眼後段 · 視網膜 / 玻璃體" data-en="Posterior segment · Retina / Vitreous">眼後段 · 視網膜 / 玻璃體</h2>
+  <div class="topic-grid">
+    <a href="/blog/floaters-retinal-detachment" class="topic-card">
+      <span class="tag" data-zh="警訊辨識" data-en="Red Flags">警訊辨識</span>
+      <h3 data-zh="飛蚊症 6 大警訊" data-en="6 Floater Red Flags">飛蚊症 6 大警訊</h3>
+      <p data-zh="PVD、視網膜剝離、雷射光凝" data-en="PVD, RD, laser retinopexy">PVD、視網膜剝離、雷射光凝</p>
+    </a>
+    <a href="/blog/" class="topic-card placeholder"><span class="tag" data-zh="即將上線" data-en="Coming">即將上線</span><h3 data-zh="葉黃素護眼真相 — AREDS2 解析" data-en="Lutein truth — AREDS2 review">葉黃素護眼真相 — AREDS2 解析</h3><p data-zh="黃斑部、營養補充" data-en="Macula, supplements">黃斑部、營養補充</p></a>
+    <a href="/blog/" class="topic-card placeholder"><span class="tag" data-zh="即將上線" data-en="Coming">即將上線</span><h3 data-zh="糖尿病視網膜病變" data-en="Diabetic retinopathy">糖尿病視網膜病變</h3><p data-zh="篩檢、治療、抗 VEGF" data-en="Screening, anti-VEGF">篩檢、治療、抗 VEGF</p></a>
+  </div>
+
+  <h2 style="font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:22px; font-weight:600; margin:36px 0 0; padding-bottom:8px; border-bottom:0.5px solid var(--border)" data-zh="水晶體 · 青光眼" data-en="Lens · Glaucoma">水晶體 · 青光眼</h2>
+  <div class="topic-grid">
+    <a href="/blog/" class="topic-card placeholder"><span class="tag" data-zh="即將上線" data-en="Coming">即將上線</span><h3 data-zh="白內障手術 12 個常見問題" data-en="Cataract surgery FAQ">白內障手術 12 個常見問題</h3><p data-zh="健保 vs 自費 IOL" data-en="NHI vs premium IOL">健保 vs 自費 IOL</p></a>
+    <a href="/blog/" class="topic-card placeholder"><span class="tag" data-zh="即將上線" data-en="Coming">即將上線</span><h3 data-zh="青光眼 — 沉默的視力小偷" data-en="Glaucoma — silent thief">青光眼 — 沉默的視力小偷</h3><p data-zh="眼壓、視野、OCT" data-en="IOP, VF, OCT">眼壓、視野、OCT</p></a>
+  </div>
+</main>
+
+<!-- ============= MAGAZINE FOOTER ============= -->
+<style>
+  .mag-footer{ background:var(--ink); color:var(--bg); padding:80px clamp(20px,5vw,72px) 32px; margin-top:clamp(40px,6vw,80px); }
+  .mag-foot-top{ max-width:1440px; margin:0 auto; display:grid; grid-template-columns:1.4fr 2fr; gap:clamp(32px,5vw,80px); padding-bottom:48px; border-bottom:0.5px solid rgba(247,243,236,.16); }
+  .mag-foot-brand h3{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-style:italic; font-weight:600; font-size:clamp(26px,3vw,34px); margin:0 0 12px; letter-spacing:-0.01em; color:var(--bg); }
+  .mag-foot-brand p{ font-family:'Noto Serif TC',Georgia,serif; font-size:15.5px; line-height:1.7; color:rgba(247,243,236,.7); margin:0; max-width:42ch; }
+  .mag-foot-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .mag-foot-cols h5{ font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); margin:0 0 16px; font-weight:500; }
+  .mag-foot-cols ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .mag-foot-cols a{ font-size:14px; color:rgba(247,243,236,.85); text-decoration:none; transition:color .15s; }
+  .mag-foot-cols a:hover{ color:var(--teal-bright); }
+  .mag-foot-bot{ max-width:1440px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.1em; color:rgba(247,243,236,.55); flex-wrap:wrap; }
+  @media (max-width:980px){ .mag-foot-top{ grid-template-columns:1fr; } .mag-foot-cols{ grid-template-columns:repeat(2,1fr); } }
+</style>
+<footer class="mag-footer">
+  <div class="mag-foot-top">
+    <div class="mag-foot-brand">
+      <h3 data-zh="HsiaoEye · 蕭閔謙醫師 眼科筆記" data-en="HsiaoEye · Dr. Min-Chien Hsiao Ophthalmology Notes">HsiaoEye · 蕭閔謙醫師 眼科筆記</h3>
+      <p data-zh="從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。" data-en="From the clinic to your everyday eyes. All notes written by Dr. Hsiao. No ads, no sponsorships.">從診間到日常，好好照顧你的眼睛。本網站全部衛教文章由作者親自撰寫，無業配、無贊助。</p>
+    </div>
+    <div class="mag-foot-cols">
+      <div><h5 data-zh="網站" data-en="Site">網站</h5><ul><li><a href="/" data-zh="首頁" data-en="Home">首頁</a></li><li><a href="/blog/" data-zh="衛教文章" data-en="Articles">衛教文章</a></li><li><a href="/about" data-zh="關於作者" data-en="About">關於作者</a></li></ul></div>
+      <div><h5 data-zh="關於" data-en="About">關於</h5><ul><li><a href="/about" data-zh="作者簡介" data-en="Author">作者簡介</a></li><li><a href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li><li><a href="mailto:f94001115@gmail.com" data-zh="聯絡 Email" data-en="Contact">聯絡 Email</a></li></ul></div>
+      <div><h5 data-zh="訂閱" data-en="Subscribe">訂閱</h5><ul><li><a href="/blog/feed.xml">RSS Feed</a></li><li><a href="/blog/atom.xml">Atom Feed</a></li></ul></div>
+    </div>
+  </div>
+  <div class="mag-foot-bot">
+    <span>© <span id="yr">2026</span> Min-Chien Hsiao M.D. · <span data-zh="眼科衛教筆記" data-en="Ophthalmology Notes">眼科衛教筆記</span></span>
+    <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
+  </div>
+</footer>
+
+<script src="/blog/blog-shared.js?v=20260508" defer></script>
+<script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
+</body>
+</html>

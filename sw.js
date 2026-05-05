@@ -1,9 +1,13 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v6: + 6-card magazine grid (3 real + 3 placeholder), 4 new SVG illustrations,
- *     2 AdSense slots, removed Vol meta line. Cache-bust ?v=20260507
+ * v7: homepage restructured to mirror DermNotes flow:
+ *     hero → quick-find (search input + chips) → article-list-item
+ *     → 3-button row (browse all / topics / notes) → reading progress
+ *     → recent + popular dual column → FAQ → AdSense → subscribe → disclaimer
+ *     + new stub pages /blog/topics + /notes
+ *     cache-bust ?v=20260508
  */
-const CACHE = 'hs-v6';
-const RUNTIME = 'hs-runtime-v6';
+const CACHE = 'hs-v7';
+const RUNTIME = 'hs-runtime-v7';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
@@ -27,7 +31,9 @@ const PRECACHE = [
   '/blog/atom.xml',
   '/blog/dry-eye-myths',
   '/blog/pediatric-myopia-control',
-  '/blog/floaters-retinal-detachment'
+  '/blog/floaters-retinal-detachment',
+  '/blog/topics',
+  '/notes'
 ];
 
 self.addEventListener('install', (e) => {

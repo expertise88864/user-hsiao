@@ -821,9 +821,9 @@
     const all = (DN.ARTICLES || []).slice();
     if (!all.length) return;
     const byDate = all.slice().sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
-    const recent = byDate.slice(0, 5);
+    const recent = byDate.slice(0, 3);
     const popularSet = new Set(DN.POPULAR_SLUGS);
-    const popular = all.filter(function (a) { return popularSet.has(a.slug); });
+    const popular = all.filter(function (a) { return popularSet.has(a.slug); }).slice(0, 3);
     const popularFinal = popular.length ? popular : recent;
 
     function render(host, items, emptyText) {
@@ -841,6 +841,30 @@
     }
     render(document.getElementById('hs-recent-list'), recent, '尚無文章');
     render(document.getElementById('hs-popular-list'), popularFinal, '尚無文章');
+  };
+
+  // ---------- home search (filter article-list-item by title/tag/text) ----------
+  DN.bindHomeSearch = function () {
+    const input = document.getElementById('dn-search-input');
+    if (!input) return;
+    const items = document.querySelectorAll('#dn-article-list .article-list-item');
+    const empty = document.getElementById('dn-search-empty');
+    function applyFilter() {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach(function (it) {
+        const text = (it.textContent || '').toLowerCase();
+        const show = !q || text.indexOf(q) !== -1;
+        it.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      if (empty) empty.style.display = (q && visible === 0) ? 'block' : 'none';
+    }
+    input.addEventListener('input', applyFilter);
+    // Esc clears
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; applyFilter(); }
+    });
   };
 
   // ---------- service worker ----------
@@ -894,6 +918,7 @@
     DN.addFontSizer();
     DN.injectReadProgress();
     DN.injectSpotlight();
+    DN.bindHomeSearch();
     DN.registerSW();
 
     return { applyLang: apply };
