@@ -145,7 +145,11 @@
 
   <section class="profile-grid">
     <div>
-      <img src="/SUNN1302.jpg" alt="蕭閔謙 醫師" class="profile-photo" width="220" height="220" fetchpriority="high" />
+      <picture>
+        <source type="image/avif" srcset="/SUNN1302-220.avif 1x, /SUNN1302-440.avif 2x, /SUNN1302-660.avif 3x" />
+        <source type="image/webp" srcset="/SUNN1302-220.webp 1x, /SUNN1302-440.webp 2x, /SUNN1302-660.webp 3x" />
+        <img src="/SUNN1302.jpg" alt="蕭閔謙 醫師" class="profile-photo" width="220" height="220" fetchpriority="high" decoding="async" />
+      </picture>
     </div>
     <div class="profile-meta">
       <span class="pill" data-zh="關於我" data-en="About me">關於我</span>
@@ -248,7 +252,7 @@
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260512" defer></script>
+<script src="/blog/blog-shared.js?v=20260513" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>

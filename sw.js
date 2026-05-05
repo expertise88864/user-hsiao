@@ -1,13 +1,13 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v11: + Tailwind CDN removed (local /assets/app.css), TOC i18n, floaters renumbered, CI workflow, R2 badge removed
+ * v12: + WebP/AVIF SUNN1302 (220/440/660), 何時就醫 + 延伸閱讀 modules, expanded chips, offline.html SEO fix
  *     hero → quick-find (search input + chips) → article-list-item
  *     → 3-button row (browse all / topics / notes) → reading progress
  *     → recent + popular dual column → FAQ → AdSense → subscribe → disclaimer
  *     + new stub pages /blog/topics + /notes
  *     cache-bust ?v=20260508
  */
-const CACHE = 'hs-v11';
-const RUNTIME = 'hs-runtime-v11';
+const CACHE = 'hs-v12';
+const RUNTIME = 'hs-runtime-v12';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
@@ -25,6 +25,9 @@ const PRECACHE = [
   '/apple-touch-icon.png',
   '/logo-512.png',
   '/manifest.json',
+  '/SUNN1302-220.webp',
+  '/SUNN1302-220.avif',
+  '/SUNN1302-440.webp',
   '/blog/',
   '/assets/app.css',
   '/blog/blog-shared.js',
