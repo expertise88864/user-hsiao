@@ -164,6 +164,23 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
   /* Editorial brand mark in sticky header */
   .brand-mark{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-style:italic; font-weight:600; font-size:18px; letter-spacing:-0.01em; color:var(--ink); }
+
+  /* Magazine article grid (homepage 本期文章) */
+  .mag-grid-section{ max-width:1280px; margin:0 auto; padding:clamp(24px,4vw,48px) clamp(20px,4vw,56px); }
+  .mag-grid-header{ display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:24px; flex-wrap:wrap; padding-bottom:14px; border-bottom:0.5px solid var(--border); }
+  .mag-grid-header h2{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-weight:600; font-size:clamp(24px,3vw,34px); letter-spacing:-0.01em; line-height:1.2; color:var(--ink); margin:8px 0 0; }
+  .mag-grid-header .mag-eyebrow{ margin-bottom:0; }
+  .mag-grid-header a{ font-family:'JetBrains Mono',Inter,monospace; font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-deep); font-weight:600; text-decoration:none; }
+  .mag-grid-header a:hover{ text-decoration:underline; }
+  .mag-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:clamp(18px,2vw,28px); }
+  .mag-grid .mag-card-cover{ aspect-ratio:4/3; }
+  .mag-grid .mag-card.placeholder{ opacity:0.7; pointer-events:none; }
+  .mag-grid .mag-card.placeholder .mag-card-cover{ background:var(--mint-soft); }
+  .mag-grid .mag-card.placeholder::after{ content:'COMING'; position:absolute; top:14px; right:14px; background:var(--ink); color:var(--bg); font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.18em; padding:3px 8px; border-radius:3px; z-index:2; }
+
+  /* AdSense placeholder slot */
+  .ad-slot{ border:0.5px dashed var(--border); border-radius:14px; background:#fff; color:var(--muted); font-size:11px; letter-spacing:.18em; text-transform:uppercase; display:flex; align-items:center; justify-content:center; min-height:96px; font-family:'JetBrains Mono',Inter,monospace; }
+  .ad-slot.tall{ min-height:280px; }
 </style>
 <style id="hs-global-ux">
   body { padding-bottom: env(safe-area-inset-bottom); }
@@ -275,13 +292,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
 <!-- ============= MAGAZINE HERO ============= -->
 <section class="mag-hero">
-  <div class="mag-hero-meta">
-    <span data-zh="Vol.01" data-en="Vol.01">Vol.01</span>
-    <span class="mag-hero-meta-dot">·</span>
-    <span data-zh="2026 春季號" data-en="2026 Spring">2026 春季號</span>
-    <span class="mag-hero-meta-dot">·</span>
-    <span data-zh="3 篇衛教 · 持續更新" data-en="3 articles · ongoing">3 篇衛教 · 持續更新</span>
-  </div>
   <div class="mag-hero-grid">
     <div>
       <div class="mag-eyebrow" data-zh="眼科衛教筆記" data-en="Ophthalmology Patient-Education Notes">眼科衛教筆記</div>
@@ -380,31 +390,195 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </section>
 
-<!-- 最近更新 + 熱門推薦 + 閱讀進度 -->
-<section class="py-8" id="hs-spotlight">
-  <div class="max-w-5xl mx-auto px-5 sm:px-8">
-    <div id="hs-read-progress" style="margin-bottom:24px"></div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <div class="flex items-center gap-2 mb-4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a5a7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span class="text-[11px] uppercase tracking-[.24em] font-semibold" style="color:var(--blue-deep)" data-zh="最近更新" data-en="Recently Updated">最近更新</span>
-        </div>
-        <ol id="hs-recent-list" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-          <li style="padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--ink-2)">載入中⋯</li>
-        </ol>
-      </div>
-      <div>
-        <div class="flex items-center gap-2 mb-4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a5a7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <span class="text-[11px] uppercase tracking-[.24em] font-semibold" style="color:var(--blue-deep)" data-zh="熱門推薦" data-en="Editor's Picks">熱門推薦</span>
-        </div>
-        <ol id="hs-popular-list" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-          <li style="padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--ink-2)">載入中⋯</li>
-        </ol>
-      </div>
+<!-- ============= ADSENSE SLOT (above fold, after quick-find) ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 mt-6">
+  <div class="ad-slot" data-zh="廣告位 · AdSense" data-en="Ad slot · AdSense">廣告位 · AdSense</div>
+</section>
+
+<!-- ============= 本期文章 (magazine article grid, default 6 cards) ============= -->
+<section class="mag-grid-section">
+  <div class="mag-grid-header">
+    <div>
+      <div class="mag-eyebrow" data-zh="本期文章" data-en="This Issue">本期文章</div>
+      <h2 data-zh="診間講不完的話，寫在這裡。" data-en="What clinic doesn't have time to explain.">診間講不完的話，寫在這裡。</h2>
     </div>
+    <a href="/blog/" data-zh="全部文章 →" data-en="All articles →">全部文章 →</a>
   </div>
+  <div class="mag-grid">
+
+    <!-- Card 1: Floaters (real, newest) -->
+    <a class="mag-card" href="/blog/floaters-retinal-detachment">
+      <div class="mag-card-cover">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="300" fill="#dcd9d1"/>
+          <g filter="url(#mag-rough)">
+            <circle cx="200" cy="150" r="105" fill="#fff" stroke="#2a2620" stroke-width="2.5"/>
+            <circle cx="200" cy="150" r="48" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="2"/>
+            <circle cx="200" cy="150" r="20" fill="#2a2620"/>
+            <circle cx="190" cy="142" r="6" fill="#faf7f2"/>
+            <circle cx="125" cy="115" r="4" fill="#2a2620" opacity="0.65"/>
+            <ellipse cx="148" cy="100" rx="5" ry="2" fill="#2a2620" opacity="0.55" transform="rotate(-20 148 100)"/>
+            <circle cx="285" cy="120" r="3.5" fill="#2a2620" opacity="0.55"/>
+            <ellipse cx="295" cy="195" rx="5" ry="2" fill="#2a2620" opacity="0.5" transform="rotate(20 295 195)"/>
+            <circle cx="115" cy="190" r="3" fill="#2a2620" opacity="0.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="mag-card-body">
+        <span class="mag-card-tag" data-zh="警訊辨識" data-en="Red Flags">警訊辨識</span>
+        <h3 data-zh="飛蚊症 6 大警訊" data-en="6 Floater Red Flags">飛蚊症 6 大警訊</h3>
+        <div class="mag-card-meta">2026.05.04 · 9 min · 飛蚊症</div>
+      </div>
+    </a>
+
+    <!-- Card 2: Pediatric myopia (real) -->
+    <a class="mag-card" href="/blog/pediatric-myopia-control">
+      <div class="mag-card-cover">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="300" fill="#ebe4d8"/>
+          <g filter="url(#mag-rough)">
+            <circle cx="135" cy="150" r="62" fill="#fff" stroke="#2a2620" stroke-width="3"/>
+            <circle cx="265" cy="150" r="62" fill="#fff" stroke="#2a2620" stroke-width="3"/>
+            <line x1="195" y1="150" x2="205" y2="150" stroke="#2a2620" stroke-width="3" stroke-linecap="round"/>
+            <line x1="73" y1="138" x2="40" y2="118" stroke="#2a2620" stroke-width="3" stroke-linecap="round"/>
+            <line x1="327" y1="138" x2="360" y2="118" stroke="#2a2620" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="135" cy="150" r="58" fill="#a4c4dd" opacity="0.45"/>
+            <circle cx="265" cy="150" r="58" fill="#a4c4dd" opacity="0.45"/>
+            <path d="M 105 125 Q 130 115 155 130" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+          </g>
+        </svg>
+      </div>
+      <div class="mag-card-body">
+        <span class="mag-card-tag" data-zh="迷思澄清" data-en="Myth-busting">迷思澄清</span>
+        <h3 data-zh="兒童近視控制 8 大迷思" data-en="8 Pediatric Myopia Control Myths">兒童近視控制 8 大迷思</h3>
+        <div class="mag-card-meta">2026.05.04 · 12 min · 兒童近視</div>
+      </div>
+    </a>
+
+    <!-- Card 3: Dry eye (real) — IllEyedrops -->
+    <a class="mag-card" href="/blog/dry-eye-myths">
+      <div class="mag-card-cover">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="300" fill="#f3f0e8"/>
+          <g filter="url(#mag-rough)">
+            <!-- bottle body -->
+            <rect x="155" y="120" width="90" height="135" rx="12" fill="#a4c4dd" stroke="#2a2620" stroke-width="2.5"/>
+            <!-- cap -->
+            <rect x="165" y="98" width="70" height="26" rx="4" fill="#3a5a7c" stroke="#2a2620" stroke-width="2"/>
+            <!-- nozzle -->
+            <rect x="188" y="76" width="24" height="24" fill="#3a5a7c" stroke="#2a2620" stroke-width="1.8"/>
+            <!-- falling drop (teardrop shape) -->
+            <path d="M 200 32 C 192 50 188 60 200 65 C 212 60 208 50 200 32 Z" fill="#a4c4dd" stroke="#2a2620" stroke-width="2"/>
+            <!-- bottle highlight -->
+            <line x1="170" y1="135" x2="170" y2="240" stroke="#fff" stroke-width="4" opacity="0.65"/>
+            <!-- splash dots -->
+            <circle cx="178" cy="40" r="2.5" fill="#a4c4dd"/>
+            <circle cx="222" cy="48" r="2" fill="#a4c4dd"/>
+            <!-- label -->
+            <rect x="172" y="160" width="56" height="34" fill="#faf7f2" stroke="#2a2620" stroke-width="1.5"/>
+            <line x1="180" y1="172" x2="220" y2="172" stroke="#2a2620" stroke-width="1.4"/>
+            <line x1="180" y1="180" x2="215" y2="180" stroke="#2a2620" stroke-width="1.2"/>
+            <line x1="180" y1="187" x2="210" y2="187" stroke="#2a2620" stroke-width="1.2"/>
+          </g>
+        </svg>
+      </div>
+      <div class="mag-card-body">
+        <span class="mag-card-tag" data-zh="迷思澄清" data-en="Myth-busting">迷思澄清</span>
+        <h3 data-zh="乾眼症 8 大迷思" data-en="8 Dry-Eye Myths">乾眼症 8 大迷思</h3>
+        <div class="mag-card-meta">2026.05.04 · 8 min · 乾眼症</div>
+      </div>
+    </a>
+
+    <!-- Card 4: Cataract (placeholder) — IllAbstract (cloudy lens) -->
+    <a class="mag-card placeholder" href="/blog/" aria-disabled="true">
+      <div class="mag-card-cover">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="300" fill="#dcd9d1"/>
+          <g filter="url(#mag-rough)">
+            <!-- abstract layered lens -->
+            <ellipse cx="200" cy="150" rx="135" ry="105" fill="#a4c4dd" opacity="0.7" stroke="#2a2620" stroke-width="2.5"/>
+            <ellipse cx="200" cy="150" rx="100" ry="75" fill="#dcd9d1" opacity="0.85"/>
+            <ellipse cx="200" cy="150" rx="60" ry="42" fill="#3a5a7c" opacity="0.6"/>
+            <!-- cloudy patches -->
+            <circle cx="170" cy="135" r="14" fill="#faf7f2" opacity="0.6"/>
+            <circle cx="230" cy="160" r="11" fill="#faf7f2" opacity="0.55"/>
+            <circle cx="195" cy="170" r="8" fill="#faf7f2" opacity="0.5"/>
+            <!-- accent line -->
+            <line x1="290" y1="80" x2="335" y2="55" stroke="#c9a961" stroke-width="3" stroke-linecap="round"/>
+            <line x1="65" y1="220" x2="110" y2="245" stroke="#c9a961" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <div class="mag-card-body">
+        <span class="mag-card-tag" data-zh="即將上線" data-en="Coming Soon">即將上線</span>
+        <h3 data-zh="白內障手術 12 個常見問題" data-en="Cataract surgery FAQ">白內障手術 12 個常見問題</h3>
+        <div class="mag-card-meta" data-zh="籌備中 · 白內障" data-en="In preparation · Cataract">籌備中 · 白內障</div>
+      </div>
+    </a>
+
+    <!-- Card 5: Lutein (placeholder) — IllRetina (macula) -->
+    <a class="mag-card placeholder" href="/blog/" aria-disabled="true">
+      <div class="mag-card-cover">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="300" fill="#f3f0e8"/>
+          <g filter="url(#mag-rough)">
+            <!-- retina disk -->
+            <circle cx="200" cy="150" r="115" fill="#f4dfae" stroke="#2a2620" stroke-width="2.5"/>
+            <!-- optic disc -->
+            <circle cx="265" cy="150" r="22" fill="#fff" stroke="#3a5a7c" stroke-width="2"/>
+            <circle cx="265" cy="150" r="9" fill="#a4c4dd"/>
+            <!-- vessels -->
+            <path d="M 265 150 Q 220 110 130 90" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+            <path d="M 265 150 Q 220 130 110 130" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+            <path d="M 265 150 Q 200 175 110 200" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+            <path d="M 265 150 Q 220 195 130 220" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+            <path d="M 265 150 Q 245 100 240 70" fill="none" stroke="#3a5a7c" stroke-width="2.2" stroke-linecap="round" opacity="0.5"/>
+            <path d="M 265 150 Q 245 200 240 230" fill="none" stroke="#3a5a7c" stroke-width="2.2" stroke-linecap="round" opacity="0.5"/>
+            <!-- macula (yellow pigment) -->
+            <circle cx="170" cy="150" r="16" fill="#c9a961" opacity="0.7"/>
+            <circle cx="170" cy="150" r="5" fill="#2a2620" opacity="0.85"/>
+          </g>
+        </svg>
+      </div>
+      <div class="mag-card-body">
+        <span class="mag-card-tag" data-zh="即將上線" data-en="Coming Soon">即將上線</span>
+        <h3 data-zh="葉黃素護眼真相 — AREDS2 解析" data-en="Lutein for eye health — AREDS2 review">葉黃素護眼真相 — AREDS2 解析</h3>
+        <div class="mag-card-meta" data-zh="籌備中 · 黃斑部 / 補充品" data-en="In preparation · Macula / Supplements">籌備中 · 黃斑部 / 補充品</div>
+      </div>
+    </a>
+
+    <!-- Card 6: Vision check (placeholder) — IllChart (Snellen) -->
+    <a class="mag-card placeholder" href="/blog/" aria-disabled="true">
+      <div class="mag-card-cover">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="400" height="300" fill="#ebe4d8"/>
+          <g filter="url(#mag-rough)">
+            <!-- chart border -->
+            <rect x="120" y="35" width="160" height="230" fill="#fff" stroke="#2a2620" stroke-width="2.5"/>
+            <!-- letters -->
+            <text x="200" y="78" text-anchor="middle" font-size="42" font-weight="800" font-family="Inter,sans-serif" fill="#2a2620">E</text>
+            <text x="200" y="120" text-anchor="middle" font-size="28" font-weight="700" font-family="Inter,sans-serif" fill="#2a2620">F P</text>
+            <text x="200" y="155" text-anchor="middle" font-size="20" font-weight="700" font-family="Inter,sans-serif" fill="#2a2620">T O Z</text>
+            <text x="200" y="183" text-anchor="middle" font-size="14" font-weight="600" font-family="Inter,sans-serif" fill="#3a5a7c">L P E D</text>
+            <text x="200" y="208" text-anchor="middle" font-size="11" font-weight="500" font-family="Inter,sans-serif" fill="#3a5a7c">P E C F D</text>
+            <text x="200" y="230" text-anchor="middle" font-size="9" font-weight="500" font-family="Inter,sans-serif" fill="#3a5a7c">E D F C Z P</text>
+            <text x="200" y="250" text-anchor="middle" font-size="7" font-weight="500" font-family="Inter,sans-serif" fill="#3a5a7c">F E L O P Z D</text>
+          </g>
+        </svg>
+      </div>
+      <div class="mag-card-body">
+        <span class="mag-card-tag" data-zh="即將上線" data-en="Coming Soon">即將上線</span>
+        <h3 data-zh="一張視力表能告訴你的事" data-en="What a Snellen chart actually measures">一張視力表能告訴你的事</h3>
+        <div class="mag-card-meta" data-zh="籌備中 · 視力檢查" data-en="In preparation · Vision testing">籌備中 · 視力檢查</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ============= 閱讀進度 widget (standalone) ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 my-6">
+  <div id="hs-read-progress"></div>
 </section>
 
 <!-- HOMEPAGE FAQ — 民眾搜尋最多的眼科問題 -->
@@ -446,6 +620,11 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
       <details class="hf"><summary>老花眼一定要戴眼鏡嗎？有手術嗎？</summary><div class="ans">老花是<strong>水晶體調節力下降</strong>,40 歲後幾乎所有人都會。處理選項:(1) <strong>老花眼鏡</strong>（最簡單）,(2) 雙焦/漸進多焦鏡片,(3) 多焦點隱形眼鏡,(4) <strong>雷射老花矯正（PresbyLASIK)</strong>,(5) <strong>白內障手術同時換多焦點人工水晶體</strong>（中老年常見）。沒有「絕對要戴」 — 看你是否影響日常閱讀。即將上線文章。</div></details>
     </div>
   </div>
+</section>
+
+<!-- ============= ADSENSE SLOT (between FAQ and subscribe) ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 my-6">
+  <div class="ad-slot" data-zh="廣告位 · AdSense" data-en="Ad slot · AdSense">廣告位 · AdSense</div>
 </section>
 
 <!-- 訂閱新文章通知 -->
@@ -569,7 +748,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260506" defer></script>
+<script src="/blog/blog-shared.js?v=20260507" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>

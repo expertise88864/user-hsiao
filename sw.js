@@ -1,9 +1,9 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v5: magazine template (paper cream + ink black + Tiffany blue/navy + Fraunces italic)
- *     + blog-shared.js cache-bust ?v=20260506
+ * v6: + 6-card magazine grid (3 real + 3 placeholder), 4 new SVG illustrations,
+ *     2 AdSense slots, removed Vol meta line. Cache-bust ?v=20260507
  */
-const CACHE = 'hs-v5';
-const RUNTIME = 'hs-runtime-v5';
+const CACHE = 'hs-v6';
+const RUNTIME = 'hs-runtime-v6';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
