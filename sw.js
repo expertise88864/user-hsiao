@@ -1,13 +1,13 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v8: dark mode + mobile bottom-fixed nav + i18n re-apply fix + GA active + perf (Tailwind defer)
+ * v9: bilingual FAQ + injectSpotlight i18n + 3 article SVG figures
  *     hero → quick-find (search input + chips) → article-list-item
  *     → 3-button row (browse all / topics / notes) → reading progress
  *     → recent + popular dual column → FAQ → AdSense → subscribe → disclaimer
  *     + new stub pages /blog/topics + /notes
  *     cache-bust ?v=20260508
  */
-const CACHE = 'hs-v8';
-const RUNTIME = 'hs-runtime-v8';
+const CACHE = 'hs-v9';
+const RUNTIME = 'hs-runtime-v9';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
