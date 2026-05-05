@@ -1,13 +1,13 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v9: bilingual FAQ + injectSpotlight i18n + 3 article SVG figures
+ * v10: + 4 landing pages (cataract / glaucoma / contact-lens / red-eye); FAQ deep-link; theme-toggle position; ads.txt + humans.txt + CSP/HSTS
  *     hero → quick-find (search input + chips) → article-list-item
  *     → 3-button row (browse all / topics / notes) → reading progress
  *     → recent + popular dual column → FAQ → AdSense → subscribe → disclaimer
  *     + new stub pages /blog/topics + /notes
  *     cache-bust ?v=20260508
  */
-const CACHE = 'hs-v9';
-const RUNTIME = 'hs-runtime-v9';
+const CACHE = 'hs-v10';
+const RUNTIME = 'hs-runtime-v10';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
@@ -33,6 +33,10 @@ const PRECACHE = [
   '/blog/pediatric-myopia-control',
   '/blog/floaters-retinal-detachment',
   '/blog/topics',
+  '/blog/cataract-surgery-faq',
+  '/blog/glaucoma-warnings',
+  '/blog/contact-lens-safety',
+  '/blog/red-eye-conjunctivitis',
   '/notes'
 ];
 

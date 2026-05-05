@@ -1,0 +1,8 @@
+# HsiaoEye · 蕭閔謙醫師 眼科筆記
+# https://hsiao.chendermatologist.com/
+#
+# Google AdSense — replace pub-XXXXXXXXXXXXXXXX with your real publisher ID
+# once your AdSense account is approved. Format reference:
+#   https://support.google.com/adsense/answer/7105754
+#
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

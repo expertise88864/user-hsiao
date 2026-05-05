@@ -1,0 +1,29 @@
+/* TEAM */
+Author & Editor: Min-Chien Hsiao, MD (蕭閔謙 醫師)
+Site:            https://hsiao.chendermatologist.com/
+Contact:         f94001115@gmail.com
+Specialty:       Ophthalmology (眼科)
+Education:       KMU School of Post-Baccalaureate Medicine
+                 (高雄醫學大學 學士後醫學系)
+Location:        Taiwan
+
+/* SITE */
+Last update:     2026-05-10
+Standards:       HTML5, CSS3, ES2018+, Schema.org
+Content:         Bilingual (zh-TW / en) — patient education + study notes
+Build:           Pure static HTML + Tailwind CDN + PWA service worker
+Hosting:         Vercel (Hobby) — https://vercel.com
+DNS:             Cloudflare (DNS-only, not proxied) — https://www.cloudflare.com
+Repo:            https://github.com/expertise88864/user-hsiao
+Architecture:    Sister site to /chendermatologist.com (DermNotes), shares
+                 the magazine template (paper cream + ink black + Fraunces
+                 italic + JetBrains Mono + Tiffany blue accents).
+
+/* THANKS */
+Inspired by:     ChenDermatologist · 陳翊嘉 醫師 (磁版)
+                 https://chendermatologist.com/
+
+/* DISCLAIMER */
+All content here is for general patient-education reference only and is not
+individualized medical advice. The site does not engage in medical advertising
+under Taiwan Medical Care Act §§85–86 / Physicians Act §17.

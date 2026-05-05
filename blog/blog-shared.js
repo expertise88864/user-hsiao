@@ -896,21 +896,19 @@
       document.head.appendChild(st);
     }
 
-    const header = document.querySelector('header.sticky .h-16') || document.querySelector('header');
-    if (!header) return;
-    const right = header.querySelector('.flex.items-center.gap-2') || header.lastElementChild;
-    if (!right) return;
+    const langToggle = document.getElementById('langToggle');
+    if (!langToggle || !langToggle.parentNode) return;
 
     const btn = document.createElement('button');
     btn.id = 'hs-theme-toggle';
     btn.type = 'button';
     btn.setAttribute('aria-label', 'Toggle theme');
-    btn.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9999px;background:transparent;border:1px solid var(--border);color:var(--ink);cursor:pointer;flex-shrink:0;font-size:15px;line-height:1;transition:all .15s';
+    btn.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9999px;background:#fff;border:1px solid var(--border);color:var(--ink);cursor:pointer;flex-shrink:0;font-size:15px;line-height:1;transition:all .15s';
     function render() {
       const isDark = root.dataset.theme === 'dark';
       btn.innerHTML = isDark
-        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
-        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+        ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+        : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
       btn.title = isDark ? 'Switch to light' : 'Switch to dark';
     }
     render();
@@ -919,7 +917,8 @@
       try { localStorage.setItem('hs_theme', root.dataset.theme); } catch (e) {}
       render();
     });
-    right.insertBefore(btn, right.firstChild);
+    // Insert immediately BEFORE the language select
+    langToggle.parentNode.insertBefore(btn, langToggle);
   };
 
   // ---------- mobile bottom-fixed nav (3 buttons: Articles / Search / About) ----------
@@ -965,6 +964,34 @@
         e.preventDefault();
         input.focus();
         input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  };
+
+  // ---------- FAQ hash deep linking (open by URL hash, push hash on toggle) ----------
+  DN.bindFAQDeepLink = function () {
+    const items = document.querySelectorAll('details.hf');
+    if (!items.length) return;
+    items.forEach(function (d, i) {
+      if (!d.id) d.id = 'q' + (i + 1);
+      if ('#' + d.id === location.hash) {
+        d.open = true;
+        setTimeout(function () { d.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 200);
+      }
+      d.addEventListener('toggle', function () {
+        if (d.open && history.replaceState) {
+          history.replaceState(null, '', '#' + d.id);
+        }
+      });
+    });
+    // Handle browser back/forward
+    window.addEventListener('hashchange', function () {
+      const h = location.hash;
+      if (!h) return;
+      const target = document.querySelector(h);
+      if (target && target.tagName === 'DETAILS' && target.classList.contains('hf')) {
+        target.open = true;
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
   };
@@ -1047,6 +1074,7 @@
     DN.bindHomeSearch();
     DN.bindThemeToggle();
     DN.injectMobileBottomNav();
+    DN.bindFAQDeepLink();
     DN.registerSW();
 
     // CRITICAL: re-apply lang to all DOM (including JS-injected elements like

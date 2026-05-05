@@ -62,4 +62,10 @@
     <image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>飛蚊症 6 大警訊</image:title></image:image>
   </url>
 
+  <!-- Landing pages (stubs with red flags + when-to-see-doctor) -->
+  <url><loc>https://hsiao.chendermatologist.com/blog/cataract-surgery-faq</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>白內障手術 12 個常見問題</image:title></image:image></url>
+  <url><loc>https://hsiao.chendermatologist.com/blog/glaucoma-warnings</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>青光眼急症警訊</image:title></image:image></url>
+  <url><loc>https://hsiao.chendermatologist.com/blog/contact-lens-safety</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>隱形眼鏡安全指南</image:title></image:image></url>
+  <url><loc>https://hsiao.chendermatologist.com/blog/red-eye-conjunctivitis</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>紅眼症結膜炎鑑別</image:title></image:image></url>
+
 </urlset>
