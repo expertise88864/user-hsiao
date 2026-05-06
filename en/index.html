@@ -63,8 +63,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
+<link rel="preload" as="style" href="/assets/app.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/app.css" />
 <style>
   :root{
@@ -447,11 +448,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </section>
 
-<!-- ============= ADSENSE SLOT (above fold, after quick-find) ============= -->
-<section class="max-w-3xl mx-auto px-5 sm:px-8 mt-6">
-  <div class="ad-slot" data-zh="廣告位 · AdSense" data-en="Ad slot · AdSense">廣告位 · AdSense</div>
-</section>
-
 <!-- ============= 最新文章 (article-list-item, DermNotes pattern + button row) ============= -->
 <section class="max-w-5xl mx-auto px-5 sm:px-8 py-8" id="articles">
   <div class="section-head">
@@ -510,11 +506,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </section>
 
-<!-- ============= 閱讀進度 widget (standalone) ============= -->
-<section class="max-w-3xl mx-auto px-5 sm:px-8 my-6">
-  <div id="hs-read-progress"></div>
-</section>
-
 <!-- ============= 最近更新 + 熱門推薦 dual column (max 3 each) ============= -->
 <section class="py-8" id="hs-spotlight">
   <div class="max-w-5xl mx-auto px-5 sm:px-8">
@@ -541,9 +532,15 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </section>
 
+<!-- ============= 閱讀進度 widget (standalone, after spotlight per user request) ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 my-6">
+  <div id="hs-read-progress"></div>
+</section>
+
+<hr class="sep" />
 
 <!-- HOMEPAGE FAQ — 民眾搜尋最多的眼科問題 -->
-<section class="py-10">
+<section class="py-10 cv-auto-tall">
   <div class="max-w-3xl mx-auto px-5 sm:px-8">
     <div class="text-[11px] uppercase tracking-[.24em] font-semibold" style="color:var(--blue-deep)" data-zh="常見問題" data-en="Frequently Asked">常見問題</div>
     <h2 class="font-display font-bold text-[26px] sm:text-[32px] mt-3 leading-tight" data-zh="民眾搜尋最多的 15 個眼科問題" data-en="The 15 most-searched ophthalmology questions">民眾搜尋最多的 15 個眼科問題</h2>
@@ -569,42 +566,15 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </section>
 
-<!-- ============= ADSENSE SLOT (between FAQ and subscribe) ============= -->
+<hr class="sep" />
+
+<!-- ============= ADSENSE SLOT (between FAQ and disclaimer) ============= -->
 <section class="max-w-3xl mx-auto px-5 sm:px-8 my-6">
   <div class="ad-slot" data-zh="廣告位 · AdSense" data-en="Ad slot · AdSense">廣告位 · AdSense</div>
 </section>
 
-
-
-<!-- About: 學經歷 timeline -->
-<section class="max-w-5xl mx-auto px-5 sm:px-8 mb-12">
-  <div class="info-card">
-    <h3 data-zh="學經歷" data-en="Education &amp; Training">學經歷</h3>
-    <div class="timeline">
-      <div class="timeline-item">
-        <span class="yr" data-zh="現職" data-en="Current">現職</span>
-        <h4 data-zh="眼科住院醫師" data-en="Ophthalmology Resident">眼科住院醫師</h4>
-      </div>
-      <div class="timeline-item">
-        <span class="yr" data-zh="PGY" data-en="PGY">PGY</span>
-        <h4 data-zh="彰化基督教醫院 · 不分科住院醫師（PGY)" data-en="Resident Physician, Changhua Christian Hospital (PGY)">彰化基督教醫院 · 不分科住院醫師（PGY）</h4>
-      </div>
-      <div class="timeline-item">
-        <span class="yr" data-zh="PGY" data-en="PGY">PGY</span>
-        <h4 data-zh="台中榮民總醫院 · 不分科住院醫師（PGY)" data-en="Post-Graduate Year (PGY), Taichung Veterans General Hospital">台中榮民總醫院 · 不分科住院醫師（PGY）</h4>
-      </div>
-      <div class="timeline-item">
-        <span class="yr" data-zh="醫學系" data-en="MD program">醫學系</span>
-        <h4 data-zh="高雄醫學大學 · 學士後醫學系" data-en="KMU School of Post-Baccalaureate Medicine">高雄醫學大學 · 學士後醫學系</h4>
-        <p data-zh="醫學士 (M.D.)" data-en="Doctor of Medicine (M.D.)">醫學士 (M.D.)</p>
-      </div>
-    </div>
-    <a href="/about" style="display:inline-flex;margin-top:14px;align-items:center;gap:4px;padding:8px 14px;border-radius:9999px;background:var(--blue-soft);border:1px solid #b8cfe3;color:var(--blue-deep);font-size:13px;font-weight:600;text-decoration:none" data-zh="完整自介 →" data-en="Full bio →">完整自介 →</a>
-  </div>
-</section>
-
 <!-- 醫療免責聲明 -->
-<section class="pb-12">
+<section class="pb-12 cv-auto-short">
   <div class="max-w-3xl mx-auto px-5 sm:px-8">
     <div class="disclaimer-box">
       <strong data-zh="醫療免責聲明 · " data-en="Medical disclaimer · ">醫療免責聲明 · </strong>
@@ -633,7 +603,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   @media (max-width:980px){ .mag-foot-top{ grid-template-columns:1fr; } .mag-foot-disclaimer{ grid-template-columns:1fr; } .mag-foot-cols{ grid-template-columns:repeat(2,1fr); } }
   @media (max-width:560px){ .mag-foot-cols{ grid-template-columns:1fr; } }
 </style>
-<footer class="mag-footer">
+<footer class="mag-footer cv-auto-short">
   <div class="mag-foot-top">
     <div class="mag-foot-brand">
       <h3 data-zh="HsiaoEye · 蕭閔謙醫師 眼科筆記" data-en="HsiaoEye · Dr. Min-Chien Hsiao Ophthalmology Notes">HsiaoEye · 蕭閔謙醫師 眼科筆記</h3>
@@ -688,7 +658,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script src="/blog/blog-shared.js?v=20260518" defer></script>
+<script src="/blog/blog-shared.js?v=20260519" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>

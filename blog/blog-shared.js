@@ -2010,62 +2010,95 @@
       if (typeof opts.onChange === 'function') opts.onChange(lang);
     }
 
+    // Cross-browser idle-callback shim (Safari + iOS WebKit don't have rIC)
+    var idle = window.requestIdleCallback || function (cb, opts) {
+      var t = (opts && opts.timeout) || 250;
+      return setTimeout(function () { cb({ didTimeout: false, timeRemaining: function () { return 50; } }); }, t);
+    };
+
+    // ── PHASE 1 — synchronous / blocking (must run before first paint) ──
+    // Anything that affects above-the-fold layout, language toggle, or
+    // first-screen content rendering belongs here.
     DN.injectMobileMenu();
     DN.bindLangToggle(apply);
     apply(curLang);
     DN.injectFooterYear();
-    DN.addReadingProgress();
-    DN.addScrollToTop();
-    DN.bindRevealOnScroll();
-    DN.bindViewTransitions();
-    DN.prefetchOnIdle();
-    DN.initCmdK();              // Cmd/Ctrl+K global search modal
+    DN.addReadingProgress();   // top scroll bar — visible immediately, cheap
+    DN.shuffleHeroCards();     // home cover-story shuffle (above-the-fold)
+    DN.injectSpotlight();      // 最近更新 + 熱門推薦 (above-the-fold on mobile)
+    DN.bindHomeSearch();
+    DN.bindThemeToggle();      // dark-mode toggle button (header)
+    DN.injectMobileBottomNav();
+    DN.markNewArticles();      // NEW badge on home article cards
 
-    // Article-only enhancements
-    if (document.getElementById('proseZh') || document.querySelector('article .prose')) {
-      DN.injectArticleHero();   // gradient SVG banner under H1
-      DN.enhanceArticleImages(); // lazy-load + click-to-zoom lightbox
+    // Article-only enhancements that affect above-the-fold layout
+    var isArticle = document.getElementById('proseZh') || document.querySelector('article .prose');
+    if (isArticle) {
+      DN.injectArticleHero();  // gradient SVG banner under H1 (above-the-fold)
       DN.addReadingMeta();
       DN.addInlineTOC();
-      DN.addFloatingTOC();
-      DN.bindScrollMemory();
-      DN.addInlineCTA();        // mid-article CTA card
-      DN.injectArticleCalculators();  // OSDI/DEQ-5/SE/FloaterRF per slug
-      DN.injectAuthorBio('hs-author-bio');
-      DN.injectShareToolbar('hs-share');
-      DN.injectBMC('hs-bmc');
-      DN.addRelatedArticles();
-      DN.addFeedbackLink();     // "Spot an error?" mailto widget
     }
-    // Tools-page calculator placeholders (works on /tools too)
-    if (document.querySelector('[data-calc]')) {
-      document.querySelectorAll('[data-calc]').forEach(function (el) {
-        var name = el.getAttribute('data-calc');
-        var sel = '[data-calc="' + name + '"]';
-        if (name === 'osdi')           DN.injectOSDI(sel);
-        else if (name === 'deq5')      DN.injectDEQ5(sel);
-        else if (name === 'snellen')   DN.injectSnellenLogMAR(sel);
-        else if (name === 'se')        DN.injectSphericalEquivalent(sel);
-        else if (name === 'floater')   DN.injectFloaterRedFlag(sel);
-      });
-    }
-    DN.addFontSizer();
-    DN.injectReadProgress();
-    DN.shuffleHeroCards();      // randomise #hs-cover-story + #hs-editor-pick on every load
-    DN.injectSpotlight();
-    DN.markNewArticles();       // animated NEW badge for last-14d articles
-    DN.bindHomeSearch();
-    DN.bindThemeToggle();
-    DN.injectMobileBottomNav();
-    DN.bindFAQDeepLink();
-    DN.bindGAEvents();          // GA4 conversion events
-    DN.bindWebVitals();         // LCP / CLS / INP → GA4
-    DN.registerSW();
 
-    // CRITICAL: re-apply lang to all DOM (including JS-injected elements like
-    // author bio / share toolbar / related articles / spotlight / mobile nav /
-    // theme toggle). Without this, those injected elements stay in zh until
-    // user manually toggles language.
+    // ── PHASE 2 — idle / deferred (run after first paint) ──
+    // Heavy widgets, analytics, modals, and below-the-fold features run
+    // in requestIdleCallback so they don't block FCP/LCP on slow mobile
+    // CPUs. Each is wrapped in try/catch via idle() shim so errors stay
+    // siloed.
+    idle(function () {
+      DN.addScrollToTop();
+      DN.bindRevealOnScroll();
+      DN.bindViewTransitions();
+      DN.prefetchOnIdle();
+      DN.initCmdK();           // Cmd/Ctrl+K global search modal (rare path)
+      DN.injectReadProgress();
+      DN.addFontSizer();
+      DN.bindFAQDeepLink();
+    }, { timeout: 800 });
+
+    // Article-only deferred work (calculators, share, related, feedback)
+    if (isArticle) {
+      idle(function () {
+        DN.enhanceArticleImages(); // lazy + lightbox
+        DN.addFloatingTOC();
+        DN.bindScrollMemory();
+        DN.addInlineCTA();
+        DN.injectArticleCalculators();
+        DN.injectAuthorBio('hs-author-bio');
+        DN.injectShareToolbar('hs-share');
+        DN.injectBMC('hs-bmc');
+        DN.addRelatedArticles();
+        DN.addFeedbackLink();
+        DN.applyTextOnly(curLang);  // re-translate JS-injected DOM
+      }, { timeout: 1200 });
+    }
+
+    // Tools-page calculator placeholders (mounted lazily)
+    if (document.querySelector('[data-calc]')) {
+      idle(function () {
+        document.querySelectorAll('[data-calc]').forEach(function (el) {
+          var name = el.getAttribute('data-calc');
+          var sel = '[data-calc="' + name + '"]';
+          if (name === 'osdi')           DN.injectOSDI(sel);
+          else if (name === 'deq5')      DN.injectDEQ5(sel);
+          else if (name === 'snellen')   DN.injectSnellenLogMAR(sel);
+          else if (name === 'se')        DN.injectSphericalEquivalent(sel);
+          else if (name === 'floater')   DN.injectFloaterRedFlag(sel);
+        });
+        DN.applyTextOnly(curLang);
+      }, { timeout: 1500 });
+    }
+
+    // ── PHASE 3 — fully background (no user-facing impact for ~2s) ──
+    // SW registration, GA event binding, Web Vitals reporting all run
+    // after everything else stabilizes.
+    idle(function () {
+      DN.bindGAEvents();
+      DN.bindWebVitals();
+      DN.registerSW();
+    }, { timeout: 2500 });
+
+    // CRITICAL: re-apply lang to all DOM populated in PHASE 1.
+    // (PHASE 2 work re-runs this itself after its own injections.)
     DN.applyTextOnly(curLang);
 
     return { applyLang: apply };

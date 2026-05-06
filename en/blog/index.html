@@ -34,8 +34,9 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
+<link rel="preload" as="style" href="/assets/app.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/app.css" />
 <style>
   :root{
@@ -102,7 +103,7 @@
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
     <div class="h-16 flex items-center justify-between gap-4">
       <a href="/" class="flex items-center gap-3 min-w-0">
-        <img src="/icon.svg" alt="HsiaoEye" class="w-9 h-9 rounded-lg flex-shrink-0" width="36" height="36" />
+        <img src="/icon.svg" alt="HsiaoEye" class="w-9 h-9 rounded-lg flex-shrink-0" width="36" height="36" fetchpriority="high" decoding="async" />
         <div class="min-w-0 leading-tight">
           <div class="font-display font-semibold text-[16px] sm:text-[18px] blue-text">HsiaoEye</div>
           <div class="text-[10.5px] sm:text-[11.5px] mt-0.5 truncate" style="color:var(--muted)" data-zh="蕭閔謙醫師 · 眼科衛教筆記" data-en="Dr. Min-Chien Hsiao · Ophthalmology Notes">蕭閔謙醫師 · 眼科衛教筆記</div>
@@ -195,7 +196,7 @@
   @media (max-width:980px){ .mag-foot-top{ grid-template-columns:1fr; } .mag-foot-disclaimer{ grid-template-columns:1fr; } .mag-foot-cols{ grid-template-columns:repeat(2,1fr); } }
   @media (max-width:560px){ .mag-foot-cols{ grid-template-columns:1fr; } }
 </style>
-<footer class="mag-footer">
+<footer class="mag-footer cv-auto-short">
   <div class="mag-foot-top">
     <div class="mag-foot-brand">
       <h3 data-zh="HsiaoEye · 蕭閔謙醫師 眼科筆記" data-en="HsiaoEye · Dr. Min-Chien Hsiao Ophthalmology Notes">HsiaoEye · 蕭閔謙醫師 眼科筆記</h3>
@@ -251,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script src="/blog/blog-shared.js?v=20260518" defer></script>
+<script src="/blog/blog-shared.js?v=20260519" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>

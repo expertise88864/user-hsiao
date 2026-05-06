@@ -1,21 +1,23 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v17: + Per-article 1200×630 OG cards (assets/og/<slug>.{png,webp}) generated
- *      by _gen_og_images.py; each article HTML now has og:image / twitter:image
- *      pointing at its own card (no more generic /icon-512.png).
- *    + Auto-regenerated sitemap.xml + feed.xml + atom.xml via _gen_feeds.py
- *      (drift-checked in GH Actions CI).
- *    + DN.addFeedbackLink: "Spot an error?" mailto widget at end of articles.
- *    + Search button (<button aria-label="搜尋">) added to every page header,
- *      now triggers the global Cmd+K modal everywhere.
+ * v18: PERFORMANCE + DECLUTTERING SPRINT
+ *      + Reading-progress widget moved BELOW spotlight (per user request)
+ *      + Removed redundant home-page sections: AdSense #1 (above article-list)
+ *        and 學經歷 timeline (already on /about) — less visual noise
+ *      + 3-phase initBlog: PHASE 1 sync (above-fold), PHASE 2 idle (article-only
+ *        widgets, calculators, share, related), PHASE 3 background (SW, GA, WV)
+ *        via requestIdleCallback shim — much faster mobile FCP/LCP
+ *      + content-visibility:auto on FAQ + footer + below-fold sections
+ *      + Trimmed Google Fonts (8 weights → 6: dropped Fraunces italic + Inter 400)
+ *      + <link rel=preload as=style> for /assets/app.css + fetchpriority=high on logo
+ *      + Subtle <hr class=sep> dividers between major sections for cleaner rhythm
+ * v17: per-article OG cards, _gen_feeds.py, addFeedbackLink, search button.
  * v16: English mirror (/en/), calculator framework + 5 ophth calcs.
  * v15: Cmd+K, article hero SVG, lazy images, inline CTA, NEW badge, GA4 + WV.
  * v14: home article-list-item proper styling, spotlight SVG icons.
- * v13: hero card rotation, quick-find chips reduced to 4.
- * v12: WebP/AVIF SUNN1302.
- *     cache-bust ?v=20260518
+ *     cache-bust ?v=20260519
  */
-const CACHE = 'hs-v17';
-const RUNTIME = 'hs-runtime-v17';
+const CACHE = 'hs-v18';
+const RUNTIME = 'hs-runtime-v18';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [

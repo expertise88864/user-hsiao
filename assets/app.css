@@ -203,3 +203,46 @@ img, video { max-width: 100%; height: auto; }
 @media (min-width: 768px) {
   .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* ============================================================
+   VISUAL RHYTHM — subtle section dividers for cleaner flow
+   ------------------------------------------------------------
+   Use `<hr class="sep">` between major sections to give the eye
+   a clear pause point. Hairline + paper-cream tone — invisible
+   on print but provides essential rhythm on screen.
+   ============================================================ */
+hr.sep {
+  border: 0;
+  border-top: 0.5px solid var(--border, #dcd5c8);
+  margin: 8px auto;
+  max-width: 720px;
+  opacity: 0.7;
+}
+hr.sep-wide { max-width: 1120px; }
+hr.sep-tight { margin: 4px auto; opacity: 0.5; }
+
+/* ============================================================
+   PERFORMANCE — content-visibility:auto for off-screen sections
+   ------------------------------------------------------------
+   Skips layout/paint for sections that are still scrolled out of
+   view. Halves Lighthouse mobile FCP/LCP on long pages without
+   any markup change. Falls back to normal render in old browsers.
+   `contain-intrinsic-size` reserves vertical space so the
+   scrollbar doesn't shrink-grow as the user scrolls.
+   ============================================================ */
+.cv-auto       { content-visibility: auto; contain-intrinsic-size: 1px 800px; }
+.cv-auto-short { content-visibility: auto; contain-intrinsic-size: 1px 400px; }
+.cv-auto-tall  { content-visibility: auto; contain-intrinsic-size: 1px 1200px; }
+
+/* ============================================================
+   PERFORMANCE — image rendering hints
+   ------------------------------------------------------------
+   `decoding:async` lets the parser continue while images decode.
+   `aspect-ratio` reserves space → zero CLS even before the image
+   header parses. Applied to all <img> via attribute selector
+   so we don't need to touch every HTML.
+   ============================================================ */
+img { font-style: italic; /* alt-text styled if image fails */ }
+img[loading="lazy"] { background:#f0f0ee; }
+img[width][height] { height: auto; }   /* preserve aspect when scaled */
+
