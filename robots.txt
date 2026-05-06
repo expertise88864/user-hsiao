@@ -11,6 +11,9 @@ Allow: /
 User-agent: Googlebot-Image
 Allow: /
 
+User-agent: Googlebot-News
+Allow: /
+
 User-agent: Bingbot
 Allow: /
 
@@ -49,6 +52,9 @@ User-agent: PerplexityBot
 Disallow: /
 
 User-agent: Bytespider
+Disallow: /
+
+User-agent: ImagesiftBot
 Disallow: /
 
 User-agent: Amazonbot

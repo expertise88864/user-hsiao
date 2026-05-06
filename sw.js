@@ -1,20 +1,18 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v14: home page article-list-item now properly styled (DermNotes pattern with
- *      3px gradient bar + descriptions); spotlight rows show 32x32 SVG icons
- *      before title (DN.HS_TAG_SVG library); search input styled in card.
- * v13: hero card rotation (Fisher-Yates over DN.HERO_CARDS — cover story +
- *      editor's pick now reshuffle every load); quick-find chips reduced to
- *      4 real published articles only (no broken stub links).
- * v12: + WebP/AVIF SUNN1302 (220/440/660), 何時就醫 + 延伸閱讀 modules, expanded chips, offline.html SEO fix
- *     hero → quick-find (search input + chips) → article-list-item
- *     → 3-button row (browse all / topics / notes) → reading progress
- *     → recent + popular dual column → FAQ → AdSense → subscribe → disclaimer
- *     + new stub pages /blog/topics + /notes
- *     cache-bust ?v=20260515
+ * v15: DermNotes parity sprint — Cmd+K search modal, article hero SVG banner,
+ *      enhanced images (lazy + lightbox), inline CTA, NEW badge for last-14d,
+ *      GA4 event tracking + Web Vitals (LCP/CLS/INP), JSON-LD wordCount/keywords,
+ *      bogus hreflang=en removed (no /en/ mirror), CSP frame-src + COOP +
+ *      X-XSS-Protection, /rss /feed /atom redirects, feed Cache-Control,
+ *      dns-prefetch hints. RUNTIME max raised 40→60.
+ * v14: home article-list-item properly styled, spotlight 32x32 SVG icons.
+ * v13: hero card rotation (Fisher-Yates), quick-find chips reduced to 4.
+ * v12: + WebP/AVIF SUNN1302 (220/440/660), 何時就醫 + 延伸閱讀 modules.
+ *     cache-bust ?v=20260516
  */
-const CACHE = 'hs-v14';
-const RUNTIME = 'hs-runtime-v14';
-const RUNTIME_MAX_ENTRIES = 40;
+const CACHE = 'hs-v15';
+const RUNTIME = 'hs-runtime-v15';
+const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [
   '/',
