@@ -1,0 +1,43 @@
+name: Regenerate /en/ mirror
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'blog/*.html'
+      - 'about.html'
+      - 'privacy.html'
+      - 'tools.html'
+      - 'notes.html'
+      - 'index.html'
+  workflow_dispatch:
+
+# Skip if commit is from this workflow itself (avoids loop)
+concurrency:
+  group: regen-en
+  cancel-in-progress: false
+
+jobs:
+  regen:
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'admin: regen')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run _gen_en_pages.py
+        run: python _gen_en_pages.py
+
+      - name: Commit /en/ if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add en/
+          git diff --cached --quiet || git commit -m "ci: regen /en/ mirror [skip ci]"
+          git push

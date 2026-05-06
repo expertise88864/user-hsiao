@@ -6,6 +6,11 @@
     { "source": "/feed", "destination": "/blog/feed.xml", "permanent": false },
     { "source": "/atom", "destination": "/blog/atom.xml", "permanent": false }
   ],
+  "rewrites": [
+    { "source": "/sitemap.xml",   "destination": "/api/sitemap" },
+    { "source": "/blog/feed.xml", "destination": "/api/feed?fmt=rss" },
+    { "source": "/blog/atom.xml", "destination": "/api/feed?fmt=atom" }
+  ],
   "headers": [
     {
       "source": "/admin(.*)",
@@ -88,6 +93,14 @@
       "source": "/(.*)\\.(webp|avif|jpg|jpeg|png)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/assets/og/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable, s-maxage=31536000" },
+        { "key": "CDN-Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Vercel-CDN-Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {

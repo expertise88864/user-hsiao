@@ -56,7 +56,41 @@
  *  + Service Worker stale-while-revalidate for *.css — CSS edits now
  *    propagate after one extra page load, no manual cache-bust needed.
  * v25: GA4 + Consent Mode v2 + Speculation Rules. */
-/* v27: ADMIN MODE + UX FIXES
+/* v28: ADMIN POWER SPRINT + WEB-PUSH + CSP-NONCE + LIGHTHOUSE CI
+ *  + NEW: 6 admin endpoints — /api/admin/{upload,regen-en,history,rollback,
+ *    reorder,seo-score,spell,dictionary,ab-stats}. Admin can now:
+ *      • Upload images (auto WebP-compressed, base64→GitHub blob)
+ *      • Regenerate /en/ mirror per-article or whole site
+ *      • View git history per file + 1-click rollback (creates forward commit)
+ *      • Drag-and-drop reorder DN.ARTICLES
+ *      • Run SEO 體檢 (15-check heuristic, A/B/C/D/F grade)
+ *      • Run 拼字 / 全形標點 check (8 rule classes)
+ *      • Edit medical dictionary + auto-link first-occurrence in articles
+ *      • View live A/B exposures + conversions per-variant
+ *  + admin.html rewritten as multi-tab dashboard (7 tabs: 文章/SEO/拼字/詞典/
+ *    圖片/AB/維運). Drag-drop article reorder, in-tab modals.
+ *  + WYSIWYG toolbar gains 📷 圖片 (paste-or-pick) + 👁 預覽 (open clean tab)
+ *  + Web Push: /api/push/{subscribe,send} + DN.bindPushSubscribe + sw.js push
+ *    handler (VAPID JWT signing in Edge runtime). Subscribers stored in
+ *    assets/push-subscribers.json.
+ *  + CSP nonce via Vercel Edge Middleware (middleware.js) — Report-Only mode
+ *    initially, /api/csp-report endpoint logs violations.
+ *  + Trusted Types: hs-policy + default policy registered in blog-shared.js
+ *  + View Transitions: cross-document via @view-transition CSS rule (Chrome 126+),
+ *    JS hijack only fires when browser lacks native cross-doc support.
+ *  + Web Vitals: extended to TTFB + FCP + prerender_hit detection (full 5/5).
+ *  + Speculation Rules: split into multi-rule with eagerness=eager prefetch
+ *    for /blog/* + moderate prerender (was single moderate rule).
+ *  + Lighthouse CI: .github/workflows/lighthouse.yml runs daily + on push,
+ *    asserts perf ≥85 / a11y ≥92 / SEO ≥95.
+ *  + /en/ regen on push: .github/workflows/regen-en.yml auto-syncs after
+ *    Chinese-side commits (skips itself via [skip ci]).
+ *  + OG image edge cache: assets/og/* pinned to s-maxage=1y + CDN-Cache-Control.
+ *  + AB stats beacon: DN.abTest/abConvert now POST to /api/admin/ab-stats
+ *    via sendBeacon (fire-and-forget, sessionStorage-deduped exposures).
+ *  + Medical dictionary tooltips: DN.injectDictTooltips renders rich
+ *    hover popups for <span class="hs-dict"> from autolink action.
+ * v27: ADMIN MODE + UX FIXES
  *  + NEW: /admin dashboard + WYSIWYG editor (?admin=1 on any article)
  *    + /api/admin/{login,list,save,new}.js Vercel serverless routes
  *    + GitHub Contents API integration — admin saves commit straight to repo
@@ -72,8 +106,8 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v27';
-const RUNTIME = 'hs-runtime-v27';
+const CACHE = 'hs-v28';
+const RUNTIME = 'hs-runtime-v28';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [
@@ -239,4 +273,47 @@ self.addEventListener('fetch', (e) => {
 
 self.addEventListener('message', (e) => {
   if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting();
+});
+
+// ── Web Push handler — fired when /api/push/send wakes us up ──
+// v29: payload is now aes128gcm-encrypted (RFC 8291) so the browser decrypts
+// it and event.data.json() returns the actual title/body/url. SW transparently
+// handles decryption via the keys negotiated during pushManager.subscribe.
+self.addEventListener('push', (event) => {
+  let data = {};
+  try { data = event.data ? event.data.json() : {}; } catch (e) {
+    try { data = { body: event.data ? event.data.text() : '' }; } catch (e2) { data = {}; }
+  }
+  const title = data.title || 'HsiaoEye · 新文章發布';
+  const body  = data.body  || '點擊查看最新眼科衛教筆記。';
+  const url   = data.url   || '/blog/';
+  const icon  = data.icon  || '/icon-192.png';
+  const badge = data.badge || '/icon-32.png';
+  const tag   = data.tag   || 'hsiao-newpost';
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body,
+      icon,
+      badge,
+      tag,
+      renotify: false,
+      requireInteraction: false,
+      data: { url, ts: Date.now() },
+      actions: [{ action: 'view', title: '查看' }, { action: 'dismiss', title: '稍後' }],
+      lang: 'zh-Hant-TW',
+    })
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url = (event.notification.data && event.notification.data.url) || '/blog/';
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then((wins) => {
+      for (const w of wins) {
+        if (w.url.includes(self.location.origin)) { w.focus(); w.navigate && w.navigate(url); return; }
+      }
+      return clients.openWindow(url);
+    })
+  );
 });

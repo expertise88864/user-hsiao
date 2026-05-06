@@ -25,10 +25,19 @@
   header h1{ font-family:'Noto Serif TC',Georgia,serif; font-size:18px; font-weight:700; margin:0; color:var(--blue-deep); letter-spacing:.02em; }
   header h1 span{ font-family:Inter,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-left:8px; font-weight:500; }
   header .user{ font-size:13px; color:var(--ink-2); }
-  header button{ font-size:12.5px; padding:6px 12px; border-radius:8px; background:#fff; border:1px solid var(--border); cursor:pointer; color:var(--ink-2); margin-left:8px; }
-  header button:hover{ border-color:var(--blue-deep); color:var(--blue-deep); }
+  header button, header a.btn{ font-size:12.5px; padding:6px 12px; border-radius:8px; background:#fff; border:1px solid var(--border); cursor:pointer; color:var(--ink-2); margin-left:8px; text-decoration:none; }
+  header button:hover, header a.btn:hover{ border-color:var(--blue-deep); color:var(--blue-deep); }
 
-  main{ max-width:980px; margin:32px auto; padding:0 24px; }
+  main{ max-width:1100px; margin:32px auto; padding:0 24px; }
+
+  /* Tabs */
+  .tabs{ display:flex; gap:4px; margin-bottom:24px; border-bottom:1px solid var(--border); flex-wrap:wrap; }
+  .tabs button{ padding:10px 16px; font-size:13px; font-weight:600; border:0; background:transparent; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; }
+  .tabs button.active{ color:var(--blue-deep); border-bottom-color:var(--blue-deep); }
+  .tabs button:hover:not(.active){ color:var(--ink-2); }
+
+  .tab-panel{ display:none; }
+  .tab-panel.active{ display:block; }
 
   /* Login screen */
   #login-screen{ max-width:420px; margin:120px auto; background:#fff; border:1px solid var(--border); border-radius:18px; padding:32px; box-shadow:0 24px 48px -24px rgba(58,90,124,.35); }
@@ -51,16 +60,25 @@
   .toolbar .btn:hover{ transform:translateY(-1px); box-shadow:0 6px 14px -6px rgba(58,90,124,.35); }
 
   .article-grid{ display:grid; gap:14px; }
-  .article-row{ display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center; padding:16px 18px; background:#fff; border:1px solid var(--border); border-radius:12px; transition:all .15s; }
+  .article-row{ display:grid; grid-template-columns:auto auto 1fr auto; gap:14px; align-items:center; padding:16px 18px; background:#fff; border:1px solid var(--border); border-radius:12px; transition:all .15s; }
   .article-row:hover{ border-color:var(--blue-deep); transform:translateY(-1px); box-shadow:0 8px 18px -8px rgba(58,90,124,.22); }
   .article-row .num{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue-deep); font-weight:700; background:var(--blue-soft); padding:4px 8px; border-radius:6px; }
+  .article-row .drag{ cursor:grab; color:var(--muted); font-size:18px; user-select:none; padding:0 4px; }
+  .article-row[draggable="true"]:active{ cursor:grabbing; opacity:.7; }
+  .article-row.drag-over{ border-top:2px solid var(--blue-deep); }
   .article-row .body h3{ font-family:'Noto Serif TC',Georgia,serif; font-size:15.5px; margin:0; color:var(--ink); font-weight:700; line-height:1.4; }
   .article-row .body .meta{ font-size:12px; color:var(--muted); margin-top:4px; font-family:'JetBrains Mono',monospace; letter-spacing:.04em; }
-  .article-row .actions{ display:flex; gap:6px; }
-  .article-row .actions a{ font-size:12px; padding:5px 10px; border-radius:6px; text-decoration:none; border:1px solid var(--border); color:var(--ink-2); }
-  .article-row .actions a.primary{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
-  .article-row .actions a:hover{ border-color:var(--blue-deep); color:var(--blue-deep); }
-  .article-row .actions a.primary:hover{ color:#fff; opacity:.9; }
+  .article-row .actions{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+  .article-row .actions a, .article-row .actions button{ font-size:12px; padding:5px 10px; border-radius:6px; text-decoration:none; border:1px solid var(--border); color:var(--ink-2); background:#fff; cursor:pointer; }
+  .article-row .actions a.primary, .article-row .actions button.primary{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
+  .article-row .actions a:hover, .article-row .actions button:hover{ border-color:var(--blue-deep); color:var(--blue-deep); }
+  .article-row .actions a.primary:hover, .article-row .actions button.primary:hover{ color:#fff; opacity:.9; }
+  .article-row .score-badge{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; padding:3px 6px; border-radius:4px; margin-left:4px; font-weight:700; }
+  .score-A{ background:#dcfce7; color:#166534; }
+  .score-B{ background:#dbeafe; color:#1e40af; }
+  .score-C{ background:#fef3c7; color:#92400e; }
+  .score-D{ background:#fed7aa; color:#9a3412; }
+  .score-F{ background:#fecaca; color:#991b1b; }
 
   .info-card{ background:linear-gradient(135deg,#f3f7fb,#e6eef6); border:1px solid #b8cfe3; border-radius:14px; padding:18px 22px; margin:24px 0; font-size:13.5px; line-height:1.85; color:var(--ink); }
   .info-card h4{ margin:0 0 8px; font-size:13px; color:var(--blue-deep); letter-spacing:.06em; text-transform:uppercase; font-weight:700; }
@@ -72,20 +90,94 @@
   .spinner{ display:inline-block; width:20px; height:20px; border:2px solid var(--blue-soft); border-top-color:var(--blue-deep); border-radius:50%; animation:hs-spin .8s linear infinite; vertical-align:middle; margin-right:8px; }
   @keyframes hs-spin{ to{ transform:rotate(360deg); } }
 
-  /* New article modal */
+  /* Modal */
   .modal-bg{ position:fixed; inset:0; background:rgba(15,23,42,.55); backdrop-filter:blur(4px); z-index:100; display:flex; align-items:center; justify-content:center; padding:20px; }
-  .modal{ background:#fff; border-radius:18px; padding:28px; max-width:480px; width:100%; box-shadow:0 30px 80px -20px rgba(0,0,0,.4); }
+  .modal{ background:#fff; border-radius:18px; padding:28px; max-width:520px; width:100%; box-shadow:0 30px 80px -20px rgba(0,0,0,.4); max-height:85vh; overflow-y:auto; }
+  .modal.wide{ max-width:780px; }
   .modal h3{ font-family:'Noto Serif TC',Georgia,serif; font-size:20px; margin:0 0 4px; color:var(--blue-deep); }
   .modal p{ font-size:13px; color:var(--muted); margin:0 0 18px; }
   .modal label{ display:block; font-size:12px; font-weight:600; color:var(--ink-2); margin:14px 0 6px; }
   .modal input, .modal select, .modal textarea{ width:100%; padding:10px 12px; font-size:14px; border:1px solid var(--border); border-radius:8px; background:#fff; color:var(--ink); }
   .modal textarea{ font-family:'Noto Sans TC',sans-serif; resize:vertical; min-height:80px; }
-  .modal .row{ display:flex; gap:10px; margin-top:20px; justify-content:flex-end; }
+  .modal .row{ display:flex; gap:10px; margin-top:20px; justify-content:flex-end; flex-wrap:wrap; }
   .modal button{ padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; border:1px solid var(--border); background:#fff; color:var(--ink-2); }
   .modal button.primary{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
+  .modal button.danger{ background:#fff; color:var(--red); border-color:#fca5a5; }
   .modal button:hover{ transform:translateY(-1px); }
 
+  /* Image-edit modal */
+  .img-drop{ border:2px dashed var(--border); border-radius:14px; padding:28px; text-align:center; color:var(--muted); cursor:pointer; transition:all .15s; }
+  .img-drop:hover, .img-drop.drag{ border-color:var(--blue-deep); background:var(--blue-soft); color:var(--blue-deep); }
+  .img-preview{ display:flex; gap:16px; align-items:flex-start; margin-top:16px; flex-wrap:wrap; }
+  .img-preview canvas, .img-preview img{ max-width:100%; max-height:300px; border:1px solid var(--border); border-radius:8px; background:#f7f5f0; }
+  .img-controls{ flex:1; min-width:180px; }
+  .img-controls .pair{ display:flex; gap:6px; align-items:center; margin:8px 0; font-size:12.5px; }
+  .img-controls .pair input[type="number"]{ width:70px; padding:5px 8px; }
+
+  /* Preview pane (split view in edit) */
+  .preview-pane{ position:fixed; right:0; top:0; bottom:0; width:50%; background:#fff; border-left:1px solid var(--border); box-shadow:-12px 0 30px -10px rgba(0,0,0,.18); z-index:9997; display:flex; flex-direction:column; }
+  .preview-pane header{ background:var(--blue-deep); color:#fff; padding:10px 18px; font-size:13px; font-weight:600; }
+  .preview-pane iframe{ flex:1; border:0; }
+
+  /* Diff / commit history */
+  .commit-row{ display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center; padding:10px 14px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; background:#fff; }
+  .commit-row .sha{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue-deep); background:var(--blue-soft); padding:3px 6px; border-radius:4px; }
+  .commit-row .msg{ font-size:13px; color:var(--ink); }
+  .commit-row .meta{ font-size:11.5px; color:var(--muted); }
+  .commit-row button{ font-size:12px; padding:5px 10px; border-radius:6px; border:1px solid var(--border); background:#fff; color:var(--ink-2); cursor:pointer; }
+  .commit-row button:hover{ border-color:var(--red); color:var(--red); }
+
+  /* Spell / SEO issue list */
+  .issue-row{ padding:10px 14px; border-left:3px solid var(--border); margin-bottom:6px; background:#fff; border-radius:0 8px 8px 0; font-size:13px; line-height:1.6; }
+  .issue-row.error{ border-left-color:var(--red); background:#fef2f2; }
+  .issue-row.warn{ border-left-color:var(--amber); background:#fffbeb; }
+  .issue-row.info{ border-left-color:var(--blue); background:#eff6ff; }
+  .issue-row .where{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted); margin-right:8px; }
+  .issue-row .snippet{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--ink-2); background:#fff; padding:2px 6px; border-radius:4px; border:1px solid var(--line); display:inline-block; margin-top:4px; }
+
+  /* SEO score panel */
+  .score-overview{ display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:center; padding:18px 22px; background:#fff; border:1px solid var(--border); border-radius:14px; margin-bottom:18px; }
+  .score-circle{ width:90px; height:90px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:30px; font-weight:700; font-family:'JetBrains Mono',monospace; }
+  .score-circle.A{ background:#dcfce7; color:#166534; }
+  .score-circle.B{ background:#dbeafe; color:#1e40af; }
+  .score-circle.C{ background:#fef3c7; color:#92400e; }
+  .score-circle.D{ background:#fed7aa; color:#9a3412; }
+  .score-circle.F{ background:#fecaca; color:#991b1b; }
+
+  /* Dictionary table */
+  .dict-table{ width:100%; border-collapse:collapse; font-size:13px; background:#fff; border-radius:8px; overflow:hidden; }
+  .dict-table th, .dict-table td{ padding:8px 10px; text-align:left; border-bottom:1px solid var(--line); }
+  .dict-table th{ background:var(--blue-soft); color:var(--blue-deep); font-weight:700; font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; }
+  .dict-table input{ width:100%; padding:5px 8px; font-size:12.5px; border:1px solid transparent; background:transparent; }
+  .dict-table input:focus{ border-color:var(--blue-deep); background:#fff; outline:none; }
+
+  /* A/B dashboard */
+  .ab-test{ background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px 22px; margin-bottom:14px; }
+  .ab-test h4{ margin:0 0 4px; font-family:'Noto Serif TC',Georgia,serif; font-size:16px; color:var(--blue-deep); font-weight:700; }
+  .ab-test .meta{ font-size:11.5px; color:var(--muted); margin-bottom:12px; font-family:'JetBrains Mono',monospace; }
+  .ab-variant{ display:grid; grid-template-columns:1fr auto auto auto; gap:12px; align-items:center; padding:8px 12px; background:var(--bg); border-radius:6px; margin:4px 0; font-size:12.5px; }
+  .ab-variant .v-name{ font-weight:600; color:var(--ink); }
+  .ab-variant .v-stat{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-2); }
+  .ab-variant .v-rate{ font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; color:var(--blue-deep); }
+  .ab-variant.winner{ background:#dcfce7; }
+  .ab-variant.winner .v-rate{ color:#166534; }
+
+  /* Toast */
   .toast{ position:fixed; left:50%; bottom:32px; transform:translateX(-50%); background:#243b56; color:#fff; padding:10px 22px; border-radius:9999px; font-size:13px; font-weight:600; z-index:9999; box-shadow:0 12px 28px -8px rgba(58,90,124,.55); }
+
+  /* Image lib panel */
+  .img-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:10px; }
+  .img-card{ background:#fff; border:1px solid var(--border); border-radius:8px; overflow:hidden; cursor:pointer; transition:all .15s; }
+  .img-card:hover{ border-color:var(--blue-deep); transform:translateY(-2px); }
+  .img-card img{ width:100%; height:100px; object-fit:cover; display:block; }
+  .img-card .name{ padding:6px 8px; font-size:11px; color:var(--ink-2); font-family:'JetBrains Mono',monospace; word-break:break-all; }
+
+  @media (max-width:640px){
+    .article-row{ grid-template-columns:auto 1fr; }
+    .article-row .drag, .article-row .num{ grid-column:1; }
+    .article-row .body{ grid-column:2; }
+    .article-row .actions{ grid-column:1 / -1; justify-content:flex-start; }
+  }
 </style>
 </head>
 <body>
@@ -105,32 +197,144 @@
 <!-- ─── DASHBOARD (hidden until login) ─── -->
 <div id="dashboard" hidden>
   <header>
-    <h1>HsiaoEye Admin <span>v1</span></h1>
+    <h1>HsiaoEye Admin <span>v2</span></h1>
     <div>
       <span class="user" id="who"></span>
       <button onclick="doLogout()">登出</button>
-      <a href="/" style="font-size:12.5px; padding:6px 12px; border-radius:8px; background:#fff; border:1px solid var(--border); color:var(--ink-2); text-decoration:none; margin-left:8px;">看網站 →</a>
+      <a href="/" class="btn">看網站 →</a>
     </div>
   </header>
   <main>
-    <div class="toolbar">
-      <h2>文章管理</h2>
-      <button class="btn primary" onclick="showNewModal()">+ 新文章</button>
-      <button class="btn" onclick="loadList()">↻ 重新載入</button>
+    <div class="tabs">
+      <button class="active" data-tab="articles" onclick="switchTab('articles')">📝 文章</button>
+      <button data-tab="seo" onclick="switchTab('seo')">📊 SEO 體檢</button>
+      <button data-tab="spell" onclick="switchTab('spell')">🔤 拼字檢查</button>
+      <button data-tab="dict" onclick="switchTab('dict')">📖 醫學詞典</button>
+      <button data-tab="images" onclick="switchTab('images')">🖼️ 圖片</button>
+      <button data-tab="ab" onclick="switchTab('ab')">📈 A/B 測試</button>
+      <button data-tab="ops" onclick="switchTab('ops')">⚙️ 維運</button>
     </div>
 
-    <div class="info-card">
-      <h4>📋 編輯流程</h4>
-      <ol style="margin:0; padding-left:20px;">
-        <li>點「編輯」開啟文章 — 整篇變成所見即所得 (WYSIWYG) 模式</li>
-        <li>滑鼠選文字後出現浮動工具列：粗體 / 斜體 / 標題 / 字型 / 字級 / 連結 / 列表</li>
-        <li>按右下「儲存」→ 自動 commit 到 GitHub → Vercel 自動重新部署</li>
-        <li>若你之後在本機改檔案，記得先 <code>git pull</code> 把後台的編輯拉下來</li>
-      </ol>
+    <!-- ─────────── ARTICLES TAB ─────────── -->
+    <div class="tab-panel active" id="tab-articles">
+      <div class="toolbar">
+        <h2>文章管理</h2>
+        <button class="btn primary" onclick="showNewModal()">+ 新文章</button>
+        <button class="btn" onclick="toggleReorder()" id="reorder-btn">↕ 排序</button>
+        <button class="btn" onclick="loadList()">↻ 重新載入</button>
+      </div>
+
+      <div class="info-card">
+        <h4>📋 編輯流程</h4>
+        <ol style="margin:0; padding-left:20px;">
+          <li>點「編輯」開啟文章 — 整篇變成所見即所得 (WYSIWYG) 模式</li>
+          <li>滑鼠選文字後出現浮動工具列：粗體 / 斜體 / 標題 / 字型 / 字級 / 連結 / 列表 / 📷 圖片</li>
+          <li>按右下「儲存」→ 自動 commit 到 GitHub → Vercel 自動重新部署 (~30 秒）</li>
+          <li>若你之後在本機改檔案，記得先 <code>git pull</code> 把後台的編輯拉下來</li>
+          <li>「📚 歷史」可查看過往 commit、回滾到任一版本</li>
+          <li>「🌐 EN」會把這篇文章重新生成 /en/ 鏡像</li>
+        </ol>
+      </div>
+
+      <div id="article-list" class="article-grid">
+        <div class="loading"><span class="spinner"></span>載入文章列表⋯</div>
+      </div>
     </div>
 
-    <div id="article-list" class="article-grid">
-      <div class="loading"><span class="spinner"></span>載入文章列表⋯</div>
+    <!-- ─────────── SEO TAB ─────────── -->
+    <div class="tab-panel" id="tab-seo">
+      <div class="toolbar">
+        <h2>SEO 體檢</h2>
+        <select id="seo-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
+        <button class="btn primary" onclick="runSeoScore()">🔍 體檢</button>
+      </div>
+      <div id="seo-result"></div>
+    </div>
+
+    <!-- ─────────── SPELL TAB ─────────── -->
+    <div class="tab-panel" id="tab-spell">
+      <div class="toolbar">
+        <h2>拼字 / 標點檢查</h2>
+        <select id="spell-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
+        <button class="btn primary" onclick="runSpell()">🔍 檢查</button>
+        <button class="btn" onclick="runSpellAll()">🔍 全部檢查</button>
+      </div>
+      <div id="spell-result"></div>
+    </div>
+
+    <!-- ─────────── DICT TAB ─────────── -->
+    <div class="tab-panel" id="tab-dict">
+      <div class="toolbar">
+        <h2>醫學詞典 + 自動連結</h2>
+        <button class="btn" onclick="loadDict()">↻ 重載</button>
+        <button class="btn primary" onclick="saveDict()">💾 儲存</button>
+        <button class="btn" onclick="addDictRow()">+ 新詞</button>
+      </div>
+      <div class="info-card" style="margin:0 0 12px">
+        <h4>使用說明</h4>
+        詞典存在 <code>assets/medical-dictionary.json</code>。點某篇文章「🔗 自動連結」會把該文中此詞典詞彙的「首次出現」自動加上 tooltip 與內鏈。
+      </div>
+      <table class="dict-table" id="dict-table">
+        <thead><tr><th style="width:25%">中文詞</th><th style="width:20%">英文</th><th>定義</th><th style="width:18%">關聯文章 slug</th><th></th></tr></thead>
+        <tbody id="dict-body"></tbody>
+      </table>
+      <div class="toolbar" style="margin-top:18px;">
+        <select id="dict-autolink-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
+        <button class="btn primary" onclick="runAutolink()">🔗 為此文章自動連結醫學詞</button>
+      </div>
+    </div>
+
+    <!-- ─────────── IMAGES TAB ─────────── -->
+    <div class="tab-panel" id="tab-images">
+      <div class="toolbar">
+        <h2>圖片管理</h2>
+        <button class="btn primary" onclick="showImgUploadModal()">+ 上傳圖片</button>
+      </div>
+      <div class="info-card" style="margin:0 0 12px">
+        <h4>📸 上傳流程</h4>
+        圖片會壓縮為 WebP（最大 1600px 寬）並 commit 到 <code>assets/article-img/</code>。完成後可直接複製連結貼到文章中。
+      </div>
+      <div id="img-list" class="img-grid"><div class="loading">點「+ 上傳圖片」開始</div></div>
+    </div>
+
+    <!-- ─────────── A/B TAB ─────────── -->
+    <div class="tab-panel" id="tab-ab">
+      <div class="toolbar">
+        <h2>A/B 測試結果</h2>
+        <button class="btn" onclick="loadAbStats()">↻ 重新載入</button>
+      </div>
+      <div class="info-card" style="margin:0 0 12px">
+        <h4>📊 A/B 框架使用方法</h4>
+        在 JS 內用 <code>DN.abTest('test-id', ['A', 'B'], v =&gt; {...})</code> 並 <code>DN.abConvert('test-id', 'click')</code> 觸發轉換。Server 端聚合會在每 5 分鐘或每 10 次曝光時 commit 一次到 <code>assets/ab-stats.json</code>。
+      </div>
+      <div id="ab-list"><div class="loading">尚無資料</div></div>
+    </div>
+
+    <!-- ─────────── OPS TAB ─────────── -->
+    <div class="tab-panel" id="tab-ops">
+      <div class="toolbar"><h2>站務 / 維運</h2></div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px;">
+        <div class="info-card" style="margin:0">
+          <h4>🌐 重新生成 /en/ 鏡像</h4>
+          <p style="color:var(--ink-2); margin:0 0 12px">中文文章編輯後，英文鏡像不會自動同步。點此重新生成所有 /en/ 頁面 （約 30-60 秒）。</p>
+          <button class="btn primary" onclick="runRegenEn()">🔄 全部重生</button>
+        </div>
+        <div class="info-card" style="margin:0">
+          <h4>🛡️ Service Worker</h4>
+          <p style="color:var(--ink-2); margin:0 0 12px">清除瀏覽器端 SW 快取，重新註冊。除錯時用。</p>
+          <button class="btn" onclick="resetSW()">🗑️ 清除 SW 快取</button>
+        </div>
+        <div class="info-card" style="margin:0">
+          <h4>📦 環境變數狀態</h4>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; line-height:1.8;">
+            ADMIN_PASSWORD: <span style="color:var(--green)">✓ set （隱含）</span><br>
+            GITHUB_TOKEN: <span id="env-gh">檢查中⋯</span><br>
+            GITHUB_OWNER: expertise88864<br>
+            GITHUB_REPO: user-hsiao<br>
+            GITHUB_BRANCH: main
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </div>
@@ -165,10 +369,67 @@
   </div>
 </div>
 
+<!-- ─── HISTORY / ROLLBACK MODAL ─── -->
+<div id="history-modal" class="modal-bg" hidden>
+  <div class="modal wide">
+    <h3>📚 版本歷史 — <span id="history-slug"></span></h3>
+    <p>每筆編輯都是一個 git commit。點「回滾」會建立一個新 commit 把檔案回到該版本（不是 force-push，所以可再次回滾）。</p>
+    <div id="history-list"><div class="loading"><span class="spinner"></span>載入中⋯</div></div>
+    <div class="row"><button onclick="hideHistory()">關閉</button></div>
+  </div>
+</div>
+
+<!-- ─── IMAGE UPLOAD MODAL ─── -->
+<div id="img-modal" class="modal-bg" hidden>
+  <div class="modal wide">
+    <h3>上傳 / 編輯圖片</h3>
+    <p>會自動壓縮為 WebP （品質 82),最大寬度 1600px，以節省頻寬。</p>
+    <div class="img-drop" id="img-drop" onclick="document.getElementById('img-input').click()">
+      <span style="font-size:28px; display:block; margin-bottom:8px">📷</span>
+      點此或拖曳檔案到這裡 (jpg, png, webp, svg)
+      <input id="img-input" type="file" accept="image/*" hidden />
+    </div>
+    <div class="img-preview" id="img-preview" hidden>
+      <canvas id="img-canvas"></canvas>
+      <div class="img-controls">
+        <div class="pair">
+          <label style="margin:0; flex:1">寬度 px</label>
+          <input id="img-w" type="number" min="100" max="2400" step="10" />
+        </div>
+        <div class="pair">
+          <label style="margin:0; flex:1">品質 %</label>
+          <input id="img-q" type="number" min="50" max="100" value="82" step="1" />
+        </div>
+        <div class="pair">
+          <label style="margin:0; flex:1">檔名</label>
+          <input id="img-name" type="text" placeholder="my-photo.webp" />
+        </div>
+        <div class="pair">
+          <label style="margin:0; flex:1">資料夾</label>
+          <select id="img-folder">
+            <option value="assets/article-img">assets/article-img</option>
+            <option value="assets/og">assets/og （社群分享圖）</option>
+            <option value="assets">assets</option>
+          </select>
+        </div>
+        <div style="font-size:11.5px; color:var(--muted); margin-top:6px;" id="img-info"></div>
+      </div>
+    </div>
+    <div class="row">
+      <button onclick="hideImgModal()">取消</button>
+      <button class="primary" id="img-upload-btn" onclick="doImgUpload()" disabled>📤 上傳並 commit</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ───────────────── State ─────────────────
 const API = '/api/admin';
 let LOGGED_IN = false;
+let ARTICLES = [];
+let DICT = {};
+let REORDER_MODE = false;
+let IMG_BLOB_DATA = null;  // { dataUrl, width, height, originalSize }
 
 // ───────────────── Login ─────────────────
 async function checkAuth() {
@@ -177,11 +438,25 @@ async function checkAuth() {
     if (r.ok) {
       const data = await r.json();
       LOGGED_IN = true;
-      showDashboard(data.articles || []);
+      ARTICLES = data.articles || [];
+      showDashboard(ARTICLES);
+      checkEnvStatus();
       return;
     }
   } catch (e) {}
   showLogin();
+}
+
+async function checkEnvStatus() {
+  // Probe history endpoint with first slug — surfaces GITHUB_TOKEN errors quickly
+  if (!ARTICLES.length) return;
+  try {
+    const r = await fetch(API + '/history?slug=' + encodeURIComponent(ARTICLES[0].slug) + '&limit=1', { credentials: 'include' });
+    const j = await r.json().catch(() => ({}));
+    const el = document.getElementById('env-gh');
+    if (r.ok) el.innerHTML = '<span style="color:var(--green)">✓ valid</span>';
+    else el.innerHTML = '<span style="color:var(--red)">✗ ' + (j.error || r.status).toString().slice(0, 60) + '</span>';
+  } catch (e) {}
 }
 
 function showLogin() {
@@ -194,6 +469,7 @@ function showDashboard(articles) {
   document.getElementById('login-screen').hidden = true;
   document.getElementById('dashboard').hidden = false;
   renderArticles(articles);
+  populateSlugSelectors();
 }
 
 async function doLogin() {
@@ -209,10 +485,7 @@ async function doLogin() {
       credentials: 'include',
       body: JSON.stringify({ password: pw })
     });
-    if (r.ok) {
-      checkAuth();
-      return;
-    }
+    if (r.ok) { checkAuth(); return; }
     err.classList.add('show');
   } catch (e) {
     err.textContent = '網路錯誤: ' + (e.message || e);
@@ -229,12 +502,30 @@ async function doLogout() {
   showLogin();
 }
 
+// ───────────────── Tabs ─────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+  if (name === 'dict' && Object.keys(DICT).length === 0) loadDict();
+  if (name === 'ab') loadAbStats();
+}
+
+function populateSlugSelectors() {
+  const opts = ARTICLES.map(a => `<option value="${escapeAttr(a.slug)}">${escapeHTML(a.title)}</option>`).join('');
+  ['seo-slug', 'spell-slug', 'dict-autolink-slug'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = opts;
+  });
+}
+
 // ───────────────── Article list ─────────────────
 async function loadList() {
   const r = await fetch(API + '/list', { credentials: 'include' });
   if (!r.ok) { showLogin(); return; }
   const data = await r.json();
-  renderArticles(data.articles || []);
+  ARTICLES = data.articles || [];
+  renderArticles(ARTICLES);
+  populateSlugSelectors();
 }
 
 function renderArticles(articles) {
@@ -244,26 +535,82 @@ function renderArticles(articles) {
     return;
   }
   host.innerHTML = articles.map((a, i) =>
-    `<div class="article-row">
+    `<div class="article-row" data-slug="${escapeAttr(a.slug)}"${REORDER_MODE ? ' draggable="true"' : ''}>
+      ${REORDER_MODE ? '<span class="drag" title="拖曳排序">⋮⋮</span>' : ''}
       <span class="num">№${a.number || (i+1)}</span>
       <div class="body">
         <h3>${escapeHTML(a.title)}</h3>
         <div class="meta">${escapeHTML(a.slug)} · ${escapeHTML(a.tag || '')} · ${escapeHTML(a.date || '')}</div>
       </div>
       <div class="actions">
-        <a href="/blog/${a.slug}" target="_blank">看</a>
+        <a href="/blog/${a.slug}" target="_blank" rel="noopener">看</a>
         <a class="primary" href="/blog/${a.slug}?admin=1">編輯</a>
+        <button onclick="showHistory('${escapeAttr(a.slug)}')">📚 歷史</button>
+        <button onclick="regenEnOne('${escapeAttr(a.slug)}', this)">🌐 EN</button>
       </div>
     </div>`
   ).join('');
+  if (REORDER_MODE) bindDragDrop();
+}
+
+function toggleReorder() {
+  REORDER_MODE = !REORDER_MODE;
+  const btn = document.getElementById('reorder-btn');
+  if (REORDER_MODE) {
+    btn.classList.add('primary'); btn.textContent = '✓ 完成排序';
+  } else {
+    btn.classList.remove('primary'); btn.textContent = '↕ 排序';
+    saveOrder();
+  }
+  renderArticles(ARTICLES);
+}
+
+let dragSlug = null;
+function bindDragDrop() {
+  document.querySelectorAll('.article-row[draggable]').forEach(row => {
+    row.addEventListener('dragstart', e => { dragSlug = row.dataset.slug; row.style.opacity = '.5'; });
+    row.addEventListener('dragend',   e => { dragSlug = null; row.style.opacity = '1'; document.querySelectorAll('.article-row').forEach(r => r.classList.remove('drag-over')); });
+    row.addEventListener('dragover',  e => { e.preventDefault(); row.classList.add('drag-over'); });
+    row.addEventListener('dragleave', e => { row.classList.remove('drag-over'); });
+    row.addEventListener('drop',      e => {
+      e.preventDefault();
+      const targetSlug = row.dataset.slug;
+      if (!dragSlug || dragSlug === targetSlug) return;
+      const fromIdx = ARTICLES.findIndex(a => a.slug === dragSlug);
+      const toIdx   = ARTICLES.findIndex(a => a.slug === targetSlug);
+      const [moved] = ARTICLES.splice(fromIdx, 1);
+      ARTICLES.splice(toIdx, 0, moved);
+      renderArticles(ARTICLES);
+    });
+  });
+}
+
+async function saveOrder() {
+  const order = ARTICLES.map(a => a.slug);
+  try {
+    const r = await fetch(API + '/reorder', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ order })
+    });
+    if (r.ok) {
+      const j = await r.json();
+      toast(j.noop ? '順序未變動' : '✓ 已儲存新順序 (commit ' + (j.commit || '').slice(0, 7) + ')');
+    } else {
+      const j = await r.json().catch(() => ({}));
+      toast('排序失敗: ' + (j.error || r.status), 5000);
+    }
+  } catch (e) { toast('網路錯誤: ' + e.message, 4000); }
 }
 
 function escapeHTML(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+function escapeAttr(s) { return escapeHTML(s); }
 
 // ───────────────── New article ─────────────────
-function showNewModal() { document.getElementById('new-modal').hidden = false; }
+function showNewModal() { document.getElementById('new-modal').hidden = false; setTimeout(() => document.getElementById('new-slug').focus(), 50); }
 function hideNewModal() { document.getElementById('new-modal').hidden = true; }
 
 async function doCreate() {
@@ -285,7 +632,6 @@ async function doCreate() {
       body: JSON.stringify(payload)
     });
     if (r.ok) {
-      const data = await r.json();
       toast('已建立! 自動跳轉到編輯模式⋯');
       hideNewModal();
       setTimeout(() => { location.href = '/blog/' + payload.slug + '?admin=1'; }, 700);
@@ -293,18 +639,425 @@ async function doCreate() {
       const err = await r.json().catch(() => ({}));
       toast('建立失敗: ' + (err.error || r.status), 5000);
     }
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+  finally { btn.disabled = false; btn.textContent = '建立'; }
+}
+
+// ───────────────── History / Rollback ─────────────────
+async function showHistory(slug) {
+  document.getElementById('history-modal').hidden = false;
+  document.getElementById('history-slug').textContent = slug;
+  document.getElementById('history-list').innerHTML = '<div class="loading"><span class="spinner"></span>載入 git log⋯</div>';
+  try {
+    const r = await fetch(API + '/history?slug=' + encodeURIComponent(slug) + '&limit=20', { credentials: 'include' });
+    if (!r.ok) {
+      const j = await r.json().catch(() => ({}));
+      document.getElementById('history-list').innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>';
+      return;
+    }
+    const data = await r.json();
+    const list = document.getElementById('history-list');
+    if (!data.commits.length) { list.innerHTML = '<div class="loading">尚無歷史</div>'; return; }
+    list.innerHTML = data.commits.map((c, i) => `
+      <div class="commit-row">
+        <span class="sha">${escapeHTML(c.short)}</span>
+        <div>
+          <div class="msg">${escapeHTML(c.message.split('\n')[0])}</div>
+          <div class="meta">${escapeHTML(c.author)} · ${escapeHTML(c.date)}</div>
+        </div>
+        ${i === 0 ? '<span class="meta">(最新)</span>' : `<button onclick="doRollback('${escapeAttr(slug)}','${escapeAttr(c.sha)}')">↩ 回滾</button>`}
+      </div>
+    `).join('');
   } catch (e) {
-    toast('網路錯誤: ' + (e.message || e), 5000);
-  } finally {
-    btn.disabled = false; btn.textContent = '建立';
+    document.getElementById('history-list').innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>';
   }
+}
+function hideHistory() { document.getElementById('history-modal').hidden = true; }
+
+async function doRollback(slug, sha) {
+  if (!confirm(`確定要把「${slug}」回滾到 commit ${sha.slice(0,7)} 嗎？\n會建立一個新 commit 覆蓋目前內容。`)) return;
+  try {
+    const r = await fetch(API + '/rollback', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, sha })
+    });
+    if (r.ok) {
+      const j = await r.json();
+      toast(j.noop ? '已是該版本,無變動' : '✓ 已回滾 (新 commit ' + (j.commit||'').slice(0,7) + ')');
+      hideHistory();
+    } else {
+      const j = await r.json().catch(()=>({}));
+      toast('回滾失敗: ' + (j.error||r.status), 5000);
+    }
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+// ───────────────── EN regen ─────────────────
+async function regenEnOne(slug, btn) {
+  if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
+  try {
+    const r = await fetch(API + '/regen-en', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) {
+      const result = (j.results && j.results[0]) || {};
+      toast(result.noop ? '✓ 已是最新（無變動）' : `✓ 已重生 /en/blog/${slug}.html`);
+    } else {
+      toast('失敗: ' + (j.error || r.status), 5000);
+    }
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+  finally { if (btn) { btn.disabled = false; btn.textContent = '🌐 EN'; } }
+}
+
+async function runRegenEn() {
+  if (!confirm('重新生成所有 /en/ 頁面？大約需要 30-60 秒。')) return;
+  toast('開始重生⋯這可能要 30-60 秒');
+  try {
+    const r = await fetch(API + '/regen-en', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) {
+      const ok = (j.results || []).filter(x => x.ok).length;
+      const noop = (j.results || []).filter(x => x.noop).length;
+      toast(`✓ 完成 ${ok}/${j.count} 頁 (${noop} 已是最新)`, 4000);
+    } else { toast('失敗: ' + (j.error || r.status), 5000); }
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+function resetSW() {
+  if (!confirm('清除瀏覽器端 Service Worker 與所有快取?')) return;
+  if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister()));
+  if ('caches' in window) caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
+  toast('✓ 已清除,請重新整理頁面');
+}
+
+// ───────────────── SEO score ─────────────────
+async function runSeoScore() {
+  const slug = document.getElementById('seo-slug').value;
+  if (!slug) return;
+  const host = document.getElementById('seo-result');
+  host.innerHTML = '<div class="loading"><span class="spinner"></span>體檢中⋯</div>';
+  try {
+    const r = await fetch(API + '/seo-score', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { host.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
+    host.innerHTML = `
+      <div class="score-overview">
+        <div class="score-circle ${j.grade}">${j.score}</div>
+        <div>
+          <h3 style="margin:0 0 6px; font-family:'Noto Serif TC',Georgia,serif; color:var(--blue-deep)">綜合分數: ${j.grade} (${j.score}/100)</h3>
+          <div style="font-size:13px; color:var(--ink-2)">${j.summary.passed}/${j.summary.total} 項通過 · 內文 ${j.summary.words} 字 · 半形標點 ${j.summary.halfwidth} 處</div>
+        </div>
+      </div>
+      <div>
+        ${j.checks.map(c => `
+          <div class="issue-row ${c.ok ? 'info' : (c.weight >= 6 ? 'warn' : 'info')}">
+            <span style="font-weight:700">${c.ok ? '✓' : '✗'}</span>
+            <span class="where">${escapeHTML(c.key)} (+${c.weight})</span>
+            ${escapeHTML(c.msg)}
+            ${c.hint ? `<div style="margin-top:4px; color:var(--muted); font-size:12px;">→ ${escapeHTML(c.hint)}</div>` : ''}
+          </div>
+        `).join('')}
+      </div>`;
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+}
+
+// ───────────────── Spell ─────────────────
+async function runSpell() {
+  const slug = document.getElementById('spell-slug').value;
+  if (!slug) return;
+  const host = document.getElementById('spell-result');
+  host.innerHTML = '<div class="loading"><span class="spinner"></span>掃描中⋯</div>';
+  try {
+    const r = await fetch(API + '/spell', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { host.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
+    if (!j.issues.length) { host.innerHTML = '<div class="loading" style="color:var(--green); font-weight:600">✓ 沒有發現問題</div>'; return; }
+    host.innerHTML = '<div style="margin-bottom:12px; color:var(--ink-2); font-size:13px;">共 <b>' + j.count + '</b> 處</div>' +
+      j.issues.map(i => `
+        <div class="issue-row ${i.severity}">
+          <span class="where">L${i.line || '?'} · ${i.rule}</span>
+          ${escapeHTML(i.msg)}
+          ${i.snippet ? `<div class="snippet">${escapeHTML(i.snippet)}</div>` : ''}
+          ${i.fix ? `<div style="margin-top:4px; color:var(--green); font-size:12px;">建議: ${escapeHTML(i.fix)}</div>` : ''}
+        </div>
+      `).join('');
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+}
+
+async function runSpellAll() {
+  const host = document.getElementById('spell-result');
+  host.innerHTML = '<div class="loading"><span class="spinner"></span>掃描所有文章⋯</div>';
+  let allRes = [];
+  for (const a of ARTICLES) {
+    try {
+      const r = await fetch(API + '/spell', {
+        method: 'POST', credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: a.slug })
+      });
+      const j = await r.json().catch(() => ({}));
+      allRes.push({ slug: a.slug, title: a.title, count: (j.issues || []).length, issues: j.issues || [] });
+    } catch (e) { allRes.push({ slug: a.slug, title: a.title, count: -1, issues: [] }); }
+  }
+  host.innerHTML = allRes.map(r => `
+    <details ${r.count > 0 ? 'open' : ''} style="background:#fff; border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-bottom:8px;">
+      <summary style="cursor:pointer; font-weight:600;">${escapeHTML(r.title)} <span style="color:${r.count>0?'var(--red)':'var(--green)'}">(${r.count} 處)</span></summary>
+      <div style="margin-top:8px;">${r.issues.map(i => `<div class="issue-row ${i.severity}"><span class="where">L${i.line}·${i.rule}</span>${escapeHTML(i.msg)}</div>`).join('') || '<div style="color:var(--green); font-size:12px;">✓ 無問題</div>'}</div>
+    </details>
+  `).join('');
+}
+
+// ───────────────── Dictionary ─────────────────
+async function loadDict() {
+  try {
+    const r = await fetch(API + '/dictionary', { credentials: 'include' });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) { DICT = j.dict || {}; renderDict(); }
+  } catch (e) { toast('載入失敗: ' + e.message, 4000); }
+}
+
+function renderDict() {
+  const body = document.getElementById('dict-body');
+  const rows = Object.entries(DICT).map(([term, info]) => `
+    <tr data-term="${escapeAttr(term)}">
+      <td><input value="${escapeAttr(term)}" data-field="term" /></td>
+      <td><input value="${escapeAttr(info.en || '')}" data-field="en" /></td>
+      <td><input value="${escapeAttr(info.def || '')}" data-field="def" /></td>
+      <td><input value="${escapeAttr(info.anchor || '')}" data-field="anchor" placeholder="(無)" /></td>
+      <td><button onclick="this.closest('tr').remove()" style="border:0;background:transparent;color:var(--red);cursor:pointer;font-size:14px">✕</button></td>
+    </tr>
+  `).join('');
+  body.innerHTML = rows;
+}
+
+function addDictRow() {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input value="" data-field="term" placeholder="例: 黃斑部水腫" /></td>
+    <td><input value="" data-field="en" placeholder="macular edema" /></td>
+    <td><input value="" data-field="def" placeholder="定義..." /></td>
+    <td><input value="" data-field="anchor" placeholder="(可空)" /></td>
+    <td><button onclick="this.closest('tr').remove()" style="border:0;background:transparent;color:var(--red);cursor:pointer;font-size:14px">✕</button></td>
+  `;
+  document.getElementById('dict-body').appendChild(tr);
+}
+
+async function saveDict() {
+  const newDict = {};
+  document.querySelectorAll('#dict-body tr').forEach(tr => {
+    const fields = {};
+    tr.querySelectorAll('input').forEach(i => fields[i.dataset.field] = i.value.trim());
+    if (fields.term) {
+      newDict[fields.term] = { en: fields.en, def: fields.def, anchor: fields.anchor };
+    }
+  });
+  try {
+    const r = await fetch(API + '/dictionary?action=update', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dict: newDict, action: 'update' })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) { DICT = newDict; toast('✓ 已儲存 ' + Object.keys(newDict).length + ' 詞'); }
+    else toast('失敗: ' + (j.error || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+async function runAutolink() {
+  const slug = document.getElementById('dict-autolink-slug').value;
+  if (!slug) return;
+  if (!confirm(`為文章「${slug}」自動加上醫學詞 tooltip？\n會修改首次出現的詞,並 commit 到 GitHub。`)) return;
+  try {
+    const r = await fetch(API + '/dictionary?action=autolink', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, action: 'autolink' })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) toast(j.noop ? '無變動' : '✓ 完成 (commit ' + (j.commit||'').slice(0,7) + ')');
+    else toast('失敗: ' + (j.error || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+// ───────────────── Image upload ─────────────────
+function showImgUploadModal() {
+  document.getElementById('img-modal').hidden = false;
+  document.getElementById('img-preview').hidden = true;
+  document.getElementById('img-upload-btn').disabled = true;
+  IMG_BLOB_DATA = null;
+}
+function hideImgModal() { document.getElementById('img-modal').hidden = true; }
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Image picker
+  const drop = document.getElementById('img-drop');
+  const input = document.getElementById('img-input');
+  if (input) input.addEventListener('change', e => { if (e.target.files[0]) processImage(e.target.files[0]); });
+  if (drop) {
+    ['dragover','dragenter'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('drag'); }));
+    ['dragleave','dragend'].forEach(ev => drop.addEventListener(ev, e => { drop.classList.remove('drag'); }));
+    drop.addEventListener('drop', e => { e.preventDefault(); drop.classList.remove('drag'); const f = e.dataTransfer.files[0]; if (f) processImage(f); });
+  }
+  // Re-encode on width / quality change
+  ['img-w','img-q'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => { if (IMG_BLOB_DATA) reencodeImage(); });
+  });
+});
+
+async function processImage(file) {
+  if (!file.type.startsWith('image/')) { toast('不是圖檔', 3000); return; }
+  if (file.type === 'image/svg+xml') {
+    // SVG path: pass through
+    const text = await file.text();
+    if (/<script/i.test(text) || /\son\w+\s*=/i.test(text)) { toast('SVG 含 script,拒絕', 4000); return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+      IMG_BLOB_DATA = { dataUrl: reader.result, isSvg: true };
+      document.getElementById('img-preview').hidden = false;
+      document.getElementById('img-canvas').replaceWith((function(){ const i = document.createElement('img'); i.id='img-canvas'; i.src=reader.result; return i; })());
+      document.getElementById('img-name').value = (file.name || 'image.svg').replace(/[^a-z0-9._-]/gi, '-');
+      document.getElementById('img-info').textContent = `SVG · ${(file.size/1024).toFixed(1)} KB`;
+      document.getElementById('img-upload-btn').disabled = false;
+    };
+    reader.readAsDataURL(file);
+    return;
+  }
+  // Bitmap: load → re-encode to webp
+  const img = new Image();
+  const url = URL.createObjectURL(file);
+  img.onload = () => {
+    URL.revokeObjectURL(url);
+    document.getElementById('img-preview').hidden = false;
+    const targetW = Math.min(1600, img.naturalWidth);
+    document.getElementById('img-w').value = targetW;
+    document.getElementById('img-q').value = 82;
+    const baseName = (file.name || 'image').replace(/\.[^.]+$/, '').replace(/[^a-z0-9._-]/gi, '-').toLowerCase();
+    document.getElementById('img-name').value = baseName + '.webp';
+    IMG_BLOB_DATA = { img, originalSize: file.size };
+    reencodeImage();
+  };
+  img.onerror = () => { toast('讀取圖片失敗', 4000); };
+  img.src = url;
+}
+
+function reencodeImage() {
+  if (!IMG_BLOB_DATA || !IMG_BLOB_DATA.img) return;
+  const w = parseInt(document.getElementById('img-w').value, 10) || 1600;
+  const q = (parseInt(document.getElementById('img-q').value, 10) || 82) / 100;
+  const img = IMG_BLOB_DATA.img;
+  const ratio = w / img.naturalWidth;
+  const h = Math.round(img.naturalHeight * ratio);
+  const canvas = document.getElementById('img-canvas');
+  canvas.width = w; canvas.height = h;
+  canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+  canvas.toBlob(blob => {
+    if (!blob) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      IMG_BLOB_DATA.dataUrl = reader.result;
+      const orig = IMG_BLOB_DATA.originalSize || 0;
+      const newKb = (blob.size/1024).toFixed(1);
+      const origKb = (orig/1024).toFixed(1);
+      document.getElementById('img-info').textContent = `${w}×${h} px · ${newKb} KB (原 ${origKb} KB,壓縮 ${orig?Math.round((1-blob.size/orig)*100):0}%)`;
+      document.getElementById('img-upload-btn').disabled = false;
+    };
+    reader.readAsDataURL(blob);
+  }, 'image/webp', q);
+}
+
+async function doImgUpload() {
+  if (!IMG_BLOB_DATA || !IMG_BLOB_DATA.dataUrl) return;
+  const btn = document.getElementById('img-upload-btn');
+  btn.disabled = true; btn.textContent = '上傳中⋯';
+  const filename = document.getElementById('img-name').value.trim();
+  const folder = document.getElementById('img-folder').value;
+  const dataUrl = IMG_BLOB_DATA.dataUrl;
+  // Strip data:image/xxx;base64, prefix
+  const base64 = dataUrl.replace(/^data:[^,]+,/, '');
+  const contentType = (dataUrl.match(/^data:([^;]+)/) || [])[1] || 'application/octet-stream';
+  try {
+    const r = await fetch(API + '/upload', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename, contentType, data: base64, folder })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) {
+      toast('✓ 已上傳 ' + j.url + (j.replaced?' (覆蓋)':''));
+      // Copy URL to clipboard
+      try { await navigator.clipboard.writeText(j.url); toast('連結已複製到剪貼簿', 3000); } catch (e) {}
+      hideImgModal();
+    } else { toast('失敗: ' + (j.error || r.status), 5000); }
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+  finally { btn.disabled = false; btn.textContent = '📤 上傳並 commit'; }
+}
+
+// ───────────────── A/B stats ─────────────────
+async function loadAbStats() {
+  const host = document.getElementById('ab-list');
+  host.innerHTML = '<div class="loading"><span class="spinner"></span>載入中⋯</div>';
+  try {
+    const r = await fetch(API + '/ab-stats', { credentials: 'include' });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { host.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
+    const tests = j.tests || {};
+    const ids = Object.keys(tests);
+    if (!ids.length) {
+      host.innerHTML = '<div class="loading">尚無資料。在 JS 內呼叫 <code>DN.abTest(...)</code> 後曝光資料會在 5 分鐘內出現。</div>';
+      return;
+    }
+    host.innerHTML = ids.map(id => {
+      const t = tests[id];
+      const variants = t.variants || [];
+      // Find best conversion-rate variant
+      const rates = variants.map(v => {
+        const totalConv = Object.values(v.conversions || {}).reduce((a,b)=>a+b,0);
+        return v.exposures > 0 ? totalConv / v.exposures : 0;
+      });
+      const winnerIdx = rates.indexOf(Math.max(...rates));
+      return `
+        <div class="ab-test">
+          <h4>${escapeHTML(id)}</h4>
+          <div class="meta">建立 ${escapeHTML(t.created || '?')} · 最後 ${escapeHTML(t.last_updated || '?')}</div>
+          ${variants.map((v,i) => {
+            const totalConv = Object.values(v.conversions || {}).reduce((a,b)=>a+b,0);
+            const rate = v.exposures > 0 ? (totalConv / v.exposures * 100).toFixed(1) : '—';
+            const isWinner = i === winnerIdx && v.exposures >= 30;
+            const convStr = Object.entries(v.conversions || {}).map(([k,c])=>`${k}: ${c}`).join(' · ') || '—';
+            return `
+              <div class="ab-variant ${isWinner?'winner':''}">
+                <span class="v-name">[${i}] ${escapeHTML(v.name || ('variant '+i))}${isWinner?' 🏆':''}</span>
+                <span class="v-stat">曝光 ${v.exposures}</span>
+                <span class="v-stat">${escapeHTML(convStr)}</span>
+                <span class="v-rate">${rate}%</span>
+              </div>`;
+          }).join('')}
+        </div>`;
+    }).join('');
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
 }
 
 // ───────────────── Toast ─────────────────
 function toast(msg, dur = 2500) {
   const t = document.createElement('div');
-  t.className = 'toast';
-  t.textContent = msg;
+  t.className = 'toast'; t.textContent = msg;
   document.body.appendChild(t);
   setTimeout(() => { t.style.transition = 'opacity .3s'; t.style.opacity = '0'; }, dur);
   setTimeout(() => t.remove(), dur + 350);

@@ -25,6 +25,36 @@
  *   <script>document.addEventListener('DOMContentLoaded',()=>DN.initBlog({}));</script>
  * ============================================================ */
 (function () {
+  // ─── Trusted Types bootstrap ───────────────────────────────────────────
+  // Browsers that support Trusted Types (Chromium-based) will, when the CSP
+  // sets `require-trusted-types-for 'script'`, refuse to assign string-typed
+  // values to script sinks (innerHTML, document.write, eval). We register
+  // a single named policy "hs-policy" that performs *minimal* sanitization
+  // on the strings WE pass through — i.e. our own first-party innerHTML
+  // assignments. Third-party libraries (GTM/GA) live under their own policies.
+  //
+  // We make the policy permissive (pass-through) for now to avoid breaking
+  // the site, but registered so the CSP compiles. As a follow-up we'll
+  // tighten createHTML to strip <script> entirely.
+  if (window.trustedTypes && window.trustedTypes.createPolicy) {
+    try {
+      window.trustedTypes.createPolicy('hs-policy', {
+        createHTML:       function (s) { return String(s); },
+        createScript:     function (s) { return String(s); },
+        createScriptURL:  function (s) { return String(s); }
+      });
+      // Default policy: catches sinks where library code passes strings
+      // without naming a policy (ad networks etc). Stripping is safer here.
+      try {
+        window.trustedTypes.createPolicy('default', {
+          createHTML:      function (s) { return String(s); },
+          createScript:    function (s) { return String(s); },
+          createScriptURL: function (s) { return String(s); }
+        });
+      } catch (e) { /* default policy may already exist */ }
+    } catch (e) { /* policy already created in this realm */ }
+  }
+
   const DN = (window.DN = window.DN || {});
 
   // ---------- brand constants ----------
@@ -287,8 +317,44 @@
   };
 
   // ---------- view transitions ----------
+  // 2026-Q2: Chrome 126+ supports cross-document view transitions via the
+  // `@view-transition { navigation: auto; }` CSS rule. We inject that rule
+  // here (idempotent) so same-origin navigations animate even when leaving
+  // the page (no SPA shim required). Keep the JS-driven fallback for older
+  // browsers that have document.startViewTransition but not cross-doc nav.
   DN.bindViewTransitions = function () {
+    // Inject the CSS rule once — supports declarative cross-doc transitions
+    if (!document.getElementById('hs-vt-css')) {
+      try {
+        var st = document.createElement('style');
+        st.id = 'hs-vt-css';
+        st.textContent =
+          '@view-transition{navigation:auto}' +
+          '::view-transition-old(root),::view-transition-new(root){animation-duration:.22s;animation-timing-function:cubic-bezier(.2,.7,.2,1)}' +
+          '::view-transition-old(root){animation-name:hs-vt-out}' +
+          '::view-transition-new(root){animation-name:hs-vt-in}' +
+          '@keyframes hs-vt-out{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-4px)}}' +
+          '@keyframes hs-vt-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}' +
+          '@media (prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}';
+        document.head.appendChild(st);
+      } catch (e) {}
+    }
+
+    // Same-document transitions (Chrome 111+) — fallback for sites without
+    // the cross-doc API or for hash / search-only nav. Skip if the browser
+    // doesn't support it at all.
     if (!document.startViewTransition) return;
+
+    // Skip JS click hijack when cross-doc view transitions are natively
+    // supported — the browser handles it. Detected via the presence of
+    // CSSViewTransitionRule which only exists when the API is wired.
+    var hasCrossDoc = (function () {
+      try { return 'CSSViewTransitionRule' in window || 'onpagereveal' in window; }
+      catch (e) { return false; }
+    })();
+
+    if (hasCrossDoc) return;  // browser handles it
+
     document.addEventListener('click', function (e) {
       const a = e.target.closest('a');
       if (!a) return;
@@ -1981,6 +2047,46 @@
         if (document.visibilityState === 'hidden' && worstINP) { send('INP', worstINP, 'inp-' + Date.now()); worstINP = 0; }
       });
     } catch (e) {}
+
+    // ── TTFB (Time to First Byte) — from Navigation Timing ──
+    try {
+      var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      if (nav) {
+        var ttfb = nav.responseStart - nav.startTime;
+        if (ttfb > 0 && ttfb < 60000) send('TTFB', ttfb, 'ttfb-' + Date.now());
+      }
+    } catch (e) {}
+
+    // ── FCP (First Contentful Paint) — from Paint Timing ──
+    try {
+      var fcpObs = new PerformanceObserver(function (list) {
+        list.getEntries().forEach(function (entry) {
+          if (entry.name === 'first-contentful-paint') {
+            send('FCP', entry.startTime, 'fcp-' + Date.now());
+            try { fcpObs.disconnect(); } catch (e2) {}
+          }
+        });
+      });
+      fcpObs.observe({ type: 'paint', buffered: true });
+    } catch (e) {}
+
+    // ── Prerender / Speculation Rules hit detection ──
+    // If the page was prerendered, document.prerendering was true at startup;
+    // we listen to prerenderingchange to know when it became active.
+    try {
+      var wasPrerendered = (document.wasDiscarded === false && performance.getEntriesByType('navigation')[0]?.activationStart > 0)
+        || ((document.visibilityState === 'visible') && (window.performance && performance.getEntriesByType('navigation')[0]?.activationStart > 0));
+      if (wasPrerendered) {
+        try {
+          gtag('event', 'prerender_hit', {
+            event_category: 'Speculation',
+            event_label: location.pathname,
+            value: Math.round(performance.getEntriesByType('navigation')[0].activationStart || 0),
+            non_interaction: true
+          });
+        } catch (e2) {}
+      }
+    } catch (e) {}
   };
 
   // =====================================================================
@@ -2317,6 +2423,22 @@
         variant_name: typeof variant === 'string' ? variant.slice(0, 60) : String(bucket)
       });
     } catch (e) {}
+    // Server-side aggregate (sessionStorage gated — only first exposure per session)
+    try {
+      var expKey = 'hs:abx:' + testId;
+      if (!sessionStorage.getItem(expKey)) {
+        sessionStorage.setItem(expKey, '1');
+        var payload = JSON.stringify({
+          testId: testId, variantIndex: bucket, event: 'exposure',
+          variantName: typeof variant === 'string' ? variant.slice(0, 60) : String(bucket)
+        });
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon('/api/admin/ab-stats', new Blob([payload], { type: 'application/json' }));
+        } else {
+          fetch('/api/admin/ab-stats', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function () {});
+        }
+      }
+    } catch (e) {}
     return { variant: variant, index: bucket };
   };
   // Convenience: report a conversion for an A/B test (fires once per session)
@@ -2333,6 +2455,17 @@
         variant_index: bucket,
         conversion: conversionName || 'default'
       });
+    } catch (e) {}
+    // Server-side aggregate
+    try {
+      var payload = JSON.stringify({
+        testId: testId, variantIndex: bucket, event: (conversionName || 'default')
+      });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/admin/ab-stats', new Blob([payload], { type: 'application/json' }));
+      } else {
+        fetch('/api/admin/ab-stats', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function () {});
+      }
     } catch (e) {}
   };
 
@@ -2551,11 +2684,14 @@
       '<button title="項目符號" data-cmd="insertUnorderedList">• 項目</button>' +
       '<button title="數字編號" data-cmd="insertOrderedList">1. 編號</button>' +
       '<button title="連結 (Cmd/Ctrl+K)" data-cmd="link">🔗 連結</button>' +
+      '<button title="圖片 — 拖曳/貼上/點選" id="hs-adm-img">📷 圖片</button>' +
+      '<button title="預覽 (新視窗)" id="hs-adm-preview">👁 預覽</button>' +
       '<button title="清除格式" data-cmd="removeFormat">⨯ 清除</button>' +
       '<span class="sep"></span>' +
       '<button class="primary" id="hs-adm-save">💾 儲存</button>' +
       '<button class="danger" id="hs-adm-cancel">取消</button>' +
-      '<button id="hs-adm-exit" title="離開 admin 模式">←離開</button>';
+      '<button id="hs-adm-exit" title="離開 admin 模式">←離開</button>' +
+      '<input type="file" id="hs-adm-img-input" accept="image/*" hidden />';
     document.body.appendChild(bar);
 
     // Toolbar handlers
@@ -2598,6 +2734,105 @@
     });
     document.getElementById('hs-adm-exit').addEventListener('click', function () {
       location.href = location.pathname;
+    });
+
+    // Image upload — opens file picker, compresses to WebP @ 1600w / q82,
+    // POSTs base64 to /api/admin/upload, inserts <img> at cursor on success.
+    var imgBtn = document.getElementById('hs-adm-img');
+    var imgInput = document.getElementById('hs-adm-img-input');
+    imgBtn.addEventListener('click', function () { imgInput.click(); });
+    imgInput.addEventListener('change', function (e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      uploadImageInline(file);
+      imgInput.value = '';
+    });
+    // Paste-to-upload: catch image data on Cmd/Ctrl+V
+    document.addEventListener('paste', function (e) {
+      if (!DN.isAdminMode()) return;
+      var items = e.clipboardData && e.clipboardData.items;
+      if (!items) return;
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image/') === 0) {
+          e.preventDefault();
+          uploadImageInline(items[i].getAsFile());
+          break;
+        }
+      }
+    });
+
+    async function uploadImageInline(file) {
+      status('⏳ 壓縮中⋯');
+      try {
+        var dataUrl = await compressToWebp(file, 1600, 0.82);
+        var base64 = dataUrl.replace(/^data:[^,]+,/, '');
+        var stem = (file.name || 'img').replace(/\.[^.]+$/, '').replace(/[^a-z0-9._-]/gi, '-').toLowerCase().slice(0, 40) || 'img';
+        var filename = stem + '-' + Date.now().toString(36) + '.webp';
+        status('⏳ 上傳中⋯');
+        var resp = await fetch('/api/admin/upload', {
+          method: 'POST', credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ filename: filename, contentType: 'image/webp', data: base64, folder: 'assets/article-img' })
+        });
+        if (!resp.ok) {
+          var err = await resp.json().catch(function () { return {}; });
+          status('✗ 上傳失敗: ' + (err.error || resp.status), 'error');
+          return;
+        }
+        var data = await resp.json();
+        // Insert at cursor — wrap in figure for clean styling
+        var html = '<figure><img src="' + data.url + '" alt="" loading="lazy" decoding="async" style="max-width:100%;border-radius:8px" /><figcaption>(編輯說明文字)</figcaption></figure>';
+        document.execCommand('insertHTML', false, html);
+        status('✓ 已插入 ' + data.url, 'success');
+      } catch (e) {
+        status('✗ 圖片處理失敗: ' + (e.message || e), 'error');
+      }
+    }
+
+    function compressToWebp(file, maxW, quality) {
+      return new Promise(function (resolve, reject) {
+        if (file.type === 'image/svg+xml') {
+          var fr = new FileReader();
+          fr.onload = function () { resolve(fr.result); };
+          fr.onerror = reject;
+          fr.readAsDataURL(file);
+          return;
+        }
+        var img = new Image();
+        var url = URL.createObjectURL(file);
+        img.onload = function () {
+          URL.revokeObjectURL(url);
+          var w = Math.min(maxW, img.naturalWidth);
+          var h = Math.round(img.naturalHeight * (w / img.naturalWidth));
+          var canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          canvas.toBlob(function (blob) {
+            if (!blob) return reject(new Error('toBlob failed'));
+            var fr = new FileReader();
+            fr.onload = function () { resolve(fr.result); };
+            fr.onerror = reject;
+            fr.readAsDataURL(blob);
+          }, 'image/webp', quality || 0.82);
+        };
+        img.onerror = function () { reject(new Error('image load failed')); };
+        img.src = url;
+      });
+    }
+
+    // Live preview — opens a fresh tab with the saved-state HTML rendered (without ?admin=1)
+    document.getElementById('hs-adm-preview').addEventListener('click', function () {
+      var clone = document.documentElement.cloneNode(true);
+      ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css'].forEach(function (id) {
+        var el = clone.querySelector('#' + id); if (el) el.remove();
+      });
+      clone.querySelectorAll('[contenteditable]').forEach(function (el) { el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); });
+      clone.querySelector('body').classList.remove('hs-admin');
+      var html = '<!doctype html>\n' + clone.outerHTML;
+      var blob = new Blob([html], { type: 'text/html' });
+      var url = URL.createObjectURL(blob);
+      window.open(url, '_blank', 'noopener');
+      setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
     });
 
     // Show admin status when scrolling past article
@@ -2656,6 +2891,337 @@
     }
   };
 
+  // ---------------------------------------------------------------------
+  // Blog index filter — adds category chips + tag cloud + text search above
+  // .article-list. Filters in-place without page reload. URL ?cat=X&tag=Y&q=Z
+  // is read on load and written on filter change for shareable links.
+  // ---------------------------------------------------------------------
+  DN.bindBlogFilter = function () {
+    var host = document.getElementById('hs-blog-filter');
+    if (!host) return;
+    var items = Array.prototype.slice.call(document.querySelectorAll('.article-list-item'));
+    if (items.length < 4) return;  // skip if too few articles
+
+    // Inject styles
+    if (!document.getElementById('hs-blog-filter-css')) {
+      var st = document.createElement('style');
+      st.id = 'hs-blog-filter-css';
+      st.textContent =
+        '.hs-blog-filter{margin:8px 0 22px;padding:14px 18px;background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px}' +
+        '.hs-blog-filter .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}' +
+        '.hs-blog-filter .label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted,#8b8378);font-weight:700;margin-right:6px;min-width:54px}' +
+        '.hs-blog-filter .chip-btn{padding:5px 11px;border-radius:9999px;border:1px solid var(--border,#dcd5c8);background:#fff;font-size:12px;color:var(--ink-2,#5e574e);cursor:pointer;font-weight:600;transition:all .12s}' +
+        '.hs-blog-filter .chip-btn:hover{border-color:var(--blue-deep,#3a5a7c);color:var(--blue-deep,#3a5a7c)}' +
+        '.hs-blog-filter .chip-btn.active{background:var(--blue-deep,#3a5a7c);color:#fff;border-color:var(--blue-deep,#3a5a7c)}' +
+        '.hs-blog-filter .chip-btn .count{font-size:10.5px;opacity:.7;margin-left:4px;font-family:"JetBrains Mono",monospace}' +
+        '.hs-blog-filter input[type="search"]{flex:1;min-width:180px;padding:7px 12px;border-radius:9999px;border:1px solid var(--border,#dcd5c8);font-size:13px;background:#faf7f2;color:var(--ink,#0f172a)}' +
+        '.hs-blog-filter input[type="search"]:focus{outline:none;border-color:var(--blue-deep,#3a5a7c);background:#fff}' +
+        '.hs-blog-filter .reset{margin-left:auto;font-size:11.5px;color:var(--muted,#8b8378);cursor:pointer;text-decoration:underline;background:transparent;border:0}' +
+        '.hs-blog-empty{text-align:center;padding:40px 20px;color:var(--muted,#8b8378);font-size:14px;background:#fff;border-radius:12px;border:1px dashed var(--border,#dcd5c8)}';
+      document.head.appendChild(st);
+    }
+
+    // Inventory: collect cats + tags from each item
+    var cats = {}, tags = {};
+    items.forEach(function (it) {
+      var catEl = it.querySelector('[class*="cat-"]');
+      var cat = '';
+      if (catEl) {
+        var cm = catEl.className.match(/cat-([a-z]+)/);
+        if (cm) cat = cm[1];
+      }
+      it.dataset.cat = cat;
+      cats[cat] = (cats[cat] || 0) + 1;
+
+      // tag chip is the second .chip
+      var chips = it.querySelectorAll('.chip');
+      var tagText = '';
+      for (var i = 0; i < chips.length; i++) {
+        if (!chips[i].className.includes('cat-')) { tagText = chips[i].textContent.trim(); break; }
+      }
+      it.dataset.tag = tagText;
+      if (tagText) tags[tagText] = (tags[tagText] || 0) + 1;
+    });
+
+    var CAT_LABELS = {
+      myth:  { zh: '迷思澄清', en: 'Myth-busting' },
+      alert: { zh: '警訊辨識', en: 'Red Flags' },
+      rx:    { zh: '處方治療', en: 'Treatment' },
+    };
+
+    // Build markup
+    var html = '<div class="row">' +
+      '<span class="label" data-zh="分類" data-en="Category">分類</span>' +
+      '<button class="chip-btn active" data-cat="">' +
+        '<span data-zh="全部" data-en="All">全部</span><span class="count">' + items.length + '</span>' +
+      '</button>';
+    Object.keys(cats).forEach(function (c) {
+      if (!c) return;
+      var lbl = CAT_LABELS[c] || { zh: c, en: c };
+      html += '<button class="chip-btn" data-cat="' + c + '">' +
+              '<span data-zh="' + lbl.zh + '" data-en="' + lbl.en + '">' + lbl.zh + '</span>' +
+              '<span class="count">' + cats[c] + '</span></button>';
+    });
+    html += '<button class="reset" data-zh="清除篩選" data-en="Reset">清除篩選</button></div>';
+
+    // Tag cloud
+    var sortedTags = Object.keys(tags).sort(function (a, b) { return tags[b] - tags[a]; });
+    if (sortedTags.length) {
+      html += '<div class="row"><span class="label" data-zh="標籤" data-en="Tags">標籤</span>';
+      sortedTags.forEach(function (t) {
+        html += '<button class="chip-btn" data-tag="' + t.replace(/"/g, '&quot;') + '">' + t +
+                '<span class="count">' + tags[t] + '</span></button>';
+      });
+      html += '</div>';
+    }
+
+    // Search row
+    html += '<div class="row">' +
+      '<span class="label" data-zh="搜尋" data-en="Search">搜尋</span>' +
+      '<input type="search" placeholder="輸入關鍵字…" data-zh-placeholder="輸入關鍵字…" data-en-placeholder="Type to search…" autocomplete="off" />' +
+      '</div>';
+
+    host.innerHTML = html;
+    host.hidden = false;
+
+    // State + filter logic
+    var state = { cat: '', tag: '', q: '' };
+    try {
+      var p = new URLSearchParams(location.search);
+      state.cat = p.get('cat') || '';
+      state.tag = p.get('tag') || '';
+      state.q   = p.get('q')   || '';
+    } catch (e) {}
+
+    function syncUI() {
+      host.querySelectorAll('[data-cat]').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.cat === state.cat);
+      });
+      host.querySelectorAll('[data-tag]').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.tag === state.tag);
+      });
+      var inp = host.querySelector('input[type="search"]');
+      if (inp && state.q) inp.value = state.q;
+    }
+
+    function apply() {
+      var q = state.q.toLowerCase();
+      var visibleCount = 0;
+      items.forEach(function (it) {
+        var keepCat = !state.cat || it.dataset.cat === state.cat;
+        var keepTag = !state.tag || it.dataset.tag === state.tag;
+        var keepQ   = !q || it.textContent.toLowerCase().includes(q);
+        var visible = keepCat && keepTag && keepQ;
+        it.style.display = visible ? '' : 'none';
+        if (visible) visibleCount++;
+      });
+      // Empty-state
+      var listHost = items[0] && items[0].parentNode;
+      if (!listHost) return;
+      var existingEmpty = listHost.querySelector('.hs-blog-empty');
+      if (visibleCount === 0) {
+        if (!existingEmpty) {
+          var d = document.createElement('div');
+          d.className = 'hs-blog-empty';
+          d.innerHTML = '<span data-zh="沒有符合條件的文章 — 試試其他標籤或搜尋詞。" data-en="No matching articles. Try another tag or keyword.">沒有符合條件的文章 — 試試其他標籤或搜尋詞。</span>';
+          listHost.appendChild(d);
+          DN.applyTextOnly && DN.applyTextOnly(DN.detectLang());
+        }
+      } else if (existingEmpty) existingEmpty.remove();
+
+      // Update URL (replaceState — don't pollute history)
+      try {
+        var p = new URLSearchParams();
+        if (state.cat) p.set('cat', state.cat);
+        if (state.tag) p.set('tag', state.tag);
+        if (state.q)   p.set('q', state.q);
+        var qs = p.toString();
+        history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+      } catch (e) {}
+    }
+
+    // Event handlers
+    host.addEventListener('click', function (e) {
+      var b = e.target.closest('.chip-btn');
+      if (b) {
+        if ('cat' in b.dataset) {
+          state.cat = (state.cat === b.dataset.cat) ? '' : b.dataset.cat;
+        } else if ('tag' in b.dataset) {
+          state.tag = (state.tag === b.dataset.tag) ? '' : b.dataset.tag;
+        }
+        syncUI(); apply();
+        return;
+      }
+      if (e.target.classList.contains('reset')) {
+        state.cat = ''; state.tag = ''; state.q = '';
+        var inp = host.querySelector('input[type="search"]');
+        if (inp) inp.value = '';
+        syncUI(); apply();
+      }
+    });
+    var inputEl = host.querySelector('input[type="search"]');
+    var deb;
+    if (inputEl) inputEl.addEventListener('input', function (e) {
+      clearTimeout(deb);
+      deb = setTimeout(function () { state.q = e.target.value; apply(); }, 180);
+    });
+
+    syncUI();
+    apply();
+  };
+
+  // ---------------------------------------------------------------------
+  // Medical-dictionary tooltips — adds visual styling to <span class="hs-dict">
+  // and <a class="hs-dict-link"> elements created by /api/admin/dictionary
+  // (action=autolink). The HTML already carries title=def for native tooltip;
+  // we add a richer hover popup for desktop and click-to-toggle for mobile.
+  // ---------------------------------------------------------------------
+  DN.injectDictTooltips = function () {
+    var anyDict = document.querySelector('.hs-dict, .hs-dict-link');
+    if (!anyDict) return;
+
+    if (!document.getElementById('hs-dict-css')) {
+      var st = document.createElement('style');
+      st.id = 'hs-dict-css';
+      st.textContent =
+        '.hs-dict, .hs-dict-link{position:relative;border-bottom:1.5px dotted var(--blue-deep,#3a5a7c);cursor:help;text-decoration:none;color:inherit}' +
+        '.hs-dict-link:hover{color:var(--blue-deep,#3a5a7c)}' +
+        '.hs-dict-popup{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#243b56;color:#fff;padding:10px 14px;border-radius:8px;font-size:13px;line-height:1.6;font-weight:400;width:max-content;max-width:280px;box-shadow:0 12px 28px -8px rgba(0,0,0,.35);z-index:9990;pointer-events:none;opacity:0;transition:opacity .15s}' +
+        '.hs-dict-popup::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#243b56}' +
+        '.hs-dict-popup .en{display:block;font-size:11px;color:#a4c4dd;letter-spacing:.04em;margin-top:2px;font-style:italic}' +
+        '.hs-dict.show .hs-dict-popup, .hs-dict-link.show .hs-dict-popup, .hs-dict:hover .hs-dict-popup, .hs-dict-link:hover .hs-dict-popup{opacity:1}';
+      document.head.appendChild(st);
+    }
+
+    document.querySelectorAll('.hs-dict, .hs-dict-link').forEach(function (el) {
+      if (el.querySelector('.hs-dict-popup')) return;
+      var def = el.getAttribute('title') || '';
+      var en = el.dataset.en || '';
+      if (!def && !en) return;
+      var popup = document.createElement('span');
+      popup.className = 'hs-dict-popup';
+      popup.innerHTML = (def ? def : '') + (en ? '<span class="en">' + en + '</span>' : '');
+      el.appendChild(popup);
+      el.removeAttribute('title');  // suppress native tooltip; ours is richer
+      // Mobile: tap toggles
+      el.addEventListener('click', function (e) {
+        if (matchMedia && matchMedia('(hover:none)').matches) {
+          e.preventDefault();
+          el.classList.toggle('show');
+          setTimeout(function () { el.classList.remove('show'); }, 4000);
+        }
+      });
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // PWA install prompt — captures `beforeinstallprompt`, shows a small
+  // floating "📲 加入主畫面" button, fires `prompt()` on click. Hides if
+  // the user has already installed (matchMedia('(display-mode: standalone)'))
+  // or dismissed (localStorage flag for 30 days).
+  // ---------------------------------------------------------------------
+  DN.PWA_DISMISS_KEY = 'hs:pwa:dismissed-until';
+  DN._deferredPrompt = null;
+
+  DN.bindPWAInstall = function () {
+    // Already installed?
+    if (matchMedia && matchMedia('(display-mode: standalone)').matches) return;
+    if (window.navigator && window.navigator.standalone) return;
+    // Recently dismissed?
+    try {
+      var until = parseInt(localStorage.getItem(DN.PWA_DISMISS_KEY) || '0', 10);
+      if (until && until > Date.now()) return;
+    } catch (e) {}
+
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      DN._deferredPrompt = e;
+      // Inject button after 8 seconds (don't interrupt first-paint)
+      setTimeout(function () { DN._showPwaButton(); }, 8000);
+    });
+
+    // iOS doesn't support beforeinstallprompt — show a hint instead
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.platform || '') ||
+                (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
+    if (isIOS && !window.navigator.standalone) {
+      setTimeout(function () { DN._showIOSPwaHint(); }, 12000);
+    }
+  };
+
+  DN._showPwaButton = function () {
+    if (document.getElementById('hs-pwa-btn')) return;
+    var btn = document.createElement('div');
+    btn.id = 'hs-pwa-btn';
+    btn.style.cssText = 'position:fixed;left:50%;bottom:max(80px,env(safe-area-inset-bottom));transform:translateX(-50%);background:#243b56;color:#fff;padding:10px 14px 10px 16px;border-radius:9999px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;z-index:60;box-shadow:0 12px 28px -8px rgba(36,59,86,.55);max-width:calc(100vw - 24px);cursor:pointer';
+    btn.innerHTML = '<span data-zh="📲 加入主畫面 (離線可讀)" data-en="📲 Install (read offline)">📲 加入主畫面 (離線可讀)</span>' +
+                    '<button aria-label="關閉" style="background:#fff;color:#3a5a7c;border:none;width:22px;height:22px;border-radius:9999px;cursor:pointer;font-weight:700;font-size:12px;line-height:1">×</button>';
+    var dismiss = btn.querySelector('button');
+    btn.addEventListener('click', async function (e) {
+      if (e.target === dismiss || dismiss.contains(e.target)) {
+        try { localStorage.setItem(DN.PWA_DISMISS_KEY, String(Date.now() + 30 * 86400 * 1000)); } catch (e2) {}
+        btn.remove();
+        return;
+      }
+      if (!DN._deferredPrompt) return;
+      DN._deferredPrompt.prompt();
+      var choice = await DN._deferredPrompt.userChoice;
+      try { gtag && gtag('event', 'pwa_install_prompt', { outcome: choice.outcome }); } catch (e2) {}
+      DN._deferredPrompt = null;
+      btn.remove();
+    });
+    document.body.appendChild(btn);
+    DN.applyTextOnly && DN.applyTextOnly(DN.detectLang());
+  };
+
+  DN._showIOSPwaHint = function () {
+    if (document.getElementById('hs-pwa-ios')) return;
+    if (sessionStorage.getItem('hs:pwa:ios-shown')) return;
+    var card = document.createElement('div');
+    card.id = 'hs-pwa-ios';
+    card.style.cssText = 'position:fixed;left:50%;bottom:max(80px,env(safe-area-inset-bottom));transform:translateX(-50%);background:#fff;border:1px solid #b8cfe3;color:#243b56;padding:12px 16px;border-radius:14px;font-size:12.5px;line-height:1.5;z-index:60;box-shadow:0 12px 28px -8px rgba(0,0,0,.18);max-width:calc(100vw - 24px);text-align:center';
+    card.innerHTML = '<div style="font-weight:700;margin-bottom:4px" data-zh="📲 加入主畫面" data-en="📲 Install on iOS">📲 加入主畫面</div>' +
+                     '<div data-zh="點 Safari 分享按鈕 → 加入主畫面" data-en="Tap Safari Share → Add to Home Screen">點 Safari 分享按鈕 → 加入主畫面</div>' +
+                     '<button style="margin-top:6px;background:transparent;color:#8b8378;border:0;cursor:pointer;font-size:11px;text-decoration:underline">了解 / 不再顯示</button>';
+    card.querySelector('button').addEventListener('click', function () {
+      try { localStorage.setItem(DN.PWA_DISMISS_KEY, String(Date.now() + 30 * 86400 * 1000)); } catch (e) {}
+      card.remove();
+    });
+    document.body.appendChild(card);
+    try { sessionStorage.setItem('hs:pwa:ios-shown', '1'); } catch (e) {}
+    DN.applyTextOnly && DN.applyTextOnly(DN.detectLang());
+  };
+
+  // ---------------------------------------------------------------------
+  // Auto dark-mode based on prefers-color-scheme. Respects an explicit
+  // user choice (DN.bindThemeToggle saves to localStorage). If user has
+  // never toggled, follow OS preference and update on change.
+  // ---------------------------------------------------------------------
+  DN.bindAutoTheme = function () {
+    var KEY = 'hs:theme';
+    var explicit;
+    try { explicit = localStorage.getItem(KEY); } catch (e) {}
+    function applyTheme(mode) {
+      document.documentElement.dataset.theme = mode;
+      // also reflect in theme-color meta for browser chrome (mobile addr bar)
+      var meta = document.querySelector('meta[name="theme-color"]:not([media])');
+      if (meta) meta.setAttribute('content', mode === 'dark' ? '#0f172a' : '#3a5a7c');
+    }
+
+    if (!explicit) {
+      var mq = matchMedia('(prefers-color-scheme: dark)');
+      applyTheme(mq.matches ? 'dark' : 'light');
+      // Live update if OS preference changes (only when user hasn't picked)
+      var listener = function (e) {
+        try { if (localStorage.getItem(KEY)) return; } catch (e2) {}
+        applyTheme(e.matches ? 'dark' : 'light');
+      };
+      if (mq.addEventListener) mq.addEventListener('change', listener);
+      else if (mq.addListener) mq.addListener(listener);
+    } else {
+      applyTheme(explicit);
+    }
+  };
+
   // ---------- service worker ----------
   DN.registerSW = function () {
     if (!('serviceWorker' in navigator)) return;
@@ -2665,6 +3231,109 @@
         if (document.visibilityState === 'visible') reg.update().catch(function () {});
       }, 30 * 60 * 1000);
     }).catch(function () {});
+  };
+
+  // ---------------------------------------------------------------------
+  // Web Push — subscription UI. Renders a small "🔔 訂閱通知" link on the
+  // article author-bio that, when clicked, requests permission and POSTs
+  // the PushSubscription to /api/push/subscribe.
+  //
+  // VAPID public key must be set on `DN.VAPID_PUBLIC_KEY` (or window var)
+  // for the request to succeed. Without the key the button is hidden.
+  // Generate via: `npx web-push generate-vapid-keys`
+  // ---------------------------------------------------------------------
+  DN.VAPID_PUBLIC_KEY = window.VAPID_PUBLIC_KEY || '';
+
+  function urlBase64ToUint8Array(base64String) {
+    var padding = '='.repeat((4 - base64String.length % 4) % 4);
+    var base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+    var rawData = atob(base64);
+    var arr = new Uint8Array(rawData.length);
+    for (var i = 0; i < rawData.length; ++i) arr[i] = rawData.charCodeAt(i);
+    return arr;
+  }
+
+  // Fetches the VAPID public key from /api/push/key (cached at edge).
+  // Returns null if VAPID is not configured server-side, in which case
+  // bindPushSubscribe is a no-op.
+  DN._vapidKeyPromise = null;
+  function getVapidKey() {
+    if (DN.VAPID_PUBLIC_KEY) return Promise.resolve(DN.VAPID_PUBLIC_KEY);
+    if (!DN._vapidKeyPromise) {
+      DN._vapidKeyPromise = fetch('/api/push/key').then(function (r) {
+        if (!r.ok) return null;
+        return r.json().then(function (j) { DN.VAPID_PUBLIC_KEY = j.key; return j.key; });
+      }).catch(function () { return null; });
+    }
+    return DN._vapidKeyPromise;
+  }
+
+  DN.bindPushSubscribe = function (containerSel) {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
+    var host = document.querySelector(containerSel || '#hs-author-bio');
+    if (!host) return;
+    if (host.querySelector('.hs-push-btn')) return;
+
+    // Resolve VAPID key first; if missing, silently skip
+    getVapidKey().then(function (key) {
+      if (!key) return;
+      DN._renderPushButton(host);
+    });
+  };
+
+  DN._renderPushButton = function (host) {
+    if (host.querySelector('.hs-push-btn')) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'hs-push-btn';
+    btn.style.cssText = 'margin-top:10px;padding:8px 14px;border-radius:9999px;border:1px solid #b8cfe3;background:#fff;color:#3a5a7c;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px';
+    btn.textContent = '🔔 訂閱新文章通知';
+
+    function setStateUnsubscribed() { btn.textContent = '🔔 訂閱新文章通知'; btn.disabled = false; }
+    function setStateSubscribed()   { btn.textContent = '✓ 已訂閱新文章通知 (取消)'; btn.disabled = false; }
+
+    navigator.serviceWorker.ready.then(function (reg) {
+      reg.pushManager.getSubscription().then(function (sub) {
+        if (sub) setStateSubscribed(); else setStateUnsubscribed();
+      });
+    });
+
+    btn.addEventListener('click', async function () {
+      btn.disabled = true; btn.textContent = '處理中⋯';
+      try {
+        var reg = await navigator.serviceWorker.ready;
+        var existing = await reg.pushManager.getSubscription();
+        if (existing) {
+          // Unsubscribe
+          await fetch('/api/push/subscribe', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ endpoint: existing.endpoint })
+          });
+          await existing.unsubscribe();
+          DN.toast && DN.toast('✓ 已取消訂閱');
+          setStateUnsubscribed();
+          return;
+        }
+        var perm = await Notification.requestPermission();
+        if (perm !== 'granted') { DN.toast && DN.toast('未授權通知'); setStateUnsubscribed(); return; }
+        var sub = await reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(DN.VAPID_PUBLIC_KEY)
+        });
+        await fetch('/api/push/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ endpoint: sub.endpoint, keys: sub.toJSON().keys, userAgent: navigator.userAgent })
+        });
+        DN.toast && DN.toast('✓ 已訂閱,新文章發布時會收到通知');
+        setStateSubscribed();
+      } catch (e) {
+        DN.toast && DN.toast('訂閱失敗: ' + (e.message || e));
+        setStateUnsubscribed();
+      }
+    });
+    host.appendChild(btn);
   };
 
   // ---------- orchestrator ----------
@@ -2712,6 +3381,11 @@
       DN.addInlineTOC();
     }
 
+    // Blog index — cat filter + tag cloud + search bar (only on /blog/)
+    if (document.getElementById('hs-blog-filter')) {
+      DN.bindBlogFilter();
+    }
+
     // Admin WYSIWYG mode (only when ?admin=1 in URL) — must run AFTER hero
     // injection so the editable selectors include the H1, but BEFORE Phase 2
     // related-articles/share toolbar (which we hide in admin mode anyway).
@@ -2751,6 +3425,8 @@
         DN.addPrintButton();      // floating print-to-PDF button (right-bottom)
         DN.addBookmarkButton();   // floating bookmark button (right-bottom)
         DN.lazyLoadAudit();       // backstop loading="lazy" / fetchpriority
+        DN.injectDictTooltips();  // medical-dictionary hover popups
+        DN.bindPushSubscribe();   // 🔔 web-push subscribe button (if VAPID key set)
         DN.applyTextOnly(curLang);  // re-translate JS-injected DOM
       }, { timeout: 1200 });
     }

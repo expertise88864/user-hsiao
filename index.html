@@ -75,10 +75,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260528" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260530" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260528" />
+<link rel="stylesheet" href="/assets/app.css?v=20260530" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -643,22 +643,41 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260528" defer></script>
+<script src="/blog/blog-shared.js?v=20260530" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {
-  "prerender": [{
-    "where": { "and": [
-      { "href_matches": "/*" },
-      { "not": { "href_matches": "/*.{xml,json,txt,ico,svg,png,jpg,webp,avif,pdf,css,js}" } },
-      { "not": { "selector_matches": "[rel~=external], [rel~=nofollow]" } }
-    ]},
-    "eagerness": "moderate"
-  }],
-  "prefetch": [{
-    "where": { "href_matches": "/blog/*" },
-    "eagerness": "conservative"
-  }]
+  "prerender": [
+    {
+      "where": { "and": [
+        { "href_matches": "/blog/*" },
+        { "not": { "href_matches": "/blog/?$" } },
+        { "not": { "href_matches": "/*.{xml,json,txt,ico,svg,png,jpg,webp,avif,pdf,css,js}" } },
+        { "not": { "selector_matches": "[rel~=external], [rel~=nofollow], a[target=_blank]" } }
+      ]},
+      "eagerness": "moderate"
+    },
+    {
+      "where": { "and": [
+        { "href_matches": "/(about|tools|notes|blog)" },
+        { "not": { "selector_matches": "[rel~=external]" } }
+      ]},
+      "eagerness": "conservative"
+    }
+  ],
+  "prefetch": [
+    {
+      "where": { "and": [
+        { "href_matches": "/blog/*" },
+        { "not": { "href_matches": "/blog/?$" } }
+      ]},
+      "eagerness": "eager"
+    },
+    {
+      "where": { "href_matches": "/en/*" },
+      "eagerness": "conservative"
+    }
+  ]
 }
 </script>
 </body>

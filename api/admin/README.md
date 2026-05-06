@@ -1,9 +1,52 @@
-# HsiaoEye Admin Mode — Setup Guide
+# HsiaoEye Admin Mode — Setup Guide  (v28: full power sprint)
 
 A WYSIWYG editor for HsiaoEye that commits straight to GitHub via the
 Contents API. Edits made in `/admin` survive `git push` because **the edits
 ARE the git commits** — not stored separately. Local devs must `git pull`
 before editing locally.
+
+## v28 — what's new (May 2026)
+
+**11 admin endpoints** under `/api/admin/`:
+
+| Endpoint | Purpose |
+|---|---|
+| `login.js` | password gate, sets HMAC cookie (8 hr) |
+| `list.js`  | parses `DN.ARTICLES` from blog-shared.js |
+| `save.js`  | commit edited HTML for a slug |
+| `new.js`   | create article from template + register slug |
+| `upload.js` | upload images (auto WebP-compressed) |
+| `regen-en.js` | regenerate `/en/` mirror (single or all) |
+| `history.js` | git log per file (last 20 commits) |
+| `rollback.js` | restore file to a previous commit (forward commit) |
+| `reorder.js` | reorder `DN.ARTICLES` (drag-drop UI) |
+| `seo-score.js` | 15-check SEO heuristic, A–F grade |
+| `spell.js` | half-width / typo / mixed-letter scanner |
+| `dictionary.js` | medical-term dictionary CRUD + auto-link |
+| `ab-stats.js` | A/B exposure + conversion aggregator |
+
+**WYSIWYG additions** (toolbar in `?admin=1` mode):
+- 📷 圖片 — pick or paste image; client-side WebP compress @ 1600w/q82, then upload
+- 👁 預覽 — opens current edited DOM in a fresh tab without admin chrome
+- Cmd/Ctrl+S → save
+- Cmd/Ctrl+B/I/U → bold/italic/underline
+
+**Web Push notifications**:
+- `/api/push/subscribe.js` — register PushSubscription
+- `/api/push/send.js` — broadcast (admin-gated, VAPID-signed)
+- `DN.bindPushSubscribe()` — adds 🔔 button under author bio when `window.VAPID_PUBLIC_KEY` is set
+- Service Worker handles `push` + `notificationclick` events (sw.js)
+
+**Security headers**:
+- `middleware.js` — Vercel Edge Middleware injects per-request CSP nonce + Trusted Types policy. Report-Only for now; flip to enforce after monitoring `/api/csp-report`.
+- Trusted Types `hs-policy` + `default` registered in blog-shared.js bootstrap.
+
+**Performance**:
+- Web Vitals extended to TTFB + FCP + prerender_hit (5/5 metrics)
+- View Transitions: cross-document via `@view-transition` CSS rule (Chrome 126+)
+- Speculation Rules tuned: eager prefetch for `/blog/*`, moderate prerender
+- Lighthouse CI workflow runs daily + on push (`.github/workflows/lighthouse.yml`)
+- `/en/` regen workflow auto-syncs after Chinese commits
 
 ## Required Vercel Environment Variables
 
@@ -17,6 +60,9 @@ Environment Variables**. Apply to **Production** + **Preview** environments.
 | `GITHUB_OWNER` | `expertise88864` | (default if unset) |
 | `GITHUB_REPO` | `user-hsiao` | (default if unset) |
 | `GITHUB_BRANCH` | `main` | (default if unset) |
+| `VAPID_PUBLIC_KEY` | base64url-encoded ECDSA P-256 public key | optional — for Web Push. Generate via `npx web-push generate-vapid-keys`. **Also paste the public key into a `<meta name="vapid-public-key">` tag or set `window.VAPID_PUBLIC_KEY` in your HTML so the client can subscribe.** |
+| `VAPID_PRIVATE_KEY` | base64url-encoded private key | optional — for Web Push (paired with above) |
+| `VAPID_SUBJECT` | `mailto:f94001115@gmail.com` | optional — VAPID JWT `sub` claim |
 
 After setting env vars, **redeploy** the project (Vercel does this
 automatically when env vars change, but you may want to trigger manually).
