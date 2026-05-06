@@ -1250,6 +1250,397 @@
     });
   };
 
+  // ---------------------------------------------------------------------
+  // Cmd+K / Ctrl+K / "/" — global search modal across DN.ARTICLES
+  // Indexes article titles + tags + meta-jumps (about, blog index, etc.).
+  // Wires to any header button[aria-label="搜尋"] or [aria-label="Search"].
+  // ---------------------------------------------------------------------
+  DN.initCmdK = function () {
+    if (document.getElementById('hs-cmdk-style')) return;
+    var st = document.createElement('style');
+    st.id = 'hs-cmdk-style';
+    st.textContent =
+      '#hs-cmdk-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:9998;display:none;align-items:flex-start;justify-content:center;padding:88px 18px 18px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}' +
+      '#hs-cmdk-overlay.open{display:flex}' +
+      '#hs-cmdk-modal{width:100%;max-width:640px;background:var(--surface,#fff);border:1px solid var(--border,#dcd5c8);border-radius:14px;box-shadow:0 30px 80px -20px rgba(0,0,0,.35);overflow:hidden;font-family:Inter,system-ui,sans-serif}' +
+      '#hs-cmdk-input{width:100%;padding:18px 20px;border:0;border-bottom:1px solid var(--border,#dcd5c8);font-size:16px;outline:none;background:transparent;color:var(--ink,#0f172a);font-family:inherit}' +
+      '#hs-cmdk-results{max-height:60vh;overflow:auto;padding:8px 0}' +
+      '#hs-cmdk-results .row{display:flex;flex-direction:column;gap:2px;padding:10px 20px;cursor:pointer;border-left:3px solid transparent;text-decoration:none;color:var(--ink,#0f172a)}' +
+      '#hs-cmdk-results .row.active{background:var(--blue-soft,#e3edf6);border-left-color:var(--blue-deep,#243b56)}' +
+      '#hs-cmdk-results .row .t{font-family:"Noto Serif TC",Georgia,serif;font-size:14.5px;font-weight:600;line-height:1.4}' +
+      '#hs-cmdk-results .row .m{font-size:11.5px;color:var(--muted,#8b8378);font-family:Inter,monospace;letter-spacing:.06em}' +
+      '#hs-cmdk-empty{padding:24px;text-align:center;font-size:13px;color:var(--muted,#8b8378)}' +
+      '#hs-cmdk-foot{padding:10px 20px;border-top:1px solid var(--border,#dcd5c8);font-size:11px;color:var(--muted,#8b8378);font-family:Inter,monospace;letter-spacing:.04em;display:flex;gap:14px;flex-wrap:wrap;background:var(--mint-soft,#dde7e2)}' +
+      '#hs-cmdk-foot kbd{padding:1px 6px;border:1px solid var(--border,#dcd5c8);border-radius:3px;background:#fff;font-family:inherit;font-size:10.5px}';
+    document.head.appendChild(st);
+
+    var overlay = document.createElement('div');
+    overlay.id = 'hs-cmdk-overlay';
+    overlay.innerHTML =
+      '<div id="hs-cmdk-modal" role="dialog" aria-label="搜尋">' +
+        '<input id="hs-cmdk-input" type="text" placeholder="搜尋文章 / 主題⋯ (按 Esc 關閉)" autocomplete="off" spellcheck="false" />' +
+        '<div id="hs-cmdk-results"></div>' +
+        '<div id="hs-cmdk-foot"><span><kbd>↑</kbd><kbd>↓</kbd> 移動</span><span><kbd>Enter</kbd> 開啟</span><span><kbd>Esc</kbd> 關閉</span></div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    var input = overlay.querySelector('#hs-cmdk-input');
+    var results = overlay.querySelector('#hs-cmdk-results');
+    var activeIdx = 0;
+    var currentMatches = [];
+
+    function buildIndex() {
+      var idx = [];
+      (DN.ARTICLES || []).forEach(function (a) {
+        idx.push({
+          title: a.title || a.slug,
+          meta: (a.tag || '') + ' · ' + (a.date || ''),
+          url: '/blog/' + a.slug,
+          search: ((a.title || '') + ' ' + (a.tag || '') + ' ' + (a.tag_en || '') + ' ' + a.slug).toLowerCase()
+        });
+      });
+      [
+        { title: '主題地圖', meta: 'Topic Map', url: '/blog/topics', search: 'topics 主題 地圖' },
+        { title: '關於作者', meta: 'About', url: '/about', search: 'about 作者 蕭閔謙' },
+        { title: '衛教文章索引', meta: 'Articles', url: '/blog/', search: 'blog articles 文章 索引' },
+        { title: '隱私權政策', meta: 'Privacy', url: '/privacy', search: 'privacy 隱私' }
+      ].forEach(function (it) { idx.push(it); });
+      return idx;
+    }
+    var INDEX = null;
+
+    function open() {
+      if (!INDEX) INDEX = buildIndex();
+      overlay.classList.add('open');
+      input.value = '';
+      input.focus();
+      render('');
+    }
+    function close() { overlay.classList.remove('open'); }
+    function render(q) {
+      q = (q || '').toLowerCase().trim();
+      var matches;
+      if (!q) {
+        matches = INDEX.slice(0, 8);
+      } else {
+        matches = INDEX
+          .map(function (it) { return { it: it, s: it.search.indexOf(q) >= 0 ? (it.search.indexOf(q) === 0 ? 100 : 50) : 0 }; })
+          .filter(function (x) { return x.s > 0; })
+          .sort(function (x, y) { return y.s - x.s; })
+          .slice(0, 10)
+          .map(function (x) { return x.it; });
+      }
+      currentMatches = matches;
+      activeIdx = 0;
+      if (!matches.length) { results.innerHTML = '<div id="hs-cmdk-empty">找不到符合的內容</div>'; return; }
+      results.innerHTML = matches.map(function (m, i) {
+        return '<a class="row' + (i === 0 ? ' active' : '') + '" href="' + m.url + '" data-idx="' + i + '">' +
+          '<span class="t">' + m.title + '</span>' +
+          '<span class="m">' + (m.meta || '') + '</span>' +
+        '</a>';
+      }).join('');
+    }
+    function setActive(i) {
+      activeIdx = Math.max(0, Math.min(currentMatches.length - 1, i));
+      var rows = results.querySelectorAll('.row');
+      rows.forEach(function (r, j) { r.classList.toggle('active', j === activeIdx); });
+      var act = rows[activeIdx];
+      if (act) act.scrollIntoView({ block: 'nearest' });
+    }
+    function go() { var m = currentMatches[activeIdx]; if (m) location.href = m.url; }
+
+    input.addEventListener('input', function () { render(input.value); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); setActive(activeIdx + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(activeIdx - 1); }
+      else if (e.key === 'Enter') { e.preventDefault(); go(); }
+      else if (e.key === 'Escape') { close(); }
+    });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (overlay.classList.contains('open')) close(); else open();
+      } else if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        open();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('button[aria-label="搜尋"], button[aria-label="Search"]');
+      if (btn) { e.preventDefault(); open(); }
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // Article hero — gradient banner with breadcrumb + read-time + dates.
+  // Inserts <figure id="hs-article-hero"> after H1 inside article.max-w-3xl.
+  // SVG art is keyed by article tag (Tiffany blue + ochre + paper cream).
+  // ---------------------------------------------------------------------
+  DN.injectArticleHero = function () {
+    if (document.getElementById('hs-article-hero')) return;
+    var slug = DN.currentSlug && DN.currentSlug();
+    if (!slug) return;
+    var meta = (DN.ARTICLES || []).find(function (a) { return a.slug === slug; });
+    if (!meta) return;
+    var article = document.querySelector('article.max-w-3xl');
+    if (!article) return;
+    var h1 = article.querySelector('h1');
+    if (!h1) return;
+
+    var HEROES = {
+      '飛蚊症': '<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<rect width="720" height="240" fill="#faf7f2"/>' +
+        '<g transform="translate(60 30)"><path d="M20 90 Q120 0 220 90 Q120 180 20 90 Z" fill="#fff" stroke="#3a5a7c" stroke-width="2.5"/>' +
+        '<circle cx="120" cy="90" r="42" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="2"/>' +
+        '<circle cx="120" cy="90" r="18" fill="#0f172a"/>' +
+        '<circle cx="60" cy="50" r="3" fill="#0f172a" opacity=".6"/>' +
+        '<ellipse cx="170" cy="60" rx="5" ry="2" fill="#0f172a" opacity=".55" transform="rotate(-15 170 60)"/>' +
+        '<circle cx="180" cy="130" r="2.5" fill="#0f172a" opacity=".5"/>' +
+        '</g><g transform="translate(360 60)"><text x="0" y="40" font-family="Noto Serif TC,Georgia,serif" font-size="32" font-weight="700" fill="#243b56">飛蚊症 / 視網膜剝離</text>' +
+        '<text x="0" y="78" font-family="Inter,sans-serif" font-size="14" letter-spacing="3" fill="#7a9285">FLOATERS · RETINAL DETACHMENT</text>' +
+        '<line x1="0" y1="100" x2="320" y2="100" stroke="#a4c4dd" stroke-width="2"/>' +
+        '<text x="0" y="140" font-family="Noto Sans TC,sans-serif" font-size="13" fill="#5e574e">突發閃光 · 視野缺損 · 48 小時警訊</text>' +
+        '</g></svg>',
+      '兒童近視': '<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<rect width="720" height="240" fill="#faf7f2"/>' +
+        '<g transform="translate(60 50)"><circle cx="80" cy="80" r="50" fill="#fff" stroke="#3a5a7c" stroke-width="3"/>' +
+        '<circle cx="180" cy="80" r="50" fill="#fff" stroke="#3a5a7c" stroke-width="3"/>' +
+        '<circle cx="80" cy="80" r="46" fill="#a4c4dd" opacity=".5"/>' +
+        '<circle cx="180" cy="80" r="46" fill="#a4c4dd" opacity=".5"/>' +
+        '<line x1="130" y1="80" x2="130" y2="80" stroke="#3a5a7c" stroke-width="3"/>' +
+        '<line x1="125" y1="80" x2="135" y2="80" stroke="#3a5a7c" stroke-width="3" stroke-linecap="round"/>' +
+        '<line x1="35" y1="65" x2="10" y2="50" stroke="#3a5a7c" stroke-width="3" stroke-linecap="round"/>' +
+        '<line x1="225" y1="65" x2="250" y2="50" stroke="#3a5a7c" stroke-width="3" stroke-linecap="round"/>' +
+        '</g><g transform="translate(330 60)"><text x="0" y="40" font-family="Noto Serif TC,Georgia,serif" font-size="32" font-weight="700" fill="#243b56">兒童近視控制</text>' +
+        '<text x="0" y="78" font-family="Inter,sans-serif" font-size="14" letter-spacing="3" fill="#7a9285">PEDIATRIC MYOPIA CONTROL</text>' +
+        '<line x1="0" y1="100" x2="340" y2="100" stroke="#a4c4dd" stroke-width="2"/>' +
+        '<text x="0" y="140" font-family="Noto Sans TC,sans-serif" font-size="13" fill="#5e574e">阿托品 · 角膜塑型 · 戶外 2 小時</text>' +
+        '</g></svg>',
+      '乾眼症': '<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<rect width="720" height="240" fill="#faf7f2"/>' +
+        '<g transform="translate(60 50)"><path d="M20 90 Q120 10 220 90 Q120 160 20 90 Z" fill="#fff" stroke="#3a5a7c" stroke-width="2.5"/>' +
+        '<circle cx="120" cy="90" r="38" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="2"/>' +
+        '<circle cx="120" cy="90" r="16" fill="#0f172a"/>' +
+        '<path d="M210 130 Q220 150 210 170 Q200 150 210 130 Z" fill="#7fc8d8" stroke="#3a5a7c" stroke-width="1.5"/>' +
+        '</g><g transform="translate(330 60)"><text x="0" y="40" font-family="Noto Serif TC,Georgia,serif" font-size="32" font-weight="700" fill="#243b56">乾眼症</text>' +
+        '<text x="0" y="78" font-family="Inter,sans-serif" font-size="14" letter-spacing="3" fill="#7a9285">DRY EYE DISEASE · MGD</text>' +
+        '<line x1="0" y1="100" x2="320" y2="100" stroke="#a4c4dd" stroke-width="2"/>' +
+        '<text x="0" y="140" font-family="Noto Sans TC,sans-serif" font-size="13" fill="#5e574e">瞼板腺 · 人工淚液 · Omega-3</text>' +
+        '</g></svg>',
+      '常見問題': '<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<rect width="720" height="240" fill="#faf7f2"/>' +
+        '<g transform="translate(80 30)"><circle cx="90" cy="90" r="80" fill="#fff" stroke="#3a5a7c" stroke-width="2.5"/>' +
+        '<text x="90" y="115" text-anchor="middle" font-family="Noto Serif TC,Georgia,serif" font-size="80" font-weight="700" fill="#243b56">?</text>' +
+        '</g><g transform="translate(280 50)"><text x="0" y="40" font-family="Noto Serif TC,Georgia,serif" font-size="32" font-weight="700" fill="#243b56">' + (meta.title.length > 14 ? meta.title.slice(0, 14) + '⋯' : meta.title) + '</text>' +
+        '<text x="0" y="78" font-family="Inter,sans-serif" font-size="14" letter-spacing="3" fill="#7a9285">' + (meta.tag_en || 'OPHTHALMOLOGY') + '</text>' +
+        '<line x1="0" y1="100" x2="340" y2="100" stroke="#a4c4dd" stroke-width="2"/>' +
+        '<text x="0" y="140" font-family="Noto Sans TC,sans-serif" font-size="13" fill="#5e574e">蕭閔謙 醫師 · 眼科衛教筆記</text>' +
+        '</g></svg>'
+    };
+    // Try exact tag match, then substring (for compound tags)
+    var heroSvg = HEROES[meta.tag];
+    if (!heroSvg) {
+      var keys = Object.keys(HEROES);
+      for (var i = 0; i < keys.length; i++) {
+        if (meta.tag && meta.tag.indexOf(keys[i]) >= 0) { heroSvg = HEROES[keys[i]]; break; }
+      }
+    }
+    if (!heroSvg) heroSvg = HEROES['常見問題'];
+
+    var fig = document.createElement('figure');
+    fig.id = 'hs-article-hero';
+    fig.style.cssText = 'margin:18px 0 8px;padding:0;border-radius:14px;overflow:hidden;box-shadow:0 4px 14px -8px rgba(15,23,42,.15)';
+    fig.innerHTML = heroSvg;
+    var svg = fig.querySelector('svg');
+    if (svg) {
+      svg.style.cssText = 'display:block;width:100%;height:auto';
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+    }
+    h1.parentNode.insertBefore(fig, h1.nextSibling);
+  };
+
+  // ---------------------------------------------------------------------
+  // Article images — lazy-load, decoding=async, click-to-zoom lightbox
+  // ---------------------------------------------------------------------
+  DN.enhanceArticleImages = function () {
+    if (document.getElementById('hs-img-css')) return;
+    var st = document.createElement('style');
+    st.id = 'hs-img-css';
+    st.textContent =
+      '.prose img, article.max-w-3xl img:not(.no-zoom){display:block;width:100%;max-width:760px;height:auto;margin:24px auto;border-radius:12px;box-shadow:0 4px 14px -8px rgba(15,23,42,.15);cursor:zoom-in}' +
+      '.prose svg, article.max-w-3xl svg{display:block;max-width:100%;height:auto;margin:20px auto}' +
+      '.hs-img-lightbox{position:fixed;inset:0;background:rgba(15,23,42,.92);z-index:9999;display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}' +
+      '.hs-img-lightbox.open{display:flex}' +
+      '.hs-img-lightbox img{max-width:96%;max-height:96vh;border-radius:8px;box-shadow:0 24px 60px rgba(0,0,0,.5)}';
+    document.head.appendChild(st);
+
+    var imgs = document.querySelectorAll('.prose img, article.max-w-3xl img:not(.no-zoom)');
+    imgs.forEach(function (img) {
+      if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+      if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+      if (!img.hasAttribute('width') && !img.hasAttribute('height')) {
+        img.setAttribute('width', '760');
+        img.setAttribute('height', '480');
+      }
+    });
+
+    var box = document.createElement('div');
+    box.className = 'hs-img-lightbox';
+    box.innerHTML = '<img alt="" />';
+    document.body.appendChild(box);
+    var bigImg = box.querySelector('img');
+    imgs.forEach(function (img) {
+      img.addEventListener('click', function () {
+        bigImg.src = img.currentSrc || img.src;
+        bigImg.alt = img.alt || '';
+        box.classList.add('open');
+      });
+    });
+    box.addEventListener('click', function () { box.classList.remove('open'); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') box.classList.remove('open'); });
+  };
+
+  // ---------------------------------------------------------------------
+  // Inline mid-article CTA — points readers to the topic hub.
+  // Inserts a styled card before the middle H2 of #proseZh.
+  // ---------------------------------------------------------------------
+  DN.addInlineCTA = function () {
+    var prose = document.getElementById('proseZh');
+    if (!prose) return;
+    var h2s = prose.querySelectorAll('h2');
+    if (h2s.length < 4) return;
+    var targetH2 = h2s[Math.floor(h2s.length / 2)];
+    if (!targetH2 || targetH2.dataset.hsCtaInserted) return;
+    targetH2.dataset.hsCtaInserted = '1';
+    var cta = document.createElement('div');
+    cta.id = 'hs-inline-cta';
+    cta.style.cssText = 'background:linear-gradient(135deg,#e3edf6 0%,#f0f6f4 100%);border:1px solid #b8cfe3;border-radius:14px;padding:16px 20px;margin:22px 0;display:flex;gap:14px;align-items:center;flex-wrap:wrap';
+    cta.innerHTML =
+      '<div style="flex:1;min-width:200px">' +
+        '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#243b56;font-weight:700;margin-bottom:4px" data-zh="想找其他眼科主題？" data-en="Looking for other topics?">想找其他眼科主題？</div>' +
+        '<div style="font-size:14px;color:#0f172a;line-height:1.7;margin:0" data-zh="瀏覽所有衛教文章，或回到首頁的快速查找，依眼科主題快速跳轉。" data-en="Browse all education articles, or jump back to the home page topic chips.">瀏覽所有衛教文章，或回到首頁的快速查找，依眼科主題快速跳轉。</div>' +
+      '</div>' +
+      '<a href="/blog/" style="flex-shrink:0;padding:10px 18px;border-radius:9999px;background:#243b56;color:#fff;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap" data-zh="全部文章 →" data-en="All articles →">全部文章 →</a>';
+    targetH2.parentNode.insertBefore(cta, targetH2);
+  };
+
+  // ---------------------------------------------------------------------
+  // Mark recently-published articles with an animated "NEW" badge.
+  // Triggered by `date` field in DN.ARTICLES (within last 14 days).
+  // ---------------------------------------------------------------------
+  DN.markNewArticles = function () {
+    var NOW = Date.now();
+    var FOURTEEN_DAYS = 14 * 86400 * 1000;
+    var cards = document.querySelectorAll('a.article-list-item[href*="/blog/"]');
+    if (!cards.length) return;
+    if (!document.getElementById('hs-new-pulse-css')) {
+      var styleEl = document.createElement('style');
+      styleEl.id = 'hs-new-pulse-css';
+      styleEl.textContent = '.hs-new-pulse{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9999px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.04em;line-height:1.5;animation:hsPulse 1.6s ease-in-out infinite;vertical-align:middle}@keyframes hsPulse{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.55)}50%{box-shadow:0 0 0 6px rgba(251,191,36,0)}}';
+      document.head.appendChild(styleEl);
+    }
+    cards.forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      var m = href.match(/\/blog\/([a-z0-9-]+)/i);
+      if (!m) return;
+      var slug = m[1];
+      var meta = (DN.ARTICLES || []).find(function (x) { return x.slug === slug; });
+      if (!meta) return;
+      var pub = Date.parse(meta.date);
+      if (!pub || NOW - pub > FOURTEEN_DAYS) return;
+      var h3 = a.querySelector('h3');
+      if (!h3 || h3.querySelector('.hs-new-pulse')) return;
+      var tag = document.createElement('span');
+      tag.className = 'hs-new-pulse';
+      tag.textContent = 'NEW';
+      h3.appendChild(tag);
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // GA4 conversion event tracking — email/RSS/lang/scroll-depth/internal links
+  // ---------------------------------------------------------------------
+  DN.bindGAEvents = function () {
+    if (typeof gtag !== 'function') return;
+    function fire(name, params) { try { gtag('event', name, params || {}); } catch (e) {} }
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+      a.addEventListener('click', function () { fire('email_click', { page_path: location.pathname }); });
+    });
+    document.querySelectorAll('[data-subscribe-link]').forEach(function (a) {
+      a.addEventListener('click', function () { fire('newsletter_subscribe_click', { method: 'mailto', page_path: location.pathname }); });
+    });
+    document.querySelectorAll('a[href$="/feed.xml"], a[href$="/atom.xml"]').forEach(function (a) {
+      a.addEventListener('click', function () { fire('rss_subscribe_click', { feed: a.getAttribute('href'), page_path: location.pathname }); });
+    });
+    var lt = document.getElementById('langToggle');
+    if (lt && lt.tagName === 'SELECT') {
+      lt.addEventListener('change', function () { fire('lang_switch', { lang: lt.value }); });
+    }
+    document.querySelectorAll('article a[href^="/blog/"]').forEach(function (a) {
+      a.addEventListener('click', function () { fire('internal_link', { destination: a.getAttribute('href'), source: location.pathname }); });
+    });
+    if (document.querySelector('article .prose, article.max-w-3xl')) {
+      var fired = false;
+      window.addEventListener('scroll', function () {
+        if (fired) return;
+        var h = document.documentElement;
+        var pct = (h.scrollTop + h.clientHeight) / h.scrollHeight;
+        if (pct >= 0.75) { fired = true; fire('article_75pct', { page_path: location.pathname }); }
+      }, { passive: true });
+    }
+  };
+
+  // ---------------------------------------------------------------------
+  // Web Vitals — LCP / CLS / INP via PerformanceObserver, sent to GA4
+  // ---------------------------------------------------------------------
+  DN.bindWebVitals = function () {
+    if (typeof gtag !== 'function') return;
+    function send(name, value, id) {
+      try {
+        gtag('event', name, {
+          event_category: 'Web Vitals',
+          event_label: id,
+          value: Math.round(name === 'CLS' ? value * 1000 : value),
+          non_interaction: true
+        });
+      } catch (e) {}
+    }
+    try {
+      var lcp = 0;
+      var lcpObs = new PerformanceObserver(function (list) {
+        var entries = list.getEntries();
+        var last = entries[entries.length - 1];
+        lcp = last.renderTime || last.loadTime || last.startTime;
+      });
+      lcpObs.observe({ type: 'largest-contentful-paint', buffered: true });
+      addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden' && lcp) { send('LCP', lcp, 'lcp-' + Date.now()); lcp = 0; }
+      }, { once: true });
+    } catch (e) {}
+    try {
+      var cls = 0;
+      var clsObs = new PerformanceObserver(function (list) {
+        list.getEntries().forEach(function (entry) { if (!entry.hadRecentInput) cls += entry.value; });
+      });
+      clsObs.observe({ type: 'layout-shift', buffered: true });
+      addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden') send('CLS', cls, 'cls-' + Date.now());
+      });
+    } catch (e) {}
+    try {
+      var worstINP = 0;
+      var inpObs = new PerformanceObserver(function (list) {
+        list.getEntries().forEach(function (entry) { if (entry.duration > worstINP) worstINP = entry.duration; });
+      });
+      inpObs.observe({ type: 'event', buffered: true, durationThreshold: 40 });
+      addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden' && worstINP) { send('INP', worstINP, 'inp-' + Date.now()); worstINP = 0; }
+      });
+    } catch (e) {}
+  };
+
   // ---------- service worker ----------
   DN.registerSW = function () {
     if (!('serviceWorker' in navigator)) return;
@@ -1286,13 +1677,17 @@
     DN.bindRevealOnScroll();
     DN.bindViewTransitions();
     DN.prefetchOnIdle();
+    DN.initCmdK();              // Cmd/Ctrl+K global search modal
 
     // Article-only enhancements
     if (document.getElementById('proseZh') || document.querySelector('article .prose')) {
+      DN.injectArticleHero();   // gradient SVG banner under H1
+      DN.enhanceArticleImages(); // lazy-load + click-to-zoom lightbox
       DN.addReadingMeta();
       DN.addInlineTOC();
       DN.addFloatingTOC();
       DN.bindScrollMemory();
+      DN.addInlineCTA();        // mid-article CTA card
       DN.injectAuthorBio('hs-author-bio');
       DN.injectShareToolbar('hs-share');
       DN.injectBMC('hs-bmc');
@@ -1300,12 +1695,15 @@
     }
     DN.addFontSizer();
     DN.injectReadProgress();
-    DN.shuffleHeroCards();   // randomise #hs-cover-story + #hs-editor-pick on every load
+    DN.shuffleHeroCards();      // randomise #hs-cover-story + #hs-editor-pick on every load
     DN.injectSpotlight();
+    DN.markNewArticles();       // animated NEW badge for last-14d articles
     DN.bindHomeSearch();
     DN.bindThemeToggle();
     DN.injectMobileBottomNav();
     DN.bindFAQDeepLink();
+    DN.bindGAEvents();          // GA4 conversion events
+    DN.bindWebVitals();         // LCP / CLS / INP → GA4
     DN.registerSW();
 
     // CRITICAL: re-apply lang to all DOM (including JS-injected elements like
