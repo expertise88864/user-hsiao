@@ -18,8 +18,12 @@
  * v16: /en/ mirror, calculator framework + 5 ophth calcs.
  *     cache-bust ?v=20260520
  */
-const CACHE = 'hs-v21';
-const RUNTIME = 'hs-runtime-v21';
+/* v22: + new article 「淚腺腫瘤 6 個關鍵問題」(LGACC) — meta-analysis & MD Anderson
+ *      proton-therapy-cited, 4th hero card added (orbital anatomy + perineural path).
+ *      Footer tagline trimmed (removed "本網站全部衛教文章...無業配無贊助").
+ *      Re-fix verification: red-flag/related-articles data-zh attrs intact. */
+const CACHE = 'hs-v22';
+const RUNTIME = 'hs-runtime-v22';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [
@@ -53,12 +57,14 @@ const PRECACHE = [
   '/blog/glaucoma-warnings',
   '/blog/contact-lens-safety',
   '/blog/red-eye-conjunctivitis',
+  '/blog/lacrimal-gland-tumor',
   '/notes',
   '/tools',
   // Per-article OG cards (1200×630) — used by social link previews
   '/assets/og/dry-eye-myths.png',
   '/assets/og/pediatric-myopia-control.png',
   '/assets/og/floaters-retinal-detachment.png',
+  '/assets/og/lacrimal-gland-tumor.png',
   // English mirror (/en/) — kept lightweight; runtime cache covers the rest
   '/en/',
   '/en/about',

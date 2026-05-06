@@ -70,6 +70,19 @@
 
   <!-- ===== Published articles ===== -->
   <url>
+    <loc>https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/lacrimal-gland-tumor" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/lacrimal-gland-tumor.png</image:loc>
+      <image:title>淚腺腫瘤 6 個關鍵問題</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/blog/dry-eye-myths</loc>
     <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>
@@ -210,6 +223,15 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/privacy" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/privacy" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/lacrimal-gland-tumor</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/lacrimal-gland-tumor" />
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/dry-eye-myths</loc>

@@ -44,6 +44,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
+    { slug:'lacrimal-gland-tumor',        title:'淚腺腫瘤 6 個關鍵問題',  title_en:'6 Key Questions on Lacrimal Gland Tumor',  cat:'alert', tag:'淚腺腫瘤',  tag_en:'Lacrimal tumor',  date:'2026-05-06' },
     { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         title_en:'8 Dry-Eye Myths',                        cat:'myth', tag:'乾眼症',     tag_en:'Dry Eye',         date:'2026-05-04' },
     { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  title_en:'8 Pediatric Myopia Control Myths',         cat:'myth', tag:'兒童近視',   tag_en:'Myopia control',  date:'2026-05-04' },
     { slug:'floaters-retinal-detachment', title:'飛蚊症 6 大警訊',         title_en:'6 Floater Red Flags',                     cat:'myth', tag:'飛蚊症',     tag_en:'Floaters',        date:'2026-05-04' }
@@ -840,6 +841,55 @@
   // illustration always matches whichever article the rotation surfaces.
   DN.HERO_CARDS = [
     {
+      slug: 'lacrimal-gland-tumor',
+      title_zh: '淚腺腫瘤 6 個關鍵問題 — 為什麼會痛？能保留眼球嗎？',
+      title_en: '6 Key Questions on Lacrimal Gland Tumor — Why pain? Can the eye be saved?',
+      meta_zh: '2026.05 · 14 分鐘 · 警訊辨識',
+      meta_en: '2026.05 · 14 min · Red flags',
+      // Scene: lacrimal-gland anatomy with tumor location + perineural-invasion path
+      svg:
+        '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+          '<defs>' +
+            '<linearGradient id="hero-lacrimal-bg" x1="0%" y1="0%" x2="100%" y2="100%">' +
+              '<stop offset="0%" stop-color="#fef9f0" />' +
+              '<stop offset="100%" stop-color="#fef3c7" />' +
+            '</linearGradient>' +
+          '</defs>' +
+          '<rect width="400" height="300" fill="url(#hero-lacrimal-bg)" />' +
+          // Orbit outline (skull socket from front, slightly oblique)
+          '<ellipse cx="160" cy="150" rx="120" ry="90" fill="#fffaf2" stroke="#5e574e" stroke-width="2.5" />' +
+          // Eye globe inside orbit
+          '<circle cx="140" cy="155" r="48" fill="#fff" stroke="#3a5a7c" stroke-width="2" />' +
+          '<circle cx="140" cy="155" r="18" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1.4" />' +
+          '<circle cx="140" cy="155" r="7" fill="#0f172a" />' +
+          // Lacrimal gland (orbital lobe) — top-right of orbit
+          '<ellipse cx="220" cy="92" rx="40" ry="22" fill="#fbbf24" stroke="#9a3412" stroke-width="2" transform="rotate(-15 220 92)" />' +
+          // Smaller palpebral lobe
+          '<ellipse cx="200" cy="115" rx="18" ry="11" fill="#fde68a" stroke="#9a3412" stroke-width="1.5" transform="rotate(-15 200 115)" />' +
+          // Tumor zone overlapping gland (red dashed)
+          '<path d="M 195 80 Q 230 65, 255 85 Q 265 105, 245 120 Q 215 130, 190 115 Q 178 95, 195 80 Z" fill="#fee2e2" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 2" opacity="0.7" />' +
+          // Perineural invasion path (along V1) extending posteriorly to skull base
+          '<path d="M 230 80 Q 320 65, 360 90" fill="none" stroke="#7c2d12" stroke-width="2.5" stroke-linecap="round" />' +
+          '<circle cx="360" cy="90" r="5" fill="#7c2d12" />' +
+          '<circle cx="345" cy="83" r="2.5" fill="#7c2d12" />' +
+          '<circle cx="320" cy="73" r="2" fill="#7c2d12" />' +
+          // Eyebrow + lashes
+          '<path d="M 95 110 Q 140 95, 185 110" fill="none" stroke="#2a2620" stroke-width="2" stroke-linecap="round" />' +
+          // Annotations on right side
+          '<g transform="translate(280 145)">' +
+            '<text x="0" y="0" fill="#9a3412" font-family="Inter,sans-serif" font-size="13" font-weight="700">淚腺腫瘤</text>' +
+            '<text x="0" y="18" fill="#7c2d12" font-family="Inter,sans-serif" font-size="11">LGACC</text>' +
+            '<line x1="0" y1="28" x2="100" y2="28" stroke="#9a3412" stroke-width="1.5" />' +
+            '<text x="0" y="48" fill="#7c2d12" font-family="Inter,sans-serif" font-size="10" font-weight="600">5-yr OS:</text>' +
+            '<text x="0" y="64" fill="#dc2626" font-family="Inter,sans-serif" font-size="14" font-weight="800">50% → 78%</text>' +
+            '<text x="0" y="82" fill="#7c2d12" font-family="Inter,sans-serif" font-size="9">(IACC + 手術 + 放化療)</text>' +
+          '</g>' +
+          // Top-right "PERINEURAL" annotation
+          '<text x="320" y="50" fill="#7c2d12" font-family="Inter,sans-serif" font-size="11" font-weight="700">→ 顱底</text>' +
+          '<text x="285" y="62" fill="#7c2d12" font-family="Inter,sans-serif" font-size="9">神經周圍侵犯</text>' +
+        '</svg>'
+    },
+    {
       slug: 'floaters-retinal-detachment',
       title_zh: '飛蚊症 6 大警訊 — 何時要立刻衝眼科？',
       title_en: '6 Floater Red Flags — when do floaters mean retinal emergency?',
@@ -1083,11 +1133,17 @@
   //   #hs-popular-list — curated by DN.POPULAR_SLUGS, falls back to recent
   // Renders DermNotes-style 2-row cards: metadata strip on top
   // (badge + tag_en + date), then SVG icon + Noto Serif TC title.
-  DN.POPULAR_SLUGS = ['floaters-retinal-detachment', 'pediatric-myopia-control', 'dry-eye-myths'];   // edit this list to curate
+  DN.POPULAR_SLUGS = ['lacrimal-gland-tumor', 'floaters-retinal-detachment', 'dry-eye-myths'];   // edit this list to curate
 
   // 32x32 line-art SVG icons keyed by Chinese tag — ophthalmology palette
   // (Tiffany blue + ochre + ink). Falls back to the FAQ icon when missing.
   DN.HS_TAG_SVG = {
+    '淚腺腫瘤':
+      '<circle cx="16" cy="16" r="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.5"/>' +
+      '<ellipse cx="20" cy="11" rx="6" ry="3.5" fill="#fbbf24" stroke="#9a3412" stroke-width="1.2" transform="rotate(-15 20 11)"/>' +
+      '<path d="M 16 12 Q 20 8 25 11 Q 26 14 23 16 Q 19 16 16 12 Z" fill="#fee2e2" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="2 1"/>' +
+      '<circle cx="14" cy="18" r="5" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1"/>' +
+      '<circle cx="14" cy="18" r="2" fill="#0f172a"/>',
     '飛蚊症':
       '<circle cx="16" cy="16" r="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.6"/>' +
       '<circle cx="16" cy="16" r="5" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1"/>' +
