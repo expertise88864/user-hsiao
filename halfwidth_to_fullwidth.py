@@ -47,10 +47,21 @@ RULES = [
     (re.compile(rf'({CN})\)'),                rf'\g<1>{FW_RP}'),
     # )中  -> )中
     (re.compile(rf'\)({CN})'),                rf'{FW_RP}\g<1>'),
-    # 中,中 -> 中,中
+    # 中,中 -> 中，中
     (re.compile(rf'({CN}),({CN})'),           rf'\g<1>{FW_COMM}\g<2>'),
-    # 中,<空白>  -> 中,<空白>
+    # 中,<空白>  -> 中，<空白>
     (re.compile(rf'({CN}),(\s)'),             rf'\g<1>{FW_COMM}\g<2>'),
+    # 中,Latin -> 中，Latin (Chinese before, Latin word/digit after)
+    # e.g., "建議,Lam 2020" -> "建議，Lam 2020"
+    (re.compile(rf'({CN}),([A-Za-z0-9])'),    rf'\g<1>{FW_COMM}\g<2>'),
+    # Latin,中 -> Latin，中 (Latin/digit before, Chinese after)
+    # e.g., "Wang 2024,證實..." -> "Wang 2024，證實..."
+    (re.compile(rf'([A-Za-z0-9]),({CN})'),    rf'\g<1>{FW_COMM}\g<2>'),
+    # punctuation,Chinese — e.g. "...),阿托品" -> "...）,阿托品" → "），阿托品"
+    # NOTE: only fire when right-paren or close-bracket precedes the comma,
+    # to avoid breaking JS/JSON code blocks (those are protected by the
+    # <style>/<script> stash mechanism).
+    (re.compile(rf'([）」】]),({CN})'),         rf'\g<1>{FW_COMM}\g<2>'),
     # 中;中 -> 中;中
     (re.compile(rf'({CN});({CN})'),           rf'\g<1>{FW_SEMI}\g<2>'),
     # 中:中 -> 中：中  (colon after Chinese, before Chinese OR space — common bug)
@@ -69,8 +80,13 @@ RULES = [
     (re.compile(rf'({CN})\?(\s|<|$)'),        rf'\g<1>{FW_QUES}\g<2>'),
 ]
 
-# CSS never has punctuation that needs conversion — stash <style> blocks
-STYLE_BLOCK_RE = re.compile(r'<style[^>]*>.*?</style>', re.DOTALL | re.IGNORECASE)
+# CSS / JS / JSON-LD / data-*= attribute values never need punctuation
+# conversion — stash them all before regex sweep to prevent mangling.
+STYLE_BLOCK_RE  = re.compile(r'<style[^>]*>.*?</style>',  re.DOTALL | re.IGNORECASE)
+SCRIPT_BLOCK_RE = re.compile(r'<script[^>]*>.*?</script>', re.DOTALL | re.IGNORECASE)
+# Also stash href / src / class / id / style attributes — these have commas
+# (CSS selectors, query strings, font lists) that must NOT be touched.
+ATTR_RE = re.compile(r'\s(?:href|src|class|id|style|onclick|onload|onerror|data-[\w-]+)\s*=\s*"[^"]*"', re.IGNORECASE)
 
 def convert(text: str) -> tuple[str, int]:
     placeholders: list[str] = []
@@ -79,6 +95,8 @@ def convert(text: str) -> tuple[str, int]:
         return f'\x00PH{len(placeholders)-1}\x00'
 
     text = STYLE_BLOCK_RE.sub(stash, text)
+    text = SCRIPT_BLOCK_RE.sub(stash, text)
+    text = ATTR_RE.sub(stash, text)
 
     total = 0
     # One pass is enough since rules transform half→full only.

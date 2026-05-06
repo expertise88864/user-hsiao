@@ -56,8 +56,24 @@
  *  + Service Worker stale-while-revalidate for *.css — CSS edits now
  *    propagate after one extra page load, no manual cache-bust needed.
  * v25: GA4 + Consent Mode v2 + Speculation Rules. */
-const CACHE = 'hs-v26';
-const RUNTIME = 'hs-runtime-v26';
+/* v27: ADMIN MODE + UX FIXES
+ *  + NEW: /admin dashboard + WYSIWYG editor (?admin=1 on any article)
+ *    + /api/admin/{login,list,save,new}.js Vercel serverless routes
+ *    + GitHub Contents API integration — admin saves commit straight to repo
+ *    + Auth: HMAC-signed httpOnly cookie, 8-hr session
+ *    + Required Vercel env vars: ADMIN_PASSWORD, GITHUB_TOKEN,
+ *      GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH
+ *  + Reading-progress: now engagement-gated (≥30s + ≥50% scroll), not on
+ *    page load. Prevents bounce traffic from inflating "已讀" count.
+ *  + Floating left-side TOC: breakpoint lowered 1280px → 1100px so 13"
+ *    laptops see it. Active section highlight via IntersectionObserver.
+ *  + Halfwidth converter: now stashes <script>+attribute values, catches
+ *    Latin/digit ↔ Chinese comma boundary (244 more replacements).
+ *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
+ *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
+ * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
+const CACHE = 'hs-v27';
+const RUNTIME = 'hs-runtime-v27';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [
@@ -153,6 +169,15 @@ self.addEventListener('fetch', (e) => {
 
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
+
+  // Never intercept /admin pages or /api/* — these need fresh responses
+  // (admin auth, save endpoints, etc.) and stale cache would break login
+  // flow / break editor state. Let the network handle them directly.
+  if (url.pathname === '/admin' ||
+      url.pathname.startsWith('/admin') ||
+      url.pathname.startsWith('/api/')) {
+    return;
+  }
 
   if (req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html')) {
     e.respondWith(

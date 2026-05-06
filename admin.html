@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HsiaoEye Admin</title>
+<meta name="description" content="HsiaoEye 後台管理系統 — 文章編輯與發表（僅限管理員）。" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="canonical" href="https://hsiao.chendermatologist.com/admin" />
+<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+<style>
+  :root{
+    --bg:#faf7f2; --surface:#fff; --ink:#0f172a; --ink-2:#5e574e; --muted:#8b8378;
+    --blue:#6b8caf; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0;
+    --border:#dcd5c8; --line:#ebe4d8;
+    --green:#16a34a; --red:#dc2626; --amber:#fbbf24;
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html,body{ background:var(--bg); color:var(--ink); font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif; margin:0; }
+  body::before{ content:''; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background: radial-gradient(800px 500px at 12% -8%, rgba(143,179,212,.18), transparent 60%),
+                linear-gradient(180deg,#f7f5f0 0%, #f3f0e8 100%); }
+
+  header{ display:flex; align-items:center; justify-content:space-between; padding:18px 32px; border-bottom:1px solid var(--border); background:rgba(247,245,240,.92); backdrop-filter:blur(8px); position:sticky; top:0; z-index:10; }
+  header h1{ font-family:'Noto Serif TC',Georgia,serif; font-size:18px; font-weight:700; margin:0; color:var(--blue-deep); letter-spacing:.02em; }
+  header h1 span{ font-family:Inter,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-left:8px; font-weight:500; }
+  header .user{ font-size:13px; color:var(--ink-2); }
+  header button{ font-size:12.5px; padding:6px 12px; border-radius:8px; background:#fff; border:1px solid var(--border); cursor:pointer; color:var(--ink-2); margin-left:8px; }
+  header button:hover{ border-color:var(--blue-deep); color:var(--blue-deep); }
+
+  main{ max-width:980px; margin:32px auto; padding:0 24px; }
+
+  /* Login screen */
+  #login-screen{ max-width:420px; margin:120px auto; background:#fff; border:1px solid var(--border); border-radius:18px; padding:32px; box-shadow:0 24px 48px -24px rgba(58,90,124,.35); }
+  #login-screen h2{ font-family:'Noto Serif TC',Georgia,serif; font-size:24px; font-weight:700; margin:0 0 6px; color:var(--blue-deep); }
+  #login-screen p{ color:var(--muted); font-size:13px; margin:0 0 24px; line-height:1.7; }
+  #login-screen label{ display:block; font-size:12px; font-weight:600; color:var(--ink-2); margin:14px 0 6px; letter-spacing:.06em; }
+  #login-screen input{ width:100%; padding:11px 14px; font-size:15px; border:1px solid var(--border); border-radius:10px; background:#fff; color:var(--ink); }
+  #login-screen input:focus{ outline:none; border-color:var(--blue-deep); box-shadow:0 0 0 3px rgba(143,179,212,.20); }
+  #login-screen button.primary{ display:block; width:100%; margin-top:20px; padding:11px; font-size:14px; font-weight:700; background:var(--blue-deep); color:#fff; border:0; border-radius:10px; cursor:pointer; transition:transform .15s; }
+  #login-screen button.primary:hover{ transform:translateY(-1px); box-shadow:0 8px 18px -8px rgba(58,90,124,.45); }
+  #login-screen button.primary:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
+  #login-error{ color:var(--red); font-size:12.5px; margin-top:10px; display:none; }
+  #login-error.show{ display:block; }
+
+  /* Dashboard */
+  .toolbar{ display:flex; gap:12px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+  .toolbar h2{ font-family:'Noto Serif TC',Georgia,serif; font-size:22px; font-weight:700; color:var(--blue-deep); margin:0; flex:1; }
+  .toolbar .btn{ display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:9999px; font-size:13px; font-weight:600; text-decoration:none; cursor:pointer; border:1px solid var(--border); background:#fff; color:var(--ink); }
+  .toolbar .btn.primary{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
+  .toolbar .btn:hover{ transform:translateY(-1px); box-shadow:0 6px 14px -6px rgba(58,90,124,.35); }
+
+  .article-grid{ display:grid; gap:14px; }
+  .article-row{ display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center; padding:16px 18px; background:#fff; border:1px solid var(--border); border-radius:12px; transition:all .15s; }
+  .article-row:hover{ border-color:var(--blue-deep); transform:translateY(-1px); box-shadow:0 8px 18px -8px rgba(58,90,124,.22); }
+  .article-row .num{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue-deep); font-weight:700; background:var(--blue-soft); padding:4px 8px; border-radius:6px; }
+  .article-row .body h3{ font-family:'Noto Serif TC',Georgia,serif; font-size:15.5px; margin:0; color:var(--ink); font-weight:700; line-height:1.4; }
+  .article-row .body .meta{ font-size:12px; color:var(--muted); margin-top:4px; font-family:'JetBrains Mono',monospace; letter-spacing:.04em; }
+  .article-row .actions{ display:flex; gap:6px; }
+  .article-row .actions a{ font-size:12px; padding:5px 10px; border-radius:6px; text-decoration:none; border:1px solid var(--border); color:var(--ink-2); }
+  .article-row .actions a.primary{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
+  .article-row .actions a:hover{ border-color:var(--blue-deep); color:var(--blue-deep); }
+  .article-row .actions a.primary:hover{ color:#fff; opacity:.9; }
+
+  .info-card{ background:linear-gradient(135deg,#f3f7fb,#e6eef6); border:1px solid #b8cfe3; border-radius:14px; padding:18px 22px; margin:24px 0; font-size:13.5px; line-height:1.85; color:var(--ink); }
+  .info-card h4{ margin:0 0 8px; font-size:13px; color:var(--blue-deep); letter-spacing:.06em; text-transform:uppercase; font-weight:700; }
+  .info-card code{ background:#fff; padding:2px 6px; border-radius:4px; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--blue-deep); border:1px solid var(--blue-soft); }
+  .info-card kbd{ background:#fff; padding:2px 7px; border-radius:4px; border:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--ink-2); }
+
+  /* Loading */
+  .loading{ text-align:center; padding:48px 0; color:var(--muted); font-size:13px; }
+  .spinner{ display:inline-block; width:20px; height:20px; border:2px solid var(--blue-soft); border-top-color:var(--blue-deep); border-radius:50%; animation:hs-spin .8s linear infinite; vertical-align:middle; margin-right:8px; }
+  @keyframes hs-spin{ to{ transform:rotate(360deg); } }
+
+  /* New article modal */
+  .modal-bg{ position:fixed; inset:0; background:rgba(15,23,42,.55); backdrop-filter:blur(4px); z-index:100; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .modal{ background:#fff; border-radius:18px; padding:28px; max-width:480px; width:100%; box-shadow:0 30px 80px -20px rgba(0,0,0,.4); }
+  .modal h3{ font-family:'Noto Serif TC',Georgia,serif; font-size:20px; margin:0 0 4px; color:var(--blue-deep); }
+  .modal p{ font-size:13px; color:var(--muted); margin:0 0 18px; }
+  .modal label{ display:block; font-size:12px; font-weight:600; color:var(--ink-2); margin:14px 0 6px; }
+  .modal input, .modal select, .modal textarea{ width:100%; padding:10px 12px; font-size:14px; border:1px solid var(--border); border-radius:8px; background:#fff; color:var(--ink); }
+  .modal textarea{ font-family:'Noto Sans TC',sans-serif; resize:vertical; min-height:80px; }
+  .modal .row{ display:flex; gap:10px; margin-top:20px; justify-content:flex-end; }
+  .modal button{ padding:9px 16px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; border:1px solid var(--border); background:#fff; color:var(--ink-2); }
+  .modal button.primary{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
+  .modal button:hover{ transform:translateY(-1px); }
+
+  .toast{ position:fixed; left:50%; bottom:32px; transform:translateX(-50%); background:#243b56; color:#fff; padding:10px 22px; border-radius:9999px; font-size:13px; font-weight:600; z-index:9999; box-shadow:0 12px 28px -8px rgba(58,90,124,.55); }
+</style>
+</head>
+<body>
+
+<!-- ─── LOGIN ─── -->
+<section id="login-screen">
+  <h2>HsiaoEye Admin</h2>
+  <p>輸入管理員密碼以編輯文章。密碼存於 Vercel 環境變數 <code style="background:#f3f7fb;padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px">ADMIN_PASSWORD</code>。</p>
+  <form id="login-form" onsubmit="event.preventDefault();doLogin()">
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" required autofocus />
+    <button class="primary" type="submit" id="login-btn">登入</button>
+    <div id="login-error">密碼錯誤，請重試。</div>
+  </form>
+</section>
+
+<!-- ─── DASHBOARD (hidden until login) ─── -->
+<div id="dashboard" hidden>
+  <header>
+    <h1>HsiaoEye Admin <span>v1</span></h1>
+    <div>
+      <span class="user" id="who"></span>
+      <button onclick="doLogout()">登出</button>
+      <a href="/" style="font-size:12.5px; padding:6px 12px; border-radius:8px; background:#fff; border:1px solid var(--border); color:var(--ink-2); text-decoration:none; margin-left:8px;">看網站 →</a>
+    </div>
+  </header>
+  <main>
+    <div class="toolbar">
+      <h2>文章管理</h2>
+      <button class="btn primary" onclick="showNewModal()">+ 新文章</button>
+      <button class="btn" onclick="loadList()">↻ 重新載入</button>
+    </div>
+
+    <div class="info-card">
+      <h4>📋 編輯流程</h4>
+      <ol style="margin:0; padding-left:20px;">
+        <li>點「編輯」開啟文章 — 整篇變成所見即所得 (WYSIWYG) 模式</li>
+        <li>滑鼠選文字後出現浮動工具列：粗體 / 斜體 / 標題 / 字型 / 字級 / 連結 / 列表</li>
+        <li>按右下「儲存」→ 自動 commit 到 GitHub → Vercel 自動重新部署</li>
+        <li>若你之後在本機改檔案，記得先 <code>git pull</code> 把後台的編輯拉下來</li>
+      </ol>
+    </div>
+
+    <div id="article-list" class="article-grid">
+      <div class="loading"><span class="spinner"></span>載入文章列表⋯</div>
+    </div>
+  </main>
+</div>
+
+<!-- ─── NEW ARTICLE MODAL ─── -->
+<div id="new-modal" class="modal-bg" hidden>
+  <div class="modal">
+    <h3>建立新文章</h3>
+    <p>會以模板創建並 commit 到 GitHub。建立後可直接進入編輯模式。</p>
+    <form onsubmit="event.preventDefault();doCreate()">
+      <label for="new-slug">Slug (URL，英文/-/數字）</label>
+      <input id="new-slug" placeholder="例： cataract-faq" required pattern="[a-z0-9-]+" />
+      <label for="new-title-zh">中文標題</label>
+      <input id="new-title-zh" placeholder="例： 白內障手術 12 個常見問題" required />
+      <label for="new-title-en">英文標題</label>
+      <input id="new-title-en" placeholder="例： 12 common cataract surgery questions" required />
+      <label for="new-tag-zh">中文 tag</label>
+      <input id="new-tag-zh" placeholder="例： 白內障" required />
+      <label for="new-tag-en">英文 tag</label>
+      <input id="new-tag-en" placeholder="例： Cataract" required />
+      <label for="new-cat">分類</label>
+      <select id="new-cat">
+        <option value="myth">迷思澄清 / Myth-busting</option>
+        <option value="alert">警訊辨識 / Red Flags</option>
+        <option value="rx">處方治療 / Treatment</option>
+      </select>
+      <div class="row">
+        <button type="button" onclick="hideNewModal()">取消</button>
+        <button class="primary" type="submit" id="create-btn">建立</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+// ───────────────── State ─────────────────
+const API = '/api/admin';
+let LOGGED_IN = false;
+
+// ───────────────── Login ─────────────────
+async function checkAuth() {
+  try {
+    const r = await fetch(API + '/list', { credentials: 'include' });
+    if (r.ok) {
+      const data = await r.json();
+      LOGGED_IN = true;
+      showDashboard(data.articles || []);
+      return;
+    }
+  } catch (e) {}
+  showLogin();
+}
+
+function showLogin() {
+  document.getElementById('login-screen').hidden = false;
+  document.getElementById('dashboard').hidden = true;
+  setTimeout(() => document.getElementById('pw').focus(), 50);
+}
+
+function showDashboard(articles) {
+  document.getElementById('login-screen').hidden = true;
+  document.getElementById('dashboard').hidden = false;
+  renderArticles(articles);
+}
+
+async function doLogin() {
+  const pw = document.getElementById('pw').value;
+  const btn = document.getElementById('login-btn');
+  const err = document.getElementById('login-error');
+  btn.disabled = true; btn.textContent = '驗證中⋯';
+  err.classList.remove('show');
+  try {
+    const r = await fetch(API + '/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ password: pw })
+    });
+    if (r.ok) {
+      checkAuth();
+      return;
+    }
+    err.classList.add('show');
+  } catch (e) {
+    err.textContent = '網路錯誤: ' + (e.message || e);
+    err.classList.add('show');
+  } finally {
+    btn.disabled = false; btn.textContent = '登入';
+    document.getElementById('pw').value = '';
+  }
+}
+
+async function doLogout() {
+  await fetch(API + '/login', { method: 'DELETE', credentials: 'include' });
+  LOGGED_IN = false;
+  showLogin();
+}
+
+// ───────────────── Article list ─────────────────
+async function loadList() {
+  const r = await fetch(API + '/list', { credentials: 'include' });
+  if (!r.ok) { showLogin(); return; }
+  const data = await r.json();
+  renderArticles(data.articles || []);
+}
+
+function renderArticles(articles) {
+  const host = document.getElementById('article-list');
+  if (!articles.length) {
+    host.innerHTML = '<div class="loading">目前沒有文章。點「+ 新文章」建立第一篇。</div>';
+    return;
+  }
+  host.innerHTML = articles.map((a, i) =>
+    `<div class="article-row">
+      <span class="num">№${a.number || (i+1)}</span>
+      <div class="body">
+        <h3>${escapeHTML(a.title)}</h3>
+        <div class="meta">${escapeHTML(a.slug)} · ${escapeHTML(a.tag || '')} · ${escapeHTML(a.date || '')}</div>
+      </div>
+      <div class="actions">
+        <a href="/blog/${a.slug}" target="_blank">看</a>
+        <a class="primary" href="/blog/${a.slug}?admin=1">編輯</a>
+      </div>
+    </div>`
+  ).join('');
+}
+
+function escapeHTML(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ───────────────── New article ─────────────────
+function showNewModal() { document.getElementById('new-modal').hidden = false; }
+function hideNewModal() { document.getElementById('new-modal').hidden = true; }
+
+async function doCreate() {
+  const btn = document.getElementById('create-btn');
+  btn.disabled = true; btn.textContent = '建立中⋯';
+  const payload = {
+    slug:      document.getElementById('new-slug').value.trim(),
+    titleZh:   document.getElementById('new-title-zh').value.trim(),
+    titleEn:   document.getElementById('new-title-en').value.trim(),
+    tagZh:     document.getElementById('new-tag-zh').value.trim(),
+    tagEn:     document.getElementById('new-tag-en').value.trim(),
+    cat:       document.getElementById('new-cat').value
+  };
+  try {
+    const r = await fetch(API + '/new', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(payload)
+    });
+    if (r.ok) {
+      const data = await r.json();
+      toast('已建立! 自動跳轉到編輯模式⋯');
+      hideNewModal();
+      setTimeout(() => { location.href = '/blog/' + payload.slug + '?admin=1'; }, 700);
+    } else {
+      const err = await r.json().catch(() => ({}));
+      toast('建立失敗: ' + (err.error || r.status), 5000);
+    }
+  } catch (e) {
+    toast('網路錯誤: ' + (e.message || e), 5000);
+  } finally {
+    btn.disabled = false; btn.textContent = '建立';
+  }
+}
+
+// ───────────────── Toast ─────────────────
+function toast(msg, dur = 2500) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.transition = 'opacity .3s'; t.style.opacity = '0'; }, dur);
+  setTimeout(() => t.remove(), dur + 350);
+}
+
+// ───────────────── Boot ─────────────────
+checkAuth();
+</script>
+</body>
+</html>

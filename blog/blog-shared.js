@@ -474,7 +474,83 @@
       '<a href="' + DN.AUTHOR_BIO_URL + '" style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:9999px;background:#fff;border:1px solid var(--border);color:var(--blue-deep);text-decoration:none;font-weight:600" data-zh="蕭閔謙 醫師 →" data-en="Dr. Hsiao →">蕭閔謙 醫師 →</a>';
     target.parentNode.insertBefore(bar, target.nextSibling);
 
-    if (slug) DN.markRead(slug);
+    // Reading-progress is now ENGAGEMENT-GATED — see DN.bindReadEngagement.
+    // We intentionally do NOT call DN.markRead(slug) here on page-load.
+  };
+
+  // ---------------------------------------------------------------------
+  // Engagement-gated read tracking — only mark an article as "read" when the
+  // user has demonstrably engaged with it. Prevents bounce-traffic from
+  // counting toward the home-page progress widget.
+  //
+  // Criteria (BOTH required):
+  //   1. ≥ 30 seconds of foreground time (visibility-aware)
+  //   2. ≥ 50 % of the article scrolled past the viewport bottom
+  //
+  // Once both are met for the current slug, we localStorage-persist it and
+  // dispatch 'hs-read-updated' so DN.injectReadProgress re-renders. We also
+  // fire a GA4 'article_read' event for analytics segmentation.
+  // ---------------------------------------------------------------------
+  DN.READ_DWELL_MS = 30 * 1000;     // 30 s minimum dwell
+  DN.READ_SCROLL_PCT = 0.5;         // ≥ 50 % scrolled
+  DN.bindReadEngagement = function () {
+    var slug = DN.currentSlug && DN.currentSlug();
+    if (!slug) return;
+    if (DN.getReadSlugs && DN.getReadSlugs().indexOf(slug) >= 0) return;  // already counted
+    var article = document.querySelector('article.max-w-3xl');
+    if (!article) return;
+
+    var dwellMs = 0;
+    var lastTick = Date.now();
+    var maxScrollPct = 0;
+    var marked = false;
+
+    function tick() {
+      if (marked) return;
+      var now = Date.now();
+      // Only accumulate dwell when tab is visible
+      if (document.visibilityState === 'visible') dwellMs += (now - lastTick);
+      lastTick = now;
+
+      // Recompute scroll % against the article's vertical extent
+      var rect = article.getBoundingClientRect();
+      var articleTop = rect.top + window.pageYOffset;
+      var articleBottom = articleTop + article.offsetHeight;
+      var viewportBottom = window.pageYOffset + window.innerHeight;
+      var pct = Math.max(0, Math.min(1,
+        (viewportBottom - articleTop) / Math.max(1, articleBottom - articleTop)));
+      if (pct > maxScrollPct) maxScrollPct = pct;
+
+      if (dwellMs >= DN.READ_DWELL_MS && maxScrollPct >= DN.READ_SCROLL_PCT) {
+        marked = true;
+        DN.markRead && DN.markRead(slug);
+        try {
+          window.gtag && gtag('event', 'article_read', {
+            slug: slug,
+            dwell_seconds: Math.round(dwellMs / 1000),
+            scroll_pct: Math.round(maxScrollPct * 100)
+          });
+        } catch (e) {}
+      }
+    }
+
+    // Tick on scroll (throttled) and every 5 s while visible (dwell)
+    var lastScrollTick = 0;
+    window.addEventListener('scroll', function () {
+      var n = Date.now();
+      if (n - lastScrollTick < 250) return;
+      lastScrollTick = n;
+      tick();
+    }, { passive: true });
+    var dwellTimer = setInterval(function () {
+      if (marked) { clearInterval(dwellTimer); return; }
+      tick();
+    }, 5000);
+
+    // Reset dwell clock on visibility regain so background tabs don't accrue
+    document.addEventListener('visibilitychange', function () {
+      lastTick = Date.now();
+    });
   };
 
   // ---------- inline TOC (collapsible card at top of article) ----------
@@ -549,7 +625,11 @@
 
   // ---------- floating sidebar TOC (desktop ≥1280px) ----------
   DN.addFloatingTOC = function () {
-    if (window.innerWidth < 1280) return;
+    // Lower breakpoint to 1100px so users on 13" laptops (1280×800 fits with
+    // some padding, but 1366×768 standard panels and 1280×800 panels with
+    // browser chrome give effective viewport ~1180-1240). 1100px also catches
+    // standard 14" laptops at typical zoom.
+    if (window.innerWidth < 1100) return;
     const proseEl = document.getElementById('proseZh') || document.querySelector('article .prose');
     if (!proseEl) return;
     const h2s = proseEl.querySelectorAll('h2[id]');
@@ -590,7 +670,7 @@
     h2s.forEach(function (h) { io.observe(h); });
 
     window.addEventListener('resize', function () {
-      aside.style.display = (window.innerWidth >= 1280) ? '' : 'none';
+      aside.style.display = (window.innerWidth >= 1100) ? '' : 'none';
     });
 
     aside.addEventListener('click', function (e) {
@@ -2195,79 +2275,11 @@
   // Article feedback widget — "Spot an error?" mailto card at end of article
   // Pre-fills subject + body with article title/URL for easier triage.
   // ---------------------------------------------------------------------
-  // ---------------------------------------------------------------------
-  // Cookie consent banner — minimal, GDPR-friendly, drives Consent Mode v2
-  // updates. Shown only on first visit; choice persists for 365 days.
-  // ---------------------------------------------------------------------
-  // Default state (set in <head> before gtag.js loads): analytics granted,
-  // ads denied. This banner lets users explicitly grant/deny analytics —
-  // important once you start applying for AdSense (review requires consent
-  // flow even if you don't show ads yet).
-  DN.CONSENT_KEY = 'hs:consent:v1';
-  DN.bindCookieConsent = function () {
-    if (document.getElementById('hs-consent-banner')) return;
-    var saved;
-    try { saved = localStorage.getItem(DN.CONSENT_KEY); } catch (e) {}
-    if (saved) {
-      // Already has a choice — apply it via gtag and exit
-      var update = saved === 'granted'
-        ? { analytics_storage: 'granted', functionality_storage: 'granted', security_storage: 'granted' }
-        : { analytics_storage: 'denied' };
-      try { window.gtag && gtag('consent', 'update', update); } catch (e) {}
-      return;
-    }
-    // First visit — show banner
-    if (!document.getElementById('hs-consent-css')) {
-      var st = document.createElement('style');
-      st.id = 'hs-consent-css';
-      st.textContent =
-        '#hs-consent-banner{position:fixed;left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:9997;max-width:560px;margin:0 auto;background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px;padding:16px 20px;box-shadow:0 18px 40px -12px rgba(15,23,42,.32);font-size:13.5px;color:var(--ink,#0f172a);line-height:1.65;animation:hs-consent-in .35s cubic-bezier(.2,.7,.3,1)}' +
-        '@keyframes hs-consent-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}' +
-        '#hs-consent-banner h4{font-family:"Noto Serif TC",Georgia,serif;font-size:15px;margin:0 0 6px;color:var(--blue-deep,#243b56);font-weight:700}' +
-        '#hs-consent-banner p{margin:0 0 12px;font-size:13px;color:var(--ink-2,#5e574e)}' +
-        '#hs-consent-banner .btn-row{display:flex;gap:8px;flex-wrap:wrap}' +
-        '#hs-consent-banner button{padding:7px 14px;border-radius:9999px;font-size:12.5px;font-weight:700;cursor:pointer;border:1px solid var(--border,#dcd5c8);background:#fff;color:var(--ink-2,#5e574e);transition:all .15s}' +
-        '#hs-consent-banner button.primary{background:var(--blue-deep,#243b56);color:#fff;border-color:var(--blue-deep,#243b56)}' +
-        '#hs-consent-banner button:hover{transform:translateY(-1px);box-shadow:0 4px 10px -4px rgba(58,90,124,.25)}' +
-        '#hs-consent-banner a{color:var(--blue-deep,#243b56);text-decoration:underline;text-underline-offset:2px}';
-      document.head.appendChild(st);
-    }
-
-    var banner = document.createElement('div');
-    banner.id = 'hs-consent-banner';
-    banner.setAttribute('role', 'dialog');
-    banner.setAttribute('aria-label', 'Cookie 同意 / Cookie consent');
-    banner.innerHTML =
-      '<h4 data-zh="關於這個網站的 cookie" data-en="About cookies on this site">關於這個網站的 cookie</h4>' +
-      '<p data-zh="本站使用 Google Analytics（匿名統計流量、停留時間、Web Vitals 效能指標)以改善內容,<strong>不投放個人化廣告</strong>。詳見 <a href=\\"/privacy\\">隱私權政策</a>。" data-en="This site uses Google Analytics (anonymous page-views, dwell time, Web Vitals performance) to improve content. <strong>No personalized ads.</strong> See <a href=\\"/privacy\\">Privacy Policy</a>.">本站使用 Google Analytics（匿名統計流量、停留時間、Web Vitals 效能指標）以改善內容，<strong>不投放個人化廣告</strong>。詳見 <a href="/privacy">隱私權政策</a>。</p>' +
-      '<div class="btn-row">' +
-        '<button class="primary" data-consent="granted" data-zh="同意統計" data-en="Allow analytics">同意統計</button>' +
-        '<button data-consent="denied" data-zh="僅必要功能" data-en="Essential only">僅必要功能</button>' +
-      '</div>';
-
-    function record(choice) {
-      try { localStorage.setItem(DN.CONSENT_KEY, choice); } catch (e) {}
-      var update = choice === 'granted'
-        ? { analytics_storage: 'granted', functionality_storage: 'granted', security_storage: 'granted' }
-        : { analytics_storage: 'denied' };
-      try { window.gtag && gtag('consent', 'update', update); } catch (e) {}
-      // Track the consent decision itself (allowed even when denied — it's an
-      // anonymous binary signal, not personally identifying)
-      try { window.gtag && gtag('event', 'consent_choice', { choice: choice }); } catch (e) {}
-      banner.style.transition = 'opacity .25s';
-      banner.style.opacity = '0';
-      setTimeout(function () { try { banner.remove(); } catch (e) {} }, 280);
-    }
-
-    banner.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-consent]');
-      if (b) record(b.dataset.consent);
-    });
-
-    document.body.appendChild(banner);
-    // Re-translate (data-zh / data-en attributes need DN.applyTextOnly)
-    try { DN.applyTextOnly && DN.applyTextOnly(DN.detectLang()); } catch (e) {}
-  };
+  // (Cookie consent banner removed per user request. Consent Mode v2 default
+  // remains set in <head> of every HTML — analytics granted, ads denied.
+  // For users that need explicit opt-out, /privacy still describes the GA
+  // opt-out browser add-on. If GDPR/EU users become a major audience, add
+  // a banner back via gtag('consent', 'update', {...}).)
 
   // ---------------------------------------------------------------------
   // A/B test framework — lightweight, deterministic per-visitor bucketing.
@@ -2466,6 +2478,184 @@
     else if (slug === 'floaters-retinal-detachment') { DN.injectFloaterRedFlag(); }
   };
 
+  // =====================================================================
+  // ADMIN MODE — inline WYSIWYG editor (loaded only when ?admin=1 in URL)
+  // ---------------------------------------------------------------------
+  // When an authenticated admin appends ?admin=1 to any article URL, the
+  // article body becomes contenteditable and a floating toolbar appears.
+  // Save → POSTs the modified HTML to /api/admin/save which commits via
+  // GitHub API. The site re-deploys; user must `git pull` before next
+  // local edit (admin edits live in git, not in a separate KV store).
+  // =====================================================================
+  DN.isAdminMode = function () {
+    try { return new URLSearchParams(location.search).get('admin') === '1'; }
+    catch (e) { return false; }
+  };
+
+  DN.initAdminMode = function () {
+    if (!DN.isAdminMode()) return;
+    var article = document.querySelector('article.max-w-3xl');
+    if (!article) return;
+    var slug = DN.currentSlug && DN.currentSlug();
+    if (!slug) return;
+    if (document.getElementById('hs-admin-bar')) return;
+
+    // Inject admin styles (scoped, doesn't affect normal article render)
+    if (!document.getElementById('hs-admin-css')) {
+      var st = document.createElement('style');
+      st.id = 'hs-admin-css';
+      st.textContent =
+        '#hs-admin-bar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9998;background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px;box-shadow:0 18px 40px -12px rgba(15,23,42,.32);padding:10px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;max-width:calc(100vw - 32px)}' +
+        '#hs-admin-bar button, #hs-admin-bar select{padding:6px 10px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border,#dcd5c8);background:#fff;color:var(--ink-2,#5e574e);transition:all .12s}' +
+        '#hs-admin-bar button:hover{border-color:var(--blue-deep,#243b56);color:var(--blue-deep,#243b56)}' +
+        '#hs-admin-bar button.primary{background:var(--blue-deep,#243b56);color:#fff;border-color:var(--blue-deep,#243b56)}' +
+        '#hs-admin-bar button.primary:hover{color:#fff;opacity:.9}' +
+        '#hs-admin-bar button.danger{background:#fff;color:#dc2626;border-color:#fca5a5}' +
+        '#hs-admin-bar button.danger:hover{background:#fee2e2;color:#991b1b}' +
+        '#hs-admin-bar .sep{width:1px;height:22px;background:var(--border,#dcd5c8);margin:0 4px}' +
+        '#hs-admin-bar .group-label{font-size:10.5px;color:var(--muted,#8b8378);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-right:4px}' +
+        '#hs-admin-status{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#243b56;color:#fff;padding:9px 18px;border-radius:9999px;font-size:13px;z-index:9999;box-shadow:0 12px 28px -8px rgba(58,90,124,.55)}' +
+        // Tag the editable area visually
+        '[contenteditable="true"]{outline:2px dashed rgba(58,90,124,.35);outline-offset:4px;border-radius:6px;transition:outline-color .15s}' +
+        '[contenteditable="true"]:focus{outline-color:var(--blue-deep,#243b56);outline-style:solid}' +
+        '[contenteditable="true"]:hover{outline-color:rgba(58,90,124,.6)}' +
+        // Hide non-editable chrome in admin to reduce distraction
+        'body.hs-admin #hs-share, body.hs-admin #hs-author-bio, body.hs-admin #hs-bmc, body.hs-admin #hs-related, body.hs-admin #hs-prevnext, body.hs-admin #hs-feedback, body.hs-admin #hs-print-btn, body.hs-admin #hs-bookmark, body.hs-admin #hs-totop{display:none!important}' +
+        'body.hs-admin .mag-footer{opacity:.4}';
+      document.head.appendChild(st);
+    }
+    document.body.classList.add('hs-admin');
+
+    // Make article structures editable (h1, h2, h3, paragraphs, list items,
+    // figcaptions, table cells). We deliberately skip code / SVG / link href
+    // editing for safety.
+    var EDITABLE_SEL = '#proseZh h1, #proseZh h2, #proseZh h3, #proseZh p, #proseZh li, #proseZh td, #proseZh th, #proseZh figcaption, #proseZh blockquote, .myth-card .myth, .myth-card .truth, article.max-w-3xl > h1, article.max-w-3xl figcaption';
+    document.querySelectorAll(EDITABLE_SEL).forEach(function (el) {
+      el.contentEditable = 'true';
+      el.spellcheck = false;
+    });
+
+    // Build the floating toolbar
+    var bar = document.createElement('div');
+    bar.id = 'hs-admin-bar';
+    bar.innerHTML =
+      '<span class="group-label">字型</span>' +
+      '<select id="hs-adm-font" title="Font family"><option value="">(預設)</option><option value="Noto Serif TC, Georgia, serif">Noto Serif TC</option><option value="Inter, sans-serif">Inter</option><option value="JetBrains Mono, monospace">JetBrains Mono</option><option value="Noto Sans TC, sans-serif">Noto Sans TC</option><option value="Fraunces, serif">Fraunces</option></select>' +
+      '<select id="hs-adm-size" title="Font size"><option value="">(預設)</option><option value="13px">13</option><option value="14px">14</option><option value="15.5px">15.5</option><option value="17px">17</option><option value="20px">20</option><option value="24px">24</option><option value="32px">32</option></select>' +
+      '<span class="sep"></span>' +
+      '<button title="粗體 (Cmd/Ctrl+B)" data-cmd="bold"><b>B</b></button>' +
+      '<button title="斜體 (Cmd/Ctrl+I)" data-cmd="italic"><i>I</i></button>' +
+      '<button title="底線 (Cmd/Ctrl+U)" data-cmd="underline"><u>U</u></button>' +
+      '<button title="刪除線" data-cmd="strikeThrough">S̶</button>' +
+      '<span class="sep"></span>' +
+      '<button title="項目符號" data-cmd="insertUnorderedList">• 項目</button>' +
+      '<button title="數字編號" data-cmd="insertOrderedList">1. 編號</button>' +
+      '<button title="連結 (Cmd/Ctrl+K)" data-cmd="link">🔗 連結</button>' +
+      '<button title="清除格式" data-cmd="removeFormat">⨯ 清除</button>' +
+      '<span class="sep"></span>' +
+      '<button class="primary" id="hs-adm-save">💾 儲存</button>' +
+      '<button class="danger" id="hs-adm-cancel">取消</button>' +
+      '<button id="hs-adm-exit" title="離開 admin 模式">←離開</button>';
+    document.body.appendChild(bar);
+
+    // Toolbar handlers
+    bar.querySelectorAll('button[data-cmd]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var cmd = btn.dataset.cmd;
+        if (cmd === 'link') {
+          var url = prompt('連結網址 URL:', 'https://');
+          if (url) document.execCommand('createLink', false, url);
+        } else {
+          document.execCommand(cmd, false, null);
+        }
+      });
+    });
+    document.getElementById('hs-adm-font').addEventListener('change', function (e) {
+      if (e.target.value) document.execCommand('fontName', false, e.target.value);
+    });
+    document.getElementById('hs-adm-size').addEventListener('change', function (e) {
+      // execCommand fontSize takes 1-7; we use a span-wrap shim instead for arbitrary px
+      var sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0 || !e.target.value) return;
+      var range = sel.getRangeAt(0);
+      if (range.collapsed) return;
+      var span = document.createElement('span');
+      span.style.fontSize = e.target.value;
+      try { range.surroundContents(span); } catch (ex) { /* selection across multiple nodes — fallback no-op */ }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function (e) {
+      if (!(e.metaKey || e.ctrlKey)) return;
+      var k = e.key.toLowerCase();
+      if (k === 's') { e.preventDefault(); doSave(); }
+    });
+
+    // Save / cancel
+    document.getElementById('hs-adm-save').addEventListener('click', doSave);
+    document.getElementById('hs-adm-cancel').addEventListener('click', function () {
+      if (confirm('確定要丟棄所有未儲存的編輯嗎？')) location.reload();
+    });
+    document.getElementById('hs-adm-exit').addEventListener('click', function () {
+      location.href = location.pathname;
+    });
+
+    // Show admin status when scrolling past article
+    function status(msg, cls) {
+      var s = document.getElementById('hs-admin-status');
+      if (!s) {
+        s = document.createElement('div');
+        s.id = 'hs-admin-status';
+        document.body.appendChild(s);
+      }
+      s.textContent = msg;
+      if (cls === 'error') s.style.background = '#dc2626';
+      else if (cls === 'success') s.style.background = '#16a34a';
+      else s.style.background = '#243b56';
+    }
+
+    async function doSave() {
+      // Capture full <html> (modified DOM) and send to /api/admin/save
+      var btn = document.getElementById('hs-adm-save');
+      btn.disabled = true; btn.textContent = '儲存中⋯';
+      status('正在 commit 到 GitHub⋯');
+      try {
+        // Strip admin-only DOM (toolbar, status) before serialization
+        var clone = document.documentElement.cloneNode(true);
+        ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css'].forEach(function (id) {
+          var el = clone.querySelector('#' + id);
+          if (el) el.remove();
+        });
+        // Remove contentEditable / spellcheck attributes from editable nodes
+        clone.querySelectorAll('[contenteditable]').forEach(function (el) {
+          el.removeAttribute('contenteditable');
+          el.removeAttribute('spellcheck');
+        });
+        clone.querySelector('body').classList.remove('hs-admin');
+
+        var html = '<!doctype html>\n' + clone.outerHTML;
+        var resp = await fetch('/api/admin/save', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug: slug, html: html })
+        });
+        if (resp.ok) {
+          var data = await resp.json();
+          status('✓ 已儲存 (commit: ' + (data.commit || '-').slice(0, 7) + ')', 'success');
+          setTimeout(function () { document.getElementById('hs-admin-status').remove(); }, 3500);
+        } else {
+          var err = await resp.json().catch(function () { return {}; });
+          status('✗ 儲存失敗: ' + (err.error || resp.status), 'error');
+        }
+      } catch (e) {
+        status('✗ 網路錯誤: ' + (e.message || e), 'error');
+      } finally {
+        btn.disabled = false; btn.textContent = '💾 儲存';
+      }
+    }
+  };
+
   // ---------- service worker ----------
   DN.registerSW = function () {
     if (!('serviceWorker' in navigator)) return;
@@ -2522,6 +2712,11 @@
       DN.addInlineTOC();
     }
 
+    // Admin WYSIWYG mode (only when ?admin=1 in URL) — must run AFTER hero
+    // injection so the editable selectors include the H1, but BEFORE Phase 2
+    // related-articles/share toolbar (which we hide in admin mode anyway).
+    DN.initAdminMode();
+
     // ── PHASE 2 — idle / deferred (run after first paint) ──
     // Heavy widgets, analytics, modals, and below-the-fold features run
     // in requestIdleCallback so they don't block FCP/LCP on slow mobile
@@ -2543,6 +2738,7 @@
       idle(function () {
         DN.enhanceArticleImages(); // lazy + lightbox
         DN.addFloatingTOC();
+        DN.bindReadEngagement();   // engagement-gated read tracking (≥30s + ≥50% scroll)
         DN.bindScrollMemory();
         DN.addInlineCTA();
         DN.injectArticleCalculators();
@@ -2581,7 +2777,7 @@
     idle(function () {
       DN.bindGAEvents();
       DN.bindWebVitals();
-      DN.bindCookieConsent();   // Cookie consent banner (Consent Mode v2 update)
+      // (cookie banner removed; Consent Mode v2 defaults remain set in <head>)
       DN.registerSW();
     }, { timeout: 2500 });
 
