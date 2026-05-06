@@ -439,6 +439,33 @@ hr.sep-wide { max-width: 1120px; }
 hr.sep-tight { margin: 4px auto; opacity: 0.5; }
 
 /* ============================================================
+   PERFORMANCE — CSS Containment
+   ------------------------------------------------------------
+   `contain` tells the browser the element's render is independent
+   of the rest of the layout, so style/layout/paint can be done in
+   isolation. Big win for cards in long lists (spotlight, topics,
+   article-list-item) — recalcs scoped to a single card.
+   ============================================================ */
+.article-list-item,
+.topic-card,
+.mag-card,
+#hs-recent-list > li,
+#hs-popular-list > li,
+.hs-pn-card,
+.hs-redflag-box,
+.hs-related-box,
+.myth-card,
+.dn-figure,
+.hs-calc {
+  contain: layout style;
+}
+/* Stronger contain for elements with stable height (paints can be skipped) */
+.tool-nav a,
+.hs-related-pill {
+  contain: layout style paint;
+}
+
+/* ============================================================
    PERFORMANCE — content-visibility:auto for off-screen sections
    ------------------------------------------------------------
    Skips layout/paint for sections that are still scrolled out of

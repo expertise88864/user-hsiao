@@ -38,16 +38,26 @@
  *    to credit it as secondhand via Ma 2024 Heliyon (transparent source chain).
  * v23: 50% → 9% epidemiology fix + DN.injectPrevNext + №X prefix.
  * v22: new lacrimal-gland-tumor article. */
-/* v25: + GA4 wired (G-0ZKDQP9DNH) on ALL 32 pages with Consent Mode v2
- *      (was previously only on 2 home pages — that's why no analytics data
- *      was visible). Default consent: analytics granted, ads denied.
- *    + Speculation Rules API on every HTML — Chrome/Edge prerender same-
- *      origin links the user is likely to click (eagerness=moderate),
- *      with conservative prefetch for /blog/*. Near-zero-latency nav.
- *    + privacy.html updated to reflect actual GA4 setup + Consent Mode
- *      defaults + opt-out instructions. */
-const CACHE = 'hs-v25';
-const RUNTIME = 'hs-runtime-v25';
+/* v26: ARTICLE VISIBILITY + OPTIMIZATION SPRINT
+ *  + FIX: lacrimal-gland-tumor article now visible on /blog/index.html
+ *    (catalog) and /blog/topics.html (new "Orbit · Oncology" section).
+ *    Previously was only in DN.ARTICLES + home spotlight, missing from
+ *    the article-list catalog page.
+ *  + Extracted ~13 KB of duplicated inline CSS from 4 articles into
+ *    /assets/article.css (cacheable). Each article now ~3 KB lighter.
+ *  + CSS containment hints (`contain: layout style`) on cards / spotlight
+ *    rows / topic cards — speeds up scroll-triggered re-layout in long lists.
+ *  + DN.bindCookieConsent — first-visit banner with 「同意統計」/「僅必要功能」
+ *    buttons. Drives gtag('consent','update',{...}). Analytics-granted users
+ *    get richer data; denied users see no further tracking.
+ *  + DN.abTest + DN.abConvert — lightweight A/B testing. Stable per-visitor
+ *    bucketing, GA4 ab_exposure / ab_conversion events, sessionStorage-gated
+ *    conversion deduplication.
+ *  + Service Worker stale-while-revalidate for *.css — CSS edits now
+ *    propagate after one extra page load, no manual cache-bust needed.
+ * v25: GA4 + Consent Mode v2 + Speculation Rules. */
+const CACHE = 'hs-v26';
+const RUNTIME = 'hs-runtime-v26';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [
@@ -70,6 +80,7 @@ const PRECACHE = [
   '/SUNN1302-440.webp',
   '/blog/',
   '/assets/app.css',
+  '/assets/article.css',
   '/blog/blog-shared.js',
   '/blog/feed.xml',
   '/blog/atom.xml',
@@ -156,6 +167,30 @@ self.addEventListener('fetch', (e) => {
         .catch(() => caches.match(req).then((r) =>
           r || caches.match('/offline.html').then((o) => o || caches.match('/'))
         ))
+    );
+    return;
+  }
+
+  // ── Stale-while-revalidate for CSS files (app.css / article.css) ──
+  // Serves cached version instantly, then re-fetches in background to update
+  // the cache for the *next* visit. Removes the need for manual ?v= cache-
+  // busting on stylesheets. Same-day CSS edits propagate after one extra page
+  // load instead of relying on `?v=YYYYMMDD` on every <link> tag.
+  if (url.pathname.endsWith('.css')) {
+    e.respondWith(
+      caches.match(req).then((cached) => {
+        const fetchPromise = fetchWithRetry(req).then((resp) => {
+          if (resp && resp.status === 200) {
+            const copy = resp.clone();
+            caches.open(RUNTIME).then((c) => {
+              c.put(req, copy);
+              trimCache(RUNTIME, RUNTIME_MAX_ENTRIES);
+            });
+          }
+          return resp;
+        }).catch(() => cached);
+        return cached || fetchPromise;
+      })
     );
     return;
   }

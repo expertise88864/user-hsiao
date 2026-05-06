@@ -2196,6 +2196,135 @@
   // Pre-fills subject + body with article title/URL for easier triage.
   // ---------------------------------------------------------------------
   // ---------------------------------------------------------------------
+  // Cookie consent banner — minimal, GDPR-friendly, drives Consent Mode v2
+  // updates. Shown only on first visit; choice persists for 365 days.
+  // ---------------------------------------------------------------------
+  // Default state (set in <head> before gtag.js loads): analytics granted,
+  // ads denied. This banner lets users explicitly grant/deny analytics —
+  // important once you start applying for AdSense (review requires consent
+  // flow even if you don't show ads yet).
+  DN.CONSENT_KEY = 'hs:consent:v1';
+  DN.bindCookieConsent = function () {
+    if (document.getElementById('hs-consent-banner')) return;
+    var saved;
+    try { saved = localStorage.getItem(DN.CONSENT_KEY); } catch (e) {}
+    if (saved) {
+      // Already has a choice — apply it via gtag and exit
+      var update = saved === 'granted'
+        ? { analytics_storage: 'granted', functionality_storage: 'granted', security_storage: 'granted' }
+        : { analytics_storage: 'denied' };
+      try { window.gtag && gtag('consent', 'update', update); } catch (e) {}
+      return;
+    }
+    // First visit — show banner
+    if (!document.getElementById('hs-consent-css')) {
+      var st = document.createElement('style');
+      st.id = 'hs-consent-css';
+      st.textContent =
+        '#hs-consent-banner{position:fixed;left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:9997;max-width:560px;margin:0 auto;background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px;padding:16px 20px;box-shadow:0 18px 40px -12px rgba(15,23,42,.32);font-size:13.5px;color:var(--ink,#0f172a);line-height:1.65;animation:hs-consent-in .35s cubic-bezier(.2,.7,.3,1)}' +
+        '@keyframes hs-consent-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}' +
+        '#hs-consent-banner h4{font-family:"Noto Serif TC",Georgia,serif;font-size:15px;margin:0 0 6px;color:var(--blue-deep,#243b56);font-weight:700}' +
+        '#hs-consent-banner p{margin:0 0 12px;font-size:13px;color:var(--ink-2,#5e574e)}' +
+        '#hs-consent-banner .btn-row{display:flex;gap:8px;flex-wrap:wrap}' +
+        '#hs-consent-banner button{padding:7px 14px;border-radius:9999px;font-size:12.5px;font-weight:700;cursor:pointer;border:1px solid var(--border,#dcd5c8);background:#fff;color:var(--ink-2,#5e574e);transition:all .15s}' +
+        '#hs-consent-banner button.primary{background:var(--blue-deep,#243b56);color:#fff;border-color:var(--blue-deep,#243b56)}' +
+        '#hs-consent-banner button:hover{transform:translateY(-1px);box-shadow:0 4px 10px -4px rgba(58,90,124,.25)}' +
+        '#hs-consent-banner a{color:var(--blue-deep,#243b56);text-decoration:underline;text-underline-offset:2px}';
+      document.head.appendChild(st);
+    }
+
+    var banner = document.createElement('div');
+    banner.id = 'hs-consent-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-label', 'Cookie 同意 / Cookie consent');
+    banner.innerHTML =
+      '<h4 data-zh="關於這個網站的 cookie" data-en="About cookies on this site">關於這個網站的 cookie</h4>' +
+      '<p data-zh="本站使用 Google Analytics（匿名統計流量、停留時間、Web Vitals 效能指標)以改善內容,<strong>不投放個人化廣告</strong>。詳見 <a href=\\"/privacy\\">隱私權政策</a>。" data-en="This site uses Google Analytics (anonymous page-views, dwell time, Web Vitals performance) to improve content. <strong>No personalized ads.</strong> See <a href=\\"/privacy\\">Privacy Policy</a>.">本站使用 Google Analytics（匿名統計流量、停留時間、Web Vitals 效能指標）以改善內容，<strong>不投放個人化廣告</strong>。詳見 <a href="/privacy">隱私權政策</a>。</p>' +
+      '<div class="btn-row">' +
+        '<button class="primary" data-consent="granted" data-zh="同意統計" data-en="Allow analytics">同意統計</button>' +
+        '<button data-consent="denied" data-zh="僅必要功能" data-en="Essential only">僅必要功能</button>' +
+      '</div>';
+
+    function record(choice) {
+      try { localStorage.setItem(DN.CONSENT_KEY, choice); } catch (e) {}
+      var update = choice === 'granted'
+        ? { analytics_storage: 'granted', functionality_storage: 'granted', security_storage: 'granted' }
+        : { analytics_storage: 'denied' };
+      try { window.gtag && gtag('consent', 'update', update); } catch (e) {}
+      // Track the consent decision itself (allowed even when denied — it's an
+      // anonymous binary signal, not personally identifying)
+      try { window.gtag && gtag('event', 'consent_choice', { choice: choice }); } catch (e) {}
+      banner.style.transition = 'opacity .25s';
+      banner.style.opacity = '0';
+      setTimeout(function () { try { banner.remove(); } catch (e) {} }, 280);
+    }
+
+    banner.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-consent]');
+      if (b) record(b.dataset.consent);
+    });
+
+    document.body.appendChild(banner);
+    // Re-translate (data-zh / data-en attributes need DN.applyTextOnly)
+    try { DN.applyTextOnly && DN.applyTextOnly(DN.detectLang()); } catch (e) {}
+  };
+
+  // ---------------------------------------------------------------------
+  // A/B test framework — lightweight, deterministic per-visitor bucketing.
+  // Use to test headline / CTA / hero copy variants. Reports the bucket
+  // to GA4 as a custom dimension via gtag event.
+  //
+  // Usage:
+  //   DN.abTest('hero-cta-2026q2', ['Variant A', 'Variant B'], function (v) {
+  //     document.querySelector('.cta').textContent = v;
+  //   });
+  // ---------------------------------------------------------------------
+  DN.AB_KEY = 'hs:ab:v1';
+  DN.abTest = function (testId, variants, applyFn) {
+    if (!Array.isArray(variants) || variants.length < 2) return null;
+    var assignments = {};
+    try { assignments = JSON.parse(localStorage.getItem(DN.AB_KEY) || '{}'); } catch (e) {}
+    var bucket = assignments[testId];
+    if (bucket == null) {
+      // Hash testId + a per-visitor random id for stable assignment
+      var rid = assignments.__rid;
+      if (!rid) { rid = Math.random().toString(36).slice(2); assignments.__rid = rid; }
+      var h = 0; var seed = testId + ':' + rid;
+      for (var i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
+      bucket = Math.abs(h) % variants.length;
+      assignments[testId] = bucket;
+      try { localStorage.setItem(DN.AB_KEY, JSON.stringify(assignments)); } catch (e) {}
+    }
+    var variant = variants[bucket];
+    try { applyFn && applyFn(variant, bucket); } catch (e) {}
+    // Report to GA4 as a custom event so you can segment in reports
+    try {
+      window.gtag && gtag('event', 'ab_exposure', {
+        test_id: testId,
+        variant_index: bucket,
+        variant_name: typeof variant === 'string' ? variant.slice(0, 60) : String(bucket)
+      });
+    } catch (e) {}
+    return { variant: variant, index: bucket };
+  };
+  // Convenience: report a conversion for an A/B test (fires once per session)
+  DN.abConvert = function (testId, conversionName) {
+    var sessKey = 'hs:abc:' + testId + ':' + (conversionName || 'default');
+    try { if (sessionStorage.getItem(sessKey)) return; sessionStorage.setItem(sessKey, '1'); } catch (e) {}
+    var assignments = {};
+    try { assignments = JSON.parse(localStorage.getItem(DN.AB_KEY) || '{}'); } catch (e) {}
+    var bucket = assignments[testId];
+    if (bucket == null) return;
+    try {
+      window.gtag && gtag('event', 'ab_conversion', {
+        test_id: testId,
+        variant_index: bucket,
+        conversion: conversionName || 'default'
+      });
+    } catch (e) {}
+  };
+
+  // ---------------------------------------------------------------------
   // Toast — short floating message at bottom-center (used by SW update,
   // bookmark feedback, etc.). Self-cleaning. ARIA polite live region.
   // ---------------------------------------------------------------------
@@ -2452,6 +2581,7 @@
     idle(function () {
       DN.bindGAEvents();
       DN.bindWebVitals();
+      DN.bindCookieConsent();   // Cookie consent banner (Consent Mode v2 update)
       DN.registerSW();
     }, { timeout: 2500 });
 

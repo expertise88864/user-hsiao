@@ -1,0 +1,231 @@
+/* ============================================================
+   HsiaoEye — shared article CSS
+   ------------------------------------------------------------
+   Extracted from per-article inline <style> blocks (was duplicated
+   ~7 KB × 4 articles = 28 KB of repetition). Cached separately so
+   subsequent article visits skip the CSS download entirely.
+   ============================================================ */
+
+/* ── Variables (must match articles' inline :root for backward compat) ── */
+:root {
+  --bg:#faf7f2;
+  --surface:#ffffff;
+  --ink:#2a2620;
+  --ink-2:#5e574e;
+  --muted:#8b8378;
+  --teal:#6b8caf;
+  --teal-deep:#3a5a7c;
+  --teal-bright:#a4c4dd;
+  --mint-soft:#dcd9d1;
+  --blue:#6b8caf;
+  --blue-deep:#3a5a7c;
+  --blue-soft:#d6e4f0;
+  --gold:#c9a961;
+  --ochre:#c9a961;
+  --border:#dcd5c8;
+  --line:#ebe4d8;
+}
+
+/* ── Body / chrome ── */
+.blue-text {
+  background: linear-gradient(180deg,#6b8caf 0%, #243b56 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.lang-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 6px 26px 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path fill='%23243b56' d='M6 8 0 0h12z'/></svg>") no-repeat right 10px center;
+  background-size: 8px 6px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+/* ── Article prose ── */
+.prose { line-height: 1.9; font-size: 16px; color: var(--ink-2); }
+.prose h2 {
+  font-family: 'Noto Serif TC', Georgia, serif;
+  font-weight: 700;
+  font-size: 24px;
+  margin: 48px 0 14px;
+  color: var(--ink);
+  border-left: 3px solid var(--blue);
+  padding-left: 14px;
+  scroll-margin-top: 80px;
+}
+.prose h3 { font-weight: 700; font-size: 17px; margin: 24px 0 8px; color: var(--ink); }
+.prose p { margin: 14px 0; }
+.prose ul, .prose ol { margin: 14px 0 14px 22px; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li { margin: 6px 0; }
+.prose strong { color: var(--ink); font-weight: 700; }
+.prose a {
+  color: var(--blue-deep);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── Myth-card ── */
+.myth-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 18px 0;
+  box-shadow: 0 8px 18px -10px rgba(58,90,124,.18);
+  transition: transform .15s, box-shadow .2s;
+}
+.myth-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px -12px rgba(58,90,124,.25);
+}
+.myth-card .myth {
+  color: #991b1b;
+  font-weight: 700;
+  font-size: 15.5px;
+  padding-left: 28px;
+  position: relative;
+  line-height: 1.6;
+}
+.myth-card .myth::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 4px;
+  width: 3px; height: 18px;
+  background: #dc2626;
+  border-radius: 2px;
+}
+.myth-card .truth {
+  color: #065f46;
+  font-weight: 700;
+  font-size: 15.5px;
+  padding-left: 28px;
+  position: relative;
+  line-height: 1.6;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+.myth-card .truth::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 14px;
+  width: 3px; height: 18px;
+  background: #16a34a;
+  border-radius: 2px;
+}
+
+/* ── Tables ── */
+table.dn {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 8px 18px -10px rgba(58,90,124,.18);
+}
+table.dn th, table.dn td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+table.dn th {
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  font-weight: 700;
+  font-size: 13px;
+}
+table.dn tr:last-child td { border-bottom: 0; }
+
+/* ── Disclaimer / keypoint / selfcheck / references ── */
+.disclaimer {
+  background: #fef9f0;
+  border: 1px solid #f4dfae;
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: #7a5a18;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 18px 0;
+}
+.keypoint {
+  background: linear-gradient(180deg,#f3f7fb,#e6eef6);
+  border: 1px solid #b8cfe3;
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin: 18px 0;
+}
+.keypoint h4 {
+  font-size: 13px;
+  color: var(--blue-deep);
+  letter-spacing: .08em;
+  margin: 0 0 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.keypoint p, .keypoint ul { font-size: 14.5px; color: var(--ink); margin: 6px 0; }
+.keypoint li { margin: 4px 0 4px 22px; }
+
+.selfcheck {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 24px 0;
+}
+.selfcheck h4 {
+  font-family: 'Noto Serif TC', Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.selfcheck label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 4px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.selfcheck input[type=checkbox] {
+  margin-top: 5px;
+  flex-shrink: 0;
+  accent-color: var(--blue-deep);
+}
+
+.references {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px 14px 38px;
+  margin: 24px 0;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+.references li { margin: 5px 0; }
+.references a { color: var(--blue-deep); word-break: break-all; }
+
+/* ── Mobile typography ── */
+@media (max-width: 640px) {
+  .prose { font-size: 15.5px; }
+  .prose h2 { font-size: 20px; }
+  table.dn { font-size: 13px; }
+  table.dn th, table.dn td { padding: 8px 10px; }
+}
