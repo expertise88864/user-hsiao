@@ -38,10 +38,10 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260525" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260526" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260525" />
+<link rel="stylesheet" href="/assets/app.css?v=20260526" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -88,6 +88,27 @@
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "MedicalWebPage", "url": "https://hsiao.chendermatologist.com/blog/contact-lens-safety", "inLanguage": ["zh-TW", "en"], "name": "隱形眼鏡安全完整指南 — 戴幾年會「磨損」眼睛?", "audience": {"@type": "MedicalAudience", "audienceType": "Patient"}, "lastReviewed": "2026-05-10", "reviewedBy": {"@type": "Person", "name": "蕭閔謙 醫師", "honorificSuffix": "M.D."}, "about": {"@type": "MedicalCondition", "name": "隱形眼鏡相關角膜病", "alternateName": ["隱形眼鏡相關角膜病", "Contact lens-related keratopathy"], "code": {"@type": "MedicalCode", "code": "H18", "codingSystem": "ICD-10"}}, "isPartOf": {"@type": "WebSite", "name": "HsiaoEye", "url": "https://hsiao.chendermatologist.com/"}}
 </script>
+
+<!-- ===== Google Analytics 4 + Consent Mode v2 (id: G-0ZKDQP9DNH) ===== -->
+<script>
+// Consent Mode v2 default — analytics granted (privacy-respecting),
+// ads denied (we don't use AdSense personalization). 500 ms wait gives
+// any future consent banner time to update before GA fires.
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'granted',
+  'functionality_storage': 'granted',
+  'security_storage': 'granted',
+  'wait_for_update': 500
+});
+gtag('js', new Date());
+gtag('config', 'G-0ZKDQP9DNH');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZKDQP9DNH"></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link" style="position:absolute;left:-999px;top:0;background:#243b56;color:#fff;padding:8px 16px;z-index:9999;border-radius:0 0 8px 0;font-size:13px;font-weight:600" onfocus="this.style.left='0'" onblur="this.style.left='-999px'">跳到主內容</a>
@@ -214,7 +235,23 @@
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260525" defer></script>
+<script src="/blog/blog-shared.js?v=20260526" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/*.{xml,json,txt,ico,svg,png,jpg,webp,avif,pdf,css,js}" } },
+      { "not": { "selector_matches": "[rel~=external], [rel~=nofollow]" } }
+    ]},
+    "eagerness": "moderate"
+  }],
+  "prefetch": [{
+    "where": { "href_matches": "/blog/*" },
+    "eagerness": "conservative"
+  }]
+}
+</script>
 </body>
 </html>

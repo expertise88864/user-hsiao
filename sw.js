@@ -38,8 +38,16 @@
  *    to credit it as secondhand via Ma 2024 Heliyon (transparent source chain).
  * v23: 50% → 9% epidemiology fix + DN.injectPrevNext + №X prefix.
  * v22: new lacrimal-gland-tumor article. */
-const CACHE = 'hs-v24';
-const RUNTIME = 'hs-runtime-v24';
+/* v25: + GA4 wired (G-0ZKDQP9DNH) on ALL 32 pages with Consent Mode v2
+ *      (was previously only on 2 home pages — that's why no analytics data
+ *      was visible). Default consent: analytics granted, ads denied.
+ *    + Speculation Rules API on every HTML — Chrome/Edge prerender same-
+ *      origin links the user is likely to click (eagerness=moderate),
+ *      with conservative prefetch for /blog/*. Near-zero-latency nav.
+ *    + privacy.html updated to reflect actual GA4 setup + Consent Mode
+ *      defaults + opt-out instructions. */
+const CACHE = 'hs-v25';
+const RUNTIME = 'hs-runtime-v25';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [

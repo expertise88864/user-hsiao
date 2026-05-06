@@ -30,10 +30,10 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260525" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260526" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260525" />
+<link rel="stylesheet" href="/assets/app.css?v=20260526" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -66,6 +66,27 @@
   html { -webkit-text-size-adjust: 100%; }
   html, body { overflow-x: hidden; }
 </style>
+
+<!-- ===== Google Analytics 4 + Consent Mode v2 (id: G-0ZKDQP9DNH) ===== -->
+<script>
+// Consent Mode v2 default — analytics granted (privacy-respecting),
+// ads denied (we don't use AdSense personalization). 500 ms wait gives
+// any future consent banner time to update before GA fires.
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'granted',
+  'functionality_storage': 'granted',
+  'security_storage': 'granted',
+  'wait_for_update': 500
+});
+gtag('js', new Date());
+gtag('config', 'G-0ZKDQP9DNH');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZKDQP9DNH"></script>
 </head>
 <body class="font-sans antialiased text-ink-900">
 <a href="#main-content" class="skip-link" style="position:absolute;left:-999px;top:0;background:#243b56;color:#fff;padding:8px 16px;z-index:9999;border-radius:0 0 8px 0;font-size:13px;font-weight:600" onfocus="this.style.left='0'" onblur="this.style.left='-999px'">跳到主內容</a>
@@ -138,8 +159,15 @@
 
 <h2>2. 第三方服務</h2>
 
-<h3>2-1 Google Analytics 4 / Microsoft Clarity</h3>
-<p>本網站日後可能啟用 Google Analytics 4 與 Microsoft Clarity,以匿名方式記錄聚合性的使用行為（頁面瀏覽次數、停留時間、點擊位置等）,<strong>不會收集您的密碼、信用卡資訊或其他可識別個人身分的敏感資料</strong>。Google 隱私權政策：<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>。Microsoft 隱私權政策：<a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener">privacy.microsoft.com</a>。</p>
+<h3>2-1 Google Analytics 4（已啟用，搭配 Consent Mode v2）</h3>
+<p>本網站使用 <strong>Google Analytics 4（評估 ID: G-0ZKDQP9DNH）</strong>記錄聚合性的網站使用行為（頁面瀏覽次數、停留時間、滾動深度、Web Vitals 效能指標、語言切換等）以協助改善內容。我們同時啟用 Google 的 <strong>Consent Mode v2</strong> 隱私強化模式，預設組態為：</p>
+<ul>
+  <li><strong>analytics_storage: granted</strong> — 允許匿名統計（IP 在 GA4 中自動截短，無法回推個人）</li>
+  <li><strong>ad_storage / ad_user_data / ad_personalization: denied</strong> — 不允許廣告相關資料儲存與個人化（本站不投放 AdSense 個人化廣告）</li>
+  <li><strong>functionality_storage / security_storage: granted</strong> — 維持必要功能（語言偏好）與安全防護</li>
+</ul>
+<p><strong>不會收集您的密碼、信用卡資訊或其他可識別個人身分的敏感資料</strong>。GA4 已不再使用 client-id 永久 cookie；使用 first-party cookie `_ga` 與 `_ga_<ID>`，有效期 2 年。Microsoft Clarity 目前<em>未</em>啟用，未來若啟用會在此更新。Google 隱私權政策：<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>。</p>
+<p><strong>退出 GA：</strong>您可以安裝 <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a> 全域停用，或在瀏覽器設定中封鎖第三方 cookie。</p>
 
 <h3>2-2 Google AdSense（可能啟用）</h3>
 <p>本網站日後若申請 Google AdSense 並通過審核，可能顯示廣告以維持網站營運。Google 與其合作夥伴可能會使用 cookie（包括 DoubleClick cookie）為您顯示與您興趣相關的廣告。詳見：<a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">Google 廣告隱私權政策</a>。您也可以透過 <a href="https://adssettings.google.com/" target="_blank" rel="noopener">Google 廣告設定</a> 管理個人化廣告偏好。</p>
@@ -258,7 +286,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script src="/blog/blog-shared.js?v=20260525" defer></script>
+<script src="/blog/blog-shared.js?v=20260526" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/*.{xml,json,txt,ico,svg,png,jpg,webp,avif,pdf,css,js}" } },
+      { "not": { "selector_matches": "[rel~=external], [rel~=nofollow]" } }
+    ]},
+    "eagerness": "moderate"
+  }],
+  "prefetch": [{
+    "where": { "href_matches": "/blog/*" },
+    "eagerness": "conservative"
+  }]
+}
+</script>
 </body>
 </html>

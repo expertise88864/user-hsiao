@@ -19,10 +19,10 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260525" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260526" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260525" />
+<link rel="stylesheet" href="/assets/app.css?v=20260526" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -41,6 +41,27 @@
   .topic-card h3{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:17px; font-weight:600; color:var(--ink); margin:0; line-height:1.35; letter-spacing:-0.01em; }
   .topic-card p{ font-size:12.5px; color:var(--muted); margin:0; }
 </style>
+
+<!-- ===== Google Analytics 4 + Consent Mode v2 (id: G-0ZKDQP9DNH) ===== -->
+<script>
+// Consent Mode v2 default — analytics granted (privacy-respecting),
+// ads denied (we don't use AdSense personalization). 500 ms wait gives
+// any future consent banner time to update before GA fires.
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'granted',
+  'functionality_storage': 'granted',
+  'security_storage': 'granted',
+  'wait_for_update': 500
+});
+gtag('js', new Date());
+gtag('config', 'G-0ZKDQP9DNH');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZKDQP9DNH"></script>
 </head>
 <body>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(250,247,242,.92); border-color:var(--border)">
@@ -145,7 +166,23 @@
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260525" defer></script>
+<script src="/blog/blog-shared.js?v=20260526" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/*.{xml,json,txt,ico,svg,png,jpg,webp,avif,pdf,css,js}" } },
+      { "not": { "selector_matches": "[rel~=external], [rel~=nofollow]" } }
+    ]},
+    "eagerness": "moderate"
+  }],
+  "prefetch": [{
+    "where": { "href_matches": "/blog/*" },
+    "eagerness": "conservative"
+  }]
+}
+</script>
 </body>
 </html>
