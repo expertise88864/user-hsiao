@@ -56,6 +56,72 @@
     return m ? m[1] : null;
   };
 
+  // ---------- article numbering & navigation (DermNotes parity) ----------
+  // Stable № assigned by chronological publication order (oldest = №1).
+  // We use a lazy map so future re-orderings of DN.ARTICLES (which is
+  // sorted newest-first for display) don't shift the numbers visitors
+  // already saw bookmarked or shared.
+  DN.numberMap = (function () {
+    var byDate = (DN.ARTICLES || []).slice().sort(function (a, b) {
+      return (a.date || '').localeCompare(b.date || '');
+    });
+    var m = {};
+    byDate.forEach(function (a, i) { m[a.slug] = i + 1; });
+    return m;
+  })();
+  DN.getArticleNumber = function (slug) { return DN.numberMap[slug] || 0; };
+
+  // Prev / next article in date-ascending order. Used by injectPrevNext.
+  DN.getPrevNext = function (slug) {
+    var byDate = (DN.ARTICLES || []).slice().sort(function (a, b) {
+      return (a.date || '').localeCompare(b.date || '');
+    });
+    var i = byDate.findIndex(function (a) { return a.slug === slug; });
+    if (i < 0) return { prev: null, next: null };
+    return { prev: i > 0 ? byDate[i - 1] : null, next: i < byDate.length - 1 ? byDate[i + 1] : null };
+  };
+
+  // Inject a "← prev / next →" footer below the article. Mirrors DermNotes
+  // /blog/ navigation pattern — keeps readers in the site after they
+  // finish one article.
+  DN.injectPrevNext = function () {
+    var slug = DN.currentSlug && DN.currentSlug();
+    if (!slug) return;
+    var article = document.querySelector('article.max-w-3xl');
+    if (!article || document.getElementById('hs-prevnext')) return;
+    var pn = DN.getPrevNext(slug);
+    if (!pn.prev && !pn.next) return;
+
+    function card(art, dirZh, dirEn) {
+      if (!art) return '';
+      return '<a href="/blog/' + art.slug + '" class="hs-pn-card">' +
+        '<span class="hs-pn-dir" data-zh="' + dirZh + '" data-en="' + dirEn + '">' + dirZh + '</span>' +
+        '<span class="hs-pn-title" data-zh="' + (art.title || '').replace(/"/g, '&quot;') + '" data-en="' + (art.title_en || art.title || '').replace(/"/g, '&quot;') + '">' + (art.title || '') + '</span>' +
+      '</a>';
+    }
+
+    if (!document.getElementById('hs-pn-css')) {
+      var st = document.createElement('style');
+      st.id = 'hs-pn-css';
+      st.textContent =
+        '#hs-prevnext{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0;page-break-inside:avoid}' +
+        '#hs-prevnext .hs-pn-card{display:flex;flex-direction:column;gap:6px;padding:14px 18px;background:#fff;border:0.5px solid var(--border);border-radius:14px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)}' +
+        '#hs-prevnext .hs-pn-card:hover{border-color:rgba(58,90,124,.5);transform:translateY(-2px);box-shadow:0 8px 18px -10px rgba(58,90,124,.22)}' +
+        '#hs-prevnext .hs-pn-card:nth-child(2){text-align:right;align-items:flex-end}' +
+        '#hs-prevnext .hs-pn-card:nth-child(1):only-child{grid-column:1 / -1}' +
+        '#hs-prevnext .hs-pn-dir{font-family:"JetBrains Mono",Inter,monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-deep);font-weight:700}' +
+        '#hs-prevnext .hs-pn-title{font-family:"Noto Serif TC",Georgia,serif;font-size:14.5px;font-weight:700;line-height:1.45;color:var(--ink)}' +
+        '@media(max-width:560px){#hs-prevnext{grid-template-columns:1fr}#hs-prevnext .hs-pn-card:nth-child(2){text-align:left;align-items:flex-start}}';
+      document.head.appendChild(st);
+    }
+
+    var sec = document.createElement('section');
+    sec.id = 'hs-prevnext';
+    sec.className = 'max-w-3xl mx-auto px-5 sm:px-8';
+    sec.innerHTML = card(pn.prev, '← 上一篇', '← Previous') + card(pn.next, '下一篇 →', 'Next →');
+    article.parentNode.insertBefore(sec, article.nextSibling);
+  };
+
   // ---------- language helpers ----------
   DN.LANGS = [
     { code: 'zh', label: '中文',    htmlLang: 'zh-TW' },
@@ -1229,7 +1295,9 @@
       var tagZh   = a.tag || '';
       var tagEn   = a.tag_en || a.tag || '';
       var date    = a.date || '';
+      var num     = DN.getArticleNumber(a.slug);   // stable № by publication order
       var iconSvg = '<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" style="flex-shrink:0">' + DN.svgForTag(tagZh) + '</svg>';
+      var numChip = num ? '<span style="font-family:\'JetBrains Mono\',Inter,monospace;font-weight:800;color:var(--blue-deep);letter-spacing:.04em">№' + num + '</span><span style="opacity:.45">·</span>' : '';
       return '<li><a href="/blog/' + a.slug + '" ' +
         'style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;background:#fff;' +
         'border:0.5px solid var(--border);border-radius:12px;text-decoration:none;color:inherit;' +
@@ -1238,6 +1306,7 @@
         'onmouseout="this.style.borderColor=\'\';this.style.transform=\'\';this.style.boxShadow=\'0 1px 2px rgba(15,23,42,.04)\'">' +
         '<div style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-deep);font-family:\'JetBrains Mono\',Inter,sans-serif">' +
           (badge ? '<span style="padding:2px 8px;border-radius:9999px;background:' + badge.bg + ';color:' + badge.fg + ';letter-spacing:.08em;font-size:10px">' + badge.label + '</span>' : '') +
+          numChip +
           '<span data-zh="' + esc(tagZh) + '" data-en="' + esc(tagEn) + '" style="letter-spacing:.06em">' + tagZh + '</span>' +
           '<span style="opacity:.45">·</span>' +
           '<time style="font-weight:500;letter-spacing:0;color:var(--muted)">' + date + '</time>' +
@@ -2248,6 +2317,7 @@
         DN.injectShareToolbar('hs-share');
         DN.injectBMC('hs-bmc');
         DN.addRelatedArticles();
+        DN.injectPrevNext();      // ← prev / next → footer navigation
         DN.addFeedbackLink();
         DN.applyTextOnly(curLang);  // re-translate JS-injected DOM
       }, { timeout: 1200 });

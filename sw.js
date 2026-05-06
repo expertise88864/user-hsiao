@@ -18,12 +18,19 @@
  * v16: /en/ mirror, calculator framework + 5 ophth calcs.
  *     cache-bust ?v=20260520
  */
-/* v22: + new article 「淚腺腫瘤 6 個關鍵問題」(LGACC) — meta-analysis & MD Anderson
- *      proton-therapy-cited, 4th hero card added (orbital anatomy + perineural path).
- *      Footer tagline trimmed (removed "本網站全部衛教文章...無業配無贊助").
- *      Re-fix verification: red-flag/related-articles data-zh attrs intact. */
-const CACHE = 'hs-v22';
-const RUNTIME = 'hs-runtime-v22';
+/* v23: + ACCURACY FIX — lacrimal-tumor article TLDR/Q1/FAQ JSON-LD/og:description
+ *      now correctly states 「20% 上皮性 / 9% 整體惡性」(per Zhao 2023 BJO)
+ *      instead of the earlier "50% 為惡性" misstatement (which conflated
+ *      "malignant fraction within epithelial subgroup" with "overall rate").
+ *      + Added Shields 2004, Wright 1992, Andreoli 2015 epidemiology citations
+ *        and a Source-note keypoint explaining the 50/50/50 mnemonic vs reality.
+ *      + DermNotes parity: DN.getArticleNumber + DN.getPrevNext + DN.injectPrevNext
+ *        — every article now ends with ← prev / next → footer cards.
+ *        Spotlight rows now show stable 「№X」 prefix (publication-order based).
+ * v22: new lacrimal-gland-tumor article + 4th hero card.
+ * v21: DIMS pricing correction. */
+const CACHE = 'hs-v23';
+const RUNTIME = 'hs-runtime-v23';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [
