@@ -956,38 +956,128 @@
   // Populates two homepage <ol> lists from DN.ARTICLES.
   //   #hs-recent-list  — most recent by date desc
   //   #hs-popular-list — curated by DN.POPULAR_SLUGS, falls back to recent
+  // Renders DermNotes-style 2-row cards: metadata strip on top
+  // (badge + tag_en + date), then SVG icon + Noto Serif TC title.
   DN.POPULAR_SLUGS = ['floaters-retinal-detachment', 'pediatric-myopia-control', 'dry-eye-myths'];   // edit this list to curate
+
+  // 32x32 line-art SVG icons keyed by Chinese tag — ophthalmology palette
+  // (Tiffany blue + ochre + ink). Falls back to the FAQ icon when missing.
+  DN.HS_TAG_SVG = {
+    '飛蚊症':
+      '<circle cx="16" cy="16" r="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.6"/>' +
+      '<circle cx="16" cy="16" r="5" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1"/>' +
+      '<circle cx="16" cy="16" r="2" fill="#0f172a"/>' +
+      '<circle cx="9" cy="10" r="1.4" fill="#0f172a" opacity=".6"/>' +
+      '<ellipse cx="23" cy="11" rx="2" ry="1" fill="#0f172a" opacity=".55" transform="rotate(-15 23 11)"/>' +
+      '<circle cx="22" cy="22" r="1" fill="#0f172a" opacity=".5"/>',
+    '兒童近視':
+      '<circle cx="11" cy="17" r="6" fill="#fff" stroke="#3a5a7c" stroke-width="1.5"/>' +
+      '<circle cx="21" cy="17" r="6" fill="#fff" stroke="#3a5a7c" stroke-width="1.5"/>' +
+      '<circle cx="11" cy="17" r="5.4" fill="#a4c4dd" opacity=".55"/>' +
+      '<circle cx="21" cy="17" r="5.4" fill="#a4c4dd" opacity=".55"/>' +
+      '<line x1="17" y1="17" x2="15" y2="17" stroke="#3a5a7c" stroke-width="1.4" stroke-linecap="round"/>' +
+      '<line x1="5" y1="14" x2="2" y2="12" stroke="#3a5a7c" stroke-width="1.4" stroke-linecap="round"/>' +
+      '<line x1="27" y1="14" x2="30" y2="12" stroke="#3a5a7c" stroke-width="1.4" stroke-linecap="round"/>',
+    '乾眼症':
+      '<path d="M5 17 Q16 9 27 17 Q16 24 5 17 Z" fill="#fff" stroke="#3a5a7c" stroke-width="1.6" stroke-linejoin="round"/>' +
+      '<circle cx="16" cy="17" r="5" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1"/>' +
+      '<circle cx="16" cy="17" r="2" fill="#0f172a"/>' +
+      '<path d="M25 22 Q28 25 25 28 Q22 25 25 22 Z" fill="#7fc8d8" stroke="#3a5a7c" stroke-width="1"/>',
+    '視網膜剝離':
+      '<circle cx="16" cy="16" r="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.6"/>' +
+      '<path d="M7 12 Q12 18 16 14 Q20 10 25 16" fill="none" stroke="#9a3412" stroke-width="1.6" stroke-linecap="round"/>' +
+      '<line x1="11" y1="22" x2="21" y2="22" stroke="#dc2626" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="2 2"/>',
+    '白內障':
+      '<circle cx="16" cy="16" r="11" fill="#ebe4d8" stroke="#3a5a7c" stroke-width="1.5"/>' +
+      '<circle cx="16" cy="16" r="6" fill="#fff" opacity=".7"/>' +
+      '<circle cx="16" cy="16" r="3" fill="#c9a961" opacity=".5"/>',
+    '青光眼':
+      '<circle cx="16" cy="16" r="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.5"/>' +
+      '<circle cx="16" cy="16" r="6" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1"/>' +
+      '<circle cx="16" cy="16" r="3.5" fill="#0f172a"/>' +
+      '<line x1="6" y1="22" x2="26" y2="22" stroke="#dc2626" stroke-width="1.4" stroke-linecap="round"/>',
+    '隱形眼鏡':
+      '<ellipse cx="16" cy="16" rx="10" ry="9" fill="#fff" stroke="#3a5a7c" stroke-width="1.6"/>' +
+      '<ellipse cx="16" cy="16" rx="6" ry="5.5" fill="#a4c4dd" opacity=".55"/>' +
+      '<path d="M9 12 Q12 9 16 9" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>',
+    '紅眼症':
+      '<path d="M5 17 Q16 9 27 17 Q16 24 5 17 Z" fill="#fee2e2" stroke="#dc2626" stroke-width="1.6" stroke-linejoin="round"/>' +
+      '<circle cx="16" cy="17" r="5" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1"/>' +
+      '<circle cx="16" cy="17" r="2" fill="#0f172a"/>' +
+      '<line x1="6" y1="14" x2="9" y2="15" stroke="#dc2626" stroke-width="1.2" stroke-linecap="round"/>' +
+      '<line x1="26" y1="14" x2="23" y2="15" stroke="#dc2626" stroke-width="1.2" stroke-linecap="round"/>',
+    '結膜炎':
+      '<path d="M5 17 Q16 9 27 17 Q16 24 5 17 Z" fill="#fee2e2" stroke="#dc2626" stroke-width="1.6" stroke-linejoin="round"/>' +
+      '<circle cx="16" cy="17" r="5" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1"/>' +
+      '<circle cx="16" cy="17" r="2" fill="#0f172a"/>',
+    '常見問題':
+      '<circle cx="16" cy="16" r="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.5"/>' +
+      '<path d="M13 13 Q13 10 16 10 Q19 10 19 13 Q19 15 16 16 L16 18" fill="none" stroke="#3a5a7c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<circle cx="16" cy="22" r="1.2" fill="#3a5a7c"/>'
+  };
+
+  DN.svgForTag = function (tag) {
+    var lib = DN.HS_TAG_SVG || {};
+    // try exact match, then substring match (e.g. "飛蚊症 / 視網膜剝離" -> "飛蚊症")
+    if (lib[tag]) return lib[tag];
+    var keys = Object.keys(lib);
+    for (var i = 0; i < keys.length; i++) {
+      if (tag && tag.indexOf(keys[i]) >= 0) return lib[keys[i]];
+    }
+    return lib['常見問題'];
+  };
+
   DN.injectSpotlight = function () {
+    const recentEl  = document.getElementById('hs-recent-list');
+    const popularEl = document.getElementById('hs-popular-list');
+    if (!recentEl && !popularEl) return;
     const all = (DN.ARTICLES || []).slice();
     if (!all.length) return;
+
     const byDate = all.slice().sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
     const recent = byDate.slice(0, 3);
     const popularSet = new Set(DN.POPULAR_SLUGS);
     const popular = all.filter(function (a) { return popularSet.has(a.slug); }).slice(0, 3);
     const popularFinal = popular.length ? popular : recent;
 
-    function attr(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
-    function render(host, items, emptyText) {
-      if (!host) return;
-      if (!items.length) { host.innerHTML = '<li style="padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--muted)">' + emptyText + '</li>'; return; }
-      host.innerHTML = items.map(function (a) {
-        var titleZh = a.title || '';
-        var titleEn = a.title_en || a.title || '';
-        var tagZh = a.tag || '';
-        var tagEn = a.tag_en || a.tag || '';
-        var tagShortZh = tagZh.slice(0, 4);
-        var tagShortEn = (a.tag_en || tagZh).slice(0, 4);
-        return '<li><a href="/blog/' + a.slug + '" style="display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
-          '<span data-zh="' + attr(tagShortZh) + '" data-en="' + attr(tagShortEn) + '" style="flex-shrink:0;width:36px;height:36px;border-radius:10px;background:var(--blue-soft);color:var(--blue-deep);font-weight:700;font-size:11px;display:inline-flex;align-items:center;justify-content:center;letter-spacing:.04em">' + tagShortZh + '</span>' +
-          '<span style="flex:1;min-width:0">' +
-            '<span data-zh="' + attr(titleZh) + '" data-en="' + attr(titleEn) + '" style="display:block;font-family:\'Noto Serif TC\',Georgia,serif;font-size:14.5px;font-weight:700;line-height:1.4;color:var(--ink)">' + titleZh + '</span>' +
-            '<span data-zh="' + attr(tagZh + ' · ' + a.date) + '" data-en="' + attr(tagEn + ' · ' + a.date) + '" style="display:block;font-size:11.5px;color:var(--muted);margin-top:4px">' + tagZh + ' · ' + a.date + '</span>' +
-          '</span>' +
-        '</a></li>';
+    function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
+
+    function rowHTML(a, badge) {
+      var titleZh = a.title || a.slug;
+      var titleEn = a.title_en || a.title || '';
+      var tagZh   = a.tag || '';
+      var tagEn   = a.tag_en || a.tag || '';
+      var date    = a.date || '';
+      var iconSvg = '<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" style="flex-shrink:0">' + DN.svgForTag(tagZh) + '</svg>';
+      return '<li><a href="/blog/' + a.slug + '" ' +
+        'style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;background:#fff;' +
+        'border:0.5px solid var(--border);border-radius:12px;text-decoration:none;color:inherit;' +
+        'transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)" ' +
+        'onmouseover="this.style.borderColor=\'rgba(58,90,124,.5)\';this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 8px 18px -10px rgba(58,90,124,.25)\'" ' +
+        'onmouseout="this.style.borderColor=\'\';this.style.transform=\'\';this.style.boxShadow=\'0 1px 2px rgba(15,23,42,.04)\'">' +
+        '<div style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-deep);font-family:\'JetBrains Mono\',Inter,sans-serif">' +
+          (badge ? '<span style="padding:2px 8px;border-radius:9999px;background:' + badge.bg + ';color:' + badge.fg + ';letter-spacing:.08em;font-size:10px">' + badge.label + '</span>' : '') +
+          '<span data-zh="' + esc(tagZh) + '" data-en="' + esc(tagEn) + '" style="letter-spacing:.06em">' + tagZh + '</span>' +
+          '<span style="opacity:.45">·</span>' +
+          '<time style="font-weight:500;letter-spacing:0;color:var(--muted)">' + date + '</time>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:10px">' +
+          iconSvg +
+          '<span data-zh="' + esc(titleZh) + '" data-en="' + esc(titleEn) + '" style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:14.5px;font-weight:700;line-height:1.45;color:var(--ink);flex:1">' + titleZh + '</span>' +
+        '</div>' +
+      '</a></li>';
+    }
+
+    if (recentEl) {
+      recentEl.innerHTML = recent.map(function (a, i) {
+        return rowHTML(a, i === 0 ? { label: 'NEW', bg: '#fee2e2', fg: '#991b1b' } : null);
       }).join('');
     }
-    render(document.getElementById('hs-recent-list'), recent, '尚無文章');
-    render(document.getElementById('hs-popular-list'), popularFinal, '尚無文章');
+    if (popularEl) {
+      popularEl.innerHTML = popularFinal.map(function (a, i) {
+        return rowHTML(a, { label: '#' + (i + 1), bg: 'var(--blue-soft)', fg: 'var(--blue-deep)' });
+      }).join('');
+    }
   };
 
   // ---------- dark mode toggle (☀ / ☾) ----------

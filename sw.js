@@ -1,4 +1,7 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
+ * v14: home page article-list-item now properly styled (DermNotes pattern with
+ *      3px gradient bar + descriptions); spotlight rows show 32x32 SVG icons
+ *      before title (DN.HS_TAG_SVG library); search input styled in card.
  * v13: hero card rotation (Fisher-Yates over DN.HERO_CARDS — cover story +
  *      editor's pick now reshuffle every load); quick-find chips reduced to
  *      4 real published articles only (no broken stub links).
@@ -7,10 +10,10 @@
  *     → 3-button row (browse all / topics / notes) → reading progress
  *     → recent + popular dual column → FAQ → AdSense → subscribe → disclaimer
  *     + new stub pages /blog/topics + /notes
- *     cache-bust ?v=20260514
+ *     cache-bust ?v=20260515
  */
-const CACHE = 'hs-v13';
-const RUNTIME = 'hs-runtime-v13';
+const CACHE = 'hs-v14';
+const RUNTIME = 'hs-runtime-v14';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [
