@@ -1,13 +1,16 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
+ * v13: hero card rotation (Fisher-Yates over DN.HERO_CARDS — cover story +
+ *      editor's pick now reshuffle every load); quick-find chips reduced to
+ *      4 real published articles only (no broken stub links).
  * v12: + WebP/AVIF SUNN1302 (220/440/660), 何時就醫 + 延伸閱讀 modules, expanded chips, offline.html SEO fix
  *     hero → quick-find (search input + chips) → article-list-item
  *     → 3-button row (browse all / topics / notes) → reading progress
  *     → recent + popular dual column → FAQ → AdSense → subscribe → disclaimer
  *     + new stub pages /blog/topics + /notes
- *     cache-bust ?v=20260508
+ *     cache-bust ?v=20260514
  */
-const CACHE = 'hs-v12';
-const RUNTIME = 'hs-runtime-v12';
+const CACHE = 'hs-v13';
+const RUNTIME = 'hs-runtime-v13';
 const RUNTIME_MAX_ENTRIES = 40;
 
 const PRECACHE = [

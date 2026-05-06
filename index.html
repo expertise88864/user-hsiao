@@ -305,8 +305,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
       </div>
     </div>
     <div class="mag-feature">
-      <!-- Cover Story: Floaters / Retinal Detachment (newest, emergency) -->
-      <a class="mag-card" href="/blog/floaters-retinal-detachment">
+      <!-- Cover Story slot — content rotated each load by DN.shuffleHeroCards() (blog-shared.js).
+           Initial markup is the SSR fallback for users with JS disabled / before DOMContentLoaded. -->
+      <a id="hs-cover-story" class="mag-card" href="/blog/floaters-retinal-detachment">
         <div class="mag-card-cover">
           <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <rect width="400" height="300" fill="#dcd9d1" />
@@ -344,8 +345,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
         </div>
       </a>
 
-      <!-- Editor's Pick: Pediatric Myopia (high search volume) -->
-      <a class="mag-card mag-card-side" href="/blog/pediatric-myopia-control">
+      <!-- Editor's Pick slot — content rotated each load by DN.shuffleHeroCards(). -->
+      <a id="hs-editor-pick" class="mag-card mag-card-side" href="/blog/pediatric-myopia-control">
         <div class="mag-card-cover">
           <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <rect width="400" height="300" fill="#ebe4d8" />
@@ -382,15 +383,12 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
       <svg class="dn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
       <input id="dn-search-input" type="search" class="dn-search-input" placeholder="搜尋文章標題或關鍵字…" />
     </div>
+        <!-- Quick-find chips: only real, published articles （避免點到還沒寫完的） -->
         <div class="quick-find">
       <a href="/blog/" data-zh="全部主題" data-en="All topics" style="background:var(--blue-soft);color:var(--blue-deep);border-color:#b8cfe3">全部主題</a>
       <a href="/blog/dry-eye-myths" data-zh="乾眼症" data-en="Dry eye">乾眼症</a>
       <a href="/blog/pediatric-myopia-control" data-zh="兒童近視控制" data-en="Pediatric myopia">兒童近視控制</a>
       <a href="/blog/floaters-retinal-detachment" data-zh="飛蚊症 / 視網膜剝離" data-en="Floaters / RD">飛蚊症 / 視網膜剝離</a>
-      <a href="/blog/cataract-surgery-faq" data-zh="白內障" data-en="Cataract">白內障</a>
-      <a href="/blog/glaucoma-warnings" data-zh="青光眼" data-en="Glaucoma">青光眼</a>
-      <a href="/blog/contact-lens-safety" data-zh="隱形眼鏡" data-en="Contact lens">隱形眼鏡</a>
-      <a href="/blog/red-eye-conjunctivitis" data-zh="紅眼症 / 結膜炎" data-en="Red eye / Conjunctivitis">紅眼症 / 結膜炎</a>
     </div>
   </div>
 </section>
@@ -621,7 +619,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260513" defer></script>
+<script src="/blog/blog-shared.js?v=20260514" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>

@@ -825,6 +825,133 @@
     document.head.appendChild(ldEl);
   };
 
+  // ---------- hero card rotation (封面故事 + 本期推薦) ----------
+  // The homepage has two hero anchors (#hs-cover-story + #hs-editor-pick)
+  // marked-up with one default article each. On every load we pick 2 random
+  // distinct entries from DN.HERO_CARDS (Fisher-Yates) and rewrite both
+  // anchors so visitors see different cover stories on repeat visits.
+  // Only published articles appear here (no 'COMING' stubs).
+  DN.HERO_CARDS = [
+    {
+      slug: 'floaters-retinal-detachment',
+      title_zh: '飛蚊症 6 大警訊 — 何時要立刻衝眼科？',
+      title_en: '6 Floater Red Flags — when do floaters mean retinal emergency?',
+      meta_zh: '2026.05 · 9 分鐘 · 警訊辨識',
+      meta_en: '2026.05 · 9 min · Red flags',
+      svg:
+        '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+          '<rect width="400" height="300" fill="#dcd9d1" />' +
+          '<g filter="url(#mag-rough)">' +
+            '<path d="M 60 150 Q 200 50 340 150 Q 200 250 60 150 Z" fill="#fff" stroke="#2a2620" stroke-width="2.5" stroke-linejoin="round" />' +
+            '<circle cx="200" cy="150" r="58" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="2" />' +
+            '<circle cx="200" cy="150" r="24" fill="#2a2620" />' +
+            '<circle cx="186" cy="138" r="8" fill="#faf7f2" />' +
+            '<circle cx="120" cy="100" r="4" fill="#2a2620" opacity="0.65" />' +
+            '<ellipse cx="138" cy="112" rx="6" ry="2" fill="#2a2620" opacity="0.55" transform="rotate(-25 138 112)" />' +
+            '<circle cx="280" cy="118" r="3.5" fill="#2a2620" opacity="0.55" />' +
+            '<ellipse cx="295" cy="195" rx="5" ry="2" fill="#2a2620" opacity="0.45" transform="rotate(20 295 195)" />' +
+            '<circle cx="105" cy="195" r="3" fill="#2a2620" opacity="0.5" />' +
+            '<line x1="100" y1="100" x2="92" y2="80" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<line x1="150" y1="76" x2="148" y2="56" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<line x1="200" y1="68" x2="200" y2="46" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<line x1="250" y1="76" x2="252" y2="56" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<line x1="300" y1="100" x2="308" y2="80" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<path d="M 90 50 Q 200 30 310 50" fill="none" stroke="#c9a961" stroke-width="4" stroke-linecap="round" opacity="0.85" />' +
+          '</g>' +
+          '<rect width="400" height="300" fill="url(#mag-dots)" opacity="0.35" />' +
+        '</svg>'
+    },
+    {
+      slug: 'pediatric-myopia-control',
+      title_zh: '兒童近視控制 — 阿托品、OK 鏡、紅光、戶外哪個有效？',
+      title_en: 'Pediatric myopia control — atropine, ortho-K, red light, outdoor: what works?',
+      meta_zh: '2026.05 · 12 分鐘 · 迷思澄清',
+      meta_en: '2026.05 · 12 min · Myth-busting',
+      svg:
+        '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+          '<rect width="400" height="300" fill="#ebe4d8" />' +
+          '<g filter="url(#mag-rough)">' +
+            '<circle cx="135" cy="150" r="62" fill="#fff" stroke="#2a2620" stroke-width="3" />' +
+            '<circle cx="265" cy="150" r="62" fill="#fff" stroke="#2a2620" stroke-width="3" />' +
+            '<line x1="195" y1="150" x2="205" y2="150" stroke="#2a2620" stroke-width="3" stroke-linecap="round" />' +
+            '<line x1="73" y1="138" x2="40" y2="118" stroke="#2a2620" stroke-width="3" stroke-linecap="round" />' +
+            '<line x1="327" y1="138" x2="360" y2="118" stroke="#2a2620" stroke-width="3" stroke-linecap="round" />' +
+            '<circle cx="135" cy="150" r="58" fill="#a4c4dd" opacity="0.4" />' +
+            '<circle cx="265" cy="150" r="58" fill="#a4c4dd" opacity="0.4" />' +
+            '<path d="M 105 125 Q 130 115 155 130" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.7" />' +
+            '<path d="M 235 125 Q 260 115 285 130" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.7" />' +
+          '</g>' +
+        '</svg>'
+    },
+    {
+      slug: 'dry-eye-myths',
+      title_zh: '乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎？',
+      title_en: '8 dry-eye myths — do artificial tears really make eyes drier?',
+      meta_zh: '2026.05 · 10 分鐘 · 迷思澄清',
+      meta_en: '2026.05 · 10 min · Myth-busting',
+      svg:
+        '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+          '<rect width="400" height="300" fill="#dde7e2" />' +
+          '<g filter="url(#mag-rough)">' +
+            '<path d="M 60 160 Q 200 70 340 160 Q 200 240 60 160 Z" fill="#fff" stroke="#2a2620" stroke-width="2.5" stroke-linejoin="round" />' +
+            '<circle cx="200" cy="160" r="52" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="2" />' +
+            '<circle cx="200" cy="160" r="22" fill="#2a2620" />' +
+            '<circle cx="188" cy="150" r="7" fill="#faf7f2" />' +
+            '<line x1="105" y1="115" x2="98" y2="95" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<line x1="155" y1="92" x2="153" y2="72" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<line x1="200" y1="84" x2="200" y2="62" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<line x1="245" y1="92" x2="247" y2="72" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<line x1="295" y1="115" x2="302" y2="95" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
+            '<path d="M 312 198 Q 322 215 312 232 Q 302 215 312 198 Z" fill="#7fc8d8" stroke="#3a5a7c" stroke-width="1.8" stroke-linejoin="round" />' +
+            '<path d="M 308 205 Q 313 210 313 215" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85" />' +
+            '<path d="M 90 60 Q 200 42 310 60" fill="none" stroke="#c9a961" stroke-width="4" stroke-linecap="round" opacity="0.85" />' +
+          '</g>' +
+        '</svg>'
+    }
+  ];
+
+  function attrEsc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  }
+
+  // Pick 2 distinct entries from HERO_CARDS using Fisher-Yates,
+  // then rewrite #hs-cover-story (full mag-card) and #hs-editor-pick
+  // (mag-card-side). Falls back silently if either anchor is missing.
+  DN.shuffleHeroCards = function () {
+    var coverEl = document.getElementById('hs-cover-story');
+    var pickEl  = document.getElementById('hs-editor-pick');
+    if (!coverEl || !pickEl) return;          // not on home page
+    var cards = (DN.HERO_CARDS || []).slice();
+    if (cards.length < 2) return;             // nothing to shuffle
+
+    // Fisher-Yates in-place shuffle, then take first 2
+    for (var i = cards.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = cards[i]; cards[i] = cards[j]; cards[j] = tmp;
+    }
+    var cover = cards[0];
+    var pick  = cards[1];
+
+    // Cover Story (full mag-card with meta line + h3 title)
+    coverEl.setAttribute('href', '/blog/' + cover.slug);
+    coverEl.innerHTML =
+      '<div class="mag-card-cover">' + cover.svg + '</div>' +
+      '<div class="mag-card-body">' +
+        '<span class="mag-card-tag" data-zh="封面故事 · COVER STORY" data-en="Cover Story">封面故事 · COVER STORY</span>' +
+        '<h3 data-zh="' + attrEsc(cover.title_zh) + '" data-en="' + attrEsc(cover.title_en) + '">' + cover.title_zh + '</h3>' +
+        '<div class="mag-card-meta" data-zh="' + attrEsc(cover.meta_zh) + '" data-en="' + attrEsc(cover.meta_en) + '">' + cover.meta_zh + '</div>' +
+      '</div>';
+
+    // Editor's Pick (side variant — h4 title, no meta line)
+    pickEl.setAttribute('href', '/blog/' + pick.slug);
+    pickEl.innerHTML =
+      '<div class="mag-card-cover">' + pick.svg + '</div>' +
+      '<div>' +
+        '<span class="mag-card-tag" data-zh="本期推薦" data-en="Editor’s Pick">本期推薦</span>' +
+        '<h4 data-zh="' + attrEsc(pick.title_zh) + '" data-en="' + attrEsc(pick.title_en) + '">' + pick.title_zh + '</h4>' +
+      '</div>';
+  };
+
   // ---------- spotlight (最近更新 + 熱門推薦) ----------
   // Populates two homepage <ol> lists from DN.ARTICLES.
   //   #hs-recent-list  — most recent by date desc
@@ -1083,6 +1210,7 @@
     }
     DN.addFontSizer();
     DN.injectReadProgress();
+    DN.shuffleHeroCards();   // randomise #hs-cover-story + #hs-editor-pick on every load
     DN.injectSpotlight();
     DN.bindHomeSearch();
     DN.bindThemeToggle();
