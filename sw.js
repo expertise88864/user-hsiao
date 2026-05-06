@@ -18,19 +18,28 @@
  * v16: /en/ mirror, calculator framework + 5 ophth calcs.
  *     cache-bust ?v=20260520
  */
-/* v23: + ACCURACY FIX — lacrimal-tumor article TLDR/Q1/FAQ JSON-LD/og:description
- *      now correctly states 「20% 上皮性 / 9% 整體惡性」(per Zhao 2023 BJO)
- *      instead of the earlier "50% 為惡性" misstatement (which conflated
- *      "malignant fraction within epithelial subgroup" with "overall rate").
- *      + Added Shields 2004, Wright 1992, Andreoli 2015 epidemiology citations
- *        and a Source-note keypoint explaining the 50/50/50 mnemonic vs reality.
- *      + DermNotes parity: DN.getArticleNumber + DN.getPrevNext + DN.injectPrevNext
- *        — every article now ends with ← prev / next → footer cards.
- *        Spotlight rows now show stable 「№X」 prefix (publication-order based).
- * v22: new lacrimal-gland-tumor article + 4th hero card.
- * v21: DIMS pricing correction. */
-const CACHE = 'hs-v23';
-const RUNTIME = 'hs-runtime-v23';
+/* v24: LAYOUT + UX SPRINT
+ *  + FIX: red-flag/related-articles boxes now render correctly
+ *    — added cache-buster `?v=20260525` to /assets/app.css <link> tags
+ *      (vercel.json cached app.css for 30 days as immutable, so users
+ *      with stale CSS missed the .hs-redflag-box rule added in v20)
+ *    — also embedded the rules INLINE in each article as defense-in-depth
+ *  + halfwidth_to_fullwidth.py extended with `:` (colon) rule
+ *    — caught 260 missed half-width punctuations across 26 files
+ *  + REMOVED 本期推薦 (Editor's Pick) hero from home — single Cover Story
+ *    rotation only. shuffleHeroCards now no-ops gracefully if pickEl absent.
+ *  + POPULAR_SLUGS now reflects realistic public-interest topics
+ *    (myopia / dry-eye / floaters), NOT auto-promoting newest article.
+ *    Rare-disease lacrimal-tumor stays in 最近更新 only.
+ *  + DermNotes parity: ported DN.toast + DN.addPrintButton +
+ *    DN.addBookmarkButton + DN.lazyLoadAudit. Articles now have floating
+ *    print + bookmark buttons (right-bottom, above scroll-to-top).
+ *  + Lacrimal-tumor article: "Goldberg/Esmaeli 2018" citation cleaned up
+ *    to credit it as secondhand via Ma 2024 Heliyon (transparent source chain).
+ * v23: 50% → 9% epidemiology fix + DN.injectPrevNext + №X prefix.
+ * v22: new lacrimal-gland-tumor article. */
+const CACHE = 'hs-v24';
+const RUNTIME = 'hs-runtime-v24';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [

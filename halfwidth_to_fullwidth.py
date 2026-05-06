@@ -34,6 +34,7 @@ FW_LP   = '（'   # (
 FW_RP   = '）'   # )
 FW_COMM = '，'   # ,
 FW_SEMI = '；'   # ;
+FW_COLN = '：'   # :
 FW_EXCL = '！'   # !
 FW_QUES = '？'   # ?
 
@@ -52,6 +53,12 @@ RULES = [
     (re.compile(rf'({CN}),(\s)'),             rf'\g<1>{FW_COMM}\g<2>'),
     # 中;中 -> 中;中
     (re.compile(rf'({CN});({CN})'),           rf'\g<1>{FW_SEMI}\g<2>'),
+    # 中:中 -> 中：中  (colon after Chinese, before Chinese OR space — common bug)
+    (re.compile(rf'({CN}):({CN})'),           rf'\g<1>{FW_COLN}\g<2>'),
+    # 中:<空白/標籤>  -> 中：
+    (re.compile(rf'({CN}):(\s|<|$)'),         rf'\g<1>{FW_COLN}\g<2>'),
+    # Number range with colon (e.g. "問題 1:") — Chinese-context heading
+    (re.compile(rf'(?<=[一-鿿\s])(\d+):(\s|<|$)'),       rf'\g<1>{FW_COLN}\g<2>'),
     # 中!中 -> 中!中
     (re.compile(rf'({CN})!({CN})'),           rf'\g<1>{FW_EXCL}\g<2>'),
     # 中!尾 -> 中!尾

@@ -42,10 +42,10 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260525" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css" />
+<link rel="stylesheet" href="/assets/app.css?v=20260525" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -103,6 +103,19 @@
     table.dn{ font-size:13px; }
     table.dn th, table.dn td{ padding:8px 10px; }
   }
+
+  /* Defensive inline copy of .hs-redflag-* / .hs-related-* (also in app.css) */
+  .hs-redflag-box{ background:linear-gradient(135deg,#fef2f2,#fee2e2); border:2px solid #fca5a5; border-radius:14px; padding:18px 22px; margin:28px auto; max-width:680px; box-shadow:0 8px 18px -10px rgba(220,38,38,.25); }
+  .hs-redflag-title{ color:#991b1b; font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:18px; font-weight:600; margin:0 0 12px; display:flex; align-items:center; gap:8px; }
+  .hs-redflag-list{ margin:0; padding-left:22px; color:#7f1d1d; font-size:14.5px; line-height:1.85; list-style:disc; }
+  .hs-redflag-list li{ margin:6px 0; }
+  .hs-redflag-list strong{ color:#7c2d12; font-weight:700; }
+  .hs-related-box{ background:#fff; border:0.5px solid var(--border); border-radius:14px; padding:18px 22px; margin:18px auto 28px; max-width:680px; }
+  .hs-related-title{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:18px; font-weight:600; color:var(--ink); margin:0 0 8px; }
+  .hs-related-sub{ font-size:13px; color:var(--muted); margin:0 0 12px; }
+  .hs-related-pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .hs-related-pill{ display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:9999px; background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; font-size:13px; font-weight:600; text-decoration:none; transition:all .15s ease; }
+  .hs-related-pill:hover{ background:#b8cfe3; transform:translateY(-1px); box-shadow:0 4px 10px -4px rgba(58,90,124,.25); }
 </style>
 <style id="hs-global-ux">
   body { padding-bottom: env(safe-area-inset-bottom); }
@@ -221,28 +234,28 @@
 
 <h2 id="myth-1">迷思 1 · 「人工淚液越點越乾、會依賴」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:點久了眼睛會習慣，自己分泌的淚水會越來越少，變成不點不行。</div>
-  <div class="truth">真相:對的成分不會。會讓眼睛越來越乾的，是人工淚液裡的「BAK 防腐劑」,不是淚液本身。</div>
+  <div class="myth">迷思：點久了眼睛會習慣，自己分泌的淚水會越來越少，變成不點不行。</div>
+  <div class="truth">真相：對的成分不會。會讓眼睛越來越乾的，是人工淚液裡的「BAK 防腐劑」,不是淚液本身。</div>
 </div>
 <p>BAK 全名 Benzalkonium chloride,是多劑型瓶裝人工淚液最常用的防腐劑。<a href="https://www.tfosdewsreport.org/" target="_blank" rel="noopener">TFOS DEWS II</a> 報告明確指出:BAK 高頻次使用會破壞眼表的 lipid layer 與角膜上皮 tight junction,引發 epithelial toxicity,反而讓乾眼惡化。</p>
 <p>真正的「依賴感」其實來自兩件事:(1) 患者本身的<strong>瞼板腺機能障礙（MGD)</strong>持續惡化，讓淚膜越來越不穩定，自然越點越要點;(2) 反覆使用含 BAK 滴劑造成的醫源性傷害。</p>
-<p>解法很簡單:如果一天點 4 次以上，改用 <strong>preservative-free（無防腐劑）</strong>單支裝，或 ABAK / Comod 過濾瓶系統。這類產品設計就是讓你需要點幾次點幾次，不會累積毒性。</p>
+<p>解法很簡單：如果一天點 4 次以上，改用 <strong>preservative-free（無防腐劑）</strong>單支裝，或 ABAK / Comod 過濾瓶系統。這類產品設計就是讓你需要點幾次點幾次，不會累積毒性。</p>
 
 <h2 id="myth-2">迷思 2 · 「眼睛狂流淚就一定不是乾眼」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:我每天眼睛都會流淚，看電腦也流、吹風也流 — 所以我不可能是乾眼。</div>
-  <div class="truth">真相:狂流淚反而是「蒸發型乾眼」最典型的症狀（reflex tearing, 反射性流淚）。</div>
+  <div class="myth">迷思：我每天眼睛都會流淚，看電腦也流、吹風也流 — 所以我不可能是乾眼。</div>
+  <div class="truth">真相：狂流淚反而是「蒸發型乾眼」最典型的症狀（reflex tearing, 反射性流淚）。</div>
 </div>
 <p>蒸發型乾眼（Evaporative DED）約佔所有乾眼症的 <strong>85%</strong>,主因是瞼板腺機能障礙（MGD）讓淚膜油脂層不足，淚水蒸發太快。眼表面持續低度刺激會啟動<strong>三叉神經反射</strong>,讓副淚腺（Krause / Wolfring 腺）+ 主淚腺大量分泌「水樣淚」反流。</p>
-<p>但這種「反射性淚水」品質很差 — 沒有油脂、沒有黏液素、沒有抗菌蛋白，只能短暫覆蓋眼表面，馬上又蒸發。所以患者會出現一個矛盾的情況:<strong>一邊狂流淚，一邊覺得乾、刺、糊</strong>。</p>
+<p>但這種「反射性淚水」品質很差 — 沒有油脂、沒有黏液素、沒有抗菌蛋白，只能短暫覆蓋眼表面，馬上又蒸發。所以患者會出現一個矛盾的情況：<strong>一邊狂流淚，一邊覺得乾、刺、糊</strong>。</p>
 <p>診斷不能只靠「我會不會流淚」,要看:Schirmer test（基礎分泌量）、TBUT（淚膜破裂時間，正常 >10 秒）、瞼板腺 meibography（油脂腺萎縮程度）。三個一起看才能分清是水液型（aqueous-deficient）還是蒸發型，治療方向完全不同。</p>
 
 <h2 id="myth-3">迷思 3 · 「乾眼症是老人病，年輕人不會」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:我才 28 歲，乾眼症應該是老人或更年期才會得吧？</div>
+  <div class="myth">迷思：我才 28 歲，乾眼症應該是老人或更年期才會得吧？</div>
   <div class="truth">真相:18-34 歲族群乾眼盛行率已達 10-30%,而且持續年輕化中。</div>
 </div>
-<p>TFOS DEWS II 流行病學報告指出，全球年輕族群的乾眼症盛行率正在快速上升。三大年輕化推手:</p>
+<p>TFOS DEWS II 流行病學報告指出，全球年輕族群的乾眼症盛行率正在快速上升。三大年輕化推手：</p>
 <ul>
   <li><strong>3C 螢幕使用</strong> — 看螢幕時瞬目率從正常 15-20 次/分鐘掉到 <strong>5-7 次/分鐘</strong>,而且常常是「不完全眨眼」(incomplete blinking),導致瞼板腺長期推不出 meibum、開口阻塞。</li>
   <li><strong>軟式隱形眼鏡</strong> — 使用者中有 <strong>50%</strong> 出現隱形眼鏡相關乾眼（contact lens-induced dry eye, CLIDE),每多戴一年發生率上升。</li>
@@ -252,20 +265,20 @@
 
 <h2 id="myth-4">迷思 4 · 「葉黃素吃了就能治乾眼」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:藥局店員推薦葉黃素護眼，應該對乾眼也有效？</div>
-  <div class="truth">真相:葉黃素主要保黃斑（對 AMD 有用）,對乾眼幾乎無證據;Omega-3 才是唯一有部分證據的營養補充。</div>
+  <div class="myth">迷思：藥局店員推薦葉黃素護眼，應該對乾眼也有效？</div>
+  <div class="truth">真相：葉黃素主要保黃斑（對 AMD 有用）,對乾眼幾乎無證據;Omega-3 才是唯一有部分證據的營養補充。</div>
 </div>
 <p>葉黃素（Lutein)+ 玉米黃素（Zeaxanthin）是<strong>黃斑部色素</strong>的主要組成。最強的證據來自 <strong>AREDS2 研究</strong>,針對中度年齡相關性黃斑部病變（AMD),補充劑可降低惡化風險，但這跟乾眼症完全是兩回事。</p>
-<p>對乾眼症有理論基礎的營養補充是 <strong>Omega-3 多元不飽和脂肪酸（EPA / DHA)</strong> — 機轉是抑制 ocular surface 的 inflammatory cascade、改善 meibum 流動性。但 2018 年發表在 NEJM 的 <strong>DREAM trial</strong>(n=535）結果是:每天 3000 mg Omega-3 vs 橄欖油安慰劑,12 個月後乾眼症狀分數沒有統計顯著差異。</p>
+<p>對乾眼症有理論基礎的營養補充是 <strong>Omega-3 多元不飽和脂肪酸（EPA / DHA)</strong> — 機轉是抑制 ocular surface 的 inflammatory cascade、改善 meibum 流動性。但 2018 年發表在 NEJM 的 <strong>DREAM trial</strong>(n=535）結果是：每天 3000 mg Omega-3 vs 橄欖油安慰劑,12 個月後乾眼症狀分數沒有統計顯著差異。</p>
 <p>因此 AAO Preferred Practice Pattern 把 Omega-3 從 strong recommendation 降為 <strong>conditional recommendation</strong> — 意思是「想試可以試，但別把它當主治療」。葉黃素則完全不在乾眼指引內。</p>
 
 <h2 id="myth-5">迷思 5 · 「點一陣子藥就會痊癒」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:醫生開的藥水點一個月，應該就能根治了吧？</div>
-  <div class="truth">真相:乾眼症是慢性病，類似高血壓、糖尿病，需要長期管理 + 生活型態調整，停藥常會復發。</div>
+  <div class="myth">迷思：醫生開的藥水點一個月，應該就能根治了吧？</div>
+  <div class="truth">真相：乾眼症是慢性病，類似高血壓、糖尿病，需要長期管理 + 生活型態調整，停藥常會復發。</div>
 </div>
 <p>DEWS II 對乾眼症的定義是:「<strong>淚膜恆定性失調 + 慢性發炎</strong>」造成的多因子眼表面疾病。「慢性」是關鍵字 — 它不是急性感染可以「一個療程治癒」,而是要像高血壓、糖尿病一樣長期管理。</p>
-<p>AAO 階梯式治療架構:</p>
+<p>AAO 階梯式治療架構：</p>
 <table class="dn">
   <thead><tr><th>階梯</th><th>治療內容</th><th>適用</th></tr></thead>
   <tbody>
@@ -279,10 +292,10 @@
 
 <h2 id="myth-6">迷思 6 · 「人工淚液都差不多，選便宜就好」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:藥局架上幾十種人工淚液，反正都是「水」,挑便宜的就好。</div>
-  <div class="truth">真相:成分、防腐劑、滲透壓、黏度都不同。選錯不只沒效，長期還會傷角膜。</div>
+  <div class="myth">迷思：藥局架上幾十種人工淚液，反正都是「水」,挑便宜的就好。</div>
+  <div class="truth">真相：成分、防腐劑、滲透壓、黏度都不同。選錯不只沒效，長期還會傷角膜。</div>
 </div>
-<p>人工淚液依組成大致分四類:</p>
+<p>人工淚液依組成大致分四類：</p>
 <table class="dn">
   <thead><tr><th>類型</th><th>代表成分</th><th>適合對象</th></tr></thead>
   <tbody>
@@ -305,11 +318,11 @@
 
 <h2 id="myth-7">迷思 7 · 「熱敷沒效，只是心理作用」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:熱敷只是覺得舒服，沒什麼科學根據，還不如直接點藥水。</div>
-  <div class="truth">真相:熱敷是 MGD 第一線非藥物治療，但要 40-45°C × 10-15 分鐘 + 加壓推按，才會真的把瞼板腺打通。</div>
+  <div class="myth">迷思：熱敷只是覺得舒服，沒什麼科學根據，還不如直接點藥水。</div>
+  <div class="truth">真相：熱敷是 MGD 第一線非藥物治療，但要 40-45°C × 10-15 分鐘 + 加壓推按，才會真的把瞼板腺打通。</div>
 </div>
 <p>瞼板腺（Meibomian gland）分泌的「meibum」在體溫（36°C）下是<strong>固體蠟狀</strong>,要熔化排出需要 <strong>40°C 以上</strong>。冷敷或常溫敷對 MGD 完全無效；這是物理事實，不是科學新發現。</p>
-<p>有效熱敷的三條件:</p>
+<p>有效熱敷的三條件：</p>
 <ol>
   <li><strong>溫度 40-45°C</strong> — 過熱會燙傷，過低融不了 meibum。</li>
   <li><strong>時間 10-15 分鐘</strong> — 短於 5 分鐘無效，因為熱量還沒滲透到瞼板腺深處。</li>
@@ -322,21 +335,21 @@
   <figcaption style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-deep);font-weight:700;text-align:center;margin-bottom:14px">圖 1 · DEWS II 診斷流程 (Diagnostic algorithm)</figcaption>
   <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" aria-labelledby="dews-flowchart-title" role="img" style="display:block;margin:0 auto;width:100%;height:auto;max-width:600px">
     <title id="dews-flowchart-title">DEWS II 乾眼症診斷流程圖</title>
-    <!-- Step 1: Symptoms -->
+    <!-- Step 1： Symptoms -->
     <rect x="220" y="10" width="160" height="40" rx="8" fill="#e3edf6" stroke="#3a5a7c" stroke-width="1.5" />
     <text x="300" y="32" fill="#243b56" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="700" text-anchor="middle">症狀問卷</text>
     <text x="300" y="46" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="10" text-anchor="middle">DEQ-5 ≥ 6  或  OSDI ≥ 13</text>
     <line x1="300" y1="50" x2="300" y2="74" stroke="#3a5a7c" stroke-width="1.5" marker-end="url(#dews-arrow)" />
-    <!-- Step 2: 1+ Homeostasis marker abnormal -->
+    <!-- Step 2： 1+ Homeostasis marker abnormal -->
     <rect x="180" y="78" width="240" height="44" rx="8" fill="#e3edf6" stroke="#3a5a7c" stroke-width="1.5" />
     <text x="300" y="98" fill="#243b56" font-family="'Noto Sans TC',sans-serif" font-size="12" font-weight="700" text-anchor="middle">≥ 1 項客觀檢查異常</text>
     <text x="300" y="114" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="9.5" text-anchor="middle">NIBUT &lt;10s · Osmolarity ≥308 · 染色陽性</text>
     <line x1="300" y1="122" x2="300" y2="148" stroke="#3a5a7c" stroke-width="1.5" marker-end="url(#dews-arrow)" />
-    <!-- Step 3: Diagnosis -->
+    <!-- Step 3： Diagnosis -->
     <rect x="240" y="152" width="120" height="34" rx="17" fill="#243b56" stroke="#243b56" stroke-width="1.5" />
     <text x="300" y="174" fill="#fff" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="700" text-anchor="middle">確診 DED</text>
     <line x1="300" y1="186" x2="300" y2="210" stroke="#3a5a7c" stroke-width="1.5" marker-end="url(#dews-arrow)" />
-    <!-- Step 4: Subtype branching -->
+    <!-- Step 4： Subtype branching -->
     <text x="300" y="222" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="10" font-weight="600" text-anchor="middle">分型</text>
     <line x1="300" y1="225" x2="160" y2="240" stroke="#3a5a7c" stroke-width="1.2" />
     <line x1="300" y1="225" x2="440" y2="240" stroke="#3a5a7c" stroke-width="1.2" />
@@ -363,10 +376,10 @@
 
 <h2 id="myth-8">迷思 8 · 「乾眼症不會傷眼睛，忍一忍就好」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:乾眼又不是青光眼、白內障，不會傷視力，忍一忍就過去。</div>
-  <div class="truth">真相:輕度確實沒事；但中重度乾眼會造成角膜上皮缺損、絲狀角膜炎、潰瘍，嚴重可能穿孔失明。</div>
+  <div class="myth">迷思：乾眼又不是青光眼、白內障，不會傷視力，忍一忍就過去。</div>
+  <div class="truth">真相：輕度確實沒事；但中重度乾眼會造成角膜上皮缺損、絲狀角膜炎、潰瘍，嚴重可能穿孔失明。</div>
 </div>
-<p>輕度乾眼是討厭但沒事；中重度（尤其 Sjögren's、SLE、骨髓移植後 GVHD 族群）則真的會出事。臨床上常見的併發症:</p>
+<p>輕度乾眼是討厭但沒事；中重度（尤其 Sjögren's、SLE、骨髓移植後 GVHD 族群）則真的會出事。臨床上常見的併發症：</p>
 <ul>
   <li><strong>絲狀角膜炎（Filamentary keratitis)</strong> — 黏液絲附著在角膜表面，每眨眼都拉扯，劇痛 + 異物感。</li>
   <li><strong>持續性角膜上皮缺損（Persistent epithelial defect, PED)</strong> — 反覆破皮無法癒合，變成復發性糜爛。</li>
@@ -406,7 +419,7 @@
       <tr style="background:#fff5f5;">
         <td style="padding:10px 12px;vertical-align:top;"><span style="display:inline-block;padding:3px 10px;border-radius:9999px;background:#fee2e2;color:#991b1b;font-weight:700;font-size:11.5px;">重度<br/>Severe</span></td>
         <td style="padding:10px 12px;vertical-align:top;color:#1e293b;line-height:1.7">PED / 持續上皮缺損<br/>角膜潰瘍 / 融解風險<br/>視力受損</td>
-        <td style="padding:10px 12px;vertical-align:top;color:#1e293b;line-height:1.7"><strong>Step 4</strong>:<br/>· 緊急角膜遮蓋 (amniotic membrane / Prokera)<br/>· 手術:淚點永久封閉、瞼緣縫合 (tarsorrhaphy)<br/>· 角膜移植 （穿孔個案）</td>
+        <td style="padding:10px 12px;vertical-align:top;color:#1e293b;line-height:1.7"><strong>Step 4</strong>:<br/>· 緊急角膜遮蓋 (amniotic membrane / Prokera)<br/>· 手術：淚點永久封閉、瞼緣縫合 (tarsorrhaphy)<br/>· 角膜移植 （穿孔個案）</td>
       </tr>
     </tbody>
   </table>
@@ -666,7 +679,7 @@
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260524" defer></script>
+<script src="/blog/blog-shared.js?v=20260525" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>

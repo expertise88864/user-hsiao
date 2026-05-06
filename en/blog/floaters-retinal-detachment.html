@@ -42,10 +42,10 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260525" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css" />
+<link rel="stylesheet" href="/assets/app.css?v=20260525" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -104,6 +104,19 @@
     table.dn{ font-size:13px; }
     table.dn th, table.dn td{ padding:8px 10px; }
   }
+
+  /* Defensive inline copy of .hs-redflag-* / .hs-related-* (also in app.css) */
+  .hs-redflag-box{ background:linear-gradient(135deg,#fef2f2,#fee2e2); border:2px solid #fca5a5; border-radius:14px; padding:18px 22px; margin:28px auto; max-width:680px; box-shadow:0 8px 18px -10px rgba(220,38,38,.25); }
+  .hs-redflag-title{ color:#991b1b; font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:18px; font-weight:600; margin:0 0 12px; display:flex; align-items:center; gap:8px; }
+  .hs-redflag-list{ margin:0; padding-left:22px; color:#7f1d1d; font-size:14.5px; line-height:1.85; list-style:disc; }
+  .hs-redflag-list li{ margin:6px 0; }
+  .hs-redflag-list strong{ color:#7c2d12; font-weight:700; }
+  .hs-related-box{ background:#fff; border:0.5px solid var(--border); border-radius:14px; padding:18px 22px; margin:18px auto 28px; max-width:680px; }
+  .hs-related-title{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:18px; font-weight:600; color:var(--ink); margin:0 0 8px; }
+  .hs-related-sub{ font-size:13px; color:var(--muted); margin:0 0 12px; }
+  .hs-related-pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .hs-related-pill{ display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:9999px; background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; font-size:13px; font-weight:600; text-decoration:none; transition:all .15s ease; }
+  .hs-related-pill:hover{ background:#b8cfe3; transform:translateY(-1px); box-shadow:0 4px 10px -4px rgba(58,90,124,.25); }
 </style>
 <style id="hs-global-ux">
   body { padding-bottom: env(safe-area-inset-bottom); }
@@ -250,26 +263,26 @@
 
 <h2 id="myth-1">迷思 1 · 「飛蚊症大家都有，不用看醫生」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:朋友說飛蚊症很正常，不用緊張、不用看眼科。</div>
-  <div class="truth">真相:對，大多數飛蚊症是良性的，但<strong>「新發或突然增多」</strong>的飛蚊症必須立刻看眼科，因為 10-15% 合併視網膜裂孔。</div>
+  <div class="myth">迷思：朋友說飛蚊症很正常，不用緊張、不用看眼科。</div>
+  <div class="truth">真相：對，大多數飛蚊症是良性的，但<strong>「新發或突然增多」</strong>的飛蚊症必須立刻看眼科，因為 10-15% 合併視網膜裂孔。</div>
 </div>
 <p>「飛蚊症」(floaters）是看到眼前有黑點、線狀物、蜘蛛網狀飄動的影子。本質是<strong>玻璃體混濁</strong> — 玻璃體本來像膠狀蛋白，隨年齡逐漸液化、產生細小膠質聚集，在視網膜上投射出陰影。</p>
-<p>引起飛蚊症的常見原因:</p>
+<p>引起飛蚊症的常見原因：</p>
 <ul>
   <li><strong>玻璃體液化（synchysis)</strong> — 30 歲後逐漸發生，多無大礙</li>
   <li><strong>後玻璃體剝離（PVD)</strong> — 50 歲後最常見,80 歲以上 80% 都有</li>
   <li><strong>葡萄膜炎、玻璃體出血</strong> — 病理性，需治療</li>
   <li><strong>視網膜裂孔 / 剝離</strong> — 急症，必須處置</li>
 </ul>
-<p>美國眼科醫學會（AAO)<strong>2019 年 PPP</strong> 建議:任何<strong>新發或急性增加</strong>的飛蚊症都應在<strong>24-72 小時內</strong>接受散瞳眼底檢查，排除視網膜裂孔。已存在多年、穩定不變的飛蚊症則可以例行追蹤。</p>
+<p>美國眼科醫學會（AAO)<strong>2019 年 PPP</strong> 建議：任何<strong>新發或急性增加</strong>的飛蚊症都應在<strong>24-72 小時內</strong>接受散瞳眼底檢查，排除視網膜裂孔。已存在多年、穩定不變的飛蚊症則可以例行追蹤。</p>
 
 <h2 id="myth-2">迷思 2 · 「突然增多的飛蚊不算什麼」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:這幾天突然多了很多黑點，但白天看比較不明顯，應該是壓力或太累。</div>
-  <div class="truth">真相:急性新發飛蚊是<strong>後玻璃體剝離（PVD)</strong>典型表現。10-15% 合併視網膜裂孔，需在 72 小時內接受散瞳檢查。</div>
+  <div class="myth">迷思：這幾天突然多了很多黑點，但白天看比較不明顯，應該是壓力或太累。</div>
+  <div class="truth">真相：急性新發飛蚊是<strong>後玻璃體剝離（PVD)</strong>典型表現。10-15% 合併視網膜裂孔，需在 72 小時內接受散瞳檢查。</div>
 </div>
-<p><strong>後玻璃體剝離（Posterior Vitreous Detachment, PVD)</strong>是 50 歲後常見的玻璃體變化:玻璃體後表面與視網膜內表面分離。多數良性，但分離過程可能<strong>拉扯出視網膜裂孔</strong>。</p>
-<p>大型回顧研究 Hollands H 等人 2009 年發表在 <em>JAMA</em> 的系統性回顧結論:</p>
+<p><strong>後玻璃體剝離（Posterior Vitreous Detachment, PVD)</strong>是 50 歲後常見的玻璃體變化：玻璃體後表面與視網膜內表面分離。多數良性，但分離過程可能<strong>拉扯出視網膜裂孔</strong>。</p>
+<p>大型回顧研究 Hollands H 等人 2009 年發表在 <em>JAMA</em> 的系統性回顧結論：</p>
 <table class="dn">
   <thead><tr><th>族群</th><th>合併視網膜裂孔比例</th><th>建議</th></tr></thead>
   <tbody>
@@ -339,24 +352,24 @@
 
 <h2 id="myth-3">迷思 3 · 「閃光感是腦血管問題，不是眼睛」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:看到閃電光點以為是偏頭痛或腦血管問題，先去神經內科。</div>
-  <div class="truth">真相:無外來光源的閃光感（photopsia）在眼科多為<strong>玻璃體拉扯視網膜</strong>所致，是視網膜裂孔的高風險警訊，需先看眼科。</div>
+  <div class="myth">迷思：看到閃電光點以為是偏頭痛或腦血管問題，先去神經內科。</div>
+  <div class="truth">真相：無外來光源的閃光感（photopsia）在眼科多為<strong>玻璃體拉扯視網膜</strong>所致，是視網膜裂孔的高風險警訊，需先看眼科。</div>
 </div>
-<p><strong>閃光感（Photopsia)</strong>定義:在沒有外界光源的情況下感知到光點、閃電狀光、火花。可分兩大類:</p>
+<p><strong>閃光感（Photopsia)</strong>定義：在沒有外界光源的情況下感知到光點、閃電狀光、火花。可分兩大類：</p>
 <ul>
   <li><strong>眼科性閃光</strong> — 玻璃體拉扯視網膜時，機械刺激讓光感受器放電產生「假光」訊號。<strong>典型特徵</strong>:單眼、週邊視野（尤其太陽穴側）、暗處更明顯、頭部轉動或眼球轉動會誘發。</li>
   <li><strong>偏頭痛先兆（Migraine aura)</strong> — 雙眼、中央視野、鋸齒狀「城堡光譜（fortification)」、持續 15-30 分鐘後出現頭痛。</li>
   <li><strong>大腦皮質性</strong> — 罕見，如癲癇、TIA（暫時性腦缺血）、後皮質視覺異常。</li>
 </ul>
-<p>判斷簡單:<strong>蓋住一隻眼睛還有閃光 → 那隻眼睛的問題</strong>（眼科）;蓋住任一眼都還在 → 雙眼或中樞性問題。</p>
+<p>判斷簡單：<strong>蓋住一隻眼睛還有閃光 → 那隻眼睛的問題</strong>（眼科）;蓋住任一眼都還在 → 雙眼或中樞性問題。</p>
 <p>眼科性閃光感即使<strong>單一次出現</strong>也建議當天看眼科散瞳檢查 — 因為可能是視網膜裂孔正在形成。</p>
 
 <h2 id="myth-2">迷思 2 · 「只有高度近視才會視網膜剝離」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:我度數不深，大概 200-300 度，應該不用擔心視網膜剝離。</div>
-  <div class="truth">真相:高度近視（>500 度）風險增加 5-10 倍，但其他危險因子也很多 — 白內障術後、眼外傷、家族史、晶格狀變性等。</div>
+  <div class="myth">迷思：我度數不深，大概 200-300 度，應該不用擔心視網膜剝離。</div>
+  <div class="truth">真相：高度近視（>500 度）風險增加 5-10 倍，但其他危險因子也很多 — 白內障術後、眼外傷、家族史、晶格狀變性等。</div>
 </div>
-<p>視網膜剝離（Rhegmatogenous Retinal Detachment, RRD）在一般人群年發生率約<strong>10-12 / 10 萬人</strong>(Mitry D et al, Eye 2010 系統性回顧）。主要危險因子:</p>
+<p>視網膜剝離（Rhegmatogenous Retinal Detachment, RRD）在一般人群年發生率約<strong>10-12 / 10 萬人</strong>(Mitry D et al, Eye 2010 系統性回顧）。主要危險因子：</p>
 <ul>
   <li><strong>高度近視</strong>(≥ -5.00 D / 500 度）— 風險增加 5-10 倍。眼軸越長，周邊視網膜越薄，越易裂孔。</li>
   <li><strong>白內障手術後</strong> — 約 5-10 倍風險，前 4 年最高，終身仍偏高。手術干擾玻璃體前表面，加速 PVD。</li>
@@ -369,10 +382,10 @@
 
 <h2 id="myth-2">迷思 2 · 「視網膜剝離只要打雷射就好」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:聽說視網膜雷射就像補破網，打一次就好了。</div>
-  <div class="truth">真相:雷射只能處理「視網膜裂孔」（尚未剝離）;一旦剝離，需要<strong>手術</strong>（氣體填充、鞏膜扣壓或玻璃體切除術）,恢復期數週到數月。</div>
+  <div class="myth">迷思：聽說視網膜雷射就像補破網，打一次就好了。</div>
+  <div class="truth">真相：雷射只能處理「視網膜裂孔」（尚未剝離）;一旦剝離，需要<strong>手術</strong>（氣體填充、鞏膜扣壓或玻璃體切除術）,恢復期數週到數月。</div>
 </div>
-<p>處置的<strong>關鍵時機</strong>取決於當下狀態:</p>
+<p>處置的<strong>關鍵時機</strong>取決於當下狀態：</p>
 <table class="dn">
   <thead><tr><th>階段</th><th>處置</th><th>成功率</th><th>恢復</th></tr></thead>
   <tbody>
@@ -382,7 +395,7 @@
     <tr><td>剝離已侵犯黃斑（macula-off)</td><td>同上，但中央視力預後較差</td><td>解剖復位 80%,視力恢復差</td><td>視力多無法回到剝離前</td></tr>
   </tbody>
 </table>
-<p>關鍵概念:<strong>剝離 24-72 小時內 + 黃斑尚未受影響（macula-on)</strong>是黃金治療期，術後視力恢復最好。<strong>黃斑一旦剝離超過 1 週</strong>,即使手術成功，中央視力多無法完全恢復，可能殘留扭曲、暗點。</p>
+<p>關鍵概念：<strong>剝離 24-72 小時內 + 黃斑尚未受影響（macula-on)</strong>是黃金治療期，術後視力恢復最好。<strong>黃斑一旦剝離超過 1 週</strong>,即使手術成功，中央視力多無法完全恢復，可能殘留扭曲、暗點。</p>
 <p>所以發現警訊時的緊急性 = <strong>分秒必爭</strong>,絕非「等門診時間」。</p>
 
 <!-- ============= 圖：飛蚊症急診分流流程圖 ============= -->
@@ -679,7 +692,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script src="/blog/blog-shared.js?v=20260524" defer></script>
+<script src="/blog/blog-shared.js?v=20260525" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>

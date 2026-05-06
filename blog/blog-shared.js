@@ -1160,18 +1160,17 @@
   // (mag-card-side). Falls back silently if either anchor is missing.
   DN.shuffleHeroCards = function () {
     var coverEl = document.getElementById('hs-cover-story');
-    var pickEl  = document.getElementById('hs-editor-pick');
-    if (!coverEl || !pickEl) return;          // not on home page
+    var pickEl  = document.getElementById('hs-editor-pick');   // optional now
+    if (!coverEl) return;                     // not on home page
     var cards = (DN.HERO_CARDS || []).slice();
-    if (cards.length < 2) return;             // nothing to shuffle
+    if (cards.length < 1) return;             // nothing to shuffle
 
-    // Fisher-Yates in-place shuffle, then take first 2
+    // Fisher-Yates in-place shuffle, then take first 1 or 2
     for (var i = cards.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var tmp = cards[i]; cards[i] = cards[j]; cards[j] = tmp;
     }
     var cover = cards[0];
-    var pick  = cards[1];
 
     // Cover Story (full mag-card with meta line + h3 title)
     coverEl.setAttribute('href', '/blog/' + cover.slug);
@@ -1183,14 +1182,17 @@
         '<div class="mag-card-meta" data-zh="' + attrEsc(cover.meta_zh) + '" data-en="' + attrEsc(cover.meta_en) + '">' + cover.meta_zh + '</div>' +
       '</div>';
 
-    // Editor's Pick (side variant — h4 title, no meta line)
-    pickEl.setAttribute('href', '/blog/' + pick.slug);
-    pickEl.innerHTML =
-      '<div class="mag-card-cover">' + pick.svg + '</div>' +
-      '<div>' +
-        '<span class="mag-card-tag" data-zh="本期推薦" data-en="Editor’s Pick">本期推薦</span>' +
-        '<h4 data-zh="' + attrEsc(pick.title_zh) + '" data-en="' + attrEsc(pick.title_en) + '">' + pick.title_zh + '</h4>' +
-      '</div>';
+    // Editor's Pick — only if the slot exists (legacy support)
+    if (pickEl && cards.length >= 2) {
+      var pick = cards[1];
+      pickEl.setAttribute('href', '/blog/' + pick.slug);
+      pickEl.innerHTML =
+        '<div class="mag-card-cover">' + pick.svg + '</div>' +
+        '<div>' +
+          '<span class="mag-card-tag" data-zh="本期推薦" data-en="Editor’s Pick">本期推薦</span>' +
+          '<h4 data-zh="' + attrEsc(pick.title_zh) + '" data-en="' + attrEsc(pick.title_en) + '">' + pick.title_zh + '</h4>' +
+        '</div>';
+    }
   };
 
   // ---------- spotlight (最近更新 + 熱門推薦) ----------
@@ -1199,7 +1201,16 @@
   //   #hs-popular-list — curated by DN.POPULAR_SLUGS, falls back to recent
   // Renders DermNotes-style 2-row cards: metadata strip on top
   // (badge + tag_en + date), then SVG icon + Noto Serif TC title.
-  DN.POPULAR_SLUGS = ['lacrimal-gland-tumor', 'floaters-retinal-detachment', 'dry-eye-myths'];   // edit this list to curate
+  // ---------------------------------------------------------------------
+  // Popular articles — manually curated by **expected reader interest**,
+  // not by publication date. Writing a new article should NOT auto-bump
+  // it to #1 (rare-disease topics like 淚腺腫瘤 are clinically important
+  // but low-traffic; broad-public-interest topics belong here instead).
+  //
+  // To re-rank based on real GA4 / Clarity click-through data later,
+  // replace this array with the top 3 slugs from your analytics dashboard.
+  // ---------------------------------------------------------------------
+  DN.POPULAR_SLUGS = ['pediatric-myopia-control', 'dry-eye-myths', 'floaters-retinal-detachment'];   // edit this list to curate
 
   // 32x32 line-art SVG icons keyed by Chinese tag — ophthalmology palette
   // (Tiffany blue + ochre + ink). Falls back to the FAQ icon when missing.
@@ -2184,6 +2195,99 @@
   // Article feedback widget — "Spot an error?" mailto card at end of article
   // Pre-fills subject + body with article title/URL for easier triage.
   // ---------------------------------------------------------------------
+  // ---------------------------------------------------------------------
+  // Toast — short floating message at bottom-center (used by SW update,
+  // bookmark feedback, etc.). Self-cleaning. ARIA polite live region.
+  // ---------------------------------------------------------------------
+  DN.toast = function (msg, opts) {
+    opts = opts || {};
+    var t = document.createElement('div');
+    t.setAttribute('role', 'status');
+    t.setAttribute('aria-live', 'polite');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;left:50%;bottom:max(110px,env(safe-area-inset-bottom));transform:translateX(-50%);background:#243b56;color:#fff;padding:9px 18px;border-radius:9999px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 12px 28px -8px rgba(58,90,124,.55);max-width:calc(100vw - 32px);text-align:center;line-height:1.5';
+    document.body.appendChild(t);
+    var dur = opts.duration || 2500;
+    setTimeout(function () { t.style.transition = 'opacity .3s'; t.style.opacity = '0'; }, dur);
+    setTimeout(function () { try { document.body.removeChild(t); } catch (e) {} }, dur + 350);
+  };
+
+  // ---------------------------------------------------------------------
+  // Print button — floating circle, bottom-right, opens system print
+  // dialog. Pairs with the @media print CSS in app.css to produce a clean
+  // patient handout without nav / footer / share / ads.
+  // ---------------------------------------------------------------------
+  DN.addPrintButton = function () {
+    var article = document.querySelector('article.max-w-3xl');
+    if (!article || document.getElementById('hs-print-btn')) return;
+    var btn = document.createElement('button');
+    btn.id = 'hs-print-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', '列印此文章 / Print article');
+    btn.title = '列印給病人 / 存成 PDF';
+    btn.style.cssText = 'position:fixed;right:18px;bottom:130px;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--blue-deep);border:1px solid var(--border);box-shadow:0 8px 20px -8px rgba(58,90,124,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50;font-size:16px;line-height:1';
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>';
+    btn.addEventListener('click', function () { window.print(); });
+    document.body.appendChild(btn);
+  };
+
+  // ---------------------------------------------------------------------
+  // Bookmark button — floating circle, persists slugs to localStorage so
+  // returning readers can find articles they wanted to revisit. Caps at
+  // 50 items. Solid icon = bookmarked.
+  // ---------------------------------------------------------------------
+  DN.addBookmarkButton = function () {
+    var article = document.querySelector('article.max-w-3xl');
+    if (!article || document.getElementById('hs-bookmark')) return;
+    var slug = DN.currentSlug && DN.currentSlug();
+    if (!slug) return;
+    var BM_KEY = 'hs:bookmarks';
+    function get() { try { return JSON.parse(localStorage.getItem(BM_KEY) || '[]'); } catch (e) { return []; } }
+    function set(arr) { try { localStorage.setItem(BM_KEY, JSON.stringify(arr.slice(0, 50))); } catch (e) {} }
+    function isBookmarked() { return get().indexOf(slug) >= 0; }
+
+    var btn = document.createElement('button');
+    btn.id = 'hs-bookmark';
+    btn.type = 'button';
+    btn.style.cssText = 'position:fixed;right:18px;bottom:80px;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--blue-deep);border:1px solid var(--border);box-shadow:0 8px 20px -8px rgba(58,90,124,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50;font-size:18px;line-height:1;transition:all .15s';
+    function render() {
+      var bm = isBookmarked();
+      btn.setAttribute('aria-label', bm ? '取消收藏 / Unsave' : '加入收藏 / Save');
+      btn.title = bm ? '已收藏（點擊取消）' : '加入收藏';
+      btn.innerHTML = bm
+        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="#243b56" stroke="#243b56" stroke-width="2" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
+        : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+    }
+    btn.addEventListener('click', function () {
+      var arr = get();
+      if (isBookmarked()) {
+        arr = arr.filter(function (s) { return s !== slug; });
+        set(arr); render(); DN.toast && DN.toast('已取消收藏');
+      } else {
+        arr.unshift(slug); set(arr); render(); DN.toast && DN.toast('已加入收藏');
+      }
+    });
+    render();
+    document.body.appendChild(btn);
+  };
+
+  // ---------------------------------------------------------------------
+  // Lazy-load audit — patches any non-eager <img> missing loading attr.
+  // First image gets fetchpriority=high (LCP candidate); rest get lazy.
+  // Safe no-op if attributes already set explicitly.
+  // ---------------------------------------------------------------------
+  DN.lazyLoadAudit = function () {
+    var imgs = document.querySelectorAll('img:not([loading]):not([data-no-lazy])');
+    imgs.forEach(function (img, i) {
+      if (i === 0 && !img.hasAttribute('fetchpriority')) {
+        img.setAttribute('fetchpriority', 'high');
+      } else {
+        img.setAttribute('loading', 'lazy');
+        img.setAttribute('decoding', 'async');
+      }
+    });
+  };
+
   DN.addFeedbackLink = function () {
     var article = document.querySelector('article.max-w-3xl');
     if (!article || document.getElementById('hs-feedback')) return;
@@ -2319,6 +2423,9 @@
         DN.addRelatedArticles();
         DN.injectPrevNext();      // ← prev / next → footer navigation
         DN.addFeedbackLink();
+        DN.addPrintButton();      // floating print-to-PDF button (right-bottom)
+        DN.addBookmarkButton();   // floating bookmark button (right-bottom)
+        DN.lazyLoadAudit();       // backstop loading="lazy" / fetchpriority
         DN.applyTextOnly(curLang);  // re-translate JS-injected DOM
       }, { timeout: 1200 });
     }

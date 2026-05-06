@@ -42,10 +42,10 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260525" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css" />
+<link rel="stylesheet" href="/assets/app.css?v=20260525" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -103,6 +103,19 @@
     table.dn{ font-size:13px; }
     table.dn th, table.dn td{ padding:8px 10px; }
   }
+
+  /* Defensive inline copy of .hs-redflag-* / .hs-related-* (also in app.css) */
+  .hs-redflag-box{ background:linear-gradient(135deg,#fef2f2,#fee2e2); border:2px solid #fca5a5; border-radius:14px; padding:18px 22px; margin:28px auto; max-width:680px; box-shadow:0 8px 18px -10px rgba(220,38,38,.25); }
+  .hs-redflag-title{ color:#991b1b; font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:18px; font-weight:600; margin:0 0 12px; display:flex; align-items:center; gap:8px; }
+  .hs-redflag-list{ margin:0; padding-left:22px; color:#7f1d1d; font-size:14.5px; line-height:1.85; list-style:disc; }
+  .hs-redflag-list li{ margin:6px 0; }
+  .hs-redflag-list strong{ color:#7c2d12; font-weight:700; }
+  .hs-related-box{ background:#fff; border:0.5px solid var(--border); border-radius:14px; padding:18px 22px; margin:18px auto 28px; max-width:680px; }
+  .hs-related-title{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-size:18px; font-weight:600; color:var(--ink); margin:0 0 8px; }
+  .hs-related-sub{ font-size:13px; color:var(--muted); margin:0 0 12px; }
+  .hs-related-pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .hs-related-pill{ display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:9999px; background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; font-size:13px; font-weight:600; text-decoration:none; transition:all .15s ease; }
+  .hs-related-pill:hover{ background:#b8cfe3; transform:translateY(-1px); box-shadow:0 4px 10px -4px rgba(58,90,124,.25); }
 </style>
 <style id="hs-global-ux">
   body { padding-bottom: env(safe-area-inset-bottom); }
@@ -242,11 +255,11 @@
 
 <h2 id="myth-1">迷思 1 · 「近視只是看不清楚，長大後雷射就好」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:近視沒什麼大不了，長大成年再做雷射就好了。</div>
-  <div class="truth">真相:近視 = 眼軸拉長，且不可逆。雷射只能矯正度數，但拉長的眼軸與隨之而來的視網膜變薄、黃斑部變化都不會回頭。</div>
+  <div class="myth">迷思：近視沒什麼大不了，長大成年再做雷射就好了。</div>
+  <div class="truth">真相：近視 = 眼軸拉長，且不可逆。雷射只能矯正度數，但拉長的眼軸與隨之而來的視網膜變薄、黃斑部變化都不會回頭。</div>
 </div>
 <p>近視的本質是<strong>眼軸過度拉長</strong>（超過 24 mm)。眼軸拉長後，視網膜被往後拖、變薄、可能出現裂孔。即使日後雷射把角膜磨薄（LASIK / SMILE）矯正度數,<strong>眼軸長度不會縮短</strong>,所有與「眼球太長」相關的併發症仍然存在。</p>
-<p>高度近視（度數 ≥ -5.00 D / 500 度，眼軸 ≥ 26 mm）成年後的併發症風險:</p>
+<p>高度近視（度數 ≥ -5.00 D / 500 度，眼軸 ≥ 26 mm）成年後的併發症風險：</p>
 <ul>
   <li><strong>視網膜剝離</strong> — 高度近視風險增加 5-10 倍</li>
   <li><strong>青光眼</strong> — 風險增加 2-3 倍</li>
@@ -297,19 +310,19 @@
 
 <h2 id="myth-2">迷思 2 · 「假性近視多休息就會好，不用看醫生」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:小孩說看遠模糊，可能是假性近視 — 多休息眼睛、不用驗光就會好。</div>
-  <div class="truth">真相:假性近視只能用<strong>散瞳劑驗光</strong>確認，不能用「多休息」自己判斷。錯過早期診斷可能讓真性近視快速進展。</div>
+  <div class="myth">迷思：小孩說看遠模糊，可能是假性近視 — 多休息眼睛、不用驗光就會好。</div>
+  <div class="truth">真相：假性近視只能用<strong>散瞳劑驗光</strong>確認，不能用「多休息」自己判斷。錯過早期診斷可能讓真性近視快速進展。</div>
 </div>
 <p><strong>假性近視（Pseudomyopia)</strong>是睫狀肌長時間用眼後痙攣，造成<strong>暫時性</strong>調節力過強，看遠模糊。但睫狀肌一放鬆就恢復。<strong>真性近視（Axial myopia)</strong>則是眼軸真的拉長，不可逆。</p>
 <p>外觀上兩者完全一樣 — 都是「看遠模糊」。唯一可靠的方法是<strong>散瞳後驗光（cycloplegic refraction)</strong>,通常用 1% Cyclopentolate 點眼後 30-45 分鐘，讓睫狀肌完全放鬆，再驗光。如果散瞳前後度數差很多 → 假性近視為主；如果散瞳後仍有度數 → 真性近視已經形成。</p>
-<p>第一次發現孩子看遠模糊就應該<strong>立刻就醫</strong>,不能觀察。原因:即使是假性近視，也代表眼睛長期過勞；若不介入，很快會變真性近視。台灣國健署建議學齡兒童每年做一次完整視力檢查（含散瞳驗光）。</p>
+<p>第一次發現孩子看遠模糊就應該<strong>立刻就醫</strong>,不能觀察。原因：即使是假性近視，也代表眼睛長期過勞；若不介入，很快會變真性近視。台灣國健署建議學齡兒童每年做一次完整視力檢查（含散瞳驗光）。</p>
 
 <h2 id="myth-3">迷思 3 · 「低濃度阿托品（Atropine)0.01% / 0.05% 哪個好?」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:聽說 0.01% 沒副作用、0.05% 怕畏光，所以選 0.01% 比較安全。</div>
+  <div class="myth">迷思：聽說 0.01% 沒副作用、0.05% 怕畏光，所以選 0.01% 比較安全。</div>
   <div class="truth">真相:LAMP 研究頭對頭比較顯示 <strong>0.05% 控制效果最好</strong>（約 67%),0.025% 中等（約 43%),0.01% 較弱（約 27%)。安全性都可接受。</div>
 </div>
-<p>2019 年香港 Yam JC 等人發表的 <strong>LAMP 研究（Low-concentration Atropine for Myopia Progression)</strong>,將 438 位 4-12 歲華人兒童隨機分配到三組，比較三種濃度的低濃度阿托品。第 1 年結果發表在 Ophthalmology 2019,第 2、3 年延伸資料陸續發表。關鍵結論:</p>
+<p>2019 年香港 Yam JC 等人發表的 <strong>LAMP 研究（Low-concentration Atropine for Myopia Progression)</strong>,將 438 位 4-12 歲華人兒童隨機分配到三組，比較三種濃度的低濃度阿托品。第 1 年結果發表在 Ophthalmology 2019,第 2、3 年延伸資料陸續發表。關鍵結論：</p>
 <table class="dn">
   <thead><tr><th>濃度</th><th>第 1 年近視進展減緩</th><th>常見副作用</th></tr></thead>
   <tbody>
@@ -318,7 +331,7 @@
     <tr><td>0.01%</td><td>~27%</td><td>幾乎無</td></tr>
   </tbody>
 </table>
-<p>解讀建議:</p>
+<p>解讀建議：</p>
 <ul>
   <li><strong>近視快速進展（>0.50 D / 年）</strong> → 從 0.05% 開始；畏光不耐受可降階。</li>
   <li><strong>進展緩慢、學齡前</strong> → 可從 0.025% 或 0.01% 試試。</li>
@@ -329,38 +342,38 @@
 <h2 id="myth-4">迷思 4 · 「角膜塑型片（OK 鏡）會傷角膜、得感染」</h2>
 <div class="myth-card">
   <div class="myth">迷思:OK 鏡晚上戴的硬鏡片，長期會把角膜磨壞、容易感染。</div>
-  <div class="truth">真相:正確使用感染率低於每年 0.01-0.13%（類似日拋軟鏡）。但<strong>清潔不當會大幅升高風險</strong> — 規律返診與正確消毒是關鍵。</div>
+  <div class="truth">真相：正確使用感染率低於每年 0.01-0.13%（類似日拋軟鏡）。但<strong>清潔不當會大幅升高風險</strong> — 規律返診與正確消毒是關鍵。</div>
 </div>
 <p>角膜塑型片（Orthokeratology, Ortho-K）是<strong>夜戴日取</strong>的高透氧硬式隱形眼鏡，睡眠時暫時把角膜中央壓平，白天不戴就能看清楚。研究顯示對近視控制有 <strong>40-50%</strong> 的減緩效果，機轉是改變周邊視網膜離焦訊號。</p>
-<p>感染風險是家長最大的疑慮。系統性回顧顯示,<strong>夜戴 OK 鏡的微生物性角膜炎風險約 7.7-13.9 / 萬人年</strong>,跟夜戴軟式隱形眼鏡相似。重點是:</p>
+<p>感染風險是家長最大的疑慮。系統性回顧顯示,<strong>夜戴 OK 鏡的微生物性角膜炎風險約 7.7-13.9 / 萬人年</strong>,跟夜戴軟式隱形眼鏡相似。重點是：</p>
 <ul>
   <li><strong>每天用無菌沖洗液清潔</strong>,不要用自來水。</li>
   <li>鏡片<strong>使用 1-1.5 年要更換</strong>,鏡盒每 3 個月換新。</li>
   <li><strong>感冒、發燒、眼睛紅停戴</strong>。</li>
   <li>每 3 個月回診檢查角膜。</li>
 </ul>
-<p>適合對象:近視 -1.50 至 -6.00 D、散光 < -1.50 D、8 歲以上配合度好的孩子。</p>
+<p>適合對象：近視 -1.50 至 -6.00 D、散光 < -1.50 D、8 歲以上配合度好的孩子。</p>
 
 <h2 id="myth-5">迷思 5 · 「多焦點離焦鏡片（DIMS）只是噱頭，普通眼鏡就夠了」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:這種特殊眼鏡價格貴，效果應該跟普通眼鏡差不多吧？</div>
+  <div class="myth">迷思：這種特殊眼鏡價格貴，效果應該跟普通眼鏡差不多吧？</div>
   <div class="truth">真相:Lam 等人 2020 年發表的隨機對照試驗顯示 DIMS 鏡片可減緩近視進展 <strong>約 60%</strong>,且 6 年延伸資料持續有效。</div>
 </div>
-<p><strong>DIMS(Defocus Incorporated Multiple Segments)</strong>鏡片由香港理工大學開發，商品名為 MyoSmart（豪雅 / Hoya)。原理:中央正常區域提供清晰視覺，周圍密布<strong>數百個 + 3.50 D 微透鏡</strong>,讓周邊視網膜接收「近視性離焦」訊號，抑制眼軸生長。</p>
-<p>2020 年 Lam CSY 等人在 British Journal of Ophthalmology 發表的 2 年 RCT(n=160,8-13 歲）結果:</p>
+<p><strong>DIMS(Defocus Incorporated Multiple Segments)</strong>鏡片由香港理工大學開發，商品名為 MyoSmart（豪雅 / Hoya)。原理：中央正常區域提供清晰視覺，周圍密布<strong>數百個 + 3.50 D 微透鏡</strong>,讓周邊視網膜接收「近視性離焦」訊號，抑制眼軸生長。</p>
+<p>2020 年 Lam CSY 等人在 British Journal of Ophthalmology 發表的 2 年 RCT(n=160,8-13 歲）結果：</p>
 <ul>
   <li>DIMS 組近視進展 <strong>-0.41 D</strong> vs 普通鏡片組 <strong>-0.85 D</strong>（減緩 52%)</li>
   <li>眼軸增長 <strong>0.21 mm vs 0.55 mm</strong>（減緩 62%)</li>
   <li>2023 年 6 年延伸資料（同期 2/3 受試者）顯示效果持續</li>
 </ul>
-<p>優點:<strong>無侵入性、孩子最容易配合</strong>（就跟戴普通眼鏡一樣）。缺點:<strong>價格較高，醫院實際開價約 NT$ 20,000–30,000 / 副</strong>（視框架材質、鍍膜與通路而定）;加上每 1–2 年需隨度數變化更換，是所有非藥物介入中累計花費最高的一條路。可作為單一治療，或搭配阿托品做組合療法。其他類似產品:HAL 鏡片（Highly Aspherical Lenslets, Essilor Stellest)、CARE / DOT 鏡片。</p>
+<p>優點：<strong>無侵入性、孩子最容易配合</strong>（就跟戴普通眼鏡一樣）。缺點：<strong>價格較高，醫院實際開價約 NT$ 20,000–30,000 / 副</strong>（視框架材質、鍍膜與通路而定）;加上每 1–2 年需隨度數變化更換，是所有非藥物介入中累計花費最高的一條路。可作為單一治療，或搭配阿托品做組合療法。其他類似產品:HAL 鏡片（Highly Aspherical Lenslets, Essilor Stellest)、CARE / DOT 鏡片。</p>
 
 <h2 id="myth-6">迷思 6 · 「重複式低能量紅光治療（RLRL)— 安全嗎？台灣有嗎?」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:聽說中國最新的紅光治療每天 3 分鐘就能控制近視，安全嗎？</div>
-  <div class="truth">真相:中國研究顯示控制效果可達 50-87%,但<strong>長期安全性與視網膜傷害爭議仍未完全釐清</strong>,FDA 與多數歐美國家尚未核准，台灣食藥署目前列為研究用途。</div>
+  <div class="myth">迷思：聽說中國最新的紅光治療每天 3 分鐘就能控制近視，安全嗎？</div>
+  <div class="truth">真相：中國研究顯示控制效果可達 50-87%,但<strong>長期安全性與視網膜傷害爭議仍未完全釐清</strong>,FDA 與多數歐美國家尚未核准，台灣食藥署目前列為研究用途。</div>
 </div>
-<p><strong>重複式低能量紅光治療（Repeated Low-Level Red-Light Therapy, RLRL)</strong>使用 650 nm 紅光，每天 2 次、每次 3 分鐘照射。Jiang Y 等人 2022 年發表在 Ophthalmology 的多中心 RCT(n=246,8-13 歲）顯示:</p>
+<p><strong>重複式低能量紅光治療（Repeated Low-Level Red-Light Therapy, RLRL)</strong>使用 650 nm 紅光，每天 2 次、每次 3 分鐘照射。Jiang Y 等人 2022 年發表在 Ophthalmology 的多中心 RCT(n=246,8-13 歲）顯示：</p>
 <ul>
   <li>RLRL 組眼軸增長 <strong>-0.06 mm</strong>（縮短）vs 對照組 <strong>+0.34 mm</strong></li>
   <li>近視度數變化 <strong>+0.17 D vs -0.49 D</strong></li>
@@ -373,18 +386,18 @@
   <li>停止治療後快速反彈（>30%)。</li>
   <li>FDA 尚未核准用於近視控制；歐盟 CE 認證僅作為「視覺訓練」。</li>
 </ul>
-<p>目前主流眼科建議:<strong>不作為第一線治療</strong>,需審慎評估、密切追蹤眼底，優先嘗試已有 10 年以上長期安全資料的阿托品或 OK 鏡。</p>
+<p>目前主流眼科建議：<strong>不作為第一線治療</strong>,需審慎評估、密切追蹤眼底，優先嘗試已有 10 年以上長期安全資料的阿托品或 OK 鏡。</p>
 
 <h2 id="myth-7">迷思 7 · 「戶外活動跟近視沒關係吧?」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:戶外曬太陽很熱，孩子待室內念書才是正事，近視跟戶外沒關係。</div>
-  <div class="truth">真相:每天戶外 <strong>2 小時</strong>（尤其學齡前）能顯著降低新發近視風險約 30-50%。這是預防近視<strong>唯一</strong>免費、零風險的方法。</div>
+  <div class="myth">迷思：戶外曬太陽很熱，孩子待室內念書才是正事，近視跟戶外沒關係。</div>
+  <div class="truth">真相：每天戶外 <strong>2 小時</strong>（尤其學齡前）能顯著降低新發近視風險約 30-50%。這是預防近視<strong>唯一</strong>免費、零風險的方法。</div>
 </div>
-<p>戶外活動預防近視的證據已經非常充分:</p>
+<p>戶外活動預防近視的證據已經非常充分：</p>
 <ul>
   <li>He M 等人 2015 年發表在 JAMA 的廣州 RCT(n=1903 兒童）:每天多 40 分鐘戶外活動,3 年內新發近視率從 39.5% 降至 30.4%。</li>
-  <li>台灣 Wu PC 等人 2013、2020 年系列研究:推動「下課教室淨空、強迫到戶外」政策，新發近視率明顯下降。</li>
-  <li>劑量反應關係:戶外時間每增加 1 小時/週，近視風險降低 ~2%。</li>
+  <li>台灣 Wu PC 等人 2013、2020 年系列研究：推動「下課教室淨空、強迫到戶外」政策，新發近視率明顯下降。</li>
+  <li>劑量反應關係：戶外時間每增加 1 小時/週，近視風險降低 ~2%。</li>
 </ul>
 <p>機轉假說（尚未完全確定）:</p>
 <ul>
@@ -392,7 +405,7 @@
   <li><strong>遠距離視覺</strong> — 減少近距離調節需求</li>
   <li><strong>瞳孔縮小、景深增加</strong> — 減少視網膜離焦</li>
 </ul>
-<p>實務建議:每天累積 2 小時以上戶外時間（陰天也算）,學齡前最關鍵。重點是「<strong>到戶外</strong>」,不是「運動」 — 戶外散步、戶外閱讀都行，只要在自然光下。</p>
+<p>實務建議：每天累積 2 小時以上戶外時間（陰天也算）,學齡前最關鍵。重點是「<strong>到戶外</strong>」,不是「運動」 — 戶外散步、戶外閱讀都行，只要在自然光下。</p>
 
 <!-- ============= 介入方法效力比較表 （基於 IMI 2023 + LAMP / DIMS / BAMC trials) ============= -->
 <figure class="dn-figure" style="margin:28px 0;page-break-inside:avoid;">
@@ -458,10 +471,10 @@
 
 <h2 id="myth-8">迷思 8 · 「近視控制是一輩子的事嗎？幾歲可以停?」</h2>
 <div class="myth-card">
-  <div class="myth">迷思:用阿托品或 OK 鏡是不是要一直用到成年？</div>
-  <div class="truth">真相:多數人可在<strong>近視穩定後</strong>（通常 18-20 歲、連續 1 年度數變化 < 0.50 D）停止介入。提前停藥反彈風險高。</div>
+  <div class="myth">迷思：用阿托品或 OK 鏡是不是要一直用到成年？</div>
+  <div class="truth">真相：多數人可在<strong>近視穩定後</strong>（通常 18-20 歲、連續 1 年度數變化 < 0.50 D）停止介入。提前停藥反彈風險高。</div>
 </div>
-<p>近視控制治療的「終點」並非固定年齡，而是<strong>近視進展自然停止</strong>的時間點。一般時間軸:</p>
+<p>近視控制治療的「終點」並非固定年齡，而是<strong>近視進展自然停止</strong>的時間點。一般時間軸：</p>
 <table class="dn">
   <thead><tr><th>年齡</th><th>近視進展速度</th><th>策略</th></tr></thead>
   <tbody>
@@ -471,7 +484,7 @@
     <tr><td>大學（18-25 歲）</td><td>趨近穩定</td><td>監測；考慮逐步停藥</td></tr>
   </tbody>
 </table>
-<p>停藥前建議:</p>
+<p>停藥前建議：</p>
 <ul>
   <li>確認近視 <strong>連續 12 個月變化 < 0.50 D</strong>。</li>
   <li>若用阿托品，可<strong>逐步降階</strong>(0.05% → 0.025% → 0.01% → 停）,每 3-6 個月減一階，觀察是否反彈。</li>
@@ -760,7 +773,7 @@
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260524" defer></script>
+<script src="/blog/blog-shared.js?v=20260525" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>
 </html>
