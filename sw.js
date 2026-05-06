@@ -18,8 +18,8 @@
  * v16: /en/ mirror, calculator framework + 5 ophth calcs.
  *     cache-bust ?v=20260520
  */
-const CACHE = 'hs-v19';
-const RUNTIME = 'hs-runtime-v19';
+const CACHE = 'hs-v20';
+const RUNTIME = 'hs-runtime-v20';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [

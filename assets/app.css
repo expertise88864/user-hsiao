@@ -348,6 +348,80 @@ img, video { max-width: 100%; height: auto; }
 }
 
 /* ============================================================
+   ARTICLE — Red-flag callout + Related-articles pill list
+   ------------------------------------------------------------
+   Replaces previously-inline-styled blocks in articles whose
+   inline style="..." attributes inside data-zh/data-en broke
+   the HTML attribute parser (causing empty render).
+   ============================================================ */
+.hs-redflag-box {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border: 2px solid #fca5a5;
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 28px auto;
+  max-width: 680px;
+  box-shadow: 0 8px 18px -10px rgba(220,38,38,.25);
+}
+.hs-redflag-title {
+  color: #991b1b;
+  font-family: 'Fraunces','Noto Serif TC',Georgia,serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hs-redflag-list {
+  margin: 0;
+  padding-left: 22px;
+  color: #7f1d1d;
+  font-size: 14.5px;
+  line-height: 1.85;
+  list-style: disc;
+}
+.hs-redflag-list li { margin: 6px 0; }
+.hs-redflag-list strong { color: #7c2d12; font-weight: 700; }
+
+.hs-related-box {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 18px auto 28px;
+  max-width: 680px;
+}
+.hs-related-title {
+  font-family: 'Fraunces','Noto Serif TC',Georgia,serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.hs-related-sub { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+.hs-related-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.hs-related-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  border: 1px solid #b8cfe3;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.hs-related-pill:hover {
+  background: #b8cfe3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px -4px rgba(58,90,124,.25);
+}
+
+/* ============================================================
    VISUAL RHYTHM — subtle section dividers for cleaner flow
    ------------------------------------------------------------
    Use `<hr class="sep">` between major sections to give the eye
