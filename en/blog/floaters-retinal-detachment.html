@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant-TW">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -9,7 +9,7 @@
 <meta name="keywords" content="飛蚊症,Floaters,後玻璃體剝離,Posterior vitreous detachment,PVD,視網膜剝離,Retinal detachment,RRD,視網膜裂孔,Retinal break,閃光感,Photopsia,高度近視,Lattice degeneration,雷射光凝固,Pneumatic retinopexy,玻璃體切除,Vitrectomy,蕭閔謙醫師，眼科衛教,HsiaoEye" />
 <meta name="author" content="蕭閔謙 醫師 · HsiaoEye" />
 
-<link rel="canonical" href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
+<link rel="canonical" href="https://hsiao.chendermatologist.com/en/blog/floaters-retinal-detachment" />
 <link rel="author" href="https://hsiao.chendermatologist.com/about" />
 <link rel="publisher" href="https://hsiao.chendermatologist.com/" />
 <link rel="alternate" hreflang="x-default" href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
@@ -29,7 +29,7 @@
 <meta property="og:title" content="飛蚊症 6 大警訊 — 何時要立刻看眼科?" />
 <meta property="og:description" content="突發閃光、視野缺損、視力下降是視網膜裂孔/剝離的警訊。72 小時內治療大幅改善預後。" />
 <meta property="og:image" content="https://hsiao.chendermatologist.com/icon-512.png" />
-<meta property="og:locale" content="zh_TW" />
+<meta property="og:locale" content="en_US" />
 <meta property="og:site_name" content="HsiaoEye" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="飛蚊症 6 大警訊" />
@@ -123,6 +123,10 @@
 <body class="font-sans antialiased text-ink-900">
 <a href="#main-content" class="skip-link" style="position:absolute;left:-999px;top:0;background:#243b56;color:#fff;padding:8px 16px;z-index:9999;border-radius:0 0 8px 0;font-size:13px;font-weight:600" onfocus="this.style.left='0'" onblur="this.style.left='-999px'">跳到主內容</a>
 
+<div id="hs-en-banner" style="background:linear-gradient(180deg,#e3edf6,#b8cfe3);border-bottom:1px solid #3a5a7c;padding:9px 18px;text-align:center;font-size:12.5px;color:#243b56;font-family:Inter,system-ui,sans-serif;line-height:1.5;font-weight:500">
+  🌐 You are reading the English-mode interface. Some article body content is currently Chinese-only — full translation in progress.
+  <a href="#" id="hs-en-banner-zh" style="margin-left:8px;color:#0f172a;font-weight:700;text-decoration:underline">Switch to 中文 ↗</a>
+</div>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
     <div class="h-16 flex items-center justify-between gap-4">
@@ -535,6 +539,18 @@
   </div>
 </footer>
 
+<script>
+// Force English mode for /en/ pages — runs before blog-shared.js so the
+// first applyTextOnly() pass uses English (no FOUC).
+try {
+  localStorage.setItem('hs_lang', 'en');
+  document.cookie = 'hs_lang=en;path=/;max-age=31536000;samesite=lax';
+} catch (e) {}
+document.addEventListener('DOMContentLoaded', function () {
+  var sw = document.getElementById('hs-en-banner-zh');
+  if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
+});
+</script>
 <script src="/blog/blog-shared.js?v=20260517" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>

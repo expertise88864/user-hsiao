@@ -1,17 +1,20 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v15: DermNotes parity sprint — Cmd+K search modal, article hero SVG banner,
- *      enhanced images (lazy + lightbox), inline CTA, NEW badge for last-14d,
- *      GA4 event tracking + Web Vitals (LCP/CLS/INP), JSON-LD wordCount/keywords,
- *      bogus hreflang=en removed (no /en/ mirror), CSP frame-src + COOP +
- *      X-XSS-Protection, /rss /feed /atom redirects, feed Cache-Control,
- *      dns-prefetch hints. RUNTIME max raised 40→60.
+ * v16: + English mirror (/en/) generated via _gen_en_pages.py — 14 pages
+ *      (about/blog/index/notes/privacy/tools + 8 articles). hreflang fully
+ *      restored across all HTML + sitemap (zh-Hant-TW + en + x-default per URL).
+ *    + Calculator framework: DN.calcStyles + DN._buildCalc + 5 ophth calcs:
+ *      OSDI, DEQ-5, Snellen↔LogMAR, Spherical Equivalent, Floater Red-Flag.
+ *      Auto-injected on dry-eye / pediatric-myopia / floaters articles, +
+ *      mounted on /tools hub via [data-calc] placeholders.
+ * v15: DermNotes parity sprint — Cmd+K, article hero SVG, lazy images +
+ *      lightbox, inline CTA, NEW badge, GA4 events + Web Vitals.
  * v14: home article-list-item properly styled, spotlight 32x32 SVG icons.
  * v13: hero card rotation (Fisher-Yates), quick-find chips reduced to 4.
- * v12: + WebP/AVIF SUNN1302 (220/440/660), 何時就醫 + 延伸閱讀 modules.
- *     cache-bust ?v=20260516
+ * v12: WebP/AVIF SUNN1302, 何時就醫 + 延伸閱讀 modules.
+ *     cache-bust ?v=20260517
  */
-const CACHE = 'hs-v15';
-const RUNTIME = 'hs-runtime-v15';
+const CACHE = 'hs-v16';
+const RUNTIME = 'hs-runtime-v16';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [
@@ -45,7 +48,13 @@ const PRECACHE = [
   '/blog/glaucoma-warnings',
   '/blog/contact-lens-safety',
   '/blog/red-eye-conjunctivitis',
-  '/notes'
+  '/notes',
+  '/tools',
+  // English mirror (/en/) — kept lightweight; runtime cache covers the rest
+  '/en/',
+  '/en/about',
+  '/en/tools',
+  '/en/blog/'
 ];
 
 self.addEventListener('install', (e) => {

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant-TW">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -7,7 +7,8 @@
 <meta name="description" content="HsiaoEye 學習筆記 — 給住院醫師、實習醫學生的眼科深入閱讀。" />
 <meta name="theme-color" content="#3a5a7c" />
 <meta name="robots" content="index,follow" />
-<link rel="canonical" href="https://hsiao.chendermatologist.com/notes" />
+<link rel="canonical" href="https://hsiao.chendermatologist.com/en/notes" />
+<link rel="alternate" hreflang="x-default" href="https://hsiao.chendermatologist.com/notes" />
 <link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/notes" />
 <link rel="alternate" hreflang="en" href="https://hsiao.chendermatologist.com/en/notes" />
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
@@ -38,6 +39,8 @@
   .placeholder-card p{ font-size:14.5px; line-height:1.85; color:var(--ink-2); margin:6px 0; }
   .placeholder-card .meta{ font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:18px; }
 </style>
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="zh_TW" />
 </head>
 <body>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(250,247,242,.92); border-color:var(--border)">
@@ -60,6 +63,10 @@
     </div>
   </div>
 </header>
+<div id="hs-en-banner" style="background:linear-gradient(180deg,#e3edf6,#b8cfe3);border-bottom:1px solid #3a5a7c;padding:9px 18px;text-align:center;font-size:12.5px;color:#243b56;font-family:Inter,system-ui,sans-serif;line-height:1.5;font-weight:500">
+  🌐 You are reading the English-mode interface. Some article body content is currently Chinese-only — full translation in progress.
+  <a href="#" id="hs-en-banner-zh" style="margin-left:8px;color:#0f172a;font-weight:700;text-decoration:underline">Switch to 中文 ↗</a>
+</div>
 
 <main class="max-w-5xl mx-auto px-5 sm:px-8 py-12">
   <div style="font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--teal-deep); font-weight:600" data-zh="學習筆記" data-en="Study Notes">學習筆記</div>
@@ -107,6 +114,18 @@
   </div>
 </footer>
 
+<script>
+// Force English mode for /en/ pages — runs before blog-shared.js so the
+// first applyTextOnly() pass uses English (no FOUC).
+try {
+  localStorage.setItem('hs_lang', 'en');
+  document.cookie = 'hs_lang=en;path=/;max-age=31536000;samesite=lax';
+} catch (e) {}
+document.addEventListener('DOMContentLoaded', function () {
+  var sw = document.getElementById('hs-en-banner-zh');
+  if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
+});
+</script>
 <script src="/blog/blog-shared.js?v=20260517" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 </body>

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>眼科自評量表 · 5 個臨床計算器 | HsiaoEye</title>
+<meta name="description" content="OSDI、DEQ-5、Snellen↔LogMAR、球面等價度數 (SE)、飛蚊症警訊自我檢核 — 5 個眼科常用臨床量表，蕭閔謙醫師整理，立即線上計算與分級解讀。" />
+<meta name="theme-color" content="#3a5a7c" />
+<meta name="keywords" content="OSDI,Ocular Surface Disease Index,DEQ-5,乾眼症自評,Snellen,LogMAR,球面等價度數,Spherical Equivalent,飛蚊症,Retinal Detachment,視力換算，眼科量表,Ophthalmology calculator" />
+<meta name="author" content="蕭閔謙 醫師 · HsiaoEye" />
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://hsiao.chendermatologist.com/en/tools" />
+<link rel="alternate" hreflang="x-default" href="https://hsiao.chendermatologist.com/tools" />
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/tools" />
+<link rel="alternate" hreflang="en" href="https://hsiao.chendermatologist.com/en/tools" />
+<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
+<link rel="icon" sizes="any" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="眼科自評量表 · 5 個臨床計算器 | HsiaoEye" />
+<meta property="og:description" content="OSDI、DEQ-5、Snellen↔LogMAR、球面等價度數、飛蚊症警訊 — 5 個眼科常用臨床量表，立即線上計算。" />
+<meta property="og:url" content="https://hsiao.chendermatologist.com/tools" />
+<meta property="og:image" content="https://hsiao.chendermatologist.com/icon-512.png" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content="HsiaoEye" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="眼科自評量表 · 5 個臨床計算器 | HsiaoEye" />
+<meta name="twitter:description" content="OSDI、DEQ-5、視力換算、SE、飛蚊症警訊 — 線上眼科量表。" />
+
+<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+<link rel="dns-prefetch" href="https://www.google-analytics.com" />
+<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+<link rel="dns-prefetch" href="https://www.clarity.ms" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/app.css" />
+<style>
+  :root{
+    --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
+    --teal:#6b8caf; --teal-deep:#3a5a7c; --teal-bright:#a4c4dd; --mint-soft:#dcd9d1;
+    --blue:#6b8caf; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0;
+    --gold:#c9a961; --ochre:#c9a961; --border:#dcd5c8; --line:#ebe4d8;
+  }
+  html,body{ background:var(--bg); color:var(--ink); font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; }
+  body::before{ content:''; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background: radial-gradient(800px 500px at 12% -8%, rgba(143,179,212,.18), transparent 60%),
+                linear-gradient(180deg,#f7f5f0 0%, #fbfaf6 40%, #f7f5f0 100%); }
+  .blue-text{ background:linear-gradient(180deg,#6b8caf 0%, #243b56 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lang-select{ appearance:none; -webkit-appearance:none; -moz-appearance:none; padding:6px 26px 6px 12px; font-size:12px; font-weight:600; color:var(--ink); border:1px solid var(--border); border-radius:9999px; background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path fill='%23243b56' d='M6 8 0 0h12z'/></svg>") no-repeat right 10px center; background-size:8px 6px; cursor:pointer; line-height:1.2; }
+
+  /* Tool nav grid (jump-to anchors) */
+  .tool-nav{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:10px; margin:24px 0; }
+  .tool-nav a{ display:flex; flex-direction:column; gap:4px; padding:14px 16px; background:#fff; border:0.5px solid var(--border); border-radius:14px; text-decoration:none; color:var(--ink); transition:all .18s ease; box-shadow:0 1px 2px rgba(15,23,42,.04); }
+  .tool-nav a:hover{ border-color:rgba(58,90,124,.5); transform:translateY(-2px); box-shadow:0 8px 18px -10px rgba(58,90,124,.22); }
+  .tool-nav .t-eyebrow{ font-family:'JetBrains Mono',Inter,monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--blue-deep); font-weight:700; }
+  .tool-nav .t-title{ font-family:'Noto Serif TC',Georgia,serif; font-size:15.5px; font-weight:700; color:var(--ink); line-height:1.4; }
+  .tool-nav .t-sub{ font-size:11.5px; color:var(--muted); }
+
+  .tool-section{ scroll-margin-top:80px; }
+  .tool-section h2{ font-family:'Noto Serif TC',Georgia,serif; font-size:22px; font-weight:700; color:var(--ink); margin:36px 0 8px; padding-left:14px; border-left:3px solid var(--blue); }
+  .tool-section p.lead{ font-size:14px; color:var(--ink-2); margin:0 0 12px; line-height:1.85; }
+  .tool-section .ref{ display:inline-block; padding:4px 10px; border-radius:9999px; background:var(--blue-soft); border:1px solid #b8cfe3; color:var(--blue-deep); font-family:'JetBrains Mono',Inter,monospace; font-size:11px; font-weight:600; margin:6px 6px 0 0; }
+  .disclaimer-box{ background:#fef9f0; border:1px solid #f4dfae; border-radius:14px; padding:16px 20px; color:#7a5a18; font-size:13.5px; line-height:1.85; margin:24px 0; }
+  .disclaimer-box strong{ color:#5a4012; }
+</style>
+<style id="hs-global-ux">
+  body { padding-bottom: env(safe-area-inset-bottom); }
+  header.sticky { padding-top: env(safe-area-inset-top); }
+  :focus-visible { outline: 2px solid rgba(143,179,212,.7); outline-offset: 2px; border-radius: 4px; }
+  a, button { touch-action: manipulation; }
+  html { -webkit-text-size-adjust: 100%; }
+  html, body { overflow-x: hidden; }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "眼科自評量表 · HsiaoEye 臨床計算器",
+  "alternateName": "HsiaoEye Ophthalmology Calculators",
+  "url": "https://hsiao.chendermatologist.com/tools",
+  "applicationCategory": "MedicalApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TWD" },
+  "description": "5 個眼科常用臨床量表線上計算：OSDI、DEQ-5、Snellen↔LogMAR、球面等價度數、飛蚊症警訊自我檢核。",
+  "creator": { "@type": "Person", "name": "蕭閔謙 醫師", "honorificSuffix": "M.D.", "url": "https://hsiao.chendermatologist.com/about" },
+  "isAccessibleForFree": true,
+  "inLanguage": ["zh-Hant-TW","en"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},
+    {"@type":"ListItem","position":2,"name":"眼科自評量表","item":"https://hsiao.chendermatologist.com/tools"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "HsiaoEye 眼科臨床量表",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"OSDI · 乾眼症狀自評","url":"https://hsiao.chendermatologist.com/tools#osdi"},
+    {"@type":"ListItem","position":2,"name":"DEQ-5 · 5 題快速乾眼篩檢","url":"https://hsiao.chendermatologist.com/tools#deq5"},
+    {"@type":"ListItem","position":3,"name":"Snellen ↔ LogMAR 視力換算","url":"https://hsiao.chendermatologist.com/tools#snellen"},
+    {"@type":"ListItem","position":4,"name":"球面等價度數 (SE) 計算","url":"https://hsiao.chendermatologist.com/tools#se"},
+    {"@type":"ListItem","position":5,"name":"飛蚊症警訊自我檢核","url":"https://hsiao.chendermatologist.com/tools#floater"}
+  ]
+}
+</script>
+</head>
+<body class="font-sans antialiased text-ink-900">
+<a href="#main-content" class="skip-link" style="position:absolute;left:-999px;top:0;background:#243b56;color:#fff;padding:8px 16px;z-index:9999;border-radius:0 0 8px 0;font-size:13px;font-weight:600" onfocus="this.style.left='0'" onblur="this.style.left='-999px'">跳到主內容</a>
+
+<div id="hs-en-banner" style="background:linear-gradient(180deg,#e3edf6,#b8cfe3);border-bottom:1px solid #3a5a7c;padding:9px 18px;text-align:center;font-size:12.5px;color:#243b56;font-family:Inter,system-ui,sans-serif;line-height:1.5;font-weight:500">
+  🌐 You are reading the English-mode interface. Some article body content is currently Chinese-only — full translation in progress.
+  <a href="#" id="hs-en-banner-zh" style="margin-left:8px;color:#0f172a;font-weight:700;text-decoration:underline">Switch to 中文 ↗</a>
+</div>
+<header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="h-16 flex items-center justify-between gap-4">
+      <a href="/" class="flex items-center gap-3 min-w-0">
+        <img src="/icon.svg" alt="HsiaoEye" class="w-9 h-9 rounded-lg flex-shrink-0" width="36" height="36" />
+        <div class="min-w-0 leading-tight">
+          <div class="font-display font-semibold text-[16px] sm:text-[18px] blue-text">HsiaoEye</div>
+          <div class="text-[10.5px] sm:text-[11.5px] mt-0.5 truncate" style="color:var(--muted)" data-zh="蕭閔謙醫師 · 眼科衛教筆記" data-en="Dr. Min-Chien Hsiao · Ophthalmology Notes">蕭閔謙醫師 · 眼科衛教筆記</div>
+        </div>
+      </a>
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <a href="/blog/" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
+        <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
+        <button aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <select id="langToggle" class="lang-select" aria-label="Language">
+          <option value="zh">中文</option>
+          <option value="en">EN</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+<section class="pt-12 sm:pt-16 pb-6">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8">
+    <div class="text-[11px] uppercase tracking-[.24em] font-semibold" style="color:var(--blue-deep)" data-zh="眼科自評量表" data-en="Ophthalmology Calculators">眼科自評量表</div>
+    <h1 class="font-display font-bold text-[34px] sm:text-[42px] mt-3 leading-tight" data-zh="5 個眼科臨床計算器" data-en="5 Ophthalmology Calculators">5 個眼科臨床計算器</h1>
+    <p class="mt-4 text-[15px] leading-[1.85]" style="color:var(--ink-2)" data-zh="所有量表均根據國際同儕審查文獻 (AAO PPP、DEWS II、IMI 共識）。本工具僅作衛教自評，最終診斷與治療決策應由眼科專科醫師進行。" data-en="All scales are based on peer-reviewed sources (AAO PPP, DEWS II, IMI consensus). For self-education only — final diagnosis and treatment require an in-person ophthalmology evaluation.">所有量表均根據國際同儕審查文獻（AAO PPP、DEWS II、IMI 共識）。本工具僅作衛教自評，最終診斷與治療決策應由眼科專科醫師進行。</p>
+  </div>
+</section>
+
+<!-- Tool nav (jump-to) -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8">
+  <nav class="tool-nav" aria-label="量表導覽">
+    <a href="#osdi"><span class="t-eyebrow">DRY EYE</span><span class="t-title" data-zh="OSDI · 乾眼症狀自評" data-en="OSDI · Dry-eye self-screen">OSDI · 乾眼症狀自評</span><span class="t-sub" data-zh="6 題快速版 · 0–100 分" data-en="6-item · 0–100">6 題快速版 · 0–100 分</span></a>
+    <a href="#deq5"><span class="t-eyebrow">DRY EYE · SCREEN</span><span class="t-title" data-zh="DEQ-5 · 快速乾眼篩檢" data-en="DEQ-5 · 5-item screen">DEQ-5 · 快速乾眼篩檢</span><span class="t-sub" data-zh="5 題 · ≥12 篩 Sjögren" data-en="5 items · ≥12 → Sjögren">5 題 · ≥12 篩 Sjögren</span></a>
+    <a href="#snellen"><span class="t-eyebrow">VISION</span><span class="t-title" data-zh="Snellen ↔ LogMAR" data-en="Snellen ↔ LogMAR">Snellen ↔ LogMAR</span><span class="t-sub" data-zh="視力換算 · 法定盲門檻" data-en="VA conversion · legal blindness">視力換算 · 法定盲門檻</span></a>
+    <a href="#se"><span class="t-eyebrow">REFRACTION</span><span class="t-title" data-zh="球面等價度數 SE" data-en="Spherical Equivalent SE">球面等價度數 SE</span><span class="t-sub" data-zh="近視分級 · 視網膜風險" data-en="Myopia grade · RD risk">近視分級 · 視網膜風險</span></a>
+    <a href="#floater"><span class="t-eyebrow">EMERGENCY</span><span class="t-title" data-zh="飛蚊症警訊 6 項" data-en="Floater Red-Flag 6">飛蚊症警訊 6 項</span><span class="t-sub" data-zh="AAO PVD PPP 2023" data-en="AAO PVD PPP 2023">AAO PVD PPP 2023</span></a>
+  </nav>
+</section>
+
+<!-- ============= TOOL 1: OSDI ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 tool-section" id="osdi">
+  <h2 data-zh="OSDI · Ocular Surface Disease Index" data-en="OSDI · Ocular Surface Disease Index">OSDI · Ocular Surface Disease Index</h2>
+  <p class="lead" data-zh="OSDI 是眼科最常用的乾眼症狀問卷，衡量光、風、3C 螢幕等對日常生活的影響。完整版 12 題，本站採取簡化 6 題快速版。" data-en="OSDI is the most-used dry-eye symptom questionnaire — light, wind, screens. Original is 12 items; this site uses a simplified 6-item version.">OSDI 是眼科最常用的乾眼症狀問卷，衡量光、風、3C 螢幕等對日常生活的影響。完整版 12 題，本站採取簡化 6 題快速版。</p>
+  <div>
+    <span class="ref">Schiffman 2000</span>
+    <span class="ref">DEWS II 2017</span>
+    <span class="ref">分級 13 / 23 / 33</span>
+  </div>
+  <div data-calc="osdi"></div>
+</section>
+
+<!-- ============= TOOL 2: DEQ-5 ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 tool-section" id="deq5">
+  <h2 data-zh="DEQ-5 · 5 題快速乾眼篩檢" data-en="DEQ-5 · 5-item Dry-Eye Screen">DEQ-5 · 5 題快速乾眼篩檢</h2>
+  <p class="lead" data-zh="DEQ-5 是 5 題版的乾眼問卷,1 分鐘完成。≥6 高度懷疑乾眼;≥12 應加做 Sjögren 抗體 (anti-SSA/Ro)。" data-en="DEQ-5 is a 5-item dry-eye questionnaire. ≥6 → likely DED; ≥12 → screen for Sjögren (anti-SSA/Ro).">DEQ-5 是 5 題版的乾眼問卷，1 分鐘完成。≥6 高度懷疑乾眼；≥12 應加做 Sjögren 抗體 (anti-SSA/Ro)。</p>
+  <div>
+    <span class="ref">Chalmers 2010</span>
+    <span class="ref">Bunya 2018</span>
+    <span class="ref">分級 6 / 12</span>
+  </div>
+  <div data-calc="deq5"></div>
+</section>
+
+<!-- ============= TOOL 3: Snellen ↔ LogMAR ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 tool-section" id="snellen">
+  <h2 data-zh="Snellen ↔ LogMAR 視力換算" data-en="Snellen ↔ LogMAR Conversion">Snellen ↔ LogMAR 視力換算</h2>
+  <p class="lead" data-zh="LogMAR = log₁₀(1 ÷ Snellen 小數）。臨床研究幾乎都用 LogMAR（線性可加減）;門診仍以 Snellen 20/?? 為主。世界衛生組織法定盲門檻為 Snellen ≤ 20/400 (0.05 / LogMAR ≥ 1.30)。" data-en="LogMAR = log10(1 ÷ Snellen decimal). Clinical trials use LogMAR (additive). WHO legal blindness: Snellen ≤ 20/400 (0.05 / LogMAR ≥ 1.30).">LogMAR = log₁₀(1 ÷ Snellen 小數）。臨床研究幾乎都用 LogMAR（線性可加減）；門診仍以 Snellen 20/?? 為主。WHO 法定盲門檻為 Snellen ≤ 20/400（0.05 / LogMAR ≥ 1.30）。</p>
+  <div>
+    <span class="ref">ETDRS</span>
+    <span class="ref">WHO ICD-11</span>
+  </div>
+  <div data-calc="snellen"></div>
+</section>
+
+<!-- ============= TOOL 4: Spherical Equivalent ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 tool-section" id="se">
+  <h2 data-zh="球面等價度數 SE" data-en="Spherical Equivalent (SE)">球面等價度數 SE</h2>
+  <p class="lead" data-zh="SE = sphere + cylinder ÷ 2。可比較不同散光軸的兩次驗光，也是兒童近視追蹤的標準指標。≤ -6.00 D 為高度近視，視網膜剝離與黃斑病變風險顯著上升。" data-en="SE = sphere + cyl/2. Standard tool for myopia tracking. ≤ -6.00 D = high myopia, increased risk of retinal detachment and myopic maculopathy.">SE = sphere + cylinder ÷ 2。可比較不同散光軸的兩次驗光，也是兒童近視追蹤的標準指標。≤ -6.00 D 為高度近視，視網膜剝離與黃斑病變風險顯著上升。</p>
+  <div>
+    <span class="ref">IMI 2023</span>
+    <span class="ref">高度近視 -6.00 D</span>
+    <span class="ref">病理性 -10.00 D</span>
+  </div>
+  <div data-calc="se"></div>
+</section>
+
+<!-- ============= TOOL 5: Floater Red-Flag ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 tool-section" id="floater">
+  <h2 data-zh="飛蚊症警訊 6 項自我檢核" data-en="Floater Red-Flag Self-Check">飛蚊症警訊 6 項自我檢核</h2>
+  <p class="lead" data-zh="多數飛蚊是良性玻璃體混濁，但「突然爆增 + 閃光 + 視野缺損」可能是視網膜裂孔或剝離前兆。此清單依 AAO PVD PPP 2023 整理，任一項為「是」即建議 24–48 小時內就診眼科散瞳眼底檢查。" data-en="Most floaters are benign vitreous opacities — but sudden showers + flashes + field defects may signal retinal tear/detachment. List based on AAO PVD PPP 2023.">多數飛蚊是良性玻璃體混濁，但「突然爆增 + 閃光 + 視野缺損」可能是視網膜裂孔或剝離前兆。此清單依 AAO PVD PPP 2023 整理，任一項為「是」即建議 24–48 小時內就診眼科散瞳眼底檢查。</p>
+  <div>
+    <span class="ref">AAO PPP 2023</span>
+    <span class="ref">PVD / 視網膜裂孔</span>
+    <span class="ref">急診轉診</span>
+  </div>
+  <div data-calc="floater"></div>
+</section>
+
+<!-- ============= 重要聲明 ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 my-10">
+  <div class="disclaimer-box">
+    <strong data-zh="重要聲明" data-en="Important Notice">重要聲明</strong><br/>
+    <span data-zh="本頁所有量表為衛教自評工具,<strong>不能取代眼科專科醫師面對面評估</strong>。OSDI、DEQ-5 為篩檢用途，陽性結果應接續做 Schirmer、TBUT、眼表染色、淚膜滲透壓等客觀檢查。SE、視力換算為計算工具，不涉診斷。飛蚊症警訊為分流參考，最終診斷需散瞳眼底檢查。依《醫療法》§85-86 及《醫師法》§17,個別治療結果因人而異，本網站不保證任何結果。" data-en="All calculators on this page are self-education tools and <strong>cannot replace an in-person ophthalmology evaluation</strong>. OSDI / DEQ-5 are screening — positives need Schirmer, TBUT, ocular surface staining, tear osmolarity. SE and VA conversion are computational tools, not diagnostic. Floater red-flags are triage guidance only. Per Taiwan Medical Care Act §85-86 and Physicians Act §17, individual outcomes vary; no result is guaranteed.">本頁所有量表為衛教自評工具，<strong>不能取代眼科專科醫師面對面評估</strong>。OSDI、DEQ-5 為篩檢用途，陽性結果應接續做 Schirmer、TBUT、眼表染色、淚膜滲透壓等客觀檢查。SE、視力換算為計算工具，不涉診斷。飛蚊症警訊為分流參考，最終診斷需散瞳眼底檢查。依《醫療法》§85-86 及《醫師法》§17，個別治療結果因人而異，本網站不保證任何結果。</span>
+  </div>
+</section>
+
+<!-- ============= Related articles ============= -->
+<section class="max-w-3xl mx-auto px-5 sm:px-8 my-10">
+  <div style="border-top:1px solid var(--line); padding-top:24px;">
+    <div class="text-[11px] uppercase tracking-[.22em] font-semibold mb-4" style="color:var(--blue-deep)" data-zh="延伸閱讀" data-en="Further reading">延伸閱讀</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <a href="/blog/dry-eye-myths" style="display:block;padding:14px 16px;background:#fff;border:0.5px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
+        <div style="font-family:'JetBrains Mono',Inter,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-deep);font-weight:700">乾眼症 · DRY EYE</div>
+        <div style="font-family:'Noto Serif TC',Georgia,serif;font-size:15px;font-weight:700;margin-top:4px;line-height:1.45" data-zh="乾眼症 8 大迷思" data-en="8 dry-eye myths">乾眼症 8 大迷思</div>
+      </a>
+      <a href="/blog/pediatric-myopia-control" style="display:block;padding:14px 16px;background:#fff;border:0.5px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
+        <div style="font-family:'JetBrains Mono',Inter,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-deep);font-weight:700">近視 · MYOPIA</div>
+        <div style="font-family:'Noto Serif TC',Georgia,serif;font-size:15px;font-weight:700;margin-top:4px;line-height:1.45" data-zh="兒童近視控制 8 大迷思" data-en="8 pediatric myopia control myths">兒童近視控制 8 大迷思</div>
+      </a>
+      <a href="/blog/floaters-retinal-detachment" style="display:block;padding:14px 16px;background:#fff;border:0.5px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
+        <div style="font-family:'JetBrains Mono',Inter,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-deep);font-weight:700">飛蚊症 · FLOATERS</div>
+        <div style="font-family:'Noto Serif TC',Georgia,serif;font-size:15px;font-weight:700;margin-top:4px;line-height:1.45" data-zh="飛蚊症 6 大警訊" data-en="6 floater red flags">飛蚊症 6 大警訊</div>
+      </a>
+      <a href="/blog/" style="display:block;padding:14px 16px;background:var(--blue-soft);border:0.5px solid #b8cfe3;border-radius:12px;text-decoration:none;color:var(--blue-deep)">
+        <div style="font-family:'JetBrains Mono',Inter,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700">全部主題</div>
+        <div style="font-family:'Noto Serif TC',Georgia,serif;font-size:15px;font-weight:700;margin-top:4px;line-height:1.45" data-zh="瀏覽全部衛教文章 →" data-en="Browse all articles →">瀏覽全部衛教文章 →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="border-top:0.5px solid var(--border); padding:32px 18px; background:#f7f5f0">
+  <div class="max-w-5xl mx-auto" style="text-align:center; font-size:12px; color:var(--muted); line-height:1.7;">
+    <div style="margin-bottom:8px"><strong style="color:var(--ink-2)">HsiaoEye</strong> · 蕭閔謙醫師 · 眼科衛教筆記</div>
+    <div>© <span id="hs-year">2026</span> · <a href="/about" style="color:var(--blue-deep);font-weight:600">關於</a> · <a href="/privacy" style="color:var(--blue-deep);font-weight:600">隱私</a> · <a href="/blog/" style="color:var(--blue-deep);font-weight:600">文章</a></div>
+  </div>
+</footer>
+
+<script>
+// Force English mode for /en/ pages — runs before blog-shared.js so the
+// first applyTextOnly() pass uses English (no FOUC).
+try {
+  localStorage.setItem('hs_lang', 'en');
+  document.cookie = 'hs_lang=en;path=/;max-age=31536000;samesite=lax';
+} catch (e) {}
+document.addEventListener('DOMContentLoaded', function () {
+  var sw = document.getElementById('hs-en-banner-zh');
+  if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
+});
+</script>
+<script src="/blog/blog-shared.js?v=20260517" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function () { if (window.DN) DN.initBlog({}); });</script>
+</body>
+</html>

@@ -3,45 +3,90 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
+  <!-- ===== Chinese (canonical) ===== -->
+
   <url>
     <loc>https://hsiao.chendermatologist.com/</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://hsiao.chendermatologist.com/" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/" />
     <image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>HsiaoEye 標誌</image:title></image:image>
     <image:image><image:loc>https://hsiao.chendermatologist.com/SUNN1302.jpg</image:loc><image:title>蕭閔謙 醫師</image:title></image:image>
   </url>
 
   <url>
     <loc>https://hsiao.chendermatologist.com/about</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/about" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/about" />
     <image:image><image:loc>https://hsiao.chendermatologist.com/SUNN1302.jpg</image:loc><image:title>蕭閔謙 醫師</image:title><image:caption>蕭閔謙醫師個人照</image:caption></image:image>
   </url>
 
   <url>
+    <loc>https://hsiao.chendermatologist.com/tools</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/tools" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/tools" />
+  </url>
+
+  <url>
+    <loc>https://hsiao.chendermatologist.com/notes</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/notes" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/notes" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/notes" />
+  </url>
+
+  <url>
     <loc>https://hsiao.chendermatologist.com/privacy</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/privacy" />
   </url>
 
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/</loc>
-    <lastmod>2026-05-04</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/" />
   </url>
 
-  <!-- 衛教 · 迷思澄清 -->
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/topics</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/topics" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/topics" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/topics" />
+  </url>
+
+  <!-- 衛教文章 (published) -->
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/dry-eye-myths</loc>
     <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/dry-eye-myths" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/dry-eye-myths" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/dry-eye-myths" />
     <image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>乾眼症 8 大迷思</image:title></image:image>
   </url>
 
@@ -50,6 +95,9 @@
     <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pediatric-myopia-control" />
     <image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>兒童近視控制 8 大迷思</image:title></image:image>
   </url>
 
@@ -58,13 +106,94 @@
     <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/floaters-retinal-detachment" />
     <image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>飛蚊症 6 大警訊</image:title></image:image>
   </url>
 
-  <!-- Landing pages (stubs with red flags + when-to-see-doctor) -->
-  <url><loc>https://hsiao.chendermatologist.com/blog/cataract-surgery-faq</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>白內障手術 12 個常見問題</image:title></image:image></url>
-  <url><loc>https://hsiao.chendermatologist.com/blog/glaucoma-warnings</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>青光眼急症警訊</image:title></image:image></url>
-  <url><loc>https://hsiao.chendermatologist.com/blog/contact-lens-safety</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>隱形眼鏡安全指南</image:title></image:image></url>
-  <url><loc>https://hsiao.chendermatologist.com/blog/red-eye-conjunctivitis</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><image:image><image:loc>https://hsiao.chendermatologist.com/icon.svg</image:loc><image:title>紅眼症結膜炎鑑別</image:title></image:image></url>
+  <!-- Landing pages (stubs) -->
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/cataract-surgery-faq</loc>
+    <lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/cataract-surgery-faq" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/cataract-surgery-faq" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/cataract-surgery-faq" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/glaucoma-warnings</loc>
+    <lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/glaucoma-warnings" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/glaucoma-warnings" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/glaucoma-warnings" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/contact-lens-safety</loc>
+    <lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/contact-lens-safety" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/contact-lens-safety" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/contact-lens-safety" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/red-eye-conjunctivitis</loc>
+    <lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/red-eye-conjunctivitis" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/red-eye-conjunctivitis" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/red-eye-conjunctivitis" />
+  </url>
+
+  <!-- ===== English mirror (/en/) ===== -->
+
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/about</loc>
+    <lastmod>2026-05-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/about" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/about" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/tools</loc>
+    <lastmod>2026-05-16</lastmod><changefreq>monthly</changefreq><priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/tools" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/tools" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/</loc>
+    <lastmod>2026-05-16</lastmod><changefreq>weekly</changefreq><priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/dry-eye-myths</loc>
+    <lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/dry-eye-myths" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/dry-eye-myths" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/dry-eye-myths" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/pediatric-myopia-control</loc>
+    <lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pediatric-myopia-control" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/floaters-retinal-detachment</loc>
+    <lastmod>2026-05-04</lastmod><changefreq>monthly</changefreq><priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/floaters-retinal-detachment" />
+  </url>
 
 </urlset>

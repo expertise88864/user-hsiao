@@ -1300,6 +1300,7 @@
         });
       });
       [
+        { title: '量表計算器', meta: 'Tools · 5 個眼科量表 (OSDI / DEQ-5 / SE …)', url: '/tools', search: 'tools 量表 計算 osdi deq snellen logmar se 球面 飛蚊' },
         { title: '主題地圖', meta: 'Topic Map', url: '/blog/topics', search: 'topics 主題 地圖' },
         { title: '關於作者', meta: 'About', url: '/about', search: 'about 作者 蕭閔謙' },
         { title: '衛教文章索引', meta: 'Articles', url: '/blog/', search: 'blog articles 文章 索引' },
@@ -1641,6 +1642,303 @@
     } catch (e) {}
   };
 
+  // =====================================================================
+  // CALCULATOR FRAMEWORK (DermNotes-parity)
+  // ---------------------------------------------------------------------
+  // Generic config-driven calculator builder used by all ophth calculators.
+  // Each calculator declares: id, title, sub-text, rows (number/select/buttons),
+  // calc(values) → { score, band, bg, fg, interp }, and disclaimer.
+  // Calculators auto-mount inside <article.max-w-3xl> (article context) or
+  // inside any <div data-calc="<name>"> placeholder (e.g. on /tools).
+  // =====================================================================
+  DN.calcStyles = function () {
+    if (document.getElementById('hs-calc-css')) return;
+    var st = document.createElement('style');
+    st.id = 'hs-calc-css';
+    st.textContent =
+      '.hs-calc{background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px;padding:18px 22px;margin:24px 0;box-shadow:0 8px 24px -14px rgba(58,90,124,.2)}' +
+      '.hs-calc h3.hs-calc-title{font-family:\'Noto Serif TC\',Georgia,serif;font-size:18px;font-weight:700;color:#0f172a;margin:0 0 4px}' +
+      '.hs-calc .hs-calc-sub{font-size:12.5px;color:#5e574e;margin-bottom:14px;line-height:1.6}' +
+      '.hs-calc-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #ebe4d8}' +
+      '.hs-calc-row:first-of-type{border-top:0}' +
+      '.hs-calc-row label{font-size:13.5px;color:#2a2620;font-weight:600}' +
+      '.hs-calc-row .hs-calc-hint{display:block;font-size:11.5px;color:#8b8378;font-weight:400;margin-top:2px;line-height:1.4}' +
+      '.hs-calc-input{width:90px;padding:6px 10px;border:1px solid var(--border,#dcd5c8);border-radius:8px;font-size:14px;text-align:center;color:#0f172a;font-weight:700;background:#fff}' +
+      '.hs-calc-input:focus{outline:none;border-color:rgba(58,90,124,.6);box-shadow:0 0 0 3px rgba(143,179,212,.20)}' +
+      '.hs-calc-result{margin-top:14px;padding:14px 16px;background:linear-gradient(135deg,#e3edf6,#f0f6f4);border:1px solid #b8cfe3;border-radius:12px}' +
+      '.hs-calc-score{font-family:\'Noto Serif TC\',Georgia,serif;font-size:32px;font-weight:800;color:#243b56;line-height:1;margin:0}' +
+      '.hs-calc-band{display:inline-block;margin-left:10px;padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:700;letter-spacing:.04em;vertical-align:middle}' +
+      '.hs-calc-interp{font-size:13px;color:#0f172a;line-height:1.7;margin-top:6px}' +
+      '.hs-calc-disclaimer{font-size:11px;color:#8b8378;margin-top:10px;line-height:1.6;font-style:italic}' +
+      '.hs-calc-tools-link{display:inline-flex;align-items:center;gap:5px;margin-top:10px;padding:6px 12px;border-radius:9999px;background:var(--mint-soft,#dde7e2);color:#243b56;font-size:12px;font-weight:700;text-decoration:none;border:1px solid #b8cfe3}' +
+      '.hs-calc-tools-link:hover{background:#b8cfe3}' +
+      '.hs-radio-group{display:flex;gap:6px;flex-wrap:wrap}' +
+      '.hs-radio-group button{padding:5px 10px;border-radius:8px;border:1px solid var(--border,#dcd5c8);background:#fff;font-size:12.5px;font-weight:600;color:#5e574e;cursor:pointer;min-width:34px}' +
+      '.hs-radio-group button.active{background:linear-gradient(180deg,#8fb3d4,#243b56);color:#fff;border-color:transparent}';
+    document.head.appendChild(st);
+  };
+
+  // Generic builder. cfg: { id, tool, title, sub, rows[], calc(v)->result, disclaimer, toolsAnchor?, mountSel? }
+  DN._buildCalc = function (cfg) {
+    DN.calcStyles();
+    // mountSel can be a CSS selector for a specific placeholder; otherwise mount after article
+    var mountAfter = null, mountInto = null;
+    if (cfg.mountSel) {
+      mountInto = document.querySelector(cfg.mountSel);
+      if (!mountInto) return null;
+    } else {
+      mountAfter = document.querySelector('article.max-w-3xl');
+      if (!mountAfter) return null;
+    }
+    if (document.getElementById(cfg.id)) return null;
+
+    var rowsHTML = (cfg.rows || []).map(function (r) {
+      var hint = r.hint ? '<span class="hs-calc-hint">' + r.hint + '</span>' : '';
+      if (r.type === 'number') {
+        return '<div class="hs-calc-row"><label>' + r.label + hint + '</label>' +
+          '<input type="number" min="' + (r.min != null ? r.min : 0) + '" max="' + (r.max != null ? r.max : 100) + '" step="' + (r.step || 1) + '" value="' + (r.def != null ? r.def : 0) + '" class="hs-calc-input" data-key="' + r.key + '" /></div>';
+      } else if (r.type === 'select') {
+        var opts = r.options.map(function (o) { return '<option value="' + o.v + '"' + (o.def ? ' selected' : '') + '>' + o.label + '</option>'; }).join('');
+        return '<div class="hs-calc-row"><label>' + r.label + hint + '</label>' +
+          '<select class="hs-calc-input" data-key="' + r.key + '" style="width:auto;min-width:140px">' + opts + '</select></div>';
+      }
+      return '';
+    }).join('');
+
+    var inner =
+      '<div class="hs-calc" id="' + cfg.id + '">' +
+        '<h3 class="hs-calc-title">' + cfg.title + '</h3>' +
+        '<div class="hs-calc-sub">' + cfg.sub + '</div>' +
+        rowsHTML +
+        '<div class="hs-calc-result">' +
+          '<div><span class="hs-calc-score" data-result="score">—</span><span class="hs-calc-band" data-result="band"></span></div>' +
+          '<div class="hs-calc-interp" data-result="interp"></div>' +
+        '</div>' +
+        (cfg.toolsAnchor ? '<a href="/tools#' + cfg.toolsAnchor + '" class="hs-calc-tools-link" data-zh="查看完整 ' + cfg.tool + ' 使用指南 →" data-en="View full ' + cfg.tool + ' guide →">查看完整 ' + cfg.tool + ' 使用指南 →</a>' : '') +
+        '<div class="hs-calc-disclaimer">' + cfg.disclaimer + '</div>' +
+      '</div>';
+
+    var box;
+    if (mountInto) {
+      mountInto.innerHTML = inner;
+      box = mountInto.querySelector('.hs-calc');
+    } else {
+      box = document.createElement('section');
+      box.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-6';
+      box.innerHTML = inner;
+      mountAfter.parentNode.insertBefore(box, mountAfter.nextSibling);
+    }
+
+    function readVals() {
+      var v = {};
+      box.querySelectorAll('[data-key]').forEach(function (el) {
+        v[el.dataset.key] = el.tagName === 'SELECT' ? el.value : (parseFloat(el.value) || 0);
+      });
+      return v;
+    }
+    function update() {
+      var r = cfg.calc(readVals());
+      box.querySelector('[data-result="score"]').textContent = r.score;
+      var bEl = box.querySelector('[data-result="band"]');
+      bEl.textContent = r.band; bEl.style.background = r.bg; bEl.style.color = r.fg;
+      box.querySelector('[data-result="interp"]').innerHTML = r.interp;
+    }
+    box.querySelectorAll('[data-key]').forEach(function (el) {
+      el.addEventListener('input', update);
+      el.addEventListener('change', update);
+    });
+    update();
+    if (typeof gtag === 'function') {
+      try { gtag('event', 'calculator_view', { tool: cfg.tool, page_path: location.pathname }); } catch (e) {}
+    }
+    return box;
+  };
+
+  // ---------------------------------------------------------------------
+  // CALCULATOR 1 — OSDI (Ocular Surface Disease Index, 12 items, 0-100)
+  // Validated: Schiffman et al, Arch Ophthalmol 2000.
+  // Input: each of 3 sections summed (light/wind/screen freq, vision-tasks,
+  // environment) — we collapse into a simplified 4-input self-screen.
+  // ---------------------------------------------------------------------
+  DN.injectOSDI = function (mountSel) {
+    DN._buildCalc({
+      id: 'hs-osdi', tool: 'OSDI', toolsAnchor: 'osdi',
+      mountSel: mountSel,
+      title: '<span data-zh="OSDI 計算器 — 乾眼症狀自評" data-en="OSDI Calculator — Dry-eye symptom self-screen">OSDI 計算器 — 乾眼症狀自評</span>',
+      sub: '<span data-zh="過去一週,以下情況困擾您的頻率(0=從未、4=一直)。OSDI = (各項分數總和 × 100) / (回答題數 × 4)。" data-en="Past week, frequency of each (0=none, 4=all the time). OSDI = (sum × 100) / (answered × 4).">過去一週，以下情況困擾您的頻率（0=從未、4=一直）。OSDI = (各項分數總和 × 100) / (回答題數 × 4)。</span>',
+      rows: [
+        { type:'number', key:'q1', min:0, max:4, def:1, label:'<span data-zh="眼睛畏光" data-en="Eyes sensitive to light">眼睛畏光</span>', hint:'0=從未  ·  4=一直' },
+        { type:'number', key:'q2', min:0, max:4, def:1, label:'<span data-zh="眼睛有沙礫感 / 異物感" data-en="Gritty / foreign-body sensation">眼睛有沙礫感 / 異物感</span>', hint:'0–4' },
+        { type:'number', key:'q3', min:0, max:4, def:1, label:'<span data-zh="眼睛痠痛 / 灼熱" data-en="Painful or sore">眼睛痠痛 / 灼熱</span>', hint:'0–4' },
+        { type:'number', key:'q4', min:0, max:4, def:1, label:'<span data-zh="視力模糊" data-en="Blurred vision">視力模糊</span>', hint:'0–4' },
+        { type:'number', key:'q5', min:0, max:4, def:1, label:'<span data-zh="使用 3C 螢幕時症狀加重" data-en="Worse with screens">使用 3C 螢幕時症狀加重</span>', hint:'0–4' },
+        { type:'number', key:'q6', min:0, max:4, def:1, label:'<span data-zh="冷氣 / 風 / 乾燥環境加重" data-en="Worse in AC / wind">冷氣 / 風 / 乾燥環境加重</span>', hint:'0–4' }
+      ],
+      calc: function (v) {
+        var sum = v.q1 + v.q2 + v.q3 + v.q4 + v.q5 + v.q6;
+        var score = (sum * 100) / (6 * 4);   // 6 items, max 4 each
+        var band, bg, fg, interp;
+        if (score < 13)      { band = '正常';   bg = '#dcfce7'; fg = '#14532d'; interp = '正常 (OSDI &lt; 13) — 沒有乾眼相關症狀，繼續維持良好習慣（每 20 分鐘看遠 20 秒、3C 之間刻意眨眼）。'; }
+        else if (score < 23) { band = '輕度';   bg = '#fef9c3'; fg = '#854d0e'; interp = '輕度乾眼 (OSDI 13–22) — 可從<strong>無防腐劑人工淚液</strong>開始（一天 4–6 次）+ 熱敷眼罩 40°C × 10 分鐘。'; }
+        else if (score < 33) { band = '中度';   bg = '#fed7aa'; fg = '#9a3412'; interp = '中度乾眼 (OSDI 23–32) — 建議眼科門診評估，可加上 <strong>瞼板腺按摩、Omega-3 補充、Cyclosporine A 0.05% 眼藥水</strong>（DEWS II Step 2）。'; }
+        else                 { band = '重度';   bg = '#fee2e2'; fg = '#991b1b'; interp = '重度乾眼 (OSDI ≥ 33) — 應就診評估是否合併 <strong>瞼板腺機能障礙 (MGD)、修格蘭氏症、暴露性角膜炎</strong>，治療可考慮 IPL、LipiFlow、自體血清眼藥水。'; }
+        return { score: score.toFixed(1), band: band, bg: bg, fg: fg, interp: interp };
+      },
+      disclaimer: '* OSDI: Schiffman RM et al, <em>Arch Ophthalmol</em> 2000. 本工具為簡化自評版，正式診斷應由眼科醫師進行 Schirmer 試驗 + TBUT + 眼表染色。'
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // CALCULATOR 2 — DEQ-5 (Dry Eye Questionnaire, 5 items, 0-22)
+  // Validated: Chalmers RL et al, Cont Lens Anterior Eye 2010.
+  // ≥6 = likely dry eye; ≥12 = consider Sjögren screening.
+  // ---------------------------------------------------------------------
+  DN.injectDEQ5 = function (mountSel) {
+    DN._buildCalc({
+      id: 'hs-deq5', tool: 'DEQ-5', toolsAnchor: 'deq5',
+      mountSel: mountSel,
+      title: '<span data-zh="DEQ-5 — 5 題快速乾眼篩檢" data-en="DEQ-5 — 5-item dry-eye screen">DEQ-5 — 5 題快速乾眼篩檢</span>',
+      sub: '<span data-zh="5 題版本,1 分鐘填完。≥ 6 分高度懷疑乾眼;≥ 12 分建議篩檢修格蘭氏症 (anti-SSA/Ro)。" data-en="5 items, ~1 min. ≥6 suggestive of DED; ≥12 prompts Sjögren screening.">5 題版本，1 分鐘填完。≥ 6 分高度懷疑乾眼；≥ 12 分建議篩檢修格蘭氏症 (anti-SSA/Ro)。</span>',
+      rows: [
+        { type:'number', key:'d1', min:0, max:4, def:0, label:'<span data-zh="眼睛不適頻率" data-en="Discomfort frequency">眼睛不適頻率 (0–4)</span>', hint:'0=從未  ·  4=一直' },
+        { type:'number', key:'d2', min:0, max:5, def:0, label:'<span data-zh="眼睛不適在一天結束時的嚴重度" data-en="End-of-day intensity">不適嚴重度 (0–5)</span>', hint:'0=無  ·  5=非常嚴重' },
+        { type:'number', key:'d3', min:0, max:4, def:0, label:'<span data-zh="眼睛乾燥頻率" data-en="Dryness frequency">乾燥頻率 (0–4)</span>', hint:'0–4' },
+        { type:'number', key:'d4', min:0, max:5, def:0, label:'<span data-zh="一天結束時乾燥嚴重度" data-en="End-of-day dryness intensity">乾燥嚴重度 (0–5)</span>', hint:'0–5' },
+        { type:'number', key:'d5', min:0, max:4, def:0, label:'<span data-zh="眼睛紅 / 含淚的頻率" data-en="Watery eyes frequency">眼睛紅 / 含淚 (0–4)</span>', hint:'0–4' }
+      ],
+      calc: function (v) {
+        var s = v.d1 + v.d2 + v.d3 + v.d4 + v.d5;
+        var band, bg, fg, interp;
+        if (s < 6)       { band = '正常';     bg = '#dcfce7'; fg = '#14532d'; interp = '正常 (DEQ-5 &lt; 6) — 乾眼症可能性低。維持每 20–20–20 螢幕休息與環境保濕即可。'; }
+        else if (s < 12) { band = '可能乾眼'; bg = '#fef9c3'; fg = '#854d0e'; interp = '可能乾眼 (DEQ-5 6–11) — 建議眼科門診做 <strong>TBUT + Schirmer 試驗</strong> 確認嚴重度。'; }
+        else             { band = '高度懷疑'; bg = '#fee2e2'; fg = '#991b1b'; interp = '高度懷疑 (DEQ-5 ≥ 12) — 除乾眼外，應抽血篩檢 <strong>修格蘭氏症 (anti-SSA/Ro, anti-SSB/La, ANA)</strong> 與紅斑性狼瘡。'; }
+        return { score: s + ' / 22', band: band, bg: bg, fg: fg, interp: interp };
+      },
+      disclaimer: '* DEQ-5: Chalmers RL et al, <em>Cont Lens Anterior Eye</em> 2010. 修格蘭氏症初篩切點：DEQ-5 ≥ 12（Bunya VY 2018）。'
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // CALCULATOR 3 — Snellen ↔ LogMAR converter (utility, lookup table)
+  // ---------------------------------------------------------------------
+  DN.injectSnellenLogMAR = function (mountSel) {
+    DN._buildCalc({
+      id: 'hs-snellen', tool: 'Snellen↔LogMAR', toolsAnchor: 'snellen',
+      mountSel: mountSel,
+      title: '<span data-zh="Snellen ↔ LogMAR 視力換算" data-en="Snellen ↔ LogMAR converter">Snellen ↔ LogMAR 視力換算</span>',
+      sub: '<span data-zh="LogMAR = log₁₀(1 ÷ Snellen 小數)。臨床研究多用 LogMAR(線性可加減)。" data-en="LogMAR = log10(1 ÷ Snellen decimal). Used in clinical trials for additive properties.">LogMAR = log₁₀(1 ÷ Snellen 小數)。臨床研究多用 LogMAR（線性可加減）。</span>',
+      rows: [
+        { type:'select', key:'snellen', label:'<span data-zh="Snellen 小數" data-en="Snellen decimal">Snellen 視力</span>', hint:'',
+          options: [
+            { v:'2.0',  label:'2.0  (20/10)' },
+            { v:'1.5',  label:'1.5  (20/13)' },
+            { v:'1.2',  label:'1.2  (20/17)' },
+            { v:'1.0',  label:'1.0  (20/20)', def:true },
+            { v:'0.8',  label:'0.8  (20/25)' },
+            { v:'0.63', label:'0.63 (20/32)' },
+            { v:'0.5',  label:'0.5  (20/40)' },
+            { v:'0.4',  label:'0.4  (20/50)' },
+            { v:'0.32', label:'0.32 (20/63)' },
+            { v:'0.25', label:'0.25 (20/80)' },
+            { v:'0.2',  label:'0.2  (20/100)' },
+            { v:'0.16', label:'0.16 (20/125)' },
+            { v:'0.125',label:'0.125 (20/160)' },
+            { v:'0.1',  label:'0.1  (20/200) · 法定低視力' },
+            { v:'0.05', label:'0.05 (20/400) · 法定盲' },
+            { v:'0.025',label:'0.025 (20/800)' }
+          ]
+        }
+      ],
+      calc: function (v) {
+        var dec = parseFloat(v.snellen) || 1.0;
+        var logmar = Math.log10(1 / dec);
+        var ft = (20 / dec).toFixed(0);
+        var band = '視力換算', bg = '#e3edf6', fg = '#243b56';
+        var legal = '';
+        if (dec <= 0.05) legal = '<br/>⚠ <strong>WHO 法定盲</strong> (best-corrected ≤ 20/400 / 0.05 / LogMAR ≥ 1.30)';
+        else if (dec <= 0.1) legal = '<br/>⚠ <strong>低視力</strong> (best-corrected 20/70 ~ 20/200 / 0.1 ~ 0.3)';
+        var interp = 'Snellen <strong>20/' + ft + '</strong> = 小數 <strong>' + dec.toFixed(3) + '</strong> = LogMAR <strong>' + logmar.toFixed(2) + '</strong>。' +
+          '<br/>每改善 1 行（5 字母）= LogMAR 減少 0.10。' + legal;
+        return { score: 'logMAR ' + logmar.toFixed(2), band: band, bg: bg, fg: fg, interp: interp };
+      },
+      disclaimer: '* 換算公式：LogMAR = -log₁₀(decimal Snellen)。臨床/研究用 ETDRS 視力表，每行 5 字母線性間距。'
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // CALCULATOR 4 — Spherical Equivalent (SE = sphere + cylinder/2)
+  // Used to track myopia progression independently of astigmatism axis.
+  // ---------------------------------------------------------------------
+  DN.injectSphericalEquivalent = function (mountSel) {
+    DN._buildCalc({
+      id: 'hs-se', tool: 'SE', toolsAnchor: 'se',
+      mountSel: mountSel,
+      title: '<span data-zh="球面等價度數 SE 計算器" data-en="Spherical Equivalent (SE) calculator">球面等價度數 SE 計算器</span>',
+      sub: '<span data-zh="SE = sphere + cylinder ÷ 2。追蹤近視進展時最常用,可比較不同散光軸的兩次驗光。" data-en="SE = sphere + cyl/2. Used for tracking myopia progression across visits.">SE = sphere + cylinder ÷ 2。追蹤近視進展時最常用，可比較不同散光軸的兩次驗光。</span>',
+      rows: [
+        { type:'number', key:'sph', min:-30, max:30, step:0.25, def:-3.00, label:'<span data-zh="球面度數 Sphere (D)" data-en="Sphere (D)">Sphere · 球面 (D)</span>', hint:'近視為負；遠視為正' },
+        { type:'number', key:'cyl', min:-10, max:10, step:0.25, def:-0.50, label:'<span data-zh="散光度數 Cylinder (D)" data-en="Cylinder (D)">Cylinder · 散光 (D)</span>', hint:'散光通常為負（minus-cyl form）' }
+      ],
+      calc: function (v) {
+        var se = v.sph + v.cyl / 2;
+        var band, bg, fg, interp;
+        if (se >= 0)              { band = '遠視 / 正視';   bg = '#dcfce7'; fg = '#14532d'; interp = 'SE = ' + se.toFixed(2) + ' D — 遠視或正視範圍。'; }
+        else if (se > -3)         { band = '輕度近視';     bg = '#fef9c3'; fg = '#854d0e'; interp = 'SE = ' + se.toFixed(2) + ' D — <strong>輕度近視 (&lt; -3.00 D)</strong>。每年進展 &gt; -0.50 D 應介入近視控制（兒童）。'; }
+        else if (se > -6)         { band = '中度近視';     bg = '#fed7aa'; fg = '#9a3412'; interp = 'SE = ' + se.toFixed(2) + ' D — <strong>中度近視 (-3.00 ~ -6.00 D)</strong>。視網膜剝離風險增加，建議每年散瞳眼底檢查。'; }
+        else if (se > -10)        { band = '高度近視';     bg = '#fee2e2'; fg = '#991b1b'; interp = 'SE = ' + se.toFixed(2) + ' D — <strong>高度近視 (-6.00 ~ -10.00 D)</strong>。視網膜剝離、近視性黃斑病變、青光眼風險升高，建議每 6–12 個月眼底 + OCT 追蹤。'; }
+        else                      { band = '極度近視';     bg = '#fee2e2'; fg = '#991b1b'; interp = 'SE = ' + se.toFixed(2) + ' D — <strong>病理性近視 (≤ -10.00 D)</strong>。眼軸 ≥ 26.5 mm，黃斑部出血/萎縮、青光眼風險顯著升高，需每 6 個月專科追蹤。'; }
+        return { score: se.toFixed(2) + ' D', band: band, bg: bg, fg: fg, interp: interp };
+      },
+      disclaimer: '* 兒童近視控制目標：減緩進展速率 50%（IMI 2023 共識）。低濃度阿托品 0.05% 為目前實證最強。'
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // CALCULATOR 5 — Floater Red-Flag self-check (decision support, NOT diagnosis)
+  // Based on AAO Posterior Vitreous Detachment PPP 2023 — flags requiring
+  // urgent (<24-48h) ophth referral.
+  // ---------------------------------------------------------------------
+  DN.injectFloaterRedFlag = function (mountSel) {
+    DN._buildCalc({
+      id: 'hs-floater-rf', tool: 'FloaterRedFlag', toolsAnchor: 'floater',
+      mountSel: mountSel,
+      title: '<span data-zh="飛蚊症 6 大警訊 自我檢核" data-en="Floater Red-Flag self-check">飛蚊症 6 大警訊 自我檢核</span>',
+      sub: '<span data-zh="若任一項為「是」,可能是視網膜裂孔或剝離前兆,建議 24–48 小時內就診眼科散瞳眼底檢查。" data-en="If any answer is YES, possible retinal tear/detachment — see ophthalmology within 24–48 h.">若任一項為「是」，可能是視網膜裂孔或剝離前兆，建議 24–48 小時內就診眼科散瞳眼底檢查。</span>',
+      rows: [
+        { type:'select', key:'r1', label:'<span data-zh="1. 飛蚊突然爆增 (數十個以上、像下雪)" data-en="1. Sudden shower of new floaters">1. 飛蚊突然爆增（像下雪）</span>',
+          options:[{v:'0',label:'否',def:true},{v:'1',label:'是'}] },
+        { type:'select', key:'r2', label:'<span data-zh="2. 突然看到閃光 (像閃電/煙火)" data-en="2. New flashes of light">2. 突然看到閃光（像閃電）</span>',
+          options:[{v:'0',label:'否',def:true},{v:'1',label:'是'}] },
+        { type:'select', key:'r3', label:'<span data-zh="3. 視野有黑影/黑幕從周邊往中間侵入" data-en="3. Curtain / shadow encroaching">3. 視野有黑幕侵入</span>',
+          options:[{v:'0',label:'否',def:true},{v:'1',label:'是'}] },
+        { type:'select', key:'r4', label:'<span data-zh="4. 中央視力突然下降" data-en="4. Sudden central VA drop">4. 中央視力突然下降</span>',
+          options:[{v:'0',label:'否',def:true},{v:'1',label:'是'}] },
+        { type:'select', key:'r5', label:'<span data-zh="5. 高度近視 (≤ -6.00 D) 或眼睛外傷史" data-en="5. High myopia / trauma">5. 高度近視或外傷史</span>',
+          options:[{v:'0',label:'否',def:true},{v:'1',label:'是'}] },
+        { type:'select', key:'r6', label:'<span data-zh="6. 對側眼曾有視網膜裂孔/剝離" data-en="6. Fellow eye RD history">6. 對側眼曾有視網膜剝離</span>',
+          options:[{v:'0',label:'否',def:true},{v:'1',label:'是'}] }
+      ],
+      calc: function (v) {
+        var n = ['r1','r2','r3','r4','r5','r6'].reduce(function (s, k) { return s + (parseInt(v[k]) || 0); }, 0);
+        var band, bg, fg, interp;
+        if (n === 0)      { band = '低風險';   bg = '#dcfce7'; fg = '#14532d'; interp = '所有警訊皆為「否」 — <strong>仍建議 1–2 週內</strong>就診眼科散瞳眼底檢查（首次飛蚊或長期飛蚊變化）。'; }
+        else if (n <= 2)  { band = '中風險';   bg = '#fed7aa'; fg = '#9a3412'; interp = '有 ' + n + ' 項警訊 — <strong>48–72 小時內</strong>就診眼科。可能為後玻璃體剝離 (PVD) ± 視網膜裂孔。'; }
+        else              { band = '高風險';   bg = '#fee2e2'; fg = '#991b1b'; interp = '⚠ 有 ' + n + ' 項警訊 — <strong>應立即就醫，&lt; 24 小時內</strong>到眼科或急診。視網膜剝離若未及時雷射/手術，可能永久視力喪失。'; }
+        return { score: n + ' / 6', band: band, bg: bg, fg: fg, interp: interp };
+      },
+      disclaimer: '* 依據 AAO Posterior Vitreous Detachment / Retinal Breaks / Lattice Degeneration PPP 2023。本工具僅作分流參考，最終診斷需散瞳眼底檢查 ± OCT。'
+    });
+  };
+
+  // Article-context auto-injection — calls the right calculator based on slug
+  DN.injectArticleCalculators = function () {
+    var slug = DN.currentSlug && DN.currentSlug();
+    if (!slug) return;
+    if (slug === 'dry-eye-myths')                  { DN.injectOSDI(); DN.injectDEQ5(); }
+    else if (slug === 'pediatric-myopia-control')  { DN.injectSphericalEquivalent(); }
+    else if (slug === 'floaters-retinal-detachment') { DN.injectFloaterRedFlag(); }
+  };
+
   // ---------- service worker ----------
   DN.registerSW = function () {
     if (!('serviceWorker' in navigator)) return;
@@ -1688,10 +1986,23 @@
       DN.addFloatingTOC();
       DN.bindScrollMemory();
       DN.addInlineCTA();        // mid-article CTA card
+      DN.injectArticleCalculators();  // OSDI/DEQ-5/SE/FloaterRF per slug
       DN.injectAuthorBio('hs-author-bio');
       DN.injectShareToolbar('hs-share');
       DN.injectBMC('hs-bmc');
       DN.addRelatedArticles();
+    }
+    // Tools-page calculator placeholders (works on /tools too)
+    if (document.querySelector('[data-calc]')) {
+      document.querySelectorAll('[data-calc]').forEach(function (el) {
+        var name = el.getAttribute('data-calc');
+        var sel = '[data-calc="' + name + '"]';
+        if (name === 'osdi')           DN.injectOSDI(sel);
+        else if (name === 'deq5')      DN.injectDEQ5(sel);
+        else if (name === 'snellen')   DN.injectSnellenLogMAR(sel);
+        else if (name === 'se')        DN.injectSphericalEquivalent(sel);
+        else if (name === 'floater')   DN.injectFloaterRedFlag(sel);
+      });
     }
     DN.addFontSizer();
     DN.injectReadProgress();
