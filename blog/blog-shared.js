@@ -337,16 +337,20 @@
     if (!host) return;
     function render() {
       const read = DN.getReadCount();
+      // We deliberately do NOT show "X / N total" — total article count is a
+      // moving target and tends to feel "thin" early on. Just celebrate what
+      // the reader has actually read; the bar grows monotonically up to the
+      // current total but the label hides the denominator.
       const total = DN.totalArticles || 1;
-      const pct = Math.round((read / total) * 100);
+      const pct = Math.min(100, Math.round((read / total) * 100));
       host.innerHTML =
         '<div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 22px;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
           '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">' +
             '<div>' +
               '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:2px" data-zh="閱讀進度" data-en="Reading progress">閱讀進度</div>' +
               '<div style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:18px;font-weight:700;color:var(--ink)">' +
-                '<span data-zh="已讀" data-en="Read">已讀</span> <span style="color:var(--blue-deep)">' + read + '</span> / ' + total + ' <span data-zh="篇" data-en="">篇</span> ' +
-                '<span style="font-size:13px;font-weight:500;color:var(--ink-2)">(' + pct + '%)</span>' +
+                '<span data-zh="已讀" data-en="Read">已讀</span> <span style="color:var(--blue-deep)">' + read + '</span> <span data-zh="篇" data-en="article' + (read === 1 ? '' : 's') + '">篇</span>' +
+                (read > 0 ? ' <span style="font-size:13px;font-weight:500;color:var(--ink-2)">(' + pct + '%)</span>' : '') +
               '</div>' +
             '</div>' +
             (read > 0
@@ -831,6 +835,9 @@
   // distinct entries from DN.HERO_CARDS (Fisher-Yates) and rewrite both
   // anchors so visitors see different cover stories on repeat visits.
   // Only published articles appear here (no 'COMING' stubs).
+  // Each hero SVG is a 400×300 narrative scene that tells the article's
+  // medical story (not just a generic eye). Designed slug-by-slug so the
+  // illustration always matches whichever article the rotation surfaces.
   DN.HERO_CARDS = [
     {
       slug: 'floaters-retinal-detachment',
@@ -838,27 +845,50 @@
       title_en: '6 Floater Red Flags — when do floaters mean retinal emergency?',
       meta_zh: '2026.05 · 9 分鐘 · 警訊辨識',
       meta_en: '2026.05 · 9 min · Red flags',
+      // Scene: cross-section eye showing vitreous floaters drifting + retinal tear with
+      // dramatic photopsia bolt (lightning) — the visual signature of acute PVD/RD.
       svg:
         '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
-          '<rect width="400" height="300" fill="#dcd9d1" />' +
-          '<g filter="url(#mag-rough)">' +
-            '<path d="M 60 150 Q 200 50 340 150 Q 200 250 60 150 Z" fill="#fff" stroke="#2a2620" stroke-width="2.5" stroke-linejoin="round" />' +
-            '<circle cx="200" cy="150" r="58" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="2" />' +
-            '<circle cx="200" cy="150" r="24" fill="#2a2620" />' +
-            '<circle cx="186" cy="138" r="8" fill="#faf7f2" />' +
-            '<circle cx="120" cy="100" r="4" fill="#2a2620" opacity="0.65" />' +
-            '<ellipse cx="138" cy="112" rx="6" ry="2" fill="#2a2620" opacity="0.55" transform="rotate(-25 138 112)" />' +
-            '<circle cx="280" cy="118" r="3.5" fill="#2a2620" opacity="0.55" />' +
-            '<ellipse cx="295" cy="195" rx="5" ry="2" fill="#2a2620" opacity="0.45" transform="rotate(20 295 195)" />' +
-            '<circle cx="105" cy="195" r="3" fill="#2a2620" opacity="0.5" />' +
-            '<line x1="100" y1="100" x2="92" y2="80" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<line x1="150" y1="76" x2="148" y2="56" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<line x1="200" y1="68" x2="200" y2="46" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<line x1="250" y1="76" x2="252" y2="56" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<line x1="300" y1="100" x2="308" y2="80" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<path d="M 90 50 Q 200 30 310 50" fill="none" stroke="#c9a961" stroke-width="4" stroke-linecap="round" opacity="0.85" />' +
+          '<defs>' +
+            '<radialGradient id="hero-floater-bg" cx="35%" cy="40%" r="80%">' +
+              '<stop offset="0%" stop-color="#fef3c7" />' +
+              '<stop offset="55%" stop-color="#fde68a" />' +
+              '<stop offset="100%" stop-color="#dcd9d1" />' +
+            '</radialGradient>' +
+          '</defs>' +
+          '<rect width="400" height="300" fill="url(#hero-floater-bg)" />' +
+          // Eye globe cross-section (pear-shaped sclera with cornea bulge on left)
+          '<path d="M 50 150 C 50 60, 130 50, 180 70 L 200 78 L 215 70 C 320 60, 360 110, 360 150 C 360 200, 310 250, 230 245 C 150 250, 50 240, 50 150 Z" fill="#fffaf2" stroke="#2a2620" stroke-width="2.5" />' +
+          // Cornea bulge (left)
+          '<path d="M 50 150 C 50 110, 75 95, 100 95 C 115 130, 115 170, 100 205 C 75 205, 50 190, 50 150 Z" fill="#a4c4dd" opacity="0.45" stroke="#3a5a7c" stroke-width="1.5" />' +
+          // Lens (oval, behind cornea)
+          '<ellipse cx="118" cy="150" rx="14" ry="32" fill="#fff" stroke="#3a5a7c" stroke-width="1.5" opacity="0.85" />' +
+          // Iris band (visible from top)
+          '<path d="M 100 95 L 120 130 L 100 170 L 100 205 L 88 205 L 88 95 Z" fill="#3a5a7c" opacity="0.25" />' +
+          // Vitreous body fill (subtle Tiffany)
+          '<path d="M 130 110 C 200 100, 320 110, 350 150 C 320 195, 200 220, 130 195 Z" fill="#a4c4dd" opacity="0.18" />' +
+          // Floaters drifting in vitreous
+          '<g opacity="0.85">' +
+            '<circle cx="180" cy="135" r="3.5" fill="#2a2620" />' +
+            '<ellipse cx="220" cy="155" rx="7" ry="2.2" fill="#2a2620" opacity="0.7" transform="rotate(-15 220 155)" />' +
+            '<circle cx="265" cy="130" r="2.5" fill="#2a2620" opacity="0.75" />' +
+            '<path d="M 245 175 C 250 168, 260 168, 263 178 C 257 185, 247 183, 245 175 Z" fill="#2a2620" opacity="0.6" />' +
+            // Weiss ring (signature of acute PVD)
+            '<circle cx="295" cy="160" r="9" fill="none" stroke="#2a2620" stroke-width="2" opacity="0.7" />' +
+            '<circle cx="295" cy="160" r="11" fill="none" stroke="#2a2620" stroke-width="0.8" opacity="0.4" />' +
           '</g>' +
-          '<rect width="400" height="300" fill="url(#mag-dots)" opacity="0.35" />' +
+          // Retina arc at back (with a tear/break shown)
+          '<path d="M 340 95 C 360 130, 360 170, 340 205" fill="none" stroke="#9a3412" stroke-width="3" />' +
+          '<path d="M 345 145 L 358 138 L 354 152 L 362 158 L 348 162 Z" fill="#fee2e2" stroke="#dc2626" stroke-width="1.6" stroke-linejoin="round" />' +
+          // Photopsia / lightning bolt (top-right)
+          '<path d="M 340 35 L 320 75 L 335 78 L 315 115 L 350 80 L 335 78 L 350 50 Z" fill="#fbbf24" stroke="#9a3412" stroke-width="1.5" stroke-linejoin="round" />' +
+          // Optic nerve stub (back)
+          '<path d="M 360 145 L 380 135 L 380 165 L 360 155 Z" fill="#fdba74" stroke="#9a3412" stroke-width="1.5" />' +
+          // Label vector (top-left, magazine annotation)
+          '<line x1="195" y1="130" x2="195" y2="55" stroke="#3a5a7c" stroke-width="1" stroke-dasharray="3 2" />' +
+          '<text x="195" y="46" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle">FLOATERS</text>' +
+          '<line x1="345" y1="55" x2="320" y2="78" stroke="#9a3412" stroke-width="1" stroke-dasharray="3 2" />' +
+          '<text x="358" y="48" fill="#9a3412" font-family="Inter,sans-serif" font-size="10" font-weight="700">FLASH</text>' +
         '</svg>'
     },
     {
@@ -867,19 +897,74 @@
       title_en: 'Pediatric myopia control — atropine, ortho-K, red light, outdoor: what works?',
       meta_zh: '2026.05 · 12 分鐘 · 迷思澄清',
       meta_en: '2026.05 · 12 min · Myth-busting',
+      // Scene: side-by-side comparison — normal emmetropic eye (top) vs elongated
+      // myopic eye (bottom) with parallel rays focusing IN FRONT of retina. The
+      // canonical axial-elongation diagram.
       svg:
         '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
-          '<rect width="400" height="300" fill="#ebe4d8" />' +
-          '<g filter="url(#mag-rough)">' +
-            '<circle cx="135" cy="150" r="62" fill="#fff" stroke="#2a2620" stroke-width="3" />' +
-            '<circle cx="265" cy="150" r="62" fill="#fff" stroke="#2a2620" stroke-width="3" />' +
-            '<line x1="195" y1="150" x2="205" y2="150" stroke="#2a2620" stroke-width="3" stroke-linecap="round" />' +
-            '<line x1="73" y1="138" x2="40" y2="118" stroke="#2a2620" stroke-width="3" stroke-linecap="round" />' +
-            '<line x1="327" y1="138" x2="360" y2="118" stroke="#2a2620" stroke-width="3" stroke-linecap="round" />' +
-            '<circle cx="135" cy="150" r="58" fill="#a4c4dd" opacity="0.4" />' +
-            '<circle cx="265" cy="150" r="58" fill="#a4c4dd" opacity="0.4" />' +
-            '<path d="M 105 125 Q 130 115 155 130" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.7" />' +
-            '<path d="M 235 125 Q 260 115 285 130" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.7" />' +
+          '<defs>' +
+            '<linearGradient id="hero-myopia-bg" x1="0%" y1="0%" x2="100%" y2="100%">' +
+              '<stop offset="0%" stop-color="#e3edf6" />' +
+              '<stop offset="100%" stop-color="#dcd9d1" />' +
+            '</linearGradient>' +
+          '</defs>' +
+          '<rect width="400" height="300" fill="url(#hero-myopia-bg)" />' +
+          // Top: normal eye (24mm axial length — labeled)
+          '<g transform="translate(40 70)">' +
+            '<text x="-30" y="5" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="10" font-weight="700" transform="rotate(-90 -30 5)">NORMAL</text>' +
+            // Eye outline (round)
+            '<ellipse cx="60" cy="30" rx="55" ry="30" fill="#fff" stroke="#3a5a7c" stroke-width="2" />' +
+            // Cornea bulge
+            '<path d="M 5 30 C 5 15, 15 5, 30 8 C 35 20, 35 40, 30 52 C 15 55, 5 45, 5 30 Z" fill="#a4c4dd" opacity="0.5" />' +
+            // Lens
+            '<ellipse cx="34" cy="30" rx="6" ry="14" fill="#fff" stroke="#3a5a7c" stroke-width="1" />' +
+            // Parallel rays converging perfectly on retina
+            '<line x1="-15" y1="20" x2="115" y2="30" stroke="#c9a961" stroke-width="1.4" />' +
+            '<line x1="-15" y1="30" x2="115" y2="30" stroke="#c9a961" stroke-width="1.4" />' +
+            '<line x1="-15" y1="40" x2="115" y2="30" stroke="#c9a961" stroke-width="1.4" />' +
+            // Focal point on retina (green = good)
+            '<circle cx="115" cy="30" r="3" fill="#16a34a" stroke="#14532d" stroke-width="1" />' +
+            // Axial-length scale bar
+            '<line x1="5" y1="70" x2="115" y2="70" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<line x1="5" y1="66" x2="5" y2="74" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<line x1="115" y1="66" x2="115" y2="74" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<text x="60" y="84" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle">23–24 mm</text>' +
+          '</g>' +
+          // Bottom: myopic eye (elongated; 26-30mm)
+          '<g transform="translate(40 175)">' +
+            '<text x="-30" y="5" fill="#9a3412" font-family="Inter,sans-serif" font-size="10" font-weight="700" transform="rotate(-90 -30 5)">MYOPIC</text>' +
+            // Elongated eye (oval, longer in horizontal direction)
+            '<ellipse cx="80" cy="30" rx="80" ry="32" fill="#fff" stroke="#9a3412" stroke-width="2" />' +
+            // Cornea bulge (more pronounced)
+            '<path d="M 0 30 C 0 12, 12 2, 30 5 C 35 20, 35 40, 30 55 C 12 58, 0 48, 0 30 Z" fill="#a4c4dd" opacity="0.5" />' +
+            // Lens
+            '<ellipse cx="34" cy="30" rx="6" ry="14" fill="#fff" stroke="#9a3412" stroke-width="1" />' +
+            // Parallel rays — focus IN FRONT of elongated retina (defining feature of myopia)
+            '<line x1="-15" y1="20" x2="105" y2="30" stroke="#c9a961" stroke-width="1.4" />' +
+            '<line x1="-15" y1="30" x2="105" y2="30" stroke="#c9a961" stroke-width="1.4" />' +
+            '<line x1="-15" y1="40" x2="105" y2="30" stroke="#c9a961" stroke-width="1.4" />' +
+            // Continuation past focal point — diverging
+            '<line x1="105" y1="30" x2="160" y2="14" stroke="#c9a961" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.65" />' +
+            '<line x1="105" y1="30" x2="160" y2="46" stroke="#c9a961" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.65" />' +
+            // Focal point in vitreous (red = wrong place)
+            '<circle cx="105" cy="30" r="3.5" fill="#dc2626" stroke="#7c2d12" stroke-width="1" />' +
+            // Blur on retina (where image should focus)
+            '<line x1="155" y1="20" x2="165" y2="40" stroke="#9a3412" stroke-width="1" />' +
+            '<line x1="160" y1="20" x2="155" y2="40" stroke="#9a3412" stroke-width="1" />' +
+            // Axial-length scale bar (longer)
+            '<line x1="0" y1="72" x2="160" y2="72" stroke="#9a3412" stroke-width="1.2" />' +
+            '<line x1="0" y1="68" x2="0" y2="76" stroke="#9a3412" stroke-width="1.2" />' +
+            '<line x1="160" y1="68" x2="160" y2="76" stroke="#9a3412" stroke-width="1.2" />' +
+            '<text x="80" y="86" fill="#9a3412" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle">26–30 mm  · 軸長拉長</text>' +
+          '</g>' +
+          // Right side annotation (intervention badges)
+          '<g transform="translate(280 30)">' +
+            '<rect x="0" y="0" width="100" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<text x="50" y="14" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle">阿托品 0.05%</text>' +
+            '<rect x="0" y="28" width="100" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<text x="50" y="42" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle">角膜塑型 / DIMS</text>' +
+            '<rect x="0" y="56" width="100" height="22" rx="11" fill="#fbbf24" stroke="#9a3412" stroke-width="1.2" />' +
+            '<text x="50" y="70" fill="#7c2d12" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle">戶外 2 hr / day</text>' +
           '</g>' +
         '</svg>'
     },
@@ -889,22 +974,62 @@
       title_en: '8 dry-eye myths — do artificial tears really make eyes drier?',
       meta_zh: '2026.05 · 10 分鐘 · 迷思澄清',
       meta_en: '2026.05 · 10 min · Myth-busting',
+      // Scene: tear-film cross-section showing the 3 layers (lipid/aqueous/mucin)
+      // overlaid on cornea. The most pedagogically useful image for any dry-eye lecture.
       svg:
         '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
-          '<rect width="400" height="300" fill="#dde7e2" />' +
-          '<g filter="url(#mag-rough)">' +
-            '<path d="M 60 160 Q 200 70 340 160 Q 200 240 60 160 Z" fill="#fff" stroke="#2a2620" stroke-width="2.5" stroke-linejoin="round" />' +
-            '<circle cx="200" cy="160" r="52" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="2" />' +
-            '<circle cx="200" cy="160" r="22" fill="#2a2620" />' +
-            '<circle cx="188" cy="150" r="7" fill="#faf7f2" />' +
-            '<line x1="105" y1="115" x2="98" y2="95" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<line x1="155" y1="92" x2="153" y2="72" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<line x1="200" y1="84" x2="200" y2="62" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<line x1="245" y1="92" x2="247" y2="72" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<line x1="295" y1="115" x2="302" y2="95" stroke="#2a2620" stroke-width="2.4" stroke-linecap="round" />' +
-            '<path d="M 312 198 Q 322 215 312 232 Q 302 215 312 198 Z" fill="#7fc8d8" stroke="#3a5a7c" stroke-width="1.8" stroke-linejoin="round" />' +
-            '<path d="M 308 205 Q 313 210 313 215" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85" />' +
-            '<path d="M 90 60 Q 200 42 310 60" fill="none" stroke="#c9a961" stroke-width="4" stroke-linecap="round" opacity="0.85" />' +
+          '<defs>' +
+            '<linearGradient id="hero-dry-bg" x1="0%" y1="0%" x2="100%" y2="100%">' +
+              '<stop offset="0%" stop-color="#dde7e2" />' +
+              '<stop offset="100%" stop-color="#fef3c7" />' +
+            '</linearGradient>' +
+          '</defs>' +
+          '<rect width="400" height="300" fill="url(#hero-dry-bg)" />' +
+          // Tear film layers (zoomed magazine cross-section, top-half)
+          '<g transform="translate(50 50)">' +
+            // Container box
+            '<rect x="0" y="0" width="300" height="120" fill="#fff" stroke="#3a5a7c" stroke-width="1.5" rx="6" />' +
+            // Layer 1: Lipid (top, very thin, golden)
+            '<rect x="0" y="0" width="300" height="14" fill="#fbbf24" opacity="0.7" />' +
+            '<text x="305" y="11" fill="#9a3412" font-family="Inter,sans-serif" font-size="9" font-weight="700">脂質層 LIPID</text>' +
+            '<text x="305" y="22" fill="#9a3412" font-family="Inter,sans-serif" font-size="8">~0.1 μm · MGD</text>' +
+            // Layer 2: Aqueous (middle, biggest, blue)
+            '<rect x="0" y="14" width="300" height="80" fill="#a4c4dd" opacity="0.55" />' +
+            '<text x="305" y="50" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="9" font-weight="700">水液層 AQUEOUS</text>' +
+            '<text x="305" y="61" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="8">~7 μm · 淚腺</text>' +
+            // Layer 3: Mucin (bottom, anchored to epithelium)
+            '<rect x="0" y="94" width="300" height="20" fill="#7fc8d8" opacity="0.7" />' +
+            '<text x="305" y="106" fill="#0c5159" font-family="Inter,sans-serif" font-size="9" font-weight="700">黏液層 MUCIN</text>' +
+            '<text x="305" y="116" fill="#0c5159" font-family="Inter,sans-serif" font-size="7">杯狀細胞</text>' +
+            // Cornea epithelium (bottom)
+            '<rect x="0" y="114" width="300" height="6" fill="#fdba74" />' +
+            // Microvilli (texture on epithelium)
+            '<line x1="20" y1="120" x2="20" y2="124" stroke="#9a3412" stroke-width="1" />' +
+            '<line x1="40" y1="120" x2="40" y2="124" stroke="#9a3412" stroke-width="1" />' +
+            '<line x1="60" y1="120" x2="60" y2="124" stroke="#9a3412" stroke-width="1" />' +
+            '<line x1="80" y1="120" x2="80" y2="124" stroke="#9a3412" stroke-width="1" />' +
+            // A "break" in tear film (TBUT visualization)
+            '<rect x="120" y="14" width="40" height="80" fill="#fef9c3" opacity="0.8" />' +
+            '<line x1="120" y1="14" x2="120" y2="94" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="3 2" />' +
+            '<line x1="160" y1="14" x2="160" y2="94" stroke="#dc2626" stroke-width="1.6" stroke-dasharray="3 2" />' +
+            '<text x="140" y="55" fill="#9a3412" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle">TBUT</text>' +
+            '<text x="140" y="68" fill="#9a3412" font-family="Inter,sans-serif" font-size="8" text-anchor="middle">破裂</text>' +
+          '</g>' +
+          // Bottom: tear droplet falling + meibomian gland
+          '<g transform="translate(60 195)">' +
+            // Eyelid edge
+            '<path d="M 0 30 Q 140 10, 280 30" fill="none" stroke="#9a3412" stroke-width="3" />' +
+            // Meibomian glands (vertical lines along eyelid)
+            '<line x1="40" y1="32" x2="40" y2="50" stroke="#fbbf24" stroke-width="2" />' +
+            '<line x1="80" y1="28" x2="80" y2="48" stroke="#fbbf24" stroke-width="2" />' +
+            '<line x1="120" y1="25" x2="120" y2="46" stroke="#fbbf24" stroke-width="2" />' +
+            '<line x1="160" y1="25" x2="160" y2="46" stroke="#dc2626" stroke-width="2" />' +
+            '<line x1="200" y1="28" x2="200" y2="48" stroke="#fbbf24" stroke-width="2" />' +
+            '<line x1="240" y1="32" x2="240" y2="50" stroke="#fbbf24" stroke-width="2" />' +
+            // Single tear droplet
+            '<path d="M 290 50 Q 305 70, 290 90 Q 275 70, 290 50 Z" fill="#7fc8d8" stroke="#3a5a7c" stroke-width="1.2" />' +
+            // Label
+            '<text x="140" y="80" fill="#9a3412" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle">瞼板腺 (MEIBOMIAN GLANDS)</text>' +
           '</g>' +
         '</svg>'
     }

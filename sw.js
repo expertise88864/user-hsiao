@@ -1,23 +1,25 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v18: PERFORMANCE + DECLUTTERING SPRINT
- *      + Reading-progress widget moved BELOW spotlight (per user request)
- *      + Removed redundant home-page sections: AdSense #1 (above article-list)
- *        and 學經歷 timeline (already on /about) — less visual noise
- *      + 3-phase initBlog: PHASE 1 sync (above-fold), PHASE 2 idle (article-only
- *        widgets, calculators, share, related), PHASE 3 background (SW, GA, WV)
- *        via requestIdleCallback shim — much faster mobile FCP/LCP
- *      + content-visibility:auto on FAQ + footer + below-fold sections
- *      + Trimmed Google Fonts (8 weights → 6: dropped Fraunces italic + Inter 400)
- *      + <link rel=preload as=style> for /assets/app.css + fetchpriority=high on logo
- *      + Subtle <hr class=sep> dividers between major sections for cleaner rhythm
+ * v19: CONTENT POLISH SPRINT — medical illustrations + print + decluttering
+ *      + Each article now has 1–2 medically-accurate SVG figures + 1 evidence
+ *        table sourced from peer-reviewed lit:
+ *        – dry-eye: DEWS II diagnostic flowchart + severity staging (4 levels)
+ *        – myopia: axial elongation diagram + 7-intervention efficacy table
+ *          (LAMP / ATOM2 / Walline / Lam / Chamberlain / BAMC / Wu)
+ *        – floaters: PVD 4-stage progression + AAO PPP triage decision tree
+ *      + Hero SVG library redesigned as full slug-specific scenes (no more
+ *        generic "eye + dots") — each tells the article's medical story
+ *      + @media print rules in app.css: hides nav/footer/share/ads/floating
+ *        widgets, expands collapsibles, shows URLs after links — clean A4
+ *        handouts ready for clinic
+ *      + Removed duplicate footer 作者簡介 link (kept 關於作者)
+ *      + Reading-progress widget no longer shows "/ N 篇" total count
+ * v18: 3-phase initBlog (rIC), content-visibility:auto, font trim, hr dividers.
  * v17: per-article OG cards, _gen_feeds.py, addFeedbackLink, search button.
- * v16: English mirror (/en/), calculator framework + 5 ophth calcs.
- * v15: Cmd+K, article hero SVG, lazy images, inline CTA, NEW badge, GA4 + WV.
- * v14: home article-list-item proper styling, spotlight SVG icons.
- *     cache-bust ?v=20260519
+ * v16: /en/ mirror, calculator framework + 5 ophth calcs.
+ *     cache-bust ?v=20260520
  */
-const CACHE = 'hs-v18';
-const RUNTIME = 'hs-runtime-v18';
+const CACHE = 'hs-v19';
+const RUNTIME = 'hs-runtime-v19';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [

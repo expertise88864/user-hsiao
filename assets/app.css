@@ -205,6 +205,149 @@ img, video { max-width: 100%; height: auto; }
 }
 
 /* ============================================================
+   PRINT — patient-handout friendly CSS
+   ------------------------------------------------------------
+   Doctors can hit Cmd/Ctrl+P to print a clean, ad-free, nav-free
+   handout to give patients. Hides UI chrome, expands prose, shows
+   URL after links so patients can return online later.
+   ============================================================ */
+@media print {
+  /* ── Hide all UI chrome ── */
+  header.sticky,
+  footer.mag-footer,
+  .mag-footer,
+  #hs-progress, #dn-progress,           /* top scroll progress bar */
+  #hs-totop, #dn-totop,                 /* scroll-to-top button */
+  #hs-cmdk-overlay, #dn-cmdk-overlay,   /* search modal */
+  #hs-share, .hs-share,                 /* share toolbar */
+  #hs-bmc, .hs-bmc,                     /* support author CTA */
+  #hs-feedback,                         /* feedback widget */
+  #hs-related, #dn-related,             /* related articles */
+  #hs-author-bio, #dn-author-bio,       /* author bio card */
+  #hs-toc-float, #dn-toc-float,         /* floating sidebar TOC */
+  #hs-mobile-nav,                       /* mobile bottom nav */
+  #hs-theme-toggle,                     /* theme toggle button */
+  #hs-font-sizer,                       /* font size buttons */
+  #hs-resume-toast, #dn-resume-toast,   /* "continue reading" toast */
+  #hs-en-banner, #dn-en-banner,         /* English-mode banner */
+  .ad-slot,                             /* AdSense placeholders */
+  .skip-link,
+  .home-faq summary::after,             /* + sign on FAQ collapsibles */
+  .lang-select,
+  .quick-find,
+  .dn-search-wrap,
+  button[aria-label="搜尋"],
+  button[aria-label="Search"],
+  details:not([open]) > *:not(summary),
+  .hs-calc-tools-link,                  /* calc 'see full guide' link */
+  #hs-inline-cta,                       /* mid-article CTA */
+  .article-list-item .al-arrow,
+  nav,
+  .mag-feature,                         /* hero magazine cards */
+  .hs-img-lightbox,
+  .pwa-prompt,
+  .hs-new-pulse,                        /* NEW badge animation */
+  .reveal-root + script {
+    display: none !important;
+  }
+
+  /* ── Reset page geometry for print ── */
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+    line-height: 1.55;
+    margin: 0; padding: 0;
+  }
+  body::before, body::after { content: none !important; display:none !important; }
+
+  /* Article body fills page width */
+  article.max-w-3xl,
+  .max-w-3xl, .max-w-5xl, .max-w-6xl {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .prose { font-size: 11pt; line-height: 1.6; }
+  .prose h1 { font-size: 22pt; margin: 0 0 8pt; page-break-after: avoid; }
+  .prose h2 { font-size: 16pt; margin: 14pt 0 6pt; border-left: 2pt solid #333; padding-left: 6pt; page-break-after: avoid; }
+  .prose h3 { font-size: 13pt; margin: 10pt 0 4pt; page-break-after: avoid; }
+  .prose p, .prose li { font-size: 11pt; orphans: 3; widows: 3; }
+  .prose img, .prose svg { max-width: 100% !important; page-break-inside: avoid; }
+  .prose table { width: 100% !important; border-collapse: collapse !important; page-break-inside: avoid; }
+  .prose table th, .prose table td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; }
+
+  /* Show URL after links so reader can return online */
+  .prose a[href^="http"]::after,
+  .prose a[href^="/"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555;
+    word-break: break-all;
+  }
+  /* But don't show URL for anchor / mailto / footnote-style links */
+  .prose a[href^="#"]::after,
+  .prose a[href^="mailto:"]::after,
+  .prose a[href^="tel:"]::after { content: ""; }
+
+  /* Expand collapsibles so all content prints */
+  details.hf, details { display: block !important; }
+  details > summary { font-weight: 700; cursor: default; list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  details > .ans, details > div { display: block !important; padding: 0 !important; border: 0 !important; }
+
+  /* Article hero figure — keep but compact */
+  #hs-article-hero, #dn-article-hero {
+    margin: 6pt 0 10pt !important;
+    box-shadow: none !important;
+    border: 0.5pt solid #999 !important;
+    page-break-after: avoid;
+  }
+
+  /* SVG illustrations — preserve but cap size on portrait page */
+  .prose svg, article svg {
+    max-height: 45vh;
+    display: block; margin: 8pt auto;
+    page-break-inside: avoid;
+  }
+
+  /* Calculators — print interactive calcs as static reference cards */
+  .hs-calc {
+    border: 0.5pt solid #999 !important;
+    box-shadow: none !important;
+    margin: 10pt 0 !important;
+    padding: 8pt 10pt !important;
+    page-break-inside: avoid;
+  }
+  .hs-calc-input, select.hs-calc-input { border: 1pt solid #999 !important; background: #fff !important; }
+  .hs-calc-result { background: #f4f4f4 !important; border: 1pt dashed #666 !important; }
+
+  /* Print footer with site URL — manually re-enabled here, runs once */
+  article.max-w-3xl::after {
+    content: "© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);
+    display: block;
+    margin-top: 12pt;
+    padding-top: 8pt;
+    border-top: 1pt solid #333;
+    font-size: 9pt;
+    color: #555;
+    text-align: center;
+  }
+
+  /* Page break helpers */
+  .page-break-before { page-break-before: always; }
+  .page-break-avoid  { page-break-inside: avoid; }
+
+  @page {
+    margin: 18mm 16mm;
+    size: A4 portrait;
+  }
+  @page :first {
+    margin-top: 22mm;
+  }
+}
+
+/* ============================================================
    VISUAL RHYTHM — subtle section dividers for cleaner flow
    ------------------------------------------------------------
    Use `<hr class="sep">` between major sections to give the eye
