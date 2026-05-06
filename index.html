@@ -95,9 +95,51 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   .pill{ display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:9999px; background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; font-size:12px; font-weight:600; letter-spacing:.04em; }
 
   /* Quick find chips */
-  .quick-find{ display:flex; flex-wrap:wrap; gap:8px; }
-  .quick-find a{ padding:7px 14px; border-radius:9999px; background:#fff; border:1px solid var(--border); color:var(--ink-2); font-size:12.5px; font-weight:600; text-decoration:none; transition:all .15s; }
-  .quick-find a:hover{ border-color:rgba(58,90,124,.5); color:var(--blue-deep); transform:translateY(-1px); }
+  .quick-find{ display:flex; flex-wrap:wrap; gap:6px; }
+  .quick-find a{ padding:5px 11px; border-radius:9999px; background:#fff; border:1px solid var(--border); color:var(--ink-2); font-size:12px; font-weight:600; text-decoration:none; transition:all .15s; line-height:1.4; }
+  .quick-find a:hover{ border-color:rgba(58,90,124,.5); color:var(--blue-deep); transform:translateY(-1px); box-shadow:0 4px 8px -4px rgba(58,90,124,.18); }
+
+  /* Search input (in quick-find card) */
+  .dn-search-wrap{ position:relative; display:flex; align-items:center; margin-bottom:10px; }
+  .dn-search-icon{ position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
+  .dn-search-input{ flex:1; width:100%; padding:9px 14px 9px 36px; font-size:14px; font-family:'Noto Sans TC',Inter,sans-serif; color:var(--ink); background:var(--mint-soft); border:1px solid var(--border); border-radius:10px; outline:none; transition:all .15s; }
+  .dn-search-input::placeholder{ color:var(--muted); }
+  .dn-search-input:focus{ border-color:rgba(58,90,124,.55); background:#fff; box-shadow:0 0 0 3px rgba(143,179,212,.20); }
+  .dn-search-empty{ display:none; margin-top:14px; padding:18px; background:#fef9f0; border:1px dashed #f4dfae; border-radius:12px; text-align:center; font-size:13.5px; color:#7a5a18; }
+  .dn-search-empty.show{ display:block; }
+
+  /* Section heading row */
+  .section-head{ margin-bottom:18px; }
+  .section-head h2{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-weight:600; font-size:clamp(22px,2.6vw,30px); letter-spacing:-0.01em; line-height:1.25; margin:6px 0 0; color:var(--ink); }
+
+  /* Article list — DermNotes home pattern (3px gradient bar, no SVG icon) */
+  .article-list{ display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+  .article-list-item{ display:flex; gap:14px; padding:14px 18px; background:#fff; border:0.5px solid var(--border); border-radius:14px; transition:all .18s ease; text-decoration:none; box-shadow:0 1px 2px rgba(15,23,42,.04); align-items:center; position:relative; }
+  .article-list-item:hover{ border-color:rgba(58,90,124,.5); box-shadow:0 8px 18px -10px rgba(58,90,124,.22); transform:translateX(3px); }
+  .article-list-item::before{ content:''; display:block; width:3px; height:36px; background:linear-gradient(180deg,#8fb3d4,#243b56); border-radius:9999px; flex-shrink:0; align-self:center; }
+  .al-body{ flex:1; min-width:0; }
+  .al-meta{ display:flex; gap:5px; align-items:center; flex-wrap:wrap; margin-bottom:4px; }
+  .al-meta .chip{ display:inline-flex; align-items:center; padding:2px 8px; border-radius:9999px; font-size:10.5px; font-weight:600; line-height:1.45; }
+  .al-meta .chip.cat-myth{ background:#fef3c7; color:#854d0e; border:1px solid #fcd34d; }
+  .al-meta .chip.cat-alert{ background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; }
+  .al-meta .chip.cat-rx{ background:#ede9fe; color:#5b21b6; border:1px solid #ddd6fe; }
+  .al-meta .chip.tag{ background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; }
+  .al-meta time{ font-size:10.5px; color:var(--muted); margin-left:auto; font-family:'JetBrains Mono',Inter,ui-monospace,monospace; letter-spacing:.04em; }
+  .al-body h3{ font-size:15.5px; font-family:'Noto Serif TC',Georgia,serif; font-weight:700; color:var(--ink); margin:0 0 3px; line-height:1.4; }
+  .al-body p{ font-size:13px; color:var(--ink-2); margin:0; line-height:1.65; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; }
+  .al-arrow{ align-self:center; color:var(--blue-deep); font-size:20px; flex-shrink:0; opacity:.55; transition:all .15s ease; font-weight:600; }
+  .article-list-item:hover .al-arrow{ opacity:1; transform:translateX(2px); }
+  @media(max-width:640px){
+    .article-list-item{ gap:11px; padding:12px 14px; }
+    .al-body h3{ font-size:14.5px; }
+    .al-body p{ font-size:12px; -webkit-line-clamp:2; }
+    .al-meta time{ display:none; }
+    .al-arrow{ display:none; }
+  }
+
+  /* Action row (3 buttons under article list) */
+  .action-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:24px; }
+  .action-row .btn{ font-size:13.5px; padding:10px 18px; }
 
   /* About timeline */
   .info-card{ background:#fff; border:1px solid var(--border); border-radius:18px; padding:24px 26px; box-shadow:0 1px 2px rgba(15,23,42,.04); }
@@ -413,7 +455,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
           <span class="chip tag" data-zh="飛蚊症" data-en="Floaters">飛蚊症</span>
           <time>2026-05-04</time>
         </div>
-        <h3 data-zh="飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生!" data-en="6 Floater Red Flags — when do floaters mean retinal emergency?">飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！</h3>
+        <h3 data-zh="飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！" data-en="6 Floater Red Flags — when do floaters mean retinal emergency?">飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！</h3>
+        <p data-zh="多數飛蚊是良性玻璃體混濁，但「突然爆增 + 閃光 + 視野缺損」是視網膜剝離警訊，48 小時內必須就醫。" data-en="Most floaters are benign vitreous opacities — but sudden showers + flashes + field loss signal retinal detachment.">多數飛蚊是良性玻璃體混濁，但「突然爆增 + 閃光 + 視野缺損」是視網膜剝離警訊，48 小時內必須就醫。</p>
       </div>
       <div class="al-arrow">→</div>
     </a>
@@ -426,6 +469,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
           <time>2026-05-04</time>
         </div>
         <h3 data-zh="兒童近視控制 8 大迷思 — 阿托品、OK 鏡、紅光、戶外時間" data-en="8 pediatric myopia control myths — atropine, ortho-K, red light, outdoor time">兒童近視控制 8 大迷思 — 阿托品、OK 鏡、紅光、戶外時間</h3>
+        <p data-zh="低濃度阿托品、角膜塑型、戶外 2 小時哪個有效？紅光治療為何被叫停？一次釐清最新實證。" data-en="Low-dose atropine, ortho-K, two hours outdoor — what works? Why was red light paused? Latest evidence in plain language.">低濃度阿托品、角膜塑型、戶外 2 小時哪個有效？紅光治療為何被叫停？一次釐清最新實證。</p>
       </div>
       <div class="al-arrow">→</div>
     </a>
@@ -437,7 +481,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
           <span class="chip tag" data-zh="乾眼症" data-en="Dry Eye">乾眼症</span>
           <time>2026-05-04</time>
         </div>
-        <h3 data-zh="乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎?" data-en="8 dry-eye myths — do artificial tears really make eyes drier?">乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎？</h3>
+        <h3 data-zh="乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎？" data-en="8 dry-eye myths — do artificial tears really make eyes drier?">乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎？</h3>
+        <p data-zh="人工淚液不會「越點越乾」，但含防腐劑的長期使用會傷害角膜上皮。熱敷、瞼板腺、Omega-3 該怎麼選？" data-en="Artificial tears don’t cause dry eye — but preserved drops harm corneal epithelium. Warm compress, MGD, omega-3 explained.">人工淚液不會「越點越乾」，但含防腐劑的長期使用會傷害角膜上皮。熱敷、瞼板腺、Omega-3 該怎麼選？</p>
       </div>
       <div class="al-arrow">→</div>
     </a>
