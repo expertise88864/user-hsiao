@@ -1,20 +1,21 @@
 /* HsiaoEye service worker — offline-first for static, network-first for HTML
- * v16: + English mirror (/en/) generated via _gen_en_pages.py — 14 pages
- *      (about/blog/index/notes/privacy/tools + 8 articles). hreflang fully
- *      restored across all HTML + sitemap (zh-Hant-TW + en + x-default per URL).
- *    + Calculator framework: DN.calcStyles + DN._buildCalc + 5 ophth calcs:
- *      OSDI, DEQ-5, Snellen↔LogMAR, Spherical Equivalent, Floater Red-Flag.
- *      Auto-injected on dry-eye / pediatric-myopia / floaters articles, +
- *      mounted on /tools hub via [data-calc] placeholders.
- * v15: DermNotes parity sprint — Cmd+K, article hero SVG, lazy images +
- *      lightbox, inline CTA, NEW badge, GA4 events + Web Vitals.
- * v14: home article-list-item properly styled, spotlight 32x32 SVG icons.
- * v13: hero card rotation (Fisher-Yates), quick-find chips reduced to 4.
- * v12: WebP/AVIF SUNN1302, 何時就醫 + 延伸閱讀 modules.
- *     cache-bust ?v=20260517
+ * v17: + Per-article 1200×630 OG cards (assets/og/<slug>.{png,webp}) generated
+ *      by _gen_og_images.py; each article HTML now has og:image / twitter:image
+ *      pointing at its own card (no more generic /icon-512.png).
+ *    + Auto-regenerated sitemap.xml + feed.xml + atom.xml via _gen_feeds.py
+ *      (drift-checked in GH Actions CI).
+ *    + DN.addFeedbackLink: "Spot an error?" mailto widget at end of articles.
+ *    + Search button (<button aria-label="搜尋">) added to every page header,
+ *      now triggers the global Cmd+K modal everywhere.
+ * v16: English mirror (/en/), calculator framework + 5 ophth calcs.
+ * v15: Cmd+K, article hero SVG, lazy images, inline CTA, NEW badge, GA4 + WV.
+ * v14: home article-list-item proper styling, spotlight SVG icons.
+ * v13: hero card rotation, quick-find chips reduced to 4.
+ * v12: WebP/AVIF SUNN1302.
+ *     cache-bust ?v=20260518
  */
-const CACHE = 'hs-v16';
-const RUNTIME = 'hs-runtime-v16';
+const CACHE = 'hs-v17';
+const RUNTIME = 'hs-runtime-v17';
 const RUNTIME_MAX_ENTRIES = 60;
 
 const PRECACHE = [
@@ -50,6 +51,10 @@ const PRECACHE = [
   '/blog/red-eye-conjunctivitis',
   '/notes',
   '/tools',
+  // Per-article OG cards (1200×630) — used by social link previews
+  '/assets/og/dry-eye-myths.png',
+  '/assets/og/pediatric-myopia-control.png',
+  '/assets/og/floaters-retinal-detachment.png',
   // English mirror (/en/) — kept lightweight; runtime cache covers the rest
   '/en/',
   '/en/about',

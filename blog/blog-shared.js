@@ -1930,6 +1930,50 @@
     });
   };
 
+  // ---------------------------------------------------------------------
+  // Article feedback widget — "Spot an error?" mailto card at end of article
+  // Pre-fills subject + body with article title/URL for easier triage.
+  // ---------------------------------------------------------------------
+  DN.addFeedbackLink = function () {
+    var article = document.querySelector('article.max-w-3xl');
+    if (!article || document.getElementById('hs-feedback')) return;
+    var pageTitle = document.title.split('|')[0].trim();
+    var subject = encodeURIComponent('[HsiaoEye 回饋] ' + pageTitle);
+    var body = encodeURIComponent(
+      '醫師您好，\n\n' +
+      '我想針對下列文章提供回饋：\n' +
+      '文章： ' + pageTitle + '\n' +
+      '網址： ' + location.href + '\n\n' +
+      '回饋內容（請填寫）：\n' +
+      '□ 內容更正建議\n' +
+      '□ 引用爭議\n' +
+      '□ 過時資訊提醒\n' +
+      '□ 其他：_____\n\n' +
+      '說明：\n\n\n' +
+      '謝謝！'
+    );
+    var box = document.createElement('section');
+    box.id = 'hs-feedback';
+    box.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-6';
+    box.innerHTML =
+      '<div style="background:#fafaf7;border:1px dashed #dcd5c8;border-radius:12px;padding:14px 18px;font-size:13px;color:#5e574e;line-height:1.75;display:flex;align-items:center;gap:14px;flex-wrap:wrap">' +
+        '<div style="flex:1;min-width:220px">' +
+          '<strong data-zh="發現錯誤、過時資訊、引用爭議？" data-en="Spot an error or outdated info?">發現錯誤、過時資訊、引用爭議？</strong><br/>' +
+          '<span data-zh="本文歡迎讀者回饋，我會親自閱讀每封信並依據文獻校正。" data-en="Reader feedback welcome — each email is read personally and corrections are made per current literature.">本文歡迎讀者回饋，我會親自閱讀每封信並依據文獻校正。</span>' +
+        '</div>' +
+        '<a href="mailto:f94001115@gmail.com?subject=' + subject + '&body=' + body + '" ' +
+          'style="flex-shrink:0;padding:8px 16px;border-radius:9999px;background:#243b56;color:#fff;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap" ' +
+          'data-feedback-link data-zh="提交內容回饋 →" data-en="Send feedback →">提交內容回饋 →</a>' +
+      '</div>';
+    article.parentNode.insertBefore(box, article.nextSibling);
+    var fbLink = box.querySelector('[data-feedback-link]');
+    if (fbLink && typeof gtag === 'function') {
+      fbLink.addEventListener('click', function () {
+        try { gtag('event', 'content_feedback_click', { page_path: location.pathname }); } catch (e) {}
+      });
+    }
+  };
+
   // Article-context auto-injection — calls the right calculator based on slug
   DN.injectArticleCalculators = function () {
     var slug = DN.currentSlug && DN.currentSlug();
@@ -1991,6 +2035,7 @@
       DN.injectShareToolbar('hs-share');
       DN.injectBMC('hs-bmc');
       DN.addRelatedArticles();
+      DN.addFeedbackLink();     // "Spot an error?" mailto widget
     }
     // Tools-page calculator placeholders (works on /tools too)
     if (document.querySelector('[data-calc]')) {

@@ -26,6 +26,25 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install Python dependencies
+        run: pip install Pillow
+
+      # ── Drift checks: regenerate auto-built artifacts and fail if any drifted ──
+      # Catches the case where author edited an article but forgot to re-run
+      # _gen_feeds.py / _gen_og_images.py / _gen_en_pages.py.
+      - name: Drift check — auto-regenerated artifacts
+        run: |
+          python _gen_feeds.py
+          python _gen_og_images.py
+          python _gen_en_pages.py
+          if ! git diff --quiet; then
+            echo "::warning::Auto-regenerated artifacts drifted from committed copies. Run the three _gen_*.py scripts locally before pushing:"
+            echo "::warning::  python _gen_feeds.py && python _gen_og_images.py && python _gen_en_pages.py"
+            git diff --stat
+            # Don't hard-fail yet — emit warning so CI passes during initial roll-out.
+            # Flip to `exit 1` once all 3 generators are stable.
+          fi
+
       - name: Run validate.py
         run: python validate.py
 
