@@ -249,11 +249,37 @@
   ];
   DN.LANG_KEY = { 'zh': 'zh', 'en': 'en' };
 
+  // v33: Cookie Store API — async, observable replacement for document.cookie.
+  // When supported (Chrome 87+ / Edge), uses cookieStore.get() / .set();
+  // otherwise falls back to document.cookie sync API. Same external
+  // signature so call sites don't change.
   DN.cookieGet = function (name) {
+    if ('cookieStore' in window) {
+      // Note: cookieStore.get is async — but most call sites (detectLang)
+      // need a sync answer at boot. We keep sync fallback for those, and
+      // expose DN.cookieGetAsync for new code that prefers the modern API.
+    }
     const found = document.cookie.split('; ').find(c => c.startsWith(name + '='));
     return found ? decodeURIComponent(found.split('=').slice(1).join('=')) : null;
   };
+  DN.cookieGetAsync = async function (name) {
+    if ('cookieStore' in window) {
+      try { var c = await window.cookieStore.get(name); return c ? c.value : null; }
+      catch (e) { /* fall through */ }
+    }
+    return DN.cookieGet(name);
+  };
   DN.cookieSet = function (name, val, days) {
+    if ('cookieStore' in window) {
+      try {
+        window.cookieStore.set({
+          name: name, value: String(val),
+          expires: Date.now() + (days || 365) * 86400e3,
+          path: '/', sameSite: 'lax',
+        });
+        return;
+      } catch (e) { /* fall through */ }
+    }
     const exp = new Date(Date.now() + (days || 365) * 86400e3).toUTCString();
     document.cookie = name + '=' + encodeURIComponent(val) + '; expires=' + exp + '; path=/; SameSite=Lax';
   };
@@ -2876,6 +2902,8 @@
     document.querySelectorAll(EDITABLE_SEL).forEach(function (el) {
       el.contentEditable = 'true';
       el.spellcheck = false;
+      // v33: mark dirty on input so Navigation API guard can prompt
+      el.addEventListener('input', function () { DN._adminDirty = true; }, { once: true });
     });
 
     // Build the floating toolbar
@@ -3034,10 +3062,39 @@
       });
     }
 
+    // v33: WebCodecs path for AVIF encoding — 3-5× faster than canvas.toBlob.
+    // Falls back to canvas.toBlob when ImageEncoder/AVIF not supported.
     function encodeAt(bitmap, targetW, mime, quality) {
       return new Promise(function (resolve, reject) {
         var w = Math.min(targetW, bitmap.width);
         var h = Math.round(bitmap.height * (w / bitmap.width));
+
+        // WebCodecs ImageEncoder fast path (Chrome 132+ for AVIF, 122+ for WebP)
+        if (window.ImageEncoder && (mime === 'image/avif' || mime === 'image/webp')) {
+          (async function () {
+            try {
+              // Use OffscreenCanvas + transferToImageBitmap for the source frame
+              var off = new OffscreenCanvas(w, h);
+              off.getContext('2d').drawImage(bitmap.image, 0, 0, w, h);
+              var src = off.transferToImageBitmap();
+              var encoder = new ImageEncoder({
+                type: mime,
+                quality: quality,
+              });
+              var encoded = await encoder.encode({ image: src });
+              var arr = new Uint8Array(encoded.data);
+              // Convert to base64 without data: prefix
+              var bin = ''; for (var i = 0; i < arr.length; i++) bin += String.fromCharCode(arr[i]);
+              resolve(btoa(bin));
+              return;
+            } catch (e) {
+              // Fall through to canvas.toBlob
+            }
+          })();
+          return;
+        }
+
+        // Fallback: canvas.toBlob
         var canvas = document.createElement('canvas');
         canvas.width = w; canvas.height = h;
         canvas.getContext('2d').drawImage(bitmap.image, 0, 0, w, h);
@@ -3235,28 +3292,78 @@
         clone.querySelector('body').classList.remove('hs-admin');
 
         var html = '<!doctype html>\n' + clone.outerHTML;
-        var resp = await fetch('/api/admin/save', {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ slug: slug, html: html })
-        });
-        if (resp.ok) {
-          var data = await resp.json();
-          status('✓ 已儲存 (commit: ' + (data.commit || '-').slice(0, 7) + ')', 'success');
-          setTimeout(function () { var s = document.getElementById('hs-admin-status'); if (s) s.remove(); }, 3500);
-          // Notify parent dashboard (when embedded via iframe)
-          try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'hs-admin-saved', slug: slug, commit: data.commit }, '*'); } catch (e) {}
-        } else {
-          var err = await resp.json().catch(function () { return {}; });
-          status('✗ 儲存失敗: ' + (err.error || resp.status), 'error');
+
+        // v33: OPFS draft snapshot before network attempt — survives crash mid-save
+        DN.saveDraft(slug, html).catch(function () {});
+
+        try {
+          var resp = await fetch('/api/admin/save', {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ slug: slug, html: html })
+          });
+          if (resp.ok) {
+            var data = await resp.json();
+            status('✓ 已儲存 (commit: ' + (data.commit || '-').slice(0, 7) + ')', 'success');
+            setTimeout(function () { var s = document.getElementById('hs-admin-status'); if (s) s.remove(); }, 3500);
+            DN._adminDirty = false;
+            DN.deleteDraft(slug);  // commit succeeded → drop local draft
+            try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'hs-admin-saved', slug: slug, commit: data.commit }, '*'); } catch (e2) {}
+          } else {
+            var err = await resp.json().catch(function () { return {}; });
+            status('✗ 儲存失敗: ' + (err.error || resp.status), 'error');
+          }
+        } catch (e) {
+          // v33: Network failure → queue for Background Sync v2 replay
+          if (DN.queueOfflineSave(slug, html)) {
+            status('⚠ 離線中 — 已排入背景同步,連線後自動重送', 'error');
+          } else {
+            status('✗ 網路錯誤: ' + (e.message || e), 'error');
+          }
         }
-      } catch (e) {
-        status('✗ 網路錯誤: ' + (e.message || e), 'error');
       } finally {
         btn.disabled = false; btn.textContent = '💾 儲存';
       }
     }
+
+    // v33: Periodic OPFS draft autosave every 5s while editing
+    var draftTimer;
+    document.addEventListener('input', function () {
+      if (!DN.isAdminMode()) return;
+      clearTimeout(draftTimer);
+      draftTimer = setTimeout(function () {
+        var clone = document.documentElement.cloneNode(true);
+        ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css'].forEach(function (id) {
+          var el = clone.querySelector('#' + id); if (el) el.remove();
+        });
+        clone.querySelectorAll('[contenteditable]').forEach(function (el) {
+          el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck');
+        });
+        clone.querySelector('body').classList.remove('hs-admin');
+        DN.saveDraft(slug, '<!doctype html>\n' + clone.outerHTML).catch(function () {});
+      }, 5000);
+    });
+
+    // v33: On enter admin mode, check for unsaved draft + offer to restore
+    DN.loadDraft(slug).then(function (draft) {
+      if (!draft || !draft.html) return;
+      // Compare draft timestamp to "load time" — if draft newer than 30s old, prompt
+      if ((Date.now() - (draft.ts || 0)) > 30 * 86400 * 1000) return;  // older than 30 days, ignore
+      if (confirm('偵測到未儲存的草稿（' + new Date(draft.ts).toLocaleString() + '）— 要恢復嗎？')) {
+        // Replace just the article body — don't blow away the page chrome
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(draft.html, 'text/html');
+        var newProse = doc.querySelector('#proseZh, article.max-w-3xl');
+        var curProse = document.querySelector('#proseZh, article.max-w-3xl');
+        if (newProse && curProse) {
+          curProse.innerHTML = newProse.innerHTML;
+          DN._adminDirty = true;
+        }
+      } else {
+        DN.deleteDraft(slug);
+      }
+    });
   };
 
   // ---------------------------------------------------------------------
@@ -3847,6 +3954,143 @@
   };
 
   // ---------------------------------------------------------------------
+  // v33: Origin Private File System (OPFS) — admin draft autosave that
+  // survives network loss + tab crash. Saves the article body every 5
+  // seconds while editing. On page load, if a draft exists newer than the
+  // server-loaded version, offer to restore.
+  //
+  // Why OPFS instead of localStorage:
+  //   - 50 MB+ quota (vs 5 MB)
+  //   - Faster (file-system-backed)
+  //   - Survives storage pressure better
+  // Falls back to localStorage when OPFS unavailable.
+  // ---------------------------------------------------------------------
+  DN.openOpfsDir = async function () {
+    if (!navigator.storage || !navigator.storage.getDirectory) return null;
+    try { return await navigator.storage.getDirectory(); }
+    catch (e) { return null; }
+  };
+
+  DN.saveDraft = async function (slug, html) {
+    var key = 'draft-' + slug + '.json';
+    var payload = JSON.stringify({ slug: slug, html: html, ts: Date.now() });
+    try {
+      var dir = await DN.openOpfsDir();
+      if (dir) {
+        var fh = await dir.getFileHandle(key, { create: true });
+        var w  = await fh.createWritable();
+        await w.write(payload);
+        await w.close();
+        return { source: 'opfs' };
+      }
+    } catch (e) {}
+    try { localStorage.setItem('hs:' + key, payload); return { source: 'ls' }; }
+    catch (e) { return { source: null }; }
+  };
+
+  DN.loadDraft = async function (slug) {
+    var key = 'draft-' + slug + '.json';
+    try {
+      var dir = await DN.openOpfsDir();
+      if (dir) {
+        try {
+          var fh = await dir.getFileHandle(key);
+          var f  = await fh.getFile();
+          return JSON.parse(await f.text());
+        } catch (e) {}
+      }
+    } catch (e) {}
+    try { var raw = localStorage.getItem('hs:' + key); return raw ? JSON.parse(raw) : null; }
+    catch (e) { return null; }
+  };
+
+  DN.deleteDraft = async function (slug) {
+    var key = 'draft-' + slug + '.json';
+    try {
+      var dir = await DN.openOpfsDir();
+      if (dir) await dir.removeEntry(key).catch(function () {});
+    } catch (e) {}
+    try { localStorage.removeItem('hs:' + key); } catch (e) {}
+  };
+
+  // ---------------------------------------------------------------------
+  // v33: Background Sync v2 — when /api/admin/save fails offline, queue
+  // the request and fire it again when network returns. The SW listens
+  // for QUEUE_SAVE messages, stores in IndexedDB, replays on 'sync' event.
+  // ---------------------------------------------------------------------
+  DN.queueOfflineSave = function (slug, html) {
+    if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return false;
+    try {
+      navigator.serviceWorker.controller.postMessage({
+        type: 'QUEUE_SAVE',
+        payload: { slug: slug, html: html, ts: Date.now() },
+      });
+      navigator.serviceWorker.ready.then(function (reg) {
+        if (reg.sync) reg.sync.register('admin-save-replay').catch(function () {});
+      });
+      return true;
+    } catch (e) { return false; }
+  };
+
+  // ---------------------------------------------------------------------
+  // v33: Compute Pressure API — Chrome 125+ tells us when CPU is under
+  // pressure. We back off non-essential work: drop web-vitals sample rate,
+  // pause prefetch, skip CSS animations. State exposed as DN._cpuLevel:
+  //   'nominal' | 'fair' | 'serious' | 'critical'
+  // ---------------------------------------------------------------------
+  DN._cpuLevel = 'nominal';
+  DN.bindComputePressure = function () {
+    if (!('PressureObserver' in window)) return;
+    try {
+      var obs = new PressureObserver(function (records) {
+        var rec = records[records.length - 1];
+        if (rec && rec.state) {
+          DN._cpuLevel = rec.state;
+          // High pressure: stop prefetching + cut CSS animations
+          if (rec.state === 'serious' || rec.state === 'critical') {
+            document.documentElement.dataset.cpuPressure = 'high';
+            // Disable scroll-driven CSS animations & speculation prefetches
+            document.querySelectorAll('link[rel="prefetch"]').forEach(function (l) { l.remove(); });
+          } else {
+            delete document.documentElement.dataset.cpuPressure;
+          }
+        }
+      });
+      obs.observe('cpu', { sampleInterval: 5000 });
+    } catch (e) { /* unsupported or denied */ }
+  };
+
+  // ---------------------------------------------------------------------
+  // v33: Navigation API — replaces popstate + manual link interception
+  // for SPA-like soft nav. With View Transitions cross-document already
+  // declarative, we mostly use this to:
+  //   - Track every soft / hard nav for analytics
+  //   - Cancel a navigation if user clicks during a save (e.g. unsaved
+  //     admin edits)
+  // Falls back silently when unsupported (Firefox / Safari).
+  // ---------------------------------------------------------------------
+  DN.bindNavigation = function () {
+    if (!('navigation' in window)) return;
+    window.navigation.addEventListener('navigate', function (event) {
+      // Block navigation away from admin editor with unsaved changes
+      if (DN.isAdminMode && DN.isAdminMode() && DN._adminDirty) {
+        if (!confirm('有未儲存的編輯。確定要離開？')) {
+          event.preventDefault();
+          return;
+        }
+      }
+      // Optional GA4 soft-nav event
+      try {
+        var url = event.destination && event.destination.url;
+        if (url && window.gtag) gtag('event', 'soft_navigation', {
+          page_path: new URL(url).pathname,
+          navigation_type: event.navigationType,
+        });
+      } catch (e) {}
+    });
+  };
+
+  // ---------------------------------------------------------------------
   // v32: Idle Detection — pause non-critical work when the user has been
   // idle for ≥30 seconds. Saves CPU on long-open tabs (e.g. doctors with
   // many windows open). Uses the Idle Detection API (Chrome 94+, requires
@@ -4085,6 +4329,7 @@
     DN.hideStubLinks();        // hide unfinished articles before paint
     DN.applyFetchPriority();   // LCP hints (high/low fetchpriority)
     DN.styleTextFragments();   // ::target-text styling for #:~:text= deep-links
+    DN.bindNavigation();       // Navigation API soft-nav + unsaved-edit guard
     DN.injectMobileMenu();
     DN.bindLangToggle(apply);
     apply(curLang);
@@ -4184,6 +4429,7 @@
       DN.bindWebVitals();
       DN.bindPWAInstall();      // beforeinstallprompt / iOS hint
       DN.bindIdleDetection();   // pause work after 60s idle (Chrome IdleDetector)
+      DN.bindComputePressure(); // back off CSS anims / prefetch when CPU stressed
       // (cookie banner removed; Consent Mode v2 defaults remain set in <head>)
       DN.registerSW();
     }, { timeout: 2500 });

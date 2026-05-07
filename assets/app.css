@@ -578,3 +578,86 @@ img[width][height] { height: auto; }   /* preserve aspect when scaled */
     translate: -50% calc(-100% - 8px);
   }
 }
+
+/* ============================================================
+   v33 — CSS text-wrap: balance / pretty
+   ------------------------------------------------------------
+   `balance` distributes line-breaks evenly so headings don't end
+   with a single orphan word on the second line. `pretty` does
+   the same for body text but only the LAST 4 lines (perf-cheap).
+   Universally supported in Chrome 114+ / Firefox 121+ / Safari 17.5+.
+   ============================================================ */
+h1, h2, h3,
+.hero h1,
+.article-list-item h3,
+.topic-card h3,
+.hs-pn-title { text-wrap: balance; }
+p, li, .lede { text-wrap: pretty; }
+
+/* ============================================================
+   v33 — CSS @scope dark-mode rules
+   ------------------------------------------------------------
+   Replaces the long :root[data-theme="dark"] .X selectors with
+   scoped blocks. Same specificity but flat-readable + easier to
+   add new dark-mode rules without polluting global style. Falls
+   back gracefully (rules just don't apply) on browsers without
+   @scope (Firefox <128, Safari <17.4).
+   ============================================================ */
+@scope (:root[data-theme="dark"]) {
+  :scope { color-scheme: dark; }
+  .myth-card,
+  .info-card,
+  .article-list-item,
+  .topic-card,
+  .home-faq details.hf,
+  .quick-find a,
+  .keypoint,
+  .selfcheck,
+  .references,
+  table.dn,
+  .placeholder-card,
+  .mag-card,
+  .dn-search-input,
+  .lang-select { background: var(--surface) !important; color: var(--ink); }
+  header.sticky { background: rgba(37, 34, 32, .94); }
+  .alert-card { background: #3a1f1f; border-color: #7a3a3a; }
+  .myth-card .myth { color: #fca5a5; }
+  .myth-card .truth { color: #86efac; }
+}
+
+/* ============================================================
+   v33 — Scroll-driven animations
+   ------------------------------------------------------------
+   Native CSS reading-progress bar — replaces the JS-driven
+   #hs-progress widget on browsers that support animation-timeline.
+   Runs entirely on the compositor thread; zero main-thread cost.
+   When scroll-driven not supported, the JS fallback in blog-shared.js
+   continues to work.
+   ============================================================ */
+@supports (animation-timeline: scroll()) {
+  body { scroll-timeline-name: --page; }
+  .hs-css-progress {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue-deep), var(--teal-bright));
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 100;
+    animation: hs-css-grow linear; animation-timeline: scroll(root);
+    pointer-events: none;
+  }
+  @keyframes hs-css-grow { to { transform: scaleX(1); } }
+  /* Hide JS version when CSS version is active */
+  body:has(.hs-css-progress) #hs-progress { display: none; }
+  /* Reveal-on-scroll without IntersectionObserver */
+  .reveal, .article-list-item, .myth-card {
+    opacity: 0; transform: translateY(10px);
+    animation: hs-reveal both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+  }
+  @keyframes hs-reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .article-list-item, .myth-card { animation: none; opacity: 1; transform: none; }
+    .hs-css-progress { animation: none; transform: scaleX(0); }
+  }
+}

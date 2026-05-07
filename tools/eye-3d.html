@@ -101,6 +101,110 @@
 
 <script type="module">
   // ─────────────────────────────────────────────────────────────────────
+  // 3D eye anatomy — v33 OffscreenCanvas + Worker.
+  //
+  // Renders Three.js on a Worker thread so the main thread stays free
+  // for user input / scrolling / other widgets. Falls back to inline
+  // main-thread rendering when Worker / OffscreenCanvas unsupported.
+  // ─────────────────────────────────────────────────────────────────────
+
+  const canvas = document.getElementById('eye-canvas');
+  const info = document.getElementById('eye-renderer-info');
+
+  // Try Worker + OffscreenCanvas first
+  let usingWorker = false;
+  if (typeof Worker !== 'undefined' && 'transferControlToOffscreen' in canvas) {
+    try {
+      const worker = new Worker('/tools/eye-3d-worker.js?v=20260607', { type: 'module' });
+      const offscreen = canvas.transferControlToOffscreen();
+      worker.postMessage({
+        type: 'init', canvas: offscreen,
+        width: canvas.clientWidth, height: canvas.clientHeight,
+        dpr: devicePixelRatio || 1,
+      }, [offscreen]);
+
+      worker.addEventListener('message', (e) => {
+        const m = e.data;
+        if (m.type === 'ready') {
+          info.innerHTML = (m.renderer === 'webgpu' ? '⚡ WebGPU' : '🌐 WebGL2') + ' · Worker';
+        } else if (m.type === 'pick') {
+          highlightPart(m.id);
+        }
+      });
+
+      // Wire input events to the worker
+      let last = { x: 0, y: 0, id: null };
+      canvas.addEventListener('pointerdown', (e) => {
+        canvas.setPointerCapture(e.pointerId);
+        last = { x: e.clientX, y: e.clientY, id: e.pointerId };
+        worker.postMessage({ type: 'pointerdown', x: e.offsetX, y: e.offsetY, pointerId: e.pointerId });
+      });
+      canvas.addEventListener('pointermove', (e) => {
+        if (last.id !== e.pointerId) return;
+        const dx = e.clientX - last.x, dy = e.clientY - last.y;
+        last.x = e.clientX; last.y = e.clientY;
+        worker.postMessage({ type: 'pointermove', x: e.offsetX, y: e.offsetY, dx, dy, pointerId: e.pointerId });
+      });
+      canvas.addEventListener('pointerup', (e) => {
+        worker.postMessage({ type: 'pointerup', pointerId: e.pointerId });
+        last.id = null;
+      });
+      canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        worker.postMessage({ type: 'wheel', dy: e.deltaY });
+      }, { passive: false });
+      // Click distinct from drag (small movement only)
+      let downAt = { x: 0, y: 0 };
+      canvas.addEventListener('pointerdown', (e) => { downAt = { x: e.clientX, y: e.clientY }; });
+      canvas.addEventListener('click', (e) => {
+        const moved = Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y);
+        if (moved < 5) worker.postMessage({ type: 'click', x: e.offsetX, y: e.offsetY });
+      });
+
+      addEventListener('resize', () => {
+        worker.postMessage({ type: 'resize', width: canvas.clientWidth, height: canvas.clientHeight });
+      });
+
+      // Buttons
+      document.getElementById('btn-reset').addEventListener('click', () => worker.postMessage({ type: 'reset' }));
+      document.getElementById('btn-section').addEventListener('click', (e) => {
+        const on = e.target.dataset.on === 'true';
+        e.target.dataset.on = on ? 'false' : 'true';
+        e.target.classList.toggle('active', !on);
+        worker.postMessage({ type: 'section', on: !on });
+      });
+      document.getElementById('btn-labels').addEventListener('click', (e) => {
+        const on = e.target.dataset.on === 'true';
+        e.target.dataset.on = on ? 'false' : 'true';
+        e.target.classList.toggle('active', !on);
+        document.querySelector('.eye-side').style.display = on ? 'none' : '';
+      });
+
+      // Sidebar click → tell worker to highlight + scroll
+      document.getElementById('part-list').addEventListener('click', (e) => {
+        const part = e.target.closest('.part');
+        if (part) {
+          worker.postMessage({ type: 'highlight', id: part.dataset.id });
+          highlightPart(part.dataset.id);
+        }
+      });
+
+      function highlightPart(id) {
+        document.querySelectorAll('#part-list .part').forEach(p => p.classList.toggle('active', p.dataset.id === id));
+        const el = document.querySelector('#part-list .part[data-id="' + id + '"]');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      usingWorker = true;
+    } catch (e) {
+      console.warn('Worker init failed, falling back to main thread', e);
+    }
+  }
+
+  // ─── Main-thread fallback (Worker not available) ────────────────────
+  if (!usingWorker) {
+    info.innerHTML = '🌐 Main thread';
+  // ─────────────────────────────────────────────────────────────────────
   // 3D eye anatomy — Three.js (loaded from esm CDN), with WebGPURenderer
   // when supported, falls back to WebGLRenderer.
   //

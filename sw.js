@@ -464,9 +464,73 @@ self.addEventListener('fetch', (e) => {
   );
 });
 
+// v33: Background Sync v2 — IndexedDB-backed queue of pending /api/admin/save
+// requests. Replayed when 'sync' fires (browser detects connectivity).
+const SYNC_DB = 'hs-bg-sync';
+const SYNC_STORE = 'queue';
+
+function openSyncDb() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(SYNC_DB, 1);
+    req.onupgradeneeded = () => {
+      req.result.createObjectStore(SYNC_STORE, { keyPath: 'id', autoIncrement: true });
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+async function enqueueSave(payload) {
+  const db = await openSyncDb();
+  return new Promise((resolve) => {
+    const tx = db.transaction(SYNC_STORE, 'readwrite');
+    tx.objectStore(SYNC_STORE).add(payload);
+    tx.oncomplete = () => resolve();
+  });
+}
+async function drainSaves() {
+  const db = await openSyncDb();
+  const tx = db.transaction(SYNC_STORE, 'readwrite');
+  const store = tx.objectStore(SYNC_STORE);
+  const all = await new Promise(r => { const req = store.getAll(); req.onsuccess = () => r(req.result); });
+  let succeeded = 0;
+  for (const item of all || []) {
+    try {
+      const r = await fetch('/api/admin/save', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: item.slug, html: item.html }),
+      });
+      if (r.ok) {
+        store.delete(item.id);
+        succeeded++;
+      } else if (r.status === 401) {
+        // Session expired — keep in queue, user must re-login
+        break;
+      }
+    } catch (e) { /* still offline, keep in queue */ break; }
+  }
+  // Notify any open clients
+  if (succeeded) {
+    const clientList = await self.clients.matchAll({ includeUncontrolled: true });
+    clientList.forEach(c => c.postMessage({ type: 'BG_SYNC_REPLAYED', count: succeeded }));
+  }
+}
+
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'admin-save-replay') event.waitUntil(drainSaves());
+});
+
 self.addEventListener('message', async (e) => {
   if (!e.data) return;
   if (e.data.type === 'SKIP_WAITING') { self.skipWaiting(); return; }
+  if (e.data.type === 'QUEUE_SAVE' && e.data.payload) {
+    await enqueueSave(e.data.payload);
+    // Try draining immediately too — if we're back online by the time the
+    // SW receives the message, save replays before the page even reloads.
+    drainSaves().catch(() => {});
+    return;
+  }
 
   // v30: Offline favourites — when client posts CACHE_FAVORITE the SW pre-caches
   // the article HTML + every image URL referenced in it, so the user can read
