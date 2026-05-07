@@ -1121,23 +1121,53 @@
           'data-en="This article is a residency-level patient-education note, compiled from international literature for general education only — not individual medical advice. This site does not endorse any drug, device, procedure, or clinic. Per Taiwan Medical Care Act §§85–86, individual outcomes vary.">' +
           '本文為眼科住院醫師的<strong>衛教與學習筆記</strong>,內容依據國際醫學文獻與臨床指引整理,僅作為<strong>一般教育用途</strong>。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。本網站不涉及任何藥品、醫療器材、療程或診所之推薦或業配。依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。' +
         '</div>' +
-        // v34.3: support card injected directly inside author-bio block
-        (DN.BMC_URL ? (
-          '<div style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;background:linear-gradient(135deg,#f3f7fb,#e6eef6);margin-left:-22px;margin-right:-22px;margin-bottom:-20px;padding:16px 22px;border-radius:0 0 16px 16px">' +
-            '<div style="width:40px;height:40px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 4px 10px -4px rgba(58,90,124,.25)" aria-hidden="true">☕</div>' +
-            '<div>' +
-              '<div style="font-size:13px;line-height:1.7;color:#243b56" ' +
-                'data-zh="<strong>支持作者寫更多衛教文章</strong> — HsiaoEye 為個人專案,無業配、無贊助、無廣告分潤。" ' +
-                'data-en="<strong>Support more patient-education writing</strong> — HsiaoEye is a personal project with no sponsorships, affiliates, or ads.">' +
-                '<strong>支持作者寫更多衛教文章</strong> — HsiaoEye 為個人專案,無業配、無贊助、無廣告分潤。' +
-              '</div>' +
-              '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:9999px;background:#13C3FF;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;margin-top:8px;box-shadow:0 4px 10px -4px rgba(19,195,255,.45)">' +
-                '<span>☕</span><span data-zh="Ko-fi 支持" data-en="Support on Ko-fi">Ko-fi 支持</span>' +
-              '</a>' +
-            '</div>' +
-          '</div>'
-        ) : '') +
       '</div>';
+  };
+
+  // ---------------------------------------------------------------------
+  // v34.6: Article support section — independent block, mounted AFTER
+  // the author-bio. Single source of truth for Ko-fi link in articles
+  // (no other support button on article pages).
+  // ---------------------------------------------------------------------
+  DN.injectArticleSupport = function () {
+    if (!DN.BMC_URL) return;
+    var article = document.querySelector('article.max-w-3xl');
+    if (!article || document.getElementById('hs-support')) return;
+    var sec = document.createElement('section');
+    sec.id = 'hs-support';
+    sec.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-6';
+    sec.innerHTML =
+      '<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;' +
+        'background:linear-gradient(135deg,#f3f7fb,#e6eef6);border:1px solid #b8cfe3;' +
+        'border-radius:14px;padding:18px 20px;color:#243b56">' +
+        '<div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;' +
+          'align-items:center;justify-content:center;font-size:22px;flex-shrink:0;' +
+          'box-shadow:0 4px 12px -6px rgba(58,90,124,.25)" aria-hidden="true">☕</div>' +
+        '<div style="min-width:0">' +
+          '<div style="font-size:13.5px;line-height:1.85" ' +
+            'data-zh="<strong>支持作者 ·</strong> HsiaoEye 為個人衛教專案,無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助,歡迎請我喝杯咖啡,讓我有更多時間整理新主題。" ' +
+            'data-en="<strong>Support the author ·</strong> HsiaoEye is a personal patient-education project — no sponsorships, no affiliate links, no ad revenue. If this has helped you or your family, you\'re welcome to buy me a coffee.">' +
+            '<strong>支持作者 ·</strong> HsiaoEye 為個人衛教專案,無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助,歡迎請我喝杯咖啡,讓我有更多時間整理新主題。' +
+          '</div>' +
+          '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener" ' +
+            'style="display:inline-flex;align-items:center;gap:8px;padding:9px 16px;' +
+            'border-radius:9999px;background:#13C3FF;color:#fff;text-decoration:none;' +
+            'font-weight:700;font-size:13.5px;margin-top:12px;' +
+            'box-shadow:0 6px 14px -6px rgba(19,195,255,.45);transition:transform .15s,box-shadow .15s">' +
+            '<span style="font-size:16px">☕</span>' +
+            '<span data-zh="Ko-fi 支持" data-en="Support on Ko-fi">Ko-fi 支持</span>' +
+          '</a>' +
+        '</div>' +
+      '</div>';
+    // Insert AFTER the author-bio block so visual flow is:
+    //   author bio → support → share → related → feedback
+    var authorBio = document.getElementById('hs-author-bio');
+    if (authorBio && authorBio.parentNode) {
+      authorBio.parentNode.insertBefore(sec, authorBio.nextSibling);
+    } else {
+      // Fallback: append after article
+      article.parentNode.insertBefore(sec, article.nextSibling);
+    }
   };
 
   // ---------- share toolbar ----------
@@ -4791,6 +4821,7 @@
         DN.addInlineCTA();
         DN.injectArticleCalculators();
         DN.injectAuthorBio('hs-author-bio');
+        DN.injectArticleSupport();   // independent Ko-fi support section
         DN.injectShareToolbar('hs-share');
         DN.injectBMC('hs-bmc');
         DN.addRelatedArticles();
