@@ -11,7 +11,6 @@
     { "source": "/blog/feed.xml", "destination": "/api/feed?fmt=rss" },
     { "source": "/blog/atom.xml", "destination": "/api/feed?fmt=atom" }
   ],
-  "_comment_og": "Dynamic OG fallback: if /assets/og/<slug>.png 404s, /api/og?slug=<slug> renders one on the fly. Vercel static-first means any present .png is served directly; missing → router falls through to api/og.",
   "headers": [
     {
       "source": "/admin(.*)",
