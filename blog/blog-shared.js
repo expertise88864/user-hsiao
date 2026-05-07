@@ -383,16 +383,25 @@
   // ---------- scroll to top ----------
   DN.addScrollToTop = function () {
     if (document.getElementById('hs-totop')) return;
+    // v34.5: on article pages, font-sizer takes the bottom-right corner
+    // (bottom: 24px). Scroll-to-top sits ABOVE it (bottom: 130px) per user
+    // request. On non-article pages, font-sizer doesn't exist, so
+    // scroll-to-top stays at bottom: 24px (the corner).
+    var isArticle = !!document.querySelector('article.max-w-3xl');
+    var bottomPx = isArticle ? 130 : 24;
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.id = 'hs-totop';
     btn.setAttribute('aria-label', 'Scroll to top');
+    btn.title = '回到頂部 / Scroll to top';
     btn.innerHTML = '↑';
-    btn.style.cssText = 'position:fixed;right:18px;bottom:24px;width:42px;height:42px;border-radius:50%;background:linear-gradient(180deg,#8fb3d4,#3a5a7c);color:#fff;border:1px solid rgba(36,59,86,.5);box-shadow:0 8px 20px -8px rgba(36,59,86,.55);cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;font-size:18px;line-height:1';
+    btn.style.cssText = 'position:fixed;right:18px;bottom:' + bottomPx + 'px;width:42px;height:42px;border-radius:50%;background:linear-gradient(180deg,#8fb3d4,#3a5a7c);color:#fff;border:1px solid rgba(36,59,86,.5);box-shadow:0 8px 20px -8px rgba(36,59,86,.55);cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;font-size:18px;line-height:1;transition:transform .15s,box-shadow .15s';
     btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    btn.addEventListener('mouseenter', function () { btn.style.transform = 'translateY(-2px)'; btn.style.boxShadow = '0 12px 26px -8px rgba(36,59,86,.65)'; });
+    btn.addEventListener('mouseleave', function () { btn.style.transform = ''; btn.style.boxShadow = '0 8px 20px -8px rgba(36,59,86,.55)'; });
     document.body.appendChild(btn);
     document.addEventListener('scroll', function () {
-      btn.style.display = window.scrollY > 800 ? 'flex' : 'none';
+      btn.style.display = window.scrollY > 600 ? 'flex' : 'none';
     }, { passive: true });
   };
 
@@ -1040,8 +1049,10 @@
     const wrap = document.createElement('div');
     wrap.id = 'hs-font-sizer';
     wrap.setAttribute('aria-label', '字型大小調整');
+    // v34.5: moved from bottom:74px → bottom:24px so the font-sizer occupies
+    // the bottom-right corner. Scroll-to-top now sits above it at bottom:130px.
     wrap.style.cssText =
-      'position:fixed;right:18px;bottom:74px;z-index:49;display:flex;flex-direction:column;' +
+      'position:fixed;right:18px;bottom:24px;z-index:49;display:flex;flex-direction:column;' +
       'background:#fff;border:1px solid var(--border);border-radius:22px;' +
       'box-shadow:0 6px 18px -8px rgba(58,90,124,.45);overflow:hidden;opacity:0;' +
       'pointer-events:none;transition:opacity .25s;';
@@ -2792,17 +2803,9 @@
   // patient handout without nav / footer / share / ads.
   // ---------------------------------------------------------------------
   DN.addPrintButton = function () {
-    var article = document.querySelector('article.max-w-3xl');
-    if (!article || document.getElementById('hs-print-btn')) return;
-    var btn = document.createElement('button');
-    btn.id = 'hs-print-btn';
-    btn.type = 'button';
-    btn.setAttribute('aria-label', '列印此文章 / Print article');
-    btn.title = '列印給病人 / 存成 PDF';
-    btn.style.cssText = 'position:fixed;right:18px;bottom:130px;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--blue-deep);border:1px solid var(--border);box-shadow:0 8px 20px -8px rgba(58,90,124,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50;font-size:16px;line-height:1';
-    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>';
-    btn.addEventListener('click', function () { window.print(); });
-    document.body.appendChild(btn);
+    // v34.5: removed per user request. Stub only clears cached old DOM.
+    var leftover = document.getElementById('hs-print-btn');
+    if (leftover) leftover.remove();
   };
 
   // ---------------------------------------------------------------------
@@ -2811,56 +2814,9 @@
   // 50 items. Solid icon = bookmarked.
   // ---------------------------------------------------------------------
   DN.addBookmarkButton = function () {
-    var article = document.querySelector('article.max-w-3xl');
-    if (!article || document.getElementById('hs-bookmark')) return;
-    var slug = DN.currentSlug && DN.currentSlug();
-    if (!slug) return;
-    var BM_KEY = 'hs:bookmarks';
-    function get() { try { return JSON.parse(localStorage.getItem(BM_KEY) || '[]'); } catch (e) { return []; } }
-    function set(arr) { try { localStorage.setItem(BM_KEY, JSON.stringify(arr.slice(0, 50))); } catch (e) {} }
-    function isBookmarked() { return get().indexOf(slug) >= 0; }
-
-    var btn = document.createElement('button');
-    btn.id = 'hs-bookmark';
-    btn.type = 'button';
-    btn.style.cssText = 'position:fixed;right:18px;bottom:80px;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--blue-deep);border:1px solid var(--border);box-shadow:0 8px 20px -8px rgba(58,90,124,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50;font-size:18px;line-height:1;transition:all .15s';
-    function render() {
-      var bm = isBookmarked();
-      btn.setAttribute('aria-label', bm ? '取消收藏 / Unsave' : '加入收藏 / Save');
-      btn.title = bm ? '已收藏（點擊取消）' : '加入收藏';
-      btn.innerHTML = bm
-        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="#243b56" stroke="#243b56" stroke-width="2" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
-        : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
-    }
-    btn.addEventListener('click', function () {
-      var arr = get();
-      var url = location.pathname;
-      if (isBookmarked()) {
-        arr = arr.filter(function (s) { return s !== slug; });
-        set(arr); render(); DN.toast && DN.toast('已取消收藏');
-        // Tell SW to drop the offline cache
-        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-          navigator.serviceWorker.controller.postMessage({ type: 'UNCACHE_FAVORITE', url: url });
-        }
-      } else {
-        arr.unshift(slug); set(arr); render(); DN.toast && DN.toast('已加入收藏 — 離線快取中⋯');
-        // Tell SW to pre-cache HTML + images for offline reading
-        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-          var ch = new MessageChannel();
-          navigator.serviceWorker.controller.postMessage({ type: 'CACHE_FAVORITE', url: url }, [ch.port2]);
-        }
-      }
-    });
-    // Listen for SW completion notifications
-    if (navigator.serviceWorker) {
-      navigator.serviceWorker.addEventListener('message', function (e) {
-        if (e.data && e.data.type === 'FAVORITE_CACHED') {
-          DN.toast && DN.toast('✓ 已快取 ' + e.data.count + ' 個資源,飛行模式可讀');
-        }
-      });
-    }
-    render();
-    document.body.appendChild(btn);
+    // v34.5: removed per user request. Stub only clears cached old DOM.
+    var leftover = document.getElementById('hs-bookmark');
+    if (leftover) leftover.remove();
   };
 
   // ---------------------------------------------------------------------
@@ -4840,8 +4796,12 @@
         DN.addRelatedArticles();
         // DN.injectPrevNext() removed v33.1 per user request
         DN.addFeedbackLink();
-        DN.addPrintButton();      // floating print-to-PDF button (right-bottom)
-        DN.addBookmarkButton();   // floating bookmark button (right-bottom)
+        // v34.5 — print + bookmark buttons removed per user request: they
+        // overlapped the bottom-right font-sizer. Stubs still called so any
+        // cached older button DOM gets cleaned up. Page is still printable
+        // via Cmd/Ctrl+P; bookmarking via browser bookmark.
+        DN.addPrintButton();      // no-op cleanup stub
+        DN.addBookmarkButton();   // no-op cleanup stub
         DN.lazyLoadAudit();       // backstop loading="lazy" / fetchpriority
         DN.injectDictTooltips();  // medical-dictionary hover popups
         DN.bindPushSubscribe();   // 🔔 web-push subscribe button (if VAPID key set)
