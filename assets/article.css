@@ -106,16 +106,17 @@
   border-radius: 2px;
 }
 .myth-card .truth {
-  color: #065f46;
-  font-weight: 700;
-  font-size: 15.5px;
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 15px;
   padding-left: 28px;
   position: relative;
-  line-height: 1.6;
+  line-height: 1.75;
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px dashed var(--line);
 }
+.myth-card .truth strong { color: #065f46; font-weight: 700; }
 .myth-card .truth::before {
   content: '';
   position: absolute;
@@ -209,17 +210,25 @@ table.dn tr:last-child td { border-bottom: 0; }
   accent-color: var(--blue-deep);
 }
 
-.references {
+.references,
+.prose ol.references,
+ol.references {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 14px 18px 14px 38px;
+  padding: 12px 16px 12px 34px;
   margin: 24px 0;
-  font-size: 12.5px;
-  line-height: 1.75;
+  font-size: 11.5px;
+  line-height: 1.65;
   color: var(--ink-2);
 }
-.references li { margin: 5px 0; }
+.references li,
+.prose ol.references li,
+ol.references li { margin: 3px 0; font-size: 11.5px; }
+.references strong,
+ol.references strong { color: var(--ink); font-weight: 700; font-size: 11.5px; }
+.references em,
+ol.references em { font-size: 11.5px; }
 .references a { color: var(--blue-deep); word-break: break-all; }
 
 /* ── Mobile typography ── */

@@ -63,7 +63,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-nqN8z98A8YuDxNRx0ikz0liyHqtn/eIcuq4TREIlXXk=',
   'sha256-nuGmmiiCYDFTpvXLDw6pOoq2DQNyb+Q5uFW1Zc7VYfU=',
   'sha256-oc14LMTc3+PlWxlySAijsD73LxSRdiP9/4fGxD+x2co=',
-  'sha256-uiluyiLOJyFYXA2Zh3XmEIS4OQfAijax8LDk23cWTFM=',
+  'sha256-tS0TBqfU2XmgBcH83FKzGp1nGAD2JNwA4ja7tS6njaQ=',
   'sha256-wq+E/4tFESd/NMOMGNTFKxYdGDpAZsZQaUMxMME6Jpk=',
   'sha256-xtMoNE1WfWwE9cOo1pg+iaZ8fiHNtj6oRjVhWJNBLl8='
 ];
