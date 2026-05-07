@@ -1205,10 +1205,11 @@
 
   // ---------- Ko-fi support button ----------
   DN.injectBMC = function (mountId) {
-    if (!DN.BMC_URL) return;
+    // v34.8: now a cleanup stub. The dedicated DN.injectArticleSupport
+    // section replaces this old pill. If a page has a hardcoded
+    // <div id="hs-bmc"> mount, just empty it so the duplicate disappears.
     const mount = document.getElementById(mountId || 'hs-bmc');
-    if (!mount) return;
-    mount.innerHTML = DN._kofiButtonHTML();
+    if (mount) { mount.innerHTML = ''; mount.style.display = 'none'; }
   };
 
   DN._kofiButtonHTML = function () {
@@ -1284,6 +1285,8 @@
 
   function _renderRelatedInner(article, slug, cur, scored) {
     if (document.getElementById('hs-related')) return;
+    // v34.8: enforce max-3 cap regardless of caller's slice
+    scored = (scored || []).slice(0, 3);
 
     const wrap = document.createElement('section');
     wrap.id = 'hs-related';
@@ -4823,7 +4826,9 @@
         DN.injectAuthorBio('hs-author-bio');
         DN.injectArticleSupport();   // independent Ko-fi support section
         DN.injectShareToolbar('hs-share');
-        DN.injectBMC('hs-bmc');
+        // v34.8: DN.injectBMC removed — it was a 2nd "☕ 支持我寫更多衛教文章"
+        // pill that duplicated the new injectArticleSupport section above.
+        // The injectBMC function stays in the code but no longer auto-mounts.
         DN.addRelatedArticles();
         // DN.injectPrevNext() removed v33.1 per user request
         DN.addFeedbackLink();

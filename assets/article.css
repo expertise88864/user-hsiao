@@ -229,3 +229,53 @@ table.dn tr:last-child td { border-bottom: 0; }
   table.dn { font-size: 13px; }
   table.dn th, table.dn td { padding: 8px 10px; }
 }
+
+/* ============================================================
+   v34.8 — Article SVG figure readability
+   ------------------------------------------------------------
+   Many article SVG illustrations had tiny inline font-size (10-11px)
+   that's unreadable on phones without zoom. Force minimum 13px on
+   all <text> inside <figure>, scale viewBox-relative typography up
+   so labels stay legible at responsive widths.
+   ============================================================ */
+.dn-figure svg text,
+figure svg text,
+article svg text {
+  font-size: clamp(13px, 1.5vw, 16px) !important;
+  /* Use system stack with thicker fallback so Han glyphs don't get hairline-rendered */
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif;
+}
+.dn-figure svg text[font-size],
+figure svg text[font-size],
+article svg text[font-size] {
+  /* When SVG has explicit font-size attr, ensure at least 12px effective */
+  font-size: max(12px, attr(font-size px, 12px)) !important;
+}
+
+/* SVG <tspan> inherits but be explicit */
+.dn-figure svg tspan,
+figure svg tspan,
+article svg tspan { font-size: inherit; }
+
+/* For figcaption directly under svg, bump to comfortable reading size */
+.dn-figure figcaption,
+article figure figcaption {
+  font-size: 13.5px !important;
+  line-height: 1.7;
+  margin-top: 10px;
+  color: var(--ink-2);
+}
+
+/* Make figure scale up to full container width on mobile so SVG enlarges */
+@media (max-width: 640px) {
+  .dn-figure,
+  article figure {
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+  .dn-figure svg,
+  article figure svg {
+    width: 100% !important;
+    height: auto !important;
+  }
+}

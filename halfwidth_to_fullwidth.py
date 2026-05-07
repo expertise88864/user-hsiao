@@ -68,6 +68,10 @@ RULES = [
     (re.compile(rf'({CN}):({CN})'),           rf'\g<1>{FW_COLN}\g<2>'),
     # 中:<空白/標籤>  -> 中：
     (re.compile(rf'({CN}):(\s|<|$)'),         rf'\g<1>{FW_COLN}\g<2>'),
+    # v34.8: catch 中:Latin / 中:( / 中:「 cases that earlier rules missed.
+    # Negative lookahead skips digits + slash (preserves "10:30" times,
+    # "ratio 1:2", and "https://..." URLs even though URLs are stashed).
+    (re.compile(rf'({CN}):(?![/\d])'),        rf'\g<1>{FW_COLN}'),
     # Number range with colon (e.g. "問題 1:") — Chinese-context heading
     (re.compile(rf'(?<=[一-鿿\s])(\d+):(\s|<|$)'),       rf'\g<1>{FW_COLN}\g<2>'),
     # 中!中 -> 中!中
