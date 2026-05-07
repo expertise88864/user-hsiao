@@ -38,6 +38,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-OhHlf0kfEemcQV4tLcRAWwT3KOi2i65h6+cFiPfHWmg=',
   'sha256-RmHjLH+Vcw4viP+Ay3rG+Wq8CKJrnTfLZJKQlLEBSO0=',
   'sha256-Rn3+yvInd6TbAjZE4vl7kO8VSx1zyFTjMfmcTjf8yxo=',
+  'sha256-U/hu1ous/voYZYdHukVReCUOYHgF8wx/f8klCBLxyfg=',
   'sha256-X4fIzhXOI/v5K4vCvdXdw8OJ+qHisneTV5QDESMMUfU=',
   'sha256-X5RECgeDB2ylXnf0CdlwS1EatLKuGCyjD0j2o+DH2Gk=',
   'sha256-XLILMHc3auoRTeit5w0BxGsdAELtCSJ9xhUxzwQuwUg=',
@@ -58,7 +59,6 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-nqN8z98A8YuDxNRx0ikz0liyHqtn/eIcuq4TREIlXXk=',
   'sha256-nuGmmiiCYDFTpvXLDw6pOoq2DQNyb+Q5uFW1Zc7VYfU=',
   'sha256-oc14LMTc3+PlWxlySAijsD73LxSRdiP9/4fGxD+x2co=',
-  'sha256-pWdYdXPr2Lo8PS0U9RzpMvZvVLNyVtwaZd57YAB6evo=',
   'sha256-wq+E/4tFESd/NMOMGNTFKxYdGDpAZsZQaUMxMME6Jpk=',
   'sha256-xtMoNE1WfWwE9cOo1pg+iaZ8fiHNtj6oRjVhWJNBLl8='
 ];
@@ -95,15 +95,17 @@ export const config = {
 };
 
 function buildCsp(hashesActive) {
-  // When hashes are populated, use them + drop 'unsafe-inline'.
-  // Until then, ship the v32 'unsafe-inline' fallback so the site keeps working.
+  // v34.1 fix: Inline `style="…"` attributes are sprinkled across the
+  // dynamically-injected DOM (spotlight cards, scroll-to-top, share toolbar,
+  // floating TOC, etc). Hash-listing every unique inline style is impractical
+  // — they vary at runtime. So style-src KEEPS `'unsafe-inline'` always
+  // (low XSS surface — CSS can't run JS). Only script-src moves to hash mode
+  // for the real security win against reflected-XSS.
   const scriptSrc = hashesActive
     ? `script-src 'self' ${INLINE_SCRIPT_HASHES.map(h => `'${h}'`).join(' ')} https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://www.clarity.ms https://*.clarity.ms https://cdn.jsdelivr.net`
     : `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://www.clarity.ms https://*.clarity.ms https://cdn.jsdelivr.net`;
 
-  const styleSrc = hashesActive
-    ? `style-src 'self' ${INLINE_STYLE_HASHES.map(h => `'${h}'`).join(' ')} 'unsafe-hashes' https://fonts.googleapis.com https://cdn.jsdelivr.net`
-    : `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net`;
+  const styleSrc = `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net`;
 
   return [
     `default-src 'self'`,

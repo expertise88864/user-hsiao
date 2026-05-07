@@ -3869,72 +3869,18 @@
   DN._deferredPrompt = null;
 
   DN.bindPWAInstall = function () {
-    // Already installed?
-    if (matchMedia && matchMedia('(display-mode: standalone)').matches) return;
-    if (window.navigator && window.navigator.standalone) return;
-    // Recently dismissed?
-    try {
-      var until = parseInt(localStorage.getItem(DN.PWA_DISMISS_KEY) || '0', 10);
-      if (until && until > Date.now()) return;
-    } catch (e) {}
-
-    window.addEventListener('beforeinstallprompt', function (e) {
-      e.preventDefault();
-      DN._deferredPrompt = e;
-      // Inject button after 8 seconds (don't interrupt first-paint)
-      setTimeout(function () { DN._showPwaButton(); }, 8000);
-    });
-
-    // iOS doesn't support beforeinstallprompt — show a hint instead
-    var isIOS = /iPad|iPhone|iPod/.test(navigator.platform || '') ||
-                (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
-    if (isIOS && !window.navigator.standalone) {
-      setTimeout(function () { DN._showIOSPwaHint(); }, 12000);
-    }
+    // v34.1: PWA install prompt UI removed per user request. Function kept
+    // as a no-op stub so any caller doesn't throw. Site remains installable
+    // via the browser's built-in install menu (manifest.json + SW present).
+    // Also remove any previously-injected prompt buttons or iOS hints from
+    // older SW caches that may still be lingering on a user's device.
+    var leftover = document.getElementById('hs-pwa-btn');
+    if (leftover) leftover.remove();
+    var iosLeftover = document.getElementById('hs-pwa-ios');
+    if (iosLeftover) iosLeftover.remove();
   };
-
-  DN._showPwaButton = function () {
-    if (document.getElementById('hs-pwa-btn')) return;
-    var btn = document.createElement('div');
-    btn.id = 'hs-pwa-btn';
-    btn.style.cssText = 'position:fixed;left:50%;bottom:max(80px,env(safe-area-inset-bottom));transform:translateX(-50%);background:#243b56;color:#fff;padding:10px 14px 10px 16px;border-radius:9999px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;z-index:60;box-shadow:0 12px 28px -8px rgba(36,59,86,.55);max-width:calc(100vw - 24px);cursor:pointer';
-    btn.innerHTML = '<span data-zh="📲 加入主畫面 (離線可讀)" data-en="📲 Install (read offline)">📲 加入主畫面 (離線可讀)</span>' +
-                    '<button aria-label="關閉" style="background:#fff;color:#3a5a7c;border:none;width:22px;height:22px;border-radius:9999px;cursor:pointer;font-weight:700;font-size:12px;line-height:1">×</button>';
-    var dismiss = btn.querySelector('button');
-    btn.addEventListener('click', async function (e) {
-      if (e.target === dismiss || dismiss.contains(e.target)) {
-        try { localStorage.setItem(DN.PWA_DISMISS_KEY, String(Date.now() + 30 * 86400 * 1000)); } catch (e2) {}
-        btn.remove();
-        return;
-      }
-      if (!DN._deferredPrompt) return;
-      DN._deferredPrompt.prompt();
-      var choice = await DN._deferredPrompt.userChoice;
-      try { gtag && gtag('event', 'pwa_install_prompt', { outcome: choice.outcome }); } catch (e2) {}
-      DN._deferredPrompt = null;
-      btn.remove();
-    });
-    document.body.appendChild(btn);
-    DN.applyTextOnly && DN.applyTextOnly(DN.detectLang());
-  };
-
-  DN._showIOSPwaHint = function () {
-    if (document.getElementById('hs-pwa-ios')) return;
-    if (sessionStorage.getItem('hs:pwa:ios-shown')) return;
-    var card = document.createElement('div');
-    card.id = 'hs-pwa-ios';
-    card.style.cssText = 'position:fixed;left:50%;bottom:max(80px,env(safe-area-inset-bottom));transform:translateX(-50%);background:#fff;border:1px solid #b8cfe3;color:#243b56;padding:12px 16px;border-radius:14px;font-size:12.5px;line-height:1.5;z-index:60;box-shadow:0 12px 28px -8px rgba(0,0,0,.18);max-width:calc(100vw - 24px);text-align:center';
-    card.innerHTML = '<div style="font-weight:700;margin-bottom:4px" data-zh="📲 加入主畫面" data-en="📲 Install on iOS">📲 加入主畫面</div>' +
-                     '<div data-zh="點 Safari 分享按鈕 → 加入主畫面" data-en="Tap Safari Share → Add to Home Screen">點 Safari 分享按鈕 → 加入主畫面</div>' +
-                     '<button style="margin-top:6px;background:transparent;color:#8b8378;border:0;cursor:pointer;font-size:11px;text-decoration:underline">了解 / 不再顯示</button>';
-    card.querySelector('button').addEventListener('click', function () {
-      try { localStorage.setItem(DN.PWA_DISMISS_KEY, String(Date.now() + 30 * 86400 * 1000)); } catch (e) {}
-      card.remove();
-    });
-    document.body.appendChild(card);
-    try { sessionStorage.setItem('hs:pwa:ios-shown', '1'); } catch (e) {}
-    DN.applyTextOnly && DN.applyTextOnly(DN.detectLang());
-  };
+  DN._showPwaButton    = function () {};
+  DN._showIOSPwaHint   = function () {};
 
   // ---------------------------------------------------------------------
   // Auto dark-mode listener — DN.bindThemeToggle already handles initial
@@ -4915,7 +4861,9 @@
     idle(function () {
       DN.bindGAEvents();
       DN.bindWebVitals();
-      DN.bindPWAInstall();      // beforeinstallprompt / iOS hint
+      // DN.bindPWAInstall() removed v34.1 per user request — site is still
+      // installable via browser menu (manifest.json present), we just don't
+      // show our own floating "📲 加入主畫面" prompt.
       DN.bindIdleDetection();   // pause work after 60s idle (Chrome IdleDetector)
       DN.bindComputePressure(); // back off CSS anims / prefetch when CPU stressed
       // (cookie banner removed; Consent Mode v2 defaults remain set in <head>)
