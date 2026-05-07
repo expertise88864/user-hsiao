@@ -22,7 +22,9 @@
 import { requireAdmin } from './admin/_auth.js';
 import { kvAvailable, kvGet } from './_kv.js';
 
-export const config = { runtime: 'nodejs', maxDuration: 600 };
+// Hobby plan max is 300s. We auto-disconnect at ~270s and rely on EventSource
+// browser-side auto-reconnect to keep the channel alive.
+export const config = { runtime: 'nodejs', maxDuration: 300 };
 
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
@@ -71,14 +73,14 @@ export default async function handler(req, res) {
   }
   const pollInterval = setInterval(poll, 5_000);
 
-  // Auto-disconnect after 9 minutes (Vercel cuts at 10) — client reconnects
+  // Auto-disconnect after ~4.5 min (Hobby max is 5 min) — client reconnects
   setTimeout(() => {
     if (!alive) return;
     res.write(`event: bye\ndata: {"reason":"max-duration"}\n\n`);
     clearInterval(heartbeat);
     clearInterval(pollInterval);
     res.end();
-  }, 9 * 60 * 1000);
+  }, 270 * 1000);
 
   req.on('close', () => {
     clearInterval(heartbeat);

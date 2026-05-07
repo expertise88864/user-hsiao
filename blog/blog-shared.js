@@ -814,10 +814,6 @@
 
   // ---------- floating sidebar TOC (desktop ≥1280px) ----------
   DN.addFloatingTOC = function () {
-    // Lower breakpoint to 1100px so users on 13" laptops (1280×800 fits with
-    // some padding, but 1366×768 standard panels and 1280×800 panels with
-    // browser chrome give effective viewport ~1180-1240). 1100px also catches
-    // standard 14" laptops at typical zoom.
     if (window.innerWidth < 1100) return;
     const proseEl = document.getElementById('proseZh') || document.querySelector('article .prose');
     if (!proseEl) return;
@@ -827,7 +823,10 @@
 
     const aside = document.createElement('aside');
     aside.id = 'hs-toc-float';
-    aside.style.cssText = 'position:fixed;left:max(16px,calc(50% - 720px));top:120px;width:200px;max-height:calc(100vh - 160px);overflow-y:auto;padding:14px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 28px -14px rgba(58,90,124,.22);font-size:12.5px;line-height:1.7;z-index:30;';
+    // Style is set fully via JS so we can re-measure on resize. Width is
+    // computed from the actual article bounding rect so the TOC NEVER
+    // overlaps the content regardless of viewport / article container width.
+    aside.style.cssText = 'position:fixed;top:120px;max-height:calc(100vh - 160px);overflow-y:auto;padding:14px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 28px -14px rgba(58,90,124,.22);font-size:12.5px;line-height:1.7;z-index:30;display:none;';
     const proseEnFloat = document.getElementById('proseEn');
     function attrEscFloat(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
     let html = '<div style="font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--blue-deep);font-weight:700;margin-bottom:8px" data-zh="本篇大綱" data-en="Contents">本篇大綱</div><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px" id="hs-toc-list">';
@@ -858,9 +857,33 @@
     }, { rootMargin: '-30% 0px -50% 0px' });
     h2s.forEach(function (h) { io.observe(h); });
 
-    window.addEventListener('resize', function () {
-      aside.style.display = (window.innerWidth >= 1100) ? '' : 'none';
-    });
+    // v33.1: dynamic positioning — measures actual article position so the
+    // TOC sits in the gutter without overlapping content. Hides itself when
+    // the gutter is too narrow (<150px) regardless of viewport width.
+    function reposition() {
+      if (window.innerWidth < 1100) { aside.style.display = 'none'; return; }
+      // Find the article container's left edge (max-w-3xl wrapper)
+      const article = proseEl.closest('article') || proseEl.parentElement;
+      if (!article) { aside.style.display = 'none'; return; }
+      const rect = article.getBoundingClientRect();
+      const articleLeft = rect.left;
+      const margin = 16;     // left edge gap
+      const gap    = 24;     // gap between TOC and article
+      const minW   = 150;    // narrower than this → hide
+      const maxW   = 240;    // cap so the TOC stays compact
+      const available = articleLeft - margin - gap;
+      if (available < minW) {
+        aside.style.display = 'none';
+        return;
+      }
+      aside.style.display = '';
+      aside.style.left  = margin + 'px';
+      aside.style.width = Math.min(available, maxW) + 'px';
+    }
+    reposition();
+    window.addEventListener('resize', reposition);
+    // Also reposition after fonts load (article width may shift)
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(reposition);
 
     aside.addEventListener('click', function (e) {
       const a = e.target.closest('a[data-toc]');
@@ -4517,7 +4540,7 @@
         DN.injectShareToolbar('hs-share');
         DN.injectBMC('hs-bmc');
         DN.addRelatedArticles();
-        DN.injectPrevNext();      // ← prev / next → footer navigation
+        // DN.injectPrevNext() removed v33.1 per user request
         DN.addFeedbackLink();
         DN.addPrintButton();      // floating print-to-PDF button (right-bottom)
         DN.addBookmarkButton();   // floating bookmark button (right-bottom)
