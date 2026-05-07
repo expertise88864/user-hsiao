@@ -600,14 +600,21 @@
     if (!proseEl) return;
     if (document.getElementById('hs-reading-meta')) return;
 
-    const text = (proseEl.textContent || '').replace(/\s+/g, '');
-    const cjkChars = (text.match(/[一-鿿]/g) || []).length;
-    const otherWords = (text.match(/[A-Za-z0-9]+/g) || []).length;
-    const minutes = Math.max(2, Math.round(cjkChars / 350 + otherWords / 200));
-
     const slug = DN.currentSlug();
     const meta = (DN.ARTICLES || []).find(function (a) { return a.slug === slug; });
     const reviewedDate = meta ? meta.date : '';
+
+    // v31: Use precomputed `minutes` from DN.ARTICLES (set by /api/admin/precompute-meta).
+    // Falls back to runtime estimation when missing — same heuristic as before.
+    let minutes;
+    if (meta && typeof meta.minutes === 'number' && meta.minutes > 0) {
+      minutes = meta.minutes;
+    } else {
+      const text = (proseEl.textContent || '').replace(/\s+/g, '');
+      const cjkChars = (text.match(/[一-鿿]/g) || []).length;
+      const otherWords = (text.match(/[A-Za-z0-9]+/g) || []).length;
+      minutes = Math.max(2, Math.round(cjkChars / 350 + otherWords / 200));
+    }
 
     const h1 = document.querySelector('article h1, section h1');
     const lead = h1 ? h1.parentElement.querySelector('p') : null;
@@ -1097,11 +1104,37 @@
     const others = all.filter(function (a) { return a.slug !== slug && !DN.isStub(a.slug); });
     if (!others.length) return;
 
-    const scored = others
-      .map(function (a) { return { a: a, s: (a.cat === cur.cat ? 2 : 1) + Math.random() * 0.5 }; })
-      .sort(function (x, y) { return y.s - x.s; })
-      .slice(0, 3)
-      .map(function (x) { return x.a; });
+    // v31: try TF-IDF precomputed ranking first; fall back to category+random.
+    function _renderRelated(scored) {
+      _renderRelatedInner(article, slug, cur, scored);
+    }
+
+    fetch('/assets/related.json', { cache: 'force-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; })
+      .then(function (related) {
+        if (related && related[slug] && related[slug].length) {
+          // Use ML ranking
+          var lookup = {};
+          others.forEach(function (a) { lookup[a.slug] = a; });
+          var scored = related[slug]
+            .map(function (r) { return lookup[r.slug] ? Object.assign({}, lookup[r.slug], { _reasons: r.reasons }) : null; })
+            .filter(Boolean)
+            .slice(0, 3);
+          if (scored.length >= 2) { _renderRelated(scored); return; }
+        }
+        // Fallback: category + random
+        var fallback = others
+          .map(function (a) { return { a: a, s: (a.cat === cur.cat ? 2 : 1) + Math.random() * 0.5 }; })
+          .sort(function (x, y) { return y.s - x.s; })
+          .slice(0, 3)
+          .map(function (x) { return x.a; });
+        _renderRelated(fallback);
+      });
+  };
+
+  function _renderRelatedInner(article, slug, cur, scored) {
+    if (document.getElementById('hs-related')) return;
 
     const wrap = document.createElement('section');
     wrap.id = 'hs-related';
@@ -2095,15 +2128,28 @@
   // Web Vitals — LCP / CLS / INP via PerformanceObserver, sent to GA4
   // ---------------------------------------------------------------------
   DN.bindWebVitals = function () {
-    if (typeof gtag !== 'function') return;
     function send(name, value, id) {
+      // GA4 (existing path)
       try {
-        gtag('event', name, {
+        if (typeof gtag === 'function') gtag('event', name, {
           event_category: 'Web Vitals',
           event_label: id,
           value: Math.round(name === 'CLS' ? value * 1000 : value),
           non_interaction: true
         });
+      } catch (e) {}
+      // v31: KV ingest beacon — real-time, no GA4 24-48hr latency
+      try {
+        var payload = JSON.stringify({
+          name: name,
+          value: name === 'CLS' ? value * 1000 : value,
+          page: location.pathname,
+        });
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon('/api/cwv-ingest', new Blob([payload], { type: 'application/json' }));
+        } else {
+          fetch('/api/cwv-ingest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function () {});
+        }
       } catch (e) {}
     }
     try {
@@ -2159,6 +2205,25 @@
         });
       });
       fcpObs.observe({ type: 'paint', buffered: true });
+    } catch (e) {}
+
+    // ── HTTP protocol detection (h1 / h2 / h3) ──
+    // Reads NextHopProtocol from PerformanceResourceTiming entries.
+    // Reports as a custom event so we can verify h3 rollout in GA4.
+    try {
+      var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      if (nav && nav.nextHopProtocol) {
+        var proto = nav.nextHopProtocol;  // 'h2', 'h3', 'http/1.1', 'h3-29', etc.
+        try {
+          gtag && gtag('event', 'http_protocol', {
+            event_category: 'Network',
+            event_label: proto,
+            non_interaction: true,
+          });
+        } catch (e) {}
+        // Also expose on window for DevTools console probing
+        window.__hsHttpProtocol = proto;
+      }
     } catch (e) {}
 
     // ── Prerender / Speculation Rules hit detection ──
@@ -2532,6 +2597,42 @@
     } catch (e) {}
     return { variant: variant, index: bucket };
   };
+  // ---------------------------------------------------------------------
+  // v31: A/B variant swap from server config — DN.applyAbConfig fetches
+  // /api/ab-config (cached 60s at edge), and for each active test does:
+  //   1. find first element matching `selector`
+  //   2. DN.abTest('<id>', variantNames, fn) → applies variant html on bucket
+  //   3. data-ab-applied="<id>" attribute marks the element so dev-tools/
+  //      debugging knows which test ran
+  //
+  // Only runs in idle phase (avoid blocking FCP). Total payload is tiny —
+  // typically a few KB. Failure is silent (no test → site as normal).
+  // ---------------------------------------------------------------------
+  DN.applyAbConfig = function () {
+    fetch('/api/ab-config', { cache: 'force-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; })
+      .then(function (data) {
+        if (!data || !data.tests) return;
+        Object.keys(data.tests).forEach(function (id) {
+          try {
+            var cfg = data.tests[id];
+            var el = document.querySelector(cfg.selector);
+            if (!el || el.dataset.abApplied) return;
+            var names = cfg.variants.map(function (v, i) { return v.name || ('v' + i); });
+            DN.abTest(id, names, function (variantName, idx) {
+              var v = cfg.variants[idx];
+              if (v && v.html) {
+                el.innerHTML = v.html;
+                el.dataset.abApplied = id;
+                el.dataset.abVariant  = String(idx);
+              }
+            });
+          } catch (e) { /* skip individual broken test */ }
+        });
+      });
+  };
+
   // Convenience: report a conversion for an A/B test (fires once per session)
   DN.abConvert = function (testId, conversionName) {
     var sessKey = 'hs:abc:' + testId + ':' + (conversionName || 'default');
@@ -2984,6 +3085,107 @@
       status('✓ SVG 已插入', 'success');
     }
 
+    // ─────────────────────────────────────────────────────────────────
+    // v31: Notion-style slash commands — when caret is at start of an
+    // empty line and user types `/`, show a popup of block types.
+    // ─────────────────────────────────────────────────────────────────
+    var slashMenu = document.createElement('div');
+    slashMenu.id = 'hs-slash-menu';
+    slashMenu.style.cssText = 'position:absolute;background:#fff;border:1px solid #dcd5c8;border-radius:10px;box-shadow:0 14px 38px -14px rgba(15,23,42,.32);padding:6px 0;min-width:220px;z-index:9999;display:none;font-size:13px;font-family:Inter,"Noto Sans TC",sans-serif';
+    document.body.appendChild(slashMenu);
+
+    var SLASH_COMMANDS = [
+      { key: 'h2',     label: 'H2 二級標題',    icon: 'H₂', cmd: function () { document.execCommand('formatBlock', false, '<h2>'); } },
+      { key: 'h3',     label: 'H3 三級標題',    icon: 'H₃', cmd: function () { document.execCommand('formatBlock', false, '<h3>'); } },
+      { key: 'p',      label: '段落',           icon: '¶',  cmd: function () { document.execCommand('formatBlock', false, '<p>'); } },
+      { key: 'ul',     label: '項目列表',       icon: '•',  cmd: function () { document.execCommand('insertUnorderedList', false, null); } },
+      { key: 'ol',     label: '數字編號',       icon: '1.', cmd: function () { document.execCommand('insertOrderedList', false, null); } },
+      { key: 'quote',  label: '引言',           icon: '❝',  cmd: function () { document.execCommand('formatBlock', false, '<blockquote>'); } },
+      { key: 'myth',   label: '迷思 / 事實 卡', icon: '⚖',  cmd: function () { document.execCommand('insertHTML', false, '<div class="myth-card"><div class="myth">迷思: 在這裡寫迷思</div><div class="truth">真相: 在這裡寫真相</div></div><p></p>'); } },
+      { key: 'redflag',label: '紅旗警告框',     icon: '🚩', cmd: function () { document.execCommand('insertHTML', false, '<hs-redflag title="警訊辨識"><ul><li>第一項警訊</li><li>第二項警訊</li></ul></hs-redflag><p></p>'); } },
+      { key: 'tldr',   label: 'TL;DR 引言',     icon: '✨', cmd: function () { document.execCommand('insertHTML', false, '<hs-tldr><p>3 句話精華:第一句 · 第二句 · 第三句。</p></hs-tldr><p></p>'); } },
+      { key: 'table',  label: '3×3 表格',       icon: '⊞',  cmd: function () { document.execCommand('insertHTML', false, '<table class="dn"><thead><tr><th>欄 1</th><th>欄 2</th><th>欄 3</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table><p></p>'); } },
+      { key: 'mermaid',label: 'Mermaid 流程圖', icon: '↳',  cmd: function () { document.execCommand('insertHTML', false, '<pre class="mermaid">flowchart TD\n  A[Start] --> B{Decision}\n  B -->|Yes| C[Action]\n  B -->|No| D[End]</pre><p></p>'); } },
+      { key: 'math',   label: 'KaTeX 公式 (block)', icon: '∑', cmd: function () { document.execCommand('insertHTML', false, '<p>$$ P_{IOL} = A - 2.5 \\cdot AL - 0.9 \\cdot K $$</p>'); } },
+      { key: 'hr',     label: '分隔線',         icon: '—',  cmd: function () { document.execCommand('insertHorizontalRule', false, null); } },
+      { key: 'img',    label: '插入圖片',       icon: '📷', cmd: function () { document.getElementById('hs-adm-img-input').click(); } },
+    ];
+
+    var slashFilter = '';
+    function showSlash() {
+      var sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return;
+      var rect = sel.getRangeAt(0).getBoundingClientRect();
+      slashMenu.style.top = (window.scrollY + rect.bottom + 6) + 'px';
+      slashMenu.style.left = (window.scrollX + rect.left) + 'px';
+      slashMenu.style.display = 'block';
+      renderSlash();
+    }
+    function hideSlash() { slashMenu.style.display = 'none'; slashFilter = ''; }
+    function renderSlash() {
+      var f = slashFilter.toLowerCase();
+      var items = SLASH_COMMANDS.filter(function (c) {
+        return !f || c.key.indexOf(f) >= 0 || c.label.indexOf(f) >= 0;
+      });
+      slashMenu.innerHTML = items.map(function (c, i) {
+        return '<div class="hs-slash-item" data-key="' + c.key + '" style="padding:7px 14px;cursor:pointer;display:flex;gap:10px;align-items:center" tabindex="-1">' +
+               '<span style="width:22px;text-align:center;font-weight:600;color:#3a5a7c">' + c.icon + '</span>' +
+               '<span>' + c.label + '</span></div>';
+      }).join('') || '<div style="padding:8px 14px;color:#8b8378;font-size:12px">沒有匹配命令</div>';
+      // First item highlighted
+      var first = slashMenu.querySelector('.hs-slash-item');
+      if (first) first.style.background = '#f3f7fb';
+    }
+
+    slashMenu.addEventListener('click', function (e) {
+      var item = e.target.closest('.hs-slash-item');
+      if (!item) return;
+      var cmd = SLASH_COMMANDS.find(function (c) { return c.key === item.dataset.key; });
+      if (cmd) {
+        // Remove the typed `/<filter>` chars before applying
+        var sel = window.getSelection();
+        if (sel && sel.rangeCount && slashFilter !== undefined) {
+          for (var i = 0; i <= slashFilter.length; i++) document.execCommand('delete', false, null);
+        }
+        cmd.cmd();
+      }
+      hideSlash();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!DN.isAdminMode()) return;
+      var inEditable = e.target && e.target.closest && e.target.closest('[contenteditable="true"]');
+      if (!inEditable) return;
+
+      if (slashMenu.style.display === 'block') {
+        if (e.key === 'Escape') { hideSlash(); e.preventDefault(); return; }
+        if (e.key === 'Enter')  {
+          var first = slashMenu.querySelector('.hs-slash-item');
+          if (first) { first.click(); e.preventDefault(); }
+          return;
+        }
+        if (e.key === 'Backspace' && slashFilter.length === 0) { hideSlash(); return; }
+        if (e.key === 'Backspace') { slashFilter = slashFilter.slice(0, -1); renderSlash(); return; }
+        if (e.key.length === 1 && !e.metaKey && !e.ctrlKey) { slashFilter += e.key.toLowerCase(); renderSlash(); e.preventDefault(); return; }
+      } else if (e.key === '/') {
+        // Only fire on blank line / start of paragraph
+        var sel = window.getSelection();
+        if (sel && sel.isCollapsed) {
+          var range = sel.getRangeAt(0);
+          var atStart = range.startOffset === 0 ||
+                        (range.startContainer.nodeType === 3 && /^\s*$/.test(range.startContainer.textContent.slice(0, range.startOffset)));
+          if (atStart) {
+            e.preventDefault();
+            slashFilter = '';
+            showSlash();
+          }
+        }
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!slashMenu.contains(e.target)) hideSlash();
+    });
+
     // Live preview — opens a fresh tab with the saved-state HTML rendered (without ?admin=1)
     document.getElementById('hs-adm-preview').addEventListener('click', function () {
       var clone = document.documentElement.cloneNode(true);
@@ -3055,6 +3257,62 @@
         btn.disabled = false; btn.textContent = '💾 儲存';
       }
     }
+  };
+
+  // ---------------------------------------------------------------------
+  // <dialog> upgrade — promotes any element with [data-dialog] attribute
+  // to a native HTMLDialogElement. Native dialogs handle:
+  //   - inert background (everything else is greyed-out + non-clickable)
+  //   - automatic focus trap (Tab/Shift-Tab cycle inside)
+  //   - ESC closes
+  //   - ::backdrop pseudo-element for overlay
+  // We keep the existing `.modal-bg` divs as fallback shells and graft
+  // native showModal()/close() behaviour onto them.
+  // Usage: <div class="modal-bg" data-dialog>...</div>
+  //        DN.useDialog(el, true)  // open; false closes.
+  // ---------------------------------------------------------------------
+  DN.useDialog = function (el, open) {
+    if (!el) return;
+    // First-time upgrade: replace the wrapper with a real <dialog>
+    if (!el._hsDialog) {
+      var dlg = document.createElement('dialog');
+      dlg.className = (el.className || '').replace(/\bmodal-bg\b/, '').trim() + ' hs-dialog';
+      // Move children
+      while (el.firstChild) dlg.appendChild(el.firstChild);
+      // Carry id + dataset
+      if (el.id) dlg.id = el.id;
+      Object.keys(el.dataset).forEach(function (k) { dlg.dataset[k] = el.dataset[k]; });
+      el.parentNode.replaceChild(dlg, el);
+      el = dlg;
+      el._hsDialog = true;
+      // Inject styles once
+      if (!document.getElementById('hs-dialog-css')) {
+        var st = document.createElement('style');
+        st.id = 'hs-dialog-css';
+        st.textContent =
+          '.hs-dialog{padding:0;border:0;background:transparent;max-width:none;max-height:none;overflow:visible}' +
+          '.hs-dialog::backdrop{background:rgba(15,23,42,.55);backdrop-filter:blur(4px)}' +
+          // Animation
+          '.hs-dialog{opacity:0;transform:translateY(8px);transition:opacity .15s,transform .2s,overlay .2s allow-discrete,display .2s allow-discrete}' +
+          '.hs-dialog[open]{opacity:1;transform:translateY(0)}' +
+          '@starting-style{.hs-dialog[open]{opacity:0;transform:translateY(8px)}}';
+        document.head.appendChild(st);
+      }
+      // Click on backdrop closes
+      el.addEventListener('click', function (e) { if (e.target === el) el.close(); });
+    }
+    if (open && !el.open) el.showModal();
+    else if (!open && el.open) el.close();
+    return el;
+  };
+
+  // Auto-promote any [data-dialog] elements on load (idempotent)
+  DN.upgradeDialogs = function () {
+    document.querySelectorAll('[data-dialog]:not(.hs-dialog)').forEach(function (el) {
+      // Initial state: closed
+      el.hidden = true;
+      DN.useDialog(el, false);
+    });
   };
 
   // ---------------------------------------------------------------------
@@ -3234,6 +3492,84 @@
 
     syncUI();
     apply();
+  };
+
+  // ---------------------------------------------------------------------
+  // Mermaid diagrams — lazy-load mermaid.js ONLY when an article actually
+  // contains <pre class="mermaid"> blocks. Saves ~200 KB on every other page.
+  //
+  // Article syntax:
+  //   <pre class="mermaid">
+  //     flowchart TD
+  //       A[飛蚊症] --> B{合併警訊?}
+  //       B -->|YES| C[24小時內就診]
+  //       B -->|NO|  D[7天內就診]
+  //   </pre>
+  // ---------------------------------------------------------------------
+  DN.loadMermaid = function () {
+    if (window._hsMermaidLoaded) return;
+    if (!document.querySelector('pre.mermaid, .language-mermaid')) return;
+    window._hsMermaidLoaded = true;
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js';
+    s.crossOrigin = 'anonymous';
+    s.onload = function () {
+      try {
+        window.mermaid.initialize({
+          startOnLoad: false,
+          theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+          fontFamily: '"Noto Sans TC", Inter, sans-serif',
+        });
+        window.mermaid.run({ querySelector: 'pre.mermaid, .language-mermaid' });
+      } catch (e) { /* swallow */ }
+    };
+    document.head.appendChild(s);
+  };
+
+  // ---------------------------------------------------------------------
+  // KaTeX math rendering — lazy-load when article has $$ ... $$ or $ ... $
+  // delimited LaTeX. Useful for refractive optics formulae, IOL power
+  // calculation, etc.
+  //
+  // Article syntax (block):
+  //   <p>$$ P_{IOL} = A - 2.5 \cdot AL - 0.9 \cdot K $$</p>
+  // ---------------------------------------------------------------------
+  DN.loadKatex = function () {
+    if (window._hsKatexLoaded) return;
+    var hasMath = /\$\$[^$]+\$\$|\\\([^)]+\\\)|<math/i.test(document.body.innerText || '');
+    if (!hasMath) return;
+    window._hsKatexLoaded = true;
+    // Stylesheet
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css';
+    l.crossOrigin = 'anonymous';
+    document.head.appendChild(l);
+    // Script + auto-render
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js';
+    s.crossOrigin = 'anonymous';
+    s.defer = true;
+    s.onload = function () {
+      var ar = document.createElement('script');
+      ar.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js';
+      ar.crossOrigin = 'anonymous';
+      ar.defer = true;
+      ar.onload = function () {
+        try {
+          window.renderMathInElement(document.body, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '\\[', right: '\\]', display: true },
+              { left: '\\(', right: '\\)', display: false },
+            ],
+            throwOnError: false,
+          });
+        } catch (e) { /* swallow */ }
+      };
+      document.head.appendChild(ar);
+    };
+    document.head.appendChild(s);
   };
 
   // ---------------------------------------------------------------------
@@ -3519,6 +3855,7 @@
     // Anything that affects above-the-fold layout, language toggle, or
     // first-screen content rendering belongs here.
     DN.bindAutoTheme();        // dark/light from prefers-color-scheme (FOUC-safe)
+    DN.upgradeDialogs();       // promote [data-dialog] to native <dialog>
     DN.hideStubLinks();        // hide unfinished articles before paint
     DN.injectMobileMenu();
     DN.bindLangToggle(apply);
@@ -3564,6 +3901,7 @@
       DN.injectReadProgress();
       DN.addFontSizer();
       DN.bindFAQDeepLink();
+      DN.applyAbConfig();      // server-driven A/B variant swaps
     }, { timeout: 800 });
 
     // Article-only deferred work (calculators, share, related, feedback)
@@ -3586,6 +3924,8 @@
         DN.lazyLoadAudit();       // backstop loading="lazy" / fetchpriority
         DN.injectDictTooltips();  // medical-dictionary hover popups
         DN.bindPushSubscribe();   // 🔔 web-push subscribe button (if VAPID key set)
+        DN.loadMermaid();         // lazy-load mermaid if <pre class="mermaid"> present
+        DN.loadKatex();           // lazy-load KaTeX if $$math$$ present
         DN.applyTextOnly(curLang);  // re-translate JS-injected DOM
       }, { timeout: 1200 });
     }

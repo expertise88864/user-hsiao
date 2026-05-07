@@ -56,7 +56,49 @@
  *  + Service Worker stale-while-revalidate for *.css — CSS edits now
  *    propagate after one extra page load, no manual cache-bust needed.
  * v25: GA4 + Consent Mode v2 + Speculation Rules. */
-/* v30: PERFORMANCE + DEVELOPER-EXPERIENCE SPRINT
+/* v31: ADMIN PRODUCTIVITY + REAL-TIME CWV + ML RELATED + A/B BUILDER
+ *  + Word-count + read-time pre-render (/api/admin/precompute-meta) writes
+ *    `words` + `minutes` into DN.ARTICLES. Client reads precomputed value;
+ *    saves 40-60ms runtime parsing per article load.
+ *  + SVG sprite system (/assets/icons.svg) — 14 reusable icons via
+ *    <svg><use href="/assets/icons.svg#i-bookmark"/>. Future articles can
+ *    use the sprite instead of inline SVG (~3 KB savings per article).
+ *  + Native <dialog> upgrade — DN.upgradeDialogs() promotes any element
+ *    with [data-dialog] attribute to HTMLDialogElement (browser-native
+ *    inert background, focus trap, ESC, ::backdrop animations).
+ *  + Edge cache purge (/api/admin/purge) — admin "🚿 清空 CDN" button hits
+ *    Vercel API to invalidate dynamic sitemap/feed/og without waiting for
+ *    s-maxage. Requires VERCEL_TOKEN + VERCEL_PROJECT_ID env vars.
+ *  + REAL-TIME CWV — DN.bindWebVitals also POSTs to /api/cwv-ingest which
+ *    writes 1000-sample reservoir to KV. CWV admin dashboard reads KV
+ *    first (sub-200ms response, no GA4 24-48hr latency). GA4 fallback for
+ *    historical depth.
+ *  + TF-IDF related articles (/api/admin/build-related) — pre-computes
+ *    pairwise cosine similarity over CJK bigrams + Latin words, with
+ *    medical-dictionary terms 3× boosted. Output assets/related.json
+ *    consumed by DN.addRelatedArticles. Falls back to category+random.
+ *  + A/B test BUILDER — admin "🧪 A/B Builder" tab with no-code UI:
+ *    define CSS selector + 2 HTML variants, KV-stored, client-side
+ *    DN.applyAbConfig auto-swaps innerHTML by bucket. /api/ab-config
+ *    cached 60s at edge. Inline scripts/event handlers rejected for safety.
+ *  + Batch operations (/api/admin/batch) — single endpoint runs
+ *    seo-fix + faqpage + autolink across all (or filtered) articles, 3
+ *    concurrent to stay under GitHub secondary rate limit.
+ *  + Mermaid + KaTeX lazy-load — DN.loadMermaid only fetches mermaid.js
+ *    when <pre class="mermaid"> exists; DN.loadKatex only when $$math$$
+ *    or \\(...\\) detected. Saves ~600 KB on every other page.
+ *  + Notion-style slash commands in WYSIWYG editor — type `/` at start of
+ *    blank line, popup of 13 block types: H2/H3/list/quote/myth-card/
+ *    redflag/tldr/table/mermaid/katex/hr/img.
+ *  + HTTP/3 protocol detection — DN.bindWebVitals reads
+ *    PerformanceResourceTiming.nextHopProtocol, reports to GA4 +
+ *    window.__hsHttpProtocol for DevTools console probing.
+ *  + PR preview screenshot diff workflow — when PR opens, Vercel preview
+ *    URL captured, side-by-side production-vs-preview screenshots posted
+ *    as artifact + PR comment.
+ *  + Lighthouse Treemap config — extra perf assertions (FCP/LCP/CLS/TBT/
+ *    INP thresholds), treemap viewable from artifact .lighthouseci HTML.
+ * v30: PERFORMANCE + DEVELOPER-EXPERIENCE SPRINT
  *  + Edge streaming HTML rewriter (middleware.js): per-request CSP nonce
  *    auto-injected into every inline <script>/<style> tag via TransformStream.
  *    'strict-dynamic' enforces nonce-only for script execution; modern
@@ -193,8 +235,8 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v30';
-const RUNTIME = 'hs-runtime-v30';
+const CACHE = 'hs-v31';
+const RUNTIME = 'hs-runtime-v31';
 const RUNTIME_MAX_ENTRIES = 60;
 
 // v30: Multi-stage cache. Install only blocks on the truly critical

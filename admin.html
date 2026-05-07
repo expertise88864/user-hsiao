@@ -211,7 +211,8 @@
       <button data-tab="spell" onclick="switchTab('spell')">🔤 拼字檢查</button>
       <button data-tab="dict" onclick="switchTab('dict')">📖 醫學詞典</button>
       <button data-tab="images" onclick="switchTab('images')">🖼️ 圖片</button>
-      <button data-tab="ab" onclick="switchTab('ab')">📈 A/B 測試</button>
+      <button data-tab="ab" onclick="switchTab('ab')">📈 A/B 結果</button>
+      <button data-tab="abbuilder" onclick="switchTab('abbuilder')">🧪 A/B Builder</button>
       <button data-tab="md" onclick="switchTab('md')">📝 Markdown</button>
       <button data-tab="cwv" onclick="switchTab('cwv')">📉 CWV 儀表板</button>
       <button data-tab="ops" onclick="switchTab('ops')">⚙️ 維運</button>
@@ -314,6 +315,43 @@
       <div id="ab-list"><div class="loading">尚無資料</div></div>
     </div>
 
+    <!-- ─────────── A/B BUILDER TAB ─────────── -->
+    <div class="tab-panel" id="tab-abbuilder">
+      <div class="toolbar">
+        <h2>A/B Builder</h2>
+        <button class="btn" onclick="loadAbConfig()">↻ 重新載入</button>
+        <button class="btn primary" onclick="newAbTest()">+ 新測試</button>
+      </div>
+      <div class="info-card" style="margin:0 0 12px">
+        <h4>🧪 不用改 JS 的 A/B 測試</h4>
+        填一個 CSS selector + 兩個 variant 的 HTML, 後台儲存到 KV （或 GitHub blob), 客戶端 <code>DN.applyAbConfig()</code> 自動套用。曝光與轉換寫進 <code>/api/admin/ab-stats</code>, 結果在「📈 A/B 結果」分頁看。
+      </div>
+      <div id="ab-builder-list"><div class="loading">尚無測試</div></div>
+    </div>
+
+    <!-- ─────────── A/B BUILDER MODAL ─────────── -->
+    <div id="abnew-modal" class="modal-bg" hidden>
+      <div class="modal wide">
+        <h3 id="abnew-title">新 A/B 測試</h3>
+        <p>變體會直接 innerHTML 替換目標元素。不能含 <code>&lt;script&gt;</code> 或 <code>on*=</code> 事件。</p>
+        <form onsubmit="event.preventDefault();saveAbTest()">
+          <label for="abnew-id">測試 ID （英數，連字號）</label>
+          <input id="abnew-id" required pattern="[a-zA-Z0-9_-]+" placeholder="例： hero-cta-2026q2" />
+          <label for="abnew-selector">CSS selector （要被替換的元素）</label>
+          <input id="abnew-selector" required placeholder="例： #hs-cover-story .hs-cta-btn" />
+          <label for="abnew-v1">Variant A (HTML)</label>
+          <textarea id="abnew-v1" required rows="3" placeholder="<button>立即看完</button>"></textarea>
+          <label for="abnew-v2">Variant B (HTML)</label>
+          <textarea id="abnew-v2" required rows="3" placeholder="<button>3 分鐘讀懂</button>"></textarea>
+          <label><input id="abnew-active" type="checkbox" checked /> 啟用</label>
+          <div class="row">
+            <button type="button" onclick="hideAbNewModal()">取消</button>
+            <button class="primary" type="submit">💾 儲存測試</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- ─────────── MARKDOWN TAB ─────────── -->
     <div class="tab-panel" id="tab-md">
       <div class="toolbar">
@@ -363,6 +401,26 @@
           <h4>🛡️ Service Worker</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">清除瀏覽器端 SW 快取，重新註冊。除錯時用。</p>
           <button class="btn" onclick="resetSW()">🗑️ 清除 SW 快取</button>
+        </div>
+        <div class="info-card" style="margin:0">
+          <h4>🚿 Edge cache purge</h4>
+          <p style="color:var(--ink-2); margin:0 0 12px">清空 Vercel CDN 快取，讓動態 sitemap / feed 立即更新（不用等 s-maxage）。需設 <code>VERCEL_TOKEN</code>。</p>
+          <button class="btn primary" onclick="purgeEdge()">🚿 清空 CDN</button>
+        </div>
+        <div class="info-card" style="margin:0">
+          <h4>🤖 重建相關文章 ML</h4>
+          <p style="color:var(--ink-2); margin:0 0 12px">用 TF-IDF + 醫學詞典加權重新計算每篇文章的相關推薦，寫到 <code>assets/related.json</code>。</p>
+          <button class="btn primary" onclick="buildRelated()">🤖 重建 related.json</button>
+        </div>
+        <div class="info-card" style="margin:0">
+          <h4>📊 Pre-compute 字數 + 閱讀時間</h4>
+          <p style="color:var(--ink-2); margin:0 0 12px">把每篇文章字數與閱讀分鐘數寫進 DN.ARTICLES，客戶端不用 runtime 計算。</p>
+          <button class="btn primary" onclick="precomputeMeta()">📊 重算</button>
+        </div>
+        <div class="info-card" style="margin:0">
+          <h4>⚡ 批次運行</h4>
+          <p style="color:var(--ink-2); margin:0 0 12px">對所有文章跑 SEO 修復 + FAQ schema + 醫學詞典 auto-link, 一鍵 done。</p>
+          <button class="btn primary" onclick="runBatch()">⚡ 全部跑一次</button>
         </div>
         <div class="info-card" style="margin:0">
           <h4>📢 發送 Web Push 通知</h4>
@@ -758,6 +816,8 @@ function switchTab(name) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
   if (name === 'dict' && Object.keys(DICT).length === 0) loadDict();
   if (name === 'ab') loadAbStats();
+  if (name === 'abbuilder') loadAbConfig();
+  if (name === 'cwv') loadCWV();
 }
 
 function populateSlugSelectors() {
@@ -1091,6 +1151,142 @@ async function runRegenEn() {
       setTimeout(() => t.remove(), 5000);
     });
   } catch (e) { t.textContent = '✗ ' + e.message; setTimeout(() => t.remove(), 4000); }
+}
+
+// ───────────────── v31 admin actions ─────────────────
+async function purgeEdge() {
+  if (!confirm('清空 Vercel CDN 快取?動態 sitemap / feed 會立即重生。')) return;
+  try {
+    const r = await fetch(API + '/purge', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) toast(`✓ ${j.note || 'CDN 清空成功'}`, 4000);
+    else toast('失敗: ' + (j.error || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+async function buildRelated() {
+  toast('🤖 計算 TF-IDF 中⋯', 3000);
+  try {
+    const r = await fetch(API + '/build-related', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) toast(j.noop ? '無變動' : `✓ ${j.articles} 篇文章已重算 (${j.ms}ms)`, 5000);
+    else toast('失敗: ' + (j.error || j.message || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+async function precomputeMeta() {
+  try {
+    const r = await fetch(API + '/precompute-meta', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) {
+      const updates = j.updates || [];
+      const summary = updates.map(u => `${u.slug}: ${u.words}字 ${u.minutes}分`).join('\n');
+      toast(j.noop ? '無變動' : `✓ ${updates.length} 篇已重算`, 4000);
+      if (summary) console.table(updates);
+    } else toast('失敗: ' + (j.error || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+async function runBatch() {
+  if (!confirm('對所有文章執行 SEO 修復 + FAQ schema + 醫學詞典 auto-link?\n會跑很多 GitHub commits, 約 30-60 秒。')) return;
+  toast('⚡ 批次運行中⋯', 5000);
+  try {
+    const r = await fetch(API + '/batch', { method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ops: ['seo-fix', 'faqpage', 'autolink'] }) });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) toast(`✓ ${j.succeeded}/${j.total} ops 成功 (${j.ms}ms)`, 6000);
+    else toast('失敗: ' + (j.error || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+// ───────────────── A/B Builder ─────────────────
+let AB_TESTS = {};
+
+async function loadAbConfig() {
+  const host = document.getElementById('ab-builder-list');
+  host.innerHTML = '<div class="loading"><span class="spinner"></span>載入中⋯</div>';
+  try {
+    const r = await fetch(API + '/ab-config', { credentials: 'include' });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { host.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
+    AB_TESTS = j.tests || {};
+    const ids = Object.keys(AB_TESTS);
+    if (!ids.length) { host.innerHTML = '<div class="loading">尚無測試。點「+ 新測試」開始。</div>'; return; }
+    host.innerHTML = ids.map(id => {
+      const t = AB_TESTS[id];
+      return `<div class="ab-test">
+        <h4>${escapeHTML(id)} ${t.active?'<span style="color:var(--green);font-size:11px">● 啟用</span>':'<span style="color:var(--muted);font-size:11px">○ 停用</span>'}</h4>
+        <div class="meta">selector: <code>${escapeHTML(t.selector)}</code> · 建立 ${escapeHTML(t.created || '')}</div>
+        ${t.variants.map((v, i) => `<div class="ab-variant"><span class="v-name">[${i}] ${escapeHTML(v.name)}</span><span class="v-stat" style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-2); max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${escapeHTML(v.html.slice(0, 80))}</span></div>`).join('')}
+        <div class="row" style="margin-top:10px">
+          <button onclick="editAbTest('${escapeAttr(id)}')">✏️ 編輯</button>
+          <button onclick="toggleAbTest('${escapeAttr(id)}')">${t.active?'⏸ 停用':'▶ 啟用'}</button>
+          <button class="danger" onclick="deleteAbTest('${escapeAttr(id)}')">🗑 刪除</button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+}
+
+function newAbTest() {
+  document.getElementById('abnew-title').textContent = '新 A/B 測試';
+  document.getElementById('abnew-id').value = '';
+  document.getElementById('abnew-id').disabled = false;
+  document.getElementById('abnew-selector').value = '';
+  document.getElementById('abnew-v1').value = '';
+  document.getElementById('abnew-v2').value = '';
+  document.getElementById('abnew-active').checked = true;
+  document.getElementById('abnew-modal').hidden = false;
+  setTimeout(() => document.getElementById('abnew-id').focus(), 50);
+}
+function editAbTest(id) {
+  const t = AB_TESTS[id]; if (!t) return;
+  document.getElementById('abnew-title').textContent = '編輯 ' + id;
+  document.getElementById('abnew-id').value = id;
+  document.getElementById('abnew-id').disabled = true;
+  document.getElementById('abnew-selector').value = t.selector;
+  document.getElementById('abnew-v1').value = (t.variants[0] && t.variants[0].html) || '';
+  document.getElementById('abnew-v2').value = (t.variants[1] && t.variants[1].html) || '';
+  document.getElementById('abnew-active').checked = !!t.active;
+  document.getElementById('abnew-modal').hidden = false;
+}
+function hideAbNewModal() { document.getElementById('abnew-modal').hidden = true; }
+
+async function saveAbTest() {
+  const payload = {
+    id:       document.getElementById('abnew-id').value.trim(),
+    selector: document.getElementById('abnew-selector').value.trim(),
+    variants: [
+      { name: 'A', html: document.getElementById('abnew-v1').value.trim() },
+      { name: 'B', html: document.getElementById('abnew-v2').value.trim() },
+    ],
+    active: document.getElementById('abnew-active').checked,
+  };
+  try {
+    const r = await fetch(API + '/ab-config', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) { toast('✓ 已儲存 ' + payload.id); hideAbNewModal(); loadAbConfig(); }
+    else toast('失敗: ' + (j.error || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+async function toggleAbTest(id) {
+  const t = AB_TESTS[id]; if (!t) return;
+  t.active = !t.active;
+  await fetch(API + '/ab-config', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, selector: t.selector, variants: t.variants, active: t.active }) });
+  loadAbConfig();
+}
+
+async function deleteAbTest(id) {
+  if (!confirm('確定要刪除 A/B 測試「' + id + '」?')) return;
+  await fetch(API + '/ab-config', { method: 'DELETE', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) });
+  toast('✓ 已刪除 ' + id);
+  loadAbConfig();
 }
 
 function resetSW() {

@@ -63,6 +63,32 @@ Environment Variables**. Apply to **Production** + **Preview** environments.
 | `VAPID_PUBLIC_KEY` | base64url-encoded ECDSA P-256 public key | optional — for Web Push. Generate via `npx web-push generate-vapid-keys`. **Also paste the public key into a `<meta name="vapid-public-key">` tag or set `window.VAPID_PUBLIC_KEY` in your HTML so the client can subscribe.** |
 | `VAPID_PRIVATE_KEY` | base64url-encoded private key | optional — for Web Push (paired with above) |
 | `VAPID_SUBJECT` | `mailto:f94001115@gmail.com` | optional — VAPID JWT `sub` claim |
+| `GA4_PROPERTY_ID` | `properties/477123456` | optional — for `/api/admin/cwv` dashboard. See **GA4 Service Account setup** below. |
+| `GA4_SERVICE_ACCOUNT_JSON` | full GCP service account JSON | optional — paired with above |
+| `KV_REST_API_URL` | auto-set when you connect Vercel KV | optional — replaces GitHub blob for push subscribers + A/B stats |
+| `KV_REST_API_TOKEN` | auto-set when you connect Vercel KV | optional |
+| `VERCEL_TOKEN` | a Vercel API token | optional — for `/api/admin/purge` edge cache invalidation. Generate at <https://vercel.com/account/tokens>, scope = "Full Account" or just the project. |
+| `VERCEL_PROJECT_ID` | `prj_xxxxx` | optional — find via `vercel link` or Vercel Dashboard → Project Settings → "Project ID" |
+| `VERCEL_TEAM_ID` | `team_xxxxx` (Hobby plan: leave blank) | optional |
+
+## GA4 Service Account setup (for `/api/admin/cwv`)
+
+1. **GCP Console** → IAM → Service Accounts → CREATE SERVICE ACCOUNT
+   - Name: `cwv-reader`, skip role grants on creation page.
+   - On the new account → KEYS tab → ADD KEY → JSON. Save the file.
+2. **APIs & Services → Library** → enable "Google Analytics Data API".
+3. **GA4 Admin** (left-bottom gear) → Property access management → "+" →
+   add the service-account email with role **Analyst**.
+4. **GA4 Property details** → copy the numeric "PROPERTY ID".
+5. **Vercel env vars**:
+   - `GA4_PROPERTY_ID` = `properties/<numeric ID>`
+   - `GA4_SERVICE_ACCOUNT_JSON` = full JSON file content (paste verbatim,
+     including `\n` inside `private_key` — server unescapes)
+6. Redeploy. CWV admin tab will populate after GA4 has 24-48 hr of data.
+
+For *real-time* CWV (no 24-48 hr GA4 latency), v31 also ships
+`/api/cwv-ingest` which writes Web Vitals directly to KV. The CWV dashboard
+prefers KV data and falls back to GA4 if absent.
 
 After setting env vars, **redeploy** the project (Vercel does this
 automatically when env vars change, but you may want to trigger manually).

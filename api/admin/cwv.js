@@ -19,6 +19,31 @@
  * UI displays that gracefully.
  */
 import { requireAdmin } from './_auth.js';
+import { kvAvailable, kvGet } from '../_kv.js';
+
+// v31: Read from KV first (real-time). GA4 fallback for historical depth
+// when KV reservoir is empty or older than 30 days.
+async function readKvSamples(metric, days) {
+  if (!kvAvailable()) return null;
+  const raw = await kvGet(`cwv:samples:${metric}`);
+  if (!raw) return null;
+  let arr;
+  try { arr = typeof raw === 'string' ? JSON.parse(raw) : raw; } catch (e) { return null; }
+  if (!Array.isArray(arr) || !arr.length) return null;
+  const cutoff = Date.now() - days * 86400_000;
+  const recent = arr.filter(s => s.t > cutoff).map(s => s.v);
+  if (!recent.length) return null;
+  recent.sort((a, b) => a - b);
+  const p75 = recent[Math.floor(recent.length * 0.75)] || 0;
+  const avg = recent.reduce((a, b) => a + b, 0) / recent.length;
+  return {
+    name: metric,
+    samples: recent.length,
+    avg: metric === 'CLS' ? avg / 1000 : avg,
+    p75: metric === 'CLS' ? p75 / 1000 : p75,
+    source: 'kv',
+  };
+}
 
 // Parse a service account JSON string (handles real \n and escaped \\n)
 function parseSAJson(s) {
@@ -147,11 +172,30 @@ export default async function handler(req, res) {
   const days = parseInt(range, 10) || 28;
 
   try {
-    const token = await getAccessToken(sa);
-    const metrics = await Promise.all(
-      ['LCP', 'CLS', 'INP', 'FCP', 'TTFB'].map(m => fetchMetric(token, propertyId, m, days))
+    // Try KV first (real-time, no latency); fall back to GA4 per metric.
+    const kvResults = await Promise.all(
+      ['LCP', 'CLS', 'INP', 'FCP', 'TTFB'].map(m => readKvSamples(m, days).catch(() => null))
     );
-    res.setHeader('Server-Timing', `total;dur=${Date.now() - t0}`);
+    const needsGa4 = kvResults.some(r => !r);
+
+    let metrics;
+    if (!needsGa4) {
+      // All metrics fully covered by KV — skip GA4 entirely (faster)
+      metrics = kvResults;
+      res.setHeader('Server-Timing', `kv;dur=${Date.now() - t0}, source;desc="kv-only"`);
+    } else {
+      // Mix: KV where available, GA4 fallback for missing
+      const ga4Start = Date.now();
+      const token = await getAccessToken(sa);
+      const ga4Results = await Promise.all(
+        ['LCP', 'CLS', 'INP', 'FCP', 'TTFB'].map((m, i) =>
+          kvResults[i] ? Promise.resolve(kvResults[i]) : fetchMetric(token, propertyId, m, days).then(r => ({ ...r, source: 'ga4' }))
+        )
+      );
+      metrics = ga4Results;
+      res.setHeader('Server-Timing', `kv;dur=${ga4Start - t0}, ga4;dur=${Date.now() - ga4Start}, source;desc="hybrid"`);
+    }
+
     res.status(200).json({ ok: true, range, days, metrics });
   } catch (e) {
     res.status(500).json({ error: String(e.message || e) });

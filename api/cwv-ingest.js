@@ -1,0 +1,64 @@
+/**
+ * POST /api/cwv-ingest — receive Web Vitals beacons from blog-shared.js,
+ * write rolling histograms to Vercel KV. The admin CWV dashboard reads
+ * these directly so there's NO 24-48hr GA4 latency.
+ *
+ * Public endpoint (no auth) — called via navigator.sendBeacon when the
+ * page becomes hidden. Rate-limited at the IP level by Vercel's default
+ * DDoS protection.
+ *
+ * Body: { name: 'LCP'|'CLS'|'INP'|'FCP'|'TTFB', value: number, page?: string }
+ *
+ * Storage in KV (sliding window):
+ *   key  `cwv:bucket:<name>:<minute>`  → ZSET of (value, count)
+ *   key  `cwv:total:<name>:<day>`      → counter
+ *   key  `cwv:samples:<name>`          → reservoir of last N samples for p75
+ *
+ * Simplified: we keep last-N reservoir (size 1000) per metric, rotated by
+ * day. p75 computed at read time = sort + index.
+ */
+import { kvAvailable, kvGet, kvSet } from './_kv.js';
+
+const ALLOWED = new Set(['LCP', 'CLS', 'INP', 'FCP', 'TTFB']);
+const MAX_SAMPLES = 1000;
+const SAMPLE_TTL_DAYS = 30;
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (!kvAvailable()) {
+    // Silently accept-and-drop if KV not configured (don't break the client)
+    return res.status(200).json({ ok: true, source: 'noop' });
+  }
+
+  let body = req.body;
+  if (typeof body === 'string') { try { body = JSON.parse(body); } catch (e) { body = {}; } }
+  const { name, value, page } = body || {};
+  if (!ALLOWED.has(name)) return res.status(400).json({ error: 'invalid metric name' });
+  if (typeof value !== 'number' || !isFinite(value) || value < 0 || value > 60000) {
+    return res.status(400).json({ error: 'invalid value' });
+  }
+
+  try {
+    // Reservoir sample (overwriting random slot if full)
+    const key = `cwv:samples:${name}`;
+    const existing = await kvGet(key);
+    let arr = [];
+    if (existing) {
+      try { arr = typeof existing === 'string' ? JSON.parse(existing) : existing; } catch (e) { arr = []; }
+    }
+    if (!Array.isArray(arr)) arr = [];
+
+    const sample = { v: Math.round(value * 100) / 100, p: (page || '').slice(0, 80), t: Date.now() };
+    if (arr.length < MAX_SAMPLES) arr.push(sample);
+    else arr[Math.floor(Math.random() * MAX_SAMPLES)] = sample;
+
+    // Trim samples older than SAMPLE_TTL_DAYS
+    const cutoff = Date.now() - SAMPLE_TTL_DAYS * 86400_000;
+    arr = arr.filter(s => s.t > cutoff);
+
+    await kvSet(key, JSON.stringify(arr));
+    res.status(200).json({ ok: true, samples: arr.length });
+  } catch (e) {
+    res.status(500).json({ error: String(e.message || e) });
+  }
+}
