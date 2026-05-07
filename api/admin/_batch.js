@@ -23,15 +23,15 @@ async function runOp(op, slug, internalReq) {
   // Internal call — instead of HTTP loopback, dynamically import the handler
   // and call it with a fake req/res. Saves an RTT per op.
   if (op === 'seo-fix') {
-    const mod = await import('./seo-fix.js');
+    const mod = await import('./_seo-fix.js');
     return invokeHandler(mod.default, slug, {});
   }
   if (op === 'faqpage') {
-    const mod = await import('./schema-helper.js');
+    const mod = await import('./_schema-helper.js');
     return invokeHandler(mod.default, slug, { type: 'faqpage' });
   }
   if (op === 'autolink') {
-    const mod = await import('./dictionary.js');
+    const mod = await import('./_dictionary.js');
     return invokeHandler(mod.default, slug, { action: 'autolink' }, '?action=autolink');
   }
   return { ok: false, error: 'unknown op' };
@@ -126,9 +126,9 @@ export default async function handler(req, res) {
             end() { return this; },
           };
           let mod;
-          if (item.op === 'seo-fix')  mod = await import('./seo-fix.js');
-          else if (item.op === 'faqpage') mod = await import('./schema-helper.js');
-          else if (item.op === 'autolink') mod = await import('./dictionary.js');
+          if (item.op === 'seo-fix')  mod = await import('./_seo-fix.js');
+          else if (item.op === 'faqpage') mod = await import('./_schema-helper.js');
+          else if (item.op === 'autolink') mod = await import('./_dictionary.js');
           await mod.default(innerReq, innerRes);
           results.push({ slug: item.slug, op: item.op, ok: status < 300, status, ...payload });
         } catch (e) {
