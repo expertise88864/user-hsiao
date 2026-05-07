@@ -1110,6 +1110,22 @@
           'data-en="This article is a residency-level patient-education note, compiled from international literature for general education only — not individual medical advice. This site does not endorse any drug, device, procedure, or clinic. Per Taiwan Medical Care Act §§85–86, individual outcomes vary.">' +
           '本文為眼科住院醫師的<strong>衛教與學習筆記</strong>,內容依據國際醫學文獻與臨床指引整理,僅作為<strong>一般教育用途</strong>。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。本網站不涉及任何藥品、醫療器材、療程或診所之推薦或業配。依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。' +
         '</div>' +
+        // v34.3: support card injected directly inside author-bio block
+        (DN.BMC_URL ? (
+          '<div style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;background:linear-gradient(135deg,#f3f7fb,#e6eef6);margin-left:-22px;margin-right:-22px;margin-bottom:-20px;padding:16px 22px;border-radius:0 0 16px 16px">' +
+            '<div style="width:40px;height:40px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 4px 10px -4px rgba(58,90,124,.25)" aria-hidden="true">☕</div>' +
+            '<div>' +
+              '<div style="font-size:13px;line-height:1.7;color:#243b56" ' +
+                'data-zh="<strong>支持作者寫更多衛教文章</strong> — HsiaoEye 為個人專案,無業配、無贊助、無廣告分潤。" ' +
+                'data-en="<strong>Support more patient-education writing</strong> — HsiaoEye is a personal project with no sponsorships, affiliates, or ads.">' +
+                '<strong>支持作者寫更多衛教文章</strong> — HsiaoEye 為個人專案,無業配、無贊助、無廣告分潤。' +
+              '</div>' +
+              '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:9999px;background:#13C3FF;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;margin-top:8px;box-shadow:0 4px 10px -4px rgba(19,195,255,.45)">' +
+                '<span>☕</span><span data-zh="Ko-fi 支持" data-en="Support on Ko-fi">Ko-fi 支持</span>' +
+              '</a>' +
+            '</div>' +
+          '</div>'
+        ) : '') +
       '</div>';
   };
 
@@ -1166,23 +1182,22 @@
     );
   };
 
-  // v34: Auto-mount Ko-fi link into every page footer. Looks for an
-  // explicit slot first (#hs-kofi-footer), then falls back to appending
-  // into the .mag-footer / footer:last-of-type so home + article + tools
-  // all get one consistent button without per-page edits.
+  // v34.3: Footer auto-mount disabled per user request — Ko-fi support card
+  // now lives inline at:
+  //   • Home: dedicated <section id="hs-support-section"> directly under
+  //     the medical disclaimer (HTML-defined in index.html).
+  //   • Articles: bottom card inside the author-bio block (added by
+  //     DN.injectAuthorBio).
+  // This stub stays so any code that still calls it doesn't throw, and
+  // it ALSO clears any leftover .hs-kofi-btn that previous SW caches
+  // may have injected at the page bottom.
   DN.injectFooterKofi = function () {
-    if (!DN.BMC_URL) return;
-    if (document.querySelector('.hs-kofi-btn')) return;  // already injected somewhere
-    const slot = document.getElementById('hs-kofi-footer');
-    if (slot) { slot.innerHTML = DN._kofiButtonHTML(); return; }
-    const footer = document.querySelector('.mag-footer, body > footer');
-    if (!footer) return;
-    const wrap = document.createElement('div');
-    wrap.id = 'hs-kofi-footer';
-    wrap.style.cssText = 'text-align:center;padding:14px 16px 0;';
-    wrap.innerHTML = DN._kofiButtonHTML();
-    // Prepend so it's prominent above the meta/copyright row
-    footer.insertBefore(wrap, footer.firstChild);
+    // Remove any stray floating Ko-fi button mounted by older versions
+    document.querySelectorAll('#hs-kofi-footer').forEach(function (el) {
+      // Keep only the home page's HTML-declared <section id="hs-support-section">
+      // and inline author-bio button. Delete legacy footer-mounted ones.
+      if (el.tagName !== 'SECTION') el.remove();
+    });
   };
 
   // ---------- related articles + ItemList JSON-LD ----------

@@ -75,10 +75,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260615" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260619" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260615" />
+<link rel="stylesheet" href="/assets/app.css?v=20260619" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -113,7 +113,11 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
   /* Quick find chips */
   .quick-find{ display:flex; flex-wrap:wrap; gap:6px; }
-  .quick-find a{ padding:5px 11px; border-radius:9999px; background:#fff; border:1px solid var(--border); color:var(--ink-2); font-size:12px; font-weight:600; text-decoration:none; transition:all .15s; line-height:1.4; }
+  /* v34.4: use inline-flex + align-items:center to vertically centre the
+     text inside each pill. Pure padding-based centring leaves CJK glyphs
+     sitting slightly above the geometric centre (because Han characters
+     fill their em-box differently from Latin descenders). */
+  .quick-find a{ display:inline-flex; align-items:center; justify-content:center; min-height:28px; padding:5px 12px; border-radius:9999px; background:#fff; border:1px solid var(--border); color:var(--ink-2); font-size:12px; font-weight:600; text-decoration:none; transition:all .15s; line-height:1; }
   .quick-find a:hover{ border-color:rgba(58,90,124,.5); color:var(--blue-deep); transform:translateY(-1px); box-shadow:0 4px 8px -4px rgba(58,90,124,.18); }
 
   /* Search input (in quick-find card) */
@@ -184,6 +188,14 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   /* Disclaimer */
   .disclaimer-box{ background:#fef9f0; border:1px solid #f4dfae; border-radius:14px; padding:14px 18px; color:#7a5a18; font-size:13px; line-height:1.85; }
   .disclaimer-box strong{ color:#5a4012; }
+  .support-box{ background:linear-gradient(135deg,#f3f7fb,#e6eef6); border:1px solid #b8cfe3; border-radius:14px; padding:18px 20px; color:#243b56; font-size:13.5px; line-height:1.85; display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:flex-start; }
+  .support-box .support-icon{ width:44px; height:44px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; box-shadow:0 4px 12px -6px rgba(58,90,124,.25); }
+  .support-box .support-body{ min-width:0; }
+  .support-box strong{ color:#0f172a; }
+  .support-box .support-actions{ margin-top:12px; }
+  .support-box .hs-kofi-btn{ display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:9999px; background:#13C3FF; color:#fff; text-decoration:none; font-weight:700; font-size:13.5px; box-shadow:0 6px 14px -6px rgba(19,195,255,.45); transition:transform .15s,box-shadow .15s; }
+  .support-box .hs-kofi-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 22px -8px rgba(19,195,255,.55); }
+  @media (max-width:560px){ .support-box{ grid-template-columns:1fr; } .support-box .support-icon{ display:none; } }
 
   @media (max-width:640px){ .hide-sm{display:none} }
 
@@ -572,11 +584,30 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 </section>
 
 <!-- 醫療免責聲明 -->
-<section class="pb-12 cv-auto-short">
+<section class="pb-6 cv-auto-short">
   <div class="max-w-3xl mx-auto px-5 sm:px-8">
     <div class="disclaimer-box">
       <strong data-zh="醫療免責聲明 · " data-en="Medical disclaimer · ">醫療免責聲明 · </strong>
       <span data-zh="本站所有內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。" data-en="All content here is for general educational reference only. It is not individualized medical advice and cannot replace an in-person consultation, examination, or prescription. Any decision to start, stop, or change a medication should be made with your treating physician.">本站所有內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。</span>
+    </div>
+  </div>
+</section>
+
+<!-- 支持作者 -->
+<section id="hs-support-section" class="pb-12 cv-auto-short">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8">
+    <div class="support-box">
+      <div class="support-icon" aria-hidden="true">☕</div>
+      <div class="support-body">
+        <strong data-zh="支持作者 · " data-en="Support the author · ">支持作者 · </strong>
+        <span data-zh="HsiaoEye 為個人衛教專案，無業配、無贊助、無廣告分潤。寫一篇文章平均要查 20-30 篇文獻、整理 8-15 小時。如果這些內容對你或家人有幫助，歡迎請我喝杯咖啡，讓我有更多時間整理新主題。" data-en="HsiaoEye is a personal patient-education project — no sponsorships, no affiliate links, no ad revenue. Each article takes ~20-30 papers and 8-15 hours to write. If anything here has helped you or your family, you're welcome to buy me a coffee so I can keep writing.">HsiaoEye 為個人衛教專案，無業配、無贊助、無廣告分潤。寫一篇文章平均要查 20-30 篇文獻、整理 8-15 小時。如果這些內容對你或家人有幫助，歡迎請我喝杯咖啡，讓我有更多時間整理新主題。</span>
+        <div class="support-actions">
+          <a href="https://ko-fi.com/f94001115" target="_blank" rel="noopener" class="hs-kofi-btn">
+            <span style="font-size:16px">☕</span>
+            <span data-zh="Ko-fi 支持" data-en="Support on Ko-fi">Ko-fi 支持</span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -643,7 +674,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260615" defer></script>
+<script src="/blog/blog-shared.js?v=20260619" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {
