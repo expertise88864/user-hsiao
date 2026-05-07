@@ -11,7 +11,6 @@
       }
     },
     "assert": {
-      "preset": "lighthouse:no-pwa",
       "assertions": {
         "categories:performance":     ["warn",  { "minScore": 0.80 }],
         "categories:accessibility":   ["warn",  { "minScore": 0.85 }],
@@ -22,16 +21,7 @@
         "largest-contentful-paint":   ["warn",  { "maxNumericValue": 3500, "aggregationMethod": "median" }],
         "cumulative-layout-shift":    ["warn",  { "maxNumericValue": 0.15, "aggregationMethod": "median" }],
         "total-blocking-time":        ["warn",  { "maxNumericValue": 400,  "aggregationMethod": "median" }],
-        "interaction-to-next-paint":  ["warn",  { "maxNumericValue": 400,  "aggregationMethod": "median" }],
-
-        "uses-rel-preconnect":        "off",
-        "uses-rel-preload":           "off",
-        "preload-fonts":              "off",
-        "csp-xss":                    "off",
-        "third-party-cookies":        "off",
-        "color-contrast":             "off",
-        "valid-source-maps":          "off",
-        "deprecations":               "off"
+        "interaction-to-next-paint":  ["warn",  { "maxNumericValue": 400,  "aggregationMethod": "median" }]
       }
     },
     "upload": {

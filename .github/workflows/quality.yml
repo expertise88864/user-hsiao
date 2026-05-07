@@ -16,6 +16,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# v34.7: opt into Node 24 runtime so checkout@v4 / setup-python@v5 stop
+# emitting deprecation warnings (Node 20 EOL on the runner: Sep 2026).
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   validate:
     name: HTML validation + SEO check

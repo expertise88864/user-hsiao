@@ -105,6 +105,11 @@ def check(fp: Path, text: str):
         href = m.group(1)
         if href.startswith(('http://', 'https://', 'mailto:', 'tel:', 'javascript:', '#')):
             continue
+        # Skip dynamic JS template-literal hrefs (admin.html builds anchor
+        # tags inside JS strings — `${a.slug}` is interpolated at runtime,
+        # not a real path). Same for sed/regex backref like $2.
+        if '${' in href or re.fullmatch(r'\$\d+', href):
+            continue
         # strip query / fragment for path check
         path = href.split('?')[0].split('#')[0]
         if not path:

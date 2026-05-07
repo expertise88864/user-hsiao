@@ -10,6 +10,9 @@ on:
 # Outputs a comment on PRs listing the top 10 largest assets and any that
 # crossed a budget threshold.
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   budget:
     runs-on: ubuntu-latest
