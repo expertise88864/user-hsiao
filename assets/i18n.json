@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "version": 1,
+    "note": "Per-string translations. DN.t('key') falls back to data-zh/data-en if a key isn't here."
+  },
+  "nav.articles":         { "zh": "文章", "en": "Articles" },
+  "nav.tools":            { "zh": "工具", "en": "Tools" },
+  "nav.notes":            { "zh": "筆記", "en": "Notes" },
+  "nav.about":            { "zh": "關於我", "en": "About" },
+  "nav.search":           { "zh": "搜尋", "en": "Search" },
+  "nav.subscribe":        { "zh": "訂閱", "en": "Subscribe" },
+  "lang.zh":              { "zh": "中文", "en": "中文" },
+  "lang.en":              { "zh": "English", "en": "English" },
+
+  "btn.back-to-articles": { "zh": "← 文章索引", "en": "← Articles" },
+  "btn.read-more":        { "zh": "繼續閱讀", "en": "Read more" },
+  "btn.print":            { "zh": "列印", "en": "Print" },
+  "btn.bookmark":         { "zh": "加入收藏", "en": "Save" },
+  "btn.bookmark-saved":   { "zh": "已收藏 （點擊取消）", "en": "Saved (click to remove)" },
+  "btn.share":            { "zh": "分享", "en": "Share" },
+  "btn.copy-link":        { "zh": "複製連結", "en": "Copy link" },
+  "btn.subscribe-push":   { "zh": "🔔 訂閱新文章通知", "en": "🔔 Subscribe to new posts" },
+  "btn.subscribe-push-yes": { "zh": "✓ 已訂閱新文章通知 （取消）", "en": "✓ Subscribed (click to unsubscribe)" },
+  "btn.pwa-install":      { "zh": "📲 加入主畫面 （離線可讀）", "en": "📲 Install (read offline)" },
+
+  "msg.toast.bookmarked":   { "zh": "已加入收藏 — 離線快取中⋯", "en": "Saved — caching for offline…" },
+  "msg.toast.unbookmarked": { "zh": "已取消收藏", "en": "Removed from saved" },
+  "msg.toast.copied":       { "zh": "✓ 連結已複製", "en": "✓ Link copied" },
+  "msg.toast.cached-ok":    { "zh": "✓ 已快取,飛行模式可讀", "en": "✓ Cached, available offline" },
+
+  "filter.all":           { "zh": "全部", "en": "All" },
+  "filter.cat":           { "zh": "分類", "en": "Category" },
+  "filter.tag":           { "zh": "標籤", "en": "Tags" },
+  "filter.search":        { "zh": "搜尋", "en": "Search" },
+  "filter.search-ph":     { "zh": "輸入關鍵字…", "en": "Type to search…" },
+  "filter.reset":         { "zh": "清除篩選", "en": "Reset" },
+  "filter.empty":         { "zh": "沒有符合條件的文章 — 試試其他標籤或搜尋詞。", "en": "No matching articles. Try another tag or keyword." },
+
+  "cat.myth":             { "zh": "迷思澄清", "en": "Myth-busting" },
+  "cat.alert":            { "zh": "警訊辨識", "en": "Red Flags" },
+  "cat.rx":               { "zh": "處方治療", "en": "Treatment" },
+
+  "footer.tagline":       { "zh": "從診間到日常，好好照顧你的眼睛。", "en": "From the clinic to your everyday — take good care of your eyes." }
+}

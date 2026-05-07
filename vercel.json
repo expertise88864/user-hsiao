@@ -11,6 +11,7 @@
     { "source": "/blog/feed.xml", "destination": "/api/feed?fmt=rss" },
     { "source": "/blog/atom.xml", "destination": "/api/feed?fmt=atom" }
   ],
+  "_comment_og": "Dynamic OG fallback: if /assets/og/<slug>.png 404s, /api/og?slug=<slug> renders one on the fly. Vercel static-first means any present .png is served directly; missing → router falls through to api/og.",
   "headers": [
     {
       "source": "/admin(.*)",
@@ -131,7 +132,7 @@
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=()" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.clarity.ms https://stats.g.doubleclick.net; frame-src https://www.google.com https://googleads.g.doubleclick.net https://www.youtube.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.clarity.ms https://stats.g.doubleclick.net; frame-src https://www.google.com https://googleads.g.doubleclick.net https://www.youtube.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'; manifest-src 'self'; worker-src 'self'; require-trusted-types-for 'script'; trusted-types default hs-policy; upgrade-insecure-requests" },
         { "key": "Cross-Origin-Opener-Policy", "value": "same-origin-allow-popups" },
         { "key": "X-XSS-Protection", "value": "0" }
       ]

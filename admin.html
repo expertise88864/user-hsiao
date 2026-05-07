@@ -212,6 +212,8 @@
       <button data-tab="dict" onclick="switchTab('dict')">📖 醫學詞典</button>
       <button data-tab="images" onclick="switchTab('images')">🖼️ 圖片</button>
       <button data-tab="ab" onclick="switchTab('ab')">📈 A/B 測試</button>
+      <button data-tab="md" onclick="switchTab('md')">📝 Markdown</button>
+      <button data-tab="cwv" onclick="switchTab('cwv')">📉 CWV 儀表板</button>
       <button data-tab="ops" onclick="switchTab('ops')">⚙️ 維運</button>
     </div>
 
@@ -247,6 +249,8 @@
         <h2>SEO 體檢</h2>
         <select id="seo-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
         <button class="btn primary" onclick="runSeoScore()">🔍 體檢</button>
+        <button class="btn" onclick="runSeoFix()" title="自動補上 canonical / og:image / hreflang / theme-color">🩹 自動修復</button>
+        <button class="btn" onclick="runSeoFixAll()" title="對所有文章跑自動修復">🩹 全部修復</button>
       </div>
       <div id="seo-result"></div>
     </div>
@@ -310,6 +314,42 @@
       <div id="ab-list"><div class="loading">尚無資料</div></div>
     </div>
 
+    <!-- ─────────── MARKDOWN TAB ─────────── -->
+    <div class="tab-panel" id="tab-md">
+      <div class="toolbar">
+        <h2>Markdown 編輯器</h2>
+        <select id="md-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
+        <button class="btn" onclick="loadMd()">📥 載入</button>
+        <button class="btn primary" onclick="saveMd()">💾 儲存</button>
+      </div>
+      <div class="info-card" style="margin:0 0 12px">
+        <h4>使用說明</h4>
+        從現有文章 HTML 提取 Markdown（只取 #proseZh 區塊），編輯後另存。支援標題、清單、連結、圖片、表格、引言、HTML passthrough。
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; height:70vh;">
+        <textarea id="md-editor" spellcheck="false" placeholder="先選文章再點「📥 載入」⋯" style="font-family:'JetBrains Mono','Noto Sans TC',monospace; font-size:13.5px; line-height:1.7; padding:14px 16px; border:1px solid var(--border); border-radius:10px; resize:none; background:#fff;"></textarea>
+        <div id="md-preview" class="prose" style="padding:14px 18px; border:1px solid var(--border); border-radius:10px; background:#fff; overflow-y:auto; font-size:14.5px; line-height:1.85;">點「📥 載入」開始⋯</div>
+      </div>
+    </div>
+
+    <!-- ─────────── CWV TAB ─────────── -->
+    <div class="tab-panel" id="tab-cwv">
+      <div class="toolbar">
+        <h2>Core Web Vitals 儀表板</h2>
+        <button class="btn" onclick="loadCWV()">🔄 重新載入</button>
+        <select id="cwv-range" onchange="loadCWV()">
+          <option value="7d">最近 7 天</option>
+          <option value="28d" selected>最近 28 天</option>
+          <option value="90d">最近 90 天</option>
+        </select>
+      </div>
+      <div class="info-card" style="margin:0 0 12px">
+        <h4>📉 從 GA4 拉取真實使用者體驗數據</h4>
+        需先在 Vercel 設 <code>GA4_PROPERTY_ID</code> + <code>GA4_SERVICE_ACCOUNT_JSON</code>(GCP service account JSON 字串）。
+      </div>
+      <div id="cwv-result"><div class="loading">點「🔄 重新載入」開始</div></div>
+    </div>
+
     <!-- ─────────── OPS TAB ─────────── -->
     <div class="tab-panel" id="tab-ops">
       <div class="toolbar"><h2>站務 / 維運</h2></div>
@@ -325,10 +365,25 @@
           <button class="btn" onclick="resetSW()">🗑️ 清除 SW 快取</button>
         </div>
         <div class="info-card" style="margin:0">
+          <h4>📢 發送 Web Push 通知</h4>
+          <p style="color:var(--ink-2); margin:0 0 12px">所有訂閱者會收到加密推播 (aes128gcm)。需先設好 VAPID env vars。</p>
+          <button class="btn primary" onclick="showPushModal()">📤 撰寫通知</button>
+          <span id="push-stat" style="margin-left:8px; font-size:11.5px; color:var(--muted);"></span>
+        </div>
+        <div class="info-card" style="margin:0">
+          <h4>🛠️ 動態 Sitemap / Feed</h4>
+          <p style="color:var(--ink-2); margin:0 0 12px">已從 DN.ARTICLES 動態產生。手動觸發 CDN 失效以立即更新。</p>
+          <a href="/sitemap.xml" target="_blank" class="btn">看 sitemap.xml</a>
+          <a href="/blog/feed.xml" target="_blank" class="btn">看 RSS</a>
+          <a href="/blog/atom.xml" target="_blank" class="btn">看 Atom</a>
+        </div>
+        <div class="info-card" style="margin:0">
           <h4>📦 環境變數狀態</h4>
           <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; line-height:1.8;">
             ADMIN_PASSWORD: <span style="color:var(--green)">✓ set （隱含）</span><br>
             GITHUB_TOKEN: <span id="env-gh">檢查中⋯</span><br>
+            VAPID_PUBLIC_KEY: <span id="env-vapid">檢查中⋯</span><br>
+            VERCEL_KV: <span id="env-kv">檢查中⋯</span><br>
             GITHUB_OWNER: expertise88864<br>
             GITHUB_REPO: user-hsiao<br>
             GITHUB_BRANCH: main
@@ -364,6 +419,49 @@
       <div class="row">
         <button type="button" onclick="hideNewModal()">取消</button>
         <button class="primary" type="submit" id="create-btn">建立</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ─── EMBEDDED EDITOR (full-screen iframe, no context loss) ─── -->
+<div id="edit-shell" hidden style="position:fixed;inset:0;background:#faf7f2;z-index:120;display:flex;flex-direction:column;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--border);background:rgba(247,245,240,.96);backdrop-filter:blur(6px);">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <button onclick="closeEditor()" style="background:#fff;border:1px solid var(--border);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--blue-deep);cursor:pointer">← 回到後台</button>
+      <span style="font-size:13.5px;color:var(--ink-2)">編輯中： <code id="edit-slug-display" style="font-family:'JetBrains Mono',monospace;color:var(--blue-deep);font-size:12.5px"></code></span>
+      <span id="edit-status" style="font-size:11.5px;color:var(--muted)"></span>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <a id="edit-newtab" href="#" target="_blank" rel="noopener" style="font-size:12.5px;padding:6px 12px;border-radius:8px;background:#fff;border:1px solid var(--border);color:var(--ink-2);text-decoration:none">↗ 新分頁開啟</a>
+    </div>
+  </div>
+  <iframe id="edit-iframe" src="about:blank" style="flex:1;border:0;width:100%;background:#faf7f2;"></iframe>
+</div>
+
+<!-- ─── PUSH SEND MODAL ─── -->
+<div id="push-modal" class="modal-bg" hidden>
+  <div class="modal">
+    <h3>📢 發送推播通知</h3>
+    <p>所有訂閱者（已點 🔔 的訪客）都會收到。aes128gcm 加密，實際標題與內文會顯示。</p>
+    <form onsubmit="event.preventDefault();doPushSend()">
+      <label for="push-title">通知標題</label>
+      <input id="push-title" placeholder="例： 新文章 — 黃斑部病變 5 大警訊" required maxlength="60" />
+      <label for="push-body">通知內文</label>
+      <textarea id="push-body" placeholder="例： 飛蚊伴閃光、視野缺損都應立刻就醫..." maxlength="200"></textarea>
+      <label for="push-url">點擊跳轉 URL</label>
+      <input id="push-url" placeholder="/blog/<slug>" value="/blog/" />
+      <label for="push-urgency">優先度</label>
+      <select id="push-urgency">
+        <option value="normal">normal （預設）</option>
+        <option value="low">low</option>
+        <option value="high">high</option>
+        <option value="very-low">very-low</option>
+      </select>
+      <div class="row">
+        <button type="button" onclick="hidePushModal()">取消</button>
+        <button type="button" onclick="doPushSend(true)">🧪 dry run （不發送）</button>
+        <button class="primary" type="submit" id="push-send-btn">📤 確定發送</button>
       </div>
     </form>
   </div>
@@ -457,6 +555,158 @@ async function checkEnvStatus() {
     if (r.ok) el.innerHTML = '<span style="color:var(--green)">✓ valid</span>';
     else el.innerHTML = '<span style="color:var(--red)">✗ ' + (j.error || r.status).toString().slice(0, 60) + '</span>';
   } catch (e) {}
+
+  // Probe VAPID
+  try {
+    const r = await fetch('/api/push/key');
+    const el = document.getElementById('env-vapid');
+    if (r.ok) {
+      const j = await r.json();
+      el.innerHTML = '<span style="color:var(--green)">✓ ' + j.key.slice(0, 12) + '⋯</span>';
+    } else {
+      el.innerHTML = '<span style="color:var(--amber)">○ 未設定</span>';
+    }
+  } catch (e) {}
+
+  // Probe KV by checking ab-stats — if it returns instantly, KV is wired
+  try {
+    const t0 = Date.now();
+    const r = await fetch(API + '/ab-stats', { credentials: 'include' });
+    const dt = Date.now() - t0;
+    const el = document.getElementById('env-kv');
+    if (r.ok) {
+      el.innerHTML = dt < 400 ? '<span style="color:var(--green)">✓ likely KV (' + dt + 'ms)</span>' : '<span style="color:var(--amber)">GitHub blob fallback (' + dt + 'ms)</span>';
+    } else {
+      el.innerHTML = '<span style="color:var(--red)">✗ ' + r.status + '</span>';
+    }
+  } catch (e) {}
+
+  // Show subscriber count
+  try {
+    const r = await fetch(API + '/ab-stats?testId=__never__', { credentials: 'include' });
+    if (r.ok) {
+      // Just to verify endpoint health — actual subscriber count comes from /api/push/send dryRun
+      fetch('/api/push/send', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: 'test', dryRun: true }) })
+        .then(r2 => r2.ok ? r2.json() : null).then(j => {
+          if (j) document.getElementById('push-stat').textContent = '訂閱人數: ' + (j.count || 0);
+        }).catch(() => {});
+    }
+  } catch (e) {}
+}
+
+// ───────────────── Embedded editor ─────────────────
+function openEditor(slug) {
+  document.getElementById('edit-shell').hidden = false;
+  document.getElementById('edit-iframe').src = '/blog/' + slug + '?admin=1';
+  document.getElementById('edit-slug-display').textContent = slug;
+  document.getElementById('edit-newtab').href = '/blog/' + slug + '?admin=1';
+  document.body.style.overflow = 'hidden';
+  // Listen for save events from the iframe (postMessage from blog-shared.js)
+  window.addEventListener('message', editorMsgHandler);
+}
+function closeEditor() {
+  document.getElementById('edit-shell').hidden = true;
+  document.getElementById('edit-iframe').src = 'about:blank';
+  document.body.style.overflow = '';
+  window.removeEventListener('message', editorMsgHandler);
+  loadList();  // refresh list in case anything changed
+}
+function editorMsgHandler(e) {
+  if (e.data && e.data.type === 'hs-admin-saved') {
+    document.getElementById('edit-status').textContent = '✓ 已儲存 ' + new Date().toLocaleTimeString();
+    setTimeout(() => { document.getElementById('edit-status').textContent = ''; }, 5000);
+  }
+}
+
+// ───────────────── Push send ─────────────────
+function showPushModal() { document.getElementById('push-modal').hidden = false; setTimeout(() => document.getElementById('push-title').focus(), 50); }
+function hidePushModal() { document.getElementById('push-modal').hidden = true; }
+
+async function doPushSend(dryRun) {
+  const btn = document.getElementById('push-send-btn');
+  btn.disabled = true; btn.textContent = dryRun ? '檢查中⋯' : '發送中⋯';
+  const payload = {
+    title:   document.getElementById('push-title').value.trim(),
+    body:    document.getElementById('push-body').value.trim(),
+    url:     document.getElementById('push-url').value.trim() || '/blog/',
+    urgency: document.getElementById('push-urgency').value,
+    dryRun:  Boolean(dryRun),
+  };
+  if (!payload.title) { toast('需要標題', 3000); btn.disabled = false; btn.textContent = '📤 確定發送'; return; }
+  try {
+    const r = await fetch('/api/push/send', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) {
+      if (dryRun) toast('🧪 訂閱者數: ' + j.count, 4000);
+      else { toast(`✓ 已送 ${j.sent}/${j.total} (失敗 ${j.failed}, 清除無效 ${j.pruned})`, 6000); hidePushModal(); }
+    } else { toast('失敗: ' + (j.error || r.status), 6000); }
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+  finally { btn.disabled = false; btn.textContent = '📤 確定發送'; }
+}
+
+// ───────────────── SEO auto-fix ─────────────────
+async function injectFaqSchema(slug, btn) {
+  if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
+  try {
+    const r = await fetch(API + '/schema-helper', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, type: 'faqpage' })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) {
+      if (j.noop) toast('已是最新 FAQPage 結構化資料', 3000);
+      else if (!j.ok) toast(j.message || '無 Q&A pairs', 4000);
+      else toast(`✓ 注入 ${j.qaCount} 組 Q&A (commit ${(j.commit||'').slice(0,7)})`, 4500);
+    } else toast('失敗: ' + (j.error || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+  finally { if (btn) { btn.disabled = false; btn.textContent = '❓ FAQ'; } }
+}
+
+async function autoFixSeo(slug, btn) {
+  if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
+  try {
+    const r = await fetch(API + '/seo-fix', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) {
+      if (j.noop) toast('該文章已無可修復項目', 3000);
+      else toast(`✓ 修復: ${j.applied.join(', ')} (commit ${(j.commit||'').slice(0,7)})`, 5000);
+    } else toast('失敗: ' + (j.error || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+  finally { if (btn) { btn.disabled = false; btn.textContent = '🩹 SEO 修'; } }
+}
+
+async function runSeoFix() {
+  const slug = document.getElementById('seo-slug').value;
+  if (!slug) return;
+  await autoFixSeo(slug);
+  await runSeoScore();  // refresh display
+}
+
+async function runSeoFixAll() {
+  if (!confirm(`對 ${ARTICLES.length} 篇文章自動修復 SEO？每篇可能各 commit 一次。`)) return;
+  let total = 0, fixed = 0;
+  for (const a of ARTICLES) {
+    try {
+      const r = await fetch(API + '/seo-fix', {
+        method: 'POST', credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: a.slug })
+      });
+      const j = await r.json().catch(() => ({}));
+      total++;
+      if (j.applied && j.applied.length) fixed++;
+    } catch (e) {}
+  }
+  toast(`✓ ${fixed}/${total} 篇有更新`, 5000);
 }
 
 function showLogin() {
@@ -512,10 +762,103 @@ function switchTab(name) {
 
 function populateSlugSelectors() {
   const opts = ARTICLES.map(a => `<option value="${escapeAttr(a.slug)}">${escapeHTML(a.title)}</option>`).join('');
-  ['seo-slug', 'spell-slug', 'dict-autolink-slug'].forEach(id => {
+  ['seo-slug', 'spell-slug', 'dict-autolink-slug', 'md-slug'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.innerHTML = opts;
   });
+}
+
+// ───────────────── Markdown editor ─────────────────
+async function loadMd() {
+  const slug = document.getElementById('md-slug').value;
+  if (!slug) return;
+  const editor = document.getElementById('md-editor');
+  const preview = document.getElementById('md-preview');
+  preview.innerHTML = '<div class="loading"><span class="spinner"></span>載入中⋯</div>';
+  try {
+    const r = await fetch(API + '/md?slug=' + encodeURIComponent(slug), { credentials: 'include' });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { preview.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
+    editor.value = j.markdown || '';
+    renderMdPreview();
+    toast('✓ 已載入 ' + slug, 2500);
+  } catch (e) { preview.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+}
+
+async function saveMd() {
+  const slug = document.getElementById('md-slug').value;
+  const md = document.getElementById('md-editor').value;
+  if (!slug || md.length < 10) { toast('內容太短或未選文章', 3000); return; }
+  if (!confirm(`儲存為新版本 ${slug}? 將 commit 到 GitHub。`)) return;
+  try {
+    const r = await fetch(API + '/md', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, markdown: md })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) toast(j.noop ? '無變動' : '✓ 已儲存 (commit ' + (j.commit||'').slice(0,7) + ')', 4000);
+    else toast('失敗: ' + (j.error || r.status), 5000);
+  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+}
+
+// Cheap client-side preview — just show first ~5KB rendered as basic HTML
+function renderMdPreview() {
+  const md = document.getElementById('md-editor').value;
+  const preview = document.getElementById('md-preview');
+  if (!md) { preview.innerHTML = '<div class="loading">空</div>'; return; }
+  // Mini Markdown → HTML for live preview (server does the canonical render on save)
+  let h = md.slice(0, 8000);
+  h = h.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  h = h.replace(/^###### (.+)$/gm, '<h6>$1</h6>')
+       .replace(/^##### (.+)$/gm,  '<h5>$1</h5>')
+       .replace(/^#### (.+)$/gm,   '<h4>$1</h4>')
+       .replace(/^### (.+)$/gm,    '<h3>$1</h3>')
+       .replace(/^## (.+)$/gm,     '<h2>$1</h2>')
+       .replace(/^# (.+)$/gm,      '<h1>$1</h1>')
+       .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+       .replace(/\*([^*]+)\*/g,    '<i>$1</i>')
+       .replace(/`([^`]+)`/g,      '<code>$1</code>')
+       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%" />')
+       .replace(/^- (.+)$/gm, '<li>$1</li>')
+       .replace(/(<li>.+?<\/li>(?:\n<li>.+?<\/li>)*)/gs, '<ul>$1</ul>')
+       .replace(/\n\n/g, '</p><p>')
+       .replace(/^/, '<p>') + '</p>';
+  preview.innerHTML = h;
+}
+
+// Live preview as user types (debounced)
+document.addEventListener('DOMContentLoaded', function () {
+  const editor = document.getElementById('md-editor');
+  if (editor) {
+    let t;
+    editor.addEventListener('input', function () { clearTimeout(t); t = setTimeout(renderMdPreview, 200); });
+  }
+});
+
+// ───────────────── CWV dashboard ─────────────────
+async function loadCWV() {
+  const range = document.getElementById('cwv-range').value;
+  const host = document.getElementById('cwv-result');
+  host.innerHTML = '<div class="loading"><span class="spinner"></span>從 GA4 拉取中⋯</div>';
+  try {
+    const r = await fetch(API + '/cwv?range=' + range, { credentials: 'include' });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { host.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
+    if (!j.metrics || !j.metrics.length) { host.innerHTML = '<div class="loading">尚無數據</div>'; return; }
+    function band(name, value) {
+      const T = { LCP: [2500, 4000], CLS: [0.1, 0.25], INP: [200, 500], FCP: [1800, 3000], TTFB: [800, 1800] }[name];
+      if (!T) return 'info';
+      return value < T[0] ? 'good' : value < T[1] ? 'warn' : 'poor';
+    }
+    host.innerHTML = '<table class="dict-table" style="margin-bottom:18px"><thead><tr><th>指標</th><th>p75</th><th>樣本數</th><th>狀態</th></tr></thead><tbody>' +
+      j.metrics.map(m => {
+        const b = band(m.name, m.p75);
+        const color = b === 'good' ? '#16a34a' : b === 'warn' ? '#fbbf24' : '#dc2626';
+        return `<tr><td>${escapeHTML(m.name)}</td><td>${m.p75.toFixed(m.name === 'CLS' ? 3 : 0)}${m.name === 'CLS' ? '' : ' ms'}</td><td>${m.samples}</td><td style="color:${color};font-weight:700">${b.toUpperCase()}</td></tr>`;
+      }).join('') + '</tbody></table>';
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
 }
 
 // ───────────────── Article list ─────────────────
@@ -544,8 +887,11 @@ function renderArticles(articles) {
       </div>
       <div class="actions">
         <a href="/blog/${a.slug}" target="_blank" rel="noopener">看</a>
-        <a class="primary" href="/blog/${a.slug}?admin=1">編輯</a>
+        <button class="primary" onclick="openEditor('${escapeAttr(a.slug)}')">✏️ 編輯</button>
+        <a href="/blog/${a.slug}?admin=1" target="_blank" rel="noopener" title="新分頁開啟編輯模式">↗</a>
         <button onclick="showHistory('${escapeAttr(a.slug)}')">📚 歷史</button>
+        <button onclick="autoFixSeo('${escapeAttr(a.slug)}', this)">🩹 SEO 修</button>
+        <button onclick="injectFaqSchema('${escapeAttr(a.slug)}', this)" title="自動萃取 Q&A 並注入 FAQPage 結構化資料">❓ FAQ</button>
         <button onclick="regenEnOne('${escapeAttr(a.slug)}', this)">🌐 EN</button>
       </div>
     </div>`
@@ -713,22 +1059,38 @@ async function regenEnOne(slug, btn) {
   finally { if (btn) { btn.disabled = false; btn.textContent = '🌐 EN'; } }
 }
 
+// v30: streaming progress via Server-Sent Events
 async function runRegenEn() {
-  if (!confirm('重新生成所有 /en/ 頁面？大約需要 30-60 秒。')) return;
-  toast('開始重生⋯這可能要 30-60 秒');
+  if (!confirm('重新生成所有 /en/ 頁面？大約 30-60 秒,進度即時顯示。')) return;
+  const t = document.createElement('div');
+  t.className = 'toast'; t.style.minWidth = '340px';
+  t.innerHTML = '🔄 開始重生⋯ <span id="regen-pct">0%</span> <span id="regen-detail" style="opacity:.7;font-weight:400;font-size:11px"></span>';
+  document.body.appendChild(t);
   try {
-    const r = await fetch(API + '/regen-en', {
-      method: 'POST', credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({})
+    const es = new EventSource(API + '/regen-en-stream', { withCredentials: true });
+    let total = 0;
+    es.addEventListener('start', (e) => {
+      const j = JSON.parse(e.data); total = j.total;
+      document.getElementById('regen-detail').textContent = `(共 ${total} 頁)`;
     });
-    const j = await r.json().catch(() => ({}));
-    if (r.ok) {
-      const ok = (j.results || []).filter(x => x.ok).length;
-      const noop = (j.results || []).filter(x => x.noop).length;
-      toast(`✓ 完成 ${ok}/${j.count} 頁 (${noop} 已是最新)`, 4000);
-    } else { toast('失敗: ' + (j.error || r.status), 5000); }
-  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
+    es.addEventListener('progress', (e) => {
+      const j = JSON.parse(e.data);
+      const pct = Math.round((j.done / total) * 100);
+      const pctEl = document.getElementById('regen-pct'); if (pctEl) pctEl.textContent = pct + '%';
+      const dEl = document.getElementById('regen-detail'); if (dEl) dEl.textContent = `${j.done}/${total} · ${j.current}${j.noop?' (no change)':''}`;
+    });
+    es.addEventListener('complete', (e) => {
+      const j = JSON.parse(e.data); es.close();
+      t.style.background = '#16a34a';
+      t.innerHTML = `✓ 完成 ${j.ok}/${j.total} (${j.noop} 已是最新, ${j.failed} 失敗)`;
+      setTimeout(() => { t.style.transition = 'opacity .3s'; t.style.opacity = '0'; setTimeout(() => t.remove(), 350); }, 4500);
+    });
+    es.addEventListener('error', (ev) => {
+      es.close();
+      t.style.background = '#dc2626'; t.textContent = '✗ 失敗 (網路或權限錯誤)';
+      setTimeout(() => t.remove(), 5000);
+    });
+  } catch (e) { t.textContent = '✗ ' + e.message; setTimeout(() => t.remove(), 4000); }
 }
 
 function resetSW() {

@@ -86,16 +86,31 @@ function emit(zhUrl, enUrl, lastmod, changefreq, priority, image, imageTitle) {
   return lines.join('\n');
 }
 
+// Build ETag from a string (FNV-1a 32-bit hash, hex-encoded — fast and edge-safe)
+function etagOf(s) {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = (h + ((h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24))) >>> 0;
+  }
+  return '"' + h.toString(16) + '"';
+}
+
 export default async function handler(req, res) {
+  const t0 = Date.now();
   try {
+    const tArt0 = Date.now();
     const articles = await parseArticles();
     articles.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    const tArt = Date.now() - tArt0;
 
     const today = new Date().toISOString().slice(0, 10);
 
     // Fetch real lastmods from git for each article (best-effort)
+    const tLm0 = Date.now();
     const articlePaths = articles.map(a => `blog/${a.slug}.html`);
     const lastmods = await batchLastmod(articlePaths);
+    const tLm = Date.now() - tLm0;
 
     const lines = [
       '<?xml version="1.0" encoding="UTF-8"?>',
@@ -148,8 +163,20 @@ export default async function handler(req, res) {
     lines.push('', '</urlset>');
     const xml = lines.join('\n') + '\n';
 
+    const etag = etagOf(xml);
+    const ifNoneMatch = req.headers['if-none-match'];
+    const tTotal = Date.now() - t0;
+    const serverTiming = `articles;dur=${tArt}, lastmod;dur=${tLm}, total;dur=${tTotal}`;
+
     res.setHeader('Content-Type', 'application/xml; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=21600, stale-while-revalidate=86400');
+    res.setHeader('ETag', etag);
+    res.setHeader('Server-Timing', serverTiming);
+
+    if (ifNoneMatch === etag) {
+      res.status(304).end();
+      return;
+    }
     res.status(200).send(xml);
   } catch (e) {
     res.status(500).send(`<?xml version="1.0"?><error>${String(e.message || e)}</error>`);

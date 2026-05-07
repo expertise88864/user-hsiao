@@ -10,6 +10,7 @@ on:
       - 'tools.html'
       - 'notes.html'
       - 'index.html'
+      - '_gen_en_pages.py'
   workflow_dispatch:
 
 # Skip if commit is from this workflow itself (avoids loop)
@@ -19,12 +20,21 @@ concurrency:
 
 jobs:
   regen:
-    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'admin: regen')"
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'ci: regen /en/') && !contains(github.event.head_commit.message, 'admin: regen')"
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    # Need write permission to push the regenerated /en/ files back
+    permissions:
+      contents: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
+          fetch-depth: 1
           token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,12 +42,21 @@ jobs:
           python-version: '3.11'
 
       - name: Run _gen_en_pages.py
-        run: python _gen_en_pages.py
+        run: |
+          python _gen_en_pages.py
 
       - name: Commit /en/ if changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add en/
-          git diff --cached --quiet || git commit -m "ci: regen /en/ mirror [skip ci]"
+          if git diff --cached --quiet; then
+            echo "No /en/ changes to commit."
+            exit 0
+          fi
+          git commit -m "ci: regen /en/ mirror [skip ci]"
+          # Pull --rebase first in case admin pushed during regen (rare)
+          git pull --rebase origin main || true
           git push

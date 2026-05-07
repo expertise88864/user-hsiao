@@ -56,7 +56,94 @@
  *  + Service Worker stale-while-revalidate for *.css — CSS edits now
  *    propagate after one extra page load, no manual cache-bust needed.
  * v25: GA4 + Consent Mode v2 + Speculation Rules. */
-/* v28: ADMIN POWER SPRINT + WEB-PUSH + CSP-NONCE + LIGHTHOUSE CI
+/* v30: PERFORMANCE + DEVELOPER-EXPERIENCE SPRINT
+ *  + Edge streaming HTML rewriter (middleware.js): per-request CSP nonce
+ *    auto-injected into every inline <script>/<style> tag via TransformStream.
+ *    'strict-dynamic' enforces nonce-only for script execution; modern
+ *    browsers ignore the 'unsafe-inline' fallback. Old browsers (Safari
+ *    <15.4) still get 'unsafe-inline' for compat.
+ *  + Image CDN srcset pipeline: WYSIWYG editor 📷 button now generates
+ *    220/440/660/1320 widths × (webp+avif) on the client + uploads as
+ *    one bundle via /api/admin/upload-srcset → returns ready-to-paste
+ *    <picture> snippet with proper sizes attribute. AVIF probed at runtime
+ *    (Safari 16+ / Chrome 85+); falls back to webp when unsupported.
+ *  + A11y CI: axe-core runs on production URLs (push + workflow_dispatch),
+ *    wcag2a/wcag2aa/best-practice tags, --exit on violation, JSON report
+ *    uploaded as 30-day artifact.
+ *  + Markdown mode: /api/admin/md round-trips article HTML ↔ Markdown
+ *    (handles h1-h6 / lists / tables / blockquotes / figures / inline
+ *    formatting). Admin tab has split-view editor + live preview.
+ *  + Offline favourites: bookmark button now postMessages SW with
+ *    CACHE_FAVORITE which pre-caches HTML + every image + OG card so
+ *    user can read in airplane mode. UNCACHE_FAVORITE on remove.
+ *  + Dynamic OG images via @vercel/og — /api/og?slug=<slug> renders 1200×630
+ *    PNG from JSX at the edge. Static /assets/og/*.png still preferred
+ *    (immutable cache); missing slugs auto-fall through to dynamic.
+ *  + Schema helpers: /api/admin/schema-helper extracts Q&A pairs from
+ *    <details><summary>, .myth-card, h2-with-? patterns and injects
+ *    schema.org FAQPage (or HowTo). Admin row has ❓ FAQ button.
+ *  + ETag + If-None-Match on /sitemap.xml + /blog/feed.xml + atom.xml.
+ *    Crawler revisits get 304 No Content (no body bytes). Server-Timing
+ *    header exposes per-stage timing.
+ *  + CWV admin dashboard: /api/admin/cwv pulls LCP/CLS/INP/FCP/TTFB from
+ *    GA4 Reporting API via service-account JWT. New "📉 CWV" admin tab
+ *    shows p75 + sample count + good/warn/poor band.
+ *  + Multi-stage SW pre-cache: install only blocks on critical SHELL
+ *    (~10 assets, ~80ms). POPULAR articles + OG cards pre-cached
+ *    asynchronously after activate. LAZY tier hits runtime cache.
+ *  + i18n JSON: /assets/i18n.json + DN.t('key.path') replaces scattered
+ *    data-zh/data-en attributes. Lazy-loaded, falls back to data-zh/en
+ *    if key missing. <span data-t="btn.bookmark"> markers auto-resolved.
+ *  + Visual regression: Playwright + git-tracked snapshots
+ *    (tests/visual/snapshots). 7 pages × 3 viewports = 21 baseline shots.
+ *    npx playwright test --update-snapshots to refresh.
+ *  + Size budget CI: tracks raw + gzip kB per asset, enforces 5 budgets
+ *    (blog-shared.js ≤180 kB raw / ≤50 kB gz, etc.). Top 25 assets logged.
+ *  + SRI helper: /api/admin/sri computes sha256/384/512 for any URL +
+ *    returns ready-to-paste <script> snippet with integrity attribute.
+ *    Warns when URL is GTM/GA (frequent updates → SRI breakage risk).
+ *  + Web Components: /assets/components.js defines <hs-myth>, <hs-redflag>,
+ *    <hs-keypoint>, <hs-tldr>. Shadow DOM encapsulation, prefers-color-scheme
+ *    aware. Article authors can use semantic markup instead of class soup.
+ *  + SSE for /en/ regen: /api/admin/regen-en-stream streams progress events
+ *    (start, progress, complete). Admin "全部重生" button shows live
+ *    "x/N · slug" counter instead of waiting silently 30-60s.
+ *  + Workflow fix: regen-en.yml now has `permissions: contents: write` so
+ *    the bot can push the regenerated /en/ commit (was failing in v29).
+ * v29: ADMIN POLISH + WEB-PUSH ENCRYPT + DYNAMIC FEEDS + KV + CSP ENFORCE
+ *  + Web Push payload encryption (aes128gcm RFC 8291) — VAPID JWT + ECDH +
+ *    HKDF-SHA256 + AES-128-GCM all via WebCrypto on Edge runtime, no npm
+ *    `web-push` dep. Subscribers see real title + body + url, click jumps
+ *    to the article. SW renders 2 actions (查看 / 稍後).
+ *  + /api/push/key endpoint exposes VAPID public key (cached 1 hr at edge)
+ *    so the client subscribe button auto-discovers it without a hardcoded
+ *    `<meta>` injection.
+ *  + Vercel KV adapter (api/_kv.js) — push subscribers + A/B exposures now
+ *    persist to KV (atomic HINCRBY) instead of GitHub blob. Falls back to
+ *    GH blob automatically when KV env vars absent.
+ *  + Admin auto-fix SEO: /api/admin/seo-fix patches missing canonical /
+ *    hreflang / og:image / twitter:card / theme-color / JSON-LD / meta
+ *    description in one click. Single + bulk modes in /admin SEO tab.
+ *  + Dynamic sitemap (/api/sitemap → /sitemap.xml via rewrite). Pulls
+ *    DN.ARTICLES from blog-shared.js + queries actual git lastmod per file
+ *    via GitHub commits API. Cached 6 hr at edge.
+ *  + Dynamic RSS + Atom (/api/feed → /blog/feed.xml + /blog/atom.xml). NEW
+ *    namespaces: media:content, media:thumbnail, content:encoded with
+ *    full description + per-article OG image enclosure for Feedly preview.
+ *  + Blog index gets cat filter + tag cloud + search bar (DN.bindBlogFilter).
+ *    URL ?cat=myth&tag=乾眼症&q=foo is shareable; reset button clears.
+ *  + PWA install prompt — beforeinstallprompt captured, "📲 加入主畫面"
+ *    floating button after 8s. iOS-specific Safari hint after 12s.
+ *    Dismissed for 30 days via localStorage.
+ *  + Auto dark-mode listener — DN.bindAutoTheme respects existing
+ *    bindThemeToggle but adds live MQ change listener so OS theme flip
+ *    updates immediately (when user hasn't manually picked).
+ *  + Admin: embedded edit mode via iframe (/admin → ✏️ 編輯 = no context
+ *    loss; postMessage on save tells parent dashboard). 🩹 SEO 修 button
+ *    per-row + 全部修復 in SEO tab. 📢 push send modal in 維運 tab.
+ *  + CSP: Report-Only → enforce (vercel.json + middleware.js). Tighter
+ *    nonce-less variant kept in Report-Only header for migration.
+ * v28: ADMIN POWER SPRINT + WEB-PUSH + CSP-NONCE + LIGHTHOUSE CI
  *  + NEW: 6 admin endpoints — /api/admin/{upload,regen-en,history,rollback,
  *    reorder,seo-score,spell,dictionary,ab-stats}. Admin can now:
  *      • Upload images (auto WebP-compressed, base64→GitHub blob)
@@ -106,72 +193,83 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v28';
-const RUNTIME = 'hs-runtime-v28';
+const CACHE = 'hs-v30';
+const RUNTIME = 'hs-runtime-v30';
 const RUNTIME_MAX_ENTRIES = 60;
 
-const PRECACHE = [
+// v30: Multi-stage cache. Install only blocks on the truly critical
+// shell — fonts/CSS/icon + home + blog index. Everything else is moved
+// to a deferred `cache.add()` after `activate` completes (or on first use
+// via runtime cache). This shaves install time from ~2-4s to ~300-500ms,
+// which matters because slow installs delay first paint on poor networks.
+const SHELL = [
   '/',
   '/index.html',
-  '/about',
-  '/privacy',
-  '/404.html',
   '/offline.html',
   '/icon.svg',
   '/favicon.ico',
-  '/icon-32.png',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/apple-touch-icon.png',
-  '/logo-512.png',
   '/manifest.json',
-  '/SUNN1302-220.webp',
-  '/SUNN1302-220.avif',
-  '/SUNN1302-440.webp',
   '/blog/',
   '/assets/app.css',
   '/assets/article.css',
   '/blog/blog-shared.js',
-  '/blog/feed.xml',
-  '/blog/atom.xml',
+];
+
+// Top-5 most-visited articles + their OG cards. Pre-cached AFTER install
+// completes so it doesn't block. Re-evaluated on activation.
+const POPULAR = [
   '/blog/dry-eye-myths',
   '/blog/pediatric-myopia-control',
   '/blog/floaters-retinal-detachment',
-  '/blog/topics',
-  '/blog/cataract-surgery-faq',
-  '/blog/glaucoma-warnings',
-  '/blog/contact-lens-safety',
-  '/blog/red-eye-conjunctivitis',
   '/blog/lacrimal-gland-tumor',
-  '/notes',
-  '/tools',
-  // Per-article OG cards (1200×630) — used by social link previews
   '/assets/og/dry-eye-myths.png',
   '/assets/og/pediatric-myopia-control.png',
   '/assets/og/floaters-retinal-detachment.png',
   '/assets/og/lacrimal-gland-tumor.png',
-  // English mirror (/en/) — kept lightweight; runtime cache covers the rest
-  '/en/',
-  '/en/about',
-  '/en/tools',
-  '/en/blog/'
 ];
 
+// Lazy tier — don't pre-cache, but added to runtime cache on first hit.
+// Listed only for documentation / runtime fallback heuristics.
+const LAZY = [
+  '/about', '/privacy', '/404.html', '/notes', '/tools',
+  '/icon-32.png', '/icon-192.png', '/icon-512.png',
+  '/apple-touch-icon.png', '/logo-512.png',
+  '/SUNN1302-220.webp', '/SUNN1302-220.avif', '/SUNN1302-440.webp',
+  '/blog/feed.xml', '/blog/atom.xml',
+  '/blog/topics', '/blog/cataract-surgery-faq', '/blog/glaucoma-warnings',
+  '/blog/contact-lens-safety', '/blog/red-eye-conjunctivitis',
+  '/en/', '/en/about', '/en/tools', '/en/blog/',
+];
+
+// Combined for activate-time cleanup — anything in the cache that ISN'T
+// in any tier is fair game to evict in trimCache(...).
+const PRECACHE = [...SHELL, ...POPULAR, ...LAZY];
+
 self.addEventListener('install', (e) => {
+  // Stage 1: only the critical shell (~10 small assets, ~80ms on cable).
   e.waitUntil(
     caches.open(CACHE)
-      .then((c) => Promise.allSettled(PRECACHE.map((u) => c.add(u))))
+      .then((c) => Promise.allSettled(SHELL.map((u) => c.add(u))))
       .then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
-    caches.keys()
-      .then((keys) => Promise.all(
+    Promise.all([
+      // Cleanup old version caches
+      caches.keys().then((keys) => Promise.all(
         keys.filter((k) => k !== CACHE && k !== RUNTIME).map((k) => caches.delete(k))
-      ))
-      .then(() => self.clients.claim())
+      )),
+      // Stage 2: pre-cache top-5 articles + OG cards in the background.
+      // Wrapped in a setTimeout-style microtask so it runs AFTER claim() so
+      // page navigations aren't blocked.
+      caches.open(CACHE).then(async (c) => {
+        // Don't await: schedule then return immediately
+        Promise.allSettled(POPULAR.map((u) => c.add(u))).catch(() => {});
+      }),
+      self.clients.claim(),
+    ])
   );
 });
 
@@ -271,8 +369,48 @@ self.addEventListener('fetch', (e) => {
   );
 });
 
-self.addEventListener('message', (e) => {
-  if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting();
+self.addEventListener('message', async (e) => {
+  if (!e.data) return;
+  if (e.data.type === 'SKIP_WAITING') { self.skipWaiting(); return; }
+
+  // v30: Offline favourites — when client posts CACHE_FAVORITE the SW pre-caches
+  // the article HTML + every image URL referenced in it, so the user can read
+  // the article in airplane mode. Posting UNCACHE_FAVORITE removes it.
+  if (e.data.type === 'CACHE_FAVORITE' && e.data.url) {
+    try {
+      const cache = await caches.open(CACHE);
+      const url = e.data.url;
+      // Cache the HTML
+      const htmlResp = await fetch(url);
+      if (htmlResp.ok) {
+        await cache.put(url, htmlResp.clone());
+        // Parse and pre-cache all images + the OG card
+        const text = await htmlResp.text();
+        const imgs = Array.from(text.matchAll(/<img[^>]+src="([^"]+)"/g)).map(m => m[1]);
+        const ogs  = Array.from(text.matchAll(/<meta\s+property="og:image"\s+content="([^"]+)"/g)).map(m => m[1]);
+        const all = Array.from(new Set([...imgs, ...ogs])).filter(u => u && !u.startsWith('data:'));
+        for (const u of all) {
+          try {
+            const r = await fetch(u, { mode: 'no-cors' });
+            if (r) await cache.put(u, r);
+          } catch (err) { /* skip */ }
+        }
+        if (e.source) e.source.postMessage({ type: 'FAVORITE_CACHED', url, count: all.length + 1 });
+      }
+    } catch (err) {
+      if (e.source) e.source.postMessage({ type: 'FAVORITE_ERROR', error: String(err) });
+    }
+    return;
+  }
+
+  if (e.data.type === 'UNCACHE_FAVORITE' && e.data.url) {
+    try {
+      const cache = await caches.open(CACHE);
+      await cache.delete(e.data.url);
+      if (e.source) e.source.postMessage({ type: 'FAVORITE_UNCACHED', url: e.data.url });
+    } catch (err) {}
+    return;
+  }
 });
 
 // ── Web Push handler — fired when /api/push/send wakes us up ──

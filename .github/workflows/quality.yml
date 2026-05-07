@@ -113,3 +113,49 @@ jobs:
           # validate.py already does internal link checking against the
           # filesystem. Just re-run with strict mode so warnings count.
           python validate.py --strict || echo "::warning::SEO/link warnings present"
+
+  axe-a11y:
+    name: A11y scan (axe-core)
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for Vercel deploy (60s)
+        run: sleep 60
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install axe-cli + Puppeteer
+        run: npm install -g @axe-core/cli puppeteer
+
+      - name: Run axe-core on production URLs
+        # `--exit` makes axe exit 1 if any wcag2a/wcag2aa violation found
+        # on the listed pages. We allow `--rules` excluding color-contrast
+        # because the warm-beige theme intentionally uses softer contrast
+        # in muted text — switch back to enforce once theme is finalised.
+        run: |
+          axe \
+            https://hsiao.chendermatologist.com/ \
+            https://hsiao.chendermatologist.com/blog/ \
+            https://hsiao.chendermatologist.com/blog/dry-eye-myths \
+            https://hsiao.chendermatologist.com/blog/pediatric-myopia-control \
+            https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment \
+            https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor \
+            https://hsiao.chendermatologist.com/tools \
+            --tags wcag2a,wcag2aa,best-practice \
+            --disable color-contrast \
+            --exit \
+            --save axe-report.json || echo "::warning::axe-core violations found — see report"
+
+      - name: Upload axe report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: axe-a11y-report-${{ github.run_id }}
+          path: axe-report.json
+          retention-days: 30

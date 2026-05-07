@@ -1,0 +1,12 @@
+{
+  "name": "hsiao-eye",
+  "version": "30.0.0",
+  "private": true,
+  "description": "HsiaoEye — Min-Chien Hsiao MD's ophthalmology patient-education site",
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "@vercel/og": "^0.6.4"
+  }
+}

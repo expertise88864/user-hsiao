@@ -57,6 +57,46 @@
 
   const DN = (window.DN = window.DN || {});
 
+  // ---------------------------------------------------------------------
+  // i18n bundle — DN.t('key') returns translated string.
+  // Loaded lazily from /assets/i18n.json on first use; falls back to the
+  // raw key (or to data-zh/data-en attribute lookup) when missing.
+  //
+  // Usage in HTML:  <span data-t="btn.bookmark">加入收藏</span>
+  // Usage in JS:    btn.textContent = DN.t('btn.bookmark');
+  // ---------------------------------------------------------------------
+  DN._i18n = null;
+  DN._i18nPromise = null;
+  DN.t = function (key, fallback) {
+    var lang = DN.detectLang ? DN.detectLang() : 'zh';
+    if (!DN._i18n) {
+      // Async load (kicks off once) — in the meantime, return fallback / key
+      if (!DN._i18nPromise) {
+        DN._i18nPromise = fetch('/assets/i18n.json').then(function (r) {
+          return r.ok ? r.json() : null;
+        }).then(function (j) {
+          DN._i18n = j || {};
+          // Re-render any data-t marker now that translations are loaded
+          DN.applyI18nMarkers && DN.applyI18nMarkers();
+          return DN._i18n;
+        }).catch(function () { DN._i18n = {}; return {}; });
+      }
+      return fallback != null ? fallback : key;
+    }
+    var entry = DN._i18n[key];
+    if (!entry) return fallback != null ? fallback : key;
+    return entry[lang] || entry.zh || entry.en || (fallback != null ? fallback : key);
+  };
+
+  DN.applyI18nMarkers = function () {
+    var lang = DN.detectLang ? DN.detectLang() : 'zh';
+    document.querySelectorAll('[data-t]').forEach(function (el) {
+      var k = el.getAttribute('data-t');
+      var translated = DN.t(k, null);
+      if (translated && translated !== k) el.textContent = translated;
+    });
+  };
+
   // ---------- brand constants ----------
   DN.SITE_NAME       = 'HsiaoEye';
   DN.SITE_TITLE      = '蕭閔謙醫師 眼科筆記';
@@ -2534,13 +2574,31 @@
     }
     btn.addEventListener('click', function () {
       var arr = get();
+      var url = location.pathname;
       if (isBookmarked()) {
         arr = arr.filter(function (s) { return s !== slug; });
         set(arr); render(); DN.toast && DN.toast('已取消收藏');
+        // Tell SW to drop the offline cache
+        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({ type: 'UNCACHE_FAVORITE', url: url });
+        }
       } else {
-        arr.unshift(slug); set(arr); render(); DN.toast && DN.toast('已加入收藏');
+        arr.unshift(slug); set(arr); render(); DN.toast && DN.toast('已加入收藏 — 離線快取中⋯');
+        // Tell SW to pre-cache HTML + images for offline reading
+        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+          var ch = new MessageChannel();
+          navigator.serviceWorker.controller.postMessage({ type: 'CACHE_FAVORITE', url: url }, [ch.port2]);
+        }
       }
     });
+    // Listen for SW completion notifications
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.addEventListener('message', function (e) {
+        if (e.data && e.data.type === 'FAVORITE_CACHED') {
+          DN.toast && DN.toast('✓ 已快取 ' + e.data.count + ' 個資源,飛行模式可讀');
+        }
+      });
+    }
     render();
     document.body.appendChild(btn);
   };
@@ -2761,18 +2819,41 @@
       }
     });
 
+    // v30: Generate full responsive srcset (220 / 440 / 660 / 1320 widths) ×
+    // (webp + avif) and POST as one bundle. The CLIENT does encoding because
+    // Edge runtime can't decode images. Inserted snippet is <picture> with
+    // proper sources.
     async function uploadImageInline(file) {
-      status('⏳ 壓縮中⋯');
+      status('⏳ 壓縮中（多尺寸）⋯');
       try {
-        var dataUrl = await compressToWebp(file, 1600, 0.82);
-        var base64 = dataUrl.replace(/^data:[^,]+,/, '');
+        if (file.type === 'image/svg+xml') {
+          // SVG: pass through — single variant
+          return await uploadSvgFallback(file);
+        }
+        var bitmap = await loadImageBitmap(file);
+        var widths = [220, 440, 660, 1320].filter(function (w) { return w <= bitmap.width * 1.05; });
+        if (widths.length === 0) widths = [bitmap.width];
+
         var stem = (file.name || 'img').replace(/\.[^.]+$/, '').replace(/[^a-z0-9._-]/gi, '-').toLowerCase().slice(0, 40) || 'img';
-        var filename = stem + '-' + Date.now().toString(36) + '.webp';
-        status('⏳ 上傳中⋯');
-        var resp = await fetch('/api/admin/upload', {
+        stem += '-' + Date.now().toString(36);
+
+        var canAvif = await canEncodeAvif();
+        var variants = [];
+        for (var i = 0; i < widths.length; i++) {
+          var w = widths[i];
+          var webpData = await encodeAt(bitmap, w, 'image/webp', 0.82);
+          variants.push({ suffix: '-' + w, format: 'webp', data: webpData });
+          if (canAvif) {
+            var avifData = await encodeAt(bitmap, w, 'image/avif', 0.55);
+            if (avifData) variants.push({ suffix: '-' + w, format: 'avif', data: avifData });
+          }
+        }
+
+        status('⏳ 上傳 ' + variants.length + ' 個變體⋯');
+        var resp = await fetch('/api/admin/upload-srcset', {
           method: 'POST', credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ filename: filename, contentType: 'image/webp', data: base64, folder: 'assets/article-img' })
+          body: JSON.stringify({ stem: stem, folder: 'assets/article-img', variants: variants })
         });
         if (!resp.ok) {
           var err = await resp.json().catch(function () { return {}; });
@@ -2780,44 +2861,76 @@
           return;
         }
         var data = await resp.json();
-        // Insert at cursor — wrap in figure for clean styling
-        var html = '<figure><img src="' + data.url + '" alt="" loading="lazy" decoding="async" style="max-width:100%;border-radius:8px" /><figcaption>(編輯說明文字)</figcaption></figure>';
-        document.execCommand('insertHTML', false, html);
-        status('✓ 已插入 ' + data.url, 'success');
+        var snippet = '<figure>' + (data.pictureSnippet || data.imgSnippet) + '<figcaption>(編輯說明文字)</figcaption></figure>';
+        document.execCommand('insertHTML', false, snippet);
+        status('✓ 已插入 (含 ' + variants.length + ' 個變體)', 'success');
       } catch (e) {
         status('✗ 圖片處理失敗: ' + (e.message || e), 'error');
       }
     }
 
-    function compressToWebp(file, maxW, quality) {
+    function loadImageBitmap(file) {
       return new Promise(function (resolve, reject) {
-        if (file.type === 'image/svg+xml') {
-          var fr = new FileReader();
-          fr.onload = function () { resolve(fr.result); };
-          fr.onerror = reject;
-          fr.readAsDataURL(file);
-          return;
-        }
         var img = new Image();
         var url = URL.createObjectURL(file);
         img.onload = function () {
           URL.revokeObjectURL(url);
-          var w = Math.min(maxW, img.naturalWidth);
-          var h = Math.round(img.naturalHeight * (w / img.naturalWidth));
-          var canvas = document.createElement('canvas');
-          canvas.width = w; canvas.height = h;
-          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          canvas.toBlob(function (blob) {
-            if (!blob) return reject(new Error('toBlob failed'));
-            var fr = new FileReader();
-            fr.onload = function () { resolve(fr.result); };
-            fr.onerror = reject;
-            fr.readAsDataURL(blob);
-          }, 'image/webp', quality || 0.82);
+          resolve({ image: img, width: img.naturalWidth, height: img.naturalHeight });
         };
         img.onerror = function () { reject(new Error('image load failed')); };
         img.src = url;
       });
+    }
+
+    function encodeAt(bitmap, targetW, mime, quality) {
+      return new Promise(function (resolve, reject) {
+        var w = Math.min(targetW, bitmap.width);
+        var h = Math.round(bitmap.height * (w / bitmap.width));
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(bitmap.image, 0, 0, w, h);
+        canvas.toBlob(function (blob) {
+          if (!blob) { resolve(null); return; }
+          var fr = new FileReader();
+          fr.onload = function () { resolve(fr.result.replace(/^data:[^,]+,/, '')); };
+          fr.onerror = reject;
+          fr.readAsDataURL(blob);
+        }, mime, quality);
+      });
+    }
+
+    var _avifProbeResult = null;
+    function canEncodeAvif() {
+      if (_avifProbeResult !== null) return Promise.resolve(_avifProbeResult);
+      return new Promise(function (resolve) {
+        var canvas = document.createElement('canvas');
+        canvas.width = 8; canvas.height = 8;
+        try {
+          canvas.toBlob(function (b) {
+            _avifProbeResult = !!(b && b.size > 0 && b.type === 'image/avif');
+            resolve(_avifProbeResult);
+          }, 'image/avif', 0.5);
+        } catch (e) { _avifProbeResult = false; resolve(false); }
+      });
+    }
+
+    async function uploadSvgFallback(file) {
+      var fr = new FileReader();
+      var dataUrl = await new Promise(function (res, rej) {
+        fr.onload = function () { res(fr.result); }; fr.onerror = rej; fr.readAsDataURL(file);
+      });
+      var base64 = dataUrl.replace(/^data:[^,]+,/, '');
+      var stem = (file.name || 'img').replace(/\.[^.]+$/, '').replace(/[^a-z0-9._-]/gi, '-').toLowerCase().slice(0, 40);
+      var filename = stem + '-' + Date.now().toString(36) + '.svg';
+      var resp = await fetch('/api/admin/upload', {
+        method: 'POST', credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: filename, contentType: 'image/svg+xml', data: base64, folder: 'assets/article-img' })
+      });
+      if (!resp.ok) { status('✗ SVG 上傳失敗', 'error'); return; }
+      var data = await resp.json();
+      document.execCommand('insertHTML', false, '<figure><img src="' + data.url + '" alt="" /><figcaption>(編輯說明文字)</figcaption></figure>');
+      status('✓ SVG 已插入', 'success');
     }
 
     // Live preview — opens a fresh tab with the saved-state HTML rendered (without ?admin=1)
@@ -2878,7 +2991,9 @@
         if (resp.ok) {
           var data = await resp.json();
           status('✓ 已儲存 (commit: ' + (data.commit || '-').slice(0, 7) + ')', 'success');
-          setTimeout(function () { document.getElementById('hs-admin-status').remove(); }, 3500);
+          setTimeout(function () { var s = document.getElementById('hs-admin-status'); if (s) s.remove(); }, 3500);
+          // Notify parent dashboard (when embedded via iframe)
+          try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'hs-admin-saved', slug: slug, commit: data.commit }, '*'); } catch (e) {}
         } else {
           var err = await resp.json().catch(function () { return {}; });
           status('✗ 儲存失敗: ' + (err.error || resp.status), 'error');
@@ -3192,34 +3307,25 @@
   };
 
   // ---------------------------------------------------------------------
-  // Auto dark-mode based on prefers-color-scheme. Respects an explicit
-  // user choice (DN.bindThemeToggle saves to localStorage). If user has
-  // never toggled, follow OS preference and update on change.
+  // Auto dark-mode listener — DN.bindThemeToggle already handles initial
+  // OS preference + manual toggle persistence. This function just adds the
+  // *live* listener so OS theme changes propagate without page reload
+  // (when user hasn't explicitly chosen).
   // ---------------------------------------------------------------------
   DN.bindAutoTheme = function () {
-    var KEY = 'hs:theme';
-    var explicit;
-    try { explicit = localStorage.getItem(KEY); } catch (e) {}
-    function applyTheme(mode) {
+    if (!window.matchMedia) return;
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    var apply = function () {
+      // Skip if user has explicitly chosen — bindThemeToggle stores at hs_theme
+      try { if (localStorage.getItem('hs_theme')) return; } catch (e) {}
+      var mode = mq.matches ? 'dark' : 'light';
       document.documentElement.dataset.theme = mode;
-      // also reflect in theme-color meta for browser chrome (mobile addr bar)
       var meta = document.querySelector('meta[name="theme-color"]:not([media])');
       if (meta) meta.setAttribute('content', mode === 'dark' ? '#0f172a' : '#3a5a7c');
-    }
-
-    if (!explicit) {
-      var mq = matchMedia('(prefers-color-scheme: dark)');
-      applyTheme(mq.matches ? 'dark' : 'light');
-      // Live update if OS preference changes (only when user hasn't picked)
-      var listener = function (e) {
-        try { if (localStorage.getItem(KEY)) return; } catch (e2) {}
-        applyTheme(e.matches ? 'dark' : 'light');
-      };
-      if (mq.addEventListener) mq.addEventListener('change', listener);
-      else if (mq.addListener) mq.addListener(listener);
-    } else {
-      applyTheme(explicit);
-    }
+    };
+    apply();  // initial
+    if (mq.addEventListener) mq.addEventListener('change', apply);
+    else if (mq.addListener) mq.addListener(apply);
   };
 
   // ---------- service worker ----------
@@ -3361,6 +3467,7 @@
     // ── PHASE 1 — synchronous / blocking (must run before first paint) ──
     // Anything that affects above-the-fold layout, language toggle, or
     // first-screen content rendering belongs here.
+    DN.bindAutoTheme();        // dark/light from prefers-color-scheme (FOUC-safe)
     DN.injectMobileMenu();
     DN.bindLangToggle(apply);
     apply(curLang);
@@ -3453,6 +3560,7 @@
     idle(function () {
       DN.bindGAEvents();
       DN.bindWebVitals();
+      DN.bindPWAInstall();      // beforeinstallprompt / iOS hint
       // (cookie banner removed; Consent Mode v2 defaults remain set in <head>)
       DN.registerSW();
     }, { timeout: 2500 });

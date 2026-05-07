@@ -147,21 +147,47 @@ function buildAtom(articles, descriptions) {
   return lines.join('\n') + '\n';
 }
 
+// FNV-1a 32-bit hash → ETag
+function etagOf(s) {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = (h + ((h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24))) >>> 0;
+  }
+  return '"' + h.toString(16) + '"';
+}
+
 export default async function handler(req, res) {
-  // Decide format from explicit fmt query (set by vercel.json rewrite) OR URL path
+  const t0 = Date.now();
   const fmt = (req.query && req.query.fmt) || '';
   const u = req.url || '';
   const isAtom = fmt === 'atom' || /atom/i.test(u);
   try {
+    const tA0 = Date.now();
     const articles = await parseArticles();
     articles.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
     const top = articles.slice(0, 30);
+    const tA = Date.now() - tA0;
+
+    const tD0 = Date.now();
     const descriptions = {};
     await Promise.all(top.map(async a => { descriptions[a.slug] = await fetchDescription(a.slug); }));
+    const tD = Date.now() - tD0;
 
     const xml = isAtom ? buildAtom(top, descriptions) : buildRss(top, descriptions);
+    const etag = etagOf(xml);
+    const tTotal = Date.now() - t0;
+    const serverTiming = `articles;dur=${tA}, descs;dur=${tD}, total;dur=${tTotal}`;
+
     res.setHeader('Content-Type', isAtom ? 'application/atom+xml; charset=utf-8' : 'application/rss+xml; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');
+    res.setHeader('ETag', etag);
+    res.setHeader('Server-Timing', serverTiming);
+
+    if (req.headers['if-none-match'] === etag) {
+      res.status(304).end();
+      return;
+    }
     res.status(200).send(xml);
   } catch (e) {
     res.status(500).send(`<?xml version="1.0"?><error>${String(e.message || e)}</error>`);
