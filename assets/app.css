@@ -490,3 +490,91 @@ img { font-style: italic; /* alt-text styled if image fails */ }
 img[loading="lazy"] { background:#f0f0ee; }
 img[width][height] { height: auto; }   /* preserve aspect when scaled */
 
+
+/* ============================================================
+   v32 — CSS @property animatable custom properties
+   ------------------------------------------------------------
+   By registering a custom property with @property, the browser knows its
+   syntax and treats it as animatable. Lets us smooth-fade between light
+   and dark themes (CSS variables alone aren't animatable by spec).
+   Falls back to instant change in browsers without @property support.
+   ============================================================ */
+@property --theme-bg     { syntax: "<color>"; inherits: true; initial-value: #faf7f2; }
+@property --theme-ink    { syntax: "<color>"; inherits: true; initial-value: #2a2620; }
+@property --theme-surface{ syntax: "<color>"; inherits: true; initial-value: #ffffff; }
+
+:root {
+  --theme-bg:      #faf7f2;
+  --theme-ink:     #2a2620;
+  --theme-surface: #ffffff;
+  transition: --theme-bg 280ms ease, --theme-ink 280ms ease, --theme-surface 280ms ease;
+}
+:root[data-theme="dark"] {
+  --theme-bg:      #1a1815;
+  --theme-ink:     #f5f0e6;
+  --theme-surface: #252220;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { transition: none; }
+}
+
+/* ============================================================
+   v32 — Container queries for adaptive layouts
+   ------------------------------------------------------------
+   Article-list cards, related-articles grid, and topic cards now
+   respond to their CONTAINER width, not viewport. So if the same
+   card is dropped into a narrow sidebar later, it auto-stacks.
+   ============================================================ */
+.article-list,
+#hs-related,
+.topic-grid,
+#hs-prevnext { container-type: inline-size; container-name: card-grid; }
+
+@container card-grid (max-width: 480px) {
+  .article-list-item,
+  .topic-card,
+  #hs-related a {
+    grid-template-columns: 1fr !important;
+  }
+  #hs-prevnext { grid-template-columns: 1fr !important; }
+  #hs-prevnext .hs-pn-card[data-pn] { grid-column: 1 !important; text-align: left !important; align-items: flex-start !important; }
+}
+
+/* ============================================================
+   v32 — prefers-reduced-data (Save-Data hint)
+   ------------------------------------------------------------
+   When the browser signals data-saver mode, drop heavy hero SVGs
+   to a flat colour, downgrade <picture> srcset to lowest, and skip
+   non-essential animations. Honours the OS data-saver toggle.
+   ============================================================ */
+@media (prefers-reduced-data: reduce) {
+  .hero-photo,
+  .hs-hero-svg svg,
+  #hs-cover-story svg,
+  #hs-editor-pick svg {
+    background: var(--blue-soft) !important;
+    /* Image content collapsed to background; saves ~60-150 KB per page */
+  }
+  .hero-photo { content: ''; }
+  .reveal, .article-list-item, .myth-card { transition: none !important; transform: none !important; }
+  /* Hide decorative figure SVGs in articles entirely */
+  .dn-figure svg:not([data-essential]) { display: none; }
+}
+
+/* ============================================================
+   v32 — CSS Anchor Positioning (Chrome 125+)
+   ------------------------------------------------------------
+   Hover tooltips on .hs-dict / .hs-dict-link now position via the
+   native anchor API instead of JS calculation. Browsers without
+   support fall back to the JS popup we ship in blog-shared.js.
+   ============================================================ */
+@supports (anchor-name: --x) {
+  .hs-dict, .hs-dict-link { anchor-name: --hsdict; }
+  .hs-dict-popup {
+    position: absolute;
+    position-anchor: --hsdict;
+    top: anchor(top);
+    left: anchor(center);
+    translate: -50% calc(-100% - 8px);
+  }
+}

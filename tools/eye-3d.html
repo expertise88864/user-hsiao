@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>3D 眼球解剖互動模型 | HsiaoEye · 蕭閔謙醫師</title>
+<meta name="description" content="可旋轉、剖面、標註的 3D 眼球解剖模型 — 角膜、虹膜、水晶體、玻璃體、視網膜、視神經。WebGPU 加速，行動裝置 fallback 為 WebGL2。蕭閔謙醫師（眼科）整理的眼球解剖互動工具。" />
+<meta name="theme-color" content="#3a5a7c" />
+<link rel="canonical" href="https://hsiao.chendermatologist.com/tools/eye-3d" />
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/tools/eye-3d" />
+<link rel="alternate" hreflang="en" href="https://hsiao.chendermatologist.com/en/tools/eye-3d" />
+<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+<link rel="manifest" href="/manifest.json" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://hsiao.chendermatologist.com/tools/eye-3d" />
+<meta property="og:title" content="3D 眼球解剖互動模型" />
+<meta property="og:description" content="WebGPU 加速的 3D 眼球解剖互動工具" />
+<meta property="og:image" content="https://hsiao.chendermatologist.com/icon-512.png" />
+<meta property="og:locale" content="zh_TW" />
+
+<link rel="preload" as="style" href="/assets/app.css?v=20260607" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/app.css?v=20260607" />
+
+<style>
+  body { background: var(--bg); color: var(--ink); font-family: Inter, 'Noto Sans TC', sans-serif; margin: 0; }
+
+  .eye-app { display: grid; grid-template-columns: 1fr 320px; gap: 0; height: calc(100vh - 64px); min-height: 600px; }
+  @media (max-width: 720px) {
+    .eye-app { grid-template-columns: 1fr; height: auto; }
+    .eye-side { max-height: 40vh; overflow-y: auto; }
+  }
+
+  .eye-canvas-wrap { position: relative; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+  #eye-canvas { width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+  #eye-canvas:active { cursor: grabbing; }
+
+  .eye-overlay { position: absolute; top: 12px; left: 12px; background: rgba(15,23,42,.7); color: #fff; padding: 8px 14px; border-radius: 9999px; font-size: 12px; backdrop-filter: blur(8px); }
+  .eye-help { position: absolute; bottom: 12px; left: 12px; background: rgba(15,23,42,.7); color: #fff; padding: 6px 12px; border-radius: 9999px; font-size: 11px; }
+
+  .eye-side { background: #fff; border-left: 1px solid var(--border); padding: 18px; overflow-y: auto; }
+  .eye-side h2 { font-family: 'Noto Serif TC', Georgia, serif; font-size: 18px; font-weight: 700; color: var(--blue-deep); margin: 0 0 12px; }
+  .eye-side .part { padding: 10px 14px; margin-bottom: 8px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all .15s; background: #fff; }
+  .eye-side .part:hover, .eye-side .part.active { border-color: var(--blue-deep); box-shadow: 0 4px 12px -6px rgba(58,90,124,.3); }
+  .eye-side .part h3 { font-size: 14px; font-weight: 700; margin: 0; color: var(--ink); }
+  .eye-side .part .lat { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--blue-deep); }
+  .eye-side .part p { font-size: 12.5px; line-height: 1.7; color: var(--ink-2); margin: 6px 0 0; }
+
+  .ctl { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; padding: 12px; background: var(--blue-soft); border-radius: 10px; }
+  .ctl button { padding: 6px 12px; border: 1px solid var(--border); border-radius: 9999px; background: #fff; color: var(--ink-2); font-size: 12px; cursor: pointer; }
+  .ctl button.active { background: var(--blue-deep); color: #fff; border-color: var(--blue-deep); }
+  .ctl input[type="range"] { flex: 1; min-width: 120px; }
+
+  .badge { display: inline-block; padding: 3px 9px; background: var(--blue-soft); border-radius: 9999px; font-size: 10px; font-weight: 700; color: var(--blue-deep); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+
+  /* Fallback message when WebGL/WebGPU unavailable */
+  .no-gpu { padding: 48px 24px; text-align: center; color: #fff; }
+  .no-gpu h3 { font-family: 'Noto Serif TC', serif; font-size: 22px; margin: 0 0 12px; }
+  .no-gpu p { font-size: 14px; line-height: 1.7; opacity: .85; max-width: 500px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link" style="position:absolute;left:-999px;top:0">跳到主內容</a>
+
+<header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border); height:64px; display:flex; align-items:center; padding:0 32px;">
+  <a href="/" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink);">
+    <img src="/icon.svg" alt="" width="32" height="32" style="border-radius:8px"/>
+    <span style="font-family:'Noto Serif TC',serif; font-weight:700; color:var(--blue-deep)">HsiaoEye</span>
+  </a>
+  <div style="flex:1"></div>
+  <a href="/tools" style="font-size:13px; color:var(--blue-deep); text-decoration:none">← 工具索引</a>
+</header>
+
+<main id="main">
+  <div style="max-width:1280px; margin:0 auto; padding:24px 24px 0;">
+    <span class="badge" data-zh="互動工具" data-en="Interactive Tool">互動工具</span>
+    <h1 style="font-family:'Noto Serif TC',serif; font-size:30px; font-weight:700; margin:6px 0 4px; color:var(--ink)" data-zh="3D 眼球解剖" data-en="3D Eye Anatomy">3D 眼球解剖</h1>
+    <p style="font-size:13.5px; color:var(--ink-2); margin:0 0 14px; line-height:1.7" data-zh="拖曳旋轉,滾輪縮放,點選結構查看說明。WebGPU 加速,行動裝置 fallback 為 WebGL2。" data-en="Drag to rotate, scroll to zoom, click structures for details. WebGPU-accelerated; falls back to WebGL2 on mobile.">拖曳旋轉，滾輪縮放，點選結構查看說明。WebGPU 加速，行動裝置 fallback 為 WebGL2。</p>
+  </div>
+
+  <div class="eye-app">
+    <div class="eye-canvas-wrap">
+      <canvas id="eye-canvas" aria-label="3D 眼球解剖互動畫布"></canvas>
+      <div class="eye-overlay" id="eye-renderer-info">初始化中⋯</div>
+      <div class="eye-help" data-zh="拖曳旋轉 · 滾輪縮放 · 點選結構" data-en="Drag · Scroll · Click">拖曳旋轉 · 滾輪縮放 · 點選結構</div>
+    </div>
+
+    <aside class="eye-side">
+      <div class="ctl">
+        <button id="btn-reset">⟲ 復位</button>
+        <button id="btn-section" data-on="false">⌨ 剖面</button>
+        <button id="btn-labels" data-on="true" class="active">🏷 標籤</button>
+      </div>
+      <h2 data-zh="眼球結構" data-en="Eye Structures">眼球結構</h2>
+      <div id="part-list"></div>
+    </aside>
+  </div>
+</main>
+
+<script type="module">
+  // ─────────────────────────────────────────────────────────────────────
+  // 3D eye anatomy — Three.js (loaded from esm CDN), with WebGPURenderer
+  // when supported, falls back to WebGLRenderer.
+  //
+  // Geometry is procedural (no external GLB) — stack of spheres + cylinder
+  // approximating: cornea, iris, lens, vitreous, retina, optic nerve, sclera.
+  // Click → highlights structure + scrolls to its info panel.
+  // ─────────────────────────────────────────────────────────────────────
+
+  const PARTS = [
+    { id: 'cornea',      zh: '角膜',     lat: 'Cornea',         color: '#a4c4dd', desc: '透明前段,負責 ⅔ 的屈光力。受傷易感染或潰瘍。', pos: [0, 0, 1.0], scale: [0.4, 0.4, 0.2] },
+    { id: 'iris',        zh: '虹膜',     lat: 'Iris',           color: '#8b6f3a', desc: '控制瞳孔大小調節進光量,顏色由黑色素決定。', pos: [0, 0, 0.85], scale: [0.55, 0.55, 0.05] },
+    { id: 'pupil',       zh: '瞳孔',     lat: 'Pupil',          color: '#0f172a', desc: '虹膜中央的開口,光線進入眼球的通道。', pos: [0, 0, 0.86], scale: [0.18, 0.18, 0.05] },
+    { id: 'lens',        zh: '水晶體',   lat: 'Lens',           color: '#b8cfe3', desc: '可調節屈光的透明組織,白內障即水晶體混濁。', pos: [0, 0, 0.65], scale: [0.45, 0.45, 0.2] },
+    { id: 'vitreous',    zh: '玻璃體',   lat: 'Vitreous body',  color: '#d6e4f0', desc: '填充眼球後段的透明膠狀物,老化會液化產生飛蚊症。', pos: [0, 0, 0.0], scale: [0.85, 0.85, 0.85] },
+    { id: 'retina',      zh: '視網膜',   lat: 'Retina',         color: '#fbbf24', desc: '感光神經組織,負責將光訊號轉成神經訊號。剝離為急症。', pos: [0, 0, -0.05], scale: [0.95, 0.95, 0.95] },
+    { id: 'macula',      zh: '黃斑部',   lat: 'Macula',         color: '#dc2626', desc: '視網膜中央視力最敏銳的區域,負責中央視野與色彩辨識。', pos: [0, 0, -0.85], scale: [0.18, 0.18, 0.06] },
+    { id: 'optic-nerve', zh: '視神經',   lat: 'Optic nerve',    color: '#fde68a', desc: '將視網膜訊號傳到大腦的神經束,青光眼會破壞此處。', pos: [0.15, 0, -0.95], scale: [0.18, 0.18, 0.5] },
+    { id: 'sclera',      zh: '鞏膜',     lat: 'Sclera',         color: '#fef3c7', desc: '眼球外層的白色保護膜,佔眼球表面 5/6。', pos: [0, 0, 0], scale: [1.0, 1.0, 1.0] },
+  ];
+
+  // Render parts list in sidebar
+  const sidebar = document.getElementById('part-list');
+  sidebar.innerHTML = PARTS.map(p => `
+    <div class="part" data-id="${p.id}" tabindex="0">
+      <h3>${p.zh} <span class="lat">${p.lat}</span></h3>
+      <p>${p.desc}</p>
+    </div>
+  `).join('');
+
+  const canvas = document.getElementById('eye-canvas');
+  const info = document.getElementById('eye-renderer-info');
+
+  let renderer, scene, camera, root, raycaster, mouse;
+  let useWebGPU = false;
+
+  async function init() {
+    let three, controlsModule;
+    try {
+      three = await import('https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js');
+      controlsModule = await import('https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/controls/OrbitControls.js');
+    } catch (e) {
+      info.innerHTML = '⚠ Three.js 載入失敗,請檢查網路連線';
+      return;
+    }
+    const THREE = three;
+    const { OrbitControls } = controlsModule;
+
+    // Try WebGPU first
+    try {
+      if (navigator.gpu && THREE.WebGPURenderer) {
+        renderer = new THREE.WebGPURenderer({ canvas, antialias: true });
+        await renderer.init();
+        useWebGPU = true;
+        info.innerHTML = '⚡ WebGPU';
+      }
+    } catch (e) {}
+
+    if (!renderer) {
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      info.innerHTML = '🌐 WebGL2';
+    }
+
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0f172a);
+
+    // Lighting
+    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambient);
+    const key = new THREE.DirectionalLight(0xffffff, 1.2);
+    key.position.set(2, 2, 2);
+    scene.add(key);
+    const rim = new THREE.DirectionalLight(0xa4c4dd, 0.6);
+    rim.position.set(-2, -1, -1);
+    scene.add(rim);
+
+    camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.01, 100);
+    camera.position.set(2.2, 1.0, 2.4);
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+
+    // Build eye geometry
+    root = new THREE.Group();
+    scene.add(root);
+
+    const meshById = {};
+
+    // Sclera (the outer ball — semi-transparent)
+    const scleraMat = new THREE.MeshPhongMaterial({
+      color: 0xfef3c7, transparent: true, opacity: 0.18, side: THREE.DoubleSide,
+    });
+    const sclera = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 64), scleraMat);
+    sclera.userData.id = 'sclera';
+    root.add(sclera);
+    meshById.sclera = sclera;
+
+    // Vitreous (slightly inner ball)
+    const vitreous = new THREE.Mesh(
+      new THREE.SphereGeometry(0.85, 32, 32),
+      new THREE.MeshPhongMaterial({ color: 0xd6e4f0, transparent: true, opacity: 0.12 })
+    );
+    vitreous.userData.id = 'vitreous';
+    root.add(vitreous);
+    meshById.vitreous = vitreous;
+
+    // Retina (inner shell, only back half)
+    const retinaGeom = new THREE.SphereGeometry(0.95, 32, 32, 0, Math.PI * 2, Math.PI / 2.4, Math.PI / 1.6);
+    const retina = new THREE.Mesh(retinaGeom, new THREE.MeshPhongMaterial({ color: 0xfbbf24, side: THREE.BackSide, shininess: 50 }));
+    retina.userData.id = 'retina';
+    root.add(retina);
+    meshById.retina = retina;
+
+    // Macula (small red dot on retina, back of eye)
+    const macula = new THREE.Mesh(new THREE.SphereGeometry(0.08, 16, 16), new THREE.MeshPhongMaterial({ color: 0xdc2626 }));
+    macula.position.set(0, 0, -0.86);
+    macula.userData.id = 'macula';
+    root.add(macula);
+    meshById.macula = macula;
+
+    // Optic nerve (cylinder out the back)
+    const nerveGeom = new THREE.CylinderGeometry(0.1, 0.13, 0.6, 16);
+    const nerve = new THREE.Mesh(nerveGeom, new THREE.MeshPhongMaterial({ color: 0xfde68a }));
+    nerve.rotation.x = Math.PI / 2;
+    nerve.position.set(0.12, 0, -1.2);
+    nerve.userData.id = 'optic-nerve';
+    root.add(nerve);
+    meshById['optic-nerve'] = nerve;
+
+    // Lens
+    const lensGeom = new THREE.SphereGeometry(0.22, 32, 32);
+    const lens = new THREE.Mesh(lensGeom, new THREE.MeshPhongMaterial({ color: 0xb8cfe3, transparent: true, opacity: 0.55, shininess: 100 }));
+    lens.position.set(0, 0, 0.65);
+    lens.scale.set(1, 1, 0.45);
+    lens.userData.id = 'lens';
+    root.add(lens);
+    meshById.lens = lens;
+
+    // Iris (ring)
+    const irisGeom = new THREE.RingGeometry(0.18, 0.42, 32);
+    const iris = new THREE.Mesh(irisGeom, new THREE.MeshPhongMaterial({ color: 0x8b6f3a, side: THREE.DoubleSide }));
+    iris.position.set(0, 0, 0.78);
+    iris.userData.id = 'iris';
+    root.add(iris);
+    meshById.iris = iris;
+
+    // Pupil (dark disc inside iris hole)
+    const pupil = new THREE.Mesh(new THREE.CircleGeometry(0.18, 32), new THREE.MeshBasicMaterial({ color: 0x0f172a }));
+    pupil.position.set(0, 0, 0.79);
+    pupil.userData.id = 'pupil';
+    root.add(pupil);
+    meshById.pupil = pupil;
+
+    // Cornea (curved cap)
+    const corneaGeom = new THREE.SphereGeometry(0.42, 32, 32, 0, Math.PI * 2, 0, Math.PI / 3);
+    const cornea = new THREE.Mesh(corneaGeom, new THREE.MeshPhongMaterial({ color: 0xa4c4dd, transparent: true, opacity: 0.35, shininess: 200 }));
+    cornea.rotation.x = Math.PI;
+    cornea.position.set(0, 0, 0.8);
+    cornea.userData.id = 'cornea';
+    root.add(cornea);
+    meshById.cornea = cornea;
+
+    // Click → highlight + scroll to part info
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
+    canvas.addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      const hits = raycaster.intersectObjects(root.children, false);
+      if (hits.length) {
+        const id = hits[0].object.userData.id;
+        if (id) highlightPart(id);
+      }
+    });
+
+    // Side panel click → highlight in 3D
+    sidebar.addEventListener('click', (e) => {
+      const part = e.target.closest('.part');
+      if (part) highlightPart(part.dataset.id);
+    });
+
+    function highlightPart(id) {
+      // Reset all
+      sidebar.querySelectorAll('.part').forEach(p => p.classList.toggle('active', p.dataset.id === id));
+      const el = sidebar.querySelector('.part[data-id="' + id + '"]');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Pulse opacity on the chosen mesh
+      const mesh = meshById[id];
+      if (!mesh || !mesh.material) return;
+      const orig = mesh.material.opacity ?? 1;
+      const wasTransparent = mesh.material.transparent;
+      mesh.material.transparent = true;
+      let t = 0;
+      const pulse = setInterval(() => {
+        mesh.material.opacity = orig + 0.4 * Math.sin(t / 60 * Math.PI);
+        t += 16;
+        if (t > 600) {
+          clearInterval(pulse);
+          mesh.material.opacity = orig;
+          mesh.material.transparent = wasTransparent;
+        }
+      }, 16);
+    }
+
+    // Buttons
+    document.getElementById('btn-reset').addEventListener('click', () => {
+      camera.position.set(2.2, 1.0, 2.4);
+      controls.target.set(0, 0, 0);
+      controls.update();
+    });
+    document.getElementById('btn-section').addEventListener('click', (e) => {
+      const on = e.target.dataset.on === 'true';
+      e.target.dataset.on = on ? 'false' : 'true';
+      e.target.classList.toggle('active', !on);
+      // Cross-section: hide front half via clipping plane
+      const plane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0);
+      renderer.localClippingEnabled = !on;
+      [sclera, vitreous].forEach(m => {
+        m.material.clippingPlanes = on ? [] : [plane];
+      });
+    });
+    document.getElementById('btn-labels').addEventListener('click', (e) => {
+      const on = e.target.dataset.on === 'true';
+      e.target.dataset.on = on ? 'false' : 'true';
+      e.target.classList.toggle('active', !on);
+      // Toggle the sidebar visibility
+      document.querySelector('.eye-side').style.display = on ? 'none' : '';
+    });
+
+    function resize() {
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    addEventListener('resize', resize);
+    resize();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      root.rotation.y += 0.0015;
+      renderer.render(scene, camera);
+    }
+    animate();
+  }
+
+  // Boot
+  if (!('WebGL2RenderingContext' in window)) {
+    canvas.parentElement.innerHTML = '<div class="no-gpu"><h3>瀏覽器不支援 WebGL 2</h3><p>請使用最新版的 Chrome / Firefox / Safari / Edge 瀏覽 3D 模型。</p></div>';
+  } else {
+    init();
+  }
+</script>
+
+<script src="/blog/blog-shared.js?v=20260607" defer></script>
+<script>document.addEventListener('DOMContentLoaded', function () { if (window.DN) DN.initBlog({}); });</script>
+</body>
+</html>

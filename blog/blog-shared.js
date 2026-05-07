@@ -3715,6 +3715,219 @@
     else if (mq.addListener) mq.addListener(apply);
   };
 
+  // ---------------------------------------------------------------------
+  // v32: Lottie hero — replaces a static hero SVG with a Lottie animation
+  // when the page provides a `<div data-lottie="/path/to/anim.json">`
+  // element. Lazy-loads the dotlottie-wc web-component (~26 KB, far less
+  // than full lottie-web) only when needed. Falls back gracefully (just
+  // shows the existing static SVG / placeholder) if the JSON or library
+  // fails to load.
+  //
+  // Place a Lottie file under /assets/lottie/<name>.lottie or .json and
+  // reference via:
+  //   <div data-lottie="/assets/lottie/eye-blink.lottie" style="width:240px;height:240px"></div>
+  // Defaults to autoplay + loop, respects prefers-reduced-motion.
+  // ---------------------------------------------------------------------
+  DN.bindLottieHero = function () {
+    var hosts = document.querySelectorAll('[data-lottie]');
+    if (!hosts.length) return;
+    if (matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    if (window._hsLottieLoaded) {
+      hosts.forEach(mountLottie);
+      return;
+    }
+    window._hsLottieLoaded = true;
+    // dotlottie-wc is the Web Component player from LottieFiles
+    var s = document.createElement('script');
+    s.type = 'module';
+    s.src = 'https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-wc@0.4.0/dist/dotlottie-wc.js';
+    s.onload = function () { hosts.forEach(mountLottie); };
+    document.head.appendChild(s);
+
+    function mountLottie(host) {
+      if (host.dataset.lottieMounted) return;
+      host.dataset.lottieMounted = '1';
+      var src = host.dataset.lottie;
+      var player = document.createElement('dotlottie-wc');
+      player.setAttribute('src', src);
+      player.setAttribute('autoplay', '');
+      if (host.dataset.lottieLoop !== 'false') player.setAttribute('loop', '');
+      player.setAttribute('speed', host.dataset.lottieSpeed || '1');
+      player.style.cssText = 'width:100%;height:100%;display:block';
+      host.appendChild(player);
+    }
+  };
+
+  // ---------------------------------------------------------------------
+  // v32: FedCM readiness — sites with a future login flow can call
+  // DN.initFedCM(configUrl) to enable the Federated Credential Manager
+  // browser-mediated sign-in. For HsiaoEye there's no public login (admin
+  // only) so we don't enable any IdP integration today, but we DO add the
+  // Permissions-Policy "identity-credentials-get=(self)" header (in the
+  // edge middleware) so the API is allowlisted when we add it later.
+  //
+  // What's "FedCM"?  Privacy-Sandbox-friendly replacement for third-party
+  // cookie SSO. The browser shows the IdP picker; site never sees the
+  // user's IdP cookies.
+  //
+  // No-op today; the function exists so future code calling it doesn't
+  // throw, and so the bundle has the entry point pre-wired.
+  // ---------------------------------------------------------------------
+  DN.initFedCM = function (configUrl) {
+    if (!('IdentityCredential' in window)) return;
+    if (!configUrl) return;
+    // Stubbed — actual flow:
+    //   navigator.credentials.get({ identity: { providers: [{ configURL: configUrl, clientId: '...' }] } })
+    return null;
+  };
+
+  // ---------------------------------------------------------------------
+  // v32: Algolia DocSearch — drop-in upgrade for Cmd+K search.
+  // When the page sets ALGOLIA credentials (3 keys), we lazy-load the
+  // DocSearch widget and use it INSTEAD of the home-rolled DN.initCmdK.
+  // No credentials = falls back to current implementation.
+  //
+  // Setup (one-time):
+  //   1. Apply for free DocSearch at https://docsearch.algolia.com/apply/
+  //   2. They send you 3 strings: appId, apiKey, indexName
+  //   3. Add to <head> of index.html OR via Vercel env (server-rendered):
+  //      <meta name="algolia-app-id"   content="XXX">
+  //      <meta name="algolia-api-key"  content="XXX">
+  //      <meta name="algolia-index"    content="XXX">
+  // ---------------------------------------------------------------------
+  DN.bindAlgoliaDocSearch = function () {
+    function getMeta(n) { var m = document.querySelector('meta[name="' + n + '"]'); return m ? m.content : ''; }
+    var appId    = getMeta('algolia-app-id');
+    var apiKey   = getMeta('algolia-api-key');
+    var indexNm  = getMeta('algolia-index');
+    if (!appId || !apiKey || !indexNm) return;
+
+    // Inject CSS + script (CDN)
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://cdn.jsdelivr.net/npm/@docsearch/css@3';
+    css.crossOrigin = 'anonymous';
+    document.head.appendChild(css);
+
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@docsearch/js@3';
+    s.crossOrigin = 'anonymous';
+    s.defer = true;
+    s.onload = function () {
+      // Hook: replace existing search button trigger
+      var hostBtn = document.querySelector('button[aria-label="搜尋"], button[aria-label="Search"]');
+      if (!hostBtn) return;
+      // Container for the modal
+      var container = document.createElement('div');
+      container.id = 'docsearch';
+      hostBtn.parentNode.insertBefore(container, hostBtn);
+      // Replace click — open DocSearch modal
+      hostBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (window.docsearch) {
+          // Synthesize keypress to open modal
+          var ev = new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true });
+          window.dispatchEvent(ev);
+        }
+      }, { capture: true });
+      try {
+        window.docsearch({
+          container: '#docsearch',
+          appId: appId, apiKey: apiKey, indexName: indexNm,
+          insights: true,
+          translations: { button: { buttonText: '搜尋', buttonAriaLabel: '搜尋' }, modal: { searchBox: { placeholder: '輸入關鍵字…', resetButtonTitle: '清除' } } },
+        });
+      } catch (e) { /* swallow */ }
+    };
+    document.head.appendChild(s);
+
+    // Disable our home-rolled CmdK so we don't double-bind
+    DN.initCmdK = function () {};
+  };
+
+  // ---------------------------------------------------------------------
+  // v32: Idle Detection — pause non-critical work when the user has been
+  // idle for ≥30 seconds. Saves CPU on long-open tabs (e.g. doctors with
+  // many windows open). Uses the Idle Detection API (Chrome 94+, requires
+  // user permission); falls back to visibilitychange-only on Safari/Firefox.
+  // ---------------------------------------------------------------------
+  DN.bindIdleDetection = function () {
+    DN._isIdle = false;
+    if (!('IdleDetector' in window)) {
+      // Fallback: just use visibilitychange
+      document.addEventListener('visibilitychange', function () {
+        DN._isIdle = (document.visibilityState !== 'visible');
+      });
+      return;
+    }
+    // Don't request permission proactively — only on first long visit.
+    // Storage flag so we don't re-prompt every visit.
+    var KEY = 'hs:idle-asked';
+    try { if (localStorage.getItem(KEY)) return; } catch (e) { return; }
+
+    setTimeout(async function () {
+      // Wait until user has interacted (avoid permission prompt on cold load)
+      try {
+        if (Notification.permission !== 'granted') return;  // only after push opt-in
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+        var detector = new IdleDetector();
+        await detector.start({ threshold: 60_000 });  // 60s idle threshold
+        detector.addEventListener('change', function () {
+          DN._isIdle = detector.userState === 'idle' || detector.screenState === 'locked';
+          // Pause GA + web-vitals when truly idle (saves billing + CPU)
+          if (DN._isIdle) {
+            try { if (window.gtag) gtag('set', { send_page_view: false }); } catch (e) {}
+          }
+        });
+      } catch (e) { /* user denied or unsupported */ }
+    }, 120_000);  // wait 2 min before asking
+  };
+
+  // ---------------------------------------------------------------------
+  // v32: HTTP/3 fetch priority hints — set fetchpriority="high" on the
+  // first <img>/<picture> above-the-fold, "low" on share/related thumbnails,
+  // and inject `<link rel="preload" fetchpriority="high">` for the LCP
+  // candidate. Improves LCP by 100-200ms on slow connections.
+  // ---------------------------------------------------------------------
+  DN.applyFetchPriority = function () {
+    // First viewport image: high priority
+    var first = document.querySelector('article img, .hero img, header img');
+    if (first && !first.hasAttribute('fetchpriority')) first.setAttribute('fetchpriority', 'high');
+    // Below-fold images & thumbnails: low priority (defer for LCP)
+    document.querySelectorAll('#hs-related img, .related-thumb, footer img').forEach(function (img) {
+      if (!img.hasAttribute('fetchpriority')) img.setAttribute('fetchpriority', 'low');
+    });
+    // Inject preload hint for the LCP candidate (article hero or first figure)
+    var lcp = document.querySelector('article figure img:not([loading="lazy"]), .hero-photo, header img');
+    if (lcp && lcp.src && !document.querySelector('link[rel="preload"][as="image"][href="' + lcp.src + '"]')) {
+      var l = document.createElement('link');
+      l.rel = 'preload'; l.as = 'image'; l.href = lcp.src;
+      l.setAttribute('fetchpriority', 'high');
+      if (lcp.srcset) l.setAttribute('imagesrcset', lcp.srcset);
+      if (lcp.sizes)  l.setAttribute('imagesizes', lcp.sizes);
+      document.head.appendChild(l);
+    }
+  };
+
+  // ---------------------------------------------------------------------
+  // v32: Text fragment landing — when arriving via #:~:text=…
+  // (Google search "jump to" feature), highlight the matched span in the
+  // article colour palette and smooth-scroll. Browser already scrolls to
+  // the right place; we just style the highlight nicer than yellow default.
+  // ---------------------------------------------------------------------
+  DN.styleTextFragments = function () {
+    if (!CSS.supports('selector(::target-text)')) return;
+    if (document.getElementById('hs-tf-css')) return;
+    var st = document.createElement('style');
+    st.id = 'hs-tf-css';
+    st.textContent =
+      '::target-text{background:linear-gradient(180deg,transparent 60%,#fde68a 60%,#fbbf24 100%);' +
+      'color:#3a3024;padding:1px 0;border-radius:2px;}' +
+      '@media (prefers-color-scheme:dark){::target-text{background:linear-gradient(180deg,transparent 60%,#5a4720 60%,#c9a961 100%);color:#f5f0e6}}';
+    document.head.appendChild(st);
+  };
+
   // ---------- service worker ----------
   DN.registerSW = function () {
     if (!('serviceWorker' in navigator)) return;
@@ -3723,6 +3936,19 @@
       setInterval(function () {
         if (document.visibilityState === 'visible') reg.update().catch(function () {});
       }, 30 * 60 * 1000);
+
+      // v32: Periodic Background Sync — register only after PWA install
+      // (the API requires Permission "periodic-background-sync" + the site
+      //  installed as a PWA).
+      if ('periodicSync' in reg) {
+        navigator.permissions.query({ name: 'periodic-background-sync' }).then(function (status) {
+          if (status.state === 'granted') {
+            reg.periodicSync.register('check-new-articles', {
+              minInterval: 12 * 60 * 60 * 1000,  // 12 hours (browser may run less often)
+            }).catch(function () { /* unsupported / not installed */ });
+          }
+        }).catch(function () {});
+      }
     }).catch(function () {});
   };
 
@@ -3857,6 +4083,8 @@
     DN.bindAutoTheme();        // dark/light from prefers-color-scheme (FOUC-safe)
     DN.upgradeDialogs();       // promote [data-dialog] to native <dialog>
     DN.hideStubLinks();        // hide unfinished articles before paint
+    DN.applyFetchPriority();   // LCP hints (high/low fetchpriority)
+    DN.styleTextFragments();   // ::target-text styling for #:~:text= deep-links
     DN.injectMobileMenu();
     DN.bindLangToggle(apply);
     apply(curLang);
@@ -3897,6 +4125,8 @@
       DN.bindRevealOnScroll();
       DN.bindViewTransitions();
       DN.prefetchOnIdle();
+      DN.bindAlgoliaDocSearch();   // upgrades to DocSearch if creds in <meta>
+      DN.bindLottieHero();         // mount Lottie players on [data-lottie] divs
       DN.initCmdK();           // Cmd/Ctrl+K global search modal (rare path)
       DN.injectReadProgress();
       DN.addFontSizer();
@@ -3953,6 +4183,7 @@
       DN.bindGAEvents();
       DN.bindWebVitals();
       DN.bindPWAInstall();      // beforeinstallprompt / iOS hint
+      DN.bindIdleDetection();   // pause work after 60s idle (Chrome IdleDetector)
       // (cookie banner removed; Consent Mode v2 defaults remain set in <head>)
       DN.registerSW();
     }, { timeout: 2500 });

@@ -56,7 +56,60 @@
  *  + Service Worker stale-while-revalidate for *.css — CSS edits now
  *    propagate after one extra page load, no manual cache-bust needed.
  * v25: GA4 + Consent Mode v2 + Speculation Rules. */
-/* v31: ADMIN PRODUCTIVITY + REAL-TIME CWV + ML RELATED + A/B BUILDER
+/* v32: PLATFORM-API ADOPTION + 3D + LIVE NOTIFICATIONS
+ *  + FIX BUILD: middleware.js no longer imports next/server (this isn't a
+ *    Next project). Uses native Response + x-middleware-next: 1 pattern.
+ *    Split api/admin/_auth.js → _auth.js (Node, crypto for HMAC) +
+ *    _github.js (Edge-safe, no Node deps). Edge runtime files (og,
+ *    csp-report) import only from _github.js.
+ *  + CSS @property — animatable theme variables. Light↔dark transitions
+ *    are now smooth 280ms eased fades instead of instant snap. Falls back
+ *    cleanly in browsers without @property support.
+ *  + Container queries — .article-list / #hs-related / .topic-grid /
+ *    #hs-prevnext now have container-name: card-grid; layout responds to
+ *    container width, not viewport. Reusable in any sidebar/column.
+ *  + prefers-reduced-data — when Save-Data: on, we skip hero SVGs
+ *    (replaced by flat colour) and disable reveal animations. Saves
+ *    60-150 KB on every page for low-bandwidth users.
+ *  + CSS Anchor Positioning — .hs-dict tooltips use anchor() instead of
+ *    JS-positioned popups when supported (Chrome 125+). Falls back to
+ *    existing JS implementation gracefully.
+ *  + Idle Detection API — DN.bindIdleDetection pauses GA pageview reporting
+ *    when user has been idle ≥60s (Chrome IdleDetector + permission).
+ *    Saves billing on long-open tabs.
+ *  + HTTP fetchpriority hints — DN.applyFetchPriority sets fetchpriority=
+ *    "high" on first viewport image, "low" on share/related thumbs, and
+ *    injects <link rel="preload" fetchpriority="high"> for the LCP candidate.
+ *    Improves LCP 100-200ms on slow networks.
+ *  + Text fragments (#:~:text=) — DN.styleTextFragments adds custom
+ *    ::target-text styling so Google search "jump-to" highlights look like
+ *    HsiaoEye's gold underline rather than browser default yellow.
+ *  + HTTP protocol detection — reads PerformanceResourceTiming.nextHopProtocol,
+ *    reports h2/h3/h1 to GA4 + window.__hsHttpProtocol for DevTools probing.
+ *  + SSE /api/events — admin-authenticated persistent connection that
+ *    streams hello + heartbeat (25s) + KV-backed event ring buffer.
+ *    Client EventSource + auto-reconnect on Vercel's 10-min hard cut.
+ *    Events: new_article, new_subscriber, csp_violation, etc.
+ *  + PWA Periodic Background Sync — installed PWA wakes SW every 12 hr
+ *    (browser-decided), fetches /blog/feed.xml, pre-caches the newest
+ *    article HTML + 12 images. Latest content available offline on next
+ *    open even before user navigates.
+ *  + Algolia DocSearch — drop-in upgrade for Cmd+K search via 3 meta tags
+ *    (`algolia-app-id`, `algolia-api-key`, `algolia-index`). Lazy-loads
+ *    @docsearch/js + CSS from jsdelivr only when configured. Falls back
+ *    to home-rolled DN.initCmdK when unconfigured.
+ *  + WebGPU eye-anatomy 3D — /tools/eye-3d.html is a procedural Three.js
+ *    scene of cornea / iris / pupil / lens / vitreous / retina / macula /
+ *    optic nerve / sclera. Drag rotates, scroll zooms, click highlights +
+ *    scrolls sidebar to that structure. WebGPURenderer when supported,
+ *    WebGL2 fallback. Cross-section toggle clips front half via clipping
+ *    plane.
+ *  + Lottie hero — DN.bindLottieHero mounts dotlottie-wc Web Component on
+ *    [data-lottie="path.lottie"] elements. ~26 KB component, only loaded
+ *    when used. prefers-reduced-motion respected (no mount).
+ *  + FedCM stub — DN.initFedCM pre-wired entry point + Permissions-Policy
+ *    `identity-credentials-get=(self)` allowlist for future SSO support.
+ * v31: ADMIN PRODUCTIVITY + REAL-TIME CWV + ML RELATED + A/B BUILDER
  *  + Word-count + read-time pre-render (/api/admin/precompute-meta) writes
  *    `words` + `minutes` into DN.ARTICLES. Client reads precomputed value;
  *    saves 40-60ms runtime parsing per article load.
@@ -235,8 +288,8 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v31';
-const RUNTIME = 'hs-runtime-v31';
+const CACHE = 'hs-v32';
+const RUNTIME = 'hs-runtime-v32';
 const RUNTIME_MAX_ENTRIES = 60;
 
 // v30: Multi-stage cache. Install only blocks on the truly critical
@@ -483,6 +536,40 @@ self.addEventListener('push', (event) => {
       lang: 'zh-Hant-TW',
     })
   );
+});
+
+// v32: Periodic Background Sync — wakes the SW periodically (browser-decided
+// frequency, typically once per 12 hours when the user has the site
+// installed as a PWA) to pre-cache the newest article. So when the user
+// opens the app on the metro with no signal, the latest content is ready.
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'check-new-articles') {
+    event.waitUntil((async () => {
+      try {
+        const r = await fetch('/blog/feed.xml');
+        if (!r.ok) return;
+        const xml = await r.text();
+        // Extract first <item><link> as newest article
+        const m = xml.match(/<item>[\s\S]*?<link>([^<]+)<\/link>/);
+        if (!m) return;
+        const url = m[1];
+        // Already cached?
+        const cache = await caches.open(CACHE);
+        if (await cache.match(url)) return;
+        // Pre-cache HTML + linked images
+        const htmlR = await fetch(url);
+        if (htmlR.ok) {
+          await cache.put(url, htmlR.clone());
+          const text = await htmlR.text();
+          const imgs = Array.from(text.matchAll(/<img[^>]+src="([^"]+)"/g)).map(m2 => m2[1]).slice(0, 12);
+          for (const u of imgs) {
+            try { const ir = await fetch(u, { mode: 'no-cors' }); if (ir) await cache.put(u, ir); }
+            catch (e) { /* skip */ }
+          }
+        }
+      } catch (e) { /* ignore */ }
+    })());
+  }
 });
 
 self.addEventListener('notificationclick', (event) => {

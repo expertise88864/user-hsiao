@@ -1,8 +1,17 @@
 /**
- * Shared auth helper — verify the admin session cookie set by /api/admin/login.
- * Throws 401 if invalid. Use as the first line of every protected route.
+ * Admin auth helper — verifies the HMAC-signed session cookie set by
+ * /api/admin/login. Throws 401 if invalid. Use as the first line of every
+ * protected route.
+ *
+ * v31.5: GitHub helpers moved to ./_github.js (edge-runtime safe). This
+ * file imports Node `crypto` and is therefore Node-only — Edge Functions
+ * (og, csp-report, middleware) must NOT import from here.
+ *
+ * Re-exports getRepoConfig / ghGetFile / ghPutFile so existing admin routes
+ * that import from './_auth.js' keep working without touching every file.
  */
 import crypto from 'crypto';
+export { getRepoConfig, ghGetFile, ghPutFile } from './_github.js';
 
 const SESSION_COOKIE = 'hs_admin_session';
 
@@ -46,65 +55,4 @@ export function requireAdmin(req, res) {
     return false;
   }
   return true;
-}
-
-export function getRepoConfig() {
-  const owner   = process.env.GITHUB_OWNER  || 'expertise88864';
-  const repo    = process.env.GITHUB_REPO   || 'user-hsiao';
-  const branch  = process.env.GITHUB_BRANCH || 'main';
-  const token   = process.env.GITHUB_TOKEN;
-  return { owner, repo, branch, token };
-}
-
-/**
- * Fetch a file from GitHub repo. Returns { content (utf-8), sha } or null if 404.
- */
-export async function ghGetFile(path) {
-  const { owner, repo, branch, token } = getRepoConfig();
-  if (!token) throw new Error('GITHUB_TOKEN env var not configured');
-  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}?ref=${branch}`;
-  const r = await fetch(url, {
-    headers: {
-      'Accept': 'application/vnd.github+json',
-      'Authorization': `Bearer ${token}`,
-      'X-GitHub-Api-Version': '2022-11-28',
-    },
-  });
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`GitHub GET ${path} failed: ${r.status} ${await r.text()}`);
-  const data = await r.json();
-  const content = Buffer.from(data.content, data.encoding || 'base64').toString('utf-8');
-  return { content, sha: data.sha };
-}
-
-/**
- * Create or update a file via GitHub Contents API. `sha` required for update,
- * omit for create. Returns { commitSha }.
- */
-export async function ghPutFile(path, content, message, sha) {
-  const { owner, repo, branch, token } = getRepoConfig();
-  if (!token) throw new Error('GITHUB_TOKEN env var not configured');
-  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
-  const body = {
-    message: message || `admin: update ${path}`,
-    content: Buffer.from(content, 'utf-8').toString('base64'),
-    branch,
-  };
-  if (sha) body.sha = sha;
-  const r = await fetch(url, {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/vnd.github+json',
-      'Authorization': `Bearer ${token}`,
-      'X-GitHub-Api-Version': '2022-11-28',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
-  if (!r.ok) {
-    const errText = await r.text();
-    throw new Error(`GitHub PUT ${path} failed: ${r.status} — ${errText.slice(0, 200)}`);
-  }
-  const data = await r.json();
-  return { commitSha: data.commit?.sha || '', contentSha: data.content?.sha || '' };
 }

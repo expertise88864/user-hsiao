@@ -18,7 +18,7 @@
  * crawlers to re-fetch.
  */
 import { ImageResponse } from '@vercel/og';
-import { ghGetFile } from './admin/_auth.js';
+import { ghGetFile } from './admin/_github.js';
 
 export const config = { runtime: 'edge' };
 
