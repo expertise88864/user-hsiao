@@ -121,6 +121,41 @@
   ];
   DN.totalArticles = DN.ARTICLES.length;
 
+  // ── Stub / unfinished articles ─────────────────────────────────────
+  // Slugs that have HTML scaffolding committed but no real content yet.
+  // Hidden from /blog/, /blog/topics, /notes, related-articles, search.
+  // Add a slug here when you create the .html file but haven't written
+  // the body; remove when the article is publishable.
+  DN.STUB_SLUGS = new Set([
+    'cataract-surgery-faq',
+    'glaucoma-warnings',
+    'contact-lens-safety',
+    'red-eye-conjunctivitis',
+  ]);
+  DN.isStub = function (slug) { return DN.STUB_SLUGS.has(slug); };
+
+  // Runtime DOM filter — runs once early so we don't flash unfinished
+  // cards before hiding them. Targets <a href="/blog/<stub>"> at any depth.
+  DN.hideStubLinks = function () {
+    if (!DN.STUB_SLUGS.size) return;
+    DN.STUB_SLUGS.forEach(function (slug) {
+      // Walks the closest cardish ancestor and REMOVES it (not just display:none)
+      // so subsequent code (search, filters, tag clouds) doesn't re-show it.
+      // For bare links inside paragraphs, hide the link only.
+      document.querySelectorAll('a[href="/blog/' + slug + '"], a[href="/blog/' + slug + '/"]').forEach(function (a) {
+        var card = a.closest('.topic-card, .article-list-item, .mag-card, .spotlight-row');
+        if (!card && a.parentNode && a.parentNode.tagName === 'LI') card = a.parentNode;
+        if (card) {
+          card.remove();
+        } else {
+          // Inline link inside prose — hide but keep DOM (don't break paragraph flow)
+          a.style.display = 'none';
+          a.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+  };
+
   DN.currentSlug = function () {
     const m = location.pathname.match(/\/blog\/([a-z0-9-]+)\/?$/i);
     return m ? m[1] : null;
@@ -162,9 +197,9 @@
     var pn = DN.getPrevNext(slug);
     if (!pn.prev && !pn.next) return;
 
-    function card(art, dirZh, dirEn) {
+    function card(art, dirZh, dirEn, pnDir) {
       if (!art) return '';
-      return '<a href="/blog/' + art.slug + '" class="hs-pn-card">' +
+      return '<a href="/blog/' + art.slug + '" class="hs-pn-card" data-pn="' + pnDir + '">' +
         '<span class="hs-pn-dir" data-zh="' + dirZh + '" data-en="' + dirEn + '">' + dirZh + '</span>' +
         '<span class="hs-pn-title" data-zh="' + (art.title || '').replace(/"/g, '&quot;') + '" data-en="' + (art.title_en || art.title || '').replace(/"/g, '&quot;') + '">' + (art.title || '') + '</span>' +
       '</a>';
@@ -173,22 +208,37 @@
     if (!document.getElementById('hs-pn-css')) {
       var st = document.createElement('style');
       st.id = 'hs-pn-css';
+      // v30.1: switched from positional pseudo-classes (:nth-child) to
+      // explicit data-pn="prev|next" attributes. nth-child counts ALL
+      // siblings (text nodes can mess it up) and breaks if a third element
+      // ever lands inside #hs-prevnext. Attribute selectors are bulletproof.
       st.textContent =
         '#hs-prevnext{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0;page-break-inside:avoid}' +
-        '#hs-prevnext .hs-pn-card{display:flex;flex-direction:column;gap:6px;padding:14px 18px;background:#fff;border:0.5px solid var(--border);border-radius:14px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)}' +
+        '#hs-prevnext .hs-pn-card{display:flex;flex-direction:column;gap:6px;padding:14px 18px;background:#fff;border:0.5px solid var(--border);border-radius:14px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04);min-width:0}' +
         '#hs-prevnext .hs-pn-card:hover{border-color:rgba(58,90,124,.5);transform:translateY(-2px);box-shadow:0 8px 18px -10px rgba(58,90,124,.22)}' +
-        '#hs-prevnext .hs-pn-card:nth-child(2){text-align:right;align-items:flex-end}' +
-        '#hs-prevnext .hs-pn-card:nth-child(1):only-child{grid-column:1 / -1}' +
+        '#hs-prevnext .hs-pn-card[data-pn="prev"]{grid-column:1;text-align:left;align-items:flex-start}' +
+        '#hs-prevnext .hs-pn-card[data-pn="next"]{grid-column:2;text-align:right;align-items:flex-end}' +
+        // Fallback when only one card is present — span both columns BUT keep alignment per direction
+        '#hs-prevnext .hs-pn-card:only-child{grid-column:1 / -1}' +
+        '#hs-prevnext .hs-pn-card[data-pn="next"] .hs-pn-dir,' +
+        '#hs-prevnext .hs-pn-card[data-pn="next"] .hs-pn-title{text-align:right;align-self:flex-end}' +
+        '#hs-prevnext .hs-pn-card[data-pn="prev"] .hs-pn-dir,' +
+        '#hs-prevnext .hs-pn-card[data-pn="prev"] .hs-pn-title{text-align:left;align-self:flex-start}' +
         '#hs-prevnext .hs-pn-dir{font-family:"JetBrains Mono",Inter,monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-deep);font-weight:700}' +
         '#hs-prevnext .hs-pn-title{font-family:"Noto Serif TC",Georgia,serif;font-size:14.5px;font-weight:700;line-height:1.45;color:var(--ink)}' +
-        '@media(max-width:560px){#hs-prevnext{grid-template-columns:1fr}#hs-prevnext .hs-pn-card:nth-child(2){text-align:left;align-items:flex-start}}';
+        '@media(max-width:560px){' +
+          '#hs-prevnext{grid-template-columns:1fr}' +
+          '#hs-prevnext .hs-pn-card[data-pn="prev"],#hs-prevnext .hs-pn-card[data-pn="next"]{grid-column:1;text-align:left;align-items:flex-start}' +
+          '#hs-prevnext .hs-pn-card[data-pn] .hs-pn-dir,' +
+          '#hs-prevnext .hs-pn-card[data-pn] .hs-pn-title{text-align:left;align-self:flex-start}' +
+        '}';
       document.head.appendChild(st);
     }
 
     var sec = document.createElement('section');
     sec.id = 'hs-prevnext';
     sec.className = 'max-w-3xl mx-auto px-5 sm:px-8';
-    sec.innerHTML = card(pn.prev, '← 上一篇', '← Previous') + card(pn.next, '下一篇 →', 'Next →');
+    sec.innerHTML = card(pn.prev, '← 上一篇', '← Previous', 'prev') + card(pn.next, '下一篇 →', 'Next →', 'next');
     article.parentNode.insertBefore(sec, article.nextSibling);
   };
 
@@ -1044,7 +1094,7 @@
     const all = DN.ARTICLES || [];
     const cur = all.find(function (a) { return a.slug === slug; });
     if (!cur) return;
-    const others = all.filter(function (a) { return a.slug !== slug; });
+    const others = all.filter(function (a) { return a.slug !== slug && !DN.isStub(a.slug); });
     if (!others.length) return;
 
     const scored = others
@@ -1475,7 +1525,8 @@
     const recentEl  = document.getElementById('hs-recent-list');
     const popularEl = document.getElementById('hs-popular-list');
     if (!recentEl && !popularEl) return;
-    const all = (DN.ARTICLES || []).slice();
+    // Exclude stub / unfinished articles from both spotlights
+    const all = (DN.ARTICLES || []).filter(function (a) { return !DN.isStub(a.slug); });
     if (!all.length) return;
 
     const byDate = all.slice().sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
@@ -3468,6 +3519,7 @@
     // Anything that affects above-the-fold layout, language toggle, or
     // first-screen content rendering belongs here.
     DN.bindAutoTheme();        // dark/light from prefers-color-scheme (FOUC-safe)
+    DN.hideStubLinks();        // hide unfinished articles before paint
     DN.injectMobileMenu();
     DN.bindLangToggle(apply);
     apply(curLang);
