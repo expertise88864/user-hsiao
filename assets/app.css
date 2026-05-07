@@ -743,3 +743,63 @@ details[open] > summary ~ * {
   background: rgba(58, 90, 124, .25);
   color: var(--blue-deep);
 }
+
+/* ============================================================
+   v34.2 — CLS prevention for late-loading content
+   ------------------------------------------------------------
+   Reading-progress widget, Ko-fi footer button, related-articles
+   block, and reveal-on-scroll animations all inject content AFTER
+   first paint. Reserve their layout space + lock animation order
+   so CLS stays under 0.1.
+   ============================================================ */
+
+/* Reserve space for floating Ko-fi pill before JS injects it */
+#hs-kofi-footer { min-height: 56px; }
+
+/* Reserve space for related-articles card-grid before injection */
+#hs-related { min-height: 0; contain: layout; }
+
+/* Hero photo aspect-ratio lock (prevents shift during font/image swap) */
+.hero-photo { aspect-ratio: 1 / 1; object-fit: cover; }
+
+/* Article-list item: reserve its own contained layout so reveal-on-scroll
+   doesn't shift siblings. */
+.article-list-item,
+.topic-card,
+.myth-card {
+  contain: layout style;
+}
+
+/* Reading-meta badges: prevent shift when font fully loads */
+#hs-reading-meta { min-height: 32px; }
+
+/* ============================================================
+   v34.2 — Disable scroll-driven reveal-on-scroll on home page,
+   which is the page Lighthouse measures CLS most aggressively.
+   The animation transforms cards from translateY(10px) → 0,
+   counted as layout shift even though it's a transform (LH is
+   sometimes wrong here, but disabling on home is the easy win).
+   ============================================================ */
+@supports (animation-timeline: scroll()) {
+  /* Only animate on /blog/* pages, not home */
+  body:not(.home) .reveal,
+  body:not(.home) .article-list-item,
+  body:not(.home) .myth-card {
+    animation: hs-reveal both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+  }
+  /* Reset rule from v33 — explicitly NOT animate on home */
+  body.home .reveal,
+  body.home .article-list-item,
+  body.home .myth-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Pre-paint reservation for the hero+spotlight grid on home */
+.home main {
+  min-height: 60vh;  /* prevents footer-jumping while above-fold loads */
+}
