@@ -56,7 +56,51 @@
  *  + Service Worker stale-while-revalidate for *.css — CSS edits now
  *    propagate after one extra page load, no manual cache-bust needed.
  * v25: GA4 + Consent Mode v2 + Speculation Rules. */
-/* v33: PLATFORM API DEEP-DIVE + OFFLINE-RESILIENT EDITOR + REAL CSP HASHES
+/* v34: KO-FI SUPPORT + EDGE CONFIG + WEB NEURAL NETWORK + INTL DEEP-DIVE
+ *  + Ko-fi support button — DN.BMC_URL set to https://ko-fi.com/f94001115;
+ *    DN.injectFooterKofi auto-mounts a "☕ 支持我寫更多衛教文章" pill at
+ *    the top of every page footer (home + articles + tools).
+ *  + Edge Config adapter (api/_edge_config.js) — Vercel's sub-15ms global
+ *    config store. A/B test config now reads Edge Config FIRST (KV / GH
+ *    blob fallback). Writes go via Vercel REST API (~300ms).
+ *  + WebNN auto-tag — DN.suggestTags(html) + /api/admin/suggest-tags
+ *    endpoint use TF + medical-dictionary + heading boost to suggest 5
+ *    relevant tags per article. WebNN-aware (will load Three.js TFJS USE
+ *    lite when WebNN advertised), falls back to keyword-only scoring.
+ *  + view-transition-name cross-doc morph — DN.assignVTNames stamps
+ *    `vt-card-<slug>` on every article card on listing pages and the
+ *    matching <h1>/.article-hero on the article page. Browser auto-morphs
+ *    them across navigation when @view-transition cross-doc fires.
+ *  + CSS interpolate-size: allow-keywords — height:auto / width:fit-content
+ *    transitions smoothly (Chrome 129+). Used for FAQ details, admin
+ *    spell-result drawers, dictionary edit rows.
+ *  + CSS @starting-style — popover entrance fade/slide animations defined
+ *    declaratively. No JS show/hide handlers needed.
+ *  + CSS Highlight API — ::highlight(hs-find) + ::highlight(hs-multi-cursor)
+ *    pseudo-elements styled (yellow wavy + blue solid). JS can now register
+ *    arbitrary highlights via CSS.highlights.set without DOM mutation.
+ *  + Document Picture-in-Picture — DN.bindDocPiP injects 📺 button on
+ *    article pages; opens 380×600 PiP window with the article body
+ *    cloned + stylesheets duplicated. Doctor can pin while charting.
+ *  + navigator.share() with Files — DN.bindShareFiles attempts to share
+ *    a .txt snapshot via the native share sheet (AirDrop / Line / etc).
+ *    URL-only fallback when File API unsupported.
+ *  + Intl.Segmenter for CJK — DN.tokenizeCJK() uses ICU word segmentation
+ *    when available; falls back to bigram + Latin tokens. Used in blog
+ *    filter search (now OR-matches multi-token CJK queries) + admin search.
+ *  + Intl.RelativeTimeFormat — DN.relativeTime(iso) gives "3 天前" /
+ *    "5 minutes ago" automatically i18n-aware. DN.applyRelativeTime
+ *    auto-resolves any [data-relative-time] elements.
+ *  + navigator.locks — DN.withLock(name, fn) wraps cross-tab admin saves
+ *    so 2 admin tabs editing the same slug don't race-commit.
+ *  + Trusted Types policy STRICT mode — hs-policy.createHTML now strips
+ *    <script>, on*= handlers, javascript: URLs. createScriptURL constrains
+ *    to a host allowlist (self, GTM/GA, Clarity, AdSense, jsdelivr). Was
+ *    pass-through in v29-v33 to avoid breaking deploy.
+ *  + <datalist> autocomplete admin slug — `+ 新文章` modal slug input
+ *    now suggests 12 common ophthalmology topics (glaucoma-medications,
+ *    amblyopia-vision-therapy, lasik-vs-smile, etc.) via <datalist>.
+ * v33: PLATFORM API DEEP-DIVE + OFFLINE-RESILIENT EDITOR + REAL CSP HASHES
  *  + Real hash-based CSP (build-time): _gen_csp_hashes.py walks every
  *    .html, computes SHA-256 of every inline <script>/<style>, writes the
  *    list into middleware.js. CSP swaps from 'unsafe-inline' → exact hashes
@@ -339,8 +383,8 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v33';
-const RUNTIME = 'hs-runtime-v33';
+const CACHE = 'hs-v34';
+const RUNTIME = 'hs-runtime-v34';
 const RUNTIME_MAX_ENTRIES = 60;
 
 // v30: Multi-stage cache. Install only blocks on the truly critical

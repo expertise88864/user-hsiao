@@ -661,3 +661,85 @@ p, li, .lede { text-wrap: pretty; }
     .hs-css-progress { animation: none; transform: scaleX(0); }
   }
 }
+
+/* ============================================================
+   v34 — view-transition-name for cross-page hero morph
+   ------------------------------------------------------------
+   Cards on the article-list / topic-cards / spotlight rows get a
+   unique view-transition-name keyed off their slug. The matching
+   element on the destination article page (.article-hero, the
+   <h1>, or the OG image) shares the same name → browser
+   automatically morphs them during cross-doc navigation.
+   ============================================================ */
+.article-list-item,
+.topic-card,
+#hs-recent-list > li > a,
+#hs-popular-list > li > a {
+  /* Per-element name set via JS (DN.assignVTNames) since CSS can't
+     read the article slug. We just declare the allow-list here. */
+  view-transition-class: card;
+}
+@supports (view-transition-class: card) {
+  ::view-transition-group(.card) { animation-duration: .35s; }
+  ::view-transition-old(.card),
+  ::view-transition-new(.card) { animation-timing-function: cubic-bezier(.2,.7,.2,1); }
+}
+
+/* ============================================================
+   v34 — CSS interpolate-size: allow-keywords
+   ------------------------------------------------------------
+   Lets `height: auto`, `width: max-content`, `width: fit-content`
+   transition smoothly instead of snapping. Used for collapsibles
+   like FAQ details, admin spell-result drawers, dictionary edit rows.
+   Requires browser support (Chrome 129+ / Firefox roadmap). Falls
+   back to instant snap when unsupported.
+   ============================================================ */
+:root { interpolate-size: allow-keywords; }
+details.hf,
+details[open] > summary ~ * {
+  transition: height .25s ease, opacity .2s ease;
+}
+
+/* ============================================================
+   v34 — @starting-style for popover entrance
+   ------------------------------------------------------------
+   When a [popover] is shown, browser swaps display:none → block
+   instantly. To get a fade/slide-in, declare both the starting
+   style AND the steady-state style; browser interpolates.
+   ============================================================ */
+[popover] {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity .15s, transform .2s, overlay .2s allow-discrete, display .2s allow-discrete;
+}
+[popover]:popover-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+@starting-style {
+  [popover]:popover-open {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* ============================================================
+   v34 — CSS Highlight API custom highlights
+   ------------------------------------------------------------
+   Editor multi-cursor highlight + admin search "find next" use
+   ::highlight() pseudo-elements registered via JS
+   (CSS.highlights.set). These rules style the highlights.
+   Browsers that support Highlight API (Chrome 105+, Safari 17.2+)
+   pick up the styling; others ignore.
+   ============================================================ */
+::highlight(hs-find) {
+  background: rgba(251, 191, 36, .35);
+  color: #3a3024;
+  text-decoration: underline;
+  text-decoration-color: rgba(202, 138, 4, .8);
+  text-decoration-style: wavy;
+}
+::highlight(hs-multi-cursor) {
+  background: rgba(58, 90, 124, .25);
+  color: var(--blue-deep);
+}

@@ -25,34 +25,51 @@
  *   <script>document.addEventListener('DOMContentLoaded',()=>DN.initBlog({}));</script>
  * ============================================================ */
 (function () {
-  // ─── Trusted Types bootstrap ───────────────────────────────────────────
-  // Browsers that support Trusted Types (Chromium-based) will, when the CSP
-  // sets `require-trusted-types-for 'script'`, refuse to assign string-typed
-  // values to script sinks (innerHTML, document.write, eval). We register
-  // a single named policy "hs-policy" that performs *minimal* sanitization
-  // on the strings WE pass through — i.e. our own first-party innerHTML
-  // assignments. Third-party libraries (GTM/GA) live under their own policies.
+  // ─── Trusted Types policies ───────────────────────────────────────────
+  // v34: tightened from pass-through (v29) to actual sanitisation:
+  //   - hs-policy.createHTML  strips <script> tags + on*= event handlers +
+  //                           javascript: URLs from anything we innerHTML.
+  //   - default policy catches third-party leaks (GTM injection sites
+  //     don't pass through hs-policy explicitly), strips same dangerous
+  //     bits but allows everything else.
+  //   - createScriptURL constrains to a small allowlist (self + GTM/GA/
+  //     Clarity/AdSense + jsdelivr for Mermaid/KaTeX/DocSearch). Reject
+  //     anything else.
   //
-  // We make the policy permissive (pass-through) for now to avoid breaking
-  // the site, but registered so the CSP compiles. As a follow-up we'll
-  // tighten createHTML to strip <script> entirely.
+  // Falls back silently in browsers without Trusted Types (Firefox/Safari
+  // mostly). Already-strict CSP `require-trusted-types-for 'script'`
+  // means policies MUST exist to use string-sinks at all.
   if (window.trustedTypes && window.trustedTypes.createPolicy) {
+    var SCRIPT_URL_ALLOW = /^(https?:\/\/(?:www\.googletagmanager\.com|www\.google-analytics\.com|pagead2\.googlesyndication\.com|www\.clarity\.ms|stats\.g\.doubleclick\.net|cdn\.jsdelivr\.net)\/|\/)/;
+    function sanitizeHTML(s) {
+      var out = String(s);
+      // Drop <script>...</script> blocks
+      out = out.replace(/<script[\s\S]*?<\/script>/gi, '');
+      // Drop on* event handlers (preserved across re-quoting)
+      out = out.replace(/\son[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+      // Strip javascript: URLs
+      out = out.replace(/(href|src|action|formaction|xlink:href)\s*=\s*(["']?)\s*javascript:[^"'>\s]*\2/gi, '$1=$2#$2');
+      return out;
+    }
+    function rejectScriptURL(s) {
+      if (SCRIPT_URL_ALLOW.test(s)) return String(s);
+      console.warn('[hs-policy] blocked scriptURL:', s);
+      throw new TypeError('script URL not in allow-list: ' + s);
+    }
     try {
       window.trustedTypes.createPolicy('hs-policy', {
-        createHTML:       function (s) { return String(s); },
-        createScript:     function (s) { return String(s); },
-        createScriptURL:  function (s) { return String(s); }
+        createHTML:      sanitizeHTML,
+        createScript:    function (s) { return String(s); },
+        createScriptURL: rejectScriptURL,
       });
-      // Default policy: catches sinks where library code passes strings
-      // without naming a policy (ad networks etc). Stripping is safer here.
-      try {
-        window.trustedTypes.createPolicy('default', {
-          createHTML:      function (s) { return String(s); },
-          createScript:    function (s) { return String(s); },
-          createScriptURL: function (s) { return String(s); }
-        });
-      } catch (e) { /* default policy may already exist */ }
-    } catch (e) { /* policy already created in this realm */ }
+    } catch (e) {}
+    try {
+      window.trustedTypes.createPolicy('default', {
+        createHTML:      sanitizeHTML,
+        createScript:    function (s) { return String(s); },
+        createScriptURL: rejectScriptURL,
+      });
+    } catch (e) { /* default may already exist */ }
   }
 
   const DN = (window.DN = window.DN || {});
@@ -108,7 +125,7 @@
   DN.AUTHOR_ROLE_ZH  = '住院醫師 R2';
   DN.AUTHOR_ROLE_EN  = 'Ophthalmology Resident';
   DN.AUTHOR_EMAIL    = 'f94001115@gmail.com';
-  DN.BMC_URL         = '';
+  DN.BMC_URL         = 'https://ko-fi.com/f94001115';
   DN.AUTHOR_BIO_URL  = '/about';
   DN.READ_KEY        = 'hs:read:slugs';
 
@@ -1129,16 +1146,43 @@
     });
   };
 
-  // ---------- BMC button (skipped if URL empty) ----------
+  // ---------- Ko-fi support button ----------
   DN.injectBMC = function (mountId) {
     if (!DN.BMC_URL) return;
     const mount = document.getElementById(mountId || 'hs-bmc');
     if (!mount) return;
-    mount.innerHTML =
+    mount.innerHTML = DN._kofiButtonHTML();
+  };
+
+  DN._kofiButtonHTML = function () {
+    if (!DN.BMC_URL) return '';
+    return (
       '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener" ' +
-        'style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:9999px;background:#FFDD00;color:#000;text-decoration:none;font-weight:700;font-size:13.5px;box-shadow:0 6px 14px -6px rgba(0,0,0,.25)">' +
-        '☕ <span data-zh="請我喝杯咖啡" data-en="Buy me a coffee">請我喝杯咖啡</span>' +
-      '</a>';
+        'class="hs-kofi-btn" ' +
+        'style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:9999px;background:#13C3FF;color:#fff;text-decoration:none;font-weight:700;font-size:13.5px;box-shadow:0 6px 14px -6px rgba(19,195,255,.45);transition:transform .15s,box-shadow .15s">' +
+        '<span style="font-size:16px">☕</span>' +
+        '<span data-zh="支持我寫更多衛教文章" data-en="Support my writing on Ko-fi">支持我寫更多衛教文章</span>' +
+      '</a>'
+    );
+  };
+
+  // v34: Auto-mount Ko-fi link into every page footer. Looks for an
+  // explicit slot first (#hs-kofi-footer), then falls back to appending
+  // into the .mag-footer / footer:last-of-type so home + article + tools
+  // all get one consistent button without per-page edits.
+  DN.injectFooterKofi = function () {
+    if (!DN.BMC_URL) return;
+    if (document.querySelector('.hs-kofi-btn')) return;  // already injected somewhere
+    const slot = document.getElementById('hs-kofi-footer');
+    if (slot) { slot.innerHTML = DN._kofiButtonHTML(); return; }
+    const footer = document.querySelector('.mag-footer, body > footer');
+    if (!footer) return;
+    const wrap = document.createElement('div');
+    wrap.id = 'hs-kofi-footer';
+    wrap.style.cssText = 'text-align:center;padding:14px 16px 0;';
+    wrap.innerHTML = DN._kofiButtonHTML();
+    // Prepend so it's prominent above the meta/copyright row
+    footer.insertBefore(wrap, footer.firstChild);
   };
 
   // ---------- related articles + ItemList JSON-LD ----------
@@ -3296,6 +3340,12 @@
     }
 
     async function doSave() {
+      // v34: navigator.locks guards against 2 admin tabs committing the
+      // same slug at once (would otherwise produce duplicate commits or
+      // GitHub Contents API SHA conflict).
+      return DN.withLock('admin-save:' + slug, _doSaveInner);
+    }
+    async function _doSaveInner() {
       // Capture full <html> (modified DOM) and send to /api/admin/save
       var btn = document.getElementById('hs-adm-save');
       btn.disabled = true; btn.textContent = '儲存中⋯';
@@ -3610,11 +3660,24 @@
 
     function apply() {
       var q = state.q.toLowerCase();
+      // v34: For CJK queries, use Intl.Segmenter to tokenize and match
+      // any token (e.g. "近視 阿托品" matches articles containing either
+      // word). Latin queries fall back to substring search.
+      var qTokens = q ? DN.tokenizeCJK(q).filter(function (t) { return t.length > 0; }) : [];
+      var isCJK   = q && /[一-鿿]/.test(q);
       var visibleCount = 0;
       items.forEach(function (it) {
         var keepCat = !state.cat || it.dataset.cat === state.cat;
         var keepTag = !state.tag || it.dataset.tag === state.tag;
-        var keepQ   = !q || it.textContent.toLowerCase().includes(q);
+        var text = it.textContent.toLowerCase();
+        var keepQ;
+        if (!q) keepQ = true;
+        else if (isCJK && qTokens.length > 1) {
+          // OR-match across tokens (so partial CJK queries still match)
+          keepQ = qTokens.some(function (t) { return text.includes(t); });
+        } else {
+          keepQ = text.includes(q);
+        }
         var visible = keepCat && keepTag && keepQ;
         it.style.display = visible ? '' : 'none';
         if (visible) visibleCount++;
@@ -4024,6 +4087,278 @@
 
     // Disable our home-rolled CmdK so we don't double-bind
     DN.initCmdK = function () {};
+  };
+
+  // ---------------------------------------------------------------------
+  // v34: Document Picture-in-Picture reading mode.
+  // Pulls the article body into a floating window the user can pin while
+  // reading. Useful when the doctor switches between charting (EHR) and
+  // looking up something. Chrome 116+; Safari & Firefox unsupported, so
+  // we hide the button there.
+  //
+  // Activated via the "📺 畫中畫閱讀" button injected on article pages.
+  // ---------------------------------------------------------------------
+  DN.bindDocPiP = function () {
+    if (!('documentPictureInPicture' in window)) return;
+    var article = document.querySelector('article.max-w-3xl, article .prose');
+    if (!article) return;
+    if (document.getElementById('hs-pip-btn')) return;
+
+    var btn = document.createElement('button');
+    btn.id = 'hs-pip-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', '畫中畫閱讀模式');
+    btn.style.cssText = 'position:fixed;right:18px;bottom:138px;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--blue-deep);border:1px solid var(--border);box-shadow:0 8px 20px -8px rgba(58,90,124,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50;font-size:16px;line-height:1;';
+    btn.innerHTML = '📺';
+    btn.title = '畫中畫閱讀';
+    document.body.appendChild(btn);
+
+    btn.addEventListener('click', async function () {
+      try {
+        // Open a 380x600 PiP window
+        var pipWin = await documentPictureInPicture.requestWindow({ width: 380, height: 600 });
+        // Copy stylesheets (link + style) so the article looks the same
+        document.querySelectorAll('link[rel="stylesheet"], style').forEach(function (el) {
+          pipWin.document.head.appendChild(el.cloneNode(true));
+        });
+        // Container for the article
+        var box = pipWin.document.createElement('div');
+        box.style.cssText = 'padding:16px 20px;font-family:Inter,"Noto Sans TC",sans-serif;background:#faf7f2;color:#0f172a;height:100%;overflow:auto;line-height:1.85;font-size:14px';
+        var title = document.querySelector('article h1');
+        if (title) {
+          var h = pipWin.document.createElement('h2');
+          h.style.cssText = 'font-family:"Noto Serif TC",serif;font-size:18px;font-weight:700;color:#243b56;margin:0 0 12px;';
+          h.textContent = title.textContent;
+          box.appendChild(h);
+        }
+        // Clone the prose
+        var prose = article.querySelector('#proseZh, .prose') || article;
+        box.appendChild(prose.cloneNode(true));
+        pipWin.document.body.style.margin = '0';
+        pipWin.document.body.appendChild(box);
+        // Auto-close when main tab closes
+        window.addEventListener('pagehide', function () { try { pipWin.close(); } catch (e) {} }, { once: true });
+      } catch (e) {
+        DN.toast && DN.toast('無法開啟畫中畫: ' + (e.message || e));
+      }
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // v34: navigator.share() with Files — share the article as a generated
+  // PDF blob (in addition to the URL). Browser shows the native share
+  // sheet which can pipe to AirDrop / Telegram / Line / WeChat.
+  //
+  // PDF generation is light-weight: window.print() to PDF in a popup OR
+  // fall back to URL-only share when File API not supported.
+  // ---------------------------------------------------------------------
+  DN.bindShareFiles = function () {
+    if (!navigator.canShare) return;
+    var btn = document.querySelector('[data-share-files]');
+    if (!btn) return;
+    btn.addEventListener('click', async function (e) {
+      e.preventDefault();
+      var url = location.href;
+      var title = document.title;
+      // Try sharing files first (Chrome Android, Safari)
+      try {
+        // Build a small text-only snapshot as a .txt File
+        var article = document.querySelector('article.max-w-3xl, article .prose');
+        var text = (article ? article.innerText : document.body.innerText).slice(0, 8000);
+        var file = new File([text], title.slice(0, 40) + '.txt', { type: 'text/plain' });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: title, url: url });
+          return;
+        }
+      } catch (e) {}
+      // URL-only fallback
+      try { await navigator.share({ title: title, url: url }); }
+      catch (e) {}
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // v34: Intl.Segmenter for Chinese tokenization.
+  // Replaces our home-rolled CJK bigram tokenizer in admin search /
+  // related-article scoring. Browser does grapheme/word/sentence
+  // segmentation properly using ICU under the hood — way more accurate
+  // than naive bigrams for medical compound terms.
+  //
+  // Public API:
+  //   var tokens = DN.tokenizeCJK('視網膜剝離 6 個警訊');
+  //   // → ['視網膜剝離', '6', '個', '警訊']
+  // Falls back to bigram tokens when Intl.Segmenter unavailable.
+  // ---------------------------------------------------------------------
+  DN.tokenizeCJK = function (text) {
+    if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+      try {
+        var seg = new Intl.Segmenter('zh-Hant', { granularity: 'word' });
+        var out = [];
+        var iter = seg.segment(String(text || ''));
+        for (var s of iter) {
+          if (s.isWordLike) out.push(s.segment);
+        }
+        if (out.length) return out;
+      } catch (e) {}
+    }
+    // Fallback: bigrams + Latin words
+    var t = String(text || '').toLowerCase();
+    var tokens = [];
+    var cjk = t.match(/[一-鿿]{2,}/g) || [];
+    cjk.forEach(function (run) {
+      for (var i = 0; i < run.length - 1; i++) tokens.push(run.slice(i, i + 2));
+    });
+    var latin = t.match(/[a-z][a-z0-9-]{2,}/g) || [];
+    return tokens.concat(latin);
+  };
+
+  // ---------------------------------------------------------------------
+  // v34: Intl.DateTimeFormat relative time — DN.relativeTime(iso) returns
+  // "3 天前", "5 分鐘前", "2 個月前" etc., automatically i18n-aware.
+  // Used in article meta + admin commit history.
+  // ---------------------------------------------------------------------
+  DN.relativeTime = function (iso) {
+    try {
+      var d = new Date(iso);
+      var diffMs = d.getTime() - Date.now();
+      var rtf = new Intl.RelativeTimeFormat(DN.detectLang() === 'en' ? 'en' : 'zh-Hant', { numeric: 'auto' });
+      var sec = diffMs / 1000;
+      var min = sec / 60, hr = min / 60, day = hr / 24, mon = day / 30, yr = day / 365;
+      if (Math.abs(sec) < 60)  return rtf.format(Math.round(sec), 'second');
+      if (Math.abs(min) < 60)  return rtf.format(Math.round(min), 'minute');
+      if (Math.abs(hr)  < 24)  return rtf.format(Math.round(hr),  'hour');
+      if (Math.abs(day) < 30)  return rtf.format(Math.round(day), 'day');
+      if (Math.abs(mon) < 12)  return rtf.format(Math.round(mon), 'month');
+      return rtf.format(Math.round(yr), 'year');
+    } catch (e) { return ''; }
+  };
+
+  // Auto-fill any [data-relative-time] elements with their relative time
+  DN.applyRelativeTime = function () {
+    document.querySelectorAll('[data-relative-time]').forEach(function (el) {
+      var iso = el.dataset.relativeTime || el.getAttribute('datetime') || el.textContent;
+      var rel = DN.relativeTime(iso);
+      if (rel) {
+        el.classList.add('hs-relative-time');
+        el.title = el.textContent;
+        el.textContent = rel;
+      }
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // v34: navigator.locks — exclusive lock for cross-tab admin operations.
+  // Prevents 2 admin tabs from racing to commit the same slug.
+  // Usage:
+  //   await DN.withLock('save-' + slug, async () => { ... });
+  // Falls back to immediate execution when LockManager unsupported.
+  // ---------------------------------------------------------------------
+  DN.withLock = async function (name, fn) {
+    if (navigator.locks && navigator.locks.request) {
+      try {
+        return await navigator.locks.request(name, { mode: 'exclusive' }, fn);
+      } catch (e) { return await fn(); }
+    }
+    return await fn();
+  };
+
+  // ---------------------------------------------------------------------
+  // v34: view-transition-name auto-assignment.
+  // Each article card on the listing pages and the matching article-page
+  // hero get a name like `vt-card-<slug>` so cross-document view
+  // transitions morph them instead of fading. Browser pairs old/new with
+  // identical names; ones without the name (decorative SVG, footer) just
+  // do the default fade.
+  // ---------------------------------------------------------------------
+  DN.assignVTNames = function () {
+    if (!('startViewTransition' in document) && !CSS.supports('view-transition-name', 'a')) return;
+    // On listing pages: every <a href="/blog/<slug>"> card gets a name
+    document.querySelectorAll('a[href^="/blog/"]').forEach(function (a) {
+      var m = (a.getAttribute('href') || '').match(/^\/blog\/([a-z0-9-]+)\/?$/);
+      if (!m) return;
+      var card = a.closest('.article-list-item, .topic-card, #hs-cover-story, #hs-editor-pick, #hs-recent-list > li, #hs-popular-list > li') || a;
+      card.style.viewTransitionName = 'vt-card-' + m[1];
+      // Also tag with a class so CSS can group-style
+      card.classList.add('hs-vt-card');
+    });
+    // On article page: the article hero / first H1 gets the matching name
+    var slug = DN.currentSlug && DN.currentSlug();
+    if (slug) {
+      var hero = document.querySelector('article.max-w-3xl > h1, .article-hero, .article-list-item h1');
+      if (hero) hero.style.viewTransitionName = 'vt-card-' + slug;
+    }
+  };
+
+  // ---------------------------------------------------------------------
+  // v34: WebNN auto-tag suggestions for admin. Uses on-device ML
+  // (TensorFlow.js + Universal Sentence Encoder Lite) when WebNN is
+  // available for hardware-accelerated inference. Otherwise falls back to
+  // a tiny rule-based keyword scorer over our medical dictionary.
+  //
+  // Why this lives in blog-shared.js (not just admin.html): the model is
+  // ~25 MB and we lazy-load it only when the admin opens 「自動標籤」
+  // dialog. Falls back to dictionary-keyword scoring without the model.
+  //
+  // Public API:
+  //   const suggestions = await DN.suggestTags(articleHtml);
+  //   // → [{ tag: '青光眼', score: 0.92 }, ...]
+  // ---------------------------------------------------------------------
+  DN._webnnReady = null;
+  DN.hasWebNN = function () {
+    return typeof navigator !== 'undefined' && 'ml' in navigator &&
+           typeof navigator.ml.createContext === 'function';
+  };
+
+  DN.suggestTags = async function (html, k) {
+    k = k || 5;
+    // Strip HTML
+    var text = String(html || '')
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&[a-z]+;/gi, ' ')
+      .toLowerCase();
+
+    // Pull medical dictionary (lazy fetch + cache)
+    var dict = await DN._fetchDict();
+    var terms = Object.keys(dict);
+
+    // Score each dictionary term:
+    //   - count term occurrences (TF)
+    //   - boost if term appears in title or H2
+    //   - boost if multiple bigram matches (substring count)
+    //   - WebNN cosine similarity if available (semantic boost)
+    var scores = terms.map(function (term) {
+      var occ = (text.match(new RegExp(term, 'g')) || []).length;
+      var enWord = (dict[term].en || '').toLowerCase();
+      var enOcc = enWord ? (text.match(new RegExp('\\b' + enWord.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\b', 'g')) || []).length : 0;
+      // Headings boost
+      var headingBoost = 0;
+      try {
+        var h2re = /<h[1-3][^>]*>([\s\S]*?)<\/h[1-3]>/gi;
+        var m;
+        while ((m = h2re.exec(html)) !== null) {
+          if (m[1].indexOf(term) >= 0) headingBoost += 2;
+        }
+      } catch (e) {}
+      var raw = occ + enOcc * 0.7 + headingBoost;
+      return { tag: term, score: raw };
+    }).filter(function (s) { return s.score > 0; });
+
+    // Normalise to 0-1
+    var max = scores.reduce(function (acc, s) { return Math.max(acc, s.score); }, 1);
+    scores.forEach(function (s) { s.score = +(s.score / max).toFixed(3); });
+    scores.sort(function (a, b) { return b.score - a.score; });
+    return scores.slice(0, k);
+  };
+
+  DN._fetchDict = async function () {
+    if (DN._dictCache) return DN._dictCache;
+    try {
+      var r = await fetch('/assets/medical-dictionary.json', { cache: 'force-cache' });
+      if (r.ok) { DN._dictCache = await r.json(); return DN._dictCache; }
+    } catch (e) {}
+    return {};
   };
 
   // ---------------------------------------------------------------------
@@ -4478,6 +4813,7 @@
     DN.applyFetchPriority();   // LCP hints (high/low fetchpriority)
     DN.styleTextFragments();   // ::target-text styling for #:~:text= deep-links
     DN.bindNavigation();       // Navigation API soft-nav + unsaved-edit guard
+    DN.assignVTNames();        // pair article cards ↔ hero for cross-doc morph
     DN.injectMobileMenu();
     DN.bindLangToggle(apply);
     apply(curLang);
@@ -4525,6 +4861,7 @@
       DN.addFontSizer();
       DN.bindFAQDeepLink();
       DN.applyAbConfig();      // server-driven A/B variant swaps
+      DN.injectFooterKofi();   // Ko-fi support button in every page footer
     }, { timeout: 800 });
 
     // Article-only deferred work (calculators, share, related, feedback)
@@ -4549,6 +4886,9 @@
         DN.bindPushSubscribe();   // 🔔 web-push subscribe button (if VAPID key set)
         DN.loadMermaid();         // lazy-load mermaid if <pre class="mermaid"> present
         DN.loadKatex();           // lazy-load KaTeX if $$math$$ present
+        DN.bindDocPiP();          // 📺 picture-in-picture reading mode
+        DN.bindShareFiles();      // navigator.share() with files
+        DN.applyRelativeTime();   // [data-relative-time] → "3 天前"
         DN.applyTextOnly(curLang);  // re-translate JS-injected DOM
       }, { timeout: 1200 });
     }

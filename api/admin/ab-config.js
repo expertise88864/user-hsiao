@@ -15,11 +15,19 @@
  */
 import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
 import { kvAvailable, kvGetJSON, kvSetJSON } from '../_kv.js';
+import { ecAvailable, ecGet, ecSet } from '../_edge_config.js';
 
+const EC_KEY = 'ab_config';   // Edge Config keys must be alphanumeric/underscore
 const KV_KEY = 'ab:config';
 const BLOB_PATH = 'assets/ab-config.json';
 
 async function load() {
+  // Edge Config (preferred — sub-15ms global read)
+  if (ecAvailable()) {
+    const v = await ecGet(EC_KEY);
+    if (v) return v;
+    // First time — fall through to KV/GH to seed
+  }
   if (kvAvailable()) {
     return (await kvGetJSON(KV_KEY)) || { tests: {} };
   }
@@ -32,6 +40,12 @@ async function load() {
 async function save(state) {
   const sha = state._sha;
   delete state._sha;
+  // Write Edge Config first when available (REST API ~300ms write, but ~15ms reads)
+  if (ecAvailable() && process.env.VERCEL_API_TOKEN && process.env.EDGE_CONFIG_ID) {
+    const ok = await ecSet(EC_KEY, state);
+    if (ok) return { source: 'edge-config' };
+    // fall through if write failed
+  }
   if (kvAvailable()) {
     await kvSetJSON(KV_KEY, state);
     return { source: 'kv' };

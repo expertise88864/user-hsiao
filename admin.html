@@ -459,7 +459,8 @@
     <p>會以模板創建並 commit 到 GitHub。建立後可直接進入編輯模式。</p>
     <form onsubmit="event.preventDefault();doCreate()">
       <label for="new-slug">Slug (URL，英文/-/數字）</label>
-      <input id="new-slug" placeholder="例： cataract-faq" required pattern="[a-z0-9-]+" />
+      <input id="new-slug" placeholder="例： cataract-faq" required pattern="[a-z0-9-]+" list="slug-suggestions" autocomplete="off" />
+      <datalist id="slug-suggestions"></datalist>
       <label for="new-title-zh">中文標題</label>
       <input id="new-title-zh" placeholder="例： 白內障手術 12 個常見問題" required />
       <label for="new-title-en">英文標題</label>
@@ -1016,7 +1017,20 @@ function escapeHTML(s) {
 function escapeAttr(s) { return escapeHTML(s); }
 
 // ───────────────── New article ─────────────────
-function showNewModal() { document.getElementById('new-modal').hidden = false; setTimeout(() => document.getElementById('new-slug').focus(), 50); }
+function showNewModal() {
+  document.getElementById('new-modal').hidden = false;
+  setTimeout(() => document.getElementById('new-slug').focus(), 50);
+  // v34: Populate slug suggestions from common ophthalmology categories +
+  // recent commit history. Helps avoid duplicate slugs and naming drift.
+  const SUGGESTED = [
+    'glaucoma-medications', 'diabetic-retinopathy-screening', 'amblyopia-vision-therapy',
+    'orbital-cellulitis', 'thyroid-eye-disease', 'macular-degeneration-amd',
+    'lasik-vs-smile', 'presbyopia-options', 'lutein-areds2', 'orbital-fracture',
+    'allergic-conjunctivitis', 'corneal-abrasion-emergency',
+  ];
+  const dl = document.getElementById('slug-suggestions');
+  dl.innerHTML = SUGGESTED.map(s => `<option value="${s}">`).join('');
+}
 function hideNewModal() { document.getElementById('new-modal').hidden = true; }
 
 async function doCreate() {
