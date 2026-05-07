@@ -1,0 +1,13 @@
+# Playwright visual regression baseline snapshots.
+#
+# DO NOT manually edit PNGs in this directory.
+#
+# To regenerate after intentional UI changes:
+#   npx playwright test tests/visual/ --update-snapshots
+#   git add tests/visual/snapshots/ && git commit -m "ci: refresh visual baselines"
+#
+# OR trigger workflow_dispatch on Visual regression with force_update=true.
+#
+# First-run bootstrap: when this directory has zero PNGs, the CI workflow
+# auto-generates baselines and commits them with [skip ci]. Subsequent runs
+# do diff comparison.

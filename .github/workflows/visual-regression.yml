@@ -6,23 +6,39 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force update all baselines (commits new snapshots)'
+        required: false
+        default: 'false'
 
-# Visual regression: Playwright screenshots vs git-tracked baselines.
-# Snapshots live under /tests/visual/snapshots/ and are committed.
-# When a snapshot diff is found:
-#   - On PR: posts a comment with the diff image attached.
-#   - On main push: fails the workflow so the author updates the baselines.
-#
-# To update baselines locally:
-#   npx playwright test --update-snapshots
+# Visual regression strategy:
+#   • Snapshots committed to tests/visual/snapshots/.
+#   • If snapshots dir is EMPTY (first run) → bootstrap mode: snap + commit
+#     baselines with `--update-snapshots`, then exit successfully.
+#   • Otherwise: normal diff. PR failures upload diff artifact for review.
+#   • workflow_dispatch with force_update=true → snap + commit fresh baselines
+#     (use after intentional UI changes).
 #
 # Free / self-hosted (no Percy / Chromatic dependency).
+
+concurrency:
+  group: visual-regression
+  cancel-in-progress: false
+
 jobs:
   visual:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
+
+    permissions:
+      contents: write   # needed for the auto-commit fallback
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
 
       - uses: actions/setup-node@v4
         with:
@@ -30,17 +46,62 @@ jobs:
 
       - name: Install Playwright
         run: |
-          npm init -y > /dev/null
-          npm install -D @playwright/test
+          # We use a local install (package.json already at repo root in v30)
+          # so the cache stays warm. If package.json doesn't list playwright
+          # as devDep, install it ad-hoc.
+          if ! grep -q "@playwright/test" package.json 2>/dev/null; then
+            npm install -D @playwright/test
+          else
+            npm install
+          fi
           npx playwright install --with-deps chromium
 
-      - name: Wait for Vercel deploy (60s)
+      - name: Wait for Vercel deploy
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: sleep 60
+        run: |
+          echo "Waiting 75s for Vercel to finish the deploy triggered by this commit…"
+          sleep 75
 
-      - name: Run visual regression tests
-        env:
-          PW_BASE_URL: ${{ github.event_name == 'pull_request' && 'https://hsiao.chendermatologist.com' || 'https://hsiao.chendermatologist.com' }}
+      # Detect whether baselines already exist
+      - name: Check for existing baselines
+        id: baseline
+        run: |
+          if [ -d "tests/visual/snapshots" ] && [ -n "$(find tests/visual/snapshots -name '*.png' -print -quit)" ]; then
+            echo "exist=true" >> $GITHUB_OUTPUT
+            echo "✓ Baselines exist — running diff comparison."
+          else
+            echo "exist=false" >> $GITHUB_OUTPUT
+            echo "○ No baselines found — bootstrap mode (will create + commit)."
+          fi
+
+      # First run: bootstrap baselines and commit
+      - name: Bootstrap — create baselines (first run / forced)
+        if: steps.baseline.outputs.exist == 'false' || inputs.force_update == 'true'
+        run: |
+          echo "Generating new baseline snapshots…"
+          npx playwright test tests/visual/ --update-snapshots --reporter=list || true
+          # Always succeed: even partial generation is useful
+
+      - name: Commit fresh baselines (only when bootstrapping or forced)
+        if: |
+          (steps.baseline.outputs.exist == 'false' || inputs.force_update == 'true')
+          && github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/visual/snapshots/ || true
+          if git diff --cached --quiet; then
+            echo "No baseline changes to commit."
+          else
+            git commit -m "ci: visual regression baselines [skip ci]"
+            git pull --rebase origin main || true
+            git push
+            echo "::notice::Baselines committed. Future runs will diff against them."
+          fi
+
+      # Diff comparison run — only when baselines already existed
+      - name: Run visual diff
+        if: steps.baseline.outputs.exist == 'true' && inputs.force_update != 'true'
         run: npx playwright test tests/visual/ --reporter=list
 
       - name: Upload diff snapshots on failure
@@ -50,5 +111,18 @@ jobs:
           name: visual-diff-${{ github.run_id }}
           path: |
             test-results/
-            tests/visual/snapshots/
+            playwright-report/
           retention-days: 14
+
+      - name: PR comment with artifact link on failure
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = '⚠ Visual regression diffs detected. Download the artifact `visual-diff-${{ github.run_id }}` from the run summary to review.\n\nIf the changes are intentional, run `npx playwright test --update-snapshots` locally and commit the new snapshots, OR re-run this workflow with `Run workflow → force_update: true`.';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body,
+            });

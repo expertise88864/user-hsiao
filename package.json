@@ -6,7 +6,15 @@
   "engines": {
     "node": "20.x"
   },
+  "scripts": {
+    "test:visual":          "playwright test tests/visual/",
+    "test:visual:update":   "playwright test tests/visual/ --update-snapshots",
+    "test:visual:ui":       "playwright test tests/visual/ --ui"
+  },
   "dependencies": {
     "@vercel/og": "^0.6.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0"
   }
 }
