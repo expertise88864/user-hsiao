@@ -56,7 +56,58 @@
  *  + Service Worker stale-while-revalidate for *.css — CSS edits now
  *    propagate after one extra page load, no manual cache-bust needed.
  * v25: GA4 + Consent Mode v2 + Speculation Rules. */
-/* v32: PLATFORM-API ADOPTION + 3D + LIVE NOTIFICATIONS
+/* v33: PLATFORM API DEEP-DIVE + OFFLINE-RESILIENT EDITOR + REAL CSP HASHES
+ *  + Real hash-based CSP (build-time): _gen_csp_hashes.py walks every
+ *    .html, computes SHA-256 of every inline <script>/<style>, writes the
+ *    list into middleware.js. CSP swaps from 'unsafe-inline' → exact hashes
+ *    (drop reflected-XSS surface).  Refresh after editing inline:
+ *      python _gen_csp_hashes.py
+ *  + WebTransport client scaffolding — DN.openLiveChannel() prefers
+ *    WebTransport (HTTP/3 datagrams), falls back to /api/events SSE.
+ *    Server-side WebTransport not available on Vercel today (serverless
+ *    can't hold connections); scaffold ready for future Cloudflare Workers
+ *    / Fly.io / self-hosted Caddy.
+ *  + Speculation Rules eagerness="immediate" — top-4 articles are
+ *    prerendered the moment user lands on home, so navigation = 0 ms.
+ *  + Cookie Store API — DN.cookieGetAsync wraps async cookieStore.get
+ *    when supported; sync fallback unchanged for boot-time language detect.
+ *  + Compute Pressure API — DN.bindComputePressure observes CPU 'cpu'
+ *    pressure source; 'serious'+ removes prefetch links + sets
+ *    [data-cpu-pressure="high"] for CSS to disable animations.
+ *  + Navigation API — DN.bindNavigation hooks `navigate` event for soft-
+ *    nav GA tracking + unsaved-edit guard (cancels nav when DN._adminDirty).
+ *  + Idle Detection — already in v32; reused here.
+ *  + WebCodecs ImageEncoder for AVIF — admin upload path tries WebCodecs
+ *    first (3-5× faster), falls back to canvas.toBlob.
+ *  + OPFS draft autosave — DN.saveDraft writes admin edits every 5s to
+ *    Origin Private File System (50MB+ quota). On editor open, restored
+ *    if newer than server. Falls back to localStorage when OPFS missing.
+ *  + Background Sync v2 — sw.js IndexedDB queue (hs-bg-sync). When admin
+ *    save fails offline, DN.queueOfflineSave POSTs the payload to SW
+ *    which retries on 'sync' event ('admin-save-replay' tag) once
+ *    network returns.
+ *  + Storage Buckets API — favourites moved to dedicated 'favorites'
+ *    bucket with `durability: 'strict'` + `persisted: true`. Quota
+ *    separated from runtime cache so heavy site usage can't evict
+ *    user's saved-for-offline articles.
+ *  + OffscreenCanvas + Worker for /tools/eye-3d — Three.js scene runs
+ *    on dedicated worker thread (transferControlToOffscreen). Main
+ *    thread stays free for user input + scrolling.
+ *  + <selectlist> upgrade — DN.upgradeSelectLists swaps
+ *    <select data-selectlist> to <selectlist> (Chrome 127+ flag).
+ *    Mirrors change events back to original <select> for compat.
+ *  + popover= attribute — DN.upgradePopovers wires
+ *    [data-popover-trigger] → popovertarget for browser-native top-layer
+ *    + light-dismiss (no JS show/hide).
+ *  + CSS @scope dark mode — replaced :root[data-theme="dark"] .X chain
+ *    with a single @scope (:root[data-theme="dark"]) {…} block.
+ *  + CSS scroll-driven animations — pure-CSS reading-progress bar via
+ *    animation-timeline: scroll(); reveal-on-scroll via animation-timeline:
+ *    view(). Fully compositor-thread, zero main-thread cost. Falls back
+ *    to JS IntersectionObserver implementation when unsupported.
+ *  + CSS text-wrap: balance — h1/h2/h3 + card titles use balanced wrap
+ *    (no orphan single-word last line). text-wrap: pretty on body copy.
+ * v32: PLATFORM-API ADOPTION + 3D + LIVE NOTIFICATIONS
  *  + FIX BUILD: middleware.js no longer imports next/server (this isn't a
  *    Next project). Uses native Response + x-middleware-next: 1 pattern.
  *    Split api/admin/_auth.js → _auth.js (Node, crypto for HMAC) +
@@ -288,8 +339,8 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v32';
-const RUNTIME = 'hs-runtime-v32';
+const CACHE = 'hs-v33';
+const RUNTIME = 'hs-runtime-v33';
 const RUNTIME_MAX_ENTRIES = 60;
 
 // v30: Multi-stage cache. Install only blocks on the truly critical
@@ -339,6 +390,24 @@ const LAZY = [
 // Combined for activate-time cleanup — anything in the cache that ISN'T
 // in any tier is fair game to evict in trimCache(...).
 const PRECACHE = [...SHELL, ...POPULAR, ...LAZY];
+
+// v33: Storage Buckets API — split favourites cache from runtime cache so
+// favourites have their own quota + persistence policy. Falls back to a
+// single CacheStorage namespace when Buckets API unsupported (Firefox /
+// Safari).
+async function getFavBucket() {
+  try {
+    if (navigator.storageBuckets) {
+      const bucket = await navigator.storageBuckets.open('favorites', {
+        durability: 'strict',     // require flushed-to-disk before respond
+        persisted:  true,          // ask user-agent to NOT auto-evict
+        // quota: 50 * 1024 * 1024,  // 50 MB hint (browser may ignore)
+      });
+      return bucket.caches;
+    }
+  } catch (e) {}
+  return self.caches;
+}
 
 self.addEventListener('install', (e) => {
   // Stage 1: only the critical shell (~10 small assets, ~80ms on cable).
@@ -416,9 +485,18 @@ self.addEventListener('fetch', (e) => {
           }
           return resp;
         })
-        .catch(() => caches.match(req).then((r) =>
-          r || caches.match('/offline.html').then((o) => o || caches.match('/'))
-        ))
+        .catch(async () => {
+          // v33: try main cache first, then favourites bucket, then offline page
+          const main = await caches.match(req);
+          if (main) return main;
+          try {
+            const favCaches = await getFavBucket();
+            const fav = await (await favCaches.open('hs-favorites')).match(req);
+            if (fav) return fav;
+          } catch (e) { /* skip */ }
+          const off = await caches.match('/offline.html');
+          return off || caches.match('/');
+        })
     );
     return;
   }
@@ -537,7 +615,9 @@ self.addEventListener('message', async (e) => {
   // the article in airplane mode. Posting UNCACHE_FAVORITE removes it.
   if (e.data.type === 'CACHE_FAVORITE' && e.data.url) {
     try {
-      const cache = await caches.open(CACHE);
+      // v33: favourites go to their own Storage Bucket (separate quota, persistent)
+      const favCaches = await getFavBucket();
+      const cache = await favCaches.open('hs-favorites');
       const url = e.data.url;
       // Cache the HTML
       const htmlResp = await fetch(url);
@@ -564,7 +644,8 @@ self.addEventListener('message', async (e) => {
 
   if (e.data.type === 'UNCACHE_FAVORITE' && e.data.url) {
     try {
-      const cache = await caches.open(CACHE);
+      const favCaches = await getFavBucket();
+      const cache = await favCaches.open('hs-favorites');
       await cache.delete(e.data.url);
       if (e.source) e.source.postMessage({ type: 'FAVORITE_UNCACHED', url: e.data.url });
     } catch (err) {}

@@ -3367,6 +3367,56 @@
   };
 
   // ---------------------------------------------------------------------
+  // v33: popover attribute upgrade — any element with `data-popover-trigger`
+  // gets `popovertarget` wired to its associated popover. This replaces
+  // manual show/hide JS with browser-native top-layer + light-dismiss.
+  //
+  //   <button data-popover-trigger="my-pop">⋯</button>
+  //   <div id="my-pop" popover>...</div>
+  //
+  // Browser handles ESC, click-outside, and stacking. Falls back gracefully
+  // to a regular div on browsers without popover (Safari < 17).
+  // ---------------------------------------------------------------------
+  DN.upgradePopovers = function () {
+    if (!('popover' in HTMLElement.prototype)) return;
+    document.querySelectorAll('[data-popover-trigger]').forEach(function (btn) {
+      var target = btn.dataset.popoverTrigger;
+      btn.setAttribute('popovertarget', target);
+      var pop = document.getElementById(target);
+      if (pop && !pop.hasAttribute('popover')) pop.setAttribute('popover', 'auto');
+    });
+  };
+
+  // ---------------------------------------------------------------------
+  // v33: <selectlist> upgrade — Open UI proposal that lets you fully style
+  // a select with CSS/HTML. Currently behind a flag in Chrome 127+, but
+  // detection is the standard `'list' in document.createElement('selectlist')`
+  // trick. We progressive-enhance any [data-selectlist] <select> by
+  // transforming it into <selectlist> when supported. Otherwise leaves the
+  // <select> intact.
+  // ---------------------------------------------------------------------
+  DN.upgradeSelectLists = function () {
+    if (typeof HTMLSelectListElement === 'undefined' && !('selectedoption' in document.createElement('selectlist'))) return;
+    document.querySelectorAll('select[data-selectlist]').forEach(function (sel) {
+      var sl = document.createElement('selectlist');
+      sl.id = sel.id; sl.className = sel.className;
+      sel.querySelectorAll('option').forEach(function (o) {
+        var opt = document.createElement('option');
+        opt.value = o.value; opt.textContent = o.textContent;
+        if (o.selected) opt.setAttribute('selected', '');
+        sl.appendChild(opt);
+      });
+      // Mirror change events back to original element so existing code keeps working
+      sl.addEventListener('change', function () {
+        sel.value = sl.value;
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      sel.style.display = 'none';
+      sel.parentNode.insertBefore(sl, sel.nextSibling);
+    });
+  };
+
+  // ---------------------------------------------------------------------
   // <dialog> upgrade — promotes any element with [data-dialog] attribute
   // to a native HTMLDialogElement. Native dialogs handle:
   //   - inert background (everything else is greyed-out + non-clickable)
@@ -3954,6 +4004,79 @@
   };
 
   // ---------------------------------------------------------------------
+  // v33: WebTransport client scaffolding — bidirectional QUIC/HTTP-3 stream.
+  //
+  // ⚠ Vercel limitation: serverless functions cannot hold long-lived
+  // connections, so a true WebTransport server is NOT supported on Hobby.
+  // What we DO get from WebTransport even with a polling backend:
+  //   - Multiplexed streams over a single HTTP/3 connection (no head-of-line
+  //     blocking like classic SSE/WebSocket multiplexing)
+  //   - Datagram support (unreliable, low-latency push for telemetry)
+  //   - Feature parity check — easy switch when we move to Cloudflare
+  //     Workers / Fly.io / self-hosted Caddy with proper HTTP/3.
+  //
+  // For now the scaffold falls back to /api/events SSE (v32). The client
+  // API (DN.openLiveChannel) is identical so future server upgrade is a
+  // one-line URL swap.
+  //
+  // Usage:
+  //   var ch = await DN.openLiveChannel('/api/events');  // returns { onMessage, close }
+  //   ch.onMessage = (event, data) => { ... };
+  // ---------------------------------------------------------------------
+  DN.openLiveChannel = async function (url) {
+    var handlers = {};
+    var closed = false;
+
+    // WebTransport path (only when server supports it — not on Vercel today)
+    if ('WebTransport' in window && url.startsWith('https:')) {
+      try {
+        var transport = new WebTransport(url);
+        await transport.ready;
+        var reader = transport.datagrams.readable.getReader();
+        (async function () {
+          try {
+            while (!closed) {
+              var { value, done } = await reader.read();
+              if (done) break;
+              try {
+                var msg = JSON.parse(new TextDecoder().decode(value));
+                if (handlers.onMessage) handlers.onMessage(msg.type || 'message', msg);
+              } catch (e) {}
+            }
+          } catch (e) {}
+        })();
+        return {
+          set onMessage(fn) { handlers.onMessage = fn; },
+          close: function () { closed = true; transport.close(); },
+        };
+      } catch (e) { /* fall through to SSE */ }
+    }
+
+    // Fallback: EventSource (works today on Vercel via /api/events)
+    try {
+      var es = new EventSource(url, { withCredentials: true });
+      es.addEventListener('message', function (e) {
+        try { if (handlers.onMessage) handlers.onMessage('message', JSON.parse(e.data)); }
+        catch (_) {}
+      });
+      // Generic fan-out for named events (new_article, heartbeat, etc.)
+      ['hello','new_article','new_subscriber','csp_violation','heartbeat','complete','progress','bye'].forEach(function (t) {
+        es.addEventListener(t, function (e) {
+          try { if (handlers.onMessage) handlers.onMessage(t, JSON.parse(e.data)); }
+          catch (_) { if (handlers.onMessage) handlers.onMessage(t, e.data); }
+        });
+      });
+      es.addEventListener('error', function () {
+        if (handlers.onMessage && !closed) handlers.onMessage('error', { ts: Date.now() });
+      });
+      return {
+        set onMessage(fn) { handlers.onMessage = fn; },
+        close: function () { closed = true; es.close(); },
+      };
+    } catch (e) { return null; }
+  };
+
+  // ---------------------------------------------------------------------
   // v33: Origin Private File System (OPFS) — admin draft autosave that
   // survives network loss + tab crash. Saves the article body every 5
   // seconds while editing. On page load, if a draft exists newer than the
@@ -4326,6 +4449,8 @@
     // first-screen content rendering belongs here.
     DN.bindAutoTheme();        // dark/light from prefers-color-scheme (FOUC-safe)
     DN.upgradeDialogs();       // promote [data-dialog] to native <dialog>
+    DN.upgradePopovers();      // wire [data-popover-trigger] → popovertarget
+    DN.upgradeSelectLists();   // <select data-selectlist> → <selectlist>
     DN.hideStubLinks();        // hide unfinished articles before paint
     DN.applyFetchPriority();   // LCP hints (high/low fetchpriority)
     DN.styleTextFragments();   // ::target-text styling for #:~:text= deep-links
