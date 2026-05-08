@@ -644,6 +644,10 @@
       if (resetBtn) resetBtn.addEventListener('click', function () {
         if (confirm('要重設閱讀進度嗎? 本動作只會清除本裝置的紀錄,不會影響網站。')) DN.resetRead();
       });
+      // v34.10: every render() rebuilds innerHTML, so the freshly inserted
+      // data-zh/data-en spans need re-translation. Without this the widget
+      // reverts to Chinese on /en/ pages whenever the read-count changes.
+      if (DN.applyTextOnly) DN.applyTextOnly(DN.detectLang());
     }
     render();
     window.addEventListener('hs-read-updated', render);
@@ -4947,6 +4951,11 @@
       DN.bindFAQDeepLink();
       DN.applyAbConfig();      // server-driven A/B variant swaps
       DN.injectFooterKofi();   // Ko-fi support button in every page footer
+      // v34.10: injectReadProgress / addFontSizer / initCmdK populate fresh
+      // DOM with data-zh/data-en. Re-run applyTextOnly so they show in the
+      // current language (otherwise the homepage 閱讀進度 / 已讀 / 篇 /
+      // 重設 / 閱讀後自動記錄 stays Chinese in /en/ mode).
+      DN.applyTextOnly(curLang);
     }, { timeout: 800 });
 
     // Article-only deferred work (calculators, share, related, feedback)
