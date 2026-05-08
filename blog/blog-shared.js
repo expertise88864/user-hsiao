@@ -384,15 +384,15 @@
   // ---------- scroll to top ----------
   DN.addScrollToTop = function () {
     if (document.getElementById('hs-totop')) return;
-    // v34.9: font-sizer pill is ~98px tall (3 buttons of 32px + 1px borders),
-    // sitting at bottom:24px → its top edge ends at 122px. To leave a clear
-    // gap above it, totop bottom is 144px on desktop article pages (was 130px,
-    // which only left an 8-pixel gap and visually overlapped the "S" button).
-    // On non-article pages, totop sits in the corner at 24px.
+    // v34.10: font-sizer pill = 24 (bottom) + 98 (3×32 buttons + borders) = top
+    // edge at 122px. Both pieces have ~10-12px box-shadows that visually merge
+    // on small gaps. Totop now at bottom:160px → 38px clear gap (visible
+    // breathing room with no shadow overlap). Bumped from 144px which still
+    // looked tight to the user. On non-article pages, totop sits in the corner.
     // On mobile, the @media block in injectMobileBottomNav overrides these
     // with calc(var(--hs-nav-h) + offset) so the stack clears the bottom-nav.
     var isArticle = !!document.querySelector('article.max-w-3xl');
-    var bottomPx = isArticle ? 144 : 24;
+    var bottomPx = isArticle ? 160 : 24;
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.id = 'hs-totop';
@@ -1931,9 +1931,9 @@
           /* Float-stack on mobile: nav (~64px) → font-sizer → totop */
           '#hs-totop{bottom:calc(var(--hs-nav-h) + 18px)!important;transition:bottom .25s ease,opacity .25s ease,transform .15s,box-shadow .15s}' +
           '#hs-font-sizer{bottom:calc(var(--hs-nav-h) + 18px)!important;transition:bottom .25s ease,opacity .25s ease}' +
-          /* Article pages: totop sits above font-sizer (font-sizer is 98px tall) */
-          'body.hs-article-page #hs-totop{bottom:calc(var(--hs-nav-h) + 124px)!important}' +
-          'body.hs-article-page #hs-pip-btn{bottom:calc(var(--hs-nav-h) + 130px)!important;transition:bottom .25s ease}' +
+          /* Article pages: totop sits above font-sizer (font-sizer = 18 + 98 + 38 gap = 154) */
+          'body.hs-article-page #hs-totop{bottom:calc(var(--hs-nav-h) + 154px)!important}' +
+          'body.hs-article-page #hs-pip-btn{bottom:calc(var(--hs-nav-h) + 210px)!important;transition:bottom .25s ease}' +
         '}';
       document.head.appendChild(st);
     }
