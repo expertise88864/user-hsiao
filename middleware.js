@@ -51,7 +51,6 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-d9/FQhSbsQjXl0fi1n4E6mZCIHedgEdNQz2/kGPoZS4=',
   'sha256-dQq21IUCUPHLvtoi3qXf5oaVdcpymhx5W61PYCrz9dk=',
   'sha256-eaxAvFmnMJ5QnuBGmrX6tdrNGT9RrUHeCyXI47XCnBQ=',
-  'sha256-gEYJKnY/Zg/oompELKa2CXKfKwAulILMvlyrA4oUn3c=',
   'sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=',
   'sha256-iU2vvAPzG2ABF09+fbm5PfKdRy7l3sVPFGQcPwF1v44=',
   'sha256-j/iZRnPmsOX6VrL/twSxtqGcMWPegWd29zQ0N2lXTpA=',
@@ -64,6 +63,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-nqN8z98A8YuDxNRx0ikz0liyHqtn/eIcuq4TREIlXXk=',
   'sha256-nuGmmiiCYDFTpvXLDw6pOoq2DQNyb+Q5uFW1Zc7VYfU=',
   'sha256-oc14LMTc3+PlWxlySAijsD73LxSRdiP9/4fGxD+x2co=',
+  'sha256-rzhJQJmse+GmV1kVqvY/BnYdy5yOYYqDH5yekE9PAoA=',
   'sha256-wq+E/4tFESd/NMOMGNTFKxYdGDpAZsZQaUMxMME6Jpk=',
   'sha256-xtMoNE1WfWwE9cOo1pg+iaZ8fiHNtj6oRjVhWJNBLl8='
 ];

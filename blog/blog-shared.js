@@ -1122,7 +1122,7 @@
               '<strong>學歷</strong>:高雄醫學大學 學士後醫學系' +
             '</div>' +
           '</div>' +
-          '<a href="' + DN.AUTHOR_BIO_URL + '" style="padding:8px 14px;border-radius:9999px;background:var(--blue-deep);color:#fff;font-size:13px;font-weight:600;text-decoration:none;flex-shrink:0" data-zh="完整自介 →" data-en="Full bio →">完整自介 →</a>' +
+          '<a href="' + DN.AUTHOR_BIO_URL + '" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 14px;border-radius:9999px;background:var(--blue-deep);color:#fff;font-size:13px;font-weight:600;text-decoration:none;flex-shrink:0;line-height:1;text-align:center" data-zh="完整自介 →" data-en="Full bio →">完整自介 →</a>' +
         '</div>' +
         '<div style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:12px;line-height:1.75;color:#64748b" ' +
           'data-zh="本文為眼科住院醫師的<strong>衛教與學習筆記</strong>,內容依據國際醫學文獻與臨床指引整理,僅作為<strong>一般教育用途</strong>。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。本網站不涉及任何藥品、醫療器材、療程或診所之推薦或業配。依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。" ' +
@@ -1140,41 +1140,43 @@
   DN.injectArticleSupport = function () {
     if (!DN.BMC_URL) return;
     var article = document.querySelector('article.max-w-3xl');
-    if (!article || document.getElementById('hs-support')) return;
-    var sec = document.createElement('section');
-    sec.id = 'hs-support';
+    if (!article) return;
+    // v34.11: prefer pre-existing <div id="hs-support"> mount; fallback to insert
+    // after author-bio. Box dimensions, padding, border, shadow now match the
+    // author-bio card pixel-for-pixel so the two stack visually balanced.
+    // Ko-fi button dropped from #13C3FF (loud cyan) to muted teal (var(--blue-deep))
+    // to harmonize with the page palette. "HsiaoEye" → "蕭閔謙醫師" per user.
+    var existing = document.getElementById('hs-support');
+    if (existing && existing.children.length) return;
+    var sec = existing || document.createElement('section');
+    if (!existing) sec.id = 'hs-support';
     sec.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-6';
     sec.innerHTML =
-      '<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;' +
-        'background:linear-gradient(135deg,#f3f7fb,#e6eef6);border:1px solid #b8cfe3;' +
-        'border-radius:14px;padding:18px 20px;color:#243b56">' +
-        '<div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;' +
-          'align-items:center;justify-content:center;font-size:22px;flex-shrink:0;' +
-          'box-shadow:0 4px 12px -6px rgba(58,90,124,.25)" aria-hidden="true">☕</div>' +
-        '<div style="min-width:0">' +
-          '<div style="font-size:13.5px;line-height:1.85" ' +
-            'data-zh="<strong>支持作者 ·</strong> HsiaoEye 為個人衛教專案,無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助,歡迎請我喝杯咖啡,讓我有更多時間整理新主題。" ' +
-            'data-en="<strong>Support the author ·</strong> HsiaoEye is a personal patient-education project — no sponsorships, no affiliate links, no ad revenue. If this has helped you or your family, you\'re welcome to buy me a coffee.">' +
-            '<strong>支持作者 ·</strong> HsiaoEye 為個人衛教專案,無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助,歡迎請我喝杯咖啡,讓我有更多時間整理新主題。' +
+      '<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:32px 0 24px;box-shadow:0 8px 18px -10px rgba(58,90,124,.18)">' +
+        '<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">' +
+          '<div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#f3f7fb,#e6eef6);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;border:2px solid #fff;box-shadow:0 4px 10px -2px rgba(58,90,124,.3)" aria-hidden="true">☕</div>' +
+          '<div style="flex:1;min-width:200px">' +
+            '<div style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:16px;font-weight:700;color:var(--ink)" data-zh="支持作者" data-en="Support the author">支持作者</div>' +
+            '<div style="font-size:13px;color:#334155;line-height:1.85;margin-top:6px" ' +
+              'data-zh="蕭閔謙醫師為個人衛教專案，無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助，歡迎請我喝杯咖啡，讓我有更多時間整理新主題。" ' +
+              'data-en="Dr. Hsiao runs HsiaoEye as a personal patient-education project — no sponsorships, no affiliate links, no ad revenue. If this has helped you or your family, you\'re welcome to buy me a coffee.">' +
+              '蕭閔謙醫師為個人衛教專案，無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助，歡迎請我喝杯咖啡，讓我有更多時間整理新主題。' +
+            '</div>' +
           '</div>' +
           '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener" ' +
-            'style="display:inline-flex;align-items:center;gap:8px;padding:9px 16px;' +
-            'border-radius:9999px;background:#13C3FF;color:#fff;text-decoration:none;' +
-            'font-weight:700;font-size:13.5px;margin-top:12px;' +
-            'box-shadow:0 6px 14px -6px rgba(19,195,255,.45);transition:transform .15s,box-shadow .15s">' +
-            '<span style="font-size:16px">☕</span>' +
-            '<span data-zh="Ko-fi 支持" data-en="Support on Ko-fi">Ko-fi 支持</span>' +
-          '</a>' +
+            'style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;' +
+            'border-radius:9999px;background:var(--blue-deep);color:#fff;text-decoration:none;' +
+            'font-size:13px;font-weight:600;flex-shrink:0;line-height:1" ' +
+            'data-zh="☕ Ko-fi 支持" data-en="☕ Support on Ko-fi">☕ Ko-fi 支持</a>' +
         '</div>' +
       '</div>';
-    // Insert AFTER the author-bio block so visual flow is:
-    //   author bio → support → share → related → feedback
-    var authorBio = document.getElementById('hs-author-bio');
-    if (authorBio && authorBio.parentNode) {
-      authorBio.parentNode.insertBefore(sec, authorBio.nextSibling);
-    } else {
-      // Fallback: append after article
-      article.parentNode.insertBefore(sec, article.nextSibling);
+    if (!existing) {
+      var authorBio = document.getElementById('hs-author-bio');
+      if (authorBio && authorBio.parentNode) {
+        authorBio.parentNode.insertBefore(sec, authorBio.nextSibling);
+      } else {
+        article.parentNode.insertBefore(sec, article.nextSibling);
+      }
     }
   };
 
@@ -1278,27 +1280,36 @@
           var scored = related[slug]
             .map(function (r) { return lookup[r.slug] ? Object.assign({}, lookup[r.slug], { _reasons: r.reasons }) : null; })
             .filter(Boolean)
-            .slice(0, 3);
+            .slice(0, 4);
           if (scored.length >= 2) { _renderRelated(scored); return; }
         }
         // Fallback: category + random
         var fallback = others
           .map(function (a) { return { a: a, s: (a.cat === cur.cat ? 2 : 1) + Math.random() * 0.5 }; })
           .sort(function (x, y) { return y.s - x.s; })
-          .slice(0, 3)
+          .slice(0, 4)
           .map(function (x) { return x.a; });
         _renderRelated(fallback);
       });
   };
 
   function _renderRelatedInner(article, slug, cur, scored) {
-    if (document.getElementById('hs-related')) return;
-    // v34.8: enforce max-3 cap regardless of caller's slice
-    scored = (scored || []).slice(0, 3);
+    // v34.11: prefer pre-existing <div id="hs-related"> mount in HTML; falls
+    // back to insertBefore for legacy articles. Cap raised from 3 → 4.
+    var existing = document.getElementById('hs-related');
+    // If the mount already has children (already populated), bail.
+    if (existing && existing.children.length) return;
+    scored = (scored || []).slice(0, 4);
 
-    const wrap = document.createElement('section');
-    wrap.id = 'hs-related';
-    wrap.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-10';
+    var wrap;
+    if (existing) {
+      wrap = existing;
+      wrap.classList.add('max-w-3xl', 'mx-auto', 'px-5', 'sm:px-8', 'my-10');
+    } else {
+      wrap = document.createElement('section');
+      wrap.id = 'hs-related';
+      wrap.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-10';
+    }
     let html = '<div style="border-top:1px solid var(--line);padding-top:24px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:12px" data-zh="你可能也會想看" data-en="Related reads">你可能也會想看</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">';
     scored.forEach(function (a) {
       var titleEn = a.title_en || a.title;
@@ -1313,7 +1324,7 @@
     });
     html += '</div></div>';
     wrap.innerHTML = html;
-    article.parentNode.insertBefore(wrap, article.nextSibling);
+    if (!existing) article.parentNode.insertBefore(wrap, article.nextSibling);
 
     const ld = {
       '@context': 'https://schema.org',
@@ -3017,8 +3028,13 @@
       '說明：\n\n\n' +
       '謝謝！'
     );
-    var box = document.createElement('section');
-    box.id = 'hs-feedback';
+    // v34.11: prefer pre-existing <div id="hs-feedback"> mount; legacy fallback inserts after article
+    var box = document.getElementById('hs-feedback');
+    var isMount = !!box;
+    if (!isMount) {
+      box = document.createElement('section');
+      box.id = 'hs-feedback';
+    }
     box.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-6';
     box.innerHTML =
       '<div style="background:#fafaf7;border:1px dashed #dcd5c8;border-radius:12px;padding:14px 18px;font-size:13px;color:#5e574e;line-height:1.75;display:flex;align-items:center;gap:14px;flex-wrap:wrap">' +
@@ -3030,7 +3046,7 @@
           'style="flex-shrink:0;padding:8px 16px;border-radius:9999px;background:#243b56;color:#fff;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap" ' +
           'data-feedback-link data-zh="提交內容回饋 →" data-en="Send feedback →">提交內容回饋 →</a>' +
       '</div>';
-    article.parentNode.insertBefore(box, article.nextSibling);
+    if (!isMount) article.parentNode.insertBefore(box, article.nextSibling);
     var fbLink = box.querySelector('[data-feedback-link]');
     if (fbLink && typeof gtag === 'function') {
       fbLink.addEventListener('click', function () {
