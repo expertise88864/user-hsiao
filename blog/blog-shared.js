@@ -384,12 +384,15 @@
   // ---------- scroll to top ----------
   DN.addScrollToTop = function () {
     if (document.getElementById('hs-totop')) return;
-    // v34.5: on article pages, font-sizer takes the bottom-right corner
-    // (bottom: 24px). Scroll-to-top sits ABOVE it (bottom: 130px) per user
-    // request. On non-article pages, font-sizer doesn't exist, so
-    // scroll-to-top stays at bottom: 24px (the corner).
+    // v34.9: font-sizer pill is ~98px tall (3 buttons of 32px + 1px borders),
+    // sitting at bottom:24px → its top edge ends at 122px. To leave a clear
+    // gap above it, totop bottom is 144px on desktop article pages (was 130px,
+    // which only left an 8-pixel gap and visually overlapped the "S" button).
+    // On non-article pages, totop sits in the corner at 24px.
+    // On mobile, the @media block in injectMobileBottomNav overrides these
+    // with calc(var(--hs-nav-h) + offset) so the stack clears the bottom-nav.
     var isArticle = !!document.querySelector('article.max-w-3xl');
-    var bottomPx = isArticle ? 130 : 24;
+    var bottomPx = isArticle ? 144 : 24;
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.id = 'hs-totop';
@@ -1909,17 +1912,34 @@
     if (!document.getElementById('hs-mobile-nav-style')) {
       const st = document.createElement('style');
       st.id = 'hs-mobile-nav-style';
+      // v34.9: nav slides down on scroll-down, returns on scroll-up.
+      // Floating widgets (#hs-totop, #hs-font-sizer) on mobile stack ABOVE the
+      // nav bar so they don't visually overlap the search/article icons. When
+      // the nav hides, they slide down with it via CSS variable.
       st.textContent =
         '#hs-mobile-nav{display:none}' +
         '@media (max-width:720px){' +
-          '#hs-mobile-nav{position:fixed;bottom:0;left:0;right:0;z-index:55;display:flex;background:rgba(247,243,236,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:0.5px solid var(--border);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -8px 20px -10px rgba(58,90,124,.18)}' +
+          ':root{--hs-nav-h:calc(64px + env(safe-area-inset-bottom))}' +
+          'body.hs-nav-hidden{--hs-nav-h:0px}' +
+          '#hs-mobile-nav{position:fixed;bottom:0;left:0;right:0;z-index:55;display:flex;background:rgba(247,243,236,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:0.5px solid var(--border);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -8px 20px -10px rgba(58,90,124,.18);transition:transform .25s ease,opacity .25s ease;will-change:transform}' +
+          'body.hs-nav-hidden #hs-mobile-nav{transform:translateY(120%);opacity:0;pointer-events:none}' +
           ':root[data-theme="dark"] #hs-mobile-nav{background:rgba(37,34,32,.96)}' +
           '#hs-mobile-nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 6px;color:var(--ink-2);text-decoration:none;font-family:"Noto Sans TC",Inter,sans-serif;font-size:11px;font-weight:600;border-radius:10px;transition:color .15s,background .15s}' +
           '#hs-mobile-nav a:active,#hs-mobile-nav a:hover{color:var(--teal-deep);background:var(--blue-soft)}' +
           '#hs-mobile-nav svg{width:20px;height:20px;flex-shrink:0}' +
           'body{padding-bottom:calc(64px + env(safe-area-inset-bottom))!important}' +
+          /* Float-stack on mobile: nav (~64px) → font-sizer → totop */
+          '#hs-totop{bottom:calc(var(--hs-nav-h) + 18px)!important;transition:bottom .25s ease,opacity .25s ease,transform .15s,box-shadow .15s}' +
+          '#hs-font-sizer{bottom:calc(var(--hs-nav-h) + 18px)!important;transition:bottom .25s ease,opacity .25s ease}' +
+          /* Article pages: totop sits above font-sizer (font-sizer is 98px tall) */
+          'body.hs-article-page #hs-totop{bottom:calc(var(--hs-nav-h) + 124px)!important}' +
+          'body.hs-article-page #hs-pip-btn{bottom:calc(var(--hs-nav-h) + 130px)!important;transition:bottom .25s ease}' +
         '}';
       document.head.appendChild(st);
+    }
+    // Mark article pages so float-stack CSS knows to add font-sizer offset
+    if (document.querySelector('article.max-w-3xl')) {
+      document.body.classList.add('hs-article-page');
     }
     const nav = document.createElement('nav');
     nav.id = 'hs-mobile-nav';
@@ -1946,6 +1966,43 @@
         e.preventDefault();
         input.focus();
         input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    // ── v34.9: scroll-direction-aware auto-hide on mobile ──
+    // Hide on scroll-down (so the user has more vertical real estate while
+    // reading) and reveal on scroll-up. Always show near the top (< 80px) and
+    // when sitting still. Threshold prevents jitter from sub-pixel scroll
+    // events on touch devices.
+    var lastY = window.scrollY || 0;
+    var ticking = false;
+    var THRESHOLD = 12;            // px of net movement before flipping
+    function update() {
+      var y = window.scrollY || 0;
+      var dy = y - lastY;
+      // Only act on mobile viewport (matches the @media gate where the nav lives)
+      if (matchMedia('(max-width:720px)').matches) {
+        if (y < 80) {
+          document.body.classList.remove('hs-nav-hidden');
+        } else if (dy > THRESHOLD) {
+          document.body.classList.add('hs-nav-hidden');
+          lastY = y;
+        } else if (dy < -THRESHOLD) {
+          document.body.classList.remove('hs-nav-hidden');
+          lastY = y;
+        }
+      }
+      // Reset when stationary so small upward nudges still register
+      if (Math.abs(dy) < 2) lastY = y;
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    // Show again when viewport flips out of mobile mode (rotation, devtools)
+    window.addEventListener('resize', function () {
+      if (!matchMedia('(max-width:720px)').matches) {
+        document.body.classList.remove('hs-nav-hidden');
       }
     });
   };
@@ -4810,8 +4867,17 @@
       const isZh = (lang === 'zh');
       const ze = document.getElementById(opts.proseZh || 'proseZh');
       const en = document.getElementById(opts.proseEn || 'proseEn');
-      if (ze) ze.style.display = isZh ? '' : 'none';
-      if (en) en.style.display = isZh ? 'none' : '';
+      // Two architectures coexist:
+      //   (A) Dual-content mode — separate proseZh + proseEn divs, swap visibility.
+      //   (B) Inline bilingual mode — single wrapper (often still id="proseZh" for
+      //       admin tooling), every element has data-zh/data-en. In this mode
+      //       proseEn does NOT exist; hiding proseZh would erase the entire body.
+      if (en) {
+        if (ze) ze.style.display = isZh ? '' : 'none';
+        en.style.display = isZh ? 'none' : '';
+      } else if (ze) {
+        ze.style.display = '';   // inline-bilingual: always show
+      }
       if (typeof opts.onChange === 'function') opts.onChange(lang);
     }
 
