@@ -2054,14 +2054,22 @@
   DN.bindHomeSearch = function () {
     const input = document.getElementById('dn-search-input');
     if (!input) return;
-    const items = document.querySelectorAll('#dn-article-list .article-list-item');
     const empty = document.getElementById('dn-search-empty');
+    // v34.12: when no query, honor the "max 5 visible" cap from
+    // capHomeArticleList. When a query is active, show every match (cap lifted)
+    // so users can find older articles via search. Re-query each call so the
+    // DOM-order (post-sort) is what drives the i<5 cap rather than original
+    // HTML order.
     function applyFilter() {
       const q = input.value.trim().toLowerCase();
+      const allItems = Array.prototype.slice.call(
+        document.querySelectorAll('#dn-article-list .article-list-item')
+      );
       let visible = 0;
-      items.forEach(function (it) {
+      allItems.forEach(function (it, i) {
         const text = (it.textContent || '').toLowerCase();
-        const show = !q || text.indexOf(q) !== -1;
+        const matches = !q || text.indexOf(q) !== -1;
+        const show = matches && (q ? true : i < 5);
         it.style.display = show ? '' : 'none';
         if (show) visible++;
       });
@@ -2381,6 +2389,26 @@
       tag.className = 'hs-new-pulse';
       tag.textContent = 'NEW';
       h3.appendChild(tag);
+    });
+  };
+
+  // v34.12: homepage article list — sort by date desc, cap at 5 visible.
+  // The author writes the items in any order in HTML; this function ensures
+  // the most-recent 5 surface at the top regardless. Items beyond #5 are
+  // hidden via display:none (kept in DOM for future "show all" expansion).
+  DN.capHomeArticleList = function () {
+    var list = document.getElementById('dn-article-list');
+    if (!list) return;
+    var items = Array.prototype.slice.call(list.querySelectorAll('.article-list-item'));
+    if (items.length < 2) return;
+    function dateOf(el) {
+      var t = el.querySelector('time');
+      return t ? Date.parse(t.textContent.trim()) || 0 : 0;
+    }
+    items.sort(function (a, b) { return dateOf(b) - dateOf(a); });
+    items.forEach(function (el, i) {
+      list.appendChild(el);                 // re-attach in sorted order
+      el.style.display = (i >= 5) ? 'none' : '';
     });
   };
 
@@ -4930,6 +4958,7 @@
     DN.bindThemeToggle();      // dark-mode toggle button (header)
     DN.injectMobileBottomNav();
     DN.markNewArticles();      // NEW badge on home article cards
+    DN.capHomeArticleList();   // v34.12: sort by date desc, cap visible at 5
 
     // Article-only enhancements that affect above-the-fold layout
     var isArticle = document.getElementById('proseZh') || document.querySelector('article .prose');

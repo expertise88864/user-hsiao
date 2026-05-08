@@ -75,10 +75,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260632" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260633" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260632" />
+<link rel="stylesheet" href="/assets/app.css?v=20260633" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -146,14 +146,15 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   .al-meta .chip.cat-rx{ background:#ede9fe; color:#5b21b6; border:1px solid #ddd6fe; }
   .al-meta .chip.tag{ background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; }
   .al-meta time{ font-size:10.5px; color:var(--muted); margin-left:auto; font-family:'JetBrains Mono',Inter,ui-monospace,monospace; letter-spacing:.04em; }
-  .al-body h3{ font-size:15.5px; font-family:'Noto Serif TC',Georgia,serif; font-weight:700; color:var(--ink); margin:0 0 3px; line-height:1.4; }
-  .al-body p{ font-size:13px; color:var(--ink-2); margin:0; line-height:1.65; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; }
+  /* v34.12: clamp h3 to 2 lines + min-height so short and long titles produce same card height. */
+  .al-body h3{ font-size:15.5px; font-family:'Noto Serif TC',Georgia,serif; font-weight:700; color:var(--ink); margin:0 0 4px; line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:calc(2 * 1.4em); }
+  .al-body p{ font-size:13px; color:var(--ink-2); margin:0; line-height:1.65; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:calc(2 * 1.65em); }
   .al-arrow{ align-self:center; color:var(--blue-deep); font-size:20px; flex-shrink:0; opacity:.55; transition:all .15s ease; font-weight:600; }
   .article-list-item:hover .al-arrow{ opacity:1; transform:translateX(2px); }
   @media(max-width:640px){
     .article-list-item{ gap:11px; padding:12px 14px; }
-    .al-body h3{ font-size:14.5px; }
-    .al-body p{ font-size:12px; -webkit-line-clamp:2; }
+    .al-body h3{ font-size:14.5px; -webkit-line-clamp:2; min-height:calc(2 * 1.4em); }
+    .al-body p{ font-size:12px; -webkit-line-clamp:2; min-height:calc(2 * 1.65em); }
     .al-meta time{ display:none; }
     .al-arrow{ display:none; }
   }
@@ -530,33 +531,12 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </section>
 
-<!-- ============= 最近更新 + 熱門推薦 dual column (max 3 each) ============= -->
-<section class="py-8" id="hs-spotlight">
-  <div class="max-w-5xl mx-auto px-5 sm:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <div class="flex items-center gap-2 mb-4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a5a7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span class="mag-eyebrow" style="margin:0" data-zh="最近更新" data-en="Recently Updated">最近更新</span>
-        </div>
-        <ol id="hs-recent-list" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-          <li style="padding:14px 16px;background:#fff;border:0.5px solid var(--border);border-radius:12px;font-size:14px;color:var(--ink-2)">載入中⋯</li>
-        </ol>
-      </div>
-      <div>
-        <div class="flex items-center gap-2 mb-4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a5a7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <span class="mag-eyebrow" style="margin:0" data-zh="熱門推薦" data-en="Editor's Picks">熱門推薦</span>
-        </div>
-        <ol id="hs-popular-list" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-          <li style="padding:14px 16px;background:#fff;border:0.5px solid var(--border);border-radius:12px;font-size:14px;color:var(--ink-2)">載入中⋯</li>
-        </ol>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- v34.12: 最近更新 + 熱門推薦 spotlight section removed per user request.
+     Most-recent articles already surface at the top of #dn-article-list (sorted
+     by date desc, capped at 5). #hs-recent-list / #hs-popular-list mounts gone
+     so DN.injectSpotlight() no-ops via its early-return guard. -->
 
-<!-- ============= 閱讀進度 widget (standalone, after spotlight per user request) ============= -->
+<!-- ============= 閱讀進度 widget (standalone) ============= -->
 <section class="max-w-3xl mx-auto px-5 sm:px-8 my-6">
   <div id="hs-read-progress"></div>
 </section>
@@ -614,7 +594,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
       <div class="support-icon" aria-hidden="true">☕</div>
       <div class="support-body">
         <strong data-zh="支持作者 · " data-en="Support the author · ">支持作者 · </strong>
-        <span data-zh="HsiaoEye 為個人衛教專案，無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助，歡迎請我喝杯咖啡，讓我有更多時間整理新主題。" data-en="HsiaoEye is a personal patient-education project — no sponsorships, no affiliate links, no ad revenue. If anything here has helped you or your family, you're welcome to buy me a coffee so I can keep writing.">HsiaoEye 為個人衛教專案，無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助，歡迎請我喝杯咖啡，讓我有更多時間整理新主題。</span>
+        <span data-zh="蕭閔謙醫師為個人衛教專案，無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助，歡迎請我喝杯咖啡，讓我有更多時間整理新主題。" data-en="Dr. Hsiao runs HsiaoEye as a personal patient-education project — no sponsorships, no affiliate links, no ad revenue. If anything here has helped you or your family, you're welcome to buy me a coffee so I can keep writing.">蕭閔謙醫師為個人衛教專案，無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助，歡迎請我喝杯咖啡，讓我有更多時間整理新主題。</span>
         <div class="support-actions">
           <a href="https://ko-fi.com/f94001115" target="_blank" rel="noopener" class="hs-kofi-btn">
             <span style="font-size:16px">☕</span>
@@ -688,7 +668,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260632" defer></script>
+<script src="/blog/blog-shared.js?v=20260633" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {
