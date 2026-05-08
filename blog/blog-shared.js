@@ -1165,8 +1165,8 @@
           '</div>' +
           '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener" ' +
             'style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;' +
-            'border-radius:9999px;background:var(--blue-deep);color:#fff;text-decoration:none;' +
-            'font-size:13px;font-weight:600;flex-shrink:0;line-height:1" ' +
+            'border-radius:9999px;background:#fff;color:var(--blue-deep);text-decoration:none;' +
+            'font-size:13px;font-weight:600;flex-shrink:0;line-height:1;border:1px solid var(--border)" ' +
             'data-zh="☕ Ko-fi 支持" data-en="☕ Support on Ko-fi">☕ Ko-fi 支持</a>' +
         '</div>' +
       '</div>';
