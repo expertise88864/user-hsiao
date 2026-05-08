@@ -1294,10 +1294,14 @@
     wrap.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-10';
     let html = '<div style="border-top:1px solid var(--line);padding-top:24px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:12px" data-zh="你可能也會想看" data-en="Related reads">你可能也會想看</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">';
     scored.forEach(function (a) {
+      var titleEn = a.title_en || a.title;
+      var tagEn   = a.tag_en   || a.tag;
+      var metaZh  = a.tag + ' · ' + a.date;
+      var metaEn  = tagEn      + ' · ' + a.date;
       html += '<a href="/blog/' + a.slug + '" style="display:flex;flex-direction:column;gap:6px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
-        '<span style="font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--blue-deep);text-transform:uppercase">' + (a.tag_en || a.tag) + '</span>' +
-        '<span style="font-size:14px;font-weight:700;line-height:1.4;font-family:Noto Serif TC,Georgia,serif">' + a.title + '</span>' +
-        '<span style="font-size:11.5px;color:var(--muted)">' + a.tag + ' · ' + a.date + '</span>' +
+        '<span style="font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--blue-deep);text-transform:uppercase" data-zh="' + attrEsc(a.tag) + '" data-en="' + attrEsc(tagEn) + '">' + tagEn + '</span>' +
+        '<span style="font-size:14px;font-weight:700;line-height:1.4;font-family:Noto Serif TC,Georgia,serif" data-zh="' + attrEsc(a.title) + '" data-en="' + attrEsc(titleEn) + '">' + a.title + '</span>' +
+        '<span style="font-size:11.5px;color:var(--muted)" data-zh="' + attrEsc(metaZh) + '" data-en="' + attrEsc(metaEn) + '">' + metaZh + '</span>' +
       '</a>';
     });
     html += '</div></div>';
@@ -1568,6 +1572,70 @@
             '<path d="M 290 50 Q 305 70, 290 90 Q 275 70, 290 50 Z" fill="#7fc8d8" stroke="#3a5a7c" stroke-width="1.2" />' +
             // Label
             '<text x="140" y="80" fill="#9a3412" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle">瞼板腺 (MEIBOMIAN GLANDS)</text>' +
+          '</g>' +
+        '</svg>'
+    },
+    {
+      slug: 'thyroid-eye-disease',
+      title_zh: '甲狀腺眼疾 — 抽菸風險 7 倍、治療有黃金窗口',
+      title_en: 'Thyroid Eye Disease — smokers 7× risk, a golden treatment window',
+      meta_zh: '2026.05 · 18 分鐘 · 治療階梯',
+      meta_en: '2026.05 · 18 min · Treatment ladder',
+      // Scene: side-by-side normal vs TED orbit cross-section showing proptosis,
+      // enlarged extraocular muscles, retro-orbital fat expansion, and optic-nerve
+      // compression at the orbital apex — the canonical pathophysiology diagram.
+      svg:
+        '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+          '<defs>' +
+            '<linearGradient id="hero-ted-bg" x1="0%" y1="0%" x2="100%" y2="100%">' +
+              '<stop offset="0%" stop-color="#e3edf6" />' +
+              '<stop offset="100%" stop-color="#fef3c7" />' +
+            '</linearGradient>' +
+          '</defs>' +
+          '<rect width="400" height="300" fill="url(#hero-ted-bg)" />' +
+          // LEFT: Normal orbit
+          '<text x="100" y="32" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">NORMAL</text>' +
+          // Skull socket
+          '<path d="M 35 60 L 165 60 L 175 175 L 155 215 L 45 215 L 25 175 Z" fill="#fffaf2" stroke="#5e574e" stroke-width="1.6" />' +
+          // Eyeball normal position
+          '<circle cx="100" cy="135" r="32" fill="#fff" stroke="#3a5a7c" stroke-width="1.6" />' +
+          '<circle cx="100" cy="135" r="11" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1" />' +
+          '<circle cx="100" cy="135" r="5" fill="#0f172a" />' +
+          // Normal extraocular muscles (thin)
+          '<ellipse cx="125" cy="110" rx="32" ry="4" fill="#f87171" opacity="0.7" transform="rotate(15 125 110)" />' +
+          '<ellipse cx="125" cy="160" rx="32" ry="4" fill="#f87171" opacity="0.7" transform="rotate(-15 125 160)" />' +
+          // Normal retro-orbital fat
+          '<ellipse cx="155" cy="135" rx="13" ry="28" fill="#fde68a" opacity="0.55" />' +
+          // Optic nerve (normal)
+          '<line x1="170" y1="135" x2="180" y2="135" stroke="#9a3412" stroke-width="2" />' +
+          // Divider line
+          '<line x1="200" y1="50" x2="200" y2="240" stroke="#dcd5c8" stroke-width="1" stroke-dasharray="3 3" />' +
+          // RIGHT: TED orbit
+          '<text x="300" y="32" fill="#dc2626" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">TED · 甲狀腺眼疾</text>' +
+          '<path d="M 235 60 L 365 60 L 375 175 L 355 215 L 245 215 L 225 175 Z" fill="#fffaf2" stroke="#5e574e" stroke-width="1.6" />' +
+          // Eyeball pushed forward (proptotic)
+          '<circle cx="285" cy="135" r="32" fill="#fff" stroke="#dc2626" stroke-width="2" />' +
+          '<circle cx="285" cy="135" r="11" fill="#a4c4dd" stroke="#3a5a7c" stroke-width="1" />' +
+          '<circle cx="285" cy="135" r="5" fill="#0f172a" />' +
+          // Enlarged extraocular muscles (thick, red)
+          '<ellipse cx="320" cy="105" rx="38" ry="10" fill="#dc2626" opacity="0.78" transform="rotate(15 320 105)" />' +
+          '<ellipse cx="320" cy="165" rx="38" ry="10" fill="#dc2626" opacity="0.78" transform="rotate(-15 320 165)" />' +
+          // Expanded retro-orbital fat
+          '<ellipse cx="355" cy="135" rx="18" ry="38" fill="#fbbf24" opacity="0.7" />' +
+          // Compressed optic nerve at apex
+          '<circle cx="372" cy="135" r="4" fill="#fdba74" stroke="#9a3412" stroke-width="1.5" />' +
+          '<text x="372" y="118" fill="#9a3412" font-family="Inter,sans-serif" font-size="8" font-weight="700" text-anchor="middle">DON</text>' +
+          // Forward arrow showing proptosis
+          '<path d="M 268 90 L 248 90 L 248 80 L 228 95 L 248 110 L 248 100 L 268 100 Z" fill="#dc2626" opacity="0.85" />' +
+          '<text x="248" y="74" fill="#dc2626" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle">凸眼 PROPTOSIS</text>' +
+          // Bottom annotation strip
+          '<g transform="translate(20 245)">' +
+            '<rect x="0" y="0" width="120" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<text x="60" y="14" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">TRAb + IGF-1R</text>' +
+            '<rect x="135" y="0" width="120" height="22" rx="11" fill="#fbbf24" stroke="#9a3412" stroke-width="1.2" />' +
+            '<text x="195" y="14" fill="#7c2d12" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">抽菸 7-8× 風險</text>' +
+            '<rect x="265" y="0" width="120" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<text x="325" y="14" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">IVMP / Teprotumumab</text>' +
           '</g>' +
         '</svg>'
     }
