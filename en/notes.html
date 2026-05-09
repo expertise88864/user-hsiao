@@ -20,10 +20,10 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260634" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260635" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260634" />
+<link rel="stylesheet" href="/assets/app.css?v=20260635" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -41,26 +41,55 @@
   .placeholder-card .meta{ font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:18px; }
 </style>
 
-<!-- ===== Google Analytics 4 + Consent Mode v2 (id: G-0ZKDQP9DNH) ===== -->
+<!-- ===== Google Analytics 4 + Consent Mode v2 + bot/prerender gate (id: G-0ZKDQP9DNH) ===== -->
 <script>
-// Consent Mode v2 default — analytics granted (privacy-respecting),
-// ads denied (we don't use AdSense personalization). 500 ms wait gives
-// any future consent banner time to update before GA fires.
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('consent', 'default', {
-  'ad_storage': 'denied',
-  'ad_user_data': 'denied',
-  'ad_personalization': 'denied',
-  'analytics_storage': 'granted',
-  'functionality_storage': 'granted',
-  'security_storage': 'granted',
-  'wait_for_update': 500
-});
-gtag('js', new Date());
-gtag('config', 'G-0ZKDQP9DNH');
+(function(){
+  // A2: short-circuit on known crawlers/automation/headless before gtag init.
+  // Covers AI training bots (GPTBot, ClaudeBot, anthropic-ai, PerplexityBot,
+  // CCBot, Google-Extended, Bytespider, etc.), SEO spiders (Ahrefs, Semrush,
+  // MJ12, DotBot), search bots (Baidu, Yandex, Apple, Amazon), automation
+  // frameworks (Playwright, Puppeteer, Selenium via webdriver flag), CLI
+  // fetchers (curl, wget, python, node-fetch, axios), and lighthouse/insights.
+  var ua = navigator.userAgent || '';
+  var BOT_RE = /(bot|spider|crawl|slurp|teoma|monitor|headless|playwright|puppeteer|selenium|electron|preview|fetcher|inspect|lighthouse|pagespeed|gtmetrix|httrack|wget|curl|python-requests|axios|node-fetch|go-http|libwww|scrapy|chatgpt|gptbot|claudebot|anthropic|perplexity|cohere|bytespider|ahrefs|semrush|mj12|dotbot|baidu|yandex|ccbot|google-extended|amazonbot|applebot|facebot|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|discordbot|skype|slackbot|embedly|bingpreview)/i;
+  if (BOT_RE.test(ua) || navigator.webdriver === true) {
+    window.gtag = function(){};
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  window.gtag = gtag;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'granted',
+    'functionality_storage': 'granted',
+    'security_storage': 'granted',
+    'wait_for_update': 500
+  });
+  gtag('js', new Date());
+
+  // A1: prerender gate. Speculation Rules + Chrome anonymous prerender load
+  // pages invisibly, run all JS, and most never become a real visit. Defer
+  // gtag('config') AND the gtag.js script load until prerenderingchange so
+  // page_view fires only when the user actually navigates.
+  function fireConfig(){
+    gtag('config', 'G-0ZKDQP9DNH');
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0ZKDQP9DNH';
+    document.head.appendChild(s);
+  }
+  if (document.prerendering) {
+    document.addEventListener('prerenderingchange', fireConfig, { once: true });
+  } else {
+    fireConfig();
+  }
+})();
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZKDQP9DNH"></script>
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="zh_TW" />
 </head>
@@ -151,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script src="/blog/blog-shared.js?v=20260634" defer></script>
+<script src="/blog/blog-shared.js?v=20260635" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {
@@ -161,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
       { "not": { "href_matches": "/*.{xml,json,txt,ico,svg,png,jpg,webp,avif,pdf,css,js}" } },
       { "not": { "selector_matches": "[rel~=external], [rel~=nofollow]" } }
     ]},
-    "eagerness": "moderate"
+    "eagerness": "conservative"
   }],
   "prefetch": [{
     "where": { "href_matches": "/blog/*" },
