@@ -32,26 +32,28 @@ Allow: /
 User-agent: AdsBot-Google
 Allow: /
 
-# Generative AI / LLM training crawlers — opt out
-User-agent: GPTBot
-Disallow: /
+# ========== AI policy (v34.15) ==========
+# Two tiers:
+#   1. ALLOWED: query-time agents that fetch a URL on behalf of a user
+#      asking a question and cite the source. These bring real readers
+#      back via "answer + source link" surfaces:
+#        - ChatGPT-User    (ChatGPT browsing / Search citations)
+#        - PerplexityBot   (Perplexity answer citations)
+#        - ClaudeBot       (Claude.ai web tool, citation-aware)
+#        - Google-Extended (Google AI Overview / Gemini citations)
+#      No Disallow line for these — they fall under User-agent: * Allow: /
+#   2. DISALLOWED: bulk training crawlers and aggregators with no
+#      reciprocal traffic, plus low-quality scrapers.
+# ========================================
 
-User-agent: ChatGPT-User
+# Bulk training / mass-aggregation crawlers — opt out
+User-agent: GPTBot
 Disallow: /
 
 User-agent: CCBot
 Disallow: /
 
 User-agent: anthropic-ai
-Disallow: /
-
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
-User-agent: PerplexityBot
 Disallow: /
 
 User-agent: Bytespider

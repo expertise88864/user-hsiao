@@ -20,20 +20,27 @@
 <link rel="manifest" href="/manifest.json" />
 
 <meta property="og:type" content="website" />
+<meta property="og:url" content="https://hsiao.chendermatologist.com/privacy" />
 <meta property="og:title" content="隱私權政策 | HsiaoEye" />
 <meta property="og:description" content="網站隱私權政策。" />
 <meta property="og:image" content="https://hsiao.chendermatologist.com/icon-512.png" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:site_name" content="HsiaoEye" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="隱私權政策 | HsiaoEye" />
+<meta name="twitter:image" content="https://hsiao.chendermatologist.com/icon-512.png" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","url":"https://hsiao.chendermatologist.com/privacy","name":"隱私權政策","inLanguage":"zh-Hant-TW","isPartOf":{"@id":"https://hsiao.chendermatologist.com/#website"},"about":{"@type":"Thing","name":"Privacy policy"},"publisher":{"@id":"https://hsiao.chendermatologist.com/about#person"}}
+</script>
 
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260635" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260636" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260635" />
+<link rel="stylesheet" href="/assets/app.css?v=20260636" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -205,7 +212,7 @@
 <p>用於登錄網站於搜尋引擎、確認網站所有權與提交 sitemap。不收集個別使用者資訊。</p>
 
 <h3>2-4 Google Fonts 與 Tailwind CDN</h3>
-<p>網站字體由 Google Fonts 載入，Tailwind CSS 由 cdn.tailwindcss.com 載入。這些 CDN 在載入資源時會看到您的 IP。</p>
+<p>網站字體由 Google Fonts 載入，CSS 已預編譯為自有網域的 <code>/assets/app.css</code>，不再透過外部 CDN。Google Fonts 在載入字型時會看到您的 IP。</p>
 
 <h2>3. 我們<strong>不會</strong>做的事</h2>
 <ul>
@@ -315,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script src="/blog/blog-shared.js?v=20260635" defer></script>
+<script src="/blog/blog-shared.js?v=20260636" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {

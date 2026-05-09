@@ -131,7 +131,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
-    { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07' },
+    { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07', updated:'2026-05-09' },
     { slug:'lacrimal-gland-tumor',        title:'淚腺腫瘤 6 個關鍵問題',  title_en:'6 Key Questions on Lacrimal Gland Tumor',  cat:'alert', tag:'淚腺腫瘤',  tag_en:'Lacrimal tumor',  date:'2026-05-06' },
     { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         title_en:'8 Dry-Eye Myths',                        cat:'myth', tag:'乾眼症',     tag_en:'Dry Eye',         date:'2026-05-04' },
     { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  title_en:'8 Pediatric Myopia Control Myths',         cat:'myth', tag:'兒童近視',   tag_en:'Myopia control',  date:'2026-05-04' },
@@ -1110,7 +1110,11 @@
     mount.innerHTML =
       '<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:32px 0 24px;box-shadow:0 8px 18px -10px rgba(58,90,124,.18)">' +
         '<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">' +
-          '<img src="/SUNN1302.jpg" alt="蕭閔謙 醫師" width="54" height="54" loading="lazy" style="width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:2px solid #fff;box-shadow:0 4px 10px -2px rgba(58,90,124,.3);background:var(--blue-soft)" />' +
+          '<picture>' +
+            '<source srcset="/SUNN1302-200.avif" type="image/avif" />' +
+            '<source srcset="/SUNN1302-200.webp" type="image/webp" />' +
+            '<img src="/SUNN1302-200.jpg" alt="蕭閔謙 醫師" width="54" height="54" loading="lazy" decoding="async" style="width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:2px solid #fff;box-shadow:0 4px 10px -2px rgba(58,90,124,.3);background:var(--blue-soft)" />' +
+          '</picture>' +
           '<div style="flex:1;min-width:200px">' +
             '<div style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:16px;font-weight:700;color:var(--ink)">' +
               '<span data-zh="' + DN.AUTHOR_NAME_ZH + '" data-en="' + DN.AUTHOR_NAME_EN + '">' + DN.AUTHOR_NAME_ZH + '</span>' + 

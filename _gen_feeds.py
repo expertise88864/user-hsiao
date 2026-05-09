@@ -29,21 +29,29 @@ m = re.search(r'DN\.ARTICLES\s*=\s*\[(.*?)\];', js, re.DOTALL)
 articles = []
 if m:
     for line in m.group(1).split('\n'):
-        slug_m  = re.search(r"slug\s*:\s*'([^']+)'", line)
-        title_m = re.search(r"title\s*:\s*'([^']+)'", line)
-        tag_m   = re.search(r"tag\s*:\s*'([^']+)'", line)
-        date_m  = re.search(r"date\s*:\s*'([^']+)'", line)
-        cat_m   = re.search(r"cat\s*:\s*'([^']+)'", line)
+        slug_m    = re.search(r"slug\s*:\s*'([^']+)'", line)
+        title_m   = re.search(r"title\s*:\s*'([^']+)'", line)
+        tag_m     = re.search(r"tag\s*:\s*'([^']+)'", line)
+        date_m    = re.search(r"date\s*:\s*'([^']+)'", line)
+        updated_m = re.search(r"updated\s*:\s*'([^']+)'", line)
+        cat_m     = re.search(r"cat\s*:\s*'([^']+)'", line)
         if slug_m and title_m:
+            published = date_m.group(1)    if date_m    else '2026-01-01'
+            # v34.15: optional `updated` field — used as <lastmod> when present.
+            # Falls back to `date` (publication date). Lets the author bump
+            # sitemap freshness on substantive edits without changing the
+            # canonical publish-date used for citations / FAQ schema.
+            updated   = updated_m.group(1) if updated_m else published
             articles.append({
-                'slug':  slug_m.group(1),
-                'title': title_m.group(1),
-                'tag':   tag_m.group(1)  if tag_m  else '',
-                'date':  date_m.group(1) if date_m else '2026-01-01',
-                'cat':   cat_m.group(1)  if cat_m  else 'myth',
+                'slug':    slug_m.group(1),
+                'title':   title_m.group(1),
+                'tag':     tag_m.group(1)  if tag_m  else '',
+                'date':    published,
+                'updated': updated,
+                'cat':     cat_m.group(1)  if cat_m  else 'myth',
             })
 
-articles.sort(key=lambda a: a['date'], reverse=True)
+articles.sort(key=lambda a: a['updated'], reverse=True)
 
 # ── Static pages (with explicit priority/changefreq) ──
 STATIC_PAGES = [
@@ -97,14 +105,14 @@ def build_sitemap():
         en = '/en/' if zh == '/' else ('/en/blog/' if zh == '/blog/' else '/en' + zh)
         emit(zh, en, today, p['changefreq'], p['priority'])
 
-    # Articles (with per-article OG image)
+    # Articles (with per-article OG image). lastmod = `updated` (falls back to `date`)
     out.append('')
     out.append('  <!-- ===== Published articles ===== -->')
     for a in articles:
         zh = f'/blog/{a["slug"]}'
         en = f'/en/blog/{a["slug"]}'
         og = f'{DOMAIN}/assets/og/{a["slug"]}.png'
-        emit(zh, en, a['date'], 'monthly', '0.95', image=og, image_title=a['title'])
+        emit(zh, en, a['updated'], 'monthly', '0.95', image=og, image_title=a['title'])
 
     # Landing-page stubs
     out.append('')
@@ -135,7 +143,7 @@ def build_sitemap():
     for a in articles:
         out.append('  <url>')
         out.append(f'    <loc>{DOMAIN}/en/blog/{a["slug"]}</loc>')
-        out.append(f'    <lastmod>{a["date"]}</lastmod>')
+        out.append(f'    <lastmod>{a["updated"]}</lastmod>')
         out.append('    <changefreq>monthly</changefreq>')
         out.append('    <priority>0.85</priority>')
         out.append(f'    <xhtml:link rel="alternate" hreflang="x-default"  href="{DOMAIN}/blog/{a["slug"]}" />')

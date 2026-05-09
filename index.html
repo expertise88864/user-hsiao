@@ -104,10 +104,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260635" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260636" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260635" />
+<link rel="stylesheet" href="/assets/app.css?v=20260636" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -312,10 +312,16 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 {
   "@context":"https://schema.org",
   "@type":"WebSite",
+  "@id":"https://hsiao.chendermatologist.com/#website",
   "name":"HsiaoEye · 蕭閔謙醫師 眼科筆記",
   "url":"https://hsiao.chendermatologist.com/",
   "inLanguage":["zh-TW","en"],
-  "publisher":{"@type":"Person","name":"蕭閔謙 醫師","url":"https://hsiao.chendermatologist.com/about"}
+  "publisher":{"@type":"Person","name":"蕭閔謙 醫師","url":"https://hsiao.chendermatologist.com/about"},
+  "potentialAction":{
+    "@type":"SearchAction",
+    "target":{"@type":"EntryPoint","urlTemplate":"https://hsiao.chendermatologist.com/blog/?q={search_term_string}"},
+    "query-input":"required name=search_term_string"
+  }
 }
 </script>
 <script type="application/ld+json">
@@ -340,12 +346,35 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 {
   "@context":"https://schema.org",
   "@type":"Person",
+  "@id":"https://hsiao.chendermatologist.com/about#person",
   "name":"蕭閔謙 醫師",
   "alternateName":"Min-Chien Hsiao, MD",
   "url":"https://hsiao.chendermatologist.com/about",
   "image":"https://hsiao.chendermatologist.com/SUNN1302.jpg",
   "jobTitle":"Resident Physician, Ophthalmology",
-  "alumniOf":{"@type":"CollegeOrUniversity","name":"高雄醫學大學 學士後醫學系"}
+  "worksFor":{"@type":"MedicalOrganization","name":"中國醫藥大學附設醫院 眼科部"},
+  "alumniOf":{"@type":"CollegeOrUniversity","name":"高雄醫學大學 學士後醫學系"},
+  "knowsAbout":["Ophthalmology","Patient Education","Thyroid Eye Disease","Dry Eye","Pediatric Myopia Control","Retinal Detachment","Lacrimal Gland Tumor"],
+  "medicalSpecialty":"https://schema.org/Ophthalmologic"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"MedicalWebPage",
+  "@id":"https://hsiao.chendermatologist.com/#webpage",
+  "url":"https://hsiao.chendermatologist.com/",
+  "name":"HsiaoEye · 蕭閔謙醫師 眼科筆記",
+  "description":"由蕭閔謙醫師（眼科住院醫師）整理的眼科衛教筆記與學習筆記。涵蓋乾眼症、近視控制、白內障、青光眼、視網膜剝離、甲狀腺眼疾、淚腺腫瘤等主題，依據國際醫學文獻與臨床指引撰寫，僅作為一般教育用途。",
+  "inLanguage":["zh-TW","en"],
+  "isPartOf":{"@id":"https://hsiao.chendermatologist.com/#website"},
+  "about":{"@type":"MedicalSpecialty","name":"Ophthalmology"},
+  "audience":{"@type":"MedicalAudience","audienceType":"Patient"},
+  "lastReviewed":"2026-05-07",
+  "reviewedBy":{"@id":"https://hsiao.chendermatologist.com/about#person"},
+  "mainEntity":{"@id":"https://hsiao.chendermatologist.com/about#person"},
+  "specialty":{"@type":"MedicalSpecialty","name":"Ophthalmology"},
+  "publisher":{"@id":"https://hsiao.chendermatologist.com/about#person"}
 }
 </script>
 </head>
@@ -698,7 +727,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260635" defer></script>
+<script src="/blog/blog-shared.js?v=20260636" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {
