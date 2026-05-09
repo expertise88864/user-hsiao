@@ -70,6 +70,19 @@
 
   <!-- ===== Published articles ===== -->
   <url>
+    <loc>https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/cataract-comprehensive-guide.png</image:loc>
+      <image:title>白內障手術完整衛教</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/blog/thyroid-eye-disease</loc>
     <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -236,6 +249,15 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/privacy" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/privacy" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide" />
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease</loc>

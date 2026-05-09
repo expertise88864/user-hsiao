@@ -131,6 +131,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
+    { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09' },
     { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07', updated:'2026-05-09' },
     { slug:'lacrimal-gland-tumor',        title:'淚腺腫瘤 6 個關鍵問題',  title_en:'6 Key Questions on Lacrimal Gland Tumor',  cat:'alert', tag:'淚腺腫瘤',  tag_en:'Lacrimal tumor',  date:'2026-05-06' },
     { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         title_en:'8 Dry-Eye Myths',                        cat:'myth', tag:'乾眼症',     tag_en:'Dry Eye',         date:'2026-05-04' },
@@ -1658,6 +1659,69 @@
             '<text x="195" y="14" fill="#7c2d12" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">抽菸 7-8× 風險</text>' +
             '<rect x="265" y="0" width="120" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
             '<text x="325" y="14" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">IVMP / Teprotumumab</text>' +
+          '</g>' +
+        '</svg>'
+    },
+    {
+      slug: 'cataract-comprehensive-guide',
+      title_zh: '白內障 — 何時開刀、IOL 怎麼選、併發症與恢復',
+      title_en: 'Cataract — when to operate, IOL choice, complications &amp; recovery',
+      meta_zh: '2026.05 · 22 分鐘 · 手術抉擇',
+      meta_en: '2026.05 · 22 min · Surgical decisions',
+      // Scene: lens cross-section showing cloudy crystalline lens before surgery
+      // and clear IOL after, plus three small lens-type icons (nuclear/cortical/PSC)
+      // — visualizing both the disease and the surgical solution.
+      svg:
+        '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+          '<defs>' +
+            '<linearGradient id="hero-cat-bg" x1="0%" y1="0%" x2="100%" y2="100%">' +
+              '<stop offset="0%" stop-color="#fef3c7" />' +
+              '<stop offset="100%" stop-color="#e3edf6" />' +
+            '</linearGradient>' +
+          '</defs>' +
+          '<rect width="400" height="300" fill="url(#hero-cat-bg)" />' +
+          // LEFT: cloudy crystalline lens (before)
+          '<text x="100" y="32" fill="#9a3412" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">BEFORE · 白內障</text>' +
+          // Eye outline
+          '<ellipse cx="100" cy="150" rx="80" ry="65" fill="#fffaf2" stroke="#5e574e" stroke-width="1.8" />' +
+          // Cornea
+          '<path d="M 30 130 Q 20 150 30 170 Q 60 180 70 150 Q 60 120 30 130 Z" fill="#a4c4dd" opacity="0.45" stroke="#3a5a7c" stroke-width="1.2" />' +
+          // Cloudy lens (yellow-brown core)
+          '<ellipse cx="105" cy="150" rx="35" ry="42" fill="#c9a961" opacity="0.85" stroke="#7c2d12" stroke-width="1.5" />' +
+          '<ellipse cx="105" cy="150" rx="22" ry="28" fill="#7c2d12" opacity="0.55" />' +
+          // Light rays scattered (poor focus)
+          '<line x1="20" y1="135" x2="40" y2="155" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="2 2" />' +
+          '<line x1="20" y1="150" x2="40" y2="150" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="2 2" />' +
+          '<line x1="20" y1="165" x2="40" y2="145" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="2 2" />' +
+          '<text x="100" y="240" fill="#7c2d12" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">水晶體混濁 · 視力模糊</text>' +
+          // Arrow → indicating treatment
+          '<path d="M 195 145 L 215 145 L 215 138 L 230 150 L 215 162 L 215 155 L 195 155 Z" fill="#3a5a7c" opacity="0.8" />' +
+          '<text x="212" y="130" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle">phaco</text>' +
+          // RIGHT: clear lens after surgery (with IOL)
+          '<text x="300" y="32" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">AFTER · IOL 植入</text>' +
+          '<ellipse cx="300" cy="150" rx="80" ry="65" fill="#fffaf2" stroke="#5e574e" stroke-width="1.8" />' +
+          // Cornea
+          '<path d="M 230 130 Q 220 150 230 170 Q 260 180 270 150 Q 260 120 230 130 Z" fill="#a4c4dd" opacity="0.45" stroke="#3a5a7c" stroke-width="1.2" />' +
+          // Clear IOL (transparent disk)
+          '<ellipse cx="305" cy="150" rx="35" ry="22" fill="#a4c4dd" opacity="0.25" stroke="#3a5a7c" stroke-width="1.5" />' +
+          // IOL haptics
+          '<line x1="270" y1="150" x2="260" y2="135" stroke="#3a5a7c" stroke-width="1.2" />' +
+          '<line x1="340" y1="150" x2="350" y2="165" stroke="#3a5a7c" stroke-width="1.2" />' +
+          // Light rays focused (clear)
+          '<line x1="220" y1="135" x2="305" y2="150" stroke="#fbbf24" stroke-width="1.4" />' +
+          '<line x1="220" y1="150" x2="305" y2="150" stroke="#fbbf24" stroke-width="1.4" />' +
+          '<line x1="220" y1="165" x2="305" y2="150" stroke="#fbbf24" stroke-width="1.4" />' +
+          // Focal point on retina
+          '<circle cx="370" cy="150" r="3" fill="#16a34a" stroke="#14532d" stroke-width="1" />' +
+          '<text x="300" y="240" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">人工水晶體 · 視力恢復</text>' +
+          // Bottom strip: 3 IOL options
+          '<g transform="translate(40 263)">' +
+            '<rect x="0" y="0" width="105" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<text x="52.5" y="14" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">單焦 Monofocal</text>' +
+            '<rect x="118" y="0" width="105" height="22" rx="11" fill="#fbbf24" stroke="#9a3412" stroke-width="1.2" />' +
+            '<text x="170.5" y="14" fill="#7c2d12" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">EDOF / 散光 Toric</text>' +
+            '<rect x="236" y="0" width="105" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<text x="288.5" y="14" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">多焦 Multifocal</text>' +
           '</g>' +
         '</svg>'
     }
