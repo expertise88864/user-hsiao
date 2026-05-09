@@ -131,6 +131,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
+    { slug:'glaucoma-treatment-selection', title:'青光眼藥物與手術選擇',  title_en:'Glaucoma Treatment Selection',           cat:'rx',    tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-10' },
     { slug:'glaucoma-comprehensive-guide', title:'青光眼完整衛教',       title_en:'Glaucoma — Patient Education',           cat:'alert', tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-09' },
     { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09' },
     { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07', updated:'2026-05-09' },
