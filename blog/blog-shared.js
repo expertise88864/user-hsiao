@@ -131,6 +131,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
+    { slug:'glaucoma-comprehensive-guide', title:'青光眼完整衛教',       title_en:'Glaucoma — Patient Education',           cat:'alert', tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-09' },
     { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09' },
     { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07', updated:'2026-05-09' },
     { slug:'lacrimal-gland-tumor',        title:'淚腺腫瘤 6 個關鍵問題',  title_en:'6 Key Questions on Lacrimal Gland Tumor',  cat:'alert', tag:'淚腺腫瘤',  tag_en:'Lacrimal tumor',  date:'2026-05-06' },
@@ -1722,6 +1723,52 @@
             '<text x="170.5" y="14" fill="#7c2d12" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">EDOF / 散光 Toric</text>' +
             '<rect x="236" y="0" width="105" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
             '<text x="288.5" y="14" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">多焦 Multifocal</text>' +
+          '</g>' +
+        '</svg>'
+    },
+    {
+      slug: 'glaucoma-comprehensive-guide',
+      title_zh: '青光眼 — 沉默的視力小偷、急性發作警訊',
+      title_en: 'Glaucoma — the silent thief of sight &amp; acute red flags',
+      meta_zh: '2026.05 · 22 分鐘 · 警訊辨識',
+      meta_en: '2026.05 · 22 min · Red flags',
+      svg:
+        '<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+          '<defs>' +
+            '<linearGradient id="hero-gl-bg" x1="0%" y1="0%" x2="100%" y2="100%">' +
+              '<stop offset="0%" stop-color="#e3edf6" />' +
+              '<stop offset="100%" stop-color="#fef9f0" />' +
+            '</linearGradient>' +
+          '</defs>' +
+          '<rect width="400" height="300" fill="url(#hero-gl-bg)" />' +
+          '<text x="100" y="32" fill="#16a34a" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">NORMAL</text>' +
+          '<ellipse cx="100" cy="135" rx="55" ry="50" fill="#fbbf24" opacity="0.5" stroke="#9a3412" stroke-width="1.6" />' +
+          '<ellipse cx="100" cy="135" rx="18" ry="16" fill="#fffaf2" stroke="#5e574e" stroke-width="1.2" />' +
+          '<path d="M 90 125 Q 70 115 50 95" fill="none" stroke="#dc2626" stroke-width="1.6" />' +
+          '<path d="M 90 145 Q 70 155 50 175" fill="none" stroke="#dc2626" stroke-width="1.6" />' +
+          '<path d="M 110 125 Q 130 115 150 95" fill="none" stroke="#dc2626" stroke-width="1.6" />' +
+          '<path d="M 110 145 Q 130 155 150 175" fill="none" stroke="#dc2626" stroke-width="1.6" />' +
+          '<text x="100" y="220" fill="#16a34a" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">C/D 0.3</text>' +
+          '<text x="100" y="236" fill="#5e574e" font-family="Inter,sans-serif" font-size="9" text-anchor="middle">完整 rim</text>' +
+          '<path d="M 175 135 L 215 135 L 215 128 L 235 138 L 215 148 L 215 141 L 175 141 Z" fill="#7c2d12" opacity="0.85" />' +
+          '<text x="205" y="120" fill="#7c2d12" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle">↑ IOP</text>' +
+          '<text x="300" y="32" fill="#dc2626" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">GLAUCOMA</text>' +
+          '<ellipse cx="300" cy="135" rx="55" ry="50" fill="#fbbf24" opacity="0.5" stroke="#9a3412" stroke-width="1.6" />' +
+          '<ellipse cx="300" cy="135" rx="42" ry="40" fill="#5e574e" opacity="0.4" stroke="#3a3a3a" stroke-width="1.5" />' +
+          '<ellipse cx="300" cy="135" rx="42" ry="40" fill="none" stroke="#5e574e" stroke-width="2" />' +
+          '<path d="M 270 115 L 265 120 L 250 95" fill="none" stroke="#dc2626" stroke-width="1.6" />' +
+          '<path d="M 270 155 L 265 150 L 250 175" fill="none" stroke="#dc2626" stroke-width="1.6" />' +
+          '<path d="M 330 115 L 335 110 L 350 95" fill="none" stroke="#dc2626" stroke-width="1.6" />' +
+          '<ellipse cx="282" cy="170" rx="6" ry="2" fill="#7f1d1d" />' +
+          '<text x="300" y="220" fill="#dc2626" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">C/D &gt; 0.8</text>' +
+          '<text x="300" y="236" fill="#5e574e" font-family="Inter,sans-serif" font-size="9" text-anchor="middle">rim 變薄、深凹陷</text>' +
+          '<g transform="translate(20 256)">' +
+            '<rect x="0" y="0" width="115" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<text x="57.5" y="14" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">SLT 雷射 第一線</text>' +
+            '<rect x="128" y="0" width="115" height="22" rx="11" fill="#fbbf24" stroke="#9a3412" stroke-width="1.2" />' +
+            '<text x="185.5" y="14" fill="#7c2d12" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">PGA 眼藥水</text>' +
+            '<rect x="256" y="0" width="115" height="22" rx="11" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />' +
+            '<text x="313.5" y="14" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">MIGS / Trab 手術</text>' +
           '</g>' +
         '</svg>'
     }

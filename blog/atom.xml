@@ -5,7 +5,7 @@
   <link href="https://hsiao.chendermatologist.com/" rel="alternate" />
   <link href="https://hsiao.chendermatologist.com/blog/atom.xml" rel="self" />
   <id>https://hsiao.chendermatologist.com/</id>
-  <updated>2026-05-09T12:58:48Z</updated>
+  <updated>2026-05-09T13:45:04Z</updated>
   <author>
     <name>蕭閔謙 醫師</name>
     <email>f94001115@gmail.com</email>
@@ -14,6 +14,15 @@
   <rights>© 2026 蕭閔謙 醫師</rights>
   <generator uri="https://hsiao.chendermatologist.com">HsiaoEye auto-feed v1</generator>
 
+  <entry>
+    <title>青光眼完整衛教</title>
+    <link href="https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide" rel="alternate" />
+    <id>https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide</id>
+    <updated>2026-05-09T00:00:00Z</updated>
+    <published>2026-05-09T00:00:00Z</published>
+    <category term="青光眼" />
+    <summary>青光眼完整衛教 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+  </entry>
   <entry>
     <title>白內障手術完整衛教</title>
     <link href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" rel="alternate" />
