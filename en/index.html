@@ -501,17 +501,17 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
       <svg class="dn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
       <input id="dn-search-input" type="search" class="dn-search-input" placeholder="搜尋文章標題或關鍵字…" />
     </div>
-        <!-- Quick-find chips: split into two rows (diseases / categories) -->
-        <!-- Row 1： by disease -->
-        <div class="quick-find" data-row="diseases">
-      <a href="/blog/" data-zh="全部主題" data-en="All topics" style="background:var(--blue-soft);color:var(--blue-deep);border-color:#b8cfe3">全部主題</a>
-      <a href="/blog/glaucoma-comprehensive-guide" data-zh="青光眼" data-en="Glaucoma">青光眼</a>
-      <a href="/blog/cataract-comprehensive-guide" data-zh="白內障" data-en="Cataract">白內障</a>
-      <a href="/blog/thyroid-eye-disease" data-zh="甲狀腺眼疾" data-en="TED">甲狀腺眼疾</a>
-      <a href="/blog/floaters-retinal-detachment" data-zh="飛蚊症 / 視網膜剝離" data-en="Floaters / RD">飛蚊症 / 視網膜剝離</a>
-      <a href="/blog/lacrimal-gland-tumor" data-zh="淚腺腫瘤" data-en="Lacrimal tumor">淚腺腫瘤</a>
-      <a href="/blog/dry-eye-myths" data-zh="乾眼症" data-en="Dry eye">乾眼症</a>
-      <a href="/blog/pediatric-myopia-control" data-zh="兒童近視控制" data-en="Pediatric myopia">兒童近視控制</a>
+        <!-- Quick-find chips: split into two rows (diseases / categories), all act as filters on the article list below -->
+        <!-- Row 1： filter by disease -->
+        <div class="quick-find quick-find-cat" data-row="diseases">
+      <button type="button" class="qf-cat-chip qf-all" data-filter="" data-filter-en="" data-zh="全部主題" data-en="All topics" style="background:var(--blue-soft);color:var(--blue-deep);border-color:#b8cfe3">全部主題</button>
+      <button type="button" class="qf-cat-chip" data-filter="青光眼" data-filter-en="Glaucoma" data-zh="青光眼" data-en="Glaucoma">青光眼</button>
+      <button type="button" class="qf-cat-chip" data-filter="白內障" data-filter-en="Cataract" data-zh="白內障" data-en="Cataract">白內障</button>
+      <button type="button" class="qf-cat-chip" data-filter="甲狀腺眼疾" data-filter-en="TED" data-zh="甲狀腺眼疾" data-en="TED">甲狀腺眼疾</button>
+      <button type="button" class="qf-cat-chip" data-filter="飛蚊症" data-filter-en="Floaters" data-zh="飛蚊症 / 視網膜剝離" data-en="Floaters / RD">飛蚊症 / 視網膜剝離</button>
+      <button type="button" class="qf-cat-chip" data-filter="淚腺腫瘤" data-filter-en="Lacrimal" data-zh="淚腺腫瘤" data-en="Lacrimal tumor">淚腺腫瘤</button>
+      <button type="button" class="qf-cat-chip" data-filter="乾眼症" data-filter-en="Dry eye" data-zh="乾眼症" data-en="Dry eye">乾眼症</button>
+      <button type="button" class="qf-cat-chip" data-filter="兒童近視" data-filter-en="Myopia" data-zh="兒童近視控制" data-en="Pediatric myopia">兒童近視控制</button>
     </div>
         <!-- Row 2： by category (filters the search input) -->
         <div class="quick-find quick-find-cat" data-row="categories" style="margin-top:8px">
@@ -566,8 +566,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
           <span class="chip tag" data-zh="白內障" data-en="Cataract">白內障</span>
           <time>2026-05-09</time>
         </div>
-        <h3 data-zh="白內障手術完整衛教 — 何時開刀、IOL 怎麼選、併發症與恢復" data-en="Cataract Surgery — When, IOL Choice, Complications &amp; Recovery">白內障手術完整衛教 — 何時開刀、IOL 怎麼選、併發症與恢復</h3>
-        <p data-zh="整合 2021 AAO PPP、2025 AAPPO 共識、ESCRS 31 條 GRADE 建議：何時該開（不只看視力數字）、超音波 vs 飛秒、單焦／散光／EDOF／多焦 IOL 取捨與併發症真實機率。" data-en="Integrates 2021 AAO PPP, 2025 AAPPO consensus and 31 ESCRS GRADE recommendations — when to operate (not by Snellen alone), phaco vs FLACS, monofocal/toric/EDOF/multifocal IOL trade-offs, and realistic complication rates.">整合 2021 AAO PPP、2025 AAPPO 共識、ESCRS 31 條 GRADE 建議：何時該開（不只看視力數字）、超音波 vs 飛秒、單焦／散光／EDOF／多焦 IOL 取捨與併發症真實機率。</p>
+        <h3 data-zh="白內障手術完整衛教 — 何時開刀、人工水晶體怎麼選、併發症與恢復" data-en="Cataract Surgery — When, IOL Choice, Complications &amp; Recovery">白內障手術完整衛教 — 何時開刀、人工水晶體怎麼選、併發症與恢復</h3>
+        <p data-zh="整合 2021 AAO PPP、2025 AAPPO 共識、ESCRS 31 條 GRADE 建議：何時該開（不只看視力數字）、超音波 vs 飛秒、單焦／散光／EDOF／多焦人工水晶體取捨與併發症真實機率。" data-en="Integrates 2021 AAO PPP, 2025 AAPPO consensus and 31 ESCRS GRADE recommendations — when to operate (not by Snellen alone), phaco vs FLACS, monofocal/toric/EDOF/multifocal IOL trade-offs, and realistic complication rates.">整合 2021 AAO PPP、2025 AAPPO 共識、ESCRS 31 條 GRADE 建議：何時該開（不只看視力數字）、超音波 vs 飛秒、單焦／散光／EDOF／多焦人工水晶體取捨與併發症真實機率。</p>
       </div>
       <div class="al-arrow">→</div>
     </a>

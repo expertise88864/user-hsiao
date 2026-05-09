@@ -112,11 +112,53 @@
 ]}
 </script>
 </head>
-<body class="text-base">
+<body class="font-sans antialiased text-ink-900">
+<a href="#main-content" class="skip-link" style="position:absolute;left:-999px;top:0;background:#243b56;color:#fff;padding:8px 16px;z-index:9999;border-radius:0 0 8px 0;font-size:13px;font-weight:600" onfocus="this.style.left='0'" onblur="this.style.left='-999px'">跳到主內容</a>
 
-<header id="hs-mn"></header>
+<header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="h-16 flex items-center justify-between gap-4">
+      <a href="/" class="flex items-center gap-3 min-w-0">
+        <img src="/icon.svg" alt="HsiaoEye" class="w-9 h-9 rounded-lg flex-shrink-0" width="36" height="36" fetchpriority="high" decoding="async" />
+        <div class="min-w-0 leading-tight">
+          <div class="font-display font-semibold text-[16px] sm:text-[18px] blue-text">HsiaoEye</div>
+          <div class="text-[10.5px] sm:text-[11.5px] mt-0.5 truncate" style="color:var(--muted)">蕭閔謙醫師 · 眼科衛教筆記</div>
+        </div>
+      </a>
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <a href="/blog/" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="← 文章索引" data-en="← Articles">← 文章索引</a>
+        <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
+        <button aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <select id="langToggle" class="lang-select" aria-label="Language">
+          <option value="zh">中文</option>
+          <option value="en">EN</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</header>
 
-<!-- ============= ARTICLE HEADER ============= -->
+<main id="main-content">
+
+<section class="pt-12 sm:pt-14 pb-6">
+  <div class="max-w-3xl mx-auto px-5 sm:px-8">
+    <nav style="font-size:12.5px; color:var(--muted); margin-bottom:18px;">
+      <a href="/" style="color:var(--blue-deep); text-decoration:none; font-weight:600;" data-zh="首頁" data-en="Home">首頁</a><span style="margin:0 6px; opacity:.5;">/</span>
+      <a href="/blog/" style="color:var(--blue-deep); text-decoration:none; font-weight:600;" data-zh="衛教文章" data-en="Articles">衛教文章</a><span style="margin:0 6px; opacity:.5;">/</span>
+      <span data-zh="青光眼藥物與手術選擇" data-en="Glaucoma Treatment Selection">青光眼藥物與手術選擇</span>
+    </nav>
+    <div class="text-[11px] uppercase tracking-[.24em] font-semibold mb-3" style="color:var(--blue-deep)" data-zh="衛教 · 青光眼決策 · 台灣實況" data-en="Patient Ed · Glaucoma Decisions · Taiwan Practice">衛教 · 青光眼決策 · 台灣實況 <span class="ml-3 inline-block px-2 py-0.5 rounded-full text-[10.5px] font-semibold normal-case tracking-normal" style="background:var(--blue-soft); color:var(--blue-deep)" data-zh="更新日期 · 2026-05-10" data-en="Updated · 2026-05-10">更新日期 · 2026-05-10</span></div>
+    <h1 class="font-display font-bold leading-[1.18] text-[32px] sm:text-[44px]" style="color:var(--ink)">
+      <span data-zh="青光眼藥物與手術選擇" data-en="Glaucoma Treatment Selection">青光眼藥物與手術選擇</span><br/>
+      <span class="blue-text" data-zh="醫師決策邏輯、副作用與台灣現況" data-en="Decision Logic, Side Effects &amp; Taiwan Reality">醫師決策邏輯、副作用與台灣現況</span>
+    </h1>
+    <p class="mt-6 text-[15.5px] leading-[1.95] tldr" style="color:var(--ink-2)" data-zh="青光眼治療不是「給你一瓶藥水」這麼簡單。從新診斷的第一線（<strong>SLT 雷射 vs 眼藥水</strong>）、五支前列腺素類（<strong>PGA：Latanoprost／Bimatoprost／Travoprost／Tafluprost</strong>）怎麼選、何時加複方、何時做雷射、何時升級到 MIGS 微創手術或傳統 Trabeculectomy ── 每一階都有清楚的決策邏輯。本文整合 <strong>2025 AAO PPP</strong>、<strong>2022 NICE NG81</strong>、<strong>LiGHT trial 6 年延伸（2023）</strong>、<strong>PTVT trial</strong>、<strong>EAGLE trial</strong> 與台灣本土考量，把醫師腦中的決策樹攤開來看：為什麼這個藥、為什麼這個時機、副作用怎麼比、複方藥水怎麼挑、MIGS 廠牌（<strong>iStent inject、Hydrus、XEN、PreserFlo、Kahook</strong>）之間差在哪、哪些在台灣健保給付。特別獨立警示前列腺素相關眼周病變（<strong>PAP, prostaglandin-associated periorbitopathy</strong>）。" data-en="Glaucoma treatment is more than 'here's a bottle of drops.' From the first-line decision (<strong>SLT laser vs drops</strong>), choosing among five prostaglandin analogues (<strong>PGA: Latanoprost / Bimatoprost / Travoprost / Tafluprost</strong>), when to combine vs switch, when to laser, when to escalate to MIGS or traditional trabeculectomy — every step has a clear decision logic. This article integrates the <strong>2025 AAO PPP</strong>, <strong>2022 NICE NG81</strong>, the <strong>LiGHT trial 6-year extension (2023)</strong>, <strong>PTVT</strong> and <strong>EAGLE</strong> with Taiwan-specific considerations: why this drug, why this timing, side-effect comparison, combination drop logic, MIGS device differentiation (<strong>iStent inject, Hydrus, XEN, PreserFlo, Kahook</strong>), and Taiwan NHI coverage reality. Separately flags prostaglandin-associated periorbitopathy (<strong>PAP</strong>).">青光眼治療不是「給你一瓶藥水」這麼簡單。從新診斷的第一線（<strong>SLT 雷射 vs 眼藥水</strong>）、五支前列腺素類（<strong>PGA：Latanoprost／Bimatoprost／Travoprost／Tafluprost</strong>）怎麼選、何時加複方、何時做雷射、何時升級到 MIGS 微創手術或傳統 Trabeculectomy ── 每一階都有清楚的決策邏輯。本文整合 <strong>2025 AAO PPP</strong>、<strong>2022 NICE NG81</strong>、<strong>LiGHT trial 6 年延伸（2023）</strong>、<strong>PTVT trial</strong>、<strong>EAGLE trial</strong> 與台灣本土考量，把醫師腦中的決策樹攤開來看：為什麼這個藥、為什麼這個時機、副作用怎麼比、複方藥水怎麼挑、MIGS 廠牌（<strong>iStent inject、Hydrus、XEN、PreserFlo、Kahook</strong>）之間差在哪、哪些在台灣健保給付。特別獨立警示前列腺素相關眼周病變（<strong>PAP, prostaglandin-associated periorbitopathy</strong>）。</p>
+    <div class="disclaimer" data-zh="⚠️ <strong>免責聲明</strong>：本文為一般醫學衛教，整理自國際眼科指引與臨床試驗，僅供認識疾病用，無法取代您的眼科醫師面對面評估。藥物與手術選擇、健保給付狀況、自費價格均需依個別狀況與最新規定。本文不推薦任何特定品牌或診所。" data-en="⚠️ <strong>Disclaimer</strong>: General medical education compiled from international ophthalmology guidelines and clinical trials. It does not replace face-to-face evaluation by your ophthalmologist. Drug and surgical choices, NHI coverage and self-pay pricing depend on individual circumstances and current regulations. This article does not endorse any specific brand or clinic.">⚠️ <strong>免責聲明</strong>：本文為一般醫學衛教，整理自國際眼科指引與臨床試驗，僅供認識疾病用，無法取代您的眼科醫師面對面評估。藥物與手術選擇、健保給付狀況、自費價格均需依個別狀況與最新規定。本文不推薦任何特定品牌或診所。</div>
+  </div>
+</section>
+
 <article class="max-w-3xl mx-auto px-5 sm:px-8 mb-16">
 
 <!-- Hero figure: Treatment ladder flowchart -->
@@ -185,17 +227,6 @@
   </svg>
   <figcaption style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.75" data-zh="<strong>青光眼治療階梯</strong>：從新診斷設定個別化目標眼壓開始，第一線可選 360° SLT 雷射（NICE 2022 已升為第一線、LiGHT trial 6 年延伸支持）或前列腺素類（PGA）眼藥水（台灣目前較常見的起點）。若效果不夠 → 加藥、換藥、或改用複方眼藥水；若雷射尚未做或前次效力衰退 → 可（重複）SLT；最後仍不夠或屬進階期 → 升級到 MIGS 微創手術（輕中度 OAG，常合併白內障）或傳統 Trabeculectomy／引流管植入（進階期、難治、需要大幅降壓）。每一階都依個別化目標眼壓、視野、OCT 動態評估升降，不是固定流水線。" data-en="<strong>Glaucoma treatment ladder</strong>: from new diagnosis setting an individualized target IOP, first-line is 360° SLT (NICE 2022 now first-line, supported by 6-year LiGHT extension) or prostaglandin analogue (PGA) drops (currently more common starting point in Taiwan). If insufficient → add-on / switch / fixed-dose combination; if SLT not yet done or repeating → (repeat) SLT; if still inadequate or advanced disease → escalate to MIGS (mild-moderate OAG, often combined with cataract) or traditional trabeculectomy / tube shunt (advanced, refractory, large IOP-lowering need). Every step is dynamically re-evaluated against target IOP, visual field and OCT — not a one-way pipeline."><strong>青光眼治療階梯</strong>：從新診斷設定個別化目標眼壓開始，第一線可選 360° SLT 雷射（NICE 2022 已升為第一線、LiGHT trial 6 年延伸支持）或前列腺素類（PGA）眼藥水（台灣目前較常見的起點）。若效果不夠 → 加藥、換藥、或改用複方眼藥水；若雷射尚未做或前次效力衰退 → 可（重複）SLT；最後仍不夠或屬進階期 → 升級到 MIGS 微創手術（輕中度 OAG，常合併白內障）或傳統 Trabeculectomy／引流管植入（進階期、難治、需要大幅降壓）。每一階都依個別化目標眼壓、視野、OCT 動態評估升降，不是固定流水線。</figcaption>
 </figure>
-
-<!-- ============= TITLE ============= -->
-<header class="text-center mt-10 mb-6">
-  <div class="text-[11px] uppercase tracking-[.24em] font-semibold mb-3" style="color:var(--blue-deep)" data-zh="衛教 · 青光眼決策 · 台灣實況" data-en="Patient Ed · Glaucoma Decisions · Taiwan Practice">衛教 · 青光眼決策 · 台灣實況 <span class="ml-3 inline-block px-2 py-0.5 rounded-full text-[10.5px] font-semibold normal-case tracking-normal" style="background:var(--blue-soft); color:var(--blue-deep)" data-zh="更新日期 · 2026-05-10" data-en="Updated · 2026-05-10">更新日期 · 2026-05-10</span></div>
-  <h1 class="text-[34px] sm:text-[42px] font-semibold leading-[1.1] tracking-tight" style="font-family:'Fraunces','Noto Serif TC',Georgia,serif;color:var(--ink)" data-zh="青光眼藥物與手術選擇" data-en="Glaucoma Treatment Selection">青光眼藥物與手術選擇<br>
-    <span class="blue-text" data-zh="醫師決策邏輯、副作用與台灣現況" data-en="Decision Logic, Side Effects &amp; Taiwan Reality">醫師決策邏輯、副作用與台灣現況</span>
-  </h1>
-  <p class="mt-6 text-[15.5px] leading-[1.95] tldr" style="color:var(--ink-2)" data-zh="青光眼治療不是「給你一瓶藥水」這麼簡單。從新診斷的第一線（<strong>SLT 雷射 vs 眼藥水</strong>）、五支前列腺素類（<strong>PGA：Latanoprost／Bimatoprost／Travoprost／Tafluprost</strong>）怎麼選、何時加複方、何時做雷射、何時升級到 MIGS 微創手術或傳統 Trabeculectomy ── 每一階都有清楚的決策邏輯。本文整合 <strong>2025 AAO PPP</strong>、<strong>2022 NICE NG81</strong>、<strong>LiGHT trial 6 年延伸（2023）</strong>、<strong>PTVT trial</strong>、<strong>EAGLE trial</strong> 與台灣本土考量，把醫師腦中的決策樹攤開來看：為什麼這個藥、為什麼這個時機、副作用怎麼比、複方藥水怎麼挑、MIGS 廠牌（<strong>iStent inject、Hydrus、XEN、PreserFlo、Kahook</strong>）之間差在哪、哪些在台灣健保給付。特別獨立警示前列腺素相關眼周病變（<strong>PAP, prostaglandin-associated periorbitopathy</strong>）。" data-en="Glaucoma treatment is more than 'here's a bottle of drops.' From the first-line decision (<strong>SLT laser vs drops</strong>), choosing among five prostaglandin analogues (<strong>PGA: Latanoprost / Bimatoprost / Travoprost / Tafluprost</strong>), when to combine vs switch, when to laser, when to escalate to MIGS or traditional trabeculectomy — every step has a clear decision logic. This article integrates the <strong>2025 AAO PPP</strong>, <strong>2022 NICE NG81</strong>, the <strong>LiGHT trial 6-year extension (2023)</strong>, <strong>PTVT</strong> and <strong>EAGLE</strong> with Taiwan-specific considerations: why this drug, why this timing, side-effect comparison, combination drop logic, MIGS device differentiation (<strong>iStent inject, Hydrus, XEN, PreserFlo, Kahook</strong>), and Taiwan NHI coverage reality. Separately flags prostaglandin-associated periorbitopathy (<strong>PAP</strong>).">青光眼治療不是「給你一瓶藥水」這麼簡單。從新診斷的第一線（<strong>SLT 雷射 vs 眼藥水</strong>）、五支前列腺素類（<strong>PGA：Latanoprost／Bimatoprost／Travoprost／Tafluprost</strong>）怎麼選、何時加複方、何時做雷射、何時升級到 MIGS 微創手術或傳統 Trabeculectomy ── 每一階都有清楚的決策邏輯。本文整合 <strong>2025 AAO PPP</strong>、<strong>2022 NICE NG81</strong>、<strong>LiGHT trial 6 年延伸（2023）</strong>、<strong>PTVT trial</strong>、<strong>EAGLE trial</strong> 與台灣本土考量，把醫師腦中的決策樹攤開來看：為什麼這個藥、為什麼這個時機、副作用怎麼比、複方藥水怎麼挑、MIGS 廠牌（<strong>iStent inject、Hydrus、XEN、PreserFlo、Kahook</strong>）之間差在哪、哪些在台灣健保給付。特別獨立警示前列腺素相關眼周病變（<strong>PAP, prostaglandin-associated periorbitopathy</strong>）。</p>
-
-  <div class="disclaimer" data-zh="⚠️ <strong>免責聲明</strong>：本文為一般醫學衛教，整理自國際眼科指引與臨床試驗，僅供認識疾病用，無法取代您的眼科醫師面對面評估。藥物與手術選擇、健保給付狀況、自費價格均需依個別狀況與最新規定。本文不推薦任何特定品牌或診所。" data-en="⚠️ <strong>Disclaimer</strong>: General medical education compiled from international ophthalmology guidelines and clinical trials. It does not replace face-to-face evaluation by your ophthalmologist. Drug and surgical choices, NHI coverage and self-pay pricing depend on individual circumstances and current regulations. This article does not endorse any specific brand or clinic.">⚠️ <strong>免責聲明</strong>：本文為一般醫學衛教，整理自國際眼科指引與臨床試驗，僅供認識疾病用，無法取代您的眼科醫師面對面評估。藥物與手術選擇、健保給付狀況、自費價格均需依個別狀況與最新規定。本文不推薦任何特定品牌或診所。</div>
-</header>
 
 <div id="proseZh" class="prose">
 
@@ -1018,7 +1049,46 @@
 <div id="hs-author-bio" class="max-w-3xl mx-auto px-5 sm:px-8"></div>
 <div id="hs-support" class="max-w-3xl mx-auto px-5 sm:px-8"></div>
 
-<footer id="hs-fr"></footer>
+</main>
+
+<style>
+  .mag-footer{ background:var(--ink); color:var(--bg); padding:80px clamp(20px,5vw,72px) 32px; margin-top:clamp(40px,6vw,80px); }
+  .mag-foot-top{ max-width:1440px; margin:0 auto; display:grid; grid-template-columns:1.4fr 2fr; gap:clamp(32px,5vw,80px); padding-bottom:48px; border-bottom:0.5px solid rgba(247,243,236,.16); }
+  .mag-foot-brand h3{ font-family:'Noto Serif TC','Fraunces',Georgia,serif; font-style:italic; font-weight:600; font-size:clamp(26px,3vw,34px); margin:0 0 12px; letter-spacing:-0.01em; color:var(--bg); }
+  .mag-foot-brand p{ font-family:'Noto Serif TC',Georgia,serif; font-size:15.5px; line-height:1.7; color:rgba(247,243,236,.7); margin:0; max-width:42ch; }
+  .mag-foot-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .mag-foot-cols h5{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); margin:0 0 16px; font-weight:500; }
+  .mag-foot-cols ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .mag-foot-cols a{ font-size:14px; color:rgba(247,243,236,.85); text-decoration:none; transition:color .15s; }
+  .mag-foot-cols a:hover{ color:var(--teal-bright); }
+  .mag-foot-disclaimer{ max-width:1440px; margin:32px auto 0; display:grid; grid-template-columns:120px 1fr; gap:24px; padding:24px 0; border-bottom:0.5px solid rgba(247,243,236,.16); }
+  .mag-disc-tag{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); padding-top:4px; }
+  .mag-foot-disclaimer p{ margin:0; font-size:13px; line-height:1.7; color:rgba(247,243,236,.78); max-width:84ch; }
+  .mag-foot-bot{ max-width:1440px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.1em; color:rgba(247,243,236,.55); flex-wrap:wrap; }
+  @media (max-width:980px){ .mag-foot-top{ grid-template-columns:1fr; } .mag-foot-disclaimer{ grid-template-columns:1fr; } .mag-foot-cols{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .mag-foot-cols{ grid-template-columns:1fr; } }
+</style>
+<footer class="mag-footer cv-auto-short">
+  <div class="mag-foot-top">
+    <div class="mag-foot-brand">
+      <h3 class="mag-foot-brand-h3" data-zh="HsiaoEye<br>蕭閔謙醫師 眼科筆記" data-en="HsiaoEye<br>Dr. Min-Chien Hsiao · Ophthalmology Notes">HsiaoEye<br>蕭閔謙醫師 眼科筆記</h3>
+      <p data-zh="從診間到日常，好好照顧你的眼睛。" data-en="From the clinic to your everyday eyes.">從診間到日常，好好照顧你的眼睛。</p>
+    </div>
+    <div class="mag-foot-cols">
+      <div><h5 data-zh="網站" data-en="Site">網站</h5><ul><li><a href="/" data-zh="首頁" data-en="Home">首頁</a></li><li><a href="/blog/" data-zh="衛教文章" data-en="Articles">衛教文章</a></li><li><a href="/about" data-zh="關於作者" data-en="About">關於作者</a></li></ul></div>
+      <div><h5 data-zh="關於" data-en="About">關於</h5><ul><li><a href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li><li><a href="mailto:f94001115@gmail.com" data-zh="聯絡 Email" data-en="Contact">聯絡 Email</a></li></ul></div>
+      <div><h5 data-zh="訂閱" data-en="Subscribe">訂閱</h5><ul><li><a href="/blog/feed.xml">RSS Feed</a></li><li><a href="/blog/atom.xml">Atom Feed</a></li></ul></div>
+    </div>
+  </div>
+  <div class="mag-foot-disclaimer">
+    <span class="mag-disc-tag">Disclaimer</span>
+    <p data-zh="本網站所有內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議。任何用藥、停藥、治療決定，請以您的主治醫師判斷為準。藥物與手術選擇、健保給付狀況與自費價格均需依個別狀況與最新規定。本文不推薦任何特定品牌或診所。依《醫療法》§85-86 及《醫師法》§17，個別治療效果因人而異，本文不保證任何結果。" data-en="All content is general medical education only — not individual medical advice. Drug and surgical choices, NHI coverage and self-pay pricing depend on individual circumstances and current regulations. This article does not endorse any specific brand or clinic. Per Taiwan Medical Care Act §§85-86, individual outcomes vary.">本網站所有內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議。任何用藥、停藥、治療決定，請以您的主治醫師判斷為準。藥物與手術選擇、健保給付狀況與自費價格均需依個別狀況與最新規定。本文不推薦任何特定品牌或診所。依《醫療法》§85-86 及《醫師法》§17，個別治療效果因人而異，本文不保證任何結果。</p>
+  </div>
+  <div class="mag-foot-bot">
+    <span>© <span id="hs-year">2026</span> HsiaoEye · 蕭閔謙 醫師</span>
+    <span data-zh="本站不接受業配 / 廣告" data-en="No sponsorship / advertising">本站不接受業配 / 廣告</span>
+  </div>
+</footer>
 
 <script src="/blog/blog-shared.js?v=20260639" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({slug:'glaucoma-treatment-selection'});});</script>
