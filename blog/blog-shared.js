@@ -2454,24 +2454,13 @@
   // Inline mid-article CTA — points readers to the topic hub.
   // Inserts a styled card before the middle H2 of #proseZh.
   // ---------------------------------------------------------------------
+  // v34.16: addInlineCTA disabled per user request — the "想找其他眼科主題？"
+  // mid-article card felt repetitive (the related-reads + topic-map links at
+  // the article foot already serve this purpose). Stub kept so any cached
+  // older DOM that still has #hs-inline-cta gets cleared on next render.
   DN.addInlineCTA = function () {
-    var prose = document.getElementById('proseZh');
-    if (!prose) return;
-    var h2s = prose.querySelectorAll('h2');
-    if (h2s.length < 4) return;
-    var targetH2 = h2s[Math.floor(h2s.length / 2)];
-    if (!targetH2 || targetH2.dataset.hsCtaInserted) return;
-    targetH2.dataset.hsCtaInserted = '1';
-    var cta = document.createElement('div');
-    cta.id = 'hs-inline-cta';
-    cta.style.cssText = 'background:linear-gradient(135deg,#e3edf6 0%,#f0f6f4 100%);border:1px solid #b8cfe3;border-radius:14px;padding:16px 20px;margin:22px 0;display:flex;gap:14px;align-items:center;flex-wrap:wrap';
-    cta.innerHTML =
-      '<div style="flex:1;min-width:200px">' +
-        '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#243b56;font-weight:700;margin-bottom:4px" data-zh="想找其他眼科主題？" data-en="Looking for other topics?">想找其他眼科主題？</div>' +
-        '<div style="font-size:14px;color:#0f172a;line-height:1.7;margin:0" data-zh="瀏覽所有衛教文章，或回到首頁的快速查找，依眼科主題快速跳轉。" data-en="Browse all education articles, or jump back to the home page topic chips.">瀏覽所有衛教文章，或回到首頁的快速查找，依眼科主題快速跳轉。</div>' +
-      '</div>' +
-      '<a href="/blog/" style="flex-shrink:0;padding:10px 18px;border-radius:9999px;background:#243b56;color:#fff;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap" data-zh="全部文章 →" data-en="All articles →">全部文章 →</a>';
-    targetH2.parentNode.insertBefore(cta, targetH2);
+    var existing = document.getElementById('hs-inline-cta');
+    if (existing) existing.remove();
   };
 
   // ---------------------------------------------------------------------
@@ -4337,50 +4326,13 @@
   //
   // Activated via the "📺 畫中畫閱讀" button injected on article pages.
   // ---------------------------------------------------------------------
+  // v34.16: bindDocPiP disabled per user request — the floating PiP button
+  // crowded the bottom-right corner with the font-sizer and back-to-top.
+  // Article reading via PiP saw negligible engagement. Stub kept so any
+  // cached older DOM with #hs-pip-btn is cleared on next render.
   DN.bindDocPiP = function () {
-    if (!('documentPictureInPicture' in window)) return;
-    var article = document.querySelector('article.max-w-3xl, article .prose');
-    if (!article) return;
-    if (document.getElementById('hs-pip-btn')) return;
-
-    var btn = document.createElement('button');
-    btn.id = 'hs-pip-btn';
-    btn.type = 'button';
-    btn.setAttribute('aria-label', '畫中畫閱讀模式');
-    btn.style.cssText = 'position:fixed;right:18px;bottom:138px;width:42px;height:42px;border-radius:50%;background:#fff;color:var(--blue-deep);border:1px solid var(--border);box-shadow:0 8px 20px -8px rgba(58,90,124,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50;font-size:16px;line-height:1;';
-    btn.innerHTML = '📺';
-    btn.title = '畫中畫閱讀';
-    document.body.appendChild(btn);
-
-    btn.addEventListener('click', async function () {
-      try {
-        // Open a 380x600 PiP window
-        var pipWin = await documentPictureInPicture.requestWindow({ width: 380, height: 600 });
-        // Copy stylesheets (link + style) so the article looks the same
-        document.querySelectorAll('link[rel="stylesheet"], style').forEach(function (el) {
-          pipWin.document.head.appendChild(el.cloneNode(true));
-        });
-        // Container for the article
-        var box = pipWin.document.createElement('div');
-        box.style.cssText = 'padding:16px 20px;font-family:Inter,"Noto Sans TC",sans-serif;background:#faf7f2;color:#0f172a;height:100%;overflow:auto;line-height:1.85;font-size:14px';
-        var title = document.querySelector('article h1');
-        if (title) {
-          var h = pipWin.document.createElement('h2');
-          h.style.cssText = 'font-family:"Noto Serif TC",serif;font-size:18px;font-weight:700;color:#243b56;margin:0 0 12px;';
-          h.textContent = title.textContent;
-          box.appendChild(h);
-        }
-        // Clone the prose
-        var prose = article.querySelector('#proseZh, .prose') || article;
-        box.appendChild(prose.cloneNode(true));
-        pipWin.document.body.style.margin = '0';
-        pipWin.document.body.appendChild(box);
-        // Auto-close when main tab closes
-        window.addEventListener('pagehide', function () { try { pipWin.close(); } catch (e) {} }, { once: true });
-      } catch (e) {
-        DN.toast && DN.toast('無法開啟畫中畫: ' + (e.message || e));
-      }
-    });
+    var existing = document.getElementById('hs-pip-btn');
+    if (existing) existing.remove();
   };
 
   // ---------------------------------------------------------------------

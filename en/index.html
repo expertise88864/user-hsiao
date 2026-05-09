@@ -104,10 +104,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260638" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260639" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260638" />
+<link rel="stylesheet" href="/assets/app.css?v=20260639" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -142,6 +142,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
   /* Quick find chips */
   .quick-find{ display:flex; flex-wrap:wrap; gap:6px; }
+  .quick-find-cat .qf-cat-chip{ display:inline-flex; align-items:center; justify-content:center; min-height:28px; padding:5px 12px; border-radius:9999px; background:#fff; border:1px solid var(--border); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; transition:all .15s; line-height:1; font-family:inherit; }
+  .quick-find-cat .qf-cat-chip:hover{ border-color:rgba(58,90,124,.5); color:var(--blue-deep); transform:translateY(-1px); box-shadow:0 4px 8px -4px rgba(58,90,124,.18); }
+  .quick-find-cat .qf-cat-chip.active{ outline:2px solid rgba(58,90,124,.45); outline-offset:1px; }
   /* v34.4: use inline-flex + align-items:center to vertically centre the
      text inside each pill. Pure padding-based centring leaves CJK glyphs
      sitting slightly above the geometric centre (because Han characters
@@ -498,16 +501,25 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
       <svg class="dn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
       <input id="dn-search-input" type="search" class="dn-search-input" placeholder="搜尋文章標題或關鍵字…" />
     </div>
-        <!-- Quick-find chips: only real, published articles （避免點到還沒寫完的） -->
-        <div class="quick-find">
+        <!-- Quick-find chips: split into two rows (diseases / categories) -->
+        <!-- Row 1： by disease -->
+        <div class="quick-find" data-row="diseases">
       <a href="/blog/" data-zh="全部主題" data-en="All topics" style="background:var(--blue-soft);color:var(--blue-deep);border-color:#b8cfe3">全部主題</a>
-      <a href="/blog/dry-eye-myths" data-zh="乾眼症" data-en="Dry eye">乾眼症</a>
-      <a href="/blog/pediatric-myopia-control" data-zh="兒童近視控制" data-en="Pediatric myopia">兒童近視控制</a>
+      <a href="/blog/glaucoma-comprehensive-guide" data-zh="青光眼" data-en="Glaucoma">青光眼</a>
+      <a href="/blog/cataract-comprehensive-guide" data-zh="白內障" data-en="Cataract">白內障</a>
+      <a href="/blog/thyroid-eye-disease" data-zh="甲狀腺眼疾" data-en="TED">甲狀腺眼疾</a>
       <a href="/blog/floaters-retinal-detachment" data-zh="飛蚊症 / 視網膜剝離" data-en="Floaters / RD">飛蚊症 / 視網膜剝離</a>
       <a href="/blog/lacrimal-gland-tumor" data-zh="淚腺腫瘤" data-en="Lacrimal tumor">淚腺腫瘤</a>
-      <a href="/blog/thyroid-eye-disease" data-zh="甲狀腺眼疾" data-en="TED">甲狀腺眼疾</a>
-      <a href="/blog/cataract-comprehensive-guide" data-zh="白內障" data-en="Cataract">白內障</a>
-      <a href="/blog/glaucoma-comprehensive-guide" data-zh="青光眼" data-en="Glaucoma">青光眼</a>
+      <a href="/blog/dry-eye-myths" data-zh="乾眼症" data-en="Dry eye">乾眼症</a>
+      <a href="/blog/pediatric-myopia-control" data-zh="兒童近視控制" data-en="Pediatric myopia">兒童近視控制</a>
+    </div>
+        <!-- Row 2： by category (filters the search input) -->
+        <div class="quick-find quick-find-cat" data-row="categories" style="margin-top:8px">
+      <button type="button" class="qf-cat-chip" data-filter="警訊辨識" data-filter-en="Red Flags" data-zh="警訊辨識" data-en="Red Flags" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5">警訊辨識</button>
+      <button type="button" class="qf-cat-chip" data-filter="衛教" data-filter-en="Patient Ed" data-zh="衛教" data-en="Patient Ed" style="background:#ede9fe;color:#5b21b6;border-color:#ddd6fe">衛教</button>
+      <button type="button" class="qf-cat-chip" data-filter="迷思澄清" data-filter-en="Myth-busting" data-zh="迷思澄清" data-en="Myth-busting" style="background:#fef3c7;color:#854d0e;border-color:#fcd34d">迷思澄清</button>
+      <button type="button" class="qf-cat-chip" data-filter="手術" data-filter-en="Surgery" data-zh="手術" data-en="Surgery">手術</button>
+      <button type="button" class="qf-cat-chip" data-filter="常見問題" data-filter-en="FAQ" data-zh="常見問題" data-en="FAQ">常見問題</button>
     </div>
   </div>
 </section>
@@ -771,8 +783,31 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script src="/blog/blog-shared.js?v=20260638" defer></script>
-<script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
+<script src="/blog/blog-shared.js?v=20260639" defer></script>
+<script>document.addEventListener('DOMContentLoaded',function(){
+  if(window.DN)DN.initBlog({});
+  // Category-chip filter wiring: clicking a category chip fills the search input
+  // and triggers the existing home-search filter.
+  var input = document.getElementById('dn-search-input');
+  var chips = document.querySelectorAll('.qf-cat-chip');
+  if (input && chips.length) {
+    chips.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var isActive = btn.classList.contains('active');
+        chips.forEach(function(b){ b.classList.remove('active'); });
+        if (isActive) {
+          input.value = '';
+        } else {
+          var lang = (document.documentElement.lang || 'zh').toLowerCase().indexOf('en') === 0 ? 'en' : 'zh';
+          var filter = lang === 'en' ? (btn.getAttribute('data-filter-en') || btn.getAttribute('data-filter')) : btn.getAttribute('data-filter');
+          input.value = filter || '';
+          btn.classList.add('active');
+        }
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    });
+  }
+});</script>
 <script type="speculationrules">
 {
   "prerender": [
