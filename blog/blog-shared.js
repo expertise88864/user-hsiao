@@ -864,7 +864,7 @@
     // Style is set fully via JS so we can re-measure on resize. Width is
     // computed from the actual article bounding rect so the TOC NEVER
     // overlaps the content regardless of viewport / article container width.
-    aside.style.cssText = 'position:fixed;top:120px;max-height:calc(100vh - 160px);overflow-y:auto;padding:14px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 28px -14px rgba(58,90,124,.22);font-size:12.5px;line-height:1.7;z-index:30;display:none;';
+    aside.style.cssText = 'position:fixed;top:120px;max-height:calc(100vh - 160px);overflow-y:auto;padding:14px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 28px -14px rgba(58,90,124,.22);font-size:12.5px;line-height:1.7;z-index:30;display:none;transition:opacity .25s ease, transform .25s ease;';
     const proseEnFloat = document.getElementById('proseEn');
     function attrEscFloat(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
     let html = '<div style="font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--blue-deep);font-weight:700;margin-bottom:8px" data-zh="本篇大綱" data-en="Contents">本篇大綱</div><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px" id="hs-toc-list">';
@@ -922,6 +922,46 @@
     window.addEventListener('resize', reposition);
     // Also reposition after fonts load (article width may shift)
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(reposition);
+
+    // v34.14: auto-hide floating TOC when user scrolls into the mount-div /
+    // footer region (related, feedback, share, author-bio, support, footer).
+    // Otherwise the TOC overlaps the brand block at the bottom of the page.
+    // Hidden by fading + sliding out; restored when user scrolls back up.
+    var hideAnchor =
+      document.getElementById('hs-author-bio') ||
+      document.getElementById('hs-share') ||
+      document.getElementById('hs-feedback') ||
+      document.getElementById('hs-related') ||
+      document.querySelector('footer.mag-footer') ||
+      document.querySelector('main + footer');
+    if (hideAnchor) {
+      var tocHidden = false;
+      function applyTocHidden(hide) {
+        if (hide === tocHidden) return;
+        tocHidden = hide;
+        if (hide) {
+          aside.style.opacity = '0';
+          aside.style.pointerEvents = 'none';
+          aside.style.transform = 'translateX(-12px)';
+        } else {
+          aside.style.opacity = '';
+          aside.style.pointerEvents = '';
+          aside.style.transform = '';
+        }
+      }
+      function checkFooterCollision() {
+        // Only apply when TOC is actually displayed (gutter wide enough)
+        if (aside.style.display === 'none') return;
+        var rect = hideAnchor.getBoundingClientRect();
+        var viewportH = window.innerHeight;
+        // Hide once the anchor's top crosses above the viewport's mid-line —
+        // that means the user is already reading the bottom-of-page region.
+        applyTocHidden(rect.top < viewportH * 0.55);
+      }
+      window.addEventListener('scroll', checkFooterCollision, { passive: true });
+      window.addEventListener('resize', checkFooterCollision);
+      checkFooterCollision();
+    }
 
     aside.addEventListener('click', function (e) {
       const a = e.target.closest('a[data-toc]');
