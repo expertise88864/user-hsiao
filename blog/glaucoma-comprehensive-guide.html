@@ -42,12 +42,12 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260640" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260641" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260640" />
-<link rel="preload" as="style" href="/assets/article.css?v=20260640" />
-<link rel="stylesheet" href="/assets/article.css?v=20260640" />
+<link rel="stylesheet" href="/assets/app.css?v=20260641" />
+<link rel="preload" as="style" href="/assets/article.css?v=20260641" />
+<link rel="stylesheet" href="/assets/article.css?v=20260641" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -189,81 +189,146 @@
 
 <article class="max-w-3xl mx-auto px-5 sm:px-8 mb-16">
 
-<!-- Hero figure: Aqueous flow + open-angle vs angle-closure -->
+<!-- Hero figure: Aqueous flow + open-angle vs angle-closure (redesigned 2026-05-12) -->
 <figure class="article-fig" style="margin:24px auto 8px;padding:18px 22px;background:#fff;border:0.5px solid var(--border);border-radius:14px;max-width:680px">
-  <svg viewBox="0 0 600 360" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block" aria-labelledby="gl-anatomy-title" role="img">
+  <svg viewBox="0 0 600 460" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block" aria-labelledby="gl-anatomy-title" role="img">
     <title id="gl-anatomy-title">青光眼解剖：開角 vs 閉角型</title>
-    <rect width="600" height="360" fill="#faf7f2" />
-    <text x="300" y="28" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" data-zh="房水循環與兩大類青光眼" data-en="Aqueous Flow &amp; Two Main Glaucoma Types">房水循環與兩大類青光眼</text>
+    <rect width="600" height="460" fill="#faf7f2" />
+    <text x="300" y="26" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" data-zh="房水循環與兩大類青光眼" data-en="Aqueous Flow &amp; Two Main Glaucoma Types">房水循環與兩大類青光眼</text>
 
-    <!-- LEFT: Open-angle -->
-    <g transform="translate(40 60)">
-      <text x="120" y="0" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="12" font-weight="700" text-anchor="middle" data-zh="開角型 Open-angle (POAG)" data-en="Open-angle (POAG)">開角型 Open-angle (POAG)</text>
-      <!-- Eye cross-section -->
-      <path d="M 20 100 C 20 60 50 40 100 40 C 160 40 200 80 220 130 C 220 170 200 210 100 220 C 50 220 20 200 20 160 Z" fill="#fffaf2" stroke="#5e574e" stroke-width="2" />
-      <!-- Cornea bulge -->
-      <path d="M 20 100 C 20 80 25 65 35 60 C 30 90 30 130 35 160 C 25 155 20 140 20 130 Z" fill="#a4c4dd" opacity="0.4" stroke="#3a5a7c" stroke-width="1.2" />
-      <!-- Iris (open angle - normal position, leaving angle space) -->
-      <path d="M 38 80 L 70 105 L 70 130 L 38 145 Z" fill="#3a5a7c" opacity="0.5" />
-      <path d="M 38 145 L 70 130 L 70 155 L 38 165 Z" fill="#3a5a7c" opacity="0.5" />
+    <!-- Vertical divider between the two halves -->
+    <line x1="300" y1="50" x2="300" y2="380" stroke="#dcd5c8" stroke-width="1" stroke-dasharray="3 3" />
+
+    <!-- ============ LEFT: OPEN-ANGLE (POAG) ============ -->
+    <g transform="translate(20 56)">
+      <!-- Section title -->
+      <rect x="20" y="0" width="240" height="22" rx="6" fill="#3a5a7c" />
+      <text x="140" y="16" fill="#fff" font-family="Inter,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" data-zh="開角型 POAG（角度開、小樑網塞住）" data-en="Open-angle POAG (open angle, clogged TM)">開角型 POAG（角度開、小樑網塞住）</text>
+
+      <!-- Eye cross-section: anterior segment magnified -->
+      <!-- Sclera outline -->
+      <path d="M 50 50 C 50 38 60 32 80 32 C 130 32 220 60 230 130 C 230 175 130 200 80 200 C 60 200 50 192 50 180 Z" fill="#fffaf2" stroke="#5e574e" stroke-width="1.6" />
+      <!-- Cornea (transparent) -->
+      <path d="M 50 50 C 30 65 30 175 50 180 C 60 175 60 60 50 50 Z" fill="#a4c4dd" opacity="0.30" stroke="#3a5a7c" stroke-width="1.4" />
+      <!-- Iris (top + bottom triangles, leaving wide angle gap to corneal endothelium) -->
+      <path d="M 60 70 L 105 105 L 105 115 L 60 100 Z" fill="#9a3412" opacity="0.85" stroke="#7c2d12" stroke-width="0.8" />
+      <path d="M 60 132 L 105 117 L 105 127 L 60 162 Z" fill="#9a3412" opacity="0.85" stroke="#7c2d12" stroke-width="0.8" />
       <!-- Lens -->
-      <ellipse cx="105" cy="130" rx="30" ry="40" fill="#fff" stroke="#3a5a7c" stroke-width="1.5" />
-      <!-- Trabecular meshwork (with arrows showing aqueous flow but blocked) -->
-      <circle cx="38" cy="80" r="2" fill="#dc2626" />
-      <circle cx="38" cy="170" r="2" fill="#dc2626" />
-      <text x="35" y="76" fill="#dc2626" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="end">×</text>
-      <text x="35" y="178" fill="#dc2626" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="end">×</text>
-      <!-- Aqueous flow arrows (anterior chamber → trabecular meshwork at angle, kept clear of lens) -->
-      <path d="M 55 110 Q 42 100 32 90" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round" />
-      <polygon points="30,94 30,88 35,89" fill="#16a34a" />
-      <path d="M 55 140 Q 42 160 32 170" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round" />
-      <polygon points="30,166 30,172 35,171" fill="#16a34a" />
-      <!-- Flow label placed in clear upper-right area of eye to avoid lens overlap -->
-      <text x="170" y="70" fill="#16a34a" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" data-zh="房水順流" data-en="Aqueous flow">房水順流</text>
-      <!-- Trabecular meshwork blocked label -->
-      <text x="38" y="300" fill="#dc2626" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle">×</text>
-      <text x="120" y="245" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" data-zh="角膜與虹膜之間角度開放" data-en="Angle between cornea &amp; iris is OPEN">角膜與虹膜之間角度開放</text>
-      <text x="120" y="262" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="但小樑網（過濾系統）變硬" data-en="But trabecular meshwork is clogged">但小樑網（過濾系統）變硬</text>
-      <text x="120" y="278" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="排水變慢 → 眼壓慢慢升高" data-en="Outflow slows → IOP rises gradually">排水變慢 → 眼壓慢慢升高</text>
-      <text x="120" y="298" fill="#9a3412" font-family="Inter,sans-serif" font-size="9.5" font-style="italic" text-anchor="middle" data-zh="慢性、無症狀、最常見" data-en="Chronic, asymptomatic, most common">慢性、無症狀、最常見</text>
+      <ellipse cx="135" cy="116" rx="28" ry="42" fill="#fff" stroke="#3a5a7c" stroke-width="1.4" />
+      <!-- Ciliary body (where aqueous is produced) -->
+      <ellipse cx="175" cy="80" rx="14" ry="9" fill="#fbbf24" opacity="0.70" stroke="#9a3412" stroke-width="0.8" />
+      <ellipse cx="175" cy="152" rx="14" ry="9" fill="#fbbf24" opacity="0.70" stroke="#9a3412" stroke-width="0.8" />
+      <!-- Trabecular meshwork (open angle, but blocked) -->
+      <rect x="48" y="62" width="10" height="6" fill="#dc2626" opacity="0.85" />
+      <rect x="48" y="164" width="10" height="6" fill="#dc2626" opacity="0.85" />
+      <!-- Aqueous flow arrows: ciliary body -> posterior chamber -> through pupil -> AC -> TM -->
+      <!-- Stage 1： ciliary body produces (small green dots/arrows) -->
+      <path d="M 170 88 Q 155 96 142 100" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round" />
+      <polygon points="142,98 138,100 142,103" fill="#16a34a" />
+      <path d="M 170 144 Q 155 138 142 134" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round" />
+      <polygon points="142,131 138,134 142,136" fill="#16a34a" />
+      <!-- Stage 2： through pupil (between iris top and bottom) -->
+      <path d="M 110 110 Q 100 115 90 116" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round" />
+      <polygon points="90,114 86,116 90,118" fill="#16a34a" />
+      <path d="M 110 122 Q 100 122 90 121" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round" />
+      <polygon points="90,119 86,121 90,123" fill="#16a34a" />
+      <!-- Stage 3： anterior chamber to angle (slow / blocked at TM) -->
+      <path d="M 80 100 Q 65 80 55 70" fill="none" stroke="#16a34a" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="3 2" />
+      <path d="M 80 132 Q 65 152 55 162" fill="none" stroke="#16a34a" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="3 2" />
+      <!-- Red blocked symbols at TM -->
+      <text x="40" y="69" fill="#dc2626" font-family="Inter,sans-serif" font-size="14" font-weight="900" text-anchor="end">×</text>
+      <text x="40" y="173" fill="#dc2626" font-family="Inter,sans-serif" font-size="14" font-weight="900" text-anchor="end">×</text>
+
+      <!-- ====== Labels with leader lines OUTSIDE the eye ====== -->
+      <!-- Cornea label (top-left) -->
+      <text x="50" y="218" fill="#3a5a7c" font-family="'Noto Sans TC',sans-serif" font-size="10" data-zh="角膜" data-en="Cornea">角膜</text>
+      <line x1="50" y1="214" x2="48" y2="180" stroke="#3a5a7c" stroke-width="0.6" />
+      <!-- Iris label -->
+      <text x="80" y="232" fill="#3a5a7c" font-family="'Noto Sans TC',sans-serif" font-size="10" data-zh="虹膜" data-en="Iris">虹膜</text>
+      <line x1="80" y1="228" x2="82" y2="155" stroke="#3a5a7c" stroke-width="0.6" />
+      <!-- Lens label -->
+      <text x="135" y="218" fill="#3a5a7c" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="水晶體" data-en="Lens">水晶體</text>
+      <line x1="135" y1="214" x2="135" y2="158" stroke="#3a5a7c" stroke-width="0.6" />
+      <!-- Ciliary body label -->
+      <text x="200" y="232" fill="#9a3412" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="睫狀體（製造房水）" data-en="Ciliary body (aqueous production)">睫狀體（製造房水）</text>
+      <line x1="200" y1="228" x2="190" y2="155" stroke="#9a3412" stroke-width="0.6" />
+
+      <!-- TM label (the red bar) -->
+      <text x="20" y="246" fill="#dc2626" font-family="'Noto Sans TC',sans-serif" font-size="10" font-weight="700" data-zh="小樑網塞住" data-en="TM clogged">小樑網塞住</text>
+      <line x1="40" y1="242" x2="48" y2="170" stroke="#dc2626" stroke-width="0.6" />
+
+      <!-- Bottom summary -->
+      <text x="140" y="268" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" data-zh="角度開放、但小樑網過濾功能差" data-en="Angle open, but TM outflow impaired">角度開放、但小樑網過濾功能差</text>
+      <text x="140" y="284" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="排水變慢 → 眼壓慢慢升高" data-en="Outflow slows → IOP rises gradually">排水變慢 → 眼壓慢慢升高</text>
+      <text x="140" y="302" fill="#9a3412" font-family="Inter,sans-serif" font-size="9.5" font-style="italic" text-anchor="middle" data-zh="慢性、無症狀、最常見" data-en="Chronic, asymptomatic, most common">慢性、無症狀、最常見</text>
     </g>
 
-    <!-- Divider -->
-    <line x1="300" y1="50" x2="300" y2="320" stroke="#dcd5c8" stroke-width="1" stroke-dasharray="3 3" />
+    <!-- ============ RIGHT: ANGLE-CLOSURE (PACG) ============ -->
+    <g transform="translate(320 56)">
+      <!-- Section title -->
+      <rect x="20" y="0" width="240" height="22" rx="6" fill="#991b1b" />
+      <text x="140" y="16" fill="#fff" font-family="Inter,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" data-zh="閉角型 PACG（虹膜貼住、角度堵死）" data-en="Angle-closure PACG (iris blocking angle)">閉角型 PACG（虹膜貼住、角度堵死）</text>
 
-    <!-- RIGHT: Angle-closure -->
-    <g transform="translate(330 60)">
-      <text x="120" y="0" fill="#dc2626" font-family="Inter,sans-serif" font-size="12" font-weight="700" text-anchor="middle" data-zh="閉角型 Angle-closure (PACG)" data-en="Angle-closure (PACG)">閉角型 Angle-closure (PACG)</text>
-      <!-- Eye cross-section (smaller eye/shorter axial length, hyperopic) -->
-      <path d="M 30 100 C 30 70 60 50 110 50 C 170 50 210 90 210 130 C 210 165 190 200 110 215 C 60 215 30 195 30 165 Z" fill="#fffaf2" stroke="#5e574e" stroke-width="2" />
-      <!-- Cornea bulge -->
-      <path d="M 30 100 C 30 80 35 65 45 60 C 40 90 40 130 45 160 C 35 155 30 140 30 130 Z" fill="#a4c4dd" opacity="0.4" stroke="#3a5a7c" stroke-width="1.2" />
-      <!-- Iris bowing forward (anterior bowing, blocking angle) -->
-      <path d="M 48 75 Q 70 110 95 110 L 100 130 Q 70 130 48 165 Z" fill="#dc2626" opacity="0.55" stroke="#7c2d12" stroke-width="1.5" />
-      <!-- Lens (slightly more anterior, larger - typical PACG anatomy) -->
-      <ellipse cx="105" cy="130" rx="32" ry="42" fill="#fff" stroke="#7c2d12" stroke-width="1.8" />
-      <!-- Pupillary block - blocked aqueous behind iris -->
-      <path d="M 95 100 L 95 115" stroke="#dc2626" stroke-width="2" stroke-dasharray="2 2" />
-      <!-- Pupillary block label moved out of lens area, with leader line to pupillary block -->
-      <text x="170" y="70" fill="#dc2626" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" data-zh="瞳孔阻塞" data-en="Pupillary block">瞳孔阻塞</text>
-      <line x1="158" y1="73" x2="100" y2="108" stroke="#dc2626" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.6" />
-      <!-- Closed angle red x -->
-      <circle cx="48" cy="75" r="4" fill="none" stroke="#dc2626" stroke-width="2" />
-      <line x1="44" y1="71" x2="52" y2="79" stroke="#dc2626" stroke-width="2" />
-      <line x1="52" y1="71" x2="44" y2="79" stroke="#dc2626" stroke-width="2" />
-      <circle cx="48" cy="170" r="4" fill="none" stroke="#dc2626" stroke-width="2" />
-      <line x1="44" y1="166" x2="52" y2="174" stroke="#dc2626" stroke-width="2" />
-      <line x1="52" y1="166" x2="44" y2="174" stroke="#dc2626" stroke-width="2" />
-      <text x="120" y="245" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" data-zh="虹膜往前膨出貼住角膜" data-en="Iris bows forward, blocking angle">虹膜往前膨出貼住角膜</text>
-      <text x="120" y="262" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="角度關閉 → 房水完全排不出" data-en="Angle closed → no outflow">角度關閉 → 房水完全排不出</text>
-      <text x="120" y="278" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="眼壓急遽飆升 (40-80 mmHg)" data-en="IOP soars (40-80 mmHg)">眼壓急遽飆升 (40-80 mmHg)</text>
-      <text x="120" y="298" fill="#dc2626" font-family="Inter,sans-serif" font-size="9.5" font-style="italic" text-anchor="middle" data-zh="可急性 = 眼科急症" data-en="May be acute = ER emergency">可急性 = 眼科急症</text>
+      <!-- Eye cross-section: shorter axial length, shallower AC, more crowded -->
+      <path d="M 55 50 C 55 38 65 32 90 32 C 135 32 215 60 220 130 C 220 170 135 200 90 200 C 65 200 55 192 55 180 Z" fill="#fffaf2" stroke="#5e574e" stroke-width="1.6" />
+      <!-- Cornea -->
+      <path d="M 55 50 C 38 65 38 175 55 180 C 65 175 65 60 55 50 Z" fill="#a4c4dd" opacity="0.30" stroke="#3a5a7c" stroke-width="1.4" />
+      <!-- Iris bowing FORWARD (anterior bowing, blocking angle) -->
+      <path d="M 62 65 Q 88 95 105 110 L 110 122 Q 88 135 62 165 Z" fill="#dc2626" opacity="0.65" stroke="#7c2d12" stroke-width="1.2" />
+      <!-- Lens — shifted slightly anterior, larger (typical PACG) -->
+      <ellipse cx="135" cy="116" rx="30" ry="44" fill="#fff" stroke="#7c2d12" stroke-width="1.6" />
+      <!-- Ciliary body -->
+      <ellipse cx="175" cy="80" rx="14" ry="9" fill="#fbbf24" opacity="0.70" stroke="#9a3412" stroke-width="0.8" />
+      <ellipse cx="175" cy="152" rx="14" ry="9" fill="#fbbf24" opacity="0.70" stroke="#9a3412" stroke-width="0.8" />
+      <!-- Aqueous BLOCKED behind iris (pupillary block) -->
+      <path d="M 170 88 Q 152 96 130 100" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round" />
+      <polygon points="130,98 126,100 130,103" fill="#16a34a" />
+      <path d="M 170 144 Q 152 138 130 134" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round" />
+      <polygon points="130,131 126,134 130,136" fill="#16a34a" />
+      <!-- Pupillary block × at iris-lens contact -->
+      <text x="118" y="120" fill="#dc2626" font-family="Inter,sans-serif" font-size="20" font-weight="900" text-anchor="middle">×</text>
+      <!-- Closed angle (× at TM area) -->
+      <text x="48" y="74" fill="#dc2626" font-family="Inter,sans-serif" font-size="16" font-weight="900" text-anchor="end">×</text>
+      <text x="48" y="174" fill="#dc2626" font-family="Inter,sans-serif" font-size="16" font-weight="900" text-anchor="end">×</text>
+
+      <!-- ====== Labels OUTSIDE the eye ====== -->
+      <text x="55" y="218" fill="#3a5a7c" font-family="'Noto Sans TC',sans-serif" font-size="10" data-zh="角膜" data-en="Cornea">角膜</text>
+      <line x1="55" y1="214" x2="55" y2="180" stroke="#3a5a7c" stroke-width="0.6" />
+      <text x="78" y="232" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10" font-weight="700" data-zh="虹膜往前膨出" data-en="Iris bowing forward">虹膜往前膨出</text>
+      <line x1="78" y1="228" x2="85" y2="160" stroke="#7c2d12" stroke-width="0.6" />
+      <text x="135" y="218" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10" font-weight="700" text-anchor="middle" data-zh="水晶體變厚／前移" data-en="Lens thickened/anterior">水晶體變厚／前移</text>
+      <line x1="135" y1="214" x2="135" y2="160" stroke="#7c2d12" stroke-width="0.6" />
+      <text x="200" y="232" fill="#9a3412" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="睫狀體（仍製造房水）" data-en="Ciliary body (still producing)">睫狀體（仍製造房水）</text>
+      <line x1="200" y1="228" x2="190" y2="155" stroke="#9a3412" stroke-width="0.6" />
+      <!-- Pupillary block label -->
+      <text x="20" y="246" fill="#dc2626" font-family="'Noto Sans TC',sans-serif" font-size="10" font-weight="700" data-zh="瞳孔阻塞 + 角度堵死" data-en="Pupillary block + angle closed">瞳孔阻塞 + 角度堵死</text>
+      <line x1="60" y1="242" x2="115" y2="120" stroke="#dc2626" stroke-width="0.6" stroke-dasharray="2 2" />
+
+      <text x="140" y="268" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" data-zh="虹膜貼住、角度物理性關閉" data-en="Iris physically blocks angle">虹膜貼住、角度物理性關閉</text>
+      <text x="140" y="284" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="眼壓急遽飆升（40-80 mmHg）" data-en="IOP soars (40-80 mmHg)">眼壓急遽飆升（40-80 mmHg）</text>
+      <text x="140" y="302" fill="#dc2626" font-family="Inter,sans-serif" font-size="9.5" font-style="italic" text-anchor="middle" data-zh="可急性 = 眼科急症" data-en="May be acute = ER emergency">可急性 = 眼科急症</text>
     </g>
 
-    <line x1="40" y1="335" x2="560" y2="335" stroke="#dcd5c8" stroke-width="1" stroke-dasharray="3 3" />
-    <text x="300" y="350" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="* 此外還有「正常眼壓型青光眼 (NTG)」── 視神經受損但 IOP 正常；亞洲族群比例高" data-en="* Also note 'normal-tension glaucoma (NTG)' — optic-nerve damage with normal IOP; common in Asian populations">* 此外還有「正常眼壓型青光眼 (NTG)」── 視神經受損但 IOP 正常；亞洲族群比例高</text>
+    <!-- Legend bar -->
+    <g transform="translate(40 392)">
+      <line x1="0" y1="6" x2="22" y2="6" stroke="#16a34a" stroke-width="2" stroke-linecap="round" />
+      <polygon points="22,4 26,6 22,8" fill="#16a34a" />
+      <text x="32" y="10" fill="#16a34a" font-family="Inter,sans-serif" font-size="10.5" font-weight="600" data-zh="房水流向" data-en="Aqueous flow">房水流向</text>
+
+      <text x="120" y="10" fill="#dc2626" font-family="Inter,sans-serif" font-size="14" font-weight="900">×</text>
+      <text x="135" y="10" fill="#dc2626" font-family="Inter,sans-serif" font-size="10.5" font-weight="600" data-zh="排水阻塞處" data-en="Outflow blocked">排水阻塞處</text>
+
+      <ellipse cx="232" cy="6" rx="6" ry="4" fill="#fbbf24" opacity="0.7" stroke="#9a3412" stroke-width="0.6" />
+      <text x="244" y="10" fill="#9a3412" font-family="Inter,sans-serif" font-size="10.5" font-weight="600" data-zh="睫狀體（製造房水）" data-en="Ciliary body (production)">睫狀體（製造房水）</text>
+
+      <rect x="380" y="2" width="12" height="6" fill="#dc2626" opacity="0.85" />
+      <text x="396" y="10" fill="#dc2626" font-family="Inter,sans-serif" font-size="10.5" font-weight="600" data-zh="小樑網（過濾排水處）" data-en="TM (drainage filter)">小樑網（過濾排水處）</text>
+    </g>
+
+    <line x1="40" y1="416" x2="560" y2="416" stroke="#dcd5c8" stroke-width="1" stroke-dasharray="3 3" />
+    <text x="300" y="436" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="* 還有第三種：正常眼壓型青光眼（NTG）── IOP 正常但視神經仍受損；亞洲人特別多" data-en="* Third type: normal-tension glaucoma (NTG) — IOP normal but optic-nerve damaged; especially common in Asians">* 還有第三種：正常眼壓型青光眼（NTG）── IOP 正常但視神經仍受損；亞洲人特別多</text>
   </svg>
-  <figcaption style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.75" data-zh="<strong>青光眼兩大類</strong>：(左) <strong>開角型</strong>──角膜與虹膜的角度仍開放，但小樑網（房水排水的過濾系統）功能變差，房水排不出去使眼壓慢慢升高。多數無症狀、慢性進展，是最常見的青光眼。(右) <strong>閉角型</strong>──虹膜往前膨出貼住角膜後方的角度，房水完全排不出，眼壓可能急遽升高（40-80 mmHg）造成急性發作（眼科急症）。亞洲人因眼軸短、前房淺，閉角型比例相對歐美高。<strong>還有第三種</strong>：正常眼壓型青光眼（NTG）── 眼壓在「正常範圍」（≤ 21 mmHg）但仍有視神經損傷，亞洲人特別多。所以診斷青光眼<strong>不能只看眼壓</strong>。" data-en="<strong>Two main types</strong>: (Left) <strong>Open-angle</strong> — the iridocorneal angle remains open, but the trabecular meshwork (aqueous outflow filter) becomes dysfunctional, slowly raising IOP. Mostly asymptomatic and chronic — the most common type. (Right) <strong>Angle-closure</strong> — the iris bows forward and blocks the angle behind the cornea; aqueous cannot escape and IOP can spike to 40-80 mmHg, sometimes acutely (ophthalmic emergency). More common in Asian populations because of shorter axial length and shallower anterior chambers. A third form — <strong>normal-tension glaucoma (NTG)</strong> — has optic-nerve damage despite IOP within the 'normal' range (≤21 mmHg) and is especially common among Asians. Glaucoma diagnosis therefore cannot rely on IOP alone."><strong>青光眼兩大類</strong>：（左） <strong>開角型</strong>──角膜與虹膜的角度仍開放，但小樑網（房水排水的過濾系統）功能變差，房水排不出去使眼壓慢慢升高。多數無症狀、慢性進展，是最常見的青光眼。（右） <strong>閉角型</strong>──虹膜往前膨出貼住角膜後方的角度，房水完全排不出，眼壓可能急遽升高（40-80 mmHg）造成急性發作（眼科急症）。亞洲人因眼軸短、前房淺，閉角型比例相對歐美高。<strong>還有第三種</strong>：正常眼壓型青光眼（NTG）── 眼壓在「正常範圍」（≤ 21 mmHg）但仍有視神經損傷，亞洲人特別多。所以診斷青光眼<strong>不能只看眼壓</strong>。</figcaption>
+  <figcaption style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.75" data-zh="<strong>青光眼兩大類</strong>：（左）<strong>開角型 POAG</strong>──角膜與虹膜的角度仍開放，房水可以流到角度，但<strong>小樑網（負責過濾排水）功能變差</strong>，房水排不出去，眼壓慢慢升高。多數無症狀、慢性進展，是最常見的青光眼。（右）<strong>閉角型 PACG</strong>──虹膜往前膨出貼住角膜後方的角度，<strong>瞳孔阻塞 + 角度物理性關閉</strong>，房水完全排不出，眼壓可能急遽升高（40-80 mmHg）造成急性發作（眼科急症）。亞洲人因眼軸短、前房淺、水晶體相對較大，閉角型比例相對歐美高。<strong>還有第三種</strong>：正常眼壓型青光眼（NTG）── 眼壓在「正常範圍」（≤ 21 mmHg）但仍有視神經損傷，亞洲人特別多。所以診斷青光眼<strong>不能只看眼壓</strong>。" data-en="<strong>Two main types</strong>: (Left) <strong>Open-angle POAG</strong> — the iridocorneal angle remains open, aqueous can reach the angle, but the <strong>trabecular meshwork (the drainage filter) becomes dysfunctional</strong>; outflow slows and IOP rises. Mostly asymptomatic and chronic — the most common type. (Right) <strong>Angle-closure PACG</strong> — the iris bows forward and physically blocks the angle behind the cornea; <strong>pupillary block + angle physically closed</strong>; aqueous cannot escape and IOP can spike to 40-80 mmHg, sometimes acutely (ophthalmic emergency). More common in Asians (shorter axial length, shallower anterior chamber, larger lens). A third form — <strong>normal-tension glaucoma (NTG)</strong> — has optic-nerve damage despite IOP within the 'normal' range (≤21 mmHg) and is especially common among Asians. Glaucoma diagnosis therefore cannot rely on IOP alone."><strong>青光眼兩大類</strong>：（左）<strong>開角型 POAG</strong>──角膜與虹膜的角度仍開放，房水可以流到角度，但<strong>小樑網（負責過濾排水）功能變差</strong>，房水排不出去，眼壓慢慢升高。多數無症狀、慢性進展，是最常見的青光眼。（右）<strong>閉角型 PACG</strong>──虹膜往前膨出貼住角膜後方的角度，<strong>瞳孔阻塞 + 角度物理性關閉</strong>，房水完全排不出，眼壓可能急遽升高（40-80 mmHg）造成急性發作（眼科急症）。亞洲人因眼軸短、前房淺、水晶體相對較大，閉角型比例相對歐美高。<strong>還有第三種</strong>：正常眼壓型青光眼（NTG）── 眼壓在「正常範圍」（≤ 21 mmHg）但仍有視神經損傷，亞洲人特別多。所以診斷青光眼<strong>不能只看眼壓</strong>。</figcaption>
 </figure>
 
 <div id="proseZh" class="prose">
@@ -394,88 +459,138 @@
 
 <p data-zh="<strong>常見誘發情境：</strong>暗處瞳孔放大（電影院、晚上）、特定藥物（某些感冒藥、抗膽鹼藥、某些精神科藥）、情緒壓力、長時間頭低姿勢。" data-en="<strong>Common triggers</strong>: dim environments dilating the pupil (cinemas, evening), certain medications (some cold meds, anticholinergics, some psychiatric drugs), emotional stress, prolonged head-down posture."><strong>常見誘發情境：</strong>暗處瞳孔放大（電影院、晚上）、特定藥物（某些感冒藥、抗膽鹼藥、某些精神科藥）、情緒壓力、長時間頭低姿勢。</p>
 
-<!-- Visual field defect progression SVG -->
+<!-- Visual field defect progression SVG (redesigned 2026-05-12: anatomically accurate for left eye, patient view) -->
 <figure class="article-fig" style="margin:24px auto;padding:18px 22px;background:#fff;border:0.5px solid var(--border);border-radius:14px;max-width:680px">
-  <svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block" aria-labelledby="gl-vf-title" role="img">
+  <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block" aria-labelledby="gl-vf-title" role="img">
     <title id="gl-vf-title">青光眼視野缺損進展四階段</title>
-    <rect width="600" height="320" fill="#faf7f2" />
-    <text x="300" y="26" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" data-zh="視野缺損進展（病人視角，左眼）" data-en="Progression of Visual-Field Loss (patient view, left eye)">視野缺損進展（病人視角，左眼）</text>
+    <rect width="600" height="400" fill="#faf7f2" />
+    <text x="300" y="22" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" data-zh="視野缺損進展（病人視角，左眼）" data-en="Progression of Visual-Field Loss (patient view, left eye)">視野缺損進展（病人視角，左眼）</text>
+    <text x="300" y="38" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="左眼病人視角：右側=鼻側、左側=顳側" data-en="Left eye patient view: right=nasal, left=temporal">左眼病人視角：右側=鼻側、左側=顳側</text>
 
-    <!-- 4 stages -->
-    <!-- Stage 1： Normal -->
-    <g transform="translate(40 50)">
-      <text x="60" y="0" fill="#16a34a" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" data-zh="① 正常" data-en="① Normal">① 正常</text>
-      <!-- Park scene placeholder - simple circle -->
-      <circle cx="60" cy="80" r="55" fill="#a4c4dd" opacity="0.2" stroke="#3a5a7c" stroke-width="1" />
-      <!-- Sun -->
-      <circle cx="40" cy="55" r="9" fill="#fbbf24" />
-      <!-- Tree -->
-      <path d="M 80 85 L 80 100 M 75 80 Q 80 60 85 80" fill="#16a34a" stroke="#14532d" stroke-width="1" />
-      <ellipse cx="80" cy="78" rx="12" ry="10" fill="#16a34a" opacity="0.7" />
-      <!-- Person silhouette -->
-      <circle cx="60" cy="80" r="5" fill="#7c2d12" />
-      <rect x="56" y="85" width="8" height="14" fill="#7c2d12" />
-      <!-- Center fixation cross -->
-      <line x1="55" y1="80" x2="65" y2="80" stroke="#dc2626" stroke-width="1" />
-      <line x1="60" y1="75" x2="60" y2="85" stroke="#dc2626" stroke-width="1" />
-      <text x="60" y="155" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="完整視野" data-en="Full field">完整視野</text>
-      <text x="60" y="170" fill="#16a34a" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" data-zh="MD &gt; -2 dB" data-en="MD &gt; -2 dB">MD &gt; -2 dB</text>
+    <!-- ============ STAGE 1： NORMAL ============ -->
+    <g transform="translate(20 60)">
+      <text x="70" y="0" fill="#16a34a" font-family="Inter,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" data-zh="① 正常" data-en="① Normal">① 正常</text>
+      <!-- Field circle -->
+      <circle cx="70" cy="80" r="62" fill="#f0f9ff" stroke="#3a5a7c" stroke-width="1" />
+      <!-- Concentric rings indicating eccentricity (10°/20°/30°) -->
+      <circle cx="70" cy="80" r="22" fill="none" stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="2 2" />
+      <circle cx="70" cy="80" r="42" fill="none" stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="2 2" />
+      <!-- Cardinal direction labels (small) -->
+      <text x="70" y="22" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" data-zh="上" data-en="S">上</text>
+      <text x="70" y="148" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" data-zh="下" data-en="I">下</text>
+      <text x="2" y="84" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" data-zh="顳" data-en="T">顳</text>
+      <text x="138" y="84" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" data-zh="鼻" data-en="N">鼻</text>
+      <!-- Central fixation cross -->
+      <line x1="64" y1="80" x2="76" y2="80" stroke="#dc2626" stroke-width="1.2" />
+      <line x1="70" y1="74" x2="70" y2="86" stroke="#dc2626" stroke-width="1.2" />
+      <!-- Blind spot (normal anatomic): temporal side, slightly below horizontal, ~15° from fixation -->
+      <ellipse cx="40" cy="86" rx="6" ry="5" fill="#94a3b8" opacity="0.5" />
+      <text x="40" y="105" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="8" text-anchor="middle" data-zh="生理盲點" data-en="Physiologic blind spot">生理盲點</text>
+      <!-- Caption -->
+      <text x="70" y="162" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="完整視野" data-en="Full field">完整視野</text>
+      <text x="70" y="177" fill="#16a34a" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" data-zh="MD &gt; -2 dB" data-en="MD &gt; -2 dB">MD &gt; -2 dB</text>
     </g>
 
-    <!-- Stage 2： Early arcuate / nasal step -->
-    <g transform="translate(190 50)">
-      <text x="60" y="0" fill="#fbbf24" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" data-zh="② 早期" data-en="② Early">② 早期</text>
-      <circle cx="60" cy="80" r="55" fill="#a4c4dd" opacity="0.2" stroke="#3a5a7c" stroke-width="1" />
-      <!-- Same scene -->
-      <circle cx="40" cy="55" r="9" fill="#fbbf24" />
-      <ellipse cx="80" cy="78" rx="12" ry="10" fill="#16a34a" opacity="0.7" />
-      <circle cx="60" cy="80" r="5" fill="#7c2d12" />
-      <rect x="56" y="85" width="8" height="14" fill="#7c2d12" />
-      <line x1="55" y1="80" x2="65" y2="80" stroke="#dc2626" stroke-width="1" />
-      <line x1="60" y1="75" x2="60" y2="85" stroke="#dc2626" stroke-width="1" />
-      <!-- Nasal step defect (upper nasal area cloudy/dark) -->
-      <path d="M 60 80 Q 90 50 115 60 Q 110 75 95 80 Q 75 80 60 80 Z" fill="#2a2620" opacity="0.55" />
-      <text x="60" y="155" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="鼻側階梯缺損" data-en="Nasal step">鼻側階梯缺損</text>
-      <text x="60" y="170" fill="#9a3412" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" data-zh="MD -2 ~ -6 dB" data-en="MD -2 ~ -6 dB">MD -2 ~ -6 dB</text>
+    <!-- ============ STAGE 2： EARLY (nasal step + small superior paracentral) ============ -->
+    <g transform="translate(170 60)">
+      <text x="70" y="0" fill="#fbbf24" font-family="Inter,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" data-zh="② 早期" data-en="② Early">② 早期</text>
+      <circle cx="70" cy="80" r="62" fill="#f0f9ff" stroke="#3a5a7c" stroke-width="1" />
+      <circle cx="70" cy="80" r="22" fill="none" stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="2 2" />
+      <circle cx="70" cy="80" r="42" fill="none" stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="2 2" />
+      <text x="70" y="22" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" data-zh="上" data-en="S">上</text>
+      <text x="70" y="148" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" data-zh="下" data-en="I">下</text>
+      <text x="2" y="84" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" data-zh="顳" data-en="T">顳</text>
+      <text x="138" y="84" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" data-zh="鼻" data-en="N">鼻</text>
+      <!-- Nasal step: superior nasal area, just above horizontal raphe (right side, slightly above center) -->
+      <!-- A small wedge at upper nasal, ending at horizontal -->
+      <path d="M 100 60 Q 122 55 130 70 Q 130 78 128 80 L 100 80 Z" fill="#475569" opacity="0.65" />
+      <!-- Small paracentral defect superior to fixation (Bjerrum area, ~10-15°) -->
+      <ellipse cx="80" cy="65" rx="6" ry="4" fill="#475569" opacity="0.55" />
+      <!-- Fixation cross -->
+      <line x1="64" y1="80" x2="76" y2="80" stroke="#dc2626" stroke-width="1.2" />
+      <line x1="70" y1="74" x2="70" y2="86" stroke="#dc2626" stroke-width="1.2" />
+      <!-- Blind spot still present -->
+      <ellipse cx="40" cy="86" rx="6" ry="5" fill="#94a3b8" opacity="0.5" />
+      <!-- Defect labels with leader lines -->
+      <text x="142" y="60" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="9" text-anchor="end" data-zh="鼻側階梯" data-en="Nasal step">鼻側階梯</text>
+      <line x1="120" y1="62" x2="135" y2="55" stroke="#7c2d12" stroke-width="0.5" />
+      <text x="70" y="162" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="鼻側階梯 + 旁中央小盲點" data-en="Nasal step + small paracentral">鼻側階梯 + 旁中央小盲點</text>
+      <text x="70" y="177" fill="#9a3412" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" data-zh="MD -2 ~ -6 dB" data-en="MD -2 ~ -6 dB">MD -2 ~ -6 dB</text>
     </g>
 
-    <!-- Stage 3： Moderate (arcuate) -->
-    <g transform="translate(340 50)">
-      <text x="60" y="0" fill="#dc2626" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" data-zh="③ 中度" data-en="③ Moderate">③ 中度</text>
-      <circle cx="60" cy="80" r="55" fill="#a4c4dd" opacity="0.2" stroke="#3a5a7c" stroke-width="1" />
-      <circle cx="40" cy="55" r="9" fill="#fbbf24" opacity="0.4" />
-      <ellipse cx="80" cy="78" rx="12" ry="10" fill="#16a34a" opacity="0.7" />
-      <circle cx="60" cy="80" r="5" fill="#7c2d12" />
-      <rect x="56" y="85" width="8" height="14" fill="#7c2d12" />
-      <line x1="55" y1="80" x2="65" y2="80" stroke="#dc2626" stroke-width="1" />
-      <line x1="60" y1="75" x2="60" y2="85" stroke="#dc2626" stroke-width="1" />
-      <!-- Arcuate scotoma -->
-      <path d="M 60 80 Q 100 40 115 65 Q 120 95 95 100 Q 75 95 60 80 Z" fill="#2a2620" opacity="0.7" />
-      <path d="M 60 80 Q 30 90 18 60 Q 20 35 50 35 Q 60 50 60 80 Z" fill="#2a2620" opacity="0.45" />
-      <text x="60" y="155" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="弓形缺損" data-en="Arcuate defect">弓形缺損</text>
-      <text x="60" y="170" fill="#dc2626" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" data-zh="MD -6 ~ -12 dB" data-en="MD -6 ~ -12 dB">MD -6 ~ -12 dB</text>
+    <!-- ============ STAGE 3： MODERATE (superior arcuate scotoma) ============ -->
+    <g transform="translate(320 60)">
+      <text x="70" y="0" fill="#dc2626" font-family="Inter,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" data-zh="③ 中度" data-en="③ Moderate">③ 中度</text>
+      <circle cx="70" cy="80" r="62" fill="#f0f9ff" stroke="#3a5a7c" stroke-width="1" />
+      <circle cx="70" cy="80" r="22" fill="none" stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="2 2" />
+      <circle cx="70" cy="80" r="42" fill="none" stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="2 2" />
+      <text x="70" y="22" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" data-zh="上" data-en="S">上</text>
+      <text x="70" y="148" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" data-zh="下" data-en="I">下</text>
+      <text x="2" y="84" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" data-zh="顳" data-en="T">顳</text>
+      <text x="138" y="84" fill="#94a3b8" font-family="Inter,sans-serif" font-size="9" data-zh="鼻" data-en="N">鼻</text>
+      <!-- Superior arcuate scotoma: arises from blind spot, arches around fixation,
+           ends at nasal horizontal raphe. For LEFT eye: starts on left (~temp), arches up, ends on right.
+           Defined as a curved band (not closed loop) sparing the central 5° -->
+      <path d="M 40 86 Q 38 70 45 50 Q 65 32 90 35 Q 110 38 122 50 Q 128 60 128 78 Q 110 64 90 60 Q 70 58 60 65 Q 52 72 50 80 Q 50 86 40 86 Z" fill="#1e293b" opacity="0.78" />
+      <!-- Smaller inferior nasal step -->
+      <path d="M 100 100 Q 122 105 128 95 L 128 92 L 100 92 Z" fill="#475569" opacity="0.50" />
+      <!-- Fixation cross -->
+      <line x1="64" y1="80" x2="76" y2="80" stroke="#dc2626" stroke-width="1.2" />
+      <line x1="70" y1="74" x2="70" y2="86" stroke="#dc2626" stroke-width="1.2" />
+      <!-- Defect labels -->
+      <text x="0" y="48" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="9" data-zh="弓形缺損" data-en="Arcuate scotoma">弓形缺損</text>
+      <line x1="20" y1="50" x2="48" y2="56" stroke="#7c2d12" stroke-width="0.5" />
+      <text x="70" y="162" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="上方弓形缺損（Bjerrum 區）" data-en="Superior arcuate (Bjerrum area)">上方弓形缺損（Bjerrum 區）</text>
+      <text x="70" y="177" fill="#dc2626" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" data-zh="MD -6 ~ -12 dB" data-en="MD -6 ~ -12 dB">MD -6 ~ -12 dB</text>
     </g>
 
-    <!-- Stage 4： Advanced (tunnel vision) -->
-    <g transform="translate(490 50)">
-      <text x="60" y="0" fill="#7c2d12" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" data-zh="④ 晚期" data-en="④ Advanced">④ 晚期</text>
-      <circle cx="60" cy="80" r="55" fill="#2a2620" opacity="0.85" stroke="#3a5a7c" stroke-width="1" />
-      <!-- Tiny central island -->
-      <circle cx="60" cy="80" r="14" fill="#fff" />
-      <circle cx="60" cy="80" r="5" fill="#7c2d12" />
-      <line x1="55" y1="80" x2="65" y2="80" stroke="#dc2626" stroke-width="1" />
-      <line x1="60" y1="75" x2="60" y2="85" stroke="#dc2626" stroke-width="1" />
-      <text x="60" y="155" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="管狀視野" data-en="Tunnel vision">管狀視野</text>
-      <text x="60" y="170" fill="#7c2d12" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" data-zh="MD &lt; -12 dB" data-en="MD &lt; -12 dB">MD &lt; -12 dB</text>
+    <!-- ============ STAGE 4： ADVANCED (tunnel vision + temporal crescent) ============ -->
+    <g transform="translate(470 60)">
+      <text x="70" y="0" fill="#7c2d12" font-family="Inter,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" data-zh="④ 晚期" data-en="④ Advanced">④ 晚期</text>
+      <!-- Outer dark area (most field lost) -->
+      <circle cx="70" cy="80" r="62" fill="#0f172a" opacity="0.92" stroke="#3a5a7c" stroke-width="1" />
+      <!-- Cardinal labels (lighter for visibility against dark bg) -->
+      <text x="70" y="22" fill="#fff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" opacity="0.7" data-zh="上" data-en="S">上</text>
+      <text x="70" y="148" fill="#fff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" opacity="0.7" data-zh="下" data-en="I">下</text>
+      <text x="2" y="84" fill="#fff" font-family="Inter,sans-serif" font-size="9" opacity="0.7" data-zh="顳" data-en="T">顳</text>
+      <text x="138" y="84" fill="#fff" font-family="Inter,sans-serif" font-size="9" opacity="0.7" data-zh="鼻" data-en="N">鼻</text>
+      <!-- Central island spared (~5-10°) -->
+      <circle cx="70" cy="80" r="14" fill="#f0f9ff" />
+      <!-- Temporal crescent island (classic late-stage finding): small island in far temporal periphery -->
+      <path d="M 18 80 Q 14 70 10 80 Q 14 90 18 80 Z" fill="#f0f9ff" opacity="0.85" />
+      <!-- Fixation cross -->
+      <line x1="64" y1="80" x2="76" y2="80" stroke="#dc2626" stroke-width="1.2" />
+      <line x1="70" y1="74" x2="70" y2="86" stroke="#dc2626" stroke-width="1.2" />
+      <!-- Labels -->
+      <text x="142" y="80" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="9" text-anchor="end" data-zh="中央視島" data-en="Central island">中央視島</text>
+      <line x1="120" y1="80" x2="86" y2="80" stroke="#7c2d12" stroke-width="0.5" />
+      <text x="0" y="105" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="9" data-zh="顳側視島" data-en="Temporal island">顳側視島</text>
+      <line x1="20" y1="100" x2="14" y2="86" stroke="#7c2d12" stroke-width="0.5" />
+      <text x="70" y="162" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="管狀視野" data-en="Tunnel vision">管狀視野</text>
+      <text x="70" y="177" fill="#7c2d12" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" data-zh="MD &lt; -12 dB" data-en="MD &lt; -12 dB">MD &lt; -12 dB</text>
     </g>
 
-    <!-- Bottom annotation -->
-    <line x1="40" y1="240" x2="560" y2="240" stroke="#dcd5c8" stroke-width="1" stroke-dasharray="3 3" />
-    <text x="300" y="260" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="* 視野缺損從周邊開始、視力（中央視銳度）通常最後才下降" data-en="* Field defects begin peripherally; central visual acuity is preserved until late">* 視野缺損從周邊開始、視力（中央視銳度）通常最後才下降</text>
-    <text x="300" y="278" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="* 大腦會自動「補洞」、加上另一隻眼補償，所以早期病人多無感覺" data-en="* The brain fills in gaps and the other eye compensates — early defects are usually unnoticeable">* 大腦會自動「補洞」、加上另一隻眼補償，所以早期病人多無感覺</text>
-    <text x="300" y="296" fill="#dc2626" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" data-zh="* 一旦失去視野不可逆 ── 因此 40 歲後定期完整眼科檢查很重要" data-en="* Once lost, visual field cannot be recovered — comprehensive periodic exams after 40 matter">* 一旦失去視野不可逆 ── 因此 40 歲後定期完整眼科檢查很重要</text>
+    <!-- Bottom annotations -->
+    <line x1="40" y1="270" x2="560" y2="270" stroke="#dcd5c8" stroke-width="1" stroke-dasharray="3 3" />
+    <text x="300" y="290" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="📍 視野缺損從周邊（特別是鼻側）開始 → 視力（中央視銳度）通常最後才下降" data-en="📍 Field defects begin peripherally (especially nasally); central acuity is preserved until late">📍 視野缺損從周邊（特別是鼻側）開始 → 視力（中央視銳度）通常最後才下降</text>
+    <text x="300" y="308" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="📍 大腦會自動「補洞」、加上另一隻眼補償，所以早期病人多半完全沒感覺" data-en="📍 The brain fills in gaps and the fellow eye compensates — early defects are usually unnoticeable">📍 大腦會自動「補洞」、加上另一隻眼補償，所以早期病人多半完全沒感覺</text>
+    <text x="300" y="328" fill="#dc2626" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" data-zh="⚠ 視力 1.0 ≠ 沒青光眼 ── 視野檢查才是早期診斷的關鍵" data-en="⚠ 20/20 acuity ≠ no glaucoma — visual-field testing is the key for early detection">⚠ 視力 1.0 ≠ 沒青光眼 ── 視野檢查才是早期診斷的關鍵</text>
+    <text x="300" y="350" fill="#16a34a" font-family="Inter,sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" data-zh="✓ 失去的視野永遠不會回來 ── 40 歲後定期完整眼科檢查很重要" data-en="✓ Lost field cannot return — comprehensive eye exams after age 40 are essential">✓ 失去的視野永遠不會回來 ── 40 歲後定期完整眼科檢查很重要</text>
+
+    <!-- Legend at bottom -->
+    <g transform="translate(150 372)">
+      <rect x="0" y="0" width="14" height="10" fill="#1e293b" opacity="0.78" />
+      <text x="20" y="9" fill="#5e574e" font-family="Inter,sans-serif" font-size="9.5" data-zh="深度缺損" data-en="Dense scotoma">深度缺損</text>
+      <rect x="80" y="0" width="14" height="10" fill="#475569" opacity="0.55" />
+      <text x="100" y="9" fill="#5e574e" font-family="Inter,sans-serif" font-size="9.5" data-zh="輕度缺損" data-en="Mild defect">輕度缺損</text>
+      <ellipse cx="167" cy="5" rx="6" ry="5" fill="#94a3b8" opacity="0.5" />
+      <text x="180" y="9" fill="#5e574e" font-family="Inter,sans-serif" font-size="9.5" data-zh="生理盲點" data-en="Physiologic blind spot">生理盲點</text>
+      <line x1="252" y1="0" x2="262" y2="10" stroke="#dc2626" stroke-width="1.4" />
+      <line x1="262" y1="0" x2="252" y2="10" stroke="#dc2626" stroke-width="1.4" />
+      <text x="270" y="9" fill="#5e574e" font-family="Inter,sans-serif" font-size="9.5" data-zh="注視點" data-en="Fixation">注視點</text>
+    </g>
   </svg>
-  <figcaption style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.75" data-zh="<strong>視野缺損進展四階段</strong>（以左眼、Humphrey 24-2 視野檢查的 mean deviation, MD 為例）：① 正常（MD &gt; -2 dB）── 完整視野；② 早期（MD -2 ~ -6 dB）── 鼻側階梯缺損，病人多無感覺；③ 中度（MD -6 ~ -12 dB）── 弓形缺損形成，可能注意到開車後照鏡死角、絆到台階；④ 晚期（MD &lt; -12 dB）── 管狀視野，只剩中央一小塊。<strong>視力（中央視銳度）通常最後才受影響</strong>──這是「視力 1.0 卻已是中重度青光眼」的原因。" data-en="<strong>Four-stage progression</strong> (left eye, Humphrey 24-2 mean deviation, MD): ① Normal (MD &gt; -2 dB) — full field; ② Early (MD -2 ~ -6 dB) — nasal step, patient unaware; ③ Moderate (MD -6 ~ -12 dB) — arcuate scotoma; patients may notice mirror blind spots, tripping; ④ Advanced (MD &lt; -12 dB) — tunnel vision. <strong>Central acuity is preserved until very late</strong> — this is why a patient with 20/20 acuity can still have moderate-severe glaucoma."><strong>視野缺損進展四階段</strong>（以左眼、Humphrey 24-2 視野檢查的 mean deviation, MD 為例）：① 正常（MD &gt; -2 dB）── 完整視野；② 早期（MD -2 ~ -6 dB）── 鼻側階梯缺損，病人多無感覺；③ 中度（MD -6 ~ -12 dB）── 弓形缺損形成，可能注意到開車後照鏡死角、絆到台階；④ 晚期（MD &lt; -12 dB）── 管狀視野，只剩中央一小塊。<strong>視力（中央視銳度）通常最後才受影響</strong>──這是「視力 1.0 卻已是中重度青光眼」的原因。</figcaption>
+  <figcaption style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.75" data-zh="<strong>視野缺損進展四階段</strong>（<strong>左眼病人視角</strong>，Humphrey 24-2 視野檢查 mean deviation, MD 為例）：① <strong>正常</strong>（MD &gt; -2 dB）── 完整視野，僅有顳側 15° 處的生理盲點；② <strong>早期</strong>（MD -2 ~ -6 dB）── 鼻側（病人視角右側）出現階梯狀缺損 + 旁中央區出現小盲點，<strong>病人多半完全無感覺</strong>；③ <strong>中度</strong>（MD -6 ~ -12 dB）── 上方弓形缺損（Bjerrum 區）形成，從顳側盲點起、繞過中央、終止於鼻側水平線，可能注意到開車後照鏡死角、絆到台階；④ <strong>晚期</strong>（MD &lt; -12 dB）── 管狀視野，僅剩中央視島；經典晚期還可能保留顳側周邊小視島（temporal crescent）。<strong>視力（中央視銳度）通常最後才受影響</strong>──這是「視力 1.0 卻已是中重度青光眼」的原因。視野缺損多從周邊（特別是鼻側）開始，加上大腦補洞與另眼補償，<strong>早期幾乎完全無感</strong>，所以 40 歲後定期完整眼科檢查（含視野與 OCT）才是真正的關鍵。" data-en="<strong>Four-stage progression of visual-field loss</strong> (<strong>LEFT eye, patient view</strong>; Humphrey 24-2 mean deviation, MD): ① <strong>Normal</strong> (MD &gt; -2 dB) — full field with only the physiologic blind spot at ~15° temporal; ② <strong>Early</strong> (MD -2 ~ -6 dB) — nasal step (right side in patient view) plus a small paracentral defect; <strong>patients are usually completely unaware</strong>; ③ <strong>Moderate</strong> (MD -6 ~ -12 dB) — superior arcuate scotoma (Bjerrum area) arising from the temporal blind-spot, arching around fixation and terminating at the nasal horizontal raphe; patients may notice mirror blind spots and tripping; ④ <strong>Advanced</strong> (MD &lt; -12 dB) — tunnel vision with only a central island remaining; a small temporal crescent is classically also spared. <strong>Central acuity is preserved until very late</strong> — which is why a patient with 20/20 acuity can still have moderate-severe glaucoma. Field defects begin peripherally (especially nasally), the brain fills gaps, and the fellow eye compensates — so <strong>early disease is virtually asymptomatic</strong>. Comprehensive periodic exams (with perimetry and OCT) after age 40 are the real key."><strong>視野缺損進展四階段</strong>（<strong>左眼病人視角</strong>，Humphrey 24-2 視野檢查 mean deviation, MD 為例）：① <strong>正常</strong>（MD &gt; -2 dB）── 完整視野，僅有顳側 15° 處的生理盲點；② <strong>早期</strong>（MD -2 ~ -6 dB）── 鼻側（病人視角右側）出現階梯狀缺損 + 旁中央區出現小盲點，<strong>病人多半完全無感覺</strong>；③ <strong>中度</strong>（MD -6 ~ -12 dB）── 上方弓形缺損（Bjerrum 區）形成，從顳側盲點起、繞過中央、終止於鼻側水平線，可能注意到開車後照鏡死角、絆到台階；④ <strong>晚期</strong>（MD &lt; -12 dB）── 管狀視野，僅剩中央視島；經典晚期還可能保留顳側周邊小視島（temporal crescent）。<strong>視力（中央視銳度）通常最後才受影響</strong>──這是「視力 1.0 卻已是中重度青光眼」的原因。視野缺損多從周邊（特別是鼻側）開始，加上大腦補洞與另眼補償，<strong>早期幾乎完全無感</strong>，所以 40 歲後定期完整眼科檢查（含視野與 OCT）才是真正的關鍵。</figcaption>
 </figure>
 
 <h2 id="diagnosis" data-zh="五、診斷檢查" data-en="5. Diagnostic evaluation">五、診斷檢查</h2>
@@ -928,7 +1043,7 @@
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260640" defer></script>
+<script src="/blog/blog-shared.js?v=20260641" defer></script>
 <script>document.addEventListener('DOMContentLoaded', function () { if (window.DN) DN.initBlog({}); });</script>
 <script type="speculationrules">
 {
