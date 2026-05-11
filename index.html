@@ -145,6 +145,18 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   .quick-find-cat .qf-cat-chip{ display:inline-flex; align-items:center; justify-content:center; min-height:28px; padding:5px 12px; border-radius:9999px; background:#fff; border:1px solid var(--border); color:var(--ink-2); font-size:12px; font-weight:600; cursor:pointer; transition:all .15s; line-height:1; font-family:inherit; }
   .quick-find-cat .qf-cat-chip:hover{ border-color:rgba(58,90,124,.5); color:var(--blue-deep); transform:translateY(-1px); box-shadow:0 4px 8px -4px rgba(58,90,124,.18); }
   .quick-find-cat .qf-cat-chip.active{ outline:2px solid rgba(58,90,124,.45); outline-offset:1px; }
+
+  /* Quick-find sections (match main site DermNotes layout) */
+  .qf-search-row{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .qf-search-row .dn-search-wrap{ flex:1; margin-bottom:0; }
+  .qf-all-btn{ flex-shrink:0; min-height:36px; padding:6px 16px; border-radius:9999px; background:var(--blue-deep); color:#fff; border:1px solid var(--blue-deep); font-size:12.5px; font-weight:600; cursor:pointer; transition:all .15s; font-family:inherit; line-height:1; white-space:nowrap; }
+  .qf-all-btn:hover{ background:#2a4564; transform:translateY(-1px); box-shadow:0 4px 8px -4px rgba(58,90,124,.3); }
+  .qf-all-btn.active{ background:var(--blue-deep); color:#fff; outline:2px solid rgba(58,90,124,.4); outline-offset:1px; }
+  .qf-all-btn.inactive{ background:#fff; color:var(--ink-2); border-color:var(--border); }
+  .qf-all-btn.inactive:hover{ border-color:rgba(58,90,124,.5); color:var(--blue-deep); }
+
+  .qf-section{ padding-top:10px; margin-top:10px; border-top:1px dashed var(--line); }
+  .qf-section-label{ font-family:'JetBrains Mono',Inter,monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:8px; }
   /* v34.4: use inline-flex + align-items:center to vertically centre the
      text inside each pill. Pure padding-based centring leaves CJK glyphs
      sitting slightly above the geometric centre (because Han characters
@@ -495,14 +507,18 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <section class="max-w-3xl mx-auto px-5 sm:px-8 mt-6">
   <div style="background:#fff; border:0.5px solid var(--border); border-radius:18px; padding:18px 22px;">
     <div style="font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--teal-deep); font-weight:600; margin-bottom:10px" data-zh="快速查找眼科主題" data-en="Quick find by topic">快速查找眼科主題</div>
-    <div class="dn-search-wrap">
-      <svg class="dn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-      <input id="dn-search-input" type="search" class="dn-search-input" placeholder="搜尋文章標題或關鍵字…" />
+
+    <!-- Search row: input + 全部文章 button (right-aligned, like DermNotes main site) -->
+    <div class="qf-search-row">
+      <div class="dn-search-wrap">
+        <svg class="dn-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <input id="dn-search-input" type="search" class="dn-search-input" placeholder="搜尋文章標題或關鍵字…" />
+      </div>
+      <button type="button" id="qf-all-btn" class="qf-all-btn qf-cat-chip qf-all active" data-filter="" data-filter-en="" data-zh="全部文章" data-en="All articles">全部文章</button>
     </div>
-        <!-- Quick-find chips: split into two rows (diseases / categories), all act as filters on the article list below -->
-        <!-- Row 1： filter by disease -->
-        <div class="quick-find quick-find-cat" data-row="diseases">
-      <button type="button" class="qf-cat-chip qf-all" data-filter="" data-filter-en="" data-zh="全部主題" data-en="All topics" style="background:var(--blue-soft);color:var(--blue-deep);border-color:#b8cfe3">全部主題</button>
+
+    <!-- Row 1： diseases (no label, top section) -->
+    <div class="quick-find quick-find-cat" data-row="diseases">
       <button type="button" class="qf-cat-chip" data-filter="青光眼" data-filter-en="Glaucoma" data-zh="青光眼" data-en="Glaucoma">青光眼</button>
       <button type="button" class="qf-cat-chip" data-filter="白內障" data-filter-en="Cataract" data-zh="白內障" data-en="Cataract">白內障</button>
       <button type="button" class="qf-cat-chip" data-filter="甲狀腺眼疾" data-filter-en="TED" data-zh="甲狀腺眼疾" data-en="TED">甲狀腺眼疾</button>
@@ -511,15 +527,26 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
       <button type="button" class="qf-cat-chip" data-filter="乾眼症" data-filter-en="Dry eye" data-zh="乾眼症" data-en="Dry eye">乾眼症</button>
       <button type="button" class="qf-cat-chip" data-filter="兒童近視" data-filter-en="Myopia" data-zh="兒童近視控制" data-en="Pediatric myopia">兒童近視控制</button>
     </div>
-        <!-- Row 2： by category (filters the search input) -->
-        <div class="quick-find quick-find-cat" data-row="categories" style="margin-top:8px">
-      <button type="button" class="qf-cat-chip" data-filter="警訊辨識" data-filter-en="Red Flags" data-zh="警訊辨識" data-en="Red Flags" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5">警訊辨識</button>
-      <button type="button" class="qf-cat-chip" data-filter="衛教" data-filter-en="Patient Ed" data-zh="衛教" data-en="Patient Ed" style="background:#ede9fe;color:#5b21b6;border-color:#ddd6fe">衛教</button>
-      <button type="button" class="qf-cat-chip" data-filter="迷思澄清" data-filter-en="Myth-busting" data-zh="迷思澄清" data-en="Myth-busting" style="background:#fef3c7;color:#854d0e;border-color:#fcd34d">迷思澄清</button>
-      <button type="button" class="qf-cat-chip" data-filter="學習筆記" data-filter-en="Study Notes" data-zh="學習筆記" data-en="Study Notes" style="background:#ccfbf1;color:#0f766e;border-color:#5eead4">學習筆記</button>
-      <button type="button" class="qf-cat-chip" data-filter="最新研究" data-filter-en="Latest Research" data-zh="最新研究" data-en="Latest Research" style="background:#dcfce7;color:#14532d;border-color:#86efac">最新研究</button>
-      <button type="button" class="qf-cat-chip" data-filter="手術" data-filter-en="Surgery" data-zh="手術" data-en="Surgery">手術</button>
-      <button type="button" class="qf-cat-chip" data-filter="常見問題" data-filter-en="FAQ" data-zh="常見問題" data-en="FAQ">常見問題</button>
+
+    <!-- Section: 處置 / 治療 / 主題 -->
+    <div class="qf-section">
+      <div class="qf-section-label" data-zh="處置 / 治療 / 主題" data-en="Treatment / Topics">處置 / 治療 / 主題</div>
+      <div class="quick-find quick-find-cat" data-row="categories">
+        <button type="button" class="qf-cat-chip" data-filter="警訊辨識" data-filter-en="Red Flags" data-zh="警訊辨識" data-en="Red Flags" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5">警訊辨識</button>
+        <button type="button" class="qf-cat-chip" data-filter="衛教" data-filter-en="Patient Ed" data-zh="衛教" data-en="Patient Ed" style="background:#ede9fe;color:#5b21b6;border-color:#ddd6fe">衛教</button>
+        <button type="button" class="qf-cat-chip" data-filter="迷思澄清" data-filter-en="Myth-busting" data-zh="迷思澄清" data-en="Myth-busting" style="background:#fef3c7;color:#854d0e;border-color:#fcd34d">迷思澄清</button>
+        <button type="button" class="qf-cat-chip" data-filter="手術" data-filter-en="Surgery" data-zh="手術" data-en="Surgery">手術</button>
+        <button type="button" class="qf-cat-chip" data-filter="常見問題" data-filter-en="FAQ" data-zh="常見問題" data-en="FAQ">常見問題</button>
+      </div>
+    </div>
+
+    <!-- Section: 內容深度 -->
+    <div class="qf-section">
+      <div class="qf-section-label" data-zh="內容深度" data-en="Content depth">內容深度</div>
+      <div class="quick-find quick-find-cat" data-row="depth">
+        <button type="button" class="qf-cat-chip" data-filter="學習筆記" data-filter-en="Study Notes" data-zh="學習筆記" data-en="Study Notes" style="background:#ccfbf1;color:#0f766e;border-color:#5eead4">學習筆記</button>
+        <button type="button" class="qf-cat-chip" data-filter="最新研究" data-filter-en="Latest Research" data-zh="最新研究" data-en="Latest Research" style="background:#dcfce7;color:#14532d;border-color:#86efac">最新研究</button>
+      </div>
     </div>
   </div>
 </section>
@@ -802,25 +829,51 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <script src="/blog/blog-shared.js?v=20260642" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){
   if(window.DN)DN.initBlog({});
-  // Category-chip filter wiring: clicking a category chip fills the search input
-  // and triggers the existing home-search filter.
+  // Quick-find chip filter wiring (mirrors DermNotes main site).
+  // The right-side 「全部文章」 button is the "neutral / no filter" state.
+  // Clicking any category/disease chip activates it (and de-activates 全部文章);
+  // clicking 全部文章 (or the active chip again) clears the filter.
   var input = document.getElementById('dn-search-input');
-  var chips = document.querySelectorAll('.qf-cat-chip');
-  if (input && chips.length) {
+  var allBtn = document.getElementById('qf-all-btn');
+  // .qf-cat-chip on all category/disease chips (NOT including 全部文章 button)
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.qf-cat-chip')).filter(function(b){ return b !== allBtn; });
+
+  function setActive(activeBtn){
+    chips.forEach(function(b){ b.classList.remove('active'); });
+    if (activeBtn) {
+      activeBtn.classList.add('active');
+      if (allBtn) { allBtn.classList.add('inactive'); allBtn.classList.remove('active'); }
+    } else {
+      if (allBtn) { allBtn.classList.remove('inactive'); allBtn.classList.add('active'); }
+    }
+  }
+  function applyFilter(btn){
+    if (!btn) { input.value = ''; }
+    else {
+      var lang = (document.documentElement.lang || 'zh').toLowerCase().indexOf('en') === 0 ? 'en' : 'zh';
+      var filter = lang === 'en' ? (btn.getAttribute('data-filter-en') || btn.getAttribute('data-filter')) : btn.getAttribute('data-filter');
+      input.value = filter || '';
+    }
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  if (input) {
+    // Wire each filter chip
     chips.forEach(function(btn){
       btn.addEventListener('click', function(){
-        var isActive = btn.classList.contains('active');
-        chips.forEach(function(b){ b.classList.remove('active'); });
-        if (isActive) {
-          input.value = '';
-        } else {
-          var lang = (document.documentElement.lang || 'zh').toLowerCase().indexOf('en') === 0 ? 'en' : 'zh';
-          var filter = lang === 'en' ? (btn.getAttribute('data-filter-en') || btn.getAttribute('data-filter')) : btn.getAttribute('data-filter');
-          input.value = filter || '';
-          btn.classList.add('active');
-        }
-        input.dispatchEvent(new Event('input', { bubbles: true }));
+        var wasActive = btn.classList.contains('active');
+        if (wasActive) { setActive(null); applyFilter(null); }
+        else           { setActive(btn);  applyFilter(btn);  }
       });
+    });
+    // Wire "全部文章" button — always clears
+    if (allBtn) {
+      allBtn.addEventListener('click', function(){ setActive(null); applyFilter(null); });
+    }
+    // Also: typing in search box should toggle the All-articles button to inactive
+    input.addEventListener('input', function(){
+      if (!input.value) { setActive(null); }
+      else if (allBtn) { allBtn.classList.add('inactive'); allBtn.classList.remove('active'); }
     });
   }
 });</script>
