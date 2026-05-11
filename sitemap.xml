@@ -6,7 +6,7 @@
   <!-- ===== Chinese (canonical) ===== -->
   <url>
     <loc>https://hsiao.chendermatologist.com/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
@@ -15,7 +15,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/about</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
@@ -24,7 +24,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/tools</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
@@ -33,7 +33,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/" />
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/topics</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/topics" />
@@ -51,7 +51,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/notes</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/notes" />
@@ -60,7 +60,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/privacy</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
@@ -190,7 +190,7 @@
   <!-- ===== Landing-page stubs ===== -->
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/cataract-surgery-faq</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/cataract-surgery-faq" />
@@ -199,7 +199,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/glaucoma-warnings</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/glaucoma-warnings" />
@@ -208,7 +208,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/contact-lens-safety</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/contact-lens-safety" />
@@ -217,7 +217,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/red-eye-conjunctivitis</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/red-eye-conjunctivitis" />
@@ -228,7 +228,7 @@
   <!-- ===== English mirror (/en/) ===== -->
   <url>
     <loc>https://hsiao.chendermatologist.com/en/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
@@ -237,7 +237,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/about</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
@@ -246,7 +246,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/tools</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
@@ -255,7 +255,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/" />
@@ -264,7 +264,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/topics</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/topics" />
@@ -273,7 +273,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/notes</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.40</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/notes" />
@@ -282,7 +282,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/privacy</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />

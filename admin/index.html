@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow,noarchive" />
+<meta http-equiv="X-Robots-Tag" content="noindex" />
+<meta name="description" content="HsiaoEye 後台編輯系統（私人 — 不對外開放）。Admin CMS for the HsiaoEye site." />
+<title>HsiaoEye Admin · 蕭閔謙醫師眼科筆記後台</title>
+<link rel="canonical" href="https://hsiao.chendermatologist.com/admin/" />
+<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- ════════════════ LOGIN OVERLAY ════════════════ -->
+<div id="ad-login" class="ad-login-overlay">
+  <div class="ad-login-card">
+    <h1>HsiaoEye 後台</h1>
+    <p class="lead">使用 GitHub Personal Access Token 登入。Token 只存在你的瀏覽器 localStorage，不會傳到任何第三方伺服器。</p>
+
+    <label for="ad-login-pat">GitHub Personal Access Token</label>
+    <input type="password" id="ad-login-pat" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+    <p class="help">
+      還沒有 Token？到
+      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub 設定頁</a>
+      建立一個 <strong>Fine-grained personal access token</strong>，限制：
+      Repository&nbsp;= <code>user-hsiao</code>，
+      Permissions&nbsp;= <code>Contents: Read and write</code>。
+    </p>
+
+    <div id="ad-login-err" class="ad-login-error">登入失敗 — Token 無效或無權限</div>
+
+    <div style="margin-top:18px;display:flex;gap:8px;justify-content:flex-end">
+      <button id="ad-login-btn" class="ad-btn ad-btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        登入
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ MAIN APP ════════════════ -->
+<div id="ad-app" style="display:none">
+
+  <!-- Top bar -->
+  <header class="ad-topbar">
+    <div class="ad-brand">
+      <span class="ad-brand-mark">HE</span>
+      HsiaoEye Admin
+      <small>v1.0</small>
+    </div>
+
+    <div class="ad-topbar-spacer"></div>
+
+    <div id="ad-status" class="ad-topbar-status">
+      <span class="dot"></span>
+      <span id="ad-status-text">準備就緒</span>
+    </div>
+
+    <button id="ad-reload-btn" class="ad-icon-btn" title="重新載入文章（從 GitHub 拉最新）">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+    </button>
+
+    <button id="ad-save-btn" class="ad-btn ad-btn-primary" title="儲存並推送到 GitHub (Cmd/Ctrl+S)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      儲存
+    </button>
+
+    <button id="ad-logout" class="ad-icon-btn" title="登出">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    </button>
+  </header>
+
+  <!-- Behind-main warning banner -->
+  <div id="ad-banner" class="ad-banner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <span id="ad-banner-msg"></span>
+    <button id="ad-banner-reload" class="ad-btn-link">同步最新 →</button>
+  </div>
+
+  <!-- Main 3-column layout -->
+  <div class="ad-main">
+
+    <!-- Left sidebar: article list -->
+    <aside class="ad-sidebar">
+      <div class="ad-sidebar-head">
+        <h3>文章</h3>
+        <button id="ad-new-btn" class="ad-btn ad-btn-secondary ad-btn-sm" title="新增文章">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          新增
+        </button>
+      </div>
+      <div class="ad-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="ad-search-input" placeholder="搜尋文章…" autocomplete="off" />
+      </div>
+      <div id="ad-list" class="ad-list"></div>
+    </aside>
+
+    <!-- Center editor -->
+    <div id="ad-editor" class="ad-editor">
+
+      <!-- Tabs -->
+      <div class="ad-tabs">
+        <button class="ad-tab active" data-tab="content">內容</button>
+        <button class="ad-tab" data-tab="meta">Metadata</button>
+        <button class="ad-tab" data-tab="preview">預覽</button>
+      </div>
+
+      <!-- Content tab -->
+      <div class="ad-tab-panel active" data-tab="content">
+        <!-- Format toolbar -->
+        <div class="ad-toolbar">
+          <div class="ad-tool-group">
+            <button class="ad-tool" data-fmt="bold" title="粗體">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+            </button>
+            <button class="ad-tool" data-fmt="italic" title="斜體">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg>
+            </button>
+            <button class="ad-tool" data-fmt="underline" title="底線">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="4" y1="21" x2="20" y2="21"/></svg>
+            </button>
+            <button class="ad-tool" data-fmt="strike" title="刪除線">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="ad-tool-divider"></div>
+
+          <div class="ad-tool-group">
+            <button class="ad-tool label-text" data-fmt="h2" title="二級標題">H2</button>
+            <button class="ad-tool label-text" data-fmt="h3" title="三級標題">H3</button>
+            <button class="ad-tool label-text" data-fmt="p" title="段落">P</button>
+          </div>
+          <div class="ad-tool-divider"></div>
+
+          <div class="ad-tool-group">
+            <button class="ad-tool" data-fmt="ul" title="無序列表">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+            <button class="ad-tool" data-fmt="ol" title="有序列表">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+            </button>
+            <button class="ad-tool" data-fmt="blockquote" title="引用">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2h-4l-4 4v-4H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>
+            </button>
+            <button class="ad-tool" data-fmt="hr" title="分隔線">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="ad-tool-divider"></div>
+
+          <div class="ad-tool-group">
+            <button class="ad-tool" data-fmt="link" title="連結">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+            <input class="ad-color-input" type="color" id="ad-color" value="#3a5a7c" title="字體顏色（套用到選取文字）" />
+            <button class="ad-tool label-text" data-fmt="fontSize" title="字體大小">A↕</button>
+          </div>
+          <div class="ad-tool-divider"></div>
+
+          <div class="ad-tool-group">
+            <button class="ad-tool" data-fmt="bilingualP" title="新增雙語段落">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+              雙語
+            </button>
+            <button class="ad-tool" data-fmt="table" title="插入表格">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+              表格
+            </button>
+            <button class="ad-tool" data-fmt="citation" title="插入引用文獻">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              引用
+            </button>
+            <button class="ad-tool" data-fmt="imageUpload" title="上傳圖片">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              圖片
+            </button>
+            <input type="file" id="ad-img-file" accept="image/*" multiple style="display:none" />
+          </div>
+        </div>
+
+        <!-- Editor textarea -->
+        <div class="ad-textarea-wrap">
+          <textarea id="ad-ta" class="ad-textarea" spellcheck="true" placeholder="從左側選擇文章開始編輯，或點上方「+ 新增」建立新文章。"></textarea>
+        </div>
+      </div>
+
+      <!-- Metadata tab -->
+      <div class="ad-tab-panel" data-tab="meta">
+        <div class="ad-form">
+          <div class="ad-form-section">
+            <h3>頁面 metadata</h3>
+            <div class="ad-form-grid">
+              <div class="full">
+                <label for="meta-title-zh">頁面標題（&lt;title&gt;）</label>
+                <input type="text" id="meta-title-zh" />
+                <div class="help">SEO 用的頁面標題。建議不超過 60 字元。</div>
+              </div>
+              <div class="full">
+                <label for="meta-desc">SEO 描述（&lt;meta name="description"&gt;）</label>
+                <textarea id="meta-desc" rows="3"></textarea>
+                <div class="help">建議 50-160 字元；會出現在 Google 搜尋結果裡。</div>
+              </div>
+              <div class="full">
+                <label for="meta-keywords">關鍵字（&lt;meta name="keywords"&gt;）</label>
+                <textarea id="meta-keywords" rows="2"></textarea>
+                <div class="help">用逗號或全形逗號分隔。</div>
+              </div>
+              <div>
+                <label for="meta-og-image">OG image URL</label>
+                <input type="url" id="meta-og-image" placeholder="https://hsiao.chendermatologist.com/assets/og/...png" />
+              </div>
+              <div>
+                <label for="meta-canonical">Canonical URL</label>
+                <input type="url" id="meta-canonical" />
+              </div>
+            </div>
+            <div style="margin-top:18px">
+              <button id="ad-meta-apply-btn" class="ad-btn ad-btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                套用 metadata 到 HTML
+              </button>
+              <span class="help" style="display:inline-block;margin-left:12px">將上方欄位寫回 HTML &lt;head&gt;。仍須點右上「儲存」推送到 GitHub。</span>
+            </div>
+          </div>
+
+          <div class="ad-form-section">
+            <h3>文章 catalog 註記</h3>
+            <p class="help">這些欄位記錄在 <code>blog/blog-shared.js</code> 的 <code>DN.ARTICLES</code> 裡，新增文章時會自動寫入；現有文章請直接編輯該檔案來調整 cat / tag。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview tab -->
+      <div class="ad-tab-panel" data-tab="preview">
+        <div class="ad-preview-wrap">
+          <div class="ad-preview-bar">
+            預覽（離線渲染目前編輯中的 HTML — 樣式可能與正式上線略有差異，正式效果請推送後在站上檢視）
+          </div>
+          <iframe id="ad-preview" class="ad-preview-iframe" sandbox="allow-same-origin"></iframe>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right tools panel -->
+    <aside class="ad-tools">
+      <div class="ad-tool-card">
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          字數與閱讀
+        </h4>
+        <div class="ad-stat"><span>總字數</span><strong id="stat-words">0</strong></div>
+        <div class="ad-stat"><span>中文字</span><strong id="stat-cjk">0</strong></div>
+        <div class="ad-stat"><span>英文字</span><strong id="stat-en">0</strong></div>
+        <div class="ad-stat"><span>閱讀時間</span><strong id="stat-read">0 分</strong></div>
+        <div class="ad-stat"><span>檔案大小</span><strong id="stat-bytes">0 KB</strong></div>
+      </div>
+
+      <div class="ad-tool-card">
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          雙語配對檢查
+        </h4>
+        <div class="ad-stat"><span>data-zh / data-en</span><strong id="stat-pair">0 / 0</strong></div>
+        <div style="font-size:11px;color:var(--ink-3);margin-top:4px;line-height:1.5">兩個數字一致 = 中英文段落數對齊</div>
+      </div>
+
+      <div class="ad-tool-card">
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          快速插入
+        </h4>
+        <div class="ad-tool-actions">
+          <button class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="bilingualP">雙語段落</button>
+          <button class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="table">表格</button>
+          <button class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="citation">引用文獻</button>
+          <button class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="imageUpload">上傳圖片</button>
+        </div>
+      </div>
+
+      <div class="ad-tool-card">
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          快捷鍵
+        </h4>
+        <div style="font-size:12px;color:var(--ink-2);line-height:1.7">
+          <code>Cmd/Ctrl + S</code>　儲存<br>
+          拖放圖片至編輯區　自動上傳<br>
+          每 30 秒　自動暫存到瀏覽器
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- ════════════════ MODALS ════════════════ -->
+
+<!-- New article wizard -->
+<div id="ad-modal-new" class="ad-modal-backdrop">
+  <div class="ad-modal wide">
+    <h2>新增文章</h2>
+    <p class="lead">建立新文章會：(1) 在 <code>/blog/</code> 建立 HTML 模板檔；(2) 在 <code>blog-shared.js</code> 的 <code>DN.ARTICLES</code> 加入註記。</p>
+
+    <div class="ad-form-grid">
+      <div>
+        <label for="new-slug">Slug（網址用，a-z 0-9 -）</label>
+        <input type="text" id="new-slug" placeholder="my-new-article" />
+      </div>
+      <div>
+        <label for="new-date">日期</label>
+        <input type="date" id="new-date" />
+      </div>
+      <div class="full">
+        <label for="new-title-zh">中文標題</label>
+        <input type="text" id="new-title-zh" placeholder="例如：糖尿病視網膜病變完整衛教" />
+      </div>
+      <div class="full">
+        <label for="new-title-en">英文標題（選填）</label>
+        <input type="text" id="new-title-en" placeholder="e.g., Diabetic Retinopathy — Patient Education" />
+      </div>
+      <div>
+        <label for="new-cat">分類</label>
+        <select id="new-cat">
+          <option value="rx">衛教 (rx)</option>
+          <option value="alert">警訊辨識 (alert)</option>
+          <option value="myth">迷思澄清 (myth)</option>
+          <option value="notes">學習筆記 (notes)</option>
+          <option value="research">最新研究 (research)</option>
+        </select>
+      </div>
+      <div>
+        <label for="new-tag">標籤（中文）</label>
+        <input type="text" id="new-tag" placeholder="例如：糖尿病視網膜病變" />
+      </div>
+      <div class="full">
+        <label for="new-tag-en">標籤（英文）</label>
+        <input type="text" id="new-tag-en" placeholder="e.g., Diabetic retinopathy" />
+      </div>
+    </div>
+
+    <div class="ad-modal-actions">
+      <button id="new-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
+      <button id="new-create-btn" class="ad-btn ad-btn-primary">建立文章</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bilingual paragraph -->
+<div id="ad-modal-bilingual" class="ad-modal-backdrop">
+  <div class="ad-modal wide">
+    <h2>插入雙語段落</h2>
+    <p class="lead">同時填中英文，會插入 <code>&lt;tag data-zh="..." data-en="..."&gt;...&lt;/tag&gt;</code>。</p>
+
+    <label for="bp-tag">HTML 標籤</label>
+    <select id="bp-tag">
+      <option value="p">p（段落）</option>
+      <option value="h2">h2（二級標題）</option>
+      <option value="h3">h3（三級標題）</option>
+      <option value="li">li（列表項目）</option>
+    </select>
+
+    <div class="ad-bipair" style="margin-top:14px">
+      <div class="col">
+        <label>中文</label>
+        <textarea id="bp-zh" placeholder="輸入中文內容…"></textarea>
+      </div>
+      <div class="col">
+        <label>English</label>
+        <textarea id="bp-en" placeholder="Enter English content…"></textarea>
+      </div>
+    </div>
+
+    <div class="ad-modal-actions">
+      <button id="bp-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
+      <button id="bp-insert-btn" class="ad-btn ad-btn-primary">插入</button>
+    </div>
+  </div>
+</div>
+
+<!-- Table generator -->
+<div id="ad-modal-table" class="ad-modal-backdrop">
+  <div class="ad-modal">
+    <h2>產生表格</h2>
+    <p class="lead">產生 <code>.ted-table</code> 樣式的表格骨架，含 data-zh / data-en 雙語欄位。</p>
+
+    <div class="ad-form-grid" style="grid-template-columns:1fr 1fr">
+      <div>
+        <label for="tbl-rows">資料列數</label>
+        <input type="number" id="tbl-rows" min="1" max="20" value="3" />
+      </div>
+      <div>
+        <label for="tbl-cols">欄數</label>
+        <input type="number" id="tbl-cols" min="1" max="8" value="3" />
+      </div>
+      <div class="full" style="grid-column:1/-1">
+        <label for="tbl-headers">欄標題（用 | 分隔）</label>
+        <input type="text" id="tbl-headers" placeholder="例如：類別 | 代表藥物 | 副作用" />
+      </div>
+    </div>
+
+    <div class="ad-modal-actions">
+      <button id="tbl-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
+      <button id="tbl-insert-btn" class="ad-btn ad-btn-primary">插入</button>
+    </div>
+  </div>
+</div>
+
+<!-- Citation -->
+<div id="ad-modal-citation" class="ad-modal-backdrop">
+  <div class="ad-modal">
+    <h2>插入引用文獻</h2>
+    <p class="lead">產生 <code>&lt;li&gt;...&lt;/li&gt;</code> 格式，請放在 <code>&lt;ol class="references"&gt;</code> 內。</p>
+
+    <label for="cit-tag">分類標籤（選填，例：AAO 2025 主要指引）</label>
+    <input type="text" id="cit-tag" placeholder="AAO 2025 主要指引" />
+
+    <label for="cit-authors">作者</label>
+    <input type="text" id="cit-authors" placeholder="Smith J, Brown K, et al" />
+
+    <label for="cit-title">標題</label>
+    <input type="text" id="cit-title" placeholder="Article title" />
+
+    <label for="cit-journal">期刊（選填）</label>
+    <input type="text" id="cit-journal" placeholder="Lancet" />
+
+    <label for="cit-year">年份</label>
+    <input type="text" id="cit-year" placeholder="2024" />
+
+    <label for="cit-url">連結（選填）</label>
+    <input type="url" id="cit-url" placeholder="https://..." />
+
+    <div class="ad-modal-actions">
+      <button id="cit-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
+      <button id="cit-insert-btn" class="ad-btn ad-btn-primary">插入</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
