@@ -946,6 +946,45 @@ async function initApp() {
     } catch (e) { Toast.err('同步失敗：' + e.message); }
   };
 
+  // Mobile drawers: hamburger (sidebar / article list) and tools button
+  const sidebar = $('.ad-sidebar');
+  const toolsPanel = $('.ad-tools');
+  const backdrop = $('#ad-backdrop');
+  function closeMobileDrawers() {
+    if (sidebar) sidebar.classList.remove('mobile-open');
+    if (toolsPanel) toolsPanel.classList.remove('mobile-open');
+    if (backdrop) backdrop.classList.remove('show');
+  }
+  const menuBtn = $('#ad-menu-btn');
+  const toolsBtn = $('#ad-tools-btn');
+  if (menuBtn) menuBtn.onclick = () => {
+    const isOpen = sidebar.classList.contains('mobile-open');
+    closeMobileDrawers();
+    if (!isOpen) {
+      sidebar.classList.add('mobile-open');
+      backdrop.classList.add('show');
+    }
+  };
+  if (toolsBtn) toolsBtn.onclick = () => {
+    const isOpen = toolsPanel.classList.contains('mobile-open');
+    closeMobileDrawers();
+    if (!isOpen) {
+      toolsPanel.classList.add('mobile-open');
+      backdrop.classList.add('show');
+    }
+  };
+  if (backdrop) backdrop.onclick = closeMobileDrawers;
+  // close drawers when an article is picked on mobile
+  if (sidebar) sidebar.addEventListener('click', (e) => {
+    if (window.innerWidth <= 760 && e.target.closest('.ad-list-item')) {
+      closeMobileDrawers();
+    }
+  });
+  // escape closes drawers
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileDrawers();
+  });
+
   // beforeunload guard
   window.addEventListener('beforeunload', (e) => {
     if (Editor.dirty) {

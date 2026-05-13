@@ -790,6 +790,21 @@ a { color: var(--blue-deep); }
 }
 .ad-img-grid img:hover { border-color: var(--blue); transform: scale(1.04); }
 
+/* ───────── Mobile-only utility (default: hidden on desktop) ───────── */
+.ad-mobile-only { display: none; }
+
+/* ───────── Backdrop for mobile drawers ───────── */
+.ad-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,.45);
+  z-index: 45;
+  display: none;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.ad-backdrop.show { display: block; }
+
 /* ───────── Responsive (mobile / tablet) ───────── */
 @media (max-width: 1100px) {
   .ad-main { grid-template-columns: var(--sidebar-w) 1fr; }
@@ -800,13 +815,29 @@ a { color: var(--blue-deep); }
     top: var(--topbar-h);
     right: 0;
     bottom: 0;
-    width: var(--tools-w);
+    width: 86vw;
+    max-width: 360px;
     z-index: 50;
+    overflow-y: auto;
     box-shadow: var(--shadow-lg);
   }
+  /* show the tools button on tablet+phone (where the right panel is hidden) */
+  #ad-tools-btn.ad-mobile-only { display: inline-flex; }
 }
 @media (max-width: 760px) {
-  :root { --sidebar-w: 100vw; --topbar-h: 52px; }
+  :root { --sidebar-w: 100vw; --topbar-h: 56px; }
+  /* show menu button (left) */
+  #ad-menu-btn.ad-mobile-only { display: inline-flex; }
+  /* compress brand to logo only */
+  .ad-brand .ad-brand-text { display: none; }
+  .ad-brand small { display: none; }
+  /* status text → just dot */
+  .ad-topbar-status span:not(.dot) { display: none; }
+  /* save button → icon only */
+  #ad-save-btn svg { margin-right: 0 !important; }
+  #ad-save-btn { font-size: 0; padding: 0 12px !important; min-width: 44px; }
+  #ad-save-btn svg { margin: 0 !important; }
+
   .ad-main { grid-template-columns: 1fr; }
   .ad-sidebar { display: none; }
   .ad-sidebar.mobile-open {
@@ -818,11 +849,35 @@ a { color: var(--blue-deep); }
     width: 86vw;
     max-width: 320px;
     z-index: 50;
+    overflow-y: auto;
     box-shadow: var(--shadow-lg);
   }
   .ad-form-grid { grid-template-columns: 1fr; }
   .ad-bipair { grid-template-columns: 1fr; }
   .ad-tools { padding: 12px; }
+  /* enlarge touch targets on phone */
+  .ad-tool { min-height: 40px; min-width: 40px; }
+  .ad-icon-btn { min-height: 40px; min-width: 40px; }
+  .ad-btn { min-height: 40px; }
+  .ad-tab { min-height: 44px; padding: 0 18px; }
+  /* toolbar: allow horizontal scroll on phone */
+  .ad-toolbar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ad-tool-group { flex-shrink: 0; }
+  .ad-tool-divider { flex-shrink: 0; }
+  /* modals: full-width on phone */
+  .ad-modal { max-width: 96vw !important; max-height: 90vh; overflow-y: auto; }
+  /* login card: full-width */
+  .ad-login-card { max-width: 96vw; }
+  /* textarea: better mobile font + iOS no zoom */
+  .ad-textarea { font-size: 16px !important; }
+  /* prevent iOS auto-zoom on focus */
+  input, textarea, select { font-size: 16px; }
+  /* tap highlight */
+  button, a { -webkit-tap-highlight-color: rgba(58,90,124,.15); }
 }
 
 /* ───────── Misc ───────── */
