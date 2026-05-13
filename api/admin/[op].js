@@ -56,7 +56,29 @@ export default async function handler(req, res) {
   }
   try {
     const mod = await loader();
-    return mod.default(req, res);
+    // ESM-CJS interop guard. Depending on Vercel's bundler version, dynamic
+    // import of a CommonJS-compiled handler can return either:
+    //   { default: handler }              ← clean ESM result
+    //   { default: { default: handler } } ← double-wrap when CJS exports.default
+    //   handler (raw function)            ← if bundled as CJS directly
+    // The previous `mod.default(req, res)` only handled the first shape and
+    // failed with "mod.default is not a function" on the double-wrapped one.
+    const fn =
+      (typeof mod === 'function')                                 ? mod :
+      (mod && typeof mod.default === 'function')                  ? mod.default :
+      (mod && mod.default && typeof mod.default.default === 'function') ? mod.default.default :
+      null;
+    if (!fn) {
+      return res.status(500).json({
+        error: `Dispatcher: op=${op} module has no callable default export.`,
+        modShape: {
+          topType: typeof mod,
+          topKeys: mod && typeof mod === 'object' ? Object.keys(mod).slice(0, 10) : null,
+          defaultType: mod && mod.default ? typeof mod.default : null,
+        },
+      });
+    }
+    return fn(req, res);
   } catch (e) {
     return res.status(500).json({ error: `Dispatcher failed for op=${op}: ${e.message || e}` });
   }
