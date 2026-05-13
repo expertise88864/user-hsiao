@@ -9,37 +9,108 @@
 <link rel="canonical" href="https://hsiao.chendermatologist.com/admin" />
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
 <!--
-  Mobile redirect — admin.html's iframe-based editor breaks on iOS Safari
-  (flex iframe height collapse + service-worker interception of /blog/*).
-  Phones get the cleaner /admin/mobile editor (GitHub PAT-based CMS with
-  mobile drawers). Desktop continues to use admin.html's full dashboard
-  (SEO check, spell, dictionary, image manager, A/B builder, CWV).
+  Mobile / tablet redirect — admin.html's iframe-based editor and dense
+  desktop dashboard don't work on touch devices (iOS Safari iframe-in-flex
+  collapses to height 0; service worker intercepts /blog/* preventing
+  the iframe from loading; toolbar buttons are too small for tap targets).
 
-  /admin/mobile is a Vercel rewrite → /admin/index.html. We use this path
-  instead of /admin/ because vercel.json has trailingSlash:false, which
-  strips /admin/ back to /admin (i.e. admin.html) and would loop forever.
+  All coarse-pointer (touch) devices get redirected to /admin/mobile, which
+  is a Vercel rewrite → /admin/index.html (the cleaner GitHub PAT-based CMS
+  with mobile drawers and full-screen editor). Desktop with mouse continues
+  to use admin.html's full dashboard.
 
-  Runs synchronously in <head> so we redirect BEFORE any other JS / DOM
-  setup, avoiding the white-screen flash from a half-loaded admin.html.
+  /admin/mobile is used instead of /admin/ because vercel.json has
+  trailingSlash:false, which would strip /admin/ → /admin → admin.html
+  and create an infinite loop.
 
-  Safety belts against loops:
-    1. Skip if a manual override flag is present (?desktop=1)
-    2. Skip if we've already redirected once this session
+  Runs synchronously at top of <head> so the redirect happens BEFORE any
+  styles, fonts, or DOM build out — no white-screen flash, no half-loaded
+  admin.html appearing momentarily.
+
+  Override: append ?desktop=1 to force the legacy admin on a touch device.
 -->
 <script>
 (function () {
   try {
-    if (location.search.indexOf('desktop=1') !== -1) return;     // manual override
-    if (sessionStorage.getItem('hs:admin:mobile-redirected') === '1') return;
-    var isPhone = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-    var isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 1;
-    if (isPhone && isTouch) {
-      sessionStorage.setItem('hs:admin:mobile-redirected', '1');
+    if (location.search.indexOf('desktop=1') !== -1) return;  // manual override
+
+    // Aggressive mobile detection: coarse pointer (no mouse) OR narrow viewport
+    // OR multi-touch capable. ANY of these → redirect. We deliberately do NOT
+    // gate on viewport width alone because iPad Pro (1024px landscape) still
+    // can't drive admin.html's tiny SEO/Dictionary/CWV toolbars by tap.
+    var mqCoarse  = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    var mqNarrow  = window.matchMedia && window.matchMedia('(max-width: 1024px)').matches;
+    var isTouch   = 'ontouchstart' in window || (navigator.maxTouchPoints || 0) > 1;
+    var isMobile  = mqCoarse || (mqNarrow && isTouch);
+
+    if (isMobile) {
+      // No session/cookie guard: /admin/mobile is a Vercel rewrite to a
+      // DIFFERENT file (/admin/index.html), so re-redirecting admin.html →
+      // /admin/mobile cannot loop. If admin.html somehow loads again after
+      // navigation, we just redirect again — that's fine.
       location.replace('/admin/mobile');
     }
   } catch (e) { /* fall through to admin.html */ }
 })();
 </script>
+<style>
+  /* Belt-and-suspenders: if the redirect above somehow fails (JS disabled,
+     stale-cached script, etc.), hide the iframe-based edit-shell on phones
+     so users don't end up trapped on a blank screen they can't tap out of.
+     The 'Use the mobile admin' message below replaces it. */
+  @media (pointer: coarse), (max-width: 768px) {
+    #edit-shell { display: none !important; }
+    body.has-touch-fallback #site-content > * { display: none !important; }
+    body.has-touch-fallback #site-content::before {
+      content: '';
+      display: block;
+      min-height: 60vh;
+    }
+  }
+  #mobile-fallback {
+    display: none;
+    position: fixed; inset: 0;
+    background: linear-gradient(180deg, #faf7f2 0%, #f3f0e8 100%);
+    z-index: 200;
+    padding: 20vh 24px 32px;
+    text-align: center;
+    font-family: Inter, 'Noto Sans TC', system-ui, sans-serif;
+  }
+  @media (pointer: coarse), (max-width: 768px) {
+    #mobile-fallback { display: block; }
+  }
+  #mobile-fallback h2 {
+    font-family: 'Noto Serif TC', Georgia, serif;
+    font-size: 20px;
+    color: #3a5a7c;
+    margin: 0 0 12px;
+  }
+  #mobile-fallback p {
+    font-size: 14px;
+    color: #5e574e;
+    line-height: 1.7;
+    max-width: 32ch;
+    margin: 0 auto 24px;
+  }
+  #mobile-fallback a.go {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 10px;
+    background: #3a5a7c;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    box-shadow: 0 8px 18px -8px rgba(58,90,124,.55);
+  }
+  #mobile-fallback a.alt {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 12.5px;
+    color: #8b8378;
+    text-decoration: underline;
+  }
+</style>
 <style>
   :root{
     --bg:#faf7f2; --surface:#fff; --ink:#0f172a; --ink-2:#5e574e; --muted:#8b8378;
@@ -213,6 +284,18 @@
 </style>
 </head>
 <body>
+
+<!--
+  Mobile fallback — only renders on phones/tablets if the JS redirect at
+  top of <head> failed for any reason (JS disabled, stale cache, etc.).
+  Gives the user a working escape hatch instead of the broken iframe.
+-->
+<div id="mobile-fallback" aria-hidden="false">
+  <h2>請改用手機版後台</h2>
+  <p>桌面版 admin 在手機上無法正常操作（編輯器內嵌 iframe 在 iOS Safari 會空白）。請點下面按鈕進入手機版編輯介面。</p>
+  <a class="go" href="/admin/mobile">→ 進入手機版後台</a>
+  <a class="alt" href="?desktop=1">仍要使用桌面版（不推薦）</a>
+</div>
 
 <!-- ─── LOGIN ─── -->
 <section id="login-screen">
@@ -687,11 +770,20 @@ async function checkEnvStatus() {
 
 // ───────────────── Embedded editor ─────────────────
 function openEditor(slug) {
+  // Guard: an undefined / empty slug should never trigger the editor.
+  if (!slug || typeof slug !== 'string') {
+    console.warn('[admin] openEditor called without a slug — refusing to open empty iframe.');
+    return;
+  }
   // Mobile fix: iOS Safari iframe-in-flex height collapse + cross-origin
   // service-worker quirks cause the embedded editor to render as a white
-  // page. On phones we navigate the whole window to the article in admin
-  // mode instead — the article page itself works fine on iOS.
-  if (window.matchMedia('(max-width: 768px)').matches) {
+  // page. On phones / tablets / any coarse-pointer device we skip the
+  // iframe entirely and navigate the whole window to the article in admin
+  // mode instead — the article page itself works fine on touch devices.
+  var mqCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  var mqNarrow = window.matchMedia && window.matchMedia('(max-width: 1024px)').matches;
+  var isTouch  = 'ontouchstart' in window || (navigator.maxTouchPoints || 0) > 1;
+  if (mqCoarse || (mqNarrow && isTouch)) {
     location.href = '/blog/' + slug + '?admin=1';
     return;
   }
