@@ -1382,6 +1382,14 @@
     // If the mount already has children (already populated), bail.
     if (existing && existing.children.length) return;
     scored = (scored || []).slice(0, 4);
+    // v36.1: one-shot CSS for the 2-column layout + mobile fallback.
+    if (!document.getElementById('hs-related-css')) {
+      var rcss = document.createElement('style');
+      rcss.id = 'hs-related-css';
+      rcss.textContent =
+        '@media (max-width:520px){.hs-related-grid{grid-template-columns:1fr!important}}';
+      document.head.appendChild(rcss);
+    }
 
     var wrap;
     if (existing) {
@@ -1392,7 +1400,11 @@
       wrap.id = 'hs-related';
       wrap.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-10';
     }
-    let html = '<div style="border-top:1px solid var(--line);padding-top:24px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:12px" data-zh="你可能也會想看" data-en="Related reads">你可能也會想看</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">';
+    // v36.1: fixed 2-column grid (was `auto-fit minmax(220px,1fr)` which let
+    // 4 cards collapse into 3+1 on wider screens — visually unbalanced).
+    // 2 columns × up to 2 rows: cards now fill 左上→右上→左下→右下 cleanly.
+    // On <520px viewport the grid drops to 1 column for readability.
+    let html = '<div style="border-top:1px solid var(--line);padding-top:24px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:12px" data-zh="你可能也會想看" data-en="Related reads">你可能也會想看</div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px" class="hs-related-grid">';
     scored.forEach(function (a) {
       var titleEn = a.title_en || a.title;
       var tagEn   = a.tag_en   || a.tag;
