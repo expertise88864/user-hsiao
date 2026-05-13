@@ -62,12 +62,17 @@
   .article-list-item::before{ content:''; display:block; width:3px; height:36px; background:linear-gradient(180deg,#8fb3d4,#243b56); border-radius:9999px; flex-shrink:0; align-self:center; }
   .al-body{ flex:1; min-width:0; }
   .al-meta{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:6px; }
-  .al-meta .chip{ display:inline-flex; align-items:center; padding:2px 9px; border-radius:9999px; font-size:11px; font-weight:600; line-height:1.4; }
-  .al-meta .chip.cat-myth{ background:#fef3c7; color:#854d0e; border:1px solid #fcd34d; }
-  .al-meta .chip.cat-alert{ background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; }
-  .al-meta .chip.cat-rx{ background:#ede9fe; color:#5b21b6; border:1px solid #ddd6fe; }
-  .al-meta .chip.cat-notes{ background:#ccfbf1; color:#0f766e; border:1px solid #5eead4; }
-  .al-meta .chip.cat-research{ background:#dcfce7; color:#14532d; border:1px solid #86efac; }
+  /* Muted, near-monochrome chips — matches homepage style. Neutral cream
+     base on all category chips with a subtle color-accent dot to
+     differentiate. Tag chips use the existing site-brand blue-soft. */
+  .al-meta .chip{ display:inline-flex; align-items:center; gap:5px; padding:2px 9px; border-radius:9999px; font-size:11px; font-weight:600; line-height:1.4; background:#f3efe6; color:#5e574e; border:1px solid #dcd5c8; }
+  .al-meta .chip::before{ content:''; width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.55; flex-shrink:0; }
+  .al-meta .chip.tag::before{ display:none; }
+  .al-meta .chip.cat-alert{ color:#9a3412; }
+  .al-meta .chip.cat-rx{ color:#3a5a7c; }
+  .al-meta .chip.cat-myth{ color:#854d0e; }
+  .al-meta .chip.cat-notes{ color:#0f766e; }
+  .al-meta .chip.cat-research{ color:#14532d; }
   .al-meta .chip.tag{ background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; }
   .al-meta time{ font-size:11px; color:var(--muted); margin-left:auto; }
   .al-body h3{ font-size:19px; font-family:'Noto Serif TC',Georgia,serif; font-weight:700; color:var(--ink); margin:0 0 6px; line-height:1.4; }
@@ -187,6 +192,19 @@
     <div id="hs-blog-filter" class="hs-blog-filter" hidden></div>
 
     <div class="article-list">
+
+      <a href="/blog/monitoring-myopia-ser-vs-axial-length" class="article-list-item">
+        <div class="al-body">
+          <div class="al-meta">
+            <span class="chip cat-research" data-zh="最新研究" data-en="Latest Research">最新研究</span>
+            <span class="chip tag" data-zh="兒童近視" data-en="Pediatric myopia">兒童近視</span>
+            <time datetime="2026-05-13">2026-05-13</time>
+          </div>
+          <h3 data-zh="監測兒童近視，該追蹤「度數」還是「眼軸」？2026 統合分析的新觀點" data-en="Monitoring Childhood Myopia: SER or Axial Length? A 2026 Meta-Analysis Perspective">監測兒童近視，該追蹤「度數」還是「眼軸」？2026 統合分析的新觀點</h3>
+          <p data-zh="2026 年 3 月《American Journal of Ophthalmology》新發表的系統性回顧與統合分析（Clark &amp; Wong，70 篇人群研究）：對大多數兒童，等價球面度數（SER）應作為主要監測指標；眼軸長度（AL）保留給少數眼軸進入長尾的孩子。本文整理「眼軸 26 mm 不是放諸四海皆準的紅線」「90% vs 10% 框架」「視網膜 vs 白內障 vs 青光眼」三種疾病各自最適的預測指標，並坦白說明證據限制與作者利益衝突。" data-en="Published March 2026 in Am J Ophthalmol (Clark &amp; Wong; 70 population-based studies): SER should be the primary monitoring metric for most children; AL should be reserved for the minority entering the long-eye tail. Covers the 'AL 26 mm is not a universal threshold' point, the '90% vs 10%' framework, and which metric best predicts each of retinal pathology / cataract / glaucoma.">2026 年 3 月《American Journal of Ophthalmology》新發表的系統性回顧與統合分析（Clark &amp; Wong，70 篇人群研究）：對大多數兒童，等價球面度數（SER）應作為主要監測指標；眼軸長度（AL）保留給少數眼軸進入長尾的孩子。本文整理「眼軸 26 mm 不是放諸四海皆準的紅線」「90% vs 10% 框架」「視網膜 vs 白內障 vs 青光眼」三種疾病各自最適的預測指標，並坦白說明證據限制與作者利益衝突。</p>
+        </div>
+        <div class="al-arrow">→</div>
+      </a>
 
       <a href="/blog/dims-pediatric-myopia-control" class="article-list-item">
         <div class="al-body">
