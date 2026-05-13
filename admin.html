@@ -42,23 +42,20 @@
 // for the article list, modals, history, SEO results, CWV table, etc., and
 // it does NOT load blog-shared.js (which sets up policies for /blog/). So
 // without this default policy, the dashboard renders a blank screen on
-// first load: the article list never appears, modals can't be toggled.
+// first load.
 //
-// admin is auth-gated (Vercel env ADMIN_PASSWORD) and only authenticated
-// admins can write content, so we accept HTML strings here — but still
-// scrub <script>, on*= handlers, and javascript: URLs as defense in depth.
+// admin.html is AUTH-GATED (Vercel env ADMIN_PASSWORD), so the HTML strings
+// it innerHTMLs are 100% self-authored by the admin code itself — there is
+// no untrusted input being concatenated into them. We therefore use a
+// PASS-THROUGH policy that does NOT strip `on*=` handlers — the dashboard
+// rebuilds buttons like `onclick="openEditor('${slug}')"` on every render
+// and the previous strip-all-handlers sanitizer was making every "編輯",
+// "歷史", "SEO 修", etc. button non-functional.
 (function () {
   if (!window.trustedTypes || !window.trustedTypes.createPolicy) return;
-  function sanitizeHTML(s) {
-    var out = String(s);
-    out = out.replace(/<script[\s\S]*?<\/script>/gi, '');
-    out = out.replace(/\son[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '');
-    out = out.replace(/(href|src|action|formaction|xlink:href)\s*=\s*(["']?)\s*javascript:[^"'>\s]*\2/gi, '$1=$2#$2');
-    return out;
-  }
   try {
     window.trustedTypes.createPolicy('default', {
-      createHTML:      sanitizeHTML,
+      createHTML:      function (s) { return String(s); },
       createScript:    function (s) { return String(s); },
       createScriptURL: function (s) { return String(s); },
     });
