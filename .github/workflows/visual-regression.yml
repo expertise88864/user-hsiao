@@ -98,29 +98,21 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Reset index to origin/main BEFORE staging, then only add PNG diffs.
+          # Without this, the recovery path's `git reset --soft` would
+          # preserve the CI's stale source-file index and silently revert
+          # any source changes that landed during the run.
+          git fetch origin main
+          git reset --mixed origin/main
           git add tests/visual/snapshots/ || true
           if git diff --cached --quiet; then
             echo "No baseline changes to commit."
           else
             git commit -m "ci: visual regression baselines [skip ci]"
-            # Push, with race-recovery: if main moved forward (concurrent run),
-            # reset-soft to origin/main and recommit — our locally-generated
-            # baselines win over any concurrent run's. pull --rebase fails on
-            # binary PNG conflicts, so we avoid it entirely.
             if ! git push 2>/dev/null; then
-              echo "::notice::Push rejected (concurrent commit). Recovering…"
-              git fetch origin main
-              git reset --soft origin/main
-              git add tests/visual/snapshots/ || true
-              if git diff --cached --quiet; then
-                echo "Baselines already match origin/main — nothing to push."
-              else
-                git commit -m "ci: visual regression baselines [skip ci]"
-                git push
-                echo "::notice::Baselines re-applied on top of origin/main."
-              fi
+              echo "::notice::Push rejected — refusing to retry to avoid clobbering concurrent source commits. Next CI run will re-baseline."
             else
-              echo "::notice::Baselines committed. Future runs will diff against them."
+              echo "::notice::Baselines committed."
             fi
           fi
 
@@ -144,26 +136,22 @@ jobs:
           npx playwright test tests/visual/ --update-snapshots --reporter=list || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # CRITICAL: reset index to origin/main FIRST, then add ONLY the
+          # PNG diffs. The previous `--soft` recovery silently reverted
+          # source-file fixes whenever this workflow raced with a source
+          # push (the CI's stale index won over origin/main's newer source).
+          # If push is rejected we DO NOT retry — the next CI run will
+          # regenerate baselines anyway, and a failed PNG-only commit is
+          # vastly preferable to clobbering source-code commits.
+          git fetch origin main
+          git reset --mixed origin/main
           git add tests/visual/snapshots/ || true
           if git diff --cached --quiet; then
             echo "No baseline changes to commit (regeneration produced identical PNGs)."
           else
             git commit -m "ci: auto-refresh visual baselines [skip ci]"
-            # Race-recovery: if main moved forward during this run, reset-soft
-            # to origin/main and recommit. Locally-regenerated baselines win.
-            # We avoid pull --rebase because it can't auto-merge binary PNGs.
             if ! git push 2>/dev/null; then
-              echo "::notice::Push rejected (concurrent commit). Recovering…"
-              git fetch origin main
-              git reset --soft origin/main
-              git add tests/visual/snapshots/ || true
-              if git diff --cached --quiet; then
-                echo "Baselines already match origin/main — nothing to push."
-              else
-                git commit -m "ci: auto-refresh visual baselines [skip ci]"
-                git push
-                echo "::notice::Stale baselines re-applied on top of origin/main."
-              fi
+              echo "::notice::Push rejected — refusing to retry to avoid clobbering concurrent source commits. Next CI run will re-baseline."
             else
               echo "::notice::Stale baselines refreshed and committed."
             fi

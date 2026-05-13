@@ -149,6 +149,15 @@
   }
 </style>
 <style>
+  /* GLOBAL HIDDEN FIX — the HTML `hidden` attribute maps to UA stylesheet
+     rule `[hidden]{display:none}`, which is overridden by ANY author CSS
+     that sets `display` (flex/grid/block). admin.html uses inline
+     `display:flex` on #edit-shell + `.modal-bg{display:flex}` on 5 modals,
+     so every one of those elements was visible even with the hidden
+     attribute set. This !important rule restores `element.hidden = true`
+     to actually hide things, which every modal-toggle JS already assumes. */
+  [hidden] { display: none !important; }
+
   :root{
     --bg:#faf7f2; --surface:#fff; --ink:#0f172a; --ink-2:#5e574e; --muted:#8b8378;
     --blue:#6b8caf; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0;
