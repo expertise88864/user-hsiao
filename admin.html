@@ -37,6 +37,35 @@
   reach the dashboard underneath).
 -->
 <script>
+// CSP `require-trusted-types-for 'script'` blocks every innerHTML assignment
+// unless a Trusted Types policy exists. admin.html uses innerHTML extensively
+// for the article list, modals, history, SEO results, CWV table, etc., and
+// it does NOT load blog-shared.js (which sets up policies for /blog/). So
+// without this default policy, the dashboard renders a blank screen on
+// first load: the article list never appears, modals can't be toggled.
+//
+// admin is auth-gated (Vercel env ADMIN_PASSWORD) and only authenticated
+// admins can write content, so we accept HTML strings here — but still
+// scrub <script>, on*= handlers, and javascript: URLs as defense in depth.
+(function () {
+  if (!window.trustedTypes || !window.trustedTypes.createPolicy) return;
+  function sanitizeHTML(s) {
+    var out = String(s);
+    out = out.replace(/<script[\s\S]*?<\/script>/gi, '');
+    out = out.replace(/\son[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+    out = out.replace(/(href|src|action|formaction|xlink:href)\s*=\s*(["']?)\s*javascript:[^"'>\s]*\2/gi, '$1=$2#$2');
+    return out;
+  }
+  try {
+    window.trustedTypes.createPolicy('default', {
+      createHTML:      sanitizeHTML,
+      createScript:    function (s) { return String(s); },
+      createScriptURL: function (s) { return String(s); },
+    });
+  } catch (e) { /* policy may already exist if admin.html ever re-runs */ }
+})();
+</script>
+<script>
 (function () {
   try {
     if (location.search.indexOf('desktop=1') !== -1) {
