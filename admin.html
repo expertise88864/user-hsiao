@@ -11,21 +11,31 @@
 <!--
   Mobile redirect — admin.html's iframe-based editor breaks on iOS Safari
   (flex iframe height collapse + service-worker interception of /blog/*).
-  Phones get the cleaner /admin/ editor (GitHub PAT-based CMS with full
+  Phones get the cleaner /admin/mobile editor (GitHub PAT-based CMS with
   mobile drawers). Desktop continues to use admin.html's full dashboard
   (SEO check, spell, dictionary, image manager, A/B builder, CWV).
 
+  /admin/mobile is a Vercel rewrite → /admin/index.html. We use this path
+  instead of /admin/ because vercel.json has trailingSlash:false, which
+  strips /admin/ back to /admin (i.e. admin.html) and would loop forever.
+
   Runs synchronously in <head> so we redirect BEFORE any other JS / DOM
   setup, avoiding the white-screen flash from a half-loaded admin.html.
+
+  Safety belts against loops:
+    1. Skip if a manual override flag is present (?desktop=1)
+    2. Skip if we've already redirected once this session
 -->
 <script>
 (function () {
   try {
+    if (location.search.indexOf('desktop=1') !== -1) return;     // manual override
+    if (sessionStorage.getItem('hs:admin:mobile-redirected') === '1') return;
     var isPhone = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
     var isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 1;
-    // Coarse pointer + narrow viewport → phone. iPad is excluded (>768px).
     if (isPhone && isTouch) {
-      location.replace('/admin/');
+      sessionStorage.setItem('hs:admin:mobile-redirected', '1');
+      location.replace('/admin/mobile');
     }
   } catch (e) { /* fall through to admin.html */ }
 })();

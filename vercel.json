@@ -9,7 +9,8 @@
   "rewrites": [
     { "source": "/sitemap.xml",   "destination": "/api/sitemap" },
     { "source": "/blog/feed.xml", "destination": "/api/feed?fmt=rss" },
-    { "source": "/blog/atom.xml", "destination": "/api/feed?fmt=atom" }
+    { "source": "/blog/atom.xml", "destination": "/api/feed?fmt=atom" },
+    { "source": "/admin/mobile",  "destination": "/admin/index.html" }
   ],
   "headers": [
     {
