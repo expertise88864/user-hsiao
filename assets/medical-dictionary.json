@@ -1,0 +1,102 @@
+{
+  "青光眼": {
+    "en": "glaucoma",
+    "def": "視神經因眼壓或血流異常受損,造成視野缺損的疾病。",
+    "anchor": "glaucoma-warnings"
+  },
+  "白內障": {
+    "en": "cataract",
+    "def": "水晶體混濁造成視力模糊,常見於老化、外傷或長期紫外線暴露。",
+    "anchor": "cataract-surgery-faq"
+  },
+  "黃斑部病變": {
+    "en": "macular degeneration",
+    "def": "視網膜中央黃斑部退化,影響中央視力與閱讀能力。",
+    "anchor": ""
+  },
+  "視網膜剝離": {
+    "en": "retinal detachment",
+    "def": "視網膜與脈絡膜分離,屬眼科急症,需即刻手術。",
+    "anchor": "floaters-retinal-detachment"
+  },
+  "飛蚊症": {
+    "en": "floaters",
+    "def": "玻璃體混濁產生的浮游影像,多數為良性老化現象。",
+    "anchor": "floaters-retinal-detachment"
+  },
+  "乾眼症": {
+    "en": "dry eye disease",
+    "def": "淚液分泌不足或品質異常,造成眼睛乾澀、不適。",
+    "anchor": "dry-eye-myths"
+  },
+  "結膜炎": {
+    "en": "conjunctivitis",
+    "def": "結膜發炎,可由病毒、細菌或過敏引起。",
+    "anchor": "red-eye-conjunctivitis"
+  },
+  "近視": {
+    "en": "myopia",
+    "def": "眼球過長造成遠處影像聚焦於視網膜前方。",
+    "anchor": "pediatric-myopia-control"
+  },
+  "散光": {
+    "en": "astigmatism",
+    "def": "角膜或水晶體弧度不對稱造成的屈光異常。",
+    "anchor": ""
+  },
+  "老花眼": {
+    "en": "presbyopia",
+    "def": "隨年齡水晶體調節力下降,看近處模糊。",
+    "anchor": ""
+  },
+  "視神經炎": {
+    "en": "optic neuritis",
+    "def": "視神經發炎,常與多發性硬化症相關。",
+    "anchor": ""
+  },
+  "葡萄膜炎": {
+    "en": "uveitis",
+    "def": "葡萄膜（虹膜、睫狀體、脈絡膜）發炎,可致視力威脅。",
+    "anchor": ""
+  },
+  "糖尿病視網膜病變": {
+    "en": "diabetic retinopathy",
+    "def": "糖尿病引起的視網膜微血管病變,長期高血糖的視力併發症。",
+    "anchor": ""
+  },
+  "玻璃體": {
+    "en": "vitreous body",
+    "def": "填充於眼球後段的透明膠狀物質。",
+    "anchor": ""
+  },
+  "黃斑部": {
+    "en": "macula",
+    "def": "視網膜中央視力最敏銳的區域,負責中央視野與色彩辨識。",
+    "anchor": ""
+  },
+  "眼壓": {
+    "en": "intraocular pressure (IOP)",
+    "def": "眼內房水所形成的壓力,正常 10–21 mmHg。",
+    "anchor": ""
+  },
+  "人工水晶體": {
+    "en": "intraocular lens (IOL)",
+    "def": "白內障手術置入的人工鏡片,取代混濁的天然水晶體。",
+    "anchor": "cataract-surgery-faq"
+  },
+  "淚膜": {
+    "en": "tear film",
+    "def": "覆蓋於角膜表面的三層淚液結構（油脂、水液、黏液）。",
+    "anchor": "dry-eye-myths"
+  },
+  "視野": {
+    "en": "visual field",
+    "def": "眼睛固視時所能看到的全部範圍,青光眼診斷的關鍵指標。",
+    "anchor": ""
+  },
+  "視網膜": {
+    "en": "retina",
+    "def": "眼球內側的感光神經組織,負責將光訊號轉成神經訊號。",
+    "anchor": ""
+  }
+}
