@@ -103,9 +103,25 @@ jobs:
             echo "No baseline changes to commit."
           else
             git commit -m "ci: visual regression baselines [skip ci]"
-            git pull --rebase origin main || true
-            git push
-            echo "::notice::Baselines committed. Future runs will diff against them."
+            # Push, with race-recovery: if main moved forward (concurrent run),
+            # reset-soft to origin/main and recommit — our locally-generated
+            # baselines win over any concurrent run's. pull --rebase fails on
+            # binary PNG conflicts, so we avoid it entirely.
+            if ! git push 2>/dev/null; then
+              echo "::notice::Push rejected (concurrent commit). Recovering…"
+              git fetch origin main
+              git reset --soft origin/main
+              git add tests/visual/snapshots/ || true
+              if git diff --cached --quiet; then
+                echo "Baselines already match origin/main — nothing to push."
+              else
+                git commit -m "ci: visual regression baselines [skip ci]"
+                git push
+                echo "::notice::Baselines re-applied on top of origin/main."
+              fi
+            else
+              echo "::notice::Baselines committed. Future runs will diff against them."
+            fi
           fi
 
       # Diff comparison run — only when baselines already existed
@@ -133,9 +149,24 @@ jobs:
             echo "No baseline changes to commit (regeneration produced identical PNGs)."
           else
             git commit -m "ci: auto-refresh visual baselines [skip ci]"
-            git pull --rebase origin main || true
-            git push
-            echo "::notice::Stale baselines refreshed and committed."
+            # Race-recovery: if main moved forward during this run, reset-soft
+            # to origin/main and recommit. Locally-regenerated baselines win.
+            # We avoid pull --rebase because it can't auto-merge binary PNGs.
+            if ! git push 2>/dev/null; then
+              echo "::notice::Push rejected (concurrent commit). Recovering…"
+              git fetch origin main
+              git reset --soft origin/main
+              git add tests/visual/snapshots/ || true
+              if git diff --cached --quiet; then
+                echo "Baselines already match origin/main — nothing to push."
+              else
+                git commit -m "ci: auto-refresh visual baselines [skip ci]"
+                git push
+                echo "::notice::Stale baselines re-applied on top of origin/main."
+              fi
+            else
+              echo "::notice::Stale baselines refreshed and committed."
+            fi
           fi
 
       # Mark workflow failed only if diff failed AND we're NOT on main
