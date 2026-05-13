@@ -9,63 +9,65 @@
 <link rel="canonical" href="https://hsiao.chendermatologist.com/admin" />
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
 <!--
-  Mobile / tablet redirect — admin.html's iframe-based editor and dense
+  Mobile / tablet redirect — admin.html's iframe-based editor + dense
   desktop dashboard don't work on touch devices (iOS Safari iframe-in-flex
-  collapses to height 0; service worker intercepts /blog/* preventing
-  the iframe from loading; toolbar buttons are too small for tap targets).
+  collapses to height 0; service worker intercepts /blog/* preventing the
+  iframe from loading; toolbar buttons are too small for tap targets).
 
-  All coarse-pointer (touch) devices get redirected to /admin/mobile, which
-  is a Vercel rewrite → /admin/index.html (the cleaner GitHub PAT-based CMS
-  with mobile drawers and full-screen editor). Desktop with mouse continues
-  to use admin.html's full dashboard.
-
-  /admin/mobile is used instead of /admin/ because vercel.json has
-  trailingSlash:false, which would strip /admin/ → /admin → admin.html
-  and create an infinite loop.
+  Pure touch devices get redirected to /admin/mobile (= admin/mobile.html,
+  served directly by Vercel's cleanUrls — no rewrite needed since the file
+  name has no conflict with the /admin path which serves admin.html in the
+  root). The mobile CMS uses a GitHub PAT and has a touch-friendly layout.
 
   Runs synchronously at top of <head> so the redirect happens BEFORE any
   styles, fonts, or DOM build out — no white-screen flash, no half-loaded
   admin.html appearing momentarily.
 
-  Override: append ?desktop=1 to force the legacy admin on a touch device.
+  DETECTION RULE — `(pointer: coarse) AND NOT (any-pointer: fine)`:
+    • Phone / iPad without mouse: TRUE → redirect ✓
+    • iPad with paired Magic Keyboard mouse: any-pointer fine TRUE → STAY ✓
+    • Windows touchscreen laptop with trackpad/mouse: pointer is fine
+      (primary is mouse), any-pointer fine TRUE → STAY ✓ — fixes the bug
+      where Windows Chrome users on narrow windows were wrongly redirected
+    • Pure desktop: pointer fine, any-pointer fine TRUE → STAY ✓
+
+  Override: append `?desktop=1` to force admin.html on a touch device. The
+  override sets `force-desktop` on <html> so CSS fallback overlay is also
+  suppressed (otherwise the overlay would appear and the user couldn't
+  reach the dashboard underneath).
 -->
 <script>
 (function () {
   try {
-    if (location.search.indexOf('desktop=1') !== -1) return;  // manual override
-
-    // Aggressive mobile detection: coarse pointer (no mouse) OR narrow viewport
-    // OR multi-touch capable. ANY of these → redirect. We deliberately do NOT
-    // gate on viewport width alone because iPad Pro (1024px landscape) still
-    // can't drive admin.html's tiny SEO/Dictionary/CWV toolbars by tap.
-    var mqCoarse  = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-    var mqNarrow  = window.matchMedia && window.matchMedia('(max-width: 1024px)').matches;
-    var isTouch   = 'ontouchstart' in window || (navigator.maxTouchPoints || 0) > 1;
-    var isMobile  = mqCoarse || (mqNarrow && isTouch);
-
-    if (isMobile) {
-      // No session/cookie guard: /admin/mobile is a Vercel rewrite to a
-      // DIFFERENT file (/admin/index.html), so re-redirecting admin.html →
-      // /admin/mobile cannot loop. If admin.html somehow loads again after
-      // navigation, we just redirect again — that's fine.
+    if (location.search.indexOf('desktop=1') !== -1) {
+      document.documentElement.classList.add('force-desktop');
+      return;
+    }
+    var mm = window.matchMedia;
+    if (!mm) return;
+    var primaryCoarse = mm('(pointer: coarse)').matches;
+    var anyFineHere  = mm('(any-pointer: fine)').matches;
+    if (primaryCoarse && !anyFineHere) {
+      // Pure touch device with no mouse anywhere on the system → mobile CMS.
+      // No session guard needed: /admin/mobile serves a different FILE
+      // (admin/mobile.html), so re-redirecting cannot loop.
       location.replace('/admin/mobile');
     }
   } catch (e) { /* fall through to admin.html */ }
 })();
 </script>
 <style>
-  /* Belt-and-suspenders: if the redirect above somehow fails (JS disabled,
-     stale-cached script, etc.), hide the iframe-based edit-shell on phones
-     so users don't end up trapped on a blank screen they can't tap out of.
-     The 'Use the mobile admin' message below replaces it. */
-  @media (pointer: coarse), (max-width: 768px) {
-    #edit-shell { display: none !important; }
-    body.has-touch-fallback #site-content > * { display: none !important; }
-    body.has-touch-fallback #site-content::before {
-      content: '';
-      display: block;
-      min-height: 60vh;
-    }
+  /* Belt-and-suspenders: if the JS redirect above somehow fails (JS
+     disabled, stale-cached script, blocked by extension), pure touch
+     devices still see the #mobile-fallback overlay below, NOT a blank
+     trapped iframe. Desktop users (including Windows touchscreen laptops
+     with a mouse) and anyone with ?desktop=1 are unaffected.
+
+     We deliberately match only the same `(pointer: coarse) AND NOT
+     (any-pointer: fine)` rule as the JS, so CSS and JS stay in sync. */
+  @media (pointer: coarse) and (not (any-pointer: fine)) {
+    html:not(.force-desktop) #edit-shell { display: none !important; }
+    html:not(.force-desktop) #mobile-fallback { display: block; }
   }
   #mobile-fallback {
     display: none;
@@ -75,9 +77,6 @@
     padding: 20vh 24px 32px;
     text-align: center;
     font-family: Inter, 'Noto Sans TC', system-ui, sans-serif;
-  }
-  @media (pointer: coarse), (max-width: 768px) {
-    #mobile-fallback { display: block; }
   }
   #mobile-fallback h2 {
     font-family: 'Noto Serif TC', Georgia, serif;
@@ -777,15 +776,18 @@ function openEditor(slug) {
   }
   // Mobile fix: iOS Safari iframe-in-flex height collapse + cross-origin
   // service-worker quirks cause the embedded editor to render as a white
-  // page. On phones / tablets / any coarse-pointer device we skip the
-  // iframe entirely and navigate the whole window to the article in admin
-  // mode instead — the article page itself works fine on touch devices.
-  var mqCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-  var mqNarrow = window.matchMedia && window.matchMedia('(max-width: 1024px)').matches;
-  var isTouch  = 'ontouchstart' in window || (navigator.maxTouchPoints || 0) > 1;
-  if (mqCoarse || (mqNarrow && isTouch)) {
-    location.href = '/blog/' + slug + '?admin=1';
-    return;
+  // page. Same detection rule as the head-of-doc redirect: only pure
+  // touch devices (no mouse anywhere) skip the iframe and navigate the
+  // whole window to the article in admin mode — Windows touchscreen
+  // laptops with a mouse use the iframe normally.
+  var mm = window.matchMedia;
+  if (mm) {
+    var primaryCoarse = mm('(pointer: coarse)').matches;
+    var anyFineHere  = mm('(any-pointer: fine)').matches;
+    if (primaryCoarse && !anyFineHere) {
+      location.href = '/blog/' + slug + '?admin=1';
+      return;
+    }
   }
   document.getElementById('edit-shell').hidden = false;
   document.getElementById('edit-iframe').src = '/blog/' + slug + '?admin=1';
