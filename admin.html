@@ -8,6 +8,28 @@
 <meta name="robots" content="noindex,nofollow" />
 <link rel="canonical" href="https://hsiao.chendermatologist.com/admin" />
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+<!--
+  Mobile redirect — admin.html's iframe-based editor breaks on iOS Safari
+  (flex iframe height collapse + service-worker interception of /blog/*).
+  Phones get the cleaner /admin/ editor (GitHub PAT-based CMS with full
+  mobile drawers). Desktop continues to use admin.html's full dashboard
+  (SEO check, spell, dictionary, image manager, A/B builder, CWV).
+
+  Runs synchronously in <head> so we redirect BEFORE any other JS / DOM
+  setup, avoiding the white-screen flash from a half-loaded admin.html.
+-->
+<script>
+(function () {
+  try {
+    var isPhone = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+    var isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 1;
+    // Coarse pointer + narrow viewport → phone. iPad is excluded (>768px).
+    if (isPhone && isTouch) {
+      location.replace('/admin/');
+    }
+  } catch (e) { /* fall through to admin.html */ }
+})();
+</script>
 <style>
   :root{
     --bg:#faf7f2; --surface:#fff; --ink:#0f172a; --ink-2:#5e574e; --muted:#8b8378;
