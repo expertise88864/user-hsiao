@@ -190,6 +190,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   .al-meta .chip.cat-rx{ background:#ede9fe; color:#5b21b6; border:1px solid #ddd6fe; }
   .al-meta .chip.cat-notes{ background:#ccfbf1; color:#0f766e; border:1px solid #5eead4; }
   .al-meta .chip.cat-research{ background:#dcfce7; color:#14532d; border:1px solid #86efac; }
+  .al-meta .chip.cat-notes{ background:#ccfbf1; color:#0f766e; border:1px solid #5eead4; }
+  .al-meta .chip.cat-research{ background:#dcfce7; color:#14532d; border:1px solid #86efac; }
   .al-meta .chip.tag{ background:var(--blue-soft); color:var(--blue-deep); border:1px solid #b8cfe3; }
   .al-meta time{ font-size:10.5px; color:var(--muted); margin-left:auto; font-family:'JetBrains Mono',Inter,ui-monospace,monospace; letter-spacing:.04em; }
   /* v34.13: total card body = 3 lines (title 2 + description 1) — was 4 lines. */
@@ -362,7 +364,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
-  "@type":"Person",
+  "@type":["Person","Physician"],
   "@id":"https://hsiao.chendermatologist.com/about#person",
   "name":"蕭閔謙 醫師",
   "alternateName":"Min-Chien Hsiao, MD",
@@ -558,6 +560,19 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
     <h2 data-zh="診間講不完的話，寫在這裡。" data-en="What clinic doesn't have time to explain.">診間講不完的話，寫在這裡。</h2>
   </div>
   <div class="article-list" id="dn-article-list">
+
+    <a href="/blog/dims-pediatric-myopia-control" class="article-list-item">
+      <div class="al-body">
+        <div class="al-meta">
+          <span class="chip cat-research" data-zh="最新研究" data-en="Latest Research">最新研究</span>
+          <span class="chip tag" data-zh="兒童近視" data-en="Pediatric myopia">兒童近視</span>
+          <time>2026-05-12</time>
+        </div>
+        <h3 data-zh="兒童近視控制鏡片（DIMS）有效嗎？眼軸、度數、研究證據與適合對象一次看懂" data-en="Are DIMS Lenses Effective for Pediatric Myopia? Axial Length, Diopters, Evidence &amp; Who Benefits">兒童近視控制鏡片（DIMS）有效嗎？眼軸、度數、研究證據與適合對象一次看懂</h3>
+        <p data-zh="2026 年 2 月《American Journal of Ophthalmology》新發表的系統性回顧與整合分析（Al-Shammari 等）整合 6 篇研究、共 1224 位兒童：戴 DIMS 比戴一般單焦鏡片，12 個月內度數少加深約 0.37 D、眼軸少增長約 0.16 mm。本文用診間語言解析這篇新研究：DIMS 是什麼、機制、研究證據、適合對象、研究限制、與其他近視控制方法的定位。「有效」不等於「停止近視」── 戴 DIMS 仍會繼續近視，只是速度比較慢。" data-en="A new systematic review and meta-analysis (Al-Shammari et al., Am J Ophthalmol, Feb 2026) pooling 6 studies and 1224 children: DIMS lenses preserved ~0.37 D more diopters and ~0.16 mm less axial elongation than single-vision over 12 months. This article digests the new paper in clinic-friendly language: what DIMS is, mechanism, evidence, suitability, limitations, and how it sits among other myopia control options.">2026 年 2 月《American Journal of Ophthalmology》新發表的系統性回顧與整合分析（Al-Shammari 等）整合 6 篇研究、共 1224 位兒童：戴 DIMS 比戴一般單焦鏡片，12 個月內度數少加深約 0.37 D、眼軸少增長約 0.16 mm。本文用診間語言解析這篇新研究：DIMS 是什麼、機制、研究證據、適合對象、研究限制、與其他近視控制方法的定位。「有效」不等於「停止近視」── 戴 DIMS 仍會繼續近視，只是速度比較慢。</p>
+      </div>
+      <div class="al-arrow">→</div>
+    </a>
 
     <a href="/blog/cataract-surgery-selection" class="article-list-item">
       <div class="al-body">
@@ -891,7 +906,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
         "/blog/pediatric-myopia-control",
         "/blog/lacrimal-gland-tumor"
       ],
-      "eagerness": "immediate"
+      "eagerness": "conservative"
     },
     {
       "where": { "and": [
@@ -916,7 +931,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
         { "href_matches": "/blog/*" },
         { "not": { "href_matches": "/blog/?$" } }
       ]},
-      "eagerness": "eager"
+      "eagerness": "conservative"
     },
     {
       "where": { "href_matches": "/en/*" },

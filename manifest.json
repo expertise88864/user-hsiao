@@ -1,7 +1,7 @@
 {
-  "name": "蕭閔謙醫師 · 眼科衛教及學習筆記",
+  "name": "HsiaoEye - Ophthalmology Patient Education",
   "short_name": "HsiaoEye",
-  "description": "蕭閔謙醫師(眼科)的眼科衛教與學習筆記網站。",
+  "description": "Ophthalmology patient-education notes and self-education tools by Min-Chien Hsiao, MD.",
   "lang": "zh-TW",
   "start_url": "/",
   "scope": "/",
@@ -18,8 +18,8 @@
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ],
   "shortcuts": [
-    { "name": "衛教文章", "short_name": "文章", "url": "/blog/" },
-    { "name": "乾眼症 8 大迷思", "short_name": "乾眼迷思", "url": "/blog/dry-eye-myths" },
-    { "name": "關於我", "short_name": "關於", "url": "/about" }
+    { "name": "Articles", "short_name": "Articles", "url": "/blog/" },
+    { "name": "Dry Eye Myths", "short_name": "Dry Eye", "url": "/blog/dry-eye-myths" },
+    { "name": "About Dr. Hsiao", "short_name": "About", "url": "/about" }
   ]
 }

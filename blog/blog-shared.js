@@ -131,6 +131,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
+    { slug:'dims-pediatric-myopia-control', title:'兒童近視控制鏡片（DIMS）有效嗎？', title_en:'Are DIMS Lenses Effective for Pediatric Myopia?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-12' },
     { slug:'cataract-surgery-selection',   title:'白內障手術深度選擇',     title_en:'Cataract Surgery Selection',             cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-11' },
     { slug:'glaucoma-treatment-selection', title:'青光眼藥物與手術選擇',  title_en:'Glaucoma Treatment Selection',           cat:'rx',    tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-10' },
     { slug:'glaucoma-comprehensive-guide', title:'青光眼完整衛教',       title_en:'Glaucoma — Patient Education',           cat:'alert', tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-09' },

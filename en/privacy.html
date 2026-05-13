@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>隱私權政策 | HsiaoEye · 蕭閔謙醫師</title>
-<meta name="description" content="HsiaoEye 網站隱私權政策 — 我們收集的資料、Cookie 使用、第三方服務、用戶權利。" />
+<title>Privacy Policy | HsiaoEye</title>
+<meta name="description" content="HsiaoEye privacy policy covering analytics, cookies, third-party services, and how visitor data is handled." />
 <meta name="theme-color" content="#3a5a7c" />
 <meta name="robots" content="index,follow" />
 <link rel="canonical" href="https://hsiao.chendermatologist.com/en/privacy" />
@@ -20,17 +20,17 @@
 <link rel="manifest" href="/manifest.json" />
 
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://hsiao.chendermatologist.com/privacy" />
-<meta property="og:title" content="隱私權政策 | HsiaoEye" />
-<meta property="og:description" content="網站隱私權政策。" />
+<meta property="og:url" content="https://hsiao.chendermatologist.com/en/privacy" />
+<meta property="og:title" content="Privacy Policy | HsiaoEye" />
+<meta property="og:description" content="HsiaoEye privacy policy covering analytics, cookies, third-party services, and how visitor data is handled." />
 <meta property="og:image" content="https://hsiao.chendermatologist.com/icon-512.png" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:site_name" content="HsiaoEye" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="隱私權政策 | HsiaoEye" />
+<meta name="twitter:title" content="Privacy Policy | HsiaoEye" />
 <meta name="twitter:image" content="https://hsiao.chendermatologist.com/icon-512.png" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","url":"https://hsiao.chendermatologist.com/privacy","name":"隱私權政策","inLanguage":"zh-Hant-TW","isPartOf":{"@id":"https://hsiao.chendermatologist.com/#website"},"about":{"@type":"Thing","name":"Privacy policy"},"publisher":{"@id":"https://hsiao.chendermatologist.com/about#person"}}
+{"@context":"https://schema.org","@type":"WebPage","url":"https://hsiao.chendermatologist.com/en/privacy","name":"隱私權政策","inLanguage":"en","isPartOf":{"@id":"https://hsiao.chendermatologist.com/#website"},"about":{"@type":"Thing","name":"Privacy policy"},"publisher":{"@id":"https://hsiao.chendermatologist.com/about#person"}}
 </script>
 
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -123,13 +123,14 @@
   }
 })();
 </script>
+<meta name="twitter:description" content="HsiaoEye privacy policy covering analytics, cookies, third-party services, and how visitor data is handled." />
 </head>
 <body class="font-sans antialiased text-ink-900">
 <a href="#main-content" class="skip-link" style="position:absolute;left:-999px;top:0;background:#243b56;color:#fff;padding:8px 16px;z-index:9999;border-radius:0 0 8px 0;font-size:13px;font-weight:600" onfocus="this.style.left='0'" onblur="this.style.left='-999px'">跳到主內容</a>
 
 <div id="hs-en-banner" style="background:linear-gradient(180deg,#e3edf6,#b8cfe3);border-bottom:1px solid #3a5a7c;padding:9px 18px;text-align:center;font-size:12.5px;color:#243b56;font-family:Inter,system-ui,sans-serif;line-height:1.5;font-weight:500">
-  🌐 You are reading the English-mode interface. Some article body content is currently Chinese-only — full translation in progress.
-  <a href="#" id="hs-en-banner-zh" style="margin-left:8px;color:#0f172a;font-weight:700;text-decoration:underline">Switch to 中文 ↗</a>
+  You are reading the English-mode interface. Some article body content is currently Chinese-only; full translation is in progress.
+  <a href="#" id="hs-en-banner-zh" style="margin-left:8px;color:#0f172a;font-weight:700;text-decoration:underline">Switch to Chinese</a>
 </div>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
@@ -311,8 +312,7 @@
 </footer>
 
 <script>
-// Force English mode for /en/ pages — runs before blog-shared.js so the
-// first applyTextOnly() pass uses English (no FOUC).
+// Force English mode for /en/ pages before blog-shared.js loads.
 try {
   localStorage.setItem('hs_lang', 'en');
   document.cookie = 'hs_lang=en;path=/;max-age=31536000;samesite=lax';

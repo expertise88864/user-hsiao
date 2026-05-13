@@ -33,11 +33,32 @@ async function parseArticles() {
   if (!file) return [];
   const m = file.content.match(/DN\.ARTICLES\s*=\s*(\[[\s\S]*?\]);/);
   if (!m) return [];
+  const stubMatch = file.content.match(/DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]\s*\)/);
+  const stubs = new Set();
+  if (stubMatch) {
+    for (const row of stubMatch[1].matchAll(/'([^']+)'/g)) stubs.add(row[1]);
+  }
+
   const articles = [];
-  const re = /\{\s*slug\s*:\s*'([^']+)'[^}]*?title\s*:\s*'([^']+)'[^}]*?(?:tag\s*:\s*'([^']*)')?[^}]*?(?:date\s*:\s*'([^']*)')?[^}]*?(?:cat\s*:\s*'([^']*)')?[^}]*\}/g;
+  const getField = (body, key) => {
+    const mm = body.match(new RegExp(`${key}\\s*:\\s*'([^']*)'`));
+    return mm ? mm[1] : '';
+  };
+  const re = /\{([\s\S]*?)\}/g;
   let row;
   while ((row = re.exec(m[1])) !== null) {
-    articles.push({ slug: row[1], title: row[2], tag: row[3] || '', date: row[4] || '2026-01-01', cat: row[5] || 'myth' });
+    const body = row[1];
+    const slug = getField(body, 'slug');
+    if (!slug || stubs.has(slug)) continue;
+    articles.push({
+      slug,
+      title: getField(body, 'title'),
+      title_en: getField(body, 'title_en'),
+      tag: getField(body, 'tag'),
+      tag_en: getField(body, 'tag_en'),
+      date: getField(body, 'date') || '2026-01-01',
+      cat: getField(body, 'cat') || 'myth',
+    });
   }
   return articles;
 }

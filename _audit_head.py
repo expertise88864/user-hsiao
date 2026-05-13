@@ -13,7 +13,7 @@ import os, re, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SKIP_FILES = {'404.html', 'offline.html', 'admin.html', 'dashboard.html'}
-SKIP_DIRS = {'.git', 'node_modules', '_tmp_', 'tests'}
+SKIP_DIRS = {'.git', 'node_modules', '_tmp_', 'tests', 'admin'}
 
 # Each check is (label, regex, severity).  severity: "err" = blocker, "warn" = nice-to-have
 CHECKS = [
@@ -28,7 +28,6 @@ CHECKS = [
     ('twitter:title',       re.compile(r'<meta[^>]+name=["\']twitter:title["\']', re.I),            'warn'),
     ('twitter:image',       re.compile(r'<meta[^>]+name=["\']twitter:image["\']', re.I),            'warn'),
     ('meta description',    re.compile(r'<meta[^>]+name=["\']description["\']', re.I),              'err'),
-    ('meta keywords',       re.compile(r'<meta[^>]+name=["\']keywords["\']', re.I),                 'warn'),
     ('JSON-LD',             re.compile(r'<script[^>]+type=["\']application/ld\+json["\']', re.I),   'err'),
     ('viewport',            re.compile(r'<meta[^>]+name=["\']viewport["\']', re.I),                 'err'),
     ('charset',             re.compile(r'<meta[^>]+charset=', re.I),                                'err'),

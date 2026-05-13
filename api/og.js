@@ -25,9 +25,16 @@ export const config = { runtime: 'edge' };
 async function lookupTitle(slug) {
   const file = await ghGetFile('blog/blog-shared.js');
   if (!file) return null;
-  const m = file.content.match(new RegExp(`slug\\s*:\\s*'${slug}'[^}]*?title\\s*:\\s*'([^']+)'[^}]*?(?:tag\\s*:\\s*'([^']*)')?`));
-  if (!m) return null;
-  return { title: m[1], tag: m[2] || '' };
+  const block = file.content.match(/DN\.ARTICLES\s*=\s*(\[[\s\S]*?\]);/);
+  if (!block) return null;
+  const safeSlug = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const row = block[1].match(new RegExp(`\\{[\\s\\S]*?slug\\s*:\\s*'${safeSlug}'[\\s\\S]*?\\}`));
+  if (!row) return null;
+  const getField = (key) => {
+    const m = row[0].match(new RegExp(`${key}\\s*:\\s*'([^']*)'`));
+    return m ? m[1] : '';
+  };
+  return { title: getField('title'), tag: getField('tag') };
 }
 
 export default async function handler(req) {

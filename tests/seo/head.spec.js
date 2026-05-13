@@ -19,16 +19,41 @@ const PUBLIC_PATHS = [
   '/tools',
   '/blog/',
   '/blog/topics',
+  '/blog/cataract-comprehensive-guide',
+  '/blog/cataract-surgery-selection',
   '/blog/dry-eye-myths',
   '/blog/floaters-retinal-detachment',
+  '/blog/glaucoma-comprehensive-guide',
+  '/blog/glaucoma-treatment-selection',
   '/blog/lacrimal-gland-tumor',
   '/blog/pediatric-myopia-control',
   '/blog/thyroid-eye-disease',
   '/en/',
   '/en/about',
+  '/en/notes',
+  '/en/privacy',
+  '/en/tools',
   '/en/blog/',
+  '/en/blog/cataract-comprehensive-guide',
+  '/en/blog/cataract-surgery-selection',
+  '/en/blog/dry-eye-myths',
+  '/en/blog/floaters-retinal-detachment',
+  '/en/blog/glaucoma-comprehensive-guide',
+  '/en/blog/glaucoma-treatment-selection',
+  '/en/blog/lacrimal-gland-tumor',
+  '/en/blog/pediatric-myopia-control',
   '/en/blog/thyroid-eye-disease',
 ];
+
+function walkValues(obj, visit) {
+  if (Array.isArray(obj)) return obj.forEach(x => walkValues(x, visit));
+  if (obj && typeof obj === 'object') {
+    for (const [k, v] of Object.entries(obj)) {
+      visit(k, v);
+      walkValues(v, visit);
+    }
+  }
+}
 
 for (const path of PUBLIC_PATHS) {
   test.describe(`SEO head — ${path}`, () => {
@@ -66,16 +91,31 @@ for (const path of PUBLIC_PATHS) {
       // 7. og:url, og:title, og:image
       const ogUrl = await page.locator('head meta[property="og:url"]').getAttribute('content');
       expect(ogUrl, 'og:url missing').toBeTruthy();
+      expect(ogUrl, 'og:url must match canonical').toBe(canonical);
       const ogTitle = await page.locator('head meta[property="og:title"]').getAttribute('content');
       expect(ogTitle, 'og:title missing').toBeTruthy();
       const ogImage = await page.locator('head meta[property="og:image"]').getAttribute('content');
       expect(ogImage, 'og:image missing').toBeTruthy();
+      expect(ogImage, 'og:image must be absolute https URL').toMatch(/^https:\/\//);
 
-      // 8. At least one valid JSON-LD block
+      // 8. JSON-LD blocks must parse and agree with page language / URL.
       const ldBlocks = await page.locator('head script[type="application/ld+json"]').count();
       expect(ldBlocks, 'no JSON-LD').toBeGreaterThan(0);
-      const firstLd = await page.locator('head script[type="application/ld+json"]').first().textContent();
-      expect(() => JSON.parse(firstLd), 'JSON-LD parse error').not.toThrow();
+      for (let i = 0; i < ldBlocks; i++) {
+        const raw = await page.locator('head script[type="application/ld+json"]').nth(i).textContent();
+        let parsed;
+        expect(() => { parsed = JSON.parse(raw); }, `JSON-LD #${i + 1} parse error`).not.toThrow();
+        if (path.startsWith('/en/')) {
+          walkValues(parsed, (k, v) => {
+            if (k === 'inLanguage') expect(JSON.stringify(v), `English page JSON-LD #${i + 1} has zh inLanguage`).not.toMatch(/zh/i);
+            if ((k === 'url' || k === 'mainEntityOfPage') && typeof v === 'string' && v.startsWith(BASE)) {
+              if (/\/(blog|about|tools|notes|privacy)(\/|$)/.test(path)) {
+                expect(v, `English page JSON-LD #${i + 1} URL should point at /en/ when page-scoped`).not.toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/(blog|about|tools|notes|privacy)(\/|$)/);
+              }
+            }
+          });
+        }
+      }
     });
   });
 }
@@ -102,4 +142,25 @@ test('sitemap.xml is valid XML and contains canonical URLs', async ({ request })
   expect(xml).toMatch(/<urlset\b/);
   expect(xml.match(/<url>/g).length).toBeGreaterThan(10);
   expect(xml).toMatch(/https:\/\/hsiao\.chendermatologist\.com\/blog\/thyroid-eye-disease/);
+  expect(xml).not.toMatch(/cataract-surgery-faq|glaucoma-warnings|contact-lens-safety|red-eye-conjunctivitis/);
+});
+
+test('referenced core assets exist', async ({ request }) => {
+  const paths = [
+    '/favicon.ico',
+    '/icon-16.png',
+    '/icon-32.png',
+    '/icon-192.png',
+    '/icon-512.png',
+    '/apple-touch-icon.png',
+    '/logo-512.png',
+    '/assets/og/cataract-comprehensive-guide.png',
+    '/assets/og/cataract-surgery-selection.png',
+    '/assets/og/glaucoma-comprehensive-guide.png',
+    '/assets/og/glaucoma-treatment-selection.png',
+  ];
+  for (const p of paths) {
+    const r = await request.get(BASE + p);
+    expect(r.ok(), `${p} should exist`).toBeTruthy();
+  }
 });

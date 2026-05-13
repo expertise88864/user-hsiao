@@ -24,7 +24,7 @@
 <link rel="manifest" href="/manifest.json" />
 
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hsiao.chendermatologist.com/blog/contact-lens-safety" />
+<meta property="og:url" content="https://hsiao.chendermatologist.com/en/blog/contact-lens-safety" />
 <meta property="og:title" content="隱形眼鏡安全完整指南 — 戴幾年會「磨損」眼睛?" />
 <meta property="og:description" content="隱形眼鏡是醫療器材不是化妝品。台灣每年因戴隱眼造成的角膜潰瘍致盲案例不在少數。本頁列出五大安全紅線、何時要立刻拿下、日拋 vs 月拋差異預告。" />
 <meta property="og:image" content="https://hsiao.chendermatologist.com/icon-512.png" />
@@ -83,10 +83,10 @@
 </style>
 
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://hsiao.chendermatologist.com/"}, {"@type": "ListItem", "position": 2, "name": "衛教文章", "item": "https://hsiao.chendermatologist.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "隱形眼鏡安全完整指南 — 戴幾年會「磨損」眼睛?", "item": "https://hsiao.chendermatologist.com/blog/contact-lens-safety"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/en/"},{"@type":"ListItem","position":2,"name":"衛教文章","item":"https://hsiao.chendermatologist.com/en/blog/"},{"@type":"ListItem","position":3,"name":"隱形眼鏡安全完整指南 — 戴幾年會「磨損」眼睛?","item":"https://hsiao.chendermatologist.com/en/blog/contact-lens-safety"}]}
 </script>
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "MedicalWebPage", "url": "https://hsiao.chendermatologist.com/blog/contact-lens-safety", "inLanguage": ["zh-TW", "en"], "name": "隱形眼鏡安全完整指南 — 戴幾年會「磨損」眼睛?", "audience": {"@type": "MedicalAudience", "audienceType": "Patient"}, "lastReviewed": "2026-05-10", "reviewedBy": {"@type": "Person", "name": "蕭閔謙 醫師", "honorificSuffix": "M.D."}, "about": {"@type": "MedicalCondition", "name": "隱形眼鏡相關角膜病", "alternateName": ["隱形眼鏡相關角膜病", "Contact lens-related keratopathy"], "code": {"@type": "MedicalCode", "code": "H18", "codingSystem": "ICD-10"}}, "isPartOf": {"@type": "WebSite", "name": "HsiaoEye", "url": "https://hsiao.chendermatologist.com/"}}
+{"@context":"https://schema.org","@type":"MedicalWebPage","url":"https://hsiao.chendermatologist.com/en/blog/contact-lens-safety","inLanguage":"en","name":"隱形眼鏡安全完整指南 — 戴幾年會「磨損」眼睛?","audience":{"@type":"MedicalAudience","audienceType":"Patient"},"lastReviewed":"2026-05-10","reviewedBy":{"@type":"Person","name":"蕭閔謙 醫師","honorificSuffix":"M.D."},"about":{"@type":"MedicalCondition","name":"隱形眼鏡相關角膜病","alternateName":["隱形眼鏡相關角膜病","Contact lens-related keratopathy"],"code":{"@type":"MedicalCode","code":"H18","codingSystem":"ICD-10"}},"isPartOf":{"@type":"WebSite","name":"HsiaoEye","url":"https://hsiao.chendermatologist.com/en/"}}
 </script>
 
 <!-- ===== Google Analytics 4 + Consent Mode v2 + bot/prerender gate (id: G-0ZKDQP9DNH) ===== -->
@@ -143,8 +143,8 @@
 <a href="#main-content" class="skip-link" style="position:absolute;left:-999px;top:0;background:#243b56;color:#fff;padding:8px 16px;z-index:9999;border-radius:0 0 8px 0;font-size:13px;font-weight:600" onfocus="this.style.left='0'" onblur="this.style.left='-999px'">跳到主內容</a>
 
 <div id="hs-en-banner" style="background:linear-gradient(180deg,#e3edf6,#b8cfe3);border-bottom:1px solid #3a5a7c;padding:9px 18px;text-align:center;font-size:12.5px;color:#243b56;font-family:Inter,system-ui,sans-serif;line-height:1.5;font-weight:500">
-  🌐 You are reading the English-mode interface. Some article body content is currently Chinese-only — full translation in progress.
-  <a href="#" id="hs-en-banner-zh" style="margin-left:8px;color:#0f172a;font-weight:700;text-decoration:underline">Switch to 中文 ↗</a>
+  You are reading the English-mode interface. Some article body content is currently Chinese-only; full translation is in progress.
+  <a href="#" id="hs-en-banner-zh" style="margin-left:8px;color:#0f172a;font-weight:700;text-decoration:underline">Switch to Chinese</a>
 </div>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(250,247,242,.92); border-color:var(--border)">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
@@ -269,8 +269,7 @@
 </footer>
 
 <script>
-// Force English mode for /en/ pages — runs before blog-shared.js so the
-// first applyTextOnly() pass uses English (no FOUC).
+// Force English mode for /en/ pages before blog-shared.js loads.
 try {
   localStorage.setItem('hs_lang', 'en');
   document.cookie = 'hs_lang=en;path=/;max-age=31536000;samesite=lax';

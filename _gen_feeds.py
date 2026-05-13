@@ -28,27 +28,31 @@ with open('blog/blog-shared.js', 'r', encoding='utf-8') as f:
 m = re.search(r'DN\.ARTICLES\s*=\s*\[(.*?)\];', js, re.DOTALL)
 articles = []
 if m:
-    for line in m.group(1).split('\n'):
-        slug_m    = re.search(r"slug\s*:\s*'([^']+)'", line)
-        title_m   = re.search(r"title\s*:\s*'([^']+)'", line)
-        tag_m     = re.search(r"tag\s*:\s*'([^']+)'", line)
-        date_m    = re.search(r"date\s*:\s*'([^']+)'", line)
-        updated_m = re.search(r"updated\s*:\s*'([^']+)'", line)
-        cat_m     = re.search(r"cat\s*:\s*'([^']+)'", line)
-        if slug_m and title_m:
-            published = date_m.group(1)    if date_m    else '2026-01-01'
+    stub_m = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]\s*\)', js)
+    stubs = set(re.findall(r"'([^']+)'", stub_m.group(1))) if stub_m else set()
+
+    def field(body, key):
+        mm = re.search(rf"{key}\s*:\s*'([^']*)'", body)
+        return mm.group(1) if mm else ''
+
+    for obj in re.finditer(r'\{([\s\S]*?)\}', m.group(1)):
+        body = obj.group(1)
+        slug = field(body, 'slug')
+        title = field(body, 'title')
+        if slug and title and slug not in stubs:
+            published = field(body, 'date') or '2026-01-01'
             # v34.15: optional `updated` field — used as <lastmod> when present.
             # Falls back to `date` (publication date). Lets the author bump
             # sitemap freshness on substantive edits without changing the
             # canonical publish-date used for citations / FAQ schema.
-            updated   = updated_m.group(1) if updated_m else published
+            updated = field(body, 'updated') or published
             articles.append({
-                'slug':    slug_m.group(1),
-                'title':   title_m.group(1),
-                'tag':     tag_m.group(1)  if tag_m  else '',
+                'slug':    slug,
+                'title':   title,
+                'tag':     field(body, 'tag'),
                 'date':    published,
                 'updated': updated,
-                'cat':     cat_m.group(1)  if cat_m  else 'myth',
+                'cat':     field(body, 'cat') or 'myth',
             })
 
 articles.sort(key=lambda a: a['updated'], reverse=True)
@@ -64,13 +68,8 @@ STATIC_PAGES = [
     {'url': '/privacy',       'priority': '0.4',  'changefreq': 'yearly'},
 ]
 
-# Stub landing pages that aren't in DN.ARTICLES yet (lower priority)
-LANDING_STUBS = [
-    'cataract-surgery-faq',
-    'glaucoma-warnings',
-    'contact-lens-safety',
-    'red-eye-conjunctivitis',
-]
+# Unpublished landing pages are deliberately excluded from sitemap/feed.
+LANDING_STUBS = []
 
 # ── sitemap.xml ──
 def build_sitemap():
@@ -172,7 +171,7 @@ def build_rss():
            f'  <lastBuildDate>{today}</lastBuildDate>',
            '  <generator>HsiaoEye auto-feed v1 (_gen_feeds.py)</generator>',
            '  <image>',
-           f'    <url>{DOMAIN}/logo-512.png</url>',
+           f'    <url>{DOMAIN}/SUNN1302-200.jpg</url>',
            '    <title>HsiaoEye</title>',
            f'    <link>{DOMAIN}/</link>',
            '    <width>144</width>',

@@ -23,14 +23,24 @@ export default async function handler(req, res) {
 
     const articles = [];
     const blockSrc = m[1];
-    const lineRe = /\{\s*slug\s*:\s*'([^']+)'[^}]+title\s*:\s*'([^']+)'[^}]*?(?:tag\s*:\s*'([^']*)')?[^}]*?(?:date\s*:\s*'([^']*)')?[^}]*\}/g;
+    const getField = (body, key) => {
+      const mm = body.match(new RegExp(`${key}\\s*:\\s*'([^']*)'`));
+      return mm ? mm[1] : '';
+    };
+    const lineRe = /\{([\s\S]*?)\}/g;
     let row;
     while ((row = lineRe.exec(blockSrc)) !== null) {
+      const body = row[1];
+      const slug = getField(body, 'slug');
+      if (!slug) continue;
       articles.push({
-        slug:  row[1],
-        title: row[2],
-        tag:   row[3] || '',
-        date:  row[4] || '',
+        slug,
+        title: getField(body, 'title'),
+        title_en: getField(body, 'title_en'),
+        cat: getField(body, 'cat'),
+        tag: getField(body, 'tag'),
+        tag_en: getField(body, 'tag_en'),
+        date: getField(body, 'date'),
       });
     }
 
