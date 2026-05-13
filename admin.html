@@ -37,6 +37,45 @@
   reach the dashboard underneath).
 -->
 <script>
+// AUTO CACHE-BUST — runs synchronously before anything else.
+// Compares localStorage version stamp against the constant baked into the
+// deployed HTML. If they mismatch, the page UNREGISTERS every Service
+// Worker, DELETES every Cache Storage entry, then reloads once. After
+// the reload the version stamp matches and we never enter this branch
+// again until the next deploy bumps the constant.
+//
+// Why: traditional `?v=…` query busting doesn't help once a stale SW
+// has cached a buggy precache list. The user shouldn't have to F12 →
+// Application → Clear site data themselves on every deploy.
+(function () {
+  var TARGET = '20260642b';  // bump this whenever blog-shared.js / sw.js change shape
+  try {
+    if (localStorage.getItem('hs:siteVer') === TARGET) return;
+    var hasSW     = ('serviceWorker' in navigator);
+    var hasCaches = ('caches' in window);
+    if (!hasSW && !hasCaches) {
+      localStorage.setItem('hs:siteVer', TARGET);
+      return;
+    }
+    var jobs = [];
+    if (hasSW) jobs.push(
+      navigator.serviceWorker.getRegistrations().then(function (rs) {
+        return Promise.all(rs.map(function (r) { return r.unregister(); }));
+      })
+    );
+    if (hasCaches) jobs.push(
+      caches.keys().then(function (ks) {
+        return Promise.all(ks.map(function (k) { return caches.delete(k); }));
+      })
+    );
+    Promise.all(jobs).catch(function () {}).then(function () {
+      localStorage.setItem('hs:siteVer', TARGET);
+      location.reload();
+    });
+  } catch (e) { /* private mode / quota — skip silently */ }
+})();
+</script>
+<script>
 // CSP `require-trusted-types-for 'script'` blocks every innerHTML assignment
 // unless a Trusted Types policy exists. admin.html uses innerHTML extensively
 // for the article list, modals, history, SEO results, CWV table, etc., and
