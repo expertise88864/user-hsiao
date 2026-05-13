@@ -65,15 +65,6 @@
 
      We deliberately match only the same `(pointer: coarse) AND NOT
      (any-pointer: fine)` rule as the JS, so CSS and JS stay in sync. */
-  /* The #edit-shell inline style sets `display:flex` which OVERRIDES the
-     HTML `hidden` attribute (inline style beats UA stylesheet's
-     `[hidden]{display:none}`). Without this rule, the empty edit-shell
-     would always be visible on top of the dashboard with a blank
-     about:blank iframe — exactly the "blank page can't tap anything"
-     bug users have been hitting. !important here is necessary because
-     we have to win against the inline display:flex. */
-  #edit-shell[hidden] { display: none !important; }
-
   @media (pointer: coarse) and (not (any-pointer: fine)) {
     html:not(.force-desktop) #edit-shell { display: none !important; }
     html:not(.force-desktop) #mobile-fallback { display: block; }
