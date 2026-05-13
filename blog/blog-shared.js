@@ -3923,10 +3923,15 @@
       if (tagText) tags[tagText] = (tags[tagText] || 0) + 1;
     });
 
+    // Keep these labels in sync with index.html quick-find chips + per-article
+    // hero badges. v35: added research / notes (new "depth" categories) and
+    // corrected rx label from "處方治療" → "衛教" to match homepage chips.
     var CAT_LABELS = {
-      myth:  { zh: '迷思澄清', en: 'Myth-busting' },
-      alert: { zh: '警訊辨識', en: 'Red Flags' },
-      rx:    { zh: '處方治療', en: 'Treatment' },
+      myth:     { zh: '迷思澄清', en: 'Myth-busting' },
+      alert:    { zh: '警訊辨識', en: 'Red Flags' },
+      rx:       { zh: '衛教',     en: 'Patient Ed' },
+      notes:    { zh: '學習筆記', en: 'Study Notes' },
+      research: { zh: '最新研究', en: 'Latest Research' },
     };
 
     // Build markup
