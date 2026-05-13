@@ -524,27 +524,53 @@
     });
   };
 
-  // ---------- SW update toast ----------
+  // ---------- SW auto-update (silent, one-shot reload) ----------
+  // v36: was a manual "網站已更新 — 重新載入" toast. Per user request, switched
+  // to automatic activation + one-shot reload so users never have to clear
+  // cache or click anything to pick up a new deploy.
+  //
+  // Flow:
+  //   1. registration.waiting present (or `updatefound` fires + new SW
+  //      reaches `installed`) → send SKIP_WAITING.
+  //   2. New SW activates → `controllerchange` event fires.
+  //   3. We reload exactly once. The sessionStorage flag prevents the
+  //      next page (which will see ITS OWN registration.waiting === null
+  //      because we just consumed it) from reloading again, and also
+  //      blocks the rare edge case where two activations happen in one
+  //      tab session.
   DN.bindSWUpdateToast = function (registration) {
     if (!registration) return;
-    function showToast() {
-      if (document.getElementById('hs-sw-toast')) return;
-      const toast = document.createElement('div');
-      toast.id = 'hs-sw-toast';
-      toast.style.cssText = 'position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translateX(-50%);background:#243b56;color:#fff;padding:10px 16px 10px 18px;border-radius:9999px;display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;z-index:60;box-shadow:0 12px 28px -8px rgba(36,59,86,.55);max-width:calc(100vw - 24px);';
-      toast.innerHTML = '<span>網站已更新 — </span><button style="background:#fff;color:#3a5a7c;border:none;padding:5px 12px;border-radius:9999px;font-weight:700;font-size:12px;cursor:pointer">重新載入</button>';
-      toast.querySelector('button').addEventListener('click', function () {
-        if (registration.waiting) registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+
+    function activateAndReload() {
+      try {
+        if (sessionStorage.getItem('hs:sw:reloaded') === '1') return;
+        sessionStorage.setItem('hs:sw:reloaded', '1');
+      } catch (e) { /* private mode / quota — fall through, single reload still safer than none */ }
+      if (registration.waiting) registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      // Wait for the controller swap before reloading so the next page
+      // load is served by the NEW SW (otherwise the reload could be
+      // intercepted by the old SW and we'd be stuck a cycle behind).
+      navigator.serviceWorker.addEventListener('controllerchange', function once () {
+        navigator.serviceWorker.removeEventListener('controllerchange', once);
         location.reload();
-      });
-      document.body.appendChild(toast);
+      }, { once: true });
     }
-    if (registration.waiting) showToast();
+
+    // Case A: a new SW is already waiting (e.g., user just deployed,
+    // closed tabs, opened a fresh tab — old SW still controls this page
+    // but a new one is queued behind it).
+    if (registration.waiting && navigator.serviceWorker.controller) {
+      activateAndReload();
+      return;
+    }
+    // Case B: new SW detected during this page session.
     registration.addEventListener('updatefound', function () {
       const sw = registration.installing;
       if (!sw) return;
       sw.addEventListener('statechange', function () {
-        if (sw.state === 'installed' && navigator.serviceWorker.controller) showToast();
+        if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+          activateAndReload();
+        }
       });
     });
   };
