@@ -93,12 +93,16 @@
      with a mouse) and anyone with ?desktop=1 are unaffected.
 
      We deliberately match only the same `(pointer: coarse) AND NOT
-     (any-pointer: fine)` rule as the JS, so CSS and JS stay in sync.
+     (any-pointer: fine)` rule as the JS, so CSS and JS stay in sync. */
+  /* The #edit-shell inline style sets `display:flex` which OVERRIDES the
+     HTML `hidden` attribute (inline style beats UA stylesheet's
+     `[hidden]{display:none}`). Without this rule, the empty edit-shell
+     would always be visible on top of the dashboard with a blank
+     about:blank iframe — exactly the "blank page can't tap anything"
+     bug users have been hitting. !important here is necessary because
+     we have to win against the inline display:flex. */
+  #edit-shell[hidden] { display: none !important; }
 
-     Note: #edit-shell + modal-bg hiding is now covered by the global
-     `[hidden]{display:none!important}` rule near the top of the second
-     <style> block. The redirect-mobile rule below is the only #edit-shell
-     CSS that still needs to be specific. */
   @media (pointer: coarse) and (not (any-pointer: fine)) {
     html:not(.force-desktop) #edit-shell { display: none !important; }
     html:not(.force-desktop) #mobile-fallback { display: block; }
@@ -145,20 +149,6 @@
   }
 </style>
 <style>
-  /* GLOBAL HIDDEN FIX — the HTML `hidden` attribute maps to the UA
-     stylesheet rule `[hidden]{display:none}`, which is overridden by ANY
-     author CSS that sets `display` (flex/grid/block) on the same element.
-     This admin.html uses inline `display:flex` on #edit-shell + a
-     `.modal-bg{display:flex}` class on 5 modals, so every one of those
-     elements was visible even with the hidden attribute set.
-
-     Adding this !important rule at the top of author styles restores the
-     intuitive behavior: `element.hidden = true` actually hides the
-     element. All existing modal JS (showXxxModal / closeXxxModal toggling
-     `.hidden`) and `openEditor` / `closeEditor` (toggling
-     `#edit-shell.hidden`) keep working unchanged. */
-  [hidden] { display: none !important; }
-
   :root{
     --bg:#faf7f2; --surface:#fff; --ink:#0f172a; --ink-2:#5e574e; --muted:#8b8378;
     --blue:#6b8caf; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0;

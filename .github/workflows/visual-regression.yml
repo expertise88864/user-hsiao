@@ -109,15 +109,8 @@ jobs:
             # binary PNG conflicts, so we avoid it entirely.
             if ! git push 2>/dev/null; then
               echo "::notice::Push rejected (concurrent commit). Recovering…"
-              # CRITICAL: use --mixed (default), NOT --soft. With --soft, the
-              # CI's stale index (containing the source-file tree from when
-              # the workflow STARTED, before any concurrent commit landed)
-              # gets recommitted on top of origin/main — silently REVERTING
-              # any source-file changes that landed during this run.
-              # --mixed resets the index to origin/main while preserving
-              # the working tree, so only the PNG diffs get staged.
               git fetch origin main
-              git reset --mixed origin/main
+              git reset --soft origin/main
               git add tests/visual/snapshots/ || true
               if git diff --cached --quiet; then
                 echo "Baselines already match origin/main — nothing to push."
@@ -161,12 +154,8 @@ jobs:
             # We avoid pull --rebase because it can't auto-merge binary PNGs.
             if ! git push 2>/dev/null; then
               echo "::notice::Push rejected (concurrent commit). Recovering…"
-              # CRITICAL: --mixed (default), NOT --soft. See the matching
-              # comment in the bootstrap step above. --soft preserves the
-              # CI's stale index and silently reverts source-file changes
-              # that landed during this run.
               git fetch origin main
-              git reset --mixed origin/main
+              git reset --soft origin/main
               git add tests/visual/snapshots/ || true
               if git diff --cached --quiet; then
                 echo "Baselines already match origin/main — nothing to push."
