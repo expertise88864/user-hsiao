@@ -655,6 +655,14 @@ async function checkEnvStatus() {
 
 // ───────────────── Embedded editor ─────────────────
 function openEditor(slug) {
+  // Mobile fix: iOS Safari iframe-in-flex height collapse + cross-origin
+  // service-worker quirks cause the embedded editor to render as a white
+  // page. On phones we navigate the whole window to the article in admin
+  // mode instead — the article page itself works fine on iOS.
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    location.href = '/blog/' + slug + '?admin=1';
+    return;
+  }
   document.getElementById('edit-shell').hidden = false;
   document.getElementById('edit-iframe').src = '/blog/' + slug + '?admin=1';
   document.getElementById('edit-slug-display').textContent = slug;
