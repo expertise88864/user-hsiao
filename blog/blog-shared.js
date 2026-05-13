@@ -1305,7 +1305,13 @@
   // ---------- related articles + ItemList JSON-LD ----------
   DN.addRelatedArticles = function () {
     const article = document.querySelector('article');
-    if (!article || document.getElementById('hs-related')) return;
+    if (!article) return;
+    // Bail only if the mount is ALREADY POPULATED (not just present). Articles
+    // ship with an empty `<div id="hs-related">` placeholder that the legacy
+    // guard ("|| document.getElementById('hs-related')") was wrongly treating
+    // as "already done" — which left every new article without related links.
+    const _rel = document.getElementById('hs-related');
+    if (_rel && _rel.children.length) return;
     const slug = DN.currentSlug();
     if (!slug) return;
     const all = DN.ARTICLES || [];
@@ -3188,7 +3194,12 @@
 
   DN.addFeedbackLink = function () {
     var article = document.querySelector('article.max-w-3xl');
-    if (!article || document.getElementById('hs-feedback')) return;
+    if (!article) return;
+    // Bail only if mount is ALREADY POPULATED (same bug as addRelatedArticles —
+    // the placeholder `<div id="hs-feedback">` exists from the start, so the
+    // old guard was bailing before injecting the feedback card).
+    var _fb = document.getElementById('hs-feedback');
+    if (_fb && _fb.children.length) return;
     var pageTitle = document.title.split('|')[0].trim();
     var subject = encodeURIComponent('[HsiaoEye 回饋] ' + pageTitle);
     var body = encodeURIComponent(
