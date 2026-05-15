@@ -75,6 +75,50 @@ function transform(html, zhCanonical, enCanonical) {
   if (s.includes('<meta property="og:locale:alternate"')) {
     s = s.replace(/<meta property="og:locale:alternate" content="[^"]*"\s*\/?>/, '<meta property="og:locale:alternate" content="zh_TW" />');
   }
+
+  // v36.2 SEO FIX — rewrite internal anchor hrefs so /en/ pages link to
+  // their /en/ counterparts. Previously every `<a href="/blog/foo">` in
+  // the EN mirror pointed back at the ZH version, which made Google
+  // override the user-declared canonical: GSC reported "Google chose a
+  // different canonical" because the internal-link signal said "the
+  // /blog/foo URL is the real authority" — even though the EN page's
+  // <link rel="canonical"> said /en/blog/foo.
+  //
+  // We rewrite ONLY anchor hrefs (`<a … href="…">`), and only when the
+  // href starts with one of the known site-root paths. NOT touched:
+  //   • Script/link src= (resources stay shared: blog-shared.js etc.)
+  //   • hreflang alternates (already correctly handled above)
+  //   • mailto:, https://, etc.
+  //   • #fragment-only or ./relative paths
+  function rewriteAnchor(prefix) {
+    return function (full, openTag, before, path, after) {
+      // Already /en/-prefixed? leave alone.
+      if (path.startsWith('/en/')) return full;
+      return openTag + before + prefix + path + after;
+    };
+  }
+  // Anchor href rewriter: matches `<a … href="…">` and inspects path.
+  s = s.replace(
+    /(<a\b[^>]*?\bhref=")([^"#?]*?)((?:[?#][^"]*)?")/gi,
+    function (full, openTagAndHref, path, after) {
+      if (!path) return full;
+      if (path.startsWith('/en/')) return full;
+      // Match exactly /blog/ (with or without trailing slug) or top-level
+      // routes that have an /en/ equivalent.
+      var isPrefixable =
+        path === '/' ||
+        path === '/about' ||
+        path === '/privacy' ||
+        path === '/tools' ||
+        path === '/notes' ||
+        path === '/blog/' ||
+        /^\/blog\/[a-z0-9-]+$/i.test(path);
+      if (!isPrefixable) return full;
+      var newPath = (path === '/') ? '/en/' : '/en' + path;
+      return openTagAndHref + newPath + after;
+    }
+  );
+
   return s;
 }
 

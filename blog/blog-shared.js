@@ -319,6 +319,17 @@
     return 'zh';
   };
 
+  // v36.2: URL prefix for the page we're currently on. Returns '/en' when
+  // pathname is under /en/, '' otherwise. Used by JS that synthesizes
+  // internal links so cards/lists on EN pages link to /en/ versions, not
+  // back to /blog/<slug>. Google demoted EN pages to "duplicate of ZH"
+  // when internal-link signals pointed back at /blog/ (overriding the
+  // <link rel="canonical"> on the EN page).
+  DN.urlPrefix = function () {
+    try { return location.pathname.startsWith('/en/') ? '/en' : ''; }
+    catch (e) { return ''; }
+  };
+
   DN.setLang = function (code) {
     if (!DN.LANG_KEY[code]) return;
     try { localStorage.setItem('hs_lang', code); } catch (e) {}
@@ -1405,12 +1416,17 @@
     // 2 columns × up to 2 rows: cards now fill 左上→右上→左下→右下 cleanly.
     // On <520px viewport the grid drops to 1 column for readability.
     let html = '<div style="border-top:1px solid var(--line);padding-top:24px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:12px" data-zh="你可能也會想看" data-en="Related reads">你可能也會想看</div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px" class="hs-related-grid">';
+    // v36.2: on /en/ pages, link to /en/blog/<slug>, not /blog/<slug>.
+    // Critical SEO fix: previously every JS-injected "related reads" card
+    // on an EN article linked back to the ZH version, sending Google the
+    // signal that the ZH URL was the real canonical.
+    var _urlPrefix = (DN.urlPrefix && DN.urlPrefix()) || '';
     scored.forEach(function (a) {
       var titleEn = a.title_en || a.title;
       var tagEn   = a.tag_en   || a.tag;
       var metaZh  = a.tag + ' · ' + a.date;
       var metaEn  = tagEn      + ' · ' + a.date;
-      html += '<a href="/blog/' + a.slug + '" style="display:flex;flex-direction:column;gap:6px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
+      html += '<a href="' + _urlPrefix + '/blog/' + a.slug + '" style="display:flex;flex-direction:column;gap:6px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
         '<span style="font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--blue-deep);text-transform:uppercase" data-zh="' + attrEsc(a.tag) + '" data-en="' + attrEsc(tagEn) + '">' + tagEn + '</span>' +
         '<span style="font-size:14px;font-weight:700;line-height:1.4;font-family:Noto Serif TC,Georgia,serif" data-zh="' + attrEsc(a.title) + '" data-en="' + attrEsc(titleEn) + '">' + a.title + '</span>' +
         '<span style="font-size:11.5px;color:var(--muted)" data-zh="' + attrEsc(metaZh) + '" data-en="' + attrEsc(metaEn) + '">' + metaZh + '</span>' +
@@ -2012,6 +2028,7 @@
 
     function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
 
+    var _spotlightUrlPrefix = (DN.urlPrefix && DN.urlPrefix()) || '';
     function rowHTML(a, badge) {
       var titleZh = a.title || a.slug;
       var titleEn = a.title_en || a.title || '';
@@ -2021,7 +2038,7 @@
       var num     = DN.getArticleNumber(a.slug);   // stable № by publication order
       var iconSvg = '<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" style="flex-shrink:0">' + DN.svgForTag(tagZh) + '</svg>';
       var numChip = num ? '<span style="font-family:\'JetBrains Mono\',Inter,monospace;font-weight:800;color:var(--blue-deep);letter-spacing:.04em">№' + num + '</span><span style="opacity:.45">·</span>' : '';
-      return '<li><a href="/blog/' + a.slug + '" ' +
+      return '<li><a href="' + _spotlightUrlPrefix + '/blog/' + a.slug + '" ' +
         'style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;background:#fff;' +
         'border:0.5px solid var(--border);border-radius:12px;text-decoration:none;color:inherit;' +
         'transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)" ' +
@@ -2325,18 +2342,20 @@
     var currentMatches = [];
 
     function buildIndex() {
+      // v36.2: stay on /en/ when the user is on an EN page.
+      var _searchUrlPrefix = (DN.urlPrefix && DN.urlPrefix()) || '';
       var idx = [];
       (DN.ARTICLES || []).forEach(function (a) {
         idx.push({
           title: a.title || a.slug,
           meta: (a.tag || '') + ' · ' + (a.date || ''),
-          url: '/blog/' + a.slug,
+          url: _searchUrlPrefix + '/blog/' + a.slug,
           search: ((a.title || '') + ' ' + (a.tag || '') + ' ' + (a.tag_en || '') + ' ' + a.slug).toLowerCase()
         });
       });
       [
-        { title: '量表計算器', meta: 'Tools · 5 個眼科量表 (OSDI / DEQ-5 / SE …)', url: '/tools', search: 'tools 量表 計算 osdi deq snellen logmar se 球面 飛蚊' },
-        { title: '主題地圖', meta: 'Topic Map', url: '/blog/topics', search: 'topics 主題 地圖' },
+        { title: '量表計算器', meta: 'Tools · 5 個眼科量表 (OSDI / DEQ-5 / SE …)', url: _searchUrlPrefix + '/tools', search: 'tools 量表 計算 osdi deq snellen logmar se 球面 飛蚊' },
+        { title: '主題地圖', meta: 'Topic Map', url: _searchUrlPrefix + '/blog/topics', search: 'topics 主題 地圖' },
         { title: '關於作者', meta: 'About', url: '/about', search: 'about 作者 蕭閔謙' },
         { title: '衛教文章索引', meta: 'Articles', url: '/blog/', search: 'blog articles 文章 索引' },
         { title: '隱私權政策', meta: 'Privacy', url: '/privacy', search: 'privacy 隱私' }
