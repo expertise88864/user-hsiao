@@ -457,7 +457,7 @@ self.addEventListener('install', (e) => {
   // Stage 1: only the critical shell (~10 small assets, ~80ms on cable).
   e.waitUntil(
     caches.open(CACHE)
-      .then((c) => Promise.allSettled(SHELL.map((u) => c.add(u))))
+      .then((c) => Promise.allSettled(PRECACHE.map((u) => c.add(u))))
       .then(() => self.skipWaiting())
   );
 });
@@ -516,6 +516,45 @@ self.addEventListener('fetch', (e) => {
   if (url.pathname === '/admin' ||
       url.pathname.startsWith('/admin') ||
       url.pathname.startsWith('/api/')) {
+    return;
+  }
+  // v37.1: bypass /reset-sw pages so the SW reset flow always hits network
+  // (cached copies would defeat the reset). Same for /en/reset-sw.
+  if (url.pathname === '/reset-sw' || url.pathname === '/en/reset-sw') {
+    return;
+  }
+  // v37.1: cache-busted assets (?v=YYYYMMDD) → network-first; ensures fresh
+  // CSS/JS after a stamp bump even if SW served a stale copy from `caches`.
+  if (url.search.includes('v=')) {
+    e.respondWith(
+      fetchWithRetry(req)
+        .then((resp) => {
+          if (resp && resp.ok) {
+            const copy = resp.clone();
+            caches.open(RUNTIME).then((c) => c.put(req, copy));
+          }
+          return resp;
+        })
+        .catch(() => caches.match(req))
+    );
+    return;
+  }
+  // v37.1: pagefind search index files are regenerated on every deploy,
+  // so always prefer network and only fall back to cache when offline.
+  // The same network-first treatment applies to /assets/search-index.json
+  // if/when we add a static search index in the future.
+  if (url.pathname.startsWith('/pagefind/') || url.pathname === '/assets/search-index.json') {
+    e.respondWith(
+      fetchWithRetry(req)
+        .then((resp) => {
+          if (resp && resp.ok) {
+            const copy = resp.clone();
+            caches.open(RUNTIME).then((c) => c.put(req, copy));
+          }
+          return resp;
+        })
+        .catch(() => caches.match(req))
+    );
     return;
   }
 

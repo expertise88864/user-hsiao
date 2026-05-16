@@ -4,7 +4,20 @@
   "redirects": [
     { "source": "/rss",  "destination": "/blog/feed.xml", "permanent": false },
     { "source": "/feed", "destination": "/blog/feed.xml", "permanent": false },
-    { "source": "/atom", "destination": "/blog/atom.xml", "permanent": false }
+    { "source": "/atom", "destination": "/blog/atom.xml", "permanent": false },
+
+    { "source": "/sitemap",  "destination": "/sitemap.xml",  "permanent": true },
+    { "source": "/articles", "destination": "/blog/",        "permanent": true },
+    { "source": "/posts",    "destination": "/blog/",        "permanent": true },
+    { "source": "/article/:slug*", "destination": "/blog/:slug*", "permanent": true },
+    { "source": "/posts/:slug*",   "destination": "/blog/:slug*", "permanent": true },
+    { "source": "/p/:slug*",       "destination": "/blog/:slug*", "permanent": true },
+    { "source": "/wellness/:slug*","destination": "/blog/:slug*", "permanent": true },
+    { "source": "/health/:slug*",  "destination": "/blog/:slug*", "permanent": true },
+
+    { "source": "/contact",  "destination": "/about",  "permanent": true },
+    { "source": "/about-us", "destination": "/about",  "permanent": true },
+    { "source": "/privacy-policy", "destination": "/privacy", "permanent": true }
   ],
   "rewrites": [
     { "source": "/sitemap.xml",   "destination": "/api/sitemap" },

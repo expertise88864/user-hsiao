@@ -1252,7 +1252,7 @@
               '蕭閔謙醫師為個人衛教專案，無業配、無贊助、無廣告分潤。如果這些內容對你或家人有幫助，歡迎請我喝杯咖啡，讓我有更多時間整理新主題。' +
             '</div>' +
           '</div>' +
-          '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener" ' +
+          '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener noreferrer" ' +
             'style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;' +
             'border-radius:9999px;background:#fff;color:var(--blue-deep);text-decoration:none;' +
             'font-size:13px;font-weight:600;flex-shrink:0;line-height:1;border:1px solid var(--border)" ' +
@@ -1285,7 +1285,7 @@
     let html = '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:18px 0">' +
       '<span style="font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.08em" data-zh="分享" data-en="Share">分享</span>';
     links.forEach(function (l) {
-      html += '<a href="' + l.href + '" target="_blank" rel="noopener" aria-label="Share to ' + l.name + '" ' +
+      html += '<a href="' + l.href + '" target="_blank" rel="noopener noreferrer" aria-label="Share to ' + l.name + '" ' +
         'style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--blue-deep);text-decoration:none;font-weight:700;font-size:14px;transition:all .15s">' + l.icon + '</a>';
     });
     html += '<button type="button" id="hs-copylink" style="display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9999px;background:var(--blue-soft);color:var(--blue-deep);border:1px solid #b8cfe3;font-size:12px;font-weight:600;cursor:pointer">' +
@@ -1314,7 +1314,7 @@
   DN._kofiButtonHTML = function () {
     if (!DN.BMC_URL) return '';
     return (
-      '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener" ' +
+      '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener noreferrer" ' +
         'class="hs-kofi-btn" ' +
         'style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:9999px;background:#13C3FF;color:#fff;text-decoration:none;font-weight:700;font-size:13.5px;box-shadow:0 6px 14px -6px rgba(19,195,255,.45);transition:transform .15s,box-shadow .15s">' +
         '<span style="font-size:16px">☕</span>' +

@@ -11,8 +11,8 @@
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="admin.css" />
-</head>
-<body>
+<!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style>.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.25s}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style></head>
+<body><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
 
 <!-- ════════════════ LOGIN OVERLAY ════════════════ -->
 <div id="ad-login" class="ad-login-overlay">
@@ -24,7 +24,7 @@
     <input type="password" id="ad-login-pat" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
     <p class="help">
       還沒有 Token？到
-      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub 設定頁</a>
+      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">GitHub 設定頁</a>
       建立一個 <strong>Fine-grained personal access token</strong>，限制：
       Repository&nbsp;= <code>user-hsiao</code>，
       Permissions&nbsp;= <code>Contents: Read and write</code>。

@@ -68,7 +68,7 @@ jobs:
             exit 1
           fi
 
-      # ── Ported from DermNotes (2026-05): 5 deeper check scripts ──
+      # ── Ported from DermNotes (2026-05): 9 deeper check scripts ──
       # Non-blocking initially so known issues in stub articles don't break CI.
       # Flip `|| true` to hard-fail once stubs are completed or removed.
       - name: Deep SEO/quality checks (DermNotes ported)
@@ -78,6 +78,10 @@ jobs:
           echo "=== _check_metadata_uniqueness.py ===" && python _check_metadata_uniqueness.py || echo "::warning::duplicate metadata found"
           echo "=== _check_internal_links.py ===" && python _check_internal_links.py || echo "::warning::internal-link issues (some are JS-embedded false positives)"
           echo "=== _check_static_a11y.py ===" && python _check_static_a11y.py || echo "::warning::a11y issues (mostly admin.html dashboard, not user-facing)"
+          echo "=== _check_articles.py ===" && python _check_articles.py || echo "::warning::DN.ARTICLES catalog issue"
+          echo "=== _check_robots.py ===" && python _check_robots.py || echo "::warning::robots.txt issue"
+          echo "=== _check_pwa.py ===" && python _check_pwa.py || echo "::warning::PWA manifest/SW/offline issue"
+          echo "=== _check_bilingual_attrs.py ===" && python _check_bilingual_attrs.py || echo "::warning::bilingual attribute mismatch"
 
       - name: JSON-LD parse check
         run: |

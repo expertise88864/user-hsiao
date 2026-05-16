@@ -7,30 +7,56 @@ Disallow: /_tmp_*
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /api/
+Disallow: /reset-sw
+Disallow: /en/reset-sw
 
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
+Disallow: /reset-sw
+Disallow: /en/reset-sw
 
 User-agent: Googlebot-Image
 Allow: /
+Disallow: /admin
+Disallow: /reset-sw
+Disallow: /en/reset-sw
 
 User-agent: Googlebot-News
 Allow: /
+Disallow: /admin
+Disallow: /reset-sw
+Disallow: /en/reset-sw
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin
+Disallow: /reset-sw
+Disallow: /en/reset-sw
 
 User-agent: DuckDuckBot
 Allow: /
+Disallow: /admin
+Disallow: /reset-sw
+Disallow: /en/reset-sw
 
 User-agent: Slurp
 Allow: /
+Disallow: /admin
+Disallow: /reset-sw
+Disallow: /en/reset-sw
 
 User-agent: Mediapartners-Google
 Allow: /
+Disallow: /admin
+Disallow: /reset-sw
+Disallow: /en/reset-sw
 
 User-agent: AdsBot-Google
 Allow: /
+Disallow: /admin
+Disallow: /reset-sw
+Disallow: /en/reset-sw
 
 # ========== AI policy (v34.15) ==========
 # Two tiers:
@@ -41,7 +67,7 @@ Allow: /
 #        - PerplexityBot   (Perplexity answer citations)
 #        - ClaudeBot       (Claude.ai web tool, citation-aware)
 #        - Google-Extended (Google AI Overview / Gemini citations)
-#      No Disallow line for these — they fall under User-agent: * Allow: /
+#      No Disallow line for these — they fall under the wildcard rule above
 #   2. DISALLOWED: bulk training crawlers and aggregators with no
 #      reciprocal traffic, plus low-quality scrapers.
 # ========================================
