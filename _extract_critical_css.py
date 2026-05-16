@@ -30,15 +30,20 @@ CRITICAL_SELECTORS_RE = re.compile(
     r'^(?:'
     r'html|body|\*|::?(?:before|after)|'                      # globals
     r':root|'                                                  # CSS variables
+    # Responsive variants — escape-style `sm\:` and `md\:` prefixes are
+    # critical for header visibility (sm:hidden / sm:inline-flex toggle
+    # the mobile hamburger and the desktop nav links).
+    r'\.(?:sm|md|lg|xl)\\:[a-z][a-z0-9-]*(?:\\:?[a-z0-9-]+)*(?:\\\[[^\]]+\\\])?\b|'
     r'\.container\b|\.max-w-[a-z0-9-]+\b|\.mx-auto\b|'        # layout
     r'\.px-\d+\b|\.py-\d+\b|\.pt-\d+\b|\.pb-\d+\b|'           # spacing
     r'\.flex\b|\.grid\b|\.block\b|\.inline\b|\.hidden\b|'     # display
+    r'\.inline-flex\b|\.inline-block\b|'                      # inline display
     r'\.items-[a-z]+\b|\.justify-[a-z-]+\b|\.gap-\d+\b|'      # flex
     r'h[1-6]\b|\.font-display\b|\.font-bold\b|\.font-semibold\b|\.font-medium\b|'  # typography
     r'\.text-[a-z0-9-]+\b|\.leading-[a-z-]+\b|'               # text
     r'header\b|nav\b|main\b|article\b|'                       # semantic
     r'\.chip\b|\.btn\b|\.btn-[a-z]+\b|'                       # buttons / chips
-    r'\.skip-to-main\b|\.lang-toggle\b|'                      # a11y / lang
+    r'\.skip-to-main\b|\.lang-toggle\b|\.lang-select\b|'      # a11y / lang
     r'\.bg-[a-z0-9-]+\b|\.border\b|\.border-\d+\b|\.border-[a-z0-9-]+\b|'  # bg/border
     r'\.rounded\b|\.rounded-[a-z0-9-]+\b|\.shadow\b|\.shadow-[a-z]+\b'     # shape
     r')'
@@ -51,7 +56,9 @@ def is_critical_selector(sel):
         return False
     # take the leading simple selector
     head = re.split(r'[\s>+~]', sel, 1)[0]
-    head = head.split(':', 1)[0]   # drop pseudo
+    # Drop pseudo-classes (`:hover`, `::before`) but NOT escaped colons
+    # like `\:` which Tailwind uses inside class names (`.sm\:hidden`).
+    head = re.split(r'(?<!\\):', head, 1)[0]
     head = head.split('[', 1)[0]   # drop attr
     return bool(CRITICAL_SELECTORS_RE.match(head))
 
@@ -148,9 +155,18 @@ TWMINI_LINK_RE = re.compile(
 )
 
 def patch_html(html, critical):
+    # If a previous-version critical CSS block is present, replace it
+    # in-place (the extractor regex / selector set may have changed).
+    inline = f'<style {SENTINEL}>{critical}</style>'
     if SENTINEL in html:
-        return html, False
-    # Find the link and normalize it to a plain stylesheet link.
+        new_html = re.sub(
+            r'<style\s+' + re.escape(SENTINEL) + r'[^>]*>[\s\S]*?</style>',
+            lambda _: inline,
+            html,
+            count=1,
+        )
+        return (new_html, True) if new_html != html else (html, False)
+    # First-time injection: also normalize the app.css link from preload/etc.
     m = TWMINI_LINK_RE.search(html)
     if not m:
         return html, False
@@ -158,7 +174,6 @@ def patch_html(html, critical):
     stylesheet = f'<link rel="stylesheet" href="{href}">'
     html = html[:m.start()] + stylesheet + html[m.end():]
     # Inject critical CSS right before </head>
-    inline = f'<style {SENTINEL}>{critical}</style>'
     html = html.replace('</head>', inline + '</head>', 1)
     return html, True
 
