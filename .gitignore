@@ -18,6 +18,12 @@ yarn-error.log
 *.pem
 *.key
 
+# Python — build/check scripts
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
 # Node — currently unused but reserved
 node_modules/
 .pnp/
