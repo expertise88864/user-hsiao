@@ -230,7 +230,6 @@ img, video { max-width: 100%; height: auto; }
   #hs-font-sizer,                       /* font size buttons */
   #hs-resume-toast, #dn-resume-toast,   /* "continue reading" toast */
   #hs-en-banner, #dn-en-banner,         /* English-mode banner */
-  .ad-slot,                             /* AdSense placeholders */
   .skip-link,
   .home-faq summary::after,             /* + sign on FAQ collapsibles */
   .lang-select,

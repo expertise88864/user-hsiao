@@ -19,6 +19,7 @@
 // Re-run after editing any inline <script> or <style> in the HTML.
 // Hashes match SHA-256 of the EXACT inner-text bytes of each tag.
 const INLINE_SCRIPT_HASHES = [
+  'sha256-+8K+xmD4zZ/CEAapnisfXLlvvFsydE890E5MDsncdaM=',
   'sha256-+spPJPLh/vX6cNpGg42fztlucbTAFGRf32A33zR0yJY=',
   'sha256-/3iM0WqE9quaXPxE5KtGhT/Ik93TTfFlT2SkXuJkFp0=',
   'sha256-0Iky/y1TPoqdpL6AQ+32Elmaingu6P/LToIpO3Dp+Bw=',
@@ -65,6 +66,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-IXcQwduWuUPAymP4Wz2eMzQ8Uh4Z8AO8C14tLoXDDBE=',
   'sha256-Iu85jwOQz2bxde9//EANPPYGJoYyRoYqO6dsNYjhC/I=',
   'sha256-IumCAzhufjEAbPQS5iMPi54V5ZQy9RKRGKgU8J7RPzY=',
+  'sha256-IwbjFF8YXZ1EwFIjI26NNJEpYT3IKF9EXBtCcQ8wFTU=',
   'sha256-JU17WdBYULN5f5jhZn7efC2uLH32SBxuzM36h2ZEtNk=',
   'sha256-JVwiXyaMgyZiFt368Nn1EZbzCIQ5s+/Idxd4xSWx6jM=',
   'sha256-KfQNqfIfDxFw/Fnrn4s94muZACK91sKtUCyFHwav4HI=',
@@ -129,7 +131,6 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-jouhg7yPQGiIpQaGbUmMelnJ79MDsWpi2RrTUaTUp0o=',
   'sha256-jvuXghJ0wPzNn2ZR6EDcf5Kgjy6E+vb5RBOSh1/LKH0=',
   'sha256-jyzN4BhzI8O13G8AjPt8K5l3pXmh+T41oX6qEMgHSwA=',
-  'sha256-kYMefbLVPS8Ig3e6LqarXNymF3VZEHE+aj/nzWdWsKk=',
   'sha256-kZBY/UAAsS5E5k+3Jy17lKkMvQdU8Ml75O2hX7K3z34=',
   'sha256-lOe+htth569V+H3QKKuI+lXgUcqz6mfG0cSOoPmWlkk=',
   'sha256-lkrkVSbw6DPSirRpM8QQgr/fHyMXPeUvYXtzaI8PRg4=',
@@ -151,16 +152,15 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=',
   'sha256-rmz7Uj2gAXdfxEKpjGg/BN/plbzIEoA/U4MDOVr2Mmw=',
   'sha256-t/v9u2xnCGral4aDSjlivryRFb+guBJQCXEUdSev8rw=',
-  'sha256-t4yRNblG//SmeOqDaJ3+oEnCLdk7nwqX/1XXogG6MHg=',
   'sha256-t8kfezZiJi/C/4g/MmlkV5aBEzyHuHbrib4CBkBzmJI=',
   'sha256-tPgifUB6KaCWXeiNB27XUmYQzEydj+2Ck3dI3vr11AE=',
   'sha256-teH4+R0RoRFoeAHscJ9FfPlKi5QGfeUZWMoTJLr7OoE=',
   'sha256-u489Y0A8k2INRQ+a4GO0yW0r+ptmyzJc8XYWJFFUIsI=',
-  'sha256-uabX6EmGNg5jRpVezk4ifA9avi1xFwJ8gksTi4Zu85E=',
   'sha256-vJn8czuC/092WkD5srs/t+HGjUIPzmc+MvG7VyBzCAw=',
   'sha256-vvb6j2atLrVOu06UuBZ260Oz6p2FqXnGVZIegGn7O2I=',
   'sha256-wFpttPsWWgZ/+M9kylaqMqVA39/Yf+Zz3Bg4gHiJM4o=',
   'sha256-wR2biwkV39E4GqtJoFHme+vev6MQNQHE8bXXX27bcfI=',
+  'sha256-wWotpLwabkOToqEgdoZPph+YEWbZRG6PfKzDfvTw9S4=',
   'sha256-wq+E/4tFESd/NMOMGNTFKxYdGDpAZsZQaUMxMME6Jpk=',
   'sha256-xtMoNE1WfWwE9cOo1pg+iaZ8fiHNtj6oRjVhWJNBLl8=',
   'sha256-y7584GxFY2SMTTlr4QPsYB/arEs5rYabZcR62c4/qbg='
@@ -173,6 +173,7 @@ const INLINE_STYLE_HASHES = [
   'sha256-AYoPBVO7J1VOnerQSR8rLV3sxIm5vwHL/KuFfvqOpfA=',
   'sha256-Aooo5LKwI6ECB5J7ymQ6+YFj3NyPCnB3sTG1Bdf1ORY=',
   'sha256-EtZM4Sc2mfUen6gYLniBiUFWWJxQiXi+bYBMpGYpgoY=',
+  'sha256-HweQRPAs94XcvJZYi3IccTPtGeezhQuNC19bhkqzA1M=',
   'sha256-I+sCm+05u4bfoTxYON5ywRriq7xTBNSWy2x6k5uarQg=',
   'sha256-KOnh2QAgejmsC8NxaLn2iQ44lhjAoCIh16msu+n0x38=',
   'sha256-KvjvD1CkHPDJDQ6HdMwIxr5j+g6RXypyflYYkUd95EM=',
@@ -187,7 +188,6 @@ const INLINE_STYLE_HASHES = [
   'sha256-VJHJF3necCGGqihlQznJ3Pd/FAUdxmk7x25Yjmo6aGg=',
   'sha256-XyIAg2CN30isFs2MwN8t7mVjxyGQ5eY9RbPixwgl3Ac=',
   'sha256-c+Sa286gYxWMjqSeI7vP3NJKCNV6IfFa6yRreqj3aUE=',
-  'sha256-d+9yT4eU6lnk6HrqWohOrrIybItTtn1OI4WhOfFpBIE=',
   'sha256-eCR1aoUsZD82UX6tbzCWFdAkSrAOGncqZ/hmMqfTBzE=',
   'sha256-farGoa0q1emAWQxtwOGwVUDwPLmYt8ZejUHTXKKqZvU=',
   'sha256-hHxWm9zVyADoWQqPZuTYym0EJArRLyeRQec+4FxcMbk=',
@@ -212,8 +212,8 @@ function buildCsp(hashesActive) {
   // (low XSS surface — CSS can't run JS). Only script-src moves to hash mode
   // for the real security win against reflected-XSS.
   const scriptSrc = hashesActive
-    ? `script-src 'self' ${INLINE_SCRIPT_HASHES.map(h => `'${h}'`).join(' ')} https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://www.clarity.ms https://*.clarity.ms https://cdn.jsdelivr.net`
-    : `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://www.clarity.ms https://*.clarity.ms https://cdn.jsdelivr.net`;
+    ? `script-src 'self' ${INLINE_SCRIPT_HASHES.map(h => `'${h}'`).join(' ')} https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://*.clarity.ms https://cdn.jsdelivr.net`
+    : `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://*.clarity.ms https://cdn.jsdelivr.net`;
 
   const styleSrc = `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net`;
 
@@ -224,7 +224,7 @@ function buildCsp(hashesActive) {
     `font-src 'self' https://fonts.gstatic.com data:`,
     `img-src 'self' data: https: blob:`,
     `connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.clarity.ms https://stats.g.doubleclick.net`,
-    `frame-src 'self' https://www.google.com https://googleads.g.doubleclick.net https://www.youtube.com`,
+    `frame-src 'self' https://www.google.com https://www.youtube.com`,
     `frame-ancestors 'self'`,
     `base-uri 'self'`,
     `form-action 'self' mailto:`,

@@ -40,7 +40,7 @@
   // mostly). Already-strict CSP `require-trusted-types-for 'script'`
   // means policies MUST exist to use string-sinks at all.
   if (window.trustedTypes && window.trustedTypes.createPolicy) {
-    var SCRIPT_URL_ALLOW = /^(https?:\/\/(?:www\.googletagmanager\.com|www\.google-analytics\.com|pagead2\.googlesyndication\.com|www\.clarity\.ms|stats\.g\.doubleclick\.net|cdn\.jsdelivr\.net)\/|\/)/;
+    var SCRIPT_URL_ALLOW = /^(https?:\/\/(?:www\.googletagmanager\.com|www\.google-analytics\.com|www\.clarity\.ms|stats\.g\.doubleclick\.net|cdn\.jsdelivr\.net)\/|\/)/;
     function sanitizeHTML(s) {
       var out = String(s);
       // Drop <script>...</script> blocks
@@ -2095,7 +2095,6 @@
         ':root[data-theme="dark"] .info-card,' +
         ':root[data-theme="dark"] .article-list-item,' +
         ':root[data-theme="dark"] .topic-card,' +
-        ':root[data-theme="dark"] .ad-slot,' +
         ':root[data-theme="dark"] .home-faq details.hf,' +
         ':root[data-theme="dark"] .quick-find a,' +
         ':root[data-theme="dark"] .keypoint,' +
