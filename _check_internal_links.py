@@ -66,6 +66,18 @@ def is_template_or_unsupported(raw: str) -> bool:
         return True
     if re.match(r"^[a-z][a-z0-9+.-]*:", raw, re.IGNORECASE):
         return True
+    # Backslash-prefixed garbage from HTMLParser mis-parsing `<a href=\"…\">`
+    # embedded inside data-zh / data-en attributes (the surrounding `"` of the
+    # data-* attr already terminates, leaving leading/trailing literal `\`
+    # captured as part of the URL). These are duplicates of real links that
+    # already exist in the rendered (non-data-*) HTML, so safe to skip.
+    if raw.startswith("\\") or raw.endswith("\\"):
+        return True
+    # Quote-wrapped URLs are the same kind of garbage but with `&quot;`
+    # (HTML-entity escaped quotes) embedded inside data-zh / data-en. After
+    # unescape() they become `"/blog/…"`. Again duplicates of real links.
+    if raw.startswith(('"', "'")) or raw.endswith(('"', "'")):
+        return True
     return any(token in raw for token in ("${", "{{", "}}", "`", "\" +", "' +"))
 
 
