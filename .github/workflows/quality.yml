@@ -68,6 +68,17 @@ jobs:
             exit 1
           fi
 
+      # ── Ported from DermNotes (2026-05): 5 deeper check scripts ──
+      # Non-blocking initially so known issues in stub articles don't break CI.
+      # Flip `|| true` to hard-fail once stubs are completed or removed.
+      - name: Deep SEO/quality checks (DermNotes ported)
+        run: |
+          echo "=== _check_meta.py ===" && python _check_meta.py || echo "::warning::meta check has issues"
+          echo "=== _check_sitemap.py ===" && python _check_sitemap.py || echo "::warning::sitemap check has issues"
+          echo "=== _check_metadata_uniqueness.py ===" && python _check_metadata_uniqueness.py || echo "::warning::duplicate metadata found"
+          echo "=== _check_internal_links.py ===" && python _check_internal_links.py || echo "::warning::internal-link issues (some are JS-embedded false positives)"
+          echo "=== _check_static_a11y.py ===" && python _check_static_a11y.py || echo "::warning::a11y issues (mostly admin.html dashboard, not user-facing)"
+
       - name: JSON-LD parse check
         run: |
           python -X utf8 -c "
