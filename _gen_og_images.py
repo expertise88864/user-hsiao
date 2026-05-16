@@ -216,17 +216,45 @@ def update_meta_og(slug):
             print(f'  updated meta: {p}')
 
 def main():
+    # v37.12: --only-changed flag — skip OG regeneration for articles whose
+    # PNG already exists and is newer than the source HTML. ~10x faster on
+    # typical commits that only touch 1-2 articles.
+    import sys
+    only_changed = '--only-changed' in sys.argv
+
     arts = parse_articles()
     if not arts:
         print('No articles found in DN.ARTICLES — nothing to do.')
         return
     out_dir = 'assets/og'
-    print(f'Generating {len(arts)} OG cards into {out_dir}/...')
-    for a in arts:
+
+    to_render = []
+    if only_changed:
+        for a in arts:
+            png_path = os.path.join(out_dir, f"{a['slug']}.png")
+            html_path = os.path.join('blog', f"{a['slug']}.html")
+            if not os.path.exists(png_path):
+                to_render.append(a)
+                continue
+            # Skip if PNG newer than HTML source
+            try:
+                if os.path.getmtime(png_path) >= os.path.getmtime(html_path):
+                    continue
+            except OSError:
+                pass
+            to_render.append(a)
+        skipped = len(arts) - len(to_render)
+        if skipped:
+            print(f'  --only-changed: skipping {skipped} up-to-date OG cards')
+    else:
+        to_render = arts
+
+    print(f'Generating {len(to_render)} OG cards into {out_dir}/...')
+    for a in to_render:
         png, webp = render_card(a, out_dir)
         print(f'  ok  {png}')
         update_meta_og(a['slug'])
-    print(f'Done. Generated {len(arts)} card pairs (PNG + WebP).')
+    print(f'Done. Generated {len(to_render)} card pairs (PNG + WebP).')
 
 if __name__ == '__main__':
     main()

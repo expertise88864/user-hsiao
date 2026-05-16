@@ -288,3 +288,182 @@ article figure figcaption {
     height: auto !important;
   }
 }
+
+/* ============================================================
+ * Shared article components (consolidated from inline <style>
+ * blocks across 13 articles, 2026-05-16 site-wide refactor).
+ * Inline copies in articles are kept as defensive duplicates
+ * but should be removed in a follow-up pass.
+ * ============================================================ */
+
+/* Red-flag warning box — clinical "must see doctor immediately" */
+.hs-redflag-box {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border: 2px solid #fca5a5;
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 28px auto;
+  max-width: 680px;
+  box-shadow: 0 8px 18px -10px rgba(220, 38, 38, .25);
+  contain: layout style;
+}
+.hs-redflag-title {
+  color: #991b1b;
+  font-family: 'Fraunces', 'Noto Serif TC', Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hs-redflag-list {
+  margin: 0;
+  padding-left: 22px;
+  color: #7f1d1d;
+  font-size: 14.5px;
+  line-height: 1.85;
+  list-style: disc;
+}
+.hs-redflag-list li { margin: 6px 0; }
+.hs-redflag-list strong { color: #7c2d12; font-weight: 700; }
+
+/* Warning box — yellow advisory variant */
+.hs-warn-box {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border: 2px solid #fcd34d;
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 28px auto;
+  max-width: 680px;
+  box-shadow: 0 8px 18px -10px rgba(217, 119, 6, .22);
+  contain: layout style;
+}
+.hs-warn-title {
+  color: #92400e;
+  font-family: 'Fraunces', 'Noto Serif TC', Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hs-warn-box p { color: #7c2d12; font-size: 14.5px; line-height: 1.85; margin: 6px 0; }
+.hs-warn-box ul { margin: 6px 0; padding-left: 22px; color: #7c2d12; font-size: 14.5px; line-height: 1.85; }
+.hs-warn-box strong { color: #7c2d12; font-weight: 700; }
+
+/* Tip box — green positive variant */
+.hs-tip-box {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 2px solid #86efac;
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 28px auto;
+  max-width: 680px;
+  box-shadow: 0 8px 18px -10px rgba(22, 163, 74, .22);
+  contain: layout style;
+}
+.hs-tip-title {
+  color: #14532d;
+  font-family: 'Fraunces', 'Noto Serif TC', Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hs-tip-box p { color: #14532d; font-size: 14.5px; line-height: 1.85; margin: 6px 0; }
+.hs-tip-box ul { margin: 6px 0; padding-left: 22px; color: #14532d; font-size: 14.5px; line-height: 1.85; }
+.hs-tip-box strong { color: #065f46; font-weight: 700; }
+
+/* Related articles pill row — bottom of each article */
+.hs-related-box {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 18px auto 28px;
+  max-width: 680px;
+}
+.hs-related-title {
+  font-family: 'Fraunces', 'Noto Serif TC', Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.hs-related-sub { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+.hs-related-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.hs-related-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  border: 1px solid #b8cfe3;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.hs-related-pill:hover {
+  background: #b8cfe3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px -4px rgba(58, 90, 124, .25);
+}
+
+/* Data tables — clinical comparison tables (ted-table from thyroid eye disease, reused) */
+.ted-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px -8px rgba(0, 0, 0, .12);
+}
+.ted-table th,
+.ted-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  line-height: 1.7;
+}
+.ted-table th {
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  font-weight: 700;
+  font-size: 13px;
+}
+.ted-table tr:last-child td { border-bottom: none; }
+
+/* Paper badge — "📑 latest research digest" pill */
+.hs-paper-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  background: #dcfce7;
+  color: #14532d;
+  border: 1px solid #86efac;
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* Hero figure aspect-ratio lock — prevents CLS while SVG renders.
+ * Applied to <svg> within figure.article-fig (the standard hero pattern). */
+figure.article-fig svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: attr(viewBox type(*) auto, auto);
+}
+

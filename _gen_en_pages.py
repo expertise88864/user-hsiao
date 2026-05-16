@@ -123,9 +123,32 @@ def en_path_for_same_site_url(url):
     return url
 
 
-def translate_jsonld_value(value):
+# v37.10: BreadcrumbList localization — articles ship with Chinese
+# breadcrumb names ("首頁", "衛教文章") in JSON-LD. For the /en/ mirror,
+# Google prefers locale-matching breadcrumb labels.
+_BREADCRUMB_EN_MAP = {
+    '首頁': 'Home',
+    '衛教文章': 'Articles',
+    '主題地圖': 'Topic Map',
+    '關於': 'About',
+    '隱私權政策': 'Privacy',
+    '眼科自評量表': 'Tools',
+    '學習筆記': 'Notes',
+}
+
+
+def translate_jsonld_value(value, _ctx_type=None):
     if isinstance(value, dict):
-        return {k: ('en' if k == 'inLanguage' else translate_jsonld_value(v)) for k, v in value.items()}
+        out = {}
+        is_breadcrumb_item = value.get('@type') == 'ListItem'
+        for k, v in value.items():
+            if k == 'inLanguage':
+                out[k] = 'en'
+            elif k == 'name' and is_breadcrumb_item and isinstance(v, str) and v in _BREADCRUMB_EN_MAP:
+                out[k] = _BREADCRUMB_EN_MAP[v]
+            else:
+                out[k] = translate_jsonld_value(v)
+        return out
     if isinstance(value, list):
         return [translate_jsonld_value(v) for v in value]
     if isinstance(value, str):

@@ -383,7 +383,7 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v37';
+const CACHE = 'hs-v38';
 const RUNTIME = 'hs-runtime-v34';
 const RUNTIME_MAX_ENTRIES = 60;
 
@@ -420,14 +420,17 @@ const POPULAR = [
 
 // Lazy tier — don't pre-cache, but added to runtime cache on first hit.
 // Listed only for documentation / runtime fallback heuristics.
+// v37.2: stub articles (cataract-surgery-faq / glaucoma-warnings /
+// contact-lens-safety / red-eye-conjunctivitis) removed — they're
+// noindex placeholders not yet content-complete; precaching them wasted
+// ~20 KB of user quota per install.
 const LAZY = [
   '/about', '/privacy', '/404.html', '/notes', '/tools',
   '/icon-32.png', '/icon-192.png', '/icon-512.png',
   '/apple-touch-icon.png', '/logo-512.png',
   '/SUNN1302-220.webp', '/SUNN1302-220.avif', '/SUNN1302-440.webp',
   '/blog/feed.xml', '/blog/atom.xml',
-  '/blog/topics', '/blog/cataract-surgery-faq', '/blog/glaucoma-warnings',
-  '/blog/contact-lens-safety', '/blog/red-eye-conjunctivitis',
+  '/blog/topics',
   '/en/', '/en/about', '/en/tools', '/en/blog/',
 ];
 
@@ -485,8 +488,36 @@ async function trimCache(cacheName, max) {
   try {
     const cache = await caches.open(cacheName);
     const keys = await cache.keys();
-    if (keys.length <= max) return;
-    const toDelete = keys.slice(0, keys.length - max);
+    // v37.11: TTL-based eviction layer. Before count-based trimming, evict
+    // any entries whose Response has a `Date` header older than maxAgeMs.
+    // /pagefind/, /blog/feed.xml, /blog/atom.xml are regenerated on every
+    // deploy → 24h TTL keeps them roughly fresh. Other entries get a 30-day
+    // TTL as a soft upper bound.
+    const now = Date.now();
+    const ttlByPath = (url) => {
+      if (url.includes('/pagefind/') || url.endsWith('/feed.xml') ||
+          url.endsWith('/atom.xml') || url.endsWith('/sitemap.xml')) {
+        return 24 * 60 * 60 * 1000; // 1 day
+      }
+      return 30 * 24 * 60 * 60 * 1000; // 30 days
+    };
+    const expired = [];
+    for (const req of keys) {
+      try {
+        const resp = await cache.match(req);
+        const dateHdr = resp && resp.headers.get('date');
+        if (!dateHdr) continue;
+        const age = now - new Date(dateHdr).getTime();
+        if (age > ttlByPath(req.url)) expired.push(req);
+      } catch (e) { /* skip individual failures */ }
+    }
+    if (expired.length) {
+      await Promise.all(expired.map((req) => cache.delete(req)));
+    }
+    // Then count-based trim if still over budget.
+    const remaining = await cache.keys();
+    if (remaining.length <= max) return;
+    const toDelete = remaining.slice(0, remaining.length - max);
     await Promise.all(toDelete.map((req) => cache.delete(req)));
   } catch (e) { /* ignore */ }
 }

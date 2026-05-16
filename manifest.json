@@ -19,7 +19,21 @@
   ],
   "shortcuts": [
     { "name": "Articles", "short_name": "Articles", "url": "/blog/" },
+    { "name": "Topic Map", "short_name": "Topics", "url": "/blog/topics" },
+    { "name": "Tools", "short_name": "Tools", "url": "/tools" },
     { "name": "Dry Eye Myths", "short_name": "Dry Eye", "url": "/blog/dry-eye-myths" },
+    { "name": "Pediatric Myopia Control", "short_name": "Myopia", "url": "/blog/pediatric-myopia-control" },
+    { "name": "Floater Red Flags", "short_name": "Floaters", "url": "/blog/floaters-retinal-detachment" },
     { "name": "About Dr. Hsiao", "short_name": "About", "url": "/about" }
-  ]
+  ],
+  "share_target": {
+    "action": "/?shared=1",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "shared_title",
+      "text": "shared_text",
+      "url": "shared_url"
+    }
+  }
 }

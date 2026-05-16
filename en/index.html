@@ -60,6 +60,14 @@
     window.gtag = function(){};
     return;
   }
+  // v37.13: respect DNT (Do Not Track) header per W3C Tracking Preference
+  // Expression. Medical sites should honor user opt-out — no GA4, no Clarity
+  // bootstrap if the user explicitly says no.
+  if (navigator.doNotTrack === '1' || window.doNotTrack === '1' ||
+      navigator.msDoNotTrack === '1') {
+    window.gtag = function(){};
+    return;
+  }
 
   window.dataLayer = window.dataLayer || [];
   function gtag(){ dataLayer.push(arguments); }
