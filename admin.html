@@ -364,8 +364,8 @@
     .article-row .actions{ grid-column:1 / -1; justify-content:flex-start; }
   }
 </style>
-<!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style>.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.25s}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style></head>
-<body><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
+<!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style>.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.25s}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><!-- i-series-applied --></head>
+<body><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-related" data-zh="跳至相關文章" data-en="Skip to related">跳至相關文章</a><a href="#dn-newsletter" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
 
 <!--
   Mobile fallback — only renders on phones/tablets if the JS redirect at
@@ -397,31 +397,31 @@
     <h1>HsiaoEye Admin <span>v2</span></h1>
     <div>
       <span class="user" id="who"></span>
-      <button onclick="doLogout()">登出</button>
+      <button type="button" onclick="doLogout()">登出</button>
       <a href="/" class="btn">看網站 →</a>
     </div>
   </header>
   <main id="main-content" role="main">
     <div class="tabs">
-      <button class="active" data-tab="articles" onclick="switchTab('articles')">📝 文章</button>
-      <button data-tab="seo" onclick="switchTab('seo')">📊 SEO 體檢</button>
-      <button data-tab="spell" onclick="switchTab('spell')">🔤 拼字檢查</button>
-      <button data-tab="dict" onclick="switchTab('dict')">📖 醫學詞典</button>
-      <button data-tab="images" onclick="switchTab('images')">🖼️ 圖片</button>
-      <button data-tab="ab" onclick="switchTab('ab')">📈 A/B 結果</button>
-      <button data-tab="abbuilder" onclick="switchTab('abbuilder')">🧪 A/B Builder</button>
-      <button data-tab="md" onclick="switchTab('md')">📝 Markdown</button>
-      <button data-tab="cwv" onclick="switchTab('cwv')">📉 CWV 儀表板</button>
-      <button data-tab="ops" onclick="switchTab('ops')">⚙️ 維運</button>
+      <button type="button" class="active" data-tab="articles" onclick="switchTab('articles')">📝 文章</button>
+      <button type="button" data-tab="seo" onclick="switchTab('seo')">📊 SEO 體檢</button>
+      <button type="button" data-tab="spell" onclick="switchTab('spell')">🔤 拼字檢查</button>
+      <button type="button" data-tab="dict" onclick="switchTab('dict')">📖 醫學詞典</button>
+      <button type="button" data-tab="images" onclick="switchTab('images')">🖼️ 圖片</button>
+      <button type="button" data-tab="ab" onclick="switchTab('ab')">📈 A/B 結果</button>
+      <button type="button" data-tab="abbuilder" onclick="switchTab('abbuilder')">🧪 A/B Builder</button>
+      <button type="button" data-tab="md" onclick="switchTab('md')">📝 Markdown</button>
+      <button type="button" data-tab="cwv" onclick="switchTab('cwv')">📉 CWV 儀表板</button>
+      <button type="button" data-tab="ops" onclick="switchTab('ops')">⚙️ 維運</button>
     </div>
 
     <!-- ─────────── ARTICLES TAB ─────────── -->
     <div class="tab-panel active" id="tab-articles">
       <div class="toolbar">
         <h2>文章管理</h2>
-        <button class="btn primary" onclick="showNewModal()">+ 新文章</button>
-        <button class="btn" onclick="toggleReorder()" id="reorder-btn">↕ 排序</button>
-        <button class="btn" onclick="loadList()">↻ 重新載入</button>
+        <button type="button" class="btn primary" onclick="showNewModal()">+ 新文章</button>
+        <button type="button" class="btn" onclick="toggleReorder()" id="reorder-btn">↕ 排序</button>
+        <button type="button" class="btn" onclick="loadList()">↻ 重新載入</button>
       </div>
 
       <div class="info-card">
@@ -446,9 +446,9 @@
       <div class="toolbar">
         <h2>SEO 體檢</h2>
         <select id="seo-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
-        <button class="btn primary" onclick="runSeoScore()">🔍 體檢</button>
-        <button class="btn" onclick="runSeoFix()" title="自動補上 canonical / og:image / hreflang / theme-color">🩹 自動修復</button>
-        <button class="btn" onclick="runSeoFixAll()" title="對所有文章跑自動修復">🩹 全部修復</button>
+        <button type="button" class="btn primary" onclick="runSeoScore()">🔍 體檢</button>
+        <button type="button" class="btn" onclick="runSeoFix()" title="自動補上 canonical / og:image / hreflang / theme-color">🩹 自動修復</button>
+        <button type="button" class="btn" onclick="runSeoFixAll()" title="對所有文章跑自動修復">🩹 全部修復</button>
       </div>
       <div id="seo-result"></div>
     </div>
@@ -458,8 +458,8 @@
       <div class="toolbar">
         <h2>拼字 / 標點檢查</h2>
         <select id="spell-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
-        <button class="btn primary" onclick="runSpell()">🔍 檢查</button>
-        <button class="btn" onclick="runSpellAll()">🔍 全部檢查</button>
+        <button type="button" class="btn primary" onclick="runSpell()">🔍 檢查</button>
+        <button type="button" class="btn" onclick="runSpellAll()">🔍 全部檢查</button>
       </div>
       <div id="spell-result"></div>
     </div>
@@ -468,9 +468,9 @@
     <div class="tab-panel" id="tab-dict">
       <div class="toolbar">
         <h2>醫學詞典 + 自動連結</h2>
-        <button class="btn" onclick="loadDict()">↻ 重載</button>
-        <button class="btn primary" onclick="saveDict()">💾 儲存</button>
-        <button class="btn" onclick="addDictRow()">+ 新詞</button>
+        <button type="button" class="btn" onclick="loadDict()">↻ 重載</button>
+        <button type="button" class="btn primary" onclick="saveDict()">💾 儲存</button>
+        <button type="button" class="btn" onclick="addDictRow()">+ 新詞</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
         <h4>使用說明</h4>
@@ -482,7 +482,7 @@
       </table>
       <div class="toolbar" style="margin-top:18px;">
         <select id="dict-autolink-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
-        <button class="btn primary" onclick="runAutolink()">🔗 為此文章自動連結醫學詞</button>
+        <button type="button" class="btn primary" onclick="runAutolink()">🔗 為此文章自動連結醫學詞</button>
       </div>
     </div>
 
@@ -490,7 +490,7 @@
     <div class="tab-panel" id="tab-images">
       <div class="toolbar">
         <h2>圖片管理</h2>
-        <button class="btn primary" onclick="showImgUploadModal()">+ 上傳圖片</button>
+        <button type="button" class="btn primary" onclick="showImgUploadModal()">+ 上傳圖片</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
         <h4>📸 上傳流程</h4>
@@ -503,7 +503,7 @@
     <div class="tab-panel" id="tab-ab">
       <div class="toolbar">
         <h2>A/B 測試結果</h2>
-        <button class="btn" onclick="loadAbStats()">↻ 重新載入</button>
+        <button type="button" class="btn" onclick="loadAbStats()">↻ 重新載入</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
         <h4>📊 A/B 框架使用方法</h4>
@@ -516,8 +516,8 @@
     <div class="tab-panel" id="tab-abbuilder">
       <div class="toolbar">
         <h2>A/B Builder</h2>
-        <button class="btn" onclick="loadAbConfig()">↻ 重新載入</button>
-        <button class="btn primary" onclick="newAbTest()">+ 新測試</button>
+        <button type="button" class="btn" onclick="loadAbConfig()">↻ 重新載入</button>
+        <button type="button" class="btn primary" onclick="newAbTest()">+ 新測試</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
         <h4>🧪 不用改 JS 的 A/B 測試</h4>
@@ -537,9 +537,9 @@
           <label for="abnew-selector">CSS selector （要被替換的元素）</label>
           <input id="abnew-selector" required placeholder="例： #hs-cover-story .hs-cta-btn" />
           <label for="abnew-v1">Variant A (HTML)</label>
-          <textarea id="abnew-v1" required rows="3" placeholder="<button>立即看完</button>"></textarea>
+          <textarea id="abnew-v1" required rows="3" placeholder="<button type="button">立即看完</button>"></textarea>
           <label for="abnew-v2">Variant B (HTML)</label>
-          <textarea id="abnew-v2" required rows="3" placeholder="<button>3 分鐘讀懂</button>"></textarea>
+          <textarea id="abnew-v2" required rows="3" placeholder="<button type="button">3 分鐘讀懂</button>"></textarea>
           <label><input id="abnew-active" type="checkbox" checked /> 啟用</label>
           <div class="row">
             <button type="button" onclick="hideAbNewModal()">取消</button>
@@ -554,8 +554,8 @@
       <div class="toolbar">
         <h2>Markdown 編輯器</h2>
         <select id="md-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
-        <button class="btn" onclick="loadMd()">📥 載入</button>
-        <button class="btn primary" onclick="saveMd()">💾 儲存</button>
+        <button type="button" class="btn" onclick="loadMd()">📥 載入</button>
+        <button type="button" class="btn primary" onclick="saveMd()">💾 儲存</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
         <h4>使用說明</h4>
@@ -571,7 +571,7 @@
     <div class="tab-panel" id="tab-cwv">
       <div class="toolbar">
         <h2>Core Web Vitals 儀表板</h2>
-        <button class="btn" onclick="loadCWV()">🔄 重新載入</button>
+        <button type="button" class="btn" onclick="loadCWV()">🔄 重新載入</button>
         <select id="cwv-range" onchange="loadCWV()">
           <option value="7d">最近 7 天</option>
           <option value="28d" selected>最近 28 天</option>
@@ -592,37 +592,37 @@
         <div class="info-card" style="margin:0">
           <h4>🌐 重新生成 /en/ 鏡像</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">中文文章編輯後，英文鏡像不會自動同步。點此重新生成所有 /en/ 頁面 （約 30-60 秒）。</p>
-          <button class="btn primary" onclick="runRegenEn()">🔄 全部重生</button>
+          <button type="button" class="btn primary" onclick="runRegenEn()">🔄 全部重生</button>
         </div>
         <div class="info-card" style="margin:0">
           <h4>🛡️ Service Worker</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">清除瀏覽器端 SW 快取，重新註冊。除錯時用。</p>
-          <button class="btn" onclick="resetSW()">🗑️ 清除 SW 快取</button>
+          <button type="button" class="btn" onclick="resetSW()">🗑️ 清除 SW 快取</button>
         </div>
         <div class="info-card" style="margin:0">
           <h4>🚿 Edge cache purge</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">清空 Vercel CDN 快取，讓動態 sitemap / feed 立即更新（不用等 s-maxage）。需設 <code>VERCEL_TOKEN</code>。</p>
-          <button class="btn primary" onclick="purgeEdge()">🚿 清空 CDN</button>
+          <button type="button" class="btn primary" onclick="purgeEdge()">🚿 清空 CDN</button>
         </div>
         <div class="info-card" style="margin:0">
           <h4>🤖 重建相關文章 ML</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">用 TF-IDF + 醫學詞典加權重新計算每篇文章的相關推薦，寫到 <code>assets/related.json</code>。</p>
-          <button class="btn primary" onclick="buildRelated()">🤖 重建 related.json</button>
+          <button type="button" class="btn primary" onclick="buildRelated()">🤖 重建 related.json</button>
         </div>
         <div class="info-card" style="margin:0">
           <h4>📊 Pre-compute 字數 + 閱讀時間</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">把每篇文章字數與閱讀分鐘數寫進 DN.ARTICLES，客戶端不用 runtime 計算。</p>
-          <button class="btn primary" onclick="precomputeMeta()">📊 重算</button>
+          <button type="button" class="btn primary" onclick="precomputeMeta()">📊 重算</button>
         </div>
         <div class="info-card" style="margin:0">
           <h4>⚡ 批次運行</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">對所有文章跑 SEO 修復 + FAQ schema + 醫學詞典 auto-link, 一鍵 done。</p>
-          <button class="btn primary" onclick="runBatch()">⚡ 全部跑一次</button>
+          <button type="button" class="btn primary" onclick="runBatch()">⚡ 全部跑一次</button>
         </div>
         <div class="info-card" style="margin:0">
           <h4>📢 發送 Web Push 通知</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">所有訂閱者會收到加密推播 (aes128gcm)。需先設好 VAPID env vars。</p>
-          <button class="btn primary" onclick="showPushModal()">📤 撰寫通知</button>
+          <button type="button" class="btn primary" onclick="showPushModal()">📤 撰寫通知</button>
           <span id="push-stat" style="margin-left:8px; font-size:11.5px; color:var(--muted);"></span>
         </div>
         <div class="info-card" style="margin:0">
@@ -684,7 +684,7 @@
 <div id="edit-shell" hidden style="position:fixed;inset:0;background:#faf7f2;z-index:120;display:flex;flex-direction:column;">
   <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--border);background:rgba(247,245,240,.96);backdrop-filter:blur(6px);">
     <div style="display:flex;align-items:center;gap:14px;">
-      <button onclick="closeEditor()" style="background:#fff;border:1px solid var(--border);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--blue-deep);cursor:pointer">← 回到後台</button>
+      <button type="button" onclick="closeEditor()" style="background:#fff;border:1px solid var(--border);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--blue-deep);cursor:pointer">← 回到後台</button>
       <span style="font-size:13.5px;color:var(--ink-2)">編輯中： <code id="edit-slug-display" style="font-family:'JetBrains Mono',monospace;color:var(--blue-deep);font-size:12.5px"></code></span>
       <span id="edit-status" style="font-size:11.5px;color:var(--muted)"></span>
     </div>
@@ -729,7 +729,7 @@
     <h3>📚 版本歷史 — <span id="history-slug"></span></h3>
     <p>每筆編輯都是一個 git commit。點「回滾」會建立一個新 commit 把檔案回到該版本（不是 force-push，所以可再次回滾）。</p>
     <div id="history-list"><div class="loading"><span class="spinner"></span>載入中⋯</div></div>
-    <div class="row"><button onclick="hideHistory()">關閉</button></div>
+    <div class="row"><button type="button" onclick="hideHistory()">關閉</button></div>
   </div>
 </div>
 
@@ -770,8 +770,8 @@
       </div>
     </div>
     <div class="row">
-      <button onclick="hideImgModal()">取消</button>
-      <button class="primary" id="img-upload-btn" onclick="doImgUpload()" disabled>📤 上傳並 commit</button>
+      <button type="button" onclick="hideImgModal()">取消</button>
+      <button type="button" class="primary" id="img-upload-btn" onclick="doImgUpload()" disabled>📤 上傳並 commit</button>
     </div>
   </div>
 </div>
@@ -1098,7 +1098,7 @@ function renderMdPreview() {
        .replace(/\*([^*]+)\*/g,    '<i>$1</i>')
        .replace(/`([^`]+)`/g,      '<code>$1</code>')
        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%" />')
+       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%" loading="eager" fetchpriority="high" decoding="async">')
        .replace(/^- (.+)$/gm, '<li>$1</li>')
        .replace(/(<li>.+?<\/li>(?:\n<li>.+?<\/li>)*)/gs, '<ul>$1</ul>')
        .replace(/\n\n/g, '</p><p>')
@@ -1165,12 +1165,12 @@ function renderArticles(articles) {
       </div>
       <div class="actions">
         <a href="/blog/${a.slug}" target="_blank" rel="noopener noreferrer">看</a>
-        <button class="primary" onclick="openEditor('${escapeAttr(a.slug)}')">✏️ 編輯</button>
+        <button type="button" class="primary" onclick="openEditor('${escapeAttr(a.slug)}')">✏️ 編輯</button>
         <a href="/blog/${a.slug}?admin=1" target="_blank" rel="noopener noreferrer" title="新分頁開啟編輯模式">↗</a>
-        <button onclick="showHistory('${escapeAttr(a.slug)}')">📚 歷史</button>
-        <button onclick="autoFixSeo('${escapeAttr(a.slug)}', this)">🩹 SEO 修</button>
-        <button onclick="injectFaqSchema('${escapeAttr(a.slug)}', this)" title="自動萃取 Q&A 並注入 FAQPage 結構化資料">❓ FAQ</button>
-        <button onclick="regenEnOne('${escapeAttr(a.slug)}', this)">🌐 EN</button>
+        <button type="button" onclick="showHistory('${escapeAttr(a.slug)}')">📚 歷史</button>
+        <button type="button" onclick="autoFixSeo('${escapeAttr(a.slug)}', this)">🩹 SEO 修</button>
+        <button type="button" onclick="injectFaqSchema('${escapeAttr(a.slug)}', this)" title="自動萃取 Q&A 並注入 FAQPage 結構化資料">❓ FAQ</button>
+        <button type="button" onclick="regenEnOne('${escapeAttr(a.slug)}', this)">🌐 EN</button>
       </div>
     </div>`
   ).join('');
@@ -1302,7 +1302,7 @@ async function showHistory(slug) {
           <div class="msg">${escapeHTML(c.message.split('\n')[0])}</div>
           <div class="meta">${escapeHTML(c.author)} · ${escapeHTML(c.date)}</div>
         </div>
-        ${i === 0 ? '<span class="meta">(最新)</span>' : `<button onclick="doRollback('${escapeAttr(slug)}','${escapeAttr(c.sha)}')">↩ 回滾</button>`}
+        ${i === 0 ? '<span class="meta">(最新)</span>' : `<button type="button" onclick="doRollback('${escapeAttr(slug)}','${escapeAttr(c.sha)}')">↩ 回滾</button>`}
       </div>
     `).join('');
   } catch (e) {
@@ -1451,9 +1451,9 @@ async function loadAbConfig() {
         <div class="meta">selector: <code>${escapeHTML(t.selector)}</code> · 建立 ${escapeHTML(t.created || '')}</div>
         ${t.variants.map((v, i) => `<div class="ab-variant"><span class="v-name">[${i}] ${escapeHTML(v.name)}</span><span class="v-stat" style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-2); max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${escapeHTML(v.html.slice(0, 80))}</span></div>`).join('')}
         <div class="row" style="margin-top:10px">
-          <button onclick="editAbTest('${escapeAttr(id)}')">✏️ 編輯</button>
-          <button onclick="toggleAbTest('${escapeAttr(id)}')">${t.active?'⏸ 停用':'▶ 啟用'}</button>
-          <button class="danger" onclick="deleteAbTest('${escapeAttr(id)}')">🗑 刪除</button>
+          <button type="button" onclick="editAbTest('${escapeAttr(id)}')">✏️ 編輯</button>
+          <button type="button" onclick="toggleAbTest('${escapeAttr(id)}')">${t.active?'⏸ 停用':'▶ 啟用'}</button>
+          <button type="button" class="danger" onclick="deleteAbTest('${escapeAttr(id)}')">🗑 刪除</button>
         </div>
       </div>`;
     }).join('');
@@ -1629,7 +1629,7 @@ function renderDict() {
       <td><input value="${escapeAttr(info.en || '')}" data-field="en" /></td>
       <td><input value="${escapeAttr(info.def || '')}" data-field="def" /></td>
       <td><input value="${escapeAttr(info.anchor || '')}" data-field="anchor" placeholder="(無)" /></td>
-      <td><button onclick="this.closest('tr').remove()" style="border:0;background:transparent;color:var(--red);cursor:pointer;font-size:14px">✕</button></td>
+      <td><button type="button" onclick="this.closest('tr').remove()" style="border:0;background:transparent;color:var(--red);cursor:pointer;font-size:14px">✕</button></td>
     </tr>
   `).join('');
   body.innerHTML = rows;
@@ -1642,7 +1642,7 @@ function addDictRow() {
     <td><input value="" data-field="en" placeholder="macular edema" /></td>
     <td><input value="" data-field="def" placeholder="定義..." /></td>
     <td><input value="" data-field="anchor" placeholder="(可空)" /></td>
-    <td><button onclick="this.closest('tr').remove()" style="border:0;background:transparent;color:var(--red);cursor:pointer;font-size:14px">✕</button></td>
+    <td><button type="button" onclick="this.closest('tr').remove()" style="border:0;background:transparent;color:var(--red);cursor:pointer;font-size:14px">✕</button></td>
   `;
   document.getElementById('dict-body').appendChild(tr);
 }

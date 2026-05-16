@@ -1093,8 +1093,8 @@
           '</div>' +
         '</div>' +
         '<div style="display:flex;gap:8px;flex-shrink:0">' +
-          '<button data-resume-yes style="padding:7px 14px;border-radius:9999px;background:var(--blue-deep);color:#fff;border:0;font-weight:700;font-size:12.5px;cursor:pointer">繼續閱讀</button>' +
-          '<button data-resume-no style="padding:7px 12px;border-radius:9999px;background:#fff;color:var(--ink-2);border:1px solid var(--border);font-weight:600;font-size:12.5px;cursor:pointer">從頭開始</button>' +
+          '<button type="button" data-resume-yes style="padding:7px 14px;border-radius:9999px;background:var(--blue-deep);color:#fff;border:0;font-weight:700;font-size:12.5px;cursor:pointer">繼續閱讀</button>' +
+          '<button type="button" data-resume-no style="padding:7px 12px;border-radius:9999px;background:#fff;color:var(--ink-2);border:1px solid var(--border);font-weight:600;font-size:12.5px;cursor:pointer">從頭開始</button>' +
         '</div>';
       if (!document.getElementById('hs-resume-style')) {
         const st = document.createElement('style');
@@ -3421,21 +3421,21 @@
       '<select id="hs-adm-font" title="Font family"><option value="">(預設)</option><option value="Noto Serif TC, Georgia, serif">Noto Serif TC</option><option value="Inter, sans-serif">Inter</option><option value="JetBrains Mono, monospace">JetBrains Mono</option><option value="Noto Sans TC, sans-serif">Noto Sans TC</option><option value="Fraunces, serif">Fraunces</option></select>' +
       '<select id="hs-adm-size" title="Font size"><option value="">(預設)</option><option value="13px">13</option><option value="14px">14</option><option value="15.5px">15.5</option><option value="17px">17</option><option value="20px">20</option><option value="24px">24</option><option value="32px">32</option></select>' +
       '<span class="sep"></span>' +
-      '<button title="粗體 (Cmd/Ctrl+B)" data-cmd="bold"><b>B</b></button>' +
-      '<button title="斜體 (Cmd/Ctrl+I)" data-cmd="italic"><i>I</i></button>' +
-      '<button title="底線 (Cmd/Ctrl+U)" data-cmd="underline"><u>U</u></button>' +
-      '<button title="刪除線" data-cmd="strikeThrough">S̶</button>' +
+      '<button type="button" title="粗體 (Cmd/Ctrl+B)" data-cmd="bold"><b>B</b></button>' +
+      '<button type="button" title="斜體 (Cmd/Ctrl+I)" data-cmd="italic"><i>I</i></button>' +
+      '<button type="button" title="底線 (Cmd/Ctrl+U)" data-cmd="underline"><u>U</u></button>' +
+      '<button type="button" title="刪除線" data-cmd="strikeThrough">S̶</button>' +
       '<span class="sep"></span>' +
-      '<button title="項目符號" data-cmd="insertUnorderedList">• 項目</button>' +
-      '<button title="數字編號" data-cmd="insertOrderedList">1. 編號</button>' +
-      '<button title="連結 (Cmd/Ctrl+K)" data-cmd="link">🔗 連結</button>' +
-      '<button title="圖片 — 拖曳/貼上/點選" id="hs-adm-img">📷 圖片</button>' +
-      '<button title="預覽 (新視窗)" id="hs-adm-preview">👁 預覽</button>' +
-      '<button title="清除格式" data-cmd="removeFormat">⨯ 清除</button>' +
+      '<button type="button" title="項目符號" data-cmd="insertUnorderedList">• 項目</button>' +
+      '<button type="button" title="數字編號" data-cmd="insertOrderedList">1. 編號</button>' +
+      '<button type="button" title="連結 (Cmd/Ctrl+K)" data-cmd="link">🔗 連結</button>' +
+      '<button type="button" title="圖片 — 拖曳/貼上/點選" id="hs-adm-img">📷 圖片</button>' +
+      '<button type="button" title="預覽 (新視窗)" id="hs-adm-preview">👁 預覽</button>' +
+      '<button type="button" title="清除格式" data-cmd="removeFormat">⨯ 清除</button>' +
       '<span class="sep"></span>' +
-      '<button class="primary" id="hs-adm-save">💾 儲存</button>' +
-      '<button class="danger" id="hs-adm-cancel">取消</button>' +
-      '<button id="hs-adm-exit" title="離開 admin 模式">←離開</button>' +
+      '<button type="button" class="primary" id="hs-adm-save">💾 儲存</button>' +
+      '<button type="button" class="danger" id="hs-adm-cancel">取消</button>' +
+      '<button type="button" id="hs-adm-exit" title="離開 admin 模式">←離開</button>' +
       '<input type="file" id="hs-adm-img-input" accept="image/*" hidden />';
     document.body.appendChild(bar);
 
@@ -3884,7 +3884,7 @@
   // gets `popovertarget` wired to its associated popover. This replaces
   // manual show/hide JS with browser-native top-layer + light-dismiss.
   //
-  //   <button data-popover-trigger="my-pop">⋯</button>
+  //   <button type="button" data-popover-trigger="my-pop">⋯</button>
   //   <div id="my-pop" popover>...</div>
   //
   // Browser handles ESC, click-outside, and stacking. Falls back gracefully
@@ -4051,24 +4051,24 @@
     // Build markup
     var html = '<div class="row">' +
       '<span class="label" data-zh="分類" data-en="Category">分類</span>' +
-      '<button class="chip-btn active" data-cat="">' +
+      '<button type="button" class="chip-btn active" data-cat="">' +
         '<span data-zh="全部" data-en="All">全部</span><span class="count">' + items.length + '</span>' +
       '</button>';
     Object.keys(cats).forEach(function (c) {
       if (!c) return;
       var lbl = CAT_LABELS[c] || { zh: c, en: c };
-      html += '<button class="chip-btn" data-cat="' + c + '">' +
+      html += '<button type="button" class="chip-btn" data-cat="' + c + '">' +
               '<span data-zh="' + lbl.zh + '" data-en="' + lbl.en + '">' + lbl.zh + '</span>' +
               '<span class="count">' + cats[c] + '</span></button>';
     });
-    html += '<button class="reset" data-zh="清除篩選" data-en="Reset">清除篩選</button></div>';
+    html += '<button type="button" class="reset" data-zh="清除篩選" data-en="Reset">清除篩選</button></div>';
 
     // Tag cloud
     var sortedTags = Object.keys(tags).sort(function (a, b) { return tags[b] - tags[a]; });
     if (sortedTags.length) {
       html += '<div class="row"><span class="label" data-zh="標籤" data-en="Tags">標籤</span>';
       sortedTags.forEach(function (t) {
-        html += '<button class="chip-btn" data-tag="' + t.replace(/"/g, '&quot;') + '">' + t +
+        html += '<button type="button" class="chip-btn" data-tag="' + t.replace(/"/g, '&quot;') + '">' + t +
                 '<span class="count">' + tags[t] + '</span></button>';
       });
       html += '</div>';
@@ -5083,6 +5083,7 @@
     if (host.querySelector('.hs-push-btn')) return;
 
     var btn = document.createElement('button');
+    btn.type = 'button';
     btn.className = 'hs-push-btn';
     btn.style.cssText = 'margin-top:10px;padding:8px 14px;border-radius:9999px;border:1px solid #b8cfe3;background:#fff;color:#3a5a7c;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px';
     btn.textContent = '🔔 訂閱新文章通知';

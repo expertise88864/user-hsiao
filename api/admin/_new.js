@@ -98,7 +98,7 @@ gtag('config', 'G-0ZKDQP9DNH');
       </a>
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog/" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="← 文章索引" data-en="← Articles">← 文章索引</a>
-        <button aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
+        <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
         </button>
         <select id="langToggle" class="lang-select" aria-label="Language">

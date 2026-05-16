@@ -68,7 +68,7 @@ jobs:
             exit 1
           fi
 
-      # ── Ported from DermNotes (2026-05): 9 deeper check scripts ──
+      # ── Ported from DermNotes (2026-05): 15 deeper check scripts ──
       # Non-blocking initially so known issues in stub articles don't break CI.
       # Flip `|| true` to hard-fail once stubs are completed or removed.
       - name: Deep SEO/quality checks (DermNotes ported)
@@ -76,12 +76,19 @@ jobs:
           echo "=== _check_meta.py ===" && python _check_meta.py || echo "::warning::meta check has issues"
           echo "=== _check_sitemap.py ===" && python _check_sitemap.py || echo "::warning::sitemap check has issues"
           echo "=== _check_metadata_uniqueness.py ===" && python _check_metadata_uniqueness.py || echo "::warning::duplicate metadata found"
-          echo "=== _check_internal_links.py ===" && python _check_internal_links.py || echo "::warning::internal-link issues (some are JS-embedded false positives)"
-          echo "=== _check_static_a11y.py ===" && python _check_static_a11y.py || echo "::warning::a11y issues (mostly admin.html dashboard, not user-facing)"
+          echo "=== _check_internal_links.py ===" && python _check_internal_links.py || echo "::warning::internal-link issues"
+          echo "=== _check_static_a11y.py ===" && python _check_static_a11y.py || echo "::warning::a11y issues (mostly admin.html dashboard)"
           echo "=== _check_articles.py ===" && python _check_articles.py || echo "::warning::DN.ARTICLES catalog issue"
           echo "=== _check_robots.py ===" && python _check_robots.py || echo "::warning::robots.txt issue"
           echo "=== _check_pwa.py ===" && python _check_pwa.py || echo "::warning::PWA manifest/SW/offline issue"
           echo "=== _check_bilingual_attrs.py ===" && python _check_bilingual_attrs.py || echo "::warning::bilingual attribute mismatch"
+          echo "=== _check_secrets.py ===" && python _check_secrets.py || echo "::error::SECRET LEAK DETECTED"
+          echo "=== _check_text_integrity.py ===" && python _check_text_integrity.py || echo "::warning::mojibake / encoding issue"
+          echo "=== _check_balance.py ===" && python _check_balance.py || echo "::warning::blog-shared.js delimiter imbalance"
+          echo "=== _check_button_types.py ===" && python _check_button_types.py || echo "::warning::button missing explicit type"
+          echo "=== _check_external_links.py ===" && python _check_external_links.py || echo "::warning::target=_blank missing rel=noopener"
+          echo "=== _check_index_boundaries.py ===" && python _check_index_boundaries.py || echo "::warning::indexable/private page boundary mismatch"
+          echo "=== _check_inline_events.py ===" && python _check_inline_events.py || echo "::warning::inline event handlers (CSP)"
 
       - name: JSON-LD parse check
         run: |

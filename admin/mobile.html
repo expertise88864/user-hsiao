@@ -11,8 +11,8 @@
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="admin.css" />
-<!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style>.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.25s}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style></head>
-<body><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
+<!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style>.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.25s}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><!-- i-series-applied --></head>
+<body><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-related" data-zh="跳至相關文章" data-en="Skip to related">跳至相關文章</a><a href="#dn-newsletter" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
 
 <!-- ════════════════ LOGIN OVERLAY ════════════════ -->
 <div id="ad-login" class="ad-login-overlay">
@@ -33,7 +33,7 @@
     <div id="ad-login-err" class="ad-login-error">登入失敗 — Token 無效或無權限</div>
 
     <div style="margin-top:18px;display:flex;gap:8px;justify-content:flex-end">
-      <button id="ad-login-btn" class="ad-btn ad-btn-primary">
+      <button type="button" id="ad-login-btn" class="ad-btn ad-btn-primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
         登入
       </button>
@@ -47,7 +47,7 @@
   <!-- Top bar -->
   <header class="ad-topbar">
     <!-- Mobile: hamburger → open sidebar (article list) -->
-    <button id="ad-menu-btn" class="ad-icon-btn ad-mobile-only" title="開啟文章列表" aria-label="開啟文章列表">
+    <button type="button" id="ad-menu-btn" class="ad-icon-btn ad-mobile-only" title="開啟文章列表" aria-label="開啟文章列表">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
 
@@ -64,21 +64,21 @@
       <span id="ad-status-text">準備就緒</span>
     </div>
 
-    <button id="ad-reload-btn" class="ad-icon-btn" title="重新載入文章（從 GitHub 拉最新）">
+    <button type="button" id="ad-reload-btn" class="ad-icon-btn" title="重新載入文章（從 GitHub 拉最新）">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
     </button>
 
-    <button id="ad-save-btn" class="ad-btn ad-btn-primary" title="儲存並推送到 GitHub (Cmd/Ctrl+S)">
+    <button type="button" id="ad-save-btn" class="ad-btn ad-btn-primary" title="儲存並推送到 GitHub (Cmd/Ctrl+S)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
       儲存
     </button>
 
-    <button id="ad-logout" class="ad-icon-btn" title="登出">
+    <button type="button" id="ad-logout" class="ad-icon-btn" title="登出">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
     </button>
 
     <!-- Mobile: tools button → open right tools panel -->
-    <button id="ad-tools-btn" class="ad-icon-btn ad-mobile-only" title="開啟工具面板" aria-label="開啟工具面板">
+    <button type="button" id="ad-tools-btn" class="ad-icon-btn ad-mobile-only" title="開啟工具面板" aria-label="開啟工具面板">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
   </header>
@@ -90,7 +90,7 @@
   <div id="ad-banner" class="ad-banner">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
     <span id="ad-banner-msg"></span>
-    <button id="ad-banner-reload" class="ad-btn-link">同步最新 →</button>
+    <button type="button" id="ad-banner-reload" class="ad-btn-link">同步最新 →</button>
   </div>
 
   <!-- Main 3-column layout -->
@@ -100,7 +100,7 @@
     <aside class="ad-sidebar">
       <div class="ad-sidebar-head">
         <h3>文章</h3>
-        <button id="ad-new-btn" class="ad-btn ad-btn-secondary ad-btn-sm" title="新增文章">
+        <button type="button" id="ad-new-btn" class="ad-btn ad-btn-secondary ad-btn-sm" title="新增文章">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           新增
         </button>
@@ -117,9 +117,9 @@
 
       <!-- Tabs -->
       <div class="ad-tabs">
-        <button class="ad-tab active" data-tab="content">內容</button>
-        <button class="ad-tab" data-tab="meta">Metadata</button>
-        <button class="ad-tab" data-tab="preview">預覽</button>
+        <button type="button" class="ad-tab active" data-tab="content">內容</button>
+        <button type="button" class="ad-tab" data-tab="meta">Metadata</button>
+        <button type="button" class="ad-tab" data-tab="preview">預覽</button>
       </div>
 
       <!-- Content tab -->
@@ -127,67 +127,67 @@
         <!-- Format toolbar -->
         <div class="ad-toolbar">
           <div class="ad-tool-group">
-            <button class="ad-tool" data-fmt="bold" title="粗體">
+            <button type="button" class="ad-tool" data-fmt="bold" title="粗體">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
             </button>
-            <button class="ad-tool" data-fmt="italic" title="斜體">
+            <button type="button" class="ad-tool" data-fmt="italic" title="斜體">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg>
             </button>
-            <button class="ad-tool" data-fmt="underline" title="底線">
+            <button type="button" class="ad-tool" data-fmt="underline" title="底線">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="4" y1="21" x2="20" y2="21"/></svg>
             </button>
-            <button class="ad-tool" data-fmt="strike" title="刪除線">
+            <button type="button" class="ad-tool" data-fmt="strike" title="刪除線">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
             </button>
           </div>
           <div class="ad-tool-divider"></div>
 
           <div class="ad-tool-group">
-            <button class="ad-tool label-text" data-fmt="h2" title="二級標題">H2</button>
-            <button class="ad-tool label-text" data-fmt="h3" title="三級標題">H3</button>
-            <button class="ad-tool label-text" data-fmt="p" title="段落">P</button>
+            <button type="button" class="ad-tool label-text" data-fmt="h2" title="二級標題">H2</button>
+            <button type="button" class="ad-tool label-text" data-fmt="h3" title="三級標題">H3</button>
+            <button type="button" class="ad-tool label-text" data-fmt="p" title="段落">P</button>
           </div>
           <div class="ad-tool-divider"></div>
 
           <div class="ad-tool-group">
-            <button class="ad-tool" data-fmt="ul" title="無序列表">
+            <button type="button" class="ad-tool" data-fmt="ul" title="無序列表">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
             </button>
-            <button class="ad-tool" data-fmt="ol" title="有序列表">
+            <button type="button" class="ad-tool" data-fmt="ol" title="有序列表">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
             </button>
-            <button class="ad-tool" data-fmt="blockquote" title="引用">
+            <button type="button" class="ad-tool" data-fmt="blockquote" title="引用">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2h-4l-4 4v-4H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>
             </button>
-            <button class="ad-tool" data-fmt="hr" title="分隔線">
+            <button type="button" class="ad-tool" data-fmt="hr" title="分隔線">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/></svg>
             </button>
           </div>
           <div class="ad-tool-divider"></div>
 
           <div class="ad-tool-group">
-            <button class="ad-tool" data-fmt="link" title="連結">
+            <button type="button" class="ad-tool" data-fmt="link" title="連結">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
             </button>
             <input class="ad-color-input" type="color" id="ad-color" value="#3a5a7c" title="字體顏色（套用到選取文字）" />
-            <button class="ad-tool label-text" data-fmt="fontSize" title="字體大小">A↕</button>
+            <button type="button" class="ad-tool label-text" data-fmt="fontSize" title="字體大小">A↕</button>
           </div>
           <div class="ad-tool-divider"></div>
 
           <div class="ad-tool-group">
-            <button class="ad-tool" data-fmt="bilingualP" title="新增雙語段落">
+            <button type="button" class="ad-tool" data-fmt="bilingualP" title="新增雙語段落">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
               雙語
             </button>
-            <button class="ad-tool" data-fmt="table" title="插入表格">
+            <button type="button" class="ad-tool" data-fmt="table" title="插入表格">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
               表格
             </button>
-            <button class="ad-tool" data-fmt="citation" title="插入引用文獻">
+            <button type="button" class="ad-tool" data-fmt="citation" title="插入引用文獻">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
               引用
             </button>
-            <button class="ad-tool" data-fmt="imageUpload" title="上傳圖片">
+            <button type="button" class="ad-tool" data-fmt="imageUpload" title="上傳圖片">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               圖片
             </button>
@@ -232,7 +232,7 @@
               </div>
             </div>
             <div style="margin-top:18px">
-              <button id="ad-meta-apply-btn" class="ad-btn ad-btn-primary">
+              <button type="button" id="ad-meta-apply-btn" class="ad-btn ad-btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 套用 metadata 到 HTML
               </button>
@@ -288,10 +288,10 @@
           快速插入
         </h4>
         <div class="ad-tool-actions">
-          <button class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="bilingualP">雙語段落</button>
-          <button class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="table">表格</button>
-          <button class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="citation">引用文獻</button>
-          <button class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="imageUpload">上傳圖片</button>
+          <button type="button" class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="bilingualP">雙語段落</button>
+          <button type="button" class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="table">表格</button>
+          <button type="button" class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="citation">引用文獻</button>
+          <button type="button" class="ad-btn ad-btn-secondary ad-btn-sm ad-btn-block" data-fmt="imageUpload">上傳圖片</button>
         </div>
       </div>
 
@@ -357,8 +357,8 @@
     </div>
 
     <div class="ad-modal-actions">
-      <button id="new-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
-      <button id="new-create-btn" class="ad-btn ad-btn-primary">建立文章</button>
+      <button type="button" id="new-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
+      <button type="button" id="new-create-btn" class="ad-btn ad-btn-primary">建立文章</button>
     </div>
   </div>
 </div>
@@ -389,8 +389,8 @@
     </div>
 
     <div class="ad-modal-actions">
-      <button id="bp-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
-      <button id="bp-insert-btn" class="ad-btn ad-btn-primary">插入</button>
+      <button type="button" id="bp-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
+      <button type="button" id="bp-insert-btn" class="ad-btn ad-btn-primary">插入</button>
     </div>
   </div>
 </div>
@@ -417,8 +417,8 @@
     </div>
 
     <div class="ad-modal-actions">
-      <button id="tbl-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
-      <button id="tbl-insert-btn" class="ad-btn ad-btn-primary">插入</button>
+      <button type="button" id="tbl-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
+      <button type="button" id="tbl-insert-btn" class="ad-btn ad-btn-primary">插入</button>
     </div>
   </div>
 </div>
@@ -448,8 +448,8 @@
     <input type="url" id="cit-url" placeholder="https://..." />
 
     <div class="ad-modal-actions">
-      <button id="cit-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
-      <button id="cit-insert-btn" class="ad-btn ad-btn-primary">插入</button>
+      <button type="button" id="cit-cancel-btn" class="ad-btn ad-btn-ghost">取消</button>
+      <button type="button" id="cit-insert-btn" class="ad-btn ad-btn-primary">插入</button>
     </div>
   </div>
 </div>
