@@ -205,6 +205,7 @@ const INLINE_STYLE_HASHES = [
   'sha256-eCR1aoUsZD82UX6tbzCWFdAkSrAOGncqZ/hmMqfTBzE=',
   'sha256-farGoa0q1emAWQxtwOGwVUDwPLmYt8ZejUHTXKKqZvU=',
   'sha256-hHxWm9zVyADoWQqPZuTYym0EJArRLyeRQec+4FxcMbk=',
+  'sha256-n+8Um5lSwK3S+k4vUc6nH+nCbBmt1p1O66uHVrWn2wc=',
   'sha256-tZrLSGYZvnCrgIIadNzv425t+BD34oU/HZQfXLrhRwM=',
   'sha256-wWl6NKvjzoTVaSfRdsjAp7PQ696Jl5FZL6Jh5wduRqE=',
   'sha256-x3w2AVuOl+53iOFOmxpkTcO1Kj9qFb2jX0Z+0LQGXlA=',

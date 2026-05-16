@@ -2405,7 +2405,52 @@
     }
     function go() { var m = currentMatches[activeIdx]; if (m) location.href = m.url; }
 
-    input.addEventListener('input', function () { render(input.value); });
+    // PageFind full-text augmentation: after the fast static title search,
+    // asynchronously fetch full-text hits from /pagefind/ and append them
+    // below the title results. Loads lazily on first query.
+    var _pfMod = null;
+    var _pfPending = null;
+    async function augmentWithPagefind(q) {
+      if (!q || q.length < 2) return;
+      try {
+        if (!_pfMod) {
+          if (!_pfPending) _pfPending = import('/pagefind/pagefind.js').catch(function(){ return null; });
+          _pfMod = await _pfPending;
+          if (!_pfMod) return;  // pagefind index not built
+        }
+        var search = await _pfMod.search(q);
+        if (!search || !search.results || !search.results.length) return;
+        // Only run if the current query is still the same (debounce)
+        if (input.value.trim().toLowerCase() !== q.toLowerCase()) return;
+        var hits = await Promise.all(search.results.slice(0, 5).map(function(r){ return r.data(); }));
+        // Dedup: skip URLs already in static results
+        var staticUrls = Array.prototype.map.call(results.querySelectorAll('.row'), function(a){ return a.getAttribute('href'); });
+        hits = hits.filter(function(h){ return staticUrls.indexOf(h.url) < 0; });
+        if (!hits.length) return;
+        // Append section header + hit rows
+        var header = document.createElement('div');
+        header.style.cssText = 'padding:8px 20px 4px;font-size:10.5px;color:var(--muted,#8b8378);border-top:1px solid var(--line,#ebe4d8);margin-top:6px;letter-spacing:.08em;text-transform:uppercase';
+        header.textContent = '🔎 文章內文相關';
+        results.appendChild(header);
+        hits.forEach(function(h) {
+          var a = document.createElement('a');
+          a.className = 'row';
+          a.href = h.url;
+          var t = document.createElement('span'); t.className = 't';
+          t.textContent = (h.meta && h.meta.title) || h.url;
+          var m = document.createElement('span'); m.className = 'm';
+          // textContent on excerpt to strip <mark> tags safely (Trusted Types friendly)
+          var tmp = document.createElement('div'); tmp.innerHTML = h.excerpt || '';
+          m.textContent = (tmp.textContent || '').slice(0, 90);
+          a.appendChild(t); a.appendChild(m);
+          results.appendChild(a);
+        });
+      } catch (e) { /* silent — fallback to static results */ }
+    }
+    input.addEventListener('input', function () {
+      render(input.value);
+      augmentWithPagefind(input.value.trim());
+    });
     input.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowDown') { e.preventDefault(); setActive(activeIdx + 1); }
       else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(activeIdx - 1); }

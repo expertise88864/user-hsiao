@@ -191,15 +191,35 @@ def set_head_text(s, title, desc, en_canonical):
 
 
 def extract_en_description(html):
-    candidates = [
-        r'<p[^>]*class="[^"]*(?:tldr|lead)[^"]*"[^>]*data-en="([^"]+)"',
-        r'<div[^>]*class="[^"]*(?:tldr|lead|ans)[^"]*"[^>]*data-en="([^"]+)"',
-    ]
-    for pat in candidates:
-        m = re.search(pat, html, re.I)
-        if m:
-            return truncate(m.group(1))
-    return ''
+    # Use HTMLParser instead of regex — regex `[^>]*` breaks when attribute
+    # values (e.g. data-zh) contain HTML markup like <strong>...</strong>
+    # because the embedded `>` terminates the [^>] character class early.
+    from html.parser import HTMLParser
+
+    class _TldrFinder(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=False)
+            self.result = None
+
+        def handle_starttag(self, tag, attrs):
+            if self.result is not None:
+                return
+            if tag not in ('p', 'div'):
+                return
+            ad = dict(attrs)
+            if 'data-en' not in ad or not ad['data-en']:
+                return
+            classes = (ad.get('class') or '').split()
+            wanted = {'tldr', 'lead', 'ans'} if tag == 'div' else {'tldr', 'lead'}
+            if any(c in wanted for c in classes):
+                self.result = ad['data-en']
+
+    p = _TldrFinder()
+    try:
+        p.feed(html)
+    except Exception:
+        pass
+    return truncate(p.result) if p.result else ''
 
 
 def meta_for_page(en_canonical, slug=None, html=''):
