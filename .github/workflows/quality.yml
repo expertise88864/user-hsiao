@@ -102,6 +102,7 @@ jobs:
           echo "=== _check_js_syntax.py ===" && python _check_js_syntax.py || echo "::warning::JS syntax error"
           echo "=== _check_syntax_residue.py ===" && python _check_syntax_residue.py || echo "::warning::duplicated-key syntax residue"
           echo "=== _check_inline_scripts.py ===" && python _check_inline_scripts.py || echo "::warning::inline script delimiter imbalance"
+          echo "=== _check_article_listings.py ===" && python _check_article_listings.py || echo "::error::Article missing from listing page — homepage/blog-index/topics drift"
 
       - name: JSON-LD parse check
         run: |
