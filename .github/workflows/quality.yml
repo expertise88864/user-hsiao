@@ -89,6 +89,12 @@ jobs:
           echo "=== _check_external_links.py ===" && python _check_external_links.py || echo "::warning::target=_blank missing rel=noopener"
           echo "=== _check_index_boundaries.py ===" && python _check_index_boundaries.py || echo "::warning::indexable/private page boundary mismatch"
           echo "=== _check_inline_events.py ===" && python _check_inline_events.py || echo "::warning::inline event handlers (CSP)"
+          echo "=== _check_performance_budget.py ===" && python _check_performance_budget.py || echo "::warning::performance budget exceeded"
+          echo "=== _check_third_party.py ===" && python _check_third_party.py || echo "::warning::third-party loading policy violation"
+          echo "=== _check_en_internal_links.py ===" && python _check_en_internal_links.py || echo "::warning::EN mirror links escape /en/"
+          echo "=== _check_js_syntax.py ===" && python _check_js_syntax.py || echo "::warning::JS syntax error"
+          echo "=== _check_syntax_residue.py ===" && python _check_syntax_residue.py || echo "::warning::duplicated-key syntax residue"
+          echo "=== _check_inline_scripts.py ===" && python _check_inline_scripts.py || echo "::warning::inline script delimiter imbalance"
 
       - name: JSON-LD parse check
         run: |

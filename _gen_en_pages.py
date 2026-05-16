@@ -289,6 +289,44 @@ def transform(html, zh_canonical, en_canonical, slug=None):
     if '<meta property="og:locale:alternate"' in s:
         s = re.sub(r'<meta property="og:locale:alternate" content="[^"]*"\s*/?>', '<meta property="og:locale:alternate" content="zh_TW" />', s, count=1)
 
+    # 8. Rewrite <a href="/foo"> → <a href="/en/foo"> for any path with an
+    # existing /en/ mirror. Keeps asset links (/favicon.ico, /assets/*,
+    # /pagefind/*, /icon.svg, /manifest.json) and external/anchor links
+    # untouched. This stops EN users from being kicked back to the ZH side
+    # when they click the logo, the breadcrumb, or any nav item.
+    ASSET_PREFIXES = (
+        '/_vercel/', '/api/', '/assets/', '/blog/feed.xml', '/blog/atom.xml',
+        '/blog/blog-shared.js', '/pagefind/', '/favicon.ico', '/icon-', '/icon.svg',
+        '/manifest.json', '/sitemap.xml', '/apple-touch-icon', '/logo-', '/sw.js',
+        '/robots.txt', '/humans.txt', '/ads.txt', '/SUNN1302',
+    )
+    PREFIXABLE_PAGES = ('/', '/about', '/privacy', '/notes', '/tools', '/blog/', '/blog/topics')
+
+    def _en_rewrite_href(m):
+        href = m.group(1)
+        if not href.startswith('/'):
+            return m.group(0)
+        if href.startswith('//') or href.startswith('/en/'):
+            return m.group(0)
+        # Strip query/fragment for prefix matching
+        clean = href.split('?', 1)[0].split('#', 1)[0]
+        # Skip asset paths
+        if clean.startswith(ASSET_PREFIXES):
+            return m.group(0)
+        # Single-page paths: /about, /privacy, /tools, /notes, /blog/, /blog/topics
+        if clean in PREFIXABLE_PAGES:
+            new_href = '/en' + href if href != '/' else '/en/'
+            return m.group(0).replace(f'href="{href}"', f'href="{new_href}"').replace(f"href='{href}'", f"href='{new_href}'")
+        # /blog/<slug> articles — check if EN mirror exists
+        if clean.startswith('/blog/'):
+            slug_path = clean[len('/blog/'):]
+            if os.path.exists(os.path.join(ROOT, 'en', 'blog', f'{slug_path}.html')):
+                new_href = '/en' + href
+                return m.group(0).replace(f'href="{href}"', f'href="{new_href}"').replace(f"href='{href}'", f"href='{new_href}'")
+        return m.group(0)
+
+    s = re.sub(r'<a\b[^>]*\bhref=["\']([^"\']+)["\'][^>]*>', _en_rewrite_href, s)
+
     return s
 
 

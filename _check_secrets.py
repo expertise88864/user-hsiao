@@ -11,7 +11,10 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "_bin"}
+SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "_bin", "tests", "pagefind"}
+# Don't scan ourselves — the check script intentionally contains the literal
+# regex pattern '-----BEGIN PRIVATE KEY-----' for detection logic.
+SKIP_SELF = {"_check_secrets.py"}
 TEXT_SUFFIXES = {
     ".cjs",
     ".css",
@@ -104,6 +107,8 @@ def main() -> int:
     for path in tracked_files():
         rel_path = path.relative_to(ROOT)
         rel = rel_path.as_posix()
+        if rel_path.name in SKIP_SELF:
+            continue
         if any(part in SKIP_DIRS for part in rel_path.parts):
             continue
         name = path.name
