@@ -3,7 +3,7 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260644g';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260644h';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -513,7 +513,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
         </div>
         <div class="mag-card-body">
           <span class="mag-card-tag" data-zh="封面故事 · COVER STORY" data-en="Cover Story">封面故事 · COVER STORY</span>
-          <h3 data-zh="飛蚊症 6 大警訊 — 何時要立刻衝眼科?" data-en="6 Floater Red Flags — when do floaters mean retinal emergency?">飛蚊症 6 大警訊 — 何時要立刻衝眼科？</h3>
+          <h2 data-zh="飛蚊症 6 大警訊 — 何時要立刻衝眼科?" data-en="6 Floater Red Flags — when do floaters mean retinal emergency?" style="font-size:inherit;font-weight:inherit;margin:0;color:inherit;line-height:inherit;font-family:inherit">飛蚊症 6 大警訊 — 何時要立刻衝眼科？</h2>
           <div class="mag-card-meta" data-zh="2026.05 · 9 分鐘 · 警訊辨識" data-en="2026.05 · 9 min · Red flags">2026.05 · 9 分鐘 · 警訊辨識</div>
         </div>
       </a>

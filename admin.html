@@ -48,7 +48,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260644g';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260644h';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -445,7 +445,7 @@
     <div class="tab-panel" id="tab-seo">
       <div class="toolbar">
         <h2>SEO 體檢</h2>
-        <select id="seo-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
+        <select id="seo-slug" aria-label="選擇要做 SEO 體檢的文章" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
         <button type="button" class="btn primary" onclick="runSeoScore()">🔍 體檢</button>
         <button type="button" class="btn" onclick="runSeoFix()" title="自動補上 canonical / og:image / hreflang / theme-color">🩹 自動修復</button>
         <button type="button" class="btn" onclick="runSeoFixAll()" title="對所有文章跑自動修復">🩹 全部修復</button>
@@ -457,7 +457,7 @@
     <div class="tab-panel" id="tab-spell">
       <div class="toolbar">
         <h2>拼字 / 標點檢查</h2>
-        <select id="spell-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
+        <select id="spell-slug" aria-label="選擇要做拼字檢查的文章" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
         <button type="button" class="btn primary" onclick="runSpell()">🔍 檢查</button>
         <button type="button" class="btn" onclick="runSpellAll()">🔍 全部檢查</button>
       </div>
@@ -481,7 +481,7 @@
         <tbody id="dict-body"></tbody>
       </table>
       <div class="toolbar" style="margin-top:18px;">
-        <select id="dict-autolink-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
+        <select id="dict-autolink-slug" aria-label="選擇要做醫學詞自動連結的文章" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
         <button type="button" class="btn primary" onclick="runAutolink()">🔗 為此文章自動連結醫學詞</button>
       </div>
     </div>
@@ -553,7 +553,7 @@
     <div class="tab-panel" id="tab-md">
       <div class="toolbar">
         <h2>Markdown 編輯器</h2>
-        <select id="md-slug" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
+        <select id="md-slug" aria-label="選擇要編輯的 Markdown 文章" style="padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px;"></select>
         <button type="button" class="btn" onclick="loadMd()">📥 載入</button>
         <button type="button" class="btn primary" onclick="saveMd()">💾 儲存</button>
       </div>
@@ -572,7 +572,7 @@
       <div class="toolbar">
         <h2>Core Web Vitals 儀表板</h2>
         <button type="button" class="btn" onclick="loadCWV()">🔄 重新載入</button>
-        <select id="cwv-range" onchange="loadCWV()">
+        <select id="cwv-range" aria-label="Core Web Vitals 時間範圍" onchange="loadCWV()">
           <option value="7d">最近 7 天</option>
           <option value="28d" selected>最近 28 天</option>
           <option value="90d">最近 90 天</option>
@@ -748,11 +748,11 @@
       <div class="img-controls">
         <div class="pair">
           <label style="margin:0; flex:1">寬度 px</label>
-          <input id="img-w" type="number" min="100" max="2400" step="10" />
+          <input id="img-w" aria-label="圖片寬度（像素）" type="number" min="100" max="2400" step="10" />
         </div>
         <div class="pair">
           <label style="margin:0; flex:1">品質 %</label>
-          <input id="img-q" type="number" min="50" max="100" value="82" step="1" />
+          <input id="img-q" aria-label="WebP 品質百分比" type="number" min="50" max="100" value="82" step="1" />
         </div>
         <div class="pair">
           <label style="margin:0; flex:1">檔名</label>
@@ -760,7 +760,7 @@
         </div>
         <div class="pair">
           <label style="margin:0; flex:1">資料夾</label>
-          <select id="img-folder">
+          <select id="img-folder" aria-label="圖片上傳資料夾">
             <option value="assets/article-img">assets/article-img</option>
             <option value="assets/og">assets/og （社群分享圖）</option>
             <option value="assets">assets</option>
