@@ -47,12 +47,13 @@ if m:
             # canonical publish-date used for citations / FAQ schema.
             updated = field(body, 'updated') or published
             articles.append({
-                'slug':    slug,
-                'title':   title,
-                'tag':     field(body, 'tag'),
-                'date':    published,
-                'updated': updated,
-                'cat':     field(body, 'cat') or 'myth',
+                'slug':     slug,
+                'title':    title,
+                'title_en': field(body, 'title_en'),
+                'tag':      field(body, 'tag'),
+                'date':     published,
+                'updated':  updated,
+                'cat':      field(body, 'cat') or 'myth',
             })
 
 articles.sort(key=lambda a: a['updated'], reverse=True)
@@ -148,6 +149,13 @@ def build_sitemap():
         out.append(f'    <xhtml:link rel="alternate" hreflang="x-default"  href="{DOMAIN}/blog/{a["slug"]}" />')
         out.append(f'    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="{DOMAIN}/blog/{a["slug"]}" />')
         out.append(f'    <xhtml:link rel="alternate" hreflang="en"         href="{DOMAIN}/en/blog/{a["slug"]}" />')
+        # v37.31 — also expose the OG image for /en/ article URLs so Google
+        # Image Search and Discover see the EN URL as a candidate too.
+        out.append('    <image:image>')
+        out.append(f'      <image:loc>{DOMAIN}/assets/og/{a["slug"]}.png</image:loc>')
+        title_en = a.get('title_en') or a.get('title') or a['slug']
+        out.append(f'      <image:title>{html.escape(title_en)}</image:title>')
+        out.append('    </image:image>')
         out.append('  </url>')
 
     out.append('')
