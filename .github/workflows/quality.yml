@@ -64,7 +64,9 @@ jobs:
           PID_FEEDS=$!
           python _gen_og_images.py &
           PID_OG=$!
-          wait $PID_FEEDS $PID_OG
+          python _gen_related.py &
+          PID_REL=$!
+          wait $PID_FEEDS $PID_OG $PID_REL
           python _gen_en_pages.py
           python _gen_csp_hashes.py
           if ! git diff --quiet; then
