@@ -3,7 +3,7 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260644a';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260644b';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -22,6 +22,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
 <link rel="icon" sizes="any" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HsiaoEye">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="HsiaoEye">
 <link rel="manifest" href="/manifest.json" />
 <link rel="alternate" type="application/rss+xml" title="HsiaoEye RSS" href="/blog/feed.xml" />
 <link rel="alternate" type="application/atom+xml" title="HsiaoEye Atom" href="/blog/atom.xml" />
@@ -373,6 +378,51 @@
 
 </main>
 
+<!-- ============= NEWSLETTER / RSS SUBSCRIBE (lightweight, editorial) ============= -->
+<style>
+  .hs-newsletter{ background:#f0ebe1; padding:64px clamp(20px,5vw,72px); border-top:0.5px solid rgba(45,42,38,.08); border-bottom:0.5px solid rgba(45,42,38,.08); }
+  .hs-newsletter-inner{ max-width:880px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+  .hs-newsletter-eyebrow{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(45,42,38,.55); margin:0 0 10px; }
+  .hs-newsletter h2{ font-family:'Noto Serif TC','Fraunces',Georgia,serif; font-style:italic; font-weight:600; font-size:clamp(24px,3vw,32px); margin:0 0 14px; color:var(--ink); letter-spacing:-0.01em; line-height:1.25; }
+  .hs-newsletter p.hs-newsletter-lede{ font-family:'Noto Serif TC',Georgia,serif; font-size:15px; line-height:1.7; color:rgba(45,42,38,.78); margin:0; max-width:46ch; }
+  .hs-newsletter-cta{ display:flex; flex-direction:column; gap:12px; }
+  .hs-feed-btn{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; background:#faf7f2; border:0.5px solid rgba(45,42,38,.18); border-radius:6px; text-decoration:none; color:var(--ink); transition:transform .15s,border-color .15s,background .15s; min-height:44px; }
+  .hs-feed-btn:hover{ background:#fff; border-color:var(--teal-bright,#7a9285); transform:translateY(-1px); }
+  .hs-feed-btn-label{ display:flex; flex-direction:column; gap:2px; }
+  .hs-feed-btn-name{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(45,42,38,.55); }
+  .hs-feed-btn-desc{ font-family:'Noto Serif TC',Georgia,serif; font-size:14px; color:var(--ink); }
+  .hs-feed-btn-arrow{ font-size:18px; color:rgba(45,42,38,.4); }
+  .hs-newsletter-howto{ margin-top:8px; font-size:12.5px; color:rgba(45,42,38,.6); line-height:1.6; font-family:'Noto Serif TC',Georgia,serif; }
+  .hs-newsletter-howto a{ color:var(--teal-bright,#7a9285); text-decoration:underline; text-underline-offset:2px; }
+  @media (max-width:760px){ .hs-newsletter-inner{ grid-template-columns:1fr; gap:32px; } }
+</style>
+<section id="dn-newsletter" class="hs-newsletter cv-auto-short" aria-labelledby="dn-newsletter-h">
+  <div class="hs-newsletter-inner">
+    <div>
+      <div class="hs-newsletter-eyebrow" data-zh="訂閱 / SUBSCRIBE" data-en="SUBSCRIBE">訂閱 / SUBSCRIBE</div>
+      <h2 id="dn-newsletter-h" data-zh="新文章一發布，立刻送到你的閱讀器。" data-en="Get new articles delivered the moment they're published.">新文章一發布，立刻送到你的閱讀器。</h2>
+      <p class="hs-newsletter-lede" data-zh="使用 RSS / Atom feed 訂閱，就能在 Feedly、Inoreader、NetNewsWire、Reeder 等閱讀器中第一時間收到新文章。沒有 email 名單、不會寄行銷信、完全免費。" data-en="Subscribe with RSS / Atom and get new articles in Feedly, Inoreader, NetNewsWire, Reeder or any feed reader. No mailing list, no marketing emails, completely free.">使用 RSS / Atom feed 訂閱，就能在 Feedly、Inoreader、NetNewsWire、Reeder 等閱讀器中第一時間收到新文章。沒有 email 名單、不會寄行銷信、完全免費。</p>
+    </div>
+    <div class="hs-newsletter-cta">
+      <a class="hs-feed-btn" href="/blog/feed.xml" rel="alternate" type="application/rss+xml">
+        <span class="hs-feed-btn-label">
+          <span class="hs-feed-btn-name">RSS 2.0</span>
+          <span class="hs-feed-btn-desc" data-zh="標準 RSS feed（最廣泛支援）" data-en="Standard RSS feed (widest support)">標準 RSS feed（最廣泛支援）</span>
+        </span>
+        <span class="hs-feed-btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="hs-feed-btn" href="/blog/atom.xml" rel="alternate" type="application/atom+xml">
+        <span class="hs-feed-btn-label">
+          <span class="hs-feed-btn-name">Atom 1.0</span>
+          <span class="hs-feed-btn-desc" data-zh="Atom feed（較新的標準）" data-en="Atom feed (newer standard)">Atom feed（較新的標準）</span>
+        </span>
+        <span class="hs-feed-btn-arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="hs-newsletter-howto" data-zh="不熟悉 RSS？推薦先試用 <a href=&quot;https://feedly.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Feedly</a> 或 <a href=&quot;https://www.inoreader.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Inoreader</a>，註冊後把上方 feed 網址貼進去即可。" data-en="New to RSS? Try <a href=&quot;https://feedly.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Feedly</a> or <a href=&quot;https://www.inoreader.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Inoreader</a> — sign up, paste the feed URL above, and you're done.">不熟悉 RSS？推薦先試用 <a href="https://feedly.com" target="_blank" rel="noopener">Feedly</a> 或 <a href="https://www.inoreader.com" target="_blank" rel="noopener">Inoreader</a>，註冊後把上方 feed 網址貼進去即可。</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============= MAGAZINE FOOTER (deep ink, editorial) ============= -->
 <style>
   .mag-footer{ background:var(--ink); color:var(--bg); padding:80px clamp(20px,5vw,72px) 32px; margin-top:clamp(40px,6vw,80px); }
@@ -414,10 +464,11 @@
         </ul>
       </div>
       <div>
-        <h5 data-zh="訂閱" data-en="Subscribe">訂閱</h4>
+        <h4 data-zh="訂閱" data-en="Subscribe">訂閱</h4>
         <ul>
-          <li><a href="/blog/feed.xml">RSS Feed</a></li>
-          <li><a href="/blog/atom.xml">Atom Feed</a></li>
+          <li><a href="#dn-newsletter" data-zh="訂閱說明" data-en="How to subscribe">訂閱說明</a></li>
+          <li><a href="/blog/feed.xml" rel="alternate" type="application/rss+xml">RSS Feed</a></li>
+          <li><a href="/blog/atom.xml" rel="alternate" type="application/atom+xml">Atom Feed</a></li>
         </ul>
       </div>
     </div>

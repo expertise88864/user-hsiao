@@ -2660,9 +2660,17 @@
         });
       } catch (e) { /* silent — fallback to static results */ }
     }
+    // v37.29 — GA4: track when user actually types a query (debounced
+    // so 一字一個 event 不會 over-report; fire after 500ms of stable input)
+    var _searchEvtTimer = null;
     input.addEventListener('input', function () {
       render(input.value);
       augmentWithPagefind(input.value.trim());
+      clearTimeout(_searchEvtTimer);
+      _searchEvtTimer = setTimeout(function () {
+        var q = input.value.trim();
+        if (q.length >= 2 && DN.gaEvent) DN.gaEvent('search_query', { query_len: q.length });
+      }, 500);
     });
     input.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowDown') { e.preventDefault(); setActive(activeIdx + 1); }
@@ -4856,6 +4864,138 @@
     host.appendChild(btn);
   };
 
+  // v37.29 — GA4 event instrumentation. Adds article context to every
+  // event + tracks user behavior signals: search, language toggle, scroll
+  // depth, time-on-page, share clicks. All gated by DNT + analytics
+  // consent (gtag('consent', 'update') already wired in index.html).
+  function gaEvent(name, params) {
+    try {
+      if (typeof gtag !== 'function') return;
+      var p = Object.assign({}, params || {});
+      // Always include article context if we're on an article page
+      var slug = DN.currentSlug && DN.currentSlug();
+      if (slug) {
+        p.article_slug = slug;
+        var art = (DN.ARTICLES || []).find(function(a){ return a.slug === slug; });
+        if (art) {
+          if (art.cat) p.article_category = art.cat;
+          if (art.tag_en) p.article_tag = art.tag_en;
+        }
+      }
+      p.lang = (DN.detectLang && DN.detectLang()) || 'zh';
+      gtag('event', name, p);
+    } catch (e) { /* never break the page over telemetry */ }
+  }
+  DN.gaEvent = gaEvent;
+
+  DN.bindEngagementTracking = function () {
+    if (DN._engagementBound) return;
+    DN._engagementBound = true;
+    // Scroll depth: fire at 50% and 100% (each at most once per page)
+    var fired50 = false, fired100 = false;
+    function onScroll() {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      if (max <= 0) return;
+      var pct = h.scrollTop / max;
+      if (!fired50 && pct >= 0.5) { fired50 = true; gaEvent('scroll_50'); }
+      if (!fired100 && pct >= 0.95) { fired100 = true; gaEvent('scroll_100'); }
+      if (fired50 && fired100) document.removeEventListener('scroll', onScroll);
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    // Time-on-page: 30s and 2min milestones (require document visible)
+    var visibleSince = Date.now();
+    var fired30s = false, fired2m = false;
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        visibleSince = null;
+      } else if (!visibleSince) {
+        visibleSince = Date.now();
+      }
+    });
+    setTimeout(function () { if (!document.hidden && visibleSince && !fired30s) { fired30s = true; gaEvent('time_30s'); } }, 30 * 1000);
+    setTimeout(function () { if (!document.hidden && visibleSince && !fired2m)  { fired2m  = true; gaEvent('time_2min'); } }, 2 * 60 * 1000);
+    // Language toggle
+    var langToggle = document.getElementById('langToggle');
+    if (langToggle) {
+      langToggle.addEventListener('change', function () {
+        gaEvent('lang_toggle', { to_lang: langToggle.value });
+      });
+    }
+    // Share clicks (any [data-share] element or anchors to share URLs)
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-share-platform], a[href*="line.me"], a[href*="twitter.com/intent"], a[href*="facebook.com/sharer"]');
+      if (t) {
+        var platform = t.dataset.sharePlatform ||
+                       (t.href && t.href.match(/(line|twitter|facebook)/i) || ['', ''])[1] || 'unknown';
+        gaEvent('share_click', { platform: String(platform).toLowerCase() });
+      }
+      // Print button
+      if (e.target.closest('#hs-print-btn')) gaEvent('print_click');
+      // Bookmark button
+      if (e.target.closest('#hs-bookmark')) gaEvent('bookmark_click');
+      // Search button (opens Cmd+K)
+      if (e.target.closest('button[aria-label="搜尋"], button[aria-label="Search"]')) gaEvent('search_open');
+      // Related-article click
+      var related = e.target.closest('#hs-related a');
+      if (related) gaEvent('related_click', { target_slug: (related.getAttribute('href') || '').split('/').pop() });
+      // Prev/Next navigation
+      var pn = e.target.closest('#hs-prevnext a');
+      if (pn) gaEvent('prevnext_click', { direction: pn.dataset.pn || 'unknown' });
+    });
+  };
+
+  // v37.27 — global JS runtime error sink. Silent failures used to fall
+  // into the browser console only; nobody saw them in production. Now they
+  // POST to /api/errors which logs to Vercel stdout (retained ~30 days
+  // depending on plan). Client-side dedup + tab-burst dampener prevent
+  // flooding the endpoint when a single error fires in a loop.
+  DN._errorsSeen = Object.create(null);
+  DN._errorsSentThisTab = 0;
+  function reportClientError(payload) {
+    try {
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+      if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
+      // Dedup: identical message+url+line — send only once per tab
+      var key = (payload.message || '') + '|' + (payload.url || '') + '|' + (payload.line || '');
+      if (DN._errorsSeen[key]) return;
+      DN._errorsSeen[key] = 1;
+      // Cap: max 25 distinct errors per tab session
+      if (DN._errorsSentThisTab >= 25) return;
+      DN._errorsSentThisTab++;
+      // Use sendBeacon if available (keeps tab close from cancelling the report)
+      var body = JSON.stringify(Object.assign({ ts: Date.now(), ua: navigator.userAgent }, payload));
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/errors', new Blob([body], { type: 'application/json' }));
+      } else {
+        fetch('/api/errors', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function(){});
+      }
+    } catch (e) { /* never let error reporting throw */ }
+  }
+  DN.bindErrorReporting = function () {
+    if (DN._errorReportingBound) return;
+    DN._errorReportingBound = true;
+    window.addEventListener('error', function (e) {
+      reportClientError({
+        type: 'error',
+        message: String(e.message || ''),
+        stack: e.error && e.error.stack ? String(e.error.stack).slice(0, 2000) : '',
+        url: String(e.filename || location.href),
+        line: e.lineno || null,
+        col: e.colno || null,
+      });
+    }, true);
+    window.addEventListener('unhandledrejection', function (e) {
+      var r = e.reason || {};
+      reportClientError({
+        type: 'unhandledrejection',
+        message: String(r.message || r || '').slice(0, 500),
+        stack: r.stack ? String(r.stack).slice(0, 2000) : '',
+        url: location.href,
+      });
+    });
+  };
+
   // v37.26 — Vercel Speed Insights. Privacy-friendly RUM (no cookies,
   // just aggregated CWV: LCP, FID, INP, CLS, TTFB). Auto-injected when
   // Vercel Web Analytics is enabled in the project dashboard. Respects
@@ -4920,6 +5060,8 @@
     DN.bindLangToggle(apply);
     apply(curLang);
     DN.injectFooterYear();
+    DN.bindErrorReporting();   // v37.27 — global JS error sink → /api/errors
+    DN.bindEngagementTracking(); // v37.29 — GA4 events (scroll/time/share/nav)
     DN.injectSpeedInsights();  // v37.26 — Vercel CWV beacon (DNT-respecting)
     DN.addReadingProgress();   // top scroll bar — visible immediately, cheap
     DN.shuffleHeroCards();     // home cover-story shuffle (above-the-fold)

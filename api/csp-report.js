@@ -10,10 +10,31 @@
  */
 export const config = { runtime: 'edge' };
 
+// v37.28 — edge runtime can't easily share state, but we can do a simple
+// per-IP token bucket using URL-level dedup + payload-size cap. The big
+// risk is somebody POSTing 1 MB junk to flood our logs; the small risk
+// is a real browser dumping 50 CSP violations from one stuck inline
+// handler. Body cap + Origin allowlist below mitigates both cheaply.
+const MAX_BODY_BYTES = 8 * 1024;   // 8 KB — real CSP reports are ~1-2 KB
+const ALLOWED_ORIGINS = [
+  'https://hsiao.chendermatologist.com',
+  'https://www.hsiao.chendermatologist.com',
+];
+
 export default async function handler(req) {
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
+  // Browser-generated CSP reports DON'T carry Origin (they're fire-and-forget
+  // from the browser's CSP enforcer, not from a script). So Origin is
+  // empty for legit reports. Reject if Origin is present AND not our own.
+  const origin = req.headers.get('origin');
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return new Response(null, { status: 204 });  // silently drop
+  }
   try {
     const text = await req.text();
+    if (text.length > MAX_BODY_BYTES) {
+      return new Response(null, { status: 413 });
+    }
     let body;
     try { body = JSON.parse(text); } catch (e) { body = { raw: text.slice(0, 1000) }; }
     const report = body['csp-report'] || body;

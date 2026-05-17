@@ -18,6 +18,7 @@
  * day. p75 computed at read time = sort + index.
  */
 import { kvAvailable, kvGet, kvSet } from './_kv.js';
+import { rateLimitOk, sendRateLimit } from './_rate_limit.js';
 
 const ALLOWED = new Set(['LCP', 'CLS', 'INP', 'FCP', 'TTFB']);
 const MAX_SAMPLES = 1000;
@@ -25,6 +26,12 @@ const SAMPLE_TTL_DAYS = 30;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  // v37.28 — rate-limit per IP: typical real users send 1 CWV beacon per
+  // pageview (5 metrics fired close together). Cap at 30/min to absorb
+  // multi-tab sessions while blocking flood abuse.
+  if (!rateLimitOk(req, { key: 'cwv', max: 30, windowMs: 60_000 })) {
+    return sendRateLimit(res, 60);
+  }
   if (!kvAvailable()) {
     // Silently accept-and-drop if KV not configured (don't break the client)
     return res.status(200).json({ ok: true, source: 'noop' });

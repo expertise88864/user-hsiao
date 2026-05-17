@@ -8,6 +8,7 @@
  * v29: KV path eliminates 1-commit-per-subscribe overhead from v28.
  */
 import { ghGetFile, ghPutFile } from '../admin/_auth.js';
+import { rateLimitOk, sendRateLimit } from '../_rate_limit.js';
 import { kvAvailable, kvGetJSON, kvSetJSON } from '../_kv.js';
 
 const KV_KEY = 'push:subscribers';
@@ -36,6 +37,11 @@ async function saveSubs(subs, sha) {
 }
 
 export default async function handler(req, res) {
+  // v37.28 — rate limit: a user should subscribe (or unsubscribe) at most
+  // a few times per minute, never dozens. Cap at 10/min/IP.
+  if (!rateLimitOk(req, { key: 'push-sub', max: 10, windowMs: 60_000 })) {
+    return sendRateLimit(res, 60);
+  }
   let body = req.body;
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch (e) { body = {}; } }
 

@@ -17,6 +17,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
 <link rel="icon" sizes="any" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HsiaoEye">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="HsiaoEye">
 <link rel="manifest" href="/manifest.json" />
 
 <meta property="og:type" content="website" />
@@ -115,6 +120,15 @@
     {"@type":"ListItem","position":5,"name":"飛蚊症警訊自我檢核","url":"https://hsiao.chendermatologist.com/tools#floater"}
   ]
 }
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":["SoftwareApplication","MedicalRiskCalculator"],"@id":"https://hsiao.chendermatologist.com/tools#osdi","name":"OSDI 乾眼症狀指數","alternateName":"Ocular Surface Disease Index","description":"12 題自評量表評估乾眼症狀嚴重度，總分 0-100，分為輕度（13-22）、中度（23-32）、重度（≥33）。","applicationCategory":"MedicalApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"TWD"},"isAccessibleForFree":true,"audience":{"@type":"MedicalAudience","audienceType":["Patient","Clinician"]},"about":{"@type":"MedicalCondition","name":"乾眼症","alternateName":"Dry Eye Disease","code":{"@type":"MedicalCode","code":"H04.12","codingSystem":"ICD-10"}},"inLanguage":["zh-Hant-TW","en"]},
+  {"@type":["SoftwareApplication","MedicalRiskCalculator"],"@id":"https://hsiao.chendermatologist.com/tools#deq5","name":"DEQ-5 五題乾眼快速篩檢","alternateName":"Dry Eye Questionnaire 5","description":"5 題簡短量表，總分 ≥6 提示乾眼症可能，≥12 提示合併修格蘭氏症候群可能。","applicationCategory":"MedicalApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"TWD"},"isAccessibleForFree":true,"audience":{"@type":"MedicalAudience","audienceType":["Patient","Clinician"]},"about":{"@type":"MedicalCondition","name":"乾眼症","code":{"@type":"MedicalCode","code":"H04.12","codingSystem":"ICD-10"}},"inLanguage":["zh-Hant-TW","en"]},
+  {"@type":"SoftwareApplication","@id":"https://hsiao.chendermatologist.com/tools#snellen","name":"Snellen ↔ LogMAR 視力換算","description":"Snellen 分數（20/X 或 6/X）與 LogMAR 視力之間的雙向換算，含小數視力對照。","applicationCategory":"MedicalApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"TWD"},"isAccessibleForFree":true,"audience":{"@type":"MedicalAudience","audienceType":["Clinician","MedicalResearcher"]},"inLanguage":["zh-Hant-TW","en"]},
+  {"@type":"SoftwareApplication","@id":"https://hsiao.chendermatologist.com/tools#se","name":"球面等價度數計算","alternateName":"Spherical Equivalent","description":"由球面（Sphere）與柱面（Cylinder）度數計算等價球面度數：SE = Sphere + Cylinder/2。","applicationCategory":"MedicalApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"TWD"},"isAccessibleForFree":true,"audience":{"@type":"MedicalAudience","audienceType":["Clinician","Optometrist"]},"inLanguage":["zh-Hant-TW","en"]},
+  {"@type":["SoftwareApplication","MedicalRiskCalculator"],"@id":"https://hsiao.chendermatologist.com/tools#floater","name":"飛蚊症警訊自我檢核","description":"6 題快速檢核飛蚊症急性警訊：突發大量飛蚊、閃光、視野缺損、視力突然下降等。任一陽性即建議當日就醫。","applicationCategory":"MedicalApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"TWD"},"isAccessibleForFree":true,"audience":{"@type":"MedicalAudience","audienceType":["Patient"]},"about":{"@type":"MedicalCondition","name":"飛蚊症 / 視網膜剝離","alternateName":"Floaters / Retinal Detachment","code":{"@type":"MedicalCode","code":"H43.39","codingSystem":"ICD-10"}},"inLanguage":["zh-Hant-TW","en"]}
+]}
 </script>
 
 <!-- ===== Google Analytics 4 + Consent Mode v2 + bot/prerender gate (id: G-0ZKDQP9DNH) ===== -->
