@@ -93,19 +93,98 @@
 <main id="main-content" role="main">
   <div class="wrap">
     <div class="icon" aria-hidden="true">📡</div>
-    <h1>網路<span class="blue-text">暫時離線</span></h1>
-    <p>沒辦法連上 HsiaoEye。<br/>請檢查您的網路，或瀏覽以下已儲存的離線文章。</p>
-    <button type="button" id="retryConnection" class="btn" onclick="location.reload()">↻ 重新嘗試連線</button>
-    <ul class="cached">
-      <li><a href="/">首頁（離線可讀）</a></li>
-      <li><a href="/blog/">衛教文章索引</a></li>
-      <li><a href="/blog/dry-eye-myths">乾眼症 8 大迷思</a></li>
+    <h1 data-zh="網路<span class=&quot;blue-text&quot;>暫時離線</span>" data-en="You're <span class=&quot;blue-text&quot;>offline</span>">網路<span class="blue-text">暫時離線</span></h1>
+    <p data-zh="沒辦法連上 HsiaoEye。<br/>請檢查您的網路，或瀏覽以下已儲存的離線文章。" data-en="Can't reach HsiaoEye.<br/>Check your connection or browse the pages cached for offline reading.">沒辦法連上 HsiaoEye。<br/>請檢查您的網路，或瀏覽以下已儲存的離線文章。</p>
+    <button type="button" id="retryConnection" class="btn" data-zh="↻ 重新嘗試連線" data-en="↻ Retry connection">↻ 重新嘗試連線</button>
+    <ul class="cached" id="cached-list" aria-label="Cached pages available offline">
+      <li><a href="/" data-zh="首頁（離線可讀）" data-en="Home (offline-ready)">首頁（離線可讀）</a></li>
+      <li><a href="/blog/" data-zh="衛教文章索引" data-en="Article index">衛教文章索引</a></li>
+      <li><a href="/blog/dry-eye-myths" data-zh="乾眼症 8 大迷思" data-en="8 Dry-Eye Myths">乾眼症 8 大迷思</a></li>
     </ul>
-    <p class="hint">已快取的頁面在離線時仍可閱讀。</p>
+    <p class="hint" data-zh="已快取的頁面在離線時仍可閱讀。" data-en="Cached pages remain readable while offline.">已快取的頁面在離線時仍可閱讀。</p>
   </div>
 </main>
 <script>
-  window.addEventListener('online', () => location.reload());
+  // v37.32 — replaces previous inline onclick=location.reload() which was
+  // blocked by the hash-based CSP (script-src has no 'unsafe-inline').
+  document.getElementById('retryConnection').addEventListener('click', function () {
+    location.reload();
+  });
+  // Auto-reload when the browser regains connectivity.
+  window.addEventListener('online', function () { location.reload(); });
+
+  // v37.32 — populate the cached-page list dynamically from the SW cache so
+  // it always reflects what the user can actually read offline (not a stale
+  // hard-coded 3-item list). Fails silently if Cache API isn't available
+  // (very old browsers) or no SW is installed (first visit).
+  (function () {
+    if (!('caches' in window)) return;
+    var listEl = document.getElementById('cached-list');
+    if (!listEl) return;
+    // Honour the user's saved language preference (set on regular pages by
+     //  blog-shared.js / lang-select dropdown). Default to ZH since the HTML
+     //  is authored in zh-Hant-TW.
+    var saved = '';
+    try { saved = localStorage.getItem('hs:lang') || ''; } catch (e) { /* private mode */ }
+    var lang = saved.toLowerCase().startsWith('en') ? 'en'
+             : (document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en'
+             : 'zh';
+    // Apply lang to all [data-zh][data-en] elements on first paint.
+    // Use textContent (stripping tags) instead of innerHTML so we don't
+    // trigger Trusted Types policy enforcement on this minimal page.
+    if (lang === 'en') {
+      document.querySelectorAll('[data-en]').forEach(function (el) {
+        var v = el.getAttribute('data-en');
+        if (v) el.textContent = v.replace(/<[^>]*>/g, '').replace(/&[a-z]+;/g, ' ');
+      });
+      document.documentElement.setAttribute('lang', 'en');
+    }
+    var ORIGIN = location.origin;
+    // Article slug → display name (ZH / EN). Mirrors DN.ARTICLES; kept tiny
+    // here so this page can render offline without loading blog-shared.js.
+    var NAMES = {
+      '/': { zh: '首頁', en: 'Home' },
+      '/blog/': { zh: '衛教文章索引', en: 'Article index' },
+      '/about': { zh: '關於我', en: 'About' },
+      '/tools': { zh: '眼科自我評估工具', en: 'Self-assessment tools' },
+      '/blog/dry-eye-myths': { zh: '乾眼症 8 大迷思', en: '8 Dry-Eye Myths' },
+      '/blog/floaters-retinal-detachment': { zh: '飛蚊症 6 大警訊', en: '6 Floater Red Flags' },
+      '/blog/pediatric-myopia-control': { zh: '兒童近視控制', en: 'Pediatric Myopia Control' },
+      '/blog/cataract-comprehensive-guide': { zh: '白內障完整衛教', en: 'Cataract Guide' },
+      '/blog/glaucoma-comprehensive-guide': { zh: '青光眼完整衛教', en: 'Glaucoma Guide' },
+    };
+    caches.keys().then(function (keys) {
+      return Promise.all(keys.map(function (k) { return caches.open(k).then(function (c) { return c.keys(); }); }));
+    }).then(function (bucketLists) {
+      var seen = {};
+      bucketLists.forEach(function (reqs) {
+        reqs.forEach(function (r) {
+          try {
+            var u = new URL(r.url);
+            if (u.origin !== ORIGIN) return;
+            var p = u.pathname.replace(/\.html$/, '');
+            if (p === '/index') p = '/';
+            if (seen[p]) return;
+            seen[p] = true;
+          } catch (e) { /* ignore malformed */ }
+        });
+      });
+      var paths = Object.keys(seen)
+        .filter(function (p) { return NAMES[p]; })
+        .sort(function (a, b) { return a === '/' ? -1 : b === '/' ? 1 : a.localeCompare(b); });
+      if (!paths.length) return;
+      var frag = document.createDocumentFragment();
+      paths.forEach(function (p) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = p;
+        a.textContent = NAMES[p][lang] || NAMES[p].zh;
+        li.appendChild(a);
+        frag.appendChild(li);
+      });
+      listEl.replaceChildren(frag);
+    }).catch(function () { /* silently keep fallback list */ });
+  })();
 </script>
 <script type="speculationrules">
 {
