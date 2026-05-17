@@ -125,6 +125,7 @@ jobs:
           echo "=== _check_link_orphans.py ===" && python _check_link_orphans.py || echo "::warning::Article has no static inbound peer link — add a cross-reference for topical authority"
           echo "=== _check_og_images.py ===" && python _check_og_images.py || echo "::error::Published article missing /assets/og/<slug>.png — run python _gen_og_images.py"
           echo "=== _check_dead_anchors.py ===" && python _check_dead_anchors.py || echo "::warning::In-page #anchor without matching id (broken TOC jump)"
+          echo "=== _check_article_footer.py ===" && python _check_article_footer.py || echo "::error::Article missing the magazine footer (disclaimer + home nav)"
 
       - name: JSON-LD parse check
         run: |

@@ -3,7 +3,7 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260644k';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260644l';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -122,7 +122,7 @@
 ]}
 </script>
 <style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#64748b;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@media (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@media (animation-timeline:scroll()){body:not(.home) .reveal,body:not(.home) .article-list-item,body:not(.home) .myth-card{animation:hs-reveal both;animation-timeline:view();animation-range:entry 0% cover 25%;}body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}</style><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style>.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px}@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.25s}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><!-- i-series-applied --></head>
-<body class="font-sans antialiased text-ink-900"><style>.hs-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.hs-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.hs-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.hs-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="hs-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#hs-related" data-zh="跳至相關文章" data-en="Skip to related">跳至相關文章</a></nav><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
+<body class="font-sans antialiased text-ink-900"><style>.hs-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.hs-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.hs-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.hs-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="hs-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#hs-related" data-zh="跳至相關文章" data-en="Skip to related">跳至相關文章</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
     <div class="h-16 flex items-center justify-between gap-4">
@@ -724,9 +724,89 @@
 </div>
 </article>
 
+<!-- Related articles mount — populated by DN.addRelatedArticles() at runtime -->
+<div id="hs-related"></div>
+
 </main>
 
+<!-- ============= MAGAZINE FOOTER (deep ink, editorial) ============= -->
+<style>
+  .mag-footer{ background:var(--ink); color:var(--bg); padding:80px clamp(20px,5vw,72px) 32px; margin-top:clamp(40px,6vw,80px); }
+  .mag-foot-top{ max-width:1440px; margin:0 auto; display:grid; grid-template-columns:1.4fr 2fr; gap:clamp(32px,5vw,80px); padding-bottom:48px; border-bottom:0.5px solid rgba(247,243,236,.16); }
+  .mag-foot-brand h3{ font-family:'Noto Serif TC','Fraunces',Georgia,serif; font-style:italic; font-weight:600; font-size:clamp(26px,3vw,34px); margin:0 0 12px; letter-spacing:-0.01em; color:var(--bg); }
+  .mag-foot-brand p{ font-family:'Noto Serif TC',Georgia,serif; font-size:15.5px; line-height:1.7; color:rgba(247,243,236,.7); margin:0; max-width:42ch; }
+  .mag-foot-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .mag-foot-cols h4{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); margin:0 0 16px; font-weight:500; }
+  .mag-foot-cols ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .mag-foot-cols a{ font-size:14px; color:rgba(247,243,236,.85); text-decoration:none; transition:color .15s; }
+  .mag-foot-cols a:hover{ color:var(--teal-bright); }
+  .mag-foot-disclaimer{ max-width:1440px; margin:32px auto 0; display:grid; grid-template-columns:120px 1fr; gap:24px; padding:24px 0; border-bottom:0.5px solid rgba(247,243,236,.16); }
+  .mag-disc-tag{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); padding-top:4px; }
+  .mag-foot-disclaimer p{ margin:0; font-size:13px; line-height:1.7; color:rgba(247,243,236,.78); max-width:84ch; }
+  .mag-foot-bot{ max-width:1440px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.1em; color:rgba(247,243,236,.55); flex-wrap:wrap; }
+  @media (max-width:980px){ .mag-foot-top{ grid-template-columns:1fr; } .mag-foot-disclaimer{ grid-template-columns:1fr; } .mag-foot-cols{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .mag-foot-cols{ grid-template-columns:1fr; } }
+</style>
+<footer class="mag-footer cv-auto-short">
+  <div class="mag-foot-top">
+    <div class="mag-foot-brand">
+      <h3 class="mag-foot-brand-h3" data-zh="HsiaoEye<br>蕭閔謙醫師 眼科筆記" data-en="HsiaoEye<br>Dr. Min-Chien Hsiao · Ophthalmology Notes">HsiaoEye<br>蕭閔謙醫師 眼科筆記</h3>
+      <p data-zh="從診間到日常，好好照顧你的眼睛。" data-en="From the clinic to your everyday eyes.">從診間到日常，好好照顧你的眼睛。</p>
+    </div>
+    <div class="mag-foot-cols">
+      <div>
+        <h4 data-zh="網站" data-en="Site">網站</h4>
+        <ul>
+          <li><a href="/" data-zh="首頁" data-en="Home">首頁</a></li>
+          <li><a href="/blog/" data-zh="衛教文章" data-en="Articles">衛教文章</a></li>
+          <li><a href="/about" data-zh="關於作者" data-en="About">關於作者</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-zh="關於" data-en="About">關於</h4>
+        <ul>
+          <li><a href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li>
+          <li><a href="mailto:f94001115@gmail.com" data-zh="聯絡 Email" data-en="Contact">聯絡 Email</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 id="dn-subscribe" data-zh="訂閱" data-en="Subscribe">訂閱</h4>
+        <ul>
+          <li><a href="/blog/feed.xml">RSS Feed</a></li>
+          <li><a href="/blog/atom.xml">Atom Feed</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="mag-foot-disclaimer">
+    <span class="mag-disc-tag">Disclaimer</span>
+    <p data-zh="本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17，個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。" data-en="All content is for general educational reference only, does not constitute individual medical advice, and cannot replace an in-person consultation. This site does not engage in medical advertising and does not endorse any clinic, hospital, drug, or procedure. Per Taiwan Medical Care Act §§85–86 and Physicians Act §17, individual outcomes vary; no result is guaranteed.">本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17，個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。</p>
+  </div>
+
+  <div class="mag-foot-bot">
+    <span>© <span id="yr">2026</span> Min-Chien Hsiao M.D. · <span data-zh="眼科衛教筆記" data-en="Ophthalmology Notes">眼科衛教筆記</span></span>
+    <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
+  </div>
+</footer>
+
 <script src="/blog/blog-shared.js?v=20260647" defer></script>
-<script>document.addEventListener('DOMContentLoaded',()=>DN.initBlog({}));</script>
+<script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/*.{xml,json,txt,ico,svg,png,jpg,webp,avif,pdf,css,js}" } },
+      { "not": { "selector_matches": "[rel~=external], [rel~=nofollow]" } }
+    ]},
+    "eagerness": "conservative"
+  }],
+  "prefetch": [{
+    "where": { "href_matches": "/blog/*" },
+    "eagerness": "conservative"
+  }]
+}
+</script>
 </body>
 </html>
