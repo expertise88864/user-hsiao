@@ -260,6 +260,64 @@ def meta_for_page(en_canonical, slug=None, html=''):
     return '', extract_en_description(html)
 
 
+# v37.16: swap each [data-zh][data-en] element's inner content with its
+# data-en value at BUILD TIME. Previously, /en/ pages were structurally
+# identical to /blog/ pages — same visible Chinese text in initial HTML,
+# only swapped at runtime by JS. Googlebot indexed both as "the same
+# Chinese page", which is why GSC marked /en/blog/* as duplicates and
+# chose /blog/* as the canonical despite our hreflang/canonical tags.
+# Now /en/ HTML carries actual English text in the visible DOM, with
+# the data-zh attribute preserved for the runtime language toggle.
+def _swap_inner_to_english(html_str):
+    """Swap [data-zh][data-en] elements' visible inner content with their
+    data-en value. Operates ONLY on the <body> region; <head> stays
+    byte-identical so canonical/meta/hreflang regex checks keep working
+    (BeautifulSoup's whole-document re-serialization reorders attributes
+    alphabetically and normalizes void elements, which other tooling
+    isn't tolerant of)."""
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:
+        print('  WARN: bs4 not installed — EN inner content swap skipped')
+        return html_str
+
+    # Locate the body boundaries; if no <body> found, bail without mutation.
+    body_open = re.search(r'<body\b[^>]*>', html_str, re.IGNORECASE)
+    body_close = html_str.rfind('</body>')
+    if not body_open or body_close < 0:
+        return html_str
+
+    head_and_body_tag = html_str[:body_open.end()]
+    body_inner = html_str[body_open.end():body_close]
+    after_body = html_str[body_close:]
+
+    soup = BeautifulSoup(body_inner, 'html.parser')
+    swaps = 0
+    for el in soup.select('[data-zh][data-en]'):
+        en_val = el.get('data-en', '')
+        if not en_val.strip():
+            continue
+        # Skip <option> (lang switcher) and elements inside <select>
+        if el.name == 'option':
+            continue
+        if el.find_parent('select'):
+            continue
+        # Skip if inside <script>/<style>/<noscript>
+        if el.find_parent(['script', 'style', 'noscript']):
+            continue
+        # Replace inner HTML with EN value (parsed so <strong> etc. survive)
+        el.clear()
+        en_soup = BeautifulSoup(en_val, 'html.parser')
+        for child in list(en_soup.contents):
+            el.append(child)
+        swaps += 1
+    if swaps == 0:
+        return html_str
+
+    new_body_inner = soup.decode(formatter='html5')
+    return head_and_body_tag + new_body_inner + after_body
+
+
 def transform(html, zh_canonical, en_canonical, slug=None):
     s = html
     title, desc = meta_for_page(en_canonical, slug, html)
@@ -347,6 +405,14 @@ def transform(html, zh_canonical, en_canonical, slug=None):
                 new_href = '/en' + href
                 return m.group(0).replace(f'href="{href}"', f'href="{new_href}"').replace(f"href='{href}'", f"href='{new_href}'")
         return m.group(0)
+
+    # v37.16 — swap inner visible content from data-zh (default) to data-en
+    # at build time so Googlebot indexing without JS sees genuine English.
+    # This fixes the "Google chose the ZH page as canonical" GSC warning
+    # for /en/blog/* duplicates. Must run BEFORE _en_rewrite_href so the
+    # anchor rewriter can prefix /blog/x links that come from inside
+    # data-en values.
+    s = _swap_inner_to_english(s)
 
     s = re.sub(r'<a\b[^>]*\bhref=["\']([^"\']+)["\'][^>]*>', _en_rewrite_href, s)
 
