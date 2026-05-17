@@ -48,7 +48,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260644i';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260644j';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -425,7 +425,7 @@
       </div>
 
       <div class="info-card">
-        <h4>📋 編輯流程</h4>
+        <h3>📋 編輯流程</h3>
         <ol style="margin:0; padding-left:20px;">
           <li>點「編輯」開啟文章 — 整篇變成所見即所得 (WYSIWYG) 模式</li>
           <li>滑鼠選文字後出現浮動工具列：粗體 / 斜體 / 標題 / 字型 / 字級 / 連結 / 列表 / 📷 圖片</li>
@@ -473,7 +473,7 @@
         <button type="button" class="btn" onclick="addDictRow()">+ 新詞</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
-        <h4>使用說明</h4>
+        <h3>使用說明</h3>
         詞典存在 <code>assets/medical-dictionary.json</code>。點某篇文章「🔗 自動連結」會把該文中此詞典詞彙的「首次出現」自動加上 tooltip 與內鏈。
       </div>
       <table class="dict-table" id="dict-table">
@@ -493,7 +493,7 @@
         <button type="button" class="btn primary" onclick="showImgUploadModal()">+ 上傳圖片</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
-        <h4>📸 上傳流程</h4>
+        <h3>📸 上傳流程</h3>
         圖片會壓縮為 WebP（最大 1600px 寬）並 commit 到 <code>assets/article-img/</code>。完成後可直接複製連結貼到文章中。
       </div>
       <div id="img-list" class="img-grid"><div class="loading">點「+ 上傳圖片」開始</div></div>
@@ -506,7 +506,7 @@
         <button type="button" class="btn" onclick="loadAbStats()">↻ 重新載入</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
-        <h4>📊 A/B 框架使用方法</h4>
+        <h3>📊 A/B 框架使用方法</h3>
         在 JS 內用 <code>DN.abTest('test-id', ['A', 'B'], v =&gt; {...})</code> 並 <code>DN.abConvert('test-id', 'click')</code> 觸發轉換。Server 端聚合會在每 5 分鐘或每 10 次曝光時 commit 一次到 <code>assets/ab-stats.json</code>。
       </div>
       <div id="ab-list"><div class="loading">尚無資料</div></div>
@@ -520,7 +520,7 @@
         <button type="button" class="btn primary" onclick="newAbTest()">+ 新測試</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
-        <h4>🧪 不用改 JS 的 A/B 測試</h4>
+        <h3>🧪 不用改 JS 的 A/B 測試</h3>
         填一個 CSS selector + 兩個 variant 的 HTML, 後台儲存到 KV （或 GitHub blob), 客戶端 <code>DN.applyAbConfig()</code> 自動套用。曝光與轉換寫進 <code>/api/admin/ab-stats</code>, 結果在「📈 A/B 結果」分頁看。
       </div>
       <div id="ab-builder-list"><div class="loading">尚無測試</div></div>
@@ -558,7 +558,7 @@
         <button type="button" class="btn primary" onclick="saveMd()">💾 儲存</button>
       </div>
       <div class="info-card" style="margin:0 0 12px">
-        <h4>使用說明</h4>
+        <h3>使用說明</h3>
         從現有文章 HTML 提取 Markdown（只取 #proseZh 區塊），編輯後另存。支援標題、清單、連結、圖片、表格、引言、HTML passthrough。
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; height:70vh;">
@@ -579,10 +579,22 @@
         </select>
       </div>
       <div class="info-card" style="margin:0 0 12px">
-        <h4>📉 從 GA4 拉取真實使用者體驗數據</h4>
+        <h3>📉 從 GA4 拉取真實使用者體驗數據</h3>
         需先在 Vercel 設 <code>GA4_PROPERTY_ID</code> + <code>GA4_SERVICE_ACCOUNT_JSON</code>(GCP service account JSON 字串）。
       </div>
       <div id="cwv-result"><div class="loading">點「🔄 重新載入」開始</div></div>
+
+      <!-- ─── CSP violation reports (KV-persisted) ─── -->
+      <div class="toolbar" style="margin-top:24px">
+        <h2>CSP 違規回報</h2>
+        <button type="button" class="btn" onclick="loadCsp()">🔄 重新載入</button>
+        <button type="button" class="btn" onclick="clearCsp()" style="background:#fee;color:#991b1b">🗑️ 清除全部</button>
+      </div>
+      <div class="info-card" style="margin:0 0 12px">
+        <h3>🛡️ 瀏覽器回報的 Content-Security-Policy 違規</h3>
+        每個 CSP 違規會 POST 到 <code>/api/csp-report</code>，存最近 200 筆於 KV。下方依違規類型、被擋來源、發生檔案彙整。
+      </div>
+      <div id="csp-result"><div class="loading">點「🔄 重新載入」開始</div></div>
     </div>
 
     <!-- ─────────── OPS TAB ─────────── -->
@@ -590,7 +602,7 @@
       <div class="toolbar"><h2>站務 / 維運</h2></div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px;">
         <div class="info-card" style="margin:0">
-          <h4>🌐 重新生成 /en/ 鏡像</h4>
+          <h3>🌐 重新生成 /en/ 鏡像</h3>
           <p style="color:var(--ink-2); margin:0 0 12px">中文文章編輯後，英文鏡像不會自動同步。點此重新生成所有 /en/ 頁面 （約 30-60 秒）。</p>
           <button type="button" class="btn primary" onclick="runRegenEn()">🔄 全部重生</button>
         </div>
@@ -1136,6 +1148,52 @@ async function loadCWV() {
         const color = b === 'good' ? '#16a34a' : b === 'warn' ? '#fbbf24' : '#dc2626';
         return `<tr><td>${escapeHTML(m.name)}</td><td>${m.p75.toFixed(m.name === 'CLS' ? 3 : 0)}${m.name === 'CLS' ? '' : ' ms'}</td><td>${m.samples}</td><td style="color:${color};font-weight:700">${b.toUpperCase()}</td></tr>`;
       }).join('') + '</tbody></table>';
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+}
+
+// ───────────────── CSP violation report viewer ─────────────────
+async function loadCsp() {
+  const host = document.getElementById('csp-result');
+  host.innerHTML = '<div class="loading"><span class="spinner"></span>從 KV 拉取 CSP 報告中⋯</div>';
+  try {
+    const r = await fetch(API + '/csp', { credentials: 'include' });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { host.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
+    if (!j.kv) {
+      host.innerHTML = '<div class="loading">KV 未設定 — CSP 報告只在 Vercel function logs 看得到。</div>';
+      return;
+    }
+    if (!j.count) {
+      host.innerHTML = '<div class="loading">最近沒有 CSP 違規 — 政策乾淨 ✓</div>';
+      return;
+    }
+    const renderStats = (title, rows) => rows.length === 0 ? '' :
+      '<h3 style="margin:14px 0 6px;font-size:14px">' + title + '</h3>' +
+      '<table class="dict-table"><thead><tr><th>' + (title.includes('來源') ? '來源' : title.includes('檔案') ? '檔案' : '違規類型') +
+      '</th><th>次數</th></tr></thead><tbody>' +
+      rows.map(x => `<tr><td><code>${escapeHTML(x.key)}</code></td><td>${x.count}</td></tr>`).join('') +
+      '</tbody></table>';
+    const recent = (j.reports || []).slice(0, 25);
+    host.innerHTML =
+      '<div style="font-size:12.5px;color:var(--ink-2);margin-bottom:8px">共 ' + j.count +
+      ' 筆（顯示最近 25 筆）</div>' +
+      renderStats('違規 directive', j.stats.by_directive) +
+      renderStats('被擋來源 (host)', j.stats.by_blocked_host) +
+      renderStats('發生檔案', j.stats.by_source) +
+      '<h3 style="margin:14px 0 6px;font-size:14px">最近 25 筆原始記錄</h3>' +
+      '<div style="overflow:auto;max-height:380px;border:1px solid var(--border);border-radius:8px;padding:8px;font-family:JetBrains Mono,monospace;font-size:11px;background:#fafafa">' +
+      recent.map(r => `<div style="padding:4px 0;border-bottom:1px solid #eee">${escapeHTML(JSON.stringify(r))}</div>`).join('') +
+      '</div>';
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+}
+
+async function clearCsp() {
+  if (!confirm('確定要清除所有 CSP 報告？')) return;
+  const host = document.getElementById('csp-result');
+  try {
+    const r = await fetch(API + '/csp?action=clear', { method: 'POST', credentials: 'include' });
+    if (r.ok) loadCsp();
+    else host.innerHTML = '<div class="loading">清除失敗：' + r.status + '</div>';
   } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
 }
 

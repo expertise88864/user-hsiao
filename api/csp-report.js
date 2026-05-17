@@ -52,6 +52,30 @@ export default async function handler(req) {
       ts: new Date().toISOString(),
     };
     console.log('[CSP-report]', JSON.stringify(compact));
+
+    // v37.35 — also persist to KV as a capped LIST so /api/admin/csp can
+    // surface them in the dashboard. Fire-and-forget (don't await): the
+    // browser already has a 204 incoming and we don't want to slow it.
+    // List is trimmed to last MAX_KV_REPORTS entries.
+    persistToKv(compact).catch(() => {});
   } catch (e) { /* ignore */ }
   return new Response(null, { status: 204 });
+}
+
+// ── KV persistence (Edge-runtime safe; only fetch + std env vars) ──
+const MAX_KV_REPORTS = 200;
+const KV_LIST_KEY = 'csp:reports';
+
+async function persistToKv(compact) {
+  const url = (typeof process !== 'undefined') && process.env && process.env.KV_REST_API_URL;
+  const tok = (typeof process !== 'undefined') && process.env && process.env.KV_REST_API_TOKEN;
+  if (!url || !tok) return;
+  const headers = { Authorization: `Bearer ${tok}`, 'Content-Type': 'application/json' };
+  const payload = JSON.stringify(compact);
+  // LPUSH adds to front (newest-first when LRANGE 0 -1).
+  await fetch(`${url}/lpush/${encodeURIComponent(KV_LIST_KEY)}/${encodeURIComponent(payload)}`,
+              { method: 'POST', headers }).catch(() => {});
+  // Trim to keep memory bounded.
+  await fetch(`${url}/ltrim/${encodeURIComponent(KV_LIST_KEY)}/0/${MAX_KV_REPORTS - 1}`,
+              { method: 'POST', headers }).catch(() => {});
 }

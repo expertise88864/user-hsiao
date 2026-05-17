@@ -39,6 +39,7 @@ const HANDLERS = {
   'ab-config':        () => import('./_ab-config.js'),
   'batch':            () => import('./_batch.js'),
   'build-related':    () => import('./_build-related.js'),
+  'csp':              () => import('./_csp.js'),
   'cwv':              () => import('./_cwv.js'),
   'md':               () => import('./_md.js'),
   'precompute-meta':  () => import('./_precompute-meta.js'),
