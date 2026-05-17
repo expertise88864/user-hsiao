@@ -4113,9 +4113,14 @@
       return;
     }
     window._hsLottieLoaded = true;
-    // dotlottie-wc is the Web Component player from LottieFiles
+    // dotlottie-wc is the Web Component player from LottieFiles.
+    // v37.36 — set crossorigin so the CDN response opts into CORS, which
+    // is the prerequisite for SRI to actually verify the script body if
+    // we ever add `integrity="sha384-…"` here. Matches the pattern used
+    // for the other jsdelivr loads above (mermaid, katex, docsearch).
     var s = document.createElement('script');
     s.type = 'module';
+    s.crossOrigin = 'anonymous';
     s.src = 'https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-wc@0.4.0/dist/dotlottie-wc.js';
     s.onload = function () { hosts.forEach(mountLottie); };
     document.head.appendChild(s);
