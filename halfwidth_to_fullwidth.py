@@ -84,13 +84,26 @@ RULES = [
     (re.compile(rf'({CN})\?(\s|<|$)'),        rf'\g<1>{FW_QUES}\g<2>'),
 ]
 
-# CSS / JS / JSON-LD / data-*= attribute values never need punctuation
-# conversion — stash them all before regex sweep to prevent mangling.
+# CSS / JS / JSON-LD / technical-attribute values never need punctuation
+# conversion — stash them before the regex sweep to prevent mangling.
 STYLE_BLOCK_RE  = re.compile(r'<style[^>]*>.*?</style>',  re.DOTALL | re.IGNORECASE)
 SCRIPT_BLOCK_RE = re.compile(r'<script[^>]*>.*?</script>', re.DOTALL | re.IGNORECASE)
-# Also stash href / src / class / id / style attributes — these have commas
-# (CSS selectors, query strings, font lists) that must NOT be touched.
-ATTR_RE = re.compile(r'\s(?:href|src|class|id|style|onclick|onload|onerror|data-[\w-]+)\s*=\s*"[^"]*"', re.IGNORECASE)
+# v37.29 — match BOTH single- and double-quoted values. The /en/ mirror
+# generator (BeautifulSoup) re-serializes attributes whose value contains
+# `"` using single quotes, so a `data-zh="…"` in source becomes
+# `data-zh='…'` in /en/. The earlier double-quote-only regex let halfwidth
+# punctuation inside those single-quoted values reach the rules.
+#
+# data-zh / data-en are INTENTIONALLY excluded from the stash: they hold
+# user-visible bilingual copy that gets toggled into innerHTML by the
+# runtime language switch, so they need the same fullwidth normalisation
+# the body text gets. Everything else technical (data-stamp, data-cat,
+# data-tag, data-tag-en, data-aos, etc.) is still stashed.
+ATTR_RE = re.compile(
+    r'\s(?:href|src|class|id|style|onclick|onload|onerror'
+    r'|data-(?!zh\b|en\b)[\w-]+)\s*=\s*(?:"[^"]*"|\'[^\']*\')',
+    re.IGNORECASE,
+)
 
 def convert(text: str) -> tuple[str, int]:
     placeholders: list[str] = []

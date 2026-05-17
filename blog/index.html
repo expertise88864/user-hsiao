@@ -3,7 +3,7 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260644b';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260644c';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -476,7 +476,7 @@
 
   <div class="mag-foot-disclaimer">
     <span class="mag-disc-tag">Disclaimer</span>
-    <p data-zh="本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。" data-en="All content is for general educational reference only, does not constitute individual medical advice, and cannot replace an in-person consultation. This site does not engage in medical advertising and does not endorse any clinic, hospital, drug, or procedure. Per Taiwan Medical Care Act §§85–86 and Physicians Act §17, individual outcomes vary; no result is guaranteed.">本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17，個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。</p>
+    <p data-zh="本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17，個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。" data-en="All content is for general educational reference only, does not constitute individual medical advice, and cannot replace an in-person consultation. This site does not engage in medical advertising and does not endorse any clinic, hospital, drug, or procedure. Per Taiwan Medical Care Act §§85–86 and Physicians Act §17, individual outcomes vary; no result is guaranteed.">本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告，亦不收受任何業配或贊助；依《醫療法》§85-86 及《醫師法》§17，個別治療效果因人而異，本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。</p>
   </div>
 
   <div class="mag-foot-bot">

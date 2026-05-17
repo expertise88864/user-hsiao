@@ -17,6 +17,15 @@ import json
 import os
 import re
 
+# v37.29 — pull in halfwidth converter so generated /en/ files are
+# automatically halfwidth-clean. Without this, the CI halfwidth gate
+# fails on /en/* whenever a ZH source has halfwidth `,` inside a
+# data-zh="..." attribute: BeautifulSoup re-serializes the attribute
+# with single quotes in the /en/ mirror (because attribute values
+# contain `"`), which slips past halfwidth_to_fullwidth.ATTR_RE
+# (it only stashes double-quoted attrs).
+from halfwidth_to_fullwidth import convert as _halfwidth_convert
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = 'https://hsiao.chendermatologist.com'
 
@@ -439,8 +448,10 @@ def main():
         en_path = os.path.join(en_dir, f)
         with open(zh_path, 'r', encoding='utf-8') as fp:
             html = fp.read()
+        out = transform(html, zh_canonical, en_canonical)
+        out, _ = _halfwidth_convert(out)
         with open(en_path, 'w', encoding='utf-8') as fp:
-            fp.write(transform(html, zh_canonical, en_canonical))
+            fp.write(out)
         n += 1
 
     blog_files = [f for f in os.listdir(os.path.join(ROOT, 'blog'))
@@ -459,8 +470,10 @@ def main():
         en_path = os.path.join(blog_en_dir, f)
         with open(zh_path, 'r', encoding='utf-8') as fp:
             html = fp.read()
+        out = transform(html, zh_canonical, en_canonical, slug=slug)
+        out, _ = _halfwidth_convert(out)
         with open(en_path, 'w', encoding='utf-8') as fp:
-            fp.write(transform(html, zh_canonical, en_canonical, slug=slug))
+            fp.write(out)
         n += 1
 
     print(f'Generated {n} /en/ pages')
