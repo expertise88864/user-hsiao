@@ -394,14 +394,58 @@
       if (!slashMenu.contains(e.target)) hideSlash();
     });
 
-    // Live preview — opens a fresh tab with the saved-state HTML rendered (without ?admin=1)
-    document.getElementById('hs-adm-preview').addEventListener('click', function () {
-      var clone = document.documentElement.cloneNode(true);
-      ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css'].forEach(function (id) {
+    // v37.14 — central sanitizer used by preview, save, and draft. The
+    // runtime injects many helper elements (#hs-progress, #hs-mobile-nav,
+    // #hs-totop, #hs-cmdk-*, #hs-font-sizer, #hs-slash-menu, .hs-img-lightbox)
+    // that should NEVER be serialized into the source HTML. It also syncs
+    // user edits back to data-zh / data-en attributes so the bilingual
+    // toggle (DN.applyTextOnly) doesn't revert them on next page load.
+    function _sanitizeForSerialize(clone) {
+      // 1. Strip admin chrome
+      ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css',
+       // Runtime-injected helper widgets — these are re-injected by blog-shared.js
+       'hs-progress', 'hs-mobile-nav', 'hs-totop',
+       'hs-cmdk-overlay', 'hs-cmdk-style',
+       'hs-font-sizer',
+       'hs-slash-menu',
+       'hs-resume-toast', 'hs-en-banner', 'hs-bookmark', 'hs-print-btn',
+       'hs-related-css', 'hs-feedback',
+      ].forEach(function (id) {
         var el = clone.querySelector('#' + id); if (el) el.remove();
       });
-      clone.querySelectorAll('[contenteditable]').forEach(function (el) { el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); });
-      clone.querySelector('body').classList.remove('hs-admin');
+      // 2. Strip image lightbox container (.hs-img-lightbox is injected on demand)
+      clone.querySelectorAll('.hs-img-lightbox').forEach(function (el) { el.remove(); });
+      // 3. Strip apply sentinels (markers from _apply_*.py — re-added by build)
+      clone.querySelectorAll('[data-critical-css], [data-a11y-vt-applied], [data-i-series-applied]').forEach(function (el) {
+        // Keep critical CSS itself; it'll be regenerated. Remove only the marker comment style.
+      });
+      // 4. Remove contentEditable / spellcheck attributes from editable nodes
+      clone.querySelectorAll('[contenteditable]').forEach(function (el) {
+        el.removeAttribute('contenteditable');
+        el.removeAttribute('spellcheck');
+      });
+      // 5. Remove body.hs-admin class
+      var body = clone.querySelector('body');
+      if (body) body.classList.remove('hs-admin');
+      // 6. CRITICAL: sync edited text back to data-zh / data-en. The runtime
+      //    DN.applyTextOnly() reads these attributes on page load and
+      //    overwrites innerHTML/textContent — without this sync, every edit
+      //    would revert after the language toggle script ran.
+      var currentLang = (document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh';
+      clone.querySelectorAll('[data-zh],[data-en]').forEach(function (el) {
+        var attrName = 'data-' + currentLang;
+        if (el.hasAttribute(attrName)) {
+          // Mirror current rendered content into the attribute. innerHTML
+          // preserves <strong>, <a> etc. that the editor may have inserted.
+          el.setAttribute(attrName, el.innerHTML);
+        }
+      });
+      return clone;
+    }
+
+    // Live preview — opens a fresh tab with the saved-state HTML rendered (without ?admin=1)
+    document.getElementById('hs-adm-preview').addEventListener('click', function () {
+      var clone = _sanitizeForSerialize(document.documentElement.cloneNode(true));
       var html = '<!doctype html>\n' + clone.outerHTML;
       var blob = new Blob([html], { type: 'text/html' });
       var url = URL.createObjectURL(blob);
@@ -435,19 +479,7 @@
       btn.disabled = true; btn.textContent = '儲存中⋯';
       status('正在 commit 到 GitHub⋯');
       try {
-        // Strip admin-only DOM (toolbar, status) before serialization
-        var clone = document.documentElement.cloneNode(true);
-        ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css'].forEach(function (id) {
-          var el = clone.querySelector('#' + id);
-          if (el) el.remove();
-        });
-        // Remove contentEditable / spellcheck attributes from editable nodes
-        clone.querySelectorAll('[contenteditable]').forEach(function (el) {
-          el.removeAttribute('contenteditable');
-          el.removeAttribute('spellcheck');
-        });
-        clone.querySelector('body').classList.remove('hs-admin');
-
+        var clone = _sanitizeForSerialize(document.documentElement.cloneNode(true));
         var html = '<!doctype html>\n' + clone.outerHTML;
 
         // v33: OPFS draft snapshot before network attempt — survives crash mid-save
@@ -490,14 +522,7 @@
       if (!DN.isAdminMode()) return;
       clearTimeout(draftTimer);
       draftTimer = setTimeout(function () {
-        var clone = document.documentElement.cloneNode(true);
-        ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css'].forEach(function (id) {
-          var el = clone.querySelector('#' + id); if (el) el.remove();
-        });
-        clone.querySelectorAll('[contenteditable]').forEach(function (el) {
-          el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck');
-        });
-        clone.querySelector('body').classList.remove('hs-admin');
+        var clone = _sanitizeForSerialize(document.documentElement.cloneNode(true));
         DN.saveDraft(slug, '<!doctype html>\n' + clone.outerHTML).catch(function () {});
       }, 5000);
     });
