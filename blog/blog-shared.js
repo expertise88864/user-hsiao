@@ -506,6 +506,18 @@
     });
   };
 
+  // v37.30 — Speculation Rules NOT injected via JS:
+  // Dynamically-added `<script type="speculationrules">` is subject to
+  // the same `script-src` CSP as regular inline scripts, so it would
+  // be blocked under the hash-based CSP (the JS-injected JSON has no
+  // matching SHA-256 in INLINE_SCRIPT_HASHES).
+  //
+  // Static `<script type="speculationrules">` placed directly in the
+  // HTML of /index.html and /blog/index.html IS picked up by
+  // _gen_csp_hashes.py and so works under enforced CSP. Article pages
+  // already get `<link rel="prefetch">` via DN.prefetchOnIdle() above.
+  DN.injectSpeculationRules = function () { /* see static block in HTML */ };
+
   // ---------- reveal on scroll ----------
   DN.bindRevealOnScroll = function () {
     if (!('IntersectionObserver' in window)) return;
@@ -5100,6 +5112,7 @@
       DN.bindRevealOnScroll();
       DN.bindViewTransitions();
       DN.prefetchOnIdle();
+      DN.injectSpeculationRules();   // Chromium prerender hint (v37.30)
       DN.bindAlgoliaDocSearch();   // upgrades to DocSearch if creds in <meta>
       DN.bindLottieHero();         // mount Lottie players on [data-lottie] divs
       DN.initCmdK();           // Cmd/Ctrl+K global search modal (rare path)

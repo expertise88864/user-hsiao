@@ -3,12 +3,12 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260644c';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260644d';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>監測兒童近視，該追蹤「度數」還是「眼軸」？2026 統合分析的新觀點 | HsiaoEye · 蕭閔謙醫師</title>
-<meta name="description" content="2026 年《American Journal of Ophthalmology》新發表的系統性回顧與統合分析（Clark & Wong，70 篇人群研究）：對大多數兒童，等價球面度數（SER）應作為近視監測的主要指標；眼軸長度（AL）保留給少數眼軸進入長尾的孩子。本文整理研究方法、正常眼軸的人口學變異、長眼但正視的健康人、眼軸與度數對視網膜、白內障、青光眼三種疾病的預測能力，並坦白說明證據限制與作者利益衝突。蕭閔謙醫師（眼科）整理。" />
+<meta name="description" content="Clark &amp; Wong 2026 AJO 統合分析（70 篇人群研究）：大多數兒童應以等價球面度數（SER）為近視監測主軸，眼軸長度（AL）保留給長尾族群。整理眼軸/度數對視網膜、白內障、青光眼的預測力與證據限制。" />
 <meta name="theme-color" content="#3a5a7c" />
 <meta name="keywords" content="兒童近視監測，等價球面度數，SER，眼軸長度，axial length，近視控制，高度近視，黃斑部病變，近視性視網膜病變，青光眼，後囊下白內障，Clark Wong 2026，systematic review，meta-analysis，Hisayama，IMI，蕭閔謙醫師，眼科衛教，HsiaoEye" />
 <meta name="author" content="蕭閔謙 醫師 · HsiaoEye" />

@@ -25,7 +25,6 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-/3iM0WqE9quaXPxE5KtGhT/Ik93TTfFlT2SkXuJkFp0=',
   'sha256-0CQE0gmWHkCTfaRBJ9vzSzfSTQxqFeVdWSyH34VA6j4=',
   'sha256-0Iky/y1TPoqdpL6AQ+32Elmaingu6P/LToIpO3Dp+Bw=',
-  'sha256-0PwJrt0cGbbF7HRMNIP4YejfI6krL+nslLyanUUz+RA=',
   'sha256-0sD+/0BZ0D6lSvQH5c3hidSqTeNbHYOLoc7MWd34SHk=',
   'sha256-1M4QvYUiKxAVz9EG3b4K2bo26ZZ0tkJsAf42wbkcaZE=',
   'sha256-1h4SliA0a4KPFGgDtmB2LfA+K70uNCrkVIcajNwKMPg=',
@@ -68,6 +67,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-E38q94o/jKaXjZlqj4xE/aCaAGUz16YYfzQAzKLG2Qk=',
   'sha256-EM9wv4OCXTrkLxxeoryKsqmyTEx1jG7n7D4o2G4XUiM=',
   'sha256-G8HVIO7OtuMvSQ596NykfMdyvLCNdsMrY6YPLq0oqkg=',
+  'sha256-GKpQe42vqElXybRQMylBrMnjICIrWNQ76LyFY+srkGE=',
   'sha256-GQ+p4Jhg6INHNk8f1B0wON6svDsLVpJ3X4CoubaJdzw=',
   'sha256-GakyvAk0GQEFTUdk9AYVRAwXlRVXcApmaiI5jhiFDVc=',
   'sha256-IKEuB/Ay6v/jNbfjYqIL3XFPTXuGujQkj6Wm2yTY9Bk=',
@@ -124,6 +124,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-am25bjrtJSpryCNqzXYK/R8PVKqbnN/Ny9ImepHMCWM=',
   'sha256-anfQMa4PR7hJMlZYn1pp86wIZBrOVREFJyizy77Ah7Y=',
   'sha256-aw9WIv6w7/g9VgZuQx1ZvpdlcIK4c3qTSaosFXscF8c=',
+  'sha256-bcqhba6XuebKHndX8t56XsFPFh+9zasbo+/pjGmtEjo=',
   'sha256-bfZ97Dp+6r2pGTUtWWbPWs9FoGddbOr8a1slzXxgA7M=',
   'sha256-cNTdio5jh1+LYTAFS7Rvgtd/2oKxFaxs9vzPMzFtc7Y=',
   'sha256-chO1xe7dzqiOuUuF9fIaBaefC7CFmdSnNLfzxXarXwo=',
@@ -169,7 +170,6 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-qG6VWputVUr4bSfq1TiB4BKjpCADdkqGMQgVxkigzes=',
   'sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=',
   'sha256-rmz7Uj2gAXdfxEKpjGg/BN/plbzIEoA/U4MDOVr2Mmw=',
-  'sha256-sIsTQl3ZRHCzeG0MPQ0l/W/KDn6+aky1Qg4YEWy/laY=',
   'sha256-t8kfezZiJi/C/4g/MmlkV5aBEzyHuHbrib4CBkBzmJI=',
   'sha256-tPgifUB6KaCWXeiNB27XUmYQzEydj+2Ck3dI3vr11AE=',
   'sha256-teH4+R0RoRFoeAHscJ9FfPlKi5QGfeUZWMoTJLr7OoE=',
@@ -181,7 +181,8 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-wFpttPsWWgZ/+M9kylaqMqVA39/Yf+Zz3Bg4gHiJM4o=',
   'sha256-wq+E/4tFESd/NMOMGNTFKxYdGDpAZsZQaUMxMME6Jpk=',
   'sha256-xtMoNE1WfWwE9cOo1pg+iaZ8fiHNtj6oRjVhWJNBLl8=',
-  'sha256-y7584GxFY2SMTTlr4QPsYB/arEs5rYabZcR62c4/qbg='
+  'sha256-y7584GxFY2SMTTlr4QPsYB/arEs5rYabZcR62c4/qbg=',
+  'sha256-yfkDg/fz0i4Is686hTKOfcCSsMmlkdBw8zS2uViFycI='
 ];
 const INLINE_STYLE_HASHES = [
   'sha256-+PWJ6ceZ9IsMzJbkZxg7S5zWJj84Dc2vgdt7I6ZP784=',
@@ -273,7 +274,13 @@ function buildCsp(hashesActive) {
 
 export default function middleware(req) {
   const headers = new Headers();
-  // Use hash mode if any hashes are populated (means _gen_csp_hashes.py has run)
+  // v37.30 — vercel.json USED TO ALSO set a `Content-Security-Policy`
+  // header on the `/(.*)` wildcard rule with `script-src 'unsafe-inline'`.
+  // Vercel applies static headers AFTER middleware, so the loose CSP
+  // there silently overwrote this strict hash CSP — defeating the whole
+  // `_gen_csp_hashes.py` pipeline. The CSP entry has been removed from
+  // vercel.json; this middleware is now the single source of truth for
+  // CSP on every HTML response.
   const useHashes = INLINE_SCRIPT_HASHES.length > 0;
   // ENFORCE — prefers hashes when available, falls back to 'unsafe-inline'
   headers.set('Content-Security-Policy', buildCsp(useHashes));

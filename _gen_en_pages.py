@@ -89,7 +89,13 @@ def clean_text(s):
     return s
 
 
-def truncate(s, n=145):
+def truncate(s, n=135):
+    # v37.30 — lowered default from 145 → 135. When the unescaped text
+    # contains `'` / `"`, HTML re-encoding into the `<meta content="…">`
+    # attribute expands each character to `&#x27;` / `&quot;` (6 chars),
+    # easily pushing the final attribute >160 — beyond Google's snippet
+    # cutoff. 135 leaves headroom for ~5 quotes (~25 extra chars) and
+    # still fits comfortably under 160.
     s = clean_text(s)
     return s if len(s) <= n else s[:n - 1].rstrip() + '...'
 
