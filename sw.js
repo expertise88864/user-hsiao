@@ -383,7 +383,7 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v47';
+const CACHE = 'hs-v48';
 const RUNTIME = 'hs-runtime-v34';
 const RUNTIME_MAX_ENTRIES = 60;
 
@@ -468,6 +468,15 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     Promise.all([
+      // v37.34 — Navigation Preload: while this SW is starting up (which can
+      // take 50-300 ms on cold boot), the browser pre-fetches the navigation
+      // request in parallel. The fetch handler can then `event.preloadResponse`
+      // it and skip the cold-start penalty. Pure perf win, no behaviour change.
+      // Falls back silently on browsers without `registration.navigationPreload`
+      // (older Safari iOS).
+      ('navigationPreload' in self.registration)
+        ? self.registration.navigationPreload.enable().catch(() => {})
+        : Promise.resolve(),
       // Cleanup old version caches
       caches.keys().then((keys) => Promise.all(
         keys.filter((k) => k !== CACHE && k !== RUNTIME).map((k) => caches.delete(k))
@@ -614,28 +623,32 @@ self.addEventListener('fetch', (e) => {
   }
 
   if (req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html')) {
-    e.respondWith(
-      fetchWithRetry(req)
-        .then((resp) => {
-          if (resp && resp.ok) {
-            const copy = resp.clone();
-            caches.open(CACHE).then((c) => c.put(req, copy));
-          }
-          return resp;
-        })
-        .catch(async () => {
-          // v33: try main cache first, then favourites bucket, then offline page
-          const main = await caches.match(req);
-          if (main) return main;
-          try {
-            const favCaches = await getFavBucket();
-            const fav = await (await favCaches.open('hs-favorites')).match(req);
-            if (fav) return fav;
-          } catch (e) { /* skip */ }
-          const off = await caches.match('/offline.html');
-          return off || caches.match('/');
-        })
-    );
+    e.respondWith((async () => {
+      try {
+        // v37.34 — use the navigation-preload response if the browser kicked
+        // one off in parallel while this SW was starting. Saves ~50-300 ms on
+        // cold-boot navigations. Falls back to a regular fetch when the
+        // preload isn't available (older browsers / non-navigation requests).
+        const preload = await e.preloadResponse;
+        const resp = preload || await fetchWithRetry(req);
+        if (resp && resp.ok) {
+          const copy = resp.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy));
+        }
+        return resp;
+      } catch (err) {
+        // v33: try main cache first, then favourites bucket, then offline page
+        const main = await caches.match(req);
+        if (main) return main;
+        try {
+          const favCaches = await getFavBucket();
+          const fav = await (await favCaches.open('hs-favorites')).match(req);
+          if (fav) return fav;
+        } catch (e2) { /* skip */ }
+        const off = await caches.match('/offline.html');
+        return off || caches.match('/');
+      }
+    })());
     return;
   }
 
