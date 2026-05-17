@@ -2250,7 +2250,7 @@
         ':root[data-theme="dark"] table.dn,' +
         ':root[data-theme="dark"] .placeholder-card,' +
         ':root[data-theme="dark"] .mag-card,' +
-        ':root[data-theme="dark"] .dn-search-input,' +
+        ':root[data-theme="dark"] .hs-search-input,' +
         ':root[data-theme="dark"] header.sticky,' +
         ':root[data-theme="dark"] .lang-select{background:var(--surface)!important;color:var(--ink)}' +
         ':root[data-theme="dark"] .disclaimer{background:#2a2418;color:#e8d9b0;border-color:#5a4720}' +
@@ -2331,7 +2331,7 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>' +
         '<span data-zh="最新文章" data-en="Articles">最新文章</span>' +
       '</a>' +
-      '<a href="/#dn-search-input" id="hs-mn-search">' +
+      '<a href="/#hs-search-input" id="hs-mn-search">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>' +
         '<span data-zh="找文章" data-en="Search">找文章</span>' +
       '</a>' +
@@ -2343,7 +2343,7 @@
     // Search button: focus search input if on homepage
     const searchBtn = document.getElementById('hs-mn-search');
     if (searchBtn) searchBtn.addEventListener('click', function (e) {
-      const input = document.getElementById('dn-search-input');
+      const input = document.getElementById('hs-search-input');
       if (input && location.pathname === '/') {
         e.preventDefault();
         input.focus();
@@ -2419,7 +2419,7 @@
 
   // ---------- home search (filter article-list-item by title/tag/text) ----------
   DN.bindHomeSearch = function () {
-    const input = document.getElementById('dn-search-input');
+    const input = document.getElementById('hs-search-input');
     if (!input) return;
     const empty = document.getElementById('dn-search-empty');
     // v34.12: when no query, honor the "max 5 visible" cap from
@@ -2430,7 +2430,7 @@
     function applyFilter() {
       const q = input.value.trim().toLowerCase();
       const allItems = Array.prototype.slice.call(
-        document.querySelectorAll('#dn-article-list .article-list-item')
+        document.querySelectorAll('#hs-article-list .article-list-item')
       );
       let visible = 0;
       allItems.forEach(function (it, i) {
@@ -2511,14 +2511,49 @@
     }
     var INDEX = null;
 
+    // v37.19 — accessibility: focus trap + ARIA dialog semantics + focus
+    // restoration. Before this, Tab/Shift+Tab in the open modal could
+    // escape to the page behind it (WCAG 2.4.3 Focus Order violation).
+    var _cmdkPrevFocus = null;
     function open() {
       if (!INDEX) INDEX = buildIndex();
+      _cmdkPrevFocus = document.activeElement;
+      var modal = overlay.querySelector('#hs-cmdk-modal');
+      if (modal) {
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+      }
       overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
       input.value = '';
       input.focus();
       render('');
     }
-    function close() { overlay.classList.remove('open'); }
+    function close() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      // Restore focus to whichever element opened the modal (typically the
+      // header search button) so keyboard users don't lose their place.
+      try { if (_cmdkPrevFocus && _cmdkPrevFocus.focus) _cmdkPrevFocus.focus(); } catch (e) {}
+      _cmdkPrevFocus = null;
+    }
+    // Trap Tab inside the modal: shift+tab from first → last, tab from last → first.
+    overlay.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab' || !overlay.classList.contains('open')) return;
+      var modal = overlay.querySelector('#hs-cmdk-modal');
+      if (!modal) return;
+      var focusables = modal.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusables.length) return;
+      var first = focusables[0];
+      var last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    });
     function render(q) {
       q = (q || '').toLowerCase().trim();
       var matches;
@@ -2560,11 +2595,43 @@
       if (!q || q.length < 2) return;
       try {
         if (!_pfMod) {
-          if (!_pfPending) _pfPending = import('/pagefind/pagefind.js').catch(function(){ return null; });
+          if (!_pfPending) _pfPending = import('/pagefind/pagefind.js').catch(function(e){
+            // v37.24 — surface fetch failure to the user instead of silent dead state
+            var fb = document.getElementById('hs-cmdk-pf-fallback');
+            if (!fb) {
+              fb = document.createElement('div');
+              fb.id = 'hs-cmdk-pf-fallback';
+              fb.style.cssText = 'padding:10px 20px;font-size:11.5px;color:var(--muted,#6e6759);border-top:1px solid var(--line,#ebe4d8)';
+              fb.textContent = '⚠ 全文搜尋暫時無法使用，標題搜尋仍可用';
+              if (results) results.appendChild(fb);
+            }
+            return null;
+          });
           _pfMod = await _pfPending;
-          if (!_pfMod) return;  // pagefind index not built
+          if (!_pfMod) return;  // pagefind index not built — fallback msg shown
+          // v37.18 — restrict the search index to the active site language.
+          // PageFind builds one index per language; without this filter,
+          // searching on /en/ returned ZH hits (the default index union).
+          try {
+            var curLang = (DN.detectLang && DN.detectLang()) || 'zh';
+            var pfLang = curLang === 'en' ? 'en' : 'zh-hant-tw';
+            if (_pfMod.options) {
+              await _pfMod.options({ language: pfLang });
+            } else if (_pfMod.init) {
+              await _pfMod.init();
+              if (_pfMod.options) await _pfMod.options({ language: pfLang });
+            }
+          } catch (e) { /* older pagefind version — ignore */ }
         }
-        var search = await _pfMod.search(q);
+        // v37.18 — language filter: pagefind.search accepts a `filters`
+        // object; pass the current site language as a soft preference.
+        var curLang2 = (DN.detectLang && DN.detectLang()) || 'zh';
+        var pfLang2 = curLang2 === 'en' ? 'en' : 'zh-hant-tw';
+        var search = await _pfMod.search(q, { language: pfLang2 });
+        if (!search || !search.results || !search.results.length) {
+          // Retry without language filter as a fallback
+          search = await _pfMod.search(q);
+        }
         if (!search || !search.results || !search.results.length) return;
         // Only run if the current query is still the same (debounce)
         if (input.value.trim().toLowerCase() !== q.toLowerCase()) return;
@@ -2800,7 +2867,7 @@
   // the most-recent 5 surface at the top regardless. Items beyond #5 are
   // hidden via display:none (kept in DOM for future "show all" expansion).
   DN.capHomeArticleList = function () {
-    var list = document.getElementById('dn-article-list');
+    var list = document.getElementById('hs-article-list');
     if (!list) return;
     var items = Array.prototype.slice.call(list.querySelectorAll('.article-list-item'));
     if (items.length < 2) return;
@@ -4789,6 +4856,23 @@
     host.appendChild(btn);
   };
 
+  // v37.26 — Vercel Speed Insights. Privacy-friendly RUM (no cookies,
+  // just aggregated CWV: LCP, FID, INP, CLS, TTFB). Auto-injected when
+  // Vercel Web Analytics is enabled in the project dashboard. Respects
+  // DNT (Vercel's /_vercel/insights/script.js bails internally on
+  // navigator.doNotTrack === '1'). No-op on localhost / preview.
+  DN.injectSpeedInsights = function () {
+    if (document.getElementById('hs-vercel-insights')) return;
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+    if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
+    var s = document.createElement('script');
+    s.id = 'hs-vercel-insights';
+    s.src = '/_vercel/insights/script.js';
+    s.defer = true;
+    s.dataset.endpoint = '/_vercel/insights/event';
+    document.head.appendChild(s);
+  };
+
   // ---------- orchestrator ----------
   DN.initBlog = function (opts) {
     opts = opts || {};
@@ -4836,6 +4920,7 @@
     DN.bindLangToggle(apply);
     apply(curLang);
     DN.injectFooterYear();
+    DN.injectSpeedInsights();  // v37.26 — Vercel CWV beacon (DNT-respecting)
     DN.addReadingProgress();   // top scroll bar — visible immediately, cheap
     DN.shuffleHeroCards();     // home cover-story shuffle (above-the-fold)
     DN.injectSpotlight();      // 最近更新 + 熱門推薦 (above-the-fold on mobile)

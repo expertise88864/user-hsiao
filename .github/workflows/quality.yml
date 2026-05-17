@@ -34,6 +34,23 @@ jobs:
       - name: Install Python dependencies
         run: pip install Pillow
 
+      # v37.17 — RUN HALFWIDTH FIX FIRST. Order matters: if a ZH article has
+      # halfwidth punctuation, _gen_en_pages.py would mirror it into the EN
+      # files, then the halfwidth idempotency check downstream fails on both
+      # ZH and EN files — cascading 2x failures that confused authors into
+      # thinking the EN gen was broken. Convert first, then mirror.
+      - name: Run halfwidth idempotency check (first)
+        run: |
+          python halfwidth_to_fullwidth.py --dry-run
+          OUTPUT=$(python halfwidth_to_fullwidth.py --dry-run | tail -1)
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -qE 'WOULD WRITE: 0 files'; then
+            echo "✓ All half-width punctuation already converted"
+          else
+            echo "✗ Half-width punctuation found — run python halfwidth_to_fullwidth.py before pushing"
+            exit 1
+          fi
+
       # ── Drift checks: regenerate auto-built artifacts and fail if any drifted ──
       # Catches the case where author edited an article but forgot to re-run
       # _gen_feeds.py / _gen_og_images.py / _gen_en_pages.py.
@@ -61,7 +78,7 @@ jobs:
       - name: Run validate.py
         run: python validate.py
 
-      - name: Run halfwidth idempotency check
+      - name: Run halfwidth idempotency check (second — after EN mirror)
         run: |
           python halfwidth_to_fullwidth.py --dry-run
           # If the dry run reports ANY replacement count > 0 the diff
@@ -181,10 +198,12 @@ jobs:
         run: npm install -g @axe-core/cli puppeteer
 
       - name: Run axe-core on production URLs
-        # `--exit` makes axe exit 1 if any wcag2a/wcag2aa violation found
-        # on the listed pages. We allow `--rules` excluding color-contrast
-        # because the warm-beige theme intentionally uses softer contrast
-        # in muted text — switch back to enforce once theme is finalised.
+        # v37.20: re-enabled color-contrast (was disabled while warm-beige
+        # palette had #8b8378 muted text ~4.3:1 on #faf7f2 — just under AA).
+        # `--muted` was darkened to #6e6759 (~5.6:1) in app.css to clear AA.
+        # Removed `--exit` so axe still warns visibly without blocking the
+        # whole quality job — most pages PASS now; any new violation needs
+        # author attention but not a hard merge block.
         run: |
           axe \
             https://hsiao.chendermatologist.com/ \
@@ -195,8 +214,6 @@ jobs:
             https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor \
             https://hsiao.chendermatologist.com/tools \
             --tags wcag2a,wcag2aa,best-practice \
-            --disable color-contrast \
-            --exit \
             --save axe-report.json || echo "::warning::axe-core violations found — see report"
 
       - name: Upload axe report

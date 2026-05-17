@@ -124,3 +124,34 @@ Categories:
   `.hs-tip-box` for tips/recommendations, `.keypoint` for key takeaways
 - Every meaningful element must have paired `data-zh` and `data-en`
 - Tables: `class="ted-table"`
+
+## Full rebuild — when you've touched articles, CSS, or scripts
+
+Order matters. Run as a single chain:
+
+```bash
+# 1. Punctuation normalization (must run FIRST — before EN mirror)
+python halfwidth_to_fullwidth.py
+
+# 2. Auto-generated artifacts (feeds + OG images in parallel for speed)
+python _gen_feeds.py & FEEDS=$!
+python _gen_og_images.py --force-all & OG=$!
+wait $FEEDS $OG
+
+# 3. EN mirror (depends on ZH source being halfwidth-clean)
+python _gen_en_pages.py
+
+# 4. CSP hashes (depends on EN mirror inline-script hashes)
+python _gen_csp_hashes.py
+
+# 5. Critical CSS (depends on app.css being final)
+python _extract_critical_css.py
+
+# 6. Verify before push
+python validate.py
+python _check_article_listings.py
+python _check_meta.py
+python _check_balance.py
+python _check_internal_links.py
+python halfwidth_to_fullwidth.py --dry-run    # must say "WOULD WRITE: 0 files"
+```

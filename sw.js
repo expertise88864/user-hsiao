@@ -383,7 +383,7 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v39';
+const CACHE = 'hs-v40';
 const RUNTIME = 'hs-runtime-v34';
 const RUNTIME_MAX_ENTRIES = 60;
 
@@ -472,6 +472,30 @@ self.addEventListener('activate', (e) => {
       caches.keys().then((keys) => Promise.all(
         keys.filter((k) => k !== CACHE && k !== RUNTIME).map((k) => caches.delete(k))
       )),
+      // v37.23 — Stage 1.5: validate the existing CACHE against the network.
+      // If a previously-precached URL now 404s (e.g., article was renamed or
+      // an OG image was deleted upstream), the SW would have kept serving
+      // the stale cached copy forever. Sweep the cache here: for each entry
+      // in CACHE that isn't in PRECACHE list, issue a HEAD; if it returns
+      // 404, remove it. Run on each activate so it self-heals over deploys.
+      caches.open(CACHE).then(async (c) => {
+        try {
+          const keys = await c.keys();
+          await Promise.all(keys.map(async (req) => {
+            // Only validate same-origin entries that look like static assets
+            const url = new URL(req.url);
+            if (url.origin !== location.origin) return;
+            // Skip entries we know are precache — they're authoritative
+            if (PRECACHE.includes(url.pathname) || PRECACHE.includes(url.pathname + url.search)) return;
+            try {
+              const head = await fetch(req, { method: 'HEAD' });
+              if (head && head.status === 404) {
+                await c.delete(req);
+              }
+            } catch (e) { /* offline → keep cached */ }
+          }));
+        } catch (e) { /* ignore — best-effort */ }
+      }),
       // Stage 2: pre-cache top-5 articles + OG cards in the background.
       // Wrapped in a setTimeout-style microtask so it runs AFTER claim() so
       // page navigations aren't blocked.

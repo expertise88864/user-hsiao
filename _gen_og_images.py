@@ -221,6 +221,11 @@ def main():
     # typical commits that only touch 1-2 articles.
     import sys
     only_changed = '--only-changed' in sys.argv
+    # v37.25 --force-all explicitly forces regeneration of every OG card
+    # (CI uses this; local dev can use --only-changed for fast rebuild).
+    # If both passed, --force-all wins.
+    if '--force-all' in sys.argv:
+        only_changed = False
 
     arts = parse_articles()
     if not arts:

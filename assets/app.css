@@ -216,25 +216,25 @@ img, video { max-width: 100%; height: auto; }
   header.sticky,
   footer.mag-footer,
   .mag-footer,
-  #hs-progress, #dn-progress,           /* top scroll progress bar */
+  #hs-progress, #hs-progress,           /* top scroll progress bar */
   #hs-totop, #dn-totop,                 /* scroll-to-top button */
   #hs-cmdk-overlay, #dn-cmdk-overlay,   /* search modal */
   #hs-share, .hs-share,                 /* share toolbar */
   #hs-bmc, .hs-bmc,                     /* support author CTA */
   #hs-feedback,                         /* feedback widget */
-  #hs-related, #dn-related,             /* related articles */
-  #hs-author-bio, #dn-author-bio,       /* author bio card */
+  #hs-related, #hs-related,             /* related articles */
+  #hs-author-bio, #hs-author-bio,       /* author bio card */
   #hs-toc-float, #dn-toc-float,         /* floating sidebar TOC */
   #hs-mobile-nav,                       /* mobile bottom nav */
   #hs-theme-toggle,                     /* theme toggle button */
   #hs-font-sizer,                       /* font size buttons */
-  #hs-resume-toast, #dn-resume-toast,   /* "continue reading" toast */
+  #hs-resume-toast, #hs-resume-toast,   /* "continue reading" toast */
   #hs-en-banner, #dn-en-banner,         /* English-mode banner */
   .skip-link,
   .home-faq summary::after,             /* + sign on FAQ collapsibles */
   .lang-select,
   .quick-find,
-  .dn-search-wrap,
+  .hs-search-wrap,
   button[aria-label="搜尋"],
   button[aria-label="Search"],
   details:not([open]) > *:not(summary),
@@ -616,7 +616,7 @@ p, li, .lede { text-wrap: pretty; }
   table.dn,
   .placeholder-card,
   .mag-card,
-  .dn-search-input,
+  .hs-search-input,
   .lang-select { background: var(--surface) !important; color: var(--ink); }
   header.sticky { background: rgba(37, 34, 32, .94); }
   .alert-card { background: #3a1f1f; border-color: #7a3a3a; }
@@ -801,4 +801,71 @@ details[open] > summary ~ * {
 /* Pre-paint reservation for the hero+spotlight grid on home */
 .home main {
   min-height: 60vh;  /* prevents footer-jumping while above-fold loads */
+}
+
+/* ============================================================
+ * v37.21 — WCAG 2.5.5 touch-target minimum (44×44 CSS pixels)
+ * ------------------------------------------------------------
+ * Pointer-coarse devices (touch screens) need every interactive element
+ * to be ≥44×44 for reliable tap accuracy without misfires. Several
+ * floating UI buttons (search icon, font sizer, scroll-to-top, theme
+ * toggle) had explicit 32×32 / 36×36 sizes that fail this on mobile.
+ *
+ * Strategy: only enlarge for coarse pointers — desktop pointer-fine
+ * keeps the compact 32-36px sizing for visual density.
+ * ============================================================ */
+@media (hover: none) and (pointer: coarse) {
+  /* Header icon buttons (search, theme toggle, hamburger) */
+  header.sticky button[aria-label],
+  header.sticky select.lang-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  /* Floating helper widgets */
+  #hs-totop,
+  #hs-bookmark,
+  #hs-print-btn,
+  #hs-theme-toggle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  /* Font sizer S/M/L pills — make each chip min 44px tall (width can stay narrow) */
+  #hs-font-sizer button {
+    min-height: 44px;
+  }
+  /* Chip row links (categories under hero) */
+  .chip {
+    min-height: 36px;       /* slightly relaxed for inline tag pills */
+    padding: 8px 14px;      /* taller padding to make tap area generous */
+  }
+  /* All <a> and <button> in nav/footer get extra hit area via padding */
+  nav a, footer a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+/* ============================================================
+ * v37.20 — WCAG AA color-contrast normalisation
+ * ------------------------------------------------------------
+ * Each article's inline <style> defines:
+ *   --muted: #8b8378  →  ~4.3:1 on --bg #faf7f2  (just under AA 4.5:1)
+ *   --ink-2: #5e574e  →  ~9:1   (already AA)
+ *
+ * Bump --muted darker so secondary text (date stamps, badges, "已快取的
+ * 頁面在離線時仍可閱讀" hints) clears the 4.5:1 normal-text threshold.
+ * Dark-mode --muted needs the inverse adjustment to clear contrast over
+ * the dark --bg #1a1815. Same specificity (:root) as the inline rules,
+ * so app.css (loaded after the inline <style> in document order) wins.
+ *
+ * After this, the axe-core CI workflow can drop `--disable color-contrast`
+ * and start enforcing the rule.
+ * ============================================================ */
+:root {
+  --muted: #6e6759;      /* was #8b8378 — now ~5.6:1 vs #faf7f2 (AA pass) */
+  --ink-2: #4a443c;      /* was #5e574e — now ~10:1 vs #faf7f2 (AAA pass) */
+}
+:root[data-theme="dark"] {
+  --muted: #b8b0a0;      /* lighter for dark bg — ~5.2:1 vs #1a1815 */
+  --ink-2: #d5cdbc;      /* ~9:1 vs #1a1815 */
 }

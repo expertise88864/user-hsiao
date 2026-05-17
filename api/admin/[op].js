@@ -48,11 +48,58 @@ const HANDLERS = {
   'suggest-tags':     () => import('./_suggest-tags.js'),
 };
 
+// v37.22 — in-memory rate-limit cache (per warm container). Since serverless
+// containers are short-lived, this only catches bursts within one container
+// session; cross-container DoS still hits per-IP Vercel limits. Sufficient
+// against accidental F5 spam and session-token misuse.
+const RL = new Map();   // key: session/IP, value: { count, windowStart }
+const RL_MAX = 30;      // 30 requests
+const RL_WINDOW_MS = 60 * 1000;  // per 60 seconds per session
+
+function rateLimitKey(req) {
+  // Prefer session cookie (signed HMAC) as the limit key; fall back to IP.
+  const c = (req.headers.cookie || '').match(/hs_admin_session=([^;]+)/);
+  if (c) return 'sess:' + c[1].slice(0, 16);  // first 16 chars of signed token
+  const ip = req.headers['x-forwarded-for'] || req.connection?.remoteAddress || 'unknown';
+  return 'ip:' + String(ip).split(',')[0].trim();
+}
+
+function checkRateLimit(req) {
+  const key = rateLimitKey(req);
+  const now = Date.now();
+  let entry = RL.get(key);
+  if (!entry || now - entry.windowStart > RL_WINDOW_MS) {
+    entry = { count: 0, windowStart: now };
+  }
+  entry.count++;
+  RL.set(key, entry);
+  // Periodic cleanup so the Map doesn't grow unbounded
+  if (RL.size > 500) {
+    for (const [k, v] of RL) {
+      if (now - v.windowStart > RL_WINDOW_MS * 2) RL.delete(k);
+    }
+  }
+  return entry.count <= RL_MAX;
+}
+
+// v37.22 — pre-warm the hottest handlers (save, list, login) so the first
+// real request doesn't pay the full dynamic-import latency. This module
+// loads at container start; the import promises resolve in the background.
+const WARM_HANDLERS = ['login', 'list', 'save', 'history'];
+const _warmPromises = WARM_HANDLERS.map((op) => HANDLERS[op]().catch(() => null));
+
+const IS_PROD = process.env.VERCEL_ENV === 'production';
+
 export default async function handler(req, res) {
   const op = (req.query && req.query.op) || '';
   const loader = HANDLERS[op];
   if (!loader) {
     return res.status(404).json({ error: `Unknown admin op: ${op}`, available: Object.keys(HANDLERS) });
+  }
+  // v37.22 — rate limit. Returns 429 with Retry-After hint.
+  if (!checkRateLimit(req)) {
+    res.setHeader('Retry-After', '60');
+    return res.status(429).json({ error: 'Too many requests — slow down (max 30/min per session)' });
   }
   try {
     const mod = await loader();
@@ -61,14 +108,17 @@ export default async function handler(req, res) {
     //   { default: handler }              ← clean ESM result
     //   { default: { default: handler } } ← double-wrap when CJS exports.default
     //   handler (raw function)            ← if bundled as CJS directly
-    // The previous `mod.default(req, res)` only handled the first shape and
-    // failed with "mod.default is not a function" on the double-wrapped one.
     const fn =
       (typeof mod === 'function')                                 ? mod :
       (mod && typeof mod.default === 'function')                  ? mod.default :
       (mod && mod.default && typeof mod.default.default === 'function') ? mod.default.default :
       null;
     if (!fn) {
+      // v37.22 — in prod, hide internal module shape (was leaking module
+      // structure to client error responses). Dev/preview still see details.
+      if (IS_PROD) {
+        return res.status(500).json({ error: 'Admin operation failed' });
+      }
       return res.status(500).json({
         error: `Dispatcher: op=${op} module has no callable default export.`,
         modShape: {
@@ -80,6 +130,12 @@ export default async function handler(req, res) {
     }
     return fn(req, res);
   } catch (e) {
+    if (IS_PROD) {
+      // Log full error server-side (Vercel will capture stderr), return
+      // opaque message to client.
+      console.error(`[admin dispatcher] op=${op}`, e);
+      return res.status(500).json({ error: 'Admin operation failed' });
+    }
     return res.status(500).json({ error: `Dispatcher failed for op=${op}: ${e.message || e}` });
   }
 }
