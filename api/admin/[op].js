@@ -41,6 +41,7 @@ const HANDLERS = {
   'build-related':    () => import('./_build-related.js'),
   'csp':              () => import('./_csp.js'),
   'cwv':              () => import('./_cwv.js'),
+  'errors':           () => import('./_errors.js'),
   'md':               () => import('./_md.js'),
   'precompute-meta':  () => import('./_precompute-meta.js'),
   'purge':            () => import('./_purge.js'),

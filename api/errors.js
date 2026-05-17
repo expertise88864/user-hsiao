@@ -75,8 +75,29 @@ export default async function handler(req, res) {
   // Log to Vercel stdout. Structured JSON so log queries can filter.
   console.error('[client-error]', JSON.stringify(safe));
 
+  // v37.35 — also persist to KV list `errors:reports` (cap 200) so the
+  // admin dashboard can show recent JS errors without trawling Vercel
+  // logs. Fire-and-forget; never block the 204.
+  persistToKv(safe).catch(() => {});
+
   // Always 204 — don't echo internal state to client.
   return res.status(204).end();
+}
+
+// ── KV persistence (mirrors api/csp-report.js pattern) ──
+const MAX_KV_ERRORS = 200;
+const KV_LIST_KEY = 'errors:reports';
+
+async function persistToKv(safe) {
+  const url = process.env.KV_REST_API_URL;
+  const tok = process.env.KV_REST_API_TOKEN;
+  if (!url || !tok) return;
+  const headers = { Authorization: `Bearer ${tok}`, 'Content-Type': 'application/json' };
+  const payload = JSON.stringify(safe);
+  await fetch(`${url}/lpush/${encodeURIComponent(KV_LIST_KEY)}/${encodeURIComponent(payload)}`,
+              { method: 'POST', headers }).catch(() => {});
+  await fetch(`${url}/ltrim/${encodeURIComponent(KV_LIST_KEY)}/0/${MAX_KV_ERRORS - 1}`,
+              { method: 'POST', headers }).catch(() => {});
 }
 
 export const config = { runtime: 'nodejs' };
