@@ -1,4 +1,4 @@
-/**
+﻿/**
  * POST /api/admin/new — create a new article skeleton + register in blog-shared.js DN.ARTICLES.
  *
  * Body: { slug, titleZh, titleEn, tagZh, tagEn, cat }
@@ -11,6 +11,52 @@
  * After commit, user must `git pull` before doing local edits.
  */
 import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
+
+const MAX_TITLE_LEN = 120;
+const MAX_TAG_LEN = 60;
+
+function cleanText(value, maxLen) {
+  const s = String(value || '').trim().replace(/\s+/g, ' ');
+  if (!s || s.length > maxLen || /[\u0000-\u001f\u007f<>]/.test(s)) return null;
+  return s;
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  })[ch]);
+}
+
+function escapeJsString(value) {
+  return String(value)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/\r?\n/g, ' ');
+}
+
+function buildJsonLd(vars) {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'MedicalScholarlyArticle',
+    headline: vars.rawTitleZh,
+    description: `${vars.rawTitleZh} — HsiaoEye 眼科衛教筆記。`,
+    datePublished: vars.today,
+    dateModified: vars.today,
+    inLanguage: 'zh-Hant-TW',
+    author: { '@type': 'Person', name: '蕭閔謙 醫師' },
+    publisher: {
+      '@type': 'Person',
+      name: '蕭閔謙 醫師',
+      url: 'https://hsiao.chendermatologist.com/',
+    },
+    image: 'https://hsiao.chendermatologist.com/icon-512.png',
+    mainEntityOfPage: `https://hsiao.chendermatologist.com/blog/${vars.slug}`,
+  }).replace(/</g, '\\u003c');
+}
 
 const TEMPLATE = (vars) => `<!doctype html>
 <html lang="zh-Hant-TW">
@@ -42,12 +88,12 @@ const TEMPLATE = (vars) => `<!doctype html>
 
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260628" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260648" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260628" />
-<link rel="preload" as="style" href="/assets/article.css?v=20260628" />
-<link rel="stylesheet" href="/assets/article.css?v=20260628" />
+<link rel="stylesheet" href="/assets/app.css?v=20260648" />
+<link rel="preload" as="style" href="/assets/article.css?v=20260648" />
+<link rel="stylesheet" href="/assets/article.css?v=20260648" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -62,7 +108,7 @@ const TEMPLATE = (vars) => `<!doctype html>
 </style>
 
 <script type="application/ld+json">
-{ "@context":"https://schema.org","@type":"MedicalScholarlyArticle","headline":"${vars.titleZh}","description":"${vars.titleZh} — HsiaoEye 眼科衛教筆記。","datePublished":"${vars.today}","dateModified":"${vars.today}","inLanguage":"zh-Hant-TW","author":{"@type":"Person","name":"蕭閔謙 醫師"},"publisher":{"@type":"Person","name":"蕭閔謙 醫師","url":"https://hsiao.chendermatologist.com/"},"image":"https://hsiao.chendermatologist.com/icon-512.png","mainEntityOfPage":"https://hsiao.chendermatologist.com/blog/${vars.slug}" }
+${vars.jsonLd}
 </script>
 
 <!-- ===== Google Analytics 4 + Consent Mode v2 (id: G-0ZKDQP9DNH) ===== -->
@@ -151,7 +197,7 @@ gtag('config', 'G-0ZKDQP9DNH');
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260628" defer></script>
+<script src="/blog/blog-shared.js?v=20260648" defer></script>
 <script>document.addEventListener('DOMContentLoaded', function () { if (window.DN) DN.initBlog({}); });</script>
 </body>
 </html>
@@ -172,7 +218,14 @@ export default async function handler(req, res) {
 
   if (!slug || !/^[a-z0-9-]+$/.test(slug)) return res.status(400).json({ error: 'Invalid slug' });
   if (!titleZh || !titleEn || !tagZh || !tagEn) return res.status(400).json({ error: 'Missing required fields' });
-  const validCats = ['myth', 'alert', 'rx'];
+  const rawTitleZh = cleanText(titleZh, MAX_TITLE_LEN);
+  const rawTitleEn = cleanText(titleEn, MAX_TITLE_LEN);
+  const rawTagZh = cleanText(tagZh, MAX_TAG_LEN);
+  const rawTagEn = cleanText(tagEn, MAX_TAG_LEN);
+  if (!rawTitleZh || !rawTitleEn || !rawTagZh || !rawTagEn) {
+    return res.status(400).json({ error: 'Invalid title/tag text' });
+  }
+  const validCats = ['alert', 'rx', 'myth', 'notes', 'research'];
   const safeCat = validCats.includes(cat) ? cat : 'myth';
 
   const today = todayISO();
@@ -185,7 +238,16 @@ export default async function handler(req, res) {
     }
 
     // 2. Create article HTML from template
-    const html = TEMPLATE({ slug, titleZh, titleEn, tagZh, tagEn, today });
+    const html = TEMPLATE({
+      slug,
+      titleZh: escapeHtml(rawTitleZh),
+      titleEn: escapeHtml(rawTitleEn),
+      tagZh: escapeHtml(rawTagZh),
+      tagEn: escapeHtml(rawTagEn),
+      rawTitleZh,
+      today,
+      jsonLd: buildJsonLd({ slug, rawTitleZh, today }),
+    });
     const created = await ghPutFile(
       `blog/${slug}.html`,
       html,
@@ -196,7 +258,7 @@ export default async function handler(req, res) {
     const sharedJs = await ghGetFile('blog/blog-shared.js');
     if (sharedJs) {
       // Insert as the FIRST entry (newest by date)
-      const newEntry = `    { slug:'${slug}', title:'${titleZh.replace(/'/g, "\\'")}', title_en:'${titleEn.replace(/'/g, "\\'")}', cat:'${safeCat}', tag:'${tagZh.replace(/'/g, "\\'")}', tag_en:'${tagEn.replace(/'/g, "\\'")}', date:'${today}' },\n`;
+      const newEntry = `    { slug:'${slug}', title:'${escapeJsString(rawTitleZh)}', title_en:'${escapeJsString(rawTitleEn)}', cat:'${safeCat}', tag:'${escapeJsString(rawTagZh)}', tag_en:'${escapeJsString(rawTagEn)}', date:'${today}' },\n`;
       const patched = sharedJs.content.replace(
         /(DN\.ARTICLES\s*=\s*\[\s*\n)/,
         `$1${newEntry}`

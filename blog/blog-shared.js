@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
  * HsiaoEye - shared runtime (zh / en)
  *
  * Includes:
@@ -1607,7 +1607,7 @@
       '@type': 'ItemList',
       'name': 'Related ophthalmology articles',
       'itemListElement': scored.map(function (a, i) {
-        return { '@type': 'ListItem', 'position': i + 1, 'url': DN.SITE_URL + '/blog/' + a.slug, 'name': a.title };
+        return { '@type': 'ListItem', 'position': i + 1, 'url': DN.SITE_URL + _urlPrefix + '/blog/' + a.slug, 'name': a.title };
       })
     };
     const ldEl = document.createElement('script');
@@ -3664,7 +3664,7 @@
     if (DN._adminLoaded) return;
     DN._adminLoaded = true;
     var s = document.createElement('script');
-    s.src = '/blog/blog-admin.js?v=20260647';
+    s.src = '/blog/blog-admin.js?v=20260648';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

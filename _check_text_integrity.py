@@ -10,7 +10,15 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", ".github", "node_modules", "__pycache__", ".lighthouseci"}
+SKIP_DIRS = {
+    ".git",
+    ".github",
+    "node_modules",
+    "__pycache__",
+    ".lighthouseci",
+    "playwright-report",
+    "test-results",
+}
 EXTENSIONS = {
     ".css",
     ".html",

@@ -136,6 +136,8 @@ def en_path_for_same_site_url(url):
     if path == '/':
         # v37.37 — return /en (no slash) to match what Vercel serves at 200.
         return DOMAIN + '/en'
+    if path == '/blog':
+        return DOMAIN + '/en/blog'
     if path.startswith('/blog/'):
         return DOMAIN + '/en' + path
     if path in ('/about', '/tools', '/notes', '/privacy'):

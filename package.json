@@ -10,7 +10,7 @@
     "test:visual":          "playwright test tests/visual/",
     "test:visual:update":   "playwright test tests/visual/ --update-snapshots",
     "test:visual:ui":       "playwright test tests/visual/ --ui",
-    "test:seo":             "playwright test tests/seo/"
+    "test:seo":             "playwright test -c playwright.seo.config.js"
   },
   "dependencies": {
     "@vercel/og": "^0.11.1"

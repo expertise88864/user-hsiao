@@ -6,12 +6,28 @@
 // CI:   wired into .github/workflows/quality.yml
 
 const { test, expect } = require('@playwright/test');
+const fs = require('fs');
+const path = require('path');
 
-const BASE = process.env.PW_BASE_URL || 'https://hsiao.chendermatologist.com';
+const BASE = process.env.PW_BASE_URL || 'http://127.0.0.1:4173';
+const SITE = 'https://hsiao.chendermatologist.com';
+const ROOT = path.resolve(__dirname, '../..');
 
 // Public URLs — keep aligned with sitemap.xml. /admin and /404 deliberately
 // excluded (admin private; 404 only renders on bad URLs).
-const PUBLIC_PATHS = [
+function getPublishedArticleSlugs() {
+  const sharedPath = path.join(ROOT, 'blog', 'blog-shared.js');
+  const src = fs.readFileSync(sharedPath, 'utf8');
+  const articles = src.match(/DN\.ARTICLES\s*=\s*\[([\s\S]*?)\];/);
+  if (!articles) throw new Error('Could not parse DN.ARTICLES from blog/blog-shared.js');
+
+  const slugs = Array.from(articles[1].matchAll(/slug:\s*'([^']+)'/g), m => m[1]);
+  const stubBlock = src.match(/DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]/);
+  const stubs = new Set(stubBlock ? Array.from(stubBlock[1].matchAll(/'([^']+)'/g), m => m[1]) : []);
+  return slugs.filter(slug => !stubs.has(slug));
+}
+
+const STATIC_PUBLIC_PATHS = [
   '/',
   '/about',
   '/notes',
@@ -19,31 +35,19 @@ const PUBLIC_PATHS = [
   '/tools',
   '/blog/',
   '/blog/topics',
-  '/blog/cataract-comprehensive-guide',
-  '/blog/cataract-surgery-selection',
-  '/blog/dry-eye-myths',
-  '/blog/floaters-retinal-detachment',
-  '/blog/glaucoma-comprehensive-guide',
-  '/blog/glaucoma-treatment-selection',
-  '/blog/lacrimal-gland-tumor',
-  '/blog/pediatric-myopia-control',
-  '/blog/thyroid-eye-disease',
   '/en/',
   '/en/about',
   '/en/notes',
   '/en/privacy',
   '/en/tools',
   '/en/blog/',
-  '/en/blog/cataract-comprehensive-guide',
-  '/en/blog/cataract-surgery-selection',
-  '/en/blog/dry-eye-myths',
-  '/en/blog/floaters-retinal-detachment',
-  '/en/blog/glaucoma-comprehensive-guide',
-  '/en/blog/glaucoma-treatment-selection',
-  '/en/blog/lacrimal-gland-tumor',
-  '/en/blog/pediatric-myopia-control',
-  '/en/blog/thyroid-eye-disease',
 ];
+
+const ARTICLE_SLUGS = getPublishedArticleSlugs();
+const PUBLIC_PATHS = Array.from(new Set([
+  ...STATIC_PUBLIC_PATHS,
+  ...ARTICLE_SLUGS.flatMap(slug => [`/blog/${slug}`, `/en/blog/${slug}`]),
+]));
 
 function walkValues(obj, visit) {
   if (Array.isArray(obj)) return obj.forEach(x => walkValues(x, visit));
@@ -108,7 +112,7 @@ for (const path of PUBLIC_PATHS) {
         if (path.startsWith('/en/')) {
           walkValues(parsed, (k, v) => {
             if (k === 'inLanguage') expect(JSON.stringify(v), `English page JSON-LD #${i + 1} has zh inLanguage`).not.toMatch(/zh/i);
-            if ((k === 'url' || k === 'mainEntityOfPage') && typeof v === 'string' && v.startsWith(BASE)) {
+            if ((k === 'url' || k === 'mainEntityOfPage') && typeof v === 'string' && v.startsWith(SITE)) {
               if (/\/(blog|about|tools|notes|privacy)(\/|$)/.test(path)) {
                 expect(v, `English page JSON-LD #${i + 1} URL should point at /en/ when page-scoped`).not.toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/(blog|about|tools|notes|privacy)(\/|$)/);
               }
@@ -154,10 +158,7 @@ test('referenced core assets exist', async ({ request }) => {
     '/icon-512.png',
     '/apple-touch-icon.png',
     '/logo-512.png',
-    '/assets/og/cataract-comprehensive-guide.png',
-    '/assets/og/cataract-surgery-selection.png',
-    '/assets/og/glaucoma-comprehensive-guide.png',
-    '/assets/og/glaucoma-treatment-selection.png',
+    ...ARTICLE_SLUGS.map(slug => `/assets/og/${slug}.png`),
   ];
   for (const p of paths) {
     const r = await request.get(BASE + p);

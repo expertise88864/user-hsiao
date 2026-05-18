@@ -12,6 +12,7 @@
  * stateless session — no DB needed.
  */
 import crypto from 'crypto';
+import { rateLimitOk, sendRateLimit } from '../_rate_limit.js';
 
 const SESSION_COOKIE = 'hs_admin_session';
 const SESSION_DURATION_MS = 8 * 60 * 60 * 1000;  // 8 hours
@@ -57,6 +58,10 @@ export default async function handler(req, res) {
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  if (!rateLimitOk(req, { key: 'admin-login', max: 6, windowMs: 60_000 })) {
+    return sendRateLimit(res, 60);
   }
 
   // Parse JSON body

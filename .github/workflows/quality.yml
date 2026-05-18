@@ -73,12 +73,14 @@ jobs:
             echo "::warning::Auto-regenerated artifacts drifted from committed copies. Run the four _gen_*.py scripts locally before pushing:"
             echo "::warning::  python _gen_feeds.py && python _gen_og_images.py && python _gen_en_pages.py && python _gen_csp_hashes.py"
             git diff --stat
-            # Don't hard-fail yet — emit warning so CI passes during initial roll-out.
-            # Flip to `exit 1` once all 4 generators are stable.
+            exit 1
           fi
 
       - name: Run validate.py
         run: python validate.py
+
+      - name: Run full static quality gate
+        run: python _check_all.py --quick
 
       - name: Run halfwidth idempotency check (second — after EN mirror)
         run: |
@@ -144,6 +146,19 @@ jobs:
                       errors += 1
           sys.exit(1 if errors else 0)
           "
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install Playwright dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Run SEO browser smoke tests
+        run: npm run test:seo
 
   indexnow:
     name: IndexNow ping (Bing / Yandex / Naver)
