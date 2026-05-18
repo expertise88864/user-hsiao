@@ -96,6 +96,9 @@ const _warmPromises = WARM_HANDLERS.map((op) => HANDLERS[op]().catch(() => null)
 const IS_PROD = process.env.VERCEL_ENV === 'production';
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
+  res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+
   const op = (req.query && req.query.op) || '';
   const loader = HANDLERS[op];
   if (!loader) {
