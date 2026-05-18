@@ -78,7 +78,7 @@
   body{ padding-bottom:env(safe-area-inset-bottom); }
   body::before{ content:''; position:fixed; inset:0; pointer-events:none; z-index:-1; background: radial-gradient(800px 500px at 12% -8%, rgba(143,179,212,.18), transparent 60%), linear-gradient(180deg,#f7f5f0 0%, #fbfaf6 40%, #f7f5f0 100%); }
   .blue-text{ background:linear-gradient(180deg,#6b8caf 0%, #243b56 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .lang-select{ appearance:none; -webkit-appearance:none; -moz-appearance:none; padding:6px 26px 6px 12px; font-size:12px; font-weight:600; color:var(--ink); border:1px solid var(--border); border-radius:9999px; background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path fill='%23243b56' d='M6 8 0 0h12z'/></svg>") no-repeat right 10px center; background-size:8px 6px; cursor:pointer; line-height:1.2; }
+  .lang-select{ appearance:none; -webkit-appearance:none; -moz-appearance:none; padding:6px 26px 6px 12px; font-size:12px; font-weight:600; color:var(--ink); border:1px solid var(--border); border-radius:9999px; background:#fff url("data:image/svg+xml;utf8,<svg aria-hidden='true' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path fill='%23243b56' d='M6 8 0 0h12z'/></svg>") no-repeat right 10px center; background-size:8px 6px; cursor:pointer; line-height:1.2; }
 
 
 
@@ -225,6 +225,7 @@
 <figure class="article-fig" style="margin:24px auto 8px;padding:18px 22px;background:#fff;border:0.5px solid var(--border);border-radius:14px;max-width:680px">
   <svg viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" style="aspect-ratio:520/260;width:100%;height:auto;display:block" aria-labelledby="axial-title" role="img">
     <title id="axial-title">Normal vs myopic eye — axial elongation</title>
+  <desc>Diagram: Normal vs myopic eye — axial elongation</desc>
     <!-- LEFT: normal eye (round) -->
     <g transform="translate(110, 130)">
       <circle cx="0" cy="0" r="78" fill="#fff" stroke="#2a2620" stroke-width="2.2"/>
@@ -307,6 +308,7 @@
   <figcaption style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-deep);font-weight:700;text-align:center;margin-bottom:14px">圖 1 · 正常眼 vs 近視眼 — 軸長拉長導致影像聚焦在視網膜前方</figcaption>
   <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" aria-labelledby="myopia-axial-title" role="img" style="aspect-ratio:600/340;display:block;margin:0 auto;width:100%;height:auto;max-width:600px">
     <title id="myopia-axial-title">軸長拉長導致近視 — 正常眼與近視眼比較</title>
+  <desc>Diagram: 軸長拉長導致近視 — 正常眼與近視眼比較</desc>
     <!-- Top row: emmetropic eye -->
     <text x="300" y="20" fill="#14532d" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle">正常眼 EMMETROPIC · 軸長 23–24 mm</text>
     <g transform="translate(60 30)">
