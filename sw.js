@@ -383,7 +383,7 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v55';
+const CACHE = 'hs-v56';
 const RUNTIME = 'hs-runtime-v34';
 const RUNTIME_MAX_ENTRIES = 60;
 

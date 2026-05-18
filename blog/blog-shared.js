@@ -3939,9 +3939,12 @@
     if (window._hsMermaidLoaded) return;
     if (!document.querySelector('pre.mermaid, .language-mermaid')) return;
     window._hsMermaidLoaded = true;
+    // v37.39 — pinned full version + SRI. Was @11 (jsdelivr auto-patch);
+    // pin lets us verify integrity. Update both fields when bumping.
     var s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js';
+    s.src = 'https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.min.js';
     s.crossOrigin = 'anonymous';
+    s.integrity = 'sha384-yQ4mmBBT+vhTAwjFH0toJXNYJ6O4usWnt6EPIdWwrRvx2V/n5lXuDZQwQFeSFydF';
     s.onload = function () {
       try {
         window.mermaid.initialize({
@@ -4191,16 +4194,19 @@
     var indexNm  = getMeta('algolia-index');
     if (!appId || !apiKey || !indexNm) return;
 
-    // Inject CSS + script (CDN)
+    // v37.39 — pinned full version + SRI. Was @3 (jsdelivr auto-patch);
+    // full pin lets us verify integrity. Bump both fields together.
     var css = document.createElement('link');
     css.rel = 'stylesheet';
-    css.href = 'https://cdn.jsdelivr.net/npm/@docsearch/css@3';
+    css.href = 'https://cdn.jsdelivr.net/npm/@docsearch/css@3.9.0';
     css.crossOrigin = 'anonymous';
+    css.integrity = 'sha384-XMwByx5w8uj/lIF/JzG5ifeDnUBe9BURWnnD/Hk81DBN5iGIbno8pG5acrUlEhoA';
     document.head.appendChild(css);
 
     var s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/@docsearch/js@3';
+    s.src = 'https://cdn.jsdelivr.net/npm/@docsearch/js@3.9.0';
     s.crossOrigin = 'anonymous';
+    s.integrity = 'sha384-f/IEhh8fvOc2ALU79emLlUqAYXyqlA/zYhM+g5GlWMk15QBjTXy05TtmfT1TbtV6';
     s.defer = true;
     s.onload = function () {
       // Hook: replace existing search button trigger
