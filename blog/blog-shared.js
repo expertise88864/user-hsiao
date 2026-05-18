@@ -3968,21 +3968,28 @@
     var hasMath = /\$\$[^$]+\$\$|\\\([^)]+\\\)|<math/i.test(document.body.innerText || '');
     if (!hasMath) return;
     window._hsKatexLoaded = true;
-    // Stylesheet
+    // v37.38 — SRI hashes pinned to katex@0.16.11 dist files. If jsdelivr
+    // ever serves a tampered copy or the bytes change for any reason, the
+    // browser refuses to execute. Computed once via:
+    //   curl -sL <url> | openssl dgst -sha384 -binary | openssl base64 -A
+    // Update when bumping the version pin.
     var l = document.createElement('link');
     l.rel = 'stylesheet';
     l.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css';
     l.crossOrigin = 'anonymous';
+    l.integrity = 'sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+';
     document.head.appendChild(l);
     // Script + auto-render
     var s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js';
     s.crossOrigin = 'anonymous';
+    s.integrity = 'sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg';
     s.defer = true;
     s.onload = function () {
       var ar = document.createElement('script');
       ar.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js';
       ar.crossOrigin = 'anonymous';
+      ar.integrity = 'sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk';
       ar.defer = true;
       ar.onload = function () {
         try {
@@ -4114,13 +4121,14 @@
     }
     window._hsLottieLoaded = true;
     // dotlottie-wc is the Web Component player from LottieFiles.
-    // v37.36 — set crossorigin so the CDN response opts into CORS, which
-    // is the prerequisite for SRI to actually verify the script body if
-    // we ever add `integrity="sha384-…"` here. Matches the pattern used
-    // for the other jsdelivr loads above (mermaid, katex, docsearch).
+    // v37.38 — full SRI now applied since version is pinned to 0.4.0.
+    // Browser refuses execution if the script bytes change. Update the
+    // integrity hash when bumping the version. Computed via:
+    //   curl -sL <url> | openssl dgst -sha384 -binary | openssl base64 -A
     var s = document.createElement('script');
     s.type = 'module';
     s.crossOrigin = 'anonymous';
+    s.integrity = 'sha384-wTCXBikp/F3Zti6eAxLchjbhor7ioKWpZBAROikRs8zyFtUQ5/TuCutkcrauI9vi';
     s.src = 'https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-wc@0.4.0/dist/dotlottie-wc.js';
     s.onload = function () { hosts.forEach(mountLottie); };
     document.head.appendChild(s);

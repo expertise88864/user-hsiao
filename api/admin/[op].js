@@ -42,6 +42,7 @@ const HANDLERS = {
   'csp':              () => import('./_csp.js'),
   'cwv':              () => import('./_cwv.js'),
   'errors':           () => import('./_errors.js'),
+  'push-stats':       () => import('./_push-stats.js'),
   'md':               () => import('./_md.js'),
   'precompute-meta':  () => import('./_precompute-meta.js'),
   'purge':            () => import('./_purge.js'),

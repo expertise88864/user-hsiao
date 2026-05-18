@@ -48,7 +48,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260645b';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260645c';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -647,7 +647,9 @@
           <h4>📢 發送 Web Push 通知</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">所有訂閱者會收到加密推播 (aes128gcm)。需先設好 VAPID env vars。</p>
           <button type="button" class="btn primary" onclick="showPushModal()">📤 撰寫通知</button>
+          <button type="button" class="btn" onclick="loadPushStats()">📊 訂閱人數</button>
           <span id="push-stat" style="margin-left:8px; font-size:11.5px; color:var(--muted);"></span>
+          <div id="push-stats-result" style="margin-top:14px; font-size:12.5px;"></div>
         </div>
         <div class="info-card" style="margin:0">
           <h4>🛠️ 動態 Sitemap / Feed</h4>
@@ -1251,6 +1253,42 @@ async function clearErrors() {
     const r = await fetch(API + '/errors?action=clear', { method: 'POST', credentials: 'include' });
     if (r.ok) loadErrors();
     else host.innerHTML = '<div class="loading">清除失敗：' + r.status + '</div>';
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+}
+
+// ───────────────── Push subscriber stats ─────────────────
+async function loadPushStats() {
+  const host = document.getElementById('push-stats-result');
+  host.innerHTML = '<div class="loading"><span class="spinner"></span>拉取訂閱統計⋯</div>';
+  try {
+    const r = await fetch(API + '/push-stats', { credentials: 'include' });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { host.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
+    if (!j.count) {
+      host.innerHTML = '<div class="loading">目前沒有 Web Push 訂閱者</div>';
+      return;
+    }
+    const fmt = (iso) => iso ? new Date(iso).toLocaleDateString('zh-TW') : '—';
+    const renderRow = (rows) => rows.length === 0 ? '' :
+      '<table class="dict-table" style="margin:6px 0 12px"><tbody>' +
+      rows.map(x => `<tr><td><code>${escapeHTML(x.key)}</code></td><td style="text-align:right">${x.count}</td></tr>`).join('') +
+      '</tbody></table>';
+    host.innerHTML =
+      '<div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px">' +
+        '<span style="color:var(--blue-deep);font-size:18px">' + j.count + '</span> 位訂閱者' +
+        ' <span style="font-size:11px;color:var(--muted);font-weight:400">' +
+          '(來源：' + (j.source === 'kv' ? 'KV' : 'GitHub blob') + ')</span>' +
+      '</div>' +
+      '<div style="font-size:11.5px;color:var(--muted);margin-bottom:10px">最舊訂閱：' + fmt(j.oldest_iso) +
+      '　|　最新訂閱：' + fmt(j.newest_iso) + '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">' +
+        '<div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">瀏覽器</div>' +
+          renderRow(j.by_browser) + '</div>' +
+        '<div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">推播服務</div>' +
+          renderRow(j.by_push_host) + '</div>' +
+        '<div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">訂閱年齡</div>' +
+          renderRow(j.by_age) + '</div>' +
+      '</div>';
   } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
 }
 
