@@ -22,11 +22,15 @@ PRIVATE_PAGES = {
     "404.html": {"route": "/404", "robots": "noindex,follow", "blocked": False},
 }
 
-# HsiaoEye-actual public static routes (no /dashboard, /glossary, /support)
+# HsiaoEye-actual public static routes (no /dashboard, /glossary, /support).
+# v37.41 — `/blog` (no trailing slash) matches what `trailingSlash:false`
+# in vercel.json actually serves at 200 OK. The sitemap was switched
+# from `/blog/` → `/blog` in batch V to break the GSC redirect-chain
+# error report; this list now mirrors that convention.
 PUBLIC_STATIC_ROUTES = {
     "/",
     "/about",
-    "/blog/",
+    "/blog",
     "/blog/topics",
     "/notes",
     "/privacy",
