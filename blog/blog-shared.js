@@ -760,6 +760,40 @@
     window.addEventListener('storage', function (e) { if (e.key === DN.READ_KEY) render(); });
   };
 
+  // ---------- visible breadcrumb (renders BreadcrumbList JSON-LD as HTML) ----------
+  // v37.42 — Google shows the breadcrumb path above the title in mobile
+  // SERPs ONLY when the page has a visible <nav aria-label="breadcrumb">.
+  // JSON-LD alone is not enough on its own to render the path in SERP.
+  // Renders: 首頁 / 衛教文章 / <article tag>
+  DN.injectBreadcrumb = function () {
+    if (document.getElementById('hs-breadcrumb')) return;
+    var slug = DN.currentSlug && DN.currentSlug();
+    if (!slug) return;
+    var meta = (DN.ARTICLES || []).find(function (a) { return a.slug === slug; });
+    if (!meta) return;
+    var h1 = document.querySelector('article h1, section h1');
+    if (!h1) return;
+    var section = h1.closest('section') || h1.parentNode;
+    if (!section) return;
+    var prefix = (DN.urlPrefix && DN.urlPrefix()) || '';
+    var nav = document.createElement('nav');
+    nav.id = 'hs-breadcrumb';
+    nav.setAttribute('aria-label', 'Breadcrumb');
+    nav.style.cssText = 'font-size:12px;color:var(--muted);margin:0 0 14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:Inter,sans-serif;';
+    nav.innerHTML =
+      '<a href="' + prefix + '/" style="color:var(--blue-deep);text-decoration:none" data-zh="首頁" data-en="Home">首頁</a>' +
+      '<span aria-hidden="true">›</span>' +
+      '<a href="' + prefix + '/blog" style="color:var(--blue-deep);text-decoration:none" data-zh="衛教文章" data-en="Articles">衛教文章</a>' +
+      '<span aria-hidden="true">›</span>' +
+      '<span aria-current="page" data-zh="' + attrEsc(meta.tag || meta.title) + '" data-en="' +
+        attrEsc(meta.tag_en || meta.title_en || meta.tag || meta.title) + '">' +
+        (meta.tag || meta.title) + '</span>';
+    // Insert at top of the section (above the eyebrow / category chip)
+    var firstChild = section.firstElementChild;
+    if (firstChild) section.insertBefore(nav, firstChild);
+    else section.appendChild(nav);
+  };
+
   // ---------- article reading-meta (reading time + last-reviewed badges) ----------
   DN.addReadingMeta = function () {
     const proseEl = document.getElementById('proseZh') || document.querySelector('article .prose');
@@ -768,7 +802,11 @@
 
     const slug = DN.currentSlug();
     const meta = (DN.ARTICLES || []).find(function (a) { return a.slug === slug; });
-    const reviewedDate = meta ? meta.date : '';
+    // v37.42 — show updated (last reviewed) date when present, otherwise
+    // fall back to publish date. The badge label says "最後審閱" so
+    // semantically "updated" is the right field; the old code showed
+    // publish date which was misleading after content was revised.
+    const reviewedDate = meta ? (meta.updated || meta.date || '') : '';
 
     // v31: Use precomputed `minutes` from DN.ARTICLES (set by /api/admin/precompute-meta).
     // Falls back to runtime estimation when missing — same heuristic as before.
@@ -5121,6 +5159,7 @@
     // Article-only enhancements that affect above-the-fold layout
     var isArticle = document.getElementById('proseZh') || document.querySelector('article .prose');
     if (isArticle) {
+      DN.injectBreadcrumb();   // v37.42 — visible breadcrumb above the title (SERP path)
       DN.injectArticleHero();  // gradient SVG banner under H1 (above-the-fold)
       DN.addReadingMeta();
       DN.addInlineTOC();

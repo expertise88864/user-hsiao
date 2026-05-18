@@ -127,6 +127,7 @@ jobs:
           echo "=== _check_dead_anchors.py ===" && python _check_dead_anchors.py || echo "::warning::In-page #anchor without matching id (broken TOC jump)"
           echo "=== _check_article_footer.py ===" && python _check_article_footer.py || echo "::error::Article missing the magazine footer (disclaimer + home nav)"
           echo "=== _check_image_sizes.py ===" && python _check_image_sizes.py || echo "::warning::<img src> serves more bytes than display dimensions warrant — point at a smaller variant"
+          echo "=== _check_svg_a11y.py ===" && python _check_svg_a11y.py || echo "::warning::SVG figure missing <desc> / role=img / aria-hidden (image SERP + a11y gap)"
 
       - name: JSON-LD parse check
         run: |
