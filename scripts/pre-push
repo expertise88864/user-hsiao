@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# HsiaoEye pre-push hook — runs the full _check_all.py battery and refuses
+# to push if any non-warn check fails. Installed via:
+#   bash scripts/install-pre-push-hook.sh
+#
+# Bypass for emergencies (avoid this — fix the failure instead):
+#   git push --no-verify
+#
+# Lives in scripts/ so it's tracked by git. The install script symlinks
+# it into .git/hooks/pre-push.
+
+set -e
+
+# Resolve the repo root from the hook's location.
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+echo "[pre-push] running _check_all.py ..."
+if ! python _check_all.py --quick; then
+  echo
+  echo "[pre-push] One or more checks FAILED."
+  echo "[pre-push] Fix the failure(s) above, or push with --no-verify"
+  echo "[pre-push] (emergency only — CI will catch it anyway)."
+  exit 1
+fi
+echo "[pre-push] all checks green; proceeding with push."
+exit 0

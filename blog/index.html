@@ -3,7 +3,7 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260645f';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260645g';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -32,7 +32,7 @@
 <link rel="alternate" type="application/atom+xml" title="HsiaoEye Atom" href="/blog/atom.xml" />
 
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://hsiao.chendermatologist.com/blog/" />
+<meta property="og:url" content="https://hsiao.chendermatologist.com/blog" />
 <meta property="og:title" content="眼科衛教文章索引 | HsiaoEye" />
 <meta property="og:description" content="乾眼症、兒童近視控制、白內障 — 民眾最常見的眼科問題。" />
 <meta property="og:image" content="https://hsiao.chendermatologist.com/icon-512.png" />
@@ -105,7 +105,7 @@
   "@context":"https://schema.org",
   "@type":"Blog",
   "name":"HsiaoEye 部落格",
-  "url":"https://hsiao.chendermatologist.com/blog/",
+  "url":"https://hsiao.chendermatologist.com/blog",
   "description":"蕭閔謙醫師（眼科）整理的眼科衛教文章。",
   "publisher":{"@id":"https://hsiao.chendermatologist.com/about#person"}
 }

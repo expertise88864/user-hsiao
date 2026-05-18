@@ -3,7 +3,7 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260645f';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260645g';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -101,7 +101,7 @@
 </style>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Blog","name":"HsiaoEye 部落格","url":"https://hsiao.chendermatologist.com/en/blog/","description":"蕭閔謙醫師（眼科）整理的眼科衛教文章。","publisher":{"@id":"https://hsiao.chendermatologist.com/about#person"}}
+{"@context":"https://schema.org","@type":"Blog","name":"HsiaoEye 部落格","url":"https://hsiao.chendermatologist.com/blog","description":"蕭閔謙醫師（眼科）整理的眼科衛教文章。","publisher":{"@id":"https://hsiao.chendermatologist.com/about#person"}}
 </script>
 
 <!-- ===== Google Analytics 4 + Consent Mode v2 + bot/prerender gate (id: G-0ZKDQP9DNH) ===== -->

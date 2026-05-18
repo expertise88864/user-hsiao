@@ -116,6 +116,27 @@ Implementation lives in `api/_rate_limit.js`. Each container is in-memory
 isolated — sufficient for accidental abuse and small DDoS bursts;
 larger attacks rely on Vercel WAF.
 
+## Local quality gates (pre-push hook)
+
+Most of the controls above are CI-enforced via `.github/workflows/quality.yml`
+(28 separate `_check_*.py` scripts run on every push to `main`). The
+same battery can run locally before each `git push` via the pre-push
+hook in `scripts/pre-push`. To install it once after cloning:
+
+```bash
+bash scripts/install-pre-push-hook.sh
+```
+
+After install, every `git push` will first run `python _check_all.py
+--quick` (skips the live-server smoke test, which CI handles). If any
+non-warn check FAILs the push is blocked; in genuine emergency you can
+override with `git push --no-verify`.
+
+Why this exists: batch X (2026-05-18) shipped two regressions because
+the operator selectively ran "main" checks and reported all-green
+without noticing other checks were red. The pre-push hook removes
+that failure mode.
+
 ## What is NOT in scope
 
 - Bug bounty payouts. This site is a personal patient-education project.
