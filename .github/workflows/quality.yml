@@ -128,6 +128,7 @@ jobs:
           echo "=== _check_article_footer.py ===" && python _check_article_footer.py || echo "::error::Article missing the magazine footer (disclaimer + home nav)"
           echo "=== _check_image_sizes.py ===" && python _check_image_sizes.py || echo "::warning::<img src> serves more bytes than display dimensions warrant — point at a smaller variant"
           echo "=== _check_svg_a11y.py ===" && python _check_svg_a11y.py || echo "::warning::SVG figure missing <desc> / role=img / aria-hidden (image SERP + a11y gap)"
+          echo "=== _check_hreflang.py ===" && python _check_hreflang.py || echo "::error::Hreflang pair broken — language clustering will drop"
 
       - name: JSON-LD parse check
         run: |
@@ -143,6 +144,74 @@ jobs:
                       errors += 1
           sys.exit(1 if errors else 0)
           "
+
+  indexnow:
+    name: IndexNow ping (Bing / Yandex / Naver)
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # v37.44 — auto-notify IndexNow-subscribing engines on every push to
+    # main. Vercel deploy takes ~30-60 s; we wait then ping. Bing usually
+    # indexes within minutes after this. Google doesn't participate in
+    # IndexNow (use GSC URL Inspection separately).
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for Vercel deploy
+        run: sleep 75
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Ping IndexNow with all published URLs
+        run: |
+          python <<'PY'
+          import json
+          import re
+          import urllib.request
+
+          HOST = 'hsiao.chendermatologist.com'
+          KEY  = 'bfc071112dd2988a75988a1249d0ce44'   # matches /<key>.txt at root
+
+          # Parse DN.ARTICLES minus DN.STUB_SLUGS for the published slug list.
+          with open('blog/blog-shared.js', encoding='utf-8') as f:
+              js = f.read()
+          m_arts = re.search(r'DN\.ARTICLES\s*=\s*\[(.*?)\];', js, re.DOTALL)
+          slugs = set(re.findall(r"slug:\s*'([^']+)'", m_arts.group(1))) if m_arts else set()
+          m_stubs = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
+          stubs = set(re.findall(r"'([^']+)'", m_stubs.group(1))) if m_stubs else set()
+          published = sorted(slugs - stubs)
+
+          urls = [
+              f'https://{HOST}/',
+              f'https://{HOST}/blog',
+              f'https://{HOST}/blog/topics',
+              f'https://{HOST}/about',
+              f'https://{HOST}/tools',
+              f'https://{HOST}/en',
+              f'https://{HOST}/en/blog',
+          ]
+          for s in published:
+              urls.append(f'https://{HOST}/blog/{s}')
+              urls.append(f'https://{HOST}/en/blog/{s}')
+
+          payload = json.dumps({
+              'host': HOST,
+              'key': KEY,
+              'keyLocation': f'https://{HOST}/{KEY}.txt',
+              'urlList': urls,
+          }).encode('utf-8')
+          req = urllib.request.Request(
+              'https://api.indexnow.org/IndexNow',
+              data=payload,
+              headers={'Content-Type': 'application/json'},
+              method='POST',
+          )
+          try:
+              with urllib.request.urlopen(req, timeout=30) as r:
+                  print(f'IndexNow HTTP {r.status} — {len(urls)} URLs sent')
+          except Exception as e:
+              print(f'::warning::IndexNow ping failed: {e}')
+          PY
 
   lighthouse:
     name: Lighthouse CI
