@@ -3,9 +3,10 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260645g';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260645h';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>蕭閔謙醫師 眼科筆記 · 乾眼、近視控制、白內障衛教</title>
 <meta name="description" content="蕭閔謙醫師（眼科住院醫師）的個人衛教網站。乾眼症、兒童近視控制、白內障、視網膜疾病等民眾最常見的眼科問題與學習筆記。" />
@@ -354,10 +355,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   "name":"HsiaoEye · 蕭閔謙醫師 眼科筆記",
   "url":"https://hsiao.chendermatologist.com/",
   "inLanguage":["zh-TW","en"],
-  "publisher":{"@type":"Person","name":"蕭閔謙 醫師","url":"https://hsiao.chendermatologist.com/about"},
+  "publisher":{"@id":"https://hsiao.chendermatologist.com/about#person"},
   "potentialAction":{
     "@type":"SearchAction",
-    "target":{"@type":"EntryPoint","urlTemplate":"https://hsiao.chendermatologist.com/blog/?q={search_term_string}"},
+    "target":{"@type":"EntryPoint","urlTemplate":"https://hsiao.chendermatologist.com/blog?q={search_term_string}"},
     "query-input":"required name=search_term_string"
   }
 }

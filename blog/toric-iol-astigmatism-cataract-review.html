@@ -3,9 +3,10 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260645g';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260645h';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>散光人工水晶體（Toric IOL）值得嗎？適合誰、效果多好、有什麼風險｜2026 國際整合性回顧 | HsiaoEye · 蕭閔謙醫師</title>
 <meta name="description" content="2026 年 ESCRS 整合性回顧：散光人工水晶體 Toric IOL 適應症（≥1.0 D 規則散光）、術前評估、計算公式、旋轉風險（90-97% 內 5°）、特殊族群（雷射術後/圓錐角膜/PEX/角膜移植後）注意事項、台灣全自費現況。蕭閔謙醫師整理。" />
@@ -34,6 +35,17 @@
 <link rel="manifest" href="/manifest.json" />
 
 <meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-16T00:00:00+08:00" />
+<meta property="article:modified_time" content="2026-05-16T00:00:00+08:00" />
+<meta property="article:author" content="https://hsiao.chendermatologist.com/about" />
+<meta property="article:section" content="Ophthalmology Patient Education · Latest Research · Cataract" />
+<meta property="article:tag" content="散光人工水晶體" />
+<meta property="article:tag" content="Toric IOL" />
+<meta property="article:tag" content="白內障散光" />
+<meta property="article:tag" content="Barrett Toric" />
+<meta property="article:tag" content="Abulafia-Koch" />
+<meta property="article:tag" content="後表面散光" />
+
 <meta property="og:url" content="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" />
 <meta property="og:title" content="散光人工水晶體（Toric IOL）值得嗎？2026 國際整合性回顧 — 適應症、計算、旋轉風險、特殊族群" />
 <meta property="og:description" content="ESCRS 功能性視覺工作組 2026 年 narrative review：≥1.0 D 規則散光是主要適應症、術前要算入後表面散光（PCA）、Barrett Toric 與 Abulafia-Koch 為主流公式、~70% 達殘餘散光 ≤0.5 D、旋轉每 1° 損失 ~3.3% 矯正力、雷射術後/圓錐角膜/PEX/角膜移植後特殊族群注意事項，並整理台灣全自費現況。" />

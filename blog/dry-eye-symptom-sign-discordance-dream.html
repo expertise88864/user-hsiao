@@ -3,9 +3,10 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260645g';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260645h';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>為什麼我覺得眼睛超乾，醫師卻說沒事？2026 DREAM 研究 535 人分析「症狀-徵象不一致」現象 | HsiaoEye · 蕭閔謙醫師</title>
 <meta name="description" content="DREAM 試驗 535 位中重度乾眼分析顯示 77% 病人主觀感受與客觀檢查不一致。解析「症狀-徵象不一致」4 型分佈、為何影響治療選擇，含台灣健保人工淚液與 Cyclosporine 給付規定。" />
@@ -34,6 +35,17 @@
 <link rel="manifest" href="/manifest.json" />
 
 <meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-16T00:00:00+08:00" />
+<meta property="article:modified_time" content="2026-05-18T00:00:00+08:00" />
+<meta property="article:author" content="https://hsiao.chendermatologist.com/about" />
+<meta property="article:section" content="Ophthalmology Patient Education · Latest Research · Dry Eye" />
+<meta property="article:tag" content="乾眼症" />
+<meta property="article:tag" content="症狀徵象不一致" />
+<meta property="article:tag" content="DREAM Study" />
+<meta property="article:tag" content="Matar 2026" />
+<meta property="article:tag" content="OSDI" />
+<meta property="article:tag" content="TBUT" />
+
 <meta property="og:url" content="https://hsiao.chendermatologist.com/blog/dry-eye-symptom-sign-discordance-dream" />
 <meta property="og:title" content="為什麼我覺得眼睛超乾，醫師卻說沒事？2026 DREAM 研究的「症狀-徵象不一致」" />
 <meta property="og:description" content="2026 年新發表的 DREAM 試驗 535 人次級分析：77% 的中重度乾眼症病人「主觀症狀」和「客觀檢查」對不起來。本文整理 4 種類型分佈、誰偏哪一型、台灣健保給付規定，並坦白說明研究限制與作者利益衝突。" />

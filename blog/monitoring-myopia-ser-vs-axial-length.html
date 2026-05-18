@@ -3,9 +3,10 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260645g';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260645h';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>監測兒童近視，該追蹤「度數」還是「眼軸」？2026 統合分析的新觀點 | HsiaoEye · 蕭閔謙醫師</title>
 <meta name="description" content="Clark &amp; Wong 2026 AJO 統合分析（70 篇人群研究）：大多數兒童應以等價球面度數（SER）為近視監測主軸，眼軸長度（AL）保留給長尾族群。整理眼軸/度數對視網膜、白內障、青光眼的預測力與證據限制。" />
@@ -34,6 +35,17 @@
 <link rel="manifest" href="/manifest.json" />
 
 <meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-05-13T00:00:00+08:00" />
+<meta property="article:modified_time" content="2026-05-13T00:00:00+08:00" />
+<meta property="article:author" content="https://hsiao.chendermatologist.com/about" />
+<meta property="article:section" content="Ophthalmology Patient Education · Latest Research · Pediatric Myopia" />
+<meta property="article:tag" content="兒童近視監測" />
+<meta property="article:tag" content="SER" />
+<meta property="article:tag" content="等價球面度數" />
+<meta property="article:tag" content="眼軸長度" />
+<meta property="article:tag" content="axial length" />
+<meta property="article:tag" content="Clark Wong 2026" />
+
 <meta property="og:url" content="https://hsiao.chendermatologist.com/blog/monitoring-myopia-ser-vs-axial-length" />
 <meta property="og:title" content="監測兒童近視，該追蹤「度數」還是「眼軸」？2026 統合分析的新觀點" />
 <meta property="og:description" content="2026 年新發表的系統性回顧與統合分析整理 70 篇人群研究：眼軸長度對視網膜病變最敏感，但只有 10% 的孩子會進入長眼尾巴；度數（SER）對白內障與青光眼風險的關聯更清楚，且不受身高、性別、族裔的影響。作者建議：大多數兒童以 SER 為主，眼軸用百分位數而非單一門檻。" />

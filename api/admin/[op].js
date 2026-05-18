@@ -29,6 +29,7 @@ const HANDLERS = {
   'regen-en':         () => import('./_regen-en.js'),
   'regen-en-stream':  () => import('./_regen-en-stream.js'),
   'history':          () => import('./_history.js'),
+  'indexnow':         () => import('./_indexnow.js'),
   'rollback':         () => import('./_rollback.js'),
   'reorder':          () => import('./_reorder.js'),
   'seo-score':        () => import('./_seo-score.js'),
