@@ -58,6 +58,19 @@ if m:
 
 articles.sort(key=lambda a: a['updated'], reverse=True)
 
+def parse_ymd(date_str, fallback='2026-01-01'):
+    try:
+        return datetime.strptime(date_str, '%Y-%m-%d').replace(tzinfo=timezone.utc)
+    except (TypeError, ValueError):
+        return datetime.strptime(fallback, '%Y-%m-%d').replace(tzinfo=timezone.utc)
+
+SITE_UPDATED = articles[0]['updated'] if articles else '2026-01-01'
+SITE_UPDATED_DT = parse_ymd(SITE_UPDATED)
+SITE_UPDATED_YMD = SITE_UPDATED_DT.strftime('%Y-%m-%d')
+SITE_UPDATED_RFC822 = SITE_UPDATED_DT.strftime('%a, %d %b %Y 00:00:00 +0000')
+SITE_UPDATED_ATOM = SITE_UPDATED_DT.strftime('%Y-%m-%dT00:00:00Z')
+COPYRIGHT_YEAR = SITE_UPDATED_DT.year
+
 # ── Static pages (with explicit priority/changefreq) ──
 # v37.37 — `/blog/` (trailing slash) listed here previously caused GSC
 # "redirect error" reports: vercel.json sets `trailingSlash: false`, so
@@ -79,7 +92,6 @@ LANDING_STUBS = []
 
 # ── sitemap.xml ──
 def build_sitemap():
-    today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
            '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"',
@@ -108,7 +120,7 @@ def build_sitemap():
     for p in STATIC_PAGES:
         zh = p['url']
         en = '/en' if zh == '/' else '/en' + zh
-        emit(zh, en, today, p['changefreq'], p['priority'])
+        emit(zh, en, SITE_UPDATED_YMD, p['changefreq'], p['priority'])
 
     # Articles (with per-article OG image). lastmod = `updated` (falls back to `date`)
     out.append('')
@@ -125,7 +137,7 @@ def build_sitemap():
     for slug in LANDING_STUBS:
         zh = f'/blog/{slug}'
         en = f'/en/blog/{slug}'
-        emit(zh, en, today, 'monthly', '0.6')
+        emit(zh, en, SITE_UPDATED_YMD, 'monthly', '0.6')
 
     # English mirror as own URL entries
     out.append('')
@@ -135,7 +147,7 @@ def build_sitemap():
         en = '/en' if zh == '/' else '/en' + zh
         out.append('  <url>')
         out.append(f'    <loc>{DOMAIN}{en}</loc>')
-        out.append(f'    <lastmod>{today}</lastmod>')
+        out.append(f'    <lastmod>{SITE_UPDATED_YMD}</lastmod>')
         out.append(f'    <changefreq>{p["changefreq"]}</changefreq>')
         # /en/ is secondary, slightly lower priority
         try: pri = max(0.3, float(p['priority']) - 0.1)
@@ -169,7 +181,6 @@ def build_sitemap():
 
 # ── feed.xml (RSS 2.0) ──
 def build_rss():
-    today = datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S +0000')
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">',
            '<channel>',
@@ -178,10 +189,10 @@ def build_rss():
            f'  <atom:link href="{DOMAIN}/blog/feed.xml" rel="self" type="application/rss+xml" />',
            '  <description>蕭閔謙醫師（眼科）整理的眼科衛教與學習筆記。每月最多 1–2 篇新文章。</description>',
            '  <language>zh-Hant-TW</language>',
-           f'  <copyright>© {datetime.now().year} HsiaoEye · {AUTHOR}</copyright>',
+           f'  <copyright>© {COPYRIGHT_YEAR} HsiaoEye · {AUTHOR}</copyright>',
            f'  <managingEditor>{EMAIL} ({AUTHOR})</managingEditor>',
            f'  <webMaster>{EMAIL} ({AUTHOR})</webMaster>',
-           f'  <lastBuildDate>{today}</lastBuildDate>',
+           f'  <lastBuildDate>{SITE_UPDATED_RFC822}</lastBuildDate>',
            '  <generator>HsiaoEye auto-feed v1 (_gen_feeds.py)</generator>',
            '  <image>',
            f'    <url>{DOMAIN}/SUNN1302-200.jpg</url>',
@@ -196,7 +207,7 @@ def build_rss():
             d = datetime.strptime(a['date'], '%Y-%m-%d').replace(tzinfo=timezone.utc)
             rfc822 = d.strftime('%a, %d %b %Y 00:00:00 +0000')
         except ValueError:
-            rfc822 = today
+            rfc822 = SITE_UPDATED_RFC822
         out.append('  <item>')
         out.append(f'    <title>{html.escape(a["title"])}</title>')
         out.append(f'    <link>{DOMAIN}/blog/{a["slug"]}</link>')
@@ -212,7 +223,6 @@ def build_rss():
 
 # ── atom.xml (Atom 1.0) ──
 def build_atom():
-    today = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-Hant-TW">',
            f'  <title>{html.escape(SITE_NAME)}</title>',
@@ -220,13 +230,13 @@ def build_atom():
            f'  <link href="{DOMAIN}/" rel="alternate" />',
            f'  <link href="{DOMAIN}/blog/atom.xml" rel="self" />',
            f'  <id>{DOMAIN}/</id>',
-           f'  <updated>{today}</updated>',
+           f'  <updated>{SITE_UPDATED_ATOM}</updated>',
            '  <author>',
            f'    <name>{html.escape(AUTHOR)}</name>',
            f'    <email>{EMAIL}</email>',
            f'    <uri>{DOMAIN}/about</uri>',
            '  </author>',
-           '  <rights>© ' + str(datetime.now().year) + ' ' + AUTHOR + '</rights>',
+           '  <rights>© ' + str(COPYRIGHT_YEAR) + ' ' + AUTHOR + '</rights>',
            f'  <generator uri="{DOMAIN}">HsiaoEye auto-feed v1</generator>',
            '']
     for a in articles[:30]:
@@ -234,7 +244,7 @@ def build_atom():
             d = datetime.strptime(a['date'], '%Y-%m-%d').replace(tzinfo=timezone.utc)
             iso = d.strftime('%Y-%m-%dT00:00:00Z')
         except ValueError:
-            iso = today
+            iso = SITE_UPDATED_ATOM
         out.append('  <entry>')
         out.append(f'    <title>{html.escape(a["title"])}</title>')
         out.append(f'    <link href="{DOMAIN}/blog/{a["slug"]}" rel="alternate" />')

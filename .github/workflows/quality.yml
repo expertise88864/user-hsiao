@@ -32,7 +32,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install Python dependencies
-        run: pip install Pillow
+        run: pip install Pillow beautifulsoup4
 
       # v37.17 — RUN HALFWIDTH FIX FIRST. Order matters: if a ZH article has
       # halfwidth punctuation, _gen_en_pages.py would mirror it into the EN
@@ -53,25 +53,25 @@ jobs:
 
       # ── Drift checks: regenerate auto-built artifacts and fail if any drifted ──
       # Catches the case where author edited an article but forgot to re-run
-      # _gen_feeds.py / _gen_og_images.py / _gen_en_pages.py.
+      # _gen_feeds.py / _gen_related.py / _gen_en_pages.py / _gen_csp_hashes.py.
+      # OG image existence is checked later by _check_og_images.py; the binary
+      # renderer is intentionally not part of drift detection because font
+      # rasterization differs across Windows author machines and Ubuntu CI.
       - name: Drift check — auto-regenerated artifacts
         run: |
-          # v37.7: parallelize independent generators. feeds + OG images are
-          # both filesystem-only and don't depend on each other; run them
-          # together. _gen_en_pages.py must finish before _gen_csp_hashes.py
-          # (CSP hashes the EN mirror's inline scripts), so those stay serial.
+          # v37.7: parallelize independent generators. _gen_en_pages.py must
+          # finish before _gen_csp_hashes.py (CSP hashes the EN mirror's inline
+          # scripts), so those stay serial.
           python _gen_feeds.py &
           PID_FEEDS=$!
-          python _gen_og_images.py &
-          PID_OG=$!
           python _gen_related.py &
           PID_REL=$!
-          wait $PID_FEEDS $PID_OG $PID_REL
+          wait $PID_FEEDS $PID_REL
           python _gen_en_pages.py
           python _gen_csp_hashes.py
           if ! git diff --quiet; then
-            echo "::warning::Auto-regenerated artifacts drifted from committed copies. Run the four _gen_*.py scripts locally before pushing:"
-            echo "::warning::  python _gen_feeds.py && python _gen_og_images.py && python _gen_en_pages.py && python _gen_csp_hashes.py"
+            echo "::warning::Auto-regenerated artifacts drifted from committed copies. Run the generator scripts locally before pushing:"
+            echo "::warning::  python _gen_feeds.py && python _gen_related.py && python _gen_en_pages.py && python _gen_csp_hashes.py"
             git diff --stat
             exit 1
           fi
