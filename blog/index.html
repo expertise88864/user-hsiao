@@ -3,7 +3,7 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260644m';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260645a';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -12,12 +12,12 @@
 <meta name="theme-color" content="#3a5a7c" />
 <meta name="keywords" content="眼科衛教，眼科文章，眼科部落格，眼科常見問題，乾眼症衛教，兒童近視，白內障，青光眼，飛蚊症，蕭閔謙醫師，HsiaoEye" />
 
-<link rel="canonical" href="https://hsiao.chendermatologist.com/blog/" />
+<link rel="canonical" href="https://hsiao.chendermatologist.com/blog" />
 <link rel="author" href="https://hsiao.chendermatologist.com/about" />
 <link rel="publisher" href="https://hsiao.chendermatologist.com/" />
-<link rel="alternate" hreflang="x-default" href="https://hsiao.chendermatologist.com/blog/" />
-<link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/" />
-<link rel="alternate" hreflang="en" href="https://hsiao.chendermatologist.com/en/blog/" />
+<link rel="alternate" hreflang="x-default" href="https://hsiao.chendermatologist.com/blog" />
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog" />
+<link rel="alternate" hreflang="en" href="https://hsiao.chendermatologist.com/en/blog" />
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png" />
 <link rel="icon" sizes="any" href="/favicon.ico" />

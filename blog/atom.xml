@@ -5,7 +5,7 @@
   <link href="https://hsiao.chendermatologist.com/" rel="alternate" />
   <link href="https://hsiao.chendermatologist.com/blog/atom.xml" rel="self" />
   <id>https://hsiao.chendermatologist.com/</id>
-  <updated>2026-05-17T15:34:41Z</updated>
+  <updated>2026-05-18T09:36:52Z</updated>
   <author>
     <name>蕭閔謙 醫師</name>
     <email>f94001115@gmail.com</email>
@@ -15,15 +15,6 @@
   <generator uri="https://hsiao.chendermatologist.com">HsiaoEye auto-feed v1</generator>
 
   <entry>
-    <title>散光人工水晶體（Toric IOL）值得嗎？</title>
-    <link href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" rel="alternate" />
-    <id>https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review</id>
-    <updated>2026-05-16T00:00:00Z</updated>
-    <published>2026-05-16T00:00:00Z</published>
-    <category term="白內障" />
-    <summary>散光人工水晶體（Toric IOL）值得嗎？ — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
-  </entry>
-  <entry>
     <title>為什麼我覺得眼睛超乾，醫師卻說沒事？</title>
     <link href="https://hsiao.chendermatologist.com/blog/dry-eye-symptom-sign-discordance-dream" rel="alternate" />
     <id>https://hsiao.chendermatologist.com/blog/dry-eye-symptom-sign-discordance-dream</id>
@@ -31,6 +22,42 @@
     <published>2026-05-16T00:00:00Z</published>
     <category term="乾眼症" />
     <summary>為什麼我覺得眼睛超乾，醫師卻說沒事？ — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+  </entry>
+  <entry>
+    <title>白內障手術深度選擇</title>
+    <link href="https://hsiao.chendermatologist.com/blog/cataract-surgery-selection" rel="alternate" />
+    <id>https://hsiao.chendermatologist.com/blog/cataract-surgery-selection</id>
+    <updated>2026-05-11T00:00:00Z</updated>
+    <published>2026-05-11T00:00:00Z</published>
+    <category term="白內障" />
+    <summary>白內障手術深度選擇 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+  </entry>
+  <entry>
+    <title>白內障手術完整衛教</title>
+    <link href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" rel="alternate" />
+    <id>https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide</id>
+    <updated>2026-05-09T00:00:00Z</updated>
+    <published>2026-05-09T00:00:00Z</published>
+    <category term="白內障" />
+    <summary>白內障手術完整衛教 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+  </entry>
+  <entry>
+    <title>淚腺腫瘤 6 個關鍵問題</title>
+    <link href="https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor" rel="alternate" />
+    <id>https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor</id>
+    <updated>2026-05-06T00:00:00Z</updated>
+    <published>2026-05-06T00:00:00Z</published>
+    <category term="淚腺腫瘤" />
+    <summary>淚腺腫瘤 6 個關鍵問題 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+  </entry>
+  <entry>
+    <title>散光人工水晶體（Toric IOL）值得嗎？</title>
+    <link href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" rel="alternate" />
+    <id>https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review</id>
+    <updated>2026-05-16T00:00:00Z</updated>
+    <published>2026-05-16T00:00:00Z</published>
+    <category term="白內障" />
+    <summary>散光人工水晶體（Toric IOL）值得嗎？ — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
   </entry>
   <entry>
     <title>監測兒童近視，該追蹤「度數」還是「眼軸」？</title>
@@ -51,15 +78,6 @@
     <summary>兒童近視控制鏡片（DIMS）有效嗎？ — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
   </entry>
   <entry>
-    <title>白內障手術深度選擇</title>
-    <link href="https://hsiao.chendermatologist.com/blog/cataract-surgery-selection" rel="alternate" />
-    <id>https://hsiao.chendermatologist.com/blog/cataract-surgery-selection</id>
-    <updated>2026-05-11T00:00:00Z</updated>
-    <published>2026-05-11T00:00:00Z</published>
-    <category term="白內障" />
-    <summary>白內障手術深度選擇 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
-  </entry>
-  <entry>
     <title>青光眼藥物與手術選擇</title>
     <link href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" rel="alternate" />
     <id>https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection</id>
@@ -78,15 +96,6 @@
     <summary>青光眼完整衛教 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
   </entry>
   <entry>
-    <title>白內障手術完整衛教</title>
-    <link href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" rel="alternate" />
-    <id>https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide</id>
-    <updated>2026-05-09T00:00:00Z</updated>
-    <published>2026-05-09T00:00:00Z</published>
-    <category term="白內障" />
-    <summary>白內障手術完整衛教 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
-  </entry>
-  <entry>
     <title>甲狀腺眼疾完整衛教</title>
     <link href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" rel="alternate" />
     <id>https://hsiao.chendermatologist.com/blog/thyroid-eye-disease</id>
@@ -94,15 +103,6 @@
     <published>2026-05-07T00:00:00Z</published>
     <category term="甲狀腺眼疾" />
     <summary>甲狀腺眼疾完整衛教 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
-  </entry>
-  <entry>
-    <title>淚腺腫瘤 6 個關鍵問題</title>
-    <link href="https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor" rel="alternate" />
-    <id>https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor</id>
-    <updated>2026-05-06T00:00:00Z</updated>
-    <published>2026-05-06T00:00:00Z</published>
-    <category term="淚腺腫瘤" />
-    <summary>淚腺腫瘤 6 個關鍵問題 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
   </entry>
   <entry>
     <title>乾眼症 8 大迷思</title>

@@ -123,6 +123,12 @@ def check(fp: Path, text: str):
                 continue
             if path.endswith('/') and path + 'index.html' in ALL_FILES:
                 continue
+            # v37.37 — with vercel.json `trailingSlash:false`, paths like /en
+            # and /en/blog (no trailing slash) ARE valid: they resolve to
+            # en/index.html and en/blog/index.html respectively. ALL_FILES
+            # stores with leading-slash, so check `path + '/index.html'`.
+            if (path + '/index.html') in ALL_FILES:
+                continue
             warnings[rel].append(f'internal link to unknown path: {href}')
 
 def main():

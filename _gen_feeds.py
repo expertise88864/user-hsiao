@@ -59,11 +59,16 @@ if m:
 articles.sort(key=lambda a: a['updated'], reverse=True)
 
 # ── Static pages (with explicit priority/changefreq) ──
+# v37.37 — `/blog/` (trailing slash) listed here previously caused GSC
+# "redirect error" reports: vercel.json sets `trailingSlash: false`, so
+# /blog/ → 308 → /blog. Sitemap and canonical must match the no-slash
+# form Vercel actually serves at 200 OK. Only `/` keeps its slash (root
+# is the one URL Vercel doesn't strip).
 STATIC_PAGES = [
     {'url': '/',              'priority': '1.0',  'changefreq': 'weekly'},
     {'url': '/about',         'priority': '0.8',  'changefreq': 'monthly'},
     {'url': '/tools',         'priority': '0.85', 'changefreq': 'monthly'},
-    {'url': '/blog/',         'priority': '0.95', 'changefreq': 'weekly'},
+    {'url': '/blog',          'priority': '0.95', 'changefreq': 'weekly'},
     {'url': '/blog/topics',   'priority': '0.7',  'changefreq': 'monthly'},
     {'url': '/notes',         'priority': '0.5',  'changefreq': 'monthly'},
     {'url': '/privacy',       'priority': '0.4',  'changefreq': 'yearly'},
@@ -102,7 +107,7 @@ def build_sitemap():
     # Static pages
     for p in STATIC_PAGES:
         zh = p['url']
-        en = '/en/' if zh == '/' else ('/en/blog/' if zh == '/blog/' else '/en' + zh)
+        en = '/en' if zh == '/' else '/en' + zh
         emit(zh, en, today, p['changefreq'], p['priority'])
 
     # Articles (with per-article OG image). lastmod = `updated` (falls back to `date`)
@@ -127,7 +132,7 @@ def build_sitemap():
     out.append('  <!-- ===== English mirror (/en/) ===== -->')
     for p in STATIC_PAGES:
         zh = p['url']
-        en = '/en/' if zh == '/' else ('/en/blog/' if zh == '/blog/' else '/en' + zh)
+        en = '/en' if zh == '/' else '/en' + zh
         out.append('  <url>')
         out.append(f'    <loc>{DOMAIN}{en}</loc>')
         out.append(f'    <lastmod>{today}</lastmod>')

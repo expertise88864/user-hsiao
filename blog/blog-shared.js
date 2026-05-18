@@ -132,15 +132,15 @@
   // ---------- article catalog ----------
   DN.ARTICLES = [
     { slug:'toric-iol-astigmatism-cataract-review', title:'散光人工水晶體（Toric IOL）值得嗎？', title_en:'Toric IOL for Cataract — Is It Worth It?', cat:'rx', tag:'白內障', tag_en:'Cataract', date:'2026-05-16' },
-    { slug:'dry-eye-symptom-sign-discordance-dream', title:'為什麼我覺得眼睛超乾，醫師卻說沒事？', title_en:'Why Do My Dry-Eye Symptoms Not Match the Exam?', cat:'research', tag:'乾眼症', tag_en:'Dry eye', date:'2026-05-16' },
+    { slug:'dry-eye-symptom-sign-discordance-dream', title:'為什麼我覺得眼睛超乾，醫師卻說沒事？', title_en:'Why Do My Dry-Eye Symptoms Not Match the Exam?', cat:'research', tag:'乾眼症', tag_en:'Dry eye', date:'2026-05-16', updated:'2026-05-18' },
     { slug:'monitoring-myopia-ser-vs-axial-length', title:'監測兒童近視，該追蹤「度數」還是「眼軸」？', title_en:'Monitoring Childhood Myopia: SER or Axial Length?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-13' },
     { slug:'dims-pediatric-myopia-control', title:'兒童近視控制鏡片（DIMS）有效嗎？', title_en:'Are DIMS Lenses Effective for Pediatric Myopia?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-12' },
-    { slug:'cataract-surgery-selection',   title:'白內障手術深度選擇',     title_en:'Cataract Surgery Selection',             cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-11' },
+    { slug:'cataract-surgery-selection',   title:'白內障手術深度選擇',     title_en:'Cataract Surgery Selection',             cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-11', updated:'2026-05-18' },
     { slug:'glaucoma-treatment-selection', title:'青光眼藥物與手術選擇',  title_en:'Glaucoma Treatment Selection',           cat:'rx',    tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-10' },
     { slug:'glaucoma-comprehensive-guide', title:'青光眼完整衛教',       title_en:'Glaucoma — Patient Education',           cat:'alert', tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-09' },
-    { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09' },
+    { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09', updated:'2026-05-18' },
     { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07', updated:'2026-05-09' },
-    { slug:'lacrimal-gland-tumor',        title:'淚腺腫瘤 6 個關鍵問題',  title_en:'6 Key Questions on Lacrimal Gland Tumor',  cat:'alert', tag:'淚腺腫瘤',  tag_en:'Lacrimal tumor',  date:'2026-05-06' },
+    { slug:'lacrimal-gland-tumor',        title:'淚腺腫瘤 6 個關鍵問題',  title_en:'6 Key Questions on Lacrimal Gland Tumor',  cat:'alert', tag:'淚腺腫瘤',  tag_en:'Lacrimal tumor',  date:'2026-05-06', updated:'2026-05-18' },
     { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         title_en:'8 Dry-Eye Myths',                        cat:'myth', tag:'乾眼症',     tag_en:'Dry Eye',         date:'2026-05-04' },
     { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  title_en:'8 Pediatric Myopia Control Myths',         cat:'myth', tag:'兒童近視',   tag_en:'Myopia control',  date:'2026-05-04' },
     { slug:'floaters-retinal-detachment', title:'飛蚊症 6 大警訊',         title_en:'6 Floater Red Flags',                     cat:'myth', tag:'飛蚊症',     tag_en:'Floaters',        date:'2026-05-04' }

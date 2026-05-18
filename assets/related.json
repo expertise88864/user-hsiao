@@ -4,14 +4,16 @@
       "slug": "cataract-comprehensive-guide",
       "reasons": [
         "same-cat",
-        "same-tag"
+        "same-tag",
+        "newer"
       ]
     },
     {
       "slug": "cataract-surgery-selection",
       "reasons": [
         "same-cat",
-        "same-tag"
+        "same-tag",
+        "newer"
       ]
     },
     {
@@ -21,8 +23,10 @@
       ]
     },
     {
-      "slug": "glaucoma-comprehensive-guide",
-      "reasons": []
+      "slug": "dry-eye-symptom-sign-discordance-dream",
+      "reasons": [
+        "newer"
+      ]
     }
   ],
   "dry-eye-symptom-sign-discordance-dream": [
@@ -110,15 +114,14 @@
   ],
   "cataract-surgery-selection": [
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "cataract-comprehensive-guide",
       "reasons": [
         "same-cat",
-        "same-tag",
-        "newer"
+        "same-tag"
       ]
     },
     {
-      "slug": "cataract-comprehensive-guide",
+      "slug": "toric-iol-astigmatism-cataract-review",
       "reasons": [
         "same-cat",
         "same-tag"
@@ -131,10 +134,8 @@
       ]
     },
     {
-      "slug": "monitoring-myopia-ser-vs-axial-length",
-      "reasons": [
-        "newer"
-      ]
+      "slug": "glaucoma-comprehensive-guide",
+      "reasons": []
     }
   ],
   "glaucoma-treatment-selection": [
@@ -155,7 +156,8 @@
     {
       "slug": "cataract-comprehensive-guide",
       "reasons": [
-        "same-cat"
+        "same-cat",
+        "newer"
       ]
     },
     {
@@ -169,7 +171,8 @@
     {
       "slug": "lacrimal-gland-tumor",
       "reasons": [
-        "same-cat"
+        "same-cat",
+        "newer"
       ]
     },
     {
@@ -197,41 +200,37 @@
       "slug": "toric-iol-astigmatism-cataract-review",
       "reasons": [
         "same-cat",
-        "same-tag",
-        "newer"
+        "same-tag"
       ]
     },
     {
       "slug": "cataract-surgery-selection",
       "reasons": [
         "same-cat",
-        "same-tag",
-        "newer"
+        "same-tag"
       ]
     },
     {
       "slug": "glaucoma-treatment-selection",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "monitoring-myopia-ser-vs-axial-length",
+      "reasons": []
+    }
+  ],
+  "thyroid-eye-disease": [
+    {
+      "slug": "lacrimal-gland-tumor",
       "reasons": [
         "same-cat",
         "newer"
       ]
     },
     {
-      "slug": "monitoring-myopia-ser-vs-axial-length",
-      "reasons": [
-        "newer"
-      ]
-    }
-  ],
-  "thyroid-eye-disease": [
-    {
       "slug": "glaucoma-comprehensive-guide",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "lacrimal-gland-tumor",
       "reasons": [
         "same-cat"
       ]
@@ -253,28 +252,22 @@
     {
       "slug": "glaucoma-comprehensive-guide",
       "reasons": [
-        "same-cat",
-        "newer"
+        "same-cat"
       ]
     },
     {
       "slug": "thyroid-eye-disease",
       "reasons": [
-        "same-cat",
-        "newer"
+        "same-cat"
       ]
     },
     {
       "slug": "dry-eye-symptom-sign-discordance-dream",
-      "reasons": [
-        "newer"
-      ]
+      "reasons": []
     },
     {
       "slug": "monitoring-myopia-ser-vs-axial-length",
-      "reasons": [
-        "newer"
-      ]
+      "reasons": []
     }
   ],
   "dry-eye-myths": [

@@ -31,8 +31,12 @@ DOMAIN = 'https://hsiao.chendermatologist.com'
 
 SKIP = {'404.html', 'offline.html', 'admin.html', 'dashboard.html'}
 
+# v37.37 — keys MUST match the EN canonical Vercel serves at 200 OK
+# (no trailing slash for /en, /en/blog — vercel.json `trailingSlash:false`
+# redirects /en/ → /en, and the previous /en/ keys here meant the generated
+# canonical pointed at the redirecting URL → GSC "redirect error" report).
 STATIC_META = {
-    '/en/': {
+    '/en': {
         'title': 'Dr. Min-Chien Hsiao Ophthalmology Notes | HsiaoEye',
         'description': 'Ophthalmology patient-education notes by Min-Chien Hsiao, MD, covering dry eye, pediatric myopia, cataract, glaucoma, retina, and common eye symptoms.'
     },
@@ -52,7 +56,7 @@ STATIC_META = {
         'title': 'Privacy Policy | HsiaoEye',
         'description': 'HsiaoEye privacy policy covering analytics, cookies, third-party services, and how visitor data is handled.'
     },
-    '/en/blog/': {
+    '/en/blog': {
         'title': 'Ophthalmology Articles | HsiaoEye',
         'description': 'A bilingual index of HsiaoEye ophthalmology patient-education articles for common eye symptoms, diseases, surgery, and red flags.'
     },
@@ -127,10 +131,11 @@ def en_path_for_same_site_url(url):
     if not isinstance(url, str) or not url.startswith(DOMAIN):
         return url
     path = url[len(DOMAIN):] or '/'
-    if path.startswith('/en/'):
+    if path.startswith('/en/') or path == '/en':
         return url
     if path == '/':
-        return DOMAIN + '/en/'
+        # v37.37 — return /en (no slash) to match what Vercel serves at 200.
+        return DOMAIN + '/en'
     if path.startswith('/blog/'):
         return DOMAIN + '/en' + path
     if path in ('/about', '/tools', '/notes', '/privacy'):
@@ -326,7 +331,46 @@ def _swap_inner_to_english(html_str):
         for child in list(en_soup.contents):
             el.append(child)
         swaps += 1
-    if swaps == 0:
+
+    # v37.37 — large Chinese-only text runs on /en/ pages were causing
+    # Google's language detector to cluster them with the ZH originals
+    # (GSC duplicate-canonical reports on cataract / lacrimal articles).
+    # Wrap each substantial untranslated block in lang="zh-Hant" so
+    # Google's segmentation knows that subtree is Chinese and the page
+    # itself is still English-dominant.
+    import re as _re
+    CN_CHAR_RE = _re.compile(r'[一-鿿]')
+    BLOCK_TAGS = {'p', 'li', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote',
+                  'figcaption', 'caption', 'summary', 'dt', 'dd', 'td', 'th',
+                  'div'}
+    annotated = 0
+    for el in soup.find_all(True):
+        if el.name not in BLOCK_TAGS:
+            continue
+        # Skip if already labelled or inside a labelled ancestor.
+        if el.get('lang'):
+            continue
+        if any(getattr(p, 'get', lambda *_: None)('lang') for p in el.parents):
+            continue
+        # Skip if it has a data-en that the swap just consumed; those
+        # are now English.
+        if el.get('data-en'):
+            continue
+        if el.find_parent(['script', 'style', 'noscript']):
+            continue
+        text = el.get_text(' ', strip=True)
+        if not text or len(text) < 15:
+            continue
+        cn_chars = len(CN_CHAR_RE.findall(text))
+        if cn_chars < 10:
+            continue   # not enough Chinese to bother labelling
+        # Only label when CJK dominates this block (>= 40%).
+        if cn_chars * 100 // max(len(text), 1) < 40:
+            continue
+        el['lang'] = 'zh-Hant'
+        annotated += 1
+
+    if swaps == 0 and annotated == 0:
         return html_str
 
     new_body_inner = soup.decode(formatter='html5')
@@ -396,22 +440,34 @@ def transform(html, zh_canonical, en_canonical, slug=None):
         '/manifest.json', '/sitemap.xml', '/apple-touch-icon', '/logo-', '/sw.js',
         '/robots.txt', '/humans.txt', '/ads.txt', '/SUNN1302',
     )
-    PREFIXABLE_PAGES = ('/', '/about', '/privacy', '/notes', '/tools', '/blog/', '/blog/topics')
+    # v37.37 — keep BOTH '/blog/' (trailing-slash) and '/blog' so a ZH href
+    # written either way maps to '/en/blog' (no slash). vercel.json's
+    # `trailingSlash:false` strips the slash, so '/en/blog' is the URL the
+    # server actually serves at 200 OK.
+    PREFIXABLE_PAGES = ('/', '/about', '/privacy', '/notes', '/tools', '/blog', '/blog/', '/blog/topics')
 
     def _en_rewrite_href(m):
         href = m.group(1)
         if not href.startswith('/'):
             return m.group(0)
-        if href.startswith('//') or href.startswith('/en/'):
+        if href.startswith('//') or href.startswith('/en/') or href == '/en':
             return m.group(0)
         # Strip query/fragment for prefix matching
         clean = href.split('?', 1)[0].split('#', 1)[0]
         # Skip asset paths
         if clean.startswith(ASSET_PREFIXES):
             return m.group(0)
-        # Single-page paths: /about, /privacy, /tools, /notes, /blog/, /blog/topics
+        # Single-page paths: /about, /privacy, /tools, /notes, /blog, /blog/topics
         if clean in PREFIXABLE_PAGES:
-            new_href = '/en' + href if href != '/' else '/en/'
+            # v37.37 — emit canonical forms (no trailing slash on /en or
+            # /en/blog) regardless of how the ZH source wrote them. Matches
+            # what vercel.json `trailingSlash:false` actually serves at 200 OK.
+            if href == '/':
+                new_href = '/en'
+            elif href == '/blog/' or href == '/blog':
+                new_href = '/en/blog'
+            else:
+                new_href = '/en' + href
             return m.group(0).replace(f'href="{href}"', f'href="{new_href}"').replace(f"href='{href}'", f"href='{new_href}'")
         # /blog/<slug> articles — check if EN mirror exists
         if clean.startswith('/blog/'):
@@ -446,7 +502,9 @@ def main():
         zh_path = os.path.join(ROOT, f)
         if f == 'index.html':
             zh_canonical = '/'
-            en_canonical = '/en/'
+            # v37.37 — /en (no trailing slash) so it matches what vercel
+            # actually serves at 200 OK.
+            en_canonical = '/en'
         else:
             stem = f[:-5]
             zh_canonical = '/' + stem
@@ -465,8 +523,11 @@ def main():
     for f in blog_files:
         zh_path = os.path.join(ROOT, 'blog', f)
         if f == 'index.html':
-            zh_canonical = '/blog/'
-            en_canonical = '/en/blog/'
+            # v37.37 — both /blog/ and /en/blog/ get redirected by Vercel
+            # (`trailingSlash:false`) to no-slash variants. Use the no-slash
+            # form in canonical / hreflang for both languages.
+            zh_canonical = '/blog'
+            en_canonical = '/en/blog'
             slug = None
         else:
             stem = f[:-5]
