@@ -43,11 +43,16 @@ def main():
         except UnicodeDecodeError:
             continue
 
+        # Only inspect real inline SVG elements in article DOM. CSS can embed
+        # SVG data URIs (for example the language select chevron); those are
+        # decorative background images and should not be treated as figures.
+        scan_html = re.sub(r'<(style|script)\b[^>]*>[\s\S]*?</\1>', '', html, flags=re.IGNORECASE)
+
         decorative_missing_hidden = 0
         meaningful_missing_desc = 0
         meaningful_missing_role = 0
 
-        for m in re.finditer(r'<svg\b[^>]*>([\s\S]*?)</svg>', html):
+        for m in re.finditer(r'<svg\b[^>]*>([\s\S]*?)</svg>', scan_html):
             svg_open = re.match(r'<svg\b[^>]*>', m.group(0)).group(0)
             body = m.group(1)
             has_title = '<title' in body

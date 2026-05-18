@@ -299,9 +299,11 @@ def _swap_inner_to_english(html_str):
     isn't tolerant of)."""
     try:
         from bs4 import BeautifulSoup
-    except ImportError:
-        print('  WARN: bs4 not installed — EN inner content swap skipped')
-        return html_str
+    except ImportError as exc:
+        raise SystemExit(
+            'ERROR: beautifulsoup4 is required for /en/ generation. '
+            'Install it with `pip install beautifulsoup4` before running _gen_en_pages.py.'
+        ) from exc
 
     # Locate the body boundaries; if no <body> found, bail without mutation.
     body_open = re.search(r'<body\b[^>]*>', html_str, re.IGNORECASE)

@@ -44,6 +44,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install Python dependencies
+        run: pip install beautifulsoup4
+
       - name: Run _gen_en_pages.py
         run: |
           python _gen_en_pages.py
@@ -61,5 +64,5 @@ jobs:
           fi
           git commit -m "ci: regen /en/ mirror [skip ci]"
           # Pull --rebase first in case admin pushed during regen (rare)
-          git pull --rebase origin main || true
+          git pull --rebase origin main
           git push
