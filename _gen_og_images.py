@@ -156,9 +156,13 @@ def render_card(article, out_dir):
     div_y = max(440, y + 30)
     d.line((68, div_y, 320, div_y), fill=BLUE_DEEP, width=3)
 
-    # Footer line: author · date
+    # Footer line: author · date · domain   (date omitted for static pages)
     f_meta = load_font(FONT_CANDIDATES_CJK, 22)
-    meta_text = f'{AUTHOR}  ·  {article["date"]}  ·  {DOMAIN.replace("https://", "")}'
+    parts = [AUTHOR]
+    if article.get('date'):
+        parts.append(article['date'])
+    parts.append(DOMAIN.replace('https://', ''))
+    meta_text = '  ·  '.join(parts)
     d.text((68, div_y + 24), meta_text, font=f_meta, fill=INK2_COLOR)
 
     # English subtitle (italic-ish via lighter weight)
@@ -215,6 +219,28 @@ def update_meta_og(slug):
             with open(p, 'w', encoding='utf-8') as f: f.write(text)
             print(f'  updated meta: {p}')
 
+STATIC_OG_PAGES = [
+    # v37.43 — OG cards for the 7 landing / utility pages. Without these,
+    # sharing https://hsiao.chendermatologist.com/about on LINE / FB / X
+    # falls back to the 5.8 MB SUNN1302.jpg or a generic site icon — both
+    # bad for CTR. Per-page cards make every share preview unique.
+    {'slug': 'home',    'title': '蕭閔謙醫師 眼科衛教筆記',
+     'title_en': 'HsiaoEye Ophthalmology Notes', 'tag': '首頁', 'tag_en': 'HOME', 'date': ''},
+    {'slug': 'about',   'title': '關於 蕭閔謙 醫師 · 眼科住院醫師',
+     'title_en': 'About Dr. Min-Chien Hsiao', 'tag': '關於', 'tag_en': 'ABOUT', 'date': ''},
+    {'slug': 'tools',   'title': '眼科自我評估工具 · OSDI / Snellen / 5 個計算機',
+     'title_en': 'Ophthalmology Self-Assessment Tools', 'tag': '工具', 'tag_en': 'TOOLS', 'date': ''},
+    {'slug': 'notes',   'title': '眼科學習筆記 · 住院醫師與醫學生',
+     'title_en': 'Ophthalmology Study Notes', 'tag': '學習', 'tag_en': 'NOTES', 'date': ''},
+    {'slug': 'privacy', 'title': '隱私權政策 · HsiaoEye',
+     'title_en': 'Privacy Policy', 'tag': '政策', 'tag_en': 'PRIVACY', 'date': ''},
+    {'slug': 'blog',    'title': '眼科衛教文章索引 · 13+ 篇深度文章',
+     'title_en': 'Ophthalmology Articles', 'tag': '文章索引', 'tag_en': 'ARTICLES', 'date': ''},
+    {'slug': 'topics',  'title': '依主題瀏覽眼科衛教 · 乾眼、近視、白內障、青光眼',
+     'title_en': 'Ophthalmology Topic Map', 'tag': '主題', 'tag_en': 'TOPICS', 'date': ''},
+]
+
+
 def main():
     # v37.12: --only-changed flag — skip OG regeneration for articles whose
     # PNG already exists and is newer than the source HTML. ~10x faster on
@@ -259,7 +285,19 @@ def main():
         png, webp = render_card(a, out_dir)
         print(f'  ok  {png}')
         update_meta_og(a['slug'])
-    print(f'Done. Generated {len(to_render)} card pairs (PNG + WebP).')
+
+    # v37.43 — static-page OG cards (home, about, tools, ...). Regenerate
+    # only if missing (these don't have a source HTML mtime to compare).
+    print()
+    print(f'Generating static-page OG cards into {out_dir}/...')
+    for s in STATIC_OG_PAGES:
+        png_path = os.path.join(out_dir, f"{s['slug']}.png")
+        if only_changed and os.path.exists(png_path):
+            continue
+        png, webp = render_card(s, out_dir)
+        print(f'  ok  {png}')
+
+    print(f'Done.')
 
 if __name__ == '__main__':
     main()
