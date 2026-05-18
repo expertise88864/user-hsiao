@@ -2681,7 +2681,22 @@
       clearTimeout(_searchEvtTimer);
       _searchEvtTimer = setTimeout(function () {
         var q = input.value.trim();
-        if (q.length >= 2 && DN.gaEvent) DN.gaEvent('search_query', { query_len: q.length });
+        if (q.length < 2) return;
+        // GA4: just length (privacy-preserving).
+        if (DN.gaEvent) DN.gaEvent('search_query', { query_len: q.length });
+        // v37.40 — POST to /api/search-log. The endpoint is rate-limited and
+        // logs ONLY when env SEARCH_LOG_ENABLED=1; otherwise 204 no-op. The
+        // author uses /api/admin/search-log to spot content gaps. We do not
+        // send IP / cookie / UA — just the query string. sendBeacon falls
+        // back to fetch so we don't block the input handler.
+        try {
+          var payload = JSON.stringify({ q: q });
+          var blob = new Blob([payload], { type: 'application/json' });
+          if (navigator.sendBeacon && navigator.sendBeacon('/api/search-log', blob)) return;
+          fetch('/api/search-log', { method: 'POST', body: payload,
+                                     headers: { 'content-type': 'application/json' },
+                                     keepalive: true }).catch(function () {});
+        } catch (e) { /* best-effort */ }
       }, 500);
     });
     input.addEventListener('keydown', function (e) {

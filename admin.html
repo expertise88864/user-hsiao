@@ -48,7 +48,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260645d';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260645e';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -607,6 +607,18 @@
         <code>DN.bindErrorReporting()</code> 把全域 error + unhandledrejection POST 到 <code>/api/errors</code>，存最近 200 筆於 KV。下方依錯誤類型、訊息開頭、發生頁面彙整。
       </div>
       <div id="errors-result"><div class="loading">點「🔄 重新載入」開始</div></div>
+
+      <!-- ─── Search query log (KV, opt-in via SEARCH_LOG_ENABLED env) ─── -->
+      <div class="toolbar" style="margin-top:24px">
+        <h2>站內搜尋查詢</h2>
+        <button type="button" class="btn" onclick="loadSearchLog()">🔄 重新載入</button>
+        <button type="button" class="btn" onclick="clearSearchLog()" style="background:#fee;color:#991b1b">🗑️ 清除全部</button>
+      </div>
+      <div class="info-card" style="margin:0 0 12px">
+        <h3>🔎 患者在 Cmd+K 搜了什麼</h3>
+        Cmd+K 輸入 ≥ 2 字會 POST 到 <code>/api/search-log</code>，僅當 Vercel 設 <code>SEARCH_LOG_ENABLED=1</code> 時才存。只記查詢字串 + 時間：不存 IP、不存 UA、不存 cookie。cap 1000 筆滾動。用來找出「患者在搜但站上沒文章」的主題。
+      </div>
+      <div id="search-log-result"><div class="loading">點「🔄 重新載入」開始</div></div>
     </div>
 
     <!-- ─────────── OPS TAB ─────────── -->
@@ -1252,6 +1264,50 @@ async function clearErrors() {
   try {
     const r = await fetch(API + '/errors?action=clear', { method: 'POST', credentials: 'include' });
     if (r.ok) loadErrors();
+    else host.innerHTML = '<div class="loading">清除失敗：' + r.status + '</div>';
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+}
+
+// ───────────────── Search query log viewer ─────────────────
+async function loadSearchLog() {
+  const host = document.getElementById('search-log-result');
+  host.innerHTML = '<div class="loading"><span class="spinner"></span>拉取搜尋查詢⋯</div>';
+  try {
+    const r = await fetch(API + '/search-log', { credentials: 'include' });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { host.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
+    if (!j.kv) {
+      host.innerHTML = '<div class="loading">KV 未設定 — 查詢沒被記錄。</div>';
+      return;
+    }
+    const note = j.note
+      ? '<div style="font-size:12px;color:#9a3412;background:#fef3c7;border:1px solid #fde68a;padding:8px 12px;border-radius:8px;margin-bottom:10px">⚠️ ' + escapeHTML(j.note) + '</div>'
+      : '';
+    if (!j.count) {
+      host.innerHTML = note + '<div class="loading">目前沒有搜尋記錄。' +
+        (j.enabled ? '（收集已啟用，等待第一筆）' : '') + '</div>';
+      return;
+    }
+    const renderRow = (rows, label) =>
+      '<h3 style="margin:14px 0 6px;font-size:14px">' + label + '</h3>' +
+      '<table class="dict-table"><thead><tr><th>' + (label.includes('日') ? '日期' : '查詢') +
+      '</th><th>次數</th></tr></thead><tbody>' +
+      rows.map(x => `<tr><td>${escapeHTML(x.key)}</td><td style="text-align:right">${x.count}</td></tr>`).join('') +
+      '</tbody></table>';
+    host.innerHTML = note +
+      '<div style="font-size:12.5px;color:var(--muted);margin-bottom:8px">共 ' + j.count + ' 筆查詢' +
+      (j.enabled ? ' · 收集中 ✓' : ' · 收集已停 (env 旗標未開)') + '</div>' +
+      renderRow(j.stats.by_query.slice(0, 30), 'Top 30 查詢') +
+      renderRow(j.stats.by_day, '依日期分布');
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+}
+
+async function clearSearchLog() {
+  if (!confirm('確定要清除所有搜尋記錄？')) return;
+  const host = document.getElementById('search-log-result');
+  try {
+    const r = await fetch(API + '/search-log?action=clear', { method: 'POST', credentials: 'include' });
+    if (r.ok) loadSearchLog();
     else host.innerHTML = '<div class="loading">清除失敗：' + r.status + '</div>';
   } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
 }

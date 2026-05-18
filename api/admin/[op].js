@@ -43,6 +43,7 @@ const HANDLERS = {
   'cwv':              () => import('./_cwv.js'),
   'errors':           () => import('./_errors.js'),
   'push-stats':       () => import('./_push-stats.js'),
+  'search-log':       () => import('./_search-log.js'),
   'md':               () => import('./_md.js'),
   'precompute-meta':  () => import('./_precompute-meta.js'),
   'purge':            () => import('./_purge.js'),
