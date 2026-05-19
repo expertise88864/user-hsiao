@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", "node_modules", ".next", "out", "dist", "__pycache__"}
+SKIP_DIRS = {".git", "node_modules", ".next", "out", "dist", "__pycache__", "playwright-report", "test-results"}
 ASSET_VERSION = "202605120530"
 
 BLOG_SHARED_PRELOAD_RE = re.compile(

@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "_bin", "tests", "pagefind"}
+SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "_bin", "tests", "pagefind", "playwright-report", "test-results"}
 # Don't scan ourselves — the check script intentionally contains the literal
 # regex pattern '-----BEGIN PRIVATE KEY-----' for detection logic.
 SKIP_SELF = {"_check_secrets.py"}

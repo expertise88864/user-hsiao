@@ -707,6 +707,10 @@ function buildArticleTemplate({ slug, titleZh, titleEn, cat, tag, tagEn, date })
 <meta property="og:image" content="https://hsiao.chendermatologist.com/assets/og/${slug}.png" />
 <meta property="og:locale" content="zh_TW" />
 <meta property="og:site_name" content="HsiaoEye" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="${titleZh}" />
+<meta name="twitter:description" content="${titleZh}" />
+<meta name="twitter:image" content="https://hsiao.chendermatologist.com/assets/og/${slug}.png" />
 
 <link rel="preload" as="style" href="/assets/app.css?v=20260648" />
 <link rel="stylesheet" href="/assets/app.css?v=20260648" />

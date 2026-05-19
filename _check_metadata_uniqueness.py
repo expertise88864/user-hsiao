@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", "node_modules", "__pycache__"}
+SKIP_DIRS = {".git", "node_modules", "__pycache__", "playwright-report", "test-results"}
 SKIP_FILES = {"404.html", "offline.html", "reset-sw.html"}
 FIELDS = {
     "title": re.compile(r"<title>([\s\S]*?)</title>", re.I),

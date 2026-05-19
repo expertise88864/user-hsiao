@@ -27,7 +27,7 @@ if hasattr(sys.stdout, "buffer"):
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", "node_modules", "__pycache__", "pagefind", "tests", "_bin"}
+SKIP_DIRS = {".git", "node_modules", "__pycache__", "pagefind", "tests", "_bin", "playwright-report", "test-results"}
 SKIP_FILES = {"offline.html", "404.html"}
 
 

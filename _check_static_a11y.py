@@ -13,7 +13,7 @@ if hasattr(sys.stdout, "buffer"):
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", "node_modules", ".next", "out", "dist"}
+SKIP_DIRS = {".git", "node_modules", ".next", "out", "dist", "playwright-report", "test-results"}
 
 
 SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[\s\S]*?</\1>", re.I)

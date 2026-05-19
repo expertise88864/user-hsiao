@@ -25,7 +25,7 @@ class LinkParser(HTMLParser):
 
 
 def html_files() -> list[Path]:
-    ignored_parts = {".git", "node_modules", ".lighthouseci"}
+    ignored_parts = {".git", "node_modules", ".lighthouseci", "playwright-report", "test-results"}
     return [
         path
         for path in ROOT.rglob("*.html")

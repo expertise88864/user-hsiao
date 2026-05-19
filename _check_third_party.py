@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", "node_modules", "__pycache__"}
+SKIP_DIRS = {".git", "node_modules", "__pycache__", "playwright-report", "test-results"}
 EAGER_CLARITY_RE = re.compile(r'<script\s+type="text/javascript">[\s\S]*?www\.clarity\.ms/tag/[\s\S]*?</script>', re.I)
 THIRD_PARTY_RE = re.compile(r'pagead2\.googlesyndication\.com/pagead/js/adsbygoogle\.js|googletagmanager\.com/gtag/js|www\.clarity\.ms/tag', re.I)
 

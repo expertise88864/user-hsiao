@@ -32,7 +32,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = 'https://hsiao.chendermatologist.com'
 
 SKIP_BASENAMES = {'404.html', 'offline.html', 'admin.html'}
-SKIP_DIRS = {'.git', 'node_modules', '.vercel', '__pycache__'}
+SKIP_DIRS = {'.git', 'node_modules', '.vercel', '__pycache__', 'playwright-report', 'test-results'}
 
 
 def url_to_path(url: str) -> str | None:

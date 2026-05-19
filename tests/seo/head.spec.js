@@ -98,9 +98,15 @@ for (const path of PUBLIC_PATHS) {
       expect(ogUrl, 'og:url must match canonical').toBe(canonical);
       const ogTitle = await page.locator('head meta[property="og:title"]').getAttribute('content');
       expect(ogTitle, 'og:title missing').toBeTruthy();
+      const ogDesc = await page.locator('head meta[property="og:description"]').getAttribute('content');
+      expect(ogDesc, 'og:description missing').toBeTruthy();
+      expect(ogDesc.length, 'og:description too short').toBeGreaterThan(45);
       const ogImage = await page.locator('head meta[property="og:image"]').getAttribute('content');
       expect(ogImage, 'og:image missing').toBeTruthy();
       expect(ogImage, 'og:image must be absolute https URL').toMatch(/^https:\/\//);
+      const twitterDesc = await page.locator('head meta[name="twitter:description"]').getAttribute('content');
+      expect(twitterDesc, 'twitter:description missing').toBeTruthy();
+      expect(twitterDesc.length, 'twitter:description too short').toBeGreaterThan(45);
 
       // 8. JSON-LD blocks must parse and agree with page language / URL.
       const ldBlocks = await page.locator('head script[type="application/ld+json"]').count();

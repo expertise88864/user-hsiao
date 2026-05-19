@@ -29,7 +29,7 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SKIP_DIRS = {'.git', 'node_modules', '.vercel', '__pycache__'}
+SKIP_DIRS = {'.git', 'node_modules', '.vercel', '__pycache__', 'playwright-report', 'test-results'}
 RASTER_EXTS = {'.png', '.jpg', '.jpeg', '.webp', '.avif', '.gif'}
 
 # Max bytes per displayed pixel (heuristic).

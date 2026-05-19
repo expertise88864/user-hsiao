@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 NODE = "node.exe" if os.name == "nt" else "node"
-SKIP_DIRS = {".git", ".lighthouseci", "node_modules", "__pycache__"}
+SKIP_DIRS = {".git", ".lighthouseci", "node_modules", "__pycache__", "playwright-report", "test-results"}
 JS_EXTENSIONS = {".js", ".mjs"}
 
 

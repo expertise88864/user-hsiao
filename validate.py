@@ -25,7 +25,7 @@ from pathlib import Path
 from collections import defaultdict
 
 ROOT = Path(__file__).parent
-SKIP_DIRS = {'.git', 'node_modules', '.vercel', '__pycache__'}
+SKIP_DIRS = {'.git', 'node_modules', '.vercel', '__pycache__', 'playwright-report', 'test-results'}
 SEO_SKIP_FILES = {'404.html', 'offline.html', 'admin.html', 'dashboard.html'}
 SEO_SKIP_DIRS = {'admin'}
 

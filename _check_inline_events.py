@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", "node_modules", "__pycache__"}
+SKIP_DIRS = {".git", "node_modules", "__pycache__", "playwright-report", "test-results"}
 SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[\s\S]*?</\1>", re.I)
 TAG_RE = re.compile(r"<[A-Za-z][^>]*>")
 INLINE_EVENT_RE = re.compile(r"\son[a-z]+\s*=", re.I)

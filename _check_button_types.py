@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-SKIP_DIRS = {".git", "node_modules", "__pycache__", "pagefind", "tests", "_bin"}
+SKIP_DIRS = {".git", "node_modules", "__pycache__", "pagefind", "tests", "_bin", "playwright-report", "test-results"}
 BUTTON_OPEN_RE = re.compile(r"<button\b([^>]*)>", re.I)
 CREATE_BUTTON_RE = re.compile(
     r"\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:document|[A-Za-z_$][\w$]*)\.createElement\((['\"])button\2\)",
