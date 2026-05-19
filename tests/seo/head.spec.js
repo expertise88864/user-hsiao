@@ -167,6 +167,19 @@ test('llms.txt indexes published articles without private paths', async ({ reque
   expect(txt).not.toMatch(/\/admin|\/api|reset-sw/);
 });
 
+test('search-index.json indexes only published bilingual articles', async ({ request }) => {
+  const r = await request.get(BASE + '/assets/search-index.json');
+  expect(r.ok()).toBeTruthy();
+  const index = await r.json();
+  expect(Array.isArray(index)).toBeTruthy();
+  expect(index.length).toBe(ARTICLE_SLUGS.length * 2);
+  for (const slug of ARTICLE_SLUGS) {
+    expect(index.some(item => item.slug === slug && item.lang === 'zh-Hant-TW' && item.url === `/blog/${slug}`), `missing zh index entry for ${slug}`).toBeTruthy();
+    expect(index.some(item => item.slug === slug && item.lang === 'en' && item.url === `/en/blog/${slug}`), `missing en index entry for ${slug}`).toBeTruthy();
+  }
+  expect(JSON.stringify(index)).not.toMatch(/cataract-surgery-faq|glaucoma-warnings|contact-lens-safety|red-eye-conjunctivitis/);
+});
+
 test('referenced core assets exist', async ({ request }) => {
   const paths = [
     '/favicon.ico',
@@ -176,6 +189,7 @@ test('referenced core assets exist', async ({ request }) => {
     '/icon-512.png',
     '/apple-touch-icon.png',
     '/logo-512.png',
+    '/assets/search-index.json',
     ...ARTICLE_SLUGS.map(slug => `/assets/og/${slug}.png`),
   ];
   for (const p of paths) {

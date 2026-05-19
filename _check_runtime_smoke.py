@@ -89,7 +89,7 @@ def run_smoke(base_url: str) -> list[str]:
     pages = [
         ("/", "home", ["DN.initBlog", 'id="dn-hub"', shared]),
         ("/blog/", "blog index", ["DN.initBlog", shared]),
-        ("/blog/acne-myths", "article", ["DN.initBlog", 'id="proseZh"', shared]),
+        ("/blog/dry-eye-myths", "article", ["DN.initBlog", 'id="proseZh"', shared]),
         ("/about", "about", ["DN.initBlog", shared]),
         ("/tools", "tools", ["DN.initBlog", shared]),
     ]
@@ -108,10 +108,12 @@ def run_smoke(base_url: str) -> list[str]:
     except json.JSONDecodeError as exc:
         errors.append(f"search-index: invalid JSON: {exc}")
         search_index = []
-    if not isinstance(search_index, list) or len(search_index) < 30:
-        errors.append("search-index: expected at least 30 indexed public pages")
-    elif not any(item.get("url") == "/blog/acne-myths" for item in search_index if isinstance(item, dict)):
-        errors.append("search-index: missing /blog/acne-myths")
+    if not isinstance(search_index, list) or len(search_index) < 20:
+        errors.append("search-index: expected bilingual published article entries")
+    elif not any(item.get("url") == "/blog/dry-eye-myths" for item in search_index if isinstance(item, dict)):
+        errors.append("search-index: missing /blog/dry-eye-myths")
+    elif any(item.get("url") == "/blog/cataract-surgery-faq" for item in search_index if isinstance(item, dict)):
+        errors.append("search-index: stub article leaked into public index")
 
     sw_body, content_type = fetch(base_url, "/sw.js")
     if "javascript" not in content_type:
