@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
  * HsiaoEye - shared runtime (zh / en)
  *
  * Includes:
@@ -2518,6 +2518,7 @@
       '#hs-cmdk-results .row.active{background:var(--blue-soft,#e3edf6);border-left-color:var(--blue-deep,#243b56)}' +
       '#hs-cmdk-results .row .t{font-family:"Noto Serif TC",Georgia,serif;font-size:14.5px;font-weight:600;line-height:1.4}' +
       '#hs-cmdk-results .row .m{font-size:11.5px;color:var(--muted,#8b8378);font-family:Inter,monospace;letter-spacing:.06em}' +
+      '#hs-cmdk-results .row .s{font-size:12px;color:var(--muted,#6e6759);line-height:1.5;letter-spacing:0;font-family:Inter,"Noto Sans TC",system-ui,sans-serif}' +
       '#hs-cmdk-empty{padding:24px;text-align:center;font-size:13px;color:var(--muted,#8b8378)}' +
       '#hs-cmdk-foot{padding:10px 20px;border-top:1px solid var(--border,#dcd5c8);font-size:11px;color:var(--muted,#8b8378);font-family:Inter,monospace;letter-spacing:.04em;display:flex;gap:14px;flex-wrap:wrap;background:var(--mint-soft,#dde7e2)}' +
       '#hs-cmdk-foot kbd{padding:1px 6px;border:1px solid var(--border,#dcd5c8);border-radius:3px;background:#fff;font-family:inherit;font-size:10.5px}';
@@ -2538,28 +2539,80 @@
     var activeIdx = 0;
     var currentMatches = [];
 
+    function cmdkEscape(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+    function cmdkLang() {
+      return ((DN.detectLang && DN.detectLang()) || (location.pathname.indexOf('/en/') === 0 ? 'en' : 'zh')) === 'en' ? 'en' : 'zh';
+    }
+    function cmdkStaticPages() {
+      var en = cmdkLang() === 'en';
+      var p = en ? '/en' : '';
+      return en ? [
+        { title: 'Eye Tools', meta: 'Tools · OSDI / DEQ-5 / SE', url: p + '/tools', search: 'tools calculator osdi deq snellen logmar spherical equivalent floaters' },
+        { title: 'Topic Map', meta: 'Topics', url: p + '/blog/topics', search: 'topics topic map glaucoma cataract myopia dry eye floaters' },
+        { title: 'About the Author', meta: 'About', url: p + '/about', search: 'about author Min-Chien Hsiao ophthalmology' },
+        { title: 'Article Index', meta: 'Articles', url: p + '/blog/', search: 'blog articles index education ophthalmology' },
+        { title: 'Privacy Policy', meta: 'Privacy', url: p + '/privacy', search: 'privacy policy' }
+      ] : [
+        { title: '量表計算器', meta: 'Tools · 5 個眼科量表', url: '/tools', search: 'tools 量表 計算 osdi deq snellen logmar se 球面 飛蚊' },
+        { title: '主題地圖', meta: 'Topic Map', url: '/blog/topics', search: 'topics 主題 地圖 青光眼 白內障 近視 乾眼 飛蚊' },
+        { title: '關於作者', meta: 'About', url: '/about', search: 'about 作者 蕭閔謙 眼科' },
+        { title: '衛教文章索引', meta: 'Articles', url: '/blog/', search: 'blog articles 文章 索引 衛教' },
+        { title: '隱私權政策', meta: 'Privacy', url: '/privacy', search: 'privacy 隱私' }
+      ];
+    }
+    function indexRowsFromGenerated(rows) {
+      var want = cmdkLang() === 'en' ? 'en' : 'zh-Hant-TW';
+      return (rows || []).filter(function (item) {
+        return item && item.lang === want && item.url && item.title;
+      }).map(function (item) {
+        var headings = Array.isArray(item.h) ? item.h.join(' ') : '';
+        return {
+          title: item.title || item.slug,
+          meta: ((item.tag || '') + (item.updated || item.date ? ' · ' + (item.updated || item.date) : '')).replace(/^ · /, ''),
+          snippet: item.snippet || '',
+          url: item.url,
+          search: [
+            item.title, item.tag, item.slug, item.snippet, headings
+          ].join(' ').toLowerCase()
+        };
+      }).concat(cmdkStaticPages());
+    }
     function buildIndex() {
-      // v36.2: stay on /en/ when the user is on an EN page.
-      var _searchUrlPrefix = (DN.urlPrefix && DN.urlPrefix()) || '';
+      var en = cmdkLang() === 'en';
+      var _searchUrlPrefix = en ? '/en' : '';
       var idx = [];
       (DN.ARTICLES || []).forEach(function (a) {
+        if (DN.isStub && DN.isStub(a.slug)) return;
         idx.push({
-          title: a.title || a.slug,
-          meta: (a.tag || '') + ' · ' + (a.date || ''),
+          title: (en && a.title_en ? a.title_en : a.title) || a.slug,
+          meta: ((en ? (a.tag_en || a.tag) : (a.tag || a.tag_en)) || '') + ' · ' + (a.updated || a.date || ''),
           url: _searchUrlPrefix + '/blog/' + a.slug,
-          search: ((a.title || '') + ' ' + (a.tag || '') + ' ' + (a.tag_en || '') + ' ' + a.slug).toLowerCase()
+          search: ((a.title || '') + ' ' + (a.title_en || '') + ' ' + (a.tag || '') + ' ' + (a.tag_en || '') + ' ' + a.slug).toLowerCase()
         });
       });
-      [
-        { title: '量表計算器', meta: 'Tools · 5 個眼科量表 (OSDI / DEQ-5 / SE …)', url: _searchUrlPrefix + '/tools', search: 'tools 量表 計算 osdi deq snellen logmar se 球面 飛蚊' },
-        { title: '主題地圖', meta: 'Topic Map', url: _searchUrlPrefix + '/blog/topics', search: 'topics 主題 地圖' },
-        { title: '關於作者', meta: 'About', url: '/about', search: 'about 作者 蕭閔謙' },
-        { title: '衛教文章索引', meta: 'Articles', url: '/blog/', search: 'blog articles 文章 索引' },
-        { title: '隱私權政策', meta: 'Privacy', url: '/privacy', search: 'privacy 隱私' }
-      ].forEach(function (it) { idx.push(it); });
-      return idx;
+      return idx.concat(cmdkStaticPages());
     }
     var INDEX = null;
+    var _cmdkIndexPromise = null;
+    function loadGeneratedSearchIndex() {
+      if (_cmdkIndexPromise) return _cmdkIndexPromise;
+      _cmdkIndexPromise = fetch('/assets/search-index.json', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (rows) {
+          if (!Array.isArray(rows)) return false;
+          INDEX = indexRowsFromGenerated(rows);
+          return true;
+        })
+        .catch(function () { return false; });
+      return _cmdkIndexPromise;
+    }
 
     // v37.19 — accessibility: focus trap + ARIA dialog semantics + focus
     // restoration. Before this, Tab/Shift+Tab in the open modal could
@@ -2567,6 +2620,9 @@
     var _cmdkPrevFocus = null;
     function open() {
       if (!INDEX) INDEX = buildIndex();
+      loadGeneratedSearchIndex().then(function (changed) {
+        if (changed && overlay.classList.contains('open')) render(input.value);
+      });
       _cmdkPrevFocus = document.activeElement;
       var modal = overlay.querySelector('#hs-cmdk-modal');
       if (modal) {
@@ -2611,7 +2667,15 @@
         matches = INDEX.slice(0, 8);
       } else {
         matches = INDEX
-          .map(function (it) { return { it: it, s: it.search.indexOf(q) >= 0 ? (it.search.indexOf(q) === 0 ? 100 : 50) : 0 }; })
+          .map(function (it) {
+            var title = (it.title || '').toLowerCase();
+            var search = (it.search || '').toLowerCase();
+            var s = 0;
+            if (title.indexOf(q) === 0) s += 120;
+            else if (title.indexOf(q) >= 0) s += 90;
+            if (search.indexOf(q) >= 0) s += 40;
+            return { it: it, s: s };
+          })
           .filter(function (x) { return x.s > 0; })
           .sort(function (x, y) { return y.s - x.s; })
           .slice(0, 10)
@@ -2621,9 +2685,10 @@
       activeIdx = 0;
       if (!matches.length) { results.innerHTML = '<div id="hs-cmdk-empty">找不到符合的內容</div>'; return; }
       results.innerHTML = matches.map(function (m, i) {
-        return '<a class="row' + (i === 0 ? ' active' : '') + '" href="' + m.url + '" data-idx="' + i + '">' +
-          '<span class="t">' + m.title + '</span>' +
-          '<span class="m">' + (m.meta || '') + '</span>' +
+        return '<a class="row' + (i === 0 ? ' active' : '') + '" href="' + cmdkEscape(m.url) + '" data-idx="' + i + '">' +
+          '<span class="t">' + cmdkEscape(m.title) + '</span>' +
+          '<span class="m">' + cmdkEscape(m.meta || '') + '</span>' +
+          (m.snippet ? '<span class="s">' + cmdkEscape(String(m.snippet).slice(0, 96)) + '</span>' : '') +
         '</a>';
       }).join('');
     }
@@ -2688,7 +2753,15 @@
         var hits = await Promise.all(search.results.slice(0, 5).map(function(r){ return r.data(); }));
         // Dedup: skip URLs already in static results
         var staticUrls = Array.prototype.map.call(results.querySelectorAll('.row'), function(a){ return a.getAttribute('href'); });
-        hits = hits.filter(function(h){ return staticUrls.indexOf(h.url) < 0; });
+        hits = hits.filter(function(h){
+          var url = h && h.url ? String(h.url) : '';
+          var activeEn = cmdkLang() === 'en';
+          var slug = (url.match(/\/blog\/([^/#?]+)/) || [])[1];
+          if (!url || staticUrls.indexOf(url) >= 0) return false;
+          if (slug && DN.isStub && DN.isStub(slug)) return false;
+          if (activeEn) return url.indexOf('/en/') === 0;
+          return url.indexOf('/en/') !== 0;
+        });
         if (!hits.length) return;
         // Append section header + hit rows
         var header = document.createElement('div');
@@ -3664,7 +3737,7 @@
     if (DN._adminLoaded) return;
     DN._adminLoaded = true;
     var s = document.createElement('script');
-    s.src = '/blog/blog-admin.js?v=20260648';
+    s.src = '/blog/blog-admin.js?v=20260649';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

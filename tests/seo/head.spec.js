@@ -180,6 +180,18 @@ test('search-index.json indexes only published bilingual articles', async ({ req
   expect(JSON.stringify(index)).not.toMatch(/cataract-surgery-faq|glaucoma-warnings|contact-lens-safety|red-eye-conjunctivitis/);
 });
 
+test('Cmd+K search finds published content and hides stubs', async ({ page }) => {
+  await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+  await page.locator('button[aria-label="搜尋"], button[aria-label="Search"]').first().click();
+  await expect(page.locator('#hs-cmdk-input')).toBeVisible();
+  await page.locator('#hs-cmdk-input').fill('乾眼症');
+  await expect(page.locator('#hs-cmdk-results .row').first()).toBeVisible();
+  await expect(page.locator('#hs-cmdk-results')).not.toContainText('cataract-surgery-faq');
+
+  await page.locator('#hs-cmdk-input').fill('cataract surgery faq');
+  await expect(page.locator('#hs-cmdk-empty')).toBeVisible();
+});
+
 test('referenced core assets exist', async ({ request }) => {
   const paths = [
     '/favicon.ico',

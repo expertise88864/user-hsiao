@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 INDEX = ROOT / "assets" / "search-index.json"
+SHARED = ROOT / "blog" / "blog-shared.js"
 
 
 def parse_catalog() -> tuple[list[str], list[str]]:
@@ -101,6 +102,14 @@ def main() -> int:
     expected_count = len(published) * 2
     if len(data) != expected_count:
         errors.append(f"expected {expected_count} entries, found {len(data)}")
+
+    shared = SHARED.read_text(encoding="utf-8")
+    if "/assets/search-index.json" not in shared:
+        errors.append("Cmd+K runtime does not fetch assets/search-index.json")
+    if "DN.isStub && DN.isStub(a.slug)" not in shared:
+        errors.append("Cmd+K catalog fallback does not filter DN.STUB_SLUGS")
+    if "cmdkEscape(" not in shared:
+        errors.append("Cmd+K runtime should HTML-escape generated result rows")
 
     if errors:
         print("[FAIL] search-index audit failed:")

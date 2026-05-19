@@ -1,4 +1,4 @@
-﻿/**
+/**
  * POST /api/admin/new — create a new article skeleton + register in blog-shared.js DN.ARTICLES.
  *
  * Body: { slug, titleZh, titleEn, tagZh, tagEn, cat }
@@ -88,12 +88,12 @@ const TEMPLATE = (vars) => `<!doctype html>
 
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260648" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260649" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260648" />
-<link rel="preload" as="style" href="/assets/article.css?v=20260648" />
-<link rel="stylesheet" href="/assets/article.css?v=20260648" />
+<link rel="stylesheet" href="/assets/app.css?v=20260649" />
+<link rel="preload" as="style" href="/assets/article.css?v=20260649" />
+<link rel="stylesheet" href="/assets/article.css?v=20260649" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -197,7 +197,7 @@ gtag('config', 'G-0ZKDQP9DNH');
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260648" defer></script>
+<script src="/blog/blog-shared.js?v=20260649" defer></script>
 <script>document.addEventListener('DOMContentLoaded', function () { if (window.DN) DN.initBlog({}); });</script>
 </body>
 </html>
