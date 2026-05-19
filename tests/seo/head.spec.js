@@ -155,6 +155,18 @@ test('sitemap.xml is valid XML and contains canonical URLs', async ({ request })
   expect(xml).not.toMatch(/cataract-surgery-faq|glaucoma-warnings|contact-lens-safety|red-eye-conjunctivitis/);
 });
 
+test('llms.txt indexes published articles without private paths', async ({ request }) => {
+  const r = await request.get(BASE + '/llms.txt');
+  expect(r.ok()).toBeTruthy();
+  const txt = await r.text();
+  expect(txt).toMatch(/^# HsiaoEye/);
+  for (const slug of ARTICLE_SLUGS) {
+    expect(txt, `missing ZH URL for ${slug}`).toContain(`${SITE}/blog/${slug}`);
+    expect(txt, `missing EN URL for ${slug}`).toContain(`${SITE}/en/blog/${slug}`);
+  }
+  expect(txt).not.toMatch(/\/admin|\/api|reset-sw/);
+});
+
 test('referenced core assets exist', async ({ request }) => {
   const paths = [
     '/favicon.ico',

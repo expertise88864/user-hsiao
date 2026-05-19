@@ -54,7 +54,7 @@ jobs:
       # ── Drift checks: regenerate auto-built artifacts and fail if any drifted ──
       # Catches the case where author edited an article but forgot to re-run
       # _gen_feeds.py / _gen_related.py / _gen_serp_meta.py /
-      # _gen_en_pages.py / _gen_csp_hashes.py.
+      # _gen_llms_txt.py / _gen_en_pages.py / _gen_csp_hashes.py.
       # OG image existence is checked later by _check_og_images.py; the binary
       # renderer is intentionally not part of drift detection because font
       # rasterization differs across Windows author machines and Ubuntu CI.
@@ -69,11 +69,12 @@ jobs:
           PID_REL=$!
           wait $PID_FEEDS $PID_REL
           python _gen_serp_meta.py
+          python _gen_llms_txt.py
           python _gen_en_pages.py
           python _gen_csp_hashes.py
           if ! git diff --quiet; then
             echo "::warning::Auto-regenerated artifacts drifted from committed copies. Run the generator scripts locally before pushing:"
-            echo "::warning::  python _gen_feeds.py && python _gen_related.py && python _gen_serp_meta.py && python _gen_en_pages.py && python _gen_csp_hashes.py"
+            echo "::warning::  python _gen_feeds.py && python _gen_related.py && python _gen_serp_meta.py && python _gen_llms_txt.py && python _gen_en_pages.py && python _gen_csp_hashes.py"
             git diff --stat
             exit 1
           fi

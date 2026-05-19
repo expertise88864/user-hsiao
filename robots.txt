@@ -111,3 +111,4 @@ User-agent: MJ12bot
 Crawl-delay: 10
 
 Sitemap: https://hsiao.chendermatologist.com/sitemap.xml
+# AI-readable site guide: https://hsiao.chendermatologist.com/llms.txt

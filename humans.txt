@@ -15,6 +15,7 @@ Build:           Pure static HTML + Tailwind CDN + PWA service worker
 Hosting:         Vercel (Hobby) — https://vercel.com
 DNS:             Cloudflare (DNS-only, not proxied) — https://www.cloudflare.com
 Repo:            https://github.com/expertise88864/user-hsiao
+AI guide:        https://hsiao.chendermatologist.com/llms.txt
 Architecture:    Sister site to /chendermatologist.com (DermNotes), shares
                  the magazine template (paper cream + ink black + Fraunces
                  italic + JetBrains Mono + Tiffany blue accents).
