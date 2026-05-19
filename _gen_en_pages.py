@@ -178,7 +178,52 @@ def translate_jsonld_value(value, _ctx_type=None):
     return value
 
 
-def update_jsonld_blocks(s):
+def localize_article_jsonld(data, slug, title, desc, en_canonical):
+    if not slug or slug not in ARTICLES:
+        return data
+    title_clean = re.sub(r'\s*\|\s*HsiaoEye\s*$', '', title or '').strip()
+    if not title_clean:
+        title_clean = ARTICLES[slug].get('title_en') or ARTICLES[slug].get('title') or slug
+    page_url = f'{DOMAIN}{en_canonical}'
+
+    def types_of(obj):
+        value = obj.get('@type')
+        if isinstance(value, list):
+            return set(str(x) for x in value)
+        return {str(value)} if value else set()
+
+    def walk(obj):
+        if isinstance(obj, list):
+            return [walk(x) for x in obj]
+        if not isinstance(obj, dict):
+            return obj
+
+        out = {k: walk(v) for k, v in obj.items()}
+        type_names = types_of(out)
+        if type_names & {'Article', 'BlogPosting', 'NewsArticle', 'MedicalWebPage', 'MedicalScholarlyArticle'}:
+            if 'headline' in out:
+                out['headline'] = title_clean
+            if 'name' in out:
+                out['name'] = title_clean
+            if 'description' in out and desc:
+                out['description'] = desc
+            if 'mainEntityOfPage' in out:
+                out['mainEntityOfPage'] = page_url
+            if 'url' in out:
+                out['url'] = page_url
+        if 'BreadcrumbList' in type_names:
+            items = out.get('itemListElement')
+            if isinstance(items, list) and items:
+                last = items[-1]
+                if isinstance(last, dict):
+                    last['name'] = title_clean
+                    last['item'] = page_url
+        return out
+
+    return walk(data)
+
+
+def update_jsonld_blocks(s, slug=None, title='', desc='', en_canonical=''):
     def repl(m):
         raw = m.group(1).strip()
         try:
@@ -186,6 +231,7 @@ def update_jsonld_blocks(s):
         except Exception:
             return m.group(0)
         data = translate_jsonld_value(data)
+        data = localize_article_jsonld(data, slug, title, desc, en_canonical)
         dumped = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
         return f'<script type="application/ld+json">\n{dumped}\n</script>'
     return re.sub(r'<script\s+type="application/ld\+json">([\s\S]*?)</script>', repl, s)
@@ -409,8 +455,8 @@ def transform(html, zh_canonical, en_canonical, slug=None):
         s, count=1
     )
 
-    # 4. JSON-LD URLs and language.
-    s = update_jsonld_blocks(s)
+    # 4. JSON-LD URLs, language, and article-facing English labels.
+    s = update_jsonld_blocks(s, slug=slug, title=title, desc=desc, en_canonical=en_canonical)
 
     # 5. Inject EN_LANG_BOOTSTRAP just before blog-shared.js.
     s = re.sub(
