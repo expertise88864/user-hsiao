@@ -21,6 +21,7 @@ DOMAIN = 'https://hsiao.chendermatologist.com'
 SITE_NAME = 'HsiaoEye · 蕭閔謙醫師 眼科筆記'
 AUTHOR = '蕭閔謙 醫師'
 EMAIL = 'f94001115@gmail.com'
+FEED_DESCRIPTION = '蕭閔謙醫師的眼科筆記，整理眼科衛教、疾病警訊與實用就醫資訊。'
 
 # ── Parse DN.ARTICLES from blog/blog-shared.js ──
 with open('blog/blog-shared.js', 'r', encoding='utf-8') as f:
@@ -57,6 +58,60 @@ if m:
             })
 
 articles.sort(key=lambda a: a['updated'], reverse=True)
+
+def clean_text(value):
+    value = html.unescape(value or '')
+    value = re.sub(r'<[^>]+>', ' ', value)
+    return re.sub(r'\s+', ' ', value).strip()
+
+def meta_content(path, key, attr='name'):
+    try:
+        src = open(path, encoding='utf-8').read()
+    except OSError:
+        return ''
+    m = re.search(rf'<meta\s+{attr}="{re.escape(key)}"\s+content="([^"]*)"\s*/?>', src, re.I)
+    return clean_text(m.group(1)) if m else ''
+
+def html_title(path):
+    try:
+        src = open(path, encoding='utf-8').read()
+    except OSError:
+        return ''
+    m = re.search(r'<title>([^<]+)</title>', src, re.I)
+    if not m:
+        return ''
+    return re.sub(r'\s*\|\s*HsiaoEye.*$', '', clean_text(m.group(1))).strip()
+
+def article_title(a, lang='zh'):
+    if lang == 'en':
+        path = os.path.join('en', 'blog', f'{a["slug"]}.html')
+        return html_title(path) or a.get('title_en') or a.get('title') or a['slug']
+    path = os.path.join('blog', f'{a["slug"]}.html')
+    return html_title(path) or a.get('title') or a['slug']
+
+def article_summary(a, lang='zh'):
+    path = os.path.join('en', 'blog', f'{a["slug"]}.html') if lang == 'en' else os.path.join('blog', f'{a["slug"]}.html')
+    desc = meta_content(path, 'description')
+    if desc:
+        return desc
+    title = article_title(a, lang=lang)
+    if lang == 'en':
+        return f'{title} - Ophthalmology patient education by {AUTHOR}.'
+    return f'{title} - {AUTHOR}整理的眼科衛教文章。'
+
+def rfc822_date(date_str):
+    try:
+        d = datetime.strptime(date_str, '%Y-%m-%d').replace(tzinfo=timezone.utc)
+    except (TypeError, ValueError):
+        d = SITE_UPDATED_DT
+    return d.strftime('%a, %d %b %Y 00:00:00 +0000')
+
+def atom_date(date_str):
+    try:
+        d = datetime.strptime(date_str, '%Y-%m-%d').replace(tzinfo=timezone.utc)
+    except (TypeError, ValueError):
+        d = SITE_UPDATED_DT
+    return d.strftime('%Y-%m-%dT00:00:00Z')
 
 def parse_ymd(date_str, fallback='2026-01-01'):
     try:
@@ -187,7 +242,7 @@ def build_rss():
            f'  <title>{html.escape(SITE_NAME)}</title>',
            f'  <link>{DOMAIN}/</link>',
            f'  <atom:link href="{DOMAIN}/blog/feed.xml" rel="self" type="application/rss+xml" />',
-           '  <description>蕭閔謙醫師（眼科）整理的眼科衛教與學習筆記。每月最多 1–2 篇新文章。</description>',
+           f'  <description>{html.escape(FEED_DESCRIPTION)}</description>',
            '  <language>zh-Hant-TW</language>',
            f'  <copyright>© {COPYRIGHT_YEAR} HsiaoEye · {AUTHOR}</copyright>',
            f'  <managingEditor>{EMAIL} ({AUTHOR})</managingEditor>',
@@ -203,19 +258,25 @@ def build_rss():
            '  </image>',
            '']
     for a in articles[:30]:
-        try:
-            d = datetime.strptime(a['date'], '%Y-%m-%d').replace(tzinfo=timezone.utc)
-            rfc822 = d.strftime('%a, %d %b %Y 00:00:00 +0000')
-        except ValueError:
-            rfc822 = SITE_UPDATED_RFC822
+        url = f'{DOMAIN}/blog/{a["slug"]}'
+        title = article_title(a)
+        summary = article_summary(a)
+        rfc822 = rfc822_date(a['date'])
+        og = f'{DOMAIN}/assets/og/{a["slug"]}.png'
+        content = (
+            f'<p>{html.escape(summary)}</p>'
+            f'<p><a href="{html.escape(url)}">閱讀全文</a></p>'
+        )
         out.append('  <item>')
-        out.append(f'    <title>{html.escape(a["title"])}</title>')
-        out.append(f'    <link>{DOMAIN}/blog/{a["slug"]}</link>')
-        out.append(f'    <guid isPermaLink="true">{DOMAIN}/blog/{a["slug"]}</guid>')
+        out.append(f'    <title>{html.escape(title)}</title>')
+        out.append(f'    <link>{url}</link>')
+        out.append(f'    <guid isPermaLink="true">{url}</guid>')
         out.append(f'    <pubDate>{rfc822}</pubDate>')
         out.append(f'    <dc:creator>{html.escape(AUTHOR)}</dc:creator>')
         out.append(f'    <category>{html.escape(a["tag"])}</category>')
-        out.append(f'    <description>{html.escape(a["title"])} — {html.escape(AUTHOR)}（眼科）整理的衛教文章。</description>')
+        out.append(f'    <description>{html.escape(summary)}</description>')
+        out.append(f'    <enclosure url="{og}" length="0" type="image/png" />')
+        out.append(f'    <content:encoded><![CDATA[{content}]]></content:encoded>')
         out.append('  </item>')
     out.append('</channel>')
     out.append('</rss>')
@@ -226,7 +287,7 @@ def build_atom():
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-Hant-TW">',
            f'  <title>{html.escape(SITE_NAME)}</title>',
-           '  <subtitle>眼科衛教與學習筆記</subtitle>',
+           f'  <subtitle>{html.escape(FEED_DESCRIPTION)}</subtitle>',
            f'  <link href="{DOMAIN}/" rel="alternate" />',
            f'  <link href="{DOMAIN}/blog/atom.xml" rel="self" />',
            f'  <id>{DOMAIN}/</id>',
@@ -240,19 +301,21 @@ def build_atom():
            f'  <generator uri="{DOMAIN}">HsiaoEye auto-feed v1</generator>',
            '']
     for a in articles[:30]:
-        try:
-            d = datetime.strptime(a['date'], '%Y-%m-%d').replace(tzinfo=timezone.utc)
-            iso = d.strftime('%Y-%m-%dT00:00:00Z')
-        except ValueError:
-            iso = SITE_UPDATED_ATOM
+        url = f'{DOMAIN}/blog/{a["slug"]}'
+        en_url = f'{DOMAIN}/en/blog/{a["slug"]}'
+        title = article_title(a)
+        summary = article_summary(a)
+        published_iso = atom_date(a['date'])
+        updated_iso = atom_date(a.get('updated') or a.get('date'))
         out.append('  <entry>')
-        out.append(f'    <title>{html.escape(a["title"])}</title>')
-        out.append(f'    <link href="{DOMAIN}/blog/{a["slug"]}" rel="alternate" />')
-        out.append(f'    <id>{DOMAIN}/blog/{a["slug"]}</id>')
-        out.append(f'    <updated>{iso}</updated>')
-        out.append(f'    <published>{iso}</published>')
+        out.append(f'    <title>{html.escape(title)}</title>')
+        out.append(f'    <link href="{url}" rel="alternate" />')
+        out.append(f'    <link href="{en_url}" rel="alternate" hreflang="en" />')
+        out.append(f'    <id>{url}</id>')
+        out.append(f'    <updated>{updated_iso}</updated>')
+        out.append(f'    <published>{published_iso}</published>')
         out.append(f'    <category term="{html.escape(a["tag"])}" />')
-        out.append(f'    <summary>{html.escape(a["title"])} — {html.escape(AUTHOR)}（眼科）整理的衛教文章。</summary>')
+        out.append(f'    <summary>{html.escape(summary)}</summary>')
         out.append('  </entry>')
     out.append('</feed>')
     return '\n'.join(out) + '\n'

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-Hant-TW">
   <title>HsiaoEye · 蕭閔謙醫師 眼科筆記</title>
-  <subtitle>眼科衛教與學習筆記</subtitle>
+  <subtitle>蕭閔謙醫師的眼科筆記，整理眼科衛教、疾病警訊與實用就醫資訊。</subtitle>
   <link href="https://hsiao.chendermatologist.com/" rel="alternate" />
   <link href="https://hsiao.chendermatologist.com/blog/atom.xml" rel="self" />
   <id>https://hsiao.chendermatologist.com/</id>
@@ -15,120 +15,133 @@
   <generator uri="https://hsiao.chendermatologist.com">HsiaoEye auto-feed v1</generator>
 
   <entry>
-    <title>為什麼我覺得眼睛超乾，醫師卻說沒事？</title>
+    <title>為什麼我覺得眼睛超乾，醫師卻說沒事？2026 DREAM 研究 535 人分析「症狀-徵象不一致」現象</title>
     <link href="https://hsiao.chendermatologist.com/blog/dry-eye-symptom-sign-discordance-dream" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/dry-eye-symptom-sign-discordance-dream" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/dry-eye-symptom-sign-discordance-dream</id>
-    <updated>2026-05-16T00:00:00Z</updated>
+    <updated>2026-05-18T00:00:00Z</updated>
     <published>2026-05-16T00:00:00Z</published>
     <category term="乾眼症" />
-    <summary>為什麼我覺得眼睛超乾，醫師卻說沒事？ — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>乾眼症為什麼主觀很乾、檢查卻還好？DREAM 試驗 535 位中重度乾眼分析顯示 77% 症狀與徵象不一致，整理 4 型分佈、治療選擇與台灣健保給付。</summary>
   </entry>
   <entry>
-    <title>白內障手術深度選擇</title>
+    <title>白內障手術深度選擇 — 術式、人工水晶體、健保 vs 自費完整解析</title>
     <link href="https://hsiao.chendermatologist.com/blog/cataract-surgery-selection" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/cataract-surgery-selection" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/cataract-surgery-selection</id>
-    <updated>2026-05-11T00:00:00Z</updated>
+    <updated>2026-05-18T00:00:00Z</updated>
     <published>2026-05-11T00:00:00Z</published>
     <category term="白內障" />
-    <summary>白內障手術深度選擇 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>白內障手術怎麼選才不被話術牽著走？比較超音波、飛秒雷射、MSICS、IOL 分類、Monovision、散光矯正、度數計算公式、健保與自費差異，整理台灣實務重點。</summary>
   </entry>
   <entry>
-    <title>白內障手術完整衛教</title>
+    <title>白內障手術完整衛教 — 何時開刀、人工水晶體怎麼選、併發症與恢復</title>
     <link href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide</id>
-    <updated>2026-05-09T00:00:00Z</updated>
+    <updated>2026-05-18T00:00:00Z</updated>
     <published>2026-05-09T00:00:00Z</published>
     <category term="白內障" />
-    <summary>白內障手術完整衛教 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>白內障什麼時候該開刀？人工水晶體怎麼選？整合 AAO、AAPPO、ESCRS 指引，整理視力以外的手術時機、單焦/散光/EDOF/多焦 IOL 取捨、飛秒雷射與術後恢復。</summary>
   </entry>
   <entry>
-    <title>淚腺腫瘤 6 個關鍵問題</title>
+    <title>淚腺腫瘤 6 個關鍵問題 — 為什麼會痛？能保留眼球嗎？</title>
     <link href="https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/lacrimal-gland-tumor" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor</id>
-    <updated>2026-05-06T00:00:00Z</updated>
+    <updated>2026-05-18T00:00:00Z</updated>
     <published>2026-05-06T00:00:00Z</published>
     <category term="淚腺腫瘤" />
-    <summary>淚腺腫瘤 6 個關鍵問題 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>眼睛凸出來、淚腺區疼痛、視力下降 — 可能是淚腺腫瘤（尤其腺樣囊狀癌 ACC)。整理 IJO 2024 Meta-analysis、MD Anderson 質子治療與動脈內化療最新證據，回答家長與病友最常問的 6 個問題：診斷、治療選項、保留眼球可行嗎？放療後視力會剩多少？蕭閔謙醫師（眼科）整理。</summary>
   </entry>
   <entry>
-    <title>散光人工水晶體（Toric IOL）值得嗎？</title>
+    <title>散光人工水晶體（Toric IOL）值得嗎？適合誰、效果多好、有什麼風險｜2026 國際整合性回顧</title>
     <link href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review</id>
     <updated>2026-05-16T00:00:00Z</updated>
     <published>2026-05-16T00:00:00Z</published>
     <category term="白內障" />
-    <summary>散光人工水晶體（Toric IOL）值得嗎？ — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>2026 年 ESCRS 整合性回顧：散光人工水晶體 Toric IOL 適應症（≥1.0 D 規則散光）、術前評估、計算公式、旋轉風險（90-97% 內 5°）、特殊族群（雷射術後/圓錐角膜/PEX/角膜移植後）注意事項、台灣全自費現況。蕭閔謙醫師整理。</summary>
   </entry>
   <entry>
-    <title>監測兒童近視，該追蹤「度數」還是「眼軸」？</title>
+    <title>監測兒童近視，該追蹤「度數」還是「眼軸」？2026 統合分析的新觀點</title>
     <link href="https://hsiao.chendermatologist.com/blog/monitoring-myopia-ser-vs-axial-length" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/monitoring-myopia-ser-vs-axial-length" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/monitoring-myopia-ser-vs-axial-length</id>
     <updated>2026-05-13T00:00:00Z</updated>
     <published>2026-05-13T00:00:00Z</published>
     <category term="兒童近視" />
-    <summary>監測兒童近視，該追蹤「度數」還是「眼軸」？ — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>Clark &amp; Wong 2026 AJO 統合分析（70 篇人群研究）：大多數兒童應以等價球面度數（SER）為近視監測主軸，眼軸長度（AL）保留給長尾族群。整理眼軸/度數對視網膜、白內障、青光眼的預測力與證據限制。</summary>
   </entry>
   <entry>
-    <title>兒童近視控制鏡片（DIMS）有效嗎？</title>
+    <title>兒童近視控制鏡片（DIMS）有效嗎？2026 新整合分析重點解析</title>
     <link href="https://hsiao.chendermatologist.com/blog/dims-pediatric-myopia-control" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/dims-pediatric-myopia-control" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/dims-pediatric-myopia-control</id>
     <updated>2026-05-12T00:00:00Z</updated>
     <published>2026-05-12T00:00:00Z</published>
     <category term="兒童近視" />
-    <summary>兒童近視控制鏡片（DIMS）有效嗎？ — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>DIMS 鏡片 12 個月可比單焦鏡片多保留約 0.37 D 度數、少增長 0.16 mm 眼軸。整合 2026 AJO 統合分析（6 篇 RCT、1224 位兒童）、Lam 2020/2023 與 Cochrane 2023 living review，蕭閔謙醫師（眼科）解析。</summary>
   </entry>
   <entry>
-    <title>青光眼藥物與手術選擇</title>
+    <title>青光眼藥物與手術選擇 — 醫師決策邏輯、副作用與台灣現況</title>
     <link href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection</id>
     <updated>2026-05-10T00:00:00Z</updated>
     <published>2026-05-10T00:00:00Z</published>
     <category term="青光眼" />
-    <summary>青光眼藥物與手術選擇 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>青光眼治療怎麼選？整理 SLT 雷射與藥物第一線、前列腺素類副作用、複方眼藥水、加藥/換藥邏輯、MIGS、傳統手術階梯、閉角型路徑與台灣健保現況。</summary>
   </entry>
   <entry>
-    <title>青光眼完整衛教</title>
+    <title>青光眼完整衛教 — 沉默的視力小偷、急性發作警訊、治療階梯</title>
     <link href="https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/glaucoma-comprehensive-guide" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide</id>
     <updated>2026-05-09T00:00:00Z</updated>
     <published>2026-05-09T00:00:00Z</published>
     <category term="青光眼" />
-    <summary>青光眼完整衛教 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>青光眼早期常沒有症狀，何時要篩檢？整合 AAO、NICE、EGS 指引與台灣數據，整理開角/閉角/正常眼壓型分類、急性閉角紅旗、SLT、藥物、手術與居家照護。</summary>
   </entry>
   <entry>
-    <title>甲狀腺眼疾完整衛教</title>
+    <title>甲狀腺眼疾（TED / Graves&#x27; Orbitopathy）完整衛教 — 病因、警訊、治療階梯</title>
     <link href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/thyroid-eye-disease</id>
-    <updated>2026-05-07T00:00:00Z</updated>
+    <updated>2026-05-09T00:00:00Z</updated>
     <published>2026-05-07T00:00:00Z</published>
     <category term="甲狀腺眼疾" />
-    <summary>甲狀腺眼疾完整衛教 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。</summary>
   </entry>
   <entry>
-    <title>乾眼症 8 大迷思</title>
+    <title>乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎？</title>
     <link href="https://hsiao.chendermatologist.com/blog/dry-eye-myths" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/dry-eye-myths" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/dry-eye-myths</id>
     <updated>2026-05-04T00:00:00Z</updated>
     <published>2026-05-04T00:00:00Z</published>
     <category term="乾眼症" />
-    <summary>乾眼症 8 大迷思 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>點人工淚液會依賴？流淚就不是乾眼？葉黃素能治乾眼？整理 8 個常見乾眼迷思，說明 BAK 防腐劑、Omega-3 證據、瞼板腺熱敷、何時該就醫檢查。</summary>
   </entry>
   <entry>
-    <title>兒童近視控制 8 大迷思</title>
+    <title>兒童近視控制 8 大迷思 — 阿托品、OK 鏡、紅光、戶外時間</title>
     <link href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/pediatric-myopia-control" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/pediatric-myopia-control</id>
     <updated>2026-05-04T00:00:00Z</updated>
     <published>2026-05-04T00:00:00Z</published>
     <category term="兒童近視" />
-    <summary>兒童近視控制 8 大迷思 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>阿托品 0.01% / 0.05% 哪個有效?OK 鏡會傷角膜嗎？紅光治療安全嗎？多焦點離焦鏡片是什麼？戶外 2 小時真的能預防近視?8 個家長最常問的兒童近視控制問題，引用 LAMP / ATOM / DIMS / RLRL 等大型研究，蕭閔謙醫師（眼科）整理。</summary>
   </entry>
   <entry>
-    <title>飛蚊症 6 大警訊</title>
+    <title>飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！</title>
     <link href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/floaters-retinal-detachment" rel="alternate" hreflang="en" />
     <id>https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment</id>
     <updated>2026-05-04T00:00:00Z</updated>
     <published>2026-05-04T00:00:00Z</published>
     <category term="飛蚊症" />
-    <summary>飛蚊症 6 大警訊 — 蕭閔謙 醫師（眼科）整理的衛教文章。</summary>
+    <summary>飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Eye 2010 大型研究，蕭閔謙醫師（眼科）整理。</summary>
   </entry>
 </feed>
