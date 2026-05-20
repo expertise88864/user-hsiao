@@ -39,6 +39,14 @@ def main() -> int:
         errors.append("api/sitemap.js should parse DN.ARTICLES updated dates")
     if "b.updated || b.date" not in api or "a.updated || a.date" not in api:
         errors.append("api/sitemap.js should sort articles by updated date first")
+    if "new Date().toISOString().slice(0, 10)" in api:
+        errors.append("api/sitemap.js should not stamp static sitemap URLs with request-time dates")
+    if "const siteUpdated = articles[0]?.updated || articles[0]?.date" not in api:
+        errors.append("api/sitemap.js should derive static lastmod from the newest article update")
+    if "emit(p.url, en, siteUpdated, p.changefreq, p.priority)" not in api:
+        errors.append("api/sitemap.js static zh URLs should use stable siteUpdated lastmod")
+    if "<lastmod>${siteUpdated}</lastmod>" not in api:
+        errors.append("api/sitemap.js static EN URLs should use stable siteUpdated lastmod")
 
     en_article_section = re.search(r"articles\.forEach\(a => \{[\s\S]*?DOMAIN\}/en/blog/\$\{a\.slug\}[\s\S]*?\}\);", api)
     section = en_article_section.group(0) if en_article_section else ""

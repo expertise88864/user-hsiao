@@ -133,7 +133,7 @@ export default async function handler(req, res) {
     articles.sort((a, b) => (b.updated || b.date || '').localeCompare(a.updated || a.date || ''));
     const tArt = Date.now() - tArt0;
 
-    const today = new Date().toISOString().slice(0, 10);
+    const siteUpdated = articles[0]?.updated || articles[0]?.date || '2026-01-01';
 
     // Fetch real lastmods from git for each article (best-effort)
     const tLm0 = Date.now();
@@ -152,7 +152,7 @@ export default async function handler(req, res) {
 
     STATIC_PAGES.forEach(p => {
       const en = p.url === '/' ? '/en' : '/en' + p.url;
-      lines.push(emit(p.url, en, today, p.changefreq, p.priority));
+      lines.push(emit(p.url, en, siteUpdated, p.changefreq, p.priority));
     });
 
     lines.push('', '  <!-- ===== Published articles ===== -->');
@@ -168,7 +168,7 @@ export default async function handler(req, res) {
       const pri = Math.max(0.3, parseFloat(p.priority) - 0.1).toFixed(2);
       lines.push('  <url>',
         `    <loc>${DOMAIN}${en}</loc>`,
-        `    <lastmod>${today}</lastmod>`,
+        `    <lastmod>${siteUpdated}</lastmod>`,
         `    <changefreq>${p.changefreq}</changefreq>`,
         `    <priority>${pri}</priority>`,
         `    <xhtml:link rel="alternate" hreflang="x-default"  href="${DOMAIN}${p.url}" />`,
