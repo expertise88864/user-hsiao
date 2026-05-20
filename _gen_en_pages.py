@@ -217,6 +217,11 @@ def localize_article_jsonld(data, slug, title, desc, en_canonical):
                 out['mainEntityOfPage'] = page_url
             if 'url' in out:
                 out['url'] = page_url
+        if 'ImageObject' in type_names:
+            image_url = out.get('url') or out.get('contentUrl')
+            if isinstance(image_url, str) and f'/assets/og/{slug}.png' in image_url:
+                out['name'] = title_clean
+                out['caption'] = title_clean
         if 'BreadcrumbList' in type_names:
             items = out.get('itemListElement')
             if isinstance(items, list) and items:

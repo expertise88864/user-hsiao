@@ -90,6 +90,42 @@ def jsonld_article_images(src: str) -> list[str]:
     return images
 
 
+def image_object_issues(image, expected: str) -> list[str]:
+    if not isinstance(image, dict):
+        return ['image is not an ImageObject']
+    issues = []
+    if image.get('@type') != 'ImageObject':
+        issues.append('image @type is not ImageObject')
+    if image.get('url') != expected:
+        issues.append('image.url does not match OG card')
+    if image.get('contentUrl') != expected:
+        issues.append('image.contentUrl does not match OG card')
+    if image.get('width') != 1200:
+        issues.append('image.width must be 1200')
+    if image.get('height') != 630:
+        issues.append('image.height must be 630')
+    if bad_alt(str(image.get('caption') or image.get('name') or '')):
+        issues.append('image needs descriptive name/caption')
+    return issues
+
+
+def jsonld_article_image_object_issues(src: str, expected: str) -> list[str]:
+    issues = []
+    for raw in re.findall(r'<script\s+type="application/ld\+json"[^>]*>(.*?)</script>', src, re.S):
+        try:
+            data = json.loads(raw.strip())
+        except Exception:
+            continue
+        if not isinstance(data, dict):
+            continue
+        if not (type_names(data) & {'Article', 'BlogPosting', 'MedicalScholarlyArticle'}):
+            continue
+        issues.extend(image_object_issues(data.get('image'), expected))
+        if data.get('thumbnailUrl') != expected:
+            issues.append('thumbnailUrl does not match OG card')
+    return issues
+
+
 def main():
     if not os.path.isdir(OG_DIR):
         print(f'[FAIL] OG directory missing: {OG_DIR}')
@@ -118,6 +154,7 @@ def main():
 
     mismatched_meta = []
     mismatched_jsonld = []
+    weak_jsonld_images = []
     missing_alt = []
     for slug in published:
         path = os.path.join(ROOT, 'blog', slug + '.html')
@@ -135,6 +172,9 @@ def main():
         images = jsonld_article_images(src)
         if expected not in images:
             mismatched_jsonld.append(f'{slug}: Article JSON-LD image must include {expected}')
+        image_issues = jsonld_article_image_object_issues(src, expected)
+        if image_issues:
+            weak_jsonld_images.append(f'{slug}: ' + '; '.join(image_issues))
 
     for rel in public_html_paths(published):
         path = os.path.join(ROOT, rel)
@@ -159,13 +199,19 @@ def main():
             print('  - ' + item)
         issues += len(mismatched_jsonld)
 
+    if weak_jsonld_images:
+        print('[FAIL] Published article JSON-LD images must be rich ImageObject nodes:')
+        for item in weak_jsonld_images:
+            print('  - ' + item)
+        issues += len(weak_jsonld_images)
+
     if missing_alt:
         print('[FAIL] Public pages with social images must include descriptive image alt metadata:')
         for item in missing_alt:
             print('  - ' + item)
         issues += len(missing_alt)
 
-    if not missing_article and not missing_static and not mismatched_meta and not mismatched_jsonld and not missing_alt:
+    if not missing_article and not missing_static and not mismatched_meta and not mismatched_jsonld and not weak_jsonld_images and not missing_alt:
         print(f'[OK] OG image audit passed — all {len(published)} articles '
               f'+ {len(STATIC_OG_SLUGS)} static pages have /assets/og/<slug>.png '
               f'on disk and wired into social + Article JSON-LD metadata')

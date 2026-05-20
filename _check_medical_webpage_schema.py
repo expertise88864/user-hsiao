@@ -43,6 +43,12 @@ def ref_id(value) -> str:
     return str(value.get("@id") or "") if isinstance(value, dict) else str(value or "")
 
 
+def image_url(value) -> str:
+    if isinstance(value, dict):
+        return str(value.get("url") or value.get("contentUrl") or "")
+    return str(value or "")
+
+
 def audit_page(path: Path, canonical_path: str, slug: str) -> list[str]:
     errors: list[str] = []
     url = f"{DOMAIN}{canonical_path}"
@@ -69,15 +75,21 @@ def audit_page(path: Path, canonical_path: str, slug: str) -> list[str]:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: Article @id mismatch")
     if article.get("mainEntityOfPage") != url:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: Article mainEntityOfPage mismatch")
-    if article.get("image") != image:
+    if image_url(article.get("image")) != image:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: Article image mismatch")
+    if article.get("thumbnailUrl") != image:
+        errors.append(f"{path.relative_to(ROOT).as_posix()}: Article thumbnailUrl mismatch")
 
     if webpage.get("@id") != webpage_id:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage @id mismatch")
     if webpage.get("url") != url:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage url mismatch")
-    if webpage.get("image") != image:
+    if image_url(webpage.get("image")) != image:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage image mismatch")
+    if webpage.get("thumbnailUrl") != image:
+        errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage thumbnailUrl mismatch")
+    if ref_id(webpage.get("primaryImageOfPage")) != f"{url}#primaryimage":
+        errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage primaryImageOfPage mismatch")
     if ref_id(webpage.get("mainEntity")) != article_id:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage mainEntity must point to Article @id")
     if len(str(webpage.get("description") or "")) < 50:

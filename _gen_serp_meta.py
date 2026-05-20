@@ -109,6 +109,19 @@ def head_title(src: str) -> str:
     return html.unescape(m.group(1)).strip()
 
 
+def image_object(page_url: str, image_url: str, alt: str) -> dict[str, object]:
+    return {
+        '@type': 'ImageObject',
+        '@id': f'{page_url}#primaryimage',
+        'url': image_url,
+        'contentUrl': image_url,
+        'width': 1200,
+        'height': 630,
+        'name': alt,
+        'caption': alt,
+    }
+
+
 def bad_snippet(value: str, min_len: int) -> bool:
     v = html.unescape(value or '').strip()
     if len(v) < min_len:
@@ -174,6 +187,8 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
     webpage_id = f'{page_url}#webpage'
     expected = f'{DOMAIN}/assets/og/{slug}.png'
     page_desc = meta_content(src, 'description')
+    image_alt = meta_content(src, 'og:image:alt', attr='property') or head_title(src)
+    primary_image = image_object(page_url, expected, image_alt)
     expected_file = ROOT / 'assets' / 'og' / f'{slug}.png'
     if not expected_file.exists():
         return False
@@ -195,7 +210,8 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
 
         if types & {'Article', 'BlogPosting', 'MedicalScholarlyArticle'}:
             data['@id'] = article_id
-            data['image'] = expected
+            data['image'] = primary_image
+            data['thumbnailUrl'] = expected
             data['mainEntityOfPage'] = page_url
             article_meta = {
                 'headline': data.get('headline') or data.get('name') or '',
@@ -208,7 +224,9 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
         elif 'MedicalWebPage' in types:
             data['@id'] = webpage_id
             data['url'] = page_url
-            data['image'] = expected
+            data['image'] = primary_image
+            data['primaryImageOfPage'] = {'@id': primary_image['@id']}
+            data['thumbnailUrl'] = expected
             data['mainEntity'] = {'@id': article_id}
             if article_meta.get('headline') and not data.get('name'):
                 data['name'] = article_meta['headline']
