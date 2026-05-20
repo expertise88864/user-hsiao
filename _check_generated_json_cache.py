@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 VERCEL = ROOT / "vercel.json"
 SHARED = ROOT / "blog" / "blog-shared.js"
+SW = ROOT / "sw.js"
 
 EXPECTED = {
     "/assets/search-index.json": "max-age=300",
@@ -66,6 +67,13 @@ def main() -> int:
     shared = SHARED.read_text(encoding="utf-8")
     if re.search(r"fetch\('/assets/search-index\.json',\s*\{[^}]*cache:\s*['\"]no-store['\"]", shared):
         errors.append("Cmd+K search-index fetch should not use cache: 'no-store'")
+
+    sw = SW.read_text(encoding="utf-8")
+    if "GENERATED_JSON.has(url.pathname)" not in sw:
+        errors.append("sw.js should handle generated JSON assets with a dedicated network-first path")
+    for source in EXPECTED:
+        if source not in sw:
+            errors.append(f"sw.js generated JSON network-first list missing {source}")
 
     if errors:
         print("[FAIL] Generated JSON cache audit failed:")

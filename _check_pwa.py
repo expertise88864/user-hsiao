@@ -103,8 +103,8 @@ def audit_service_worker(errors: list[str]) -> None:
         errors.append("sw.js should call skipWaiting and clients.claim for update reliability")
     if "url.search.includes('v=')" not in src:
         errors.append("sw.js should handle cache-busted ?v= assets network-first")
-    if "url.pathname === '/assets/search-index.json'" not in src:
-        errors.append("sw.js should handle generated search-index.json network-first")
+    if "GENERATED_JSON.has(url.pathname)" not in src or "/assets/search-index.json" not in src:
+        errors.append("sw.js should handle generated JSON assets network-first")
     if "url.pathname.startsWith('/admin')" not in src:
         errors.append("sw.js should bypass /admin so the editor is always fresh")
     if "url.pathname === '/reset-sw'" not in src:

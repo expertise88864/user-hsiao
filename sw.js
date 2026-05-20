@@ -383,9 +383,15 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v65';
+const CACHE = 'hs-v66';
 const RUNTIME = 'hs-runtime-v34';
 const RUNTIME_MAX_ENTRIES = 60;
+const GENERATED_JSON = new Set([
+  '/assets/search-index.json',
+  '/assets/related.json',
+  '/assets/i18n.json',
+  '/assets/medical-dictionary.json',
+]);
 
 // v30: Multi-stage cache. Install only blocks on the truly critical
 // shell — fonts/CSS/icon + home + blog index. Everything else is moved
@@ -603,11 +609,9 @@ self.addEventListener('fetch', (e) => {
     );
     return;
   }
-  // v37.1: pagefind search index files are regenerated on every deploy,
-  // so always prefer network and only fall back to cache when offline.
-  // The same network-first treatment applies to /assets/search-index.json
-  // if/when we add a static search index in the future.
-  if (url.pathname.startsWith('/pagefind/') || url.pathname === '/assets/search-index.json') {
+  // v37.45: generated JSON powers search, related cards, i18n, and medical
+  // dictionary tooltips. Prefer fresh network data, then fall back offline.
+  if (url.pathname.startsWith('/pagefind/') || GENERATED_JSON.has(url.pathname)) {
     e.respondWith(
       fetchWithRetry(req)
         .then((resp) => {
