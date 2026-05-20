@@ -140,17 +140,22 @@ def type_names(obj: dict) -> set[str]:
     return {str(value)} if value else set()
 
 
-def normalize_article_schema_image(path: Path, slug: str) -> bool:
+def normalize_article_structured_data(path: Path, slug: str) -> bool:
     src = path.read_text(encoding='utf-8')
+    page_url = f'{DOMAIN}/blog/{slug}'
+    article_id = f'{page_url}#article'
+    webpage_id = f'{page_url}#webpage'
     expected = f'{DOMAIN}/assets/og/{slug}.png'
+    page_desc = meta_content(src, 'description')
     expected_file = ROOT / 'assets' / 'og' / f'{slug}.png'
     if not expected_file.exists():
         return False
 
     changed = False
+    article_meta = {}
 
     def repl(match):
-        nonlocal changed
+        nonlocal changed, article_meta
         raw = match.group(2).strip()
         try:
             data = json.loads(raw)
@@ -158,11 +163,42 @@ def normalize_article_schema_image(path: Path, slug: str) -> bool:
             return match.group(0)
         if not isinstance(data, dict):
             return match.group(0)
-        if not (type_names(data) & {'Article', 'BlogPosting', 'MedicalScholarlyArticle'}):
+        types = type_names(data)
+        old = json.dumps(data, ensure_ascii=False, sort_keys=True)
+
+        if types & {'Article', 'BlogPosting', 'MedicalScholarlyArticle'}:
+            data['@id'] = article_id
+            data['image'] = expected
+            data['mainEntityOfPage'] = page_url
+            article_meta = {
+                'headline': data.get('headline') or data.get('name') or '',
+                'description': page_desc if len(page_desc) > len(data.get('description') or '') else data.get('description') or '',
+                'datePublished': data.get('datePublished') or '',
+                'dateModified': data.get('dateModified') or data.get('datePublished') or '',
+                'author': data.get('author') or {'@id': f'{DOMAIN}/about#person'},
+                'publisher': data.get('publisher') or {'@id': f'{DOMAIN}/about#person'},
+            }
+        elif 'MedicalWebPage' in types:
+            data['@id'] = webpage_id
+            data['url'] = page_url
+            data['image'] = expected
+            data['mainEntity'] = {'@id': article_id}
+            if article_meta.get('headline') and not data.get('name'):
+                data['name'] = article_meta['headline']
+            if article_meta.get('description'):
+                data['description'] = article_meta['description']
+            if article_meta.get('datePublished'):
+                data['datePublished'] = article_meta['datePublished']
+            if article_meta.get('dateModified'):
+                data['dateModified'] = article_meta['dateModified']
+            data['author'] = article_meta.get('author') or {'@id': f'{DOMAIN}/about#person'}
+            data['publisher'] = article_meta.get('publisher') or {'@id': f'{DOMAIN}/about#person'}
+            data.setdefault('reviewedBy', {'@id': f'{DOMAIN}/about#person'})
+        else:
             return match.group(0)
-        if data.get('image') == expected:
+
+        if json.dumps(data, ensure_ascii=False, sort_keys=True) == old:
             return match.group(0)
-        data['image'] = expected
         changed = True
         dumped = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
         return f'{match.group(1)}\n{dumped}\n</script>'
@@ -191,7 +227,7 @@ def main() -> int:
         if not fallback:
             print(f'WARN: no curated snippet for {slug}')
             continue
-        schema_changed = normalize_article_schema_image(path, slug)
+        schema_changed = normalize_article_structured_data(path, slug)
         if schema_changed:
             changed.append(path.relative_to(ROOT).as_posix())
         if normalize_file(path, fallback, is_article=True):
