@@ -378,6 +378,17 @@ def set_head_text(s, title, desc, en_canonical):
             r'<meta\s+name="twitter:title"\s+content="[^"]*"\s*/?>',
             f'<meta name="twitter:title" content="{html_lib.escape(title, quote=True)}" />'
         )
+        title_label = _page_title_label(title)
+        s = replace_or_insert_meta(
+            s,
+            r'<meta\s+property="og:image:alt"\s+content="[^"]*"\s*/?>',
+            f'<meta property="og:image:alt" content="{html_lib.escape(title_label, quote=True)}" />'
+        )
+        s = replace_or_insert_meta(
+            s,
+            r'<meta\s+name="twitter:image:alt"\s+content="[^"]*"\s*/?>',
+            f'<meta name="twitter:image:alt" content="{html_lib.escape(title_label, quote=True)}" />'
+        )
     if desc:
         desc = truncate(desc)
         s = replace_or_insert_meta(

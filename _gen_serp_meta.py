@@ -99,6 +99,16 @@ def meta_content(src: str, key: str, attr: str = 'name') -> str:
     return html.unescape(m.group(1)) if m else ''
 
 
+def head_title(src: str) -> str:
+    og = meta_content(src, 'og:title', attr='property')
+    if og:
+        return og.strip()
+    m = re.search(r'<title>([^<]*)</title>', src, re.I)
+    if not m:
+        return 'HsiaoEye ophthalmology preview image'
+    return html.unescape(m.group(1)).strip()
+
+
 def bad_snippet(value: str, min_len: int) -> bool:
     v = html.unescape(value or '').strip()
     if len(v) < min_len:
@@ -121,6 +131,7 @@ def upsert_meta(src: str, key: str, content: str, attr: str = 'name') -> str:
 
 def normalize_file(path: Path, fallback: str, is_article: bool) -> bool:
     src = path.read_text(encoding='utf-8')
+    title = head_title(src)
     desc = meta_content(src, 'description')
     if bad_snippet(desc, 70 if is_article else 50):
         desc = fallback
@@ -138,6 +149,10 @@ def normalize_file(path: Path, fallback: str, is_article: bool) -> bool:
     out = upsert_meta(out, 'og:description', og, attr='property')
     out = upsert_meta(out, 'twitter:card', 'summary_large_image')
     out = upsert_meta(out, 'twitter:description', tw)
+    if meta_content(out, 'og:image', attr='property'):
+        out = upsert_meta(out, 'og:image:alt', title, attr='property')
+    if meta_content(out, 'twitter:image'):
+        out = upsert_meta(out, 'twitter:image:alt', title)
 
     if out != src:
         path.write_text(out, encoding='utf-8')

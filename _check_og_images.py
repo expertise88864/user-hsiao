@@ -52,6 +52,24 @@ def meta_content(src: str, key: str, attr: str = 'property') -> str:
     return m.group(1) if m else ''
 
 
+def public_html_paths(published: list[str]) -> list[str]:
+    paths = [
+        'index.html', 'about.html', 'tools.html', 'notes.html', 'privacy.html',
+        'blog/index.html', 'blog/topics.html',
+        'en/index.html', 'en/about.html', 'en/tools.html', 'en/notes.html', 'en/privacy.html',
+        'en/blog/index.html', 'en/blog/topics.html',
+    ]
+    for slug in published:
+        paths.append(f'blog/{slug}.html')
+        paths.append(f'en/blog/{slug}.html')
+    return paths
+
+
+def bad_alt(value: str) -> bool:
+    value = (value or '').strip()
+    return len(value) < 8 or '\ufffd' in value or '????' in value
+
+
 def jsonld_article_images(src: str) -> list[str]:
     images = []
     for raw in re.findall(r'<script\s+type="application/ld\+json"[^>]*>(.*?)</script>', src, re.S):
@@ -100,6 +118,7 @@ def main():
 
     mismatched_meta = []
     mismatched_jsonld = []
+    missing_alt = []
     for slug in published:
         path = os.path.join(ROOT, 'blog', slug + '.html')
         if not os.path.isfile(path):
@@ -117,6 +136,17 @@ def main():
         if expected not in images:
             mismatched_jsonld.append(f'{slug}: Article JSON-LD image must include {expected}')
 
+    for rel in public_html_paths(published):
+        path = os.path.join(ROOT, rel)
+        if not os.path.isfile(path):
+            continue
+        with open(path, encoding='utf-8') as f:
+            src = f.read()
+        if meta_content(src, 'og:image') and bad_alt(meta_content(src, 'og:image:alt')):
+            missing_alt.append(f'{rel}: missing/weak og:image:alt')
+        if meta_content(src, 'twitter:image', attr='name') and bad_alt(meta_content(src, 'twitter:image:alt', attr='name')):
+            missing_alt.append(f'{rel}: missing/weak twitter:image:alt')
+
     if mismatched_meta:
         print('[FAIL] Published article social image tags are not using their per-article OG cards:')
         for item in mismatched_meta:
@@ -129,7 +159,13 @@ def main():
             print('  - ' + item)
         issues += len(mismatched_jsonld)
 
-    if not missing_article and not missing_static and not mismatched_meta and not mismatched_jsonld:
+    if missing_alt:
+        print('[FAIL] Public pages with social images must include descriptive image alt metadata:')
+        for item in missing_alt:
+            print('  - ' + item)
+        issues += len(missing_alt)
+
+    if not missing_article and not missing_static and not mismatched_meta and not mismatched_jsonld and not missing_alt:
         print(f'[OK] OG image audit passed — all {len(published)} articles '
               f'+ {len(STATIC_OG_SLUGS)} static pages have /assets/og/<slug>.png '
               f'on disk and wired into social + Article JSON-LD metadata')
