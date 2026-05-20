@@ -25,6 +25,9 @@ const MAX_SAMPLES = 1000;
 const SAMPLE_TTL_DAYS = 30;
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
+  res.setHeader('Allow', 'POST');
+
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   // v37.28 — rate-limit per IP: typical real users send 1 CWV beacon per
   // pageview (5 metrics fired close together). Cap at 30/min to absorb

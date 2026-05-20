@@ -20,20 +20,24 @@ const ALLOWED_ORIGINS = [
   'https://hsiao.chendermatologist.com',
   'https://www.hsiao.chendermatologist.com',
 ];
+const NO_STORE_HEADERS = {
+  'Cache-Control': 'no-store, max-age=0',
+  'Allow': 'POST',
+};
 
 export default async function handler(req) {
-  if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
+  if (req.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: NO_STORE_HEADERS });
   // Browser-generated CSP reports DON'T carry Origin (they're fire-and-forget
   // from the browser's CSP enforcer, not from a script). So Origin is
   // empty for legit reports. Reject if Origin is present AND not our own.
   const origin = req.headers.get('origin');
   if (origin && !ALLOWED_ORIGINS.includes(origin)) {
-    return new Response(null, { status: 204 });  // silently drop
+    return new Response(null, { status: 204, headers: NO_STORE_HEADERS });  // silently drop
   }
   try {
     const text = await req.text();
     if (text.length > MAX_BODY_BYTES) {
-      return new Response(null, { status: 413 });
+      return new Response(null, { status: 413, headers: NO_STORE_HEADERS });
     }
     let body;
     try { body = JSON.parse(text); } catch (e) { body = { raw: text.slice(0, 1000) }; }
@@ -59,7 +63,7 @@ export default async function handler(req) {
     // List is trimmed to last MAX_KV_REPORTS entries.
     persistToKv(compact).catch(() => {});
   } catch (e) { /* ignore */ }
-  return new Response(null, { status: 204 });
+  return new Response(null, { status: 204, headers: NO_STORE_HEADERS });
 }
 
 // ── KV persistence (Edge-runtime safe; only fetch + std env vars) ──

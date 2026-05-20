@@ -27,6 +27,9 @@ const MAX_QUERY_LEN = 80;
 const MIN_QUERY_LEN = 2;
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
+  res.setHeader('Allow', 'POST');
+
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
   // Always rate-limit, even when logging is disabled, to avoid being a
   // black hole that absorbs attacker traffic for free.
