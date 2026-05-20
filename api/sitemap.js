@@ -22,7 +22,7 @@ const STATIC_PAGES = [
   { url: '/',              priority: '1.0',  changefreq: 'weekly' },
   { url: '/about',         priority: '0.8',  changefreq: 'monthly' },
   { url: '/tools',         priority: '0.85', changefreq: 'monthly' },
-  { url: '/blog/',         priority: '0.95', changefreq: 'weekly' },
+  { url: '/blog',          priority: '0.95', changefreq: 'weekly' },
   { url: '/blog/topics',   priority: '0.7',  changefreq: 'monthly' },
   { url: '/notes',         priority: '0.5',  changefreq: 'monthly' },
   { url: '/privacy',       priority: '0.4',  changefreq: 'yearly' },
@@ -57,6 +57,7 @@ async function parseArticles() {
       tag: getField(body, 'tag'),
       tag_en: getField(body, 'tag_en'),
       date: getField(body, 'date') || '2026-01-01',
+      updated: getField(body, 'updated') || getField(body, 'date') || '2026-01-01',
       cat: getField(body, 'cat') || 'myth',
     });
   }
@@ -100,11 +101,18 @@ function emit(zhUrl, enUrl, lastmod, changefreq, priority, image, imageTitle) {
   if (image) {
     lines.push('    <image:image>');
     lines.push(`      <image:loc>${image}</image:loc>`);
-    if (imageTitle) lines.push(`      <image:title>${imageTitle.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</image:title>`);
+    if (imageTitle) lines.push(`      <image:title>${xmlEscape(imageTitle)}</image:title>`);
     lines.push('    </image:image>');
   }
   lines.push('  </url>');
   return lines.join('\n');
+}
+
+function xmlEscape(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 // Build ETag from a string (FNV-1a 32-bit hash, hex-encoded — fast and edge-safe)
@@ -122,7 +130,7 @@ export default async function handler(req, res) {
   try {
     const tArt0 = Date.now();
     const articles = await parseArticles();
-    articles.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    articles.sort((a, b) => (b.updated || b.date || '').localeCompare(a.updated || a.date || ''));
     const tArt = Date.now() - tArt0;
 
     const today = new Date().toISOString().slice(0, 10);
@@ -143,7 +151,7 @@ export default async function handler(req, res) {
     ];
 
     STATIC_PAGES.forEach(p => {
-      const en = p.url === '/' ? '/en/' : (p.url === '/blog/' ? '/en/blog/' : '/en' + p.url);
+      const en = p.url === '/' ? '/en' : '/en' + p.url;
       lines.push(emit(p.url, en, today, p.changefreq, p.priority));
     });
 
@@ -156,7 +164,7 @@ export default async function handler(req, res) {
 
     lines.push('', '  <!-- ===== English mirror (/en/) ===== -->');
     STATIC_PAGES.forEach(p => {
-      const en = p.url === '/' ? '/en/' : (p.url === '/blog/' ? '/en/blog/' : '/en' + p.url);
+      const en = p.url === '/' ? '/en' : '/en' + p.url;
       const pri = Math.max(0.3, parseFloat(p.priority) - 0.1).toFixed(2);
       lines.push('  <url>',
         `    <loc>${DOMAIN}${en}</loc>`,
@@ -178,6 +186,10 @@ export default async function handler(req, res) {
         `    <xhtml:link rel="alternate" hreflang="x-default"  href="${DOMAIN}/blog/${a.slug}" />`,
         `    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="${DOMAIN}/blog/${a.slug}" />`,
         `    <xhtml:link rel="alternate" hreflang="en"         href="${DOMAIN}/en/blog/${a.slug}" />`,
+        '    <image:image>',
+        `      <image:loc>${DOMAIN}/assets/og/${a.slug}.png</image:loc>`,
+        `      <image:title>${xmlEscape(a.title_en || a.title || a.slug)}</image:title>`,
+        '    </image:image>',
         '  </url>');
     });
 
