@@ -19,6 +19,7 @@ Exit codes:
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 import sys
@@ -37,6 +38,38 @@ def parse_catalog():
     stub_m = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
     stubs = set(re.findall(r"'([^']+)'", stub_m.group(1))) if stub_m else set()
     return sorted(slugs - stubs)
+
+
+def type_names(obj: dict) -> set[str]:
+    value = obj.get('@type')
+    if isinstance(value, list):
+        return {str(x) for x in value}
+    return {str(value)} if value else set()
+
+
+def meta_content(src: str, key: str, attr: str = 'property') -> str:
+    m = re.search(rf'<meta\s+{attr}="{re.escape(key)}"\s+content="([^"]*)"\s*/?>', src, re.I)
+    return m.group(1) if m else ''
+
+
+def jsonld_article_images(src: str) -> list[str]:
+    images = []
+    for raw in re.findall(r'<script\s+type="application/ld\+json"[^>]*>(.*?)</script>', src, re.S):
+        try:
+            data = json.loads(raw.strip())
+        except Exception:
+            continue
+        if not isinstance(data, dict):
+            continue
+        if type_names(data) & {'Article', 'BlogPosting', 'MedicalScholarlyArticle'}:
+            image = data.get('image')
+            if isinstance(image, str):
+                images.append(image)
+            elif isinstance(image, list):
+                images.extend(str(x) for x in image)
+            elif isinstance(image, dict) and image.get('url'):
+                images.append(str(image.get('url')))
+    return images
 
 
 def main():
@@ -65,13 +98,46 @@ def main():
             print(f'  - {s}')
         issues += len(missing_static)
 
-    if not missing_article and not missing_static:
+    mismatched_meta = []
+    mismatched_jsonld = []
+    for slug in published:
+        path = os.path.join(ROOT, 'blog', slug + '.html')
+        if not os.path.isfile(path):
+            continue
+        with open(path, encoding='utf-8') as f:
+            src = f.read()
+        expected = f'https://hsiao.chendermatologist.com/assets/og/{slug}.png'
+        og_image = meta_content(src, 'og:image')
+        twitter_image = meta_content(src, 'twitter:image', attr='name')
+        if og_image != expected:
+            mismatched_meta.append(f'{slug}: og:image {og_image!r} != {expected!r}')
+        if twitter_image != expected:
+            mismatched_meta.append(f'{slug}: twitter:image {twitter_image!r} != {expected!r}')
+        images = jsonld_article_images(src)
+        if expected not in images:
+            mismatched_jsonld.append(f'{slug}: Article JSON-LD image must include {expected}')
+
+    if mismatched_meta:
+        print('[FAIL] Published article social image tags are not using their per-article OG cards:')
+        for item in mismatched_meta:
+            print('  - ' + item)
+        issues += len(mismatched_meta)
+
+    if mismatched_jsonld:
+        print('[FAIL] Published article JSON-LD image fields are not using their per-article OG cards:')
+        for item in mismatched_jsonld:
+            print('  - ' + item)
+        issues += len(mismatched_jsonld)
+
+    if not missing_article and not missing_static and not mismatched_meta and not mismatched_jsonld:
         print(f'[OK] OG image audit passed — all {len(published)} articles '
-              f'+ {len(STATIC_OG_SLUGS)} static pages have /assets/og/<slug>.png on disk')
+              f'+ {len(STATIC_OG_SLUGS)} static pages have /assets/og/<slug>.png '
+              f'on disk and wired into social + Article JSON-LD metadata')
 
     if issues:
         print()
-        print('Fix:  python _gen_og_images.py    # regenerates missing cards from templates')
+        print('Fix missing files:  python _gen_og_images.py')
+        print('Fix metadata wiring: python _gen_serp_meta.py && python _gen_en_pages.py && python _gen_csp_hashes.py')
         return 1
     return 0
 

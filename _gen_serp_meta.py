@@ -13,10 +13,12 @@ metadata and regenerate its own locale-specific descriptions.
 from __future__ import annotations
 
 import html
+import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+DOMAIN = 'https://hsiao.chendermatologist.com'
 
 ARTICLE_SNIPPETS = {
     'cataract-comprehensive-guide':
@@ -131,6 +133,51 @@ def normalize_file(path: Path, fallback: str, is_article: bool) -> bool:
     return False
 
 
+def type_names(obj: dict) -> set[str]:
+    value = obj.get('@type')
+    if isinstance(value, list):
+        return {str(x) for x in value}
+    return {str(value)} if value else set()
+
+
+def normalize_article_schema_image(path: Path, slug: str) -> bool:
+    src = path.read_text(encoding='utf-8')
+    expected = f'{DOMAIN}/assets/og/{slug}.png'
+    expected_file = ROOT / 'assets' / 'og' / f'{slug}.png'
+    if not expected_file.exists():
+        return False
+
+    changed = False
+
+    def repl(match):
+        nonlocal changed
+        raw = match.group(2).strip()
+        try:
+            data = json.loads(raw)
+        except Exception:
+            return match.group(0)
+        if not isinstance(data, dict):
+            return match.group(0)
+        if not (type_names(data) & {'Article', 'BlogPosting', 'MedicalScholarlyArticle'}):
+            return match.group(0)
+        if data.get('image') == expected:
+            return match.group(0)
+        data['image'] = expected
+        changed = True
+        dumped = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        return f'{match.group(1)}\n{dumped}\n</script>'
+
+    out = re.sub(
+        r'(<script\s+type="application/ld\+json"[^>]*>)([\s\S]*?)</script>',
+        repl,
+        src,
+    )
+    if changed and out != src:
+        path.write_text(out, encoding='utf-8')
+        return True
+    return False
+
+
 def main() -> int:
     changed = []
     for rel, desc in STATIC_SNIPPETS.items():
@@ -144,8 +191,13 @@ def main() -> int:
         if not fallback:
             print(f'WARN: no curated snippet for {slug}')
             continue
-        if normalize_file(path, fallback, is_article=True):
+        schema_changed = normalize_article_schema_image(path, slug)
+        if schema_changed:
             changed.append(path.relative_to(ROOT).as_posix())
+        if normalize_file(path, fallback, is_article=True):
+            rel = path.relative_to(ROOT).as_posix()
+            if rel not in changed:
+                changed.append(rel)
 
     print(f'Normalized SERP/social metadata in {len(changed)} file(s)')
     for rel in changed:
