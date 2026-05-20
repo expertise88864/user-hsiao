@@ -64,10 +64,18 @@ export default async function handler(req, res) {
     urls.unshift(
       `https://${HOST}/`,
       `https://${HOST}/blog`,
+      `https://${HOST}/blog/topics`,
+      `https://${HOST}/notes`,
+      `https://${HOST}/privacy`,
       `https://${HOST}/en`,
       `https://${HOST}/en/blog`,
+      `https://${HOST}/en/blog/topics`,
       `https://${HOST}/about`,
+      `https://${HOST}/en/about`,
       `https://${HOST}/tools`,
+      `https://${HOST}/en/tools`,
+      `https://${HOST}/en/notes`,
+      `https://${HOST}/en/privacy`,
     );
   }
   // IndexNow accepts max 10,000 URLs per request — we'll never get close.

@@ -208,8 +208,15 @@ jobs:
               f'https://{HOST}/blog/topics',
               f'https://{HOST}/about',
               f'https://{HOST}/tools',
+              f'https://{HOST}/notes',
+              f'https://{HOST}/privacy',
               f'https://{HOST}/en',
               f'https://{HOST}/en/blog',
+              f'https://{HOST}/en/blog/topics',
+              f'https://{HOST}/en/about',
+              f'https://{HOST}/en/tools',
+              f'https://{HOST}/en/notes',
+              f'https://{HOST}/en/privacy',
           ]
           for s in published:
               urls.append(f'https://{HOST}/blog/{s}')
