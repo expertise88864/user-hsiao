@@ -156,6 +156,7 @@ def en_path_for_same_site_url(url):
 # Google prefers locale-matching breadcrumb labels.
 _BREADCRUMB_EN_MAP = {
     '首頁': 'Home',
+    '眼科文章': 'Articles',
     '衛教文章': 'Articles',
     '主題地圖': 'Topic Map',
     '關於': 'About',

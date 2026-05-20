@@ -61,6 +61,14 @@ def itemlist_block(path: Path) -> dict | None:
     return None
 
 
+def breadcrumb_block(path: Path) -> dict | None:
+    src = path.read_text(encoding="utf-8")
+    for block in jsonld_blocks(src):
+        if "BreadcrumbList" in type_names(block) and str(block.get("@id", "")).endswith("#breadcrumb"):
+            return block
+    return None
+
+
 def audit_page(
     rel: str,
     page_prefix: str,
@@ -108,6 +116,42 @@ def audit_page(
     return errors
 
 
+def audit_breadcrumb_page(
+    rel: str,
+    page_prefix: str,
+    expected: list[tuple[str, str]],
+) -> list[str]:
+    errors: list[str] = []
+    path = ROOT / rel
+    block = breadcrumb_block(path) if path.exists() else None
+    if block is None:
+        return [f"{rel}: missing BreadcrumbList JSON-LD"]
+
+    expected_id = f"{DOMAIN}{page_prefix}#breadcrumb"
+    if block.get("@id") != expected_id:
+        errors.append(f"{rel}: BreadcrumbList @id mismatch ({block.get('@id')!r})")
+
+    items = block.get("itemListElement")
+    if not isinstance(items, list):
+        return errors + [f"{rel}: breadcrumb itemListElement must be a list"]
+    if len(items) != len(expected):
+        errors.append(f"{rel}: expected {len(expected)} breadcrumb items, found {len(items)}")
+
+    for i, (name, path_prefix) in enumerate(expected):
+        if i >= len(items) or not isinstance(items[i], dict):
+            errors.append(f"{rel}: missing breadcrumb ListItem at position {i + 1}")
+            continue
+        item = items[i]
+        if item.get("position") != i + 1:
+            errors.append(f"{rel}: breadcrumb position should be {i + 1}")
+        if item.get("name") != name:
+            errors.append(f"{rel}: breadcrumb name mismatch at {i + 1} ({item.get('name')!r})")
+        if item.get("item") != f"{DOMAIN}{path_prefix}":
+            errors.append(f"{rel}: breadcrumb URL mismatch at {i + 1} ({item.get('item')!r})")
+
+    return errors
+
+
 def main() -> int:
     catalog = parse_catalog()
     checks = [
@@ -121,13 +165,22 @@ def main() -> int:
     for rel, page_prefix, article_prefix, name, english in checks:
         errors.extend(audit_page(rel, page_prefix, article_prefix, name, catalog, english))
 
+    breadcrumb_checks = [
+        ("blog/index.html", "/blog", [("首頁", "/"), ("眼科文章", "/blog")]),
+        ("blog/topics.html", "/blog/topics", [("首頁", "/"), ("眼科文章", "/blog"), ("主題地圖", "/blog/topics")]),
+        ("en/blog/index.html", "/en/blog", [("Home", "/en"), ("Ophthalmology Articles", "/en/blog")]),
+        ("en/blog/topics.html", "/en/blog/topics", [("Home", "/en"), ("Articles", "/en/blog"), ("Ophthalmology Topic Map", "/en/blog/topics")]),
+    ]
+    for rel, page_prefix, expected in breadcrumb_checks:
+        errors.extend(audit_breadcrumb_page(rel, page_prefix, expected))
+
     if errors:
-        print("[FAIL] Listing ItemList schema audit failed:")
+        print("[FAIL] Listing schema audit failed:")
         for err in errors:
             print("  - " + err)
         return 1
 
-    print(f"[OK] Listing ItemList schema audit passed: {len(catalog)} articles x 4 listing pages")
+    print(f"[OK] Listing schema audit passed: {len(catalog)} articles x 4 listing pages, with breadcrumbs")
     return 0
 
 

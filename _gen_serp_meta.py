@@ -23,6 +23,10 @@ LISTING_SCHEMA_RE = re.compile(
     r'\n?<script\s+type="application/ld\+json"\s+data-listing-auto>[\s\S]*?</script>\n?',
     re.I,
 )
+BREADCRUMB_SCHEMA_RE = re.compile(
+    r'\n?<script\s+type="application/ld\+json"\s+data-breadcrumb-auto>[\s\S]*?</script>\n?',
+    re.I,
+)
 
 ARTICLE_SNIPPETS = {
     'toric-iol-astigmatism-cataract-review':
@@ -283,12 +287,33 @@ def listing_schema(canonical_path: str, name: str, articles: list[dict[str, str]
     )
 
 
-def inject_listing_schema(path: Path, canonical_path: str, name: str, articles: list[dict[str, str]]) -> bool:
+def breadcrumb_schema(canonical_path: str, crumbs: list[tuple[str, str]]) -> str:
+    data = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': f'{DOMAIN}{canonical_path}#breadcrumb',
+        'itemListElement': [
+            {
+                '@type': 'ListItem',
+                'position': i + 1,
+                'name': name,
+                'item': f'{DOMAIN}{path}',
+            }
+            for i, (name, path) in enumerate(crumbs)
+        ],
+    }
+    return (
+        '<script type="application/ld+json" data-breadcrumb-auto>'
+        + json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        + '</script>'
+    )
+
+
+def inject_jsonld_block(path: Path, block: str, auto_re: re.Pattern[str]) -> bool:
     src = path.read_text(encoding='utf-8')
-    block = listing_schema(canonical_path, name, articles)
-    cleaned = LISTING_SCHEMA_RE.sub('\n', src)
-    if block in cleaned:
+    if block in src:
         return False
+    cleaned = auto_re.sub('\n', src)
     out = re.sub(
         r'(<script\s+type="application/ld\+json"[^>]*>[\s\S]*?</script>)',
         r'\1\n' + block,
@@ -304,6 +329,16 @@ def inject_listing_schema(path: Path, canonical_path: str, name: str, articles: 
     return False
 
 
+def inject_listing_schema(path: Path, canonical_path: str, name: str, articles: list[dict[str, str]]) -> bool:
+    block = listing_schema(canonical_path, name, articles)
+    return inject_jsonld_block(path, block, LISTING_SCHEMA_RE)
+
+
+def inject_breadcrumb_schema(path: Path, canonical_path: str, crumbs: list[tuple[str, str]]) -> bool:
+    block = breadcrumb_schema(canonical_path, crumbs)
+    return inject_jsonld_block(path, block, BREADCRUMB_SCHEMA_RE)
+
+
 def main() -> int:
     changed = []
     catalog = read_catalog()
@@ -313,13 +348,26 @@ def main() -> int:
             changed.append(rel)
 
     listing_targets = [
-        ('blog/index.html', '/blog', 'Published ophthalmology articles'),
-        ('blog/topics.html', '/blog/topics', 'Ophthalmology topic article list'),
+        (
+            'blog/index.html',
+            '/blog',
+            'Published ophthalmology articles',
+            [('首頁', '/'), ('眼科文章', '/blog')],
+        ),
+        (
+            'blog/topics.html',
+            '/blog/topics',
+            'Ophthalmology topic article list',
+            [('首頁', '/'), ('眼科文章', '/blog'), ('主題地圖', '/blog/topics')],
+        ),
     ]
-    for rel, canonical_path, name in listing_targets:
+    for rel, canonical_path, name, crumbs in listing_targets:
         path = ROOT / rel
         if path.exists() and inject_listing_schema(path, canonical_path, name, catalog):
             changed.append(rel)
+        if path.exists() and inject_breadcrumb_schema(path, canonical_path, crumbs):
+            if rel not in changed:
+                changed.append(rel)
 
     for slug in sorted(row['slug'] for row in catalog):
         path = ROOT / 'blog' / f'{slug}.html'
