@@ -20,6 +20,7 @@
 // Hashes match SHA-256 of the EXACT inner-text bytes of each tag.
 const INLINE_SCRIPT_HASHES = [
   'sha256-+Jd8GYH9y9/zZLkbV08nWJTqfdyoiMEo3R1M/iLDVaI=',
+  'sha256-+upUGSjHpX71uVaaYZUWRTOpZ10MJ9ddh1/XNNfuGbc=',
   'sha256-+xdOZ4JpQ7fKqof8Trf/HqN7HGAt9mkwOnIjBxd6Kd8=',
   'sha256-/3iM0WqE9quaXPxE5KtGhT/Ik93TTfFlT2SkXuJkFp0=',
   'sha256-/C0/8ZNCQSu3tvAoIO0KEc9aFCPYw3q90BZZ/tmC0rw=',
@@ -73,7 +74,9 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-DzhnfK1FOs3ABHdQP46D/9JBK/WaPGgatJpP9E/8liA=',
   'sha256-E0eF8K2BZ533OgzAI9sp7lTHLK0qByEqtOX9eM9Dym8=',
   'sha256-E38q94o/jKaXjZlqj4xE/aCaAGUz16YYfzQAzKLG2Qk=',
+  'sha256-EX/BLLnMo9l9ERlW8TJEYjRlOPIwkC/PJyMkoer5Uvk=',
   'sha256-FFXf57hxLkxqQlUTQMaonuKVssg0DW+/CVjopv5w2fU=',
+  'sha256-Frgf+48S2lS3KGKD7r/BQaX9aA+657qSRe6Yx0M18iE=',
   'sha256-G8HVIO7OtuMvSQ596NykfMdyvLCNdsMrY6YPLq0oqkg=',
   'sha256-GFdHSkSFT4SWPtdN7DoCYvcBO8mrCtMFsMKNJM+P94I=',
   'sha256-GKpQe42vqElXybRQMylBrMnjICIrWNQ76LyFY+srkGE=',
@@ -158,6 +161,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-dtRdhYttBLGcZDIlFddlNLJuz1ecowTFP0VTXht8kCQ=',
   'sha256-eQwoNm3LCnqgj3z55ZqOhCISmMUt/g7o8pXf1dEVM5k=',
   'sha256-enpDmWcXIA1Eh4yEVBtGsqVwDVNO10bmKRK4NnY2xGY=',
+  'sha256-ezCpi5F1xpkaPH37z+V7YBBC4Ul385sNgduTexB77IM=',
   'sha256-f+n31DcyYcsabcLqfjbEXLPhBBYyFBw77yQ7PhU0O7Y=',
   'sha256-fB42+jHRxGh57RrBP6h/GbJDx2CwlOPZ+f1Nmq9dS1M=',
   'sha256-fCWdKRUx1POQe8wMW9feIg7bXzMJwY+DTJejRqg8PG8=',

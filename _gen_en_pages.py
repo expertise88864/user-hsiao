@@ -233,6 +233,13 @@ def _page_title_label(title):
     return re.sub(r'\s*\|\s*HsiaoEye\s*$', '', title or '').strip() or 'HsiaoEye'
 
 
+def _slug_from_article_url(value):
+    if not isinstance(value, str):
+        return ''
+    m = re.search(r'/blog/([^/?#]+)', value)
+    return m.group(1) if m else ''
+
+
 def localize_static_page_jsonld(data, title, desc, en_canonical):
     if en_canonical not in STATIC_META:
         return data
@@ -262,6 +269,22 @@ def localize_static_page_jsonld(data, title, desc, en_canonical):
                 out['url'] = page_url
             if 'inLanguage' in out:
                 out['inLanguage'] = 'en'
+
+        if 'ItemList' in type_names and en_canonical in {'/en/blog', '/en/blog/topics'}:
+            out['name'] = (
+                'Published ophthalmology articles'
+                if en_canonical == '/en/blog'
+                else 'Ophthalmology topic article list'
+            )
+            items = out.get('itemListElement')
+            if isinstance(items, list):
+                for item in items:
+                    if not isinstance(item, dict):
+                        continue
+                    slug = _slug_from_article_url(item.get('url') or item.get('item'))
+                    article = ARTICLES.get(slug)
+                    if article:
+                        item['name'] = article.get('title_en') or article.get('title') or item.get('name')
 
         if 'BreadcrumbList' in type_names:
             items = out.get('itemListElement')

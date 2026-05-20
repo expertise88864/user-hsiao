@@ -19,6 +19,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 DOMAIN = 'https://hsiao.chendermatologist.com'
+LISTING_SCHEMA_RE = re.compile(
+    r'\n?<script\s+type="application/ld\+json"\s+data-listing-auto>[\s\S]*?</script>\n?',
+    re.I,
+)
 
 ARTICLE_SNIPPETS = {
     'cataract-comprehensive-guide':
@@ -67,16 +71,24 @@ STATIC_SNIPPETS = {
 }
 
 
-def read_published_slugs():
+def read_catalog():
     js = (ROOT / 'blog' / 'blog-shared.js').read_text(encoding='utf-8')
     m = re.search(r'DN\.ARTICLES\s*=\s*\[(.*?)\];', js, re.DOTALL)
     if not m:
         raise SystemExit('DN.ARTICLES not found')
-    slugs = set(re.findall(r"slug:\s*'([^']+)'", m.group(1)))
+    rows = []
+    for obj in re.finditer(r'\{([^{}]*)\}', m.group(1)):
+        body = obj.group(1)
+        row = {}
+        for key in ('slug', 'title', 'title_en', 'cat', 'tag', 'tag_en', 'date', 'updated'):
+            km = re.search(rf"{key}\s*:\s*'([^']*)'", body)
+            if km:
+                row[key] = km.group(1)
+        if row.get('slug') and row.get('title'):
+            rows.append(row)
     stub_m = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
     stubs = set(re.findall(r"'([^']+)'", stub_m.group(1))) if stub_m else set()
-    return sorted(slugs - stubs)
-
+    return [row for row in rows if row['slug'] not in stubs]
 
 def attr_escape(value: str) -> str:
     return html.escape(value, quote=True)
@@ -214,14 +226,70 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
     return False
 
 
+def listing_schema(canonical_path: str, name: str, articles: list[dict[str, str]]) -> str:
+    data = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        '@id': f'{DOMAIN}{canonical_path}#article-list',
+        'name': name,
+        'numberOfItems': len(articles),
+        'itemListOrder': 'https://schema.org/ItemListOrderDescending',
+        'itemListElement': [
+            {
+                '@type': 'ListItem',
+                'position': i + 1,
+                'url': f"{DOMAIN}/blog/{row['slug']}",
+                'name': row['title'],
+            }
+            for i, row in enumerate(articles)
+        ],
+    }
+    return (
+        '<script type="application/ld+json" data-listing-auto>'
+        + json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        + '</script>'
+    )
+
+
+def inject_listing_schema(path: Path, canonical_path: str, name: str, articles: list[dict[str, str]]) -> bool:
+    src = path.read_text(encoding='utf-8')
+    block = listing_schema(canonical_path, name, articles)
+    cleaned = LISTING_SCHEMA_RE.sub('\n', src)
+    if block in cleaned:
+        return False
+    out = re.sub(
+        r'(<script\s+type="application/ld\+json"[^>]*>[\s\S]*?</script>)',
+        r'\1\n' + block,
+        cleaned,
+        count=1,
+        flags=re.I,
+    )
+    if out == cleaned:
+        out = cleaned.replace('</head>', block + '\n</head>', 1)
+    if out != src:
+        path.write_text(out, encoding='utf-8')
+        return True
+    return False
+
+
 def main() -> int:
     changed = []
+    catalog = read_catalog()
     for rel, desc in STATIC_SNIPPETS.items():
         path = ROOT / rel
         if path.exists() and normalize_file(path, desc, is_article=False):
             changed.append(rel)
 
-    for slug in read_published_slugs():
+    listing_targets = [
+        ('blog/index.html', '/blog', 'Published ophthalmology articles'),
+        ('blog/topics.html', '/blog/topics', 'Ophthalmology topic article list'),
+    ]
+    for rel, canonical_path, name in listing_targets:
+        path = ROOT / rel
+        if path.exists() and inject_listing_schema(path, canonical_path, name, catalog):
+            changed.append(rel)
+
+    for slug in sorted(row['slug'] for row in catalog):
         path = ROOT / 'blog' / f'{slug}.html'
         fallback = ARTICLE_SNIPPETS.get(slug)
         if not fallback:
