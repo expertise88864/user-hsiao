@@ -2603,7 +2603,7 @@
     var _cmdkIndexPromise = null;
     function loadGeneratedSearchIndex() {
       if (_cmdkIndexPromise) return _cmdkIndexPromise;
-      _cmdkIndexPromise = fetch('/assets/search-index.json', { cache: 'no-store' })
+      _cmdkIndexPromise = fetch('/assets/search-index.json')
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (rows) {
           if (!Array.isArray(rows)) return false;
@@ -3737,7 +3737,7 @@
     if (DN._adminLoaded) return;
     DN._adminLoaded = true;
     var s = document.createElement('script');
-    s.src = '/blog/blog-admin.js?v=20260649';
+    s.src = '/blog/blog-admin.js?v=20260650';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

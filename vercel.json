@@ -82,6 +82,34 @@
       ]
     },
     {
+      "source": "/assets/search-index.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/assets/related.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/assets/i18n.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/assets/medical-dictionary.json",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+      ]
+    },
+    {
       "source": "/blog/feed.xml",
       "headers": [
         { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" },

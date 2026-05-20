@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8" />
@@ -48,7 +48,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260648';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260650';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
