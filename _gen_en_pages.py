@@ -223,18 +223,60 @@ def localize_article_jsonld(data, slug, title, desc, en_canonical):
     return walk(data)
 
 
+def _jsonld_type_names(obj):
+    if not isinstance(obj, dict):
+        return set()
+    value = obj.get('@type')
+    if isinstance(value, list):
+        return {str(x) for x in value}
+    return {str(value)} if value else set()
+
+
+def _jsonld_text(value):
+    if isinstance(value, dict):
+        return ' '.join(_jsonld_text(v) for v in value.values())
+    if isinstance(value, list):
+        return ' '.join(_jsonld_text(v) for v in value)
+    return str(value) if isinstance(value, str) else ''
+
+
+def _cjk_ratio(value):
+    if not value:
+        return 0.0
+    cjk = len(re.findall(r'[\u4e00-\u9fff]', value))
+    return cjk / max(len(value), 1)
+
+
+def should_drop_en_jsonld(data):
+    """Drop ZH FAQ rich-result markup from /en/ pages.
+
+    The English mirror may still contain Chinese-only FAQ body sections, but
+    crawler-facing FAQPage schema on an English canonical should not advertise
+    Chinese questions/answers as the page's rich-result payload.
+    """
+    if isinstance(data, list):
+        return False
+    if not isinstance(data, dict):
+        return False
+    if 'FAQPage' not in _jsonld_type_names(data):
+        return False
+    return _cjk_ratio(_jsonld_text(data)) > 0.25
+
+
 def update_jsonld_blocks(s, slug=None, title='', desc='', en_canonical=''):
     def repl(m):
-        raw = m.group(1).strip()
+        raw = m.group(2).strip()
         try:
             data = json.loads(raw)
         except Exception:
             return m.group(0)
+        if should_drop_en_jsonld(data):
+            return ''
         data = translate_jsonld_value(data)
         data = localize_article_jsonld(data, slug, title, desc, en_canonical)
         dumped = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
-        return f'<script type="application/ld+json">\n{dumped}\n</script>'
-    return re.sub(r'<script\s+type="application/ld\+json">([\s\S]*?)</script>', repl, s)
+        return f'{m.group(1)}\n{dumped}\n</script>'
+    return re.sub(r'(<script\s+type="application/ld\+json"[^>]*>)([\s\S]*?)</script>', repl, s)
 
 
 def replace_or_insert_meta(s, pattern, replacement):

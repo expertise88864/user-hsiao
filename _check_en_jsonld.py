@@ -68,6 +68,30 @@ def iter_dicts(value):
             yield from iter_dicts(child)
 
 
+def json_text(value) -> str:
+    if isinstance(value, dict):
+        return " ".join(json_text(v) for v in value.values())
+    if isinstance(value, list):
+        return " ".join(json_text(v) for v in value)
+    return str(value) if isinstance(value, str) else ""
+
+
+def audit_static_en_faq_pages(errors: list[str]) -> None:
+    for path in sorted((ROOT / "en").glob("*.html")):
+        src = path.read_text(encoding="utf-8")
+        try:
+            blocks = jsonld_blocks(src)
+        except Exception as exc:
+            errors.append(f"{path.relative_to(ROOT).as_posix()}: JSON-LD parse error: {exc}")
+            continue
+        for block in blocks:
+            if not isinstance(block, dict) or "FAQPage" not in type_names(block):
+                continue
+            faq_text = json_text(block.get("mainEntity"))
+            if cjk_ratio(faq_text) > 0.25:
+                errors.append(f"{path.relative_to(ROOT).as_posix()}: EN FAQPage JSON-LD is Chinese-heavy")
+
+
 def main() -> int:
     catalog = parse_catalog()
     errors: list[str] = []
@@ -120,10 +144,16 @@ def main() -> int:
                     citation_name = str(child.get("name") or "")
                     if citation_name and citation_name == expected_title:
                         errors.append(f"{slug}: citation name was overwritten with page title")
+            if "FAQPage" in types:
+                faq_text = json_text(block.get("mainEntity"))
+                if cjk_ratio(faq_text) > 0.25:
+                    errors.append(f"{slug}: EN FAQPage JSON-LD is Chinese-heavy")
         if not saw_article:
             errors.append(f"{slug}: missing article/medical JSON-LD block")
         if not saw_breadcrumb:
             errors.append(f"{slug}: missing BreadcrumbList JSON-LD block")
+
+    audit_static_en_faq_pages(errors)
 
     if errors:
         print("[FAIL] English JSON-LD audit failed:")
