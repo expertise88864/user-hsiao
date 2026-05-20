@@ -10,6 +10,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 DOMAIN = "https://hsiao.chendermatologist.com"
+STATIC_EN_PUBLIC = [
+    "en/index.html",
+    "en/about.html",
+    "en/notes.html",
+    "en/privacy.html",
+    "en/tools.html",
+    "en/blog/index.html",
+    "en/blog/topics.html",
+]
 
 
 def parse_catalog() -> dict[str, dict[str, str]]:
@@ -92,6 +101,47 @@ def audit_static_en_faq_pages(errors: list[str]) -> None:
                 errors.append(f"{path.relative_to(ROOT).as_posix()}: EN FAQPage JSON-LD is Chinese-heavy")
 
 
+def audit_static_en_page_labels(errors: list[str]) -> None:
+    for rel in STATIC_EN_PUBLIC:
+        path = ROOT / rel
+        if not path.exists():
+            errors.append(f"{rel}: file missing")
+            continue
+        src = path.read_text(encoding="utf-8")
+        try:
+            blocks = jsonld_blocks(src)
+        except Exception as exc:
+            errors.append(f"{rel}: JSON-LD parse error: {exc}")
+            continue
+        for block in blocks:
+            if not isinstance(block, dict):
+                continue
+            types = type_names(block)
+            if types & {"WebSite", "Blog", "CollectionPage", "MedicalWebPage", "WebPage"}:
+                label = str(block.get("name") or "")
+                desc = str(block.get("description") or "")
+                if label and cjk_ratio(label) > 0.25:
+                    errors.append(f"{rel}: EN JSON-LD label is Chinese-heavy ({label!r})")
+                if desc and cjk_ratio(desc) > 0.25:
+                    errors.append(f"{rel}: EN JSON-LD description is Chinese-heavy")
+                url = str(block.get("url") or "")
+                if url.startswith(DOMAIN) and not url.startswith(f"{DOMAIN}/en"):
+                    errors.append(f"{rel}: EN page-scoped JSON-LD URL should point at /en ({url})")
+            if "WebSite" in types:
+                action_text = json.dumps(block.get("potentialAction", {}), ensure_ascii=False)
+                if rel == "en/index.html" and "/en/blog?q=" not in action_text:
+                    errors.append(f"{rel}: EN WebSite SearchAction should target /en/blog?q=")
+            if "BreadcrumbList" in types:
+                items = block.get("itemListElement")
+                last = items[-1] if isinstance(items, list) and items else {}
+                label = str(last.get("name") or "") if isinstance(last, dict) else ""
+                item = str(last.get("item") or "") if isinstance(last, dict) else ""
+                if label and cjk_ratio(label) > 0.25:
+                    errors.append(f"{rel}: EN breadcrumb leaf is Chinese-heavy ({label!r})")
+                if item.startswith(DOMAIN) and not item.startswith(f"{DOMAIN}/en"):
+                    errors.append(f"{rel}: EN breadcrumb leaf should point at /en ({item})")
+
+
 def main() -> int:
     catalog = parse_catalog()
     errors: list[str] = []
@@ -154,6 +204,7 @@ def main() -> int:
             errors.append(f"{slug}: missing BreadcrumbList JSON-LD block")
 
     audit_static_en_faq_pages(errors)
+    audit_static_en_page_labels(errors)
 
     if errors:
         print("[FAIL] English JSON-LD audit failed:")

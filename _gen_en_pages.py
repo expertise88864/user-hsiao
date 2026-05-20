@@ -28,6 +28,7 @@ from halfwidth_to_fullwidth import convert as _halfwidth_convert
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = 'https://hsiao.chendermatologist.com'
+PERSON_ID = f'{DOMAIN}/about#person'
 
 SKIP = {'404.html', 'offline.html', 'admin.html', 'dashboard.html'}
 
@@ -130,18 +131,23 @@ ARTICLES = parse_articles()
 def en_path_for_same_site_url(url):
     if not isinstance(url, str) or not url.startswith(DOMAIN):
         return url
-    path = url[len(DOMAIN):] or '/'
+    if url == PERSON_ID:
+        return url
+    path_with_suffix = url[len(DOMAIN):] or '/'
+    m = re.match(r'([^?#]*)(.*)$', path_with_suffix)
+    path = m.group(1) if m else path_with_suffix
+    suffix = m.group(2) if m else ''
     if path.startswith('/en/') or path == '/en':
         return url
     if path == '/':
         # v37.37 — return /en (no slash) to match what Vercel serves at 200.
-        return DOMAIN + '/en'
+        return DOMAIN + '/en' + suffix
     if path == '/blog':
-        return DOMAIN + '/en/blog'
+        return DOMAIN + '/en/blog' + suffix
     if path.startswith('/blog/'):
-        return DOMAIN + '/en' + path
+        return DOMAIN + '/en' + path + suffix
     if path in ('/about', '/tools', '/notes', '/privacy'):
-        return DOMAIN + '/en' + path
+        return DOMAIN + '/en' + path + suffix
     return url
 
 
@@ -223,6 +229,56 @@ def localize_article_jsonld(data, slug, title, desc, en_canonical):
     return walk(data)
 
 
+def _page_title_label(title):
+    return re.sub(r'\s*\|\s*HsiaoEye\s*$', '', title or '').strip() or 'HsiaoEye'
+
+
+def localize_static_page_jsonld(data, title, desc, en_canonical):
+    if en_canonical not in STATIC_META:
+        return data
+    title_clean = _page_title_label(title)
+    page_url = f'{DOMAIN}{en_canonical}'
+
+    def walk(obj):
+        if isinstance(obj, list):
+            return [walk(x) for x in obj]
+        if not isinstance(obj, dict):
+            return obj
+
+        out = {k: walk(v) for k, v in obj.items()}
+        type_names = _jsonld_type_names(out)
+
+        if 'WebSite' in type_names and en_canonical == '/en':
+            out['name'] = 'HsiaoEye Ophthalmology Notes'
+            out['url'] = page_url
+            out['inLanguage'] = 'en'
+
+        if type_names & {'Blog', 'CollectionPage', 'MedicalWebPage', 'WebPage'}:
+            if 'name' in out:
+                out['name'] = title_clean
+            if desc and 'description' in out:
+                out['description'] = desc
+            if 'url' in out:
+                out['url'] = page_url
+            if 'inLanguage' in out:
+                out['inLanguage'] = 'en'
+
+        if 'BreadcrumbList' in type_names:
+            items = out.get('itemListElement')
+            if isinstance(items, list) and items:
+                first = items[0]
+                if isinstance(first, dict):
+                    first['name'] = 'Home'
+                    first['item'] = f'{DOMAIN}/en'
+                last = items[-1]
+                if isinstance(last, dict):
+                    last['name'] = title_clean
+                    last['item'] = page_url
+        return out
+
+    return walk(data)
+
+
 def _jsonld_type_names(obj):
     if not isinstance(obj, dict):
         return set()
@@ -273,6 +329,7 @@ def update_jsonld_blocks(s, slug=None, title='', desc='', en_canonical=''):
         if should_drop_en_jsonld(data):
             return ''
         data = translate_jsonld_value(data)
+        data = localize_static_page_jsonld(data, title, desc, en_canonical)
         data = localize_article_jsonld(data, slug, title, desc, en_canonical)
         dumped = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
         return f'{m.group(1)}\n{dumped}\n</script>'
