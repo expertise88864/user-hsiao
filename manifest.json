@@ -23,14 +23,37 @@
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ],
+  "screenshots": [
+    {
+      "src": "/assets/og/home.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "HsiaoEye homepage"
+    },
+    {
+      "src": "/assets/og/blog.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Ophthalmology article index"
+    },
+    {
+      "src": "/assets/og/tools.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Ophthalmology self-education tools"
+    }
+  ],
   "shortcuts": [
-    { "name": "Articles", "short_name": "Articles", "url": "/blog/" },
-    { "name": "Topic Map", "short_name": "Topics", "url": "/blog/topics" },
-    { "name": "Tools", "short_name": "Tools", "url": "/tools" },
-    { "name": "Dry Eye Myths", "short_name": "Dry Eye", "url": "/blog/dry-eye-myths" },
-    { "name": "Pediatric Myopia Control", "short_name": "Myopia", "url": "/blog/pediatric-myopia-control" },
-    { "name": "Floater Red Flags", "short_name": "Floaters", "url": "/blog/floaters-retinal-detachment" },
-    { "name": "About Dr. Hsiao", "short_name": "About", "url": "/about" }
+    { "name": "Articles", "short_name": "Articles", "url": "/blog/", "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Topic Map", "short_name": "Topics", "url": "/blog/topics", "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Tools", "short_name": "Tools", "url": "/tools", "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Dry Eye Myths", "short_name": "Dry Eye", "url": "/blog/dry-eye-myths", "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Pediatric Myopia Control", "short_name": "Myopia", "url": "/blog/pediatric-myopia-control", "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Floater Red Flags", "short_name": "Floaters", "url": "/blog/floaters-retinal-detachment", "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "About Dr. Hsiao", "short_name": "About", "url": "/about", "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }] }
   ],
   "share_target": {
     "action": "/?shared=1",

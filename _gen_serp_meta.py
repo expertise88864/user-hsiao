@@ -25,51 +25,50 @@ LISTING_SCHEMA_RE = re.compile(
 )
 
 ARTICLE_SNIPPETS = {
-    'cataract-comprehensive-guide':
-        '白內障什麼時候該開刀？人工水晶體怎麼選？整合 AAO、AAPPO、ESCRS 指引，整理視力以外的手術時機、單焦/散光/EDOF/多焦 IOL 取捨、飛秒雷射與術後恢復。',
-    'cataract-surgery-selection':
-        '白內障手術怎麼選才不被話術牽著走？比較超音波、飛秒雷射、MSICS、IOL 分類、Monovision、散光矯正、度數計算公式、健保與自費差異，整理台灣實務重點。',
-    'dims-pediatric-myopia-control':
-        'DIMS 近視控制鏡片有效嗎？整合 2026 AJO 統合分析、6 篇 RCT、1224 位兒童資料，解析 12 個月度數與眼軸控制效果、適合族群、限制與家長該追蹤的指標。',
-    'dry-eye-myths':
-        '點人工淚液會依賴？流淚就不是乾眼？葉黃素能治乾眼？整理 8 個常見乾眼迷思，說明 BAK 防腐劑、Omega-3 證據、瞼板腺熱敷、何時該就醫檢查。',
+    'toric-iol-astigmatism-cataract-review':
+        '2026 年 ESCRS 整合性回顧：散光人工水晶體 Toric IOL 適應症（≥1.0 D 規則散光）、術前評估、計算公式、旋轉風險（90-97% 內 5°）、特殊族群（雷射術後/圓錐角膜/PEX/角膜移植後）注意事項、台灣全自費現況。蕭閔謙醫師整理。',
     'dry-eye-symptom-sign-discordance-dream':
         '乾眼症為什麼主觀很乾、檢查卻還好？DREAM 試驗 535 位中重度乾眼分析顯示 77% 症狀與徵象不一致，整理 4 型分佈、治療選擇與台灣健保給付。',
-    'floaters-retinal-detachment':
-        '飛蚊症會自己好嗎？突然增多、閃光或視野缺損何時是視網膜裂孔/剝離警訊？整理 6 個常見迷思、高度近視風險、72 小時內就醫重點與大型研究證據。',
-    'glaucoma-comprehensive-guide':
-        '青光眼早期常沒有症狀，何時要篩檢？整合 AAO、NICE、EGS 指引與台灣數據，整理開角/閉角/正常眼壓型分類、急性閉角紅旗、SLT、藥物、手術與居家照護。',
+    'monitoring-myopia-ser-vs-axial-length':
+        'Clark & Wong 2026 AJO 統合分析（70 篇人群研究）：大多數兒童應以等價球面度數（SER）為近視監測主軸，眼軸長度（AL）保留給長尾族群。整理眼軸/度數對視網膜、白內障、青光眼的預測力與證據限制。',
+    'dims-pediatric-myopia-control':
+        'DIMS 鏡片 12 個月可比單焦鏡片多保留約 0.37 D 度數、少增長 0.16 mm 眼軸。整合 2026 AJO 統合分析（6 篇 RCT、1224 位兒童）、Lam 2020/2023 與 Cochrane 2023 living review，蕭閔謙醫師（眼科）解析。',
+    'cataract-surgery-selection':
+        '白內障手術怎麼選才不被話術牽著走？比較超音波、飛秒雷射、MSICS、IOL 分類、Monovision、散光矯正、度數計算公式、健保與自費差異，整理台灣實務重點。',
     'glaucoma-treatment-selection':
         '青光眼治療怎麼選？整理 SLT 雷射與藥物第一線、前列腺素類副作用、複方眼藥水、加藥/換藥邏輯、MIGS、傳統手術階梯、閉角型路徑與台灣健保現況。',
-    'lacrimal-gland-tumor':
-        '眼睛凸出、淚腺區疼痛或視力下降可能是淚腺腫瘤。整理 IJO 2024 meta-analysis、MD Anderson 質子治療與動脈內化療證據，回答診斷、治療、保眼與預後問題。',
-    'monitoring-myopia-ser-vs-axial-length':
-        '兒童近視追蹤該看度數還是眼軸？Clark & Wong 2026 AJO 統合分析 70 篇研究，說明 SER 與 AL 對視網膜、白內障、青光眼風險的預測力與臨床限制。',
-    'pediatric-myopia-control':
-        '兒童近視控制怎麼選？整理阿托品 0.01%/0.05%、OK 鏡、DIMS、多焦點離焦鏡片、紅光治療與戶外時間，引用 LAMP、ATOM、DIMS、RLRL 等研究回答家長常見問題。',
+    'glaucoma-comprehensive-guide':
+        '青光眼早期常沒有症狀，何時要篩檢？整合 AAO、NICE、EGS 指引與台灣數據，整理開角/閉角/正常眼壓型分類、急性閉角紅旗、SLT、藥物、手術與居家照護。',
+    'cataract-comprehensive-guide':
+        '白內障什麼時候該開刀？人工水晶體怎麼選？整合 AAO、AAPPO、ESCRS 指引，整理視力以外的手術時機、單焦/散光/EDOF/多焦 IOL 取捨、飛秒雷射與術後恢復。',
     'thyroid-eye-disease':
-        "甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。",
-    'toric-iol-astigmatism-cataract-review':
-        '2026 ESCRS 整合性回顧：散光人工水晶體 Toric IOL 適應症、術前評估、計算公式、旋轉風險、特殊族群與台灣自費現況，整理白內障合併散光患者術前該問的問題。',
+        '甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。',
+    'lacrimal-gland-tumor':
+        '眼睛凸出來、淚腺區疼痛、視力下降 — 可能是淚腺腫瘤（尤其腺樣囊狀癌 ACC)。整理 IJO 2024 Meta-analysis、MD Anderson 質子治療與動脈內化療最新證據，回答家長與病友最常問的 6 個問題：診斷、治療選項、保留眼球可行嗎？放療後視力會剩多少？蕭閔謙醫師（眼科）整理。',
+    'dry-eye-myths':
+        '點人工淚液會依賴？流淚就不是乾眼？葉黃素能治乾眼？整理 8 個常見乾眼迷思，說明 BAK 防腐劑、Omega-3 證據、瞼板腺熱敷、何時該就醫檢查。',
+    'pediatric-myopia-control':
+        '阿托品 0.01% / 0.05% 哪個有效?OK 鏡會傷角膜嗎？紅光治療安全嗎？多焦點離焦鏡片是什麼？戶外 2 小時真的能預防近視?8 個家長最常問的兒童近視控制問題，引用 LAMP / ATOM / DIMS / RLRL 等大型研究，蕭閔謙醫師（眼科）整理。',
+    'floaters-retinal-detachment':
+        '飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Eye 2010 大型研究，蕭閔謙醫師（眼科）整理。',
 }
 
 STATIC_SNIPPETS = {
     'index.html':
-        'HsiaoEye 是蕭閔謙醫師的眼科衛教與學習筆記，整理乾眼症、兒童近視控制、白內障、青光眼、飛蚊症與常見眼科警訊，協助就醫前理解問題。',
+        '蕭閔謙醫師（眼科住院醫師）的個人衛教網站。乾眼症、兒童近視控制、白內障、視網膜疾病等民眾最常見的眼科問題與學習筆記。',
     'about.html':
-        '蕭閔謙醫師個人簡介與 HsiaoEye 站點說明，介紹眼科住院醫師背景、衛教寫作原則、內容審閱方式，以及本站如何提供非商業化的眼科知識。',
+        '蕭閔謙醫師（Min-Chien Hsiao, MD）個人簡介。眼科住院醫師。學歷：高雄醫學大學 學士後醫學系。',
     'tools.html':
-        'HsiaoEye 眼科自我評估工具，包含 OSDI、DEQ-5、Snellen/LogMAR 換算、等價球面度數與飛蚊症紅旗篩檢，協助整理症狀但不取代就醫。',
+        'OSDI、DEQ-5、Snellen↔LogMAR、球面等價度數 (SE)、飛蚊症警訊自我檢核 — 5 個眼科常用臨床量表，蕭閔謙醫師整理，立即線上計算與分級解讀。',
     'notes.html':
         'HsiaoEye 學習筆記整理眼科住院醫師的臨床閱讀、研究摘要與病人衛教延伸內容，提供醫學生、住院醫師與一般讀者更深入的眼科脈絡。',
     'privacy.html':
         'HsiaoEye 隱私權政策說明本站如何使用分析工具、Cookie、第三方服務與基本訪客資料，並說明醫療衛教內容與個人醫療建議的界線。',
     'blog/index.html':
-        'HsiaoEye 眼科衛教文章索引，收錄乾眼症、兒童近視控制、白內障、青光眼、飛蚊症、甲狀腺眼疾與常見眼科急症警訊等主題。',
+        'HsiaoEye 全部眼科衛教文章索引 — 乾眼症、兒童近視控制、白內障、青光眼、視網膜疾病。蕭閔謙醫師（眼科）整理。',
     'blog/topics.html':
-        '依主題瀏覽 HsiaoEye 眼科文章，快速找到青光眼、白內障、乾眼症、兒童近視、視網膜、飛蚊症、甲狀腺眼疾與眼科工具內容。',
+        'HsiaoEye 全部眼科衛教主題地圖 — 乾眼症、兒童近視控制、飛蚊症、白內障、青光眼、葉黃素等。',
 }
-
 
 def read_catalog():
     js = (ROOT / 'blog' / 'blog-shared.js').read_text(encoding='utf-8')

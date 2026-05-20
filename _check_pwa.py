@@ -72,6 +72,43 @@ def audit_manifest(errors: list[str]) -> None:
         if not src or not local_url_exists(str(src)):
             errors.append(f"manifest icon missing locally: {src}")
 
+    screenshots = data.get("screenshots", [])
+    if not isinstance(screenshots, list) or not screenshots:
+        errors.append("manifest screenshots should include at least one install preview")
+    for screenshot in screenshots:
+        if not isinstance(screenshot, dict):
+            errors.append("manifest screenshot entry must be an object")
+            continue
+        src = screenshot.get("src")
+        if not src or not local_url_exists(str(src)):
+            errors.append(f"manifest screenshot missing locally: {src}")
+        if not screenshot.get("sizes"):
+            errors.append(f"manifest screenshot missing sizes: {src}")
+        if not screenshot.get("type"):
+            errors.append(f"manifest screenshot missing type: {src}")
+
+    shortcuts = data.get("shortcuts", [])
+    if not isinstance(shortcuts, list) or not shortcuts:
+        errors.append("manifest shortcuts should be a non-empty list")
+    for shortcut in shortcuts:
+        if not isinstance(shortcut, dict):
+            errors.append("manifest shortcut entry must be an object")
+            continue
+        url = shortcut.get("url")
+        if not url or not local_url_exists(str(url)):
+            errors.append(f"manifest shortcut URL does not resolve locally: {url}")
+        shortcut_icons = shortcut.get("icons", [])
+        if not isinstance(shortcut_icons, list) or not shortcut_icons:
+            errors.append(f"manifest shortcut missing icons: {shortcut.get('name') or url}")
+            continue
+        for icon in shortcut_icons:
+            if not isinstance(icon, dict):
+                errors.append(f"manifest shortcut icon entry must be an object: {shortcut.get('name') or url}")
+                continue
+            src = icon.get("src")
+            if not src or not local_url_exists(str(src)):
+                errors.append(f"manifest shortcut icon missing locally: {src}")
+
 
 def audit_offline(errors: list[str]) -> None:
     path = ROOT / "offline.html"
