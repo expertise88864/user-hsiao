@@ -26,6 +26,14 @@ def main() -> int:
         errors.append("api/feed.js should not stamp feed XML with request-time dates")
     if "const feedUpdated = articles[0]?.updated || articles[0]?.date" not in src:
         errors.append("api/feed.js should derive feed updated date from newest article")
+    if "const lastModified = rfc822Date(feedUpdated)" not in src:
+        errors.append("api/feed.js should derive Last-Modified from the stable feed updated date")
+    if "res.setHeader('Last-Modified', lastModified)" not in src:
+        errors.append("api/feed.js should send a Last-Modified header for crawlers and conditional requests")
+    if "req.headers['if-modified-since']" not in src or "isFreshSince(ifModifiedSince, lastModified)" not in src:
+        errors.append("api/feed.js should support If-Modified-Since 304 responses when no ETag is supplied")
+    if "function etagMatches" not in src or "etagMatches(ifNoneMatch, etag)" not in src:
+        errors.append("api/feed.js should handle multi-value If-None-Match headers")
     if '<lastBuildDate>${rfc822Date(feedUpdated)}</lastBuildDate>' not in src:
         errors.append("RSS lastBuildDate should use the stable feedUpdated date")
     if '<updated>${atomDate(feedUpdated)}</updated>' not in src:

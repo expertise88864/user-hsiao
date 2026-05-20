@@ -19,6 +19,7 @@ STATIC_PATHS = [
     "/tools",
     "/notes",
     "/privacy",
+    "/llms.txt",
     "/en",
     "/en/blog",
     "/en/blog/topics",

@@ -12,6 +12,25 @@ DOMAIN = 'https://hsiao.chendermatologist.com'
 LLMS = ROOT / 'llms.txt'
 
 
+def text_integrity_errors(src: str) -> list[str]:
+    errors: list[str] = []
+    if '\ufeff' in src:
+        errors.append('contains UTF-8 BOM')
+    if '\ufffd' in src:
+        errors.append('contains Unicode replacement character U+FFFD')
+    if '????' in src:
+        errors.append('contains repeated question marks, likely encoding loss')
+
+    private = sorted({f'U+{ord(c):04X}' for c in src if 0xE000 <= ord(c) <= 0xF8FF})
+    if private:
+        errors.append('contains private-use characters: ' + ', '.join(private[:6]))
+
+    c1_controls = sorted({f'U+{ord(c):04X}' for c in src if 0x80 <= ord(c) <= 0x9F})
+    if c1_controls:
+        errors.append('contains C1 control characters: ' + ', '.join(c1_controls[:6]))
+    return errors
+
+
 def parse_catalog():
     js = (ROOT / 'blog' / 'blog-shared.js').read_text(encoding='utf-8')
     m = re.search(r'DN\.ARTICLES\s*=\s*\[(.*?)\];', js, re.DOTALL)
@@ -50,6 +69,8 @@ def main() -> int:
         return 1
 
     src = LLMS.read_text(encoding='utf-8')
+    for err in text_integrity_errors(src):
+        errors.append(err)
     if not src.startswith('# HsiaoEye'):
         errors.append('missing # HsiaoEye heading')
     if 'Medical disclaimer' not in src:

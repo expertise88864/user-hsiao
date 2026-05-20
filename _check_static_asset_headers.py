@@ -48,6 +48,10 @@ EXPECTED = {
         "Content-Type": "text/css; charset=utf-8",
         "Cache-Control": "public, max-age=2592000, stale-while-revalidate=604800",
     },
+    "/llms.txt": {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
+    },
 }
 
 

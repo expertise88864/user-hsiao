@@ -43,6 +43,16 @@ def main() -> int:
         errors.append("api/sitemap.js should not stamp static sitemap URLs with request-time dates")
     if "const siteUpdated = articles[0]?.updated || articles[0]?.date" not in api:
         errors.append("api/sitemap.js should derive static lastmod from the newest article update")
+    if "const lastModified = rfc822Date(siteUpdated)" not in api:
+        errors.append("api/sitemap.js should derive Last-Modified from the stable site update date")
+    if "res.setHeader('Last-Modified', lastModified)" not in api:
+        errors.append("api/sitemap.js should send a Last-Modified header for crawlers and conditional requests")
+    if "req.headers['if-modified-since']" not in api or "isFreshSince(ifModifiedSince, lastModified)" not in api:
+        errors.append("api/sitemap.js should support If-Modified-Since 304 responses when no ETag is supplied")
+    if "function etagMatches" not in api or "etagMatches(ifNoneMatch, etag)" not in api:
+        errors.append("api/sitemap.js should handle multi-value If-None-Match headers")
+    if "xmlEscape(e.message || e)" not in api:
+        errors.append("api/sitemap.js should XML-escape error responses")
     if "emit(p.url, en, siteUpdated, p.changefreq, p.priority)" not in api:
         errors.append("api/sitemap.js static zh URLs should use stable siteUpdated lastmod")
     if "<lastmod>${siteUpdated}</lastmod>" not in api:

@@ -76,6 +76,7 @@ export default async function handler(req, res) {
       `https://${HOST}/en/tools`,
       `https://${HOST}/en/notes`,
       `https://${HOST}/en/privacy`,
+      `https://${HOST}/llms.txt`,
     );
   }
   // IndexNow accepts max 10,000 URLs per request — we'll never get close.

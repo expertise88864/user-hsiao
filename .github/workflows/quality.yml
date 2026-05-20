@@ -210,6 +210,7 @@ jobs:
               f'https://{HOST}/tools',
               f'https://{HOST}/notes',
               f'https://{HOST}/privacy',
+              f'https://{HOST}/llms.txt',
               f'https://{HOST}/en',
               f'https://{HOST}/en/blog',
               f'https://{HOST}/en/blog/topics',

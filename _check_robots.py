@@ -103,6 +103,8 @@ def main() -> None:
     locs = re.findall(r'<loc>https://hsiao\.chendermatologist\.com([^<]*)</loc>', sitemap)
     if 'Sitemap: https://hsiao.chendermatologist.com/sitemap.xml' not in robots:
         errors.append('robots.txt missing absolute Sitemap directive')
+    if '# AI-readable site guide: https://hsiao.chendermatologist.com/llms.txt' not in robots:
+        errors.append('robots.txt missing llms.txt discovery comment')
     for ua in SEARCH_USER_AGENTS:
         rules = rules_for(ua, groups)
         blocked = [loc for loc in locs if disallowed(loc, rules)]

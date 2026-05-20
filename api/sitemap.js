@@ -115,6 +115,27 @@ function xmlEscape(value) {
     .replace(/>/g, '&gt;');
 }
 
+function ymdToDate(value) {
+  const d = new Date(`${value || '2026-01-01'}T00:00:00Z`);
+  return Number.isNaN(d.getTime()) ? new Date('2026-01-01T00:00:00Z') : d;
+}
+
+function rfc822Date(value) {
+  return ymdToDate(value).toUTCString();
+}
+
+function isFreshSince(headerValue, lastModified) {
+  if (!headerValue) return false;
+  const requestTime = Date.parse(headerValue);
+  const modifiedTime = Date.parse(lastModified);
+  return Number.isFinite(requestTime) && Number.isFinite(modifiedTime) && requestTime >= modifiedTime;
+}
+
+function etagMatches(headerValue, etag) {
+  if (!headerValue) return false;
+  return String(headerValue).split(',').map(v => v.trim()).includes(etag) || String(headerValue).trim() === '*';
+}
+
 // Build ETag from a string (FNV-1a 32-bit hash, hex-encoded — fast and edge-safe)
 function etagOf(s) {
   let h = 0x811c9dc5;
@@ -198,20 +219,23 @@ export default async function handler(req, res) {
 
     const etag = etagOf(xml);
     const ifNoneMatch = req.headers['if-none-match'];
+    const ifModifiedSince = req.headers['if-modified-since'];
+    const lastModified = rfc822Date(siteUpdated);
     const tTotal = Date.now() - t0;
     const serverTiming = `articles;dur=${tArt}, lastmod;dur=${tLm}, total;dur=${tTotal}`;
 
     res.setHeader('Content-Type', 'application/xml; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=21600, stale-while-revalidate=86400');
     res.setHeader('ETag', etag);
+    res.setHeader('Last-Modified', lastModified);
     res.setHeader('Server-Timing', serverTiming);
 
-    if (ifNoneMatch === etag) {
+    if (etagMatches(ifNoneMatch, etag) || (!ifNoneMatch && isFreshSince(ifModifiedSince, lastModified))) {
       res.status(304).end();
       return;
     }
     res.status(200).send(xml);
   } catch (e) {
-    res.status(500).send(`<?xml version="1.0"?><error>${String(e.message || e)}</error>`);
+    res.status(500).send(`<?xml version="1.0"?><error>${xmlEscape(e.message || e)}</error>`);
   }
 }
