@@ -72,6 +72,10 @@ def render(args) -> str:
     url = f'{DOMAIN}/blog/{slug}'
     en_url = f'{DOMAIN}/en/blog/{slug}'
     og = f'{DOMAIN}/assets/og/{slug}.png'
+    article_id = f'{url}#article'
+    webpage_id = f'{url}#webpage'
+    breadcrumb_id = f'{url}#breadcrumb'
+    image_id = f'{url}#primaryimage'
 
     return f'''<!doctype html>
 <html lang="zh-Hant-TW">
@@ -129,13 +133,13 @@ def render(args) -> str:
 <link rel="stylesheet" href="/assets/app.css" />
 
 <script type="application/ld+json">
-{{ "@context":"https://schema.org","@type":"MedicalScholarlyArticle","headline":"{attr(args.title_zh)}","description":"{attr(args.desc_zh)}","datePublished":"{today}","dateModified":"{today}","inLanguage":"zh-Hant-TW","keywords":"{attr(args.tag_zh)},{attr(args.tag_en)}","articleSection":"Ophthalmology Patient Education","author":{{"@id":"{DOMAIN}/about#person"}},"publisher":{{"@id":"{DOMAIN}/about#person"}},"image":"{og}","mainEntityOfPage":"{url}","audience":{{"@type":"MedicalAudience","audienceType":["Patient","Clinician"],"geographicArea":{{"@type":"Country","name":"Taiwan"}},"healthCondition":{{"@type":"MedicalCondition","name":"Ophthalmology"}}}} }}
+{{ "@context":"https://schema.org","@type":"MedicalScholarlyArticle","@id":"{article_id}","headline":"{attr(args.title_zh)}","description":"{attr(args.desc_zh)}","datePublished":"{today}","dateModified":"{today}","inLanguage":"zh-Hant-TW","keywords":"{attr(args.tag_zh)},{attr(args.tag_en)}","articleSection":"Ophthalmology Patient Education","author":{{"@id":"{DOMAIN}/about#person"}},"publisher":{{"@id":"{DOMAIN}/about#person"}},"image":{{"@type":"ImageObject","@id":"{image_id}","url":"{og}","contentUrl":"{og}","width":1200,"height":630,"name":"{attr(args.title_zh)}","caption":"{attr(args.title_zh)}"}},"thumbnailUrl":"{og}","mainEntityOfPage":"{url}","isPartOf":{{"@id":"{DOMAIN}/#website"}},"audience":{{"@type":"MedicalAudience","audienceType":["Patient","Clinician"],"geographicArea":{{"@type":"Country","name":"Taiwan"}},"healthCondition":{{"@type":"MedicalCondition","name":"Ophthalmology"}}}} }}
 </script>
 <script type="application/ld+json">
-{{ "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"首頁","item":"{DOMAIN}/"}},{{"@type":"ListItem","position":2,"name":"衛教文章","item":"{DOMAIN}/blog/"}},{{"@type":"ListItem","position":3,"name":"{attr(args.title_zh)}","item":"{url}"}}]}}
+{{ "@context":"https://schema.org","@type":"BreadcrumbList","@id":"{breadcrumb_id}","itemListElement":[{{"@type":"ListItem","position":1,"name":"首頁","item":"{DOMAIN}/"}},{{"@type":"ListItem","position":2,"name":"衛教文章","item":"{DOMAIN}/blog"}},{{"@type":"ListItem","position":3,"name":"{attr(args.title_zh)}","item":"{url}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"MedicalWebPage","url":"{url}","inLanguage":["zh-TW","en"],"name":"{attr(args.title_zh)}","audience":{{"@type":"MedicalAudience","audienceType":"Patient"}},"lastReviewed":"{today}","reviewedBy":{{"@id":"{DOMAIN}/about#person"}},"speakable":{{"@type":"SpeakableSpecification","cssSelector":["h1","h2",".tldr"]}},"keywords":"{attr(args.tag_zh)},{attr(args.tag_en)}","articleSection":"Ophthalmology Patient Education","about":{{"@type":"MedicalCondition","name":"{attr(args.tag_zh)}","alternateName":["{attr(args.tag_zh)}","{attr(args.tag_en)}"],"code":{{"@type":"MedicalCode","code":"{args.condition_icd10}","codingSystem":"ICD-10"}}}},"accessibilityFeature":["alternativeText","highContrastDisplay","largePrint","readingOrder","structuralNavigation","tableOfContents","ARIA"],"accessibilityHazard":["noFlashingHazard","noMotionSimulationHazard","noSoundHazard"],"educationalUse":"patient education","learningResourceType":"reference material","isAccessibleForFree":true,"isPartOf":{{"@type":"WebSite","name":"HsiaoEye","url":"{DOMAIN}/"}}}}
+{{"@context":"https://schema.org","@type":"MedicalWebPage","@id":"{webpage_id}","url":"{url}","inLanguage":["zh-TW","en"],"name":"{attr(args.title_zh)}","audience":{{"@type":"MedicalAudience","audienceType":"Patient"}},"lastReviewed":"{today}","reviewedBy":{{"@id":"{DOMAIN}/about#person"}},"author":{{"@id":"{DOMAIN}/about#person"}},"publisher":{{"@id":"{DOMAIN}/about#person"}},"speakable":{{"@type":"SpeakableSpecification","cssSelector":["h1","h2",".tldr"]}},"keywords":"{attr(args.tag_zh)},{attr(args.tag_en)}","articleSection":"Ophthalmology Patient Education","about":{{"@type":"MedicalCondition","name":"{attr(args.tag_zh)}","alternateName":["{attr(args.tag_zh)}","{attr(args.tag_en)}"],"code":{{"@type":"MedicalCode","code":"{args.condition_icd10}","codingSystem":"ICD-10"}}}},"image":{{"@id":"{image_id}"}},"primaryImageOfPage":{{"@id":"{image_id}"}},"thumbnailUrl":"{og}","mainEntity":{{"@id":"{article_id}"}},"breadcrumb":{{"@id":"{breadcrumb_id}"}},"accessibilityFeature":["alternativeText","highContrastDisplay","largePrint","readingOrder","structuralNavigation","tableOfContents","ARIA"],"accessibilityHazard":["noFlashingHazard","noMotionSimulationHazard","noSoundHazard"],"educationalUse":"patient education","learningResourceType":"reference material","isAccessibleForFree":true,"isPartOf":{{"@id":"{DOMAIN}/#website"}}}}
 </script>
 </head>
 <body class="font-sans antialiased text-ink-900">

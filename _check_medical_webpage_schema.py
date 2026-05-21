@@ -54,6 +54,8 @@ def audit_page(path: Path, canonical_path: str, slug: str) -> list[str]:
     url = f"{DOMAIN}{canonical_path}"
     article_id = f"{url}#article"
     webpage_id = f"{url}#webpage"
+    breadcrumb_id = f"{url}#breadcrumb"
+    website_id = f"{DOMAIN}/en#website" if canonical_path.startswith("/en/") else f"{DOMAIN}/#website"
     image = f"{DOMAIN}/assets/og/{slug}.png"
 
     try:
@@ -66,10 +68,13 @@ def audit_page(path: Path, canonical_path: str, slug: str) -> list[str]:
         None,
     )
     webpage = next((b for b in blocks if "MedicalWebPage" in type_names(b)), None)
+    breadcrumb = next((b for b in blocks if "BreadcrumbList" in type_names(b)), None)
     if not article:
         return [f"{path.relative_to(ROOT).as_posix()}: missing article JSON-LD"]
     if not webpage:
         return [f"{path.relative_to(ROOT).as_posix()}: missing MedicalWebPage JSON-LD"]
+    if not breadcrumb:
+        return [f"{path.relative_to(ROOT).as_posix()}: missing BreadcrumbList JSON-LD"]
 
     if article.get("@id") != article_id:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: Article @id mismatch")
@@ -79,6 +84,8 @@ def audit_page(path: Path, canonical_path: str, slug: str) -> list[str]:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: Article image mismatch")
     if article.get("thumbnailUrl") != image:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: Article thumbnailUrl mismatch")
+    if ref_id(article.get("isPartOf")) != website_id:
+        errors.append(f"{path.relative_to(ROOT).as_posix()}: Article isPartOf should reference {website_id}")
 
     if webpage.get("@id") != webpage_id:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage @id mismatch")
@@ -92,6 +99,10 @@ def audit_page(path: Path, canonical_path: str, slug: str) -> list[str]:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage primaryImageOfPage mismatch")
     if ref_id(webpage.get("mainEntity")) != article_id:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage mainEntity must point to Article @id")
+    if ref_id(webpage.get("breadcrumb")) != breadcrumb_id:
+        errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage breadcrumb must point to BreadcrumbList @id")
+    if ref_id(webpage.get("isPartOf")) != website_id:
+        errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage isPartOf should reference {website_id}")
     if len(str(webpage.get("description") or "")) < 50:
         errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage description missing/too short")
     if webpage.get("datePublished") != article.get("datePublished"):
@@ -101,6 +112,22 @@ def audit_page(path: Path, canonical_path: str, slug: str) -> list[str]:
     for key in ("author", "publisher", "reviewedBy"):
         if ref_id(webpage.get(key)) != PERSON_ID:
             errors.append(f"{path.relative_to(ROOT).as_posix()}: MedicalWebPage {key} should reference {PERSON_ID}")
+
+    if breadcrumb.get("@id") != breadcrumb_id:
+        errors.append(f"{path.relative_to(ROOT).as_posix()}: BreadcrumbList @id mismatch")
+    items = breadcrumb.get("itemListElement")
+    if not isinstance(items, list) or len(items) < 3:
+        errors.append(f"{path.relative_to(ROOT).as_posix()}: BreadcrumbList should have at least 3 items")
+    else:
+        is_en = canonical_path.startswith("/en/")
+        expected_home = f"{DOMAIN}/en" if is_en else f"{DOMAIN}/"
+        expected_blog = f"{DOMAIN}/en/blog" if is_en else f"{DOMAIN}/blog"
+        if ref_id(items[0].get("item") if isinstance(items[0], dict) else "") != expected_home:
+            errors.append(f"{path.relative_to(ROOT).as_posix()}: BreadcrumbList home item mismatch")
+        if ref_id(items[1].get("item") if isinstance(items[1], dict) else "") != expected_blog:
+            errors.append(f"{path.relative_to(ROOT).as_posix()}: BreadcrumbList blog item mismatch")
+        if ref_id(items[-1].get("item") if isinstance(items[-1], dict) else "") != url:
+            errors.append(f"{path.relative_to(ROOT).as_posix()}: BreadcrumbList leaf item mismatch")
     return errors
 
 

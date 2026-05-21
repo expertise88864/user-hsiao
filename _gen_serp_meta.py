@@ -190,6 +190,8 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
     page_url = f'{DOMAIN}/blog/{slug}'
     article_id = f'{page_url}#article'
     webpage_id = f'{page_url}#webpage'
+    breadcrumb_id = f'{page_url}#breadcrumb'
+    website_id = f'{DOMAIN}/#website'
     expected = f'{DOMAIN}/assets/og/{slug}.png'
     page_desc = meta_content(src, 'description')
     image_alt = meta_content(src, 'og:image:alt', attr='property') or head_title(src)
@@ -218,6 +220,7 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
             data['image'] = primary_image
             data['thumbnailUrl'] = expected
             data['mainEntityOfPage'] = page_url
+            data['isPartOf'] = {'@id': website_id}
             article_meta = {
                 'headline': data.get('headline') or data.get('name') or '',
                 'description': page_desc if len(page_desc) > len(data.get('description') or '') else data.get('description') or '',
@@ -233,6 +236,8 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
             data['primaryImageOfPage'] = {'@id': primary_image['@id']}
             data['thumbnailUrl'] = expected
             data['mainEntity'] = {'@id': article_id}
+            data['breadcrumb'] = {'@id': breadcrumb_id}
+            data['isPartOf'] = {'@id': website_id}
             if article_meta.get('headline') and not data.get('name'):
                 data['name'] = article_meta['headline']
             if article_meta.get('description'):
@@ -244,6 +249,18 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
             data['author'] = article_meta.get('author') or {'@id': f'{DOMAIN}/about#person'}
             data['publisher'] = article_meta.get('publisher') or {'@id': f'{DOMAIN}/about#person'}
             data.setdefault('reviewedBy', {'@id': f'{DOMAIN}/about#person'})
+        elif 'BreadcrumbList' in types:
+            data['@id'] = breadcrumb_id
+            items = data.get('itemListElement')
+            if isinstance(items, list) and items:
+                first = items[0] if isinstance(items[0], dict) else None
+                if first is not None:
+                    first['item'] = f'{DOMAIN}/'
+                if len(items) >= 2 and isinstance(items[1], dict):
+                    items[1]['item'] = f'{DOMAIN}/blog'
+                last = items[-1] if isinstance(items[-1], dict) else None
+                if last is not None:
+                    last['item'] = page_url
         else:
             return match.group(0)
 
