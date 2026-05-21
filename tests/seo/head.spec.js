@@ -106,6 +106,12 @@ for (const path of PUBLIC_PATHS) {
       const ogDesc = await page.locator('head meta[property="og:description"]').getAttribute('content');
       expect(ogDesc, 'og:description missing').toBeTruthy();
       expect(ogDesc.length, 'og:description too short').toBeGreaterThan(45);
+      const expectedOgLocale = path.startsWith('/en/') || path === '/en/' ? 'en_US' : 'zh_TW';
+      const expectedOgAlternate = expectedOgLocale === 'en_US' ? 'zh_TW' : 'en_US';
+      await expect(page.locator('head meta[property="og:locale"]'), 'og:locale missing/duplicated').toHaveCount(1);
+      await expect(page.locator('head meta[property="og:locale"]'), 'og:locale should match page language').toHaveAttribute('content', expectedOgLocale);
+      await expect(page.locator('head meta[property="og:locale:alternate"]'), 'og:locale:alternate missing/duplicated').toHaveCount(1);
+      await expect(page.locator('head meta[property="og:locale:alternate"]'), 'og:locale:alternate should point at sibling locale').toHaveAttribute('content', expectedOgAlternate);
       const ogImage = await page.locator('head meta[property="og:image"]').getAttribute('content');
       expect(ogImage, 'og:image missing').toBeTruthy();
       expect(ogImage, 'og:image must be absolute https URL').toMatch(/^https:\/\//);

@@ -20,6 +20,7 @@ STATIC_PATHS = [
     "/notes",
     "/privacy",
     "/llms.txt",
+    "/opensearch.xml",
     "/en",
     "/en/blog",
     "/en/blog/topics",

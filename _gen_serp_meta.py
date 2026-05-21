@@ -169,6 +169,8 @@ def normalize_file(path: Path, fallback: str, is_article: bool) -> bool:
         out = upsert_meta(out, 'og:image:alt', title, attr='property')
     if meta_content(out, 'twitter:image'):
         out = upsert_meta(out, 'twitter:image:alt', title)
+    out = upsert_meta(out, 'og:locale', 'zh_TW', attr='property')
+    out = upsert_meta(out, 'og:locale:alternate', 'en_US', attr='property')
 
     if out != src:
         path.write_text(out, encoding='utf-8')

@@ -212,6 +212,7 @@ jobs:
               f'https://{HOST}/notes',
               f'https://{HOST}/privacy',
               f'https://{HOST}/llms.txt',
+              f'https://{HOST}/opensearch.xml',
               f'https://{HOST}/en',
               f'https://{HOST}/en/blog',
               f'https://{HOST}/en/blog/topics',

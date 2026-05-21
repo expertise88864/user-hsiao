@@ -617,6 +617,13 @@ def transform(html, zh_canonical, en_canonical, slug=None):
         s = s.replace('</head>', '<meta property="og:locale" content="en_US" />\n<meta property="og:locale:alternate" content="zh_TW" />\n</head>', 1)
     if '<meta property="og:locale:alternate"' in s:
         s = re.sub(r'<meta property="og:locale:alternate" content="[^"]*"\s*/?>', '<meta property="og:locale:alternate" content="zh_TW" />', s, count=1)
+    else:
+        s = re.sub(
+            r'(<meta property="og:locale" content="en_US"\s*/?>)',
+            r'\1\n<meta property="og:locale:alternate" content="zh_TW" />',
+            s,
+            count=1,
+        )
 
     # 8. Rewrite <a href="/foo"> → <a href="/en/foo"> for any path with an
     # existing /en/ mirror. Keeps asset links (/favicon.ico, /assets/*,
