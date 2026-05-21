@@ -40,7 +40,7 @@ TIMEOUT_SEC = 60
 
 # Checks that need a live HTTP server (skipped by default in pre-push;
 # CI runs them via a separate workflow step).
-SKIP_UNLESS_LIVE = {'_check_runtime_smoke.py'}
+SKIP_UNLESS_LIVE = {'_check_runtime_smoke.py', '_check_live_indexability.py'}
 
 # Checks whose non-zero exit is treated as a warning, not a failure
 # (matches the `|| echo "::warning::..."` patterns in workflow yaml).

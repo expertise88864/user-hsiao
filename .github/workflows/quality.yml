@@ -249,6 +249,24 @@ jobs:
               print(f'::warning::IndexNow ping failed: {e}')
           PY
 
+  live-indexability:
+    name: Live indexability audit
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for Vercel deploy (90s)
+        run: sleep 90
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify production sitemap URLs are indexable
+        run: python _check_live_indexability.py
+
   lighthouse:
     name: Lighthouse CI
     runs-on: ubuntu-latest
