@@ -168,7 +168,10 @@
       // Walks the closest cardish ancestor and REMOVES it (not just display:none)
       // so subsequent code (search, filters, tag clouds) doesn't re-show it.
       // For bare links inside paragraphs, hide the link only.
-      document.querySelectorAll('a[href="/blog/' + slug + '"], a[href="/blog/' + slug + '/"]').forEach(function (a) {
+      document.querySelectorAll(
+        'a[href="/blog/' + slug + '"], a[href="/blog/' + slug + '/"], ' +
+        'a[href="/en/blog/' + slug + '"], a[href="/en/blog/' + slug + '/"]'
+      ).forEach(function (a) {
         var card = a.closest('.topic-card, .article-list-item, .mag-card, .spotlight-row');
         if (!card && a.parentNode && a.parentNode.tagName === 'LI') card = a.parentNode;
         if (card) {
