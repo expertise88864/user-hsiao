@@ -88,7 +88,11 @@ def check(fp: Path, text: str):
             warnings[rel].append('missing hreflang alternate')
 
     # 7. JSON-LD blocks all parse
-    blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.DOTALL)
+    blocks = re.findall(
+        r'<script\b[^>]*\btype=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+        text,
+        re.DOTALL | re.IGNORECASE,
+    )
     if not blocks and not seo_skip:
         warnings[rel].append('no JSON-LD blocks')
     for i, b in enumerate(blocks):

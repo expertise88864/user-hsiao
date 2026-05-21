@@ -1,117 +1,277 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""E11 — Bulk-extract <details><summary> Q&A from articles and inject FAQPage JSON-LD.
+"""Generate clean FAQPage JSON-LD from visible Chinese FAQ blocks.
 
-Why: Google rewards FAQPage rich result. ~80% of articles already have
-"常見問題 (Common Questions)" sections using <details><summary>. We just need to
-emit the matching schema.org JSON-LD so Google can render the rich result.
+The homepage contains a strong patient-intent FAQ section that can help search
+result presentation. Older generated FAQ markup was too broad: it scanned raw
+HTML, which leaked data-en attributes into Chinese answers and could touch
+draft/noindex pages. This generator is intentionally conservative:
 
-Idempotent: removes any prior auto-generated <script data-faq-auto>
-before injecting the fresh version.
+* only indexable Chinese source pages are candidates;
+* English mirrors and noindex/stub pages never receive auto FAQ schema;
+* pages with hand-authored FAQPage JSON-LD are left alone to avoid duplicates;
+* text is extracted from visible Chinese/data-zh content via BeautifulSoup.
 """
-import os, re, json, sys, io, html
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+from __future__ import annotations
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
-BLOG = os.path.join(ROOT, 'blog')
+import json
+import re
+import sys
+from pathlib import Path
+from typing import Iterable
 
-DETAILS_RE = re.compile(r'<details[^>]*>([\s\S]*?)</details>', re.IGNORECASE)
-SUMMARY_RE = re.compile(r'<summary[^>]*>([\s\S]*?)</summary>', re.IGNORECASE)
+from bs4 import BeautifulSoup, NavigableString, Tag
 
-def strip_html(s):
-    """Strip tags and decode entities; collapse whitespace."""
-    s = re.sub(r'<[^>]+>', '', s)
-    s = html.unescape(s)
-    s = re.sub(r'\s+', ' ', s).strip()
-    return s
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
-def extract_faqs(html_text):
-    """Return list of {q, a} from <details><summary> blocks in main article."""
-    # Limit search to inside <article> if present, else whole body
-    art_m = re.search(r'<article\b[^>]*>([\s\S]*?)</article>', html_text)
-    scope = art_m.group(1) if art_m else html_text
-    out = []
-    for m in DETAILS_RE.finditer(scope):
-        body = m.group(1)
-        sm = SUMMARY_RE.search(body)
-        if not sm:
-            continue
-        q = strip_html(sm.group(1))
-        # answer = body minus summary
-        ans = body[:sm.start()] + body[sm.end():]
-        a = strip_html(ans)
-        if not q or not a:
-            continue
-        if len(a) < 10:
-            continue
-        # dedupe
-        if any(x['q'] == q for x in out):
-            continue
-        out.append({'q': q, 'a': a})
+ROOT = Path(__file__).resolve().parent
+BLOG = ROOT / "blog"
+DOMAIN = "https://hsiao.chendermatologist.com"
+LANG = "zh-Hant-TW"
+MAX_FAQS_PER_PAGE = 15
+
+AUTO_FAQ_RE = re.compile(
+    r'<script\b(?=[^>]*\btype=["\']application/ld\+json["\'])(?=[^>]*\bdata-faq-auto\b)[^>]*>[\s\S]*?</script>\s*',
+    re.IGNORECASE,
+)
+
+
+def clean_text(value: str) -> str:
+    value = re.sub(r"\s+", " ", value or "").strip()
+    return value
+
+
+def cjk_ratio(value: str) -> float:
+    if not value:
+        return 0.0
+    return len(re.findall(r"[\u4e00-\u9fff]", value)) / max(len(value), 1)
+
+
+def parse_catalog() -> tuple[set[str], set[str]]:
+    js = (BLOG / "blog-shared.js").read_text(encoding="utf-8")
+    articles_match = re.search(r"DN\.ARTICLES\s*=\s*\[([\s\S]*?)\];", js)
+    slugs = set(re.findall(r"slug:\s*'([^']+)'", articles_match.group(1))) if articles_match else set()
+    stubs_match = re.search(r"DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
+    stubs = set(re.findall(r"'([^']+)'", stubs_match.group(1))) if stubs_match else set()
+    return slugs, stubs
+
+
+def is_noindex(src: str) -> bool:
+    return bool(re.search(r'<meta\s+name=["\']robots["\'][^>]*content=["\'][^"\']*noindex', src, re.I))
+
+
+def jsonld_types(value) -> set[str]:
+    if isinstance(value, list):
+        out: set[str] = set()
+        for item in value:
+            out |= jsonld_types(item)
+        return out
+    if not isinstance(value, dict):
+        return set()
+    typ = value.get("@type")
+    out = set(str(x) for x in typ) if isinstance(typ, list) else ({str(typ)} if typ else set())
+    graph = value.get("@graph")
+    if isinstance(graph, list):
+        out |= jsonld_types(graph)
     return out
 
-def remove_old(html_text):
-    """Strip prior auto-generated FAQPage JSON-LD."""
-    return re.sub(
-        r'<script\s+type="application/ld\+json"\s+data-faq-auto[^>]*>[\s\S]*?</script>\s*',
-        '',
-        html_text
-    )
 
-def inject(html_text, faqs):
-    if not faqs:
-        return html_text, False
-    schema = {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        'mainEntity': [
-            {'@type': 'Question', 'name': f['q'],
-             'acceptedAnswer': {'@type': 'Answer', 'text': f['a'][:5000]}}
-            for f in faqs
-        ]
-    }
-    block = '<script type="application/ld+json" data-faq-auto>' + \
-            json.dumps(schema, ensure_ascii=False, separators=(',', ':')) + \
-            '</script>'
-    new = remove_old(html_text)
-    if '</head>' in new:
-        new = new.replace('</head>', block + '</head>', 1)
-    else:
-        return new, False
-    return new, True
-
-def main():
-    n_files = 0
-    n_faqs = 0
-    skipped = 0
-    # Also process homepage (and EN mirror) — HsiaoEye's homepage carries a
-    # large "民眾搜尋最多的 15 個眼科問題" FAQ section using <details><summary>,
-    # which is the perfect candidate for a rich FAQPage result.
-    candidates = []
-    for f in sorted(os.listdir(BLOG)):
-        if f.endswith('.html'):
-            candidates.append(os.path.join(BLOG, f))
-    for extra in ('index.html', os.path.join('en', 'index.html')):
-        p = os.path.join(ROOT, extra)
-        if os.path.exists(p):
-            candidates.append(p)
-    for p in candidates:
-        with open(p, 'r', encoding='utf-8') as fp:
-            src = fp.read()
-        # For homepage there's no <article> wrapper — extract from whole body
-        faqs = extract_faqs(src)
-        if not faqs:
-            skipped += 1
+def has_manual_faqpage(src: str) -> bool:
+    soup = BeautifulSoup(src, "html.parser")
+    for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
+        if script.has_attr("data-faq-auto"):
             continue
-        new, changed = inject(src, faqs)
-        if changed and new != src:
-            with open(p, 'w', encoding='utf-8') as fp:
-                fp.write(new)
-            n_files += 1
-            n_faqs += len(faqs)
-            print(f'  {os.path.relpath(p, ROOT)}: {len(faqs)} FAQs')
-    print(f'\nInjected FAQPage JSON-LD into {n_files} files ({n_faqs} Q&A total)')
-    print(f'Skipped (no <details><summary>): {skipped} files')
+        raw = script.string or script.get_text()
+        try:
+            data = json.loads(raw.strip())
+        except Exception:
+            continue
+        if "FAQPage" in jsonld_types(data):
+            return True
+    return False
 
-if __name__ == '__main__':
-    main()
+
+def zh_text(node) -> str:
+    if isinstance(node, NavigableString):
+        return str(node)
+    if not isinstance(node, Tag):
+        return ""
+    if node.name in {"script", "style", "svg", "noscript"}:
+        return ""
+    data_zh = node.get("data-zh")
+    if data_zh:
+        return BeautifulSoup(data_zh, "html.parser").get_text(" ", strip=True)
+    return " ".join(zh_text(child) for child in node.children)
+
+
+def answer_text(details: Tag) -> str:
+    clone = BeautifulSoup(str(details), "html.parser")
+    summary = clone.find("summary")
+    if summary:
+        summary.decompose()
+    return clean_text(zh_text(clone))
+
+
+QUESTION_HINT_RE = re.compile(r"[?？]|^(迷思|Q[:：])|為什麼|怎麼|何時|哪些|誰|要不要|是否|可以嗎|一定要|代表什麼")
+NON_FAQ_RE = re.compile(r"本篇大綱|In this article|點擊收合|Click to collapse|目錄|Table of contents")
+
+
+def looks_like_question(q: str) -> bool:
+    if not q or NON_FAQ_RE.search(q):
+        return False
+    if len(q) > 140:
+        return False
+    return bool(QUESTION_HINT_RE.search(q))
+
+
+def extract_faqs(src: str) -> list[dict[str, str]]:
+    soup = BeautifulSoup(src, "html.parser")
+    scope = soup.find("article") or soup.find("main") or soup
+    faqs: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for details in scope.find_all("details"):
+        summary = details.find("summary")
+        if not summary:
+            continue
+        q = clean_text(zh_text(summary))
+        a = answer_text(details)
+        if not looks_like_question(q) or len(a) < 20:
+            continue
+        if cjk_ratio(q + a) < 0.18:
+            continue
+        if q in seen:
+            continue
+        seen.add(q)
+        faqs.append({"q": q, "a": a[:5000]})
+        if len(faqs) >= MAX_FAQS_PER_PAGE:
+            break
+    return faqs
+
+
+def remove_old(src: str) -> str:
+    return AUTO_FAQ_RE.sub("", src)
+
+
+def url_for(path: Path) -> str:
+    rel = path.relative_to(ROOT).as_posix()
+    if rel == "index.html":
+        return f"{DOMAIN}/"
+    if rel.startswith("blog/") and rel.endswith(".html"):
+        return f"{DOMAIN}/blog/{Path(rel).stem}"
+    raise ValueError(f"Unsupported FAQ candidate: {rel}")
+
+
+def inject(src: str, path: Path, faqs: list[dict[str, str]]) -> str:
+    page_url = url_for(path)
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": f"{page_url}#faq",
+        "url": page_url,
+        "inLanguage": LANG,
+        "isAccessibleForFree": True,
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": item["q"],
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item["a"],
+                },
+            }
+            for item in faqs
+        ],
+    }
+    block = (
+        '<script type="application/ld+json" data-faq-auto>'
+        + json.dumps(schema, ensure_ascii=False, separators=(",", ":"))
+        + "</script>"
+    )
+    clean = remove_old(src)
+    return clean.replace("</head>", block + "</head>", 1)
+
+
+def candidate_paths() -> Iterable[Path]:
+    slugs, stubs = parse_catalog()
+    yield ROOT / "index.html"
+    for slug in sorted(slugs - stubs):
+        path = BLOG / f"{slug}.html"
+        if path.exists():
+            yield path
+
+
+def cleanup_non_candidates(candidates: set[Path]) -> tuple[int, int]:
+    changed = 0
+    removed = 0
+    paths = [ROOT / "en" / "index.html", *BLOG.glob("*.html"), *(ROOT / "en" / "blog").glob("*.html")]
+    for path in paths:
+        if path in candidates or not path.exists():
+            continue
+        src = path.read_text(encoding="utf-8")
+        new = remove_old(src)
+        if new != src:
+            path.write_text(new, encoding="utf-8")
+            changed += 1
+            removed += 1
+    return changed, removed
+
+
+def main() -> int:
+    candidates = set(candidate_paths())
+    cleaned_files, stale_blocks = cleanup_non_candidates(candidates)
+    changed_files = cleaned_files
+    injected_files = 0
+    skipped = 0
+    total_faqs = 0
+
+    for path in sorted(candidates):
+        src = path.read_text(encoding="utf-8")
+        clean = remove_old(src)
+        rel = path.relative_to(ROOT).as_posix()
+
+        if is_noindex(clean):
+            if clean != src:
+                path.write_text(clean, encoding="utf-8")
+                changed_files += 1
+            skipped += 1
+            print(f"  skip {rel}: noindex")
+            continue
+
+        if has_manual_faqpage(clean):
+            if clean != src:
+                path.write_text(clean, encoding="utf-8")
+                changed_files += 1
+            skipped += 1
+            print(f"  skip {rel}: manual FAQPage exists")
+            continue
+
+        faqs = extract_faqs(clean)
+        if len(faqs) < 2:
+            if clean != src:
+                path.write_text(clean, encoding="utf-8")
+                changed_files += 1
+            skipped += 1
+            print(f"  skip {rel}: only {len(faqs)} FAQ candidate(s)")
+            continue
+
+        new = inject(clean, path, faqs)
+        if new != src:
+            path.write_text(new, encoding="utf-8")
+            changed_files += 1
+        injected_files += 1
+        total_faqs += len(faqs)
+        print(f"  {rel}: {len(faqs)} FAQs")
+
+    print(
+        f"\nFAQPage auto schema: {injected_files} page(s), {total_faqs} Q&A; "
+        f"removed stale blocks from {stale_blocks} page(s); skipped {skipped}; "
+        f"changed {changed_files} file(s)."
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -54,7 +54,8 @@ jobs:
       # ── Drift checks: regenerate auto-built artifacts and fail if any drifted ──
       # Catches the case where author edited an article but forgot to re-run
       # _gen_feeds.py / _gen_related.py / _gen_serp_meta.py /
-      # _gen_en_pages.py / _gen_search_index.py / _gen_llms_txt.py /
+      # _gen_faqpage_jsonld.py / _gen_en_pages.py / _gen_search_index.py /
+      # _gen_llms_txt.py /
       # _gen_csp_hashes.py.
       # OG image existence is checked later by _check_og_images.py; the binary
       # renderer is intentionally not part of drift detection because font
@@ -70,6 +71,7 @@ jobs:
           PID_REL=$!
           wait $PID_FEEDS $PID_REL
           python _gen_serp_meta.py
+          python _gen_faqpage_jsonld.py
           python _gen_en_pages.py
           python _gen_search_index.py
           python _gen_llms_txt.py
@@ -80,7 +82,7 @@ jobs:
           python _gen_csp_hashes.py
           if ! git diff --quiet; then
             echo "::warning::Auto-regenerated artifacts drifted from committed copies. Run the generator scripts locally before pushing:"
-            echo "::warning::  python _gen_feeds.py && python _gen_related.py && python _gen_serp_meta.py && python _gen_en_pages.py && python _gen_search_index.py && python _gen_llms_txt.py && python _gen_opensearch.py && python _gen_profile_schema.py && python _gen_site_graph.py && python _gen_route_canonicals.py && python _gen_csp_hashes.py"
+            echo "::warning::  python _gen_feeds.py && python _gen_related.py && python _gen_serp_meta.py && python _gen_faqpage_jsonld.py && python _gen_en_pages.py && python _gen_search_index.py && python _gen_llms_txt.py && python _gen_opensearch.py && python _gen_profile_schema.py && python _gen_site_graph.py && python _gen_route_canonicals.py && python _gen_csp_hashes.py"
             git diff --stat
             exit 1
           fi
@@ -141,6 +143,7 @@ jobs:
           echo "=== _check_svg_a11y.py ===" && python _check_svg_a11y.py || echo "::warning::SVG figure missing <desc> / role=img / aria-hidden (image SERP + a11y gap)"
           echo "=== _check_hreflang.py ===" && python _check_hreflang.py || echo "::error::Hreflang pair broken — language clustering will drop"
           echo "=== _check_search_index.py ===" && python _check_search_index.py || echo "::error::Search index drifted from published bilingual catalog"
+          echo "=== _check_faq_schema.py ===" && python _check_faq_schema.py || echo "::error::FAQPage rich-result schema boundary/payload issue"
           echo "=== _check_route_canonicals.py ===" && python _check_route_canonicals.py || echo "::error::Redirecting route signal found in crawler-facing artifacts"
           echo "=== _check_stub_exposure.py ===" && python _check_stub_exposure.py || echo "::error::Public source HTML links to noindex/WIP stub"
 
@@ -149,9 +152,10 @@ jobs:
           python -X utf8 -c "
           import json, re, glob, sys
           errors = 0
+          pattern = re.compile(r'<script\\b[^>]*\\btype=[\"\\']application/ld\\+json[\"\\'][^>]*>(.*?)</script>', re.DOTALL | re.I)
           for fp in glob.glob('**/*.html', recursive=True):
               text = open(fp, encoding='utf-8').read()
-              for i, b in enumerate(re.findall(r'<script type=\"application/ld\+json\">(.*?)</script>', text, re.DOTALL)):
+              for i, b in enumerate(pattern.findall(text)):
                   try: json.loads(b.strip())
                   except Exception as e:
                       print(f'  FAIL {fp}#LD{i+1}: {e}')

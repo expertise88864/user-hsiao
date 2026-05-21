@@ -11,6 +11,7 @@ on:
       - 'notes.html'
       - 'index.html'
       - '_gen_en_pages.py'
+      - '_gen_faqpage_jsonld.py'
       - '_gen_profile_schema.py'
       - '_gen_site_graph.py'
       - '_gen_route_canonicals.py'
@@ -53,6 +54,7 @@ jobs:
 
       - name: Regenerate English mirror and dependent artifacts
         run: |
+          python _gen_faqpage_jsonld.py
           python _gen_en_pages.py
           python _gen_profile_schema.py
           python _gen_site_graph.py
@@ -65,7 +67,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add en/ middleware.js
+          git add index.html blog/*.html en/ middleware.js
           if git diff --cached --quiet; then
             echo "No regenerated artifact changes to commit."
             exit 0
