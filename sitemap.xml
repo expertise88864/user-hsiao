@@ -12,6 +12,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/home.png</image:loc>
+      <image:title>蕭閔謙醫師 眼科筆記 · 乾眼、近視控制、白內障衛教</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/about</loc>
@@ -21,6 +25,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/about" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/about" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/about.png</image:loc>
+      <image:title>關於我 | 蕭閔謙醫師 · 眼科衛教筆記</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/tools</loc>
@@ -30,6 +38,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/tools" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/tools" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/tools.png</image:loc>
+      <image:title>眼科自評量表 · 5 個臨床計算器</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog</loc>
@@ -39,6 +51,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/blog.png</image:loc>
+      <image:title>眼科衛教文章索引</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/topics</loc>
@@ -48,6 +64,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/topics" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/topics" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/topics" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/topics.png</image:loc>
+      <image:title>主題地圖</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/notes</loc>
@@ -57,6 +77,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/notes" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/notes" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/notes" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/notes.png</image:loc>
+      <image:title>學習筆記</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/privacy</loc>
@@ -66,6 +90,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/privacy" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/privacy" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/privacy.png</image:loc>
+      <image:title>隱私權政策</image:title>
+    </image:image>
   </url>
 
   <!-- ===== Published articles ===== -->
@@ -250,6 +278,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/home.png</image:loc>
+      <image:title>Dr. Min-Chien Hsiao Ophthalmology Notes</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/about</loc>
@@ -259,6 +291,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/about" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/about" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/about.png</image:loc>
+      <image:title>About Dr. Min-Chien Hsiao</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/tools</loc>
@@ -268,6 +304,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/tools" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/tools" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/tools.png</image:loc>
+      <image:title>Ophthalmology Calculators</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog</loc>
@@ -277,6 +317,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/blog.png</image:loc>
+      <image:title>Ophthalmology Articles</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/topics</loc>
@@ -286,6 +330,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/topics" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/topics" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/topics" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/topics.png</image:loc>
+      <image:title>Ophthalmology Topic Map</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/notes</loc>
@@ -295,6 +343,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/notes" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/notes" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/notes" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/notes.png</image:loc>
+      <image:title>Ophthalmology Study Notes</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/privacy</loc>
@@ -304,6 +356,10 @@
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/privacy" />
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/privacy" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/privacy.png</image:loc>
+      <image:title>Privacy Policy</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/dry-eye-symptom-sign-discordance-dream</loc>

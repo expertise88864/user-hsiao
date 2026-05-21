@@ -12,6 +12,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 DOMAIN = "https://hsiao.chendermatologist.com"
+STATIC_OG_BY_PATH = {
+    "/": "home",
+    "/about": "about",
+    "/tools": "tools",
+    "/blog": "blog",
+    "/blog/topics": "topics",
+    "/notes": "notes",
+    "/privacy": "privacy",
+}
 NS = {
     "sm": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "xhtml": "http://www.w3.org/1999/xhtml",
@@ -44,6 +53,50 @@ def is_noindex(src: str) -> bool:
     return bool(match and "noindex" in match.group(1).lower())
 
 
+def published_article_slugs() -> set[str]:
+    js = (ROOT / "blog" / "blog-shared.js").read_text(encoding="utf-8")
+    catalog = re.search(r"DN\.ARTICLES\s*=\s*\[(.*?)\];", js, re.S)
+    slugs = set(re.findall(r"slug:\s*'([^']+)'", catalog.group(1))) if catalog else set()
+    stubs_match = re.search(r"DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
+    stubs = set(re.findall(r"'([^']+)'", stubs_match.group(1))) if stubs_match else set()
+    return slugs - stubs
+
+
+def normalized_path_for_url(url: str) -> str:
+    path = url[len(DOMAIN):] if url.startswith(DOMAIN) else ""
+    if path in {"", "/"}:
+        return "/"
+    return path.rstrip("/")
+
+
+def expected_image_for_url(url: str, article_slugs: set[str]) -> str:
+    path = normalized_path_for_url(url)
+    if path == "/en":
+        zh_path = "/"
+    elif path.startswith("/en/"):
+        zh_path = path[3:]
+    else:
+        zh_path = path
+
+    static_slug = STATIC_OG_BY_PATH.get(zh_path)
+    if static_slug:
+        return f"{DOMAIN}/assets/og/{static_slug}.png"
+
+    for prefix in ("/blog/", "/en/blog/"):
+        if path.startswith(prefix):
+            article_slug = path[len(prefix):]
+            if article_slug in article_slugs:
+                return f"{DOMAIN}/assets/og/{article_slug}.png"
+    return ""
+
+
+def local_asset_for_url(url: str) -> Path | None:
+    if not url.startswith(DOMAIN + "/"):
+        return None
+    path = ROOT / url[len(DOMAIN) + 1:]
+    return path if path.exists() else None
+
+
 def main() -> int:
     sitemap = ROOT / "sitemap.xml"
     if not sitemap.exists():
@@ -54,6 +107,7 @@ def main() -> int:
     tree = ET.parse(sitemap)
     root = tree.getroot()
     page_locs: list[str] = []
+    article_slugs = published_article_slugs()
 
     for url_el in root.findall("sm:url", NS):
         loc_el = url_el.find("sm:loc", NS)
@@ -79,6 +133,29 @@ def main() -> int:
         if is_noindex(src):
             rel = html_path.relative_to(ROOT).as_posix()
             errors.append(f"{loc}: noindex page included in sitemap ({rel})")
+
+        expected_image = expected_image_for_url(loc, article_slugs)
+        image_locs = [
+            (image_loc.text or "").strip()
+            for image in url_el.findall("image:image", NS)
+            for image_loc in [image.find("image:loc", NS)]
+            if image_loc is not None and (image_loc.text or "").strip()
+        ]
+        image_titles = [
+            (image_title.text or "").strip()
+            for image in url_el.findall("image:image", NS)
+            for image_title in [image.find("image:title", NS)]
+            if image_title is not None and (image_title.text or "").strip()
+        ]
+        if expected_image:
+            if image_locs != [expected_image]:
+                errors.append(f"{loc}: sitemap image mismatch ({image_locs!r} != {[expected_image]!r})")
+            elif local_asset_for_url(expected_image) is None:
+                errors.append(f"{loc}: sitemap image asset missing ({expected_image})")
+            if len(image_titles) != 1 or len(image_titles[0]) < 2:
+                errors.append(f"{loc}: sitemap image title missing/too short")
+        elif image_locs:
+            errors.append(f"{loc}: unexpected sitemap image entry ({image_locs!r})")
 
         alt_hrefs = [
             (alt.get("hreflang") or "", alt.get("href") or "")

@@ -142,10 +142,46 @@ STATIC_PAGES = [
     {'url': '/privacy',       'priority': '0.4',  'changefreq': 'yearly'},
 ]
 
+STATIC_OG_SLUGS = {
+    '/': 'home',
+    '/about': 'about',
+    '/tools': 'tools',
+    '/blog': 'blog',
+    '/blog/topics': 'topics',
+    '/notes': 'notes',
+    '/privacy': 'privacy',
+}
+
+STATIC_HTML_FILES = {
+    '/': 'index.html',
+    '/about': 'about.html',
+    '/tools': 'tools.html',
+    '/blog': 'blog/index.html',
+    '/blog/topics': 'blog/topics.html',
+    '/notes': 'notes.html',
+    '/privacy': 'privacy.html',
+}
+
 # Unpublished landing pages are deliberately excluded from sitemap/feed.
 LANDING_STUBS = []
 
 # ── sitemap.xml ──
+def static_og_image(path):
+    slug = STATIC_OG_SLUGS.get(path)
+    if not slug:
+        return None
+    if not os.path.exists(os.path.join('assets', 'og', slug + '.png')):
+        return None
+    return f'{DOMAIN}/assets/og/{slug}.png'
+
+def static_page_title(path, lang='zh'):
+    rel = STATIC_HTML_FILES.get(path)
+    if not rel:
+        return 'HsiaoEye'
+    if lang == 'en':
+        rel = os.path.join('en', rel) if rel != 'index.html' else 'en/index.html'
+    return html_title(rel) or 'HsiaoEye'
+
 def build_sitemap():
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
@@ -175,7 +211,15 @@ def build_sitemap():
     for p in STATIC_PAGES:
         zh = p['url']
         en = '/en' if zh == '/' else '/en' + zh
-        emit(zh, en, SITE_UPDATED_YMD, p['changefreq'], p['priority'])
+        emit(
+            zh,
+            en,
+            SITE_UPDATED_YMD,
+            p['changefreq'],
+            p['priority'],
+            image=static_og_image(zh),
+            image_title=static_page_title(zh, lang='zh'),
+        )
 
     # Articles (with per-article OG image). lastmod = `updated` (falls back to `date`)
     out.append('')
@@ -200,6 +244,7 @@ def build_sitemap():
     for p in STATIC_PAGES:
         zh = p['url']
         en = '/en' if zh == '/' else '/en' + zh
+        image = static_og_image(zh)
         out.append('  <url>')
         out.append(f'    <loc>{DOMAIN}{en}</loc>')
         out.append(f'    <lastmod>{SITE_UPDATED_YMD}</lastmod>')
@@ -211,6 +256,11 @@ def build_sitemap():
         out.append(f'    <xhtml:link rel="alternate" hreflang="x-default"  href="{DOMAIN}{zh}" />')
         out.append(f'    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="{DOMAIN}{zh}" />')
         out.append(f'    <xhtml:link rel="alternate" hreflang="en"         href="{DOMAIN}{en}" />')
+        if image:
+            out.append('    <image:image>')
+            out.append(f'      <image:loc>{image}</image:loc>')
+            out.append(f'      <image:title>{html.escape(static_page_title(zh, lang="en"))}</image:title>')
+            out.append('    </image:image>')
         out.append('  </url>')
     for a in articles:
         out.append('  <url>')
