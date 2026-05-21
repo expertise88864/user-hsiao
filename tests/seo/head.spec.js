@@ -92,6 +92,11 @@ for (const path of PUBLIC_PATHS) {
       const hreflangs = await page.locator('head link[rel="alternate"][hreflang]').count();
       expect(hreflangs, 'no hreflang alternate links').toBeGreaterThanOrEqual(2);
 
+      // 6b. OpenSearch discovery for browser/search-tool site search.
+      const openSearch = page.locator('head link[rel="search"][type="application/opensearchdescription+xml"]');
+      await expect(openSearch, 'OpenSearch discovery link missing').toHaveCount(1);
+      await expect(openSearch, 'OpenSearch link should point to /opensearch.xml').toHaveAttribute('href', '/opensearch.xml');
+
       // 7. og:url, og:title, og:image
       const ogUrl = await page.locator('head meta[property="og:url"]').getAttribute('content');
       expect(ogUrl, 'og:url missing').toBeTruthy();
@@ -167,6 +172,17 @@ test('llms.txt indexes published articles without private paths', async ({ reque
   expect(txt).not.toMatch(/\/admin|\/api|reset-sw/);
 });
 
+test('opensearch.xml advertises site article search', async ({ request }) => {
+  const r = await request.get(BASE + '/opensearch.xml');
+  expect(r.ok()).toBeTruthy();
+  expect(r.headers()['content-type']).toMatch(/opensearchdescription\+xml|xml/);
+  const xml = await r.text();
+  expect(xml).toMatch(/<OpenSearchDescription\b/);
+  expect(xml).toMatch(/<ShortName>HsiaoEye<\/ShortName>/);
+  expect(xml).toContain(`${SITE}/blog?q={searchTerms}`);
+  expect(xml).toContain(`<SearchForm>${SITE}/blog</SearchForm>`);
+});
+
 test('search-index.json indexes only published bilingual articles', async ({ request }) => {
   const r = await request.get(BASE + '/assets/search-index.json');
   expect(r.ok()).toBeTruthy();
@@ -202,6 +218,7 @@ test('referenced core assets exist', async ({ request }) => {
     '/apple-touch-icon.png',
     '/logo-512.png',
     '/assets/search-index.json',
+    '/opensearch.xml',
     ...ARTICLE_SLUGS.map(slug => `/assets/og/${slug}.png`),
   ];
   for (const p of paths) {

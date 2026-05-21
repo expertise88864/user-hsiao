@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>HsiaoEye</ShortName>
+  <Description>Search HsiaoEye ophthalmology patient-education articles</Description>
+  <Tags>ophthalmology eye health patient education dry eye myopia cataract glaucoma retina</Tags>
+  <InputEncoding>UTF-8</InputEncoding>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <Image height="16" width="16" type="image/png">https://hsiao.chendermatologist.com/icon-16.png</Image>
+  <Image height="32" width="32" type="image/png">https://hsiao.chendermatologist.com/icon-32.png</Image>
+  <Url type="text/html" method="get" template="https://hsiao.chendermatologist.com/blog?q={searchTerms}" />
+  <SearchForm>https://hsiao.chendermatologist.com/blog</SearchForm>
+</OpenSearchDescription>
