@@ -38,14 +38,30 @@ def page_url(path: Path) -> str | None:
     return None
 
 
-def auto_faq_blocks(path: Path) -> list[dict]:
+def jsonld_types(value) -> set[str]:
+    if isinstance(value, list):
+        out: set[str] = set()
+        for item in value:
+            out |= jsonld_types(item)
+        return out
+    if not isinstance(value, dict):
+        return set()
+    typ = value.get("@type")
+    out = set(str(x) for x in typ) if isinstance(typ, list) else ({str(typ)} if typ else set())
+    graph = value.get("@graph")
+    if isinstance(graph, list):
+        out |= jsonld_types(graph)
+    return out
+
+
+def faq_blocks(path: Path) -> list[tuple[dict, bool]]:
     soup = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
-    out: list[dict] = []
+    out: list[tuple[dict, bool]] = []
     for script in soup.find_all("script", attrs={"type": "application/ld+json"}):
-        if not script.has_attr("data-faq-auto"):
-            continue
         raw = script.string or script.get_text()
-        out.append(json.loads(raw.strip()))
+        data = json.loads(raw.strip())
+        if isinstance(data, dict) and "FAQPage" in jsonld_types(data):
+            out.append((data, script.has_attr("data-faq-auto")))
     return out
 
 
@@ -60,7 +76,7 @@ def validate_block(path: Path, data: dict) -> list[str]:
     rel = path.relative_to(ROOT).as_posix()
     expected_url = page_url(path)
     if data.get("@type") != "FAQPage":
-        errors.append(f"{rel}: data-faq-auto block is not FAQPage")
+        errors.append(f"{rel}: FAQPage block has unexpected @type")
     if expected_url and data.get("@id") != f"{expected_url}#faq":
         errors.append(f"{rel}: FAQPage @id should be {expected_url}#faq")
     if expected_url and data.get("url") != expected_url:
@@ -107,27 +123,29 @@ def main() -> int:
     for path in sorted(ROOT.glob("*.html")) + sorted(BLOG.glob("*.html")) + sorted((ROOT / "en").glob("*.html")) + sorted((ROOT / "en" / "blog").glob("*.html")):
         src = path.read_text(encoding="utf-8")
         try:
-            blocks = auto_faq_blocks(path)
+            blocks = faq_blocks(path)
         except Exception as exc:
-            errors.append(f"{path.relative_to(ROOT).as_posix()}: invalid data-faq-auto JSON-LD: {exc}")
+            errors.append(f"{path.relative_to(ROOT).as_posix()}: invalid FAQPage JSON-LD: {exc}")
             continue
         if not blocks:
             continue
         rel = path.relative_to(ROOT).as_posix()
         total_blocks += len(blocks)
+        if len(blocks) > 1:
+            errors.append(f"{rel}: page should not carry more than one FAQPage block")
         if path not in allowed:
-            errors.append(f"{rel}: auto FAQPage is only allowed on indexable Chinese source pages")
+            errors.append(f"{rel}: FAQPage is only allowed on indexable Chinese source pages")
         if rel.startswith("en/"):
-            errors.append(f"{rel}: English mirror must not carry Chinese auto FAQPage schema")
+            errors.append(f"{rel}: English mirror must not carry Chinese FAQPage schema")
         if is_noindex(src):
-            errors.append(f"{rel}: noindex page must not carry auto FAQPage schema")
+            errors.append(f"{rel}: noindex page must not carry FAQPage schema")
         if path == ROOT / "index.html":
             index_has_faq = True
-        for data in blocks:
+        for data, _is_auto in blocks:
             errors.extend(validate_block(path, data))
 
     if not index_has_faq:
-        errors.append("index.html: homepage FAQ section exists but has no data-faq-auto FAQPage schema")
+        errors.append("index.html: homepage FAQ section exists but has no FAQPage schema")
 
     if errors:
         print("[FAIL] FAQPage schema audit found issues:")
@@ -135,7 +153,7 @@ def main() -> int:
             print("  - " + error)
         return 1
 
-    print(f"[OK] FAQPage schema audit passed: {total_blocks} auto FAQPage block(s)")
+    print(f"[OK] FAQPage schema audit passed: {total_blocks} FAQPage block(s)")
     return 0
 
 

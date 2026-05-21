@@ -37,6 +37,10 @@ AUTO_FAQ_RE = re.compile(
     r'<script\b(?=[^>]*\btype=["\']application/ld\+json["\'])(?=[^>]*\bdata-faq-auto\b)[^>]*>[\s\S]*?</script>\s*',
     re.IGNORECASE,
 )
+JSONLD_RE = re.compile(
+    r'(<script\b(?=[^>]*\btype=["\']application/ld\+json["\'])[^>]*>)([\s\S]*?)(</script>\s*)',
+    re.IGNORECASE,
+)
 
 
 def clean_text(value: str) -> str:
@@ -115,7 +119,7 @@ def answer_text(details: Tag) -> str:
     return clean_text(zh_text(clone))
 
 
-QUESTION_HINT_RE = re.compile(r"[?？]|^(迷思|Q[:：])|為什麼|怎麼|何時|哪些|誰|要不要|是否|可以嗎|一定要|代表什麼")
+QUESTION_HINT_RE = re.compile(r"[?？]|^(迷思|Q\d+|Q[:：])|為什麼|怎麼|何時|哪些|誰|要不要|是否|可以嗎|一定要|代表什麼")
 NON_FAQ_RE = re.compile(r"本篇大綱|In this article|點擊收合|Click to collapse|目錄|Table of contents")
 
 
@@ -162,6 +166,82 @@ def url_for(path: Path) -> str:
     if rel.startswith("blog/") and rel.endswith(".html"):
         return f"{DOMAIN}/blog/{Path(rel).stem}"
     raise ValueError(f"Unsupported FAQ candidate: {rel}")
+
+
+def sanitize_schema_text(value: str) -> str:
+    """Clean old FAQ text that was scraped from raw bilingual HTML."""
+    text = str(value or "")
+    attr = re.search(r'["\']?\s+data-(?:en|zh)\s*=\s*["\']', text, re.I)
+    if attr:
+        text = text[:attr.start()]
+    text = BeautifulSoup(text, "html.parser").get_text(" ", strip=True)
+    text = clean_text(text)
+    return text.strip(' "\'>')
+
+
+def normalize_faqpage(data: dict, path: Path) -> tuple[dict, int]:
+    page_url = url_for(path)
+    out = dict(data)
+    out["@context"] = out.get("@context") or "https://schema.org"
+    out["@type"] = "FAQPage"
+    out["@id"] = f"{page_url}#faq"
+    out["url"] = page_url
+    out["inLanguage"] = LANG
+    out["isAccessibleForFree"] = True
+
+    normalized = []
+    seen: set[str] = set()
+    for item in out.get("mainEntity") or []:
+        if not isinstance(item, dict):
+            continue
+        q = sanitize_schema_text(item.get("name", ""))
+        ans = item.get("acceptedAnswer")
+        a = sanitize_schema_text(ans.get("text", "") if isinstance(ans, dict) else "")
+        if not looks_like_question(q) or len(a) < 20:
+            continue
+        if cjk_ratio(q + a) < 0.18:
+            continue
+        if q in seen:
+            continue
+        seen.add(q)
+        normalized.append(
+            {
+                "@type": "Question",
+                "name": q,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": a[:5000],
+                },
+            }
+        )
+        if len(normalized) >= MAX_FAQS_PER_PAGE:
+            break
+    out["mainEntity"] = normalized
+    return out, len(normalized)
+
+
+def normalize_existing_faqpages(src: str, path: Path) -> tuple[str, int, int]:
+    blocks = 0
+    questions = 0
+
+    def repl(match: re.Match) -> str:
+        nonlocal blocks, questions
+        raw = match.group(2).strip()
+        try:
+            data = json.loads(raw)
+        except Exception:
+            return match.group(0)
+        if not isinstance(data, dict) or "FAQPage" not in jsonld_types(data):
+            return match.group(0)
+        normalized, n_questions = normalize_faqpage(data, path)
+        if n_questions < 2:
+            return ""
+        blocks += 1
+        questions += n_questions
+        dumped = json.dumps(normalized, ensure_ascii=False, separators=(",", ":"))
+        return f"{match.group(1)}{dumped}{match.group(3)}"
+
+    return JSONLD_RE.sub(repl, src), blocks, questions
 
 
 def inject(src: str, path: Path, faqs: list[dict[str, str]]) -> str:
@@ -224,6 +304,8 @@ def main() -> int:
     cleaned_files, stale_blocks = cleanup_non_candidates(candidates)
     changed_files = cleaned_files
     injected_files = 0
+    manual_files = 0
+    manual_faqs = 0
     skipped = 0
     total_faqs = 0
 
@@ -240,15 +322,18 @@ def main() -> int:
             print(f"  skip {rel}: noindex")
             continue
 
-        if has_manual_faqpage(clean):
-            if clean != src:
-                path.write_text(clean, encoding="utf-8")
+        normalized, manual_blocks, manual_questions = normalize_existing_faqpages(clean, path)
+        if manual_blocks:
+            if normalized != src:
+                path.write_text(normalized, encoding="utf-8")
                 changed_files += 1
+            manual_files += 1
+            manual_faqs += manual_questions
             skipped += 1
-            print(f"  skip {rel}: manual FAQPage exists")
+            print(f"  normalize {rel}: {manual_blocks} FAQPage block(s), {manual_questions} Q&A")
             continue
 
-        faqs = extract_faqs(clean)
+        faqs = extract_faqs(normalized)
         if len(faqs) < 2:
             if clean != src:
                 path.write_text(clean, encoding="utf-8")
@@ -266,7 +351,8 @@ def main() -> int:
         print(f"  {rel}: {len(faqs)} FAQs")
 
     print(
-        f"\nFAQPage auto schema: {injected_files} page(s), {total_faqs} Q&A; "
+        f"\nFAQPage schema: {injected_files} auto page(s), {total_faqs} auto Q&A; "
+        f"{manual_files} normalized page(s), {manual_faqs} normalized Q&A; "
         f"removed stale blocks from {stale_blocks} page(s); skipped {skipped}; "
         f"changed {changed_files} file(s)."
     )
