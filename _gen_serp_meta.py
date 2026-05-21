@@ -282,13 +282,16 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
 
 
 def listing_schema(canonical_path: str, name: str, articles: list[dict[str, str]]) -> str:
+    page_url = f'{DOMAIN}{canonical_path}'
     data = {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
-        '@id': f'{DOMAIN}{canonical_path}#article-list',
+        '@id': f'{page_url}#article-list',
         'name': name,
         'numberOfItems': len(articles),
         'itemListOrder': 'https://schema.org/ItemListOrderDescending',
+        'mainEntityOfPage': {'@id': f'{page_url}#webpage'},
+        'isPartOf': {'@id': f'{DOMAIN}/#website'},
         'itemListElement': [
             {
                 '@type': 'ListItem',
@@ -304,6 +307,56 @@ def listing_schema(canonical_path: str, name: str, articles: list[dict[str, str]
         + json.dumps(data, ensure_ascii=False, separators=(',', ':'))
         + '</script>'
     )
+
+
+def normalize_listing_page_structured_data(path: Path, canonical_path: str) -> bool:
+    src = path.read_text(encoding='utf-8')
+    page_url = f'{DOMAIN}{canonical_path}'
+    webpage_id = f'{page_url}#webpage'
+    article_list_id = f'{page_url}#article-list'
+    breadcrumb_id = f'{page_url}#breadcrumb'
+    changed = False
+
+    def repl(match):
+        nonlocal changed
+        raw = match.group(2).strip()
+        try:
+            data = json.loads(raw)
+        except Exception:
+            return match.group(0)
+        if not isinstance(data, dict):
+            return match.group(0)
+        types = type_names(data)
+        old = json.dumps(data, ensure_ascii=False, sort_keys=True)
+
+        if types & {'Blog', 'CollectionPage'} and data.get('url') == page_url:
+            data['@id'] = webpage_id
+            data['mainEntity'] = {'@id': article_list_id}
+            data['breadcrumb'] = {'@id': breadcrumb_id}
+            data['isPartOf'] = {'@id': f'{DOMAIN}/#website'}
+            data.setdefault('publisher', {'@id': f'{DOMAIN}/about#person'})
+        elif 'ItemList' in types and data.get('@id') == article_list_id:
+            data['mainEntityOfPage'] = {'@id': webpage_id}
+            data['isPartOf'] = {'@id': f'{DOMAIN}/#website'}
+        else:
+            return match.group(0)
+
+        if json.dumps(data, ensure_ascii=False, sort_keys=True) == old:
+            return match.group(0)
+        changed = True
+        dumped = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        return f'{match.group(1)}{dumped}</script>'
+
+    out = re.sub(
+        r'(<script\s+type="application/ld\+json"[^>]*>)([\s\S]*?)</script>',
+        repl,
+        src,
+        flags=re.I,
+    )
+    if changed and out != src:
+        path.write_text(out, encoding='utf-8')
+        return True
+    return False
 
 
 def breadcrumb_schema(canonical_path: str, crumbs: list[tuple[str, str]]) -> str:
@@ -385,6 +438,9 @@ def main() -> int:
         if path.exists() and inject_listing_schema(path, canonical_path, name, catalog):
             changed.append(rel)
         if path.exists() and inject_breadcrumb_schema(path, canonical_path, crumbs):
+            if rel not in changed:
+                changed.append(rel)
+        if path.exists() and normalize_listing_page_structured_data(path, canonical_path):
             if rel not in changed:
                 changed.append(rel)
 

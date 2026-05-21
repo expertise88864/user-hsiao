@@ -69,6 +69,14 @@ def breadcrumb_block(path: Path) -> dict | None:
     return None
 
 
+def page_block(path: Path, expected_url: str) -> dict | None:
+    src = path.read_text(encoding="utf-8")
+    for block in jsonld_blocks(src):
+        if type_names(block) & {"Blog", "CollectionPage"} and block.get("url") == expected_url:
+            return block
+    return None
+
+
 def audit_page(
     rel: str,
     page_prefix: str,
@@ -90,6 +98,17 @@ def audit_page(
         errors.append(f"{rel}: ItemList name mismatch ({block.get('name')!r})")
     if block.get("numberOfItems") != len(catalog):
         errors.append(f"{rel}: numberOfItems should be {len(catalog)}")
+    if ref_id := (block.get("mainEntityOfPage") or {}):
+        actual = ref_id.get("@id") if isinstance(ref_id, dict) else ref_id
+        if actual != f"{DOMAIN}{page_prefix}#webpage":
+            errors.append(f"{rel}: ItemList mainEntityOfPage should point at page #webpage")
+    else:
+        errors.append(f"{rel}: ItemList missing mainEntityOfPage")
+    is_part_of = block.get("isPartOf")
+    expected_site = f"{DOMAIN}/en#website" if english else f"{DOMAIN}/#website"
+    actual_site = is_part_of.get("@id") if isinstance(is_part_of, dict) else is_part_of
+    if actual_site != expected_site:
+        errors.append(f"{rel}: ItemList isPartOf should point at {expected_site}")
 
     items = block.get("itemListElement")
     if not isinstance(items, list):
@@ -113,6 +132,30 @@ def audit_page(
         if item.get("name") != expected_title:
             errors.append(f"{rel}: {slug} name mismatch")
 
+    return errors
+
+
+def audit_page_entity(rel: str, page_prefix: str, english: bool) -> list[str]:
+    errors: list[str] = []
+    path = ROOT / rel
+    expected_url = f"{DOMAIN}{page_prefix}"
+    block = page_block(path, expected_url) if path.exists() else None
+    if block is None:
+        return [f"{rel}: missing Blog/CollectionPage JSON-LD"]
+    expected_site = f"{DOMAIN}/en#website" if english else f"{DOMAIN}/#website"
+    expected = {
+        "@id": f"{expected_url}#webpage",
+        "mainEntity": f"{expected_url}#article-list",
+        "breadcrumb": f"{expected_url}#breadcrumb",
+        "isPartOf": expected_site,
+    }
+    if block.get("@id") != expected["@id"]:
+        errors.append(f"{rel}: page @id mismatch ({block.get('@id')!r})")
+    for key in ("mainEntity", "breadcrumb", "isPartOf"):
+        value = block.get(key)
+        actual = value.get("@id") if isinstance(value, dict) else value
+        if actual != expected[key]:
+            errors.append(f"{rel}: page {key} should point at {expected[key]}")
     return errors
 
 
@@ -163,6 +206,7 @@ def main() -> int:
 
     errors: list[str] = []
     for rel, page_prefix, article_prefix, name, english in checks:
+        errors.extend(audit_page_entity(rel, page_prefix, english))
         errors.extend(audit_page(rel, page_prefix, article_prefix, name, catalog, english))
 
     breadcrumb_checks = [
