@@ -136,6 +136,28 @@ def bad_snippet(value: str, min_len: int) -> bool:
     return False
 
 
+def validate_fallback_snippets(catalog: list[dict[str, str]]) -> None:
+    errors = []
+    expected_slugs = {row['slug'] for row in catalog}
+    actual_slugs = set(ARTICLE_SNIPPETS)
+    missing = sorted(expected_slugs - actual_slugs)
+    extra = sorted(actual_slugs - expected_slugs)
+    if missing:
+        errors.append('missing article snippets: ' + ', '.join(missing))
+    if extra:
+        errors.append('stale article snippets: ' + ', '.join(extra))
+
+    for rel, snippet in STATIC_SNIPPETS.items():
+        if bad_snippet(snippet, 50):
+            errors.append(f'{rel}: unusable static fallback snippet')
+    for slug, snippet in ARTICLE_SNIPPETS.items():
+        if bad_snippet(snippet, 70):
+            errors.append(f'{slug}: unusable article fallback snippet')
+
+    if errors:
+        raise SystemExit('SERP fallback snippet audit failed:\n  - ' + '\n  - '.join(errors))
+
+
 def upsert_meta(src: str, key: str, content: str, attr: str = 'name') -> str:
     escaped = attr_escape(content)
     repl = f'<meta {attr}="{key}" content="{escaped}" />'
@@ -414,6 +436,7 @@ def inject_breadcrumb_schema(path: Path, canonical_path: str, crumbs: list[tuple
 def main() -> int:
     changed = []
     catalog = read_catalog()
+    validate_fallback_snippets(catalog)
     for rel, desc in STATIC_SNIPPETS.items():
         path = ROOT / rel
         if path.exists() and normalize_file(path, desc, is_article=False):
