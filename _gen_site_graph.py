@@ -14,6 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 DOMAIN = 'https://hsiao.chendermatologist.com'
+PERSON_ID = f'{DOMAIN}/about#person'
 
 ZH_PARTS = [
     ('CollectionPage', '/blog', '眼科文章', 'HsiaoEye 眼科衛教文章索引，收錄乾眼、近視、白內障、青光眼與視網膜警訊'),
@@ -31,6 +32,81 @@ EN_PARTS = [
     ('CollectionPage', '/en/notes', 'Study Notes', 'Ophthalmology study notes for clinicians and learners'),
     ('ProfilePage', '/en/about', 'About Dr. Min-Chien Hsiao', 'Author and medical reviewer profile'),
     ('WebPage', '/en/privacy', 'Privacy Policy', 'Privacy, analytics, and data-use policy'),
+]
+
+STATIC_PAGE_TARGETS = [
+    {
+        'rel': 'tools.html',
+        'path': '/tools',
+        'lang': 'zh-Hant-TW',
+        'website_id': f'{DOMAIN}/#website',
+        'page_types': {'WebApplication'},
+        'breadcrumb': [('首頁', '/'), ('眼科工具', '/tools')],
+        'main_entity': '#tool-list',
+        'item_list_id': '#tool-list',
+    },
+    {
+        'rel': 'notes.html',
+        'path': '/notes',
+        'lang': 'zh-Hant-TW',
+        'website_id': f'{DOMAIN}/#website',
+        'page_types': {'CollectionPage'},
+        'breadcrumb': [('首頁', '/'), ('學習筆記', '/notes')],
+        'main_entity': '#course',
+    },
+    {
+        'rel': 'privacy.html',
+        'path': '/privacy',
+        'lang': 'zh-Hant-TW',
+        'website_id': f'{DOMAIN}/#website',
+        'page_types': {'WebPage'},
+        'breadcrumb': [('首頁', '/'), ('隱私權政策', '/privacy')],
+    },
+    {
+        'rel': 'about.html',
+        'path': '/about',
+        'lang': 'zh-Hant-TW',
+        'website_id': f'{DOMAIN}/#website',
+        'page_types': {'ProfilePage'},
+        'breadcrumb': [('首頁', '/'), ('關於蕭閔謙醫師', '/about')],
+        'page_id_suffix': '#profilepage',
+    },
+    {
+        'rel': 'en/tools.html',
+        'path': '/en/tools',
+        'lang': 'en',
+        'website_id': f'{DOMAIN}/en#website',
+        'page_types': {'WebApplication'},
+        'breadcrumb': [('Home', '/en'), ('Ophthalmology Tools', '/en/tools')],
+        'main_entity': '#tool-list',
+        'item_list_id': '#tool-list',
+    },
+    {
+        'rel': 'en/notes.html',
+        'path': '/en/notes',
+        'lang': 'en',
+        'website_id': f'{DOMAIN}/en#website',
+        'page_types': {'CollectionPage'},
+        'breadcrumb': [('Home', '/en'), ('Study Notes', '/en/notes')],
+        'main_entity': '#course',
+    },
+    {
+        'rel': 'en/privacy.html',
+        'path': '/en/privacy',
+        'lang': 'en',
+        'website_id': f'{DOMAIN}/en#website',
+        'page_types': {'WebPage'},
+        'breadcrumb': [('Home', '/en'), ('Privacy Policy', '/en/privacy')],
+    },
+    {
+        'rel': 'en/about.html',
+        'path': '/en/about',
+        'lang': 'en',
+        'website_id': f'{DOMAIN}/en#website',
+        'page_types': {'ProfilePage'},
+        'breadcrumb': [('Home', '/en'), ('About Dr. Min-Chien Hsiao', '/en/about')],
+        'page_id_suffix': '#profilepage',
+    },
 ]
 
 
@@ -54,6 +130,109 @@ def has_part(parts: list[tuple[str, str, str, str]], lang: str) -> list[dict[str
         }
         for schema_type, path, name, desc in parts
     ]
+
+
+def breadcrumb_schema(canonical_path: str, crumbs: list[tuple[str, str]]) -> dict[str, object]:
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': f'{DOMAIN}{canonical_path}#breadcrumb',
+        'itemListElement': [
+            {
+                '@type': 'ListItem',
+                'position': index + 1,
+                'name': name,
+                'item': f'{DOMAIN}{path}',
+            }
+            for index, (name, path) in enumerate(crumbs)
+        ],
+    }
+
+
+def jsonld_script(data: dict[str, object]) -> str:
+    return (
+        '<script type="application/ld+json" data-site-graph-auto>'
+        + json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        + '</script>'
+    )
+
+
+def normalize_static_page(target: dict[str, object]) -> bool:
+    path = ROOT / str(target['rel'])
+    if not path.exists():
+        return False
+
+    src = path.read_text(encoding='utf-8')
+    page_path = str(target['path'])
+    page_url = f'{DOMAIN}{page_path}'
+    page_id = f"{page_url}{target.get('page_id_suffix', '#webpage')}"
+    breadcrumb_id = f'{page_url}#breadcrumb'
+    website_id = str(target['website_id'])
+    changed = False
+    saw_page = False
+    saw_breadcrumb = False
+    saw_item_list = 'item_list_id' not in target
+
+    def repl(match: re.Match[str]) -> str:
+        nonlocal changed, saw_page, saw_breadcrumb, saw_item_list
+        prefix = match.group(1)
+        raw = match.group(2).strip()
+        try:
+            data = json.loads(raw)
+        except Exception:
+            return match.group(0)
+        if not isinstance(data, dict):
+            return match.group(0)
+
+        old = json.dumps(data, ensure_ascii=False, sort_keys=True)
+        types = type_names(data)
+
+        if types & set(target['page_types']):
+            saw_page = True
+            data['@id'] = page_id
+            data['url'] = page_url
+            data['isPartOf'] = {'@id': website_id}
+            data['breadcrumb'] = {'@id': breadcrumb_id}
+            data.setdefault('publisher', {'@id': PERSON_ID})
+            data.setdefault('reviewedBy', {'@id': PERSON_ID})
+            if target.get('main_entity'):
+                data['mainEntity'] = {'@id': f"{page_url}{target['main_entity']}"}
+        elif 'BreadcrumbList' in types:
+            saw_breadcrumb = True
+            data = breadcrumb_schema(page_path, target['breadcrumb'])
+        elif 'ItemList' in types and target.get('item_list_id'):
+            saw_item_list = True
+            data['@id'] = f"{page_url}{target['item_list_id']}"
+            data['mainEntityOfPage'] = {'@id': page_id}
+            data['isPartOf'] = {'@id': website_id}
+
+        if json.dumps(data, ensure_ascii=False, sort_keys=True) == old:
+            return match.group(0)
+        changed = True
+        return prefix + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '</script>'
+
+    out = re.sub(
+        r'(<script\s+type="application/ld\+json"[^>]*>)([\s\S]*?)</script>',
+        repl,
+        src,
+    )
+
+    inserts = []
+    if not saw_breadcrumb:
+        inserts.append(jsonld_script(breadcrumb_schema(page_path, target['breadcrumb'])))
+    if not saw_page:
+        raise SystemExit(f"{target['rel']}: primary schema not found")
+    if not saw_item_list:
+        raise SystemExit(f"{target['rel']}: ItemList schema not found")
+
+    if inserts:
+        out = out.replace('</head>', '\n'.join(inserts) + '\n</head>', 1)
+        changed = True
+
+    if changed and out != src:
+        path.write_text(out, encoding='utf-8')
+        return True
+    return False
 
 
 def normalize_homepage(path: Path, expected_id: str, lang: str, parts: list[tuple[str, str, str, str]]) -> bool:
@@ -98,6 +277,10 @@ def main() -> int:
     for path, expected_id, lang, parts in targets:
         if path.exists() and normalize_homepage(path, expected_id, lang, parts):
             changed.append(path.relative_to(ROOT).as_posix())
+
+    for target in STATIC_PAGE_TARGETS:
+        if normalize_static_page(target):
+            changed.append(str(target['rel']))
 
     print(f'Generated WebSite hasPart graph in {len(changed)} file(s)')
     for rel in changed:
