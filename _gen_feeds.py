@@ -14,7 +14,7 @@ Strategy mirrors DermNotes' _gen_feeds.py:
 Run as a build step before `git push` (also wired into the GH Actions
 quality.yml workflow).
 """
-import os, re, html
+import os, re, html, json
 from datetime import datetime, timezone
 
 DOMAIN = 'https://hsiao.chendermatologist.com'
@@ -378,6 +378,61 @@ def build_atom():
     return '\n'.join(out) + '\n'
 
 # ── Write files ──
+def build_json_feed():
+    items = []
+    for a in articles[:30]:
+        url = f'{DOMAIN}/blog/{a["slug"]}'
+        en_url = f'{DOMAIN}/en/blog/{a["slug"]}'
+        og = f'{DOMAIN}/assets/og/{a["slug"]}.png'
+        title = article_title(a)
+        summary = article_summary(a)
+        items.append({
+            'id': url,
+            'url': url,
+            'title': title,
+            'summary': summary,
+            'content_html': (
+                f'<p>{html.escape(summary)}</p>'
+                f'<p><img src="{html.escape(og)}" alt="{html.escape(title)}" /></p>'
+                f'<p><a href="{html.escape(url)}">閱讀全文</a></p>'
+            ),
+            'image': og,
+            'banner_image': og,
+            'date_published': atom_date(a['date']),
+            'date_modified': atom_date(a.get('updated') or a.get('date')),
+            'tags': [a['tag']] if a.get('tag') else [],
+            'authors': [{
+                'name': AUTHOR,
+                'url': f'{DOMAIN}/about',
+            }],
+            'attachments': [{
+                'url': og,
+                'mime_type': 'image/png',
+                'title': title,
+            }],
+            '_hsiaoeye': {
+                'english_url': en_url,
+                'category': a.get('cat') or 'myth',
+            },
+        })
+    feed = {
+        'version': 'https://jsonfeed.org/version/1.1',
+        'title': SITE_NAME,
+        'home_page_url': f'{DOMAIN}/',
+        'feed_url': f'{DOMAIN}/blog/feed.json',
+        'description': FEED_DESCRIPTION,
+        'language': 'zh-Hant-TW',
+        'icon': f'{DOMAIN}/icon-512.png',
+        'favicon': f'{DOMAIN}/favicon.ico',
+        'authors': [{
+            'name': AUTHOR,
+            'url': f'{DOMAIN}/about',
+        }],
+        'items': items,
+    }
+    return json.dumps(feed, ensure_ascii=False, indent=2) + '\n'
+
+
 def main():
     with open('sitemap.xml', 'w', encoding='utf-8') as f: f.write(build_sitemap())
     print(f'Wrote sitemap.xml ({len(articles)} articles + {len(STATIC_PAGES)} static + {len(LANDING_STUBS)} stubs)')
@@ -386,6 +441,8 @@ def main():
     print(f'Wrote blog/feed.xml ({min(30, len(articles))} items)')
     with open('blog/atom.xml', 'w', encoding='utf-8') as f: f.write(build_atom())
     print(f'Wrote blog/atom.xml ({min(30, len(articles))} items)')
+    with open('blog/feed.json', 'w', encoding='utf-8') as f: f.write(build_json_feed())
+    print(f'Wrote blog/feed.json ({min(30, len(articles))} items)')
 
 if __name__ == '__main__':
     main()

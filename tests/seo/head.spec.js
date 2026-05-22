@@ -97,6 +97,10 @@ for (const path of PUBLIC_PATHS) {
       await expect(openSearch, 'OpenSearch discovery link missing').toHaveCount(1);
       await expect(openSearch, 'OpenSearch link should point to /opensearch.xml').toHaveAttribute('href', '/opensearch.xml');
 
+      const jsonFeed = page.locator('head link[rel="alternate"][type="application/feed+json"]');
+      await expect(jsonFeed, 'JSON Feed autodiscovery link missing').toHaveCount(1);
+      await expect(jsonFeed, 'JSON Feed link should point to /blog/feed.json').toHaveAttribute('href', '/blog/feed.json');
+
       // 7. og:url, og:title, og:image
       const ogUrl = await page.locator('head meta[property="og:url"]').getAttribute('content');
       expect(ogUrl, 'og:url missing').toBeTruthy();
@@ -189,6 +193,24 @@ test('opensearch.xml advertises site article search', async ({ request }) => {
   expect(xml).toContain(`<SearchForm>${SITE}/blog</SearchForm>`);
 });
 
+test('JSON Feed exposes rich article metadata', async ({ request }) => {
+  const r = await request.get(BASE + '/blog/feed.json');
+  expect(r.ok()).toBeTruthy();
+  expect(r.headers()['content-type']).toMatch(/feed\+json|json/);
+  const feed = await r.json();
+  expect(feed.version).toBe('https://jsonfeed.org/version/1.1');
+  expect(feed.feed_url).toBe(`${SITE}/blog/feed.json`);
+  expect(feed.items.length).toBe(Math.min(30, ARTICLE_SLUGS.length));
+  for (const item of feed.items) {
+    expect(item.url).toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/blog\//);
+    expect(item.summary.length).toBeGreaterThan(60);
+    expect(item.image).toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/assets\/og\/.+\.png$/);
+    expect(item.content_html).toContain(item.image);
+    expect(item.attachments[0].mime_type).toBe('image/png');
+    expect(item._hsiaoeye.english_url).toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/en\/blog\//);
+  }
+});
+
 test('search-index.json indexes only published bilingual articles', async ({ request }) => {
   const r = await request.get(BASE + '/assets/search-index.json');
   expect(r.ok()).toBeTruthy();
@@ -225,6 +247,7 @@ test('referenced core assets exist', async ({ request }) => {
     '/logo-512.png',
     '/assets/search-index.json',
     '/opensearch.xml',
+    '/blog/feed.json',
     ...ARTICLE_SLUGS.map(slug => `/assets/og/${slug}.png`),
   ];
   for (const p of paths) {

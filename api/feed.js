@@ -1,5 +1,6 @@
 /**
- * Dynamic RSS/Atom feed for /blog/feed.xml and /blog/atom.xml.
+ * Dynamic RSS/Atom/JSON Feed for /blog/feed.xml, /blog/atom.xml, and
+ * /blog/feed.json.
  *
  * Vercel rewrites those public XML URLs to this API route. Keep this file in
  * parity with _gen_feeds.py: published articles only, stable updated dates,
@@ -222,6 +223,47 @@ function buildAtom(articles, descriptions) {
   return lines.join('\n') + '\n';
 }
 
+function jsonFeedItem(article, descriptions) {
+  const url = `${DOMAIN}/blog/${article.slug}`;
+  const enUrl = `${DOMAIN}/en/blog/${article.slug}`;
+  const ogUrl = `${DOMAIN}/assets/og/${article.slug}.png`;
+  const desc = articleSummary(article, descriptions);
+  return {
+    id: url,
+    url,
+    title: article.title,
+    summary: desc,
+    content_html: `<p>${escapeXml(desc)}</p><p><img src="${ogUrl}" alt="${escapeXml(article.title)}" /></p><p><a href="${url}">Read the full article</a></p>`,
+    image: ogUrl,
+    banner_image: ogUrl,
+    date_published: atomDate(article.date),
+    date_modified: atomDate(article.updated || article.date),
+    tags: article.tag ? [article.tag] : [],
+    authors: [{ name: AUTHOR, url: `${DOMAIN}/about` }],
+    attachments: [{ url: ogUrl, mime_type: 'image/png', title: article.title }],
+    _hsiaoeye: {
+      english_url: enUrl,
+      category: article.cat || 'myth',
+    },
+  };
+}
+
+function buildJsonFeed(articles, descriptions) {
+  const feed = {
+    version: 'https://jsonfeed.org/version/1.1',
+    title: SITE_NAME,
+    home_page_url: `${DOMAIN}/`,
+    feed_url: `${DOMAIN}/blog/feed.json`,
+    description: FEED_DESCRIPTION,
+    language: 'zh-Hant-TW',
+    icon: `${DOMAIN}/icon-512.png`,
+    favicon: `${DOMAIN}/favicon.ico`,
+    authors: [{ name: AUTHOR, url: `${DOMAIN}/about` }],
+    items: articles.slice(0, 30).map(article => jsonFeedItem(article, descriptions)),
+  };
+  return JSON.stringify(feed, null, 2) + '\n';
+}
+
 function etagOf(value) {
   let h = 0x811c9dc5;
   for (let i = 0; i < value.length; i++) {
@@ -235,6 +277,7 @@ export default async function handler(req, res) {
   const t0 = Date.now();
   const fmt = (req.query && req.query.fmt) || '';
   const isAtom = fmt === 'atom' || /atom/i.test(req.url || '');
+  const isJson = fmt === 'json' || /feed\.json/i.test(req.url || '');
   try {
     const tArticles0 = Date.now();
     const articles = await parseArticles();
@@ -249,15 +292,15 @@ export default async function handler(req, res) {
     }));
     const tDescriptions = Date.now() - tDescriptions0;
 
-    const xml = isAtom ? buildAtom(top, descriptions) : buildRss(top, descriptions);
+    const body = isJson ? buildJsonFeed(top, descriptions) : (isAtom ? buildAtom(top, descriptions) : buildRss(top, descriptions));
     const feedUpdated = top[0]?.updated || top[0]?.date || '2026-01-01';
     const lastModified = rfc822Date(feedUpdated);
-    const etag = etagOf(xml);
+    const etag = etagOf(body);
     const ifNoneMatch = req.headers['if-none-match'];
     const ifModifiedSince = req.headers['if-modified-since'];
     const serverTiming = `articles;dur=${tArticles}, descs;dur=${tDescriptions}, total;dur=${Date.now() - t0}`;
 
-    res.setHeader('Content-Type', isAtom ? 'application/atom+xml; charset=utf-8' : 'application/rss+xml; charset=utf-8');
+    res.setHeader('Content-Type', isJson ? 'application/feed+json; charset=utf-8' : (isAtom ? 'application/atom+xml; charset=utf-8' : 'application/rss+xml; charset=utf-8'));
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');
     res.setHeader('ETag', etag);
     res.setHeader('Last-Modified', lastModified);
@@ -267,7 +310,7 @@ export default async function handler(req, res) {
       res.status(304).end();
       return;
     }
-    res.status(200).send(xml);
+    res.status(200).send(body);
   } catch (e) {
     res.status(500).send(`<?xml version="1.0"?><error>${escapeXml(e.message || e)}</error>`);
   }

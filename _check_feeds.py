@@ -3,6 +3,7 @@ HsiaoEye: verify RSS/Atom feeds expose rich article metadata for discovery.
 """
 from __future__ import annotations
 
+import json
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -12,9 +13,11 @@ ROOT = Path(__file__).parent
 DOMAIN = "https://hsiao.chendermatologist.com"
 RSS = ROOT / "blog" / "feed.xml"
 ATOM = ROOT / "blog" / "atom.xml"
+JSON_FEED = ROOT / "blog" / "feed.json"
 SHARED = ROOT / "blog" / "blog-shared.js"
 RSS_LINK = '<link rel="alternate" type="application/rss+xml" title="HsiaoEye RSS" href="/blog/feed.xml" />'
 ATOM_LINK = '<link rel="alternate" type="application/atom+xml" title="HsiaoEye Atom" href="/blog/atom.xml" />'
+JSON_FEED_LINK = '<link rel="alternate" type="application/feed+json" title="HsiaoEye JSON Feed" href="/blog/feed.json" />'
 
 
 def parse_catalog() -> tuple[list[str], set[str]]:
@@ -79,6 +82,8 @@ def main() -> int:
         errors.append("blog/feed.xml missing")
     if not ATOM.exists():
         errors.append("blog/atom.xml missing")
+    if not JSON_FEED.exists():
+        errors.append("blog/feed.json missing")
     if errors:
         print("[FAIL] feed audit failed:")
         for err in errors:
@@ -87,7 +92,8 @@ def main() -> int:
 
     rss_src = RSS.read_text(encoding="utf-8")
     atom_src = ATOM.read_text(encoding="utf-8")
-    for label, src in {"RSS": rss_src, "Atom": atom_src}.items():
+    json_src = JSON_FEED.read_text(encoding="utf-8")
+    for label, src in {"RSS": rss_src, "Atom": atom_src, "JSON Feed": json_src}.items():
         if has_mojibake(src):
             errors.append(f"{label}: mojibake marker found")
         for stub in stubs:
@@ -105,10 +111,14 @@ def main() -> int:
             errors.append(f"{rel}: missing RSS autodiscovery link")
         if ATOM_LINK not in head:
             errors.append(f"{rel}: missing Atom autodiscovery link")
+        if JSON_FEED_LINK not in head:
+            errors.append(f"{rel}: missing JSON Feed autodiscovery link")
         if head.count('type="application/rss+xml"') != 1:
             errors.append(f"{rel}: expected exactly one RSS autodiscovery link")
         if head.count('type="application/atom+xml"') != 1:
             errors.append(f"{rel}: expected exactly one Atom autodiscovery link")
+        if head.count('type="application/feed+json"') != 1:
+            errors.append(f"{rel}: expected exactly one JSON Feed autodiscovery link")
 
     try:
         rss_root = ET.fromstring(rss_src)
@@ -230,6 +240,62 @@ def main() -> int:
             elif expected not in content_html:
                 errors.append(f"Atom: content block missing OG image for {slug}")
 
+    try:
+        json_feed = json.loads(json_src)
+    except json.JSONDecodeError as exc:
+        errors.append(f"JSON Feed parse error: {exc}")
+        json_feed = None
+
+    if isinstance(json_feed, dict):
+        if json_feed.get("version") != "https://jsonfeed.org/version/1.1":
+            errors.append("JSON Feed: version should be JSON Feed 1.1")
+        if json_feed.get("home_page_url") != f"{DOMAIN}/":
+            errors.append("JSON Feed: home_page_url should point to site root")
+        if json_feed.get("feed_url") != f"{DOMAIN}/blog/feed.json":
+            errors.append("JSON Feed: feed_url should point to /blog/feed.json")
+        if json_feed.get("language") != "zh-Hant-TW":
+            errors.append("JSON Feed: language should be zh-Hant-TW")
+        if len(json_feed.get("description", "")) < 30:
+            errors.append("JSON Feed: description is too short")
+        items = json_feed.get("items")
+        if not isinstance(items, list):
+            errors.append("JSON Feed: items should be a list")
+            items = []
+        if len(items) != expected_count:
+            errors.append(f"JSON Feed: expected {expected_count} items, found {len(items)}")
+        for item in items:
+            if not isinstance(item, dict):
+                errors.append("JSON Feed: item should be an object")
+                continue
+            url = item.get("url", "")
+            slug = slug_from_article_url(url)
+            expected = f"{DOMAIN}/assets/og/{slug}.png"
+            title = item.get("title", "")
+            summary = item.get("summary", "")
+            content_html = item.get("content_html", "")
+            attachments = item.get("attachments", [])
+            hsiaoeye = item.get("_hsiaoeye", {})
+            if slug not in published:
+                errors.append(f"JSON Feed: unknown article URL {url!r}")
+            if item.get("id") != url:
+                errors.append(f"JSON Feed: id should match url for {slug or url}")
+            if len(title) < 8:
+                errors.append(f"JSON Feed: title missing/too short for {slug or url}")
+            if len(summary) < 60:
+                errors.append(f"JSON Feed: summary missing/too short for {slug or url}")
+            if item.get("image") != expected or item.get("banner_image") != expected:
+                errors.append(f"JSON Feed: image/banner_image mismatch for {slug}")
+            if expected not in content_html:
+                errors.append(f"JSON Feed: content_html missing OG image for {slug}")
+            if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T00:00:00Z", item.get("date_published", "")):
+                errors.append(f"JSON Feed: invalid date_published for {slug or url}")
+            if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T00:00:00Z", item.get("date_modified", "")):
+                errors.append(f"JSON Feed: invalid date_modified for {slug or url}")
+            if not attachments or attachments[0].get("url") != expected or attachments[0].get("mime_type") != "image/png":
+                errors.append(f"JSON Feed: missing image attachment for {slug or url}")
+            if not isinstance(hsiaoeye, dict) or hsiaoeye.get("english_url") != f"{DOMAIN}/en/blog/{slug}":
+                errors.append(f"JSON Feed: missing English URL metadata for {slug or url}")
+
     if errors:
         print("[FAIL] feed audit failed:")
         for err in errors[:120]:
@@ -239,7 +305,7 @@ def main() -> int:
         return 1
 
     print(
-        f"[OK] feed audit passed: {expected_count} RSS/Atom entries and "
+        f"[OK] feed audit passed: {expected_count} RSS/Atom/JSON entries and "
         f"{len(public_html_files(published))} public autodiscovery pages"
     )
     return 0

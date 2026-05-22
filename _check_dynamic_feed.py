@@ -38,6 +38,14 @@ def main() -> int:
         errors.append("RSS lastBuildDate should use the stable feedUpdated date")
     if '<updated>${atomDate(feedUpdated)}</updated>' not in src:
         errors.append("Atom feed updated should use the stable feedUpdated date")
+    if "function buildJsonFeed" not in src:
+        errors.append("api/feed.js should expose a JSON Feed builder")
+    if "version: 'https://jsonfeed.org/version/1.1'" not in src:
+        errors.append("JSON Feed should declare JSON Feed 1.1")
+    if "feed_url: `${DOMAIN}/blog/feed.json`" not in src:
+        errors.append("JSON Feed should advertise /blog/feed.json")
+    if "isJson ? 'application/feed+json; charset=utf-8'" not in src:
+        errors.append("api/feed.js should serve JSON Feed with application/feed+json")
     if 'atomDate(article.updated || article.date)' not in src:
         errors.append("Atom entries should use article updated dates")
     if 'href="${enUrl}" rel="alternate" hreflang="en"' not in src:
@@ -50,6 +58,8 @@ def main() -> int:
         errors.append("vercel.json should route /blog/feed.xml to /api/feed?fmt=rss")
     if '"destination": "/api/feed?fmt=atom"' not in vercel:
         errors.append("vercel.json should route /blog/atom.xml to /api/feed?fmt=atom")
+    if '"destination": "/api/feed?fmt=json"' not in vercel:
+        errors.append("vercel.json should route /blog/feed.json to /api/feed?fmt=json")
 
     if errors:
         print("[FAIL] Dynamic feed audit failed:")

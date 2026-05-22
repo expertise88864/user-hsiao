@@ -1,11 +1,11 @@
 """
 Generate feed/search discovery metadata and inject public-page links.
 
-RSS/Atom autodiscovery helps feed readers and aggregation tools find new
-articles, while OpenSearch lets browsers and search tools discover the site's
-article search endpoint. These are small crawler-facing affordances, but they
-keep HsiaoEye's public discovery surface explicit instead of relying only on
-visible UI.
+RSS/Atom/JSON Feed autodiscovery helps feed readers and aggregation tools find
+new articles, while OpenSearch lets browsers and search tools discover the
+site's article search endpoint. These are small crawler-facing affordances, but
+they keep HsiaoEye's public discovery surface explicit instead of relying only
+on visible UI.
 """
 from __future__ import annotations
 
@@ -18,12 +18,13 @@ DOMAIN = 'https://hsiao.chendermatologist.com'
 TITLE = 'HsiaoEye Search'
 RSS_LINK = '<link rel="alternate" type="application/rss+xml" title="HsiaoEye RSS" href="/blog/feed.xml" />'
 ATOM_LINK = '<link rel="alternate" type="application/atom+xml" title="HsiaoEye Atom" href="/blog/atom.xml" />'
+JSON_FEED_LINK = '<link rel="alternate" type="application/feed+json" title="HsiaoEye JSON Feed" href="/blog/feed.json" />'
 LINK = '<link rel="search" type="application/opensearchdescription+xml" title="HsiaoEye Search" href="/opensearch.xml" />'
-DISCOVERY_LINKS = [RSS_LINK, ATOM_LINK, LINK]
+DISCOVERY_LINKS = [RSS_LINK, ATOM_LINK, JSON_FEED_LINK, LINK]
 DISCOVERY_BLOCK = '\n'.join(DISCOVERY_LINKS) + '\n'
 
 FEED_RE = re.compile(
-    r'^[ \t]*<link\s+rel="alternate"\s+type="application/(?:rss|atom)\+xml"[^>]*>[ \t]*(?:\r?\n)?',
+    r'^[ \t]*<link\s+rel="alternate"\s+type="application/(?:(?:rss|atom)\+xml|feed\+json)"[^>]*>[ \t]*(?:\r?\n)?',
     re.I | re.M,
 )
 SEARCH_RE = re.compile(
