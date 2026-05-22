@@ -287,7 +287,7 @@ def build_sitemap():
 # ── feed.xml (RSS 2.0) ──
 def build_rss():
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
-           '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">',
+           '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">',
            '<channel>',
            f'  <title>{html.escape(SITE_NAME)}</title>',
            f'  <link>{DOMAIN}/</link>',
@@ -316,6 +316,7 @@ def build_rss():
         content = (
             f'<p>{html.escape(summary)}</p>'
             f'<p><a href="{html.escape(url)}">閱讀全文</a></p>'
+            f'<p><img src="{html.escape(og)}" alt="{html.escape(title)}" /></p>'
         )
         out.append('  <item>')
         out.append(f'    <title>{html.escape(title)}</title>')
@@ -326,6 +327,8 @@ def build_rss():
         out.append(f'    <category>{html.escape(a["tag"])}</category>')
         out.append(f'    <description>{html.escape(summary)}</description>')
         out.append(f'    <enclosure url="{og}" length="0" type="image/png" />')
+        out.append(f'    <media:content url="{og}" type="image/png" medium="image" />')
+        out.append(f'    <media:thumbnail url="{og}" />')
         out.append(f'    <content:encoded><![CDATA[{content}]]></content:encoded>')
         out.append('  </item>')
     out.append('</channel>')
@@ -335,7 +338,7 @@ def build_rss():
 # ── atom.xml (Atom 1.0) ──
 def build_atom():
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
-           '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-Hant-TW">',
+           '<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="zh-Hant-TW">',
            f'  <title>{html.escape(SITE_NAME)}</title>',
            f'  <subtitle>{html.escape(FEED_DESCRIPTION)}</subtitle>',
            f'  <link href="{DOMAIN}/" rel="alternate" />',
@@ -353,6 +356,7 @@ def build_atom():
     for a in articles[:30]:
         url = f'{DOMAIN}/blog/{a["slug"]}'
         en_url = f'{DOMAIN}/en/blog/{a["slug"]}'
+        og = f'{DOMAIN}/assets/og/{a["slug"]}.png'
         title = article_title(a)
         summary = article_summary(a)
         published_iso = atom_date(a['date'])
@@ -361,11 +365,14 @@ def build_atom():
         out.append(f'    <title>{html.escape(title)}</title>')
         out.append(f'    <link href="{url}" rel="alternate" />')
         out.append(f'    <link href="{en_url}" rel="alternate" hreflang="en" />')
+        out.append(f'    <link href="{og}" rel="enclosure" type="image/png" />')
         out.append(f'    <id>{url}</id>')
         out.append(f'    <updated>{updated_iso}</updated>')
         out.append(f'    <published>{published_iso}</published>')
         out.append(f'    <category term="{html.escape(a["tag"])}" />')
         out.append(f'    <summary>{html.escape(summary)}</summary>')
+        out.append(f'    <media:thumbnail url="{og}" />')
+        out.append(f'    <content type="html"><![CDATA[<p>{html.escape(summary)}</p><p><img src="{og}" alt="{html.escape(title)}" /></p><p><a href="{url}">閱讀全文</a></p>]]></content>')
         out.append('  </entry>')
     out.append('</feed>')
     return '\n'.join(out) + '\n'
