@@ -28,6 +28,46 @@ const STATIC_PAGES = [
   { url: '/privacy',       priority: '0.4',  changefreq: 'yearly' },
 ];
 
+const STATIC_OG_SLUGS = {
+  '/': 'home',
+  '/about': 'about',
+  '/tools': 'tools',
+  '/blog': 'blog',
+  '/blog/topics': 'topics',
+  '/notes': 'notes',
+  '/privacy': 'privacy',
+};
+
+const STATIC_IMAGE_TITLES = {
+  zh: {
+    '/': '蕭閔謙醫師 眼科筆記 · 乾眼、近視控制、白內障衛教',
+    '/about': '關於我 | 蕭閔謙醫師 · 眼科衛教筆記',
+    '/tools': '眼科自評量表 · 5 個臨床計算器',
+    '/blog': '眼科衛教文章索引',
+    '/blog/topics': '主題地圖',
+    '/notes': '學習筆記',
+    '/privacy': '隱私權政策',
+  },
+  en: {
+    '/': 'Dr. Min-Chien Hsiao Ophthalmology Notes',
+    '/about': 'About Dr. Min-Chien Hsiao',
+    '/tools': 'Ophthalmology Calculators',
+    '/blog': 'Ophthalmology Articles',
+    '/blog/topics': 'Ophthalmology Topic Map',
+    '/notes': 'Ophthalmology Study Notes',
+    '/privacy': 'Privacy Policy',
+  },
+};
+
+function staticOgImage(path) {
+  const slug = STATIC_OG_SLUGS[path];
+  return slug ? `${DOMAIN}/assets/og/${slug}.png` : '';
+}
+
+function staticImageTitle(path, lang) {
+  return (STATIC_IMAGE_TITLES[lang] && STATIC_IMAGE_TITLES[lang][path]) || 'HsiaoEye';
+}
+
 async function parseArticles() {
   const file = await ghGetFile('blog/blog-shared.js');
   if (!file) return [];
@@ -173,7 +213,15 @@ export default async function handler(req, res) {
 
     STATIC_PAGES.forEach(p => {
       const en = p.url === '/' ? '/en' : '/en' + p.url;
-      lines.push(emit(p.url, en, siteUpdated, p.changefreq, p.priority));
+      lines.push(emit(
+        p.url,
+        en,
+        siteUpdated,
+        p.changefreq,
+        p.priority,
+        staticOgImage(p.url),
+        staticImageTitle(p.url, 'zh')
+      ));
     });
 
     lines.push('', '  <!-- ===== Published articles ===== -->');
@@ -187,6 +235,7 @@ export default async function handler(req, res) {
     STATIC_PAGES.forEach(p => {
       const en = p.url === '/' ? '/en' : '/en' + p.url;
       const pri = Math.max(0.3, parseFloat(p.priority) - 0.1).toFixed(2);
+      const image = staticOgImage(p.url);
       lines.push('  <url>',
         `    <loc>${DOMAIN}${en}</loc>`,
         `    <lastmod>${siteUpdated}</lastmod>`,
@@ -194,8 +243,14 @@ export default async function handler(req, res) {
         `    <priority>${pri}</priority>`,
         `    <xhtml:link rel="alternate" hreflang="x-default"  href="${DOMAIN}${p.url}" />`,
         `    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="${DOMAIN}${p.url}" />`,
-        `    <xhtml:link rel="alternate" hreflang="en"         href="${DOMAIN}${en}" />`,
-        '  </url>');
+        `    <xhtml:link rel="alternate" hreflang="en"         href="${DOMAIN}${en}" />`);
+      if (image) {
+        lines.push('    <image:image>',
+          `      <image:loc>${image}</image:loc>`,
+          `      <image:title>${xmlEscape(staticImageTitle(p.url, 'en'))}</image:title>`,
+          '    </image:image>');
+      }
+      lines.push('  </url>');
     });
     articles.forEach(a => {
       const lastmod = lastmods[`blog/${a.slug}.html`] || a.date;

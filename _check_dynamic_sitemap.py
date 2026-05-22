@@ -53,10 +53,17 @@ def main() -> int:
         errors.append("api/sitemap.js should handle multi-value If-None-Match headers")
     if "xmlEscape(e.message || e)" not in api:
         errors.append("api/sitemap.js should XML-escape error responses")
-    if "emit(p.url, en, siteUpdated, p.changefreq, p.priority)" not in api:
+    if not re.search(r"emit\(\s*p\.url,\s*en,\s*siteUpdated,\s*p\.changefreq,\s*p\.priority,", api):
         errors.append("api/sitemap.js static zh URLs should use stable siteUpdated lastmod")
     if "<lastmod>${siteUpdated}</lastmod>" not in api:
         errors.append("api/sitemap.js static EN URLs should use stable siteUpdated lastmod")
+    for token in ("const STATIC_OG_SLUGS", "function staticOgImage", "function staticImageTitle"):
+        if token not in api:
+            errors.append(f"api/sitemap.js missing static sitemap image support ({token})")
+    if "staticOgImage(p.url)" not in api or "staticImageTitle(p.url, 'zh')" not in api:
+        errors.append("api/sitemap.js should expose image:image entries for Chinese static URLs")
+    if "staticImageTitle(p.url, 'en')" not in api:
+        errors.append("api/sitemap.js should expose English image titles for English static URLs")
 
     en_article_section = re.search(r"articles\.forEach\(a => \{[\s\S]*?DOMAIN\}/en/blog/\$\{a\.slug\}[\s\S]*?\}\);", api)
     section = en_article_section.group(0) if en_article_section else ""
