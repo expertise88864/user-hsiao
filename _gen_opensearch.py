@@ -1,9 +1,11 @@
 """
-Generate OpenSearch discovery metadata and inject rel=search links.
+Generate feed/search discovery metadata and inject public-page links.
 
-OpenSearch lets browsers and search tools discover the site's article search
-endpoint. It is a small crawler-facing affordance, but it keeps HsiaoEye's
-public search surface explicit instead of relying only on visible UI.
+RSS/Atom autodiscovery helps feed readers and aggregation tools find new
+articles, while OpenSearch lets browsers and search tools discover the site's
+article search endpoint. These are small crawler-facing affordances, but they
+keep HsiaoEye's public discovery surface explicit instead of relying only on
+visible UI.
 """
 from __future__ import annotations
 
@@ -14,7 +16,25 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 DOMAIN = 'https://hsiao.chendermatologist.com'
 TITLE = 'HsiaoEye Search'
+RSS_LINK = '<link rel="alternate" type="application/rss+xml" title="HsiaoEye RSS" href="/blog/feed.xml" />'
+ATOM_LINK = '<link rel="alternate" type="application/atom+xml" title="HsiaoEye Atom" href="/blog/atom.xml" />'
 LINK = '<link rel="search" type="application/opensearchdescription+xml" title="HsiaoEye Search" href="/opensearch.xml" />'
+DISCOVERY_LINKS = [RSS_LINK, ATOM_LINK, LINK]
+DISCOVERY_BLOCK = '\n'.join(DISCOVERY_LINKS) + '\n'
+
+FEED_RE = re.compile(
+    r'^[ \t]*<link\s+rel="alternate"\s+type="application/(?:rss|atom)\+xml"[^>]*>[ \t]*(?:\r?\n)?',
+    re.I | re.M,
+)
+SEARCH_RE = re.compile(
+    r'^[ \t]*<link\s+rel="search"\s+type="application/opensearchdescription\+xml"[^>]*>[ \t]*(?:\r?\n)?',
+    re.I | re.M,
+)
+DISCOVERY_ANCHOR_RE = re.compile(
+    r'<link\s+rel="(?:canonical|author|publisher)"[^>]*>'
+    r'|<link\s+rel="alternate"\s+hreflang="[^"]+"[^>]*>',
+    re.I,
+)
 
 
 def parse_catalog() -> list[str]:
@@ -74,16 +94,14 @@ def build_xml() -> str:
 
 def inject_link(path: Path) -> bool:
     src = path.read_text(encoding='utf-8')
-    search_re = re.compile(r'\n?<link\s+rel="search"\s+type="application/opensearchdescription\+xml"[^>]*>\n?', re.I)
-    cleaned = search_re.sub('\n', src)
-    if LINK in cleaned:
-        return False
+    cleaned = SEARCH_RE.sub('', FEED_RE.sub('', src))
 
-    anchor = re.search(r'<link\s+rel="alternate"\s+type="application/atom\+xml"[^>]*>\s*', cleaned, re.I)
-    if anchor:
-        out = cleaned[:anchor.end()] + LINK + '\n' + cleaned[anchor.end():]
+    anchors = list(DISCOVERY_ANCHOR_RE.finditer(cleaned))
+    if anchors:
+        anchor = anchors[-1]
+        out = cleaned[:anchor.end()].rstrip() + '\n' + DISCOVERY_BLOCK + cleaned[anchor.end():].lstrip()
     else:
-        out = cleaned.replace('</head>', LINK + '\n</head>', 1)
+        out = cleaned.replace('</head>', DISCOVERY_BLOCK + '</head>', 1)
     if out != src:
         path.write_text(out, encoding='utf-8')
         return True

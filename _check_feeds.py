@@ -13,6 +13,8 @@ DOMAIN = "https://hsiao.chendermatologist.com"
 RSS = ROOT / "blog" / "feed.xml"
 ATOM = ROOT / "blog" / "atom.xml"
 SHARED = ROOT / "blog" / "blog-shared.js"
+RSS_LINK = '<link rel="alternate" type="application/rss+xml" title="HsiaoEye RSS" href="/blog/feed.xml" />'
+ATOM_LINK = '<link rel="alternate" type="application/atom+xml" title="HsiaoEye Atom" href="/blog/atom.xml" />'
 
 
 def parse_catalog() -> tuple[list[str], set[str]]:
@@ -26,6 +28,30 @@ def parse_catalog() -> tuple[list[str], set[str]]:
     return [slug for slug in slugs if slug not in stubs], stubs
 
 
+def public_html_files(published: list[str]) -> list[Path]:
+    static = [
+        "index.html",
+        "about.html",
+        "notes.html",
+        "privacy.html",
+        "tools.html",
+        "blog/index.html",
+        "blog/topics.html",
+        "en/index.html",
+        "en/about.html",
+        "en/notes.html",
+        "en/privacy.html",
+        "en/tools.html",
+        "en/blog/index.html",
+        "en/blog/topics.html",
+    ]
+    paths = [ROOT / rel for rel in static]
+    for slug in published:
+        paths.append(ROOT / "blog" / f"{slug}.html")
+        paths.append(ROOT / "en" / "blog" / f"{slug}.html")
+    return [path for path in paths if path.exists()]
+
+
 def text(node: ET.Element | None) -> str:
     return (node.text or "").strip() if node is not None else ""
 
@@ -36,6 +62,11 @@ def has_mojibake(value: str) -> bool:
 
 def slug_from_article_url(url: str) -> str:
     match = re.search(r"/blog/([^/#?]+)$", url)
+    return match.group(1) if match else ""
+
+
+def head_markup(src: str) -> str:
+    match = re.search(r"<head[^>]*>(.*?)</head>", src, re.I | re.S)
     return match.group(1) if match else ""
 
 
@@ -62,6 +93,22 @@ def main() -> int:
         for stub in stubs:
             if f"/blog/{stub}" in src:
                 errors.append(f"{label}: stub article leaked into feed: {stub}")
+
+    for path in public_html_files(published):
+        src = path.read_text(encoding="utf-8")
+        head = head_markup(src)
+        rel = path.relative_to(ROOT).as_posix()
+        if not head:
+            errors.append(f"{rel}: missing head section")
+            continue
+        if RSS_LINK not in head:
+            errors.append(f"{rel}: missing RSS autodiscovery link")
+        if ATOM_LINK not in head:
+            errors.append(f"{rel}: missing Atom autodiscovery link")
+        if head.count('type="application/rss+xml"') != 1:
+            errors.append(f"{rel}: expected exactly one RSS autodiscovery link")
+        if head.count('type="application/atom+xml"') != 1:
+            errors.append(f"{rel}: expected exactly one Atom autodiscovery link")
 
     try:
         rss_root = ET.fromstring(rss_src)
@@ -154,7 +201,10 @@ def main() -> int:
             print(f"  ... {len(errors) - 120} more")
         return 1
 
-    print(f"[OK] feed audit passed: {expected_count} RSS/Atom entries expose rich metadata")
+    print(
+        f"[OK] feed audit passed: {expected_count} RSS/Atom entries and "
+        f"{len(public_html_files(published))} public autodiscovery pages"
+    )
     return 0
 
 
