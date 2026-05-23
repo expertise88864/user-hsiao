@@ -15,6 +15,8 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 DOMAIN = 'https://hsiao.chendermatologist.com'
 PERSON_ID = f'{DOMAIN}/about#person'
+ORG_ID = f'{DOMAIN}/#organization'
+LOGO_ID = f'{DOMAIN}/#logo'
 
 ZH_PARTS = [
     ('CollectionPage', '/blog', '眼科文章', 'HsiaoEye 眼科衛教文章索引，收錄乾眼、近視、白內障、青光眼與視網膜警訊'),
@@ -247,11 +249,39 @@ def normalize_homepage(path: Path, expected_id: str, lang: str, parts: list[tupl
             data = json.loads(raw)
         except Exception:
             return match.group(0)
-        if not isinstance(data, dict) or 'WebSite' not in type_names(data) or data.get('@id') != expected_id:
+        if not isinstance(data, dict):
             return match.group(0)
 
         old = json.dumps(data, ensure_ascii=False, sort_keys=True)
-        data['hasPart'] = has_part(parts, lang)
+        types = type_names(data)
+        if 'WebSite' in types and data.get('@id') == expected_id:
+            data['publisher'] = {'@id': PERSON_ID}
+            data['hasPart'] = has_part(parts, lang)
+        elif 'Organization' in types:
+            data['@id'] = ORG_ID
+            data['url'] = f'{DOMAIN}/'
+            logo = data.get('logo')
+            if isinstance(logo, dict):
+                logo['@id'] = LOGO_ID
+                logo['url'] = f'{DOMAIN}/logo-512.png'
+                logo['width'] = 512
+                logo['height'] = 512
+            else:
+                data['logo'] = {
+                    '@type': 'ImageObject',
+                    '@id': LOGO_ID,
+                    'url': f'{DOMAIN}/logo-512.png',
+                    'width': 512,
+                    'height': 512,
+                }
+            data['founder'] = {'@id': PERSON_ID}
+            data['mainEntityOfPage'] = {'@id': f'{DOMAIN}/#webpage'}
+        elif {'Person', 'Physician'} & types:
+            data['@id'] = PERSON_ID
+            data.setdefault('mainEntityOfPage', {'@id': f'{DOMAIN}/about#profilepage'})
+        else:
+            return match.group(0)
+
         if json.dumps(data, ensure_ascii=False, sort_keys=True) == old:
             return match.group(0)
         changed = True
