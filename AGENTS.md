@@ -72,17 +72,34 @@ spelunking through `git reflog`. **Never do this.**
 
 ## Build pipeline
 
-When you make content edits, the typical pipeline is:
+When you make content edits, the **full pipeline** is below. Skipping any step
+typically triggers a CI drift failure on the `quality / HTML validation + SEO
+check` job. For the full chain explanation and known idempotency quirks see
+[WRITING_NEW_ARTICLE.md](WRITING_NEW_ARTICLE.md).
 
 ```bash
-python halfwidth_to_fullwidth.py    # convert halfwidth punctuation
-python _gen_feeds.py                # update sitemap / RSS / atom
-python _gen_en_pages.py             # mirror to /en/
-python _gen_csp_hashes.py           # update CSP hashes in middleware.js
-python validate.py                  # check head/meta integrity
+python halfwidth_to_fullwidth.py          # convert halfwidth punctuation
+python _gen_feeds.py                       # sitemap / RSS / Atom / JSON Feed
+python _gen_related.py                     # assets/related.json + related blocks
+python _gen_serp_meta.py                   # og:image:alt + inner JSON-LD sync
+python _gen_faqpage_jsonld.py              # FAQPage schema normalize
+python _gen_og_images.py                   # /assets/og/<slug>.png
+python _gen_en_pages.py                    # mirror to /en/
+python _gen_search_index.py                # PageFind search index
+python _gen_llms_txt.py                    # llms.txt
+python _gen_opensearch.py                  # opensearch.xml
+python _gen_profile_schema.py              # ProfilePage JSON-LD
+python _gen_site_graph.py                  # WebSite hasPart graph
+python _gen_route_canonicals.py            # canonical href normalisation
+python _apply_i_series.py                  # skip-link CSS + focus styles
+python _apply_a11y_vt.py                   # view-transition + reduced-motion
+python _apply_f10_image_priority.py        # fetchpriority="high" on first <img>
+python _gen_csp_hashes.py                  # CSP hashes (must run last)
+python _extract_critical_css.py            # critical CSS inline
+python validate.py                         # head/meta integrity
 ```
 
-Set `PYTHONIOENCODING=utf-8` if `validate.py` errors on Unicode.
+Set `PYTHONIOENCODING=utf-8` if `validate.py` errors on Unicode (Windows cp950).
 
 ## Editing guidelines
 

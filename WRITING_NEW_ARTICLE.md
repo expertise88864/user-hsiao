@@ -13,14 +13,101 @@ When you add a new article, **four** places need updating:
 
 CI check `_check_article_listings.py` enforces (2)–(4) — any drift fails the build.
 
-Then run the build scripts (in this order):
+Then run the **full build chain** below. Order matters — `halfwidth_to_fullwidth.py`
+must run first (so EN mirror gets full-width zh punctuation), and `_gen_csp_hashes.py`
+must run last (so hashes match the final HTML state).
 
 ```bash
-python halfwidth_to_fullwidth.py     # zh punctuation normalization
-python _gen_og_images.py              # OG card for the new article
-python _gen_en_pages.py               # /en/ mirror with content swap
-python _gen_csp_hashes.py             # CSP hash refresh
-python _extract_critical_css.py       # critical CSS re-inline
+# ── 1. ZH punctuation normalization ─────────────────────────────────────
+python halfwidth_to_fullwidth.py
+
+# ── 2. Feeds + catalog artifacts ───────────────────────────────────────
+python _gen_feeds.py                  # sitemap.xml + RSS + Atom + JSON Feed
+python _gen_related.py                # assets/related.json + "related reads"
+                                       # block inside each article
+
+# ── 3. SERP / social / FAQ schema normalization ────────────────────────
+python _gen_serp_meta.py              # syncs og:image:alt, twitter:image:alt,
+                                       # MedicalWebPage description, and inner
+                                       # JSON-LD image.name/caption
+python _gen_faqpage_jsonld.py         # normalises FAQPage schema across all
+                                       # articles + homepage (rebuilds JSON-LD
+                                       # from .myth/.truth blocks)
+
+# ── 4. OG card (only when title/desc/cover changes) ─────────────────────
+python _gen_og_images.py              # generate or refresh /assets/og/<slug>.png
+                                       # (+ .webp); use --force-all to rebuild
+                                       # every card
+
+# ── 5. EN mirror ───────────────────────────────────────────────────────
+python _gen_en_pages.py               # /en/<slug>.html with data-en swap
+
+# ── 6. Search + AI surfaces ────────────────────────────────────────────
+python _gen_search_index.py           # assets/search-index.json (PageFind seed)
+python _gen_llms_txt.py               # llms.txt for LLM crawlers
+python _gen_opensearch.py             # opensearch.xml metadata
+
+# ── 7. Profile / site graph schemas ────────────────────────────────────
+python _gen_profile_schema.py         # ProfilePage JSON-LD on about.html +
+                                       # en/about.html
+python _gen_site_graph.py             # WebSite hasPart graph (5 anchor pages);
+                                       # corrects EN strings overwritten by step 7
+python _gen_route_canonicals.py       # normalises canonical href forms across
+                                       # all HTML
+
+# ── 8. A11y + view transitions + image priority (apply scripts) ───────
+# These inject the skip-link CSS, view-transition meta, and fetchpriority="high"
+# on the first <img>. CI does NOT auto-run them, but skip-link CSS being missing
+# causes the visible "跳至主要內容" defect.
+python _apply_i_series.py             # skip-link CSS + focus-visible styles
+python _apply_a11y_vt.py              # @view-transition + reduced-motion CSS
+python _apply_f10_image_priority.py   # fetchpriority="high" on first <img>
+
+# ── 9. CSP hashes + critical CSS (must run LAST, after all HTML mutations) ─
+python _gen_csp_hashes.py             # hash-based CSP allowlist (middleware.js)
+python _extract_critical_css.py       # above-the-fold CSS inline
+
+# ── 10. Validation gate ────────────────────────────────────────────────
+python validate.py                    # title/desc length, OG, a11y
+python _check_article_listings.py     # listing parity (CI-blocking)
+python _check_meta.py                 # SEO meta uniqueness
+python _check_balance.py              # blog-shared.js delimiter balance
+python _check_internal_links.py       # 404 internal links
+python _check_bilingual_attrs.py      # data-zh / data-en pairing
+python _check_serp_fallbacks.py       # SERP/social fallback catalogue
+python halfwidth_to_fullwidth.py --dry-run   # MUST print "WOULD WRITE: 0 files"
+```
+
+### Idempotency warning
+
+Some generators are **not perfectly idempotent on the first run** — re-running
+the chain once or twice may produce additional small changes:
+
+- `_gen_serp_meta.py` propagates `og:image:alt` into inner JSON-LD `image.name`
+  and `image.caption`; if the new `og:image:alt` differs from the previous one,
+  the inner copies update on a second pass.
+- `_gen_profile_schema.py` and `_gen_site_graph.py` interact on the EN
+  `about.html` (profile script writes ZH strings first; site-graph then
+  overrides EN strings). Always run both, profile-schema **before** site-graph.
+- `_gen_csp_hashes.py` re-hashes after any HTML mutation, so it always runs last.
+
+If CI flags drift after a push, **run the full chain twice locally**, commit
+the resulting changes, and push again.
+
+### Quick chain (paste-and-go, one line)
+
+```bash
+python halfwidth_to_fullwidth.py && python _gen_feeds.py && python _gen_related.py && \
+python _gen_serp_meta.py && python _gen_faqpage_jsonld.py && python _gen_og_images.py && \
+python _gen_en_pages.py && python _gen_search_index.py && python _gen_llms_txt.py && \
+python _gen_opensearch.py && python _gen_profile_schema.py && python _gen_site_graph.py && \
+python _gen_route_canonicals.py && python _apply_i_series.py && python _apply_a11y_vt.py && \
+python _apply_f10_image_priority.py && python _gen_csp_hashes.py && \
+python _extract_critical_css.py && \
+python validate.py && python _check_article_listings.py && python _check_meta.py && \
+python _check_balance.py && python _check_internal_links.py && \
+python _check_bilingual_attrs.py && python _check_serp_fallbacks.py && \
+python halfwidth_to_fullwidth.py --dry-run
 ```
 
 ---

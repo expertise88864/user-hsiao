@@ -127,31 +127,67 @@ Categories:
 
 ## Full rebuild — when you've touched articles, CSS, or scripts
 
-Order matters. Run as a single chain:
+**You must run the entire chain below — not a subset.** The CI quality workflow
+runs all generators in lockstep and fails on any drift. The chain that previously
+shipped in this doc was incomplete and produced false "OK" locally while CI
+flagged drift in `_gen_serp_meta`, `_gen_related`, `_gen_faqpage_jsonld`,
+`_gen_search_index`, `_gen_llms_txt`, `_gen_profile_schema`, `_gen_site_graph`,
+`_gen_route_canonicals`, and the `_apply_*` injectors.
+
+Order matters. Run as a single chain (sequential, no `&`):
 
 ```bash
-# 1. Punctuation normalization (must run FIRST — before EN mirror)
+# 1. ZH punctuation normalization (must run FIRST)
 python halfwidth_to_fullwidth.py
 
-# 2. Auto-generated artifacts (feeds + OG images in parallel for speed)
-python _gen_feeds.py & FEEDS=$!
-python _gen_og_images.py --force-all & OG=$!
-wait $FEEDS $OG
+# 2. Feeds + catalog artifacts
+python _gen_feeds.py
+python _gen_related.py
 
-# 3. EN mirror (depends on ZH source being halfwidth-clean)
+# 3. SERP/social/FAQ schema normalization
+python _gen_serp_meta.py
+python _gen_faqpage_jsonld.py
+
+# 4. OG cards (use --force-all if needed)
+python _gen_og_images.py
+
+# 5. EN mirror
 python _gen_en_pages.py
 
-# 4. CSP hashes (depends on EN mirror inline-script hashes)
-python _gen_csp_hashes.py
+# 6. Search + AI surfaces
+python _gen_search_index.py
+python _gen_llms_txt.py
+python _gen_opensearch.py
 
-# 5. Critical CSS (depends on app.css being final)
+# 7. Profile / site graph schemas (order matters — profile then site_graph)
+python _gen_profile_schema.py
+python _gen_site_graph.py
+python _gen_route_canonicals.py
+
+# 8. A11y + view transitions + image priority (apply scripts — needed for
+#    skip-link CSS, otherwise "跳至主要內容" appears visibly at top of page)
+python _apply_i_series.py
+python _apply_a11y_vt.py
+python _apply_f10_image_priority.py
+
+# 9. CSP hashes + critical CSS (MUST run last, after all HTML mutations)
+python _gen_csp_hashes.py
 python _extract_critical_css.py
 
-# 6. Verify before push
+# 10. Verify before push
 python validate.py
 python _check_article_listings.py
 python _check_meta.py
 python _check_balance.py
 python _check_internal_links.py
+python _check_bilingual_attrs.py
+python _check_serp_fallbacks.py
 python halfwidth_to_fullwidth.py --dry-run    # must say "WOULD WRITE: 0 files"
 ```
+
+### Two-pass convergence
+
+`_gen_serp_meta.py` is **not idempotent on the first run** when `og:image:alt`
+changes (it propagates the new alt into inner JSON-LD `image.name`/`image.caption`
+on a *subsequent* pass). If CI flags drift right after a push, re-run steps 3 →
+9 above, then commit + push again. See WRITING_NEW_ARTICLE.md for full details.

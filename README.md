@@ -15,25 +15,36 @@ A static bilingual (zh-Hant-TW / en) ophthalmology patient-education website by 
 
 No build step required — open any HTML file directly in a browser to view.
 
-To regenerate auto-built artifacts (after editing articles, CSS, or scripts):
+To regenerate auto-built artifacts (after editing articles, CSS, or scripts), run
+the **full chain** below. Skipping any step typically triggers a CI drift failure
+on the `quality / HTML validation + SEO check` job.
 
 ```bash
-# Order matters — halfwidth fix must run before EN mirror generation
-python halfwidth_to_fullwidth.py     # ZH punctuation normalization
-python _gen_feeds.py                  # sitemap.xml + RSS/Atom
-python _gen_og_images.py              # Open Graph cards (--only-changed for fast)
-python _gen_en_pages.py               # /en/ mirror with content swap
-python _gen_csp_hashes.py             # CSP hash allowlist in middleware.js
-python _extract_critical_css.py       # inline above-the-fold CSS
+# Order matters — halfwidth fix must run before EN mirror generation,
+# the apply_* scripts must precede CSP hashing, and CSP must run last.
+python halfwidth_to_fullwidth.py          # ZH punctuation normalization
+python _gen_feeds.py                       # sitemap.xml + RSS/Atom/JSON Feed
+python _gen_related.py                     # assets/related.json + related blocks
+python _gen_serp_meta.py                   # og:image:alt + inner JSON-LD sync
+python _gen_faqpage_jsonld.py              # FAQPage schema normalize
+python _gen_og_images.py                   # Open Graph cards (--force-all to rebuild)
+python _gen_en_pages.py                    # /en/ mirror with data-en swap
+python _gen_search_index.py                # assets/search-index.json (PageFind)
+python _gen_llms_txt.py                    # llms.txt
+python _gen_opensearch.py                  # opensearch.xml
+python _gen_profile_schema.py              # ProfilePage JSON-LD (about pages)
+python _gen_site_graph.py                  # WebSite hasPart graph (5 anchor pages)
+python _gen_route_canonicals.py            # canonical href normalisation
+python _apply_i_series.py                  # skip-link CSS + focus styles
+python _apply_a11y_vt.py                   # view-transition + reduced-motion
+python _apply_f10_image_priority.py        # fetchpriority="high" on first <img>
+python _gen_csp_hashes.py                  # CSP hash allowlist (middleware.js)
+python _extract_critical_css.py            # inline above-the-fold CSS
 ```
 
-Or in one go (sequential, ~30 sec):
-
-```bash
-python halfwidth_to_fullwidth.py && python _gen_feeds.py && \
-python _gen_og_images.py && python _gen_en_pages.py && \
-python _gen_csp_hashes.py && python _extract_critical_css.py
-```
+See [WRITING_NEW_ARTICLE.md](WRITING_NEW_ARTICLE.md) for the explanation of each
+step, the validation gate that should follow, and known idempotency quirks
+(some generators need 2 passes to converge).
 
 ## Quality gates (CI runs all of these)
 
