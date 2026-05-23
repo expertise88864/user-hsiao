@@ -43,6 +43,7 @@ const STATIC_PUBLIC_PATHS = [
   '/en/blog/',
 ];
 
+const STATIC_OG_SLUGS = ['home', 'about', 'tools', 'notes', 'privacy', 'blog', 'topics'];
 const ARTICLE_SLUGS = getPublishedArticleSlugs();
 const PUBLIC_PATHS = Array.from(new Set([
   ...STATIC_PUBLIC_PATHS,
@@ -119,6 +120,21 @@ for (const path of PUBLIC_PATHS) {
       const ogImage = await page.locator('head meta[property="og:image"]').getAttribute('content');
       expect(ogImage, 'og:image missing').toBeTruthy();
       expect(ogImage, 'og:image must be absolute https URL').toMatch(/^https:\/\//);
+      expect(ogImage, 'og:image should be served from the canonical site').toContain(SITE);
+      const ogImageWidth = await page.locator('head meta[property="og:image:width"]').getAttribute('content');
+      expect(ogImageWidth, 'og:image:width must be 1200 for large preview cards').toBe('1200');
+      const ogImageHeight = await page.locator('head meta[property="og:image:height"]').getAttribute('content');
+      expect(ogImageHeight, 'og:image:height must be 630 for large preview cards').toBe('630');
+      const ogImageAlt = await page.locator('head meta[property="og:image:alt"]').getAttribute('content');
+      expect(ogImageAlt, 'og:image:alt missing').toBeTruthy();
+      expect(ogImageAlt.length, 'og:image:alt too short').toBeGreaterThan(7);
+      const twitterCard = await page.locator('head meta[name="twitter:card"]').getAttribute('content');
+      expect(twitterCard, 'twitter:card must request a large image card').toBe('summary_large_image');
+      const twitterImage = await page.locator('head meta[name="twitter:image"]').getAttribute('content');
+      expect(twitterImage, 'twitter:image must match og:image').toBe(ogImage);
+      const twitterImageAlt = await page.locator('head meta[name="twitter:image:alt"]').getAttribute('content');
+      expect(twitterImageAlt, 'twitter:image:alt missing').toBeTruthy();
+      expect(twitterImageAlt.length, 'twitter:image:alt too short').toBeGreaterThan(7);
       const twitterDesc = await page.locator('head meta[name="twitter:description"]').getAttribute('content');
       expect(twitterDesc, 'twitter:description missing').toBeTruthy();
       expect(twitterDesc.length, 'twitter:description too short').toBeGreaterThan(45);
@@ -253,6 +269,7 @@ test('referenced core assets exist', async ({ request }) => {
     '/assets/search-index.json',
     '/opensearch.xml',
     '/blog/feed.json',
+    ...STATIC_OG_SLUGS.map(slug => `/assets/og/${slug}.png`),
     ...ARTICLE_SLUGS.map(slug => `/assets/og/${slug}.png`),
   ];
   for (const p of paths) {
