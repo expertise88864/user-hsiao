@@ -43,7 +43,14 @@ def find_block(blocks: list[dict], schema_type: str) -> dict | None:
     return next((block for block in blocks if schema_type in type_names(block)), None)
 
 
-def audit_home(rel: str, website_id: str, website_url: str, webpage_id: str, physician_url: str) -> list[str]:
+def audit_home(
+    rel: str,
+    website_id: str,
+    website_url: str,
+    webpage_id: str,
+    physician_url: str,
+    profile_page_id: str,
+) -> list[str]:
     errors: list[str] = []
     try:
         blocks = jsonld_blocks(rel)
@@ -109,8 +116,8 @@ def audit_home(rel: str, website_id: str, website_url: str, webpage_id: str, phy
             errors.append(f"{rel}: Physician worksFor should be a named MedicalOrganization")
         if not isinstance(person.get("knowsAbout"), list) or len(person.get("knowsAbout", [])) < 5:
             errors.append(f"{rel}: Physician knowsAbout should cover core topics")
-        if ref_id(person.get("mainEntityOfPage")) != f"{DOMAIN}/about#profilepage":
-            errors.append(f"{rel}: Physician mainEntityOfPage should reference the canonical ProfilePage")
+        if ref_id(person.get("mainEntityOfPage")) != profile_page_id:
+            errors.append(f"{rel}: Physician mainEntityOfPage should reference the locale ProfilePage")
 
     if not webpage:
         errors.append(f"{rel}: missing MedicalWebPage schema")
@@ -130,8 +137,22 @@ def audit_home(rel: str, website_id: str, website_url: str, webpage_id: str, phy
 
 def main() -> int:
     errors: list[str] = []
-    errors.extend(audit_home("index.html", WEBSITE_ID, f"{DOMAIN}/", WEBPAGE_ID, f"{DOMAIN}/about"))
-    errors.extend(audit_home("en/index.html", f"{DOMAIN}/en#website", f"{DOMAIN}/en", f"{DOMAIN}/en#webpage", f"{DOMAIN}/en/about"))
+    errors.extend(audit_home(
+        "index.html",
+        WEBSITE_ID,
+        f"{DOMAIN}/",
+        WEBPAGE_ID,
+        f"{DOMAIN}/about",
+        f"{DOMAIN}/about#profilepage",
+    ))
+    errors.extend(audit_home(
+        "en/index.html",
+        f"{DOMAIN}/en#website",
+        f"{DOMAIN}/en",
+        f"{DOMAIN}/en#webpage",
+        f"{DOMAIN}/en/about",
+        f"{DOMAIN}/en/about#profilepage",
+    ))
 
     if errors:
         print("[FAIL] Homepage entity schema audit failed:")

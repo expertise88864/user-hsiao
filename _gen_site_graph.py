@@ -278,7 +278,8 @@ def normalize_homepage(path: Path, expected_id: str, lang: str, parts: list[tupl
             data['mainEntityOfPage'] = {'@id': f'{DOMAIN}/#webpage'}
         elif {'Person', 'Physician'} & types:
             data['@id'] = PERSON_ID
-            data.setdefault('mainEntityOfPage', {'@id': f'{DOMAIN}/about#profilepage'})
+            profile_id = f'{DOMAIN}/en/about#profilepage' if expected_id == f'{DOMAIN}/en#website' else f'{DOMAIN}/about#profilepage'
+            data['mainEntityOfPage'] = {'@id': profile_id}
         else:
             return match.group(0)
 
