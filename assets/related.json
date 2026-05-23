@@ -1,4 +1,28 @@
 {
+  "ophthalmic-trauma-overlooked-burden": [
+    {
+      "slug": "monitoring-myopia-ser-vs-axial-length",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "dims-pediatric-myopia-control",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "dry-eye-symptom-sign-discordance-dream",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "glaucoma-comprehensive-guide",
+      "reasons": []
+    }
+  ],
   "toric-iol-astigmatism-cataract-review": [
     {
       "slug": "cataract-comprehensive-guide",
@@ -31,16 +55,17 @@
   ],
   "dry-eye-symptom-sign-discordance-dream": [
     {
+      "slug": "ophthalmic-trauma-overlooked-burden",
+      "reasons": [
+        "same-cat",
+        "newer"
+      ]
+    },
+    {
       "slug": "dry-eye-myths",
       "reasons": [
         "same-tag",
         "cluster"
-      ]
-    },
-    {
-      "slug": "dims-pediatric-myopia-control",
-      "reasons": [
-        "same-cat"
       ]
     },
     {
@@ -50,8 +75,10 @@
       ]
     },
     {
-      "slug": "cataract-comprehensive-guide",
-      "reasons": []
+      "slug": "dims-pediatric-myopia-control",
+      "reasons": [
+        "same-cat"
+      ]
     }
   ],
   "monitoring-myopia-ser-vs-axial-length": [
@@ -60,6 +87,13 @@
       "reasons": [
         "same-cat",
         "same-tag"
+      ]
+    },
+    {
+      "slug": "ophthalmic-trauma-overlooked-burden",
+      "reasons": [
+        "same-cat",
+        "newer"
       ]
     },
     {
@@ -73,12 +107,6 @@
       "slug": "pediatric-myopia-control",
       "reasons": [
         "same-tag"
-      ]
-    },
-    {
-      "slug": "toric-iol-astigmatism-cataract-review",
-      "reasons": [
-        "newer"
       ]
     }
   ],
@@ -99,16 +127,17 @@
       ]
     },
     {
+      "slug": "ophthalmic-trauma-overlooked-burden",
+      "reasons": [
+        "same-cat",
+        "newer"
+      ]
+    },
+    {
       "slug": "pediatric-myopia-control",
       "reasons": [
         "same-tag",
         "cluster"
-      ]
-    },
-    {
-      "slug": "toric-iol-astigmatism-cataract-review",
-      "reasons": [
-        "newer"
       ]
     }
   ],
@@ -134,20 +163,22 @@
       ]
     },
     {
-      "slug": "glaucoma-comprehensive-guide",
-      "reasons": []
+      "slug": "ophthalmic-trauma-overlooked-burden",
+      "reasons": [
+        "newer"
+      ]
     }
   ],
   "glaucoma-treatment-selection": [
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "cataract-surgery-selection",
       "reasons": [
         "same-cat",
         "newer"
       ]
     },
     {
-      "slug": "cataract-surgery-selection",
+      "slug": "toric-iol-astigmatism-cataract-review",
       "reasons": [
         "same-cat",
         "newer"
@@ -176,16 +207,16 @@
       ]
     },
     {
+      "slug": "thyroid-eye-disease",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
       "slug": "glaucoma-treatment-selection",
       "reasons": [
         "same-tag",
         "newer"
-      ]
-    },
-    {
-      "slug": "thyroid-eye-disease",
-      "reasons": [
-        "same-cat"
       ]
     },
     {
@@ -197,14 +228,14 @@
   ],
   "cataract-comprehensive-guide": [
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "cataract-surgery-selection",
       "reasons": [
         "same-cat",
         "same-tag"
       ]
     },
     {
-      "slug": "cataract-surgery-selection",
+      "slug": "toric-iol-astigmatism-cataract-review",
       "reasons": [
         "same-cat",
         "same-tag"
@@ -217,8 +248,10 @@
       ]
     },
     {
-      "slug": "monitoring-myopia-ser-vs-axial-length",
-      "reasons": []
+      "slug": "ophthalmic-trauma-overlooked-burden",
+      "reasons": [
+        "newer"
+      ]
     }
   ],
   "thyroid-eye-disease": [
@@ -236,7 +269,7 @@
       ]
     },
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "cataract-surgery-selection",
       "reasons": [
         "newer"
       ]
@@ -262,8 +295,10 @@
       ]
     },
     {
-      "slug": "dry-eye-symptom-sign-discordance-dream",
-      "reasons": []
+      "slug": "ophthalmic-trauma-overlooked-burden",
+      "reasons": [
+        "newer"
+      ]
     },
     {
       "slug": "monitoring-myopia-ser-vs-axial-length",
@@ -280,19 +315,19 @@
       ]
     },
     {
-      "slug": "pediatric-myopia-control",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
       "slug": "floaters-retinal-detachment",
       "reasons": [
         "same-cat"
       ]
     },
     {
-      "slug": "cataract-comprehensive-guide",
+      "slug": "pediatric-myopia-control",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "glaucoma-comprehensive-guide",
       "reasons": [
         "newer"
       ]
@@ -308,12 +343,6 @@
       ]
     },
     {
-      "slug": "floaters-retinal-detachment",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
       "slug": "dry-eye-myths",
       "reasons": [
         "same-cat"
@@ -325,15 +354,15 @@
         "same-tag",
         "newer"
       ]
-    }
-  ],
-  "floaters-retinal-detachment": [
+    },
     {
-      "slug": "pediatric-myopia-control",
+      "slug": "floaters-retinal-detachment",
       "reasons": [
         "same-cat"
       ]
-    },
+    }
+  ],
+  "floaters-retinal-detachment": [
     {
       "slug": "dry-eye-myths",
       "reasons": [
@@ -341,13 +370,19 @@
       ]
     },
     {
-      "slug": "glaucoma-comprehensive-guide",
+      "slug": "pediatric-myopia-control",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "toric-iol-astigmatism-cataract-review",
       "reasons": [
         "newer"
       ]
     },
     {
-      "slug": "dims-pediatric-myopia-control",
+      "slug": "cataract-surgery-selection",
       "reasons": [
         "newer"
       ]

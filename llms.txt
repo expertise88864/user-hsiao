@@ -4,7 +4,7 @@
 
 This site explains eye symptoms, common ophthalmology conditions, surgery choices, and study notes in Traditional Chinese with English mirrors. It is educational only and does not replace an in-person ophthalmology visit.
 
-Last content update: 2026-05-18
+Last content update: 2026-05-23
 Canonical host: https://hsiao.chendermatologist.com
 Primary language: zh-Hant-TW
 Secondary language: en
@@ -27,6 +27,16 @@ Secondary language: en
 - [Bilingual Search Index](https://hsiao.chendermatologist.com/assets/search-index.json): published article metadata in both locales.
 
 ## Published Articles
+
+### 眼外傷：被忽視的全球失明禍首｜2026 AJO Perspective + IGATES 8238 例分析
+
+- English title: Ophthalmic Trauma — The Overlooked Cause of Preventable Blindness
+- Topic: 眼外傷
+- Published: 2026-05-23
+- Updated: 2026-05-23
+- Canonical: https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden
+- English mirror: https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden
+- Summary: 2026 AJO Perspective + IGATES 全球 8238 例眼外傷登錄：閉合性 56.9%、開放性 34.0%、99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫；AAO 估計最高 90% 眼外傷可被適當護目預防。整理重點數據、高風險族群、就醫時機，並列出涉及台灣法規需人工確認部分。
 
 ### 為什麼我覺得眼睛超乾，醫師卻說沒事？2026 DREAM 研究 535 人分析「症狀-徵象不一致」現象
 
