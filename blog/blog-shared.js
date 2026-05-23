@@ -131,6 +131,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
+    { slug:'ophthalmic-trauma-overlooked-burden', title:'眼外傷：被忽視的全球失明禍首', title_en:'Ophthalmic Trauma — The Overlooked Cause of Preventable Blindness', cat:'research', tag:'眼外傷', tag_en:'Eye trauma', date:'2026-05-23' },
     { slug:'toric-iol-astigmatism-cataract-review', title:'散光人工水晶體（Toric IOL）值得嗎？', title_en:'Toric IOL for Cataract — Is It Worth It?', cat:'rx', tag:'白內障', tag_en:'Cataract', date:'2026-05-16' },
     { slug:'dry-eye-symptom-sign-discordance-dream', title:'為什麼我覺得眼睛超乾，醫師卻說沒事？', title_en:'Why Do My Dry-Eye Symptoms Not Match the Exam?', cat:'research', tag:'乾眼症', tag_en:'Dry eye', date:'2026-05-16', updated:'2026-05-18' },
     { slug:'monitoring-myopia-ser-vs-axial-length', title:'監測兒童近視，該追蹤「度數」還是「眼軸」？', title_en:'Monitoring Childhood Myopia: SER or Axial Length?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-13' },
