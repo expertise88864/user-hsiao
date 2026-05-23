@@ -310,6 +310,32 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
 
 def listing_schema(canonical_path: str, name: str, articles: list[dict[str, str]]) -> str:
     page_url = f'{DOMAIN}{canonical_path}'
+    def list_item(i: int, row: dict[str, str]) -> dict[str, object]:
+        article_url = f"{DOMAIN}/blog/{row['slug']}"
+        image_url = f"{DOMAIN}/assets/og/{row['slug']}.png"
+        modified = row.get('updated') or row.get('date') or ''
+        return {
+            '@type': 'ListItem',
+            'position': i + 1,
+            'url': article_url,
+            'name': row['title'],
+            'item': {
+                '@type': 'MedicalScholarlyArticle',
+                '@id': f'{article_url}#article',
+                'url': article_url,
+                'headline': row['title'],
+                'name': row['title'],
+                'inLanguage': 'zh-Hant-TW',
+                'datePublished': row.get('date') or modified,
+                'dateModified': modified,
+                'image': image_url,
+                'thumbnailUrl': image_url,
+                'author': {'@id': f'{DOMAIN}/about#person'},
+                'publisher': {'@id': f'{DOMAIN}/about#person'},
+                'isPartOf': {'@id': f'{DOMAIN}/#website'},
+            },
+        }
+
     data = {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
@@ -319,15 +345,7 @@ def listing_schema(canonical_path: str, name: str, articles: list[dict[str, str]
         'itemListOrder': 'https://schema.org/ItemListOrderDescending',
         'mainEntityOfPage': {'@id': f'{page_url}#webpage'},
         'isPartOf': {'@id': f'{DOMAIN}/#website'},
-        'itemListElement': [
-            {
-                '@type': 'ListItem',
-                'position': i + 1,
-                'url': f"{DOMAIN}/blog/{row['slug']}",
-                'name': row['title'],
-            }
-            for i, row in enumerate(articles)
-        ],
+        'itemListElement': [list_item(i, row) for i, row in enumerate(articles)],
     }
     return (
         '<script type="application/ld+json" data-listing-auto>'

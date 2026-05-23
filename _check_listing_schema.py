@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 DOMAIN = "https://hsiao.chendermatologist.com"
+PERSON_ID = f"{DOMAIN}/about#person"
 
 
 def type_names(obj: dict) -> set[str]:
@@ -17,6 +18,10 @@ def type_names(obj: dict) -> set[str]:
     if isinstance(value, list):
         return {str(x) for x in value}
     return {str(value)} if value else set()
+
+
+def ref_value(value) -> str:
+    return str(value.get("@id") or "") if isinstance(value, dict) else str(value or "")
 
 
 def jsonld_blocks(src: str) -> list[dict]:
@@ -131,6 +136,35 @@ def audit_page(
             errors.append(f"{rel}: {slug} URL mismatch ({item.get('url')!r})")
         if item.get("name") != expected_title:
             errors.append(f"{rel}: {slug} name mismatch")
+        nested = item.get("item")
+        if not isinstance(nested, dict):
+            errors.append(f"{rel}: {slug} ListItem.item must be an Article object")
+            continue
+        expected_site = f"{DOMAIN}/en#website" if english else f"{DOMAIN}/#website"
+        expected_lang = "en" if english else "zh-Hant-TW"
+        expected_image = f"{DOMAIN}/assets/og/{slug}.png"
+        expected_modified = row.get("updated") or row.get("date")
+        if "MedicalScholarlyArticle" not in type_names(nested):
+            errors.append(f"{rel}: {slug} nested item should be MedicalScholarlyArticle")
+        if nested.get("@id") != f"{expected_url}#article":
+            errors.append(f"{rel}: {slug} nested Article @id mismatch")
+        if nested.get("url") != expected_url:
+            errors.append(f"{rel}: {slug} nested Article URL mismatch")
+        if nested.get("headline") != expected_title or nested.get("name") != expected_title:
+            errors.append(f"{rel}: {slug} nested Article title mismatch")
+        if nested.get("inLanguage") != expected_lang:
+            errors.append(f"{rel}: {slug} nested Article inLanguage mismatch")
+        if nested.get("datePublished") != row.get("date"):
+            errors.append(f"{rel}: {slug} nested Article datePublished mismatch")
+        if nested.get("dateModified") != expected_modified:
+            errors.append(f"{rel}: {slug} nested Article dateModified mismatch")
+        if nested.get("image") != expected_image or nested.get("thumbnailUrl") != expected_image:
+            errors.append(f"{rel}: {slug} nested Article image mismatch")
+        for key in ("author", "publisher"):
+            if ref_value(nested.get(key)) != PERSON_ID:
+                errors.append(f"{rel}: {slug} nested Article {key} should reference {PERSON_ID}")
+        if ref_value(nested.get("isPartOf")) != expected_site:
+            errors.append(f"{rel}: {slug} nested Article isPartOf should point at {expected_site}")
 
     return errors
 

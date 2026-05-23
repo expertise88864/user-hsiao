@@ -290,7 +290,18 @@ def localize_static_page_jsonld(data, title, desc, en_canonical):
                     slug = _slug_from_article_url(item.get('url') or item.get('item'))
                     article = ARTICLES.get(slug)
                     if article:
-                        item['name'] = article.get('title_en') or article.get('title') or item.get('name')
+                        title_en = article.get('title_en') or article.get('title') or item.get('name')
+                        article_url = f'{DOMAIN}/en/blog/{slug}'
+                        item['url'] = article_url
+                        item['name'] = title_en
+                        nested = item.get('item')
+                        if isinstance(nested, dict):
+                            nested['@id'] = f'{article_url}#article'
+                            nested['url'] = article_url
+                            nested['headline'] = title_en
+                            nested['name'] = title_en
+                            nested['inLanguage'] = 'en'
+                            nested['isPartOf'] = {'@id': f'{DOMAIN}/en#website'}
 
         if 'BreadcrumbList' in type_names:
             items = out.get('itemListElement')
