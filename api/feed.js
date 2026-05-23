@@ -9,6 +9,7 @@
 import { ghGetFile } from './admin/_auth.js';
 
 const DOMAIN = 'https://hsiao.chendermatologist.com';
+const WEBSUB_HUB = 'https://pubsubhubbub.appspot.com/';
 const SITE_NAME = 'HsiaoEye Ophthalmology Notes';
 const AUTHOR = 'Min-Chien Hsiao, MD';
 const EMAIL = 'f94001115@gmail.com';
@@ -175,6 +176,7 @@ function buildRss(articles, descriptions) {
     `  <title>${escapeXml(SITE_NAME)}</title>`,
     `  <link>${DOMAIN}/</link>`,
     `  <atom:link href="${DOMAIN}/blog/feed.xml" rel="self" type="application/rss+xml" />`,
+    `  <atom:link href="${WEBSUB_HUB}" rel="hub" />`,
     `  <description>${escapeXml(FEED_DESCRIPTION)}</description>`,
     '  <language>zh-Hant-TW</language>',
     `  <copyright>Copyright ${copyrightYear} HsiaoEye - ${escapeXml(AUTHOR)}</copyright>`,
@@ -207,6 +209,7 @@ function buildAtom(articles, descriptions) {
     `  <subtitle>${escapeXml(FEED_DESCRIPTION)}</subtitle>`,
     `  <link href="${DOMAIN}/" rel="alternate" />`,
     `  <link href="${DOMAIN}/blog/atom.xml" rel="self" />`,
+    `  <link href="${WEBSUB_HUB}" rel="hub" />`,
     `  <id>${DOMAIN}/</id>`,
     `  <updated>${atomDate(feedUpdated)}</updated>`,
     '  <author>',

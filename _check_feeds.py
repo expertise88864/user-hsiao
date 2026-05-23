@@ -11,6 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 DOMAIN = "https://hsiao.chendermatologist.com"
+WEBSUB_HUB = "https://pubsubhubbub.appspot.com/"
 RSS = ROOT / "blog" / "feed.xml"
 ATOM = ROOT / "blog" / "atom.xml"
 JSON_FEED = ROOT / "blog" / "feed.json"
@@ -143,6 +144,9 @@ def main() -> int:
                 errors.append(f"RSS: unexpected channel title {title!r}")
             if len(description) < 30:
                 errors.append("RSS: channel description is too short")
+            hub = channel.find("{http://www.w3.org/2005/Atom}link[@rel='hub']")
+            if hub is None or hub.get("href") != WEBSUB_HUB:
+                errors.append("RSS: missing WebSub hub discovery link")
 
             items = channel.findall("item")
             if len(items) != expected_count:
@@ -196,6 +200,9 @@ def main() -> int:
         }
         if "http://search.yahoo.com/mrss/" not in atom_src:
             errors.append("Atom: missing Media RSS namespace")
+        hub = atom_root.find("atom:link[@rel='hub']", ns)
+        if hub is None or hub.get("href") != WEBSUB_HUB:
+            errors.append("Atom: missing WebSub hub discovery link")
         entries = atom_root.findall("atom:entry", ns)
         if len(entries) != expected_count:
             errors.append(f"Atom: expected {expected_count} entries, found {len(entries)}")

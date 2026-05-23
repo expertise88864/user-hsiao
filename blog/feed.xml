@@ -4,6 +4,7 @@
   <title>HsiaoEye · 蕭閔謙醫師 眼科筆記</title>
   <link>https://hsiao.chendermatologist.com/</link>
   <atom:link href="https://hsiao.chendermatologist.com/blog/feed.xml" rel="self" type="application/rss+xml" />
+  <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
   <description>蕭閔謙醫師的眼科筆記，整理眼科衛教、疾病警訊與實用就醫資訊。</description>
   <language>zh-Hant-TW</language>
   <copyright>© 2026 HsiaoEye · 蕭閔謙 醫師</copyright>

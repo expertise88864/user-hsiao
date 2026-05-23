@@ -38,6 +38,10 @@ def main() -> int:
         errors.append("RSS lastBuildDate should use the stable feedUpdated date")
     if '<updated>${atomDate(feedUpdated)}</updated>' not in src:
         errors.append("Atom feed updated should use the stable feedUpdated date")
+    if "const WEBSUB_HUB = 'https://pubsubhubbub.appspot.com/'" not in src:
+        errors.append("api/feed.js should define a WebSub hub")
+    if 'rel="hub"' not in src or "${WEBSUB_HUB}" not in src:
+        errors.append("RSS/Atom feeds should expose WebSub hub discovery links")
     if "function buildJsonFeed" not in src:
         errors.append("api/feed.js should expose a JSON Feed builder")
     if "version: 'https://jsonfeed.org/version/1.1'" not in src:

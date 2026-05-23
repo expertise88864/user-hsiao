@@ -18,6 +18,7 @@ import os, re, html, json
 from datetime import datetime, timezone
 
 DOMAIN = 'https://hsiao.chendermatologist.com'
+WEBSUB_HUB = 'https://pubsubhubbub.appspot.com/'
 SITE_NAME = 'HsiaoEye · 蕭閔謙醫師 眼科筆記'
 AUTHOR = '蕭閔謙 醫師'
 EMAIL = 'f94001115@gmail.com'
@@ -292,6 +293,7 @@ def build_rss():
            f'  <title>{html.escape(SITE_NAME)}</title>',
            f'  <link>{DOMAIN}/</link>',
            f'  <atom:link href="{DOMAIN}/blog/feed.xml" rel="self" type="application/rss+xml" />',
+           f'  <atom:link href="{WEBSUB_HUB}" rel="hub" />',
            f'  <description>{html.escape(FEED_DESCRIPTION)}</description>',
            '  <language>zh-Hant-TW</language>',
            f'  <copyright>© {COPYRIGHT_YEAR} HsiaoEye · {AUTHOR}</copyright>',
@@ -343,6 +345,7 @@ def build_atom():
            f'  <subtitle>{html.escape(FEED_DESCRIPTION)}</subtitle>',
            f'  <link href="{DOMAIN}/" rel="alternate" />',
            f'  <link href="{DOMAIN}/blog/atom.xml" rel="self" />',
+           f'  <link href="{WEBSUB_HUB}" rel="hub" />',
            f'  <id>{DOMAIN}/</id>',
            f'  <updated>{SITE_UPDATED_ATOM}</updated>',
            '  <author>',
