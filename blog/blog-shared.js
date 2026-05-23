@@ -131,7 +131,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
-    { slug:'hzo-stromal-keratitis-zeds-lessons', title:'帶狀疱疹眼疾反覆角膜炎：為什麼停眼藥水 3 個月最危險？', title_en:'Recurrent Stromal Keratitis After HZO — Why the 3 Months After Stopping Steroids Are Riskiest', cat:'research', tag:'角膜炎', tag_en:'Keratitis', date:'2026-05-23' },
+    { slug:'hzo-stromal-keratitis-zeds-lessons', title:'帶狀疱疹眼疾反覆角膜炎：為什麼停眼藥水 3 個月最危險？', title_en:'Recurrent Stromal Keratitis After HZO — 2026 ZEDS Lessons', cat:'research', tag:'角膜炎', tag_en:'Keratitis', date:'2026-05-23' },
     { slug:'ophthalmic-trauma-overlooked-burden', title:'眼外傷：被忽視的全球失明禍首', title_en:'Ophthalmic Trauma — The Overlooked Cause of Preventable Blindness', cat:'research', tag:'眼外傷', tag_en:'Eye trauma', date:'2026-05-23' },
     { slug:'toric-iol-astigmatism-cataract-review', title:'散光人工水晶體（Toric IOL）值得嗎？', title_en:'Toric IOL for Cataract — Is It Worth It?', cat:'rx', tag:'白內障', tag_en:'Cataract', date:'2026-05-16' },
     { slug:'dry-eye-symptom-sign-discordance-dream', title:'為什麼我覺得眼睛超乾，醫師卻說沒事？', title_en:'Why Do My Dry-Eye Symptoms Not Match the Exam?', cat:'research', tag:'乾眼症', tag_en:'Dry eye', date:'2026-05-16', updated:'2026-05-18' },
