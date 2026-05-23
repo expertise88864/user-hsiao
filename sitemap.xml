@@ -98,6 +98,19 @@
 
   <!-- ===== Published articles ===== -->
   <url>
+    <loc>https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/hzo-stromal-keratitis-zeds-lessons.png</image:loc>
+      <image:title>帶狀疱疹眼疾反覆角膜炎：為什麼停眼藥水 3 個月最危險？</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -372,6 +385,19 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/privacy.png</image:loc>
       <image:title>Privacy Policy</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/hzo-stromal-keratitis-zeds-lessons.png</image:loc>
+      <image:title>Recurrent Stromal Keratitis After HZO — Why the 3 Months After Stopping Steroids Are Riskiest</image:title>
     </image:image>
   </url>
   <url>

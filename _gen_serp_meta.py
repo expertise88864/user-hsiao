@@ -29,6 +29,8 @@ BREADCRUMB_SCHEMA_RE = re.compile(
 )
 
 ARTICLE_SNIPPETS = {
+    'hzo-stromal-keratitis-zeds-lessons':
+        '2026 AJO ZEDS 試驗 SK 終點二次分析（Jacobs 等）：527 人 RCT 中 20% 出現反覆角膜基質炎；75% 在常規追蹤無症狀時被診斷、停類固醇 3 個月內 38% 復發、低效價類固醇足以控制大多數病灶、僅 10% 需口服 valacyclovir 介入；對應台灣健保 §10.7.1.1（療程 10 天為限）與 §14.2（眼用 acyclovir）條文。蕭閔謙醫師整理。',
     'ophthalmic-trauma-overlooked-burden':
         '2026 AJO Perspective + IGATES 8238 例眼外傷登錄：閉合性 56.9%、開放性 34.0%、99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫；AAO 估計最高 90% 眼外傷可被適當護目預防。整理高風險族群、就醫時機、與台灣健保/職安/煙火法規需人工確認的部分。蕭閔謙醫師整理。',
     'toric-iol-astigmatism-cataract-review':
