@@ -183,76 +183,142 @@
 
 <article class="max-w-3xl mx-auto px-5 sm:px-8 mb-16">
 
-<!-- Hero figure: 4-quadrant — ZEDS structure / 75% asymptomatic / 3-month danger window / low-potency sufficient -->
+<!-- Hero figure: narrative — anatomy + treatment timeline + 3 take-home cards -->
 <figure class="article-fig" style="margin:24px auto 8px;padding:18px 22px;background:#fff;border:0.5px solid var(--border);border-radius:14px;max-width:680px">
   <svg viewBox="0 0 600 560" preserveAspectRatio="xMidYMid meet" style="aspect-ratio:600/560;width:100%;height:auto;display:block" aria-labelledby="hero-title" role="img">
-    <title id="hero-title">ZEDS 試驗 SK 二次分析四象限：試驗結構、無症狀發現率、停藥危險窗、低效價足夠</title>
-    <desc>Diagram: ZEDS trial 4-quadrant — structure, asymptomatic detection, 3-month danger window, low-potency sufficient.</desc>
+    <title id="hero-title">帶狀疱疹眼疾後反覆角膜炎：從皮疹到追蹤的敘事圖</title>
+    <desc>Diagram: HZO narrative — face with V1 rash, eye cross-section with stromal inflammation, treatment timeline highlighting the 3-month post-cessation danger window, and three colored take-home cards.</desc>
     <rect width="600" height="560" fill="#faf7f2" />
-    <text x="300" y="28" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="17" font-weight="700" text-anchor="middle" data-zh="ZEDS 試驗 SK 二次分析重點" data-en="ZEDS SK Secondary Analysis at a Glance">ZEDS 試驗 SK 二次分析重點</text>
-    <text x="300" y="48" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="12" text-anchor="middle" data-zh="Jacobs et al. 2026 · Am J Ophthalmol · n=527（SK 端點 n=105）" data-en="Jacobs et al. 2026 · Am J Ophthalmol · n=527 (SK end point n=105)">Jacobs et al. 2026 · Am J Ophthalmol · n=527（SK 端點 n=105）</text>
+    <text x="300" y="28" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="18" font-weight="700" text-anchor="middle" data-zh="停眼藥水的 3 個月內，最容易復發" data-en="Highest relapse risk: the 3 months after stopping steroids">停眼藥水的 3 個月內，最容易復發</text>
+    <text x="300" y="50" fill="#5e574e" font-family="'Noto Sans TC',sans-serif" font-size="12" text-anchor="middle" data-zh="帶狀疱疹眼疾後反覆角膜炎 — 一張圖看懂" data-en="Recurrent stromal keratitis after HZO — at a glance">帶狀疱疹眼疾後反覆角膜炎 — 一張圖看懂</text>
 
-    <!-- Cross dividers -->
-    <line x1="300" y1="70" x2="300" y2="500" stroke="#dcd5c8" stroke-width="1" stroke-dasharray="4 4" />
-    <line x1="40" y1="285" x2="560" y2="285" stroke="#dcd5c8" stroke-width="1" stroke-dasharray="4 4" />
+    <!-- ===== TOP — anatomy ===== -->
+    <!-- Left card: face profile with HZO V1 rash -->
+    <rect x="20" y="68" width="280" height="170" rx="10" fill="#fff7ed" stroke="#fcd34d" stroke-width="1" />
+    <text x="160" y="88" fill="#9a3412" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" data-zh="① 皮疹打在這幾處 = 眼睛高風險" data-en="① Rash here = high eye-risk zone">① 皮疹打在這幾處 = 眼睛高風險</text>
+    <!-- Simple face profile (looking right) -->
+    <path d="M 90 110 Q 85 105 90 100 Q 100 95 115 98 Q 130 100 140 108 L 150 130 L 162 138 L 159 148 L 153 152 Q 152 158 156 162 L 146 167 Q 142 175 134 180 L 132 195 Q 130 208 116 213 L 100 213 Q 80 210 78 195 L 78 170 Q 78 130 90 110 Z" fill="#fde8d3" stroke="#92400e" stroke-width="1.5" />
+    <!-- Eye on face -->
+    <ellipse cx="118" cy="148" rx="10" ry="5" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />
+    <circle cx="118" cy="148" r="3" fill="#3a5a7c" />
+    <!-- HZO rash dots: forehead -->
+    <circle cx="98" cy="113" r="4" fill="#dc2626" opacity="0.85" />
+    <circle cx="110" cy="118" r="3.2" fill="#dc2626" opacity="0.85" />
+    <circle cx="120" cy="113" r="3.5" fill="#dc2626" opacity="0.85" />
+    <circle cx="105" cy="125" r="2.5" fill="#dc2626" opacity="0.85" />
+    <!-- Upper eyelid dots -->
+    <circle cx="115" cy="140" r="2.5" fill="#dc2626" opacity="0.85" />
+    <circle cx="125" cy="140" r="2.5" fill="#dc2626" opacity="0.85" />
+    <!-- Nose tip -->
+    <circle cx="160" cy="143" r="3" fill="#dc2626" opacity="0.9" />
+    <circle cx="162" cy="148" r="2.5" fill="#dc2626" opacity="0.85" />
+    <!-- V1 nerve arrow curve from rash to eye -->
+    <path d="M 100 122 Q 130 132 122 148" fill="none" stroke="#7c2d12" stroke-width="1.5" stroke-dasharray="3 2" />
+    <polygon points="120,145 124,151 119,150" fill="#7c2d12" />
+    <!-- Side labels -->
+    <text x="200" y="115" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="700" data-zh="額頭" data-en="Forehead">額頭</text>
+    <text x="200" y="148" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="700" data-zh="上眼皮" data-en="Upper lid">上眼皮</text>
+    <text x="200" y="175" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="700" data-zh="鼻尖（Hutchinson 徵象）" data-en="Nose tip (Hutchinson sign)">鼻尖（Hutchinson 徵象）</text>
+    <text x="160" y="225" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="病毒沿 V1 三叉神經侵入眼睛" data-en="Virus travels along V1 into the eye">病毒沿 V1 三叉神經侵入眼睛</text>
 
-    <!-- ① Top-Left: ZEDS structure -->
-    <rect x="40" y="70" width="260" height="215" fill="#dbeafe" opacity="0.35" />
-    <text x="170" y="92" fill="#1e40af" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" data-zh="① ZEDS 試驗結構" data-en="① ZEDS Trial Structure">① ZEDS 試驗結構</text>
-    <text x="170" y="118" fill="#1e3a8a" font-family="'JetBrains Mono',monospace" font-size="22" font-weight="800" text-anchor="middle">n = 527</text>
-    <text x="170" y="138" fill="#1e3a8a" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" data-zh="HZO 病人（雙盲 RCT）" data-en="HZO patients (double-masked RCT)">HZO 病人（雙盲 RCT）</text>
-    <text x="170" y="164" fill="#1e40af" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle">95 sites · 12 yr (2017–2024)</text>
-    <text x="170" y="186" fill="#1e3a8a" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" data-zh="美 85 + 加 9 + 紐 1 中心" data-en="US 85 + Canada 9 + NZ 1">美 85 + 加 9 + 紐 1 中心</text>
-    <text x="170" y="218" fill="#1e40af" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle">valacyclovir 1000 mg/d</text>
-    <text x="170" y="238" fill="#1e3a8a" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" data-zh="× 1 年 vs 安慰劑" data-en="× 1 yr vs placebo">× 1 年 vs 安慰劑</text>
-    <text x="170" y="270" fill="#7f1d1d" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="800" text-anchor="middle">SK 端點：105 (20%)</text>
+    <!-- Right card: eye cross-section with stromal inflammation -->
+    <rect x="310" y="68" width="270" height="170" rx="10" fill="#eff6ff" stroke="#a4c4dd" stroke-width="1" />
+    <text x="445" y="88" fill="#1e3a8a" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" data-zh="② 發炎在角膜「中層」基質" data-en="② Inflammation is in the &quot;stromal&quot; middle layer">② 發炎在角膜「中層」基質</text>
+    <!-- Eye outline -->
+    <ellipse cx="380" cy="160" rx="40" ry="36" fill="#fff" stroke="#3a5a7c" stroke-width="1.5" />
+    <circle cx="380" cy="160" r="14" fill="#6b8caf" />
+    <circle cx="380" cy="160" r="5" fill="#0f172a" />
+    <!-- Cornea highlight (front bump) -->
+    <path d="M 343 160 Q 335 148 342 138 Q 352 132 362 138 Q 350 150 348 160" fill="#fecaca" stroke="#dc2626" stroke-width="1.5" />
+    <text x="380" y="210" fill="#3a5a7c" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="眼球" data-en="Eyeball">眼球</text>
+    <!-- Zoom box for cornea cross-section -->
+    <line x1="345" y1="138" x2="430" y2="105" stroke="#3a5a7c" stroke-width="0.8" stroke-dasharray="2 2" />
+    <line x1="350" y1="162" x2="430" y2="190" stroke="#3a5a7c" stroke-width="0.8" stroke-dasharray="2 2" />
+    <rect x="430" y="103" width="135" height="92" rx="6" fill="#fff" stroke="#3a5a7c" stroke-width="1.2" />
+    <text x="497" y="118" fill="#3a5a7c" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" font-weight="700" data-zh="角膜放大（剖面）" data-en="Cornea zoom (cross-section)">角膜放大（剖面）</text>
+    <!-- Three layers -->
+    <rect x="442" y="125" width="112" height="13" fill="#dbeafe" stroke="#3a5a7c" stroke-width="0.7" />
+    <text x="498" y="135" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="#1e3a8a" text-anchor="middle" data-zh="上皮層 epithelium" data-en="Epithelium">上皮層 epithelium</text>
+    <rect x="442" y="140" width="112" height="28" fill="#fecaca" stroke="#dc2626" stroke-width="1.5" />
+    <circle cx="455" cy="151" r="2.5" fill="#b91c1c" />
+    <circle cx="475" cy="156" r="2" fill="#b91c1c" />
+    <circle cx="495" cy="150" r="3" fill="#b91c1c" />
+    <circle cx="515" cy="158" r="2" fill="#b91c1c" />
+    <circle cx="535" cy="152" r="2.5" fill="#b91c1c" />
+    <text x="498" y="164" font-family="'Noto Sans TC',sans-serif" font-size="10" fill="#7f1d1d" text-anchor="middle" font-weight="700" data-zh="基質層 ← SK 發炎處" data-en="Stroma ← SK inflammation">基質層 ← SK 發炎處</text>
+    <rect x="442" y="170" width="112" height="13" fill="#dbeafe" stroke="#3a5a7c" stroke-width="0.7" />
+    <text x="498" y="180" font-family="'Noto Sans TC',sans-serif" font-size="9" fill="#1e3a8a" text-anchor="middle" data-zh="內皮層 endothelium" data-en="Endothelium">內皮層 endothelium</text>
+    <text x="445" y="227" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="反覆發炎 → 角膜瘢痕 → 視力下降" data-en="Recurrent → scar → vision loss">反覆發炎 → 角膜瘢痕 → 視力下降</text>
 
-    <!-- ② Top-Right: 75% asymptomatic -->
-    <rect x="300" y="70" width="260" height="215" fill="#fef3c7" opacity="0.35" />
-    <text x="430" y="92" fill="#854d0e" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" data-zh="② 75% 在常規追蹤被發現" data-en="② 75% Found at Scheduled Visits">② 75% 在常規追蹤被發現</text>
-    <!-- Pie / donut: 75 vs 25 -->
-    <circle cx="430" cy="180" r="55" fill="#fff" stroke="#dcd5c8" stroke-width="1" />
-    <path d="M 430 125 A 55 55 0 1 1 416 234 L 430 180 Z" fill="#92400e" />
-    <path d="M 430 125 L 430 180 L 416 234 A 55 55 0 0 1 416 234 Z" fill="#fcd34d" />
-    <text x="430" y="178" fill="#7c2d12" font-family="'JetBrains Mono',monospace" font-size="22" font-weight="800" text-anchor="middle">75%</text>
-    <text x="430" y="196" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="常規追蹤" data-en="scheduled">常規追蹤</text>
-    <text x="430" y="258" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" data-zh="多數無症狀 → 每 3 個月回診重要" data-en="Mostly asymptomatic → 3-mo follow-up matters">多數無症狀 → 每 3 個月回診重要</text>
-    <text x="430" y="274" fill="#7c2d12" font-family="'Noto Sans TC',sans-serif" font-size="10" text-anchor="middle" data-zh="（25% 病人主訴回診才被發現）" data-en="(25% diagnosed at patient-initiated visits)">（25% 病人主訴回診才被發現）</text>
+    <!-- ===== MIDDLE — treatment timeline ===== -->
+    <rect x="20" y="252" width="560" height="140" rx="10" fill="#faf7f2" stroke="#dcd5c8" stroke-width="0.8" />
+    <text x="300" y="272" fill="#3a5a7c" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" data-zh="③ 治療時間軸：停藥後 3 個月內最危險" data-en="③ Treatment timeline — 3 months post-cessation is the danger window">③ 治療時間軸：停藥後 3 個月內最危險</text>
+    <!-- Timeline base line -->
+    <line x1="50" y1="335" x2="565" y2="335" stroke="#5e574e" stroke-width="2" />
+    <!-- Danger window shaded -->
+    <rect x="370" y="320" width="135" height="32" rx="4" fill="#fee2e2" opacity="0.9" />
+    <!-- Node 1： rash onset -->
+    <circle cx="65" cy="335" r="7" fill="#dc2626" stroke="#fff" stroke-width="2" />
+    <text x="65" y="318" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="800" fill="#7f1d1d" text-anchor="middle" data-zh="皮疹發作" data-en="Rash onset">皮疹發作</text>
+    <text x="65" y="360" font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="#7c2d12" text-anchor="middle" data-zh="第 0 天" data-en="Day 0">第 0 天</text>
+    <!-- Node 2： acute Rx -->
+    <circle cx="180" cy="335" r="6" fill="#1e40af" />
+    <text x="180" y="318" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="800" fill="#1e3a8a" text-anchor="middle" data-zh="急性期治療" data-en="Acute Rx">急性期治療</text>
+    <text x="180" y="358" font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="#1e3a8a" text-anchor="middle" data-zh="口服抗病毒 7–10 天" data-en="Oral antiviral 7–10 d">口服抗病毒 7–10 天</text>
+    <text x="180" y="371" font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="#1e3a8a" text-anchor="middle" data-zh="+ 類固醇眼藥水" data-en="+ topical steroid">+ 類固醇眼藥水</text>
+    <!-- Node 3： maintenance -->
+    <circle cx="295" cy="335" r="6" fill="#14532d" />
+    <text x="295" y="318" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="800" fill="#14532d" text-anchor="middle" data-zh="維持期" data-en="Maintenance">維持期</text>
+    <text x="295" y="358" font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" data-zh="低效價眼藥水" data-en="Low-potency drop">低效價眼藥水</text>
+    <text x="295" y="371" font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" data-zh="逐漸減量" data-en="gradual taper">逐漸減量</text>
+    <!-- Node 4： STOP -->
+    <line x1="380" y1="316" x2="380" y2="354" stroke="#dc2626" stroke-width="2.5" />
+    <circle cx="380" cy="335" r="8" fill="#dc2626" stroke="#fff" stroke-width="2" />
+    <text x="380" y="310" font-family="'Noto Sans TC',sans-serif" font-size="12" font-weight="800" fill="#7f1d1d" text-anchor="middle" data-zh="停藥" data-en="STOP">停藥</text>
+    <!-- Danger window label inside red rect -->
+    <text x="437" y="334" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="800" fill="#7f1d1d" text-anchor="middle" data-zh="⚠️ 3 個月危險窗" data-en="⚠️ 3-mo danger">⚠️ 3 個月危險窗</text>
+    <text x="437" y="346" font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="#7f1d1d" text-anchor="middle" data-zh="38% 復發在這時段" data-en="38% of relapses occur here">38% 復發在這時段</text>
+    <!-- Node 5： safe -->
+    <circle cx="545" cy="335" r="6" fill="#14532d" />
+    <text x="545" y="318" font-family="'Noto Sans TC',sans-serif" font-size="11" font-weight="800" fill="#14532d" text-anchor="middle" data-zh="風險回降" data-en="Risk drops">風險回降</text>
+    <text x="545" y="358" font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="#14532d" text-anchor="middle" data-zh="續定期追蹤" data-en="continue follow-up">續定期追蹤</text>
 
-    <!-- ③ Bottom-Left: 3-month danger window -->
-    <rect x="40" y="285" width="260" height="215" fill="#fee2e2" opacity="0.35" />
-    <text x="170" y="307" fill="#7f1d1d" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" data-zh="③ 停類固醇 3 個月是危險窗" data-en="③ 3 Months After Stopping = Danger">③ 停類固醇 3 個月是危險窗</text>
-    <text x="170" y="345" fill="#dc2626" font-family="'JetBrains Mono',monospace" font-size="32" font-weight="800" text-anchor="middle">38%</text>
-    <text x="170" y="368" fill="#7f1d1d" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" data-zh="復發時未在用藥的人裡" data-en="of those off steroid at relapse">復發時未在用藥的人裡</text>
-    <text x="170" y="385" fill="#7f1d1d" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" data-zh="在過去 3 個月內才停藥" data-en="had stopped within the prior 3 months">在過去 3 個月內才停藥</text>
-    <!-- Timeline -->
-    <line x1="60" y1="425" x2="280" y2="425" stroke="#7f1d1d" stroke-width="2" />
-    <circle cx="70" cy="425" r="5" fill="#14532d" />
-    <text x="70" y="445" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="9" text-anchor="middle" data-zh="停藥" data-en="Stop">停藥</text>
-    <rect x="70" y="416" width="100" height="18" fill="#dc2626" opacity="0.45" />
-    <text x="120" y="429" fill="#7f1d1d" font-family="'Noto Sans TC',sans-serif" font-size="10" font-weight="700" text-anchor="middle" data-zh="3 個月危險窗" data-en="3-mo danger window">3 個月危險窗</text>
-    <text x="280" y="445" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="9" text-anchor="middle" data-zh="風險下降" data-en="Risk ↓">風險下降</text>
-    <text x="170" y="478" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="→ 改用低劑量長期維持，不要驟停" data-en="→ Low-dose maintenance, don't abruptly stop">→ 改用低劑量長期維持，不要驟停</text>
+    <!-- ===== BOTTOM — 3 take-home cards ===== -->
+    <!-- Card 1： 每 3 個月回診 -->
+    <rect x="20" y="405" width="180" height="115" rx="12" fill="#dcfce7" stroke="#86efac" stroke-width="1.5" />
+    <rect x="35" y="420" width="30" height="32" rx="3" fill="#fff" stroke="#14532d" stroke-width="1.5" />
+    <line x1="35" y1="432" x2="65" y2="432" stroke="#14532d" stroke-width="1.5" />
+    <line x1="42" y1="415" x2="42" y2="425" stroke="#14532d" stroke-width="2" />
+    <line x1="58" y1="415" x2="58" y2="425" stroke="#14532d" stroke-width="2" />
+    <text x="50" y="447" fill="#14532d" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="800" text-anchor="middle">3M</text>
+    <text x="125" y="432" fill="#14532d" font-family="Inter,sans-serif" font-size="13" font-weight="800" text-anchor="middle" data-zh="每 3 個月回診" data-en="Visit every 3 mo">每 3 個月回診</text>
+    <text x="110" y="465" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" font-weight="700" data-zh="75% 復發無症狀" data-en="75% of relapses silent">75% 復發無症狀</text>
+    <text x="110" y="482" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="自己感覺不到" data-en="you can't feel them">自己感覺不到</text>
+    <text x="110" y="505" fill="#065f46" font-family="'Noto Sans TC',sans-serif" font-size="9.5" text-anchor="middle" data-zh="醫師裂隙燈才看得到" data-en="Only the slit-lamp can">醫師裂隙燈才看得到</text>
 
-    <!-- ④ Bottom-Right: Low-potency sufficient -->
-    <rect x="300" y="285" width="260" height="215" fill="#dcfce7" opacity="0.35" />
-    <text x="430" y="307" fill="#14532d" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" data-zh="④ 低效價類固醇足夠" data-en="④ Low-Potency Steroids Sufficient">④ 低效價類固醇足夠</text>
-    <!-- Stacked bar -->
-    <rect x="335" y="335" width="190" height="22" rx="3" fill="#14532d" />
-    <rect x="335" y="335" width="167" height="22" rx="3" fill="#65a30d" />
-    <text x="418" y="350" fill="#fff" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" text-anchor="middle">88% 增頻率即可</text>
-    <text x="513" y="350" fill="#fff" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" text-anchor="middle">12%</text>
-    <text x="430" y="375" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="低效價使用者復發 → 只用「增加頻率」" data-en="Low-potency relapse → frequency-increase only">低效價使用者復發 → 只用「增加頻率」</text>
-    <text x="430" y="408" fill="#14532d" font-family="'JetBrains Mono',monospace" font-size="22" font-weight="800" text-anchor="middle">10%</text>
-    <text x="430" y="427" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" data-zh="復發時需開立口服 valacyclovir" data-en="needed open-label oral valacyclovir">復發時需開立口服 valacyclovir</text>
-    <text x="430" y="458" fill="#14532d" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="800" text-anchor="middle">20/25 → 20/27</text>
-    <text x="430" y="476" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="視力結果（入組 → 12 個月，無顯著差異）" data-en="VA (enroll → 12 mo, NS)">視力結果（入組 → 12 個月，無顯著差異）</text>
+    <!-- Card 2： 低效價長期維持 -->
+    <rect x="210" y="405" width="180" height="115" rx="12" fill="#fef9c3" stroke="#facc15" stroke-width="1.5" />
+    <path d="M 240 422 Q 226 442 240 458 Q 254 442 240 422 Z" fill="#fff" stroke="#854d0e" stroke-width="1.5" />
+    <text x="240" y="445" fill="#854d0e" font-family="Inter,sans-serif" font-size="13" font-weight="800" text-anchor="middle">↓</text>
+    <text x="320" y="432" fill="#854d0e" font-family="Inter,sans-serif" font-size="13" font-weight="800" text-anchor="middle" data-zh="低效價長期維持" data-en="Low-potency maintenance">低效價長期維持</text>
+    <text x="300" y="465" fill="#854d0e" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" font-weight="700" data-zh="88% 不必換高效價" data-en="88% don't need stronger">88% 不必換高效價</text>
+    <text x="300" y="482" fill="#854d0e" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="增加頻率即可控制" data-en="frequency increase suffices">增加頻率即可控制</text>
+    <text x="300" y="505" fill="#92400e" font-family="'Noto Sans TC',sans-serif" font-size="9.5" text-anchor="middle" data-zh="減少眼壓、白內障副作用" data-en="less IOP rise / cataract risk">減少眼壓、白內障副作用</text>
 
-    <!-- Conclusion banner -->
-    <rect x="30" y="525" width="540" height="22" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1" />
-    <text x="300" y="541" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="12" font-weight="700" text-anchor="middle" data-zh="* HZO 後反覆角膜炎：低劑量長期維持 + 每 3 個月追蹤是關鍵" data-en="* After HZO: low-dose maintenance + 3-month surveillance is the key">* HZO 後反覆角膜炎：低劑量長期維持 + 每 3 個月追蹤是關鍵</text>
+    <!-- Card 3： 不要驟停類固醇 -->
+    <rect x="400" y="405" width="180" height="115" rx="12" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.5" />
+    <circle cx="435" cy="438" r="16" fill="#fff" stroke="#dc2626" stroke-width="2.5" />
+    <line x1="424" y1="427" x2="446" y2="449" stroke="#dc2626" stroke-width="3" />
+    <text x="505" y="432" fill="#7f1d1d" font-family="Inter,sans-serif" font-size="13" font-weight="800" text-anchor="middle" data-zh="不要驟停類固醇" data-en="Don't abruptly stop">不要驟停類固醇</text>
+    <text x="490" y="465" fill="#7f1d1d" font-family="'Noto Sans TC',sans-serif" font-size="11" text-anchor="middle" font-weight="700" data-zh="停藥 3 個月內" data-en="Within 3 mo of stopping">停藥 3 個月內</text>
+    <text x="490" y="482" fill="#7f1d1d" font-family="'Noto Sans TC',sans-serif" font-size="10.5" text-anchor="middle" data-zh="38% 復發在這時段" data-en="38% of relapses happen here">38% 復發在這時段</text>
+    <text x="490" y="505" fill="#991b1b" font-family="'Noto Sans TC',sans-serif" font-size="9.5" text-anchor="middle" data-zh="改成低劑量長期維持" data-en="Taper, don't quit">改成低劑量長期維持</text>
+
+    <!-- Bottom banner: ZEDS source -->
+    <rect x="30" y="532" width="540" height="20" rx="5" fill="#dcfce7" stroke="#86efac" stroke-width="1" />
+    <text x="300" y="546" fill="#14532d" font-family="'Noto Sans TC',sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" data-zh="資料：ZEDS 試驗 Jacobs et al. 2026 · n = 527 · 18 個月追蹤" data-en="Source: ZEDS trial (Jacobs et al. 2026) · n = 527 · 18-month follow-up">資料：ZEDS 試驗 Jacobs et al. 2026 · n = 527 · 18 個月追蹤</text>
   </svg>
-  <figcaption style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.75" data-zh="<strong>ZEDS 試驗 SK 二次分析一張圖看懂</strong>。① ZEDS：527 名帶狀疱疹眼疾（HZO）病人、95 中心雙盲 RCT、valacyclovir 1000 mg/天 × 1 年 vs 安慰劑；105 人（20%）發生反覆/新發/惡化角膜基質炎（SK）。② 75% 的 SK 是在常規 3 個月追蹤被診斷，多數無症狀。③ 復發時未在用類固醇眼藥水的患者裡，38% 是在過去 3 個月內才停藥 → 停類固醇 3 個月是高復發危險窗。④ 用低效價類固醇（loteprednol、fluorometholone 等）的病人，88% 只需要「增加頻率」就能控制復發，不必換高效價；僅 10% 病人在 SK 發作時需介入口服 valacyclovir；最終視力 logMAR 0.10 → 0.13（20/25 → 20/27，無顯著差異）。資料整合自 Jacobs 等 2026 ZEDS SK 二次分析。" data-en="<strong>ZEDS SK secondary analysis at a glance</strong>. ① ZEDS: 527 HZO patients, 95-center double-masked RCT, valacyclovir 1000 mg/day × 1 year vs placebo; 105 patients (20%) developed recurrent, new or worsening stromal keratitis (SK). ② 75% of SK was diagnosed at routine 3-month follow-up visits — mostly asymptomatic. ③ Of those off topical steroid at SK relapse, 38% had stopped within the prior 3 months — a high-risk window. ④ Patients on low-potency steroids (loteprednol, fluorometholone, etc.): 88% only needed a frequency increase to control relapse, not a switch to high-potency; only 10% needed open-label oral valacyclovir at SK; final VA logMAR 0.10 → 0.13 (20/25 → 20/27, NS). Synthesized from Jacobs et al. 2026 ZEDS SK secondary analysis."><strong>ZEDS 試驗 SK 二次分析一張圖看懂</strong>。① ZEDS：527 名帶狀疱疹眼疾（HZO）病人、95 中心雙盲 RCT、valacyclovir 1000 mg/天 × 1 年 vs 安慰劑；105 人（20%）發生反覆/新發/惡化角膜基質炎（SK）。② 75% 的 SK 是在常規 3 個月追蹤被診斷，多數無症狀。③ 復發時未在用類固醇眼藥水的患者裡，38% 是在過去 3 個月內才停藥 → 停類固醇 3 個月是高復發危險窗。④ 用低效價類固醇（loteprednol、fluorometholone 等）的病人，88% 只需要「增加頻率」就能控制復發，不必換高效價；僅 10% 病人在 SK 發作時需介入口服 valacyclovir；最終視力 logMAR 0.10 → 0.13（20/25 → 20/27，無顯著差異）。資料整合自 Jacobs 等 2026 ZEDS SK 二次分析。</figcaption>
+  <figcaption style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.75" data-zh="<strong>帶狀疱疹眼疾後反覆角膜炎一張圖看懂</strong>。① 帶狀疱疹皮疹打在額頭、上眼皮、鼻尖（V1 三叉神經區）→ 病毒沿神經侵入眼睛，造成眼睛併發症。② 發炎發生在角膜的「中層基質」（stroma），這就是角膜基質炎（stromal keratitis, SK）；反覆發炎會留下角膜瘢痕、永久影響視力。③ 治療時間軸：急性期口服抗病毒 7-10 天 + 類固醇眼藥水 → 維持期低效價逐漸減量 → <strong>停藥後 3 個月內是復發高峰</strong>（ZEDS 顯示 38% 復發在這時段）→ 過了這段風險下降。<strong>3 件最重要的事</strong>：（綠） 每 3 個月回診（75% 復發無症狀、自己感覺不到）；（黃） 用低效價眼藥水長期維持（88% 不必換高效價、副作用更少）；（紅） 不要驟停類固醇（停藥 3 個月內 38% 復發，改成低劑量維持）。資料來源：Jacobs 等 2026 ZEDS 試驗 SK 二次分析。" data-en="<strong>Recurrent stromal keratitis after HZO at a glance</strong>. ① HZO rash on the forehead, upper lid and nose tip (V1 dermatome) → virus travels along the trigeminal nerve into the eye, causing ocular complications. ② Inflammation occurs in the corneal middle layer — the &quot;stroma&quot; — hence stromal keratitis (SK); repeated inflammation leaves permanent scars and reduces vision. ③ Treatment timeline: acute phase = oral antiviral 7-10 days + topical steroid → maintenance = low-potency drop tapered → <strong>the 3 months after stopping is the relapse peak</strong> (ZEDS: 38% of off-steroid relapses occur here) → risk drops thereafter. <strong>Three key actions</strong>: (green) 3-month follow-up (75% of relapses are silent); (yellow) long-term low-potency maintenance (88% don't need stronger, fewer side effects); (red) don't abruptly stop steroid (38% relapse within 3 months — switch to low-dose maintenance). Source: Jacobs et al. 2026, ZEDS SK secondary analysis."><strong>帶狀疱疹眼疾後反覆角膜炎一張圖看懂</strong>。① 帶狀疱疹皮疹打在額頭、上眼皮、鼻尖（V1 三叉神經區）→ 病毒沿神經侵入眼睛，造成眼睛併發症。② 發炎發生在角膜的「中層基質」（stroma），這就是角膜基質炎（stromal keratitis, SK）；反覆發炎會留下角膜瘢痕、永久影響視力。③ 治療時間軸：急性期口服抗病毒 7-10 天 + 類固醇眼藥水 → 維持期低效價逐漸減量 → <strong>停藥後 3 個月內是復發高峰</strong>（ZEDS 顯示 38% 復發在這時段）→ 過了這段風險下降。<strong>3 件最重要的事</strong>：（綠） 每 3 個月回診（75% 復發無症狀、自己感覺不到）；（黃） 用低效價眼藥水長期維持（88% 不必換高效價、副作用更少）；（紅） 不要驟停類固醇（停藥 3 個月內 38% 復發，改成低劑量維持）。資料來源：Jacobs 等 2026 ZEDS 試驗 SK 二次分析。</figcaption>
 </figure>
 
 <div id="proseZh" class="prose">
