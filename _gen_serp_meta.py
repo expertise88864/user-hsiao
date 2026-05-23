@@ -29,6 +29,8 @@ BREADCRUMB_SCHEMA_RE = re.compile(
 )
 
 ARTICLE_SNIPPETS = {
+    'ophthalmic-trauma-overlooked-burden':
+        '2026 AJO Perspective + IGATES 8238 例眼外傷登錄：閉合性 56.9%、開放性 34.0%、99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫；AAO 估計最高 90% 眼外傷可被適當護目預防。整理高風險族群、就醫時機、與台灣健保/職安/煙火法規需人工確認的部分。蕭閔謙醫師整理。',
     'toric-iol-astigmatism-cataract-review':
         '2026 年 ESCRS 整合性回顧：散光人工水晶體 Toric IOL 適應症（≥1.0 D 規則散光）、術前評估、計算公式、旋轉風險（90-97% 內 5°）、特殊族群（雷射術後/圓錐角膜/PEX/角膜移植後）注意事項、台灣全自費現況。蕭閔謙醫師整理。',
     'dry-eye-symptom-sign-discordance-dream':
