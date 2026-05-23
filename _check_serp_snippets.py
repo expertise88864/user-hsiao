@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+DOMAIN = 'https://hsiao.chendermatologist.com'
 
 STATIC_PUBLIC = [
     'index.html',
@@ -61,6 +62,46 @@ def unusable(value: str, min_len: int, max_len: int) -> str:
     return ''
 
 
+def unusable_image_alt(value: str) -> str:
+    if not value:
+        return 'missing'
+    if len(value) < 8:
+        return f'too short ({len(value)} chars)'
+    if len(value) > 240:
+        return f'too long ({len(value)} chars)'
+    if '\ufffd' in value or value.count('?') >= 8 or '????' in value:
+        return 'contains mojibake'
+    return ''
+
+
+def social_image_errors(src: str, rel: str) -> list[str]:
+    errors = []
+    og_image = meta_content(src, 'og:image', attr='property')
+    twitter_image = meta_content(src, 'twitter:image', attr='name')
+    if not og_image:
+        errors.append(f'{rel}: og:image missing')
+    elif not og_image.startswith(DOMAIN + '/'):
+        errors.append(f'{rel}: og:image must be an absolute same-origin HTTPS URL')
+
+    if not twitter_image:
+        errors.append(f'{rel}: twitter:image missing')
+    elif og_image and twitter_image != og_image:
+        errors.append(f'{rel}: twitter:image must match og:image')
+
+    if meta_content(src, 'og:image:width', attr='property') != '1200':
+        errors.append(f'{rel}: og:image:width must be 1200')
+    if meta_content(src, 'og:image:height', attr='property') != '630':
+        errors.append(f'{rel}: og:image:height must be 630')
+
+    og_alt_msg = unusable_image_alt(meta_content(src, 'og:image:alt', attr='property'))
+    if og_alt_msg:
+        errors.append(f'{rel}: og:image:alt {og_alt_msg}')
+    twitter_alt_msg = unusable_image_alt(meta_content(src, 'twitter:image:alt', attr='name'))
+    if twitter_alt_msg:
+        errors.append(f'{rel}: twitter:image:alt {twitter_alt_msg}')
+    return errors
+
+
 def audit_file(rel: str, is_article: bool) -> list[str]:
     path = ROOT / rel
     if not path.exists():
@@ -83,6 +124,7 @@ def audit_file(rel: str, is_article: bool) -> list[str]:
             errors.append(f'{rel}: {key} {msg}')
     if meta_content(src, 'twitter:card') != 'summary_large_image':
         errors.append(f'{rel}: twitter:card must be summary_large_image')
+    errors.extend(social_image_errors(src, rel))
     return errors
 
 

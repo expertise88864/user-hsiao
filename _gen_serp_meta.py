@@ -187,9 +187,14 @@ def normalize_file(path: Path, fallback: str, is_article: bool) -> bool:
     out = upsert_meta(out, 'og:description', og, attr='property')
     out = upsert_meta(out, 'twitter:card', 'summary_large_image')
     out = upsert_meta(out, 'twitter:description', tw)
-    if meta_content(out, 'og:image', attr='property'):
+    og_image = meta_content(out, 'og:image', attr='property').strip()
+    if og_image:
+        out = upsert_meta(out, 'og:image:width', '1200', attr='property')
+        out = upsert_meta(out, 'og:image:height', '630', attr='property')
         out = upsert_meta(out, 'og:image:alt', title, attr='property')
-    if meta_content(out, 'twitter:image'):
+        out = upsert_meta(out, 'twitter:image', og_image)
+        out = upsert_meta(out, 'twitter:image:alt', title)
+    elif meta_content(out, 'twitter:image'):
         out = upsert_meta(out, 'twitter:image:alt', title)
     out = upsert_meta(out, 'og:locale', 'zh_TW', attr='property')
     out = upsert_meta(out, 'og:locale:alternate', 'en_US', attr='property')
