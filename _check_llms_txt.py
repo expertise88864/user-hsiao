@@ -77,6 +77,18 @@ def main() -> int:
         errors.append('missing medical disclaimer guidance')
     if f'{DOMAIN}/sitemap.xml' not in src:
         errors.append('missing sitemap link')
+    if '## Machine-Readable Feeds' not in src:
+        errors.append('missing machine-readable feeds section')
+    required_feeds = {
+        'RSS Feed': f'{DOMAIN}/blog/feed.xml',
+        'Atom Feed': f'{DOMAIN}/blog/atom.xml',
+        'JSON Feed': f'{DOMAIN}/blog/feed.json',
+        'OpenSearch Description': f'{DOMAIN}/opensearch.xml',
+        'Bilingual Search Index': f'{DOMAIN}/assets/search-index.json',
+    }
+    for label, url in required_feeds.items():
+        if url not in src:
+            errors.append(f'missing {label} link: {url}')
 
     for slug in published:
         if f'{DOMAIN}/blog/{slug}' not in src:
@@ -93,7 +105,7 @@ def main() -> int:
             continue
         if path.startswith(('/admin', '/api', '/reset-sw', '/en/reset-sw')):
             errors.append(f'private/disallowed path linked: {path}')
-        if path.endswith(('.xml', '.txt')):
+        if path.endswith(('.xml', '.txt', '.json')):
             continue
         if not path_exists(path):
             errors.append(f'linked path has no file: {path}')

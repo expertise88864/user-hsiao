@@ -179,6 +179,11 @@ test('llms.txt indexes published articles without private paths', async ({ reque
     expect(txt, `missing ZH URL for ${slug}`).toContain(`${SITE}/blog/${slug}`);
     expect(txt, `missing EN URL for ${slug}`).toContain(`${SITE}/en/blog/${slug}`);
   }
+  expect(txt).toContain(`${SITE}/blog/feed.xml`);
+  expect(txt).toContain(`${SITE}/blog/atom.xml`);
+  expect(txt).toContain(`${SITE}/blog/feed.json`);
+  expect(txt).toContain(`${SITE}/opensearch.xml`);
+  expect(txt).toContain(`${SITE}/assets/search-index.json`);
   expect(txt).not.toMatch(/\/admin|\/api|reset-sw/);
 });
 

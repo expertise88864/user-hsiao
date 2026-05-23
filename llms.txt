@@ -16,8 +16,15 @@ Secondary language: en
 - [Topic Map](https://hsiao.chendermatologist.com/blog/topics): HsiaoEye 全部眼科衛教主題地圖 — 乾眼症、兒童近視控制、飛蚊症、白內障、青光眼、葉黃素等。
 - [Tools](https://hsiao.chendermatologist.com/tools): OSDI、DEQ-5、Snellen↔LogMAR、球面等價度數 (SE)、飛蚊症警訊自我檢核 — 5 個眼科常用臨床量表，蕭閔謙醫師整理，立即線上計算與分級解讀。
 - [About the Author](https://hsiao.chendermatologist.com/about): 蕭閔謙醫師（Min-Chien Hsiao, MD）個人簡介。眼科住院醫師。學歷：高雄醫學大學 學士後醫學系。
-- [Sitemap](https://hsiao.chendermatologist.com/sitemap.xml)
-- [RSS Feed](https://hsiao.chendermatologist.com/blog/feed.xml)
+
+## Machine-Readable Feeds
+
+- [Sitemap XML](https://hsiao.chendermatologist.com/sitemap.xml): canonical URLs, hreflang alternates, and image metadata.
+- [RSS Feed](https://hsiao.chendermatologist.com/blog/feed.xml): latest Traditional Chinese articles with summaries and OG images.
+- [Atom Feed](https://hsiao.chendermatologist.com/blog/atom.xml): latest articles with stable updated dates and English alternates.
+- [JSON Feed](https://hsiao.chendermatologist.com/blog/feed.json): latest articles with summaries, images, attachments, and English mirror URLs.
+- [OpenSearch Description](https://hsiao.chendermatologist.com/opensearch.xml): site search template for `/blog?q={searchTerms}`.
+- [Bilingual Search Index](https://hsiao.chendermatologist.com/assets/search-index.json): published article metadata in both locales.
 
 ## Published Articles
 
