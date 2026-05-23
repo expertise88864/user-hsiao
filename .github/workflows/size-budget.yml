@@ -7,44 +7,54 @@ on:
     branches: [main]
 
 # Tracks total page-weight per route + per-asset size to flag regressions.
-# Outputs a comment on PRs listing the top 10 largest assets and any that
-# crossed a budget threshold.
+# Outputs the top 25 largest assets and any that crossed a budget threshold.
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+permissions:
+  contents: read
 
 jobs:
   budget:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          persist-credentials: false
 
       - name: Compute asset budget
         run: |
           python3 <<'PY'
-          import os, gzip, json
+          import gzip
+          from pathlib import Path
+
           BUDGETS = {
-              # path -> (raw_kb, gzip_kb) — fail-on-exceed
+              # path -> (raw_kb, gzip_kb) soft-fail-on-exceed
               'blog/blog-shared.js': (180, 50),
               'assets/app.css':      (90,  20),
               'assets/article.css':  (40,  10),
               'sw.js':               (16,  6),
               'middleware.js':       (8,   3),
           }
+          SKIP_PARTS = {'.git', '__pycache__', 'node_modules', 'tests', 'test-results'}
           warnings = []
           report = []
-          # Walk all relevant assets
           all_assets = []
-          for root, _, files in os.walk('.'):
-              if any(s in root for s in ['.git', '__pycache__', 'node_modules', 'tests', 'test-results']):
+
+          for path in Path('.').rglob('*'):
+              if not path.is_file():
                   continue
-              for f in files:
-                  if f.endswith(('.js', '.css', '.html')):
-                      p = os.path.join(root, f).lstrip('./')
-                      with open(p, 'rb') as fp: data = fp.read()
-                      raw_kb = len(data) / 1024
-                      gz_kb  = len(gzip.compress(data, compresslevel=9)) / 1024
-                      all_assets.append((p, raw_kb, gz_kb))
+              if SKIP_PARTS & set(path.parts):
+                  continue
+              if path.suffix not in {'.js', '.css', '.html'}:
+                  continue
+              rel = path.as_posix()
+              data = path.read_bytes()
+              raw_kb = len(data) / 1024
+              gz_kb = len(gzip.compress(data, compresslevel=9)) / 1024
+              all_assets.append((rel, raw_kb, gz_kb))
 
           all_assets.sort(key=lambda x: -x[2])
           report.append(f"{'PATH':<60} {'RAW kB':>8} {'GZIP kB':>8}")
@@ -52,20 +62,21 @@ jobs:
           for p, r, g in all_assets[:25]:
               report.append(f"{p:<60} {r:>8.1f} {g:>8.1f}")
 
-          # Budget check
           for path, (max_raw, max_gz) in BUDGETS.items():
               for p, r, g in all_assets:
                   if p == path:
-                      if r > max_raw: warnings.append(f"  ⚠ {p}: {r:.1f} kB raw exceeds budget {max_raw} kB")
-                      if g > max_gz:  warnings.append(f"  ⚠ {p}: {g:.1f} kB gzip exceeds budget {max_gz} kB")
+                      if r > max_raw:
+                          warnings.append(f"  WARN {p}: {r:.1f} kB raw exceeds budget {max_raw} kB")
+                      if g > max_gz:
+                          warnings.append(f"  WARN {p}: {g:.1f} kB gzip exceeds budget {max_gz} kB")
 
           print('\n'.join(report))
           if warnings:
               print('\n=== BUDGET VIOLATIONS ===')
-              for w in warnings: print(w)
-              # Soft-fail (warn) for now — flip to hard-fail once budgets are tuned.
-              import sys
-              # sys.exit(1)
+              for w in warnings:
+                  print(w)
+              # Soft-fail for now; flip to hard-fail once budgets are tuned.
+              # raise SystemExit(1)
           else:
-              print('\n✓ All asset budgets within limits')
+              print('\nAll asset budgets within limits')
           PY
