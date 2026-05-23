@@ -98,6 +98,19 @@
 
   <!-- ===== Published articles ===== -->
   <url>
+    <loc>https://hsiao.chendermatologist.com/blog/diabetic-retinopathy-dementia-trinetx-cohort</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/diabetic-retinopathy-dementia-trinetx-cohort" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/diabetic-retinopathy-dementia-trinetx-cohort" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/diabetic-retinopathy-dementia-trinetx-cohort" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/diabetic-retinopathy-dementia-trinetx-cohort.png</image:loc>
+      <image:title>糖尿病視網膜病變越嚴重，失智症風險越高？</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -385,6 +398,19 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/privacy.png</image:loc>
       <image:title>Privacy Policy</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/diabetic-retinopathy-dementia-trinetx-cohort</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/diabetic-retinopathy-dementia-trinetx-cohort" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/diabetic-retinopathy-dementia-trinetx-cohort" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/diabetic-retinopathy-dementia-trinetx-cohort" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/diabetic-retinopathy-dementia-trinetx-cohort.png</image:loc>
+      <image:title>Diabetic Retinopathy and Dementia Risk — 2026 TriNetX Cohort</image:title>
     </image:image>
   </url>
   <url>

@@ -29,6 +29,8 @@ BREADCRUMB_SCHEMA_RE = re.compile(
 )
 
 ARTICLE_SNIPPETS = {
+    'diabetic-retinopathy-dementia-trinetx-cohort':
+        '2026 AJO Khangura 等 TriNetX 77 萬人世代分析：糖尿病視網膜病變越嚴重，全因失智症與血管型失智症風險呈階梯式增加；增殖性 DR 全因失智 HR 1.58、血管型 2.08；阿茲海默症風險主要來自糖尿病本身、與 DR 嚴重度沒有顯著梯度關係。眼底檢查可作為失智早期 risk marker。蕭閔謙醫師整理。',
     'hzo-stromal-keratitis-zeds-lessons':
         '2026 AJO ZEDS 試驗 SK 終點二次分析（Jacobs 等）：527 人 RCT 中 20% 出現反覆角膜基質炎；75% 在常規追蹤無症狀時被診斷、停類固醇 3 個月內 38% 復發、低效價類固醇足以控制大多數病灶、僅 10% 需口服 valacyclovir 介入；對應台灣健保 §10.7.1.1（療程 10 天為限）與 §14.2（眼用 acyclovir）條文。蕭閔謙醫師整理。',
     'ophthalmic-trauma-overlooked-burden':
