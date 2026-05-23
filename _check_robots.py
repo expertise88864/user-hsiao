@@ -22,10 +22,14 @@ SEARCH_USER_AGENTS = [
     'ChatGPT-User',
     'OAI-SearchBot',
     'PerplexityBot',
+    'Claude-User',
+    'ClaudeBot',
 ]
 
 INTERNAL_DISALLOWS = [
     'Disallow: /admin',
+    'Disallow: /admin.html',
+    'Disallow: /api/',
     'Disallow: /reset-sw',
     'Disallow: /en/reset-sw',
 ]

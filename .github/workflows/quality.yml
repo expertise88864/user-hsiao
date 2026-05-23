@@ -16,18 +16,19 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# v34.7: opt into Node 24 runtime so checkout@v4 / setup-python@v5 stop
-# emitting deprecation warnings (Node 20 EOL on the runner: Sep 2026).
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+permissions:
+  contents: read
 
 jobs:
   validate:
     name: HTML validation + SEO check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -163,9 +164,9 @@ jobs:
           sys.exit(1 if errors else 0)
           "
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: npm
 
       - name: Install Playwright dependencies
@@ -187,10 +188,13 @@ jobs:
     # IndexNow (use GSC URL Inspection separately).
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          persist-credentials: false
       - name: Wait for Vercel deploy
         run: sleep 75
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Ping IndexNow with all published URLs
@@ -264,12 +268,15 @@ jobs:
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          persist-credentials: false
 
       - name: Wait for Vercel deploy (90s)
         run: sleep 90
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -287,7 +294,10 @@ jobs:
     # visibility, not a hard gate. Switch to false once thresholds stabilise.
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          persist-credentials: false
 
       - name: Wait for Vercel deploy (75s)
         run: sleep 75
@@ -311,7 +321,10 @@ jobs:
     needs: validate
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          persist-credentials: false
       - name: Check for broken internal links
         run: |
           # validate.py already does internal link checking against the
@@ -325,14 +338,17 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          persist-credentials: false
 
       - name: Wait for Vercel deploy (60s)
         run: sleep 60
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install axe-cli + Puppeteer
         run: npm install -g @axe-core/cli puppeteer

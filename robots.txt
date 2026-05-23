@@ -13,48 +13,106 @@ Disallow: /en/reset-sw
 User-agent: Googlebot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 Disallow: /reset-sw
 Disallow: /en/reset-sw
 
 User-agent: Googlebot-Image
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 Disallow: /reset-sw
 Disallow: /en/reset-sw
 
 User-agent: Googlebot-News
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 Disallow: /reset-sw
 Disallow: /en/reset-sw
 
 User-agent: Bingbot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 Disallow: /reset-sw
 Disallow: /en/reset-sw
 
 User-agent: DuckDuckBot
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 Disallow: /reset-sw
 Disallow: /en/reset-sw
 
 User-agent: Slurp
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 Disallow: /reset-sw
 Disallow: /en/reset-sw
 
 User-agent: Mediapartners-Google
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 Disallow: /reset-sw
 Disallow: /en/reset-sw
 
 User-agent: AdsBot-Google
 Allow: /
 Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /reset-sw
+Disallow: /en/reset-sw
+
+# Query-time AI / answer-engine crawlers — allow citation-oriented fetching
+# while keeping private admin and API surfaces out of crawl space.
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /reset-sw
+Disallow: /en/reset-sw
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /reset-sw
+Disallow: /en/reset-sw
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /reset-sw
+Disallow: /en/reset-sw
+
+User-agent: Claude-User
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /reset-sw
+Disallow: /en/reset-sw
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
 Disallow: /reset-sw
 Disallow: /en/reset-sw
 
@@ -67,7 +125,7 @@ Disallow: /en/reset-sw
 #        - PerplexityBot   (Perplexity answer citations)
 #        - ClaudeBot       (Claude.ai web tool, citation-aware)
 #        - Google-Extended (Google AI Overview / Gemini citations)
-#      No Disallow line for these — they fall under the wildcard rule above
+#      These have explicit groups above so the policy is easy to audit.
 #   2. DISALLOWED: bulk training crawlers and aggregators with no
 #      reciprocal traffic, plus low-quality scrapers.
 # ========================================
