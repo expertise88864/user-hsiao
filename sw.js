@@ -383,8 +383,8 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v66';
-const RUNTIME = 'hs-runtime-v34';
+const CACHE = 'hs-v67';
+const RUNTIME = 'hs-runtime-v35';
 const RUNTIME_MAX_ENTRIES = 60;
 const GENERATED_JSON = new Set([
   '/assets/search-index.json',
@@ -627,23 +627,43 @@ self.addEventListener('fetch', (e) => {
   }
 
   if (req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html')) {
+    // v37.46 — HTML stale-while-revalidate (was network-first). Repeat visitors
+    // get the cached HTML INSTANTLY (sub-millisecond) while we kick off a
+    // background fetch to refresh the cache for the next visit. This is the
+    // single biggest Vercel bandwidth saver: every revisit before now hit the
+    // network, even if the page hadn't changed. Skip /admin and bypass when
+    // the request was kicked off with navigation preload (let preload win for
+    // the first navigation in a session, which has no cached copy yet).
     e.respondWith((async () => {
-      try {
-        // v37.34 — use the navigation-preload response if the browser kicked
-        // one off in parallel while this SW was starting. Saves ~50-300 ms on
-        // cold-boot navigations. Falls back to a regular fetch when the
-        // preload isn't available (older browsers / non-navigation requests).
-        const preload = await e.preloadResponse;
-        const resp = preload || await fetchWithRetry(req);
-        if (resp && resp.ok) {
-          const copy = resp.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
+      const cached = await caches.match(req);
+      // Refresh in the background — never await it inside respondWith so the
+      // cached response goes out immediately. Falls back to preload if the
+      // browser pre-fetched in parallel during SW boot (cold start).
+      const networkFetch = (async () => {
+        try {
+          const preload = await e.preloadResponse;
+          const resp = preload || await fetchWithRetry(req);
+          if (resp && resp.ok) {
+            const copy = resp.clone();
+            caches.open(CACHE).then((c) => c.put(req, copy));
+          }
+          return resp;
+        } catch (err) {
+          return null;
         }
-        return resp;
+      })();
+      if (cached) {
+        // SWR: serve cache, refresh in background. Don't await network.
+        networkFetch.catch(() => {});
+        return cached;
+      }
+      // No cached copy — wait for the network. Fall back to offline page.
+      try {
+        const resp = await networkFetch;
+        if (resp) return resp;
+        throw new Error('no-response');
       } catch (err) {
-        // v33: try main cache first, then favourites bucket, then offline page
-        const main = await caches.match(req);
-        if (main) return main;
+        // v33: try favourites bucket, then offline page
         try {
           const favCaches = await getFavBucket();
           const fav = await (await favCaches.open('hs-favorites')).match(req);
