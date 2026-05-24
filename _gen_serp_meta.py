@@ -29,6 +29,8 @@ BREADCRUMB_SCHEMA_RE = re.compile(
 )
 
 ARTICLE_SNIPPETS = {
+    'pterygium-surgery-fixation-methods-2026-nma':
+        '2026 AJO Terres 等網絡統合分析（NMA）：35 篇 RCT、2,501 隻眼，比較翼狀贅肉合併結膜自體移植時 6 種固定方法。纖維蛋白膠（fibrin glue）復發率最低（OR 0.27）、Vicryl 8-0 可吸收縫線移植片穩定度最佳、絲線併發症最多不建議使用；選擇要平衡「復發率」與「術後穩定」並考量成本、可取得性、術者經驗。健保未收載眼科適應症 fibrin glue 與翼狀贅肉手術相關規定。蕭閔謙醫師整理。',
     'diabetic-retinopathy-dementia-trinetx-cohort':
         '2026 AJO Khangura 等 TriNetX 77 萬人世代分析：糖尿病視網膜病變越嚴重，全因失智症與血管型失智症風險呈階梯式增加；增殖性 DR 全因失智 HR 1.58、血管型 2.08；阿茲海默症風險主要來自糖尿病本身、與 DR 嚴重度沒有顯著梯度關係。眼底檢查可作為失智早期 risk marker。蕭閔謙醫師整理。',
     'hzo-stromal-keratitis-zeds-lessons':

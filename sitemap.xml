@@ -98,6 +98,19 @@
 
   <!-- ===== Published articles ===== -->
   <url>
+    <loc>https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/pterygium-surgery-fixation-methods-2026-nma.png</image:loc>
+      <image:title>翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/blog/diabetic-retinopathy-dementia-trinetx-cohort</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -398,6 +411,19 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/privacy.png</image:loc>
       <image:title>Privacy Policy</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/pterygium-surgery-fixation-methods-2026-nma.png</image:loc>
+      <image:title>Pterygium Fixation Methods — 2026 NMA of 35 RCTs</image:title>
     </image:image>
   </url>
   <url>

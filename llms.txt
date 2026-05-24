@@ -28,6 +28,16 @@ Secondary language: en
 
 ## Published Articles
 
+### 翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析
+
+- English title: Pterygium Fixation Methods — 2026 NMA of 35 RCTs
+- Topic: 翼狀贅肉
+- Published: 2026-05-23
+- Updated: 2026-05-23
+- Canonical: https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma
+- English mirror: https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma
+- Summary: 2026 AJO Terres 等發表的網絡統合分析整合 35 個 RCT、2,501 隻眼：纖維蛋白膠（FG）防復發最佳、Vicryl 縫線移植片穩定性最好、自體血便宜但位移裂開風險高、絲線肉芽風險最高已不建議。蕭閔謙醫師整理。
+
 ### 眼外傷：被忽視的全球失明禍首｜2026 AJO Perspective + IGATES 8238 例分析
 
 - English title: Ophthalmic Trauma — The Overlooked Cause of Blindness

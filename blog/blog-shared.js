@@ -131,6 +131,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
+    { slug:'pterygium-surgery-fixation-methods-2026-nma', title:'翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析', title_en:'Pterygium Fixation Methods — 2026 NMA of 35 RCTs', cat:'research', tag:'翼狀贅肉', tag_en:'Pterygium', date:'2026-05-23' },
     { slug:'diabetic-retinopathy-dementia-trinetx-cohort', title:'糖尿病視網膜病變越嚴重，失智症風險越高？', title_en:'Diabetic Retinopathy and Dementia — 2026 TriNetX Cohort', cat:'research', tag:'糖尿病視網膜病變', tag_en:'Diabetic retinopathy', date:'2026-05-23' },
     { slug:'hzo-stromal-keratitis-zeds-lessons', title:'帶狀疱疹眼疾反覆角膜炎：為什麼停眼藥水 3 個月最危險？', title_en:'Recurrent Stromal Keratitis After HZO — 2026 ZEDS Lessons', cat:'research', tag:'角膜炎', tag_en:'Keratitis', date:'2026-05-23' },
     { slug:'ophthalmic-trauma-overlooked-burden', title:'眼外傷：被忽視的全球失明禍首', title_en:'Ophthalmic Trauma — The Overlooked Cause of Blindness', cat:'research', tag:'眼外傷', tag_en:'Eye trauma', date:'2026-05-23' },
