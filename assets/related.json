@@ -1,91 +1,13 @@
 {
-  "pterygium-surgery-fixation-methods-2026-nma": [
+  "osa-amd-systematic-review-2026": [
     {
-      "slug": "dims-pediatric-myopia-control",
+      "slug": "monitoring-myopia-ser-vs-axial-length",
       "reasons": [
         "same-cat"
       ]
     },
     {
       "slug": "dry-eye-symptom-sign-discordance-dream",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "monitoring-myopia-ser-vs-axial-length",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "diabetic-retinopathy-dementia-trinetx-cohort",
-      "reasons": [
-        "same-cat"
-      ]
-    }
-  ],
-  "diabetic-retinopathy-dementia-trinetx-cohort": [
-    {
-      "slug": "ophthalmic-trauma-overlooked-burden",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "dry-eye-symptom-sign-discordance-dream",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "monitoring-myopia-ser-vs-axial-length",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "hzo-stromal-keratitis-zeds-lessons",
-      "reasons": [
-        "same-cat"
-      ]
-    }
-  ],
-  "hzo-stromal-keratitis-zeds-lessons": [
-    {
-      "slug": "diabetic-retinopathy-dementia-trinetx-cohort",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "dims-pediatric-myopia-control",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "dry-eye-symptom-sign-discordance-dream",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "monitoring-myopia-ser-vs-axial-length",
-      "reasons": [
-        "same-cat"
-      ]
-    }
-  ],
-  "ophthalmic-trauma-overlooked-burden": [
-    {
-      "slug": "monitoring-myopia-ser-vs-axial-length",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "dims-pediatric-myopia-control",
       "reasons": [
         "same-cat"
       ]
@@ -103,9 +25,117 @@
       ]
     }
   ],
+  "pterygium-surgery-fixation-methods-2026-nma": [
+    {
+      "slug": "osa-amd-systematic-review-2026",
+      "reasons": [
+        "same-cat",
+        "newer"
+      ]
+    },
+    {
+      "slug": "dims-pediatric-myopia-control",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "diabetic-retinopathy-dementia-trinetx-cohort",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "ophthalmic-trauma-overlooked-burden",
+      "reasons": [
+        "same-cat"
+      ]
+    }
+  ],
+  "diabetic-retinopathy-dementia-trinetx-cohort": [
+    {
+      "slug": "osa-amd-systematic-review-2026",
+      "reasons": [
+        "same-cat",
+        "newer"
+      ]
+    },
+    {
+      "slug": "hzo-stromal-keratitis-zeds-lessons",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "monitoring-myopia-ser-vs-axial-length",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "ophthalmic-trauma-overlooked-burden",
+      "reasons": [
+        "same-cat"
+      ]
+    }
+  ],
+  "hzo-stromal-keratitis-zeds-lessons": [
+    {
+      "slug": "osa-amd-systematic-review-2026",
+      "reasons": [
+        "same-cat",
+        "newer"
+      ]
+    },
+    {
+      "slug": "diabetic-retinopathy-dementia-trinetx-cohort",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "monitoring-myopia-ser-vs-axial-length",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "ophthalmic-trauma-overlooked-burden",
+      "reasons": [
+        "same-cat"
+      ]
+    }
+  ],
+  "ophthalmic-trauma-overlooked-burden": [
+    {
+      "slug": "osa-amd-systematic-review-2026",
+      "reasons": [
+        "same-cat",
+        "newer"
+      ]
+    },
+    {
+      "slug": "hzo-stromal-keratitis-zeds-lessons",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "monitoring-myopia-ser-vs-axial-length",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "dims-pediatric-myopia-control",
+      "reasons": [
+        "same-cat"
+      ]
+    }
+  ],
   "toric-iol-astigmatism-cataract-review": [
     {
-      "slug": "cataract-surgery-selection",
+      "slug": "cataract-comprehensive-guide",
       "reasons": [
         "same-cat",
         "same-tag",
@@ -113,7 +143,7 @@
       ]
     },
     {
-      "slug": "cataract-comprehensive-guide",
+      "slug": "cataract-surgery-selection",
       "reasons": [
         "same-cat",
         "same-tag",
@@ -127,7 +157,7 @@
       ]
     },
     {
-      "slug": "lacrimal-gland-tumor",
+      "slug": "pterygium-surgery-fixation-methods-2026-nma",
       "reasons": [
         "newer"
       ]
@@ -135,7 +165,7 @@
   ],
   "dry-eye-symptom-sign-discordance-dream": [
     {
-      "slug": "ophthalmic-trauma-overlooked-burden",
+      "slug": "osa-amd-systematic-review-2026",
       "reasons": [
         "same-cat",
         "newer"
@@ -172,13 +202,6 @@
       ]
     },
     {
-      "slug": "pterygium-surgery-fixation-methods-2026-nma",
-      "reasons": [
-        "same-cat",
-        "newer"
-      ]
-    },
-    {
       "slug": "hzo-stromal-keratitis-zeds-lessons",
       "reasons": [
         "same-cat",
@@ -186,7 +209,14 @@
       ]
     },
     {
-      "slug": "ophthalmic-trauma-overlooked-burden",
+      "slug": "pterygium-surgery-fixation-methods-2026-nma",
+      "reasons": [
+        "same-cat",
+        "newer"
+      ]
+    },
+    {
+      "slug": "diabetic-retinopathy-dementia-trinetx-cohort",
       "reasons": [
         "same-cat",
         "newer"
@@ -203,7 +233,14 @@
       ]
     },
     {
-      "slug": "hzo-stromal-keratitis-zeds-lessons",
+      "slug": "diabetic-retinopathy-dementia-trinetx-cohort",
+      "reasons": [
+        "same-cat",
+        "newer"
+      ]
+    },
+    {
+      "slug": "pterygium-surgery-fixation-methods-2026-nma",
       "reasons": [
         "same-cat",
         "newer"
@@ -215,25 +252,18 @@
         "same-cat",
         "newer"
       ]
-    },
-    {
-      "slug": "dry-eye-symptom-sign-discordance-dream",
-      "reasons": [
-        "same-cat",
-        "newer"
-      ]
     }
   ],
   "cataract-surgery-selection": [
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "cataract-comprehensive-guide",
       "reasons": [
         "same-cat",
         "same-tag"
       ]
     },
     {
-      "slug": "cataract-comprehensive-guide",
+      "slug": "toric-iol-astigmatism-cataract-review",
       "reasons": [
         "same-cat",
         "same-tag"
@@ -246,13 +276,20 @@
       ]
     },
     {
-      "slug": "pterygium-surgery-fixation-methods-2026-nma",
+      "slug": "ophthalmic-trauma-overlooked-burden",
       "reasons": [
         "newer"
       ]
     }
   ],
   "glaucoma-treatment-selection": [
+    {
+      "slug": "cataract-comprehensive-guide",
+      "reasons": [
+        "same-cat",
+        "newer"
+      ]
+    },
     {
       "slug": "cataract-surgery-selection",
       "reasons": [
@@ -262,13 +299,6 @@
     },
     {
       "slug": "toric-iol-astigmatism-cataract-review",
-      "reasons": [
-        "same-cat",
-        "newer"
-      ]
-    },
-    {
-      "slug": "cataract-comprehensive-guide",
       "reasons": [
         "same-cat",
         "newer"
@@ -331,7 +361,7 @@
       ]
     },
     {
-      "slug": "ophthalmic-trauma-overlooked-burden",
+      "slug": "osa-amd-systematic-review-2026",
       "reasons": [
         "newer"
       ]
@@ -352,13 +382,13 @@
       ]
     },
     {
-      "slug": "monitoring-myopia-ser-vs-axial-length",
+      "slug": "dims-pediatric-myopia-control",
       "reasons": [
         "newer"
       ]
     },
     {
-      "slug": "cataract-surgery-selection",
+      "slug": "dry-eye-symptom-sign-discordance-dream",
       "reasons": [
         "newer"
       ]
@@ -378,13 +408,13 @@
       ]
     },
     {
-      "slug": "diabetic-retinopathy-dementia-trinetx-cohort",
+      "slug": "pterygium-surgery-fixation-methods-2026-nma",
       "reasons": [
         "newer"
       ]
     },
     {
-      "slug": "ophthalmic-trauma-overlooked-burden",
+      "slug": "osa-amd-systematic-review-2026",
       "reasons": [
         "newer"
       ]
@@ -400,19 +430,19 @@
       ]
     },
     {
-      "slug": "floaters-retinal-detachment",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
       "slug": "pediatric-myopia-control",
       "reasons": [
         "same-cat"
       ]
     },
     {
-      "slug": "thyroid-eye-disease",
+      "slug": "floaters-retinal-detachment",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "osa-amd-systematic-review-2026",
       "reasons": [
         "newer"
       ]
@@ -428,9 +458,10 @@
       ]
     },
     {
-      "slug": "dry-eye-myths",
+      "slug": "monitoring-myopia-ser-vs-axial-length",
       "reasons": [
-        "same-cat"
+        "same-tag",
+        "newer"
       ]
     },
     {
@@ -440,10 +471,9 @@
       ]
     },
     {
-      "slug": "monitoring-myopia-ser-vs-axial-length",
+      "slug": "dry-eye-myths",
       "reasons": [
-        "same-tag",
-        "newer"
+        "same-cat"
       ]
     }
   ],
@@ -461,13 +491,13 @@
       ]
     },
     {
-      "slug": "cataract-comprehensive-guide",
+      "slug": "glaucoma-comprehensive-guide",
       "reasons": [
         "newer"
       ]
     },
     {
-      "slug": "ophthalmic-trauma-overlooked-burden",
+      "slug": "glaucoma-treatment-selection",
       "reasons": [
         "newer"
       ]

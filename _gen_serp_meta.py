@@ -29,6 +29,8 @@ BREADCRUMB_SCHEMA_RE = re.compile(
 )
 
 ARTICLE_SNIPPETS = {
+    'osa-amd-systematic-review-2026':
+        '2026 AJO Yaldo 等系統性回顧整合分析：8 篇觀察性研究、3,536,314 人（含台灣 NHIRD 世代）。OSA 與 AMD 風險顯著相關——調整勝算比 aOR 1.44（中等證據力，I²=0%）；調整時間風險比 aHR 1.66；新生血管型 nAMD OR 1.76、非新生血管型 1.95；需要抗 VEGF aHR 2.85、晚期 GA aHR 6.13（單一研究）。機轉：間歇缺氧→氧化壓力+補體活化+脈絡膜血流不足。OSA 是少數可治療的 AMD 系統性危險因子，但證據力尚不支持例行篩檢。蕭閔謙醫師整理。',
     'pterygium-surgery-fixation-methods-2026-nma':
         '2026 AJO Terres 等網絡統合分析（NMA）：35 篇 RCT、2,501 隻眼，比較翼狀贅肉合併結膜自體移植時 6 種固定方法。纖維蛋白膠（fibrin glue）復發率最低（OR 0.27）、Vicryl 8-0 可吸收縫線移植片穩定度最佳、絲線併發症最多不建議使用；選擇要平衡「復發率」與「術後穩定」並考量成本、可取得性、術者經驗。健保未收載眼科適應症 fibrin glue 與翼狀贅肉手術相關規定。蕭閔謙醫師整理。',
     'diabetic-retinopathy-dementia-trinetx-cohort':
