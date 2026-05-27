@@ -54,13 +54,17 @@ jobs:
 
       # ── Drift checks: regenerate auto-built artifacts and fail if any drifted ──
       # Catches the case where author edited an article but forgot to re-run
-      # _gen_feeds.py / _gen_related.py / _gen_serp_meta.py /
-      # _gen_faqpage_jsonld.py / _gen_en_pages.py / _gen_search_index.py /
-      # _gen_llms_txt.py /
-      # _gen_csp_hashes.py.
+      # the generator + apply scripts.
       # OG image existence is checked later by _check_og_images.py; the binary
       # renderer is intentionally not part of drift detection because font
       # rasterization differs across Windows author machines and Ubuntu CI.
+      #
+      # v37.46: include _apply_*.py and _extract_critical_css.py to match the
+      # local 18-step author chain. Previously CI only ran the 12 _gen_*.py,
+      # which meant CI's regenerated EN files lacked the skip-link injection,
+      # critical-css inline, etc. — causing a Windows↔Linux drift on every
+      # push that the bot had to auto-fix post-hoc. Adding them here lets
+      # the drift check pass cleanly on the first push.
       - name: Drift check — auto-regenerated artifacts
         run: |
           # v37.7: parallelize independent generators. _gen_en_pages.py must
@@ -80,10 +84,21 @@ jobs:
           python _gen_profile_schema.py
           python _gen_site_graph.py
           python _gen_route_canonicals.py
+          # Apply scripts — idempotent via SENTINEL gates, but must run after
+          # _gen_en_pages.py so the EN mirror also receives skip-link / a11y.
+          python _apply_i_series.py
+          python _apply_a11y_vt.py
+          python _apply_f10_image_priority.py
+          # _gen_csp_hashes.py LAST so it sees the final inline script content
+          # after all apply scripts have injected their inline <style>/<script>.
           python _gen_csp_hashes.py
+          # _extract_critical_css.py last — extracts critical above-the-fold CSS
+          # and inlines it into every HTML. Must run after _apply_* so its
+          # inline <style data-critical-css> ends up after a11y inline styles.
+          python _extract_critical_css.py
           if ! git diff --quiet; then
             echo "::warning::Auto-regenerated artifacts drifted from committed copies. Run the generator scripts locally before pushing:"
-            echo "::warning::  python _gen_feeds.py && python _gen_related.py && python _gen_serp_meta.py && python _gen_faqpage_jsonld.py && python _gen_en_pages.py && python _gen_search_index.py && python _gen_llms_txt.py && python _gen_opensearch.py && python _gen_profile_schema.py && python _gen_site_graph.py && python _gen_route_canonicals.py && python _gen_csp_hashes.py"
+            echo "::warning::  python _gen_feeds.py && python _gen_related.py && python _gen_serp_meta.py && python _gen_faqpage_jsonld.py && python _gen_en_pages.py && python _gen_search_index.py && python _gen_llms_txt.py && python _gen_opensearch.py && python _gen_profile_schema.py && python _gen_site_graph.py && python _gen_route_canonicals.py && python _apply_i_series.py && python _apply_a11y_vt.py && python _apply_f10_image_priority.py && python _gen_csp_hashes.py && python _extract_critical_css.py"
             git diff --stat
             exit 1
           fi
