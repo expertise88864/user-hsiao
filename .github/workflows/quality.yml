@@ -70,11 +70,19 @@ jobs:
           # v37.7: parallelize independent generators. _gen_en_pages.py must
           # finish before _gen_csp_hashes.py (CSP hashes the EN mirror's inline
           # scripts), so those stay serial.
+          # v37.46: check each waited-for PID individually. The previous
+          # `wait $PID1 $PID2` form returned only the exit code of the LAST
+          # PID arg, silently swallowing failures of the earlier one.
           python _gen_feeds.py &
           PID_FEEDS=$!
           python _gen_related.py &
           PID_REL=$!
-          wait $PID_FEEDS $PID_REL
+          wait $PID_FEEDS; FEEDS_RC=$?
+          wait $PID_REL; REL_RC=$?
+          if [ $FEEDS_RC -ne 0 ] || [ $REL_RC -ne 0 ]; then
+            echo "::error::Parallel generator failed: _gen_feeds.py exit=$FEEDS_RC _gen_related.py exit=$REL_RC"
+            exit 1
+          fi
           python _gen_serp_meta.py
           python _gen_faqpage_jsonld.py
           python _gen_en_pages.py

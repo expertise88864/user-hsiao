@@ -645,7 +645,15 @@ self.addEventListener('fetch', (e) => {
           const resp = preload || await fetchWithRetry(req);
           if (resp && resp.ok) {
             const copy = resp.clone();
-            caches.open(CACHE).then((c) => c.put(req, copy));
+            // v37.46: trim CACHE after writes so HTML doesn't grow without
+            // bound over PWA lifetime. 50-entry soft cap (~18 articles + 10
+            // shell + 8 popular = 36 typical, 50 leaves headroom). trimCache
+            // also TTL-evicts entries older than 30d, so the cache self-heals
+            // even if user never reaches the count cap.
+            caches.open(CACHE).then((c) => {
+              c.put(req, copy);
+              trimCache(CACHE, 50);
+            });
           }
           return resp;
         } catch (err) {
