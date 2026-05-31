@@ -219,6 +219,15 @@ python _gen_csp_hashes.py          # MUST be the very last step: hashes every
                                    # final inline <style>/<script>, incl. the
                                    # critical-css block just injected above
 
+# 9b. JS bundle — ONLY when you edited blog/blog-shared.js (the readable source).
+#     Pages ship blog/blog-shared.min.js (esbuild, ~177 KB vs 300 KB source).
+#     Tooling/generators still parse DN.ARTICLES out of the readable .js source.
+#     After ANY edit to blog-shared.js, regenerate the min bundle + commit it:
+npm run minify                     # esbuild → blog/blog-shared.min.js
+#     _check_min_js.py guards against a stale bundle (slug-parity vs source).
+#     This is NOT in the CI drift step (that job is python-only / no esbuild) —
+#     it's a local step; the committed .min.js is the served artifact.
+
 # 10. Verify before push
 python validate.py
 python _check_article_listings.py

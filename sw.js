@@ -383,7 +383,7 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v67';
+const CACHE = 'hs-v68';
 const RUNTIME = 'hs-runtime-v35';
 const RUNTIME_MAX_ENTRIES = 60;
 const GENERATED_JSON = new Set([
@@ -408,7 +408,7 @@ const SHELL = [
   '/blog/',
   '/assets/app.css',
   '/assets/article.css',
-  '/blog/blog-shared.js',
+  '/blog/blog-shared.min.js',
 ];
 
 // Top-5 most-visited articles + their OG cards. Pre-cached AFTER install

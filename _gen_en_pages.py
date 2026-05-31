@@ -608,9 +608,11 @@ def transform(html, zh_canonical, en_canonical, slug=None):
     # 4. JSON-LD URLs, language, and article-facing English labels.
     s = update_jsonld_blocks(s, slug=slug, title=title, desc=desc, en_canonical=en_canonical)
 
-    # 5. Inject EN_LANG_BOOTSTRAP just before blog-shared.js.
+    # 5. Inject EN_LANG_BOOTSTRAP just before blog-shared(.min).js.
+    #    Matches both blog-shared.js and the minified blog-shared.min.js
+    #    (pages ship the .min build; source stays for tooling/regex parsing).
     s = re.sub(
-        r'(<script\s+src="/blog/blog-shared\.js[^"]*"[^>]*></script>)',
+        r'(<script\s+src="/blog/blog-shared(?:\.min)?\.js[^"]*"[^>]*></script>)',
         EN_LANG_BOOTSTRAP + '\n\\1',
         s
     )
@@ -643,7 +645,8 @@ def transform(html, zh_canonical, en_canonical, slug=None):
     # when they click the logo, the breadcrumb, or any nav item.
     ASSET_PREFIXES = (
         '/_vercel/', '/api/', '/assets/', '/blog/feed.xml', '/blog/atom.xml',
-        '/blog/blog-shared.js', '/pagefind/', '/favicon.ico', '/icon-', '/icon.svg',
+        '/blog/blog-shared.js', '/blog/blog-shared.min.js', '/pagefind/',
+        '/favicon.ico', '/icon-', '/icon.svg',
         '/manifest.json', '/sitemap.xml', '/apple-touch-icon', '/logo-', '/sw.js',
         '/robots.txt', '/humans.txt', '/ads.txt', '/SUNN1302',
     )

@@ -29,7 +29,10 @@ jobs:
 
           BUDGETS = {
               # path -> (raw_kb, gzip_kb) soft-fail-on-exceed
-              'blog/blog-shared.js': (180, 50),
+              # blog-shared.min.js is what ships to browsers (esbuild-minified);
+              # the readable blog-shared.js source is parsed by tooling only and
+              # is not budgeted as a delivered asset.
+              'blog/blog-shared.min.js': (200, 55),
               'assets/app.css':      (90,  20),
               'assets/article.css':  (40,  10),
               'sw.js':               (16,  6),
