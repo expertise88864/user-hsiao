@@ -213,9 +213,11 @@ python _apply_i_series.py
 python _apply_a11y_vt.py
 python _apply_f10_image_priority.py
 
-# 9. CSP hashes + critical CSS (MUST run last, after all HTML mutations)
-python _gen_csp_hashes.py
-python _extract_critical_css.py
+# 9. Critical CSS THEN CSP hashes (ORDER IS LOad-BEARING — see note below)
+python _extract_critical_css.py    # injects inline <style data-critical-css>
+python _gen_csp_hashes.py          # MUST be the very last step: hashes every
+                                   # final inline <style>/<script>, incl. the
+                                   # critical-css block just injected above
 
 # 10. Verify before push
 python validate.py
@@ -227,6 +229,19 @@ python _check_bilingual_attrs.py
 python _check_serp_fallbacks.py
 python halfwidth_to_fullwidth.py --dry-run    # must say "WOULD WRITE: 0 files"
 ```
+
+### ⚠️ `_gen_csp_hashes.py` MUST be the last build step
+
+`_extract_critical_css.py` injects an inline `<style data-critical-css>` block
+into every page. Its SHA-256 has to be in the CSP allowlist in `middleware.js`,
+which `_gen_csp_hashes.py` writes. **If csp_hashes runs first**, middleware.js
+lists the hash of the *previous* build's critical-CSS block. This is normally
+invisible because the extracted critical CSS is a fixed point (build N's hash
+already matches build N+1's content) — but the instant you change `app.css` or
+`article.css`, the extracted critical CSS changes too, the stale hash no longer
+matches, and CI's drift check fails on a 1-line `middleware.js` diff. Fixed
+permanently in `quality.yml` + this doc 2026-05: **extract_critical_css → csp_hashes**.
+If you ever reorder the build chain, keep csp_hashes dead last.
 
 ### Two-pass convergence
 
