@@ -93,8 +93,8 @@ def audit_home(
         if "sameAs" in organization and not organization.get("sameAs"):
             errors.append(f"{rel}: Organization sameAs should be omitted when empty")
         logo = organization.get("logo")
-        if not isinstance(logo, dict) or not str(logo.get("url", "")).endswith("/logo-512.png"):
-            errors.append(f"{rel}: Organization logo should point to logo-512.png")
+        if not isinstance(logo, dict) or not str(logo.get("url", "")).endswith("/icon-512.png"):
+            errors.append(f"{rel}: Organization logo should point to icon-512.png")
         elif logo.get("@id") != LOGO_ID or logo.get("width") != 512 or logo.get("height") != 512:
             errors.append(f"{rel}: Organization logo should be a stable 512x512 ImageObject")
         if ref_id(organization.get("founder")) != PERSON_ID:

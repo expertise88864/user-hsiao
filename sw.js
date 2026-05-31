@@ -433,7 +433,7 @@ const POPULAR = [
 const LAZY = [
   '/about', '/privacy', '/404.html', '/notes', '/tools',
   '/icon-32.png', '/icon-192.png', '/icon-512.png',
-  '/apple-touch-icon.png', '/logo-512.png',
+  '/apple-touch-icon.png',
   '/SUNN1302-220.webp', '/SUNN1302-220.avif', '/SUNN1302-440.webp',
   '/blog/feed.xml', '/blog/atom.xml',
   '/blog/topics',

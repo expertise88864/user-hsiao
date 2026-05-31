@@ -11,8 +11,12 @@
   --bg:#faf7f2;
   --surface:#ffffff;
   --ink:#2a2620;
-  --ink-2:#5e574e;
-  --muted:#8b8378;
+  /* AA/AAA contrast values — kept in sync with app.css's override block.
+     article.css loads AFTER app.css, so the old #5e574e / #8b8378 here would
+     otherwise clobber app.css's accessible values on every article page
+     (secondary text rendered at ~4.3:1, failing WCAG 1.4.3 AA). */
+  --ink-2:#4a443c;   /* ~10:1 on --bg (AAA) */
+  --muted:#6e6759;   /* ~5.6:1 on --bg (AA)  */
   --teal:#6b8caf;
   --teal-deep:#3a5a7c;
   --teal-bright:#a4c4dd;

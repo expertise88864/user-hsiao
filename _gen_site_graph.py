@@ -263,14 +263,14 @@ def normalize_homepage(path: Path, expected_id: str, lang: str, parts: list[tupl
             logo = data.get('logo')
             if isinstance(logo, dict):
                 logo['@id'] = LOGO_ID
-                logo['url'] = f'{DOMAIN}/logo-512.png'
+                logo['url'] = f'{DOMAIN}/icon-512.png'
                 logo['width'] = 512
                 logo['height'] = 512
             else:
                 data['logo'] = {
                     '@type': 'ImageObject',
                     '@id': LOGO_ID,
-                    'url': f'{DOMAIN}/logo-512.png',
+                    'url': f'{DOMAIN}/icon-512.png',
                     'width': 512,
                     'height': 512,
                 }

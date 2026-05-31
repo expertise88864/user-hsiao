@@ -265,7 +265,6 @@ test('referenced core assets exist', async ({ request }) => {
     '/icon-192.png',
     '/icon-512.png',
     '/apple-touch-icon.png',
-    '/logo-512.png',
     '/assets/search-index.json',
     '/opensearch.xml',
     '/blog/feed.json',
