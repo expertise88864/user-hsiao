@@ -13,21 +13,13 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 # Marker we add to <head> indicating the patch is applied
 SENTINEL = '<!-- a11y-vt-applied -->'
 
-# 1) Meta + style for view transitions, skip link styling
+# 1) Meta tag for view-transition + SENTINEL (the actual CSS now lives in
+# assets/app.css under the v37.48 "a11y skip-link + focus-visible +
+# view-transitions" block — hoisted there in 2026-05 to drop ~38KB of
+# inline <style> across 63 HTML files).
 HEAD_PATCH = (
     SENTINEL +
     '<meta name="view-transition" content="same-origin">'
-    '<style>'
-    # Skip-link
-    '.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999}'
-    '.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}'
-    # Focus visible (replaces default browser ring with branded teal)
-    '*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px}'
-    # View transitions
-    '@view-transition{navigation:auto}'
-    '::view-transition-old(root),::view-transition-new(root){animation-duration:.25s}'
-    '@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}'
-    '</style>'
 )
 
 # 2) Skip-link to inject right after <body...>

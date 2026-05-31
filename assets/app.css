@@ -869,3 +869,53 @@ details[open] > summary ~ * {
   --muted: #b8b0a0;      /* lighter for dark bg — ~5.2:1 vs #1a1815 */
   --ink-2: #d5cdbc;      /* ~9:1 vs #1a1815 */
 }
+
+/* ============================================================
+   v37.48 — a11y skip-link + focus-visible + view-transitions
+   ------------------------------------------------------------
+   Previously _apply_a11y_vt.py injected ~600 bytes of inline
+   <style> per HTML file (~38KB across 63 HTML files). Hoisted
+   here so the styles load once from the cached app.css.
+   The Python script now only injects the <meta> view-transition
+   tag + the SENTINEL comment; rules below cover the styling.
+   ============================================================ */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 9999;
+}
+.skip-to-main:focus {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  width: auto;
+  height: auto;
+  background: #0c5159;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+}
+*:focus-visible {
+  outline: 2px solid #0c5159;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+@view-transition { navigation: auto; }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .25s;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
