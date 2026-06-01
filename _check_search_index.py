@@ -13,7 +13,7 @@ INDEX = ROOT / "assets" / "search-index.json"
 SHARED = ROOT / "blog" / "blog-shared.js"
 
 
-def parse_catalog() -> tuple[list[str], list[str]]:
+def parse_catalog() -> tuple[list[str], list[str], list[str]]:
     js = (ROOT / "blog" / "blog-shared.js").read_text(encoding="utf-8")
     articles = re.search(r"DN\.ARTICLES\s*=\s*\[(.*?)\];", js, re.DOTALL)
     if not articles:
@@ -21,7 +21,9 @@ def parse_catalog() -> tuple[list[str], list[str]]:
     slugs = set(re.findall(r"slug:\s*'([^']+)'", articles.group(1)))
     stubs_match = re.search(r"DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
     stubs = set(re.findall(r"'([^']+)'", stubs_match.group(1))) if stubs_match else set()
-    return sorted(slugs - stubs), sorted(stubs)
+    en_stubs_match = re.search(r"DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
+    en_stubs = set(re.findall(r"'([^']+)'", en_stubs_match.group(1))) if en_stubs_match else set()
+    return sorted(slugs - stubs), sorted(stubs), sorted(en_stubs)
 
 
 def path_exists(url_path: str) -> bool:
@@ -35,7 +37,7 @@ def path_exists(url_path: str) -> bool:
 
 
 def main() -> int:
-    published, stubs = parse_catalog()
+    published, stubs, en_stubs = parse_catalog()
     errors: list[str] = []
 
     if not INDEX.exists():
@@ -55,7 +57,8 @@ def main() -> int:
     expected_urls = set()
     for slug in published:
         expected_urls.add(f"/blog/{slug}")
-        expected_urls.add(f"/en/blog/{slug}")
+        if slug not in en_stubs:
+            expected_urls.add(f"/en/blog/{slug}")
     seen_urls = set()
     seen_pairs = set()
 
@@ -71,6 +74,8 @@ def main() -> int:
 
         if slug in stubs:
             errors.append(f"stub article leaked into search index: {slug}")
+        if lang == "en" and slug in en_stubs:
+            errors.append(f"untranslated English mirror leaked into search index: {slug}")
         if slug not in published:
             errors.append(f"unknown/unpublished slug indexed: {slug}")
         if lang not in {"zh-Hant-TW", "en"}:
@@ -96,10 +101,10 @@ def main() -> int:
     for slug in published:
         if (slug, "zh-Hant-TW") not in seen_pairs:
             errors.append(f"missing zh-Hant-TW entry: {slug}")
-        if (slug, "en") not in seen_pairs:
+        if slug not in en_stubs and (slug, "en") not in seen_pairs:
             errors.append(f"missing en entry: {slug}")
 
-    expected_count = len(published) * 2
+    expected_count = len(published) * 2 - len(set(published) & set(en_stubs))
     if len(data) != expected_count:
         errors.append(f"expected {expected_count} entries, found {len(data)}")
 
@@ -117,7 +122,7 @@ def main() -> int:
             print("  - " + err)
         return 1
 
-    print(f"[OK] search-index audit passed: {len(published)} published articles indexed in both locales")
+    print(f"[OK] search-index audit passed: {len(published)} ZH articles + {len(published) - len(set(published) & set(en_stubs))} publishable EN mirrors")
     return 0
 
 

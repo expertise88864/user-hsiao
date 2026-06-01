@@ -24,6 +24,12 @@ def parse_catalog() -> list[str]:
     return [slug for slug in slugs if slug not in stubs]
 
 
+def parse_en_stubs() -> set[str]:
+    js = (ROOT / "blog" / "blog-shared.js").read_text(encoding="utf-8")
+    match = re.search(r"DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
+    return set(re.findall(r"'([^']+)'", match.group(1))) if match else set()
+
+
 def type_names(obj: dict) -> set[str]:
     value = obj.get("@type")
     if isinstance(value, list):
@@ -133,9 +139,11 @@ def audit_page(path: Path, canonical_path: str, slug: str) -> list[str]:
 
 def main() -> int:
     errors: list[str] = []
+    en_stubs = parse_en_stubs()
     for slug in parse_catalog():
         errors.extend(audit_page(ROOT / "blog" / f"{slug}.html", f"/blog/{slug}", slug))
-        errors.extend(audit_page(ROOT / "en" / "blog" / f"{slug}.html", f"/en/blog/{slug}", slug))
+        if slug not in en_stubs:
+            errors.extend(audit_page(ROOT / "en" / "blog" / f"{slug}.html", f"/en/blog/{slug}", slug))
 
     if errors:
         print("[FAIL] MedicalWebPage schema audit failed:")
@@ -145,7 +153,7 @@ def main() -> int:
             print(f"  ... {len(errors) - 120} more")
         return 1
 
-    print(f"[OK] MedicalWebPage schema audit passed: {len(parse_catalog())} article pairs are connected")
+    print(f"[OK] MedicalWebPage schema audit passed: {len(parse_catalog())} ZH articles and publishable EN mirrors are connected")
     return 0
 
 

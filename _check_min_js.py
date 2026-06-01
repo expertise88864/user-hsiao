@@ -30,7 +30,8 @@ MIN = os.path.join(ROOT, 'blog', 'blog-shared.min.js')
 
 # Quote-agnostic: esbuild may rewrite '...' to "..." in the minified file.
 SLUG_RE = re.compile(r'slug:["\']([a-z0-9-]+)["\']')
-STUB_RE = re.compile(r'STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([^\]]*)\]', re.DOTALL)
+STUB_RE = re.compile(r'(?<!EN_)STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([^\]]*)\]', re.DOTALL)
+EN_STUB_RE = re.compile(r'EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([^\]]*)\]', re.DOTALL)
 # Property names survive esbuild minification (only the local `DN` alias is
 # renamed, e.g. DN.ARTICLES → n.ARTICLES), so check bare property identifiers.
 KEY_SYMBOLS = ('.ARTICLES', 'initBlog', 'applyTextOnly', 'injectBreadcrumb', 'window.DN')
@@ -40,8 +41,8 @@ def slugs(text: str) -> set[str]:
     return set(SLUG_RE.findall(text))
 
 
-def stub_slugs(text: str) -> set[str]:
-    m = STUB_RE.search(text)
+def stub_slugs(text: str, pattern: re.Pattern[str] = STUB_RE) -> set[str]:
+    m = pattern.search(text)
     return set(re.findall(r'["\']([a-z0-9-]+)["\']', m.group(1))) if m else set()
 
 
@@ -79,7 +80,11 @@ def main() -> int:
     if stub_slugs(src) != stub_slugs(mn):
         errors.append('DN.STUB_SLUGS differ source↔min — run: npm run minify')
 
-    # 4) Key entry points survived minification.
+    # 4) EN_STUB_SLUGS set must match too.
+    if stub_slugs(src, EN_STUB_RE) != stub_slugs(mn, EN_STUB_RE):
+        errors.append('DN.EN_STUB_SLUGS differ source/min - run: npm run minify')
+
+    # 5) Key entry points survived minification.
     for sym in KEY_SYMBOLS:
         if sym not in mn:
             errors.append(f'min.js missing key symbol {sym!r} — bad minify output')

@@ -66,13 +66,18 @@ def main() -> int:
         if "/en/blog/${s}" not in source and "/en/blog/{s}" not in source:
             errors.append(f"{source_name}: missing English article URL expansion")
 
+    if "EN_STUB_SLUGS" not in workflow or "if s not in en_stubs:" not in workflow:
+        errors.append("quality.yml: English article IndexNow expansion must skip untranslated mirrors")
+    if "EN_STUB_SLUGS" not in admin or "enStubs.has(s)" not in admin:
+        errors.append("api/admin/_indexnow.js: English article IndexNow expansion must skip untranslated mirrors")
+
     if errors:
         print("[FAIL] IndexNow URL audit failed:")
         for err in errors:
             print("  - " + err)
         return 1
 
-    print(f"[OK] IndexNow URL audit passed: {len(STATIC_PATHS)} static URLs plus article pairs")
+    print(f"[OK] IndexNow URL audit passed: {len(STATIC_PATHS)} static URLs plus publishable article locales")
     return 0
 
 

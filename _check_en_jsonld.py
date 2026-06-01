@@ -28,6 +28,8 @@ def parse_catalog() -> dict[str, dict[str, str]]:
         raise SystemExit("[FAIL] DN.ARTICLES not found")
     stubs_match = re.search(r"DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
     stubs = set(re.findall(r"'([^']+)'", stubs_match.group(1))) if stubs_match else set()
+    en_stubs_match = re.search(r"DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
+    en_stubs = set(re.findall(r"'([^']+)'", en_stubs_match.group(1))) if en_stubs_match else set()
 
     def field(body: str, key: str) -> str:
         match = re.search(rf"{key}\s*:\s*'([^']*)'", body)
@@ -37,7 +39,7 @@ def parse_catalog() -> dict[str, dict[str, str]]:
     for obj in re.finditer(r"\{([\s\S]*?)\}", articles.group(1)):
         body = obj.group(1)
         slug = field(body, "slug")
-        if not slug or slug in stubs:
+        if not slug or slug in stubs or slug in en_stubs:
             continue
         out[slug] = {
             "title_en": field(body, "title_en"),

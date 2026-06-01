@@ -48,7 +48,7 @@ Secondary language: en
 - English mirror: https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma
 - Summary: 2026 AJO Terres 等發表的網絡統合分析整合 35 個 RCT、2,501 隻眼：纖維蛋白膠（FG）防復發最佳、Vicryl 縫線移植片穩定性最好、自體血便宜但位移裂開風險高、絲線肉芽風險最高已不建議。蕭閔謙醫師整理。
 
-### 眼外傷：被忽視的全球失明禍首｜2026 AJO Perspective + IGATES 8238 例分析
+### 眼外傷：被忽視的失明原因｜IGATES 8238 例分析
 
 - English title: Ophthalmic Trauma — The Overlooked Cause of Blindness
 - Topic: 眼外傷
@@ -56,7 +56,7 @@ Secondary language: en
 - Updated: 2026-05-23
 - Canonical: https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden
 - English mirror: https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden
-- Summary: 2026 AJO Perspective + IGATES 全球 8238 例眼外傷登錄：閉合性 56.9%、開放性 34.0%、99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫；AAO 估計最高 90% 眼外傷可被適當護目預防。整理重點數據、高風險族群、就醫時機，並列出涉及台灣法規需人工確認部分。
+- Summary: IGATES 全球 8238 例眼外傷登錄：99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫。整理眼外傷高風險族群、預防方式與立即就醫警訊。
 
 ### 帶狀疱疹眼疾反覆角膜炎：為什麼停眼藥水 3 個月最危險？｜2026 ZEDS 試驗
 
@@ -115,7 +115,7 @@ Secondary language: en
 - Published: 2026-05-06
 - Updated: 2026-05-18
 - Canonical: https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor
-- English mirror: https://hsiao.chendermatologist.com/en/blog/lacrimal-gland-tumor
+- English mirror: translation in progress
 - Summary: 眼睛凸出來、淚腺區疼痛、視力下降 — 可能是淚腺腫瘤（尤其腺樣囊狀癌 ACC)。整理 IJO 2024 Meta-analysis、MD Anderson 質子治療與動脈內化療最新證據，回答家長與病友最常問的 6 個問題：診斷、治療選項、保留眼球可行嗎？放療後視力會剩多少？蕭閔謙醫師（眼科）整理。
 
 ### 散光人工水晶體（Toric IOL）值得嗎？適合誰、效果多好、有什麼風險｜2026 國際整合性回顧
@@ -185,7 +185,7 @@ Secondary language: en
 - Published: 2026-05-04
 - Updated: 2026-05-04
 - Canonical: https://hsiao.chendermatologist.com/blog/pediatric-myopia-control
-- English mirror: https://hsiao.chendermatologist.com/en/blog/pediatric-myopia-control
+- English mirror: translation in progress
 - Summary: 阿托品 0.01% / 0.05% 哪個有效?OK 鏡會傷角膜嗎？紅光治療安全嗎？多焦點離焦鏡片是什麼？戶外 2 小時真的能預防近視?8 個家長最常問的兒童近視控制問題，引用 LAMP / ATOM / DIMS / RLRL 等大型研究，蕭閔謙醫師（眼科）整理。
 
 ### 飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！
@@ -195,7 +195,7 @@ Secondary language: en
 - Published: 2026-05-04
 - Updated: 2026-05-04
 - Canonical: https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment
-- English mirror: https://hsiao.chendermatologist.com/en/blog/floaters-retinal-detachment
+- English mirror: translation in progress
 - Summary: 飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Eye 2010 大型研究，蕭閔謙醫師（眼科）整理。
 
 ### 乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎？
@@ -205,12 +205,12 @@ Secondary language: en
 - Published: 2026-05-04
 - Updated: 2026-05-04
 - Canonical: https://hsiao.chendermatologist.com/blog/dry-eye-myths
-- English mirror: https://hsiao.chendermatologist.com/en/blog/dry-eye-myths
+- English mirror: translation in progress
 - Summary: 點人工淚液會依賴？流淚就不是乾眼？葉黃素能治乾眼？整理 8 個常見乾眼迷思，說明 BAK 防腐劑、Omega-3 證據、瞼板腺熱敷、何時該就醫檢查。
 
 ## Citation Guidance
 
 - Prefer canonical article URLs under `/blog/{slug}` for Traditional Chinese citations.
-- Use `/en/blog/{slug}` URLs when citing the English mirror.
+- Use `/en/blog/{slug}` URLs only when an English mirror URL is listed for that article.
 - Do not cite private editing URLs, API endpoints, generated test artifacts, or unfinished stub article pages.
 - Medical disclaimer: all content is general education, not individualized medical advice.

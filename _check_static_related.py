@@ -22,7 +22,9 @@ def parse_catalog():
     slugs = set(re.findall(r"slug:\s*'([^']+)'", m.group(1)))
     stub_m = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
     stubs = set(re.findall(r"'([^']+)'", stub_m.group(1))) if stub_m else set()
-    return sorted(slugs - stubs)
+    en_stub_m = re.search(r'DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
+    en_stubs = set(re.findall(r"'([^']+)'", en_stub_m.group(1))) if en_stub_m else set()
+    return sorted(slugs - stubs), en_stubs
 
 
 def section_for(html):
@@ -34,7 +36,7 @@ def section_for(html):
     return m.group(0) if m else ''
 
 
-def audit_file(path, slug, prefix, published):
+def audit_file(path, slug, prefix, published, en_stubs):
     rel = os.path.relpath(path, ROOT).replace('\\', '/')
     html = open(path, encoding='utf-8').read()
     errors = []
@@ -47,13 +49,13 @@ def audit_file(path, slug, prefix, published):
         return errors
 
     hrefs = re.findall(r'href=["\']([^"\']+)["\']', sec)
-    expected_prefix = f'{prefix}/blog/' if prefix else '/blog/'
     related = []
     for href in hrefs:
+        target = href.split('/blog/', 1)[1].strip('/') if '/blog/' in href else ''
+        expected_prefix = '/blog/' if not prefix or target in en_stubs else '/en/blog/'
         if not href.startswith(expected_prefix):
             errors.append(f'bad related href locale: {href}')
             continue
-        target = href[len(expected_prefix):].strip('/')
         if target in published:
             related.append(target)
     if len(related) != 4:
@@ -69,7 +71,7 @@ def audit_file(path, slug, prefix, published):
 
 
 def main():
-    published = parse_catalog()
+    published, en_stubs = parse_catalog()
     errors = []
     for slug in published:
         errors.extend(audit_file(
@@ -77,12 +79,14 @@ def main():
             slug,
             '',
             set(published),
+            en_stubs,
         ))
         errors.extend(audit_file(
             os.path.join(ROOT, 'en', 'blog', f'{slug}.html'),
             slug,
             '/en',
             set(published),
+            en_stubs,
         ))
 
     if errors:

@@ -21,15 +21,17 @@ ATOM_LINK = '<link rel="alternate" type="application/atom+xml" title="HsiaoEye A
 JSON_FEED_LINK = '<link rel="alternate" type="application/feed+json" title="HsiaoEye JSON Feed" href="/blog/feed.json" />'
 
 
-def parse_catalog() -> tuple[list[str], set[str]]:
+def parse_catalog() -> tuple[list[str], set[str], set[str]]:
     js = SHARED.read_text(encoding="utf-8")
     articles = re.search(r"DN\.ARTICLES\s*=\s*\[(.*?)\];", js, re.DOTALL)
     if not articles:
         raise SystemExit("[FAIL] DN.ARTICLES not found")
     stubs_match = re.search(r"DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
     stubs = set(re.findall(r"'([^']+)'", stubs_match.group(1))) if stubs_match else set()
+    en_stubs_match = re.search(r"DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
+    en_stubs = set(re.findall(r"'([^']+)'", en_stubs_match.group(1))) if en_stubs_match else set()
     slugs = re.findall(r"slug:\s*'([^']+)'", articles.group(1))
-    return [slug for slug in slugs if slug not in stubs], stubs
+    return [slug for slug in slugs if slug not in stubs], stubs, en_stubs
 
 
 def public_html_files(published: list[str]) -> list[Path]:
@@ -75,7 +77,7 @@ def head_markup(src: str) -> str:
 
 
 def main() -> int:
-    published, stubs = parse_catalog()
+    published, stubs, en_stubs = parse_catalog()
     expected_count = min(30, len(published))
     errors: list[str] = []
 
@@ -233,8 +235,10 @@ def main() -> int:
                 errors.append(f"Atom: invalid updated timestamp for {slug or url}: {updated!r}")
             if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T00:00:00Z", published_at):
                 errors.append(f"Atom: invalid published timestamp for {slug or url}: {published_at!r}")
-            if en_link is None or en_link.get("href") != f"{DOMAIN}/en/blog/{slug}":
+            if slug not in en_stubs and (en_link is None or en_link.get("href") != f"{DOMAIN}/en/blog/{slug}"):
                 errors.append(f"Atom: missing English alternate link for {slug or url}")
+            if slug in en_stubs and en_link is not None:
+                errors.append(f"Atom: untranslated English alternate leaked for {slug or url}")
             expected = f"{DOMAIN}/assets/og/{slug}.png"
             if enclosure is None or enclosure.get("href") != expected:
                 errors.append(f"Atom: missing image enclosure for {slug or url}")
@@ -300,8 +304,10 @@ def main() -> int:
                 errors.append(f"JSON Feed: invalid date_modified for {slug or url}")
             if not attachments or attachments[0].get("url") != expected or attachments[0].get("mime_type") != "image/png":
                 errors.append(f"JSON Feed: missing image attachment for {slug or url}")
-            if not isinstance(hsiaoeye, dict) or hsiaoeye.get("english_url") != f"{DOMAIN}/en/blog/{slug}":
+            if slug not in en_stubs and (not isinstance(hsiaoeye, dict) or hsiaoeye.get("english_url") != f"{DOMAIN}/en/blog/{slug}"):
                 errors.append(f"JSON Feed: missing English URL metadata for {slug or url}")
+            if slug in en_stubs and isinstance(hsiaoeye, dict) and hsiaoeye.get("english_url"):
+                errors.append(f"JSON Feed: untranslated English URL leaked for {slug or url}")
 
     if errors:
         print("[FAIL] feed audit failed:")

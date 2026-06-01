@@ -128,6 +128,42 @@ def parse_articles():
 ARTICLES = parse_articles()
 
 
+def parse_slug_set(name):
+    fp = os.path.join(ROOT, 'blog', 'blog-shared.js')
+    with open(fp, 'r', encoding='utf-8') as f:
+        js = f.read()
+    m = re.search(rf'DN\.{re.escape(name)}\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
+    return set(re.findall(r"'([^']+)'", m.group(1))) if m else set()
+
+
+EN_STUB_SLUGS = parse_slug_set('EN_STUB_SLUGS')
+HREFLANG_RE = re.compile(
+    r'(<link\s+rel="alternate"\s+hreflang="[^"]*"\s+href="[^"]*"\s*/?>\s*\n?)+',
+    re.I,
+)
+
+
+def normalize_zh_article_hreflang(src, zh_canonical, en_canonical, slug):
+    lines = [
+        f'<link rel="alternate" hreflang="x-default" href="{DOMAIN}{zh_canonical}" />',
+        f'<link rel="alternate" hreflang="zh-Hant-TW" href="{DOMAIN}{zh_canonical}" />',
+    ]
+    if slug not in EN_STUB_SLUGS:
+        lines.append(f'<link rel="alternate" hreflang="en" href="{DOMAIN}{en_canonical}" />')
+    return HREFLANG_RE.sub('\n'.join(lines) + '\n', src, count=1)
+
+
+def mark_unpublished_english(src):
+    src = re.sub(
+        r'<meta\s+name="robots"\s+content="[^"]*"\s*/?>',
+        '<meta name="robots" content="noindex, follow" />',
+        src,
+        count=1,
+        flags=re.I,
+    )
+    return HREFLANG_RE.sub('', src, count=1)
+
+
 def en_path_for_same_site_url(url):
     if not isinstance(url, str) or not url.startswith(DOMAIN):
         return url
@@ -145,6 +181,9 @@ def en_path_for_same_site_url(url):
     if path == '/blog':
         return DOMAIN + '/en/blog' + suffix
     if path.startswith('/blog/'):
+        slug = path[len('/blog/'):].split('/', 1)[0]
+        if slug in EN_STUB_SLUGS:
+            return url
         return DOMAIN + '/en' + path + suffix
     if path in ('/about', '/tools', '/notes', '/privacy'):
         return DOMAIN + '/en' + path + suffix
@@ -291,17 +330,18 @@ def localize_static_page_jsonld(data, title, desc, en_canonical):
                     article = ARTICLES.get(slug)
                     if article:
                         title_en = article.get('title_en') or article.get('title') or item.get('name')
-                        article_url = f'{DOMAIN}/en/blog/{slug}'
+                        has_en = slug not in EN_STUB_SLUGS
+                        article_url = f'{DOMAIN}/en/blog/{slug}' if has_en else f'{DOMAIN}/blog/{slug}'
                         item['url'] = article_url
-                        item['name'] = title_en
+                        item['name'] = title_en if has_en else article.get('title') or title_en
                         nested = item.get('item')
                         if isinstance(nested, dict):
                             nested['@id'] = f'{article_url}#article'
                             nested['url'] = article_url
-                            nested['headline'] = title_en
-                            nested['name'] = title_en
-                            nested['inLanguage'] = 'en'
-                            nested['isPartOf'] = {'@id': f'{DOMAIN}/en#website'}
+                            nested['headline'] = title_en if has_en else article.get('title') or title_en
+                            nested['name'] = title_en if has_en else article.get('title') or title_en
+                            nested['inLanguage'] = 'en' if has_en else 'zh-Hant-TW'
+                            nested['isPartOf'] = {'@id': f'{DOMAIN}/en#website' if has_en else f'{DOMAIN}/#website'}
 
         if 'BreadcrumbList' in type_names:
             items = out.get('itemListElement')
@@ -682,7 +722,7 @@ def transform(html, zh_canonical, en_canonical, slug=None):
         # /blog/<slug> articles — check if EN mirror exists
         if clean.startswith('/blog/'):
             slug_path = clean[len('/blog/'):]
-            if os.path.exists(os.path.join(ROOT, 'en', 'blog', f'{slug_path}.html')):
+            if slug_path not in EN_STUB_SLUGS and os.path.exists(os.path.join(ROOT, 'en', 'blog', f'{slug_path}.html')):
                 new_href = '/en' + href
                 return m.group(0).replace(f'href="{href}"', f'href="{new_href}"').replace(f"href='{href}'", f"href='{new_href}'")
         return m.group(0)
@@ -696,6 +736,8 @@ def transform(html, zh_canonical, en_canonical, slug=None):
     s = _swap_inner_to_english(s)
 
     s = re.sub(r'<a\b[^>]*\bhref=["\']([^"\']+)["\'][^>]*>', _en_rewrite_href, s)
+    if slug in EN_STUB_SLUGS:
+        s = mark_unpublished_english(s)
 
     return s
 
@@ -747,6 +789,9 @@ def main():
         en_path = os.path.join(blog_en_dir, f)
         with open(zh_path, 'r', encoding='utf-8') as fp:
             html = fp.read()
+        html = normalize_zh_article_hreflang(html, zh_canonical, en_canonical, slug)
+        with open(zh_path, 'w', encoding='utf-8') as fp:
+            fp.write(html)
         out = transform(html, zh_canonical, en_canonical, slug=slug)
         out, _ = _halfwidth_convert(out)
         with open(en_path, 'w', encoding='utf-8') as fp:

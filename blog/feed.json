@@ -41,8 +41,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/osa-amd-systematic-review-2026",
-        "category": "research"
+        "category": "research",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/osa-amd-systematic-review-2026"
       }
     },
     {
@@ -72,8 +72,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma",
-        "category": "research"
+        "category": "research",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma"
       }
     },
     {
@@ -103,8 +103,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/diabetic-retinopathy-dementia-trinetx-cohort",
-        "category": "research"
+        "category": "research",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/diabetic-retinopathy-dementia-trinetx-cohort"
       }
     },
     {
@@ -134,16 +134,16 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons",
-        "category": "research"
+        "category": "research",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons"
       }
     },
     {
       "id": "https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden",
       "url": "https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden",
-      "title": "眼外傷：被忽視的全球失明禍首｜2026 AJO Perspective + IGATES 8238 例分析",
-      "summary": "2026 AJO Perspective + IGATES 全球 8238 例眼外傷登錄：閉合性 56.9%、開放性 34.0%、99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫；AAO 估計最高 90% 眼外傷可被適當護目預防。整理重點數據、高風險族群、就醫時機，並列出涉及台灣法規需人工確認部分。",
-      "content_html": "<p>2026 AJO Perspective + IGATES 全球 8238 例眼外傷登錄：閉合性 56.9%、開放性 34.0%、99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫；AAO 估計最高 90% 眼外傷可被適當護目預防。整理重點數據、高風險族群、就醫時機，並列出涉及台灣法規需人工確認部分。</p><p><img src=\"https://hsiao.chendermatologist.com/assets/og/ophthalmic-trauma-overlooked-burden.png\" alt=\"眼外傷：被忽視的全球失明禍首｜2026 AJO Perspective + IGATES 8238 例分析\" /></p><p><a href=\"https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden\">閱讀全文</a></p>",
+      "title": "眼外傷：被忽視的失明原因｜IGATES 8238 例分析",
+      "summary": "IGATES 全球 8238 例眼外傷登錄：99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫。整理眼外傷高風險族群、預防方式與立即就醫警訊。",
+      "content_html": "<p>IGATES 全球 8238 例眼外傷登錄：99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫。整理眼外傷高風險族群、預防方式與立即就醫警訊。</p><p><img src=\"https://hsiao.chendermatologist.com/assets/og/ophthalmic-trauma-overlooked-burden.png\" alt=\"眼外傷：被忽視的失明原因｜IGATES 8238 例分析\" /></p><p><a href=\"https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden\">閱讀全文</a></p>",
       "image": "https://hsiao.chendermatologist.com/assets/og/ophthalmic-trauma-overlooked-burden.png",
       "banner_image": "https://hsiao.chendermatologist.com/assets/og/ophthalmic-trauma-overlooked-burden.png",
       "date_published": "2026-05-23T00:00:00Z",
@@ -161,12 +161,12 @@
         {
           "url": "https://hsiao.chendermatologist.com/assets/og/ophthalmic-trauma-overlooked-burden.png",
           "mime_type": "image/png",
-          "title": "眼外傷：被忽視的全球失明禍首｜2026 AJO Perspective + IGATES 8238 例分析"
+          "title": "眼外傷：被忽視的失明原因｜IGATES 8238 例分析"
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden",
-        "category": "research"
+        "category": "research",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden"
       }
     },
     {
@@ -196,8 +196,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/dry-eye-symptom-sign-discordance-dream",
-        "category": "research"
+        "category": "research",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/dry-eye-symptom-sign-discordance-dream"
       }
     },
     {
@@ -227,8 +227,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/cataract-surgery-selection",
-        "category": "rx"
+        "category": "rx",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/cataract-surgery-selection"
       }
     },
     {
@@ -258,8 +258,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide",
-        "category": "rx"
+        "category": "rx",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide"
       }
     },
     {
@@ -289,7 +289,6 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/lacrimal-gland-tumor",
         "category": "alert"
       }
     },
@@ -320,8 +319,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review",
-        "category": "rx"
+        "category": "rx",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review"
       }
     },
     {
@@ -351,8 +350,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/monitoring-myopia-ser-vs-axial-length",
-        "category": "research"
+        "category": "research",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/monitoring-myopia-ser-vs-axial-length"
       }
     },
     {
@@ -382,8 +381,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/dims-pediatric-myopia-control",
-        "category": "research"
+        "category": "research",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/dims-pediatric-myopia-control"
       }
     },
     {
@@ -413,8 +412,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection",
-        "category": "rx"
+        "category": "rx",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection"
       }
     },
     {
@@ -444,8 +443,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/glaucoma-comprehensive-guide",
-        "category": "alert"
+        "category": "alert",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/glaucoma-comprehensive-guide"
       }
     },
     {
@@ -475,8 +474,8 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease",
-        "category": "alert"
+        "category": "alert",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease"
       }
     },
     {
@@ -506,7 +505,6 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/dry-eye-myths",
         "category": "myth"
       }
     },
@@ -537,7 +535,6 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/pediatric-myopia-control",
         "category": "myth"
       }
     },
@@ -568,7 +565,6 @@
         }
       ],
       "_hsiaoeye": {
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/floaters-retinal-detachment",
         "category": "myth"
       }
     }

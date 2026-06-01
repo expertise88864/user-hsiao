@@ -55,6 +55,10 @@ def parse_catalog() -> list[dict[str, str]]:
 
     stub_match = re.search(r"DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
     stubs = set(re.findall(r"'([^']+)'", stub_match.group(1))) if stub_match else set()
+    en_stub_match = re.search(r"DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
+    en_stubs = set(re.findall(r"'([^']+)'", en_stub_match.group(1))) if en_stub_match else set()
+    for row in rows:
+        row["has_en"] = "true" if row.get("slug") not in en_stubs else ""
     return [row for row in rows if row["slug"] not in stubs]
 
 
@@ -127,8 +131,9 @@ def audit_page(
             continue
         item = items[i]
         slug = row["slug"]
-        expected_url = f"{DOMAIN}{article_prefix}/{slug}"
-        expected_title = row.get("title_en") if english else row.get("title")
+        nested_english = english and bool(row.get("has_en"))
+        expected_url = f"{DOMAIN}{article_prefix}/{slug}" if nested_english or not english else f"{DOMAIN}/blog/{slug}"
+        expected_title = row.get("title_en") if nested_english else row.get("title")
         expected_title = expected_title or row.get("title") or slug
         if item.get("position") != i + 1:
             errors.append(f"{rel}: {slug} position should be {i + 1}")
@@ -140,8 +145,8 @@ def audit_page(
         if not isinstance(nested, dict):
             errors.append(f"{rel}: {slug} ListItem.item must be an Article object")
             continue
-        expected_site = f"{DOMAIN}/en#website" if english else f"{DOMAIN}/#website"
-        expected_lang = "en" if english else "zh-Hant-TW"
+        expected_site = f"{DOMAIN}/en#website" if nested_english else f"{DOMAIN}/#website"
+        expected_lang = "en" if nested_english else "zh-Hant-TW"
         expected_image = f"{DOMAIN}/assets/og/{slug}.png"
         expected_modified = row.get("updated") or row.get("date")
         if "MedicalScholarlyArticle" not in type_names(nested):

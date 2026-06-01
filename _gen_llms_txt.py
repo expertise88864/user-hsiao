@@ -22,6 +22,8 @@ def parse_articles() -> list[dict[str, str]]:
         raise SystemExit('DN.ARTICLES not found')
     stub_m = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
     stubs = set(re.findall(r"'([^']+)'", stub_m.group(1))) if stub_m else set()
+    en_stub_m = re.search(r'DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
+    en_stubs = set(re.findall(r"'([^']+)'", en_stub_m.group(1))) if en_stub_m else set()
 
     def field(body: str, key: str) -> str:
         mm = re.search(rf"{key}\s*:\s*'([^']*)'", body)
@@ -42,6 +44,7 @@ def parse_articles() -> list[dict[str, str]]:
             'date': field(body, 'date'),
             'updated': field(body, 'updated') or field(body, 'date'),
             'cat': field(body, 'cat'),
+            'has_en': slug not in en_stubs,
         })
     out.sort(key=lambda a: (a['updated'], a['date'], a['slug']), reverse=True)
     return out
@@ -128,7 +131,7 @@ def build() -> str:
             f'- Published: {a["date"]}',
             f'- Updated: {a["updated"]}',
             f'- Canonical: {DOMAIN}/blog/{a["slug"]}',
-            f'- English mirror: {DOMAIN}/en/blog/{a["slug"]}',
+            f'- English mirror: {DOMAIN}/en/blog/{a["slug"]}' if a['has_en'] else '- English mirror: translation in progress',
             f'- Summary: {desc}',
             '',
         ])
@@ -137,7 +140,7 @@ def build() -> str:
         '## Citation Guidance',
         '',
         '- Prefer canonical article URLs under `/blog/{slug}` for Traditional Chinese citations.',
-        '- Use `/en/blog/{slug}` URLs when citing the English mirror.',
+        '- Use `/en/blog/{slug}` URLs only when an English mirror URL is listed for that article.',
         '- Do not cite private editing URLs, API endpoints, generated test artifacts, or unfinished stub article pages.',
         '- Medical disclaimer: all content is general education, not individualized medical advice.',
         '',

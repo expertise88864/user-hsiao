@@ -108,6 +108,8 @@ def main() -> int:
 
     slugs = catalog_slugs()
     for url, rel in pages.items():
+        if rel.startswith("en/"):
+            continue
         match = re.search(r"/(?:en/)?blog/([^/?#]+)$", url)
         if match and match.group(1) in slugs:
             errors.append(f"blog/blog-shared.js: DN.ARTICLES includes noindex page {rel}")

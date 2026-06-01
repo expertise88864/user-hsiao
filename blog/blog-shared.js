@@ -165,6 +165,18 @@
   ]);
   DN.isStub = function (slug) { return DN.STUB_SLUGS.has(slug); };
 
+  // Published Chinese articles whose English body translation is incomplete.
+  // Keep these out of EN discovery artifacts until the visible body copy is
+  // genuinely English; otherwise Google can cluster the /en/ URL as a
+  // duplicate of the Chinese canonical.
+  DN.EN_STUB_SLUGS = new Set([
+    'dry-eye-myths',
+    'floaters-retinal-detachment',
+    'lacrimal-gland-tumor',
+    'pediatric-myopia-control',
+  ]);
+  DN.hasEnglishMirror = function (slug) { return !DN.EN_STUB_SLUGS.has(slug); };
+
   // Runtime DOM filter — runs once early so we don't flash unfinished
   // cards before hiding them. Targets <a href="/blog/<stub>"> at any depth.
   DN.hideStubLinks = function () {
@@ -233,7 +245,7 @@
 
     function card(art, dirZh, dirEn, pnDir) {
       if (!art) return '';
-      return '<a href="/blog/' + art.slug + '" class="hs-pn-card" data-pn="' + pnDir + '">' +
+      return '<a href="' + DN.articlePath(art.slug) + '" class="hs-pn-card" data-pn="' + pnDir + '">' +
         '<span class="hs-pn-dir" data-zh="' + dirZh + '" data-en="' + dirEn + '">' + dirZh + '</span>' +
         '<span class="hs-pn-title" data-zh="' + (art.title || '').replace(/"/g, '&quot;') + '" data-en="' + (art.title_en || art.title || '').replace(/"/g, '&quot;') + '">' + (art.title || '') + '</span>' +
       '</a>';
@@ -338,6 +350,11 @@
   DN.urlPrefix = function () {
     try { return location.pathname.startsWith('/en/') ? '/en' : ''; }
     catch (e) { return ''; }
+  };
+  DN.articlePath = function (slug) {
+    var prefix = (DN.urlPrefix && DN.urlPrefix()) || '';
+    if (prefix && DN.hasEnglishMirror && !DN.hasEnglishMirror(slug)) prefix = '';
+    return prefix + '/blog/' + slug;
   };
 
   DN.setLang = function (code) {
@@ -1504,10 +1521,9 @@
       for (var k = idx - 1; k >= 0; k--) {
         if (!DN.isStub(all[k].slug)) { prev = all[k]; break; }
       }
-      var prefix = (DN.urlPrefix && DN.urlPrefix()) || '';
       [next, prev].forEach(function (a) {
         if (!a) return;
-        var href = prefix + '/blog/' + a.slug;
+        var href = DN.articlePath(a.slug);
         if (document.querySelector('link[rel="prefetch"][href="' + href + '"]')) return;
         var l = document.createElement('link');
         l.rel = 'prefetch';
@@ -1594,13 +1610,12 @@
     // Critical SEO fix: previously every JS-injected "related reads" card
     // on an EN article linked back to the ZH version, sending Google the
     // signal that the ZH URL was the real canonical.
-    var _urlPrefix = (DN.urlPrefix && DN.urlPrefix()) || '';
     scored.forEach(function (a) {
       var titleEn = a.title_en || a.title;
       var tagEn   = a.tag_en   || a.tag;
       var metaZh  = a.tag + ' · ' + a.date;
       var metaEn  = tagEn      + ' · ' + a.date;
-      html += '<a href="' + _urlPrefix + '/blog/' + a.slug + '" style="display:flex;flex-direction:column;gap:6px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
+      html += '<a href="' + DN.articlePath(a.slug) + '" style="display:flex;flex-direction:column;gap:6px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
         '<span style="font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--blue-deep);text-transform:uppercase" data-zh="' + attrEsc(a.tag) + '" data-en="' + attrEsc(tagEn) + '">' + tagEn + '</span>' +
         '<span style="font-size:14px;font-weight:700;line-height:1.4;font-family:Noto Serif TC,Georgia,serif" data-zh="' + attrEsc(a.title) + '" data-en="' + attrEsc(titleEn) + '">' + a.title + '</span>' +
         '<span style="font-size:11.5px;color:var(--muted)" data-zh="' + attrEsc(metaZh) + '" data-en="' + attrEsc(metaEn) + '">' + metaZh + '</span>' +
@@ -1615,7 +1630,7 @@
       '@type': 'ItemList',
       'name': 'Related ophthalmology articles',
       'itemListElement': scored.map(function (a, i) {
-        return { '@type': 'ListItem', 'position': i + 1, 'url': DN.SITE_URL + _urlPrefix + '/blog/' + a.slug, 'name': a.title };
+        return { '@type': 'ListItem', 'position': i + 1, 'url': DN.SITE_URL + DN.articlePath(a.slug), 'name': a.title };
       })
     };
     const ldEl = document.createElement('script');
@@ -2234,7 +2249,6 @@
 
     function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
 
-    var _spotlightUrlPrefix = (DN.urlPrefix && DN.urlPrefix()) || '';
     function rowHTML(a, badge) {
       var titleZh = a.title || a.slug;
       var titleEn = a.title_en || a.title || '';
@@ -2244,7 +2258,7 @@
       var num     = DN.getArticleNumber(a.slug);   // stable № by publication order
       var iconSvg = '<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" style="flex-shrink:0">' + DN.svgForTag(tagZh) + '</svg>';
       var numChip = num ? '<span style="font-family:\'JetBrains Mono\',Inter,monospace;font-weight:800;color:var(--blue-deep);letter-spacing:.04em">№' + num + '</span><span style="opacity:.45">·</span>' : '';
-      return '<li><a href="' + _spotlightUrlPrefix + '/blog/' + a.slug + '" ' +
+      return '<li><a href="' + DN.articlePath(a.slug) + '" ' +
         'style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;background:#fff;' +
         'border:0.5px solid var(--border);border-radius:12px;text-decoration:none;color:inherit;' +
         'transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)" ' +
@@ -2601,7 +2615,7 @@
         idx.push({
           title: (en && a.title_en ? a.title_en : a.title) || a.slug,
           meta: ((en ? (a.tag_en || a.tag) : (a.tag || a.tag_en)) || '') + ' · ' + (a.updated || a.date || ''),
-          url: _searchUrlPrefix + '/blog/' + a.slug,
+          url: en && DN.hasEnglishMirror && !DN.hasEnglishMirror(a.slug) ? '/blog/' + a.slug : _searchUrlPrefix + '/blog/' + a.slug,
           search: ((a.title || '') + ' ' + (a.title_en || '') + ' ' + (a.tag || '') + ' ' + (a.tag_en || '') + ' ' + a.slug).toLowerCase()
         });
       });
@@ -3745,7 +3759,7 @@
     if (DN._adminLoaded) return;
     DN._adminLoaded = true;
     var s = document.createElement('script');
-    s.src = '/blog/blog-admin.js?v=20260651';
+    s.src = '/blog/blog-admin.js?v=20260656';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

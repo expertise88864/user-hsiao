@@ -54,6 +54,10 @@ def main() -> int:
         errors.append("Atom entries should use article updated dates")
     if 'href="${enUrl}" rel="alternate" hreflang="en"' not in src:
         errors.append("Atom entries should expose English alternate links")
+    if "EN_STUB_SLUGS" not in src or "has_en: !enStubs.has(slug)" not in src:
+        errors.append("api/feed.js should parse untranslated English mirror gates")
+    if "article.has_en ?" not in src:
+        errors.append("api/feed.js should omit untranslated English mirror discovery metadata")
     if '<enclosure url="${ogUrl}" type="image/png" length="0" />' not in src:
         errors.append("RSS items should expose OG image enclosures")
     if 'xmlns:media="http://search.yahoo.com/mrss/"' not in src:

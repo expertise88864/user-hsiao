@@ -79,6 +79,11 @@ async function parseArticles() {
   if (stubMatch) {
     for (const row of stubMatch[1].matchAll(/'([^']+)'/g)) stubs.add(row[1]);
   }
+  const enStubMatch = file.content.match(/DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]\s*\)/);
+  const enStubs = new Set();
+  if (enStubMatch) {
+    for (const row of enStubMatch[1].matchAll(/'([^']+)'/g)) enStubs.add(row[1]);
+  }
 
   const rows = [];
   const getField = (body, key) => {
@@ -103,6 +108,7 @@ async function parseArticles() {
       date,
       updated: getField(body, 'updated') || date,
       cat: getField(body, 'cat') || 'myth',
+      has_en: !enStubs.has(slug),
     });
   }
   return rows;
@@ -153,7 +159,7 @@ function atomEntry(article, descriptions) {
     '  <entry>',
     `    <title>${escapeXml(article.title)}</title>`,
     `    <link href="${url}" rel="alternate" />`,
-    `    <link href="${enUrl}" rel="alternate" hreflang="en" />`,
+    article.has_en ? `    <link href="${enUrl}" rel="alternate" hreflang="en" />` : '',
     `    <link href="${ogUrl}" rel="enclosure" type="image/png" />`,
     `    <id>${url}</id>`,
     `    <updated>${atomDate(article.updated || article.date)}</updated>`,
@@ -245,7 +251,7 @@ function jsonFeedItem(article, descriptions) {
     authors: [{ name: AUTHOR, url: `${DOMAIN}/about` }],
     attachments: [{ url: ogUrl, mime_type: 'image/png', title: article.title }],
     _hsiaoeye: {
-      english_url: enUrl,
+      ...(article.has_en ? { english_url: enUrl } : {}),
       category: article.cat || 'myth',
     },
   };

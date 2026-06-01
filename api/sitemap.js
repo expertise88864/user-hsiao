@@ -78,6 +78,11 @@ async function parseArticles() {
   if (stubMatch) {
     for (const row of stubMatch[1].matchAll(/'([^']+)'/g)) stubs.add(row[1]);
   }
+  const enStubMatch = file.content.match(/DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]\s*\)/);
+  const enStubs = new Set();
+  if (enStubMatch) {
+    for (const row of enStubMatch[1].matchAll(/'([^']+)'/g)) enStubs.add(row[1]);
+  }
 
   const articles = [];
   const getField = (body, key) => {
@@ -99,6 +104,7 @@ async function parseArticles() {
       date: getField(body, 'date') || '2026-01-01',
       updated: getField(body, 'updated') || getField(body, 'date') || '2026-01-01',
       cat: getField(body, 'cat') || 'myth',
+      has_en: !enStubs.has(slug),
     });
   }
   return articles;
@@ -130,14 +136,14 @@ async function batchLastmod(paths) {
   return map;
 }
 
-function emit(zhUrl, enUrl, lastmod, changefreq, priority, image, imageTitle) {
+function emit(zhUrl, enUrl, lastmod, changefreq, priority, image, imageTitle, includeEn = true) {
   const lines = ['  <url>', `    <loc>${DOMAIN}${zhUrl}</loc>`];
   lines.push(`    <lastmod>${lastmod}</lastmod>`);
   lines.push(`    <changefreq>${changefreq}</changefreq>`);
   lines.push(`    <priority>${priority}</priority>`);
   lines.push(`    <xhtml:link rel="alternate" hreflang="x-default"  href="${DOMAIN}${zhUrl}" />`);
   lines.push(`    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="${DOMAIN}${zhUrl}" />`);
-  lines.push(`    <xhtml:link rel="alternate" hreflang="en"         href="${DOMAIN}${enUrl}" />`);
+  if (includeEn) lines.push(`    <xhtml:link rel="alternate" hreflang="en"         href="${DOMAIN}${enUrl}" />`);
   if (image) {
     lines.push('    <image:image>');
     lines.push(`      <image:loc>${image}</image:loc>`);
@@ -228,7 +234,7 @@ export default async function handler(req, res) {
     articles.forEach(a => {
       const lastmod = lastmods[`blog/${a.slug}.html`] || a.date;
       lines.push(emit(`/blog/${a.slug}`, `/en/blog/${a.slug}`, lastmod, 'monthly', '0.95',
-        `${DOMAIN}/assets/og/${a.slug}.png`, a.title));
+        `${DOMAIN}/assets/og/${a.slug}.png`, a.title, a.has_en));
     });
 
     lines.push('', '  <!-- ===== English mirror (/en/) ===== -->');
@@ -253,6 +259,7 @@ export default async function handler(req, res) {
       lines.push('  </url>');
     });
     articles.forEach(a => {
+      if (!a.has_en) return;
       const lastmod = lastmods[`blog/${a.slug}.html`] || a.date;
       lines.push('  <url>',
         `    <loc>${DOMAIN}/en/blog/${a.slug}</loc>`,

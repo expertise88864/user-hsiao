@@ -34,8 +34,8 @@ I12_SKIPLINKS = (
 I12_SKIPLINKS_NAV = (
     '<nav class="dn-skiplinks" aria-label="Skip navigation">'
     '<a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>'
-    '<a href="#dn-related" data-zh="跳至相關文章" data-en="Skip to related">跳至相關文章</a>'
-    '<a href="#dn-newsletter" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a>'
+    '<a href="#hs-related" data-zh="跳至相關文章" data-en="Skip to related">跳至相關文章</a>'
+    '<a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a>'
     '</nav>'
 )
 

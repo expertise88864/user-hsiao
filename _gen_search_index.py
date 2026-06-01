@@ -36,6 +36,8 @@ def parse_catalog() -> list[dict[str, str]]:
 
     stub_match = re.search(r"DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
     stubs = set(re.findall(r"'([^']+)'", stub_match.group(1))) if stub_match else set()
+    en_stub_match = re.search(r"DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
+    en_stubs = set(re.findall(r"'([^']+)'", en_stub_match.group(1))) if en_stub_match else set()
 
     def field(body: str, key: str) -> str:
         match = re.search(rf"{key}\s*:\s*'([^']*)'", body)
@@ -55,6 +57,7 @@ def parse_catalog() -> list[dict[str, str]]:
             "tag": field(body, "tag"),
             "tag_en": field(body, "tag_en"),
             "cat": field(body, "cat"),
+            "has_en": slug not in en_stubs,
         })
     articles.sort(key=lambda a: (a["updated"], a["date"], a["slug"]), reverse=True)
     return articles
@@ -189,7 +192,8 @@ def main() -> None:
     entries: list[dict[str, object]] = []
     for article in parse_catalog():
         entries.append(build_entry(article, "zh"))
-        entries.append(build_entry(article, "en"))
+        if article["has_en"]:
+            entries.append(build_entry(article, "en"))
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:

@@ -32,6 +32,8 @@ articles = []
 if m:
     stub_m = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]\s*\)', js)
     stubs = set(re.findall(r"'([^']+)'", stub_m.group(1))) if stub_m else set()
+    en_stub_m = re.search(r'DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]\s*\)', js)
+    en_stubs = set(re.findall(r"'([^']+)'", en_stub_m.group(1))) if en_stub_m else set()
 
     def field(body, key):
         mm = re.search(rf"{key}\s*:\s*'([^']*)'", body)
@@ -56,6 +58,7 @@ if m:
                 'date':     published,
                 'updated':  updated,
                 'cat':      field(body, 'cat') or 'myth',
+                'has_en':   slug not in en_stubs,
             })
 
 articles.sort(key=lambda a: a['updated'], reverse=True)
@@ -191,7 +194,7 @@ def build_sitemap():
            '',
            '  <!-- ===== Chinese (canonical) ===== -->']
 
-    def emit(zh_url, en_url, lastmod, cf, pri, image=None, image_title=None):
+    def emit(zh_url, en_url, lastmod, cf, pri, image=None, image_title=None, include_en=True):
         out.append('  <url>')
         out.append(f'    <loc>{DOMAIN}{zh_url}</loc>')
         out.append(f'    <lastmod>{lastmod}</lastmod>')
@@ -199,7 +202,8 @@ def build_sitemap():
         out.append(f'    <priority>{pri}</priority>')
         out.append(f'    <xhtml:link rel="alternate" hreflang="x-default"  href="{DOMAIN}{zh_url}" />')
         out.append(f'    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="{DOMAIN}{zh_url}" />')
-        out.append(f'    <xhtml:link rel="alternate" hreflang="en"         href="{DOMAIN}{en_url}" />')
+        if include_en:
+            out.append(f'    <xhtml:link rel="alternate" hreflang="en"         href="{DOMAIN}{en_url}" />')
         if image:
             out.append('    <image:image>')
             out.append(f'      <image:loc>{image}</image:loc>')
@@ -229,7 +233,7 @@ def build_sitemap():
         zh = f'/blog/{a["slug"]}'
         en = f'/en/blog/{a["slug"]}'
         og = f'{DOMAIN}/assets/og/{a["slug"]}.png'
-        emit(zh, en, a['updated'], 'monthly', '0.95', image=og, image_title=a['title'])
+        emit(zh, en, a['updated'], 'monthly', '0.95', image=og, image_title=a['title'], include_en=a['has_en'])
 
     # Landing-page stubs
     out.append('')
@@ -264,6 +268,8 @@ def build_sitemap():
             out.append('    </image:image>')
         out.append('  </url>')
     for a in articles:
+        if not a['has_en']:
+            continue
         out.append('  <url>')
         out.append(f'    <loc>{DOMAIN}/en/blog/{a["slug"]}</loc>')
         out.append(f'    <lastmod>{a["updated"]}</lastmod>')
@@ -367,7 +373,8 @@ def build_atom():
         out.append('  <entry>')
         out.append(f'    <title>{html.escape(title)}</title>')
         out.append(f'    <link href="{url}" rel="alternate" />')
-        out.append(f'    <link href="{en_url}" rel="alternate" hreflang="en" />')
+        if a['has_en']:
+            out.append(f'    <link href="{en_url}" rel="alternate" hreflang="en" />')
         out.append(f'    <link href="{og}" rel="enclosure" type="image/png" />')
         out.append(f'    <id>{url}</id>')
         out.append(f'    <updated>{updated_iso}</updated>')
@@ -389,6 +396,9 @@ def build_json_feed():
         og = f'{DOMAIN}/assets/og/{a["slug"]}.png'
         title = article_title(a)
         summary = article_summary(a)
+        hsiaoeye = {'category': a.get('cat') or 'myth'}
+        if a['has_en']:
+            hsiaoeye['english_url'] = en_url
         items.append({
             'id': url,
             'url': url,
@@ -413,10 +423,7 @@ def build_json_feed():
                 'mime_type': 'image/png',
                 'title': title,
             }],
-            '_hsiaoeye': {
-                'english_url': en_url,
-                'category': a.get('cat') or 'myth',
-            },
+            '_hsiaoeye': hsiaoeye,
         })
     feed = {
         'version': 'https://jsonfeed.org/version/1.1',

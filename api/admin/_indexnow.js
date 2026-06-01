@@ -36,12 +36,17 @@ async function loadPublishedSlugs() {
     if (stubMatch) {
       for (const s of stubMatch[1].matchAll(/'([^']+)'/g)) stubs.add(s[1]);
     }
+    const enStubMatch = js.match(/DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]/);
+    const enStubs = new Set();
+    if (enStubMatch) {
+      for (const s of enStubMatch[1].matchAll(/'([^']+)'/g)) enStubs.add(s[1]);
+    }
     const slugs = [];
     for (const s of m[1].matchAll(/slug:\s*'([^']+)'/g)) {
       if (!stubs.has(s[1])) slugs.push(s[1]);
     }
-    return slugs;
-  } catch (e) { return []; }
+    return { slugs, enStubs };
+  } catch (e) { return { slugs: [], enStubs: new Set() }; }
 }
 
 
@@ -55,10 +60,10 @@ export default async function handler(req, res) {
   }
   let urls = Array.isArray(body && body.urls) ? body.urls : null;
   if (!urls || !urls.length) {
-    const slugs = await loadPublishedSlugs();
+    const { slugs, enStubs } = await loadPublishedSlugs();
     urls = slugs.flatMap((s) => [
       `https://${HOST}/blog/${s}`,
-      `https://${HOST}/en/blog/${s}`,
+      ...(enStubs.has(s) ? [] : [`https://${HOST}/en/blog/${s}`]),
     ]);
     // Also include landing pages
     urls.unshift(

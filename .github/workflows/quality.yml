@@ -239,6 +239,8 @@ jobs:
           slugs = set(re.findall(r"slug:\s*'([^']+)'", m_arts.group(1))) if m_arts else set()
           m_stubs = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
           stubs = set(re.findall(r"'([^']+)'", m_stubs.group(1))) if m_stubs else set()
+          m_en_stubs = re.search(r'DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
+          en_stubs = set(re.findall(r"'([^']+)'", m_en_stubs.group(1))) if m_en_stubs else set()
           published = sorted(slugs - stubs)
 
           urls = [
@@ -266,7 +268,8 @@ jobs:
           ]
           for s in published:
               urls.append(f'https://{HOST}/blog/{s}')
-              urls.append(f'https://{HOST}/en/blog/{s}')
+              if s not in en_stubs:
+                  urls.append(f'https://{HOST}/en/blog/{s}')
 
           payload = json.dumps({
               'host': HOST,

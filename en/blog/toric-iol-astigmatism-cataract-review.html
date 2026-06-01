@@ -3,7 +3,7 @@
 <head>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260648';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260656';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -66,12 +66,12 @@
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260655" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260656" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260655">
-<link rel="preload" as="style" href="/assets/article.css?v=20260655" />
-<link rel="stylesheet" href="/assets/article.css?v=20260655" />
+<link rel="stylesheet" href="/assets/app.css?v=20260656">
+<link rel="preload" as="style" href="/assets/article.css?v=20260656" />
+<link rel="stylesheet" href="/assets/article.css?v=20260656" />
 
 <style id="hs-global-ux">
   body { padding-bottom: env(safe-area-inset-bottom); }
@@ -328,7 +328,7 @@
 <tbody>
 <tr>
 <td data-en="① &lt;strong&gt;Ocular surface optimization&lt;/strong&gt;" data-zh="① &lt;strong&gt;眼表優化&lt;/strong&gt;">① <strong>Ocular surface optimization</strong></td>
-<td data-en="Dry eye, MGD, allergic conjunctivitis all disturb keratometry (K-readings 'fluctuate'). Optimize ocular surface 4&ndash;6 weeks before (artificial tears, warm compresses, short-course steroid/cyclosporine if needed). &lt;a href='/blog/dry-eye-myths' style='color:var(--blue-deep);text-decoration:underline'&gt;&rarr; 8 dry-eye myths&lt;/a&gt;" data-zh="乾眼、瞼板腺功能障礙（MGD）、過敏性結膜炎都會干擾角膜量測（K 值會「跳動」）。術前 4&ndash;6 週應先把眼表治療穩定（人工淚液、熱敷、必要時短期類固醇/cyclosporine），讓量測重複性提高。&lt;a href='/blog/dry-eye-myths' style='color:var(--blue-deep);text-decoration:underline'&gt;&rarr; 乾眼症 8 大迷思&lt;/a&gt;">Dry eye, MGD, allergic conjunctivitis all disturb keratometry (K-readings 'fluctuate'). Optimize ocular surface 4&ndash;6 weeks before (artificial tears, warm compresses, short-course steroid/cyclosporine if needed). <a href="/en/blog/dry-eye-myths" style="color:var(--blue-deep);text-decoration:underline">&rarr; 8 dry-eye myths</a></td>
+<td data-en="Dry eye, MGD, allergic conjunctivitis all disturb keratometry (K-readings 'fluctuate'). Optimize ocular surface 4&ndash;6 weeks before (artificial tears, warm compresses, short-course steroid/cyclosporine if needed). &lt;a href='/blog/dry-eye-myths' style='color:var(--blue-deep);text-decoration:underline'&gt;&rarr; 8 dry-eye myths&lt;/a&gt;" data-zh="乾眼、瞼板腺功能障礙（MGD）、過敏性結膜炎都會干擾角膜量測（K 值會「跳動」）。術前 4&ndash;6 週應先把眼表治療穩定（人工淚液、熱敷、必要時短期類固醇/cyclosporine），讓量測重複性提高。&lt;a href='/blog/dry-eye-myths' style='color:var(--blue-deep);text-decoration:underline'&gt;&rarr; 乾眼症 8 大迷思&lt;/a&gt;">Dry eye, MGD, allergic conjunctivitis all disturb keratometry (K-readings 'fluctuate'). Optimize ocular surface 4&ndash;6 weeks before (artificial tears, warm compresses, short-course steroid/cyclosporine if needed). <a href="/blog/dry-eye-myths" style="color:var(--blue-deep);text-decoration:underline">&rarr; 8 dry-eye myths</a></td>
 </tr>
 <tr>
 <td data-en="② &lt;strong&gt;Multi-device cross-check&lt;/strong&gt;" data-zh="② &lt;strong&gt;多儀器交叉驗證&lt;/strong&gt;">② <strong>Multi-device cross-check</strong></td>
@@ -688,7 +688,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script defer src="/blog/blog-shared.min.js?v=20260655"></script>
+<script defer src="/blog/blog-shared.min.js?v=20260656"></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {

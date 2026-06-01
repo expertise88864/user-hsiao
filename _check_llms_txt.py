@@ -39,7 +39,9 @@ def parse_catalog():
     slugs = set(re.findall(r"slug:\s*'([^']+)'", m.group(1)))
     stub_m = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
     stubs = set(re.findall(r"'([^']+)'", stub_m.group(1))) if stub_m else set()
-    return sorted(slugs - stubs), sorted(stubs)
+    en_stub_m = re.search(r'DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)
+    en_stubs = set(re.findall(r"'([^']+)'", en_stub_m.group(1))) if en_stub_m else set()
+    return sorted(slugs - stubs), sorted(stubs), sorted(en_stubs)
 
 
 def same_site_path(url: str) -> str | None:
@@ -62,7 +64,7 @@ def path_exists(path: str) -> bool:
 
 
 def main() -> int:
-    published, stubs = parse_catalog()
+    published, stubs, en_stubs = parse_catalog()
     errors = []
     if not LLMS.exists():
         print('[FAIL] llms.txt missing')
@@ -93,8 +95,10 @@ def main() -> int:
     for slug in published:
         if f'{DOMAIN}/blog/{slug}' not in src:
             errors.append(f'missing canonical article URL: {slug}')
-        if f'{DOMAIN}/en/blog/{slug}' not in src:
+        if slug not in en_stubs and f'{DOMAIN}/en/blog/{slug}' not in src:
             errors.append(f'missing English article URL: {slug}')
+        if slug in en_stubs and f'{DOMAIN}/en/blog/{slug}' in src:
+            errors.append(f'untranslated English article URL leaked into llms.txt: {slug}')
     for slug in stubs:
         if f'/blog/{slug}' in src:
             errors.append(f'stub article leaked into llms.txt: {slug}')
@@ -116,7 +120,7 @@ def main() -> int:
             print('  - ' + err)
         return 1
 
-    print(f'[OK] llms.txt audit passed — {len(published)} published articles indexed in both locales')
+    print(f'[OK] llms.txt audit passed — {len(published)} ZH articles with publishable EN mirrors only')
     return 0
 
 

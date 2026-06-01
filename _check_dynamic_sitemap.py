@@ -64,6 +64,10 @@ def main() -> int:
         errors.append("api/sitemap.js should expose image:image entries for Chinese static URLs")
     if "staticImageTitle(p.url, 'en')" not in api:
         errors.append("api/sitemap.js should expose English image titles for English static URLs")
+    if "EN_STUB_SLUGS" not in api or "has_en: !enStubs.has(slug)" not in api:
+        errors.append("api/sitemap.js should parse untranslated English mirror gates")
+    if "if (!a.has_en) return;" not in api:
+        errors.append("api/sitemap.js should omit untranslated English mirror URLs")
 
     en_article_section = re.search(r"articles\.forEach\(a => \{[\s\S]*?DOMAIN\}/en/blog/\$\{a\.slug\}[\s\S]*?\}\);", api)
     section = en_article_section.group(0) if en_article_section else ""

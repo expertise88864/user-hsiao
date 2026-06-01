@@ -15,6 +15,12 @@ HREF_RE = re.compile(r'<a\b[^>]*\bhref=["\']([^"\']+)["\']', re.I)
 SKIP = {"404.html", "offline.html", "admin.html", "dashboard.html", "notes.html", "reset-sw.html"}
 
 
+def en_stub_slugs() -> set[str]:
+    js = (ROOT / "blog" / "blog-shared.js").read_text(encoding="utf-8")
+    match = re.search(r"DN\.EN_STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]", js)
+    return set(re.findall(r"'([^']+)'", match.group(1))) if match else set()
+
+
 def local_html_for_path(path: str) -> Path | None:
     clean = path.split("?", 1)[0].split("#", 1)[0]
     if clean == "/":
@@ -55,6 +61,7 @@ def should_check(href: str) -> bool:
 
 def main() -> int:
     errors: list[str] = []
+    en_stubs = en_stub_slugs()
     if not EN_ROOT.exists():
         print("[OK] English internal-link audit skipped; en/ not found")
         return 0
@@ -65,6 +72,9 @@ def main() -> int:
         for match in HREF_RE.finditer(src):
             href = match.group(1)
             if not should_check(href):
+                continue
+            article = re.match(r"^/blog/([^/?#]+)", href)
+            if article and article.group(1) in en_stubs:
                 continue
             if local_html_for_path(href) is not None and en_mirror_expected(href):
                 errors.append(f"{rel}: local page link should stay in /en/: {href}")

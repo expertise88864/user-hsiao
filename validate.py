@@ -84,7 +84,8 @@ def check(fp: Path, text: str):
             warnings[rel].append('missing twitter:card')
 
         # 6. hreflang
-        if not re.search(r'<link\s+rel="alternate"\s+hreflang="[^"]+"', text):
+        is_noindex = bool(re.search(r'<meta\s+name="robots"\s+content="[^"]*\bnoindex\b', text, re.IGNORECASE))
+        if not is_noindex and not re.search(r'<link\s+rel="alternate"\s+hreflang="[^"]+"', text):
             warnings[rel].append('missing hreflang alternate')
 
     # 7. JSON-LD blocks all parse

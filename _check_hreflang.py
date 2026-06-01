@@ -65,6 +65,11 @@ def parse_hreflang(html: str) -> dict[str, str]:
     return out
 
 
+def is_noindex(html: str) -> bool:
+    match = re.search(r'<meta\s+name="robots"\s+content="([^"]*)"', html, re.I)
+    return bool(match and 'noindex' in match.group(1).lower())
+
+
 def main():
     issues = []
     by_file = {}
@@ -85,6 +90,8 @@ def main():
             with open(fp, encoding='utf-8') as f:
                 html = f.read()
         except UnicodeDecodeError:
+            continue
+        if is_noindex(html):
             continue
         tags = parse_hreflang(html)
         by_file[rel] = tags
