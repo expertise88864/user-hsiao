@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-HsiaoEye — generate per-article 1200×630 Open Graph cards (PNG + WebP).
+HsiaoEye — generate per-article 1200×630 Open Graph cards (PNG).
 
 Why: Twitter / Facebook / LINE / Threads etc. show <meta property="og:image">
 when an article URL is shared. Without per-article cards, every share looks
@@ -9,7 +9,9 @@ like the same generic icon — terrible CTR. Per-article cards let each link
 preview show a unique branded card with the article title.
 
 Strategy mirrors DermNotes' assets/og/ pattern:
-  - Output: assets/og/<slug>.png (1200×630) + .webp (smaller, modern)
+  - Output: assets/og/<slug>.png (1200×630). PNG only — og:image is fetched
+    by social scrapers as the exact absolute URL (no content negotiation),
+    so .webp/.avif variants were dead weight and are no longer emitted.
   - Layout: paper-cream background, magazine-style typography
       ┌─────────────────────────────────────┐
       │ EYEBROW   (tag uppercase, blue)     │
@@ -177,13 +179,15 @@ def render_card(article, out_dir):
             en_text = en_text + '…'
         d.text((68, div_y - 50), en_text, font=f_en, fill=BLUE_DEEP)
 
-    # Save PNG + WebP
+    # Save PNG only. og:image is always referenced as the absolute .png URL —
+    # social scrapers (Facebook/LINE/Twitter) fetch THAT exact URL with no
+    # content negotiation, and no page/feed/sitemap references a .webp variant.
+    # The previously-emitted .webp cards (~574KB) were therefore never served;
+    # we stopped generating them in 2026-05.
     os.makedirs(out_dir, exist_ok=True)
     png_path  = os.path.join(out_dir, f'{slug}.png')
-    webp_path = os.path.join(out_dir, f'{slug}.webp')
     img.save(png_path,  'PNG',  optimize=True)
-    img.save(webp_path, 'WEBP', quality=85, method=6)
-    return png_path, webp_path
+    return png_path
 
 # ── Update each article HTML with per-slug og:image ──
 def update_meta_og(slug):
@@ -282,7 +286,7 @@ def main():
 
     print(f'Generating {len(to_render)} OG cards into {out_dir}/...')
     for a in to_render:
-        png, webp = render_card(a, out_dir)
+        png = render_card(a, out_dir)
         print(f'  ok  {png}')
         update_meta_og(a['slug'])
 
@@ -294,7 +298,7 @@ def main():
         png_path = os.path.join(out_dir, f"{s['slug']}.png")
         if only_changed and os.path.exists(png_path):
             continue
-        png, webp = render_card(s, out_dir)
+        png = render_card(s, out_dir)
         print(f'  ok  {png}')
 
     print(f'Done.')
