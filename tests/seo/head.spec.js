@@ -15,16 +15,24 @@ const ROOT = path.resolve(__dirname, '../..');
 
 // Public URLs — keep aligned with sitemap.xml. /admin and /404 deliberately
 // excluded (admin private; 404 only renders on bad URLs).
-function getPublishedArticleSlugs() {
+function parseSlugSet(src, name) {
+  const block = src.match(new RegExp(`DN\\.${name}\\s*=\\s*new\\s+Set\\(\\s*\\[([\\s\\S]*?)\\]`));
+  return new Set(block ? Array.from(block[1].matchAll(/'([^']+)'/g), m => m[1]) : []);
+}
+
+function getPublishedArticleCatalog() {
   const sharedPath = path.join(ROOT, 'blog', 'blog-shared.js');
   const src = fs.readFileSync(sharedPath, 'utf8');
   const articles = src.match(/DN\.ARTICLES\s*=\s*\[([\s\S]*?)\];/);
   if (!articles) throw new Error('Could not parse DN.ARTICLES from blog/blog-shared.js');
 
   const slugs = Array.from(articles[1].matchAll(/slug:\s*'([^']+)'/g), m => m[1]);
-  const stubBlock = src.match(/DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]/);
-  const stubs = new Set(stubBlock ? Array.from(stubBlock[1].matchAll(/'([^']+)'/g), m => m[1]) : []);
-  return slugs.filter(slug => !stubs.has(slug));
+  const stubs = parseSlugSet(src, 'STUB_SLUGS');
+  const enStubs = parseSlugSet(src, 'EN_STUB_SLUGS');
+  return {
+    slugs: slugs.filter(slug => !stubs.has(slug)),
+    enStubs,
+  };
 }
 
 const STATIC_PUBLIC_PATHS = [
@@ -44,17 +52,27 @@ const STATIC_PUBLIC_PATHS = [
 ];
 
 const STATIC_OG_SLUGS = ['home', 'about', 'tools', 'notes', 'privacy', 'blog', 'topics'];
-const ARTICLE_SLUGS = getPublishedArticleSlugs();
+const ARTICLE_CATALOG = getPublishedArticleCatalog();
+const ARTICLE_SLUGS = ARTICLE_CATALOG.slugs;
+const EN_STUB_SLUGS = ARTICLE_CATALOG.enStubs;
+const EN_ARTICLE_SLUGS = ARTICLE_SLUGS.filter(slug => !EN_STUB_SLUGS.has(slug));
 const PUBLIC_PATHS = Array.from(new Set([
   ...STATIC_PUBLIC_PATHS,
-  ...ARTICLE_SLUGS.flatMap(slug => [`/blog/${slug}`, `/en/blog/${slug}`]),
+  ...ARTICLE_SLUGS.map(slug => `/blog/${slug}`),
+  ...EN_ARTICLE_SLUGS.map(slug => `/en/blog/${slug}`),
 ]));
+
+function isGatedZhArticleUrl(value) {
+  if (typeof value !== 'string') return false;
+  const match = value.match(/^https:\/\/hsiao\.chendermatologist\.com\/blog\/([a-z0-9-]+)(?:#.*)?$/);
+  return Boolean(match && EN_STUB_SLUGS.has(match[1]));
+}
 
 function walkValues(obj, visit) {
   if (Array.isArray(obj)) return obj.forEach(x => walkValues(x, visit));
   if (obj && typeof obj === 'object') {
     for (const [k, v] of Object.entries(obj)) {
-      visit(k, v);
+      visit(k, v, obj);
       walkValues(v, visit);
     }
   }
@@ -147,11 +165,15 @@ for (const path of PUBLIC_PATHS) {
         let parsed;
         expect(() => { parsed = JSON.parse(raw); }, `JSON-LD #${i + 1} parse error`).not.toThrow();
         if (path.startsWith('/en/')) {
-          walkValues(parsed, (k, v) => {
-            if (k === 'inLanguage') expect(JSON.stringify(v), `English page JSON-LD #${i + 1} has zh inLanguage`).not.toMatch(/zh/i);
+          walkValues(parsed, (k, v, owner) => {
+            if (k === 'inLanguage' && !isGatedZhArticleUrl(owner.url) && !isGatedZhArticleUrl(owner['@id'])) {
+              expect(JSON.stringify(v), `English page JSON-LD #${i + 1} has zh inLanguage`).not.toMatch(/zh/i);
+            }
             if ((k === 'url' || k === 'mainEntityOfPage') && typeof v === 'string' && v.startsWith(SITE)) {
               if (/\/(blog|about|tools|notes|privacy)(\/|$)/.test(path)) {
-                expect(v, `English page JSON-LD #${i + 1} URL should point at /en/ when page-scoped`).not.toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/(blog|about|tools|notes|privacy)(\/|$)/);
+                if (!isGatedZhArticleUrl(v)) {
+                  expect(v, `English page JSON-LD #${i + 1} URL should point at /en/ when page-scoped`).not.toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/(blog|about|tools|notes|privacy)(\/|$)/);
+                }
               }
             }
           });
@@ -184,6 +206,9 @@ test('sitemap.xml is valid XML and contains canonical URLs', async ({ request })
   expect(xml.match(/<url>/g).length).toBeGreaterThan(10);
   expect(xml).toMatch(/https:\/\/hsiao\.chendermatologist\.com\/blog\/thyroid-eye-disease/);
   expect(xml).not.toMatch(/cataract-surgery-faq|glaucoma-warnings|contact-lens-safety|red-eye-conjunctivitis/);
+  for (const slug of EN_STUB_SLUGS) {
+    expect(xml, `gated English mirror leaked into sitemap: ${slug}`).not.toContain(`${SITE}/en/blog/${slug}`);
+  }
 });
 
 test('llms.txt indexes published articles without private paths', async ({ request }) => {
@@ -193,7 +218,11 @@ test('llms.txt indexes published articles without private paths', async ({ reque
   expect(txt).toMatch(/^# HsiaoEye/);
   for (const slug of ARTICLE_SLUGS) {
     expect(txt, `missing ZH URL for ${slug}`).toContain(`${SITE}/blog/${slug}`);
-    expect(txt, `missing EN URL for ${slug}`).toContain(`${SITE}/en/blog/${slug}`);
+    if (EN_STUB_SLUGS.has(slug)) {
+      expect(txt, `gated EN URL leaked into llms.txt for ${slug}`).not.toContain(`${SITE}/en/blog/${slug}`);
+    } else {
+      expect(txt, `missing EN URL for ${slug}`).toContain(`${SITE}/en/blog/${slug}`);
+    }
   }
   expect(txt).toContain(`${SITE}/blog/feed.xml`);
   expect(txt).toContain(`${SITE}/blog/atom.xml`);
@@ -228,7 +257,12 @@ test('JSON Feed exposes rich article metadata', async ({ request }) => {
     expect(item.image).toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/assets\/og\/.+\.png$/);
     expect(item.content_html).toContain(item.image);
     expect(item.attachments[0].mime_type).toBe('image/png');
-    expect(item._hsiaoeye.english_url).toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/en\/blog\//);
+    const slug = item.url.split('/').pop();
+    if (EN_STUB_SLUGS.has(slug)) {
+      expect(item._hsiaoeye.english_url, `gated EN URL leaked into JSON Feed for ${slug}`).toBeUndefined();
+    } else {
+      expect(item._hsiaoeye.english_url).toMatch(/^https:\/\/hsiao\.chendermatologist\.com\/en\/blog\//);
+    }
   }
 });
 
@@ -237,12 +271,24 @@ test('search-index.json indexes only published bilingual articles', async ({ req
   expect(r.ok()).toBeTruthy();
   const index = await r.json();
   expect(Array.isArray(index)).toBeTruthy();
-  expect(index.length).toBe(ARTICLE_SLUGS.length * 2);
+  expect(index.length).toBe(ARTICLE_SLUGS.length + EN_ARTICLE_SLUGS.length);
   for (const slug of ARTICLE_SLUGS) {
     expect(index.some(item => item.slug === slug && item.lang === 'zh-Hant-TW' && item.url === `/blog/${slug}`), `missing zh index entry for ${slug}`).toBeTruthy();
-    expect(index.some(item => item.slug === slug && item.lang === 'en' && item.url === `/en/blog/${slug}`), `missing en index entry for ${slug}`).toBeTruthy();
+    const hasEnEntry = index.some(item => item.slug === slug && item.lang === 'en' && item.url === `/en/blog/${slug}`);
+    expect(hasEnEntry, `${EN_STUB_SLUGS.has(slug) ? 'gated' : 'missing'} en index entry for ${slug}`).toBe(!EN_STUB_SLUGS.has(slug));
   }
   expect(JSON.stringify(index)).not.toMatch(/cataract-surgery-faq|glaucoma-warnings|contact-lens-safety|red-eye-conjunctivitis/);
+});
+
+test('untranslated English mirrors stay noindex and out of hreflang discovery', async ({ page }) => {
+  for (const slug of EN_STUB_SLUGS) {
+    const pagePath = `/en/blog/${slug}`;
+    const resp = await page.goto(BASE + pagePath, { waitUntil: 'domcontentloaded' });
+    expect(resp.ok(), `non-2xx for gated mirror ${pagePath}`).toBeTruthy();
+    await expect(page.locator('head meta[name="robots"]'), `${pagePath} should stay noindex`).toHaveAttribute('content', /noindex/);
+    await expect(page.locator('head link[rel="alternate"][hreflang]'), `${pagePath} should not advertise hreflang`).toHaveCount(0);
+    await expect(page.locator('head link[rel="canonical"]'), `${pagePath} should keep a self canonical`).toHaveAttribute('href', `${SITE}${pagePath}`);
+  }
 });
 
 test('Cmd+K search finds published content and hides stubs', async ({ page }) => {
