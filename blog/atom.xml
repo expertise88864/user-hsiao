@@ -6,7 +6,7 @@
   <link href="https://hsiao.chendermatologist.com/blog/atom.xml" rel="self" />
   <link href="https://pubsubhubbub.appspot.com/" rel="hub" />
   <id>https://hsiao.chendermatologist.com/</id>
-  <updated>2026-05-26T00:00:00Z</updated>
+  <updated>2026-06-02T00:00:00Z</updated>
   <author>
     <name>蕭閔謙 醫師</name>
     <email>f94001115@gmail.com</email>
@@ -15,6 +15,19 @@
   <rights>© 2026 蕭閔謙 醫師</rights>
   <generator uri="https://hsiao.chendermatologist.com">HsiaoEye auto-feed v1</generator>
 
+  <entry>
+    <title>難治型非感染性葡萄膜炎：Adalimumab、Tocilizumab、Anakinra 隨機試驗解析</title>
+    <link href="https://hsiao.chendermatologist.com/blog/refractory-noninfectious-uveitis-biologics-rubi-trial" rel="alternate" />
+    <link href="https://hsiao.chendermatologist.com/en/blog/refractory-noninfectious-uveitis-biologics-rubi-trial" rel="alternate" hreflang="en" />
+    <link href="https://hsiao.chendermatologist.com/assets/og/refractory-noninfectious-uveitis-biologics-rubi-trial.png" rel="enclosure" type="image/png" />
+    <id>https://hsiao.chendermatologist.com/blog/refractory-noninfectious-uveitis-biologics-rubi-trial</id>
+    <updated>2026-06-02T00:00:00Z</updated>
+    <published>2026-06-02T00:00:00Z</published>
+    <category term="葡萄膜炎" />
+    <summary>2026 RUBI 隨機試驗比較難治型非感染性葡萄膜炎三種生物製劑：adalimumab 與 tocilizumab 未顯示明確優劣，anakinra 因療效不足提早停止。整理研究限制與台灣健保邊界。</summary>
+    <media:thumbnail url="https://hsiao.chendermatologist.com/assets/og/refractory-noninfectious-uveitis-biologics-rubi-trial.png" />
+    <content type="html"><![CDATA[<p>2026 RUBI 隨機試驗比較難治型非感染性葡萄膜炎三種生物製劑：adalimumab 與 tocilizumab 未顯示明確優劣，anakinra 因療效不足提早停止。整理研究限制與台灣健保邊界。</p><p><img src="https://hsiao.chendermatologist.com/assets/og/refractory-noninfectious-uveitis-biologics-rubi-trial.png" alt="難治型非感染性葡萄膜炎：Adalimumab、Tocilizumab、Anakinra 隨機試驗解析" /></p><p><a href="https://hsiao.chendermatologist.com/blog/refractory-noninfectious-uveitis-biologics-rubi-trial">閱讀全文</a></p>]]></content>
+  </entry>
   <entry>
     <title>睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析</title>
     <link href="https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026" rel="alternate" />
