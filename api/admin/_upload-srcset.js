@@ -32,6 +32,7 @@ import { requireAdmin, getRepoConfig } from './_auth.js';
 const MAX_VARIANTS = 12;
 const MAX_BYTES_PER = 4 * 1024 * 1024;   // 4 MB per variant
 const ALLOWED_FORMATS = new Set(['webp', 'avif', 'jpeg', 'png']);
+const ALLOWED_FOLDERS = new Set(['assets', 'assets/og', 'assets/article-img']);
 
 function bad(res, status, msg) { return res.status(status).json({ error: msg }); }
 
@@ -83,6 +84,7 @@ export default async function handler(req, res) {
   let { stem, folder, variants } = body || {};
   folder = folder || 'assets/article-img';
 
+  if (!ALLOWED_FOLDERS.has(folder)) return bad(res, 400, 'folder must be assets, assets/og, or assets/article-img');
   if (!stem || !/^[a-z0-9._-]+$/i.test(stem)) return bad(res, 400, 'invalid stem');
   if (!Array.isArray(variants) || !variants.length) return bad(res, 400, 'variants required');
   if (variants.length > MAX_VARIANTS) return bad(res, 400, `too many variants (>${MAX_VARIANTS})`);

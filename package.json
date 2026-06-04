@@ -4,7 +4,7 @@
   "private": true,
   "description": "HsiaoEye — Min-Chien Hsiao MD's ophthalmology patient-education site",
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "scripts": {
     "minify": "esbuild blog/blog-shared.js --minify --legal-comments=none --target=es2020 --outfile=blog/blog-shared.min.js",

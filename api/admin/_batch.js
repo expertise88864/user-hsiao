@@ -15,7 +15,7 @@
  * Returns:
  *   { ok, total, succeeded, failed, results: [{slug, op, ok, ... }] }
  */
-import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
+import { requireAdmin, ghGetFile } from './_auth.js';
 
 const VALID_OPS = ['seo-fix', 'faqpage', 'autolink'];
 
@@ -100,39 +100,42 @@ export default async function handler(req, res) {
   // their own `req`. We'll forward our `req.headers.cookie` to the inner one.
   const cookie = req.headers.cookie;
 
-  // Concurrency limit = 3 to avoid GitHub secondary rate-limit
-  const queue = [];
-  slugs.forEach(slug => ops.forEach(op => queue.push({ slug, op })));
+  // Concurrency limit = 3 across slugs to avoid GitHub secondary rate-limit.
+  // Ops for the same slug must stay serial: each handler writes the article
+  // with the SHA it just fetched, so parallel same-slug writes can conflict.
+  const queue = Array.from(new Set(slugs));
   const workers = [];
   for (let w = 0; w < 3; w++) {
     workers.push((async () => {
       while (queue.length) {
-        const item = queue.shift();
-        if (!item) break;
-        try {
-          // Build inner req inline
-          const innerReq = {
-            method: 'POST',
-            headers: { 'content-type': 'application/json', cookie },
-            body: { slug: item.slug, ...(item.op === 'faqpage' ? { type: 'faqpage' } : {}), ...(item.op === 'autolink' ? { action: 'autolink' } : {}) },
-            query: item.op === 'autolink' ? { action: 'autolink' } : {},
-          };
-          let status = 0, payload;
-          const innerRes = {
-            status(s) { status = s; return this; },
-            json(p)   { payload = p; return this; },
-            send(p)   { payload = p; return this; },
-            setHeader() { return this; },
-            end() { return this; },
-          };
-          let mod;
-          if (item.op === 'seo-fix')  mod = await import('./_seo-fix.js');
-          else if (item.op === 'faqpage') mod = await import('./_schema-helper.js');
-          else if (item.op === 'autolink') mod = await import('./_dictionary.js');
-          await mod.default(innerReq, innerRes);
-          results.push({ slug: item.slug, op: item.op, ok: status < 300, status, ...payload });
-        } catch (e) {
-          results.push({ slug: item.slug, op: item.op, ok: false, error: String(e.message || e) });
+        const slug = queue.shift();
+        if (!slug) break;
+        for (const op of ops) {
+          try {
+            // Build inner req inline
+            const innerReq = {
+              method: 'POST',
+              headers: { 'content-type': 'application/json', cookie },
+              body: { slug, ...(op === 'faqpage' ? { type: 'faqpage' } : {}), ...(op === 'autolink' ? { action: 'autolink' } : {}) },
+              query: op === 'autolink' ? { action: 'autolink' } : {},
+            };
+            let status = 200, payload;
+            const innerRes = {
+              status(s) { status = s; return this; },
+              json(p)   { payload = p; return this; },
+              send(p)   { payload = p; return this; },
+              setHeader() { return this; },
+              end() { return this; },
+            };
+            let mod;
+            if (op === 'seo-fix')  mod = await import('./_seo-fix.js');
+            else if (op === 'faqpage') mod = await import('./_schema-helper.js');
+            else if (op === 'autolink') mod = await import('./_dictionary.js');
+            await mod.default(innerReq, innerRes);
+            results.push({ slug, op, ok: status < 300, status, ...payload });
+          } catch (e) {
+            results.push({ slug, op, ok: false, error: String(e.message || e) });
+          }
         }
       }
     })());

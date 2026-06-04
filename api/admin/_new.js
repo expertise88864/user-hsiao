@@ -237,7 +237,26 @@ export default async function handler(req, res) {
       return res.status(409).json({ error: `Article ${slug}.html already exists` });
     }
 
-    // 2. Create article HTML from template
+    // 2. Prepare the DN.ARTICLES catalog patch before creating the article.
+    // GitHub Contents API cannot commit both files atomically, so fail early
+    // if the catalog cannot be patched instead of leaving an orphan article.
+    const sharedJs = await ghGetFile('blog/blog-shared.js');
+    if (!sharedJs) {
+      return res.status(500).json({ error: 'blog-shared.js not found' });
+    }
+    if (new RegExp(`slug\\s*:\\s*'${slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'`).test(sharedJs.content)) {
+      return res.status(409).json({ error: `Article ${slug} is already registered in DN.ARTICLES` });
+    }
+    const newEntry = `    { slug:'${slug}', title:'${escapeJsString(rawTitleZh)}', title_en:'${escapeJsString(rawTitleEn)}', cat:'${safeCat}', tag:'${escapeJsString(rawTagZh)}', tag_en:'${escapeJsString(rawTagEn)}', date:'${today}' },\n`;
+    const patchedSharedJs = sharedJs.content.replace(
+      /(DN\.ARTICLES\s*=\s*\[\s*\n)/,
+      `$1${newEntry}`
+    );
+    if (patchedSharedJs === sharedJs.content) {
+      return res.status(500).json({ error: 'DN.ARTICLES insertion point not found in blog-shared.js' });
+    }
+
+    // 3. Create article HTML from template
     const html = TEMPLATE({
       slug,
       titleZh: escapeHtml(rawTitleZh),
@@ -254,23 +273,22 @@ export default async function handler(req, res) {
       `admin: create new article ${slug}`
     );
 
-    // 3. Patch DN.ARTICLES in blog-shared.js to register the new entry
-    const sharedJs = await ghGetFile('blog/blog-shared.js');
-    if (sharedJs) {
-      // Insert as the FIRST entry (newest by date)
-      const newEntry = `    { slug:'${slug}', title:'${escapeJsString(rawTitleZh)}', title_en:'${escapeJsString(rawTitleEn)}', cat:'${safeCat}', tag:'${escapeJsString(rawTagZh)}', tag_en:'${escapeJsString(rawTagEn)}', date:'${today}' },\n`;
-      const patched = sharedJs.content.replace(
-        /(DN\.ARTICLES\s*=\s*\[\s*\n)/,
-        `$1${newEntry}`
+    // 4. Register the new article in DN.ARTICLES.
+    try {
+      await ghPutFile(
+        'blog/blog-shared.js',
+        patchedSharedJs,
+        `admin: register article ${slug} in DN.ARTICLES`,
+        sharedJs.sha
       );
-      if (patched !== sharedJs.content) {
-        await ghPutFile(
-          'blog/blog-shared.js',
-          patched,
-          `admin: register article ${slug} in DN.ARTICLES`,
-          sharedJs.sha
-        );
-      }
+    } catch (e) {
+      return res.status(502).json({
+        ok: false,
+        partial: true,
+        slug,
+        articleCommit: created.commitSha,
+        error: `Created blog/${slug}.html but failed to register DN.ARTICLES: ${e.message || e}`,
+      });
     }
 
     res.status(200).json({ ok: true, slug, commit: created.commitSha });
