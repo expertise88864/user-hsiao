@@ -131,6 +131,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
+    { slug:'pediatric-high-myopia-maculopathy-progression', title:'高度近視兒童：8 年內 1/3 黃斑部病變惡化，眼軸變化可預警', title_en:'Childhood High Myopia: 1-in-3 Maculopathy in 8 Years', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-06-05' },
     { slug:'refractory-noninfectious-uveitis-biologics-rubi-trial', title:'難治型非感染性葡萄膜炎：Adalimumab、Tocilizumab、Anakinra 隨機試驗解析', title_en:'Refractory Noninfectious Uveitis — RUBI Biologics Trial', cat:'research', tag:'葡萄膜炎', tag_en:'Uveitis', date:'2026-06-02', updated:'2026-06-05' },
     { slug:'osa-amd-systematic-review-2026', title:'睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析', title_en:'Sleep Apnea and AMD Risk — 2026 Meta-Analysis', cat:'research', tag:'黃斑部病變', tag_en:'AMD', date:'2026-05-26' },
     { slug:'pterygium-surgery-fixation-methods-2026-nma', title:'翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析', title_en:'Pterygium Fixation Methods — 2026 NMA of 35 RCTs', cat:'research', tag:'翼狀贅肉', tag_en:'Pterygium', date:'2026-05-23' },

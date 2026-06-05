@@ -98,6 +98,19 @@
 
   <!-- ===== Published articles ===== -->
   <url>
+    <loc>https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pediatric-high-myopia-maculopathy-progression" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/pediatric-high-myopia-maculopathy-progression.png</image:loc>
+      <image:title>高度近視兒童：8 年內 1/3 黃斑部病變惡化，眼軸變化可預警</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/blog/refractory-noninfectious-uveitis-biologics-rubi-trial</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -433,6 +446,19 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/privacy.png</image:loc>
       <image:title>Privacy Policy</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/pediatric-high-myopia-maculopathy-progression</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pediatric-high-myopia-maculopathy-progression" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/pediatric-high-myopia-maculopathy-progression.png</image:loc>
+      <image:title>Childhood High Myopia: 1-in-3 Maculopathy in 8 Years</image:title>
     </image:image>
   </url>
   <url>

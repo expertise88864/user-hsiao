@@ -29,6 +29,8 @@ BREADCRUMB_SCHEMA_RE = re.compile(
 )
 
 ARTICLE_SNIPPETS = {
+    'pediatric-high-myopia-maculopathy-progression':
+        '2026《美國眼科期刊》中山眼科 8 年前瞻世代：155 名高度近視兒童、310 隻眼。8 年內 31.3% 出現近視性黃斑部病變惡化；把「2 年眼軸變化率」加入模型，可將預測準確度從 AUC 0.772 提升到 0.829，最佳切點約每年 0.325 mm。整理 Meta-PM 分級、機轉、高風險族群、紅旗與台灣家長對策。蕭閔謙醫師整理。',
     'refractory-noninfectious-uveitis-biologics-rubi-trial':
         '2026 AJO RUBI 多中心貝氏隨機試驗：112 名成人難治型非感染性、非前段葡萄膜炎，比較 adalimumab（抗 TNF-α）、tocilizumab（抗 IL-6R）、anakinra（抗 IL-1）16 週。主要複合終點 ADA 16% vs TCZ 14%（相當、不顯著）；anakinra 因療效不足提早停止；類固醇減量達標 ADA 59% vs TCZ 74%。機轉、安全性、研究限制與台灣處境完整整理。蕭閔謙醫師整理。',
     'osa-amd-systematic-review-2026':
