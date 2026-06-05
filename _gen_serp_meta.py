@@ -30,7 +30,7 @@ BREADCRUMB_SCHEMA_RE = re.compile(
 
 ARTICLE_SNIPPETS = {
     'refractory-noninfectious-uveitis-biologics-rubi-trial':
-        '2026 AJO RUBI 多中心 Bayesian 隨機試驗：112 位成人難治型非感染性、非前段葡萄膜炎患者接受 adalimumab、tocilizumab 或 anakinra。Adalimumab 與 tocilizumab 的嚴格主要終點達成率為 16% 與 14%，未顯示明確優劣；anakinra 因療效不足提早停止。整理次要訊號、研究限制與台灣健保小兒 adalimumab 給付邊界。蕭閔謙醫師整理。',
+        '2026 AJO RUBI 多中心貝氏隨機試驗：112 名成人難治型非感染性、非前段葡萄膜炎，比較 adalimumab（抗 TNF-α）、tocilizumab（抗 IL-6R）、anakinra（抗 IL-1）16 週。主要複合終點 ADA 16% vs TCZ 14%（相當、不顯著）；anakinra 因療效不足提早停止；類固醇減量達標 ADA 59% vs TCZ 74%。機轉、安全性、研究限制與台灣處境完整整理。蕭閔謙醫師整理。',
     'osa-amd-systematic-review-2026':
         '2026 AJO Yaldo 等系統性回顧整合分析：8 篇研究、353 萬人（含台灣 NHIRD）。OSA 與 AMD 風險顯著相關——調整 aOR 1.44（中等證據力，I²=0%）、時間風險 aHR 1.66；nAMD OR 1.76、非新生血管型 1.95。機轉：間歇缺氧→補體活化+脈絡膜血流不足。OSA 是少數可治療的 AMD 系統性危險因子，惟證據力尚不支持例行篩檢。蕭閔謙醫師整理。',
     'pterygium-surgery-fixation-methods-2026-nma':
