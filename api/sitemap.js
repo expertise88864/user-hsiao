@@ -24,7 +24,7 @@ const STATIC_PAGES = [
   { url: '/tools',         priority: '0.85', changefreq: 'monthly' },
   { url: '/blog',          priority: '0.95', changefreq: 'weekly' },
   { url: '/blog/topics',   priority: '0.7',  changefreq: 'monthly' },
-  { url: '/notes',         priority: '0.5',  changefreq: 'monthly' },
+  // /notes intentionally excluded — thin "coming soon" placeholder (noindex).
   { url: '/privacy',       priority: '0.4',  changefreq: 'yearly' },
 ];
 
@@ -34,7 +34,6 @@ const STATIC_OG_SLUGS = {
   '/tools': 'tools',
   '/blog': 'blog',
   '/blog/topics': 'topics',
-  '/notes': 'notes',
   '/privacy': 'privacy',
 };
 
@@ -45,7 +44,6 @@ const STATIC_IMAGE_TITLES = {
     '/tools': '眼科自評量表 · 5 個臨床計算器',
     '/blog': '眼科衛教文章索引',
     '/blog/topics': '主題地圖',
-    '/notes': '學習筆記',
     '/privacy': '隱私權政策',
   },
   en: {
@@ -54,7 +52,6 @@ const STATIC_IMAGE_TITLES = {
     '/tools': 'Ophthalmology Calculators',
     '/blog': 'Ophthalmology Articles',
     '/blog/topics': 'Ophthalmology Topic Map',
-    '/notes': 'Ophthalmology Study Notes',
     '/privacy': 'Privacy Policy',
   },
 };
@@ -232,7 +229,7 @@ export default async function handler(req, res) {
 
     lines.push('', '  <!-- ===== Published articles ===== -->');
     articles.forEach(a => {
-      const lastmod = lastmods[`blog/${a.slug}.html`] || a.date;
+      const lastmod = lastmods[`blog/${a.slug}.html`] || a.updated || a.date;
       lines.push(emit(`/blog/${a.slug}`, `/en/blog/${a.slug}`, lastmod, 'monthly', '0.95',
         `${DOMAIN}/assets/og/${a.slug}.png`, a.title, a.has_en));
     });
@@ -260,7 +257,7 @@ export default async function handler(req, res) {
     });
     articles.forEach(a => {
       if (!a.has_en) return;
-      const lastmod = lastmods[`blog/${a.slug}.html`] || a.date;
+      const lastmod = lastmods[`blog/${a.slug}.html`] || a.updated || a.date;
       lines.push('  <url>',
         `    <loc>${DOMAIN}/en/blog/${a.slug}</loc>`,
         `    <lastmod>${lastmod}</lastmod>`,

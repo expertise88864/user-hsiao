@@ -161,7 +161,7 @@ img, video { max-width: 100%; height: auto; }
 .text-\[64px\]    { font-size: 64px; }
 
 /* Custom palette text colors */
-.text-ink-500 { color: #64748b; }
+.text-ink-500 { color: #5b6577; } /* darkened from #64748b → ~5.4:1 on cream header (#faf7f2) to clear WCAG AA 1.4.3 for the small header subtitle */
 .text-ink-900 { color: #0f172a; }
 .bg-white     { background-color: #fff; }
 

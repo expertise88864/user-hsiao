@@ -829,10 +829,11 @@
 
     const slug = DN.currentSlug();
     const meta = (DN.ARTICLES || []).find(function (a) { return a.slug === slug; });
-    // v37.42 — show updated (last reviewed) date when present, otherwise
-    // fall back to publish date. The badge label says "最後審閱" so
-    // semantically "updated" is the right field; the old code showed
-    // publish date which was misleading after content was revised.
+    // v37.42 — show the updated date when present, otherwise fall back to
+    // publish date. Label is "最後更新 / Last updated" (NOT "最後審閱 /
+    // Last reviewed"): the field is meta.updated||meta.date, i.e. an
+    // update/publish timestamp, not an independent editorial-review event —
+    // so an accurate label avoids implying a medical review that didn't happen.
     const reviewedDate = meta ? (meta.updated || meta.date || '') : '';
 
     // v31: Use precomputed `minutes` from DN.ARTICLES (set by /api/admin/precompute-meta).
@@ -863,7 +864,7 @@
       (reviewedDate ?
       '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:9999px;background:#dcfce7;border:1px solid #86efac;color:#14532d;font-weight:600">' +
         '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
-        '<span data-zh="最後審閱 ' + reviewedDate + '" data-en="Last reviewed · ' + reviewedDate + '">最後審閱 ' + reviewedDate + '</span>' +
+        '<span data-zh="最後更新 ' + reviewedDate + '" data-en="Last updated · ' + reviewedDate + '">最後更新 ' + reviewedDate + '</span>' +
       '</span>' : '') +
       '<a href="' + DN.AUTHOR_BIO_URL + '" style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:9999px;background:#fff;border:1px solid var(--border);color:var(--blue-deep);text-decoration:none;font-weight:600" data-zh="蕭閔謙 醫師 →" data-en="Dr. Hsiao →">蕭閔謙 醫師 →</a>';
     target.parentNode.insertBefore(bar, target.nextSibling);
@@ -3761,7 +3762,7 @@
     if (DN._adminLoaded) return;
     DN._adminLoaded = true;
     var s = document.createElement('script');
-    s.src = '/blog/blog-admin.js?v=20260658';
+    s.src = '/blog/blog-admin.js?v=20260659';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

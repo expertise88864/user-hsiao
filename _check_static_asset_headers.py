@@ -42,11 +42,11 @@ EXPECTED = {
     },
     "/assets/app.css": {
         "Content-Type": "text/css; charset=utf-8",
-        "Cache-Control": "public, max-age=2592000, stale-while-revalidate=604800",
+        "Cache-Control": "public, max-age=31536000, immutable",
     },
     "/assets/article.css": {
         "Content-Type": "text/css; charset=utf-8",
-        "Cache-Control": "public, max-age=2592000, stale-while-revalidate=604800",
+        "Cache-Control": "public, max-age=31536000, immutable",
     },
     "/llms.txt": {
         "Content-Type": "text/plain; charset=utf-8",

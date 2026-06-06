@@ -142,7 +142,9 @@ STATIC_PAGES = [
     {'url': '/tools',         'priority': '0.85', 'changefreq': 'monthly'},
     {'url': '/blog',          'priority': '0.95', 'changefreq': 'weekly'},
     {'url': '/blog/topics',   'priority': '0.7',  'changefreq': 'monthly'},
-    {'url': '/notes',         'priority': '0.5',  'changefreq': 'monthly'},
+    # /notes intentionally excluded — it is a thin "coming soon" placeholder
+    # (noindex,follow); thin indexed pages are a quality liability on a young
+    # YMYL site. Re-add when it has substantive content.
     {'url': '/privacy',       'priority': '0.4',  'changefreq': 'yearly'},
 ]
 
@@ -152,7 +154,6 @@ STATIC_OG_SLUGS = {
     '/tools': 'tools',
     '/blog': 'blog',
     '/blog/topics': 'topics',
-    '/notes': 'notes',
     '/privacy': 'privacy',
 }
 

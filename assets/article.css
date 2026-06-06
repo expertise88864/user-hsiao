@@ -481,3 +481,36 @@ figure.article-fig svg {
    every page). Do not re-add them here — single source of truth.
    ============================================================ */
 
+/* ============================================================
+   On-page FAQ accordion (.hs-faq)
+   ------------------------------------------------------------
+   Visible patient Q&A at the end of articles. The same <details>
+   markup is auto-scanned by _gen_faqpage_jsonld.py to emit FAQPage
+   rich-result JSON-LD. Loaded only on article pages (article.css).
+   ============================================================ */
+.hs-faq { margin: 36px 0 8px; }
+.hs-faq > h2 { font-size: clamp(20px, 3vw, 26px); margin: 0 0 14px; }
+.hs-faq details {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0 16px;
+  margin: 10px 0;
+  background: var(--surface);
+}
+.hs-faq summary {
+  cursor: pointer;
+  padding: 14px 0;
+  font-weight: 600;
+  color: var(--ink);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.hs-faq summary::-webkit-details-marker { display: none; }
+.hs-faq summary::after { content: "+"; color: var(--muted); font-size: 20px; line-height: 1; flex-shrink: 0; }
+.hs-faq details[open] summary::after { content: "\2212"; }
+.hs-faq details > div { padding: 0 0 16px; color: var(--ink-2); line-height: 1.75; }
+.hs-faq details > div a { color: var(--blue-deep); }
+

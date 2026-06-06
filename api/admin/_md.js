@@ -170,7 +170,7 @@ function markdownToHtml(md) {
     // Image (paragraph alone)
     const imgM = line.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
     if (imgM) {
-      out.push(`<figure><img src="${imgM[2]}" alt="${imgM[1]}" loading="lazy" decoding="async" style="max-width:100%;border-radius:8px" />` +
+      out.push(`<figure><img src="${attrEsc(safeUrl(imgM[2], { allowDataImage: true }))}" alt="${attrEsc(imgM[1])}" loading="lazy" decoding="async" style="max-width:100%;border-radius:8px" />` +
         (lines[i + 1] && /^\*[^*]+\*\s*$/.test(lines[i + 1].trim())
           ? `<figcaption>${escInline(lines[i + 1].trim().slice(1, -1))}</figcaption></figure>`
           : '</figure>'));
@@ -186,7 +186,7 @@ function markdownToHtml(md) {
       const block = [line];
       i++;
       while (i < lines.length && lines[i].trim() !== '') { block.push(lines[i]); i++; }
-      out.push(block.join('\n'));
+      out.push(sanitizeRawHtml(block.join('\n')));
       continue;
     }
 
@@ -205,10 +205,42 @@ function markdownToHtml(md) {
 function parseRow(line) {
   return line.replace(/^\||\|$/g, '').split('|').map(c => c.replace(/\\\|/g, '|').trim());
 }
+// --- URL / HTML safety helpers ---------------------------------------------
+// Markdown here is admin-authored but the rendered HTML is committed and served
+// to the public, so neutralize the obvious stored-XSS vectors (javascript: URLs,
+// <script>, inline event handlers) before it lands in a blog/<slug>.html file.
+function attrEsc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function safeUrl(url, opts) {
+  const u = String(url || '').trim();
+  if (/^(?:[/#?]|\.{0,2}\/)/.test(u)) return u;            // relative / anchor / query
+  const m = u.match(/^([a-z][a-z0-9+.\-]*)\s*:/i);
+  if (!m) return u;                                          // schemeless relative
+  const s = m[1].toLowerCase();
+  if (s === 'http' || s === 'https' || s === 'mailto' || s === 'tel') return u;
+  if (opts && opts.allowDataImage && /^data:image\//i.test(u)) return u;
+  return '';                                                 // block javascript:, vbscript:, data:(non-image), …
+}
+function sanitizeRawHtml(html) {
+  return String(html)
+    // drop <script>…</script> and stray <script> / </script>
+    .replace(/<\s*script\b[\s\S]*?<\/\s*script\s*>/gi, '')
+    .replace(/<\s*\/?\s*script\b[^>]*>/gi, '')
+    // strip inline event handlers (onclick=, onerror=, …)
+    .replace(/\son[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+    // neutralize script-executing URL schemes in href/src/xlink:href
+    .replace(/((?:href|src|xlink:href)\s*=\s*)(?:"\s*(?:javascript|vbscript)\s*:[^"]*"|'\s*(?:javascript|vbscript)\s*:[^']*'|(?:javascript|vbscript)\s*:[^\s>]+)/gi, '$1"#"');
+}
+
 function escInline(t) {
   return t
-    // links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    // links (block dangerous URL schemes; render unsafe links as plain text)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (m, text, url) {
+      const safe = safeUrl(url);
+      return safe ? '<a href="' + attrEsc(safe) + '">' + text + '</a>' : text;
+    })
     // bold
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/__([^_]+)__/g, '<strong>$1</strong>')

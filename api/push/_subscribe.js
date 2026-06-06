@@ -13,6 +13,12 @@ import { kvAvailable, kvGetJSON, kvSetJSON } from '../_kv.js';
 
 const KV_KEY = 'push:subscribers';
 const SUBSCRIBERS_PATH = 'assets/push-subscribers.json';
+// Abuse guards for the UNAUTHENTICATED subscribe endpoint: cap total stored
+// subscriptions and only accept endpoints that belong to a real push service
+// (prevents unbounded storage growth + arbitrary outbound fetch targets when
+// the admin later broadcasts).
+const MAX_SUBS = 5000;
+const ALLOWED_PUSH_HOST = /(^|\.)(googleapis\.com|push\.apple\.com|notify\.windows\.com|wns\.windows\.com|push\.services\.mozilla\.com)$/i;
 
 async function loadSubs() {
   if (kvAvailable()) {
@@ -66,12 +72,16 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'endpoint + keys.p256dh + keys.auth required' });
   }
   if (!/^https?:\/\//.test(endpoint)) return res.status(400).json({ error: 'invalid endpoint' });
+  let endpointHost = '';
+  try { endpointHost = new URL(endpoint).host; } catch (e) { return res.status(400).json({ error: 'invalid endpoint' }); }
+  if (!ALLOWED_PUSH_HOST.test(endpointHost)) return res.status(400).json({ error: 'unsupported push endpoint host' });
 
   try {
     const { subs, sha } = await loadSubs();
     if (subs.find(s => s.endpoint === endpoint)) {
       return res.status(200).json({ ok: true, deduped: true, count: subs.length });
     }
+    if (subs.length >= MAX_SUBS) return res.status(429).json({ error: 'subscriber limit reached' });
     subs.push({
       endpoint, keys,
       ua: (userAgent || req.headers['user-agent'] || '').slice(0, 120),

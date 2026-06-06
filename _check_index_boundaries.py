@@ -20,6 +20,10 @@ PRIVATE_PAGES = {
     "admin/mobile.html": {"route": "/admin/mobile", "robots": "noindex,nofollow", "blocked": True},
     "offline.html": {"route": "/offline", "robots": "noindex,nofollow", "blocked": False},
     "404.html": {"route": "/404", "robots": "noindex,follow", "blocked": False},
+    # /notes is a thin "coming soon" placeholder — noindex,follow and excluded
+    # from the sitemap until it has substantive content (crawlable, not blocked
+    # in robots.txt, so Google can see the noindex). Re-promote when written.
+    "notes.html": {"route": "/notes", "robots": "noindex,follow", "blocked": False},
 }
 
 # HsiaoEye-actual public static routes (no /dashboard, /glossary, /support).
@@ -32,7 +36,6 @@ PUBLIC_STATIC_ROUTES = {
     "/about",
     "/blog",
     "/blog/topics",
-    "/notes",
     "/privacy",
     "/tools",
 }

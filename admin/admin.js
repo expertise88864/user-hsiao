@@ -712,10 +712,10 @@ function buildArticleTemplate({ slug, titleZh, titleEn, cat, tag, tagEn, date })
 <meta name="twitter:description" content="${titleZh}" />
 <meta name="twitter:image" content="https://hsiao.chendermatologist.com/assets/og/${slug}.png" />
 
-<link rel="preload" as="style" href="/assets/app.css?v=20260658" />
-<link rel="stylesheet" href="/assets/app.css?v=20260658" />
-<link rel="preload" as="style" href="/assets/article.css?v=20260658" />
-<link rel="stylesheet" href="/assets/article.css?v=20260658" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260659" />
+<link rel="stylesheet" href="/assets/app.css?v=20260659" />
+<link rel="preload" as="style" href="/assets/article.css?v=20260659" />
+<link rel="stylesheet" href="/assets/article.css?v=20260659" />
 <style>
   :root{ --bg:#faf7f2; --ink:#2a2620; --ink-2:#5e574e; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0; --border:#dcd5c8; --line:#ebe4d8; }
   html,body{ background:var(--bg); color:var(--ink); font-family:Inter,'Noto Sans TC',sans-serif; }
@@ -780,7 +780,7 @@ function buildArticleTemplate({ slug, titleZh, titleEn, cat, tag, tagEn, date })
   <p style="font-size:11px;color:rgba(247,243,236,.55);margin-top:18px">© 2026 HsiaoEye · 蕭閔謙 醫師</p>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260658" defer></script>
+<script src="/blog/blog-shared.js?v=20260659" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({slug:'${slug}'});});</script>
 </body>
 </html>

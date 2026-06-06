@@ -17,10 +17,21 @@
 import { requireAdmin, getRepoConfig } from './_auth.js';
 
 const MAX_BYTES = 8 * 1024 * 1024;  // 8 MB
-const ALLOWED_EXT = /\.(webp|avif|jpg|jpeg|png|svg|gif)$/i;
+// SVG is intentionally NOT allowed: it is an active XML document that can carry
+// <script>/on*=/namespaced-script and would execute same-origin on the medical
+// domain (uploaded assets are served without a per-file CSP). Regex sanitizing
+// SVG is bypassable, so we disallow it outright. Use webp/avif/png/jpg/gif.
+const ALLOWED_EXT = /\.(webp|avif|jpg|jpeg|png|gif)$/i;
 const ALLOWED_FOLDERS = new Set(['assets', 'assets/og', 'assets/article-img']);
 
 function bad(res, status, msg) { return res.status(status).json({ error: msg }); }
+
+// Decode just the head of a base64 payload (for content sniffing) without
+// materializing the whole buffer. Tolerates a ragged base64 boundary.
+function safeDecodeHead(b64) {
+  try { return Buffer.from(String(b64).slice(0, 4096), 'base64').toString('utf-8'); }
+  catch (e) { return ''; }
+}
 
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
@@ -34,21 +45,18 @@ export default async function handler(req, res) {
   if (!ALLOWED_FOLDERS.has(folder))           return bad(res, 400, 'folder must be assets, assets/og, or assets/article-img');
   if (!filename || typeof filename !== 'string') return bad(res, 400, 'filename required');
   if (!/^[a-z0-9._-]+$/i.test(filename))      return bad(res, 400, 'filename must be alphanumeric (a-z 0-9 . _ -)');
-  if (!ALLOWED_EXT.test(filename))            return bad(res, 400, 'extension must be webp|avif|jpg|jpeg|png|svg|gif');
+  if (!ALLOWED_EXT.test(filename))            return bad(res, 400, 'extension must be webp|avif|jpg|jpeg|png|gif');
   if (!data || typeof data !== 'string')      return bad(res, 400, 'data (base64) required');
+
+  // Defense in depth: even though .svg fails the extension check above, reject
+  // any payload that decodes to SVG markup (e.g. a mislabeled extension).
+  if (/\.svg$/i.test(filename) || /<svg[\s>]/i.test(data ? safeDecodeHead(data) : '')) {
+    return bad(res, 400, 'SVG uploads are not allowed (XSS risk)');
+  }
 
   // Estimate decoded size from base64 length: 4 chars → 3 bytes
   const approxBytes = Math.floor(data.length * 0.75);
   if (approxBytes > MAX_BYTES) return bad(res, 413, `file too large (>${MAX_BYTES / 1024 / 1024} MB)`);
-
-  // Reject SVG with embedded scripts (XSS surface)
-  if (/\.svg$/i.test(filename)) {
-    let text = '';
-    try { text = Buffer.from(data, 'base64').toString('utf-8'); } catch (e) {}
-    if (/<script/i.test(text) || /\son\w+\s*=/i.test(text) || /javascript:/i.test(text)) {
-      return bad(res, 400, 'SVG contains <script> / event handlers — not allowed');
-    }
-  }
 
   const path = `${folder}/${filename}`;
   const { owner, repo, branch, token } = getRepoConfig();

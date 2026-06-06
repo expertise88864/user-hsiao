@@ -33,6 +33,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-0DYyd2utFVCRNqVNbPk/3hhZZKsax64LdYFMBkTxF4c=',
   'sha256-0wwmsk9l/QILig6rkxW4sJt43pB3yrR6IFolvRh9EG8=',
   'sha256-1c2T90eAAcjtpDszFVDwUfL1we4CaoMMSz4sPM4MsLA=',
+  'sha256-1qE7Vokz2Azi67clN7a/uX2TfWLDgaXg4eXm6nxgkjE=',
   'sha256-2gpzosrXcT3B2d2eC5+uuAmhTakvlQXN4ioPOb2fi90=',
   'sha256-2itoreELmI1SOPDlYYy7YAyq1IMGku4TcgGaHYjWWEM=',
   'sha256-38ztnnlWkCPPFDk+BUffrIvafczh57N0vK7V+SPewtM=',
@@ -55,9 +56,11 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-91U5VURWgPkLCURTW36sqMjZel2VhpnWNN3sqdtMMM8=',
   'sha256-9M6YUBVuzZUaqduZi5+IjewJahmmIU4a0Qpf0nm2O04=',
   'sha256-A00a+zm6fwfkVq72pWcXpcFkGGole5G5pO9fbp1AJiE=',
+  'sha256-AMDsJLqm+fKpGiU9X6L7K7mhBa5TLVJScK3GI4EXLBA=',
   'sha256-AMY42HjHJIzq629lEwmHEfSHs0Zzgqs8tn9Nk+fjgmE=',
   'sha256-B19S41WOSzAGm3Fs28mzK68TicdsXrabSp4J5uxd1rg=',
   'sha256-BB1Pe0qMV6gAg69sNGh9SxvfCT07I8S1n7j9/XbZDrw=',
+  'sha256-BFbSIPoLdjz2uYS+SsUupTW5VapT5jS0fMjcAPz/UtE=',
   'sha256-BN0XgnvBhazd4jXDFSiQAbl5C4VDIBJioVBVWOoyYmw=',
   'sha256-BoCLR/2IxQ9/XJjq91j7ikqM66DEPzi7YY8CaPtY81Y=',
   'sha256-ByNpr5NvoBUiGnB8mxK4VOL0CeWvWVTKRQ8dkPr9oyI=',
@@ -79,7 +82,6 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-HBpLpwAB/GObRNmYjQ6sASSgRU1CUagjybCsbHuvEzA=',
   'sha256-HPQTu1ImS2Cy+AvSrzJttMm+ArJ9sL+rI4IxGyl9DJY=',
   'sha256-HdM9hIhuvBspgB/pXb7LTGBsAAucTVTheYngFXhKShI=',
-  'sha256-HjD0xVe8i/Zk8FA76EhHxel3+0iJBOzio9CfkvYzgk4=',
   'sha256-HjmXzx3JFsYcbOkTfJLN9Wik0TmbjGZioHwc03wRpxI=',
   'sha256-IF8HvbbQVeUHn2b2PMFFXDuW+whBmslsEJG0j0Ppkeg=',
   'sha256-IHXCVQszeYWzHNfC8lu6BrdYHx3rthN1Imn596sjYDk=',
@@ -88,6 +90,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-IlWoTTmlvfkdPd5hcNYCGhb5DyNWEAYqZZX83473/dM=',
   'sha256-IqQC/XRdoeLeRPxpzmsDMBM3zScJ78YQ3KpAND/tQek=',
   'sha256-JWC6JGF5o2+MrtYro3Zo8nSO8j3NOl9LHIr25/LiGa0=',
+  'sha256-Jh0Ps07Tp1o7J238hpqN7dNEQx6nfsYKNgWDA1Sm0Po=',
   'sha256-JjCCkTWSTPUfJ98GpBecBi4Qcll51WPUZwAdkpfDXIY=',
   'sha256-K9iwvpYiLGynBNteGC8L2XumUsJ6KIx+4Q/dupRV2+Q=',
   'sha256-KUQv07pT237Ao7QGtlYDXma0oSwwEmNVEU59L44G4Fc=',
@@ -101,6 +104,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-Mtw6FgJq40u7EkRkFve5W8gvSFbMuVNUi0YRVQk2tDo=',
   'sha256-N47oyCXhajMKLuaVQnSZYv/0D2rhIy/W8N7CBKPzL/Q=',
   'sha256-N5e0OcrPdZeIbHfloYHlJUoMPIuTzHS9eSvbPSOpBOA=',
+  'sha256-OZE0aptm80N9CCgHasLSnWzI4y460TTCIX7NMp3qKh4=',
   'sha256-OpsnOY+gg2Ep8JdIoXoYN3wMd4Qcbpr1NrG4z/pZXq0=',
   'sha256-Os+Pg9X00Nm1U/jEZwe50bAltFkyOLt7Z9uITQeW9Nk=',
   'sha256-OzV8OtkTzCu/oviYgowFf6rKbLDu7PppeVPtACt7xkA=',
@@ -109,6 +113,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-PLaLKqIhrvjj/Zxdgw7airf0sgMzt4n03UG0jY84IFQ=',
   'sha256-PegRPslVh8zc2iQQ1/IYl6C1gZCXlh1nQy0hEhVrcLg=',
   'sha256-PlFTdRiyoDCC3smCXaBfNFAAKSBj+Q+jthDPWus2QF4=',
+  'sha256-PpGj8KwZ+e6zFltpgII99hGzFnrhfU8JF2J/LIB1SDE=',
   'sha256-PxfHWImctzOfEmL9ta4NqFzwiogi/Z1mxJa8Bx7esrs=',
   'sha256-PzH8yMr7YiCZwES0idhkmfLIl6RQB6YwlKsHFFn+KQM=',
   'sha256-QIqQBLHkEZ32HHC8nqLohvjX6ecr2EY2Z8r1+70sLoY=',
@@ -241,6 +246,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-nbXRTmv59DElZRtUWy6TGo+jPkdbT4hgvUrOLjBCPok=',
   'sha256-neAt2/bKp+Xd7igBXzpkFpKhJbqF8UF8+kCW7kqg9tU=',
   'sha256-o0+VDG4AwObxCYbGnFPBhf7mzt8JWB4uMzpJ1XwKUfc=',
+  'sha256-o2FH8MF9BNY39F/GkiKzEVB6UInlBLoErFWOYVRpIF8=',
   'sha256-o56x/mA7DN0inycF0Na9FlOogMV3HJxFMDef2qPIknI=',
   'sha256-oPoNZW3Kk0QLUOs0E4cXv61vMBUAi8Dn9UEw3AJrGQM=',
   'sha256-p4/Mv0D8QG+/A6QQjpdUWbbGEQz+x/5pyKUUG9+4ziA=',
@@ -272,6 +278,7 @@ const INLINE_SCRIPT_HASHES = [
   'sha256-u++29QM+DMfYLDn4Um0QtzwKLxpeL4xnDsXud+sqH6I=',
   'sha256-uMN/hlNccfhqDgb1fdrlKphDEpjibQL5ylXFU029jVY=',
   'sha256-uXVfJSv+5mS2d9JBNH/jpi0PUl874ifnMlh3/JVGMNk=',
+  'sha256-ux1twbspxTB5FEdVpC6yq55y/77serNYDA2CQTC5vjs=',
   'sha256-uxhDvgGiqYNNMQo6zA+PxsrQFolPXJHpEx17ShoHBgY=',
   'sha256-vFhGxLRV43oWe0r/DEQgEDOLu3Feiw8ojuPqQrEPfK0=',
   'sha256-vr72p/nX2yppmU2lQNiUey+UMY8/If021Cpx13d9PG0=',
@@ -296,7 +303,6 @@ const INLINE_SCRIPT_HASHES = [
 ];
 const INLINE_STYLE_HASHES = [
   'sha256-32UsPi6tERGXUbfgT2OpWPBVojAnVo6sSHgNNg1vJxk=',
-  'sha256-41NFGgjPrHOFJ6I24hzlzRgakTsxYdncOUuaYm4RFfI=',
   'sha256-4j4vef3FBNbuiKNeDf0U+Kj/pCudneRIyu4fpd8zXdg=',
   'sha256-5USBJ75j3ZRP8uPWyTv1Nlfci+X84Fn2Y6qEAyl2fgs=',
   'sha256-9ByDsC62m32d6avQPSp9UXRdPAlnL20xYk7NloQjdeM=',
@@ -330,6 +336,7 @@ const INLINE_STYLE_HASHES = [
   'sha256-s8i6EoWsuyEf6HuxchUMqeze56ivJz4mkHr9V0H2EB4=',
   'sha256-tZrLSGYZvnCrgIIadNzv425t+BD34oU/HZQfXLrhRwM=',
   'sha256-wWl6NKvjzoTVaSfRdsjAp7PQ696Jl5FZL6Jh5wduRqE=',
+  'sha256-wYKU/qLy7S1o9T+cZtN+xXszBoD28ZyoNw16lO+E1Jo=',
   'sha256-x3w2AVuOl+53iOFOmxpkTcO1Kj9qFb2jX0Z+0LQGXlA=',
   'sha256-xjE9bIS3lqL2Ef36AzS7Ns4fSiuR9YBdg4ITLKyHqls='
 ];
@@ -348,9 +355,12 @@ function buildCsp(hashesActive) {
   // — they vary at runtime. So style-src KEEPS `'unsafe-inline'` always
   // (low XSS surface — CSS can't run JS). Only script-src moves to hash mode
   // for the real security win against reflected-XSS.
-  const scriptSrc = hashesActive
-    ? `script-src 'self' ${INLINE_SCRIPT_HASHES.map(h => `'${h}'`).join(' ')} https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://*.clarity.ms https://cdn.jsdelivr.net`
-    : `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://*.clarity.ms https://cdn.jsdelivr.net`;
+  // FAIL CLOSED: script-src is ALWAYS hash-based. If INLINE_SCRIPT_HASHES is
+  // ever empty (a build/tooling slip), we deliberately do NOT fall back to
+  // 'unsafe-inline' — inline scripts break loudly instead of silently
+  // re-opening reflected-XSS. The committed hash list is normally non-empty.
+  void hashesActive;
+  const scriptSrc = `script-src 'self' ${INLINE_SCRIPT_HASHES.map(h => `'${h}'`).join(' ')} https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://*.clarity.ms https://cdn.jsdelivr.net`;
 
   const styleSrc = `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net`;
 
