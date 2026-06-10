@@ -17,5 +17,9 @@ export default async function handler(req, res) {
 
   const token = makeOfflineSaveToken(slug);
   if (!token) return res.status(500).json({ error: 'Unable to create offline token' });
-  return res.status(200).json({ token, expiresIn: 28800 });
+  return res.status(200).json({
+    token,
+    expiresAt: Number(token.split('.')[0]),
+    expiresIn: 28800,
+  });
 }

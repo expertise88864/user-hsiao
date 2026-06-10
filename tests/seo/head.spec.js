@@ -9,7 +9,7 @@ const { test, expect } = require('@playwright/test');
 const fs = require('fs');
 const path = require('path');
 
-const BASE = process.env.PW_BASE_URL || 'http://127.0.0.1:4173';
+const BASE = process.env.PW_BASE_URL || 'http://127.0.0.1:43173';
 const SITE = 'https://hsiao.chendermatologist.com';
 const ROOT = path.resolve(__dirname, '../..');
 

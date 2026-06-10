@@ -8,7 +8,8 @@
  * admin edits ARE the git commits. User must `git pull` before any local
  * edits to get the latest content.
  */
-import { requireAdmin, verifyOfflineSaveToken, ghGetFile, ghCommitFiles } from './_auth.js';
+import { requireAdmin, verifyOfflineSaveToken, ghGetFile } from './_auth.js';
+import { commitArticleWithModifiedDate } from './_article-commit.js';
 import { halfwidthToFullwidth } from './_halfwidth.js';
 
 // JS-injected runtime helpers that the WYSIWYG inadvertently serializes
@@ -51,40 +52,6 @@ function stripRuntimeHelpers(html) {
   s = s.replace(/<div\b[^>]*\bclass=["'][^"']*\bhs-img-lightbox\b[^"']*["'][^>]*>[\s\S]*?<\/div>/gi,
     () => { count++; return ''; });
   return { html: s, count: count };
-}
-
-function taipeiToday() {
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Taipei',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(new Date());
-}
-
-function updateCatalogModified(source, slug, updated) {
-  const block = source.match(/DN\.ARTICLES\s*=\s*\[([\s\S]*?)\];/);
-  if (!block) return null;
-  const safeSlug = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const row = block[1].match(new RegExp(`\\{[^{}]*?slug\\s*:\\s*'${safeSlug}'[^{}]*?\\}`));
-  if (!row) return { content: source, published: false };
-
-  let patchedRow;
-  if (/\bupdated\s*:\s*'\d{4}-\d{2}-\d{2}'/.test(row[0])) {
-    patchedRow = row[0].replace(
-      /\bupdated\s*:\s*'\d{4}-\d{2}-\d{2}'/,
-      `updated:'${updated}'`
-    );
-  } else {
-    patchedRow = row[0].replace(
-      /(\bdate\s*:\s*'\d{4}-\d{2}-\d{2}')/,
-      `$1, updated:'${updated}'`
-    );
-  }
-  return {
-    content: source.replace(row[0], patchedRow),
-    published: true,
-  };
 }
 
 export default async function handler(req, res) {
@@ -146,23 +113,12 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, commit: '', noop: true, sanitized: { stripped, hwFixed } });
     }
 
-    const shared = await ghGetFile('blog/blog-shared.js');
-    if (!shared) return res.status(500).json({ error: 'blog-shared.js not found in repo' });
-    const catalog = updateCatalogModified(shared.content, slug, taipeiToday());
-    if (!catalog) return res.status(500).json({ error: 'DN.ARTICLES block not found' });
-
-    const files = [{ path, content: html, expectedSha: existing.sha }];
-    if (catalog.published && catalog.content !== shared.content) {
-      files.push({
-        path: 'blog/blog-shared.js',
-        content: catalog.content,
-        expectedSha: shared.sha,
-      });
-    }
-    const result = await ghCommitFiles(
-      files,
-      `admin: edit ${slug} via /admin WYSIWYG${stripped ? ` (-${stripped} runtime DOM)` : ''}${hwFixed ? ` (+${hwFixed} 中文標點)` : ''}`
-    );
+    const result = await commitArticleWithModifiedDate({
+      slug,
+      content: html,
+      articleSha: existing.sha,
+      message: `admin: edit ${slug} via /admin WYSIWYG${stripped ? ` (-${stripped} runtime DOM)` : ''}${hwFixed ? ` (+${hwFixed} 中文標點)` : ''}`,
+    });
 
     res.status(200).json({ ok: true, commit: result.commitSha, sanitized: { stripped, hwFixed } });
   } catch (e) {

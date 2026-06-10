@@ -57,16 +57,46 @@ async function save(state) {
 
 function validate(body) {
   if (!body || typeof body !== 'object') return 'invalid body';
-  if (!body.id || !/^[a-z0-9_-]+$/i.test(body.id)) return 'id must be alphanumeric';
-  if (!body.selector || typeof body.selector !== 'string') return 'selector required';
+  if (typeof body.id !== 'string' || body.id.length > 80 || !/^[a-z0-9_-]+$/i.test(body.id)) {
+    return 'id must be 1-80 alphanumeric characters';
+  }
+  if (typeof body.selector !== 'string' || !body.selector.trim() || body.selector.length > 200) {
+    return 'selector required (max 200 chars)';
+  }
   if (!Array.isArray(body.variants) || body.variants.length < 2 || body.variants.length > 4) return 'need 2-4 variants';
   for (const v of body.variants) {
-    if (!v.name || !v.html) return 'each variant needs name + html';
+    if (!v || typeof v.name !== 'string' || typeof v.html !== 'string') return 'each variant needs string name + html';
+    if (!v.name.trim() || v.name.length > 80 || !v.html) return 'variant name/html invalid';
     if (v.html.length > 4000) return 'variant html too long (>4000 chars)';
-    if (/<script|<\s*iframe|on\w+=/i.test(v.html)) return 'variant html cannot contain <script>/<iframe>/on* event handlers';
+    if (/<\s*(?:script|iframe|object|embed|svg|math|style|form|base|meta|link)\b/i.test(v.html)) {
+      return 'variant html contains a blocked active element';
+    }
+    if (/\son[a-z0-9:_-]+\s*=/i.test(v.html) || /\ssrcdoc\s*=/i.test(v.html)) {
+      return 'variant html cannot contain event handlers or srcdoc';
+    }
+    const decodeCodePoint = (raw, radix) => {
+      const codePoint = parseInt(raw, radix);
+      return Number.isInteger(codePoint) && codePoint >= 0 && codePoint <= 0x10ffff
+        ? String.fromCodePoint(codePoint)
+        : '\ufffd';
+    };
+    const decodedForSafety = v.html
+      .replace(/&#x([0-9a-f]+);?/gi, (_, hex) => decodeCodePoint(hex, 16))
+      .replace(/&#([0-9]+);?/g, (_, dec) => decodeCodePoint(dec, 10))
+      .replace(/&(colon|tab|newline);/gi, (_, name) => ({
+        colon: ':',
+        tab: '\t',
+        newline: '\n',
+      })[name.toLowerCase()])
+      .replace(/[\u0000-\u0020\u007f]+/g, '');
+    if (/(?:href|src|action|formaction|xlink:href)=(['"]?)(?:javascript|vbscript|data:text\/html):/i.test(decodedForSafety)) {
+      return 'variant html contains an unsafe URL';
+    }
   }
   return null;
 }
+
+export { validate as validateAbConfig };
 
 export default async function handler(req, res) {
   // GET is PUBLIC (used by client to fetch active tests). POST/DELETE require admin.

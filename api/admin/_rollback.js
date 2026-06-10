@@ -13,7 +13,8 @@
  *
  * Returns { ok, commit, restored_from }
  */
-import { requireAdmin, ghPutFile, ghGetFile, getRepoConfig } from './_auth.js';
+import { requireAdmin, ghGetFile, getRepoConfig } from './_auth.js';
+import { commitArticleWithModifiedDate } from './_article-commit.js';
 
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
@@ -53,12 +54,12 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, noop: true, restored_from: sha.slice(0, 7) });
     }
 
-    const result = await ghPutFile(
-      path,
-      histContent,
-      `admin: rollback ${slug} to ${sha.slice(0, 7)} via /admin`,
-      current.sha
-    );
+    const result = await commitArticleWithModifiedDate({
+      slug,
+      content: histContent,
+      articleSha: current.sha,
+      message: `admin: rollback ${slug} to ${sha.slice(0, 7)} via /admin`,
+    });
     res.status(200).json({ ok: true, commit: result.commitSha, restored_from: sha.slice(0, 7) });
   } catch (e) {
     res.status(500).json({ error: String(e.message || e) });

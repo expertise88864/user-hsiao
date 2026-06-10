@@ -55,10 +55,10 @@ def is_critical_selector(sel):
     if not sel:
         return False
     # take the leading simple selector
-    head = re.split(r'[\s>+~]', sel, 1)[0]
+    head = re.split(r'[\s>+~]', sel, maxsplit=1)[0]
     # Drop pseudo-classes (`:hover`, `::before`) but NOT escaped colons
     # like `\:` which Tailwind uses inside class names (`.sm\:hidden`).
-    head = re.split(r'(?<!\\):', head, 1)[0]
+    head = re.split(r'(?<!\\):', head, maxsplit=1)[0]
     head = head.split('[', 1)[0]   # drop attr
     return bool(CRITICAL_SELECTORS_RE.match(head))
 

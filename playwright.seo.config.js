@@ -1,12 +1,16 @@
 const { defineConfig, devices } = require('@playwright/test');
 
+const LOCAL_URL = 'http://127.0.0.1:43173';
+const externalBaseUrl = process.env.PW_BASE_URL;
+
 module.exports = defineConfig({
   testDir: './tests/seo',
   timeout: 90_000,
-  webServer: {
+  webServer: externalBaseUrl ? undefined : {
     command: 'node tests/seo/static-server.js',
-    url: 'http://127.0.0.1:4173',
-    reuseExistingServer: true,
+    url: LOCAL_URL,
+    env: { ...process.env, PORT: '43173' },
+    reuseExistingServer: false,
     timeout: 30_000,
   },
   fullyParallel: true,
@@ -15,7 +19,7 @@ module.exports = defineConfig({
   workers: process.env.CI ? 2 : undefined,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: process.env.PW_BASE_URL || 'http://127.0.0.1:4173',
+    baseURL: externalBaseUrl || LOCAL_URL,
     ...devices['Desktop Chrome'],
     locale: 'zh-TW',
     timezoneId: 'Asia/Taipei',

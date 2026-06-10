@@ -17,7 +17,8 @@
  *
  * Returns: { ok, applied: [...], skipped: [...], commit }
  */
-import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
+import { requireAdmin, ghGetFile } from './_auth.js';
+import { commitArticleWithModifiedDate } from './_article-commit.js';
 
 const DOMAIN = 'https://hsiao.chendermatologist.com';
 
@@ -155,11 +156,12 @@ export default async function handler(req, res) {
     if (html === file.content) {
       return res.status(200).json({ ok: true, applied, skipped, noop: true });
     }
-    const result = await ghPutFile(
-      `blog/${slug}.html`, html,
-      `admin: SEO auto-fix ${slug} (${applied.join(', ')})`,
-      file.sha
-    );
+    const result = await commitArticleWithModifiedDate({
+      slug,
+      content: html,
+      articleSha: file.sha,
+      message: `admin: SEO auto-fix ${slug} (${applied.join(', ')})`,
+    });
     res.status(200).json({ ok: true, applied, skipped, commit: result.commitSha });
   } catch (e) {
     res.status(500).json({ error: String(e.message || e) });

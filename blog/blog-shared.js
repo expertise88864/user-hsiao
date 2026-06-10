@@ -3762,7 +3762,7 @@
     if (DN._adminLoaded) return;
     DN._adminLoaded = true;
     var s = document.createElement('script');
-    s.src = '/blog/blog-admin.js?v=20260661';
+    s.src = '/blog/blog-admin.js?v=20260662';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -4776,8 +4776,11 @@
       });
       if (!response.ok) return false;
       var data = await response.json();
-      if (!data.token) return false;
-      DN._offlineSaveTokens[slug] = data.token;
+      if (!data.token || !data.expiresAt) return false;
+      DN._offlineSaveTokens[slug] = {
+        token: data.token,
+        expiresAt: Number(data.expiresAt),
+      };
       return true;
     } catch (e) {
       return false;
@@ -4786,12 +4789,12 @@
 
   DN.queueOfflineSave = function (slug, html) {
     if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return false;
-    var token = DN._offlineSaveTokens[slug];
-    if (!token) return false;
+    var capability = DN._offlineSaveTokens[slug];
+    if (!capability || capability.expiresAt <= Date.now() + 60000) return false;
     try {
       navigator.serviceWorker.controller.postMessage({
         type: 'QUEUE_SAVE',
-        payload: { slug: slug, html: html, token: token, ts: Date.now() },
+        payload: { slug: slug, html: html, token: capability.token, ts: Date.now() },
       });
       navigator.serviceWorker.ready.then(function (reg) {
         if (reg.sync) reg.sync.register('admin-save-replay').catch(function () {});

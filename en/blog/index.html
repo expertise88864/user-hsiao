@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script src="/assets/trusted-types.js?v=20260661"></script>
+<script src="/assets/trusted-types.js?v=20260662"></script>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260657';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260662';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -54,10 +54,10 @@
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260661" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260662" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260661">
+<link rel="stylesheet" href="/assets/app.css?v=20260662">
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -568,7 +568,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script defer src="/blog/blog-shared.min.js?v=20260661"></script>
+<script defer src="/blog/blog-shared.min.js?v=20260662"></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {

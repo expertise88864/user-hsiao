@@ -383,7 +383,7 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v69';
+const CACHE = 'hs-v70';
 const RUNTIME = 'hs-runtime-v35';
 const RUNTIME_MAX_ENTRIES = 60;
 const GENERATED_JSON = new Set([
@@ -739,17 +739,50 @@ function openSyncDb() {
 }
 async function enqueueSave(payload) {
   const db = await openSyncDb();
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const tx = db.transaction(SYNC_STORE, 'readwrite');
-    tx.objectStore(SYNC_STORE).add(payload);
+    const store = tx.objectStore(SYNC_STORE);
+    const cursorRequest = store.openCursor();
+    cursorRequest.onsuccess = () => {
+      const cursor = cursorRequest.result;
+      if (cursor) {
+        if (cursor.value && cursor.value.slug === payload.slug) cursor.delete();
+        cursor.continue();
+        return;
+      }
+      store.add(payload);
+    };
     tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error);
   });
 }
-async function drainSaves() {
+
+async function readQueuedSaves() {
   const db = await openSyncDb();
-  const tx = db.transaction(SYNC_STORE, 'readwrite');
+  const tx = db.transaction(SYNC_STORE, 'readonly');
   const store = tx.objectStore(SYNC_STORE);
-  const all = await new Promise(r => { const req = store.getAll(); req.onsuccess = () => r(req.result); });
+  return new Promise((resolve, reject) => {
+    const request = store.getAll();
+    request.onsuccess = () => resolve(request.result || []);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function deleteQueuedSave(id) {
+  const db = await openSyncDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(SYNC_STORE, 'readwrite');
+    tx.objectStore(SYNC_STORE).delete(id);
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error);
+  });
+}
+
+let drainSavesPromise = null;
+async function drainSavesOnce() {
+  const all = await readQueuedSaves();
   let succeeded = 0;
   for (const item of all || []) {
     try {
@@ -764,14 +797,14 @@ async function drainSaves() {
         body: JSON.stringify({ slug: item.slug, html: item.html }),
       });
       if (r.ok) {
-        store.delete(item.id);
+        await deleteQueuedSave(item.id);
         succeeded++;
       } else if (r.status === 401) {
         // Session expired — keep in queue, user must re-login
         break;
-      } else if (r.status === 403) {
-        // Expired replay capabilities cannot become valid later.
-        store.delete(item.id);
+      } else if ([400, 403, 413, 422].includes(r.status)) {
+        // Invalid payloads and expired capabilities cannot become valid later.
+        await deleteQueuedSave(item.id);
       }
     } catch (e) { /* still offline, keep in queue */ break; }
   }
@@ -780,6 +813,15 @@ async function drainSaves() {
     const clientList = await self.clients.matchAll({ includeUncontrolled: true });
     clientList.forEach(c => c.postMessage({ type: 'BG_SYNC_REPLAYED', count: succeeded }));
   }
+}
+
+function drainSaves() {
+  if (!drainSavesPromise) {
+    drainSavesPromise = drainSavesOnce().finally(() => {
+      drainSavesPromise = null;
+    });
+  }
+  return drainSavesPromise;
 }
 
 self.addEventListener('sync', (event) => {
@@ -793,10 +835,12 @@ self.addEventListener('message', async (e) => {
     e.waitUntil((async () => {
       const sourceUrl = e.source && e.source.url ? new URL(e.source.url) : null;
       const payload = e.data.payload;
+      const sourceSlug = sourceUrl && sourceUrl.pathname.slice('/blog/'.length);
       const allowedSource = sourceUrl &&
         sourceUrl.origin === self.location.origin &&
         /^\/blog\/[a-z0-9-]+$/.test(sourceUrl.pathname) &&
-        sourceUrl.searchParams.get('admin') === '1';
+        sourceUrl.searchParams.get('admin') === '1' &&
+        sourceSlug === payload.slug;
       const validPayload =
         payload &&
         /^[a-z0-9-]+$/.test(payload.slug || '') &&

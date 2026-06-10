@@ -21,7 +21,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260657';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260662';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -826,7 +826,15 @@ function closeEditor() {
   loadList();  // refresh list in case anything changed
 }
 function editorMsgHandler(e) {
-  if (e.data && e.data.type === 'hs-admin-saved') {
+  const frame = document.getElementById('edit-iframe');
+  const expectedSlug = document.getElementById('edit-slug-display').textContent;
+  if (
+    e.origin === window.location.origin &&
+    e.source === frame.contentWindow &&
+    e.data &&
+    e.data.type === 'hs-admin-saved' &&
+    e.data.slug === expectedSlug
+  ) {
     document.getElementById('edit-status').textContent = '✓ 已儲存 ' + new Date().toLocaleTimeString();
     setTimeout(() => { document.getElementById('edit-status').textContent = ''; }, 5000);
   }

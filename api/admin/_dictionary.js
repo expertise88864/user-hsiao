@@ -15,6 +15,7 @@
  *   - Idempotent: if the term is already inside .hs-dict it skips
  */
 import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
+import { commitArticleWithModifiedDate } from './_article-commit.js';
 
 const DICT_PATH = 'assets/medical-dictionary.json';
 
@@ -148,7 +149,12 @@ export default async function handler(req, res) {
       if (!articleFile) return res.status(404).json({ error: `Article ${slug} not found` });
       const out = autolinkOnce(articleFile.content, dict);
       if (out === articleFile.content) return res.status(200).json({ ok: true, noop: true, slug });
-      const r = await ghPutFile(`blog/${slug}.html`, out, `admin: autolink medical terms in ${slug}`, articleFile.sha);
+      const r = await commitArticleWithModifiedDate({
+        slug,
+        content: out,
+        articleSha: articleFile.sha,
+        message: `admin: autolink medical terms in ${slug}`,
+      });
       return res.status(200).json({ ok: true, commit: r.commitSha, slug });
     }
 

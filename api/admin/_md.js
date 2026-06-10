@@ -12,7 +12,8 @@
  * The renderer is a small custom converter — no `marked` / `markdown-it`
  * dependency to keep Edge bundle slim.
  */
-import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
+import { requireAdmin, ghGetFile } from './_auth.js';
+import { commitArticleWithModifiedDate } from './_article-commit.js';
 
 // ── HTML → Markdown ──────────────────────────────────────────────────
 function htmlToMarkdown(html) {
@@ -223,24 +224,69 @@ function safeUrl(url, opts) {
   if (opts && opts.allowDataImage && /^data:image\//i.test(u)) return u;
   return '';                                                 // block javascript:, vbscript:, data:(non-image), …
 }
+function decodeCodePoint(raw, radix) {
+  const codePoint = parseInt(raw, radix);
+  return Number.isInteger(codePoint) && codePoint >= 0 && codePoint <= 0x10ffff
+    ? String.fromCodePoint(codePoint)
+    : '\ufffd';
+}
+function decodeHtmlEntities(value) {
+  return String(value)
+    .replace(/&#x([0-9a-f]+);?/gi, (_, hex) => decodeCodePoint(hex, 16))
+    .replace(/&#([0-9]+);?/g, (_, dec) => decodeCodePoint(dec, 10))
+    .replace(/&(colon|tab|newline);/gi, (_, name) => ({
+      colon: ':',
+      tab: '\t',
+      newline: '\n',
+    })[name.toLowerCase()]);
+}
+function hasUnsafeHtmlUrl(value) {
+  const normalized = decodeHtmlEntities(value)
+    .replace(/[\u0000-\u0020\u007f]+/g, '')
+    .toLowerCase();
+  return /^(?:javascript|vbscript|data:text\/html):/.test(normalized);
+}
+function neutralizeUnsafeUrlAttributes(html) {
+  return html.replace(
+    /\b(href|src|action|formaction|xlink:href)\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi,
+    (full, name, rawValue) => {
+      const quoted = /^(['"])([\s\S]*)\1$/.exec(rawValue);
+      const value = quoted ? quoted[2] : rawValue;
+      return hasUnsafeHtmlUrl(value) ? `${name}="#"` : full;
+    }
+  );
+}
 function sanitizeRawHtml(html) {
-  return String(html)
+  const stripped = String(html)
     // drop <script>…</script> and stray <script> / </script>
-    .replace(/<\s*script\b[\s\S]*?<\/\s*script\s*>/gi, '')
-    .replace(/<\s*\/?\s*script\b[^>]*>/gi, '')
+    .replace(/<\s*(script|iframe|object|embed|svg|math|style|form)\b[\s\S]*?<\/\s*\1\s*>/gi, '')
+    .replace(/<\s*\/?\s*(script|iframe|object|embed|svg|math|style|form)\b[^>]*>/gi, '')
+    .replace(/<\s*(?:base|meta|link)\b[^>]*>/gi, '')
     // strip inline event handlers (onclick=, onerror=, …)
     .replace(/\son[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
-    // neutralize script-executing URL schemes in href/src/xlink:href
-    .replace(/((?:href|src|xlink:href)\s*=\s*)(?:"\s*(?:javascript|vbscript)\s*:[^"]*"|'\s*(?:javascript|vbscript)\s*:[^']*'|(?:javascript|vbscript)\s*:[^\s>]+)/gi, '$1"#"');
+    .replace(/\ssrcdoc\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+  return neutralizeUnsafeUrlAttributes(stripped);
 }
 
-function escInline(t) {
-  return t
-    // links (block dangerous URL schemes; render unsafe links as plain text)
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (m, text, url) {
-      const safe = safeUrl(url);
-      return safe ? '<a href="' + attrEsc(safe) + '">' + text + '</a>' : text;
-    })
+function textEsc(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function escInline(value) {
+  const links = [];
+  let t = String(value).replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (m, text, url) {
+    const safe = safeUrl(url);
+    const html = safe
+      ? '<a href="' + attrEsc(safe) + '">' + textEsc(text) + '</a>'
+      : textEsc(text);
+    const index = links.push(html) - 1;
+    return `\u0000LINK${index}\u0000`;
+  });
+
+  t = textEsc(t)
     // bold
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/__([^_]+)__/g, '<strong>$1</strong>')
@@ -249,6 +295,7 @@ function escInline(t) {
     .replace(/(?<![_\w])_([^_\n]+)_(?![_\w])/g, '<em>$1</em>')
     // code
     .replace(/`([^`]+)`/g, '<code>$1</code>');
+  return t.replace(/\u0000LINK(\d+)\u0000/g, (_, index) => links[Number(index)] || '');
 }
 function slugify(s) {
   return s.toLowerCase()
@@ -257,6 +304,8 @@ function slugify(s) {
     .replace(/^-|-$/g, '')
     .slice(0, 60);
 }
+
+export { markdownToHtml, sanitizeRawHtml };
 
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
@@ -293,7 +342,12 @@ export default async function handler(req, res) {
       `$1\n\n${newProse}\n\n$2`
     );
     if (out === file.content) return res.status(200).json({ ok: true, noop: true });
-    const result = await ghPutFile(`blog/${slug}.html`, out, `admin: edit ${slug} via Markdown mode`, file.sha);
+    const result = await commitArticleWithModifiedDate({
+      slug,
+      content: out,
+      articleSha: file.sha,
+      message: `admin: edit ${slug} via Markdown mode`,
+    });
     res.status(200).json({ ok: true, commit: result.commitSha });
   } catch (e) { res.status(500).json({ error: String(e.message || e) }); }
 }

@@ -20,6 +20,9 @@
     if (!slug) return;
     if (document.getElementById('hs-admin-bar')) return;
     DN.prepareOfflineSave(slug).catch(function () {});
+    setInterval(function () {
+      DN.prepareOfflineSave(slug).catch(function () {});
+    }, 4 * 60 * 60 * 1000);
 
     // Inject admin styles (scoped, doesn't affect normal article render)
     if (!document.getElementById('hs-admin-css')) {
@@ -499,7 +502,14 @@
             setTimeout(function () { var s = document.getElementById('hs-admin-status'); if (s) s.remove(); }, 3500);
             DN._adminDirty = false;
             DN.deleteDraft(slug);  // commit succeeded → drop local draft
-            try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'hs-admin-saved', slug: slug, commit: data.commit }, '*'); } catch (e2) {}
+            try {
+              if (window.parent && window.parent !== window) {
+                window.parent.postMessage(
+                  { type: 'hs-admin-saved', slug: slug, commit: data.commit },
+                  window.location.origin
+                );
+              }
+            } catch (e2) {}
           } else {
             var err = await resp.json().catch(function () { return {}; });
             status('✗ 儲存失敗: ' + (err.error || resp.status), 'error');

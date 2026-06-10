@@ -10,12 +10,25 @@ on:
       - 'tools.html'
       - 'notes.html'
       - 'index.html'
+      - 'blog/blog-shared.js'
+      - 'halfwidth_to_fullwidth.py'
+      - '_gen_feeds.py'
+      - '_gen_related.py'
+      - '_gen_serp_meta.py'
       - '_gen_en_pages.py'
       - '_gen_faqpage_jsonld.py'
+      - '_gen_search_index.py'
       - '_gen_profile_schema.py'
       - '_gen_site_graph.py'
       - '_gen_route_canonicals.py'
       - '_gen_api_content_snapshot.py'
+      - '_gen_llms_txt.py'
+      - '_gen_opensearch.py'
+      - '_apply_i_series.py'
+      - '_apply_a11y_vt.py'
+      - '_apply_trusted_types.py'
+      - '_apply_f10_image_priority.py'
+      - '_extract_critical_css.py'
       - '_gen_csp_hashes.py'
   workflow_dispatch:
 
@@ -45,10 +58,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install Python dependencies
-        run: pip install Pillow beautifulsoup4
+        run: pip install beautifulsoup4
 
       - name: Regenerate all dependent artifacts
         run: |
@@ -83,7 +96,7 @@ jobs:
             echo "No regenerated artifact changes to commit."
             exit 0
           fi
-          git commit -m "ci: regen /en/ mirror and dependents [skip ci]"
+          git commit -m "ci: regen /en/ mirror and dependents"
           # Pull --rebase first in case admin pushed during regen (rare)
           git pull --rebase origin main
           git push

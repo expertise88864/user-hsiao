@@ -16,9 +16,8 @@
 const buckets = new Map();   // key: namespace:identity, value: { count, windowStart }
 
 function identityOf(req) {
-  // Prefer signed cookie if present (more stable than IP), else fall back to IP
-  const c = (req.headers.cookie || '').match(/hs_admin_session=([^;]+)/);
-  if (c) return 'sess:' + c[1].slice(0, 16);
+  // Public endpoints cannot trust an unverified cookie as an identity:
+  // callers could rotate fake cookie values to bypass the limiter.
   const xff = req.headers['x-forwarded-for'];
   const ip = xff ? String(xff).split(',')[0].trim() : (req.connection?.remoteAddress || 'unknown');
   return 'ip:' + ip.slice(0, 64);

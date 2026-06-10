@@ -16,6 +16,7 @@
  * `op` comes from the dynamic [op] segment of the URL — preserved by
  * Vercel as `req.query.op`.
  */
+import { isAdminRequest } from './_auth.js';
 
 // Module loaders (dynamic-import lazily to keep the cold-start small).
 // Each handler exports its `(req, res)` function as default.
@@ -61,9 +62,9 @@ const RL_MAX = 30;      // 30 requests
 const RL_WINDOW_MS = 60 * 1000;  // per 60 seconds per session
 
 function rateLimitKey(req) {
-  // Prefer session cookie (signed HMAC) as the limit key; fall back to IP.
+  // Only a verified session may select a session bucket.
   const c = (req.headers.cookie || '').match(/hs_admin_session=([^;]+)/);
-  if (c) return 'sess:' + c[1].slice(0, 16);  // first 16 chars of signed token
+  if (c && isAdminRequest(req)) return 'sess:' + c[1].slice(0, 16);
   const ip = req.headers['x-forwarded-for'] || req.connection?.remoteAddress || 'unknown';
   return 'ip:' + String(ip).split(',')[0].trim();
 }

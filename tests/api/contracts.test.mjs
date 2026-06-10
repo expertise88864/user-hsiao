@@ -133,6 +133,44 @@ test('A/B admin reads require a verified session', async () => {
   assert.doesNotMatch(source, /includes\(['"]hs_admin_session=/);
 });
 
+test('Markdown and A/B content reject stored-XSS execution surfaces', async () => {
+  const md = await import('../../api/admin/_md.js');
+  const ab = await import('../../api/admin/_ab-config.js');
+  const rendered = md.markdownToHtml('Hello <img src=x onerror=alert(1)>\n\n[bad](javascript:alert(1))');
+  assert.doesNotMatch(rendered, /<img|javascript:/i);
+  assert.match(rendered, /&lt;img/);
+  assert.equal(
+    md.sanitizeRawHtml('<iframe srcdoc="<script>alert(1)</script>"></iframe><p>safe</p>'),
+    '<p>safe</p>'
+  );
+  assert.equal(
+    md.sanitizeRawHtml('<a href="java&#x73;cript:alert(1)">bad</a>'),
+    '<a href="#">bad</a>'
+  );
+  assert.match(
+    ab.validateAbConfig({
+      id: 'unsafe',
+      selector: '#hero',
+      variants: [
+        { name: 'A', html: '<p>A</p>' },
+        { name: 'B', html: '<img src=x onerror = alert(1)>' },
+      ],
+    }),
+    /event handlers/
+  );
+  assert.match(
+    ab.validateAbConfig({
+      id: 'unsafe-entity',
+      selector: '#hero',
+      variants: [
+        { name: 'A', html: '<p>A</p>' },
+        { name: 'B', html: '<a href="java&#115;cript:alert(1)">B</a>' },
+      ],
+    }),
+    /unsafe URL/
+  );
+});
+
 test('unsafe server-side English regenerators are retired', async () => {
   const dispatcher = await read('api/admin/[op].js');
   assert.doesNotMatch(dispatcher, /regen-en/);
@@ -153,19 +191,74 @@ test('offline admin replay is source-bound and capability-protected', async () =
   const sw = await read('sw.js');
   const save = await read('api/admin/_save.js');
   assert.match(sw, /sourceUrl\.searchParams\.get\('admin'\) === '1'/);
+  assert.match(sw, /sourceSlug === payload\.slug/);
   assert.match(sw, /X-Hsiao-Offline-Token/);
   assert.match(sw, /payload\.token/);
+  assert.match(sw, /deleteQueuedSave/);
+  const drain = sw.slice(
+    sw.indexOf('async function drainSavesOnce()'),
+    sw.indexOf('function drainSaves()')
+  );
+  assert.doesNotMatch(drain, /db\.transaction/);
+  assert.match(drain, /await fetch\('\/api\/admin\/save'/);
   assert.match(save, /verifyOfflineSaveToken/);
   assert.match(save, /x-hsiao-offline-replay/);
 });
 
+test('rate limits do not trust unsigned session cookie names', async () => {
+  const publicLimiter = await read('api/_rate_limit.js');
+  const dispatcher = await read('api/admin/[op].js');
+  assert.doesNotMatch(publicLimiter, /hs_admin_session/);
+  assert.match(dispatcher, /c && isAdminRequest\(req\)/);
+});
+
+test('admin editor messages are same-origin, frame-bound, and slug-bound', async () => {
+  const admin = await read('admin.html');
+  const editor = await read('blog/blog-admin.js');
+  assert.match(editor, /window\.parent\.postMessage\([\s\S]*window\.location\.origin/);
+  assert.match(admin, /e\.origin === window\.location\.origin/);
+  assert.match(admin, /e\.source === frame\.contentWindow/);
+  assert.match(admin, /e\.data\.slug === expectedSlug/);
+});
+
+test('regenerated commits run quality checks instead of skipping CI', async () => {
+  const workflow = await read('.github/workflows/regen-en.yml');
+  const quality = await read('.github/workflows/quality.yml');
+  assert.match(workflow, /git commit -m "ci: regen \/en\/ mirror and dependents"/);
+  assert.doesNotMatch(workflow, /git commit[^\n]*\[skip ci\]/);
+  assert.match(quality, /group: quality-\$\{\{ github\.ref \}\}/);
+  assert.match(quality, /cancel-in-progress: true/);
+});
+
 test('CMS saves atomically update published modified dates', async () => {
   const save = await read('api/admin/_save.js');
+  const articleCommit = await read('api/admin/_article-commit.js');
   const github = await read('api/admin/_github.js');
-  assert.match(save, /updateCatalogModified/);
-  assert.match(save, /ghCommitFiles/);
-  assert.match(save, /expectedSha:\s*existing\.sha/);
+  assert.match(save, /commitArticleWithModifiedDate/);
+  assert.match(articleCommit, /updateCatalogModified/);
+  assert.match(articleCommit, /ghCommitFiles/);
+  assert.match(articleCommit, /expectedSha:\s*articleSha/);
   assert.match(github, /file\.expectedSha/);
+  assert.match(github, /file\.expectedSha === null/);
+});
+
+test('draft creation cannot overwrite a concurrent article or manifest update', async () => {
+  const create = await read('api/admin/_new.js');
+  assert.match(create, /path: `blog\/\$\{slug\}\.html`, content: html, expectedSha: null/);
+  assert.match(create, /expectedSha: draftFile \? draftFile\.sha : null/);
+});
+
+test('all article mutation tools share the atomic modified-date commit path', async () => {
+  for (const path of [
+    'api/admin/_md.js',
+    'api/admin/_seo-fix.js',
+    'api/admin/_schema-helper.js',
+    'api/admin/_dictionary.js',
+    'api/admin/_rollback.js',
+  ]) {
+    const source = await read(path);
+    assert.match(source, /commitArticleWithModifiedDate/, path);
+  }
 });
 
 test('mutable OG images and clean HTML routes use revalidating caches', async () => {

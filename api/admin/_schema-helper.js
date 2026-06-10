@@ -17,7 +17,8 @@
  *
  * Returns { ok, type, qaCount, applied, commit }.
  */
-import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
+import { requireAdmin, ghGetFile } from './_auth.js';
+import { commitArticleWithModifiedDate } from './_article-commit.js';
 
 function stripTags(s) {
   return s.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
@@ -132,7 +133,12 @@ export default async function handler(req, res) {
       : buildFaqPage(pairs, articleUrl, title);
     const out = injectJsonLd(file.content, jsonLd);
     if (out === file.content) return res.status(200).json({ ok: true, noop: true, qaCount: pairs.length });
-    const result = await ghPutFile(`blog/${slug}.html`, out, `admin: inject ${type} schema (${pairs.length} Q&A) for ${slug}`, file.sha);
+    const result = await commitArticleWithModifiedDate({
+      slug,
+      content: out,
+      articleSha: file.sha,
+      message: `admin: inject ${type} schema (${pairs.length} Q&A) for ${slug}`,
+    });
     res.status(200).json({ ok: true, type, qaCount: pairs.length, commit: result.commitSha, applied: pairs.slice(0, 3).map(p => p.q) });
   } catch (e) { res.status(500).json({ error: String(e.message || e) }); }
 }
