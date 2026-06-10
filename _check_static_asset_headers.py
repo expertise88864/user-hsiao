@@ -12,10 +12,6 @@ ROOT = Path(__file__).resolve().parent
 VERCEL_JSON = ROOT / "vercel.json"
 
 EXPECTED = {
-    "/admin/admin.js": {
-        "Content-Type": "application/javascript; charset=utf-8",
-        "Cache-Control": "no-store, must-revalidate",
-    },
     "/admin/admin.css": {
         "Content-Type": "text/css; charset=utf-8",
         "Cache-Control": "no-store, must-revalidate",
@@ -59,6 +55,12 @@ EXPECTED = {
     "/blog/feed.json": {
         "Content-Type": "application/feed+json; charset=utf-8",
         "Cache-Control": "public, max-age=3600, must-revalidate",
+    },
+    "/assets/og/(.*)": {
+        "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+    },
+    "/blog/:slug([a-z0-9-]+)": {
+        "Cache-Control": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400",
     },
 }
 

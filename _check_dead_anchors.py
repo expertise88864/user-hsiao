@@ -40,7 +40,7 @@ JS_INJECTED_IDS = {
 }
 
 # Pages outside the article scope where this check would be noisy.
-SKIP_FILES = {'admin.html', 'admin/mobile.html', 'offline.html', '404.html',
+SKIP_FILES = {'admin.html', 'offline.html', '404.html',
               'blog/blog-shared.js', 'tools/eye-3d.html'}
 
 

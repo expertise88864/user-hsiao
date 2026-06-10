@@ -4764,12 +4764,34 @@
   // the request and fire it again when network returns. The SW listens
   // for QUEUE_SAVE messages, stores in IndexedDB, replays on 'sync' event.
   // ---------------------------------------------------------------------
+  DN._offlineSaveTokens = Object.create(null);
+  DN.prepareOfflineSave = async function (slug) {
+    if (!/^[a-z0-9-]+$/.test(slug || '')) return false;
+    try {
+      var response = await fetch('/api/admin/offline-token', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: slug }),
+      });
+      if (!response.ok) return false;
+      var data = await response.json();
+      if (!data.token) return false;
+      DN._offlineSaveTokens[slug] = data.token;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
   DN.queueOfflineSave = function (slug, html) {
     if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return false;
+    var token = DN._offlineSaveTokens[slug];
+    if (!token) return false;
     try {
       navigator.serviceWorker.controller.postMessage({
         type: 'QUEUE_SAVE',
-        payload: { slug: slug, html: html, ts: Date.now() },
+        payload: { slug: slug, html: html, token: token, ts: Date.now() },
       });
       navigator.serviceWorker.ready.then(function (reg) {
         if (reg.sync) reg.sync.register('admin-save-replay').catch(function () {});

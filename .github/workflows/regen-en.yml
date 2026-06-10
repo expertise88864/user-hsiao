@@ -48,18 +48,28 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: pip install beautifulsoup4
+        run: pip install Pillow beautifulsoup4
 
-      - name: Regenerate English mirror and dependent artifacts
+      - name: Regenerate all dependent artifacts
         run: |
+          python halfwidth_to_fullwidth.py
+          python _gen_feeds.py
+          python _gen_related.py
+          python _gen_serp_meta.py
           python _gen_faqpage_jsonld.py
           python _gen_en_pages.py
           python _gen_search_index.py
           python _gen_api_content_snapshot.py
+          python _gen_llms_txt.py
+          python _gen_opensearch.py
           python _gen_profile_schema.py
           python _gen_site_graph.py
           python _gen_route_canonicals.py
+          python _apply_i_series.py
+          python _apply_a11y_vt.py
           python _apply_trusted_types.py
+          python _apply_f10_image_priority.py
+          python _extract_critical_css.py
           python _gen_csp_hashes.py
 
       - name: Commit regenerated artifacts if changed
@@ -68,7 +78,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html blog/*.html en/ assets/search-index.json api/_content_snapshot.js middleware.js
+          git add -A
           if git diff --cached --quiet; then
             echo "No regenerated artifact changes to commit."
             exit 0

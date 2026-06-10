@@ -134,6 +134,19 @@ export async function ghCommitFiles(files, message) {
     if (!file || !file.path || typeof file.content !== 'string') {
       throw new Error('Each atomic commit file needs path + UTF-8 content');
     }
+    if (file.expectedSha) {
+      const currentResponse = await fetch(
+        `${api}/contents/${encodeURIComponent(file.path)}?ref=${encodeURIComponent(baseCommitSha)}`,
+        { headers: githubHeaders(token) }
+      );
+      if (!currentResponse.ok) {
+        throw new Error(`GitHub concurrency check failed for ${file.path}: ${currentResponse.status}`);
+      }
+      const current = await currentResponse.json();
+      if (current.sha !== file.expectedSha) {
+        throw new Error(`GitHub file changed during atomic commit; retry ${file.path}`);
+      }
+    }
     const blobResponse = await fetch(`${api}/git/blobs`, {
       method: 'POST',
       headers: githubHeaders(token),

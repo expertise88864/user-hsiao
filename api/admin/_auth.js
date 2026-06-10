@@ -37,6 +37,33 @@ function verifySessionToken(token, secret) {
   } catch (e) { return false; }
 }
 
+export function isAdminRequest(req) {
+  const secret = process.env.ADMIN_PASSWORD;
+  return Boolean(secret && verifySessionToken(getSessionFromReq(req), secret));
+}
+
+export function makeOfflineSaveToken(slug, ttlMs = 8 * 60 * 60 * 1000) {
+  const secret = process.env.ADMIN_PASSWORD;
+  if (!secret || !/^[a-z0-9-]+$/.test(slug || '')) return null;
+  const exp = Date.now() + ttlMs;
+  return `${exp}.${slug}.${sign(`offline:${exp}:${slug}`, secret)}`;
+}
+
+export function verifyOfflineSaveToken(token, slug) {
+  const secret = process.env.ADMIN_PASSWORD;
+  if (!secret || !token || !/^[a-z0-9-]+$/.test(slug || '')) return false;
+  const [expStr, tokenSlug, sig] = String(token).split('.');
+  const exp = parseInt(expStr, 10);
+  if (!exp || exp < Date.now() || tokenSlug !== slug) return false;
+  const expectedSig = sign(`offline:${exp}:${slug}`, secret);
+  if (!sig || sig.length !== expectedSig.length) return false;
+  try {
+    return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expectedSig));
+  } catch (e) {
+    return false;
+  }
+}
+
 /**
  * Returns true if request is authenticated, otherwise sends 401 and returns false.
  * Usage:
@@ -44,13 +71,11 @@ function verifySessionToken(token, secret) {
  *   if (!requireAdmin(req, res)) return;
  */
 export function requireAdmin(req, res) {
-  const secret = process.env.ADMIN_PASSWORD;
-  if (!secret) {
+  if (!process.env.ADMIN_PASSWORD) {
     res.status(500).json({ error: 'ADMIN_PASSWORD env var not configured' });
     return false;
   }
-  const token = getSessionFromReq(req);
-  if (!verifySessionToken(token, secret)) {
+  if (!isAdminRequest(req)) {
     res.status(401).json({ error: 'Unauthorized — please login at /admin' });
     return false;
   }

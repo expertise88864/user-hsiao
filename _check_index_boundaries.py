@@ -17,7 +17,6 @@ NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
 PRIVATE_PAGES = {
     "admin.html": {"route": "/admin", "robots": "noindex,nofollow", "blocked": True},
-    "admin/mobile.html": {"route": "/admin/mobile", "robots": "noindex,nofollow", "blocked": True},
     "offline.html": {"route": "/offline", "robots": "noindex,nofollow", "blocked": False},
     "404.html": {"route": "/404", "robots": "noindex,follow", "blocked": False},
     # /notes is a thin "coming soon" placeholder — noindex,follow and excluded

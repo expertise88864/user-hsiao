@@ -23,11 +23,10 @@ const HANDLERS = {
   'login':            () => import('./_login.js'),
   'list':             () => import('./_list.js'),
   'save':             () => import('./_save.js'),
+  'offline-token':    () => import('./_offline-token.js'),
   'new':              () => import('./_new.js'),
   'upload':           () => import('./_upload.js'),
   'upload-srcset':    () => import('./_upload-srcset.js'),
-  'regen-en':         () => import('./_regen-en.js'),
-  'regen-en-stream':  () => import('./_regen-en-stream.js'),
   'history':          () => import('./_history.js'),
   'indexnow':         () => import('./_indexnow.js'),
   'rollback':         () => import('./_rollback.js'),
@@ -148,7 +147,5 @@ export default async function handler(req, res) {
   }
 }
 
-// regen-en-stream + events-style endpoints need streaming response.
-// The dispatcher doesn't change the runtime — Node streaming still works
-// because we use `res.write()` directly inside the inner handler.
+// Some admin operations can run longer than the default function window.
 export const config = { runtime: 'nodejs', maxDuration: 300 };

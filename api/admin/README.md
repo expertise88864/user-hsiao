@@ -16,7 +16,6 @@ before editing locally.
 | `save.js`  | commit edited HTML for a slug |
 | `new.js`   | create article from template + register slug |
 | `upload.js` | upload images (auto WebP-compressed) |
-| `regen-en.js` | regenerate `/en/` mirror (single or all) |
 | `history.js` | git log per file (last 20 commits) |
 | `rollback.js` | restore file to a previous commit (forward commit) |
 | `reorder.js` | reorder `DN.ARTICLES` (drag-drop UI) |
@@ -172,9 +171,9 @@ GitHub commits → Vercel webhook → re-deploy → site updated
 - **No media upload** — to add images, commit them to `assets/` via local
   git first. Future enhancement: `POST /api/admin/upload` to handle WebP
   uploads via GitHub blob API.
-- **/en/ mirror not auto-updated** — after editing a zh article, run
-  `_gen_en_pages.py` locally + commit, OR build `/api/admin/regen-en` route
-  (TODO).
+- **/en/ mirror updates asynchronously** — article commits trigger
+  `.github/workflows/regen-en.yml`, which runs the canonical Python generators
+  and commits derived English/search/schema/CSP artifacts.
 - **No "draft" mode** — saves go straight to production. For drafts, edit
   on a Vercel preview branch instead.
 

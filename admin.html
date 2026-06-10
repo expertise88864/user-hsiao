@@ -9,34 +9,6 @@
 <meta name="robots" content="noindex,nofollow" />
 <link rel="canonical" href="https://hsiao.chendermatologist.com/admin" />
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-<!--
-  Mobile / tablet redirect — admin.html's iframe-based editor + dense
-  desktop dashboard don't work on touch devices (iOS Safari iframe-in-flex
-  collapses to height 0; service worker intercepts /blog/* preventing the
-  iframe from loading; toolbar buttons are too small for tap targets).
-
-  Pure touch devices get redirected to /admin/mobile (= admin/mobile.html,
-  served directly by Vercel's cleanUrls — no rewrite needed since the file
-  name has no conflict with the /admin path which serves admin.html in the
-  root). The mobile CMS uses a GitHub PAT and has a touch-friendly layout.
-
-  Runs synchronously at top of <head> so the redirect happens BEFORE any
-  styles, fonts, or DOM build out — no white-screen flash, no half-loaded
-  admin.html appearing momentarily.
-
-  DETECTION RULE — `(pointer: coarse) AND NOT (any-pointer: fine)`:
-    • Phone / iPad without mouse: TRUE → redirect ✓
-    • iPad with paired Magic Keyboard mouse: any-pointer fine TRUE → STAY ✓
-    • Windows touchscreen laptop with trackpad/mouse: pointer is fine
-      (primary is mouse), any-pointer fine TRUE → STAY ✓ — fixes the bug
-      where Windows Chrome users on narrow windows were wrongly redirected
-    • Pure desktop: pointer fine, any-pointer fine TRUE → STAY ✓
-
-  Override: append `?desktop=1` to force admin.html on a touch device. The
-  override sets `force-desktop` on <html> so CSS fallback overlay is also
-  suppressed (otherwise the overlay would appear and the user couldn't
-  reach the dashboard underneath).
--->
 <script>
 // AUTO CACHE-BUST — runs synchronously before anything else.
 // Compares localStorage version stamp against the constant baked into the
@@ -100,26 +72,6 @@
   } catch (e) { /* policy may already exist if admin.html ever re-runs */ }
 })();
 </script>
-<script>
-(function () {
-  try {
-    if (location.search.indexOf('desktop=1') !== -1) {
-      document.documentElement.classList.add('force-desktop');
-      return;
-    }
-    var mm = window.matchMedia;
-    if (!mm) return;
-    var primaryCoarse = mm('(pointer: coarse)').matches;
-    var anyFineHere  = mm('(any-pointer: fine)').matches;
-    if (primaryCoarse && !anyFineHere) {
-      // Pure touch device with no mouse anywhere on the system → mobile CMS.
-      // No session guard needed: /admin/mobile serves a different FILE
-      // (admin/mobile.html), so re-redirecting cannot loop.
-      location.replace('/admin/mobile');
-    }
-  } catch (e) { /* fall through to admin.html */ }
-})();
-</script>
 <style>
   /* Belt-and-suspenders: if the JS redirect above somehow fails (JS
      disabled, stale-cached script, blocked by extension), pure touch
@@ -138,50 +90,6 @@
      we have to win against the inline display:flex. */
   #edit-shell[hidden] { display: none !important; }
 
-  @media (pointer: coarse) and (not (any-pointer: fine)) {
-    html:not(.force-desktop) #edit-shell { display: none !important; }
-    html:not(.force-desktop) #mobile-fallback { display: block; }
-  }
-  #mobile-fallback {
-    display: none;
-    position: fixed; inset: 0;
-    background: linear-gradient(180deg, #faf7f2 0%, #f3f0e8 100%);
-    z-index: 200;
-    padding: 20vh 24px 32px;
-    text-align: center;
-    font-family: Inter, 'Noto Sans TC', system-ui, sans-serif;
-  }
-  #mobile-fallback h2 {
-    font-family: 'Noto Serif TC', Georgia, serif;
-    font-size: 20px;
-    color: #3a5a7c;
-    margin: 0 0 12px;
-  }
-  #mobile-fallback p {
-    font-size: 14px;
-    color: #5e574e;
-    line-height: 1.7;
-    max-width: 32ch;
-    margin: 0 auto 24px;
-  }
-  #mobile-fallback a.go {
-    display: inline-block;
-    padding: 14px 28px;
-    border-radius: 10px;
-    background: #3a5a7c;
-    color: #fff;
-    font-weight: 700;
-    font-size: 15px;
-    text-decoration: none;
-    box-shadow: 0 8px 18px -8px rgba(58,90,124,.55);
-  }
-  #mobile-fallback a.alt {
-    display: inline-block;
-    margin-top: 18px;
-    font-size: 12.5px;
-    color: #8b8378;
-    text-decoration: underline;
-  }
 </style>
 <style>
   /* GLOBAL HIDDEN FIX — the HTML `hidden` attribute maps to UA stylesheet
@@ -365,18 +273,6 @@
 </style>
 <!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><!-- i-series-applied --></head>
 <body><style>.hs-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.hs-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.hs-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.hs-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="hs-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#hs-related" data-zh="跳至相關文章" data-en="Skip to related">跳至相關文章</a><a href="#dn-newsletter" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
-
-<!--
-  Mobile fallback — only renders on phones/tablets if the JS redirect at
-  top of <head> failed for any reason (JS disabled, stale cache, etc.).
-  Gives the user a working escape hatch instead of the broken iframe.
--->
-<div id="mobile-fallback" aria-hidden="false">
-  <h2>請改用手機版後台</h2>
-  <p>桌面版 admin 在手機上無法正常操作（編輯器內嵌 iframe 在 iOS Safari 會空白）。請點下面按鈕進入手機版編輯介面。</p>
-  <a class="go" href="/admin/mobile">→ 進入手機版後台</a>
-  <a class="alt" href="?desktop=1">仍要使用桌面版（不推薦）</a>
-</div>
 
 <!-- ─── LOGIN ─── -->
 <section id="login-screen">
@@ -625,9 +521,8 @@
       <div class="toolbar"><h2>站務 / 維運</h2></div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px;">
         <div class="info-card" style="margin:0">
-          <h3>🌐 重新生成 /en/ 鏡像</h3>
-          <p style="color:var(--ink-2); margin:0 0 12px">中文文章編輯後，英文鏡像不會自動同步。點此重新生成所有 /en/ 頁面 （約 30-60 秒）。</p>
-          <button type="button" class="btn primary" data-action="runRegenEn">🔄 全部重生</button>
+          <h3>英文鏡像自動生成</h3>
+          <p style="color:var(--ink-2); margin:0">文章儲存後，GitHub Actions 會使用完整 Python pipeline 自動更新英文頁、搜尋索引、結構化資料與 CSP。</p>
         </div>
         <div class="info-card" style="margin:0">
           <h4>🛡️ Service Worker</h4>
@@ -1115,7 +1010,6 @@ function runAdminAction(action, el) {
     clearErrors,
     loadSearchLog,
     clearSearchLog,
-    runRegenEn,
     resetSW,
     purgeEdge,
     buildRelated,
@@ -1133,7 +1027,6 @@ function runAdminAction(action, el) {
   if (action === 'showHistory') return showHistory(el.dataset.slug || '');
   if (action === 'autoFixSeo') return autoFixSeo(el.dataset.slug || '', el);
   if (action === 'injectFaqSchema') return injectFaqSchema(el.dataset.slug || '', el);
-  if (action === 'regenEnOne') return regenEnOne(el.dataset.slug || '', el);
   if (action === 'doRollback') return doRollback(el.dataset.slug || '', el.dataset.sha || '');
   if (action === 'editAbTest') return editAbTest(el.dataset.id || '');
   if (action === 'toggleAbTest') return toggleAbTest(el.dataset.id || '');
@@ -1484,7 +1377,6 @@ function renderArticles(articles) {
         <button type="button" data-action="showHistory" data-slug="${escapeAttr(a.slug)}">📚 歷史</button>
         <button type="button" data-action="autoFixSeo" data-slug="${escapeAttr(a.slug)}">🩹 SEO 修</button>
         <button type="button" data-action="injectFaqSchema" data-slug="${escapeAttr(a.slug)}" title="自動萃取 Q&A 並注入 FAQPage 結構化資料">❓ FAQ</button>
-        <button type="button" data-action="regenEnOne" data-slug="${escapeAttr(a.slug)}">🌐 EN</button>
       </div>
     </div>`
   ).join('');
@@ -1642,60 +1534,6 @@ async function doRollback(slug, sha) {
       toast('回滾失敗: ' + (j.error||r.status), 5000);
     }
   } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
-}
-
-// ───────────────── EN regen ─────────────────
-async function regenEnOne(slug, btn) {
-  if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
-  try {
-    const r = await fetch(API + '/regen-en', {
-      method: 'POST', credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug })
-    });
-    const j = await r.json().catch(() => ({}));
-    if (r.ok) {
-      const result = (j.results && j.results[0]) || {};
-      toast(result.noop ? '✓ 已是最新（無變動）' : `✓ 已重生 /en/blog/${slug}.html`);
-    } else {
-      toast('失敗: ' + (j.error || r.status), 5000);
-    }
-  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
-  finally { if (btn) { btn.disabled = false; btn.textContent = '🌐 EN'; } }
-}
-
-// v30: streaming progress via Server-Sent Events
-async function runRegenEn() {
-  if (!confirm('重新生成所有 /en/ 頁面？大約 30-60 秒,進度即時顯示。')) return;
-  const t = document.createElement('div');
-  t.className = 'toast'; t.style.minWidth = '340px';
-  t.innerHTML = '🔄 開始重生⋯ <span id="regen-pct">0%</span> <span id="regen-detail" style="opacity:.7;font-weight:400;font-size:11px"></span>';
-  document.body.appendChild(t);
-  try {
-    const es = new EventSource(API + '/regen-en-stream', { withCredentials: true });
-    let total = 0;
-    es.addEventListener('start', (e) => {
-      const j = JSON.parse(e.data); total = j.total;
-      document.getElementById('regen-detail').textContent = `(共 ${total} 頁)`;
-    });
-    es.addEventListener('progress', (e) => {
-      const j = JSON.parse(e.data);
-      const pct = Math.round((j.done / total) * 100);
-      const pctEl = document.getElementById('regen-pct'); if (pctEl) pctEl.textContent = pct + '%';
-      const dEl = document.getElementById('regen-detail'); if (dEl) dEl.textContent = `${j.done}/${total} · ${j.current}${j.noop?' (no change)':''}`;
-    });
-    es.addEventListener('complete', (e) => {
-      const j = JSON.parse(e.data); es.close();
-      t.style.background = '#16a34a';
-      t.innerHTML = `✓ 完成 ${j.ok}/${j.total} (${j.noop} 已是最新, ${j.failed} 失敗)`;
-      setTimeout(() => { t.style.transition = 'opacity .3s'; t.style.opacity = '0'; setTimeout(() => t.remove(), 350); }, 4500);
-    });
-    es.addEventListener('error', (ev) => {
-      es.close();
-      t.style.background = '#dc2626'; t.textContent = '✗ 失敗 (網路或權限錯誤)';
-      setTimeout(() => t.remove(), 5000);
-    });
-  } catch (e) { t.textContent = '✗ ' + e.message; setTimeout(() => t.remove(), 4000); }
 }
 
 // ───────────────── v31 admin actions ─────────────────

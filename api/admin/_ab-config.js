@@ -13,7 +13,7 @@
  * on page load, runs DN.abTest for each active config, and innerHTML-swaps
  * the matched element with the chosen variant's html.
  */
-import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
+import { isAdminRequest, requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
 import { kvAvailable, kvGetJSON, kvSetJSON } from '../_kv.js';
 import { ecAvailable, ecGet, ecSet } from '../_edge_config.js';
 
@@ -74,7 +74,7 @@ export default async function handler(req, res) {
     try {
       const state = await load();
       // Strip inactive tests for public response (smaller payload)
-      const isAdmin = req.headers.cookie && req.headers.cookie.includes('hs_admin_session=');
+      const isAdmin = isAdminRequest(req);
       const tests = state.tests || {};
       if (!isAdmin) {
         const active = {};

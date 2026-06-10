@@ -19,6 +19,7 @@
     var slug = DN.currentSlug && DN.currentSlug();
     if (!slug) return;
     if (document.getElementById('hs-admin-bar')) return;
+    DN.prepareOfflineSave(slug).catch(function () {});
 
     // Inject admin styles (scoped, doesn't affect normal article render)
     if (!document.getElementById('hs-admin-css')) {
