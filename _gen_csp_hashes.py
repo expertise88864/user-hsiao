@@ -47,8 +47,10 @@ def routes_for_path(path: str) -> list[str]:
 
     stem = rel[:-5] if rel.endswith('.html') else rel
     if stem.endswith('/index'):
-        base = stem[:-6]
-        return sorted({base or '/', (base or '/') + '/', '/' + rel.lstrip('/')})
+        base = '/' + stem[:-6].strip('/')
+        if base == '/':
+            return ['/', '/index.html']
+        return sorted({base, base + '/', '/' + rel.lstrip('/')})
     return sorted({'/' + stem.lstrip('/'), '/' + rel.lstrip('/')})
 
 

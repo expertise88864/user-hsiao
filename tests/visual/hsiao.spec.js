@@ -50,10 +50,21 @@ for (const page of PAGES) {
   for (const vp of VIEWPORTS) {
     test(`${page.name} @ ${vp.name}`, async ({ page: pw }) => {
       await pw.setViewportSize(vp);
+      // Hero selection and any A/B sampling must be deterministic in snapshots.
+      await pw.addInitScript(() => { Math.random = () => 0; });
       await pw.goto(BASE + page.path, { waitUntil: 'networkidle', timeout: 60_000 });
 
       // Wait for fonts (Noto Serif TC + Inter) to fully load
       await pw.evaluate(() => document.fonts.ready);
+
+      if (page.name === 'home' || page.name === 'en-home') {
+        await pw.waitForFunction(() => (
+          window.DN &&
+          [...document.querySelectorAll('#hs-article-list .article-list-item')]
+            .filter(el => getComputedStyle(el).display !== 'none').length === 5
+        ));
+        await expect(pw.locator('.home-faq')).toBeVisible();
+      }
 
       // Stabilise rendering:
       //   - kill all CSS animations / transitions / view-transitions

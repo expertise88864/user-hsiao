@@ -93,6 +93,7 @@ python _gen_site_graph.py                  # WebSite hasPart graph
 python _gen_route_canonicals.py            # canonical href normalisation
 python _apply_i_series.py                  # skip-link CSS + focus styles
 python _apply_a11y_vt.py                   # view-transition + reduced-motion
+python _apply_trusted_types.py              # early Trusted Types policy bootstrap
 python _apply_f10_image_priority.py        # fetchpriority="high" on first <img>
 python _gen_csp_hashes.py                  # CSP hashes (must run last)
 python _extract_critical_css.py            # critical CSS inline

@@ -38,6 +38,7 @@ python _gen_site_graph.py                  # WebSite hasPart graph (5 anchor pag
 python _gen_route_canonicals.py            # canonical href normalisation
 python _apply_i_series.py                  # skip-link CSS + focus styles
 python _apply_a11y_vt.py                   # view-transition + reduced-motion
+python _apply_trusted_types.py              # early Trusted Types policy bootstrap
 python _apply_f10_image_priority.py        # fetchpriority="high" on first <img>
 python _extract_critical_css.py            # inline above-the-fold CSS
 python _gen_csp_hashes.py                  # CSP hash allowlist (must run last)
@@ -103,7 +104,7 @@ hsiao.chendermatologist.com/
 - **CSS**: hand-curated `assets/app.css` (804 lines) + per-article inline `<style>`; critical CSS inlined via `_extract_critical_css.py`
 - **JS**: `blog/blog-shared.js` (~4800 lines, vanilla, no framework) + lazy `blog/blog-admin.js` only when `?admin=1`
 - **Search**: PageFind (Rust → WASM, ~45 KB), lazy-loaded
-- **Security**: hash-based CSP via `_gen_csp_hashes.py` + `middleware.js`, Trusted Types policy in blog-shared.js
+- **Security**: route-scoped hash CSP via `_gen_csp_hashes.py` + `middleware.js`, with an early Trusted Types bootstrap in `assets/trusted-types.js`
 - **i18n**: data-zh / data-en attribute pattern; client toggle + build-time materialization
 
 ## Documentation

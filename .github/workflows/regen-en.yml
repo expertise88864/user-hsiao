@@ -59,6 +59,7 @@ jobs:
           python _gen_profile_schema.py
           python _gen_site_graph.py
           python _gen_route_canonicals.py
+          python _apply_trusted_types.py
           python _gen_csp_hashes.py
 
       - name: Commit regenerated artifacts if changed

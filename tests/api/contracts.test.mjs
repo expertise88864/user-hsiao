@@ -91,4 +91,22 @@ test('CSP is route-scoped and emitted once', async () => {
   assert.match(middleware, /INLINE_SCRIPT_HASHES_BY_ROUTE/);
   assert.doesNotMatch(middleware, /Content-Security-Policy-Report-Only/);
   assert.match(middleware, /hashesForRequest\(req\)/);
+  for (const route of ['/', '/blog', '/blog/', '/en', '/en/', '/en/blog', '/en/blog/']) {
+    assert.match(middleware, new RegExp(`"${route.replaceAll('/', '\\/')}"\\s*:`));
+  }
+});
+
+test('Trusted Types bootstrap runs before inline page scripts', async () => {
+  const bootstrap = await read('assets/trusted-types.js');
+  assert.match(bootstrap, /createPolicy\('hs-policy'/);
+  assert.match(bootstrap, /createPolicy\('default'/);
+  assert.match(bootstrap, /script URL not in allow-list/);
+
+  for (const page of ['index.html', 'blog/index.html', 'en/index.html', 'en/blog/index.html']) {
+    const html = await read(page);
+    const bootstrapAt = html.indexOf('/assets/trusted-types.js');
+    const firstInlineAt = html.search(/<script(?![^>]*\bsrc=)[^>]*>/i);
+    assert.ok(bootstrapAt >= 0, `${page}: missing Trusted Types bootstrap`);
+    assert.ok(bootstrapAt < firstInlineAt, `${page}: bootstrap must precede inline scripts`);
+  }
 });
