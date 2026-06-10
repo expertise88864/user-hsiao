@@ -19,16 +19,25 @@
  * UI displays that gracefully.
  */
 import { requireAdmin } from './_auth.js';
-import { kvAvailable, kvGet } from '../_kv.js';
+import { kvAvailable, kvGet, kvLRange } from '../_kv.js';
 
 // v31: Read from KV first (real-time). GA4 fallback for historical depth
 // when KV reservoir is empty or older than 30 days.
 async function readKvSamples(metric, days) {
   if (!kvAvailable()) return null;
-  const raw = await kvGet(`cwv:samples:${metric}`);
-  if (!raw) return null;
-  let arr;
-  try { arr = typeof raw === 'string' ? JSON.parse(raw) : raw; } catch (e) { return null; }
+  const rows = await kvLRange(`cwv:samples:v2:${metric}`, 0, 999);
+  let arr = Array.isArray(rows)
+    ? rows.map(row => {
+      try { return typeof row === 'string' ? JSON.parse(row) : row; } catch (e) { return null; }
+    }).filter(Boolean)
+    : [];
+  // Transitional fallback for samples stored by the old JSON reservoir.
+  if (!arr.length) {
+    const raw = await kvGet(`cwv:samples:${metric}`);
+    if (raw) {
+      try { arr = typeof raw === 'string' ? JSON.parse(raw) : raw; } catch (e) { arr = []; }
+    }
+  }
   if (!Array.isArray(arr) || !arr.length) return null;
   const cutoff = Date.now() - days * 86400_000;
   const recent = arr.filter(s => s.t > cutoff).map(s => s.v);
@@ -157,19 +166,8 @@ export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
   const t0 = Date.now();
 
-  const propertyId = process.env.GA4_PROPERTY_ID;
-  const saJson = process.env.GA4_SERVICE_ACCOUNT_JSON;
-  if (!propertyId || !saJson) {
-    return res.status(503).json({
-      error: 'GA4 not configured. Set GA4_PROPERTY_ID + GA4_SERVICE_ACCOUNT_JSON env vars in Vercel.',
-      hint: '見 /api/admin/README.md → CWV section',
-    });
-  }
-  const sa = parseSAJson(saJson);
-  if (!sa) return res.status(500).json({ error: 'Invalid GA4_SERVICE_ACCOUNT_JSON' });
-
   const range = (req.query && req.query.range) || '28d';
-  const days = parseInt(range, 10) || 28;
+  const days = Math.min(90, Math.max(1, parseInt(range, 10) || 28));
 
   try {
     // Try KV first (real-time, no latency); fall back to GA4 per metric.
@@ -184,6 +182,16 @@ export default async function handler(req, res) {
       metrics = kvResults;
       res.setHeader('Server-Timing', `kv;dur=${Date.now() - t0}, source;desc="kv-only"`);
     } else {
+      const propertyId = process.env.GA4_PROPERTY_ID;
+      const saJson = process.env.GA4_SERVICE_ACCOUNT_JSON;
+      if (!propertyId || !saJson) {
+        return res.status(503).json({
+          error: 'GA4 is required until KV has samples for every metric.',
+          hint: 'Set GA4_PROPERTY_ID and GA4_SERVICE_ACCOUNT_JSON in Vercel.',
+        });
+      }
+      const sa = parseSAJson(saJson);
+      if (!sa) return res.status(500).json({ error: 'Invalid GA4_SERVICE_ACCOUNT_JSON' });
       // Mix: KV where available, GA4 fallback for missing
       const ga4Start = Date.now();
       const token = await getAccessToken(sa);

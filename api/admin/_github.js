@@ -19,6 +19,15 @@ export function getRepoConfig() {
   return { owner, repo, branch, token };
 }
 
+function githubHeaders(token) {
+  return {
+    Accept: 'application/vnd.github+json',
+    Authorization: `Bearer ${token}`,
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json',
+  };
+}
+
 /**
  * Fetch a file from GitHub repo. Returns { content (utf-8), sha } or null if 404.
  */
@@ -83,4 +92,93 @@ export async function ghPutFile(path, content, message, sha, opts = {}) {
   }
   const data = await r.json();
   return { commitSha: data.commit?.sha || '', contentSha: data.content?.sha || '' };
+}
+
+/**
+ * Atomically commit multiple UTF-8 files with the Git Data API.
+ *
+ * The branch ref update is non-forced. If another admin/CMS write lands after
+ * the base ref is read, GitHub rejects the update instead of silently dropping
+ * either writer's work.
+ */
+export async function ghCommitFiles(files, message) {
+  const { owner, repo, branch, token } = getRepoConfig();
+  if (!token) throw new Error('GITHUB_TOKEN env var not configured');
+  if (!Array.isArray(files) || files.length === 0) {
+    throw new Error('ghCommitFiles requires at least one file');
+  }
+
+  const api = `https://api.github.com/repos/${owner}/${repo}`;
+  const refResponse = await fetch(`${api}/git/ref/heads/${encodeURIComponent(branch)}`, {
+    headers: githubHeaders(token),
+  });
+  if (!refResponse.ok) {
+    throw new Error(`GitHub ref lookup failed: ${refResponse.status} ${await refResponse.text()}`);
+  }
+  const ref = await refResponse.json();
+  const baseCommitSha = ref.object?.sha;
+  if (!baseCommitSha) throw new Error('GitHub branch ref did not include a commit SHA');
+
+  const commitResponse = await fetch(`${api}/git/commits/${baseCommitSha}`, {
+    headers: githubHeaders(token),
+  });
+  if (!commitResponse.ok) {
+    throw new Error(`GitHub base commit lookup failed: ${commitResponse.status} ${await commitResponse.text()}`);
+  }
+  const baseCommit = await commitResponse.json();
+  const baseTreeSha = baseCommit.tree?.sha;
+  if (!baseTreeSha) throw new Error('GitHub base commit did not include a tree SHA');
+
+  const tree = [];
+  for (const file of files) {
+    if (!file || !file.path || typeof file.content !== 'string') {
+      throw new Error('Each atomic commit file needs path + UTF-8 content');
+    }
+    const blobResponse = await fetch(`${api}/git/blobs`, {
+      method: 'POST',
+      headers: githubHeaders(token),
+      body: JSON.stringify({ content: file.content, encoding: 'utf-8' }),
+    });
+    if (!blobResponse.ok) {
+      throw new Error(`GitHub blob create failed for ${file.path}: ${blobResponse.status} ${await blobResponse.text()}`);
+    }
+    const blob = await blobResponse.json();
+    tree.push({ path: file.path, mode: '100644', type: 'blob', sha: blob.sha });
+  }
+
+  const treeResponse = await fetch(`${api}/git/trees`, {
+    method: 'POST',
+    headers: githubHeaders(token),
+    body: JSON.stringify({ base_tree: baseTreeSha, tree }),
+  });
+  if (!treeResponse.ok) {
+    throw new Error(`GitHub tree create failed: ${treeResponse.status} ${await treeResponse.text()}`);
+  }
+  const newTree = await treeResponse.json();
+
+  const newCommitResponse = await fetch(`${api}/git/commits`, {
+    method: 'POST',
+    headers: githubHeaders(token),
+    body: JSON.stringify({
+      message: message || 'admin: atomic content update',
+      tree: newTree.sha,
+      parents: [baseCommitSha],
+    }),
+  });
+  if (!newCommitResponse.ok) {
+    throw new Error(`GitHub commit create failed: ${newCommitResponse.status} ${await newCommitResponse.text()}`);
+  }
+  const newCommit = await newCommitResponse.json();
+
+  const updateRefResponse = await fetch(`${api}/git/refs/heads/${encodeURIComponent(branch)}`, {
+    method: 'PATCH',
+    headers: githubHeaders(token),
+    body: JSON.stringify({ sha: newCommit.sha, force: false }),
+  });
+  if (!updateRefResponse.ok) {
+    const detail = await updateRefResponse.text();
+    throw new Error(`GitHub branch changed during atomic commit; retry the operation: ${updateRefResponse.status} ${detail}`);
+  }
+
+  return { commitSha: newCommit.sha, baseCommitSha };
 }

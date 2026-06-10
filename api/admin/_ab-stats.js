@@ -1,127 +1,108 @@
 /**
- * GET  /api/admin/ab-stats?testId=<id>          → returns aggregated stats
- * POST /api/admin/ab-stats {testId, variantIndex, event}  → record a counter (no auth)
+ * GET  /api/admin/ab-stats?testId=<id> - return aggregated stats (admin only)
+ * POST /api/admin/ab-stats {testId, variantIndex, event} - record a counter
  *
- * v29: Now KV-first storage. Each test stored as a single KV JSON blob at
- *      key `ab:<testId>`. INCR commands keep counters atomic. Falls back
- *      to a single GitHub blob (assets/ab-stats.json) if KV not configured.
- *
- * Why this matters: in v28, every exposure / conversion potentially triggered
- * a GitHub commit (rate-limited to 5000/hour and adds repo noise). KV is
- * essentially free at HsiaoEye's scale.
+ * Public telemetry is KV-only. If KV is unavailable, POST requests are
+ * accepted and dropped so anonymous traffic can never create GitHub commits.
  */
-import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
-import { kvAvailable, kvGet, kvSetJSON, kvHGetAll, kvHIncrBy, kvHSet } from '../_kv.js';
+import { requireAdmin } from './_auth.js';
+import { kvAvailable, kvHGetAll, kvHIncrBy, kvHSet } from '../_kv.js';
+import { rateLimitOk, sendRateLimit } from '../_rate_limit.js';
 
-const STATS_PATH = 'assets/ab-stats.json';
 const KV_PREFIX = 'ab:';
-const KV_INDEX  = 'ab:_index';
+const KV_INDEX = 'ab:_index';
 
-// ── helpers ──
 async function loadAllTests() {
-  if (kvAvailable()) {
-    // Index of testIds is itself a hash: { testId → created_iso }
-    const idx = (await kvHGetAll(KV_INDEX)) || {};
-    const tests = {};
-    for (const testId of Object.keys(idx)) {
-      const counters = (await kvHGetAll(KV_PREFIX + testId)) || {};
-      // Schema: <i>:exp = N, <i>:cv:<event> = N, <i>:name = string
-      const variants = [];
-      Object.entries(counters).forEach(([k, v]) => {
-        const m = k.match(/^(\d+):(.+)$/);
-        if (!m) return;
-        const i = parseInt(m[1], 10);
-        const sub = m[2];
-        while (variants.length <= i) variants.push({ name: '', exposures: 0, conversions: {} });
-        if (sub === 'exp')        variants[i].exposures = parseInt(v, 10) || 0;
-        else if (sub === 'name')  variants[i].name = String(v);
-        else if (sub.startsWith('cv:')) variants[i].conversions[sub.slice(3)] = parseInt(v, 10) || 0;
-      });
-      tests[testId] = { created: idx[testId], variants };
-    }
-    return tests;
-  }
-  // GitHub blob fallback
-  const file = await ghGetFile(STATS_PATH);
-  if (!file) return {};
-  try { return (JSON.parse(file.content).tests || {}); } catch (e) { return {}; }
-}
+  if (!kvAvailable()) return {};
+  const idx = (await kvHGetAll(KV_INDEX)) || {};
+  const tests = {};
 
-async function recordEventGH(testId, variantIndex, event, variantName) {
-  const file = await ghGetFile(STATS_PATH);
-  let content = { tests: {} };
-  let sha;
-  if (file) { sha = file.sha; try { content = JSON.parse(file.content); } catch (e) {} }
-  const tests = content.tests = content.tests || {};
-  const t = tests[testId] = tests[testId] || { created: new Date().toISOString(), variants: [] };
-  while (t.variants.length <= variantIndex) t.variants.push({ name: '', exposures: 0, conversions: {} });
-  const v = t.variants[variantIndex];
-  if (variantName && !v.name) v.name = String(variantName).slice(0, 60);
-  if (event === 'exposure') v.exposures = (v.exposures || 0) + 1;
-  else { v.conversions = v.conversions || {}; v.conversions[event] = (v.conversions[event] || 0) + 1; }
-  t.last_updated = new Date().toISOString();
-
-  // Throttle commits — only every 5 min OR every 10 exposures
-  const lastWrite = parseInt(content._last_write_ms || 0, 10);
-  const now = Date.now();
-  const shouldCommit = !lastWrite || (now - lastWrite) > 5 * 60 * 1000 || ((v.exposures || 0) % 10 === 0);
-  if (shouldCommit) {
-    content._last_write_ms = now;
-    await ghPutFile(STATS_PATH, JSON.stringify(content, null, 2),
-      `admin: A/B stats snapshot (${testId})`, sha);
-    return { committed: true };
+  for (const testId of Object.keys(idx)) {
+    const counters = (await kvHGetAll(KV_PREFIX + testId)) || {};
+    const variants = [];
+    Object.entries(counters).forEach(([key, value]) => {
+      const match = key.match(/^(\d+):(.+)$/);
+      if (!match) return;
+      const index = parseInt(match[1], 10);
+      const field = match[2];
+      while (variants.length <= index) {
+        variants.push({ name: '', exposures: 0, conversions: {} });
+      }
+      if (field === 'exp') variants[index].exposures = parseInt(value, 10) || 0;
+      else if (field === 'name') variants[index].name = String(value);
+      else if (field.startsWith('cv:')) {
+        variants[index].conversions[field.slice(3)] = parseInt(value, 10) || 0;
+      }
+    });
+    tests[testId] = { created: idx[testId], variants };
   }
-  return { committed: false };
+  return tests;
 }
 
 async function recordEventKV(testId, variantIndex, event, variantName) {
-  // Atomic: HINCRBY for the counter, HSET for name (only if variant name not yet recorded)
-  const subKey = event === 'exposure' ? `${variantIndex}:exp` : `${variantIndex}:cv:${event}`;
-  await kvHIncrBy(KV_PREFIX + testId, subKey, 1);
+  const key = KV_PREFIX + testId;
+  const counter = event === 'exposure'
+    ? `${variantIndex}:exp`
+    : `${variantIndex}:cv:${event}`;
+  const incremented = await kvHIncrBy(key, counter, 1);
+  if (incremented == null) throw new Error('KV counter write failed');
+
   if (variantName) {
-    // Only set name if not yet present — best-effort (no transaction)
-    const existing = await kvHGetAll(KV_PREFIX + testId) || {};
+    const existing = (await kvHGetAll(key)) || {};
     if (!existing[`${variantIndex}:name`]) {
-      await kvHSet(KV_PREFIX + testId, `${variantIndex}:name`, String(variantName).slice(0, 60));
+      await kvHSet(key, `${variantIndex}:name`, String(variantName).slice(0, 60));
     }
   }
-  // Track in index
-  const idx = (await kvHGetAll(KV_INDEX)) || {};
-  if (!idx[testId]) await kvHSet(KV_INDEX, testId, new Date().toISOString());
-  return { committed: true };
+
+  const index = (await kvHGetAll(KV_INDEX)) || {};
+  if (!index[testId]) await kvHSet(KV_INDEX, testId, new Date().toISOString());
 }
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
+
   if (req.method === 'GET') {
     if (!requireAdmin(req, res)) return;
     try {
       const tests = await loadAllTests();
       const testId = req.query && req.query.testId;
-      if (testId) return res.status(200).json({ test: tests[testId] || null });
-      return res.status(200).json({ tests });
-    } catch (e) { return res.status(500).json({ error: String(e.message || e) }); }
+      if (testId) {
+        return res.status(200).json({
+          test: tests[testId] || null,
+          configured: kvAvailable(),
+        });
+      }
+      return res.status(200).json({ tests, configured: kvAvailable() });
+    } catch (e) {
+      return res.status(500).json({ error: String(e.message || e) });
+    }
   }
 
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (!rateLimitOk(req, { key: 'ab-stats', max: 60, windowMs: 60_000 })) {
+    return sendRateLimit(res, 60);
+  }
 
   let body = req.body;
-  if (typeof body === 'string') { try { body = JSON.parse(body); } catch (e) { body = {}; } }
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch (e) { body = {}; }
+  }
   const { testId, variantIndex, event, variantName } = body || {};
-  if (!testId || typeof variantIndex !== 'number' || !event) {
+  if (!testId || !Number.isInteger(variantIndex) || variantIndex < 0 || variantIndex > 20 || !event) {
     return res.status(400).json({ error: 'testId, variantIndex, event required' });
   }
-  if (!/^[a-z0-9_:.-]+$/i.test(testId)) return res.status(400).json({ error: 'invalid testId' });
-  if (!/^[a-z0-9_]+$/i.test(event))     return res.status(400).json({ error: 'invalid event name' });
+  if (String(testId).length > 80 || !/^[a-z0-9_:.-]+$/i.test(testId)) {
+    return res.status(400).json({ error: 'invalid testId' });
+  }
+  if (String(event).length > 40 || !/^[a-z0-9_]+$/i.test(event)) {
+    return res.status(400).json({ error: 'invalid event name' });
+  }
 
   try {
-    if (kvAvailable()) {
-      await recordEventKV(testId, variantIndex, event, variantName);
-      res.status(200).json({ ok: true, source: 'kv' });
-    } else {
-      const r = await recordEventGH(testId, variantIndex, event, variantName);
-      res.status(200).json({ ok: true, source: 'gh', committed: r.committed });
-    }
+    if (!kvAvailable()) return res.status(202).json({ ok: true, source: 'noop' });
+    await recordEventKV(testId, variantIndex, event, variantName);
+    return res.status(200).json({ ok: true, source: 'kv' });
   } catch (e) {
-    res.status(500).json({ error: String(e.message || e) });
+    return res.status(503).json({ error: String(e.message || e) });
   }
 }

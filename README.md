@@ -30,6 +30,7 @@ python _gen_faqpage_jsonld.py              # FAQPage schema normalize
 python _gen_og_images.py                   # Open Graph cards (--force-all to rebuild)
 python _gen_en_pages.py                    # /en/ mirror with data-en swap
 python _gen_search_index.py                # assets/search-index.json (PageFind)
+python _gen_api_content_snapshot.py        # local fallback for public API routes
 python _gen_llms_txt.py                    # llms.txt
 python _gen_opensearch.py                  # opensearch.xml
 python _gen_profile_schema.py              # ProfilePage JSON-LD (about pages)
@@ -38,8 +39,8 @@ python _gen_route_canonicals.py            # canonical href normalisation
 python _apply_i_series.py                  # skip-link CSS + focus styles
 python _apply_a11y_vt.py                   # view-transition + reduced-motion
 python _apply_f10_image_priority.py        # fetchpriority="high" on first <img>
-python _gen_csp_hashes.py                  # CSP hash allowlist (middleware.js)
 python _extract_critical_css.py            # inline above-the-fold CSS
+python _gen_csp_hashes.py                  # CSP hash allowlist (must run last)
 ```
 
 See [WRITING_NEW_ARTICLE.md](WRITING_NEW_ARTICLE.md) for the explanation of each

@@ -15,6 +15,7 @@ on:
       - '_gen_profile_schema.py'
       - '_gen_site_graph.py'
       - '_gen_route_canonicals.py'
+      - '_gen_api_content_snapshot.py'
       - '_gen_csp_hashes.py'
   workflow_dispatch:
 
@@ -53,6 +54,8 @@ jobs:
         run: |
           python _gen_faqpage_jsonld.py
           python _gen_en_pages.py
+          python _gen_search_index.py
+          python _gen_api_content_snapshot.py
           python _gen_profile_schema.py
           python _gen_site_graph.py
           python _gen_route_canonicals.py
@@ -64,7 +67,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html blog/*.html en/ middleware.js
+          git add index.html blog/*.html en/ assets/search-index.json api/_content_snapshot.js middleware.js
           if git diff --cached --quiet; then
             echo "No regenerated artifact changes to commit."
             exit 0

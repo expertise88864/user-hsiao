@@ -1,16 +1,19 @@
 /**
- * POST /api/admin/new — create a new article skeleton + register in blog-shared.js DN.ARTICLES.
+ * POST /api/admin/new — create an unpublished noindex article draft.
  *
  * Body: { slug, titleZh, titleEn, tagZh, tagEn, cat }
  *
  * What it does:
- *   1. Generate a minimal article HTML from a template (clones structure of dry-eye-myths.html)
- *   2. PUT blog/<slug>.html via GitHub API
- *   3. PATCH blog/blog-shared.js to add a new entry to DN.ARTICLES (newest first)
+ * Drafts are deliberately NOT added to DN.ARTICLES. Publishing requires the
+ * full article pipeline so listings, feeds, English mirrors, search, OG cards,
+ * structured data, and CSP stay consistent. The draft HTML and draft manifest
+ * are written in one atomic git commit.
  *
  * After commit, user must `git pull` before doing local edits.
  */
-import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
+import { requireAdmin, ghGetFile, ghCommitFiles } from './_auth.js';
+
+const DRAFTS_PATH = '_cms/admin-drafts.json';
 
 const MAX_TITLE_LEN = 120;
 const MAX_TAG_LEN = 60;
@@ -29,13 +32,6 @@ function escapeHtml(value) {
     '"': '&quot;',
     "'": '&#39;',
   })[ch]);
-}
-
-function escapeJsString(value) {
-  return String(value)
-    .replace(/\\/g, '\\\\')
-    .replace(/'/g, "\\'")
-    .replace(/\r?\n/g, ' ');
 }
 
 function buildJsonLd(vars) {
@@ -68,11 +64,9 @@ const TEMPLATE = (vars) => `<!doctype html>
 <meta name="theme-color" content="#3a5a7c" />
 <meta name="keywords" content="${vars.tagZh},${vars.tagEn},蕭閔謙醫師,眼科衛教,HsiaoEye" />
 <meta name="author" content="蕭閔謙 醫師 · HsiaoEye" />
+<meta name="robots" content="noindex,nofollow,noarchive" />
 
 <link rel="canonical" href="https://hsiao.chendermatologist.com/blog/${vars.slug}" />
-<link rel="alternate" hreflang="x-default" href="https://hsiao.chendermatologist.com/blog/${vars.slug}" />
-<link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/${vars.slug}" />
-<link rel="alternate" hreflang="en" href="https://hsiao.chendermatologist.com/en/blog/${vars.slug}" />
 
 <link rel="icon" type="image/svg+xml" href="/icon.svg" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -88,12 +82,12 @@ const TEMPLATE = (vars) => `<!doctype html>
 
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260659" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260660" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260659" />
-<link rel="preload" as="style" href="/assets/article.css?v=20260659" />
-<link rel="stylesheet" href="/assets/article.css?v=20260659" />
+<link rel="stylesheet" href="/assets/app.css?v=20260660" />
+<link rel="preload" as="style" href="/assets/article.css?v=20260660" />
+<link rel="stylesheet" href="/assets/article.css?v=20260660" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -175,10 +169,10 @@ gtag('config', 'G-0ZKDQP9DNH');
 <div id="proseZh" class="prose">
 
 <h2 id="section-1">第一段標題</h2>
-<p>從這裡開始寫文章內容。在 admin 模式下,選文字後會出現浮動工具列可以改字型、字級、粗體、列表、連結。</p>
+<p data-zh="從這裡開始寫文章內容。在 admin 模式下，選取文字後會出現浮動工具列。" data-en="Start writing here. Select text in admin mode to open the formatting toolbar.">從這裡開始寫文章內容。在 admin 模式下，選取文字後會出現浮動工具列。</p>
 
 <h2 id="section-2">第二段標題</h2>
-<p>每一個 h2 都會自動進入左側浮動大綱,使用者捲動時會 highlight 目前讀到的段落。</p>
+<p data-zh="每個章節標題都會自動進入文章大綱。" data-en="Each section heading is added to the article outline automatically.">每個章節標題都會自動進入文章大綱。</p>
 
 <h2 id="references">主要參考文獻</h2>
 <ol class="references">
@@ -197,7 +191,7 @@ gtag('config', 'G-0ZKDQP9DNH');
   </div>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260659" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260660" defer></script>
 <script>document.addEventListener('DOMContentLoaded', function () { if (window.DN) DN.initBlog({}); });</script>
 </body>
 </html>
@@ -208,7 +202,6 @@ function todayISO() {
 }
 
 export default async function handler(req, res) {
-  const { requireAdmin } = await import('./_auth.js');
   if (!requireAdmin(req, res)) return;
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
@@ -237,26 +230,35 @@ export default async function handler(req, res) {
       return res.status(409).json({ error: `Article ${slug}.html already exists` });
     }
 
-    // 2. Prepare the DN.ARTICLES catalog patch before creating the article.
-    // GitHub Contents API cannot commit both files atomically, so fail early
-    // if the catalog cannot be patched instead of leaving an orphan article.
+    // 2. Reject a slug already present in the public catalog.
     const sharedJs = await ghGetFile('blog/blog-shared.js');
-    if (!sharedJs) {
-      return res.status(500).json({ error: 'blog-shared.js not found' });
-    }
+    if (!sharedJs) return res.status(500).json({ error: 'blog-shared.js not found' });
     if (new RegExp(`slug\\s*:\\s*'${slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'`).test(sharedJs.content)) {
       return res.status(409).json({ error: `Article ${slug} is already registered in DN.ARTICLES` });
     }
-    const newEntry = `    { slug:'${slug}', title:'${escapeJsString(rawTitleZh)}', title_en:'${escapeJsString(rawTitleEn)}', cat:'${safeCat}', tag:'${escapeJsString(rawTagZh)}', tag_en:'${escapeJsString(rawTagEn)}', date:'${today}' },\n`;
-    const patchedSharedJs = sharedJs.content.replace(
-      /(DN\.ARTICLES\s*=\s*\[\s*\n)/,
-      `$1${newEntry}`
-    );
-    if (patchedSharedJs === sharedJs.content) {
-      return res.status(500).json({ error: 'DN.ARTICLES insertion point not found in blog-shared.js' });
-    }
 
-    // 3. Create article HTML from template
+    // 3. Update the deployment-excluded CMS draft manifest.
+    const draftFile = await ghGetFile(DRAFTS_PATH);
+    let draftState = { drafts: {} };
+    if (draftFile) {
+      try { draftState = JSON.parse(draftFile.content); } catch (e) { draftState = { drafts: {} }; }
+    }
+    draftState.drafts = draftState.drafts || {};
+    if (draftState.drafts[slug]) {
+      return res.status(409).json({ error: `Draft ${slug} already exists` });
+    }
+    draftState.drafts[slug] = {
+      slug,
+      title: rawTitleZh,
+      title_en: rawTitleEn,
+      cat: safeCat,
+      tag: rawTagZh,
+      tag_en: rawTagEn,
+      date: today,
+      status: 'draft',
+    };
+
+    // 4. Create draft HTML + manifest in one commit.
     const html = TEMPLATE({
       slug,
       titleZh: escapeHtml(rawTitleZh),
@@ -267,31 +269,18 @@ export default async function handler(req, res) {
       today,
       jsonLd: buildJsonLd({ slug, rawTitleZh, today }),
     });
-    const created = await ghPutFile(
-      `blog/${slug}.html`,
-      html,
-      `admin: create new article ${slug}`
-    );
+    const created = await ghCommitFiles([
+      { path: `blog/${slug}.html`, content: html },
+      { path: DRAFTS_PATH, content: JSON.stringify(draftState, null, 2) + '\n' },
+    ], `admin: create draft ${slug}`);
 
-    // 4. Register the new article in DN.ARTICLES.
-    try {
-      await ghPutFile(
-        'blog/blog-shared.js',
-        patchedSharedJs,
-        `admin: register article ${slug} in DN.ARTICLES`,
-        sharedJs.sha
-      );
-    } catch (e) {
-      return res.status(502).json({
-        ok: false,
-        partial: true,
-        slug,
-        articleCommit: created.commitSha,
-        error: `Created blog/${slug}.html but failed to register DN.ARTICLES: ${e.message || e}`,
-      });
-    }
-
-    res.status(200).json({ ok: true, slug, commit: created.commitSha });
+    res.status(200).json({
+      ok: true,
+      draft: true,
+      slug,
+      commit: created.commitSha,
+      message: 'Unpublished draft created as noindex. Run the full publication pipeline before adding it to DN.ARTICLES.',
+    });
   } catch (e) {
     res.status(500).json({ error: String(e.message || e) });
   }

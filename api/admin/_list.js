@@ -51,7 +51,22 @@ export default async function handler(req, res) {
     byOldest.forEach((a, i) => { numberMap[a.slug] = i + 1; });
     ordered.forEach(a => { a.number = numberMap[a.slug]; });
 
-    res.status(200).json({ articles: ordered });
+    const draftFile = await ghGetFile('_cms/admin-drafts.json');
+    let drafts = [];
+    if (draftFile) {
+      try {
+        const state = JSON.parse(draftFile.content);
+        drafts = Object.values(state.drafts || {}).map(draft => ({
+          ...draft,
+          draft: true,
+          number: null,
+        }));
+      } catch (e) { drafts = []; }
+    }
+
+    res.status(200).json({
+      articles: [...drafts.sort((a, b) => (b.date || '').localeCompare(a.date || '')), ...ordered],
+    });
   } catch (e) {
     res.status(500).json({ error: String(e.message || e) });
   }

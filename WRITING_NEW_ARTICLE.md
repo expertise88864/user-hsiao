@@ -44,6 +44,7 @@ python _gen_en_pages.py               # /en/<slug>.html with data-en swap
 
 # ── 6. Search + AI surfaces ────────────────────────────────────────────
 python _gen_search_index.py           # assets/search-index.json (PageFind seed)
+python _gen_api_content_snapshot.py   # deployment-local sitemap/feed/OG fallback
 python _gen_llms_txt.py               # llms.txt for LLM crawlers
 python _gen_opensearch.py             # opensearch.xml metadata
 
@@ -63,9 +64,9 @@ python _apply_i_series.py             # skip-link CSS + focus-visible styles
 python _apply_a11y_vt.py              # @view-transition + reduced-motion CSS
 python _apply_f10_image_priority.py   # fetchpriority="high" on first <img>
 
-# ── 9. CSP hashes + critical CSS (must run LAST, after all HTML mutations) ─
-python _gen_csp_hashes.py             # hash-based CSP allowlist (middleware.js)
+# ── 9. Critical CSS + CSP hashes (CSP must run LAST) ─────────────────────
 python _extract_critical_css.py       # above-the-fold CSS inline
+python _gen_csp_hashes.py             # hash-based CSP allowlist (middleware.js)
 
 # ── 10. Validation gate ────────────────────────────────────────────────
 python validate.py                    # title/desc length, OG, a11y
@@ -99,11 +100,11 @@ the resulting changes, and push again.
 ```bash
 python halfwidth_to_fullwidth.py && python _gen_feeds.py && python _gen_related.py && \
 python _gen_serp_meta.py && python _gen_faqpage_jsonld.py && python _gen_og_images.py && \
-python _gen_en_pages.py && python _gen_search_index.py && python _gen_llms_txt.py && \
+python _gen_en_pages.py && python _gen_search_index.py && python _gen_api_content_snapshot.py && python _gen_llms_txt.py && \
 python _gen_opensearch.py && python _gen_profile_schema.py && python _gen_site_graph.py && \
 python _gen_route_canonicals.py && python _apply_i_series.py && python _apply_a11y_vt.py && \
-python _apply_f10_image_priority.py && python _gen_csp_hashes.py && \
-python _extract_critical_css.py && \
+python _apply_f10_image_priority.py && python _extract_critical_css.py && \
+python _gen_csp_hashes.py && \
 python validate.py && python _check_article_listings.py && python _check_meta.py && \
 python _check_balance.py && python _check_internal_links.py && \
 python _check_bilingual_attrs.py && python _check_serp_fallbacks.py && \

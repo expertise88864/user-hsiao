@@ -383,7 +383,7 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v68';
+const CACHE = 'hs-v69';
 const RUNTIME = 'hs-runtime-v35';
 const RUNTIME_MAX_ENTRIES = 60;
 const GENERATED_JSON = new Set([
@@ -627,18 +627,11 @@ self.addEventListener('fetch', (e) => {
   }
 
   if (req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html')) {
-    // v37.46 — HTML stale-while-revalidate (was network-first). Repeat visitors
-    // get the cached HTML INSTANTLY (sub-millisecond) while we kick off a
-    // background fetch to refresh the cache for the next visit. This is the
-    // single biggest Vercel bandwidth saver: every revisit before now hit the
-    // network, even if the page hadn't changed. Skip /admin and bypass when
-    // the request was kicked off with navigation preload (let preload win for
-    // the first navigation in a session, which has no cached copy yet).
+    // Prefer current HTML when the network responds promptly. A short timeout
+    // preserves fast repeat visits and offline resilience without serving a
+    // stale article indefinitely after a deploy.
     e.respondWith((async () => {
       const cached = await caches.match(req);
-      // Refresh in the background — never await it inside respondWith so the
-      // cached response goes out immediately. Falls back to preload if the
-      // browser pre-fetched in parallel during SW boot (cold start).
       const networkFetch = (async () => {
         try {
           const preload = await e.preloadResponse;
@@ -661,8 +654,12 @@ self.addEventListener('fetch', (e) => {
         }
       })();
       if (cached) {
-        // SWR: serve cache, refresh in background. Don't await network.
-        networkFetch.catch(() => {});
+        e.waitUntil(networkFetch.then(() => undefined).catch(() => undefined));
+        const fresh = await Promise.race([
+          networkFetch,
+          new Promise(resolve => setTimeout(() => resolve(null), 900)),
+        ]);
+        if (fresh) return fresh;
         return cached;
       }
       // No cached copy — wait for the network. Fall back to offline page.

@@ -8,160 +8,50 @@ on:
   workflow_dispatch:
     inputs:
       force_update:
-        description: 'Force update all baselines (commits new snapshots)'
+        description: 'Replace reviewed PNG baselines and commit them'
         required: false
         default: 'false'
 
-# Visual regression strategy:
-#   • Snapshots committed to tests/visual/snapshots/.
-#   • If snapshots dir is EMPTY (first run) → bootstrap mode: snap + commit
-#     baselines with `--update-snapshots`, then exit successfully.
-#   • Otherwise: normal diff. PR failures upload diff artifact for review.
-#   • workflow_dispatch with force_update=true → snap + commit fresh baselines
-#     (use after intentional UI changes).
-#
-# Free / self-hosted (no Percy / Chromatic dependency).
-
 concurrency:
-  group: visual-regression
-  cancel-in-progress: false
+  group: visual-regression-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   visual:
+    if: inputs.force_update != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
-
     permissions:
-      contents: write   # needed for the auto-commit fallback
+      contents: read
 
     steps:
       - uses: actions/checkout@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          persist-credentials: true
+          persist-credentials: false
 
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
+          cache: npm
 
       - name: Install Playwright
         run: |
-          # We use a local install (package.json already at repo root in v30)
-          # so the cache stays warm. If package.json doesn't list playwright
-          # as devDep, install it ad-hoc.
-          if ! grep -q "@playwright/test" package.json 2>/dev/null; then
-            npm install -D @playwright/test
-          else
-            npm install
-          fi
+          npm ci
           npx playwright install --with-deps chromium
 
       - name: Wait for Vercel deploy
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          echo "Waiting 75s for Vercel to finish the deploy triggered by this commit…"
-          sleep 75
+        run: sleep 75
 
-      # Detect whether baselines exist for ALL expected screenshots.
-      # We have 7 pages × 3 viewports = 21 expected PNGs.
-      # If any are missing, bootstrap mode regenerates the entire set so we
-      # never fail with "snapshot doesn't exist" on a partial baseline state.
-      - name: Check for existing baselines
-        id: baseline
+      - name: Require the complete reviewed baseline set
         run: |
           EXPECTED=21
-          ACTUAL=0
-          if [ -d "tests/visual/snapshots" ]; then
-            ACTUAL=$(find tests/visual/snapshots -name '*.png' | wc -l)
-          fi
+          ACTUAL=$(find tests/visual/snapshots -name '*.png' | wc -l)
           echo "Found $ACTUAL / $EXPECTED baseline PNGs."
-          if [ "$ACTUAL" -ge "$EXPECTED" ]; then
-            echo "exist=true" >> $GITHUB_OUTPUT
-            echo "✓ Full baseline set present — running diff comparison."
-          else
-            echo "exist=false" >> $GITHUB_OUTPUT
-            echo "○ Missing baselines ($ACTUAL/$EXPECTED) — bootstrap mode."
-          fi
+          test "$ACTUAL" -eq "$EXPECTED"
 
-      # First run: bootstrap baselines and commit
-      - name: Bootstrap — create baselines (first run / forced)
-        if: steps.baseline.outputs.exist == 'false' || inputs.force_update == 'true'
-        run: |
-          echo "Generating new baseline snapshots…"
-          npx playwright test tests/visual/ --update-snapshots --reporter=list || true
-          # Always succeed: even partial generation is useful
-
-      - name: Commit fresh baselines (only when bootstrapping or forced)
-        if: |
-          (steps.baseline.outputs.exist == 'false' || inputs.force_update == 'true')
-          && github.event_name != 'pull_request'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Reset index to origin/main BEFORE staging, then only add PNG diffs.
-          # Without this, the recovery path's `git reset --soft` would
-          # preserve the CI's stale source-file index and silently revert
-          # any source changes that landed during the run.
-          git fetch origin main
-          git reset --mixed origin/main
-          git add tests/visual/snapshots/ || true
-          if git diff --cached --quiet; then
-            echo "No baseline changes to commit."
-          else
-            git commit -m "ci: visual regression baselines [skip ci]"
-            if ! git push 2>/dev/null; then
-              echo "::notice::Push rejected — refusing to retry to avoid clobbering concurrent source commits. Next CI run will re-baseline."
-            else
-              echo "::notice::Baselines committed."
-            fi
-          fi
-
-      # Diff comparison run — only when baselines already existed
       - name: Run visual diff
-        id: diff
-        if: steps.baseline.outputs.exist == 'true' && inputs.force_update != 'true'
-        continue-on-error: true
         run: npx playwright test tests/visual/ --reporter=list
-
-      # Recovery: if diff failed AND we're on main push, regenerate the full
-      # baseline set and commit. Avoids manual workflow_dispatch.
-      - name: Auto-recover missing/stale baselines (main only)
-        if: |
-          steps.diff.outcome == 'failure'
-          && github.event_name == 'push'
-          && github.ref == 'refs/heads/main'
-        run: |
-          echo "Diff step failed — regenerating full baseline set."
-          rm -rf test-results/ playwright-report/ || true
-          npx playwright test tests/visual/ --update-snapshots --reporter=list || true
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # CRITICAL: reset index to origin/main FIRST, then add ONLY the
-          # PNG diffs. The previous `--soft` recovery silently reverted
-          # source-file fixes whenever this workflow raced with a source
-          # push (the CI's stale index won over origin/main's newer source).
-          # If push is rejected we DO NOT retry — the next CI run will
-          # regenerate baselines anyway, and a failed PNG-only commit is
-          # vastly preferable to clobbering source-code commits.
-          git fetch origin main
-          git reset --mixed origin/main
-          git add tests/visual/snapshots/ || true
-          if git diff --cached --quiet; then
-            echo "No baseline changes to commit (regeneration produced identical PNGs)."
-          else
-            git commit -m "ci: auto-refresh visual baselines [skip ci]"
-            if ! git push 2>/dev/null; then
-              echo "::notice::Push rejected — refusing to retry to avoid clobbering concurrent source commits. Next CI run will re-baseline."
-            else
-              echo "::notice::Stale baselines refreshed and committed."
-            fi
-          fi
-
-      # Mark workflow failed only if diff failed AND we're NOT on main
-      # (PRs still need to fail loudly so author sees the diff).
-      - name: Re-fail if diff failed on PR
-        if: steps.diff.outcome == 'failure' && github.event_name == 'pull_request'
-        run: exit 1
 
       - name: Upload diff snapshots on failure
         if: failure()
@@ -173,15 +63,40 @@ jobs:
             playwright-report/
           retention-days: 14
 
-      - name: PR comment with artifact link on failure
-        if: failure() && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+  update-baselines:
+    if: github.event_name == 'workflow_dispatch' && inputs.force_update == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v5
         with:
-          script: |
-            const body = '⚠ Visual regression diffs detected. Download the artifact `visual-diff-${{ github.run_id }}` from the run summary to review.\n\nIf the changes are intentional, run `npx playwright test --update-snapshots` locally and commit the new snapshots, OR re-run this workflow with `Run workflow → force_update: true`.';
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body,
-            });
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install Playwright
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Replace baselines
+        run: npx playwright test tests/visual/ --update-snapshots --reporter=list
+
+      - name: Commit reviewed baselines
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/visual/snapshots/
+          if git diff --cached --quiet; then
+            echo "No baseline changes to commit."
+          else
+            git commit -m "test(hsiaoeye): refresh reviewed visual baselines [skip ci]"
+            git push origin HEAD:main
+          fi

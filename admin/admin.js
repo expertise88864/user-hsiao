@@ -653,23 +653,28 @@ async function createNewArticle() {
   const cat = $('#new-cat').value;
   const tag = $('#new-tag').value.trim();
   const tagEn = $('#new-tag-en').value.trim();
-  const date = $('#new-date').value || fmtDate(new Date());
-
   if (!slug || !titleZh) { Toast.err('Slug 與中文標題必填'); return; }
   if (!/^[a-z0-9-]+$/.test(slug)) { Toast.err('Slug 只能用 a-z 0-9 -'); return; }
 
-  // Build a basic article HTML using the comprehensive-guide template structure
-  const html = buildArticleTemplate({ slug, titleZh, titleEn, cat, tag, tagEn, date });
-
   try {
-    const path = `blog/${slug}.html`;
-    Toast.show('建立中…');
-    await GH.putFile(path, html, `admin: create new article ${slug}`);
+    Toast.show('建立未發布草稿中…');
+    const response = await fetch('/api/admin/new', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        slug,
+        titleZh,
+        titleEn: titleEn || titleZh,
+        cat,
+        tagZh: tag || titleZh,
+        tagEn: tagEn || titleEn || titleZh,
+      }),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
 
-    // Also update DN.ARTICLES in blog-shared.js
-    await prependArticleToCatalog({ slug, title: titleZh, title_en: titleEn, cat, tag, tag_en: tagEn, date });
-
-    Toast.ok('已建立 ' + slug);
+    Toast.ok('已建立 noindex 未發布草稿 ' + slug);
     $('#ad-modal-new').classList.remove('show');
     await Catalog.load();
     renderArticleList();
@@ -712,10 +717,10 @@ function buildArticleTemplate({ slug, titleZh, titleEn, cat, tag, tagEn, date })
 <meta name="twitter:description" content="${titleZh}" />
 <meta name="twitter:image" content="https://hsiao.chendermatologist.com/assets/og/${slug}.png" />
 
-<link rel="preload" as="style" href="/assets/app.css?v=20260659" />
-<link rel="stylesheet" href="/assets/app.css?v=20260659" />
-<link rel="preload" as="style" href="/assets/article.css?v=20260659" />
-<link rel="stylesheet" href="/assets/article.css?v=20260659" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260660" />
+<link rel="stylesheet" href="/assets/app.css?v=20260660" />
+<link rel="preload" as="style" href="/assets/article.css?v=20260660" />
+<link rel="stylesheet" href="/assets/article.css?v=20260660" />
 <style>
   :root{ --bg:#faf7f2; --ink:#2a2620; --ink-2:#5e574e; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0; --border:#dcd5c8; --line:#ebe4d8; }
   html,body{ background:var(--bg); color:var(--ink); font-family:Inter,'Noto Sans TC',sans-serif; }
@@ -780,7 +785,7 @@ function buildArticleTemplate({ slug, titleZh, titleEn, cat, tag, tagEn, date })
   <p style="font-size:11px;color:rgba(247,243,236,.55);margin-top:18px">© 2026 HsiaoEye · 蕭閔謙 醫師</p>
 </footer>
 
-<script src="/blog/blog-shared.js?v=20260659" defer></script>
+<script src="/blog/blog-shared.js?v=20260660" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({slug:'${slug}'});});</script>
 </body>
 </html>

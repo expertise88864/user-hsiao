@@ -695,7 +695,7 @@
 <div id="new-modal" class="modal-bg" hidden>
   <div class="modal">
     <h3>建立新文章</h3>
-    <p>會以模板創建並 commit 到 GitHub。建立後可直接進入編輯模式。</p>
+    <p>會以 noindex 草稿建立並以單一 commit 寫入 GitHub。內容完成後，需通過完整產製流程才會公開。</p>
     <form data-submit-action="doCreate">
       <label for="new-slug">Slug (URL，英文/-/數字）</label>
       <input id="new-slug" placeholder="例： cataract-faq" required pattern="[a-z0-9-]+" list="slug-suggestions" autocomplete="off" />
@@ -1582,7 +1582,7 @@ async function doCreate() {
       body: JSON.stringify(payload)
     });
     if (r.ok) {
-      toast('已建立! 自動跳轉到編輯模式⋯');
+      toast('草稿已建立！尚未公開，正在進入編輯模式⋯');
       hideNewModal();
       setTimeout(() => { location.href = '/blog/' + payload.slug + '?admin=1'; }, 700);
     } else {

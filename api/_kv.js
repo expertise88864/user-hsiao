@@ -32,6 +32,17 @@ async function kvCall(commandPath, body) {
   return r.json();
 }
 
+export async function kvPipeline(commands) {
+  if (!kvAvailable()) return null;
+  try {
+    const result = await kvCall('/pipeline', commands);
+    if (!Array.isArray(result) || result.some(item => item && item.error)) return null;
+    return result;
+  } catch (e) {
+    return null;
+  }
+}
+
 export async function kvGet(key) {
   if (!kvAvailable()) return null;
   try {
@@ -97,4 +108,22 @@ export async function kvHIncrBy(key, field, by = 1) {
     const r = await kvCall(`/hincrby/${encodeURIComponent(key)}/${encodeURIComponent(field)}/${by}`);
     return r.result;
   } catch (e) { return null; }
+}
+
+export async function kvLRange(key, start = 0, stop = -1) {
+  const result = await kvPipeline([
+    ['LRANGE', key, String(start), String(stop)],
+  ]);
+  return result && Array.isArray(result[0]?.result) ? result[0].result : null;
+}
+
+export async function kvPushTrimExpire(key, value, maxItems, ttlSeconds) {
+  const max = Math.max(1, Math.trunc(maxItems));
+  const ttl = Math.max(1, Math.trunc(ttlSeconds));
+  const result = await kvPipeline([
+    ['LPUSH', key, value],
+    ['LTRIM', key, '0', String(max - 1)],
+    ['EXPIRE', key, String(ttl)],
+  ]);
+  return Boolean(result);
 }

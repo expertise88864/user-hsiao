@@ -15,6 +15,7 @@
  * → `/api/sitemap` so the URL stays clean.
  */
 import { ghGetFile, getRepoConfig } from './admin/_auth.js';
+import { FALLBACK_ARTICLES } from './_content_snapshot.js';
 
 const DOMAIN = 'https://hsiao.chendermatologist.com';
 
@@ -66,10 +67,15 @@ function staticImageTitle(path, lang) {
 }
 
 async function parseArticles() {
-  const file = await ghGetFile('blog/blog-shared.js');
-  if (!file) return [];
+  let file;
+  try {
+    file = await ghGetFile('blog/blog-shared.js');
+  } catch (e) {
+    return FALLBACK_ARTICLES.map(article => ({ ...article }));
+  }
+  if (!file) return FALLBACK_ARTICLES.map(article => ({ ...article }));
   const m = file.content.match(/DN\.ARTICLES\s*=\s*(\[[\s\S]*?\]);/);
-  if (!m) return [];
+  if (!m) return FALLBACK_ARTICLES.map(article => ({ ...article }));
   const stubMatch = file.content.match(/DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]\s*\)/);
   const stubs = new Set();
   if (stubMatch) {
@@ -104,7 +110,7 @@ async function parseArticles() {
       has_en: !enStubs.has(slug),
     });
   }
-  return articles;
+  return articles.length ? articles : FALLBACK_ARTICLES.map(article => ({ ...article }));
 }
 
 async function batchLastmod(paths) {

@@ -11,7 +11,7 @@
  * that import from './_auth.js' keep working without touching every file.
  */
 import crypto from 'crypto';
-export { getRepoConfig, ghGetFile, ghPutFile } from './_github.js';
+export { getRepoConfig, ghGetFile, ghPutFile, ghCommitFiles } from './_github.js';
 
 const SESSION_COOKIE = 'hs_admin_session';
 

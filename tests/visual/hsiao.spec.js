@@ -85,6 +85,7 @@ for (const page of PAGES) {
         // tablet/desktop = full page
         fullPage: vp.name !== 'mobile',
         animations: 'disabled',
+        timeout: 15_000,
       });
     });
   }

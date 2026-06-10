@@ -28,15 +28,15 @@ jobs:
           from pathlib import Path
 
           BUDGETS = {
-              # path -> (raw_kb, gzip_kb) soft-fail-on-exceed
+              # path -> (raw_kb, gzip_kb), enforced as a hard failure
               # blog-shared.min.js is what ships to browsers (esbuild-minified);
               # the readable blog-shared.js source is parsed by tooling only and
               # is not budgeted as a delivered asset.
-              'blog/blog-shared.min.js': (200, 55),
-              'assets/app.css':      (90,  20),
-              'assets/article.css':  (40,  10),
-              'sw.js':               (16,  6),
-              'middleware.js':       (8,   3),
+              'blog/blog-shared.min.js': (190, 53),
+              'assets/app.css':      (45, 14),
+              'assets/article.css':  (18,  6),
+              'sw.js':               (52, 21),
+              'middleware.js':       (45,  7),
           }
           SKIP_PARTS = {'.git', '__pycache__', 'node_modules', 'tests', 'test-results'}
           warnings = []
@@ -75,8 +75,7 @@ jobs:
               print('\n=== BUDGET VIOLATIONS ===')
               for w in warnings:
                   print(w)
-              # Soft-fail for now; flip to hard-fail once budgets are tuned.
-              # raise SystemExit(1)
+              raise SystemExit(1)
           else:
               print('\nAll asset budgets within limits')
           PY

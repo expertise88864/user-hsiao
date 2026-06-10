@@ -7,6 +7,7 @@
  * image enclosures, rich descriptions, and English alternates for Atom.
  */
 import { ghGetFile } from './admin/_auth.js';
+import { FALLBACK_ARTICLES } from './_content_snapshot.js';
 
 const DOMAIN = 'https://hsiao.chendermatologist.com';
 const WEBSUB_HUB = 'https://pubsubhubbub.appspot.com/';
@@ -69,10 +70,15 @@ function atomDate(value) {
 }
 
 async function parseArticles() {
-  const file = await ghGetFile('blog/blog-shared.js');
-  if (!file) return [];
+  let file;
+  try {
+    file = await ghGetFile('blog/blog-shared.js');
+  } catch (e) {
+    return FALLBACK_ARTICLES.map(article => ({ ...article }));
+  }
+  if (!file) return FALLBACK_ARTICLES.map(article => ({ ...article }));
   const catalog = file.content.match(/DN\.ARTICLES\s*=\s*(\[[\s\S]*?\]);/);
-  if (!catalog) return [];
+  if (!catalog) return FALLBACK_ARTICLES.map(article => ({ ...article }));
 
   const stubMatch = file.content.match(/DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]\s*\)/);
   const stubs = new Set();
@@ -111,17 +117,18 @@ async function parseArticles() {
       has_en: !enStubs.has(slug),
     });
   }
-  return rows;
+  return rows.length ? rows : FALLBACK_ARTICLES.map(article => ({ ...article }));
 }
 
 async function fetchDescription(slug) {
+  const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug)?.description || '';
   try {
     const file = await ghGetFile(`blog/${slug}.html`);
-    if (!file) return '';
+    if (!file) return fallback;
     const meta = file.content.match(/<meta\s+name="description"\s+content="([^"]+)"/i);
-    return meta ? cleanText(meta[1]) : '';
+    return meta ? cleanText(meta[1]) : fallback;
   } catch (e) {
-    return '';
+    return fallback;
   }
 }
 

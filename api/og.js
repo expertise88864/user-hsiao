@@ -19,17 +19,33 @@
  */
 import { ImageResponse } from '@vercel/og';
 import { ghGetFile } from './admin/_github.js';
+import { FALLBACK_ARTICLES } from './_content_snapshot.js';
 
 export const config = { runtime: 'edge' };
 
 async function lookupTitle(slug) {
-  const file = await ghGetFile('blog/blog-shared.js');
-  if (!file) return null;
+  let file;
+  try {
+    file = await ghGetFile('blog/blog-shared.js');
+  } catch (e) {
+    const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug);
+    return fallback ? { title: fallback.title, tag: fallback.tag } : null;
+  }
+  if (!file) {
+    const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug);
+    return fallback ? { title: fallback.title, tag: fallback.tag } : null;
+  }
   const block = file.content.match(/DN\.ARTICLES\s*=\s*(\[[\s\S]*?\]);/);
-  if (!block) return null;
+  if (!block) {
+    const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug);
+    return fallback ? { title: fallback.title, tag: fallback.tag } : null;
+  }
   const safeSlug = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const row = block[1].match(new RegExp(`\\{[\\s\\S]*?slug\\s*:\\s*'${safeSlug}'[\\s\\S]*?\\}`));
-  if (!row) return null;
+  if (!row) {
+    const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug);
+    return fallback ? { title: fallback.title, tag: fallback.tag } : null;
+  }
   const getField = (key) => {
     const m = row[0].match(new RegExp(`${key}\\s*:\\s*'([^']*)'`));
     return m ? m[1] : '';
