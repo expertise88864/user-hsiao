@@ -8,7 +8,7 @@ import re
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SCRIPT_RE = re.compile(
-    r'<script\s+src="/assets/trusted-types\.js\?v=\d+"></script>',
+    r'<script\s+src="/assets/trusted-types\.js(?:\?v=\d+)?"></script>',
     re.IGNORECASE,
 )
 CACHE_VERSION_RE = re.compile(r'\?v=(\d{8,})')
@@ -19,8 +19,13 @@ def patch_html(html: str) -> tuple[str, bool]:
     version_match = CACHE_VERSION_RE.search(html)
     suffix = f'?v={version_match.group(1)}' if version_match else ''
     script = f'<script src="/assets/trusted-types.js{suffix}"></script>'
-    if SCRIPT_RE.search(html):
-        updated = SCRIPT_RE.sub(script, html, count=1)
+    matches = list(SCRIPT_RE.finditer(html))
+    if matches:
+        updated = html
+        for match in reversed(matches[1:]):
+            updated = updated[:match.start()] + updated[match.end():]
+        first = matches[0]
+        updated = updated[:first.start()] + script + updated[first.end():]
         return updated, updated != html
 
     match = re.search(r'<head\b[^>]*>', html, re.IGNORECASE)
