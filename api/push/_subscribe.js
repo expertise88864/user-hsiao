@@ -1,67 +1,59 @@
 /**
- * POST /api/push/subscribe — register a Web Push subscription.
- * DELETE /api/push/subscribe — unsubscribe by endpoint.
+ * POST /api/push/subscribe - register a Web Push subscription.
+ * DELETE /api/push/subscribe - unsubscribe by endpoint.
  *
- * Storage: prefers Vercel KV (key `push:subscribers` = JSON array). Falls
- * back to GitHub blob (`assets/push-subscribers.json`) if KV not configured.
- *
- * v29: KV path eliminates 1-commit-per-subscribe overhead from v28.
+ * Storage is a private Vercel KV hash. The endpoint fails closed if KV is
+ * absent; subscriber endpoints and auth keys must never enter the public repo.
  */
-import { ghGetFile, ghPutFile } from '../admin/_auth.js';
 import { rateLimitOk, sendRateLimit } from '../_rate_limit.js';
-import { kvAvailable, kvGetJSON, kvSetJSON } from '../_kv.js';
+import {
+  pushStorageAvailable,
+  removeSubscription,
+  upsertSubscription,
+} from './_store.js';
 
-const KV_KEY = 'push:subscribers';
-const SUBSCRIBERS_PATH = 'assets/push-subscribers.json';
-// Abuse guards for the UNAUTHENTICATED subscribe endpoint: cap total stored
-// subscriptions and only accept endpoints that belong to a real push service
-// (prevents unbounded storage growth + arbitrary outbound fetch targets when
-// the admin later broadcasts).
 const MAX_SUBS = 5000;
 const ALLOWED_PUSH_HOST = /(^|\.)(googleapis\.com|push\.apple\.com|notify\.windows\.com|wns\.windows\.com|push\.services\.mozilla\.com)$/i;
+const BASE64URL = /^[A-Za-z0-9_-]+$/;
 
-async function loadSubs() {
-  if (kvAvailable()) {
-    const subs = await kvGetJSON(KV_KEY);
-    return { subs: subs || [], source: 'kv', sha: undefined };
+function validEndpoint(endpoint) {
+  if (typeof endpoint !== 'string' || endpoint.length < 12 || endpoint.length > 2048) return false;
+  try {
+    const url = new URL(endpoint);
+    return url.protocol === 'https:' && ALLOWED_PUSH_HOST.test(url.hostname);
+  } catch (e) {
+    return false;
   }
-  const file = await ghGetFile(SUBSCRIBERS_PATH);
-  if (!file) return { subs: [], source: 'gh', sha: undefined };
-  let subs = [];
-  try { subs = JSON.parse(file.content); } catch (e) { subs = []; }
-  return { subs, source: 'gh', sha: file.sha };
 }
 
-async function saveSubs(subs, sha) {
-  if (kvAvailable()) {
-    await kvSetJSON(KV_KEY, subs);
-    return { source: 'kv' };
-  }
-  await ghPutFile(SUBSCRIBERS_PATH, JSON.stringify(subs, null, 2),
-    `push: ${subs.length} subscribers`, sha);
-  return { source: 'gh' };
+function validKey(value) {
+  return typeof value === 'string' &&
+    value.length >= 16 &&
+    value.length <= 256 &&
+    BASE64URL.test(value);
 }
 
 export default async function handler(req, res) {
-  // v37.28 — rate limit: a user should subscribe (or unsubscribe) at most
-  // a few times per minute, never dozens. Cap at 10/min/IP.
   if (!rateLimitOk(req, { key: 'push-sub', max: 10, windowMs: 60_000 })) {
     return sendRateLimit(res, 60);
   }
+  if (!pushStorageAvailable()) {
+    return res.status(503).json({ error: 'Push subscriptions are temporarily unavailable' });
+  }
+
   let body = req.body;
-  if (typeof body === 'string') { try { body = JSON.parse(body); } catch (e) { body = {}; } }
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch (e) { body = {}; }
+  }
 
   if (req.method === 'DELETE') {
     const { endpoint } = body || {};
-    if (!endpoint) return res.status(400).json({ error: 'endpoint required' });
+    if (!validEndpoint(endpoint)) return res.status(400).json({ error: 'valid endpoint required' });
     try {
-      const { subs, sha } = await loadSubs();
-      const filtered = subs.filter(s => s.endpoint !== endpoint);
-      if (filtered.length === subs.length) return res.status(200).json({ ok: true, removed: false });
-      await saveSubs(filtered, sha);
-      return res.status(200).json({ ok: true, removed: true, total: filtered.length });
+      const result = await removeSubscription(endpoint);
+      return res.status(200).json({ ok: true, removed: result.removed, total: result.count });
     } catch (e) {
-      return res.status(500).json({ error: String(e.message || e) });
+      return res.status(503).json({ error: 'Push subscription storage unavailable' });
     }
   }
 
@@ -71,25 +63,27 @@ export default async function handler(req, res) {
   if (!endpoint || !keys || !keys.p256dh || !keys.auth) {
     return res.status(400).json({ error: 'endpoint + keys.p256dh + keys.auth required' });
   }
-  if (!/^https?:\/\//.test(endpoint)) return res.status(400).json({ error: 'invalid endpoint' });
-  let endpointHost = '';
-  try { endpointHost = new URL(endpoint).host; } catch (e) { return res.status(400).json({ error: 'invalid endpoint' }); }
-  if (!ALLOWED_PUSH_HOST.test(endpointHost)) return res.status(400).json({ error: 'unsupported push endpoint host' });
+  if (!validEndpoint(endpoint)) return res.status(400).json({ error: 'unsupported push endpoint' });
+  if (!validKey(keys.p256dh) || !validKey(keys.auth)) {
+    return res.status(400).json({ error: 'invalid push subscription keys' });
+  }
 
   try {
-    const { subs, sha } = await loadSubs();
-    if (subs.find(s => s.endpoint === endpoint)) {
-      return res.status(200).json({ ok: true, deduped: true, count: subs.length });
-    }
-    if (subs.length >= MAX_SUBS) return res.status(429).json({ error: 'subscriber limit reached' });
-    subs.push({
-      endpoint, keys,
-      ua: (userAgent || req.headers['user-agent'] || '').slice(0, 120),
+    const subscription = {
+      endpoint,
+      keys: { p256dh: keys.p256dh, auth: keys.auth },
+      ua: String(userAgent || req.headers['user-agent'] || '').slice(0, 160),
       ts: new Date().toISOString(),
+    };
+    const result = await upsertSubscription(subscription, MAX_SUBS);
+    if (result.full) return res.status(429).json({ error: 'subscriber limit reached' });
+    return res.status(200).json({
+      ok: true,
+      deduped: !result.inserted,
+      count: result.count,
+      source: 'kv',
     });
-    const result = await saveSubs(subs, sha);
-    res.status(200).json({ ok: true, count: subs.length, source: result.source });
   } catch (e) {
-    res.status(500).json({ error: String(e.message || e) });
+    return res.status(503).json({ error: 'Push subscription storage unavailable' });
   }
 }

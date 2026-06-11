@@ -63,6 +63,15 @@ function validate(body) {
   if (typeof body.selector !== 'string' || !body.selector.trim() || body.selector.length > 200) {
     return 'selector required (max 200 chars)';
   }
+  const selector = body.selector.trim();
+  const selectorParts = selector.split(/\s+/);
+  const safeSelectorPart = part =>
+    /^#[A-Za-z][\w-]*$/.test(part) ||
+    /^\.[A-Za-z][\w-]*$/.test(part) ||
+    /^\[data-[a-z0-9_-]+(?:=(?:"[^"]*"|'[^']*'|[a-z0-9_-]+))?\]$/i.test(part);
+  if (/[,:>*+~]/.test(selector) || !selectorParts.every(safeSelectorPart)) {
+    return 'selector must use only safe id, class, or data-attribute descendants';
+  }
   if (!Array.isArray(body.variants) || body.variants.length < 2 || body.variants.length > 4) return 'need 2-4 variants';
   for (const v of body.variants) {
     if (!v || typeof v.name !== 'string' || typeof v.html !== 'string') return 'each variant needs string name + html';

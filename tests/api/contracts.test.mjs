@@ -47,6 +47,33 @@ test('public telemetry cannot fall back to GitHub writes', async () => {
   assert.match(source, /rateLimitOk/);
 });
 
+test('Web Push credentials remain in private, independently writable KV fields', async () => {
+  for (const path of [
+    'api/push/_subscribe.js',
+    'api/push/_send.js',
+    'api/admin/_push-stats.js',
+  ]) {
+    const source = await read(path);
+    assert.doesNotMatch(source, /ghGetFile|ghPutFile|push-subscribers\.json/, path);
+    assert.match(source, /pushStorageAvailable|loadSubscriptions|upsertSubscription/, path);
+  }
+  const store = await read('api/push/_store.js');
+  assert.match(store, /push:subscribers:v2/);
+  assert.match(store, /kvHSet/);
+  assert.match(store, /kvHDel/);
+  assert.doesNotMatch(store, /assets\/|ghPutFile/);
+});
+
+test('admin batch writes are serialized and validate explicit slugs', async () => {
+  const batch = await import('../../api/admin/_batch.js');
+  const source = await read('api/admin/_batch.js');
+  assert.equal(batch.validateSlugs(['dry-eye-myths', 'glaucoma-warnings']), null);
+  assert.match(batch.validateSlugs(['../admin']), /slug/);
+  assert.match(source, /for \(const slug of slugs\)/);
+  assert.doesNotMatch(source, /Promise\.all\(workers\)|for \(let w = 0; w < 3/);
+  assert.match(source, /runWithRetry/);
+});
+
 test('new article creation is an atomic unpublished draft', async () => {
   const source = await read('api/admin/_new.js');
   assert.match(source, /ghCommitFiles/);
@@ -169,6 +196,75 @@ test('Markdown and A/B content reject stored-XSS execution surfaces', async () =
     }),
     /unsafe URL/
   );
+  assert.match(
+    ab.validateAbConfig({
+      id: 'unsafe-selector',
+      selector: 'body',
+      variants: [
+        { name: 'A', html: '<p>A</p>' },
+        { name: 'B', html: '<p>B</p>' },
+      ],
+    }),
+    /selector/
+  );
+  assert.equal(
+    ab.validateAbConfig({
+      id: 'safe-selector',
+      selector: '#hs-cover-story .hs-cta-btn',
+      variants: [
+        { name: 'A', html: '<span>A</span>' },
+        { name: 'B', html: '<span>B</span>' },
+      ],
+    }),
+    null
+  );
+});
+
+test('medical dictionary content is validated and HTML-escaped', async () => {
+  const dictionary = await import('../../api/admin/_dictionary.js');
+  assert.match(
+    dictionary.validateDictionary({
+      '<img src=x>': { en: 'unsafe', def: 'unsafe', anchor: '' },
+    }),
+    /term/
+  );
+  assert.equal(
+    dictionary.validateDictionary({
+      '乾眼症': { en: 'dry eye', def: '<img src=x onerror=alert(1)>', anchor: 'dry-eye-myths' },
+    }),
+    null
+  );
+  const linked = dictionary.autolinkOnce(
+    '<html><head></head><body><p>乾眼症需要評估。</p></body></html>',
+    { '乾眼症': { en: 'dry eye', def: '<img src=x onerror=alert(1)>', anchor: '' } }
+  );
+  assert.doesNotMatch(linked, /title="<img/);
+  assert.match(linked, /title="&lt;img src=x onerror=alert\(1\)&gt;"/);
+
+  const client = await read('blog/blog-shared.js');
+  const tooltip = client.slice(
+    client.indexOf('DN.injectDictTooltips'),
+    client.indexOf('DN.PWA_DISMISS_KEY')
+  );
+  assert.doesNotMatch(tooltip, /popup\.innerHTML/);
+  assert.match(tooltip, /document\.createTextNode\(def\)/);
+});
+
+test('Push UI does not report success when private storage rejects registration', async () => {
+  const client = await read('blog/blog-shared.js');
+  assert.match(client, /if \(!saveResponse\.ok\)/);
+  assert.match(client, /await sub\.unsubscribe\(\)\.catch/);
+});
+
+test('admin status panels escape dynamic errors before using innerHTML', async () => {
+  const admin = await read('admin.html');
+  assert.doesNotMatch(admin, /innerHTML\s*=\s*[^;\n]*\+\s*e\.message\s*\+/);
+  assert.match(admin, /escapeHTML\(\(j\.error \|\| r\.status\)\.toString\(\)\.slice\(0, 60\)\)/);
+});
+
+test('CWV page labels are coerced before truncation', async () => {
+  const source = await read('api/cwv-ingest.js');
+  assert.match(source, /String\(page \|\| ''\)\.slice\(0, 80\)/);
 });
 
 test('unsafe server-side English regenerators are retired', async () => {

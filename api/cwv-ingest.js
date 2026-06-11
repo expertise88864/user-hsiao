@@ -51,7 +51,7 @@ export default async function handler(req, res) {
 
   try {
     const key = `cwv:samples:v2:${name}`;
-    const sample = { v: Math.round(value * 100) / 100, p: (page || '').slice(0, 80), t: Date.now() };
+    const sample = { v: Math.round(value * 100) / 100, p: String(page || '').slice(0, 80), t: Date.now() };
     const stored = await kvPushTrimExpire(
       key,
       JSON.stringify(sample),

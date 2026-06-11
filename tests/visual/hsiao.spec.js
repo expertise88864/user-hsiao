@@ -79,7 +79,7 @@ for (const page of PAGES) {
         }
         ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
         #hs-progress-widget, #hs-totop, #hs-bookmark, #hs-print-btn, #hs-pwa-btn,
-        #hs-pwa-ios, #hs-sw-toast, #hs-feedback,
+        #hs-pwa-ios, #hs-sw-toast, #hs-feedback, .hs-push-btn,
         [data-google-query-id], iframe[src*="googletagmanager"], iframe[src*="doubleclick"] {
           display: none !important;
         }
@@ -90,6 +90,11 @@ for (const page of PAGES) {
       // Scroll to top to standardise position, then settle
       await pw.evaluate(() => window.scrollTo(0, 0));
       await pw.waitForTimeout(700);
+
+      const hasHorizontalOverflow = await pw.evaluate(() =>
+        document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+      );
+      expect(hasHorizontalOverflow, `${page.name} @ ${vp.name} has horizontal overflow`).toBe(false);
 
       await expect(pw).toHaveScreenshot(`${page.name}-${vp.name}.png`, {
         // mobile = above-the-fold only (faster, less brittle to long-page changes)

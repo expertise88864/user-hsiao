@@ -21,7 +21,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260662';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260663';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -747,7 +747,7 @@ async function checkEnvStatus() {
     const j = await r.json().catch(() => ({}));
     const el = document.getElementById('env-gh');
     if (r.ok) el.innerHTML = '<span style="color:var(--green)">✓ valid</span>';
-    else el.innerHTML = '<span style="color:var(--red)">✗ ' + (j.error || r.status).toString().slice(0, 60) + '</span>';
+    else el.innerHTML = '<span style="color:var(--red)">✗ ' + escapeHTML((j.error || r.status).toString().slice(0, 60)) + '</span>';
   } catch (e) {}
 
   // Probe VAPID
@@ -1104,7 +1104,7 @@ async function loadMd() {
     editor.value = j.markdown || '';
     renderMdPreview();
     toast('✓ 已載入 ' + slug, 2500);
-  } catch (e) { preview.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { preview.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 async function saveMd() {
@@ -1180,7 +1180,7 @@ async function loadCWV() {
         const color = b === 'good' ? '#16a34a' : b === 'warn' ? '#fbbf24' : '#dc2626';
         return `<tr><td>${escapeHTML(m.name)}</td><td>${m.p75.toFixed(m.name === 'CLS' ? 3 : 0)}${m.name === 'CLS' ? '' : ' ms'}</td><td>${m.samples}</td><td style="color:${color};font-weight:700">${b.toUpperCase()}</td></tr>`;
       }).join('') + '</tbody></table>';
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 // ───────────────── CSP violation report viewer ─────────────────
@@ -1216,7 +1216,7 @@ async function loadCsp() {
       '<div style="overflow:auto;max-height:380px;border:1px solid var(--border);border-radius:8px;padding:8px;font-family:JetBrains Mono,monospace;font-size:11px;background:#fafafa">' +
       recent.map(r => `<div style="padding:4px 0;border-bottom:1px solid #eee">${escapeHTML(JSON.stringify(r))}</div>`).join('') +
       '</div>';
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 async function clearCsp() {
@@ -1226,7 +1226,7 @@ async function clearCsp() {
     const r = await fetch(API + '/csp?action=clear', { method: 'POST', credentials: 'include' });
     if (r.ok) loadCsp();
     else host.innerHTML = '<div class="loading">清除失敗：' + r.status + '</div>';
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 // ───────────────── Client-side JS errors viewer ─────────────────
@@ -1261,7 +1261,7 @@ async function loadErrors() {
       '<div style="overflow:auto;max-height:380px;border:1px solid var(--border);border-radius:8px;padding:8px;font-family:JetBrains Mono,monospace;font-size:11px;background:#fafafa">' +
       recent.map(r => `<div style="padding:4px 0;border-bottom:1px solid #eee">${escapeHTML(JSON.stringify(r))}</div>`).join('') +
       '</div>';
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 async function clearErrors() {
@@ -1271,7 +1271,7 @@ async function clearErrors() {
     const r = await fetch(API + '/errors?action=clear', { method: 'POST', credentials: 'include' });
     if (r.ok) loadErrors();
     else host.innerHTML = '<div class="loading">清除失敗：' + r.status + '</div>';
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 // ───────────────── Search query log viewer ─────────────────
@@ -1305,7 +1305,7 @@ async function loadSearchLog() {
       (j.enabled ? ' · 收集中 ✓' : ' · 收集已停 (env 旗標未開)') + '</div>' +
       renderRow(j.stats.by_query.slice(0, 30), 'Top 30 查詢') +
       renderRow(j.stats.by_day, '依日期分布');
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 async function clearSearchLog() {
@@ -1315,7 +1315,7 @@ async function clearSearchLog() {
     const r = await fetch(API + '/search-log?action=clear', { method: 'POST', credentials: 'include' });
     if (r.ok) loadSearchLog();
     else host.innerHTML = '<div class="loading">清除失敗：' + r.status + '</div>';
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 // ───────────────── Push subscriber stats ─────────────────
@@ -1351,7 +1351,7 @@ async function loadPushStats() {
         '<div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">訂閱年齡</div>' +
           renderRow(j.by_age) + '</div>' +
       '</div>';
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 // ───────────────── Article list ─────────────────
@@ -1520,7 +1520,7 @@ async function showHistory(slug) {
       </div>
     `).join('');
   } catch (e) {
-    document.getElementById('history-list').innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>';
+    document.getElementById('history-list').innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>';
   }
 }
 function hideHistory() { document.getElementById('history-modal').hidden = true; }
@@ -1606,7 +1606,8 @@ async function runBatch() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ops: ['seo-fix', 'faqpage', 'autolink'] }) });
     const j = await r.json().catch(() => ({}));
-    if (r.ok) toast(`✓ ${j.succeeded}/${j.total} ops 成功 (${j.ms}ms)`, 6000);
+    if (r.ok && j.ok) toast(`✓ ${j.succeeded}/${j.total} ops 成功 (${j.ms}ms)`, 6000);
+    else if (r.ok) toast(`完成，但有 ${j.failed || 0} 個操作失敗`, 7000);
     else toast('失敗: ' + (j.error || r.status), 5000);
   } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
 }
@@ -1637,7 +1638,7 @@ async function loadAbConfig() {
         </div>
       </div>`;
     }).join('');
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 function newAbTest() {
@@ -1739,7 +1740,7 @@ async function runSeoScore() {
           </div>
         `).join('')}
       </div>`;
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 // ───────────────── Spell ─────────────────
@@ -1766,7 +1767,7 @@ async function runSpell() {
           ${i.fix ? `<div style="margin-top:4px; color:var(--green); font-size:12px;">建議: ${escapeHTML(i.fix)}</div>` : ''}
         </div>
       `).join('');
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 async function runSpellAll() {
@@ -2020,7 +2021,7 @@ async function loadAbStats() {
           }).join('')}
         </div>`;
     }).join('');
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + e.message + '</div>'; }
+  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 // ───────────────── Toast ─────────────────

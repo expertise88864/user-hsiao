@@ -18,6 +18,51 @@ import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
 import { commitArticleWithModifiedDate } from './_article-commit.js';
 
 const DICT_PATH = 'assets/medical-dictionary.json';
+const MAX_TERMS = 500;
+
+function isPlainObject(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+function validateDictionary(dict) {
+  if (!isPlainObject(dict)) return 'dict object required';
+  const entries = Object.entries(dict);
+  if (entries.length > MAX_TERMS) return `dictionary cannot exceed ${MAX_TERMS} terms`;
+  for (const [term, entry] of entries) {
+    if (!term || term.length > 80 || /[<>&"'\u0000-\u001f\u007f]/.test(term)) {
+      return 'dictionary term is invalid';
+    }
+    if (!isPlainObject(entry)) return `dictionary entry for ${term} must be an object`;
+    if (typeof entry.en !== 'string' || entry.en.length > 120 || /[\u0000-\u001f\u007f]/.test(entry.en)) {
+      return `English label for ${term} is invalid`;
+    }
+    if (typeof entry.def !== 'string' || entry.def.length > 500 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(entry.def)) {
+      return `definition for ${term} is invalid`;
+    }
+    if (typeof entry.anchor !== 'string' ||
+        (entry.anchor && !/^[a-z0-9-]{1,120}$/.test(entry.anchor))) {
+      return `anchor for ${term} is invalid`;
+    }
+  }
+  return null;
+}
+
+function escapeAttr(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function escapeText(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
 
 const SEED_DICT = {
   '青光眼': { en: 'glaucoma', def: '視神經因眼壓或血流異常受損,造成視野缺損的疾病。', anchor: 'glaucoma-warnings' },
@@ -92,12 +137,14 @@ function autolinkOnce(html, dict) {
       const idx = seg.text.indexOf(term);
       if (idx === -1) continue;
       const entry = dict[term];
-      const tooltipDef = (entry.def || '').replace(/"/g, '&quot;');
-      const enLabel = (entry.en || '').replace(/"/g, '&quot;');
+      const tooltipDef = escapeAttr(entry.def || '');
+      const enLabel = escapeAttr(entry.en || '');
+      const safeTermAttr = escapeAttr(term);
+      const safeTermText = escapeText(term);
       const anchor = entry.anchor;
       const inner = anchor
-        ? `<a href="/blog/${anchor}" class="hs-dict-link" data-term="${term}" title="${tooltipDef}">${term}</a>`
-        : `<span class="hs-dict" data-term="${term}" data-en="${enLabel}" title="${tooltipDef}">${term}</span>`;
+        ? `<a href="/blog/${anchor}" class="hs-dict-link" data-term="${safeTermAttr}" title="${tooltipDef}">${safeTermText}</a>`
+        : `<span class="hs-dict" data-term="${safeTermAttr}" data-en="${enLabel}" title="${tooltipDef}">${safeTermText}</span>`;
       seg.text = seg.text.slice(0, idx) + inner + seg.text.slice(idx + term.length);
       seen.add(term);
       break;
@@ -107,6 +154,8 @@ function autolinkOnce(html, dict) {
   body = segments.map(s => s.text).join('');
   return head + body;
 }
+
+export { autolinkOnce, validateDictionary };
 
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
@@ -132,7 +181,8 @@ export default async function handler(req, res) {
   try {
     if (action === 'update') {
       const { dict } = body || {};
-      if (!dict || typeof dict !== 'object') return res.status(400).json({ error: 'dict object required' });
+      const validationError = validateDictionary(dict);
+      if (validationError) return res.status(400).json({ error: validationError });
       const file = await ensureDict();
       const out = JSON.stringify(dict, null, 2);
       if (file.content === out) return res.status(200).json({ ok: true, noop: true });
@@ -145,6 +195,8 @@ export default async function handler(req, res) {
       if (!slug || !/^[a-z0-9-]+$/.test(slug)) return res.status(400).json({ error: 'slug required' });
       const dictFile = await ensureDict();
       const dict = JSON.parse(dictFile.content);
+      const validationError = validateDictionary(dict);
+      if (validationError) return res.status(500).json({ error: `Stored dictionary is invalid: ${validationError}` });
       const articleFile = await ghGetFile(`blog/${slug}.html`);
       if (!articleFile) return res.status(404).json({ error: `Article ${slug} not found` });
       const out = autolinkOnce(articleFile.content, dict);

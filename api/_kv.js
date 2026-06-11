@@ -93,6 +93,14 @@ export async function kvHGetAll(key) {
   } catch (e) { return null; }
 }
 
+export async function kvHGet(key, field) {
+  if (!kvAvailable()) return null;
+  try {
+    const r = await kvCall(`/hget/${encodeURIComponent(key)}/${encodeURIComponent(field)}`);
+    return r.result;
+  } catch (e) { return null; }
+}
+
 export async function kvHSet(key, field, value) {
   if (!kvAvailable()) return false;
   try {
@@ -100,6 +108,22 @@ export async function kvHSet(key, field, value) {
     await kvCall(path);
     return true;
   } catch (e) { return false; }
+}
+
+export async function kvHDel(key, field) {
+  if (!kvAvailable()) return null;
+  try {
+    const r = await kvCall(`/hdel/${encodeURIComponent(key)}/${encodeURIComponent(field)}`);
+    return r.result;
+  } catch (e) { return null; }
+}
+
+export async function kvHLen(key) {
+  if (!kvAvailable()) return null;
+  try {
+    const r = await kvCall(`/hlen/${encodeURIComponent(key)}`);
+    return r.result;
+  } catch (e) { return null; }
 }
 
 export async function kvHIncrBy(key, field, by = 1) {

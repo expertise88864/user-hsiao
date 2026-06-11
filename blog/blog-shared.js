@@ -3581,6 +3581,8 @@
             var cfg = data.tests[id];
             var el = document.querySelector(cfg.selector);
             if (!el || el.dataset.abApplied) return;
+            if (el === document.documentElement || el === document.head || el === document.body) return;
+            if (/^(SCRIPT|STYLE|LINK|META|IFRAME|OBJECT|EMBED|FORM)$/.test(el.tagName)) return;
             var names = cfg.variants.map(function (v, i) { return v.name || ('v' + i); });
             DN.abTest(id, names, function (variantName, idx) {
               var v = cfg.variants[idx];
@@ -3762,7 +3764,7 @@
     if (DN._adminLoaded) return;
     DN._adminLoaded = true;
     var s = document.createElement('script');
-    s.src = '/blog/blog-admin.js?v=20260662';
+    s.src = '/blog/blog-admin.js?v=20260663';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -4192,7 +4194,13 @@
       if (!def && !en) return;
       var popup = document.createElement('span');
       popup.className = 'hs-dict-popup';
-      popup.innerHTML = (def ? def : '') + (en ? '<span class="en">' + en + '</span>' : '');
+      if (def) popup.appendChild(document.createTextNode(def));
+      if (en) {
+        var enLabel = document.createElement('span');
+        enLabel.className = 'en';
+        enLabel.textContent = en;
+        popup.appendChild(enLabel);
+      }
       el.appendChild(popup);
       el.removeAttribute('title');  // suppress native tooltip; ours is richer
       // Mobile: tap toggles
@@ -5056,11 +5064,15 @@
           userVisibleOnly: true,
           applicationServerKey: urlBase64ToUint8Array(DN.VAPID_PUBLIC_KEY)
         });
-        await fetch('/api/push/subscribe', {
+        var saveResponse = await fetch('/api/push/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ endpoint: sub.endpoint, keys: sub.toJSON().keys, userAgent: navigator.userAgent })
         });
+        if (!saveResponse.ok) {
+          await sub.unsubscribe().catch(function () {});
+          throw new Error('subscription registration failed');
+        }
         DN.toast && DN.toast('✓ 已訂閱,新文章發布時會收到通知');
         setStateSubscribed();
       } catch (e) {
