@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { access, readFile } from 'node:fs/promises';
+import { access, readFile, readdir } from 'node:fs/promises';
 import test from 'node:test';
 
 const read = path => readFile(new URL(`../../${path}`, import.meta.url), 'utf8');
@@ -218,6 +218,120 @@ test('Markdown and A/B content reject stored-XSS execution surfaces', async () =
     }),
     null
   );
+});
+
+test('CMS serialization strips nested runtime DOM without damaging the footer', async () => {
+  const save = await import('../../api/admin/_save.js');
+  const input = [
+    '<!doctype html><html data-theme="dark"><body>',
+    '<article><p>content</p></article>',
+    '<div id="hs-cmdk-overlay"><div id="hs-cmdk-modal"><div>results</div></div></div>',
+    '<div id="hs-reading-meta"><span><svg><circle></circle></svg><span>5 min</span></span></div>',
+    '<section id="hs-feedback"><div><div>feedback</div></div></section>',
+    '<section id="hs-related"><div><a href="/blog/other">related</a></div></section>',
+    '<footer><div><strong>footer stays intact</strong></div></footer>',
+    '</body></html>',
+  ].join('');
+  const result = save.stripRuntimeHelpers(input);
+  assert.equal(result.count, 2);
+  assert.doesNotMatch(result.html, /hs-cmdk|hs-reading-meta/);
+  assert.match(result.html, /id="hs-feedback"/);
+  assert.match(result.html, /id="hs-related"/);
+  assert.match(result.html, /<footer><div><strong>footer stays intact<\/strong><\/div><\/footer>/);
+
+  const client = await read('blog/blog-admin.js');
+  for (const id of ['hs-cmdk-overlay', 'hs-breadcrumb-runtime', 'hs-reading-meta', 'hsMobileDrawer', 'hs-article-hero']) {
+    assert.match(client, new RegExp(`['"]${id}['"]`), id);
+  }
+  const shared = await read('blog/blog-shared.js');
+  assert.match(shared, /s\.id = 'hs-admin-runtime'/);
+  assert.match(shared, /styleEl\.id = 'hs-reveal-css'/);
+  assert.match(shared, /existingNav\.setAttribute\('aria-label', 'Breadcrumb'\)/);
+  const abApply = shared.slice(shared.indexOf('DN.applyAbConfig'), shared.indexOf('DN.abConvert'));
+  assert.match(abApply, /DN\.isAdminMode.*DN\.isAdminMode\(\)/s);
+});
+
+test('canonical articles do not persist runtime-only DOM', async () => {
+  const blogDir = new URL('../../blog/', import.meta.url);
+  const articleFiles = (await readdir(blogDir)).filter(name => name.endsWith('.html'));
+  const runtimeIds = [
+    'hs-theme-style',
+    'hs-breadcrumb-runtime',
+    'hs-reading-meta',
+    'hsMobileDrawer',
+    'hs-inline-toc',
+    'hs-img-css',
+    'hs-admin-runtime',
+  ];
+
+  for (const name of articleFiles) {
+    const html = await readFile(new URL(name, blogDir), 'utf8');
+    for (const id of runtimeIds) {
+      assert.doesNotMatch(html, new RegExp(`id=["']${id}["']`), `${name}: ${id}`);
+    }
+    assert.doesNotMatch(
+      html,
+      /<script\b[^>]*\bsrc=["']\/blog\/blog-admin\.js(?:\?[^"']*)?["'][^>]*>/i,
+      `${name}: admin runtime script`
+    );
+  }
+});
+
+test('A/B config persistence fails closed when the authoritative store rejects writes', async () => {
+  const ab = await import('../../api/admin/_ab-config.js');
+  const previous = {
+    edge: process.env.EDGE_CONFIG,
+    edgeId: process.env.EDGE_CONFIG_ID,
+    vercelToken: process.env.VERCEL_API_TOKEN,
+    kvUrl: process.env.KV_REST_API_URL,
+    kvToken: process.env.KV_REST_API_TOKEN,
+  };
+  const originalFetch = globalThis.fetch;
+  const calls = [];
+  process.env.EDGE_CONFIG = 'vercel://edge-config/test?token=read-token';
+  process.env.EDGE_CONFIG_ID = 'test';
+  process.env.VERCEL_API_TOKEN = 'write-token';
+  process.env.KV_REST_API_URL = 'https://kv.example.test';
+  process.env.KV_REST_API_TOKEN = 'kv-token';
+  globalThis.fetch = async (url, options = {}) => {
+    calls.push({ url: String(url), method: options.method || 'GET' });
+    return {
+      ok: false,
+      status: 500,
+      json: async () => ({}),
+      text: async () => 'write failed',
+    };
+  };
+  try {
+    await assert.rejects(
+      ab.saveAbConfig({ tests: {}, _source: 'edge-config' }),
+      /Edge Config write failed/
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+    for (const [key, value] of Object.entries({
+      EDGE_CONFIG: previous.edge,
+      EDGE_CONFIG_ID: previous.edgeId,
+      VERCEL_API_TOKEN: previous.vercelToken,
+      KV_REST_API_URL: previous.kvUrl,
+      KV_REST_API_TOKEN: previous.kvToken,
+    })) {
+      if (value == null) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+  assert.equal(calls.filter(call => call.url.startsWith('https://kv.example.test')).length, 0);
+});
+
+test('srcset uploads reject path-like and duplicate suffixes before GitHub access', async () => {
+  const source = await read('api/admin/_upload-srcset.js');
+  assert.match(source, /\^\(\?:\|-\[1-9\]/);
+  assert.match(source, /duplicate variant/);
+});
+
+test('new drafts use the Taipei calendar date', async () => {
+  const drafts = await import('../../api/admin/_new.js');
+  assert.equal(drafts.todayISO(new Date('2026-06-12T16:30:00.000Z')), '2026-06-13');
 });
 
 test('medical dictionary content is validated and HTML-escaped', async () => {

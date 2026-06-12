@@ -25,33 +25,42 @@ async function load() {
   // Edge Config (preferred — sub-15ms global read)
   if (ecAvailable()) {
     const v = await ecGet(EC_KEY);
-    if (v) return v;
+    if (v) return Object.assign({}, v, { _source: 'edge-config' });
     // First time — fall through to KV/GH to seed
   }
   if (kvAvailable()) {
-    return (await kvGetJSON(KV_KEY)) || { tests: {} };
+    const v = await kvGetJSON(KV_KEY);
+    return Object.assign({}, v || { tests: {} }, { _source: 'kv' });
   }
   const f = await ghGetFile(BLOB_PATH);
-  if (!f) return { tests: {}, _sha: undefined };
-  try { return Object.assign(JSON.parse(f.content), { _sha: f.sha }); }
-  catch (e) { return { tests: {}, _sha: f.sha }; }
+  if (!f) return { tests: {}, _sha: undefined, _source: 'gh' };
+  try { return Object.assign(JSON.parse(f.content), { _sha: f.sha, _source: 'gh' }); }
+  catch (e) { return { tests: {}, _sha: f.sha, _source: 'gh' }; }
 }
 
 async function save(state) {
-  const sha = state._sha;
-  delete state._sha;
-  // Write Edge Config first when available (REST API ~300ms write, but ~15ms reads)
-  if (ecAvailable() && process.env.VERCEL_API_TOKEN && process.env.EDGE_CONFIG_ID) {
-    const ok = await ecSet(EC_KEY, state);
-    if (ok) return { source: 'edge-config' };
-    // fall through if write failed
+  const storedState = Object.assign({}, state);
+  const sha = storedState._sha;
+  delete storedState._sha;
+  delete storedState._source;
+  // When Edge Config is connected it is always the read authority. Falling
+  // back to KV/GitHub after an Edge write failure would report success while
+  // every subsequent read keeps returning the stale Edge value.
+  if (ecAvailable()) {
+    if (!process.env.VERCEL_API_TOKEN || !process.env.EDGE_CONFIG_ID) {
+      throw new Error('Edge Config write credentials are not configured');
+    }
+    const ok = await ecSet(EC_KEY, storedState);
+    if (!ok) throw new Error('Edge Config write failed');
+    return { source: 'edge-config' };
   }
   if (kvAvailable()) {
-    await kvSetJSON(KV_KEY, state);
+    const ok = await kvSetJSON(KV_KEY, storedState);
+    if (!ok) throw new Error('KV write failed');
     return { source: 'kv' };
   }
-  await ghPutFile(BLOB_PATH, JSON.stringify(state, null, 2),
-    `admin: update A/B config (${Object.keys(state.tests).length} tests)`, sha);
+  await ghPutFile(BLOB_PATH, JSON.stringify(storedState, null, 2),
+    `admin: update A/B config (${Object.keys(storedState.tests).length} tests)`, sha);
   return { source: 'gh' };
 }
 
@@ -105,7 +114,7 @@ function validate(body) {
   return null;
 }
 
-export { validate as validateAbConfig };
+export { load as loadAbConfig, save as saveAbConfig, validate as validateAbConfig };
 
 export default async function handler(req, res) {
   // GET is PUBLIC (used by client to fetch active tests). POST/DELETE require admin.

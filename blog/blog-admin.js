@@ -408,14 +408,20 @@
       // 1. Strip admin chrome
       ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css',
        // Runtime-injected helper widgets — these are re-injected by blog-shared.js
-       'hs-progress', 'hs-mobile-nav', 'hs-totop',
-       'hs-cmdk-overlay', 'hs-cmdk-style',
-       'hs-font-sizer',
+       'hs-progress', 'hs-mobile-nav', 'hs-mobile-nav-style', 'hs-totop',
+       'hs-cmdk-overlay', 'hs-cmdk-style', 'hs-cmdk-modal', 'hs-cmdk-pf-fallback',
+       'hs-font-sizer', 'hs-font-size-style',
        'hs-slash-menu',
-       'hs-resume-toast', 'hs-en-banner', 'hs-bookmark', 'hs-print-btn',
-       'hs-related-css', 'hs-feedback',
+       'hs-resume-toast', 'hs-resume-style', 'hs-en-banner', 'hs-bookmark', 'hs-print-btn',
+       'hs-theme-toggle', 'hs-theme-style', 'hs-breadcrumb-runtime', 'hs-reading-meta',
+       'hsMobileMenuBtn', 'hsMobileDrawer',
+       'hs-article-hero', 'hs-img-css',
+       'hs-inline-toc', 'hs-toc-float', 'hs-inline-cta',
+       'hs-prevnext', 'hs-pn-css', 'hs-vt-css',
+       'hs-new-pulse-css', 'hs-calc-css', 'hs-dialog-css', 'hs-dict-css', 'hs-tf-css',
+       'hs-reveal-css', 'hs-admin-runtime', 'hs-vercel-insights',
       ].forEach(function (id) {
-        var el = clone.querySelector('#' + id); if (el) el.remove();
+        clone.querySelectorAll('#' + id).forEach(function (el) { el.remove(); });
       });
       // 2. Strip image lightbox container (.hs-img-lightbox is injected on demand)
       clone.querySelectorAll('.hs-img-lightbox').forEach(function (el) { el.remove(); });
@@ -431,6 +437,7 @@
       // 5. Remove body.hs-admin class
       var body = clone.querySelector('body');
       if (body) body.classList.remove('hs-admin');
+      clone.removeAttribute('data-theme');
       // 6. CRITICAL: sync edited text back to data-zh / data-en. The runtime
       //    DN.applyTextOnly() reads these attributes on page load and
       //    overwrites innerHTML/textContent — without this sync, every edit

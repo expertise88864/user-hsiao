@@ -19,38 +19,81 @@ import { halfwidthToFullwidth } from './_halfwidth.js';
 // validate.py's width/height check. Strip server-side as a safety net,
 // even when the client-side _sanitizeForSerialize did its job.
 const RUNTIME_HELPER_IDS = [
-  'hs-progress', 'hs-mobile-nav', 'hs-totop',
-  'hs-cmdk-overlay', 'hs-cmdk-style', 'hs-cmdk-modal',
-  'hs-font-sizer',
+  'hs-progress', 'hs-mobile-nav', 'hs-mobile-nav-style', 'hs-totop',
+  'hs-cmdk-overlay', 'hs-cmdk-style', 'hs-cmdk-modal', 'hs-cmdk-pf-fallback',
+  'hs-font-sizer', 'hs-font-size-style',
   'hs-slash-menu',
-  'hs-resume-toast', 'hs-en-banner', 'hs-bookmark', 'hs-print-btn',
-  'hs-related-css', 'hs-feedback', 'hs-theme-toggle', 'hs-reading-meta',
+  'hs-resume-toast', 'hs-resume-style', 'hs-en-banner', 'hs-bookmark', 'hs-print-btn',
+  'hs-theme-toggle', 'hs-theme-style', 'hs-breadcrumb-runtime', 'hs-reading-meta',
   'hsMobileMenuBtn', 'hsMobileDrawer',
+  'hs-article-hero', 'hs-img-css',
+  'hs-inline-toc', 'hs-toc-float', 'hs-inline-cta',
+  'hs-prevnext', 'hs-pn-css', 'hs-vt-css',
+  'hs-new-pulse-css', 'hs-calc-css', 'hs-dialog-css', 'hs-dict-css', 'hs-tf-css',
+  'hs-reveal-css', 'hs-admin-runtime', 'hs-vercel-insights',
 ];
 
-function stripRuntimeHelpers(html) {
+const VOID_TAGS = new Set([
+  'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+  'link', 'meta', 'param', 'source', 'track', 'wbr',
+]);
+
+function removeFirstElement(html, openingPattern) {
+  const opening = openingPattern.exec(html);
+  if (!opening) return null;
+
+  const tag = opening[1].toLowerCase();
+  const openingText = opening[0];
+  const openingEnd = opening.index + openingText.length;
+  if (VOID_TAGS.has(tag) || /\/\s*>$/.test(openingText)) {
+    return html.slice(0, opening.index) + html.slice(openingEnd);
+  }
+
+  const tokenPattern = new RegExp(`<\\/?${tag}\\b[^>]*>`, 'gi');
+  tokenPattern.lastIndex = openingEnd;
+  let depth = 1;
+  let token;
+  while ((token = tokenPattern.exec(html)) !== null) {
+    if (/^<\s*\//.test(token[0])) {
+      depth--;
+    } else if (!/\/\s*>$/.test(token[0])) {
+      depth++;
+    }
+    if (depth === 0) {
+      return html.slice(0, opening.index) + html.slice(tokenPattern.lastIndex);
+    }
+  }
+  return null;
+}
+
+function removeAllElements(html, openingPatternFactory) {
+  let output = html;
+  let count = 0;
+  while (count < 200) {
+    const next = removeFirstElement(output, openingPatternFactory());
+    if (next == null) break;
+    output = next;
+    count++;
+  }
+  return { html: output, count };
+}
+
+export function stripRuntimeHelpers(html) {
   let s = html;
   let count = 0;
   for (const id of RUNTIME_HELPER_IDS) {
-    // Match any top-level element with id="...". Use non-greedy match
-    // that stops at the matching close tag. Works for self-contained
-    // single-tag blocks (most runtime helpers).
-    // 1) <tag id="..." ...>...</tag>
-    const re1 = new RegExp(
-      `<([a-zA-Z][a-zA-Z0-9]*)\\b[^>]*\\bid=["']${id}["'][^>]*>[\\s\\S]*?<\\/\\1>`,
-      'gi'
-    );
-    s = s.replace(re1, () => { count++; return ''; });
-    // 2) Self-closing: <input id="..." />
-    const re2 = new RegExp(
-      `<[a-zA-Z][a-zA-Z0-9]*\\b[^>]*\\bid=["']${id}["'][^>]*\\/?>`,
-      'gi'
-    );
-    s = s.replace(re2, () => { count++; return ''; });
+    const result = removeAllElements(s, () => new RegExp(
+      `<([a-zA-Z][a-zA-Z0-9:-]*)\\b[^>]*\\bid\\s*=\\s*(["'])${id}\\2[^>]*>`,
+      'i'
+    ));
+    s = result.html;
+    count += result.count;
   }
-  // Strip .hs-img-lightbox container (no fixed ID, class-based)
-  s = s.replace(/<div\b[^>]*\bclass=["'][^"']*\bhs-img-lightbox\b[^"']*["'][^>]*>[\s\S]*?<\/div>/gi,
-    () => { count++; return ''; });
+  const lightboxes = removeAllElements(s, () =>
+    /<([a-zA-Z][a-zA-Z0-9:-]*)\b[^>]*\bclass\s*=\s*(["'])[^"']*\bhs-img-lightbox\b[^"']*\2[^>]*>/i
+  );
+  s = lightboxes.html;
+  count += lightboxes.count;
   return { html: s, count: count };
 }
 

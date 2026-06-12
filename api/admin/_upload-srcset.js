@@ -90,10 +90,18 @@ export default async function handler(req, res) {
   if (variants.length > MAX_VARIANTS) return bad(res, 400, `too many variants (>${MAX_VARIANTS})`);
 
   // Validate each
+  const filenames = new Set();
   for (const v of variants) {
+    if (!v || typeof v !== 'object') return bad(res, 400, 'each variant must be an object');
     if (!ALLOWED_FORMATS.has(v.format)) return bad(res, 400, `bad format ${v.format}`);
+    if (typeof v.suffix !== 'string' || !/^(?:|-[1-9]\d{1,4})$/.test(v.suffix)) {
+      return bad(res, 400, `bad suffix ${String(v.suffix || '')}`);
+    }
     if (typeof v.data !== 'string') return bad(res, 400, 'each variant.data must be base64 string');
     if (Math.floor(v.data.length * 0.75) > MAX_BYTES_PER) return bad(res, 413, `variant ${v.suffix||''}.${v.format} too large`);
+    const filename = `${stem}${v.suffix}.${v.format}`;
+    if (filenames.has(filename)) return bad(res, 400, `duplicate variant ${filename}`);
+    filenames.add(filename);
   }
 
   const uploaded = [];

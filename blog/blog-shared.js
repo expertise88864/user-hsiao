@@ -565,6 +565,7 @@
       io.observe(el);
     });
     const styleEl = document.createElement('style');
+    styleEl.id = 'hs-reveal-css';
     styleEl.textContent = '.reveal.visible, .article-list-item.visible, .myth-card.visible { opacity:1 !important; transform:translateY(0) !important; }';
     document.head.appendChild(styleEl);
   };
@@ -793,7 +794,8 @@
   // JSON-LD alone is not enough on its own to render the path in SERP.
   // Renders: 首頁 / 衛教文章 / <article tag>
   DN.injectBreadcrumb = function () {
-    if (document.getElementById('hs-breadcrumb')) return;
+    if (document.getElementById('hs-breadcrumb') ||
+        document.getElementById('hs-breadcrumb-runtime')) return;
     var slug = DN.currentSlug && DN.currentSlug();
     if (!slug) return;
     var meta = (DN.ARTICLES || []).find(function (a) { return a.slug === slug; });
@@ -802,9 +804,16 @@
     if (!h1) return;
     var section = h1.closest('section') || h1.parentNode;
     if (!section) return;
+    var existingNav = section.querySelector('nav');
+    if (existingNav) {
+      if (!existingNav.hasAttribute('aria-label')) {
+        existingNav.setAttribute('aria-label', 'Breadcrumb');
+      }
+      return;
+    }
     var prefix = (DN.urlPrefix && DN.urlPrefix()) || '';
     var nav = document.createElement('nav');
-    nav.id = 'hs-breadcrumb';
+    nav.id = 'hs-breadcrumb-runtime';
     nav.setAttribute('aria-label', 'Breadcrumb');
     nav.style.cssText = 'font-size:12px;color:var(--muted);margin:0 0 14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:Inter,sans-serif;';
     nav.innerHTML =
@@ -3571,6 +3580,9 @@
   // typically a few KB. Failure is silent (no test → site as normal).
   // ---------------------------------------------------------------------
   DN.applyAbConfig = function () {
+    // Never swap editor content. Serializing a selected variant from
+    // ?admin=1 would permanently commit an experiment into the article.
+    if (DN.isAdminMode && DN.isAdminMode()) return;
     fetch('/api/ab-config', { cache: 'force-cache' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .catch(function () { return null; })
@@ -3764,7 +3776,8 @@
     if (DN._adminLoaded) return;
     DN._adminLoaded = true;
     var s = document.createElement('script');
-    s.src = '/blog/blog-admin.js?v=20260663';
+    s.id = 'hs-admin-runtime';
+    s.src = '/blog/blog-admin.js?v=20260664';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
