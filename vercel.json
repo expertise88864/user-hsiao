@@ -18,6 +18,11 @@
     { "source": "/wellness/:slug*","destination": "/blog/:slug*", "permanent": true },
     { "source": "/health/:slug*",  "destination": "/blog/:slug*", "permanent": true },
 
+    { "source": "/blog/cataract-surgery-faq",     "destination": "/blog/cataract-comprehensive-guide",     "permanent": true },
+    { "source": "/en/blog/cataract-surgery-faq",  "destination": "/en/blog/cataract-comprehensive-guide",  "permanent": true },
+    { "source": "/blog/glaucoma-warnings",        "destination": "/blog/glaucoma-comprehensive-guide",     "permanent": true },
+    { "source": "/en/blog/glaucoma-warnings",     "destination": "/en/blog/glaucoma-comprehensive-guide",  "permanent": true },
+
     { "source": "/contact",  "destination": "/about",  "permanent": true },
     { "source": "/about-us", "destination": "/about",  "permanent": true },
     { "source": "/privacy-policy", "destination": "/privacy", "permanent": true }
