@@ -116,47 +116,21 @@ Disallow: /api/
 Disallow: /reset-sw
 Disallow: /en/reset-sw
 
-# ========== AI policy (v34.15) ==========
-# Two tiers:
-#   1. ALLOWED: query-time agents that fetch a URL on behalf of a user
-#      asking a question and cite the source. These bring real readers
-#      back via "answer + source link" surfaces:
-#        - ChatGPT-User    (ChatGPT browsing / Search citations)
-#        - PerplexityBot   (Perplexity answer citations)
-#        - ClaudeBot       (Claude.ai web tool, citation-aware)
-#        - Google-Extended (Google AI Overview / Gemini citations)
-#      These have explicit groups above so the policy is easy to audit.
-#   2. DISALLOWED: bulk training crawlers and aggregators with no
-#      reciprocal traffic, plus low-quality scrapers.
-# ========================================
-
-# Bulk training / mass-aggregation crawlers — opt out
-User-agent: GPTBot
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: anthropic-ai
-Disallow: /
-
-User-agent: Bytespider
-Disallow: /
-
-User-agent: ImagesiftBot
-Disallow: /
-
-User-agent: Amazonbot
-Disallow: /
-
-User-agent: FacebookBot
-Disallow: /
-
-User-agent: cohere-ai
-Disallow: /
-
-User-agent: Diffbot
-Disallow: /
+# ========== AI policy (v35 — opened to AI crawlers) ==========
+# Goal: maximize AI / answer-engine visibility and citation for a young site.
+# ALL AI / LLM crawlers are now permitted. With no opt-out group of their own,
+# they fall under the wildcard (*) policy at the top of this file, which lets
+# them crawl public content while the private /admin, /api and /reset-sw paths
+# stay out of crawl space. This covers both:
+#   1. query-time citation agents (ChatGPT-User, OAI-SearchBot, PerplexityBot,
+#      Claude-User, ClaudeBot — explicit groups above), and
+#   2. bulk training / aggregation crawlers (GPTBot, CCBot, anthropic-ai,
+#      Google-Extended, cohere-ai, Amazonbot, FacebookBot, Bytespider,
+#      ImagesiftBot, Diffbot) — previously opted out, now permitted.
+# Trade-off accepted: training crawlers send no direct clicks, but broader
+# corpus presence helps the site/brand become known to LLMs over time.
+# (SEO backlink crawlers below are throttled, not blocked.)
+# ============================================================
 
 # SEO crawlers — throttle
 User-agent: AhrefsBot
