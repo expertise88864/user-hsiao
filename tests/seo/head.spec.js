@@ -183,14 +183,15 @@ for (const path of PUBLIC_PATHS) {
   });
 }
 
-test('robots.txt allows Googlebot, blocks GPTBot, allows ChatGPT-User', async ({ request }) => {
+test('robots.txt allows Googlebot and AI crawlers, keeps Sitemap', async ({ request }) => {
   const r = await request.get(BASE + '/robots.txt');
   expect(r.ok()).toBeTruthy();
   const txt = await r.text();
   // Googlebot must be allowed
   expect(txt).toMatch(/User-agent:\s*Googlebot[\s\S]*?Allow:\s*\//);
-  // GPTBot training crawler must be blocked
-  expect(txt).toMatch(/User-agent:\s*GPTBot[\s\S]*?Disallow:\s*\//);
+  // AI policy v35: bulk AI/LLM crawlers are no longer opted out — GPTBot has no
+  // Disallow group of its own; it inherits the `*` Allow policy.
+  expect(txt).not.toMatch(/User-agent:\s*GPTBot\s*\n\s*Disallow:\s*\//);
   // ChatGPT-User (query-time) must NOT have a Disallow (covered by * Allow: /)
   expect(txt).not.toMatch(/User-agent:\s*ChatGPT-User\s*\nDisallow:\s*\//);
   // Sitemap directive present
