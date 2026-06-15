@@ -35,3 +35,9 @@ build/
 
 # Vercel
 .vercel
+
+# Playwright test artifacts (local test runs — never commit)
+playwright-report/
+test-results/
+blob-report/
+.playwright/
