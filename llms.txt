@@ -25,6 +25,7 @@ Secondary language: en
 - [JSON Feed](https://hsiao.chendermatologist.com/blog/feed.json): latest articles with summaries, images, attachments, and English mirror URLs.
 - [OpenSearch Description](https://hsiao.chendermatologist.com/opensearch.xml): site search template for `/blog?q={searchTerms}`.
 - [Bilingual Search Index](https://hsiao.chendermatologist.com/assets/search-index.json): published article metadata in both locales.
+- [Full Text Export](https://hsiao.chendermatologist.com/llms-full.txt): every published article inlined in Markdown for single-fetch AI ingestion.
 
 ## Published Articles
 

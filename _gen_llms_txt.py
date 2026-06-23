@@ -111,6 +111,7 @@ def build() -> str:
         f'- [JSON Feed]({DOMAIN}/blog/feed.json): latest articles with summaries, images, attachments, and English mirror URLs.',
         f'- [OpenSearch Description]({DOMAIN}/opensearch.xml): site search template for `/blog?q={{searchTerms}}`.',
         f'- [Bilingual Search Index]({DOMAIN}/assets/search-index.json): published article metadata in both locales.',
+        f'- [Full Text Export]({DOMAIN}/llms-full.txt): every published article inlined in Markdown for single-fetch AI ingestion.',
         '',
         '## Published Articles',
         '',

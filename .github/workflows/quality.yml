@@ -77,6 +77,13 @@ jobs:
           # v37.46: check each waited-for PID individually. The previous
           # `wait $PID1 $PID2` form returned only the exit code of the LAST
           # PID arg, silently swallowing failures of the earlier one.
+          # Normalize article source HTML before any generator reads it.
+          # _normalize_reviewed_by upgrades MedicalWebPage reviewedBy to a full
+          # Physician object; _inject_speed_insights adds the same-origin Speed
+          # Insights tag. Both are idempotent and MUST run before _gen_en_pages.py
+          # so the /en/ mirrors inherit the changes.
+          python _normalize_reviewed_by.py
+          python _inject_speed_insights.py
           python _gen_feeds.py &
           PID_FEEDS=$!
           python _gen_related.py &
@@ -93,6 +100,7 @@ jobs:
           python _gen_search_index.py
           python _gen_api_content_snapshot.py
           python _gen_llms_txt.py
+          python _gen_llms_full_txt.py
           python _gen_opensearch.py
           python _gen_profile_schema.py
           python _gen_site_graph.py
@@ -114,7 +122,7 @@ jobs:
           python _gen_csp_hashes.py
           if ! git diff --quiet; then
             echo "::warning::Auto-regenerated artifacts drifted from committed copies. Run the generator scripts locally before pushing:"
-            echo "::warning::  python _gen_feeds.py && python _gen_related.py && python _gen_serp_meta.py && python _gen_faqpage_jsonld.py && python _gen_en_pages.py && python _gen_search_index.py && python _gen_api_content_snapshot.py && python _gen_llms_txt.py && python _gen_opensearch.py && python _gen_profile_schema.py && python _gen_site_graph.py && python _gen_route_canonicals.py && python _apply_i_series.py && python _apply_a11y_vt.py && python _apply_trusted_types.py && python _apply_f10_image_priority.py && python _extract_critical_css.py && python _gen_csp_hashes.py"
+            echo "::warning::  python _normalize_reviewed_by.py && python _inject_speed_insights.py && python _gen_feeds.py && python _gen_related.py && python _gen_serp_meta.py && python _gen_faqpage_jsonld.py && python _gen_en_pages.py && python _gen_search_index.py && python _gen_api_content_snapshot.py && python _gen_llms_txt.py && python _gen_llms_full_txt.py && python _gen_opensearch.py && python _gen_profile_schema.py && python _gen_site_graph.py && python _gen_route_canonicals.py && python _apply_i_series.py && python _apply_a11y_vt.py && python _apply_trusted_types.py && python _apply_f10_image_priority.py && python _extract_critical_css.py && python _gen_csp_hashes.py"
             git diff --stat
             exit 1
           fi
