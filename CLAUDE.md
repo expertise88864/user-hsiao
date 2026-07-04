@@ -1,5 +1,29 @@
 # Claude Code instructions for HsiaoEye
 
+## 📚 START HERE — institutional docs (read before non-trivial work)
+
+This repo is maintained by rotating AI sessions (often smaller models). The
+`docs/` folder is the **durable institution** — read the ones relevant to your
+task first; they encode decisions already made so you don't re-litigate them:
+
+- **docs/DECISIONS.md** — 23 settled decisions (robots/schema/security/content
+  policy) with "reopen conditions". If your idea matches one, it's already
+  done; if it reverses one, only proceed under its reopen condition.
+- **docs/MODEL-GUIDE.md** — which tasks need which model level, escalation
+  paths, harness limits, the honesty clause, and the pre-push ritual.
+- **docs/REVIEW-PLAYBOOK.md** — 10-dimension review handbook + current-state
+  verdicts (SEO/schema/CWV/metadata/internal-linking/RAG/AI-search/a11y/
+  security/maintainability). Use its check commands before claiming a finding.
+- **docs/BACKLOG.md** — open tech debt, each with acceptance criteria + model level.
+- **docs/GROWTH-PLAYBOOK.md** — verified traffic-growth plan (don't re-run the
+  research; don't chase SEO hype it already debunked).
+- **docs/ARTICLE-STANDARDS.md** — content rules (FAQ pattern, answer-first,
+  medical sourcing, stub lifecycle, cluster linking). Pairs with WRITING_NEW_ARTICLE.md.
+
+**Tools** (run, don't reinvent): `python preflight.py` (pre-push gate — runs
+the chain, proves a fixed point, validates) · `python _ci_status.py <sha> --watch`
+(CI status without `gh`). The pre-push ritual is DECISIONS.md D-20.
+
 ## 🛑 ANTI-OVERWRITE PROTOCOL — read this before any edit
 
 The site owner uses an in-browser CMS at `/admin/` that commits **directly

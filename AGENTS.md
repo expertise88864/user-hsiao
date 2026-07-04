@@ -1,5 +1,18 @@
 # Codex instructions for HsiaoEye
 
+## 📚 Institutional docs (docs/) — the durable source of truth
+
+Before non-trivial work, read the relevant file in `docs/`:
+`DECISIONS.md` (settled decisions + reopen conditions) ·
+`MODEL-GUIDE.md` (model routing, harness limits, pre-push ritual) ·
+`REVIEW-PLAYBOOK.md` (review handbook + current-state verdicts) ·
+`BACKLOG.md` (open debt w/ acceptance criteria) ·
+`GROWTH-PLAYBOOK.md` (verified growth plan) ·
+`ARTICLE-STANDARDS.md` (content rules). Tools: `python preflight.py`
+(pre-push gate) and `python _ci_status.py <sha> --watch` (CI without gh).
+When you (codex) do the pre-push diff review, DECISIONS.md is the baseline —
+flag anything that reverses a decision without meeting its reopen condition.
+
 ## 🛑 ANTI-OVERWRITE PROTOCOL — read this before any edit
 
 The site owner uses an in-browser CMS at `/admin/` that commits **directly
