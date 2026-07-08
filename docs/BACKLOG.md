@@ -113,6 +113,11 @@
 - **驗收**：定期（或每次有人加 generator 時）比對三份文件的鏈 vs quality.yml，補齊。或更進一步：讓三份文件都改為「見 quality.yml / preflight.py」單一指向，消除多份副本。
 - **模型等級**：Sonnet。
 
+### M-06 🟠 admin 儲存路徑的 strip 清單雙軌（client vs server 不一致）
+- **問題**：WYSIWYG 儲存前，客戶端 `blog/blog-admin.js` 的 `_sanitizeForSerialize` 只剝除部分 runtime 注入元素；伺服器端 `api/admin/_save.js` 的 `RUNTIME_HELPER_IDS` 清單較全但兩邊各自維護，且都未涵蓋全部 JS 注入區塊（hs-breadcrumb、hs-article-hero、hs-inline-toc、hs-prevnext、一次性 `<style id="hs-*-css">` 等）。注入器多用 `if (getElementById(...)) return` 防重複 → 一旦過時副本被序列化入庫，執行時就不再重建，**過時 chrome 永久化**。
+- **驗收**：單一來源清單（server 的 `RUNTIME_HELPER_IDS` 為準，前端引用同一份或鏡像常數並以註解標明耦合）；清單擴充涵蓋全部 `DN.inject*`/`add*` 輸出 id 與一次性 style id；`data-zh/data-en` 回寫只作用於可編輯 prose 區域。
+- **模型等級**：Opus（多檔行為變更，需先反證再改）。
+
 ---
 
 ## 內容（C）— 需要站主參與（醫療正確性，MODEL-GUIDE §4）
