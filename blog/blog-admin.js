@@ -405,7 +405,11 @@
     // user edits back to data-zh / data-en attributes so the bilingual
     // toggle (DN.applyTextOnly) doesn't revert them on next page load.
     function _sanitizeForSerialize(clone) {
-      // 1. Strip admin chrome
+      // 1. Strip admin chrome + runtime-injected helpers.
+      // ⚠ COUPLING (M-06): the runtime-helper portion of this array MUST stay
+      //   identical to RUNTIME_HELPER_IDS in api/admin/_save.js — the only
+      //   client-extra entries are the 3 admin-chrome ids on the next line.
+      //   Drift is caught by _check_runtime_helper_sync.py (in _check_all.py).
       ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css',
        // Runtime-injected helper widgets — these are re-injected by blog-shared.js
        'hs-progress', 'hs-mobile-nav', 'hs-mobile-nav-style', 'hs-totop',
@@ -420,6 +424,8 @@
        'hs-prevnext', 'hs-pn-css', 'hs-vt-css',
        'hs-new-pulse-css', 'hs-calc-css', 'hs-dialog-css', 'hs-dict-css', 'hs-tf-css',
        'hs-reveal-css', 'hs-admin-runtime', 'hs-vercel-insights',
+       // M-06: one-shot style injectors previously missed (no authored mount).
+       'hs-related-css', 'hs-blog-filter-css',
       ].forEach(function (id) {
         clone.querySelectorAll('#' + id).forEach(function (el) { el.remove(); });
       });
@@ -442,14 +448,25 @@
       //    DN.applyTextOnly() reads these attributes on page load and
       //    overwrites innerHTML/textContent — without this sync, every edit
       //    would revert after the language toggle script ran.
+      // M-06: scope the write-back to the EDITABLE article body only. data-zh /
+      //    data-en also appear on nav / footer / breadcrumb / hero, which the
+      //    admin never edits (they are not contentEditable). Mirroring their
+      //    innerHTML on every save would bake runtime-rendered markup into the
+      //    source across the whole page. Restrict to <article> (#proseZh /
+      //    #proseEn + the editable title / figcaption inside article.max-w-3xl).
       var currentLang = (document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh';
-      clone.querySelectorAll('[data-zh],[data-en]').forEach(function (el) {
-        var attrName = 'data-' + currentLang;
-        if (el.hasAttribute(attrName)) {
-          // Mirror current rendered content into the attribute. innerHTML
-          // preserves <strong>, <a> etc. that the editor may have inserted.
-          el.setAttribute(attrName, el.innerHTML);
-        }
+      var attrName = 'data-' + currentLang;
+      var syncSeen = [];
+      clone.querySelectorAll('article.max-w-3xl, #proseZh, #proseEn').forEach(function (root) {
+        root.querySelectorAll('[data-zh],[data-en]').forEach(function (el) {
+          if (syncSeen.indexOf(el) !== -1) return;   // dedup nested roots
+          syncSeen.push(el);
+          if (el.hasAttribute(attrName)) {
+            // Mirror current rendered content into the attribute. innerHTML
+            // preserves <strong>, <a> etc. that the editor may have inserted.
+            el.setAttribute(attrName, el.innerHTML);
+          }
+        });
       });
       return clone;
     }

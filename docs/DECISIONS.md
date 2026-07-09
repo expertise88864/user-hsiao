@@ -147,6 +147,13 @@
 - **事實（審計結論，錨 `4aded2b`）**：兒童近視控制、乾眼症、飛蚊症-視網膜剝離三個叢集的文章間**已全數雙向互連**（文內「延伸閱讀」清單 + `.hs-related-pill` + 靜態 related 區塊三層）。當時唯一缺口（floaters → high-myopia-maculopathy）已補。
 - **規則**：新文章發布時把它接進所屬叢集（雙向、描述性錨點）即可；**不要**對既有文章批量「補內鏈」——審查工具若建議大量加鏈，先跑 `grep -oE 'href="/blog/[a-z0-9-]+"' blog/<slug>.html | sort | uniq -c` 驗證是否真缺。
 
+### D-24 admin 儲存的 runtime-helper strip 清單是「雙檔耦合、由 checker 強制同步」
+- **決策**：WYSIWYG 存檔要剝除 blog-shared.js 注入的 runtime helper，此清單**必存在兩處**——客戶端 `blog/blog-admin.js` 的 `_sanitizeForSerialize`（preview/draft/save 前跑）與伺服器端 `api/admin/_save.js` 的 `RUNTIME_HELPER_IDS`（commit 前的 defense-in-depth）。兩個 runtime 無法共用 module，所以**不追求「一份檔案」，改用 `_check_runtime_helper_sync.py` 強制兩份等價**（client = server ∪ {hs-admin-bar, hs-admin-status, hs-admin-css}）。
+- **理由**：server 剝而 client 沒剝 → admin preview 顯示的與入庫的不一致（preview 說謊）；client 剝而 server 沒剝 → 過時 helper 混入 commit（reload 時因注入器 `if(getElementById)return` 不重建 → 永久化）。等價才能同時避免兩者。
+- **耦合（三處，改一處要改三處）**：`blog/blog-admin.js` 的 strip 陣列 ↔ `api/admin/_save.js` 的 `RUNTIME_HELPER_IDS` ↔ `_check_runtime_helper_sync.py`（在 `_check_all.py --quick` 內，pre-push 會擋）。**server 為 canonical**。
+- **陷阱**：新增/移除任一 runtime helper（`DN.inject*`/`add*`/一次性 `<style id="hs-*-css">`）時，兩清單都要同步；checker 會擋 drift。但**有 authored 佔位的 id 不可加入**（`hs-related`/`hs-feedback`/`hs-support`——見 BACKLOG M-06/M-07：strip 它們＝刪文章原始碼裡的掛載點＝data-loss）。判斷準則：純 `createElement` 且無對應 authored `<div id>` 才可 strip。
+- **重開條件**：若日後把 admin 前端改成 ESM 並能與 server 共用一份 `RUNTIME_HELPER_IDS`（例如 build 期注入或共用 config JSON），可退役 checker、改真單一來源。
+
 ---
 
 ## 附：本帳本的維護規則

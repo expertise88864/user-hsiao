@@ -18,6 +18,11 @@ import { halfwidthToFullwidth } from './_halfwidth.js';
 // + occasionally empty <img> tags (.hs-img-lightbox) that fail
 // validate.py's width/height check. Strip server-side as a safety net,
 // even when the client-side _sanitizeForSerialize did its job.
+//
+// ⚠ COUPLING (M-06): this list is the CANONICAL runtime-helper set. The
+//   client mirror lives in blog/blog-admin.js (_sanitizeForSerialize), which
+//   adds only the 3 admin-chrome ids. _check_runtime_helper_sync.py enforces
+//   that the two stay identical — edit BOTH or the pre-push gate fails.
 const RUNTIME_HELPER_IDS = [
   'hs-progress', 'hs-mobile-nav', 'hs-mobile-nav-style', 'hs-totop',
   'hs-cmdk-overlay', 'hs-cmdk-style', 'hs-cmdk-modal', 'hs-cmdk-pf-fallback',
@@ -31,6 +36,8 @@ const RUNTIME_HELPER_IDS = [
   'hs-prevnext', 'hs-pn-css', 'hs-vt-css',
   'hs-new-pulse-css', 'hs-calc-css', 'hs-dialog-css', 'hs-dict-css', 'hs-tf-css',
   'hs-reveal-css', 'hs-admin-runtime', 'hs-vercel-insights',
+  // M-06: one-shot style injectors previously missed (no authored mount).
+  'hs-related-css', 'hs-blog-filter-css',
 ];
 
 const VOID_TAGS = new Set([

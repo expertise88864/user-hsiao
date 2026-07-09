@@ -53,10 +53,16 @@
 
 ## 安全（S）
 
-### S-01 🟠 /admin 用 localStorage 存 GitHub PAT（雙軌認證債）
-- **問題**：`/admin` 的 CMS 用使用者貼上的 GitHub PAT 存 localStorage（`hs:admin:gh-pat`）直打 api.github.com；與 `/api/admin/*` 的 server-side HMAC 模型並存。任何 /admin 上的 script 注入都能讀走可改全站的 token。**已部分緩解**（DECISIONS D-17 的 /admin CSP 限制 connect-src + 無 unsafe 外流面）。
-- **驗收**：退役 localStorage-PAT，統一到 server-side password/HMAC（GITHUB_TOKEN 只在 server env）；或至少改用 fine-grained 低權限 token + 到期提醒。**此改動會動 CMS 登入流程 → 必須站主本人在線上測過才 merge**（MODEL-GUIDE §4：牽涉站主工作流的拍板）。
-- **模型等級**：Opus 級 + 站主測試。**關聯**：D-17。
+### S-01 ✅ 已核實：前提失效（review Phase 4，非本次修）— 客戶端 localStorage-PAT 路徑不存在
+> Phase 4 原訂寫「退役 localStorage-PAT」的設計提案。動手前先核實前提，結論是**此漏洞在現行碼中不存在**——寫退役提案等於為幻影漏洞產出文件，違反誠實條款，故改為記錄已驗證的實際模型。
+> **核實證據（repo-wide grep + 讀 admin.html）**：
+> - 全 repo（`.html`/`.js`，排除 node_modules/api/min）**grep `hs:admin:gh-pat` / `api.github.com` / `gh-pat` / `githubToken` = 0 命中**。
+> - `admin.html` 的 `localStorage` **只存 `hs:siteVer`**（快取版本號），無任何 token。
+> - 認證流：密碼輸入（`admin.html:281-283`）→ `POST /api/admin/login`（server 比對 `ADMIN_PASSWORD` env）→ 簽發 HMAC cookie → 後續全部 `fetch(..., {credentials:'include'})` 打 `/api/admin/*` → **`GITHUB_TOKEN` 只在 Vercel server env**（`admin.html:574-583` 的「環境變數狀態」卡只是顯示 server 端是否設定，非客戶端持有）。
+> - HMAC cookie 本身於 Phase 3 已核實穩固（`_auth.js`：HMAC-SHA256 + `timingSafeEqual` + 到期；login 限流 6/min）。
+> 即：S-01 想要的 target state（GITHUB_TOKEN 只在 server、客戶端無 PAT）**已是現況**。
+- **殘留（可選、屬 ops 非碼）**：若要再加防禦縱深 → 把 `GITHUB_TOKEN` 換 fine-grained 低權限 PAT + 設輪替提醒（純 Vercel env 操作）。非阻擋、非本 backlog 追蹤範圍。
+- **模型等級**：—（已關閉）。**關聯**：D-17。
 
 ### S-02 🟢 middleware CSP matcher 仍排除 `.svg`
 - **問題**：新 SVG 上傳已禁（D-15），但 repo 內**既有** SVG 仍以無 CSP 同源渲染。
@@ -120,10 +126,21 @@
 - **驗收**：定期（或每次有人加 generator 時）比對三份文件的鏈 vs quality.yml，補齊。或更進一步：讓三份文件都改為「見 quality.yml / preflight.py」單一指向，消除多份副本。
 - **模型等級**：Sonnet。
 
-### M-06 🟠 admin 儲存路徑的 strip 清單雙軌（client vs server 不一致）
-- **問題**：WYSIWYG 儲存前，客戶端 `blog/blog-admin.js` 的 `_sanitizeForSerialize` 只剝除部分 runtime 注入元素；伺服器端 `api/admin/_save.js` 的 `RUNTIME_HELPER_IDS` 清單較全但兩邊各自維護，且都未涵蓋全部 JS 注入區塊（hs-breadcrumb、hs-article-hero、hs-inline-toc、hs-prevnext、一次性 `<style id="hs-*-css">` 等）。注入器多用 `if (getElementById(...)) return` 防重複 → 一旦過時副本被序列化入庫，執行時就不再重建，**過時 chrome 永久化**。
-- **驗收**：單一來源清單（server 的 `RUNTIME_HELPER_IDS` 為準，前端引用同一份或鏡像常數並以註解標明耦合）；清單擴充涵蓋全部 `DN.inject*`/`add*` 輸出 id 與一次性 style id；`data-zh/data-en` 回寫只作用於可編輯 prose 區域。
+### M-06 ✅ 已修（review Phase 4，部分 + 反漂移閘）admin 儲存路徑的 strip 清單雙軌
+> 修法（Phase 4，Opus 4.8）：
+> 1. **反漂移閘（真正的「單一來源」機制）**：新增 `_check_runtime_helper_sync.py`（`glob` 自動納入 `_check_all.py --quick`），強制 `blog/blog-admin.js` `_sanitizeForSerialize` 的 runtime-helper 清單 ≡ `api/admin/_save.js` 的 `RUNTIME_HELPER_IDS`（client 僅多 3 個 admin-chrome id）。兩檔互加耦合註解、server 為 canonical。兩個 runtime（瀏覽器 IIFE vs Node ESM）無法共用 module，所以「改單邊 → CI 紅」就是這裡能做到的單一來源。已負向測試（雙向 drift 皆被抓）。
+> 2. **一次性 style id 補齊**：兩清單各補 `hs-related-css`、`hs-blog-filter-css`（純 `createElement('style')`、無 authored mount，逐一核實安全）。
+> 3. **雙語回寫收斂**：`data-zh/data-en` mirror 從掃「整份 document」改為只掃 `<article>`（`#proseZh`/`#proseEn` + article 內可編輯 title/figcaption）。原本會把 nav/footer/breadcrumb/hero 的 innerHTML **每次存檔都烤進屬性**（單篇 59 個 data-zh，多數在 article 外，站主從未編輯它們）。
+>
+> **刻意未做（L6 反證擋下 data-loss）**：`hs-related`／`hs-feedback`／`hs-support` **不加**入 strip 清單——它們在文章原始碼有 authored 佔位 `<div id="…">`（blog-shared.js「v34.11: prefer pre-existing mount」），若 strip 會刪掉掛載點 → 回退 legacy 插入 + 永久移除 authored mount = 真 data-loss。互動工具 widget 另見 **M-07**。**關聯**：D-24。
+- **原問題**（保留對照）：WYSIWYG 儲存前，客戶端 `_sanitizeForSerialize` 與伺服器 `RUNTIME_HELPER_IDS` 兩邊各自維護且未涵蓋全部一次性 style id。注入器多用 `if (getElementById(...)) return` 防重複 → 一旦過時副本被序列化入庫，執行時就不再重建，過時 chrome 永久化。
 - **模型等級**：Opus（多檔行為變更，需先反證再改）。
+
+### M-07 🟢 五個互動工具 widget id 未納入 strip 清單（tradeoff，非 bug）
+- **問題**：`hs-osdi`／`hs-deq5`／`hs-snellen`／`hs-se`／`hs-floater-rf`（`DN._buildCalc` 生成的計算器）目前**刻意**不在 M-06 strip 清單。它們是純 runtime 生成內容，但 `_buildCalc` 有兩種掛載：(a) authored 佔位（`cfg.mountSel` → `mountInto.innerHTML`）、(b) fallback `<section>` 插在 `article.max-w-3xl` 後；且有 `if (getElementById(cfg.id)) return null` 重複防護。
+- **tradeoff**：不 strip → 過時 calc 內容被烤進原始碼、reload 因 guard 不重建（凍結快照，非重複，輕）。若 strip → authored-佔位情境乾淨（清空佔位、reload 重建）；但 fallback 情境會留下空的 `<section class="max-w-3xl…">` 孤兒、reload 再插一個 → 空 section 累積。兩害皆輕、皆非 authored 內容遺失。
+- **驗收**：先查有無文章走 fallback（無 `mountSel`）路徑。若全走 authored 佔位 → 安全加入兩清單（checker 自動涵蓋）。若有 fallback → 先讓 `_buildCalc` fallback 也包一層帶 id 的 wrapper、strip wrapper id，避免空 section 累積。
+- **模型等級**：Sonnet（需先查 `mountSel` 使用面）。**關聯**：M-06、D-24。
 
 ---
 
