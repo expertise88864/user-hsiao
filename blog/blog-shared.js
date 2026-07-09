@@ -993,7 +993,9 @@
     h2s.forEach(function (h, i) {
       const idZh = h.id;
       const textZh = (h.textContent || ('Section ' + (i + 1))).trim();
-      const enH = proseEnInline ? proseEnInline.querySelector('#' + idZh + '-en') : null;
+      // M-04: use getElementById (ids are unique) instead of querySelector
+      // string-concat, which throws SyntaxError on numeric-leading / non-ASCII ids.
+      const enH = proseEnInline ? document.getElementById(idZh + '-en') : null;
       const textEn = (enH && (enH.textContent || '').trim()) || textZh;
       const li = document.createElement('li');
       li.style.cssText = 'counter-increment:toc;position:relative;padding:5px 4px 5px 32px';
@@ -1048,7 +1050,8 @@
     h2s.forEach(function (h, i) {
       const idZh = h.id;
       const textZh = (h.textContent || ('Section ' + (i + 1))).trim().slice(0, 28);
-      const enH = proseEnFloat ? proseEnFloat.querySelector('#' + idZh + '-en') : null;
+      // M-04: getElementById avoids querySelector selector-escaping SyntaxError.
+      const enH = proseEnFloat ? document.getElementById(idZh + '-en') : null;
       const textEn = (enH && (enH.textContent || '').trim().slice(0, 28)) || textZh;
       html += '<li><a href="#' + idZh + '" data-toc="' + idZh + '" data-zh="' + attrEscFloat(textZh) + '" data-en="' + attrEscFloat(textEn) + '" style="display:block;padding:5px 8px;border-radius:6px;color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;transition:all .15s">' + textZh + '</a></li>';
     });
@@ -2856,7 +2859,15 @@
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         if (overlay.classList.contains('open')) close(); else open();
-      } else if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+      } else if (e.key === '/' && document.activeElement &&
+                 document.activeElement.tagName !== 'INPUT' &&
+                 document.activeElement.tagName !== 'TEXTAREA' &&
+                 !document.activeElement.isContentEditable &&
+                 !(DN.isAdminMode && DN.isAdminMode())) {
+        // M-03 fix: don't hijack "/" while the caret is in an editable host.
+        // In ?admin=1 WYSIWYG mode the article body is contentEditable (a
+        // DIV/P/H2, not INPUT/TEXTAREA), so a bare "/" — needed for "and/or",
+        // dates, ratios (mmHg), URLs — was being swallowed to open search.
         e.preventDefault();
         open();
       }

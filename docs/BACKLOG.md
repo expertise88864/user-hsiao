@@ -96,13 +96,15 @@
 - **驗收**：移除該內嵌 `<style>` footer 區塊，讓 scaffold 出的文章靠 app.css。驗證 scaffold 一篇測試文，footer 正常且無 `.mag-foot-cols h5`。
 - **模型等級**：Sonnet。**關聯**：D-10。
 
-### M-03 🟠 admin WYSIWYG 的 `/` 快捷鍵吞斜線（真實編輯 bug）
+### M-03 ✅ 已修（review Phase 1）admin WYSIWYG 的 `/` 快捷鍵吞斜線（真實編輯 bug）
+> 修法：cmdk `/` 分支加 `!activeElement.isContentEditable && !DN.isAdminMode()` + null guard（blog/blog-shared.js initCmdK keydown）。原始問題描述保留於下供對照。
 - **問題**：`blog/blog-shared.js` 的 cmdK handler 對裸 `/` 開搜尋，只排除 INPUT/TEXTAREA，未排除 `contenteditable` → admin 編輯器裡打「and/or」、日期、比值、URL 都被搶去開搜尋。
 - **證據**：`blog/blog-shared.js` initCmdK 的 `/` 分支（審查標為 ~2849 行，以字串搜尋 `e.key === '/'` 為準）。
 - **驗收**：`/` 分支加 `&& !(document.activeElement && document.activeElement.isContentEditable)`（並考慮 admin mode 時整個 bail）；改 `blog-shared.js` 後 `npm run minify` 重生 min.js；`_check_min_js.py` 驗 parity。
 - **模型等級**：Sonnet。**影響**：直接壞站主的編輯流程，值得優先。
 
-### M-04 🟢 in-page TOC 用字串拼 selector（潛在拋錯）
+### M-04 ✅ 已修（review Phase 1）in-page TOC 用字串拼 selector（潛在拋錯）
+> 修法：addInlineTOC / addFloatingTOC 的 `proseEn.querySelector('#'+id+'-en')` 改 `document.getElementById(id+'-en')`（id 唯一，免逸出）。原始問題描述保留於下供對照。
 - **問題**：`blog/blog-shared.js` 的 addInlineTOC/addFloatingTOC 用 `querySelector('#'+id+'-en')`；若未來 h2 id 以數字開頭或含非 ASCII，`querySelector` 會 SyntaxError 中斷該篇 TOC。現有文章無此 id，屬潛伏。
 - **驗收**：改用 `getElementById(id+'-en')`（不需 selector 逸出），或用 `CSS.escape`。
 - **模型等級**：Sonnet。

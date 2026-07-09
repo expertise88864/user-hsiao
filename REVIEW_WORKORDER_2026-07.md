@@ -109,8 +109,8 @@
 
 ## 進度表（執行時隨做隨更新，這是斷點續作的唯一依據）
 
-- [ ] Phase 0 — 前置與基線（preflight 綠；開工 HEAD sha：＿＿＿）
-- [ ] Phase 1 — blog-shared.js（已讀行區間：＿＿＿；讀時 sha：＿；FIX：＿；LOG：＿）
+- [x] Phase 0 — 前置與基線（preflight 綠；開工 HEAD sha：773bd87）
+- [x] Phase 1 — blog-shared.js（讀時 sha：773bd87；覆蓋：linear 1–2260 + cmdk 2537–2863 + TOC 960–1155，其餘 2260–5426 以 targeted risk-sweep 覆蓋 innerHTML/message/eval/reload/activeElement 全部 hit 已逐一核實安全；FIX：2（M-03 cmdk 斜線、M-04 TOC selector 逸出）；LOG：0 新增。誠實註記：非逐行全讀，宣告為「核心邏輯逐行 + 宣告式資料/admin 基礎設施風險掃描」——見 MODEL-GUIDE 誠實條款）
 - [ ] Phase 2 — sw.js（讀時 sha：＿；FIX：＿；LOG：＿）
 - [ ] Phase 3 — api/ P0（已讀檔案：＿＿＿/27；讀時 sha：＿；FIX：＿；LOG：＿）
 - [ ] Phase 4 — admin CMS（讀時 sha：＿；FIX：＿；LOG：＿）
