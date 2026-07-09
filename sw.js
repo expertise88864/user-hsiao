@@ -605,7 +605,15 @@ self.addEventListener('fetch', (e) => {
           }
           return resp;
         })
-        .catch(() => caches.match(req))
+        // P-02: the offline fallback ignores the ?v= query so it can match the
+        // SHELL-precached bare-URL copy (/assets/app.css, article.css,
+        // blog-shared.min.js) or any cached ?v= copy. Without ignoreSearch a
+        // request for `app.css?v=NEW` never matched the precache and the SHELL
+        // precache of these versioned assets was dead weight. The primary path
+        // above stays network-first, so ONLINE users always get fresh assets;
+        // ignoreSearch only affects the offline fallback (stale-but-present >
+        // nothing when the network is down).
+        .catch(() => caches.match(req, { ignoreSearch: true }))
     );
     return;
   }

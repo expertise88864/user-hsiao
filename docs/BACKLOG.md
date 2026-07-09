@@ -33,16 +33,19 @@
 - **驗收**（三選一，且不得破壞 CSP）：(a) 自架用到的 woff2、只 preload H1 的單一 CJK weight、`font-display:swap`；(b) 非阻塞 `media="print" onload` 模式——**但**該 onload 是 inline event，需先讓它相容 CSP（hash 或改用 addEventListener bootstrap），否則會被 D-16 的 fail-closed CSP 擋；(c) 砍裝飾字型（Fraunces/JetBrains Mono）出關鍵路徑。完成後 CI Lighthouse 的 FCP/LCP 應改善且 CSP 無 violation。
 - **模型等級**：Opus 級（CSP 交互 + 需量測驗證）。**關聯**：D-12、D-16。
 
-### P-02 🟠 Service Worker precache 沒帶 `?v=`
-- **問題**：`sw.js` 的 SHELL precache 列 `/assets/app.css` 等**無** `?v=`，但頁面請求的是 `/assets/app.css?v=20260664`（query-sensitive `caches.match`）→ install 時 precache 的裸 URL 從不被命中，還在 runtime 存第二份。
-- **證據**：`sw.js` SHELL 陣列 vs 頁面 `<link>` 的 `?v=`。⚠️未親驗 codex 近期是否已順手修——先 `grep -n "app.css" sw.js` 看 SHELL 是否已含版本。
-- **驗收**：SHELL 用 build 時模板注入 `?v=`；或 fetch handler 對這些靜態資產用 `ignoreSearch:true`。驗證離線可載入 + 無重複快取。
-- **模型等級**：Sonnet。
+### P-02 ✅ 已修（review Phase 2）Service Worker precache 沒帶 `?v=`
+> 修法：親驗確認 `?v=` 分支是 **network-first**，fallback `caches.match(req)` query-sensitive → SHELL 裸 URL 精快取「完全用不到」（primary 走網路、fallback 也對不上）。改 fallback 為 `caches.match(req, { ignoreSearch: true })`——只影響離線 fallback（primary 仍 network-first，線上永遠最新），讓 SHELL 精快取變成有用的離線後備。錨：sw.js fetch handler `?v=` 分支。原始描述保留於下。
 
 ### P-03 🟢 首頁兩個 speculationrules 區塊範圍重疊
 - **問題**：`index.html` 有兩個 `<script type="speculationrules">`，`/blog/*` 被兩者涵蓋，第一個 `moderate` eagerness 會 hover 就 prerender 整個文章命名空間 → 浪費使用者流量/CPU。
 - **驗收**：合併為單一區塊；廣泛 `/blog/*` 降為 `conservative`；保留 7 篇 hero 的 list-rule。
 - **模型等級**：Sonnet。⚠️未親驗（codex 可能已調整）。
+
+### P-04 🟢 SW install 精快取所有 tier，與 v30「多階段」設計文件不符（review Phase 2 發現）
+- **問題**：`sw.js` install handler 用 `PRECACHE.map(c.add)` 精快取 **SHELL + POPULAR + LAZY 全部**（~30 URL），但檔頭 v30 註解宣稱「install 只阻塞 SHELL ~10 個、POPULAR 於 activate 後、LAZY 走 runtime」，且 `LAZY` 陣列註解寫「don't pre-cache」。activate 又再精快取一次 POPULAR（重複）。因 `allSettled` 不阻塞失敗、install 在背景進行，故非正確性 bug，但 install 網路量比文件宣稱多、且 POPULAR 做兩次。
+- **證據**：`sw.js` `install` 的 `PRECACHE.map`（PRECACHE = SHELL+POPULAR+LAZY）vs 檔頭 v30 註解 + LAZY 註解。
+- **驗收**（二選一，需站主定調）：(a) 改 install 只 `SHELL.map(c.add)`，POPULAR/LAZY 交給既有 activate/runtime；或 (b) 更新註解與 `LAZY` 命名以符現況。行為變更走 Opus。
+- **模型等級**：Opus（install 行為變更需先反證）。
 
 ---
 

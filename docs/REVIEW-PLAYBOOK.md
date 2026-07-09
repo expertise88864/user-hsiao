@@ -149,6 +149,18 @@ python _check_image_sizes.py
 npm run minify && python _check_min_js.py   # 動過 blog-shared.js 才需要
 ```
 
+**SW 快取策略矩陣**（`sw.js` fetch handler，review Phase 2 逐檔核實；改 SW 前先看這張，別重讀 982 行）：
+| 請求 | 策略 | 備註 |
+|---|---|---|
+| `/admin`、`/api/*`、`/reset-sw` | **不攔截**（直連網路）| auth/save 必須新鮮 |
+| `?v=` 版本化資產（css/js）| **network-first** → RUNTIME；離線 fallback `ignoreSearch:true`（P-02 修）| 線上永遠最新；離線用 SHELL 精快取的裸 URL 後備 |
+| `/pagefind/`、`GENERATED_JSON` | network-first → RUNTIME | search/related/i18n/dict |
+| navigate / `text/html` | cached-first + **900ms 網路賽跑**（逾時給 cache）；無 cache 則等網路→favourites bucket→`offline.html`→`/` | HTML 存 CACHE，50 筆軟上限 + 30d/1d TTL 自癒 |
+| `.css`（**無** `?v=`）| stale-while-revalidate → RUNTIME | 現況近乎 dead code：CSS 都帶 `?v=`，會先被上面攔截 |
+| 其他同源 GET | cache-first → RUNTIME（`RUNTIME_MAX_ENTRIES=60`）| 圖片等 |
+- 快取版本常數：`CACHE='hs-vNN'` / `RUNTIME='hs-runtime-vNN'`（activate 時清非當前版本）。改 SW 快取「內容形狀」才需 bump CACHE；改 fetch 邏輯不需要。
+- 已知債：install 精快取所有 tier（見 BACKLOG P-04）。
+
 **現況判定（66745a6）**：（見下方代理補充；閘門綠 + CI Lighthouse 上次 push 綠）
 
 ---
