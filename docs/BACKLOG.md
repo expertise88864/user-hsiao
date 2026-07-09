@@ -12,7 +12,8 @@
 
 ## 技術 SEO / 索引（T）
 
-### T-01 🟠 動態 sitemap 對 GitHub token 的單點故障
+### T-01 ✅ 已解決（review Phase 3 核實，非本次修）動態 sitemap 對 GitHub token 的單點故障
+> 親驗結論：codex 已建立 `api/_content_snapshot.js`（`_gen_api_content_snapshot.py` 於建置鏈產生、`Object.freeze` 的**完整**文章快照含 description）。`sitemap.js`/`feed.js`/`og.js` 在**每一條**失敗路徑（ghGetFile throw / null / regex 不match / 解析出空陣列）都 fallback 到 `FALLBACK_ARTICLES`——token 失效只會退回快照、不會空。SPOF 已消除。原始描述保留於下。
 - **問題**：`api/sitemap.js` `parseArticles()` 靠 `ghGetFile('blog/blog-shared.js')`；token 缺失/rate-limit 時回 `[]` → 線上 `/sitemap.xml` 可能只剩 7 個靜態頁，Google 看不到多數文章。
 - **證據**：`api/sitemap.js` parseArticles / ghGetFile 呼叫。
 - **驗收**：token 失效情境下，sitemap 仍能從一個 committed 後備（例如 `_gen_api_content_snapshot.py` 產物，或 committed `sitemap.xml`）列出全部文章；或在 GSC 確認線上 sitemap 回 200 且含全部 URL。
@@ -21,8 +22,9 @@
 ### T-02 🟠 新文章 OG 圖在靜態 PNG 生成前 404
 - **問題**：`api/og.js` docstring 宣稱有 `/assets/og/<slug>.png → /api/og` 的 rewrite，但 `vercel.json` rewrites 只有 sitemap/feed。新文章在 `_gen_og_images.py` 跑並 commit PNG 之前，og:image 指向不存在檔案 → 社群分享卡空白。
 - **證據**：`api/og.js:9`（docstring）vs `vercel.json` rewrites（無此條）。
-- **驗收**：二選一——(a) 在 vercel.json 加 `{"source":"/assets/og/:slug.png","destination":"/api/og?slug=:slug"}`（排在靜態 /assets/og header 之後，讓磁碟檔優先）；或 (b) 把 `_gen_og_images.py` 納入新文章的必跑步驟並更新 og.js docstring。做 (a) 後驗證既有 27 張靜態 PNG 仍優先於動態端點。
-- **模型等級**：Sonnet。
+- **驗收**：二選一——(a) 在 vercel.json 加 `{"source":"/assets/og/:slug.png","destination":"/api/og?slug=:slug"}`（Vercel filesystem 優先於 rewrites，既有靜態 PNG 仍勝）；或 (b) 把 `_gen_og_images.py` 納入新文章的必跑步驟。
+- **review Phase 3 更新**：(1) og.js 誤導 docstring **已修**（原宣稱 rewrite 存在）。(2) 選 (a) 前須解決一個**互動陷阱**：`vercel.json` 的 `/assets/og/(.*)` header 設 `immutable`，會套到動態 fallback 回應上（header 依請求路徑匹配），把「佔位動態卡」immutable 快取一年、靜態 PNG 上線後 CDN 仍供舊的（外觀性、影響低但存在）。og.js 自身雖設短快取（1h/1d），但 vercel.json header 可能覆蓋。因此 (a) 不是無腦加 rewrite——需一併處理該 path 的快取策略。**故本項維持 LOG，不在 Phase 3 盲改。**
+- **模型等級**：Opus（快取互動需判斷；非 Sonnet 無腦加）。
 
 ---
 

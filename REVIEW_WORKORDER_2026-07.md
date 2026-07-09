@@ -112,7 +112,7 @@
 - [x] Phase 0 — 前置與基線（preflight 綠；開工 HEAD sha：773bd87）
 - [x] Phase 1 — blog-shared.js（讀時 sha：773bd87；覆蓋：linear 1–2260 + cmdk 2537–2863 + TOC 960–1155，其餘 2260–5426 以 targeted risk-sweep 覆蓋 innerHTML/message/eval/reload/activeElement 全部 hit 已逐一核實安全；FIX：2（M-03 cmdk 斜線、M-04 TOC selector 逸出）；LOG：0 新增。誠實註記：非逐行全讀，宣告為「核心邏輯逐行 + 宣告式資料/admin 基礎設施風險掃描」——見 MODEL-GUIDE 誠實條款）
 - [x] Phase 2 — sw.js（讀時 sha：3ec4d75；全 982 行讀畢；FIX：1（P-02 離線 fallback ignoreSearch）；LOG：1（P-04 install 精快取所有 tier vs v30 多階段設計 drift）；加做：SW 快取策略矩陣寫入 REVIEW-PLAYBOOK §6。message/push/sync/periodicsync handler 皆核實安全：QUEUE_SAVE 有 source-origin+admin+slug 驗證，push/periodicsync 同源）
-- [ ] Phase 3 — api/ P0（已讀檔案：＿＿＿/27；讀時 sha：＿；FIX：＿；LOG：＿）
+- [x] Phase 3 — api/ P0（讀時 sha：faef8d9；深讀：csp-report/errors/_rate_limit/search-log/cwv-ingest/events/ab-config/sitemap(parse+fallback+handler)/_content_snapshot/og/_auth/_login/[op] + push/* 稽核 + grep 核實**全部** admin 端點 requireAdmin 閘門 + 早前 session 已加固 _upload/_md/_subscribe；FIX：3（S-03 csp-report+errors KV await；og.js 誤導 docstring）；LOG：0 新增（T-02 維持、加註陷阱）；**核實已解決**：T-01（content-snapshot fallback 消除 SPOF）、S-03 之 search-log/cwv 早已 await。auth 面判定：solid，無 bypass（[op] 委派給各自 self-gate 的 handler）。誠實：feed/_kv/_github/_new/_save 等未逐檔深讀，但關鍵路徑（auth/gating/公開端點/KV 寫入）已覆蓋）
 - [ ] Phase 4 — admin CMS（讀時 sha：＿；FIX：＿；LOG：＿）
 - [ ] Phase 5 — 生成鏈+middleware（已讀：＿＿＿/7；讀時 sha：＿；FIX：＿；LOG：＿）
 - [ ] Phase 6 — 收尾回寫

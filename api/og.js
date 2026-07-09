@@ -6,13 +6,16 @@
  * at the edge. Output is identical visual style to the static cards in
  * /assets/og/*.png that _gen_og_images.py used to produce.
  *
- * Wired up in vercel.json: /assets/og/<slug>.png → /api/og?slug=<slug>
- * (only for articles that don't have a static .png override). Static cards
- * still take precedence because vercel.json `headers` for /assets/og/* sets
- * 1-year immutable — those continue to be served from disk.
- *
- * For new articles created via /api/admin/new, no static PNG exists, so
- * social-card preview hits the dynamic endpoint immediately.
+ * NOTE (review 2026-07, T-02): there is NO `/assets/og/<slug>.png → /api/og`
+ * rewrite in vercel.json today, so a NEW article's og:image (which points at
+ * /assets/og/<slug>.png) 404s on social shares until `_gen_og_images.py`
+ * generates + commits the static PNG. This endpoint is only reached when a
+ * page/card links to /api/og directly. Adding the rewrite is deferred
+ * (docs/BACKLOG.md T-02): the `/assets/og/(.*)` immutable header in
+ * vercel.json would also apply to the dynamic fallback, immutable-caching a
+ * placeholder that would not refresh once the static PNG lands. Decide the
+ * cache trade-off before wiring the rewrite. Filesystem precedence means
+ * existing static PNGs would still win.
  *
  * Caching: 1 hour at the edge, 1 day in browser. Bumping the cache forces
  * crawlers to re-fetch.

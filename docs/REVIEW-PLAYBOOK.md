@@ -104,7 +104,7 @@ python _check_third_party.py
 # 新端點審查清單：requireAdmin? rate-limit? 輸入驗證? 輸出消毒? 錯誤不洩內部資訊?
 ```
 
-**現況判定（66745a6）**：✅ 大幅強化後 PASS（`9303014` + codex 的 harden 系列 `4434ab5`/`6fdf2fb`/`2e6fb2c`）。
+**現況判定（review Phase 3 逐檔核實，faef8d9）**：✅ PASS — auth 核心穩固：`_auth.js` HMAC-SHA256 + `timingSafeEqual` + 到期檢查；`_login.js` rate-limit 6/min + timing-safe + HttpOnly/Secure/SameSite=Strict；**全部** admin 端點 `requireAdmin` 為第一行；`admin/[op].js` dispatcher 自身不 gate 但**委派給各自 self-gate 的 handler**（無 bypass）+ 30/min rate-limit；公開端點（csp-report/errors/search-log/cwv-ingest/push-subscribe）皆 rate-limit + 輸入驗證。已修 S-03（csp-report/errors KV 寫入 await）。（先前強化：`9303014` + codex `4434ab5`/`6fdf2fb`/`2e6fb2c`）。
 **已知殘債（BACKLOG S-01~S-03）**：admin 的 GitHub PAT 存 localStorage（雙軌認證債）；middleware CSP matcher 仍排除 `.svg`（repo 既有 SVG 無 CSP 保護）；edge KV 寫入無 `waitUntil`（觀測資料可能漏記，非安全洞）。
 **重審觸發**：任何新 api/ 端點、admin 功能、第三方 script 加入時（逐條過上面清單）。
 

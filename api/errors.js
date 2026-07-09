@@ -79,9 +79,10 @@ export default async function handler(req, res) {
   console.error('[client-error]', JSON.stringify(safe));
 
   // v37.35 — also persist to KV list `errors:reports` (cap 200) so the
-  // admin dashboard can show recent JS errors without trawling Vercel
-  // logs. Fire-and-forget; never block the 204.
-  persistToKv(safe).catch(() => {});
+  // admin dashboard can show recent JS errors without trawling Vercel logs.
+  // S-03: AWAIT so the serverless function doesn't get frozen/terminated
+  // after res.end() with the KV write still pending (was under-persisting).
+  await persistToKv(safe).catch(() => {});
 
   // Always 204 — don't echo internal state to client.
   return res.status(204).end();
@@ -98,9 +99,9 @@ async function persistToKv(safe) {
   const headers = { Authorization: `Bearer ${tok}`, 'Content-Type': 'application/json' };
   const payload = JSON.stringify(safe);
   await fetch(`${url}/lpush/${encodeURIComponent(KV_LIST_KEY)}/${encodeURIComponent(payload)}`,
-              { method: 'POST', headers }).catch(() => {});
+              { method: 'POST', headers, signal: AbortSignal.timeout(1200) }).catch(() => {});
   await fetch(`${url}/ltrim/${encodeURIComponent(KV_LIST_KEY)}/0/${MAX_KV_ERRORS - 1}`,
-              { method: 'POST', headers }).catch(() => {});
+              { method: 'POST', headers, signal: AbortSignal.timeout(1200) }).catch(() => {});
 }
 
 export const config = { runtime: 'nodejs' };

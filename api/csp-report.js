@@ -58,10 +58,12 @@ export default async function handler(req) {
     console.log('[CSP-report]', JSON.stringify(compact));
 
     // v37.35 — also persist to KV as a capped LIST so /api/admin/csp can
-    // surface them in the dashboard. Fire-and-forget (don't await): the
-    // browser already has a 204 incoming and we don't want to slow it.
-    // List is trimmed to last MAX_KV_REPORTS entries.
-    persistToKv(compact).catch(() => {});
+    // surface them in the dashboard. List is trimmed to last MAX_KV_REPORTS.
+    // S-03: AWAIT the write. Edge runtime may freeze the function once the
+    // Response is returned, dropping a non-awaited promise — CSP reports were
+    // silently under-persisting. The client (browser CSP enforcer) is already
+    // fire-and-forget and does not care about this small extra latency.
+    await persistToKv(compact).catch(() => {});
   } catch (e) { /* ignore */ }
   return new Response(null, { status: 204, headers: NO_STORE_HEADERS });
 }
@@ -78,8 +80,8 @@ async function persistToKv(compact) {
   const payload = JSON.stringify(compact);
   // LPUSH adds to front (newest-first when LRANGE 0 -1).
   await fetch(`${url}/lpush/${encodeURIComponent(KV_LIST_KEY)}/${encodeURIComponent(payload)}`,
-              { method: 'POST', headers }).catch(() => {});
+              { method: 'POST', headers, signal: AbortSignal.timeout(1200) }).catch(() => {});
   // Trim to keep memory bounded.
   await fetch(`${url}/ltrim/${encodeURIComponent(KV_LIST_KEY)}/0/${MAX_KV_REPORTS - 1}`,
-              { method: 'POST', headers }).catch(() => {});
+              { method: 'POST', headers, signal: AbortSignal.timeout(1200) }).catch(() => {});
 }
