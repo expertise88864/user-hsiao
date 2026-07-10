@@ -43,7 +43,7 @@ python _check_robots.py               # robots 群組完整性（注意 D-01 的
 線上索引狀態：**本環境無法查**（sandbox 擋 Vercel HTTPS、WebSearch 僅美國 locale）→ 請站主看 GSC（台灣）。
 
 **現況判定（66745a6）**：✅ PASS — 閘門 59/0/0；sitemap 48 URLs；20 篇已發布文章 + 16 篇可發布 EN 鏡像全數收錄；`/notes`、4 篇 stub 依 D-02/D-03/D-04 刻意排除。
-**已知殘餘風險**：動態 sitemap 對 GitHub token 的 SPOF（D-05 / BACKLOG T-01）。
+**已知殘餘風險**：~~動態 sitemap 對 GitHub token 的 SPOF~~ → **已解決**：`api/sitemap.js` 的 **`parseArticles()` 內容來源／解析失敗路徑**（`ghGetFile` throw/回 null、regex 不 match、解析出空陣列）皆退回 `api/_content_snapshot.js` 的 `FALLBACK_ARTICLES`（凍結全量快照）→ 原「token 失效 ⇒ sitemap 只剩靜態頁」的 SPOF 已消除。**範圍註**：handler 最外層 `catch` 仍回 HTTP 500（`api/sitemap.js:303`），那不是 snapshot 路徑。review Phase 3 核實，**BACKLOG T-01 ✅ 關閉**（D-05 同步更新）。
 **重審觸發**：新增頁面類型、改 vercel.json redirects/rewrites、GSC 出現新的覆蓋率錯誤類別。
 
 ---
@@ -104,8 +104,8 @@ python _check_third_party.py
 # 新端點審查清單：requireAdmin? rate-limit? 輸入驗證? 輸出消毒? 錯誤不洩內部資訊?
 ```
 
-**現況判定（review Phase 3 逐檔核實，faef8d9）**：✅ PASS — auth 核心穩固：`_auth.js` HMAC-SHA256 + `timingSafeEqual` + 到期檢查；`_login.js` rate-limit 6/min + timing-safe + HttpOnly/Secure/SameSite=Strict；**全部** admin 端點 `requireAdmin` 為第一行；`admin/[op].js` dispatcher 自身不 gate 但**委派給各自 self-gate 的 handler**（無 bypass）+ 30/min rate-limit；公開端點（csp-report/errors/search-log/cwv-ingest/push-subscribe）皆 rate-limit + 輸入驗證。已修 S-03（csp-report/errors KV 寫入 await）。（先前強化：`9303014` + codex `4434ab5`/`6fdf2fb`/`2e6fb2c`）。
-**已知殘債（BACKLOG S-01~S-03）**：admin 的 GitHub PAT 存 localStorage（雙軌認證債）；middleware CSP matcher 仍排除 `.svg`（repo 既有 SVG 無 CSP 保護）；edge KV 寫入無 `waitUntil`（觀測資料可能漏記，非安全洞）。
+**現況判定（review Phase 3 **關鍵路徑**核實，非全部 ~55 檔逐檔深讀，faef8d9）**：✅ PASS — auth 核心穩固：`_auth.js` HMAC-SHA256 + `timingSafeEqual` + 到期檢查；`_login.js` rate-limit 6/min + timing-safe + HttpOnly/Secure/SameSite=Strict；**所有特權** admin 端點以 `requireAdmin` 把關——例外皆為**刻意公開**：`_login.js` 本就是發證端點、`_ab-config` 讀取與 `_ab-stats` 計數是公開路徑（其特權操作仍 gate）；`admin/[op].js` dispatcher 自身不 gate 但**委派給各自 self-gate 的 handler**（無 bypass）+ 30/min rate-limit；公開端點**多數**有 rate-limit + 輸入驗證，**例外**：`csp-report.js` **無** per-IP rate limiter（edge runtime 無共享狀態），改以 Origin 允許清單 + 8KB body cap 防護。已修 S-03（csp-report/errors KV 寫入 await）。（先前強化：`9303014` + codex `4434ab5`/`6fdf2fb`/`2e6fb2c`）。
+**已知殘債**：**只剩 S-02**（middleware CSP matcher 仍排除 `.svg`，repo 既有 SVG 無 CSP 保護）。｜**S-01 已核實不存在**（review Phase 4：**客戶端** grep（`*.html`/`*.js`；排除 `api/`、`node_modules`、`*.min.js`）**0 命中**——`api.github.com` 於 **server 端** `api/` 存在（`_github.js`/`_history.js`/`_rollback.js`/`sitemap.js`/`_upload.js`/`_upload-srcset.js`）屬**正確架構**，非債；`/admin` 是密碼→HMAC cookie→server `GITHUB_TOKEN`，本就是目標態）。｜**S-03 已修**（review Phase 3：csp-report/errors 的 KV 寫入 await + `AbortSignal.timeout`；原描述指控 search-log 為 fire-and-forget **已推翻**，它自始即 await）。｜**S-04 已修**（review Phase 5：`_gen_csp_hashes.py` 排除式誤判 `data-src` inline script）。
 **重審觸發**：任何新 api/ 端點、admin 功能、第三方 script 加入時（逐條過上面清單）。
 
 ---
@@ -236,24 +236,33 @@ grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
 
 ---
 
-## 11. 現況判定總表（commit 66745a6，本 session 自評）
+## 11. 現況判定總表（基準 commit b102ce2；工單 2026-07 Phases 1–5 審查後更新）
 
-> **可信度標記**：多數維度的機器可驗部分由 `_check_all.py --quick` = 59/0/0 佐證（高信心）；標「⚠自評」的是 session 判斷、非本次逐項深稽（負責深稽的 4 個審查代理撞到 session limit 未回完整證據）。未來 session 應用各維度的「檢查指令」重跑覆核，並更新此表。
+> **可信度標記**：機器可驗部分由 `_check_all.py --quick` = **60/0/0** 佐證（高信心）。原「⚠自評」是因**第一輪 4 個審查代理撞到 session limit**未回完整證據；**工單 2026-07（Opus 4.8）已補上深度審查**——**Phase 1–5 各走 preflight + codex + CI 三閘且全綠上線**（codex 模型：P1–P4 為 `gpt-5.5`，P5 起為 `gpt-5.6-sol`）；Phase 6（收尾 commit）走同一閘門（Phase 0 為前置基線驗證，不產 commit）。
+>
+> **覆蓋範圍（誠實聲明，勿當成「全 repo 逐行讀過」）**：
+> - **P2 `sw.js`**：全 982 行逐行讀畢（本工單唯一的完整逐行全檔）。
+> - **P1 `blog-shared.js`**：核心邏輯逐行（linear 1–2260 + cmdk + TOC 區段），其餘 ~2260–5425 以 **targeted risk-sweep**（innerHTML/message/eval/reload/activeElement 全 hit 逐一核實）覆蓋——**非逐行全讀**。
+> - **P3 `api/`**：深讀**關鍵路徑**（auth/gating/公開端點/KV 寫入 + **所有特權**端點 `requireAdmin` grep 核實），**非全部 ~55 檔**逐檔深讀。
+> - **P4 admin CMS**：存檔路徑 + 認證面深讀。
+> - **P5 生成鏈**：工單指定的 7 檔 = **6 個 generator（抽核，非全部）** + `middleware.js` 全檔。**不是** 7 個 generator。（工單原文的「27 個生成器」計數依據未註明；權威建置鏈 `quality.yml` 為 22 步，故此處不對 generator 總數作宣稱。）
+>
+> 未深讀的面以「關鍵路徑已覆蓋」記；下表 ★ 僅代表該維度**有被本工單審查觸及**，不等於該面 100% 逐行。
 
-| # | 維度 | 判定 | 依據 | 開放債（BACKLOG） |
+| # | 維度 | 判定 | 依據（★=本工單審查觸及） | 開放債（BACKLOG） |
 |---|---|---|---|---|
-| 1 | 技術 SEO | ✅ PASS | 閘門綠；sitemap 48 URLs；noindex/redirect 邊界依 D-02/03/04 | T-01（sitemap SPOF） |
+| 1 | 技術 SEO | ✅ PASS | 閘門綠；sitemap 48 URLs；noindex/redirect 邊界依 D-02/03/04；★feeds/sitemap 生成器 P5 核實（XML escape 防 CDATA breakout）；T-01 已核實關閉 | T-02（新文 OG 404） |
 | 2 | 內部連結 | ✅ PASS | 0 孤兒；三叢集全互連（`4aded2b` 審計） | 無（維持 D-23 紀律） |
 | 3 | 無障礙 | ✅ PASS | CI axe-core 綠 | A-01/02/03 |
-| 4 | 安全 | ✅ PASS（強化後） | `9303014`+codex harden；`_check_secrets` 綠 | S-01/02/03 |
-| 5 | schema.org | ✅ PASS ⚠自評 | 全部 `_check_*schema*` 綠；reviewedBy 已 inline 化（`e760b1c`，抽驗格式正確、@id 對齊 /about#person） | 無新項（sameAs 待站主提供 URL，D-08） |
-| 6 | Core Web Vitals | ✅ PASS ⚠自評 | CI Lighthouse 上次 push 綠；trusted-types.js=1388 bytes 同步阻塞但小且必要（TT policy 須先註冊）；about LCP 已修 | P-01（字型）P-02（SW precache）P-03（speculationrules）；reading-meta bar 注入有小 CLS 成本，屬 polish |
-| 7 | Metadata | ✅ PASS ⚠自評 | `_check_metadata_uniqueness`/`_check_social_locale` 綠 | T-02（新文 OG 404） |
+| 4 | 安全 | ✅ PASS（★本工單審查） | ★P3 api/ auth 面無 bypass、KV await(S-03✅)；★P4 admin CMS（M-06✅ + 反漂移閘）、S-01✅核實不存在；★P5 CSP fail-closed+單一來源、S-04✅ | 剩 **S-02**（既有 SVG 無 CSP） |
+| 5 | schema.org | ✅ PASS（★本工單審查） | 全 `_check_*schema*` 綠；reviewedBy inline（@id 對齊 /about#person）；★P5 `_gen_en_pages` JSON-LD 在地化/FAQPage drop 核實 | **M-08**（@graph FAQPage 漏,潛伏）；sameAs 待站主 URL（D-08） |
+| 6 | Core Web Vitals | ✅ PASS（★本工單審查） | CI Lighthouse 綠；★P2 sw.js 全檔（P-02✅ ignoreSearch fallback）；★P5 critical-css 生成器 | P-01（字型）P-03（speculationrules）**P-04**（SW precache tier）**P-05**（critical-css @supports 誤標） |
+| 7 | Metadata | ✅ PASS（★本工單審查） | `_check_metadata_uniqueness`/`_check_social_locale` 綠；★P5 `_gen_en_pages` head 手術核實（title/desc/OG/canonical/hreflang） | T-02（新文 OG 404） |
 | 8 | RAG / AI 搜尋 | 🟠 PARTIAL | robots 已開放（D-01）、FAQ×20、llms-full.txt 有；但多數文章非 answer-first | C-02（answer-first 改寫，最大槓桿）；量測見 GROWTH-PLAYBOOK |
-| 9 | 可維護性 | 🟠 PARTIAL | 建置鏈由 preflight 動態解析（21 步已驗）；耦合矩陣見 §9 | M-01~M-05；文件↔CI drift 是主債 |
+| 9 | 可維護性 | 🟠 PARTIAL（改善） | 建置鏈由 preflight 動態解析；★**§9 耦合矩陣 P5 補完**（8 列+CI 守門欄）；★M-06✅ 用 checker 強制（D-24）；M-03/M-04 已修 | **M-01、M-02、M-05、M-07**；2 個未守耦合見 §9（halfwidth admin 路徑、reviewedBy Person） |
 | 10 | 內容正確性 | ⛔ 不可機器判定 | 見 §10 | C-01（兩篇待寫，站主定案） |
 
-**一句話總結**：技術面已是頂標且有 59 個檢查器守著；**真正的成長瓶頸在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。程式端剩的都是 BACKLOG 裡分級好的 polish/中度債，沒有 🔴 會壞站的項目。
+**一句話總結**：技術面已是頂標、**60 個檢查器**守著，且工單 2026-07 對五大高風險面做了深度審查（Phase 1–5 三閘全綠上線，Phase 6 收尾同流程；**覆蓋範圍見上方誠實聲明，非全 repo 逐行**）；**真正的成長瓶頸仍在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。程式端剩的都是 BACKLOG 裡分級好的 polish/中度債 + 幾個潛伏項（M-07/M-08/P-04/P-05），**無 🔴 會壞站的項目**。
 
 ---
 

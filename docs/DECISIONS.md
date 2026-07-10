@@ -42,7 +42,7 @@
 
 ### D-05 動態 sitemap 的 lastmod 後備 = 目錄 `updated` 欄位
 - **決策**：`api/sitemap.js` 的文章 lastmod：GitHub commits API 優先，失敗時退回 `a.updated || a.date`（不是只有 date）。
-- **殘餘風險（已知未修）**：`parseArticles()` 靠 `ghGetFile('blog/blog-shared.js')`，token 失效時回 `[]` → 線上 sitemap 可能只剩靜態頁。見 docs/BACKLOG.md T-01。
+- **殘餘風險 → 已解決（2026-07 工單 Phase 3 核實，非本次修）**：原記「`parseArticles()` 靠 `ghGetFile('blog/blog-shared.js')`，token 失效時回 `[]` → 線上 sitemap 可能只剩靜態頁」。現況：`api/sitemap.js` 的 **`parseArticles()` 內容來源／解析失敗路徑**（`ghGetFile` throw/回 null、regex 不 match、解析出空陣列）皆退回 `api/_content_snapshot.js` 的 `FALLBACK_ARTICLES`（凍結全量快照，`_gen_api_content_snapshot.py` 產）→ 原「token 失效 ⇒ 只剩靜態頁」的 SPOF 消除。**範圍註**：handler 最外層 `catch` 仍回 HTTP 500（`api/sitemap.js:303`），非 snapshot 路徑。**BACKLOG T-01 ✅ 關閉**，勿重開。
 - **錨**：`9303014`。
 
 ### D-06 快取破壞（cache-bust）政策
@@ -114,7 +114,7 @@
 ### D-17 /admin 有自己的 CSP（vercel.json）
 - **決策**：`/admin(.*)` 回應帶顯式 CSP：`connect-src 'self' https://api.github.com https://*.githubusercontent.com`（限制 PAT 外洩面）、`object-src 'none'`、`frame-ancestors 'none'` 等。
 - **若 admin 功能壞掉**：最小幅度放寬對應指令（多半是 connect-src 或 img-src），**不要**刪整條 header。
-- **已知殘債（不是本決策範圍）**：admin 用 localStorage 存 GitHub PAT 的雙軌認證模式，見 docs/BACKLOG.md S-01。
+- **原記「已知殘債」→ 已核實不存在（2026-07 工單 Phase 4）**：曾記為「admin 用 localStorage 存 GitHub PAT 的雙軌認證模式」。**現行碼中無此路徑**：**客戶端** grep（`*.html`/`*.js`，**排除 `api/`**、`node_modules`、`*.min.js`）對 `hs:admin:gh-pat` / `gh-pat` / `githubToken` / `api.github.com` **0 命中**；`admin.html` 的 `localStorage` 只存 `hs:siteVer`；認證是密碼（`ADMIN_PASSWORD` env）→ `/api/admin/login` → HMAC cookie → **所有特權 admin 呼叫**帶 `credentials:'include'`（公開的 A/B 端點不帶），`GITHUB_TOKEN` **只在 server env**。（註：`api.github.com` **確實**出現在 **server 端** 6 支：`api/admin/_github.js`、`_history.js`、`_rollback.js`、`_upload.js`、`_upload-srcset.js`、`api/sitemap.js`——那正是正確架構：GitHub 呼叫本就該在 server 用 env token，不是客戶端 PAT。）即 S-01 想要的目標態**已是現況**。**BACKLOG S-01 ✅ 關閉**，勿重開。
 
 ### D-18 Markdown 渲染輸出必經消毒
 - **決策**：`api/admin/_md.js` 對連結/圖片 URL 做 scheme allowlist（http/https/mailto/tel、data:image 僅圖片）、raw-HTML passthrough 剝除 `<script>`/`on*=`/`javascript:`。任何新的「內容→提交 HTML」路徑都必須套同等消毒。

@@ -3,10 +3,10 @@
 > **讀者**：未來的 AI session。這裡每一項都是**已診斷、已定驗收條件、但刻意還沒做**的項目。
 > **怎麼用**：站主說「挑點事做」或你有餘裕時，從這裡照「影響÷投入」挑。**動手前**先讀該項的「驗收條件」與「模型等級」——低於你等級才自己做，否則走 MODEL-GUIDE §2 升級。做完後：勾掉 + 在 commit message 註 `docs: BACKLOG close X-nn`。
 > **不在這裡的東西**：已定案的刻意狀態在 docs/DECISIONS.md（那些**不是**待辦，別去「修」）。審查判準與現況在 docs/REVIEW-PLAYBOOK.md。
-> 事實基準 commit `66745a6`。每項附 file:line 供查證；行號可能因後續 commit 位移，以符號/字串搜尋為準。
+> 事實基準 commit `b102ce2`（工單 2026-07 Phase 5 上線）。每項附 file:line 供查證；行號可能因後續 commit 位移，以符號/字串搜尋為準。
 
 **嚴重度**：🔴 高（安全/會壞/明顯損失流量）｜🟠 中｜🟢 低（polish）。
-**未親驗標記**：標「⚠️未親驗」= 源自本 session 的多代理審查但那批代理撞到 session limit 未回完整證據；做之前先自行用該項指令覆核。
+**未親驗標記**：標「⚠️未親驗」= 源自制度建置 session 的多代理審查但那批代理撞到 session limit 未回完整證據。**工單 2026-07（Opus 4.8）已對五大高風險面做深度審查**——但**覆蓋範圍非「全 repo 逐行」**（僅 `sw.js` 完整逐行；blog-shared.js 核心逐行+風險掃描；api/ 只深讀關鍵路徑；生成鏈抽核 **6 個 generator（非全部）** + `middleware.js`）：詳見 REVIEW-PLAYBOOK §11 的「覆蓋範圍誠實聲明」與工單進度表。期間**改碼修復並上線**：M-03 / M-04 / P-02 / **S-03** / M-06 / S-04；**核實關閉（前提失效，未改碼）**：T-01 / S-01；**新增潛伏項**：P-04 / P-05 / M-07 / M-08。其餘未親驗項做之前先自行用該項指令覆核。
 
 ---
 
@@ -61,8 +61,8 @@
 
 ### S-01 ✅ 已核實：前提失效（review Phase 4，非本次修）— 客戶端 localStorage-PAT 路徑不存在
 > Phase 4 原訂寫「退役 localStorage-PAT」的設計提案。動手前先核實前提，結論是**此漏洞在現行碼中不存在**——寫退役提案等於為幻影漏洞產出文件，違反誠實條款，故改為記錄已驗證的實際模型。
-> **核實證據（repo-wide grep + 讀 admin.html）**：
-> - 全 repo（`.html`/`.js`，排除 node_modules/api/min）**grep `hs:admin:gh-pat` / `api.github.com` / `gh-pat` / `githubToken` = 0 命中**。
+> **核實證據（**客戶端** grep + 讀 admin.html）**：
+> - **客戶端** `.html`/`.js`（**排除 `api/`**、node_modules、`*.min.js`）**grep `hs:admin:gh-pat` / `api.github.com` / `gh-pat` / `githubToken` = 0 命中**。（`api.github.com` **確實**存在於 **server 端** `api/`——`_github.js`/`_history.js`/`_rollback.js`/`sitemap.js`/`_upload*.js`——那是正確架構：GitHub 呼叫在 server 用 env token。）
 > - `admin.html` 的 `localStorage` **只存 `hs:siteVer`**（快取版本號），無任何 token。
 > - 認證流：密碼輸入（`admin.html:281-283`）→ `POST /api/admin/login`（server 比對 `ADMIN_PASSWORD` env）→ 簽發 HMAC cookie → 後續全部 `fetch(..., {credentials:'include'})` 打 `/api/admin/*` → **`GITHUB_TOKEN` 只在 Vercel server env**（`admin.html:574-583` 的「環境變數狀態」卡只是顯示 server 端是否設定，非客戶端持有）。
 > - HMAC cookie 本身於 Phase 3 已核實穩固（`_auth.js`：HMAC-SHA256 + `timingSafeEqual` + 到期；login 限流 6/min）。
@@ -75,10 +75,11 @@
 - **驗收**：上傳資產回應加 `Content-Security-Policy: default-src 'none'; sandbox` 與/或 `Content-Disposition: attachment`；並把 `.svg` 移出 middleware.js matcher 的排除清單。驗證既有 SVG 圖仍正常顯示（`<img>`/`<use>` 情境不受 sandbox 影響）。
 - **模型等級**：Sonnet。**關聯**：D-15。
 
-### S-03 🟢 Edge KV 寫入無 `waitUntil`（觀測資料可能漏記）
-- **問題**：`api/csp-report.js`、`api/errors.js`、`api/search-log.js` 的 KV 寫入是 fire-and-forget（`.catch(()=>{})` 未 await/未 `event.waitUntil`）→ Edge runtime 可能在 response 回傳後凍結未完成的寫入。純觀測性，非安全洞。
-- **驗收**：await 這些小寫入，或接 FetchEvent 用 `event.waitUntil(persist(...))`。
-- **模型等級**：Sonnet。
+### S-03 ✅ 已修（review Phase 3）Edge KV 寫入無 `waitUntil`（觀測資料可能漏記）
+> 修法：`api/csp-report.js`、`api/errors.js` 的 `persistToKv()` 改為 **await**，且兩支 KV fetch 各加 `signal: AbortSignal.timeout(1200)`——codex 首審抓到「只 await 不設界」會讓兩個串行 fetch 拖住 204 回應，故補逾時。`api/search-log.js`（與 `api/cwv-ingest.js`）經核實**早已 await**，未動。三支具名端點現皆滿足驗收條件。
+- **原問題（已收斂為僅 2 支端點）**：`api/csp-report.js`、`api/errors.js` 的 KV 寫入是 fire-and-forget（`.catch(()=>{})` 未 await/未 `event.waitUntil`）→ Edge runtime 可能在 response 回傳後凍結未完成的寫入。純觀測性，非安全洞。
+- ⚠ **原始描述有一項不實**：本項最初也指控 `api/search-log.js` 是 fire-and-forget——**經 review Phase 3 核實為誤**（git 歷史顯示它自始即 `await`，`api/cwv-ingest.js` 同）。該指控**已推翻**，不要據此去「修」這兩支。
+- **模型等級**：—（已關閉）。
 
 ### S-04 ✅ 已修（review Phase 5）CSP hash 產生器 `\bsrc=` 排除式會誤判 `data-src` inline script
 - **問題**：`_gen_csp_hashes.py` 的 inline-script 正則用負向前瞻 `(?![^>]*\bsrc=)` 排除外部 `<script src>`。但 `\b` 也會在 `data-src=` 的 `-`↔`s` 邊界成立 → 一個**帶 `data-src`（或任何 `-src=`）屬性的 inline 可執行 script 會被誤判成外部**、不算 hash → production 被 fail-closed CSP **封鎖**。
@@ -175,5 +176,13 @@
 
 ---
 
-## 已在本 session 關閉（供對照，勿重開）
-footer 跑版修復 · /notes noindex · 4 stub 處置（2 轉址 2 維持）· FAQPage×7 · 安全強化（svg/md/csp/push/admin-csp）· about LCP · immutable 快取 · eye-3d landmark · 對比度 · robots 對 AI 開放 · floaters→high-myopia 內鏈 · reviewedBy inline 化(codex)。詳見 git log 與 DECISIONS.md。
+## 已關閉（供對照，勿重開）
+
+**制度建置 session（2026-07-04 前後）**：footer 跑版修復 · /notes noindex · 4 stub 處置（2 轉址 2 維持）· FAQPage×7 · 安全強化（svg/md/csp/push/admin-csp）· about LCP · immutable 快取 · eye-3d landmark · 對比度 · robots 對 AI 開放 · floaters→high-myopia 內鏈 · reviewedBy inline 化(codex)。
+
+**工單 2026-07 code review（Opus 4.8；Phase 1–5 已上線、交付 `b102ce2`；Phase 6 為本收尾 commit）**：
+- **修復上線**：`M-03`（cmdk `/` 吞斜線，真實編輯 bug）· `M-04`（TOC selector 逸出）· `P-02`（SW 離線 fallback `ignoreSearch`）· `S-03`（csp-report/errors KV bounded await，含 codex 抓到的無界 fetch → 加 `AbortSignal.timeout`）· og.js 誤導 docstring · **`M-06`**（admin strip 清單雙軌 → 新增 `_check_runtime_helper_sync.py` 反漂移閘 + 雙語回寫收斂到 `<article>` + 補 2 個一次性 style id）· **`S-04`**（`_gen_csp_hashes.py` `\bsrc=`→`\ssrc\s*=`，`data-src` inline script 被誤封鎖的潛伏洞）。
+- **核實後關閉（前提失效／早已解決，非改碼）**：`T-01`（sitemap 對 GitHub token 的 SPOF 已被 `_content_snapshot.js` 的 frozen fallback 消除）· `S-01`（`/admin` **無** localStorage GitHub PAT；**客戶端** grep（`*.html`/`*.js`；排除 `api/`、`node_modules`、`*.min.js`）**0 命中**——`api.github.com` 於 **server 端** `api/` 存在（`_github.js`/`_history.js`/`_rollback.js`/`sitemap.js`/`_upload.js`/`_upload-srcset.js`）屬**正確架構**，非債；早已是 password→HMAC cookie→server `GITHUB_TOKEN` 目標態）。
+- **新開項（本工單 LOG，尚未做）**：`P-04` `P-05` `M-07` `M-08` — 皆為潛伏／perf-completeness，無 🔴。
+
+詳見 `REVIEW_WORKORDER_2026-07.md` 頂部「執行結果摘要」、git log 與 DECISIONS.md（D-24）。
