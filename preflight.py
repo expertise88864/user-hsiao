@@ -220,7 +220,7 @@ def main():
     print("\n" + "=" * 60)
     passed = ok and fixed_point
     if passed:
-        print("PREFLIGHT PASS. Next: codex GPT-5.5 review (D-20 step 2), then push,")
+        print("PREFLIGHT PASS. Next: codex GPT-5.6-sol review (D-20 step 2), then push,")
         print("then `python _ci_status.py <sha> --watch`.")
     else:
         print("PREFLIGHT FAIL. Do NOT push. Fix the issues above.")

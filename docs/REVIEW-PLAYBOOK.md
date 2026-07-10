@@ -200,7 +200,20 @@ grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
 ---
 
 ## 9. 可維護性 + 技術債
-<!-- 耦合矩陣與債務清單由審查代理補完後合併於此 -->
+
+### 耦合矩陣（「改一處必動多處」；工單 2026-07 Phase 5 核實補完）
+| 改一處 | 必須同步的其他處 | CI 守門？ |
+|---|---|---|
+| `robots.txt`（D-01） | `tests/seo/head.spec.js` + `_check_robots.py` | ✅ head.spec + `_check_robots` |
+| `vercel.json` 靜態資產 headers（D-11） | `_check_static_asset_headers.py` | ✅ `_check_static_asset_headers` |
+| `DN.ARTICLES`（blog-shared.js） | sitemap / feeds / en_pages / listings 四處 | ✅ `_check_sitemap` / `_check_search_index` / `_check_listing_schema` |
+| runtime-helper strip 清單（D-24） | `blog/blog-admin.js` ↔ `api/admin/_save.js` | ✅ `_check_runtime_helper_sync`（Phase 4 新增） |
+| CSP inline-script hashes | `_gen_csp_hashes.py` → `middleware.js` `INLINE_SCRIPT_HASHES_BY_ROUTE` | ✅ quality.yml **drift**（改 inline `<script>` 忘了重跑 → committed middleware ≠ 重生 → 紅）。⚠ 注意：middleware matcher **排除 `/admin`**，`/admin` CSP 來自 **vercel.json** `/admin(.*)` header（D-17），故 hash 表裡的 `/admin` 條目是**死資料**（永不被讀） |
+| halfwidth 全形化規則 | `halfwidth_to_fullwidth.py` ↔ `api/admin/_halfwidth.js`（server 存檔鏡像，`_save.js` 用） | ⚠ **半守**：CI halfwidth gate 守建置產物；但 admin 直 commit 路徑要**下次 push** 才驗到 |
+| `reviewedBy` Person 內容 | `_normalize_reviewed_by.py` 硬編 name/jobTitle/specialty ↔ `about.html` `#person` | ⚠ **只守 @id**（`_check_medical_webpage_schema.py`）；name/jobTitle/specialty 漂移**不會被抓** |
+| stash 的 data-zh/en 例外 | `halfwidth` `ATTR_RE`（不 stash data-zh/en） ↔ `_gen_en_pages.py`（BeautifulSoup 單引號序列化） | ✅ CI halfwidth gate（v37.29 已修單引號漏網） |
+
+**Phase 5 新發現（LOG，見 BACKLOG）**：`_extract_critical_css.py` 把 `@supports` 區塊誤標成 `@media`（P-05，perf-completeness）；`_gen_en_pages.py` `should_drop_en_jsonld` 只看 top-level `@type`，`@graph` 巢狀 FAQPage 會漏（M-08，潛伏，現行全站無 @graph）。**已修**：`_gen_csp_hashes.py` `\bsrc=`→`\ssrc\s*=`（避免 `data-src` 內嵌 inline script 被誤判外部而 CSP 封鎖；output-neutral）。
 
 **核心原則**（單人醫師 + 輪替 AI session 的維護模型）：
 1. **權威優先序**：CI（quality.yml）>檢查器（_check_*）>文件（*.md）>記憶。文件與 CI 打架時，CI 是對的，然後修文件。

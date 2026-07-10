@@ -49,6 +49,12 @@
 - **驗收**（二選一，需站主定調）：(a) 改 install 只 `SHELL.map(c.add)`，POPULAR/LAZY 交給既有 activate/runtime；或 (b) 更新註解與 `LAZY` 命名以符現況。行為變更走 Opus。
 - **模型等級**：Opus（install 行為變更需先反證）。
 
+### P-05 🟢 critical-CSS 抽取把 `@supports` 誤標成 `@media`（review Phase 5 發現，perf-completeness）
+- **問題**：`_extract_critical_css.py` line 102 同時吃 `@media` 與 `@supports`，但 line 111 重建時**寫死 `@media {cond}`**。於是 `@supports (…)` 內的 critical 規則會被輸出成 `@media (…)`——無效 media query，瀏覽器整塊丟棄。`assets/app.css` **現有 4 個 `@supports` 區塊**（line 690/756/801/902），故若其中含 critical 選擇器（`.flex`/`header` 等），該批規則就沒進 inline critical CSS。另 `@layer`（若日後 Tailwind v4 採用）會被整塊丟棄（含內部 critical 規則）。
+- **影響**：**僅 perf**（完整 `assets/app.css` 仍以 `<link>` 載入並套用），非正確性 bug。故 review 時判 LOG 非 FIX。
+- **驗收**：line 111 依實際 at-rule 關鍵字輸出（`@supports`/`@media` 各自保留），或明確跳過 `@supports`。**注意**：修完會改動全站 ~67 個 HTML 的 inline critical CSS（大 diff，需跑 visual-regression `force_update` 對照 + 確認 <14KB 預算）。
+- **模型等級**：Sonnet（機械但輸出面廣，需固定點 + 視覺回歸驗證）。**關聯**：REVIEW-PLAYBOOK §6/§9。
+
 ---
 
 ## 安全（S）
@@ -73,6 +79,11 @@
 - **問題**：`api/csp-report.js`、`api/errors.js`、`api/search-log.js` 的 KV 寫入是 fire-and-forget（`.catch(()=>{})` 未 await/未 `event.waitUntil`）→ Edge runtime 可能在 response 回傳後凍結未完成的寫入。純觀測性，非安全洞。
 - **驗收**：await 這些小寫入，或接 FetchEvent 用 `event.waitUntil(persist(...))`。
 - **模型等級**：Sonnet。
+
+### S-04 ✅ 已修（review Phase 5）CSP hash 產生器 `\bsrc=` 排除式會誤判 `data-src` inline script
+- **問題**：`_gen_csp_hashes.py` 的 inline-script 正則用負向前瞻 `(?![^>]*\bsrc=)` 排除外部 `<script src>`。但 `\b` 也會在 `data-src=` 的 `-`↔`s` 邊界成立 → 一個**帶 `data-src`（或任何 `-src=`）屬性的 inline 可執行 script 會被誤判成外部**、不算 hash → production 被 fail-closed CSP **封鎖**。
+- **修法**：`\bsrc=` → `\ssrc\s*=`（要求 `src` 前面是屬性分隔空白，`\s*=` 也涵蓋 `src = "…"`）。已核實 **output-neutral**（現行無任何 inline script 帶 src-like 屬性，重跑 `_gen_csp_hashes.py` 後 middleware.js 不變）→ 純潛伏加固。codex GPT-5.6-sol 已審。
+- **模型等級**：—（已關閉）。**關聯**：D-16、REVIEW-PLAYBOOK §4/§9。
 
 ---
 
@@ -141,6 +152,12 @@
 - **tradeoff**：不 strip → 過時 calc 內容被烤進原始碼、reload 因 guard 不重建（凍結快照，非重複，輕）。若 strip → authored-佔位情境乾淨（清空佔位、reload 重建）；但 fallback 情境會留下空的 `<section class="max-w-3xl…">` 孤兒、reload 再插一個 → 空 section 累積。兩害皆輕、皆非 authored 內容遺失。
 - **驗收**：先查有無文章走 fallback（無 `mountSel`）路徑。若全走 authored 佔位 → 安全加入兩清單（checker 自動涵蓋）。若有 fallback → 先讓 `_buildCalc` fallback 也包一層帶 id 的 wrapper、strip wrapper id，避免空 section 累積。
 - **模型等級**：Sonnet（需先查 `mountSel` 使用面）。**關聯**：M-06、D-24。
+
+### M-08 🟢 `should_drop_en_jsonld` 只看 top-level `@type`，`@graph` 巢狀 FAQPage 會漏（review Phase 5，潛伏）
+- **問題**：`_gen_en_pages.py` 的 `should_drop_en_jsonld`（line 386-399）判斷是否把 ZH FAQPage schema 從 /en/ 頁移除時，只讀 `data['@type']`。若 FAQPage 是包在 `@graph:[…]` 陣列裡（`data['@type']` 不存在），就**偵測不到 → 不移除 → 中文 Q&A 以英文頁 rich result 出現**（GSC 語言不符）。
+- **現況（已核實，codex GPT-5.6-sol 校正計數）**：**潛伏，非活躍**。`blog/*.html` 共 **19 個 FAQPage，全部是頂層獨立 `<script>` 區塊**——其中 **7 個**由 `_gen_faqpage_jsonld.py` 產（帶 `data-faq-auto`），**另 12 個為手寫/legacy 獨立區塊**（如 dry-eye-myths.html:93，無 marker）。關鍵是**兩類都無 `@graph` 巢狀**（grep 核實 =0），故 `should_drop` 的 top-level `@type` 檢查目前 100% 覆蓋（全 `en/` 頁 FAQPage=0）。只有日後有人**手寫** @graph-巢狀 FAQPage 才會咬到。
+- **驗收**：`should_drop_en_jsonld` 也遞迴檢查 `@graph` 成員（或改用 `_jsonld_type_names` 對每個 graph node 判定）。低優先（現行慣例是獨立區塊）。
+- **模型等級**：Sonnet。**關聯**：D-09、REVIEW-PLAYBOOK §5。
 
 ---
 

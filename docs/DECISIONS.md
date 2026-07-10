@@ -129,7 +129,7 @@
 
 ### D-20 Pre-push 閘門（每次 push 前，無例外）
 1. `python preflight.py`（跑完整產生器鏈 ×2 驗證固定點 + validate + `_check_all.py --quick`；鏈的步驟清單**動態解析自 `.github/workflows/quality.yml`**，所以 codex 加新 generator 也不會過時）。
-2. **Codex GPT-5.5 diff review**（站主全域規則）：把 staged diff 交給 codex MCP（`model=gpt-5.5`），列 blocking issues，**APPROVE 才 push**。
+2. **Codex GPT-5.6-sol diff review**（站主全域規則，2026-07-10 由 gpt-5.5 升級）：把 staged diff 交給 codex MCP（`model=gpt-5.6-sol`；需 codex CLI **`0.145.0-alpha.2`+**——stable 0.144.1 仍 400，見 memory），列 blocking issues，**APPROVE 才 push**。
 3. push 後用 `python _ci_status.py <sha> --watch` 盯 CI（本環境無 `gh` CLI）。
 - **錨**：本 session 全程實踐；工具見 repo 根目錄。
 

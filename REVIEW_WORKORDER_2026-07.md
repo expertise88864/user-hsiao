@@ -20,7 +20,7 @@
 - **L1** 醫療內容：只能重述文中已有引用支持的內容；發現疑似醫療錯誤 → 標 `<!-- TODO(醫師確認): ... -->` 並回報站主，**絕不自行改寫臨床宣稱或數字**。
 - **L2** `/en/**` 是生成物，絕不手改；改 zh 源後跑鏈。
 - **L3** 作者頁禁令（D-08）：不得出現任職/受訓醫療機構名稱、掛號/招攬內容；`sameAs` 只能用站主親自提供的 URL。
-- **L4** 每次 push 前：`python preflight.py` 全綠 → Codex GPT-5.5 diff review（MCP，`model=gpt-5.5`）APPROVE → push → `python _ci_status.py <sha> --watch`。
+- **L4** 每次 push 前：`python preflight.py` 全綠 → Codex GPT-5.6-sol diff review（MCP/CLI，`model=gpt-5.6-sol`，2026-07-10 由 gpt-5.5 升級）APPROVE → push → `python _ci_status.py <sha> --watch`。
 - **L5** 發現與 DECISIONS.md 衝突的「改進想法」→ 不執行，寫進回報詢問站主。
 - **L6** 每個 critical/high finding 定案前先自我反駁一次（找反證 file:line）；修復只限「確定性 bug」（見下方處置協定）。
 
@@ -114,7 +114,7 @@
 - [x] Phase 2 — sw.js（讀時 sha：3ec4d75；全 982 行讀畢；FIX：1（P-02 離線 fallback ignoreSearch）；LOG：1（P-04 install 精快取所有 tier vs v30 多階段設計 drift）；加做：SW 快取策略矩陣寫入 REVIEW-PLAYBOOK §6。message/push/sync/periodicsync handler 皆核實安全：QUEUE_SAVE 有 source-origin+admin+slug 驗證，push/periodicsync 同源）
 - [x] Phase 3 — api/ P0（讀時 sha：faef8d9；深讀：csp-report/errors/_rate_limit/search-log/cwv-ingest/events/ab-config/sitemap(parse+fallback+handler)/_content_snapshot/og/_auth/_login/[op] + push/* 稽核 + grep 核實**全部** admin 端點 requireAdmin 閘門 + 早前 session 已加固 _upload/_md/_subscribe；FIX：3（S-03 csp-report+errors KV await；og.js 誤導 docstring）；LOG：0 新增（T-02 維持、加註陷阱）；**核實已解決**：T-01（content-snapshot fallback 消除 SPOF）、S-03 之 search-log/cwv 早已 await。auth 面判定：solid，無 bypass（[op] 委派給各自 self-gate 的 handler）。誠實：feed/_kv/_github/_new/_save 等未逐檔深讀，但關鍵路徑（auth/gating/公開端點/KV 寫入）已覆蓋）
 - [x] Phase 4 — admin CMS（讀時 sha：c690b43；深讀：`blog/blog-admin.js` 存檔路徑（`_sanitizeForSerialize` 407-455 + `doSave`/preview/draft 三處呼叫）、`api/admin/_save.js`（`RUNTIME_HELPER_IDS` + `stripRuntimeHelpers` + handler 驗證/上限）、`admin.html` 認證面（login 281-283 / env-status 574-583 / localStorage 用途）、`blog-shared.js` 注入器掛載模式核實（`_buildCalc` 3267-3315、hs-related/feedback/support 的 v34.11 authored-mount）；FIX：M-06（3 項：新增 `_check_runtime_helper_sync.py` 反漂移閘 + 兩清單互加耦合註解、補 2 個一次性 style id、雙語回寫收斂到 `<article>`）；LOG：M-07（工具 widget strip tradeoff）；**核實前提失效**：S-01（repo-wide grep 0 命中，客戶端無 localStorage-PAT，已是 server-HMAC 目標態 → 反 fabrication，不寫幻影提案）；institution：DECISIONS **+D-24**（strip 清單雙檔耦合 + checker 強制）。L6 反證擋下 data-loss：related/feedback/support 有 authored 佔位，不加入 strip）
-- [ ] Phase 5 — 生成鏈+middleware（已讀：＿＿＿/7；讀時 sha：＿；FIX：＿；LOG：＿）
+- [x] Phase 5 — 生成鏈+middleware（讀時 sha：e6e440c；已讀 7/7：`middleware.js`(全 824,含 hash 表)、`_gen_csp_hashes.py`、`_gen_en_pages.py`(全 805)、`halfwidth_to_fullwidth.py`、`_normalize_reviewed_by.py`、`_gen_feeds.py`、`_extract_critical_css.py`；FIX：1（S-04 `_gen_csp_hashes.py` `\bsrc=`→`\ssrc\s*=`,output-neutral 已驗）；LOG：2（P-05 critical-css `@supports`→`@media` 誤標;M-08 `should_drop_en_jsonld` @graph 巢狀漏）；加做：REVIEW-PLAYBOOK §9 耦合矩陣補完(8 列+CI 守門欄)。核實安全(無 bug)：middleware CSP fail-closed+單一來源(/admin 走 vercel.json,hash 表 /admin 條目為死資料)、`\/` EN_LANG_BOOTSTRAP 取代不出錯、halfwidth/normalize_reviewed_by 冪等、feeds XML escape 防 CDATA breakout。誠實:抽核 7 檔非全部 27 generator,依工單範圍)
 - [ ] Phase 6 — 收尾回寫
 - 執行結果摘要：（Phase 6 時填寫）
 

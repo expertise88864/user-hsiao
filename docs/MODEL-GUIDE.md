@@ -27,8 +27,8 @@
    - 把大任務拆成有明確判準的小步；每步用 `_check_*` 或 `preflight.py` 驗證。
    - 對「找 bug/找 finding」類：用**對抗式驗證**——每個發現先花一次力氣去**反駁它自己**（找反證 file:line），反駁不掉才算數。本 session 的 code review 就靠這招把 9 個高風險發現濾到 8 個真的。
    - 對「不確定哪個方案好」：產 2-3 個方案，各自列證據，再選——比單一方案硬做可靠。
-2. **外部第二意見（codex GPT-5.5，本 repo 已接好）**：
-   - 政策變更、push 前 diff、拿不準的取捨 → 交 codex MCP（`model=gpt-5.5`）。這是站主的全域規則，也是弱模型補品味的主力。用法見 §3。
+2. **外部第二意見（codex GPT-5.6-sol，本 repo 已接好）**：
+   - 政策變更、push 前 diff、拿不準的取捨 → 交 codex MCP（`model=gpt-5.6-sol`）。這是站主的全域規則，也是弱模型補品味的主力。用法見 §3。
 3. **升級模型**：任務明顯落在「Opus 級/品味」格 → 明確告訴站主「這題建議用更強的模型或你本人決定」，並把你已整理的證據附上，**不要**用弱模型硬給一個看似完整的答案。
 4. **明說做不到**：查不到、驗證不了、超出能力 → **標註**（見 §6 誠實條款），不編造。
 
@@ -38,19 +38,19 @@
 
 ---
 
-## 3. Codex GPT-5.5 二審（外部第二意見）— 具體用法
+## 3. Codex GPT-5.6-sol 二審（外部第二意見）— 具體用法
 
 **何時必用**：(a) 每次 `git push` 前（站主全域規則）；(b) 任何動 DECISIONS.md 的政策變更；(c) 你對某取捨拿不準時。
 
 **怎麼跑**（codex MCP 已在 user scope 接好）：
 ```
 mcp__codex__codex  參數：
-  model: "gpt-5.5"
+  model: "gpt-5.6-sol"
   sandbox: "read-only"          # 只審不改
   cwd: "C:\\Users\\User\\Desktop\\程式\\user-hsiao-main"
   prompt: 「<把 staged diff 貼進來> + 這段脈絡 + 請列 blocking issues，最後輸出 APPROVE 或 REQUEST_CHANGES」
 ```
-CLI 後備（任何 session）：`git diff --cached | codex exec -c model="gpt-5.5" --skip-git-repo-check "<review 指令>"`
+CLI 後備（任何 session）：`git diff --cached | codex exec -c model="gpt-5.6-sol" --skip-git-repo-check "<review 指令>"`
 **判準**：codex 回 REQUEST_CHANGES → 修到它 APPROVE 才 push；回 APPROVE 但有非阻塞註記 → 記錄、自行判斷是否順手修。
 **注意**：codex 也是「第二意見」不是「真理」——本 session codex 曾提一個非阻塞註記（ClaudeBot 分類），我判斷不影響行為而保留並說明。二審是為了抓你漏的，不是外包判斷。
 

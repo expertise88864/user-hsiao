@@ -29,8 +29,15 @@ import os, re, hashlib, base64, glob, json
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
+# The external-script exclusion must key on a REAL `src` attribute, which is
+# always whitespace-separated (`<script … src=…>`). Using `\bsrc=` was wrong:
+# `\b` also matches the boundary in `data-src=` / `x-src=`, so an INLINE
+# executable script carrying such a data-attribute would be treated as external,
+# never hashed, and then CSP-BLOCKED in production (fail-closed). Require a
+# leading `\s` so only a standalone `src` attribute triggers the exclusion.
+# (`\s*=` also correctly catches `src = "…"` with spaces around the equals.)
 INLINE_SCRIPT_RE = re.compile(
-    r'<script(?![^>]*\bsrc=)([^>]*)>(.*?)</script>',
+    r'<script(?![^>]*\ssrc\s*=)([^>]*)>(.*?)</script>',
     re.DOTALL | re.IGNORECASE,
 )
 def sha256_b64(content: bytes) -> str:
