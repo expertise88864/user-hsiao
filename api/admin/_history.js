@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       },
     });
     if (!r.ok) {
-      return res.status(500).json({ error: `GitHub commits ${r.status}: ${await r.text()}` });
+      return res.status(500).json({ error: `GitHub commits ${r.status}: ${(await r.text()).slice(0, 200)}` });
     }
     const data = await r.json();
     const commits = (data || []).map(c => ({

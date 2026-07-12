@@ -48,6 +48,20 @@ export default async function handler(req, res) {
     }
     if (entries.length === 0) return res.status(500).json({ error: 'No DN.ARTICLES entries parsed' });
 
+    // Fail-safe against silent data loss: the whole DN.ARTICLES block is
+    // REPLACED with a list rebuilt from `entries`. If our per-entry regex
+    // (which can't cross nested braces) parsed fewer records than there are
+    // `slug:` keys — e.g. some future entry has a `{`/`}` inside a value or an
+    // unusual shape — the unparsed article would vanish from the catalog
+    // (listings + sitemap). Refuse rather than drop it. The "append missing"
+    // step below only re-adds PARSED entries, so it does NOT cover this case.
+    const slugKeys = (block.match(/\bslug\s*:/g) || []).length;
+    if (entries.length !== slugKeys) {
+      return res.status(409).json({
+        error: `parse mismatch: ${entries.length} entries parsed vs ${slugKeys} slug keys — refusing to reorder to avoid dropping an article. Fix DN.ARTICLES formatting or reorder manually.`,
+      });
+    }
+
     const map = {};
     entries.forEach(e => { map[e.slug] = e.raw; });
 

@@ -98,10 +98,17 @@ function buildHowTo(pairs, articleUrl, articleTitle) {
 function injectJsonLd(html, jsonLd) {
   const tag = `<script type="application/ld+json">\n${JSON.stringify(jsonLd, null, 0)}\n</script>`;
 
-  // Remove any pre-existing FAQPage / HowTo block to avoid duplicates
+  // Remove any pre-existing FAQPage / HowTo block to avoid duplicates.
+  // CRITICAL: match ONE block at a time (lazy up to the first </script>) and
+  // decide per-block. The previous single mega-regex used `\{[^]*?…\}` which
+  // matched ACROSS </script> boundaries: on a normal article whose FAQPage is
+  // preceded by MedicalScholarlyArticle / MedicalWebPage / BreadcrumbList
+  // blocks, `[^]*?` spanned from the FIRST ld+json block to the FAQPage and
+  // deleted every schema block in between (verified: 4 of 5 blocks removed on
+  // dry-eye-myths). Per-block matching removes ONLY the FAQPage/HowTo block.
   const stripped = html.replace(
-    /<script\s+type="application\/ld\+json">\s*\{[^]*?"@type"\s*:\s*"(FAQPage|HowTo)"[^]*?\}\s*<\/script>/gi,
-    ''
+    /<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi,
+    (full, inner) => (/"@type"\s*:\s*"(FAQPage|HowTo)"/.test(inner) ? '' : full)
   );
 
   // Insert before </head>

@@ -86,6 +86,14 @@
 - **修法**：`\bsrc=` → `\ssrc\s*=`（要求 `src` 前面是屬性分隔空白，`\s*=` 也涵蓋 `src = "…"`）。已核實 **output-neutral**（現行無任何 inline script 帶 src-like 屬性，重跑 `_gen_csp_hashes.py` 後 middleware.js 不變）→ 純潛伏加固。codex GPT-5.6-sol 已審。
 - **模型等級**：—（已關閉）。**關聯**：D-16、REVIEW-PLAYBOOK §4/§9。
 
+### S-05 🟢 Trusted Types 的 `sanitizeHTML` 是 regex 洗白，非權威（Sweep A 發現；加固嘗試已撤回，僅文件化）
+- **問題**：`assets/trusted-types.js` 的 `hs-policy`/`default` TT policy 用 regex 洗 innerHTML。regex 無法完整 parse HTML，已核實**多個繞過**：(1) `/`-分隔的事件處理器 `<img src=x/onerror=…>`、`<svg/onload=…>`（`\son` 只認空白）；(2) `javascript:` scheme 被空白/HTML entity 混淆——`href="java&#9;script:…"`、`href="java\nscript:…"`（瀏覽器解析前會去掉這些，regex 認不出）。
+- **嘗試後撤回（Sweep A + codex GPT-5.6-sol）**：一度把 `\son` 改 `[\s/]on` 想關掉 `/`-分隔繞過，但 codex 反證此 global regex 會**誤傷合法內容**——`href="/online=appointments"`、文字 `/onboarding=yes` 都被吃掉。這正印證本項主旨：**這層 regex 無法安全加固**（關掉一個 false-negative 就開一個 false-positive）。故**撤回、保留原 `\son`**（零回歸），`/`-分隔繞過交給 CSP 主防線（已擋）。
+- **為何仍只是 🟢（已核實全棧）**：**主防線是 hash-CSP（D-16）不是這支**。`middleware.js` 的 `script-src` **無 `'unsafe-inline'`/`'unsafe-hashes'`**，故即使 inline `on*=` 或 `javascript:` 洗白漏掉、進了 DOM 也**不會執行**（CSP 擋）。且唯一可能把不可信輸入送進 innerHTML 的 `blog/pagefind-search.js` **自帶 `escapeHtml` 且逐欄逃逸**。**無現行可利用路徑**。
+- **同族（Sweep A）**：`api/admin/_ab-config.js` 的 A/B variant HTML 也是「regex 黑名單洗白 → 存進 config → 前端 `DN.applyAbConfig` 對所有訪客 `innerHTML` 換入」。同屬 admin-authored（信任邊界內）+ CSP 主防線 backstop，同 🟢。真正的修法與本項 (a)/(b)/(c) 相同，一併處置。
+- **驗收（真正的修，屬 ASK/站主拍板）**：三選一——(a) 接受現狀（CSP 主防線 + 已文件化，成本零；本層 regex 不再嘗試加固）；(b) 換 DOMPurify（SVG profile；需評估 bundle + CSP）；(c) 把 `createHTML` 改成**拒絕**（throw）而非洗白，強迫所有 innerHTML sink 改用安全 DOM API——但會擋掉現行 data-en 的 `<strong>`/`<a>` 合法用法，工程量大。**別再往 regex 洗白疊補丁**（whack-a-mole + 假安全，違反 D-15/D-16 精神）。
+- **模型等級**：Opus（安全架構 + 威脅模型判斷）；(a) 已可由站主一句話定案。**關聯**：D-16。
+
 ---
 
 ## 無障礙（A）
@@ -160,6 +168,12 @@
 - **驗收**：`should_drop_en_jsonld` 也遞迴檢查 `@graph` 成員（或改用 `_jsonld_type_names` 對每個 graph node 判定）。低優先（現行慣例是獨立區塊）。
 - **模型等級**：Sonnet。**關聯**：D-09、REVIEW-PLAYBOOK §5。
 
+### M-09 🟢 `api/admin/_precompute-meta.js` 的 DN.ARTICLES 回寫 regex 脆弱（Sweep A，潛伏）
+- **問題**：`_precompute-meta.js`（~line 86-92）用 `[^}]*?` + 只逸出 slug 的 `-` 來就地改寫 DN.ARTICLES 的 `words:`/`minutes:` 欄位。若某 entry 的欄位值含 `}` 或 regex metachar，`[^}]` 會提早終止 / slug metachar 會 mis-anchor，把欄位注到錯位置。**與 M-11（`_reorder`）同一類 regex-on-JS 脆弱**，但影響較輕（改欄位 vs 整篇消失）。
+- **現況**：**潛伏**——輸入是建置產生的 `blog-shared.js`，slug 皆 `[a-z0-9-]`、欄位值無 `}`。寫入面本身安全（有 `sha` 樂觀鎖 + noop guard）。
+- **驗收**：比照 M-11 加「parse 數 ≠ 實際 entry 數就 refuse」的 fail-safe，或改用逐-entry 解析。低優先。
+- **模型等級**：Sonnet。**關聯**：M-11、REVIEW-PLAYBOOK §9。
+
 ---
 
 ## 內容（C）— 需要站主參與（醫療正確性，MODEL-GUIDE §4）
@@ -186,3 +200,12 @@
 - **新開項（本工單 LOG，尚未做）**：`P-04` `P-05` `M-07` `M-08` — 皆為潛伏／perf-completeness，無 🔴。
 
 詳見 `REVIEW_WORKORDER_2026-07.md` 頂部「執行結果摘要」、git log 與 DECISIONS.md（D-24）。
+
+**Sweep A — 未審面補審：`assets/trusted-types.js` + 25 個已認證 admin 工具端點（2026-07-11，Fable 5）**：工單當初把這批列「留給下一張工單」。全數 `requireAdmin` 前置無 bypass（`_article-commit`/`_halfwidth` 是內部模組非路由）；slug 皆 `/^[a-z0-9-]+$/` 驗證。**修復上線**：
+- **`M-10` 🔴→✅ `_schema-helper.js` strip regex 連坐刪 JSON-LD**（**最嚴重**）：原 `\{[^]*?"@type":"(FAQPage|HowTo)"[^]*?\}` 跨 `</script>` 邊界，對任何「FAQPage 前面有 MedicalWebPage/Article 區塊」的文章（=全部）會從第一個 ld+json 一路刪到 FAQPage。實測 dry-eye-myths **5 個 ld+json 刪掉 4 個**。改成**逐-block 判定**（只刪 FAQPage/HowTo）。
+- **`M-11` ✅ `_reorder.js` 靜默掉文章**：整塊 DN.ARTICLES 用 `[^{}]*?` regex 重建，parse 漏掉的 entry 會消失（listings+sitemap）。加「parse 數≠slug 鍵數就 409 refuse」fail-safe（現行 20==20 不受影響）。
+- **`S-06` 🟠→✅ `_sri.js` SSRF**：原只驗 `^https?://` 就 `fetch(redirect:'follow')`，可打 `169.254.169.254`/`localhost`/內網（回 size+hash 當 oracle）。加**host 允許清單**（own domain + CSP script-src 主機）+ `redirect:'error'` + 5MB 上限。
+- **`S-05` 🟢 `trusted-types.js`**：`/`-分隔 handler 繞過的 regex 加固**嘗試後撤回**（codex 證實會誤傷 `/online=` 類 href）；保留原 `\son`、交 CSP 主防線，只加了誠實註解。詳見 S-05。
+- 小修：`_history.js` GitHub 錯誤訊息 `.slice(0,200)`（比照其他 handler）。
+- **新開 LOG**：`M-09`（`_precompute-meta` 同類 regex 脆弱，潛伏）；`S-05` 註記 `_ab-config` variant HTML 同族。
+- **判定 clean（無 bug）**：`_build-related`/`_seo-fix`（自我反證擋下一個假 bug：真文章有 `MedicalScholarlyArticle`，guard 正確 no-op）/`_dictionary`（escaping+prototype guard 俱佳）/`_rollback`/其餘 read-only 端點。

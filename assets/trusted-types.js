@@ -9,6 +9,16 @@
 
   var scriptUrlAllow = /^(https?:\/\/(?:www\.googletagmanager\.com|www\.google-analytics\.com|www\.clarity\.ms|stats\.g\.doubleclick\.net|cdn\.jsdelivr\.net)\/|\/)/;
 
+  // NOTE: this regex scrubber is DEFENSE-IN-DEPTH, not the authoritative XSS
+  // barrier — a global regex can never safely parse HTML (see BACKLOG S-05).
+  // The PRIMARY defense is the hash-based CSP in middleware.js (D-16): its
+  // `script-src` carries no 'unsafe-inline'/'unsafe-hashes', so even an inline
+  // `on*=` handler or `javascript:` URL that survives here cannot execute.
+  // We deliberately keep `\son` (whitespace-prefixed) here: a tried `[\s/]on`
+  // variant that also caught the `<img src=x/onerror=…>` slash-separator was
+  // reverted because it damaged legitimate content like `href="/online=…"` and
+  // `/onboarding=…` in text (codex GPT-5.6-sol review). The slash-separated
+  // handler bypass is left to the CSP backstop rather than mangling real hrefs.
   function sanitizeHTML(value) {
     var output = String(value);
     output = output.replace(/<script[\s\S]*?<\/script>/gi, '');
