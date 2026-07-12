@@ -121,8 +121,13 @@ def build() -> str:
         path = ROOT / 'blog' / f'{a["slug"]}.html'
         en_path = ROOT / 'en' / 'blog' / f'{a["slug"]}.html'
         desc = one_line(meta_content(path, 'description')) if path.exists() else ''
-        title = clean_title(title_text(path)) or a['title']
-        title_en = clean_title(title_text(en_path)) or a['title_en'] or title
+        title = (clean_title(title_text(path)) if path.exists() else '') or a['title']
+        # Guard the /en/ read: a stub or newly-added slug may not have its
+        # /en/blog/<slug>.html mirror yet (unlike `desc`, this was unguarded and
+        # would crash the whole llms.txt build with FileNotFoundError — the
+        # sibling _gen_llms_full_txt.py guards with .exists()). Fall back to the
+        # catalog title_en / zh title.
+        title_en = (clean_title(title_text(en_path)) if en_path.exists() else '') or a['title_en'] or title
         tag = first_article_tag(path) or a['tag'] or a['tag_en'] or 'Ophthalmology'
         lines.extend([
             f'### {title}',

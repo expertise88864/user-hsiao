@@ -98,8 +98,10 @@
 
 ## 無障礙（A）
 
-### A-01 🟠 ~15 個非文章頁的 skip-link 指向不存在的目標
-- **問題**：`_apply_i_series.py` 對所有頁注入固定三連結 skip-nav（`#main-content`/`#hs-related`/`#dn-subscribe`），但 `#hs-related`/`#dn-subscribe` 只存在於文章頁 → 首頁/about/privacy/notes/tools 等按了跳空。另有 `#dn-newsletter` vs `#dn-subscribe` id 不一致。
+### A-01 🟠 25 個頁面的 skip-link `#hs-related` 指向不存在的目標
+- **問題**：`_apply_i_series.py` 對所有頁注入固定 skip-nav，含 `#hs-related`，但 `#hs-related` 只存在於文章頁 → 首頁/about/privacy/notes/tools 等按了跳空。
+- **Sweep B 核實（2026-07-11，親自 grep）**：`href="#hs-related"` 但同頁**無** `id="hs-related"` 的頁面**共 25 個**（非原記的 ~15）；且 `#hs-related` 被 `_check_dead_anchors.py:34` **白名單放行 → 無檢查器守**。注入的 skip-nav 逐頁不同（tools=2 連結、about=3），各頁是不同 generator 版本 SENTINEL-凍結的。
+- **`#dn-newsletter` 子項（更正一則我先前的誤述）**：`id="dn-newsletter"` **確實存在**（`blog/index.html`、`en/blog/index.html`），且有 5 頁 link `#dn-newsletter`；另 `id="dn-subscribe"` 在 60 頁。故 subscribe/newsletter 兩個 id 都在用——**是否每個 `#dn-newsletter`/`#dn-subscribe` 連結在其所在頁都有對應 id，尚未逐頁核（本次只確認 id 存在、`#hs-related` 那 25 頁死掉）**。（先前一版誤稱「無 id=dn-newsletter、子項 stale」，來自 sub-agent 未經我親驗即引用——已更正。）
 - **驗收**：改 `_apply_i_series.py` 讓 skip-nav 依頁面實際存在的 id 條件輸出（只在有該目標時才放對應連結），然後**重跑** `_apply_i_series.py`——注意 sentinel 問題：現行是 sentinel-gated insert，要讓它能**取代**既有 nav 才會更新既有頁；改完全站 ~67 檔的 skip-nav 會變動（大 diff 但機械、CI 可驗固定點）。同時擴充 `_check_static_a11y.py` 的 SKIP_LINK_RE 使其屬性順序不敏感且涵蓋 `.hs-skiplinks` 錨點。
 - **模型等級**：Sonnet（機械但需固定點驗證 + generator sentinel 邏輯）。**關聯**：REVIEW-PLAYBOOK §3。
 
@@ -174,6 +176,19 @@
 - **驗收**：比照 M-11 加「parse 數 ≠ 實際 entry 數就 refuse」的 fail-safe，或改用逐-entry 解析。低優先。
 - **模型等級**：Sonnet。**關聯**：M-11、REVIEW-PLAYBOOK §9。
 
+### M-12 🟠 DN.ARTICLES 的 `'([^']*)'` 欄位解析遇標題含單引號會截斷（Sweep B，跨多生成器）
+- **問題**：多個生成器用同一種 `field()` regex `key:\s*'([^']*)'` 解析 `DN.ARTICLES` 欄位。若某欄位值含**單引號/撇號**（在 JS 源以 `\'` 逸出），`[^']*` 會在逸出的 `'` 處截斷 → 標題/標籤損毀。**眼科站很可能踩到**：`Sjögren's`（修格蘭氏症，乾眼主因）、`Don't`、`Behçet's`。
+- **影響面（同一 bug 散在多檔）**：`_gen_search_index.py`、`_gen_related.py`、`_gen_llms_txt.py`、`_gen_og_images.py`、`_gen_feeds.py`、`_gen_en_pages.py`（`parse_articles`）——一個撇號會同時污染搜尋索引、related、llms、OG 卡、feeds、/en/ meta。
+- **現況**：潛伏（現行標題皆無撇號）。
+- **驗收**：把所有 `DN.ARTICLES` 的 `field()` 解析**一次改成支援逸出**（`'((?:[^'\\]|\\.)*)'` 再 `.replace("\\'","'")`），或改用共用 helper。**必須一致改全部 parser**（否則各檔各截）。
+- **模型等級**：Sonnet（機械但跨檔一致性）。**關聯**：REVIEW-PLAYBOOK §9。
+
+### M-13 🟢 多個生成器把文章文字塞進 `<script type="ld+json">` 未逸出 `<`/`</script>`（Sweep B，潛伏）
+- **問題**：`_gen_related.py`（LD `name`）、`_gen_profile_schema.py`、`_gen_serp_meta.py`、`_gen_faqpage_jsonld.py` 等用 `json.dumps` 產 JSON-LD 塞進 `<script>` 區塊，但 `json.dumps` **不逸出 `<`**，故若文章標題/描述含字面 `</script>` 會提早關閉 script 標籤並注入標記。可見文字（卡片）已用 `esc()` 逸出，只有 JSON-LD 路徑生。
+- **現況**：潛伏——內容是站主自撰醫療文，非不可信輸入，不會有字面 `</script>`。屬防禦縱深最佳實務缺口。
+- **驗收**：JSON-LD 輸出統一過 `.replace('<','\\u003c')`（JSON-LD 慣例），或包一個 `dump_jsonld()` helper。低優先。
+- **模型等級**：Sonnet。**關聯**：REVIEW-PLAYBOOK §5。
+
 ---
 
 ## 內容（C）— 需要站主參與（醫療正確性，MODEL-GUIDE §4）
@@ -209,3 +224,11 @@
 - 小修：`_history.js` GitHub 錯誤訊息 `.slice(0,200)`（比照其他 handler）。
 - **新開 LOG**：`M-09`（`_precompute-meta` 同類 regex 脆弱，潛伏）；`S-05` 註記 `_ab-config` variant HTML 同族。
 - **判定 clean（無 bug）**：`_build-related`/`_seo-fix`（自我反證擋下一個假 bug：真文章有 `MedicalScholarlyArticle`，guard 正確 no-op）/`_dictionary`（escaping+prototype guard 俱佳）/`_rollback`/其餘 read-only 端點。
+
+**Sweep B — 23 個未讀生成器（2026-07-11，Fable 5）**：整條建置鏈的**集體冪等**已由 preflight 固定點守著（故本批低產）；但發現 **5 個 `_inject_*` 是 one-off、不在 quality.yml 鏈內**，其冪等不被 preflight 守。**修復上線**：
+- **`_inject_medical_guideline.py` 冪等 guard 格式錯配**（實測 7 檔全中）：guard 查 `"@type":"MedicalGuideline"`（無空格）但 `json.dumps` 預設 separators 產出**有空格**形式 → guard 永不命中 → 重跑會對既有 7 篇**注入重複** MedicalGuideline JSON-LD。改成 format-agnostic `re.search(r'"@type":\s*"MedicalGuideline"')`。（其餘 4 個 one-off guard 查 bare name/attr，安全。）
+- **`_gen_llms_txt.py` 未 guard 的 `/en/` 讀取**：`title_text(en_path)` 無 `.exists()`（不像 `desc` 與姊妹檔 `_gen_llms_full_txt`），stub/新 slug 尚無 en 頁時會 `FileNotFoundError` 崩掉整個 llms.txt build。加 `.exists()` fallback。
+- **新開 LOG**：`M-12`（`'([^']*)'` 撇號截斷，跨 6 個 DN.ARTICLES parser，眼科站 `Sjögren's` 很可能踩）；`M-13`（多生成器 JSON-LD 未逸出 `</script>`，潛伏）；`A-01` 更新（`#hs-related` 死連結**核實為 25 頁**、無檢查器守；更正一則我先前經 sub-agent 誤引的敘述——`id="dn-newsletter"` **確實存在**於兩個 index 頁，非 stale）。
+- **核實 refuted / 不修**：F10 「logo 搶 LCP、hero 被 lazy」——about.html 的 hero（profile 照）其實是 `eager+high`，claim 不成立（僅 logo 也 high，微小冗餘）；其餘多為 `</script>`-breakout / 屬性順序 / 單引號 類**潛伏且自我反證**項（見 M-12/M-13）。`_gen_api_content_snapshot`（T-01 fallback 來源）、`_gen_route_canonicals`、`_gen_search_index` 判定 clean。
+
+詳見 git log；本兩批（Sweep A/B）由 Fable 5 補審工單當初 deferred 的面。

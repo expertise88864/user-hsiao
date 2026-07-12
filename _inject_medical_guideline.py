@@ -118,7 +118,20 @@ def main():
             continue
         with open(fp, encoding='utf-8') as f:
             html = f.read()
-        if '"@type":"MedicalGuideline"' in html:
+        # Idempotency guard. Two things the old `'"@type":"MedicalGuideline"'
+        # literal got wrong: (1) build_block emits json.dumps with DEFAULT
+        # separators → `"@type": "MedicalGuideline"` (WITH space), the form all
+        # committed files carry, so the no-space literal never matched and a
+        # re-run injected a DUPLICATE block into every processed article; (2) a
+        # bare substring check would also false-match the type appearing in a
+        # <code> example. So: scan each ld+json <script> block individually
+        # (lazy to the first </script>, no cross-block span) and check its JSON
+        # body. This is a one-off (not in quality.yml), so preflight never
+        # exercised its idempotency.
+        if any(re.search(r'"@type"\s*:\s*"MedicalGuideline"', _ld)
+               for _ld in re.findall(
+                   r'<script[^>]*type="application/ld\+json"[^>]*>([\s\S]*?)</script>',
+                   html, re.I)):
             print(f'  skip (already has): {slug}')
             continue
         block = build_block(slug, subj, alts, icd10, evidence)
