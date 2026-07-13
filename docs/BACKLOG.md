@@ -86,6 +86,12 @@
 - **修法**：`\bsrc=` → `\ssrc\s*=`（要求 `src` 前面是屬性分隔空白，`\s*=` 也涵蓋 `src = "…"`）。已核實 **output-neutral**（現行無任何 inline script 帶 src-like 屬性，重跑 `_gen_csp_hashes.py` 後 middleware.js 不變）→ 純潛伏加固。codex GPT-5.6-sol 已審。
 - **模型等級**：—（已關閉）。**關聯**：D-16、REVIEW-PLAYBOOK §4/§9。
 
+### S-07 🟢 `/admin` 的 Markdown 預覽 mini-renderer 不逸出屬性引號 / 不擋 `javascript:`（Sweep C，admin-self）
+- **問題**：`admin.html` `renderMdPreview()`（~1133-1150）把 `[x](url)`→`<a href="url">`、`![x](url)`→`<img src="url">`，url **未逸出 `"`**、也不擋 `javascript:`。`/admin` CSP 是 `script-src 'unsafe-inline'` + TT default policy 是 pass-through（`createHTML: s=>String(s)`），故注入的 `on*=`/`javascript:` **會執行**。
+- **為何 🟢（不修）**：來源是**站主自己**在 md 編輯器打的字 / 自己 repo 的文章 markdown（經 `/api/admin/md`），**非公開訪客資料** → 頂多 admin 自我 XSS 於預覽窗；且預覽是即時丟棄、存檔時由 server 正規 render。無外部攻擊路徑。
+- **驗收**（若要順手加固）：mini-renderer 的 url 過 `escapeAttr` + 擋 `^\s*javascript:`。低優先。
+- **模型等級**：Sonnet。**關聯**：S-05（同族：admin escapeHTML 是唯一防線，見 REVIEW-PLAYBOOK §4）。
+
 ### S-05 🟢 Trusted Types 的 `sanitizeHTML` 是 regex 洗白，非權威（Sweep A 發現；加固嘗試已撤回，僅文件化）
 - **問題**：`assets/trusted-types.js` 的 `hs-policy`/`default` TT policy 用 regex 洗 innerHTML。regex 無法完整 parse HTML，已核實**多個繞過**：(1) `/`-分隔的事件處理器 `<img src=x/onerror=…>`、`<svg/onload=…>`（`\son` 只認空白）；(2) `javascript:` scheme 被空白/HTML entity 混淆——`href="java&#9;script:…"`、`href="java\nscript:…"`（瀏覽器解析前會去掉這些，regex 認不出）。
 - **嘗試後撤回（Sweep A + codex GPT-5.6-sol）**：一度把 `\son` 改 `[\s/]on` 想關掉 `/`-分隔繞過，但 codex 反證此 global regex 會**誤傷合法內容**——`href="/online=appointments"`、文字 `/onboarding=yes` 都被吃掉。這正印證本項主旨：**這層 regex 無法安全加固**（關掉一個 false-negative 就開一個 false-positive）。故**撤回、保留原 `\son`**（零回歸），`/`-分隔繞過交給 CSP 主防線（已擋）。
@@ -232,3 +238,10 @@
 - **核實 refuted / 不修**：F10 「logo 搶 LCP、hero 被 lazy」——about.html 的 hero（profile 照）其實是 `eager+high`，claim 不成立（僅 logo 也 high，微小冗餘）；其餘多為 `</script>`-breakout / 屬性順序 / 單引號 類**潛伏且自我反證**項（見 M-12/M-13）。`_gen_api_content_snapshot`（T-01 fallback 來源）、`_gen_route_canonicals`、`_gen_search_index` 判定 clean。
 
 詳見 git log；本兩批（Sweep A/B）由 Fable 5 補審工單當初 deferred 的面。
+
+**Sweep C — admin.html 其餘 + blog-shared 後半 + 雜項（2026-07-11，Fable 5）**：**無改碼 bug**（本批價值在核實 + institutional 警示）。
+- **admin.html dashboard（2041 行）clean**：最該擔心的「公開訪客資料（CSP report/JS error/搜尋詞）→ innerHTML stored-XSS」**不存在**——每個動態值都 `escapeHTML()`（含原始 record 的 `escapeHTML(JSON.stringify(r))`）。CSRF 由 `SameSite=Strict` cookie 擋。**institutional 警示寫入 REVIEW-PLAYBOOK §4**：/admin 是 `unsafe-inline` CSP + TT pass-through，故 escapeHTML 是唯一防線，未來 admin 新碼必守。唯一殘留：Markdown 預覽 mini-renderer（S-07，admin-self，低）。
+- **blog-shared.js 後半（2260-5436）**：P1 已 risk-swept，本次再 targeted 掃 `applyAbConfig`/計算器/offline-queue/message handler——`DN.applyAbConfig` 的 `innerHTML=v.html` 屬 admin-authored A/B 變體（同 S-05 家族、主站 hash-CSP backstop）；計算器分母皆常數（無除零）；offline-queue 僅 admin + SW 端已驗（P2）；cmdk excerpt 是站內 Pagefind 內容。無新高風險。**誠實**：後半是「P1 risk-sweep + Sweep C targeted 抽掃」，**非逐行全讀**（負責逐行的 sub-agent 撞 session limit）。
+- **`tools/eye-3d-worker.js`（218）clean**：無 `eval`/`Function`/`importScripts`；worker `onmessage` 只收同源父頁訊息。`blog/pagefind-search.js` 已於 Sweep A 核實（`escapeHtml` 逐欄）。
+
+**三批（Sweep A/B/C）合計**：修 **6 個真 bug**（schema-helper 連坐刪 / reorder 靜默掉文章 / sri SSRF / medical_guideline 重複注入 / llms_txt crash / history slice）+ 新開 S-05/S-07/M-09/M-12/M-13 LOG + A-01 更正 + REVIEW-PLAYBOOK §4 admin-XSS 警示。工單 deferred 的未審面已補完。
