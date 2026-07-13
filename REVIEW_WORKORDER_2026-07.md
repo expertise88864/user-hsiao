@@ -21,6 +21,14 @@ commit 鏈：`8908b7d`(撰單基準) → `773bd87`(工單落檔；P1 的直接�
 - **待站主拍板（ASK，非阻擋）**：P-04（SW install 行為二選一）、C-01/C-02（醫療內容：兩篇待寫 + answer-first 改寫，§10 鐵律）、about `sameAs` URL（D-08，只能站主提供）。
 - **誠實邊界（勿把本工單當成「全 repo 逐行讀過」）**：**只有 P2 `sw.js`（982 行）是完整逐行全檔**。P1 `blog-shared.js` 為核心邏輯逐行 + 其餘 targeted risk-sweep；P3 `api/` 只深讀**關鍵路徑**（auth/gating/公開端點/KV 寫入 + **所有特權** admin 端點 `requireAdmin` grep 核實），非全部 ~55 檔；P5 為工單指定的 7 檔 = **6 個 generator（抽核，非全部）+ `middleware.js` 全檔**（非 7 個 generator；工單原文「27 個生成器」之計數依據未註明，`quality.yml` 建置鏈為 22 步，故不宣稱總數）。未深讀者以「關鍵路徑已覆蓋」記。**無 🔴 會壞站項目**。
 
+### 🔁 後續補審（Sweep A/B/C，2026-07-11，Fable 5）——把本工單「明確排除」的面補完
+本工單刻意 deferred 的未審面，後續由 **3 批 sweep** 補審上線（各走 preflight + codex(gpt-5.6-sol) + CI 三閘）：
+- **Sweep A**（commit `5786f56`）：`assets/trusted-types.js` + 25 個已認證 admin 工具端點。**修 3 真 bug**：`_schema-helper.js`（🔴 strip regex 跨 `</script>` 連坐刪 4/5 個 JSON-LD schema）、`_reorder.js`（🟠 regex 重建靜默掉文章 → 加 409 fail-safe）、`_sri.js`（🟠 SSRF → host 允許清單 + `redirect:'error'` + 5MB）。trusted-types `/`-繞過加固**嘗試後撤回**（誤傷 `/online=` href；交 CSP 主防線，S-05）。
+- **Sweep B**（commit `5ef8a7c`）：23 個未讀生成器。**修 2 冪等 bug**：`_inject_medical_guideline.py`（guard 格式錯配 → 重跑注入重複 schema；發現 5 個 `_inject_*` 是 one-off、不在 quality.yml 鏈、不受 preflight 固定點守）、`_gen_llms_txt.py`（`/en/` 讀取無 `.exists()` → build crash）。新開 M-12（`Sjögren's` 撇號截斷跨 6 parser）/M-13。
+- **Sweep C**（commit `209fed7`，docs-only 無 bug）：`admin.html` dashboard 其餘 + `blog-shared.js` 後半 + `eye-3d` + `pagefind-search`。**核實 admin dashboard 對公開訪客資料的 innerHTML 全 `escapeHTML()`（無 stored-XSS）**；CSRF 由 `SameSite=Strict` 擋。**institutional 警示寫入 REVIEW-PLAYBOOK §4**：/admin 是 `unsafe-inline` + TT pass-through，escapeHTML 是唯一防線。誠實：blog-shared 後半是 P1 risk-sweep + targeted 抽掃，非逐行（sub-agent 撞 session limit）。
+
+**合計（工單 + 三 sweep）修 14 個真 bug**；repo 已無「從未被審過」的面（僅剩 62 個 `_check_*.py` 檢查器本身刻意不審——CI 每日行使自曝）。詳見 BACKLOG「已關閉」的 Sweep A/B/C 區塊。
+
 ---
 
 ## 0. 開工前置（Phase 0，~15 分鐘，不產出 finding）
@@ -135,7 +143,8 @@ commit 鏈：`8908b7d`(撰單基準) → `773bd87`(工單落檔；P1 的直接�
 
 ## 明確排除範圍（本工單不做，避免額度失血）
 
-- api/ P1 子集（admin 工具類 25 檔：_cwv/_spell/_seo-fix/_dictionary 等）——authenticated 後面的低風險工具，留給下一張工單。
-- 62 個 _check_*.py 檢查器本身的 review——它們有 CI 每日行使，錯了會自我暴露。
+- ~~api/ P1 子集（admin 工具類 25 檔：_cwv/_spell/_seo-fix/_dictionary 等）——authenticated 後面的低風險工具，留給下一張工單。~~ → **已於 2026-07-11 由 Sweep A 補審完成**（見下方「後續補審」）。
+- ~~`assets/trusted-types.js`、`admin.html` dashboard 其餘、23 個未讀生成器、blog-shared 後半~~ → **已由 Sweep A/B/C 補審完成**。
+- 62 個 _check_*.py 檢查器本身的 review——它們有 CI 每日行使，錯了會自我暴露。（**仍未做**，維持排除。）
 - 內容/醫療正確性審查（L1，站主專屬）。
 - 任何新功能開發、視覺改版、效能重構（D-12 字型債等大工程另立工單）。
