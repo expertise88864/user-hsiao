@@ -274,3 +274,9 @@
 - **未守耦合：`blog-shared.js` 內寫死的 `blog-admin.js?v=`**。D-06 的全站 bump 是對 `*.html` 做字串取代，漏掉這個字面值不會有任何檢查器發現（變異測試：改版本並重新 minify 後 **0 個檢查器**抓到）。`_check_performance_budget.py` 擴充為也掃 `blog-shared.js` 內的 `?v=`；現已能抓到。
 - **`idle()` 的錯誤隔離是假的**：註解宣稱有 try/catch，實際沒有 → 一個拋錯殺掉同區塊後續全部。已補區塊層級隔離 + 回報，並改寫不實註解；逐一呼叫層級列為 **M-15**。
 - **判定 clean / latent-only**：cmdk（含 M-03 修復仍在）、A/B 套用（有 documentElement/SCRIPT 等防護）、push 訂閱、CWV/錯誤回報、SW 註冊、離線佇列（token 有效期檢查）、mermaid（SRI + 釘版本）皆無新問題。少數 latent 屬既有 M-13 家族（作者可控內容未逸出）與 M-04 家族（`querySelector` 串接 URL，line ~4950）。
+
+**Round 2 批次 3 — 架構橫向 + 制度宣稱稽核（2026-07-11，Opus 5）**：本批不再逐檔讀，而是**用變異測試檢驗我們自己制度檔裡的「✅ 有守門」宣稱**（宣稱有守但實際不響 = 與假陰性檢查器同一類假保證）。
+- **修 1 項**：`/icon.svg`、`/favicon.ico` 標 `immutable` 卻**無版本參數**（違反 D-11「immutable 只給版本化資產」；`immutable` 是告訴瀏覽器「在此回應的**新鮮期內**不必再驗證」(RFC 8246)，用在未版本化資產是不當宣告）。移除 `immutable`、保留 max-age，並**首次納入** `_check_static_asset_headers.py`（原本兩條路徑都不在涵蓋內，policy 可無聲漂移）。變異測試：改回 `immutable` 會被抓。**誠實範圍（codex 校正）**：這是 **policy 正確性**修復，**不是**「換圖示就會快傳播」——`max-age` 仍 30 天，且兩圖示都在 `sw.js` SHELL 精快取 + cache-first handler，所以受 SW 控制的回訪者會續用舊圖示。**注意:連「bump SW 快取版本」也不保證即時**——bump 只是換一個 CacheStorage 世代，而精快取用的 `c.add()` 是**預設 cache mode 的 fetch**，可能直接重用瀏覽器 HTTP 快取中仍新鮮(30 天內)的回應，把**舊位元組**裝進新的 SW 快取。此處可靠的兩個選項是:**把圖示 URL 本身版本化**(本站有明確的 `<link rel="icon" href="/favicon.ico">`，`href` 可改成帶版本的 URL;只有在**沒有**明確 link、瀏覽器退回隱含 `/favicon.ico` 路徑時才無法版本化)，或**讓精快取的 fetch 繞過/強制再驗證 HTTP 快取**(例如 `new Request(u, { cache: 'reload' })`)。此外 `trimCache()` 的 30 天 TTL 淘汰或瀏覽器儲存回收也可能更早移除它，但不可依賴。
+- **兩次「差點誤判制度檔說謊」**，都靠先自我反證擋下：(a) 列 2 的變異我打到檢查器 `EXPECTED` 未涵蓋的路徑；(b) 列 5 我用 `_check_all --quick` 測，但它宣稱的守門是 **CI drift step**。**兩次都是我的測試錯、文件對。**
+- **重要機制澄清（已寫入 §9）**：`preflight.py` **不會報告已 commit 的 drift**——它重跑鏈直接覆蓋修好再驗固定點。只有 **CI 的 drift step** 會比對已 commit 的樹。故「本機 preflight 綠」**不等於**「committed 檔案沒 drift」。
+- 列 6/7 確認未守，與文件的 ⚠ 標註一致。

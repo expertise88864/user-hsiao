@@ -16,6 +16,33 @@ EXPECTED = {
         "Content-Type": "text/css; charset=utf-8",
         "Cache-Control": "no-store, must-revalidate",
     },
+    # Round-2 review: these two were served `immutable` while being referenced
+    # WITHOUT any ?v= cache-buster. Per RFC 8246 `immutable` says the response
+    # will not change DURING ITS FRESHNESS LIFETIME, so it suppresses
+    # revalidation on reload — an inappropriate promise for an unversioned
+    # asset, and contrary to D-11, which scopes `immutable` to VERSIONED ones.
+    # `immutable` was dropped and max-age kept; both paths are pinned here
+    # because neither was covered by this checker before, so the policy could
+    # drift back unnoticed.
+    # NOTE this is a POLICY-CORRECTNESS fix, not an update-propagation fix:
+    # max-age is still 30 days, and both icons are additionally in sw.js's
+    # SHELL precache behind a cache-first handler. Bumping the SW cache
+    # version is NOT reliably immediate either: it makes a new CacheStorage
+    # generation, but precache `c.add()` is a default-mode fetch that may
+    # reuse a still-fresh HTTP-cached response and store the OLD bytes. The
+    # two dependable options here are versioning the icon URL itself (this
+    # site uses an explicit <link rel="icon" href="/favicon.ico">, whose href
+    # can carry a version — only the IMPLICIT fallback uses the fixed
+    # /favicon.ico path) or making the precache fetch bypass/revalidate the
+    # HTTP cache, e.g.
+    # `new Request(u, { cache: 'reload' })`. trimCache's TTL eviction or
+    # browser storage eviction may also clear it, but cannot be relied on.
+    "/icon.svg": {
+        "Cache-Control": "public, max-age=2592000",
+    },
+    "/favicon.ico": {
+        "Cache-Control": "public, max-age=2592000",
+    },
     "/blog/blog-shared.js": {
         "Content-Type": "application/javascript; charset=utf-8",
         "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",

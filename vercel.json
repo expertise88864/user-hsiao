@@ -102,14 +102,14 @@
     {
       "source": "/icon.svg",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
       ]
     },
     {
       "source": "/favicon.ico",
       "headers": [
         { "key": "Content-Type", "value": "image/x-icon" },
-        { "key": "Cache-Control", "value": "public, max-age=2592000, immutable" }
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
       ]
     },
     {

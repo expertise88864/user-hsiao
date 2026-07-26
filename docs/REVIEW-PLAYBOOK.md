@@ -215,6 +215,12 @@ grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
 | `reviewedBy` Person 內容 | `_normalize_reviewed_by.py` 硬編 name/jobTitle/specialty ↔ `about.html` `#person` | ⚠ **只守 @id**（`_check_medical_webpage_schema.py`）；name/jobTitle/specialty 漂移**不會被抓** |
 | stash 的 data-zh/en 例外 | `halfwidth` `ATTR_RE`（不 stash data-zh/en） ↔ `_gen_en_pages.py`（BeautifulSoup 單引號序列化） | ✅ CI halfwidth gate（v37.29 已修單引號漏網） |
 
+**耦合矩陣的「✅ 有守門」已用變異測試逐條實證（R2-3，2026-07-11）**——宣稱有守但實際不響，和永遠綠的檢查器是同一類假保證，所以宣稱本身也要被驗。結果：
+- **列 2（vercel.json 資產 headers）✅ 屬實**，但**只涵蓋 `EXPECTED` 字典裡的路徑**。我第一次變異打到 `/icon.svg`（不在字典內）沒被抓，差點誤判文件說謊——**是測試錯，不是文件錯**。改打 `/assets/app.css` 立刻抓到。教訓：測耦合前先確認「守門實際涵蓋哪些鍵」。
+- **列 5（CSP inline-script hashes）✅ 屬實，但機制要看清楚**：`preflight.py` **不會報告**已 commit 的 drift——它重跑生成鏈把竄改值**直接覆蓋修好**，然後固定點檢查當然通過。真正報警的是 **CI 的 drift step**（重跑後 `git diff` 比對**已 commit** 的樹）。所以「本機 preflight 綠」**不等於**「committed 檔案沒 drift」——**現行 preflight 證明不了後者**；能證明的是 CI 的 drift step，**或**本機自己跑完生成鏈後下 `git diff HEAD --exit-code`。
+- **列 6/7（halfwidth admin 鏡像、reviewedBy Person 內容）確認未守**，與文件標註的 ⚠ 一致（變異後 0 個檢查器響）。
+- **新修（屬 policy 正確性，非傳播修復——codex 校正了我原本過頭的說法）**：`/icon.svg`、`/favicon.ico` 標 `immutable` 卻無版本參數。`immutable` 是告訴瀏覽器「在此回應的**新鮮期內**不必再驗證」(RFC 8246)，用在未版本化資產是不當宣告，違反 D-11。已移除 `immutable`、保留 `max-age=2592000`，並**首次把兩者納入 `_check_static_asset_headers.py`**（原本都不在涵蓋內，policy 可無聲漂移）。**但這不代表換圖示就會快速傳播**：(a) `max-age` 仍是 30 天，`immutable` 主要只是抑制「重新整理時的再驗證」；(b) **更關鍵**——兩個圖示都在 `sw.js` 的 SHELL 精快取（`sw.js:405-406`）且通用 handler 是 **cache-first**（`sw.js:~718`），所以受 SW 控制的回訪者會續用舊圖示。**注意:連「bump SW 快取版本」也不保證即時**——bump 只是換一個 CacheStorage 世代，而精快取用的 `c.add()` 是**預設 cache mode 的 fetch**，可能直接重用瀏覽器 HTTP 快取中仍新鮮(30 天內)的回應，把**舊位元組**裝進新的 SW 快取。此處可靠的兩個選項是:**把圖示 URL 本身版本化**(本站有明確的 `<link rel="icon" href="/favicon.ico">`，`href` 可改成帶版本的 URL;只有在**沒有**明確 link、瀏覽器退回隱含 `/favicon.ico` 路徑時才無法版本化)，或**讓精快取的 fetch 繞過/強制再驗證 HTTP 快取**(例如 `new Request(u, { cache: 'reload' })`)。此外 `trimCache()` 的 30 天 TTL 淘汰或瀏覽器儲存回收也可能更早移除它，但不可依賴。
+
 **Phase 5 新發現（LOG，見 BACKLOG）**：`_extract_critical_css.py` 把 `@supports` 區塊誤標成 `@media`（P-05，perf-completeness）；`_gen_en_pages.py` `should_drop_en_jsonld` 只看 top-level `@type`，`@graph` 巢狀 FAQPage 會漏（M-08，潛伏，現行全站無 @graph）。**已修**：`_gen_csp_hashes.py` `\bsrc=`→`\ssrc\s*=`（避免 `data-src` 內嵌 inline script 被誤判外部而 CSP 封鎖；output-neutral）。
 
 **檢查器本身也要被審——而且要用變異測試（R2-1 教訓，2026-07-11）**：
