@@ -31,20 +31,52 @@ from __future__ import annotations
 import json
 import sys
 import time
+import urllib.error
 import urllib.request
 
 REPO = "expertise88864/user-hsiao"  # update if the remote changes
 API = f"https://api.github.com/repos/{REPO}/actions"
 
 
+class RateLimited(Exception):
+    """Unauthenticated GitHub API quota is exhausted (60 requests/hour/IP)."""
+
+    def __init__(self, reset_epoch=None):
+        self.reset_epoch = reset_epoch
+        when = ''
+        if reset_epoch:
+            when = time.strftime(' (resets %H:%M:%S)', time.localtime(reset_epoch))
+        super().__init__(f'GitHub API rate limit exhausted{when}')
+
+
 def api(url):
-    for _ in range(5):
+    """Return parsed JSON, or None on a non-rate-limit failure.
+
+    Round-2 review: this used to swallow EVERY exception and return None, so a
+    403 rate-limit was indistinguishable from "no runs exist" — `--watch` then
+    printed "(no runs yet)" for the rest of its loop. That is a dangerously
+    reassuring lie: it reads as "CI never started", which invites a future
+    session to conclude it broke the workflow. Rate limiting is now raised, and
+    NOT retried (retrying only digs the hole deeper).
+    """
+    for attempt in range(5):
         try:
             req = urllib.request.Request(
                 url, headers={"User-Agent": "ci-status", "Accept": "application/vnd.github+json"})
             with urllib.request.urlopen(req, timeout=30) as r:
                 return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code in (403, 429):
+                remaining = e.headers.get('X-RateLimit-Remaining')
+                reset = e.headers.get('X-RateLimit-Reset')
+                if remaining == '0' or e.code == 429:
+                    raise RateLimited(int(reset) if reset and reset.isdigit() else None) from None
+            if attempt == 4:
+                return None
+            time.sleep(6)
         except Exception:
+            if attempt == 4:
+                return None
             time.sleep(6)
     return None
 
@@ -104,8 +136,20 @@ def main():
         return 0
 
     if "--watch" in flags:
-        for i in range(60):  # ~20 min max
-            rs = runs_for(sha)
+        # NOTE: unauthenticated GitHub API allows only 60 requests/hour/IP.
+        # At one poll per 30s this loop costs ~40 requests, so a couple of
+        # back-to-back watches can still exhaust the quota — which is why a
+        # rate-limit must be reported LOUDLY rather than looking like "no runs".
+        for i in range(40):  # ~20 min max
+            try:
+                rs = runs_for(sha)
+            except RateLimited as e:
+                print(f"\n!! {e}")
+                print("   CI status is UNKNOWN — this is NOT evidence that CI failed or "
+                      "never started.")
+                print(f"   Check manually: https://github.com/{REPO}/actions?query=branch%3Amain")
+                print("   Or re-run this command after the reset time.")
+                return 4
             line = " | ".join(f"{r['name']}={r['status']}/{r.get('conclusion')}" for r in rs) or "(no runs yet)"
             print(f"[{i+1:02}] {line}")
             q = next((r for r in rs if r["name"] == "quality"), None)
@@ -113,7 +157,7 @@ def main():
                 print("\nquality jobs:")
                 print_jobs(sha, steps=(q.get("conclusion") == "failure"))
                 return 0 if q.get("conclusion") == "success" else 2
-            time.sleep(20)
+            time.sleep(30)
         print("timed out waiting for quality run")
         return 3
 
@@ -122,4 +166,12 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except RateLimited as exc:
+        # Every code path must degrade to an explicit "unknown", never to a
+        # traceback and never to a reassuring-looking empty result.
+        print(f"\n!! {exc}")
+        print("   CI status is UNKNOWN — this is NOT evidence that CI failed or never started.")
+        print(f"   Check manually: https://github.com/{REPO}/actions?query=branch%3Amain")
+        sys.exit(4)
