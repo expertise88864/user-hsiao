@@ -250,33 +250,39 @@ grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
 
 ---
 
-## 11. 現況判定總表（基準 commit b102ce2；工單 2026-07 Phases 1–5 審查後更新）
+## 11. 現況判定總表（基準 commit `892b6a5`；工單 2026-07 Phases 1–6 + Sweep A/B/C + Round 2 審查後更新）
 
-> **可信度標記**：機器可驗部分由 `_check_all.py --quick` = **60/0/0** 佐證（高信心）。原「⚠自評」是因**第一輪 4 個審查代理撞到 session limit**未回完整證據；**工單 2026-07（Opus 4.8）已補上深度審查**——**Phase 1–5 各走 preflight + codex + CI 三閘且全綠上線**（codex 模型：P1–P4 為 `gpt-5.5`，P5 起為 `gpt-5.6-sol`）；Phase 6（收尾 commit）走同一閘門（Phase 0 為前置基線驗證，不產 commit）。
+> **可信度標記**：機器可驗部分由 `_check_all.py --quick` = **59/0/0** 佐證（高信心）。倉庫共 **62 個** `_check_*.py`，`--quick` 收其中 59 個。（原表寫「60 個檢查器」，是把 Round 2 刪除的恆真檢查器 `_check_balance.py` 計入；已更正。）每個 commit 走三閘（`preflight.py` → codex 外審 → CI）全綠才上線；codex 模型 P1–P4 為 `gpt-5.5`，P5 起為 `gpt-5.6-sol`。
 >
-> **覆蓋範圍（誠實聲明，勿當成「全 repo 逐行讀過」）**：
-> - **P2 `sw.js`**：全 982 行逐行讀畢（本工單唯一的完整逐行全檔）。
-> - **P1 `blog-shared.js`**：核心邏輯逐行（linear 1–2260 + cmdk + TOC 區段），其餘 ~2260–5425 以 **targeted risk-sweep**（innerHTML/message/eval/reload/activeElement 全 hit 逐一核實）覆蓋——**非逐行全讀**。
-> - **P3 `api/`**：深讀**關鍵路徑**（auth/gating/公開端點/KV 寫入 + **所有特權**端點 `requireAdmin` grep 核實），**非全部 ~55 檔**逐檔深讀。
-> - **P4 admin CMS**：存檔路徑 + 認證面深讀。
-> - **P5 生成鏈**：工單指定的 7 檔 = **6 個 generator（抽核，非全部）** + `middleware.js` 全檔。**不是** 7 個 generator。（工單原文的「27 個生成器」計數依據未註明；權威建置鏈 `quality.yml` 為 22 步，故此處不對 generator 總數作宣稱。）
+> **覆蓋範圍（誠實聲明）**——分「逐行全檔」與「關鍵路徑」兩級。下表 ★ 僅代表該維度**有被審查觸及**，不等於該面 100% 逐行。
 >
-> 未深讀的面以「關鍵路徑已覆蓋」記；下表 ★ 僅代表該維度**有被本工單審查觸及**，不等於該面 100% 逐行。
+> **已逐行全檔讀畢**
+> - `sw.js`（982 行）—— P2。
+> - `blog/blog-shared.js`（5,473 行）—— P1 讀前半（linear 1–2260 + cmdk + TOC 區段），**R2-2 補完後半 2260–5436**。原表記的「後半僅 targeted risk-sweep、非逐行全讀」缺口**已關閉**。
+> - `middleware.js` —— P5 全檔。
+> - **28 個生成器**（`_gen_*` / `_apply_*` / `_inject_*` / `_normalize_*` / `_extract_*`）—— P5 抽核 6 個 + **Sweep B 補完其餘 23 個**。（原表對 generator 總數不作宣稱；實測為 28，權威建置鏈 `quality.yml` 為 22 步。）
+> - **62 個 `_check_*.py` 驗證器** —— **R2-1**。這批是 CI 的**信任層**，卻在 Round 2 之前**從未被審查過**；該輪以變異測試逐檔驗證，抓出 6 個偽陰性、刪除 1 個恆真檢查器（`_check_balance.py`）。
+> - `assets/trusted-types.js` —— Sweep A。
+>
+> **關鍵路徑覆蓋（不宣稱逐檔逐行）**
+> - `api/`（54 檔）—— P3 深讀 27 檔（auth / gating / 公開端點 / KV 寫入，且**所有特權端點**的 `requireAdmin` 逐一 grep 核實）＋ Sweep A 再掃 25 個 admin 工具端點。兩批有重疊，故**不宣稱 54/54 逐行**。
+> - admin CMS（`admin.html` + `blog/blog-admin.js`）—— P4 存檔路徑與認證面深讀，其餘由 Sweep C 覆蓋。
+> - 生成的文章 HTML 與 `/en/` —— 生成物，屬內容面（見 §10），不計入程式審查覆蓋率。
 
-| # | 維度 | 判定 | 依據（★=本工單審查觸及） | 開放債（BACKLOG） |
+| # | 維度 | 判定 | 依據（★=審查觸及） | 開放債（BACKLOG） |
 |---|---|---|---|---|
 | 1 | 技術 SEO | ✅ PASS | 閘門綠；sitemap 48 URLs；noindex/redirect 邊界依 D-02/03/04；★feeds/sitemap 生成器 P5 核實（XML escape 防 CDATA breakout）；T-01 已核實關閉 | T-02（新文 OG 404） |
 | 2 | 內部連結 | ✅ PASS | 0 孤兒；三叢集全互連（`4aded2b` 審計） | 無（維持 D-23 紀律） |
-| 3 | 無障礙 | ✅ PASS | CI axe-core 綠 | A-01/02/03 |
-| 4 | 安全 | ✅ PASS（★本工單審查） | ★P3 api/ auth 面無 bypass、KV await(S-03✅)；★P4 admin CMS（M-06✅ + 反漂移閘）、S-01✅核實不存在；★P5 CSP fail-closed+單一來源、S-04✅ | 剩 **S-02**（既有 SVG 無 CSP） |
-| 5 | schema.org | ✅ PASS（★本工單審查） | 全 `_check_*schema*` 綠；reviewedBy inline（@id 對齊 /about#person）；★P5 `_gen_en_pages` JSON-LD 在地化/FAQPage drop 核實 | **M-08**（@graph FAQPage 漏,潛伏）；sameAs 待站主 URL（D-08） |
-| 6 | Core Web Vitals | ✅ PASS（★本工單審查） | CI Lighthouse 綠；★P2 sw.js 全檔（P-02✅ ignoreSearch fallback）；★P5 critical-css 生成器 | P-01（字型）P-03（speculationrules）**P-04**（SW precache tier）**P-05**（critical-css @supports 誤標） |
-| 7 | Metadata | ✅ PASS（★本工單審查） | `_check_metadata_uniqueness`/`_check_social_locale` 綠；★P5 `_gen_en_pages` head 手術核實（title/desc/OG/canonical/hreflang） | T-02（新文 OG 404） |
+| 3 | 無障礙 | ✅ PASS | CI axe-core 綠；★R2-1 `_check_static_a11y` 的 `<img>` 缺 alt 偽陰性已補 | A-01/02/03 |
+| 4 | 安全 | ✅ PASS（★深度審查） | ★P3 api/ auth 面無 bypass、KV await（S-03✅）；★P4 admin CMS（M-06✅ + 反漂移閘）、S-01✅核實不存在；★P5 CSP fail-closed + 單一來源、S-04✅；★**R2-1 CI 信任層**（`_check_inline_scripts` 舊版只掃 index.html 且恆 exit 0，現覆蓋 66 檔 158 個 block） | 剩 **S-02**（既有 SVG 無 CSP） |
+| 5 | schema.org | ✅ PASS（★深度審查） | 全 `_check_*schema*` 綠；reviewedBy inline（@id 對齊 /about#person）；★P5 `_gen_en_pages` JSON-LD 在地化/FAQPage drop 核實；★Sweep `_schema-helper` 逐 block strip 修正 | **M-08**（@graph FAQPage 漏，潛伏）；sameAs 待站主 URL（D-08） |
+| 6 | Core Web Vitals | ✅ PASS（★深度審查） | CI Lighthouse 綠；★P2 sw.js 全檔（P-02✅ ignoreSearch fallback）；★P5 critical-css 生成器；★**R2-3** `/icon.svg` `/favicon.ico` 誤標 `immutable` 已依 D-11 修正並納入 checker（15 條規則） | P-01（字型）P-03（speculationrules）**P-04**（SW precache tier）**P-05**（critical-css @supports 誤標） |
+| 7 | Metadata | ✅ PASS（★深度審查） | `_check_metadata_uniqueness`/`_check_social_locale` 綠（★R2-1 修正前者只在重複 >2 時才報的偽陰性）；★P5 `_gen_en_pages` head 手術核實（title/desc/OG/canonical/hreflang） | T-02（新文 OG 404） |
 | 8 | RAG / AI 搜尋 | 🟠 PARTIAL | robots 已開放（D-01）、FAQ×20、llms-full.txt 有；但多數文章非 answer-first | C-02（answer-first 改寫，最大槓桿）；量測見 GROWTH-PLAYBOOK |
-| 9 | 可維護性 | 🟠 PARTIAL（改善） | 建置鏈由 preflight 動態解析；★**§9 耦合矩陣 P5 補完**（8 列+CI 守門欄）；★M-06✅ 用 checker 強制（D-24）；M-03/M-04 已修 | **M-01、M-02、M-05、M-07**；2 個未守耦合見 §9（halfwidth admin 路徑、reviewedBy Person） |
+| 9 | 可維護性 | 🟠 PARTIAL（改善） | 建置鏈由 preflight 動態解析；★§9 耦合矩陣 P5 補完、**R2-3 逐列變異測試複驗**並加上「CI 守門」欄；★M-06✅ 以 checker 強制（D-24）；★R2-2 補上 `blog-shared.js` 內硬寫 `?v=` 的未守耦合；M-03/M-04 已修 | **M-01、M-02、M-05、M-07**；2 個未守耦合見 §9（halfwidth admin 路徑、reviewedBy Person） |
 | 10 | 內容正確性 | ⛔ 不可機器判定 | 見 §10 | C-01（兩篇待寫，站主定案） |
 
-**一句話總結**：技術面已是頂標、**60 個檢查器**守著，且工單 2026-07 對五大高風險面做了深度審查（Phase 1–5 三閘全綠上線，Phase 6 收尾同流程；**覆蓋範圍見上方誠實聲明，非全 repo 逐行**）；**真正的成長瓶頸仍在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。程式端剩的都是 BACKLOG 裡分級好的 polish/中度債 + 幾個潛伏項（M-07/M-08/P-04/P-05），**無 🔴 會壞站的項目**。
+**一句話總結**：技術面已是頂標、**59 個檢查器**（`--quick`）守著，且工單 2026-07 五大高風險面深度審查 + Sweep A/B/C 補完未讀面 + Round 2 三批（驗證器 / `blog-shared.js` 後半 / 架構橫向）皆三閘全綠上線；**覆蓋範圍見上方誠實聲明**。Round 2 最大的發現不是功能 bug，而是**假保證**——恆真的檢查器、文件宣稱有守但實際沒守的耦合、把「我不知道」render 成「沒問題」的 CI 工具；對策已寫成制度（§9 CI 守門欄 + 「檢查器本身也要用變異測試審」）。**真正的成長瓶頸仍在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。程式端剩的都是 BACKLOG 裡分級好的 polish/中度債 + 幾個潛伏項（M-07/M-08/P-04/P-05），**無 🔴 會壞站的項目**。
 
 ---
 
