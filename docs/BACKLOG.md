@@ -195,6 +195,13 @@
 - **驗收**：JSON-LD 輸出統一過 `.replace('<','\\u003c')`（JSON-LD 慣例），或包一個 `dump_jsonld()` helper。低優先。
 - **模型等級**：Sonnet。**關聯**：REVIEW-PLAYBOOK §5。
 
+### M-15 🟢 `initBlog` 的 idle 區塊仍缺「逐一呼叫」層級的錯誤隔離（R2-2）
+- **背景**：`blog-shared.js` 的 `initBlog` 用四個 `idle(...)` 區塊依序呼叫約 40 個 `DN.*` 功能。原註解宣稱「Each is wrapped in try/catch via idle() shim so errors stay siloed」——**但 shim 根本沒有 try/catch**（R2-2 核實）。任一函式拋錯，同區塊後續全部不執行，包含結尾的 `DN.applyTextOnly(curLang)`（會讓注入的 UI 在 /en/ 卡在中文）。
+- **已做**：`idle()` 改為包 try/catch + 回報（console.warn + `init_error` GA 事件），**區塊層級**隔離成立（實測：前一區塊拋錯後，後續 phase 仍執行），並把不實的註解改寫成準確描述。
+- **殘餘**：**同一區塊內**仍是「一個拋錯 → 後面不跑」。真正的修法是把每個呼叫包成 `safeCall(name, fn)`（約 40 處），或改為 `[[name, fn], …]` 清單迭代。未做的原因：那是動到全站每頁載入的進入點的大面積機械修改，值得獨立一次做完並驗證，不宜夾在本批。
+- **驗收**：逐一呼叫隔離 + 失敗回報；驗證方式為注入一個必拋錯的假 `DN.foo`，確認同區塊後續仍執行。
+- **模型等級**：Sonnet（機械但面廣，需重新 minify + 三閘）。**關聯**：REVIEW-PLAYBOOK §9。
+
 ### M-14 🟢 檢查器的 HTML/JS 解析對「畸形或異形標記」仍非 100% 嚴謹（R2-1 已接受之殘餘風險）
 - **背景**：R2-1 把 `_check_inline_scripts`（改用 `HTMLParser`）、`_check_static_a11y`（引號感知 `parse_attrs` + 引號感知 `IMG_RE`）、`_check_articles`（剝字串/註解/regex literal）都硬化過 **5 輪對抗式審查**，逐輪修掉:`data-type=`/`data-alt=` 誤判、屬性值內的 `type=`/`alt=`/`>`、實體編碼的 MIME、重複屬性 first-wins、未加引號值的尾端 `/`、regex literal 內的 `//`。
 - **殘餘**：codex GPT-5.6-sol 第 5 輪判定 **無阻擋級缺陷**，剩下的只是**本 repo 的 generator 產出不可能出現的畸形/異形標記**（手寫破格 HTML、DN.ARTICLES 內放 regex 常值等）。**已接受為殘餘風險，不再迭代**。
@@ -261,3 +268,9 @@
 - **退役 `_check_balance.py`**：同樣永遠綠，且與 `node --check` 完全冗餘（實測證明）。**同時清掉 5 處死引用**（`quality.yml`／`CLAUDE.md`／`README.md`／`WRITING_NEW_ARTICLE.md`×2，其中一處在 `&&` 鏈中會中斷後續檢查）——刪檔沒先 grep 引用是 codex 抓到的。
 
 **變異測試現況（可重跑驗證）**：移除 canonical／已發布改 noindex／JSON-LD 無效／移除 img alt／標題撞號／inline script 語法錯 —— **6 項全部被抓**。經 **5 輪** codex GPT-5.6-sol 對抗式審查收斂；殘餘見 **M-14**（已接受）。
+
+**Round 2 批次 2 — `blog-shared.js` 2260–5436 逐行（2026-07-11，Opus 5）**：補上一輪誠實標記的缺口（當時只做 risk-sweep，負責逐行的 sub-agent 撞 session limit）。**修 3 項**：
+- **首頁卡片 hover 在 Chromium 完全失效**：`rowHTML` 用 inline `onmouseover`/`onmouseout`，但**我們自己的 TT policy 會剝除 `on*=`**（實測確認），所以效果只在 Firefox/Safari 有效、Chromium 全無。改用 CSS `:hover`（新增一次性 `hs-spotlight-css`，並依 **D-24** 同步兩份 strip 清單——由 `_check_runtime_helper_sync.py` 強制）。順帶移除全檔最後一處 inline event handler。
+- **未守耦合：`blog-shared.js` 內寫死的 `blog-admin.js?v=`**。D-06 的全站 bump 是對 `*.html` 做字串取代，漏掉這個字面值不會有任何檢查器發現（變異測試：改版本並重新 minify 後 **0 個檢查器**抓到）。`_check_performance_budget.py` 擴充為也掃 `blog-shared.js` 內的 `?v=`；現已能抓到。
+- **`idle()` 的錯誤隔離是假的**：註解宣稱有 try/catch，實際沒有 → 一個拋錯殺掉同區塊後續全部。已補區塊層級隔離 + 回報，並改寫不實註解；逐一呼叫層級列為 **M-15**。
+- **判定 clean / latent-only**：cmdk（含 M-03 修復仍在）、A/B 套用（有 documentElement/SCRIPT 等防護）、push 訂閱、CWV/錯誤回報、SW 註冊、離線佇列（token 有效期檢查）、mermaid（SRI + 釘版本）皆無新問題。少數 latent 屬既有 M-13 家族（作者可控內容未逸出）與 M-04 家族（`querySelector` 串接 URL，line ~4950）。

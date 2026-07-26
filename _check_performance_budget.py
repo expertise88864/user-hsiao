@@ -109,6 +109,26 @@ def main() -> int:
             if f"'/blog/{bundle}.min.js'" in sw_src or f'"/blog/{bundle}.min.js"' in sw_src:
                 errors.append(f"sw.js: {bundle}.min.js should be runtime-cached on demand, not precached during install")
 
+    # Round-2 review: the version check below only ever read HTML files, so a
+    # cache-bust `?v=` HARD-CODED INSIDE blog-shared.js was an unguarded
+    # coupling — `DN.initAdminMode()` pins `/blog/blog-admin.js?v=<version>`,
+    # and a site-wide bump that missed this literal would leave the admin
+    # editor requesting a stale URL with nothing to catch it. Verified by
+    # mutation: changing that literal (and re-minifying, to rule out the
+    # min.js staleness gate) was caught by NO checker.
+    # If an intentional version pin is ever needed in this file, allow-list it
+    # here explicitly rather than widening the rule.
+    if asset_version is not None:
+        shared_src_path = ROOT / "blog" / "blog-shared.js"
+        if shared_src_path.exists():
+            shared_src = shared_src_path.read_text(encoding="utf-8")
+            for version in re.findall(r"\?v=(\d{6,})", shared_src):
+                if version != asset_version:
+                    errors.append(
+                        f"blog/blog-shared.js: hard-coded asset version ?v={version}, "
+                        f"expected {asset_version} (matches homepage) — a site-wide "
+                        f"cache-bust bump missed this literal")
+
     for path in iter_html_files():
         rel = path.relative_to(ROOT).as_posix()
         src = path.read_text(encoding="utf-8")

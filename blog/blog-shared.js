@@ -2264,6 +2264,28 @@
 
     function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
 
+    // Round-2 review: these cards used inline onmouseover/onmouseout for the
+    // hover lift. Our own Trusted Types policy (assets/trusted-types.js)
+    // STRIPS ` on*=` from anything assigned to innerHTML, so the hover effect
+    // was silently dead in every TT-supporting browser (Chromium) while still
+    // working in Firefox/Safari. CSS :hover needs no handler, works
+    // everywhere, and keeps the markup free of inline events (D-16 hygiene).
+    if (!document.getElementById('hs-spotlight-css')) {
+      var _sc = document.createElement('style');
+      _sc.id = 'hs-spotlight-css';
+      // The BASE styles live here too, not in a style="" attribute: inline
+      // declarations outrank a stylesheet rule, so leaving border/box-shadow
+      // inline would let only `transform` animate on hover (codex round 2).
+      _sc.textContent =
+        '.hs-spot-card{display:flex;flex-direction:column;gap:6px;padding:14px 16px;' +
+        'background:#fff;border:0.5px solid var(--border);border-radius:12px;' +
+        'text-decoration:none;color:inherit;box-shadow:0 1px 2px rgba(15,23,42,.04);' +
+        'transition:border-color .15s,transform .15s,box-shadow .15s}' +
+        '.hs-spot-card:hover,.hs-spot-card:focus-visible{border-color:rgba(58,90,124,.5);' +
+        'transform:translateY(-2px);box-shadow:0 8px 18px -10px rgba(58,90,124,.25)}';
+      document.head.appendChild(_sc);
+    }
+
     function rowHTML(a, badge) {
       var titleZh = a.title || a.slug;
       var titleEn = a.title_en || a.title || '';
@@ -2273,12 +2295,7 @@
       var num     = DN.getArticleNumber(a.slug);   // stable № by publication order
       var iconSvg = '<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" style="flex-shrink:0">' + DN.svgForTag(tagZh) + '</svg>';
       var numChip = num ? '<span style="font-family:\'JetBrains Mono\',Inter,monospace;font-weight:800;color:var(--blue-deep);letter-spacing:.04em">№' + num + '</span><span style="opacity:.45">·</span>' : '';
-      return '<li><a href="' + DN.articlePath(a.slug) + '" ' +
-        'style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;background:#fff;' +
-        'border:0.5px solid var(--border);border-radius:12px;text-decoration:none;color:inherit;' +
-        'transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)" ' +
-        'onmouseover="this.style.borderColor=\'rgba(58,90,124,.5)\';this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 8px 18px -10px rgba(58,90,124,.25)\'" ' +
-        'onmouseout="this.style.borderColor=\'\';this.style.transform=\'\';this.style.boxShadow=\'0 1px 2px rgba(15,23,42,.04)\'">' +
+      return '<li><a class="hs-spot-card" href="' + DN.articlePath(a.slug) + '">' +
         '<div style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-deep);font-family:\'JetBrains Mono\',Inter,sans-serif">' +
           (badge ? '<span style="padding:2px 8px;border-radius:9999px;background:' + badge.bg + ';color:' + badge.fg + ';letter-spacing:.08em;font-size:10px">' + badge.label + '</span>' : '') +
           numChip +
@@ -5281,10 +5298,29 @@
       if (typeof opts.onChange === 'function') opts.onChange(lang);
     }
 
-    // Cross-browser idle-callback shim (Safari + iOS WebKit don't have rIC)
-    var idle = window.requestIdleCallback || function (cb, opts) {
+    // Cross-browser idle-callback shim (Safari + iOS WebKit don't have rIC).
+    // Round-2 review: the comment below USED to claim "each is wrapped in
+    // try/catch via idle() shim so errors stay siloed" — the shim did no such
+    // thing, so one throwing widget silently killed every later widget in the
+    // same block (including the trailing applyTextOnly re-translate, which
+    // would leave injected UI stuck in Chinese on /en/). The wrapper makes
+    // that claim true at BLOCK level and REPORTS the failure instead of
+    // swallowing it. (Per-CALL isolation inside a block is BACKLOG M-15.)
+    var _rIC = window.requestIdleCallback || function (cb, opts) {
       var t = (opts && opts.timeout) || 250;
       return setTimeout(function () { cb({ didTimeout: false, timeRemaining: function () { return 50; } }); }, t);
+    };
+    var idle = function (cb, opts) {
+      return _rIC(function (deadline) {
+        try {
+          cb(deadline);
+        } catch (e) {
+          try {
+            if (window.console && console.warn) console.warn('[hs-init] idle block failed:', e);
+            if (DN.gaEvent) DN.gaEvent('init_error', { phase: 'idle', msg: String((e && e.message) || e).slice(0, 120) });
+          } catch (e2) {}
+        }
+      }, opts);
     };
 
     // ── PHASE 1 — synchronous / blocking (must run before first paint) ──
@@ -5337,8 +5373,9 @@
     // ── PHASE 2 — idle / deferred (run after first paint) ──
     // Heavy widgets, analytics, modals, and below-the-fold features run
     // in requestIdleCallback so they don't block FCP/LCP on slow mobile
-    // CPUs. Each is wrapped in try/catch via idle() shim so errors stay
-    // siloed.
+    // CPUs. The idle() wrapper catches a throw so one failing BLOCK cannot
+    // take down a later phase; a throw still aborts the remaining calls
+    // WITHIN its own block (BACKLOG M-15 tracks per-call isolation).
     idle(function () {
       DN.addScrollToTop();
       DN.bindRevealOnScroll();

@@ -37,7 +37,7 @@ const RUNTIME_HELPER_IDS = [
   'hs-new-pulse-css', 'hs-calc-css', 'hs-dialog-css', 'hs-dict-css', 'hs-tf-css',
   'hs-reveal-css', 'hs-admin-runtime', 'hs-vercel-insights',
   // M-06: one-shot style injectors previously missed (no authored mount).
-  'hs-related-css', 'hs-blog-filter-css',
+  'hs-related-css', 'hs-blog-filter-css', 'hs-spotlight-css',
 ];
 
 const VOID_TAGS = new Set([
