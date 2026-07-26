@@ -217,8 +217,14 @@ grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
 
 **Phase 5 新發現（LOG，見 BACKLOG）**：`_extract_critical_css.py` 把 `@supports` 區塊誤標成 `@media`（P-05，perf-completeness）；`_gen_en_pages.py` `should_drop_en_jsonld` 只看 top-level `@type`，`@graph` 巢狀 FAQPage 會漏（M-08，潛伏，現行全站無 @graph）。**已修**：`_gen_csp_hashes.py` `\bsrc=`→`\ssrc\s*=`（避免 `data-src` 內嵌 inline script 被誤判外部而 CSP 封鎖；output-neutral）。
 
+**檢查器本身也要被審——而且要用變異測試（R2-1 教訓，2026-07-11）**：
+歷來把 63 個 `_check_*.py` 排除在審查外，理由是「CI 每日行使，錯了會自我暴露」。**這個理由對假陰性是錯的**：一個**永遠不會失敗**的檢查器永遠不自曝，卻讓整條「CI 綠 = 沒問題」的信任鏈變成空頭支票。實測抓到 **3 支永遠綠**（`_check_inline_scripts`、`_check_balance`、`_check_articles` 的真檢查路徑）＋ 3 個綁定不到的斷點。
+- **審檢查器的正確方法 = 變異測試**：故意破壞一個真實不變量（拿掉 canonical／把已發布頁改 noindex／弄壞 JSON-LD／拿掉 img alt／讓兩頁標題撞號／弄壞 inline script）→ 跑 `_check_all.py --quick` → **確認它變紅** → `git checkout --` 還原。靜態閱讀會漏掉「有 `exit(1)` 但診斷路徑通不到它」這類問題（我第一版探針就漏了 `_check_articles`）。
+- **驗收新檢查器的最低標準**：不只證明「現況通過」，必須證明**它會失敗**。
+- 現有 6 項變異的基準結果記在 BACKLOG「Round 2 批次 1」。
+
 **核心原則**（單人醫師 + 輪替 AI session 的維護模型）：
-1. **權威優先序**：CI（quality.yml）>檢查器（_check_*）>文件（*.md）>記憶。文件與 CI 打架時，CI 是對的，然後修文件。
+1. **權威優先序**：CI（quality.yml）>檢查器（_check_*）>文件（*.md）>記憶。文件與 CI 打架時，CI 是對的，然後修文件。**但 CI 的權威取決於檢查器真的會失敗**——見上一段。
 2. **每個耦合都要有 CI 守門**——發現「改 A 必須同步改 B」而沒有檢查器守著時，優先補檢查器而不是補文件。
 3. **禁止新增 regex-HTML 手術**除非：(a) 現有 generator 無法做 (b) 寫成冪等 + sentinel (c) 加對應 _check_*。
 4. 新 generator 必須同時更新：quality.yml drift 清單 + WRITING_NEW_ARTICLE.md 鏈文件（歷史教訓：兩者 drift 是常態，preflight.py 因此**動態解析 quality.yml**）。

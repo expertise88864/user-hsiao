@@ -20,7 +20,11 @@ SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[\s\S]*?</\1>", re.I)
 TAG_RE = re.compile(r"<[^>]+>")
 ID_RE = re.compile(r'\bid="([^"]+)"')
 HEADING_RE = re.compile(r"<h([1-6])\b[^>]*>([\s\S]*?)</h\1>", re.I)
-IMG_RE = re.compile(r"<img\b[^>]*>", re.I)
+# Quote-aware: `[^>]*` truncates a tag at a `>` that lives INSIDE an attribute
+# value (e.g. `<img data-note=">" alt="real" …>`), which made the tokenizer see
+# a fragment and report perfectly valid attributes as missing — a false
+# positive that would block a legitimate push.
+IMG_RE = re.compile(r"""<img\b(?:[^>"']|"[^"]*"|'[^']*')*>""", re.I)
 BUTTON_RE = re.compile(r"<button\b([^>]*)>([\s\S]*?)</button>", re.I)
 FORM_CONTROL_RE = re.compile(r"<(input|select|textarea)\b[^>]*>", re.I)
 LABEL_FOR_RE = re.compile(r'<label\b[^>]*\bfor="([^"]+)"', re.I)
@@ -44,8 +48,47 @@ def plain_text(html: str) -> str:
     return re.sub(r"\s+", " ", TAG_RE.sub(" ", html)).strip()
 
 
+# Round-2 review: searching the RAW tag text for `name=` is not sound, even
+# with a leading \s — text inside another attribute's value satisfies it
+# (`data-note=" alt=x "` looked like an `alt` attribute, and `\b` additionally
+# let `data-alt` match a query for `alt`). Tokenize attributes quote-aware
+# instead, first-occurrence-wins like HTML.
+ATTR_TOKEN_RE = re.compile(
+    r"""\s+([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]*)))?""",
+    re.VERBOSE,
+)
+_ATTR_CACHE: dict[str, dict[str, str]] = {}
+
+
+def parse_attrs(tag: str) -> dict[str, str]:
+    cached = _ATTR_CACHE.get(tag)
+    if cached is not None:
+        return cached
+    m = re.match(r"<\s*[A-Za-z][^\s/>]*", tag)
+    body = tag[m.end():] if m else tag
+    # Strip ONLY the closing `>` — never a preceding `/`. Per the HTML
+    # tokenizer an unquoted attribute value ends at whitespace or `>`, so
+    # `<img role=none/>` really has role="none/" (NOT "none") and must not be
+    # treated as an exempting presentational role.
+    body = re.sub(r">\s*$", "", body)
+    out: dict[str, str] = {}
+    for mm in ATTR_TOKEN_RE.finditer(" " + body):
+        name = mm.group(1).lower()
+        if name in out:
+            continue                      # HTML keeps the FIRST occurrence
+        value = next((g for g in mm.groups()[1:] if g is not None), "")
+        out[name] = value
+    if len(_ATTR_CACHE) < 4096:
+        _ATTR_CACHE[tag] = out
+    return out
+
+
 def has_attr(tag: str, name: str) -> bool:
-    return re.search(rf"\b{name}\s*=", tag, re.I) is not None
+    return name.lower() in parse_attrs(tag)
+
+
+def attr_value(tag: str, name: str) -> str | None:
+    return parse_attrs(tag).get(name.lower())
 
 
 def main() -> int:
@@ -91,6 +134,22 @@ def main() -> int:
 
         for image in IMG_RE.finditer(dom):
             tag = image.group(0)
+            # 2026-07 round-2 review: this loop checked only width/height (CLS)
+            # and fetchpriority (LCP) — both PERFORMANCE concerns — and never
+            # `alt`, the single most important a11y attribute for an image, in
+            # a file named _check_static_a11y. A mutation test (stripping an
+            # alt from a live article) was caught by nothing in the local gate.
+            # `alt=""` is valid and correct for decorative images, so require
+            # only that the attribute (or an explicit presentational role) is
+            # PRESENT — never that it is non-empty.
+            # Exemptions are matched on the EXACT attribute value (quoted or
+            # not): a prefix match would let `aria-hidden=trueish` or
+            # `role=nonevil` — and, via has_attr, `data-aria-hidden` — exempt an
+            # image that really has no alt.
+            _hidden = (attr_value(tag, "aria-hidden") or "").strip().lower()
+            _role = (attr_value(tag, "role") or "").strip().lower()
+            if not has_attr(tag, "alt") and _hidden != "true" and _role not in ("presentation", "none"):
+                errors.append(f"{rel}: image missing alt attribute: {tag[:140]}")
             if not has_attr(tag, "width") or not has_attr(tag, "height"):
                 errors.append(f"{rel}: image missing width/height: {tag[:140]}")
             if 'loading="eager"' in tag and 'fetchpriority="high"' not in tag:

@@ -73,7 +73,7 @@ python _gen_csp_hashes.py             # hash-based CSP allowlist (middleware.js)
 python validate.py                    # title/desc length, OG, a11y
 python _check_article_listings.py     # listing parity (CI-blocking)
 python _check_meta.py                 # SEO meta uniqueness
-python _check_balance.py              # blog-shared.js delimiter balance
+python _check_js_syntax.py            # real JS parse (node --check) incl. blog-shared.js
 python _check_internal_links.py       # 404 internal links
 python _check_bilingual_attrs.py      # data-zh / data-en pairing
 python _check_serp_fallbacks.py       # SERP/social fallback catalogue
@@ -108,7 +108,7 @@ python _apply_trusted_types.py && \
 python _apply_f10_image_priority.py && python _extract_critical_css.py && \
 python _gen_csp_hashes.py && \
 python validate.py && python _check_article_listings.py && python _check_meta.py && \
-python _check_balance.py && python _check_internal_links.py && \
+python _check_js_syntax.py && python _check_internal_links.py && \
 python _check_bilingual_attrs.py && python _check_serp_fallbacks.py && \
 python halfwidth_to_fullwidth.py --dry-run
 ```

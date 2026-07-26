@@ -256,7 +256,6 @@ npm run minify                     # esbuild → blog/blog-shared.min.js
 python validate.py
 python _check_article_listings.py
 python _check_meta.py
-python _check_balance.py
 python _check_internal_links.py
 python _check_bilingual_attrs.py
 python _check_serp_fallbacks.py

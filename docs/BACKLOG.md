@@ -195,6 +195,12 @@
 - **驗收**：JSON-LD 輸出統一過 `.replace('<','\\u003c')`（JSON-LD 慣例），或包一個 `dump_jsonld()` helper。低優先。
 - **模型等級**：Sonnet。**關聯**：REVIEW-PLAYBOOK §5。
 
+### M-14 🟢 檢查器的 HTML/JS 解析對「畸形或異形標記」仍非 100% 嚴謹（R2-1 已接受之殘餘風險）
+- **背景**：R2-1 把 `_check_inline_scripts`（改用 `HTMLParser`）、`_check_static_a11y`（引號感知 `parse_attrs` + 引號感知 `IMG_RE`）、`_check_articles`（剝字串/註解/regex literal）都硬化過 **5 輪對抗式審查**，逐輪修掉:`data-type=`/`data-alt=` 誤判、屬性值內的 `type=`/`alt=`/`>`、實體編碼的 MIME、重複屬性 first-wins、未加引號值的尾端 `/`、regex literal 內的 `//`。
+- **殘餘**：codex GPT-5.6-sol 第 5 輪判定 **無阻擋級缺陷**，剩下的只是**本 repo 的 generator 產出不可能出現的畸形/異形標記**（手寫破格 HTML、DN.ARTICLES 內放 regex 常值等）。**已接受為殘餘風險，不再迭代**。
+- **何時該重開**：若日後改成手寫 HTML、引入第三方模板、或 admin CMS 允許貼入任意標記——屆時這些解析器要改用完整 HTML 剖析（或直接以 `validate.py` 的剖析結果為輸入）。
+- **模型等級**：Sonnet（真要做時）。**關聯**：REVIEW-PLAYBOOK §9。
+
 ---
 
 ## 內容（C）— 需要站主參與（醫療正確性，MODEL-GUIDE §4）
@@ -245,3 +251,13 @@
 - **`tools/eye-3d-worker.js`（218）clean**：無 `eval`/`Function`/`importScripts`；worker `onmessage` 只收同源父頁訊息。`blog/pagefind-search.js` 已於 Sweep A 核實（`escapeHtml` 逐欄）。
 
 **三批（Sweep A/B/C）合計**：修 **6 個真 bug**（schema-helper 連坐刪 / reorder 靜默掉文章 / sri SSRF / medical_guideline 重複注入 / llms_txt crash / history slice）+ 新開 S-05/S-07/M-09/M-12/M-13 LOG + A-01 更正 + REVIEW-PLAYBOOK §4 admin-XSS 警示。工單 deferred 的未審面已補完。
+
+**Round 2 批次 1 — 63 個 `_check_*.py` 檢查器本身（2026-07-11，Opus 5）**：這是**所有「CI 綠」的信任基礎**，而歷來被刻意排除，理由是「CI 每日行使，錯了會自我暴露」——**這個理由對假陰性是錯的**：一個永遠不會失敗的檢查器永遠不自曝。改用**實證**（靜態 vacuity 探針 + 變異測試：故意破壞不變量→確認套件變紅→git 還原）。**修 6 項**：
+- **`_check_inline_scripts.py`**（🔴 最嚴重之一）：印 `** UNBALANCED **` 卻**從不 exit(1)**，且只看 `index.html`、數括號還不懂 regex literal → **完全無法擋任何東西**。改用 node 真解析器（`vm.Script`，只編譯不執行）＋ `HTMLParser` 讀屬性；覆蓋從「1 檔 11 個未強制區塊」→ **66 檔 158 個強制區塊**。
+- **`_check_articles.py`**：真正的檢查（`,,`、`}{`）只 print，唯一的 `exit(1)` 給的是別的條件 → 結構破損照樣過。改成會擋。**證明不可取代**：`[{a},,{b}]` 是合法 JS 陣列空洞，`node --check` 抓不到（實測 exit 0），但會讓每個消費端 runtime 爆、Python 生成器又靜默略過。
+- **`_check_metadata_uniqueness.py`**：`len(paths) > 2` → **剛好 2 頁共用同一標題被靜默放行**，正是它存在要防的重複內容問題。收緊為 `> 1`（實測全站 0 組重複 → output-neutral）。
+- **`_check_static_a11y.py`**：`<img>` 迴圈只檢查 width/height 與 fetchpriority（**兩個都是效能**），獨漏 `alt`。補上（接受 `alt=""` 與 presentational role）。順帶修好 `has_attr` 的 `\b` bug（`data-alt=`/`data-width=` 會被誤認），**這連帶修正了既有的 width/height 檢查**。
+- **`_check_min_js.py` + `quality.yml`**（🔴 最嚴重）：頁面載入的是 `.min.js`，但 `minify` 不在生成鏈、且 `_check_all.py`（yml L134）跑在 `npm ci`（L213）**之前**沒有 esbuild → **純邏輯修改忘了 `npm run minify`，CI 全綠但線上仍供舊 bundle**（「原始碼修好了、線上沒生效」；我們 Phase 1 修 M-03/M-04 就靠人工記得）。新增本機 esbuild **位元組精確**比對（正向識別 `node_modules/esbuild`，已安裝就 fail-closed）＋ CI 在 `npm ci` 後的 `min.js freshness` drift step。
+- **退役 `_check_balance.py`**：同樣永遠綠，且與 `node --check` 完全冗餘（實測證明）。**同時清掉 5 處死引用**（`quality.yml`／`CLAUDE.md`／`README.md`／`WRITING_NEW_ARTICLE.md`×2，其中一處在 `&&` 鏈中會中斷後續檢查）——刪檔沒先 grep 引用是 codex 抓到的。
+
+**變異測試現況（可重跑驗證）**：移除 canonical／已發布改 noindex／JSON-LD 無效／移除 img alt／標題撞號／inline script 語法錯 —— **6 項全部被抓**。經 **5 輪** codex GPT-5.6-sol 對抗式審查收斂；殘餘見 **M-14**（已接受）。

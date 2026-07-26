@@ -62,7 +62,6 @@ step, the validation gate that should follow, and known idempotency quirks
 | `_check_bilingual_attrs.py` | data-zh / data-en consistency |
 | `_check_secrets.py` | accidentally committed PAT / private key |
 | `_check_text_integrity.py` | mojibake / replacement-char audit |
-| `_check_balance.py` | blog-shared.js delimiter balance |
 | `_check_button_types.py` | `<button>` missing type=button |
 | `_check_external_links.py` | target=_blank without rel=noopener |
 | `_check_index_boundaries.py` | indexable / private page boundary |

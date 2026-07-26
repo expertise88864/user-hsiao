@@ -68,7 +68,17 @@ def main() -> int:
                 errors.append(f'duplicate canonical "{value}" used by {len(paths)} pages: {paths[:6]}')
             elif field == "og:url":
                 errors.append(f'duplicate og:url "{value}" used by {len(paths)} pages: {paths[:6]}')
-            elif len(paths) > 2:
+            else:
+                # 2026-07 round-2 review: this was `len(paths) > 2`, so TWO
+                # indexable pages sharing an identical title/description were
+                # silently allowed — exactly the duplicate-content problem this
+                # checker exists to prevent (a mutation test that copied one
+                # article's <title> onto another was NOT caught). The threshold
+                # was presumably a crude accommodation for zh/en mirror pairs,
+                # but `_gen_en_pages.py` gives every mirror English metadata:
+                # measured across the whole corpus there are currently ZERO
+                # duplicate title/description groups, so `> 1` is exact today
+                # and closes the gap.
                 errors.append(f'duplicate {field} on {len(paths)} indexable pages: {value[:120]} :: {paths[:6]}')
 
     if errors:
