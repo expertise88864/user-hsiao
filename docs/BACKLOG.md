@@ -280,3 +280,23 @@
 - **兩次「差點誤判制度檔說謊」**，都靠先自我反證擋下：(a) 列 2 的變異我打到檢查器 `EXPECTED` 未涵蓋的路徑；(b) 列 5 我用 `_check_all --quick` 測，但它宣稱的守門是 **CI drift step**。**兩次都是我的測試錯、文件對。**
 - **重要機制澄清（已寫入 §9）**：`preflight.py` **不會報告已 commit 的 drift**——它重跑鏈直接覆蓋修好再驗固定點。只有 **CI 的 drift step** 會比對已 commit 的樹。故「本機 preflight 綠」**不等於**「committed 檔案沒 drift」。
 - 列 6/7 確認未守，與文件的 ⚠ 標註一致。
+
+
+---
+
+**Round 3 — M-07 / M-08 / P-04 / P-05 結案（2026-07-26，Opus 5）**：BACKLOG 最後四個潛伏項全部修完。
+
+- **`M-07` ✅ 計算器 widget 未納入 strip 清單**：驗收條件是「先查有無文章走 fallback（無 `mountSel`）路徑」。**兩條路徑都活著**——`/tools` 走 authored `data-calc` 佔位，`injectArticleCalculators()` 在 3 個 slug 完全不傳 `mountSel`、走 fallback。而 `_sanitizeForSerialize` 是對整個 `documentElement` 依 id strip，所以插在 `article.max-w-3xl` **後面的兄弟 `<section>` 確實會被序列化入庫**。依驗收指示替 fallback `<section>` 加上 `id = cfg.id + '-wrap'`，並把 **5 個 widget id + 5 個 wrapper id** 同步加進兩份清單（`blog/blog-admin.js` / `api/admin/_save.js`），`_check_runtime_helper_sync.py` 現報 **51 runtime + 3 chrome**。**L6 反證**：先確認全站沒有任何 authored 元素帶這 10 個 id，因此不同於 M-06 刻意排除的 `hs-related`／`hs-feedback`／`hs-support`（那些 strip 會刪掉 authored 掛載點 = 真 data-loss），此處無掛載點可毀。**關聯**：D-24。
+- **`M-08` ✅ `@graph` 巢狀 FAQPage**：`should_drop_en_jsonld` 的布林「整塊刪」換成 `prune_en_jsonld(data) -> (data, drop_block)` 的**節點級修剪**。理由（L6）：`@graph` 通常同時載有 Article／BreadcrumbList，整塊刪會毀掉合法 schema，**比原 bug 更糟**；只有在剪完什麼都不剩時才丟整塊。首版只看根層與 `@graph` 直接成員，**被 codex 抓到與自己 docstring 宣稱的「at any nesting」不符**（＝文件宣稱多於實作，本輪一直在抓的同一病灶），已改為遞迴所有容器屬性。13 個案例通過，含 `WebPage.mainEntity`、三層巢狀陣列、以及「原本就空的陣列不得被當成剪光」等非迴歸案例。現行 19 個 FAQPage 全為頂層獨立區塊，故**輸出不變**（潛伏修復）。
+- **`P-04` ✅ SW install 精快取階層**：改回 `SHELL.map`（選項 a）。**根因查清**：`_check_pwa.py` 是在 `2429a36` 被**移植進來**的，同一個 commit 把 sw.js 從 `SHELL.map` 改成 `PRECACHE.map`——因為移植進來的檢查器硬寫了字串 `Promise.allSettled(PRECACHE.map`。**是程式被改去迎合檢查器**，commit message 事後給的理由「for tolerance to LAZY/POPULAR misses」不成立（`allSettled` 本來就容忍全部 rejection，換大陣列只增加工作量）。檢查器已改為斷言真正的不變式。
+  - **codex 抓到我修完後產生的新缺陷（4 項全 CONFIRMED）**：(1) `activate` 的 POPULAR 是**浮動 promise**，以前靠 install 的 PRECACHE 兜底才沒事，install 縮小後變成真的離線退化 → 改成 `return` 納入 `waitUntil`（總等待量 ~18 URL，仍低於原本單次阻塞 install 的 ~37）；(2) 我修的檢查器用 `\w+\.map`，**連 `PRECACHE.map` 都收 = 擋不住 P-04 迴歸本身** → 改為要求 `Promise.allSettled(SHELL.map((u) => c.add(u)))` + 拒絕 install 出現其他 tier + 要求 `waitUntil` + 新增 activate 端斷言（含拒絕浮動形式）；(3) 見 M-08；(4) 我的註解宣稱 `trimCache` 有 PRECACHE keep-list——**錯的**，`trimCache(cacheName, max)` 從不讀 PRECACHE，它只做 TTL 淘汰 + 最舊優先砍到上限，**精快取項目也照砍**；已同時修正**錯誤來源**（`PRECACHE` 宣告處既有註解就是這樣寫的）。變異測試 6/6 全中，含 P-04 迴歸本身。
+- **`P-05` ✅ critical-CSS `@supports` 誤標**：重建時改為輸出實際 at-rule 關鍵字。實測影響 **+6 bytes**（5793→5799，預算 14000），全站 64 個 HTML 各 2 個區塊由 `@media` 翻成 `@supports`，且**每一行新增都落在 `data-critical-css` 行上（0 例外）**。**先反證再改**：確認不會造成首屏隱形——critical CSS 裡**完全沒有 `@keyframes`**，所以 `animation: hs-reveal both` 在該視窗內是 no-op；真正生效的只有 `body.home .reveal{opacity:1!important}`（首頁卡片**提早**可見）與隱藏重複的固定進度條。codex 獨立覆核同意無新增 LCP/CLS 風險。
+
+**⚠ 待補外審**：本批（commit 訊息以 `[UNREVIEWED]` 標記）在 **codex round-1 REQUEST_CHANGES → 全數修復 → round-2 外審尚未跑完**時，因使用者 Codex 額度用罄而先行上線（使用者定案 2026-07-26）。額度回復後**必須**補跑 round-2，範圍見下方 `docs/PENDING-CODEX-REVIEW.md`。
+
+### S-08 🟠 建置工具鏈與內部文件公開可下載（Round 3 附帶發現，未修）
+- **問題**：`.vercelignore` 只有 `_cms/`，`vercel.json` 無 build 設定（純靜態），故 repo 內幾乎所有檔案都被上傳並對外提供。線上實測：`/preflight.py`、`/_check_pwa.py`、`/_gen_csp_hashes.py`、`/docs/DECISIONS.md`、`/REVIEW_WORKORDER_2026-07.md` 皆回 **200**。
+- **不受影響（已實測）**：`/api/admin/_save.js` 回 **308**（Vercel 函式路由，原始碼未以文字外洩）；`/package.json` 回 **404**。密鑰走環境變數，**無憑證外洩**。
+- **危害**：`docs/DECISIONS.md`／BACKLOG **逐條列出已知但未修的弱點**（如 S-02「既有 SVG 無 CSP」）、admin 端點結構與 CSP 生成邏輯；62 個檢查器的內容等於一份「哪些東西沒被守住」的地圖。等於主動發布自己的弱點清單。
+- **驗收**：`.vercelignore` 增列 `*.py`、`docs/`、`*.md`、`.github/`、`tests/` 等；上線後逐一 curl 驗證 200→404，**同時確認站台本身未壞**（`/`、`/blog/`、`/en/`、`/api/*`、`middleware.js` 必須完好）。因會改變部署上傳內容且 push 自動上生產，**需獨立一批 + 獨立外審**。
+- **模型等級**：Opus（部署面變更，需先反證哪些檔在 runtime 被讀取）。**關聯**：REVIEW-PLAYBOOK §4。

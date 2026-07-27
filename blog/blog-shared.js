@@ -3326,6 +3326,12 @@
       box = mountInto.querySelector('.hs-calc');
     } else {
       box = document.createElement('section');
+      // M-07: the fallback wrapper carries its own id so the admin sanitizer
+      // can strip the WHOLE section. Stripping only the inner #hs-<calc> would
+      // leave an empty <section> baked into the source, and the next save would
+      // add another one. Both ids are in the strip lists (see blog-admin.js /
+      // api/admin/_save.js); D-24 keeps the two lists in sync.
+      box.id = cfg.id + '-wrap';
       box.className = 'max-w-3xl mx-auto px-5 sm:px-8 my-6';
       box.innerHTML = inner;
       mountAfter.parentNode.insertBefore(box, mountAfter.nextSibling);

@@ -383,20 +383,78 @@ def _cjk_ratio(value):
     return cjk / max(len(value), 1)
 
 
+def _is_zh_faqpage_node(node):
+    """True for a single JSON-LD node that is a predominantly-Chinese FAQPage."""
+    if not isinstance(node, dict):
+        return False
+    if 'FAQPage' not in _jsonld_type_names(node):
+        return False
+    return _cjk_ratio(_jsonld_text(node)) > 0.25
+
+
 def should_drop_en_jsonld(data):
     """Drop ZH FAQ rich-result markup from /en/ pages.
 
     The English mirror may still contain Chinese-only FAQ body sections, but
     crawler-facing FAQPage schema on an English canonical should not advertise
     Chinese questions/answers as the page's rich-result payload.
+
+    Only answers the TOP-LEVEL question; nesting is handled by
+    prune_en_jsonld(), which callers should use instead.
     """
     if isinstance(data, list):
         return False
+    return _is_zh_faqpage_node(data)
+
+
+def prune_en_jsonld(data):
+    """Remove ZH FAQPage nodes from an /en/ JSON-LD payload, at any nesting.
+
+    Returns ``(data, drop_block)``.
+
+    M-08: ``should_drop_en_jsonld`` only reads the top-level ``@type``, so a
+    FAQPage carried inside ``@graph: [...]`` (or a top-level array) was invisible
+    and the Chinese Q&A stayed on the English canonical.
+
+    The fix must be node-level, NOT block-level. A ``@graph`` normally also
+    carries Article / BreadcrumbList / WebPage nodes that MUST survive; dropping
+    the whole <script> because one member is a ZH FAQPage would destroy valid
+    schema and be worse than the bug it fixes. So prune the offending members and
+    keep the container — and only drop the block when nothing is left.
+    """
+    if isinstance(data, list):
+        kept = []
+        for node in data:
+            pruned, drop = prune_en_jsonld(node)
+            if not drop:
+                kept.append(pruned)
+        # An originally-empty list is not a "pruned to nothing" signal.
+        return (kept, bool(data) and not kept)
+
     if not isinstance(data, dict):
-        return False
-    if 'FAQPage' not in _jsonld_type_names(data):
-        return False
-    return _cjk_ratio(_jsonld_text(data)) > 0.25
+        return (data, False)
+
+    if _is_zh_faqpage_node(data):
+        return (None, True)
+
+    # Recurse through EVERY container-valued property, not just @graph: a ZH
+    # FAQPage can also sit under WebPage.mainEntity, inside a nested @graph
+    # member, or in any other array. Anything that prunes to nothing loses its
+    # property rather than taking the parent down with it.
+    out = {}
+    for key, value in data.items():
+        if isinstance(value, (dict, list)):
+            pruned, drop = prune_en_jsonld(value)
+            if drop:
+                continue
+            out[key] = pruned
+        else:
+            out[key] = value
+
+    # A container whose @graph was pruned away has no schema payload left.
+    if '@graph' in data and '@graph' not in out:
+        return (None, True)
+    return (out, False)
 
 
 def update_jsonld_blocks(s, slug=None, title='', desc='', en_canonical=''):
@@ -406,7 +464,8 @@ def update_jsonld_blocks(s, slug=None, title='', desc='', en_canonical=''):
             data = json.loads(raw)
         except Exception:
             return m.group(0)
-        if should_drop_en_jsonld(data):
+        data, drop_block = prune_en_jsonld(data)
+        if drop_block:
             return ''
         data = translate_jsonld_value(data)
         data = localize_static_page_jsonld(data, title, desc, en_canonical)

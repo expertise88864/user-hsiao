@@ -410,6 +410,9 @@
       //   identical to RUNTIME_HELPER_IDS in api/admin/_save.js — the only
       //   client-extra entries are the 3 admin-chrome ids on the next line.
       //   Drift is caught by _check_runtime_helper_sync.py (in _check_all.py).
+      // ⚠ Do not write a literal `[` or `]` anywhere inside this array, comments
+      //   included: the checker locates the array with a bracket-free regex and
+      //   will refuse to run (fail-closed, so it shows up immediately).
       ['hs-admin-bar', 'hs-admin-status', 'hs-admin-css',
        // Runtime-injected helper widgets — these are re-injected by blog-shared.js
        'hs-progress', 'hs-mobile-nav', 'hs-mobile-nav-style', 'hs-totop',
@@ -426,6 +429,16 @@
        'hs-reveal-css', 'hs-admin-runtime', 'hs-vercel-insights',
        // M-06: one-shot style injectors previously missed (no authored mount).
        'hs-related-css', 'hs-blog-filter-css', 'hs-spotlight-css',
+       // M-07: DN._buildCalc widgets. Both mount paths are live — /tools uses
+       // authored data-calc placeholders, while injectArticleCalculators()
+       // passes no mountSel on 3 article slugs and falls back to a generated
+       // <section id="hs-<calc>-wrap">. Strip BOTH ids: the wrapper (so the
+       // fallback section doesn't accumulate) and the inner widget (so the
+       // authored placeholder is emptied and rebuilt on reload). Verified: no
+       // article carries an authored element with any of these ids, so unlike
+       // hs-related / hs-feedback / hs-support there is no mount to destroy.
+       'hs-osdi', 'hs-deq5', 'hs-snellen', 'hs-se', 'hs-floater-rf',
+       'hs-osdi-wrap', 'hs-deq5-wrap', 'hs-snellen-wrap', 'hs-se-wrap', 'hs-floater-rf-wrap',
       ].forEach(function (id) {
         clone.querySelectorAll('#' + id).forEach(function (el) { el.remove(); });
       });

@@ -98,17 +98,24 @@ def parse_css_rules(css):
                     break
                 j += 1
             block = css[i:j]
-            # Try to parse @media / @supports content for critical selectors
-            media_m = re.match(r'@(?:media|supports)\s+([^{]+)\{([\s\S]+)\}\s*$', block.strip())
+            # Try to parse @media / @supports content for critical selectors.
+            # P-05: capture WHICH at-rule this is. The rebuild used to hard-code
+            # `@media {cond}`, so critical rules living inside `@supports (...)`
+            # were emitted as `@media (...)` — not a valid media query, so the
+            # browser discarded the whole block and those rules never made it
+            # into the inline critical CSS (they still applied later, once the
+            # full app.css <link> loaded, hence perf-only, not a correctness bug).
+            media_m = re.match(r'@(media|supports)\s+([^{]+)\{([\s\S]+)\}\s*$', block.strip())
             if media_m:
-                cond = media_m.group(1).strip()
-                inner = media_m.group(2)
+                at_rule = media_m.group(1)
+                cond = media_m.group(2).strip()
+                inner = media_m.group(3)
                 inner_rules = parse_css_rules(inner)
                 # Keep only if any inner rule is critical
                 kept = [(s, b) for s, b in inner_rules if any(is_critical_selector(x) for x in s.split(','))]
                 if kept:
                     rebuilt = ' '.join(f'{s}{{{b}}}' for s, b in kept)
-                    out.append((f'@media {cond}', '{' + rebuilt + '}'))
+                    out.append((f'@{at_rule} {cond}', '{' + rebuilt + '}'))
             i = j
             continue
         # Regular rule: selectors { body }

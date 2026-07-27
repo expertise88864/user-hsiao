@@ -38,6 +38,11 @@ const RUNTIME_HELPER_IDS = [
   'hs-reveal-css', 'hs-admin-runtime', 'hs-vercel-insights',
   // M-06: one-shot style injectors previously missed (no authored mount).
   'hs-related-css', 'hs-blog-filter-css', 'hs-spotlight-css',
+  // M-07: DN._buildCalc widgets — the inner widget id plus the fallback
+  // <section id="hs-<calc>-wrap"> wrapper. See blog/blog-admin.js for why both
+  // are needed; D-24 keeps the two lists in sync.
+  'hs-osdi', 'hs-deq5', 'hs-snellen', 'hs-se', 'hs-floater-rf',
+  'hs-osdi-wrap', 'hs-deq5-wrap', 'hs-snellen-wrap', 'hs-se-wrap', 'hs-floater-rf-wrap',
 ];
 
 const VOID_TAGS = new Set([

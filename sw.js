@@ -440,8 +440,15 @@ const LAZY = [
   '/en/', '/en/about', '/en/tools', '/en/blog/',
 ];
 
-// Combined for activate-time cleanup — anything in the cache that ISN'T
-// in any tier is fair game to evict in trimCache(...).
+// Combined tier list. Its ONLY consumer is the activate-time 404 sweep, which
+// skips these paths because they are authoritative.
+//
+// P-04: this comment used to say "anything in the cache that ISN'T in any tier
+// is fair game to evict in trimCache(...)", which is not true — trimCache takes
+// (cacheName, max) and never looks at PRECACHE. It TTL-evicts anything with a
+// Date header older than its threshold and then drops oldest-first to the count
+// cap, precached entries included. Nothing in this file protects a tier from
+// eviction; the tiers only decide what gets FETCHED, not what survives.
 const PRECACHE = [...SHELL, ...POPULAR, ...LAZY];
 
 // v33: Storage Buckets API — split favourites cache from runtime cache so
@@ -464,9 +471,33 @@ async function getFavBucket() {
 
 self.addEventListener('install', (e) => {
   // Stage 1: only the critical shell (~10 small assets, ~80ms on cable).
+  //
+  // P-04 — this mapped PRECACHE (= SHELL + POPULAR + LAZY, ~37 URLs) for a
+  // year, contradicting three separate statements of intent in this file: the
+  // v30 header ("install only blocks on critical SHELL"), this line's own
+  // comment, and the LAZY array ("don't pre-cache"). History: 73498ec
+  // implemented the multi-stage design (SHELL), 2429a36 reverted it to
+  // PRECACHE with the stated reason "for tolerance to LAZY/POPULAR misses".
+  // That reason does not hold — Promise.allSettled already tolerates every
+  // rejection regardless of which array is mapped, so widening the array added
+  // work, not tolerance. (The one consumer that genuinely needs the full list
+  // — the activate-time 404 sweep — reads the PRECACHE constant, which is
+  // unchanged. trimCache does NOT consult it; see the note on PRECACHE.)
+  //
+  // Root cause: 2429a36 also ADDED _check_pwa.py, ported from another repo,
+  // which asserted the literal string `Promise.allSettled(PRECACHE.map`. The
+  // code was bent to satisfy the imported check instead of the check being
+  // adapted to this repo's design, and the commit message rationalised it
+  // afterwards. _check_pwa.py now asserts the real invariant instead.
+  //
+  // Restored to SHELL. POPULAR is still precached in `activate` below (it was
+  // being fetched TWICE), and LAZY reaches the cache through the normal
+  // runtime handler on first hit, which is what its own comment describes.
+  // This also stops LAZY from eating 19 of the 50-entry trimCache(CACHE, 50)
+  // budget for pages the visitor may never open.
   e.waitUntil(
     caches.open(CACHE)
-      .then((c) => Promise.allSettled(PRECACHE.map((u) => c.add(u))))
+      .then((c) => Promise.allSettled(SHELL.map((u) => c.add(u))))
       .then(() => self.skipWaiting())
   );
 });
@@ -511,13 +542,21 @@ self.addEventListener('activate', (e) => {
           }));
         } catch (e) { /* ignore — best-effort */ }
       }),
-      // Stage 2: pre-cache top-5 articles + OG cards in the background.
-      // Wrapped in a setTimeout-style microtask so it runs AFTER claim() so
-      // page navigations aren't blocked.
-      caches.open(CACHE).then(async (c) => {
-        // Don't await: schedule then return immediately
-        Promise.allSettled(POPULAR.map((u) => c.add(u))).catch(() => {});
-      }),
+      // Stage 2: pre-cache top-5 articles + OG cards.
+      //
+      // P-04 follow-up — this used to deliberately float the promise ("don't
+      // await: schedule then return immediately"). That was survivable only
+      // because install ALSO precached POPULAR (it was inside PRECACHE) and
+      // install's waitUntil kept the worker alive until it finished. Now that
+      // install is SHELL-only, a floating promise here has nothing keeping the
+      // worker alive: the browser may terminate it mid-flight and offline
+      // coverage for the most-read articles is silently lost.
+      //
+      // So it is awaited as part of this waitUntil. Total awaited precache work
+      // is now ~18 URLs (10 shell at install + 8 here) against ~37 in the
+      // single blocking install this replaced, so activation is still cheaper
+      // than before — the cost moved out of install rather than growing.
+      caches.open(CACHE).then((c) => Promise.allSettled(POPULAR.map((u) => c.add(u)))),
       self.clients.claim(),
     ])
   );

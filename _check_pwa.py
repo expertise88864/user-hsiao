@@ -126,6 +126,17 @@ def audit_offline(errors: list[str]) -> None:
         errors.append("offline.html should reload when the browser comes back online")
 
 
+def _strip_js_comments(src: str) -> str:
+    """Blank out /* */ and full-line // comments so assertions read CODE only.
+
+    Deliberately does NOT try to strip trailing `code // comment` — that would
+    need string-literal awareness to avoid eating `https://`. Full-line stripping
+    is what the assertions below need; anything stricter belongs in a real parser.
+    """
+    src = re.sub(r"/\*[\s\S]*?\*/", "", src)
+    return re.sub(r"(?m)^[ \t]*//.*$", "", src)
+
+
 def audit_service_worker(errors: list[str]) -> None:
     path = ROOT / "sw.js"
     if not path.exists():
@@ -134,8 +145,69 @@ def audit_service_worker(errors: list[str]) -> None:
     src = path.read_text(encoding="utf-8")
     if BAD_MOJIBAKE_RE.search(src):
         errors.append("sw.js appears to contain mojibake text")
-    if "Promise.allSettled(PRECACHE.map" not in src:
-        errors.append("sw.js should tolerate partial precache failures with Promise.allSettled")
+    # P-04 — this used to assert the literal string `Promise.allSettled(PRECACHE.map`,
+    # and that is precisely how the bug it was meant to prevent got in: this
+    # checker was PORTED and sw.js was changed from `SHELL.map` to `PRECACHE.map`
+    # in the SAME commit (2429a36). sw.js was edited to satisfy the imported
+    # check instead of the check being adapted to this repo's multi-stage
+    # precache design, so install started fetching all ~37 URLs while three
+    # separate comments in sw.js still described a ~10-URL shell.
+    # The invariant this check actually cares about is "a partial precache
+    # failure must not fail the INSTALL" — which holds for any tier array.
+    # Install precaches SHELL; activate precaches POPULAR; LAZY is runtime-only.
+    # So scope the search to the install handler. A file-wide search would be a
+    # false negative: `activate` also calls Promise.allSettled, so an install
+    # rewritten to bare Promise.all would still match and pass. (Confirmed by
+    # mutation — a file-wide version of this check stayed green on exactly that
+    # mutation before it was tightened.)
+    # Comments must be stripped before matching. The install handler documents
+    # this very rule and quotes `Promise.allSettled(...)` in prose, so a naive
+    # text search is satisfied by the COMMENT explaining the invariant even when
+    # the code below it violates it. (Also confirmed by mutation.)
+    install_m = re.search(r"addEventListener\(\s*['\"]install['\"][\s\S]*?\n\}\);", src)
+    install_src = _strip_js_comments(install_m.group(0)) if install_m else ""
+    if not install_src:
+        errors.append("sw.js has no recognisable install handler")
+    else:
+        # Assert the SHELL cache-add, not merely "some array is allSettled".
+        # A `\w+\.map` pattern accepts PRECACHE.map — i.e. it accepts the exact
+        # P-04 regression this check exists to prevent.
+        if not re.search(
+            r'Promise\.allSettled\(\s*SHELL\.map\(\s*\(?\s*\w+\s*\)?\s*=>\s*\w+\.add\(',
+            install_src,
+        ):
+            errors.append(
+                "sw.js install must precache the SHELL tier and tolerate partial "
+                "failures: Promise.allSettled(SHELL.map((u) => c.add(u)))"
+            )
+        # P-04 proper: install must not pull in the deferred tiers.
+        if re.search(r'\b(?:PRECACHE|POPULAR|LAZY)\.map\b', install_src):
+            errors.append(
+                "sw.js install must precache SHELL only (P-04) — POPULAR belongs to "
+                "activate and LAZY to the runtime handler"
+            )
+        # The precache must be inside the install lifetime, or the worker can be
+        # terminated before it completes.
+        if 'waitUntil(' not in install_src:
+            errors.append("sw.js install must wrap its precache in event.waitUntil(...)")
+
+    # Same failure mode one stage later: activate precaches POPULAR, and that
+    # promise must be awaited inside waitUntil. It was previously floated
+    # ("schedule then return immediately"), which only survived because install
+    # precached POPULAR too. Once install is SHELL-only, a floating promise here
+    # can be killed with the worker and silently drop offline coverage.
+    activate_m = re.search(r"addEventListener\(\s*['\"]activate['\"][\s\S]*?\n\}\);", src)
+    activate_src = _strip_js_comments(activate_m.group(0)) if activate_m else ""
+    if not activate_src:
+        errors.append("sw.js has no recognisable activate handler")
+    else:
+        if not re.search(r'Promise\.allSettled\(\s*POPULAR\.map', activate_src):
+            errors.append("sw.js activate should precache the POPULAR tier")
+        if re.search(r'\n\s*Promise\.allSettled\(\s*POPULAR\.map', activate_src):
+            errors.append(
+                "sw.js activate floats the POPULAR precache promise — return it so "
+                "waitUntil keeps the worker alive until it settles"
+            )
     if "skipWaiting" not in src or "clients.claim" not in src:
         errors.append("sw.js should call skipWaiting and clients.claim for update reliability")
     if "url.search.includes('v=')" not in src:
