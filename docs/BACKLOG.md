@@ -322,3 +322,9 @@
 - **判定(codex round-8 原文)**:「remaining limitation is the accepted residual of text matching rather than full JavaScript dataflow analysis… Remaining evasions would require contrived structural rewrites, not an ordinary future edit likely to silently reintroduce the defect.」
 - **為何接受**:本 repo 無 JS parser 依賴;連續 4 輪的加固都在檢查器本身而非它守護的行為(SW / pruner / 版本紀元自 round-4 起未再變動),投入產出已反轉。檢查器在程式碼裡**自述**這個範圍,且對合理重構 **fail-closed**(大聲失敗優於假綠)。
 - **重開條件**:若專案日後引入 JS parser(acorn / esbuild AST / TypeScript API),把 install 與 warmPopular 的斷言改寫成 AST 查詢。**模型等級**:Sonnet。**關聯**:P-04、REVIEW-PLAYBOOK §6。
+
+### P-06 🟢 `sw.js` 一半的體積是歷史 changelog(Round 3 補審附帶發現,未修)
+- **問題**:`sw.js` **不做 minify**,每個註解位元組都送到瀏覽器。檔頭的歷史發行說明(v19…v37)有 **385 行、25.8 KB**,佔全檔 **50%**。size-budget 硬上限是 52 KB raw / 21 KB gzip,目前 50.84 / 20.31 —— **餘裕只剩約 1.2 KB**。
+- **怎麼發現的**:補審過程中我在 sw.js 加了約 4 KB 說明文字,`Size budget` job 轉紅(raw 54.94/52)。已把我加的註解壓縮,並把完整理由移到本檔;但預算依然吃緊,下一個要在 sw.js 寫解釋的人會再撞牆。
+- **驗收**:把檔頭 changelog 移到 `docs/`(git 歷史本來就有),只在 sw.js 留當前版本與快取常數說明。預期回收 ~25 KB raw / ~7 KB gzip。**注意**:那是前人刻意寫的敘事,刪除前先確認站主同意;這不是機械清理。
+- **模型等級**:Sonnet(機械,但需站主定調)。**關聯**:P-04、size-budget.yml。

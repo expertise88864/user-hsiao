@@ -383,12 +383,9 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-// P-04 bumped v71 -> v72: install stopped precaching the LAZY tier, which is a
-// change to the cache's CONTENT SHAPE, and REVIEW-PLAYBOOK §6 requires a CACHE
-// bump for exactly that. Without it, existing installs keep their ~19 stale
-// LAZY entries indefinitely — the activate-time 404 sweep skips every PRECACHE
-// path by design, and count-trimming does nothing below 50 entries, so only the
-// 30-day TTL would eventually clear them.
+// v71 -> v72: install no longer precaches LAZY, a content-shape change, which
+// REVIEW-PLAYBOOK §6 requires a bump for (else old installs keep ~19 stale LAZY
+// entries: the 404 sweep skips PRECACHE paths and count-trim idles under 50).
 const CACHE = 'hs-v72';
 const RUNTIME = 'hs-runtime-v35';
 const RUNTIME_MAX_ENTRIES = 60;
@@ -447,14 +444,10 @@ const LAZY = [
 ];
 
 // Combined tier list. Its ONLY consumer is the activate-time 404 sweep, which
-// skips these paths because they are authoritative.
-//
-// P-04: this comment used to say "anything in the cache that ISN'T in any tier
-// is fair game to evict in trimCache(...)", which is not true — trimCache takes
-// (cacheName, max) and never looks at PRECACHE. It TTL-evicts anything with a
-// Date header older than its threshold and then drops oldest-first to the count
-// cap, precached entries included. Nothing in this file protects a tier from
-// eviction; the tiers only decide what gets FETCHED, not what survives.
+// skips these paths as authoritative. NOTE trimCache never reads PRECACHE — it
+// TTL-evicts then drops oldest-first, precached entries included. Tiers decide
+// what gets FETCHED, not what survives. (An earlier comment here claimed the
+// opposite; see BACKLOG P-04.)
 const PRECACHE = [...SHELL, ...POPULAR, ...LAZY];
 
 // v33: Storage Buckets API — split favourites cache from runtime cache so
@@ -478,29 +471,13 @@ async function getFavBucket() {
 self.addEventListener('install', (e) => {
   // Stage 1: only the critical shell (~10 small assets, ~80ms on cable).
   //
-  // P-04 — this mapped PRECACHE (= SHELL + POPULAR + LAZY, ~37 URLs) for a
-  // year, contradicting three separate statements of intent in this file: the
-  // v30 header ("install only blocks on critical SHELL"), this line's own
-  // comment, and the LAZY array ("don't pre-cache"). History: 73498ec
-  // implemented the multi-stage design (SHELL), 2429a36 reverted it to
-  // PRECACHE with the stated reason "for tolerance to LAZY/POPULAR misses".
-  // That reason does not hold — Promise.allSettled already tolerates every
-  // rejection regardless of which array is mapped, so widening the array added
-  // work, not tolerance. (The one consumer that genuinely needs the full list
-  // — the activate-time 404 sweep — reads the PRECACHE constant, which is
-  // unchanged. trimCache does NOT consult it; see the note on PRECACHE.)
-  //
-  // Root cause: 2429a36 also ADDED _check_pwa.py, ported from another repo,
-  // which asserted the literal string `Promise.allSettled(PRECACHE.map`. The
-  // code was bent to satisfy the imported check instead of the check being
-  // adapted to this repo's design, and the commit message rationalised it
-  // afterwards. _check_pwa.py now asserts the real invariant instead.
-  //
-  // Restored to SHELL. POPULAR is still precached in `activate` below (it was
-  // being fetched TWICE), and LAZY reaches the cache through the normal
-  // runtime handler on first hit, which is what its own comment describes.
-  // This also stops LAZY from eating 19 of the 50-entry trimCache(CACHE, 50)
-  // budget for pages the visitor may never open.
+  // P-04 — this mapped PRECACHE (~37 URLs) for a year, contradicting the v30
+  // header, this comment, and the LAZY array's own "don't pre-cache". Root
+  // cause: 2429a36 ported _check_pwa.py, which asserted the literal string
+  // `Promise.allSettled(PRECACHE.map`, and bent sw.js to satisfy it. Restored
+  // to SHELL; the checker now asserts the real invariant. LAZY reaches the
+  // cache via the runtime handler and no longer eats 19 of the 50-entry
+  // trimCache budget. Full account + the 8-round audit: BACKLOG P-04.
   e.waitUntil(
     caches.open(CACHE)
       .then((c) => Promise.allSettled(SHELL.map((u) => c.add(u))))
@@ -605,38 +582,18 @@ async function fetchWithRetry(req, retries = 1) {
   }
 }
 
-// Stage 2 — warm the POPULAR tier (top articles + their OG cards).
+// Stage 2 — warm the POPULAR tier (top articles + their OG cards) from the
+// FIRST FETCH EVENT. Not from install (SHELL-only, P-04) and not from activate:
+// awaiting there keeps the worker in "activating" until waitUntil settles, so
+// with skipWaiting() an update becomes a user-visible stall. e.waitUntil() on a
+// fetch event keeps the worker alive without gating activation, and
+// respondWith() is unaffected.
 //
-// P-04 went through three shapes; this is the third and the reasoning matters,
-// because the first two each traded one bug for another.
-//
-//  1. Originally POPULAR sat inside install's PRECACHE and was awaited by
-//     install's waitUntil, while activate ALSO precached it via a floating
-//     promise. Reliable, but install fetched ~37 URLs.
-//  2. Making install SHELL-only left the floating activate promise as the only
-//     path. A floating promise has nothing keeping the worker alive, so the
-//     browser may terminate it mid-flight — a silent offline regression.
-//  3. Awaiting it inside activate's waitUntil fixed that but introduced a
-//     WORSE problem: the worker stays in "activating" until waitUntil settles
-//     and functional events are not dispatched to controlled clients until it
-//     is activated. Because install calls skipWaiting(), that turns an update
-//     into a user-visible stall while 4 articles and 4 OG PNGs download. The
-//     old code never stalled here, because the OLD worker kept serving clients
-//     for the whole time the 37-URL install ran.
-//
-// So: attach the work to the first fetch event instead. e.waitUntil() on a
-// fetch event keeps the worker alive until the precache settles WITHOUT
-// gating activation, and respondWith() is unaffected, so nothing waits on it.
-//
-// State lives in the CACHE, not in a module flag. A worker is terminated and
-// restarted routinely, so any in-memory "already warmed" boolean resets to
-// false and would re-issue all eight network requests on the next fetch. The
-// module-level bindings below are only a same-lifetime concurrency guard:
-//   popularWarm — the in-flight promise, so N simultaneous fetches warm once;
-//   popularDone — set ONLY after a pass completes, so a failed or offline
-//                 attempt is retried instead of being latched as done.
-// The pass itself asks the cache what is missing and adds only that, so a
-// restarted worker costs 8 cache lookups and zero network requests.
+// State lives in the CACHE, not a module flag — workers restart routinely and
+// an in-memory boolean would re-issue all eight requests. The bindings below
+// are only a same-lifetime guard: popularWarm dedupes concurrent fetches;
+// popularDone latches ONLY on a clean sweep, so an offline attempt retries.
+// Rejected earlier shapes and why: BACKLOG P-04.
 let popularWarm = null;
 let popularDone = false;
 function warmPopular(e) {
@@ -647,11 +604,8 @@ function warmPopular(e) {
       const missing = POPULAR.filter((u, i) => !present[i]);
       if (!missing.length) { popularDone = true; return; }
       const results = await Promise.allSettled(missing.map((u) => c.add(u)));
-      // allSettled RESOLVES even when every add rejected, so latching
-      // popularDone unconditionally would mark an entirely offline attempt as
-      // finished and skip retries for the rest of this worker lifetime. Only
-      // latch on a clean sweep; a partial failure leaves it false so the next
-      // fetch re-probes and fills the gaps.
+      // allSettled resolves even if every add rejected, so latch only on a
+      // clean sweep — otherwise an offline attempt is recorded as finished.
       popularDone = results.every((r) => r.status === 'fulfilled');
     })
     .catch(() => {})
@@ -682,9 +636,8 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Warm POPULAR only AFTER the bypasses. Placing this above them meant admin,
-  // /api and reset-sw traffic could kick off eight background fetches — exactly
-  // the requests those routes exist to stay clear of.
+  // AFTER the bypasses: above them, /admin, /api and reset-sw traffic would
+  // each kick off eight background fetches.
   warmPopular(e);
   // v37.1: cache-busted assets (?v=YYYYMMDD) → network-first; ensures fresh
   // CSS/JS after a stamp bump even if SW served a stale copy from `caches`.
