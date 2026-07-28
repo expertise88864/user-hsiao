@@ -407,7 +407,7 @@ def should_drop_en_jsonld(data):
     return _is_zh_faqpage_node(data)
 
 
-def prune_en_jsonld(data):
+def prune_en_jsonld(data, _root=True):
     """Remove ZH FAQPage nodes from an /en/ JSON-LD payload, at any nesting.
 
     Returns ``(data, drop_block)``.
@@ -420,14 +420,40 @@ def prune_en_jsonld(data):
     carries Article / BreadcrumbList / WebPage nodes that MUST survive; dropping
     the whole <script> because one member is a ZH FAQPage would destroy valid
     schema and be worse than the bug it fixes. So prune the offending members and
-    keep the container — and only drop the block when nothing is left.
+    keep the container — and only drop the block when no schema is left.
+
+    KNOWN LIMITS — this removes ZH FAQPage nodes at any depth, and that is all
+    it claims:
+
+    * ``@id`` references are NOT rewritten. If some node points at a pruned
+      FAQPage by ``{"@id": "#faq"}``, that reference is left dangling. Resolving
+      it needs a reference sweep this function does not do.
+    * "Predominantly Chinese" is the inherited ``_cjk_ratio(...) > 0.25``
+      heuristic, unchanged from ``should_drop_en_jsonld``. A genuinely bilingual
+      FAQPage crosses that line and is removed wholesale. The threshold is a
+      judgement call about the /en/ mirror, not a fact about the markup.
+    * ``@list`` / ``@set`` / ``@reverse`` are walked as ordinary containers. That
+      is right for pruning, but their JSON-LD semantics are not otherwise
+      modelled here.
+
+    None of these are reachable today: all 19 FAQPage blocks in the repo are
+    standalone top-level scripts and the /en/ mirror carries none.
     """
     if isinstance(data, list):
         kept = []
+        damaged_list = False
         for node in data:
-            pruned, drop = prune_en_jsonld(node)
-            if not drop:
-                kept.append(pruned)
+            pruned, drop = prune_en_jsonld(node, _root=False)
+            if drop:
+                damaged_list = True
+                continue
+            if pruned != node:
+                damaged_list = True
+            kept.append(pruned)
+        # Once a list has been pruned, drop members that carry nothing. Leaving
+        # `{"@graph": [{}]}` behind is a valid document that states nothing.
+        if damaged_list:
+            kept = [n for n in kept if n != {} and n != []]
         # An originally-empty list is not a "pruned to nothing" signal.
         return (kept, bool(data) and not kept)
 
@@ -442,17 +468,32 @@ def prune_en_jsonld(data):
     # member, or in any other array. Anything that prunes to nothing loses its
     # property rather than taking the parent down with it.
     out = {}
+    damaged = False
     for key, value in data.items():
         if isinstance(value, (dict, list)):
-            pruned, drop = prune_en_jsonld(value)
+            pruned, drop = prune_en_jsonld(value, _root=False)
             if drop:
+                damaged = True
                 continue
+            if pruned != value:
+                damaged = True
             out[key] = pruned
         else:
             out[key] = value
 
-    # A container whose @graph was pruned away has no schema payload left.
-    if '@graph' in data and '@graph' not in out:
+    # Only judge a container this function actually damaged, and judge it on
+    # whether any content survives — NOT on whether @type / @graph specifically
+    # survive. Neither is required by JSON-LD: a plain node can be
+    # {"@id": ..., "name": ...}, and a property map such as @reverse has no
+    # @type at all, so keying on those deleted valid schema. `@context` alone is
+    # a declaration about nothing, so it does not count as surviving content.
+    # `@context` alone is a declaration about nothing, so it never counts as
+    # surviving content. At the ROOT of a <script> block an `@id` alone does not
+    # count either: an identifier with no statements attached is an empty block.
+    # Nested `@id`-only nodes ARE meaningful — they are references to other
+    # nodes — so the stricter rule applies only at the root.
+    empty_keys = {'@context', '@id'} if _root else {'@context'}
+    if damaged and not [k for k in out if k not in empty_keys]:
         return (None, True)
     return (out, False)
 

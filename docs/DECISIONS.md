@@ -46,8 +46,13 @@
 - **錨**：`9303014`。
 
 ### D-06 快取破壞（cache-bust）政策
-- **決策**：全站 `?v=2026xxxx` 單調遞增版本（**目前 `v=20260664`**，以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準）；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。有兩個**刻意不 bump** 的歷史釘選（`v=20260520`、`v=20260525`），不要動它們。
-- **耦合**：`sw.js` 的 SHELL precache 與頁面頂部的 `hs:siteVer` inline script 也含版本概念；`_check_performance_budget.py` 會查版本一致性。
+- **決策**：全站 `?v=2026xxxx` 單調遞增版本（**目前 `v=20260665`**，以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準）；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。
+- **⚠ 有兩個版本紀元，bump 必須同時動**（2026-07-26 round-3 外審發現：只 bump 了 `?v=`，21 個檔的 `hs:siteVer` 還停在舊值）：
+  1. 資產 URL 的 `?v=NNNNNNNN`；
+  2. `hs:siteVer` 強制重置戳記——內容頁寫成 `var T='NNNNNNNN'`、`admin.html` 寫成 `TARGET = 'NNNNNNNN'`。這個戳記與 localStorage 比對，不一致才觸發 SW/快取強制重置。**只 bump `?v=` 的話戳記仍相符 → 重置不會發生**，回訪的 admin 會帶著舊 editor bundle 對上新伺服器（實際發生過，見 BACKLOG Round 3）。
+  最省事的做法是直接取代裸數字 `20260664` → `20260665`（涵蓋兩者），再跑 `npm run minify`。
+- **釐清（原文易誤讀）**：`v=20260520`／`v=20260525` **不是**活的釘選 URL——它們現在只存在於 `sw.js` 的變更日誌註解裡，不會被字串取代影響。
+- **耦合**：`sw.js` 的 SHELL precache 也含版本概念；`_check_performance_budget.py` 查**兩個紀元**的一致性（`?v=` 對首頁、`hs:siteVer` 對 `?v=`），變異測試已驗證會轉紅。
 
 ---
 

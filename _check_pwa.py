@@ -127,14 +127,109 @@ def audit_offline(errors: list[str]) -> None:
 
 
 def _strip_js_comments(src: str) -> str:
-    """Blank out /* */ and full-line // comments so assertions read CODE only.
+    """Blank out full-line // comments and /* */ blocks so assertions read CODE.
 
-    Deliberately does NOT try to strip trailing `code // comment` — that would
-    need string-literal awareness to avoid eating `https://`. Full-line stripping
-    is what the assertions below need; anything stricter belongs in a real parser.
+    ORDER MATTERS, and getting it wrong is not a small error. Line comments must
+    go FIRST: sw.js contains the line
+
+        // Never intercept /admin pages or /api/* — these need fresh responses
+
+    and running the block-comment pass first treats the `/*` in `/api/*` as the
+    start of a block that then runs to the next `*/`, silently deleting 4.4 KB of
+    real code — including the warmPopular(e) call an assertion below looks for.
+    Stripping line comments first removes that `/*` along with its own line.
+
+    Deliberately does NOT strip trailing `code // comment`; that needs
+    string-literal awareness to avoid eating `https://`. Nor is it safe against a
+    `/*` inside a string literal — this is a text pass, not a parser.
     """
-    src = re.sub(r"/\*[\s\S]*?\*/", "", src)
-    return re.sub(r"(?m)^[ \t]*//.*$", "", src)
+    src = re.sub(r"(?m)^[ \t]*//.*$", "", src)
+    return re.sub(r"/\*[\s\S]*?\*/", "", src)
+
+
+def _call_arg_spans(src: str, callee: str) -> list[tuple[int, int]]:
+    """Byte spans of every `<callee>(...)` argument list, by paren matching.
+
+    Used to prove a precache expression is INSIDE the argument passed to
+    waitUntil, rather than merely appearing somewhere near it. A preceding-token
+    heuristic cannot do this: `return Promise.allSettled(...)` looks fine in
+    isolation but is a floated promise when the caller discards the return value.
+    Paren matching is not a parser — it does not know about parens inside string
+    literals — but sw.js has none in these handlers, and being wrong here fails
+    closed.
+    """
+    spans: list[tuple[int, int]] = []
+    for m in re.finditer(re.escape(callee) + r'\s*\(', src):
+        depth, i = 0, m.end() - 1
+        while i < len(src):
+            if src[i] == '(':
+                depth += 1
+            elif src[i] == ')':
+                depth -= 1
+                if depth == 0:
+                    spans.append((m.end(), i))
+                    break
+            i += 1
+    return spans
+
+
+def _pattern_inside_call(src: str, callee: str, pattern: str) -> bool:
+    """True if ANY match of `pattern` sits inside a `callee(...)` argument list.
+
+    Must consider every occurrence, not just the first: `popularWarm` also
+    appears in warmPopular's own re-entry guard, which is not inside waitUntil.
+
+    The pattern must identify the SPECIFIC expression that has to be awaited.
+    Asking only whether *some* `Promise.allSettled` is inside waitUntil proves
+    nothing — this passes while the shell precache floats:
+
+        const shellPromise = caches.open(CACHE)
+          .then(c => Promise.allSettled(SHELL.map(u => c.add(u))));
+        e.waitUntil(Promise.allSettled([self.skipWaiting()]));
+    """
+    spans = _call_arg_spans(src, callee)
+    if not spans:
+        return False
+    return any(
+        start <= m.start() < end
+        for m in re.finditer(pattern, src)
+        for start, end in spans
+    )
+
+
+def _inside_call(src: str, callee: str, needle: str) -> bool:
+    return _pattern_inside_call(src, callee, r'\b' + re.escape(needle) + r'\b')
+
+
+_VALUE_POSITION_RE = re.compile(r'(?:=>|\breturn)$')
+
+
+def _awaited_in_call(src: str, callee: str, pattern: str) -> bool:
+    """True if a match of `pattern` is inside `callee(...)` AND in value position.
+
+    Lexical containment alone is not enough. This floats the precache while
+    sitting entirely inside waitUntil's parentheses, and needs no decoy — just an
+    ordinary missing `return` after an arrow-to-block refactor:
+
+        e.waitUntil(
+          caches.open(CACHE).then((c) => {
+            Promise.allSettled(SHELL.map((u) => c.add(u)));   // <- not returned
+          })
+        );
+
+    The outer promise resolves with undefined before the adds settle. So the
+    match must ALSO be preceded by `=>` (concise arrow body) or `return`, which
+    are the two ways its value reaches the chain handed to waitUntil.
+    """
+    spans = _call_arg_spans(src, callee)
+    if not spans:
+        return False
+    for m in re.finditer(pattern, src):
+        if not any(start <= m.start() < end for start, end in spans):
+            continue
+        if _VALUE_POSITION_RE.search(src[:m.start()].rstrip()):
+            return True
+    return False
 
 
 def audit_service_worker(errors: list[str]) -> None:
@@ -172,10 +267,10 @@ def audit_service_worker(errors: list[str]) -> None:
         # Assert the SHELL cache-add, not merely "some array is allSettled".
         # A `\w+\.map` pattern accepts PRECACHE.map — i.e. it accepts the exact
         # P-04 regression this check exists to prevent.
-        if not re.search(
-            r'Promise\.allSettled\(\s*SHELL\.map\(\s*\(?\s*\w+\s*\)?\s*=>\s*\w+\.add\(',
-            install_src,
-        ):
+        shell_precache = (
+            r'Promise\.allSettled\(\s*SHELL\.map\(\s*\(?\s*\w+\s*\)?\s*=>\s*\w+\.add\('
+        )
+        if not re.search(shell_precache, install_src):
             errors.append(
                 "sw.js install must precache the SHELL tier and tolerate partial "
                 "failures: Promise.allSettled(SHELL.map((u) => c.add(u)))"
@@ -183,30 +278,103 @@ def audit_service_worker(errors: list[str]) -> None:
         # P-04 proper: install must not pull in the deferred tiers.
         if re.search(r'\b(?:PRECACHE|POPULAR|LAZY)\.map\b', install_src):
             errors.append(
-                "sw.js install must precache SHELL only (P-04) — POPULAR belongs to "
-                "activate and LAZY to the runtime handler"
+                "sw.js install must precache SHELL only (P-04) — POPULAR is warmed "
+                "from the first fetch event and LAZY by the runtime handler"
             )
         # The precache must be inside the install lifetime, or the worker can be
-        # terminated before it completes.
+        # terminated before it completes. Checking `waitUntil(` and the precache
+        # INDEPENDENTLY was a false-green: a dummy `e.waitUntil(Promise.resolve())`
+        # next to a separately floated SHELL precache satisfied both. Require the
+        # precache to sit inside waitUntil's argument list.
         if 'waitUntil(' not in install_src:
             errors.append("sw.js install must wrap its precache in event.waitUntil(...)")
+        elif not _awaited_in_call(install_src, 'waitUntil', shell_precache):
+            errors.append(
+                "sw.js install does not AWAIT its SHELL precache — the promise must "
+                "be inside event.waitUntil(...) and in value position (returned from "
+                "the chain, not left as a bare statement), or the worker can be "
+                "terminated before the adds settle"
+            )
 
-    # Same failure mode one stage later: activate precaches POPULAR, and that
-    # promise must be awaited inside waitUntil. It was previously floated
-    # ("schedule then return immediately"), which only survived because install
-    # precached POPULAR too. Once install is SHELL-only, a floating promise here
-    # can be killed with the worker and silently drop offline coverage.
+    # POPULAR is warmed from the first fetch event (see warmPopular in sw.js),
+    # NOT from activate — awaiting it in activate would gate the activating ->
+    # activated transition and stall controlled clients after an update.
+    #
+    # SCOPE, stated honestly: everything below is a REGRESSION GUARD built on
+    # text matching, not a proof that the precache promise is wired into an
+    # event's lifetime. Proving that needs a real JS AST, which this repo has no
+    # parser for. It reliably catches the specific regressions that have already
+    # happened here twice (install widening back to another tier; the POPULAR
+    # precache reverting to a promise nobody holds). It will NOT catch an
+    # arbitrary rewrite that keeps the same tokens, and it WILL fail loudly on a
+    # legitimate refactor — renaming a tier constant, switching to `for...of`,
+    # or extracting a helper. That direction is deliberate: fail-closed on a
+    # refactor is a conversation, a false green is a shipped bug.
+    warm_m = re.search(r'function\s+warmPopular\s*\([\s\S]*?\n\}', src)
+    warm_src = _strip_js_comments(warm_m.group(0)) if warm_m else ""
+    if not warm_src:
+        errors.append(
+            "sw.js should warm the POPULAR tier from a fetch event "
+            "(function warmPopular) rather than from install or activate"
+        )
+    else:
+        if not re.search(r'Promise\.allSettled\(\s*missing\.map|Promise\.allSettled\(\s*POPULAR\.map', warm_src):
+            errors.append("sw.js warmPopular should precache the POPULAR tier")
+        # The precache must reach waitUntil, or the worker can be terminated
+        # mid-flight. Prove containment by paren matching rather than by looking
+        # at the preceding token: an earlier version accepted a leading `return`,
+        # but warmPopular(e) is called for its side effect and its return value
+        # is discarded, so `return Promise.allSettled(...)` is still a floated
+        # promise. The binding handed to waitUntil is the one that must carry it.
+        # Require the exact single-argument shape, not merely "the binding
+        # appears somewhere inside waitUntil's parens". Lexical containment is
+        # satisfied by `e.waitUntil((popularWarm, Promise.resolve()))`, where the
+        # comma operator throws the promise away.
+        if not re.search(r'\bwaitUntil\(\s*popularWarm\s*\)', warm_src):
+            errors.append(
+                "sw.js warmPopular must pass its precache promise to e.waitUntil(...) "
+                "as the sole argument — warmPopular's own return value is discarded "
+                "by the caller, so returning the promise does not keep the worker alive"
+            )
+        # It must consult the cache instead of a module flag, or a restarted
+        # worker re-issues every request.
+        if '.match(' not in warm_src:
+            errors.append(
+                "sw.js warmPopular should ask the cache which POPULAR entries are "
+                "missing — a module-level flag resets when the worker restarts"
+            )
+    if re.search(r'\bPromise\.allSettled\(\s*POPULAR\.map', install_src or ""):
+        errors.append("sw.js install must not precache POPULAR — it is warmed on first fetch")
+
     activate_m = re.search(r"addEventListener\(\s*['\"]activate['\"][\s\S]*?\n\}\);", src)
     activate_src = _strip_js_comments(activate_m.group(0)) if activate_m else ""
     if not activate_src:
         errors.append("sw.js has no recognisable activate handler")
-    else:
-        if not re.search(r'Promise\.allSettled\(\s*POPULAR\.map', activate_src):
-            errors.append("sw.js activate should precache the POPULAR tier")
-        if re.search(r'\n\s*Promise\.allSettled\(\s*POPULAR\.map', activate_src):
+    elif re.search(r'Promise\.allSettled\(\s*POPULAR\.map', activate_src):
+        errors.append(
+            "sw.js activate must not precache POPULAR — awaiting it gates the "
+            "activating->activated transition and stalls controlled clients"
+        )
+
+    # Checking warmPopular's BODY says nothing about whether anything calls it.
+    # Deleting the single call site left every assertion above green while
+    # POPULAR was never warmed at all; moving the call into install or activate
+    # reintroduced the lifecycle stall without tripping the guards, because
+    # those only reject a direct Promise.allSettled(POPULAR.map ...).
+    fetch_m = re.search(r"addEventListener\(\s*['\"]fetch['\"][\s\S]*?\n\}\);", src)
+    fetch_src = _strip_js_comments(fetch_m.group(0)) if fetch_m else ""
+    if not fetch_src:
+        errors.append("sw.js has no recognisable fetch handler")
+    elif not re.search(r'\bwarmPopular\s*\(', fetch_src):
+        errors.append(
+            "sw.js fetch handler must call warmPopular(e) — the POPULAR tier is "
+            "warmed from the first fetch event and nothing else invokes it"
+        )
+    for handler_name, handler_src in (('install', install_src), ('activate', activate_src)):
+        if handler_src and re.search(r'\bwarmPopular\s*\(', handler_src):
             errors.append(
-                "sw.js activate floats the POPULAR precache promise — return it so "
-                "waitUntil keeps the worker alive until it settles"
+                f"sw.js {handler_name} must not call warmPopular — it belongs to the "
+                f"fetch event; calling it here re-gates the worker lifecycle"
             )
     if "skipWaiting" not in src or "clients.claim" not in src:
         errors.append("sw.js should call skipWaiting and clients.claim for update reliability")

@@ -383,7 +383,13 @@
  *  + Removed cookie banner per user request (Consent Mode v2 defaults remain).
  *  + SW: skip /admin and /api/* from caching (auth-sensitive, must be fresh).
  * v26: layout fixes, CSS dedup, A/B framework, SW SWR for *.css. */
-const CACHE = 'hs-v71';
+// P-04 bumped v71 -> v72: install stopped precaching the LAZY tier, which is a
+// change to the cache's CONTENT SHAPE, and REVIEW-PLAYBOOK §6 requires a CACHE
+// bump for exactly that. Without it, existing installs keep their ~19 stale
+// LAZY entries indefinitely — the activate-time 404 sweep skips every PRECACHE
+// path by design, and count-trimming does nothing below 50 entries, so only the
+// 30-day TTL would eventually clear them.
+const CACHE = 'hs-v72';
 const RUNTIME = 'hs-runtime-v35';
 const RUNTIME_MAX_ENTRIES = 60;
 const GENERATED_JSON = new Set([
@@ -542,21 +548,8 @@ self.addEventListener('activate', (e) => {
           }));
         } catch (e) { /* ignore — best-effort */ }
       }),
-      // Stage 2: pre-cache top-5 articles + OG cards.
-      //
-      // P-04 follow-up — this used to deliberately float the promise ("don't
-      // await: schedule then return immediately"). That was survivable only
-      // because install ALSO precached POPULAR (it was inside PRECACHE) and
-      // install's waitUntil kept the worker alive until it finished. Now that
-      // install is SHELL-only, a floating promise here has nothing keeping the
-      // worker alive: the browser may terminate it mid-flight and offline
-      // coverage for the most-read articles is silently lost.
-      //
-      // So it is awaited as part of this waitUntil. Total awaited precache work
-      // is now ~18 URLs (10 shell at install + 8 here) against ~37 in the
-      // single blocking install this replaced, so activation is still cheaper
-      // than before — the cost moved out of install rather than growing.
-      caches.open(CACHE).then((c) => Promise.allSettled(POPULAR.map((u) => c.add(u)))),
+      // NOTE: POPULAR is deliberately NOT precached here — see warmPopular()
+      // below the fetch handler for why activate is the wrong place for it.
       self.clients.claim(),
     ])
   );
@@ -612,6 +605,62 @@ async function fetchWithRetry(req, retries = 1) {
   }
 }
 
+// Stage 2 — warm the POPULAR tier (top articles + their OG cards).
+//
+// P-04 went through three shapes; this is the third and the reasoning matters,
+// because the first two each traded one bug for another.
+//
+//  1. Originally POPULAR sat inside install's PRECACHE and was awaited by
+//     install's waitUntil, while activate ALSO precached it via a floating
+//     promise. Reliable, but install fetched ~37 URLs.
+//  2. Making install SHELL-only left the floating activate promise as the only
+//     path. A floating promise has nothing keeping the worker alive, so the
+//     browser may terminate it mid-flight — a silent offline regression.
+//  3. Awaiting it inside activate's waitUntil fixed that but introduced a
+//     WORSE problem: the worker stays in "activating" until waitUntil settles
+//     and functional events are not dispatched to controlled clients until it
+//     is activated. Because install calls skipWaiting(), that turns an update
+//     into a user-visible stall while 4 articles and 4 OG PNGs download. The
+//     old code never stalled here, because the OLD worker kept serving clients
+//     for the whole time the 37-URL install ran.
+//
+// So: attach the work to the first fetch event instead. e.waitUntil() on a
+// fetch event keeps the worker alive until the precache settles WITHOUT
+// gating activation, and respondWith() is unaffected, so nothing waits on it.
+//
+// State lives in the CACHE, not in a module flag. A worker is terminated and
+// restarted routinely, so any in-memory "already warmed" boolean resets to
+// false and would re-issue all eight network requests on the next fetch. The
+// module-level bindings below are only a same-lifetime concurrency guard:
+//   popularWarm — the in-flight promise, so N simultaneous fetches warm once;
+//   popularDone — set ONLY after a pass completes, so a failed or offline
+//                 attempt is retried instead of being latched as done.
+// The pass itself asks the cache what is missing and adds only that, so a
+// restarted worker costs 8 cache lookups and zero network requests.
+let popularWarm = null;
+let popularDone = false;
+function warmPopular(e) {
+  if (popularDone || popularWarm) return;
+  popularWarm = caches.open(CACHE)
+    .then(async (c) => {
+      const present = await Promise.all(POPULAR.map((u) => c.match(u)));
+      const missing = POPULAR.filter((u, i) => !present[i]);
+      if (!missing.length) { popularDone = true; return; }
+      const results = await Promise.allSettled(missing.map((u) => c.add(u)));
+      // allSettled RESOLVES even when every add rejected, so latching
+      // popularDone unconditionally would mark an entirely offline attempt as
+      // finished and skip retries for the rest of this worker lifetime. Only
+      // latch on a clean sweep; a partial failure leaves it false so the next
+      // fetch re-probes and fills the gaps.
+      popularDone = results.every((r) => r.status === 'fulfilled');
+    })
+    .catch(() => {})
+    .finally(() => { popularWarm = null; });
+  try {
+    e.waitUntil(popularWarm);
+  } catch (err) { /* waitUntil past the event's lifetime — nothing to do */ }
+}
+
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
@@ -632,6 +681,11 @@ self.addEventListener('fetch', (e) => {
   if (url.pathname === '/reset-sw' || url.pathname === '/en/reset-sw') {
     return;
   }
+
+  // Warm POPULAR only AFTER the bypasses. Placing this above them meant admin,
+  // /api and reset-sw traffic could kick off eight background fetches — exactly
+  // the requests those routes exist to stay clear of.
+  warmPopular(e);
   // v37.1: cache-busted assets (?v=YYYYMMDD) → network-first; ensures fresh
   // CSS/JS after a stamp bump even if SW served a stale copy from `caches`.
   if (url.search.includes('v=')) {

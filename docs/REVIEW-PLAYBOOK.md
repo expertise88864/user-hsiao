@@ -161,7 +161,7 @@ npm run minify && python _check_min_js.py   # 動過 blog-shared.js 才需要
 | `.css`（**無** `?v=`）| stale-while-revalidate → RUNTIME | 現況近乎 dead code：CSS 都帶 `?v=`，會先被上面攔截 |
 | 其他同源 GET | cache-first → RUNTIME（`RUNTIME_MAX_ENTRIES=60`）| 圖片等 |
 - 快取版本常數：`CACHE='hs-vNN'` / `RUNTIME='hs-runtime-vNN'`（activate 時清非當前版本）。改 SW 快取「內容形狀」才需 bump CACHE；改 fetch 邏輯不需要。
-- 已知債：install 精快取所有 tier（見 BACKLOG P-04）。
+- ~~已知債：install 精快取所有 tier~~ → **P-04 已修（2026-07-26）**：install 只精快取 `SHELL`；`POPULAR` 改由**第一個 fetch 事件**的 `e.waitUntil` 預熱（放在 activate 會 gate activating→activated,讓受控 client 在更新後卡住);`LAZY` 走 runtime handler。本次同時 bump `CACHE` v71→v72(內容形狀改變)。
 
 **現況判定（66745a6）**：（見下方代理補充；閘門綠 + CI Lighthouse 上次 push 綠）
 

@@ -28,6 +28,11 @@ BLOG_SHARED_SCRIPT_RE = re.compile(
     re.I,
 )
 BLOG_SHARED_VERSION_RE = re.compile(r'/blog/blog-shared\.min\.js\?v=(\d+)')
+# The hs:siteVer forced-reset stamp. Written as `var T='…'` on content pages and
+# `TARGET = '…'` in admin.html; both spellings must track the ?v= epoch. Either
+# quote style is accepted so a reformat cannot silently disable the check.
+SITE_VER_TARGET_RE = re.compile(r"""(?:\bvar\s+T|\bTARGET)\s*=\s*['"](\d{6,})['"]""")
+SITE_VER_MARKER = 'hs:siteVer'
 BLOG_DIAGRAMS_EAGER_RE = re.compile(
     r'<(?:script|link)\b[^>]+\b(?:src|href)="[^"]*/blog/blog-diagrams(?:\.min)?\.js[^"]*"',
     re.I,
@@ -138,6 +143,28 @@ def main() -> int:
             for version in BLOG_SHARED_VERSION_RE.findall(src):
                 if version != asset_version:
                     errors.append(f"{rel}: blog-shared asset version is {version}, expected {asset_version} (matches homepage)")
+            # Round-3 review: `?v=` and the hs:siteVer stamp are TWO epochs of
+            # the same version, and only the first was checked. A bump that
+            # missed the stamp left every returning visitor with a matching
+            # localStorage value, so the forced SW/cache reset never fired —
+            # which is the whole point of the stamp. For an admin that means
+            # keeping a stale editor bundle against a freshly deployed server.
+            # Fail CLOSED. Scanning only for matches meant a page that spells the
+            # stamp differently, renames the variable, or loses the assignment
+            # produces zero matches and passes — the check would go quiet exactly
+            # when the stamp stopped working.
+            if SITE_VER_MARKER in src:
+                stamps = SITE_VER_TARGET_RE.findall(src)
+                if len(stamps) != 1:
+                    errors.append(
+                        f"{rel}: uses {SITE_VER_MARKER} but has {len(stamps)} "
+                        f"recognisable version stamps (expected exactly 1: "
+                        f"var T='…' or TARGET='…')")
+                for version in stamps:
+                    if version != asset_version:
+                        errors.append(
+                            f"{rel}: hs:siteVer target is {version} but assets are "
+                            f"?v={asset_version} — D-06 bumps must move BOTH epochs")
         if BLOG_DIAGRAMS_EAGER_RE.search(src):
             errors.append(f"{rel}: blog-diagrams should stay dynamically loaded only on article pages that need it")
         if BLOG_CALCULATORS_EAGER_RE.search(src):

@@ -292,7 +292,7 @@
   - **codex 抓到我修完後產生的新缺陷（4 項全 CONFIRMED）**：(1) `activate` 的 POPULAR 是**浮動 promise**，以前靠 install 的 PRECACHE 兜底才沒事，install 縮小後變成真的離線退化 → 改成 `return` 納入 `waitUntil`（總等待量 ~18 URL，仍低於原本單次阻塞 install 的 ~37）；(2) 我修的檢查器用 `\w+\.map`，**連 `PRECACHE.map` 都收 = 擋不住 P-04 迴歸本身** → 改為要求 `Promise.allSettled(SHELL.map((u) => c.add(u)))` + 拒絕 install 出現其他 tier + 要求 `waitUntil` + 新增 activate 端斷言（含拒絕浮動形式）；(3) 見 M-08；(4) 我的註解宣稱 `trimCache` 有 PRECACHE keep-list——**錯的**，`trimCache(cacheName, max)` 從不讀 PRECACHE，它只做 TTL 淘汰 + 最舊優先砍到上限，**精快取項目也照砍**；已同時修正**錯誤來源**（`PRECACHE` 宣告處既有註解就是這樣寫的）。變異測試 6/6 全中，含 P-04 迴歸本身。
 - **`P-05` ✅ critical-CSS `@supports` 誤標**：重建時改為輸出實際 at-rule 關鍵字。實測影響 **+6 bytes**（5793→5799，預算 14000），全站 64 個 HTML 各 2 個區塊由 `@media` 翻成 `@supports`，且**每一行新增都落在 `data-critical-css` 行上（0 例外）**。**先反證再改**：確認不會造成首屏隱形——critical CSS 裡**完全沒有 `@keyframes`**，所以 `animation: hs-reveal both` 在該視窗內是 no-op；真正生效的只有 `body.home .reveal{opacity:1!important}`（首頁卡片**提早**可見）與隱藏重複的固定進度條。codex 獨立覆核同意無新增 LCP/CLS 風險。
 
-**⚠ 待補外審**：本批（commit 訊息以 `[UNREVIEWED]` 標記）在 **codex round-1 REQUEST_CHANGES → 全數修復 → round-2 外審尚未跑完**時，因使用者 Codex 額度用罄而先行上線（使用者定案 2026-07-26）。額度回復後**必須**補跑 round-2，範圍見下方 `docs/PENDING-CODEX-REVIEW.md`。
+**✅ 補審完成（2026-07-27，codex GPT-5.6-sol round-8 APPROVE）**：`94b25d5` 曾以 `[UNREVIEWED]` 標記先行上線（使用者定案,額度用罄）。額度回復後補審共跑 **8 輪**，**每一輪提出的每一項都經獨立驗證為真、全部修復，零項 REJECTED**。修正以 follow-up commit 上線。逐輪發現見下方「補審 8 輪」段落。
 
 ### S-08 🟠 建置工具鏈與內部文件公開可下載（Round 3 附帶發現，未修）
 - **問題**：`.vercelignore` 只有 `_cms/`，`vercel.json` 無 build 設定（純靜態），故 repo 內幾乎所有檔案都被上傳並對外提供。線上實測：`/preflight.py`、`/_check_pwa.py`、`/_gen_csp_hashes.py`、`/docs/DECISIONS.md`、`/REVIEW_WORKORDER_2026-07.md` 皆回 **200**。
@@ -300,3 +300,25 @@
 - **危害**：`docs/DECISIONS.md`／BACKLOG **逐條列出已知但未修的弱點**（如 S-02「既有 SVG 無 CSP」）、admin 端點結構與 CSP 生成邏輯；62 個檢查器的內容等於一份「哪些東西沒被守住」的地圖。等於主動發布自己的弱點清單。
 - **驗收**：`.vercelignore` 增列 `*.py`、`docs/`、`*.md`、`.github/`、`tests/` 等；上線後逐一 curl 驗證 200→404，**同時確認站台本身未壞**（`/`、`/blog/`、`/en/`、`/api/*`、`middleware.js` 必須完好）。因會改變部署上傳內容且 push 自動上生產，**需獨立一批 + 獨立外審**。
 - **模型等級**：Opus（部署面變更，需先反證哪些檔在 runtime 被讀取）。**關聯**：REVIEW-PLAYBOOK §4。
+
+
+---
+
+**M-07/M-08/P-04/P-05 補審 8 輪(2026-07-27,codex GPT-5.6-sol,round-8 APPROVE)**：`94b25d5` 已上線才補審,所有修正走 follow-up commit。**8 輪、13 項 blocking,全部驗證為真、全部修復、零項 REJECTED。**
+
+- **round-1(4 項)**:`activate` 的 POPULAR 是浮動 promise(install 縮成 SHELL-only 後變成真的離線退化);我改的 checker 用 `\w+\.map` **連 `PRECACHE.map` 都收=擋不住 P-04 迴歸本身**;`prune_en_jsonld` 未達成自己 docstring 宣稱的「at any nesting」;我的註解宣稱 `trimCache` 有 PRECACHE keep-list(**錯的**,它從不讀 PRECACHE)。
+- **round-2(4 項)**:**🔴 漏 cache-bust**——改了 JS 卻沒 bump `?v=`,而 `blog-shared.min.js` 是 `immutable` 一年。**這讓 M-07 的失敗模式在線上被啟用**:回訪 admin 拿舊 bundle(舊 strip 清單、無 wrapper),新伺服器刪掉內層 id,留下匿名空 `<section>`,每存一次累積一個。同時漏 bump `CACHE`(playbook §6 明文「改快取內容形狀才需 bump」);checker 仍接受 P-04 迴歸;prune 的 `@graph` 邊界會毀掉合法 schema。
+- **round-3(4 項)**:**`hs:siteVer` 是第二套獨立版本紀元**(`var T='…'` / `TARGET='…'`),我只 bump 了 `?v=`,21 個檔還停在舊值——而這個戳記正是觸發強制 SW/快取重置的依據,**等於我修版本歪斜的動作本身有版本歪斜**;`warmPopular` 的模組旗標跨 worker 生命週期不持久,且被放在 `/admin`、`/api` 旁路**之前**;prune 用 `@type`/`@graph` 判定會刪掉只有 `@id`+`name` 的節點;checker 接受 `return` 但呼叫端根本不接回傳值。
+- **round-4(1 項)**:`Promise.allSettled` 就算全失敗也 resolve,`popularDone` 把全離線的嘗試latch成完成;逗號運算子 `waitUntil((popularWarm, Promise.resolve()))` 可繞過詞法包含;siteVer 檢查 **fail-open**(改名/換引號/刪行都零匹配);「除 `@context` 外有 key」不等於有語意。
+- **round-5(1 項)**:checker 驗了 `warmPopular` 的**函式本體**卻沒驗**它有被呼叫**。追這項時挖出**我自己更嚴重的 bug**:`_strip_js_comments` 先跑區塊註解、後跑行註解,而 sw.js 有 `// … /api/* …`,`/*` 開啟假區塊註解**吞掉 4.4 KB 真實程式碼**——**前兩輪的 install/activate 斷言一直在讀被截斷的 handler**。
+- **round-6(1 項)**:install 守衛證明兩件**各自獨立**的事(存在 SHELL 精快取、某個 `allSettled` 在 `waitUntil` 內),把精快取浮出去+塞誘餌即可繞過,**且不需要寫爛程式**——只要重構時漏把 binding 放進生命週期陣列。
+- **round-7(1 項)**:詞法包含仍不夠。`.then((c) => { Promise.allSettled(…); })` 漏寫 `return`,外層 promise 立刻以 undefined resolve,**同樣是普通失誤**。改為要求同時「在引數區間內」且「位於值位置(`=>` 或 `return` 之後)」。
+- **round-8**:APPROVE。
+
+**最終守衛**:`_check_pwa.py` 變異矩陣 **15/15**,每一輪各留一案 + 一個**正對照**(同樣 block body 但有 `return` → 通過,證明擋的是漏 return 而非 block body 本身)。`_check_performance_budget.py` siteVer 變異 5/5。`prune_en_jsonld` 單元 15 案。
+
+### R-01 🟢 SW 生命週期檢查器是文字比對,非資料流證明(accepted residual risk)
+- **內容**:`_check_pwa.py` 用正則 + 括號配對 + 值位置判定來驗證精快取確實被 `waitUntil` 等待。它**不是** JS parser,無法真正證明 promise 的資料流。字串字面量裡的 `/*`、把運算式拆進具名變數再繞路傳遞等結構性改寫,仍可能騙過它。
+- **判定(codex round-8 原文)**:「remaining limitation is the accepted residual of text matching rather than full JavaScript dataflow analysis… Remaining evasions would require contrived structural rewrites, not an ordinary future edit likely to silently reintroduce the defect.」
+- **為何接受**:本 repo 無 JS parser 依賴;連續 4 輪的加固都在檢查器本身而非它守護的行為(SW / pruner / 版本紀元自 round-4 起未再變動),投入產出已反轉。檢查器在程式碼裡**自述**這個範圍,且對合理重構 **fail-closed**(大聲失敗優於假綠)。
+- **重開條件**:若專案日後引入 JS parser(acorn / esbuild AST / TypeScript API),把 install 與 warmPopular 的斷言改寫成 AST 查詢。**模型等級**:Sonnet。**關聯**:P-04、REVIEW-PLAYBOOK §6。
