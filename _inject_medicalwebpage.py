@@ -54,7 +54,9 @@ ARTICLES = {
         'name': '飛蚊症與視網膜剝離 衛教',
         'keywords': '飛蚊症,Floaters,PVD,視網膜剝離,Retinal detachment,雷射光凝固',
         'condition_name': '飛蚊症',
-        'alts': ['飛蚊症', 'Floaters', 'Vitreous floaters', '後玻璃體剝離'],
+        'alts': ['飛蚊症', 'Floaters', 'Vitreous floaters'],
+        # 後玻璃體剝離 (PVD) removed: it is a CAUSE of floaters, not a synonym,
+        # and it contradicted the sameAs=Floater identity claim (D-25).
         'icd10': 'H43.39',
     },
     'glaucoma-warnings': {

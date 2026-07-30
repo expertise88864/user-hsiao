@@ -165,3 +165,15 @@
 - 新決策定案時**立即**追加一條（格式照舊：決策/理由/錨/耦合/重開條件），並在 commit message 註明 `docs: DECISIONS +D-xx`。
 - 決策被正式推翻時**不要刪除**，改為 `~~刪除線~~ + SUPERSEDED by D-yy (commit)`——歷史脈絡本身是資產。
 - 本檔與現實衝突時：以 repo 現狀 + git log 為準，並修正本檔（先查證，再改文件）。
+
+
+### D-25 實體連結（entity linking）政策：`sameAs` 只給「同一個實體」
+- **決策**：文章 `about` 的每個 `MedicalCondition` 節點加 `sameAs: [Wikidata, en.wikipedia]`，**但只有在該節點的 `name` 恰好就是該實體時才加**。手術/治療決策主題（「白內障手術選擇」「青光眼治療」）、複合主題（「白內障合併散光」）、比實體更窄的亞型（「非感染性葡萄膜炎」「兒童近視」「帶狀疱疹眼疾合併角膜基質炎」）、部位限定疾病（「淚腺腺樣囊狀癌」）、以及無對應實體者（「近視性黃斑部病變」——`Degenerative myopia` 只是 `Myopia#Types` 的轉址）**一律不加**，改列入 `UNMAPPED` 並寫明理由。目前 **16 個 condition 對應、9 個明確豁免 = 25 個全數決定**。
+- **為什麼**：schema.org 定義 `sameAs` 是「明確指出該項目**身分**的 URL」。近似連結等於宣稱文章講的是**另一種病**，比不標更糟。
+- **表以 `(slug, condition name)` 為鍵,不以 slug 為鍵**（外審第 3 點）：slug 鍵表達不了兩件本 repo 實際需要的事——(a) 一篇文章可有**多個** condition（`floaters-retinal-detachment` 的 飛蚊症／視網膜剝離 是兩個獨立節點、各有身分,slug 鍵會把它們併成一個連結）；(b) **身分屬於名稱**：slug 鍵之下,把 condition 改名成更窄或複合的病名仍會蓋上舊 URI,守衛看不出來。改名現在會讓建置失敗。
+- **Q-id 來源紀律**：只能經 Wikipedia API（`action=query&prop=pageprops&ppprop=wikibase_item&redirects=1`）解析——它回傳轉址後的正規標題與對應 Wikidata item。**禁止憑記憶手加 Q-id。** 曾試過用既有 ICD-10 碼經 Wikidata P494 批次解析,回傳 `H16 → Q4393309 = dextran-40`(一種多醣,不是角膜炎),因為 Wikidata 該項目帶有錯誤陳述。其中 5 項另經該 ICD-10 查詢交叉驗證且一致(結膜炎/乾眼/甲狀腺眼疾/飛蚊/近視)。
+- **守門**：`_check_entity_links.py` **fail-closed**——每個 about-MedicalCondition 必須恰好落在兩表之一;**沒有 condition 的文章也是錯誤**(只有 `index`/`topics` 這類列表頁在 `NO_CONDITION_OK` 白名單,且它們若宣告 MedicalWebPage 也會報錯);另檢查 Q-id 格式、殘留鍵(改名/改檔後對不到任何 condition)、兩表重複、豁免理由不得是佔位字串、URI 前綴不得被改指他處。JSON-LD 解析走**任意深度、任意屬性**——不只 top-level 與 `@graph`,連 `mainEntity`／`subjectOf` 這類節點值屬性底下的 condition 也看得到(外審 round-2:原本只遞迴 `@graph`,藏在 `mainEntity` 底下的第二個 condition 兩邊都看不到,而同層既有的 condition 又讓頁面看起來已被清點——**docstring 宣稱的覆蓋大於實作**,正是本守衛要抓的那一類缺陷);單／雙引號的 script tag 都接受。變異測試 12/12。checker **import** normalizer 的表與解析器而非各自維護（同 D-24 的耦合紀律）。
+- **順帶修正的內容錯誤**：`飛蚊症` 的 `alternateName` 原列「後玻璃體剝離」——PVD 是飛蚊症的**成因**不是同義詞,與 `sameAs: Floater` 的身分宣告自相矛盾。已從 `_inject_medicalwebpage.py` 的 metadata 與文章 HTML 兩處移除。
+- **鏈位置**：排在 `_normalize_reviewed_by.py` 之後、`_gen_en_pages.py` **之前**,讓 `/en/` 鏡像繼承。**更正一個曾寫錯的理由**：ld+json 的改動**不影響** CSP hash——`_gen_csp_hashes.py` 的 `is_executable_script()` 明確把 `application/ld+json` 視為 inert 並排除。
+- **重開條件**：若 Wikidata 日後為上述豁免主題建立精確項目,逐案移入 `ENTITY_BY_CONDITION`（仍須經 Wikipedia API 核實）。
+- **錨**：本次 commit。**關聯**：D-08（`sameAs` 只能用站主提供的 URL——那條規範**人物**身分；本條是**疾病**實體,屬公開事實,不受該限制）、D-24。

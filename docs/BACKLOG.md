@@ -328,3 +328,17 @@
 - **怎麼發現的**:補審過程中我在 sw.js 加了約 4 KB 說明文字,`Size budget` job 轉紅(raw 54.94/52)。已把我加的註解壓縮,並把完整理由移到本檔;但預算依然吃緊,下一個要在 sw.js 寫解釋的人會再撞牆。
 - **驗收**:把檔頭 changelog 移到 `docs/`(git 歷史本來就有),只在 sw.js 留當前版本與快取常數說明。預期回收 ~25 KB raw / ~7 KB gzip。**注意**:那是前人刻意寫的敘事,刪除前先確認站主同意;這不是機械清理。
 - **模型等級**:Sonnet(機械,但需站主定調)。**關聯**:P-04、size-budget.yml。
+
+
+**深度 SEO 一輪（2026-07-27，Opus 5）：研究 → 稽核 → 只做真缺口**
+
+先讀 `GROWTH-PLAYBOOK.md`，**沒有重跑**「為什麼流量低/成長策略」那輪研究（該檔明文要求別重跑，結論一樣）。新研究只聚焦它未涵蓋的角度：**可實作的技術 SEO 與可自動化檢查**。
+
+- **⛔ 剔除（查證後不做，理由記錄以免後人重踩）**：
+  - **`MedicalWebPage.specialty`**：`MedicalSpecialty` 列舉**沒有** ophthalmology 成員，最接近的 `Optometric` 是**驗光**。照多數醫療 SEO 文章的建議加上去，會把眼科醫師標成驗光師。**不做。**
+  - **`medicalAudience`**：本站早已有 `audience: {MedicalAudience, audienceType: Patient}`。屬性名不同而非缺口，再加只是冗餘。**不做。**
+  - **搜到的「醫療 SEO 2026」文章群**（多為行銷公司內容）主推 `MedicalClinic`/`Physician` schema、local SEO、Google 商家、評論 —— 那是**有實體診所要導客掛號**的模型，與本站硬性約束（不得有掛號/廣告/彰基資訊）相反。**不採納。** 這正是 GROWTH-PLAYBOOK §2 警告的方向。
+  - **`speakable`**：本站已有（`_inject_medicalwebpage.py`），Google 已把它限縮到新聞出版商，無效但無害。**不動。**
+- **✅ 做了：實體連結（見 D-25）**。這是稽核後唯一確認的 schema 缺口——原本 `about` 只有 `name`/`alternateName`/ICD-10，**沒有任何 URI 指出它是哪個已知實體**。ICD-10 做不到這件事（它是分類不是身分，而且本站的碼有區間與部位限定：`H25-H26`、`H04.123`）。15 篇對應 + 9 篇明確豁免，`/en/` 鏡像自動繼承。
+- **稽核基線（做之前先量，避免重造）**：`blog/*.html` 26 檔的 JSON-LD 已有 `BreadcrumbList` 26、`MedicalWebPage` 24、`ItemList` 22、`MedicalScholarlyArticle` 20、`FAQPage` 19、`MedicalGuideline` 7；`about` 25、`citation` 16、`lastReviewed`/`reviewedBy` 24、`primaryImageOfPage` 20、`wordCount` 18。schema 面已相當完整，這也是為什麼只剩一個真缺口。
+- **仍在 playbook 手上、程式端幫不上**：answer-first 改寫（C-02，最大 AI 引用槓桿）、作者外部身分鏈（需站主提供 ORCID/LinkedIn URL，D-08）、站外連結與分發。**這些沒做完之前，schema 再完美也不會改變流量結論。**
