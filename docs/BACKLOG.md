@@ -43,13 +43,13 @@
 - **驗收**：合併為單一區塊；廣泛 `/blog/*` 降為 `conservative`；保留 7 篇 hero 的 list-rule。
 - **模型等級**：Sonnet。⚠️未親驗（codex 可能已調整）。
 
-### P-04 🟢 SW install 精快取所有 tier，與 v30「多階段」設計文件不符（review Phase 2 發現）
+### P-04 ✅ SW install 精快取所有 tier，與 v30「多階段」設計文件不符（review Phase 2 發現）
 - **問題**：`sw.js` install handler 用 `PRECACHE.map(c.add)` 精快取 **SHELL + POPULAR + LAZY 全部**（~30 URL），但檔頭 v30 註解宣稱「install 只阻塞 SHELL ~10 個、POPULAR 於 activate 後、LAZY 走 runtime」，且 `LAZY` 陣列註解寫「don't pre-cache」。activate 又再精快取一次 POPULAR（重複）。因 `allSettled` 不阻塞失敗、install 在背景進行，故非正確性 bug，但 install 網路量比文件宣稱多、且 POPULAR 做兩次。
 - **證據**：`sw.js` `install` 的 `PRECACHE.map`（PRECACHE = SHELL+POPULAR+LAZY）vs 檔頭 v30 註解 + LAZY 註解。
 - **驗收**（二選一，需站主定調）：(a) 改 install 只 `SHELL.map(c.add)`，POPULAR/LAZY 交給既有 activate/runtime；或 (b) 更新註解與 `LAZY` 命名以符現況。行為變更走 Opus。
 - **模型等級**：Opus（install 行為變更需先反證）。
 
-### P-05 🟢 critical-CSS 抽取把 `@supports` 誤標成 `@media`（review Phase 5 發現，perf-completeness）
+### P-05 ✅ critical-CSS 抽取把 `@supports` 誤標成 `@media`（review Phase 5 發現，perf-completeness）
 - **問題**：`_extract_critical_css.py` line 102 同時吃 `@media` 與 `@supports`，但 line 111 重建時**寫死 `@media {cond}`**。於是 `@supports (…)` 內的 critical 規則會被輸出成 `@media (…)`——無效 media query，瀏覽器整塊丟棄。`assets/app.css` **現有 4 個 `@supports` 區塊**（line 690/756/801/902），故若其中含 critical 選擇器（`.flex`/`header` 等），該批規則就沒進 inline critical CSS。另 `@layer`（若日後 Tailwind v4 採用）會被整塊丟棄（含內部 critical 規則）。
 - **影響**：**僅 perf**（完整 `assets/app.css` 仍以 `<link>` 載入並套用），非正確性 bug。故 review 時判 LOG 非 FIX。
 - **驗收**：line 111 依實際 at-rule 關鍵字輸出（`@supports`/`@media` 各自保留），或明確跳過 `@supports`。**注意**：修完會改動全站 ~67 個 HTML 的 inline critical CSS（大 diff，需跑 visual-regression `force_update` 對照 + 確認 <14KB 預算）。
@@ -164,13 +164,13 @@
 - **原問題**（保留對照）：WYSIWYG 儲存前，客戶端 `_sanitizeForSerialize` 與伺服器 `RUNTIME_HELPER_IDS` 兩邊各自維護且未涵蓋全部一次性 style id。注入器多用 `if (getElementById(...)) return` 防重複 → 一旦過時副本被序列化入庫，執行時就不再重建，過時 chrome 永久化。
 - **模型等級**：Opus（多檔行為變更，需先反證再改）。
 
-### M-07 🟢 五個互動工具 widget id 未納入 strip 清單（tradeoff，非 bug）
+### M-07 ✅ 五個互動工具 widget id 未納入 strip 清單（tradeoff，非 bug）
 - **問題**：`hs-osdi`／`hs-deq5`／`hs-snellen`／`hs-se`／`hs-floater-rf`（`DN._buildCalc` 生成的計算器）目前**刻意**不在 M-06 strip 清單。它們是純 runtime 生成內容，但 `_buildCalc` 有兩種掛載：(a) authored 佔位（`cfg.mountSel` → `mountInto.innerHTML`）、(b) fallback `<section>` 插在 `article.max-w-3xl` 後；且有 `if (getElementById(cfg.id)) return null` 重複防護。
 - **tradeoff**：不 strip → 過時 calc 內容被烤進原始碼、reload 因 guard 不重建（凍結快照，非重複，輕）。若 strip → authored-佔位情境乾淨（清空佔位、reload 重建）；但 fallback 情境會留下空的 `<section class="max-w-3xl…">` 孤兒、reload 再插一個 → 空 section 累積。兩害皆輕、皆非 authored 內容遺失。
 - **驗收**：先查有無文章走 fallback（無 `mountSel`）路徑。若全走 authored 佔位 → 安全加入兩清單（checker 自動涵蓋）。若有 fallback → 先讓 `_buildCalc` fallback 也包一層帶 id 的 wrapper、strip wrapper id，避免空 section 累積。
 - **模型等級**：Sonnet（需先查 `mountSel` 使用面）。**關聯**：M-06、D-24。
 
-### M-08 🟢 `should_drop_en_jsonld` 只看 top-level `@type`，`@graph` 巢狀 FAQPage 會漏（review Phase 5，潛伏）
+### M-08 ✅ `should_drop_en_jsonld` 只看 top-level `@type`，`@graph` 巢狀 FAQPage 會漏（review Phase 5，潛伏）
 - **問題**：`_gen_en_pages.py` 的 `should_drop_en_jsonld`（line 386-399）判斷是否把 ZH FAQPage schema 從 /en/ 頁移除時，只讀 `data['@type']`。若 FAQPage 是包在 `@graph:[…]` 陣列裡（`data['@type']` 不存在），就**偵測不到 → 不移除 → 中文 Q&A 以英文頁 rich result 出現**（GSC 語言不符）。
 - **現況（已核實，codex GPT-5.6-sol 校正計數）**：**潛伏，非活躍**。`blog/*.html` 共 **19 個 FAQPage，全部是頂層獨立 `<script>` 區塊**——其中 **7 個**由 `_gen_faqpage_jsonld.py` 產（帶 `data-faq-auto`），**另 12 個為手寫/legacy 獨立區塊**（如 dry-eye-myths.html:93，無 marker）。關鍵是**兩類都無 `@graph` 巢狀**（grep 核實 =0），故 `should_drop` 的 top-level `@type` 檢查目前 100% 覆蓋（全 `en/` 頁 FAQPage=0）。只有日後有人**手寫** @graph-巢狀 FAQPage 才會咬到。
 - **驗收**：`should_drop_en_jsonld` 也遞迴檢查 `@graph` 成員（或改用 `_jsonld_type_names` 對每個 graph node 判定）。低優先（現行慣例是獨立區塊）。
@@ -323,8 +323,8 @@
 - **為何接受**:本 repo 無 JS parser 依賴;連續 4 輪的加固都在檢查器本身而非它守護的行為(SW / pruner / 版本紀元自 round-4 起未再變動),投入產出已反轉。檢查器在程式碼裡**自述**這個範圍,且對合理重構 **fail-closed**(大聲失敗優於假綠)。
 - **重開條件**:若專案日後引入 JS parser(acorn / esbuild AST / TypeScript API),把 install 與 warmPopular 的斷言改寫成 AST 查詢。**模型等級**:Sonnet。**關聯**:P-04、REVIEW-PLAYBOOK §6。
 
-### P-06 🟢 `sw.js` 一半的體積是歷史 changelog(Round 3 補審附帶發現,未修)
-- **問題**:`sw.js` **不做 minify**,每個註解位元組都送到瀏覽器。檔頭的歷史發行說明(v19…v37)有 **385 行、25.8 KB**,佔全檔 **50%**。size-budget 硬上限是 52 KB raw / 21 KB gzip,目前 50.84 / 20.31 —— **餘裕只剩約 1.2 KB**。
+### P-06 ✅ `sw.js` 一半的體積是歷史 changelog(Round 3 補審發現 → 2026-07-27 修復)
+- **問題**:`sw.js` **不做 minify**,每個註解位元組都送到瀏覽器。檔頭那個獨立的歷史發行說明區塊有 **385 行、25.8 KB**,佔全檔 **50%**。size-budget 硬上限是 52 KB raw / 21 KB gzip,目前 50.84 / 20.31 —— **餘裕只剩約 1.2 KB**。
 - **怎麼發現的**:補審過程中我在 sw.js 加了約 4 KB 說明文字,`Size budget` job 轉紅(raw 54.94/52)。已把我加的註解壓縮,並把完整理由移到本檔;但預算依然吃緊,下一個要在 sw.js 寫解釋的人會再撞牆。
 - **驗收**:把檔頭 changelog 移到 `docs/`(git 歷史本來就有),只在 sw.js 留當前版本與快取常數說明。預期回收 ~25 KB raw / ~7 KB gzip。**注意**:那是前人刻意寫的敘事,刪除前先確認站主同意;這不是機械清理。
 - **模型等級**:Sonnet(機械,但需站主定調)。**關聯**:P-04、size-budget.yml。
@@ -360,3 +360,13 @@
 - **未動用的退路**(記錄備查):若當初實測顯示未生效,做法是改用 `middleware.js` 對這些路徑回 404。實測既然通過,不需要。
 - **外審四項發現(全部 CONFIRMED)**:(1) `_match()` 對 `/admin/`(前導斜線)與裸字面 `admin`(gitignore 語義下代表**目錄**)**失效開放**——這兩種是再普通不過的寫法,會弄壞生產卻讓 checker 保持綠燈;(2) `MUST_DEPLOY` 是**手列 16 條**,而 `.vercelignore` 註解卻宣稱「every `api/**/*.js` 受保護」——加一條 `api/og.js` 就能拿掉一個活的函式且通過檢查(**守衛宣稱大於實作**,本 repo 一再出現的同一類缺陷);(3) `deploy.ps1`／`deploy.bat`／`.githooks/pre-push` **仍未排除**,而我的註解已經寫著「git hooks 已排除」——**我的盤點漏了它們**(`ls` 統計被截斷、`.githooks/` 是點開頭目錄未被列出),卻宣稱已驗證;(4) 提前結案(本條)。
 - **外審再兩輪(共 3 輪、7 項全 CONFIRMED)**:round-2 抓到 `_match()` 的錨定語義兩個方向都錯、以及列舉式 must-deploy 漏掉 IndexNow key;round-3 抓到**本 BACKLOG 條目本身過時**(仍在描述已被移除的 16 條手列設計與舊的測試數字)——耐久紀錄落後於程式,與本輪一直在獵的病灶同類。詳見上方「驗證」條。
+
+
+**P-06 修復（2026-07-27，Opus 5,站主定案搬移）**：`sw.js` 檔頭那個**獨立的歷史發行說明區塊**(**385 行 / 25.8 KB,佔全檔 50%**)逐字搬到 `docs/SW-CHANGELOG.md`,檔頭只留一段指路說明。
+
+- **為什麼要搬**:`sw.js` **不做 minify**,每個註解位元組都送到每一位訪客;而 size-budget 是硬上限 52 KB raw / 21 KB gzip。搬移前只剩約 1.2 KB 餘裕,補審期間光是加了 4 KB 說明就把 CI 的 Size budget job 弄紅過一次。
+- **結果**:`sw.js` **50.84 KB → 26.23 KB**(raw)、**20.31 KB → 9.04 KB**(gzip),餘裕從約 1.2 KB 變成 **25.77 KB**(預算 52 / 21)。
+- **內容逐字保留**,一個字未改。**刻意不標版本範圍**:區塊內條目大致落在 v16–v34,而 `sw.js` 仍保留 v37.x 之類的**行內**註解——它們解釋的是當前行為,沒有搬走。因此 `docs/SW-CHANGELOG.md` **不是**完整版本史(外審 round-1 抓到我原本標成「v19–v37」,兩個方向都錯)。`docs/` 已被 `.vercelignore` 排除(S-08),所以歷史不會再被公開服務。git log 仍是最權威來源。
+- 驗證:`node --check`、`_check_pwa` 通過、SW 生命週期變異矩陣 12/12 不受影響。
+
+**順帶修正的 doc drift**:M-07／M-08／P-04／P-05 四項的**標題仍標 🟢／未修**,但實際都已修復並上線(記錄寫在後段的 Round 3 補審段落,標題沒跟著改)。已改為 ✅。這與 S-08 round-3 外審抓到的是同一類問題——**耐久紀錄落後於程式**。
