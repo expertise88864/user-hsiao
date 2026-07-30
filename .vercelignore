@@ -1,1 +1,57 @@
+# What NOT to upload to Vercel.  (S-08)
+#
+# Before this, the file listed only `_cms/`, so the whole build toolchain and the
+# institution docs were publicly downloadable from production: /preflight.py,
+# /_gen_csp_hashes.py, /docs/DECISIONS.md and /REVIEW_WORKORDER_2026-07.md all
+# returned 200. The harm is not a credential leak — secrets come from env vars —
+# it is that DECISIONS.md and BACKLOG.md enumerate known-unfixed weaknesses, so
+# the site published its own weak-point list, alongside the admin endpoint layout
+# and the CSP generation logic.
+#
+# VERIFIED BEFORE EXCLUDING ANY OF THIS (S-08 required proving nothing here is
+# read at request time):
+#   * there are NO Python serverless functions — api/ is entirely .js, so
+#     dropping *.py cannot remove a route;
+#   * neither api/ nor middleware.js touches the filesystem (no fs import, no
+#     readFileSync, no __dirname) — they fetch content over the GitHub API;
+#   * every tracked .py lives at the repo root and no HTML references one;
+#   * no page links to /docs/ or to any .md;
+#   * the generator chain and the checkers run in CI and locally from the git
+#     checkout, which .vercelignore does not affect.
+#
+# MUST STAY DEPLOYED: _check_deploy_exposure.py derives this from `git ls-files`
+# rather than a hand list, so a newly tracked API route or asset is protected
+# automatically. It covers assets/ blog/ en/ admin/ tools/ pagefind/ api/ plus
+# the root runtime files (vercel.json — the routing config itself — middleware.js,
+# sw.js, manifest.json, package.json for @vercel/og, robots/sitemap/llms/
+# opensearch, icons and images). The pattern SET is pinned there too, so an
+# over-broad exclusion cannot be added without a deliberate edit to the checker.
+
+# Pre-existing: CMS working area
 _cms/
+
+# Local-only artefacts (untracked, but keep CLI deploys clean too)
+__pycache__/
+node_modules/
+hs_expected_min_j86c9_ek/
+
+# Build + review toolchain. Runs in CI and locally, never at request time.
+*.py
+
+# Repository documentation and process files. docs/DECISIONS.md and
+# docs/BACKLOG.md in particular list unfixed weaknesses.
+docs/
+*.md
+
+# CI configuration, git hooks and browser tests
+.github/
+.githooks/
+scripts/
+tests/
+playwright.config.js
+playwright.seo.config.js
+
+# Deployment procedure — runtime-unreferenced, and it documents how releases
+# and any overwrite bypass are performed.
+deploy.ps1
+deploy.bat
