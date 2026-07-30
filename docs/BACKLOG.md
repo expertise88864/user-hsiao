@@ -294,7 +294,7 @@
 
 **✅ 補審完成（2026-07-27，codex GPT-5.6-sol round-8 APPROVE）**：`94b25d5` 曾以 `[UNREVIEWED]` 標記先行上線（使用者定案,額度用罄）。額度回復後補審共跑 **8 輪**，**每一輪提出的每一項都經獨立驗證為真、全部修復，零項 REJECTED**。修正以 follow-up commit 上線。逐輪發現見下方「補審 8 輪」段落。
 
-### S-08 🟠 建置工具鏈與內部文件公開可下載（Round 3 發現;機制已上線,**生產實測未完成前不得結案**）
+### S-08 ✅ 建置工具鏈與內部文件公開可下載（Round 3 發現 → 2026-07-27 修復並經生產實測確認）
 - **問題**：`.vercelignore` 只有 `_cms/`，`vercel.json` 無 build 設定（純靜態），故 repo 內幾乎所有檔案都被上傳並對外提供。線上實測：`/preflight.py`、`/_check_pwa.py`、`/_gen_csp_hashes.py`、`/docs/DECISIONS.md`、`/REVIEW_WORKORDER_2026-07.md` 皆回 **200**。
 - **不受影響（已實測）**：`/api/admin/_save.js` 回 **308**（Vercel 函式路由，原始碼未以文字外洩）；`/package.json` 回 **404**。密鑰走環境變數，**無憑證外洩**。
 - **危害**：`docs/DECISIONS.md`／BACKLOG **逐條列出已知但未修的弱點**（如 S-02「既有 SVG 無 CSP」）、admin 端點結構與 CSP 生成邏輯；62 個檢查器的內容等於一份「哪些東西沒被守住」的地圖。等於主動發布自己的弱點清單。
@@ -344,7 +344,7 @@
 - **仍在 playbook 手上、程式端幫不上**：answer-first 改寫（C-02，最大 AI 引用槓桿）、作者外部身分鏈（需站主提供 ORCID/LinkedIn URL，D-08）、站外連結與分發。**這些沒做完之前，schema 再完美也不會改變流量結論。**
 
 
-**S-08 機制上線（2026-07-27，Opus 5）——⚠ 尚未結案**：`.vercelignore` 原本只有 `_cms/`，加上 `*.py`／`docs/`／`*.md`／`.github/`／`tests/`／`scripts/`／`playwright.*.config.js` 與本機產物。
+**S-08 修復並結案（2026-07-27，Opus 5）**：`.vercelignore` 原本只有 `_cms/`，加上 `*.py`／`docs/`／`*.md`／`.github/`／`tests/`／`scripts/`／`playwright.*.config.js` 與本機產物。
 
 - **先反證再排除**（BACKLOG 原驗收條件要求的「先確認哪些檔在 runtime 被讀取」）：`api/` **沒有任何 .py**(全是 .js,所以排 `*.py` 不會拿掉任何路由);`api/` 與 `middleware.js` **完全不碰檔案系統**(無 `fs` 匯入、無 `readFileSync`、無 `__dirname`,內容一律走 GitHub API);所有 tracked `.py` 都在根目錄且無 HTML 引用;站上沒有任何連結指向 `/docs/` 或 `.md`;生成鏈與檢查器跑在 CI 與本機的 git checkout,`.vercelignore` 影響不到。
 - **守衛 `_check_deploy_exposure.py` 守兩半**——這是關鍵設計:光有 ignore 檔不夠,**排太多會無聲弄壞生產**(排掉 `vercel.json` 等於拿掉路由設定,排掉 `admin/admin.css`／`tools/` 會 404 真實頁面),而這種失敗**不會出現在 preflight 或任何 HTML 驗證器**,只會出現在壞掉的部署上。
@@ -353,7 +353,10 @@
 - **`_match()` 的 gitignore 語義**:無內部斜線的 pattern **未錨定**,匹配任意深度(`docs/` 也會排除 `assets/docs/help.js`);前導 `/` **錨定根目錄**(`/admin/` 不匹配 `x/admin/y.css`);含內部斜線者亦錨定;結尾 `/` 代表僅限目錄。**兩個方向我原本都寫錯**:只在根目錄比對 → 漏判真實部署會刪掉的巢狀資產;把前導斜線剝掉 → 過度匹配。
 - **誠實範圍**:`_match()` 只實作本檔實際用到的子集,**不是** gitignore 引擎(不支援 `!` 反向、`**`、字元類)。子集外的 pattern 會讓建置**直接失敗**而非靜默誤判。
 - **驗證**:變異測試 **26/26**——8 種 S-08 迴歸(各項排除被移除)+ 整份清空 + 9 種弄壞生產的過廣排除(`*.json`／`api/`／`/admin/`／裸 `admin`／`/middleware.js`／裸 `tools`／`pagefind/`／`*.js`／裸 `assets`)+ 新增 API 路由後被排除 + **用檔名排掉 IndexNow key** + 排掉根目錄 `.txt` + 2 種不支援語法 + git manifest 讀不到時 fail-closed。另有 **15 條 `_match()` 語義斷言**(含成對錨定反例)與 **7 條 `is_runtime_required()` 斷言**。現況:15 個 pattern、422 個 tracked 檔扣留 155、部署 267,無一為 runtime-required。
-- **⚠ 為何仍是 🟠 而非 ✅**（外審指出我提前結案）:本項的**驗收條件是生產環境實測**,不是「改了 `.vercelignore`」。`.vercelignore` 對 **Git 整合部署**是否生效我沒有把握,也不宣稱。上線後必須 curl 驗證 `/preflight.py`、`/_gen_csp_hashes.py`、`/docs/DECISIONS.md`、`/REVIEW_WORKORDER_2026-07.md`、`/deploy.ps1`、`/.githooks/pre-push` **由 200 變 404**,並確認 `/`、`/blog/`、`/en/`、`/admin/admin.css`、`/tools/eye-3d.html`、`/pagefind/pagefind.js`、CSP header **全部完好**。**兩者都通過才改 ✅。**
-- **若實測顯示未生效**:退路是改用 `middleware.js` 對這些路徑回 404——那是程式面變更,需另一批與另一次外審。
+- **✅ 生產實測通過（結案依據,commit `57d1d43` 上線後量測)**——本項的驗收條件是**實測**不是「改了設定檔」,兩半都必須過:
+  - **應消失(先前皆 200)→ 全部 404**:`/preflight.py`、`/_gen_csp_hashes.py`、`/_check_pwa.py`、`/docs/DECISIONS.md`、`/REVIEW_WORKORDER_2026-07.md`、`/deploy.ps1`、`/deploy.bat`、`/.githooks/pre-push`、`/CLAUDE.md`、`/tests/seo.spec.js`。
+  - **必須完好 → 全部正常**:`/`、`/en`、`/admin/admin.css`、`/pagefind/pagefind.js`、`/blog/dry-eye-myths`、`/blog/blog-shared.min.js`、`/assets/app.css`、`/manifest.json`、`/sw.js`、`/robots.txt`、`/sitemap.xml`、`/llms.txt`、`/api/sitemap` 皆 200;**`/bfc071112dd2988a75988a1249d0ce44.txt`(IndexNow 驗證檔)200**;`/blog/` 與 `/tools/eye-3d.html` 回 308 是既有的尾斜線正規化(`trailingSlash:false`),跟隨後皆 200;CSP header 仍正常送出。
+  - **順帶確認**:`.vercelignore` **對 Git 整合部署確實生效**——先前這點我不確定也沒宣稱,現在有實測數據。
+- **未動用的退路**(記錄備查):若當初實測顯示未生效,做法是改用 `middleware.js` 對這些路徑回 404。實測既然通過,不需要。
 - **外審四項發現(全部 CONFIRMED)**:(1) `_match()` 對 `/admin/`(前導斜線)與裸字面 `admin`(gitignore 語義下代表**目錄**)**失效開放**——這兩種是再普通不過的寫法,會弄壞生產卻讓 checker 保持綠燈;(2) `MUST_DEPLOY` 是**手列 16 條**,而 `.vercelignore` 註解卻宣稱「every `api/**/*.js` 受保護」——加一條 `api/og.js` 就能拿掉一個活的函式且通過檢查(**守衛宣稱大於實作**,本 repo 一再出現的同一類缺陷);(3) `deploy.ps1`／`deploy.bat`／`.githooks/pre-push` **仍未排除**,而我的註解已經寫著「git hooks 已排除」——**我的盤點漏了它們**(`ls` 統計被截斷、`.githooks/` 是點開頭目錄未被列出),卻宣稱已驗證;(4) 提前結案(本條)。
 - **外審再兩輪(共 3 輪、7 項全 CONFIRMED)**:round-2 抓到 `_match()` 的錨定語義兩個方向都錯、以及列舉式 must-deploy 漏掉 IndexNow key;round-3 抓到**本 BACKLOG 條目本身過時**(仍在描述已被移除的 16 條手列設計與舊的測試數字)——耐久紀錄落後於程式,與本輪一直在獵的病灶同類。詳見上方「驗證」條。
