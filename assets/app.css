@@ -37,7 +37,10 @@ legend { padding: 0; }
 ol, ul, menu { list-style: none; margin: 0; padding: 0; }
 dialog { padding: 0; }
 textarea { resize: vertical; }
-input::placeholder, textarea::placeholder { opacity: 1; color: #9ca3af; }
+/* A-03: #9ca3af on white is 2.54:1 — below the 4.5:1 WCAG 1.4.3 minimum,
+   and placeholders in the admin/tools forms are real instructions, not
+   decoration. #6b7280 measures 4.83:1 on #fff. */
+input::placeholder, textarea::placeholder { opacity: 1; color: #6b7280; }
 button, [role="button"] { cursor: pointer; }
 :disabled { cursor: default; }
 img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }

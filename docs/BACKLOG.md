@@ -116,7 +116,7 @@
 - **驗收**：移除冗餘 legacy skip-link（`.hs-skiplinks`/`.skip-to-main` 已覆蓋），或加 `:focus` 上螢幕規則。
 - **模型等級**：Haiku~Sonnet。
 
-### A-03 🟢 幾個雜項對比/語言 a11y
+### A-03 ✅ 幾個雜項對比/語言 a11y
 - 搜尋 modal `aria-label="搜尋"` 在 en 頁仍中文（`blog-shared.js` cmdk modal）；in-page 語言切換未對混語片段設 `lang`；全域 placeholder 色 `#9ca3af`（2.54:1，主要影響 admin/tools 表單）。
 - **驗收**：modal aria-label 依 `DN.detectLang()` 切換；placeholder 色加深到 ≥ `--muted`。
 - **模型等級**：Sonnet。
@@ -176,7 +176,7 @@
 - **驗收**：`should_drop_en_jsonld` 也遞迴檢查 `@graph` 成員（或改用 `_jsonld_type_names` 對每個 graph node 判定）。低優先（現行慣例是獨立區塊）。
 - **模型等級**：Sonnet。**關聯**：D-09、REVIEW-PLAYBOOK §5。
 
-### M-09 🟢 `api/admin/_precompute-meta.js` 的 DN.ARTICLES 回寫 regex 脆弱（Sweep A，潛伏）
+### M-09 ✅ `api/admin/_precompute-meta.js` 的 DN.ARTICLES 回寫 regex 脆弱（Sweep A，潛伏）
 - **問題**：`_precompute-meta.js`（~line 86-92）用 `[^}]*?` + 只逸出 slug 的 `-` 來就地改寫 DN.ARTICLES 的 `words:`/`minutes:` 欄位。若某 entry 的欄位值含 `}` 或 regex metachar，`[^}]` 會提早終止 / slug metachar 會 mis-anchor，把欄位注到錯位置。**與 M-11（`_reorder`）同一類 regex-on-JS 脆弱**，但影響較輕（改欄位 vs 整篇消失）。
 - **現況**：**潛伏**——輸入是建置產生的 `blog-shared.js`，slug 皆 `[a-z0-9-]`、欄位值無 `}`。寫入面本身安全（有 `sha` 樂觀鎖 + noop guard）。
 - **驗收**：比照 M-11 加「parse 數 ≠ 實際 entry 數就 refuse」的 fail-safe，或改用逐-entry 解析。低優先。
@@ -422,3 +422,14 @@
 - D-06 兩個紀元同步 bump 至 `20260667` 並重新 minify。
 
 **⚠ 待補外審**:同前兩批,Codex 額度用罄(2026-08-05 重置)。
+
+
+**Batch B 收尾 — M-09 ✅ / A-03 ✅（2026-07-27，Opus 5）**
+
+- **`M-09` `_precompute-meta.js` 的 DN.ARTICLES 回寫**：原本兩個**靜默**失效路徑——`[^}]*?` 在**第一個** `}` 就停,欄位值含 `}` 會截斷比對;slug 只逸出 `-`,其他 regex metachar 會 mis-anchor 把欄位注到**別的 entry**。兩者都不會報錯,回應仍是 `ok:true`,而 DN.ARTICLES 已被破壞。
+  修法三層:(1) slug 用完整的 regex 逸出;(2) **逐一驗證改動確實落在該 slug 的 entry 內**(比對後用 `{slug:'x'[^}]*?words:N, minutes:M` 回查),不落點就 409;(3) 前後 `slug:` 鍵數必須相同。**光有第 (3) 層不夠**——mis-anchor 不會改變鍵數,這正是 M-11 的 fail-safe 擋不住的情形。
+- **`A-03a` cmdk 對話框的 `aria-label`**:原本硬寫中文「搜尋」,`/en/` 頁面對螢幕閱讀器**逐字念出中文**。改為依 `DN.detectLang()` 切換。
+- **`A-03b` placeholder 對比**:`#9ca3af` 在白底是 **2.54:1**,低於 WCAG 1.4.3 的 4.5:1;而 admin/tools 表單的 placeholder 是**真的操作說明**不是裝飾。改為 `#6b7280` = **4.83:1**(比值以相對亮度公式實算,非引用)。
+- 過程中 `_check_min_js.py` 轉紅——因為我改了 `blog-shared.js` 沒重新 minify。**那是 Phase 6 加的新鮮度閘門正常運作**;已重新 minify 並把 D-06 兩個紀元 bump 到 `20260668`。
+
+**⚠ 待補外審**:同前三批,Codex 額度用罄(2026-08-05 重置)。

@@ -79,6 +79,24 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 5 — M-09 / A-03
+
+| 欄位 | 內容 |
+|---|---|
+| commit 標記 | commit 標題含 `[UNREVIEWED]` |
+| 上線日 | 2026-07-27 |
+| 跳關原因 | 同前:Codex 額度用罄 |
+| 已完成的驗證 | `node --check`、對比值實算、preflight 62/0/0、D-06 bump、CI |
+| 外審進度 | **完全未審** |
+
+**補審時請特別看**：
+- M-09 的三層防護是否真的擋得住它宣稱的兩種失效——特別是 **mis-anchor 回查**那一層的正則本身是否也會被同樣的 `[^}]` 問題影響。
+- 三個 409 出口是否會讓**正常**的 precompute 意外失敗(誤報比漏報更容易被忽略,因為 admin 只會看到操作失敗)。
+- A-03a 的 `DN.detectLang()` 在 cmdk 建構當下是否已可用(若尚未初始化會退回中文——是否可接受)。
+- A-03b 換色是否影響 visual-regression 基準。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。

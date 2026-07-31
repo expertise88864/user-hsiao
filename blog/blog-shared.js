@@ -2581,7 +2581,8 @@
     var overlay = document.createElement('div');
     overlay.id = 'hs-cmdk-overlay';
     overlay.innerHTML =
-      '<div id="hs-cmdk-modal" role="dialog" aria-label="搜尋">' +
+      // A-03: was a hard-coded Chinese aria-label, announced verbatim on /en/.
+      '<div id="hs-cmdk-modal" role="dialog" aria-label="' + (DN.detectLang && DN.detectLang() === 'en' ? 'Search' : '搜尋') + '">' +
         '<input id="hs-cmdk-input" type="text" placeholder="搜尋文章 / 主題⋯ (按 Esc 關閉)" autocomplete="off" spellcheck="false" />' +
         '<div id="hs-cmdk-results"></div>' +
         '<div id="hs-cmdk-foot"><span><kbd>↑</kbd><kbd>↓</kbd> 移動</span><span><kbd>Enter</kbd> 開啟</span><span><kbd>Esc</kbd> 關閉</span></div>' +
@@ -3811,7 +3812,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260667';
+    s.src = '/blog/blog-admin.js?v=20260668';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

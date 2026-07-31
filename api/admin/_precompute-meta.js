@@ -81,15 +81,54 @@ export default async function handler(req, res) {
     // update; else inject before the closing `}`. Only modifies slugs we
     // successfully counted (skip missing files).
     let patched = sharedJs.content;
+
+    // M-09: this rewrite is a regex over JavaScript source — the same fragile
+    // shape as M-11 in _reorder.js. `[^}]*?` stops at the FIRST `}`, so a field
+    // value containing one truncates the match; and only `-` was escaped in the
+    // slug, so any other regex metacharacter would mis-anchor and inject the
+    // fields into a different entry. Both failures are SILENT: the response
+    // still says ok:true while DN.ARTICLES has been corrupted.
+    //
+    // So escape the slug properly, and VERIFY each rewrite landed rather than
+    // trusting it. The entry-count invariant alone is not sufficient, because a
+    // mis-anchored injection leaves the count unchanged.
+    const escapeRe = (v) => v.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&');
+    const slugKeysBefore = (patched.match(/\bslug\s*:/g) || []).length;
+
     for (const u of updates) {
       if (u.err) continue;
       const entryRe = new RegExp(
-        `(\\{\\s*slug\\s*:\\s*'${u.slug.replace(/-/g, '\\-')}'[^}]*?)(\\s*\\})`
+        `(\\{\\s*slug\\s*:\\s*'${escapeRe(u.slug)}'[^}]*?)(\\s*\\})`
       );
+      const before = patched;
       patched = patched.replace(entryRe, (_, head, tail) => {
         // Strip any existing words/minutes
         const cleaned = head.replace(/,\s*words\s*:\s*\d+/g, '').replace(/,\s*minutes\s*:\s*\d+/g, '');
         return cleaned + `, words:${u.words}, minutes:${u.minutes}` + tail;
+      });
+      if (patched === before) {
+        return res.status(409).json({
+          error: `no DN.ARTICLES entry matched slug '${u.slug}' — refusing to write. `
+               + `The entry may contain a '}' that truncates the match, or its formatting changed.`,
+        });
+      }
+      // The rewrite must have landed inside THIS slug's entry, not a neighbour's.
+      const landed = new RegExp(
+        `\\{\\s*slug\\s*:\\s*'${escapeRe(u.slug)}'[^}]*?words:${u.words}, minutes:${u.minutes}`
+      ).test(patched);
+      if (!landed) {
+        return res.status(409).json({
+          error: `words/minutes for '${u.slug}' did not land inside that slug's entry — `
+               + `refusing to write a possibly mis-anchored edit.`,
+        });
+      }
+    }
+
+    const slugKeysAfter = (patched.match(/\bslug\s*:/g) || []).length;
+    if (slugKeysAfter !== slugKeysBefore) {
+      return res.status(409).json({
+        error: `entry count changed while patching (${slugKeysBefore} -> ${slugKeysAfter}) — `
+             + `refusing to write to avoid dropping an article.`,
       });
     }
 
