@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import html
 import re
+import _articles_field  # M-12: DN.ARTICLES fields may contain escaped quotes
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -26,8 +27,8 @@ def parse_articles() -> list[dict[str, str]]:
     en_stubs = set(re.findall(r"'([^']+)'", en_stub_m.group(1))) if en_stub_m else set()
 
     def field(body: str, key: str) -> str:
-        mm = re.search(rf"{key}\s*:\s*'([^']*)'", body)
-        return mm.group(1) if mm else ''
+        mm = _articles_field.FIELD_RE(key).search(body)
+        return _articles_field.unescape(mm.group(1)) if mm else ''
 
     out = []
     for obj in re.finditer(r'\{([\s\S]*?)\}', m.group(1)):

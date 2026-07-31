@@ -182,7 +182,7 @@
 - **驗收**：比照 M-11 加「parse 數 ≠ 實際 entry 數就 refuse」的 fail-safe，或改用逐-entry 解析。低優先。
 - **模型等級**：Sonnet。**關聯**：M-11、REVIEW-PLAYBOOK §9。
 
-### M-12 🟠 DN.ARTICLES 的 `'([^']*)'` 欄位解析遇標題含單引號會截斷（Sweep B，跨多生成器）
+### M-12 ✅ DN.ARTICLES 的 `'([^']*)'` 欄位解析遇標題含單引號會截斷（Sweep B，跨多生成器）
 - **問題**：多個生成器用同一種 `field()` regex `key:\s*'([^']*)'` 解析 `DN.ARTICLES` 欄位。若某欄位值含**單引號/撇號**（在 JS 源以 `\'` 逸出），`[^']*` 會在逸出的 `'` 處截斷 → 標題/標籤損毀。**眼科站很可能踩到**：`Sjögren's`（修格蘭氏症，乾眼主因）、`Don't`、`Behçet's`。
 - **影響面（同一 bug 散在多檔）**：`_gen_search_index.py`、`_gen_related.py`、`_gen_llms_txt.py`、`_gen_og_images.py`、`_gen_feeds.py`、`_gen_en_pages.py`（`parse_articles`）——一個撇號會同時污染搜尋索引、related、llms、OG 卡、feeds、/en/ meta。
 - **現況**：潛伏（現行標題皆無撇號）。
@@ -442,3 +442,14 @@
 - **順帶發現(未處理)**:`assets/icons.svg` **被引用 0 次**,是死資產。沒有直接刪除,因為現在沒有外審可用,而「看起來沒人用」在本 session 已經被證明過一次是錯的(M-01 的 `components.js` 定義了自訂元素,grep 檔名找不到)。留待補審時一併判斷。
 
 **⚠ 待補外審**:同前四批,Codex 額度用罄(2026-08-05 重置)。
+
+
+**Batch C 續 — M-12 ✅（2026-07-27，Opus 5）**
+
+- 新增 `_articles_field.py` 作為 DN.ARTICLES 欄位解析的**單一來源**;5 個生成器(`_gen_search_index` / `_gen_related` / `_gen_llms_txt` / `_gen_feeds` / `_gen_en_pages`)各自那份 `key:\s*'([^']*)'` 全部換掉,舊 pattern 殘留 **0**。
+- **修正一則我自己的誇大**:先前說撇號會「污染擴散到後續欄位」。實測**不會**——每個欄位各自搜尋整段 body,所以相鄰欄位不受影響。真正的損害是**含撇號的那個欄位被截斷並留下一個殘留反斜線**(`Sjögren's` → `Sjögren\`)。
+- **修到一半差點收工**:換上 `FIELD_RE().search()` 只解決了截斷,呼叫端取的仍是 `.group(1)`(**原始未反逸出**的字面內容),`'` 會留成殘留反斜線。已在 6 個消費點補上 `unescape()`。
+- **腳本弄壞過一行**:變數名比對用前綴匹配,`match` 命中了 `articles_match` 內部,把 `_gen_search_index.py` 第 48 行改成 `articles__articles_field.unescape(...)`。已修復並重驗語法。
+- 現行標題皆無撇號,故**產出零變動**(潛伏修復);端到端 fixture 證明舊解析壞、新解析對。
+
+**⚠ 待補外審**:同前五批。**M-05／A-01／P-01／T-02／S-07／M-14 未動**——本輪 context 已不足以再完整交付一項,不開半成品。

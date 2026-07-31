@@ -14,6 +14,7 @@ head metadata must be English-page accurate at build time:
 
 import html as html_lib
 import json
+import _articles_field  # M-12: DN.ARTICLES fields may contain escaped quotes
 import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import os
 import re
@@ -118,9 +119,9 @@ def parse_articles():
         body = obj.group(1)
         row = {}
         for key in ('slug', 'title', 'title_en', 'tag', 'tag_en', 'date', 'cat'):
-            km = re.search(rf"{key}\s*:\s*'([^']*)'", body)
+            km = _articles_field.FIELD_RE(key).search(body)
             if km:
-                row[key] = km.group(1)
+                row[key] = _articles_field.unescape(km.group(1))
         if row.get('slug'):
             articles[row['slug']] = row
     return articles

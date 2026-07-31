@@ -15,6 +15,7 @@ Run as a build step before `git push` (also wired into the GH Actions
 quality.yml workflow).
 """
 import os, re, html, json
+import _articles_field  # M-12: DN.ARTICLES fields may contain escaped quotes
 from datetime import datetime, timezone
 
 DOMAIN = 'https://hsiao.chendermatologist.com'
@@ -36,8 +37,8 @@ if m:
     en_stubs = set(re.findall(r"'([^']+)'", en_stub_m.group(1))) if en_stub_m else set()
 
     def field(body, key):
-        mm = re.search(rf"{key}\s*:\s*'([^']*)'", body)
-        return mm.group(1) if mm else ''
+        mm = _articles_field.FIELD_RE(key).search(body)
+        return _articles_field.unescape(mm.group(1)) if mm else ''
 
     for obj in re.finditer(r'\{([\s\S]*?)\}', m.group(1)):
         body = obj.group(1)

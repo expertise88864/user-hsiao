@@ -9,6 +9,7 @@ import io
 import json
 import os
 import re
+import _articles_field  # M-12: DN.ARTICLES fields may contain escaped quotes
 import sys
 from html.parser import HTMLParser
 
@@ -40,8 +41,8 @@ def parse_catalog() -> list[dict[str, str]]:
     en_stubs = set(re.findall(r"'([^']+)'", en_stub_match.group(1))) if en_stub_match else set()
 
     def field(body: str, key: str) -> str:
-        match = re.search(rf"{key}\s*:\s*'([^']*)'", body)
-        return html_lib.unescape(match.group(1)).strip() if match else ""
+        match = _articles_field.FIELD_RE(key).search(body)
+        return html_lib.unescape(_articles_field.unescape(match.group(1))).strip() if match else ""
 
     articles: list[dict[str, str]] = []
     for obj in re.finditer(r"\{([\s\S]*?)\}", articles_match.group(1)):

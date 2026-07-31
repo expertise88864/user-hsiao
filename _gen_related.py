@@ -24,6 +24,7 @@ import json
 import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import random
 import re
+import _articles_field  # M-12: DN.ARTICLES fields may contain escaped quotes
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -39,9 +40,9 @@ articles = []
 for body in re.finditer(r'\{([^{}]*)\}', m.group(1)):
     rec = {}
     for k in ('slug', 'title', 'title_en', 'cat', 'tag', 'tag_en', 'date', 'updated'):
-        mm = re.search(rf"{k}\s*:\s*'([^']*)'", body.group(1))
+        mm = _articles_field.FIELD_RE(k).search(body.group(1))
         if mm:
-            rec[k] = mm.group(1)
+            rec[k] = _articles_field.unescape(mm.group(1))
     if rec.get('slug') and rec.get('title'):
         articles.append(rec)
 

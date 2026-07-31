@@ -115,6 +115,23 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 7 — M-12（DN.ARTICLES 欄位解析）
+
+| 欄位 | 內容 |
+|---|---|
+| commit 標記 | commit 標題含 `[UNREVIEWED]` |
+| 上線日 | 2026-07-27 |
+| 跳關原因 | 同前:Codex 額度用罄 |
+| 已完成的驗證 | 5 檔換完 0 殘留、6 個消費點補 unescape、fixture 端到端、preflight 62/0/0、產出零變動 |
+| 外審進度 | **完全未審** |
+
+**補審時請特別看**：
+- `_articles_field.unescape()` 的處理是否正確——尤其 `\`(逸出的反斜線)後接引號的情形。
+- 5 個生成器是否**全部**同時改到(BACKLOG 原文強調「必須一致改全部」),以及 `_gen_og_images.py` 為何不在清單內(它未使用該 pattern,請複核)。
+- 一個編輯腳本曾把 `_gen_search_index.py` 第 48 行改壞(前綴匹配 `match` 命中 `articles_match`),已修復——請確認該檔沒有其他被波及處。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。
