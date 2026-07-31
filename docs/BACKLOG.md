@@ -86,7 +86,7 @@
 - **修法**：`\bsrc=` → `\ssrc\s*=`（要求 `src` 前面是屬性分隔空白，`\s*=` 也涵蓋 `src = "…"`）。已核實 **output-neutral**（現行無任何 inline script 帶 src-like 屬性，重跑 `_gen_csp_hashes.py` 後 middleware.js 不變）→ 純潛伏加固。codex GPT-5.6-sol 已審。
 - **模型等級**：—（已關閉）。**關聯**：D-16、REVIEW-PLAYBOOK §4/§9。
 
-### S-07 🟢 `/admin` 的 Markdown 預覽 mini-renderer 不逸出屬性引號 / 不擋 `javascript:`（Sweep C，admin-self）
+### S-07 ✅ `/admin` 的 Markdown 預覽 mini-renderer 不逸出屬性引號 / 不擋 `javascript:`（Sweep C，admin-self）
 - **問題**：`admin.html` `renderMdPreview()`（~1133-1150）把 `[x](url)`→`<a href="url">`、`![x](url)`→`<img src="url">`，url **未逸出 `"`**、也不擋 `javascript:`。`/admin` CSP 是 `script-src 'unsafe-inline'` + TT default policy 是 pass-through（`createHTML: s=>String(s)`），故注入的 `on*=`/`javascript:` **會執行**。
 - **為何 🟢（不修）**：來源是**站主自己**在 md 編輯器打的字 / 自己 repo 的文章 markdown（經 `/api/admin/md`），**非公開訪客資料** → 頂多 admin 自我 XSS 於預覽窗；且預覽是即時丟棄、存檔時由 server 正規 render。無外部攻擊路徑。
 - **驗收**（若要順手加固）：mini-renderer 的 url 過 `escapeAttr` + 擋 `^\s*javascript:`。低優先。
@@ -464,3 +464,14 @@
 - **`M-14` ⛔ 不做**:該條目自己就寫著「**已接受為殘餘風險,不再迭代**」——codex 經 5 輪對抗式審查判定無阻擋級缺陷,剩下的只是本 repo 的 generator **不可能產出**的畸形標記。重開條件(改手寫 HTML／引入第三方模板／admin 允許貼任意標記)**三個都沒發生**。與 R-01 同類,同樣的理由建議不修。
 
 **⚠ 待補外審**:同前六批。
+
+
+**Batch C 續 — S-07 ✅ / P-01 待你定案（2026-07-27，Opus 5）**
+
+- **`S-07`**:條目原判 🟢 不修,理由是「來源是站主自己 → 頂多 admin 自我 XSS」。**理由成立,但修它很便宜,所以還是修了**——一個用自由文字組出屬性的 renderer,不該把安全性建立在「誰在打字」上。
+  兩條實際可注入的路徑:初始逸出只處理 `&<>`、**不含 `"`**,所以 `[x](" onclick=alert(1) x=")` 會**跳出 href 屬性**加上事件處理器;以及 `[x](javascript:...)`。`/admin` 的 CSP 是 `script-src 'unsafe-inline'` 且 TT default policy 是 pass-through,所以兩者**都會執行**。
+  改法:兩條 replace 改用 callback,URL 過 `mdSafeUrl()`(白名單 http/https/mailto/相對路徑;**先剝掉空白與控制字元再判斷 scheme**,因為 `java	script:` 和 ` javascript:` 瀏覽器都吃),屬性值一律過 `mdAttr()`。9 個 URL 案例 + 屬性跳脫案例全通過。
+- **`P-01` ⏸ 需要你定案,我沒有逕自改**:該條目自己標明「**這是 DECISIONS D-12 已接受的債**,此處只記錄『若要償還』的驗收條件」,而且三個方案裡的 **(b) 非阻塞 `media=print onload` 會被 D-16 的 fail-closed CSP 擋**(inline event handler)。三選一會改變**每一頁的首屏字型載入**,需要 Lighthouse 前後對照,而且是取捨題不是缺陷題:(a) 自架 woff2、(b) 非阻塞載入 + CSP 相容化、(c) 砍掉裝飾字型 Fraunces/JetBrains Mono。**請你選一個**,我再做。
+- **`A-01`／`T-02` 未動**:本輪 context 已不足以再完整交付一項。A-01 要改 `_apply_i_series.py` 讓 skip-nav 依頁面實際存在的 id 條件輸出,而該生成器的輸出是 SENTINEL-凍結的,需要小心處理。
+
+**⚠ 待補外審**:同前七批。

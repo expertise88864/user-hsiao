@@ -145,6 +145,19 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 9 — S-07（admin markdown 預覽的 URL 白名單）
+
+| 已完成的驗證 | 9 個 URL 案例 + 屬性跳脫、preflight 63/0/0、CI |
+|---|---|
+| 外審進度 | **完全未審** |
+
+**補審時請特別看**：
+- `mdSafeUrl()` 的 scheme 偵測是否還有繞法(我剝掉空白與控制字元後才比對,但沒有處理 HTML 實體如 `&#106;avascript:`——**預覽輸入是 markdown 原文不是 HTML,所以我判斷不需要,請複核**)。
+- URL 被判定不安全時我回傳 `mdAttr(整段原文)`,讓它以純文字顯示而非消失——這個行為是否恰當。
+- 既有的**渲染**順序問題(link 規則排在 image 之前,`![x](y)` 會先被 link 規則吃掉留下一個 `!`)——**我沒有動它**,那是既有的顯示瑕疵不是安全問題,但補審時可一併判斷。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。

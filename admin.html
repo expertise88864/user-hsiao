@@ -1130,6 +1130,23 @@ function renderMdPreview() {
   const preview = document.getElementById('md-preview');
   if (!md) { preview.innerHTML = '<div class="loading">空</div>'; return; }
   // Mini Markdown → HTML for live preview (server does the canonical render on save)
+  // S-07 helpers. mdSafeUrl returns null for anything whose scheme is not
+  // plainly safe — relative paths, http(s) and mailto pass; javascript:, data:
+  // and vbscript: do not. Scheme detection strips whitespace and control
+  // characters first, because "java\tscript:" and "  javascript:" are both
+  // accepted by browsers.
+  const mdAttr = (v) => String(v)
+    .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const mdSafeUrl = (raw) => {
+    const u = String(raw).trim();
+    const probe = u.replace(/[\s\u0000-\u001f]/g, '').toLowerCase();
+    if (/^(javascript|data|vbscript|file):/.test(probe)) return null;
+    // A scheme is anything before the first ':' that precedes any '/', '?' or '#'.
+    const m = probe.match(/^([a-z][a-z0-9+.-]*):/);
+    if (m && !['http', 'https', 'mailto'].includes(m[1])) return null;
+    return u;
+  };
   let h = md.slice(0, 8000);
   h = h.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   h = h.replace(/^###### (.+)$/gm, '<h6>$1</h6>')
@@ -1141,8 +1158,26 @@ function renderMdPreview() {
        .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
        .replace(/\*([^*]+)\*/g,    '<i>$1</i>')
        .replace(/`([^`]+)`/g,      '<code>$1</code>')
-       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%" loading="eager" fetchpriority="high" decoding="async">')
+       // S-07: the initial escape pass covers & < > but NOT `"`, so a URL like
+       //   [x](" onclick=alert(1) x=")
+       // broke out of the href attribute and added an event handler, and
+       //   [x](javascript:alert(1))
+       // produced a javascript: href. /admin runs with script-src 'unsafe-inline'
+       // and a pass-through Trusted Types default policy, so both EXECUTE.
+       // The source is the site owner's own markdown, so this is self-XSS in a
+       // throwaway preview rather than a visitor-facing hole — but a renderer
+       // that builds attributes out of free text should not depend on who is
+       // typing. Both replacements now go through callbacks that vet the URL
+       // scheme and quote-escape every attribute value.
+       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, text, url) => {
+         const safe = mdSafeUrl(url);
+         return safe === null ? mdAttr(m) : '<a href="' + mdAttr(safe) + '">' + text + '</a>';
+       })
+       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (m, alt, url) => {
+         const safe = mdSafeUrl(url);
+         return safe === null ? mdAttr(m)
+           : '<img src="' + mdAttr(safe) + '" alt="' + mdAttr(alt) + '" style="max-width:100%" loading="eager" fetchpriority="high" decoding="async">';
+       })
        .replace(/^- (.+)$/gm, '<li>$1</li>')
        .replace(/(<li>.+?<\/li>(?:\n<li>.+?<\/li>)*)/gs, '<ul>$1</ul>')
        .replace(/\n\n/g, '</p><p>')
