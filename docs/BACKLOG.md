@@ -195,7 +195,7 @@
 - **驗收**：JSON-LD 輸出統一過 `.replace('<','\\u003c')`（JSON-LD 慣例），或包一個 `dump_jsonld()` helper。低優先。
 - **模型等級**：Sonnet。**關聯**：REVIEW-PLAYBOOK §5。
 
-### M-15 🟢 `initBlog` 的 idle 區塊仍缺「逐一呼叫」層級的錯誤隔離（R2-2）
+### M-15 ✅ `initBlog` 的 idle 區塊仍缺「逐一呼叫」層級的錯誤隔離（R2-2）
 - **背景**：`blog-shared.js` 的 `initBlog` 用四個 `idle(...)` 區塊依序呼叫約 40 個 `DN.*` 功能。原註解宣稱「Each is wrapped in try/catch via idle() shim so errors stay siloed」——**但 shim 根本沒有 try/catch**（R2-2 核實）。任一函式拋錯，同區塊後續全部不執行，包含結尾的 `DN.applyTextOnly(curLang)`（會讓注入的 UI 在 /en/ 卡在中文）。
 - **已做**：`idle()` 改為包 try/catch + 回報（console.warn + `init_error` GA 事件），**區塊層級**隔離成立（實測：前一區塊拋錯後，後續 phase 仍執行），並把不實的註解改寫成準確描述。
 - **殘餘**：**同一區塊內**仍是「一個拋錯 → 後面不跑」。真正的修法是把每個呼叫包成 `safeCall(name, fn)`（約 40 處），或改為 `[[name, fn], …]` 清單迭代。未做的原因：那是動到全站每頁載入的進入點的大面積機械修改，值得獨立一次做完並驗證，不宜夾在本批。
@@ -410,3 +410,15 @@
 - 實測:**255 個 ld+json 區塊、0 個含裸 `<`、全部 JSON 有效**。變異測試 3/3(基線通過、產出重新出現裸 `<` 被抓、生成器退回裸 `json.dumps` 被抓)。
 
 **⚠ 待補外審**:同 Batch A,Codex 額度用罄(2026-08-05 重置),使用者定案先行上線並標 `[UNREVIEWED]`。
+
+
+**M-15 ✅ 逐一呼叫的錯誤隔離（2026-07-27，Opus 5,單獨一批）**
+
+- 在 `idle()` 旁新增 `safeCall(name, fn)`,把 `initBlog` 內**73 個**形如 `DN.xxx(...);` 的獨立敘述逐一包起來。
+- **比原記錄的範圍更大**:BACKLOG 原本寫「約 40 處」且只談 idle 區塊。實測 `initBlog` 內有 **73 個**這種呼叫,而且 **Phase 1 的同步呼叫根本不在 `idle()` 裡**——那裡拋錯會直接中止整個 `initBlog`,比區塊內的問題更嚴重。兩者都包了。
+- **只包整行的獨立敘述**:賦值、`return`、條件式、跨行呼叫一律不動(它們有回傳值語義)。實測 0 個誤包、0 個殘留未包。
+- **回報具名**:沿用 `idle()` 的回報方式(`console.warn` + `init_error` GA 事件),但 `phase` 帶的是**該呼叫的名字**而非籠統的 `'idle'`,所以 GA 裡能直接看出是哪一個功能在壞。
+- **驗收方式**(BACKLOG 指定):抽出 `safeCall` 在 node 執行,中間插入一個必拋錯的呼叫——實測 `first,after,last` 全部執行、`init_error` 只回報一次且 `phase` 為 `boom`。
+- D-06 兩個紀元同步 bump 至 `20260667` 並重新 minify。
+
+**⚠ 待補外審**:同前兩批,Codex 額度用罄(2026-08-05 重置)。

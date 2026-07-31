@@ -61,6 +61,24 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 4 — M-15（initBlog 逐一呼叫隔離）
+
+| 欄位 | 內容 |
+|---|---|
+| commit 標記 | commit 標題含 `[UNREVIEWED]` |
+| 上線日 | 2026-07-27 |
+| 跳關原因 | 同前:Codex 額度用罄 |
+| 已完成的驗證 | 73/73 包裝、0 誤包、0 殘留、`node --check`、safeCall 隔離行為實測、D-06 兩紀元 bump、preflight、CI |
+| 外審進度 | **完全未審** |
+
+**補審時請特別看**：
+- 包裝正則是否漏掉或誤包——尤其**跨行呼叫**與**有回傳值**的用法(賦值/條件/return 應完全未動)。
+- `safeCall` 吞掉例外後,是否有哪個呼叫的**失敗其實應該中止後續**(例如某個 Phase 1 呼叫是後面呼叫的前提)。**這是本批最可能的真缺陷**:把錯誤隔離開,代價是後續程式在前提未成立的狀態下繼續跑。
+- Phase 1 從「拋錯即中止 initBlog」改成「逐一隔離」是否改變了首屏行為。
+- 73 個包裝對 min.js 體積的影響是否仍在 size-budget 內。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。

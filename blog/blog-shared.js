@@ -3811,7 +3811,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260666';
+    s.src = '/blog/blog-admin.js?v=20260667';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -5286,7 +5286,7 @@
 
     function apply(lang) {
       curLang = lang;
-      DN.applyTextOnly(lang);
+      safeCall('applyTextOnly', function () { DN.applyTextOnly(lang); });
       const isZh = (lang === 'zh');
       const ze = document.getElementById(opts.proseZh || 'proseZh');
       const en = document.getElementById(opts.proseEn || 'proseEn');
@@ -5329,52 +5329,70 @@
       }, opts);
     };
 
+    // M-15: per-CALL isolation. idle() already siloes a whole phase, but inside
+    // a phase one throw still skipped every later call — including the trailing
+    // DN.applyTextOnly(curLang), which is what re-renders injected UI in the
+    // page's language, so a single failure could strand /en/ pages showing
+    // Chinese chrome. The Phase-1 calls are worse still: they are NOT inside
+    // idle(), so a throw there aborted initBlog outright.
+    // Reports the same way idle() does, but names the specific call.
+    var safeCall = function (name, fn) {
+      try {
+        fn();
+      } catch (e) {
+        try {
+          if (window.console && console.warn) console.warn('[hs-init] ' + name + ' failed:', e);
+          if (DN.gaEvent) DN.gaEvent('init_error', { phase: name, msg: String((e && e.message) || e).slice(0, 120) });
+        } catch (e2) {}
+      }
+    };
+
     // ── PHASE 1 — synchronous / blocking (must run before first paint) ──
     // Anything that affects above-the-fold layout, language toggle, or
     // first-screen content rendering belongs here.
-    DN.bindAutoTheme();        // dark/light from prefers-color-scheme (FOUC-safe)
-    DN.upgradeDialogs();       // promote [data-dialog] to native <dialog>
-    DN.upgradePopovers();      // wire [data-popover-trigger] → popovertarget
-    DN.upgradeSelectLists();   // <select data-selectlist> → <selectlist>
-    DN.hideStubLinks();        // hide unfinished articles before paint
-    DN.applyFetchPriority();   // LCP hints (high/low fetchpriority)
-    DN.styleTextFragments();   // ::target-text styling for #:~:text= deep-links
-    DN.bindNavigation();       // Navigation API soft-nav + unsaved-edit guard
-    DN.assignVTNames();        // pair article cards ↔ hero for cross-doc morph
-    DN.injectMobileMenu();
-    DN.bindLangToggle(apply);
+    safeCall('bindAutoTheme', function () { DN.bindAutoTheme(); });        // dark/light from prefers-color-scheme (FOUC-safe)
+    safeCall('upgradeDialogs', function () { DN.upgradeDialogs(); });       // promote [data-dialog] to native <dialog>
+    safeCall('upgradePopovers', function () { DN.upgradePopovers(); });      // wire [data-popover-trigger] → popovertarget
+    safeCall('upgradeSelectLists', function () { DN.upgradeSelectLists(); });   // <select data-selectlist> → <selectlist>
+    safeCall('hideStubLinks', function () { DN.hideStubLinks(); });        // hide unfinished articles before paint
+    safeCall('applyFetchPriority', function () { DN.applyFetchPriority(); });   // LCP hints (high/low fetchpriority)
+    safeCall('styleTextFragments', function () { DN.styleTextFragments(); });   // ::target-text styling for #:~:text= deep-links
+    safeCall('bindNavigation', function () { DN.bindNavigation(); });       // Navigation API soft-nav + unsaved-edit guard
+    safeCall('assignVTNames', function () { DN.assignVTNames(); });        // pair article cards ↔ hero for cross-doc morph
+    safeCall('injectMobileMenu', function () { DN.injectMobileMenu(); });
+    safeCall('bindLangToggle', function () { DN.bindLangToggle(apply); });
     apply(curLang);
-    DN.injectFooterYear();
-    DN.bindErrorReporting();   // v37.27 — global JS error sink → /api/errors
-    DN.bindEngagementTracking(); // v37.29 — GA4 events (scroll/time/share/nav)
-    DN.injectSpeedInsights();  // v37.26 — Vercel CWV beacon (DNT-respecting)
-    DN.addReadingProgress();   // top scroll bar — visible immediately, cheap
-    DN.shuffleHeroCards();     // home cover-story shuffle (above-the-fold)
-    DN.injectSpotlight();      // 最近更新 + 熱門推薦 (above-the-fold on mobile)
-    DN.bindHomeSearch();
-    DN.bindThemeToggle();      // dark-mode toggle button (header)
-    DN.injectMobileBottomNav();
-    DN.markNewArticles();      // NEW badge on home article cards
-    DN.capHomeArticleList();   // v34.12: sort by date desc, cap visible at 5
+    safeCall('injectFooterYear', function () { DN.injectFooterYear(); });
+    safeCall('bindErrorReporting', function () { DN.bindErrorReporting(); });   // v37.27 — global JS error sink → /api/errors
+    safeCall('bindEngagementTracking', function () { DN.bindEngagementTracking(); }); // v37.29 — GA4 events (scroll/time/share/nav)
+    safeCall('injectSpeedInsights', function () { DN.injectSpeedInsights(); });  // v37.26 — Vercel CWV beacon (DNT-respecting)
+    safeCall('addReadingProgress', function () { DN.addReadingProgress(); });   // top scroll bar — visible immediately, cheap
+    safeCall('shuffleHeroCards', function () { DN.shuffleHeroCards(); });     // home cover-story shuffle (above-the-fold)
+    safeCall('injectSpotlight', function () { DN.injectSpotlight(); });      // 最近更新 + 熱門推薦 (above-the-fold on mobile)
+    safeCall('bindHomeSearch', function () { DN.bindHomeSearch(); });
+    safeCall('bindThemeToggle', function () { DN.bindThemeToggle(); });      // dark-mode toggle button (header)
+    safeCall('injectMobileBottomNav', function () { DN.injectMobileBottomNav(); });
+    safeCall('markNewArticles', function () { DN.markNewArticles(); });      // NEW badge on home article cards
+    safeCall('capHomeArticleList', function () { DN.capHomeArticleList(); });   // v34.12: sort by date desc, cap visible at 5
 
     // Article-only enhancements that affect above-the-fold layout
     var isArticle = document.getElementById('proseZh') || document.querySelector('article .prose');
     if (isArticle) {
-      DN.injectBreadcrumb();   // v37.42 — visible breadcrumb above the title (SERP path)
-      DN.injectArticleHero();  // gradient SVG banner under H1 (above-the-fold)
-      DN.addReadingMeta();
-      DN.addInlineTOC();
+      safeCall('injectBreadcrumb', function () { DN.injectBreadcrumb(); });   // v37.42 — visible breadcrumb above the title (SERP path)
+      safeCall('injectArticleHero', function () { DN.injectArticleHero(); });  // gradient SVG banner under H1 (above-the-fold)
+      safeCall('addReadingMeta', function () { DN.addReadingMeta(); });
+      safeCall('addInlineTOC', function () { DN.addInlineTOC(); });
     }
 
     // Blog index — cat filter + tag cloud + search bar (only on /blog/)
     if (document.getElementById('hs-blog-filter')) {
-      DN.bindBlogFilter();
+      safeCall('bindBlogFilter', function () { DN.bindBlogFilter(); });
     }
 
     // Admin WYSIWYG mode (only when ?admin=1 in URL) — must run AFTER hero
     // injection so the editable selectors include the H1, but BEFORE Phase 2
     // related-articles/share toolbar (which we hide in admin mode anyway).
-    DN.initAdminMode();
+    safeCall('initAdminMode', function () { DN.initAdminMode(); });
 
     // ── PHASE 2 — idle / deferred (run after first paint) ──
     // Heavy widgets, analytics, modals, and below-the-fold features run
@@ -5383,59 +5401,59 @@
     // take down a later phase; a throw still aborts the remaining calls
     // WITHIN its own block (BACKLOG M-15 tracks per-call isolation).
     idle(function () {
-      DN.addScrollToTop();
-      DN.bindRevealOnScroll();
-      DN.bindViewTransitions();
-      DN.prefetchOnIdle();
-      DN.injectSpeculationRules();   // Chromium prerender hint (v37.30)
-      DN.bindAlgoliaDocSearch();   // upgrades to DocSearch if creds in <meta>
-      DN.bindLottieHero();         // mount Lottie players on [data-lottie] divs
-      DN.initCmdK();           // Cmd/Ctrl+K global search modal (rare path)
-      DN.injectReadProgress();
-      DN.addFontSizer();
-      DN.bindFAQDeepLink();
-      DN.applyAbConfig();      // server-driven A/B variant swaps
-      DN.injectFooterKofi();   // Ko-fi support button in every page footer
+      safeCall('addScrollToTop', function () { DN.addScrollToTop(); });
+      safeCall('bindRevealOnScroll', function () { DN.bindRevealOnScroll(); });
+      safeCall('bindViewTransitions', function () { DN.bindViewTransitions(); });
+      safeCall('prefetchOnIdle', function () { DN.prefetchOnIdle(); });
+      safeCall('injectSpeculationRules', function () { DN.injectSpeculationRules(); });   // Chromium prerender hint (v37.30)
+      safeCall('bindAlgoliaDocSearch', function () { DN.bindAlgoliaDocSearch(); });   // upgrades to DocSearch if creds in <meta>
+      safeCall('bindLottieHero', function () { DN.bindLottieHero(); });         // mount Lottie players on [data-lottie] divs
+      safeCall('initCmdK', function () { DN.initCmdK(); });           // Cmd/Ctrl+K global search modal (rare path)
+      safeCall('injectReadProgress', function () { DN.injectReadProgress(); });
+      safeCall('addFontSizer', function () { DN.addFontSizer(); });
+      safeCall('bindFAQDeepLink', function () { DN.bindFAQDeepLink(); });
+      safeCall('applyAbConfig', function () { DN.applyAbConfig(); });      // server-driven A/B variant swaps
+      safeCall('injectFooterKofi', function () { DN.injectFooterKofi(); });   // Ko-fi support button in every page footer
       // v34.10: injectReadProgress / addFontSizer / initCmdK populate fresh
       // DOM with data-zh/data-en. Re-run applyTextOnly so they show in the
       // current language (otherwise the homepage 閱讀進度 / 已讀 / 篇 /
       // 重設 / 閱讀後自動記錄 stays Chinese in /en/ mode).
-      DN.applyTextOnly(curLang);
+      safeCall('applyTextOnly', function () { DN.applyTextOnly(curLang); });
     }, { timeout: 800 });
 
     // Article-only deferred work (calculators, share, related, feedback)
     if (isArticle) {
       idle(function () {
-        DN.enhanceArticleImages(); // lazy + lightbox
-        DN.addFloatingTOC();
-        DN.bindReadEngagement();   // engagement-gated read tracking (≥30s + ≥50% scroll)
-        DN.bindScrollMemory();
-        DN.addInlineCTA();
-        DN.injectArticleCalculators();
-        DN.injectAuthorBio('hs-author-bio');
-        DN.injectArticleSupport();   // independent Ko-fi support section
-        DN.injectShareToolbar('hs-share');
+        safeCall('enhanceArticleImages', function () { DN.enhanceArticleImages(); }); // lazy + lightbox
+        safeCall('addFloatingTOC', function () { DN.addFloatingTOC(); });
+        safeCall('bindReadEngagement', function () { DN.bindReadEngagement(); });   // engagement-gated read tracking (≥30s + ≥50% scroll)
+        safeCall('bindScrollMemory', function () { DN.bindScrollMemory(); });
+        safeCall('addInlineCTA', function () { DN.addInlineCTA(); });
+        safeCall('injectArticleCalculators', function () { DN.injectArticleCalculators(); });
+        safeCall('injectAuthorBio', function () { DN.injectAuthorBio('hs-author-bio'); });
+        safeCall('injectArticleSupport', function () { DN.injectArticleSupport(); });   // independent Ko-fi support section
+        safeCall('injectShareToolbar', function () { DN.injectShareToolbar('hs-share'); });
         // v34.8: DN.injectBMC removed — it was a 2nd "☕ 支持我寫更多衛教文章"
         // pill that duplicated the new injectArticleSupport section above.
         // The injectBMC function stays in the code but no longer auto-mounts.
-        DN.addRelatedArticles();
+        safeCall('addRelatedArticles', function () { DN.addRelatedArticles(); });
         // DN.injectPrevNext() removed v33.1 per user request
-        DN.addFeedbackLink();
+        safeCall('addFeedbackLink', function () { DN.addFeedbackLink(); });
         // v34.5 — print + bookmark buttons removed per user request: they
         // overlapped the bottom-right font-sizer. Stubs still called so any
         // cached older button DOM gets cleaned up. Page is still printable
         // via Cmd/Ctrl+P; bookmarking via browser bookmark.
-        DN.addPrintButton();      // no-op cleanup stub
-        DN.addBookmarkButton();   // no-op cleanup stub
-        DN.lazyLoadAudit();       // backstop loading="lazy" / fetchpriority
-        DN.injectDictTooltips();  // medical-dictionary hover popups
-        DN.bindPushSubscribe();   // 🔔 web-push subscribe button (if VAPID key set)
-        DN.loadMermaid();         // lazy-load mermaid if <pre class="mermaid"> present
-        DN.loadKatex();           // lazy-load KaTeX if $$math$$ present
-        DN.bindDocPiP();          // 📺 picture-in-picture reading mode
-        DN.bindShareFiles();      // navigator.share() with files
-        DN.applyRelativeTime();   // [data-relative-time] → "3 天前"
-        DN.applyTextOnly(curLang);  // re-translate JS-injected DOM
+        safeCall('addPrintButton', function () { DN.addPrintButton(); });      // no-op cleanup stub
+        safeCall('addBookmarkButton', function () { DN.addBookmarkButton(); });   // no-op cleanup stub
+        safeCall('lazyLoadAudit', function () { DN.lazyLoadAudit(); });       // backstop loading="lazy" / fetchpriority
+        safeCall('injectDictTooltips', function () { DN.injectDictTooltips(); });  // medical-dictionary hover popups
+        safeCall('bindPushSubscribe', function () { DN.bindPushSubscribe(); });   // 🔔 web-push subscribe button (if VAPID key set)
+        safeCall('loadMermaid', function () { DN.loadMermaid(); });         // lazy-load mermaid if <pre class="mermaid"> present
+        safeCall('loadKatex', function () { DN.loadKatex(); });           // lazy-load KaTeX if $$math$$ present
+        safeCall('bindDocPiP', function () { DN.bindDocPiP(); });          // 📺 picture-in-picture reading mode
+        safeCall('bindShareFiles', function () { DN.bindShareFiles(); });      // navigator.share() with files
+        safeCall('applyRelativeTime', function () { DN.applyRelativeTime(); });   // [data-relative-time] → "3 天前"
+        safeCall('applyTextOnly', function () { DN.applyTextOnly(curLang); });  // re-translate JS-injected DOM
       }, { timeout: 1200 });
     }
 
@@ -5451,7 +5469,7 @@
           else if (name === 'se')        DN.injectSphericalEquivalent(sel);
           else if (name === 'floater')   DN.injectFloaterRedFlag(sel);
         });
-        DN.applyTextOnly(curLang);
+        safeCall('applyTextOnly', function () { DN.applyTextOnly(curLang); });
       }, { timeout: 1500 });
     }
 
@@ -5459,20 +5477,20 @@
     // SW registration, GA event binding, Web Vitals reporting all run
     // after everything else stabilizes.
     idle(function () {
-      DN.bindGAEvents();
-      DN.bindWebVitals();
+      safeCall('bindGAEvents', function () { DN.bindGAEvents(); });
+      safeCall('bindWebVitals', function () { DN.bindWebVitals(); });
       // DN.bindPWAInstall() removed v34.1 per user request — site is still
       // installable via browser menu (manifest.json present), we just don't
       // show our own floating "📲 加入主畫面" prompt.
-      DN.bindIdleDetection();   // pause work after 60s idle (Chrome IdleDetector)
-      DN.bindComputePressure(); // back off CSS anims / prefetch when CPU stressed
+      safeCall('bindIdleDetection', function () { DN.bindIdleDetection(); });   // pause work after 60s idle (Chrome IdleDetector)
+      safeCall('bindComputePressure', function () { DN.bindComputePressure(); }); // back off CSS anims / prefetch when CPU stressed
       // (cookie banner removed; Consent Mode v2 defaults remain set in <head>)
-      DN.registerSW();
+      safeCall('registerSW', function () { DN.registerSW(); });
     }, { timeout: 2500 });
 
     // CRITICAL: re-apply lang to all DOM populated in PHASE 1.
     // (PHASE 2 work re-runs this itself after its own injections.)
-    DN.applyTextOnly(curLang);
+    safeCall('applyTextOnly', function () { DN.applyTextOnly(curLang); });
 
     return { applyLang: apply };
   };
