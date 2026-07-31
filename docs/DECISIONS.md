@@ -46,11 +46,11 @@
 - **錨**：`9303014`。
 
 ### D-06 快取破壞（cache-bust）政策
-- **決策**：全站 `?v=2026xxxx` 單調遞增版本（**目前 `v=20260665`**，以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準）；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。
+- **決策**：全站 `?v=2026xxxx` 單調遞增版本（**目前 `v=20260666`**，以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準）；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。
 - **⚠ 有兩個版本紀元，bump 必須同時動**（2026-07-26 round-3 外審發現：只 bump 了 `?v=`，21 個檔的 `hs:siteVer` 還停在舊值）：
   1. 資產 URL 的 `?v=NNNNNNNN`；
   2. `hs:siteVer` 強制重置戳記——內容頁寫成 `var T='NNNNNNNN'`、`admin.html` 寫成 `TARGET = 'NNNNNNNN'`。這個戳記與 localStorage 比對，不一致才觸發 SW/快取強制重置。**只 bump `?v=` 的話戳記仍相符 → 重置不會發生**，回訪的 admin 會帶著舊 editor bundle 對上新伺服器（實際發生過，見 BACKLOG Round 3）。
-  最省事的做法是直接取代裸數字 `20260664` → `20260665`（涵蓋兩者），再跑 `npm run minify`。
+  最省事的做法是直接取代裸數字(例如 `20260665` → `20260666`,涵蓋兩個紀元),再跑 `npm run minify`。**⚠ 這個「目前值」本身就漂移過兩次**——2026-07-27 連續兩批(M-07 entity-link 批、Batch A)都是先 bump 了全站才發現本條沒跟著改。改版號時請把這一行當成 checklist 的一部分,或直接以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準。
 - **釐清（原文易誤讀）**：`v=20260520`／`v=20260525` **不是**活的釘選 URL——它們現在只存在於 `sw.js` 的變更日誌註解裡，不會被字串取代影響。
 - **耦合**：`sw.js` 的 SHELL precache 也含版本概念；`_check_performance_budget.py` 查**兩個紀元**的一致性（`?v=` 對首頁、`hs:siteVer` 對 `?v=`），變異測試已驗證會轉紅。
 
@@ -81,7 +81,8 @@
 ## C. 前端 / 效能
 
 ### D-10 mag-footer 樣式單一來源 = `assets/app.css`
-- **決策**：全站頁尾 `.mag-footer` 的 CSS 只存在於 `app.css`（所有頁面都載入）；`article.css` 只留指標註解。顏色用**字面值**（`#2a2620`/`#faf7f2`/`#a4c4dd`）因為 `--ink`/`--bg` 變數只在 article.css 定義、非文章頁拿不到。
+- **決策（目標）**：全站頁尾 `.mag-footer` 的 CSS 只存在於 `app.css`（所有頁面都載入）；`article.css` 只留指標註解。
+- **⚠ 現況（2026-07-27 實測,尚未達成）**：`about.html`／`notes.html`／`privacy.html` 及其三個 `/en/` 鏡像**仍各自內嵌一整份** `.mag-footer` CSS,所以本條的「只存在於 app.css」**目前是目標而非事實**。移除前必須先逐條確認被 app.css 涵蓋——本條的歷史教訓正是出在這批頁面。追蹤:BACKLOG **M-17**。顏色用**字面值**（`#2a2620`/`#faf7f2`/`#a4c4dd`）因為 `--ink`/`--bg` 變數只在 article.css 定義、非文章頁拿不到。
 - **歷史教訓**：曾把 footer CSS 抽到 article.css 導致首頁/about/privacy 等非文章頁頁尾全裸跑版（回歸 commit `918dae6`，修復 `e69526d`）。**不要**再把它搬回 article.css 或 inline。
 
 ### D-11 版本化資產 = immutable 快取
@@ -177,3 +178,11 @@
 - **鏈位置**：排在 `_normalize_reviewed_by.py` 之後、`_gen_en_pages.py` **之前**,讓 `/en/` 鏡像繼承。**更正一個曾寫錯的理由**：ld+json 的改動**不影響** CSP hash——`_gen_csp_hashes.py` 的 `is_executable_script()` 明確把 `application/ld+json` 視為 inert 並排除。
 - **重開條件**：若 Wikidata 日後為上述豁免主題建立精確項目,逐案移入 `ENTITY_BY_CONDITION`（仍須經 Wikipedia API 核實）。
 - **錨**：本次 commit。**關聯**：D-08（`sameAs` 只能用站主提供的 URL——那條規範**人物**身分；本條是**疾病**實體,屬公開事實,不受該限制）、D-24。
+
+
+### D-26 SW 生命週期檢查器維持文字比對,不引入 JS parser
+- **決策(站主定案 2026-07-27)**:`_check_pwa.py` 對 install／`warmPopular` 的斷言**維持正則 + 括號配對 + 值位置判定**,**不**引入 acorn 之類的 JS parser 改寫成 AST 查詢。BACKLOG `R-01` 標為 ⛔ 不修。
+- **理由**:codex GPT-5.6-sol 在 P-04 補審第 8 輪明確判定,剩下的規避「需要刻意寫誤導性的結構改寫,不是普通的未來修改會無聲重新引入的缺陷」。為一個已判定夠用的迴歸守衛增加供應鏈依賴與 CI 複雜度,投報率為負。
+- **仍然成立的前提**:該檢查器在程式碼裡**自述**它是文字比對而非資料流證明,且對合理重構 **fail-closed**(大聲失敗優於假綠)。變異矩陣 15/15 涵蓋每一輪外審提出的繞過。
+- **重開條件(已收窄)**:只有在專案**因其他理由**引入 JS parser 時,才順手把那些斷言改寫成 AST 查詢。**在那之前不要重開。**
+- **錨**:本次 commit。**關聯**:P-04、BACKLOG R-01、REVIEW-PLAYBOOK §6。

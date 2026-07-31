@@ -84,7 +84,7 @@ python _check_button_types.py
 ```
 
 **現況判定（66745a6）**：✅ PASS（CI axe 綠）。已修：eye-3d landmark id、`.text-ink-500` 對比加深（`9303014`）。
-**已知未修（低優先、記錄在 BACKLOG A-01~A-03）**：~15 個非文章頁的 skip-link 指向不存在的 `#hs-related`/`#dn-newsletter`；`404.html` 遺留無 :focus 的舊 skip-link；搜尋 modal aria-label 固定中文；全域 placeholder 色 #9ca3af 對比不足（主要影響 admin/tools 表單）。
+**已知未修（低優先、記錄在 BACKLOG A-01~A-03）**：**25 個**非文章頁的 skip-link 指向不存在的 `#hs-related`（Sweep B 親自 grep 更正,非原記的 ~15;`#dn-newsletter` 的 id 確實存在,見 A-01）；~~`404.html` 遺留無 :focus 的舊 skip-link~~ → **A-02 ✅ 已修(2026-07-27)**:實際殘留處是 `tools/eye-3d.html` 不是 `404.html`,已移除該隱形連結(該頁另有 `.hs-skiplinks` 與 `.skip-to-main` 兩個可見機制)；搜尋 modal aria-label 固定中文；全域 placeholder 色 #9ca3af 對比不足（主要影響 admin/tools 表單）。
 **重審觸發**：改 header/footer/skip-link 注入腳本（`_apply_i_series.py`、`_apply_a11y_vt.py`）時。
 
 ---
@@ -235,7 +235,7 @@ grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
 3. **禁止新增 regex-HTML 手術**除非：(a) 現有 generator 無法做 (b) 寫成冪等 + sentinel (c) 加對應 _check_*。
 4. 新 generator 必須同時更新：quality.yml drift 清單 + WRITING_NEW_ARTICLE.md 鏈文件（歷史教訓：兩者 drift 是常態，preflight.py 因此**動態解析 quality.yml**）。
 
-**已確認死碼**（66745a6）：`assets/components.js`（0 引用，仍有 vercel.json header 規則 + 檢查器期望——BACKLOG M-01）；`apply_magazine_template.py` 內嵌過時 footer CSS（BACKLOG M-02）。
+**已確認死碼**（66745a6）：~~`assets/components.js`~~ **已刪(M-01 ✅,2026-07-27:檔案 + vercel.json header + checker EXPECTED 三處同刪;`blog-admin.js` 兩個吐 `<hs-redflag>`／`<hs-tldr>` 的指令一併改成文章實際使用的 class 標記)**；~~`apply_magazine_template.py` 內嵌過時 footer CSS~~ **M-02 ✅ 已修(2026-07-27)**——更正原判定:那份 CSS 的 `.mag-foot-cols h5` **在範本自己的輸出裡是有效的**,真正的問題是範本吐 `<h5>` 而全站慣例與 app.css 都是 `<h4>`;已先對齊標記再移除重複 CSS。
 
 ---
 
@@ -273,16 +273,16 @@ grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
 |---|---|---|---|---|
 | 1 | 技術 SEO | ✅ PASS | 閘門綠；sitemap 48 URLs；noindex/redirect 邊界依 D-02/03/04；★feeds/sitemap 生成器 P5 核實（XML escape 防 CDATA breakout）；T-01 已核實關閉 | T-02（新文 OG 404） |
 | 2 | 內部連結 | ✅ PASS | 0 孤兒；三叢集全互連（`4aded2b` 審計） | 無（維持 D-23 紀律） |
-| 3 | 無障礙 | ✅ PASS | CI axe-core 綠；★R2-1 `_check_static_a11y` 的 `<img>` 缺 alt 偽陰性已補 | A-01/02/03 |
+| 3 | 無障礙 | ✅ PASS | CI axe-core 綠；★R2-1 `_check_static_a11y` 的 `<img>` 缺 alt 偽陰性已補 | A-01（A-02 ✅、A-03） |
 | 4 | 安全 | ✅ PASS（★深度審查） | ★P3 api/ auth 面無 bypass、KV await（S-03✅）；★P4 admin CMS（M-06✅ + 反漂移閘）、S-01✅核實不存在；★P5 CSP fail-closed + 單一來源、S-04✅；★**R2-1 CI 信任層**（`_check_inline_scripts` 舊版只掃 index.html 且恆 exit 0，現覆蓋 66 檔 158 個 block） | 剩 **S-02**（既有 SVG 無 CSP） |
 | 5 | schema.org | ✅ PASS（★深度審查） | 全 `_check_*schema*` 綠；reviewedBy inline（@id 對齊 /about#person）；★P5 `_gen_en_pages` JSON-LD 在地化/FAQPage drop 核實；★Sweep `_schema-helper` 逐 block strip 修正 | **M-08**（@graph FAQPage 漏，潛伏）；sameAs 待站主 URL（D-08） |
-| 6 | Core Web Vitals | ✅ PASS（★深度審查） | CI Lighthouse 綠；★P2 sw.js 全檔（P-02✅ ignoreSearch fallback）；★P5 critical-css 生成器；★**R2-3** `/icon.svg` `/favicon.ico` 誤標 `immutable` 已依 D-11 修正並納入 checker（15 條規則） | P-01（字型）P-03（speculationrules）**P-04**（SW precache tier）**P-05**（critical-css @supports 誤標） |
+| 6 | Core Web Vitals | ✅ PASS（★深度審查） | CI Lighthouse 綠；★P2 sw.js 全檔（P-02✅ ignoreSearch fallback）；★P5 critical-css 生成器；★**R2-3** `/icon.svg` `/favicon.ico` 誤標 `immutable` 已依 D-11 修正並納入 checker（14 條規則） | P-01（字型）P-03 ✅（speculationrules 已合併）**P-04 ✅、P-05 ✅ |
 | 7 | Metadata | ✅ PASS（★深度審查） | `_check_metadata_uniqueness`/`_check_social_locale` 綠（★R2-1 修正前者只在重複 >2 時才報的偽陰性）；★P5 `_gen_en_pages` head 手術核實（title/desc/OG/canonical/hreflang） | T-02（新文 OG 404） |
 | 8 | RAG / AI 搜尋 | 🟠 PARTIAL | robots 已開放（D-01）、FAQ×20、llms-full.txt 有；但多數文章非 answer-first | C-02（answer-first 改寫，最大槓桿）；量測見 GROWTH-PLAYBOOK |
-| 9 | 可維護性 | 🟠 PARTIAL（改善） | 建置鏈由 preflight 動態解析；★§9 耦合矩陣 P5 補完、**R2-3 逐列變異測試複驗**並加上「CI 守門」欄；★M-06✅ 以 checker 強制（D-24）；★R2-2 補上 `blog-shared.js` 內硬寫 `?v=` 的未守耦合；M-03/M-04 已修 | **M-01、M-02、M-05、M-07**；2 個未守耦合見 §9（halfwidth admin 路徑、reviewedBy Person） |
+| 9 | 可維護性 | 🟠 PARTIAL（改善） | 建置鏈由 preflight 動態解析；★§9 耦合矩陣 P5 補完、**R2-3 逐列變異測試複驗**並加上「CI 守門」欄；★M-06✅ 以 checker 強制（D-24）；★R2-2 補上 `blog-shared.js` 內硬寫 `?v=` 的未守耦合；M-03/M-04 已修 | **M-05**（M-01 ✅、M-02 ✅、M-07 ✅）；2 個未守耦合見 §9（halfwidth admin 路徑、reviewedBy Person） |
 | 10 | 內容正確性 | ⛔ 不可機器判定 | 見 §10 | C-01（兩篇待寫，站主定案） |
 
-**一句話總結**：技術面已是頂標、**59 個檢查器**（`--quick`）守著，且工單 2026-07 五大高風險面深度審查 + Sweep A/B/C 補完未讀面 + Round 2 三批（驗證器 / `blog-shared.js` 後半 / 架構橫向）皆三閘全綠上線；**覆蓋範圍見上方誠實聲明**。Round 2 最大的發現不是功能 bug，而是**假保證**——恆真的檢查器、文件宣稱有守但實際沒守的耦合、把「我不知道」render 成「沒問題」的 CI 工具；對策已寫成制度（§9 CI 守門欄 + 「檢查器本身也要用變異測試審」）。**真正的成長瓶頸仍在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。程式端剩的都是 BACKLOG 裡分級好的 polish/中度債 + 幾個潛伏項（M-07/M-08/P-04/P-05），**無 🔴 會壞站的項目**。
+**一句話總結**：技術面已是頂標、**59 個檢查器**（`--quick`）守著，且工單 2026-07 五大高風險面深度審查 + Sweep A/B/C 補完未讀面 + Round 2 三批（驗證器 / `blog-shared.js` 後半 / 架構橫向）皆三閘全綠上線；**覆蓋範圍見上方誠實聲明**。Round 2 最大的發現不是功能 bug，而是**假保證**——恆真的檢查器、文件宣稱有守但實際沒守的耦合、把「我不知道」render 成「沒問題」的 CI 工具；對策已寫成制度（§9 CI 守門欄 + 「檢查器本身也要用變異測試審」）。**真正的成長瓶頸仍在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。程式端剩的都是 BACKLOG 裡分級好的 polish/中度債 + 少數潛伏項（M-07 ✅／M-08 ✅／P-04 ✅／P-05 ✅ 皆已修並上線;剩 M-05／M-09／M-12～M-15,新開 M-16／M-17），**無 🔴 會壞站的項目**。
 
 ---
 

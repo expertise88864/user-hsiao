@@ -82,12 +82,12 @@ const TEMPLATE = (vars) => `<!doctype html>
 
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260665" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260666" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/app.css?v=20260665" />
-<link rel="preload" as="style" href="/assets/article.css?v=20260665" />
-<link rel="stylesheet" href="/assets/article.css?v=20260665" />
+<link rel="stylesheet" href="/assets/app.css?v=20260666" />
+<link rel="preload" as="style" href="/assets/article.css?v=20260666" />
+<link rel="stylesheet" href="/assets/article.css?v=20260666" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -124,7 +124,6 @@ gtag('config', 'G-0ZKDQP9DNH');
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZKDQP9DNH"></script>
 </head>
 <body class="font-sans antialiased text-ink-900">
-<a href="#main-content" class="skip-link" style="position:absolute;left:-999px;top:0;background:#243b56;color:#fff;padding:8px 16px;z-index:9999;border-radius:0 0 8px 0;font-size:13px;font-weight:600">跳到主內容</a>
 
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
@@ -191,7 +190,7 @@ gtag('config', 'G-0ZKDQP9DNH');
   </div>
 </footer>
 
-<script src="/blog/blog-shared.min.js?v=20260665" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260666" defer></script>
 <script>document.addEventListener('DOMContentLoaded', function () { if (window.DN) DN.initBlog({}); });</script>
 </body>
 </html>

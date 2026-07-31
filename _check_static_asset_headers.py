@@ -55,10 +55,6 @@ EXPECTED = {
         "Content-Type": "application/javascript; charset=utf-8",
         "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",
     },
-    "/assets/components.js": {
-        "Content-Type": "application/javascript; charset=utf-8",
-        "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",
-    },
     "/tools/eye-3d-worker.js": {
         "Content-Type": "application/javascript; charset=utf-8",
         "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",

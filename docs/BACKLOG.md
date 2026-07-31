@@ -38,10 +38,10 @@
 ### P-02 ✅ 已修（review Phase 2）Service Worker precache 沒帶 `?v=`
 > 修法：親驗確認 `?v=` 分支是 **network-first**，fallback `caches.match(req)` query-sensitive → SHELL 裸 URL 精快取「完全用不到」（primary 走網路、fallback 也對不上）。改 fallback 為 `caches.match(req, { ignoreSearch: true })`——只影響離線 fallback（primary 仍 network-first，線上永遠最新），讓 SHELL 精快取變成有用的離線後備。錨：sw.js fetch handler `?v=` 分支。原始描述保留於下。
 
-### P-03 🟢 首頁兩個 speculationrules 區塊範圍重疊
+### P-03 ✅ 首頁兩個 speculationrules 區塊範圍重疊
 - **問題**：`index.html` 有兩個 `<script type="speculationrules">`，`/blog/*` 被兩者涵蓋，第一個 `moderate` eagerness 會 hover 就 prerender 整個文章命名空間 → 浪費使用者流量/CPU。
 - **驗收**：合併為單一區塊；廣泛 `/blog/*` 降為 `conservative`；保留 7 篇 hero 的 list-rule。
-- **模型等級**：Sonnet。⚠️未親驗（codex 可能已調整）。
+- **模型等級**：Sonnet。（2026-07-27 親驗並修復,見下方 Batch A。）
 
 ### P-04 ✅ SW install 精快取所有 tier，與 v30「多階段」設計文件不符（review Phase 2 發現）
 - **問題**：`sw.js` install handler 用 `PRECACHE.map(c.add)` 精快取 **SHELL + POPULAR + LAZY 全部**（~30 URL），但檔頭 v30 註解宣稱「install 只阻塞 SHELL ~10 個、POPULAR 於 activate 後、LAZY 走 runtime」，且 `LAZY` 陣列註解寫「don't pre-cache」。activate 又再精快取一次 POPULAR（重複）。因 `allSettled` 不阻塞失敗、install 在背景進行，故非正確性 bug，但 install 網路量比文件宣稱多、且 POPULAR 做兩次。
@@ -111,8 +111,8 @@
 - **驗收**：改 `_apply_i_series.py` 讓 skip-nav 依頁面實際存在的 id 條件輸出（只在有該目標時才放對應連結），然後**重跑** `_apply_i_series.py`——注意 sentinel 問題：現行是 sentinel-gated insert，要讓它能**取代**既有 nav 才會更新既有頁；改完全站 ~67 檔的 skip-nav 會變動（大 diff 但機械、CI 可驗固定點）。同時擴充 `_check_static_a11y.py` 的 SKIP_LINK_RE 使其屬性順序不敏感且涵蓋 `.hs-skiplinks` 錨點。
 - **模型等級**：Sonnet（機械但需固定點驗證 + generator sentinel 邏輯）。**關聯**：REVIEW-PLAYBOOK §3。
 
-### A-02 🟢 遺留無 :focus 的舊 skip-link
-- **問題**：`404.html`（可能還有他頁）有 `<a class="skip-link" style="left:-999px">` 但 app.css 無對應 `:focus` 揭示規則 → 鍵盤 focus 時看不見（WCAG 2.4.7）。eye-3d 的已於本 session 一併處理。
+### A-02 ✅ 遺留無 :focus 的舊 skip-link
+- **問題（2026-07-27 更正檔名）**：`404.html` **其實沒有**這個殘留(實測 0 處)。真正的殘留處是 `tools/eye-3d.html`,以及**源頭** `api/admin/_new.js`——後者讓**每一篇新 scaffold 的文章**都會重新長出這個隱形 focus 停留點。`app.css` 無對應 `:focus` 揭示規則(只有 `@media print` 提到 `.skip-link`)→ 鍵盤 focus 時看不見(WCAG 2.4.7)。
 - **驗收**：移除冗餘 legacy skip-link（`.hs-skiplinks`/`.skip-to-main` 已覆蓋），或加 `:focus` 上螢幕規則。
 - **模型等級**：Haiku~Sonnet。
 
@@ -125,14 +125,14 @@
 
 ## 正確性 / 維護（M）
 
-### M-01 🟢 `assets/components.js` 死碼
+### M-01 ✅ `assets/components.js` 死碼
 - **問題**：0 個 HTML 引用（已驗：`grep -rl components.js --include=*.html` = 0），卻仍有 `vercel.json` header 規則 + `_check_static_asset_headers.py` 期望項。
 - **驗收**：確認 admin/動態注入也無引用後，刪 `assets/components.js` + 其 vercel.json header + checker EXPECTED 項（三處同刪，否則 checker 紅）。
 - **模型等級**：Sonnet。**關聯**：REVIEW-PLAYBOOK §9。
 
-### M-02 🟢 `apply_magazine_template.py` 內嵌過時 footer CSS
-- **問題**：新文章範本產生器仍內嵌一份過時的 mag-footer CSS（用從未生效的 `h5` 選擇器；且與 D-10 的 app.css 單一來源重複）。非 CI 流程、只在手動 scaffold 新文章時生效。
-- **驗收**：移除該內嵌 `<style>` footer 區塊，讓 scaffold 出的文章靠 app.css。驗證 scaffold 一篇測試文，footer 正常且無 `.mag-foot-cols h5`。
+### M-02 ✅ `apply_magazine_template.py` 內嵌過時 footer CSS
+- **問題（2026-07-27 更正診斷）**：新文章範本產生器內嵌一份 mag-footer CSS,與 D-10 的 app.css 單一來源重複。**原記「用從未生效的 `h5` 選擇器」是錯的**——範本確實吐 3 個 `<h5>`,那個選擇器**在範本自己的輸出裡有效**;真正的問題是**範本標記與全站慣例分歧**(實際頁面全用 `<h4>`、app.css 也只寫 `h4`)。非 CI 流程、只在手動 scaffold 新文章時生效。
+- **驗收（已更正順序，照原文會出事）**：**先**把範本的 `<h5>` 改成 `<h4>` 對齊慣例,**再**移除內嵌 `<style>`。只刪 CSS 會讓 scaffold 出的文章掉樣式,因為 app.css 只寫 `.mag-foot-cols h4`。
 - **模型等級**：Sonnet。**關聯**：D-10。
 
 ### M-03 ✅ 已修（review Phase 1）admin WYSIWYG 的 `/` 快捷鍵吞斜線（真實編輯 bug）
@@ -317,11 +317,12 @@
 
 **最終守衛**:`_check_pwa.py` 變異矩陣 **15/15**,每一輪各留一案 + 一個**正對照**(同樣 block body 但有 `return` → 通過,證明擋的是漏 return 而非 block body 本身)。`_check_performance_budget.py` siteVer 變異 5/5。`prune_en_jsonld` 單元 15 案。
 
-### R-01 🟢 SW 生命週期檢查器是文字比對,非資料流證明(accepted residual risk)
+### R-01 ⛔ SW 生命週期檢查器是文字比對,非資料流證明(**站主定案:不修**)
 - **內容**:`_check_pwa.py` 用正則 + 括號配對 + 值位置判定來驗證精快取確實被 `waitUntil` 等待。它**不是** JS parser,無法真正證明 promise 的資料流。字串字面量裡的 `/*`、把運算式拆進具名變數再繞路傳遞等結構性改寫,仍可能騙過它。
 - **判定(codex round-8 原文)**:「remaining limitation is the accepted residual of text matching rather than full JavaScript dataflow analysis… Remaining evasions would require contrived structural rewrites, not an ordinary future edit likely to silently reintroduce the defect.」
 - **為何接受**:本 repo 無 JS parser 依賴;連續 4 輪的加固都在檢查器本身而非它守護的行為(SW / pruner / 版本紀元自 round-4 起未再變動),投入產出已反轉。檢查器在程式碼裡**自述**這個範圍,且對合理重構 **fail-closed**(大聲失敗優於假綠)。
-- **重開條件**:若專案日後引入 JS parser(acorn / esbuild AST / TypeScript API),把 install 與 warmPopular 的斷言改寫成 AST 查詢。**模型等級**:Sonnet。**關聯**:P-04、REVIEW-PLAYBOOK §6。
+- **站主定案(2026-07-27):不修。** 理由:codex 在第 8 輪已判定「剩下的規避需要刻意寫誤導性程式碼,不是普通的未來修改會無聲重新引入的缺陷」;要修得引入 JS parser 依賴(acorn 之類)把 `_check_pwa` 的斷言改寫成 AST 查詢,為一個已判定夠用的守衛增加供應鏈與 CI 複雜度,投報率為負。
+- **重開條件**:若專案**因其他理由**引入了 JS parser,再順手把 install 與 warmPopular 的斷言改寫成 AST 查詢。**在那之前不要重開這一項。** **模型等級**:Sonnet。**關聯**:P-04、REVIEW-PLAYBOOK §6。
 
 ### P-06 ✅ `sw.js` 一半的體積是歷史 changelog(Round 3 補審發現 → 2026-07-27 修復)
 - **問題**:`sw.js` **不做 minify**,每個註解位元組都送到瀏覽器。檔頭那個獨立的歷史發行說明區塊有 **385 行、25.8 KB**,佔全檔 **50%**。size-budget 硬上限是 52 KB raw / 21 KB gzip,目前 50.84 / 20.31 —— **餘裕只剩約 1.2 KB**。
@@ -370,3 +371,29 @@
 - 驗證:`node --check`、`_check_pwa` 通過、SW 生命週期變異矩陣 12/12 不受影響。
 
 **順帶修正的 doc drift**:M-07／M-08／P-04／P-05 四項的**標題仍標 🟢／未修**,但實際都已修復並上線(記錄寫在後段的 Round 3 補審段落,標題沒跟著改)。已改為 ✅。這與 S-08 round-3 外審抓到的是同一類問題——**耐久紀錄落後於程式**。
+
+
+**Batch A（2026-07-27，Opus 5）：M-01 / M-02 / P-03 / A-02**
+
+- **`M-01` ✅ 死碼 `assets/components.js`**:0 個 HTML 引用(含動態注入面再確認),但 `vercel.json` 仍有 header 規則、checker 仍有 EXPECTED 項。**三處同刪**(檔案 6,818 bytes + header 規則 39→38 + checker 14 條規則),否則 checker 會對一個不存在的檔案報紅。
+- **`M-02` ✅ 範本內嵌 footer CSS**——**BACKLOG 原驗收條件照做會出事,已更正**:原文說範本「用從未生效的 `h5` 選擇器」。查證後**不對**:範本確實吐 3 個 `<h5>`,所以 `.mag-foot-cols h5` 在**範本自己的輸出裡是有效的**。真正的問題是**範本標記與全站慣例分歧**——實際頁面全部用 `<h4>`(68 處)、`app.css` 也只寫 `.mag-foot-cols h4`,那份內嵌 CSS 只是在補這個分歧。若照字面只刪 CSS,scaffold 出的新文章會掉樣式。**正確順序:先把 `h5` 改成 `h4` 對齊慣例,再刪重複的內嵌 CSS**(D-10 單一來源)。
+- **`P-03` ✅ speculationrules 重疊**:讀完兩個區塊後發現 **block 2 已完全涵蓋 block 1 且更嚴謹**(`/blog/*` prerender 是 `conservative` 且帶副檔名/`rel=external`/`target=_blank` 排除),block 1 唯一獨有的是廣泛 `/*` prefetch。瀏覽器會**聯集**多個 rule set 且**取最高 eagerness**,所以 block 1 的 `moderate` 等於架空了 block 2 的謹慎設定。作法:刪掉 block 1、把它的廣泛 prefetch 併入 block 2,合成單一區塊。**`index.html` 與 `en/index.html` 都有這個重疊,兩邊都修**(原記錄只提首頁)。
+- **`A-02` ✅ 隱形的 legacy skip-link**:`tools/eye-3d.html` 有**第三個** skip 連結,停在 `left:-999px` 且全站無對應 `:focus` 規則(`app.css` 只在 `@media print` 裡提到 `.skip-link`),鍵盤使用者會拿到一個**永遠看不見的 focus 停留點**。該頁已有 `.hs-skiplinks`(`:focus-within` 揭示)與 `.skip-to-main`(`:focus` 揭示),移除前已斷言這兩者存在。
+- **`R-01` ⛔ 站主定案不修**(理由見該條)。
+
+**⚠ Batch A 待補外審**:本批(commit 訊息以 `[UNREVIEWED]` 標記)在 **codex round-1~5 共 11 項發現全數修復、round-6 複驗尚未跑完**時,因 Codex 額度用罄而先行上線(使用者定案 2026-07-27,比照前次)。額度回復後**必須**補跑 round-6,範圍見 `docs/PENDING-CODEX-REVIEW.md`——**最可能殘留問題的地方是「耐久文件與程式不一致」**,因為這一批連續四輪都在抓同一類「改一處、漏其他處」。
+
+
+### M-16 🟢 admin 工具列的 insertHTML 指令會產生不合法的區塊巢狀(既有,Batch A 外審發現)
+- **問題**:工具列有 **6** 個指令用 `document.execCommand('insertHTML', …)` 插入**區塊級**標記:`myth` 的 `<div>`、`table` 的 `<table>`、`mermaid` 的 `<pre>`、`math` 的 `<p>`(KaTeX block),以及本次改成 class 版的 `redflag` `<section>`、`tldr` `<p>`。(外審 round-3 抓到我原本只列 5 個、漏掉 `math`——修這一項時六個都要一起處理,否則會留一個沒改到。)但 `EDITABLE_SEL` 是把**個別** `p`／`li`／`td` 設成 `contenteditable="true"`,不是把容器設為可編輯區。游標若停在 `<p contenteditable>` 內,插入 `<section>` 會產生 `<p><section>` 這種不合法巢狀,瀏覽器會自行拆分/搬移,結果依瀏覽器而異。另外插入的節點**不會**被註冊為可編輯(初始化只跑一次)。
+- **範圍澄清**:這是**既有**性質,**6 個**指令共有,**不是**本次 M-01 改動造成的——原本的 `<hs-redflag>` 也是同樣方式插入的區塊級元素。本次只把標記從孤兒自訂元素換成有樣式且雙語的 class 標記。
+- **同時駁回一則外審說法**:round-2 稱「沒有任何 `blog/*.html` 含 `id="proseZh"`」。**實測 26 篇中有 20 篇含有**,所以可編輯面是真實存在的(`#proseZh` 底下的 h1/h2/h3/p/li/td/th/figcaption/blockquote),不是只剩 myth 欄位與 figcaption。
+- **驗收**:把可編輯性改成容器層級(對 `#proseZh` 設 `contenteditable`)或在插入後補呼叫一次註冊;並在插入前把游標提升到區塊層級。**需先反證**是否會影響既有的儲存/序列化路徑。
+- **模型等級**:Opus(編輯器行為變更,牽動 M-06 的存檔路徑)。**關聯**:M-01、M-06、D-24。
+
+
+### M-17 🟠 六個非文章頁仍內嵌整份 `.mag-footer` CSS,D-10 的「單一來源」目前不成立(Batch A 外審發現)
+- **問題**：`about.html`／`notes.html`／`privacy.html` 及其三個 `/en/` 鏡像**各自內嵌一整份 `.mag-footer` CSS**(非生成的 critical CSS,是 authored 區塊)。D-10 明文宣稱「全站頁尾 `.mag-footer` 的 CSS **只存在於** `app.css`」——**這個宣稱目前是假的**。其中 `.mag-foot-cols h5` 在這六頁是**死規則**(三頁實測都用 `<h4>`),其餘重複規則則確實生效。
+- **⚠ 為何不在 Batch A 順手修**：D-10 自己記著一則**歷史教訓**——曾把 footer CSS 抽離導致「首頁/about/privacy 等非文章頁頁尾全裸跑版」(回歸 commit `918dae6`),而**出事的正是這批頁面**。在沒有逐條比對「內嵌規則 ⊆ app.css 規則」並跑過視覺回歸之前刪除,等於重演同一次事故。
+- **驗收**：逐條比對六頁的內嵌規則與 `app.css` 的 20 條 `mag-foot` 規則,確認**完全被涵蓋**後才刪;跑 visual-regression 對照六頁;或反過來——若某些規則確實只存在於內嵌,**把它們併入 app.css** 再刪。完成後 D-10 才能宣稱單一來源成立。
+- **模型等級**：Opus(有明確前例事故,需先反證)。**關聯**：D-10、M-02。

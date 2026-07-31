@@ -2,309 +2,623 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/admin/mobile", "destination": "/admin", "permanent": false },
-    { "source": "/rss",  "destination": "/blog/feed.xml", "permanent": false },
-    { "source": "/feed", "destination": "/blog/feed.xml", "permanent": false },
-    { "source": "/feed.json", "destination": "/blog/feed.json", "permanent": false },
-    { "source": "/jsonfeed", "destination": "/blog/feed.json", "permanent": false },
-    { "source": "/atom", "destination": "/blog/atom.xml", "permanent": false },
-
-    { "source": "/sitemap",  "destination": "/sitemap.xml",  "permanent": true },
-    { "source": "/articles", "destination": "/blog",         "permanent": true },
-    { "source": "/posts",    "destination": "/blog",         "permanent": true },
-    { "source": "/article/:slug*", "destination": "/blog/:slug*", "permanent": true },
-    { "source": "/posts/:slug*",   "destination": "/blog/:slug*", "permanent": true },
-    { "source": "/p/:slug*",       "destination": "/blog/:slug*", "permanent": true },
-    { "source": "/wellness/:slug*","destination": "/blog/:slug*", "permanent": true },
-    { "source": "/health/:slug*",  "destination": "/blog/:slug*", "permanent": true },
-
-    { "source": "/blog/cataract-surgery-faq",     "destination": "/blog/cataract-comprehensive-guide",     "permanent": true },
-    { "source": "/en/blog/cataract-surgery-faq",  "destination": "/en/blog/cataract-comprehensive-guide",  "permanent": true },
-    { "source": "/blog/glaucoma-warnings",        "destination": "/blog/glaucoma-comprehensive-guide",     "permanent": true },
-    { "source": "/en/blog/glaucoma-warnings",     "destination": "/en/blog/glaucoma-comprehensive-guide",  "permanent": true },
-
-    { "source": "/contact",  "destination": "/about",  "permanent": true },
-    { "source": "/about-us", "destination": "/about",  "permanent": true },
-    { "source": "/privacy-policy", "destination": "/privacy", "permanent": true }
+    {
+      "source": "/admin/mobile",
+      "destination": "/admin",
+      "permanent": false
+    },
+    {
+      "source": "/rss",
+      "destination": "/blog/feed.xml",
+      "permanent": false
+    },
+    {
+      "source": "/feed",
+      "destination": "/blog/feed.xml",
+      "permanent": false
+    },
+    {
+      "source": "/feed.json",
+      "destination": "/blog/feed.json",
+      "permanent": false
+    },
+    {
+      "source": "/jsonfeed",
+      "destination": "/blog/feed.json",
+      "permanent": false
+    },
+    {
+      "source": "/atom",
+      "destination": "/blog/atom.xml",
+      "permanent": false
+    },
+    {
+      "source": "/sitemap",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/articles",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/posts",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/article/:slug*",
+      "destination": "/blog/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/posts/:slug*",
+      "destination": "/blog/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/p/:slug*",
+      "destination": "/blog/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/wellness/:slug*",
+      "destination": "/blog/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/health/:slug*",
+      "destination": "/blog/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cataract-surgery-faq",
+      "destination": "/blog/cataract-comprehensive-guide",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/cataract-surgery-faq",
+      "destination": "/en/blog/cataract-comprehensive-guide",
+      "permanent": true
+    },
+    {
+      "source": "/blog/glaucoma-warnings",
+      "destination": "/blog/glaucoma-comprehensive-guide",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/glaucoma-warnings",
+      "destination": "/en/blog/glaucoma-comprehensive-guide",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/about-us",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/sitemap.xml",   "destination": "/api/sitemap" },
-    { "source": "/blog/feed.xml", "destination": "/api/feed?fmt=rss" },
-    { "source": "/blog/atom.xml", "destination": "/api/feed?fmt=atom" },
-    { "source": "/blog/feed.json", "destination": "/api/feed?fmt=json" }
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/blog/feed.xml",
+      "destination": "/api/feed?fmt=rss"
+    },
+    {
+      "source": "/blog/atom.xml",
+      "destination": "/api/feed?fmt=atom"
+    },
+    {
+      "source": "/blog/feed.json",
+      "destination": "/api/feed?fmt=json"
+    }
   ],
   "headers": [
     {
       "source": "/admin(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex,nofollow" },
-        { "key": "Cache-Control", "value": "no-store, must-revalidate" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex,nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+        }
       ]
     },
     {
       "source": "/admin/admin.css",
       "headers": [
-        { "key": "Content-Type", "value": "text/css; charset=utf-8" },
-        { "key": "Cache-Control", "value": "no-store, must-revalidate" }
+        {
+          "key": "Content-Type",
+          "value": "text/css; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        }
       ]
     },
     {
       "source": "/api/admin/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex,nofollow" },
-        { "key": "Cache-Control", "value": "no-store, must-revalidate" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex,nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        }
       ]
     },
     {
       "source": "/docs/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex,nofollow" },
-        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex,nofollow"
+        },
+        {
+          "key": "Content-Type",
+          "value": "text/markdown; charset=utf-8"
+        }
       ]
     },
     {
       "source": "/sitemap.xml",
       "headers": [
-        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/robots.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     },
     {
       "source": "/llms.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/opensearch.xml",
       "headers": [
-        { "key": "Content-Type", "value": "application/opensearchdescription+xml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/opensearchdescription+xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/sw.js",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" },
-        { "key": "Service-Worker-Allowed", "value": "/" }
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
       ]
     },
     {
       "source": "/icon.svg",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
       ]
     },
     {
       "source": "/favicon.ico",
       "headers": [
-        { "key": "Content-Type", "value": "image/x-icon" },
-        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+        {
+          "key": "Content-Type",
+          "value": "image/x-icon"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
       ]
     },
     {
       "source": "/manifest.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/manifest+json; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     },
     {
       "source": "/blog/blog-shared.js",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/blog/blog-shared.min.js",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/blog/blog-admin.js",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/blog/pagefind-search.js",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
-      ]
-    },
-    {
-      "source": "/assets/components.js",
-      "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/tools/eye-3d-worker.js",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/assets/search-index.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/assets/related.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/assets/i18n.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/assets/medical-dictionary.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/blog/feed.xml",
       "headers": [
-        { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+        {
+          "key": "Content-Type",
+          "value": "application/rss+xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
       ]
     },
     {
       "source": "/blog/atom.xml",
       "headers": [
-        { "key": "Content-Type", "value": "application/atom+xml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+        {
+          "key": "Content-Type",
+          "value": "application/atom+xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
       ]
     },
     {
       "source": "/blog/feed.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/feed+json; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+        {
+          "key": "Content-Type",
+          "value": "application/feed+json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
       ]
     },
     {
       "source": "/assets/app.css",
       "headers": [
-        { "key": "Content-Type", "value": "text/css; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Content-Type",
+          "value": "text/css; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/assets/article.css",
       "headers": [
-        { "key": "Content-Type", "value": "text/css; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Content-Type",
+          "value": "text/css; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/(.*)\\.(webp|avif|jpg|jpeg|png)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=2592000, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, s-maxage=2592000, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/assets/og/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800" },
-        { "key": "CDN-Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" },
-        { "key": "Vercel-CDN-Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
       ]
     },
     {
       "source": "/(.*).html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/:page(about|tools|notes|privacy|blog)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/blog/:slug([a-z0-9-]+)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/en",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/en/:page(about|tools|notes|privacy|blog)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/en/blog/:slug([a-z0-9-]+)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/ads.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     },
     {
       "source": "/humans.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), identity-credentials-get=(self), periodic-background-sync=(self), idle-detection=(self)" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin-allow-popups" },
-        { "key": "Cross-Origin-Resource-Policy", "value": "same-site" },
-        { "key": "X-XSS-Protection", "value": "0" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), identity-credentials-get=(self), periodic-background-sync=(self), idle-detection=(self)"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin-allow-popups"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-site"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "0"
+        }
       ]
     }
   ]

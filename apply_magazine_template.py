@@ -40,23 +40,6 @@ FONT_LINK_RE = re.compile(
 # 3. MAGAZINE FOOTER — deep ink bg, serif italic brand
 # ============================================================
 MAG_FOOTER = '''<!-- ============= MAGAZINE FOOTER (deep ink, editorial) ============= -->
-<style>
-  .mag-footer{ background:var(--ink); color:var(--bg); padding:80px clamp(20px,5vw,72px) 32px; margin-top:clamp(40px,6vw,80px); }
-  .mag-foot-top{ max-width:1440px; margin:0 auto; display:grid; grid-template-columns:1.4fr 2fr; gap:clamp(32px,5vw,80px); padding-bottom:48px; border-bottom:0.5px solid rgba(247,243,236,.16); }
-  .mag-foot-brand h3{ font-family:'Noto Serif TC','Fraunces',Georgia,serif; font-style:italic; font-weight:600; font-size:clamp(26px,3vw,34px); margin:0 0 12px; letter-spacing:-0.01em; color:var(--bg); }
-  .mag-foot-brand p{ font-family:'Noto Serif TC',Georgia,serif; font-size:15.5px; line-height:1.7; color:rgba(247,243,236,.7); margin:0; max-width:42ch; }
-  .mag-foot-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-  .mag-foot-cols h5{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); margin:0 0 16px; font-weight:500; }
-  .mag-foot-cols ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
-  .mag-foot-cols a{ font-size:14px; color:rgba(247,243,236,.85); text-decoration:none; transition:color .15s; }
-  .mag-foot-cols a:hover{ color:var(--teal-bright); }
-  .mag-foot-disclaimer{ max-width:1440px; margin:32px auto 0; display:grid; grid-template-columns:120px 1fr; gap:24px; padding:24px 0; border-bottom:0.5px solid rgba(247,243,236,.16); }
-  .mag-disc-tag{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:rgba(247,243,236,.5); padding-top:4px; }
-  .mag-foot-disclaimer p{ margin:0; font-size:13px; line-height:1.7; color:rgba(247,243,236,.78); max-width:84ch; }
-  .mag-foot-bot{ max-width:1440px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.1em; color:rgba(247,243,236,.55); flex-wrap:wrap; }
-  @media (max-width:980px){ .mag-foot-top{ grid-template-columns:1fr; } .mag-foot-disclaimer{ grid-template-columns:1fr; } .mag-foot-cols{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:560px){ .mag-foot-cols{ grid-template-columns:1fr; } }
-</style>
 <footer class="mag-footer">
   <div class="mag-foot-top">
     <div class="mag-foot-brand">
@@ -65,7 +48,7 @@ MAG_FOOTER = '''<!-- ============= MAGAZINE FOOTER (deep ink, editorial) =======
     </div>
     <div class="mag-foot-cols">
       <div>
-        <h5 data-zh="網站" data-en="Site">網站</h5>
+        <h4 data-zh="網站" data-en="Site">網站</h4>
         <ul>
           <li><a href="/" data-zh="首頁" data-en="Home">首頁</a></li>
           <li><a href="/blog/" data-zh="衛教文章" data-en="Articles">衛教文章</a></li>
@@ -73,7 +56,7 @@ MAG_FOOTER = '''<!-- ============= MAGAZINE FOOTER (deep ink, editorial) =======
         </ul>
       </div>
       <div>
-        <h5 data-zh="關於" data-en="About">關於</h5>
+        <h4 data-zh="關於" data-en="About">關於</h4>
         <ul>
           <li><a href="/about" data-zh="作者簡介" data-en="Author">作者簡介</a></li>
           <li><a href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li>
@@ -81,7 +64,7 @@ MAG_FOOTER = '''<!-- ============= MAGAZINE FOOTER (deep ink, editorial) =======
         </ul>
       </div>
       <div>
-        <h5 data-zh="訂閱" data-en="Subscribe">訂閱</h5>
+        <h4 data-zh="訂閱" data-en="Subscribe">訂閱</h4>
         <ul>
           <li><a href="/blog/feed.xml">RSS Feed</a></li>
           <li><a href="/blog/atom.xml">Atom Feed</a></li>

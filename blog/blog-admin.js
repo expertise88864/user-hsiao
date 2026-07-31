@@ -314,8 +314,20 @@
       { key: 'ol',     label: '數字編號',       icon: '1.', cmd: function () { document.execCommand('insertOrderedList', false, null); } },
       { key: 'quote',  label: '引言',           icon: '❝',  cmd: function () { document.execCommand('formatBlock', false, '<blockquote>'); } },
       { key: 'myth',   label: '迷思 / 事實 卡', icon: '⚖',  cmd: function () { document.execCommand('insertHTML', false, '<div class="myth-card"><div class="myth">迷思: 在這裡寫迷思</div><div class="truth">真相: 在這裡寫真相</div></div><p></p>'); } },
-      { key: 'redflag',label: '紅旗警告框',     icon: '🚩', cmd: function () { document.execCommand('insertHTML', false, '<hs-redflag title="警訊辨識"><ul><li>第一項警訊</li><li>第二項警訊</li></ul></hs-redflag><p></p>'); } },
-      { key: 'tldr',   label: 'TL;DR 引言',     icon: '✨', cmd: function () { document.execCommand('insertHTML', false, '<hs-tldr><p>3 句話精華:第一句 · 第二句 · 第三句。</p></hs-tldr><p></p>'); } },
+      // M-01: was <hs-redflag>, a custom element whose only implementation lived
+      // in assets/components.js — a file no page ever loaded, so the tag rendered
+      // unstyled. Emits the class-based markup real articles use, which app.css
+      // styles via .hs-redflag-box / -title / -list.
+      // The data-zh/data-en pairs are NOT decoration: _sanitizeForSerialize only
+      // syncs elements that already carry them, and _gen_en_pages.py only swaps
+      // paired elements — without them the author's Chinese is committed verbatim
+      // into the /en/ mirror.
+      { key: 'redflag',label: '紅旗警告框',     icon: '🚩', cmd: function () { document.execCommand('insertHTML', false, '<section class="hs-redflag-box"><h3 class="hs-redflag-title">🚨 <span data-zh="警訊辨識" data-en="Red flags">警訊辨識</span></h3><ul class="hs-redflag-list"><li data-zh="第一項警訊" data-en="First red flag">第一項警訊</li><li data-zh="第二項警訊" data-en="Second red flag">第二項警訊</li></ul></section><p></p>'); } },
+      // M-01: same story — <hs-tldr> had no implementation. Articles carry a
+      // `.tldr` paragraph; note there is NO `.tldr` rule in app.css — its look
+      // comes from the utility classes and the inline colour copied here, so
+      // they are load-bearing, not incidental. data-zh/data-en as above.
+      { key: 'tldr',   label: 'TL;DR 引言',     icon: '✨', cmd: function () { document.execCommand('insertHTML', false, '<p class="mt-6 text-[15.5px] leading-[1.95] tldr" style="color:var(--ink-2)" data-zh="3 句話精華:第一句 · 第二句 · 第三句。" data-en="Three-sentence summary: first · second · third.">3 句話精華:第一句 · 第二句 · 第三句。</p><p></p>'); } },
       { key: 'table',  label: '3×3 表格',       icon: '⊞',  cmd: function () { document.execCommand('insertHTML', false, '<table class="dn"><thead><tr><th>欄 1</th><th>欄 2</th><th>欄 3</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table><p></p>'); } },
       { key: 'mermaid',label: 'Mermaid 流程圖', icon: '↳',  cmd: function () { document.execCommand('insertHTML', false, '<pre class="mermaid">flowchart TD\n  A[Start] --> B{Decision}\n  B -->|Yes| C[Action]\n  B -->|No| D[End]</pre><p></p>'); } },
       { key: 'math',   label: 'KaTeX 公式 (block)', icon: '∑', cmd: function () { document.execCommand('insertHTML', false, '<p>$$ P_{IOL} = A - 2.5 \\cdot AL - 0.9 \\cdot K $$</p>'); } },
