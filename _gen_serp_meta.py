@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import html
 import json
+import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import re
 from pathlib import Path
 
@@ -308,7 +309,7 @@ def normalize_article_structured_data(path: Path, slug: str) -> bool:
         if json.dumps(data, ensure_ascii=False, sort_keys=True) == old:
             return match.group(0)
         changed = True
-        dumped = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        dumped = _jsonld.dumps(data, ensure_ascii=False, separators=(',', ':'))
         return f'{match.group(1)}\n{dumped}\n</script>'
 
     out = re.sub(
@@ -363,7 +364,7 @@ def listing_schema(canonical_path: str, name: str, articles: list[dict[str, str]
     }
     return (
         '<script type="application/ld+json" data-listing-auto>'
-        + json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        + _jsonld.dumps(data, ensure_ascii=False, separators=(',', ':'))
         + '</script>'
     )
 
@@ -403,7 +404,7 @@ def normalize_listing_page_structured_data(path: Path, canonical_path: str) -> b
         if json.dumps(data, ensure_ascii=False, sort_keys=True) == old:
             return match.group(0)
         changed = True
-        dumped = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        dumped = _jsonld.dumps(data, ensure_ascii=False, separators=(',', ':'))
         return f'{match.group(1)}{dumped}</script>'
 
     out = re.sub(
@@ -435,7 +436,7 @@ def breadcrumb_schema(canonical_path: str, crumbs: list[tuple[str, str]]) -> str
     }
     return (
         '<script type="application/ld+json" data-breadcrumb-auto>'
-        + json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        + _jsonld.dumps(data, ensure_ascii=False, separators=(',', ':'))
         + '</script>'
     )
 

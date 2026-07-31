@@ -15,6 +15,7 @@ draft/noindex pages. This generator is intentionally conservative:
 from __future__ import annotations
 
 import json
+import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import re
 import sys
 from pathlib import Path
@@ -238,7 +239,7 @@ def normalize_existing_faqpages(src: str, path: Path) -> tuple[str, int, int]:
             return ""
         blocks += 1
         questions += n_questions
-        dumped = json.dumps(normalized, ensure_ascii=False, separators=(",", ":"))
+        dumped = _jsonld.dumps(normalized, ensure_ascii=False, separators=(",", ":"))
         return f"{match.group(1)}{dumped}{match.group(3)}"
 
     return JSONLD_RE.sub(repl, src), blocks, questions
@@ -267,7 +268,7 @@ def inject(src: str, path: Path, faqs: list[dict[str, str]]) -> str:
     }
     block = (
         '<script type="application/ld+json" data-faq-auto>'
-        + json.dumps(schema, ensure_ascii=False, separators=(",", ":"))
+        + _jsonld.dumps(schema, ensure_ascii=False, separators=(",", ":"))
         + "</script>"
     )
     clean = remove_old(src)

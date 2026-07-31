@@ -100,7 +100,8 @@ DOMAIN = 'https://hsiao.chendermatologist.com'
 
 
 def build_block(slug, m):
-    import json
+    import json  # noqa: F401 — kept for readers; output goes through _jsonld
+    import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
     obj = {
         '@context': 'https://schema.org',
         '@type': 'MedicalWebPage',
@@ -121,7 +122,7 @@ def build_block(slug, m):
         },
         'isPartOf': {'@type': 'WebSite', 'name': 'HsiaoEye', 'url': f'{DOMAIN}/'},
     }
-    return '<script type="application/ld+json">\n' + json.dumps(obj, ensure_ascii=False) + '\n</script>'
+    return '<script type="application/ld+json">\n' + _jsonld.dumps(obj, ensure_ascii=False) + '\n</script>'
 
 
 def main():

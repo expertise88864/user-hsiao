@@ -48,6 +48,7 @@ PROVENANCE — every Q-id was resolved through the Wikipedia API
 from __future__ import annotations
 
 import json
+import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import re
 import sys
 from pathlib import Path
@@ -218,7 +219,7 @@ def apply_to_html(html: str, slug: str) -> tuple[str, int]:
         if not touched:
             return m.group(0)
         changed += 1
-        return open_tag + '\n' + json.dumps(data, ensure_ascii=False) + '\n' + close_tag
+        return open_tag + '\n' + _jsonld.dumps(data, ensure_ascii=False) + '\n' + close_tag
 
     return LD_JSON_RE.sub(repl, html), changed
 

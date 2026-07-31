@@ -27,6 +27,7 @@ JSON-LD so the page has both: ScholarlyArticle for general article
 indexing + MedicalGuideline for the medical-rich-result lane.
 """
 import json
+import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import os
 import re
 
@@ -106,7 +107,7 @@ def build_block(slug, subject_name, alts, icd10, evidence_origin):
         'author': {'@id': f'{DOMAIN}/about#person'},
         'isPartOf': {'@id': f'{DOMAIN}/#website'},
     }
-    return '<script type="application/ld+json">\n' + json.dumps(obj, ensure_ascii=False) + '\n</script>'
+    return '<script type="application/ld+json">\n' + _jsonld.dumps(obj, ensure_ascii=False) + '\n</script>'
 
 
 def main():

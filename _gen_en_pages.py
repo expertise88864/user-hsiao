@@ -14,6 +14,7 @@ head metadata must be English-page accurate at build time:
 
 import html as html_lib
 import json
+import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import os
 import re
 
@@ -511,7 +512,7 @@ def update_jsonld_blocks(s, slug=None, title='', desc='', en_canonical=''):
         data = translate_jsonld_value(data)
         data = localize_static_page_jsonld(data, title, desc, en_canonical)
         data = localize_article_jsonld(data, slug, title, desc, en_canonical)
-        dumped = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        dumped = _jsonld.dumps(data, ensure_ascii=False, separators=(',', ':'))
         return f'{m.group(1)}\n{dumped}\n</script>'
     return re.sub(r'(<script\s+type="application/ld\+json"[^>]*>)([\s\S]*?)</script>', repl, s)
 

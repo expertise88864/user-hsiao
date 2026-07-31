@@ -189,7 +189,7 @@
 - **驗收**：把所有 `DN.ARTICLES` 的 `field()` 解析**一次改成支援逸出**（`'((?:[^'\\]|\\.)*)'` 再 `.replace("\\'","'")`），或改用共用 helper。**必須一致改全部 parser**（否則各檔各截）。
 - **模型等級**：Sonnet（機械但跨檔一致性）。**關聯**：REVIEW-PLAYBOOK §9。
 
-### M-13 🟢 多個生成器把文章文字塞進 `<script type="ld+json">` 未逸出 `<`/`</script>`（Sweep B，潛伏）
+### M-13 ✅ 多個生成器把文章文字塞進 `<script type="ld+json">` 未逸出 `<`/`</script>`（Sweep B，潛伏）
 - **問題**：`_gen_related.py`（LD `name`）、`_gen_profile_schema.py`、`_gen_serp_meta.py`、`_gen_faqpage_jsonld.py` 等用 `json.dumps` 產 JSON-LD 塞進 `<script>` 區塊，但 `json.dumps` **不逸出 `<`**，故若文章標題/描述含字面 `</script>` 會提早關閉 script 標籤並注入標記。可見文字（卡片）已用 `esc()` 逸出，只有 JSON-LD 路徑生。
 - **現況**：潛伏——內容是站主自撰醫療文，非不可信輸入，不會有字面 `</script>`。屬防禦縱深最佳實務缺口。
 - **驗收**：JSON-LD 輸出統一過 `.replace('<','\\u003c')`（JSON-LD 慣例），或包一個 `dump_jsonld()` helper。低優先。
@@ -397,3 +397,16 @@
 - **⚠ 為何不在 Batch A 順手修**：D-10 自己記著一則**歷史教訓**——曾把 footer CSS 抽離導致「首頁/about/privacy 等非文章頁頁尾全裸跑版」(回歸 commit `918dae6`),而**出事的正是這批頁面**。在沒有逐條比對「內嵌規則 ⊆ app.css 規則」並跑過視覺回歸之前刪除,等於重演同一次事故。
 - **驗收**：逐條比對六頁的內嵌規則與 `app.css` 的 20 條 `mag-foot` 規則,確認**完全被涵蓋**後才刪;跑 visual-regression 對照六頁;或反過來——若某些規則確實只存在於內嵌,**把它們併入 app.css** 再刪。完成後 D-10 才能宣稱單一來源成立。
 - **模型等級**：Opus(有明確前例事故,需先反證)。**關聯**：D-10、M-02。
+
+
+**Batch B（部分）— M-13 ✅（2026-07-27，Opus 5）**
+
+- 新增 `_jsonld.py` 作為**唯一**的 JSON-LD 序列化入口(`dumps` / `script_block`),把 `<` `>` `&` 逸出成 `<` 等。這是 JSON-LD 慣例:**逸出後的字串是合法 JSON 跳脫,解析回來的值位元組相同**(已用 `json.loads` 往返斷言),所以 schema 完全沒變,但輸出裡不可能有子字串能關閉 `<script>`。
+- **9 個生成器、12 條輸出路徑**全部改道:`_gen_faqpage_jsonld` / `_gen_profile_schema` / `_gen_related` / `_gen_serp_meta` / `_gen_site_graph` / `_inject_medical_guideline` / `_inject_medicalwebpage` / `_gen_en_pages` / `_normalize_entity_links`。
+- **刻意不動**`old = json.dumps(..., sort_keys=True)` 那些呼叫——它們是 `_gen_serp_meta` / `_gen_site_graph` 的**內部等值比對**,只改一邊會靜默破壞冪等性。
+- **`grep "application/ld+json"` 漏掉兩個檔**(`_gen_en_pages.py`、`_normalize_entity_links.py`),因為它們的正則把加號跳脫成 `application/ld\+json`。字面搜尋找不到 ≠ 沒有問題。
+- **守衛 `_check_jsonld_escaping.py`** 兩面斷言:(1) 產出的 ld+json 區塊不得含裸 `<` 且必須可解析;(2) 任何會吐 ld+json 的生成器不得用裸 `json.dumps` 組出輸出——**只有 (1) 會在新生成器的內容恰巧不含 `<` 時假性通過**,所以兩者都要。另有「一個區塊都掃不到就算失敗」的空集合防護。
+- **一則自我更正**:守衛初版把 `>` 和 `&` 也列為違規,結果**誤報**兩個手寫區塊裡合法的 `&`。`<script>` 內容是 raw text,`&` 沒有特殊意義;會提早關閉區塊的 `</script`、`<!--` **都以 `<` 開頭**。已收斂成只斷言 `<`(helper 仍逸出三者,無害且合慣例),並在檢查器裡寫明這個區別。
+- 實測:**255 個 ld+json 區塊、0 個含裸 `<`、全部 JSON 有效**。變異測試 3/3(基線通過、產出重新出現裸 `<` 被抓、生成器退回裸 `json.dumps` 被抓)。
+
+**⚠ 待補外審**:同 Batch A,Codex 額度用罄(2026-08-05 重置),使用者定案先行上線並標 `[UNREVIEWED]`。

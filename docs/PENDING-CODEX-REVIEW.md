@@ -43,6 +43,24 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 3 — Batch B 部分（M-13 JSON-LD 逸出）
+
+| 欄位 | 內容 |
+|---|---|
+| commit 標記 | commit 標題含 `[UNREVIEWED]` |
+| 上線日 | 2026-07-27 |
+| 跳關原因 | 同批次 2:Codex 額度用罄 |
+| 已完成的驗證 | preflight PASS、`_check_jsonld_escaping` 255 區塊 0 裸 `<`、變異 3/3、CI |
+| 外審進度 | **完全未審**（批次 2 是 round-6 未跑;這批一輪都沒跑） |
+
+**補審時請特別看**：
+- `_jsonld.py` 的逸出是否真的不改變解析後的值(我以 `json.loads` 往返斷言,請獨立複核)。
+- 12 條輸出路徑是否有遺漏,以及**是否誤改了 `sort_keys=True` 的比較用呼叫**(那會破壞冪等性)。
+- `_check_jsonld_escaping.py` 從「`<` `>` `&` 都違規」收斂成「只 `<`」的判斷是否正確——依據是 `<script>` 內容為 raw text、且 `</script`／`<!--` 都以 `<` 開頭。
+- 生成鏈中新步驟的位置(此批未新增鏈步驟,只改既有生成器內部)。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。

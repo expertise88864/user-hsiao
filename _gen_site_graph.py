@@ -9,6 +9,7 @@ homepages carry language-appropriate names and URLs.
 from __future__ import annotations
 
 import json
+import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import re
 from pathlib import Path
 
@@ -154,7 +155,7 @@ def breadcrumb_schema(canonical_path: str, crumbs: list[tuple[str, str]]) -> dic
 def jsonld_script(data: dict[str, object]) -> str:
     return (
         '<script type="application/ld+json" data-site-graph-auto>'
-        + json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+        + _jsonld.dumps(data, ensure_ascii=False, separators=(',', ':'))
         + '</script>'
     )
 
@@ -211,7 +212,7 @@ def normalize_static_page(target: dict[str, object]) -> bool:
         if json.dumps(data, ensure_ascii=False, sort_keys=True) == old:
             return match.group(0)
         changed = True
-        return prefix + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '</script>'
+        return prefix + _jsonld.dumps(data, ensure_ascii=False, separators=(',', ':')) + '</script>'
 
     out = re.sub(
         r'(<script\s+type="application/ld\+json"[^>]*>)([\s\S]*?)</script>',
@@ -286,7 +287,7 @@ def normalize_homepage(path: Path, expected_id: str, lang: str, parts: list[tupl
         if json.dumps(data, ensure_ascii=False, sort_keys=True) == old:
             return match.group(0)
         changed = True
-        return prefix + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '</script>'
+        return prefix + _jsonld.dumps(data, ensure_ascii=False, separators=(',', ':')) + '</script>'
 
     out = re.sub(
         r'(<script\s+type="application/ld\+json"[^>]*>)([\s\S]*?)</script>',

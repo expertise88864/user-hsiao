@@ -21,6 +21,7 @@ the user understands WHY this article was suggested.
 """
 import html
 import json
+import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import random
 import re
 from pathlib import Path
@@ -133,7 +134,7 @@ def related_block(slug, rows):
             for i, a in enumerate(scored)
         ],
     }
-    ld_json = json.dumps(ld, ensure_ascii=False, separators=(',', ':'))
+    ld_json = _jsonld.dumps(ld, ensure_ascii=False, separators=(',', ':'))
     return (
         f'{STATIC_START}\n'
         '<style id="hs-related-css">@media (max-width:520px){.hs-related-grid{grid-template-columns:1fr!important}}</style>\n'

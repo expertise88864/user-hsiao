@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import html
 import json
+import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import re
 from pathlib import Path
 
@@ -68,7 +69,7 @@ def upsert_profile(path: Path, canonical_path: str, lang: str, website_id: str) 
     src = path.read_text(encoding='utf-8')
     block = (
         '<script type="application/ld+json" data-profile-auto>'
-        + json.dumps(profile_schema(src, canonical_path, lang, website_id), ensure_ascii=False, separators=(',', ':'))
+        + _jsonld.dumps(profile_schema(src, canonical_path, lang, website_id), ensure_ascii=False, separators=(',', ':'))
         + '</script>'
     )
     cleaned = AUTO_RE.sub('\n', src)
