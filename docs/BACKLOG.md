@@ -148,7 +148,7 @@
 - **驗收**：改用 `getElementById(id+'-en')`（不需 selector 逸出），或用 `CSS.escape`。
 - **模型等級**：Sonnet。
 
-### M-05 🟠 文件 ↔ CI 建置鏈可能 drift
+### M-05 ✅ 文件 ↔ CI 建置鏈可能 drift
 - **問題**：權威建置鏈是 `.github/workflows/quality.yml` 的 drift 步驟；`WRITING_NEW_ARTICLE.md`、`AGENTS.md`、`CLAUDE.md` 各有一份鏈文件，容易與 CI 實際清單脫節（codex 近期新增了 `_normalize_reviewed_by`、`_inject_speed_insights`、`_gen_api_content_snapshot`、`_gen_llms_full_txt`、`_apply_trusted_types`）。
 - **緩解已做**：`preflight.py` **動態解析 quality.yml** 取步驟，不依賴文件，所以「跑鏈」這件事不會因文件過時而錯。
 - **驗收**：定期（或每次有人加 generator 時）比對三份文件的鏈 vs quality.yml，補齊。或更進一步：讓三份文件都改為「見 quality.yml / preflight.py」單一指向，消除多份副本。
@@ -453,3 +453,14 @@
 - 現行標題皆無撇號,故**產出零變動**(潛伏修復);端到端 fixture 證明舊解析壞、新解析對。
 
 **⚠ 待補外審**:同前五批。**M-05／A-01／P-01／T-02／S-07／M-14 未動**——本輪 context 已不足以再完整交付一項,不開半成品。
+
+
+**Batch C 續 — M-05 ✅ / M-14 ⛔（2026-07-27，Opus 5）**
+
+- **`M-05` drift 不是「可能」,是已經發生且已量化**:CI 權威鏈有 **22 步**,而 `CLAUDE.md` 缺 6、`AGENTS.md` 缺 5、`WRITING_NEW_ARTICLE.md` 缺 4——其中 `_normalize_entity_links.py` 是**當天稍早才由我自己加進 CI 的**,三份文件一份都沒跟上。已全部補齊(三份現在都涵蓋 22 步)。
+- **一則我自己的量測錯誤**:初版比對把「多出 CI 沒有的」也算成 drift,得到 7 個「多餘」項——**大多是假陽性**。那些 `_check_*.py` 屬於文件裡的「檢查清單」段落、`_gen_og_images.py` 屬於文章工作流,都不是 drift-step 鏈的一部分。單純 grep `python _*.py` 把不同段落混在一起了。
+- **守衛 `_check_chain_docs.py` 只守一個方向**:CI 跑的每一步都必須在三份文件裡出現過。**刻意不查「多出」**——要查就得讓文件標出鏈區塊邊界,但鏈在每份文件裡出現**多處**(CLAUDE.md 有兩塊),邊界本身會先腐化。另有「從 quality.yml 解析到 0 步就算失敗」的空集合防護(格式一變,檢查會變成假性通過)。變異 4/4。
+- **真正的保護仍是 `preflight.py`**:它**解析** quality.yml 後執行,所以文件過時不會導致建置錯誤;這個 checker 只是讓敘述保持誠實。
+- **`M-14` ⛔ 不做**:該條目自己就寫著「**已接受為殘餘風險,不再迭代**」——codex 經 5 輪對抗式審查判定無阻擋級缺陷,剩下的只是本 repo 的 generator **不可能產出**的畸形標記。重開條件(改手寫 HTML／引入第三方模板／admin 允許貼任意標記)**三個都沒發生**。與 R-01 同類,同樣的理由建議不修。
+
+**⚠ 待補外審**:同前六批。

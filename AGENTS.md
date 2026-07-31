@@ -109,6 +109,12 @@ python _apply_a11y_vt.py                   # view-transition + reduced-motion
 python _apply_trusted_types.py              # early Trusted Types policy bootstrap
 python _apply_f10_image_priority.py        # fetchpriority="high" on first <img>
 python _extract_critical_css.py            # critical CSS inline
+# M-05: added to match the authoritative chain in quality.yml
+python _normalize_reviewed_by.py
+python _normalize_entity_links.py
+python _inject_speed_insights.py
+python _gen_api_content_snapshot.py
+python _gen_llms_full_txt.py
 python _gen_csp_hashes.py                  # CSP hashes (must run last)
 python validate.py                         # head/meta integrity
 ```

@@ -67,6 +67,11 @@ python _apply_f10_image_priority.py   # fetchpriority="high" on first <img>
 
 # ── 9. Critical CSS + CSP hashes (CSP must run LAST) ─────────────────────
 python _extract_critical_css.py       # above-the-fold CSS inline
+# M-05: added to match the authoritative chain in quality.yml
+python _normalize_reviewed_by.py
+python _normalize_entity_links.py
+python _inject_speed_insights.py
+python _gen_llms_full_txt.py
 python _gen_csp_hashes.py             # hash-based CSP allowlist (middleware.js)
 
 # ── 10. Validation gate ────────────────────────────────────────────────

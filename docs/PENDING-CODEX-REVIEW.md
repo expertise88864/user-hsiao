@@ -132,6 +132,19 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 8 — M-05（建置鏈文件 drift）
+
+| 已完成的驗證 | 三份文件補齊至 22 步、`_check_chain_docs` 變異 4/4、preflight、CI |
+|---|---|
+| 外審進度 | **完全未審** |
+
+**補審時請特別看**：
+- 補進三份文件的步驟**位置**是否合理(統一插在 `_gen_csp_hashes.py` 之前,因為它被標為 must-run-last)——語意上是否正確,或只是能過檢查。
+- 只查單一方向(CI→文件)的取捨是否恰當,還是應該讓文件標出鏈區塊邊界以便雙向檢查。
+- `_check_chain_docs.py` 的 `CI_STEP_RE` 依賴 10 空格縮排;空集合防護是否足以涵蓋所有格式變動。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。
