@@ -70,7 +70,7 @@
 - **殘留（可選、屬 ops 非碼）**：若要再加防禦縱深 → 把 `GITHUB_TOKEN` 換 fine-grained 低權限 PAT + 設輪替提醒（純 Vercel env 操作）。非阻擋、非本 backlog 追蹤範圍。
 - **模型等級**：—（已關閉）。**關聯**：D-17。
 
-### S-02 🟢 middleware CSP matcher 仍排除 `.svg`
+### S-02 ✅ middleware CSP matcher 仍排除 `.svg`
 - **問題**：新 SVG 上傳已禁（D-15），但 repo 內**既有** SVG 仍以無 CSP 同源渲染。
 - **驗收**：上傳資產回應加 `Content-Security-Policy: default-src 'none'; sandbox` 與/或 `Content-Disposition: attachment`；並把 `.svg` 移出 middleware.js matcher 的排除清單。驗證既有 SVG 圖仍正常顯示（`<img>`/`<use>` 情境不受 sandbox 影響）。
 - **模型等級**：Sonnet。**關聯**：D-15。
@@ -433,3 +433,12 @@
 - 過程中 `_check_min_js.py` 轉紅——因為我改了 `blog-shared.js` 沒重新 minify。**那是 Phase 6 加的新鮮度閘門正常運作**;已重新 minify 並把 D-06 兩個紀元 bump 到 `20260668`。
 
 **⚠ 待補外審**:同前三批,Codex 額度用罄(2026-08-05 重置)。
+
+
+**Batch C（起頭）— S-02 ✅（2026-07-27，Opus 5）**
+
+- **先量曝露面再決定作法**:repo 內只有 **2 個 SVG**(`icon.svg`、`assets/icons.svg`);全站 **63 個引用全是 `<img src>`**——依規範 `<img>` 情境**不執行** SVG 內的 script,所以那 63 處本來就安全;**沒有** `<use>`、`<object>`、`<iframe>`、`<embed>` 用法。真正的曝露面**只剩「直接導覽到該 URL」**。
+- 因此採驗收條件的**第一個選項**(加資產回應標頭),而不是把 `.svg` 移出 middleware matcher:後者會讓每個 SVG 請求都跑一次 middleware 並查不到 hash,成本高且對 `<img>` 無益。`vercel.json` 加 `/(.*).svg` → `Content-Security-Policy: default-src 'none'; sandbox` + `X-Content-Type-Options: nosniff`,並**釘進 `_check_static_asset_headers.py`**(15 條規則)——沒有 checker 的 header 規則會無聲漂移,S-02 當初就是這樣一直開著的。
+- **順帶發現(未處理)**:`assets/icons.svg` **被引用 0 次**,是死資產。沒有直接刪除,因為現在沒有外審可用,而「看起來沒人用」在本 session 已經被證明過一次是錯的(M-01 的 `components.js` 定義了自訂元素,grep 檔名找不到)。留待補審時一併判斷。
+
+**⚠ 待補外審**:同前四批,Codex 額度用罄(2026-08-05 重置)。

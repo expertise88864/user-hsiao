@@ -43,6 +43,17 @@ EXPECTED = {
     "/favicon.ico": {
         "Cache-Control": "public, max-age=2592000",
     },
+    # S-02: an SVG served same-origin can carry <script>. The 63 references on
+    # this site are all <img src>, where scripts are disabled by spec, and there
+    # is no <use>, <object>, <iframe> or <embed> usage — so the only exposure is
+    # DIRECT NAVIGATION to the file. `default-src 'none'; sandbox` neutralises
+    # that without touching <img> rendering, which does not treat the response as
+    # a document. Pinned here because a header rule with no checker can drift
+    # back silently, which is how S-02 sat open in the first place.
+    "/(.*).svg": {
+        "Content-Security-Policy": "default-src 'none'; sandbox",
+        "X-Content-Type-Options": "nosniff",
+    },
     "/blog/blog-shared.js": {
         "Content-Type": "application/javascript; charset=utf-8",
         "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",

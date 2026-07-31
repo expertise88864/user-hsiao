@@ -97,6 +97,24 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 6 — S-02（SVG 回應加 CSP）
+
+| 欄位 | 內容 |
+|---|---|
+| commit 標記 | commit 標題含 `[UNREVIEWED]` |
+| 上線日 | 2026-07-27 |
+| 跳關原因 | 同前:Codex 額度用罄 |
+| 已完成的驗證 | `_check_static_asset_headers` 15 條規則、vercel.json 合法、preflight、CI |
+| 外審進度 | **完全未審** |
+
+**補審時請特別看**：
+- `default-src 'none'; sandbox` 是否會影響 `icon.svg` 作為 **favicon / manifest icon** 的載入(我判斷不會,因為那不是 document 情境,但沒有實測手段)。
+- 是否該連同 `Content-Disposition: attachment` 一起加(驗收條件寫「與/或」,我只做了 CSP)。
+- `assets/icons.svg` 引用數為 0——**是否真的可刪**。M-01 的教訓是「grep 檔名找不到」不等於沒人用。
+- 上線後應 curl 驗證 `/icon.svg` 的標頭確實出現,且首頁 favicon 仍正常。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。
