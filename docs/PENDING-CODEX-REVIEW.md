@@ -179,7 +179,7 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 | 外審進度 | **完全未審** |
 
 **補審時請特別看**：
-- **Vercel 的 filesystem 是否真的優先於 rewrites**——我依 BACKLOG 的敘述與 Vercel 路由順序判斷「既有靜態 PNG 仍勝」,**但沒有實測手段**。若順序相反,所有文章的 OG 卡都會改走動態渲染(功能仍在,但成本與外觀可能變)。**這是本批最需要獨立確認的一點。**
+- ~~Vercel 的 filesystem 是否真的優先於 rewrites~~ **已於上線後實測確認**: 回 **200 image/png 31,361 bytes**(靜態檔勝出), 回 **200 image/png**(動態卡接手,不再 404)。原先我標為「無實測手段」,現在有數據。
 - `:slug` 參數是否會匹配到含斜線或點的路徑,造成非預期的 rewrite。
 - `/api/og` 對不存在的 slug 的行為(應回合理的預設卡而非 500)。
 - 上線後應實測:既有文章的 OG PNG 仍回靜態檔(比對 bytes 或 header),而一個不存在的 slug 會回動態卡。

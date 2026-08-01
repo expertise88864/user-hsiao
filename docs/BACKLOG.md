@@ -517,6 +517,7 @@
 - **本項的阻擋理由已經過時,先查證才動手**:條目說「不能盲改,因為 `/assets/og/(.*)` 的 header 設 `immutable`,會把動態佔位卡快取一年」。**實測沒有 `immutable`**——現在是 `max-age=3600, s-maxage=86400, stale-while-revalidate=604800`(某次調整已移除,條目沒跟上)。那個互動陷阱不存在了,所以方案 (a) 現在是安全的。
 - 採 **(a)**:`vercel.json` 加 `{"source":"/assets/og/:slug.png","destination":"/api/og?slug=:slug"}`。Vercel 的路由順序是 headers → redirects → **filesystem** → rewrites,所以**既有靜態 PNG 仍然優先**,rewrite 只在檔案不存在時才生效。
 - **誠實的殘餘**:header 依**請求路徑**匹配,所以動態 fallback 也會拿到 `s-maxage=86400`。靜態 PNG 上線後,CDN 最多可能再供應佔位卡 1 天。**這是有上限的外觀性延遲,遠優於現況的 404/空白卡**,但不是零延遲。
+- **上線實測確認**:既有卡  → 200 image/png 31,361 bytes(**靜態檔勝出,filesystem 確實優先於 rewrites**);不存在的 slug → 200 image/png(動態卡接手)。原本我只能依文件推斷,現在有量測。
 - **兩個不變式都釘進 checker**:(1) rewrite 必須存在——沒有 checker 的 rewrite 可以被無聲刪掉,而唯一症狀是新文章的分享卡空白;(2) 該路徑的 `Cache-Control` **不得含 `immutable`**——把原本的陷阱變成建置失敗,而不是靠註解提醒。變異 2/2。
 
 **⚠ 待補外審**:同前九批。
