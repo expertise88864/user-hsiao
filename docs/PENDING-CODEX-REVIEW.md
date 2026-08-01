@@ -172,6 +172,20 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 11 — T-02（OG 圖 fallback rewrite）
+
+| 已完成的驗證 | rewrite + 非-immutable 兩個不變式釘進 checker、變異 2/2、preflight 64/0/0、CI |
+|---|---|
+| 外審進度 | **完全未審** |
+
+**補審時請特別看**：
+- **Vercel 的 filesystem 是否真的優先於 rewrites**——我依 BACKLOG 的敘述與 Vercel 路由順序判斷「既有靜態 PNG 仍勝」,**但沒有實測手段**。若順序相反,所有文章的 OG 卡都會改走動態渲染(功能仍在,但成本與外觀可能變)。**這是本批最需要獨立確認的一點。**
+- `:slug` 參數是否會匹配到含斜線或點的路徑,造成非預期的 rewrite。
+- `/api/og` 對不存在的 slug 的行為(應回合理的預設卡而非 500)。
+- 上線後應實測:既有文章的 OG PNG 仍回靜態檔(比對 bytes 或 header),而一個不存在的 slug 會回動態卡。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。

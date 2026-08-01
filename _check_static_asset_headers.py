@@ -104,6 +104,27 @@ def main() -> int:
     by_source = {entry.get("source"): entry for entry in config.get("headers", [])}
     errors: list[str] = []
 
+    # T-02: a new article's og:image points at /assets/og/<slug>.png before
+    # _gen_og_images.py has produced and committed the PNG, so the share card
+    # 404s. This rewrite falls through to the dynamic renderer on a miss;
+    # Vercel checks the filesystem BEFORE rewrites, so an existing static PNG
+    # still wins. Pinned because a rewrite with no checker can be dropped
+    # silently and the only symptom is a blank card on a freshly published post.
+    og_rewrite = {"source": "/assets/og/:slug.png", "destination": "/api/og?slug=:slug"}
+    if og_rewrite not in config.get("rewrites", []):
+        errors.append(f"vercel.json is missing the OG fallback rewrite {og_rewrite} "
+                      f"(T-02) — a new article's share card would 404 until its "
+                      f"static PNG is generated and committed")
+    # The same path's Cache-Control must NOT be immutable: it is applied by
+    # REQUEST PATH, so it lands on the dynamic placeholder too, and `immutable`
+    # would pin that placeholder in caches long after the real PNG shipped.
+    og_headers = {h.get("key"): h.get("value")
+                  for h in by_source.get("/assets/og/(.*)", {}).get("headers", [])}
+    if "immutable" in (og_headers.get("Cache-Control") or ""):
+        errors.append("/assets/og/(.*): Cache-Control must not be immutable — it "
+                      "also applies to the dynamic fallback, which would then be "
+                      "cached as though it were the final card (T-02)")
+
     for source, expected_headers in EXPECTED.items():
         entry = by_source.get(source)
         if not entry:

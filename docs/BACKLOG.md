@@ -19,7 +19,7 @@
 - **驗收**：token 失效情境下，sitemap 仍能從一個 committed 後備（例如 `_gen_api_content_snapshot.py` 產物，或 committed `sitemap.xml`）列出全部文章；或在 GSC 確認線上 sitemap 回 200 且含全部 URL。
 - **模型等級**：Sonnet。**關聯**：DECISIONS D-05。
 
-### T-02 🟠 新文章 OG 圖在靜態 PNG 生成前 404
+### T-02 ✅ 新文章 OG 圖在靜態 PNG 生成前 404
 - **問題**：`api/og.js` docstring 宣稱有 `/assets/og/<slug>.png → /api/og` 的 rewrite，但 `vercel.json` rewrites 只有 sitemap/feed。新文章在 `_gen_og_images.py` 跑並 commit PNG 之前，og:image 指向不存在檔案 → 社群分享卡空白。
 - **證據**：`api/og.js:9`（docstring）vs `vercel.json` rewrites（無此條）。
 - **驗收**：二選一——(a) 在 vercel.json 加 `{"source":"/assets/og/:slug.png","destination":"/api/og?slug=:slug"}`（Vercel filesystem 優先於 rewrites，既有靜態 PNG 仍勝）；或 (b) 把 `_gen_og_images.py` 納入新文章的必跑步驟。
@@ -510,3 +510,13 @@
 - **`T-02` 未動**:context 已不足以再完整交付一項。
 
 **⚠ 待補外審**:同前八批。
+
+
+**Batch C 續 — T-02 ✅（2026-08-01，Opus 5）**
+
+- **本項的阻擋理由已經過時,先查證才動手**:條目說「不能盲改,因為 `/assets/og/(.*)` 的 header 設 `immutable`,會把動態佔位卡快取一年」。**實測沒有 `immutable`**——現在是 `max-age=3600, s-maxage=86400, stale-while-revalidate=604800`(某次調整已移除,條目沒跟上)。那個互動陷阱不存在了,所以方案 (a) 現在是安全的。
+- 採 **(a)**:`vercel.json` 加 `{"source":"/assets/og/:slug.png","destination":"/api/og?slug=:slug"}`。Vercel 的路由順序是 headers → redirects → **filesystem** → rewrites,所以**既有靜態 PNG 仍然優先**,rewrite 只在檔案不存在時才生效。
+- **誠實的殘餘**:header 依**請求路徑**匹配,所以動態 fallback 也會拿到 `s-maxage=86400`。靜態 PNG 上線後,CDN 最多可能再供應佔位卡 1 天。**這是有上限的外觀性延遲,遠優於現況的 404/空白卡**,但不是零延遲。
+- **兩個不變式都釘進 checker**:(1) rewrite 必須存在——沒有 checker 的 rewrite 可以被無聲刪掉,而唯一症狀是新文章的分享卡空白;(2) 該路徑的 `Cache-Control` **不得含 `immutable`**——把原本的陷阱變成建置失敗,而不是靠註解提醒。變異 2/2。
+
+**⚠ 待補外審**:同前九批。

@@ -124,6 +124,10 @@
     {
       "source": "/blog/feed.json",
       "destination": "/api/feed?fmt=json"
+    },
+    {
+      "source": "/assets/og/:slug.png",
+      "destination": "/api/og?slug=:slug"
     }
   ],
   "headers": [
