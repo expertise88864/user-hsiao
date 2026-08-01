@@ -158,6 +158,20 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 10 — A-01（skip-link 死錨點）
+
+| 已完成的驗證 | 28 死錨點全清、冪等、`_check_skiplinks` 變異通過、鏈位置在 `_gen_en_pages` 之後、preflight 64/0/0、CI |
+|---|---|
+| 外審進度 | **完全未審** |
+
+**補審時請特別看**：
+- normalizer 的 `LINK_RE` 是否可能誤刪**合法**連結(它只在 `hs-skiplinks` nav 內作用,但 `<a>` 的比對是否夠嚴)。
+- 鏈位置:排在 `_gen_en_pages.py` 之後、`_gen_search_index.py` 之前——是否有其他步驟會在之後重新注入 skip-nav。
+- `_check_skiplinks.py` 與 `_check_dead_anchors.py` 的**分工**是否正確:後者白名單含 `hs-related`(JS 注入,對的),前者只看 skip-nav(文章頁該 id 靜態存在,故無歧義)。這個推理請獨立複核。
+- nav 被清空後只剩 `<nav>` 空殼——是否該連同移除(我刻意保留,避免改變 DOM 形狀)。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。

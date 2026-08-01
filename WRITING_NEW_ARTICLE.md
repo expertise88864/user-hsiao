@@ -72,6 +72,7 @@ python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py
 python _gen_llms_full_txt.py
+python _normalize_skiplinks.py
 python _gen_csp_hashes.py             # hash-based CSP allowlist (middleware.js)
 
 # ── 10. Validation gate ────────────────────────────────────────────────

@@ -152,6 +152,7 @@ python _inject_speed_insights.py
 python _gen_api_content_snapshot.py
 python _gen_llms_full_txt.py
 python _apply_trusted_types.py
+python _normalize_skiplinks.py
 python _gen_csp_hashes.py           # update CSP hashes in middleware.js
 python validate.py                  # check head/meta integrity
 ```

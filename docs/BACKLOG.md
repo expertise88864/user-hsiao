@@ -104,7 +104,7 @@
 
 ## 無障礙（A）
 
-### A-01 🟠 25 個頁面的 skip-link `#hs-related` 指向不存在的目標
+### A-01 ✅ 25 個頁面的 skip-link `#hs-related` 指向不存在的目標
 - **問題**：`_apply_i_series.py` 對所有頁注入固定 skip-nav，含 `#hs-related`，但 `#hs-related` 只存在於文章頁 → 首頁/about/privacy/notes/tools 等按了跳空。
 - **Sweep B 核實（2026-07-11，親自 grep）**：`href="#hs-related"` 但同頁**無** `id="hs-related"` 的頁面**共 25 個**（非原記的 ~15）；且 `#hs-related` 被 `_check_dead_anchors.py:34` **白名單放行 → 無檢查器守**。注入的 skip-nav 逐頁不同（tools=2 連結、about=3），各頁是不同 generator 版本 SENTINEL-凍結的。
 - **`#dn-newsletter` 子項（更正一則我先前的誤述）**：`id="dn-newsletter"` **確實存在**（`blog/index.html`、`en/blog/index.html`），且有 5 頁 link `#dn-newsletter`；另 `id="dn-subscribe"` 在 60 頁。故 subscribe/newsletter 兩個 id 都在用——**是否每個 `#dn-newsletter`/`#dn-subscribe` 連結在其所在頁都有對應 id，尚未逐頁核（本次只確認 id 存在、`#hs-related` 那 25 頁死掉）**。（先前一版誤稱「無 id=dn-newsletter、子項 stale」，來自 sub-agent 未經我親驗即引用——已更正。）
@@ -497,3 +497,16 @@
 4. 改完**必須**跑 `python _gen_csp_hashes.py`(生成鏈已含),並確認 `middleware.js` 有新 hash。
 5. **驗收**:CI Lighthouse 的 FCP/LCP 應改善;`/` 與一篇文章頁實測 CSP header 未報 violation;視覺回歸無字型 fallback 造成的位移;關閉 JS 時字型仍載入。
 6. **模型等級**:Sonnet(機械但 64 檔面廣),**但需 Opus 判斷** CSP 互動是否還有其他漏網的 inline handler。
+
+
+**Batch C 續 — A-01 ✅ / T-02 未動（2026-07-27，Opus 5）**
+
+- **改用 normalizer 而不是改生成器**:`_apply_i_series.patch()` 在 SENTINEL 存在時**直接 return**,所以 skip-nav 寫過一次就凍結——改那個函式只會影響**之後**才處理的頁面,既有 25 頁的死連結原封不動。新增 `_normalize_skiplinks.py` 在建置鏈上掃已生成的 HTML,既有頁與未來頁一次涵蓋。它**只移除**目標 id 不存在的連結,不新增、不重排、不改文字,nav 空掉也保留元素。
+- **實測 28 個死錨點全清**(`#hs-related` 25 + `#dn-newsletter` 3),冪等,零殘留。
+- **鏈位置關鍵**:必須排在 `_gen_en_pages.py` **之後**,否則 /en/ 重生成會把死連結帶回來。
+- **我踩到自己寫的陷阱**:第一版正則寫 `<nav class="hs-skiplinks"`,**漏掉全部 11 個 /en/ 頁面**——`_gen_en_pages.py` 用 BeautifulSoup 重新序列化,屬性順序變成 `<nav aria-label=… class="hs-skiplinks">`。**管線會改變我的模式所假設的形狀**。已改成屬性順序無關,並把這件事寫進 normalizer 與 checker 的註解。
+- **守衛 `_check_skiplinks.py` 只看 skip-nav 內部**,不是全文件錨點:`_check_dead_anchors.py` 的白名單包含 `hs-related` 而且**那是對的**(它在文章頁由 JS 注入,全文件檢查會對每篇文章誤報)。skip-nav 這個範圍沒有動態注入的歧義,因為文章頁的 `id="hs-related"` 是靜態存在的。另有空集合防護。變異測試通過。
+- **`M-05` 的守衛立刻抓到我**:我把新步驟加進 CI 卻沒更新三份文件,`_check_chain_docs.py` 當場讓 preflight 轉紅。三份已補齊(23 步)。**這是這個 session 裡守衛第一次抓到我當下正在犯的錯,而不是事後追認。**
+- **`T-02` 未動**:context 已不足以再完整交付一項。
+
+**⚠ 待補外審**:同前八批。
