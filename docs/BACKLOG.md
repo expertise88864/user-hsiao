@@ -392,7 +392,7 @@
 - **模型等級**:Opus(編輯器行為變更,牽動 M-06 的存檔路徑)。**關聯**:M-01、M-06、D-24。
 
 
-### M-17 🟠 六個非文章頁仍內嵌整份 `.mag-footer` CSS,D-10 的「單一來源」目前不成立(Batch A 外審發現)
+### M-17 🔴 六個非文章頁的內嵌 `.mag-footer` CSS **不可直接刪除**(2026-08-01 逐條量測)
 - **問題**：`about.html`／`notes.html`／`privacy.html` 及其三個 `/en/` 鏡像**各自內嵌一整份 `.mag-footer` CSS**(非生成的 critical CSS,是 authored 區塊)。D-10 明文宣稱「全站頁尾 `.mag-footer` 的 CSS **只存在於** `app.css`」——**這個宣稱目前是假的**。其中 `.mag-foot-cols h5` 在這六頁是**死規則**(三頁實測都用 `<h4>`),其餘重複規則則確實生效。
 - **⚠ 為何不在 Batch A 順手修**：D-10 自己記著一則**歷史教訓**——曾把 footer CSS 抽離導致「首頁/about/privacy 等非文章頁頁尾全裸跑版」(回歸 commit `918dae6`),而**出事的正是這批頁面**。在沒有逐條比對「內嵌規則 ⊆ app.css 規則」並跑過視覺回歸之前刪除,等於重演同一次事故。
 - **驗收**：逐條比對六頁的內嵌規則與 `app.css` 的 20 條 `mag-foot` 規則,確認**完全被涵蓋**後才刪;跑 visual-regression 對照六頁;或反過來——若某些規則確實只存在於內嵌,**把它們併入 app.css** 再刪。完成後 D-10 才能宣稱單一來源成立。
@@ -532,3 +532,13 @@
 - 施作前先確認工作區乾淨,並在腳本裡斷言「必須恰好 64 檔」——寧可中止也不半轉換。後置條件逐檔檢查:仍同步 / `id="hs-fonts"` 不為 1 / 缺 noscript / 缺 bootstrap = 0。
 
 **⚠ 待補外審**:同前十批。**本批最需要外部確認的是 preload→stylesheet 的 load 事件時序**(bootstrap 緊接在 link 之後同步執行,解析期間事件迴圈不會跑,理論上不會漏掉 load,但我沒有瀏覽器實測手段)。
+
+
+**M-17 逐條量測結果（2026-08-01，Opus 5）— 驗收條件「完全被涵蓋」不成立,不得刪除**
+
+- **先修正我自己的量測錯誤**:第一次比對抓的是「包含 `.mag-footer` 的整個 `<style>`」,得到 108/108 未涵蓋——但它抓到的是 `*`、`.bg-white`、`.block` 這些 **Tailwind 工具類**。原因是 `.mag-footer` **同時出現在兩個區塊**:`<style data-critical-css>`(由 `_extract_critical_css.py` **生成**,合法,它本來就是從 app.css 抽出來的)和一個 **2,267 bytes 的裸 `<style>`**(才是 authored 重複品)。**codex 說「authored footer blocks, not generated critical CSS」是對的,是我把兩者混在一起。**
+- **只對 authored 區塊重測的結果**:`about`／`privacy`／`en/about`／`en/privacy` 各 **17 條規則、17 條未涵蓋**;`notes`／`en/notes` 各 **12 條、12 條未涵蓋**。**沒有任何一條被 app.css 完全涵蓋。**
+- **差異是實質的,不是格式**:字型堆疊順序不同(`'Noto Serif TC','Fraunces'` vs `'Fraunces','Noto Serif TC'`——**連 about 與 notes 兩頁彼此都不一致**)、色值以 `rgba(247,243,236,.x)` 寫死而非 app.css 的變數、`.mag-foot-cols` 的 `grid-template-columns` 也不同。
+- **結論:直接刪除會改變這 6 頁的頁尾外觀**——這正是 D-10 記載的 `918dae6` 事故成因。**驗收條件的第一條路(確認涵蓋後刪)已量測為不成立。**
+- **剩下的路是第二條**:把只存在於內嵌的規則**併入 app.css 再刪**。但那不是機械合併——`about` 與 `notes` 的字型順序互相衝突,**必須先決定哪個版本是對的**,這是設計決定不是重構。需要站主定調,並跑視覺回歸對照 6 頁。
+- **等級由 🟠 升為 🔴**:不是因為它更危險,而是因為**原本的計畫已被證明會造成回歸**,不能再當成「有空再清的重複」處理。
