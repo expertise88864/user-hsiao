@@ -43,165 +43,79 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
-## 待審批次 3 — Batch B 部分（M-13 JSON-LD 逸出）
+## 補審已執行（2026-08-05，codex GPT-5.6-sol,累積審 `cad9d80..HEAD`）
 
-| 欄位 | 內容 |
-|---|---|
-| commit 標記 | commit 標題含 `[UNREVIEWED]` |
-| 上線日 | 2026-07-27 |
-| 跳關原因 | 同批次 2:Codex 額度用罄 |
-| 已完成的驗證 | preflight PASS、`_check_jsonld_escaping` 255 區塊 0 裸 `<`、變異 3/3、CI |
-| 外審進度 | **完全未審**（批次 2 是 round-6 未跑;這批一輪都沒跑） |
+**結果:REQUEST_CHANGES —— 13 項 blocking,橫跨 8 個批次。** 逐批分開審會看不到跨批交互,故一次審完整範圍。
 
-**補審時請特別看**：
-- `_jsonld.py` 的逸出是否真的不改變解析後的值(我以 `json.loads` 往返斷言,請獨立複核)。
-- 12 條輸出路徑是否有遺漏,以及**是否誤改了 `sort_keys=True` 的比較用呼叫**(那會破壞冪等性)。
-- `_check_jsonld_escaping.py` 從「`<` `>` `&` 都違規」收斂成「只 `<`」的判斷是否正確——依據是 `<script>` 內容為 raw text、且 `</script`／`<!--` 都以 `<` 開頭。
-- 生成鏈中新步驟的位置(此批未新增鏈步驟,只改既有生成器內部)。
+### 貫穿全部發現的同一個病灶:**修了產物,沒修源頭**
 
----
+這不是 8 個獨立疏忽,是同一個錯誤犯了四次:
 
-## 待審批次 4 — M-15（initBlog 逐一呼叫隔離）
+| 批次 | 產物已修 | **源頭未修** |
+|---|---|---|
+| A-02 | `tools/eye-3d.html` | `api/admin/_new.js` 移除舊 skip link **卻沒補新的** → CMS 新建頁面**完全沒有跳過機制**(比原狀更糟) |
+| P-01 | 64 個既有 `<head>` | `api/admin/_new.js` 仍吐**同步**字型 link → 每篇新文章重新引入 P-01 |
+| M-12 | 我挑的 5 個生成器 | `_gen_serp_meta.py` + 2 個 checker + **4 個線上 API**(`og.js`／`feed.js`／`sitemap.js`／`_list.js`) |
+| A-01 | 既有 `hs-skiplinks` | `_apply_i_series.py` 注入的是 **`dn-skiplinks`**,normalizer/checker 都不認;且 **CI 順序是先修剪後注入** |
 
-| 欄位 | 內容 |
-|---|---|
-| commit 標記 | commit 標題含 `[UNREVIEWED]` |
-| 上線日 | 2026-07-27 |
-| 跳關原因 | 同前:Codex 額度用罄 |
-| 已完成的驗證 | 73/73 包裝、0 誤包、0 殘留、`node --check`、safeCall 隔離行為實測、D-06 兩紀元 bump、preflight、CI |
-| 外審進度 | **完全未審** |
+**我宣稱的「0 殘留」,量的是我自己挑的清單,不是真實的出現集合。** 這正是我整段在別處獵、卻在自己手上重複犯的錯。
 
-**補審時請特別看**：
-- 包裝正則是否漏掉或誤包——尤其**跨行呼叫**與**有回傳值**的用法(賦值/條件/return 應完全未動)。
-- `safeCall` 吞掉例外後,是否有哪個呼叫的**失敗其實應該中止後續**(例如某個 Phase 1 呼叫是後面呼叫的前提)。**這是本批最可能的真缺陷**:把錯誤隔離開,代價是後續程式在前提未成立的狀態下繼續跑。
-- Phase 1 從「拋錯即中止 initBlog」改成「逐一隔離」是否改變了首屏行為。
-- 73 個包裝對 min.js 體積的影響是否仍在 size-budget 內。
+### 完整判定原文
 
----
+```
+## Blocking findings
 
-## 待審批次 5 — M-09 / A-03
+### Batch 1 — A-02
 
-| 欄位 | 內容 |
-|---|---|
-| commit 標記 | commit 標題含 `[UNREVIEWED]` |
-| 上線日 | 2026-07-27 |
-| 跳關原因 | 同前:Codex 額度用罄 |
-| 已完成的驗證 | `node --check`、對比值實算、preflight 62/0/0、D-06 bump、CI |
-| 外審進度 | **完全未審** |
+- The CMS scaffold lost its only skip link but did not gain the standard visible skip navigation. Its `<body>` proceeds directly to the header in [api/admin/_new.js:126](C:/Users/User/Desktop/程式/user-hsiao-main/api/admin/_new.js:126). Since CMS commits go directly to `main`, newly created pages lack a keyboard bypass until someone separately runs and commits `_apply_i_series.py`.
 
-**補審時請特別看**：
-- M-09 的三層防護是否真的擋得住它宣稱的兩種失效——特別是 **mis-anchor 回查**那一層的正則本身是否也會被同樣的 `[^}]` 問題影響。
-- 三個 409 出口是否會讓**正常**的 precompute 意外失敗(誤報比漏報更容易被忽略,因為 admin 只會看到操作失敗)。
-- A-03a 的 `DN.detectLang()` 在 cmdk 建構當下是否已可用(若尚未初始化會退回中文——是否可接受)。
-- A-03b 換色是否影響 visual-regression 基準。
+### Batch 2 — M-13
 
----
+- The new escaping checker appends a boolean instead of its diagnostic when it finds raw `<`. At [_check_jsonld_escaping.py:61](C:/Users/User/Desktop/程式/user-hsiao-main/_check_jsonld_escaping.py:61), the prematurely closed f-string makes the expression a string comparison. The checker still fails, but reports `True`/`False` instead of the affected file and remediation.
 
-## 待審批次 6 — S-02（SVG 回應加 CSP）
+### Batch 3 — M-15
 
-| 欄位 | 內容 |
-|---|---|
-| commit 標記 | commit 標題含 `[UNREVIEWED]` |
-| 上線日 | 2026-07-27 |
-| 跳關原因 | 同前:Codex 額度用罄 |
-| 已完成的驗證 | `_check_static_asset_headers` 15 條規則、vercel.json 合法、preflight、CI |
-| 外審進度 | **完全未審** |
+- Per-call isolation is incomplete. Five calculator calls remain direct inside one `forEach` at [blog/blog-shared.js:5464](C:/Users/User/Desktop/程式/user-hsiao-main/blog/blog-shared.js:5464). One calculator throwing aborts all later calculators and the trailing `applyTextOnly`, reproducing the exact failure M-15 claimed to eliminate.
 
-**補審時請特別看**：
-- `default-src 'none'; sandbox` 是否會影響 `icon.svg` 作為 **favicon / manifest icon** 的載入(我判斷不會,因為那不是 document 情境,但沒有實測手段)。
-- 是否該連同 `Content-Disposition: attachment` 一起加(驗收條件寫「與/或」,我只做了 CSP)。
-- `assets/icons.svg` 引用數為 0——**是否真的可刪**。M-01 的教訓是「grep 檔名找不到」不等於沒人用。
-- 上線後應 curl 驗證 `/icon.svg` 的標頭確實出現,且首頁 favicon 仍正常。
+### Batch 4 — M-09
 
----
+- A successful unchanged rewrite is treated as “no entry matched.” [api/admin/_precompute-meta.js:103](C:/Users/User/Desktop/程式/user-hsiao-main/api/admin/_precompute-meta.js:103) compares output text with input text and returns 409 at line 109. Consequently, the intended aggregate `noop: true` response at line 135 is unreachable for a normal repeat run.
+- The claimed `}` protection is self-verifying and unsafe. Both the rewrite and its landed check use `[^}]*?` at [api/admin/_precompute-meta.js:100](C:/Users/User/Desktop/程式/user-hsiao-main/api/admin/_precompute-meta.js:100). A `}` inside a quoted field can make the rewrite insert metadata into that string, after which the similarly truncated verifier accepts the corruption.
 
-## 待審批次 7 — M-12（DN.ARTICLES 欄位解析）
+### Batch 6 — M-12
 
-| 欄位 | 內容 |
-|---|---|
-| commit 標記 | commit 標題含 `[UNREVIEWED]` |
-| 上線日 | 2026-07-27 |
-| 跳關原因 | 同前:Codex 額度用罄 |
-| 已完成的驗證 | 5 檔換完 0 殘留、6 個消費點補 unescape、fixture 端到端、preflight 62/0/0、產出零變動 |
-| 外審進度 | **完全未審** |
+- The parser migration is incomplete. `_gen_serp_meta.py` still uses the apostrophe-truncating expression at [_gen_serp_meta.py:102](C:/Users/User/Desktop/程式/user-hsiao-main/_gen_serp_meta.py:102), while [_check_listing_schema.py:50](C:/Users/User/Desktop/程式/user-hsiao-main/_check_listing_schema.py:50) and [_check_en_jsonld.py:35](C:/Users/User/Desktop/程式/user-hsiao-main/_check_en_jsonld.py:35) repeat the same bug, allowing bad generated values to pass.
+- Live consumers remain affected too: [api/og.js:53](C:/Users/User/Desktop/程式/user-hsiao-main/api/og.js:53), [api/feed.js:96](C:/Users/User/Desktop/程式/user-hsiao-main/api/feed.js:96), [api/sitemap.js:92](C:/Users/User/Desktop/程式/user-hsiao-main/api/sitemap.js:92), and [api/admin/_list.js:27](C:/Users/User/Desktop/程式/user-hsiao-main/api/admin/_list.js:27). T-02 now makes the `api/og.js` defect externally reachable whenever the static OG image is missing.
 
-**補審時請特別看**：
-- `_articles_field.unescape()` 的處理是否正確——尤其 `\`(逸出的反斜線)後接引號的情形。
-- 5 個生成器是否**全部**同時改到(BACKLOG 原文強調「必須一致改全部」),以及 `_gen_og_images.py` 為何不在清單內(它未使用該 pattern,請複核)。
-- 一個編輯腳本曾把 `_gen_search_index.py` 第 48 行改壞(前綴匹配 `match` 命中 `articles_match`),已修復——請確認該檔沒有其他被波及處。
+### Batch 7 — M-05
 
----
+- The three documented chains were not reconciled with CI. CI requires the normalizers before `_gen_en_pages.py` at [.github/workflows/quality.yml:83](C:/Users/User/Desktop/程式/user-hsiao-main/.github/workflows/quality.yml:83), but AGENTS runs them afterward at [AGENTS.md:100](C:/Users/User/Desktop/程式/user-hsiao-main/AGENTS.md:100), as does the full chain in [WRITING_NEW_ARTICLE.md:43](C:/Users/User/Desktop/程式/user-hsiao-main/WRITING_NEW_ARTICLE.md:43). Its quick command also omits several required steps.
+- [_check_chain_docs.py:47](C:/Users/User/Desktop/程式/user-hsiao-main/_check_chain_docs.py:47) only checks a set of script names mentioned anywhere in each document. It cannot detect wrong ordering, omissions from the actual command block, or scripts mentioned only in unrelated prose.
 
-## 待審批次 8 — M-05（建置鏈文件 drift）
+### Batch 9 — A-01
 
-| 已完成的驗證 | 三份文件補齊至 22 步、`_check_chain_docs` 變異 4/4、preflight、CI |
-|---|---|
-| 外審進度 | **完全未審** |
+- The enforcement point does not cover the generator that creates future skip navigation. The normalizer and checker only recognize `class="hs-skiplinks"` at [_normalize_skiplinks.py:38](C:/Users/User/Desktop/程式/user-hsiao-main/_normalize_skiplinks.py:38) and [_check_skiplinks.py:31](C:/Users/User/Desktop/程式/user-hsiao-main/_check_skiplinks.py:31), while `_apply_i_series.py` injects `class="dn-skiplinks"` at [_apply_i_series.py:34](C:/Users/User/Desktop/程式/user-hsiao-main/_apply_i_series.py:34).
+- CI runs normalization before that injection—[quality.yml:101](C:/Users/User/Desktop/程式/user-hsiao-main/.github/workflows/quality.yml:101) versus line 112. A new page can therefore receive dead unconditional targets after pruning, and the checker will ignore the resulting navigation.
 
-**補審時請特別看**：
-- 補進三份文件的步驟**位置**是否合理(統一插在 `_gen_csp_hashes.py` 之前,因為它被標為 must-run-last)——語意上是否正確,或只是能過檢查。
-- 只查單一方向(CI→文件)的取捨是否恰當,還是應該讓文件標出鏈區塊邊界以便雙向檢查。
-- `_check_chain_docs.py` 的 `CI_STEP_RE` 依賴 10 空格縮排;空集合防護是否足以涵蓋所有格式變動。
+### Batch 10 — T-02
 
----
+- The central implementation comment still says the `/assets/og/...` rewrite is deferred and blocked by immutable caching at [api/og.js:11](C:/Users/User/Desktop/程式/user-hsiao-main/api/og.js:11). The rewrite now exists at [vercel.json:129](C:/Users/User/Desktop/程式/user-hsiao-main/vercel.json:129), and its header is intentionally non-immutable. This leaves the routing contract documented as the opposite of current behavior.
 
-## 待審批次 9 — S-07（admin markdown 預覽的 URL 白名單）
+### Batch 11 — P-01
 
-| 已完成的驗證 | 9 個 URL 案例 + 屬性跳脫、preflight 63/0/0、CI |
-|---|---|
-| 外審進度 | **完全未審** |
+- The 64 current artifacts were converted, but the CMS source template was not. [api/admin/_new.js:86](C:/Users/User/Desktop/程式/user-hsiao-main/api/admin/_new.js:86) still emits a synchronous Google Fonts stylesheet, so every newly created CMS article reintroduces P-01.
+- The guard cannot catch this because it scans only existing `.html` files at [_check_performance_budget.py:70](C:/Users/User/Desktop/程式/user-hsiao-main/_check_performance_budget.py:70).
+- I found no load-event race in the converted markup: the preload’s event is queued, while the adjacent synchronous script attaches its listener before the current parser task yields.
 
-**補審時請特別看**：
-- `mdSafeUrl()` 的 scheme 偵測是否還有繞法(我剝掉空白與控制字元後才比對,但沒有處理 HTML 實體如 `&#106;avascript:`——**預覽輸入是 markdown 原文不是 HTML,所以我判斷不需要,請複核**)。
-- URL 被判定不安全時我回傳 `mdAttr(整段原文)`,讓它以純文字顯示而非消失——這個行為是否恰當。
-- 既有的**渲染**順序問題(link 規則排在 image 之前,`![x](y)` 會先被 link 規則吃掉留下一個 `!`)——**我沒有動它**,那是既有的顯示瑕疵不是安全問題,但補審時可一併判斷。
+Per instruction, I performed no writes, tests, builds, or network access.
 
----
+REQUEST_CHANGES
+```
 
-## 待審批次 10 — A-01（skip-link 死錨點）
+### 修復前必須逐項驗證(CONFIRMED / REJECTED / UNCERTAIN),只修 CONFIRMED
 
-| 已完成的驗證 | 28 死錨點全清、冪等、`_check_skiplinks` 變異通過、鏈位置在 `_gen_en_pages` 之後、preflight 64/0/0、CI |
-|---|---|
-| 外審進度 | **完全未審** |
+**唯一已被駁回的是我最擔心的那項**:P-01 **沒有** load 事件競態——codex 獨立確認 preload 的事件排入佇列,而相鄰同步 script 在目前解析任務讓出前已掛好監聽器。
 
-**補審時請特別看**：
-- normalizer 的 `LINK_RE` 是否可能誤刪**合法**連結(它只在 `hs-skiplinks` nav 內作用,但 `<a>` 的比對是否夠嚴)。
-- 鏈位置:排在 `_gen_en_pages.py` 之後、`_gen_search_index.py` 之前——是否有其他步驟會在之後重新注入 skip-nav。
-- `_check_skiplinks.py` 與 `_check_dead_anchors.py` 的**分工**是否正確:後者白名單含 `hs-related`(JS 注入,對的),前者只看 skip-nav(文章頁該 id 靜態存在,故無歧義)。這個推理請獨立複核。
-- nav 被清空後只剩 `<nav>` 空殼——是否該連同移除(我刻意保留,避免改變 DOM 形狀)。
+### 續審規則
 
----
-
-## 待審批次 11 — T-02（OG 圖 fallback rewrite）
-
-| 已完成的驗證 | rewrite + 非-immutable 兩個不變式釘進 checker、變異 2/2、preflight 64/0/0、CI |
-|---|---|
-| 外審進度 | **完全未審** |
-
-**補審時請特別看**：
-- ~~Vercel 的 filesystem 是否真的優先於 rewrites~~ **已於上線後實測確認**: 回 **200 image/png 31,361 bytes**(靜態檔勝出), 回 **200 image/png**(動態卡接手,不再 404)。原先我標為「無實測手段」,現在有數據。
-- `:slug` 參數是否會匹配到含斜線或點的路徑,造成非預期的 rewrite。
-- `/api/og` 對不存在的 slug 的行為(應回合理的預設卡而非 500)。
-- 上線後應實測:既有文章的 OG PNG 仍回靜態檔(比對 bytes 或 header),而一個不存在的 slug 會回動態卡。
-
----
-
-## 待審批次 12 — P-01（字型非阻塞載入）
-
-| 已完成的驗證 | 64 檔轉換 + 後置條件 0 失敗、bootstrap hash 確認在 CSP 內、perf 規則同步更新、preflight 64/0/0、CI(Lighthouse + 視覺回歸) |
-|---|---|
-| 外審進度 | **完全未審** |
-
-**補審時請特別看**：
-- **load 事件時序**:bootstrap 緊接在 `<link rel=preload>` 之後同步執行。我的判斷是「解析期間事件迴圈不會跑,所以 load 不可能在監聽器掛上前觸發」——**請獨立確認**。若判斷錯誤,字型在部分情況下會停在 preload、永不套用。
-- 三種 URL 變體是否都正確保留(尤其 `&amp;` 那兩個 /en/ 檔——preload / noscript / bootstrap 三處必須逐字一致,否則會下載兩份)。
-- `_check_performance_budget.py` 規則的改寫是否**削弱**了原本的保護(我認為是對準真實不變式,請覆核)。
-- CI Lighthouse 的 FCP/LCP 是否真的改善;視覺回歸是否有字型 fallback 造成的位移。
-
----
-
-## 補審完成後要做的事
-
-1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。
-2. `REQUEST_CHANGES` 的話：照常逐項驗證（CONFIRMED / REJECTED / UNCERTAIN），只修 CONFIRMED，續審到 `APPROVE`。
-3. `APPROVE` 後**刪除本檔案**。
+修完 CONFIRMED 後 **resume 同一個 session**(勿開新的、勿盲用 `--last`),直到回 `APPROVE`。只讀 `-o` 指定的最後一則訊息。`APPROVE` 後刪除本檔案。
