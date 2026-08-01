@@ -61,6 +61,19 @@ PRELOAD_GOOGLE_FONTS_RE = re.compile(
     r'<link\s+rel="preload"\s+as="style"\s+href="https://fonts\.googleapis\.com/css2\?[^"]+"',
     re.I,
 )
+# P-01 round 2: the rule below only ever asked whether a PRELOAD had an
+# application path. It said nothing about the shape P-01 exists to remove — a
+# plain render-blocking stylesheet — so converting all 64 pages left the
+# regression completely unguarded, and the CMS scaffold went on emitting the
+# blocking link with nothing to catch it. Attribute order is not assumed;
+# `rel` may precede or follow `href`.
+SYNC_GOOGLE_FONTS_RE = re.compile(
+    r'<link\b(?![^>]*\brel="preload")[^>]*\bfonts\.googleapis\.com/css2[^>]*\brel="stylesheet"[^>]*>'
+    r'|<link\b[^>]*\brel="stylesheet"[^>]*\bfonts\.googleapis\.com/css2[^>]*>',
+    re.I,
+)
+# The <noscript> copy is the intended no-JS fallback, not a violation.
+NOSCRIPT_BLOCK_RE = re.compile(r'<noscript>[\s\S]*?</noscript>', re.I)
 FONT_PRECONNECT_RE = re.compile(
     r'<link\s+rel="preconnect"\s+href="https://fonts\.(googleapis|gstatic)\.com"',
     re.I,
@@ -184,6 +197,10 @@ def main() -> int:
         # actually matters is that a preloaded font URL HAS an application path.
         # Without this, the check would fire on the intended design; with it,
         # a preload left dangling still fails.
+        if SYNC_GOOGLE_FONTS_RE.search(NOSCRIPT_BLOCK_RE.sub('', src)):
+            errors.append(f"{rel}: loads Google Fonts with a render-blocking "
+                          f"<link rel=\"stylesheet\">; use the P-01 shape "
+                          f"(preload + <noscript> + the id=\"hs-fonts\" bootstrap)")
         for fm in PRELOAD_GOOGLE_FONTS_RE.finditer(src):
             href = re.search(r'href="([^"]+)"', fm.group(0))
             url = href.group(1) if href else ''
@@ -215,6 +232,31 @@ def main() -> int:
         uses_runtime = ("DN.initBlog" in src) or ("DN.applyTextOnly" in src)
         if is_noindex and "blog-shared.min.js" in src and not uses_runtime:
             errors.append(f"{rel}: noindex page references blog-shared without calling DN.initBlog or DN.applyTextOnly")
+
+    # The CMS scaffold is a SOURCE of future HTML, and it is committed straight
+    # to main, so a page it emits is live before any generator or checker that
+    # only walks *.html has ever seen it. Every finding in this area came from
+    # fixing the 64 artifacts and leaving this template alone; scanning it here
+    # is what stops the next one.
+    scaffold = ROOT / "api" / "admin" / "_new.js"
+    if scaffold.exists():
+        src = scaffold.read_text(encoding="utf-8")
+        body = NOSCRIPT_BLOCK_RE.sub('', src)
+        if SYNC_GOOGLE_FONTS_RE.search(body):
+            errors.append("api/admin/_new.js: the CMS scaffold emits a "
+                          "render-blocking Google Fonts stylesheet, so every "
+                          "newly created article reintroduces P-01")
+        if PRELOAD_GOOGLE_FONTS_RE.search(src):
+            if "getElementById('hs-fonts')" not in src or 'id="hs-fonts"' not in src:
+                errors.append("api/admin/_new.js: font preload without the "
+                              "id=\"hs-fonts\" bootstrap — the scaffold would "
+                              "download the font CSS and never apply it")
+            if '<noscript><link rel="stylesheet"' not in src:
+                errors.append("api/admin/_new.js: font preload without a "
+                              "<noscript> stylesheet fallback")
+    else:
+        errors.append("api/admin/_new.js is missing — this check cannot pass "
+                      "vacuously; update the path if the scaffold moved")
 
     if errors:
         print("[FAIL] Performance budget audit found issues:")

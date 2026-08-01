@@ -35,7 +35,11 @@ ROOT = Path(__file__).resolve().parent
 # order, so a pattern anchored on `class` being the FIRST attribute silently
 # skipped all 11 /en/ pages — the pipeline reshapes the very markup the pattern
 # assumed. Match `class` wherever it lands.
-SKIP_NAV_RE = re.compile(r'(<nav\b[^>]*\bclass="hs-skiplinks"[^>]*>)([\s\S]*?)(</nav>)', re.I)
+# Two class names are live: _apply_i_series.py injects `dn-skiplinks` while the
+# older generated nav uses `hs-skiplinks`. Matching only one left the other set
+# entirely unpruned while this tool still reported success — exactly the failure
+# mode the guard exists to prevent. Match either.
+SKIP_NAV_RE = re.compile(r'(<nav\b[^>]*\bclass="(?:hs|dn)-skiplinks"[^>]*>)([\s\S]*?)(</nav>)', re.I)
 LINK_RE = re.compile(r'<a\s[^>]*href="#([A-Za-z0-9_-]+)"[^>]*>[\s\S]*?</a>', re.I)
 SKIP_DIRS = {'.git', 'node_modules', '__pycache__', 'tests', '_cms'}
 

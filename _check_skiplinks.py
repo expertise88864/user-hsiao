@@ -28,7 +28,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-NAV_RE = re.compile(r'<nav\b[^>]*\bclass="hs-skiplinks"[^>]*>([\s\S]*?)</nav>', re.I)
+# Two class names are live: _apply_i_series.py injects `dn-skiplinks` while the
+# older generated nav uses `hs-skiplinks`. Matching only one meant this checker
+# ignored every page carrying the other — reporting success over an unexamined
+# set. Match either.
+NAV_RE = re.compile(r'<nav\b[^>]*\bclass="(?:hs|dn)-skiplinks"[^>]*>([\s\S]*?)</nav>', re.I)
 LINK_RE = re.compile(r'<a\s[^>]*href="#([A-Za-z0-9_-]+)"', re.I)
 SKIP_DIRS = {'.git', 'node_modules', '__pycache__', 'tests', '_cms'}
 
@@ -51,8 +55,41 @@ def main() -> int:
                                   f'page does not contain — a keyboard user tabs to a '
                                   f'stop that goes nowhere (run _normalize_skiplinks.py)')
 
+    # The CMS scaffold is a SOURCE of future pages and commits straight to main.
+    # A-02 was reported fixed while this template had NO skip nav at all, because
+    # every checker here walks *.html and the scaffold is .js.
+    scaffold = ROOT / 'api' / 'admin' / '_new.js'
+    if not scaffold.exists():
+        errors.append('api/admin/_new.js is missing — this check must not pass '
+                      'vacuously; update the path if the scaffold moved')
+    else:
+        tpl = scaffold.read_text(encoding='utf-8')
+        navs_found = NAV_RE.findall(tpl)
+        if not navs_found:
+            errors.append('api/admin/_new.js: the CMS scaffold emits no skip nav, '
+                          'so every article it creates ships without a keyboard '
+                          'bypass until someone runs _apply_i_series.py')
+        elif len(navs_found) > 1:
+            # _apply_i_series.py injects its own nav unless one is already
+            # present, so two here means a page would carry two.
+            errors.append(f'api/admin/_new.js: scaffold has {len(navs_found)} skip '
+                          f'navs; a page must carry exactly one')
+        else:
+            targets = LINK_RE.findall(navs_found[0])
+            # An EMPTY nav satisfies "a nav exists" while the loop below runs zero
+            # times — the whole check would pass over a scaffold that gives
+            # keyboard users nothing. Require at least one link explicitly.
+            if not targets:
+                errors.append('api/admin/_new.js: scaffold skip nav contains no '
+                              'links, so it provides no keyboard bypass at all')
+            for target in targets:
+                if f'id="{target}"' not in tpl:
+                    errors.append(f'api/admin/_new.js: scaffold skip link points at '
+                                  f'#{target}, which the template does not contain — '
+                                  f'every new article would get a dead focus stop')
+
     if not navs:
-        print('[FAIL] found no hs-skiplinks nav at all — this check would pass '
+        print('[FAIL] found no skip-links nav at all — this check would pass '
               'vacuously, so treat it as a failure')
         return 1
 

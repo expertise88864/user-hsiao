@@ -51,12 +51,26 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 這不是 8 個獨立疏忽,是同一個錯誤犯了四次:
 
-| 批次 | 產物已修 | **源頭未修** |
-|---|---|---|
-| A-02 | `tools/eye-3d.html` | `api/admin/_new.js` 移除舊 skip link **卻沒補新的** → CMS 新建頁面**完全沒有跳過機制**(比原狀更糟) |
-| P-01 | 64 個既有 `<head>` | `api/admin/_new.js` 仍吐**同步**字型 link → 每篇新文章重新引入 P-01 |
-| M-12 | 我挑的 5 個生成器 | `_gen_serp_meta.py` + 2 個 checker + **4 個線上 API**(`og.js`／`feed.js`／`sitemap.js`／`_list.js`) |
-| A-01 | 既有 `hs-skiplinks` | `_apply_i_series.py` 注入的是 **`dn-skiplinks`**,normalizer/checker 都不認;且 **CI 順序是先修剪後注入** |
+| 批次 | 產物已修 | **源頭未修** | 狀態 |
+|---|---|---|---|
+| A-02 | `tools/eye-3d.html` | `api/admin/_new.js` 移除舊 skip link **卻沒補新的** → CMS 新建頁面**完全沒有跳過機制**(比原狀更糟) | ✅ **已修並外審 APPROVE** |
+| P-01 | 64 個既有 `<head>` | `api/admin/_new.js` 仍吐**同步**字型 link → 每篇新文章重新引入 P-01 | ✅ **已修並外審 APPROVE** |
+| M-12 | 我挑的 5 個生成器 | `_gen_serp_meta.py` + 2 個 checker + **4 個線上 API**(`og.js`／`feed.js`／`sitemap.js`／`_list.js`) | ⬜ 未修 |
+| A-01 | 既有 `hs-skiplinks` | `_apply_i_series.py` 注入的是 **`dn-skiplinks`**,normalizer/checker 都不認;且 **CI 順序是先修剪後注入** | 🟡 class 盲區已修;**CI 順序仍未修** |
+
+### 已結案:A-02 + P-01(2026-08-05,codex deep/high,pass 2 APPROVE)
+
+修的是**源頭**,並補上原本不存在的守衛:
+
+- `api/admin/_new.js` —— 字型改非阻塞(preload + `<noscript>` + bootstrap,字串與既有 64 頁**逐位元組相同**,故現有 CSP hash 已涵蓋);skip nav 補回,用 **`dn-skiplinks`**,因為 `_apply_i_series.py:78` 只在該 class 存在時抑制自己的注入 —— 用 `hs-skiplinks` 會讓頁面帶**兩個** skip nav。只發 `#main-content`,那是此模板唯一存在的目標。
+- `_check_performance_budget.py` —— **新規則**:同步 Google Fonts stylesheet 一律失敗,HTML **與 scaffold 模板都掃**。原本唯一的字型規則只問「preload 有沒有套用路徑」,所以 P-01 要消滅的那個形狀**完全沒有守衛**。
+- `_check_skiplinks.py` / `_normalize_skiplinks.py` —— 同時認 `hs-` 與 `dn-skiplinks`(原本漏掉 14 頁卻回報成功),並斷言 scaffold 有 skip nav、恰好一個、至少一個連結、目標都存在。
+- `_gen_csp_hashes.py` —— 明確把 fonts bootstrap hash 種進 `__fallback__`,**從 scaffold 抽取**而非另抄一份字面值。今天是 no-op(404.html 已帶同一段),留著是防那個巧合改變。
+- `scripts/codex_review.sh` —— 本 repo 原本**沒有**外審 wrapper,補上正式版。放 `scripts/` 而非 `tools/`,因為 **`tools/` 在本站是公開部署的**(它服務 eye-3d.html),`scripts/` 已在 `.vercelignore`。
+
+外審另抓到兩項 P2,皆 CONFIRMED 並已修:scaffold 的**空 nav** 會讓檢查真空通過(只刪 `<a>` 不刪 `<nav>`);wrapper 的 resume 只驗 UUID **格式**不驗**相符**,一個格式正確但不同的 UUID 會續到別場 review、拿它的 APPROVE 放行 push。
+
+> ⚠️ **後者同樣存在於 `-morning-report-main`、`CMUHdermatology-main`、`user-main` 三個 repo 的 wrapper 副本** —— 那是共用的 push 閘門,建議一併修。
 
 **我宣稱的「0 殘留」,量的是我自己挑的清單,不是真實的出現集合。** 這正是我整段在別處獵、卻在自己手上重複犯的錯。
 

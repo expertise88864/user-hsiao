@@ -45,6 +45,23 @@ def sha256_b64(content: bytes) -> str:
     return base64.b64encode(h).decode('ascii')
 
 
+# EXTRACTED, not copied. The fonts bootstrap also lives in the CMS scaffold
+# template; a second literal here would be free to drift from it and the drift
+# would surface only as a CSP block on a live draft. Read it from the one place
+# that actually emits it, and fail loudly if it moves.
+def fonts_bootstrap() -> bytes:
+    src = open(os.path.join(ROOT, 'api', 'admin', '_new.js'), encoding='utf-8').read()
+    m = re.search(r"<script>((?:(?!</script>).)*getElementById\('hs-fonts'\)"
+                  r"(?:(?!</script>).)*)</script>", src, re.DOTALL)
+    if not m:
+        raise SystemExit(
+            "_gen_csp_hashes.py: could not find the hs-fonts bootstrap in "
+            "api/admin/_new.js. If it was renamed or removed, update this "
+            "extractor — do NOT leave __fallback__ unseeded, or CMS-created "
+            "drafts will download the font CSS and never apply it.")
+    return m.group(1).encode('utf-8')
+
+
 def routes_for_path(path: str) -> list[str]:
     rel = os.path.relpath(path, ROOT).replace(os.sep, '/')
     if rel == 'index.html':
@@ -92,6 +109,23 @@ def collect_hashes_by_route():
                 route_hashes.setdefault(route, set()).update(hashes)
 
     route_hashes.setdefault('__fallback__', set())
+    # P-01: a page created by the CMS (api/admin/_new.js) commits straight to
+    # main and is LIVE before this generator ever sees it, so its route is absent
+    # from the map and falls through to __fallback__. The scaffold loads fonts
+    # non-blockingly via a preload that an inline bootstrap promotes to a
+    # stylesheet — if that bootstrap's hash is not in the fallback, a fresh draft
+    # downloads the font CSS and never applies it.
+    #
+    # Today the hash is ALREADY there incidentally: 404.html feeds __fallback__
+    # and 404.html carries the same bootstrap. That is a coincidence of content,
+    # not a guarantee — rewrite 404.html to drop Google Fonts and every future
+    # draft silently loses its fonts, with no check anywhere that would notice.
+    # This line makes the dependency explicit and independent of 404.html.
+    #
+    # It does not weaken the fail-closed posture: the hash admits exactly one
+    # script, whose whole capability is setting .rel='stylesheet' on the element
+    # with id="hs-fonts". Borrowing it buys an attacker nothing else.
+    route_hashes['__fallback__'].add('sha256-' + sha256_b64(fonts_bootstrap()))
     return {route: sorted(hashes) for route, hashes in sorted(route_hashes.items())}
 
 
