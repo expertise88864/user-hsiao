@@ -177,8 +177,27 @@ def main() -> int:
             errors.append(f"{rel}: blog-article-visuals should stay dynamically loaded only on article pages")
         if BLOG_ARTICLE_FOOTER_EAGER_RE.search(src):
             errors.append(f"{rel}: blog-article-footer should stay dynamically loaded only on article pages")
-        if PRELOAD_GOOGLE_FONTS_RE.search(src):
-            errors.append(f"{rel}: Google Fonts CSS preload is unused unless the same URL is applied as a stylesheet")
+        # P-01: the rule used to be "a Google Fonts preload is always wrong",
+        # which was right while nothing applied it. The fonts are now loaded
+        # non-blockingly ON PURPOSE — preload + a <noscript> stylesheet + a
+        # bootstrap that promotes the link once it loads — so the invariant that
+        # actually matters is that a preloaded font URL HAS an application path.
+        # Without this, the check would fire on the intended design; with it,
+        # a preload left dangling still fails.
+        for fm in PRELOAD_GOOGLE_FONTS_RE.finditer(src):
+            href = re.search(r'href="([^"]+)"', fm.group(0))
+            url = href.group(1) if href else ''
+            applied_noscript = f'<noscript><link rel="stylesheet" href="{url}"' in src
+            applied_js = "getElementById('hs-fonts')" in src and 'id="hs-fonts"' in src
+            if not (applied_noscript and applied_js):
+                missing = []
+                if not applied_noscript:
+                    missing.append('a <noscript> stylesheet with the SAME url')
+                if not applied_js:
+                    missing.append('the id="hs-fonts" bootstrap that promotes it')
+                errors.append(f"{rel}: Google Fonts preload has no application path — "
+                              f"missing {' and '.join(missing)}; the preload would "
+                              f"download the CSS and never apply it")
         font_hints: dict[str, int] = {}
         for hint in FONT_PRECONNECT_RE.findall(src):
             font_hints[hint] = font_hints.get(hint, 0) + 1

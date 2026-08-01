@@ -30,7 +30,7 @@
 
 ## 效能 / CWV（P）
 
-### P-01 🟠 Google Fonts render-blocking（6 家族含 2 個 CJK）— **站主已選方案 (b)，待施作**
+### P-01 ✅ Google Fonts render-blocking（6 家族含 2 個 CJK）— 方案 (b) 已施作
 - **問題**：每頁 `<link rel="stylesheet">` 同步載 Fraunces/Inter/JetBrains Mono/Noto Sans TC(2 weights)/Noto Serif TC，是行動裝置首屏最大 RTT 成本。**這是 DECISIONS D-12 已接受的債**，此處只記錄「若要償還」的驗收條件。
 - **驗收**（三選一，且不得破壞 CSP）：(a) 自架用到的 woff2、只 preload H1 的單一 CJK weight、`font-display:swap`；(b) 非阻塞 `media="print" onload` 模式——**但**該 onload 是 inline event，需先讓它相容 CSP（hash 或改用 addEventListener bootstrap），否則會被 D-16 的 fail-closed CSP 擋；(c) 砍裝飾字型（Fraunces/JetBrains Mono）出關鍵路徑。完成後 CI Lighthouse 的 FCP/LCP 應改善且 CSP 無 violation。
 - **模型等級**：Opus 級（CSP 交互 + 需量測驗證）。**關聯**：D-12、D-16。
@@ -521,3 +521,14 @@
 - **兩個不變式都釘進 checker**:(1) rewrite 必須存在——沒有 checker 的 rewrite 可以被無聲刪掉,而唯一症狀是新文章的分享卡空白;(2) 該路徑的 `Cache-Control` **不得含 `immutable`**——把原本的陷阱變成建置失敗,而不是靠註解提醒。變異 2/2。
 
 **⚠ 待補外審**:同前九批。
+
+
+**P-01 ✅ 施作完成（2026-08-01，Opus 5）**
+
+- 64 個 `<head>` 的同步 `<link rel="stylesheet">` 換成 **preload + `<noscript>` 後備 + hashed bootstrap**。每檔**沿用該檔自己的 URL**——實測有 **3 種變體**(61 個 `&`、2 個 `&amp;`(BeautifulSoup 逸出的 /en/ 鏡像)、1 個字型組合不同),硬寫單一 URL 會造成重複下載。
+- **CSP 相容性已驗證,不是假設**:bootstrap 的 `sha256-vhxfZo6M…` **確實出現在 `middleware.js` 的 CSP** 中(`_gen_csp_hashes.py` 自動涵蓋 `<script>` 區塊)。這正是 D-27 指定不用 `onload="this.media='all'"` 的原因——那是屬性上的 inline handler,hash 生成器不涵蓋,fail-closed CSP 會擋掉,字型將**永遠不載入**。
+- **既有 checker 的前提被推翻,一併更新**:`_check_performance_budget.py` 原本的規則是「Google Fonts preload 一律視為無效」——在沒有任何東西套用它時是對的。現在改成檢查它**真正在意的事**:preload 必須有套用路徑(同 URL 的 `<noscript>` stylesheet **且** `id="hs-fonts"` bootstrap),兩者缺一就報錯。**這不是放寬,是把規則對準真實不變式**;懸空的 preload 仍會失敗。
+- **`<noscript>` 不可省**:沒有它,關閉 JS 的訪客完全拿不到字型。已逐檔斷言存在。
+- 施作前先確認工作區乾淨,並在腳本裡斷言「必須恰好 64 檔」——寧可中止也不半轉換。後置條件逐檔檢查:仍同步 / `id="hs-fonts"` 不為 1 / 缺 noscript / 缺 bootstrap = 0。
+
+**⚠ 待補外審**:同前十批。**本批最需要外部確認的是 preload→stylesheet 的 load 事件時序**(bootstrap 緊接在 link 之後同步執行,解析期間事件迴圈不會跑,理論上不會漏掉 load,但我沒有瀏覽器實測手段)。

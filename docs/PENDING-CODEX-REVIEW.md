@@ -186,6 +186,20 @@ git add -A && codex exec -c model="gpt-5.6-sol" -c model_reasoning_effort="high"
 
 ---
 
+## 待審批次 12 — P-01（字型非阻塞載入）
+
+| 已完成的驗證 | 64 檔轉換 + 後置條件 0 失敗、bootstrap hash 確認在 CSP 內、perf 規則同步更新、preflight 64/0/0、CI(Lighthouse + 視覺回歸) |
+|---|---|
+| 外審進度 | **完全未審** |
+
+**補審時請特別看**：
+- **load 事件時序**:bootstrap 緊接在 `<link rel=preload>` 之後同步執行。我的判斷是「解析期間事件迴圈不會跑,所以 load 不可能在監聽器掛上前觸發」——**請獨立確認**。若判斷錯誤,字型在部分情況下會停在 preload、永不套用。
+- 三種 URL 變體是否都正確保留(尤其 `&amp;` 那兩個 /en/ 檔——preload / noscript / bootstrap 三處必須逐字一致,否則會下載兩份)。
+- `_check_performance_budget.py` 規則的改寫是否**削弱**了原本的保護(我認為是對準真實不變式,請覆核)。
+- CI Lighthouse 的 FCP/LCP 是否真的改善;視覺回歸是否有字型 fallback 造成的位移。
+
+---
+
 ## 補審完成後要做的事
 
 1. 在 `docs/BACKLOG.md` 的 Batch A 段落把「⚠ 待補外審」改成實際結果。
