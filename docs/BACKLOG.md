@@ -30,7 +30,7 @@
 
 ## 效能 / CWV（P）
 
-### P-01 🟠 Google Fonts render-blocking（6 家族含 2 個 CJK）
+### P-01 🟠 Google Fonts render-blocking（6 家族含 2 個 CJK）— **站主已選方案 (b)，待施作**
 - **問題**：每頁 `<link rel="stylesheet">` 同步載 Fraunces/Inter/JetBrains Mono/Noto Sans TC(2 weights)/Noto Serif TC，是行動裝置首屏最大 RTT 成本。**這是 DECISIONS D-12 已接受的債**，此處只記錄「若要償還」的驗收條件。
 - **驗收**（三選一，且不得破壞 CSP）：(a) 自架用到的 woff2、只 preload H1 的單一 CJK weight、`font-display:swap`；(b) 非阻塞 `media="print" onload` 模式——**但**該 onload 是 inline event，需先讓它相容 CSP（hash 或改用 addEventListener bootstrap），否則會被 D-16 的 fail-closed CSP 擋；(c) 砍裝飾字型（Fraunces/JetBrains Mono）出關鍵路徑。完成後 CI Lighthouse 的 FCP/LCP 應改善且 CSP 無 violation。
 - **模型等級**：Opus 級（CSP 交互 + 需量測驗證）。**關聯**：D-12、D-16。
@@ -475,3 +475,25 @@
 - **`A-01`／`T-02` 未動**:本輪 context 已不足以再完整交付一項。A-01 要改 `_apply_i_series.py` 讓 skip-nav 依頁面實際存在的 id 條件輸出,而該生成器的輸出是 SENTINEL-凍結的,需要小心處理。
 
 **⚠ 待補外審**:同前七批。
+
+
+**P-01 方案定案（站主 2026-07-27 選 (b)）+ 施作計畫 — 尚未動工**
+
+- **選定**:**(b) 非阻塞載入 + 讓它相容 CSP**。(a) 自架 woff2 與 (c) 砍裝飾字型未採用。
+- **⚠ 為何本輪不動工(誠實說明,非藉口)**:施作面是 **64 個手寫 HTML 的 `<head>`**——`fonts.googleapis.com/css2` **沒有任何生成器擁有它**(grep `_gen_*`/`_apply_*`/`_inject_*` 皆無),所以要逐檔改。加上 CSP bootstrap、重跑 `_gen_csp_hashes.py`、以及 Lighthouse 前後對照,這是完整一批。**改到一半的 64 個 `<head>` 是最糟狀態**:字型載入壞掉是每頁每位訪客立刻看見的。
+
+**下一輪的施作步驟(已設計好,可直接執行)**
+
+1. **不要用 `onload="this.media='all'"`**。那是 inline event handler,`_gen_csp_hashes.py` 只對 `<script>`/`<style>` 內容算 hash,**不涵蓋屬性上的 handler**;D-16 的 fail-closed CSP 沒有 `'unsafe-hashes'`,所以它**會被擋掉、字型永遠不載入**。這正是原條目警告的那個陷阱。
+2. **改用**:`<link rel="preload" as="style" href="…">` + **一段 `<script>` 用 `addEventListener` 把它轉成 stylesheet**。該 script 是 `<script>` 區塊,會被 `_gen_csp_hashes.py` 自動算進 hash,天然相容。形狀:
+   ```html
+   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?…" id="hs-fonts">
+   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?…"></noscript>
+   <script>(function(){var l=document.getElementById('hs-fonts');
+     if(l)l.addEventListener('load',function(){l.rel='stylesheet'},{once:true});})();</script>
+   ```
+   **`<noscript>` 不可省** —— 沒有它,關閉 JS 的訪客會完全拿不到字型。
+3. 三個 URL(preload / noscript / 既有)必須**逐字相同**,否則會多下載一份。
+4. 改完**必須**跑 `python _gen_csp_hashes.py`(生成鏈已含),並確認 `middleware.js` 有新 hash。
+5. **驗收**:CI Lighthouse 的 FCP/LCP 應改善;`/` 與一篇文章頁實測 CSP header 未報 violation;視覺回歸無字型 fallback 造成的位移;關閉 JS 時字型仍載入。
+6. **模型等級**:Sonnet(機械但 64 檔面廣),**但需 Opus 判斷** CSP 互動是否還有其他漏網的 inline handler。

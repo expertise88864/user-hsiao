@@ -186,3 +186,10 @@
 - **仍然成立的前提**:該檢查器在程式碼裡**自述**它是文字比對而非資料流證明,且對合理重構 **fail-closed**(大聲失敗優於假綠)。變異矩陣 15/15 涵蓋每一輪外審提出的繞過。
 - **重開條件(已收窄)**:只有在專案**因其他理由**引入 JS parser 時,才順手把那些斷言改寫成 AST 查詢。**在那之前不要重開。**
 - **錨**:本次 commit。**關聯**:P-04、BACKLOG R-01、REVIEW-PLAYBOOK §6。
+
+
+### D-27 P-01 字型載入償還方案 = 非阻塞 + CSP 相容 bootstrap
+- **決策(站主定案 2026-07-27)**:償還 D-12 接受的字型債,採 **(b) 非阻塞載入並讓它相容 CSP**;不採 (a) 自架 woff2、不採 (c) 砍裝飾字型。
+- **關鍵限制(定案時已知)**:**不得**使用 `onload="this.media='all'"`。`_gen_csp_hashes.py` 只對 `<script>`／`<style>` **內容**算 hash,**不涵蓋屬性上的 inline event handler**,而 D-16 的 CSP 是 fail-closed 且無 `'unsafe-hashes'` → 該 handler 會被擋,字型永不載入。必須改用 `rel="preload" as="style"` + `<script>` 內的 `addEventListener`,並保留 `<noscript>` 後備。
+- **狀態**:**尚未施作**。施作面為 64 個手寫 HTML 的 `<head>`(無生成器擁有),完整步驟見 BACKLOG P-01。
+- **錨**:本次 commit。**關聯**:D-12(原始接受)、D-16(fail-closed CSP)、BACKLOG P-01。
