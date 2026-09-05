@@ -6,16 +6,8 @@
  * at the edge. Output is identical visual style to the static cards in
  * /assets/og/*.png that _gen_og_images.py used to produce.
  *
- * NOTE (review 2026-07, T-02): there is NO `/assets/og/<slug>.png → /api/og`
- * rewrite in vercel.json today, so a NEW article's og:image (which points at
- * /assets/og/<slug>.png) 404s on social shares until `_gen_og_images.py`
- * generates + commits the static PNG. This endpoint is only reached when a
- * page/card links to /api/og directly. Adding the rewrite is deferred
- * (docs/BACKLOG.md T-02): the `/assets/og/(.*)` immutable header in
- * vercel.json would also apply to the dynamic fallback, immutable-caching a
- * placeholder that would not refresh once the static PNG lands. Decide the
- * cache trade-off before wiring the rewrite. Filesystem precedence means
- * existing static PNGs would still win.
+ * Missing /assets/og/<slug>.png files are rewritten here by vercel.json.
+ * Existing static files win; fallback responses use bounded, mutable caching.
  *
  * Caching: 1 hour at the edge, 1 day in browser. Bumping the cache forces
  * crawlers to re-fetch.
@@ -23,6 +15,7 @@
 import { ImageResponse } from '@vercel/og';
 import { ghGetFile } from './admin/_github.js';
 import { FALLBACK_ARTICLES } from './_content_snapshot.js';
+import { catalogRecords } from './_articles.js';
 
 export const config = { runtime: 'edge' };
 
@@ -38,22 +31,9 @@ async function lookupTitle(slug) {
     const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug);
     return fallback ? { title: fallback.title, tag: fallback.tag } : null;
   }
-  const block = file.content.match(/DN\.ARTICLES\s*=\s*(\[[\s\S]*?\]);/);
-  if (!block) {
-    const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug);
-    return fallback ? { title: fallback.title, tag: fallback.tag } : null;
-  }
-  const safeSlug = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const row = block[1].match(new RegExp(`\\{[\\s\\S]*?slug\\s*:\\s*'${safeSlug}'[\\s\\S]*?\\}`));
-  if (!row) {
-    const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug);
-    return fallback ? { title: fallback.title, tag: fallback.tag } : null;
-  }
-  const getField = (key) => {
-    const m = row[0].match(new RegExp(`${key}\\s*:\\s*'([^']*)'`));
-    return m ? m[1] : '';
-  };
-  return { title: getField('title'), tag: getField('tag') };
+  const row = catalogRecords(file.content).find(row => row.values.slug === slug);
+  const article = row?.values || FALLBACK_ARTICLES.find(article => article.slug === slug);
+  return article ? { title: article.title, tag: article.tag } : null;
 }
 
 export default async function handler(req) {

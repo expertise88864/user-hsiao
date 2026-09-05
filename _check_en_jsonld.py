@@ -4,6 +4,7 @@ HsiaoEye: verify English article JSON-LD uses English-facing labels.
 from __future__ import annotations
 
 import json
+import _articles_field
 import re
 import sys
 from pathlib import Path
@@ -32,11 +33,10 @@ def parse_catalog() -> dict[str, dict[str, str]]:
     en_stubs = set(re.findall(r"'([^']+)'", en_stubs_match.group(1))) if en_stubs_match else set()
 
     def field(body: str, key: str) -> str:
-        match = re.search(rf"{key}\s*:\s*'([^']*)'", body)
-        return match.group(1).strip() if match else ""
+        return _articles_field.field(key, body).strip()
 
     out: dict[str, dict[str, str]] = {}
-    for obj in re.finditer(r"\{([\s\S]*?)\}", articles.group(1)):
+    for obj in _articles_field.RECORD_RE.finditer( articles.group(1)):
         body = obj.group(1)
         slug = field(body, "slug")
         if not slug or slug in stubs or slug in en_stubs:

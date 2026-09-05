@@ -19,6 +19,13 @@ export function getRepoConfig() {
   return { owner, repo, branch, token };
 }
 
+export class GitHubConflictError extends Error {
+  constructor(path) {
+    super(`文章或目錄已有較新版本，請保留草稿並重新比較：${path}`);
+    this.name = 'GitHubConflictError';
+  }
+}
+
 function githubHeaders(token) {
   return {
     Accept: 'application/vnd.github+json',
@@ -140,16 +147,16 @@ export async function ghCommitFiles(files, message) {
         { headers: githubHeaders(token) }
       );
       if (file.expectedSha === null) {
-        if (currentResponse.status !== 404) {
-          throw new Error(`GitHub concurrency check failed; ${file.path} already exists`);
-        }
+        if (currentResponse.ok) throw new GitHubConflictError(file.path);
+        if (currentResponse.status !== 404) throw new Error(`GitHub concurrency check unavailable: ${currentResponse.status}`);
       } else {
+        if (currentResponse.status === 404) throw new GitHubConflictError(file.path);
         if (!currentResponse.ok) {
           throw new Error(`GitHub concurrency check failed for ${file.path}: ${currentResponse.status}`);
         }
         const current = await currentResponse.json();
         if (current.sha !== file.expectedSha) {
-          throw new Error(`GitHub file changed during atomic commit; retry ${file.path}`);
+          throw new GitHubConflictError(file.path);
         }
       }
     }
@@ -196,7 +203,14 @@ export async function ghCommitFiles(files, message) {
   });
   if (!updateRefResponse.ok) {
     const detail = await updateRefResponse.text();
-    throw new Error(`GitHub branch changed during atomic commit; retry the operation: ${updateRefResponse.status} ${detail}`);
+    // Ref failures can also be transient/permission errors. Only classify a
+    // conflict when a fresh read proves a guarded file actually changed.
+    for (const file of files) {
+      if (!Object.prototype.hasOwnProperty.call(file, 'expectedSha')) continue;
+      const current = await ghGetFile(file.path);
+      if ((current?.sha ?? null) !== file.expectedSha) throw new GitHubConflictError(file.path);
+    }
+    throw new Error(`GitHub ref update failed; retry the operation: ${updateRefResponse.status} ${detail}`);
   }
 
   return { commitSha: newCommit.sha, baseCommitSha };

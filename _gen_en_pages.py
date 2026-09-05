@@ -115,7 +115,7 @@ def parse_articles():
     if not m:
         return {}
     articles = {}
-    for obj in re.finditer(r'\{([\s\S]*?)\}', m.group(1)):
+    for obj in _articles_field.RECORD_RE.finditer( m.group(1)):
         body = obj.group(1)
         row = {}
         for key in ('slug', 'title', 'title_en', 'tag', 'tag_en', 'date', 'cat'):

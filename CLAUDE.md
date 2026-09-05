@@ -142,19 +142,35 @@ Windows↔Linux byte-difference loop.
 When you make content edits, the typical pipeline is:
 
 ```bash
-python halfwidth_to_fullwidth.py    # convert halfwidth punctuation
-python _gen_feeds.py                # update sitemap / RSS / atom
-python _gen_en_pages.py             # mirror to /en/
-# M-05: added to match the authoritative chain in quality.yml
+# Optional for new or updated share cards:
+python _gen_og_images.py
+# build-chain:start
+python halfwidth_to_fullwidth.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py
+python _gen_feeds.py
+python _gen_related.py
+python _gen_serp_meta.py
+python _gen_faqpage_jsonld.py
+python _gen_en_pages.py
+python _gen_search_index.py
 python _gen_api_content_snapshot.py
+python _gen_llms_txt.py
 python _gen_llms_full_txt.py
+python _gen_opensearch.py
+python _gen_profile_schema.py
+python _gen_site_graph.py
+python _gen_route_canonicals.py
+python _apply_i_series.py
+python _apply_a11y_vt.py
 python _apply_trusted_types.py
+python _apply_f10_image_priority.py
 python _normalize_skiplinks.py
-python _gen_csp_hashes.py           # update CSP hashes in middleware.js
-python validate.py                  # check head/meta integrity
+python _extract_critical_css.py
+python _gen_csp_hashes.py
+# build-chain:end
+python validate.py
 ```
 
 Set `PYTHONIOENCODING=utf-8` if `validate.py` errors on Unicode.
@@ -212,62 +228,35 @@ flagged drift in `_gen_serp_meta`, `_gen_related`, `_gen_faqpage_jsonld`,
 Order matters. Run as a single chain (sequential, no `&`):
 
 ```bash
-# 1. ZH punctuation normalization (must run FIRST)
+# Optional for new or updated share cards:
+python _gen_og_images.py
+# build-chain:start
 python halfwidth_to_fullwidth.py
-
-# 2. Feeds + catalog artifacts
+python _normalize_reviewed_by.py
+python _normalize_entity_links.py
+python _inject_speed_insights.py
 python _gen_feeds.py
 python _gen_related.py
-
-# 3. SERP/social/FAQ schema normalization
 python _gen_serp_meta.py
 python _gen_faqpage_jsonld.py
-
-# 4. OG cards (use --force-all if needed)
-python _gen_og_images.py
-
-# 5. EN mirror
 python _gen_en_pages.py
-
-# 6. Search + AI surfaces
 python _gen_search_index.py
+python _gen_api_content_snapshot.py
 python _gen_llms_txt.py
+python _gen_llms_full_txt.py
 python _gen_opensearch.py
-
-# 7. Profile / site graph schemas (order matters — profile then site_graph)
 python _gen_profile_schema.py
 python _gen_site_graph.py
 python _gen_route_canonicals.py
-
-# 8. A11y + view transitions + image priority (apply scripts — needed for
-#    skip-link CSS, otherwise "跳至主要內容" appears visibly at top of page)
 python _apply_i_series.py
 python _apply_a11y_vt.py
+python _apply_trusted_types.py
 python _apply_f10_image_priority.py
-
-# 9. Critical CSS THEN CSP hashes (ORDER IS LOad-BEARING — see note below)
-python _extract_critical_css.py    # injects inline <style data-critical-css>
-python _gen_csp_hashes.py          # MUST be the very last step: hashes every
-                                   # final inline <style>/<script>, incl. the
-                                   # critical-css block just injected above
-
-# 9b. JS bundle — ONLY when you edited blog/blog-shared.js (the readable source).
-#     Pages ship blog/blog-shared.min.js (esbuild, ~177 KB vs 300 KB source).
-#     Tooling/generators still parse DN.ARTICLES out of the readable .js source.
-#     After ANY edit to blog-shared.js, regenerate the min bundle + commit it:
-npm run minify                     # esbuild → blog/blog-shared.min.js
-#     _check_min_js.py guards against a stale bundle (slug-parity vs source).
-#     This is NOT in the CI drift step (that job is python-only / no esbuild) —
-#     it's a local step; the committed .min.js is the served artifact.
-
-# 10. Verify before push
+python _normalize_skiplinks.py
+python _extract_critical_css.py
+python _gen_csp_hashes.py
+# build-chain:end
 python validate.py
-python _check_article_listings.py
-python _check_meta.py
-python _check_internal_links.py
-python _check_bilingual_attrs.py
-python _check_serp_fallbacks.py
-python halfwidth_to_fullwidth.py --dry-run    # must say "WOULD WRITE: 0 files"
 ```
 
 ### ⚠️ `_gen_csp_hashes.py` MUST be the last build step

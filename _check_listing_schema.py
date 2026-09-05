@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import _articles_field
 import re
 import sys
 from pathlib import Path
@@ -43,13 +44,13 @@ def parse_catalog() -> list[dict[str, str]]:
         raise SystemExit("[FAIL] DN.ARTICLES not found")
 
     rows: list[dict[str, str]] = []
-    for obj in re.finditer(r"\{([^{}]*)\}", match.group(1)):
+    for obj in _articles_field.RECORD_RE.finditer( match.group(1)):
         body = obj.group(1)
         row: dict[str, str] = {}
         for key in ("slug", "title", "title_en", "date", "updated"):
-            found = re.search(rf"{key}\s*:\s*'([^']*)'", body)
+            found = _articles_field.field(key, body)
             if found:
-                row[key] = found.group(1)
+                row[key] = found
         if row.get("slug") and row.get("title"):
             rows.append(row)
 

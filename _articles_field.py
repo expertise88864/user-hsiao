@@ -27,6 +27,8 @@ import re
 # backslash escape (including \' and \\). Unlike [^']*, this walks straight past
 # an escaped apostrophe instead of ending the match on it.
 _BODY = r"((?:[^'\\]|\\.)*)"
+RECORD_RE = re.compile(r'''\{((?:'(?:\\[\s\S]|[^'\\])*'|"(?:\\[\s\S]|[^"\\])*"|[^{}'"])*)\}''')
+_TOKENS = re.compile(r'''//[^\n]*|/\*[\s\S]*?\*/|'(?:\\[\s\S]|[^'\\])*'|"(?:\\[\s\S]|[^"\\])*"|[A-Za-z_$][\w$]*|[^\s]''')
 
 
 def FIELD_RE(key: str) -> re.Pattern[str]:
@@ -55,5 +57,8 @@ def unescape(raw: str) -> str:
 
 def field(key: str, body: str, default: str = '') -> str:
     """Extract `key: '...'` from a DN.ARTICLES entry body, escapes handled."""
-    m = FIELD_RE(key).search(body)
-    return unescape(m.group(1)) if m else default
+    tokens = [m.group() for m in _TOKENS.finditer(body) if not m.group().startswith(('//', '/*'))]
+    for i, token in enumerate(tokens[:-2]):
+        if token == key and tokens[i + 1] == ':' and tokens[i + 2][0] in "'\"":
+            return unescape(tokens[i + 2][1:-1])
+    return default

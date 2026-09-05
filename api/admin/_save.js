@@ -11,6 +11,12 @@
 import { requireAdmin, verifyOfflineSaveToken, ghGetFile } from './_auth.js';
 import { commitArticleWithModifiedDate } from './_article-commit.js';
 import { halfwidthToFullwidth } from './_halfwidth.js';
+import { createHash } from 'node:crypto';
+import { GitHubConflictError } from './_github.js';
+
+export function articleBlobSha(html) {
+  return createHash('sha1').update(`blob ${Buffer.byteLength(html, 'utf8')}\0`).update(html).digest('hex');
+}
 
 // JS-injected runtime helpers that the WYSIWYG inadvertently serializes
 // into outerHTML. These IDs / selectors are re-injected by blog-shared.js
@@ -111,6 +117,16 @@ export function stripRuntimeHelpers(html) {
 
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
+  res.setHeader('Cache-Control', 'no-store');
+  if (req.method === 'GET') {
+    const slug = req.query?.slug;
+    if (typeof slug !== 'string' || !/^[a-z0-9-]+$/.test(slug)) return res.status(400).json({ error: 'Invalid slug' });
+    try {
+      const file = await ghGetFile(`blog/${slug}.html`);
+      if (!file) return res.status(404).json({ error: 'Article not found' });
+      return res.status(200).json({ html: file.content, sha: file.sha });
+    } catch (e) { return res.status(503).json({ error: 'Unable to load article for editing' }); }
+  }
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -120,10 +136,13 @@ export default async function handler(req, res) {
   if (typeof body === 'string') {
     try { body = JSON.parse(body); } catch (e) { body = {}; }
   }
-  const { slug, html: rawHtml } = body || {};
+  const { slug, html: rawHtml, baseSha } = body || {};
 
   if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
     return res.status(400).json({ error: 'Invalid slug (must be lowercase a-z, 0-9, dash)' });
+  }
+  if (typeof baseSha !== 'string' || !/^[a-f0-9]{40}$/.test(baseSha)) {
+    return res.status(409).json({ error: '缺少文章版本，請重新載入編輯器。草稿請先保留。' });
   }
   if (req.headers['x-hsiao-offline-replay'] === '1') {
     const replayToken = req.headers['x-hsiao-offline-token'];
@@ -163,9 +182,12 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: `Article ${slug}.html not found in repo. Use /api/admin/new to create.` });
     }
 
+    if (existing.sha !== baseSha) {
+      return res.status(409).json({ error: '文章已有較新的版本。草稿已保留，請先比較後再編輯。' });
+    }
     // Detect no-op: skip commit if HTML identical
     if (existing.content === html) {
-      return res.status(200).json({ ok: true, commit: '', noop: true, sanitized: { stripped, hwFixed } });
+      return res.status(200).json({ ok: true, commit: '', sha: existing.sha, noop: true, sanitized: { stripped, hwFixed } });
     }
 
     const result = await commitArticleWithModifiedDate({
@@ -175,8 +197,8 @@ export default async function handler(req, res) {
       message: `admin: edit ${slug} via /admin WYSIWYG${stripped ? ` (-${stripped} runtime DOM)` : ''}${hwFixed ? ` (+${hwFixed} 中文標點)` : ''}`,
     });
 
-    res.status(200).json({ ok: true, commit: result.commitSha, sanitized: { stripped, hwFixed } });
+    res.status(200).json({ ok: true, commit: result.commitSha, sha: articleBlobSha(html), sanitized: { stripped, hwFixed } });
   } catch (e) {
-    res.status(500).json({ error: String(e.message || e) });
+    res.status(e instanceof GitHubConflictError ? 409 : 500).json({ error: String(e.message || e) });
   }
 }

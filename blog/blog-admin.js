@@ -12,14 +12,47 @@
  * Trusted Types: scriptURL allow-list in hs-policy permits same-origin
  * /blog/* paths, so the dynamic import is policy-compliant.
  * ============================================================ */
-(function (DN, window, document) {
+(async function (DN, window, document) {
   if (!DN || !DN.isAdminMode || !DN.isAdminMode()) return;
   var article = document.querySelector('article.max-w-3xl');
     if (!article) return;
     var slug = DN.currentSlug && DN.currentSlug();
     if (!slug) return;
     if (document.getElementById('hs-admin-bar')) return;
+    // Edit a fresh authenticated snapshot, not potentially cached public HTML.
+    var baseDocument, baseSha, initialDraft, conflictDraft;
+    try {
+      var sourceResponse = await fetch('/api/admin/save?slug=' + encodeURIComponent(slug), { credentials: 'include', cache: 'no-store' });
+      if (!sourceResponse.ok) throw new Error('請登入後重新開啟編輯器');
+      var source = await sourceResponse.json();
+      if (!/^[a-f0-9]{40}$/.test(source.sha || '')) throw new Error('無法取得文章版本');
+      baseDocument = new DOMParser().parseFromString(source.html, 'text/html');
+      var sourceArticle = baseDocument.querySelector('article.max-w-3xl');
+      if (!sourceArticle) throw new Error('文章結構不支援編輯');
+      article.replaceWith(document.importNode(sourceArticle, true));
+      article = document.querySelector('article.max-w-3xl');
+      baseSha = source.sha;
+      initialDraft = await DN.loadDraft(slug);
+      if (initialDraft && initialDraft.html && initialDraft.baseSha !== baseSha) {
+        conflictDraft = initialDraft;
+        var archived = await DN.saveDraft(slug + '-conflict-' + (initialDraft.ts || Date.now()), initialDraft.html, initialDraft.baseSha);
+        if (!archived.source) throw new Error('舊草稿備份失敗，請先匯出草稿再編輯');
+        initialDraft = null;
+      }
+      DN.applyTextOnly(DN.detectLang());
+    } catch (e) {
+      var notice = document.createElement('p');
+      notice.setAttribute('role', 'alert');
+      notice.textContent = '無法開啟編輯：' + e.message;
+      article.before(notice);
+      return;
+    }
     DN.prepareOfflineSave(slug).catch(function () {});
+    if (navigator.serviceWorker) navigator.serviceWorker.addEventListener('message', function (event) {
+      if (event.data && event.data.type === 'BG_SYNC_CONFLICT' && event.data.slug === slug) {
+        status('離線草稿與新版本衝突，已保留草稿，請先比較內容。', 'error');
+      }
+    });
     setInterval(function () {
       DN.prepareOfflineSave(slug).catch(function () {});
     }, 4 * 60 * 60 * 1000);
@@ -86,6 +119,14 @@
       '<button type="button" id="hs-adm-exit" title="離開 admin 模式">←離開</button>' +
       '<input type="file" id="hs-adm-img-input" accept="image/*" hidden />';
     document.body.appendChild(bar);
+    if (conflictDraft) {
+      var draftDownload = document.createElement('a');
+      draftDownload.textContent = '下載舊版本草稿';
+      draftDownload.download = slug + '-conflict.html';
+      draftDownload.href = URL.createObjectURL(new Blob([conflictDraft.html], { type: 'text/html' }));
+      bar.appendChild(draftDownload);
+      status('舊版本草稿已另存備份，可下載比較；目前編輯的是最新文章。', 'error');
+    }
 
     // Toolbar handlers
     bar.querySelectorAll('button[data-cmd]').forEach(function (btn) {
@@ -496,10 +537,17 @@
       return clone;
     }
 
+    function snapshotHtml() {
+      // Preserve the authenticated document outside the editable article.
+      var edited = _sanitizeForSerialize(document.documentElement.cloneNode(true));
+      var snapshot = baseDocument.documentElement.cloneNode(true);
+      snapshot.querySelector('article.max-w-3xl').replaceWith(edited.querySelector('article.max-w-3xl'));
+      return '<!doctype html>\n' + snapshot.outerHTML;
+    }
+
     // Live preview — opens a fresh tab with the saved-state HTML rendered (without ?admin=1)
     document.getElementById('hs-adm-preview').addEventListener('click', function () {
-      var clone = _sanitizeForSerialize(document.documentElement.cloneNode(true));
-      var html = '<!doctype html>\n' + clone.outerHTML;
+      var html = snapshotHtml();
       var blob = new Blob([html], { type: 'text/html' });
       var url = URL.createObjectURL(blob);
       window.open(url, '_blank', 'noopener');
@@ -532,25 +580,27 @@
       btn.disabled = true; btn.textContent = '儲存中⋯';
       status('正在 commit 到 GitHub⋯');
       try {
-        var clone = _sanitizeForSerialize(document.documentElement.cloneNode(true));
-        var html = '<!doctype html>\n' + clone.outerHTML;
+        var html = snapshotHtml();
 
         // v33: OPFS draft snapshot before network attempt — survives crash mid-save
-        DN.saveDraft(slug, html).catch(function () {});
+        await DN.saveDraft(slug, html, baseSha);
 
         try {
           var resp = await fetch('/api/admin/save', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ slug: slug, html: html })
+            body: JSON.stringify({ slug: slug, html: html, baseSha: baseSha })
           });
           if (resp.ok) {
             var data = await resp.json();
+            baseSha = data.sha;
             status('✓ 已儲存 (commit: ' + (data.commit || '-').slice(0, 7) + ')', 'success');
             setTimeout(function () { var s = document.getElementById('hs-admin-status'); if (s) s.remove(); }, 3500);
-            DN._adminDirty = false;
-            DN.deleteDraft(slug);  // commit succeeded → drop local draft
+            // Typing while the request is in flight must remain an unsaved draft.
+            DN._adminDirty = snapshotHtml() !== html;
+            if (DN._adminDirty) await DN.saveDraft(slug, snapshotHtml(), baseSha);
+            else await DN.deleteDraft(slug);
             try {
               if (window.parent && window.parent !== window) {
                 window.parent.postMessage(
@@ -565,7 +615,7 @@
           }
         } catch (e) {
           // v33: Network failure → queue for Background Sync v2 replay
-          if (DN.queueOfflineSave(slug, html)) {
+          if (DN.queueOfflineSave(slug, html, baseSha)) {
             status('⚠ 離線中 — 已排入背景同步,連線後自動重送', 'error');
           } else {
             status('✗ 網路錯誤: ' + (e.message || e), 'error');
@@ -580,16 +630,20 @@
     var draftTimer;
     document.addEventListener('input', function () {
       if (!DN.isAdminMode()) return;
+      DN._adminDirty = true;
       clearTimeout(draftTimer);
       draftTimer = setTimeout(function () {
-        var clone = _sanitizeForSerialize(document.documentElement.cloneNode(true));
-        DN.saveDraft(slug, '<!doctype html>\n' + clone.outerHTML).catch(function () {});
+        DN.saveDraft(slug, snapshotHtml(), baseSha).catch(function () {});
       }, 5000);
     });
 
     // v33: On enter admin mode, check for unsaved draft + offer to restore
-    DN.loadDraft(slug).then(function (draft) {
+    Promise.resolve(initialDraft).then(function (draft) {
       if (!draft || !draft.html) return;
+      if (draft.baseSha !== baseSha) {
+        status('有其他版本的草稿，已保留；請先比較內容，避免覆蓋新版本。', 'error');
+        return;
+      }
       // Compare draft timestamp to "load time" — if draft newer than 30s old, prompt
       if ((Date.now() - (draft.ts || 0)) > 30 * 86400 * 1000) return;  // older than 30 days, ignore
       if (confirm('偵測到未儲存的草稿（' + new Date(draft.ts).toLocaleString() + '）— 要恢復嗎？')) {
@@ -600,6 +654,7 @@
         var curProse = document.querySelector('#proseZh, article.max-w-3xl');
         if (newProse && curProse) {
           curProse.innerHTML = newProse.innerHTML;
+          document.querySelectorAll(EDITABLE_SEL).forEach(function (el) { el.contentEditable = 'true'; el.spellcheck = false; });
           DN._adminDirty = true;
         }
       } else {

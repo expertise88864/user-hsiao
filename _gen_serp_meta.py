@@ -15,6 +15,7 @@ from __future__ import annotations
 import html
 import json
 import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
+import _articles_field
 import re
 from pathlib import Path
 
@@ -95,13 +96,13 @@ def read_catalog():
     if not m:
         raise SystemExit('DN.ARTICLES not found')
     rows = []
-    for obj in re.finditer(r'\{([^{}]*)\}', m.group(1)):
+    for obj in _articles_field.RECORD_RE.finditer( m.group(1)):
         body = obj.group(1)
         row = {}
         for key in ('slug', 'title', 'title_en', 'cat', 'tag', 'tag_en', 'date', 'updated'):
-            km = re.search(rf"{key}\s*:\s*'([^']*)'", body)
+            km = _articles_field.field(key, body)
             if km:
-                row[key] = km.group(1)
+                row[key] = km
         if row.get('slug') and row.get('title'):
             rows.append(row)
     stub_m = re.search(r'DN\.STUB_SLUGS\s*=\s*new\s+Set\(\s*\[([\s\S]*?)\]', js)

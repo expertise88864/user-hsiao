@@ -473,11 +473,16 @@ async function drainSavesOnce() {
           'X-Hsiao-Offline-Replay': '1',
           'X-Hsiao-Offline-Token': item.token || '',
         },
-        body: JSON.stringify({ slug: item.slug, html: item.html }),
+        body: JSON.stringify({ slug: item.slug, html: item.html, baseSha: item.baseSha }),
       });
       if (r.ok) {
         await deleteQueuedSave(item.id);
         succeeded++;
+      } else if (r.status === 409) {
+        // Keep conflicting drafts for manual comparison; never rebase them silently.
+        const clients = await self.clients.matchAll({ includeUncontrolled: true });
+        clients.forEach(c => c.postMessage({ type: 'BG_SYNC_CONFLICT', slug: item.slug }));
+        continue;
       } else if (r.status === 401) {
         // Session expired — keep in queue, user must re-login
         break;
@@ -523,6 +528,7 @@ self.addEventListener('message', async (e) => {
       const validPayload =
         payload &&
         /^[a-z0-9-]+$/.test(payload.slug || '') &&
+        /^[a-f0-9]{40}$/.test(payload.baseSha || '') &&
         typeof payload.html === 'string' &&
         payload.html.length >= 200 &&
         payload.html.length <= 1024 * 1024 &&
@@ -532,6 +538,7 @@ self.addEventListener('message', async (e) => {
       await enqueueSave({
         slug: payload.slug,
         html: payload.html,
+        baseSha: payload.baseSha,
         token: payload.token,
         ts: Number(payload.ts) || Date.now(),
       });

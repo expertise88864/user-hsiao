@@ -8,6 +8,7 @@
  */
 import { ghGetFile } from './admin/_auth.js';
 import { FALLBACK_ARTICLES } from './_content_snapshot.js';
+import { catalogRecords } from './_articles.js';
 
 const DOMAIN = 'https://hsiao.chendermatologist.com';
 const WEBSUB_HUB = 'https://pubsubhubbub.appspot.com/';
@@ -92,15 +93,8 @@ async function parseArticles() {
   }
 
   const rows = [];
-  const getField = (body, key) => {
-    const found = body.match(new RegExp(`${key}\\s*:\\s*'([^']*)'`));
-    return found ? found[1] : '';
-  };
-
-  const rowRe = /\{([\s\S]*?)\}/g;
-  let row;
-  while ((row = rowRe.exec(catalog[1])) !== null) {
-    const body = row[1];
+  const getField = (body, key) => body[key] || '';
+  for (const { values: body } of catalogRecords(file.content)) {
     const slug = getField(body, 'slug');
     const title = getField(body, 'title');
     if (!slug || !title || stubs.has(slug)) continue;

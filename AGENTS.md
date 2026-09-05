@@ -91,33 +91,35 @@ check` job. For the full chain explanation and known idempotency quirks see
 [WRITING_NEW_ARTICLE.md](WRITING_NEW_ARTICLE.md).
 
 ```bash
-python halfwidth_to_fullwidth.py          # convert halfwidth punctuation
-python _gen_feeds.py                       # sitemap / RSS / Atom / JSON Feed
-python _gen_related.py                     # assets/related.json + related blocks
-python _gen_serp_meta.py                   # og:image:alt + inner JSON-LD sync
-python _gen_faqpage_jsonld.py              # FAQPage schema normalize
-python _gen_og_images.py                   # /assets/og/<slug>.png
-python _gen_en_pages.py                    # mirror to /en/
-python _gen_search_index.py                # PageFind search index
-python _gen_llms_txt.py                    # llms.txt
-python _gen_opensearch.py                  # opensearch.xml
-python _gen_profile_schema.py              # ProfilePage JSON-LD
-python _gen_site_graph.py                  # WebSite hasPart graph
-python _gen_route_canonicals.py            # canonical href normalisation
-python _apply_i_series.py                  # skip-link CSS + focus styles
-python _apply_a11y_vt.py                   # view-transition + reduced-motion
-python _apply_trusted_types.py              # early Trusted Types policy bootstrap
-python _apply_f10_image_priority.py        # fetchpriority="high" on first <img>
-python _extract_critical_css.py            # critical CSS inline
-# M-05: added to match the authoritative chain in quality.yml
+# Optional for new or updated share cards:
+python _gen_og_images.py
+# build-chain:start
+python halfwidth_to_fullwidth.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py
+python _gen_feeds.py
+python _gen_related.py
+python _gen_serp_meta.py
+python _gen_faqpage_jsonld.py
+python _gen_en_pages.py
+python _gen_search_index.py
 python _gen_api_content_snapshot.py
+python _gen_llms_txt.py
 python _gen_llms_full_txt.py
+python _gen_opensearch.py
+python _gen_profile_schema.py
+python _gen_site_graph.py
+python _gen_route_canonicals.py
+python _apply_i_series.py
+python _apply_a11y_vt.py
+python _apply_trusted_types.py
+python _apply_f10_image_priority.py
 python _normalize_skiplinks.py
-python _gen_csp_hashes.py                  # CSP hashes (must run last)
-python validate.py                         # head/meta integrity
+python _extract_critical_css.py
+python _gen_csp_hashes.py
+# build-chain:end
+python validate.py
 ```
 
 Set `PYTHONIOENCODING=utf-8` if `validate.py` errors on Unicode (Windows cp950).

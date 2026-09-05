@@ -51,6 +51,32 @@ export async function kvGet(key) {
   } catch (e) { return null; }
 }
 
+// Atomic and retryable: publish the marker only after all legacy records land.
+// HSETNX preserves subscriptions refreshed since a previous partial migration.
+export async function kvMigrateJSONHash(legacyKey, hashKey, markerKey) {
+  const script = `
+    if redis.call('GET', KEYS[3]) then return 1 end
+    local raw = redis.call('GET', KEYS[1])
+    local entries = {}
+    if raw then
+      if not string.match(raw, '^%s*%[') then return redis.error_reply('Legacy subscriptions must be an array') end
+      entries = cjson.decode(raw)
+      for _, sub in ipairs(entries) do
+        if type(sub) ~= 'table' or type(sub.endpoint) ~= 'string' then
+          return redis.error_reply('Invalid legacy subscription')
+        end
+      end
+    end
+    for _, sub in ipairs(entries) do
+      redis.call('HSETNX', KEYS[2], sub.endpoint, cjson.encode(sub))
+    end
+    redis.call('SET', KEYS[3], '1')
+    return 1
+  `;
+  const result = await kvPipeline([['EVAL', script, '3', legacyKey, hashKey, markerKey]]);
+  if (!result || result[0]?.result !== 1) throw new Error('Push subscription migration failed');
+}
+
 export async function kvSet(key, value, opts = {}) {
   if (!kvAvailable()) return false;
   try {

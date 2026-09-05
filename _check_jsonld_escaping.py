@@ -58,7 +58,7 @@ def main() -> int:
             body = m.group(1)
             blocks += 1
             if '<' in body:
-                errors.append(f'{rel}: a ld+json block contains a raw '<' — it must be '
+                errors.append(f"{rel}: a ld+json block contains a raw '<' — it must be "
                               f'escaped (see _jsonld.py). A literal </script> in a title '
                               f'would close the block early and inject markup')
             try:

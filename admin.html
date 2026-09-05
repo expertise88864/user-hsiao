@@ -21,7 +21,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260668';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260669';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -1091,35 +1091,52 @@ function populateSlugSelectors() {
 }
 
 // ───────────────── Markdown editor ─────────────────
+let mdLoaded = null;
+let mdLoadSequence = 0;
 async function loadMd() {
+  const sequence = ++mdLoadSequence;
   const slug = document.getElementById('md-slug').value;
   if (!slug) return;
   const editor = document.getElementById('md-editor');
+  mdLoaded = null;
+  editor.readOnly = true;
+  document.querySelector('[data-action="saveMd"]').disabled = true;
   const preview = document.getElementById('md-preview');
   preview.innerHTML = '<div class="loading"><span class="spinner"></span>載入中⋯</div>';
   try {
     const r = await fetch(API + '/md?slug=' + encodeURIComponent(slug), { credentials: 'include' });
     const j = await r.json().catch(() => ({}));
+    if (sequence !== mdLoadSequence) return;
     if (!r.ok) { preview.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
     editor.value = j.markdown || '';
+    mdLoaded = { slug, sha: j.sha, editable: j.editable === true };
+    editor.readOnly = !mdLoaded.editable;
+    document.querySelector('[data-action="saveMd"]').disabled = !mdLoaded.editable;
     renderMdPreview();
-    toast('✓ 已載入 ' + slug, 2500);
-  } catch (e) { preview.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
+    if (!mdLoaded.editable) {
+      const notice = document.createElement('p');
+      notice.textContent = '本文含雙語內容，這裡僅供閱讀。請使用文章的視覺編輯器，以保留英文翻譯。';
+      preview.prepend(notice);
+    }
+    toast(mdLoaded.editable ? '✓ 已載入 ' + slug : '本文含雙語內容，請使用視覺編輯器。', 4000);
+  } catch (e) { if (sequence === mdLoadSequence) preview.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
 async function saveMd() {
   const slug = document.getElementById('md-slug').value;
   const md = document.getElementById('md-editor').value;
+  if (!mdLoaded || mdLoaded.slug !== slug || !mdLoaded.editable) { toast('請先載入可編輯的文章；雙語文章請使用視覺編輯器。', 4000); return; }
   if (!slug || md.length < 10) { toast('內容太短或未選文章', 3000); return; }
   if (!confirm(`儲存為新版本 ${slug}? 將 commit 到 GitHub。`)) return;
+  const loaded = mdLoaded;
   try {
     const r = await fetch(API + '/md', {
       method: 'POST', credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slug, markdown: md })
+      body: JSON.stringify({ slug, markdown: md, baseSha: loaded.sha })
     });
     const j = await r.json().catch(() => ({}));
-    if (r.ok) toast(j.noop ? '無變動' : '✓ 已儲存 (commit ' + (j.commit||'').slice(0,7) + ')', 4000);
+    if (r.ok) { loaded.sha = j.sha; toast(j.noop ? '無變動' : '✓ 已儲存 (commit ' + (j.commit||'').slice(0,7) + ')', 4000); }
     else toast('失敗: ' + (j.error || r.status), 5000);
   } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
 }

@@ -16,6 +16,7 @@
  */
 import { ghGetFile, getRepoConfig } from './admin/_auth.js';
 import { FALLBACK_ARTICLES } from './_content_snapshot.js';
+import { catalogRecords } from './_articles.js';
 
 const DOMAIN = 'https://hsiao.chendermatologist.com';
 
@@ -88,14 +89,8 @@ async function parseArticles() {
   }
 
   const articles = [];
-  const getField = (body, key) => {
-    const mm = body.match(new RegExp(`${key}\\s*:\\s*'([^']*)'`));
-    return mm ? mm[1] : '';
-  };
-  const re = /\{([\s\S]*?)\}/g;
-  let row;
-  while ((row = re.exec(m[1])) !== null) {
-    const body = row[1];
+  const getField = (body, key) => body[key] || '';
+  for (const { values: body } of catalogRecords(file.content)) {
     const slug = getField(body, 'slug');
     if (!slug || stubs.has(slug)) continue;
     articles.push({

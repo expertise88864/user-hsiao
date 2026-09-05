@@ -24,6 +24,7 @@ USAGE
     python preflight.py            # full gate
     python preflight.py --fast     # skip the 2nd chain run (drift check); still validates
     python preflight.py --chain    # just print the parsed chain and exit
+    python preflight.py --run-chain # run the authoritative chain once, no staging
 
 NOTES / HARNESS LIMITS (see docs/MODEL-GUIDE.md)
     - Sets PYTHONIOENCODING=utf-8 for children (Windows cp950 crashes on Unicode).
@@ -83,7 +84,7 @@ def parse_chain():
     for ln in lines[start + 1:]:
         if re.match(r"\s*-\s*name:", ln):  # next step -> stop
             break
-        m = re.search(r"\bpython3?\s+(\w[\w./-]*\.py)\b", ln)
+        m = re.match(r"\s*python3?\s+(\w[\w./-]*\.py)\b", ln)
         if m:
             name = os.path.basename(m.group(1))
             if name not in seen:
@@ -110,8 +111,8 @@ def run_chain(chain, label):
     print(f"  running {len(chain)} generators ({label}) ...")
     for step in chain:
         if not (ROOT / step).exists():
-            print(f"    - SKIP {step} (not on disk)")
-            continue
+            print(f"    X missing generator {step}")
+            return False
         r = sh([sys.executable, step])
         if r.returncode != 0:
             print(f"    X FAIL {step} (rc={r.returncode})")
@@ -158,6 +159,9 @@ def main():
         print("(the authoritative source). Refusing to run on a possibly-stale")
         print("FALLBACK_CHAIN. Fix parse_chain(), or pass --allow-fallback to override.")
         return 1
+
+    if "--run-chain" in args:
+        return 0 if run_chain(chain, src) else 1
 
     print("=" * 60)
     print("HsiaoEye preflight - pre-push gate (docs/DECISIONS.md D-20)")

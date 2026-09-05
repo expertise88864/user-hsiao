@@ -14,6 +14,13 @@
  */
 import { requireAdmin, ghGetFile } from './_auth.js';
 import { commitArticleWithModifiedDate } from './_article-commit.js';
+import { articleBlobSha } from './_save.js';
+import { GitHubConflictError } from './_github.js';
+
+export function markdownCanRoundTrip(html) {
+  const prose = html.match(/<div\s+id="proseZh"[^>]*>([\s\S]*?)<\/div>\s*<\/article>/i);
+  return Boolean(prose && !/\bdata-(?:zh|en)\s*=/i.test(prose[0]));
+}
 
 // ── HTML → Markdown ──────────────────────────────────────────────────
 function htmlToMarkdown(html) {
@@ -318,7 +325,8 @@ export default async function handler(req, res) {
       if (!file) return res.status(404).json({ error: 'not found' });
       const md = htmlToMarkdown(file.content);
       if (md == null) return res.status(500).json({ error: 'failed to extract proseZh — article structure unsupported' });
-      res.status(200).json({ slug, markdown: md, sha: file.sha });
+      res.setHeader('Cache-Control', 'no-store');
+      res.status(200).json({ slug, markdown: md, sha: file.sha, editable: markdownCanRoundTrip(file.content) });
     } catch (e) { res.status(500).json({ error: String(e.message || e) }); }
     return;
   }
@@ -327,7 +335,10 @@ export default async function handler(req, res) {
 
   let body = req.body;
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch (e) { body = {}; } }
-  const { markdown } = body || {};
+  const { markdown, baseSha } = body || {};
+  if (typeof baseSha !== 'string' || !/^[a-f0-9]{40}$/.test(baseSha)) {
+    return res.status(409).json({ error: '請重新載入文章，取得目前版本後再儲存。' });
+  }
   if (typeof markdown !== 'string' || markdown.length < 10) {
     return res.status(400).json({ error: 'markdown required (≥10 chars)' });
   }
@@ -335,19 +346,23 @@ export default async function handler(req, res) {
   try {
     const file = await ghGetFile(`blog/${slug}.html`);
     if (!file) return res.status(404).json({ error: 'not found' });
+    if (baseSha !== file.sha) return res.status(409).json({ error: '文章已有較新版本，請保留草稿並重新比較。' });
+    if (!markdownCanRoundTrip(file.content)) {
+      return res.status(409).json({ error: '本文含雙語內容，Markdown 轉換會遺失翻譯。請使用視覺編輯器。' });
+    }
     const newProse = markdownToHtml(markdown);
     // Replace just the inner of <div id="proseZh">
     const out = file.content.replace(
       /(<div\s+id="proseZh"[^>]*>)[\s\S]*?(<\/div>\s*<\/article>)/i,
-      `$1\n\n${newProse}\n\n$2`
+      (_, opening, closing) => `${opening}\n\n${newProse}\n\n${closing}`
     );
-    if (out === file.content) return res.status(200).json({ ok: true, noop: true });
+    if (out === file.content) return res.status(200).json({ ok: true, noop: true, sha: file.sha });
     const result = await commitArticleWithModifiedDate({
       slug,
       content: out,
       articleSha: file.sha,
       message: `admin: edit ${slug} via Markdown mode`,
     });
-    res.status(200).json({ ok: true, commit: result.commitSha });
-  } catch (e) { res.status(500).json({ error: String(e.message || e) }); }
+    res.status(200).json({ ok: true, commit: result.commitSha, sha: articleBlobSha(out) });
+  } catch (e) { res.status(e instanceof GitHubConflictError ? 409 : 500).json({ error: String(e.message || e) }); }
 }

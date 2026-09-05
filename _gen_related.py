@@ -37,7 +37,7 @@ if not m:
 
 # Each {…} object on its own; not all keys are present on every line.
 articles = []
-for body in re.finditer(r'\{([^{}]*)\}', m.group(1)):
+for body in _articles_field.RECORD_RE.finditer( m.group(1)):
     rec = {}
     for k in ('slug', 'title', 'title_en', 'cat', 'tag', 'tag_en', 'date', 'updated'):
         mm = _articles_field.FIELD_RE(k).search(body.group(1))

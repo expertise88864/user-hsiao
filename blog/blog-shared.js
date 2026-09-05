@@ -3812,7 +3812,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260668';
+    s.src = '/blog/blog-admin.js?v=20260669';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -4773,9 +4773,9 @@
     catch (e) { return null; }
   };
 
-  DN.saveDraft = async function (slug, html) {
+  DN.saveDraft = async function (slug, html, baseSha) {
     var key = 'draft-' + slug + '.json';
-    var payload = JSON.stringify({ slug: slug, html: html, ts: Date.now() });
+    var payload = JSON.stringify({ slug: slug, html: html, baseSha: baseSha, ts: Date.now() });
     try {
       var dir = await DN.openOpfsDir();
       if (dir) {
@@ -4843,14 +4843,15 @@
     }
   };
 
-  DN.queueOfflineSave = function (slug, html) {
+  DN.queueOfflineSave = function (slug, html, baseSha) {
+    if (!/^[a-f0-9]{40}$/.test(baseSha || '')) return false;
     if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return false;
     var capability = DN._offlineSaveTokens[slug];
     if (!capability || capability.expiresAt <= Date.now() + 60000) return false;
     try {
       navigator.serviceWorker.controller.postMessage({
         type: 'QUEUE_SAVE',
-        payload: { slug: slug, html: html, token: capability.token, ts: Date.now() },
+        payload: { slug: slug, html: html, baseSha: baseSha, token: capability.token, ts: Date.now() },
       });
       navigator.serviceWorker.ready.then(function (reg) {
         if (reg.sync) reg.sync.register('admin-save-replay').catch(function () {});
@@ -5390,6 +5391,9 @@
       safeCall('bindBlogFilter', function () { DN.bindBlogFilter(); });
     }
 
+    // Bind the visible search control before idle work, so its first click works.
+    safeCall('initCmdK', function () { DN.initCmdK(); });
+
     // Admin WYSIWYG mode (only when ?admin=1 in URL) — must run AFTER hero
     // injection so the editable selectors include the H1, but BEFORE Phase 2
     // related-articles/share toolbar (which we hide in admin mode anyway).
@@ -5409,7 +5413,6 @@
       safeCall('injectSpeculationRules', function () { DN.injectSpeculationRules(); });   // Chromium prerender hint (v37.30)
       safeCall('bindAlgoliaDocSearch', function () { DN.bindAlgoliaDocSearch(); });   // upgrades to DocSearch if creds in <meta>
       safeCall('bindLottieHero', function () { DN.bindLottieHero(); });         // mount Lottie players on [data-lottie] divs
-      safeCall('initCmdK', function () { DN.initCmdK(); });           // Cmd/Ctrl+K global search modal (rare path)
       safeCall('injectReadProgress', function () { DN.injectReadProgress(); });
       safeCall('addFontSizer', function () { DN.addFontSizer(); });
       safeCall('bindFAQDeepLink', function () { DN.bindFAQDeepLink(); });
@@ -5464,11 +5467,13 @@
         document.querySelectorAll('[data-calc]').forEach(function (el) {
           var name = el.getAttribute('data-calc');
           var sel = '[data-calc="' + name + '"]';
-          if (name === 'osdi')           DN.injectOSDI(sel);
-          else if (name === 'deq5')      DN.injectDEQ5(sel);
-          else if (name === 'snellen')   DN.injectSnellenLogMAR(sel);
-          else if (name === 'se')        DN.injectSphericalEquivalent(sel);
-          else if (name === 'floater')   DN.injectFloaterRedFlag(sel);
+          safeCall('calculator:' + name, function () {
+            if (name === 'osdi')           DN.injectOSDI(sel);
+            else if (name === 'deq5')      DN.injectDEQ5(sel);
+            else if (name === 'snellen')   DN.injectSnellenLogMAR(sel);
+            else if (name === 'se')        DN.injectSphericalEquivalent(sel);
+            else if (name === 'floater')   DN.injectFloaterRedFlag(sel);
+          });
         });
         safeCall('applyTextOnly', function () { DN.applyTextOnly(curLang); });
       }, { timeout: 1500 });

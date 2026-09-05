@@ -18,72 +18,35 @@ must run first (so EN mirror gets full-width zh punctuation), and `_gen_csp_hash
 must run last (so hashes match the final HTML state).
 
 ```bash
-# ── 1. ZH punctuation normalization ─────────────────────────────────────
+# Optional for new or updated share cards:
+python _gen_og_images.py
+# build-chain:start
 python halfwidth_to_fullwidth.py
-
-# ── 2. Feeds + catalog artifacts ───────────────────────────────────────
-python _gen_feeds.py                  # sitemap.xml + RSS + Atom + JSON Feed
-python _gen_related.py                # assets/related.json + "related reads"
-                                       # block inside each article
-
-# ── 3. SERP / social / FAQ schema normalization ────────────────────────
-python _gen_serp_meta.py              # syncs og:image:alt, twitter:image:alt,
-                                       # MedicalWebPage description, and inner
-                                       # JSON-LD image.name/caption
-python _gen_faqpage_jsonld.py         # normalises FAQPage schema across all
-                                       # articles + homepage (rebuilds JSON-LD
-                                       # from .myth/.truth blocks)
-
-# ── 4. OG card (only when title/desc/cover changes) ─────────────────────
-python _gen_og_images.py              # generate or refresh /assets/og/<slug>.png
-                                       # (+ .webp); use --force-all to rebuild
-                                       # every card
-
-# ── 5. EN mirror ───────────────────────────────────────────────────────
-python _gen_en_pages.py               # /en/<slug>.html with data-en swap
-
-# ── 6. Search + AI surfaces ────────────────────────────────────────────
-python _gen_search_index.py           # assets/search-index.json (PageFind seed)
-python _gen_api_content_snapshot.py   # deployment-local sitemap/feed/OG fallback
-python _gen_llms_txt.py               # llms.txt for LLM crawlers
-python _gen_opensearch.py             # opensearch.xml metadata
-
-# ── 7. Profile / site graph schemas ────────────────────────────────────
-python _gen_profile_schema.py         # ProfilePage JSON-LD on about.html +
-                                       # en/about.html
-python _gen_site_graph.py             # WebSite hasPart graph (5 anchor pages);
-                                       # corrects EN strings overwritten by step 7
-python _gen_route_canonicals.py       # normalises canonical href forms across
-                                       # all HTML
-
-# ── 8. A11y + view transitions + image priority (apply scripts) ───────
-# These inject the skip-link CSS, view-transition meta, and fetchpriority="high"
-# on the first <img>. CI does NOT auto-run them, but skip-link CSS being missing
-# causes the visible "跳至主要內容" defect.
-python _apply_i_series.py             # skip-link CSS + focus-visible styles
-python _apply_a11y_vt.py              # @view-transition + reduced-motion CSS
-python _apply_trusted_types.py         # synchronous Trusted Types bootstrap
-python _apply_f10_image_priority.py   # fetchpriority="high" on first <img>
-
-# ── 9. Critical CSS + CSP hashes (CSP must run LAST) ─────────────────────
-python _extract_critical_css.py       # above-the-fold CSS inline
-# M-05: added to match the authoritative chain in quality.yml
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py
+python _gen_feeds.py
+python _gen_related.py
+python _gen_serp_meta.py
+python _gen_faqpage_jsonld.py
+python _gen_en_pages.py
+python _gen_search_index.py
+python _gen_api_content_snapshot.py
+python _gen_llms_txt.py
 python _gen_llms_full_txt.py
+python _gen_opensearch.py
+python _gen_profile_schema.py
+python _gen_site_graph.py
+python _gen_route_canonicals.py
+python _apply_i_series.py
+python _apply_a11y_vt.py
+python _apply_trusted_types.py
+python _apply_f10_image_priority.py
 python _normalize_skiplinks.py
-python _gen_csp_hashes.py             # hash-based CSP allowlist (middleware.js)
-
-# ── 10. Validation gate ────────────────────────────────────────────────
-python validate.py                    # title/desc length, OG, a11y
-python _check_article_listings.py     # listing parity (CI-blocking)
-python _check_meta.py                 # SEO meta uniqueness
-python _check_js_syntax.py            # real JS parse (node --check) incl. blog-shared.js
-python _check_internal_links.py       # 404 internal links
-python _check_bilingual_attrs.py      # data-zh / data-en pairing
-python _check_serp_fallbacks.py       # SERP/social fallback catalogue
-python halfwidth_to_fullwidth.py --dry-run   # MUST print "WOULD WRITE: 0 files"
+python _extract_critical_css.py
+python _gen_csp_hashes.py
+# build-chain:end
+python validate.py
 ```
 
 ### Idempotency warning
@@ -105,18 +68,35 @@ the resulting changes, and push again.
 ### Quick chain (paste-and-go, one line)
 
 ```bash
-python halfwidth_to_fullwidth.py && python _gen_feeds.py && python _gen_related.py && \
-python _gen_serp_meta.py && python _gen_faqpage_jsonld.py && python _gen_og_images.py && \
-python _gen_en_pages.py && python _gen_search_index.py && python _gen_api_content_snapshot.py && python _gen_llms_txt.py && \
-python _gen_opensearch.py && python _gen_profile_schema.py && python _gen_site_graph.py && \
-python _gen_route_canonicals.py && python _apply_i_series.py && python _apply_a11y_vt.py && \
-python _apply_trusted_types.py && \
-python _apply_f10_image_priority.py && python _extract_critical_css.py && \
-python _gen_csp_hashes.py && \
-python validate.py && python _check_article_listings.py && python _check_meta.py && \
-python _check_js_syntax.py && python _check_internal_links.py && \
-python _check_bilingual_attrs.py && python _check_serp_fallbacks.py && \
-python halfwidth_to_fullwidth.py --dry-run
+# Optional for new or updated share cards:
+python _gen_og_images.py
+# build-chain:start
+python halfwidth_to_fullwidth.py
+python _normalize_reviewed_by.py
+python _normalize_entity_links.py
+python _inject_speed_insights.py
+python _gen_feeds.py
+python _gen_related.py
+python _gen_serp_meta.py
+python _gen_faqpage_jsonld.py
+python _gen_en_pages.py
+python _gen_search_index.py
+python _gen_api_content_snapshot.py
+python _gen_llms_txt.py
+python _gen_llms_full_txt.py
+python _gen_opensearch.py
+python _gen_profile_schema.py
+python _gen_site_graph.py
+python _gen_route_canonicals.py
+python _apply_i_series.py
+python _apply_a11y_vt.py
+python _apply_trusted_types.py
+python _apply_f10_image_priority.py
+python _normalize_skiplinks.py
+python _extract_critical_css.py
+python _gen_csp_hashes.py
+# build-chain:end
+python validate.py
 ```
 
 ---

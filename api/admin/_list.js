@@ -5,6 +5,7 @@
  * a separate database — the array in blog-shared.js is canonical.
  */
 import { requireAdmin, ghGetFile } from './_auth.js';
+import { catalogRecords } from '../_articles.js';
 
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
@@ -22,15 +23,8 @@ export default async function handler(req, res) {
     if (!m) return res.status(500).json({ error: 'DN.ARTICLES not found in blog-shared.js' });
 
     const articles = [];
-    const blockSrc = m[1];
-    const getField = (body, key) => {
-      const mm = body.match(new RegExp(`${key}\\s*:\\s*'([^']*)'`));
-      return mm ? mm[1] : '';
-    };
-    const lineRe = /\{([\s\S]*?)\}/g;
-    let row;
-    while ((row = lineRe.exec(blockSrc)) !== null) {
-      const body = row[1];
+    const getField = (body, key) => body[key] || '';
+    for (const { values: body } of catalogRecords(file.content)) {
       const slug = getField(body, 'slug');
       if (!slug) continue;
       articles.push({

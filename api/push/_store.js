@@ -9,13 +9,12 @@
 import {
   kvAvailable,
   kvGet,
-  kvGetJSON,
+  kvMigrateJSONHash,
   kvHDel,
   kvHGet,
   kvHGetAll,
   kvHLen,
   kvHSet,
-  kvSet,
 } from '../_kv.js';
 
 const HASH_KEY = 'push:subscribers:v2';
@@ -30,21 +29,7 @@ async function ensureMigrated() {
   if (!kvAvailable()) throw new Error('Private push storage is not configured');
   if (await kvGet(MIGRATION_KEY)) return;
 
-  const count = await kvHLen(HASH_KEY);
-  if (count == null) throw new Error('Push storage is unavailable');
-  if (Number(count) === 0) {
-    const legacy = await kvGetJSON(LEGACY_KEY);
-    if (Array.isArray(legacy)) {
-      for (const sub of legacy) {
-        if (!sub || typeof sub.endpoint !== 'string') continue;
-        const stored = await kvHSet(HASH_KEY, sub.endpoint, JSON.stringify(sub));
-        if (!stored) throw new Error('Push subscription migration failed');
-      }
-    }
-  }
-  if (!(await kvSet(MIGRATION_KEY, '1'))) {
-    throw new Error('Push subscription migration marker failed');
-  }
+  await kvMigrateJSONHash(LEGACY_KEY, HASH_KEY, MIGRATION_KEY);
 }
 
 export async function loadSubscriptions() {

@@ -31,7 +31,7 @@ def parse_articles() -> list[dict[str, str]]:
         return _articles_field.unescape(mm.group(1)) if mm else ''
 
     out = []
-    for obj in re.finditer(r'\{([\s\S]*?)\}', m.group(1)):
+    for obj in _articles_field.RECORD_RE.finditer( m.group(1)):
         body = obj.group(1)
         slug = field(body, 'slug')
         if not slug or slug in stubs:

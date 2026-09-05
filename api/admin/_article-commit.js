@@ -1,4 +1,5 @@
 import { ghCommitFiles, ghGetFile } from './_github.js';
+import { catalogRecords, patchCatalogFields } from '../_articles.js';
 
 function taipeiToday() {
   return new Intl.DateTimeFormat('en-CA', {
@@ -10,30 +11,11 @@ function taipeiToday() {
 }
 
 export function updateCatalogModified(source, slug, updated = taipeiToday()) {
-  const block = source.match(/DN\.ARTICLES\s*=\s*\[([\s\S]*?)\];/);
-  if (!block) return null;
-  const safeSlug = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const row = block[1].match(new RegExp(`\\{[^{}]*?slug\\s*:\\s*'${safeSlug}'[^{}]*?\\}`));
-  if (!row) return { content: source, published: false };
-
-  let patchedRow;
-  if (/\bupdated\s*:\s*'\d{4}-\d{2}-\d{2}'/.test(row[0])) {
-    patchedRow = row[0].replace(
-      /\bupdated\s*:\s*'\d{4}-\d{2}-\d{2}'/,
-      `updated:'${updated}'`
-    );
-  } else if (/\bdate\s*:\s*'\d{4}-\d{2}-\d{2}'/.test(row[0])) {
-    patchedRow = row[0].replace(
-      /(\bdate\s*:\s*'\d{4}-\d{2}-\d{2}')/,
-      `$1, updated:'${updated}'`
-    );
-  } else {
-    return null;
-  }
-  return {
-    content: source.replace(row[0], patchedRow),
-    published: true,
-  };
+  try {
+    const row = catalogRecords(source).find(r => r.values.slug === slug);
+    if (!row) return { content: source, published: false };
+    return { content: patchCatalogFields(source, { [slug]: { updated } }), published: true };
+  } catch (e) { return null; }
 }
 
 export async function commitArticleWithModifiedDate({

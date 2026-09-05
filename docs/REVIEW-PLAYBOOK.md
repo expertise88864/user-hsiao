@@ -7,6 +7,20 @@
 >
 > 現況判定基準：commit `66745a6`（2026-06，cache-bust `v=20260664`），閘門 `_check_all.py --quick` = **59 pass / 0 warn / 0 fail**。
 
+## 2026-09-05 修正覆核
+
+本次以 `433ce06` 為修正基準，對完整 review 的 R01–R11 落實修正：
+
+- 視覺編輯器以 authenticated GET 取得原始 HTML 與 blob SHA；視覺、Markdown、離線重送均須送出原版本，過期回 409。舊版本本地草稿另存備份並提供下載。
+- 含 `data-zh` / `data-en` 的文章禁止 Markdown 儲存，使用視覺編輯器保留翻譯；尚未提供無損雙語 Markdown round-trip。
+- 推播 migration 以單次 Redis Lua 補齊所有 legacy 訂閱，HSETNX 保留較新資料，完成後才寫 marker。
+- 搜尋在 idle 前綁定；每個計算器初始化各自隔離例外。
+- live API 使用共用 literal catalog parser，安全處理跳脫引號與字串中的大括號；字數欄位按 token 更新，重算無差異回 noop。
+- Python catalog consumers 共用跳脫感知的欄位／record 擷取；JSON-LD 錯誤訊息顯示檔名。
+- CMS regen 使用 `preflight.py --run-chain` 執行 quality.yml 的 24 步權威链；skip-link prune 在 injection 後，文件檢查核對真正命令與順序。
+
+驗證：完整 preflight 固定點與 64 項靜態檢查通過；新增 API、Python、瀏覽器回歸案例涵蓋上述失敗路徑。外審結果以審查證據與 commit trailers 為準，不據此小節宣稱 Claude 通過。cache epoch `20260669`。歷史 pending 清單仍保留，不能以本次修正取代未完成的歷史覆核。
+
 ---
 
 ## 0. 架構總覽（30 秒理解這個站）
