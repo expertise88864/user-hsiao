@@ -3,7 +3,7 @@
  * GET /api/og?title=...&tag=...     → ad-hoc OG card with custom title + tag
  *
  * Uses @vercel/og (a thin wrapper around satori + resvg) to render JSX → PNG
- * at the edge. Output is identical visual style to the static cards in
+ * on Node.js. Output is identical visual style to the static cards in
  * /assets/og/*.png that _gen_og_images.py used to produce.
  *
  * Missing /assets/og/<slug>.png files are rewritten here by vercel.json.
@@ -17,7 +17,8 @@ import { ghGetFile } from './admin/_github.js';
 import { FALLBACK_ARTICLES } from './_content_snapshot.js';
 import { catalogRecords } from './_articles.js';
 
-export const config = { runtime: 'edge' };
+// Use Vercel's Node.js Web handler: the Edge deployment bundle rejects
+// @vercel/og as an unsupported external module (Vercel CLI 59.11.7).
 
 async function lookupTitle(slug) {
   let file;
@@ -36,7 +37,7 @@ async function lookupTitle(slug) {
   return article ? { title: article.title, tag: article.tag } : null;
 }
 
-export default async function handler(req) {
+export async function GET(req) {
   const url = new URL(req.url);
   const slug = url.searchParams.get('slug') || '';
   let title = url.searchParams.get('title');
@@ -144,7 +145,8 @@ export default async function handler(req) {
     width: 1200,
     height: 630,
     headers: {
-      'Cache-Control': 'public, max-age=86400, s-maxage=3600, stale-while-revalidate=604800',
+      // Match the library's key casing to replace its immutable one-year default.
+      'cache-control': 'public, max-age=86400, s-maxage=3600, stale-while-revalidate=604800',
     },
   });
 }
