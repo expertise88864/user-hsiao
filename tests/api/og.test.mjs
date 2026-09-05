@@ -3,6 +3,16 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import * as og from '../../api/og.js';
 
+test('API package independently declares and locks its OG runtime dependency', async () => {
+  const readJSON = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
+  const root = await readJSON('../../package.json');
+  const api = await readJSON('../../api/package.json');
+  const lock = await readJSON('../../api/package-lock.json');
+  assert.equal(api.dependencies?.['@vercel/og'], root.dependencies['@vercel/og']);
+  assert.equal(lock.packages[''].dependencies['@vercel/og'], api.dependencies['@vercel/og']);
+  assert.ok(lock.packages['node_modules/@vercel/og']?.integrity);
+});
+
 test('OG route uses the Node.js Web handler instead of an Edge bundle', () => {
   assert.equal(typeof og.GET, 'function');
   assert.notEqual(og.config?.runtime, 'edge');
