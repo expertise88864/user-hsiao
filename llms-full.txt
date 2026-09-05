@@ -2362,13 +2362,13 @@ TFOS DEWS II（2017）的乾眼症治療採階梯式策略（Step 1–4），從
 
 ---
 
-## 白內障手術深度選擇 — 術式、人工水晶體、健保 vs 自費完整解析
+## 白內障手術與人工水晶體怎麼選？健保、自費與術式比較
 
 - Canonical: https://hsiao.chendermatologist.com/blog/cataract-surgery-selection
 - English mirror: https://hsiao.chendermatologist.com/en/blog/cataract-surgery-selection
 - Topic: 白內障 · Published 2026-05-11 · Updated 2026-05-18
 
-> 白內障手術怎麼選才不被話術牽著走？比較超音波、飛秒雷射、MSICS、IOL 分類、Monovision、散光矯正、度數計算公式、健保與自費差異，整理台灣實務重點。
+> 白內障手術種類有哪些？健保與自費人工水晶體差在哪？比較超音波、飛秒雷射等術式，以及單焦、多焦、延焦深與散光人工水晶體的取捨，整理術前評估、生活需求與回診可問的問題，協助你與醫師討論選擇。
 
 白內障手術三大決策節點：每位被告知要開白內障的病人，都需要與醫師討論三件事：① 術式──傳統超音波（健保主流、黃金標準）vs 飛秒雷射 FLACS（自費；FEMCAT trial 與多項指引一致認為「未證實更好」）vs MSICS 小切口囊外摘除（特定情境用，例如極熟核或設備受限）；② 人工水晶體──單焦（健保／自費都可）、散光 toric（散光 > 1.5 D 才需要）、延焦深 EDOF（補強中距離）、多焦／三焦（脫鏡換夜間光暈）、光可調整 LAL（術後可微調度數）；③ 健保 vs 自費──健保已完整給付超音波手術 + 基本單焦水晶體，自費差額是「功能升級」（散光矯正、延焦、多焦、LAL、FLACS）而非「升級成不一樣的手術」。下方各章節將每一節點深入解析。
 
@@ -3630,13 +3630,13 @@ Marcocci C, Kahaly GJ, Krassas GE, et al.（為一般 Cochrane 引述背景之�
 
 ---
 
-## 淚腺腫瘤 6 個關鍵問題 — 為什麼會痛？能保留眼球嗎？
+## 淚腺腫瘤與淚腺癌：症狀、檢查與治療的 6 個問題
 
 - Canonical: https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor
 - English mirror: translation in progress
 - Topic: 淚腺腫瘤 · Published 2026-05-06 · Updated 2026-05-18
 
-> 眼睛凸出來、淚腺區疼痛、視力下降 — 可能是淚腺腫瘤（尤其腺樣囊狀癌 ACC)。整理 IJO 2024 Meta-analysis、MD Anderson 質子治療與動脈內化療最新證據，回答家長與病友最常問的 6 個問題：診斷、治療選項、保留眼球可行嗎？放療後視力會剩多少？蕭閔謙醫師（眼科）整理。
+> 淚腺腫瘤一定是癌症嗎？眼球突出、疼痛時要做哪些檢查？整理良性與惡性淚腺腫瘤的差異，聚焦淚腺癌中的腺樣囊狀癌，說明保留眼球手術、放射治療、動脈內化療與追蹤的常見問題，附研究來源與治療限制。
 
 淚腺位於右眼眶外上角，分為較大的眼眶葉（orbital lobe）與較小的眼瞼葉（palpebral lobe）。腫瘤多由眼眶葉開始，可沿三叉神經眼支向後侵犯到眼眶尖端與顱底，造成持續性鈍痛（神經周圍侵犯， perineural invasion）。
 
@@ -4406,13 +4406,13 @@ Yen WT, Weng TH, Lin TY, et al. Femtosecond laser-assisted astigmatic keratotomy
 
 ---
 
-## 監測兒童近視，該追蹤「度數」還是「眼軸」？2026 統合分析的新觀點
+## 兒童近視追蹤：度數與眼軸長度怎麼看？
 
 - Canonical: https://hsiao.chendermatologist.com/blog/monitoring-myopia-ser-vs-axial-length
 - English mirror: https://hsiao.chendermatologist.com/en/blog/monitoring-myopia-ser-vs-axial-length
 - Topic: 兒童近視 · Published 2026-05-13 · Updated 2026-05-13
 
-> Clark & Wong 2026 AJO 統合分析（70 篇人群研究）：大多數兒童應以等價球面度數（SER）為近視監測主軸，眼軸長度（AL）保留給長尾族群。整理眼軸/度數對視網膜、白內障、青光眼的預測力與證據限制。
+> 孩子近視追蹤要看度數還是眼軸長度？整理兩種測量代表的意義、適用情境與研究限制，解讀等價球面度數和眼軸長度的差異，以及門診追蹤可與醫師討論的問題。依 Clark 與 Wong 2026 統合分析整理。
 
 兩種測量、兩種視角。Clark & Wong 2026 統合分析的核心觀察：度數（SER）對白內障與青光眼提供更清楚的風險梯度，而且不太受身高、性別、族裔的影響，適合大多數兒童的主要監測指標。眼軸（AL）對「視網膜病變」最敏感，特別在 ≥ 26 mm 的長眼，但只有 10% 左右的近視眼睛會進入這個長尾。作者建議：以 SER 為「主要監測指標」，眼軸作為「重點族群（眼軸進入長尾）的追蹤工具」，並建議眼軸用百分位數（搭配年齡、身高、性別、族裔）判讀，而不是單一絕對門檻。本圖根據原文 Figure 2–3 概念改編。
 
@@ -4820,13 +4820,13 @@ SER vs 眼軸：監測該追哪一個— 2026 統合分析、90%/10% 框架、�
 
 ---
 
-## 兒童近視控制鏡片（DIMS）有效嗎？2026 新整合分析重點解析
+## DIMS 兒童近視控制鏡片有效嗎？適合對象與配戴重點
 
 - Canonical: https://hsiao.chendermatologist.com/blog/dims-pediatric-myopia-control
 - English mirror: https://hsiao.chendermatologist.com/en/blog/dims-pediatric-myopia-control
 - Topic: 兒童近視 · Published 2026-05-12 · Updated 2026-05-12
 
-> DIMS 鏡片 12 個月可比單焦鏡片多保留約 0.37 D 度數、少增長 0.16 mm 眼軸。整合 2026 AJO 統合分析（6 篇 RCT、1224 位兒童）、Lam 2020/2023 與 Cochrane 2023 living review，蕭閔謙醫師（眼科）解析。
+> DIMS 離焦鏡片是什麼、適合哪些近視兒童？整理近視度數與眼軸的研究結果，說明與阿托品、角膜塑型片等方法的比較、配戴注意事項、追蹤與常見疑問。附原始研究及證據限制，協助家長準備眼科回診問題。
 
 DIMS 鏡片光學設計（右）：中央有一個正常的光學區矯正近視度數，鏡片中周邊鑲嵌許多微透鏡段（提供額外 +3.50 D 正度數），在周邊視野產生「近視性離焦」訊號，研究推測這個訊號可以抑制眼軸異常增長。一般單焦鏡片（左）整片只有單一光學區，只負責矯正度數。2026 年新發表的整合分析（Al-Shammari 等，Am J Ophthalmol；6 篇研究、1224 位兒童）顯示 DIMS 鏡片在 12 個月內比一般單焦鏡片多保留約 0.37 D 度數、少增長 0.16 mm 眼軸，差距具有統計意義。但要清楚知道：「有效」不等於「停止近視」，戴 DIMS 的孩子仍會繼續近視，只是進展速度比一般眼鏡慢。
 
@@ -5973,7 +5973,7 @@ A：三大項目對照（最新給付以中央健保署公告為準）：
 
 ## Additional Articles (links only — size budget reached)
 
-- [青光眼完整衛教 — 沉默的視力小偷、急性發作警訊、治療階梯](https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide)
+- [青光眼症狀、檢查與治療：早期沒症狀怎麼發現？](https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide)
 - [甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯](https://hsiao.chendermatologist.com/blog/thyroid-eye-disease)
 - [兒童近視控制 8 大迷思 — 阿托品、OK 鏡、紅光、戶外時間](https://hsiao.chendermatologist.com/blog/pediatric-myopia-control)
 - [飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！](https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment)

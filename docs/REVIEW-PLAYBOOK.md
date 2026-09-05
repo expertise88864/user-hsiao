@@ -199,18 +199,18 @@ python _check_og_images.py
 ## 8. RAG-ready 架構 + AI 搜尋優化（GEO/AEO）
 <!-- 現況判定由審查代理補完 -->
 
-**判準**（依 Princeton GEO 研究 + session 成長研究的已驗證結論）：
-- **可抽取性**：H2/H3 有穩定 id；每個標題下第一段 40-60 字內給直接結論（answer-first——AI 引用最大單一槓桿）；段落自包含；結構化事實用表格/清單。
-- **權威訊號**：統計數字附來源、引述指引原文、DOI 連結（低權威站的 AI 引用槓桿 +30~40%）。
-- **表面檔案**：robots 對 AI 開放（D-01 ✅）；llms.txt + llms-full.txt 存在即可，**不再投資**（外部審計顯示 AI bot 實際讀取率近零——session 研究結論）。
-- **誠實預期**：低權威 YMYL 站近期拿不到 AI 引用（模型偏好政府/大機構來源）；這是 12-24 個月的底層工程，近期贏面在長尾排名與人為分享。
+**判準**（內容可讀性與可抽取性；不預設搜尋或引用增幅）：
+- **可抽取性**：H2/H3 有穩定 id；每個標題下第一段先給直接結論（answer-first；以 40-60 字為編輯參考，不省略醫療限制）；段落自包含；結構化事實用表格/清單。
+- **來源可驗證性**：現有統計數字與適當引述附來源、提供 DOI 或原始指引連結，便於讀者核對；不能把研究環境的引用增幅套用本站，也不為追求引用而新增未核可數字。
+- **表面檔案**：robots 對 AI 開放（D-01 ✅）；llms.txt + llms-full.txt 存在即可，**不再投資**（本站尚無可驗證的新增流量效益，不以檔案存在推定成效）。
+- **誠實預期**：AI 引用與搜尋點擊應分開量測，不能保證固定時程或幅度；成長優先序需依當期 GSC 與線上資料判斷（見 GROWTH-PLAYBOOK）。
 
 **檢查指令**：
 ```bash
 grep -c "data-faq-auto" blog/*.html | grep -v ":0"   # FAQPage 覆蓋
 grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
-# answer-first 抽查：開一篇文，看前 3 個 H2 的第一段是否 60 字內給結論
-# AI 引用量測：docs/GROWTH-PLAYBOOK.md 的 15 題月度 prompt 協定
+# answer-first 抽查：逐頁看前 3 個 H2 是否先回答問題；40-60 字僅為編輯參考，必須保留醫療限制
+# AI 引用與搜尋成效分開量測：docs/GROWTH-PLAYBOOK.md §4
 ```
 
 ---
@@ -292,11 +292,11 @@ grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
 | 5 | schema.org | ✅ PASS（★深度審查） | 全 `_check_*schema*` 綠；reviewedBy inline（@id 對齊 /about#person）；★P5 `_gen_en_pages` JSON-LD 在地化/FAQPage drop 核實；★Sweep `_schema-helper` 逐 block strip 修正 | **M-08**（@graph FAQPage 漏，潛伏）；sameAs 待站主 URL（D-08） |
 | 6 | Core Web Vitals | ✅ PASS（★深度審查） | CI Lighthouse 綠；★P2 sw.js 全檔（P-02✅ ignoreSearch fallback）；★P5 critical-css 生成器；★**R2-3** `/icon.svg` `/favicon.ico` 誤標 `immutable` 已依 D-11 修正並納入 checker（14 條規則） | P-01（字型）P-03 ✅（speculationrules 已合併）**P-04 ✅、P-05 ✅ |
 | 7 | Metadata | ✅ PASS（★深度審查） | `_check_metadata_uniqueness`/`_check_social_locale` 綠（★R2-1 修正前者只在重複 >2 時才報的偽陰性）；★P5 `_gen_en_pages` head 手術核實（title/desc/OG/canonical/hreflang） | T-02（新文 OG 404） |
-| 8 | RAG / AI 搜尋 | 🟠 PARTIAL | robots 已開放（D-01）、FAQ×20、llms-full.txt 有；但多數文章非 answer-first | C-02（answer-first 改寫，最大槓桿）；量測見 GROWTH-PLAYBOOK |
+| 8 | RAG / AI 搜尋 | 🟠 PARTIAL | robots 已開放（D-01）、FAQ×20、llms-full.txt 有；answer-first 需逐頁確認是否已有摘要及改善必要 | C-02（answer-first 可讀性改善，需量測效果）；量測見 GROWTH-PLAYBOOK |
 | 9 | 可維護性 | 🟠 PARTIAL（改善） | 建置鏈由 preflight 動態解析；★§9 耦合矩陣 P5 補完、**R2-3 逐列變異測試複驗**並加上「CI 守門」欄；★M-06✅ 以 checker 強制（D-24）；★R2-2 補上 `blog-shared.js` 內硬寫 `?v=` 的未守耦合；M-03/M-04 已修 | **M-05**（M-01 ✅、M-02 ✅、M-07 ✅）；2 個未守耦合見 §9（halfwidth admin 路徑、reviewedBy Person） |
 | 10 | 內容正確性 | ⛔ 不可機器判定 | 見 §10 | C-01（兩篇待寫，站主定案） |
 
-**一句話總結**：技術面已是頂標、**59 個檢查器**（`--quick`）守著，且工單 2026-07 五大高風險面深度審查 + Sweep A/B/C 補完未讀面 + Round 2 三批（驗證器 / `blog-shared.js` 後半 / 架構橫向）皆三閘全綠上線；**覆蓋範圍見上方誠實聲明**。Round 2 最大的發現不是功能 bug，而是**假保證**——恆真的檢查器、文件宣稱有守但實際沒守的耦合、把「我不知道」render 成「沒問題」的 CI 工具；對策已寫成制度（§9 CI 守門欄 + 「檢查器本身也要用變異測試審」）。**真正的成長瓶頸仍在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。程式端剩的都是 BACKLOG 裡分級好的 polish/中度債 + 少數潛伏項（M-07 ✅／M-08 ✅／P-04 ✅／P-05 ✅ 皆已修並上線;剩 M-05／M-09／M-12～M-15,新開 M-16／M-17），**無 🔴 會壞站的項目**。
+**歷史評估（2026-07；當期診斷請依 GROWTH-PLAYBOOK 重新核對）**：當時技術面評估為頂標、**59 個檢查器**（`--quick`）守著，且工單 2026-07 五大高風險面深度審查 + Sweep A/B/C 補完未讀面 + Round 2 三批（驗證器 / `blog-shared.js` 後半 / 架構橫向）皆三閘全綠上線；**覆蓋範圍見上方誠實聲明**。Round 2 最大的發現不是功能 bug，而是**假保證**——恆真的檢查器、文件宣稱有守但實際沒守的耦合、把「我不知道」render 成「沒問題」的 CI 工具；對策已寫成制度（§9 CI 守門欄 + 「檢查器本身也要用變異測試審」）。**真正的成長瓶頸仍在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。程式端剩的都是 BACKLOG 裡分級好的 polish/中度債 + 少數潛伏項（M-07 ✅／M-08 ✅／P-04 ✅／P-05 ✅ 皆已修並上線;剩 M-05／M-09／M-12～M-15,新開 M-16／M-17），**無 🔴 會壞站的項目**。
 
 ---
 

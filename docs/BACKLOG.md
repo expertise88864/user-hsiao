@@ -217,9 +217,9 @@
 - **驗收**：站主決定寫完整內容後，AI 可**協助**起草（重述已有引用支持的內容 + 標 TODO 讓醫師確認臨床細節），完成後：解除 STUB_SLUGS、robots 改 index、進 DN.ARTICLES + 3 處卡片、進 sitemap、走建置鏈。**臨床正確性由站主定案**。
 - **模型等級**：起草 Sonnet；正確性 = 站主。**關聯**：D-04。
 
-### C-02 🟠 answer-first 改寫（AI 引用最大槓桿）
-- **問題**：多數文章的 H2/H3 下第一段不是「先給結論」。研究顯示這是低權威站被 AI 引用的最大單一槓桿。
-- **驗收**：逐篇（趁日常更新順手）把每個標題下第一段改成 40-60 字內先給直接答案再展開。**不改臨床事實、只改語序**。優先 5 篇見 docs/GROWTH-PLAYBOOK.md。
+### C-02 🟠 answer-first 改寫（可讀性改善候選）
+- **問題**：部分文章可能需要縮短鋪陳，讓讀者先找到答案；先逐頁驗證是否已有摘要，不預設所有文章都需重寫，也不保證 AI 引用增幅。
+- **驗收**：逐篇（趁日常更新順手）把需改善的標題下第一段改為先給直接答案再展開；40-60 字僅為編輯參考，不能省略醫療限制。**不改臨床事實、只改語序**。優先頁面依 docs/GROWTH-PLAYBOOK.md §1 的當期資料判斷。
 - **模型等級**：Sonnet（語序重排，不碰醫療數字）。**關聯**：REVIEW-PLAYBOOK §8。
 
 ---
@@ -338,11 +338,11 @@
 - **⛔ 剔除（查證後不做，理由記錄以免後人重踩）**：
   - **`MedicalWebPage.specialty`**：`MedicalSpecialty` 列舉**沒有** ophthalmology 成員，最接近的 `Optometric` 是**驗光**。照多數醫療 SEO 文章的建議加上去，會把眼科醫師標成驗光師。**不做。**
   - **`medicalAudience`**：本站早已有 `audience: {MedicalAudience, audienceType: Patient}`。屬性名不同而非缺口，再加只是冗餘。**不做。**
-  - **搜到的「醫療 SEO 2026」文章群**（多為行銷公司內容）主推 `MedicalClinic`/`Physician` schema、local SEO、Google 商家、評論 —— 那是**有實體診所要導客掛號**的模型，與本站硬性約束（不得有掛號/廣告/彰基資訊）相反。**不採納。** 這正是 GROWTH-PLAYBOOK §2 警告的方向。
+  - **搜到的「醫療 SEO 2026」文章群**（多為行銷公司內容）主推 `MedicalClinic`/`Physician` schema、local SEO、Google 商家、評論 —— 那是**有實體診所要導客掛號**的模型，與本站硬性約束（不得有掛號/廣告/彰基資訊）相反。**不採納。** 這也受 GROWTH-PLAYBOOK §3 的作者資訊與內容核可規則限制。
   - **`speakable`**：本站已有（`_inject_medicalwebpage.py`），Google 已把它限縮到新聞出版商，無效但無害。**不動。**
 - **✅ 做了：實體連結（見 D-25）**。這是稽核後唯一確認的 schema 缺口——原本 `about` 只有 `name`/`alternateName`/ICD-10，**沒有任何 URI 指出它是哪個已知實體**。ICD-10 做不到這件事（它是分類不是身分，而且本站的碼有區間與部位限定：`H25-H26`、`H04.123`）。15 篇對應 + 9 篇明確豁免，`/en/` 鏡像自動繼承。
 - **稽核基線（做之前先量，避免重造）**：`blog/*.html` 26 檔的 JSON-LD 已有 `BreadcrumbList` 26、`MedicalWebPage` 24、`ItemList` 22、`MedicalScholarlyArticle` 20、`FAQPage` 19、`MedicalGuideline` 7；`about` 25、`citation` 16、`lastReviewed`/`reviewedBy` 24、`primaryImageOfPage` 20、`wordCount` 18。schema 面已相當完整，這也是為什麼只剩一個真缺口。
-- **仍在 playbook 手上、程式端幫不上**：answer-first 改寫（C-02，最大 AI 引用槓桿）、作者外部身分鏈（需站主提供 ORCID/LinkedIn URL，D-08）、站外連結與分發。**這些沒做完之前，schema 再完美也不會改變流量結論。**
+- **仍在 playbook 手上、程式端幫不上**：answer-first 改寫（C-02，可讀性改善候選）、作者外部身分鏈（需站主提供 ORCID/LinkedIn URL，D-08）、站外連結與分發。**此為歷史候選清單；當期瓶頸與順序依 GROWTH-PLAYBOOK 重新核對。**
 
 
 **S-08 修復並結案（2026-07-27，Opus 5）**：`.vercelignore` 原本只有 `_cms/`，加上 `*.py`／`docs/`／`*.md`／`.github/`／`tests/`／`scripts/`／`playwright.*.config.js` 與本機產物。

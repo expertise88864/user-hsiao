@@ -1,5 +1,16 @@
 # Codex instructions for HsiaoEye
 
+## 使用者最新定案：本機 CI 全過後推送，GitHub CI 全綠才交付（2026-09-06）
+
+- 所有專案、所有改動與任何分支均適用，包括文件、設定、生成物、修正及空 audit commit。
+- 每次 push 前，實際待推送版本必須通過完整適用的本機 CI 等效檢查，保存版本與結果證據；模型 review 不能替代 CI。
+- 使用者已明確授權「本機 CI 全過 → push → 驗證該 SHA 的 GitHub CI」流程，不要求第一次 push 前先取得尚未觸發的遠端 CI。
+- push 後核對該 SHA 所有適用 GitHub CI checks，全部成功才可宣告交付完成。失敗、取消、逾時、排隊、執行中、缺失、無法查證或應跑卻跳過都不是全綠；沒有 CI 也不能當成通過。
+- 修正、重新生成、合併、rebase 或新增 commit 後，重新驗證受影響的最終版本；不能拿舊 SHA 的結果替代新 SHA。
+- Claude 額度不足僅延後外審：依既有 pending trailers 與補審排程處理，仍須先通過本機 CI，且該 SHA 的 GitHub CI 全綠前不得宣告完成。audit push 同樣適用。
+- 不得用 --no-verify、skip-ci 標記、關閉檢查、降低門檻、修改 branch protection 或 force-push 繞過驗證。
+- 本規則取代舊的「遠端 CI 必須先於第一次 push」敘述；既有內容核可、模型、effort、審查、推送範圍與防覆寫規則仍須遵守。
+
 ## 📚 Institutional docs (docs/) — the durable source of truth
 
 Before non-trivial work, read the relevant file in `docs/`:
@@ -7,7 +18,7 @@ Before non-trivial work, read the relevant file in `docs/`:
 `MODEL-GUIDE.md` (model routing, harness limits, pre-push ritual) ·
 `REVIEW-PLAYBOOK.md` (review handbook + current-state verdicts) ·
 `BACKLOG.md` (open debt w/ acceptance criteria) ·
-`GROWTH-PLAYBOOK.md` (verified growth plan) ·
+`GROWTH-PLAYBOOK.md` (current search-performance diagnosis workflow) ·
 `ARTICLE-STANDARDS.md` (content rules). Tools: `python preflight.py`
 (pre-push gate) and `python _ci_status.py <sha> --watch` (CI without gh).
 When you (codex) do the pre-push diff review, DECISIONS.md is the baseline —
