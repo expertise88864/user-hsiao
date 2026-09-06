@@ -6,8 +6,8 @@ name: quality
 #   2. JSON-LD parse check (separate, deeper)
 #   3. Lighthouse CI on production URL after Vercel deploy
 #
-# To enable Lighthouse on PRs against Vercel preview deploys, set the
-# repository secret VERCEL_PREVIEW_URL or use the official Vercel Action.
+# Preview origins are resolved from exact-SHA Vercel deployment evidence.
+# Protected Preview access uses VERCEL_AUTOMATION_BYPASS_SECRET in memory only.
 
 on:
   push:
@@ -353,12 +353,7 @@ jobs:
     name: Lighthouse CI
     runs-on: ubuntu-latest
     needs: validate
-    if: github.event_name != 'schedule'
-    # Don't block CI on Lighthouse — production scores fluctuate with
-    # network/timing and small regressions shouldn't gate a deploy. The
-    # report itself is the value (uploaded as artifact); we just want
-    # visibility, not a hard gate. Switch to false once thresholds stabilise.
-    continue-on-error: true
+    if: github.event_name != 'schedule' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     steps:
       - uses: actions/checkout@v5
         with:
@@ -382,8 +377,22 @@ jobs:
             echo "url=$URL" >> "$GITHUB_OUTPUT"
           fi
 
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install Lighthouse browser dependencies
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
+        run: |
+          npm ci
+          CHROME=$(command -v google-chrome)
+          test -x "$CHROME"
+          echo "CHROME_PATH=$CHROME" >> "$GITHUB_ENV"
       - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v12
+        uses: treosh/lighthouse-ci-action@3e7e23fb74242897f95c0ba9cabad3d0227b9b18 # v12
+        env:
+          SITE_URL: ${{ steps.site.outputs.url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
         with:
           urls: |
             ${{ steps.site.outputs.url }}/
@@ -392,7 +401,7 @@ jobs:
             ${{ steps.site.outputs.url }}/blog/pediatric-myopia-control
             ${{ steps.site.outputs.url }}/blog/floaters-retinal-detachment
           uploadArtifacts: true
-          temporaryPublicStorage: true
+          temporaryPublicStorage: false
           configPath: ./.github/workflows/lighthouserc.json
 
   link-check:
@@ -409,13 +418,13 @@ jobs:
         run: |
           # validate.py already does internal link checking against the
           # filesystem. Just re-run with strict mode so warnings count.
-          python validate.py --strict || echo "::warning::SEO/link warnings present"
+          python validate.py --strict
 
   axe-a11y:
     name: A11y scan (axe-core)
     runs-on: ubuntu-latest
     needs: validate
-    if: github.event_name != 'schedule'
+    if: github.event_name != 'schedule' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
@@ -443,27 +452,17 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Install axe-cli + Puppeteer
-        run: npm install -g @axe-core/cli puppeteer
-
-      - name: Run axe-core on production URLs
-        # v37.20: re-enabled color-contrast (was disabled while warm-beige
-        # palette had #8b8378 muted text ~4.3:1 on #faf7f2 — just under AA).
-        # `--muted` was darkened to #6e6759 (~5.6:1) in app.css to clear AA.
-        # Removed `--exit` so axe still warns visibly without blocking the
-        # whole quality job — most pages PASS now; any new violation needs
-        # author attention but not a hard merge block.
+      - name: Install accessibility browser dependencies
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
         run: |
-          axe \
-            "$SITE_URL/" \
-            "$SITE_URL/blog/" \
-            "$SITE_URL/blog/dry-eye-myths" \
-            "$SITE_URL/blog/pediatric-myopia-control" \
-            "$SITE_URL/blog/floaters-retinal-detachment" \
-            "$SITE_URL/blog/lacrimal-gland-tumor" \
-            "$SITE_URL/tools" \
-            --tags wcag2a,wcag2aa,best-practice \
-            --save axe-report.json || echo "::warning::axe-core violations found — see report"
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Run axe-core on verified website URLs
+        env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
+        run: node scripts/axe-audit.cjs
 
       - name: Upload axe report
         if: always()

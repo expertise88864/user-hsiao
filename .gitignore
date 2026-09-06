@@ -47,3 +47,4 @@ delivery-preview/
 
 # Local independent review evidence is not published to the website/repository.
 .claude-review/
+axe-report.json

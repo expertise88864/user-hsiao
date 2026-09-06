@@ -25,6 +25,8 @@ jobs:
           node-version: '24'
       - name: Production deployment gate regression tests
         run: node --test _test_vercel_gate.cjs
+      - name: Protected Preview regression tests
+        run: node --test tests/delivery/*.test.cjs
   preview:
     name: Preview browser
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/codex/')
@@ -55,6 +57,8 @@ jobs:
           echo "NODE_PATH=$(npm root --global)" >> "$GITHUB_ENV"
           playwright install --with-deps chromium
       - name: Verify preview pages in desktop and mobile browsers
+        env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
         run: node _delivery_preview.cjs
       - uses: actions/upload-artifact@v4
         if: always()

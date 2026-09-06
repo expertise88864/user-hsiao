@@ -66,6 +66,8 @@ jobs:
           test "$ACTUAL" -eq "$EXPECTED"
 
       - name: Run visual diff
+        env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
         run: npx playwright test tests/visual/ --reporter=list
 
       - name: Upload diff snapshots on failure
@@ -103,6 +105,7 @@ jobs:
 
       - name: Replace baselines
         env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           URL=$(python _delivery.py preview "$GITHUB_SHA" --wait 600)

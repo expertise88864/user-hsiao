@@ -11,6 +11,7 @@ permissions:
   deployments: read
 jobs:
   preview-shot:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -30,6 +31,7 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Resolve exact PR Preview and take read-only screenshots
         env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
         run: |

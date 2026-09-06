@@ -61,3 +61,18 @@ No branch protection settings, CMS saving API or production schedules are silent
 changed. Follow-up automation must use this workflow even for empty audit commits.
 GitHub/Vercel outages are blockers, not code bugs to paper over. Keep results compact;
 ordinary bounded polling does not need model reasoning on every interval.
+
+## Protected Preview checks
+Keep Vercel Deployment Protection enabled. The project owner creates an Automation
+Bypass Secret in Vercel and stores the same value as the repository Actions secret
+`VERCEL_AUTOMATION_BYPASS_SECRET`; do not paste the value into issues or logs.
+Candidate browser, visual, Lighthouse and axe jobs use it only for the exact-SHA
+Preview origin resolved from Vercel's deployment record. Production does not use it.
+`scripts/preview-access.cjs` exchanges the header once, without following redirects,
+for secure, host-scoped HttpOnly cookies kept in browser memory. Missing/rejected
+credentials, login redirects, and pages without actual site content fail the job.
+Protected browser traces and public Lighthouse report uploads are disabled so
+authentication material is not published. Screenshots and axe reports remain
+available as Actions artifacts. Lighthouse's existing numeric warning thresholds
+are unchanged; execution/authentication errors and axe violations fail validation.
+No visual baselines are changed by authentication setup.

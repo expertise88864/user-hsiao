@@ -78,6 +78,7 @@
         "Lighthouse CI": {
           "required": [
             "Resolve verified deployment for this revision",
+            "Install Lighthouse browser dependencies",
             "Run Lighthouse CI"
           ],
           "conditional": []
@@ -91,8 +92,8 @@
         "A11y scan (axe-core)": {
           "required": [
             "Resolve verified deployment for this revision",
-            "Install axe-cli + Puppeteer",
-            "Run axe-core on production URLs",
+            "Install accessibility browser dependencies",
+            "Run axe-core on verified website URLs",
             "Upload axe report"
           ],
           "conditional": []
@@ -167,7 +168,8 @@
         "Delivery contract": {
           "required": [
             "Delivery Python regression tests",
-            "Production deployment gate regression tests"
+            "Production deployment gate regression tests",
+            "Protected Preview regression tests"
           ],
           "conditional": []
         },

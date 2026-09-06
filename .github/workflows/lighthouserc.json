@@ -2,6 +2,7 @@
   "ci": {
     "collect": {
       "numberOfRuns": 3,
+      "puppeteerScript": "./scripts/lighthouse-setup.cjs",
       "settings": {
         "preset": "desktop",
         "skipAudits": ["uses-http2", "is-on-https", "redirects-http"],
@@ -23,9 +24,6 @@
         "total-blocking-time":        ["warn",  { "maxNumericValue": 400,  "aggregationMethod": "median" }],
         "interaction-to-next-paint":  ["warn",  { "maxNumericValue": 400,  "aggregationMethod": "median" }]
       }
-    },
-    "upload": {
-      "target": "temporary-public-storage"
     }
   }
 }
