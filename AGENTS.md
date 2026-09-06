@@ -20,7 +20,7 @@ Before non-trivial work, read the relevant file in `docs/`:
 `BACKLOG.md` (open debt w/ acceptance criteria) ·
 `GROWTH-PLAYBOOK.md` (current search-performance diagnosis workflow) ·
 `ARTICLE-STANDARDS.md` (content rules). Tools: `python preflight.py`
-(pre-push gate) and `python _ci_status.py <sha> --watch` (CI without gh).
+(generation/static sub-gate; see MODEL-GUIDE §5 for the complete local CI sequence) and `python _ci_status.py <sha> --watch` (CI without gh).
 When you (codex) do the pre-push diff review, DECISIONS.md is the baseline —
 flag anything that reverses a decision without meeting its reopen condition.
 

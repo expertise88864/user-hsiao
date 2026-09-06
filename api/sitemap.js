@@ -90,7 +90,10 @@ async function parseArticles() {
 
   const articles = [];
   const getField = (body, key) => body[key] || '';
-  for (const { values: body } of catalogRecords(file.content)) {
+  let records;
+  try { records = catalogRecords(file.content); }
+  catch { return FALLBACK_ARTICLES.map(article => ({ ...article })); }
+  for (const { values: body } of records) {
     const slug = getField(body, 'slug');
     if (!slug || stubs.has(slug)) continue;
     articles.push({

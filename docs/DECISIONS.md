@@ -46,7 +46,7 @@
 - **錨**：`9303014`。
 
 ### D-06 快取破壞（cache-bust）政策
-- **決策**：全站 `?v=2026xxxx` 單調遞增版本（**目前 `v=20260669`**，以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準）；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。
+- **決策**：全站 `?v=2026xxxx` 單調遞增版本（**目前 `v=20260670`**，以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準）；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。
 - **⚠ 有兩個版本紀元，bump 必須同時動**（2026-07-26 round-3 外審發現：只 bump 了 `?v=`，21 個檔的 `hs:siteVer` 還停在舊值）：
   1. 資產 URL 的 `?v=NNNNNNNN`；
   2. `hs:siteVer` 強制重置戳記——內容頁寫成 `var T='NNNNNNNN'`、`admin.html` 寫成 `TARGET = 'NNNNNNNN'`。這個戳記與 localStorage 比對，不一致才觸發 SW/快取強制重置。**只 bump `?v=` 的話戳記仍相符 → 重置不會發生**，回訪的 admin 會帶著舊 editor bundle 對上新伺服器（實際發生過，見 BACKLOG Round 3）。
@@ -81,8 +81,8 @@
 ## C. 前端 / 效能
 
 ### D-10 mag-footer 樣式單一來源 = `assets/app.css`
-- **決策（目標）**：全站頁尾 `.mag-footer` 的 CSS 只存在於 `app.css`（所有頁面都載入）；`article.css` 只留指標註解。
-- **⚠ 現況（2026-07-27 實測,尚未達成）**：`about.html`／`notes.html`／`privacy.html` 及其三個 `/en/` 鏡像**仍各自內嵌一整份** `.mag-footer` CSS,所以本條的「只存在於 app.css」**目前是目標而非事實**。移除前必須先逐條確認被 app.css 涵蓋——本條的歷史教訓正是出在這批頁面。追蹤:BACKLOG **M-17**。顏色用**字面值**（`#2a2620`/`#faf7f2`/`#a4c4dd`）因為 `--ink`/`--bg` 變數只在 article.css 定義、非文章頁拿不到。
+- **決策**：正式頁的 authored `.mag-footer` 排版樣式集中於 `app.css`；`article.css` 只留指標註解。生成的 critical CSS 與編輯模式的透明度提示不是第二份 authored 排版來源。
+- **現況（2026-09-06）**：六個非文章頁的 authored footer CSS 已移入 app.css，以低 specificity 的頁型範圍保留原差異。英文由生成器產生；18 個 viewport 對照的頁尾像素與 computed style 相同。generated critical CSS 不算第二份 authored 來源。驗收見 BACKLOG M-17。
 - **歷史教訓**：曾把 footer CSS 抽到 article.css 導致首頁/about/privacy 等非文章頁頁尾全裸跑版（回歸 commit `918dae6`，修復 `e69526d`）。**不要**再把它搬回 article.css 或 inline。
 
 ### D-11 版本化資產 = immutable 快取
@@ -90,15 +90,14 @@
 - **耦合**：`vercel.json` headers ↔ `_check_static_asset_headers.py` 的 `EXPECTED` dict——**兩處必須同改**，只改一處 CI 紅。
 - **錨**：`9303014`。
 
-### D-12 Google Fonts render-blocking = 已知且暫時接受的債
-- **決策**：每頁 `<link rel="stylesheet">` 載 6 個字型家族（含兩個大型 CJK）目前**保留原樣**。已評估：非阻塞化需要 CSP-hash 相容的 loader 或自架字型，工程量大；且 body 有本機 CJK fallback + `display=swap`，實際傷害是 FOUT 與一個第三方 RTT，不是文字全阻塞。
-- **不要**：在沒有處理 CSP inline-event hash 的情況下貿然套 `media="print" onload` 模式（會被 CSP 擋或需要重生 hash 鏈）。
-- **重開條件**：見 docs/BACKLOG.md P-01（完整驗收條件）。
+### D-12 Google Fonts 的歷史同步載入決策（已由 D-27 取代）
+- 早期曾接受同步載入的效能債；2026-07-27 站主改採 D-27 的非阻塞方案，現行 HTML 與 CMS scaffold 均已實作。
+- 不得重加 inline onload handler；CSP 相容 loader 與 noscript 後備由 performance guard 驗證。
 
 ### D-13 視覺回歸基準圖只能由 CI 產生
 - **決策**：`tests/visual/snapshots/` 的 21 張 PNG 基準只能來自 GitHub Actions（Ubuntu/Chromium 對線上站截圖）。**絕不**提交本機（尤其 Windows）產生的截圖——字型光柵化不同，必定 mismatch。
-- **視覺測試涵蓋 5 個 URL**（改這些頁的可見內容，視覺測試**應該**紅）：`/`、`/en/`、`/blog/dry-eye-myths`、`/blog/floaters-retinal-detachment`、`/blog/pediatric-myopia-control`（各 desktop/tablet/mobile）。
-- **變綠程序**（需要有 GitHub 權限的人／站主）：GitHub → Actions → Visual regression → Run workflow → `force_update: true`。CI 會重截、自動 commit `[skip ci]` 基準。之後本機 `git pull`。
+- **視覺測試涵蓋 7 個 URL**（改這些頁的可見內容，視覺測試**應該**紅）：`/`、`/en/`、`/blog/dry-eye-myths`、`/blog/floaters-retinal-detachment`、`/blog/pediatric-myopia-control`，另含 `/tools`、`/blog/`（各 desktop/tablet/mobile）。
+- **基準更新程序**：manual force_update 僅產生 Ubuntu 候選基準 artifact，不再自動 commit／push。下載後先確認可見變化符合預期，再以完整本機 CI 等效檢查、外審與新 SHA GitHub CI 流程交付。本輪沒有更新任何 PNG 基準。
 - **錨**：`.github/workflows/visual-regression.yml`。
 
 ### D-14 Playwright 產物永不入庫
@@ -134,16 +133,14 @@
 ## E. 流程 / 工作方式
 
 ### D-20 Pre-push 閘門（每次 push 前，無例外）
-1. `python preflight.py`（跑完整產生器鏈 ×2 驗證固定點 + validate + `_check_all.py --quick`；鏈的步驟清單**動態解析自 `.github/workflows/quality.yml`**，所以 codex 加新 generator 也不會過時）。
+1. 完整適用的本機 CI 等效檢查全過：API、Python、瀏覽器、size budget 及 `python preflight.py`（跑完整產生器鏈 ×2 驗證固定點 + validate + `_check_all.py --quick`；鏈的步驟清單**動態解析自 `.github/workflows/quality.yml`**，所以 codex 加新 generator 也不會過時）。
 2. **Codex GPT-5.6-sol diff review**（站主全域規則，2026-07-10 由 gpt-5.5 升級）：把 staged diff 交給 codex MCP（`model=gpt-5.6-sol`；需 codex CLI **`0.145.0-alpha.2`+**——stable 0.144.1 仍 400，見 memory），列 blocking issues，**APPROVE 才 push**。
 3. push 後用 `python _ci_status.py <sha> --watch` 盯 CI（本環境無 `gh` CLI）。
 - **錨**：本 session 全程實踐；工具見 repo 根目錄。
 
-### D-21 「quality 紅了先看是不是 drift 自癒」
-- CLAUDE.md 已載：紅信 + 2 分鐘內出現 `ci: regen ... [skip ci]` 自動 commit = 系統已自癒，**不要**再推「修正」。只有紅了且無自癒 commit 才介入。
-- 本 session 補充的兩個真實非-drift 紅燈案例（供辨識模式）：
-  a. robots.txt 政策改動 → `tests/seo/head.spec.js` 斷言舊政策（修測試，見 D-01 耦合）。
-  b. 視覺基準過期 → 見 D-13 程序。
+### D-21 CI drift 也必須核對最終 SHA
+- 歷史的「看到自動 regen commit 就忽略紅燈」規則已由最新使用者 CI 定案取代。先診斷 drift 或真缺陷；任何新 commit 都需要重新驗證，舊 SHA 紅燈不能算作新 SHA 綠燈。
+- 不得加 skip-ci 或使用會跳過必要 CI 的更新流程；修正後必須保存最終 SHA 與所有適用 checks 的成功證據。
 
 ### D-22 內部文件（docs/、*.md）不進搜尋索引
 - **決策**：`vercel.json` 對 `/docs/(.*)` 回 `X-Robots-Tag: noindex,nofollow`。內部流程文件是薄的非醫療內容，不該進 YMYL 站的索引。
@@ -191,5 +188,5 @@
 ### D-27 P-01 字型載入償還方案 = 非阻塞 + CSP 相容 bootstrap
 - **決策(站主定案 2026-07-27)**:償還 D-12 接受的字型債,採 **(b) 非阻塞載入並讓它相容 CSP**;不採 (a) 自架 woff2、不採 (c) 砍裝飾字型。
 - **關鍵限制(定案時已知)**:**不得**使用 `onload="this.media='all'"`。`_gen_csp_hashes.py` 只對 `<script>`／`<style>` **內容**算 hash,**不涵蓋屬性上的 inline event handler**,而 D-16 的 CSP 是 fail-closed 且無 `'unsafe-hashes'` → 該 handler 會被擋,字型永不載入。必須改用 `rel="preload" as="style"` + `<script>` 內的 `addEventListener`,並保留 `<noscript>` 後備。
-- **狀態**:**尚未施作**。施作面為 64 個手寫 HTML 的 `<head>`(無生成器擁有),完整步驟見 BACKLOG P-01。
+- **狀態**：已施作。現行 HTML 與 `api/admin/_new.js` 均非阻塞，`_check_performance_budget.py` 同時檢查產物與 scaffold。歷史漏改 scaffold 已在 `433ce06` 修復。
 - **錨**:本次 commit。**關聯**:D-12(原始接受)、D-16(fail-closed CSP)、BACKLOG P-01。

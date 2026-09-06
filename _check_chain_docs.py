@@ -42,6 +42,20 @@ def check(root: Path = ROOT) -> list[str]:
         errors.append('CMS regeneration must execute preflight.py --run-chain')
     if re.search(r'^          python _\w+\.py', regen, re.M):
         errors.append('CMS regeneration must not carry its own partial generator list')
+    # --run-chain is generation only, never a publishing gate. This job must
+    # report drift for correction through the complete reviewed CI workflow.
+    if re.search(r'git\s+(?:push|commit)\b|contents:\s*write|persist-credentials:\s*true', regen):
+        errors.append('CMS generation check must not publish unvalidated changes')
+    if 'git diff --cached --quiet' not in regen or 'exit 1' not in regen or 'generated-artifacts.patch' not in regen:
+        errors.append('CMS generation check must fail on drift and preserve a correction patch')
+    guide = (root / 'docs/MODEL-GUIDE.md').read_text(encoding='utf-8')
+    push_blocks = [b for b in re.findall(r'```bash\n([\s\S]*?)```', guide) if 'git push' in b]
+    required = ('python preflight.py', 'npm run test:api',
+                'python -m unittest discover -s tests/python', 'npm run test:seo',
+                'python _check_size_budget.py')
+    if not push_blocks or any(not all(re.search(r'^' + re.escape(cmd) + r'(?:\s*#.*)?$', b.split('git push')[0], re.M)
+                                     for cmd in required) for b in push_blocks):
+        errors.append('MODEL-GUIDE push recipe must require the complete local CI sequence')
     return errors
 
 

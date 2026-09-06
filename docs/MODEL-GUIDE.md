@@ -66,15 +66,22 @@ CLI 後備（任何 session）：`git diff --cached | codex exec -c model="gpt-5
 
 ## 5. 驗證儀式（每個等級都要做，這是品質的地板）
 
-**改任何會進建置鏈的東西 → pre-push 閘門（DECISIONS D-20）**：
+**所有改動（包括文件、設定與 audit commit）→ 完整 pre-push 閘門（DECISIONS D-20）**：
 ```bash
-python preflight.py          # 建置鏈×2 固定點 + validate + _check_all --quick（步驟動態解析 quality.yml）
-# → codex 二審（§3）
+python preflight.py          # 生成／靜態子閘門；不得使用 --fast 或 --allow-fallback 當交付證據
+npm run test:api
+python -m unittest discover -s tests/python
+npm run test:seo
+python _check_size_budget.py # 與 hosted Size budget 共用同一份門檻；也已納入 preflight 靜態檢查
+# 完成所有其他適用本機 CI 等效檢查，保存版本、exit code 及平台差異
+# → Codex 二審 APPROVE 與獨立 Opus review（額度例外依 AGENTS pending 規則）
 git push origin main
 python _ci_status.py <sha> --watch   # 無 gh CLI，用這個盯 CI
 ```
+**平台與範圍**：本機瀏覽器功能測試必跑；Windows 截圖不能替代 Ubuntu 視覺基準。對改動頁面保留同平台前後比對，推送後仍必須確認 visual、Lighthouse 及所有其他適用 GitHub jobs 的成功。任何必要本機等效檢查不可執行時，依 AGENTS 回報缺口取得決定，不把缺失當成通過。
+
 **「固定點」是什麼、為什麼**：跑一次建置鏈 → `git add -A` → 再跑一次 → `git diff` 必須為空。空 = 你提交的狀態是產生器的不動點 = CI 的 drift 檢查會過。非空 = 你漏跑了某步或有非冪等，先解決再 push。這一招把「Windows/Linux 位元差異」以外的 drift 全擋掉。
-**CI 紅了先分類**（DECISIONS D-21）：drift 自癒（2 分鐘內有 `ci: regen [skip ci]`）→ 不管它；真紅 → 看是哪個 job/step（`_ci_status.py <sha> --jobs`），對照 REVIEW-PLAYBOOK 對症。
+**CI 紅了先分類**（DECISIONS D-21）：查 job/step 與實際 SHA；drift 也不能冒充全綠。修正或 regen 後重新執行適用驗證，最後核对新 SHA 的所有 GitHub checks；不得使用 skip-ci。
 
 ---
 
@@ -82,7 +89,7 @@ python _ci_status.py <sha> --watch   # 無 gh CLI，用這個盯 CI
 
 1. **不確定就查，查不到就標註，不要編造。** 尤其：醫療數字、外部 URL、「Google 一定會…」這類斷言。
 2. **標註 harness 極限**——本環境已知做不到的事，遇到直接說，不要假裝：
-   - ❌ **連不上線上站**：sandbox 擋 Vercel HTTPS（連 vercel.com 都 timeout，但 google.com 正常）。所以「線上頁面/回應頭/rendered HTML/線上 sitemap」本地驗不了 → 標註「以 GSC / CI 的 Lighthouse-axe-indexability job 為準」，不要腦補線上狀態。
+   - **歷史 session 限制，需重新測量：連不上線上站**：sandbox 擋 Vercel HTTPS（連 vercel.com 都 timeout，但 google.com 正常）。當時「線上頁面/回應頭/rendered HTML/線上 sitemap」本地驗不了；2026-09-06 已可取得 Production 回應，不能沿用此限制 → 標註「以 GSC / CI 的 Lighthouse-axe-indexability job 為準」，不要腦補線上狀態。
    - ❌ **WebSearch 只有美國 locale**：查台灣在地排名/索引會失真 → 標註，請站主用台灣 GSC 佐證。
    - ❌ **無 `gh` CLI**：用 `_ci_status.py`（打公開 GitHub API，無需 token）盯 CI，不要假裝有 gh。
    - ❌ **視覺基準本地產不了**：Windows 光柵化 ≠ CI Ubuntu，本地截圖必 mismatch（DECISIONS D-13）。
@@ -99,7 +106,7 @@ python _ci_status.py <sha> --watch   # 無 gh CLI，用這個盯 CI
 - 別改一半耦合（robots↔測試↔檢查器；vercel headers↔檢查器；見 REVIEW-PLAYBOOK §9 矩陣）。
 - 別把 footer CSS 搬回 article.css（DECISIONS D-10）。
 - 別對已完整互連的叢集批量加內鏈（D-23）——先 grep 驗證真缺。
-- 別把 CI 的 drift 自癒紅燈當成要修的 bug（D-21）。
+- 別把 CI 的 drift 自癒 commit 當成全綠證據；驗證最終 SHA（D-21）。
 - 別新增未溯源的醫療數字（§4）。
 
 ---

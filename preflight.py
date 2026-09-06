@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-preflight.py — one-command pre-push gate for HsiaoEye.
+preflight.py — generation and static-validation sub-gate for HsiaoEye.
 
 WHY THIS EXISTS
     Before every `git push`, you must prove that what you're pushing is a
@@ -18,20 +18,22 @@ WHAT IT DOES
        is empty == fixed point. Non-empty means you missed a step or something
        is non-idempotent; it prints the drifting files.
     3. Runs validate.py and _check_all.py --quick.
-    Exit code 0 == safe to run codex review then push. Non-zero == do not push.
+    Exit code 0 covers ONLY this sub-gate. Complete API, Python and browser
+    tests plus applicable CI-equivalent checks and review before ANY push.
+    Non-zero blocks pushing; diagnostic flags are not delivery evidence.
 
 USAGE
-    python preflight.py            # full gate
+    python preflight.py            # generation/static sub-gate only
     python preflight.py --fast     # skip the 2nd chain run (drift check); still validates
     python preflight.py --chain    # just print the parsed chain and exit
     python preflight.py --run-chain # run the authoritative chain once, no staging
 
 NOTES / HARNESS LIMITS (see docs/MODEL-GUIDE.md)
     - Sets PYTHONIOENCODING=utf-8 for children (Windows cp950 crashes on Unicode).
-    - This does NOT push and does NOT run codex review — those are steps 2 and 3
-      of the ritual (docs/DECISIONS.md D-20). It also does NOT run the browser
-      SEO smoke tests or visual regression (those need Playwright/Chromium and,
-      for some, the live site). CI runs those; preflight covers the static gate.
+    - This does NOT push, review, or run the API/Python/browser test suites.
+      Run the complete local sequence in MODEL-GUIDE section 5. Ubuntu visual
+      baselines and live-site checks remain separate hosted gates; record
+      platform differences and check the exact final SHA after pushing.
 """
 from __future__ import annotations
 
@@ -224,8 +226,14 @@ def main():
     print("\n" + "=" * 60)
     passed = ok and fixed_point
     if passed:
-        print("PREFLIGHT PASS. Next: codex GPT-5.6-sol review (D-20 step 2), then push,")
-        print("then `python _ci_status.py <sha> --watch`.")
+        if '--fast' in args or '--allow-fallback' in args:
+            print("DIAGNOSTIC PREFLIGHT PASS. Re-run without diagnostic flags for delivery.")
+        else:
+            print("STATIC PREFLIGHT PASS. This is NOT the complete pre-push CI gate.")
+        print("Before ANY push, also pass: npm run test:api; "
+              "python -m unittest discover -s tests/python; npm run test:seo.")
+        print("Run all other applicable CI-equivalent checks and independent review (D-20).")
+        print("After pushing, verify ALL applicable GitHub CI for the exact final SHA.")
     else:
         print("PREFLIGHT FAIL. Do NOT push. Fix the issues above.")
     print("=" * 60)

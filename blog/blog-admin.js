@@ -86,13 +86,50 @@
     // Make article structures editable (h1, h2, h3, paragraphs, list items,
     // figcaptions, table cells). We deliberately skip code / SVG / link href
     // editing for safety.
-    var EDITABLE_SEL = '#proseZh h1, #proseZh h2, #proseZh h3, #proseZh p, #proseZh li, #proseZh td, #proseZh th, #proseZh figcaption, #proseZh blockquote, .myth-card .myth, .myth-card .truth, article.max-w-3xl > h1, article.max-w-3xl figcaption';
-    document.querySelectorAll(EDITABLE_SEL).forEach(function (el) {
-      el.contentEditable = 'true';
-      el.spellcheck = false;
-      // v33: mark dirty on input so Navigation API guard can prompt
-      el.addEventListener('input', function () { DN._adminDirty = true; }, { once: true });
-    });
+    var EDITABLE_SEL = '#proseZh h1, #proseZh h2, #proseZh h3, #proseZh p, #proseZh li, #proseZh td, #proseZh th, #proseZh figcaption, #proseZh blockquote, #proseZh pre, .myth-card .myth, .myth-card .truth, article.max-w-3xl > h1, article.max-w-3xl figcaption';
+    var registeredEditables = new WeakSet();
+    function registerEditables() {
+      document.querySelectorAll(EDITABLE_SEL).forEach(function (el) {
+        el.contentEditable = 'true';
+        el.spellcheck = false;
+        if (registeredEditables.has(el)) return;
+        registeredEditables.add(el);
+        el.addEventListener('input', function () { DN._adminDirty = true; });
+      });
+    }
+    registerEditables();
+
+    // Insert after the containing top-level prose block. Keeping the original
+    // block intact avoids splitting bilingual attributes, list items or cells.
+    // DOM insertion inside a paragraph would create invalid nested blocks.
+    function insertArticleBlock(html) {
+      var sel = window.getSelection();
+      var prose = document.getElementById('proseZh');
+      if (!sel || !sel.rangeCount || !prose) return;
+      var range = sel.getRangeAt(0);
+      var anchor = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
+      if (!anchor || !prose.contains(anchor) || anchor === prose) {
+        status('請先把游標放在文章正文內，再插入區塊。', 'error');
+        return;
+      }
+      while (anchor.parentElement !== prose) anchor = anchor.parentElement;
+      var template = document.createElement('template');
+      template.innerHTML = html;
+      var nodes = Array.from(template.content.children);
+      anchor.after(template.content);
+      registerEditables();
+      DN._adminDirty = true;
+      var last = nodes[nodes.length - 1];
+      var focus = last && (last.matches(EDITABLE_SEL) ? last : last.querySelector('[contenteditable="true"]'));
+      if (focus) {
+        focus.focus();
+        range = document.createRange();
+        range.selectNodeContents(focus);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    }
 
     // Build the floating toolbar
     var bar = document.createElement('div');
@@ -238,7 +275,7 @@
         }
         var data = await resp.json();
         var snippet = '<figure>' + (data.pictureSnippet || data.imgSnippet) + '<figcaption>(編輯說明文字)</figcaption></figure>';
-        document.execCommand('insertHTML', false, snippet);
+        insertArticleBlock(snippet);
         status('✓ 已插入 (含 ' + variants.length + ' 個變體)', 'success');
       } catch (e) {
         status('✗ 圖片處理失敗: ' + (e.message || e), 'error');
@@ -334,7 +371,7 @@
       });
       if (!resp.ok) { status('✗ SVG 上傳失敗', 'error'); return; }
       var data = await resp.json();
-      document.execCommand('insertHTML', false, '<figure><img src="' + data.url + '" alt="" /><figcaption>(編輯說明文字)</figcaption></figure>');
+      insertArticleBlock('<figure><img src="' + data.url + '" alt="" /><figcaption>(編輯說明文字)</figcaption></figure>');
       status('✓ SVG 已插入', 'success');
     }
 
@@ -354,7 +391,7 @@
       { key: 'ul',     label: '項目列表',       icon: '•',  cmd: function () { document.execCommand('insertUnorderedList', false, null); } },
       { key: 'ol',     label: '數字編號',       icon: '1.', cmd: function () { document.execCommand('insertOrderedList', false, null); } },
       { key: 'quote',  label: '引言',           icon: '❝',  cmd: function () { document.execCommand('formatBlock', false, '<blockquote>'); } },
-      { key: 'myth',   label: '迷思 / 事實 卡', icon: '⚖',  cmd: function () { document.execCommand('insertHTML', false, '<div class="myth-card"><div class="myth">迷思: 在這裡寫迷思</div><div class="truth">真相: 在這裡寫真相</div></div><p></p>'); } },
+      { key: 'myth',   label: '迷思 / 事實 卡', icon: '⚖',  cmd: function () { insertArticleBlock('<div class="myth-card"><div class="myth">迷思: 在這裡寫迷思</div><div class="truth">真相: 在這裡寫真相</div></div><p></p>'); } },
       // M-01: was <hs-redflag>, a custom element whose only implementation lived
       // in assets/components.js — a file no page ever loaded, so the tag rendered
       // unstyled. Emits the class-based markup real articles use, which app.css
@@ -363,15 +400,15 @@
       // syncs elements that already carry them, and _gen_en_pages.py only swaps
       // paired elements — without them the author's Chinese is committed verbatim
       // into the /en/ mirror.
-      { key: 'redflag',label: '紅旗警告框',     icon: '🚩', cmd: function () { document.execCommand('insertHTML', false, '<section class="hs-redflag-box"><h3 class="hs-redflag-title">🚨 <span data-zh="警訊辨識" data-en="Red flags">警訊辨識</span></h3><ul class="hs-redflag-list"><li data-zh="第一項警訊" data-en="First red flag">第一項警訊</li><li data-zh="第二項警訊" data-en="Second red flag">第二項警訊</li></ul></section><p></p>'); } },
+      { key: 'redflag',label: '紅旗警告框',     icon: '🚩', cmd: function () { insertArticleBlock('<section class="hs-redflag-box"><h3 class="hs-redflag-title">🚨 <span data-zh="警訊辨識" data-en="Red flags">警訊辨識</span></h3><ul class="hs-redflag-list"><li data-zh="第一項警訊" data-en="First red flag">第一項警訊</li><li data-zh="第二項警訊" data-en="Second red flag">第二項警訊</li></ul></section><p></p>'); } },
       // M-01: same story — <hs-tldr> had no implementation. Articles carry a
       // `.tldr` paragraph; note there is NO `.tldr` rule in app.css — its look
       // comes from the utility classes and the inline colour copied here, so
       // they are load-bearing, not incidental. data-zh/data-en as above.
-      { key: 'tldr',   label: 'TL;DR 引言',     icon: '✨', cmd: function () { document.execCommand('insertHTML', false, '<p class="mt-6 text-[15.5px] leading-[1.95] tldr" style="color:var(--ink-2)" data-zh="3 句話精華:第一句 · 第二句 · 第三句。" data-en="Three-sentence summary: first · second · third.">3 句話精華:第一句 · 第二句 · 第三句。</p><p></p>'); } },
-      { key: 'table',  label: '3×3 表格',       icon: '⊞',  cmd: function () { document.execCommand('insertHTML', false, '<table class="dn"><thead><tr><th>欄 1</th><th>欄 2</th><th>欄 3</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table><p></p>'); } },
-      { key: 'mermaid',label: 'Mermaid 流程圖', icon: '↳',  cmd: function () { document.execCommand('insertHTML', false, '<pre class="mermaid">flowchart TD\n  A[Start] --> B{Decision}\n  B -->|Yes| C[Action]\n  B -->|No| D[End]</pre><p></p>'); } },
-      { key: 'math',   label: 'KaTeX 公式 (block)', icon: '∑', cmd: function () { document.execCommand('insertHTML', false, '<p>$$ P_{IOL} = A - 2.5 \\cdot AL - 0.9 \\cdot K $$</p>'); } },
+      { key: 'tldr',   label: 'TL;DR 引言',     icon: '✨', cmd: function () { insertArticleBlock('<p class="mt-6 text-[15.5px] leading-[1.95] tldr" style="color:var(--ink-2)" data-zh="3 句話精華:第一句 · 第二句 · 第三句。" data-en="Three-sentence summary: first · second · third.">3 句話精華:第一句 · 第二句 · 第三句。</p><p></p>'); } },
+      { key: 'table',  label: '3×3 表格',       icon: '⊞',  cmd: function () { insertArticleBlock('<table class="dn"><thead><tr><th>欄 1</th><th>欄 2</th><th>欄 3</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table><p></p>'); } },
+      { key: 'mermaid',label: 'Mermaid 流程圖', icon: '↳',  cmd: function () { insertArticleBlock('<pre class="mermaid">flowchart TD\n  A[Start] --> B{Decision}\n  B -->|Yes| C[Action]\n  B -->|No| D[End]</pre><p></p>'); } },
+      { key: 'math',   label: 'KaTeX 公式 (block)', icon: '∑', cmd: function () { insertArticleBlock('<p>$$ P_{IOL} = A - 2.5 \\cdot AL - 0.9 \\cdot K $$</p>'); } },
       { key: 'hr',     label: '分隔線',         icon: '—',  cmd: function () { document.execCommand('insertHorizontalRule', false, null); } },
       { key: 'img',    label: '插入圖片',       icon: '📷', cmd: function () { document.getElementById('hs-adm-img-input').click(); } },
     ];
@@ -402,16 +439,14 @@
       if (first) first.style.background = '#f3f7fb';
     }
 
+    slashMenu.addEventListener('mousedown', function (e) { e.preventDefault(); });
     slashMenu.addEventListener('click', function (e) {
       var item = e.target.closest('.hs-slash-item');
       if (!item) return;
       var cmd = SLASH_COMMANDS.find(function (c) { return c.key === item.dataset.key; });
       if (cmd) {
-        // Remove the typed `/<filter>` chars before applying
-        var sel = window.getSelection();
-        if (sel && sel.rangeCount && slashFilter !== undefined) {
-          for (var i = 0; i <= slashFilter.length; i++) document.execCommand('delete', false, null);
-        }
+        // Slash and filter keydowns are prevented, so there are no typed
+        // characters to delete. Deleting here can erase existing author text.
         cmd.cmd();
       }
       hideSlash();
@@ -654,7 +689,7 @@
         var curProse = document.querySelector('#proseZh, article.max-w-3xl');
         if (newProse && curProse) {
           curProse.innerHTML = newProse.innerHTML;
-          document.querySelectorAll(EDITABLE_SEL).forEach(function (el) { el.contentEditable = 'true'; el.spellcheck = false; });
+          registerEditables();
           DN._adminDirty = true;
         }
       } else {

@@ -91,12 +91,16 @@ test('new article creation is an atomic unpublished draft', async () => {
 });
 
 test('CI gates fail closed', async () => {
+  const preflight = await read('preflight.py');
+  const budget = await read('.github/workflows/size-budget.yml');
+  assert.doesNotMatch(preflight, /Exit code 0 == safe to run codex review then push|# full gate|PREFLIGHT PASS\. Next:.*then push/);
+  assert.match(budget, /python _check_size_budget\.py/);
   const visual = await read('.github/workflows/visual-regression.yml');
   assert.doesNotMatch(visual, /Auto-recover|continue-on-error|bootstrap mode/i);
   assert.match(visual, /workflow_dispatch/);
   assert.match(visual, /test "\$ACTUAL" -eq "\$EXPECTED"/);
 
-  const size = await read('.github/workflows/size-budget.yml');
+  const size = await read('_check_size_budget.py');
   assert.match(size, /raise SystemExit\(1\)/);
   assert.doesNotMatch(size, /Soft-fail for now/);
 });
@@ -431,11 +435,18 @@ test('admin editor messages are same-origin, frame-bound, and slug-bound', async
   assert.match(admin, /e\.data\.slug === expectedSlug/);
 });
 
-test('regenerated commits run quality checks instead of skipping CI', async () => {
+test('generation and baseline workflows retain checks without publishing unvalidated commits', async () => {
   const workflow = await read('.github/workflows/regen-en.yml');
+  const visual = await read('.github/workflows/visual-regression.yml');
   const quality = await read('.github/workflows/quality.yml');
-  assert.match(workflow, /git commit -m "ci: regen \/en\/ mirror and dependents"/);
-  assert.doesNotMatch(workflow, /git commit[^\n]*\[skip ci\]/);
+  for (const source of [workflow, visual]) {
+    assert.doesNotMatch(source, /git\s+(push|commit)\b|contents:\s*write|persist-credentials:\s*true|\[skip ci\]/);
+    assert.match(source, /actions\/upload-artifact@/);
+  }
+  assert.match(workflow, /git diff --cached --quiet/);
+  assert.match(workflow, /generated-artifacts\.patch/);
+  assert.match(workflow, /exit 1/);
+  assert.match(visual, /npx playwright test tests\/visual\/ --reporter=list/);
   assert.match(quality, /group: quality-\$\{\{ github\.ref \}\}/);
   assert.match(quality, /cancel-in-progress: true/);
 });

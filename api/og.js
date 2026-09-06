@@ -21,19 +21,11 @@ import { catalogRecords } from './_articles.js';
 // @vercel/og as an unsupported external module (Vercel CLI 59.11.7).
 
 async function lookupTitle(slug) {
-  let file;
+  let article = FALLBACK_ARTICLES.find(article => article.slug === slug);
   try {
-    file = await ghGetFile('blog/blog-shared.js');
-  } catch (e) {
-    const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug);
-    return fallback ? { title: fallback.title, tag: fallback.tag } : null;
-  }
-  if (!file) {
-    const fallback = FALLBACK_ARTICLES.find(article => article.slug === slug);
-    return fallback ? { title: fallback.title, tag: fallback.tag } : null;
-  }
-  const row = catalogRecords(file.content).find(row => row.values.slug === slug);
-  const article = row?.values || FALLBACK_ARTICLES.find(article => article.slug === slug);
+    const file = await ghGetFile('blog/blog-shared.js');
+    if (file) article = catalogRecords(file.content).find(row => row.values.slug === slug)?.values || article;
+  } catch (_) { /* Network and parser failures both retain the committed article. */ }
   return article ? { title: article.title, tag: article.tag } : null;
 }
 

@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent
 SKIP_DIRS = {".git", "node_modules", ".next", "out", "dist", "__pycache__", "playwright-report", "test-results"}
 
 # Served minified bundle size ceiling (raw KB). Kept consistent with the
-# size-budget.yml budget for blog/blog-shared.min.js. The historical 72 KB
+# _check_size_budget.py budget for blog/blog-shared.min.js. The historical 72 KB
 # target assumed an aggressive per-feature code-split (blog-hub / blog-diagrams
 # / blog-calculators …) that was scaffolded but never shipped; until/unless
 # that split lands, the single esbuild-minified runtime is the served bundle.

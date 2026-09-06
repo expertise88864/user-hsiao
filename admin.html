@@ -21,7 +21,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260669';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260670';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -521,8 +521,8 @@
       <div class="toolbar"><h2>站務 / 維運</h2></div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px;">
         <div class="info-card" style="margin:0">
-          <h3>英文鏡像自動生成</h3>
-          <p style="color:var(--ink-2); margin:0">文章儲存後，GitHub Actions 會使用完整 Python pipeline 自動更新英文頁、搜尋索引、結構化資料與 CSP。</p>
+          <h3>英文鏡像一致性檢查</h3>
+          <p style="color:var(--ink-2); margin:0">文章儲存後會檢查英文頁與衍生資料是否需要更新。若有差異，GitHub Actions 會提供修正檔並顯示檢查失敗；修正須完成審查與完整驗證後，才會同步上線。</p>
         </div>
         <div class="info-card" style="margin:0">
           <h4>🛡️ Service Worker</h4>

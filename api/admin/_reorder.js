@@ -12,6 +12,7 @@
  * Returns { ok, count, commit }.
  */
 import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
+import { catalogRecords } from '../_articles.js';
 
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
@@ -32,37 +33,13 @@ export default async function handler(req, res) {
     const file = await ghGetFile('blog/blog-shared.js');
     if (!file) return res.status(500).json({ error: 'blog-shared.js not found in repo' });
 
-    const m = file.content.match(/(DN\.ARTICLES\s*=\s*\[)([\s\S]*?)(\];)/);
-    if (!m) return res.status(500).json({ error: 'DN.ARTICLES block not found' });
+    // Record counts alone cannot detect a truncated quoted value. Parse the
+    // supported literal grammar and retain each complete source record.
+    const records = catalogRecords(file.content);
+    if (!records.length) return res.status(500).json({ error: 'No DN.ARTICLES entries parsed' });
+    const entries = records.map(row => ({ slug: row.values.slug, raw: file.content.slice(row.start, row.end) }));
 
-    const head = m[1];
-    const block = m[2];
-    const tail = m[3];
-
-    // Parse each entry as { slug, raw } where raw = the full {…} record
-    const entryRe = /\{[^{}]*?slug\s*:\s*'([^']+)'[^{}]*?\}/g;
-    const entries = [];
-    let row;
-    while ((row = entryRe.exec(block)) !== null) {
-      entries.push({ slug: row[1], raw: row[0] });
-    }
-    if (entries.length === 0) return res.status(500).json({ error: 'No DN.ARTICLES entries parsed' });
-
-    // Fail-safe against silent data loss: the whole DN.ARTICLES block is
-    // REPLACED with a list rebuilt from `entries`. If our per-entry regex
-    // (which can't cross nested braces) parsed fewer records than there are
-    // `slug:` keys — e.g. some future entry has a `{`/`}` inside a value or an
-    // unusual shape — the unparsed article would vanish from the catalog
-    // (listings + sitemap). Refuse rather than drop it. The "append missing"
-    // step below only re-adds PARSED entries, so it does NOT cover this case.
-    const slugKeys = (block.match(/\bslug\s*:/g) || []).length;
-    if (entries.length !== slugKeys) {
-      return res.status(409).json({
-        error: `parse mismatch: ${entries.length} entries parsed vs ${slugKeys} slug keys — refusing to reorder to avoid dropping an article. Fix DN.ARTICLES formatting or reorder manually.`,
-      });
-    }
-
-    const map = {};
+    const map = Object.create(null);
     entries.forEach(e => { map[e.slug] = e.raw; });
 
     // Build new ordered list: requested order first, then any missing slugs
@@ -73,9 +50,17 @@ export default async function handler(req, res) {
     });
     entries.forEach(e => { if (!seen.has(e.slug)) newRaws.push(e.raw); });
 
-    // Re-serialise with consistent indent (4 spaces, comma-separated, newline)
-    const newBlock = '\n    ' + newRaws.join(',\n    ') + ',\n  ';
-    const patched = file.content.replace(m[0], head + newBlock + tail);
+    // Replace only record spans; preserve the array boundaries and all other
+    // source bytes, even if a title contains braces or a literal `];`.
+    let patched = file.content;
+    for (let i = records.length - 1; i >= 0; i--) {
+      patched = patched.slice(0, records[i].start) + newRaws[i] + patched.slice(records[i].end);
+    }
+    const verified = catalogRecords(patched);
+    if (verified.length !== records.length || records.some(row =>
+      JSON.stringify(verified.find(v => v.values.slug === row.values.slug)?.values) !== JSON.stringify(row.values))) {
+      throw new Error('Catalog verification failed; refusing to reorder');
+    }
 
     if (patched === file.content) {
       return res.status(200).json({ ok: true, count: newRaws.length, noop: true });

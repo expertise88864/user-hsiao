@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import * as og from '../../api/og.js';
+import { FALLBACK_ARTICLES } from '../../api/_content_snapshot.js';
 
 test('API package independently declares and locks its OG runtime dependency', async () => {
   const readJSON = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
@@ -24,13 +25,18 @@ test('OG handler renders PNG responses for titles and offline catalog fallback',
   // or GitHub availability. Font appearance is not a visual baseline here.
   const font = await readFile(new URL('../../node_modules/@vercel/og/dist/Geist-Regular.ttf', import.meta.url));
   const originalFetch = globalThis.fetch;
+  const originalToken = process.env.GITHUB_TOKEN;
+  delete process.env.GITHUB_TOKEN;
+  let malformed = false;
   globalThis.fetch = async (input) => {
     const url = new URL(String(input));
     if (url.hostname === 'fonts.googleapis.com') {
       return new Response('@font-face { src: url(https://fonts.gstatic.com/test.ttf) format(\'truetype\'); }');
     }
     if (url.hostname === 'fonts.gstatic.com') return new Response(font);
-    if (url.hostname === 'api.github.com') return new Response('Unavailable', { status: 503 });
+    if (url.hostname === 'api.github.com') return malformed
+      ? Response.json({content:Buffer.from("DN.ARTICLES=[{slug:'bad',title:unsupported()}];").toString('base64'),sha:'fixture'})
+      : new Response('Unavailable', { status: 503 });
     throw new Error(`Unexpected network request: ${url.origin}`);
   };
   try {
@@ -44,7 +50,14 @@ test('OG handler renders PNG responses for titles and offline catalog fallback',
       assert.equal(png.readUInt32BE(16), 1200);
       assert.equal(png.readUInt32BE(20), 630);
     }
+    malformed = true;
+    process.env.GITHUB_TOKEN = 'fixture-token';
+    const article = FALLBACK_ARTICLES.find(a => a.slug === 'glaucoma-comprehensive-guide');
+    const reference = await og.GET(new Request('https://example.test/api/og?' + new URLSearchParams({slug:article.slug,title:article.title,tag:article.tag})));
+    const fallback = await og.GET(new Request('https://example.test/api/og?slug='+article.slug));
+    assert.deepEqual(Buffer.from(await fallback.arrayBuffer()), Buffer.from(await reference.arrayBuffer()), 'malformed catalog must retain the article card, not a generic card');
   } finally {
     globalThis.fetch = originalFetch;
+    if (originalToken === undefined) delete process.env.GITHUB_TOKEN; else process.env.GITHUB_TOKEN = originalToken;
   }
 });

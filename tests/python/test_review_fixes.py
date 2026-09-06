@@ -51,7 +51,7 @@ class ReviewFixes(unittest.TestCase):
     def test_command_order_and_regeneration_entry_are_guarded(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            for name in [*_check_chain_docs.DOCS, '.github/workflows/quality.yml', '.github/workflows/regen-en.yml']:
+            for name in [*_check_chain_docs.DOCS, 'docs/MODEL-GUIDE.md', '.github/workflows/quality.yml', '.github/workflows/regen-en.yml']:
                 target = root / name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(ROOT / name, target)
@@ -67,6 +67,12 @@ class ReviewFixes(unittest.TestCase):
             source = source.replace('          python _apply_i_series.py', '          python _normalize_skiplinks.py\n          python _apply_i_series.py')
             workflow.write_text(source, encoding='utf-8')
             self.assertIn('Skip-link pruning must run after injection', _check_chain_docs.check(root))
+            regen = root / '.github/workflows/regen-en.yml'
+            regen.write_text(regen.read_text(encoding='utf-8') + '\n          git push\n', encoding='utf-8')
+            self.assertIn('CMS generation check must not publish unvalidated changes', _check_chain_docs.check(root))
+            guide = root / 'docs/MODEL-GUIDE.md'
+            guide.write_text(guide.read_text(encoding='utf-8').replace('npm run test:api', '# omitted API tests'), encoding='utf-8')
+            self.assertIn('MODEL-GUIDE push recipe must require the complete local CI sequence', _check_chain_docs.check(root))
 
 
 if __name__ == '__main__':

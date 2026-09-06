@@ -31,7 +31,7 @@ task first; they encode decisions already made so you don't re-litigate them:
 - **docs/ARTICLE-STANDARDS.md** — content rules (FAQ pattern, answer-first,
   medical sourcing, stub lifecycle, cluster linking). Pairs with WRITING_NEW_ARTICLE.md.
 
-**Tools** (run, don't reinvent): `python preflight.py` (pre-push gate — runs
+**Tools** (run, don't reinvent): `python preflight.py` (generation/static sub-gate — runs
 the chain, proves a fixed point, validates) · `python _ci_status.py <sha> --watch`
 (CI status without `gh`). The pre-push ritual is DECISIONS.md D-20.
 
@@ -85,48 +85,18 @@ tweaks, image uploads). Those edits are stored only in `main`. If you:
 … you will silently undo their work, with no easy recovery without
 spelunking through `git reflog`. **Never do this.**
 
-## 🤖 CI auto-regen behavior — when a "drift failure" is NOT yours to fix
+## CI drift diagnosis — exact revision evidence is required
 
-After every push to `main`, the `quality / HTML validation + SEO check` job
-re-runs the full generator chain on Linux. If the generated output differs
-from what you pushed (typically by **a few lines** in `/en/` mirror pages or
-`middleware.js`), CI does **two** things:
+The quality workflow regenerates artifacts and fails when committed output
+is not a fixed point. Diagnose the failed job and synchronize any CMS commits
+before making corrections; do not presume all drift is platform noise.
 
-1. **Marks the workflow run as failed** and sends you the alarming red email
-   (`Run failed: quality - main (<sha>)`).
-2. **Auto-commits a fixup** with the message
-   `ci: regen /en/ mirror and dependents [skip ci]` — directly to `main`.
-
-**The auto-commit means CI has already self-healed.** You do NOT need to
-re-run the chain, re-commit, or push again. The next CI run skips itself
-(via `[skip ci]`), so nothing further runs.
-
-### When to actually intervene
-
-Only act if **both** are true:
-- CI shows the workflow **failed**, AND
-- There is **no** subsequent `ci: regen ...` auto-commit on `origin/main`
-  within ~2 minutes of the failure.
-
-That combination indicates a real validator-script error (e.g. broken
-internal link, malformed bilingual attribute, `_check_*` actually failed) —
-not a drift the bot can patch. In that case:
-1. `git pull --rebase origin main` (pick up any unrelated commits)
-2. Run the full chain in WRITING_NEW_ARTICLE.md locally
-3. Inspect what the validator actually complained about
-4. Fix the underlying issue, commit, push
-
-### Why drift happens at all
-
-The generator scripts produce slightly different byte output on Windows vs
-Linux CI (likely from `html.escape` defaults, attribute ordering inside
-`<img />` self-close, or trailing whitespace handling). This is a known
-property of the build chain, not a bug introduced by your changes.
-
-**Bottom line:** see one red "drift" email → check `git log origin/main`. If
-the next commit is `ci: regen ...`, the system has already fixed itself.
-Don't push three more times trying to "fix" it; you'll just chase the
-Windows↔Linux byte-difference loop.
+A later regeneration commit does not make the earlier failure pass. Validate
+the actual final tree locally before every push, then verify every applicable
+GitHub check for the exact pushed SHA. Pending, missing, cancelled or failed
+checks are not green. Do not use skip-ci or the legacy automatic-baseline
+update route to evade this gate. See DECISIONS D-20/D-21 and the latest policy
+at the top of this file.
 
 ## Site overview
 
@@ -287,5 +257,7 @@ If you ever reorder the build chain, keep csp_hashes dead last.
 
 `_gen_serp_meta.py` is **not idempotent on the first run** when `og:image:alt`
 changes (it propagates the new alt into inner JSON-LD `image.name`/`image.caption`
-on a *subsequent* pass). If CI flags drift right after a push, re-run steps 3 →
-9 above, then commit + push again. See WRITING_NEW_ARTICLE.md for full details.
+on a *subsequent* pass). Run `python preflight.py` to verify the complete chain
+converges, then complete all other applicable local checks and independent
+review before pushing. Verify GitHub CI for the exact new SHA afterward.
+See WRITING_NEW_ARTICLE.md for full details.

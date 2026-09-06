@@ -7,6 +7,10 @@
 >
 > 現況判定基準：commit `66745a6`（2026-06，cache-bust `v=20260664`），閘門 `_check_all.py --quick` = **59 pass / 0 warn / 0 fail**。
 
+## 2026-09-06 歷史帳本逐項覆核
+
+現行工單狀態以 [BACKLOG](BACKLOG.md) 與 [13 項歷史發現對照](REVIEW-CLOSURE-20260906.md) 為準；下文各歷史章節的舊數量／剩餘項目不是最新驗收結果。本輪修正 M-11、M-16、M-17 與 T-01 parser failure fallback，並同步 CI／字型決策。外審與 CI 狀態依最終證據，不因帳本勾選而視為通過。
+
 ## 2026-09-05 修正覆核
 
 本次以 `433ce06` 為修正基準，對完整 review 的 R01–R11 落實修正：
@@ -19,7 +23,7 @@
 - Python catalog consumers 共用跳脫感知的欄位／record 擷取；JSON-LD 錯誤訊息顯示檔名。
 - CMS regen 使用 `preflight.py --run-chain` 執行 quality.yml 的 24 步權威链；skip-link prune 在 injection 後，文件檢查核對真正命令與順序。
 
-驗證：完整 preflight 固定點與 64 項靜態檢查通過；新增 API、Python、瀏覽器回歸案例涵蓋上述失敗路徑。外審結果以審查證據與 commit trailers 為準，不據此小節宣稱 Claude 通過。cache epoch `20260669`。歷史 pending 清單仍保留，不能以本次修正取代未完成的歷史覆核。
+驗證：完整 preflight 固定點與 64 項靜態檢查通過；新增 API、Python、瀏覽器回歸案例涵蓋上述失敗路徑。外審結果以審查證據與 commit trailers 為準，不據此小節宣稱 Claude 通過。cache epoch `20260669`。該輪當時保留歷史 pending；後續逐項覆核進度見 2026-09-06 結案紀錄。
 
 ---
 
@@ -296,7 +300,7 @@ grep -l "doi.org" blog/*.html | wc -l                 # 引用密度
 | 9 | 可維護性 | 🟠 PARTIAL（改善） | 建置鏈由 preflight 動態解析；★§9 耦合矩陣 P5 補完、**R2-3 逐列變異測試複驗**並加上「CI 守門」欄；★M-06✅ 以 checker 強制（D-24）；★R2-2 補上 `blog-shared.js` 內硬寫 `?v=` 的未守耦合；M-03/M-04 已修 | **M-05**（M-01 ✅、M-02 ✅、M-07 ✅）；2 個未守耦合見 §9（halfwidth admin 路徑、reviewedBy Person） |
 | 10 | 內容正確性 | ⛔ 不可機器判定 | 見 §10 | C-01（兩篇待寫，站主定案） |
 
-**歷史評估（2026-07；當期診斷請依 GROWTH-PLAYBOOK 重新核對）**：當時技術面評估為頂標、**59 個檢查器**（`--quick`）守著，且工單 2026-07 五大高風險面深度審查 + Sweep A/B/C 補完未讀面 + Round 2 三批（驗證器 / `blog-shared.js` 後半 / 架構橫向）皆三閘全綠上線；**覆蓋範圍見上方誠實聲明**。Round 2 最大的發現不是功能 bug，而是**假保證**——恆真的檢查器、文件宣稱有守但實際沒守的耦合、把「我不知道」render 成「沒問題」的 CI 工具；對策已寫成制度（§9 CI 守門欄 + 「檢查器本身也要用變異測試審」）。**真正的成長瓶頸仍在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。程式端剩的都是 BACKLOG 裡分級好的 polish/中度債 + 少數潛伏項（M-07 ✅／M-08 ✅／P-04 ✅／P-05 ✅ 皆已修並上線;剩 M-05／M-09／M-12～M-15,新開 M-16／M-17），**無 🔴 會壞站的項目**。
+**歷史評估（2026-07；當期診斷請依 GROWTH-PLAYBOOK 重新核對）**：當時技術面評估為頂標、**59 個檢查器**（`--quick`）守著，且工單 2026-07 五大高風險面深度審查 + Sweep A/B/C 補完未讀面 + Round 2 三批（驗證器 / `blog-shared.js` 後半 / 架構橫向）皆三閘全綠上線；**覆蓋範圍見上方誠實聲明**。Round 2 最大的發現不是功能 bug，而是**假保證**——恆真的檢查器、文件宣稱有守但實際沒守的耦合、把「我不知道」render 成「沒問題」的 CI 工具；對策已寫成制度（§9 CI 守門欄 + 「檢查器本身也要用變異測試審」）。**真正的成長瓶頸仍在站外**（權威/外鏈/分發/作者身分）與**內容端**（answer-first 改寫、招募審閱者）——見 docs/GROWTH-PLAYBOOK.md。這段僅為當時判斷；最新逐項驗收與限制見 BACKLOG，不沿用舊「剩餘工單」或零高風險保證。
 
 ---
 

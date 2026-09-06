@@ -4,6 +4,47 @@ const { createHash } = require('node:crypto');
 const path = require('node:path');
 test.use({ serviceWorkers: 'block' });
 
+for (const [command, selector] of [['myth', '.myth-card'], ['redflag', '.hs-redflag-box'], ['tldr', '.tldr'], ['table', 'table'], ['mermaid', 'pre.mermaid'], ['math', 'p']]) {
+  test(`block insertion ${command} preserves author text and survives serialization`, async ({ page }) => {
+    const source = readFileSync(path.join(__dirname, '../../blog/dry-eye-myths.html'), 'utf8');
+    let submitted;
+    await page.route('**/api/admin/save?*', route => route.fulfill({json: {html: source, sha: 'a'.repeat(40)}}));
+    await page.route('**/api/admin/offline-token', route => route.fulfill({status:503,json:{}}));
+    await page.route('**/api/admin/save', async route => {
+      submitted = route.request().postDataJSON();
+      await route.fulfill({status:409,json:{error:'fixture'}});
+    });
+    await page.goto('/blog/dry-eye-myths?admin=1', {waitUntil:'domcontentloaded'});
+    await expect(page.locator('#hs-adm-save')).toBeVisible();
+    const paragraph = page.locator('#proseZh > p[contenteditable]').first();
+    await paragraph.fill('Preserve original author text');
+    await paragraph.press('Home');
+    await paragraph.press('/');
+    await page.keyboard.type(command);
+    await page.locator(`#hs-slash-menu [data-key="${command}"]`).click();
+    await expect(paragraph).toHaveText('Preserve original author text');
+    const result = await paragraph.evaluate((p, selector) => {
+      const inserted = p.nextElementSibling;
+      return {
+        valid: inserted.matches(selector) && inserted.parentElement.id === 'proseZh',
+        editable: inserted.isContentEditable || !!inserted.querySelector('[contenteditable="true"]'),
+        invalidBlocks: p.querySelectorAll('section,div,table,pre,p').length,
+      };
+    }, selector);
+    expect(result).toEqual({valid:true,editable:true,invalidBlocks:0});
+    await page.locator('#hs-adm-save').click();
+    await expect(page.locator('#hs-admin-status')).toContainText('fixture');
+    expect(submitted.html).toContain('Preserve original author text');
+    expect(submitted.html).not.toContain('contenteditable=');
+    const saved = await page.evaluate(({html, selector}) => {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const p = [...doc.querySelectorAll('#proseZh > p')].find(p => p.textContent === 'Preserve original author text');
+      return !!p && p.nextElementSibling.matches(selector);
+    }, {html:submitted.html,selector});
+    expect(saved).toBe(true);
+  });
+}
+
 test('search responds before idle callbacks have run', async ({ page }) => {
   await page.addInitScript(() => { window.__idle = []; window.requestIdleCallback = cb => window.__idle.push(cb); });
   await page.goto('/', { waitUntil: 'domcontentloaded' });

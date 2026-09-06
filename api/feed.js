@@ -94,7 +94,10 @@ async function parseArticles() {
 
   const rows = [];
   const getField = (body, key) => body[key] || '';
-  for (const { values: body } of catalogRecords(file.content)) {
+  let records;
+  try { records = catalogRecords(file.content); }
+  catch { return FALLBACK_ARTICLES.map(article => ({ ...article })); }
+  for (const { values: body } of records) {
     const slug = getField(body, 'slug');
     const title = getField(body, 'title');
     if (!slug || !title || stubs.has(slug)) continue;

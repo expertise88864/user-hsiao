@@ -7,6 +7,60 @@ import md from '../../api/admin/_md.js';
 import precompute from '../../api/admin/_precompute-meta.js';
 import { makeSessionToken } from '../../api/admin/_login.js';
 import { kvMigrateJSONHash } from '../../api/_kv.js';
+import sitemap from '../../api/sitemap.js';
+import feed from '../../api/feed.js';
+import { FALLBACK_ARTICLES } from '../../api/_content_snapshot.js';
+import reorder from '../../api/admin/_reorder.js';
+
+test('reordering preserves complete literal records and refuses unsupported source before writing', async () => {
+  const originalFetch=globalThis.fetch, originalToken=process.env.GITHUB_TOKEN, originalPassword=process.env.ADMIN_PASSWORD;
+  process.env.GITHUB_TOKEN='fixture-token'; process.env.ADMIN_PASSWORD='fixture-password';
+  const headers={cookie:'hs_admin_session='+makeSessionToken(process.env.ADMIN_PASSWORD)};
+  let source="// before\n"+catalog.replace('Before } after','Before } after ]; boundary')+'\n// after',written;
+  globalThis.fetch=async (url,options={}) => {
+    if(options.method==='PUT') { written=Buffer.from(JSON.parse(options.body).content,'base64').toString(); return json({commit:{sha:'fixture'}}); }
+    return json({content:Buffer.from(source).toString('base64'),sha:'fixture'});
+  };
+  try {
+    let res=respond(); await reorder({method:'POST',headers,body:{order:['second','constructor']}},res);
+    assert.equal(res.code,200);
+    const rows=catalogRecords(written);
+    assert.deepEqual(rows.map(r=>r.values.slug),['second','first']);
+    for(const row of catalogRecords(source)) assert.deepEqual(rows.find(r=>r.values.slug===row.values.slug).values,row.values);
+    assert.ok(written.startsWith('// before\n'));assert.ok(written.endsWith('\n// after'));
+    source=written;written=undefined;
+    res=respond(); await reorder({method:'POST',headers,body:{order:['second','first']}},res);
+    assert.equal(res.body.noop,true);assert.equal(written,undefined);
+    source="DN.ARTICLES=[{slug:'first',title:unsupported()}];";
+    res=respond(); await reorder({method:'POST',headers,body:{order:['first']}},res);
+    assert.equal(res.code,500);assert.equal(written,undefined);
+  } finally {
+    globalThis.fetch=originalFetch;
+    for(const [key,value] of [['GITHUB_TOKEN',originalToken],['ADMIN_PASSWORD',originalPassword]]) {
+      if(value===undefined) delete process.env[key];else process.env[key]=value;
+    }
+  }
+});
+
+test('public sitemap and feeds retain every snapshot article when live catalog parsing fails', async () => {
+  const originalFetch = globalThis.fetch, originalToken = process.env.GITHUB_TOKEN;
+  process.env.GITHUB_TOKEN = 'fixture-token';
+  globalThis.fetch = async url => {
+    if (String(url).includes('blog-shared.js')) return json({content:Buffer.from("DN.ARTICLES=[{slug:'bad',title:unsupported()}];").toString('base64'),sha:'fixture'});
+    return json({},404);
+  };
+  try {
+    for (const [handler, fmt] of [[sitemap,''],[feed,'json'],[feed,'atom'],[feed,'rss']]) {
+      const res = {...respond(),send(body){this.body=body;return this;}};
+      await handler({method:'GET',headers:{},query:{fmt}},res);
+      assert.equal(res.code,200);
+      for(const article of FALLBACK_ARTICLES) assert.ok(res.body.includes('/blog/'+article.slug),fmt+' missing '+article.slug);
+    }
+  } finally {
+    globalThis.fetch=originalFetch;
+    if(originalToken===undefined) delete process.env.GITHUB_TOKEN; else process.env.GITHUB_TOKEN=originalToken;
+  }
+});
 
 const catalog = String.raw`DN.ARTICLES = [
   { slug:'first', title:'Before } after', title_en:'Sjögren\'s', date:'2026-08-01', words:1, minutes:2 },
