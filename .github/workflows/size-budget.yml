@@ -2,7 +2,7 @@ name: Size budget
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'codex/**']
   pull_request:
     branches: [main]
 

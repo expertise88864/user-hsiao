@@ -1,5 +1,16 @@
 # DECISIONS.md — 已定案決策帳本（Decision Ledger）
 
+### D-28 候選 CI 與 Preview 驗證後才正式發佈（2026-09-06）
+
+- 決策：使用者核可候選分支遠端完整 CI → PR/Preview 瀏覽器與視覺回歸 → 同一 SHA 正常快轉 main → 核對正式 CI/部署。
+- SUPERSEDED：D-20 的「候選 push 前完整本機 CI」與直接 main 發佈順序，以及 D-13 基準更新後的舊發佈順序；模型審查、生成固定點、Ubuntu 基準及醫療核可不變。
+- 耦合：`_delivery.py`、policy、`.githooks/pre-push`、Vercel ignored-build gate、`REMOTE_CI_DELIVERY.md`。不得使用其他 push helper 避開。
+- CMS 新 commit 必須納入候選祖先；整合後 SHA 改變就重驗，不 force-push。存檔與正式發佈分開。
+- 視覺基準：只能在 codex/* 的已部署 Preview 上產生 Ubuntu artifact；HTTP 錯誤、登入導向、空主內容不得成為新基準，必須人工確認且另走候選 CI。
+- Codex 使用既有 `scripts/codex_review.sh deep`（gpt-5.6-sol/high/read-only），不使用舊文中的 MCP／貼 diff 範例。Claude 仍為 claude-opus-5/high。
+- 範圍：本機 hook 與 Git 自動部署防護，不宣稱已設定 GitHub server rules 或能阻止管理員手動繞過 Vercel ignored-build。
+- 錨：本次 delivery 設定 commit；重開條件：使用者另行定案。
+
 > **讀者**：未來在此 repo 工作的每一個 AI session（任何模型等級）與站主本人。
 > **用途**：這裡的每一條都是「已經審查過、討論過、定案」的決策。
 > **鐵律**：在提出任何 SEO / 架構 / 安全 / 內容政策變更之前，先讀完本檔。

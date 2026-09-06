@@ -6,18 +6,19 @@ name: quality
 #   2. JSON-LD parse check (separate, deeper)
 #   3. Lighthouse CI on production URL after Vercel deploy
 #
-# To enable Lighthouse on PRs against Vercel preview deploys, set the
-# repository secret VERCEL_PREVIEW_URL or use the official Vercel Action.
+# Preview origins are resolved from exact-SHA Vercel deployment evidence.
+# Protected Preview access uses VERCEL_AUTOMATION_BYPASS_SECRET in memory only.
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'codex/**']
   pull_request:
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
+  deployments: read
 
 concurrency:
   group: quality-${{ github.ref }}
@@ -352,39 +353,62 @@ jobs:
     name: Lighthouse CI
     runs-on: ubuntu-latest
     needs: validate
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    # Don't block CI on Lighthouse — production scores fluctuate with
-    # network/timing and small regressions shouldn't gate a deploy. The
-    # report itself is the value (uploaded as artifact); we just want
-    # visibility, not a hard gate. Switch to false once thresholds stabilise.
-    continue-on-error: true
+    if: github.event_name != 'schedule' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 1
           persist-credentials: false
 
-      - name: Wait for Vercel deploy (75s)
-        run: sleep 75
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Resolve verified deployment for this revision
+        id: site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if [ "$GITHUB_REF" = refs/heads/main ]; then
+            python _delivery.py production "$CANDIDATE_SHA" --wait 600
+            echo 'url=https://hsiao.chendermatologist.com' >> "$GITHUB_OUTPUT"
+          else
+            URL=$(python _delivery.py preview "$CANDIDATE_SHA" --wait 600)
+            echo "url=$URL" >> "$GITHUB_OUTPUT"
+          fi
 
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install Lighthouse browser dependencies
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
+        run: |
+          npm ci
+          CHROME=$(command -v google-chrome)
+          test -x "$CHROME"
+          echo "CHROME_PATH=$CHROME" >> "$GITHUB_ENV"
       - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v12
+        uses: treosh/lighthouse-ci-action@3e7e23fb74242897f95c0ba9cabad3d0227b9b18 # v12
+        env:
+          SITE_URL: ${{ steps.site.outputs.url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
         with:
           urls: |
-            https://hsiao.chendermatologist.com/
-            https://hsiao.chendermatologist.com/blog/
-            https://hsiao.chendermatologist.com/blog/dry-eye-myths
-            https://hsiao.chendermatologist.com/blog/pediatric-myopia-control
-            https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment
+            ${{ steps.site.outputs.url }}/
+            ${{ steps.site.outputs.url }}/blog/
+            ${{ steps.site.outputs.url }}/blog/dry-eye-myths
+            ${{ steps.site.outputs.url }}/blog/pediatric-myopia-control
+            ${{ steps.site.outputs.url }}/blog/floaters-retinal-detachment
           uploadArtifacts: true
-          temporaryPublicStorage: true
+          temporaryPublicStorage: false
           configPath: ./.github/workflows/lighthouserc.json
 
   link-check:
     name: Internal link check
     runs-on: ubuntu-latest
     needs: validate
-    if: github.event_name == 'pull_request'
+    if: github.event_name != 'schedule'
     steps:
       - uses: actions/checkout@v5
         with:
@@ -394,13 +418,13 @@ jobs:
         run: |
           # validate.py already does internal link checking against the
           # filesystem. Just re-run with strict mode so warnings count.
-          python validate.py --strict || echo "::warning::SEO/link warnings present"
+          python validate.py --strict
 
   axe-a11y:
     name: A11y scan (axe-core)
     runs-on: ubuntu-latest
     needs: validate
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name != 'schedule' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
@@ -408,34 +432,37 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
-      - name: Wait for Vercel deploy (60s)
-        run: sleep 60
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Resolve verified deployment for this revision
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if [ "$GITHUB_REF" = refs/heads/main ]; then
+            python _delivery.py production "$CANDIDATE_SHA" --wait 600
+            echo 'SITE_URL=https://hsiao.chendermatologist.com' >> "$GITHUB_ENV"
+          else
+            URL=$(python _delivery.py preview "$CANDIDATE_SHA" --wait 600)
+            echo "SITE_URL=$URL" >> "$GITHUB_ENV"
+          fi
 
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
 
-      - name: Install axe-cli + Puppeteer
-        run: npm install -g @axe-core/cli puppeteer
-
-      - name: Run axe-core on production URLs
-        # v37.20: re-enabled color-contrast (was disabled while warm-beige
-        # palette had #8b8378 muted text ~4.3:1 on #faf7f2 — just under AA).
-        # `--muted` was darkened to #6e6759 (~5.6:1) in app.css to clear AA.
-        # Removed `--exit` so axe still warns visibly without blocking the
-        # whole quality job — most pages PASS now; any new violation needs
-        # author attention but not a hard merge block.
+      - name: Install accessibility browser dependencies
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
         run: |
-          axe \
-            https://hsiao.chendermatologist.com/ \
-            https://hsiao.chendermatologist.com/blog/ \
-            https://hsiao.chendermatologist.com/blog/dry-eye-myths \
-            https://hsiao.chendermatologist.com/blog/pediatric-myopia-control \
-            https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment \
-            https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor \
-            https://hsiao.chendermatologist.com/tools \
-            --tags wcag2a,wcag2aa,best-practice \
-            --save axe-report.json || echo "::warning::axe-core violations found — see report"
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Run axe-core on verified website URLs
+        env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
+        run: node scripts/axe-audit.cjs
 
       - name: Upload axe report
         if: always()

@@ -17,7 +17,9 @@ module.exports = defineConfig({
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: process.env.PW_BASE_URL || 'https://hsiao.chendermatologist.com',
-    trace: 'on-first-retry',
+    // Protected Preview traces may contain authentication cookies. Screenshots
+    // and assertion output remain available without persisting credentials.
+    trace: process.env.PW_BASE_URL ? 'off' : 'on-first-retry',
     locale: 'zh-TW',
     timezoneId: 'Asia/Taipei',
     // Disable JS animations in headless context — reduces flake from

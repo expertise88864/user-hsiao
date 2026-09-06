@@ -1,103 +1,47 @@
 name: PR preview screenshots
-
 on:
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]
-
-# When a PR opens / updates, Vercel creates a preview deployment. We wait
-# for that, then run Playwright against the preview URL and post a comment
-# with side-by-side production-vs-preview screenshots for human review.
-#
-# Trigger only via PRs (no schedule / push) — preview URLs only exist for PRs.
-
 concurrency:
   group: pr-preview-${{ github.event.pull_request.number }}
   cancel-in-progress: true
-
+permissions:
+  contents: read
+  deployments: read
 jobs:
   preview-shot:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 12
-
-    permissions:
-      pull-requests: write
-      contents: read
-
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 1
           persist-credentials: false
-
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
-
-      - name: Install Playwright
+      - name: Install locked browser dependencies
         run: |
-          if ! grep -q "@playwright/test" package.json 2>/dev/null; then
-            npm install -D @playwright/test
-          else
-            npm install
-          fi
+          npm ci
           npx playwright install --with-deps chromium
-
-      # Wait for Vercel to publish the PR's preview deployment
-      - name: Get Vercel preview URL
-        id: vercel
-        uses: zentered/vercel-preview-url@v1.4
+      - name: Resolve exact PR Preview and take read-only screenshots
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        with:
-          vercel_team_id: ${{ secrets.VERCEL_TEAM_ID }}
-          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
-
-      - name: Screenshot key pages on preview
-        if: steps.vercel.outputs.preview_url != ''
-        env:
-          PW_BASE_URL: https://${{ steps.vercel.outputs.preview_url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          mkdir -p pr-shots/preview
-          # Take screenshots without using the visual-regression baseline check
-          npx playwright test tests/visual/ --update-snapshots --reporter=list || true
-          # Move the just-generated PNGs into pr-shots/preview/
-          if [ -d tests/visual/snapshots ]; then
-            cp tests/visual/snapshots/**/*.png pr-shots/preview/ 2>/dev/null || true
-          fi
-
-      - name: Screenshot same pages on production for comparison
-        env:
-          PW_BASE_URL: https://hsiao.chendermatologist.com
-        run: |
-          mkdir -p pr-shots/production
-          npx playwright test tests/visual/ --update-snapshots --reporter=list || true
-          if [ -d tests/visual/snapshots ]; then
-            cp tests/visual/snapshots/**/*.png pr-shots/production/ 2>/dev/null || true
-          fi
-
-      - name: Upload PR shots as artifact
+          URL=$(python _delivery.py preview "$CANDIDATE_SHA" --wait 600)
+          PW_BASE_URL="$URL" node _delivery_preview.cjs
+      - name: Upload screenshots (never baseline updates)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pr-shots-${{ github.event.pull_request.number }}
-          path: pr-shots/
+          name: pr-preview-${{ github.event.pull_request.head.sha }}
+          path: delivery-preview/
+          if-no-files-found: error
           retention-days: 14
-
-      - name: Comment on PR
-        if: steps.vercel.outputs.preview_url != ''
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const url = 'https://${{ steps.vercel.outputs.preview_url }}';
-            const body = `📸 **Visual preview ready**\n\n` +
-                         `🚀 Preview deploy: ${url}\n` +
-                         `📦 Side-by-side screenshots (production vs this PR) attached as artifact \`pr-shots-${{ github.event.pull_request.number }}\` — download from the run summary.\n\n` +
-                         `Reviewers: open both folders and eyeball the differences. Any unexpected visual change is a regression.`;
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body,
-            });
