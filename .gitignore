@@ -42,3 +42,8 @@ test-results/
 blob-report/
 .playwright/
 .codex-review/
+# Read-only preview acceptance artifacts
+delivery-preview/
+
+# Local independent review evidence is not published to the website/repository.
+.claude-review/

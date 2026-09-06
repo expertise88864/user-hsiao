@@ -1,36 +1,22 @@
 #!/usr/bin/env bash
-# Install the HsiaoEye pre-push hook.
-#
-# Git doesn't track .git/hooks/ — every clone starts without hooks. Run
-# this once after `git clone` (or after rm -rf .git/hooks/pre-push) to
-# wire up local quality gates that fire before push.
-#
-# Why a separate install step:
-#   - git checkout doesn't restore hook permissions.
-#   - core.hooksPath would override hooks for OTHER repos sharing the
-#     same machine.
-#
-# Idempotent. Backs up any existing pre-push to pre-push.bak first.
-
-set -e
-
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-HOOK_SRC="${REPO_ROOT}/scripts/pre-push"
-HOOK_DEST="${REPO_ROOT}/.git/hooks/pre-push"
-
-if [ ! -f "$HOOK_SRC" ]; then
-  echo "[install-hook] source missing: $HOOK_SRC" >&2
+# Repository-local configuration; shared worktrees use the same tracked hook.
+set -eu
+cd "$(git rev-parse --show-toplevel)"
+test -f .githooks/pre-push
+if [ ! -x .githooks/pre-push ]; then
+  echo "Tracked pre-push hook is not executable; restore the committed 100755 mode." >&2
   exit 1
 fi
-
-if [ -e "$HOOK_DEST" ] && [ ! -L "$HOOK_DEST" ]; then
-  echo "[install-hook] backing up existing $HOOK_DEST -> ${HOOK_DEST}.bak"
-  mv -f "$HOOK_DEST" "${HOOK_DEST}.bak"
+test -f _delivery.py
+existing="$(git config --local --get core.hooksPath || true)"
+if [ -n "$existing" ] && [ "$existing" != ".githooks" ]; then
+  echo "Another hooksPath is configured; integrate it explicitly, do not replace it." >&2
+  exit 1
 fi
-
-# Use a real copy (not a symlink) for Windows-git compatibility.
-cp -f "$HOOK_SRC" "$HOOK_DEST"
-chmod +x "$HOOK_DEST"
-
-echo "[install-hook] installed: $HOOK_DEST"
-echo "[install-hook] bypass for emergencies: git push --no-verify"
+default_hook="$(git rev-parse --git-path hooks/pre-push)"
+if [ -f "$default_hook" ] && [ "$existing" != ".githooks" ]; then
+  echo "Existing default hook needs explicit integration; nothing changed." >&2
+  exit 1
+fi
+git config --local core.hooksPath .githooks
+echo "Delivery hook installed. Candidate CI and exact-SHA promotion are mandatory."

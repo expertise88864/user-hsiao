@@ -2,45 +2,12 @@ name: Regenerate /en/ mirror
 
 on:
   push:
-    branches: [main]
-    paths:
-      - 'blog/*.html'
-      - 'about.html'
-      - 'privacy.html'
-      - 'tools.html'
-      - 'notes.html'
-      - 'index.html'
-      - 'blog/blog-shared.js'
-      - 'preflight.py'
-      - '_normalize_*.py'
-      - '_articles_field.py'
-      - '_gen_llms_full_txt.py'
-      - '_inject_speed_insights.py'
-      - '.github/workflows/quality.yml'
-      - 'halfwidth_to_fullwidth.py'
-      - '_gen_feeds.py'
-      - '_gen_related.py'
-      - '_gen_serp_meta.py'
-      - '_gen_en_pages.py'
-      - '_gen_faqpage_jsonld.py'
-      - '_gen_search_index.py'
-      - '_gen_profile_schema.py'
-      - '_gen_site_graph.py'
-      - '_gen_route_canonicals.py'
-      - '_gen_api_content_snapshot.py'
-      - '_gen_llms_txt.py'
-      - '_gen_opensearch.py'
-      - '_apply_i_series.py'
-      - '_apply_a11y_vt.py'
-      - '_apply_trusted_types.py'
-      - '_apply_f10_image_priority.py'
-      - '_extract_critical_css.py'
-      - '_gen_csp_hashes.py'
+    branches: [main, 'codex/**']
   workflow_dispatch:
 
 # Read-only generation check: corrections must use the normal review/CI push gate.
 concurrency:
-  group: regen-en
+  group: regen-en-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:

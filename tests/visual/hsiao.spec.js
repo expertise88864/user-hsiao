@@ -52,7 +52,11 @@ for (const page of PAGES) {
       await pw.setViewportSize(vp);
       // Hero selection and any A/B sampling must be deterministic in snapshots.
       await pw.addInitScript(() => { Math.random = () => 0; });
-      await pw.goto(BASE + page.path, { waitUntil: 'networkidle', timeout: 60_000 });
+      const response = await pw.goto(BASE + page.path, { waitUntil: 'networkidle', timeout: 60_000 });
+      expect(response && response.status(), 'Never accept an HTTP error as a baseline').toBe(200);
+      expect(new URL(pw.url()).origin, 'Never screenshot a login or production redirect').toBe(new URL(BASE).origin);
+      await expect(pw.locator('main')).toBeVisible();
+      await expect(pw.locator('h1').first()).toBeVisible();
 
       // Wait for fonts (Noto Serif TC + Inter) to fully load
       await pw.evaluate(() => document.fonts.ready);

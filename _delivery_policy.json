@@ -1,0 +1,185 @@
+{
+  "repository": "expertise88864/user-hsiao",
+  "require_pr": true,
+  "preview_paths": [
+    "/",
+    "/en/",
+    "/tools",
+    "/blog/dry-eye-myths"
+  ],
+  "workflows": [
+    {
+      "path": ".github/workflows/regen-en.yml",
+      "jobs": [
+        "regen"
+      ],
+      "steps": {
+        "regen": {
+          "required": [
+            "Checkout",
+            "Set up Python",
+            "Install Python dependencies",
+            "Regenerate all dependent artifacts",
+            "Detect generated drift"
+          ],
+          "conditional": [
+            "Upload generated correction for review",
+            "Require committed artifacts to be current"
+          ]
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/quality.yml",
+      "jobs": [
+        "HTML validation + SEO check",
+        "Lighthouse CI",
+        "Internal link check",
+        "A11y scan (axe-core)"
+      ],
+      "candidate_skips": [
+        "IndexNow ping (Bing / Yandex / Naver)",
+        "Live indexability audit"
+      ],
+      "main_skips": [],
+      "steps": {
+        "HTML validation + SEO check": {
+          "required": [
+            "Install Python dependencies",
+            "Run halfwidth idempotency check (first)",
+            "Drift check — auto-regenerated artifacts",
+            "Run validate.py",
+            "Generator and workflow regression tests",
+            "Run full static quality gate",
+            "Run halfwidth idempotency check (second — after EN mirror)",
+            "Deep SEO/quality checks (DermNotes ported)",
+            "JSON-LD parse check",
+            "Install Playwright dependencies",
+            "min.js freshness (blog-shared.min.js must match its source)",
+            "Run API contract tests",
+            "Run SEO browser smoke tests"
+          ],
+          "conditional": []
+        },
+        "IndexNow ping (Bing / Yandex / Naver)": {
+          "required": [
+            "Wait for Vercel deploy",
+            "Ping IndexNow with all published URLs"
+          ],
+          "conditional": []
+        },
+        "Live indexability audit": {
+          "required": [
+            "Wait for Vercel deploy (90s)",
+            "Verify production sitemap URLs are indexable"
+          ],
+          "conditional": []
+        },
+        "Lighthouse CI": {
+          "required": [
+            "Resolve verified deployment for this revision",
+            "Run Lighthouse CI"
+          ],
+          "conditional": []
+        },
+        "Internal link check": {
+          "required": [
+            "Check for broken internal links"
+          ],
+          "conditional": []
+        },
+        "A11y scan (axe-core)": {
+          "required": [
+            "Resolve verified deployment for this revision",
+            "Install axe-cli + Puppeteer",
+            "Run axe-core on production URLs",
+            "Upload axe report"
+          ],
+          "conditional": []
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/visual-regression.yml",
+      "jobs": [
+        "visual"
+      ],
+      "candidate_skips": [
+        "update-baselines"
+      ],
+      "main_skips": [
+        "update-baselines"
+      ],
+      "steps": {
+        "visual": {
+          "required": [
+            "Install Playwright",
+            "Require the complete reviewed baseline set",
+            "Run visual diff"
+          ],
+          "conditional": [
+            "Resolve exact candidate Preview",
+            "Require exact production deployment",
+            "Upload diff snapshots on failure"
+          ],
+          "candidate_required": [
+            "Resolve exact candidate Preview"
+          ],
+          "main_required": [
+            "Require exact production deployment"
+          ]
+        },
+        "update-baselines": {
+          "required": [
+            "Install Playwright",
+            "Replace baselines",
+            "Upload candidate baselines for review"
+          ],
+          "conditional": []
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/size-budget.yml",
+      "jobs": [
+        "budget"
+      ],
+      "steps": {
+        "budget": {
+          "required": [
+            "Compute asset budget"
+          ],
+          "conditional": []
+        }
+      }
+    },
+    {
+      "path": ".github/workflows/delivery.yml",
+      "jobs": [
+        "Delivery contract",
+        "Preview browser"
+      ],
+      "candidate_skips": [],
+      "main_skips": [
+        "Preview browser"
+      ],
+      "steps": {
+        "Delivery contract": {
+          "required": [
+            "Delivery Python regression tests",
+            "Production deployment gate regression tests"
+          ],
+          "conditional": []
+        },
+        "Preview browser": {
+          "required": [
+            "Resolve exact-SHA preview (never production)",
+            "Install browser",
+            "Verify preview pages in desktop and mobile browsers"
+          ],
+          "conditional": []
+        }
+      }
+    }
+  ]
+}

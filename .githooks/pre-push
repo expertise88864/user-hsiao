@@ -1,121 +1,15 @@
-#!/usr/bin/env bash
-# Pre-push safety: refuse to push if we'd clobber articles that were
-# edited via /admin WYSIWYG since our local copy was last synced.
-#
-# Why: every /admin save goes straight into a GitHub commit with the
-# message "admin: edit <slug> via /admin WYSIWYG". If someone (Claude,
-# the user from another machine, etc.) pushes a local copy of an article
-# without first `git pull`-ing, the admin's recent edit is silently lost.
-#
-# This hook compares each blog/*.html that's about to be pushed against
-# the version on origin/main. If origin/main has a NEWER commit on that
-# file AND its message starts with "admin: edit", we abort the push.
-#
-# To force-push anyway (rare — usually means the admin will lose work):
-#   ALLOW_OVERWRITE_ADMIN_EDITS=1 git push
-# or
-#   git push --no-verify
-#
-# Setup (one-time, per checkout):
-#   git config core.hooksPath .githooks
-#
-# git invokes the hook with:
-#   $1 = remote name (e.g., "origin")
-#   $2 = remote URL
-# and feeds lines of "<local_ref> <local_sha> <remote_ref> <remote_sha>"
-# on stdin, one per ref being pushed.
-
-set -e
-
-REMOTE="$1"
-
-# Skip when nothing's pushing
-if [ "$ALLOW_OVERWRITE_ADMIN_EDITS" = "1" ]; then
-  echo "[pre-push] ALLOW_OVERWRITE_ADMIN_EDITS=1 — skipping admin-edit safety check."
-  exit 0
+#!/bin/sh
+# Exact candidate CI before production. No override or full-local-CI requirement.
+set -eu
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+if [ -x .venv/Scripts/python.exe ]; then
+  PYTHON=.venv/Scripts/python.exe
+elif [ -x .venv/bin/python ]; then
+  PYTHON=.venv/bin/python
+elif command -v python >/dev/null 2>&1; then
+  PYTHON=python
+else
+  PYTHON=python3
 fi
-
-# Refresh origin so the comparison is current.
-git fetch "$REMOTE" main --quiet 2>/dev/null || true
-
-PROBLEMS=()
-
-while read -r local_ref local_sha remote_ref remote_sha; do
-  # Skip deletions (local_sha all zeros)
-  if [ "$local_sha" = "0000000000000000000000000000000000000000" ]; then
-    continue
-  fi
-
-  # Only enforce on main pushes
-  case "$remote_ref" in
-    refs/heads/main) ;;
-    *) continue ;;
-  esac
-
-  # Determine the range of commits being pushed.
-  # If remote_sha is all zeros, we're creating the branch — compare against
-  # the merge-base with origin/main (treat all our commits as new).
-  if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
-    base="$(git merge-base "$local_sha" origin/main 2>/dev/null || echo "")"
-  else
-    base="$remote_sha"
-  fi
-
-  # List article files we're about to push (in the range base..local_sha).
-  files_changed="$(git diff --name-only "$base" "$local_sha" 2>/dev/null \
-                    | grep -E '^blog/[^/]+\.html$' || true)"
-
-  if [ -z "$files_changed" ]; then
-    continue
-  fi
-
-  for file in $files_changed; do
-    # Find the last commit on origin/main that touched this file.
-    last_remote_msg="$(git log -1 --format='%s' origin/main -- "$file" 2>/dev/null || echo '')"
-    last_remote_sha="$(git log -1 --format='%h' origin/main -- "$file" 2>/dev/null || echo '')"
-
-    case "$last_remote_msg" in
-      "admin: edit"*)
-        # Check if our local version actually differs from origin/main's
-        # current state — if our content is identical to what's already on
-        # the remote, there's nothing to overwrite, so don't bother warning.
-        if ! git diff --quiet "$local_sha:$file" origin/main:"$file" 2>/dev/null; then
-          PROBLEMS+=("$file|$last_remote_sha|$last_remote_msg")
-        fi
-        ;;
-    esac
-  done
-done
-
-if [ "${#PROBLEMS[@]}" -gt 0 ]; then
-  echo
-  echo "╔═════════════════════════════════════════════════════════════════════╗"
-  echo "║   ⚠️  PRE-PUSH HALT — would overwrite recent /admin edits            ║"
-  echo "╚═════════════════════════════════════════════════════════════════════╝"
-  echo
-  echo "The following article(s) were edited via the /admin WYSIWYG editor"
-  echo "on a commit you don't have locally. Pushing now would REVERT those"
-  echo "edits and silently lose work:"
-  echo
-  for p in "${PROBLEMS[@]}"; do
-    file="${p%%|*}"
-    rest="${p#*|}"
-    sha="${rest%%|*}"
-    msg="${rest#*|}"
-    echo "    • $file"
-    echo "      ↳ last /admin commit: $sha — \"$msg\""
-  done
-  echo
-  echo "Recommended:"
-  echo "    git pull --rebase             # pick up the /admin edits first"
-  echo "    # resolve any conflicts, re-test, then:"
-  echo "    git push"
-  echo
-  echo "To override (you really do want to clobber the /admin edit):"
-  echo "    ALLOW_OVERWRITE_ADMIN_EDITS=1 git push"
-  echo "    # or: git push --no-verify"
-  echo
-  exit 1
-fi
-
-exit 0
+exec "$PYTHON" _delivery.py pre-push --remote "${1:-origin}"
