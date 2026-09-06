@@ -89,9 +89,10 @@ for (const path of PUBLIC_PATHS) {
       expect(lang, 'html lang attribute missing').toBeTruthy();
 
       // 2. <title>
-      const title = await page.title();
-      expect(title.length, 'empty <title>').toBeGreaterThan(5);
-      expect(title.length, '<title> too long for SERP').toBeLessThan(80);
+      // A first visit can reload after clearing a stale service-worker cache.
+      // Retry the browser assertion across that navigation, keeping the same
+      // 6–79 character requirement instead of sampling a transient blank page.
+      await expect(page, 'title must contain 6–79 characters').toHaveTitle(/^[\s\S]{6,79}$/);
 
       // 3. <meta name="description">
       const desc = await page.locator('head meta[name="description"]').getAttribute('content');

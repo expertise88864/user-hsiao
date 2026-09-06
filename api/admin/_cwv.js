@@ -20,6 +20,7 @@
  */
 import { requireAdmin } from './_auth.js';
 import { kvAvailable, kvGet, kvLRange } from '../_kv.js';
+import { selectCwvSamples } from '../_cwv_samples.js';
 
 // v31: Read from KV first (real-time). GA4 fallback for historical depth
 // when KV reservoir is empty or older than 30 days.
@@ -40,7 +41,8 @@ async function readKvSamples(metric, days) {
   }
   if (!Array.isArray(arr) || !arr.length) return null;
   const cutoff = Date.now() - days * 86400_000;
-  const recent = arr.filter(s => s.t > cutoff).map(s => s.v);
+  const samples = selectCwvSamples(arr, cutoff);
+  const recent = samples.map(s => s.v);
   if (!recent.length) return null;
   recent.sort((a, b) => a - b);
   const p75 = recent[Math.floor(recent.length * 0.75)] || 0;
@@ -51,6 +53,7 @@ async function readKvSamples(metric, days) {
     avg: metric === 'CLS' ? avg / 1000 : avg,
     p75: metric === 'CLS' ? p75 / 1000 : p75,
     source: 'kv',
+    method: samples[0].version === 'web-vitals-6' ? 'web-vitals-6' : 'legacy',
   };
 }
 

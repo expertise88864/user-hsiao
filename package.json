@@ -2,12 +2,12 @@
   "name": "hsiao-eye",
   "version": "30.0.0",
   "private": true,
-  "description": "HsiaoEye — Min-Chien Hsiao MD's ophthalmology patient-education site",
+  "description": "HsiaoEye \u2014 Min-Chien Hsiao MD's ophthalmology patient-education site",
   "engines": {
     "node": "24.x"
   },
   "scripts": {
-    "minify": "esbuild blog/blog-shared.js --minify --legal-comments=none --target=es2020 --outfile=blog/blog-shared.min.js",
+    "minify": "esbuild blog/blog-shared.js --bundle --minify --legal-comments=none --target=es2020 --outfile=blog/blog-shared.min.js && esbuild blog/vitals.js --bundle --minify --format=iife --global-name=HsiaoVitals --legal-comments=none --target=es2020 --outfile=assets/vitals.min.js",
     "test:visual": "playwright test tests/visual/",
     "test:visual:update": "playwright test tests/visual/ --update-snapshots",
     "test:visual:ui": "playwright test tests/visual/ --ui",
@@ -15,7 +15,8 @@
     "test:seo": "playwright test -c playwright.seo.config.js"
   },
   "dependencies": {
-    "@vercel/og": "^0.11.1"
+    "@vercel/og": "^0.11.1",
+    "web-vitals": "6.2.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.50.0",

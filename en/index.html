@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script src="/assets/trusted-types.js?v=20260670"></script>
+<script src="/assets/trusted-types.js?v=20260671"></script>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260670';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260671';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -128,10 +128,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260670" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260671" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(l)l.addEventListener('load',function(){l.rel='stylesheet'},{once:true});})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260670">
+<link rel="stylesheet" href="/assets/app.css?v=20260671">
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -421,11 +421,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <span class="mag-title-line" data-en="From the clinic to" data-zh="從診間到日常,">From the clinic to</span>
 <span class="mag-title-line italic" data-en="your everyday eyes." data-zh="好好照顧你的眼睛。">your everyday eyes.</span>
 </h1>
+<div class="mag-ctas hs-reader-ctas"><a class="btn btn-teal" data-en="Patient education &rarr;" data-reader-route="patient" data-zh="一般衛教 &rarr;" href="#patient-reading">Patient education &rarr;</a><a class="btn btn-teal" data-en="Research notes &rarr;" data-reader-route="research" data-zh="醫師研究筆記 &rarr;" href="#research-reading">Research notes &rarr;</a></div>
 <p class="mag-lede" data-en="A resident ophthalmologist's field notes &mdash; patient questions, new evidence, and the everyday basics of eye care: dry eye, childhood myopia control, cataract, glaucoma, and retinal detachment." data-zh="這裡記錄住院醫師訓練中遇到的真實問題、最新研究與護眼觀念，涵蓋乾眼症、兒童近視控制、白內障、青光眼與視網膜剝離等眼科衛教主題。">A resident ophthalmologist's field notes &mdash; patient questions, new evidence, and the everyday basics of eye care: dry eye, childhood myopia control, cataract, glaucoma, and retinal detachment.</p>
-<div class="mag-ctas">
-<a class="btn btn-teal" data-en="Read latest articles &rarr;" data-zh="閱讀最新文章 &rarr;" href="/en/blog">Read latest articles &rarr;</a>
-<a class="btn btn-ghost" data-en="About" data-zh="關於作者" href="/en/about">About</a>
-</div>
 </div>
 <div class="mag-feature">
 <!-- Cover Story slot — content rotated each load by DN.shuffleHeroCards() (blog-shared.js).
@@ -473,6 +470,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 </div>
 </section>
 <!-- ============= QUICK-FIND HUB (search input + tag chips) ============= -->
+<section aria-labelledby="patient-reading-title research-reading-title" class="hs-reading-lanes max-w-5xl mx-auto px-5 sm:px-8">
+<div class="hs-reading-lane" id="patient-reading"><h2 data-en="Patient education" data-zh="一般衛教" id="patient-reading-title">Patient education</h2><p data-en="Find explanations of symptoms, tests and everyday care." data-zh="從症狀、檢查到照護，依照自己的問題閱讀。">Find explanations of symptoms, tests and everyday care.</p><ul><li><a data-en="Glaucoma: symptoms and tests" data-reader-route="patient" data-zh="青光眼：症狀與檢查" href="/en/blog/glaucoma-comprehensive-guide">Glaucoma: symptoms and tests</a></li><li><a data-en="Childhood myopia: common questions" data-reader-route="patient" data-zh="兒童近視控制：常見問題" href="/blog/pediatric-myopia-control">Childhood myopia: common questions</a></li><li><a data-en="Cataract: surgery and recovery" data-reader-route="patient" data-zh="白內障：手術與恢復" href="/en/blog/cataract-comprehensive-guide">Cataract: surgery and recovery</a></li></ul><a data-en="Browse the topic map &rarr;" data-zh="瀏覽主題地圖 &rarr;" href="/en/blog/topics">Browse the topic map &rarr;</a></div>
+<div class="hs-reading-lane" id="research-reading"><h2 data-en="Research notes" data-zh="醫師研究筆記" id="research-reading-title">Research notes</h2><p data-en="Explore study design, evidence limitations and clinical reasoning." data-zh="深入閱讀研究設計、證據限制與臨床思考。">Explore study design, evidence limitations and clinical reasoning.</p><ul><li><a data-en="Dry-eye symptoms and signs: DREAM" data-reader-route="research" data-zh="乾眼症狀與徵象：DREAM 研究" href="/en/blog/dry-eye-symptom-sign-discordance-dream">Dry-eye symptoms and signs: DREAM</a></li><li><a data-en="Monitoring myopia: refraction and axial length" data-reader-route="research" data-zh="近視追蹤：度數與眼軸" href="/en/blog/monitoring-myopia-ser-vs-axial-length">Monitoring myopia: refraction and axial length</a></li><li><a data-en="Uveitis: interpreting the RUBI trial" data-reader-route="research" data-zh="葡萄膜炎：RUBI 試驗解析" href="/en/blog/refractory-noninfectious-uveitis-biologics-rubi-trial">Uveitis: interpreting the RUBI trial</a></li></ul><a data-en="Browse the topic map &rarr;" data-zh="瀏覽主題地圖 &rarr;" href="/en/blog/topics">Browse the topic map &rarr;</a></div>
+</section>
 <section class="max-w-3xl mx-auto px-5 sm:px-8 mt-6">
 <div style="background:#fff; border:0.5px solid var(--border); border-radius:18px; padding:18px 22px;">
 <div data-en="Quick find by topic" data-zh="快速查找眼科主題" style="font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--teal-deep); font-weight:600; margin-bottom:10px">Quick find by topic</div>
@@ -894,7 +895,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script defer src="/blog/blog-shared.min.js?v=20260670"></script>
+<script defer src="/blog/blog-shared.min.js?v=20260671"></script>
 <script>document.addEventListener('DOMContentLoaded',function(){
   if(window.DN)DN.initBlog({});
   // Quick-find chip filter wiring (mirrors DermNotes main site).

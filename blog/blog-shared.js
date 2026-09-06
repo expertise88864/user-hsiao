@@ -858,7 +858,8 @@
     }
 
     const h1 = document.querySelector('article h1, section h1');
-    const lead = h1 ? h1.parentElement.querySelector('p') : null;
+    // The lead is a sibling of H1, not a caption inside a navigation widget.
+    const lead = h1 ? h1.parentElement.querySelector(':scope > p') : null;
     const target = lead || h1;
     if (!target) return;
 
@@ -905,16 +906,12 @@
     if (!article) return;
 
     var dwellMs = 0;
-    var lastTick = Date.now();
     var maxScrollPct = 0;
     var marked = false;
 
     function tick() {
       if (marked) return;
-      var now = Date.now();
-      // Only accumulate dwell when tab is visible
-      if (document.visibilityState === 'visible') dwellMs += (now - lastTick);
-      lastTick = now;
+      dwellMs = DN._readingClock ? DN._readingClock.elapsed() : 0;
 
       // Recompute scroll % against the article's vertical extent
       var rect = article.getBoundingClientRect();
@@ -951,10 +948,7 @@
       tick();
     }, 5000);
 
-    // Reset dwell clock on visibility regain so background tabs don't accrue
-    document.addEventListener('visibilitychange', function () {
-      lastTick = Date.now();
-    });
+    document.addEventListener('visibilitychange', tick);
   };
 
   // ---------- inline TOC (collapsible card at top of article) ----------
@@ -2717,28 +2711,16 @@
     });
     function render(q) {
       q = (q || '').toLowerCase().trim();
-      var matches;
-      if (!q) {
-        matches = INDEX.slice(0, 8);
-      } else {
-        matches = INDEX
-          .map(function (it) {
-            var title = (it.title || '').toLowerCase();
-            var search = (it.search || '').toLowerCase();
-            var s = 0;
-            if (title.indexOf(q) === 0) s += 120;
-            else if (title.indexOf(q) >= 0) s += 90;
-            if (search.indexOf(q) >= 0) s += 40;
-            return { it: it, s: s };
-          })
-          .filter(function (x) { return x.s > 0; })
-          .sort(function (x, y) { return y.s - x.s; })
-          .slice(0, 10)
-          .map(function (x) { return x.it; });
-      }
+      var matches = require('./reader-search.js').rankSearch(INDEX, q);
       currentMatches = matches;
       activeIdx = 0;
-      if (!matches.length) { results.innerHTML = '<div id="hs-cmdk-empty">找不到符合的內容</div>'; return; }
+      if (!matches.length) {
+        var en = cmdkLang() === 'en';
+        var prefix = en ? '/en' : '';
+        results.innerHTML = '<div id="hs-cmdk-empty">' + (en ? 'No matching articles. Try a shorter topic, or browse:' : '找不到符合的文章。可試試較短的疾病名稱，或瀏覽：') +
+          '<p><a href="' + prefix + '/blog/topics">' + (en ? 'Topic map' : '主題地圖') + '</a> · <a href="' + prefix + '/tools">' + (en ? 'Tools and scales' : '工具與量表') + '</a></p></div>';
+        return;
+      }
       results.innerHTML = matches.map(function (m, i) {
         return '<a class="row' + (i === 0 ? ' active' : '') + '" href="' + cmdkEscape(m.url) + '" data-idx="' + i + '">' +
           '<span class="t">' + cmdkEscape(m.title) + '</span>' +
@@ -2849,7 +2831,7 @@
         var q = input.value.trim();
         if (q.length < 2) return;
         // GA4: just length (privacy-preserving).
-        if (DN.gaEvent) DN.gaEvent('search_query', { query_len: q.length });
+        if (DN.gaEvent) DN.gaEvent('search_query', { query_len: q.length, result_count: currentMatches.length });
         // v37.40 — POST to /api/search-log. The endpoint is rate-limited and
         // logs ONLY when env SEARCH_LOG_ENABLED=1; otherwise 204 no-op. The
         // author uses /api/admin/search-log to spot content gaps. We do not
@@ -3144,6 +3126,8 @@
           name: name,
           value: name === 'CLS' ? value * 1000 : value,
           page: location.pathname,
+          version: 'web-vitals-6',
+          id: id,
         });
         if (navigator.sendBeacon) {
           navigator.sendBeacon('/api/cwv-ingest', new Blob([payload], { type: 'application/json' }));
@@ -3152,60 +3136,15 @@
         }
       } catch (e) {}
     }
-    try {
-      var lcp = 0;
-      var lcpObs = new PerformanceObserver(function (list) {
-        var entries = list.getEntries();
-        var last = entries[entries.length - 1];
-        lcp = last.renderTime || last.loadTime || last.startTime;
-      });
-      lcpObs.observe({ type: 'largest-contentful-paint', buffered: true });
-      addEventListener('visibilitychange', function () {
-        if (document.visibilityState === 'hidden' && lcp) { send('LCP', lcp, 'lcp-' + Date.now()); lcp = 0; }
-      }, { once: true });
-    } catch (e) {}
-    try {
-      var cls = 0;
-      var clsObs = new PerformanceObserver(function (list) {
-        list.getEntries().forEach(function (entry) { if (!entry.hadRecentInput) cls += entry.value; });
-      });
-      clsObs.observe({ type: 'layout-shift', buffered: true });
-      addEventListener('visibilitychange', function () {
-        if (document.visibilityState === 'hidden') send('CLS', cls, 'cls-' + Date.now());
-      });
-    } catch (e) {}
-    try {
-      var worstINP = 0;
-      var inpObs = new PerformanceObserver(function (list) {
-        list.getEntries().forEach(function (entry) { if (entry.duration > worstINP) worstINP = entry.duration; });
-      });
-      inpObs.observe({ type: 'event', buffered: true, durationThreshold: 40 });
-      addEventListener('visibilitychange', function () {
-        if (document.visibilityState === 'hidden' && worstINP) { send('INP', worstINP, 'inp-' + Date.now()); worstINP = 0; }
-      });
-    } catch (e) {}
-
-    // ── TTFB (Time to First Byte) — from Navigation Timing ──
-    try {
-      var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
-      if (nav) {
-        var ttfb = nav.responseStart - nav.startTime;
-        if (ttfb > 0 && ttfb < 60000) send('TTFB', ttfb, 'ttfb-' + Date.now());
-      }
-    } catch (e) {}
-
-    // ── FCP (First Contentful Paint) — from Paint Timing ──
-    try {
-      var fcpObs = new PerformanceObserver(function (list) {
-        list.getEntries().forEach(function (entry) {
-          if (entry.name === 'first-contentful-paint') {
-            send('FCP', entry.startTime, 'fcp-' + Date.now());
-            try { fcpObs.disconnect(); } catch (e2) {}
-          }
-        });
-      });
-      fcpObs.observe({ type: 'paint', buffered: true });
-    } catch (e) {}
+    if (DN._vitalsBound) return;
+    DN._vitalsBound = true;
+    var vitalsScript = document.createElement('script');
+    vitalsScript.src = '/assets/vitals.min.js?v=20260671';
+    vitalsScript.addEventListener('load', function () {
+      if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
+    });
+    vitalsScript.addEventListener('error', function () { DN._vitalsBound = false; });
+    document.head.appendChild(vitalsScript);
 
     // ── HTTP protocol detection (h1 / h2 / h3) ──
     // Reads NextHopProtocol from PerformanceResourceTiming entries.
@@ -3812,7 +3751,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260670';
+    s.src = '/blog/blog-admin.js?v=20260671';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -5159,6 +5098,7 @@
   DN.bindEngagementTracking = function () {
     if (DN._engagementBound) return;
     DN._engagementBound = true;
+    require('./reader-navigation.js').bindReaderNavigation(document, gaEvent);
     // Scroll depth: fire at 50% and 100% (each at most once per page)
     var fired50 = false, fired100 = false;
     function onScroll() {
@@ -5171,18 +5111,8 @@
       if (fired50 && fired100) document.removeEventListener('scroll', onScroll);
     }
     document.addEventListener('scroll', onScroll, { passive: true });
-    // Time-on-page: 30s and 2min milestones (require document visible)
-    var visibleSince = Date.now();
-    var fired30s = false, fired2m = false;
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) {
-        visibleSince = null;
-      } else if (!visibleSince) {
-        visibleSince = Date.now();
-      }
-    });
-    setTimeout(function () { if (!document.hidden && visibleSince && !fired30s) { fired30s = true; gaEvent('time_30s'); } }, 30 * 1000);
-    setTimeout(function () { if (!document.hidden && visibleSince && !fired2m)  { fired2m  = true; gaEvent('time_2min'); } }, 2 * 60 * 1000);
+    // Share a cumulative foreground clock with article-read qualification.
+    DN._readingClock = require('./reader-metrics.js').observeReadingTime(document, gaEvent);
     // Language toggle
     var langToggle = document.getElementById('langToggle');
     if (langToggle) {
