@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const { chromium, request } = require('playwright');
 const AxeBuilder = require('@axe-core/playwright').default;
 const { previewCookies, verifyContent } = require('./preview-access.cjs');
+const { prepareA11yPage } = require('./a11y-rendering.cjs');
 
 (async () => {
   const base = process.env.SITE_URL;
@@ -29,6 +30,10 @@ const { previewCookies, verifyContent } = require('./preview-access.cjs');
         for (const selector of controls[route] || []) {
           await page.locator(selector).waitFor({ state: 'attached' });
         }
+        // Paint the content-visibility:auto footer before measuring colors.
+        // Otherwise an offscreen footer can be measured against the white page
+        // instead of its actual dark background (reproduced with en-US).
+        await prepareA11yPage(page);
         const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'best-practice']).analyze();
         results.push(result);
         console.log(route + ': ' + result.violations.length + ' accessibility violations');

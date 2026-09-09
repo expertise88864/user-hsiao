@@ -53,3 +53,31 @@ test('newsletter remains readable when the device requests dark mode', async ({ 
     .withTags(['wcag2a', 'wcag2aa', 'best-practice']).analyze();
   expect(result.violations).toEqual([]);
 });
+
+
+test('rendered English-locale footer passes axe and real contrast defects still fail', async ({ browser }) => {
+  const context = await browser.newContext({ locale: 'en-US', serviceWorkers: 'block' });
+  try {
+    const page = await context.newPage();
+    await page.goto(test.info().project.use.baseURL + '/blog/dry-eye-myths');
+    await page.locator('#hs-osdi').waitFor({ state: 'attached' });
+    const footer = page.locator('.mag-foot-bot');
+    await require('../../scripts/a11y-rendering.cjs').prepareA11yPage(page);
+    const scan = () => new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'best-practice']).analyze();
+    expect((await scan()).violations).toEqual([]);
+    // The same scan must still reject a genuinely unreadable rendered footer.
+    await footer.evaluate(element => { element.style.color = '#454139'; });
+    const broken = await scan();
+    expect(broken.violations.map(violation => violation.id)).toContain('color-contrast');
+  } finally { await context.close(); }
+});
+
+
+test('audit preparation supports the tools page plain footer', async ({ page }) => {
+  await page.goto('/tools');
+  await page.locator('#hs-osdi').waitFor({ state: 'attached' });
+  await require('../../scripts/a11y-rendering.cjs').prepareA11yPage(page);
+  await expect(page.locator('footer')).toBeInViewport();
+  const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'best-practice']).analyze();
+  expect(result.violations).toEqual([]);
+});
