@@ -128,7 +128,7 @@ def main() -> int:
     esbuild_installed = os.path.isdir(os.path.join(ROOT, 'node_modules', 'esbuild'))
     try:
         proc = subprocess.run(
-            ['npx', '--no-install', 'esbuild', SRC, '--minify',
+            ['npx', '--no-install', 'esbuild', SRC, '--bundle', '--minify',
              '--legal-comments=none', '--target=es2020', f'--outfile={esbuild_out}'],
             capture_output=True, text=True, cwd=ROOT, timeout=120,
             shell=(os.name == 'nt'),
@@ -159,6 +159,18 @@ def main() -> int:
                 )
             else:
                 exact_note = ', byte-exact vs fresh esbuild'
+            vitals_out = os.path.join(esbuild_dir, 'vitals.min.js')
+            vitals = subprocess.run(
+                ['npx', '--no-install', 'esbuild', 'blog/vitals.js', '--bundle', '--minify',
+                 '--format=iife', '--global-name=HsiaoVitals', '--legal-comments=none',
+                 '--target=es2020', f'--outfile={vitals_out}'],
+                capture_output=True, text=True, cwd=ROOT, timeout=120, shell=(os.name == 'nt'))
+            vitals_actual = os.path.join(ROOT, 'assets', 'vitals.min.js')
+            if vitals.returncode or not os.path.exists(vitals_out) or not os.path.exists(vitals_actual):
+                errors.append('Cannot verify standard Web Vitals bundle; run npm run minify')
+            elif open(vitals_out, 'rb').read() != open(vitals_actual, 'rb').read():
+                errors.append('assets/vitals.min.js is STALE; run npm run minify')
+
     except FileNotFoundError:
         if esbuild_installed:
             errors.append('esbuild is installed but npx is not on PATH — '

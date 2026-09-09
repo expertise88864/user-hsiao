@@ -9,6 +9,7 @@ BUDGETS = {
     # the readable blog-shared.js source is parsed by tooling only and
     # is not budgeted as a delivered asset.
     'blog/blog-shared.min.js': (190, 53),
+    'assets/vitals.min.js': (15, 6),
     'assets/app.css':      (45, 14),
     'assets/article.css':  (18,  6),
     'sw.js':               (52, 21),

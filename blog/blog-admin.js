@@ -105,12 +105,15 @@
     function insertArticleBlock(html) {
       var sel = window.getSelection();
       var prose = document.getElementById('proseZh');
-      if (!sel || !sel.rangeCount || !prose) return;
+      if (!sel || !sel.rangeCount || !prose) {
+        status('請先把游標放在文章正文內，再插入區塊。', 'error');
+        return false;
+      }
       var range = sel.getRangeAt(0);
       var anchor = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
       if (!anchor || !prose.contains(anchor) || anchor === prose) {
         status('請先把游標放在文章正文內，再插入區塊。', 'error');
-        return;
+        return false;
       }
       while (anchor.parentElement !== prose) anchor = anchor.parentElement;
       var template = document.createElement('template');
@@ -129,6 +132,7 @@
         sel.removeAllRanges();
         sel.addRange(range);
       }
+      return true;
     }
 
     // Build the floating toolbar
@@ -275,7 +279,7 @@
         }
         var data = await resp.json();
         var snippet = '<figure>' + (data.pictureSnippet || data.imgSnippet) + '<figcaption>(編輯說明文字)</figcaption></figure>';
-        insertArticleBlock(snippet);
+        if (!insertArticleBlock(snippet)) return;
         status('✓ 已插入 (含 ' + variants.length + ' 個變體)', 'success');
       } catch (e) {
         status('✗ 圖片處理失敗: ' + (e.message || e), 'error');
@@ -371,7 +375,7 @@
       });
       if (!resp.ok) { status('✗ SVG 上傳失敗', 'error'); return; }
       var data = await resp.json();
-      insertArticleBlock('<figure><img src="' + data.url + '" alt="" /><figcaption>(編輯說明文字)</figcaption></figure>');
+      if (!insertArticleBlock('<figure><img src="' + data.url + '" alt="" /><figcaption>(編輯說明文字)</figcaption></figure>')) return;
       status('✓ SVG 已插入', 'success');
     }
 

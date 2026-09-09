@@ -6,12 +6,9 @@ to render 4 contextual "Related reads" cards under each article. When
 the file is missing or empty the JS falls back to random category-mates,
 which leaves topical clusters weakly linked.
 
-Scoring per candidate B (relative to current article A):
-  +6  same category (`cat`)
-  +4  same tag (`tag`)
-  +3  shared slug-token count >=2 (e.g. cataract-* clusters)
-  +2  newer than A (encourages forward-pointing freshness)
-  +0.5*random  tiebreak
+Ranking prioritizes the same disease, then the same clinical topic cluster.
+Content format and date only break ties within those topical groups. Slug is
+used as the final stable tie-breaker; adding a catalog row cannot shuffle ties.
 
 The top 4 candidates per article are written to assets/related.json:
   { "<slug>": [{"slug":"…","reasons":["same-tag","cluster"]}, …], … }
@@ -22,13 +19,11 @@ the user understands WHY this article was suggested.
 import html
 import json
 import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
-import random
 import re
 import _articles_field  # M-12: DN.ARTICLES fields may contain escaped quotes
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-random.seed(42)  # deterministic output between runs
 
 JS = (ROOT / 'blog' / 'blog-shared.js').read_text(encoding='utf-8')
 m = re.search(r'DN\.ARTICLES\s*=\s*\[([\s\S]*?)\];', JS)
@@ -68,26 +63,26 @@ def slug_tokens(slug):
     return set(slug.split('-'))
 
 
+TOPIC_CLUSTERS = (
+    {'pediatric-myopia-control', 'dims-pediatric-myopia-control',
+     'monitoring-myopia-ser-vs-axial-length', 'pediatric-high-myopia-maculopathy-progression'},
+    {'dry-eye-myths', 'dry-eye-symptom-sign-discordance-dream'},
+    {'floaters-retinal-detachment', 'pediatric-high-myopia-maculopathy-progression'},
+    {'cataract-comprehensive-guide', 'cataract-surgery-selection', 'toric-iol-astigmatism-cataract-review'},
+    {'glaucoma-comprehensive-guide', 'glaucoma-treatment-selection'},
+)
+
+
 def score(a, b):
-    s = 0.5 * random.random()  # tiebreak
     reasons = []
-    if a.get('cat') and a.get('cat') == b.get('cat'):
-        s += 6
-        reasons.append('same-cat')
-    if a.get('tag') and a.get('tag') == b.get('tag'):
-        s += 4
-        reasons.append('same-tag')
-    shared = slug_tokens(a['slug']) & slug_tokens(b['slug'])
-    shared.discard('comprehensive')   # too common
-    shared.discard('guide')
-    if len(shared) >= 2:
-        s += 3
-        reasons.append('cluster')
-    # Freshness bias
-    if (b.get('updated') or b.get('date') or '') > (a.get('updated') or a.get('date') or ''):
-        s += 2
-        reasons.append('newer')
-    return s, reasons
+    same_tag = bool(a.get('tag') and a.get('tag') == b.get('tag'))
+    cluster = any({a['slug'], b['slug']} <= group for group in TOPIC_CLUSTERS)
+    same_cat = bool(a.get('cat') and a.get('cat') == b.get('cat'))
+    if same_tag: reasons.append('same-tag')
+    if cluster: reasons.append('cluster')
+    if same_cat: reasons.append('same-cat')
+    return (int(same_tag), int(cluster), int(same_cat),
+            b.get('updated') or b.get('date') or '', b['slug']), reasons
 
 
 def esc(value):

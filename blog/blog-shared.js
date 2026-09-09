@@ -377,7 +377,21 @@
   // elements get injected (related-articles, share toolbar, etc.).
   DN._bilingualCache = null;
   DN._bilingualCacheObserver = null;
+  function invalidateBilingualCache(mutations) {
+    for (const mutation of mutations) {
+      for (const node of mutation.addedNodes) {
+        if (node.nodeType === 1 && (node.hasAttribute('data-zh') || node.hasAttribute('data-en') ||
+            node.querySelector('[data-zh],[data-en]'))) {
+          DN._bilingualCache = null;
+          return;
+        }
+      }
+    }
+  }
   function _getBilingualNodes() {
+    // Widgets can be inserted and translated within one idle callback, before
+    // the observer callback runs. Drain those queued records before cache reuse.
+    if (DN._bilingualCacheObserver) invalidateBilingualCache(DN._bilingualCacheObserver.takeRecords());
     if (DN._bilingualCache && DN._bilingualCache.length) return DN._bilingualCache;
     DN._bilingualCache = Array.prototype.slice.call(
       document.querySelectorAll('[data-zh],[data-en]')
@@ -385,18 +399,7 @@
     // Lazily wire an observer so we invalidate if more bilingual nodes appear
     // (e.g., related-articles render, share-toolbar inject, edit-mode banner).
     if (!DN._bilingualCacheObserver && window.MutationObserver) {
-      DN._bilingualCacheObserver = new MutationObserver(function (muts) {
-        for (var i = 0; i < muts.length; i++) {
-          for (var j = 0; j < muts[i].addedNodes.length; j++) {
-            var n = muts[i].addedNodes[j];
-            if (n.nodeType === 1 && (n.hasAttribute('data-zh') || n.hasAttribute('data-en') ||
-                (n.querySelector && n.querySelector('[data-zh],[data-en]')))) {
-              DN._bilingualCache = null;
-              return;
-            }
-          }
-        }
-      });
+      DN._bilingualCacheObserver = new MutationObserver(invalidateBilingualCache);
       try {
         DN._bilingualCacheObserver.observe(document.body || document.documentElement,
           { childList: true, subtree: true });
@@ -858,7 +861,8 @@
     }
 
     const h1 = document.querySelector('article h1, section h1');
-    const lead = h1 ? h1.parentElement.querySelector('p') : null;
+    // The lead is a sibling of H1, not a caption inside a navigation widget.
+    const lead = h1 ? h1.parentElement.querySelector(':scope > p') : null;
     const target = lead || h1;
     if (!target) return;
 
@@ -905,16 +909,12 @@
     if (!article) return;
 
     var dwellMs = 0;
-    var lastTick = Date.now();
     var maxScrollPct = 0;
     var marked = false;
 
     function tick() {
       if (marked) return;
-      var now = Date.now();
-      // Only accumulate dwell when tab is visible
-      if (document.visibilityState === 'visible') dwellMs += (now - lastTick);
-      lastTick = now;
+      dwellMs = DN._readingClock ? DN._readingClock.elapsed() : 0;
 
       // Recompute scroll % against the article's vertical extent
       var rect = article.getBoundingClientRect();
@@ -951,10 +951,7 @@
       tick();
     }, 5000);
 
-    // Reset dwell clock on visibility regain so background tabs don't accrue
-    document.addEventListener('visibilitychange', function () {
-      lastTick = Date.now();
-    });
+    document.addEventListener('visibilitychange', tick);
   };
 
   // ---------- inline TOC (collapsible card at top of article) ----------
@@ -1280,7 +1277,15 @@
 
     const wrap = document.createElement('div');
     wrap.id = 'hs-font-sizer';
-    wrap.setAttribute('aria-label', '字型大小調整');
+    wrap.setAttribute('role', 'region');
+    wrap.setAttribute('aria-labelledby', 'hs-font-size-label');
+    const fontLabel = document.createElement('span');
+    fontLabel.id = 'hs-font-size-label';
+    fontLabel.className = 'sr-only';
+    fontLabel.dataset.zh = '字型大小調整';
+    fontLabel.dataset.en = 'Text size';
+    fontLabel.textContent = DN.detectLang() === 'en' ? fontLabel.dataset.en : fontLabel.dataset.zh;
+    wrap.appendChild(fontLabel);
     // v34.5: moved from bottom:74px → bottom:24px so the font-sizer occupies
     // the bottom-right corner. Scroll-to-top now sits above it at bottom:130px.
     wrap.style.cssText =
@@ -1295,20 +1300,25 @@
       b.dataset.size = s;
       b.style.cssText =
         'width:38px;height:32px;border:0;cursor:pointer;font-weight:700;' +
-        'background:' + (s === savedSize ? 'linear-gradient(180deg,#8fb3d4,#3a5a7c)' : 'transparent') + ';' +
+        'background:' + (s === savedSize ? '#3a5a7c' : 'transparent') + ';' +
         'color:' + (s === savedSize ? '#fff' : '#3a5a7c') + ';';
       b.style.fontSize = s === 'S' ? '11px' : (s === 'M' ? '13px' : '15px');
-      b.textContent = s === 'S' ? '小' : (s === 'M' ? '中' : '大');
-      b.setAttribute('aria-label', '字型大小 ' + s);
-      b.title = '字型大小 ' + (s === 'S' ? '小' : (s === 'M' ? '中' : '大'));
+      b.id = 'hs-font-size-' + s;
+      b.dataset.zh = s === 'S' ? '小' : (s === 'M' ? '中' : '大');
+      b.dataset.en = s;
+      b.textContent = DN.detectLang() === 'en' ? b.dataset.en : b.dataset.zh;
+      b.setAttribute('aria-labelledby', fontLabel.id + ' ' + b.id);
+      b.setAttribute('aria-pressed', String(s === savedSize));
       b.addEventListener('click', function () {
         applyFontSize(s);
         wrap.querySelectorAll('button').forEach(function (x) {
           x.style.background = 'transparent';
           x.style.color = '#3a5a7c';
+          x.setAttribute('aria-pressed', 'false');
         });
-        b.style.background = 'linear-gradient(180deg,#8fb3d4,#3a5a7c)';
+        b.style.background = '#3a5a7c';
         b.style.color = '#fff';
+        b.setAttribute('aria-pressed', 'true');
       });
       wrap.appendChild(b);
     });
@@ -1319,6 +1329,8 @@
       const scrolled = window.scrollY > 400;
       wrap.style.opacity = scrolled ? '1' : '0';
       wrap.style.pointerEvents = scrolled ? 'auto' : 'none';
+      wrap.inert = !scrolled;
+      wrap.setAttribute('aria-hidden', String(!scrolled));
       ticking = false;
     }
     window.addEventListener('scroll', function () {
@@ -2103,13 +2115,13 @@
     }
     var cover = cards[0];
 
-    // Cover Story (full mag-card with meta line + h3 title)
+    // Keep the runtime heading at the same level as the source HTML.
     coverEl.setAttribute('href', '/blog/' + cover.slug);
     coverEl.innerHTML =
       '<div class="mag-card-cover">' + cover.svg + '</div>' +
       '<div class="mag-card-body">' +
         '<span class="mag-card-tag" data-zh="封面故事 · COVER STORY" data-en="Cover Story">封面故事 · COVER STORY</span>' +
-        '<h3 data-zh="' + attrEsc(cover.title_zh) + '" data-en="' + attrEsc(cover.title_en) + '">' + cover.title_zh + '</h3>' +
+        '<h2 data-zh="' + attrEsc(cover.title_zh) + '" data-en="' + attrEsc(cover.title_en) + '">' + cover.title_zh + '</h2>' +
         '<div class="mag-card-meta" data-zh="' + attrEsc(cover.meta_zh) + '" data-en="' + attrEsc(cover.meta_en) + '">' + cover.meta_zh + '</div>' +
       '</div>';
 
@@ -2717,28 +2729,16 @@
     });
     function render(q) {
       q = (q || '').toLowerCase().trim();
-      var matches;
-      if (!q) {
-        matches = INDEX.slice(0, 8);
-      } else {
-        matches = INDEX
-          .map(function (it) {
-            var title = (it.title || '').toLowerCase();
-            var search = (it.search || '').toLowerCase();
-            var s = 0;
-            if (title.indexOf(q) === 0) s += 120;
-            else if (title.indexOf(q) >= 0) s += 90;
-            if (search.indexOf(q) >= 0) s += 40;
-            return { it: it, s: s };
-          })
-          .filter(function (x) { return x.s > 0; })
-          .sort(function (x, y) { return y.s - x.s; })
-          .slice(0, 10)
-          .map(function (x) { return x.it; });
-      }
+      var matches = require('./reader-search.js').rankSearch(INDEX, q);
       currentMatches = matches;
       activeIdx = 0;
-      if (!matches.length) { results.innerHTML = '<div id="hs-cmdk-empty">找不到符合的內容</div>'; return; }
+      if (!matches.length) {
+        var en = cmdkLang() === 'en';
+        var prefix = en ? '/en' : '';
+        results.innerHTML = '<div id="hs-cmdk-empty">' + (en ? 'No matching articles. Try a shorter topic, or browse:' : '找不到符合的文章。可試試較短的疾病名稱，或瀏覽：') +
+          '<p><a href="' + prefix + '/blog/topics">' + (en ? 'Topic map' : '主題地圖') + '</a> · <a href="' + prefix + '/tools">' + (en ? 'Tools and scales' : '工具與量表') + '</a></p></div>';
+        return;
+      }
       results.innerHTML = matches.map(function (m, i) {
         return '<a class="row' + (i === 0 ? ' active' : '') + '" href="' + cmdkEscape(m.url) + '" data-idx="' + i + '">' +
           '<span class="t">' + cmdkEscape(m.title) + '</span>' +
@@ -2849,7 +2849,7 @@
         var q = input.value.trim();
         if (q.length < 2) return;
         // GA4: just length (privacy-preserving).
-        if (DN.gaEvent) DN.gaEvent('search_query', { query_len: q.length });
+        if (DN.gaEvent) DN.gaEvent('search_query', { query_len: q.length, result_count: currentMatches.length });
         // v37.40 — POST to /api/search-log. The endpoint is rate-limited and
         // logs ONLY when env SEARCH_LOG_ENABLED=1; otherwise 204 no-op. The
         // author uses /api/admin/search-log to spot content gaps. We do not
@@ -3144,6 +3144,8 @@
           name: name,
           value: name === 'CLS' ? value * 1000 : value,
           page: location.pathname,
+          version: 'web-vitals-6',
+          id: id,
         });
         if (navigator.sendBeacon) {
           navigator.sendBeacon('/api/cwv-ingest', new Blob([payload], { type: 'application/json' }));
@@ -3152,60 +3154,15 @@
         }
       } catch (e) {}
     }
-    try {
-      var lcp = 0;
-      var lcpObs = new PerformanceObserver(function (list) {
-        var entries = list.getEntries();
-        var last = entries[entries.length - 1];
-        lcp = last.renderTime || last.loadTime || last.startTime;
-      });
-      lcpObs.observe({ type: 'largest-contentful-paint', buffered: true });
-      addEventListener('visibilitychange', function () {
-        if (document.visibilityState === 'hidden' && lcp) { send('LCP', lcp, 'lcp-' + Date.now()); lcp = 0; }
-      }, { once: true });
-    } catch (e) {}
-    try {
-      var cls = 0;
-      var clsObs = new PerformanceObserver(function (list) {
-        list.getEntries().forEach(function (entry) { if (!entry.hadRecentInput) cls += entry.value; });
-      });
-      clsObs.observe({ type: 'layout-shift', buffered: true });
-      addEventListener('visibilitychange', function () {
-        if (document.visibilityState === 'hidden') send('CLS', cls, 'cls-' + Date.now());
-      });
-    } catch (e) {}
-    try {
-      var worstINP = 0;
-      var inpObs = new PerformanceObserver(function (list) {
-        list.getEntries().forEach(function (entry) { if (entry.duration > worstINP) worstINP = entry.duration; });
-      });
-      inpObs.observe({ type: 'event', buffered: true, durationThreshold: 40 });
-      addEventListener('visibilitychange', function () {
-        if (document.visibilityState === 'hidden' && worstINP) { send('INP', worstINP, 'inp-' + Date.now()); worstINP = 0; }
-      });
-    } catch (e) {}
-
-    // ── TTFB (Time to First Byte) — from Navigation Timing ──
-    try {
-      var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
-      if (nav) {
-        var ttfb = nav.responseStart - nav.startTime;
-        if (ttfb > 0 && ttfb < 60000) send('TTFB', ttfb, 'ttfb-' + Date.now());
-      }
-    } catch (e) {}
-
-    // ── FCP (First Contentful Paint) — from Paint Timing ──
-    try {
-      var fcpObs = new PerformanceObserver(function (list) {
-        list.getEntries().forEach(function (entry) {
-          if (entry.name === 'first-contentful-paint') {
-            send('FCP', entry.startTime, 'fcp-' + Date.now());
-            try { fcpObs.disconnect(); } catch (e2) {}
-          }
-        });
-      });
-      fcpObs.observe({ type: 'paint', buffered: true });
-    } catch (e) {}
+    if (DN._vitalsBound) return;
+    DN._vitalsBound = true;
+    var vitalsScript = document.createElement('script');
+    vitalsScript.src = '/assets/vitals.min.js?v=20260672';
+    vitalsScript.addEventListener('load', function () {
+      if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
+    });
+    vitalsScript.addEventListener('error', function () { DN._vitalsBound = false; });
+    document.head.appendChild(vitalsScript);
 
     // ── HTTP protocol detection (h1 / h2 / h3) ──
     // Reads NextHopProtocol from PerformanceResourceTiming entries.
@@ -3265,14 +3222,14 @@
       '.hs-calc-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #ebe4d8}' +
       '.hs-calc-row:first-of-type{border-top:0}' +
       '.hs-calc-row label{font-size:13.5px;color:#2a2620;font-weight:600}' +
-      '.hs-calc-row .hs-calc-hint{display:block;font-size:11.5px;color:#8b8378;font-weight:400;margin-top:2px;line-height:1.4}' +
+      '.hs-calc-row .hs-calc-hint{display:block;font-size:11.5px;color:#6e6759;font-weight:400;margin-top:2px;line-height:1.4}' +
       '.hs-calc-input{width:90px;padding:6px 10px;border:1px solid var(--border,#dcd5c8);border-radius:8px;font-size:14px;text-align:center;color:#0f172a;font-weight:700;background:#fff}' +
       '.hs-calc-input:focus{outline:none;border-color:rgba(58,90,124,.6);box-shadow:0 0 0 3px rgba(143,179,212,.20)}' +
       '.hs-calc-result{margin-top:14px;padding:14px 16px;background:linear-gradient(135deg,#e3edf6,#f0f6f4);border:1px solid #b8cfe3;border-radius:12px}' +
       '.hs-calc-score{font-family:\'Noto Serif TC\',Georgia,serif;font-size:32px;font-weight:800;color:#243b56;line-height:1;margin:0}' +
       '.hs-calc-band{display:inline-block;margin-left:10px;padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:700;letter-spacing:.04em;vertical-align:middle}' +
       '.hs-calc-interp{font-size:13px;color:#0f172a;line-height:1.7;margin-top:6px}' +
-      '.hs-calc-disclaimer{font-size:11px;color:#8b8378;margin-top:10px;line-height:1.6;font-style:italic}' +
+      '.hs-calc-disclaimer{font-size:11px;color:#6e6759;margin-top:10px;line-height:1.6;font-style:italic}' +
       '.hs-calc-tools-link{display:inline-flex;align-items:center;gap:5px;margin-top:10px;padding:6px 12px;border-radius:9999px;background:var(--mint-soft,#dde7e2);color:#243b56;font-size:12px;font-weight:700;text-decoration:none;border:1px solid #b8cfe3}' +
       '.hs-calc-tools-link:hover{background:#b8cfe3}' +
       '.hs-radio-group{display:flex;gap:6px;flex-wrap:wrap}' +
@@ -3295,15 +3252,16 @@
     }
     if (document.getElementById(cfg.id)) return null;
 
-    var rowsHTML = (cfg.rows || []).map(function (r) {
+    var rowsHTML = (cfg.rows || []).map(function (r, index) {
+      var inputId = attrEsc(cfg.id + '-field-' + index);
       var hint = r.hint ? '<span class="hs-calc-hint">' + r.hint + '</span>' : '';
       if (r.type === 'number') {
-        return '<div class="hs-calc-row"><label>' + r.label + hint + '</label>' +
-          '<input type="number" min="' + (r.min != null ? r.min : 0) + '" max="' + (r.max != null ? r.max : 100) + '" step="' + (r.step || 1) + '" value="' + (r.def != null ? r.def : 0) + '" class="hs-calc-input" data-key="' + r.key + '" /></div>';
+        return '<div class="hs-calc-row"><label for="' + inputId + '">' + r.label + hint + '</label>' +
+          '<input id="' + inputId + '" type="number" min="' + (r.min != null ? r.min : 0) + '" max="' + (r.max != null ? r.max : 100) + '" step="' + (r.step || 1) + '" value="' + (r.def != null ? r.def : 0) + '" class="hs-calc-input" data-key="' + r.key + '" /></div>';
       } else if (r.type === 'select') {
         var opts = r.options.map(function (o) { return '<option value="' + o.v + '"' + (o.def ? ' selected' : '') + '>' + o.label + '</option>'; }).join('');
-        return '<div class="hs-calc-row"><label>' + r.label + hint + '</label>' +
-          '<select class="hs-calc-input" data-key="' + r.key + '" style="width:auto;min-width:140px">' + opts + '</select></div>';
+        return '<div class="hs-calc-row"><label for="' + inputId + '">' + r.label + hint + '</label>' +
+          '<select id="' + inputId + '" class="hs-calc-input" data-key="' + r.key + '" style="width:auto;min-width:140px">' + opts + '</select></div>';
       }
       return '';
     }).join('');
@@ -3812,7 +3770,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260670';
+    s.src = '/blog/blog-admin.js?v=20260672';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -3949,7 +3907,7 @@
         '.hs-blog-filter .chip-btn{padding:5px 11px;border-radius:9999px;border:1px solid var(--border,#dcd5c8);background:#fff;font-size:12px;color:var(--ink-2,#5e574e);cursor:pointer;font-weight:600;transition:all .12s}' +
         '.hs-blog-filter .chip-btn:hover{border-color:var(--blue-deep,#3a5a7c);color:var(--blue-deep,#3a5a7c)}' +
         '.hs-blog-filter .chip-btn.active{background:var(--blue-deep,#3a5a7c);color:#fff;border-color:var(--blue-deep,#3a5a7c)}' +
-        '.hs-blog-filter .chip-btn .count{font-size:10.5px;opacity:.7;margin-left:4px;font-family:"JetBrains Mono",monospace}' +
+        '.hs-blog-filter .chip-btn .count{font-size:10.5px;margin-left:4px;font-family:"JetBrains Mono",monospace}' +
         '.hs-blog-filter input[type="search"]{flex:1;min-width:180px;padding:7px 12px;border-radius:9999px;border:1px solid var(--border,#dcd5c8);font-size:13px;background:#faf7f2;color:var(--ink,#0f172a)}' +
         '.hs-blog-filter input[type="search"]:focus{outline:none;border-color:var(--blue-deep,#3a5a7c);background:#fff}' +
         '.hs-blog-filter .reset{margin-left:auto;font-size:11.5px;color:var(--muted,#8b8378);cursor:pointer;text-decoration:underline;background:transparent;border:0}' +
@@ -5159,6 +5117,7 @@
   DN.bindEngagementTracking = function () {
     if (DN._engagementBound) return;
     DN._engagementBound = true;
+    require('./reader-navigation.js').bindReaderNavigation(document, gaEvent);
     // Scroll depth: fire at 50% and 100% (each at most once per page)
     var fired50 = false, fired100 = false;
     function onScroll() {
@@ -5171,18 +5130,8 @@
       if (fired50 && fired100) document.removeEventListener('scroll', onScroll);
     }
     document.addEventListener('scroll', onScroll, { passive: true });
-    // Time-on-page: 30s and 2min milestones (require document visible)
-    var visibleSince = Date.now();
-    var fired30s = false, fired2m = false;
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) {
-        visibleSince = null;
-      } else if (!visibleSince) {
-        visibleSince = Date.now();
-      }
-    });
-    setTimeout(function () { if (!document.hidden && visibleSince && !fired30s) { fired30s = true; gaEvent('time_30s'); } }, 30 * 1000);
-    setTimeout(function () { if (!document.hidden && visibleSince && !fired2m)  { fired2m  = true; gaEvent('time_2min'); } }, 2 * 60 * 1000);
+    // Share a cumulative foreground clock with article-read qualification.
+    DN._readingClock = require('./reader-metrics.js').observeReadingTime(document, gaEvent);
     // Language toggle
     var langToggle = document.getElementById('langToggle');
     if (langToggle) {
@@ -5204,9 +5153,6 @@
       if (e.target.closest('#hs-bookmark')) gaEvent('bookmark_click');
       // Search button (opens Cmd+K)
       if (e.target.closest('button[aria-label="搜尋"], button[aria-label="Search"]')) gaEvent('search_open');
-      // Related-article click
-      var related = e.target.closest('#hs-related a');
-      if (related) gaEvent('related_click', { target_slug: (related.getAttribute('href') || '').split('/').pop() });
       // Prev/Next navigation
       var pn = e.target.closest('#hs-prevnext a');
       if (pn) gaEvent('prevnext_click', { direction: pn.dataset.pn || 'unknown' });

@@ -57,7 +57,7 @@
 - **錨**：`9303014`。
 
 ### D-06 快取破壞（cache-bust）政策
-- **決策**：全站 `?v=2026xxxx` 單調遞增版本（**目前 `v=20260670`**，以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準）；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。
+- **決策**：全站 `?v=2026xxxx` 單調遞增版本（**目前 `v=20260672`**，以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準）；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。
 - **⚠ 有兩個版本紀元，bump 必須同時動**（2026-07-26 round-3 外審發現：只 bump 了 `?v=`，21 個檔的 `hs:siteVer` 還停在舊值）：
   1. 資產 URL 的 `?v=NNNNNNNN`；
   2. `hs:siteVer` 強制重置戳記——內容頁寫成 `var T='NNNNNNNN'`、`admin.html` 寫成 `TARGET = 'NNNNNNNN'`。這個戳記與 localStorage 比對，不一致才觸發 SW/快取強制重置。**只 bump `?v=` 的話戳記仍相符 → 重置不會發生**，回訪的 admin 會帶著舊 editor bundle 對上新伺服器（實際發生過，見 BACKLOG Round 3）。
@@ -201,3 +201,11 @@
 - **關鍵限制(定案時已知)**:**不得**使用 `onload="this.media='all'"`。`_gen_csp_hashes.py` 只對 `<script>`／`<style>` **內容**算 hash,**不涵蓋屬性上的 inline event handler**,而 D-16 的 CSP 是 fail-closed 且無 `'unsafe-hashes'` → 該 handler 會被擋,字型永不載入。必須改用 `rel="preload" as="style"` + `<script>` 內的 `addEventListener`,並保留 `<noscript>` 後備。
 - **狀態**：已施作。現行 HTML 與 `api/admin/_new.js` 均非阻塞，`_check_performance_budget.py` 同時檢查產物與 scaffold。歷史漏改 scaffold 已在 `433ce06` 修復。
 - **錨**:本次 commit。**關聯**:D-12(原始接受)、D-16(fail-closed CSP)、BACKLOG P-01。
+
+
+### D-29 一般衛教與醫師研究筆記並重（2026-09-06）
+- 使用者已選定兩類內容並重。首頁提供同等清楚的入口，保留研究深度；文章以靜態段落捷徑服務不同問題。
+- 推薦排序先看疾病與臨床主題，再看內容分類與日期。此為調整既有推薦的相關性，並非推翻 D-23 或批量增加文內連結。
+- 先落實可量測的閱讀試點；不以增加字數、重複關鍵字或縮短醫療限制換取點擊。醫療核可規則不變。
+- 重開條件：站主改變主要讀者定位，或分眾實測支持新的入口安排。
+- 詳細範圍與事件定義見 READER-EXPERIENCE.md。

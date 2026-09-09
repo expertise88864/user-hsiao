@@ -514,3 +514,12 @@ figure.article-fig svg {
 .hs-faq details > div { padding: 0 0 16px; color: var(--ink-2); line-height: 1.75; }
 .hs-faq details > div a { color: var(--blue-deep); }
 
+
+/* Static shortcuts remain usable before JavaScript and preserve full evidence. */
+.hs-reading-path{margin:20px 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--blue-soft)}
+.hs-reading-path p{margin:0 0 10px;font-weight:600;color:var(--ink)}
+.hs-reading-path>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.hs-reading-path a{display:flex;align-items:center;min-height:44px;padding:8px;color:var(--blue-deep);line-height:1.5;text-decoration:underline;text-underline-offset:3px}
+#proseZh [id],#proseEn [id]{scroll-margin-top:90px}
+
+[data-theme="dark"] .hs-reading-path a{color:#b7d8f5}

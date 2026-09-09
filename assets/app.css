@@ -6,6 +6,19 @@
    provides only the Tailwind-style utility primitives.
    ============================================================ */
 
+/* Accessible labels stay in the accessibility tree without taking layout space. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 /* ---- Preflight reset (Tailwind subset) ---- */
 *, ::before, ::after { box-sizing: border-box; border-width: 0; border-style: solid; }
 html { line-height: 1.5; -webkit-text-size-adjust: 100%; tab-size: 4; }
@@ -977,14 +990,13 @@ details[open] > summary ~ * {
  *
  * Bump --muted darker so secondary text (date stamps, badges, "已快取的
  * 頁面在離線時仍可閱讀" hints) clears the 4.5:1 normal-text threshold.
- * Dark-mode --muted needs the inverse adjustment to clear contrast over
- * the dark --bg #1a1815. Same specificity (:root) as the inline rules,
- * so app.css (loaded after the inline <style> in document order) wins.
+ * Dark-mode --muted needs the inverse adjustment. Light-mode specificity
+ * must exceed the later page-local :root rules, which retain the old palette.
  *
  * After this, the axe-core CI workflow can drop `--disable color-contrast`
  * and start enforcing the rule.
  * ============================================================ */
-:root {
+:root:not([data-theme="dark"]) {
   --muted: #6e6759;      /* was #8b8378 — now ~5.6:1 vs #faf7f2 (AA pass) */
   --ink-2: #4a443c;      /* was #5e574e — now ~10:1 vs #faf7f2 (AAA pass) */
 }
@@ -1069,3 +1081,13 @@ details[open] > summary ~ * {
   :where(.hs-footer-notes) .mag-foot-cols a:hover{ color:var(--teal-bright); }
   :where(.hs-footer-notes) .mag-foot-bot{ max-width:1440px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; gap:16px; font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.1em; color:rgba(247,243,236,.55); flex-wrap:wrap; }
   @media (max-width:980px){ :where(.hs-footer-notes) .mag-foot-top{ grid-template-columns:1fr; } :where(.hs-footer-notes) .mag-foot-cols{ grid-template-columns:repeat(2,1fr); } }
+
+/* Equal entry points for patient education and clinical research. */
+.hs-reader-ctas{margin:20px 0}.hs-reader-ctas .btn{flex:1;text-align:center;justify-content:center}
+.hs-reading-lanes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:24px auto 32px}
+.hs-reading-lane{border:1px solid var(--line);border-top:3px solid var(--blue-deep);border-radius:12px;padding:24px;scroll-margin-top:90px}
+.hs-reading-lane h2{font-size:22px;margin:0 0 12px}.hs-reading-lane p{color:var(--ink-2);line-height:1.8;margin-bottom:16px}
+.hs-reading-lane ul{padding-left:20px;margin:0 0 16px}.hs-reading-lane a{color:var(--blue-deep);text-underline-offset:4px;line-height:1.7;display:inline-block;padding:8px 0}
+@media(max-width:640px){.hs-reading-lanes{grid-template-columns:1fr}.hs-reader-ctas{flex-wrap:wrap}.hs-reader-ctas .btn{min-width:135px;padding:12px 14px}}
+
+[data-theme="dark"] .hs-reading-lane a{color:#b7d8f5}

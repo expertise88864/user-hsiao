@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260670"></script>
+<script src="/assets/trusted-types.js?v=20260672"></script>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260670';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260672';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -54,10 +54,10 @@
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260670" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260672" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(l)l.addEventListener('load',function(){l.rel='stylesheet'},{once:true});})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260670">
+<link rel="stylesheet" href="/assets/app.css?v=20260672">
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -493,20 +493,21 @@
 
 <!-- ============= NEWSLETTER / RSS SUBSCRIBE (lightweight, editorial) ============= -->
 <style>
-  .hs-newsletter{ background:#f0ebe1; padding:64px clamp(20px,5vw,72px); border-top:0.5px solid rgba(45,42,38,.08); border-bottom:0.5px solid rgba(45,42,38,.08); }
+  /* This editorial panel has fixed light surfaces in both themes. */
+  .hs-newsletter{ --ink:#2a2620; --ink-2:#4a443c; background:#f0ebe1; padding:64px clamp(20px,5vw,72px); border-top:0.5px solid rgba(45,42,38,.08); border-bottom:0.5px solid rgba(45,42,38,.08); }
   .hs-newsletter-inner{ max-width:880px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
-  .hs-newsletter-eyebrow{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(45,42,38,.55); margin:0 0 10px; }
+  .hs-newsletter-eyebrow{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-2); margin:0 0 10px; }
   .hs-newsletter h2{ font-family:'Noto Serif TC','Fraunces',Georgia,serif; font-style:italic; font-weight:600; font-size:clamp(24px,3vw,32px); margin:0 0 14px; color:var(--ink); letter-spacing:-0.01em; line-height:1.25; }
   .hs-newsletter p.hs-newsletter-lede{ font-family:'Noto Serif TC',Georgia,serif; font-size:15px; line-height:1.7; color:rgba(45,42,38,.78); margin:0; max-width:46ch; }
   .hs-newsletter-cta{ display:flex; flex-direction:column; gap:12px; }
   .hs-feed-btn{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; background:#faf7f2; border:0.5px solid rgba(45,42,38,.18); border-radius:6px; text-decoration:none; color:var(--ink); transition:transform .15s,border-color .15s,background .15s; min-height:44px; }
   .hs-feed-btn:hover{ background:#fff; border-color:var(--teal-bright,#7a9285); transform:translateY(-1px); }
   .hs-feed-btn-label{ display:flex; flex-direction:column; gap:2px; }
-  .hs-feed-btn-name{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(45,42,38,.55); }
+  .hs-feed-btn-name{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2); }
   .hs-feed-btn-desc{ font-family:'Noto Serif TC',Georgia,serif; font-size:14px; color:var(--ink); }
   .hs-feed-btn-arrow{ font-size:18px; color:rgba(45,42,38,.4); }
-  .hs-newsletter-howto{ margin-top:8px; font-size:12.5px; color:rgba(45,42,38,.6); line-height:1.6; font-family:'Noto Serif TC',Georgia,serif; }
-  .hs-newsletter-howto a{ color:var(--teal-bright,#7a9285); text-decoration:underline; text-underline-offset:2px; }
+  .hs-newsletter-howto{ margin-top:8px; font-size:12.5px; color:var(--ink-2); line-height:1.6; font-family:'Noto Serif TC',Georgia,serif; }
+  .hs-newsletter-howto a{ color:var(--ink); text-decoration:underline; text-underline-offset:2px; }
   @media (max-width:760px){ .hs-newsletter-inner{ grid-template-columns:1fr; gap:32px; } }
 </style>
 <section id="dn-newsletter" class="hs-newsletter cv-auto-short" aria-labelledby="dn-newsletter-h">
@@ -581,7 +582,7 @@
   </div>
 </footer>
 
-<script src="/blog/blog-shared.min.js?v=20260670" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260672" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {

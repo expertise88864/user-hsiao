@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260670"></script>
+<script src="/assets/trusted-types.js?v=20260672"></script>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260670';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260672';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -128,10 +128,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260670" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260672" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(l)l.addEventListener('load',function(){l.rel='stylesheet'},{once:true});})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260670">
+<link rel="stylesheet" href="/assets/app.css?v=20260672">
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -302,7 +302,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   .mag-card-cover svg{ width:100%; height:100%; display:block; }
   .mag-card-body{ padding:22px 24px 24px; }
   .mag-card-tag{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-deep); display:block; margin-bottom:6px; font-weight:600; }
-  .mag-card h3{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-weight:600; font-size:clamp(20px,2.2vw,26px); line-height:1.25; letter-spacing:-0.01em; margin:8px 0 8px; color:var(--ink); text-wrap:pretty; }
+  .mag-card h2{ font-family:'Fraunces','Noto Serif TC',Georgia,serif; font-weight:600; font-size:clamp(20px,2.2vw,26px); line-height:1.25; letter-spacing:-0.01em; margin:8px 0 8px; color:var(--ink); text-wrap:pretty; }
   .mag-card-meta{ font-family:'JetBrains Mono',Inter,ui-monospace,monospace; font-size:11px; color:var(--muted); letter-spacing:.06em; }
   .mag-card-side{ display:grid; grid-template-columns:120px 1fr; gap:18px; padding:14px; align-items:center; }
   .mag-card-side .mag-card-cover{ aspect-ratio:1/1; }
@@ -434,13 +434,11 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
         <span class="mag-title-line" data-zh="從診間到日常," data-en="From the clinic to">從診間到日常,</span>
         <span class="mag-title-line italic" data-zh="好好照顧你的眼睛。" data-en="your everyday eyes.">好好照顧你的眼睛。</span>
       </h1>
+      <div class="mag-ctas hs-reader-ctas"><a href="#patient-reading" class="btn btn-teal" data-reader-route="patient" data-zh="一般衛教 →" data-en="Patient education →">一般衛教 →</a><a href="#research-reading" class="btn btn-teal" data-reader-route="research" data-zh="醫師研究筆記 →" data-en="Research notes →">醫師研究筆記 →</a></div>
       <p class="mag-lede" data-zh="這裡記錄住院醫師訓練中遇到的真實問題、最新研究與護眼觀念，涵蓋乾眼症、兒童近視控制、白內障、青光眼與視網膜剝離等眼科衛教主題。" data-en="A resident ophthalmologist's field notes — patient questions, new evidence, and the everyday basics of eye care: dry eye, childhood myopia control, cataract, glaucoma, and retinal detachment.">
         這裡記錄住院醫師訓練中遇到的真實問題、最新研究與護眼觀念，涵蓋乾眼症、兒童近視控制、白內障、青光眼與視網膜剝離等眼科衛教主題。
       </p>
-      <div class="mag-ctas">
-        <a href="/blog" class="btn btn-teal" data-zh="閱讀最新文章 →" data-en="Read latest articles →">閱讀最新文章 →</a>
-        <a href="/about" class="btn btn-ghost" data-zh="關於作者" data-en="About">關於作者</a>
-      </div>
+
     </div>
     <div class="mag-feature">
       <!-- Cover Story slot — content rotated each load by DN.shuffleHeroCards() (blog-shared.js).
@@ -490,6 +488,11 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 </section>
 
 <!-- ============= QUICK-FIND HUB (search input + tag chips) ============= -->
+
+<section class="hs-reading-lanes max-w-5xl mx-auto px-5 sm:px-8" aria-labelledby="patient-reading-title research-reading-title">
+<div class="hs-reading-lane" id="patient-reading"><h2 id="patient-reading-title" data-zh="一般衛教" data-en="Patient education">一般衛教</h2><p  data-zh="從症狀、檢查到照護，依照自己的問題閱讀。" data-en="Find explanations of symptoms, tests and everyday care.">從症狀、檢查到照護，依照自己的問題閱讀。</p><ul><li><a href="/blog/glaucoma-comprehensive-guide" data-reader-route="patient" data-zh="青光眼：症狀與檢查" data-en="Glaucoma: symptoms and tests">青光眼：症狀與檢查</a></li><li><a href="/blog/pediatric-myopia-control" data-reader-route="patient" data-zh="兒童近視控制：常見問題" data-en="Childhood myopia: common questions">兒童近視控制：常見問題</a></li><li><a href="/blog/cataract-comprehensive-guide" data-reader-route="patient" data-zh="白內障：手術與恢復" data-en="Cataract: surgery and recovery">白內障：手術與恢復</a></li></ul><a href="/blog/topics" data-zh="瀏覽主題地圖 →" data-en="Browse the topic map →">瀏覽主題地圖 →</a></div>
+<div class="hs-reading-lane" id="research-reading"><h2 id="research-reading-title" data-zh="醫師研究筆記" data-en="Research notes">醫師研究筆記</h2><p  data-zh="深入閱讀研究設計、證據限制與臨床思考。" data-en="Explore study design, evidence limitations and clinical reasoning.">深入閱讀研究設計、證據限制與臨床思考。</p><ul><li><a href="/blog/dry-eye-symptom-sign-discordance-dream" data-reader-route="research" data-zh="乾眼症狀與徵象：DREAM 研究" data-en="Dry-eye symptoms and signs: DREAM">乾眼症狀與徵象：DREAM 研究</a></li><li><a href="/blog/monitoring-myopia-ser-vs-axial-length" data-reader-route="research" data-zh="近視追蹤：度數與眼軸" data-en="Monitoring myopia: refraction and axial length">近視追蹤：度數與眼軸</a></li><li><a href="/blog/refractory-noninfectious-uveitis-biologics-rubi-trial" data-reader-route="research" data-zh="葡萄膜炎：RUBI 試驗解析" data-en="Uveitis: interpreting the RUBI trial">葡萄膜炎：RUBI 試驗解析</a></li></ul><a href="/blog/topics" data-zh="瀏覽主題地圖 →" data-en="Browse the topic map →">瀏覽主題地圖 →</a></div>
+</section>
 <section class="max-w-3xl mx-auto px-5 sm:px-8 mt-6">
   <div style="background:#fff; border:0.5px solid var(--border); border-radius:18px; padding:18px 22px;">
     <div style="font-family:'JetBrains Mono',Inter,monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--teal-deep); font-weight:600; margin-bottom:10px" data-zh="快速查找眼科主題" data-en="Quick find by topic">快速查找眼科主題</div>
@@ -942,7 +945,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
   </div>
 </footer>
 
-<script src="/blog/blog-shared.min.js?v=20260670" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260672" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){
   if(window.DN)DN.initBlog({});
   // Quick-find chip filter wiring (mirrors DermNotes main site).

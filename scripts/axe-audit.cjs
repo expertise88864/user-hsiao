@@ -17,6 +17,18 @@ const { previewCookies, verifyContent } = require('./preview-access.cjs');
       try {
         const response = await page.goto(new URL(route, base).href, { waitUntil: 'load' });
         await verifyContent(page, base, route, response);
+        // These controls mount in idle callbacks. Auditing only the initial
+        // document can falsely pass before inaccessible controls even exist.
+        const controls = {
+          '/blog/dry-eye-myths': ['#hs-font-sizer', '#hs-osdi', '#hs-deq5'],
+          '/blog/pediatric-myopia-control': ['#hs-font-sizer', '#hs-se'],
+          '/blog/floaters-retinal-detachment': ['#hs-font-sizer', '#hs-floater-rf'],
+          '/blog/lacrimal-gland-tumor': ['#hs-font-sizer'],
+          '/tools': ['#hs-osdi', '#hs-deq5', '#hs-snellen', '#hs-se', '#hs-floater-rf'],
+        };
+        for (const selector of controls[route] || []) {
+          await page.locator(selector).waitFor({ state: 'attached' });
+        }
         const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'best-practice']).analyze();
         results.push(result);
         console.log(route + ': ' + result.violations.length + ' accessibility violations');

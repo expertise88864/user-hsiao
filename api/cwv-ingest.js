@@ -43,7 +43,7 @@ export default async function handler(req, res) {
 
   let body = req.body;
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch (e) { body = {}; } }
-  const { name, value, page } = body || {};
+  const { name, value, page, version, id } = body || {};
   if (!ALLOWED.has(name)) return res.status(400).json({ error: 'invalid metric name' });
   if (typeof value !== 'number' || !isFinite(value) || value < 0 || value > 60000) {
     return res.status(400).json({ error: 'invalid value' });
@@ -52,6 +52,10 @@ export default async function handler(req, res) {
   try {
     const key = `cwv:samples:v2:${name}`;
     const sample = { v: Math.round(value * 100) / 100, p: String(page || '').slice(0, 80), t: Date.now() };
+    if (version === 'web-vitals-6' && typeof id === 'string' && /^[a-zA-Z0-9-]{1,100}$/.test(id)) {
+      sample.version = version;
+      sample.id = id;
+    }
     const stored = await kvPushTrimExpire(
       key,
       JSON.stringify(sample),
