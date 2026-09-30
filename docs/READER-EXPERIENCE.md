@@ -82,3 +82,9 @@ GA4 備援僅能提供事件總值／事件數的平均值，p75 保留 `null`�
 HTTP 成功狀態仍須有可解析、有效的文章 SHA 與 commit 回執；無改動的回執可明確使用 `noop` 與空 commit。成功狀態但回執损壞時，保留原 baseSha 與草稿、顯示版本未確認並阻止重複送出，不刪除草稿、不排離線重送；需重新開啟取得新來源與版本。這項保護不等於能證明未收到任何回應的網路失敗是否已由伺服器寫入，既有離線路徑仍依原版 SHA 防止覆寫。
 
 本輪實測已證明原先的立即關閉會在五秒自動保存前遺失內容，OPFS 與 localStorage 備援皆適用。雙語草稿復原原本已保留整個 article：CSS 選擇器清單按文件順序選到 article，而非優先選 proseZh；未為此改寫復原路徑。此狀態改善尚不包含真正的候選／正式部署狀態查詢、完整雙語標題編輯、IME／Undo／Redo 或所有 CMS 工作流程驗收。
+
+### 中文組字與快捷鍵
+
+中文組字期間，編輯器讓 Enter、Escape、Backspace 與快捷鍵由輸入法處理，不將候選字確認誤作斜線區塊選取或 GitHub 保存。開始組字時關閉區塊選單；以 compositionstart／compositionend、isComposing 與舊式 229 標記辨識，組字結束後正常快捷鍵仍可使用。
+
+回歸測試涵蓋真實 Chromium 編輯器內的三種事件標記、原生 CDP 中文組字與草稿保存，以及普通文字單次輸入的鍵盤 Undo／Redo。合成事件與 CDP 不代表實體 Windows／macOS／手機輸入法全矩陣驗收，也不代表圖片、表格或直接 DOM 插入的區塊已支援完整 Undo／Redo。[KeyboardEvent.isComposing](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing)

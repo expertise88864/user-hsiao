@@ -222,8 +222,19 @@
       try { range.surroundContents(span); markDirty(); } catch (ex) { /* selection across multiple nodes — fallback no-op */ }
     });
 
+    // IME owns its confirmation/navigation keys while composing. The event
+    // flag, active session and legacy 229 marker cover differing key ordering.
+    var composing = false;
+    document.addEventListener('compositionstart', function () {
+      composing = true;
+      hideSlash();
+    });
+    document.addEventListener('compositionend', function () { composing = false; });
+    function isCompositionKey(e) { return composing || e.isComposing || e.keyCode === 229; }
+
     // Keyboard shortcuts
     document.addEventListener('keydown', function (e) {
+      if (isCompositionKey(e)) return;
       if (!(e.metaKey || e.ctrlKey)) return;
       var k = e.key.toLowerCase();
       if (k === 's') { e.preventDefault(); doSave(); }
@@ -499,6 +510,7 @@
     });
 
     document.addEventListener('keydown', function (e) {
+      if (isCompositionKey(e)) return;
       if (!DN.isAdminMode()) return;
       var inEditable = e.target && e.target.closest && e.target.closest('[contenteditable="true"]');
       if (!inEditable) return;
