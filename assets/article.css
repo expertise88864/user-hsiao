@@ -55,6 +55,13 @@
 
 /* ── Article prose ── */
 .prose { line-height: 1.9; font-size: 16px; color: var(--ink-2); }
+/* Match the reader's default M size before deferred JavaScript runs. The
+   later preference stylesheet still wins for S/L; print keeps its own rules. */
+@media screen {
+  .prose, #proseZh, #proseEn, .prose p, #proseZh p, #proseEn p {
+    font-size: 16.5px !important;
+  }
+}
 .prose h2 {
   font-family: 'Noto Serif TC', Georgia, serif;
   font-weight: 700;

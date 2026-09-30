@@ -775,7 +775,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260679';
+        runtime.src = '/blog/editor-preview.js?v=20260680';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
