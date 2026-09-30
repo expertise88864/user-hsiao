@@ -18,9 +18,9 @@ test.beforeAll(async () => { authCookies = await previewCookies(BASE, request); 
 const PAGES = [
   { name: 'home',             path: '/' },
   { name: 'blog-index',       path: '/blog/' },
-  { name: 'dry-eye-myths',    path: '/blog/dry-eye-myths' },
-  { name: 'pediatric-myopia', path: '/blog/pediatric-myopia-control' },
-  { name: 'floaters',         path: '/blog/floaters-retinal-detachment' },
+  { name: 'dry-eye-myths',    path: '/blog/dry-eye-myths', article: true },
+  { name: 'pediatric-myopia', path: '/blog/pediatric-myopia-control', article: true },
+  { name: 'floaters',         path: '/blog/floaters-retinal-detachment', article: true },
   { name: 'tools',            path: '/tools' },
   { name: 'en-home',          path: '/en/' },
 ];
@@ -103,6 +103,34 @@ for (const page of PAGES) {
         await pw.addStyleTag({
           content: '.cv-auto, .cv-auto-short, .cv-auto-tall { content-visibility: visible !important; }',
         });
+        // Full-page screenshots do not scroll: visit each viewport so the
+        // site's own observers reveal cards and load deferred related content.
+        const step = Math.floor(vp.height * 0.8);
+        let reachedBottom = false;
+        for (let y = 0; y <= 100_000; y += step) {
+          reachedBottom = await pw.evaluate(top => {
+            window.scrollTo(0, top);
+            return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1;
+          }, y);
+          await pw.waitForTimeout(50);
+          if (reachedBottom) break;
+        }
+        expect(reachedBottom, 'The full-page capture must visit the footer').toBe(true);
+        if (page.article) {
+          // Related content is fetched asynchronously and can move the footer.
+          await expect(pw.locator('#hs-related a').first()).toBeAttached();
+        }
+        await pw.evaluate(() => document.fonts.ready);
+        await pw.locator('footer').scrollIntoViewIfNeeded();
+        await pw.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+        await expect.poll(() => pw.evaluate(() =>
+          window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1
+        ), { message: 'Visit the final footer after deferred content and fonts settle' }).toBe(true);
+        await expect.poll(() => pw.evaluate(() =>
+          [...document.querySelectorAll('.reveal, .article-list-item, .myth-card')]
+            .filter(el => el.getClientRects().length && Number(getComputedStyle(el).opacity) < 1)
+            .length
+        ), { message: 'Offscreen reader content must be revealed before capture' }).toBe(0);
         await pw.evaluate(() => document.fonts.ready);
       }
 
