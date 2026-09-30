@@ -96,6 +96,16 @@ for (const page of PAGES) {
         time[data-relative], .hs-relative-time { display: none !important; }`,
       });
 
+      // A full-page screenshot must paint offscreen sections, rather than
+      // comparing content-visibility placeholders whose intrinsic heights vary.
+      // Keep the mobile above-the-fold capture under normal rendering rules.
+      if (vp.name !== 'mobile') {
+        await pw.addStyleTag({
+          content: '.cv-auto, .cv-auto-short, .cv-auto-tall { content-visibility: visible !important; }',
+        });
+        await pw.evaluate(() => document.fonts.ready);
+      }
+
       // Scroll to top to standardise position, then settle
       await pw.evaluate(() => window.scrollTo(0, 0));
       await pw.waitForTimeout(700);
