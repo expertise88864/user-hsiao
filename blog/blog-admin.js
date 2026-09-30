@@ -20,7 +20,7 @@
     if (!slug) return;
     if (document.getElementById('hs-admin-bar')) return;
     // Edit a fresh authenticated snapshot, not potentially cached public HTML.
-    var baseDocument, baseSha, initialDraft, conflictDraft;
+    var baseDocument, baseSha, initialDraft, conflictDraft, savedCommit = '';
     var editorDocumentPolicy;
     function parseEditorDocument(html) {
       if (typeof html !== 'string') throw new Error('文章來源格式無效');
@@ -120,7 +120,7 @@
       var st = document.createElement('style');
       st.id = 'hs-admin-css';
       st.textContent =
-        '#hs-admin-bar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9998;background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px;box-shadow:0 18px 40px -12px rgba(15,23,42,.32);padding:10px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;max-width:calc(100vw - 32px)}' +
+        '#hs-admin-bar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9998;background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px;box-shadow:0 18px 40px -12px rgba(15,23,42,.32);padding:10px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto}' +
         '#hs-admin-bar button, #hs-admin-bar select{padding:6px 10px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border,#dcd5c8);background:#fff;color:var(--ink-2,#5e574e);transition:all .12s}' +
         '#hs-admin-bar button:hover{border-color:var(--blue-deep,#243b56);color:var(--blue-deep,#243b56)}' +
         '#hs-admin-bar button.primary{background:var(--blue-deep,#243b56);color:#fff;border-color:var(--blue-deep,#243b56)}' +
@@ -129,7 +129,7 @@
         '#hs-admin-bar button.danger:hover{background:#fee2e2;color:#991b1b}' +
         '#hs-admin-bar .sep{width:1px;height:22px;background:var(--border,#dcd5c8);margin:0 4px}' +
         '#hs-admin-bar .group-label{font-size:10.5px;color:var(--muted,#8b8378);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-right:4px}' +
-        '#hs-admin-status{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#243b56;color:#fff;padding:9px 18px;border-radius:9999px;font-size:13px;z-index:9999;box-shadow:0 12px 28px -8px rgba(58,90,124,.55)}' +
+        '#hs-admin-status{flex-basis:100%;background:#243b56;color:#fff;padding:9px 12px;border-radius:8px;font-size:13px;max-height:18vh;overflow:auto}' +
         // Tag the editable area visually
         '[contenteditable="true"]{outline:2px dashed rgba(58,90,124,.35);outline-offset:4px;border-radius:6px;transition:outline-color .15s}' +
         '[contenteditable="true"]:focus{outline-color:var(--blue-deep,#243b56);outline-style:solid}' +
@@ -211,6 +211,7 @@
       '<button type="button" title="連結 (Cmd/Ctrl+K)" data-cmd="link">🔗 連結</button>' +
       '<button type="button" title="圖片 — 拖曳/貼上/點選" id="hs-adm-img">📷 圖片</button>' +
       '<button type="button" title="本機內容預覽，尚未正式上線" id="hs-adm-preview">👁 本機預覽</button>' +
+      '<button type="button" id="hs-adm-publication">核對上線狀態</button>' +
       '<button type="button" title="清除格式" data-cmd="removeFormat">⨯ 清除</button>' +
       '<span class="sep"></span>' +
       '<button type="button" class="primary" id="hs-adm-save">💾 儲存</button>' +
@@ -218,6 +219,98 @@
       '<button type="button" id="hs-adm-exit" title="離開 admin 模式">←離開</button>' +
       '<input type="file" id="hs-adm-img-input" accept="image/*" hidden />';
     document.body.appendChild(bar);
+    function reserveEditorSpace() {
+      // Runtime body spacing is outside the authenticated article snapshot.
+      // The public mobile-nav rule uses !important; the editor reservation
+      // must win that cascade too, not just appear in the inline declaration.
+      document.body.style.setProperty('padding-bottom', Math.ceil(bar.getBoundingClientRect().height + 48) + 'px', 'important');
+    }
+    if (window.ResizeObserver) new ResizeObserver(reserveEditorSpace).observe(bar);
+    else window.addEventListener('resize', reserveEditorSpace);
+    reserveEditorSpace();
+    var publicationPanel = document.createElement('section');
+    publicationPanel.setAttribute('aria-label', '已保存文章的上線狀態');
+    publicationPanel.setAttribute('aria-live', 'polite');
+    publicationPanel.hidden = true;
+    publicationPanel.style.cssText = 'flex-basis:100%;max-height:30vh;overflow:auto;font-size:13px;line-height:1.6';
+    bar.appendChild(publicationPanel);
+    var publicationRequest = 0, publicationController;
+    function invalidatePublication() {
+      publicationRequest++;
+      if (publicationController) publicationController.abort();
+      publicationPanel.hidden = true;
+    }
+    function publicationLine(message) {
+      var line = document.createElement('p');
+      line.textContent = message;
+      publicationPanel.appendChild(line);
+    }
+    function publicationLink(label, href, preview) {
+      try {
+        var url = new URL(href);
+        if (url.protocol !== 'https:' || url.username || url.password || url.port || url.search || url.hash ||
+            (preview ? !url.hostname.endsWith('.vercel.app') :
+              url.origin !== 'https://hsiao.chendermatologist.com' && url.origin !== 'https://github.com')) return;
+        var link = document.createElement('a');
+        link.textContent = label;
+        link.href = url.href;
+        link.target = '_blank'; link.rel = 'noopener noreferrer';
+        link.style.cssText = 'display:inline-block;margin-right:16px;text-decoration:underline';
+        publicationPanel.appendChild(link);
+      } catch (e) {}
+    }
+    document.getElementById('hs-adm-publication').addEventListener('click', async function () {
+      if (savePending || saveReceiptPending) {
+        status('請先等保存結果確認，再核對上線狀態。');
+        return;
+      }
+      invalidatePublication();
+      var request = publicationRequest, expectedBlob = baseSha, expectedCommit = savedCommit;
+      publicationController = new AbortController();
+      var controller = publicationController;
+      var timer = setTimeout(function () { controller.abort(); }, 10000);
+      publicationPanel.replaceChildren(); publicationPanel.hidden = false;
+      publicationLine('正在核對已保存版本；不包含本機尚未保存的修改。');
+      try {
+        var response = await fetch('/api/admin/publication-status?slug=' + encodeURIComponent(slug) +
+          '&blob=' + expectedBlob + '&commit=' + expectedCommit, {
+          credentials: 'include', cache: 'no-store', signal: controller.signal
+        });
+        if (!response.ok) throw new Error('無法核對，請確認登入或稍後重試。');
+        var data = await response.json();
+        if (request !== publicationRequest || baseSha !== expectedBlob || savedCommit !== expectedCommit) return;
+        if (!data || data.saved?.blob !== expectedBlob || data.saved?.commit !== expectedCommit || data.releaseVerified !== false) {
+          throw new Error('版本核對回應無效，請稍後重試。');
+        }
+        publicationPanel.replaceChildren();
+        publicationLine('僅核對 Git 已保存版本；不包含本機新修改。');
+        var production = data.production || {};
+        if (!/^[a-f0-9]{40}$/.test(production.sha || '')) production = {};
+        if (production.state === 'matching_content') {
+          publicationLine('正式頁面目前回傳的內容與已保存版本相同。');
+        } else if (production.state === 'different_content') {
+          publicationLine('正式頁面內容與已保存版本不同；可能尚未部署，或生成／後續編輯已改變內容，請開啟正式頁面比較。');
+        } else {
+          publicationLine('正式上線尚未確認：目前無法取得可靠的正式版本或內容。');
+        }
+        if (/^[a-f0-9]{40}$/.test(production.sha || '')) {
+          publicationLine('正式網站回報版本：' + production.sha.slice(0, 7) +
+            (production.includesSavedCommit === 'yes' ? '，包含此次保存 commit。' :
+              production.includesSavedCommit === 'no' ? '，尚未包含此次保存 commit。' : '，保存 commit 的包含關係尚未確認。'));
+        }
+        publicationLine('上述為本次查詢結果；完整 CI、部署與發佈驗收仍須另外確認。');
+        if (data.preview?.state === 'ready' && data.preview.sha === expectedCommit) {
+          publicationLine('此保存版本有同庫候選 Preview；這不是正式上線，開啟時可能需要 Vercel 登入。');
+          publicationLink('開啟此版本 Preview', data.preview.url, true);
+        } else publicationLine('此保存版本的候選 Preview 尚未確認。');
+        publicationLink('開啟正式文章', 'https://hsiao.chendermatologist.com/blog/' + slug, false);
+        if (expectedCommit) publicationLink('查看保存 commit 與檢查', data.commitUrl, false);
+      } catch (e) {
+        if (request !== publicationRequest) return;
+        publicationPanel.replaceChildren();
+        publicationLine('正式上線尚未確認：' + (e.name === 'AbortError' ? '查詢逾時，請稍後重試。' : e.message));
+      } finally { clearTimeout(timer); }
+    });
     if (conflictDraft) {
       var draftDownload = document.createElement('a');
       draftDownload.textContent = '下載舊版本草稿';
@@ -682,7 +775,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260678';
+        runtime.src = '/blog/editor-preview.js?v=20260679';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -717,7 +810,7 @@
         s = document.createElement('div');
         s.id = 'hs-admin-status';
         s.setAttribute('aria-live', 'polite');
-        document.body.appendChild(s);
+        bar.prepend(s);
       }
       s.setAttribute('role', cls === 'error' ? 'alert' : 'status');
       s.textContent = msg;
@@ -809,6 +902,7 @@
       if (leavePending) { status('正在處理本機草稿，請稍候再儲存至 GitHub。'); return; }
       if (saveReceiptPending) { status('無法確認保存版本；編輯內容仍在目前分頁，請保留編輯器並先重新讀取確認，勿重複儲存。', 'error'); return; }
       savePending = true;
+      invalidatePublication();
       clearTimeout(draftTimer);
       try { return await DN.withLock('admin-save:' + slug, _doSaveInner); }
       finally { savePending = false; }
@@ -844,6 +938,7 @@
             }
             gitSaved = true;
             saveReceiptPending = false;
+            savedCommit = data.commit || (baseSha === data.sha ? savedCommit : '');
             baseSha = data.sha;
             // Typing while the request is in flight must remain an unsaved draft.
             clearTimeout(draftTimer);

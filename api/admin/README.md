@@ -7,7 +7,8 @@ before editing locally.
 
 ## v28 — what's new (May 2026)
 
-**11 admin endpoints** under `/api/admin/`:
+The table below describes the original v28 endpoints; current routes use the
+single `/api/admin/[op]` dispatcher and private `_*.js` handlers.
 
 | Endpoint | Purpose |
 |---|---|
@@ -26,7 +27,9 @@ before editing locally.
 
 **WYSIWYG additions** (toolbar in `?admin=1` mode):
 - 📷 圖片 — pick or paste image; client-side WebP compress @ 1600w/q82, then upload
-- 👁 預覽 — opens current edited DOM in a fresh tab without admin chrome
+- 👁 本機預覽 — opens unsaved content locally, without saving or deploying
+- 核對上線狀態 — compares the saved article with the current canonical response;
+  lists an exact-commit Preview when verifiable, without declaring CI or release acceptance
 - Cmd/Ctrl+S → save
 - Cmd/Ctrl+B/I/U → bold/italic/underline
 
@@ -69,6 +72,20 @@ Environment Variables**. Apply to **Production** + **Preview** environments.
 | `VERCEL_TOKEN` | a Vercel API token | optional — for `/api/admin/purge` edge cache invalidation. Generate at <https://vercel.com/account/tokens>, scope = "Full Account" or just the project. |
 | `VERCEL_PROJECT_ID` | `prj_xxxxx` | optional — find via `vercel link` or Vercel Dashboard → Project Settings → "Project ID" |
 | `VERCEL_TEAM_ID` | `team_xxxxx` (Hobby plan: leave blank) | optional |
+
+The read-only `/api/admin/publication-status` route requires an admin session.
+Preview lookup additionally needs GitHub read access to pull requests and
+deployments; missing permissions remain **unknown**, never a passing result.
+Enable Vercel system environment variables for `VERCEL_ENV`,
+`VERCEL_GIT_PROVIDER`, `VERCEL_GIT_REPO_OWNER`, `VERCEL_GIT_REPO_SLUG`, and
+`VERCEL_GIT_COMMIT_SHA` if they are not exposed. The public, no-store
+`/api/admin/site-version` returns only this public Git identity, or `unknown`.
+It does not expose tokens, cookies, deployment protection secrets or messages.
+[Vercel system environment variables](https://vercel.com/docs/environment-variables/system-environment-variables)
+
+Version matching observes the canonical HTML at query time. It does not run
+or replace the exact-SHA CI/Preview/manual visual/production smoke gates in
+`REMOTE_CI_DELIVERY.md`; `releaseVerified` remains false.
 
 ## GA4 Service Account setup (for `/api/admin/cwv`)
 
@@ -114,7 +131,10 @@ automatically when env vars change, but you may want to trigger manually).
    - **🔗 連結** Insert link (prompts for URL)
    - **⨯ 清除** Remove formatting
 5. Click **💾 儲存** (or press Cmd/Ctrl+S) — auto-commits to GitHub
-6. Vercel detects the commit and re-deploys (~30 sec)
+6. Saving returns a Git receipt; it does not prove the site is updated.
+   Use **核對上線狀態** to observe the saved version. Production delivery still
+   requires the exact-SHA candidate CI, Preview/visual approval and release gates;
+   neither elapsed time nor a Ready deployment replaces them.
 
 ### Create a New Article
 
@@ -143,11 +163,11 @@ Browser → article page with ?admin=1
    │   - makes article body contenteditable
    │   - shows floating toolbar
    ▼ (on Save)
-/api/admin/save.js
+/api/admin/save → dispatcher → _save.js
    │ verify session cookie
-   │ call GitHub Contents API (PUT /repos/.../contents/blog/<slug>.html)
+   │ Git Data API atomic commit with article revision checks
    ▼
-GitHub commits → Vercel webhook → re-deploy → site updated
+GitHub receipt → candidate CI/Preview/approval → production gates → verify live site
 ```
 
 ## Security Notes
@@ -194,8 +214,10 @@ The PAT doesn't have access to the repo. Check the PAT's repository scope
 includes `expertise88864/user-hsiao`.
 
 ### Save succeeds but site doesn't update
-Vercel deploy webhook may have failed. Check **Vercel Dashboard → Deployments**
-for the latest commit. If "Failed", click "Redeploy".
+Keep the Git receipt and use **核對上線狀態**. An unverified version, CI failure,
+deployment failure, or a later article edit can explain a different live page.
+Check the exact commit's CI and deployment evidence before following the normal
+delivery workflow. Do not redeploy an unverified commit to bypass its gate.
 
 ### I edited locally but lost the admin's changes
 Always `git pull origin main` before editing locally. The admin's edits

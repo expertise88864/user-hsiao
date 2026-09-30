@@ -13,7 +13,7 @@ async function setup(page, options = {}) {
   // the complete unmodified middleware source, not a copied CSP fixture.
   const middlewareSource = readFileSync(path.join(root, 'middleware.js'), 'utf8');
   const { default: middleware } = await new Function('url', 'return import(url)')('data:text/javascript;base64,' + Buffer.from(middlewareSource).toString('base64'));
-  const state = { html: original, sha: 'a'.repeat(40), submitted: null, saves: 0, publicEvents: [], diagnostics: [], cspReports: [], blockedRequests: [] };
+  const state = { html: original, sha: 'a'.repeat(40), submitted: null, saves: 0, publicationCalls: [], publicEvents: [], diagnostics: [], cspReports: [], blockedRequests: [] };
   // Real generated production CSP, real assets and browser storage, no live API.
   await page.context().route('**/*', async route => {
     const u = new URL(route.request().url());
@@ -27,6 +27,12 @@ async function setup(page, options = {}) {
       state.saves++; state.submitted = route.request().postDataJSON();
       state.html = state.submitted.html; state.sha = 'b'.repeat(40);
       return route.fulfill({ json: { ok: true, sha: state.sha, commit: 'c'.repeat(40) } });
+    }
+    if (u.pathname === '/api/admin/publication-status') {
+      state.publicationCalls.push({ method: route.request().method(), blob:u.searchParams.get('blob'), commit:u.searchParams.get('commit') });
+      if (options.publication) return options.publication(route, u);
+      return route.fulfill({ json: { saved:{blob:u.searchParams.get('blob'),commit:u.searchParams.get('commit')},
+        production:{state:'unknown',sha:''},preview:{state:'unknown'},releaseVerified:false } });
     }
     if (u.pathname.startsWith('/api/')) return route.fulfill({ status: 503, json: { error: 'isolated fixture' } });
     let file = path.resolve(root, '.' + decodeURIComponent(u.pathname));
@@ -64,6 +70,98 @@ function scripts(html) {
     src: m[1].match(/\bsrc="([^"]*)"/)?.[1] || '',
     type: m[1].match(/\btype="([^"]*)"/)?.[1] || '', text: m[2].replace(/\r\n/g, '\n')
   }));
+}
+
+test('publication observation is read-only, preserves unsaved input and stays separate from the save status', async ({ page }) => {
+  const state = await setup(page);
+  const frame = await open(page);
+  await frame.locator('#proseZh > p[contenteditable]').first().fill('Local changes stay unsaved while checking');
+  await frame.locator('#hs-adm-publication').click();
+  const panel = frame.getByRole('region', { name:'已保存文章的上線狀態' });
+  await expect(panel).toContainText('正式上線尚未確認');
+  await expect(frame.locator('#proseZh > p[contenteditable]').first()).toHaveText('Local changes stay unsaved while checking');
+  await expect(frame.locator('#hs-admin-status')).toContainText('尚有未儲存');
+  expect(state.saves).toBe(0);
+  expect(state.publicationCalls).toEqual([{method:'GET',blob:'a'.repeat(40),commit:''}]);
+  expect(await frame.locator('body').evaluate(() => window.DN._adminDirty)).toBe(true);
+  await frame.locator('#hs-adm-save').click();
+  await expect.poll(() => state.saves).toBe(1);
+  expect(state.submitted.html).not.toContain('已保存文章的上線狀態');
+});
+
+test('production content and exact Preview evidence never claim the release gate passed', async ({ page }) => {
+  const state = await setup(page, {publication:async(route,u)=>route.fulfill({json:{
+    saved:{blob:u.searchParams.get('blob'),commit:u.searchParams.get('commit')},releaseVerified:false,
+    production:{state:'matching_content',sha:'d'.repeat(40),includesSavedCommit:'yes'},
+    preview:{state:'ready',sha:u.searchParams.get('commit'),url:'https://exact-preview.vercel.app/blog/'+slug},
+    commitUrl:'https://github.com/expertise88864/user-hsiao/commit/'+u.searchParams.get('commit')
+  }})});
+  const frame=await open(page);
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.saves).toBe(1);
+  await frame.locator('#hs-adm-publication').click();
+  const panel=frame.getByRole('region',{name:'已保存文章的上線狀態'});
+  await expect(panel).toContainText('內容與已保存版本相同');
+  await expect(panel).toContainText('完整 CI、部署與發佈驗收仍須另外確認');
+  await expect(panel.getByRole('link',{name:'開啟此版本 Preview'})).toHaveAttribute('href','https://exact-preview.vercel.app/blog/'+slug);
+  await expect(panel.getByRole('link',{name:'開啟此版本 Preview'})).toHaveAttribute('rel','noopener noreferrer');
+  expect(state.publicationCalls[0].commit).toBe('c'.repeat(40));
+  expect(state.saves).toBe(1);
+});
+
+test('a delayed old status cannot overwrite the UI after a new Git save', async ({ page }) => {
+  let arrived, release;
+  const arrival=new Promise(resolve=>{arrived=resolve;});
+  await setup(page,{publication:async(route,u)=>{
+    arrived();await new Promise(resolve=>{release=resolve;});
+    await route.fulfill({json:{saved:{blob:u.searchParams.get('blob'),commit:u.searchParams.get('commit')},releaseVerified:false,
+      production:{state:'matching_content',sha:'d'.repeat(40)},preview:{state:'unknown'}}}).catch(()=>{});
+  }});
+  const frame=await open(page);
+  await frame.locator('#hs-adm-publication').click();await arrival;
+  await frame.locator('#proseZh > p[contenteditable]').first().fill('New saved version');
+  await frame.locator('#hs-adm-save').click();
+  await expect(frame.locator('#hs-admin-status')).toContainText('已保存至 GitHub');
+  release();
+  await expect(frame.getByRole('region',{name:'已保存文章的上線狀態',includeHidden:true})).toBeHidden();
+  await expect(frame.locator('#hs-admin-status')).toContainText('正式上線尚未確認');
+});
+
+test('malformed status and unsafe Preview links are never presented as confirmed publication', async ({ page }) => {
+  await setup(page,{publication:async route=>route.fulfill({json:{saved:{blob:'wrong',commit:''},releaseVerified:true,
+    production:{state:'matching_content',sha:'d'.repeat(40)},preview:{state:'ready',sha:'c'.repeat(40),url:'https://attacker.test'}}})});
+  const frame=await open(page);await frame.locator('#hs-adm-publication').click();
+  const panel=frame.getByRole('region',{name:'已保存文章的上線狀態'});
+  await expect(panel).toContainText('版本核對回應無效');await expect(panel.getByRole('link')).toHaveCount(0);
+});
+
+for (const width of [360,390,768,1440]) {
+  test('publication controls and saved-version panel remain reachable at '+width+'px',async({page})=>{
+    await page.setViewportSize({width,height:844});
+    const state=await setup(page);const frame=await open(page);
+    // A normal pointer click must succeed; forcing it would conceal overlays.
+    await frame.locator('#hs-adm-publication').click();
+    const panel=frame.getByRole('region',{name:'已保存文章的上線狀態'});
+    await expect(panel).toContainText('正式上線尚未確認');
+    // ResizeObserver updates after layout. Poll the effective reservation,
+    // rather than reading the declaration or sampling before its callback.
+    await expect.poll(()=>frame.locator('#hs-admin-bar').evaluate(el=>
+      parseFloat(getComputedStyle(document.body).paddingBottom)-el.getBoundingClientRect().height)).toBeGreaterThanOrEqual(48);
+    const metrics=await frame.locator('#hs-admin-bar').evaluate(el=>({
+      left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,
+      top:el.getBoundingClientRect().top,bottom:el.getBoundingClientRect().bottom,
+      width:innerWidth,height:innerHeight,reserved:parseFloat(getComputedStyle(document.body).paddingBottom),
+      barHeight:el.getBoundingClientRect().height,statusInside:el.contains(document.getElementById('hs-admin-status'))
+    }));
+    expect(metrics.left).toBeGreaterThanOrEqual(0);expect(metrics.right).toBeLessThanOrEqual(metrics.width);
+    expect(metrics.top).toBeGreaterThanOrEqual(0);expect(metrics.bottom).toBeLessThanOrEqual(metrics.height);
+    expect(metrics.reserved).toBeGreaterThan(metrics.barHeight);expect(metrics.statusInside).toBe(true);
+    await frame.locator('body').evaluate(()=>scrollTo(0,document.documentElement.scrollHeight));
+    await expect.poll(()=>frame.locator('article.max-w-3xl').evaluate(el=>
+      el.getBoundingClientRect().bottom<=document.getElementById('hs-admin-bar').getBoundingClientRect().top)).toBe(true);
+    await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.saves).toBe(1);
+    expect(state.submitted.html.match(/<body\b[^>]*>/i)[0]).toBe(original.match(/<body\b[^>]*>/i)[0]);
+    expect(state.submitted.html).not.toContain('已保存文章的上線狀態');
+  });
 }
 
 test('enforced CSP saves all authored data and page scripts with the edited text intact', async ({ page }) => {
