@@ -21,7 +21,28 @@
     if (document.getElementById('hs-admin-bar')) return;
     // Edit a fresh authenticated snapshot, not potentially cached public HTML.
     var baseDocument, baseSha, initialDraft, conflictDraft;
+    var releaseEditingLock;
+    async function acquireEditingLock() {
+      if (!navigator.locks || typeof navigator.locks.request !== 'function') {
+        throw new Error('瀏覽器無法提供安全的分頁編輯保護，請使用支援 Web Locks 的瀏覽器重新開啟。草稿未更動。');
+      }
+      return new Promise(function (resolve, reject) {
+        navigator.locks.request('hs-admin-edit:' + slug, { mode: 'exclusive', ifAvailable: true }, function (lock) {
+          if (!lock) { resolve(false); return; }
+          // Hold through loading, recovery, autosave, discard and Git cleanup.
+          // Browser termination of this document releases it; do not release
+          // on beforeunload, which the author may cancel and keep editing.
+          return new Promise(function (release) {
+            releaseEditingLock = release;
+            resolve(true);
+          });
+        }).catch(reject);
+      });
+    }
     try {
+      if (!(await acquireEditingLock())) {
+        throw new Error('另一個分頁正在編輯這篇文章。請先在該分頁保存並離開，再重新開啟；本分頁不會更動草稿。');
+      }
       var sourceResponse = await fetch('/api/admin/save?slug=' + encodeURIComponent(slug), { credentials: 'include', cache: 'no-store' });
       if (!sourceResponse.ok) throw new Error('請登入後重新開啟編輯器');
       var source = await sourceResponse.json();
@@ -41,10 +62,16 @@
       }
       DN.applyTextOnly(DN.detectLang());
     } catch (e) {
+      if (releaseEditingLock) releaseEditingLock();
       var notice = document.createElement('p');
       notice.setAttribute('role', 'alert');
       notice.textContent = '無法開啟編輯：' + e.message;
       article.before(notice);
+      var retry = document.createElement('button');
+      retry.type = 'button';
+      retry.textContent = '重新開啟編輯';
+      retry.addEventListener('click', function () { location.reload(); });
+      notice.after(retry);
       return;
     }
     DN.prepareOfflineSave(slug).catch(function () {});
