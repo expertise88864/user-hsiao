@@ -66,7 +66,17 @@ def attr(s: str) -> str:
     return s.replace('&', '&amp;').replace('"', '&quot;').replace('<', '&lt;').replace('>', '&gt;')
 
 
+def asset_version() -> str:
+    """Use the homepage's cache epoch; refuse a missing/ambiguous bootstrap."""
+    with open(os.path.join(ROOT, 'index.html'), encoding='utf-8') as source:
+        versions = re.findall(r"\bvar T='(2026[0-9]{4})'", source.read())
+    if len(versions) != 1:
+        raise ValueError('index.html must contain exactly one site cache epoch')
+    return versions[0]
+
+
 def render(args) -> str:
+    version = asset_version()
     slug = args.slug
     today = args.date
     url = f'{DOMAIN}/blog/{slug}'
@@ -129,8 +139,8 @@ def render(args) -> str:
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-<link rel="preload" as="style" href="/assets/app.css" />
-<link rel="stylesheet" href="/assets/app.css" />
+<link rel="preload" as="style" href="/assets/app.css?v={version}" />
+<link rel="stylesheet" href="/assets/app.css?v={version}" />
 
 <script type="application/ld+json">
 {{ "@context":"https://schema.org","@type":"MedicalScholarlyArticle","@id":"{article_id}","headline":"{attr(args.title_zh)}","description":"{attr(args.desc_zh)}","datePublished":"{today}","dateModified":"{today}","inLanguage":"zh-Hant-TW","keywords":"{attr(args.tag_zh)},{attr(args.tag_en)}","articleSection":"Ophthalmology Patient Education","author":{{"@id":"{DOMAIN}/about#person"}},"publisher":{{"@id":"{DOMAIN}/about#person"}},"image":{{"@type":"ImageObject","@id":"{image_id}","url":"{og}","contentUrl":"{og}","width":1200,"height":630,"name":"{attr(args.title_zh)}","caption":"{attr(args.title_zh)}"}},"thumbnailUrl":"{og}","mainEntityOfPage":"{url}","isPartOf":{{"@id":"{DOMAIN}/#website"}},"audience":{{"@type":"MedicalAudience","audienceType":["Patient","Clinician"],"geographicArea":{{"@type":"Country","name":"Taiwan"}},"healthCondition":{{"@type":"MedicalCondition","name":"Ophthalmology"}}}} }}
@@ -141,7 +151,7 @@ def render(args) -> str:
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"MedicalWebPage","@id":"{webpage_id}","url":"{url}","inLanguage":["zh-TW","en"],"name":"{attr(args.title_zh)}","audience":{{"@type":"MedicalAudience","audienceType":"Patient"}},"lastReviewed":"{today}","reviewedBy":{{"@type":["Person","Physician"],"@id":"{DOMAIN}/about#person","name":"蕭閔謙 醫師","alternateName":"Min-Chien Hsiao, MD","honorificSuffix":"M.D.","jobTitle":"Resident Physician, Ophthalmology","medicalSpecialty":"https://schema.org/Ophthalmologic","url":"{DOMAIN}/about"}},"author":{{"@id":"{DOMAIN}/about#person"}},"publisher":{{"@id":"{DOMAIN}/about#person"}},"speakable":{{"@type":"SpeakableSpecification","cssSelector":["h1","h2",".tldr"]}},"keywords":"{attr(args.tag_zh)},{attr(args.tag_en)}","articleSection":"Ophthalmology Patient Education","about":{{"@type":"MedicalCondition","name":"{attr(args.tag_zh)}","alternateName":["{attr(args.tag_zh)}","{attr(args.tag_en)}"],"code":{{"@type":"MedicalCode","code":"{args.condition_icd10}","codingSystem":"ICD-10"}}}},"image":{{"@id":"{image_id}"}},"primaryImageOfPage":{{"@id":"{image_id}"}},"thumbnailUrl":"{og}","mainEntity":{{"@id":"{article_id}"}},"breadcrumb":{{"@id":"{breadcrumb_id}"}},"accessibilityFeature":["alternativeText","highContrastDisplay","largePrint","readingOrder","structuralNavigation","tableOfContents","ARIA"],"accessibilityHazard":["noFlashingHazard","noMotionSimulationHazard","noSoundHazard"],"educationalUse":"patient education","learningResourceType":"reference material","isAccessibleForFree":true,"isPartOf":{{"@id":"{DOMAIN}/#website"}}}}
 </script>
-<script defer src="/assets/telemetry.js?v=20260673"></script>
+<script defer src="/assets/telemetry.js?v={version}"></script>
 </head>
 <body class="font-sans antialiased text-ink-900">
 
@@ -188,7 +198,7 @@ def render(args) -> str:
 
 </main>
 
-<script src="/blog/blog-shared.js" defer></script>
+<script src="/blog/blog-shared.js?v={version}" defer></script>
 </body>
 </html>
 '''

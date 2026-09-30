@@ -111,16 +111,46 @@ test('paired Chinese text survives switching languages before saving',async({pag
   await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
   expect(state.submitted.html).toContain('作者修改的中文段落');
 });
-test('existing English body is editable and retains Chinese body on save',async({page})=>{
+test('existing English body is editable and retains Chinese body on save',async({page,browser})=>{
   const {frame,state}=await setup(page);
   const english=frame.locator('#proseEn p').first();
   await frame.locator('#langToggle').selectOption('en');
   expect(await english.getAttribute('contenteditable')).toBe('true');
   await english.fill('Author English body edit');
+  await frame.locator('#hs-adm-undo').click();
+  await frame.locator('#hs-adm-redo').click();
+  await expect(english).toHaveText('Author English body edit');
   await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
   expect(state.submitted.html).toContain('Author English body edit');
   expect(state.submitted.html).toContain('id="proseZh"');
   expect(state.submitted.html).not.toContain('contenteditable=');
+  const visibility = await page.evaluate(html => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return ['proseZh', 'proseEn'].map(id => doc.getElementById(id).getAttribute('style'));
+  }, state.submitted.html);
+  expect(visibility).toEqual([null, 'display:none']);
+  const noJs = await browser.newContext({javaScriptEnabled:false});
+  try {
+    await noJs.route('**/*', route => route.fulfill({body:route.request().url() === origin+'/saved-source' ? state.submitted.html : '',contentType:'text/html'}));
+    const reader = await noJs.newPage();
+    await reader.goto(origin+'/saved-source');
+    await expect(reader.locator('#proseZh')).toBeVisible();
+    await expect(reader.locator('#proseEn')).toBeHidden();
+  } finally { await noJs.close(); }
+});
+
+test('English-mode serialization preserves authored prose style attributes',async({page})=>{
+  const html=source.replace('id="proseZh" class="prose"','id="proseZh" class="prose" style="color:navy"')
+    .replace('id="proseEn" class="prose" style="display:none"','id="proseEn" class="prose" style="display:none;color:teal"');
+  const {frame,state}=await setup(page,html);
+  await frame.locator('#langToggle').selectOption('en');
+  await frame.locator('#proseEn p').first().fill('Preserve original style while writing English');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  const styles=await page.evaluate(html=>{
+    const doc=new DOMParser().parseFromString(html,'text/html');
+    return ['proseZh','proseEn'].map(id=>doc.getElementById(id).getAttribute('style'));
+  },state.submitted.html);
+  expect(styles).toEqual(['color:navy','display:none;color:teal']);
 });
 
 test('nested bilingual attributes retain their edits when a runtime widget is stripped',async({page})=>{

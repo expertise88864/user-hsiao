@@ -242,7 +242,7 @@ test('new draft storage failure after Git save remains an error in parent and fr
   await expect(page.locator('#edit-shell')).toBeVisible();
 });
 
-test('Git save cleanup failure is visible and never queues an already saved commit offline', async ({ page }) => {
+test('Git save cleanup failure retains recovery before closing and never queues the saved commit offline', async ({ page }) => {
   await setup(page);
   await page.route('**/api/admin/save', route => route.fulfill({ json: { ok: true, sha: 'b'.repeat(40), commit: 'c'.repeat(40) } }));
   const frame = await open(page);
@@ -254,10 +254,58 @@ test('Git save cleanup failure is visible and never queues an already saved comm
   });
   await frame.locator('#hs-adm-save').click();
   await expect(frame.locator('#hs-adm-save')).toBeEnabled();
-  await expect(frame.locator('#hs-admin-status')).toContainText('GitHub 已保存；本機草稿處理失敗');
+  await expect(frame.locator('#hs-admin-status')).toContainText('GitHub 已保存；本機草稿清除尚未確認');
   expect(await frame.locator('body').evaluate(() => window.__offlineQueueCalls)).toBe(0);
+  const recovery = await draft(frame);
+  expect(recovery.html).toContain('Git save succeeds');
+  expect(recovery.baseSha).toBe('b'.repeat(40));
+  await page.getByRole('button', { name: '← 回到後台' }).click();
+  await expect(page.locator('#edit-shell')).toBeHidden();
+});
+
+test('unavailable OPFS after Git save preserves fresh fallback and new input when returning and reopening', async ({ page }) => {
+  const server = await setup(page, 'ls');
+  acceptRecovery(page);
+  let posts = 0;
+  await page.route('**/api/admin/save', async route => {
+    if (route.request().method() === 'GET') return route.fulfill({ json: server });
+    posts++;
+    server.html = route.request().postDataJSON().html;
+    server.sha = 'b'.repeat(40);
+    await route.fulfill({ json: { ok: true, sha: server.sha, commit: 'c'.repeat(40) } });
+  });
+  let frame = await open(page);
+  await frame.locator('#proseZh > p[contenteditable]').first().fill('Git saved with unavailable OPFS');
+  await frame.locator('#hs-adm-save').click();
+  await expect(frame.locator('#hs-adm-save')).toBeEnabled();
+  await expect(frame.locator('#hs-admin-status')).toContainText('已保存最新復原草稿');
+  expect((await draft(frame)).baseSha).toBe(server.sha);
+  await frame.locator('#proseZh > p[contenteditable]').first().fill('New input after acknowledged Git save');
+  await page.getByRole('button', { name: '← 回到後台' }).click();
+  await expect(page.locator('#edit-shell')).toBeHidden();
+  frame = await open(page);
+  await expect(frame.locator('#proseZh > p[contenteditable]').first()).toHaveText('New input after acknowledged Git save');
+  expect((await draft(frame)).baseSha).toBe(server.sha);
+  expect(posts).toBe(1);
+});
+
+test('unconfirmed Git cleanup with failed recovery remains open with the author text', async ({ page }) => {
+  await setup(page);
+  await page.route('**/api/admin/save', route => route.fulfill({ json: { ok: true, sha: 'b'.repeat(40), commit: 'c'.repeat(40) } }));
+  const frame = await open(page);
+  await frame.locator('#proseZh > p[contenteditable]').first().fill('Keep editor when recovery cannot be stored');
+  await frame.locator('body').evaluate(() => {
+    const write = DN.saveDraft;
+    let writes = 0;
+    DN.saveDraft = (...args) => ++writes === 1 ? write(...args) : Promise.resolve({ source: null });
+    DN.deleteDraft = async () => ({ deleted: false });
+  });
+  await frame.locator('#hs-adm-save').click();
+  await expect(frame.locator('#hs-adm-save')).toBeEnabled();
+  await expect(frame.locator('#hs-admin-status')).toContainText('復原草稿未能保存');
   await page.getByRole('button', { name: '← 回到後台' }).click();
   await expect(page.locator('#edit-shell')).toBeVisible();
+  await expect(frame.locator('#proseZh > p[contenteditable]').first()).toHaveText('Keep editor when recovery cannot be stored');
 });
 
 for (const configured of [true, false, undefined]) {

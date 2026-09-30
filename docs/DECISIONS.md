@@ -57,11 +57,11 @@
 - **錨**：`9303014`。
 
 ### D-06 快取破壞（cache-bust）政策
-- **決策**：全站 `?v=2026xxxx` 單調遞增版本（**目前 `v=20260681`**，以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準）；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。
+- **決策**：全站 `?v=2026xxxx` 單調遞增版本，以 `index.html` 的快取清除 bootstrap `var T` 為準；改了 CSS/JS 內容就全站 bump（純字串取代，涵蓋 *.html + admin/admin.js 等）。
 - **⚠ 有兩個版本紀元，bump 必須同時動**（2026-07-26 round-3 外審發現：只 bump 了 `?v=`，21 個檔的 `hs:siteVer` 還停在舊值）：
   1. 資產 URL 的 `?v=NNNNNNNN`；
   2. `hs:siteVer` 強制重置戳記——內容頁寫成 `var T='NNNNNNNN'`、`admin.html` 寫成 `TARGET = 'NNNNNNNN'`。這個戳記與 localStorage 比對，不一致才觸發 SW/快取強制重置。**只 bump `?v=` 的話戳記仍相符 → 重置不會發生**，回訪的 admin 會帶著舊 editor bundle 對上新伺服器（實際發生過，見 BACKLOG Round 3）。
-  最省事的做法是直接取代裸數字(例如 `20260665` → `20260666`,涵蓋兩個紀元),再跑 `npm run minify`。**⚠ 這個「目前值」本身就漂移過兩次**——2026-07-27 連續兩批(M-07 entity-link 批、Batch A)都是先 bump 了全站才發現本條沒跟著改。改版號時請把這一行當成 checklist 的一部分,或直接以 `grep -oE "v=2026[0-9]{4}" index.html | head -1` 為準。
+  最省事的做法是直接取代裸數字(例如 `20260665` → `20260666`,涵蓋兩個紀元),再跑 `npm run minify`。文件曾因記錄「目前值」而漂移；這裡不再複製現行版號，以 `index.html` 的 `var T` 為準。CLI 新文章模板也在每次產生時讀取該值，缺少或不唯一就停止產生。
 - **釐清（原文易誤讀）**：`v=20260520`／`v=20260525` **不是**活的釘選 URL——它們現在只存在於 `sw.js` 的變更日誌註解裡，不會被字串取代影響。
 - **耦合**：`sw.js` 的 SHELL precache 也含版本概念；`_check_performance_budget.py` 查**兩個紀元**的一致性（`?v=` 對首頁、`hs:siteVer` 對 `?v=`），變異測試已驗證會轉紅。
 

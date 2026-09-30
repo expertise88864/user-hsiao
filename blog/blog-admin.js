@@ -93,8 +93,8 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260682');
-      historyModule = await import('/blog/editor-history.js?v=20260682');
+      editorReview = await import('/blog/editor-review.js?v=20260683');
+      historyModule = await import('/blog/editor-history.js?v=20260683');
     } catch (e) {
       if (releaseEditingLock) releaseEditingLock();
       var notice = document.createElement('p');
@@ -898,6 +898,15 @@
       var body = clone.querySelector('body');
       if (body) body.classList.remove('hs-admin');
       clone.removeAttribute('data-theme');
+      // Language switching changes these styles only for the live editor.
+      // Keep the authenticated source defaults in drafts, history and saves.
+      ['proseZh', 'proseEn'].forEach(function (proseId) {
+        var node = clone.querySelector('#' + proseId), source = baseDocument.getElementById(proseId);
+        if (!node || !source) return;
+        var style = source.getAttribute('style');
+        if (style === null) node.removeAttribute('style');
+        else node.setAttribute('style', style);
+      });
       // 6. CRITICAL: sync edited text back to data-zh / data-en. The runtime
       //    DN.applyTextOnly() reads these attributes on page load and
       //    overwrites innerHTML/textContent — without this sync, every edit
@@ -948,7 +957,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260682';
+        runtime.src = '/blog/editor-preview.js?v=20260683';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -999,6 +1008,7 @@
     // newer snapshot or recreate a draft after a successful GitHub save.
     var draftQueue = Promise.resolve();
     var draftTimer, savePending = false, allowClose = false, leavePending = false, draftCleanupPending = false, saveReceiptPending = false;
+    var draftCleanupRecovery = false;
     function storeDraft(html, sha) {
       var write = draftQueue.then(function () { return DN.saveDraft(slug, html, sha); });
       draftQueue = write.catch(function () {});
@@ -1006,6 +1016,7 @@
     }
     function removeDraft() {
       draftCleanupPending = true;
+      draftCleanupRecovery = false;
       var remove = draftQueue.then(async function () {
         var result = await DN.deleteDraft(slug);
         if (!result || !result.deleted) throw new Error('無法確認本機草稿已清除');
@@ -1135,11 +1146,14 @@
       leavePending = true;
       try {
         clearTimeout(draftTimer);
-        if (draftCleanupPending) {
+        if (draftCleanupPending && !draftCleanupRecovery) {
           try { await removeDraft(); }
           catch (e) { status('本機草稿清除尚未確認，請保持編輯器開啟：' + e.message, 'error'); return false; }
         }
-        if (DN._adminDirty && !(await persistLatestDraft())) return false;
+        // A Git receipt plus a retained recovery copy permits normal closing;
+        // it does not assert that inaccessible older drafts have been deleted.
+        // Write again on close so input after the receipt is preserved too.
+        if ((DN._adminDirty || draftCleanupRecovery) && !(await persistLatestDraft())) return false;
         allowClose = true;
         return true;
       } finally { leavePending = false; }
@@ -1279,6 +1293,13 @@
           var recovered = await persistLatestDraft();
           status('伺服器已回應，但無法確認保存版本；' +
             (recovered ? '已保存最新本機草稿，請先重新讀取確認，勿重複儲存：' : '本機草稿未能保存，編輯內容僅在目前分頁，請保持編輯器開啟並先確認來源版本：') +
+            (e.message || e), 'error');
+          return;
+        }
+        if (gitSaved && draftCleanupPending) {
+          draftCleanupRecovery = await persistLatestDraft();
+          status('GitHub 已保存；本機草稿清除尚未確認；' +
+            (draftCleanupRecovery ? '已保存最新復原草稿，可返回後台。' : '復原草稿未能保存，請保持編輯器開啟。') +
             (e.message || e), 'error');
           return;
         }
