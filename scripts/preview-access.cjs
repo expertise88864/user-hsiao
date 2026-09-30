@@ -52,4 +52,35 @@ async function verifyContent(page, baseValue, route, response) {
   });
 }
 
-module.exports = { targetUrl, previewCookies, verifyContent, PRODUCTION };
+// Exercise the deployed dispatcher, rather than trusting build metadata or a
+// successful HTML screenshot to prove the runtime identity endpoint works.
+async function verifyRuntimeIdentity(client, baseValue, sha, repository) {
+  const base = targetUrl(baseValue);
+  assert.notEqual(base.origin, PRODUCTION, 'Runtime Preview check requires Preview');
+  assert.match(sha || '', /^[a-f0-9]{40}$/, 'Missing exact candidate SHA');
+  assert.match(repository || '', /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/, 'Invalid candidate repository');
+  const url = new URL('/api/admin/site-version', base).href;
+  const response = await client.get(url, { maxRedirects: 0 })
+    .catch(() => { throw new Error('Preview runtime identity request failed'); });
+  assert.equal(response.status(), 200, 'Preview runtime identity must return HTTP200');
+  assert.equal(response.url(), url, 'Preview runtime identity changed URL');
+  const headers = response.headers();
+  assert.match(headers['content-type'] || '', /^application\/json(?:;|$)/i, 'Preview runtime identity must return JSON');
+  assert.ok((headers['cache-control'] || '').toLowerCase().split(',').map(v => v.trim()).includes('no-store'), 'Runtime identity must not be cached');
+  const robots = (headers['x-robots-tag'] || '').toLowerCase().split(',').map(v => v.trim());
+  assert.ok(robots.includes('noindex') && robots.includes('nofollow'), 'Runtime identity must not be indexed');
+  if (headers['content-length']) assert.ok(Number(headers['content-length']) <= 4096, 'Runtime identity response too large');
+  const bytes = await response.body();
+  assert.ok(bytes.length <= 4096, 'Runtime identity response too large');
+  let identity;
+  try { identity = JSON.parse(bytes.toString('utf8')); }
+  catch { throw new Error('Invalid Preview runtime identity JSON'); }
+  assert.ok(identity && typeof identity === 'object' && !Array.isArray(identity), 'Invalid Preview runtime identity');
+  assert.deepEqual(Object.keys(identity).sort(), ['environment', 'repository', 'sha'], 'Unexpected public runtime identity fields');
+  assert.equal(identity.environment, 'preview', 'Runtime deployment is not Preview');
+  assert.equal(identity.sha, sha, 'Runtime deployment SHA mismatch');
+  assert.equal(identity.repository, repository, 'Runtime deployment repository mismatch');
+  return { environment: identity.environment, repository: identity.repository, sha: identity.sha };
+}
+
+module.exports = { targetUrl, previewCookies, verifyContent, verifyRuntimeIdentity, PRODUCTION };

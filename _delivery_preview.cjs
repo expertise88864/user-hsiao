@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { chromium, request } = require('playwright');
-const { previewCookies, verifyContent } = require('./scripts/preview-access.cjs');
+const { previewCookies, verifyContent, verifyRuntimeIdentity } = require('./scripts/preview-access.cjs');
 
 (async () => {
   const base = new URL(process.env.PW_BASE_URL);
@@ -17,6 +17,13 @@ const { previewCookies, verifyContent } = require('./scripts/preview-access.cjs'
       const context = await browser.newContext({ viewport: { width, height: 900 }, locale: 'zh-TW' });
       try {
         await context.addCookies(cookies);
+        if (width === 390) {
+          const identity = await verifyRuntimeIdentity(context.request, base.href,
+            process.env.GITHUB_SHA, policy.repository);
+          fs.writeFileSync('delivery-preview/runtime-identity.json', JSON.stringify({
+            checkedAt: new Date().toISOString(), preview: base.origin, ...identity,
+          }, null, 2));
+        }
         for (const [index, route] of policy.preview_paths.entries()) {
           const page = await context.newPage();
           const errors = [];
