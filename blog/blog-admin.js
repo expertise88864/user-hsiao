@@ -20,7 +20,8 @@
     if (!slug) return;
     if (document.getElementById('hs-admin-bar')) return;
     // Edit a fresh authenticated snapshot, not potentially cached public HTML.
-    var baseDocument, baseSha, initialDraft, conflictDraft, savedCommit = '', editorReview;
+    var baseDocument, baseSha, initialDraft, conflictDraft, savedCommit = '', editorReview, historyModule;
+    var editHistory, restoringHistory = false;
     var editorDocumentPolicy;
     function parseEditorDocument(html) {
       if (typeof html !== 'string') throw new Error('文章來源格式無效');
@@ -92,7 +93,8 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260681');
+      editorReview = await import('/blog/editor-review.js?v=20260682');
+      historyModule = await import('/blog/editor-history.js?v=20260682');
     } catch (e) {
       if (releaseEditingLock) releaseEditingLock();
       var notice = document.createElement('p');
@@ -145,7 +147,7 @@
     // Make article structures editable (h1, h2, h3, paragraphs, list items,
     // figcaptions, table cells). We deliberately skip code / SVG / link href
     // editing for safety.
-    var EDITABLE_SEL = '#proseZh h1, #proseZh h2, #proseZh h3, #proseZh p, #proseZh li, #proseZh td, #proseZh th, #proseZh figcaption, #proseZh blockquote, #proseZh pre, .myth-card .myth, .myth-card .truth, article.max-w-3xl > h1, article.max-w-3xl figcaption';
+    var EDITABLE_SEL = '#proseZh h1, #proseZh h2, #proseZh h3, #proseZh p, #proseZh li, #proseZh td, #proseZh th, #proseZh figcaption, #proseZh blockquote, #proseZh pre, #proseEn h1, #proseEn h2, #proseEn h3, #proseEn p, #proseEn li, #proseEn td, #proseEn th, #proseEn figcaption, #proseEn blockquote, #proseEn pre, .myth-card .myth, .myth-card .truth, article.max-w-3xl > h1, article.max-w-3xl figcaption';
     var registeredEditables = new WeakSet();
     function registerEditables() {
       document.querySelectorAll(EDITABLE_SEL).forEach(function (el) {
@@ -153,31 +155,59 @@
         el.spellcheck = false;
         if (registeredEditables.has(el)) return;
         registeredEditables.add(el);
-        el.addEventListener('input', markDirty);
       });
     }
     registerEditables();
+    var applyArticleLanguage = DN.applyTextOnly;
+    DN.applyTextOnly = function (lang) {
+      // Persist the rendered language before translation can replace it. Use
+      // the same clean representation as save so editing attributes stay out
+      // of bilingual HTML strings. No opposite-language value is overwritten.
+      var clean = document.documentElement.cloneNode(true);
+      var cleanArticle = clean.querySelector('article.max-w-3xl');
+      var rendered = Array.from(article.querySelectorAll('[data-zh],[data-en]'));
+      // Keep the correspondence from BEFORE runtime stripping; removed
+      // widgets must not shift indices onto unrelated authored elements.
+      var translated = Array.from(cleanArticle.querySelectorAll('[data-zh],[data-en]'));
+      _sanitizeForSerialize(clean);
+      var key = 'data-' + ((document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh');
+      rendered.forEach(function (el, index) {
+        var copy = translated[index];
+        if (el.hasAttribute(key) && copy && cleanArticle.contains(copy) && copy.hasAttribute(key)) el.setAttribute(key, copy.getAttribute(key));
+      });
+      DN._bilingualCache = null;
+      applyArticleLanguage(lang);
+      registerEditables();
+    };
 
     // Insert after the containing top-level prose block. Keeping the original
     // block intact avoids splitting bilingual attributes, list items or cells.
     // DOM insertion inside a paragraph would create invalid nested blocks.
     function insertArticleBlock(html) {
       var sel = window.getSelection();
-      var prose = document.getElementById('proseZh');
-      if (!sel || !sel.rangeCount || !prose) {
+      if (!sel || !sel.rangeCount) {
         status('請先把游標放在文章正文內，再插入區塊。', 'error');
         return false;
       }
       var range = sel.getRangeAt(0);
       var anchor = range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement;
-      if (!anchor || !prose.contains(anchor) || anchor === prose) {
+      var prose = anchor && anchor.closest('#proseZh, #proseEn');
+      if (!prose || !article.contains(prose) || anchor === prose) {
         status('請先把游標放在文章正文內，再插入區塊。', 'error');
         return false;
       }
       while (anchor.parentElement !== prose) anchor = anchor.parentElement;
+      if (editHistory) editHistory.selection(historyState().selection);
       var template = document.createElement('template');
       template.innerHTML = html;
       var nodes = Array.from(template.content.children);
+      if ((document.documentElement.lang || '').toLowerCase().startsWith('en')) {
+        nodes.forEach(function (root) {
+          var labels = Array.from(root.querySelectorAll('[data-en]'));
+          if (root.hasAttribute('data-en')) labels.unshift(root);
+          labels.forEach(function (el) { el.innerHTML = el.getAttribute('data-en'); });
+        });
+      }
       anchor.after(template.content);
       registerEditables();
       markDirty();
@@ -211,6 +241,8 @@
       '<button type="button" title="數字編號" data-cmd="insertOrderedList">1. 編號</button>' +
       '<button type="button" title="連結 (Cmd/Ctrl+K)" data-cmd="link">🔗 連結</button>' +
       '<button type="button" title="圖片 — 拖曳/貼上/點選" id="hs-adm-img">📷 圖片</button>' +
+      '<button type="button" id="hs-adm-undo" title="復原（Ctrl/Cmd+Z）" disabled>↶ 復原</button>' +
+      '<button type="button" id="hs-adm-redo" title="重做（Ctrl+Y 或 Ctrl/Cmd+Shift+Z）" disabled>↷ 重做</button>' +
       '<button type="button" title="本機內容預覽，尚未正式上線" id="hs-adm-preview">👁 本機預覽</button>' +
       '<button type="button" id="hs-adm-publication">核對上線狀態</button>' +
       '<button type="button" id="hs-adm-check">保存前健檢</button>' +
@@ -480,10 +512,28 @@
     // Keyboard shortcuts
     document.addEventListener('keydown', function (e) {
       if (isCompositionKey(e)) return;
+      if (editHistory && /^(Arrow|Home|End|Enter|Tab|Escape)/.test(e.key)) editHistory.breakGroup();
       if (!(e.metaKey || e.ctrlKey)) return;
       var k = e.key.toLowerCase();
+      if ((k === 'z' || k === 'y') && !e.altKey && article.contains(document.activeElement)) {
+        e.preventDefault(); moveHistory(k === 'y' || e.shiftKey); return;
+      }
       if (k === 's') { e.preventDefault(); doSave(); }
     });
+    document.addEventListener('beforeinput', function (e) {
+      if (!editHistory || !article.contains(e.target)) return;
+      if (e.inputType === 'historyUndo' || e.inputType === 'historyRedo') {
+        if (e.cancelable) { e.preventDefault(); moveHistory(e.inputType === 'historyRedo'); }
+      } else {
+        var selection = historyState(true);
+        if (selection && (JSON.stringify(selection.anchor) !== JSON.stringify(selection.focus) || selection.anchorOffset !== selection.focusOffset)) editHistory.breakGroup();
+        editHistory.selection(selection);
+      }
+    });
+    article.addEventListener('focusin', function () { if (editHistory) editHistory.breakGroup(); });
+    article.addEventListener('pointerdown', function () { if (editHistory) editHistory.breakGroup(); });
+    document.getElementById('hs-adm-undo').addEventListener('click', function () { moveHistory(false); });
+    document.getElementById('hs-adm-redo').addEventListener('click', function () { moveHistory(true); });
 
     // Save / cancel
     document.getElementById('hs-adm-save').addEventListener('click', doSave);
@@ -693,7 +743,7 @@
       { key: 'ul',     label: '項目列表',       icon: '•',  cmd: function () { document.execCommand('insertUnorderedList', false, null); } },
       { key: 'ol',     label: '數字編號',       icon: '1.', cmd: function () { document.execCommand('insertOrderedList', false, null); } },
       { key: 'quote',  label: '引言',           icon: '❝',  cmd: function () { document.execCommand('formatBlock', false, '<blockquote>'); } },
-      { key: 'myth',   label: '迷思 / 事實 卡', icon: '⚖',  cmd: function () { insertArticleBlock('<div class="myth-card"><div class="myth">迷思: 在這裡寫迷思</div><div class="truth">真相: 在這裡寫真相</div></div><p></p>'); } },
+      { key: 'myth',   label: '迷思 / 事實 卡', icon: '⚖',  cmd: function () { insertArticleBlock('<div class="myth-card"><div class="myth" data-zh="迷思: 在這裡寫迷思" data-en="Myth: Write the misconception here">迷思: 在這裡寫迷思</div><div class="truth" data-zh="真相: 在這裡寫真相" data-en="Fact: Write the explanation here">真相: 在這裡寫真相</div></div><p></p>'); } },
       // M-01: was <hs-redflag>, a custom element whose only implementation lived
       // in assets/components.js — a file no page ever loaded, so the tag rendered
       // unstyled. Emits the class-based markup real articles use, which app.css
@@ -708,7 +758,7 @@
       // comes from the utility classes and the inline colour copied here, so
       // they are load-bearing, not incidental. data-zh/data-en as above.
       { key: 'tldr',   label: 'TL;DR 引言',     icon: '✨', cmd: function () { insertArticleBlock('<p class="mt-6 text-[15.5px] leading-[1.95] tldr" style="color:var(--ink-2)" data-zh="3 句話精華:第一句 · 第二句 · 第三句。" data-en="Three-sentence summary: first · second · third.">3 句話精華:第一句 · 第二句 · 第三句。</p><p></p>'); } },
-      { key: 'table',  label: '3×3 表格',       icon: '⊞',  cmd: function () { insertArticleBlock('<table class="dn"><thead><tr><th>欄 1</th><th>欄 2</th><th>欄 3</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table><p></p>'); } },
+      { key: 'table',  label: '3×3 表格',       icon: '⊞',  cmd: function () { insertArticleBlock('<table class="dn"><thead><tr><th data-zh="欄 1" data-en="Column 1">欄 1</th><th data-zh="欄 2" data-en="Column 2">欄 2</th><th data-zh="欄 3" data-en="Column 3">欄 3</th></tr></thead><tbody><tr><td data-zh="" data-en=""></td><td data-zh="" data-en=""></td><td data-zh="" data-en=""></td></tr><tr><td data-zh="" data-en=""></td><td data-zh="" data-en=""></td><td data-zh="" data-en=""></td></tr></tbody></table><p></p>'); } },
       { key: 'mermaid',label: 'Mermaid 流程圖', icon: '↳',  cmd: function () { insertArticleBlock('<pre class="mermaid">flowchart TD\n  A[Start] --> B{Decision}\n  B -->|Yes| C[Action]\n  B -->|No| D[End]</pre><p></p>'); } },
       { key: 'math',   label: 'KaTeX 公式 (block)', icon: '∑', cmd: function () { insertArticleBlock('<p>$$ P_{IOL} = A - 2.5 \\cdot AL - 0.9 \\cdot K $$</p>'); } },
       { key: 'hr',     label: '分隔線',         icon: '—',  cmd: function () { document.execCommand('insertHorizontalRule', false, null); } },
@@ -861,8 +911,10 @@
       var currentLang = (document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh';
       var attrName = 'data-' + currentLang;
       var syncSeen = [];
-      clone.querySelectorAll('article.max-w-3xl, #proseZh, #proseEn').forEach(function (root) {
-        root.querySelectorAll('[data-zh],[data-en]').forEach(function (el) {
+      var roots = Array.from(clone.querySelectorAll('article.max-w-3xl, #proseZh, #proseEn'));
+      if (clone.matches('article.max-w-3xl, #proseZh, #proseEn')) roots.unshift(clone);
+      roots.forEach(function (root) {
+        Array.from(root.querySelectorAll('[data-zh],[data-en]')).reverse().forEach(function (el) {
           if (syncSeen.indexOf(el) !== -1) return;   // dedup nested roots
           syncSeen.push(el);
           if (el.hasAttribute(attrName)) {
@@ -896,7 +948,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260681';
+        runtime.src = '/blog/editor-preview.js?v=20260682';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -963,7 +1015,14 @@
       draftQueue = remove.catch(function () {});
       return remove;
     }
-    function markDirty() {
+    function markDirty(event) {
+      if (editHistory && !restoringHistory) {
+        var type = event && event.inputType || '';
+        var key = /^(insertText|insertCompositionText|insertFromComposition)$/.test(type) ? 'text' : /^delete/.test(type) ? 'delete' : '';
+        if (key) key += ':' + JSON.stringify(historyPath(article, event.target));
+        editHistory.record(historyState(), key);
+        updateHistoryButtons();
+      }
       DN._adminDirty = true;
       allowClose = false;
       if (!reviewPanel.hidden && reviewSnapshot !== null && !reviewChangeNotice) {
@@ -979,6 +1038,79 @@
           if (saved && !savePending) status(saveReceiptPending ? '本機草稿已保存；GitHub 保存版本尚未確認，請先重新讀取確認。' : '本機草稿已保存；尚未儲存至 GitHub。');
         });
       }, 5000);
+    }
+    function historyPath(root, node) {
+      var path = [];
+      while (node && node !== root) {
+        if (!node.parentNode) return null;
+        path.unshift(Array.prototype.indexOf.call(node.parentNode.childNodes, node)); node = node.parentNode;
+      }
+      return node === root ? path : null;
+    }
+    function historyNode(root, path) {
+      if (!path) return null;
+      for (var i = 0; root && i < path.length; i++) root = root.childNodes[path[i]];
+      return root;
+    }
+    function historySelection(root) {
+      var sel = window.getSelection();
+      if (!sel || !sel.rangeCount || !article.contains(sel.anchorNode) || !article.contains(sel.focusNode)) return null;
+      return { anchor: historyPath(root, sel.anchorNode), anchorOffset: sel.anchorOffset,
+        focus: historyPath(root, sel.focusNode), focusOffset: sel.focusOffset };
+    }
+    function historyState(selectionOnly) {
+      var selection = historySelection(article);
+      if (selectionOnly && !selection) return null;
+      var copy = article.cloneNode(true);
+      var anchor = selection && historyNode(copy, selection.anchor), focus = selection && historyNode(copy, selection.focus);
+      _sanitizeForSerialize(copy); prepareEditableArticle(copy);
+      if (selection && copy.contains(anchor) && copy.contains(focus)) {
+        selection.anchor = historyPath(copy, anchor); selection.focus = historyPath(copy, focus);
+      } else selection = null;
+      // Pre-input only needs clean selection paths, not another complete HTML
+      // string. Input bubbles through one document listener below.
+      return selectionOnly ? selection : { html: copy.outerHTML, selection: selection };
+    }
+    function updateHistoryButtons() {
+      document.getElementById('hs-adm-undo').disabled = !editHistory.canUndo;
+      document.getElementById('hs-adm-redo').disabled = !editHistory.canRedo;
+    }
+    function moveHistory(redo) {
+      if (!editHistory || composing) return;
+      var state = redo ? editHistory.redo() : editHistory.undo();
+      if (!state) return;
+      restoringHistory = true;
+      try {
+        var doc = parseEditorDocument(state.html);
+        var restored = prepareEditableArticle(doc.querySelector('article.max-w-3xl'));
+        article.replaceChildren.apply(article, Array.from(restored.childNodes).map(function (node) { return document.importNode(node, true); }));
+        DN._bilingualCache = null;
+        var lang = (document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh';
+        applyArticleLanguage(lang);
+        var zh = article.querySelector('#proseZh'), en = article.querySelector('#proseEn');
+        if (zh) zh.style.display = en && lang === 'en' ? 'none' : '';
+        if (en) en.style.display = lang === 'en' ? '' : 'none';
+        registerEditables();
+        var selection = state.selection;
+        var anchor = selection && historyNode(article, selection.anchor), focus = selection && historyNode(article, selection.focus);
+        var focused = false;
+        if (anchor && focus) {
+          var element = anchor.nodeType === 1 ? anchor : anchor.parentElement;
+          var editable = element.closest('[contenteditable="true"]');
+          if (editable && editable.getClientRects().length) {
+            editable.focus();
+            try { window.getSelection().setBaseAndExtent(anchor, selection.anchorOffset, focus, selection.focusOffset); focused = true; } catch (e) {}
+          }
+        }
+        if (!focused) {
+          var fallback = (en && lang === 'en' ? en : zh || article).querySelector('[contenteditable="true"]');
+          if (fallback) {
+            fallback.focus(); var range = document.createRange(); range.selectNodeContents(fallback); range.collapse(false);
+            window.getSelection().removeAllRanges(); window.getSelection().addRange(range);
+          }
+        }
+        markDirty(); updateHistoryButtons();
+      } finally { restoringHistory = false; }
     }
     async function persistLatestDraft() {
       try {
@@ -1158,10 +1290,12 @@
     }
 
     // Content input schedules a local draft; toolbar input is not author text.
-    document.addEventListener('input', function () {
-      if (!DN.isAdminMode() || !article.contains(document.activeElement)) return;
-      markDirty();
+    document.addEventListener('input', function (event) {
+      if (!DN.isAdminMode() || !article.contains(event.target)) return;
+      markDirty(event);
     });
+    editHistory = historyModule.createHistory(historyState());
+    updateHistoryButtons();
 
     // v33: On enter admin mode, check for unsaved draft + offer to restore
     Promise.resolve(initialDraft).then(function (draft) {
