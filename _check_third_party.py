@@ -27,6 +27,12 @@ def main() -> int:
         # Strip HTML comments first — commented-out script templates are not
         # "eager loading" since the browser never sees them.
         src = re.sub(r"<!--[\s\S]*?-->", "", src)
+        if re.search(r'googletagmanager\.com/gtag/js|gtag\([\s\S]*?G-0ZKDQP9DNH|/_vercel/speed-insights/script\.js', src):
+            errors.append(f"{rel}: legacy analytics bootstrap bypasses the shared eligibility gate")
+        # A public page using the shared blog bundle must also load its gated
+        # analytics bootstrap. Missing it fails closed but silently loses data.
+        if 'blog/blog-shared.min.js' in src and '/assets/telemetry.js' not in src:
+            errors.append(f"{rel}: public page missing shared telemetry bootstrap")
         # HsiaoEye policy: noindex stubs still run analytics (visitor count matters
         # even on draft pages). Only flag if analytics is loaded EAGERLY without
         # the bot/prerender gate.

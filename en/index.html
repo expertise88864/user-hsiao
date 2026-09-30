@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script src="/assets/trusted-types.js?v=20260672"></script>
+<script src="/assets/trusted-types.js?v=20260673"></script>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260672';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
+(function(){var T='20260673';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var j=[];if(sw)j.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}));if(ch)j.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}));Promise.all(j).catch(function(){}).then(function(){localStorage.setItem('hs:siteVer',T);location.reload()})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -59,62 +59,7 @@
 <meta name="msvalidate.01" content="E0C80549746F44CC7041C29DBBE89452" />
 
 <!-- ===== Google Analytics 4 + Consent Mode v2 + bot/prerender gate (id: G-0ZKDQP9DNH) ===== -->
-<script>
-(function(){
-  // A2: short-circuit on known crawlers/automation/headless before gtag init.
-  // Covers AI training bots (GPTBot, ClaudeBot, anthropic-ai, PerplexityBot,
-  // CCBot, Google-Extended, Bytespider, etc.), SEO spiders (Ahrefs, Semrush,
-  // MJ12, DotBot), search bots (Baidu, Yandex, Apple, Amazon), automation
-  // frameworks (Playwright, Puppeteer, Selenium via webdriver flag), CLI
-  // fetchers (curl, wget, python, node-fetch, axios), and lighthouse/insights.
-  var ua = navigator.userAgent || '';
-  var BOT_RE = /(bot|spider|crawl|slurp|teoma|monitor|headless|playwright|puppeteer|selenium|electron|preview|fetcher|inspect|lighthouse|pagespeed|gtmetrix|httrack|wget|curl|python-requests|axios|node-fetch|go-http|libwww|scrapy|chatgpt|gptbot|claudebot|anthropic|perplexity|cohere|bytespider|ahrefs|semrush|mj12|dotbot|baidu|yandex|ccbot|google-extended|amazonbot|applebot|facebot|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|discordbot|skype|slackbot|embedly|bingpreview)/i;
-  if (BOT_RE.test(ua) || navigator.webdriver === true) {
-    window.gtag = function(){};
-    return;
-  }
-  // v37.13: respect DNT (Do Not Track) header per W3C Tracking Preference
-  // Expression. Medical sites should honor user opt-out — no GA4, no Clarity
-  // bootstrap if the user explicitly says no.
-  if (navigator.doNotTrack === '1' || window.doNotTrack === '1' ||
-      navigator.msDoNotTrack === '1') {
-    window.gtag = function(){};
-    return;
-  }
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  window.gtag = gtag;
-
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied',
-    'analytics_storage': 'granted',
-    'functionality_storage': 'granted',
-    'security_storage': 'granted',
-    'wait_for_update': 500
-  });
-  gtag('js', new Date());
-
-  // A1: prerender gate. Speculation Rules + Chrome anonymous prerender load
-  // pages invisibly, run all JS, and most never become a real visit. Defer
-  // gtag('config') AND the gtag.js script load until prerenderingchange so
-  // page_view fires only when the user actually navigates.
-  function fireConfig(){
-    gtag('config', 'G-0ZKDQP9DNH');
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0ZKDQP9DNH';
-    document.head.appendChild(s);
-  }
-  if (document.prerendering) {
-    document.addEventListener('prerenderingchange', fireConfig, { once: true });
-  } else {
-    fireConfig();
-  }
-})();
-</script>
 
 <!-- ===== Microsoft Clarity (paste Clarity ID here when ready) ===== -->
 <!--
@@ -128,10 +73,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260672" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260673" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(l)l.addEventListener('load',function(){l.rel='stylesheet'},{once:true});})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260672">
+<link rel="stylesheet" href="/assets/app.css?v=20260673">
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -367,7 +312,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <meta property="og:image:alt" content="Dr. Min-Chien Hsiao Ophthalmology Notes" />
 <meta name="twitter:image:alt" content="Dr. Min-Chien Hsiao Ophthalmology Notes" />
 <meta property="og:locale:alternate" content="zh_TW" />
-<script defer src="/_vercel/speed-insights/script.js"></script>
+
+
+
+<script defer src="/assets/telemetry.js?v=20260673"></script>
 </head>
 <body class="home font-sans antialiased text-ink-900"><style>.hs-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.hs-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.hs-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.hs-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav aria-label="Skip navigation" class="hs-skiplinks"><a data-en="Skip to main content" data-zh="跳至主要內容" href="#main-content">Skip to main content</a><a data-en="Skip to subscribe" data-zh="跳至訂閱" href="#dn-subscribe">Skip to subscribe</a></nav><a class="skip-to-main" data-en="Skip to main content" data-zh="跳至主要內容" href="#main-content">Skip to main content</a>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -895,7 +843,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script defer src="/blog/blog-shared.min.js?v=20260672"></script>
+<script defer src="/blog/blog-shared.min.js?v=20260673"></script>
 <script>document.addEventListener('DOMContentLoaded',function(){
   if(window.DN)DN.initBlog({});
   // Quick-find chip filter wiring (mirrors DermNotes main site).

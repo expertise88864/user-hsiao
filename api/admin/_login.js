@@ -93,6 +93,10 @@ export default async function handler(req, res) {
     'Path=/',
     `Max-Age=${Math.floor(SESSION_DURATION_MS / 1000)}`,
   ].join('; ');
-  res.setHeader('Set-Cookie', cookieOpts);
+  // A readable, non-identifying opt-out marker excludes this editing browser
+  // from public analytics. It is not proof of authentication; the HMAC cookie
+  // remains HttpOnly and is independently verified by every privileged route.
+  res.setHeader('Set-Cookie', [cookieOpts,
+    `hs_telemetry_optout=1; Secure; SameSite=Strict; Path=/; Max-Age=${Math.floor(SESSION_DURATION_MS / 1000)}`]);
   return res.status(200).json({ ok: true });
 }

@@ -41,55 +41,9 @@
 </style>
 
 <!-- ===== Google Analytics 4 + Consent Mode v2 + bot/prerender gate (id: G-0ZKDQP9DNH) ===== -->
-<script>
-(function(){
-  // A2: short-circuit on known crawlers/automation/headless before gtag init.
-  // Covers AI training bots (GPTBot, ClaudeBot, anthropic-ai, PerplexityBot,
-  // CCBot, Google-Extended, Bytespider, etc.), SEO spiders (Ahrefs, Semrush,
-  // MJ12, DotBot), search bots (Baidu, Yandex, Apple, Amazon), automation
-  // frameworks (Playwright, Puppeteer, Selenium via webdriver flag), CLI
-  // fetchers (curl, wget, python, node-fetch, axios), and lighthouse/insights.
-  var ua = navigator.userAgent || '';
-  var BOT_RE = /(bot|spider|crawl|slurp|teoma|monitor|headless|playwright|puppeteer|selenium|electron|preview|fetcher|inspect|lighthouse|pagespeed|gtmetrix|httrack|wget|curl|python-requests|axios|node-fetch|go-http|libwww|scrapy|chatgpt|gptbot|claudebot|anthropic|perplexity|cohere|bytespider|ahrefs|semrush|mj12|dotbot|baidu|yandex|ccbot|google-extended|amazonbot|applebot|facebot|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|discordbot|skype|slackbot|embedly|bingpreview)/i;
-  if (BOT_RE.test(ua) || navigator.webdriver === true) {
-    window.gtag = function(){};
-    return;
-  }
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  window.gtag = gtag;
-
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied',
-    'analytics_storage': 'granted',
-    'functionality_storage': 'granted',
-    'security_storage': 'granted',
-    'wait_for_update': 500
-  });
-  gtag('js', new Date());
-
-  // A1: prerender gate. Speculation Rules + Chrome anonymous prerender load
-  // pages invisibly, run all JS, and most never become a real visit. Defer
-  // gtag('config') AND the gtag.js script load until prerenderingchange so
-  // page_view fires only when the user actually navigates.
-  function fireConfig(){
-    gtag('config', 'G-0ZKDQP9DNH');
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0ZKDQP9DNH';
-    document.head.appendChild(s);
-  }
-  if (document.prerendering) {
-    document.addEventListener('prerenderingchange', fireConfig, { once: true });
-  } else {
-    fireConfig();
-  }
-})();
-</script>
-<!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><!-- i-series-applied --><script defer src="/_vercel/speed-insights/script.js"></script>
+<!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><!-- i-series-applied -->
+<script defer src="/assets/telemetry.js"></script>
 </head>
 <body><style>.hs-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.hs-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.hs-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.hs-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="hs-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a></nav><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
 <main id="main-content" role="main">

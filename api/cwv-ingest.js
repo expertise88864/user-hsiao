@@ -19,6 +19,7 @@
  */
 import { kvAvailable, kvPushTrimExpire } from './_kv.js';
 import { rateLimitOk, sendRateLimit } from './_rate_limit.js';
+import { telemetryExclusion } from './_telemetry.js';
 
 const ALLOWED = new Set(['LCP', 'CLS', 'INP', 'FCP', 'TTFB']);
 const MAX_SAMPLES = 1000;
@@ -30,6 +31,8 @@ export default async function handler(req, res) {
   res.setHeader('Allow', 'POST');
 
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  const excluded = telemetryExclusion(req);
+  if (excluded) return res.status(200).json({ ok: true, stored: false, source: 'noop', reason: excluded });
   // v37.28 — rate-limit per IP: typical real users send 1 CWV beacon per
   // pageview (5 metrics fired close together). Cap at 30/min to absorb
   // multi-tab sessions while blocking flood abuse.
@@ -38,7 +41,7 @@ export default async function handler(req, res) {
   }
   if (!kvAvailable()) {
     // Silently accept-and-drop if KV not configured (don't break the client)
-    return res.status(200).json({ ok: true, source: 'noop' });
+    return res.status(200).json({ ok: true, stored: false, source: 'noop', reason: 'not_configured' });
   }
 
   let body = req.body;
@@ -63,7 +66,7 @@ export default async function handler(req, res) {
       SAMPLE_TTL_SECONDS
     );
     if (!stored) return res.status(503).json({ error: 'telemetry storage unavailable' });
-    res.status(200).json({ ok: true });
+    res.status(200).json({ ok: true, stored: true, source: 'kv' });
   } catch (e) {
     res.status(500).json({ error: String(e.message || e) });
   }

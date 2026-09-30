@@ -2856,6 +2856,7 @@
         // send IP / cookie / UA — just the query string. sendBeacon falls
         // back to fetch so we don't block the input handler.
         try {
+          if (!DN.telemetryAllowed()) return;
           var payload = JSON.stringify({ q: q });
           var blob = new Blob([payload], { type: 'application/json' });
           if (navigator.sendBeacon && navigator.sendBeacon('/api/search-log', blob)) return;
@@ -3127,8 +3128,17 @@
   // ---------------------------------------------------------------------
   // Web Vitals — LCP / CLS / INP via PerformanceObserver, sent to GA4
   // ---------------------------------------------------------------------
+  DN.telemetryAllowed = function () {
+    return !!(window.HsiaoTelemetry && window.HsiaoTelemetry.allowed(window));
+  };
   DN.bindWebVitals = function () {
+    if (document.prerendering) {
+      document.addEventListener('prerenderingchange', DN.bindWebVitals, { once: true });
+      return;
+    }
+    if (!DN.telemetryAllowed()) return;
     function send(name, value, id) {
+      if (!DN.telemetryAllowed()) return;
       // GA4 (existing path)
       try {
         if (typeof gtag === 'function') gtag('event', name, {
@@ -3157,7 +3167,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260672';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260673';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3546,7 +3556,7 @@
     // Server-side aggregate (sessionStorage gated — only first exposure per session)
     try {
       var expKey = 'hs:abx:' + testId;
-      if (!sessionStorage.getItem(expKey)) {
+      if (DN.telemetryAllowed() && !sessionStorage.getItem(expKey)) {
         sessionStorage.setItem(expKey, '1');
         var payload = JSON.stringify({
           testId: testId, variantIndex: bucket, event: 'exposure',
@@ -3576,6 +3586,16 @@
     // Never swap editor content. Serializing a selected variant from
     // ?admin=1 would permanently commit an experiment into the article.
     if (DN.isAdminMode && DN.isAdminMode()) return;
+    if (document.prerendering) {
+      if (!DN._abActivationPending) {
+        DN._abActivationPending = true;
+        document.addEventListener('prerenderingchange', function () {
+          DN._abActivationPending = false;
+          DN.applyAbConfig();
+        }, { once: true });
+      }
+      return;
+    }
     fetch('/api/ab-config', { cache: 'force-cache' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .catch(function () { return null; })
@@ -3604,6 +3624,7 @@
 
   // Convenience: report a conversion for an A/B test (fires once per session)
   DN.abConvert = function (testId, conversionName) {
+    if (!DN.telemetryAllowed()) return;
     var sessKey = 'hs:abc:' + testId + ':' + (conversionName || 'default');
     try { if (sessionStorage.getItem(sessKey)) return; sessionStorage.setItem(sessKey, '1'); } catch (e) {}
     var assignments = {};
@@ -3770,7 +3791,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260672';
+    s.src = '/blog/blog-admin.js?v=20260673';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -5096,6 +5117,7 @@
   // consent (gtag('consent', 'update') already wired in index.html).
   function gaEvent(name, params) {
     try {
+      if (!DN.telemetryAllowed()) return;
       if (typeof gtag !== 'function') return;
       var p = Object.assign({}, params || {});
       // Always include article context if we're on an article page
@@ -5210,23 +5232,6 @@
     });
   };
 
-  // v37.26 — Vercel Speed Insights. Privacy-friendly RUM (no cookies,
-  // just aggregated CWV: LCP, FID, INP, CLS, TTFB). Auto-injected when
-  // Vercel Web Analytics is enabled in the project dashboard. Respects
-  // DNT (Vercel's /_vercel/insights/script.js bails internally on
-  // navigator.doNotTrack === '1'). No-op on localhost / preview.
-  DN.injectSpeedInsights = function () {
-    if (document.getElementById('hs-vercel-insights')) return;
-    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
-    if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
-    var s = document.createElement('script');
-    s.id = 'hs-vercel-insights';
-    s.src = '/_vercel/insights/script.js';
-    s.defer = true;
-    s.dataset.endpoint = '/_vercel/insights/event';
-    document.head.appendChild(s);
-  };
-
   // ---------- orchestrator ----------
   DN.initBlog = function (opts) {
     opts = opts || {};
@@ -5313,7 +5318,6 @@
     safeCall('injectFooterYear', function () { DN.injectFooterYear(); });
     safeCall('bindErrorReporting', function () { DN.bindErrorReporting(); });   // v37.27 — global JS error sink → /api/errors
     safeCall('bindEngagementTracking', function () { DN.bindEngagementTracking(); }); // v37.29 — GA4 events (scroll/time/share/nav)
-    safeCall('injectSpeedInsights', function () { DN.injectSpeedInsights(); });  // v37.26 — Vercel CWV beacon (DNT-respecting)
     safeCall('addReadingProgress', function () { DN.addReadingProgress(); });   // top scroll bar — visible immediately, cheap
     safeCall('shuffleHeroCards', function () { DN.shuffleHeroCards(); });     // home cover-story shuffle (above-the-fold)
     safeCall('injectSpotlight', function () { DN.injectSpotlight(); });      // 最近更新 + 熱門推薦 (above-the-fold on mobile)

@@ -45,10 +45,12 @@ for (const prefix of ['', '/en']) {
  }
 }
 
-test('related reads lead to the same disease and standard vitals load separately', async ({ page }) => {
+test('related reads lead to the same disease; automated local visits do not collect vitals', async ({ page }) => {
   await page.goto('/blog/glaucoma-comprehensive-guide');
   await expect(page.locator('#hs-related a').first()).toHaveAttribute('href','/blog/glaucoma-treatment-selection');
-  await expect.poll(() => page.evaluate(() => typeof window.HsiaoVitals?.observeVitals)).toBe('function');
+  await expect.poll(() => page.evaluate(() => !!window.DN?._engagementBound)).toBe(true);
+  expect(await page.evaluate(() => window.DN.telemetryAllowed())).toBe(false);
+  await expect(page.locator('script[src*="assets/vitals.min.js"]')).toHaveCount(0);
 });
 
 test('search synonyms and a useful empty state work in the shipped bundle', async ({ page }) => {
@@ -80,6 +82,9 @@ test('a related-card click emits exactly one contextual analytics event', async 
   await page.goto('/blog/glaucoma-comprehensive-guide');
   await expect.poll(() => page.evaluate(() => !!window.DN?._engagementBound)).toBe(true);
   await page.evaluate(() => {
+    // Isolate contextual event deduplication from collection eligibility;
+    // telemetry-eligibility.spec.js exercises the real production policy.
+    window.HsiaoTelemetry.allowed = () => true;
     window.readerTestEvents = [];
     window.gtag = (...args) => window.readerTestEvents.push(args);
     document.addEventListener('click', event => event.preventDefault());

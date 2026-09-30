@@ -53,4 +53,14 @@ GA4 備援僅能提供事件總值／事件數的平均值，p75 保留 `null`�
 
 先記錄確實上線的 SHA／日期及統計定義改版日，排除預覽、管理者與測試流量；核對 GA4 收件，缺資料不是零互動。以完整 28 天比較台灣非指名曝光、文章點擊與相近排名條件下 CTR，樣本少則延長。分別觀察一般衛教與研究入口的使用，不事先宣稱流量增加。
 
+### 公開量測的資格與收件
+
+既有頁面及兩種新文章範本共用 `assets/telemetry.js`。只有正式 HTTPS 網域的一般讀者啟用 GA4、Vercel Web Analytics／Speed Insights 及第一方 Web Vitals、搜尋、A/B 計數；Preview、localhost、已知機器人／webdriver、管理頁及 `?admin=1` 排除。DNT 或 Global Privacy Control 開啟時不蒐集。預先渲染期間不啟用，啟用頁面後才註冊一次。
+
+成功登入會保留原 HttpOnly HMAC session，另設八小時的 `hs_telemetry_optout=1` 匿名標記；它不含訪客識別資訊、不能登入或授權。登出僅清除 session，標記在剩餘有效期間仍排除編輯者瀏覽。送出時重查標記；GA4 的 `ga-disable` 與 Vercel 的 `beforeSend` 也排除已開啟分頁後來產生的事件。第一方端點另查正式環境、來源及有效管理者 session，不以客戶端判斷代替伺服器檢查。這些是資料品質篩選，不能辨認所有偽裝成人類的流量。
+
+`sendBeacon` 回傳成功只代表浏览器接受排隊。CWV／A/B 回應的 `stored: true` 才代表儲存呼叫成功；未設定或排除是 `stored: false`，CWV 儲存失敗回傳錯誤。搜尋紀錄仍採原本明確啟用的匿名彙總政策，204 不證明寫入。正式 GA4 與 KV 收件必須於部署後另行核對，不以模擬測試、設定存在或候選 Preview 證明正式收到。
+
+送出阻擋依據：[Google tag 的 ga-disable](https://developers.google.com/tag-platform/security/guides/privacy)、[Vercel Web Analytics beforeSend](https://vercel.com/docs/analytics/package)、[Speed Insights 官方載入程式](https://github.com/vercel/speed-insights/blob/main/packages/web/src/generic.ts)。診斷用錯誤紀錄與公開成效統計用途不同，不由本次篩選變更其既有錯誤蒐集政策。
+
 尚待實測決定：將閱讀路線擴展到其餘文章、長摘要的逐段醫療編輯、更多按需載入拆分。依實測與站主內容核可推進，不能把本輪導覽調整當成全站正文重寫完成。

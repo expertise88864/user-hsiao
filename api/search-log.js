@@ -20,6 +20,7 @@
  * Rate-limited to 30/min/IP via api/_rate_limit.js (shared bucket).
  */
 import { rateLimitOk, sendRateLimit } from './_rate_limit.js';
+import { telemetryExclusion } from './_telemetry.js';
 
 const MAX_KV_ENTRIES = 1000;
 const KV_LIST_KEY = 'search:queries';
@@ -31,6 +32,7 @@ export default async function handler(req, res) {
   res.setHeader('Allow', 'POST');
 
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
+  if (telemetryExclusion(req)) return res.status(204).end();
   // Always rate-limit, even when logging is disabled, to avoid being a
   // black hole that absorbs attacker traffic for free.
   if (!rateLimitOk(req, { key: 'search-log', max: 30, windowMs: 60_000 })) {

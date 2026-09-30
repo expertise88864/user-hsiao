@@ -6,8 +6,9 @@
  * accepted and dropped so anonymous traffic can never create GitHub commits.
  */
 import { requireAdmin } from './_auth.js';
-import { kvAvailable, kvHGetAll, kvHIncrBy, kvHSet } from '../_kv.js';
+import { kvAvailable, kvHGetAll, kvPipeline } from '../_kv.js';
 import { rateLimitOk, sendRateLimit } from '../_rate_limit.js';
+import { telemetryExclusion } from '../_telemetry.js';
 
 const KV_PREFIX = 'ab:';
 const KV_INDEX = 'ab:_index';
@@ -44,18 +45,27 @@ async function recordEventKV(testId, variantIndex, event, variantName) {
   const counter = event === 'exposure'
     ? `${variantIndex}:exp`
     : `${variantIndex}:cv:${event}`;
-  const incremented = await kvHIncrBy(key, counter, 1);
-  if (incremented == null) throw new Error('KV counter write failed');
-
-  if (variantName) {
-    const existing = (await kvHGetAll(key)) || {};
-    if (!existing[`${variantIndex}:name`]) {
-      await kvHSet(key, `${variantIndex}:name`, String(variantName).slice(0, 60));
-    }
+  // One script updates the counter, optional label and discoverable index.
+  // Validate key types before any mutation: Redis scripts are isolated, but
+  // runtime errors do not roll back commands already executed.
+  const script = `
+    for _, key in ipairs(KEYS) do
+      local kind = redis.call('TYPE', key).ok
+      if kind ~= 'none' and kind ~= 'hash' then
+        return redis.error_reply('Invalid A/B storage type')
+      end
+    end
+    local count = redis.call('HINCRBY', KEYS[1], ARGV[1], 1)
+    if ARGV[2] ~= '' then redis.call('HSETNX', KEYS[1], ARGV[2], ARGV[3]) end
+    redis.call('HSETNX', KEYS[2], ARGV[4], ARGV[5])
+    return count
+  `;
+  const result = await kvPipeline([['EVAL', script, '2', key, KV_INDEX,
+    counter, variantName ? `${variantIndex}:name` : '', String(variantName || '').slice(0, 60),
+    testId, new Date().toISOString()]]);
+  if (!Number.isSafeInteger(result?.[0]?.result) || result[0].result < 1) {
+    throw new Error('KV A/B write failed');
   }
-
-  const index = (await kvHGetAll(KV_INDEX)) || {};
-  if (!index[testId]) await kvHSet(KV_INDEX, testId, new Date().toISOString());
 }
 
 export default async function handler(req, res) {
@@ -79,6 +89,8 @@ export default async function handler(req, res) {
   }
 
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  const excluded = telemetryExclusion(req);
+  if (excluded) return res.status(202).json({ ok: true, stored: false, source: 'noop', reason: excluded });
   if (!rateLimitOk(req, { key: 'ab-stats', max: 60, windowMs: 60_000 })) {
     return sendRateLimit(res, 60);
   }
@@ -91,7 +103,7 @@ export default async function handler(req, res) {
   if (!testId || !Number.isInteger(variantIndex) || variantIndex < 0 || variantIndex > 20 || !event) {
     return res.status(400).json({ error: 'testId, variantIndex, event required' });
   }
-  if (String(testId).length > 80 || !/^[a-z0-9_:.-]+$/i.test(testId)) {
+  if (String(testId).length > 80 || !/^[a-z0-9_:.-]+$/i.test(testId) || testId === '_index') {
     return res.status(400).json({ error: 'invalid testId' });
   }
   if (String(event).length > 40 || !/^[a-z0-9_]+$/i.test(event)) {
@@ -99,9 +111,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (!kvAvailable()) return res.status(202).json({ ok: true, source: 'noop' });
+    if (!kvAvailable()) return res.status(202).json({ ok: true, stored: false, source: 'noop', reason: 'not_configured' });
     await recordEventKV(testId, variantIndex, event, variantName);
-    return res.status(200).json({ ok: true, source: 'kv' });
+    return res.status(200).json({ ok: true, stored: true, source: 'kv' });
   } catch (e) {
     return res.status(503).json({ error: String(e.message || e) });
   }
