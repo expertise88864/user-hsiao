@@ -341,3 +341,93 @@ test('GitHub can acknowledge a valid save when the optional local backup write i
   await expect(frame.locator('#hs-admin-status')).toContainText('已保存至 GitHub');
   await expect(frame.locator('#hs-admin-status')).not.toContainText('本機草稿已保存');
 });
+
+test('newer localStorage fallback is restored instead of an older readable OPFS draft', async ({ page }) => {
+  await setup(page);
+  acceptRecovery(page);
+  let frame = await open(page);
+  await frame.locator('#proseZh > p[contenteditable]').first().fill('Older OPFS snapshot');
+  await page.getByRole('button', { name: '← 回到後台' }).click();
+  await expect(page.locator('#edit-shell')).toBeHidden();
+  frame = await open(page);
+  await frame.locator('body').evaluate(async () => {
+    const directory = await navigator.storage.getDirectory();
+    const file = await directory.getFileHandle('draft-dry-eye-myths.json');
+    Object.getPrototypeOf(file).createWritable = async () => { throw new DOMException('Write denied, reads available', 'NotAllowedError'); };
+  });
+  await frame.locator('#proseZh > p[contenteditable]').first().fill('Latest localStorage fallback');
+  await page.getByRole('button', { name: '← 回到後台' }).click();
+  await expect(page.locator('#edit-shell')).toBeHidden();
+  frame = await open(page);
+  await expect(frame.locator('#proseZh > p[contenteditable]').first()).toHaveText('Latest localStorage fallback');
+  const selected = await draft(frame);
+  expect(selected.html).toContain('Latest localStorage fallback');
+});
+
+test('new OPFS write supersedes fallback while the older local backup remains recoverable', async ({ page }) => {
+  await setup(page);
+  const frame = await open(page);
+  const result = await frame.locator('body').evaluate(async (body, slug) => {
+    const getDirectory = navigator.storage.getDirectory.bind(navigator.storage);
+    navigator.storage.getDirectory = async () => { throw Error('OPFS temporarily unavailable'); };
+    const first = await DN.saveDraft(slug, '<html>Older local fallback</html>', 'a'.repeat(40));
+    navigator.storage.getDirectory = getDirectory;
+    const second = await DN.saveDraft(slug, '<html>Latest OPFS snapshot</html>', 'a'.repeat(40));
+    return { first, second, selected: await DN.loadDraft(slug), backup: JSON.parse(localStorage.getItem('hs:draft-'+slug+'.json')) };
+  }, slug);
+  expect(result.first.source).toBe('ls');
+  expect(result.second.source).toBe('opfs');
+  expect(result.selected.html).toContain('Latest OPFS snapshot');
+  expect(result.backup.html).toContain('Older local fallback');
+});
+
+test('same-millisecond writes have monotonic timestamps across storage fallback', async ({ page }) => {
+  await setup(page);
+  const frame = await open(page);
+  const result = await frame.locator('body').evaluate(async (body, slug) => {
+    const now = Date.now;
+    const stamp = now();
+    const getDirectory = navigator.storage.getDirectory.bind(navigator.storage);
+    try {
+      Date.now = () => stamp;
+      await DN.saveDraft(slug, '<html>Earlier OPFS snapshot</html>', 'a'.repeat(40));
+      const old = await DN.loadDraft(slug);
+      navigator.storage.getDirectory = async () => { throw Error('Temporary write fallback'); };
+      await DN.saveDraft(slug, '<html>Newer fallback snapshot</html>', 'a'.repeat(40));
+      navigator.storage.getDirectory = getDirectory;
+      return { old, latest: await DN.loadDraft(slug) };
+    } finally { Date.now = now; navigator.storage.getDirectory = getDirectory; }
+  }, slug);
+  expect(result.latest.ts).toBeGreaterThan(result.old.ts);
+  expect(result.latest.html).toContain('Newer fallback snapshot');
+});
+
+test('legacy undated OPFS draft remains readable and is not silently deleted', async ({ page }) => {
+  await setup(page);
+  const frame = await open(page);
+  const result = await frame.locator('body').evaluate(async (body, slug) => {
+    const directory = await navigator.storage.getDirectory();
+    const file = await directory.getFileHandle('draft-'+slug+'.json', {create:true});
+    const writer = await file.createWritable();
+    await writer.write(JSON.stringify({ html:'<html>Valuable legacy draft</html>' }));
+    await writer.close();
+    return DN.loadDraft(slug);
+  }, slug);
+  expect(result.html).toContain('Valuable legacy draft');
+});
+
+test('unrepresentable next draft timestamp fails storage rather than acknowledging an older ordering', async ({ page }) => {
+  await setup(page);
+  const frame = await open(page);
+  const result = await frame.locator('body').evaluate(async (body, slug) => {
+    const directory = await navigator.storage.getDirectory();
+    const file = await directory.getFileHandle('draft-'+slug+'.json', {create:true});
+    const writer = await file.createWritable();
+    await writer.write(JSON.stringify({html:'<html>Existing recoverable draft</html>',ts:Number.MAX_SAFE_INTEGER}));
+    await writer.close();
+    await DN.loadDraft(slug);
+    return { saved:await DN.saveDraft(slug,'<html>Must not falsely acknowledge</html>','a'.repeat(40)), retained:await DN.loadDraft(slug) };
+  }, slug);
+  expect(result.saved.source).toBeNull();
+  expect(result.retained.html).toContain('Existing recoverable draft');
+});

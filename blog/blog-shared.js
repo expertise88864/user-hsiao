@@ -3167,7 +3167,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260674';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260675';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3791,7 +3791,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260674';
+    s.src = '/blog/blog-admin.js?v=20260675';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -4752,9 +4752,17 @@
     catch (e) { return null; }
   };
 
+  var lastDraftTimestamp = 0;
+  function draftTimestamp(draft) {
+    var timestamp = Number(draft && draft.ts);
+    return Number.isSafeInteger(timestamp) && timestamp >= 0 ? timestamp : 0;
+  }
   DN.saveDraft = async function (slug, html, baseSha) {
     var key = 'draft-' + slug + '.json';
-    var payload = JSON.stringify({ slug: slug, html: html, baseSha: baseSha, ts: Date.now() });
+    // A same-millisecond fallback must still sort after the preceding snapshot.
+    lastDraftTimestamp = Math.max(Date.now(), lastDraftTimestamp + 1);
+    if (!Number.isSafeInteger(lastDraftTimestamp)) return { source: null };
+    var payload = JSON.stringify({ slug: slug, html: html, baseSha: baseSha, ts: lastDraftTimestamp });
     try {
       var dir = await DN.openOpfsDir();
       if (dir) {
@@ -4771,18 +4779,29 @@
 
   DN.loadDraft = async function (slug) {
     var key = 'draft-' + slug + '.json';
+    var candidates = [];
     try {
       var dir = await DN.openOpfsDir();
       if (dir) {
         try {
           var fh = await dir.getFileHandle(key);
           var f  = await fh.getFile();
-          return JSON.parse(await f.text());
+          candidates.push(JSON.parse(await f.text()));
         } catch (e) {}
       }
     } catch (e) {}
-    try { var raw = localStorage.getItem('hs:' + key); return raw ? JSON.parse(raw) : null; }
-    catch (e) { return null; }
+    try { var raw = localStorage.getItem('hs:' + key); if (raw) candidates.push(JSON.parse(raw)); }
+    catch (e) {}
+    var newest = null;
+    candidates.forEach(function (draft) {
+      if (!draft || typeof draft.html !== 'string') return;
+      var timestamp = draftTimestamp(draft);
+      lastDraftTimestamp = Math.max(lastDraftTimestamp, timestamp);
+      if (!newest || timestamp > draftTimestamp(newest)) newest = draft;
+    });
+    // Keep both copies until explicit discard or confirmed Git cleanup. Legacy
+    // undated/tied records retain OPFS preference; older backups are not erased.
+    return newest;
   };
 
   DN.deleteDraft = async function (slug) {
