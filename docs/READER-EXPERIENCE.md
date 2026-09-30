@@ -64,3 +64,15 @@ GA4 備援僅能提供事件總值／事件數的平均值，p75 保留 `null`�
 送出阻擋依據：[Google tag 的 ga-disable](https://developers.google.com/tag-platform/security/guides/privacy)、[Vercel Web Analytics beforeSend](https://vercel.com/docs/analytics/package)、[Speed Insights 官方載入程式](https://github.com/vercel/speed-insights/blob/main/packages/web/src/generic.ts)。診斷用錯誤紀錄與公開成效統計用途不同，不由本次篩選變更其既有錯誤蒐集政策。
 
 尚待實測決定：將閱讀路線擴展到其餘文章、長摘要的逐段醫療編輯、更多按需載入拆分。依實測與站主內容核可推進，不能把本輪導覽調整當成全站正文重寫完成。
+
+### 編輯草稿與安全離開
+
+視覺編輯器的「回到後台」與「離開編輯」會先寫入最新本機草稿；寫入失敗時保留編輯器與內容，GitHub 儲存尚在執行時請等候結果。草稿寫入與刪除依序執行，保存期間的新輸入仍須保留。重新整理或直接關閉分頁會在有未儲存修改時顯示瀏覽器離開提醒；瀏覽器強制終止、使用者仍選擇離開或儲存不可用時，不能保證最後一次輸入已保存。
+
+保存狀態持續顯示，分別說明尚未儲存、本機草稿、GitHub 已保存及正式上線尚未確認。GitHub 成功後若又有新輸入，顯示上一版已保存但新修改仍未儲存；不把先前成功訊息當成最新內容或正式部署完成。「丟棄」需明確確認、清除本機草稿並重新讀取來源，清除期間的新輸入保留在編輯器。
+
+刪除草稿須確認 OPFS 與 localStorage 中皆不存在；刪除或驗證讀取失敗時不回報已清除，也不因讀取失敗得到 `null` 就允許丟棄。GitHub 已保存但本機清理失敗會持續顯示錯誤，禁止把已保存的 commit 再排入離線重送。環境頁使用 API 的 `configured` 判斷設定存在與否，回應快慢不代表 KV 設定或收件；A/B 計數與 Builder 設定的儲存路徑不同，Builder 的 GitHub 備援仍保留。
+
+HTTP 成功狀態仍須有可解析、有效的文章 SHA 與 commit 回執；無改動的回執可明確使用 `noop` 與空 commit。成功狀態但回執损壞時，保留原 baseSha 與草稿、顯示版本未確認並阻止重複送出，不刪除草稿、不排離線重送；需重新開啟取得新來源與版本。這項保護不等於能證明未收到任何回應的網路失敗是否已由伺服器寫入，既有離線路徑仍依原版 SHA 防止覆寫。
+
+本輪實測已證明原先的立即關閉會在五秒自動保存前遺失內容，OPFS 與 localStorage 備援皆適用。雙語草稿復原原本已保留整個 article：CSS 選擇器清單按文件順序選到 article，而非優先選 proseZh；未為此改寫復原路徑。此狀態改善尚不包含真正的候選／正式部署狀態查詢、完整雙語標題編輯、IME／Undo／Redo 或所有 CMS 工作流程驗收。

@@ -3167,7 +3167,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260673';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260674';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3791,7 +3791,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260673';
+    s.src = '/blog/blog-admin.js?v=20260674';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -4787,11 +4787,22 @@
 
   DN.deleteDraft = async function (slug) {
     var key = 'draft-' + slug + '.json';
+    var opfs = true, ls = true;
+    // Absence must be observed, not inferred from a suppressed read error.
     try {
-      var dir = await DN.openOpfsDir();
-      if (dir) await dir.removeEntry(key).catch(function () {});
-    } catch (e) {}
-    try { localStorage.removeItem('hs:' + key); } catch (e) {}
+      if (navigator.storage && navigator.storage.getDirectory) {
+        var dir = await navigator.storage.getDirectory();
+        try { await dir.removeEntry(key); }
+        catch (e) { if (e.name !== 'NotFoundError') throw e; }
+        try { await dir.getFileHandle(key); opfs = false; }
+        catch (e) { if (e.name !== 'NotFoundError') throw e; }
+      }
+    } catch (e) { opfs = false; }
+    try {
+      localStorage.removeItem('hs:' + key);
+      ls = localStorage.getItem('hs:' + key) === null;
+    } catch (e) { ls = false; }
+    return { deleted: opfs && ls, opfs: opfs, localStorage: ls };
   };
 
   // ---------------------------------------------------------------------

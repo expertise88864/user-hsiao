@@ -94,7 +94,7 @@
         el.spellcheck = false;
         if (registeredEditables.has(el)) return;
         registeredEditables.add(el);
-        el.addEventListener('input', function () { DN._adminDirty = true; });
+        el.addEventListener('input', markDirty);
       });
     }
     registerEditables();
@@ -121,7 +121,7 @@
       var nodes = Array.from(template.content.children);
       anchor.after(template.content);
       registerEditables();
-      DN._adminDirty = true;
+      markDirty();
       var last = nodes[nodes.length - 1];
       var focus = last && (last.matches(EDITABLE_SEL) ? last : last.querySelector('[contenteditable="true"]'));
       if (focus) {
@@ -192,7 +192,7 @@
       if (range.collapsed) return;
       var span = document.createElement('span');
       span.style.fontSize = e.target.value;
-      try { range.surroundContents(span); } catch (ex) { /* selection across multiple nodes — fallback no-op */ }
+      try { range.surroundContents(span); markDirty(); } catch (ex) { /* selection across multiple nodes — fallback no-op */ }
     });
 
     // Keyboard shortcuts
@@ -204,11 +204,26 @@
 
     // Save / cancel
     document.getElementById('hs-adm-save').addEventListener('click', doSave);
-    document.getElementById('hs-adm-cancel').addEventListener('click', function () {
-      if (confirm('確定要丟棄所有未儲存的編輯嗎？')) location.reload();
+    document.getElementById('hs-adm-cancel').addEventListener('click', async function () {
+      if (savePending) { status('正在儲存至 GitHub，請等候結果後再離開。'); return; }
+      if (leavePending) { status('正在處理本機草稿，請稍候再離開。'); return; }
+      if (!confirm('確定要丟棄所有未儲存的編輯及本機草稿嗎？')) return;
+      leavePending = true;
+      var discardHtml = snapshotHtml();
+      clearTimeout(draftTimer);
+      try {
+        await removeDraft();
+        if (snapshotHtml() !== discardHtml) { markDirty(); status('清除草稿期間又有新修改，已保留編輯器。'); return; }
+        if (await DN.loadDraft(slug)) throw new Error('本機草稿尚未清除');
+        if (snapshotHtml() !== discardHtml) { markDirty(); status('確認草稿期間又有新修改，已保留編輯器。'); return; }
+        DN._adminDirty = false;
+        allowClose = true;
+        location.reload();
+      } catch (e) { status('無法清除本機草稿，請保留編輯器：' + e.message, 'error'); }
+      finally { leavePending = false; }
     });
-    document.getElementById('hs-adm-exit').addEventListener('click', function () {
-      location.href = location.pathname;
+    document.getElementById('hs-adm-exit').addEventListener('click', async function () {
+      if (await DN.adminBeforeClose()) location.href = location.pathname;
     });
 
     // Image upload — opens file picker, compresses to WebP @ 1600w / q82,
@@ -599,30 +614,115 @@
       if (!s) {
         s = document.createElement('div');
         s.id = 'hs-admin-status';
+        s.setAttribute('aria-live', 'polite');
         document.body.appendChild(s);
       }
+      s.setAttribute('role', cls === 'error' ? 'alert' : 'status');
       s.textContent = msg;
       if (cls === 'error') s.style.background = '#dc2626';
       else if (cls === 'success') s.style.background = '#16a34a';
       else s.style.background = '#243b56';
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'hs-admin-state', slug: slug, message: msg }, window.location.origin);
+      }
     }
+
+    // Serialize draft writes/deletes so an older autosave cannot finish after a
+    // newer snapshot or recreate a draft after a successful GitHub save.
+    var draftQueue = Promise.resolve();
+    var draftTimer, savePending = false, allowClose = false, leavePending = false, draftCleanupPending = false, saveReceiptPending = false;
+    function storeDraft(html, sha) {
+      var write = draftQueue.then(function () { return DN.saveDraft(slug, html, sha); });
+      draftQueue = write.catch(function () {});
+      return write;
+    }
+    function removeDraft() {
+      draftCleanupPending = true;
+      var remove = draftQueue.then(async function () {
+        var result = await DN.deleteDraft(slug);
+        if (!result || !result.deleted) throw new Error('無法確認本機草稿已清除');
+        draftCleanupPending = false;
+        return result;
+      });
+      draftQueue = remove.catch(function () {});
+      return remove;
+    }
+    function markDirty() {
+      DN._adminDirty = true;
+      allowClose = false;
+      if (!savePending) status(saveReceiptPending ? '保存版本尚未確認；請先重新讀取確認。本機草稿將自動保存。' : '尚有未儲存至 GitHub 的修改；本機草稿將自動保存。');
+      clearTimeout(draftTimer);
+      draftTimer = setTimeout(function () {
+        if (!DN._adminDirty) return;
+        persistLatestDraft().then(function (saved) {
+          if (saved && !savePending) status(saveReceiptPending ? '本機草稿已保存；GitHub 保存版本尚未確認，請先重新讀取確認。' : '本機草稿已保存；尚未儲存至 GitHub。');
+        });
+      }, 5000);
+    }
+    async function persistLatestDraft() {
+      try {
+        var html;
+        do {
+          html = snapshotHtml();
+          var saved = await storeDraft(html, baseSha);
+          if (!saved || !saved.source) throw new Error('瀏覽器儲存空間無法寫入');
+        } while (snapshotHtml() !== html);
+        return true;
+      } catch (e) {
+        status('本機草稿保存失敗，請保持編輯器開啟並儲存至 GitHub：' + e.message, 'error');
+        return false;
+      }
+    }
+    DN.adminBeforeClose = async function () {
+      if (savePending) {
+        status('正在儲存至 GitHub，請等候結果後再離開。');
+        return false;
+      }
+      if (leavePending) { status('正在處理本機草稿，請稍候再離開。'); return false; }
+      leavePending = true;
+      try {
+        clearTimeout(draftTimer);
+        if (draftCleanupPending) {
+          try { await removeDraft(); }
+          catch (e) { status('本機草稿清除尚未確認，請保持編輯器開啟：' + e.message, 'error'); return false; }
+        }
+        if (DN._adminDirty && !(await persistLatestDraft())) return false;
+        allowClose = true;
+        return true;
+      } finally { leavePending = false; }
+    };
+    window.addEventListener('beforeunload', function (event) {
+      if (!allowClose && (DN._adminDirty || savePending || draftCleanupPending || leavePending)) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    });
+    status('目前沒有未儲存的修改。GitHub 保存與正式上線為不同狀態。');
 
     async function doSave() {
       // v34: navigator.locks guards against 2 admin tabs committing the
       // same slug at once (would otherwise produce duplicate commits or
       // GitHub Contents API SHA conflict).
-      return DN.withLock('admin-save:' + slug, _doSaveInner);
+      if (savePending) return;
+      if (leavePending) { status('正在處理本機草稿，請稍候再儲存至 GitHub。'); return; }
+      if (saveReceiptPending) { status('無法確認保存版本；編輯內容仍在目前分頁，請保留編輯器並先重新讀取確認，勿重複儲存。', 'error'); return; }
+      savePending = true;
+      clearTimeout(draftTimer);
+      try { return await DN.withLock('admin-save:' + slug, _doSaveInner); }
+      finally { savePending = false; }
     }
     async function _doSaveInner() {
       // Capture full <html> (modified DOM) and send to /api/admin/save
       var btn = document.getElementById('hs-adm-save');
       btn.disabled = true; btn.textContent = '儲存中⋯';
       status('正在 commit 到 GitHub⋯');
+      var gitSaved = false, saveAccepted = false;
       try {
         var html = snapshotHtml();
 
         // v33: OPFS draft snapshot before network attempt — survives crash mid-save
-        await DN.saveDraft(slug, html, baseSha);
+        var backup = await storeDraft(html, baseSha);
+        if (!backup || !backup.source) status('本機草稿未能保存；仍嘗試儲存至 GitHub，請保持編輯器開啟。', 'error');
 
         try {
           var resp = await fetch('/api/admin/save', {
@@ -632,18 +732,38 @@
             body: JSON.stringify({ slug: slug, html: html, baseSha: baseSha })
           });
           if (resp.ok) {
+            saveAccepted = true;
+            saveReceiptPending = true;
             var data = await resp.json();
+            if (!data || data.ok !== true || !/^[a-f0-9]{40}$/.test(data.sha || '') ||
+                typeof data.commit !== 'string' ||
+                !(data.commit === '' && data.noop === true || /^[a-f0-9]{40}$/.test(data.commit))) {
+              throw new Error('保存回應缺少有效的文章版本或 commit');
+            }
+            gitSaved = true;
+            saveReceiptPending = false;
             baseSha = data.sha;
-            status('✓ 已儲存 (commit: ' + (data.commit || '-').slice(0, 7) + ')', 'success');
-            setTimeout(function () { var s = document.getElementById('hs-admin-status'); if (s) s.remove(); }, 3500);
             // Typing while the request is in flight must remain an unsaved draft.
+            clearTimeout(draftTimer);
             DN._adminDirty = snapshotHtml() !== html;
-            if (DN._adminDirty) await DN.saveDraft(slug, snapshotHtml(), baseSha);
-            else await DN.deleteDraft(slug);
+            var recoverySaved = true;
+            if (DN._adminDirty) {
+              recoverySaved = await persistLatestDraft();
+              if (recoverySaved) status('GitHub 已保存上一版；仍有較新的修改尚未儲存。', 'success');
+            } else {
+              await removeDraft();
+              DN._adminDirty = snapshotHtml() !== html;
+              if (DN._adminDirty) {
+                recoverySaved = await persistLatestDraft();
+                if (recoverySaved) status('GitHub 已保存上一版；仍有較新的修改尚未儲存。', 'success');
+              } else {
+                status('✓ 已保存至 GitHub (commit: ' + (data.commit || '-').slice(0, 7) + ')；正式上線尚未確認。', 'success');
+              }
+            }
             try {
-              if (window.parent && window.parent !== window) {
+              if (recoverySaved && window.parent && window.parent !== window) {
                 window.parent.postMessage(
-                  { type: 'hs-admin-saved', slug: slug, commit: data.commit },
+                  { type: 'hs-admin-saved', slug: slug, commit: data.commit, dirty: DN._adminDirty },
                   window.location.origin
                 );
               }
@@ -653,6 +773,7 @@
             status('✗ 儲存失敗: ' + (err.error || resp.status), 'error');
           }
         } catch (e) {
+          if (saveAccepted) throw e;
           // v33: Network failure → queue for Background Sync v2 replay
           if (DN.queueOfflineSave(slug, html, baseSha)) {
             status('⚠ 離線中 — 已排入背景同步,連線後自動重送', 'error');
@@ -660,20 +781,25 @@
             status('✗ 網路錯誤: ' + (e.message || e), 'error');
           }
         }
+      } catch (e) {
+        if (saveAccepted && !gitSaved) {
+          var recovered = await persistLatestDraft();
+          status('伺服器已回應，但無法確認保存版本；' +
+            (recovered ? '已保存最新本機草稿，請先重新讀取確認，勿重複儲存：' : '本機草稿未能保存，編輯內容僅在目前分頁，請保持編輯器開啟並先確認來源版本：') +
+            (e.message || e), 'error');
+          return;
+        }
+        status((gitSaved ? 'GitHub 已保存；本機草稿處理失敗，請保持編輯器開啟：'
+          : '✗ 儲存失敗，請保持編輯器開啟：') + (e.message || e), 'error');
       } finally {
         btn.disabled = false; btn.textContent = '💾 儲存';
       }
     }
 
-    // v33: Periodic OPFS draft autosave every 5s while editing
-    var draftTimer;
+    // Content input schedules a local draft; toolbar input is not author text.
     document.addEventListener('input', function () {
-      if (!DN.isAdminMode()) return;
-      DN._adminDirty = true;
-      clearTimeout(draftTimer);
-      draftTimer = setTimeout(function () {
-        DN.saveDraft(slug, snapshotHtml(), baseSha).catch(function () {});
-      }, 5000);
+      if (!DN.isAdminMode() || !article.contains(document.activeElement)) return;
+      markDirty();
     });
 
     // v33: On enter admin mode, check for unsaved draft + offer to restore
@@ -694,10 +820,10 @@
         if (newProse && curProse) {
           curProse.innerHTML = newProse.innerHTML;
           registerEditables();
-          DN._adminDirty = true;
+          markDirty();
         }
       } else {
-        DN.deleteDraft(slug);
+        removeDraft().catch(function (e) { status('無法清除本機草稿，請保留編輯器：' + e.message, 'error'); });
       }
     });
 })(window.DN, window, document);

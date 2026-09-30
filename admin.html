@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260673"></script>
+<script src="/assets/trusted-types.js?v=20260674"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>HsiaoEye Admin</title>
@@ -21,7 +21,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260673';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260674';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -322,9 +322,10 @@
       <div class="info-card">
         <h3>📋 編輯流程</h3>
         <ol style="margin:0; padding-left:20px;">
-          <li>點「編輯」開啟文章 — 整篇變成所見即所得 (WYSIWYG) 模式</li>
+          <li>點「編輯」開啟文章正文 — 支援的段落與區塊可直接編輯</li>
           <li>滑鼠選文字後出現浮動工具列：粗體 / 斜體 / 標題 / 字型 / 字級 / 連結 / 列表 / 📷 圖片</li>
-          <li>按右下「儲存」→ 自動 commit 到 GitHub → Vercel 自動重新部署 (~30 秒）</li>
+          <li>「儲存」會保存至公開 GitHub；正式上線另需確認檢查與部署成功，沒有固定完成時間</li>
+          <li>「回到後台」先保存本機草稿；寫入失敗或正在儲存時，請保留編輯器並查看狀態</li>
           <li>若你之後在本機改檔案，記得先 <code>git pull</code> 把後台的編輯拉下來</li>
           <li>「📚 歷史」可查看過往 commit、回滾到任一版本</li>
           <li>「🌐 EN」會把這篇文章重新生成 /en/ 鏡像</li>
@@ -402,7 +403,7 @@
       </div>
       <div class="info-card" style="margin:0 0 12px">
         <h3>📊 A/B 框架使用方法</h3>
-        在 JS 內用 <code>DN.abTest('test-id', ['A', 'B'], v =&gt; {...})</code> 並 <code>DN.abConvert('test-id', 'click')</code> 觸發轉換。Server 端聚合會在每 5 分鐘或每 10 次曝光時 commit 一次到 <code>assets/ab-stats.json</code>。
+        在 JS 內用 <code>DN.abTest('test-id', ['A', 'B'], v =&gt; {...})</code> 並 <code>DN.abConvert('test-id', 'click')</code> 觸發轉換。合資格的正式讀者事件寫入 KV；未設定 KV 時不保存計數，不會寫入 GitHub。設定存在仍須另外確認收件。
       </div>
       <div id="ab-list"><div class="loading">尚無資料</div></div>
     </div>
@@ -625,7 +626,7 @@
     <div style="display:flex;align-items:center;gap:14px;">
       <button type="button" data-action="closeEditor" style="background:#fff;border:1px solid var(--border);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--blue-deep);cursor:pointer">← 回到後台</button>
       <span style="font-size:13.5px;color:var(--ink-2)">編輯中： <code id="edit-slug-display" style="font-family:'JetBrains Mono',monospace;color:var(--blue-deep);font-size:12.5px"></code></span>
-      <span id="edit-status" style="font-size:11.5px;color:var(--muted)"></span>
+      <span id="edit-status" role="status" aria-live="polite" style="font-size:11.5px;color:var(--muted)"></span>
     </div>
     <div style="display:flex;gap:8px;">
       <a id="edit-newtab" href="#" target="_blank" rel="noopener noreferrer" style="font-size:12.5px;padding:6px 12px;border-radius:8px;background:#fff;border:1px solid var(--border);color:var(--ink-2);text-decoration:none">↗ 新分頁開啟</a>
@@ -715,7 +716,7 @@
   </div>
 </div>
 
-<script src="/assets/admin-cwv.js?v=20260673"></script>
+<script src="/assets/admin-cwv.js?v=20260674"></script>
 <script>
 // ───────────────── State ─────────────────
 const API = '/api/admin';
@@ -764,18 +765,18 @@ async function checkEnvStatus() {
     }
   } catch (e) {}
 
-  // Probe KV by checking ab-stats — if it returns instantly, KV is wired
+  // Report the API's explicit configuration flag; latency is not evidence.
   try {
-    const t0 = Date.now();
     const r = await fetch(API + '/ab-stats', { credentials: 'include' });
-    const dt = Date.now() - t0;
+    const j = await r.json().catch(() => ({}));
     const el = document.getElementById('env-kv');
     if (r.ok) {
-      el.innerHTML = dt < 400 ? '<span style="color:var(--green)">✓ likely KV (' + dt + 'ms)</span>' : '<span style="color:var(--amber)">GitHub blob fallback (' + dt + 'ms)</span>';
+      el.textContent = j.configured === true ? '✓ 已設定；收件尚須確認'
+        : j.configured === false ? '○ 未設定；A/B 計數不保存' : '○ 無法確認設定';
     } else {
       el.innerHTML = '<span style="color:var(--red)">✗ ' + r.status + '</span>';
     }
-  } catch (e) {}
+  } catch (e) { document.getElementById('env-kv').textContent = '○ 讀取失敗，無法確認設定'; }
 
   // Show subscriber count
   try {
@@ -820,12 +821,23 @@ function openEditor(slug) {
   // Listen for save events from the iframe (postMessage from blog-shared.js)
   window.addEventListener('message', editorMsgHandler);
 }
-function closeEditor() {
+let closingEditor = false;
+async function closeEditor() {
+  if (closingEditor) return;
+  closingEditor = true;
+  try {
+    const editor = document.getElementById('edit-iframe').contentWindow;
+    if (editor.DN && typeof editor.DN.adminBeforeClose === 'function') {
+      if (!(await editor.DN.adminBeforeClose())) return;
+    }
   document.getElementById('edit-shell').hidden = true;
   document.getElementById('edit-iframe').src = 'about:blank';
   document.body.style.overflow = '';
   window.removeEventListener('message', editorMsgHandler);
   loadList();  // refresh list in case anything changed
+  } catch (e) {
+    document.getElementById('edit-status').textContent = '無法安全離開，請保留編輯器並確認草稿已保存。';
+  } finally { closingEditor = false; }
 }
 function editorMsgHandler(e) {
   const frame = document.getElementById('edit-iframe');
@@ -834,11 +846,12 @@ function editorMsgHandler(e) {
     e.origin === window.location.origin &&
     e.source === frame.contentWindow &&
     e.data &&
-    e.data.type === 'hs-admin-saved' &&
+    (e.data.type === 'hs-admin-saved' || e.data.type === 'hs-admin-state') &&
     e.data.slug === expectedSlug
   ) {
-    document.getElementById('edit-status').textContent = '✓ 已儲存 ' + new Date().toLocaleTimeString();
-    setTimeout(() => { document.getElementById('edit-status').textContent = ''; }, 5000);
+    document.getElementById('edit-status').textContent = e.data.type === 'hs-admin-state'
+      ? String(e.data.message || '')
+      : (e.data.dirty ? 'GitHub 已保存上一版；仍有修改尚未儲存。' : '✓ 已保存至 GitHub；正式上線尚未確認。');
   }
 }
 
@@ -2038,7 +2051,7 @@ async function loadAbStats() {
     const tests = j.tests || {};
     const ids = Object.keys(tests);
     if (!ids.length) {
-      host.innerHTML = '<div class="loading">尚無資料。在 JS 內呼叫 <code>DN.abTest(...)</code> 後曝光資料會在 5 分鐘內出現。</div>';
+      host.innerHTML = '<div class="loading">尚無已讀取的計數。請確認 KV 設定與正式讀者事件收件；管理者及預覽流量不計入。</div>';
       return;
     }
     host.innerHTML = ids.map(id => {
