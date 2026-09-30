@@ -21,6 +21,37 @@
     if (document.getElementById('hs-admin-bar')) return;
     // Edit a fresh authenticated snapshot, not potentially cached public HTML.
     var baseDocument, baseSha, initialDraft, conflictDraft;
+    var editorDocumentPolicy;
+    function parseEditorDocument(html) {
+      if (typeof html !== 'string') throw new Error('文章來源格式無效');
+      // Private capability for inert parsing only. The generic UI policy strips
+      // scripts and would destroy the source's JSON-LD and page bootstraps.
+      // Never expose this policy or insert its complete document into live DOM.
+      if (window.trustedTypes) {
+        if (!editorDocumentPolicy) editorDocumentPolicy = window.trustedTypes.createPolicy('hs-editor-document', {
+          createHTML: function (value) { return value; }
+        });
+        html = editorDocumentPolicy.createHTML(html);
+      }
+      return new DOMParser().parseFromString(html, 'text/html');
+    }
+    function prepareEditableArticle(root) {
+      // Only the article is imported into the active editor. Preserve inert
+      // authored data scripts; executable scripts and event sinks stay out.
+      root.querySelectorAll('script').forEach(function (node) {
+        var type = (node.getAttribute('type') || '').trim().toLowerCase();
+        if (type !== 'application/ld+json' && type !== 'application/json') node.remove();
+      });
+      [root].concat(Array.from(root.querySelectorAll('*'))).forEach(function (node) {
+        Array.from(node.attributes).forEach(function (attr) {
+          if (/^on/i.test(attr.name) || attr.name === 'srcdoc' ||
+              (/^(?:href|src|action|formaction|xlink:href)$/i.test(attr.name) && /^\s*javascript:/i.test(attr.value))) {
+            node.removeAttribute(attr.name);
+          }
+        });
+      });
+      return root;
+    }
     var releaseEditingLock;
     async function acquireEditingLock() {
       if (!navigator.locks || typeof navigator.locks.request !== 'function') {
@@ -47,10 +78,10 @@
       if (!sourceResponse.ok) throw new Error('請登入後重新開啟編輯器');
       var source = await sourceResponse.json();
       if (!/^[a-f0-9]{40}$/.test(source.sha || '')) throw new Error('無法取得文章版本');
-      baseDocument = new DOMParser().parseFromString(source.html, 'text/html');
+      baseDocument = parseEditorDocument(source.html);
       var sourceArticle = baseDocument.querySelector('article.max-w-3xl');
       if (!sourceArticle) throw new Error('文章結構不支援編輯');
-      article.replaceWith(document.importNode(sourceArticle, true));
+      article.replaceWith(document.importNode(prepareEditableArticle(sourceArticle.cloneNode(true)), true));
       article = document.querySelector('article.max-w-3xl');
       baseSha = source.sha;
       initialDraft = await DN.loadDraft(slug);
@@ -179,7 +210,7 @@
       '<button type="button" title="數字編號" data-cmd="insertOrderedList">1. 編號</button>' +
       '<button type="button" title="連結 (Cmd/Ctrl+K)" data-cmd="link">🔗 連結</button>' +
       '<button type="button" title="圖片 — 拖曳/貼上/點選" id="hs-adm-img">📷 圖片</button>' +
-      '<button type="button" title="預覽 (新視窗)" id="hs-adm-preview">👁 預覽</button>' +
+      '<button type="button" title="本機內容預覽，尚未正式上線" id="hs-adm-preview">👁 本機預覽</button>' +
       '<button type="button" title="清除格式" data-cmd="removeFormat">⨯ 清除</button>' +
       '<span class="sep"></span>' +
       '<button type="button" class="primary" id="hs-adm-save">💾 儲存</button>' +
@@ -633,18 +664,50 @@
     function snapshotHtml() {
       // Preserve the authenticated document outside the editable article.
       var edited = _sanitizeForSerialize(document.documentElement.cloneNode(true));
+      prepareEditableArticle(edited.querySelector('article.max-w-3xl'));
       var snapshot = baseDocument.documentElement.cloneNode(true);
       snapshot.querySelector('article.max-w-3xl').replaceWith(edited.querySelector('article.max-w-3xl'));
       return '<!doctype html>\n' + snapshot.outerHTML;
     }
 
-    // Live preview — opens a fresh tab with the saved-state HTML rendered (without ?admin=1)
+    // Local, unsaved content preview. No Git write or deployment is implied.
     document.getElementById('hs-adm-preview').addEventListener('click', function () {
-      var html = snapshotHtml();
-      var blob = new Blob([html], { type: 'text/html' });
-      var url = URL.createObjectURL(blob);
-      window.open(url, '_blank', 'noopener');
-      setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+      var preview, url;
+      try {
+        var doc = parseEditorDocument(snapshotHtml());
+        var base = doc.createElement('base');
+        base.href = window.location.origin + window.location.pathname;
+        doc.querySelectorAll('base').forEach(function (node) { node.remove(); });
+        doc.head.prepend(base);
+        doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
+        doc.documentElement.lang = document.documentElement.lang;
+        var runtime = doc.createElement('script');
+        runtime.src = '/blog/editor-preview.js?v=20260678';
+        // Register fragment handling before authored page initializers.
+        base.after(runtime);
+        var notice = doc.createElement('aside');
+        notice.setAttribute('role', 'note');
+        notice.setAttribute('data-zh', '本機內容預覽：包含尚未儲存的修改，未代表正式上線。');
+        notice.setAttribute('data-en', 'Local content preview: includes unsaved changes; not a production release.');
+        notice.textContent = notice.getAttribute('data-zh');
+        notice.style.cssText = 'padding:12px 16px;background:#fff4db;color:#243b56;text-align:center';
+        doc.body.prepend(notice);
+        url = URL.createObjectURL(new Blob(['<!doctype html>\n' + doc.documentElement.outerHTML], { type: 'text/html' }));
+        // noopener makes window.open return null even on success. Open inert
+        // blank first and disown it synchronously before loading any content.
+        preview = window.open('about:blank', '_blank');
+        if (!preview) throw new Error('瀏覽器封鎖新視窗，請允許此網站開啟預覽後重試。');
+        preview.opener = null;
+        preview.location.replace(url);
+        var cleanup = setInterval(function () {
+          if (preview.closed) { clearInterval(cleanup); URL.revokeObjectURL(url); }
+        }, 1000);
+        status('已開啟本機內容預覽；修改尚未保存或正式上線。');
+      } catch (e) {
+        if (preview) preview.close();
+        if (url) URL.revokeObjectURL(url);
+        status('無法開啟本機預覽：' + e.message, 'error');
+      }
     });
 
     // Show admin status when scrolling past article
@@ -852,12 +915,14 @@
       if ((Date.now() - (draft.ts || 0)) > 30 * 86400 * 1000) return;  // older than 30 days, ignore
       if (confirm('偵測到未儲存的草稿（' + new Date(draft.ts).toLocaleString() + '）— 要恢復嗎？')) {
         // Replace just the article body — don't blow away the page chrome
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(draft.html, 'text/html');
+        var doc = parseEditorDocument(draft.html);
         var newProse = doc.querySelector('#proseZh, article.max-w-3xl');
         var curProse = document.querySelector('#proseZh, article.max-w-3xl');
         if (newProse && curProse) {
-          curProse.innerHTML = newProse.innerHTML;
+          prepareEditableArticle(newProse);
+          curProse.replaceChildren.apply(curProse, Array.from(newProse.childNodes).map(function (node) {
+            return document.importNode(node, true);
+          }));
           registerEditables();
           markDirty();
         }

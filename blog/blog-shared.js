@@ -205,7 +205,7 @@
   };
 
   DN.currentSlug = function () {
-    const m = location.pathname.match(/\/blog\/([a-z0-9-]+)\/?$/i);
+    const m = (DN.editorPreview ? DN.editorPreview.path : location.pathname).match(/\/blog\/([a-z0-9-]+)\/?$/i);
     return m ? m[1] : null;
   };
 
@@ -333,6 +333,7 @@
   };
 
   DN.detectLang = function () {
+    if (DN.editorPreview) return DN.editorPreview.lang;
     const fromCookie = DN.cookieGet('hs_lang');
     if (fromCookie && DN.LANG_KEY[fromCookie]) return fromCookie;
     const stored = (function(){ try { return localStorage.getItem('hs_lang'); } catch(e){ return null; } })();
@@ -350,7 +351,7 @@
   // when internal-link signals pointed back at /blog/ (overriding the
   // <link rel="canonical"> on the EN page).
   DN.urlPrefix = function () {
-    try { return location.pathname.startsWith('/en/') ? '/en' : ''; }
+    try { return (DN.editorPreview ? DN.editorPreview.path : location.pathname).startsWith('/en/') ? '/en' : ''; }
     catch (e) { return ''; }
   };
   DN.articlePath = function (slug) {
@@ -361,6 +362,9 @@
 
   DN.setLang = function (code) {
     if (!DN.LANG_KEY[code]) return;
+    // Blob cookies are not writable. Preview language stays in this document,
+    // without changing the author's language preference in the editor.
+    if (DN.editorPreview) { DN.editorPreview.lang = code; return; }
     try { localStorage.setItem('hs_lang', code); } catch (e) {}
     DN.cookieSet('hs_lang', code);
   };
@@ -619,7 +623,7 @@
       if (!href) return;
       if (a.target === '_blank' || a.hasAttribute('download')) return;
       if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
-      const url = new URL(href, location.href);
+      const url = new URL(href, document.baseURI);
       if (url.origin !== location.origin) return;
       if (url.pathname === location.pathname && url.search === location.search) return;
       e.preventDefault();
@@ -2517,7 +2521,7 @@
       }
       d.addEventListener('toggle', function () {
         if (d.open && history.replaceState) {
-          history.replaceState(null, '', '#' + d.id);
+          history.replaceState(null, '', location.href.split('#')[0] + '#' + d.id);
         }
       });
     });
@@ -3167,7 +3171,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260677';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260678';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3791,7 +3795,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260677';
+    s.src = '/blog/blog-admin.js?v=20260678';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -5220,7 +5224,7 @@
   DN._errorsSentThisTab = 0;
   function reportClientError(payload) {
     try {
-      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+      if (DN.editorPreview || location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
       if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
       // Dedup: identical message+url+line — send only once per tab
       var key = (payload.message || '') + '|' + (payload.url || '') + '|' + (payload.line || '');

@@ -88,3 +88,17 @@ HTTP 成功狀態仍須有可解析、有效的文章 SHA 與 commit 回執；�
 中文組字期間，編輯器讓 Enter、Escape、Backspace 與快捷鍵由輸入法處理，不將候選字確認誤作斜線區塊選取或 GitHub 保存。開始組字時關閉區塊選單；以 compositionstart／compositionend、isComposing 與舊式 229 標記辨識，組字結束後正常快捷鍵仍可使用。
 
 回歸測試涵蓋真實 Chromium 編輯器內的三種事件標記、原生 CDP 中文組字與草稿保存，以及普通文字單次輸入的鍵盤 Undo／Redo。合成事件與 CDP 不代表實體 Windows／macOS／手機輸入法全矩陣驗收，也不代表圖片、表格或直接 DOM 插入的區塊已支援完整 Undo／Redo。[KeyboardEvent.isComposing](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing)
+
+### 完整來源與本機內容預覽
+
+正式 CSP 下，通用 Trusted Types UI 清理器會剝除 script，不能用來解析要重新保存的整份文章。本輪在尚未正式發佈的候選中重現：保存後頁面 bootstrap 與 JSON-LD 都消失。新版使用編輯器閉包私有的 `hs-editor-document` policy，僅供完整文件的惰性 DOMParser 解析；不公開 policy 或將完整文件直接注入編輯器。CSP 只在文章路由的 `?admin=1` 允許此名稱，一般頁面仍只允許原 policy，hash-based script-src、Trusted Types 要求與通用 HTML 清理不變。
+
+啟動及恢復草稿只匯入文章區域，匯入前移除可執行 script、事件屬性、srcdoc 與 javascript URL，保留 JSON-LD／JSON 資料。完整來源在編輯區之外保持原內容，保存前再清理文章區；恢復使用 DOM 節點複製，避免將非執行資料交给 UI innerHTML 清理器而遺失。此處的解析能力不代表任意 HTML 可以安全執行。[DOMParser 與惰性文件](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser/parseFromString)
+
+「本機預覽」包含目前尚未保存的內容，不送出 Git 保存或部署請求，也不代表候選部署或正式上線。預覽副本以原文章網址解析資產，段落與 FAQ 連結保持在該 blob 副本內；重新建立閱讀控制項與相關文章，移除編輯屬性並顯示雙語狀態說明。語言切換僅作用於預覽，不修改作者在編輯器中的偏好。預覽不啟用公開量測；彈窗被封鎖時顯示可重試的錯誤並保留作者內容。
+
+預覽網址在預覽關閉後才釋放，避免原本固定三十秒後不能重新載入；編輯文件被關閉／重新載入或瀏覽器終止後，不能保證舊 blob 網址仍可重新載入，請重新開啟編輯器並建立預覽。副本存在本機瀏覽器，不是可分享的 Vercel Preview，也不以 noindex 宣称公開 Git 草稿是私人內容。真正的候選／正式部署狀態查詢仍待完成。
+
+預覽的語言狀態會隨切換更新，延後產生的控制項沿用目前語言；不寫入作者的 Cookie 或 localStorage 偏好。此本機副本另停用 `/api/errors` 診斷送出，避免錯誤報告攜帶未保存副本的網址／錯誤細節；一般正式頁面的既有錯誤診斷政策不變。預覽測試同時監看實際 CWV、A/B、搜尋及錯誤端點。
+
+瀏覽器的原生 CSP 報告不經過 JavaScript 錯誤處理器；blob 又繼承建立它的編輯文件 CSP。因此文章的 `?admin=1` 編輯文件另省略 `report-uri` 與 Reporting-Endpoints，讓其本機預覽不把被阻擋的未保存資源網址送到 `/api/csp-report`。此範圍也不再上報編輯文件自身的原生 CSP 違規；一般公开頁仍保留報告。資源來源、script hashes、Trusted Types 與其他 CSP 阻擋規則完全保留；測試刻意放入未核可圖片，確認資源確實遭阻擋、沒有網路圖片請求或原生報告。
