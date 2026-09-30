@@ -53,12 +53,12 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
   ],
   "/admin": [
     "sha256-1CXCLNx77XNMjyMSiYS1aIt5Ue8kzoxIsAPaRFNGCSQ=",
-    "sha256-FzD5qUdm1+RgD3T4B31kuuO15jrlS2Tq7pIug6Ppr+E=",
+    "sha256-DjGom0PxBvBuRkuH6ttE75Wy6DCoJGKSsds8UOAzVDM=",
     "sha256-n6/K9tAN+B37mXGJmevpqK/IVChiBt50RWZnGp4Ybr8="
   ],
   "/admin.html": [
     "sha256-1CXCLNx77XNMjyMSiYS1aIt5Ue8kzoxIsAPaRFNGCSQ=",
-    "sha256-FzD5qUdm1+RgD3T4B31kuuO15jrlS2Tq7pIug6Ppr+E=",
+    "sha256-DjGom0PxBvBuRkuH6ttE75Wy6DCoJGKSsds8UOAzVDM=",
     "sha256-n6/K9tAN+B37mXGJmevpqK/IVChiBt50RWZnGp4Ybr8="
   ],
   "/blog": [

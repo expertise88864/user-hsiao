@@ -16,7 +16,7 @@ export function kvAvailable() {
   return Boolean(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 }
 
-async function kvCall(commandPath, body) {
+async function kvCall(commandPath, body, options = {}) {
   const url = process.env.KV_REST_API_URL;
   const token = process.env.KV_REST_API_TOKEN;
   if (!url || !token) throw new Error('KV not configured');
@@ -27,15 +27,16 @@ async function kvCall(commandPath, body) {
       'Content-Type': 'application/json',
     },
     body: body != null ? JSON.stringify(body) : undefined,
+    ...(options.signal ? { signal: options.signal } : {}),
   });
   if (!r.ok) throw new Error(`KV ${commandPath} → ${r.status} ${await r.text().catch(() => '')}`);
   return r.json();
 }
 
-export async function kvPipeline(commands) {
+export async function kvPipeline(commands, options = {}) {
   if (!kvAvailable()) return null;
   try {
-    const result = await kvCall('/pipeline', commands);
+    const result = await kvCall('/pipeline', commands, options);
     if (!Array.isArray(result) || result.some(item => item && item.error)) return null;
     return result;
   } catch (e) {
@@ -160,10 +161,10 @@ export async function kvHIncrBy(key, field, by = 1) {
   } catch (e) { return null; }
 }
 
-export async function kvLRange(key, start = 0, stop = -1) {
+export async function kvLRange(key, start = 0, stop = -1, options = {}) {
   const result = await kvPipeline([
     ['LRANGE', key, String(start), String(stop)],
-  ]);
+  ], options);
   return result && Array.isArray(result[0]?.result) ? result[0].result : null;
 }
 

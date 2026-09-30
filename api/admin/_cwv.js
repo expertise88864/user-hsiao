@@ -1,60 +1,59 @@
 /**
  * GET /api/admin/cwv?range=7d|28d|90d
  *
- * Pulls Core Web Vitals (LCP, CLS, INP, FCP, TTFB) p75 from GA4 via the
- * Reporting API. The events fired by DN.bindWebVitals (in blog-shared.js)
- * land in GA4 as `event_name = LCP|CLS|INP|FCP|TTFB` with `value` in ms
- * (or CLS×1000). We aggregate p75 ourselves since GA4 only provides
- * count/sum/avg natively.
- *
- * Required env vars (Vercel):
- *   GA4_PROPERTY_ID            — e.g. "properties/477123456"
- *   GA4_SERVICE_ACCOUNT_JSON   — full GCP service account JSON (escape \n in private_key)
- *
- * The service account needs the "Viewer" role on the GA4 property:
- *   GCP Console → IAM → Add → service-account email → role "Viewer"
- *   GA4 Admin → Property → Property access management → invite SA email as Analyst
- *
- * Falls back to "no data configured" message if env vars absent — the dashboard
- * UI displays that gracefully.
+ * KV supplies raw, deduplicated page-metric samples and their nearest-rank p75.
+ * GA4 supplies event count and event-value mean only; it cannot supply p75.
+ * Keep missing data separate from measured zero, and preserve partial results
+ * when a provider is unavailable. This bounded sample is not Google's CrUX.
  */
 import { requireAdmin } from './_auth.js';
-import { kvAvailable, kvGet, kvLRange } from '../_kv.js';
-import { selectCwvSamples } from '../_cwv_samples.js';
+import { kvAvailable, kvPipeline, kvLRange } from '../_kv.js';
+import { selectCwvSamples, summarizeCwvSamples } from '../_cwv_samples.js';
 
-// v31: Read from KV first (real-time). GA4 fallback for historical depth
-// when KV reservoir is empty or older than 30 days.
+const METRICS = ['LCP', 'CLS', 'INP', 'FCP', 'TTFB'];
+const MAX_REPORTS = 1000;
+const KV_WINDOW_DAYS = 30;
+const PROVIDER_TIMEOUT_MS = 5000;
+
+function emptyMetric(name, source, status, windowDays) {
+  return {
+    name, source, status, windowDays,
+    samples: status === 'no_samples' ? 0 : null,
+    avg: null, p75: null, method: null, percentileMethod: null,
+  };
+}
+
 async function readKvSamples(metric, days) {
-  if (!kvAvailable()) return null;
-  const rows = await kvLRange(`cwv:samples:v2:${metric}`, 0, 999);
-  let arr = Array.isArray(rows)
-    ? rows.map(row => {
-      try { return typeof row === 'string' ? JSON.parse(row) : row; } catch (e) { return null; }
-    }).filter(Boolean)
-    : [];
-  // Transitional fallback for samples stored by the old JSON reservoir.
+  const options = { signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS) };
+  const rows = await kvLRange(`cwv:samples:v2:${metric}`, 0, MAX_REPORTS - 1, options);
+  if (!Array.isArray(rows)) throw new Error('KV read unavailable');
+  let arr = rows.map(row => {
+    try { return typeof row === 'string' ? JSON.parse(row) : row; } catch (e) { return null; }
+  });
+  // The legacy JSON reservoir appended newest reports at its end.
   if (!arr.length) {
-    const raw = await kvGet(`cwv:samples:${metric}`);
-    if (raw) {
-      try { arr = typeof raw === 'string' ? JSON.parse(raw) : raw; } catch (e) { arr = []; }
+    const result = await kvPipeline([['GET', `cwv:samples:${metric}`]], options);
+    if (!result || !result[0] || !Object.hasOwn(result[0], 'result')) {
+      throw new Error('Legacy KV read unavailable');
+    }
+    const raw = result[0].result;
+    if (raw != null) {
+      arr = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      if (!Array.isArray(arr)) throw new Error('Invalid legacy KV samples');
+      arr = arr.slice(-MAX_REPORTS).reverse();
     }
   }
-  if (!Array.isArray(arr) || !arr.length) return null;
-  const cutoff = Date.now() - days * 86400_000;
-  const samples = selectCwvSamples(arr, cutoff);
-  const recent = samples.map(s => s.v);
-  if (!recent.length) return null;
-  recent.sort((a, b) => a - b);
-  const p75 = recent[Math.floor(recent.length * 0.75)] || 0;
-  const avg = recent.reduce((a, b) => a + b, 0) / recent.length;
-  return {
-    name: metric,
-    samples: recent.length,
-    avg: metric === 'CLS' ? avg / 1000 : avg,
-    p75: metric === 'CLS' ? p75 / 1000 : p75,
-    source: 'kv',
-    method: samples[0].version === 'web-vitals-6' ? 'web-vitals-6' : 'legacy',
-  };
+  // A nonempty corrupt reservoir is not a confirmed empty measurement window.
+  // Validate before the date cutoff so expired but valid reports remain empty.
+  if (arr.length && !selectCwvSamples(arr, -Infinity).length) {
+    throw new Error('Invalid KV sample reservoir');
+  }
+  // Key TTL alone does not expire individual reports while new writes refresh
+  // the list. Enforce the advertised rolling sample window at read time.
+  const windowDays = Math.min(days, KV_WINDOW_DAYS);
+  const cutoff = Date.now() - windowDays * 86400_000;
+  const data = summarizeCwvSamples(metric, arr, cutoff);
+  return data ? { ...data, windowDays } : emptyMetric(metric, 'kv', 'no_samples', windowDays);
 }
 
 // Parse a service account JSON string (handles real \n and escaped \\n)
@@ -115,100 +114,109 @@ async function getAccessToken(sa) {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${encodeURIComponent(jwt)}`,
+    signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
   });
   if (!r.ok) throw new Error('OAuth: ' + (await r.text()).slice(0, 200));
   const j = await r.json();
   return j.access_token;
 }
 
-// p75 estimate — for Web Vitals we run a histogram query and pick bucket.
-// GA4 doesn't expose true percentiles directly, but we can request a
-// `metric { name: 'eventValue' aggregation: PERCENTILE_75 }` ... actually
-// GA4 Data API supports calculatedMetric only via console. Easier: pull
-// distribution buckets and compute client-side.
-//
-// Approach: query `eventCount` per `customEvent:value` bucket — GA4 hashes
-// values into the dimension. Cleaner: we accept a sliding-window count of
-// events and the API gives mean + median; we approximate p75 by 1.3 × median.
-// For accurate p75 we'd ship raw events to a separate store — out of scope here.
-//
-// SIMPLIFIED for v30: query average + count + max per metric name; report
-// average as the "score" and let the user see trends over time.
+// GA4 returns aggregates. A mean is useful, but it cannot reconstruct p75.
 async function fetchMetric(token, propertyId, metricName, days) {
   const r = await fetch(`https://analyticsdata.googleapis.com/v1beta/${propertyId}:runReport`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
     body: JSON.stringify({
-      dateRanges: [{ startDate: `${days}daysAgo`, endDate: 'today' }],
+      dateRanges: [{ startDate: `${days - 1}daysAgo`, endDate: 'today' }],
       dimensions: [{ name: 'eventName' }],
-      metrics: [
-        { name: 'eventCount' },
-        { name: 'eventValue' },
-      ],
+      metrics: [{ name: 'eventCount' }, { name: 'eventValue' }],
       dimensionFilter: { filter: { fieldName: 'eventName', stringFilter: { value: metricName } } },
     }),
   });
-  if (!r.ok) throw new Error(`GA4 ${metricName}: ${r.status} ${(await r.text()).slice(0, 200)}`);
+  if (!r.ok) throw new Error('GA4 report unavailable');
   const j = await r.json();
-  if (!j.rows || !j.rows.length) return { name: metricName, samples: 0, p75: 0 };
+  if (j.rows == null) return emptyMetric(metricName, 'ga4', 'no_samples', days);
+  if (!Array.isArray(j.rows)) throw new Error('Invalid GA4 rows');
+  if (!j.rows.length) return emptyMetric(metricName, 'ga4', 'no_samples', days);
   const row = j.rows[0];
-  const count = parseInt(row.metricValues[0].value, 10);
-  const sumValue = parseFloat(row.metricValues[1].value);
-  const avg = count > 0 ? sumValue / count : 0;
-  // p75 estimate ≈ avg × 1.25 for log-normal-ish distributions. Conservative.
-  const p75 = avg * 1.25;
+  const countValue = row.metricValues?.[0]?.value;
+  const totalValue = row.metricValues?.[1]?.value;
+  if (typeof countValue !== 'string' || !countValue.trim() ||
+      typeof totalValue !== 'string' || !totalValue.trim()) throw new Error('Missing GA4 aggregates');
+  const count = Number(countValue);
+  const sumValue = Number(totalValue);
+  if (!Number.isInteger(count) || count < 0 || !Number.isFinite(sumValue) || sumValue < 0) {
+    throw new Error('Invalid GA4 aggregates');
+  }
+  if (!count) return emptyMetric(metricName, 'ga4', 'no_samples', days);
   return {
-    name: metricName,
+    ...emptyMetric(metricName, 'ga4', 'mean_only', days),
     samples: count,
-    avg: metricName === 'CLS' ? avg / 1000 : avg,
-    p75:  metricName === 'CLS' ? p75 / 1000 : p75,
+    avg: sumValue / count / (metricName === 'CLS' ? 1000 : 1),
+    method: 'ga4-event-mean',
   };
 }
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
+  res.setHeader('Allow', 'GET');
+  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
   if (!requireAdmin(req, res)) return;
   const t0 = Date.now();
-
-  const range = (req.query && req.query.range) || '28d';
-  const days = Math.min(90, Math.max(1, parseInt(range, 10) || 28));
-
-  try {
-    // Try KV first (real-time, no latency); fall back to GA4 per metric.
-    const kvResults = await Promise.all(
-      ['LCP', 'CLS', 'INP', 'FCP', 'TTFB'].map(m => readKvSamples(m, days).catch(() => null))
-    );
-    const needsGa4 = kvResults.some(r => !r);
-
-    let metrics;
-    if (!needsGa4) {
-      // All metrics fully covered by KV — skip GA4 entirely (faster)
-      metrics = kvResults;
-      res.setHeader('Server-Timing', `kv;dur=${Date.now() - t0}, source;desc="kv-only"`);
-    } else {
-      const propertyId = process.env.GA4_PROPERTY_ID;
-      const saJson = process.env.GA4_SERVICE_ACCOUNT_JSON;
-      if (!propertyId || !saJson) {
-        return res.status(503).json({
-          error: 'GA4 is required until KV has samples for every metric.',
-          hint: 'Set GA4_PROPERTY_ID and GA4_SERVICE_ACCOUNT_JSON in Vercel.',
-        });
-      }
-      const sa = parseSAJson(saJson);
-      if (!sa) return res.status(500).json({ error: 'Invalid GA4_SERVICE_ACCOUNT_JSON' });
-      // Mix: KV where available, GA4 fallback for missing
-      const ga4Start = Date.now();
-      const token = await getAccessToken(sa);
-      const ga4Results = await Promise.all(
-        ['LCP', 'CLS', 'INP', 'FCP', 'TTFB'].map((m, i) =>
-          kvResults[i] ? Promise.resolve(kvResults[i]) : fetchMetric(token, propertyId, m, days).then(r => ({ ...r, source: 'ga4' }))
-        )
-      );
-      metrics = ga4Results;
-      res.setHeader('Server-Timing', `kv;dur=${ga4Start - t0}, ga4;dur=${Date.now() - ga4Start}, source;desc="hybrid"`);
+  const days = Math.min(90, Math.max(1, parseInt(req.query?.range, 10) || 28));
+  const issues = [];
+  const kvConfigured = kvAvailable();
+  const ga4Configured = Boolean(process.env.GA4_PROPERTY_ID && process.env.GA4_SERVICE_ACCOUNT_JSON);
+  const metrics = await Promise.all(METRICS.map(async name => {
+    if (!kvConfigured) return emptyMetric(name, null, 'unavailable', null);
+    try { return await readKvSamples(name, days); }
+    catch (e) {
+      issues.push({ source: 'kv', metric: name, code: 'unavailable' });
+      return emptyMetric(name, 'kv', 'unavailable', Math.min(days, KV_WINDOW_DAYS));
     }
-
-    res.status(200).json({ ok: true, range, days, metrics });
-  } catch (e) {
-    res.status(500).json({ error: String(e.message || e) });
+  }));
+  const kvDone = Date.now();
+  const missing = metrics.map((m, i) => m.status === 'measured' ? -1 : i).filter(i => i >= 0);
+  let ga4Status = 'not_needed';
+  if (missing.length) {
+    ga4Status = ga4Configured ? 'available' : 'not_configured';
+    if (ga4Configured) {
+      const sa = parseSAJson(process.env.GA4_SERVICE_ACCOUNT_JSON);
+      if (!sa) {
+        ga4Status = 'invalid_config';
+        issues.push({ source: 'ga4', code: 'invalid_config' });
+      } else {
+        try {
+          const token = await getAccessToken(sa);
+          const results = await Promise.allSettled(missing.map(i =>
+            fetchMetric(token, process.env.GA4_PROPERTY_ID, METRICS[i], days)));
+          results.forEach((result, n) => {
+            const i = missing[n];
+            if (result.status === 'fulfilled') {
+              // Preserve a confirmed empty KV window if GA4 has no samples too.
+              if (result.value.status !== 'no_samples' || metrics[i].source !== 'kv' ||
+                  metrics[i].status !== 'no_samples') metrics[i] = result.value;
+            } else {
+              ga4Status = 'partial';
+              issues.push({ source: 'ga4', metric: METRICS[i], code: 'unavailable' });
+            }
+          });
+        } catch (e) {
+          ga4Status = 'unavailable';
+          issues.push({ source: 'ga4', code: 'unavailable' });
+        }
+      }
+    }
   }
+  res.setHeader('Server-Timing', `kv;dur=${kvDone - t0}, ga4;dur=${Date.now() - kvDone}`);
+  return res.status(200).json({
+    ok: true, range: `${days}d`, days, metrics, issues,
+    collection: {
+      kv: { configured: kvConfigured, maxReportsPerMetric: MAX_REPORTS,
+        windowDays: Math.min(days, KV_WINDOW_DAYS), window: 'rolling-days' },
+      ga4: { configured: ga4Configured, status: ga4Status,
+        windowDays: days, window: 'calendar-days-including-today' },
+    },
+  });
 }
