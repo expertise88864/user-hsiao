@@ -249,7 +249,7 @@
       if (!art) return '';
       return '<a href="' + DN.articlePath(art.slug) + '" class="hs-pn-card" data-pn="' + pnDir + '">' +
         '<span class="hs-pn-dir" data-zh="' + dirZh + '" data-en="' + dirEn + '">' + dirZh + '</span>' +
-        '<span class="hs-pn-title" data-zh="' + (art.title || '').replace(/"/g, '&quot;') + '" data-en="' + (art.title_en || art.title || '').replace(/"/g, '&quot;') + '">' + (art.title || '') + '</span>' +
+        '<span class="hs-pn-title" data-hs-text data-zh="' + attrEsc(art.title) + '" data-en="' + attrEsc(art.title_en || art.title) + '">' + attrEsc(art.title) + '</span>' +
       '</a>';
     }
 
@@ -420,7 +420,7 @@
       var el = nodes[i];
       var txt = DN.translate(el, lang);
       if (txt == null) continue;
-      if (/[<&]/.test(txt) && /<\/?[a-z]/i.test(txt)) el.innerHTML = txt;
+      if (!el.hasAttribute('data-hs-text') && !el.hasAttribute('data-hs-text-' + (lang === 'en' ? 'en' : 'zh')) && /[<&]/.test(txt) && /<\/?[a-z]/i.test(txt)) el.innerHTML = txt;
       else el.textContent = txt;
     }
   };
@@ -828,9 +828,9 @@
       '<span aria-hidden="true">›</span>' +
       '<a href="' + prefix + '/blog" style="color:var(--blue-deep);text-decoration:none" data-zh="衛教文章" data-en="Articles">衛教文章</a>' +
       '<span aria-hidden="true">›</span>' +
-      '<span aria-current="page" data-zh="' + attrEsc(meta.tag || meta.title) + '" data-en="' +
+      '<span aria-current="page" data-hs-text data-zh="' + attrEsc(meta.tag || meta.title) + '" data-en="' +
         attrEsc(meta.tag_en || meta.title_en || meta.tag || meta.title) + '">' +
-        (meta.tag || meta.title) + '</span>';
+        attrEsc(meta.tag || meta.title) + '</span>';
     // Insert at top of the section (above the eyebrow / category chip)
     var firstChild = section.firstElementChild;
     if (firstChild) section.insertBefore(nav, firstChild);
@@ -987,7 +987,6 @@
 
     // Match each h2[id] in proseZh with its English counterpart in proseEn (id + "-en")
     const proseEnInline = document.getElementById('proseEn');
-    function attrEscInline(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
 
     const ol = document.createElement('ol');
     ol.style.cssText = 'list-style:none;counter-reset:toc;padding:4px 18px 14px;margin:0;display:flex;flex-direction:column;gap:2px';
@@ -1002,7 +1001,7 @@
       li.style.cssText = 'counter-increment:toc;position:relative;padding:5px 4px 5px 32px';
       li.innerHTML =
         '<span style="position:absolute;left:0;top:5px;width:24px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:var(--blue-deep);background:#fff;border:1px solid #b8cfe3;border-radius:6px">' + (i + 1) + '</span>' +
-        '<a href="#' + idZh + '" data-toc-inline="' + idZh + '" data-zh="' + attrEscInline(textZh) + '" data-en="' + attrEscInline(textEn) + '" style="display:block;color:var(--ink-2);text-decoration:none;font-size:13.5px;line-height:1.6;font-weight:500">' + textZh + '</a>';
+        '<a href="#' + idZh + '" data-toc-inline="' + idZh + '" data-zh="' + attrEsc(textZh) + '" data-en="' + attrEsc(textEn) + '" style="display:block;color:var(--ink-2);text-decoration:none;font-size:13.5px;line-height:1.6;font-weight:500">' + textZh + '</a>';
       ol.appendChild(li);
     });
     details.appendChild(ol);
@@ -1046,7 +1045,6 @@
     // overlaps the content regardless of viewport / article container width.
     aside.style.cssText = 'position:fixed;top:120px;max-height:calc(100vh - 160px);overflow-y:auto;padding:14px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 28px -14px rgba(58,90,124,.22);font-size:12.5px;line-height:1.7;z-index:30;display:none;transition:opacity .25s ease, transform .25s ease;';
     const proseEnFloat = document.getElementById('proseEn');
-    function attrEscFloat(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
     let html = '<div style="font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--blue-deep);font-weight:700;margin-bottom:8px" data-zh="本篇大綱" data-en="Contents">本篇大綱</div><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px" id="hs-toc-list">';
     h2s.forEach(function (h, i) {
       const idZh = h.id;
@@ -1054,7 +1052,7 @@
       // M-04: getElementById avoids querySelector selector-escaping SyntaxError.
       const enH = proseEnFloat ? document.getElementById(idZh + '-en') : null;
       const textEn = (enH && (enH.textContent || '').trim().slice(0, 28)) || textZh;
-      html += '<li><a href="#' + idZh + '" data-toc="' + idZh + '" data-zh="' + attrEscFloat(textZh) + '" data-en="' + attrEscFloat(textEn) + '" style="display:block;padding:5px 8px;border-radius:6px;color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;transition:all .15s">' + textZh + '</a></li>';
+      html += '<li><a href="#' + idZh + '" data-toc="' + idZh + '" data-zh="' + attrEsc(textZh) + '" data-en="' + attrEsc(textEn) + '" style="display:block;padding:5px 8px;border-radius:6px;color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;transition:all .15s">' + textZh + '</a></li>';
     });
     html += '</ul>';
     aside.innerHTML = html;
@@ -1648,7 +1646,7 @@
       var metaEn  = tagEn      + ' · ' + a.date;
       html += '<a href="' + DN.articlePath(a.slug) + '" style="display:flex;flex-direction:column;gap:6px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
         '<span style="font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--blue-deep);text-transform:uppercase" data-zh="' + attrEsc(a.tag) + '" data-en="' + attrEsc(tagEn) + '">' + tagEn + '</span>' +
-        '<span style="font-size:14px;font-weight:700;line-height:1.4;font-family:Noto Serif TC,Georgia,serif" data-zh="' + attrEsc(a.title) + '" data-en="' + attrEsc(titleEn) + '">' + a.title + '</span>' +
+        '<span style="font-size:14px;font-weight:700;line-height:1.4;font-family:Noto Serif TC,Georgia,serif" data-hs-text data-zh="' + attrEsc(a.title) + '" data-en="' + attrEsc(titleEn) + '">' + attrEsc(a.title) + '</span>' +
         '<span style="font-size:11.5px;color:var(--muted)" data-zh="' + attrEsc(metaZh) + '" data-en="' + attrEsc(metaEn) + '">' + metaZh + '</span>' +
       '</a>';
     });
@@ -2099,7 +2097,7 @@
   ];
 
   function attrEsc(s) {
-    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
   // Pick 2 distinct entries from HERO_CARDS using Fisher-Yates,
@@ -2274,11 +2272,9 @@
     // v37.9: blend curated + personalized — returning readers see their own
     // most-recently-read articles surface. Falls back to curated for new visitors.
     var personalSlugs = DN.getPersonalizedPopular ? DN.getPersonalizedPopular(3) : DN.POPULAR_SLUGS.slice(0, 3);
-    const popularSet = new Set(personalSlugs);
     const popular = personalSlugs.map(function (s) { return all.find(function (a) { return a.slug === s; }); }).filter(Boolean);
     const popularFinal = popular.length ? popular : recent;
 
-    function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
 
     // Round-2 review: these cards used inline onmouseover/onmouseout for the
     // hover lift. Our own Trusted Types policy (assets/trusted-types.js)
@@ -2315,13 +2311,13 @@
         '<div style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-deep);font-family:\'JetBrains Mono\',Inter,sans-serif">' +
           (badge ? '<span style="padding:2px 8px;border-radius:9999px;background:' + badge.bg + ';color:' + badge.fg + ';letter-spacing:.08em;font-size:10px">' + badge.label + '</span>' : '') +
           numChip +
-          '<span data-zh="' + esc(tagZh) + '" data-en="' + esc(tagEn) + '" style="letter-spacing:.06em">' + tagZh + '</span>' +
+          '<span data-zh="' + attrEsc(tagZh) + '" data-en="' + attrEsc(tagEn) + '" style="letter-spacing:.06em">' + tagZh + '</span>' +
           '<span style="opacity:.45">·</span>' +
           '<time style="font-weight:500;letter-spacing:0;color:var(--muted)">' + date + '</time>' +
         '</div>' +
         '<div style="display:flex;align-items:center;gap:10px">' +
           iconSvg +
-          '<span data-zh="' + esc(titleZh) + '" data-en="' + esc(titleEn) + '" style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:14.5px;font-weight:700;line-height:1.45;color:var(--ink);flex:1">' + titleZh + '</span>' +
+          '<span data-hs-text data-zh="' + attrEsc(titleZh) + '" data-en="' + attrEsc(titleEn) + '" style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:14.5px;font-weight:700;line-height:1.45;color:var(--ink);flex:1">' + attrEsc(titleZh) + '</span>' +
         '</div>' +
       '</a></li>';
     }
@@ -2610,14 +2606,6 @@
     var activeIdx = 0;
     var currentMatches = [];
 
-    function cmdkEscape(value) {
-      return String(value || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
     function cmdkLang() {
       return ((DN.detectLang && DN.detectLang()) || (location.pathname.indexOf('/en/') === 0 ? 'en' : 'zh')) === 'en' ? 'en' : 'zh';
     }
@@ -2731,6 +2719,9 @@
         e.preventDefault(); first.focus();
       }
     });
+    // Keep the audited command-search boundary while sharing the complete
+    // plaintext/attribute escaping implementation with other catalog sinks.
+    function cmdkEscape(value) { return attrEsc(value); }
     function render(q) {
       q = (q || '').toLowerCase().trim();
       var matches = require('./reader-search.js').rankSearch(INDEX, q);
@@ -2961,7 +2952,7 @@
         '<rect width="720" height="240" fill="#faf7f2"/>' +
         '<g transform="translate(80 30)"><circle cx="90" cy="90" r="80" fill="#fff" stroke="#3a5a7c" stroke-width="2.5"/>' +
         '<text x="90" y="115" text-anchor="middle" font-family="Noto Serif TC,Georgia,serif" font-size="80" font-weight="700" fill="#243b56">?</text>' +
-        '</g><g transform="translate(280 50)"><text x="0" y="40" font-family="Noto Serif TC,Georgia,serif" font-size="32" font-weight="700" fill="#243b56">' + (meta.title.length > 14 ? meta.title.slice(0, 14) + '⋯' : meta.title) + '</text>' +
+        '</g><g transform="translate(280 50)"><text x="0" y="40" font-family="Noto Serif TC,Georgia,serif" font-size="32" font-weight="700" fill="#243b56">' + attrEsc(meta.title.length > 14 ? meta.title.slice(0, 14) + '⋯' : meta.title) + '</text>' +
         '<text x="0" y="78" font-family="Inter,sans-serif" font-size="14" letter-spacing="3" fill="#7a9285">' + (meta.tag_en || 'OPHTHALMOLOGY') + '</text>' +
         '<line x1="0" y1="100" x2="340" y2="100" stroke="#a4c4dd" stroke-width="2"/>' +
         '<text x="0" y="140" font-family="Noto Sans TC,sans-serif" font-size="13" fill="#5e574e">蕭閔謙 醫師 · 眼科衛教筆記</text>' +
@@ -3171,7 +3162,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260683';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260684';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3795,7 +3786,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260683';
+    s.src = '/blog/blog-admin.js?v=20260684';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

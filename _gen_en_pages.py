@@ -609,7 +609,9 @@ def meta_for_page(en_canonical, slug=None, html=''):
     if slug and slug in ARTICLES:
         a = ARTICLES[slug]
         title = (a.get('title_en') or a.get('title') or slug) + ' | HsiaoEye'
-        desc = extract_en_description(html)
+        from _editor_metadata import author_metadata
+        authored = author_metadata(html)
+        desc = authored.get('descriptionEn', '').strip() or extract_en_description(html)
         if not desc:
             topic = a.get('tag_en') or a.get('title_en') or slug.replace('-', ' ')
             desc = f"Evidence-based ophthalmology patient education about {topic}, reviewed by Min-Chien Hsiao, MD for general learning before an eye-care visit."
@@ -683,9 +685,12 @@ def _swap_inner_to_english(html_str):
             continue
         # Replace inner HTML with EN value (parsed so <strong> etc. survive)
         el.clear()
-        en_soup = BeautifulSoup(en_val, 'html.parser')
-        for child in list(en_soup.contents):
-            el.append(child)
+        if el.has_attr('data-hs-text') or el.has_attr('data-hs-text-en'):
+            el.append(en_val)
+        else:
+            en_soup = BeautifulSoup(en_val, 'html.parser')
+            for child in list(en_soup.contents):
+                el.append(child)
         swaps += 1
 
     # v37.37 — large Chinese-only text runs on /en/ pages were causing

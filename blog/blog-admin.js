@@ -22,6 +22,7 @@
     // Edit a fresh authenticated snapshot, not potentially cached public HTML.
     var baseDocument, baseSha, initialDraft, conflictDraft, savedCommit = '', editorReview, historyModule;
     var editHistory, restoringHistory = false;
+    var metadataModule, metadataWorkspace;
     var editorDocumentPolicy;
     function parseEditorDocument(html) {
       if (typeof html !== 'string') throw new Error('文章來源格式無效');
@@ -84,6 +85,12 @@
       if (!sourceArticle) throw new Error('文章結構不支援編輯');
       article.replaceWith(document.importNode(prepareEditableArticle(sourceArticle.cloneNode(true)), true));
       article = document.querySelector('article.max-w-3xl');
+      // The page header may still be cached even though the body is fresh.
+      // Import only the sanitized authored heading, never source page scripts.
+      var publicHeading = document.querySelector('h1'), sourceHeading = baseDocument.querySelector('h1');
+      if (publicHeading && sourceHeading && !article.contains(publicHeading)) {
+        publicHeading.replaceWith(document.importNode(prepareEditableArticle(sourceHeading.cloneNode(true)), true));
+      }
       baseSha = source.sha;
       initialDraft = await DN.loadDraft(slug);
       if (initialDraft && initialDraft.html && initialDraft.baseSha !== baseSha) {
@@ -93,8 +100,13 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260683');
-      historyModule = await import('/blog/editor-history.js?v=20260683');
+      editorReview = await import('/blog/editor-review.js?v=20260684');
+      historyModule = await import('/blog/editor-history.js?v=20260684');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260684');
+      metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
+        if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
+        markDirty(event);
+      }, source.catalogSha);
     } catch (e) {
       if (releaseEditingLock) releaseEditingLock();
       var notice = document.createElement('p');
@@ -124,6 +136,7 @@
       st.id = 'hs-admin-css';
       st.textContent =
         '#hs-admin-bar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9998;background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px;box-shadow:0 18px 40px -12px rgba(15,23,42,.32);padding:10px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto}' +
+        '@media(max-height:600px){#hs-admin-bar{max-height:40dvh;box-sizing:border-box}}' +
         '#hs-admin-bar button, #hs-admin-bar select{padding:6px 10px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border,#dcd5c8);background:#fff;color:var(--ink-2,#5e574e);transition:all .12s}' +
         '#hs-admin-bar button:hover{border-color:var(--blue-deep,#243b56);color:var(--blue-deep,#243b56)}' +
         '#hs-admin-bar button.primary{background:var(--blue-deep,#243b56);color:#fff;border-color:var(--blue-deep,#243b56)}' +
@@ -143,6 +156,7 @@
       document.head.appendChild(st);
     }
     document.body.classList.add('hs-admin');
+    article.before(metadataWorkspace.element);
 
     // Make article structures editable (h1, h2, h3, paragraphs, list items,
     // figcaptions, table cells). We deliberately skip code / SVG / link href
@@ -151,6 +165,7 @@
     var registeredEditables = new WeakSet();
     function registerEditables() {
       document.querySelectorAll(EDITABLE_SEL).forEach(function (el) {
+        if (el === document.querySelector('h1') && metadataModule && !metadataWorkspace.element.querySelector('#hs-editor-titleZh').disabled) return;
         el.contentEditable = 'true';
         el.spellcheck = false;
         if (registeredEditables.has(el)) return;
@@ -515,23 +530,25 @@
       if (editHistory && /^(Arrow|Home|End|Enter|Tab|Escape)/.test(e.key)) editHistory.breakGroup();
       if (!(e.metaKey || e.ctrlKey)) return;
       var k = e.key.toLowerCase();
-      if ((k === 'z' || k === 'y') && !e.altKey && article.contains(document.activeElement)) {
+      if ((k === 'z' || k === 'y') && !e.altKey && (article.contains(document.activeElement) || metadataWorkspace.element.contains(document.activeElement))) {
         e.preventDefault(); moveHistory(k === 'y' || e.shiftKey); return;
       }
       if (k === 's') { e.preventDefault(); doSave(); }
     });
     document.addEventListener('beforeinput', function (e) {
-      if (!editHistory || !article.contains(e.target)) return;
+      if (!editHistory || !(article.contains(e.target) || metadataWorkspace.element.contains(e.target))) return;
       if (e.inputType === 'historyUndo' || e.inputType === 'historyRedo') {
         if (e.cancelable) { e.preventDefault(); moveHistory(e.inputType === 'historyRedo'); }
       } else {
         var selection = historyState(true);
         if (selection && (JSON.stringify(selection.anchor) !== JSON.stringify(selection.focus) || selection.anchorOffset !== selection.focusOffset)) editHistory.breakGroup();
-        editHistory.selection(selection);
+        editHistory.selection(selection, historyField());
       }
     });
     article.addEventListener('focusin', function () { if (editHistory) editHistory.breakGroup(); });
     article.addEventListener('pointerdown', function () { if (editHistory) editHistory.breakGroup(); });
+    metadataWorkspace.element.addEventListener('focusin', function () { if (editHistory) editHistory.breakGroup(); });
+    metadataWorkspace.element.addEventListener('pointerdown', function () { if (editHistory) editHistory.breakGroup(); });
     document.getElementById('hs-adm-undo').addEventListener('click', function () { moveHistory(false); });
     document.getElementById('hs-adm-redo').addEventListener('click', function () { moveHistory(true); });
 
@@ -929,7 +946,7 @@
           if (el.hasAttribute(attrName)) {
             // Mirror current rendered content into the attribute. innerHTML
             // preserves <strong>, <a> etc. that the editor may have inserted.
-            el.setAttribute(attrName, el.innerHTML);
+            el.setAttribute(attrName, el.hasAttribute('data-hs-text') || el.hasAttribute('data-hs-text-' + currentLang) ? el.textContent : el.innerHTML);
           }
         });
       });
@@ -942,7 +959,20 @@
       prepareEditableArticle(edited.querySelector('article.max-w-3xl'));
       var snapshot = baseDocument.documentElement.cloneNode(true);
       snapshot.querySelector('article.max-w-3xl').replaceWith(edited.querySelector('article.max-w-3xl'));
+      metadataWorkspace.apply(snapshot);
       return '<!doctype html>\n' + snapshot.outerHTML;
+    }
+
+    function refreshMetadataHeading() {
+      if (!metadataWorkspace) return;
+      var current = document.querySelector('h1');
+      if (!current) return;
+      if (article.contains(current) && metadataWorkspace.element.querySelector('#hs-editor-titleZh').disabled) return;
+      var lang = (document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh';
+      var heading = metadataWorkspace.heading(lang);
+      if (!heading) return;
+      var copy = document.importNode(prepareEditableArticle(heading), true);
+      current.replaceWith(copy); DN._bilingualCache = null; registerEditables();
     }
 
     // Local, unsaved content preview. No Git write or deployment is implied.
@@ -957,7 +987,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260683';
+        runtime.src = '/blog/editor-preview.js?v=20260684';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -1030,7 +1060,7 @@
       if (editHistory && !restoringHistory) {
         var type = event && event.inputType || '';
         var key = /^(insertText|insertCompositionText|insertFromComposition)$/.test(type) ? 'text' : /^delete/.test(type) ? 'delete' : '';
-        if (key) key += ':' + JSON.stringify(historyPath(article, event.target));
+        if (key) key += ':' + (metadataWorkspace.element.contains(event.target) ? event.target.id : JSON.stringify(historyPath(article, event.target)));
         editHistory.record(historyState(), key);
         updateHistoryButtons();
       }
@@ -1080,7 +1110,15 @@
       } else selection = null;
       // Pre-input only needs clean selection paths, not another complete HTML
       // string. Input bubbles through one document listener below.
-      return selectionOnly ? selection : { html: copy.outerHTML, selection: selection };
+      if (selectionOnly) return selection;
+      // Keep typing history bounded to author text, not repeated page CSS,
+      // JSON-LD and bootstraps. Full source is assembled for durable snapshots.
+      return { html: copy.outerHTML, metadata: metadataWorkspace.historyValues(), selection: selection,
+        field: historyField() };
+    }
+    function historyField() {
+      var active = document.activeElement;
+      return metadataWorkspace.element.contains(active) ? { id: active.id, start: active.selectionStart, end: active.selectionEnd } : null;
     }
     function updateHistoryButtons() {
       document.getElementById('hs-adm-undo').disabled = !editHistory.canUndo;
@@ -1093,6 +1131,7 @@
       restoringHistory = true;
       try {
         var doc = parseEditorDocument(state.html);
+        metadataWorkspace.restoreHistory(state.metadata);
         var restored = prepareEditableArticle(doc.querySelector('article.max-w-3xl'));
         article.replaceChildren.apply(article, Array.from(restored.childNodes).map(function (node) { return document.importNode(node, true); }));
         DN._bilingualCache = null;
@@ -1102,10 +1141,17 @@
         if (zh) zh.style.display = en && lang === 'en' ? 'none' : '';
         if (en) en.style.display = lang === 'en' ? '' : 'none';
         registerEditables();
+        refreshMetadataHeading();
         var selection = state.selection;
         var anchor = selection && historyNode(article, selection.anchor), focus = selection && historyNode(article, selection.focus);
         var focused = false;
-        if (anchor && focus) {
+        if (state.field) {
+          var field = document.getElementById(state.field.id);
+          if (field && metadataWorkspace.element.contains(field)) {
+            field.focus(); field.setSelectionRange(state.field.start, state.field.end); focused = true;
+          }
+        }
+        if (!focused && anchor && focus) {
           var element = anchor.nodeType === 1 ? anchor : anchor.parentElement;
           var editable = element.closest('[contenteditable="true"]');
           if (editable && editable.getClientRects().length) {
@@ -1198,6 +1244,7 @@
       if (leavePending) { status('正在處理本機草稿，請稍候再儲存至 GitHub。'); return; }
       if (saveReceiptPending) { status('無法確認保存版本；編輯內容仍在目前分頁，請保留編輯器並先重新讀取確認，勿重複儲存。', 'error'); return; }
       if (saveConflict) { status('保存版本已改變，請先比較版本並重新開啟編輯；目前內容與草稿仍保留。', 'error'); return; }
+      if (!metadataWorkspace.valid()) { status('尚未送出保存：請填寫文章標題與搜尋標題。', 'error'); return; }
       try {
         var approvedHtml = snapshotHtml();
         if (!approveSaveChecks(approvedHtml)) return;
@@ -1246,6 +1293,7 @@
             saveReceiptPending = false;
             savedCommit = data.commit || (baseSha === data.sha ? savedCommit : '');
             baseSha = data.sha;
+            metadataWorkspace.accepted(parseEditorDocument(html), data.catalogSha);
             // Typing while the request is in flight must remain an unsaved draft.
             clearTimeout(draftTimer);
             DN._adminDirty = snapshotHtml() !== html;
@@ -1330,18 +1378,22 @@
       if (confirm('偵測到未儲存的草稿（' + new Date(draft.ts).toLocaleString() + '）— 要恢復嗎？')) {
         // Replace just the article body — don't blow away the page chrome
         var doc = parseEditorDocument(draft.html);
-        var newProse = doc.querySelector('#proseZh, article.max-w-3xl');
-        var curProse = document.querySelector('#proseZh, article.max-w-3xl');
+        var newProse = doc.querySelector('article.max-w-3xl');
+        var curProse = article;
         if (newProse && curProse) {
+          metadataWorkspace.restore(doc);
           prepareEditableArticle(newProse);
           curProse.replaceChildren.apply(curProse, Array.from(newProse.childNodes).map(function (node) {
             return document.importNode(node, true);
           }));
           registerEditables();
+          DN._bilingualCache = null;
+          applyArticleLanguage(DN.detectLang());
+          refreshMetadataHeading();
           markDirty();
         }
       } else {
         removeDraft().catch(function (e) { status('無法清除本機草稿，請保留編輯器：' + e.message, 'error'); });
       }
-    });
+    }).catch(function (e) { status('無法復原草稿；原草稿與目前編輯內容仍保留：' + e.message, 'error'); });
 })(window.DN, window, document);

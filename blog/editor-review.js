@@ -72,6 +72,17 @@ export function describeDocument(doc) {
   const article = doc.querySelector('article.max-w-3xl');
   if (!article) throw new Error('版本缺少可比較的文章正文');
   const lines = [];
+  lines.push('[搜尋標題] ' + (doc.querySelector('title')?.textContent || ''),
+    '[搜尋摘要] ' + (doc.querySelector('meta[name="description"]')?.content || ''),
+    '[文章標題] ' + text(doc.querySelector('h1')));
+  const marker = doc.querySelector('meta[name="hs-editor-metadata"]');
+  if (marker) {
+    try {
+      const values = JSON.parse(decodeURIComponent(marker.content));
+      if (typeof values.titleEn === 'string') lines.push('[英文標題] ' + values.titleEn);
+      if (typeof values.descriptionEn === 'string') lines.push('[英文摘要] ' + values.descriptionEn);
+    } catch { lines.push('[標題／摘要資料無法解析]'); }
+  }
   article.querySelectorAll('h1,h2,h3,p,li,td,th,figcaption,blockquote,pre,img,svg').forEach(el => {
     if (el.tagName === 'IMG') {
       lines.push('[圖片] ' + (el.getAttribute('alt') || '(無替代文字)') + '\n' +
@@ -86,5 +97,5 @@ export function describeDocument(doc) {
       }
     }
   });
-  return { summary: lines.join('\n\n'), source: article.outerHTML };
+  return { summary: lines.join('\n\n'), source: doc.documentElement.outerHTML };
 }

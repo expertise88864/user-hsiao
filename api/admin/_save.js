@@ -10,6 +10,7 @@
  */
 import { requireAdmin, verifyOfflineSaveToken, ghGetFile } from './_auth.js';
 import { commitArticleWithModifiedDate } from './_article-commit.js';
+import { readEditorMetadata } from './_editor-metadata.js';
 import { halfwidthToFullwidth } from './_halfwidth.js';
 import { createHash } from 'node:crypto';
 import { GitHubConflictError } from './_github.js';
@@ -124,7 +125,9 @@ export default async function handler(req, res) {
     try {
       const file = await ghGetFile(`blog/${slug}.html`);
       if (!file) return res.status(404).json({ error: 'Article not found' });
-      return res.status(200).json({ html: file.content, sha: file.sha });
+      const catalog = await ghGetFile('blog/blog-shared.js');
+      if (!catalog) throw new Error('Missing article catalog');
+      return res.status(200).json({ html: file.content, sha: file.sha, catalogSha: catalog.sha });
     } catch (e) { return res.status(503).json({ error: 'Unable to load article for editing' }); }
   }
   if (req.method !== 'POST') {
@@ -172,6 +175,9 @@ export default async function handler(req, res) {
   const html = hwResult.html;
   const stripped = stripResult.count;
   const hwFixed = hwResult.count;
+  let metadata;
+  try { metadata = readEditorMetadata(html); }
+  catch { return res.status(400).json({ error: '標題／摘要資料格式無效；草稿已保留。' }); }
 
   const path = `blog/${slug}.html`;
 
@@ -185,19 +191,29 @@ export default async function handler(req, res) {
     if (existing.sha !== baseSha) {
       return res.status(409).json({ error: '文章已有較新的版本。草稿已保留，請先比較後再編輯。' });
     }
+    // A legacy encoded marker can be recovered by the current editor. Compare
+    // its normalized meaning, while incoming HTML must already be consistent.
+    const previous = readEditorMetadata(existing.content, { allowUnnormalized: true }), titleUpdates = {};
+    for (const [key, field] of [['titleZh', 'title'], ['titleEn', 'title_en']]) {
+      if (key in metadata && metadata[key] !== previous[key]) titleUpdates[field] = halfwidthToFullwidth(metadata[key]).html;
+    }
+    if (Object.keys(titleUpdates).length && !/^[a-f0-9]{40}$/.test(metadata.catalogBaseSha || '')) return res.status(409).json({ error: '缺少文章目錄版本，請保留草稿並重新讀取。' });
     // Detect no-op: skip commit if HTML identical
     if (existing.content === html) {
-      return res.status(200).json({ ok: true, commit: '', sha: existing.sha, noop: true, sanitized: { stripped, hwFixed } });
+      const catalog = await ghGetFile('blog/blog-shared.js');
+      return res.status(200).json({ ok: true, commit: '', sha: existing.sha, catalogSha: catalog?.sha, noop: true, sanitized: { stripped, hwFixed } });
     }
 
     const result = await commitArticleWithModifiedDate({
       slug,
       content: html,
       articleSha: existing.sha,
+      titleUpdates,
+      catalogBaseSha: metadata.catalogBaseSha,
       message: `admin: edit ${slug} via /admin WYSIWYG${stripped ? ` (-${stripped} runtime DOM)` : ''}${hwFixed ? ` (+${hwFixed} 中文標點)` : ''}`,
     });
 
-    res.status(200).json({ ok: true, commit: result.commitSha, sha: articleBlobSha(html), sanitized: { stripped, hwFixed } });
+    res.status(200).json({ ok: true, commit: result.commitSha, sha: articleBlobSha(html), catalogSha: result.catalogSha, sanitized: { stripped, hwFixed } });
   } catch (e) {
     res.status(e instanceof GitHubConflictError ? 409 : 500).json({ error: String(e.message || e) });
   }

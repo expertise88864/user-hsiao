@@ -103,7 +103,7 @@ def related_block(slug, rows):
         cards.append(
             '      <a href="/blog/{slug}" style="display:flex;flex-direction:column;gap:6px;padding:14px;background:#fff;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 1px 2px rgba(15,23,42,.04)">\n'
             '        <span style="font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--blue-deep);text-transform:uppercase" data-zh="{tag_zh}" data-en="{tag_en}">{tag_zh}</span>\n'
-            '        <span style="font-size:14px;font-weight:700;line-height:1.4;font-family:Noto Serif TC,Georgia,serif" data-zh="{title_zh}" data-en="{title_en}">{title_zh}</span>\n'
+            '        <span style="font-size:14px;font-weight:700;line-height:1.4;font-family:Noto Serif TC,Georgia,serif" data-hs-text data-zh="{title_zh}" data-en="{title_en}">{title_zh}</span>\n'
             '        <span style="font-size:11.5px;color:var(--muted)" data-zh="{meta_zh}" data-en="{meta_en}">{meta_zh}</span>\n'
             '      </a>'.format(
                 slug=esc(a['slug']),

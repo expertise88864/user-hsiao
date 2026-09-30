@@ -16,6 +16,7 @@ import html
 import json
 import _jsonld  # M-13: JSON-LD must be escaped for <script> embedding
 import _articles_field
+from _editor_metadata import author_metadata
 import re
 from pathlib import Path
 
@@ -187,15 +188,18 @@ def normalize_file(path: Path, fallback: str, is_article: bool) -> bool:
     src = path.read_text(encoding='utf-8')
     title = head_title(src)
     desc = meta_content(src, 'description')
-    if bad_snippet(desc, 70 if is_article else 50):
+    authored = author_metadata(src)
+    if 'descriptionZh' in authored:
+        desc = authored['descriptionZh']
+    elif bad_snippet(desc, 70 if is_article else 50):
         desc = fallback
 
     og = meta_content(src, 'og:description', attr='property')
-    if bad_snippet(og, 70 if is_article else 50):
+    if 'descriptionZh' in authored or bad_snippet(og, 70 if is_article else 50):
         og = desc
 
     tw = meta_content(src, 'twitter:description')
-    if bad_snippet(tw, 70 if is_article else 50):
+    if 'descriptionZh' in authored or bad_snippet(tw, 70 if is_article else 50):
         tw = desc
 
     out = src
