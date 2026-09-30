@@ -20,7 +20,7 @@
     if (!slug) return;
     if (document.getElementById('hs-admin-bar')) return;
     // Edit a fresh authenticated snapshot, not potentially cached public HTML.
-    var baseDocument, baseSha, initialDraft, conflictDraft, savedCommit = '';
+    var baseDocument, baseSha, initialDraft, conflictDraft, savedCommit = '', editorReview;
     var editorDocumentPolicy;
     function parseEditorDocument(html) {
       if (typeof html !== 'string') throw new Error('文章來源格式無效');
@@ -92,6 +92,7 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
+      editorReview = await import('/blog/editor-review.js?v=20260681');
     } catch (e) {
       if (releaseEditingLock) releaseEditingLock();
       var notice = document.createElement('p');
@@ -212,6 +213,8 @@
       '<button type="button" title="圖片 — 拖曳/貼上/點選" id="hs-adm-img">📷 圖片</button>' +
       '<button type="button" title="本機內容預覽，尚未正式上線" id="hs-adm-preview">👁 本機預覽</button>' +
       '<button type="button" id="hs-adm-publication">核對上線狀態</button>' +
+      '<button type="button" id="hs-adm-check">保存前健檢</button>' +
+      '<button type="button" id="hs-adm-compare">比較版本</button>' +
       '<button type="button" title="清除格式" data-cmd="removeFormat">⨯ 清除</button>' +
       '<span class="sep"></span>' +
       '<button type="button" class="primary" id="hs-adm-save">💾 儲存</button>' +
@@ -234,6 +237,124 @@
     publicationPanel.hidden = true;
     publicationPanel.style.cssText = 'flex-basis:100%;max-height:30vh;overflow:auto;font-size:13px;line-height:1.6';
     bar.appendChild(publicationPanel);
+    var reviewPanel = document.createElement('section');
+    reviewPanel.setAttribute('aria-label', '保存前健檢與版本比較');
+    reviewPanel.setAttribute('aria-live', 'polite');
+    reviewPanel.hidden = true;
+    reviewPanel.style.cssText = 'flex-basis:100%;max-height:35vh;overflow:auto;font-size:13px;line-height:1.6';
+    bar.appendChild(reviewPanel);
+    var reviewSnapshot = null, reviewChangeNotice, reviewDownloads = [];
+    function clearReviewPanel() {
+      // Let an in-flight download finish before retiring its object URL.
+      reviewDownloads.splice(0).forEach(function (url) {
+        setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+      });
+      reviewPanel.replaceChildren();
+    }
+    function reviewLine(message) {
+      var line = document.createElement('p'); line.textContent = message;
+      reviewPanel.appendChild(line);
+    }
+    function reviewButton(label, action) {
+      var button = document.createElement('button'); button.type = 'button';
+      button.textContent = label; button.addEventListener('click', action);
+      reviewPanel.appendChild(button); return button;
+    }
+    function downloadSource(label, html, suffix) {
+      var link = document.createElement('a'), url;
+      link.textContent = label; link.download = slug + '-' + suffix + '.html.txt';
+      link.target = '_blank'; link.rel = 'noopener';
+      function refreshDownload() {
+        var next = URL.createObjectURL(new Blob([typeof html === 'function' ? html() : html], { type: 'text/plain;charset=utf-8' }));
+        if (url) {
+          var retired = url;
+          setTimeout(function () { URL.revokeObjectURL(retired); }, 30000);
+          reviewDownloads.splice(reviewDownloads.indexOf(url), 1);
+        }
+        url = next; link.href = url;
+        reviewDownloads.push(url);
+      }
+      refreshDownload();
+      link.addEventListener('click', function (event) {
+        try { refreshDownload(); }
+        catch (e) { event.preventDefault(); status('無法匯出目前內容：' + e.message, 'error'); }
+      });
+      reviewPanel.appendChild(link);
+    }
+    function showChecks(html) {
+      var result = editorReview.checkDocument(parseEditorDocument(html));
+      clearReviewPanel(); reviewPanel.hidden = false;
+      reviewSnapshot = html; reviewChangeNotice = null;
+      reviewLine('保存前健檢：檢查目前編輯內容，不會保存或發佈。');
+      result.blocking.concat(result.warnings).forEach(reviewLine);
+      if (!result.blocking.length && !result.warnings.length) reviewLine('本次結構健檢未發現問題。');
+      reviewLine('搜尋標題：' + (result.title || '(空白)'));
+      reviewLine('搜尋摘要：' + (result.description || '(空白)'));
+      reviewLine('請另確認醫療內容、引文、雙語與本機預覽。健檢不代表醫療核可、搜尋排名或正式上線。');
+      reviewButton('收起健檢', function () { reviewPanel.hidden = true; });
+      return result;
+    }
+    document.getElementById('hs-adm-check').addEventListener('click', function () {
+      try { showChecks(snapshotHtml()); }
+      catch (e) { status('無法完成保存前健檢：' + e.message, 'error'); }
+    });
+    var comparisonRequest = 0, comparisonController, saveConflict = false;
+    async function showComparison() {
+      if (savePending) { status('請先等保存結果確認，再比較版本。'); return; }
+      var request = ++comparisonRequest;
+      if (comparisonController) comparisonController.abort();
+      comparisonController = new AbortController();
+      var controller = comparisonController, timer = setTimeout(function () { controller.abort(); }, 10000);
+      clearReviewPanel(); reviewPanel.hidden = false;
+      reviewLine('正在讀取最新保存版本；你的編輯內容會留在目前分頁。');
+      try {
+        var response = await fetch('/api/admin/save?slug=' + encodeURIComponent(slug), {
+          credentials: 'include', cache: 'no-store', signal: controller.signal
+        });
+        if (!response.ok) throw new Error('請確認登入或稍後重試。');
+        var latest = await response.json();
+        if (request !== comparisonRequest) return;
+        if (!/^[a-f0-9]{40}$/.test(latest.sha || '') || typeof latest.html !== 'string') throw new Error('保存版本回應無效。');
+        var current = snapshotHtml(), latestDoc = parseEditorDocument(latest.html);
+        var versions = [
+          { label: '開啟時版本', doc: baseDocument },
+          { label: '目前編輯內容', doc: parseEditorDocument(current) },
+          { label: '最新保存版本', doc: latestDoc }
+        ];
+        var descriptions = versions.map(function (version) { return editorReview.describeDocument(version.doc); });
+        clearReviewPanel();
+        reviewSnapshot = current; reviewChangeNotice = null;
+        reviewLine(latest.sha === baseSha ? '最新保存版本與這個編輯器使用的保存版本相同。' :
+          '已有其他保存版本。請比較後重新開啟編輯，不會自動合併或覆蓋。');
+        reviewLine('這是此次讀取的對照；文字摘要不涵蓋所有格式與圖表差異，可展開正文原始碼或下載。');
+        var columns = document.createElement('div');
+        columns.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px';
+        versions.forEach(function (version, index) {
+          var column = document.createElement('section'), title = document.createElement('h3'), summary = document.createElement('pre');
+          title.textContent = version.label; summary.textContent = descriptions[index].summary;
+          summary.style.cssText = 'white-space:pre-wrap;overflow-wrap:anywhere;max-height:24vh;overflow:auto';
+          var details = document.createElement('details'), label = document.createElement('summary'), code = document.createElement('pre');
+          label.textContent = '完整正文原始碼（含格式、圖表與雙語屬性）';
+          code.textContent = descriptions[index].source; code.style.cssText = summary.style.cssText;
+          details.append(label, code); column.append(title, summary, details); columns.appendChild(column);
+        });
+        reviewPanel.appendChild(columns);
+        if (conflictDraft) downloadSource('下載舊版本草稿', conflictDraft.html, 'previous-draft');
+        downloadSource('下載目前編輯內容', snapshotHtml, 'current');
+        downloadSource('下載最新保存版本', latest.html, 'saved');
+        reviewButton('重新開啟最新版本', async function () {
+          if (!confirm('先保存目前本機草稿，再重新開啟最新版本？舊版本草稿會另存備份，不會自動覆蓋新文章。')) return;
+          if (await DN.adminBeforeClose()) location.reload();
+        });
+        reviewButton('收起比較，保留編輯內容', function () { reviewPanel.hidden = true; });
+      } catch (e) {
+        if (request !== comparisonRequest) return;
+        clearReviewPanel(); reviewSnapshot = snapshotHtml(); reviewChangeNotice = null;
+        reviewLine('無法比較版本：' + (e.name === 'AbortError' ? '讀取逾時，請稍後重試。' : e.message));
+        downloadSource('下載目前編輯內容', snapshotHtml, 'current');
+      } finally { clearTimeout(timer); }
+    }
+    document.getElementById('hs-adm-compare').addEventListener('click', showComparison);
     var publicationRequest = 0, publicationController;
     function invalidatePublication() {
       publicationRequest++;
@@ -775,7 +896,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260680';
+        runtime.src = '/blog/editor-preview.js?v=20260681';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -845,6 +966,11 @@
     function markDirty() {
       DN._adminDirty = true;
       allowClose = false;
+      if (!reviewPanel.hidden && reviewSnapshot !== null && !reviewChangeNotice) {
+        reviewChangeNotice = document.createElement('p');
+        reviewChangeNotice.textContent = '健檢／對照後又有修改，請重新健檢或比較版本；下方是前次讀取內容。';
+        reviewPanel.prepend(reviewChangeNotice);
+      }
       if (!savePending) status(saveReceiptPending ? '保存版本尚未確認；請先重新讀取確認。本機草稿將自動保存。' : '尚有未儲存至 GitHub 的修改；本機草稿將自動保存。');
       clearTimeout(draftTimer);
       draftTimer = setTimeout(function () {
@@ -892,7 +1018,31 @@
         event.returnValue = '';
       }
     });
-    status('目前沒有未儲存的修改。GitHub 保存與正式上線為不同狀態。');
+    if ('navigation' in window) window.navigation.addEventListener('navigate', function (event) {
+      if (event.downloadRequest !== null || allowClose || !DN._adminDirty) return;
+      if (!confirm('有未儲存的編輯。確定要離開？')) event.preventDefault();
+    });
+    if (!conflictDraft) status('目前沒有未儲存的修改。GitHub 保存與正式上線為不同狀態。');
+
+    function approveSaveChecks(html) {
+      var check = editorReview.checkDocument(parseEditorDocument(html));
+      if (check.blocking.length) {
+        showChecks(html); status('尚未送出保存：' + check.blocking.join(' '), 'error'); return false;
+      }
+      // Existing article warnings remain visible in manual checks. Only new
+      // warnings interrupt saving, so legacy translation stubs don't nag on
+      // every ordinary edit. This is author review, never medical approval.
+      var existing = new Set(editorReview.checkDocument(baseDocument).issues.map(function (issue) { return issue.key; }));
+      var added = check.issues.filter(function (issue) { return !existing.has(issue.key); });
+      if (added.length) {
+        showChecks(html);
+        var messages = Array.from(new Set(added.map(function (issue) { return issue.message; })));
+        if (!confirm('保存前健檢發現新問題：\n' + messages.join('\n') + '\n\n仍要保存這次內容嗎？正式上線仍須另外確認。')) {
+          status('尚未送出保存；修改仍在目前分頁，本機草稿會持續保存。'); return false;
+        }
+      }
+      return true;
+    }
 
     async function doSave() {
       // v34: navigator.locks guards against 2 admin tabs committing the
@@ -901,13 +1051,21 @@
       if (savePending) return;
       if (leavePending) { status('正在處理本機草稿，請稍候再儲存至 GitHub。'); return; }
       if (saveReceiptPending) { status('無法確認保存版本；編輯內容仍在目前分頁，請保留編輯器並先重新讀取確認，勿重複儲存。', 'error'); return; }
+      if (saveConflict) { status('保存版本已改變，請先比較版本並重新開啟編輯；目前內容與草稿仍保留。', 'error'); return; }
+      try {
+        var approvedHtml = snapshotHtml();
+        if (!approveSaveChecks(approvedHtml)) return;
+      } catch (e) { status('尚未送出保存：無法完成正文健檢，請保持編輯器開啟。', 'error'); return; }
       savePending = true;
       invalidatePublication();
-      clearTimeout(draftTimer);
-      try { return await DN.withLock('admin-save:' + slug, _doSaveInner); }
+      comparisonRequest++;
+      if (comparisonController) comparisonController.abort();
+      clearReviewPanel();
+      reviewPanel.hidden = true;
+      try { return await DN.withLock('admin-save:' + slug, function () { return _doSaveInner(approvedHtml); }); }
       finally { savePending = false; }
     }
-    async function _doSaveInner() {
+    async function _doSaveInner(approvedHtml) {
       // Capture full <html> (modified DOM) and send to /api/admin/save
       var btn = document.getElementById('hs-adm-save');
       btn.disabled = true; btn.textContent = '儲存中⋯';
@@ -915,6 +1073,8 @@
       var gitSaved = false, saveAccepted = false;
       try {
         var html = snapshotHtml();
+        if (html !== approvedHtml && !approveSaveChecks(html)) return;
+        clearTimeout(draftTimer);
 
         // v33: OPFS draft snapshot before network attempt — survives crash mid-save
         var backup = await storeDraft(html, baseSha);
@@ -968,6 +1128,10 @@
           } else {
             var err = await resp.json().catch(function () { return {}; });
             status('✗ 儲存失敗: ' + (err.error || resp.status), 'error');
+            if (resp.status === 409) {
+              saveConflict = true;
+              status('文章已有新保存版本；草稿與目前內容仍保留，請使用「比較版本」再重新開啟編輯。', 'error');
+            }
           }
         } catch (e) {
           if (saveAccepted) throw e;

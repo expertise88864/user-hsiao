@@ -33,7 +33,8 @@ for (const [command, selector] of [['myth', '.myth-card'], ['redflag', '.hs-redf
     }, selector);
     expect(result).toEqual({valid:true,editable:true,invalidBlocks:0});
     await page.locator('#hs-adm-save').click();
-    await expect(page.locator('#hs-admin-status')).toContainText('fixture');
+    await expect(page.locator('#hs-admin-status')).toContainText('文章已有新保存版本');
+    await expect(page.locator('#hs-admin-status')).toContainText('比較版本');
     expect(submitted.html).toContain('Preserve original author text');
     expect(submitted.html).not.toContain('contenteditable=');
     const saved = await page.evaluate(({html, selector}) => {
@@ -81,7 +82,8 @@ test('visual editor loads a fresh snapshot and sends its original version', asyn
   await expect(page.locator('#hs-adm-save')).toBeVisible();
   await page.locator('#proseZh p[contenteditable]').first().fill('Review fixture text');
   await page.locator('#hs-adm-save').click();
-  await expect(page.locator('#hs-admin-status')).toContainText('newer remote edit');
+  await expect(page.locator('#hs-admin-status')).toContainText('文章已有新保存版本');
+  await expect(page.locator('#hs-admin-status')).toContainText('比較版本');
   expect(submitted.baseSha).toBe(sha);
   expect(submitted.html).toContain('fresh-server-snapshot');
   expect(submitted.html).toContain('Review fixture text');

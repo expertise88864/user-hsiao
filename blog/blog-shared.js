@@ -3171,7 +3171,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260680';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260681';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3795,7 +3795,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260680';
+    s.src = '/blog/blog-admin.js?v=20260681';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -4913,13 +4913,8 @@
   DN.bindNavigation = function () {
     if (!('navigation' in window)) return;
     window.navigation.addEventListener('navigate', function (event) {
-      // Block navigation away from admin editor with unsaved changes
-      if (DN.isAdminMode && DN.isAdminMode() && DN._adminDirty) {
-        if (!confirm('有未儲存的編輯。確定要離開？')) {
-          event.preventDefault();
-          return;
-        }
-      }
+      // A download does not leave the reading document.
+      if (event.downloadRequest !== null) return;
       // Optional GA4 soft-nav event
       try {
         var url = event.destination && event.destination.url;
