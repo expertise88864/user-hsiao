@@ -36,7 +36,7 @@ jobs:
           CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           URL=$(python _delivery.py preview "$CANDIDATE_SHA" --wait 600)
-          PW_BASE_URL="$URL" node _delivery_preview.cjs
+          PW_BASE_URL="$URL" GITHUB_SHA="$CANDIDATE_SHA" node _delivery_preview.cjs
       - name: Upload screenshots (never baseline updates)
         if: always()
         uses: actions/upload-artifact@v4
