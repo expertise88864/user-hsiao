@@ -654,6 +654,20 @@ def _swap_inner_to_english(html_str):
     after_body = html_str[body_close:]
 
     soup = BeautifulSoup(body_inner, 'html.parser')
+    # Legacy articles keep two complete prose blocks. The English mirror must
+    # expose its English block before JavaScript runs; translating data-en
+    # attributes alone leaves proseEn hidden behind the Chinese source default.
+    prose_zh = soup.find(id='proseZh')
+    prose_en = soup.find(id='proseEn')
+    prose_changed = False
+    if prose_zh is not None and prose_en is not None and prose_en.get_text(strip=True):
+        for block, display in ((prose_zh, 'none'), (prose_en, 'block')):
+            declarations = [part.strip() for part in block.get('style', '').split(';')
+                            if part.strip() and part.split(':', 1)[0].strip().lower() != 'display']
+            declarations.append('display:' + display)
+            new_style = ';'.join(declarations)
+            prose_changed = prose_changed or block.get('style') != new_style
+            block['style'] = new_style
     swaps = 0
     for el in soup.select('[data-zh][data-en]'):
         en_val = el.get('data-en', '')
@@ -712,7 +726,7 @@ def _swap_inner_to_english(html_str):
         el['lang'] = 'zh-Hant'
         annotated += 1
 
-    if swaps == 0 and annotated == 0:
+    if swaps == 0 and annotated == 0 and not prose_changed:
         return html_str
 
     new_body_inner = soup.decode(formatter='html5')

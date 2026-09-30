@@ -75,6 +75,26 @@ def canonical(src: str) -> str:
     return match.group(1) if match else ""
 
 
+def translation_gaps(src: str) -> list[str]:
+    """Conservative coverage audit for legacy articles with two prose blocks.
+
+    English-looking visible text alone cannot prove a complete translation.
+    Missing source sections/tables/figures keep a mirror gated for content review.
+    Equal structure is still not a medical translation approval.
+    """
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(src, 'html.parser')
+    zh, en = soup.find(id='proseZh'), soup.find(id='proseEn')
+    if zh is None or en is None:
+        return []
+    gaps = [heading['id'] for heading in zh.select('h2[id]')
+            if en.find(id=heading['id'] + '-en') is None]
+    for tag in ('table', 'figure'):
+        if len(en.find_all(tag)) < len(zh.find_all(tag)):
+            gaps.append('missing ' + tag + ' coverage')
+    return gaps
+
+
 def main() -> int:
     published, en_stubs = catalog()
     errors: list[str] = []
@@ -93,6 +113,7 @@ def main() -> int:
         en = en_path.read_text(encoding="utf-8")
         en_url = f"{DOMAIN}/en/blog/{slug}"
         ratio = visible_cjk_ratio(en)
+        gaps = translation_gaps(en)
 
         if canonical(en) != en_url:
             errors.append(f"{slug}: EN canonical should remain self-referencing")
@@ -106,7 +127,7 @@ def main() -> int:
                 errors.append(f"{slug}: ZH page should not advertise untranslated EN hreflang")
             if en_url in artifact_text:
                 errors.append(f"{slug}: untranslated EN URL leaked into discovery artifacts")
-            if ratio < 0.08:
+            if ratio < 0.08 and not gaps:
                 errors.append(f"{slug}: EN mirror now looks translated ({ratio:.3f}); remove it from EN_STUB_SLUGS")
         else:
             if "noindex" in robots(en):
@@ -115,6 +136,8 @@ def main() -> int:
                 errors.append(f"{slug}: publishable EN mirror is missing reciprocal EN hreflang")
             if ratio > 0.12:
                 errors.append(f"{slug}: EN mirror is Chinese-heavy ({ratio:.3f}); add it to EN_STUB_SLUGS or translate it")
+            if gaps:
+                errors.append(f"{slug}: EN mirror has incomplete source coverage: {', '.join(gaps)}")
 
     if errors:
         print("[FAIL] English publishability audit failed:")
