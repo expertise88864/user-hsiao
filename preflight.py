@@ -50,7 +50,7 @@ QUALITY_YML = ROOT / ".github" / "workflows" / "quality.yml"
 # sync, but the parser is the real source of truth.
 FALLBACK_CHAIN = [
     "halfwidth_to_fullwidth.py", "_normalize_reviewed_by.py", "_inject_speed_insights.py",
-    "_gen_feeds.py", "_gen_related.py", "_gen_serp_meta.py", "_gen_diagram_readers.py", "_gen_faqpage_jsonld.py",
+    "_gen_feeds.py", "_gen_related.py", "_gen_serp_meta.py", "_gen_diagram_readers.py", "_gen_reader_navigation.py", "_gen_faqpage_jsonld.py",
     "_gen_en_pages.py", "_gen_search_index.py", "_gen_api_content_snapshot.py",
     "_gen_llms_txt.py", "_gen_llms_full_txt.py", "_gen_opensearch.py",
     "_gen_profile_schema.py", "_gen_site_graph.py", "_gen_route_canonicals.py",

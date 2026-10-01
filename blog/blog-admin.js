@@ -38,6 +38,11 @@
       return new DOMParser().parseFromString(html, 'text/html');
     }
     function prepareEditableArticle(root) {
+      // Generated navigation is reader chrome. Remove it before editing starts:
+      // removing it only from a history clone leaves adjacent text nodes that
+      // merge on HTML parsing, shifting the saved caret's child-node paths.
+      var readerContents = root.querySelector('#hs-inline-toc');
+      if (readerContents) { readerContents.remove(); root.normalize(); }
       // Only the article is imported into the active editor. Preserve inert
       // authored data scripts; executable scripts and event sinks stay out.
       root.querySelectorAll('script').forEach(function (node) {
@@ -100,9 +105,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260691');
-      historyModule = await import('/blog/editor-history.js?v=20260691');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260691');
+      editorReview = await import('/blog/editor-review.js?v=20260692');
+      historyModule = await import('/blog/editor-history.js?v=20260692');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260692');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -1034,7 +1039,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260691';
+        runtime.src = '/blog/editor-preview.js?v=20260692';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');

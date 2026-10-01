@@ -48,7 +48,8 @@ class _TextExtractor(HTMLParser):
             if tag == 'details':
                 self._reader_depth += 1
             return
-        if tag == 'details' and 'hs-diagram-mode' in (dict(attrs).get('class') or '').split():
+        if tag == 'details' and (dict(attrs).get('id') == 'hs-inline-toc' or
+                'hs-diagram-mode' in (dict(attrs).get('class') or '').split()):
             self._reader_depth = 1
             return
         if tag in _SKIP_TREE:

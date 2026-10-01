@@ -255,6 +255,21 @@ test('CMS serialization strips nested runtime DOM without damaging the footer', 
   assert.match(abApply, /DN\.isAdminMode.*DN\.isAdminMode\(\)/s);
 });
 
+test('CMS removes generated contents while preserving marker and authored headings', async () => {
+  const { stripRuntimeHelpers } = await import('../../api/admin/_save.js');
+  const source = '<article><!-- hs-static-toc:start --><details id="hs-inline-toc" open><summary>Contents</summary><ol><li><a href="#s1">heading</a></li></ol></details><!-- hs-static-toc:end --><div id="proseZh"><h2 id="s1">edited heading</h2></div></article>';
+  const result = stripRuntimeHelpers(source);
+  assert.equal(result.count, 1);
+  assert.equal(result.html, '<article><!-- hs-static-toc:start --><!-- hs-static-toc:end --><div id="proseZh"><h2 id="s1">edited heading</h2></div></article>');
+});
+
+test('generated contents cannot inflate editorial word or illustration checks', async () => {
+  const { checkArticle } = await import('../../api/admin/_seo-score.js');
+  const source = '<html><head><title>Author title</title></head><body><article><h2>Author heading</h2><p>Author text stays the same.</p></article></body></html>';
+  const widget = '<!-- hs-static-toc:start --><details id="hs-inline-toc"><summary>Contents</summary><svg><path/></svg><ol><li>' + 'Navigation text '.repeat(200) + '</li></ol></details><!-- hs-static-toc:end -->';
+  assert.deepEqual(checkArticle(source.replace('<article>', '<article>' + widget)), checkArticle(source));
+});
+
 test('canonical articles do not persist runtime-only DOM', async () => {
   const blogDir = new URL('../../blog/', import.meta.url);
   const articleFiles = (await readdir(blogDir)).filter(name => name.endsWith('.html'));
@@ -269,7 +284,15 @@ test('canonical articles do not persist runtime-only DOM', async () => {
   ];
 
   for (const name of articleFiles) {
-    const html = await readFile(new URL(name, blogDir), 'utf8');
+    const source = await readFile(new URL(name, blogDir), 'utf8');
+    const blocks = source.match(/<!-- hs-static-toc:start -->[\s\S]*?<!-- hs-static-toc:end -->/g) || [];
+    assert.ok(blocks.length <= 1, `${name}: only one generated contents block`);
+    if (blocks.length) {
+      assert.equal((blocks[0].match(/id="hs-inline-toc"/g) || []).length, 1, `${name}: generated contents helper`);
+      assert.match(blocks[0], /<details id="hs-inline-toc" open/);
+      assert.match(blocks[0], /<ol[^>]+data-zh=/);
+    }
+    const html = source.replace(/<!-- hs-static-toc:start -->[\s\S]*?<!-- hs-static-toc:end -->/g, '');
     for (const id of runtimeIds) {
       assert.doesNotMatch(html, new RegExp(`id=["']${id}["']`), `${name}: ${id}`);
     }

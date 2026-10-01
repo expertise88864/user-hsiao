@@ -74,6 +74,7 @@ test('bilingual table edits survive Undo/Redo, save, and reopening the saved sou
 
 test('new typing after Undo invalidates Redo and retains the restored caret',async({page})=>{
   const {frame}=await setup(page), p=frame.locator('#proseZh > p[contenteditable]').first();
+  await expect(frame.locator('#hs-inline-toc')).toHaveCount(0);
   await p.fill('first edit');await p.press('End');await p.press('!');
   await p.press('Control+z');await expect(p).toHaveText('first edit');
   await page.keyboard.type('?');await expect(p).toHaveText('first edit?');

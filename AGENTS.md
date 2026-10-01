@@ -125,6 +125,7 @@ python _gen_feeds.py
 python _gen_related.py
 python _gen_serp_meta.py
 python _gen_diagram_readers.py
+python _gen_reader_navigation.py
 python _gen_faqpage_jsonld.py
 python _gen_en_pages.py
 python _gen_search_index.py

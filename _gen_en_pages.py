@@ -630,6 +630,46 @@ def meta_for_page(en_canonical, slug=None, html=''):
 # chose /blog/* as the canonical despite our hreflang/canonical tags.
 # Now /en/ HTML carries actual English text in the visible DOM, with
 # the data-zh attribute preserved for the runtime language toggle.
+def _reference_safe_fragment(value):
+    """Preserve browser text semantics before BeautifulSoup parses a fragment.
+
+    Its HTMLParser adapter drops unknown bare references such as trailing Q&A.
+    Decode text using the standard parser, then re-escape that text. Markup and
+    attributes remain markup; encoded literal <strong> stays literal text.
+    """
+    from html.parser import HTMLParser
+
+    class Fragment(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.parts = []
+            self.raw = False
+
+        def handle_starttag(self, tag, attrs):
+            self.parts.append(self.get_starttag_text())
+            if tag in {'script', 'style'}:
+                self.raw = True
+
+        def handle_startendtag(self, tag, attrs):
+            self.parts.append(self.get_starttag_text())
+
+        def handle_endtag(self, tag):
+            self.parts.append(f'</{tag}>')
+            if tag in {'script', 'style'}:
+                self.raw = False
+
+        def handle_data(self, data):
+            self.parts.append(data if self.raw else html_lib.escape(data, quote=False))
+
+        def handle_comment(self, data):
+            self.parts.append('<!--' + data + '-->')
+
+    parser = Fragment()
+    parser.feed(value)
+    parser.close()
+    return ''.join(parser.parts)
+
+
 def _swap_inner_to_english(html_str):
     """Swap [data-zh][data-en] elements' visible inner content with their
     data-en value. Operates ONLY on the <body> region; <head> stays
@@ -688,7 +728,7 @@ def _swap_inner_to_english(html_str):
         if el.has_attr('data-hs-text') or el.has_attr('data-hs-text-en'):
             el.append(en_val)
         else:
-            en_soup = BeautifulSoup(en_val, 'html.parser')
+            en_soup = BeautifulSoup(_reference_safe_fragment(en_val), 'html.parser')
             for child in list(en_soup.contents):
                 el.append(child)
         swaps += 1
