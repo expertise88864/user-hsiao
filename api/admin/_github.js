@@ -62,6 +62,25 @@ export async function ghGetFile(path) {
   return { content, sha: data.sha };
 }
 
+/** Read an immutable repository blob so an old draft can retain its real base. */
+export async function ghGetBlob(sha) {
+  if (!/^[a-f0-9]{40}$/.test(sha || '')) throw new Error('Invalid Git blob revision');
+  const { owner, repo, token } = getRepoConfig();
+  if (!token) throw new Error('GITHUB_TOKEN env var not configured');
+  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/blobs/${sha}`, {
+    headers: githubHeaders(token), redirect: 'error',
+  });
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`GitHub blob lookup failed: ${response.status}`);
+  const data = await response.json();
+  if (data.sha !== sha || data.encoding !== 'base64' || typeof data.content !== 'string') {
+    throw new Error('GitHub blob response does not match the requested revision');
+  }
+  const binary = atob(data.content.replace(/\s/g, ''));
+  const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+  return { sha, content: new TextDecoder('utf-8', { fatal: true }).decode(bytes) };
+}
+
 /**
  * Create or update a file via GitHub Contents API. `sha` required for update,
  * omit for create. `content` may be a string (utf-8 encoded) or already-base64.

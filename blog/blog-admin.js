@@ -105,9 +105,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260692');
-      historyModule = await import('/blog/editor-history.js?v=20260692');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260692');
+      editorReview = await import('/blog/editor-review.js?v=20260693');
+      historyModule = await import('/blog/editor-history.js?v=20260693');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260693');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -190,6 +190,13 @@
     }
     registerEditables();
     var applyArticleLanguage = DN.applyTextOnly;
+    function applyRestoredLanguage(lang) {
+      lang = (lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh';
+      applyArticleLanguage(lang);
+      var zh = article.querySelector('#proseZh'), en = article.querySelector('#proseEn');
+      if (zh) zh.style.display = en && lang === 'en' ? 'none' : '';
+      if (en) en.style.display = lang === 'en' ? '' : 'none';
+    }
     DN.applyTextOnly = function (lang) {
       // Persist the rendered language before translation can replace it. Use
       // the same clean representation as save so editing attributes stay out
@@ -1039,7 +1046,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260692';
+        runtime.src = '/blog/editor-preview.js?v=20260693';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -1188,10 +1195,8 @@
         article.replaceChildren.apply(article, Array.from(restored.childNodes).map(function (node) { return document.importNode(node, true); }));
         DN._bilingualCache = null;
         var lang = (document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh';
-        applyArticleLanguage(lang);
+        applyRestoredLanguage(lang);
         var zh = article.querySelector('#proseZh'), en = article.querySelector('#proseEn');
-        if (zh) zh.style.display = en && lang === 'en' ? 'none' : '';
-        if (en) en.style.display = lang === 'en' ? '' : 'none';
         registerEditables();
         refreshMetadataHeading();
         var selection = state.selection;
@@ -1445,7 +1450,7 @@
           }));
           registerEditables();
           DN._bilingualCache = null;
-          applyArticleLanguage(DN.detectLang());
+          applyRestoredLanguage(DN.detectLang());
           refreshMetadataHeading();
           markDirty();
         }

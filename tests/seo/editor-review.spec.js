@@ -46,6 +46,24 @@ async function open(page) {
 const panel = frame => frame.getByRole('region', { name:'保存前健檢與版本比較' });
 const paragraph = frame => frame.locator('#proseZh > p[contenteditable]').first();
 
+test('version summaries exclude generated contents while retaining the complete original source', async ({ page }) => {
+  await page.goto('/blog/dry-eye-myths');
+  const result = await page.evaluate(async () => {
+    const { describeDocument } = await import('/blog/editor-review.js');
+    const original = document.cloneNode(true), withoutContents = document.cloneNode(true);
+    withoutContents.querySelector('#hs-inline-toc').remove();
+    const source = original.documentElement.outerHTML;
+    return {
+      withContents: describeDocument(original).summary,
+      withoutContents: describeDocument(withoutContents).summary,
+      originalSourcePreserved: describeDocument(original).source === source &&
+        original.documentElement.outerHTML === source
+    };
+  });
+  expect(result.withContents).toBe(result.withoutContents);
+  expect(result.originalSourcePreserved).toBe(true);
+});
+
 test('manual structural check is read-only and shows actual title/summary, not an SEO score', async ({ page }) => {
   const state = await setup(page), frame = await open(page);
   await paragraph(frame).fill('作者尚未保存的修改');

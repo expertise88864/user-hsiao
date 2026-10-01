@@ -1,4 +1,4 @@
-import { ghCommitFiles, ghGetFile, GitHubConflictError } from './_github.js';
+import { ghCommitFiles, ghGetFile, ghGetBlob, GitHubConflictError } from './_github.js';
 import { catalogRecords, patchCatalogFields } from '../_articles.js';
 import { createHash } from 'node:crypto';
 
@@ -30,7 +30,25 @@ export async function commitArticleWithModifiedDate({
   const path = `blog/${slug}.html`;
   const shared = await ghGetFile('blog/blog-shared.js');
   if (!shared) throw new Error('blog-shared.js not found in repo');
-  if (Object.keys(titleUpdates).length && shared.sha !== catalogBaseSha) throw new GitHubConflictError('blog/blog-shared.js');
+  if (Object.keys(titleUpdates).length && shared.sha !== catalogBaseSha) {
+    if (!/^[a-f0-9]{40}$/.test(catalogBaseSha || '')) throw new GitHubConflictError('blog/blog-shared.js');
+    const historical = await ghGetBlob(catalogBaseSha);
+    let titlesUnchanged = false;
+    if (historical) {
+      try {
+        const before = catalogRecords(historical.content).find(row => row.values.slug === slug);
+        const current = catalogRecords(shared.content).find(row => row.values.slug === slug);
+        // A different article or generated bundle may change the catalog SHA.
+        // Rebase only when this article's two titles still match its real base;
+        // use the fresh entire catalog and retain both atomic blob checks below.
+        titlesUnchanged = !before && !current || !!before && !!current &&
+          ['title', 'title_en'].every(key => Object.hasOwn(before.values, key) && Object.hasOwn(current.values, key) &&
+            typeof before.values[key] === 'string' && typeof current.values[key] === 'string' &&
+            before.values[key].trim() && current.values[key].trim() && before.values[key] === current.values[key]);
+      } catch { /* Unknown/malformed historical catalog must not authorize a write. */ }
+    }
+    if (!titlesUnchanged) throw new GitHubConflictError('blog/blog-shared.js');
+  }
 
   const catalog = updateCatalogModified(shared.content, slug);
   if (!catalog) throw new Error('DN.ARTICLES block not found');

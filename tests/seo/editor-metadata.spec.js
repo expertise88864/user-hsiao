@@ -19,7 +19,7 @@ async function setup(page, options={}) {
     if(u.pathname==='/api/admin/save') {
       if(route.request().method()==='GET')return route.fulfill({json:{html:state.html,sha:state.sha,catalogSha:state.catalogSha}});
       state.posts++;state.submitted=route.request().postDataJSON();
-      if(options.conflict)return route.fulfill({status:409,json:{error:'Catalog has changed'}});
+      if(options.conflict && state.catalogSha === 'd'.repeat(40)) return route.fulfill({status:409,json:{error:'Catalog changed during the atomic save'}});
       state.html=state.submitted.html;state.sha='b'.repeat(40);state.catalogSha='e'.repeat(40);
       return route.fulfill({json:{ok:true,sha:state.sha,commit:'c'.repeat(40),catalogSha:state.catalogSha}});
     }
@@ -302,7 +302,7 @@ test('metadata typing never clones the full HTML document or parses page JSON-LD
   expect(await input(frame,'titleZh').evaluate(()=>window.metadataWork)).toEqual({documents:0,jsonParses:0});
 });
 
-test('close/reopen restores metadata plus both prose languages; catalog conflict preserves draft without retry',async({page})=>{
+test('close/reopen restores visible English metadata draft and saves after unrelated catalog changes',async({page})=>{
   const {frame,state}=await setup(page,{conflict:true});
   await input(frame,'titleZh').fill('草稿主標題');
   await input(frame,'descriptionEn').fill('Draft English summary');
@@ -321,9 +321,13 @@ test('close/reopen restores metadata plus both prose languages; catalog conflict
   await expect(input(frame,'descriptionEn')).toHaveValue('Draft English summary');
   await expect(frame.locator('#proseZh')).toContainText('中文草稿正文');
   await expect(frame.locator('#proseEn')).toContainText('English draft body');
+  await expect(frame.locator('#proseEn')).toBeVisible();
+  await expect(frame.locator('#proseZh')).toBeHidden();
   await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(2);
+  await expect(frame.locator('#hs-admin-status')).toContainText('已保存至 GitHub');
   const recovered=JSON.parse(decodeURIComponent(state.submitted.html.match(/name="hs-editor-metadata" content="([^"]*)"/)[1]));
   expect(recovered.catalogBaseSha).toBe('d'.repeat(40));
+  expect(state.submitted.html).toContain('English draft body');
 });
 
 for (const {width,height} of [{width:375,height:812},{width:768,height:812},{width:384,height:480}]) for(const dark of [false,true]) {

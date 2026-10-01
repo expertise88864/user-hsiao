@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260692"></script>
+<script src="/assets/trusted-types.js?v=20260693"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>HsiaoEye Admin</title>
@@ -21,7 +21,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260692';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260693';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -716,7 +716,7 @@
   </div>
 </div>
 
-<script src="/assets/admin-cwv.js?v=20260692"></script>
+<script src="/assets/admin-cwv.js?v=20260693"></script>
 <script>
 // ───────────────── State ─────────────────
 const API = '/api/admin';

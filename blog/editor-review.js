@@ -84,6 +84,9 @@ export function describeDocument(doc) {
     } catch { lines.push('[標題／摘要資料無法解析]'); }
   }
   article.querySelectorAll('h1,h2,h3,p,li,td,th,figcaption,blockquote,pre,img,svg').forEach(el => {
+    // Reader navigation is absent from editable history; compare author content
+    // consistently while leaving the complete original export unchanged.
+    if (el.closest('#hs-inline-toc')) return;
     if (el.tagName === 'IMG') {
       lines.push('[圖片] ' + (el.getAttribute('alt') || '(無替代文字)') + '\n' +
         (el.getAttribute('src') || '') + '\n' + (el.getAttribute('srcset') || ''));

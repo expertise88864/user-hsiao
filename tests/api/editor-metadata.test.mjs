@@ -43,6 +43,7 @@ test('actual save handler reads catalog revision, rejects stale title changes, a
   globalThis.fetch=async(url,options={})=>{
     url=String(url);const json=data=>({ok:true,json:async()=>data});
     if(url.includes('/contents/')) {const content=url.includes('blog-shared')?shared:currentHtml;return json({sha:articleBlobSha(content),content:Buffer.from(content).toString('base64')});}
+    if(url.includes('/git/blobs/'))return {status:404,ok:false};
     if(url.includes('/git/ref/'))return json({object:{sha:'base'}});
     if(url.endsWith('/git/commits/base'))return json({tree:{sha:'tree'}});
     if(url.endsWith('/git/blobs')){created.push(JSON.parse(options.body).content);return json({sha:'blob'});}
@@ -86,6 +87,7 @@ test('title and article are committed atomically; changed catalog or article rev
   globalThis.fetch=async(url, options={})=>{
     url=String(url);
     if(url.includes('/contents/')) return json({content:Buffer.from(source).toString('base64'),sha:url.includes('blog-shared')?sharedSha:staleArticle?'b'.repeat(40):articleSha});
+    if(url.includes('/git/blobs/'))return {status:404,ok:false};
     if(url.includes('/git/ref/'))return json({object:{sha:'base'}});
     if(url.endsWith('/git/commits/base'))return json({tree:{sha:'tree'}});
     if(url.endsWith('/git/blobs')){created.push(JSON.parse(options.body).content);return json({sha:'blob'+created.length});}
@@ -108,4 +110,59 @@ test('title and article are committed atomically; changed catalog or article rev
     await assert.rejects(commitArticleWithModifiedDate(args),/conflict|changed/i);
     assert.equal(refs,1);
   } finally {globalThis.fetch=oldFetch;if(oldToken===undefined)delete process.env.GITHUB_TOKEN;else process.env.GITHUB_TOKEN=oldToken;}
+});
+
+test('a historical title draft can save over unrelated catalog changes without replacing concurrent author titles', async () => {
+  const oldFetch = globalThis.fetch, oldToken = process.env.GITHUB_TOKEN;
+  process.env.GITHUB_TOKEN = 'fixture';
+  const historical = "DN.ARTICLES=[{slug:'first',title:'原標題',title_en:'Original English',date:'2026-05-01'},{slug:'other',title:'Other',title_en:'Other English',date:'2026-05-01'}];";
+  const catalogBaseSha = articleBlobSha(historical), articleSha = 'a'.repeat(40);
+  const unrelated = historical.replace("title:'Other'", "title:'Other author edit'");
+  const cases = [
+    { shared: unrelated, accepted: true },
+    { shared: unrelated.replace("title:'原標題'", "title:'Concurrent title'"), accepted: false },
+    { shared: unrelated.replace("title_en:'Original English'", "title_en:'Concurrent English'"), accepted: false },
+    { shared: unrelated, missing: true, accepted: false }
+  ];
+  for (const [key, value] of [['title', '原標題'], ['title_en', 'Original English']]) {
+    const field = key + ":'" + value + "'";
+    for (const replace of [text => text.replace(field + ',', ''), text => text.replace(field, key + ':42'), text => text.replace(field, key + ":''")]) {
+      cases.push({ historical: replace(historical), shared: replace(unrelated), accepted: false });
+    }
+  }
+  try {
+    for (const fixture of cases) {
+      const originalBase = fixture.historical || historical, catalogBaseSha = articleBlobSha(originalBase);
+      let refs = 0, created = [];
+      const json = data => ({ ok: true, json: async () => data });
+      globalThis.fetch = async (url, options = {}) => {
+        url = String(url);
+        if (url.endsWith('/git/blobs/' + catalogBaseSha)) {
+          if (fixture.missing) return { status: 404, ok: false };
+          return json({ sha: catalogBaseSha, encoding: 'base64', content: Buffer.from(originalBase).toString('base64') });
+        }
+        if (url.includes('/contents/')) return json({ content: Buffer.from(fixture.shared).toString('base64'), sha: url.includes('blog-shared') ? articleBlobSha(fixture.shared) : articleSha });
+        if (url.includes('/git/ref/')) return json({ object: { sha: 'base' } });
+        if (url.endsWith('/git/commits/base')) return json({ tree: { sha: 'tree' } });
+        if (url.endsWith('/git/blobs')) { created.push(JSON.parse(options.body).content); return json({ sha: 'blob' + created.length }); }
+        if (url.endsWith('/git/trees')) return json({ sha: 'new-tree' });
+        if (url.endsWith('/git/commits')) return json({ sha: 'new-commit' });
+        if (url.includes('/git/refs/')) { refs++; assert.equal(JSON.parse(options.body).force, false); return json({}); }
+        throw new Error('Unexpected fixture request ' + new URL(url).pathname);
+      };
+      const saving = commitArticleWithModifiedDate({ slug: 'first', content: 'Recovered author HTML', articleSha, message: 'fixture', titleUpdates: { title: 'Recovered title' }, catalogBaseSha });
+      if (fixture.accepted) {
+        await saving;
+        assert.equal(refs, 1);
+        assert.equal(created[0], 'Recovered author HTML');
+        const rows = catalogRecords(created[1]).map(row => row.values);
+        assert.equal(rows.find(row => row.slug === 'first').title, 'Recovered title');
+        assert.equal(rows.find(row => row.slug === 'other').title, 'Other author edit');
+      } else {
+        await assert.rejects(saving, /conflict|changed/i);
+        assert.equal(refs, 0);
+        assert.equal(created.length, 0);
+      }
+    }
+  } finally { globalThis.fetch = oldFetch; if (oldToken === undefined) delete process.env.GITHUB_TOKEN; else process.env.GITHUB_TOKEN = oldToken; }
 });
