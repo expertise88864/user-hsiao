@@ -79,7 +79,8 @@
           "required": [
             "Resolve verified deployment for this revision",
             "Install Lighthouse browser dependencies",
-            "Run Lighthouse CI"
+            "Run Lighthouse CI",
+            "Upload font environment"
           ],
           "conditional": []
         },

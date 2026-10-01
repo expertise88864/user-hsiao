@@ -1,0 +1,71 @@
+// CI-only font diagnostics. Never read cookies, storage, HTML or author text.
+// The four fallback probes use system fonts only, so collecting them does not
+// request additional web fonts or change the page's own font-loading policy.
+const PROBE_ID = 'lh-font-environment-probes';
+
+async function collectFontEnvironment(page, session) {
+  let inserted = false;
+  try {
+    const state = await page.evaluate(id => {
+      if (document.getElementById(id)) throw new Error('Font probe ID already exists');
+      const selectors = ['main h1', '.article-list-item h3', 'main p'];
+      const targets = selectors.filter(selector => document.querySelector(selector));
+      const parent = document.createElement('div');
+      parent.id = id;
+      Object.assign(parent.style, {position:'fixed', left:'0', top:'-10000px', opacity:'0', pointerEvents:'none'});
+      parent.setAttribute('aria-hidden','true');
+      const labels = [];
+      for (const [kind, family] of [['sans',"'PingFang TC','Microsoft JhengHei',system-ui,sans-serif"], ['serif','Georgia,serif']]) {
+        for (const [lang,text] of [['en','Ophthalmology articles'],['zh','眼科衛教文章']]) {
+          const label = kind + '-' + lang;
+          const span = document.createElement('span');
+          span.id = id + '-' + label;
+          span.textContent = text;
+          Object.assign(span.style, {display:'block', width:'max-content', fontFamily:family, fontSize:'40px', fontWeight:'700', lineHeight:'normal'});
+          parent.appendChild(span);
+          labels.push(label);
+        }
+      }
+      document.body.appendChild(parent);
+      const samples = [...targets.map(selector => ({label:selector,selector})), ...labels.map(label => ({label:'fallback-'+label,selector:'#'+id+'-'+label}))];
+      return {locale:navigator.language, language:document.documentElement.lang, viewport:{width:innerWidth,height:innerHeight}, fontStatus:document.fonts.status,
+        samples:samples.map(sample => {
+          const element = document.querySelector(sample.selector),style = getComputedStyle(element),rect = element.getBoundingClientRect();
+          return {...sample,fontFamily:style.fontFamily,fontSize:style.fontSize,fontWeight:style.fontWeight,lineHeight:style.lineHeight,width:rect.width,height:rect.height};
+        })};
+    }, PROBE_ID);
+    inserted = true;
+    await session.send('DOM.enable');
+    await session.send('CSS.enable');
+    const {root} = await session.send('DOM.getDocument');
+    for (const sample of state.samples) {
+      const {nodeId} = await session.send('DOM.querySelector',{nodeId:root.nodeId,selector:sample.selector});
+      if (!nodeId) throw new Error('Font probe node missing');
+      // CDP reports direct text nodes; a heading composed entirely of spans
+      // has no direct glyphs. Query descendant IDs without retrieving text or
+      // HTML. Keep a union of fonts, with maximum per-element glyph counts,
+      // rather than inventing an aggregate count across nested elements.
+      const {nodeIds} = await session.send('DOM.querySelectorAll',{nodeId,selector:'*'});
+      const selected = new Map();
+      for (const elementId of [nodeId,...nodeIds]) {
+        const {fonts} = await session.send('CSS.getPlatformFontsForNode',{nodeId:elementId});
+        if (!Array.isArray(fonts)) throw new Error('Font response invalid');
+        for (const {familyName,postScriptName,isCustomFont,glyphCount} of fonts) {
+          const key = JSON.stringify([familyName,postScriptName,isCustomFont]);
+          const previous = selected.get(key);
+          if (!previous || glyphCount > previous.glyphCount) selected.set(key,{familyName,postScriptName,isCustomFont,glyphCount});
+        }
+      }
+      if (!selected.size) throw new Error('Font selection unavailable');
+      sample.fonts = Array.from(selected.values());
+      sample.glyphCountScope = 'maximum per direct-text element; not a total';
+      delete sample.selector;
+    }
+    const {product} = await session.send('Browser.getVersion');
+    return {schemaVersion:1,browser:product,phase:'before-lighthouse-navigation',...state};
+  } finally {
+    if (inserted) await page.evaluate(id => document.getElementById(id)?.remove(),PROBE_ID);
+  }
+}
+
+module.exports = {collectFontEnvironment,PROBE_ID};

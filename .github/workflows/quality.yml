@@ -395,6 +395,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@3e7e23fb74242897f95c0ba9cabad3d0227b9b18 # v12
         env:
           SITE_URL: ${{ steps.site.outputs.url }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
         with:
           urls: |
@@ -406,6 +407,13 @@ jobs:
           uploadArtifacts: true
           temporaryPublicStorage: false
           configPath: ./.github/workflows/lighthouserc.json
+
+      - name: Upload font environment
+        uses: actions/upload-artifact@v4
+        with:
+          name: font-environment
+          path: font-environment-results/*.json
+          if-no-files-found: error
 
   link-check:
     name: Internal link check
