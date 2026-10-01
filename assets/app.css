@@ -138,6 +138,9 @@ img, video { max-width: 100%; height: auto; }
    inside the same heading (e.g., "Dr. Hsiao"). Mixing the order avoids
    FOUT-related visual flicker when Fraunces is still loading.            */
 .font-display    { font-family: 'Noto Serif TC', 'Fraunces', Georgia, serif; }
+/* Keep article hero CJK pitch consistent while its web font loads. Unsupported
+   browsers retain their normal fallback; the requested font family stays intact. */
+main > section > .max-w-3xl > h1.font-display { font-size-adjust: ic-width 1; }
 .font-sans       { font-family: Inter, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif; }
 .font-bold       { font-weight: 700; }
 .font-semibold   { font-weight: 600; }
