@@ -53,3 +53,44 @@ test('failed CDP font selection cleans up probes and preserves reading controls'
   await expect(page.locator('#hs-blog-search')).toBeEnabled();
  }finally{await session.detach();}
 });
+
+test('font diagnostics reacquire nodes after a transient empty rendered-font response',async({page,context,browserName})=>{
+ test.skip(browserName!=='chromium','Lighthouse font diagnostics require Chromium CDP');
+ await page.goto('/blog');
+ await page.waitForFunction(()=>document.querySelector('#hs-blog-filter').dataset.filterReady==='1');
+ const session=await context.newCDPSession(page);let headingReads=0,emptyHeading=true;
+ try {
+  const delayed={async send(command,args){
+   if(command==='DOM.querySelector'&&args.selector==='main h1'){
+    headingReads++;emptyHeading=headingReads===1;
+    if(headingReads===2)await page.locator('main h1').evaluate(el=>{el.innerHTML='<span>Rendered diagnostic heading</span>';});
+   }
+   if(command==='CSS.getPlatformFontsForNode'&&emptyHeading)return {fonts:[]};
+   return session.send(command,args);
+  }};
+  const report=await collectFontEnvironment(page,delayed);
+  expect(headingReads).toBeGreaterThanOrEqual(2);
+  expect(headingReads).toBeLessThanOrEqual(4);
+  expect(report.samples.find(sample=>sample.label==='main h1').selectionAttempts).toBe(headingReads);
+  expect(report.samples.every(sample=>sample.fonts.some(font=>font.glyphCount>0))).toBe(true);
+  await expect(page.locator('#'+PROBE_ID)).toHaveCount(0);
+ }finally{await session.detach();}
+});
+
+test('persistently empty font selection remains an error and removes diagnostics',async({page,context,browserName})=>{
+ test.skip(browserName!=='chromium','Lighthouse font diagnostics require Chromium CDP');
+ await page.goto('/blog');
+ await page.waitForFunction(()=>document.querySelector('#hs-blog-filter').dataset.filterReady==='1');
+ const session=await context.newCDPSession(page);let headingReads=0;
+ try {
+  const empty={async send(command,args){
+   if(command==='DOM.querySelector'&&args.selector==='main h1')headingReads++;
+   if(command==='CSS.getPlatformFontsForNode')return {fonts:[]};
+   return session.send(command,args);
+  }};
+  await expect(collectFontEnvironment(page,empty)).rejects.toThrow('Font selection unavailable: main h1');
+  expect(headingReads).toBe(4);
+  await expect(page.locator('#'+PROBE_ID)).toHaveCount(0);
+  await expect(page.locator('#hs-blog-search')).toBeEnabled();
+ }finally{await session.detach();}
+});

@@ -37,26 +37,38 @@ async function collectFontEnvironment(page, session) {
     inserted = true;
     await session.send('DOM.enable');
     await session.send('CSS.enable');
-    const {root} = await session.send('DOM.getDocument');
     for (const sample of state.samples) {
-      const {nodeId} = await session.send('DOM.querySelector',{nodeId:root.nodeId,selector:sample.selector});
-      if (!nodeId) throw new Error('Font probe node missing');
+      let selected;
       // CDP reports direct text nodes; a heading composed entirely of spans
       // has no direct glyphs. Query descendant IDs without retrieving text or
       // HTML. Keep a union of fonts, with maximum per-element glyph counts,
       // rather than inventing an aggregate count across nested elements.
-      const {nodeIds} = await session.send('DOM.querySelectorAll',{nodeId,selector:'*'});
-      const selected = new Map();
-      for (const elementId of [nodeId,...nodeIds]) {
-        const {fonts} = await session.send('CSS.getPlatformFontsForNode',{nodeId:elementId});
-        if (!Array.isArray(fonts)) throw new Error('Font response invalid');
-        for (const {familyName,postScriptName,isCustomFont,glyphCount} of fonts) {
-          const key = JSON.stringify([familyName,postScriptName,isCustomFont]);
-          const previous = selected.get(key);
-          if (!previous || glyphCount > previous.glyphCount) selected.set(key,{familyName,postScriptName,isCustomFont,glyphCount});
+      // Immediately after load, Chromium can return an empty font list while
+      // text is being rendered or replaced by the language runtime. Retry only
+      // that empty result, with a bounded paint opportunity; reacquire DOM IDs
+      // so a replaced heading cannot leave us querying detached descendants.
+      // Protocol errors and missing nodes still fail immediately. This does
+      // not wait for web-font downloads or change the site's loading policy.
+      for (let attempt = 1; attempt <= 4; attempt++) {
+        const {root} = await session.send('DOM.getDocument');
+        const {nodeId} = await session.send('DOM.querySelector',{nodeId:root.nodeId,selector:sample.selector});
+        if (!nodeId) throw new Error('Font probe node missing');
+        const {nodeIds} = await session.send('DOM.querySelectorAll',{nodeId,selector:'*'});
+        selected = new Map();
+        for (const elementId of [nodeId,...nodeIds]) {
+          const {fonts} = await session.send('CSS.getPlatformFontsForNode',{nodeId:elementId});
+          if (!Array.isArray(fonts)) throw new Error('Font response invalid');
+          for (const {familyName,postScriptName,isCustomFont,glyphCount} of fonts) {
+            const key = JSON.stringify([familyName,postScriptName,isCustomFont]);
+            const previous = selected.get(key);
+            if (!previous || glyphCount > previous.glyphCount) selected.set(key,{familyName,postScriptName,isCustomFont,glyphCount});
+          }
         }
+        sample.selectionAttempts = attempt;
+        if (selected.size || attempt === 4) break;
+        await new Promise(resolve => setTimeout(resolve,50));
       }
-      if (!selected.size) throw new Error('Font selection unavailable');
+      if (!selected.size) throw new Error('Font selection unavailable: ' + sample.label);
       sample.fonts = Array.from(selected.values());
       sample.glyphCountScope = 'maximum per direct-text element; not a total';
       delete sample.selector;
