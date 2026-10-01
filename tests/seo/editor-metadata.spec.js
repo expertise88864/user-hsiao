@@ -8,7 +8,8 @@ const original=readFileSync(path.join(root,'blog',slug+'.html'),'utf8');
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.json':'application/json'};
 async function setup(page, options={}) {
   const { default:middleware }=await new Function('url','return import(url)')('data:text/javascript;base64,'+Buffer.from(readFileSync(path.join(root,'middleware.js'),'utf8')).toString('base64'));
-  const state={html:original,sha:'a'.repeat(40),catalogSha:'d'.repeat(40),posts:0,submitted:null};
+  const articleSlug=options.slug||slug;
+  const state={html:options.slug?readFileSync(path.join(root,'blog',articleSlug+'.html'),'utf8'):original,sha:'a'.repeat(40),catalogSha:'d'.repeat(40),posts:0,submitted:null};
   if(options.citation) state.html=state.html.replace('</head>','<script type="application/ld+json">{"@type":"BlogPosting","@id":"https://external.example/article","headline":"External citation title","description":"External citation description"}</script></head>');
   if(options.fresh) state.html=original.replace('data-zh="乾眼症 8 大迷思" data-en="8 Dry-Eye Myths">乾眼症 8 大迷思</span><br',
     'data-zh="最新來源主標題" data-en="Latest source heading">最新來源主標題</span><br');
@@ -32,17 +33,99 @@ async function setup(page, options={}) {
     return route.fulfill({body:readFileSync(file),contentType:mime[path.extname(file)]||'application/octet-stream',headers});
   });
   await page.goto(origin+'/admin');await page.waitForFunction(()=>typeof openEditor==='function');
-  await page.evaluate(s=>openEditor(s),slug);
+  await page.evaluate(s=>openEditor(s),articleSlug);
   const frame=page.frameLocator('#edit-iframe');await expect(frame.locator('#hs-adm-save')).toBeVisible();
   return {frame,state};
 }
 const input=(frame,key)=>frame.locator('#hs-editor-'+key);
+
+const darkPilots=['lacrimal-gland-tumor','dry-eye-myths','floaters-retinal-detachment','pediatric-myopia-control','glaucoma-comprehensive-guide'];
+for(const articleSlug of [...darkPilots,'dry-eye-symptom-sign-discordance-dream','thyroid-eye-disease','cataract-surgery-selection']) {
+ const pilot=darkPilots.includes(articleSlug);
+ for(const width of pilot?[360,390,768,1440]:[390]) {
+  for(const mode of pilot?['public','editor']:['public']) test(`painted dark reading contrast: ${articleSlug}, ${mode}, ${width}px`,async({page})=>{
+    await page.setViewportSize({width,height:844});
+    await page.emulateMedia({colorScheme:'dark'});
+    const {state}=await setup(page,{slug:articleSlug});
+    let subject=page.frames().find(f=>f.url().includes('?admin=1'));
+    if(mode==='public'){await page.goto(origin+'/blog/'+articleSlug);subject=page.mainFrame();}
+    // Visit reveal cards using the site's own observer. An axe full-body scan
+    // can otherwise begin while an offscreen card is fading into view.
+    for(const card of await subject.locator('.reveal, .article-list-item, .myth-card').all()) {
+      if(!await card.isVisible())continue;
+      await card.scrollIntoViewIfNeeded();
+      // Authenticated source replacement can already be opaque without the
+      // public observer's class. Assert the painted state in both modes.
+      await expect(card).toHaveCSS('opacity','1');
+      await card.evaluate(async el=>{
+        await Promise.all(el.getAnimations({subtree:true}).filter(a=>a.effect&&a.timeline===document.timeline&&a.effect.getTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})));
+      });
+    }
+    if(mode==='public') {
+      await subject.locator('#hs-related').scrollIntoViewIfNeeded();
+      await expect(subject.locator('#hs-related .hs-related-grid > a').first()).toBeVisible();
+    } else {
+      // Existing editing chrome intentionally hides recommendations.
+      await expect(subject.locator('#hs-related')).toBeHidden();
+    }
+    await require('../../scripts/a11y-rendering.cjs').prepareA11yPage(subject);
+    await subject.evaluate(async()=>{
+      await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+      // A scroll timeline cannot finish by elapsed time. Keep its actual
+      // rendering, while allowing ordinary finite transitions to settle.
+      await Promise.all(document.getAnimations().filter(a=>a.effect&&a.timeline===document.timeline&&a.effect.getTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})));
+    });
+    expect(await subject.evaluate(()=>document.documentElement.dataset.theme)).toBe('dark');
+    await subject.evaluate(axeSource);
+    const result=await subject.evaluate(()=>window.axe.run(document.body,{runOnly:{type:'rule',values:['color-contrast']}}));
+    expect(result.violations).toEqual([]);
+    // SVG/gradient cases axe cannot decide remain explicit manual-review
+    // evidence. A passing text-contrast test is not complete WCAG approval.
+    await test.info().attach('contrast-manual-review',{body:JSON.stringify(result.incomplete),contentType:'application/json'});
+    expect(state.posts).toBe(0);
+  });
+ }
+}
+
+for(const width of [360,390]) for(const dark of [false,true]) {
+ test(`opened mobile menu stays readable at ${width}px, dark=${dark}`,async({page})=>{
+  await page.setViewportSize({width,height:844});await page.emulateMedia({colorScheme:dark?'dark':'light'});
+  const {state}=await setup(page);await page.goto(origin+'/blog/dry-eye-myths');
+  const toggle=page.locator('#hsMobileMenuBtn');await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded','true');
+  await expect(page.locator('#hsMobileDrawer a').first()).toBeVisible();
+  await page.evaluate(axeSource);
+  const result=await page.evaluate(()=>window.axe.run(document.getElementById('hsMobileDrawer'),{runOnly:{type:'rule',values:['color-contrast']}}));
+  expect(result.violations).toEqual([]);
+  if(dark)await expect(toggle).toHaveCSS('color','rgb(245, 240, 230)');
+  await toggle.click();await expect(toggle).toHaveAttribute('aria-expanded','false');
+  expect(await page.locator('body').evaluate(el=>el.style.overflow)).toBe('');expect(state.posts).toBe(0);
+ });
+}
+
+test('lazy related-heading contrast waits for the actual runtime response',async({page})=>{
+ await page.setViewportSize({width:390,height:844});await page.emulateMedia({colorScheme:'dark'});
+ await page.goto('/blog/dry-eye-myths');
+ let release;const response=new Promise(resolve=>{release=resolve});let requested=false;
+ await page.route('**/assets/related.json',async route=>{requested=true;await response;await route.fulfill({json:{'dry-eye-myths':[{slug:'glaucoma-comprehensive-guide',reasons:[]},{slug:'thyroid-eye-disease',reasons:[]}]}})});
+ await page.locator('#hs-related').evaluate(el=>el.replaceChildren());
+ await page.evaluate(()=>DN.addRelatedArticles());
+ await page.locator('#hs-related').scrollIntoViewIfNeeded();
+ await expect.poll(()=>requested).toBe(true);await expect(page.locator('#hs-related-title')).toHaveCount(0);
+ release();await expect(page.locator('#hs-related .hs-related-grid > a')).toHaveCount(2);
+ await expect(page.locator('#hs-related .hs-related-grid > a').first()).toHaveAttribute('href','/blog/glaucoma-comprehensive-guide');
+ await expect(page.locator('#hs-related-title')).toBeVisible();await page.evaluate(axeSource);
+ const result=await page.evaluate(()=>window.axe.run(document.getElementById('hs-related'),{runOnly:{type:'rule',values:['color-contrast']}}));
+ expect(result.violations).toEqual([]);
+});
 
 for(const dark of [false,true]) test(`editor canvas, toolbar, menu and saved status stay legible, dark=${dark}`,async({page})=>{
   await page.setViewportSize({width:390,height:844});
   await page.emulateMedia({colorScheme:dark?'dark':'light'});
   const {frame,state}=await setup(page);
   const articleFrame=page.frames().find(f=>f.url().includes('?admin=1'));
+  await expect(frame.locator('.myth-card').first()).toHaveCSS('opacity','1');
+  await expect(frame.locator('.myth-card').first()).toHaveCSS('animation-name','none');
   const colors=await frame.locator('body').evaluate(el=>{
     const style=getComputedStyle(el);
     return {background:style.backgroundColor,expected:style.getPropertyValue('--bg').trim(),footerOpacity:getComputedStyle(document.querySelector('.mag-footer')).opacity};

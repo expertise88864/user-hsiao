@@ -100,9 +100,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260685');
-      historyModule = await import('/blog/editor-history.js?v=20260685');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260685');
+      editorReview = await import('/blog/editor-review.js?v=20260686');
+      historyModule = await import('/blog/editor-history.js?v=20260686');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260686');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -158,6 +158,9 @@
         '[contenteditable="true"]:focus{outline-color:var(--blue-deep,#243b56);outline-style:solid}' +
         '[contenteditable="true"]:hover{outline-color:rgba(58,90,124,.6)}' +
         // Hide non-editable chrome in admin to reduce distraction
+        // Editing text must stay opaque; scroll-driven reveals can remain
+        // partially faded when a long card exceeds the iframe viewport.
+        'body.hs-admin .reveal,body.hs-admin .myth-card,body.hs-admin .article-list-item{animation:none!important;opacity:1!important;transform:none!important}' +
         'body.hs-admin #hs-share, body.hs-admin #hs-author-bio, body.hs-admin #hs-bmc, body.hs-admin #hs-related, body.hs-admin #hs-prevnext, body.hs-admin #hs-feedback, body.hs-admin #hs-print-btn, body.hs-admin #hs-bookmark, body.hs-admin #hs-totop{display:none!important}' +
         'body.hs-admin .mag-footer{opacity:1}';
       document.head.appendChild(st);
@@ -994,7 +997,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260685';
+        runtime.src = '/blog/editor-preview.js?v=20260686';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');

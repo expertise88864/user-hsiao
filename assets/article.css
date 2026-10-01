@@ -478,23 +478,8 @@ figure.article-fig svg {
   aspect-ratio: attr(viewBox type(*) auto, auto);
 }
 
-/* ============================================================
-   Magazine footer (mag-footer) — MOVED to app.css
-   ------------------------------------------------------------
-   The footer markup is site-wide (home, about, privacy, notes, blog
-   index/topics, articles). Its styles previously lived here, but
-   non-article pages don't load article.css, so they rendered a broken
-   unstyled footer. The rules now live in assets/app.css (loaded on
-   every page). Do not re-add them here — single source of truth.
-   ============================================================ */
-
-/* ============================================================
-   On-page FAQ accordion (.hs-faq)
-   ------------------------------------------------------------
-   Visible patient Q&A at the end of articles. The same <details>
-   markup is auto-scanned by _gen_faqpage_jsonld.py to emit FAQPage
-   rich-result JSON-LD. Loaded only on article pages (article.css).
-   ============================================================ */
+/* Site-wide footer styles belong only in app.css (DECISIONS D10).
+   Article FAQ <details> also feed _gen_faqpage_jsonld.py. */
 .hs-faq { margin: 36px 0 8px; }
 .hs-faq > h2 { font-size: clamp(20px, 3vw, 26px); margin: 0 0 14px; }
 .hs-faq details {
@@ -530,3 +515,49 @@ figure.article-fig svg {
 #proseZh [id],#proseEn [id]{scroll-margin-top:90px}
 
 [data-theme="dark"] .hs-reading-path a{color:#b7d8f5}
+
+/* Dark reading: navigation and prose use a text token, rather than changing
+   the blue token also used by authored backgrounds. Diagram/table palettes
+   stay together so colored severity rows and SVG legends retain their hue. */
+:root[data-theme="dark"] #hs-inline-toc,
+:root[data-theme="dark"] #hs-toc-float,
+:root[data-theme="dark"] .hs-related-box,
+:root[data-theme="dark"] .hs-related-grid > a,
+:root[data-theme="dark"] #hs-author-bio > div,
+:root[data-theme="dark"] #hs-support > div { background:var(--surface) !important; }
+:root[data-theme="dark"] #hs-inline-toc summary,
+:root[data-theme="dark"] #hs-toc-float > div,
+:root[data-theme="dark"] #hs-toc-float a[data-toc],
+:root[data-theme="dark"] nav[aria-label="Breadcrumb"] a,
+:root[data-theme="dark"] nav[aria-label="Breadcrumb"] + div,
+:root[data-theme="dark"] nav[aria-label="Breadcrumb"] + div > span,
+:root[data-theme="dark"] .hs-article-page section > div > div[data-zh][data-en][style*="color:var(--blue-deep)"],
+:root[data-theme="dark"] .hs-article-page section > div > p a,
+:root[data-theme="dark"] .prose a,
+:root[data-theme="dark"] .prose h4[style*="color:var(--blue-deep)"],
+:root[data-theme="dark"] .references a,
+:root[data-theme="dark"] .hs-related-pill,
+:root[data-theme="dark"] #hs-related-title,
+:root[data-theme="dark"] #hs-copylink,
+:root[data-theme="dark"] .hs-calc-tools-link,
+:root[data-theme="dark"] #hs-reading-meta > span:first-child { color:var(--hs-link-ink) !important; }
+:root[data-theme="dark"] #hs-inline-toc summary span { opacity:1 !important; }
+:root[data-theme="dark"] .blue-text { background:none; color:var(--hs-link-ink); }
+:root[data-theme="dark"] .hs-related-grid > a { --blue-deep:var(--hs-link-ink); }
+:root[data-theme="dark"] .hs-related-pill:hover { background:#34455c !important; }
+:root[data-theme="dark"] .myth-card .truth strong { color:inherit; }
+:root[data-theme="dark"] .alert-card,
+:root[data-theme="dark"] .alert-card p,
+:root[data-theme="dark"] .alert-card strong { color:#fcaaaa !important; }
+:root[data-theme="dark"] #hs-author-bio [style*="color:#334155"],
+:root[data-theme="dark"] #hs-author-bio [style*="color:#64748b"],
+:root[data-theme="dark"] #hs-support [style*="color:#334155"] { color:var(--ink-2) !important; }
+:root[data-theme="dark"] article figure,
+:root[data-theme="dark"] table.dn,
+:root[data-theme="dark"] table.ted-table,
+:root[data-theme="dark"] .prose div[style*="background:#f8fafc"] {
+  --bg:#faf7f2; --surface:#fff; --ink:#2a2620; --ink-2:#4a443c;
+  --muted:#6e6759; --blue-deep:#3a5a7c; --blue-soft:#d6e4f0;
+  --border:#dcd5c8; --line:#ebe4d8; --hs-link-ink:#3a5a7c;
+  background:#fff !important; color:#4a443c !important;
+}

@@ -1634,7 +1634,7 @@
     // 4 cards collapse into 3+1 on wider screens — visually unbalanced).
     // 2 columns × up to 2 rows: cards now fill 左上→右上→左下→右下 cleanly.
     // On <520px viewport the grid drops to 1 column for readability.
-    let html = '<div style="border-top:1px solid var(--line);padding-top:24px"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:12px" data-zh="你可能也會想看" data-en="Related reads">你可能也會想看</div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px" class="hs-related-grid">';
+    let html = '<div style="border-top:1px solid var(--line);padding-top:24px"><div id="hs-related-title" style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:12px" data-zh="你可能也會想看" data-en="Related reads">你可能也會想看</div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px" class="hs-related-grid">';
     // v36.2: on /en/ pages, link to /en/blog/<slug>, not /blog/<slug>.
     // Critical SEO fix: previously every JS-injected "related reads" card
     // on an EN article linked back to the ZH version, sending Google the
@@ -2349,7 +2349,7 @@
       st.id = 'hs-theme-style';
       st.textContent =
         ':root[data-theme="dark"]{' +
-          '--bg:#1a1815;--surface:#252220;--ink:#f5f0e6;--ink-2:#c9c0b0;--muted:#8a8275;' +
+          '--bg:#1a1815;--surface:#252220;--ink:#f5f0e6;--ink-2:#c9c0b0;--muted:#b8b0a0;' +
           '--border:#3a352d;--line:#2f2a23;--mint-soft:#2a2620;' +
           '--blue-soft:#1f2e42;--teal-bright:#5e7c98;' +
         '}' +
@@ -3162,7 +3162,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260685';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260686';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3786,7 +3786,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260685';
+    s.src = '/blog/blog-admin.js?v=20260686';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
