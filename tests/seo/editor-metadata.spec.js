@@ -38,6 +38,42 @@ async function setup(page, options={}) {
   return {frame,state};
 }
 const input=(frame,key)=>frame.locator('#hs-editor-'+key);
+test('saving in English preserves authenticated Chinese diagram controls and English author edits',async({page})=>{
+  const {frame,state}=await setup(page);
+  const originalControls=state.html.match(/<details\b[^>]*class="hs-diagram-mode"[^>]*>[\s\S]*?<\/details>/g);
+  await frame.locator('#langToggle').selectOption('en');
+  await expect(frame.locator('.hs-diagram-mode').first()).toHaveAttribute('lang','en');
+  await expect(frame.locator('.hs-diagram-mode summary').first()).toHaveText('Enlarge diagram');
+  await input(frame,'descriptionEn').fill('Author edited English search summary');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  const savedControls=state.submitted.html.match(/<details\b[^>]*class="hs-diagram-mode"[^>]*>[\s\S]*?<\/details>/g);
+  expect(savedControls).toEqual(originalControls);
+  await page.getByRole('button',{name:'← 回到後台',exact:true}).click();await expect(page.locator('#edit-shell')).toBeHidden();
+  await page.evaluate(s=>openEditor(s),slug);await expect(frame.locator('#hs-adm-save')).toBeVisible();
+  await expect(input(frame,'descriptionEn')).toHaveValue('Author edited English search summary');
+});
+test('diagram reading state stays out of authenticated source and author SVG survives reopen',async({page})=>{
+  const {frame,state}=await setup(page);
+  const mode=frame.locator('.hs-diagram-mode').first(),svg=frame.locator('.hs-diagram-scroll>svg').first();
+  await expect(mode).toBeHidden();
+  expect(await frame.locator('.hs-diagram-hint[contenteditable]').count()).toBe(0);
+  const originalSvg=await svg.evaluate(el=>el.outerHTML);
+  const originalWidth=await svg.evaluate(el=>el.getBoundingClientRect().width);
+  await mode.evaluate(el=>{el.open=true;});
+  expect(await svg.evaluate(el=>el.getBoundingClientRect().width)).toBe(originalWidth);
+  await frame.locator('#langToggle').selectOption('en');
+  await expect(mode).toHaveAttribute('lang','en');
+  await frame.locator('#langToggle').selectOption('zh');
+  await input(frame,'descriptionZh').fill('作者修改搜尋摘要，圖表維持原內容。');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  const tags=state.submitted.html.match(/<details\b[^>]*class="hs-diagram-mode"[^>]*>/g);
+  expect(tags.length).toBeGreaterThan(0);
+  for(const tag of tags){expect(tag).not.toMatch(/\sopen(?:\s|=|>)/);expect(tag).not.toMatch(/\slang=/);}
+  await page.getByRole('button',{name:'← 回到後台',exact:true}).click();await expect(page.locator('#edit-shell')).toBeHidden();
+  await page.evaluate(s=>openEditor(s),slug);await expect(frame.locator('#hs-adm-save')).toBeVisible();
+  expect(await frame.locator('.hs-diagram-scroll>svg').first().evaluate(el=>el.outerHTML)).toBe(originalSvg);
+  await expect(input(frame,'descriptionZh')).toHaveValue('作者修改搜尋摘要，圖表維持原內容。');
+});
 test('table instructions follow editor language without changing authored saved lang attributes',async({page})=>{
   const {frame,state}=await setup(page);
   const group=frame.locator('#proseZh .hs-table-scroll').first();

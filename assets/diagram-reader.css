@@ -1,0 +1,12 @@
+/* Static controls: native details and keyboard scrolling also work without JS. */
+.hs-diagram-reader{max-width:100%;min-width:0}
+.hs-diagram-mode{margin:8px 0;font-size:14px;line-height:1.6;color:var(--ink)}
+.hs-diagram-mode summary{cursor:pointer;padding:6px 0}
+.hs-diagram-mode summary:focus-visible,.hs-diagram-scroll:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.hs-diagram-mode .hs-diagram-hint{font-size:13px;margin:8px 0;color:var(--ink-2)}
+.hs-diagram-scroll{overflow:auto;max-width:100%;min-width:0}
+.hs-diagram-mode[open]+.hs-diagram-scroll{max-height:75vh}
+.hs-diagram-mode[open]+.hs-diagram-scroll>svg{width:max(100%,var(--hs-diagram-width))!important;min-width:var(--hs-diagram-width)!important;max-width:none!important;height:auto!important;max-height:none!important}
+.hs-admin .hs-diagram-mode{display:none}
+.hs-admin .hs-diagram-mode[open]+.hs-diagram-scroll>svg{width:100%!important;min-width:0!important;max-width:100%!important}
+@media print{.hs-diagram-mode{display:none}.hs-diagram-scroll{overflow:visible;max-height:none!important}.hs-diagram-mode[open]+.hs-diagram-scroll>svg{width:100%!important;min-width:0!important;max-width:100%!important}}

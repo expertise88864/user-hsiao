@@ -100,9 +100,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260688');
-      historyModule = await import('/blog/editor-history.js?v=20260688');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260688');
+      editorReview = await import('/blog/editor-review.js?v=20260689');
+      historyModule = await import('/blog/editor-history.js?v=20260689');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260689');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -175,6 +175,7 @@
     var registeredEditables = new WeakSet();
     function registerEditables() {
       document.querySelectorAll(EDITABLE_SEL).forEach(function (el) {
+        if (el.closest('.hs-diagram-mode')) return;
         if (el === document.querySelector('h1') && metadataModule && !metadataWorkspace.element.querySelector('#hs-editor-titleZh').disabled) return;
         el.contentEditable = 'true';
         el.spellcheck = false;
@@ -197,6 +198,7 @@
       _sanitizeForSerialize(clean);
       var key = 'data-' + ((document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh');
       rendered.forEach(function (el, index) {
+        if (el.closest('.hs-diagram-mode')) return;
         var copy = translated[index];
         if (el.hasAttribute(key) && copy && cleanArticle.contains(copy) && copy.hasAttribute(key)) el.setAttribute(key, copy.getAttribute(key));
       });
@@ -927,6 +929,15 @@
       clone.removeAttribute('data-theme');
       // Table instruction language follows the live UI, not the saved source.
       var sourceTableGroups = Array.from(baseDocument.querySelectorAll('.hs-table-scroll'));
+      clone.querySelectorAll('.hs-diagram-mode').forEach(function (el) {
+        var source = baseDocument.getElementById(el.id);
+        if (!source) return;
+        var language = source.getAttribute('lang');
+        if (language === null) el.removeAttribute('lang');
+        else el.setAttribute('lang', language);
+        if (source.hasAttribute('open')) el.setAttribute('open', source.getAttribute('open'));
+        else el.removeAttribute('open');
+      });
       clone.querySelectorAll('.hs-table-scroll,.hs-table-hint').forEach(function (el) {
         var source = el.classList.contains('hs-table-hint') ? baseDocument.getElementById(el.id) :
           sourceTableGroups.find(function (node) { return node.getAttribute('aria-labelledby') === el.getAttribute('aria-labelledby'); });
@@ -961,6 +972,7 @@
       if (clone.matches('article.max-w-3xl, #proseZh, #proseEn')) roots.unshift(clone);
       roots.forEach(function (root) {
         Array.from(root.querySelectorAll('[data-zh],[data-en]')).reverse().forEach(function (el) {
+          if (el.closest('.hs-diagram-mode')) return;
           if (syncSeen.indexOf(el) !== -1) return;   // dedup nested roots
           syncSeen.push(el);
           if (el.hasAttribute(attrName)) {
@@ -969,6 +981,15 @@
             el.setAttribute(attrName, el.hasAttribute('data-hs-text') || el.hasAttribute('data-hs-text-' + currentLang) ? el.textContent : el.innerHTML);
           }
         });
+      });
+      // Reader controls are translated UI, not authored article text. Restore
+      // their authenticated children after bilingual write-back, without
+      // replacing the mode element or touching the adjacent author SVG.
+      clone.querySelectorAll('.hs-diagram-mode').forEach(function (el) {
+        var source = baseDocument.getElementById(el.id);
+        if (!source || !source.classList.contains('hs-diagram-mode')) return;
+        var controls = prepareEditableArticle(source.cloneNode(true));
+        el.replaceChildren.apply(el, Array.from(controls.childNodes));
       });
       return clone;
     }
@@ -1007,7 +1028,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260688';
+        runtime.src = '/blog/editor-preview.js?v=20260689';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');

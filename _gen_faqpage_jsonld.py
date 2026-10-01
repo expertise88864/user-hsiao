@@ -138,6 +138,8 @@ def extract_faqs(src: str) -> list[dict[str, str]]:
     faqs: list[dict[str, str]] = []
     seen: set[str] = set()
     for details in scope.find_all("details"):
+        if "hs-diagram-mode" in details.get("class", []):
+            continue
         summary = details.find("summary")
         if not summary:
             continue

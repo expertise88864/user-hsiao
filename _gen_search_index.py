@@ -95,6 +95,7 @@ class VisibleTextExtractor(HTMLParser):
         style = attr_map.get("style", "").replace(" ", "").lower()
         return (
             tag in self.SKIP_TAGS
+            or 'hs-diagram-mode' in attr_map.get('class', '').split()
             or "display:none" in style
             or "hidden" in attr_map
             or attr_map.get("aria-hidden", "").lower() == "true"

@@ -748,6 +748,12 @@ def _swap_inner_to_english(html_str):
         if hint.get('lang') != 'en':
             hint['lang'] = 'en'
             reader_changed = True
+    # Isolate English reader controls from an untranslated authored figure.
+    # The SVG/scroll region keeps its existing inherited content language.
+    for mode in soup.select('.hs-diagram-mode'):
+        if mode.get('lang') != 'en':
+            mode['lang'] = 'en'
+            reader_changed = True
 
     if swaps == 0 and annotated == 0 and not prose_changed and not reader_changed:
         return html_str

@@ -12,6 +12,7 @@ BUDGETS = {
     'assets/vitals.min.js': (15, 6),
     'assets/app.css':      (45, 14),
     'assets/article.css':  (18,  6),
+    'assets/diagram-reader.css': (3, 1),
     'sw.js':               (52, 21),
     'middleware.js':       (45,  7),
 }
