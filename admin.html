@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260687"></script>
+<script src="/assets/trusted-types.js?v=20260688"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>HsiaoEye Admin</title>
@@ -21,7 +21,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260687';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260688';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -716,7 +716,7 @@
   </div>
 </div>
 
-<script src="/assets/admin-cwv.js?v=20260687"></script>
+<script src="/assets/admin-cwv.js?v=20260688"></script>
 <script>
 // ───────────────── State ─────────────────
 const API = '/api/admin';
@@ -831,7 +831,12 @@ async function closeEditor() {
       if (!(await editor.DN.adminBeforeClose())) return;
     }
   document.getElementById('edit-shell').hidden = true;
-  document.getElementById('edit-iframe').src = 'about:blank';
+  // A pending about:blank navigation can win over a rapid same-article reopen
+  // in WebKit. Destroy the departed context without scheduling another load.
+  const oldFrame = document.getElementById('edit-iframe');
+  const emptyFrame = oldFrame.cloneNode(false);
+  emptyFrame.removeAttribute('src');
+  oldFrame.replaceWith(emptyFrame);
   document.body.style.overflow = '';
   window.removeEventListener('message', editorMsgHandler);
   loadList();  // refresh list in case anything changed

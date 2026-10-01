@@ -3165,7 +3165,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260687';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260688';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3789,7 +3789,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260687';
+    s.src = '/blog/blog-admin.js?v=20260688';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -5292,10 +5292,12 @@
       var t = (opts && opts.timeout) || 250;
       return setTimeout(function () { cb({ didTimeout: false, timeRemaining: function () { return 50; } }); }, t);
     };
-    var idle = function (cb, opts) {
+    var idle = function (cb, opts, editorSafe) {
       return _rIC(function (deadline) {
         try {
-          cb(deadline);
+          // Reader widgets must not mutate the authenticated editor source,
+          // including callbacks that run after the author has started saving.
+          if (editorSafe || !DN.isAdminMode()) cb(deadline);
         } catch (e) {
           try {
             if (window.console && console.warn) console.warn('[hs-init] idle block failed:', e);
@@ -5465,7 +5467,7 @@
       safeCall('bindComputePressure', function () { DN.bindComputePressure(); }); // back off CSS anims / prefetch when CPU stressed
       // (cookie banner removed; Consent Mode v2 defaults remain set in <head>)
       safeCall('registerSW', function () { DN.registerSW(); });
-    }, { timeout: 2500 });
+    }, { timeout: 2500 }, true); // Keep SW registration and background services in the editor.
 
     // CRITICAL: re-apply lang to all DOM populated in PHASE 1.
     // (PHASE 2 work re-runs this itself after its own injections.)
