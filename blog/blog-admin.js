@@ -100,9 +100,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260684');
-      historyModule = await import('/blog/editor-history.js?v=20260684');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260684');
+      editorReview = await import('/blog/editor-review.js?v=20260685');
+      historyModule = await import('/blog/editor-history.js?v=20260685');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260685');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -135,14 +135,21 @@
       var st = document.createElement('style');
       st.id = 'hs-admin-css';
       st.textContent =
-        '#hs-admin-bar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9998;background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px;box-shadow:0 18px 40px -12px rgba(15,23,42,.32);padding:10px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto}' +
+        // A transparent article document otherwise inherits the light CMS
+        // iframe canvas, even after its text switches to the dark palette.
+        'body.hs-admin{background:var(--bg,#faf7f2);color:var(--ink,#2a2620)}' +
+        ':root[data-theme="dark"] body.hs-admin{--muted:#b8b0a0}' +
+        '#hs-admin-bar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9998;background:var(--surface,#fff);border:1px solid var(--border,#dcd5c8);border-radius:14px;box-shadow:0 18px 40px -12px rgba(15,23,42,.32);padding:10px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto}' +
         '@media(max-height:600px){#hs-admin-bar{max-height:40dvh;box-sizing:border-box}}' +
-        '#hs-admin-bar button, #hs-admin-bar select{padding:6px 10px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border,#dcd5c8);background:#fff;color:var(--ink-2,#5e574e);transition:all .12s}' +
-        '#hs-admin-bar button:hover{border-color:var(--blue-deep,#243b56);color:var(--blue-deep,#243b56)}' +
-        '#hs-admin-bar button.primary{background:var(--blue-deep,#243b56);color:#fff;border-color:var(--blue-deep,#243b56)}' +
+        '#hs-admin-bar button, #hs-admin-bar select{padding:6px 10px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border,#dcd5c8);background:var(--surface,#fff);color:var(--ink-2,#5e574e);transition:all .12s}' +
+        '#hs-admin-bar button:hover{border-color:var(--ink-2,#5e574e);color:var(--ink,#2a2620)}' +
+        '#hs-admin-bar button:focus-visible,#hs-admin-bar select:focus-visible{outline:2px solid var(--ink,#2a2620);outline-offset:2px}' +
+        '#hs-admin-bar button.primary{background:#243b56;color:#fff;border-color:#243b56}' +
         '#hs-admin-bar button.primary:hover{color:#fff;opacity:.9}' +
-        '#hs-admin-bar button.danger{background:#fff;color:#dc2626;border-color:#fca5a5}' +
+        '#hs-admin-bar button.danger{background:var(--surface,#fff);color:#dc2626;border-color:#fca5a5}' +
+        ':root[data-theme="dark"] #hs-admin-bar button.danger{color:#fca5a5}' +
         '#hs-admin-bar button.danger:hover{background:#fee2e2;color:#991b1b}' +
+        ':root[data-theme="dark"] #hs-admin-bar button.danger:hover{color:#991b1b}' +
         '#hs-admin-bar .sep{width:1px;height:22px;background:var(--border,#dcd5c8);margin:0 4px}' +
         '#hs-admin-bar .group-label{font-size:10.5px;color:var(--muted,#8b8378);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-right:4px}' +
         '#hs-admin-status{flex-basis:100%;background:#243b56;color:#fff;padding:9px 12px;border-radius:8px;font-size:13px;max-height:18vh;overflow:auto}' +
@@ -152,7 +159,7 @@
         '[contenteditable="true"]:hover{outline-color:rgba(58,90,124,.6)}' +
         // Hide non-editable chrome in admin to reduce distraction
         'body.hs-admin #hs-share, body.hs-admin #hs-author-bio, body.hs-admin #hs-bmc, body.hs-admin #hs-related, body.hs-admin #hs-prevnext, body.hs-admin #hs-feedback, body.hs-admin #hs-print-btn, body.hs-admin #hs-bookmark, body.hs-admin #hs-totop{display:none!important}' +
-        'body.hs-admin .mag-footer{opacity:.4}';
+        'body.hs-admin .mag-footer{opacity:1}';
       document.head.appendChild(st);
     }
     document.body.classList.add('hs-admin');
@@ -750,7 +757,7 @@
     // ─────────────────────────────────────────────────────────────────
     var slashMenu = document.createElement('div');
     slashMenu.id = 'hs-slash-menu';
-    slashMenu.style.cssText = 'position:absolute;background:#fff;border:1px solid #dcd5c8;border-radius:10px;box-shadow:0 14px 38px -14px rgba(15,23,42,.32);padding:6px 0;min-width:220px;z-index:9999;display:none;font-size:13px;font-family:Inter,"Noto Sans TC",sans-serif';
+    slashMenu.style.cssText = 'position:absolute;background:var(--surface,#fff);color:var(--ink,#2a2620);border:1px solid var(--border,#dcd5c8);border-radius:10px;box-shadow:0 14px 38px -14px rgba(15,23,42,.32);padding:6px 0;min-width:220px;z-index:9999;display:none;font-size:13px;font-family:Inter,"Noto Sans TC",sans-serif';
     document.body.appendChild(slashMenu);
 
     var SLASH_COMMANDS = [
@@ -800,12 +807,12 @@
       });
       slashMenu.innerHTML = items.map(function (c, i) {
         return '<div class="hs-slash-item" data-key="' + c.key + '" style="padding:7px 14px;cursor:pointer;display:flex;gap:10px;align-items:center" tabindex="-1">' +
-               '<span style="width:22px;text-align:center;font-weight:600;color:#3a5a7c">' + c.icon + '</span>' +
+               '<span style="width:22px;text-align:center;font-weight:600;color:inherit">' + c.icon + '</span>' +
                '<span>' + c.label + '</span></div>';
-      }).join('') || '<div style="padding:8px 14px;color:#8b8378;font-size:12px">沒有匹配命令</div>';
+      }).join('') || '<div style="padding:8px 14px;color:var(--muted,#6e6759);font-size:12px">沒有匹配命令</div>';
       // First item highlighted
       var first = slashMenu.querySelector('.hs-slash-item');
-      if (first) first.style.background = '#f3f7fb';
+      if (first) first.style.background = 'var(--blue-soft,#f3f7fb)';
     }
 
     slashMenu.addEventListener('mousedown', function (e) { e.preventDefault(); });
@@ -987,7 +994,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260684';
+        runtime.src = '/blog/editor-preview.js?v=20260685';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -1027,7 +1034,7 @@
       s.setAttribute('role', cls === 'error' ? 'alert' : 'status');
       s.textContent = msg;
       if (cls === 'error') s.style.background = '#dc2626';
-      else if (cls === 'success') s.style.background = '#16a34a';
+      else if (cls === 'success') s.style.background = '#166534';
       else s.style.background = '#243b56';
       if (window.parent !== window) {
         window.parent.postMessage({ type: 'hs-admin-state', slug: slug, message: msg }, window.location.origin);

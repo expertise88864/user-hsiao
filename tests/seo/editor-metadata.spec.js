@@ -38,6 +38,46 @@ async function setup(page, options={}) {
 }
 const input=(frame,key)=>frame.locator('#hs-editor-'+key);
 
+for(const dark of [false,true]) test(`editor canvas, toolbar, menu and saved status stay legible, dark=${dark}`,async({page})=>{
+  await page.setViewportSize({width:390,height:844});
+  await page.emulateMedia({colorScheme:dark?'dark':'light'});
+  const {frame,state}=await setup(page);
+  const articleFrame=page.frames().find(f=>f.url().includes('?admin=1'));
+  const colors=await frame.locator('body').evaluate(el=>{
+    const style=getComputedStyle(el);
+    return {background:style.backgroundColor,expected:style.getPropertyValue('--bg').trim(),footerOpacity:getComputedStyle(document.querySelector('.mag-footer')).opacity};
+  });
+  expect(colors.background).toBe(dark?'rgb(26, 24, 21)':'rgb(250, 247, 242)');
+  expect(colors.footerOpacity).toBe('1');
+  expect(await frame.locator('body').evaluate(()=>!!DN._adminDirty)).toBe(false);
+  await articleFrame.evaluate(axeSource);
+  async function contrast(selectors){
+    await articleFrame.evaluate(async()=>{
+      await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+      await Promise.all([...document.getElementById('hs-admin-bar').getAnimations({subtree:true})].filter(a=>a.effect.getTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})));
+    });
+    const result=await articleFrame.evaluate(include=>window.axe.run({include:include.map(s=>[s])},{runOnly:{type:'rule',values:['color-contrast']}}),selectors);
+    expect(result.violations).toEqual([]);
+  }
+  await contrast(['#hs-admin-bar']);
+  await frame.locator('#hs-adm-cancel').hover();await contrast(['#hs-adm-cancel']);
+  await frame.locator('#hs-adm-check').hover();await contrast(['#hs-adm-check']);
+  await frame.locator('#hs-adm-check').press('Tab');
+  const p=frame.locator('#proseZh > p[contenteditable]').first();
+  await p.fill('');await p.press('/');
+  await expect(frame.locator('#hs-slash-menu')).toBeVisible();
+  await contrast(['#hs-slash-menu']);
+  await p.press('Escape');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  await expect(frame.locator('#hs-admin-status')).toContainText('已保存至 GitHub');
+  await contrast(['#hs-admin-bar']);
+  const submitted=await page.evaluate(html=>{const doc=new DOMParser().parseFromString(html,'text/html');return{style:doc.body.getAttribute('style'),classes:doc.body.className,editorCss:!!doc.getElementById('hs-admin-css')}},state.submitted.html);
+  expect(submitted.style).toBeNull();expect(submitted.classes).not.toContain('hs-admin');expect(submitted.editorCss).toBe(false);
+  // Footer is content-visibility:auto; inspect its painted colors only.
+  await require('../../scripts/a11y-rendering.cjs').prepareA11yPage(articleFrame);
+  await contrast(['footer']);
+});
+
 test('authenticated heading replaces a stale public heading; opening the workspace does not dirty or rewrite metadata',async({page})=>{
   const {frame,state}=await setup(page,{fresh:true});
   await expect(frame.locator('h1')).toContainText('最新來源主標題');
