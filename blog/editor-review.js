@@ -90,7 +90,7 @@ export function describeDocument(doc) {
     if (el.tagName === 'IMG') {
       lines.push('[圖片] ' + (el.getAttribute('alt') || '(無替代文字)') + '\n' +
         (el.getAttribute('src') || '') + '\n' + (el.getAttribute('srcset') || ''));
-    } else if (el.tagName === 'SVG') {
+    } else if (el.localName === 'svg') {
       lines.push('[圖表] ' + (el.getAttribute('aria-label') || text(el.querySelector('title')) || '(無標題)'));
     } else {
       const value = text(el);

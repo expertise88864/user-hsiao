@@ -338,10 +338,10 @@
     if (fromCookie && DN.LANG_KEY[fromCookie]) return fromCookie;
     const stored = (function(){ try { return localStorage.getItem('hs_lang'); } catch(e){ return null; } })();
     if (stored && DN.LANG_KEY[stored]) return stored;
-    const nav = (navigator.language || 'zh').toLowerCase();
-    if (nav.startsWith('zh')) return 'zh';
-    if (nav.startsWith('en')) return 'en';
-    return 'zh';
+    // A fresh visit uses the language of its canonical route. Browser locale
+    // must not silently translate a Chinese URL for readers or search crawlers.
+    // Explicit saved preferences and editor-preview language still win above.
+    return /^\/en(?:\/|$)/.test(location.pathname) ? 'en' : 'zh';
   };
 
   // v36.2: URL prefix for the page we're currently on. Returns '/en' when
@@ -3168,7 +3168,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260695';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260696';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3792,7 +3792,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260695';
+    s.src = '/blog/blog-admin.js?v=20260696';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

@@ -209,3 +209,9 @@
 - 先落實可量測的閱讀試點；不以增加字數、重複關鍵字或縮短醫療限制換取點擊。醫療核可規則不變。
 - 重開條件：站主改變主要讀者定位，或分眾實測支持新的入口安排。
 - 詳細範圍與事件定義見 READER-EXPERIENCE.md。
+
+### D-30 首次閱讀語言依網址決定（2026-10-02）
+- 沒有有效 Cookie 或 localStorage 語言偏好時，中文 canonical 網址以中文呈現，`/en` 與 `/en/…` 以英文呈現；不依瀏覽器語系自動改寫中文網址的正文。
+- 手動切換、已保存的有效語言偏好及編輯器預覽語言維持原優先序。英文生成頁的既有 bootstrap、stub／noindex 邊界與未翻譯內容政策保持原狀。
+- 搜尋爬蟲與一般訪客使用相同規則，不以 user-agent 或國家提供不同內容。語言預設修正不保證索引、排名或點擊成長。
+- 依據：[Google 語言適應頁面指引](https://developers.google.com/search/docs/specialty/international/locale-adaptive-pages?hl=en)。重開條件：站主另定語言導覽政策，或已量測的讀者任務需求支持改變。

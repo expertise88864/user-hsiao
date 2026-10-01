@@ -46,6 +46,27 @@ async function open(page) {
 const panel = frame => frame.getByRole('region', { name:'保存前健檢與版本比較' });
 const paragraph = frame => frame.locator('#proseZh > p[contenteditable]').first();
 
+test('version summary names inline SVG diagrams and preserves complete source', async ({ page }) => {
+  await page.goto('/blog/dry-eye-myths');
+  const result = await page.evaluate(async () => {
+    const { describeDocument } = await import('/blog/editor-review.js');
+    const parse = label => new DOMParser().parseFromString('<title>比較</title><article class="max-w-3xl"><p>作者正文</p>' +
+      '<svg aria-label="' + label + '"><path d="M0 0L10 10"/></svg>' +
+      '<svg><title>既有圖表標題</title><text>圖內標示</text></svg><svg><path d="M0 0"/></svg></article>', 'text/html');
+    const before = parse('原圖表'), after = parse('更新圖表');
+    const source = after.documentElement.outerHTML;
+    return { tagName:after.querySelector('svg').tagName, before:describeDocument(before).summary,
+      after:describeDocument(after).summary, sourcePreserved:describeDocument(after).source===source && after.documentElement.outerHTML===source };
+  });
+  expect(result.tagName).toBe('svg');
+  expect(result.before).toContain('[圖表] 原圖表');
+  expect(result.after).toContain('[圖表] 更新圖表');
+  expect(result.after).not.toContain('[圖表] 原圖表');
+  expect(result.after).toContain('[圖表] 既有圖表標題');
+  expect(result.after).toContain('[圖表] (無標題)');
+  expect(result.sourcePreserved).toBe(true);
+});
+
 test('version summaries exclude generated contents while retaining the complete original source', async ({ page }) => {
   await page.goto('/blog/dry-eye-myths');
   const result = await page.evaluate(async () => {

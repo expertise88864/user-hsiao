@@ -42,6 +42,7 @@ class _TextExtractor(HTMLParser):
         self.parts: list[str] = []
         self._skip_depth = 0
         self._reader_depth = 0
+        self._hint_depth = 0
 
     def handle_starttag(self, tag, attrs):
         if self._reader_depth:
@@ -51,6 +52,13 @@ class _TextExtractor(HTMLParser):
         if tag == 'details' and (dict(attrs).get('id') == 'hs-inline-toc' or
                 'hs-diagram-mode' in (dict(attrs).get('class') or '').split()):
             self._reader_depth = 1
+            return
+        if self._hint_depth:
+            if tag == 'p':
+                self._hint_depth += 1
+            return
+        if tag == 'p' and 'hs-table-hint' in (dict(attrs).get('class') or '').split():
+            self._hint_depth = 1
             return
         if tag in _SKIP_TREE:
             self._skip_depth += 1
@@ -65,6 +73,10 @@ class _TextExtractor(HTMLParser):
             if tag == 'details':
                 self._reader_depth -= 1
             return
+        if self._hint_depth:
+            if tag == 'p':
+                self._hint_depth -= 1
+            return
         if tag in _SKIP_TREE and self._skip_depth:
             self._skip_depth -= 1
             return
@@ -74,7 +86,7 @@ class _TextExtractor(HTMLParser):
             self.parts.append('\n')
 
     def handle_data(self, data):
-        if self._skip_depth or self._reader_depth:
+        if self._skip_depth or self._reader_depth or self._hint_depth:
             return
         if data and data.strip():
             self.parts.append(data)
