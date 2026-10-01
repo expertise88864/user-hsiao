@@ -72,6 +72,68 @@ test('bilingual table edits survive Undo/Redo, save, and reopening the saved sou
   await frame.locator('#langToggle').selectOption('en');await expect(ec).toHaveText('English cell');
 });
 
+test('saving an unrelated edit preserves literal comparisons in bilingual prose and SVG labels',async({page})=>{
+  const fixture='<p id="literal-pair" data-zh="甲 &gt; 乙 &amp; 丙" data-en="A &lt; B &amp; C">甲 &gt; 乙 &amp; 丙</p><svg viewBox="0 0 120 30"><text id="literal-svg" x="0" y="20" data-zh="MD &gt; -2 dB" data-en="MD &lt; -2 dB">MD &gt; -2 dB</text></svg>';
+  const html=source.replace('<div id="proseZh" class="prose">','<div id="proseZh" class="prose">'+fixture);
+  const {frame,state}=await setup(page,html);
+  await frame.locator('#proseZh > p[contenteditable]').nth(1).fill('另一段已修改');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  const saved=await page.evaluate(html=>{
+    const doc=new DOMParser().parseFromString(html,'text/html');
+    return ['literal-pair','literal-svg'].map(id=>{const el=doc.getElementById(id);return [el.getAttribute('data-zh'),el.getAttribute('data-en')];});
+  },state.submitted.html);
+  expect(saved).toEqual([['甲 > 乙 & 丙','A < B & C'],['MD > -2 dB','MD < -2 dB']]);
+  await page.reload();await page.waitForFunction(()=>typeof openEditor==='function');await page.evaluate(s=>openEditor(s),slug);
+  await expect(frame.locator('#literal-pair')).toHaveText('甲 > 乙 & 丙');
+  await expect(frame.locator('#literal-svg')).toHaveText('MD > -2 dB');
+  await frame.locator('#langToggle').selectOption('en');
+  await expect(frame.locator('#literal-pair')).toHaveText('A < B & C');
+  await expect(frame.locator('#literal-svg')).toHaveText('MD < -2 dB');
+});
+
+test('literal tag syntax stays text after save and reopening without changing opposite-language rich text',async({page})=>{
+  const html=source.replace('<div id="proseZh" class="prose">','<div id="proseZh" class="prose"><p id="literal-edit" data-zh="原文" data-en="&lt;strong&gt;Original English&lt;/strong&gt;">原文</p>');
+  const {frame,state}=await setup(page,html);
+  await frame.locator('#literal-edit').fill('請保留 <em>文字</em> & > 符號');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  const saved=await page.evaluate(html=>{const el=new DOMParser().parseFromString(html,'text/html').getElementById('literal-edit');return [el.getAttribute('data-zh'),el.getAttribute('data-en'),el.hasAttribute('data-hs-text-zh'),el.hasAttribute('data-hs-text-en')];},state.submitted.html);
+  expect(saved).toEqual(['請保留 <em>文字</em> & > 符號','<strong>Original English</strong>',true,false]);
+  await page.reload();await page.waitForFunction(()=>typeof openEditor==='function');await page.evaluate(s=>openEditor(s),slug);
+  await expect(frame.locator('#literal-edit')).toHaveText('請保留 <em>文字</em> & > 符號');
+  await expect(frame.locator('#literal-edit em')).toHaveCount(0);
+  await frame.locator('#langToggle').selectOption('en');
+  await expect(frame.locator('#literal-edit strong')).toHaveText('Original English');
+  await frame.locator('#langToggle').selectOption('zh');
+  await expect(frame.locator('#literal-edit')).toHaveText('請保留 <em>文字</em> & > 符號');
+});
+
+test('literal tag text can later receive genuine rich formatting without losing it on save',async({page})=>{
+  const html=source.replace('<div id="proseZh" class="prose">','<div id="proseZh" class="prose"><p id="literal-transition" data-zh="原文" data-en="English counterpart">原文</p>');
+  const {frame,state}=await setup(page,html);
+  const p=frame.locator('#literal-transition');
+  await p.fill('保留 <em>標記字樣</em>');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  await page.reload();await page.waitForFunction(()=>typeof openEditor==='function');await page.evaluate(s=>openEditor(s),slug);
+  await expect(p).toHaveAttribute('contenteditable','true');
+  await p.fill('真正粗體');await p.press('Control+a');await frame.locator('[data-cmd="bold"]').click();
+  await expect(p.locator('b,strong')).toHaveText('真正粗體');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(2);
+  await page.reload();await page.waitForFunction(()=>typeof openEditor==='function');await page.evaluate(s=>openEditor(s),slug);
+  await expect(p).toHaveAttribute('contenteditable','true');
+  await expect(p.locator('b,strong')).toHaveText('真正粗體');
+  await frame.locator('#langToggle').selectOption('en');await expect(p).toHaveText('English counterpart');
+  await frame.locator('#langToggle').selectOption('zh');await expect(p.locator('b,strong')).toHaveText('真正粗體');
+});
+
+test('unsaved literal tag text remains literal across language switching',async({page})=>{
+  const html=source.replace('<div id="proseZh" class="prose">','<div id="proseZh" class="prose"><p id="literal-toggle" data-zh="原文" data-en="English counterpart">原文</p>');
+  const {frame}=await setup(page,html);
+  const p=frame.locator('#literal-toggle');await p.fill('保留 <em>標記字樣</em>');
+  await frame.locator('#langToggle').selectOption('en');await expect(p).toHaveText('English counterpart');
+  await frame.locator('#langToggle').selectOption('zh');await expect(p).toHaveText('保留 <em>標記字樣</em>');
+  await expect(p.locator('em')).toHaveCount(0);
+});
+
 test('new typing after Undo invalidates Redo and retains the restored caret',async({page})=>{
   const {frame}=await setup(page), p=frame.locator('#proseZh > p[contenteditable]').first();
   await expect(frame.locator('#hs-inline-toc')).toHaveCount(0);

@@ -105,9 +105,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260696');
-      historyModule = await import('/blog/editor-history.js?v=20260696');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260696');
+      editorReview = await import('/blog/editor-review.js?v=20260697');
+      historyModule = await import('/blog/editor-history.js?v=20260697');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260697');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -212,7 +212,13 @@
       rendered.forEach(function (el, index) {
         if (el.closest('.hs-diagram-mode')) return;
         var copy = translated[index];
-        if (el.hasAttribute(key) && copy && cleanArticle.contains(copy) && copy.hasAttribute(key)) el.setAttribute(key, copy.getAttribute(key));
+        if (el.hasAttribute(key) && copy && cleanArticle.contains(copy) && copy.hasAttribute(key)) {
+          el.setAttribute(key, copy.getAttribute(key));
+          ['data-hs-text-' + key.slice(5), 'data-hs-editor-text-' + key.slice(5)].forEach(function (marker) {
+            if (copy.hasAttribute(marker)) el.setAttribute(marker, copy.getAttribute(marker));
+            else el.removeAttribute(marker);
+          });
+        }
       });
       DN._bilingualCache = null;
       applyArticleLanguage(lang);
@@ -994,9 +1000,24 @@
           if (syncSeen.indexOf(el) !== -1) return;   // dedup nested roots
           syncSeen.push(el);
           if (el.hasAttribute(attrName)) {
-            // Mirror current rendered content into the attribute. innerHTML
-            // preserves <strong>, <a> etc. that the editor may have inserted.
-            el.setAttribute(attrName, el.hasAttribute('data-hs-text') || el.hasAttribute('data-hs-text-' + currentLang) ? el.textContent : el.innerHTML);
+            // Plain text must stay literal: innerHTML entity-encodes >, < and
+            // &, but DN.applyTextOnly renders non-markup values as textContent.
+            // Keep actual element markup for rich text, and mark literal tag
+            // syntax per language so it cannot become markup on reopening.
+            var textMarker = 'data-hs-text-' + currentLang;
+            var autoMarker = 'data-hs-editor-text-' + currentLang;
+            var explicitText = el.hasAttribute('data-hs-text') || (el.hasAttribute(textMarker) && !el.hasAttribute(autoMarker));
+            if (el.hasAttribute(autoMarker)) {
+              el.removeAttribute(textMarker);
+              el.removeAttribute(autoMarker);
+            }
+            var textOnly = explicitText || el.childElementCount === 0;
+            var value = textOnly ? el.textContent : el.innerHTML;
+            if (textOnly && !explicitText && /<\/?[a-z]/i.test(value)) {
+              el.setAttribute(textMarker, '');
+              el.setAttribute(autoMarker, '');
+            }
+            el.setAttribute(attrName, value);
           }
         });
       });
@@ -1046,7 +1067,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260696';
+        runtime.src = '/blog/editor-preview.js?v=20260697';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
