@@ -20,11 +20,28 @@ Idempotent: skips files already processed (look for `data-critical`).
 Run after every CSS change:
   python _extract_critical_css.py
 """
-import os, re, sys, io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+import os, re, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CSS_PATH = os.path.join(ROOT, 'assets', 'app.css')
+
+def is_summary_fallback_face(body):
+    """Include only our controlled, local-only summary metric aliases.
+
+    Other font faces (especially remote src URLs) remain outside critical CSS.
+    This recognizes our authored declarations, not arbitrary CSS syntax.
+    """
+    declarations = re.sub(r'/\*[\s\S]*?\*/', '', body).split(';')
+    families = [d.split(':', 1)[1].strip() for d in declarations
+                if re.match(r'^\s*font-family\s*:', d, re.I)]
+    sources = [d.split(':', 1)[1].strip() for d in declarations
+               if re.match(r'^\s*src\s*:', d, re.I)]
+    if len(families) != 1 or len(sources) != 1:
+        return False
+    if not re.fullmatch(r'''(["'])Hsiao Summary Fallback\1''', families[0]):
+        return False
+    local = r'''local\(\s*(?:"[^"()]+"|'[^'()]+')\s*\)'''
+    return bool(re.fullmatch(local + r'(?:\s*,\s*' + local + r')*', sources[0], re.I))
 
 CRITICAL_SELECTORS_RE = re.compile(
     r'^(?:'
@@ -98,6 +115,9 @@ def parse_css_rules(css):
                     break
                 j += 1
             block = css[i:j]
+            face_m = re.fullmatch(r'@font-face\s*\{([\s\S]*)\}\s*', block, re.I)
+            if face_m and is_summary_fallback_face(face_m.group(1)):
+                out.append(('@font-face', '{' + face_m.group(1) + '}'))
             # Try to parse @media / @supports content for critical selectors.
             # P-05: capture WHICH at-rule this is. The rebuild used to hard-code
             # `@media {cond}`, so critical rules living inside `@supports (...)`
@@ -213,4 +233,6 @@ def main():
     print(f'Patched {n} HTML files with critical CSS inline')
 
 if __name__ == '__main__':
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
     main()

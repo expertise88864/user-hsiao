@@ -142,6 +142,35 @@ img, video { max-width: 100%; height: auto; }
    browsers retain their normal fallback; the requested font family stays intact. */
 main > section > .max-w-3xl > h1.font-display { font-size-adjust: ic-width 1; }
 .font-sans       { font-family: Inter, 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif; }
+/* Match the existing Inter 600 metrics during article-summary font loading.
+   Calibrated with a Latin/digit/punctuation pangram at 100px, not article copy.
+   Local-only aliases never fetch a font; CJK retains its existing fallback.
+   Keep these faces in critical CSS so the first paint uses the same metrics. */
+@font-face {
+  font-family: "Hsiao Summary Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  font-weight: 400;
+  font-style: normal;
+  size-adjust: 108.17083353799302%;
+  ascent-override: 89.67297082529232%;
+  descent-override: 22.187126802134184%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-024F;
+}
+@font-face {
+  font-family: "Hsiao Summary Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold");
+  font-weight: 700;
+  font-style: normal;
+  size-adjust: 103.97167305989967%;
+  ascent-override: 93.29464184356908%;
+  descent-override: 23.08321035304802%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-024F;
+}
+main > section > .max-w-3xl > .tldr {
+  font-family: Inter, "Hsiao Summary Fallback", 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif;
+}
 .font-bold       { font-weight: 700; }
 .font-semibold   { font-weight: 600; }
 .text-center     { text-align: center; }
