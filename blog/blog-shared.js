@@ -426,6 +426,9 @@
       if (!el.hasAttribute('data-hs-text') && !el.hasAttribute('data-hs-text-' + (lang === 'en' ? 'en' : 'zh')) && /[<&]/.test(txt) && /<\/?[a-z]/i.test(txt)) el.innerHTML = txt;
       else el.textContent = txt;
     }
+    document.querySelectorAll('#hs-blog-filter input[data-zh-placeholder][data-en-placeholder]').forEach(function (field) {
+      field.placeholder = field.getAttribute(lang === 'en' ? 'data-en-placeholder' : 'data-zh-placeholder');
+    });
   };
 
   DN.bindLangToggle = function (onChange) {
@@ -3165,7 +3168,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260694';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260695';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3789,7 +3792,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260694';
+    s.src = '/blog/blog-admin.js?v=20260695';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

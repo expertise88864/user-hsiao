@@ -7,6 +7,7 @@ for(const prefix of ['', '/en']) {
   try {
    const page=await context.newPage();await page.goto(test.info().project.use.baseURL+prefix+'/blog');
    await expect(page.locator('#hs-blog-filter')).toBeHidden();
+   await expect(page.locator('#hs-blog-search')).toHaveAttribute('placeholder',prefix?'Type to search…':'輸入關鍵字…');
    const articles=page.locator('.article-list-item');expect(await articles.count()).toBeGreaterThan(10);
    await expect(articles.first()).toBeVisible();await articles.first().click();
    await expect(page).toHaveURL(new RegExp(prefix+'/blog/[^/?]+$'));
@@ -30,9 +31,11 @@ for(const prefix of ['', '/en']) {
     return source&&state&&(!state.canReload||state.stamp===new URL(source.src).searchParams.get('v'));
    });
    const search=page.locator('#hs-blog-search');await expect(search).toBeDisabled();
+   await expect(search).toHaveAttribute('placeholder',prefix?'Type to search…':'輸入關鍵字…');
    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
    const before=await page.evaluate(()=>{window.filterSearchBefore=document.querySelector('#hs-blog-search');return document.querySelector('.article-list-item').getBoundingClientRect().top;});
    release();await expect(search).toBeEnabled();
+   await expect(search).toHaveAttribute('placeholder',prefix?'Type to search…':'輸入關鍵字…');
    expect(await page.evaluate(()=>window.filterSearchBefore===document.querySelector('#hs-blog-search'))).toBe(true);
    const after=await page.locator('.article-list-item').first().boundingBox();
    // Fonts/UI language may settle; the filter itself must not be inserted again.
@@ -53,6 +56,11 @@ for(const prefix of ['', '/en']) {
   await expect(tag.locator('span').first()).toHaveText(prefix?'Pediatric myopia':'兒童近視');
   const items=page.locator('.article-list-item:visible');expect(await items.count()).toBeGreaterThan(1);
   await expect(page).toHaveURL(/tag=%E5%85%92%E7%AB%A5%E8%BF%91%E8%A6%96/);
+   const search=page.locator('#hs-blog-search');
+   await page.locator('#langToggle').selectOption(prefix?'zh':'en');
+   await expect(search).toHaveAttribute('placeholder',prefix?'輸入關鍵字…':'Type to search…');
+   await page.locator('#langToggle').selectOption(prefix?'en':'zh');
+   await expect(search).toHaveAttribute('placeholder',prefix?'Type to search…':'輸入關鍵字…');
   await page.locator('#hs-blog-filter [data-cat="research"]').click();
   for(const item of await items.all())await expect(item).toHaveAttribute('data-cat','research');
  });

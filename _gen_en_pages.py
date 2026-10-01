@@ -711,6 +711,13 @@ def _swap_inner_to_english(html_str):
             prose_changed = prose_changed or block.get('style') != new_style
             block['style'] = new_style
     swaps = 0
+    # The generated filter owns paired placeholder attributes as well as text.
+    # Localize only this helper; authored form placeholders remain untouched.
+    for field in soup.select('#hs-blog-filter input[data-zh-placeholder][data-en-placeholder]'):
+        value = field.get('data-en-placeholder', '')
+        if value.strip() and field.get('placeholder') != value:
+            field['placeholder'] = value
+            swaps += 1
     for el in soup.select('[data-zh][data-en]'):
         en_val = el.get('data-en', '')
         if not en_val.strip():

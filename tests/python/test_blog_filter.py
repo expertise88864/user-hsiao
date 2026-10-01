@@ -11,6 +11,14 @@ def article(tag='兒童近視', en='Pediatric myopia', cat='rx'):
 
 
 class BlogFilterTests(unittest.TestCase):
+    def test_english_mirror_localizes_only_filter_placeholder(self):
+        from _gen_en_pages import _swap_inner_to_english
+        author = '<input id="author" placeholder="Author keeps this" data-zh-placeholder="ZH" data-en-placeholder="EN">'
+        source = '<html><body>' + author + PLACEHOLDER + article() * 4 + '</body></html>'
+        doc = BeautifulSoup(_swap_inner_to_english(render(source, 'x{}')), 'html.parser')
+        self.assertEqual(doc.select_one('#hs-blog-search')['placeholder'], 'Type to search…')
+        self.assertEqual(doc.select_one('#author')['placeholder'], 'Author keeps this')
+
     def test_generated_helper_is_fixed_point_and_preserves_every_other_byte(self):
         source = '<main>' + PLACEHOLDER + ''.join(article() for _ in range(4)) + '</main>'
         result = render(source, '.hs-blog-filter{margin:0}')
