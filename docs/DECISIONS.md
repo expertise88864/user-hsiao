@@ -7,7 +7,7 @@
 - 耦合：`_delivery.py`、policy、`.githooks/pre-push`、Vercel ignored-build gate、`REMOTE_CI_DELIVERY.md`。不得使用其他 push helper 避開。
 - CMS 新 commit 必須納入候選祖先；整合後 SHA 改變就重驗，不 force-push。存檔與正式發佈分開。
 - 視覺基準：只能在 codex/* 的已部署 Preview 上產生 Ubuntu artifact；HTTP 錯誤、登入導向、空主內容不得成為新基準，必須人工確認且另走候選 CI。
-- Codex 使用既有 `scripts/codex_review.sh deep`（gpt-5.6-sol/high/read-only），不使用舊文中的 MCP／貼 diff 範例。Claude 仍為 claude-opus-5/high。
+- Codex 使用既有 `scripts/codex_review.sh deep`（gpt-5.6-sol/high/read-only），不使用舊文中的 MCP／貼 diff 範例。Claude 模型指定依 2026-09-23 使用者定案更新為精確 `claude-opus-5-5`／high／read-only，核對實際 modelUsage；保留已完成歷史審查的真實模型。
 - 範圍：本機 hook 與 Git 自動部署防護，不宣稱已設定 GitHub server rules 或能阻止管理員手動繞過 Vercel ignored-build。
 - 錨：本次 delivery 設定 commit；重開條件：使用者另行定案。
 

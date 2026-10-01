@@ -151,13 +151,21 @@ test('existing complete-article recovery preserves separate Chinese and English 
 
 test('direct navigation prompts before abandoning unsaved author input', async ({ page }) => {
   await setup(page);
+  // Exercise the native fallback independently of the Navigation API guard.
+  // Link navigation with the guard active is covered in editor-review.spec.js.
+  await page.addInitScript(() => {
+    if ('navigation' in window) window.navigation.addEventListener('navigate', event => event.stopImmediatePropagation(), { capture:true });
+  });
   await page.goto(origin + '/blog/' + slug + '?admin=1', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('#hs-adm-save')).toBeVisible();
+  // A real gesture is required for native beforeunload prompts in Firefox.
+  await page.locator('#proseZh > p[contenteditable]').first().click();
   await page.locator('#proseZh > p[contenteditable]').first().fill('Do not silently abandon');
   let prompted = false;
   page.on('dialog', async dialog => { if (dialog.type() === 'beforeunload') prompted = true; await dialog.dismiss(); });
-  await page.goto('about:blank').catch(error => { if (!error.message.includes('ERR_ABORTED')) throw error; });
-  expect(prompted).toBe(true);
+  // A dismissed navigation does not settle page.goto consistently across engines.
+  await page.evaluate(() => { window.location.href = 'about:blank'; });
+  await expect.poll(() => prompted).toBe(true);
   await expect(page.locator('#proseZh > p[contenteditable]').first()).toHaveText('Do not silently abandon');
 });
 

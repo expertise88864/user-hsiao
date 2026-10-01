@@ -100,9 +100,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260690');
-      historyModule = await import('/blog/editor-history.js?v=20260690');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260690');
+      editorReview = await import('/blog/editor-review.js?v=20260691');
+      historyModule = await import('/blog/editor-history.js?v=20260691');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260691');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -302,12 +302,14 @@
     reviewPanel.hidden = true;
     reviewPanel.style.cssText = 'flex-basis:100%;max-height:35vh;overflow:auto;font-size:13px;line-height:1.6';
     bar.appendChild(reviewPanel);
-    var reviewSnapshot = null, reviewChangeNotice, reviewDownloads = [];
+    var reviewSnapshot = null, reviewChangeNotice, reviewDownloads = [], editorDownloadUrls = new Set();
+    function retireReviewDownload(url) {
+      editorDownloadUrls.delete(url);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+    }
     function clearReviewPanel() {
       // Let an in-flight download finish before retiring its object URL.
-      reviewDownloads.splice(0).forEach(function (url) {
-        setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
-      });
+      reviewDownloads.splice(0).forEach(retireReviewDownload);
       reviewPanel.replaceChildren();
     }
     function reviewLine(message) {
@@ -326,12 +328,13 @@
       function refreshDownload() {
         var next = URL.createObjectURL(new Blob([typeof html === 'function' ? html() : html], { type: 'text/plain;charset=utf-8' }));
         if (url) {
-          var retired = url;
-          setTimeout(function () { URL.revokeObjectURL(retired); }, 30000);
-          reviewDownloads.splice(reviewDownloads.indexOf(url), 1);
+          retireReviewDownload(url);
+          var previous = reviewDownloads.indexOf(url);
+          if (previous !== -1) reviewDownloads.splice(previous, 1);
         }
         url = next; link.href = url;
         reviewDownloads.push(url);
+        editorDownloadUrls.add(url);
       }
       refreshDownload();
       link.addEventListener('click', function (event) {
@@ -496,6 +499,9 @@
       draftDownload.textContent = '下載舊版本草稿';
       draftDownload.download = slug + '-conflict.html';
       draftDownload.href = URL.createObjectURL(new Blob([conflictDraft.html], { type: 'text/html' }));
+      // This backup belongs to the toolbar for the entire editor session;
+      // clearing a comparison must not retire its download URL.
+      editorDownloadUrls.add(draftDownload.href);
       bar.appendChild(draftDownload);
       status('舊版本草稿已另存備份，可下載比較；目前編輯的是最新文章。', 'error');
     }
@@ -1028,7 +1034,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260690';
+        runtime.src = '/blog/editor-preview.js?v=20260691';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -1253,6 +1259,11 @@
     });
     if ('navigation' in window) window.navigation.addEventListener('navigate', function (event) {
       if (event.downloadRequest !== null || allowClose || !DN._adminDirty) return;
+      // Firefox can emit a second navigate event with downloadRequest=null
+      // for the same download. Only exempt an explicit link to our live export.
+      var sourceLink = event.sourceElement;
+      if (sourceLink && sourceLink.tagName === 'A' && sourceLink.hasAttribute('download') &&
+          sourceLink.href === event.destination.url && editorDownloadUrls.has(event.destination.url)) return;
       if (!confirm('有未儲存的編輯。確定要離開？')) event.preventDefault();
     });
     if (!conflictDraft) status('目前沒有未儲存的修改。GitHub 保存與正式上線為不同狀態。');

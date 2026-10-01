@@ -177,17 +177,52 @@ test('failed latest-version lookup retains content and offers a complete UTF8 pl
   expect(state.posts).toBe(0);
 });
 
+test('null-download navigation preserves only the active editor export', async ({ page }) => {
+  const dialogs = [];
+  page.on('dialog', async d => { dialogs.push(d.message()); await d.dismiss(); });
+  const state = await setup(page, { read:route => route.fulfill({ status:503 }) }), frame = await open(page);
+  await paragraph(frame).fill('下載導覽不應丟失的中文內容');
+  test.skip(!(await frame.locator('body').evaluate(() => 'navigation' in window)),
+    'Navigation API unavailable; real download and native leave protection have separate cross-engine tests');
+  await frame.locator('#hs-adm-compare').click();
+  await expect(panel(frame)).toContainText('無法比較版本');
+  const link = panel(frame).getByRole('link', { name:'下載目前編輯內容', exact:true });
+  // Reproduce Firefox's second event without depending on its download timing.
+  const dispatch = mode => link.evaluate((source, mode) => {
+    const original = source.href;
+    let other;
+    if (mode === 'navigation') source.removeAttribute('download');
+    if (mode === 'untracked') { other = URL.createObjectURL(new Blob(['other'])); source.href = other; }
+    const event = new Event('navigate', { cancelable:true });
+    Object.assign(event, { downloadRequest:null, sourceElement:source, destination:{ url:source.href } });
+    const allowed = window.navigation.dispatchEvent(event);
+    if (other) { source.href = original; URL.revokeObjectURL(other); }
+    return allowed;
+  }, mode);
+  expect(await dispatch('export')).toBe(true);
+  expect(dialogs).toEqual([]);
+  expect(await dispatch('untracked')).toBe(false);
+  expect(await dispatch('navigation')).toBe(false);
+  expect(dialogs).toHaveLength(2);
+  expect(dialogs.every(message => message.includes('有未儲存的編輯'))).toBe(true);
+  await expect(paragraph(frame)).toHaveText('下載導覽不應丟失的中文內容');
+  expect(state.posts).toBe(0);
+});
+
 test('actual navigation still asks before leaving unsaved edits', async ({ page }) => {
   await setup(page); const frame = await open(page);
   await paragraph(frame).fill('離開前應保留的輸入');
-  let message;
-  page.on('dialog', async d => { message = d.message(); await d.dismiss(); });
+  let warning;
+  page.on('dialog', async d => { warning = { type:d.type(), message:d.message() }; await d.dismiss(); });
   await frame.locator('body').evaluate(() => {
     const a = document.createElement('a'); a.href = '/blog/glaucoma-comprehensive-guide';
     a.textContent = '測試離開'; document.getElementById('hs-admin-bar').appendChild(a);
   });
   await frame.getByRole('link', { name:'測試離開', exact:true }).click();
-  await expect.poll(() => message).toContain('有未儲存的編輯');
+  // Engines without the Navigation API show a native beforeunload dialog;
+  // its message is browser-controlled and may be empty.
+  await expect.poll(() => warning && (warning.type === 'beforeunload' ||
+    (warning.type === 'confirm' && warning.message.includes('有未儲存的編輯')))).toBe(true);
   await expect(paragraph(frame)).toHaveText('離開前應保留的輸入');
 });
 
@@ -216,6 +251,30 @@ test('opening a stale draft keeps the conflict notice and archives rather than r
   expect(archived.html).toContain('較舊的作者草稿');
   await frame.locator('#hs-adm-compare').click();
   await expect(panel(frame).getByRole('link', { name:'下載舊版本草稿' })).toBeVisible();
+});
+
+test('dirty conflict backup downloads after comparison links are retired', async ({ page }) => {
+  const dialogs = [];
+  page.on('dialog', async d => { dialogs.push(d.type()); await d.dismiss(); });
+  const state = await setup(page);
+  const stale = original.replace('</article>', '<p>較舊的作者草稿 UTF8 備份</p></article>');
+  await page.evaluate(({ slug, stale }) => localStorage.setItem('hs:draft-' + slug + '.json',
+    JSON.stringify({ slug, html:stale, baseSha:'d'.repeat(40), ts:12345 })), { slug, stale });
+  const frame = await open(page);
+  await paragraph(frame).fill('繼續編輯中的最新內容');
+  await frame.locator('#hs-adm-compare').click();
+  await expect(panel(frame).getByRole('link', { name:'下載舊版本草稿', exact:true })).toBeVisible();
+  await frame.locator('#hs-adm-check').click();
+  const arrival = page.waitForEvent('download');
+  await frame.locator('#hs-admin-bar > a').filter({ hasText:'下載舊版本草稿' }).click();
+  const download = await arrival;
+  expect(download.suggestedFilename()).toBe(slug + '-conflict.html');
+  expect(readFileSync(await download.path(), 'utf8')).toBe(stale);
+  expect(dialogs).toEqual([]);
+  await expect(paragraph(frame)).toHaveText('繼續編輯中的最新內容');
+  const archive = await frame.locator('body').evaluate((body,s) => DN.loadDraft(s + '-conflict-12345'), slug);
+  expect(archive.html).toBe(stale);
+  expect(state.posts).toBe(0);
 });
 
 test('save invalidates an outstanding comparison response', async ({ page }) => {

@@ -1,5 +1,5 @@
 // Authenticated editor only. Values are plain author text, never HTML sinks.
-import { normalizeMetadataText } from '/blog/editor-punctuation.js?v=20260690';
+import { normalizeMetadataText } from '/blog/editor-punctuation.js?v=20260691';
 const markerName = 'hs-editor-metadata';
 const fields = [
   ['titleZh', '文章標題（中文）', 512],
