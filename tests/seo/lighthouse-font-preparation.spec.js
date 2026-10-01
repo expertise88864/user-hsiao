@@ -11,6 +11,9 @@ async function fixture(page,context,intercept){
   mainFrame:()=>page.mainFrame(),on:(name,fn)=>page.on(name,fn),off:(name,fn)=>page.off(name,fn),
   goto:(url,options)=>page.goto(url,options),url:()=>page.url(),waitForFunction:(...args)=>page.waitForFunction(...args),
   evaluate:(...args)=>page.evaluate(...args),
+  evaluateOnNewDocument:async(fn,arg)=>({identifier:await page.addInitScript(fn,arg)}),
+  // Playwright has no removeInitScript; each test owns an isolated context.
+  removeScriptToEvaluateOnNewDocument:async()=>{},
   async createCDPSession(){
    const session=await context.newCDPSession(page);
    return {detach:()=>session.detach(),send:async(command,args)=>{

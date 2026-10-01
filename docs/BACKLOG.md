@@ -15,6 +15,8 @@
 
 ## 已定案的限制（不是待修 bug）
 
+P-07 的字型診斷另保存準備頁啟動時的標題、摘要、文章與首張卡片幾何，以及瀏覽器提供的位移來源前後矩形；最多 48 筆事件，溢位筆數明示。事件時間與幾何取樣時間分列，不把稍後送達的 paint 通知當成當時的精確畫面。這是 `before-lighthouse-navigation` 的獨立準備頁資料，保留實際 viewport；不替代 Lighthouse 測量、Ubuntu 畫面或真實使用者指標。診斷不讀正文、Cookie、storage、請求標頭或完整 trace，不等待字型、不改載入策略或評分門檻；P-07 仍開放。
+
 | ID | 對照結果與重開條件 |
 |---|---|
 | M-14 | `_check_inline_scripts.py`、`_check_static_a11y.py`、`_check_articles.py` 維持已接受的剖析範圍。未引入新第三方模板或擴大任意標記入口，沒有本輪重開觸發。若來源規格改變，再評估完整 parser。 |

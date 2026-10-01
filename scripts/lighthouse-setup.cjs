@@ -3,6 +3,7 @@ const { previewCookies, verifyContent } = require('./preview-access.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
 const { collectFontEnvironment } = require('./font-environment.cjs');
+const { installStartupGeometry, readStartupGeometry, removeStartupGeometry } = require('./startup-font-geometry.cjs');
 let reportNumber = 0;
 
 // The public cache-version guard can reload a fresh preparation page after
@@ -30,6 +31,7 @@ async function collectPreparedFontEnvironment(page, base, route) {
     return actual.origin === expected.origin && pathname(actual) === pathname(expected) &&
       actual.search === expected.search && actual.hash === expected.hash;
   };
+  const startupScript = await installStartupGeometry(page);
   page.on('framenavigated', track);
   try {
     for (let attempt = 1; attempt <= 3; attempt++) {
@@ -40,7 +42,8 @@ async function collectPreparedFontEnvironment(page, base, route) {
         await verifyContent(page, base, route, response);
         session = await page.createCDPSession();
         const fonts = await collectFontEnvironment(page, session);
-        return { ...fonts, preparationNavigationAttempts:attempt };
+        const startupGeometry = await readStartupGeometry(page);
+        return { ...fonts, startupGeometry, preparationNavigationAttempts:attempt };
       } catch (error) {
         const transient = /Execution context was destroyed|^Font selection unavailable: /.test(error.message || '');
         if (attempt === 3 || !transient) throw error;
@@ -54,6 +57,7 @@ async function collectPreparedFontEnvironment(page, base, route) {
     }
   } finally {
     page.off('framenavigated', track);
+    await removeStartupGeometry(page, startupScript);
   }
 }
 
