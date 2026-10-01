@@ -38,6 +38,19 @@ async function setup(page, options={}) {
   return {frame,state};
 }
 const input=(frame,key)=>frame.locator('#hs-editor-'+key);
+test('table instructions follow editor language without changing authored saved lang attributes',async({page})=>{
+  const {frame,state}=await setup(page);
+  const group=frame.locator('#proseZh .hs-table-scroll').first();
+  await expect(group).toHaveAttribute('lang','zh-TW');
+  await frame.locator('#langToggle').selectOption('en');
+  await expect(frame.locator('#proseEn .hs-table-scroll').first()).toHaveAttribute('lang','en');
+  await frame.locator('#proseEn p[contenteditable]').first().fill('English table editing draft');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  const controls=state.submitted.html.match(/<(?:div|p)\b[^>]*class="hs-table-(?:scroll|hint)[^"]*"[^>]*>/g);
+  expect(controls.length).toBeGreaterThan(0);
+  for(const tag of controls)expect(tag).not.toMatch(/\slang=/);
+  expect(state.submitted.html).toContain('English table editing draft');
+});
 
 const darkPilots=['lacrimal-gland-tumor','dry-eye-myths','floaters-retinal-detachment','pediatric-myopia-control','glaucoma-comprehensive-guide'];
 for(const articleSlug of [...darkPilots,'dry-eye-symptom-sign-discordance-dream','thyroid-eye-disease','cataract-surgery-selection']) {

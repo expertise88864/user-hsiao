@@ -731,7 +731,25 @@ def _swap_inner_to_english(html_str):
         el['lang'] = 'zh-Hant'
         annotated += 1
 
-    if swaps == 0 and annotated == 0 and not prose_changed:
+    # Reader instructions are English even when the original table is not.
+    # Preserve the table's inherited language before isolating the control.
+    reader_changed = False
+    for group in soup.select('.hs-table-scroll'):
+        table = group.find('table', recursive=False)
+        if table is not None and not table.get('lang'):
+            language = next((p.get('lang') for p in table.parents if p.get('lang')), None)
+            if language:
+                table['lang'] = language
+                reader_changed = True
+        if group.get('lang') != 'en':
+            group['lang'] = 'en'
+            reader_changed = True
+    for hint in soup.select('.hs-table-hint'):
+        if hint.get('lang') != 'en':
+            hint['lang'] = 'en'
+            reader_changed = True
+
+    if swaps == 0 and annotated == 0 and not prose_changed and not reader_changed:
         return html_str
 
     new_body_inner = soup.decode(formatter='html5')

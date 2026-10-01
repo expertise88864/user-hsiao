@@ -8,6 +8,20 @@ from _gen_en_pages import _swap_inner_to_english
 
 
 class EnglishProseDefault(unittest.TestCase):
+    def test_table_instruction_is_english_and_untranslated_table_keeps_chinese(self):
+        source = ('<body><div class="hs-table-reader"><p class="hs-table-hint" id="table-hint" '
+                  'data-zh="表格可左右捲動" data-en="Scroll horizontally">表格可左右捲動</p>'
+                  '<div class="hs-table-scroll" aria-labelledby="table-hint"><table><tr><td>'
+                  '這是尚未翻譯的中文表格資料，必須保留原本語言與所有數值。'
+                  '</td></tr></table></div></div></body>')
+        output = _swap_inner_to_english(source)
+        soup = BeautifulSoup(output, 'html.parser')
+        self.assertEqual(soup.select_one('.hs-table-scroll')['lang'], 'en')
+        self.assertEqual(soup.select_one('.hs-table-hint')['lang'], 'en')
+        self.assertEqual(soup.table['lang'], 'zh-Hant')
+        self.assertEqual(soup.table.td.get_text(), '這是尚未翻譯的中文表格資料，必須保留原本語言與所有數值。')
+        self.assertEqual(_swap_inner_to_english(output), output)
+
     def test_english_mirror_exposes_existing_english_without_javascript(self):
         head = '<!doctype html><html lang="en"><head><title>Fixture</title></head><body>'
         source = head + ('<div id="proseZh" style="padding:2px; DISPLAY: block !important">中文原文</div>'

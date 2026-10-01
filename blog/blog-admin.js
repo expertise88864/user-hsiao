@@ -100,9 +100,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260686');
-      historyModule = await import('/blog/editor-history.js?v=20260686');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260686');
+      editorReview = await import('/blog/editor-review.js?v=20260687');
+      historyModule = await import('/blog/editor-history.js?v=20260687');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260687');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -925,6 +925,16 @@
       var body = clone.querySelector('body');
       if (body) body.classList.remove('hs-admin');
       clone.removeAttribute('data-theme');
+      // Table instruction language follows the live UI, not the saved source.
+      var sourceTableGroups = Array.from(baseDocument.querySelectorAll('.hs-table-scroll'));
+      clone.querySelectorAll('.hs-table-scroll,.hs-table-hint').forEach(function (el) {
+        var source = el.classList.contains('hs-table-hint') ? baseDocument.getElementById(el.id) :
+          sourceTableGroups.find(function (node) { return node.getAttribute('aria-labelledby') === el.getAttribute('aria-labelledby'); });
+        if (!source) return;
+        var language = source.getAttribute('lang');
+        if (language === null) el.removeAttribute('lang');
+        else el.setAttribute('lang', language);
+      });
       // Language switching changes these styles only for the live editor.
       // Keep the authenticated source defaults in drafts, history and saves.
       ['proseZh', 'proseEn'].forEach(function (proseId) {
@@ -997,7 +1007,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260686';
+        runtime.src = '/blog/editor-preview.js?v=20260687';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
