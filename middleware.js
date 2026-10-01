@@ -21,7 +21,7 @@
 const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
   "/": [
     "sha256-+Jd8GYH9y9/zZLkbV08nWJTqfdyoiMEo3R1M/iLDVaI=",
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-A00a+zm6fwfkVq72pWcXpcFkGGole5G5pO9fbp1AJiE=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
     "sha256-zKTndoC5WNkYObKlClSVe8R2wKKkFiVuKX8paGX4jHE="
@@ -47,24 +47,24 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/admin": [
-    "sha256-N3ydhaPPanoiGXF2MnNM6WOLkXsP4tiih6AgU1OnMQ4=",
+    "sha256-1oZPkYwpea+8KZYr9itv9QZx3LI2hepW8BCk3yIkwr4=",
     "sha256-kGxKKYobFSHsYTBD8BEReXSYRG8zbJfpiIyCGwTswvs=",
     "sha256-n6/K9tAN+B37mXGJmevpqK/IVChiBt50RWZnGp4Ybr8="
   ],
   "/admin.html": [
-    "sha256-N3ydhaPPanoiGXF2MnNM6WOLkXsP4tiih6AgU1OnMQ4=",
+    "sha256-1oZPkYwpea+8KZYr9itv9QZx3LI2hepW8BCk3yIkwr4=",
     "sha256-kGxKKYobFSHsYTBD8BEReXSYRG8zbJfpiIyCGwTswvs=",
     "sha256-n6/K9tAN+B37mXGJmevpqK/IVChiBt50RWZnGp4Ybr8="
   ],
   "/blog": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-GKpQe42vqElXybRQMylBrMnjICIrWNQ76LyFY+srkGE=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-GKpQe42vqElXybRQMylBrMnjICIrWNQ76LyFY+srkGE=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
@@ -109,25 +109,25 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/diabetic-retinopathy-dementia-trinetx-cohort": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/blog/diabetic-retinopathy-dementia-trinetx-cohort.html": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/blog/dims-pediatric-myopia-control": [
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-49j4MRi/n64QCzBSEKbl919jO7nj63UZEZ/ekLA0Xsg=",
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/dims-pediatric-myopia-control.html": [
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-49j4MRi/n64QCzBSEKbl919jO7nj63UZEZ/ekLA0Xsg=",
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/dry-eye-myths": [
@@ -141,12 +141,12 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/dry-eye-symptom-sign-discordance-dream": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-dcRU+lSI0geJtoQbrYxg9/obmFcIYoqn2io2dwI0P04=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/dry-eye-symptom-sign-discordance-dream.html": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-dcRU+lSI0geJtoQbrYxg9/obmFcIYoqn2io2dwI0P04=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
@@ -189,19 +189,19 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/hzo-stromal-keratitis-zeds-lessons": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/blog/hzo-stromal-keratitis-zeds-lessons.html": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/blog/index.html": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-GKpQe42vqElXybRQMylBrMnjICIrWNQ76LyFY+srkGE=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
@@ -218,26 +218,26 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/monitoring-myopia-ser-vs-axial-length": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-MhBhTNaFIzcEEpGPZbPqtnc3AXYvHdx6f+jTWTimZ1s=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/monitoring-myopia-ser-vs-axial-length.html": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-MhBhTNaFIzcEEpGPZbPqtnc3AXYvHdx6f+jTWTimZ1s=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/ophthalmic-trauma-overlooked-burden": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-Tq9UQ+o7cjuXuQjGwYJBWW7lY/7xWwImS6s919sv46M=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/blog/ophthalmic-trauma-overlooked-burden.html": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-Tq9UQ+o7cjuXuQjGwYJBWW7lY/7xWwImS6s919sv46M=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/blog/osa-amd-systematic-review-2026": [
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
@@ -270,16 +270,16 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/pterygium-surgery-fixation-methods-2026-nma": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/blog/pterygium-surgery-fixation-methods-2026-nma.html": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/blog/red-eye-conjunctivitis": [
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
@@ -322,20 +322,20 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/toric-iol-astigmatism-cataract-review": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/blog/toric-iol-astigmatism-cataract-review.html": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en": [
     "sha256-+Jd8GYH9y9/zZLkbV08nWJTqfdyoiMEo3R1M/iLDVaI=",
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-A00a+zm6fwfkVq72pWcXpcFkGGole5G5pO9fbp1AJiE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
@@ -343,7 +343,7 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
   ],
   "/en/": [
     "sha256-+Jd8GYH9y9/zZLkbV08nWJTqfdyoiMEo3R1M/iLDVaI=",
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-A00a+zm6fwfkVq72pWcXpcFkGGole5G5pO9fbp1AJiE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
@@ -362,7 +362,7 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-GKpQe42vqElXybRQMylBrMnjICIrWNQ76LyFY+srkGE=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
@@ -370,7 +370,7 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-GKpQe42vqElXybRQMylBrMnjICIrWNQ76LyFY+srkGE=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
@@ -424,28 +424,28 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/diabetic-retinopathy-dementia-trinetx-cohort": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/en/blog/diabetic-retinopathy-dementia-trinetx-cohort.html": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/en/blog/dims-pediatric-myopia-control": [
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-49j4MRi/n64QCzBSEKbl919jO7nj63UZEZ/ekLA0Xsg=",
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/dims-pediatric-myopia-control.html": [
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-49j4MRi/n64QCzBSEKbl919jO7nj63UZEZ/ekLA0Xsg=",
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
@@ -462,13 +462,13 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/dry-eye-symptom-sign-discordance-dream": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-dcRU+lSI0geJtoQbrYxg9/obmFcIYoqn2io2dwI0P04=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/dry-eye-symptom-sign-discordance-dream.html": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-dcRU+lSI0geJtoQbrYxg9/obmFcIYoqn2io2dwI0P04=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
@@ -520,21 +520,21 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/hzo-stromal-keratitis-zeds-lessons": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/en/blog/hzo-stromal-keratitis-zeds-lessons.html": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/en/blog/index.html": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-GKpQe42vqElXybRQMylBrMnjICIrWNQ76LyFY+srkGE=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
@@ -554,30 +554,30 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/monitoring-myopia-ser-vs-axial-length": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-MhBhTNaFIzcEEpGPZbPqtnc3AXYvHdx6f+jTWTimZ1s=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/monitoring-myopia-ser-vs-axial-length.html": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-MhBhTNaFIzcEEpGPZbPqtnc3AXYvHdx6f+jTWTimZ1s=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/ophthalmic-trauma-overlooked-burden": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-Tq9UQ+o7cjuXuQjGwYJBWW7lY/7xWwImS6s919sv46M=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/en/blog/ophthalmic-trauma-overlooked-burden.html": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-Tq9UQ+o7cjuXuQjGwYJBWW7lY/7xWwImS6s919sv46M=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/en/blog/osa-amd-systematic-review-2026": [
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
@@ -616,18 +616,18 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/pterygium-surgery-fixation-methods-2026-nma": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/en/blog/pterygium-surgery-fixation-methods-2026-nma.html": [
-    "sha256-QPpN30ps3RPrmyX8syaXr5lg3ZgCpF3mZL61gPwRrI0=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-wjT3DLMsddew8G7cZsPR6E+7YsYD6sld1Y3vo01NGHg="
   ],
   "/en/blog/red-eye-conjunctivitis": [
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
@@ -678,14 +678,14 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/toric-iol-astigmatism-cataract-review": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
   ],
   "/en/blog/toric-iol-astigmatism-cataract-review.html": [
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-haK95xnKsrGjr/r8ImyKMi6OeANjeZ4eYEBRbzUoCUE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-rGiBM5cdQnyb16undhBx5h6DuPxP9z4XODuFk+oiriU=",
@@ -693,7 +693,7 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
   ],
   "/en/index.html": [
     "sha256-+Jd8GYH9y9/zZLkbV08nWJTqfdyoiMEo3R1M/iLDVaI=",
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-A00a+zm6fwfkVq72pWcXpcFkGGole5G5pO9fbp1AJiE=",
     "sha256-mF8V189oxtqFL/bSxPwEqkVyNUxu8hheXUs/R3bukP8=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
@@ -737,7 +737,7 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
   ],
   "/index.html": [
     "sha256-+Jd8GYH9y9/zZLkbV08nWJTqfdyoiMEo3R1M/iLDVaI=",
-    "sha256-7Ud3Xs2t15HhX5NgDBFxpzd6jE834ZPm+8Hms17oE9Q=",
+    "sha256-0CE6sHxSt8neSLV3WWK8aPbtm7PesWE6De60q1se/dU=",
     "sha256-A00a+zm6fwfkVq72pWcXpcFkGGole5G5pO9fbp1AJiE=",
     "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
     "sha256-zKTndoC5WNkYObKlClSVe8R2wKKkFiVuKX8paGX4jHE="
@@ -782,13 +782,13 @@ const INLINE_SCRIPT_HASHES_BY_ROUTE = Object.freeze({
   ],
   "/tools/eye-3d": [
     "sha256-4+KZQAuj0kFWr9n/nfDdKVqDeUYExYEgtwlmzXyKu0M=",
-    "sha256-9eFL2X5vlyM9OZiQRhwPdxqTE2/gIur1uy9CBlf3WTw=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-z0aiZZV1evEKzZHT0Ey9IXqy2MM8fH8W44LkKmG/l18="
   ],
   "/tools/eye-3d.html": [
     "sha256-4+KZQAuj0kFWr9n/nfDdKVqDeUYExYEgtwlmzXyKu0M=",
-    "sha256-9eFL2X5vlyM9OZiQRhwPdxqTE2/gIur1uy9CBlf3WTw=",
-    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE="
+    "sha256-vhxfZo6MLRrF7RFbUcc5q1+xENqWI2O+cLWRD91K+JE=",
+    "sha256-z0aiZZV1evEKzZHT0Ey9IXqy2MM8fH8W44LkKmG/l18="
   ],
   "__fallback__": [
     "sha256-lkrkVSbw6DPSirRpM8QQgr/fHyMXPeUvYXtzaI8PRg4=",

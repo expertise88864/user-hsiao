@@ -3165,7 +3165,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260693';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260694';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3789,7 +3789,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260693';
+    s.src = '/blog/blog-admin.js?v=20260694';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -3915,27 +3915,10 @@
     var items = Array.prototype.slice.call(document.querySelectorAll('.article-list-item'));
     if (items.length < 4) return;  // skip if too few articles
 
-    // Inject styles
-    if (!document.getElementById('hs-blog-filter-css')) {
-      var st = document.createElement('style');
-      st.id = 'hs-blog-filter-css';
-      st.textContent =
-        '.hs-blog-filter{margin:8px 0 22px;padding:14px 18px;background:#fff;border:1px solid var(--border,#dcd5c8);border-radius:14px}' +
-        '.hs-blog-filter .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}' +
-        '.hs-blog-filter .label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted,#8b8378);font-weight:700;margin-right:6px;min-width:54px}' +
-        '.hs-blog-filter .chip-btn{padding:5px 11px;border-radius:9999px;border:1px solid var(--border,#dcd5c8);background:#fff;font-size:12px;color:var(--ink-2,#5e574e);cursor:pointer;font-weight:600;transition:all .12s}' +
-        '.hs-blog-filter .chip-btn:hover{border-color:var(--blue-deep,#3a5a7c);color:var(--blue-deep,#3a5a7c)}' +
-        '.hs-blog-filter .chip-btn.active{background:var(--blue-deep,#3a5a7c);color:#fff;border-color:var(--blue-deep,#3a5a7c)}' +
-        '.hs-blog-filter .chip-btn .count{font-size:10.5px;margin-left:4px;font-family:"JetBrains Mono",monospace}' +
-        '.hs-blog-filter input[type="search"]{flex:1;min-width:180px;padding:7px 12px;border-radius:9999px;border:1px solid var(--border,#dcd5c8);font-size:13px;background:#faf7f2;color:var(--ink,#0f172a)}' +
-        '.hs-blog-filter input[type="search"]:focus{outline:none;border-color:var(--blue-deep,#3a5a7c);background:#fff}' +
-        '.hs-blog-filter .reset{margin-left:auto;font-size:11.5px;color:var(--muted,#8b8378);cursor:pointer;text-decoration:underline;background:transparent;border:0}' +
-        '.hs-blog-empty{text-align:center;padding:40px 20px;color:var(--muted,#8b8378);font-size:14px;background:#fff;border-radius:12px;border:1px dashed var(--border,#dcd5c8)}';
-      document.head.appendChild(st);
-    }
+    if (host.dataset.staticFilter !== '1' || !host.querySelector('input[type="search"]')) return;
 
     // Inventory: collect cats + tags from each item
-    var cats = {}, tags = {};
+    var tagAliases = {};
     items.forEach(function (it) {
       var catEl = it.querySelector('[class*="cat-"]');
       var cat = '';
@@ -3944,63 +3927,19 @@
         if (cm) cat = cm[1];
       }
       it.dataset.cat = cat;
-      cats[cat] = (cats[cat] || 0) + 1;
 
       // tag chip is the second .chip
       var chips = it.querySelectorAll('.chip');
       var tagText = '';
       for (var i = 0; i < chips.length; i++) {
-        if (!chips[i].className.includes('cat-')) { tagText = chips[i].textContent.trim(); break; }
+        if (!chips[i].className.includes('cat-')) {
+          tagText = chips[i].getAttribute('data-zh') || chips[i].textContent.trim();
+          tagAliases[chips[i].getAttribute('data-en') || tagText] = tagText;
+          break;
+        }
       }
       it.dataset.tag = tagText;
-      if (tagText) tags[tagText] = (tags[tagText] || 0) + 1;
     });
-
-    // Keep these labels in sync with index.html quick-find chips + per-article
-    // hero badges. v35: added research / notes (new "depth" categories) and
-    // corrected rx label from "處方治療" → "衛教" to match homepage chips.
-    var CAT_LABELS = {
-      myth:     { zh: '迷思澄清', en: 'Myth-busting' },
-      alert:    { zh: '警訊辨識', en: 'Red Flags' },
-      rx:       { zh: '衛教',     en: 'Patient Ed' },
-      notes:    { zh: '學習筆記', en: 'Study Notes' },
-      research: { zh: '最新研究', en: 'Latest Research' },
-    };
-
-    // Build markup
-    var html = '<div class="row">' +
-      '<span class="label" data-zh="分類" data-en="Category">分類</span>' +
-      '<button type="button" class="chip-btn active" data-cat="">' +
-        '<span data-zh="全部" data-en="All">全部</span><span class="count">' + items.length + '</span>' +
-      '</button>';
-    Object.keys(cats).forEach(function (c) {
-      if (!c) return;
-      var lbl = CAT_LABELS[c] || { zh: c, en: c };
-      html += '<button type="button" class="chip-btn" data-cat="' + c + '">' +
-              '<span data-zh="' + lbl.zh + '" data-en="' + lbl.en + '">' + lbl.zh + '</span>' +
-              '<span class="count">' + cats[c] + '</span></button>';
-    });
-    html += '<button type="button" class="reset" data-zh="清除篩選" data-en="Reset">清除篩選</button></div>';
-
-    // Tag cloud
-    var sortedTags = Object.keys(tags).sort(function (a, b) { return tags[b] - tags[a]; });
-    if (sortedTags.length) {
-      html += '<div class="row"><span class="label" data-zh="標籤" data-en="Tags">標籤</span>';
-      sortedTags.forEach(function (t) {
-        html += '<button type="button" class="chip-btn" data-tag="' + t.replace(/"/g, '&quot;') + '">' + t +
-                '<span class="count">' + tags[t] + '</span></button>';
-      });
-      html += '</div>';
-    }
-
-    // Search row
-    html += '<div class="row">' +
-      '<span class="label" data-zh="搜尋" data-en="Search">搜尋</span>' +
-      '<input type="search" placeholder="輸入關鍵字…" data-zh-placeholder="輸入關鍵字…" data-en-placeholder="Type to search…" autocomplete="off" />' +
-      '</div>';
-
-    host.innerHTML = html;
-    host.hidden = false;
 
     // State + filter logic
     var state = { cat: '', tag: '', q: '' };
@@ -4008,15 +3947,18 @@
       var p = new URLSearchParams(location.search);
       state.cat = p.get('cat') || '';
       state.tag = p.get('tag') || '';
+      state.tag = tagAliases[state.tag] || state.tag;
       state.q   = p.get('q')   || '';
     } catch (e) {}
 
     function syncUI() {
       host.querySelectorAll('[data-cat]').forEach(function (b) {
         b.classList.toggle('active', b.dataset.cat === state.cat);
+        b.setAttribute('aria-pressed', String(b.dataset.cat === state.cat));
       });
       host.querySelectorAll('[data-tag]').forEach(function (b) {
         b.classList.toggle('active', b.dataset.tag === state.tag);
+        b.setAttribute('aria-pressed', String(b.dataset.tag === state.tag));
       });
       var inp = host.querySelector('input[type="search"]');
       if (inp && state.q) inp.value = state.q;
@@ -4099,6 +4041,8 @@
 
     syncUI();
     apply();
+    host.querySelectorAll('button, input').forEach(function (control) { control.disabled = false; });
+    host.dataset.filterReady = '1';
   };
 
   // ---------------------------------------------------------------------

@@ -47,7 +47,7 @@
 | M-02 | `apply_magazine_template.py` 用 h4 與共用 footer CSS；`_check_article_footer.py`。 | 技術驗收通過。 |
 | M-03 | `blog-shared.js:initCmdK` 排除 contenteditable／admin 的斜線攔截。 | 技術驗收通過；本輪另修編輯器斜線選單不當刪字。 |
 | M-04 | TOC 查找使用 `getElementById(id + '-en')`，不拼接 CSS selector。 | 技術驗收通過。 |
-| M-05 | 2026-09-06 的 quality 權威 24 步與三份指引、regen 入口一致。2026-10-01 圖表候選新增後為 25 命令，實際鏈仍由 quality.yml 動態解析；`_check_chain_docs.py` 及次序變異 Python 測試守順序。重建 job 只讀生成檢查，drift 輸出 patch 並失敗；不繞過完整驗證自動推送。 | 歷史技術驗收通過；新 SHA 另經候選及正式交付驗證。 |
+| M-05 | 2026-09-06 的 quality 權威 24 步與三份指引、regen 入口一致。2026-10-01 納入圖表、文章目錄與索引篩選後為 27 命令，實際鏈仍由 quality.yml 動態解析；`_check_chain_docs.py` 及次序變異 Python 測試守順序。重建 job 只讀生成檢查，drift 輸出 patch 並失敗；不繞過完整驗證自動推送。 | 歷史技術驗收通過；新 SHA 另經候選及正式交付驗證。 |
 | M-06 | client/server runtime helper 清單由 `_check_runtime_helper_sync.py` 守同步；API／瀏覽器存檔回歸保留 authored mounts、footer、雙語與版本。 | 技術驗收通過；刻意雙檔耦合符合 D-24。 |
 | M-07 | 計算器本體與 fallback wrapper 都有 strip ID；authored mount 保留；runtime helper guard／API serialization 測試。 | 技術驗收通過。 |
 | M-08 | `_gen_en_pages.py:prune_en_jsonld` 遞迴處理 graph／array；`_check_en_jsonld.py`、英文生成固定點。 | 技術驗收通過。 |
