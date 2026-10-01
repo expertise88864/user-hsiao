@@ -2,6 +2,7 @@
 .hs-diagram-reader{max-width:100%;min-width:0}
 .hs-diagram-mode{margin:8px 0;font-size:14px;line-height:1.6;color:var(--ink)}
 .hs-diagram-mode summary{cursor:pointer;padding:6px 0}
+.hs-diagram-mode summary,.hs-diagram-scroll{scroll-margin-top:90px}
 .hs-diagram-mode summary:focus-visible,.hs-diagram-scroll:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .hs-diagram-mode .hs-diagram-hint{font-size:13px;margin:8px 0;color:var(--ink-2)}
 .hs-diagram-scroll{overflow:auto;max-width:100%;min-width:0}

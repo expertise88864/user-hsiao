@@ -33,6 +33,12 @@
 - 修正 D-12／D-27 字型過期狀態及 D-21 舊 CI 豁免指引。regen 與 manual force_update 改為只讀產物檢查／artifact，移除自動 push 與 skip-ci；保留全部既有正常品質與視覺檢查。本輪未變更基準。若 CMS 改動造成生成差異，CI 會輸出修正 patch 並失敗，必須透過完整審查／CI 流程交付修正，不再讓 bot 靜默直接更新 main。
 - S-05 待站主架構選擇；C-01 待臨床內容核可；C-02 為逐頁編輯候選。不得為了清空帳本擅自核可或宣稱流量改善。
 
+## 後續狀態的判讀（2026-10-01）
+
+下方是 2026-09-06 的歷史外審與 quota 紀錄，不是現在的模型指定或重試時刻。2026-09-10 同 session 對完整 `433ce0633012754bd302c10c870d0b6b9e4e5634..956d46af2a3f2138f5f781d147b2eb95686ef113` 取得真實 `claude-opus-5`／high APPROVE；證據在 `C:/Users/User/.codex/reviews/hsiaoeye-opus-retry-20260910-1145/`。歷史實際模型不得改標為 5.5，已核可未改的同範圍不重跑。
+
+新差異及尚未完成補審依最新使用者定案使用精確 `claude-opus-5-5`／high／唯讀，核對 actual modelUsage。完整來源核可、Codex 歷史清單移除與 pending trailer 的精確 audit 結案是不同事項；每個 pending commit 必須有後續記錄列出完整 SHA，不能僅以工作樹乾淨、檔案不存在或後續來源 APPROVE 視為結案。新 audit 亦須走候選與正式交付門檻。
+
 ## 證據與外審狀態
 
 本輪證據目錄：`C:/Users/User/.codex/reviews/hsiaoeye-backlog-20260906/`。包含完整累積 diff、18 組頁尾前後圖與樣式、測試日誌、外審輸出及最終 SHA／CI 紀錄。
