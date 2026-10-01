@@ -208,3 +208,9 @@ GitHub 已回覆有效的保存版本，但 OPFS 或其他本機草稿清理未�
 受控延遲腳本測試判斷篩選列是否再次推動文章。這是載入與操作驗證，不代表真實使用者 Core Web Vitals、點擊率或搜尋排名已改善；正式結果依同一版本的候選／main CI、Preview 與部署驗收另記。
 
 Lighthouse 的準備頁另保存 Chrome 版本、語言、畫面尺寸、原頁面選用字型，以及固定中英文範例的系統替代字型與尺寸。診斷只讀公開排版資訊，不讀取或保存 cookie、storage、作者文字或完整 HTML；固定範例使用系統字型，不新增 Google Fonts 請求，讀取後立即移除。這份 `font-environment` artifact 綁定候選完整 SHA，與 Lighthouse 實際量測報告分開；它不是讀者統計，也不代表準備頁的視窗就是正式 Lighthouse 的量測視窗。既有三次桌面量測、字型載入政策及效能門檻保持原設定。
+
+## 字型載入完成時序
+
+Google Fonts 保留 D-27 的非阻塞 preload、CSP hash 腳本與 noscript 後備。若 CSS 在後面的載入腳本到達前已完成，腳本會先註冊 load 監聽，再查詢同一 CSS URL 的已完成 Resource Timing 紀錄，將已下載的樣式套用；尚未完成時仍由實際 load 事件啟用。首頁、其他中文來源及 CMS 新文章模板使用相同流程，英文鏡像由生成器產生。
+
+回歸以兩個獨立 HTTP origin 控制 HTML／CSS 完成順序，不派送模擬 load 事件；涵蓋無 Timing-Allow-Origin 的跨來源 CSS、hash CSP、404 後備及停用 JavaScript。這項修正處理已下載樣式沒有套用的時序缺陷，不代表已消除字型替換造成的 CLS，也不是搜尋點擊或真實讀者效能改善證據。P-07 仍須以相同環境量測追蹤。
