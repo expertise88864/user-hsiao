@@ -118,6 +118,9 @@ def article_body(path: Path) -> str:
     region = re.sub(
         r'<!--\s*hs-static-related:start\s*-->[\s\S]*?<!--\s*hs-static-related:end\s*-->',
         '', region, flags=re.I)
+    region = re.sub(
+        r'<!-- hs-static-reading-meta:start -->[\s\S]*?<!-- hs-static-reading-meta:end -->',
+        '', region)
     parser = _TextExtractor()
     parser.feed(region)
     parser.close()

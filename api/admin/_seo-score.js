@@ -22,8 +22,9 @@
 import { requireAdmin, ghGetFile } from './_auth.js';
 
 export function checkArticle(html) {
-  // Generated navigation is not authored prose, an illustration or evidence.
+  // Generated reader information is not authored prose, an illustration or evidence.
   html = html.replace(/<!-- hs-static-toc:start -->[\s\S]*?<!-- hs-static-toc:end -->/g, '');
+  html = html.replace(/<!-- hs-static-reading-meta:start -->[\s\S]*?<!-- hs-static-reading-meta:end -->/g, '');
   const checks = [];
   const add = (key, ok, weight, msg, hint) => checks.push({ key, ok, weight, msg, hint });
 

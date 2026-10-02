@@ -270,6 +270,19 @@ test('generated contents cannot inflate editorial word or illustration checks', 
   assert.deepEqual(checkArticle(source.replace('<article>', '<article>' + widget)), checkArticle(source));
 });
 
+test('generated reading metadata strips on CMS save and cannot inflate editorial checks', async () => {
+  const { stripRuntimeHelpers } = await import('../../api/admin/_save.js');
+  const { checkArticle } = await import('../../api/admin/_seo-score.js');
+  const source = await read('blog/dry-eye-myths.html');
+  const reading = source.match(/<!-- hs-static-reading-meta:start -->[\s\S]*?<!-- hs-static-reading-meta:end -->/);
+  assert.ok(reading, 'Actual generated article fixture');
+  const result = stripRuntimeHelpers(reading[0]);
+  assert.equal(result.count, 1);
+  assert.equal(result.html, '<!-- hs-static-reading-meta:start --><!-- hs-static-reading-meta:end -->');
+  const authored = '<html><head><title>Author title</title></head><body><article><h2>Author heading</h2><p>Author text stays the same.</p></article></body></html>';
+  assert.deepEqual(checkArticle(authored.replace('<article>', '<article>' + reading[0])), checkArticle(authored));
+});
+
 test('canonical articles do not persist runtime-only DOM', async () => {
   const blogDir = new URL('../../blog/', import.meta.url);
   const articleFiles = (await readdir(blogDir)).filter(name => name.endsWith('.html'));
@@ -292,7 +305,17 @@ test('canonical articles do not persist runtime-only DOM', async () => {
       assert.match(blocks[0], /<details id="hs-inline-toc" open/);
       assert.match(blocks[0], /<ol[^>]+data-zh=/);
     }
-    const html = source.replace(/<!-- hs-static-toc:start -->[\s\S]*?<!-- hs-static-toc:end -->/g, '');
+    const readingBlocks = source.match(/<!-- hs-static-reading-meta:start -->[\s\S]*?<!-- hs-static-reading-meta:end -->/g) || [];
+    assert.ok(readingBlocks.length <= 1, `${name}: only one generated reading information block`);
+    if (readingBlocks.length) {
+      assert.equal((readingBlocks[0].match(/id="hs-reading-meta"/g) || []).length, 1, `${name}: generated reading helper`);
+      assert.match(readingBlocks[0], /data-zh="閱讀約 /);
+      assert.match(readingBlocks[0], /data-en="\d+(?:\.\d+)? min read"/);
+      assert.match(readingBlocks[0], /data-zh="最後更新 /);
+      assert.doesNotMatch(readingBlocks[0], /最後審閱|Last reviewed/);
+    }
+    const html = source.replace(/<!-- hs-static-toc:start -->[\s\S]*?<!-- hs-static-toc:end -->/g, '')
+      .replace(/<!-- hs-static-reading-meta:start -->[\s\S]*?<!-- hs-static-reading-meta:end -->/g, '');
     for (const id of runtimeIds) {
       assert.doesNotMatch(html, new RegExp(`id=["']${id}["']`), `${name}: ${id}`);
     }

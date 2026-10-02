@@ -1,8 +1,9 @@
-"""Render article contents before first paint, preserving authored HTML bytes.
+"""Render article contents/reading information before paint, preserving authored HTML bytes.
 
 The runtime already skips an existing hs-inline-toc. Its reserved helper ID is
 also stripped by both CMS serializers; the normal generation chain rebuilds
-the contents from the saved headings. English mirrors consume this result.
+the contents from the saved headings. Reading metadata follows the same reserved
+helper/strip/rebuild contract. English mirrors consume both results.
 """
 from html import escape
 from html.parser import HTMLParser
@@ -11,6 +12,7 @@ import re
 from urllib.parse import quote
 
 from bs4 import BeautifulSoup
+from _article_reading_meta import catalog_metadata, render_reading_meta
 
 ROOT = Path(__file__).resolve().parent
 START = '<!-- hs-static-toc:start -->'
@@ -147,16 +149,18 @@ def render_navigation(source):
 
 def main():
     changed = 0
+    catalog = catalog_metadata((ROOT / 'blog/blog-shared.js').read_text(encoding='utf8'))
     for path in sorted((ROOT / 'blog').glob('*.html')):
         original = path.read_bytes()
         try:
-            result = render_navigation(original.decode('utf-8')).encode('utf-8')
+            navigation = render_navigation(original.decode('utf-8'))
+            result = render_reading_meta(navigation, catalog.get(path.stem)).encode('utf-8')
         except ValueError as error:
             raise ValueError(f'{path.name}: {error}') from error
         if result != original:
             path.write_bytes(result)
             changed += 1
-    print(f'Static contents pages updated: {changed}')
+    print(f'Static contents/reading information pages updated: {changed}')
 
 
 if __name__ == '__main__':

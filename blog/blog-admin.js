@@ -105,9 +105,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260700');
-      historyModule = await import('/blog/editor-history.js?v=20260700');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260700');
+      editorReview = await import('/blog/editor-review.js?v=20260701');
+      historyModule = await import('/blog/editor-history.js?v=20260701');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260701');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -898,7 +898,7 @@
     // that should NEVER be serialized into the source HTML. It also syncs
     // user edits back to data-zh / data-en attributes so the bilingual
     // toggle (DN.applyTextOnly) doesn't revert them on next page load.
-    function _sanitizeForSerialize(clone) {
+    function _stripRuntimeHelpers(clone) {
       // 1. Strip admin chrome + runtime-injected helpers.
       // ⚠ COUPLING (M-06): the runtime-helper portion of this array MUST stay
       //   identical to RUNTIME_HELPER_IDS in api/admin/_save.js — the only
@@ -938,6 +938,11 @@
       });
       // 2. Strip image lightbox container (.hs-img-lightbox is injected on demand)
       clone.querySelectorAll('.hs-img-lightbox').forEach(function (el) { el.remove(); });
+      return clone;
+    }
+
+    function _sanitizeForSerialize(clone) {
+      _stripRuntimeHelpers(clone);
       // 3. Strip apply sentinels (markers from _apply_*.py — re-added by build)
       clone.querySelectorAll('[data-critical-css], [data-a11y-vt-applied], [data-i-series-applied]').forEach(function (el) {
         // Keep critical CSS itself; it'll be regenerated. Remove only the marker comment style.
@@ -1040,6 +1045,10 @@
       var snapshot = baseDocument.documentElement.cloneNode(true);
       snapshot.querySelector('article.max-w-3xl').replaceWith(edited.querySelector('article.max-w-3xl'));
       metadataWorkspace.apply(snapshot);
+      // The authenticated hero can now contain generated reader information.
+      // Strip helpers from the complete snapshot, without rewriting untouched
+      // hero/footer bilingual text from the editor's currently selected language.
+      _stripRuntimeHelpers(snapshot);
       return '<!doctype html>\n' + snapshot.outerHTML;
     }
 
@@ -1067,7 +1076,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260700';
+        runtime.src = '/blog/editor-preview.js?v=20260701';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');

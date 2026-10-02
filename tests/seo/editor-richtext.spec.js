@@ -31,6 +31,21 @@ async function setup(page, html=source) {
   const frame=page.frameLocator('#edit-iframe');await expect(frame.locator('#hs-adm-save')).toBeVisible();
   return {frame,state};
 }
+
+test('generated reading information is stripped on real editor save while authored content survives',async({page})=>{
+  const {frame,state}=await setup(page);
+  await expect(frame.locator('#hs-reading-meta')).toHaveCount(1);
+  const paragraph=frame.locator('#proseZh > p[contenteditable]').first();
+  await paragraph.fill('保留作者本次修改');
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  expect(state.submitted.html).not.toContain('id="hs-reading-meta"');
+  expect(state.submitted.html).toContain('<!-- hs-static-reading-meta:start -->');
+  expect(state.submitted.html).toContain('<!-- hs-static-reading-meta:end -->');
+  expect(state.submitted.html).toContain('保留作者本次修改');
+  await page.reload();await page.waitForFunction(()=>typeof openEditor==='function');await page.evaluate(s=>openEditor(s),slug);
+  await expect(paragraph).toHaveAttribute('contenteditable','true');
+  await expect(paragraph).toHaveText('保留作者本次修改');
+});
 for (const [command,selector] of [['table','table'],['myth','.myth-card'],['redflag','.hs-redflag-box'],['tldr','.tldr'],['mermaid','pre.mermaid'],['math','p']]) {
 test(`${command} insertion participates in keyboard Undo and Redo without deleting the previous paragraph`,async({page})=>{
   const {frame}=await setup(page), p=frame.locator('#proseZh > p[contenteditable]').first();

@@ -21,6 +21,8 @@ import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
 import { catalogRecords, patchCatalogFields } from '../_articles.js';
 
 function countWords(html) {
+  // Generated reading information must not count itself on the next run.
+  html = html.replace(/<!-- hs-static-reading-meta:start -->[\s\S]*?<!-- hs-static-reading-meta:end -->/g, '');
   // Strip <script>, <style>, <head> blocks first
   const body = html
     .replace(/<head[\s\S]*?<\/head>/gi, '')

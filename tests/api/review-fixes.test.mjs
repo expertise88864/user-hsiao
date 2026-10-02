@@ -138,6 +138,12 @@ test('actual CMS handlers protect revisions and bilingual data and allow repeat 
     const firstRun=currentCatalog;
     res=respond();await precompute({method:'POST',headers,body:{}},res);assert.equal(res.code,200);assert.equal(res.body.noop,true);
     assert.equal(currentCatalog,firstRun);assert.equal(catalogRecords(firstRun)[0].values.title,'Before } after');
+    const beforeReadingWidget = res.body.updates;
+    currentArticle = currentArticle.replace('</body>', '<!-- hs-static-reading-meta:start --><div id="hs-reading-meta"><svg><circle/></svg>' + 'Generated reading information '.repeat(100) + '</div><!-- hs-static-reading-meta:end --></body>');
+    res=respond();await precompute({method:'POST',headers,body:{}},res);
+    assert.equal(res.code,200);assert.equal(res.body.noop,true);
+    assert.deepEqual(res.body.updates,beforeReadingWidget);
+    assert.equal(currentCatalog,firstRun);
   } finally {
     globalThis.fetch=originalFetch;
     if(originalPassword===undefined)delete process.env.ADMIN_PASSWORD;else process.env.ADMIN_PASSWORD=originalPassword;
