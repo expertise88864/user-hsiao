@@ -28,6 +28,11 @@ class BlogFilterTests(unittest.TestCase):
         self.assertEqual(doc.select_one('[data-tag="兒童近視"] .count').text, '4')
         self.assertTrue(all(c.has_attr('disabled') for c in doc.select('#hs-blog-filter button, #hs-blog-filter input')))
         self.assertEqual(doc.select_one('label')['for'], doc.select_one('input')['id'])
+        details = doc.select_one('details')
+        self.assertFalse(details.has_attr('open'))
+        self.assertEqual(details.select_one('summary [data-en]')['data-en'], 'Browse by topic')
+        self.assertTrue(details.select_one('.hs-topic-selected').has_attr('hidden'))
+        self.assertEqual(len(details.select('[data-tag]')), 1)
 
     def test_existing_english_tag_aliases_group_without_changing_cards(self):
         source = PLACEHOLDER + article(en='Myopia') + article() * 3

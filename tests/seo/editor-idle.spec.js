@@ -24,7 +24,10 @@ for (const newerInput of [false, true]) test(`late reader initialization preserv
     window.__editorSw = { registrations:[], messages:[], sync:[] };
     const registration = { addEventListener(){}, update:()=>Promise.resolve(), sync:{ register:tag=>{window.__editorSw.sync.push(tag);return Promise.resolve();} } };
     const workers = { controller:null, ready:Promise.resolve(registration), addEventListener(){}, removeEventListener(){},
-      register:url=>{window.__editorSw.registrations.push(url);workers.controller={postMessage:value=>window.__editorSw.messages.push(value)};return Promise.resolve(registration);} };
+      register:url=>{window.__editorSw.registrations.push(url);workers.controller={postMessage:(value,ports)=>{
+        window.__editorSw.messages.push(value);
+        window.__editorSw.reply=()=>{ports[0].postMessage({queued:true});ports[0].close();};
+      }};return Promise.resolve(registration);} };
     Object.defineProperty(navigator,'serviceWorker',{ configurable:true, value:workers });
   });
   await page.context().route('**/*', async route => {
@@ -89,6 +92,9 @@ for (const newerInput of [false, true]) test(`late reader initialization preserv
     await expect.poll(()=>frame.locator('body').evaluate(()=>!!DN._offlineSaveTokens['dry-eye-myths'])).toBe(true);
     await frame.locator('#hs-editor-titleZh').fill('網路失敗時保留的標題');
     await frame.locator('#hs-adm-save').click();
+    await expect.poll(()=>frame.locator('body').evaluate(()=>window.__editorSw.messages.length)).toBe(1);
+    await expect(frame.locator('#hs-admin-status')).not.toContainText('已排入背景同步');
+    await frame.locator('body').evaluate(()=>window.__editorSw.reply());
     await expect(frame.locator('#hs-admin-status')).toContainText('已排入背景同步');
     const queued = await frame.locator('body').evaluate(()=>window.__editorSw.messages);
     expect(queued).toHaveLength(1);expect(queued[0].type).toBe('QUEUE_SAVE');

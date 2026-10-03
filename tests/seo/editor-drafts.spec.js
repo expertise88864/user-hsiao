@@ -43,6 +43,44 @@ async function draft(frame) {
 }
 function acceptRecovery(page) { page.on('dialog', dialog => dialog.accept()); }
 
+for (const queued of [false,true]) test(`offline status waits for queue receipt without losing newer typing, queued=${queued}`,async({page})=>{
+  await setup(page);
+  await page.route('**/api/admin/save',route=>route.request().method()==='GET'?route.fallback():route.abort('internetdisconnected'));
+  const frame=await open(page);
+  await frame.locator('body').evaluate(()=>{
+    window.__queueCalls=0;
+    DN.queueOfflineSave=()=>{window.__queueCalls++;return new Promise(resolve=>{window.__queueReply=resolve;});};
+  });
+  const p=frame.locator('#proseZh > p[contenteditable]').first();
+  await p.fill('Offline submitted snapshot');await frame.locator('#hs-adm-save').click();
+  await expect.poll(()=>frame.locator('body').evaluate(()=>window.__queueCalls)).toBe(1);
+  await expect(frame.locator('#hs-admin-status')).not.toContainText('已排入背景同步');
+  await p.fill('Newer typing during queue storage');
+  await frame.locator('body').evaluate((body,queued)=>window.__queueReply(queued),queued);
+  await expect(frame.locator('#hs-admin-status')).toContainText(queued?'已排入背景同步':'未確認排入背景同步');
+  await expect(p).toHaveText('Newer typing during queue storage');
+  expect(await frame.locator('body').evaluate(()=>DN.adminBeforeClose())).toBe(true);
+  expect((await draft(frame)).html).toContain('Newer typing during queue storage');
+});
+
+test('ambiguous background receipt cannot be overwritten by a late queue acknowledgment',async({page})=>{
+  await setup(page);
+  await page.route('**/api/admin/save',route=>route.request().method()==='GET'?route.fallback():route.abort('internetdisconnected'));
+  const frame=await open(page);
+  await frame.locator('body').evaluate(()=>{DN.queueOfflineSave=()=>new Promise(resolve=>{window.__queueReply=resolve;});});
+  const p=frame.locator('#proseZh > p[contenteditable]').first();
+  await p.fill('Keep this ambiguous-save source');await frame.locator('#hs-adm-save').click();
+  await expect.poll(()=>frame.locator('body').evaluate(()=>typeof window.__queueReply)).toBe('function');
+  await frame.locator('body').evaluate(()=>{
+    navigator.serviceWorker.dispatchEvent(new MessageEvent('message',{data:{type:'BG_SYNC_UNCONFIRMED',slug:'dry-eye-myths'}}));
+    window.__queueReply(true);
+  });
+  await expect(frame.locator('#hs-admin-status')).toContainText('背景保存回應無法確認版本');
+  await frame.locator('#hs-adm-save').click();
+  await expect(frame.locator('#hs-admin-status')).toContainText('勿重複儲存');
+  await expect(p).toHaveText('Keep this ambiguous-save source');
+});
+
 for (const storage of ['opfs', 'ls']) {
   test(`immediate close preserves latest author input using ${storage}`, async ({ page }) => {
     await setup(page, storage);

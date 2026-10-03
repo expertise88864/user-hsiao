@@ -175,12 +175,13 @@ test('background replay retains conflicting snapshots with their original versio
   const deleted = [], messages = [], requests = [];
   const sha = 'a'.repeat(40);
   const context = {
+    unconfirmedReplayIds: new Set(),
     readQueuedSaves: async () => [
       {id: 1, slug: 'example', html: '<html>draft</html>', baseSha: sha, token: 'capability'},
       {id: 2, slug: 'other', html: '<html>valid</html>', baseSha: sha, token: 'capability'},
     ],
     deleteQueuedSave: async id => deleted.push(id),
-    fetch: async (_, opts) => { const body = JSON.parse(opts.body); requests.push(body); return {ok:body.slug === 'other',status:body.slug === 'other' ? 200 : 409}; },
+    fetch: async (_, opts) => { const body = JSON.parse(opts.body); requests.push(body); return {ok:body.slug === 'other',status:body.slug === 'other' ? 200 : 409,json:async()=>({ok:true,sha:'b'.repeat(40),commit:'c'.repeat(40)})}; },
     self: {clients:{matchAll:async () => [{postMessage:m => messages.push(m)}]}},
   };
   await runInNewContext(source.slice(start, end) + '\ndrainSavesOnce()', context);

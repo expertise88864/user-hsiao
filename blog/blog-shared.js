@@ -3168,7 +3168,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260701';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260703';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3792,7 +3792,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260701';
+    s.src = '/blog/blog-admin.js?v=20260703';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -3954,15 +3954,29 @@
       state.q   = p.get('q')   || '';
     } catch (e) {}
 
+    var topicDetails = host.querySelector('.hs-topic-disclosure');
+    var topicSelected = host.querySelector('.hs-topic-selected');
     function syncUI() {
       host.querySelectorAll('[data-cat]').forEach(function (b) {
         b.classList.toggle('active', b.dataset.cat === state.cat);
         b.setAttribute('aria-pressed', String(b.dataset.cat === state.cat));
       });
+      var selectedLabel = null;
       host.querySelectorAll('[data-tag]').forEach(function (b) {
         b.classList.toggle('active', b.dataset.tag === state.tag);
         b.setAttribute('aria-pressed', String(b.dataset.tag === state.tag));
+        if (b.dataset.tag === state.tag) selectedLabel = b.querySelector('[data-zh][data-en]');
       });
+      // A reader can close the topic list while retaining a filter. Keep that
+      // selection visible in the native summary, including after language changes.
+      if (topicSelected) {
+        topicSelected.hidden = !selectedLabel;
+        if (selectedLabel) {
+          topicSelected.dataset.zh = '目前：' + selectedLabel.dataset.zh;
+          topicSelected.dataset.en = 'Selected: ' + selectedLabel.dataset.en;
+          topicSelected.textContent = topicSelected.getAttribute('data-' + DN.detectLang());
+        }
+      }
       var inp = host.querySelector('input[type="search"]');
       if (inp && state.q) inp.value = state.q;
     }
@@ -4043,6 +4057,7 @@
     });
 
     syncUI();
+    if (topicDetails && topicSelected && !topicSelected.hidden) topicDetails.open = true;
     apply();
     host.querySelectorAll('button, input').forEach(function (control) { control.disabled = false; });
     host.dataset.filterReady = '1';
@@ -4797,19 +4812,38 @@
     }
   };
 
-  DN.queueOfflineSave = function (slug, html, baseSha) {
+  DN.queueOfflineSave = async function (slug, html, baseSha) {
     if (!/^[a-f0-9]{40}$/.test(baseSha || '')) return false;
     if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return false;
     var capability = DN._offlineSaveTokens[slug];
     if (!capability || capability.expiresAt <= Date.now() + 60000) return false;
+    if (typeof MessageChannel !== 'function') return false;
     try {
-      navigator.serviceWorker.controller.postMessage({
-        type: 'QUEUE_SAVE',
-        payload: { slug: slug, html: html, baseSha: baseSha, token: capability.token, ts: Date.now() },
+      var queued = await new Promise(function (resolve) {
+        var channel = new MessageChannel();
+        var timeout;
+        function finish(ok) {
+          clearTimeout(timeout);
+          channel.port1.close();
+          channel.port2.close();
+          resolve(ok);
+        }
+        // An old worker, rejected message or storage failure is not a receipt.
+        timeout = setTimeout(function () { finish(false); }, 8000);
+        channel.port1.onmessage = function (event) {
+          finish(!!event.data && event.data.queued === true);
+        };
+        try {
+          navigator.serviceWorker.controller.postMessage({
+            type: 'QUEUE_SAVE',
+            payload: { slug: slug, html: html, baseSha: baseSha, token: capability.token, ts: Date.now() },
+          }, [channel.port2]);
+        } catch (e) { finish(false); }
       });
+      if (!queued) return false;
       navigator.serviceWorker.ready.then(function (reg) {
         if (reg.sync) reg.sync.register('admin-save-replay').catch(function () {});
-      });
+      }).catch(function () {});
       return true;
     } catch (e) { return false; }
   };

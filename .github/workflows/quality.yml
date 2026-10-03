@@ -408,6 +408,25 @@ jobs:
           temporaryPublicStorage: false
           configPath: ./.github/workflows/lighthouserc.json
 
+      # Separate browser AFTER scoring: controlled prototypes never alter a
+      # Lighthouse navigation, production style, auth policy or PNG baseline.
+      - name: Measure isolated candidate font geometry
+        if: github.ref != 'refs/heads/main'
+        timeout-minutes: 3
+        env:
+          SITE_URL: ${{ steps.site.outputs.url }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: node scripts/index-font-experiment.cjs
+
+      - name: Upload controlled font experiment
+        if: github.ref != 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: controlled-font-experiment
+          path: font-layout-experiment-results/*.json
+          if-no-files-found: error
+
       - name: Upload font environment
         uses: actions/upload-artifact@v4
         with:

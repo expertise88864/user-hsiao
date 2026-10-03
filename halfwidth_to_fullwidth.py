@@ -104,6 +104,11 @@ ATTR_RE = re.compile(
     r'|data-(?!zh\b|en\b)[\w-]+)\s*=\s*(?:"[^"]*"|\'[^\']*\')',
     re.IGNORECASE,
 )
+# Consume complete quoted attributes, including technical values that may
+# themselves contain apparent HTML. Do not find data-zh inside srcdoc/code.
+DISPLAY_TAG_RE = re.compile(r'<!--.*?-->|<[A-Za-z][^<>"\']*(?:(?:"[^"]*"|\'[^\']*\')[^<>"\']*)*>', re.DOTALL)
+BILINGUAL_ATTR_RE = re.compile(r'(\s([\w:-]+)\s*=\s*)("[^"]*"|\'[^\']*\'|[^\s>]+)')
+BILINGUAL_END_RE = re.compile(rf'({CN})([!?])$')
 
 def convert(text: str) -> tuple[str, int]:
     placeholders: list[str] = []
@@ -116,6 +121,21 @@ def convert(text: str) -> tuple[str, int]:
     text = ATTR_RE.sub(stash, text)
 
     total = 0
+    # Only bilingual display-copy values get the additional quote-end case.
+    # Extending the global rules to quotes would also mutate pattern/action
+    # and other technical attributes outside ATTR_RE's historical protection.
+    def normalize_bilingual_ending(m: re.Match) -> str:
+        nonlocal total
+        quoted = m[3]
+        if m[2].lower() not in {'data-zh', 'data-en'} or quoted[0] not in {'"', "'"}:
+            return m[0]
+        value, count = BILINGUAL_END_RE.subn(
+            lambda ending: ending[1] + {'!': FW_EXCL, '?': FW_QUES}[ending[2]], quoted[1:-1])
+        total += count
+        return m[1] + quoted[0] + value + quoted[-1]
+    text = DISPLAY_TAG_RE.sub(lambda tag: tag[0] if tag[0].startswith('<!--')
+        else BILINGUAL_ATTR_RE.sub(normalize_bilingual_ending, tag[0]), text)
+
     # One pass is enough since rules transform half→full only.
     for pat, rep in RULES:
         new_text, n = pat.subn(rep, text)

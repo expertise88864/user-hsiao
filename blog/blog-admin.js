@@ -105,9 +105,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260701');
-      historyModule = await import('/blog/editor-history.js?v=20260701');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260701');
+      editorReview = await import('/blog/editor-review.js?v=20260703');
+      historyModule = await import('/blog/editor-history.js?v=20260703');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260703');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -129,6 +129,10 @@
     if (navigator.serviceWorker) navigator.serviceWorker.addEventListener('message', function (event) {
       if (event.data && event.data.type === 'BG_SYNC_CONFLICT' && event.data.slug === slug) {
         status('離線草稿與新版本衝突，已保留草稿，請先比較內容。', 'error');
+      }
+      if (event.data && event.data.type === 'BG_SYNC_UNCONFIRMED' && event.data.slug === slug) {
+        saveReceiptPending = true;
+        status('背景保存回應無法確認版本；離線快照仍保留，請先比較最新來源並匯出目前內容，勿重複儲存。', 'error');
       }
     });
     setInterval(function () {
@@ -1076,7 +1080,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260701';
+        runtime.src = '/blog/editor-preview.js?v=20260703';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -1422,10 +1426,10 @@
         } catch (e) {
           if (saveAccepted) throw e;
           // v33: Network failure → queue for Background Sync v2 replay
-          if (DN.queueOfflineSave(slug, html, baseSha)) {
-            status('⚠ 離線中 — 已排入背景同步,連線後自動重送', 'error');
+          if (await DN.queueOfflineSave(slug, html, baseSha)) {
+            if (!saveReceiptPending) status('⚠ 離線中 — 已排入背景同步,連線後自動重送', 'error');
           } else {
-            status('✗ 網路錯誤: ' + (e.message || e), 'error');
+            status('✗ 網路錯誤；未確認排入背景同步，請保持編輯器開啟並確認本機草稿：' + (e.message || e), 'error');
           }
         }
       } catch (e) {
