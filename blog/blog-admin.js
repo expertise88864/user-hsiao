@@ -105,9 +105,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260702');
-      historyModule = await import('/blog/editor-history.js?v=20260702');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260702');
+      editorReview = await import('/blog/editor-review.js?v=20260703');
+      historyModule = await import('/blog/editor-history.js?v=20260703');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260703');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -1080,7 +1080,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260702';
+        runtime.src = '/blog/editor-preview.js?v=20260703';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');

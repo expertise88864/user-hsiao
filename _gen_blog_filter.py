@@ -79,11 +79,16 @@ def render(source, css):
     controls.append('<button type="button" class="reset" data-zh="清除篩選" '
                     'data-en="Reset" disabled>清除篩選</button></div>')
     if tags:
-        controls.append('<div class="row"><span class="label" data-zh="標籤" '
+        controls.append('<details class="hs-topic-disclosure"><summary>'
+                        + label('按主題找文章', 'Browse by topic')
+                        + f'<span class="count"> ({len(tags)})</span>'
+                        '<span class="hs-topic-selected" data-zh="未選取主題" '
+                        'data-en="No selected topic" hidden>未選取主題</span>'
+                        '</summary><div class="row"><span class="label" data-zh="標籤" '
                         'data-en="Tags">標籤</span>')
         controls.extend(button('tag', tag, (tag, translations[tag]), tags[tag])
                         for tag in sorted(tags, key=lambda t: -tags[t]))
-        controls.append('</div>')
+        controls.append('</div></details>')
     controls.append('<div class="row"><label class="label" for="hs-blog-search" '
                     'data-zh="搜尋" data-en="Search">搜尋</label>'
                     '<input id="hs-blog-search" type="search" placeholder="輸入關鍵字…" '

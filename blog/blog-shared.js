@@ -3168,7 +3168,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260702';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260703';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3792,7 +3792,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260702';
+    s.src = '/blog/blog-admin.js?v=20260703';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -3954,15 +3954,29 @@
       state.q   = p.get('q')   || '';
     } catch (e) {}
 
+    var topicDetails = host.querySelector('.hs-topic-disclosure');
+    var topicSelected = host.querySelector('.hs-topic-selected');
     function syncUI() {
       host.querySelectorAll('[data-cat]').forEach(function (b) {
         b.classList.toggle('active', b.dataset.cat === state.cat);
         b.setAttribute('aria-pressed', String(b.dataset.cat === state.cat));
       });
+      var selectedLabel = null;
       host.querySelectorAll('[data-tag]').forEach(function (b) {
         b.classList.toggle('active', b.dataset.tag === state.tag);
         b.setAttribute('aria-pressed', String(b.dataset.tag === state.tag));
+        if (b.dataset.tag === state.tag) selectedLabel = b.querySelector('[data-zh][data-en]');
       });
+      // A reader can close the topic list while retaining a filter. Keep that
+      // selection visible in the native summary, including after language changes.
+      if (topicSelected) {
+        topicSelected.hidden = !selectedLabel;
+        if (selectedLabel) {
+          topicSelected.dataset.zh = '目前：' + selectedLabel.dataset.zh;
+          topicSelected.dataset.en = 'Selected: ' + selectedLabel.dataset.en;
+          topicSelected.textContent = topicSelected.getAttribute('data-' + DN.detectLang());
+        }
+      }
       var inp = host.querySelector('input[type="search"]');
       if (inp && state.q) inp.value = state.q;
     }
@@ -4043,6 +4057,7 @@
     });
 
     syncUI();
+    if (topicDetails && topicSelected && !topicSelected.hidden) topicDetails.open = true;
     apply();
     host.querySelectorAll('button, input').forEach(function (control) { control.disabled = false; });
     host.dataset.filterReady = '1';
