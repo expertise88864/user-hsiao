@@ -3,7 +3,7 @@
 #
 # 用法:
 #   tools/codex_review.sh <mode> <base-ref> [task-context-file]
-#   tools/codex_review.sh resume [session-id]
+#   tools/codex_review.sh resume [session-id] [task-context-file]
 #
 # mode:
 #   diff      低風險/局部(文案、註解、CSS、tests-only)     medium / 額外檔 3 / findings 3
@@ -24,6 +24,7 @@
 #   CODEX_REVIEW_VERIFICATION  本機驗證結果摘要(單/多行字串),會填入 prompt。
 #   CODEX_REVIEW_HARDEN=0      關閉 web_search/apps 的額外 -c 硬化(若該 CLI 版本不認這些鍵)。
 #   CODEX_REVIEW_STRICT=0      關閉 --strict-config。
+#   CODEX_REVIEW_WINDOWS_SANDBOX  Windows 原生沙箱實作:unelevated(預設)或 elevated。
 set -uo pipefail
 
 MODEL="gpt-5.6-sol"
@@ -61,7 +62,7 @@ esac
 build_flags() {   # $1 = effort ; $2 = kind("exec" | "resume",預設 exec)
   # 刻意用不含內層引號的 -c key=value:codex 對 value 先試 TOML,失敗即當字面字串
   # (bare `medium`/`disabled` → 字串;`false` → 布林)。跨 bash/PowerShell quoting 最穩。
-  FLAGS=(--ignore-user-config --model "$MODEL" -c "model_reasoning_effort=$1" -o "$LAST_MSG")
+  FLAGS=(--ignore-user-config --model "$MODEL" -c "model_reasoning_effort=$1" -c "approval_policy=never" -o "$LAST_MSG")
   if [ "${2:-exec}" = "resume" ]; then
     # `codex exec resume` 旗標集較小:不接受 --sandbox 也不接受 --cd。
     # sandbox 改用 config 鍵 sandbox_mode 覆寫(policy 軸,值 read-only);
@@ -70,11 +71,23 @@ build_flags() {   # $1 = effort ; $2 = kind("exec" | "resume",預設 exec)
   else
     FLAGS+=(--sandbox read-only --cd "$REPO_ROOT")
   fi
+  # --ignore-user-config 也隔離 [windows] 設定。原生 Windows 必須明確選擇
+  # 沙箱實作,保留 read-only 與 never,不以允許命令或 full-access 繞過限制。
+  case "$(uname -s)" in
+    MINGW*|MSYS*|CYGWIN*)
+      REVIEW_WINDOWS_SANDBOX="${CODEX_REVIEW_WINDOWS_SANDBOX:-unelevated}"
+      case "$REVIEW_WINDOWS_SANDBOX" in
+        unelevated|elevated) ;;
+        *) die "CODEX_REVIEW_WINDOWS_SANDBOX 只能是 unelevated 或 elevated。" ;;
+      esac
+      FLAGS+=(-c "windows.sandbox=$REVIEW_WINDOWS_SANDBOX")
+      ;;
+  esac
   [ "$STRICT" = "1" ] && FLAGS+=(--strict-config)
   if [ "$HARDEN" = "1" ]; then
     FLAGS+=(-c "web_search=disabled" -c "features.apps=false")
   fi
-  # 明確不使用:--ask-for-approval(此 CLI 的 exec 無此旗標,非互動預設即 never)、
+  # 明確不使用:--ask-for-approval(此 CLI 的 exec 無此旗標,上面以 config 固定 never)、
   #             --skip-git-repo-check、--ephemeral(第二輪要 resume)、--dangerously-*。
 }
 
@@ -123,6 +136,7 @@ log_usage() {  # $1 mode $2 effort $3 base $4 pass
 
 # ================= resume(第二輪) =================
 if [ "$MODE" = "resume" ]; then
+  [ "$#" -le 3 ] || die "用法:$0 resume [session-id] [task-context-file]"
   SID="${2:-}"
   if [ -z "$SID" ]; then
     [ -s "$SESSION_FILE" ] || die "找不到第一輪 session id($SESSION_FILE 不存在)。請以明確 session id 執行:$0 resume <session-id>。不要用 --last(可能 resume 到別的專案)。"
@@ -186,6 +200,17 @@ files, run tests, builds, linters, package managers, application code, or ad hoc
 probes, and do not use web search, browser, apps, connectors, or external MCP
 tools. End with exactly APPROVE or REQUEST_CHANGES.
 RP
+  # 基礎設施中斷可能完全沒讀到來源;新增範圍也不能沿用舊摘要。
+  # 續用同一 session 時可補充摘要,與第一輪一樣拒絕完整 diff 輸入。
+  RESUME_CTX_FILE="${3:-}"
+  if [ -n "$RESUME_CTX_FILE" ]; then
+    [ -f "$RESUME_CTX_FILE" ] || die "task-context 檔不存在:$RESUME_CTX_FILE"
+    if grep -qE '^(diff --git |@@ |index [0-9a-f]+\.\.)' "$RESUME_CTX_FILE"; then
+      die "task-context 檔看起來含有 diff。task-context 只能放任務摘要/驗收標準/預期行為/non-goals/本機測試結果/已知限制。"
+    fi
+    RESUME_PROMPT+=$'\n\nUPDATED TASK CONTEXT (complete scope and coverage requirements):\n'
+    RESUME_PROMPT+="$(cat "$RESUME_CTX_FILE")"
+  fi
 
   echo "[codex-review] resume session=$SID effort=$RESUME_EFFORT (pass $THIS_PASS)"
   : > "$LAST_MSG"

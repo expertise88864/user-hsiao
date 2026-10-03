@@ -141,6 +141,7 @@ STATIC_PAGES = [
     {'url': '/',              'priority': '1.0',  'changefreq': 'weekly'},
     {'url': '/about',         'priority': '0.8',  'changefreq': 'monthly'},
     {'url': '/tools',         'priority': '0.85', 'changefreq': 'monthly'},
+    {'url': '/tools/eye-3d',  'priority': '0.7',  'changefreq': 'monthly', 'has_en': False},
     {'url': '/blog',          'priority': '0.95', 'changefreq': 'weekly'},
     {'url': '/blog/topics',   'priority': '0.7',  'changefreq': 'monthly'},
     # /notes intentionally excluded — it is a thin "coming soon" placeholder
@@ -162,6 +163,7 @@ STATIC_HTML_FILES = {
     '/': 'index.html',
     '/about': 'about.html',
     '/tools': 'tools.html',
+    '/tools/eye-3d': 'tools/eye-3d.html',
     '/blog': 'blog/index.html',
     '/blog/topics': 'blog/topics.html',
     '/notes': 'notes.html',
@@ -226,6 +228,7 @@ def build_sitemap():
             p['priority'],
             image=static_og_image(zh),
             image_title=static_page_title(zh, lang='zh'),
+            include_en=p.get('has_en', True),
         )
 
     # Articles (with per-article OG image). lastmod = `updated` (falls back to `date`)
@@ -249,6 +252,8 @@ def build_sitemap():
     out.append('')
     out.append('  <!-- ===== English mirror (/en/) ===== -->')
     for p in STATIC_PAGES:
+        if not p.get('has_en', True):
+            continue
         zh = p['url']
         en = '/en' if zh == '/' else '/en' + zh
         image = static_og_image(zh)

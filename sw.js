@@ -460,10 +460,28 @@ async function deleteQueuedSave(id) {
 }
 
 let drainSavesPromise = null;
+const unconfirmedReplayIds = new Set();
+async function markReplayUnconfirmed(id) {
+  const db = await openSyncDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(SYNC_STORE, 'readwrite');
+    const store = tx.objectStore(SYNC_STORE);
+    const request = store.get(id);
+    request.onsuccess = () => {
+      // A newer snapshot may already have replaced this record. Never restore
+      // the old payload over it just to mark an ambiguous response.
+      if (request.result) store.put({ ...request.result, receiptUnconfirmed: true });
+    };
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error);
+  });
+}
 async function drainSavesOnce() {
   const all = await readQueuedSaves();
   let succeeded = 0;
   for (const item of all || []) {
+    if (item.receiptUnconfirmed || unconfirmedReplayIds.has(item.id)) continue;
     try {
       const r = await fetch('/api/admin/save', {
         method: 'POST',
@@ -476,6 +494,19 @@ async function drainSavesOnce() {
         body: JSON.stringify({ slug: item.slug, html: item.html, baseSha: item.baseSha }),
       });
       if (r.ok) {
+        let receipt;
+        try { receipt = await r.json(); } catch (e) { /* invalid JSON is not a version receipt */ }
+        if (!receipt || receipt.ok !== true || !/^[a-f0-9]{40}$/.test(receipt.sha || '') ||
+            typeof receipt.commit !== 'string' ||
+            !(receipt.commit === '' && receipt.noop === true || /^[a-f0-9]{40}$/.test(receipt.commit))) {
+          unconfirmedReplayIds.add(item.id);
+          try { await markReplayUnconfirmed(item.id); }
+          finally {
+            const clients = await self.clients.matchAll({ includeUncontrolled: true });
+            clients.forEach(c => c.postMessage({ type: 'BG_SYNC_UNCONFIRMED', slug: item.slug }));
+          }
+          continue;
+        }
         await deleteQueuedSave(item.id);
         succeeded++;
       } else if (r.status === 409) {
@@ -517,6 +548,13 @@ self.addEventListener('message', async (e) => {
   if (e.data.type === 'SKIP_WAITING') { self.skipWaiting(); return; }
   if (e.data.type === 'QUEUE_SAVE' && e.data.payload) {
     e.waitUntil((async () => {
+      const reply = (queued) => {
+        if (e.ports && e.ports[0]) {
+          try { e.ports[0].postMessage({ queued }); } catch (error) { /* detached requester */ }
+          e.ports[0].close();
+        }
+      };
+      try {
       const sourceUrl = e.source && e.source.url ? new URL(e.source.url) : null;
       const payload = e.data.payload;
       const sourceSlug = sourceUrl && sourceUrl.pathname.slice('/blog/'.length);
@@ -534,7 +572,7 @@ self.addEventListener('message', async (e) => {
         payload.html.length <= 1024 * 1024 &&
         typeof payload.token === 'string' &&
         payload.token.length <= 256;
-      if (!allowedSource || !validPayload) return;
+      if (!allowedSource || !validPayload) { reply(false); return; }
       await enqueueSave({
         slug: payload.slug,
         html: payload.html,
@@ -542,7 +580,9 @@ self.addEventListener('message', async (e) => {
         token: payload.token,
         ts: Number(payload.ts) || Date.now(),
       });
+      reply(true);
       await drainSaves().catch(() => {});
+      } catch (error) { reply(false); }
     })());
     return;
   }

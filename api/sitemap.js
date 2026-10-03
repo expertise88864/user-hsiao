@@ -24,6 +24,7 @@ const STATIC_PAGES = [
   { url: '/',              priority: '1.0',  changefreq: 'weekly' },
   { url: '/about',         priority: '0.8',  changefreq: 'monthly' },
   { url: '/tools',         priority: '0.85', changefreq: 'monthly' },
+  { url: '/tools/eye-3d',  priority: '0.7',  changefreq: 'monthly', has_en: false },
   { url: '/blog',          priority: '0.95', changefreq: 'weekly' },
   { url: '/blog/topics',   priority: '0.7',  changefreq: 'monthly' },
   // /notes intentionally excluded — thin "coming soon" placeholder (noindex).
@@ -227,7 +228,8 @@ export default async function handler(req, res) {
         p.changefreq,
         p.priority,
         staticOgImage(p.url),
-        staticImageTitle(p.url, 'zh')
+        staticImageTitle(p.url, 'zh'),
+        p.has_en !== false
       ));
     });
 
@@ -240,6 +242,7 @@ export default async function handler(req, res) {
 
     lines.push('', '  <!-- ===== English mirror (/en/) ===== -->');
     STATIC_PAGES.forEach(p => {
+      if (p.has_en === false) return;
       const en = p.url === '/' ? '/en' : '/en' + p.url;
       const pri = Math.max(0.3, parseFloat(p.priority) - 0.1).toFixed(2);
       const image = staticOgImage(p.url);

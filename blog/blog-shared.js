@@ -3168,7 +3168,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260701';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260702';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3792,7 +3792,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260701';
+    s.src = '/blog/blog-admin.js?v=20260702';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -4797,19 +4797,38 @@
     }
   };
 
-  DN.queueOfflineSave = function (slug, html, baseSha) {
+  DN.queueOfflineSave = async function (slug, html, baseSha) {
     if (!/^[a-f0-9]{40}$/.test(baseSha || '')) return false;
     if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return false;
     var capability = DN._offlineSaveTokens[slug];
     if (!capability || capability.expiresAt <= Date.now() + 60000) return false;
+    if (typeof MessageChannel !== 'function') return false;
     try {
-      navigator.serviceWorker.controller.postMessage({
-        type: 'QUEUE_SAVE',
-        payload: { slug: slug, html: html, baseSha: baseSha, token: capability.token, ts: Date.now() },
+      var queued = await new Promise(function (resolve) {
+        var channel = new MessageChannel();
+        var timeout;
+        function finish(ok) {
+          clearTimeout(timeout);
+          channel.port1.close();
+          channel.port2.close();
+          resolve(ok);
+        }
+        // An old worker, rejected message or storage failure is not a receipt.
+        timeout = setTimeout(function () { finish(false); }, 8000);
+        channel.port1.onmessage = function (event) {
+          finish(!!event.data && event.data.queued === true);
+        };
+        try {
+          navigator.serviceWorker.controller.postMessage({
+            type: 'QUEUE_SAVE',
+            payload: { slug: slug, html: html, baseSha: baseSha, token: capability.token, ts: Date.now() },
+          }, [channel.port2]);
+        } catch (e) { finish(false); }
       });
+      if (!queued) return false;
       navigator.serviceWorker.ready.then(function (reg) {
         if (reg.sync) reg.sync.register('admin-save-replay').catch(function () {});
-      });
+      }).catch(function () {});
       return true;
     } catch (e) { return false; }
   };

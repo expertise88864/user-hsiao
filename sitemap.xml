@@ -44,6 +44,14 @@
     </image:image>
   </url>
   <url>
+    <loc>https://hsiao.chendermatologist.com/tools/eye-3d</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools/eye-3d" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/tools/eye-3d" />
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/blog</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>weekly</changefreq>
