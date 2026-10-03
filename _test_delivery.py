@@ -56,6 +56,38 @@ class DeliveryTests(unittest.TestCase):
             with self.subTest(steps=steps), self.assertRaises(d.Blocked):
                 d.assess_jobs([{**job, "steps": steps}], ["test"], [], contract)
 
+    def test_controlled_font_diagnostic_is_required_only_for_candidate(self):
+        quality = next(entry for entry in d.policy()["workflows"]
+                       if entry["path"] == ".github/workflows/quality.yml")
+        name = "Lighthouse CI"
+        contract = quality["steps"][name]
+        probe_steps = ["Measure isolated candidate font geometry", "Upload controlled font experiment"]
+        self.assertEqual(contract["candidate_required"], probe_steps)
+        steps = [{"name": step, "status": "completed", "conclusion": "success"}
+                 for step in contract["required"] + probe_steps]
+        job = {"name": name, "status": "completed", "conclusion": "success", "steps": steps}
+        d.assess_jobs([job], [name], [], {name: contract}, "candidate")
+        for probe in probe_steps:
+            skipped = [{**step, "conclusion": "skipped"} if step["name"] == probe else step for step in steps]
+            with self.subTest(probe=probe), self.assertRaises(d.Blocked):
+                d.assess_jobs([{**job, "steps": skipped}], [name], [], {name: contract}, "candidate")
+        main_steps = [{**step, "conclusion": "skipped"} if step["name"] in probe_steps else step for step in steps]
+        d.assess_jobs([{**job, "steps": main_steps}], [name], [], {name: contract}, "main")
+
+    def test_font_experiment_cannot_run_before_scoring_or_on_main(self):
+        workflow = (d.ROOT / ".github/workflows/quality.yml").read_text(encoding="utf-8")
+        scoring = workflow.index("      - name: Run Lighthouse CI\n")
+        measure = workflow.index("      - name: Measure isolated candidate font geometry\n")
+        upload = workflow.index("      - name: Upload controlled font experiment\n")
+        normal_fonts = workflow.index("      - name: Upload font environment\n")
+        self.assertLess(scoring, measure)
+        self.assertLess(measure, upload)
+        self.assertLess(upload, normal_fonts)
+        for block in (workflow[measure:upload], workflow[upload:normal_fonts]):
+            self.assertIn("if: github.ref != 'refs/heads/main'", block)
+        self.assertIn("CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}", workflow[measure:upload])
+        self.assertIn("temporaryPublicStorage: false", workflow[scoring:measure])
+
     def test_candidate_non_fast_forward_blocks_before_tests(self):
         with patch.object(d, "git", side_effect=["https://github.com/owner/repo.git", "b"*40]), \
              patch.object(d, "clean"), \

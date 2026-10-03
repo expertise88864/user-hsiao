@@ -82,7 +82,14 @@
             "Run Lighthouse CI",
             "Upload font environment"
           ],
-          "conditional": []
+          "conditional": [
+            "Measure isolated candidate font geometry",
+            "Upload controlled font experiment"
+          ],
+          "candidate_required": [
+            "Measure isolated candidate font geometry",
+            "Upload controlled font experiment"
+          ]
         },
         "Internal link check": {
           "required": [
