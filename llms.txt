@@ -4,7 +4,7 @@
 
 This site explains eye symptoms, common ophthalmology conditions, surgery choices, and study notes in Traditional Chinese with English mirrors. It is educational only and does not replace an in-person ophthalmology visit.
 
-Last content update: 2026-06-05
+Last content update: 2026-10-04
 Canonical host: https://hsiao.chendermatologist.com
 Primary language: zh-Hant-TW
 Secondary language: en
@@ -28,6 +28,56 @@ Secondary language: en
 - [Full Text Export](https://hsiao.chendermatologist.com/llms-full.txt): every published article inlined in Markdown for single-fetch AI ingestion.
 
 ## Published Articles
+
+### 青光眼症狀、檢查與治療：早期沒症狀怎麼發現？
+
+- English title: Glaucoma — Patient Education
+- Topic: 青光眼
+- Published: 2026-05-09
+- Updated: 2026-10-04
+- Canonical: https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide
+- English mirror: https://hsiao.chendermatologist.com/en/blog/glaucoma-comprehensive-guide
+- Summary: 青光眼有哪些症狀？早期沒有感覺，該做哪些檢查？整理開角型、閉角型與正常眼壓型青光眼，說明急性發作警訊、眼壓與視野檢查、藥物、雷射、手術及居家照護，依現有指引協助你準備回診問題。
+
+### 淚腺腫瘤與淚腺癌：症狀、檢查與治療的 6 個問題
+
+- English title: 6 Key Questions on Lacrimal Gland Tumor
+- Topic: 淚腺腫瘤
+- Published: 2026-05-06
+- Updated: 2026-10-04
+- Canonical: https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor
+- English mirror: translation in progress
+- Summary: 淚腺腫瘤一定是癌症嗎？眼球突出、疼痛時要做哪些檢查？整理良性與惡性淚腺腫瘤的差異，聚焦淚腺癌中的腺樣囊狀癌，說明保留眼球手術、放射治療、動脈內化療與追蹤的常見問題，附研究來源與治療限制。
+
+### 兒童近視控制 8 大迷思 — 阿托品、OK 鏡、紅光、戶外時間
+
+- English title: 8 Pediatric Myopia Control Myths
+- Topic: 兒童近視
+- Published: 2026-05-04
+- Updated: 2026-10-04
+- Canonical: https://hsiao.chendermatologist.com/blog/pediatric-myopia-control
+- English mirror: translation in progress
+- Summary: 阿托品 0.01% / 0.05% 哪個有效?OK 鏡會傷角膜嗎？紅光治療安全嗎？多焦點離焦鏡片是什麼？戶外 2 小時真的能預防近視?8 個家長最常問的兒童近視控制問題，引用 LAMP / ATOM / DIMS / RLRL 等大型研究，蕭閔謙醫師（眼科）整理。
+
+### 飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！
+
+- English title: 6 Floater Red Flags
+- Topic: 飛蚊症
+- Published: 2026-05-04
+- Updated: 2026-10-04
+- Canonical: https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment
+- English mirror: translation in progress
+- Summary: 飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Eye 2010 大型研究，蕭閔謙醫師（眼科）整理。
+
+### 乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎？
+
+- English title: 8 Dry-Eye Myths
+- Topic: 乾眼症
+- Published: 2026-05-04
+- Updated: 2026-10-04
+- Canonical: https://hsiao.chendermatologist.com/blog/dry-eye-myths
+- English mirror: translation in progress
+- Summary: 點人工淚液會依賴？流淚就不是乾眼？葉黃素能治乾眼？整理 8 個常見乾眼迷思，說明 BAK 防腐劑、Omega-3 證據、瞼板腺熱敷、何時該就醫檢查。
 
 ### 高度近視兒童：8 年內 1/3 黃斑部病變惡化，眼軸變化可預警
 
@@ -129,16 +179,6 @@ Secondary language: en
 - English mirror: https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide
 - Summary: 白內障什麼時候該開刀？人工水晶體怎麼選？整合 AAO、AAPPO、ESCRS 指引，整理視力以外的手術時機、單焦/散光/EDOF/多焦 IOL 取捨、飛秒雷射與術後恢復。
 
-### 淚腺腫瘤與淚腺癌：症狀、檢查與治療的 6 個問題
-
-- English title: 6 Key Questions on Lacrimal Gland Tumor
-- Topic: 淚腺腫瘤
-- Published: 2026-05-06
-- Updated: 2026-05-18
-- Canonical: https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor
-- English mirror: translation in progress
-- Summary: 淚腺腫瘤一定是癌症嗎？眼球突出、疼痛時要做哪些檢查？整理良性與惡性淚腺腫瘤的差異，聚焦淚腺癌中的腺樣囊狀癌，說明保留眼球手術、放射治療、動脈內化療與追蹤的常見問題，附研究來源與治療限制。
-
 ### 散光人工水晶體（Toric IOL）值得嗎？適合誰、效果多好、有什麼風險｜2026 國際整合性回顧
 
 - English title: Toric IOL for Cataract — Is It Worth It?
@@ -179,16 +219,6 @@ Secondary language: en
 - English mirror: https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection
 - Summary: 青光眼治療怎麼選？整理 SLT 雷射與藥物第一線、前列腺素類副作用、複方眼藥水、加藥/換藥邏輯、MIGS、傳統手術階梯、閉角型路徑與台灣健保現況。
 
-### 青光眼症狀、檢查與治療：早期沒症狀怎麼發現？
-
-- English title: Glaucoma — Patient Education
-- Topic: 青光眼
-- Published: 2026-05-09
-- Updated: 2026-05-09
-- Canonical: https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide
-- English mirror: https://hsiao.chendermatologist.com/en/blog/glaucoma-comprehensive-guide
-- Summary: 青光眼有哪些症狀？早期沒有感覺，該做哪些檢查？整理開角型、閉角型與正常眼壓型青光眼，說明急性發作警訊、眼壓與視野檢查、藥物、雷射、手術及居家照護，依現有指引協助你準備回診問題。
-
 ### 甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯
 
 - English title: Thyroid Eye Disease — Patient Education
@@ -198,36 +228,6 @@ Secondary language: en
 - Canonical: https://hsiao.chendermatologist.com/blog/thyroid-eye-disease
 - English mirror: https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease
 - Summary: 甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。
-
-### 兒童近視控制 8 大迷思 — 阿托品、OK 鏡、紅光、戶外時間
-
-- English title: 8 Pediatric Myopia Control Myths
-- Topic: 兒童近視
-- Published: 2026-05-04
-- Updated: 2026-05-04
-- Canonical: https://hsiao.chendermatologist.com/blog/pediatric-myopia-control
-- English mirror: translation in progress
-- Summary: 阿托品 0.01% / 0.05% 哪個有效?OK 鏡會傷角膜嗎？紅光治療安全嗎？多焦點離焦鏡片是什麼？戶外 2 小時真的能預防近視?8 個家長最常問的兒童近視控制問題，引用 LAMP / ATOM / DIMS / RLRL 等大型研究，蕭閔謙醫師（眼科）整理。
-
-### 飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！
-
-- English title: 6 Floater Red Flags
-- Topic: 飛蚊症
-- Published: 2026-05-04
-- Updated: 2026-05-04
-- Canonical: https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment
-- English mirror: translation in progress
-- Summary: 飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Eye 2010 大型研究，蕭閔謙醫師（眼科）整理。
-
-### 乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎？
-
-- English title: 8 Dry-Eye Myths
-- Topic: 乾眼症
-- Published: 2026-05-04
-- Updated: 2026-05-04
-- Canonical: https://hsiao.chendermatologist.com/blog/dry-eye-myths
-- English mirror: translation in progress
-- Summary: 點人工淚液會依賴？流淚就不是乾眼？葉黃素能治乾眼？整理 8 個常見乾眼迷思，說明 BAK 防腐劑、Omega-3 證據、瞼板腺熱敷、何時該就醫檢查。
 
 ## Citation Guidance
 

@@ -1,0 +1,35 @@
+{
+  "scope": "Five physician-approved openings; original bilingual summary retained, 2026-10-04",
+  "rows": [
+    {
+      "slug": "lacrimal-gland-tumor",
+      "zh": "淚腺腫塊有不同成因，不能只憑腫塊就判定為癌症。本文先說明哪些表現需要就醫、醫師如何檢查，再介紹常見類型、治療與追蹤。研究比例與治療數據保留在後面的完整摘要。",
+      "en": "Lacrimal-gland masses have different causes; a mass alone does not establish a cancer diagnosis. Start with the signs that need medical assessment and how doctors investigate them, then explore the common types, treatment, and follow-up. The full summary below retains the research proportions and treatment data.",
+      "originalPairSHA256": "631ce9cd8b41ba701c3686ccef29b32d3ba72a843ac60758d71d4f60537e3bc0"
+    },
+    {
+      "slug": "dry-eye-myths",
+      "zh": "眼睛乾、刺或流淚，處理方式會依乾眼原因與眼藥水使用情況而不同。這篇從人工淚液、熱敷與葉黃素等常見問題開始，整理選擇與使用時要注意的事，以及在家可做的照護。持續紅、刺或視力改變時，仍需眼科評估。",
+      "en": "Management of dryness, irritation, or tearing depends on the cause of dry eye and how eye drops are used. This guide begins with common questions about artificial tears, warm compresses, and lutein, then explains practical precautions and care at home. Persistent redness, irritation, or vision changes still need an ophthalmologist’s assessment.",
+      "originalPairSHA256": "b18eb93d3695707a096e705e83c48d865ee70d1c8186e49943738433cc85e3a5"
+    },
+    {
+      "slug": "floaters-retinal-detachment",
+      "zh": "飛蚊症可能與年齡變化有關，但不能忽略突然出現的警訊。若突然大量飛蚊、閃光、視野出現黑幕或陰影，或視力突然模糊、下降，任一項都應當天就醫。本文再說明飛蚊症、視網膜裂孔與剝離的差別，以及檢查和追蹤。",
+      "en": "Floaters may be associated with age-related changes, but sudden warning signs must not be ignored. A sudden increase in floaters, flashes, a curtain or shadow in the visual field, or sudden blurred or reduced vision—any one of these—needs medical assessment that day. The guide then explains floaters, retinal tears, retinal detachment, examination, and follow-up.",
+      "originalPairSHA256": "1d46f00d62449cbf1c3e0bb1badc09e882cfc8762e076b57bc686527ec614662"
+    },
+    {
+      "slug": "pediatric-myopia-control",
+      "zh": "兒童近視控制不只是更換眼鏡，而是關注度數持續加深與未來眼部風險。本文整理家長常問的問題、日常習慣，以及阿托品和光學控制等方法的研究、限制與追蹤重點。治療選擇與藥物調整仍需和眼科醫師討論。",
+      "en": "Childhood myopia control concerns continued progression and future eye-health risks as well as spectacle correction. This guide covers parents’ common questions, daily habits, and the evidence, limitations, and follow-up for approaches such as atropine and optical control. Treatment choices and medication changes still need discussion with an ophthalmologist.",
+      "originalPairSHA256": "fcdaf4e9a5a5bab8b00f0e7d9ce416aea7e8c8c7b946ccdc7d772938c27f2637"
+    },
+    {
+      "slug": "glaucoma-comprehensive-guide",
+      "zh": "青光眼會造成無法恢復的視野損害；常見的開放性青光眼早期可能沒有明顯症狀。眼壓正常也不能排除青光眼，需配合視神經、視野等檢查評估。本文先說明警訊與診斷，再比較眼藥水、雷射和手術，以及長期追蹤。",
+      "en": "Glaucoma can cause irreversible visual-field damage; common open-angle glaucoma may have no obvious symptoms early on. Normal eye pressure does not exclude glaucoma, so assessment also considers the optic nerve and visual field. Start with warning signs and diagnosis, then compare eye drops, laser treatment, surgery, and long-term follow-up.",
+      "originalPairSHA256": "43d398ce7185f069c5574302b62d793179e7ecb6eb8f5b2b618efea56b416269"
+    }
+  ]
+}

@@ -380,6 +380,10 @@ main > section > .max-w-3xl > .tldr {
    URL after links so patients can return online later.
    ============================================================ */
 @media print {
+  /* Keep the original research summary in handouts, even when closed. */
+  .hs-full-summary::details-content { content-visibility:visible !important; }
+  .hs-full-summary:not([open]) > .tldr { display:block !important; }
+  .hs-full-summary > summary { display:none !important; }
   /* ── Hide all UI chrome ── */
   header.sticky,
   footer.mag-footer,

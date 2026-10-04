@@ -210,7 +210,7 @@
       ]
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "pediatric-myopia-control",
       "reasons": []
     }
   ],
@@ -327,7 +327,7 @@
       ]
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "pediatric-myopia-control",
       "reasons": []
     }
   ],
@@ -379,7 +379,7 @@
       ]
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "pediatric-myopia-control",
       "reasons": []
     }
   ],
@@ -407,7 +407,7 @@
       ]
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "pediatric-myopia-control",
       "reasons": []
     }
   ],
@@ -425,21 +425,15 @@
       ]
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "pediatric-myopia-control",
       "reasons": []
     },
     {
-      "slug": "pediatric-high-myopia-maculopathy-progression",
+      "slug": "floaters-retinal-detachment",
       "reasons": []
     }
   ],
   "lacrimal-gland-tumor": [
-    {
-      "slug": "thyroid-eye-disease",
-      "reasons": [
-        "same-cat"
-      ]
-    },
     {
       "slug": "glaucoma-comprehensive-guide",
       "reasons": [
@@ -447,11 +441,17 @@
       ]
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "thyroid-eye-disease",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
+      "slug": "pediatric-myopia-control",
       "reasons": []
     },
     {
-      "slug": "pediatric-high-myopia-maculopathy-progression",
+      "slug": "floaters-retinal-detachment",
       "reasons": []
     }
   ],
@@ -476,7 +476,7 @@
       ]
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "lacrimal-gland-tumor",
       "reasons": []
     }
   ],
@@ -529,7 +529,7 @@
       ]
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "lacrimal-gland-tumor",
       "reasons": []
     }
   ]

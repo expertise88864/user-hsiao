@@ -45,6 +45,33 @@ async function setup(page, options={}) {
   return {frame,state};
 }
 const input=(frame,key)=>frame.locator('#hs-editor-'+key);
+for(const articleSlug of ['lacrimal-gland-tumor','dry-eye-myths','floaters-retinal-detachment','pediatric-myopia-control','glaucoma-comprehensive-guide']) {
+  test(`saving after reading the English research summary preserves the authored hero: ${articleSlug}`,async({page})=>{
+    const {frame,state}=await setup(page,{slug:articleSlug});
+    const selectors=['.hs-patient-opening','.hs-full-summary','.hs-opening-warning'];
+    const before=await frame.locator('body').evaluate((_,{html,selectors})=>{
+      const doc=new DOMParser().parseFromString(html,'text/html');
+      return selectors.map(selector=>doc.querySelector(selector)?.outerHTML||null);
+    },{html:state.html,selectors});
+    await frame.locator('.hs-full-summary>summary').click();
+    await frame.locator('#langToggle').selectOption('en');
+    await expect(frame.locator('.hs-full-summary')).toHaveAttribute('open');
+    await input(frame,'descriptionEn').fill('Author edited search description; retained research summary.');
+    await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+    const saved=await frame.locator('body').evaluate((_,{html,selectors})=>{
+      const doc=new DOMParser().parseFromString(html,'text/html');
+      return selectors.map(selector=>doc.querySelector(selector)?.outerHTML||null);
+    },{html:state.submitted.html,selectors});
+    expect(saved).toEqual(before);
+    expect(state.submitted.baseSha).toBe('a'.repeat(40));
+    await page.getByRole('button',{name:'← 回到後台',exact:true}).click();
+    await page.evaluate(s=>openEditor(s),articleSlug);
+    await expect(frame.locator('#hs-adm-save')).toBeVisible();
+    await expect(frame.locator('.hs-full-summary')).not.toHaveAttribute('open');
+    await expect(input(frame,'descriptionEn')).toHaveValue('Author edited search description; retained research summary.');
+  });
+}
+
 test('saving in English preserves authenticated Chinese diagram controls and English author edits',async({page})=>{
   const {frame,state}=await setup(page);
   const originalControls=state.html.match(/<details\b[^>]*class="hs-diagram-mode"[^>]*>[\s\S]*?<\/details>/g);
