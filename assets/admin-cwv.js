@@ -11,6 +11,26 @@
   function format(value, metric) {
     return numeric(value) ? value.toFixed(metric === 'CLS' ? 3 : 0) + (metric === 'CLS' ? '' : ' ms') : '—';
   }
+  function measurementMethod(metric, measured) {
+    if (metric.source === 'ga4' && metric.status === 'mean_only') return 'GA4 事件平均；無 p75';
+    if (!measured) return '—';
+    const method = { 'web-vitals-6': 'web-vitals 6', legacy: '舊量測' }[metric.method];
+    if (typeof method !== 'string') return '未提供量測方法';
+    return method + (metric.percentileMethod === 'nearest-rank' ? '；原始樣本排序 p75' : '；p75 方法未提供');
+  }
+  function receiptRange(metric, measured) {
+    if (metric.source !== 'kv' || !measured) return '—';
+    const oldest = metric.oldestSampleAt, newest = metric.newestSampleAt;
+    if (![oldest, newest].every(value => Number.isInteger(value) && value > 0 && value <= 8640000000000000) ||
+        oldest > newest) return '尚無完整樣本時間';
+    const time = value => {
+      const date = new Date(value);
+      const label = date.toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit',
+        day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' });
+      return '<time datetime="' + date.toISOString() + '">' + escape(label) + '</time>';
+    };
+    return time(oldest) + ' 至 ' + time(newest);
+  }
   function render(report) {
     if (!Array.isArray(report?.metrics) || !report.metrics.length) {
       return '<p role="status">尚無可讀取的量測回應，請重新載入。</p>';
@@ -45,18 +65,22 @@
         ? (m.source === 'ga4' ? `含今日 ${m.windowDays} 曆日` : `滾動 ${m.windowDays} 天`) : '—';
       return `<tr><th scope="row">${escape(m.name)}</th><td>${hasP75 ? format(m.p75, m.name) : '—'}</td>` +
         `<td>${format(m.avg, m.name)}</td><td>${escape(count)}</td><td>${escape(period)}</td>` +
-        `<td>${escape(source)}</td><td style="color:${color};font-weight:700">${escape(label)}</td></tr>`;
+        `<td>${escape(source)}</td><td>${escape(measurementMethod(m, hasP75))}</td>` +
+        `<td>${receiptRange(m, hasP75)}</td><td style="color:${color};font-weight:700">${escape(label)}</td></tr>`;
     }).join('');
     return (notices.length ? `<p role="status">${notices.map(escape).join(' ')}</p>` : '') +
       '<div tabindex="0" role="region" aria-label="使用者體驗指標表，可橫向捲動" style="overflow-x:auto">' +
-      '<table class="dict-table" style="min-width:680px;margin-bottom:18px"><thead><tr>' +
+      '<table class="dict-table" style="min-width:980px;margin-bottom:18px"><thead><tr>' +
       '<th scope="col">指標</th><th scope="col">樣本 p75</th><th scope="col">平均值</th>' +
       '<th scope="col">樣本／回報數</th><th scope="col">取樣範圍</th><th scope="col">來源</th>' +
+      '<th scope="col">量測／p75 方法</th><th scope="col">保留樣本收件時間（台灣時間）</th>' +
       '<th scope="col">樣本判讀</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
       '<p>第一方僅取每項指標最近最多 1,000 筆回報中、最多 30 天內的樣本，標準量測會依 ID 去重。' +
       'GA4 平均值來自事件總值／事件數，不能換算成 p75；兩者的樣本數均不是不重複訪客數。</p>' +
       '<p>此為本站近期樣本的觀察，並非全站完整分布或 Google CrUX 結果。樣本 p75 由原始樣本排序計算；' +
-      '沒有樣本顯示「—」，實測為零仍顯示零。GA4 範圍包含尚未結束的今天。</p>';
+      '沒有樣本顯示「—」，實測為零仍顯示零。GA4 範圍包含尚未結束的今天。</p>' +
+      '<p>表中的時間是保留樣本的收件時間，不代表造訪時間，亦不代表取樣範圍內每一天都有資料。' +
+      'GA4 事件平均未提供各筆收件時間。INP 僅涵蓋有可量測互動的頁面回報，樣本少時判讀有限。</p>';
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = { render };
   else globalThis.HsiaoCwvDashboard = { render };

@@ -248,6 +248,41 @@ test('dashboard keeps missing p75 neutral, shows measured zero, and escapes publ
   assert.match(html, /無可用樣本/);
 });
 
+test('dashboard exposes the actual retained KV method and receipt range without inventing GA4 sample times', async t => {
+  const newest = Date.now() - 1000;
+  const oldest = newest - 3600_000;
+  const f = fixture(t, { kv: { LCP: [raw(2200, 'new', newest), raw(1000, 'old', oldest),
+    raw(9999, 'new', oldest - 1000), { v: 9000, t: oldest - 2000 }] }, ga4: () => report(2, 600) });
+  const res = await f.run();
+  const lcp = res.body.metrics.find(m => m.name === 'LCP');
+  assert.equal(lcp.samples, 2);
+  assert.equal(lcp.oldestSampleAt, oldest);
+  assert.equal(lcp.newestSampleAt, newest);
+  const html = dashboard.render(res.body);
+  assert.match(html, /web-vitals 6/);
+  assert.match(html, /原始樣本排序 p75/);
+  assert.ok(html.includes('datetime="' + new Date(oldest).toISOString() + '"'));
+  assert.ok(html.includes('datetime="' + new Date(newest).toISOString() + '"'));
+  assert.match(html, /GA4 事件平均；無 p75/);
+  assert.equal((html.match(/<time /g) || []).length, 2);
+  assert.match(html, /收件時間/);
+  assert.match(html, /台灣時間/);
+});
+
+test('missing, reversed or malformed receipt times and unknown methods remain unknown', () => {
+  const measured = { name: 'LCP', source: 'kv', status: 'measured', samples: 1, avg: 1000, p75: 1000 };
+  for (const times of [{}, { oldestSampleAt: 2000, newestSampleAt: 1000 },
+    { oldestSampleAt: '<img src=x>', newestSampleAt: 2000 },
+    { oldestSampleAt: 1000, newestSampleAt: Infinity }]) {
+    const html = dashboard.render({ metrics: [{ ...measured, ...times, method: '<img src=x>', percentileMethod: 'unknown' }] });
+    assert.doesNotMatch(html, /<time |<img/);
+    assert.match(html, /未提供量測方法/);
+    assert.match(html, /尚無完整樣本時間/);
+  }
+  const legacy = dashboard.render({ metrics: [{ ...measured, method: 'legacy', percentileMethod: 'nearest-rank' }] });
+  assert.match(legacy, /舊量測；原始樣本排序 p75/);
+});
+
 test('a slow older range cannot replace a newer dashboard result or show a stale error', async () => {
   const html = await readFile(new URL('../../admin.html', import.meta.url), 'utf8');
   const start = html.indexOf('let cwvLoadId = 0;');
