@@ -2,6 +2,13 @@ const { test, expect } = require('@playwright/test');
 const { readFileSync, existsSync } = require('node:fs');
 const path = require('node:path');
 
+async function openTools(frame) {
+  const tools = frame.locator('#hs-adm-advanced');
+  if (!await tools.evaluate(el => el.open)) await tools.locator('summary').click();
+}
+
+
+
 test.use({ serviceWorkers: 'block' });
 const root = path.resolve(__dirname, '../..');
 const slug = 'dry-eye-myths';
@@ -76,7 +83,7 @@ test('publication observation is read-only, preserves unsaved input and stays se
   const state = await setup(page);
   const frame = await open(page);
   await frame.locator('#proseZh > p[contenteditable]').first().fill('Local changes stay unsaved while checking');
-  await frame.locator('#hs-adm-publication').click();
+  await openTools(frame); await frame.locator('#hs-adm-publication').click();
   const panel = frame.getByRole('region', { name:'已保存文章的上線狀態' });
   await expect(panel).toContainText('正式上線尚未確認');
   await expect(frame.locator('#proseZh > p[contenteditable]').first()).toHaveText('Local changes stay unsaved while checking');
@@ -98,7 +105,7 @@ test('production content and exact Preview evidence never claim the release gate
   }})});
   const frame=await open(page);
   await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.saves).toBe(1);
-  await frame.locator('#hs-adm-publication').click();
+  await openTools(frame); await frame.locator('#hs-adm-publication').click();
   const panel=frame.getByRole('region',{name:'已保存文章的上線狀態'});
   await expect(panel).toContainText('內容與已保存版本相同');
   await expect(panel).toContainText('完整 CI、部署與發佈驗收仍須另外確認');
@@ -117,7 +124,7 @@ test('a delayed old status cannot overwrite the UI after a new Git save', async 
       production:{state:'matching_content',sha:'d'.repeat(40)},preview:{state:'unknown'}}}).catch(()=>{});
   }});
   const frame=await open(page);
-  await frame.locator('#hs-adm-publication').click();await arrival;
+  await openTools(frame); await frame.locator('#hs-adm-publication').click();await arrival;
   await frame.locator('#proseZh > p[contenteditable]').first().fill('New saved version');
   await frame.locator('#hs-adm-save').click();
   await expect(frame.locator('#hs-admin-status')).toContainText('已保存至 GitHub');
@@ -129,7 +136,7 @@ test('a delayed old status cannot overwrite the UI after a new Git save', async 
 test('malformed status and unsafe Preview links are never presented as confirmed publication', async ({ page }) => {
   await setup(page,{publication:async route=>route.fulfill({json:{saved:{blob:'wrong',commit:''},releaseVerified:true,
     production:{state:'matching_content',sha:'d'.repeat(40)},preview:{state:'ready',sha:'c'.repeat(40),url:'https://attacker.test'}}})});
-  const frame=await open(page);await frame.locator('#hs-adm-publication').click();
+  const frame=await open(page);await openTools(frame); await frame.locator('#hs-adm-publication').click();
   const panel=frame.getByRole('region',{name:'已保存文章的上線狀態'});
   await expect(panel).toContainText('版本核對回應無效');await expect(panel.getByRole('link')).toHaveCount(0);
 });
@@ -139,7 +146,7 @@ for (const width of [360,390,768,1440]) {
     await page.setViewportSize({width,height:844});
     const state=await setup(page);const frame=await open(page);
     // A normal pointer click must succeed; forcing it would conceal overlays.
-    await frame.locator('#hs-adm-publication').click();
+    await openTools(frame); await frame.locator('#hs-adm-publication').click();
     const panel=frame.getByRole('region',{name:'已保存文章的上線狀態'});
     await expect(panel).toContainText('正式上線尚未確認');
     // ResizeObserver updates after layout. Poll the effective reservation,

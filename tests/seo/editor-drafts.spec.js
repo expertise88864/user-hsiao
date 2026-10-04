@@ -2,6 +2,13 @@ const { test, expect } = require('@playwright/test');
 const { readFileSync, existsSync } = require('node:fs');
 const path = require('node:path');
 
+async function openTools(frame) {
+  const tools = frame.locator('#hs-adm-advanced');
+  if (!await tools.evaluate(el => el.open)) await tools.locator('summary').click();
+}
+
+
+
 test.use({ serviceWorkers: 'block' });
 const root = path.resolve(__dirname, '../..');
 const slug = 'dry-eye-myths';
@@ -214,7 +221,7 @@ test('explicit discard clears the stored draft and reloads the unchanged server 
   await frame.locator('#proseZh > p[contenteditable]').first().fill('Explicitly discarded text');
   await frame.locator('body').evaluate(() => DN.adminBeforeClose());
   expect((await draft(frame)).html).toContain('Explicitly discarded text');
-  await frame.locator('#hs-adm-cancel').click();
+  await openTools(frame); await frame.locator('#hs-adm-cancel').click();
   await expect(frame.locator('#proseZh > p[contenteditable]').first()).not.toHaveText('Explicitly discarded text');
   expect(await draft(frame)).toBeNull();
 });
@@ -231,7 +238,7 @@ test('typing during the final discard read verification remains unsaved and visi
     window.__releaseDiscardRead = release;
     DN.loadDraft = async (...args) => { window.__discardReading = true; await gate; return load(...args); };
   });
-  await frame.locator('#hs-adm-cancel').click();
+  await openTools(frame); await frame.locator('#hs-adm-cancel').click();
   await expect.poll(() => frame.locator('body').evaluate(() => !!window.__discardReading)).toBe(true);
   await frame.locator('#proseZh > p[contenteditable]').first().fill('New input during final read');
   await frame.locator('body').evaluate(() => window.__releaseDiscardRead());
@@ -257,7 +264,7 @@ for (const failure of ['opfs-delete', 'opfs-verify', 'ls-delete', 'ls-verify']) 
     }, failure);
     const result = await frame.locator('body').evaluate((body, slug) => DN.deleteDraft(slug), slug);
     expect(result.deleted).toBe(false);
-    await frame.locator('#hs-adm-cancel').click();
+    await openTools(frame); await frame.locator('#hs-adm-cancel').click();
     await expect(frame.locator('#hs-admin-status')).toContainText('無法清除本機草稿');
     await expect(frame.locator('#proseZh > p[contenteditable]').first()).toHaveText('Preserve on storage failure');
     await page.getByRole('button', { name: '← 回到後台' }).click();

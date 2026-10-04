@@ -105,9 +105,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260704');
-      historyModule = await import('/blog/editor-history.js?v=20260704');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260704');
+      editorReview = await import('/blog/editor-review.js?v=20260705');
+      historyModule = await import('/blog/editor-history.js?v=20260705');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260705');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -150,9 +150,9 @@
         ':root[data-theme="dark"] body.hs-admin{--muted:#b8b0a0}' +
         '#hs-admin-bar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9998;background:var(--surface,#fff);border:1px solid var(--border,#dcd5c8);border-radius:14px;box-shadow:0 18px 40px -12px rgba(15,23,42,.32);padding:10px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;width:min(720px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto}' +
         '@media(max-height:600px){#hs-admin-bar{max-height:40dvh;box-sizing:border-box}}' +
-        '#hs-admin-bar button, #hs-admin-bar select{padding:6px 10px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border,#dcd5c8);background:var(--surface,#fff);color:var(--ink-2,#5e574e);transition:all .12s}' +
+        '#hs-admin-bar button, #hs-admin-bar select{min-width:44px;min-height:44px;box-sizing:border-box;padding:6px 10px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border,#dcd5c8);background:var(--surface,#fff);color:var(--ink-2,#5e574e);transition:all .12s}' +
         '#hs-admin-bar button:hover{border-color:var(--ink-2,#5e574e);color:var(--ink,#2a2620)}' +
-        '#hs-admin-bar button:focus-visible,#hs-admin-bar select:focus-visible{outline:2px solid var(--ink,#2a2620);outline-offset:2px}' +
+        '#hs-admin-bar button:focus-visible,#hs-admin-bar select:focus-visible,#hs-adm-advanced>summary:focus-visible{outline:2px solid var(--ink,#2a2620);outline-offset:2px}' +
         '#hs-admin-bar button.primary{background:#243b56;color:#fff;border-color:#243b56}' +
         '#hs-admin-bar button.primary:hover{color:#fff;opacity:.9}' +
         '#hs-admin-bar button.danger{background:var(--surface,#fff);color:#dc2626;border-color:#fca5a5}' +
@@ -161,6 +161,10 @@
         ':root[data-theme="dark"] #hs-admin-bar button.danger:hover{color:#991b1b}' +
         '#hs-admin-bar .sep{width:1px;height:22px;background:var(--border,#dcd5c8);margin:0 4px}' +
         '#hs-admin-bar .group-label{font-size:10.5px;color:var(--muted,#8b8378);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-right:4px}' +
+        '#hs-admin-bar .hs-adm-writing,#hs-admin-bar .hs-adm-more{display:flex;align-items:center;flex-wrap:wrap;gap:6px;width:100%}' +
+        '#hs-adm-advanced{flex-basis:100%;border-top:1px solid var(--border,#dcd5c8)}' +
+        '#hs-adm-advanced>summary{min-height:44px;box-sizing:border-box;padding:12px 4px;font-size:12.5px;line-height:20px;font-weight:600;cursor:pointer;color:var(--ink-2,#5e574e)}' +
+        '#hs-admin-bar .hs-adm-more{padding-top:6px}' +
         '#hs-admin-status{flex-basis:100%;background:#243b56;color:#fff;padding:9px 12px;border-radius:8px;font-size:13px;max-height:18vh;overflow:auto}' +
         // Tag the editable area visually
         '[contenteditable="true"]{outline:2px dashed rgba(58,90,124,.35);outline-offset:4px;border-radius:6px;transition:outline-color .15s}' +
@@ -277,32 +281,43 @@
     var bar = document.createElement('div');
     bar.id = 'hs-admin-bar';
     bar.innerHTML =
-      '<span class="group-label">字型</span>' +
-      '<select id="hs-adm-font" title="Font family"><option value="">(預設)</option><option value="Noto Serif TC, Georgia, serif">Noto Serif TC</option><option value="Inter, sans-serif">Inter</option><option value="JetBrains Mono, monospace">JetBrains Mono</option><option value="Noto Sans TC, sans-serif">Noto Sans TC</option><option value="Fraunces, serif">Fraunces</option></select>' +
-      '<select id="hs-adm-size" title="Font size"><option value="">(預設)</option><option value="13px">13</option><option value="14px">14</option><option value="15.5px">15.5</option><option value="17px">17</option><option value="20px">20</option><option value="24px">24</option><option value="32px">32</option></select>' +
-      '<span class="sep"></span>' +
-      '<button type="button" title="粗體 (Cmd/Ctrl+B)" data-cmd="bold"><b>B</b></button>' +
-      '<button type="button" title="斜體 (Cmd/Ctrl+I)" data-cmd="italic"><i>I</i></button>' +
-      '<button type="button" title="底線 (Cmd/Ctrl+U)" data-cmd="underline"><u>U</u></button>' +
-      '<button type="button" title="刪除線" data-cmd="strikeThrough">S̶</button>' +
-      '<span class="sep"></span>' +
-      '<button type="button" title="項目符號" data-cmd="insertUnorderedList">• 項目</button>' +
-      '<button type="button" title="數字編號" data-cmd="insertOrderedList">1. 編號</button>' +
+      '<div class="hs-adm-writing" role="group" aria-label="常用寫作工具">' +
       '<button type="button" title="連結 (Cmd/Ctrl+K)" data-cmd="link">🔗 連結</button>' +
       '<button type="button" title="圖片 — 拖曳/貼上/點選" id="hs-adm-img">📷 圖片</button>' +
       '<button type="button" id="hs-adm-undo" title="復原（Ctrl/Cmd+Z）" disabled>↶ 復原</button>' +
       '<button type="button" id="hs-adm-redo" title="重做（Ctrl+Y 或 Ctrl/Cmd+Shift+Z）" disabled>↷ 重做</button>' +
       '<button type="button" title="本機內容預覽，尚未正式上線" id="hs-adm-preview">👁 本機預覽</button>' +
+      '<button type="button" class="primary" id="hs-adm-save">💾 儲存至 GitHub</button>' +
+      '</div>' +
+      '<details id="hs-adm-advanced"><summary>格式、版本與離開編輯</summary>' +
+      '<div class="hs-adm-more" role="group" aria-label="格式與版本工具">' +
+      '<button type="button" title="粗體 (Cmd/Ctrl+B)" data-cmd="bold"><b>B</b></button>' +
+      '<button type="button" title="斜體 (Cmd/Ctrl+I)" data-cmd="italic"><i>I</i></button>' +
+      '<span class="group-label">字型</span>' +
+      '<select id="hs-adm-font" title="字型"><option value="">(預設)</option><option value="Noto Serif TC, Georgia, serif">Noto Serif TC</option><option value="Inter, sans-serif">Inter</option><option value="JetBrains Mono, monospace">JetBrains Mono</option><option value="Noto Sans TC, sans-serif">Noto Sans TC</option><option value="Fraunces, serif">Fraunces</option></select>' +
+      '<select id="hs-adm-size" title="字級"><option value="">(預設)</option><option value="13px">13</option><option value="14px">14</option><option value="15.5px">15.5</option><option value="17px">17</option><option value="20px">20</option><option value="24px">24</option><option value="32px">32</option></select>' +
+      '<button type="button" title="底線 (Cmd/Ctrl+U)" data-cmd="underline"><u>U</u></button>' +
+      '<button type="button" title="刪除線" data-cmd="strikeThrough">S̶</button>' +
+      '<button type="button" title="項目符號" data-cmd="insertUnorderedList">• 項目</button>' +
+      '<button type="button" title="數字編號" data-cmd="insertOrderedList">1. 編號</button>' +
       '<button type="button" id="hs-adm-publication">核對上線狀態</button>' +
       '<button type="button" id="hs-adm-check">保存前健檢</button>' +
       '<button type="button" id="hs-adm-compare">比較版本</button>' +
       '<button type="button" title="清除格式" data-cmd="removeFormat">⨯ 清除</button>' +
-      '<span class="sep"></span>' +
-      '<button type="button" class="primary" id="hs-adm-save">💾 儲存</button>' +
-      '<button type="button" class="danger" id="hs-adm-cancel">取消</button>' +
+      '<button type="button" class="danger" id="hs-adm-cancel">放棄修改</button>' +
       '<button type="button" id="hs-adm-exit" title="離開 admin 模式">←離開</button>' +
+      '</div></details>' +
       '<input type="file" id="hs-adm-img-input" accept="image/*" hidden />';
     document.body.appendChild(bar);
+    // A mouse press on summary otherwise replaces the author's selection with
+    // the disclosure label. Preserve it for the next format command, while
+    // leaving native click toggling and keyboard focus/activation intact.
+    bar.querySelector('#hs-adm-advanced > summary').addEventListener('mousedown', function (event) {
+      var selection = window.getSelection();
+      if (event.button === 0 && selection && selection.rangeCount && article.contains(selection.getRangeAt(0).commonAncestorContainer)) {
+        event.preventDefault();
+      }
+    });
     function reserveEditorSpace() {
       // Runtime body spacing is outside the authenticated article snapshot.
       // The public mobile-nav rule uses !important; the editor reservation
@@ -1080,7 +1095,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260704';
+        runtime.src = '/blog/editor-preview.js?v=20260705';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -1450,7 +1465,7 @@
         status((gitSaved ? 'GitHub 已保存；本機草稿處理失敗，請保持編輯器開啟：'
           : '✗ 儲存失敗，請保持編輯器開啟：') + (e.message || e), 'error');
       } finally {
-        btn.disabled = false; btn.textContent = '💾 儲存';
+        btn.disabled = false; btn.textContent = '💾 儲存至 GitHub';
       }
     }
 

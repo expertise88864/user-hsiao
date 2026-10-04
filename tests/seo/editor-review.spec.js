@@ -1,6 +1,13 @@
 const { test, expect } = require('@playwright/test');
 const { readFileSync, existsSync } = require('node:fs');
 const path = require('node:path');
+
+async function openTools(frame) {
+  const tools = frame.locator('#hs-adm-advanced');
+  if (!await tools.evaluate(el => el.open)) await tools.locator('summary').click();
+}
+
+
 test.use({ serviceWorkers: 'block' });
 const root = path.resolve(__dirname, '../..'), slug = 'dry-eye-myths';
 const origin = 'https://hsiao.chendermatologist.com';
@@ -88,7 +95,7 @@ test('version summaries exclude generated contents while retaining the complete 
 test('manual structural check is read-only and shows actual title/summary, not an SEO score', async ({ page }) => {
   const state = await setup(page), frame = await open(page);
   await paragraph(frame).fill('作者尚未保存的修改');
-  await frame.locator('#hs-adm-check').click();
+  await openTools(frame); await frame.locator('#hs-adm-check').click();
   await expect(panel(frame)).toContainText('搜尋標題：');
   await expect(panel(frame)).toContainText('搜尋摘要：');
   await expect(panel(frame)).toContainText('不代表醫療核可');
@@ -139,7 +146,7 @@ test('409 preserves local changes and compares three versions without rebasing o
   state.latest = original.replace('</article>', '<p>其他人最新保存的內容</p></article>'); state.sha='d'.repeat(40);
   await frame.locator('#hs-adm-save').click();
   await expect(frame.locator('#hs-admin-status')).toContainText('文章已有新保存版本');
-  await frame.locator('#hs-adm-compare').click();
+  await openTools(frame); await frame.locator('#hs-adm-compare').click();
   await expect(panel(frame)).toContainText('其他人最新保存的內容');
   for (const name of ['開啟時版本','目前編輯內容','最新保存版本']) await expect(panel(frame).getByRole('heading', { name, exact:true })).toBeVisible();
   await expect(panel(frame)).toContainText('本機中文修改');
@@ -183,7 +190,7 @@ for (const kind of ['fragment','duplicate-id']) {
 test('latest comparison HTML is inert, complete source is available, and edits invalidate the old view', async ({ page }) => {
   const state = await setup(page), frame = await open(page);
   state.latest = original.replace('</article>', '<p>外部保存內容</p><script>window.__reviewExecuted=1</script><img src="/bad-comparison.png" onerror="window.__reviewExecuted=2" alt="<svg onload=alert(1)>"></article>');
-  await frame.locator('#hs-adm-compare').click();
+  await openTools(frame); await frame.locator('#hs-adm-compare').click();
   await expect(panel(frame)).toContainText('外部保存內容');
   expect(await frame.locator('body').evaluate(() => window.__reviewExecuted)).toBeUndefined();
   expect(await panel(frame).locator('script').count()).toBe(0);
@@ -200,7 +207,7 @@ test('failed latest-version lookup retains content and offers a complete UTF8 pl
   page.on('dialog', async d => { dialogs.push(d.type()); await d.dismiss(); });
   const state = await setup(page, { read:route => route.fulfill({ status:503 }) }), frame = await open(page);
   await paragraph(frame).fill('即使網路失敗也保留中文圖表內容');
-  await frame.locator('#hs-adm-compare').click();
+  await openTools(frame); await frame.locator('#hs-adm-compare').click();
   await expect(panel(frame)).toContainText('無法比較版本');
   await paragraph(frame).fill('比較失敗後繼續輸入，也要完整下載');
   const arrival = page.waitForEvent('download');
@@ -223,7 +230,7 @@ test('null-download navigation preserves only the active editor export', async (
   await paragraph(frame).fill('下載導覽不應丟失的中文內容');
   test.skip(!(await frame.locator('body').evaluate(() => 'navigation' in window)),
     'Navigation API unavailable; real download and native leave protection have separate cross-engine tests');
-  await frame.locator('#hs-adm-compare').click();
+  await openTools(frame); await frame.locator('#hs-adm-compare').click();
   await expect(panel(frame)).toContainText('無法比較版本');
   const link = panel(frame).getByRole('link', { name:'下載目前編輯內容', exact:true });
   // Reproduce Firefox's second event without depending on its download timing.
@@ -271,7 +278,7 @@ test('typing during version retrieval is included when the comparison arrives', 
   const state = await setup(page, { read:async(route,s) => { arrived(); await gate; return route.fulfill({ json:{ html:s.latest, sha:s.sha } }); } });
   const frame = await open(page);
   await paragraph(frame).fill('開始讀取前的內容');
-  await frame.locator('#hs-adm-compare').click(); await arrival;
+  await openTools(frame); await frame.locator('#hs-adm-compare').click(); await arrival;
   await paragraph(frame).fill('讀取途中新的作者內容'); release();
   await expect(panel(frame)).toContainText('讀取途中新的作者內容');
   await expect(paragraph(frame)).toHaveText('讀取途中新的作者內容');
@@ -288,7 +295,7 @@ test('opening a stale draft keeps the conflict notice and archives rather than r
   await expect(frame.locator('article.max-w-3xl')).not.toContainText('較舊的作者草稿');
   const archived = await frame.locator('body').evaluate((body,s) => DN.loadDraft(s + '-conflict-12345'), slug);
   expect(archived.html).toContain('較舊的作者草稿');
-  await frame.locator('#hs-adm-compare').click();
+  await openTools(frame); await frame.locator('#hs-adm-compare').click();
   await expect(panel(frame).getByRole('link', { name:'下載舊版本草稿' })).toBeVisible();
 });
 
@@ -301,9 +308,9 @@ test('dirty conflict backup downloads after comparison links are retired', async
     JSON.stringify({ slug, html:stale, baseSha:'d'.repeat(40), ts:12345 })), { slug, stale });
   const frame = await open(page);
   await paragraph(frame).fill('繼續編輯中的最新內容');
-  await frame.locator('#hs-adm-compare').click();
+  await openTools(frame); await frame.locator('#hs-adm-compare').click();
   await expect(panel(frame).getByRole('link', { name:'下載舊版本草稿', exact:true })).toBeVisible();
-  await frame.locator('#hs-adm-check').click();
+  await openTools(frame); await frame.locator('#hs-adm-check').click();
   const arrival = page.waitForEvent('download');
   await frame.locator('#hs-admin-bar > a').filter({ hasText:'下載舊版本草稿' }).click();
   const download = await arrival;
@@ -325,7 +332,7 @@ test('save invalidates an outstanding comparison response', async ({ page }) => 
   } });
   const frame = await open(page);
   await paragraph(frame).fill('新保存版本');
-  await frame.locator('#hs-adm-compare').click(); await arrival;
+  await openTools(frame); await frame.locator('#hs-adm-compare').click(); await arrival;
   await frame.locator('#hs-adm-save').click();
   await expect.poll(() => state.posts).toBe(1);
   await expect(frame.locator('#hs-admin-status')).toContainText('已保存至 GitHub');
@@ -356,9 +363,9 @@ for (const width of [390,1440]) {
   test(`checks/comparison controls are reachable and do not cause overflow at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height:844 });
     await setup(page); const frame = await open(page);
-    await frame.locator('#hs-adm-check').click();
+    await openTools(frame); await frame.locator('#hs-adm-check').click();
     await panel(frame).getByRole('button', { name:'收起健檢' }).click();
-    await frame.locator('#hs-adm-compare').click();
+    await openTools(frame); await frame.locator('#hs-adm-compare').click();
     await expect(panel(frame)).toContainText('最新保存版本與');
     expect(await frame.locator('body').evaluate(() => document.documentElement.scrollWidth<=innerWidth)).toBe(true);
     const close = panel(frame).getByRole('button', { name:'收起比較，保留編輯內容' });

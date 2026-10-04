@@ -1,6 +1,13 @@
 const { test, expect } = require('@playwright/test');
 const { readFileSync, existsSync } = require('node:fs');
 const path = require('node:path');
+
+async function openTools(frame) {
+  const tools = frame.locator('#hs-adm-advanced');
+  if (!await tools.evaluate(el => el.open)) await tools.locator('summary').click();
+}
+
+
 test.use({ serviceWorkers:'block' });
 const root=path.resolve(__dirname,'../..'), origin='https://hsiao.chendermatologist.com', slug='dry-eye-myths';
 const source=readFileSync(path.join(root,'blog',slug+'.html'),'utf8');
@@ -130,7 +137,7 @@ test('literal tag text can later receive genuine rich formatting without losing 
   await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
   await page.reload();await page.waitForFunction(()=>typeof openEditor==='function');await page.evaluate(s=>openEditor(s),slug);
   await expect(p).toHaveAttribute('contenteditable','true');
-  await p.fill('真正粗體');await p.press('Control+a');await frame.locator('[data-cmd="bold"]').click();
+  await p.fill('真正粗體');await p.press('Control+a');await openTools(frame);await frame.locator('[data-cmd="bold"]').click();
   await expect(p.locator('b,strong')).toHaveText('真正粗體');
   await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(2);
   await page.reload();await page.waitForFunction(()=>typeof openEditor==='function');await page.evaluate(s=>openEditor(s),slug);
@@ -285,7 +292,7 @@ test('Undo into a shorter translated paired value puts the fallback caret at its
 test('font-size DOM formatting follows the same Undo/Redo history as typing',async({page})=>{
   const {frame}=await setup(page), p=frame.locator('#proseZh > p[contenteditable]').first();
   await p.fill('Formatting example');await p.press('Control+a');
-  await frame.locator('#hs-adm-size').selectOption('20px');
+  await openTools(frame); await frame.locator('#hs-adm-size').selectOption('20px');
   await expect(p.locator('span[style*="font-size"]')).toHaveText('Formatting example');
   await frame.locator('#hs-adm-undo').click();await expect(p).toHaveText('Formatting example');
   await expect(p.locator('span[style*="font-size"]')).toHaveCount(0);

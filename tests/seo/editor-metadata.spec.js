@@ -1,6 +1,13 @@
 const { test, expect } = require('@playwright/test');
 const { readFileSync, existsSync } = require('node:fs');
 const path = require('node:path');
+
+async function openTools(frame) {
+  const tools = frame.locator('#hs-adm-advanced');
+  if (!await tools.evaluate(el => el.open)) await tools.locator('summary').click();
+}
+
+
 const axeSource = require('axe-core').source;
 test.use({ serviceWorkers: 'block' });
 const root=path.resolve(__dirname,'../..'), origin='https://hsiao.chendermatologist.com', slug='dry-eye-myths';
@@ -192,9 +199,9 @@ for(const dark of [false,true]) test(`editor canvas, toolbar, menu and saved sta
     expect(result.violations).toEqual([]);
   }
   await contrast(['#hs-admin-bar']);
-  await frame.locator('#hs-adm-cancel').hover();await contrast(['#hs-adm-cancel']);
-  await frame.locator('#hs-adm-check').hover();await contrast(['#hs-adm-check']);
-  await frame.locator('#hs-adm-check').press('Tab');
+  await openTools(frame); await frame.locator('#hs-adm-cancel').hover();await contrast(['#hs-adm-cancel']);
+  await openTools(frame); await frame.locator('#hs-adm-check').hover();await contrast(['#hs-adm-check']);
+  await openTools(frame); await frame.locator('#hs-adm-check').press('Tab');
   const p=frame.locator('#proseZh > p[contenteditable]').first();
   await p.fill('');await p.press('/');
   await expect(frame.locator('#hs-slash-menu')).toBeVisible();
@@ -233,7 +240,7 @@ test('title/summary share undo, redo, version comparison and source-safe save; a
   await input(frame,'searchTitleZh').fill('作者自訂搜尋標題 | HsiaoEye');
   await input(frame,'descriptionZh').fill('作者自訂摘要，保留實際文章內容與限制。');
   await input(frame,'descriptionEn').fill('Author English summary with limitations.');
-  await frame.locator('#hs-adm-compare').click();
+  await openTools(frame); await frame.locator('#hs-adm-compare').click();
   const comparison=frame.getByRole('region',{name:'保存前健檢與版本比較'});
   await expect(comparison).toContainText('作者自訂搜尋標題');
   await expect(comparison).toContainText('Author English summary');
@@ -344,7 +351,7 @@ test(`writing workspace fits ${width}x${height}, dark=${dark}, keyboard reachabl
   if(height<600) {
     const bar=await frame.locator('#hs-admin-bar').boundingBox();
     expect(bar.height).toBeLessThanOrEqual(height*0.4+1);
-    await frame.locator('#hs-adm-check').click();
+    await openTools(frame); await frame.locator('#hs-adm-check').click();
     await expect(frame.getByRole('region',{name:'保存前健檢與版本比較'})).toBeVisible();
   }
   const articleFrame=page.frames().find(f=>f.url().includes('?admin=1'));
