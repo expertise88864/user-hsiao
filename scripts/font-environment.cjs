@@ -3,6 +3,35 @@
 // request additional web fonts or change the page's own font-loading policy.
 const PROBE_ID = 'lh-font-environment-probes';
 
+// A CDP glyphCount includes rendered missing-glyph boxes. Use only seven fixed,
+// public probe characters to check whether distinct CJK characters render alike.
+// Equality is evidence about raster output, not a cmap/coverage certification.
+async function collectFixedFallbackGlyphs(page) {
+  return page.evaluate(() => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 96; canvas.height = 80;
+    const context = canvas.getContext('2d', {willReadFrequently:true});
+    if (!context) throw Error('Fixed font raster probe unavailable');
+    return [['sans',"'PingFang TC','Microsoft JhengHei',system-ui,sans-serif"],['serif','Georgia,serif']].map(([kind,family]) => {
+      context.font = '700 40px ' + family;
+      context.textBaseline = 'alphabetic'; context.fillStyle = '#000';
+      const distinct = [], advances = [];
+      let everyGlyphHasInk = true;
+      for (const glyph of '眼科衛教文章水') {
+        context.clearRect(0,0,canvas.width,canvas.height);
+        context.fillText(glyph,8,56);
+        advances.push(context.measureText(glyph).width);
+        const pixels = context.getImageData(0,0,canvas.width,canvas.height).data;
+        if (!pixels.some((value,index) => index % 4 === 3 && value > 0)) everyGlyphHasInk = false;
+        if (!distinct.some(prior => prior.every((value,index) => value === pixels[index]))) distinct.push(pixels);
+      }
+      return {kind,probe:'fixed-seven-CJK-v1',glyphCount:advances.length,advances,
+        distinctRasterCount:distinct.length,everyGlyphHasInk,
+        scope:'Fixed system-font probe only; no pixels or author text exported. Equal rasters do not certify font cmap coverage.'};
+    });
+  });
+}
+
 async function collectFontEnvironment(page, session) {
   let inserted = false;
   try {
@@ -74,10 +103,11 @@ async function collectFontEnvironment(page, session) {
       delete sample.selector;
     }
     const {product} = await session.send('Browser.getVersion');
-    return {schemaVersion:1,browser:product,phase:'before-lighthouse-navigation',...state};
+    const fixedFallbackGlyphs = await collectFixedFallbackGlyphs(page);
+    return {schemaVersion:2,browser:product,phase:'before-lighthouse-navigation',...state,fixedFallbackGlyphs};
   } finally {
     if (inserted) await page.evaluate(id => document.getElementById(id)?.remove(),PROBE_ID);
   }
 }
 
-module.exports = {collectFontEnvironment,PROBE_ID};
+module.exports = {collectFontEnvironment,collectFixedFallbackGlyphs,PROBE_ID};

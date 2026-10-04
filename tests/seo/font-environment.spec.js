@@ -13,10 +13,17 @@ test('font evidence reports real glyph selection without serializing reader data
  const session=await context.newCDPSession(page);
  try {
   const report=await collectFontEnvironment(page,session),encoded=JSON.stringify(report);
-  expect(report.schemaVersion).toBe(1);expect(report.browser).toMatch(/^(?:Headless)?Chrome\/\d+/);
+  expect(report.schemaVersion).toBe(2);expect(report.browser).toMatch(/^(?:Headless)?Chrome\/\d+/);
   expect(report.phase).toBe('before-lighthouse-navigation');
   expect(report.samples).toHaveLength(7);
   for(const sample of report.samples){expect(sample.fonts.length).toBeGreaterThan(0);expect(sample.fonts.some(font=>font.glyphCount>0)).toBe(true);expect(sample.width).toBeGreaterThan(0);}
+  expect(report.fixedFallbackGlyphs).toHaveLength(2);
+  for(const sample of report.fixedFallbackGlyphs){
+   expect(sample.glyphCount).toBe(7);expect(sample.advances).toHaveLength(7);
+   expect(sample.advances.every(width=>width>0)).toBe(true);
+   expect(sample.distinctRasterCount).toBeGreaterThanOrEqual(1);expect(sample.distinctRasterCount).toBeLessThanOrEqual(7);
+   expect(sample.everyGlyphHasInk).toBe(true);expect(sample).not.toHaveProperty('pixels');
+  }
   for(const marker of ['private_cookie_sentinel','private_storage_sentinel','private_text_sentinel'])expect(encoded).not.toContain(marker);
   expect(await cardSnapshot()).toEqual(cards);
   await expect(page.locator('#'+PROBE_ID)).toHaveCount(0);

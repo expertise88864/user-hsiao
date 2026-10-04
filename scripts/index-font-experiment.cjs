@@ -4,16 +4,17 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const {targetUrl, previewCookies, verifyRuntimeIdentity, PRODUCTION} = require('./preview-access.cjs');
+const {collectFixedFallbackGlyphs} = require('./font-environment.cjs');
 
-const HEADINGS = 'main > section > h1.font-display,.al-body h3{font-size-adjust:ic-width 1}';
-const LATIN = '.font-sans{font-family:Inter,"Hsiao Summary Fallback","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}';
+// Prior heading/Latin variants did not remove intro/card-summary wrapping.
+// Test that remaining cause; preserve prior evidence rather than rerunning it.
+const TEXT_PITCH = 'main > section > p,.al-body p{font-size-adjust:ic-width 1}';
 const VARIANTS = Object.freeze([
   {name:'control',css:''},
-  {name:'index-heading-pitch',css:HEADINGS},
-  {name:'index-latin-fallback',css:LATIN},
-  {name:'index-combined',css:HEADINGS + LATIN},
+  {name:'index-intro-summary-pitch',css:TEXT_PITCH},
 ]);
 const VIEWPORTS = Object.freeze([{width:390,height:844},{width:800,height:600},{width:1350,height:940}]);
+const REPETITIONS = Object.freeze([1,2]);
 
 function requestPolicy(value, method, origin) {
   let url;
@@ -144,6 +145,7 @@ async function runProbe(browser, base, viewport, variant, cookies) {
     await page.evaluate(() => document.fonts.ready);
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
     const before = await geometry(page), beforeFonts = await selectedFonts(page);
+    const fixedFallbackGlyphs = await collectFixedFallbackGlyphs(page);
     checkPhase(before,beforeFonts,'before');
     releaseFonts();
     stage = 'font-completion';
@@ -159,7 +161,7 @@ async function runProbe(browser, base, viewport, variant, cookies) {
     stage = 'after-fonts';
     checkPhase(after,afterFonts,'after');
     assert.ok(!failures.some(failure => failure.type === 'font'),'Web font request failed');
-    return {viewport,variant:variant.name,before,beforeFonts,after,afterFonts,observedFontFailures:failures,
+    return {viewport,variant:variant.name,before,beforeFonts,after,afterFonts,fixedFallbackGlyphs,observedFontFailures:failures,
       deltas:{heroHeight:after.hero.height-before.hero.height,introHeight:after.intro.height-before.intro.height,
         cardY:after.cards.map((item,i)=>item.card.y-before.cards[i].card.y),
         cardHeight:after.cards.map((item,i)=>item.card.height-before.cards[i].card.height),
@@ -188,13 +190,14 @@ async function main() {
   const browser = await chromium.launch({executablePath:chrome,headless:true});
   const rows = [];
   try {
-    for (const viewport of VIEWPORTS) for (const variant of VARIANTS) {
-      rows.push(await runProbe(browser,base,viewport,variant,cookies));
+    for (const viewport of VIEWPORTS) for (const repetition of REPETITIONS) for (const variant of VARIANTS) {
+      rows.push({...await runProbe(browser,base,viewport,variant,cookies),repetition});
     }
     assert.equal(rows.length,12,'Complete controlled matrix required');
-    const report = {schemaVersion:1,phase:'controlled-index-font-experiment',sha,identity,
+    assert.equal(new Set(rows.map(row => row.viewport.width + ':' + row.variant + ':' + row.repetition)).size,12,'Repeated controlled matrix must be distinct');
+    const report = {schemaVersion:2,phase:'controlled-index-font-experiment',sha,identity,
       checkedAt:new Date().toISOString(),platform:process.platform,browser:browser.version(),route:'/blog/',
-      scope:'Separate browser after Lighthouse. Hold/release Google Fonts CSS; three explicit viewports and four temporary CSS variants. Numeric geometry/font selection only; not Lighthouse CLS, production CSP validation, Ubuntu PNG approval, field metrics or CTR.',
+      scope:'Separate browser after Lighthouse. Hold/release Google Fonts CSS; three viewports, control/intro-summary pitch, two repetitions each. Fixed system-glyph raster equality and numeric geometry/font selection only; not cmap certification, Lighthouse CLS, production CSP validation, Ubuntu PNG approval, field metrics or CTR. Schema1 used four variants without repetition; compare named controls, not pooled experiments.',
       diagnosticCSPBypass:true,rows};
     const dir = path.resolve('font-layout-experiment-results');
     fs.mkdirSync(dir,{recursive:true});
@@ -203,7 +206,7 @@ async function main() {
   } finally { await browser.close(); }
 }
 
-module.exports = {requestPolicy,checkConfig,checkPageUrl,checkPhase,runProbe,VARIANTS,VIEWPORTS};
+module.exports = {requestPolicy,checkConfig,checkPageUrl,checkPhase,runProbe,VARIANTS,VIEWPORTS,REPETITIONS};
 if (require.main === module) main().catch(error => {
   // Never echo a network error carrying authentication material or page content.
   console.error(JSON.stringify({status:'controlled-font-experiment-failed',completeReport:false,
