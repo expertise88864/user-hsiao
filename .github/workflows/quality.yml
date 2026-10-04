@@ -419,6 +419,43 @@ jobs:
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: node scripts/index-font-experiment.cjs
 
+      # Diagnose the runner's missing CJK fallback AFTER the scored navigation.
+      # Both reports use the same Preview, Chrome, matrix and font release gate.
+      - name: Probe installed CJK system fallback
+        if: github.ref != 'refs/heads/main'
+        timeout-minutes: 4
+        env:
+          SITE_URL: ${{ steps.site.outputs.url }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          REPORT="font-layout-experiment-results/index-font-experiment-$CANDIDATE_SHA.json"
+          test -s "$REPORT"
+          mv "$REPORT" "${REPORT%.json}-before-system-cjk.json"
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+          fc-cache -f
+          node scripts/index-font-experiment.cjs
+          mv "$REPORT" "${REPORT%.json}-after-system-cjk.json"
+          python - "$CANDIDATE_SHA" <<'PY'
+          import hashlib, json, pathlib, subprocess, sys
+          sha = sys.argv[1]
+          root = pathlib.Path('font-layout-experiment-results')
+          paths = [root / f'index-font-experiment-{sha}-{side}-system-cjk.json' for side in ('before', 'after')]
+          reports = [json.loads(path.read_text()) for path in paths]
+          for report in reports:
+              assert report['sha'] == sha and report['platform'] == 'linux' and len(report['rows']) == 12
+              assert report['identity']['sha'] == sha and report['identity']['repository'] == 'expertise88864/user-hsiao'
+              assert report['identity']['environment'] == 'preview'
+          assert reports[0]['browser'] == reports[1]['browser']
+          version = subprocess.check_output(['dpkg-query', '-W', '-f=${Version}', 'fonts-noto-cjk'], text=True).strip()
+          assert version
+          manifest = {'schemaVersion': 1, 'sha': sha, 'browser': reports[0]['browser'], 'package': 'fonts-noto-cjk',
+              'packageVersion': version, 'intervention': 'system-font installation after Lighthouse, disposable candidate runner only',
+              'reports': [{'file': path.name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()} for path in paths],
+              'scope': 'Paired numeric geometry and fixed glyph diagnostics; not scored Lighthouse, production font changes or field/CTR improvement.'}
+          (root / f'system-font-intervention-{sha}.json').write_text(json.dumps(manifest, indent=2) + '\n')
+          PY
+
       - name: Upload controlled font experiment
         if: github.ref != 'refs/heads/main'
         uses: actions/upload-artifact@v4

@@ -61,7 +61,7 @@ class DeliveryTests(unittest.TestCase):
                        if entry["path"] == ".github/workflows/quality.yml")
         name = "Lighthouse CI"
         contract = quality["steps"][name]
-        probe_steps = ["Measure isolated candidate font geometry", "Upload controlled font experiment"]
+        probe_steps = ["Measure isolated candidate font geometry", "Probe installed CJK system fallback", "Upload controlled font experiment"]
         self.assertEqual(contract["candidate_required"], probe_steps)
         steps = [{"name": step, "status": "completed", "conclusion": "success"}
                  for step in contract["required"] + probe_steps]
@@ -78,12 +78,14 @@ class DeliveryTests(unittest.TestCase):
         workflow = (d.ROOT / ".github/workflows/quality.yml").read_text(encoding="utf-8")
         scoring = workflow.index("      - name: Run Lighthouse CI\n")
         measure = workflow.index("      - name: Measure isolated candidate font geometry\n")
+        install = workflow.index("      - name: Probe installed CJK system fallback\n")
         upload = workflow.index("      - name: Upload controlled font experiment\n")
         normal_fonts = workflow.index("      - name: Upload font environment\n")
         self.assertLess(scoring, measure)
-        self.assertLess(measure, upload)
+        self.assertLess(measure, install)
+        self.assertLess(install, upload)
         self.assertLess(upload, normal_fonts)
-        for block in (workflow[measure:upload], workflow[upload:normal_fonts]):
+        for block in (workflow[measure:install], workflow[install:upload], workflow[upload:normal_fonts]):
             self.assertIn("if: github.ref != 'refs/heads/main'", block)
         self.assertIn("CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}", workflow[measure:upload])
         self.assertIn("temporaryPublicStorage: false", workflow[scoring:measure])

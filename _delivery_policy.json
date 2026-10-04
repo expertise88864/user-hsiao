@@ -88,10 +88,12 @@
           ],
           "conditional": [
             "Measure isolated candidate font geometry",
+            "Probe installed CJK system fallback",
             "Upload controlled font experiment"
           ],
           "candidate_required": [
             "Measure isolated candidate font geometry",
+            "Probe installed CJK system fallback",
             "Upload controlled font experiment"
           ]
         },
