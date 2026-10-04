@@ -13,7 +13,8 @@ const { prepareA11yPage } = require('./a11y-rendering.cjs');
     const context = await browser.newContext({ serviceWorkers: 'block' });
     await context.addCookies(cookies);
     for (const route of ['/', '/blog/', '/blog/dry-eye-myths', '/blog/pediatric-myopia-control',
-      '/blog/floaters-retinal-detachment', '/blog/lacrimal-gland-tumor', '/tools']) {
+      '/blog/floaters-retinal-detachment', '/blog/lacrimal-gland-tumor',
+      '/blog/glaucoma-comprehensive-guide', '/tools']) {
       const page = await context.newPage();
       try {
         const response = await page.goto(new URL(route, base).href, { waitUntil: 'load' });
@@ -25,6 +26,7 @@ const { prepareA11yPage } = require('./a11y-rendering.cjs');
           '/blog/pediatric-myopia-control': ['#hs-font-sizer', '#hs-se'],
           '/blog/floaters-retinal-detachment': ['#hs-font-sizer', '#hs-floater-rf'],
           '/blog/lacrimal-gland-tumor': ['#hs-font-sizer'],
+          '/blog/glaucoma-comprehensive-guide': ['#hs-font-sizer'],
           '/tools': ['#hs-osdi', '#hs-deq5', '#hs-snellen', '#hs-se', '#hs-floater-rf'],
         };
         for (const selector of controls[route] || []) {
