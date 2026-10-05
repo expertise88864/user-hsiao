@@ -60,7 +60,7 @@ jobs:
 
       - name: Require the complete reviewed baseline set
         run: |
-          EXPECTED=21
+          EXPECTED=27
           ACTUAL=$(find tests/visual/snapshots -name '*.png' | wc -l)
           echo "Found $ACTUAL / $EXPECTED baseline PNGs."
           test "$ACTUAL" -eq "$EXPECTED"
