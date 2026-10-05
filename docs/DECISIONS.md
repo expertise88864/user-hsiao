@@ -106,10 +106,11 @@
 - 不得重加 inline onload handler；CSP 相容 loader 與 noscript 後備由 performance guard 驗證。
 
 ### D-13 視覺回歸基準圖只能由 CI 產生
-- **決策**：`tests/visual/snapshots/` 的 21 張 PNG 基準只能來自 GitHub Actions（Ubuntu/Chromium 對線上站截圖）。**絕不**提交本機（尤其 Windows）產生的截圖——字型光柵化不同，必定 mismatch。
-- **視覺測試涵蓋 7 個 URL**（改這些頁的可見內容，視覺測試**應該**紅）：`/`、`/en/`、`/blog/dry-eye-myths`、`/blog/floaters-retinal-detachment`、`/blog/pediatric-myopia-control`，另含 `/tools`、`/blog/`（各 desktop/tablet/mobile）。
-- **基準更新程序**：manual force_update 僅產生 Ubuntu 候選基準 artifact，不再自動 commit／push。下載後先確認可見變化符合預期，再以完整本機 CI 等效檢查、外審與新 SHA GitHub CI 流程交付。本輪沒有更新任何 PNG 基準。
-- **錨**：`.github/workflows/visual-regression.yml`。
+- **決策**：`tests/visual/snapshots/` 的 PNG 基準只能來自 GitHub Actions（Ubuntu/Chromium 對 exact-SHA Preview 截圖），並由站主確認實際畫面。Windows 截圖不能替代 Ubuntu 基準；不自動接受差異或調低比較門檻。
+- **現行範圍**：27 張、9 個 URL（各 desktop/tablet/mobile）：`/`、`/en/`、`/blog/`、`/tools`、`/blog/dry-eye-myths`、`/blog/floaters-retinal-detachment`、`/blog/pediatric-myopia-control`、`/blog/lacrimal-gland-tumor`、`/blog/glaucoma-comprehensive-guide`。可見變更需提供新的實際前後對照；過往核可不授權未來差異。
+- **基準更新程序**：manual force_update 僅產生 Ubuntu 候選 artifact，不自動 commit／push。站主確認後恰納入核可的原圖，走 D-28 的獨立審查、新 SHA 完整候選 CI／Preview 與正式交付流程。
+- **已交付紀錄（2026-10-05）**：站主在臨床圖庫回覆「都核可」。`d1f535e892815a691c08d159f5a140946b747de4` 恰納入 15 張原始 Ubuntu 圖（9 既有變更、6 新增），12 張原樣保留；來源 run `37215095946`／artifact `11307644702`，archive SHA256 `8502d782af9a43afe659714d454ac53d5952e4f868790bde28bddcdfe6c85ebb`。候選 push／PR 與正式 main 各 27/27 通過，閾值未改。這不是對另一份像素變體或未來圖的核可。
+- **錨**：`.github/workflows/visual-regression.yml`、`tests/visual/hsiao.spec.js`；歷史 21 張／7 URL 記錄保留於 `d1f535e^:docs/DECISIONS.md`。
 
 ### D-14 Playwright 產物永不入庫
 - **決策**：`playwright-report/`、`test-results/`、`blob-report/` 已入 `.gitignore`。曾發生 `git add -A` 誤收（`03e1577`，`2abef07` 清除）。commit 前看一眼 `git status -s` 的清單。
@@ -143,11 +144,12 @@
 
 ## E. 流程 / 工作方式
 
-### D-20 Pre-push 閘門（每次 push 前，無例外）
-1. 完整適用的本機 CI 等效檢查全過：API、Python、瀏覽器、size budget 及 `python preflight.py`（跑完整產生器鏈 ×2 驗證固定點 + validate + `_check_all.py --quick`；鏈的步驟清單**動態解析自 `.github/workflows/quality.yml`**，所以 codex 加新 generator 也不會過時）。
-2. **Codex GPT-5.6-sol diff review**（站主全域規則，2026-07-10 由 gpt-5.5 升級）：把 staged diff 交給 codex MCP（`model=gpt-5.6-sol`；需 codex CLI **`0.145.0-alpha.2`+**——stable 0.144.1 仍 400，見 memory），列 blocking issues，**APPROVE 才 push**。
-3. push 後用 `python _ci_status.py <sha> --watch` 盯 CI（本環境無 `gh` CLI）。
-- **錨**：本 session 全程實踐；工具見 repo 根目錄。
+### D-20 發佈閘門（依 2026-09-06 D-28 與 2026-09-23 模型定案）
+1. 本機快速檢查與相關回歸；涉及生成時跑必要產生器及固定點驗證。動態建置鏈以 `.github/workflows/quality.yml` 為準。本機結果不能冒充完整遠端 CI。
+2. 完整差異獨立 Codex `gpt-5.6-sol/high/read-only` 審查，使用 `scripts/codex_review.sh`；另以 Claude Code 精確 `claude-opus-5-5/high`、唯讀工具審查，核對實際新回合 modelUsage。確認 provider quota 才能依 AGENTS 保留 pending trailers 與補審；不是 APPROVE，也不豁免 CI。
+3. 正常推 `codex/*` 候選；同 SHA 的完整候選 workflows/jobs/steps、same-repository PR、exact Preview/browser 與適用 Ubuntu 人工視覺核可全部符合，才正常快轉 main。新的修改、生成或整合需要新 SHA 證據，保留 CMS 新提交與受保護修改。
+4. main 後再驗證 exact-SHA 正式 CI、部署與 smoke，才算該批交付；純文件與空 audit commit 同樣適用。缺失、取消、逾時及應跑卻跳過均不通過，禁止 force、no-verify、skip-ci 或降低門檻。
+- **錨**：D-28、`REMOTE_CI_DELIVERY.md`、`_delivery.py`、`_delivery_policy.json`。早期完整本機 CI 後直接 main／歷史 MCP 入口已被取代。
 
 ### D-21 CI drift 也必須核對最終 SHA
 - 歷史的「看到自動 regen commit 就忽略紅燈」規則已由最新使用者 CI 定案取代。先診斷 drift 或真缺陷；任何新 commit 都需要重新驗證，舊 SHA 紅燈不能算作新 SHA 綠燈。
