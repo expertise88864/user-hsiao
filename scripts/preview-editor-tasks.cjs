@@ -1,7 +1,9 @@
 /* Disposable Preview editor fixtures; no credentials, private reads or writes. */
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const AxeBuilder = require('@axe-core/playwright').default;
 const { targetUrl, verifyRuntimeIdentity } = require('./preview-access.cjs');
+const { prepareA11yPage } = require('./a11y-rendering.cjs');
 
 function withExampleImages(html) {
   const picture = (language, alt) => '<figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=" width="90" height="90" alt="' + alt + '"><figcaption>' + language + ' example image</figcaption></figure>';
@@ -35,6 +37,26 @@ async function captureEditorTasks(browser, base, cookies, expectedSHA, repositor
   base = targetUrl(base.href);
   assert.ok(base.hostname.endsWith('.vercel.app'));
   const rows = [];
+  const accessibility = [];
+  async function auditTask(page, width, task) {
+    const scroll = await page.evaluate(() => ({ x: scrollX, y: scrollY }));
+    if (task === 'information') await prepareA11yPage(page);
+    const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'best-practice']).analyze();
+    accessibility.push({ width, task, result });
+    fs.writeFileSync('delivery-preview/editor-task-accessibility.json', JSON.stringify({
+      sha: expectedSHA, platform: process.platform, browser: browser.version(), accessibility,
+      scope: 'Isolated synthetic editor states on exact Preview; full active-page axe with painted footer. Incomplete rules require manual assessment, not a claim of complete WCAG conformance.',
+    }, null, 2));
+    assert.equal(result.violations.length, 0, 'Editor ' + width + ' ' + task + ' accessibility violations');
+    await page.evaluate(position => scrollTo({ left: position.x, top: position.y, behavior: 'instant' }), scroll);
+    await page.evaluate(async () => {
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      await Promise.all([...document.querySelectorAll('#hs-toc-float, #hs-font-sizer, #hs-mobile-nav, #hs-totop, #hs-pip-btn')]
+        .flatMap(element => element.getAnimations())
+        .filter(animation => animation.effect?.getTiming().iterations !== Infinity)
+        .map(animation => animation.finished.catch(() => {})));
+    });
+  }
   for (const width of [360, 390, 768, 1440]) {
     const context = await browser.newContext({ viewport: { width, height: 900 }, locale: 'zh-TW',
       colorScheme: width === 360 || width === 1440 ? 'dark' : 'light', serviceWorkers: 'block' });
@@ -55,11 +77,13 @@ async function captureEditorTasks(browser, base, cookies, expectedSHA, repositor
       assert.equal(await page.locator('#hs-editor-titleZh').isVisible(), false);
       await page.locator('#hs-adm-article-info').click();
       await page.locator('#hs-editor-titleZh').waitFor({ state: 'visible' });
+      await auditTask(page, width, 'information');
       await page.screenshot({ path: 'delivery-preview/editor-' + width + '-information.png', fullPage: false });
       await page.locator('#hs-editor-metadata-workspace > summary').click();
       await page.locator('#hs-adm-image-description').click();
       const dialog = page.getByRole('dialog', { name: '圖片替代文字' });
       await dialog.waitFor({ state: 'visible' });
+      await auditTask(page, width, 'image-description');
       await page.screenshot({ path: 'delivery-preview/editor-' + width + '-image-description.png', fullPage: false });
       await dialog.getByRole('button', { name: '取消', exact: true }).click();
       assert.equal(await page.evaluate(() => !!window.DN._adminDirty), false);

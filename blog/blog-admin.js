@@ -280,6 +280,8 @@
     // Build the floating toolbar
     var bar = document.createElement('div');
     bar.id = 'hs-admin-bar';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', '文章編輯工具');
     bar.innerHTML =
       '<div class="hs-adm-writing" role="group" aria-label="常用寫作工具">' +
       '<button type="button" title="連結 (Cmd/Ctrl+K)" data-cmd="link">🔗 連結</button>' +
