@@ -18,9 +18,8 @@ for(const prefix of ['', '/en']) {
 
  test(`delayed enhancement retains filter nodes and native article position ${prefix}`,async({page})=>{
   let release;const gate=new Promise(r=>release=r);
-  // Observe the real startup guard. Some engines have neither cache API and
-  // therefore stamp the version without reloading. Never bypass the guard.
-  await page.addInitScript(()=>{window.filterInitialCache={stamp:localStorage.getItem('hs:siteVer'),canReload:'serviceWorker' in navigator||'caches' in window};});
+  // Wait for the real guard to complete. Empty storage can now be stamped
+  // without a reload; do not seed or bypass its version check.
   // Isolate filter insertion from external font downloads. fonts.ready can wait
   // for document load in Firefox/WebKit, which this script gate deliberately holds.
   await page.route('https://fonts.googleapis.com/**',route=>route.abort());
@@ -29,8 +28,8 @@ for(const prefix of ['', '/en']) {
   try {
    await page.goto(prefix+'/blog',{waitUntil:'commit'});
    await page.waitForFunction(()=>{
-    const source=document.querySelector('script[src*="trusted-types.js"]'),state=window.filterInitialCache;
-    return source&&state&&(!state.canReload||state.stamp===new URL(source.src).searchParams.get('v'));
+    const source=document.querySelector('script[src*="trusted-types.js"]');
+    return source&&localStorage.getItem('hs:siteVer')===new URL(source.src).searchParams.get('v');
    });
    const search=page.locator('#hs-blog-search');await expect(search).toBeDisabled();
    await expect(search).toHaveAttribute('placeholder',prefix?'Type to search…':'輸入關鍵字…');
