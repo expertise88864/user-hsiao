@@ -53,9 +53,8 @@ jobs:
           echo "PW_BASE_URL=$(cat "$RUNNER_TEMP/delivery-preview-url")" >> "$GITHUB_ENV"
       - name: Install browser
         run: |
-          npm install --global playwright@1.60.0
-          echo "NODE_PATH=$(npm root --global)" >> "$GITHUB_ENV"
-          playwright install --with-deps chromium
+          npm ci
+          npx playwright install --with-deps chromium
       - name: Verify preview pages in desktop and mobile browsers
         env:
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
