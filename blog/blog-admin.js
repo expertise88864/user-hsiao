@@ -105,9 +105,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260711');
-      historyModule = await import('/blog/editor-history.js?v=20260711');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260711');
+      editorReview = await import('/blog/editor-review.js?v=20260712');
+      historyModule = await import('/blog/editor-history.js?v=20260712');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260712');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -309,6 +309,96 @@
       '</div></details>' +
       '<input type="file" id="hs-adm-img-input" accept="image/*" hidden />';
     document.body.appendChild(bar);
+    var articleInfoButton = document.createElement('button');
+    articleInfoButton.type = 'button'; articleInfoButton.id = 'hs-adm-article-info';
+    articleInfoButton.textContent = '文章資訊';
+    bar.querySelector('.hs-adm-writing').appendChild(articleInfoButton);
+    articleInfoButton.addEventListener('click', function () { if (!composing) metadataWorkspace.open(); });
+    // Plain image descriptions live in existing editor chrome, never in authored HTML.
+    var imageDescriptionButton = document.createElement('button');
+    imageDescriptionButton.type = 'button';
+    imageDescriptionButton.id = 'hs-adm-image-description';
+    imageDescriptionButton.textContent = '圖片替代文字';
+    bar.querySelector('.hs-adm-writing').appendChild(imageDescriptionButton);
+    var imageDialog = document.createElement('dialog');
+    imageDialog.id = 'hs-adm-image-description-dialog';
+    imageDialog.setAttribute('aria-label', '圖片替代文字');
+    imageDialog.style.cssText = 'max-width:min(32rem,calc(100vw - 32px));box-sizing:border-box;max-height:80dvh;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:20px;background:var(--surface,#fff);color:var(--ink,#243b56)';
+    var imageHelp = document.createElement('p');
+    imageHelp.id = 'hs-adm-image-description-help';
+    imageHelp.textContent = '替代文字描述這張圖在文中的用途，供無法看見圖片的讀者使用；圖說仍可直接在正文編輯。純裝飾且不傳達資訊的圖片可以留空。套用後才會納入草稿或 Git 保存；取消會放棄本視窗輸入。';
+    imageDialog.appendChild(imageHelp);
+    var imagePickerLabel = document.createElement('label');
+    imagePickerLabel.textContent = '選擇圖片';
+    var imagePicker = document.createElement('select');
+    imagePicker.setAttribute('aria-label', '選擇圖片');
+    imagePicker.style.cssText = 'display:block;width:100%;min-height:44px;margin:8px 0';
+    imagePickerLabel.appendChild(imagePicker); imageDialog.appendChild(imagePickerLabel);
+    var imageAltLabel = document.createElement('label');
+    imageAltLabel.textContent = '替代文字';
+    var imageAltInput = document.createElement('textarea');
+    imageAltInput.setAttribute('aria-label', '替代文字');
+    imageAltInput.rows = 3; imageAltInput.maxLength = 2000;
+    imageAltInput.style.cssText = 'display:block;width:100%;box-sizing:border-box;margin:8px 0;padding:10px;background:var(--surface,#fff);color:inherit;border:1px solid var(--border);font:inherit';
+    imageAltLabel.appendChild(imageAltInput); imageDialog.appendChild(imageAltLabel);
+    var imageApply = document.createElement('button');
+    imageApply.type = 'button'; imageApply.textContent = '套用替代文字';
+    var imageCancel = document.createElement('button');
+    imageCancel.type = 'button'; imageCancel.textContent = '取消';
+    imageDialog.append(imageApply, imageCancel); bar.appendChild(imageDialog);
+    var imageNotice = document.createElement('p');
+    imageNotice.id = 'hs-adm-image-description-notice';
+    imageNotice.setAttribute('role', 'status'); imageNotice.setAttribute('aria-live', 'polite');
+    imageDialog.appendChild(imageNotice);
+    imageAltInput.setAttribute('aria-describedby', imageHelp.id + ' ' + imageNotice.id);
+    function showImageIssue(message) {
+      imageNotice.textContent = message; status(message, 'error'); imageAltInput.focus();
+    }
+    var imageTargets = [], imageTarget = null, imageLanguage = null, imageIndex = 0, imageLoadedAlt = '';
+    function chooseImage() {
+      var nextIndex = Number(imagePicker.value), nextTarget = imageTargets[nextIndex] || null;
+      if (imageTarget && nextTarget !== imageTarget && imageAltInput.value !== imageLoadedAlt) {
+        imagePicker.value = String(imageIndex);
+        showImageIssue('請先套用或取消目前圖片的替代文字，再選擇另一張圖片。'); return;
+      }
+      imageTarget = nextTarget; imageIndex = nextIndex;
+      imageLoadedAlt = imageTarget ? imageTarget.getAttribute('alt') || '' : '';
+      imageAltInput.value = imageLoadedAlt; imageNotice.textContent = '';
+    }
+    imagePicker.addEventListener('change', chooseImage);
+    imageCancel.addEventListener('click', function () { imageDialog.close(); });
+    imageDialog.addEventListener('close', function () { imageTargets = []; imageTarget = null; });
+    imageDescriptionButton.addEventListener('click', function () {
+      if (composing) return;
+      imageTargets = Array.from(article.querySelectorAll('img')).filter(function (img) {
+        return img.getClientRects().length && !img.closest('.hs-diagram-mode');
+      });
+      if (!imageTargets.length) { status('目前正文沒有可修改替代文字的圖片；SVG 圖表與圖說維持原本編輯方式。'); return; }
+      imageLanguage = (document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh';
+      imagePicker.replaceChildren();
+      imageTargets.forEach(function (img, index) {
+        var option = document.createElement('option'); option.value = String(index);
+        var caption = img.closest('figure') && img.closest('figure').querySelector('figcaption');
+        option.textContent = '圖片 ' + (index + 1) + '：' + (img.getAttribute('alt') || caption && caption.textContent || '尚無描述').slice(0, 100);
+        imagePicker.appendChild(option);
+      });
+      chooseImage(); imageDialog.showModal(); imageAltInput.focus();
+    });
+    imageApply.addEventListener('click', function () {
+      if (composing) return;
+      var language = (document.documentElement.lang || 'zh').toLowerCase().startsWith('en') ? 'en' : 'zh';
+      if (!imageTarget || !article.contains(imageTarget) || !imageTarget.getClientRects().length || language !== imageLanguage) {
+        showImageIssue('圖片或閱讀語言已改變，文字仍在此視窗；請複製需要的文字，取消後重新選擇圖片。'); return;
+      }
+      if (imageTarget.getAttribute('alt') !== imageAltInput.value) {
+        if (editHistory) editHistory.breakGroup();
+        imageTarget.setAttribute('alt', imageAltInput.value);
+        markDirty();
+        if (editHistory) editHistory.breakGroup();
+      }
+      imageDialog.close();
+    });
+
     // A mouse press on summary otherwise replaces the author's selection with
     // the disclosure label. Preserve it for the next format command, while
     // leaving native click toggling and keyboard focus/activation intact.
@@ -1103,7 +1193,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260711';
+        runtime.src = '/blog/editor-preview.js?v=20260712';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');
@@ -1262,6 +1352,7 @@
         if (state.field) {
           var field = document.getElementById(state.field.id);
           if (field && metadataWorkspace.element.contains(field)) {
+            metadataWorkspace.element.open = true;
             field.focus(); field.setSelectionRange(state.field.start, state.field.end); focused = true;
           }
         }
@@ -1298,6 +1389,9 @@
       }
     }
     DN.adminBeforeClose = async function () {
+      if (imageDialog.open) {
+        showImageIssue('尚未離開：請先套用或取消圖片替代文字。'); return false;
+      }
       if (savePending) {
         status('正在儲存至 GitHub，請等候結果後再離開。');
         return false;
@@ -1319,13 +1413,17 @@
       } finally { leavePending = false; }
     };
     window.addEventListener('beforeunload', function (event) {
-      if (!allowClose && (DN._adminDirty || savePending || draftCleanupPending || leavePending)) {
+      if (!allowClose && (imageDialog.open || DN._adminDirty || savePending || draftCleanupPending || leavePending)) {
         event.preventDefault();
         event.returnValue = '';
       }
     });
     if ('navigation' in window) window.navigation.addEventListener('navigate', function (event) {
-      if (event.downloadRequest !== null || allowClose || !DN._adminDirty) return;
+      if (event.downloadRequest !== null || allowClose) return;
+      if (imageDialog.open) {
+        event.preventDefault(); showImageIssue('尚未離開：請先套用或取消圖片替代文字。'); return;
+      }
+      if (!DN._adminDirty) return;
       // Firefox can emit a second navigate event with downloadRequest=null
       // for the same download. Only exempt an explicit link to our live export.
       var sourceLink = event.sourceElement;
@@ -1356,6 +1454,9 @@
     }
 
     async function doSave() {
+      if (imageDialog && imageDialog.open) {
+        showImageIssue('尚未送出保存：請先套用或取消圖片替代文字。'); return;
+      }
       // v34: navigator.locks guards against 2 admin tabs committing the
       // same slug at once (would otherwise produce duplicate commits or
       // GitHub Contents API SHA conflict).

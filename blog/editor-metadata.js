@@ -1,5 +1,5 @@
 // Authenticated editor only. Values are plain author text, never HTML sinks.
-import { normalizeMetadataText } from '/blog/editor-punctuation.js?v=20260711';
+import { normalizeMetadataText } from '/blog/editor-punctuation.js?v=20260712';
 const markerName = 'hs-editor-metadata';
 const fields = [
   ['titleZh', '文章標題（中文）', 512],
@@ -49,11 +49,11 @@ export function createWorkspace(doc, source, parse, changed, catalogSha) {
   let persisted = original, savedValues;
   Object.assign(baseline, Object.fromEntries(fields.filter(([key]) => key in original).map(([key]) => [key, original[key]])));
   savedValues = { ...baseline };
-  const section = doc.createElement('section');
+  const section = doc.createElement('details');
   section.id = 'hs-editor-metadata-workspace';
   section.setAttribute('aria-label', '文章標題與搜尋摘要');
   section.style.cssText = 'max-width:48rem;margin:24px auto;padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--surface,#fff);color:var(--ink,#243b56)';
-  const title = doc.createElement('h2'); title.textContent = '文章標題與搜尋摘要'; section.appendChild(title);
+  const title = doc.createElement('summary'); title.textContent = '文章標題與搜尋摘要'; title.style.cssText = 'min-height:44px;cursor:pointer;font-weight:700'; section.appendChild(title);
   const help = doc.createElement('p');
   help.textContent = '標題說清楚文章回答的問題，摘要說明讀者能得到什麼。修改會與正文一起保留在草稿中；保存至 GitHub 後仍須通過正式發佈檢查。搜尋引擎可能改寫顯示文字。';
   section.appendChild(help);
@@ -72,8 +72,19 @@ export function createWorkspace(doc, source, parse, changed, catalogSha) {
     function updateCount() { count.textContent = Array.from(input.value).length + ' 字（僅供寫作參考）'; }
     input.updateCount = updateCount;
     input.addEventListener('input', event => { updateCount(); changed(event); });
+    input.addEventListener('focus', () => doc.defaultView.requestAnimationFrame(() => revealField(input)));
     wrapper.append(input, count); section.appendChild(wrapper); inputs[key] = input;
     updateCount();
+  }
+  function revealField(input) {
+    if (doc.activeElement !== input) return;
+    const toolbar = doc.getElementById('hs-admin-bar');
+    if (!toolbar) return;
+    const overlap = input.getBoundingClientRect().bottom - toolbar.getBoundingClientRect().top + 16;
+    if (overlap > 0) doc.defaultView.scrollBy({ top: overlap, behavior: 'instant' });
+  }
+  function focusField(input) {
+    section.open = true; input.focus(); revealField(input);
   }
   function overrides() {
     const next = { ...persisted, version: 1 };
@@ -141,6 +152,7 @@ export function createWorkspace(doc, source, parse, changed, catalogSha) {
   }
   return {
     element: section, apply,
+    open(field) { focusField(field || Object.values(inputs).find(input => !input.disabled)); },
     heading(lang) {
       const copy = source.querySelector('h1')?.cloneNode(true);
       if (!copy) return null;
@@ -189,7 +201,7 @@ export function createWorkspace(doc, source, parse, changed, catalogSha) {
     },
     valid() {
       for (const [key] of fields) if (/title/i.test(key) && !inputs[key].disabled && !inputs[key].value.trim()) {
-        inputs[key].focus(); return false;
+        focusField(inputs[key]); return false;
       }
       return true;
     }

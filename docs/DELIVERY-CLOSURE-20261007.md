@@ -10,7 +10,15 @@
 
 390px 隔離重複實驗確認 fresh 文件由 2 次導覽降到 1 次，首頁／索引最後觀察到的 LCP paint 代理中位數較基準少約 395／458ms；三次樣本與乾眼控制結果不當標準 CWV、field、統計因果或 CTR 證據。第三輪的搜尋入口、必要 CWV context 與兩項寫作障礙仍另批交付，完整 Goal 未結案。
 
-## 交付與審查
+## 第三輪可信量測增量 — 2026-10-08
+
+`c344ff815ac6c6fa31b7291facf37e0cf27d9ae1`（tree `78e7cdcdc87073edf79c37523b9693c80930e27a`）已由 [PR28](https://github.com/expertise88864/user-hsiao/pull/28) 正常快轉 main，完整 10 候選、5 正式 workflows／jobs／steps 與 gate、exact Production 身份、54 canonical／49 sitemap smoke 通過。正式證據：[Delivery](https://github.com/expertise88864/user-hsiao/actions/runs/37658574555)、[Quality](https://github.com/expertise88864/user-hsiao/actions/runs/37658574612)、[Size](https://github.com/expertise88864/user-hsiao/actions/runs/37658574424)、[Drift](https://github.com/expertise88864/user-hsiao/actions/runs/37658574748)、[Visual](https://github.com/expertise88864/user-hsiao/actions/runs/37658574679)。
+
+第一方 CWV context v1 僅記錄首次 eligible 綁定的粗粒度 CSS 寬度與執行中資產 epoch，先做原有全域 metric-ID 去重及量測選擇，再分群；舊資料保持 unknown。方法、期間、樣本與省略群數見 [CWV 定義](CWV-CONTEXT.md)。GA4 值／事件次數與既有整體 p75 語意保留，沒有新增識別資訊或把回報當訪客數。
+
+該 85 路徑獨立 Codex 完整 APPROVE；Claude 5.5 的真實 provider quota 後仍 pending，須補審與 exact fullSHA audit。已正式發布與來源完整補審是兩個不同狀態；71 筆已結案歷史不重開。本輪搜尋入口與 [寫作任務](WRITING-TASKS.md) 另批驗證，整個第三輪 Goal 尚未完成，不宣稱 field CWV、Google 排名或 CTR 已改善。
+
+## 第二輪交付與審查
 
 - 從 `a559a756b4610a65f1c9e5dbc34db768556bc08b` 正常快轉 main，[PR26](https://github.com/expertise88864/user-hsiao/pull/26) 已合併關閉；無 force 或歷史改寫。
 - 最終版本 10 個候選與 5 個正式 workflows 的適用 jobs／steps 成功，candidate／main／production gate exit 0；Preview／正式公開身份核對 repository、environment 與 exact SHA。54 canonical smoke 路由與 49 sitemap URL 通過。

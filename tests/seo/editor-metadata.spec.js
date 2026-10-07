@@ -17,6 +17,11 @@ async function setup(page, options={}) {
   const { default:middleware }=await new Function('url','return import(url)')('data:text/javascript;base64,'+Buffer.from(readFileSync(path.join(root,'middleware.js'),'utf8')).toString('base64'));
   const articleSlug=options.slug||slug;
   const state={html:options.slug?readFileSync(path.join(root,'blog',articleSlug+'.html'),'utf8'):original,sha:'a'.repeat(40),catalogSha:'d'.repeat(40),posts:0,submitted:null};
+  if(options.images) {
+    const picture=(lang,alt)=>`<figure id="writing-${lang}"><picture><source type="image/webp" srcset="/assets/writing-fixture.png 1x, /assets/writing-fixture.png 2x"><img src="/assets/writing-fixture.png" width="90" height="90" alt="${alt}" data-author-note="keep-${lang}"></picture><figcaption>${lang} author caption</figcaption></figure>`;
+    state.html=state.html.replace('<div id="proseZh" class="prose">','<div id="proseZh" class="prose">'+picture('zh','作者中文原文')+picture('zh-second','第二張中文原文'));
+    state.html=state.html.replace('<div id="proseEn" class="prose" style="display:none">','<div id="proseEn" class="prose" style="display:none">'+picture('en','Authored English description'));
+  }
   if(options.citation) state.html=state.html.replace('</head>','<script type="application/ld+json">{"@type":"BlogPosting","@id":"https://external.example/article","headline":"External citation title","description":"External citation description"}</script></head>');
   if(options.fresh) state.html=original.replace('data-zh="乾眼症 8 大迷思" data-en="8 Dry-Eye Myths">乾眼症 8 大迷思</span><br',
     'data-zh="最新來源主標題" data-en="Latest source heading">最新來源主標題</span><br');
@@ -30,6 +35,7 @@ async function setup(page, options={}) {
       state.html=state.submitted.html;state.sha='b'.repeat(40);state.catalogSha='e'.repeat(40);
       return route.fulfill({json:{ok:true,sha:state.sha,commit:'c'.repeat(40),catalogSha:state.catalogSha}});
     }
+    if(u.pathname==='/assets/writing-fixture.png')return route.fulfill({contentType:'image/png',body:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=','base64')});
     if(u.pathname.startsWith('/api/'))return route.fulfill({status:503,json:{error:'isolated fixture'}});
     let file=path.resolve(root,'.'+decodeURIComponent(u.pathname));
     if(!file.startsWith(root+path.sep))return route.fulfill({status:404});
@@ -42,9 +48,110 @@ async function setup(page, options={}) {
   await page.goto(origin+'/admin');await page.waitForFunction(()=>typeof openEditor==='function');
   await page.evaluate(s=>openEditor(s),articleSlug);
   const frame=page.frameLocator('#edit-iframe');await expect(frame.locator('#hs-adm-save')).toBeVisible();
+  if(!options.collapsed)await frame.locator('#hs-adm-article-info').click();
   return {frame,state};
 }
 const input=(frame,key)=>frame.locator('#hs-editor-'+key);
+
+for(const width of [360,390,768,1440]) test(`writing disclosure and image text retain author markup and history at ${width}px`,async({page})=>{
+  await page.setViewportSize({width,height:844});
+  await page.emulateMedia({colorScheme:width===360?'dark':'light'});
+  const {frame,state}=await setup(page,{collapsed:true,images:true});
+  const workspace=frame.locator('#hs-editor-metadata-workspace');
+  const originalDirty=await frame.locator('body').evaluate(()=>DN._adminDirty);
+  await expect(input(frame,'titleZh')).toBeHidden();
+  const summary=workspace.locator(':scope > summary');
+  await summary.focus();await summary.press('Enter');
+  await expect(input(frame,'titleZh')).toBeVisible();
+  await summary.focus();await summary.press('Space');
+  await expect(input(frame,'titleZh')).toBeHidden();
+  expect(await frame.locator('body').evaluate(()=>DN._adminDirty)).toBe(originalDirty);
+  await frame.locator('#hs-adm-article-info').click();
+  await expect(input(frame,'titleZh')).toBeFocused();
+  const focusBounds=await input(frame,'titleZh').evaluate(el=>({bottom:el.getBoundingClientRect().bottom, toolbarTop:document.getElementById('hs-admin-bar').getBoundingClientRect().top}));
+  expect(focusBounds.bottom).toBeLessThanOrEqual(focusBounds.toolbarTop-8);
+  await summary.click();
+  const button=frame.locator('#hs-adm-image-description');
+  await button.focus();await button.press('Enter');
+  const dialog=frame.getByRole('dialog',{name:'圖片替代文字'});
+  const alt=dialog.getByRole('textbox',{name:'替代文字',exact:true});
+  const picker=dialog.getByRole('combobox',{name:'選擇圖片',exact:true});
+  const options=await picker.locator('option').evaluateAll(nodes=>nodes.map(el=>({value:el.value,label:el.textContent})));
+  const first=options.find(el=>el.label.includes('作者中文原文')).value;
+  const second=options.find(el=>el.label.includes('第二張中文原文')).value;
+  await picker.selectOption(first);await alt.fill('尚未套用的圖片文字');
+  await picker.selectOption(second);
+  await expect(picker).toHaveValue(first);await expect(alt).toHaveValue('尚未套用的圖片文字');
+  await expect(dialog.getByRole('status')).toContainText('請先套用或取消目前圖片');
+  await alt.press('Control+s');
+  await expect(dialog.getByRole('status')).toContainText('尚未送出保存');
+  expect(state.posts).toBe(0);
+  expect(await frame.locator('body').evaluate(()=>DN.adminBeforeClose())).toBe(false);
+  await expect(alt).toHaveValue('尚未套用的圖片文字');
+  await alt.press('Escape');await expect(button).toBeFocused();
+  await expect(frame.locator('#writing-zh img')).toHaveAttribute('alt','作者中文原文');
+  await button.click();await picker.selectOption(first);
+  const edited='中文圖片 < " & >';await alt.fill(edited);
+  await alt.dispatchEvent('compositionstart');
+  await dialog.getByRole('button',{name:'套用替代文字',exact:true}).click();
+  await expect(dialog).toBeVisible();
+  await expect(frame.locator('#writing-zh img')).toHaveAttribute('alt','作者中文原文');
+  await alt.dispatchEvent('compositionend');
+  await dialog.getByRole('button',{name:'套用替代文字',exact:true}).click();
+  await expect(frame.locator('#writing-zh img')).toHaveAttribute('alt',edited);
+  await frame.locator('#hs-adm-undo').click();
+  await expect(frame.locator('#writing-zh img')).toHaveAttribute('alt','作者中文原文');
+  await frame.locator('#hs-adm-redo').click();
+  await expect(frame.locator('#writing-zh img')).toHaveAttribute('alt',edited);
+  await frame.locator('#langToggle').selectOption('en');await button.click();
+  await expect(alt).toHaveValue('Authored English description');
+  await alt.fill('English image < " & >');
+  await dialog.getByRole('button',{name:'套用替代文字',exact:true}).click();
+  await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(1);
+  await expect(frame.locator('#hs-admin-status')).toContainText('已保存至 GitHub');
+  const saved=await page.evaluate(html=>{
+    const doc=new DOMParser().parseFromString(html,'text/html');
+    return {zh:doc.querySelector('#writing-zh img').getAttribute('alt'),en:doc.querySelector('#writing-en img').getAttribute('alt'),
+      picture:doc.querySelector('#writing-zh source').getAttribute('srcset'),note:doc.querySelector('#writing-zh img').getAttribute('data-author-note'),
+      caption:doc.querySelector('#writing-zh figcaption').textContent,runtime:!!doc.querySelector('#hs-admin-bar,#hs-editor-metadata-workspace,#hs-adm-image-description-dialog')};
+  },state.submitted.html);
+  expect(saved).toEqual({zh:edited,en:'English image < " & >',picture:'/assets/writing-fixture.png 1x, /assets/writing-fixture.png 2x',note:'keep-zh',caption:'zh author caption',runtime:false});
+  expect(state.submitted.baseSha).toBe('a'.repeat(40));
+  await page.getByRole('button',{name:'← 回到後台',exact:true}).click();await page.evaluate(s=>openEditor(s),slug);
+  await expect(frame.locator('#hs-adm-save')).toBeVisible();
+  await expect(frame.locator('#writing-zh img')).toHaveAttribute('alt',edited);
+  await expect(frame.locator('#writing-en img')).toHaveAttribute('alt','English image < " & >');
+});
+
+for(const mutation of ['detached','language'])test(`image description retains pending text when its target becomes ${mutation}`,async({page})=>{
+  const {frame,state}=await setup(page,{collapsed:true,images:true});
+  await frame.locator('#hs-adm-image-description').click();
+  const dialog=frame.getByRole('dialog',{name:'圖片替代文字'}),alt=dialog.getByRole('textbox',{name:'替代文字',exact:true});
+  await alt.fill('保留尚未套用的文字');
+  await frame.locator('body').evaluate((_,mutation)=>{
+    if(mutation==='detached')document.querySelector('#writing-zh img').remove();
+    else document.documentElement.lang='en';
+  },mutation);
+  await dialog.getByRole('button',{name:'套用替代文字',exact:true}).click();
+  await expect(dialog).toBeVisible();await expect(alt).toHaveValue('保留尚未套用的文字');
+  await expect(dialog.getByRole('status')).toContainText('文字仍在此視窗');
+  expect(state.posts).toBe(0);
+  await dialog.getByRole('button',{name:'取消',exact:true}).click();
+  await expect(dialog).toBeHidden();
+});
+
+for(const width of [768,1440])test(`direct article editor keeps focused metadata above the fixed writing toolbar at ${width}px`,async({page})=>{
+  await page.setViewportSize({width,height:900});
+  const {state}=await setup(page,{collapsed:true,images:true});
+  await page.goto(origin+'/blog/'+slug+'?admin=1');
+  await expect(page.locator('#hs-adm-save')).toBeVisible();
+  await page.locator('#hs-adm-article-info').click();
+  await expect(page.locator('#hs-editor-titleZh')).toBeFocused();
+  const bounds=await page.locator('#hs-editor-titleZh').evaluate(el=>({bottom:el.getBoundingClientRect().bottom, toolbarTop:document.getElementById('hs-admin-bar').getBoundingClientRect().top}));
+  expect(bounds.bottom).toBeLessThanOrEqual(bounds.toolbarTop-8);
+  expect(state.posts).toBe(0);
+});
+
 for(const articleSlug of ['lacrimal-gland-tumor','dry-eye-myths','floaters-retinal-detachment','pediatric-myopia-control','glaucoma-comprehensive-guide']) {
   test(`saving after reading the English research summary preserves the authored hero: ${articleSlug}`,async({page})=>{
     const {frame,state}=await setup(page,{slug:articleSlug});
@@ -294,6 +401,7 @@ test('title/summary share undo, redo, version comparison and source-safe save; a
   await frame.locator('#langToggle').selectOption('en');await expect(frame.locator('h1')).toContainText(english);
   await expect(frame.locator('h1 em,h1 img')).toHaveCount(0);
   await frame.locator('#langToggle').selectOption('zh');await expect(frame.locator('h1')).toContainText(title);
+  await frame.locator('#hs-adm-article-info').click();
   await input(frame,'titleZh').fill('第二次標題修改');
   await frame.locator('#hs-adm-save').click();await expect.poll(()=>state.posts).toBe(2);
   expect(decodeURIComponent(state.submitted.html.match(/name="hs-editor-metadata" content="([^"]*)"/)[1])).toContain('e'.repeat(40));
@@ -369,7 +477,7 @@ test(`writing workspace fits ${width}x${height}, dark=${dark}, keyboard reachabl
   await page.setViewportSize({width,height});
   await page.emulateMedia({colorScheme:dark?'dark':'light'});
   const {frame,state}=await setup(page);
-  const workspace=frame.getByRole('region',{name:'文章標題與搜尋摘要'});
+  const workspace=frame.getByRole('group',{name:'文章標題與搜尋摘要'});
   await expect(frame.locator('html')).toHaveAttribute('data-theme',dark?'dark':'light');
   const bounds=await workspace.boundingBox();expect(bounds.width).toBeLessThanOrEqual(width);
   for(const key of ['titleZh','titleEn','searchTitleZh','descriptionZh','descriptionEn']) {

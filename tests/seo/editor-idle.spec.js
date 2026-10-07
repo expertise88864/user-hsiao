@@ -78,6 +78,7 @@ for (const oldCache of [false, true]) for (const newerInput of [false, true]) te
   await page.waitForFunction(()=>typeof openEditor==='function' && LOGGED_IN);
   await page.evaluate(s=>openEditor(s),slug);
   const frame = page.frameLocator('#edit-iframe');
+  await frame.locator('#hs-adm-article-info').click();
   await frame.locator('#hs-editor-titleZh').fill('本次保存標題');
   await frame.locator('#hs-adm-save').click();
   await expect(frame.locator('#hs-admin-status')).toContainText(newerInput ? '仍有較新的修改尚未儲存' : '已保存至 GitHub');

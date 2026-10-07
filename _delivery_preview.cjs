@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { chromium, request } = require('playwright');
 const { previewCookies, verifyContent, verifyRuntimeIdentity } = require('./scripts/preview-access.cjs');
+const { captureEditorTasks } = require('./scripts/preview-editor-tasks.cjs');
 
 (async () => {
   const base = new URL(process.env.PW_BASE_URL);
@@ -36,5 +37,6 @@ const { previewCookies, verifyContent, verifyRuntimeIdentity } = require('./scri
         }
       } finally { await context.close(); }
     }
+    await captureEditorTasks(browser, base, cookies, process.env.GITHUB_SHA, policy.repository);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error.message); process.exitCode = 1; });

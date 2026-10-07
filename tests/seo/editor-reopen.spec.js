@@ -52,6 +52,7 @@ for (const oldCache of [false, true]) test(`saved article can immediately reopen
   for (let cycle=0;cycle<8;cycle++) {
     // No blank-frame wait or delay: this is the rapid reopen that regressed.
     await page.evaluate(s=>openEditor(s),slug);
+    await frame.locator('#hs-adm-article-info').click();
     const title = frame.locator('#hs-editor-titleZh');
     await expect(title).toBeVisible();
     if (cycle) await expect(title).toHaveValue('保存重開 '+(cycle-1));
