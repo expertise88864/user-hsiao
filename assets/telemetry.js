@@ -29,6 +29,47 @@
     } catch (e) { return 'unavailable'; }
   }
   function allowed(win) { return reason(win) === null; }
+  // Constructed synchronously by the executing shared script; no extra request.
+  // The returned reporter fixes context at the first eligible measurement bind.
+  function createVitalsReporter(win, script) {
+    let epoch = 'unknown', context;
+    try {
+      const url = new URL(script.src, win.location.href);
+      const epochs = url.searchParams.getAll('v');
+      if (url.origin === win.location.origin && /^\/blog\/blog-shared(?:\.min)?\.js$/.test(url.pathname) &&
+          epochs.length === 1 && /^20[0-9]{6}$/.test(epochs[0])) epoch = epochs[0];
+    } catch (e) {}
+    function capture() {
+      if (!context) {
+        const width = win.innerWidth;
+        context = { contextVersion: 1, assetEpoch: epoch,
+          viewportBand: typeof width !== 'number' || !Number.isFinite(width) || width <= 0
+            ? 'unknown' : width < 768 ? 'narrow' : width < 1200 ? 'medium' : 'wide' };
+      }
+      return context;
+    }
+    function send(name, value, id) {
+      if (!allowed(win)) return;
+      try {
+        if (typeof win.gtag === 'function') win.gtag('event', name, {
+          event_category: 'Web Vitals', event_label: id,
+          value: Math.round(name === 'CLS' ? value * 1000 : value), non_interaction: true,
+        });
+      } catch (e) {}
+      try {
+        const sample = { name, value: name === 'CLS' ? value * 1000 : value,
+          page: win.location.pathname, version: 'web-vitals-6', id };
+        const payload = JSON.stringify({ ...sample, ...capture() });
+        if (win.navigator.sendBeacon) {
+          win.navigator.sendBeacon('/api/cwv-ingest', new win.Blob([payload], { type: 'application/json' }));
+        } else {
+          win.fetch('/api/cwv-ingest', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: payload, keepalive: true }).catch(function () {});
+        }
+      } catch (e) {}
+    }
+    return { capture, send };
+  }
   function bootstrap(win) {
     const doc = win.document;
     let activated = false;
@@ -79,7 +120,7 @@
     if (doc.prerendering) doc.addEventListener('prerenderingchange', activate, { once: true });
     else activate();
   }
-  const api = { HOST, OPT_OUT, exclusionReason, reason, allowed, bootstrap };
+  const api = { HOST, OPT_OUT, exclusionReason, reason, allowed, bootstrap, createVitalsReporter };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else if (typeof window !== 'undefined') {
     if (window.HsiaoTelemetry) return;

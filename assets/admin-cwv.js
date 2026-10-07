@@ -31,6 +31,44 @@
     };
     return time(oldest) + ' 至 ' + time(newest);
   }
+  function renderCohorts(metrics) {
+    const sections = metrics.filter(m => m && typeof m === 'object').map(m => {
+      const data = m.cohorts;
+      if (m.source !== 'kv' || data?.definitionVersion !== 1 || !Array.isArray(data.groups)) {
+        return '<p>' + escape(m.name) + '：尚無第一方分群資料；GA4 事件平均不支援此分群。</p>';
+      }
+      const count = value => Number.isInteger(value) && value >= 0 ? value.toLocaleString('zh-TW') : '—';
+      const bands = { narrow: '窄（<768px）', medium: '中（768–1199px）', wide: '寬（≥1200px）' };
+      const groups = data.groups.slice(0, 24).filter(g => g && typeof g === 'object');
+      const rows = groups.map(g => {
+        const measured = g.status === 'measured' && g.samples > 0 && numeric(g.p75);
+        const epoch = typeof g.assetEpoch === 'string' && /^20[0-9]{6}$/.test(g.assetEpoch)
+          ? g.assetEpoch : '未知';
+        const band = Object.hasOwn(bands, g.viewportBand) ? bands[g.viewportBand] : '未知';
+        return '<tr><td>' + escape(epoch) + '</td><td>' + escape(band) + '</td>' +
+          '<td>' + (measured ? format(g.p75, m.name) : '—') + '</td><td>' + escape(count(g.samples)) + '</td>' +
+          '<td>' + escape(measurementMethod(g, measured)) + '</td><td>' + receiptRange(g, measured) + '</td></tr>';
+      }).join('');
+      const omitted = data.omittedGroups > 0
+        ? '<p>僅顯示最近收件的 24 群；省略 ' + escape(count(data.omittedGroups)) + ' 群、' +
+          escape(count(data.omittedSamples)) + ' 筆樣本。省略樣本仍包含於上方總覽。</p>' : '';
+      return '<h3>' + escape(m.name) + '：' + escape(count(data.totalSamples)) + ' 筆、' +
+        escape(count(data.groupCount)) + ' 群</h3>' + omitted +
+        (rows ? '<div tabindex="0" role="region" aria-label="' + escape(m.name) + ' 分群表，可橫向捲動" style="overflow-x:auto">' +
+          '<table class="dict-table" style="min-width:880px"><thead><tr>' +
+          '<th scope="col">資產批次</th><th scope="col">首次量測視窗</th><th scope="col">樣本 p75</th>' +
+          '<th scope="col">樣本／回報數</th><th scope="col">量測／p75 方法</th>' +
+          '<th scope="col">保留樣本收件時間（台灣時間）</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
+          : '<p>此期間無可用第一方樣本。</p>');
+    }).join('');
+    return '<details data-cwv-cohorts><summary>按首次量測視窗／資產批次查看第一方樣本</summary>' +
+      '<p>分群定義 v1：窄／中／寬是首次啟動量測時的 CSS 視窗寬度，之後縮放或調整視窗不換群；' +
+      '不能當作手機／平板／桌面硬體分類。資產批次來自實際執行腳本 URL 的版本，並非 Git SHA。' +
+      '舊或缺少有效版本資料的樣本保留「未知」，未推測回填。</p>' +
+      '<p>先按總覽相同的時間、量測方法及 ID 去重，再分群計算原始排序 p75。' +
+      '每項最多顯示最近收件的 24 群，群別樣本數不是訪客數；小樣本不能證明手機、發佈或全站成效。</p>' +
+      sections + '</details>';
+  }
   function render(report) {
     if (!Array.isArray(report?.metrics) || !report.metrics.length) {
       return '<p role="status">尚無可讀取的量測回應，請重新載入。</p>';
@@ -80,7 +118,8 @@
       '<p>此為本站近期樣本的觀察，並非全站完整分布或 Google CrUX 結果。樣本 p75 由原始樣本排序計算；' +
       '沒有樣本顯示「—」，實測為零仍顯示零。GA4 範圍包含尚未結束的今天。</p>' +
       '<p>表中的時間是保留樣本的收件時間，不代表造訪時間，亦不代表取樣範圍內每一天都有資料。' +
-      'GA4 事件平均未提供各筆收件時間。INP 僅涵蓋有可量測互動的頁面回報，樣本少時判讀有限。</p>';
+      'GA4 事件平均未提供各筆收件時間。INP 僅涵蓋有可量測互動的頁面回報，樣本少時判讀有限。</p>' +
+      renderCohorts(report.metrics);
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = { render };
   else globalThis.HsiaoCwvDashboard = { render };

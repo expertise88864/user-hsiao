@@ -7,9 +7,13 @@ const ARTICLE = '/blog/glaucoma-comprehensive-guide';
 
 // Serve repository files at a simulated canonical origin. All requests are
 // intercepted: this suite never sends real analytics or visits production.
-async function fixture(page, { human = true, prerender = false, optOut = false, privacy = false, ab = false } = {}) {
+async function fixture(page, { human = true, prerender = false, optOut = false, privacy = false, ab = false,
+  vitals = false, failVitalsOnce = false, sharedQuery } = {}) {
   const requests = [];
   requests.abEvents = [];
+  requests.cwvEvents = [];
+  requests.sharedAssets = [];
+  let vitalsLoads = 0;
   if (optOut) await page.context().addCookies([{ name: 'hs_telemetry_optout', value: '1', domain: HOST, path: '/', secure: true }]);
   await page.addInitScript(({ human, prerender, privacy }) => {
     if (human) {
@@ -29,6 +33,7 @@ async function fixture(page, { human = true, prerender = false, optOut = false, 
     if (url.pathname.startsWith('/api/')) {
       requests.push(url.pathname);
       if (url.pathname === '/api/admin/ab-stats') requests.abEvents.push(route.request().postDataJSON());
+      if (url.pathname === '/api/cwv-ingest') requests.cwvEvents.push(route.request().postDataJSON());
       if (ab && url.pathname === '/api/ab-config') {
         return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ tests: {
           'prerender-fixture': { selector: '.hs-reading-path', variants: [{ name: 'a', html: '<p>Fixture A</p>' }, { name: 'b', html: '<p>Fixture B</p>' }] },
@@ -37,12 +42,22 @@ async function fixture(page, { human = true, prerender = false, optOut = false, 
       return route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
     }
     if (![HOST, 'candidate.vercel.app'].includes(url.hostname)) return route.abort();
+    if (vitals && url.pathname === '/assets/vitals.min.js') {
+      if (++vitalsLoads === 1 && failVitalsOnce) return route.abort();
+      return route.fulfill({ contentType: 'application/javascript',
+        body: 'window.HsiaoVitals={observeVitals:function(cb){window.__fixtureVitalsSend=cb;window.__fixtureObservers=(window.__fixtureObservers||0)+1;}};' });
+    }
+    if (/\/blog\/blog-shared(?:\.min)?\.js$/.test(url.pathname)) requests.sharedAssets.push(url.href);
     let relative = decodeURIComponent(url.pathname).replace(/^\//, '') || 'index.html';
     if (!path.extname(relative)) relative += '.html';
     const file = path.resolve(ROOT, relative);
     if (!file.startsWith(ROOT + path.sep)) return route.abort();
     try {
-      const body = await fs.readFile(file);
+      let body = await fs.readFile(file);
+      if (path.extname(file) === '.html' && typeof sharedQuery === 'string') {
+        body = Buffer.from(body.toString('utf8').replace(/\/blog\/blog-shared\.min\.js\?v=[0-9]{8}/g,
+          '/blog/blog-shared.min.js' + sharedQuery));
+      }
       const contentType = { '.html': 'text/html', '.js': 'application/javascript', '.css': 'text/css', '.json': 'application/json' }[path.extname(file)] || 'application/octet-stream';
       return route.fulfill({ status: 200, contentType, body });
     } catch { return route.fulfill({ status: 404, body: '' }); }
@@ -93,6 +108,76 @@ test('simulated human loads standard vitals once; later admin login blocks manua
   expect(result.after).toEqual({ flag: true, va: null, si: null });
   expect(result.unchanged).toBe(true);
 });
+
+test('CWV uses the executing asset and first eligible width, with unchanged GA4 values and one observer', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const requests = await fixture(page, { vitals: true });
+  await page.goto('https://' + HOST + ARTICLE);
+  await expect.poll(() => page.evaluate(() => typeof __fixtureVitalsSend)).toBe('function');
+  const epoch = new URL(requests.sharedAssets[0]).searchParams.get('v');
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const ga = await page.evaluate(() => {
+    localStorage.setItem('hs:siteVer', '20999999');
+    DN.bindWebVitals(); DN.bindWebVitals();
+    window.__fixtureVitalsSend('CLS', 0.125, 'context-sample');
+    return dataLayer.filter(args => args[0] === 'event' && args[1] === 'CLS').map(args => args[2]);
+  });
+  await expect.poll(() => requests.cwvEvents.length).toBe(1);
+  expect(requests.cwvEvents[0]).toEqual({ name: 'CLS', value: 125, page: ARTICLE,
+    version: 'web-vitals-6', id: 'context-sample', contextVersion: 1, viewportBand: 'narrow', assetEpoch: epoch });
+  expect(ga).toEqual([{ event_category: 'Web Vitals', event_label: 'context-sample', value: 125, non_interaction: true }]);
+  expect(await page.evaluate(() => __fixtureObservers)).toBe(1);
+  await page.evaluate(() => {
+    document.cookie = 'hs_telemetry_optout=1; Secure; Path=/';
+    __fixtureVitalsSend('LCP', 999, 'excluded');
+  });
+  expect(requests.cwvEvents).toHaveLength(1);
+});
+
+test('failed vitals script retry retains original width with only one successful observer', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const requests = await fixture(page, { vitals: true, failVitalsOnce: true });
+  await page.goto('https://' + HOST + ARTICLE);
+  await expect.poll(() => page.evaluate(() => DN._vitalsBound)).toBe(false);
+  await page.setViewportSize({ width: 1200, height: 900 });
+  await page.evaluate(() => DN.bindWebVitals());
+  await expect.poll(() => page.evaluate(() => typeof __fixtureVitalsSend)).toBe('function');
+  await page.evaluate(() => __fixtureVitalsSend('LCP', 100, 'retry'));
+  await expect.poll(() => requests.cwvEvents.length).toBe(1);
+  expect(requests.cwvEvents[0].viewportBand).toBe('narrow');
+  expect(await page.evaluate(() => __fixtureObservers)).toBe(1);
+});
+
+test('prerender captures context only after activation and ignores duplicate version parameters', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const requests = await fixture(page, { vitals: true, prerender: true, sharedQuery: '?v=20260711&v=20999999' });
+  await page.goto('https://' + HOST + ARTICLE);
+  await expect.poll(() => page.evaluate(() => !!DN._engagementBound)).toBe(true);
+  expect(requests.cwvEvents).toHaveLength(0);
+  await page.setViewportSize({ width: 1200, height: 900 });
+  await page.evaluate(() => {
+    window.__fixturePrerender = false;
+    document.dispatchEvent(new Event('prerenderingchange'));
+  });
+  await expect.poll(() => page.evaluate(() => typeof __fixtureVitalsSend)).toBe('function');
+  await page.evaluate(() => __fixtureVitalsSend('LCP', 100, 'activated'));
+  await expect.poll(() => requests.cwvEvents.length).toBe(1);
+  expect(requests.cwvEvents[0].viewportBand).toBe('wide');
+  expect(requests.cwvEvents[0].assetEpoch).toBe('unknown');
+});
+
+for (const [width, band] of [[360, 'narrow'], [768, 'medium'], [1199, 'medium'], [1440, 'wide']]) {
+  test(`unversioned executing script stays unknown at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    const requests = await fixture(page, { vitals: true, sharedQuery: '' });
+    await page.goto('https://' + HOST + ARTICLE);
+    await expect.poll(() => page.evaluate(() => typeof __fixtureVitalsSend)).toBe('function');
+    await page.evaluate(() => __fixtureVitalsSend('INP', 0, 'width-fixture'));
+    await expect.poll(() => requests.cwvEvents.length).toBe(1);
+    expect(requests.cwvEvents[0].viewportBand).toBe(band);
+    expect(requests.cwvEvents[0].assetEpoch).toBe('unknown');
+  });
+}
 
 test('prerender sends nothing until activation; GA4 config and vitals registration happen once', async ({ page }) => {
   const requests = await fixture(page, { prerender: true, ab: true });

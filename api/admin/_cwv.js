@@ -8,7 +8,7 @@
  */
 import { requireAdmin } from './_auth.js';
 import { kvAvailable, kvPipeline, kvLRange } from '../_kv.js';
-import { selectCwvSamples, summarizeCwvSamples } from '../_cwv_samples.js';
+import { selectCwvSamples, summarizeCwvSamples, summarizeCwvCohorts } from '../_cwv_samples.js';
 
 const METRICS = ['LCP', 'CLS', 'INP', 'FCP', 'TTFB'];
 const MAX_REPORTS = 1000;
@@ -53,7 +53,9 @@ async function readKvSamples(metric, days) {
   const windowDays = Math.min(days, KV_WINDOW_DAYS);
   const cutoff = Date.now() - windowDays * 86400_000;
   const data = summarizeCwvSamples(metric, arr, cutoff);
-  return data ? { ...data, windowDays } : emptyMetric(metric, 'kv', 'no_samples', windowDays);
+  const cohorts = summarizeCwvCohorts(metric, arr, cutoff);
+  return data ? { ...data, windowDays, cohorts }
+    : { ...emptyMetric(metric, 'kv', 'no_samples', windowDays), cohorts };
 }
 
 // Parse a service account JSON string (handles real \n and escaped \\n)

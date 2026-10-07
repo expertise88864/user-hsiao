@@ -25,6 +25,8 @@
  *   <script>document.addEventListener('DOMContentLoaded',()=>DN.initBlog({}));</script>
  * ============================================================ */
 (function () {
+  // Capture the executing asset before currentScript disappears in callbacks.
+  var vitalsReporter = window.HsiaoTelemetry?.createVitalsReporter?.(window, document.currentScript);
   // ─── Trusted Types policies ───────────────────────────────────────────
   // v34: tightened from pass-through (v29) to actual sanitisation:
   //   - hs-policy.createHTML  strips <script> tags + on*= event handlers +
@@ -3141,37 +3143,16 @@
       return;
     }
     if (!DN.telemetryAllowed()) return;
+    // Keep the first eligible measurement width across resize, zoom and retries.
+    if (vitalsReporter) vitalsReporter.capture();
     function send(name, value, id) {
       if (!DN.telemetryAllowed()) return;
-      // GA4 (existing path)
-      try {
-        if (typeof gtag === 'function') gtag('event', name, {
-          event_category: 'Web Vitals',
-          event_label: id,
-          value: Math.round(name === 'CLS' ? value * 1000 : value),
-          non_interaction: true
-        });
-      } catch (e) {}
-      // v31: KV ingest beacon — real-time, no GA4 24-48hr latency
-      try {
-        var payload = JSON.stringify({
-          name: name,
-          value: name === 'CLS' ? value * 1000 : value,
-          page: location.pathname,
-          version: 'web-vitals-6',
-          id: id,
-        });
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon('/api/cwv-ingest', new Blob([payload], { type: 'application/json' }));
-        } else {
-          fetch('/api/cwv-ingest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function () {});
-        }
-      } catch (e) {}
+      if (vitalsReporter) vitalsReporter.send(name, value, id);
     }
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260710';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260711';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3818,7 +3799,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260710';
+    s.src = '/blog/blog-admin.js?v=20260711';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

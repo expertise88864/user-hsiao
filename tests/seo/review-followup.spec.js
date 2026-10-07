@@ -57,7 +57,7 @@ test('runtime reading estimate preserves English word boundaries', async ({ page
 test('editor metadata recovery preserves English numbered labels within a Chinese summary', async ({ page }) => {
   await page.goto('/blog/dry-eye-myths');
   const recovered = await page.evaluate(async () => {
-    const { readOverrides } = await import('/blog/editor-metadata.js?v=20260710');
+    const { readOverrides } = await import('/blog/editor-metadata.js?v=20260711');
     const value = { version: 1, descriptionZh: '中文摘要 · Outcome 1: unchanged · Day 1: follow-up' };
     const source = new DOMParser().parseFromString('<html><head><meta name="hs-editor-metadata" content="' +
       encodeURIComponent(JSON.stringify(value)) + '"></head></html>', 'text/html');

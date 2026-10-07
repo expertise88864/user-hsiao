@@ -6,7 +6,11 @@ const report = {
     { name: 'LCP', source: 'ga4', status: 'mean_only', samples: 4, avg: 0, p75: null, windowDays: 7 },
     { name: 'CLS', source: 'kv', status: 'measured', samples: 1, avg: 0, p75: 0, windowDays: 7,
       method: 'web-vitals-6', percentileMethod: 'nearest-rank',
-      oldestSampleAt: Date.UTC(2026, 9, 3, 12, 34, 56), newestSampleAt: Date.UTC(2026, 9, 3, 13, 34, 56) },
+      oldestSampleAt: Date.UTC(2026, 9, 3, 12, 34, 56), newestSampleAt: Date.UTC(2026, 9, 3, 13, 34, 56),
+      cohorts: { definitionVersion: 1, totalSamples: 1, groupCount: 1, omittedGroups: 0, omittedSamples: 0,
+        groups: [{ assetEpoch: '20260711', viewportBand: 'narrow', source: 'kv', status: 'measured',
+          samples: 1, avg: 0, p75: 0, method: 'web-vitals-6', percentileMethod: 'nearest-rank',
+          oldestSampleAt: Date.UTC(2026, 9, 3, 12, 34, 56), newestSampleAt: Date.UTC(2026, 9, 3, 13, 34, 56) }] } },
     { name: 'INP', source: null, status: 'unavailable', samples: null, avg: null, p75: null },
     { name: '<img src=x onerror=alert(1)>', source: 'kv', status: 'no_samples', samples: 0, p75: null },
   ], collection: { kv: { configured: true }, ga4: { status: 'partial' } },
@@ -25,7 +29,7 @@ test.beforeEach(async ({ page }) => {
   await page.route('https://fonts.gstatic.com/**', route => route.abort());
   await page.goto('/admin', { waitUntil: 'domcontentloaded' });
   await page.locator('[data-tab="cwv"]').click();
-  await expect(page.locator('#cwv-result tbody tr')).toHaveCount(4);
+  await expect(page.getByRole('region', { name: '使用者體驗指標表，可橫向捲動' }).locator('tbody tr')).toHaveCount(4);
 });
 
 test('missing percentiles stay neutral while measured zero and average-only data remain distinct', async ({ page }) => {
@@ -58,4 +62,26 @@ test('receipt times use explicit Taiwan time independently of browser timezone, 
   await expect(cls.locator('time').first()).toHaveAttribute('datetime', '2026-10-03T12:34:56.000Z');
   await expect(page.getByRole('row', { name: /^LCP / }).locator('time')).toHaveCount(0);
   await expect(page.locator('#cwv-result')).toContainText('收件時間，不代表造訪時間');
+});
+
+test('cohort details open by keyboard, retain zero and expose context limits without hardware claims', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 844 });
+  const details = page.locator('[data-cwv-cohorts]');
+  await expect(details).not.toHaveAttribute('open');
+  const summary = details.locator('summary');
+  await summary.focus();
+  await summary.press('Enter');
+  await expect(details).toHaveAttribute('open');
+  await expect(details).toContainText('資產批次');
+  await expect(details).toContainText('並非 Git SHA');
+  await expect(details).toContainText('不能當作手機／平板／桌面硬體分類');
+  await expect(details).toContainText('GA4 事件平均不支援此分群');
+  const region = page.getByRole('region', { name: 'CLS 分群表，可橫向捲動' });
+  await expect(region.locator('tbody tr')).toHaveCount(1);
+  await expect(region).toContainText('20260711');
+  await expect(region).toContainText('0.000');
+  await expect(region.locator('time').first()).toHaveAttribute('datetime', '2026-10-03T12:34:56.000Z');
+  expect(await region.evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
+  await region.focus(); await region.press('ArrowRight');
+  await expect.poll(() => region.evaluate(el => el.scrollLeft)).toBeGreaterThan(0);
 });

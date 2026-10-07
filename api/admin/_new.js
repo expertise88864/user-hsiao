@@ -82,12 +82,12 @@ const TEMPLATE = (vars) => `<!doctype html>
 
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260710" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260711" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260710" />
-<link rel="preload" as="style" href="/assets/article.css?v=20260710" />
-<link rel="stylesheet" href="/assets/article.css?v=20260710" />
+<link rel="stylesheet" href="/assets/app.css?v=20260711" />
+<link rel="preload" as="style" href="/assets/article.css?v=20260711" />
+<link rel="stylesheet" href="/assets/article.css?v=20260711" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -105,7 +105,7 @@ const TEMPLATE = (vars) => `<!doctype html>
 ${vars.jsonLd}
 </script>
 
-<script defer src="/assets/telemetry.js?v=20260710"></script>
+<script defer src="/assets/telemetry.js?v=20260711"></script>
 </head>
 <body class="font-sans antialiased text-ink-900">
 <style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a></nav>
@@ -175,7 +175,7 @@ ${vars.jsonLd}
   </div>
 </footer>
 
-<script src="/blog/blog-shared.min.js?v=20260710" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260711" defer></script>
 <script>document.addEventListener('DOMContentLoaded', function () { if (window.DN) DN.initBlog({}); });</script>
 </body>
 </html>

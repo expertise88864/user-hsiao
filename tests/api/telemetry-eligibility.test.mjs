@@ -6,6 +6,7 @@ import ingest from '../../api/cwv-ingest.js';
 import search from '../../api/search-log.js';
 import abStats from '../../api/admin/_ab-stats.js';
 import login, { makeSessionToken } from '../../api/admin/_login.js';
+import cwvDashboard from '../../api/admin/_cwv.js';
 
 const HUMAN = 'Mozilla/5.0 Chrome/140.0.0.0 Safari/537.36';
 const context = { hostname: policy.HOST, protocol: 'https:', pathname: '/blog/glaucoma-comprehensive-guide', userAgent: HUMAN };
@@ -106,6 +107,101 @@ test('CWV accepts measured zero and only reports stored after successful bounded
   delete process.env.KV_REST_API_TOKEN;
   res = response(); await ingest(req, res);
   assert.equal(res.body.stored, false); assert.equal(res.body.reason, 'not_configured');
+});
+
+test('CWV stores only versioned coarse context and discards arbitrary identifying payload fields', async t => {
+  const calls = setup(t);
+  for (const context of [
+    { contextVersion: 1, viewportBand: 'narrow', assetEpoch: '20260711' },
+    { contextVersion: 1, viewportBand: '<img>', assetEpoch: '20260711?secret' },
+    { contextVersion: '1', viewportBand: 'wide', assetEpoch: '20260711' },
+    { viewportBand: 'wide', assetEpoch: '20260711' },
+  ]) {
+    const res = response();
+    await ingest({ method: 'POST', headers, body: { name: 'CLS', value: 0,
+      page: '/blog/fixture', version: 'web-vitals-6', id: 'fixture-context', ...context,
+      width: 390, userAgent: 'private', query: 'private', body: 'private', visitorId: 'private' } }, res);
+    assert.equal(res.body.stored, true);
+    const sample = JSON.parse(JSON.parse(calls.at(-1).options.body)[0][2]);
+    assert.deepEqual(Object.keys(sample).sort(), (context.contextVersion === 1
+      ? ['v', 'p', 't', 'version', 'id', 'contextVersion', 'viewportBand', 'assetEpoch']
+      : ['v', 'p', 't', 'version', 'id']).sort());
+    if (context.contextVersion === 1) {
+      assert.equal(sample.viewportBand, context.viewportBand === 'narrow' ? 'narrow' : 'unknown');
+      assert.equal(sample.assetEpoch, context.assetEpoch === '20260711' ? '20260711' : 'unknown');
+    }
+  }
+  const before = calls.length;
+  const excluded = response();
+  await ingest({ method: 'POST', headers: { ...headers, cookie: 'hs_telemetry_optout=1' },
+    body: { name: 'LCP', value: 100, contextVersion: 1, viewportBand: 'narrow', assetEpoch: '20260711' } }, excluded);
+  assert.equal(excluded.body.stored, false);
+  assert.equal(calls.length, before);
+});
+
+test('synthetic first-party receipt survives authenticated readback with latest-ID context and unknown history', async t => {
+  setup(t);
+  const gaKeys = ['GA4_PROPERTY_ID', 'GA4_SERVICE_ACCOUNT_JSON'];
+  const previous = Object.fromEntries(gaKeys.map(key => [key, process.env[key]]));
+  gaKeys.forEach(key => delete process.env[key]);
+  t.after(() => gaKeys.forEach(key => {
+    if (previous[key] === undefined) delete process.env[key]; else process.env[key] = previous[key];
+  }));
+  const samples = [{ v: 0, t: Date.now(), version: 'web-vitals-6', id: 'historical' }];
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    assert.equal(url, 'https://kv.example.test/pipeline', 'fixture never sends to production KV or GA4');
+    const commands = JSON.parse(options.body);
+    return { ok: true, json: async () => commands.map(([command, key, value]) => {
+      if (command === 'LPUSH') { samples.unshift(JSON.parse(value)); return { result: samples.length }; }
+      if (command === 'LRANGE') return { result: key.endsWith(':CLS') ? samples.map(JSON.stringify) : [] };
+      return { result: command === 'GET' ? null : 1 };
+    }) };
+  });
+  for (const [band, value] of [['wide', 900], ['narrow', 100]]) {
+    const res = response();
+    await ingest({ method: 'POST', headers, body: { name: 'CLS', value, page: '/blog/fixture',
+      version: 'web-vitals-6', id: 'revised', contextVersion: 1, viewportBand: band, assetEpoch: '20260711' } }, res);
+    assert.equal(res.body.stored, true);
+  }
+  const res = response();
+  await cwvDashboard({ method: 'GET', query: { range: '7d' }, headers: {
+    cookie: 'hs_admin_session=' + makeSessionToken(process.env.ADMIN_PASSWORD) } }, res);
+  assert.equal(res.code, 200);
+  const cls = res.body.metrics.find(m => m.name === 'CLS');
+  assert.equal(cls.samples, 2);
+  assert.equal(cls.p75, 0.1);
+  assert.equal(cls.cohorts.totalSamples, 2);
+  assert.equal(cls.cohorts.groups.some(g => g.viewportBand === 'wide'), false);
+  assert.equal(cls.cohorts.groups.find(g => g.viewportBand === 'unknown').p75, 0);
+});
+
+test('reporter keeps the existing fallback and GA4 contract, then excludes a later privacy opt-out', () => {
+  const sent = [], ga = [];
+  const win = { location: { ...context, origin: 'https://' + policy.HOST,
+      href: 'https://' + policy.HOST + context.pathname }, innerWidth: 768,
+    document: { cookie: '', body: { classList: { contains: () => false } } },
+    navigator: { userAgent: HUMAN }, Blob,
+    fetch: (url, options) => { sent.push({ url, options }); return Promise.resolve({}); },
+    gtag: (...args) => ga.push(args) };
+  const reporter = policy.createVitalsReporter(win, { src: 'https://' + policy.HOST + '/blog/blog-shared.min.js?v=20260711' });
+  assert.equal(reporter.capture().viewportBand, 'medium');
+  win.innerWidth = 390;
+  reporter.send('CLS', 0.125, 'fallback');
+  assert.equal(sent.length, 1);
+  assert.equal(sent[0].url, '/api/cwv-ingest');
+  assert.equal(sent[0].options.keepalive, true);
+  assert.deepEqual(JSON.parse(sent[0].options.body), { name: 'CLS', value: 125, page: context.pathname,
+    version: 'web-vitals-6', id: 'fallback', contextVersion: 1, viewportBand: 'medium', assetEpoch: '20260711' });
+  assert.deepEqual(ga, [['event', 'CLS', { event_category: 'Web Vitals', event_label: 'fallback', value: 125, non_interaction: true }]]);
+  win.document.cookie = 'hs_telemetry_optout=1';
+  reporter.send('LCP', 100, 'excluded');
+  assert.equal(sent.length, 1); assert.equal(ga.length, 1);
+  for (const src of ['https://elsewhere.test/blog/blog-shared.min.js?v=20260711',
+    'https://' + policy.HOST + '/other.js?v=20260711', '', undefined]) {
+    win.innerWidth = NaN;
+    assert.deepEqual(policy.createVitalsReporter(win, { src }).capture(),
+      { contextVersion: 1, assetEpoch: 'unknown', viewportBand: 'unknown' });
+  }
 });
 
 test('eligible search and A/B counters still persist; successful login preserves private auth and adds anonymous opt-out', async t => {

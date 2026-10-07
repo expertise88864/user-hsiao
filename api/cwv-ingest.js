@@ -7,19 +7,15 @@
  * page becomes hidden. Rate-limited at the IP level by Vercel's default
  * DDoS protection.
  *
- * Body: { name: 'LCP'|'CLS'|'INP'|'FCP'|'TTFB', value: number, page?: string }
- *
- * Storage in KV (sliding window):
- *   key  `cwv:bucket:<name>:<minute>`  → ZSET of (value, count)
- *   key  `cwv:total:<name>:<day>`      → counter
- *   key  `cwv:samples:<name>`          → reservoir of last N samples for p75
- *
- * Simplified: we keep last-N reservoir (size 1000) per metric, rotated by
- * day. p75 computed at read time = sort + index.
+ * Optional contextVersion=1 adds coarse first-measurement viewportBand and
+ * the executing script's assetEpoch. No raw width, UA or arbitrary fields.
+ * `cwv:samples:v2:<name>` keeps the latest 1000 reports with a 30-day key TTL;
+ * readback also enforces each report's receipt age and deduplicates metric IDs.
  */
 import { kvAvailable, kvPushTrimExpire } from './_kv.js';
 import { rateLimitOk, sendRateLimit } from './_rate_limit.js';
 import { telemetryExclusion } from './_telemetry.js';
+import { cwvContext } from './_cwv_samples.js';
 
 const ALLOWED = new Set(['LCP', 'CLS', 'INP', 'FCP', 'TTFB']);
 const MAX_SAMPLES = 1000;
@@ -58,6 +54,10 @@ export default async function handler(req, res) {
     if (version === 'web-vitals-6' && typeof id === 'string' && /^[a-zA-Z0-9-]{1,100}$/.test(id)) {
       sample.version = version;
       sample.id = id;
+      if (body.contextVersion === 1) {
+        sample.contextVersion = 1;
+        Object.assign(sample, cwvContext(body));
+      }
     }
     const stored = await kvPushTrimExpire(
       key,

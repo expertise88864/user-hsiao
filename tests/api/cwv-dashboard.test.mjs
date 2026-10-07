@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import handler from '../../api/admin/_cwv.js';
 import { makeSessionToken } from '../../api/admin/_login.js';
-import { summarizeCwvSamples } from '../../api/_cwv_samples.js';
+import { summarizeCwvSamples, summarizeCwvCohorts } from '../../api/_cwv_samples.js';
 import dashboard from '../../assets/admin-cwv.js';
 
 const NAMES = ['LCP', 'CLS', 'INP', 'FCP', 'TTFB'];
@@ -68,6 +68,8 @@ function fixture(t, { kv = {}, ga4, legacy = {}, kvFailure = false, invalidGa4 =
 }
 
 const raw = (v, id, t = Date.now()) => ({ v, t, id, version: 'web-vitals-6' });
+const contextual = (v, id, band, epoch, t = Date.now()) => ({ ...raw(v, id, t),
+  contextVersion: 1, viewportBand: band, assetEpoch: epoch });
 function stallUntilAborted(signal) {
   assert.ok(signal instanceof AbortSignal, 'provider request must be abortable');
   return new Promise((resolve, reject) => {
@@ -89,6 +91,82 @@ test('equal averages can have different raw p75; use nearest rank and retain zer
   assert.equal(zero.samples, 1);
   assert.equal(zero.p75, 0);
   assert.equal(summarizeCwvSamples('CLS', [], 0), null);
+});
+
+test('cohorts use globally selected latest IDs, keep old labels unknown, and preserve the overall distribution', () => {
+  const rows = [contextual(100, 'repeat', 'narrow', '20260711', 900),
+    contextual(900, 'repeat', 'wide', '20260710', 800), raw(0, 'old', 800),
+    { ...contextual(200, 'invalid', '<img>', '20260711', 800), contextVersion: 2 },
+    { v: 9000, t: 800 }, contextual(600, 'expired', 'wide', '20260711', 10)];
+  const overall = summarizeCwvSamples('CLS', rows, 100);
+  const data = summarizeCwvCohorts('CLS', rows, 100);
+  assert.equal(overall.samples, 3);
+  assert.equal(overall.p75, 0.2);
+  assert.equal(data.totalSamples, overall.samples);
+  assert.equal(data.groups.reduce((sum, group) => sum + group.samples, 0), overall.samples);
+  assert.deepEqual(data.groups.map(g => [g.viewportBand, g.assetEpoch, g.samples, g.p75]),
+    [['narrow', '20260711', 1, 0.1], ['unknown', 'unknown', 2, 0.2]]);
+  assert.equal(data.groups.some(g => g.viewportBand === 'wide'), false);
+  assert.equal(summarizeCwvSamples('CLS', rows, 100).p75, overall.p75);
+});
+
+test('cohort p75 retains raw distributions, independent invalid fields, zero and legacy unknown', () => {
+  const rows = [1, 1, 1, 9].map((v, i) => contextual(v, 'a' + i, 'narrow', '20260711', 900))
+    .concat([0, 2, 4, 6].map((v, i) => contextual(v, 'b' + i, 'wide', '20260711', 900)));
+  const { groups } = summarizeCwvCohorts('LCP', rows, 0);
+  assert.equal(groups[0].avg, groups[1].avg);
+  assert.deepEqual(groups.map(g => g.p75), [1, 4]);
+  const unknown = summarizeCwvCohorts('CLS', [{ ...contextual(0, 'zero', 'narrow', 'bad', 900) }], 0);
+  assert.equal(unknown.groups[0].assetEpoch, 'unknown');
+  assert.equal(unknown.groups[0].viewportBand, 'narrow');
+  assert.equal(unknown.groups[0].p75, 0);
+  const legacy = summarizeCwvCohorts('INP', [{ v: 40, t: 900 }], 0);
+  assert.equal(legacy.groups[0].method, 'legacy');
+  assert.equal(legacy.groups[0].viewportBand, 'unknown');
+  assert.equal(summarizeCwvCohorts('LCP', [], 0).groups.length, 0);
+});
+
+test('bounded cohort output discloses every omitted group and sample, preserving total counts', () => {
+  const rows = Array.from({ length: 100 }, (_, i) => contextual(i, 'id' + i, 'narrow', String(20260000 + i), 1000 - i));
+  const data = summarizeCwvCohorts('LCP', rows, 0);
+  assert.equal(data.groups.length, 24);
+  assert.equal(data.groupCount, 100);
+  assert.equal(data.omittedGroups, 76);
+  assert.equal(data.omittedSamples, 76);
+  assert.equal(data.groups.reduce((sum, g) => sum + g.samples, data.omittedSamples), data.totalSamples);
+  assert.equal(data.groups[0].newestSampleAt, 1000);
+});
+
+test('authenticated KV readback and dashboard expose receipt-backed cohorts without changing GA4 fallback', async t => {
+  const now = Date.now();
+  const f = fixture(t, { kv: { CLS: [contextual(100, 'repeat', 'narrow', '20260711', now),
+    contextual(900, 'repeat', 'wide', '20260710', now - 1), raw(0, 'old', now - 2)] }, ga4: () => report(2, 600) });
+  const res = await f.run();
+  const cls = res.body.metrics.find(m => m.name === 'CLS');
+  assert.equal(cls.p75, 0.1);
+  assert.equal(cls.cohorts.totalSamples, cls.samples);
+  assert.equal(res.body.metrics[0].status, 'mean_only');
+  assert.equal(res.body.metrics[0].cohorts, undefined);
+  const html = dashboard.render(res.body);
+  assert.match(html, /分群定義 v1/);
+  assert.match(html, /首次量測視窗/);
+  assert.match(html, /20260711/);
+  assert.match(html, /未知/);
+  assert.match(html, /0\.000/);
+  assert.match(html, /GA4 事件平均不支援此分群/);
+  assert.match(html, /不能當作手機/);
+});
+
+test('cohort rendering escapes receipt labels, exposes omission, and never fabricates a missing percentile', () => {
+  const summary = summarizeCwvCohorts('LCP', Array.from({ length: 25 }, (_, i) =>
+    contextual(i, 'id' + i, 'narrow', String(20260000 + i), 1000 - i)), 0);
+  summary.groups[0] = { ...summary.groups[0], assetEpoch: '<img>', viewportBand: '<img>',
+    method: '<img>', p75: null, name: '<img>' };
+  const html = dashboard.render({ metrics: [{ name: 'LCP', source: 'kv', cohorts: summary }] });
+  assert.match(html, /省略 1 群、1 筆樣本/);
+  assert.match(html, /省略樣本仍包含於上方總覽/);
+  assert.doesNotMatch(html, /<img/);
+  assert.match(html, /未知/);
 });
 
 test('partial KV remains usable without GA4, with final-ID dedup and CLS normalization', async t => {
@@ -264,7 +342,9 @@ test('dashboard exposes the actual retained KV method and receipt range without 
   assert.ok(html.includes('datetime="' + new Date(oldest).toISOString() + '"'));
   assert.ok(html.includes('datetime="' + new Date(newest).toISOString() + '"'));
   assert.match(html, /GA4 事件平均；無 p75/);
-  assert.equal((html.match(/<time /g) || []).length, 2);
+  const overallHtml = html.split('<details data-cwv-cohorts>')[0];
+  assert.equal((overallHtml.match(/<time /g) || []).length, 2);
+  assert.equal((html.match(/<time /g) || []).length, 4, 'same retained times appear in the supplemental KV group too');
   assert.match(html, /收件時間/);
   assert.match(html, /台灣時間/);
 });

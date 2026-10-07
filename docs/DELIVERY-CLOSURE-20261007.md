@@ -2,6 +2,14 @@
 
 本紀錄描述已正式交付的 `916f177441d44c770a64c1389c2716dec997c782`，來源 tree `ac4abf51753431ef98c0eac38b3a552463431d61`。它不核可承載本文件的新 SHA 或未來修改；新批次仍遵守 D-20／D-28 與 `REMOTE_CI_DELIVERY.md`。
 
+## 第三輪已交付增量 — 2026-10-07
+
+`1455dd5b07764a2cfa065e1f7678abf5a78450f9`（tree `f8c92067fa13e014b538399ff3298d7272c6e62d`）已由 [PR27](https://github.com/expertise88864/user-hsiao/pull/27) 正常快轉 main：fresh 空快取不再多一次重載，舊快取仍完成清除；A/B 設定成功請求共用、晚回應重新檢查編輯狀態。84 路徑修正後獨立 Codex／精確 Claude 5.5 high 完整核可。該 audit 精確結案 07e71d7、398fbaa、7bbc066 三個 fullSHA，合計 71 筆歷史 pending、未結案 0 筆；新的修改另計。
+
+該 SHA 完整 10 候選與 5 正式 workflows／jobs／steps 及各 gate 成功，Preview／正式身份、54 canonical／49 sitemap smoke 通過。正式公開證據：[Quality 37644366629](https://github.com/expertise88864/user-hsiao/actions/runs/37644366629)、[Visual 37644366669](https://github.com/expertise88864/user-hsiao/actions/runs/37644366669)、[Delivery 37644366659](https://github.com/expertise88864/user-hsiao/actions/runs/37644366659)、[Drift 37644366611](https://github.com/expertise88864/user-hsiao/actions/runs/37644366611)、[Size 37644366605](https://github.com/expertise88864/user-hsiao/actions/runs/37644366605)。保留原有三個使用者整檔修改；沒有新增 Desktop 專案副本或 Production CMS 測試寫入。
+
+390px 隔離重複實驗確認 fresh 文件由 2 次導覽降到 1 次，首頁／索引最後觀察到的 LCP paint 代理中位數較基準少約 395／458ms；三次樣本與乾眼控制結果不當標準 CWV、field、統計因果或 CTR 證據。第三輪的搜尋入口、必要 CWV context 與兩項寫作障礙仍另批交付，完整 Goal 未結案。
+
 ## 交付與審查
 
 - 從 `a559a756b4610a65f1c9e5dbc34db768556bc08b` 正常快轉 main，[PR26](https://github.com/expertise88864/user-hsiao/pull/26) 已合併關閉；無 force 或歷史改寫。
