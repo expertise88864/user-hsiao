@@ -600,7 +600,7 @@ A：是真的。IGATES 全球 8238 例眼外傷登錄資料顯示，受傷當下
 
 Q2：為什麼「眼睛受傷」要當成公共衛生問題來看？
 
-A：因為它規模大、後果重、可預防，但被忽視。全球疾病負擔分析估計每年新發眼外傷約 6 千萬件、累計 438,000 年失能生命年（YLD）；每年因眼外傷導致單眼失明約 160 萬人、雙眼低視力約 230 萬人。在高所得國家（如美國），眼外傷住院經濟負擔可達 17 億美元等級。但相對於白內障與屈光不正，眼外傷得到的全球公衛資源明顯偏少，2026 Perspective 直接點出「未被納入 IAPB Global Action Plan、WHO VISION 2030、SDG 等主流眼健康框架」是當前最大的政策缺口。
+A：因為它規模大、後果重、可預防，但被忽視。全球疾病負擔分析估計每年新發眼外傷約 6 千萬件、累計 438,000 年失能生命年（YLD）；每年因眼外傷導致單眼失明約 160 萬人、雙眼低視力約 230 萬人。美國 2001–2014 年眼外傷住院總費用估計為 17.2 億美元（Iftikhar 等 2019）；這是該期間合計，不是單一年或台灣費用，也不是引用它的 Bashir 英國研究自行估算。但相對於白內障與屈光不正，眼外傷得到的全球公衛資源明顯偏少，2026 Perspective 直接點出「未被納入 IAPB Global Action Plan、WHO VISION 2030、SDG 等主流眼健康框架」是當前最大的政策缺口。
 
 Q3：家裡哪些活動最危險？我以為家裡應該很安全？
 
@@ -1178,7 +1178,7 @@ Scott DAR, Liu K, Danesh-Meyer HV, Niederer RL. Herpes zoster ophthalmicus recur
 
 需要。ZEDS 二次分析顯示，反覆角膜基質炎中約百分之七十五是在病人自己沒感覺的情況下，由醫師在常規追蹤時用裂隙燈檢查發現的。早期發炎常以角膜旁邊一小片病灶起頭，病人感覺不到，但若不處理會慢慢擴散、留下永久瘢痕。沒有症狀並不代表沒有在發炎，所以定期回診才能及早發現。
 
-為什麼停掉類固醇眼藥水的前三個月最容易復發？
+ZEDS 的近期停藥史比例代表什麼？
 
 ZEDS 復發事件分析：未用類固醇的 48 人中，18 人（38%）曾於前 3 個月停藥；這不是所有停藥者的復發率。用藥與減量由眼科醫師依病況決定。
 
@@ -1188,7 +1188,7 @@ ZEDS 的資料支持低效價長期維持這個方向。發作當下正在點藥
 
 我需要長期吃口服抗病毒藥嗎？台灣健保會給付嗎？
 
-大多數人不需要。ZEDS 顯示角膜基質炎復發時，只有約百分之十的病人被醫師加開口服抗病毒藥介入，其餘約九成單靠調整局部類固醇就能控制。在台灣健保方面，全身性抗疱疹病毒劑（§10.7.1.1）所列適應症皆為急性介入，且療程原則以十天為限，因此 ZEDS 採用的一年長期抑制用法並不在健保條件列舉範圍內，若醫師基於個別判斷建議長期使用通常需自費。
+事件處置時僅 11/105 新增口服抗病毒藥，不能推論其餘病人原本未使用口服藥，也不能推論所有 HZO 病人不需要抗病毒治療。用藥與減量由眼科醫師依病況決定。在台灣健保方面，全身性抗疱疹病毒劑（§10.7.1.1）所列適應症皆為急性介入，且療程原則以十天為限，因此 ZEDS 採用的一年長期抑制用法並不在健保條件列舉範圍內，若醫師基於個別判斷建議長期使用通常需自費。
 
 如果反覆發炎一直沒有好好控制，最壞會怎樣？
 
@@ -3044,7 +3044,7 @@ Jiang 2022 試驗有 264 人隨機分組、246 人納入分析；12 個月調整
 - English mirror: translation in progress
 - Topic: 飛蚊症 · Published 2026-05-04 · Updated 2026-10-07
 
-> 飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Eye 2010 大型研究，蕭閔謙醫師（眼科）整理。
+> 飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Br J Ophthalmol 2010;94:678–684 大型研究，蕭閔謙醫師（眼科）整理。
 
 依照你的問題閱讀
 
@@ -3172,7 +3172,7 @@ Jiang 2022 試驗有 264 人隨機分組、246 人納入分析；12 個月調整
 
 正常雙眼視覺會「補償」單眼盲區 — 必須單眼測試才能發現。
 
-已知有 PVD 病史、高度近視、家族史的族群，建議每週做一次單眼自我檢查。出現新缺損、扭曲、變形 → 當週就醫。
+已知有 PVD 病史、高度近視、家族史的族群，建議每週做一次單眼自我檢查。若出現新的視野缺損、暗影／黑幕或視力下降，請當天就醫做眼科評估，不要等到下一次每週自我檢查。新出現的扭曲或變形也需眼科評估；自我檢查不能排除視網膜裂孔或剝離。
 
 主要參考文獻
 
@@ -3308,7 +3308,7 @@ Switch — close right eye, view with left, repeat.
 
 Binocular vision masks monocular blind spots — always test one eye at a time.
 
-Patients with prior PVD, high myopia, or family history should self-check weekly. Any new defect, distortion, or warping → see ophthalmology that week.
+Patients with prior PVD, high myopia, or family history should self-check weekly. A new field defect, shadow/curtain or reduced vision requires same-day ophthalmic assessment; do not wait for the next weekly self-check. New distortion or warping also warrants ophthalmic assessment. Self-checking cannot rule out a retinal tear or detachment.
 
 Key references
 

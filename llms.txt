@@ -117,7 +117,7 @@ Secondary language: en
 - Updated: 2026-10-07
 - Canonical: https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment
 - English mirror: translation in progress
-- Summary: 飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Eye 2010 大型研究，蕭閔謙醫師（眼科）整理。
+- Summary: 飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Br J Ophthalmol 2010;94:678–684 大型研究，蕭閔謙醫師（眼科）整理。
 
 ### 青光眼症狀、檢查與治療：早期沒症狀怎麼發現？
 
