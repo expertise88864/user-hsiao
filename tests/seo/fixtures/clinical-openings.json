@@ -15,12 +15,16 @@
     },
     {
       "slug": "floaters-retinal-detachment",
+      "modifiedDate": "2026-10-07",
       "zh": "飛蚊症可能與年齡變化有關，但不能忽略突然出現的警訊。若突然大量飛蚊、閃光、視野出現黑幕或陰影，或視力突然模糊、下降，任一項都應當天就醫。本文再說明飛蚊症、視網膜裂孔與剝離的差別，以及檢查和追蹤。",
       "en": "Floaters may be associated with age-related changes, but sudden warning signs must not be ignored. A sudden increase in floaters, flashes, a curtain or shadow in the visual field, or sudden blurred or reduced vision—any one of these—needs medical assessment that day. The guide then explains floaters, retinal tears, retinal detachment, examination, and follow-up.",
       "originalPairSHA256": "1d46f00d62449cbf1c3e0bb1badc09e882cfc8762e076b57bc686527ec614662"
     },
     {
       "slug": "pediatric-myopia-control",
+      "modifiedDate": "2026-10-07",
+      "summaryApproval": "Owner-approved 1–11 bilingual corrections, 2026-10-07; originalPairSHA256 retains the historical summary identity.",
+      "approvedPairSHA256": "79a9df9e552c888225a893fb4315a62a450ed5ca8d2941bb5d4a9b1e2b30c2d9",
       "zh": "兒童近視控制不只是更換眼鏡，而是關注度數持續加深與未來眼部風險。本文整理家長常問的問題、日常習慣，以及阿托品和光學控制等方法的研究、限制與追蹤重點。治療選擇與藥物調整仍需和眼科醫師討論。",
       "en": "Childhood myopia control concerns continued progression and future eye-health risks as well as spectacle correction. This guide covers parents’ common questions, daily habits, and the evidence, limitations, and follow-up for approaches such as atropine and optical control. Treatment choices and medication changes still need discussion with an ophthalmologist.",
       "originalPairSHA256": "fcdaf4e9a5a5bab8b00f0e7d9ce416aea7e8c8c7b946ccdc7d772938c27f2637"

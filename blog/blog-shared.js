@@ -133,24 +133,24 @@
   DN.ARTICLES = [
     { slug:'pediatric-high-myopia-maculopathy-progression', title:'高度近視兒童：8 年內 1/3 黃斑部病變惡化，眼軸變化可預警', title_en:'Childhood High Myopia: 1-in-3 Maculopathy in 8 Years', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-06-05' },
     { slug:'refractory-noninfectious-uveitis-biologics-rubi-trial', title:'難治型非感染性葡萄膜炎：Adalimumab、Tocilizumab、Anakinra 隨機試驗解析', title_en:'Refractory Noninfectious Uveitis — RUBI Biologics Trial', cat:'research', tag:'葡萄膜炎', tag_en:'Uveitis', date:'2026-06-02', updated:'2026-06-05' },
-    { slug:'osa-amd-systematic-review-2026', title:'睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析', title_en:'Sleep Apnea and AMD Risk — 2026 Meta-Analysis', cat:'research', tag:'黃斑部病變', tag_en:'AMD', date:'2026-05-26' },
-    { slug:'pterygium-surgery-fixation-methods-2026-nma', title:'翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析', title_en:'Pterygium Fixation Methods — 2026 NMA of 35 RCTs', cat:'research', tag:'翼狀贅肉', tag_en:'Pterygium', date:'2026-05-23' },
+    { slug:'osa-amd-systematic-review-2026', title:'睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析', title_en:'Sleep Apnea and AMD Risk — 2026 Meta-Analysis', cat:'research', tag:'黃斑部病變', tag_en:'AMD', date:'2026-05-26', updated:'2026-10-07' },
+    { slug:'pterygium-surgery-fixation-methods-2026-nma', title:'翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析', title_en:'Pterygium Fixation Methods — 2026 NMA of 35 RCTs', cat:'research', tag:'翼狀贅肉', tag_en:'Pterygium', date:'2026-05-23', updated:'2026-10-07' },
     { slug:'diabetic-retinopathy-dementia-trinetx-cohort', title:'糖尿病視網膜病變越嚴重，失智症風險越高？', title_en:'Diabetic Retinopathy and Dementia — 2026 TriNetX Cohort', cat:'research', tag:'糖尿病視網膜病變', tag_en:'Diabetic retinopathy', date:'2026-05-23' },
-    { slug:'hzo-stromal-keratitis-zeds-lessons', title:'帶狀疱疹眼疾反覆角膜炎：為什麼停眼藥水 3 個月最危險？', title_en:'Recurrent Stromal Keratitis After HZO — 2026 ZEDS Lessons', cat:'research', tag:'角膜炎', tag_en:'Keratitis', date:'2026-05-23' },
-    { slug:'ophthalmic-trauma-overlooked-burden', title:'眼外傷：被忽視的全球失明禍首', title_en:'Ophthalmic Trauma — The Overlooked Cause of Blindness', cat:'research', tag:'眼外傷', tag_en:'Eye trauma', date:'2026-05-23' },
-    { slug:'toric-iol-astigmatism-cataract-review', title:'散光人工水晶體（Toric IOL）值得嗎？', title_en:'Toric IOL for Cataract — Is It Worth It?', cat:'rx', tag:'白內障', tag_en:'Cataract', date:'2026-05-16' },
+    { slug:'hzo-stromal-keratitis-zeds-lessons', title:'帶狀疱疹眼疾反覆角膜炎：部分復發病例有近期停藥史', title_en:'Recurrent Stromal Keratitis After HZO — 2026 ZEDS Lessons', cat:'research', tag:'角膜炎', tag_en:'Keratitis', date:'2026-05-23', updated:'2026-10-07' },
+    { slug:'ophthalmic-trauma-overlooked-burden', title:'眼外傷：被忽視的全球失明禍首', title_en:'Ophthalmic Trauma — The Overlooked Cause of Blindness', cat:'research', tag:'眼外傷', tag_en:'Eye trauma', date:'2026-05-23', updated:'2026-10-07' },
+    { slug:'toric-iol-astigmatism-cataract-review', title:'散光人工水晶體（Toric IOL）值得嗎？', title_en:'Toric IOL for Cataract — Is It Worth It?', cat:'rx', tag:'白內障', tag_en:'Cataract', date:'2026-05-16', updated:'2026-10-07' },
     { slug:'dry-eye-symptom-sign-discordance-dream', title:'為什麼我覺得眼睛超乾，醫師卻說沒事？', title_en:'Why Do My Dry-Eye Symptoms Not Match the Exam?', cat:'research', tag:'乾眼症', tag_en:'Dry eye', date:'2026-05-16', updated:'2026-05-18' },
     { slug:'monitoring-myopia-ser-vs-axial-length', title:'監測兒童近視，該追蹤「度數」還是「眼軸」？', title_en:'Monitoring Childhood Myopia: SER or Axial Length?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-13' },
     { slug:'dims-pediatric-myopia-control', title:'兒童近視控制鏡片（DIMS）有效嗎？', title_en:'Are DIMS Lenses Effective for Pediatric Myopia?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-12' },
     { slug:'cataract-surgery-selection',   title:'白內障手術深度選擇',     title_en:'Cataract Surgery Selection',             cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-11', updated:'2026-05-18' },
     { slug:'glaucoma-treatment-selection', title:'青光眼藥物與手術選擇',  title_en:'Glaucoma Treatment Selection',           cat:'rx',    tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-10' },
     { slug:'glaucoma-comprehensive-guide', title:'青光眼完整衛教',       title_en:'Glaucoma — Patient Education',           cat:'alert', tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-09', updated:'2026-10-04' },
-    { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09', updated:'2026-05-18' },
-    { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07', updated:'2026-05-09' },
+    { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09', updated:'2026-10-07' },
+    { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07', updated:'2026-10-07' },
     { slug:'lacrimal-gland-tumor',        title:'淚腺腫瘤 6 個關鍵問題',  title_en:'6 Key Questions on Lacrimal Gland Tumor',  cat:'alert', tag:'淚腺腫瘤',  tag_en:'Lacrimal tumor',  date:'2026-05-06', updated:'2026-10-04' },
     { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         title_en:'8 Dry-Eye Myths',                        cat:'myth', tag:'乾眼症',     tag_en:'Dry Eye',         date:'2026-05-04', updated:'2026-10-04' },
-    { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  title_en:'8 Pediatric Myopia Control Myths',         cat:'myth', tag:'兒童近視',   tag_en:'Myopia control',  date:'2026-05-04', updated:'2026-10-04' },
-    { slug:'floaters-retinal-detachment', title:'飛蚊症 6 大警訊',         title_en:'6 Floater Red Flags',                     cat:'myth', tag:'飛蚊症',     tag_en:'Floaters',        date:'2026-05-04', updated:'2026-10-04' }
+    { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  title_en:'8 Pediatric Myopia Control Myths',         cat:'myth', tag:'兒童近視',   tag_en:'Myopia control',  date:'2026-05-04', updated:'2026-10-07' },
+    { slug:'floaters-retinal-detachment', title:'飛蚊症 6 大警訊',         title_en:'6 Floater Red Flags',                     cat:'myth', tag:'飛蚊症',     tag_en:'Floaters',        date:'2026-05-04', updated:'2026-10-07' }
   ];
   DN.totalArticles = DN.ARTICLES.length;
 
@@ -426,8 +426,11 @@
       if (!el.hasAttribute('data-hs-text') && !el.hasAttribute('data-hs-text-' + (lang === 'en' ? 'en' : 'zh')) && /[<&]/.test(txt) && /<\/?[a-z]/i.test(txt)) el.innerHTML = txt;
       else el.textContent = txt;
     }
-    document.querySelectorAll('#hs-blog-filter input[data-zh-placeholder][data-en-placeholder]').forEach(function (field) {
+    document.querySelectorAll('#hs-search-input[data-zh-placeholder][data-en-placeholder], #hs-blog-search[data-zh-placeholder][data-en-placeholder]').forEach(function (field) {
       field.placeholder = field.getAttribute(lang === 'en' ? 'data-en-placeholder' : 'data-zh-placeholder');
+    });
+    document.querySelectorAll('#hs-search-input[data-zh-aria-label][data-en-aria-label], #hs-blog-search[data-zh-aria-label][data-en-aria-label]').forEach(function (field) {
+      field.setAttribute('aria-label', field.getAttribute(lang === 'en' ? 'data-en-aria-label' : 'data-zh-aria-label'));
     });
   };
 
@@ -864,7 +867,7 @@
     if (meta && typeof meta.minutes === 'number' && meta.minutes > 0) {
       minutes = meta.minutes;
     } else {
-      const text = (proseEl.textContent || '').replace(/\s+/g, '');
+      const text = proseEl.textContent || '';
       const cjkChars = (text.match(/[一-鿿]/g) || []).length;
       const otherWords = (text.match(/[A-Za-z0-9]+/g) || []).length;
       minutes = Math.max(2, Math.round(cjkChars / 350 + otherWords / 200));
@@ -2619,13 +2622,13 @@
       var en = cmdkLang() === 'en';
       var p = en ? '/en' : '';
       return en ? [
-        { title: 'Eye Tools', meta: 'Tools · OSDI / DEQ-5 / SE', url: p + '/tools', search: 'tools calculator osdi deq snellen logmar spherical equivalent floaters' },
+        { title: 'Eye Tools', meta: 'Tools · Dry-eye symptoms / DEQ-5 / SE', url: p + '/tools', search: 'tools calculator osdi deq snellen logmar spherical equivalent floaters' },
         { title: 'Topic Map', meta: 'Topics', url: p + '/blog/topics', search: 'topics topic map glaucoma cataract myopia dry eye floaters' },
         { title: 'About the Author', meta: 'About', url: p + '/about', search: 'about author Min-Chien Hsiao ophthalmology' },
         { title: 'Article Index', meta: 'Articles', url: p + '/blog/', search: 'blog articles index education ophthalmology' },
         { title: 'Privacy Policy', meta: 'Privacy', url: p + '/privacy', search: 'privacy policy' }
       ] : [
-        { title: '量表計算器', meta: 'Tools · 5 個眼科量表', url: '/tools', search: 'tools 量表 計算 osdi deq snellen logmar se 球面 飛蚊' },
+        { title: '眼科衛教工具', meta: 'Tools · 症狀檢視與計算', url: '/tools', search: 'tools 量表 計算 osdi deq snellen logmar se 球面 飛蚊' },
         { title: '主題地圖', meta: 'Topic Map', url: '/blog/topics', search: 'topics 主題 地圖 青光眼 白內障 近視 乾眼 飛蚊' },
         { title: '關於作者', meta: 'About', url: '/about', search: 'about 作者 蕭閔謙 眼科' },
         { title: '衛教文章索引', meta: 'Articles', url: '/blog/', search: 'blog articles 文章 索引 衛教' },
@@ -3168,7 +3171,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260706';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260707';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3286,7 +3289,7 @@
           '<div><span class="hs-calc-score" data-result="score">—</span><span class="hs-calc-band" data-result="band"></span></div>' +
           '<div class="hs-calc-interp" data-result="interp"></div>' +
         '</div>' +
-        (cfg.toolsAnchor ? '<a href="/tools#' + cfg.toolsAnchor + '" class="hs-calc-tools-link" data-zh="查看完整 ' + cfg.tool + ' 使用指南 →" data-en="View full ' + cfg.tool + ' guide →">查看完整 ' + cfg.tool + ' 使用指南 →</a>' : '') +
+        (cfg.toolsAnchor ? '<a href="/tools#' + cfg.toolsAnchor + '" class="hs-calc-tools-link" data-zh="查看完整 ' + (cfg.guideLabelZh || cfg.tool) + ' 使用指南 →" data-en="View full ' + (cfg.guideLabelEn || cfg.tool) + ' guide →">查看完整 ' + (cfg.guideLabelZh || cfg.tool) + ' 使用指南 →</a>' : '') +
         '<div class="hs-calc-disclaimer">' + cfg.disclaimer + '</div>' +
       '</div>';
 
@@ -3310,7 +3313,8 @@
     function readVals() {
       var v = {};
       box.querySelectorAll('[data-key]').forEach(function (el) {
-        v[el.dataset.key] = el.tagName === 'SELECT' ? el.value : (parseFloat(el.value) || 0);
+        v[el.dataset.key] = el.tagName === 'SELECT' ? el.value :
+          (cfg.allowUnanswered && el.value.trim() === '' ? null : (parseFloat(el.value) || 0));
       });
       return v;
     }
@@ -3319,7 +3323,15 @@
       box.querySelector('[data-result="score"]').textContent = r.score;
       var bEl = box.querySelector('[data-result="band"]');
       bEl.textContent = r.band; bEl.style.background = r.bg; bEl.style.color = r.fg;
-      box.querySelector('[data-result="interp"]').innerHTML = r.interp;
+      var iEl = box.querySelector('[data-result="interp"]');
+      iEl.innerHTML = r.interp;
+      if (cfg.resultBilingual) {
+        bEl.setAttribute('data-zh', r.band);
+        bEl.setAttribute('data-en', r.bandEn);
+        iEl.setAttribute('data-zh', r.interp);
+        iEl.setAttribute('data-en', r.interpEn);
+        DN.applyTextOnly(DN.detectLang());
+      }
     }
     box.querySelectorAll('[data-key]').forEach(function (el) {
       el.addEventListener('input', update);
@@ -3327,42 +3339,45 @@
     });
     update();
     if (typeof gtag === 'function') {
-      try { gtag('event', 'calculator_view', { tool: cfg.tool, page_path: location.pathname }); } catch (e) {}
+      try {
+        var view = { tool: cfg.tool, page_path: location.pathname };
+        if (cfg.definitionVersion) view.definition_version = cfg.definitionVersion;
+        gtag('event', 'calculator_view', view);
+      } catch (e) {}
     }
     return box;
   };
 
   // ---------------------------------------------------------------------
-  // CALCULATOR 1 — OSDI (Ocular Surface Disease Index, 12 items, 0-100)
-  // Validated: Schiffman et al, Arch Ophthalmol 2000.
-  // Input: each of 3 sections summed (light/wind/screen freq, vision-tasks,
-  // environment) — we collapse into a simplified 4-input self-screen.
+  // CALCULATOR 1 — custom six-item symptom organizer, not the validated OSDI.
+  // Keep the legacy function/DOM/anchor names for saved links and CMS stripping.
+  // Version the event identity: historical OSDI views are not comparable scores.
   // ---------------------------------------------------------------------
   DN.injectOSDI = function (mountSel) {
     DN._buildCalc({
-      id: 'hs-osdi', tool: 'OSDI', toolsAnchor: 'osdi',
-      mountSel: mountSel,
-      title: '<span data-zh="OSDI 計算器 — 乾眼症狀自評" data-en="OSDI Calculator — Dry-eye symptom self-screen">OSDI 計算器 — 乾眼症狀自評</span>',
-      sub: '<span data-zh="過去一週,以下情況困擾您的頻率(0=從未、4=一直)。OSDI = (各項分數總和 × 100) / (回答題數 × 4)。" data-en="Past week, frequency of each (0=none, 4=all the time). OSDI = (sum × 100) / (answered × 4).">過去一週，以下情況困擾您的頻率（0=從未、4=一直）。OSDI = (各項分數總和 × 100) / (回答題數 × 4)。</span>',
+      id: 'hs-osdi', tool: 'DryEyeSymptoms6', toolsAnchor: 'osdi',
+      definitionVersion: 'custom-six-v1',
+      guideLabelZh: '乾眼症狀檢視', guideLabelEn: 'dry-eye symptom check',
+      mountSel: mountSel, allowUnanswered: true, resultBilingual: true,
+      title: '<span data-zh="乾眼症狀檢視（6題）" data-en="Dry-eye symptom check (6 questions)">乾眼症狀檢視（6題）</span>',
+      sub: '<span data-zh="這六題是本站的症狀整理，並非經驗證的12題OSDI量表，不能用正式OSDI門檻診斷或分級。回想最近一週，0=從未、4=一直；可略過不適用的題目。" data-en="These six questions organize symptoms, not the validated 12-item OSDI. They cannot use OSDI thresholds for diagnosis or severity grading. Recall the past week: 0=never, 4=all the time; skip items that do not apply.">這六題是本站的症狀整理，並非經驗證的12題OSDI量表，不能用正式OSDI門檻診斷或分級。回想最近一週，0=從未、4=一直；可略過不適用的題目。</span>',
       rows: [
-        { type:'number', key:'q1', min:0, max:4, def:1, label:'<span data-zh="眼睛畏光" data-en="Eyes sensitive to light">眼睛畏光</span>', hint:'0=從未  ·  4=一直' },
-        { type:'number', key:'q2', min:0, max:4, def:1, label:'<span data-zh="眼睛有沙礫感 / 異物感" data-en="Gritty / foreign-body sensation">眼睛有沙礫感 / 異物感</span>', hint:'0–4' },
-        { type:'number', key:'q3', min:0, max:4, def:1, label:'<span data-zh="眼睛痠痛 / 灼熱" data-en="Painful or sore">眼睛痠痛 / 灼熱</span>', hint:'0–4' },
-        { type:'number', key:'q4', min:0, max:4, def:1, label:'<span data-zh="視力模糊" data-en="Blurred vision">視力模糊</span>', hint:'0–4' },
-        { type:'number', key:'q5', min:0, max:4, def:1, label:'<span data-zh="使用 3C 螢幕時症狀加重" data-en="Worse with screens">使用 3C 螢幕時症狀加重</span>', hint:'0–4' },
-        { type:'number', key:'q6', min:0, max:4, def:1, label:'<span data-zh="冷氣 / 風 / 乾燥環境加重" data-en="Worse in AC / wind">冷氣 / 風 / 乾燥環境加重</span>', hint:'0–4' }
+        { type:'number', key:'q1', min:0, max:4, def:'', label:'<span data-zh="眼睛畏光" data-en="Eyes sensitive to light">眼睛畏光</span>', hint:'0–4' },
+        { type:'number', key:'q2', min:0, max:4, def:'', label:'<span data-zh="眼睛有沙礫感 / 異物感" data-en="Gritty / foreign-body sensation">眼睛有沙礫感 / 異物感</span>', hint:'0–4' },
+        { type:'number', key:'q3', min:0, max:4, def:'', label:'<span data-zh="眼睛痠痛 / 灼熱" data-en="Painful or sore">眼睛痠痛 / 灼熱</span>', hint:'0–4' },
+        { type:'number', key:'q4', min:0, max:4, def:'', label:'<span data-zh="視力模糊" data-en="Blurred vision">視力模糊</span>', hint:'0–4' },
+        { type:'number', key:'q5', min:0, max:4, def:'', label:'<span data-zh="使用 3C 螢幕時症狀加重" data-en="Worse with screens">使用 3C 螢幕時症狀加重</span>', hint:'0–4' },
+        { type:'number', key:'q6', min:0, max:4, def:'', label:'<span data-zh="冷氣 / 風 / 乾燥環境加重" data-en="Worse in AC / wind">冷氣 / 風 / 乾燥環境加重</span>', hint:'0–4' }
       ],
       calc: function (v) {
-        var sum = v.q1 + v.q2 + v.q3 + v.q4 + v.q5 + v.q6;
-        var score = (sum * 100) / (6 * 4);   // 6 items, max 4 each
-        var band, bg, fg, interp;
-        if (score < 13)      { band = '正常';   bg = '#dcfce7'; fg = '#14532d'; interp = '正常 (OSDI &lt; 13) — 沒有乾眼相關症狀，繼續維持良好習慣（每 20 分鐘看遠 20 秒、3C 之間刻意眨眼）。'; }
-        else if (score < 23) { band = '輕度';   bg = '#fef9c3'; fg = '#854d0e'; interp = '輕度乾眼 (OSDI 13–22) — 可從<strong>無防腐劑人工淚液</strong>開始（一天 4–6 次）+ 熱敷眼罩 40°C × 10 分鐘。'; }
-        else if (score < 33) { band = '中度';   bg = '#fed7aa'; fg = '#9a3412'; interp = '中度乾眼 (OSDI 23–32) — 建議眼科門診評估，可加上 <strong>瞼板腺按摩、Omega-3 補充、Cyclosporine A 0.05% 眼藥水</strong>（DEWS II Step 2）。'; }
-        else                 { band = '重度';   bg = '#fee2e2'; fg = '#991b1b'; interp = '重度乾眼 (OSDI ≥ 33) — 應就診評估是否合併 <strong>瞼板腺機能障礙 (MGD)、修格蘭氏症、暴露性角膜炎</strong>，治療可考慮 IPL、LipiFlow、自體血清眼藥水。'; }
-        return { score: score.toFixed(1), band: band, bg: bg, fg: fg, interp: interp };
+        var answers = ['q1','q2','q3','q4','q5','q6'].map(function (k) { return v[k]; })
+          .filter(function (n) { return typeof n === 'number' && Number.isInteger(n) && n >= 0 && n <= 4; });
+        var average = answers.length ? (answers.reduce(function (sum, n) { return sum + n; }, 0) / answers.length).toFixed(1) : '—';
+        return { score: answers.length + ' / 6', band: '已完成題數', bandEn: 'Answered items', bg: '#e3edf6', fg: '#243b56',
+          interp: '平均頻率：' + average + ' / 4。無論頻率高低，都不能確認或排除乾眼；持續或影響生活請就醫，突然視力變化或劇痛請儘速就醫。',
+          interpEn: 'Mean frequency: ' + average + ' / 4. Frequency alone does not confirm or exclude dry eye. Seek assessment for persistent or troublesome symptoms; sudden vision changes or severe pain need urgent care.' };
       },
-      disclaimer: '* OSDI: Schiffman RM et al, <em>Arch Ophthalmol</em> 2000. 本工具為簡化自評版，正式診斷應由眼科醫師進行 Schirmer 試驗 + TBUT + 眼表染色。'
+      disclaimer: '<span data-zh="本工具不是正式OSDI，不能診斷或分級。結果可協助向眼科醫師描述症狀；正式12題OSDI見Schiffman等2000年研究。" data-en="This is not the validated OSDI and cannot diagnose or grade severity. Use the result to describe symptoms to your ophthalmologist; the validated 12-item OSDI is described by Schiffman et al. (2000).">本工具不是正式OSDI，不能診斷或分級。結果可協助向眼科醫師描述症狀；正式12題OSDI見Schiffman等2000年研究。</span>'
     });
   };
 
@@ -3473,15 +3488,15 @@
 
   // ---------------------------------------------------------------------
   // CALCULATOR 5 — Floater Red-Flag self-check (decision support, NOT diagnosis)
-  // Based on AAO Posterior Vitreous Detachment PPP 2023 — flags requiring
-  // urgent (<24-48h) ophth referral.
+  // Acute symptoms require same-day assessment; history alone is not an acute symptom.
   // ---------------------------------------------------------------------
   DN.injectFloaterRedFlag = function (mountSel) {
     DN._buildCalc({
       id: 'hs-floater-rf', tool: 'FloaterRedFlag', toolsAnchor: 'floater',
-      mountSel: mountSel,
+      definitionVersion: 'acute-symptoms-v2', resultBilingual: true,
+      guideLabelZh: '飛蚊警訊', guideLabelEn: 'floater red-flag', mountSel: mountSel,
       title: '<span data-zh="飛蚊症 6 大警訊 自我檢核" data-en="Floater Red-Flag self-check">飛蚊症 6 大警訊 自我檢核</span>',
-      sub: '<span data-zh="若任一項為「是」,可能是視網膜裂孔或剝離前兆,建議 24–48 小時內就診眼科散瞳眼底檢查。" data-en="If any answer is YES, possible retinal tear/detachment — see ophthalmology within 24–48 h.">若任一項為「是」，可能是視網膜裂孔或剝離前兆，建議 24–48 小時內就診眼科散瞳眼底檢查。</span>',
+      sub: '<span data-zh="突然增加大量飛蚊、閃光、黑幕／視野缺損或視力下降，請當天就醫做眼科評估。本工具不能排除視網膜裂孔或剝離；病史風險與急性症狀分開判讀。" data-en="A sudden shower of floaters, flashes, a curtain/field defect or reduced vision requires same-day ophthalmic assessment. This tool cannot rule out a retinal tear or detachment; history risk is separate from acute symptoms.">突然增加大量飛蚊、閃光、黑幕／視野缺損或視力下降，請當天就醫做眼科評估。本工具不能排除視網膜裂孔或剝離；病史風險與急性症狀分開判讀。</span>',
       rows: [
         { type:'select', key:'r1', label:'<span data-zh="1. 飛蚊突然爆增 (數十個以上、像下雪)" data-en="1. Sudden shower of new floaters">1. 飛蚊突然爆增（像下雪）</span>',
           options:[{v:'0',label:'否',def:true},{v:'1',label:'是'}] },
@@ -3498,13 +3513,16 @@
       ],
       calc: function (v) {
         var n = ['r1','r2','r3','r4','r5','r6'].reduce(function (s, k) { return s + (parseInt(v[k]) || 0); }, 0);
-        var band, bg, fg, interp;
-        if (n === 0)      { band = '低風險';   bg = '#dcfce7'; fg = '#14532d'; interp = '所有警訊皆為「否」 — <strong>仍建議 1–2 週內</strong>就診眼科散瞳眼底檢查（首次飛蚊或長期飛蚊變化）。'; }
-        else if (n <= 2)  { band = '中風險';   bg = '#fed7aa'; fg = '#9a3412'; interp = '有 ' + n + ' 項警訊 — <strong>48–72 小時內</strong>就診眼科。可能為後玻璃體剝離 (PVD) ± 視網膜裂孔。'; }
-        else              { band = '高風險';   bg = '#fee2e2'; fg = '#991b1b'; interp = '⚠ 有 ' + n + ' 項警訊 — <strong>應立即就醫，&lt; 24 小時內</strong>到眼科或急診。視網膜剝離若未及時雷射/手術，可能永久視力喪失。'; }
-        return { score: n + ' / 6', band: band, bg: bg, fg: fg, interp: interp };
+        var acute = ['r1','r2','r3','r4'].some(function (k) { return v[k] === '1'; });
+        var history = v.r5 === '1' || v.r6 === '1';
+        var band = acute ? '急性警訊' : history ? '病史風險' : '未勾選急性警訊';
+        var bandEn = acute ? 'Acute red flag' : history ? 'History risk' : 'No acute symptoms selected';
+        return { score: n + ' / 6', band: band, bandEn: bandEn,
+          bg: acute ? '#fee2e2' : '#e3edf6', fg: acute ? '#991b1b' : '#243b56',
+          interp: acute ? '已勾選急性警訊，請<strong>當天就醫</strong>做眼科評估，必要時急診。本工具不能排除視網膜裂孔或剝離。' : '請與眼科醫師安排檢查；長期穩定且沒有新警訊的飛蚊可依醫師建議追蹤。若出現突發大量飛蚊、閃光、黑幕或視力下降，請當天就醫；本工具不能排除裂孔或剝離。',
+          interpEn: acute ? 'An acute red flag is selected: seek <strong>same-day</strong> ophthalmic assessment, with emergency care when needed. This tool cannot rule out a retinal tear or detachment.' : 'Arrange assessment with your ophthalmologist; long-standing stable floaters without new red flags can be followed according to medical advice. A sudden shower of floaters, flashes, a curtain or reduced vision requires same-day care; this tool cannot exclude a tear or detachment.' };
       },
-      disclaimer: '* 依據 AAO Posterior Vitreous Detachment / Retinal Breaks / Lattice Degeneration PPP 2023。本工具僅作分流參考，最終診斷需散瞳眼底檢查 ± OCT。'
+      disclaimer: '<span data-zh="本工具只協助整理警訊，不能診斷或排除視網膜裂孔／剝離。急性警訊請當天就醫；參考AAO PPP及NEI視網膜剝離衛教。" data-en="This tool organizes red flags and cannot diagnose or exclude a retinal tear/detachment. Acute red flags require same-day care; see AAO PPP and NEI retinal-detachment education.">本工具只協助整理警訊，不能診斷或排除視網膜裂孔／剝離。急性警訊請當天就醫；參考AAO PPP及NEI視網膜剝離衛教。</span>'
     });
   };
 
@@ -3792,7 +3810,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260706';
+    s.src = '/blog/blog-admin.js?v=20260707';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -5194,8 +5212,7 @@
   DN._errorsSentThisTab = 0;
   function reportClientError(payload) {
     try {
-      if (DN.editorPreview || location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
-      if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
+      if (!DN.telemetryAllowed()) return;
       // Dedup: identical message+url+line — send only once per tab
       var key = (payload.message || '') + '|' + (payload.url || '') + '|' + (payload.line || '');
       if (DN._errorsSeen[key]) return;

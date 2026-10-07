@@ -77,6 +77,16 @@ class ReadingMetaTests(unittest.TestCase):
         self.assertNotIn('最後更新 2026-01-01', final)
         self.assertEqual(render_reading_meta(final, {'updated': '2026-03-01'}), final)
 
+    def test_english_word_boundaries_survive_spaces_tabs_and_newlines(self):
+        for separator in (' ', '\n', '\t'):
+            with self.subTest(separator=repr(separator)):
+                prose = BeautifulSoup('<div>' + separator.join(['word'] * 800) + '</div>', 'html.parser').div
+                self.assertEqual(reading_minutes(prose), 4)
+
+    def test_mixed_text_counts_cjk_and_separate_latin_words(self):
+        prose = BeautifulSoup('<div>' + '眼' * 700 + ' word' * 800 + '</div>', 'html.parser').div
+        self.assertEqual(reading_minutes(prose), 6)
+
     def test_separate_english_body_provides_the_english_estimate(self):
         source = ('<html><head><meta name="robots" content="index,follow"></head><body>'
                   '<section><h1>Author title</h1><p>Author summary</p></section><article>'

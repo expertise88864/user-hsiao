@@ -4,6 +4,12 @@ from halfwidth_to_fullwidth import convert
 
 
 class TerminalPunctuationTests(unittest.TestCase):
+    def test_number_colons_require_actual_chinese_context(self):
+        source = '<p data-en="Outcome 1: Day 1: Cochrane 2019: ">Outcome 1: Day 1: Cochrane 2019: </p>'
+        self.assertEqual(convert(source), (source, 0))
+        self.assertEqual(convert('問題 1: 內容'), ('問題 1： 內容', 1))
+        self.assertEqual(convert('問題12:<b>內容</b>'), ('問題12：<b>內容</b>', 1))
+
     def test_bilingual_attributes_and_visible_copy_agree(self):
         for quote in ('"', "'"):
             for half, full in (('?', '？'), ('!', '！')):

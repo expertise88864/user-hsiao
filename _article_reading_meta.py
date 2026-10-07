@@ -98,12 +98,12 @@ class HeroPosition(HTMLParser):
 
 
 def reading_minutes(prose):
-    # Match the existing runtime fallback's textContent/whitespace/count/round
+    # Match the runtime fallback's textContent/count/round
     # semantics; scripts/styles are text nodes, comments are not. Not a clinical
     # recommendation or a promise of the time an individual needs to read.
     text = ''.join(str(n) for n in prose.descendants
                    if isinstance(n, NavigableString) and not isinstance(n, Comment))
-    text = re.sub(r'\s+', '', text)
+    # Keep whitespace boundaries: removing them joins separate Latin words.
     cjk = len(re.findall(r'[一-鿿]', text))
     words = len(re.findall(r'[A-Za-z0-9]+', text))
     return max(2, math.floor(cjk / 350 + words / 200 + .5))

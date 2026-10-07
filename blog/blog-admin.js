@@ -105,9 +105,9 @@
         initialDraft = null;
       }
       DN.applyTextOnly(DN.detectLang());
-      editorReview = await import('/blog/editor-review.js?v=20260706');
-      historyModule = await import('/blog/editor-history.js?v=20260706');
-      metadataModule = await import('/blog/editor-metadata.js?v=20260706');
+      editorReview = await import('/blog/editor-review.js?v=20260707');
+      historyModule = await import('/blog/editor-history.js?v=20260707');
+      metadataModule = await import('/blog/editor-metadata.js?v=20260707');
       metadataWorkspace = metadataModule.createWorkspace(document, baseDocument, parseEditorDocument, function (event) {
         if (event.target.id === 'hs-editor-titleZh' || event.target.id === 'hs-editor-titleEn') refreshMetadataHeading();
         markDirty(event);
@@ -726,7 +726,25 @@
         var w = Math.min(targetW, bitmap.width);
         var h = Math.round(bitmap.height * (w / bitmap.width));
 
-        // WebCodecs ImageEncoder fast path (Chrome 132+ for AVIF, 122+ for WebP)
+        function canvasFallback() {
+          try {
+            var canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(bitmap.image, 0, 0, w, h);
+            canvas.toBlob(function (blob) {
+              if (!blob) { resolve(null); return; }
+              try {
+                var fr = new FileReader();
+                fr.onload = function () { resolve(fr.result.replace(/^data:[^,]+,/, '')); };
+                fr.onerror = reject;
+                fr.readAsDataURL(blob);
+              } catch (e) { reject(e); }
+            }, mime, quality);
+          } catch (e) { reject(e); }
+        }
+
+        // Use the encoder only when exposed; unsupported types or failures
+        // must settle through the same native canvas fallback.
         if (window.ImageEncoder && (mime === 'image/avif' || mime === 'image/webp')) {
           (async function () {
             try {
@@ -745,23 +763,13 @@
               resolve(btoa(bin));
               return;
             } catch (e) {
-              // Fall through to canvas.toBlob
+              canvasFallback();
             }
           })();
           return;
         }
 
-        // Fallback: canvas.toBlob
-        var canvas = document.createElement('canvas');
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(bitmap.image, 0, 0, w, h);
-        canvas.toBlob(function (blob) {
-          if (!blob) { resolve(null); return; }
-          var fr = new FileReader();
-          fr.onload = function () { resolve(fr.result.replace(/^data:[^,]+,/, '')); };
-          fr.onerror = reject;
-          fr.readAsDataURL(blob);
-        }, mime, quality);
+        canvasFallback();
       });
     }
 
@@ -1095,7 +1103,7 @@
         doc.documentElement.setAttribute('data-hs-editor-preview-path', window.location.pathname);
         doc.documentElement.lang = document.documentElement.lang;
         var runtime = doc.createElement('script');
-        runtime.src = '/blog/editor-preview.js?v=20260706';
+        runtime.src = '/blog/editor-preview.js?v=20260707';
         // Register fragment handling before authored page initializers.
         base.after(runtime);
         var notice = doc.createElement('aside');

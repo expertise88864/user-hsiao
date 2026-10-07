@@ -6,7 +6,7 @@
   <!-- ===== Chinese (canonical) ===== -->
   <url>
     <loc>https://hsiao.chendermatologist.com/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
@@ -19,7 +19,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/about</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
@@ -32,7 +32,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/tools</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
@@ -40,12 +40,12 @@
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/tools" />
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/tools.png</image:loc>
-      <image:title>眼科自評量表 · 5 個臨床計算器</image:title>
+      <image:title>眼科衛教與計算工具</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/tools/eye-3d</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools/eye-3d" />
@@ -53,7 +53,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog" />
@@ -66,7 +66,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/topics</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/topics" />
@@ -79,7 +79,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/privacy</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
@@ -92,6 +92,121 @@
   </url>
 
   <!-- ===== Published articles ===== -->
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/osa-amd-systematic-review-2026" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/osa-amd-systematic-review-2026.png</image:loc>
+      <image:title>睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/pterygium-surgery-fixation-methods-2026-nma.png</image:loc>
+      <image:title>翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/hzo-stromal-keratitis-zeds-lessons.png</image:loc>
+      <image:title>帶狀疱疹眼疾反覆角膜炎：部分復發病例有近期停藥史</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/ophthalmic-trauma-overlooked-burden.png</image:loc>
+      <image:title>眼外傷：被忽視的全球失明禍首</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/toric-iol-astigmatism-cataract-review.png</image:loc>
+      <image:title>散光人工水晶體（Toric IOL）值得嗎？</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/cataract-comprehensive-guide.png</image:loc>
+      <image:title>白內障手術完整衛教</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/thyroid-eye-disease</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png</image:loc>
+      <image:title>甲狀腺眼疾完整衛教</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/pediatric-myopia-control</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/pediatric-myopia-control.png</image:loc>
+      <image:title>兒童近視控制 8 大迷思</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/floaters-retinal-detachment.png</image:loc>
+      <image:title>飛蚊症 6 大警訊</image:title>
+    </image:image>
+  </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide</loc>
     <lastmod>2026-10-04</lastmod>
@@ -130,30 +245,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://hsiao.chendermatologist.com/blog/pediatric-myopia-control</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pediatric-myopia-control" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/pediatric-myopia-control.png</image:loc>
-      <image:title>兒童近視控制 8 大迷思</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/floaters-retinal-detachment.png</image:loc>
-      <image:title>飛蚊症 6 大警訊</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -180,32 +271,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/osa-amd-systematic-review-2026" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/osa-amd-systematic-review-2026.png</image:loc>
-      <image:title>睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma</loc>
-    <lastmod>2026-05-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/pterygium-surgery-fixation-methods-2026-nma.png</image:loc>
-      <image:title>翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://hsiao.chendermatologist.com/blog/diabetic-retinopathy-dementia-trinetx-cohort</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -216,32 +281,6 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/diabetic-retinopathy-dementia-trinetx-cohort.png</image:loc>
       <image:title>糖尿病視網膜病變越嚴重，失智症風險越高？</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons</loc>
-    <lastmod>2026-05-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/hzo-stromal-keratitis-zeds-lessons.png</image:loc>
-      <image:title>帶狀疱疹眼疾反覆角膜炎：為什麼停眼藥水 3 個月最危險？</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden</loc>
-    <lastmod>2026-05-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/ophthalmic-trauma-overlooked-burden.png</image:loc>
-      <image:title>眼外傷：被忽視的全球失明禍首</image:title>
     </image:image>
   </url>
   <url>
@@ -268,32 +307,6 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/cataract-surgery-selection.png</image:loc>
       <image:title>白內障手術深度選擇</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide</loc>
-    <lastmod>2026-05-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/cataract-comprehensive-guide.png</image:loc>
-      <image:title>白內障手術完整衛教</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review</loc>
-    <lastmod>2026-05-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/toric-iol-astigmatism-cataract-review.png</image:loc>
-      <image:title>散光人工水晶體（Toric IOL）值得嗎？</image:title>
     </image:image>
   </url>
   <url>
@@ -335,26 +348,13 @@
       <image:title>青光眼藥物與手術選擇</image:title>
     </image:image>
   </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/blog/thyroid-eye-disease</loc>
-    <lastmod>2026-05-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png</image:loc>
-      <image:title>甲狀腺眼疾完整衛教</image:title>
-    </image:image>
-  </url>
 
   <!-- ===== Landing-page stubs ===== -->
 
   <!-- ===== English mirror (/en/) ===== -->
   <url>
     <loc>https://hsiao.chendermatologist.com/en</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
@@ -367,7 +367,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/about</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
@@ -380,7 +380,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/tools</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
@@ -388,12 +388,12 @@
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/tools" />
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/tools.png</image:loc>
-      <image:title>Ophthalmology Calculators</image:title>
+      <image:title>Ophthalmology Tools</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog" />
@@ -406,7 +406,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/topics</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/topics" />
@@ -419,7 +419,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/privacy</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
@@ -428,6 +428,97 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/privacy.png</image:loc>
       <image:title>Privacy Policy</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/osa-amd-systematic-review-2026</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/osa-amd-systematic-review-2026" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/osa-amd-systematic-review-2026.png</image:loc>
+      <image:title>Sleep Apnea and AMD Risk — 2026 Meta-Analysis</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/pterygium-surgery-fixation-methods-2026-nma.png</image:loc>
+      <image:title>Pterygium Fixation Methods — 2026 NMA of 35 RCTs</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/hzo-stromal-keratitis-zeds-lessons.png</image:loc>
+      <image:title>Recurrent Stromal Keratitis After HZO — 2026 ZEDS Lessons</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/ophthalmic-trauma-overlooked-burden.png</image:loc>
+      <image:title>Ophthalmic Trauma — The Overlooked Cause of Blindness</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/toric-iol-astigmatism-cataract-review.png</image:loc>
+      <image:title>Toric IOL for Cataract — Is It Worth It?</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/cataract-comprehensive-guide.png</image:loc>
+      <image:title>Cataract Surgery — Patient Education</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png</image:loc>
+      <image:title>Thyroid Eye Disease — Patient Education</image:title>
     </image:image>
   </url>
   <url>
@@ -470,32 +561,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://hsiao.chendermatologist.com/en/blog/osa-amd-systematic-review-2026</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/osa-amd-systematic-review-2026" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/osa-amd-systematic-review-2026" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/osa-amd-systematic-review-2026.png</image:loc>
-      <image:title>Sleep Apnea and AMD Risk — 2026 Meta-Analysis</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma</loc>
-    <lastmod>2026-05-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/pterygium-surgery-fixation-methods-2026-nma" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pterygium-surgery-fixation-methods-2026-nma" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/pterygium-surgery-fixation-methods-2026-nma.png</image:loc>
-      <image:title>Pterygium Fixation Methods — 2026 NMA of 35 RCTs</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/diabetic-retinopathy-dementia-trinetx-cohort</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -506,32 +571,6 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/diabetic-retinopathy-dementia-trinetx-cohort.png</image:loc>
       <image:title>Diabetic Retinopathy and Dementia — 2026 TriNetX Cohort</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons</loc>
-    <lastmod>2026-05-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/hzo-stromal-keratitis-zeds-lessons" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/hzo-stromal-keratitis-zeds-lessons" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/hzo-stromal-keratitis-zeds-lessons.png</image:loc>
-      <image:title>Recurrent Stromal Keratitis After HZO — 2026 ZEDS Lessons</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden</loc>
-    <lastmod>2026-05-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/ophthalmic-trauma-overlooked-burden" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/ophthalmic-trauma-overlooked-burden.png</image:loc>
-      <image:title>Ophthalmic Trauma — The Overlooked Cause of Blindness</image:title>
     </image:image>
   </url>
   <url>
@@ -558,32 +597,6 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/cataract-surgery-selection.png</image:loc>
       <image:title>Cataract Surgery Selection</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide</loc>
-    <lastmod>2026-05-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/cataract-comprehensive-guide.png</image:loc>
-      <image:title>Cataract Surgery — Patient Education</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review</loc>
-    <lastmod>2026-05-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/toric-iol-astigmatism-cataract-review.png</image:loc>
-      <image:title>Toric IOL for Cataract — Is It Worth It?</image:title>
     </image:image>
   </url>
   <url>
@@ -623,19 +636,6 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png</image:loc>
       <image:title>Glaucoma Treatment Selection</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease</loc>
-    <lastmod>2026-05-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png</image:loc>
-      <image:title>Thyroid Eye Disease — Patient Education</image:title>
     </image:image>
   </url>
 

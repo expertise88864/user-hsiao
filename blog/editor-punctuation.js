@@ -35,6 +35,6 @@ export function normalizeMetadataText(text) {
   for (const [pattern, replacement] of metadataPunctuationRules) text = text.replace(pattern, replacement);
   // Python's Chinese-context numbered-heading rule is absent from the older
   // HTML-save port. Apply it to plain Chinese fields, without changing English.
-  text = text.replace(/(?<=[\u4e00-\u9fff\s])(\d+):(\s|<|$)/g, '$1：$2');
+  text = text.replace(/([\u4e00-\u9fff]\s*\d+):(\s|<|$)/g, '$1：$2');
   return text;
 }

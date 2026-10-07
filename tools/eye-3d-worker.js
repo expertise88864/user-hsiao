@@ -162,7 +162,8 @@ self.onmessage = async (e) => {
 
   switch (m.type) {
     case 'init':
-      await init(m);
+      try { await init(m); }
+      catch (e) { self.postMessage({ type: 'error' }); }
       break;
     case 'resize':
       canvasW = m.width; canvasH = m.height;

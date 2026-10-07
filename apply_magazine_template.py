@@ -75,7 +75,7 @@ MAG_FOOTER = '''<!-- ============= MAGAZINE FOOTER (deep ink, editorial) =======
 
   <div class="mag-foot-disclaimer">
     <span class="mag-disc-tag">Disclaimer</span>
-    <p data-zh="本網站內容僅作為一般醫學教育與資訊參考,不構成個別醫療建議,亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告,亦不收受任何業配或贊助;依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。" data-en="All content is for general educational reference only, does not constitute individual medical advice, and cannot replace an in-person consultation. This site does not engage in medical advertising and does not endorse any clinic, hospital, drug, or procedure. Per Taiwan Medical Care Act §§85–86 and Physicians Act §17, individual outcomes vary; no result is guaranteed.">本網站內容僅作為一般醫學教育與資訊參考,不構成個別醫療建議,亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告,亦不收受任何業配或贊助;依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。</p>
+    <p data-zh="本網站內容僅作為一般醫學教育與資訊參考,不構成個別醫療建議,亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告,亦不收受任何業配或贊助;依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。" data-en="All content is for general medical education and informational reference; it is not individual medical advice and cannot replace an in-person consultation, examination or prescription. The Site does not engage in medical advertising or receive sponsorships. Under Taiwan Medical Care Act §§85–86 and Physicians Act §17, individual treatment outcomes vary and no result is guaranteed. Decisions about medication, stopping treatment, dose changes or seeking care must be guided by your treating physician.">本網站內容僅作為一般醫學教育與資訊參考,不構成個別醫療建議,亦不能取代面對面的問診、檢查與處方。本站不從事醫療廣告,亦不收受任何業配或贊助;依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。</p>
   </div>
 
   <div class="mag-foot-bot">

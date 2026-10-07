@@ -17,7 +17,7 @@ for(const row of rows) for(const lang of ['zh','en']) {
         webpage:schemas.find(node=>types(node).includes('MedicalWebPage'))
       };
     });
-    expect(metadata.modified).toBe('2026-10-04T00:00:00+08:00');
+    expect(metadata.modified).toBe((row.modifiedDate || '2026-10-04')+'T00:00:00+08:00');
     expect(metadata.article.dateModified).toBe(metadata.modified.slice(0,10));
     expect(metadata.webpage.dateModified).toBe(metadata.article.dateModified);
     expect(metadata.published.slice(0,10)).toBe(metadata.article.datePublished);
@@ -71,7 +71,7 @@ for(const row of rows) for(const lang of ['zh','en']) {
       const details=page.locator('.hs-full-summary'), original=details.locator('p.tldr');
       await expect(details).not.toHaveAttribute('open');await expect(original).toBeHidden();
       const pair=await original.evaluate(el=>[el.getAttribute('data-zh'),el.getAttribute('data-en')]);
-      expect(createHash('sha256').update(JSON.stringify(pair)).digest('hex')).toBe(row.originalPairSHA256);
+      expect(createHash('sha256').update(JSON.stringify(pair)).digest('hex')).toBe(row.approvedPairSHA256 || row.originalPairSHA256);
       expect(await opening.evaluate(el=>el.closest('details')===null)).toBe(true);
       if(row.slug==='glaucoma-comprehensive-guide') {
         const warning=page.locator('.hs-opening-warning');await expect(warning).toBeVisible();

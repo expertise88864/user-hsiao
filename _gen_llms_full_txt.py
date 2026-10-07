@@ -30,7 +30,7 @@ TAIL_RESERVE = 8 * 1024   # headroom for the overflow-links tail, so the
 _BLOCK = {
     'p', 'div', 'section', 'article', 'li', 'ul', 'ol', 'table', 'tr',
     'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'blockquote', 'figure',
-    'figcaption', 'header', 'footer', 'nav',
+    'figcaption', 'header', 'footer', 'nav', 'details', 'summary',
 }
 # Tags whose entire subtree we discard (non-prose / chrome / scripts).
 _SKIP_TREE = {'script', 'style', 'svg', 'noscript', 'template', 'select', 'button', 'form'}

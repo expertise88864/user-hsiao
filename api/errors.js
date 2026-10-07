@@ -19,6 +19,8 @@
  * silently drops to avoid log spam attacks.
  */
 
+import { telemetryExclusion } from './_telemetry.js';
+
 const RL = new Map();
 const RL_MAX = 60;
 const RL_WINDOW_MS = 60 * 1000;
@@ -49,6 +51,9 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'POST only' });
   }
+  // These are optional browser diagnostics, not the server's security logs.
+  // Do not collect Preview/editor/automation or opted-out reader reports.
+  if (telemetryExclusion(req)) return res.status(204).end();
   const ip = ipOf(req);
   if (!checkRl('ip:' + ip)) {
     return res.status(429).json({ error: 'rate limited' });

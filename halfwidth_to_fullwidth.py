@@ -73,7 +73,7 @@ RULES = [
     # "ratio 1:2", and "https://..." URLs even though URLs are stashed).
     (re.compile(rf'({CN}):(?![/\d])'),        rf'\g<1>{FW_COLN}'),
     # Number range with colon (e.g. "問題 1:") — Chinese-context heading
-    (re.compile(rf'(?<=[一-鿿\s])(\d+):(\s|<|$)'),       rf'\g<1>{FW_COLN}\g<2>'),
+    (re.compile(rf'({CN}\s*\d+):(\s|<|$)'),       rf'\g<1>{FW_COLN}\g<2>'),
     # 中!中 -> 中!中
     (re.compile(rf'({CN})!({CN})'),           rf'\g<1>{FW_EXCL}\g<2>'),
     # 中!尾 -> 中!尾

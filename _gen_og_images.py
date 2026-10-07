@@ -232,7 +232,7 @@ STATIC_OG_PAGES = [
      'title_en': 'HsiaoEye Ophthalmology Notes', 'tag': '首頁', 'tag_en': 'HOME', 'date': ''},
     {'slug': 'about',   'title': '關於 蕭閔謙 醫師 · 眼科住院醫師',
      'title_en': 'About Dr. Min-Chien Hsiao', 'tag': '關於', 'tag_en': 'ABOUT', 'date': ''},
-    {'slug': 'tools',   'title': '眼科自我評估工具 · OSDI / Snellen / 5 個計算機',
+    {'slug': 'tools',   'title': '眼科工具 · 乾眼症狀檢視 / 視力換算',
      'title_en': 'Ophthalmology Self-Assessment Tools', 'tag': '工具', 'tag_en': 'TOOLS', 'date': ''},
     {'slug': 'notes',   'title': '眼科學習筆記 · 住院醫師與醫學生',
      'title_en': 'Ophthalmology Study Notes', 'tag': '學習', 'tag_en': 'NOTES', 'date': ''},

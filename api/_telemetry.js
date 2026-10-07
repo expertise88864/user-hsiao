@@ -25,6 +25,13 @@ export function telemetryExclusion(req) {
     optOut: /(?:^|;\s*)hs_telemetry_optout=1(?:;|$)/.test(String(headers.cookie || '')),
   });
   if (reason) return reason;
+  // Authentication rejects malformed cookies without throwing. Preserve the
+  // existing exclusion instead of interpreting corrupt session data as a reader.
+  const session = String(headers.cookie || '').match(/(?:^|;\s*)hs_admin_session=([^;]*)/);
+  if (session) {
+    try { decodeURIComponent(session[1]); }
+    catch (e) { return 'invalid_session'; }
+  }
   try { return isAdminRequest(req) ? 'admin' : null; }
   catch (e) { return 'invalid_session'; }
 }

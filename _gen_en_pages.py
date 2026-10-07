@@ -48,8 +48,8 @@ STATIC_META = {
         'description': 'Profile of Min-Chien Hsiao, MD, an ophthalmology resident in Taiwan and author of HsiaoEye patient-education notes.'
     },
     '/en/tools': {
-        'title': 'Ophthalmology Calculators | HsiaoEye',
-        'description': 'Five ophthalmology self-education tools: OSDI, DEQ-5, Snellen to LogMAR conversion, spherical equivalent, and floater red-flag screening.'
+        'title': 'Ophthalmology Tools | HsiaoEye',
+        'description': 'Five ophthalmology education tools: a custom six-question dry-eye symptom check, DEQ-5, vision conversion, spherical equivalent, and floater warning signs. The six-question check is not validated OSDI and cannot diagnose or grade severity.'
     },
     '/en/notes': {
         'title': 'Ophthalmology Study Notes | HsiaoEye',
@@ -307,7 +307,7 @@ def localize_static_page_jsonld(data, title, desc, en_canonical):
             out['url'] = page_url
             out['inLanguage'] = 'en'
 
-        if type_names & {'Blog', 'CollectionPage', 'MedicalWebPage', 'WebPage'}:
+        if type_names & {'Blog', 'CollectionPage', 'MedicalWebPage', 'WebPage', 'WebApplication'}:
             if 'name' in out:
                 out['name'] = title_clean
             if desc and 'description' in out:
@@ -315,6 +315,28 @@ def localize_static_page_jsonld(data, title, desc, en_canonical):
             if 'url' in out:
                 out['url'] = page_url
             if 'inLanguage' in out:
+                out['inLanguage'] = 'en'
+
+        if en_canonical == '/en/tools':
+            if 'ItemList' in type_names:
+                out['name'] = 'HsiaoEye ophthalmology education and calculation tools'
+                names = {
+                    'osdi': 'Dry-eye symptom check (6 questions)',
+                    'deq5': 'DEQ-5 dry-eye screening (5 questions)',
+                    'snellen': 'Snellen to LogMAR vision conversion',
+                    'se': 'Spherical equivalent calculation',
+                    'floater': 'Floater warning-sign check',
+                }
+                for item in out.get('itemListElement', []):
+                    if isinstance(item, dict):
+                        anchor = str(item.get('url', '')).rsplit('#', 1)[-1]
+                        if anchor in names:
+                            item['name'] = names[anchor]
+            if 'SoftwareApplication' in type_names and str(out.get('@id', '')).endswith('/tools#osdi'):
+                out['name'] = 'Dry-eye symptom check (6 questions)'
+                out['alternateName'] = 'Custom six-question symptom organizer'
+                out['description'] = ('This custom six-question organizer summarizes symptom frequency over the past week. '
+                                      'It is not the validated 12-item OSDI and cannot diagnose or grade dry-eye severity.')
                 out['inLanguage'] = 'en'
 
         if 'ItemList' in type_names and en_canonical in {'/en/blog', '/en/blog/topics'}:
@@ -711,12 +733,16 @@ def _swap_inner_to_english(html_str):
             prose_changed = prose_changed or block.get('style') != new_style
             block['style'] = new_style
     swaps = 0
-    # The generated filter owns paired placeholder attributes as well as text.
-    # Localize only this helper; authored form placeholders remain untouched.
-    for field in soup.select('#hs-blog-filter input[data-zh-placeholder][data-en-placeholder]'):
+    # Localize the site's search helpers; preserve arbitrary author form fields.
+    for field in soup.select('#hs-search-input[data-zh-placeholder][data-en-placeholder], #hs-blog-search[data-zh-placeholder][data-en-placeholder]'):
         value = field.get('data-en-placeholder', '')
         if value.strip() and field.get('placeholder') != value:
             field['placeholder'] = value
+            swaps += 1
+    for field in soup.select('#hs-search-input[data-zh-aria-label][data-en-aria-label], #hs-blog-search[data-zh-aria-label][data-en-aria-label]'):
+        value = field.get('data-en-aria-label', '')
+        if value.strip() and field.get('aria-label') != value:
+            field['aria-label'] = value
             swaps += 1
     for el in soup.select('[data-zh][data-en]'):
         en_val = el.get('data-en', '')

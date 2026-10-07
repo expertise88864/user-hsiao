@@ -21,8 +21,10 @@ function sign(value, secret) {
 
 function getSessionFromReq(req) {
   const cookieHeader = req.headers.cookie || '';
-  const m = cookieHeader.match(new RegExp(`${SESSION_COOKIE}=([^;]+)`));
-  return m ? decodeURIComponent(m[1]) : null;
+  const m = cookieHeader.match(new RegExp(`(?:^|;\\s*)${SESSION_COOKIE}=([^;]+)`));
+  if (!m) return null;
+  try { return decodeURIComponent(m[1]); }
+  catch (e) { return null; }
 }
 
 function verifySessionToken(token, secret) {

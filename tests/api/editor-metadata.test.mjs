@@ -30,6 +30,15 @@ test('plain metadata normalization handles field boundaries and literal markup w
   assert.equal(normalizeMetadataText(normalizeMetadataText('中文?')),'中文？');
 });
 
+test('mixed-language metadata preserves English numbered labels at the authenticated save boundary', () => {
+  const descriptionZh = '中文摘要 · Outcome 1: unchanged · Day 1: follow-up';
+  assert.equal(normalizeMetadataText(descriptionZh), descriptionZh);
+  assert.deepEqual(readEditorMetadata('<head>' + marker({ descriptionZh }) + '</head>'),
+    { version: 1, descriptionZh });
+  assert.equal(normalizeMetadataText('結果 12: 中文內容'), '結果 12： 中文內容');
+  assert.equal(normalizeMetadataText('結果12: 中文內容'), '結果12： 中文內容');
+});
+
 test('actual save handler reads catalog revision, rejects stale title changes, and atomically accepts current title changes', async () => {
   const oldFetch=globalThis.fetch, oldToken=process.env.GITHUB_TOKEN, oldPassword=process.env.ADMIN_PASSWORD;
   process.env.GITHUB_TOKEN='fixture';process.env.ADMIN_PASSWORD='fixture-password';

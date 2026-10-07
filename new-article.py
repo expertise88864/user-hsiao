@@ -223,10 +223,12 @@ def main():
           f"tag:'{args.tag_zh}', tag_en:'{args.tag_en}', date:'{args.date}' }},")
     print('  3. Add article cards on index.html / blog/index.html / blog/topics.html.')
     print('  4. Generate the OG card:        python _gen_og_images.py')
-    print('  5. Regenerate the build chain:  python halfwidth_to_fullwidth.py && '
-          'python _gen_feeds.py && python _gen_related.py && '
-          'python _gen_en_pages.py && python _gen_csp_hashes.py')
-    print('  6. Bump the cache stamp in admin.html + 6 articles + sw.js CACHE.')
+    print('  5. Bump the current site-wide asset/cache epoch with '
+          'python _bump_cache_version.py <old> <new>, then run npm run minify.')
+    print('  6. Run the complete authoritative build chain in AGENTS.md '
+          'and python preflight.py; verify a second generation pass is stable.')
+    print('  7. Follow REMOTE_CI_DELIVERY.md: independent review, candidate CI/'
+          'Preview/visual acceptance, then verified normal main delivery.')
 
 
 if __name__ == '__main__':

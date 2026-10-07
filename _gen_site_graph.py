@@ -22,7 +22,7 @@ LOGO_ID = f'{DOMAIN}/#logo'
 ZH_PARTS = [
     ('CollectionPage', '/blog', '眼科文章', 'HsiaoEye 眼科衛教文章索引，收錄乾眼、近視、白內障、青光眼與視網膜警訊'),
     ('CollectionPage', '/blog/topics', '主題地圖', '依疾病、症狀與手術主題瀏覽 HsiaoEye 眼科衛教文章'),
-    ('WebApplication', '/tools', '眼科工具', 'OSDI、DEQ-5、視力換算、等效球面與飛蚊警訊工具'),
+    ('WebApplication', '/tools', '眼科工具', '六題乾眼症狀檢視、DEQ-5、視力換算、等效球面與飛蚊警訊工具'),
     ('CollectionPage', '/notes', '學習筆記', '眼科住院醫師整理的深入閱讀筆記、臨床決策與文獻摘要'),
     ('ProfilePage', '/about', '關於蕭閔謙醫師', 'HsiaoEye 作者與醫療內容審閱者蕭閔謙醫師的個人簡介'),
     ('WebPage', '/privacy', '隱私權政策', 'HsiaoEye 對資料使用、分析工具、第三方服務與隱私保護的說明'),
@@ -31,7 +31,7 @@ ZH_PARTS = [
 EN_PARTS = [
     ('CollectionPage', '/en/blog', 'Ophthalmology Articles', 'Bilingual ophthalmology patient-education article index'),
     ('CollectionPage', '/en/blog/topics', 'Topic Map', 'Browse articles by ophthalmology topic'),
-    ('WebApplication', '/en/tools', 'Ophthalmology Tools', 'OSDI, DEQ-5, vision conversion, spherical equivalent, and floater red-flag tools'),
+    ('WebApplication', '/en/tools', 'Ophthalmology Tools', 'Six-item dry-eye symptom check, DEQ-5, vision conversion, spherical equivalent, and floater red-flag tools'),
     ('CollectionPage', '/en/notes', 'Study Notes', 'Ophthalmology study notes for clinicians and learners'),
     ('ProfilePage', '/en/about', 'About Dr. Min-Chien Hsiao', 'Author and medical reviewer profile'),
     ('WebPage', '/en/privacy', 'Privacy Policy', 'Privacy, analytics, and data-use policy'),

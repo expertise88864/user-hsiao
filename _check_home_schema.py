@@ -111,9 +111,10 @@ def audit_home(
             errors.append(f"{rel}: Physician schema should also include Person")
         if person.get("url") != physician_url:
             errors.append(f"{rel}: Physician url mismatch")
-        works_for = person.get("worksFor")
-        if not isinstance(works_for, dict) or works_for.get("@type") != "MedicalOrganization" or not works_for.get("name"):
-            errors.append(f"{rel}: Physician worksFor should be a named MedicalOrganization")
+        # D-08 permits the author's education but forbids publishing their
+        # employer/training institution. Schema is public content too.
+        if "worksFor" in person:
+            errors.append(f"{rel}: Physician worksFor discloses an employer forbidden by D-08")
         if not isinstance(person.get("knowsAbout"), list) or len(person.get("knowsAbout", [])) < 5:
             errors.append(f"{rel}: Physician knowsAbout should cover core topics")
         if ref_id(person.get("mainEntityOfPage")) != profile_page_id:

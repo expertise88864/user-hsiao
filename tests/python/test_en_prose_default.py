@@ -8,6 +8,19 @@ from _gen_en_pages import _swap_inner_to_english
 
 
 class EnglishProseDefault(unittest.TestCase):
+    def test_explicit_paired_search_accessibility_attributes_translate_without_touching_unpaired_inputs(self):
+        source = ('<body><input id="hs-search-input" placeholder="搜尋" aria-label="搜尋文章" '
+                  'data-zh-placeholder="搜尋" data-en-placeholder="Search" '
+                  'data-zh-aria-label="搜尋文章" data-en-aria-label="Search articles">'
+                  '<input id="unpaired" placeholder="作者文字" aria-label="作者標籤"></body>')
+        result = _swap_inner_to_english(source)
+        soup = BeautifulSoup(result, 'html.parser')
+        self.assertEqual(soup.find(id='hs-search-input')['placeholder'], 'Search')
+        self.assertEqual(soup.find(id='hs-search-input')['aria-label'], 'Search articles')
+        self.assertEqual(soup.find(id='unpaired')['placeholder'], '作者文字')
+        self.assertEqual(soup.find(id='unpaired')['aria-label'], '作者標籤')
+        self.assertEqual(_swap_inner_to_english(result), result)
+
     def test_table_instruction_is_english_and_untranslated_table_keeps_chinese(self):
         source = ('<body><div class="hs-table-reader"><p class="hs-table-hint" id="table-hint" '
                   'data-zh="表格可左右捲動" data-en="Scroll horizontally">表格可左右捲動</p>'
