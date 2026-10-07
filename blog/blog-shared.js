@@ -3171,7 +3171,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260709';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260710';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3615,11 +3615,19 @@
       }
       return;
     }
-    fetch('/api/ab-config', { cache: 'force-cache' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .catch(function () { return null; })
-      .then(function (data) {
-        if (!data || !data.tests) return;
+    // Activation and idle initialization can overlap. Share one successful
+    // configuration per document; failed requests remain retryable.
+    if (!DN._abConfigRequest) {
+      var request = fetch('/api/ab-config', { cache: 'force-cache' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+      DN._abConfigRequest = request;
+      request.then(function (data) {
+        if ((!data || !data.tests) && DN._abConfigRequest === request) DN._abConfigRequest = null;
+      });
+    }
+    return DN._abConfigRequest.then(function (data) {
+        if (!data || !data.tests || (DN.isAdminMode && DN.isAdminMode())) return;
         Object.keys(data.tests).forEach(function (id) {
           try {
             var cfg = data.tests[id];
@@ -3810,7 +3818,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260709';
+    s.src = '/blog/blog-admin.js?v=20260710';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

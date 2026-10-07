@@ -7,7 +7,7 @@ const slug = 'dry-eye-myths';
 const mime = { '.html':'text/html; charset=utf-8', '.js':'text/javascript', '.css':'text/css', '.svg':'image/svg+xml', '.json':'application/json' };
 test.use({ serviceWorkers:'block' });
 
-for (const newerInput of [false, true]) test(`late reader initialization preserves saved source and actual pending input, newer=${newerInput}`, async ({ page }) => {
+for (const oldCache of [false, true]) for (const newerInput of [false, true]) test(`late reader initialization preserves saved source and actual pending input, newer=${newerInput}, oldCache=${oldCache}`, async ({ page }) => {
   const { default:middleware } = await new Function('url','return import(url)')('data:text/javascript;base64,'+
     Buffer.from(readFileSync(path.join(root,'middleware.js'),'utf8')).toString('base64'));
   const original = readFileSync(path.join(root,'blog',slug+'.html'),'utf8');
@@ -62,9 +62,19 @@ for (const newerInput of [false, true]) test(`late reader initialization preserv
     if (u.pathname.startsWith('/blog/') && file.endsWith('.html')) headers['Content-Security-Policy'] = middleware(new Request(u.href)).headers.get('Content-Security-Policy');
     return route.fulfill({ body:readFileSync(file), contentType:mime[path.extname(file)]||'application/octet-stream', headers });
   });
-  let loads=0;
-  page.on('framenavigated', frame => { if (frame === page.mainFrame() && frame.url() === origin+'/admin') loads++; });
-  await page.goto(origin+'/admin');await expect.poll(()=>loads).toBe(2);
+  if (oldCache) {
+    await page.goto(origin+'/icon.svg');
+    await page.evaluate(async () => {
+      localStorage.setItem('hs:siteVer','old');
+      await caches.open('old-editor-fixture');
+    });
+  }
+  const documents=[];
+  page.on('request', request => { if (request.isNavigationRequest() && request.frame() === page.mainFrame()) documents.push(request.url()); });
+  await page.goto(origin+'/admin');
+  await expect.poll(()=>documents.length).toBe(oldCache ? 2 : 1);
+  await page.waitForFunction(() => localStorage.getItem('hs:siteVer') === new URL(document.querySelector('script[src*="trusted-types.js"]').src).searchParams.get('v'));
+  expect(await page.evaluate(()=>caches.keys())).not.toContain('old-editor-fixture');
   await page.waitForFunction(()=>typeof openEditor==='function' && LOGGED_IN);
   await page.evaluate(s=>openEditor(s),slug);
   const frame = page.frameLocator('#edit-iframe');

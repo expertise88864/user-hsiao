@@ -112,6 +112,21 @@ test('prerender sends nothing until activation; GA4 config and vitals registrati
   await expect(page.locator('script[src*="assets/vitals.min.js"]')).toHaveCount(1);
   await expect.poll(() => requests.abEvents.filter(event => event.event === 'exposure').length).toBe(1);
   expect(requests.filter(url => url === '/api/ab-config')).toHaveLength(1);
+  const extraConfigRequests = await page.evaluate(async () => {
+    const original = window.fetch;
+    let requests = 0;
+    window.fetch = function (url, options) {
+      if (new URL(url, location.href).pathname === '/api/ab-config') requests++;
+      return original.call(this, url, options);
+    };
+    try {
+      await Promise.all([DN.applyAbConfig(), DN.applyAbConfig()]);
+      return requests;
+    } finally { window.fetch = original; }
+  });
+  expect(extraConfigRequests).toBe(0);
+  expect(requests.filter(url => url === '/api/ab-config')).toHaveLength(1);
+  expect(requests.abEvents.filter(event => event.event === 'exposure')).toHaveLength(1);
   await page.evaluate(() => DN.abConvert('prerender-fixture', 'click'));
   await expect.poll(() => requests.abEvents.length).toBe(2);
   expect(requests.abEvents.map(event => event.event)).toEqual(['exposure', 'click']);
