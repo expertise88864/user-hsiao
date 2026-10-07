@@ -7,7 +7,13 @@
 >
 > 現況判定基準：commit `66745a6`（2026-06，cache-bust `v=20260664`），閘門 `_check_all.py --quick` = **59 pass / 0 warn / 0 fail**。
 
-## 2026-10-01 候選驗證範圍
+## 2026-10-07 完整累積結案基準
+
+第二輪完整累積範圍 `d37aa48d4f663db2b543be095de0e4e40f2518c4..916f177441d44c770a64c1389c2716dec997c782`（249 路徑）已完成精確 Claude Code `claude-opus-5-5/high`、Read/Glob/Grep 與獨立 Codex `gpt-5.6-sol/high/read-only` 審查，修正後最終 APPROVE；68 筆歷史 pending 已逐筆 exact audit 結案。候選、正式 CI、部署與 smoke 另有證據，見 [交付結案紀錄](DELIVERY-CLOSURE-20261007.md)。下文各日期的未完成事項、數量及環境限制均是其當時快照，不能代替新 SHA 驗收。
+
+該次閱讀／編輯／內容驗收為具名範圍，不宣稱所有未改 API、舊醫療段落或人工 WCAG 任務均已逐行／逐字完成。P-07 的 field LCP／CLS、低樣本 INP、沒有正數列的 `related_click` 與 S-05 仍保留限制。後續審查聚焦實際新完整差異及必要依賴；真正未改且已完整核可的範圍沿用證據，不重新耗用模型額度。
+
+## 歷史 2026-10-01 候選驗證範圍
 
 目前來源包含 20 篇 canonical、31 張原始 SVG 的原生放大控制、獨立鍵盤捲動區及雙語操作提示；原醫療文字、數值、SVG 與 URL 保持。英文鏡像仍由生成器產生，未翻譯的圖不宣稱為英文圖。操作提示排除於 FAQ、搜尋及正文匯出；編輯器保存恢復驗證過的原控制來源。詳見 `READER-EXPERIENCE.md`。
 
