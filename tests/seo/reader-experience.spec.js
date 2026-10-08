@@ -22,7 +22,7 @@ for (const prefix of ['', '/en']) {
 }
 
 for (const prefix of ['', '/en']) {
- for (const slug of ['glaucoma-comprehensive-guide','cataract-surgery-selection','dry-eye-symptom-sign-discordance-dream']) {
+ for (const slug of ['glaucoma-comprehensive-guide','cataract-surgery-selection','dry-eye-symptom-sign-discordance-dream','cataract-comprehensive-guide']) {
   test(`mobile question shortcuts reach visible sections: ${prefix}/${slug}`, async ({ page }) => {
     await page.setViewportSize({width:390,height:844});
     await page.goto(prefix + '/blog/' + slug);
@@ -53,6 +53,31 @@ test('related reads lead to the same disease; automated local visits do not coll
   await expect(page.locator('script[src*="assets/vitals.min.js"]')).toHaveCount(0);
 });
 
+for (const prefix of ['', '/en']) {
+ for (const width of [360, 390, 768, 1440]) {
+  test(`cataract answers are keyboard reachable without JavaScript: ${prefix || 'zh'} ${width}`, async ({ browser }) => {
+    const context = await browser.newContext({javaScriptEnabled:false, viewport:{width,height:900}});
+    const page = await context.newPage();
+    try {
+      await page.goto(test.info().project.use.baseURL + prefix + '/blog/cataract-comprehensive-guide');
+      const nav = page.getByRole('navigation', {name:prefix ? 'Choose what you want to understand' : '依照你的問題閱讀',exact:true});
+      await expect(nav).toBeVisible();
+      expect((await nav.boundingBox()).y).toBeLessThan(750);
+      for (const id of ['surgical-methods','iol','postop','complications']) {
+        const link = nav.locator(`a[href="#${id}"]`);
+        await link.focus();
+        await page.keyboard.press('Enter');
+        await expect(page).toHaveURL(new RegExp('#' + id + '$'));
+        await expect(page.locator('#' + id)).toBeInViewport();
+      }
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    } finally {
+      await context.close();
+    }
+  });
+ }
+}
+
 test('search synonyms and a useful empty state work in the shipped bundle', async ({ page }) => {
   await page.route('**/api/search-log', route => route.fulfill({status:204}));
   await page.goto('/');
@@ -64,7 +89,7 @@ test('search synonyms and a useful empty state work in the shipped bundle', asyn
 });
 
 
-for (const [route, selector] of [['/', '.hs-reading-lanes'], ['/blog/glaucoma-comprehensive-guide', '.hs-reading-path']]) {
+for (const [route, selector] of [['/', '.hs-reading-lanes'], ['/blog/glaucoma-comprehensive-guide', '.hs-reading-path'], ['/blog/cataract-comprehensive-guide', '.hs-reading-path'], ['/en/blog/cataract-comprehensive-guide', '.hs-reading-path']]) {
   test(`reading links remain accessible in dark mode: ${route}`, async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark' });
     await page.goto(route);
