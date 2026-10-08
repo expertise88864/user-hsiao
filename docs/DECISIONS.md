@@ -39,6 +39,7 @@
 - **理由**：薄頁被索引是年輕 YMYL 站的品質負債。
 - **錨**：`9303014`。
 - **重開條件**：/notes 寫出實質內容後 → 反向操作全部三處 + 恢復 sitemap，一次做完。
+- **2026-10-09 入口整理**：連到既有已發布研究，不等於新增完整課程；維持 noindex 與 sitemap 邊界。移除 Course、課程時長與資格標記，保留 CollectionPage 與導覽關聯。
 
 ### D-03 兩篇佔位文 301 轉址到完整指南
 - **決策**：`/blog/cataract-surgery-faq` → `/blog/cataract-comprehensive-guide`、`/blog/glaucoma-warnings` → `/blog/glaucoma-comprehensive-guide`（含 `/en/` 鏡像，共 4 條，`vercel.json` redirects，301）。

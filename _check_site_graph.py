@@ -39,7 +39,6 @@ STATIC_EXPECTED = {
         'website_id': f'{DOMAIN}/#website',
         'page_types': {'CollectionPage'},
         'page_id_suffix': '#webpage',
-        'main_entity': '#course',
     },
     'privacy.html': {
         'path': '/privacy',
@@ -66,7 +65,6 @@ STATIC_EXPECTED = {
         'website_id': f'{DOMAIN}/en#website',
         'page_types': {'CollectionPage'},
         'page_id_suffix': '#webpage',
-        'main_entity': '#course',
     },
     'en/privacy.html': {
         'path': '/en/privacy',
@@ -97,11 +95,28 @@ def jsonld_blocks(path: Path) -> list[dict]:
         data = json.loads(raw.strip())
         if isinstance(data, dict):
             out.append(data)
+        elif isinstance(data, list):
+            out.extend(item for item in data if isinstance(item, dict))
     return out
 
 
 def ref_id(value) -> str:
     return str(value.get('@id') or '') if isinstance(value, dict) else str(value or '')
+
+
+def has_course_claim(value) -> bool:
+    """Notes are a reading collection, not a course or credential offering."""
+    if isinstance(value, dict):
+        if type_names(value) & {'Course', 'CourseInstance'}:
+            return True
+        if {'courseWorkload', 'educationalCredentialAwarded'} & value.keys():
+            return True
+        if str(value.get('@id', '')).endswith('#course'):
+            return True
+        return any(has_course_claim(child) for child in value.values())
+    if isinstance(value, list):
+        return any(has_course_claim(child) for child in value)
+    return isinstance(value, str) and value.endswith('#course')
 
 
 def audit(rel: str, expected: dict[str, object]) -> list[str]:
@@ -159,6 +174,8 @@ def audit_static(rel: str, expected: dict[str, object]) -> list[str]:
         return [f'{rel}: JSON-LD parse error: {exc}']
 
     page_path = str(expected['path'])
+    if page_path in {'/notes', '/en/notes'} and has_course_claim(blocks):
+        errors.append(f'{rel}: study-note collection must not claim a course, duration or credential')
     page_url = f'{DOMAIN}{page_path}'
     page_id = f"{page_url}{expected['page_id_suffix']}"
     breadcrumb_id = f'{page_url}#breadcrumb'

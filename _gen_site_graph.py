@@ -55,7 +55,6 @@ STATIC_PAGE_TARGETS = [
         'website_id': f'{DOMAIN}/#website',
         'page_types': {'CollectionPage'},
         'breadcrumb': [('首頁', '/'), ('學習筆記', '/notes')],
-        'main_entity': '#course',
     },
     {
         'rel': 'privacy.html',
@@ -91,7 +90,6 @@ STATIC_PAGE_TARGETS = [
         'website_id': f'{DOMAIN}/en#website',
         'page_types': {'CollectionPage'},
         'breadcrumb': [('Home', '/en'), ('Study Notes', '/en/notes')],
-        'main_entity': '#course',
     },
     {
         'rel': 'en/privacy.html',

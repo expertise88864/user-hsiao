@@ -11,7 +11,13 @@
     "/blog/pediatric-myopia-control",
     "/blog/glaucoma-comprehensive-guide",
     "/blog/cataract-comprehensive-guide",
-    "/en/blog/cataract-comprehensive-guide"
+    "/en/blog/cataract-comprehensive-guide",
+    "/notes",
+    "/en/notes",
+    "/about",
+    "/en/about",
+    "/blog/topics",
+    "/en/blog/topics"
   ],
   "workflows": [
     {

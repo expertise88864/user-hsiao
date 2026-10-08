@@ -1130,3 +1130,7 @@ details[open] > summary ~ * {
   background:var(--surface) !important;
   color:var(--ink) !important;
 }
+
+/* Reading-information contrast. */
+[data-theme="dark"] .hs-reader-info { --teal-deep:var(--hs-link-ink); }
+.hs-reader-info .mag-footer { --ink:#2a2620; --bg:#faf7f2; --teal-bright:#a4c4dd; }

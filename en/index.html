@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script src="/assets/trusted-types.js?v=20260712"></script>
+<script src="/assets/trusted-types.js?v=20260713"></script>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260712';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var stale=!!(sw&&navigator.serviceWorker.controller);function settle(task){return Promise.resolve().then(task).catch(function(){stale=true})}var j=[];if(sw)j.push(settle(function(){return navigator.serviceWorker.getRegistrations().then(function(rs){if(rs.length)stale=true;return Promise.all(rs.map(function(r){return settle(function(){return r.unregister()})}))})}));if(ch)j.push(settle(function(){return caches.keys().then(function(ks){if(ks.length)stale=true;return Promise.all(ks.map(function(k){return settle(function(){return caches.delete(k)})}))})}));Promise.all(j).then(function(){try{localStorage.setItem('hs:siteVer',T);if(stale)location.reload()}catch(e){}})}catch(e){}})();
+(function(){var T='20260713';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var stale=!!(sw&&navigator.serviceWorker.controller);function settle(task){return Promise.resolve().then(task).catch(function(){stale=true})}var j=[];if(sw)j.push(settle(function(){return navigator.serviceWorker.getRegistrations().then(function(rs){if(rs.length)stale=true;return Promise.all(rs.map(function(r){return settle(function(){return r.unregister()})}))})}));if(ch)j.push(settle(function(){return caches.keys().then(function(ks){if(ks.length)stale=true;return Promise.all(ks.map(function(k){return settle(function(){return caches.delete(k)})}))})}));Promise.all(j).then(function(){try{localStorage.setItem('hs:siteVer',T);if(stale)location.reload()}catch(e){}})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -73,10 +73,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260712" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260713" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260712">
+<link rel="stylesheet" href="/assets/app.css?v=20260713">
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -315,7 +315,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 
 
 
-<script defer src="/assets/telemetry.js?v=20260712"></script>
+<script defer src="/assets/telemetry.js?v=20260713"></script>
 </head>
 <body class="home font-sans antialiased text-ink-900"><style>.hs-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.hs-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.hs-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.hs-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav aria-label="Skip navigation" class="hs-skiplinks"><a data-en="Skip to main content" data-zh="跳至主要內容" href="#main-content">Skip to main content</a><a data-en="Skip to subscribe" data-zh="跳至訂閱" href="#dn-subscribe">Skip to subscribe</a></nav><a class="skip-to-main" data-en="Skip to main content" data-zh="跳至主要內容" href="#main-content">Skip to main content</a>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -343,7 +343,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 </div>
 </div>
 </header>
-<div id="hs-en-banner" style="background:linear-gradient(180deg,#e3edf6,#b8cfe3);border-bottom:1px solid #3a5a7c;padding:9px 18px;text-align:center;font-size:12.5px;color:#243b56;font-family:Inter,system-ui,sans-serif;line-height:1.5;font-weight:500">
+<div aria-label="Language information" id="hs-en-banner" role="region" style="background:linear-gradient(180deg,#e3edf6,#b8cfe3);border-bottom:1px solid #3a5a7c;padding:9px 18px;text-align:center;font-size:12.5px;color:#243b56;font-family:Inter,system-ui,sans-serif;line-height:1.5;font-weight:500">
   You are reading the English-mode interface. Some article body content is currently Chinese-only; full translation is in progress.
   <a href="#" id="hs-en-banner-zh" style="margin-left:8px;color:#0f172a;font-weight:700;text-decoration:underline">Switch to Chinese</a>
 </div>
@@ -738,12 +738,12 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document
 <div id="hs-read-progress"></div>
 </section>
 <hr class="sep">
-<!-- HOMEPAGE FAQ — 民眾搜尋最多的眼科問題 -->
+<!-- HOMEPAGE FAQ — 常見眼科問題 -->
 <section class="py-10 cv-auto-tall">
 <div class="max-w-3xl mx-auto px-5 sm:px-8">
 <div class="text-[11px] uppercase tracking-[.24em] font-semibold" data-en="Frequently Asked" data-zh="常見問題" style="color:var(--blue-deep)">Frequently Asked</div>
-<h2 class="font-display font-bold text-[26px] sm:text-[32px] mt-3 leading-tight" data-en="The 15 most-searched ophthalmology questions" data-zh="民眾搜尋最多的 15 個眼科問題">The 15 most-searched ophthalmology questions</h2>
-<p class="mt-3 text-[14px] leading-[1.85]" data-en="Click any question to expand. Each links to a full deep-dive article." data-zh="點擊問題展開答案。每題都有對應的詳細衛教文章可深入閱讀。" style="color:var(--ink-2)">Click any question to expand. Each links to a full deep-dive article.</p>
+<h2 class="font-display font-bold text-[26px] sm:text-[32px] mt-3 leading-tight" data-en="15 common ophthalmology questions" data-zh="15 個常見眼科問題">15 common ophthalmology questions</h2>
+<p class="mt-3 text-[14px] leading-[1.85]" data-en="Click a question to expand its answer. Some answers link to a detailed article for further reading." data-zh="點擊問題展開答案；部分答案附有詳細衛教文章連結，可深入閱讀。" style="color:var(--ink-2)">Click a question to expand its answer. Some answers link to a detailed article for further reading.</p>
 <div class="home-faq mt-6">
 <details class="hf"><summary data-en="Do artificial tears make eyes drier? Will I become dependent?" data-zh="點人工淚液會越點越乾嗎？會依賴嗎？">Do artificial tears make eyes drier? Will I become dependent?</summary><div class="ans" data-en='No &mdash; what actually damages eyes is the &lt;strong&gt;BAK preservative&lt;/strong&gt; inside (in nearly all multi-dose bottles). For more than 4 uses/day, switch to &lt;strong&gt;preservative-free&lt;/strong&gt; single-dose vials. The "I need them more and more" feeling comes from underlying meibomian gland dysfunction (MGD) progressing &mdash; not the drops themselves. Full read: &lt;a href="/blog/dry-eye-myths"&gt;8 Dry-Eye Myths&lt;/a&gt;.' data-zh='不會 &mdash; 真正會傷眼的是裡面的 &lt;strong&gt;BAK 防腐劑&lt;/strong&gt;（多劑型瓶裝幾乎都有）。一天使用 4 次以上請選 &lt;strong&gt;preservative-free&lt;/strong&gt;（無防腐劑）單支裝。所謂「越點越要點」其實是底層的瞼板腺機能障礙（MGD）持續惡化，不是淚液造成。完整看 &lt;a href="/blog/dry-eye-myths"&gt;乾眼症 8 大迷思&lt;/a&gt;。'>No &mdash; what actually damages eyes is the <strong>BAK preservative</strong> inside (in nearly all multi-dose bottles). For more than 4 uses/day, switch to <strong>preservative-free</strong> single-dose vials. The "I need them more and more" feeling comes from underlying meibomian gland dysfunction (MGD) progressing &mdash; not the drops themselves. Full read: <a href="/blog/dry-eye-myths">8 Dry-Eye Myths</a>.</div></details>
 <details class="hf"><summary data-en="If my eyes water all day, can it still be dry eye?" data-zh="眼睛狂流淚就一定不是乾眼嗎？">If my eyes water all day, can it still be dry eye?</summary><div class="ans" data-en='Opposite &mdash; reflex tearing is the textbook sign of &lt;strong&gt;evaporative DED&lt;/strong&gt; (85% of dry eye). Insufficient lipid layer &rarr; fast evaporation &rarr; trigeminal reflex &rarr; accessory lacrimal flood of "watery tears". Patients tear AND feel dry/burning/blurry simultaneously. See &lt;a href="/blog/dry-eye-myths"&gt;8 Dry-Eye Myths&lt;/a&gt;.' data-zh='恰好相反 &mdash; 狂流淚反而是&lt;strong&gt;蒸發型乾眼&lt;/strong&gt;(85% 乾眼屬此型）的典型表現。淚膜油脂層不足 &rarr; 蒸發太快 &rarr; 三叉神經反射 &rarr; 副淚腺爆量分泌「水樣淚」。患者會一邊狂流淚、一邊覺得乾刺糊。詳見 &lt;a href="/blog/dry-eye-myths"&gt;乾眼症 8 大迷思&lt;/a&gt;。'>Opposite &mdash; reflex tearing is the textbook sign of <strong>evaporative DED</strong> (85% of dry eye). Insufficient lipid layer &rarr; fast evaporation &rarr; trigeminal reflex &rarr; accessory lacrimal flood of "watery tears". Patients tear AND feel dry/burning/blurry simultaneously. See <a href="/blog/dry-eye-myths">8 Dry-Eye Myths</a>.</div></details>
@@ -843,7 +843,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script defer src="/blog/blog-shared.min.js?v=20260712"></script>
+<script defer src="/blog/blog-shared.min.js?v=20260713"></script>
 <script>document.addEventListener('DOMContentLoaded',function(){
   if(window.DN)DN.initBlog({});
   // Quick-find chip filter wiring (mirrors DermNotes main site).
