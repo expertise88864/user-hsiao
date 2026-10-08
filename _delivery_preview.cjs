@@ -15,27 +15,31 @@ const { captureEditorTasks } = require('./scripts/preview-editor-tasks.cjs');
   const browser = await chromium.launch();
   try {
     for (const width of [390, 1440]) {
-      const context = await browser.newContext({ viewport: { width, height: 900 }, locale: 'zh-TW' });
-      try {
-        await context.addCookies(cookies);
-        if (width === 390) {
-          const identity = await verifyRuntimeIdentity(context.request, base.href,
-            process.env.GITHUB_SHA, policy.repository);
-          fs.writeFileSync('delivery-preview/runtime-identity.json', JSON.stringify({
-            checkedAt: new Date().toISOString(), preview: base.origin, ...identity,
-          }, null, 2));
-        }
-        for (const [index, route] of policy.preview_paths.entries()) {
+      for (const [index, route] of policy.preview_paths.entries()) {
+        // Each route represents a first visit; prior routes must not seed preferences.
+        const context = await browser.newContext({ viewport: { width, height: 900 }, locale: 'zh-TW' });
+        try {
+          await context.addCookies(cookies);
+          if (width === 390 && index === 0) {
+            const identity = await verifyRuntimeIdentity(context.request, base.href,
+              process.env.GITHUB_SHA, policy.repository);
+            fs.writeFileSync('delivery-preview/runtime-identity.json', JSON.stringify({
+              checkedAt: new Date().toISOString(), preview: base.origin, ...identity,
+            }, null, 2));
+          }
           const page = await context.newPage();
           const errors = [];
           page.on('pageerror', e => errors.push(e.message));
           const response = await page.goto(new URL(route, base).href, { waitUntil: 'load' });
           await verifyContent(page, base.href, route, response);
+          assert.match(await page.locator('html').getAttribute('lang'),
+            route.startsWith('/en/') ? /^en(?:-|$)/i : /^zh(?:-|$)/i,
+            'Preview language must match the first-visit route');
           await page.screenshot({ path: 'delivery-preview/' + width + '-' + index + '.png', fullPage: true });
           assert.deepEqual(errors, [], 'Page JavaScript errors');
           await page.close();
-        }
-      } finally { await context.close(); }
+        } finally { await context.close(); }
+      }
     }
     await captureEditorTasks(browser, base, cookies, process.env.GITHUB_SHA, policy.repository);
   } finally { await browser.close(); }
