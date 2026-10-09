@@ -16,6 +16,7 @@
  */
 import { requireAdmin, ghGetFile, ghPutFile } from './_auth.js';
 import { commitArticleWithModifiedDate } from './_article-commit.js';
+import { parse } from 'parse5';
 
 const DICT_PATH = 'assets/medical-dictionary.json';
 const MAX_TERMS = 500;
@@ -96,46 +97,39 @@ async function ensureDict() {
 }
 
 function autolinkOnce(html, dict) {
-  // Build sorted term list (longest first so 「黃斑部病變」 beats 「黃斑部」)
   const terms = Object.keys(dict).sort((a, b) => b.length - a.length);
-
-  // Only operate on body (after </head>); also skip <a>, <script>, <style>, headings (h1-h6), .hs-dict
-  const headEnd = html.indexOf('</head>');
-  if (headEnd === -1) return html;
-  const head = html.slice(0, headEnd);
-  let body = html.slice(headEnd);
-
-  // Track which terms already linked
+  if (!terms.length) return html;
+  const document = parse(html, { sourceCodeLocationInfo: true });
+  const protectedTags = new Set(['head', 'a', 'script', 'style', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'figcaption', 'svg', 'math', 'code', 'pre', 'template', 'noscript', 'textarea', 'select', 'button']);
+  const proseTags = new Set(['p', 'li', 'td']);
   const seen = new Set();
-
-  // Tokenize: walk body, splitting at protected blocks. Then in unprotected
-  // text-runs, do per-term first-occurrence replacement.
-  const PROTECT_RE = /<(a|script|style|h[1-6]|figcaption|svg|code|pre)[\s\S]*?<\/\1>|<[^>]+>|&[a-zA-Z]+;|<!--[\s\S]*?-->/g;
-
-  // First pass: collect already-linked terms
-  const dictBlockRe = /<span\s+class="hs-dict"[^>]*data-term="([^"]+)"/g;
-  let m;
-  while ((m = dictBlockRe.exec(body)) !== null) seen.add(m[1]);
-
-  // Walk body, splitting into protected/unprotected segments
-  const segments = [];
-  let lastIdx = 0;
-  let pm;
-  while ((pm = PROTECT_RE.exec(body)) !== null) {
-    if (pm.index > lastIdx) segments.push({ text: body.slice(lastIdx, pm.index), protected: false });
-    segments.push({ text: pm[0], protected: true });
-    lastIdx = pm.index + pm[0].length;
+  const ranges = [];
+  function visit(node, inBody = false, inProse = false, protectedNode = false) {
+    const attrs = Object.fromEntries((node.attrs || []).map(attr => [attr.name, attr.value]));
+    const isLinked = (attrs.class || '').split(/\s+/).some(name => name === 'hs-dict' || name === 'hs-dict-link');
+    if (isLinked && attrs['data-term']) seen.add(attrs['data-term']);
+    inBody ||= node.tagName === 'body';
+    inProse ||= proseTags.has(node.tagName);
+    protectedNode ||= isLinked || protectedTags.has(node.tagName) ||
+      (node.namespaceURI && node.namespaceURI !== 'http://www.w3.org/1999/xhtml');
+    if (node.nodeName === '#text' && inBody && inProse && !protectedNode && node.sourceCodeLocation) {
+      ranges.push(node.sourceCodeLocation);
+    }
+    for (const child of node.childNodes || []) visit(child, inBody, inProse, protectedNode);
   }
-  if (lastIdx < body.length) segments.push({ text: body.slice(lastIdx), protected: false });
+  visit(document);
 
-  // For each term, wrap its first occurrence in any unprotected segment
-  terms.forEach(term => {
-    if (seen.has(term)) return;
-    for (let i = 0; i < segments.length; i++) {
-      const seg = segments[i];
-      if (seg.protected) continue;
-      const idx = seg.text.indexOf(term);
-      if (idx === -1) continue;
+  const escaped = terms.map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const matches = new RegExp('(&(?:#[0-9]+|#[xX][0-9a-fA-F]+|[a-zA-Z][a-zA-Z0-9]*);?)|(' + escaped.join('|') + ')', 'g');
+  const edits = [];
+  for (const { startOffset, endOffset } of ranges.sort((a, b) => a.startOffset - b.startOffset)) {
+    const source = html.slice(startOffset, endOffset);
+    // Tree repair can merge disjoint text locations. Never edit through markup.
+    if (source.includes('<')) continue;
+    for (const match of source.matchAll(matches)) {
+      const term = match[2];
+      if (!term || seen.has(term)) continue;
       const entry = dict[term];
       const tooltipDef = escapeAttr(entry.def || '');
       const enLabel = escapeAttr(entry.en || '');
@@ -144,15 +138,16 @@ function autolinkOnce(html, dict) {
       const anchor = entry.anchor;
       const inner = anchor
         ? `<a href="/blog/${anchor}" class="hs-dict-link" data-term="${safeTermAttr}" title="${tooltipDef}">${safeTermText}</a>`
-        : `<span class="hs-dict" data-term="${safeTermAttr}" data-en="${enLabel}" title="${tooltipDef}">${safeTermText}</span>`;
-      seg.text = seg.text.slice(0, idx) + inner + seg.text.slice(idx + term.length);
+        : `<span class="hs-dict" data-term="${safeTermAttr}" data-zh="${safeTermAttr}" data-en="${enLabel}" title="${tooltipDef}">${safeTermText}</span>`;
+      edits.push({ start: startOffset + match.index, end: startOffset + match.index + term.length, inner });
       seen.add(term);
-      break;
     }
-  });
-
-  body = segments.map(s => s.text).join('');
-  return head + body;
+  }
+  // Preserve authored source byte-for-byte outside the selected text spans.
+  for (const { start, end, inner } of edits.sort((a, b) => b.start - a.start)) {
+    html = html.slice(0, start) + inner + html.slice(end);
+  }
+  return html;
 }
 
 export { autolinkOnce, validateDictionary };

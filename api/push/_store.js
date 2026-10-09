@@ -11,10 +11,9 @@ import {
   kvGet,
   kvMigrateJSONHash,
   kvHDel,
-  kvHGet,
   kvHGetAll,
   kvHLen,
-  kvHSet,
+  kvHSetBounded,
 } from '../_kv.js';
 
 const HASH_KEY = 'push:subscribers:v2';
@@ -48,24 +47,9 @@ export async function loadSubscriptions() {
 
 export async function upsertSubscription(subscription, maxSubscriptions) {
   await ensureMigrated();
-  const existing = await kvHGet(HASH_KEY, subscription.endpoint);
-  if (existing != null) {
-    if (!(await kvHSet(HASH_KEY, subscription.endpoint, JSON.stringify(subscription)))) {
-      throw new Error('Push subscription refresh failed');
-    }
-    return { inserted: false, count: Number(await kvHLen(HASH_KEY)) || 0 };
-  }
-
-  const count = await kvHLen(HASH_KEY);
-  if (count == null) throw new Error('Push storage is unavailable');
-  if (Number(count) >= maxSubscriptions) {
-    return { inserted: false, full: true, count: Number(count) };
-  }
-  if (!(await kvHSet(HASH_KEY, subscription.endpoint, JSON.stringify(subscription)))) {
-    throw new Error('Push subscription write failed');
-  }
-  const nextCount = await kvHLen(HASH_KEY);
-  return { inserted: true, count: nextCount == null ? Number(count) + 1 : Number(nextCount) };
+  const result = await kvHSetBounded(HASH_KEY, subscription.endpoint, JSON.stringify(subscription), maxSubscriptions);
+  if (!result) throw new Error('Push subscription storage is unavailable');
+  return result;
 }
 
 export async function removeSubscription(endpoint) {

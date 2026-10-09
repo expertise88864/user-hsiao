@@ -5,6 +5,7 @@
  * on the same branch ref, so parallel workers can lose with a stale head.
  */
 import { requireAdmin, ghGetFile } from './_auth.js';
+import { catalogRecords } from '../_articles.js';
 
 const VALID_OPS = ['seo-fix', 'faqpage', 'autolink'];
 const VALID_CATEGORIES = new Set(['alert', 'rx', 'myth', 'notes', 'research']);
@@ -81,33 +82,38 @@ export default async function handler(req, res) {
   if (typeof body === 'string') {
     try { body = JSON.parse(body); } catch (e) { body = {}; }
   }
-  let { slugs, filter, ops } = body || {};
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return res.status(400).json({ error: 'request body must be an object' });
+  }
+  let { slugs, filter, ops } = body;
   if (!Array.isArray(ops) || !ops.length) return res.status(400).json({ error: 'ops[] required' });
   ops = [...new Set(ops)];
   if (ops.some(op => !VALID_OPS.includes(op))) {
     return res.status(400).json({ error: `ops must be a subset of ${VALID_OPS.join(', ')}` });
   }
-  if (filter?.cat && !VALID_CATEGORIES.has(filter.cat)) {
+  if (Object.hasOwn(body, 'filter') && (!filter || typeof filter !== 'object' || Array.isArray(filter) ||
+      Object.keys(filter).some(key => key !== 'cat') ||
+      !Object.hasOwn(filter, 'cat') || !VALID_CATEGORIES.has(filter.cat))) {
     return res.status(400).json({ error: 'invalid category filter' });
   }
 
-  if (Array.isArray(slugs) && slugs.length) {
+  // Only omission means all articles; an explicit empty selection is a no-op.
+  if (Object.hasOwn(body, 'slugs')) {
     const error = validateSlugs(slugs);
     if (error) return res.status(400).json({ error });
     slugs = [...new Set(slugs)];
   } else {
-    const sharedJs = await ghGetFile('blog/blog-shared.js');
-    if (!sharedJs) return res.status(500).json({ error: 'blog-shared.js not found' });
-    const catalog = sharedJs.content.match(/DN\.ARTICLES\s*=\s*(\[[\s\S]*?\]);/);
-    if (!catalog) return res.status(500).json({ error: 'DN.ARTICLES not found' });
-
-    slugs = [];
-    const article = /\{\s*slug\s*:\s*'([^']+)'(?:[^}]*?cat\s*:\s*'([^']+)')?/g;
-    let match;
-    while ((match = article.exec(catalog[1])) !== null) {
-      if (filter?.cat && match[2] !== filter.cat) continue;
-      slugs.push(match[1]);
+    try {
+      const sharedJs = await ghGetFile('blog/blog-shared.js');
+      if (!sharedJs) return res.status(500).json({ error: 'blog-shared.js not found' });
+      slugs = catalogRecords(sharedJs.content)
+        .filter(({ values }) => !filter?.cat || values.cat === filter.cat)
+        .map(({ values }) => values.slug);
+    } catch (e) {
+      return res.status(500).json({ error: 'Article catalog is unavailable or invalid' });
     }
+    const error = validateSlugs(slugs);
+    if (error) return res.status(400).json({ error });
   }
 
   if (!slugs.length) return res.status(200).json({ ok: true, total: 0, succeeded: 0, failed: 0, results: [] });
