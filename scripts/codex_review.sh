@@ -6,11 +6,11 @@
 #   tools/codex_review.sh resume [session-id] [task-context-file]
 #
 # mode:
-#   diff      低風險/局部(文案、註解、CSS、tests-only)     high   / 額外檔 3 / findings 3
-#   targeted  一般非 trivial 實作(預設)                     high   / 額外檔 12 / findings 5
-#   deep      auth、金流、DB migration、併發、資安、大重構    high   / 額外檔 30 / findings 8
+#   diff      低風險/局部(文案、註解、CSS、tests-only)     xhigh  / 額外檔 3 / findings 3
+#   targeted  一般非 trivial 實作(預設)                     xhigh  / 額外檔 12 / findings 5
+#   deep      auth、金流、DB migration、併發、資安、大重構    xhigh  / 額外檔 30 / findings 8
 #
-# 模型與 effort(使用者 2026-10-14 定案):任何 diff review 一律 gpt-6.1-sol / high,
+# 模型與 effort(使用者 2026-10-14 定案):任何 diff review 一律 gpt-6.1-sol / xhigh,
 # 不 fallback 到其他模型或較低 effort。模式只差範圍。實際模型/effort/唯讀沙箱由
 # scripts/codex_review_identity.py 對 session 紀錄驗證,證明不了就不算一輪(exit 4)。
 #   resume    第二輪(僅限 confirmed P0/P1/material P2 修正後);沿用第一輪 session
@@ -61,9 +61,9 @@ MODE="${1:-}"
 [ -n "$MODE" ] || die "缺少 mode。用法: $0 <diff|targeted|deep> <base-ref> [task-context-file] | $0 resume [session-id]"
 
 case "$MODE" in
-  diff)     EFFORT="high";   EXTRA_FILE_LIMIT=3;  FINDING_LIMIT=3 ;;
-  targeted) EFFORT="high";   EXTRA_FILE_LIMIT=12; FINDING_LIMIT=5 ;;
-  deep)     EFFORT="high";   EXTRA_FILE_LIMIT=30; FINDING_LIMIT=8 ;;
+  diff)     EFFORT="xhigh";  EXTRA_FILE_LIMIT=3;  FINDING_LIMIT=3 ;;
+  targeted) EFFORT="xhigh";  EXTRA_FILE_LIMIT=12; FINDING_LIMIT=5 ;;
+  deep)     EFFORT="xhigh";  EXTRA_FILE_LIMIT=30; FINDING_LIMIT=8 ;;
   resume)   EFFORT="";       EXTRA_FILE_LIMIT="";  FINDING_LIMIT="" ;;
   *) die "未知 mode '$MODE'(可用:diff | targeted | deep | resume)" ;;
 esac
@@ -122,7 +122,7 @@ resolve_cli() {
 
 VERIFIED_SID=""
 VERIFIED_TOKENS=""
-# 實際 session 必須是本輪、本 repo、gpt-6.1-sol/high/read-only;$1 = 續審時預期的 session。
+# 實際 session 必須是本輪、本 repo、gpt-6.1-sol/xhigh/read-only;$1 = 續審時預期的 session。
 verify_actual_session() {
   local identity
   local a=("$SCRIPT_DIR/codex_review_identity.py" --raw-log "$RAW_LOG"
@@ -233,7 +233,7 @@ if [ "$MODE" = "resume" ]; then
     echo "               若剩下的 finding 已是邊角推測,請用判斷收尾,不要迴圈到綠燈。" >&2
   fi
 
-  RESUME_EFFORT="high"   # 2026-10-14:一律 high,不沿用舊紀錄裡可能的 medium
+  RESUME_EFFORT="xhigh"  # 2026-10-14:一律 xhigh,不沿用舊紀錄裡的 effort
   RESUME_BASE="$(tail -1 "$USAGE_TSV" | cut -f6)";   [ -n "$RESUME_BASE" ] || RESUME_BASE="unavailable"
   build_flags "$RESUME_EFFORT" resume
 

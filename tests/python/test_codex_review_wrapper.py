@@ -148,7 +148,7 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(args[args.index("--model") + 1], "gpt-6.1-sol")
         self.assertIn("--json", args)
         self.assertEqual(args[args.index("--sandbox") + 1], "read-only")
-        self.assertIn("model_reasoning_effort=high", args)
+        self.assertIn("model_reasoning_effort=xhigh", args)
         self.assertIn("approval_policy=never", args)
         self.assertIn("windows.sandbox=unelevated", args)
         self.assertIn("--ignore-user-config", args)
@@ -163,7 +163,7 @@ class ReviewEntryTests(unittest.TestCase):
         result, args = self.run_entry("resume", SESSION, context)
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertEqual(args[:3], ["exec", "resume", SESSION])
-        self.assertIn("model_reasoning_effort=high", args)
+        self.assertIn("model_reasoning_effort=xhigh", args)
         self.assertIn("approval_policy=never", args)
         self.assertIn("sandbox_mode=read-only", args)
         self.assertIn("windows.sandbox=unelevated", args)
@@ -276,21 +276,21 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertEqual(args[:3], ["exec", "resume", SESSION])
 
-    def test_every_mode_requests_gpt61_sol_high(self):
+    def test_every_mode_requests_gpt61_sol_xhigh(self):
         for mode in ("diff", "targeted", "deep"):
             with self.subTest(mode=mode):
                 result, args = self.run_entry(mode, "HEAD")
                 self.assertEqual(result.returncode, 2, result.stderr)
                 self.assertEqual(args[args.index("--model") + 1], "gpt-6.1-sol")
-                self.assertIn("model_reasoning_effort=high", args)
+                self.assertIn("model_reasoning_effort=xhigh", args)
 
-    def test_resume_requests_high_even_after_a_medium_record(self):
+    def test_resume_requests_xhigh_even_after_a_medium_record(self):
         state = self.seed_session()
         usage = (state / "usage.tsv").read_text(encoding="utf-8").replace("\thigh\t", "\tmedium\t")
         (state / "usage.tsv").write_text(usage, encoding="utf-8")
         result, args = self.run_entry("resume", SESSION)
         self.assertEqual(result.returncode, 2, result.stderr)
-        self.assertIn("model_reasoning_effort=high", args)
+        self.assertIn("model_reasoning_effort=xhigh", args)
 
     def test_wrong_actual_model_never_counts(self):
         state = self.seed_session()
