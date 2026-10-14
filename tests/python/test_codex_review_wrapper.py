@@ -10,6 +10,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 SESSION = "11111111-2222-3333-4444-555555555555"
+HEX_SESSION = "abcdef12-3456-7890-abcd-ef1234567890"
 
 
 class ReviewEntryTests(unittest.TestCase):
@@ -33,6 +34,7 @@ class ReviewEntryTests(unittest.TestCase):
         codex = self.bin / "codex"
         codex.write_text(
             "#!/usr/bin/env bash\n"
+            "if [ \"${CODEX_FIXTURE_READ_STDIN:-}\" = 1 ]; then cat > /dev/null; fi\n"
             "printf '%s\\0' \"$@\" > \"$CODEX_REVIEW_TEST_CAPTURE\"\n"
             "last=''; next=0\n"
             "for arg in \"$@\"; do\n"
@@ -40,7 +42,10 @@ class ReviewEntryTests(unittest.TestCase):
             "  if [ \"$arg\" = -o ]; then next=1; fi\n"
             "done\n"
             "printf 'Fixture CLI only; no model called.\\nREQUEST_CHANGES\\n' > \"$last\"\n"
-            f"printf 'session id: {SESSION}\\ntokens used\\n0\\n'\n",
+            "if [ \"${CODEX_FIXTURE_NO_SESSION:-}\" != 1 ]; then\n"
+            f"  printf 'session id: {SESSION}\\n'\n"
+            "fi\n"
+            "printf 'tokens used\\n0\\n'\n",
             encoding="utf-8")
         codex.chmod(0o755)
         uname = self.bin / "uname"
@@ -52,8 +57,12 @@ class ReviewEntryTests(unittest.TestCase):
         if not self.bash:
             self.skipTest("Bash is required by the review entry")
 
-    def run_entry(self, *args, platform="MINGW64_NT-fixture", sandbox=None):
+    def run_entry(self, *args, platform="MINGW64_NT-fixture", sandbox=None, extra_env=None,
+                  open_stdin=False):
         env = os.environ.copy()
+        env.pop("CODEX_FIXTURE_READ_STDIN", None)
+        env.pop("CODEX_FIXTURE_NO_SESSION", None)
+        env.update(extra_env or {})
         env["CODEX_REVIEW_TEST_CAPTURE"] = self.capture.as_posix()
         env["CODEX_REVIEW_TEST_PLATFORM"] = platform
         env.pop("CODEX_REVIEW_WINDOWS_SANDBOX", None)
@@ -64,12 +73,31 @@ class ReviewEntryTests(unittest.TestCase):
         posix_bin = self.bin.as_posix()
         if os.name == "nt":
             posix_bin = "/" + posix_bin[0].lower() + posix_bin[2:]
-        result = subprocess.run([self.bash, "-c",
-                                 'export PATH="$1:$PATH"; shift; exec bash "$@"',
-                                 "fixture-harness", posix_bin, str(self.wrapper),
-                                 *map(str, args)],
-                                cwd=self.repo, env=env, capture_output=True,
-                                text=True, encoding="utf-8", timeout=30)
+        command = [self.bash, "-c", 'export PATH="$1:$PATH"; shift; exec bash "$@"',
+                   "fixture-harness", posix_bin, str(self.wrapper), *map(str, args)]
+        if open_stdin:
+            # A harness whose stdin is a pipe that never reaches EOF, like a
+            # backgrounded agent shell. The entry must not wait on it.
+            # Output goes to files, not pipes, so waiting cannot deadlock on a
+            # full pipe buffer; stdin stays an open pipe until the entry exits.
+            out_path, err_path = self.repo / "fixture-stdout", self.repo / "fixture-stderr"
+            with open(out_path, "wb") as out_file, open(err_path, "wb") as err_file:
+                proc = subprocess.Popen(command, cwd=self.repo, env=env, stdin=subprocess.PIPE,
+                                        stdout=out_file, stderr=err_file)
+                try:
+                    proc.wait(timeout=30)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    proc.wait()
+                    raise
+                finally:
+                    proc.stdin.close()
+            result = subprocess.CompletedProcess(
+                command, proc.returncode, out_path.read_text(encoding="utf-8"),
+                err_path.read_text(encoding="utf-8"))
+        else:
+            result = subprocess.run(command, cwd=self.repo, env=env, capture_output=True,
+                                    text=True, encoding="utf-8", timeout=30)
         captured = self.capture.read_bytes().decode("utf-8").split("\0")[:-1] if self.capture.exists() else []
         return result, captured
 
@@ -130,6 +158,90 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertFalse(any(arg.startswith("windows.sandbox=") for arg in args))
         self.assertEqual(args[args.index("--sandbox") + 1], "read-only")
+
+    def test_resume_accepts_uppercase_spelling_of_the_recorded_session(self):
+        # UUIDs are case-insensitive; refusing the same session typed in
+        # uppercase would push the operator toward opening a new session.
+        # SESSION is all digits, so upper() would not change it; use hex letters.
+        state = self.seed_session()
+        (state / "last_session_id").write_text(HEX_SESSION, encoding="utf-8")
+        result, args = self.run_entry("resume", HEX_SESSION.upper())
+        self.assertNotEqual(HEX_SESSION.upper(), HEX_SESSION)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(args[:3], ["exec", "resume", HEX_SESSION])
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8").strip(), "2")
+
+    def test_resume_normalises_an_uppercase_record_before_calling_cli(self):
+        state = self.seed_session()
+        (state / "last_session_id").write_text(HEX_SESSION.upper(), encoding="utf-8")
+        result, args = self.run_entry("resume", HEX_SESSION)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(args[:3], ["exec", "resume", HEX_SESSION])
+
+    def test_resume_rejects_a_different_valid_session_before_cli(self):
+        state = self.seed_session()
+        other = "99999999-8888-7777-6666-555555555555"
+        result, args = self.run_entry("resume", other)
+        self.assertEqual(result.returncode, 64)
+        self.assertIn(other, result.stderr)
+        self.assertEqual(args, [])
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
+
+    def test_resume_rejects_an_explicit_session_when_nothing_is_recorded(self):
+        # Pass 1 state exists but its session record is gone: an explicit id
+        # has nothing to be compared against, so it must not be trusted.
+        state = self.seed_session()
+        (state / "last_session_id").unlink()
+        result, args = self.run_entry("resume", SESSION)
+        self.assertEqual(result.returncode, 64)
+        self.assertIn("沒有第一輪 session 紀錄", result.stderr)
+        self.assertNotIn("No such file", result.stderr)
+        self.assertEqual(args, [])
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
+
+    def test_resume_rejects_a_malformed_record_before_cli(self):
+        state = self.seed_session()
+        (state / "last_session_id").write_text("not-a-uuid-but-36-chars-aaaaaaaaaaaa", encoding="utf-8")
+        result, args = self.run_entry("resume")
+        self.assertEqual(result.returncode, 64)
+        self.assertEqual(args, [])
+
+    def test_new_first_pass_without_session_id_does_not_leave_the_old_record(self):
+        # A new task's pass 1 whose output carries no session id must not leave
+        # the previous task's record behind for a bare resume to pick up.
+        state = self.seed_session()
+        result, args = self.run_entry("deep", "HEAD", extra_env={"CODEX_FIXTURE_NO_SESSION": "1"})
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertNotEqual(args, [])
+        self.assertFalse((state / "last_session_id").exists())
+        self.capture.unlink()
+        result, args = self.run_entry("resume")
+        self.assertEqual(result.returncode, 64)
+        self.assertEqual(args, [])
+        # The diagnostic must point at the path the guards accept (a new first
+        # pass), not at an explicit session id, which the no-record guard refuses.
+        self.assertIn("請重跑第一輪", result.stderr)
+        self.assertNotIn("請以明確 session id 執行", result.stderr)
+
+    def test_first_pass_records_the_new_session(self):
+        state = self.seed_session()
+        (state / "last_session_id").write_text(HEX_SESSION, encoding="utf-8")
+        result, _ = self.run_entry("deep", "HEAD")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual((state / "last_session_id").read_text(encoding="utf-8"), SESSION)
+
+    def test_first_pass_does_not_wait_on_an_open_stdin(self):
+        result, args = self.run_entry("deep", "HEAD", open_stdin=True,
+                                      extra_env={"CODEX_FIXTURE_READ_STDIN": "1"})
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertNotEqual(args, [])
+
+    def test_resume_does_not_wait_on_an_open_stdin(self):
+        self.seed_session()
+        result, args = self.run_entry("resume", SESSION, open_stdin=True,
+                                      extra_env={"CODEX_FIXTURE_READ_STDIN": "1"})
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(args[:3], ["exec", "resume", SESSION])
 
     def test_missing_resume_context_never_calls_cli(self):
         state = self.seed_session()

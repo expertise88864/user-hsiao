@@ -137,10 +137,14 @@ log_usage() {  # $1 mode $2 effort $3 base $4 pass
 # ================= resume(第二輪) =================
 if [ "$MODE" = "resume" ]; then
   [ "$#" -le 3 ] || die "用法:$0 resume [session-id] [task-context-file]"
-  SID="${2:-}"
+  # UUID 不分大小寫,但 shell 字串比較會分。下方格式檢查接受 A-F,所以把同一個
+  # session 用大寫貼上時,會被判成「不同 session」而拒絕 —— 那會把人推去開新
+  # session,正是這道守衛要防的事。指定值與紀錄都先正規化成小寫再比較
+  # (codex 輸出的 session id 本身就是小寫)。
+  SID="$(printf '%s' "${2:-}" | tr 'A-Z' 'a-z')"
   if [ -z "$SID" ]; then
-    [ -s "$SESSION_FILE" ] || die "找不到第一輪 session id($SESSION_FILE 不存在)。請以明確 session id 執行:$0 resume <session-id>。不要用 --last(可能 resume 到別的專案)。"
-    SID="$(cat "$SESSION_FILE")"
+    [ -s "$SESSION_FILE" ] || die "找不到第一輪 session 紀錄($SESSION_FILE 不存在)。請重跑第一輪:$0 <diff|targeted|deep> <base-ref>。續審只能沿用本 repo 記錄的 session,沒有紀錄時明確指定 session id 也會被拒絕;不要用 --last(可能 resume 到別的專案)。"
+    SID="$(tr 'A-Z' 'a-z' < "$SESSION_FILE")"
   fi
   # session id 必須是完整 UUID。少了這道守衛時,把別的東西(例如 task-context
   # 檔路徑)誤傳進來會**靜默開一個全新 session**,而輸出看起來與正常 resume
@@ -158,15 +162,17 @@ if [ "$MODE" = "resume" ]; then
   # **格式正確卻不同**的 UUID 會 resume 到另一場 review —— 它的 APPROVE 會被
   # 當成本次的裁決,直接放行 push。這正是本檔案開頭第 18-19 行「每一輪都必須
   # resume 同一 session」要防的事,只是換了一個入口。有存檔就必須相符。
-  if [ -s "$SESSION_FILE" ]; then
-    STORED="$(cat "$SESSION_FILE")"
-    if [ "$SID" != "$STORED" ]; then
-      die "指定的 session id 與本 repo 記錄的第一輪 session 不符。
+  STORED="$({ tr 'A-Z' 'a-z' < "$SESSION_FILE"; } 2>/dev/null || true)"
+  if [ -n "$STORED" ] && [ "$SID" != "$STORED" ]; then
+    die "指定的 session id 與本 repo 記錄的第一輪 session 不符。
   指定:$SID
   記錄:$STORED
 續審必須沿用同一 session。若真要重開一輪全新審查,請跑第一輪
 (\`$0 <diff|targeted|deep> <base-ref>\`),不要用 resume 指向別的 session。"
-    fi
+  elif [ -z "$STORED" ]; then
+    # 沒有紀錄就沒有東西可比對,等於未經驗證就續審 —— 與「指定到別場」是同一
+    # 個洞的另一半。只有明確傳入 SID 才走得到這裡(沒傳時上方已 die)。
+    die "本 repo 沒有第一輪 session 紀錄可比對;拒絕以未經驗證的 session id resume。請先跑第一輪。"
   fi
   PREV_PASS="$(cat "$PASS_FILE" 2>/dev/null || echo 0)"
   case "$PREV_PASS" in (''|*[!0-9]*) PREV_PASS=0 ;; esac
@@ -215,7 +221,7 @@ RP
   echo "[codex-review] resume session=$SID effort=$RESUME_EFFORT (pass $THIS_PASS)"
   : > "$LAST_MSG"
   # resume 無 --cd:改在 subshell 內 cd 進 repo,讓 Codex 在正確目錄跑 git。
-  ( cd "$REPO_ROOT" && codex exec resume "$SID" "${FLAGS[@]}" "$RESUME_PROMPT" ) 2>&1 | tee "$RAW_LOG"
+  ( cd "$REPO_ROOT" && codex exec resume "$SID" "${FLAGS[@]}" "$RESUME_PROMPT" < /dev/null ) 2>&1 | tee "$RAW_LOG"
   CODEX_RC=${PIPESTATUS[0]}
   # codex 啟動失敗(參數錯誤等)且完全沒產生 review → 不消耗額度、不計為第二輪。
   if [ "$CODEX_RC" -ne 0 ] && [ ! -s "$LAST_MSG" ]; then
@@ -385,8 +391,16 @@ sed -i -e "/{{VERIFICATION_RESULTS}}/r $TMP/ver.txt" -e "/{{VERIFICATION_RESULTS
 
 build_flags "$EFFORT"
 echo "[codex-review] mode=$MODE effort=$EFFORT base=$BASE model=$MODEL (pass 1, read-only, user-config ignored)"
+# 新的第一輪開始,上一個任務的 session 紀錄就不再代表「本次的第一輪」。
+# log_usage 只在抓得到 session id 時才覆寫紀錄;若這一輪抓不到,舊紀錄會原封
+# 留下,之後不帶參數的 resume 就會續到上一個任務、拿它的 APPROVE 放行 push。
+# 先刪掉,讓 resume 的「無紀錄就拒絕」守衛接手。
+rm -f "$SESSION_FILE"
 : > "$LAST_MSG"
-codex exec "${FLAGS[@]}" "$(cat "$TMP/prompt.txt")" 2>&1 | tee "$RAW_LOG"
+# stdin 必須明確關閉:codex exec 在 stdin 不是終端機時會印出
+# "Reading additional input from stdin..." 並一直等下去。2026-10-14 在背景
+# 執行時實際卡了 4.5 小時,直到手動結束才以「啟動失敗」收場。
+codex exec "${FLAGS[@]}" "$(cat "$TMP/prompt.txt")" < /dev/null 2>&1 | tee "$RAW_LOG"
 CODEX_RC=${PIPESTATUS[0]}
 # codex 啟動失敗(參數錯誤等)且完全沒產生 review → 不消耗額度、不記為一輪、不寫 pass。
 if [ "$CODEX_RC" -ne 0 ] && [ ! -s "$LAST_MSG" ]; then
