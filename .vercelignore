@@ -55,3 +55,7 @@ playwright.seo.config.js
 # and any overwrite bypass are performed.
 deploy.ps1
 deploy.bat
+
+# Build-time data sources (exam question bank, chapter notes). The generated
+# /exam pages are what get served; nothing reads data/ at request time.
+data/

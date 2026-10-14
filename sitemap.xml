@@ -90,6 +90,30 @@
       <image:title>隱私權政策</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/exam</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/exam/bcsc12-4</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc12-4" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc12-4" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/exam/bcsc12-5</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc12-5" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc12-5" />
+  </url>
 
   <!-- ===== Published articles ===== -->
   <url>

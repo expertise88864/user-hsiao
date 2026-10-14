@@ -10,6 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
+EXAM_JS = ROOT / "exam" / "exam.js"
 SKIP_DIRS = {".git", "node_modules", ".next", "out", "dist", "__pycache__", "playwright-report", "test-results"}
 
 # Served minified bundle size ceiling (raw KB). Kept consistent with the
@@ -228,8 +229,11 @@ def main() -> int:
         # A noindex page that ships the 177 KB runtime should actually use it.
         # Full pages call DN.initBlog; lightweight pages (e.g. 404) legitimately
         # call only DN.applyTextOnly(DN.detectLang()) to swap bilingual text —
-        # both count as real usage.
-        uses_runtime = ("DN.initBlog" in src) or ("DN.applyTextOnly" in src)
+        # both count as real usage. The /exam pages carry no inline script (they
+        # sit on the fail-closed fallback CSP); their external exam.js makes the
+        # DN.initBlog call, so read that file instead of the page.
+        uses_runtime = ("DN.initBlog" in src) or ("DN.applyTextOnly" in src) or (
+            '<script src="/exam/exam.js' in src and "DN.initBlog" in EXAM_JS.read_text(encoding="utf-8"))
         if is_noindex and "blog-shared.min.js" in src and not uses_runtime:
             errors.append(f"{rel}: noindex page references blog-shared without calling DN.initBlog or DN.applyTextOnly")
 

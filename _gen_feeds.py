@@ -170,6 +170,13 @@ STATIC_HTML_FILES = {
     '/privacy': 'privacy.html',
 }
 
+# Board-exam hub and chapters with written notes; zh-only (no /en mirror).
+import _gen_exam  # noqa: E402
+for _route in _gen_exam.indexed_routes():
+    STATIC_PAGES.append({'url': _route, 'priority': '0.8' if _route == '/exam' else '0.6',
+                         'changefreq': 'monthly', 'has_en': False})
+    STATIC_HTML_FILES[_route] = 'exam/index.html' if _route == '/exam' else _route.lstrip('/') + '.html'
+
 # Unpublished landing pages are deliberately excluded from sitemap/feed.
 LANDING_STUBS = []
 

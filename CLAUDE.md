@@ -139,6 +139,7 @@ When you make content edits, the typical pipeline is:
 python _gen_og_images.py
 # build-chain:start
 python halfwidth_to_fullwidth.py
+python _gen_exam.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py
@@ -228,6 +229,7 @@ Order matters. Run as a single chain (sequential, no `&`):
 python _gen_og_images.py
 # build-chain:start
 python halfwidth_to_fullwidth.py
+python _gen_exam.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py

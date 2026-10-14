@@ -35,6 +35,7 @@ PUBLIC_STATIC_ROUTES = {
     "/about",
     "/blog",
     "/blog/topics",
+    "/exam",
     "/privacy",
     "/tools",
 }

@@ -22,6 +22,7 @@ must run last (so hashes match the final HTML state).
 python _gen_og_images.py
 # build-chain:start
 python halfwidth_to_fullwidth.py
+python _gen_exam.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py
@@ -75,6 +76,7 @@ the resulting changes, and push again.
 python _gen_og_images.py
 # build-chain:start
 python halfwidth_to_fullwidth.py
+python _gen_exam.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py

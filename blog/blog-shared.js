@@ -721,6 +721,7 @@
       '<nav class="max-w-6xl mx-auto px-5 py-4 flex flex-col gap-1">' +
         '<a href="/" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="首頁" data-en="Home"></a>' +
         '<a href="/blog/" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles"></a>' +
+        '<a href="/exam" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam"></a>' +
         '<a href="/about" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About"></a>' +
       '</nav>';
     header.appendChild(drawer);
@@ -3152,7 +3153,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260713';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260714';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3799,7 +3800,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260713';
+    s.src = '/blog/blog-admin.js?v=20260714';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

@@ -1,0 +1,12217 @@
+{
+"1": {
+"ch": [
+"1-15",
+"9-13"
+],
+"topic": "HIV target cells"
+},
+"2": {
+"ch": [
+"1-4"
+],
+"topic": "Thiazide diuretic adverse effects"
+},
+"3": {
+"ch": [
+"1-4",
+"1-6"
+],
+"topic": "Oral beta-blocker adverse effects"
+},
+"4": {
+"ch": [
+"1-4"
+],
+"topic": "Hypertension treatment principles"
+},
+"5": {
+"ch": [
+"1-6",
+"1-5"
+],
+"topic": "CAD risk factors"
+},
+"6": {
+"ch": [
+"1-9",
+"1-10"
+],
+"topic": "Hypercoagulable states"
+},
+"7": {
+"ch": [
+"1-9"
+],
+"topic": "Microcytic anemia classification"
+},
+"8": {
+"ch": [
+"1-10",
+"9-10"
+],
+"topic": "Systemic vasculitis features"
+},
+"9": {
+"ch": [
+"1-2"
+],
+"topic": "Risk difference calculation"
+},
+"10": {
+"ch": [
+"1-5"
+],
+"topic": "First-line hypercholesterolemia treatment"
+},
+"11": {
+"ch": [
+"1-4"
+],
+"topic": "JNC8 initial antihypertensives"
+},
+"12": {
+"ch": [
+"1-5"
+],
+"topic": "Statin adverse effects"
+},
+"13": {
+"ch": [
+"1-17",
+"1-3"
+],
+"topic": "Insulin-induced hypoglycemia"
+},
+"14": {
+"ch": [
+"1-2"
+],
+"topic": "Study design identification"
+},
+"15": {
+"ch": [
+"1-6"
+],
+"topic": "Myocardial infarction biomarkers"
+},
+"16": {
+"ch": [
+"1-14",
+"11-5"
+],
+"topic": "Radiation-induced cataract"
+},
+"17": {
+"ch": [
+"1-6",
+"1-17",
+"1-4"
+],
+"topic": "Cardiovascular drug ocular effects"
+},
+"18": {
+"ch": [
+"1-7",
+"5-11"
+],
+"topic": "Cerebral aneurysm features"
+},
+"19": {
+"ch": [
+"1-9",
+"8-10",
+"11-4",
+"12-4"
+],
+"topic": "Connective tissue disease eye findings"
+},
+"20": {
+"ch": [
+"1-12",
+"11-5",
+"10-10",
+"12-14"
+],
+"topic": "Psychotropic anticholinergic ocular effects"
+},
+"21": {
+"ch": [
+"1-12",
+"8-3"
+],
+"topic": "Parkinson disease ocular findings"
+},
+"22": {
+"ch": [
+"1-10",
+"1-9",
+"9-8"
+],
+"topic": "Rheumatic disease serologic tests"
+},
+"23": {
+"ch": [
+"1-14",
+"4-19",
+"12-7",
+"12-5"
+],
+"topic": "Radiotherapy ocular effects"
+},
+"24": {
+"ch": [
+"1-14",
+"4-19"
+],
+"topic": "Systemic malignancy ocular involvement"
+},
+"25": {
+"ch": [
+"1-10",
+"9-10"
+],
+"topic": "SLE ocular manifestations"
+},
+"26": {
+"ch": [
+"1-10",
+"12-14"
+],
+"topic": "Hydroxychloroquine retinal toxicity"
+},
+"27": {
+"ch": [
+"1-8",
+"7-10",
+"8-4",
+"8-9",
+"5-6"
+],
+"topic": "OSA ocular associations"
+},
+"28": {
+"ch": [
+"1-9",
+"8-10",
+"12-4"
+],
+"topic": "Vascular connective disorders eye findings"
+},
+"29": {
+"ch": [
+"1-10",
+"5-6"
+],
+"topic": "Systemic vasculitides overview"
+},
+"30": {
+"ch": [
+"9-11",
+"1-15"
+],
+"topic": "Ocular syphilis treatment"
+},
+"31": {
+"ch": [
+"1-3"
+],
+"topic": "ADA diabetes diagnostic criteria"
+},
+"32": {
+"ch": [
+"1-5",
+"1-6"
+],
+"topic": "Hypercholesterolemia and statin therapy"
+},
+"33": {
+"ch": [
+"1-6",
+"1-5"
+],
+"topic": "Acquired heart disease and statins"
+},
+"34": {
+"ch": [
+"1-9",
+"8-10",
+"12-4"
+],
+"topic": "Bleeding connective tissue disorders"
+},
+"35": {
+"ch": [
+"1-14"
+],
+"topic": "Radiation therapy ocular effects"
+},
+"36": {
+"ch": [
+"1-10",
+"9-8"
+],
+"topic": "Ankylosing spondylitis"
+},
+"37": {
+"ch": [
+"1-7",
+"5-11"
+],
+"topic": "Cerebral aneurysm features"
+},
+"38": {
+"ch": [
+"1-8",
+"12-9",
+"10-7",
+"5-6",
+"7-10"
+],
+"topic": "OSA ocular associations"
+},
+"39": {
+"ch": [
+"1-3"
+],
+"topic": "Active thyroid hormone"
+},
+"40": {
+"ch": [
+"1-8",
+"12-9",
+"5-6"
+],
+"topic": "Obstructive sleep apnea features"
+},
+"41": {
+"ch": [
+"1-4"
+],
+"topic": "Resistant hypertension causes"
+},
+"42": {
+"ch": [
+"1-12",
+"5-14"
+],
+"topic": "Drug abuse ocular findings"
+},
+"43": {
+"ch": [
+"1-10",
+"9-10"
+],
+"topic": "SLE ocular manifestations"
+},
+"44": {
+"ch": [
+"1-10",
+"1-9"
+],
+"topic": "Antiphospholipid syndrome ocular complications"
+},
+"45": {
+"ch": [
+"1-14",
+"11-5"
+],
+"topic": "Radiation cataract"
+},
+"46": {
+"ch": [
+"1-15",
+"8-11"
+],
+"topic": "Hemorrhagic conjunctivitis viruses"
+},
+"47": {
+"ch": [
+"1-10",
+"9-10"
+],
+"topic": "Behcet disease features"
+},
+"48": {
+"ch": [
+"1-12",
+"5-14"
+],
+"topic": "Drug-induced miosis"
+},
+"49": {
+"ch": [
+"1-12",
+"12-14"
+],
+"topic": "Vigabatrin visual field loss"
+},
+"50": {
+"ch": [
+"1-6",
+"1-17",
+"1-4"
+],
+"topic": "Cardiovascular drug ocular effects"
+},
+"51": {
+"ch": [
+"1-12",
+"5-10",
+"5-8"
+],
+"topic": "Alzheimer disease ocular findings"
+},
+"52": {
+"ch": [
+"1-14",
+"4-19"
+],
+"topic": "Ocular metastases and leukemia"
+},
+"53": {
+"ch": [
+"1-10",
+"1-9"
+],
+"topic": "Antiphospholipid syndrome"
+},
+"54": {
+"ch": [
+"1-10",
+"9-6"
+],
+"topic": "Methotrexate pharmacology"
+},
+"55": {
+"ch": [
+"1-4",
+"12-6",
+"1-6",
+"1-17"
+],
+"topic": "Hypertension and hypertensive retinopathy"
+},
+"56": {
+"ch": [
+"1-3",
+"12-5"
+],
+"topic": "Diabetic nephropathy"
+},
+"57": {
+"ch": [
+"1-5",
+"1-6",
+"12-5"
+],
+"topic": "Cardiovascular risk treatment goals"
+},
+"58": {
+"ch": [
+"10-12",
+"2-16"
+],
+"topic": "Topical beta-blockers in glaucoma"
+},
+"59": {
+"ch": [
+"1-2"
+],
+"topic": "Clinical study designs"
+},
+"60": {
+"ch": [
+"1-14",
+"1-15"
+],
+"topic": "Virus-associated cancers"
+},
+"61": {
+"ch": [
+"1-14"
+],
+"topic": "Antineoplastic drug classes"
+},
+"62": {
+"ch": [
+"1-10",
+"9-10"
+],
+"topic": "SLE ocular manifestations"
+},
+"63": {
+"ch": [
+"1-10",
+"9-6"
+],
+"topic": "DMARD toxicities"
+},
+"64": {
+"ch": [
+"1-12"
+],
+"topic": "Neuroleptic malignant syndrome"
+},
+"65": {
+"ch": [
+"1-10",
+"9-6"
+],
+"topic": "Systemic corticosteroid adverse effects"
+},
+"66": {
+"ch": [
+"1-3",
+"1-5"
+],
+"topic": "Metabolic syndrome criteria"
+},
+"67": {
+"ch": [
+"1-4"
+],
+"topic": "Secondary hypertension causes"
+},
+"68": {
+"ch": [
+"1-4",
+"12-6"
+],
+"topic": "Hypertensive retinopathy classification"
+},
+"69": {
+"ch": [
+"1-8",
+"12-9",
+"10-7"
+],
+"topic": "Obstructive lung disease and OSA"
+},
+"70": {
+"ch": [
+"1-9"
+],
+"topic": "Anemia classification and causes"
+},
+"71": {
+"ch": [
+"1-10",
+"6-25",
+"9-8"
+],
+"topic": "JIA classification and uveitis"
+},
+"72": {
+"ch": [
+"1-10",
+"2-16",
+"9-6"
+],
+"topic": "Glucocorticoid potency ranking"
+},
+"73": {
+"ch": [
+"1-2"
+],
+"topic": "Case-control selection bias"
+},
+"74": {
+"ch": [
+"1-3",
+"7-4"
+],
+"topic": "Thyroid testing and Graves"
+},
+"75": {
+"ch": [
+"1-5",
+"12-5"
+],
+"topic": "Statins and ocular disease"
+},
+"76": {
+"ch": [
+"1-7"
+],
+"topic": "Carotid stenosis imaging"
+},
+"77": {
+"ch": [
+"1-8",
+"7-10",
+"12-9",
+"10-7"
+],
+"topic": "OSA ocular associations"
+},
+"78": {
+"ch": [
+"1-9",
+"1-6"
+],
+"topic": "DOAC versus warfarin"
+},
+"79": {
+"ch": [
+"1-10",
+"8-3"
+],
+"topic": "Sjogren classification criteria"
+},
+"80": {
+"ch": [
+"1-12",
+"8-4"
+],
+"topic": "Crack cocaine keratopathy"
+},
+"81": {
+"ch": [
+"1-17",
+"12-14",
+"1-12"
+],
+"topic": "Systemic drug ocular adverse effects"
+},
+"82": {
+"ch": [
+"1-15",
+"9-13"
+],
+"topic": "HIV virology and ocular disease"
+},
+"83": {
+"ch": [
+"1-14"
+],
+"topic": "Ocular radiosensitivity ranking"
+},
+"84": {
+"ch": [
+"1-12",
+"5-12"
+],
+"topic": "Parkinson disease ocular findings"
+},
+"85": {
+"ch": [
+"1-12",
+"5-14"
+],
+"topic": "Drug abuse and pupils"
+},
+"86": {
+"ch": [
+"1-13"
+],
+"topic": "Cancer screening guidelines"
+},
+"87": {
+"ch": [
+"1-13",
+"1-15",
+"8-11"
+],
+"topic": "VZV and zoster vaccination"
+},
+"88": {
+"ch": [
+"1-14"
+],
+"topic": "Ocular radiosensitivity"
+},
+"89": {
+"ch": [
+"1-17",
+"12-14"
+],
+"topic": "Drug ocular adverse effects"
+},
+"90": {
+"ch": [
+"1-3"
+],
+"topic": "Thyroid screening tests"
+},
+"91": {
+"ch": [
+"1-10",
+"1-9"
+],
+"topic": "Antiphospholipid syndrome thrombosis"
+},
+"92": {
+"ch": [
+"1-14"
+],
+"topic": "Ocular radiosensitivity"
+},
+"93": {
+"ch": [
+"1-6",
+"1-17"
+],
+"topic": "Amiodarone ocular effects"
+},
+"94": {
+"ch": [
+"2-4",
+"12-8"
+],
+"topic": "Retinal vascular development timing"
+},
+"95": {
+"ch": [
+"2-3",
+"5-2"
+],
+"topic": "Optic chiasm anatomy"
+},
+"96": {
+"ch": [
+"2-1",
+"7-1"
+],
+"topic": "Superior orbital fissure contents"
+},
+"97": {
+"ch": [
+"2-6",
+"2-5"
+],
+"topic": "Mitochondrial inheritance"
+},
+"98": {
+"ch": [
+"2-1",
+"7-1"
+],
+"topic": "Orbital wall thickness"
+},
+"99": {
+"ch": [
+"2-2",
+"2-1",
+"12-1"
+],
+"topic": "Vortex veins and equator"
+},
+"100": {
+"ch": [
+"2-2",
+"12-1"
+],
+"topic": "Ocular blood flow"
+},
+"101": {
+"ch": [
+"2-5"
+],
+"topic": "Polymorphism versus mutation"
+},
+"102": {
+"ch": [
+"2-6",
+"2-5"
+],
+"topic": "Genetics and inheritance patterns"
+},
+"103": {
+"ch": [
+"2-9",
+"12-5"
+],
+"topic": "Aqueous humor composition"
+},
+"104": {
+"ch": [
+"2-6",
+"2-5",
+"12-12",
+"10-1"
+],
+"topic": "Gene-disease associations"
+},
+"105": {
+"ch": [
+"2-16",
+"2-15"
+],
+"topic": "Atropine pharmacology"
+},
+"106": {
+"ch": [
+"2-10",
+"11-2"
+],
+"topic": "Lens capsule and epithelium"
+},
+"107": {
+"ch": [
+"2-11"
+],
+"topic": "Vitreous biochemistry"
+},
+"108": {
+"ch": [
+"2-11",
+"12-10"
+],
+"topic": "Myopia and vitreous changes"
+},
+"109": {
+"ch": [
+"2-13"
+],
+"topic": "RPE functions"
+},
+"110": {
+"ch": [
+"2-4"
+],
+"topic": "Embryonic tissue derivatives"
+},
+"111": {
+"ch": [
+"2-13"
+],
+"topic": "RPE functions"
+},
+"112": {
+"ch": [
+"2-6",
+"5-12",
+"5-11",
+"5-6",
+"2-5"
+],
+"topic": "Mitochondrial diseases"
+},
+"113": {
+"ch": [
+"2-12",
+"2-2"
+],
+"topic": "Neurosensory retina cells"
+},
+"114": {
+"ch": [
+"2-5",
+"2-6"
+],
+"topic": "Tumor-suppressor gene diseases"
+},
+"115": {
+"ch": [
+"2-10",
+"11-2"
+],
+"topic": "Lens anatomy"
+},
+"116": {
+"ch": [
+"2-11"
+],
+"topic": "Vitreous composition"
+},
+"117": {
+"ch": [
+"2-11"
+],
+"topic": "Vitreous pathology"
+},
+"118": {
+"ch": [
+"2-13"
+],
+"topic": "RPE functions"
+},
+"119": {
+"ch": [
+"2-14",
+"2-12"
+],
+"topic": "Retinal carotenoids"
+},
+"120": {
+"ch": [
+"2-16",
+"10-8"
+],
+"topic": "Steroid-induced IOP rise"
+},
+"121": {
+"ch": [
+"2-16"
+],
+"topic": "Ocular drug toxicities"
+},
+"122": {
+"ch": [
+"2-14"
+],
+"topic": "Retinal oxidative stress"
+},
+"123": {
+"ch": [
+"2-12"
+],
+"topic": "Phototransduction cascade"
+},
+"124": {
+"ch": [
+"4-18",
+"2-6"
+],
+"topic": "Retinoblastoma genetics"
+},
+"125": {
+"ch": [
+"2-4"
+],
+"topic": "Embryonic tissue derivatives"
+},
+"126": {
+"ch": [
+"2-13"
+],
+"topic": "RPE functions"
+},
+"127": {
+"ch": [
+"2-1",
+"7-1"
+],
+"topic": "Bony orbit composition"
+},
+"128": {
+"ch": [
+"2-3",
+"5-2",
+"5-14"
+],
+"topic": "Pupillary reflex pathways"
+},
+"129": {
+"ch": [
+"2-1",
+"6-2",
+"7-1"
+],
+"topic": "Annulus of Zinn origins"
+},
+"130": {
+"ch": [
+"2-12",
+"2-2"
+],
+"topic": "Neurosensory retina cells"
+},
+"131": {
+"ch": [
+"2-3",
+"5-1"
+],
+"topic": "Optic nerve blood supply"
+},
+"132": {
+"ch": [
+"2-10",
+"11-2"
+],
+"topic": "Lens anatomy"
+},
+"133": {
+"ch": [
+"2-11"
+],
+"topic": "Vitreous and PVD"
+},
+"134": {
+"ch": [
+"2-14",
+"12-4",
+"12-5"
+],
+"topic": "Oxidative and light damage"
+},
+"135": {
+"ch": [
+"2-16"
+],
+"topic": "Muscarinic antagonist drops"
+},
+"136": {
+"ch": [
+"2-9",
+"2-4"
+],
+"topic": "Iris and ciliary body"
+},
+"137": {
+"ch": [
+"2-6",
+"2-5",
+"8-8",
+"12-12"
+],
+"topic": "Gene-disease associations"
+},
+"138": {
+"ch": [
+"2-4"
+],
+"topic": "Embryonic tissue derivatives"
+},
+"139": {
+"ch": [
+"2-4"
+],
+"topic": "Retinal cell differentiation order"
+},
+"140": {
+"ch": [
+"2-4",
+"2-5"
+],
+"topic": "Homeobox genes"
+},
+"141": {
+"ch": [
+"2-6",
+"2-5"
+],
+"topic": "Mitochondrial inheritance"
+},
+"142": {
+"ch": [
+"2-6",
+"2-5",
+"4-18"
+],
+"topic": "Genetics and inheritance"
+},
+"143": {
+"ch": [
+"2-10",
+"11-2"
+],
+"topic": "Lens capsule and crystallins"
+},
+"144": {
+"ch": [
+"2-13"
+],
+"topic": "RPE functions"
+},
+"145": {
+"ch": [
+"2-14"
+],
+"topic": "Retinal light damage"
+},
+"146": {
+"ch": [
+"2-15"
+],
+"topic": "Topical drug absorption"
+},
+"147": {
+"ch": [
+"2-16"
+],
+"topic": "Ocular pharmacotherapeutics"
+},
+"148": {
+"ch": [
+"2-16",
+"12-4",
+"12-5"
+],
+"topic": "Viscoelastics and growth factors"
+},
+"149": {
+"ch": [
+"2-6",
+"12-12",
+"6-27"
+],
+"topic": "Ocular genetic diseases"
+},
+"150": {
+"ch": [
+"2-16",
+"9-1"
+],
+"topic": "Prostaglandins and NSAIDs"
+},
+"151": {
+"ch": [
+"2-6",
+"8-8",
+"2-5",
+"12-12"
+],
+"topic": "Gene-disease associations"
+},
+"152": {
+"ch": [
+"2-1",
+"7-1"
+],
+"topic": "Superior orbital fissure contents"
+},
+"153": {
+"ch": [
+"2-4"
+],
+"topic": "Embryonic tissue derivatives"
+},
+"154": {
+"ch": [
+"2-1",
+"6-2"
+],
+"topic": "EOM innervation"
+},
+"155": {
+"ch": [
+"2-2",
+"10-4"
+],
+"topic": "Anterior chamber angle structures"
+},
+"156": {
+"ch": [
+"2-10",
+"11-3",
+"11-11"
+],
+"topic": "Lens physiology and PCO"
+},
+"157": {
+"ch": [
+"2-11"
+],
+"topic": "Post-vitrectomy physiology"
+},
+"158": {
+"ch": [
+"2-12"
+],
+"topic": "Retinal physiology"
+},
+"159": {
+"ch": [
+"2-13"
+],
+"topic": "RPE functions"
+},
+"160": {
+"ch": [
+"11-11",
+"12-14",
+"2-15"
+],
+"topic": "HORV and intracameral vancomycin"
+},
+"161": {
+"ch": [
+"2-9",
+"2-2",
+"2-8"
+],
+"topic": "Blood-aqueous barrier"
+},
+"162": {
+"ch": [
+"2-6",
+"12-12",
+"8-10",
+"6-27"
+],
+"topic": "X-linked disorders"
+},
+"163": {
+"ch": [
+"2-6",
+"2-5"
+],
+"topic": "Mitochondrial diseases"
+},
+"164": {
+"ch": [
+"2-5"
+],
+"topic": "Noncoding DNA"
+},
+"165": {
+"ch": [
+"2-4"
+],
+"topic": "Surface ectoderm derivatives"
+},
+"166": {
+"ch": [
+"2-3",
+"5-2"
+],
+"topic": "Oculomotor nucleus anatomy"
+},
+"167": {
+"ch": [
+"2-2"
+],
+"topic": "Trabecular meshwork aging"
+},
+"168": {
+"ch": [
+"2-8",
+"2-2",
+"8-1"
+],
+"topic": "Corneal anatomy and physiology"
+},
+"169": {
+"ch": [
+"2-16",
+"10-12",
+"6-21"
+],
+"topic": "Brimonidine contraindication in infants"
+},
+"170": {
+"ch": [
+"2-10",
+"11-3"
+],
+"topic": "Lens transparency and proteins"
+},
+"171": {
+"ch": [
+"2-11"
+],
+"topic": "Vitreous composition and PVD"
+},
+"172": {
+"ch": [
+"2-13",
+"2-12"
+],
+"topic": "RPE and visual cycle"
+},
+"173": {
+"ch": [
+"2-12"
+],
+"topic": "Retinal physiology"
+},
+"174": {
+"ch": [
+"2-16",
+"11-7",
+"11-11"
+],
+"topic": "Endophthalmitis prophylaxis povidone-iodine"
+},
+"175": {
+"ch": [
+"2-7"
+],
+"topic": "Tear film structure"
+},
+"176": {
+"ch": [
+"2-5"
+],
+"topic": "DNA methylation"
+},
+"177": {
+"ch": [
+"2-4"
+],
+"topic": "Ocular development timeline"
+},
+"178": {
+"ch": [
+"2-2",
+"6-2"
+],
+"topic": "Scleral thickness"
+},
+"179": {
+"ch": [
+"2-1",
+"7-9"
+],
+"topic": "Eyelid glands"
+},
+"180": {
+"ch": [
+"2-3",
+"5-2"
+],
+"topic": "Near reflex pathway"
+},
+"181": {
+"ch": [
+"2-10",
+"11-3"
+],
+"topic": "Lens biochemistry"
+},
+"182": {
+"ch": [
+"2-11",
+"2-6"
+],
+"topic": "Vitreous and hereditary vitreoretinopathies"
+},
+"183": {
+"ch": [
+"2-13",
+"12-12",
+"12-20"
+],
+"topic": "Leber congenital amaurosis"
+},
+"184": {
+"ch": [
+"2-13",
+"12-2"
+],
+"topic": "Fundus autofluorescence source"
+},
+"185": {
+"ch": [
+"2-8"
+],
+"topic": "Corneal glucose metabolism"
+},
+"186": {
+"ch": [
+"2-1",
+"6-2"
+],
+"topic": "Extraocular muscle anatomy"
+},
+"187": {
+"ch": [
+"2-3",
+"5-1"
+],
+"topic": "Optic nerve anatomy"
+},
+"188": {
+"ch": [
+"2-2",
+"2-1"
+],
+"topic": "Iris blood supply"
+},
+"189": {
+"ch": [
+"2-2",
+"10-2"
+],
+"topic": "Trabecular meshwork and Schlemm canal"
+},
+"190": {
+"ch": [
+"2-4"
+],
+"topic": "Ocular development timeline"
+},
+"191": {
+"ch": [
+"2-5",
+"2-6",
+"4-18"
+],
+"topic": "Cell cycle regulation"
+},
+"192": {
+"ch": [
+"2-9"
+],
+"topic": "Aqueous humor composition"
+},
+"193": {
+"ch": [
+"2-16"
+],
+"topic": "Mydriatic duration"
+},
+"194": {
+"ch": [
+"2-16"
+],
+"topic": "Local anesthetic onset"
+},
+"195": {
+"ch": [
+"2-4"
+],
+"topic": "Embryonic tissue derivatives"
+},
+"196": {
+"ch": [
+"2-6",
+"2-5"
+],
+"topic": "Mitochondrial diseases"
+},
+"197": {
+"ch": [
+"2-9"
+],
+"topic": "Aqueous humor composition"
+},
+"198": {
+"ch": [
+"2-16",
+"10-12"
+],
+"topic": "Rho kinase inhibitors"
+},
+"199": {
+"ch": [
+"2-1",
+"7-1"
+],
+"topic": "Annulus of Zinn contents"
+},
+"200": {
+"ch": [
+"2-6",
+"8-10"
+],
+"topic": "Mitochondrial diseases"
+},
+"201": {
+"ch": [
+"2-6",
+"12-13",
+"8-10"
+],
+"topic": "Cherry-red spot disorders"
+},
+"202": {
+"ch": [
+"2-11"
+],
+"topic": "Vitreous collagen types"
+},
+"203": {
+"ch": [
+"2-12",
+"12-12",
+"2-6"
+],
+"topic": "Phototransduction gene disorders"
+},
+"204": {
+"ch": [
+"3-1",
+"3-4"
+],
+"topic": "Chromatic aberration and duochrome"
+},
+"205": {
+"ch": [
+"3-3"
+],
+"topic": "LogMAR to Snellen conversion"
+},
+"206": {
+"ch": [
+"3-3",
+"3-5"
+],
+"topic": "Amplitude of accommodation"
+},
+"207": {
+"ch": [
+"3-5"
+],
+"topic": "Bifocal ranges of clear vision"
+},
+"208": {
+"ch": [
+"3-3"
+],
+"topic": "Reduced schematic eye image size"
+},
+"209": {
+"ch": [
+"3-10",
+"3-5"
+],
+"topic": "Low vision reading glasses"
+},
+"210": {
+"ch": [
+"11-7",
+"3-7",
+"13-3"
+],
+"topic": "Astigmatism correction at cataract surgery"
+},
+"211": {
+"ch": [
+"3-3"
+],
+"topic": "Schematic eye refractive indices"
+},
+"212": {
+"ch": [
+"3-6",
+"3-1",
+"3-5"
+],
+"topic": "Vertex distance conversion"
+},
+"213": {
+"ch": [
+"3-2",
+"3-1",
+"3-9"
+],
+"topic": "Optical principles matching"
+},
+"214": {
+"ch": [
+"3-5",
+"6-6",
+"6-3"
+],
+"topic": "AC/A ratio heterophoria method"
+},
+"215": {
+"ch": [
+"3-1"
+],
+"topic": "Combining cylindrical lenses"
+},
+"216": {
+"ch": [
+"3-1",
+"3-7"
+],
+"topic": "IOL power in different media"
+},
+"217": {
+"ch": [
+"3-4"
+],
+"topic": "Jackson cross cylinder axis"
+},
+"218": {
+"ch": [
+"3-1"
+],
+"topic": "Transverse and axial magnification"
+},
+"219": {
+"ch": [
+"3-5",
+"3-1"
+],
+"topic": "Prentice rule induced prism"
+},
+"220": {
+"ch": [
+"3-6",
+"3-5"
+],
+"topic": "Accommodative demand through spectacles"
+},
+"221": {
+"ch": [
+"3-9"
+],
+"topic": "Indirect ophthalmoscopy magnification"
+},
+"222": {
+"ch": [
+"3-1",
+"3-5"
+],
+"topic": "Vertex distance compensation"
+},
+"223": {
+"ch": [
+"3-6"
+],
+"topic": "RGP lens power tear lens"
+},
+"224": {
+"ch": [
+"3-3"
+],
+"topic": "Optotype visual angle"
+},
+"225": {
+"ch": [
+"3-4"
+],
+"topic": "Astigmatic dial axis"
+},
+"226": {
+"ch": [
+"3-1"
+],
+"topic": "Combining cylindrical lenses"
+},
+"227": {
+"ch": [
+"3-3",
+"3-4"
+],
+"topic": "Astigmatism classification"
+},
+"228": {
+"ch": [
+"3-4"
+],
+"topic": "Jackson cross cylinder power check"
+},
+"229": {
+"ch": [
+"3-1",
+"3-3"
+],
+"topic": "Circle of least confusion"
+},
+"230": {
+"ch": [
+"3-4",
+"3-3"
+],
+"topic": "Retinoscopy neutralization"
+},
+"231": {
+"ch": [
+"3-3"
+],
+"topic": "Decimal to logMAR conversion"
+},
+"232": {
+"ch": [
+"3-2",
+"3-9",
+"3-5"
+],
+"topic": "Optical principles matching"
+},
+"233": {
+"ch": [
+"3-7",
+"11-7"
+],
+"topic": "IOL power calculation"
+},
+"234": {
+"ch": [
+"3-6",
+"3-5"
+],
+"topic": "Accommodation in spectacle hyperope"
+},
+"235": {
+"ch": [
+"3-1",
+"3-5"
+],
+"topic": "Vertex distance compensation"
+},
+"236": {
+"ch": [
+"3-1"
+],
+"topic": "Convex mirror imaging"
+},
+"237": {
+"ch": [
+"3-1",
+"3-10"
+],
+"topic": "Keplerian telescope"
+},
+"238": {
+"ch": [
+"3-1"
+],
+"topic": "Lens between different media"
+},
+"239": {
+"ch": [
+"3-6"
+],
+"topic": "RGP lens power tear lens"
+},
+"240": {
+"ch": [
+"3-5",
+"6-6",
+"6-3"
+],
+"topic": "AC/A ratio calculation"
+},
+"241": {
+"ch": [
+"3-9"
+],
+"topic": "Optometer principle autorefractor"
+},
+"242": {
+"ch": [
+"3-5",
+"3-1"
+],
+"topic": "Prentice rule decentration"
+},
+"243": {
+"ch": [
+"3-5"
+],
+"topic": "Bifocal image jump"
+},
+"244": {
+"ch": [
+"3-6",
+"3-5"
+],
+"topic": "Vertex distance conversion"
+},
+"245": {
+"ch": [
+"3-5"
+],
+"topic": "Accommodative amplitude by age"
+},
+"246": {
+"ch": [
+"3-9",
+"3-7"
+],
+"topic": "Keratometric index"
+},
+"247": {
+"ch": [
+"3-10"
+],
+"topic": "Kestenbaum rule"
+},
+"248": {
+"ch": [
+"3-6"
+],
+"topic": "Contact lens vs spectacle accommodation"
+},
+"249": {
+"ch": [
+"3-3"
+],
+"topic": "Decimal to logMAR conversion"
+},
+"250": {
+"ch": [
+"3-6"
+],
+"topic": "Soft contact lens fitting"
+},
+"251": {
+"ch": [
+"3-6"
+],
+"topic": "Contact lens selection for astigmatism"
+},
+"252": {
+"ch": [
+"3-5"
+],
+"topic": "Photochromic lenses"
+},
+"253": {
+"ch": [
+"3-9"
+],
+"topic": "Indirect ophthalmoscopy magnification"
+},
+"254": {
+"ch": [
+"3-4"
+],
+"topic": "Retinoscopy technique"
+},
+"255": {
+"ch": [
+"3-1",
+"3-5",
+"3-3"
+],
+"topic": "Refractive index and dispersion"
+},
+"256": {
+"ch": [
+"3-1",
+"3-4"
+],
+"topic": "Circle of least confusion"
+},
+"257": {
+"ch": [
+"3-3",
+"3-1"
+],
+"topic": "Aphakic eye focal distance"
+},
+"258": {
+"ch": [
+"3-6",
+"3-9",
+"3-10",
+"3-2"
+],
+"topic": "Optics term associations"
+},
+"259": {
+"ch": [
+"3-3",
+"3-1",
+"3-6"
+],
+"topic": "Reduced eye refractive error"
+},
+"260": {
+"ch": [
+"3-1"
+],
+"topic": "Spherocylinder image location"
+},
+"261": {
+"ch": [
+"3-3",
+"3-1",
+"3-6"
+],
+"topic": "Model eye contact lens power"
+},
+"262": {
+"ch": [
+"3-4"
+],
+"topic": "Retinoscopy with working distance"
+},
+"263": {
+"ch": [
+"3-1"
+],
+"topic": "Transverse magnification"
+},
+"264": {
+"ch": [
+"3-1"
+],
+"topic": "Cylinder power in oblique meridian"
+},
+"265": {
+"ch": [
+"3-1",
+"3-10"
+],
+"topic": "Telescope properties"
+},
+"266": {
+"ch": [
+"3-9"
+],
+"topic": "Direct ophthalmoscope magnification"
+},
+"267": {
+"ch": [
+"3-4"
+],
+"topic": "Fogging in subjective refraction"
+},
+"268": {
+"ch": [
+"3-10"
+],
+"topic": "Nonoptical low vision aids"
+},
+"269": {
+"ch": [
+"3-1",
+"3-5",
+"3-4"
+],
+"topic": "Chromatic aberration"
+},
+"270": {
+"ch": [
+"3-1",
+"3-3",
+"3-2"
+],
+"topic": "Night myopia"
+},
+"271": {
+"ch": [
+"3-9"
+],
+"topic": "Indirect ophthalmoscope magnification"
+},
+"272": {
+"ch": [
+"3-1",
+"3-4"
+],
+"topic": "Cross cylinder focal lines"
+},
+"273": {
+"ch": [
+"3-1"
+],
+"topic": "Meridional power of lenses"
+},
+"274": {
+"ch": [
+"3-1"
+],
+"topic": "Concave mirror magnification"
+},
+"275": {
+"ch": [
+"3-1",
+"3-5"
+],
+"topic": "Prism diopter definition"
+},
+"276": {
+"ch": [
+"3-3",
+"6-6",
+"6-24"
+],
+"topic": "Angle kappa and alpha"
+},
+"277": {
+"ch": [
+"3-1",
+"3-7"
+],
+"topic": "IOL power in air vs aqueous"
+},
+"278": {
+"ch": [
+"3-1"
+],
+"topic": "Axial magnification"
+},
+"279": {
+"ch": [
+"3-2"
+],
+"topic": "Diffraction"
+},
+"280": {
+"ch": [
+"3-3",
+"3-5"
+],
+"topic": "Amplitude of accommodation"
+},
+"281": {
+"ch": [
+"3-4",
+"11-11"
+],
+"topic": "Retinoscopy tight suture astigmatism"
+},
+"282": {
+"ch": [
+"3-3",
+"3-1"
+],
+"topic": "Reduced eye axial length"
+},
+"283": {
+"ch": [
+"3-4"
+],
+"topic": "Jackson cross cylinder refinement"
+},
+"284": {
+"ch": [
+"3-1"
+],
+"topic": "Critical angle"
+},
+"285": {
+"ch": [
+"3-4"
+],
+"topic": "Retinoscopy with working distance"
+},
+"286": {
+"ch": [
+"3-5",
+"3-3"
+],
+"topic": "Far point and refractive error"
+},
+"287": {
+"ch": [
+"3-1",
+"3-7"
+],
+"topic": "IOL power in air"
+},
+"288": {
+"ch": [
+"3-1"
+],
+"topic": "Concave mirror imaging"
+},
+"289": {
+"ch": [
+"3-1",
+"3-10",
+"3-9"
+],
+"topic": "Keplerian vs Galilean telescopes"
+},
+"290": {
+"ch": [
+"3-2",
+"3-5",
+"13-1"
+],
+"topic": "Physical optics and lasers"
+},
+"291": {
+"ch": [
+"3-7",
+"11-7"
+],
+"topic": "Sulcus IOL power adjustment"
+},
+"292": {
+"ch": [
+"3-6",
+"3-4",
+"3-1"
+],
+"topic": "Contact lens overrefraction"
+},
+"293": {
+"ch": [
+"3-6"
+],
+"topic": "RGP tear lens power"
+},
+"294": {
+"ch": [
+"3-7",
+"11-7",
+"11-12"
+],
+"topic": "Biometry with silicone oil"
+},
+"295": {
+"ch": [
+"4-11",
+"2-2"
+],
+"topic": "Uveal tract anatomy"
+},
+"296": {
+"ch": [
+"4-11",
+"9-10"
+],
+"topic": "Sympathetic ophthalmia pathology"
+},
+"297": {
+"ch": [
+"4-3"
+],
+"topic": "Ocular wound repair"
+},
+"298": {
+"ch": [
+"4-10",
+"12-16"
+],
+"topic": "Lattice degeneration histopathology"
+},
+"299": {
+"ch": [
+"4-9",
+"4-19",
+"9-15"
+],
+"topic": "Intraocular lymphoma"
+},
+"300": {
+"ch": [
+"4-18",
+"4-10",
+"2-13"
+],
+"topic": "Retinoblastoma features"
+},
+"301": {
+"ch": [
+"4-5",
+"8-12"
+],
+"topic": "Acanthamoeba double-walled cysts"
+},
+"302": {
+"ch": [
+"4-11",
+"9-10"
+],
+"topic": "VKH vs sympathetic ophthalmia pathology"
+},
+"303": {
+"ch": [
+"4-8",
+"11-5",
+"11-4"
+],
+"topic": "Posterior subcapsular cataract pathogenesis"
+},
+"304": {
+"ch": [
+"4-10"
+],
+"topic": "Cystoid macular edema histology"
+},
+"305": {
+"ch": [
+"4-19",
+"4-16",
+"4-18"
+],
+"topic": "Most common intraocular tumor"
+},
+"306": {
+"ch": [
+"4-16"
+],
+"topic": "Uveal melanoma metastasis workup"
+},
+"307": {
+"ch": [
+"4-12",
+"7-10"
+],
+"topic": "Sebaceous carcinoma pathology"
+},
+"308": {
+"ch": [
+"4-19",
+"9-15",
+"4-9"
+],
+"topic": "PIOL and CNS lymphoma"
+},
+"309": {
+"ch": [
+"4-14",
+"4-2",
+"4-4",
+"4-5"
+],
+"topic": "Temporal artery biopsy stain"
+},
+"310": {
+"ch": [
+"4-5",
+"8-8"
+],
+"topic": "Descemet membrane thickening"
+},
+"311": {
+"ch": [
+"2-4"
+],
+"topic": "Trabecular meshwork embryology"
+},
+"312": {
+"ch": [
+"2-4",
+"4-9",
+"2-11"
+],
+"topic": "Secondary vitreous embryology"
+},
+"313": {
+"ch": [
+"2-4",
+"4-9",
+"11-4",
+"6-20"
+],
+"topic": "Hyaloid vascular remnants"
+},
+"314": {
+"ch": [
+"4-10",
+"12-5"
+],
+"topic": "Diabetic ocular histopathology"
+},
+"315": {
+"ch": [
+"4-4",
+"8-14"
+],
+"topic": "PAM with atypia"
+},
+"316": {
+"ch": [
+"4-16",
+"4-11"
+],
+"topic": "Uveal melanoma features"
+},
+"317": {
+"ch": [
+"4-17",
+"12-9"
+],
+"topic": "Choroidal hemangioma"
+},
+"318": {
+"ch": [
+"4-19",
+"9-15",
+"4-9",
+"12-11"
+],
+"topic": "Primary intraocular lymphoma"
+},
+"319": {
+"ch": [
+"4-19"
+],
+"topic": "Uveal metastatic carcinoma"
+},
+"320": {
+"ch": [
+"4-11",
+"9-10"
+],
+"topic": "Choroidal inflammation pathology"
+},
+"321": {
+"ch": [
+"4-11",
+"4-16"
+],
+"topic": "Uveal tumor pathology"
+},
+"322": {
+"ch": [
+"4-5",
+"8-8",
+"4-11",
+"4-16"
+],
+"topic": "TGFBI corneal dystrophies"
+},
+"323": {
+"ch": [
+"4-6",
+"10-8"
+],
+"topic": "Hemolytic glaucoma"
+},
+"324": {
+"ch": [
+"8-12",
+"4-4",
+"6-19"
+],
+"topic": "Parinaud oculoglandular syndrome"
+},
+"325": {
+"ch": [
+"4-6",
+"10-8",
+"11-5"
+],
+"topic": "Pseudoexfoliation pathology"
+},
+"326": {
+"ch": [
+"4-19",
+"6-27"
+],
+"topic": "Leukemic ocular findings"
+},
+"327": {
+"ch": [
+"4-19",
+"9-15",
+"4-9",
+"12-11"
+],
+"topic": "Primary intraocular lymphoma"
+},
+"328": {
+"ch": [
+"4-11",
+"4-16",
+"9-10",
+"12-4"
+],
+"topic": "Uveal tract pathology"
+},
+"329": {
+"ch": [
+"4-12",
+"7-10"
+],
+"topic": "Eyelid histopathology"
+},
+"330": {
+"ch": [
+"4-5",
+"8-12"
+],
+"topic": "Infectious crystalline keratopathy"
+},
+"331": {
+"ch": [
+"4-8",
+"11-5"
+],
+"topic": "Wedl bladder cells"
+},
+"332": {
+"ch": [
+"12-17",
+"4-3"
+],
+"topic": "Commotio retinae"
+},
+"333": {
+"ch": [
+"12-12",
+"4-10"
+],
+"topic": "Stargardt disease"
+},
+"334": {
+"ch": [
+"4-10",
+"4-18"
+],
+"topic": "Retinoblastoma rosettes"
+},
+"335": {
+"ch": [
+"4-4",
+"8-13"
+],
+"topic": "Mucous membrane pemphigoid"
+},
+"336": {
+"ch": [
+"4-19",
+"6-27"
+],
+"topic": "Leukemic retinopathy"
+},
+"337": {
+"ch": [
+"4-16",
+"4-14",
+"4-11"
+],
+"topic": "Melanocytoma"
+},
+"338": {
+"ch": [
+"4-19"
+],
+"topic": "Ocular metastases"
+},
+"339": {
+"ch": [
+"4-11",
+"2-2"
+],
+"topic": "Uveal tract histology"
+},
+"340": {
+"ch": [
+"4-12",
+"7-9",
+"7-10"
+],
+"topic": "Eyelid histology and lesions"
+},
+"341": {
+"ch": [
+"4-4",
+"4-12"
+],
+"topic": "Pagetoid spread"
+},
+"342": {
+"ch": [
+"4-5",
+"8-8",
+"4-2"
+],
+"topic": "Granular dystrophy type 2 stains"
+},
+"343": {
+"ch": [
+"4-6",
+"10-10",
+"8-8"
+],
+"topic": "ICE syndrome"
+},
+"344": {
+"ch": [
+"4-10"
+],
+"topic": "Retinal ischemia tolerance"
+},
+"345": {
+"ch": [
+"4-2",
+"6-2"
+],
+"topic": "Globe orientation landmarks"
+},
+"346": {
+"ch": [
+"4-16"
+],
+"topic": "Choroidal melanoma"
+},
+"347": {
+"ch": [
+"4-10",
+"12-7",
+"6-24"
+],
+"topic": "Coats disease"
+},
+"348": {
+"ch": [
+"4-19",
+"6-27"
+],
+"topic": "Leukemic ocular involvement"
+},
+"349": {
+"ch": [
+"4-11",
+"4-16"
+],
+"topic": "Posterior uveal melanoma prognosis"
+},
+"350": {
+"ch": [
+"4-12",
+"7-10",
+"7-4"
+],
+"topic": "Eyelid pathology"
+},
+"351": {
+"ch": [
+"9-14",
+"11-11"
+],
+"topic": "P. acnes endophthalmitis"
+},
+"352": {
+"ch": [
+"4-5",
+"8-15",
+"10-8"
+],
+"topic": "Corneal blood staining"
+},
+"353": {
+"ch": [
+"4-13",
+"4-2"
+],
+"topic": "Schwannoma immunohistochemistry"
+},
+"354": {
+"ch": [
+"4-18",
+"4-10"
+],
+"topic": "Retinoblastoma high-risk features"
+},
+"355": {
+"ch": [
+"4-4",
+"8-13"
+],
+"topic": "Mucous membrane pemphigoid"
+},
+"356": {
+"ch": [
+"4-13",
+"7-4"
+],
+"topic": "IgG4-related disease"
+},
+"357": {
+"ch": [
+"4-16"
+],
+"topic": "Choroidal nevus growth risk factors"
+},
+"358": {
+"ch": [
+"4-11",
+"9-10"
+],
+"topic": "Noninfectious uveitis pathology"
+},
+"359": {
+"ch": [
+"4-4",
+"8-6",
+"4-12"
+],
+"topic": "Elastotic degeneration"
+},
+"360": {
+"ch": [
+"4-1",
+"4-4",
+"4-13",
+"7-3",
+"4-10"
+],
+"topic": "Choristoma vs hamartoma"
+},
+"361": {
+"ch": [
+"4-4",
+"8-14"
+],
+"topic": "Oncocytoma"
+},
+"362": {
+"ch": [
+"4-10",
+"9-12",
+"9-13"
+],
+"topic": "ARN and CMV retinitis"
+},
+"363": {
+"ch": [
+"4-10",
+"4-16",
+"6-24"
+],
+"topic": "CHRPE and Gardner syndrome"
+},
+"364": {
+"ch": [
+"4-10"
+],
+"topic": "Cytoid bodies"
+},
+"365": {
+"ch": [
+"4-13",
+"7-4"
+],
+"topic": "IgG4-related disease"
+},
+"366": {
+"ch": [
+"4-18",
+"4-10",
+"6-24"
+],
+"topic": "Retinoblastoma"
+},
+"367": {
+"ch": [
+"4-11",
+"4-16"
+],
+"topic": "Choroidal osteoma"
+},
+"368": {
+"ch": [
+"4-11",
+"4-16"
+],
+"topic": "Melanoma histology"
+},
+"369": {
+"ch": [
+"4-2",
+"4-5"
+],
+"topic": "PAS stain"
+},
+"370": {
+"ch": [
+"4-4",
+"8-12"
+],
+"topic": "Granulomatous conjunctivitis"
+},
+"371": {
+"ch": [
+"4-4",
+"8-14",
+"4-1"
+],
+"topic": "Primary acquired melanosis atypia"
+},
+"372": {
+"ch": [
+"8-8",
+"4-5"
+],
+"topic": "TGFBI corneal dystrophies"
+},
+"373": {
+"ch": [
+"4-10",
+"4-18"
+],
+"topic": "Medulloepithelioma"
+},
+"374": {
+"ch": [
+"4-9",
+"6-24",
+"2-4"
+],
+"topic": "Persistent fetal vasculature"
+},
+"375": {
+"ch": [
+"4-4",
+"4-1",
+"7-3"
+],
+"topic": "Conjunctival hamartoma"
+},
+"376": {
+"ch": [
+"4-4",
+"4-3"
+],
+"topic": "Pyogenic granuloma pathology"
+},
+"377": {
+"ch": [
+"4-2"
+],
+"topic": "Pupil-optic nerve section"
+},
+"378": {
+"ch": [
+"4-11",
+"10-10",
+"4-10"
+],
+"topic": "Iris neovascularization"
+},
+"379": {
+"ch": [
+"4-11",
+"4-16"
+],
+"topic": "Posterior uveal melanoma"
+},
+"380": {
+"ch": [
+"4-12",
+"7-10",
+"7-4"
+],
+"topic": "Eyelid infections"
+},
+"381": {
+"ch": [
+"4-12",
+"7-10"
+],
+"topic": "Eyelid lesions malignant potential"
+},
+"382": {
+"ch": [
+"4-13",
+"7-4"
+],
+"topic": "Thyroid eye disease pathology"
+},
+"383": {
+"ch": [
+"4-13",
+"7-5"
+],
+"topic": "Lacrimal gland tumors"
+},
+"384": {
+"ch": [
+"4-14",
+"10-1"
+],
+"topic": "Glaucomatous optic atrophy pathology"
+},
+"385": {
+"ch": [
+"4-16"
+],
+"topic": "COMS medium tumor trial"
+},
+"386": {
+"ch": [
+"4-17",
+"12-9"
+],
+"topic": "Circumscribed choroidal hemangioma imaging"
+},
+"387": {
+"ch": [
+"4-18",
+"4-10"
+],
+"topic": "Retinoblastoma"
+},
+"388": {
+"ch": [
+"4-1",
+"4-4"
+],
+"topic": "Choristoma definition"
+},
+"389": {
+"ch": [
+"4-4",
+"8-14"
+],
+"topic": "Ocular surface squamous neoplasia"
+},
+"390": {
+"ch": [
+"4-4",
+"8-14"
+],
+"topic": "Conjunctival melanoma"
+},
+"391": {
+"ch": [
+"4-4",
+"4-19",
+"4-9",
+"8-14",
+"9-15"
+],
+"topic": "Ocular lymphoid lesions"
+},
+"392": {
+"ch": [
+"4-5",
+"8-6",
+"8-15",
+"4-2"
+],
+"topic": "Corneal pigment deposits"
+},
+"393": {
+"ch": [
+"4-6",
+"6-21",
+"10-11"
+],
+"topic": "Primary congenital glaucoma pathology"
+},
+"394": {
+"ch": [
+"4-8",
+"11-4"
+],
+"topic": "Lens developmental anomalies"
+},
+"395": {
+"ch": [
+"4-7",
+"10-10",
+"6-21"
+],
+"topic": "Nanophthalmos"
+},
+"396": {
+"ch": [
+"12-17",
+"6-26",
+"4-10"
+],
+"topic": "Abusive head trauma findings"
+},
+"397": {
+"ch": [
+"5-8",
+"5-14"
+],
+"topic": "Optic tract lesion"
+},
+"398": {
+"ch": [
+"5-3",
+"5-6",
+"5-7",
+"5-12"
+],
+"topic": "Neuroimaging indications"
+},
+"399": {
+"ch": [
+"5-14",
+"5-4"
+],
+"topic": "RAPD causes"
+},
+"400": {
+"ch": [
+"5-4",
+"5-5",
+"5-9"
+],
+"topic": "Photostress recovery test"
+},
+"401": {
+"ch": [
+"5-6"
+],
+"topic": "IIH diagnostic criteria"
+},
+"402": {
+"ch": [
+"5-6"
+],
+"topic": "Leber hereditary optic neuropathy"
+},
+"403": {
+"ch": [
+"5-18",
+"5-6"
+],
+"topic": "NMO diagnostic criteria"
+},
+"404": {
+"ch": [
+"5-6",
+"5-18",
+"5-9"
+],
+"topic": "Uhthoff phenomenon"
+},
+"405": {
+"ch": [
+"5-12"
+],
+"topic": "Convergence insufficiency causes"
+},
+"406": {
+"ch": [
+"5-12"
+],
+"topic": "Ocular tilt reaction"
+},
+"407": {
+"ch": [
+"5-11",
+"5-12",
+"5-18"
+],
+"topic": "Internuclear ophthalmoplegia"
+},
+"408": {
+"ch": [
+"6-11",
+"5-11"
+],
+"topic": "Acquired Brown syndrome"
+},
+"409": {
+"ch": [
+"5-13",
+"6-12",
+"5-7"
+],
+"topic": "Monocular vertical nystagmus"
+},
+"410": {
+"ch": [
+"5-14",
+"5-3"
+],
+"topic": "Carotid dissection imaging"
+},
+"411": {
+"ch": [
+"2-1",
+"7-1",
+"6-2"
+],
+"topic": "Annulus of Zinn origins"
+},
+"412": {
+"ch": [
+"5-14",
+"5-4",
+"5-8"
+],
+"topic": "RAPD causes"
+},
+"413": {
+"ch": [
+"5-6"
+],
+"topic": "IIH diagnostic criteria"
+},
+"414": {
+"ch": [
+"5-6"
+],
+"topic": "Leber hereditary optic neuropathy"
+},
+"415": {
+"ch": [
+"5-6",
+"5-18"
+],
+"topic": "Arteritic vs nonarteritic AION"
+},
+"416": {
+"ch": [
+"5-18",
+"5-6"
+],
+"topic": "NMO diagnostic criteria"
+},
+"417": {
+"ch": [
+"5-8"
+],
+"topic": "Optic tract syndrome"
+},
+"418": {
+"ch": [
+"5-12",
+"1-12"
+],
+"topic": "Drug-induced oculogyric crisis"
+},
+"419": {
+"ch": [
+"5-12",
+"5-11"
+],
+"topic": "Ocular tilt reaction vs CN IV"
+},
+"420": {
+"ch": [
+"5-11",
+"5-12"
+],
+"topic": "WEBINO localization"
+},
+"421": {
+"ch": [
+"5-11",
+"5-14"
+],
+"topic": "CN III aberrant regeneration"
+},
+"422": {
+"ch": [
+"5-14"
+],
+"topic": "Pharmacologic pupil testing"
+},
+"423": {
+"ch": [
+"5-11",
+"5-18"
+],
+"topic": "Miller Fisher anti-GQ1b"
+},
+"424": {
+"ch": [
+"5-16"
+],
+"topic": "Idiopathic stabbing headache"
+},
+"425": {
+"ch": [
+"5-8"
+],
+"topic": "Parietal optic radiation field defect"
+},
+"426": {
+"ch": [
+"5-3",
+"5-18"
+],
+"topic": "MRI sequences for MS"
+},
+"427": {
+"ch": [
+"5-2",
+"5-11"
+],
+"topic": "CN III nuclear complex"
+},
+"428": {
+"ch": [
+"5-6"
+],
+"topic": "IIH diagnostic criteria"
+},
+"429": {
+"ch": [
+"5-18",
+"5-6"
+],
+"topic": "NMO features"
+},
+"430": {
+"ch": [
+"5-6"
+],
+"topic": "NAION risk factors"
+},
+"431": {
+"ch": [
+"5-6"
+],
+"topic": "Leber hereditary optic neuropathy"
+},
+"432": {
+"ch": [
+"5-11",
+"6-10"
+],
+"topic": "Double Maddox rod in CN IV palsy"
+},
+"433": {
+"ch": [
+"5-12",
+"5-11"
+],
+"topic": "Ocular tilt reaction"
+},
+"434": {
+"ch": [
+"5-13",
+"6-12",
+"5-7"
+],
+"topic": "Monocular nystagmus and glioma"
+},
+"435": {
+"ch": [
+"5-14",
+"5-16"
+],
+"topic": "Horner and carotid dissection"
+},
+"436": {
+"ch": [
+"5-11",
+"5-18"
+],
+"topic": "Miller Fisher anti-GQ1b"
+},
+"437": {
+"ch": [
+"5-16"
+],
+"topic": "Trochleitis treatment"
+},
+"438": {
+"ch": [
+"5-18"
+],
+"topic": "MS risk factors"
+},
+"439": {
+"ch": [
+"5-18",
+"5-6",
+"5-9"
+],
+"topic": "Uhthoff phenomenon"
+},
+"440": {
+"ch": [
+"5-8"
+],
+"topic": "Parietal lobe field defect"
+},
+"441": {
+"ch": [
+"5-6"
+],
+"topic": "Amiodarone optic neuropathy"
+},
+"442": {
+"ch": [
+"5-6"
+],
+"topic": "NAION risk factors"
+},
+"443": {
+"ch": [
+"5-3"
+],
+"topic": "MRI FLAIR sequence"
+},
+"444": {
+"ch": [
+"5-8"
+],
+"topic": "Optic tract syndrome"
+},
+"445": {
+"ch": [
+"6-27",
+"2-6",
+"5-18"
+],
+"topic": "Neurocutaneous syndromes"
+},
+"446": {
+"ch": [
+"5-12",
+"5-14"
+],
+"topic": "Dorsal midbrain syndrome"
+},
+"447": {
+"ch": [
+"5-11",
+"5-16"
+],
+"topic": "CN III palsy causes"
+},
+"448": {
+"ch": [
+"5-15"
+],
+"topic": "Facial paralysis causes"
+},
+"449": {
+"ch": [
+"5-14"
+],
+"topic": "Light-near dissociation"
+},
+"450": {
+"ch": [
+"5-18",
+"5-6",
+"5-7"
+],
+"topic": "Neuromyelitis optica"
+},
+"451": {
+"ch": [
+"5-9"
+],
+"topic": "Binocular transient visual loss"
+},
+"452": {
+"ch": [
+"5-18"
+],
+"topic": "NMO core clinical features"
+},
+"453": {
+"ch": [
+"5-14",
+"5-4",
+"6-5"
+],
+"topic": "RAPD causes"
+},
+"454": {
+"ch": [
+"5-6"
+],
+"topic": "NAION risk factors"
+},
+"455": {
+"ch": [
+"5-11",
+"6-10"
+],
+"topic": "Bilateral CN IV palsy"
+},
+"456": {
+"ch": [
+"5-12",
+"5-15"
+],
+"topic": "Collier sign"
+},
+"457": {
+"ch": [
+"5-13"
+],
+"topic": "Bruns nystagmus"
+},
+"458": {
+"ch": [
+"5-16"
+],
+"topic": "Headache syndromes duration"
+},
+"459": {
+"ch": [
+"5-18",
+"12-14"
+],
+"topic": "Fingolimod macular edema"
+},
+"460": {
+"ch": [
+"5-13",
+"5-12"
+],
+"topic": "Whipple disease oculomasticatory myorhythmia"
+},
+"461": {
+"ch": [
+"5-11",
+"5-12"
+],
+"topic": "Internuclear ophthalmoplegia"
+},
+"462": {
+"ch": [
+"5-14",
+"5-2"
+],
+"topic": "Pupillary light reflex pathway"
+},
+"463": {
+"ch": [
+"5-6",
+"7-5",
+"4-14"
+],
+"topic": "Optic nerve sheath meningioma"
+},
+"464": {
+"ch": [
+"5-12"
+],
+"topic": "Dorsal midbrain syndrome"
+},
+"465": {
+"ch": [
+"5-14"
+],
+"topic": "Horner syndrome causes"
+},
+"466": {
+"ch": [
+"5-15",
+"5-11"
+],
+"topic": "Facial nerve palsy causes"
+},
+"467": {
+"ch": [
+"5-18",
+"5-8"
+],
+"topic": "PRES"
+},
+"468": {
+"ch": [
+"5-13"
+],
+"topic": "Nystagmus localization"
+},
+"469": {
+"ch": [
+"5-18",
+"11-5",
+"5-11"
+],
+"topic": "Myotonic dystrophy"
+},
+"470": {
+"ch": [
+"7-1",
+"2-1",
+"5-2"
+],
+"topic": "Superior orbital fissure contents"
+},
+"471": {
+"ch": [
+"5-8"
+],
+"topic": "Temporal lobe field defect"
+},
+"472": {
+"ch": [
+"5-18",
+"5-6"
+],
+"topic": "MOGAD"
+},
+"473": {
+"ch": [
+"5-6",
+"5-18",
+"1-10"
+],
+"topic": "Giant cell arteritis treatment"
+},
+"474": {
+"ch": [
+"5-18"
+],
+"topic": "MS laboratory features"
+},
+"475": {
+"ch": [
+"5-16"
+],
+"topic": "Trigeminal neuralgia"
+},
+"476": {
+"ch": [
+"5-15",
+"7-12"
+],
+"topic": "Hemifacial spasm"
+},
+"477": {
+"ch": [
+"5-14"
+],
+"topic": "Horner anhidrosis pattern"
+},
+"478": {
+"ch": [
+"5-13",
+"5-12"
+],
+"topic": "Convergence-retraction nystagmus"
+},
+"479": {
+"ch": [
+"5-11",
+"6-7"
+],
+"topic": "Pediatric CN VI palsy"
+},
+"480": {
+"ch": [
+"5-3"
+],
+"topic": "DWI and ADC MRI"
+},
+"481": {
+"ch": [
+"5-6"
+],
+"topic": "Idiopathic intracranial hypertension"
+},
+"482": {
+"ch": [
+"5-6"
+],
+"topic": "Drug-induced intracranial hypertension"
+},
+"483": {
+"ch": [
+"5-18",
+"7-4"
+],
+"topic": "Biologics in neuro-ophthalmology"
+},
+"484": {
+"ch": [
+"5-18",
+"5-6"
+],
+"topic": "AQP4 vs MOG optic neuritis"
+},
+"485": {
+"ch": [
+"5-9",
+"1-7"
+],
+"topic": "Transient visual loss"
+},
+"486": {
+"ch": [
+"5-8"
+],
+"topic": "Temporal crescent field defect"
+},
+"487": {
+"ch": [
+"5-2",
+"5-11"
+],
+"topic": "Oculomotor nerve anatomy"
+},
+"488": {
+"ch": [
+"5-6"
+],
+"topic": "Toxic optic neuropathy"
+},
+"489": {
+"ch": [
+"5-8"
+],
+"topic": "LGN lesions"
+},
+"490": {
+"ch": [
+"5-3",
+"7-5",
+"5-6"
+],
+"topic": "ONSM vs optic glioma imaging"
+},
+"491": {
+"ch": [
+"5-18",
+"5-6"
+],
+"topic": "MOGAD optic neuritis"
+},
+"492": {
+"ch": [
+"5-14",
+"5-4"
+],
+"topic": "RAPD and anisocoria"
+},
+"493": {
+"ch": [
+"5-10",
+"5-12",
+"5-14",
+"12-17"
+],
+"topic": "Neuro-ophthalmic eponymous syndromes"
+},
+"494": {
+"ch": [
+"5-18"
+],
+"topic": "Pregnancy neuro-ophthalmic disorders"
+},
+"495": {
+"ch": [
+"5-6"
+],
+"topic": "Papilledema features"
+},
+"496": {
+"ch": [
+"5-18",
+"5-11",
+"5-15"
+],
+"topic": "Myasthenia gravis"
+},
+"497": {
+"ch": [
+"5-6"
+],
+"topic": "NAION"
+},
+"498": {
+"ch": [
+"5-5",
+"5-4"
+],
+"topic": "Maculopathy vs optic neuropathy"
+},
+"499": {
+"ch": [
+"5-11",
+"7-4"
+],
+"topic": "Multiple cranial nerve palsies"
+},
+"500": {
+"ch": [
+"5-12",
+"5-11"
+],
+"topic": "Supranuclear motility disorders"
+},
+"501": {
+"ch": [
+"5-13",
+"6-12"
+],
+"topic": "Infantile nystagmus evaluation"
+},
+"502": {
+"ch": [
+"5-14"
+],
+"topic": "Pupil abnormalities"
+},
+"503": {
+"ch": [
+"5-15",
+"7-12"
+],
+"topic": "Eyelid spasm disorders"
+},
+"504": {
+"ch": [
+"5-16"
+],
+"topic": "Headache evaluation"
+},
+"505": {
+"ch": [
+"5-17"
+],
+"topic": "Functional visual loss mimics"
+},
+"506": {
+"ch": [
+"5-18",
+"5-11",
+"5-15"
+],
+"topic": "Myasthenia gravis"
+},
+"507": {
+"ch": [
+"5-10"
+],
+"topic": "Splenium stroke syndromes"
+},
+"508": {
+"ch": [
+"5-12",
+"5-14"
+],
+"topic": "Wallenberg syndrome"
+},
+"509": {
+"ch": [
+"5-13"
+],
+"topic": "Nystagmus lesion localization"
+},
+"510": {
+"ch": [
+"5-14"
+],
+"topic": "Anisocoria worse in dark"
+},
+"511": {
+"ch": [
+"5-15",
+"5-12",
+"7-12"
+],
+"topic": "Acquired eyelid retraction causes"
+},
+"512": {
+"ch": [
+"5-16",
+"5-10"
+],
+"topic": "Migraine features"
+},
+"513": {
+"ch": [
+"5-17"
+],
+"topic": "Functional visual loss tests"
+},
+"514": {
+"ch": [
+"5-11",
+"5-18",
+"5-15"
+],
+"topic": "Myasthenia gravis facts"
+},
+"515": {
+"ch": [
+"5-3",
+"2-17"
+],
+"topic": "Gadolinium nephrogenic systemic fibrosis"
+},
+"516": {
+"ch": [
+"5-3",
+"5-18"
+],
+"topic": "FLAIR MRI for MS"
+},
+"517": {
+"ch": [
+"5-4",
+"5-6"
+],
+"topic": "LHON disc pseudoedema on FA"
+},
+"518": {
+"ch": [
+"9-7",
+"5-16",
+"5-4"
+],
+"topic": "Posterior scleritis diagnosis"
+},
+"519": {
+"ch": [
+"5-5",
+"12-13"
+],
+"topic": "Melanoma-associated retinopathy"
+},
+"520": {
+"ch": [
+"5-6"
+],
+"topic": "IIH treatment"
+},
+"521": {
+"ch": [
+"5-18",
+"5-6"
+],
+"topic": "NMOSD features"
+},
+"522": {
+"ch": [
+"5-11",
+"5-12"
+],
+"topic": "WEBINO syndrome"
+},
+"523": {
+"ch": [
+"5-14"
+],
+"topic": "Light-near dissociation causes"
+},
+"524": {
+"ch": [
+"5-10",
+"5-11"
+],
+"topic": "Higher cortical visual disorders"
+},
+"525": {
+"ch": [
+"5-12",
+"5-13",
+"5-11"
+],
+"topic": "Dorsal midbrain syndrome"
+},
+"526": {
+"ch": [
+"5-13"
+],
+"topic": "Central vestibular nystagmus"
+},
+"527": {
+"ch": [
+"5-14"
+],
+"topic": "Horner syndrome causes"
+},
+"528": {
+"ch": [
+"5-15"
+],
+"topic": "Facial paralysis causes"
+},
+"529": {
+"ch": [
+"5-11"
+],
+"topic": "Brainstem CN III syndromes"
+},
+"530": {
+"ch": [
+"5-11",
+"7-5"
+],
+"topic": "Carotid-cavernous fistula signs"
+},
+"531": {
+"ch": [
+"5-11"
+],
+"topic": "Paretic vs restrictive diplopia"
+},
+"532": {
+"ch": [
+"5-11",
+"5-12"
+],
+"topic": "INO localization"
+},
+"533": {
+"ch": [
+"5-13"
+],
+"topic": "Peripheral vestibular nystagmus"
+},
+"534": {
+"ch": [
+"5-14",
+"12-5"
+],
+"topic": "Light-near dissociation causes"
+},
+"535": {
+"ch": [
+"5-15"
+],
+"topic": "UMN vs LMN facial palsy"
+},
+"536": {
+"ch": [
+"5-16"
+],
+"topic": "Cluster headache"
+},
+"537": {
+"ch": [
+"6-27"
+],
+"topic": "Neurocutaneous syndrome with seizures"
+},
+"538": {
+"ch": [
+"6-3",
+"6-10",
+"5-11"
+],
+"topic": "Primary vs secondary deviation"
+},
+"539": {
+"ch": [
+"6-5"
+],
+"topic": "Isoametropic amblyopia risk"
+},
+"540": {
+"ch": [
+"6-8",
+"6-24",
+"12-8"
+],
+"topic": "ROP dragged macula pseudoexotropia"
+},
+"541": {
+"ch": [
+"6-4"
+],
+"topic": "Sensory adaptation suppression"
+},
+"542": {
+"ch": [
+"6-7"
+],
+"topic": "High AC/A esotropia management"
+},
+"543": {
+"ch": [
+"6-11",
+"6-7"
+],
+"topic": "Duane vs CN VI palsy"
+},
+"544": {
+"ch": [
+"6-15",
+"6-1",
+"6-3"
+],
+"topic": "Normal infant visual behavior"
+},
+"545": {
+"ch": [
+"6-13"
+],
+"topic": "Slipped muscle after surgery"
+},
+"546": {
+"ch": [
+"6-16",
+"7-10"
+],
+"topic": "Congenital eyelid anomalies"
+},
+"547": {
+"ch": [
+"6-18",
+"7-15"
+],
+"topic": "CNLDO site valve of Hasner"
+},
+"548": {
+"ch": [
+"6-22",
+"10-10",
+"11-4"
+],
+"topic": "Ectopia lentis pupillary block"
+},
+"549": {
+"ch": [
+"6-23",
+"5-4"
+],
+"topic": "Pseudopapilledema and hyperopia"
+},
+"550": {
+"ch": [
+"6-27"
+],
+"topic": "NF1 inheritance"
+},
+"551": {
+"ch": [
+"6-24",
+"12-8"
+],
+"topic": "ROP risk factors"
+},
+"552": {
+"ch": [
+"6-20",
+"6-17",
+"8-7",
+"7-3"
+],
+"topic": "Dermoids and choristomas"
+},
+"553": {
+"ch": [
+"6-19",
+"8-12"
+],
+"topic": "Ophthalmia neonatorum"
+},
+"554": {
+"ch": [
+"6-13"
+],
+"topic": "Inferior rectus recession effects"
+},
+"555": {
+"ch": [
+"6-5"
+],
+"topic": "Refractive amblyopia treatment"
+},
+"556": {
+"ch": [
+"6-4"
+],
+"topic": "Sensory adaptations in strabismus"
+},
+"557": {
+"ch": [
+"6-5"
+],
+"topic": "Isoametropic amblyopia risk"
+},
+"558": {
+"ch": [
+"6-3",
+"6-2"
+],
+"topic": "Yoke muscles"
+},
+"559": {
+"ch": [
+"6-17",
+"7-5"
+],
+"topic": "Infantile hemangioma treatment"
+},
+"560": {
+"ch": [
+"6-19",
+"8-13"
+],
+"topic": "Vernal keratoconjunctivitis"
+},
+"561": {
+"ch": [
+"6-21",
+"6-22",
+"10-11"
+],
+"topic": "Glaucoma after pediatric cataract"
+},
+"562": {
+"ch": [
+"6-22",
+"11-4"
+],
+"topic": "Pediatric cataract etiology"
+},
+"563": {
+"ch": [
+"6-22",
+"11-12"
+],
+"topic": "Pediatric cataract surgery"
+},
+"564": {
+"ch": [
+"6-24",
+"4-18"
+],
+"topic": "Retinoblastoma diagnosis"
+},
+"565": {
+"ch": [
+"6-24",
+"12-8"
+],
+"topic": "ROP screening"
+},
+"566": {
+"ch": [
+"6-15"
+],
+"topic": "Delayed visual maturation prognosis"
+},
+"567": {
+"ch": [
+"6-14"
+],
+"topic": "Postnatal eye growth"
+},
+"568": {
+"ch": [
+"6-1"
+],
+"topic": "Bruckner red reflex test"
+},
+"569": {
+"ch": [
+"6-5"
+],
+"topic": "Amblyopia type prognosis"
+},
+"570": {
+"ch": [
+"6-7"
+],
+"topic": "High AC/A esotropia bifocals"
+},
+"571": {
+"ch": [
+"6-11",
+"6-7"
+],
+"topic": "Duane vs CN VI palsy"
+},
+"572": {
+"ch": [
+"6-13"
+],
+"topic": "Slipped muscle signs"
+},
+"573": {
+"ch": [
+"6-13"
+],
+"topic": "Fat adherence syndrome"
+},
+"574": {
+"ch": [
+"6-18",
+"7-15"
+],
+"topic": "Pediatric lacrimal obstruction"
+},
+"575": {
+"ch": [
+"6-20",
+"8-7",
+"8-9"
+],
+"topic": "Congenital corneal anomalies"
+},
+"576": {
+"ch": [
+"6-20",
+"10-11"
+],
+"topic": "Congenital iris anomalies"
+},
+"577": {
+"ch": [
+"6-22",
+"11-12"
+],
+"topic": "Pediatric cataract timing and IOL"
+},
+"578": {
+"ch": [
+"12-8",
+"6-24"
+],
+"topic": "ROP pathogenesis and BEAT-ROP"
+},
+"579": {
+"ch": [
+"6-24",
+"4-18"
+],
+"topic": "Retinoblastoma features and genetics"
+},
+"580": {
+"ch": [
+"6-26",
+"12-17"
+],
+"topic": "Abusive head trauma"
+},
+"581": {
+"ch": [
+"6-27",
+"6-25",
+"9-12"
+],
+"topic": "Congenital TORCH infections"
+},
+"582": {
+"ch": [
+"6-5",
+"6-4"
+],
+"topic": "Amblyopia pathophysiology"
+},
+"583": {
+"ch": [
+"6-5"
+],
+"topic": "Atropine penalization"
+},
+"584": {
+"ch": [
+"6-10",
+"6-6"
+],
+"topic": "Double Maddox rod test"
+},
+"585": {
+"ch": [
+"6-12"
+],
+"topic": "Pediatric nystagmus evaluation"
+},
+"586": {
+"ch": [
+"6-7"
+],
+"topic": "Esotropia management"
+},
+"587": {
+"ch": [
+"6-13",
+"1-16"
+],
+"topic": "Strabismus surgery anesthesia"
+},
+"588": {
+"ch": [
+"6-9",
+"6-17"
+],
+"topic": "Craniosynostosis strabismus pattern"
+},
+"589": {
+"ch": [
+"6-18"
+],
+"topic": "CNLDO natural history and probing"
+},
+"590": {
+"ch": [
+"6-20"
+],
+"topic": "Epibulbar dermoid astigmatism"
+},
+"591": {
+"ch": [
+"6-20"
+],
+"topic": "Aniridia features"
+},
+"592": {
+"ch": [
+"6-21",
+"10-11"
+],
+"topic": "Primary congenital glaucoma signs"
+},
+"593": {
+"ch": [
+"6-21",
+"6-22",
+"10-11"
+],
+"topic": "Aphakic glaucoma in children"
+},
+"594": {
+"ch": [
+"6-23"
+],
+"topic": "Morning glory disc anomaly"
+},
+"595": {
+"ch": [
+"6-10",
+"6-6",
+"6-4",
+"5-12",
+"7-6"
+],
+"topic": "Strabismus examination tests"
+},
+"596": {
+"ch": [
+"6-9",
+"6-12",
+"6-13"
+],
+"topic": "Strabismus surgery selection"
+},
+"597": {
+"ch": [
+"6-27"
+],
+"topic": "NF1 diagnosis in child"
+},
+"598": {
+"ch": [
+"6-12",
+"5-13"
+],
+"topic": "Acquired nystagmus types"
+},
+"599": {
+"ch": [
+"6-21",
+"10-11"
+],
+"topic": "Pediatric glaucoma"
+},
+"600": {
+"ch": [
+"6-26",
+"12-17"
+],
+"topic": "Abusive head trauma"
+},
+"601": {
+"ch": [
+"6-27",
+"6-25",
+"9-12"
+],
+"topic": "Congenital TORCH infections"
+},
+"602": {
+"ch": [
+"6-20",
+"8-7"
+],
+"topic": "Limbal dermoid"
+},
+"603": {
+"ch": [
+"6-18",
+"7-15"
+],
+"topic": "CNLDO management"
+},
+"604": {
+"ch": [
+"6-23",
+"6-24"
+],
+"topic": "CHARGE syndrome colobomas"
+},
+"605": {
+"ch": [
+"6-5"
+],
+"topic": "Amblyopia facts"
+},
+"606": {
+"ch": [
+"6-6",
+"6-10"
+],
+"topic": "Maddox rod test"
+},
+"607": {
+"ch": [
+"6-9",
+"6-17"
+],
+"topic": "Pattern strabismus"
+},
+"608": {
+"ch": [
+"6-13"
+],
+"topic": "Botulinum toxin for strabismus"
+},
+"609": {
+"ch": [
+"6-11"
+],
+"topic": "Duane syndrome management"
+},
+"610": {
+"ch": [
+"6-24",
+"12-12",
+"12-20"
+],
+"topic": "Leber congenital amaurosis"
+},
+"611": {
+"ch": [
+"6-20",
+"8-7",
+"8-8"
+],
+"topic": "Congenital corneal opacities"
+},
+"612": {
+"ch": [
+"6-19",
+"8-12"
+],
+"topic": "Ophthalmia neonatorum"
+},
+"613": {
+"ch": [
+"6-23"
+],
+"topic": "Optic nerve hypoplasia"
+},
+"614": {
+"ch": [
+"6-26",
+"8-15",
+"7-6"
+],
+"topic": "Pediatric ocular trauma"
+},
+"615": {
+"ch": [
+"6-27",
+"12-13",
+"2-6"
+],
+"topic": "Albinism features"
+},
+"616": {
+"ch": [
+"6-20",
+"6-17",
+"8-7"
+],
+"topic": "Goldenhar syndrome"
+},
+"617": {
+"ch": [
+"6-12",
+"6-13"
+],
+"topic": "Kestenbaum-Anderson nystagmus surgery"
+},
+"618": {
+"ch": [
+"6-13"
+],
+"topic": "Botulinum toxin for strabismus"
+},
+"619": {
+"ch": [
+"6-6",
+"3-1",
+"6-12"
+],
+"topic": "Prism use in strabismus"
+},
+"620": {
+"ch": [
+"6-9",
+"6-13"
+],
+"topic": "V-pattern surgical correction"
+},
+"621": {
+"ch": [
+"6-7"
+],
+"topic": "Refractive accommodative esotropia"
+},
+"622": {
+"ch": [
+"6-8"
+],
+"topic": "Intermittent exotropia measurement"
+},
+"623": {
+"ch": [
+"6-5"
+],
+"topic": "Pharmacologic penalization"
+},
+"624": {
+"ch": [
+"6-7"
+],
+"topic": "High AC/A esotropia treatment"
+},
+"625": {
+"ch": [
+"6-27",
+"12-13",
+"2-6"
+],
+"topic": "Albinism features"
+},
+"626": {
+"ch": [
+"6-12",
+"6-24",
+"12-12"
+],
+"topic": "Paradoxical pupils"
+},
+"627": {
+"ch": [
+"6-17",
+"6-24",
+"6-11"
+],
+"topic": "Craniofacial and congenital syndromes"
+},
+"628": {
+"ch": [
+"6-26",
+"12-17"
+],
+"topic": "Abusive head trauma"
+},
+"629": {
+"ch": [
+"6-23",
+"5-6"
+],
+"topic": "Pediatric optic neuritis"
+},
+"630": {
+"ch": [
+"6-1",
+"2-16"
+],
+"topic": "Pediatric eye examination"
+},
+"631": {
+"ch": [
+"6-3",
+"6-2"
+],
+"topic": "Extraocular muscle actions"
+},
+"632": {
+"ch": [
+"6-5"
+],
+"topic": "Amblyopia causes"
+},
+"633": {
+"ch": [
+"5-11",
+"6-6",
+"6-10"
+],
+"topic": "Diplopia evaluation tests"
+},
+"634": {
+"ch": [
+"6-7",
+"6-8"
+],
+"topic": "Esotropia and exotropia basics"
+},
+"635": {
+"ch": [
+"6-10",
+"6-9"
+],
+"topic": "Superior oblique palsy"
+},
+"636": {
+"ch": [
+"6-12"
+],
+"topic": "Infantile nystagmus syndrome"
+},
+"637": {
+"ch": [
+"6-14",
+"2-4"
+],
+"topic": "Developmental anomaly mechanisms"
+},
+"638": {
+"ch": [
+"6-15",
+"6-1",
+"6-3"
+],
+"topic": "Infant visual development"
+},
+"639": {
+"ch": [
+"6-16",
+"7-12"
+],
+"topic": "Congenital ptosis"
+},
+"640": {
+"ch": [
+"6-2",
+"2-1"
+],
+"topic": "Rectus muscle insertions"
+},
+"641": {
+"ch": [
+"6-3",
+"6-2"
+],
+"topic": "Extraocular muscle intorsion"
+},
+"642": {
+"ch": [
+"6-12"
+],
+"topic": "Infantile nystagmus syndrome"
+},
+"643": {
+"ch": [
+"6-4"
+],
+"topic": "Bagolini retinal correspondence test"
+},
+"644": {
+"ch": [
+"6-7"
+],
+"topic": "Infantile esotropia features"
+},
+"645": {
+"ch": [
+"6-10",
+"6-9"
+],
+"topic": "Bilateral superior oblique palsy"
+},
+"646": {
+"ch": [
+"6-11"
+],
+"topic": "Duane syndrome"
+},
+"647": {
+"ch": [
+"6-10",
+"6-13"
+],
+"topic": "DVD surgical options"
+},
+"648": {
+"ch": [
+"6-14",
+"3-3"
+],
+"topic": "Postnatal refractive development"
+},
+"649": {
+"ch": [
+"6-16",
+"7-10"
+],
+"topic": "Epicanthus types"
+},
+"650": {
+"ch": [
+"6-1",
+"6-15",
+"6-14",
+"6-7"
+],
+"topic": "Newborn eye screening findings"
+},
+"651": {
+"ch": [
+"6-6",
+"6-10",
+"6-9"
+],
+"topic": "Ocular torticollis evaluation"
+},
+"652": {
+"ch": [
+"6-9",
+"6-12",
+"6-13"
+],
+"topic": "Strabismus surgery selection"
+},
+"653": {
+"ch": [
+"6-12"
+],
+"topic": "Infantile nystagmus syndrome"
+},
+"654": {
+"ch": [
+"6-12",
+"5-13"
+],
+"topic": "Acquired nystagmus types"
+},
+"655": {
+"ch": [
+"6-17"
+],
+"topic": "Craniosynostosis syndromes"
+},
+"656": {
+"ch": [
+"6-26",
+"12-17"
+],
+"topic": "Abusive head trauma"
+},
+"657": {
+"ch": [
+"6-20",
+"8-4",
+"10-11"
+],
+"topic": "Aniridia features"
+},
+"658": {
+"ch": [
+"6-17"
+],
+"topic": "Craniosynostosis syndromes"
+},
+"659": {
+"ch": [
+"6-17",
+"7-4"
+],
+"topic": "Subperiosteal abscess drainage"
+},
+"660": {
+"ch": [
+"6-17",
+"7-5",
+"4-13"
+],
+"topic": "Rhabdomyosarcoma histology"
+},
+"661": {
+"ch": [
+"6-20",
+"2-6"
+],
+"topic": "WAGR WT1 aniridia"
+},
+"662": {
+"ch": [
+"6-21",
+"10-11",
+"10-13"
+],
+"topic": "Pediatric glaucoma surgery"
+},
+"663": {
+"ch": [
+"6-26",
+"7-6"
+],
+"topic": "Pediatric ocular trauma"
+},
+"664": {
+"ch": [
+"6-27",
+"4-18"
+],
+"topic": "Tuberous sclerosis astrocytic hamartoma"
+},
+"665": {
+"ch": [
+"6-25",
+"9-10"
+],
+"topic": "Pediatric granulomatous uveitis workup"
+},
+"666": {
+"ch": [
+"6-24",
+"4-18",
+"2-6"
+],
+"topic": "Retinoblastoma inheritance risk"
+},
+"667": {
+"ch": [
+"6-19",
+"8-12",
+"9-11"
+],
+"topic": "Parinaud oculoglandular syndrome"
+},
+"668": {
+"ch": [
+"6-18",
+"7-15"
+],
+"topic": "Dacryocystocele"
+},
+"669": {
+"ch": [
+"6-20",
+"10-11"
+],
+"topic": "Axenfeld-Rieger syndrome"
+},
+"670": {
+"ch": [
+"6-27",
+"4-19",
+"9-15"
+],
+"topic": "Leukemia ocular findings"
+},
+"671": {
+"ch": [
+"6-22",
+"11-4",
+"10-10"
+],
+"topic": "Ectopia lentis causes"
+},
+"672": {
+"ch": [
+"6-25",
+"9-8"
+],
+"topic": "JIA uveitis risk factors"
+},
+"673": {
+"ch": [
+"6-23"
+],
+"topic": "Optic nerve hypoplasia"
+},
+"674": {
+"ch": [
+"6-26",
+"7-6"
+],
+"topic": "Pediatric orbital fracture"
+},
+"675": {
+"ch": [
+"6-21",
+"10-11"
+],
+"topic": "Childhood glaucoma"
+},
+"676": {
+"ch": [
+"6-24",
+"12-8"
+],
+"topic": "ROP classification and screening"
+},
+"677": {
+"ch": [
+"6-19",
+"8-12"
+],
+"topic": "Chlamydial neonatal conjunctivitis"
+},
+"678": {
+"ch": [
+"6-17",
+"7-5"
+],
+"topic": "Orbital rhabdomyosarcoma"
+},
+"679": {
+"ch": [
+"6-18",
+"7-15"
+],
+"topic": "Dacryocystocele"
+},
+"680": {
+"ch": [
+"6-19",
+"8-13"
+],
+"topic": "Vernal keratoconjunctivitis"
+},
+"681": {
+"ch": [
+"6-20",
+"2-6"
+],
+"topic": "Classic aniridia genetics"
+},
+"682": {
+"ch": [
+"6-21",
+"10-11"
+],
+"topic": "Primary congenital glaucoma"
+},
+"683": {
+"ch": [
+"6-22",
+"11-4"
+],
+"topic": "Bilateral pediatric cataract causes"
+},
+"684": {
+"ch": [
+"6-25",
+"9-8"
+],
+"topic": "JIA-associated uveitis"
+},
+"685": {
+"ch": [
+"6-24",
+"12-8"
+],
+"topic": "ETROP type 1 ROP"
+},
+"686": {
+"ch": [
+"6-23"
+],
+"topic": "Childhood optic disc anomalies"
+},
+"687": {
+"ch": [
+"6-27",
+"7-5"
+],
+"topic": "NF1 clinical features"
+},
+"688": {
+"ch": [
+"6-18",
+"7-15"
+],
+"topic": "Refractory CNLDO surgery"
+},
+"689": {
+"ch": [
+"6-19",
+"4-16",
+"8-14"
+],
+"topic": "Ocular melanocytosis"
+},
+"690": {
+"ch": [
+"6-20",
+"8-7"
+],
+"topic": "Sclerocornea"
+},
+"691": {
+"ch": [
+"6-21",
+"10-11"
+],
+"topic": "Childhood glaucoma diagnostic criteria"
+},
+"692": {
+"ch": [
+"6-22",
+"11-12"
+],
+"topic": "Pediatric cataract surgery"
+},
+"693": {
+"ch": [
+"6-23"
+],
+"topic": "Optic nerve hypoplasia"
+},
+"694": {
+"ch": [
+"6-24",
+"4-18"
+],
+"topic": "Retinoblastoma key points"
+},
+"695": {
+"ch": [
+"6-25",
+"9-8"
+],
+"topic": "JIA uveitis"
+},
+"696": {
+"ch": [
+"6-26",
+"12-17"
+],
+"topic": "Abusive head trauma"
+},
+"697": {
+"ch": [
+"6-27",
+"6-25"
+],
+"topic": "Congenital CMV ocular findings"
+},
+"698": {
+"ch": [
+"6-17"
+],
+"topic": "Crouzon syndrome"
+},
+"699": {
+"ch": [
+"6-18",
+"7-15"
+],
+"topic": "Dacryocystocele differential"
+},
+"700": {
+"ch": [
+"6-19",
+"8-13"
+],
+"topic": "Vernal keratoconjunctivitis"
+},
+"701": {
+"ch": [
+"6-20",
+"9-8"
+],
+"topic": "Pediatric iris heterochromia"
+},
+"702": {
+"ch": [
+"6-22",
+"11-4"
+],
+"topic": "Subluxated lens associations"
+},
+"703": {
+"ch": [
+"6-25",
+"9-8"
+],
+"topic": "JIA uveitis screening schedule"
+},
+"704": {
+"ch": [
+"6-12",
+"6-24",
+"12-12"
+],
+"topic": "Paradoxical pupils"
+},
+"705": {
+"ch": [
+"6-23",
+"5-6"
+],
+"topic": "Pediatric IIH"
+},
+"706": {
+"ch": [
+"6-26",
+"12-17"
+],
+"topic": "Abusive head trauma"
+},
+"707": {
+"ch": [
+"6-27",
+"12-13",
+"6-22"
+],
+"topic": "Albinism-associated syndromes"
+},
+"708": {
+"ch": [
+"7-2",
+"7-5"
+],
+"topic": "Hypoglobus with proptosis"
+},
+"709": {
+"ch": [
+"7-8",
+"7-5",
+"7-10",
+"4-18"
+],
+"topic": "Exenteration indications"
+},
+"710": {
+"ch": [
+"7-5",
+"6-17",
+"4-13"
+],
+"topic": "Rhabdomyosarcoma subtypes"
+},
+"711": {
+"ch": [
+"7-5",
+"7-2",
+"5-11"
+],
+"topic": "Carotid-cavernous fistula CT"
+},
+"712": {
+"ch": [
+"7-4"
+],
+"topic": "TED muscle involvement"
+},
+"713": {
+"ch": [
+"7-6"
+],
+"topic": "Orbital floor fracture signs"
+},
+"714": {
+"ch": [
+"7-3",
+"6-17"
+],
+"topic": "Orbital dermoid location"
+},
+"715": {
+"ch": [
+"7-9"
+],
+"topic": "Eyelid retractors anatomy"
+},
+"716": {
+"ch": [
+"7-10",
+"6-16",
+"7-12"
+],
+"topic": "Blepharophimosis syndrome"
+},
+"717": {
+"ch": [
+"7-10",
+"4-12"
+],
+"topic": "Premalignant eyelid lesions"
+},
+"718": {
+"ch": [
+"7-10",
+"4-12"
+],
+"topic": "Eyelid basal cell carcinoma"
+},
+"719": {
+"ch": [
+"7-11"
+],
+"topic": "Lower eyelid reconstruction"
+},
+"720": {
+"ch": [
+"7-12"
+],
+"topic": "Ptosis classification"
+},
+"721": {
+"ch": [
+"7-15",
+"6-18"
+],
+"topic": "Congenital NLD obstruction"
+},
+"722": {
+"ch": [
+"7-10",
+"8-14"
+],
+"topic": "Sentinel lymph node biopsy"
+},
+"723": {
+"ch": [
+"7-5",
+"6-17",
+"4-13"
+],
+"topic": "Orbital rhabdomyosarcoma"
+},
+"724": {
+"ch": [
+"7-5",
+"4-13"
+],
+"topic": "Lacrimal lymphoma vs ACC"
+},
+"725": {
+"ch": [
+"7-4"
+],
+"topic": "TED vs nonspecific orbital inflammation"
+},
+"726": {
+"ch": [
+"7-5",
+"4-13"
+],
+"topic": "Lacrimal pleomorphic adenoma"
+},
+"727": {
+"ch": [
+"7-6"
+],
+"topic": "Orbital fractures"
+},
+"728": {
+"ch": [
+"7-15",
+"7-1"
+],
+"topic": "DCR bony anatomy"
+},
+"729": {
+"ch": [
+"7-5",
+"8-14"
+],
+"topic": "Salmon patch lymphoma"
+},
+"730": {
+"ch": [
+"7-8"
+],
+"topic": "Evisceration indications"
+},
+"731": {
+"ch": [
+"7-10"
+],
+"topic": "Eyelid basal cell carcinoma"
+},
+"732": {
+"ch": [
+"7-12",
+"7-13"
+],
+"topic": "Postblepharoplasty cicatricial ectropion"
+},
+"733": {
+"ch": [
+"7-12"
+],
+"topic": "Aponeurotic ptosis"
+},
+"734": {
+"ch": [
+"7-12",
+"5-15"
+],
+"topic": "Benign essential blepharospasm"
+},
+"735": {
+"ch": [
+"7-14",
+"7-9",
+"7-1"
+],
+"topic": "Lacrimal system anatomy"
+},
+"736": {
+"ch": [
+"7-1",
+"2-1"
+],
+"topic": "Orbital anatomy"
+},
+"737": {
+"ch": [
+"7-2",
+"2-17"
+],
+"topic": "Orbital CT vs MRI"
+},
+"738": {
+"ch": [
+"7-4"
+],
+"topic": "Thyroid eye disease"
+},
+"739": {
+"ch": [
+"7-4"
+],
+"topic": "Orbital inflammation biopsy"
+},
+"740": {
+"ch": [
+"7-5",
+"6-17"
+],
+"topic": "Orbital rhabdomyosarcoma"
+},
+"741": {
+"ch": [
+"7-5",
+"4-13"
+],
+"topic": "Lacrimal gland tumors"
+},
+"742": {
+"ch": [
+"7-12"
+],
+"topic": "Congenital vs aponeurotic ptosis"
+},
+"743": {
+"ch": [
+"7-10",
+"4-12"
+],
+"topic": "Sebaceous carcinoma masquerade"
+},
+"744": {
+"ch": [
+"7-15",
+"7-1"
+],
+"topic": "DCR bony anatomy"
+},
+"745": {
+"ch": [
+"7-12"
+],
+"topic": "Cicatricial ectropion"
+},
+"746": {
+"ch": [
+"7-11"
+],
+"topic": "Large lower eyelid defect repair"
+},
+"747": {
+"ch": [
+"7-5",
+"6-17",
+"7-10"
+],
+"topic": "Infantile periocular hemangioma"
+},
+"748": {
+"ch": [
+"5-14",
+"7-12",
+"6-16"
+],
+"topic": "Congenital Horner syndrome"
+},
+"749": {
+"ch": [
+"7-12",
+"6-16",
+"5-15"
+],
+"topic": "Marcus Gunn jaw-winking"
+},
+"750": {
+"ch": [
+"7-1",
+"2-1"
+],
+"topic": "Orbital anatomy"
+},
+"751": {
+"ch": [
+"7-2",
+"7-5"
+],
+"topic": "Orbital disease clinical signs"
+},
+"752": {
+"ch": [
+"7-3",
+"7-5"
+],
+"topic": "Hamartoma vs choristoma"
+},
+"753": {
+"ch": [
+"7-5",
+"6-17"
+],
+"topic": "Orbital rhabdomyosarcoma"
+},
+"754": {
+"ch": [
+"7-5",
+"4-13",
+"6-17"
+],
+"topic": "Orbital tumors facts"
+},
+"755": {
+"ch": [
+"7-1",
+"7-7"
+],
+"topic": "Ethmoidal artery landmark"
+},
+"756": {
+"ch": [
+"7-10",
+"4-12"
+],
+"topic": "Sebaceous carcinoma"
+},
+"757": {
+"ch": [
+"7-12",
+"8-12"
+],
+"topic": "Trachomatous cicatricial entropion"
+},
+"758": {
+"ch": [
+"7-12"
+],
+"topic": "Involutional ptosis"
+},
+"759": {
+"ch": [
+"7-15"
+],
+"topic": "Endoscopic DCR"
+},
+"760": {
+"ch": [
+"7-5",
+"6-17",
+"7-10"
+],
+"topic": "Infantile eyelid hemangioma"
+},
+"761": {
+"ch": [
+"7-10",
+"6-16"
+],
+"topic": "Blepharophimosis syndrome"
+},
+"762": {
+"ch": [
+"7-10",
+"7-11",
+"7-15"
+],
+"topic": "Medial lower lid BCC reconstruction"
+},
+"763": {
+"ch": [
+"7-14",
+"7-15",
+"2-1",
+"2-3"
+],
+"topic": "Lacrimal system anatomy"
+},
+"764": {
+"ch": [
+"7-6",
+"6-10"
+],
+"topic": "Blowout fracture urgent repair"
+},
+"765": {
+"ch": [
+"7-4",
+"1-3",
+"5-18"
+],
+"topic": "Thyroid eye disease features"
+},
+"766": {
+"ch": [
+"7-3",
+"7-2",
+"7-5"
+],
+"topic": "Orbital mass CT appearance"
+},
+"767": {
+"ch": [
+"7-4",
+"4-13"
+],
+"topic": "Dacryoadenitis IgG4 workup"
+},
+"768": {
+"ch": [
+"7-13"
+],
+"topic": "Facial rejuvenation fillers resurfacing"
+},
+"769": {
+"ch": [
+"7-3",
+"7-8",
+"6-17"
+],
+"topic": "Microphthalmia management"
+},
+"770": {
+"ch": [
+"7-4"
+],
+"topic": "NSOI biopsy site"
+},
+"771": {
+"ch": [
+"7-4",
+"4-13"
+],
+"topic": "Orbital zygomycosis"
+},
+"772": {
+"ch": [
+"7-8",
+"7-5",
+"7-10"
+],
+"topic": "Orbital exenteration indications"
+},
+"773": {
+"ch": [
+"7-5",
+"4-19",
+"8-14"
+],
+"topic": "Ocular adnexal lymphoma"
+},
+"774": {
+"ch": [
+"7-10",
+"4-12",
+"8-14"
+],
+"topic": "Eyelid malignancies"
+},
+"775": {
+"ch": [
+"7-12",
+"5-15"
+],
+"topic": "Blepharospasm and hemifacial spasm"
+},
+"776": {
+"ch": [
+"7-15",
+"7-4"
+],
+"topic": "Canaliculitis dacryocystitis dacryoadenitis"
+},
+"777": {
+"ch": [
+"7-15"
+],
+"topic": "Lacrimal sac tumors"
+},
+"778": {
+"ch": [
+"7-13",
+"7-12"
+],
+"topic": "Facial rejuvenation complications"
+},
+"779": {
+"ch": [
+"7-4",
+"6-17"
+],
+"topic": "Subperiosteal abscess management"
+},
+"780": {
+"ch": [
+"7-5",
+"6-17"
+],
+"topic": "Orbital lymphatic malformation"
+},
+"781": {
+"ch": [
+"7-4"
+],
+"topic": "NSOI biopsy site"
+},
+"782": {
+"ch": [
+"7-2",
+"6-27",
+"7-5"
+],
+"topic": "Periorbital ecchymosis causes"
+},
+"783": {
+"ch": [
+"7-4",
+"4-13"
+],
+"topic": "IgG4-related ophthalmic disease"
+},
+"784": {
+"ch": [
+"7-4",
+"1-3"
+],
+"topic": "Teprotumumab mechanism"
+},
+"785": {
+"ch": [
+"7-5",
+"4-13"
+],
+"topic": "Painful orbital tumors"
+},
+"786": {
+"ch": [
+"7-10",
+"6-16"
+],
+"topic": "Blepharophimosis syndrome"
+},
+"787": {
+"ch": [
+"7-15"
+],
+"topic": "Docetaxel canalicular stenosis"
+},
+"788": {
+"ch": [
+"7-13",
+"7-12"
+],
+"topic": "Post-cosmetic lagophthalmos"
+},
+"789": {
+"ch": [
+"7-13"
+],
+"topic": "Laser resurfacing complications"
+},
+"790": {
+"ch": [
+"5-11",
+"7-12",
+"5-18"
+],
+"topic": "Myasthenia gravis ptosis workup"
+},
+"791": {
+"ch": [
+"7-9",
+"2-1"
+],
+"topic": "Eyelid peripheral arterial arcade"
+},
+"792": {
+"ch": [
+"2-1",
+"7-1",
+"2-3"
+],
+"topic": "Annulus of Zinn contents"
+},
+"793": {
+"ch": [
+"7-2",
+"7-4"
+],
+"topic": "Orbital disease laboratory tests"
+},
+"794": {
+"ch": [
+"7-5",
+"4-19",
+"7-2"
+],
+"topic": "Metastatic breast cancer enophthalmos"
+},
+"795": {
+"ch": [
+"7-5",
+"7-2"
+],
+"topic": "Orbital bone changes"
+},
+"796": {
+"ch": [
+"7-9",
+"7-13"
+],
+"topic": "Facial nerve danger zones"
+},
+"797": {
+"ch": [
+"7-10",
+"6-16"
+],
+"topic": "Blepharophimosis syndrome"
+},
+"798": {
+"ch": [
+"7-10",
+"4-12"
+],
+"topic": "Cutaneous eyelid melanoma"
+},
+"799": {
+"ch": [
+"7-11"
+],
+"topic": "Lower eyelid reconstruction flaps"
+},
+"800": {
+"ch": [
+"7-13"
+],
+"topic": "Facial rejuvenation complications"
+},
+"801": {
+"ch": [
+"7-15"
+],
+"topic": "DCR failure causes"
+},
+"802": {
+"ch": [
+"7-15",
+"7-1"
+],
+"topic": "Endonasal DCR osteotomy"
+},
+"803": {
+"ch": [
+"7-4",
+"7-7",
+"5-18"
+],
+"topic": "TED management"
+},
+"804": {
+"ch": [
+"7-12",
+"5-15"
+],
+"topic": "Benign essential blepharospasm"
+},
+"805": {
+"ch": [
+"7-4",
+"4-13"
+],
+"topic": "IgG4-related dacryoadenitis"
+},
+"806": {
+"ch": [
+"7-12"
+],
+"topic": "Involutional entropion"
+},
+"807": {
+"ch": [
+"7-8"
+],
+"topic": "Anophthalmic socket discharge"
+},
+"808": {
+"ch": [
+"7-6",
+"6-10"
+],
+"topic": "Orbital wall fracture"
+},
+"809": {
+"ch": [
+"7-4",
+"7-7",
+"1-3",
+"5-18"
+],
+"topic": "Thyroid eye disease"
+},
+"810": {
+"ch": [
+"7-4",
+"6-17"
+],
+"topic": "Nonspecific orbital inflammation"
+},
+"811": {
+"ch": [
+"7-5",
+"4-13"
+],
+"topic": "Lacrimal gland tumors"
+},
+"812": {
+"ch": [
+"7-2",
+"2-17",
+"5-3"
+],
+"topic": "Orbital CT vs MRI"
+},
+"813": {
+"ch": [
+"7-5",
+"7-2",
+"7-4",
+"7-1"
+],
+"topic": "Paranasal sinus disease"
+},
+"814": {
+"ch": [
+"7-5",
+"4-19",
+"8-14"
+],
+"topic": "Orbital lymphoproliferative lesions"
+},
+"815": {
+"ch": [
+"7-10",
+"4-12"
+],
+"topic": "Sebaceous carcinoma"
+},
+"816": {
+"ch": [
+"7-12"
+],
+"topic": "Involutional entropion"
+},
+"817": {
+"ch": [
+"7-9",
+"2-1"
+],
+"topic": "Eyelid blood supply"
+},
+"818": {
+"ch": [
+"7-15"
+],
+"topic": "Canalicular obstruction CDCR"
+},
+"819": {
+"ch": [
+"7-12",
+"6-16"
+],
+"topic": "Marcus Gunn jaw-winking"
+},
+"820": {
+"ch": [
+"7-8"
+],
+"topic": "Anophthalmic socket care"
+},
+"821": {
+"ch": [
+"7-8",
+"4-16",
+"9-10"
+],
+"topic": "Evisceration enucleation exenteration"
+},
+"822": {
+"ch": [
+"7-10",
+"4-12"
+],
+"topic": "Eyelid basal cell carcinoma"
+},
+"823": {
+"ch": [
+"7-11"
+],
+"topic": "Full-thickness skin graft donors"
+},
+"824": {
+"ch": [
+"7-1",
+"2-1",
+"5-11"
+],
+"topic": "Orbital anatomy fissures"
+},
+"825": {
+"ch": [
+"7-8",
+"9-10"
+],
+"topic": "Evisceration vs enucleation"
+},
+"826": {
+"ch": [
+"7-6",
+"7-7",
+"8-15"
+],
+"topic": "Retrobulbar hemorrhage canthotomy"
+},
+"827": {
+"ch": [
+"7-15"
+],
+"topic": "Common canalicular obstruction irrigation"
+},
+"828": {
+"ch": [
+"2-8",
+"8-1"
+],
+"topic": "Corneal glucose source"
+},
+"829": {
+"ch": [
+"8-3",
+"2-7"
+],
+"topic": "Dry eye mechanisms treatment"
+},
+"830": {
+"ch": [
+"8-11",
+"9-12",
+"9-13"
+],
+"topic": "CMV ocular infection"
+},
+"831": {
+"ch": [
+"8-12"
+],
+"topic": "Acanthamoeba keratitis"
+},
+"832": {
+"ch": [
+"8-13",
+"6-19"
+],
+"topic": "Vernal keratoconjunctivitis"
+},
+"833": {
+"ch": [
+"8-14",
+"4-4"
+],
+"topic": "Conjunctival intraepithelial neoplasia"
+},
+"834": {
+"ch": [
+"8-7",
+"8-9",
+"10-11",
+"6-21"
+],
+"topic": "Descemet membrane tears"
+},
+"835": {
+"ch": [
+"9-7",
+"8-13"
+],
+"topic": "Scleritis"
+},
+"836": {
+"ch": [
+"8-12",
+"2-16"
+],
+"topic": "Fungal keratitis"
+},
+"837": {
+"ch": [
+"8-13",
+"8-4"
+],
+"topic": "Ocular GVHD"
+},
+"838": {
+"ch": [
+"8-8",
+"8-6",
+"4-5"
+],
+"topic": "Congo red corneal amyloid"
+},
+"839": {
+"ch": [
+"8-6",
+"4-5"
+],
+"topic": "Band keratopathy"
+},
+"840": {
+"ch": [
+"8-15",
+"12-17"
+],
+"topic": "Open globe management"
+},
+"841": {
+"ch": [
+"8-15"
+],
+"topic": "Ocular trauma management"
+},
+"842": {
+"ch": [
+"8-16",
+"9-3",
+"8-4"
+],
+"topic": "Corneal graft rejection signs"
+},
+"843": {
+"ch": [
+"8-6"
+],
+"topic": "Corneal lipid deposition"
+},
+"844": {
+"ch": [
+"8-12",
+"8-13"
+],
+"topic": "Trachoma signs"
+},
+"845": {
+"ch": [
+"8-13",
+"8-11",
+"9-11"
+],
+"topic": "Interstitial keratitis"
+},
+"846": {
+"ch": [
+"8-9"
+],
+"topic": "Keratoconus signs"
+},
+"847": {
+"ch": [
+"8-12"
+],
+"topic": "Gonococcal conjunctivitis treatment"
+},
+"848": {
+"ch": [
+"8-12"
+],
+"topic": "Adult chlamydial conjunctivitis"
+},
+"849": {
+"ch": [
+"8-8"
+],
+"topic": "Corneal dystrophy inheritance"
+},
+"850": {
+"ch": [
+"8-14",
+"4-4",
+"4-16"
+],
+"topic": "Conjunctival pigmented lesions"
+},
+"851": {
+"ch": [
+"8-6"
+],
+"topic": "Terrien marginal degeneration"
+},
+"852": {
+"ch": [
+"8-5",
+"3-6",
+"8-15"
+],
+"topic": "Bandage lens for perforation"
+},
+"853": {
+"ch": [
+"8-16",
+"9-3",
+"8-12"
+],
+"topic": "Corneal graft rejection signs"
+},
+"854": {
+"ch": [
+"8-6"
+],
+"topic": "Corneal degeneration features"
+},
+"855": {
+"ch": [
+"8-6"
+],
+"topic": "Cornea verticillata drugs"
+},
+"856": {
+"ch": [
+"8-14",
+"4-19"
+],
+"topic": "Conjunctival lymphoma systemic"
+},
+"857": {
+"ch": [
+"8-12"
+],
+"topic": "Acanthamoeba early signs"
+},
+"858": {
+"ch": [
+"8-3",
+"2-7"
+],
+"topic": "Dry eye tear changes"
+},
+"859": {
+"ch": [
+"8-1",
+"8-3",
+"2-7"
+],
+"topic": "Lacrimal functional unit"
+},
+"860": {
+"ch": [
+"8-4",
+"10-12",
+"2-15"
+],
+"topic": "Preservative toxic keratopathy"
+},
+"861": {
+"ch": [
+"8-4",
+"8-8",
+"8-5"
+],
+"topic": "Recurrent corneal erosion"
+},
+"862": {
+"ch": [
+"8-7",
+"10-11",
+"6-20"
+],
+"topic": "Axenfeld-Rieger syndrome"
+},
+"863": {
+"ch": [
+"8-8"
+],
+"topic": "Corneal dystrophies"
+},
+"864": {
+"ch": [
+"8-10"
+],
+"topic": "Wilson disease"
+},
+"865": {
+"ch": [
+"8-11"
+],
+"topic": "Herpes zoster ophthalmicus"
+},
+"866": {
+"ch": [
+"8-11"
+],
+"topic": "HSV stromal keratitis antivirals"
+},
+"867": {
+"ch": [
+"8-14"
+],
+"topic": "CIN clinical forms"
+},
+"868": {
+"ch": [
+"8-14"
+],
+"topic": "OSSN topical chemotherapy"
+},
+"869": {
+"ch": [
+"8-14",
+"4-4"
+],
+"topic": "PAM malignant risk"
+},
+"870": {
+"ch": [
+"8-5",
+"8-6"
+],
+"topic": "Pterygium surgery"
+},
+"871": {
+"ch": [
+"8-6",
+"8-10"
+],
+"topic": "Band keratopathy renal failure"
+},
+"872": {
+"ch": [
+"8-6"
+],
+"topic": "Terrien marginal degeneration"
+},
+"873": {
+"ch": [
+"8-10",
+"6-27"
+],
+"topic": "Mucopolysaccharidoses"
+},
+"874": {
+"ch": [
+"8-8"
+],
+"topic": "Congo red corneal dystrophies"
+},
+"875": {
+"ch": [
+"9-8",
+"9-12",
+"10-8",
+"8-11"
+],
+"topic": "Posner-Schlossman vs CMV"
+},
+"876": {
+"ch": [
+"8-10",
+"12-13"
+],
+"topic": "Vitamin A deficiency"
+},
+"877": {
+"ch": [
+"8-13"
+],
+"topic": "VKC and AKC"
+},
+"878": {
+"ch": [
+"8-11"
+],
+"topic": "Epidemic keratoconjunctivitis"
+},
+"879": {
+"ch": [
+"8-14"
+],
+"topic": "Limbal pigmented OSSN"
+},
+"880": {
+"ch": [
+"8-15",
+"12-17"
+],
+"topic": "Corneoscleral laceration repair"
+},
+"881": {
+"ch": [
+"8-16",
+"8-9"
+],
+"topic": "Keratoplasty types complications"
+},
+"882": {
+"ch": [
+"8-6",
+"8-10"
+],
+"topic": "Corneal iron lines"
+},
+"883": {
+"ch": [
+"8-6",
+"4-5"
+],
+"topic": "Calcific band keratopathy"
+},
+"884": {
+"ch": [
+"8-11"
+],
+"topic": "Herpetic Eye Disease Study"
+},
+"885": {
+"ch": [
+"8-8",
+"8-9"
+],
+"topic": "Corneal dystrophies PMD"
+},
+"886": {
+"ch": [
+"8-12"
+],
+"topic": "Microsporidial keratoconjunctivitis"
+},
+"887": {
+"ch": [
+"8-3",
+"2-16"
+],
+"topic": "Ocular rosacea oral antibiotics"
+},
+"888": {
+"ch": [
+"8-13",
+"9-11"
+],
+"topic": "Syphilitic keratitis"
+},
+"889": {
+"ch": [
+"8-13"
+],
+"topic": "Stevens-Johnson syndrome"
+},
+"890": {
+"ch": [
+"8-15",
+"12-17"
+],
+"topic": "Open globe diagnosis repair"
+},
+"891": {
+"ch": [
+"8-14"
+],
+"topic": "Ocular surface tumors"
+},
+"892": {
+"ch": [
+"8-6",
+"8-10",
+"10-8"
+],
+"topic": "Corneal deposits"
+},
+"893": {
+"ch": [
+"8-13"
+],
+"topic": "Stevens-Johnson syndrome"
+},
+"894": {
+"ch": [
+"8-13"
+],
+"topic": "VKC and AKC"
+},
+"895": {
+"ch": [
+"8-11"
+],
+"topic": "HSV keratitis"
+},
+"896": {
+"ch": [
+"8-9",
+"8-16"
+],
+"topic": "Keratoconus management"
+},
+"897": {
+"ch": [
+"8-13"
+],
+"topic": "Mooren ulcer"
+},
+"898": {
+"ch": [
+"8-12"
+],
+"topic": "Fungal keratitis"
+},
+"899": {
+"ch": [
+"8-5",
+"8-6"
+],
+"topic": "Ocular surface surgery"
+},
+"900": {
+"ch": [
+"8-15"
+],
+"topic": "Ocular chemical burns"
+},
+"901": {
+"ch": [
+"8-16"
+],
+"topic": "Eye banking donor selection"
+},
+"902": {
+"ch": [
+"8-16",
+"9-3"
+],
+"topic": "Penetrating keratoplasty complications"
+},
+"903": {
+"ch": [
+"8-4"
+],
+"topic": "Superior limbic keratoconjunctivitis"
+},
+"904": {
+"ch": [
+"8-15",
+"8-4"
+],
+"topic": "Topical anesthetic abuse"
+},
+"905": {
+"ch": [
+"8-7",
+"8-8",
+"8-6",
+"8-11"
+],
+"topic": "Unilateral corneal edema causes"
+},
+"906": {
+"ch": [
+"8-8"
+],
+"topic": "TGFBI dystrophies"
+},
+"907": {
+"ch": [
+"8-6",
+"8-10"
+],
+"topic": "Corneal deposits"
+},
+"908": {
+"ch": [
+"8-13"
+],
+"topic": "Mucous membrane pemphigoid"
+},
+"909": {
+"ch": [
+"8-12",
+"2-16"
+],
+"topic": "Fungal keratitis treatment"
+},
+"910": {
+"ch": [
+"8-9"
+],
+"topic": "Keratoconus"
+},
+"911": {
+"ch": [
+"8-11",
+"9-12"
+],
+"topic": "HSV keratitis"
+},
+"912": {
+"ch": [
+"8-14",
+"4-4"
+],
+"topic": "Conjunctival epithelial tumors"
+},
+"913": {
+"ch": [
+"8-14",
+"4-19"
+],
+"topic": "Conjunctival lymphoid tumors"
+},
+"914": {
+"ch": [
+"8-15"
+],
+"topic": "Ocular chemical burns"
+},
+"915": {
+"ch": [
+"8-16"
+],
+"topic": "Keratoplasty donor tissue"
+},
+"916": {
+"ch": [
+"8-16",
+"9-3"
+],
+"topic": "Corneal graft rejection"
+},
+"917": {
+"ch": [
+"8-4",
+"8-8",
+"8-5"
+],
+"topic": "Recurrent corneal erosion"
+},
+"918": {
+"ch": [
+"8-2",
+"13-2",
+"8-9"
+],
+"topic": "Corneal tomography"
+},
+"919": {
+"ch": [
+"8-2",
+"10-2"
+],
+"topic": "Specular microscopy pachymetry"
+},
+"920": {
+"ch": [
+"8-3"
+],
+"topic": "Blepharitis types"
+},
+"921": {
+"ch": [
+"8-4"
+],
+"topic": "Superior limbic keratoconjunctivitis"
+},
+"922": {
+"ch": [
+"8-6",
+"8-5",
+"8-14"
+],
+"topic": "Pterygium"
+},
+"923": {
+"ch": [
+"8-6"
+],
+"topic": "Salzmann nodular degeneration"
+},
+"924": {
+"ch": [
+"8-6",
+"12-14"
+],
+"topic": "Cornea verticillata"
+},
+"925": {
+"ch": [
+"8-8",
+"8-6",
+"8-7",
+"10-10"
+],
+"topic": "PPCD vs ICE vs Axenfeld-Rieger"
+},
+"926": {
+"ch": [
+"8-9"
+],
+"topic": "Keratoconus"
+},
+"927": {
+"ch": [
+"8-6",
+"8-9",
+"8-13"
+],
+"topic": "Peripheral corneal thinning disorders"
+},
+"928": {
+"ch": [
+"8-11"
+],
+"topic": "HSV stromal keratitis"
+},
+"929": {
+"ch": [
+"8-12"
+],
+"topic": "Acanthamoeba culture medium"
+},
+"930": {
+"ch": [
+"8-10",
+"8-9",
+"11-4"
+],
+"topic": "Ehlers-Danlos syndrome"
+},
+"931": {
+"ch": [
+"8-12"
+],
+"topic": "Chlamydial trachoma conjunctivitis"
+},
+"932": {
+"ch": [
+"8-13",
+"1-10"
+],
+"topic": "Peripheral ulcerative keratitis"
+},
+"933": {
+"ch": [
+"8-15",
+"10-8"
+],
+"topic": "Hyphema corneal blood staining"
+},
+"934": {
+"ch": [
+"8-16",
+"8-8"
+],
+"topic": "DMEK pupillary block"
+},
+"935": {
+"ch": [
+"8-16",
+"9-3"
+],
+"topic": "DSEK graft rejection"
+},
+"936": {
+"ch": [
+"8-9"
+],
+"topic": "Intrastromal corneal ring segments"
+},
+"937": {
+"ch": [
+"8-9",
+"3-6"
+],
+"topic": "Keratoconus management"
+},
+"938": {
+"ch": [
+"8-8"
+],
+"topic": "Macular corneal dystrophy"
+},
+"939": {
+"ch": [
+"8-6",
+"10-10",
+"8-8"
+],
+"topic": "ICE syndrome"
+},
+"940": {
+"ch": [
+"10-11",
+"6-21",
+"8-7"
+],
+"topic": "Congenital glaucoma"
+},
+"941": {
+"ch": [
+"8-5",
+"8-6"
+],
+"topic": "Phototherapeutic keratectomy"
+},
+"942": {
+"ch": [
+"8-4",
+"8-5",
+"13-2"
+],
+"topic": "Recurrent corneal erosion"
+},
+"943": {
+"ch": [
+"8-3",
+"6-19"
+],
+"topic": "Blepharitis demodex rosacea"
+},
+"944": {
+"ch": [
+"8-3"
+],
+"topic": "Meibomian gland dysfunction treatment"
+},
+"945": {
+"ch": [
+"8-2",
+"8-1"
+],
+"topic": "Corneal endothelium specular"
+},
+"946": {
+"ch": [
+"8-1",
+"8-2",
+"2-8"
+],
+"topic": "Corneal endothelium"
+},
+"947": {
+"ch": [
+"8-1",
+"2-2",
+"2-8"
+],
+"topic": "Corneal anatomy"
+},
+"948": {
+"ch": [
+"8-2"
+],
+"topic": "Ocular surface staining"
+},
+"949": {
+"ch": [
+"8-12"
+],
+"topic": "Moraxella angular blepharoconjunctivitis"
+},
+"950": {
+"ch": [
+"8-4",
+"8-8"
+],
+"topic": "Recurrent corneal erosion"
+},
+"951": {
+"ch": [
+"8-5",
+"8-6"
+],
+"topic": "Pterygium surgery"
+},
+"952": {
+"ch": [
+"8-6",
+"10-10",
+"8-8"
+],
+"topic": "ICE syndrome"
+},
+"953": {
+"ch": [
+"8-6",
+"8-10"
+],
+"topic": "Band keratopathy dialysis"
+},
+"954": {
+"ch": [
+"8-8",
+"4-5"
+],
+"topic": "Corneal dystrophy stains"
+},
+"955": {
+"ch": [
+"8-6"
+],
+"topic": "Terrien marginal degeneration"
+},
+"956": {
+"ch": [
+"10-12",
+"8-3",
+"8-4"
+],
+"topic": "Glaucoma drugs dry eye"
+},
+"957": {
+"ch": [
+"8-5",
+"8-6"
+],
+"topic": "Pterygium adjunctive treatment"
+},
+"958": {
+"ch": [
+"8-12"
+],
+"topic": "Gonococcal conjunctivitis treatment"
+},
+"959": {
+"ch": [
+"8-12"
+],
+"topic": "Microsporidial keratitis"
+},
+"960": {
+"ch": [
+"8-6",
+"10-8",
+"8-5"
+],
+"topic": "Corneal deposits"
+},
+"961": {
+"ch": [
+"8-16"
+],
+"topic": "Donor cornea contraindications"
+},
+"962": {
+"ch": [
+"8-8",
+"13-7"
+],
+"topic": "Reis-Bucklers dystrophy"
+},
+"963": {
+"ch": [
+"8-10",
+"8-7"
+],
+"topic": "Systemic disease corneal signs"
+},
+"964": {
+"ch": [
+"8-11"
+],
+"topic": "HSV epithelial keratitis"
+},
+"965": {
+"ch": [
+"8-11",
+"9-3"
+],
+"topic": "Topical steroids in keratitis"
+},
+"966": {
+"ch": [
+"8-12"
+],
+"topic": "Gonococcal conjunctivitis"
+},
+"967": {
+"ch": [
+"8-12",
+"3-6"
+],
+"topic": "Contact lens microbial keratitis"
+},
+"968": {
+"ch": [
+"8-13"
+],
+"topic": "Allergic keratoconjunctivitis"
+},
+"969": {
+"ch": [
+"8-14",
+"4-4",
+"4-16"
+],
+"topic": "Conjunctival pigmented lesions"
+},
+"970": {
+"ch": [
+"8-15",
+"10-8"
+],
+"topic": "Traumatic hyphema"
+},
+"971": {
+"ch": [
+"8-16",
+"8-12",
+"8-2"
+],
+"topic": "Keratoplasty astigmatism complications"
+},
+"972": {
+"ch": [
+"9-5",
+"9-12",
+"9-8"
+],
+"topic": "Mutton-fat KP with high IOP"
+},
+"973": {
+"ch": [
+"1-10",
+"9-10",
+"9-7",
+"7-4",
+"8-13"
+],
+"topic": "Granulomatosis with polyangiitis eye"
+},
+"974": {
+"ch": [
+"9-15"
+],
+"topic": "Uveitis masquerade syndromes"
+},
+"975": {
+"ch": [
+"9-5",
+"9-8",
+"9-10",
+"9-15"
+],
+"topic": "Hypopyon causes"
+},
+"976": {
+"ch": [
+"9-8",
+"10-8"
+],
+"topic": "Glaucomatocyclitic crisis"
+},
+"977": {
+"ch": [
+"9-8",
+"9-4",
+"1-10"
+],
+"topic": "HLA-B27"
+},
+"978": {
+"ch": [
+"9-8"
+],
+"topic": "Intermediate uveitis"
+},
+"979": {
+"ch": [
+"9-9",
+"12-11"
+],
+"topic": "Punctate inner choroidopathy"
+},
+"980": {
+"ch": [
+"9-12"
+],
+"topic": "Herpetic anterior uveitis"
+},
+"981": {
+"ch": [
+"9-14",
+"11-11"
+],
+"topic": "Chronic postoperative endophthalmitis"
+},
+"982": {
+"ch": [
+"9-15",
+"4-19"
+],
+"topic": "Primary CNS lymphoma"
+},
+"983": {
+"ch": [
+"9-13"
+],
+"topic": "Immune recovery uveitis"
+},
+"984": {
+"ch": [
+"9-10",
+"9-8"
+],
+"topic": "Behcet disease uveitis"
+},
+"985": {
+"ch": [
+"9-6"
+],
+"topic": "Immunosuppressant malignancy risk"
+},
+"986": {
+"ch": [
+"9-10",
+"9-5"
+],
+"topic": "Sarcoidosis workup"
+},
+"987": {
+"ch": [
+"9-6"
+],
+"topic": "TNF inhibitors in uveitis"
+},
+"988": {
+"ch": [
+"9-9",
+"12-11"
+],
+"topic": "MEWDS residual findings"
+},
+"989": {
+"ch": [
+"9-10",
+"6-25"
+],
+"topic": "Sarcoidosis Blau syndrome"
+},
+"990": {
+"ch": [
+"9-12",
+"9-5"
+],
+"topic": "Viral uveitis"
+},
+"991": {
+"ch": [
+"9-12"
+],
+"topic": "Ocular toxoplasmosis"
+},
+"992": {
+"ch": [
+"9-11",
+"1-15"
+],
+"topic": "Ocular syphilis"
+},
+"993": {
+"ch": [
+"9-11",
+"9-6",
+"1-15"
+],
+"topic": "Ocular tuberculosis testing"
+},
+"994": {
+"ch": [
+"9-10",
+"9-5"
+],
+"topic": "Vogt-Koyanagi-Harada disease"
+},
+"995": {
+"ch": [
+"9-16",
+"9-6"
+],
+"topic": "Uveitic CME"
+},
+"996": {
+"ch": [
+"9-3"
+],
+"topic": "ACAID immune privilege"
+},
+"997": {
+"ch": [
+"9-5"
+],
+"topic": "SUN nomenclature"
+},
+"998": {
+"ch": [
+"9-6",
+"2-16"
+],
+"topic": "Ozurdex duration"
+},
+"999": {
+"ch": [
+"9-6"
+],
+"topic": "TNF inhibitors uveitis approval"
+},
+"1000": {
+"ch": [
+"9-8"
+],
+"topic": "Acute anterior uveitis"
+},
+"1001": {
+"ch": [
+"9-8"
+],
+"topic": "HLA-B27 associated diseases"
+},
+"1002": {
+"ch": [
+"9-9",
+"12-11"
+],
+"topic": "MEWDS"
+},
+"1003": {
+"ch": [
+"9-10",
+"9-8"
+],
+"topic": "Panuveitis causes"
+},
+"1004": {
+"ch": [
+"9-10"
+],
+"topic": "Sarcoidosis"
+},
+"1005": {
+"ch": [
+"9-10",
+"4-11"
+],
+"topic": "VKH pathology"
+},
+"1006": {
+"ch": [
+"9-10"
+],
+"topic": "Behcet disease"
+},
+"1007": {
+"ch": [
+"9-11"
+],
+"topic": "Ocular syphilis manifestations"
+},
+"1008": {
+"ch": [
+"9-5",
+"9-10"
+],
+"topic": "VKH course SUN terms"
+},
+"1009": {
+"ch": [
+"9-16",
+"10-13"
+],
+"topic": "Uveitic glaucoma filtering surgery"
+},
+"1010": {
+"ch": [
+"9-15",
+"4-19"
+],
+"topic": "Vitreoretinal lymphoma"
+},
+"1011": {
+"ch": [
+"9-13",
+"9-12"
+],
+"topic": "AIDS ocular manifestations"
+},
+"1012": {
+"ch": [
+"9-3"
+],
+"topic": "ACAID"
+},
+"1013": {
+"ch": [
+"9-5"
+],
+"topic": "Uveitis epidemiology"
+},
+"1014": {
+"ch": [
+"9-2",
+"9-1"
+],
+"topic": "MHC class I CD8 response"
+},
+"1015": {
+"ch": [
+"9-8",
+"9-4"
+],
+"topic": "HLA-B27"
+},
+"1016": {
+"ch": [
+"9-8"
+],
+"topic": "Pars planitis"
+},
+"1017": {
+"ch": [
+"9-10",
+"1-10",
+"9-5"
+],
+"topic": "SLE ocular features and serology"
+},
+"1018": {
+"ch": [
+"9-10",
+"1-10"
+],
+"topic": "Sarcoidosis ocular involvement"
+},
+"1019": {
+"ch": [
+"9-8",
+"9-12",
+"9-16",
+"10-8"
+],
+"topic": "Hypertensive anterior uveitis causes"
+},
+"1020": {
+"ch": [
+"9-12"
+],
+"topic": "Ocular toxoplasmosis"
+},
+"1021": {
+"ch": [
+"9-1",
+"9-3"
+],
+"topic": "Mast cell biology"
+},
+"1022": {
+"ch": [
+"9-1",
+"9-2"
+],
+"topic": "Innate vs adaptive ocular immunity"
+},
+"1023": {
+"ch": [
+"9-13",
+"9-12"
+],
+"topic": "Immune recovery uveitis"
+},
+"1024": {
+"ch": [
+"9-10",
+"10-10",
+"9-16"
+],
+"topic": "VKH acute angle closure"
+},
+"1025": {
+"ch": [
+"9-16",
+"10-13"
+],
+"topic": "Trabeculectomy in uveitic glaucoma"
+},
+"1026": {
+"ch": [
+"9-6"
+],
+"topic": "Biologic agents for uveitis"
+},
+"1027": {
+"ch": [
+"9-8",
+"9-6",
+"1-10"
+],
+"topic": "Noninfectious anterior uveitis and SpA"
+},
+"1028": {
+"ch": [
+"9-8",
+"10-8",
+"4-8"
+],
+"topic": "Lens-associated uveitis"
+},
+"1029": {
+"ch": [
+"9-8",
+"6-25"
+],
+"topic": "JIA-associated uveitis"
+},
+"1030": {
+"ch": [
+"9-10",
+"9-7",
+"1-10",
+"9-5"
+],
+"topic": "Collagen vascular disease and uveitis"
+},
+"1031": {
+"ch": [
+"9-10",
+"1-10",
+"6-25"
+],
+"topic": "Sarcoidosis diagnosis and course"
+},
+"1032": {
+"ch": [
+"9-10",
+"4-11"
+],
+"topic": "VKH histology and course"
+},
+"1033": {
+"ch": [
+"9-11",
+"9-12"
+],
+"topic": "Infectious uveitis diagnosis"
+},
+"1034": {
+"ch": [
+"9-5"
+],
+"topic": "Uveitis diagnostic principles"
+},
+"1035": {
+"ch": [
+"9-5",
+"9-8",
+"9-16"
+],
+"topic": "Uveitis classification and IOP"
+},
+"1036": {
+"ch": [
+"9-12",
+"9-9",
+"9-13"
+],
+"topic": "Retinitis and white dot syndromes"
+},
+"1037": {
+"ch": [
+"9-8",
+"1-10"
+],
+"topic": "HLA-B27 acute anterior uveitis"
+},
+"1038": {
+"ch": [
+"9-11",
+"1-15"
+],
+"topic": "Syphilis diagnosis and treatment"
+},
+"1039": {
+"ch": [
+"10-10",
+"9-10"
+],
+"topic": "VKH angle closure mechanism"
+},
+"1040": {
+"ch": [
+"9-10"
+],
+"topic": "Sarcoid uveitis signs"
+},
+"1041": {
+"ch": [
+"9-1",
+"9-4",
+"9-3"
+],
+"topic": "Leukocytes in ocular immunity"
+},
+"1042": {
+"ch": [
+"9-3"
+],
+"topic": "Ocular immune privilege"
+},
+"1043": {
+"ch": [
+"9-5",
+"6-25"
+],
+"topic": "SUN grading and uveitis epidemiology"
+},
+"1044": {
+"ch": [
+"9-6"
+],
+"topic": "Uveitis systemic therapy principles"
+},
+"1045": {
+"ch": [
+"9-16",
+"10-8",
+"10-10"
+],
+"topic": "Uveitic glaucoma"
+},
+"1046": {
+"ch": [
+"9-16",
+"9-6"
+],
+"topic": "Uveitic macular edema treatment"
+},
+"1047": {
+"ch": [
+"9-13",
+"9-12"
+],
+"topic": "HIV ocular disease"
+},
+"1048": {
+"ch": [
+"9-5",
+"9-8",
+"9-10"
+],
+"topic": "ANA testing in uveitis"
+},
+"1049": {
+"ch": [
+"9-7",
+"8-13"
+],
+"topic": "Posterior scleritis"
+},
+"1050": {
+"ch": [
+"9-8"
+],
+"topic": "Drug-induced uveitis"
+},
+"1051": {
+"ch": [
+"9-8",
+"6-25",
+"9-6"
+],
+"topic": "JIA-associated uveitis management"
+},
+"1052": {
+"ch": [
+"9-10",
+"10-10"
+],
+"topic": "VKH clinical features"
+},
+"1053": {
+"ch": [
+"9-8",
+"9-12",
+"9-5"
+],
+"topic": "Keratic precipitate patterns"
+},
+"1054": {
+"ch": [
+"9-8",
+"9-15",
+"9-10"
+],
+"topic": "Intermediate uveitis workup"
+},
+"1055": {
+"ch": [
+"9-8",
+"1-10"
+],
+"topic": "Reactive arthritis"
+},
+"1056": {
+"ch": [
+"9-8"
+],
+"topic": "Fuchs uveitis syndrome"
+},
+"1057": {
+"ch": [
+"9-15",
+"4-19"
+],
+"topic": "Primary vitreoretinal lymphoma"
+},
+"1058": {
+"ch": [
+"9-10",
+"1-10",
+"9-6"
+],
+"topic": "Behcet disease uveitis"
+},
+"1059": {
+"ch": [
+"9-6",
+"2-16"
+],
+"topic": "Corticosteroids in uveitis"
+},
+"1060": {
+"ch": [
+"9-7",
+"8-13"
+],
+"topic": "Scleritis"
+},
+"1061": {
+"ch": [
+"9-3"
+],
+"topic": "ACAID and immune privilege"
+},
+"1062": {
+"ch": [
+"9-1"
+],
+"topic": "Innate immunity and ocular disease"
+},
+"1063": {
+"ch": [
+"9-2"
+],
+"topic": "Th1 delayed hypersensitivity"
+},
+"1064": {
+"ch": [
+"9-1"
+],
+"topic": "Innate immune mechanisms"
+},
+"1065": {
+"ch": [
+"9-1"
+],
+"topic": "Blood vs tissue immune cells"
+},
+"1066": {
+"ch": [
+"9-8"
+],
+"topic": "Fuchs uveitis KP distribution"
+},
+"1067": {
+"ch": [
+"9-16",
+"9-8",
+"9-6"
+],
+"topic": "Pars planitis macular edema"
+},
+"1068": {
+"ch": [
+"9-2",
+"9-1"
+],
+"topic": "Th2-mediated responses"
+},
+"1069": {
+"ch": [
+"9-2"
+],
+"topic": "Antibody structure epitopes"
+},
+"1070": {
+"ch": [
+"9-1"
+],
+"topic": "Innate immunity NK cells"
+},
+"1071": {
+"ch": [
+"9-3",
+"8-16"
+],
+"topic": "Corneal graft immune privilege"
+},
+"1072": {
+"ch": [
+"9-7",
+"1-10"
+],
+"topic": "Relapsing polychondritis scleritis workup"
+},
+"1073": {
+"ch": [
+"9-6"
+],
+"topic": "Infliximab antichimeric antibodies"
+},
+"1074": {
+"ch": [
+"9-1"
+],
+"topic": "Innate immunity features"
+},
+"1075": {
+"ch": [
+"9-1",
+"9-2",
+"9-10"
+],
+"topic": "Immune mechanisms comparison"
+},
+"1076": {
+"ch": [
+"9-3",
+"9-2"
+],
+"topic": "Immunoregulatory systems"
+},
+"1077": {
+"ch": [
+"9-4",
+"9-10"
+],
+"topic": "HLA disease associations"
+},
+"1078": {
+"ch": [
+"9-6"
+],
+"topic": "Immunomodulatory therapy"
+},
+"1079": {
+"ch": [
+"9-8",
+"10-8",
+"9-12"
+],
+"topic": "Posner-Schlossman management"
+},
+"1080": {
+"ch": [
+"9-8",
+"6-25"
+],
+"topic": "JIA uveitis risk"
+},
+"1081": {
+"ch": [
+"9-8"
+],
+"topic": "Pars planitis"
+},
+"1082": {
+"ch": [
+"9-1"
+],
+"topic": "Neutrophil migration steps"
+},
+"1083": {
+"ch": [
+"9-2",
+"9-3"
+],
+"topic": "Regulatory T cells"
+},
+"1084": {
+"ch": [
+"9-2"
+],
+"topic": "Adaptive immunity effector responses"
+},
+"1085": {
+"ch": [
+"9-3"
+],
+"topic": "Anterior chamber immune responses"
+},
+"1086": {
+"ch": [
+"9-4"
+],
+"topic": "Animal models of uveitis"
+},
+"1087": {
+"ch": [
+"9-5",
+"9-10"
+],
+"topic": "Retinal vasculitis diseases"
+},
+"1088": {
+"ch": [
+"9-5"
+],
+"topic": "SUN anterior chamber cell grading"
+},
+"1089": {
+"ch": [
+"9-6"
+],
+"topic": "Biologic agents for uveitis"
+},
+"1090": {
+"ch": [
+"9-8",
+"9-4"
+],
+"topic": "HLA-B27 disease risk"
+},
+"1091": {
+"ch": [
+"9-8",
+"9-15"
+],
+"topic": "Intermediate uveitis"
+},
+"1092": {
+"ch": [
+"9-10",
+"1-10"
+],
+"topic": "Sarcoidosis diagnosis"
+},
+"1093": {
+"ch": [
+"9-10"
+],
+"topic": "VKH stages"
+},
+"1094": {
+"ch": [
+"9-11"
+],
+"topic": "Syphilitic uveitis"
+},
+"1095": {
+"ch": [
+"9-11",
+"1-15"
+],
+"topic": "Tuberculous uveitis"
+},
+"1096": {
+"ch": [
+"9-12",
+"9-13"
+],
+"topic": "CMV retinitis"
+},
+"1097": {
+"ch": [
+"9-12"
+],
+"topic": "Dengue ocular disease"
+},
+"1098": {
+"ch": [
+"9-14",
+"11-11"
+],
+"topic": "Chronic postoperative endophthalmitis"
+},
+"1099": {
+"ch": [
+"9-15"
+],
+"topic": "PVRL diagnosis and treatment"
+},
+"1100": {
+"ch": [
+"9-16",
+"10-10",
+"9-10"
+],
+"topic": "Uveitic angle closure without pupillary block"
+},
+"1101": {
+"ch": [
+"9-13",
+"9-12"
+],
+"topic": "AIDS ocular manifestations"
+},
+"1102": {
+"ch": [
+"9-10",
+"12-14",
+"1-10"
+],
+"topic": "SLE ocular manifestations"
+},
+"1103": {
+"ch": [
+"9-9"
+],
+"topic": "Serpiginous choroiditis"
+},
+"1104": {
+"ch": [
+"9-9",
+"12-13"
+],
+"topic": "Autoimmune retinopathy"
+},
+"1105": {
+"ch": [
+"9-10",
+"1-10"
+],
+"topic": "Heerfordt syndrome sarcoidosis"
+},
+"1106": {
+"ch": [
+"9-11"
+],
+"topic": "Ocular tuberculosis choroiditis"
+},
+"1107": {
+"ch": [
+"9-12"
+],
+"topic": "Acute retinal necrosis management"
+},
+"1108": {
+"ch": [
+"9-12"
+],
+"topic": "Toxoplasma transmission"
+},
+"1109": {
+"ch": [
+"9-14",
+"11-11"
+],
+"topic": "P acnes chronic endophthalmitis"
+},
+"1110": {
+"ch": [
+"9-15"
+],
+"topic": "Vitreoretinal lymphoma diagnosis"
+},
+"1111": {
+"ch": [
+"9-13"
+],
+"topic": "Immune recovery uveitis"
+},
+"1112": {
+"ch": [
+"9-10"
+],
+"topic": "VKH diagnostic criteria"
+},
+"1113": {
+"ch": [
+"9-10",
+"1-10"
+],
+"topic": "Behcet diagnostic criteria"
+},
+"1114": {
+"ch": [
+"9-11",
+"1-15"
+],
+"topic": "Syphilis testing"
+},
+"1115": {
+"ch": [
+"9-12"
+],
+"topic": "ARN diagnostic criteria"
+},
+"1116": {
+"ch": [
+"9-14",
+"11-11"
+],
+"topic": "Chronic postoperative endophthalmitis"
+},
+"1117": {
+"ch": [
+"9-15",
+"4-19"
+],
+"topic": "Intraocular lymphoma"
+},
+"1118": {
+"ch": [
+"9-16",
+"9-6"
+],
+"topic": "Uveitic macular edema"
+},
+"1119": {
+"ch": [
+"9-13",
+"9-12"
+],
+"topic": "AIDS ocular involvement"
+},
+"1120": {
+"ch": [
+"9-9",
+"12-11"
+],
+"topic": "White dot syndromes"
+},
+"1121": {
+"ch": [
+"9-1"
+],
+"topic": "Neutrophil granule products"
+},
+"1122": {
+"ch": [
+"9-2"
+],
+"topic": "Th2 delayed hypersensitivity"
+},
+"1123": {
+"ch": [
+"9-3"
+],
+"topic": "Ocular immune microenvironment"
+},
+"1124": {
+"ch": [
+"9-4",
+"9-3",
+"9-8"
+],
+"topic": "HLA typing and uveitis"
+},
+"1125": {
+"ch": [
+"9-8"
+],
+"topic": "TINU syndrome diagnosis"
+},
+"1126": {
+"ch": [
+"9-6"
+],
+"topic": "Biologic agents for uveitis"
+},
+"1127": {
+"ch": [
+"9-7",
+"8-13"
+],
+"topic": "Scleritis features"
+},
+"1128": {
+"ch": [
+"9-8",
+"6-25"
+],
+"topic": "JIA uveitis risk factors"
+},
+"1129": {
+"ch": [
+"9-6",
+"9-7"
+],
+"topic": "Corticosteroid therapy principles"
+},
+"1130": {
+"ch": [
+"9-13",
+"9-12"
+],
+"topic": "CMV retinitis and IRU"
+},
+"1131": {
+"ch": [
+"9-12",
+"9-13"
+],
+"topic": "Toxoplasmosis in AIDS"
+},
+"1132": {
+"ch": [
+"9-10"
+],
+"topic": "VKH imaging and course"
+},
+"1133": {
+"ch": [
+"9-10",
+"1-10"
+],
+"topic": "Behcet disease features"
+},
+"1134": {
+"ch": [
+"9-11",
+"8-13"
+],
+"topic": "Congenital syphilis"
+},
+"1135": {
+"ch": [
+"9-11",
+"1-15"
+],
+"topic": "Syphilis diagnosis"
+},
+"1136": {
+"ch": [
+"9-11",
+"1-15"
+],
+"topic": "Ocular tuberculosis"
+},
+"1137": {
+"ch": [
+"9-12",
+"8-11"
+],
+"topic": "Herpetic uveitis"
+},
+"1138": {
+"ch": [
+"9-12"
+],
+"topic": "Acute retinal necrosis"
+},
+"1139": {
+"ch": [
+"10-4"
+],
+"topic": "Gonioscopy lens types"
+},
+"1140": {
+"ch": [
+"10-6"
+],
+"topic": "Perimetry reliability indices"
+},
+"1141": {
+"ch": [
+"10-11",
+"6-20",
+"10-1"
+],
+"topic": "Axenfeld-Rieger inheritance"
+},
+"1142": {
+"ch": [
+"10-2",
+"2-2"
+],
+"topic": "Trabecular outflow anatomy"
+},
+"1143": {
+"ch": [
+"10-6"
+],
+"topic": "Visual field artifacts"
+},
+"1144": {
+"ch": [
+"10-5"
+],
+"topic": "Glaucomatous optic nerve signs"
+},
+"1145": {
+"ch": [
+"10-7",
+"10-1"
+],
+"topic": "POAG risk factors"
+},
+"1146": {
+"ch": [
+"10-10",
+"10-8"
+],
+"topic": "Lens-induced glaucoma and iridotomy"
+},
+"1147": {
+"ch": [
+"10-7",
+"10-9",
+"10-10",
+"10-8"
+],
+"topic": "Acute IOP elevation causes"
+},
+"1148": {
+"ch": [
+"10-12",
+"10-10",
+"10-8"
+],
+"topic": "Glaucoma medication selection"
+},
+"1149": {
+"ch": [
+"10-12",
+"10-11",
+"6-21"
+],
+"topic": "Glaucoma drugs in special populations"
+},
+"1150": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "Childhood glaucoma"
+},
+"1151": {
+"ch": [
+"10-13",
+"10-10",
+"10-9"
+],
+"topic": "Laser iridotomy indications"
+},
+"1152": {
+"ch": [
+"10-9",
+"10-10",
+"10-8"
+],
+"topic": "Glaucoma subtypes features"
+},
+"1153": {
+"ch": [
+"10-12"
+],
+"topic": "Pilocarpine induced myopia"
+},
+"1154": {
+"ch": [
+"10-2",
+"10-12"
+],
+"topic": "Uveoscleral outflow drugs"
+},
+"1155": {
+"ch": [
+"10-5",
+"10-6"
+],
+"topic": "Structural vs functional glaucoma evaluation"
+},
+"1156": {
+"ch": [
+"10-6"
+],
+"topic": "Visual field artifacts"
+},
+"1157": {
+"ch": [
+"10-13",
+"10-10"
+],
+"topic": "Trabeculectomy outcomes"
+},
+"1158": {
+"ch": [
+"10-13"
+],
+"topic": "Mitomycin C in trabeculectomy"
+},
+"1159": {
+"ch": [
+"10-8",
+"10-10",
+"10-13"
+],
+"topic": "Glaucoma after cataract extraction"
+},
+"1160": {
+"ch": [
+"10-13"
+],
+"topic": "Laser trabeculoplasty"
+},
+"1161": {
+"ch": [
+"10-5"
+],
+"topic": "Glaucomatous disc signs specificity"
+},
+"1162": {
+"ch": [
+"10-7",
+"10-1"
+],
+"topic": "POAG risk factors"
+},
+"1163": {
+"ch": [
+"10-8",
+"10-10"
+],
+"topic": "Lens-induced glaucoma"
+},
+"1164": {
+"ch": [
+"10-8",
+"10-10",
+"9-16"
+],
+"topic": "Uveitic glaucoma mechanisms"
+},
+"1165": {
+"ch": [
+"10-8",
+"10-2"
+],
+"topic": "Elevated episcleral venous pressure"
+},
+"1166": {
+"ch": [
+"10-13",
+"10-9",
+"10-10"
+],
+"topic": "Laser iridotomy indications"
+},
+"1167": {
+"ch": [
+"10-8",
+"10-10",
+"10-3"
+],
+"topic": "Drug-induced glaucoma"
+},
+"1168": {
+"ch": [
+"10-12",
+"10-11",
+"6-21"
+],
+"topic": "Glaucoma drugs in children"
+},
+"1169": {
+"ch": [
+"10-2",
+"2-9"
+],
+"topic": "Aqueous humor production"
+},
+"1170": {
+"ch": [
+"10-2"
+],
+"topic": "Factors affecting IOP"
+},
+"1171": {
+"ch": [
+"10-2"
+],
+"topic": "Tonometry artifacts"
+},
+"1172": {
+"ch": [
+"10-4"
+],
+"topic": "Direct goniolenses"
+},
+"1173": {
+"ch": [
+"10-2"
+],
+"topic": "Imbert-Fick tonometry"
+},
+"1174": {
+"ch": [
+"10-6"
+],
+"topic": "Perimetry types and VFI"
+},
+"1175": {
+"ch": [
+"10-13"
+],
+"topic": "Trabeculectomy with MMC indications"
+},
+"1176": {
+"ch": [
+"10-2",
+"2-2"
+],
+"topic": "Trabecular meshwork physiology"
+},
+"1177": {
+"ch": [
+"10-9"
+],
+"topic": "Angle-closure classification"
+},
+"1178": {
+"ch": [
+"10-10"
+],
+"topic": "Secondary angle closure without block"
+},
+"1179": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "Pediatric glaucoma classification"
+},
+"1180": {
+"ch": [
+"10-12"
+],
+"topic": "Glaucoma drugs in pregnancy and lactation"
+},
+"1181": {
+"ch": [
+"10-13"
+],
+"topic": "Glaucoma surgery selection"
+},
+"1182": {
+"ch": [
+"10-9",
+"10-1"
+],
+"topic": "PAC risk factors"
+},
+"1183": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "Congenital glaucoma monitoring"
+},
+"1184": {
+"ch": [
+"10-8",
+"10-1"
+],
+"topic": "Pseudoexfoliation genetics"
+},
+"1185": {
+"ch": [
+"10-2"
+],
+"topic": "Imbert-Fick tonometry"
+},
+"1186": {
+"ch": [
+"10-6",
+"2-12"
+],
+"topic": "Retinal ganglion cell types"
+},
+"1187": {
+"ch": [
+"10-2"
+],
+"topic": "Factors affecting IOP"
+},
+"1188": {
+"ch": [
+"10-4"
+],
+"topic": "Direct gonioscopy lenses"
+},
+"1189": {
+"ch": [
+"10-2"
+],
+"topic": "Tonometry artifacts"
+},
+"1190": {
+"ch": [
+"10-2"
+],
+"topic": "Factors lowering IOP"
+},
+"1191": {
+"ch": [
+"10-7",
+"10-1"
+],
+"topic": "POAG risk factors"
+},
+"1192": {
+"ch": [
+"10-8",
+"10-10",
+"10-9",
+"10-11"
+],
+"topic": "Acute IOP elevation causes"
+},
+"1193": {
+"ch": [
+"10-7",
+"10-9",
+"10-8",
+"10-2"
+],
+"topic": "Mechanisms of IOP elevation"
+},
+"1194": {
+"ch": [
+"10-7"
+],
+"topic": "Major glaucoma clinical trials"
+},
+"1195": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "Childhood glaucoma"
+},
+"1196": {
+"ch": [
+"10-10",
+"10-12"
+],
+"topic": "ICE syndrome medications"
+},
+"1197": {
+"ch": [
+"10-9",
+"10-10",
+"10-8"
+],
+"topic": "Glaucoma subtypes features"
+},
+"1198": {
+"ch": [
+"10-2"
+],
+"topic": "Factors affecting IOP"
+},
+"1199": {
+"ch": [
+"10-2"
+],
+"topic": "Goldmann tonometry artifacts"
+},
+"1200": {
+"ch": [
+"10-6"
+],
+"topic": "Perimetry types and VFI"
+},
+"1201": {
+"ch": [
+"10-2",
+"2-9"
+],
+"topic": "Aqueous humor dynamics"
+},
+"1202": {
+"ch": [
+"10-2",
+"2-2"
+],
+"topic": "Trabecular meshwork physiology"
+},
+"1203": {
+"ch": [
+"10-7",
+"10-9",
+"10-1"
+],
+"topic": "Glaucoma risk factors"
+},
+"1204": {
+"ch": [
+"10-10",
+"12-6",
+"12-5"
+],
+"topic": "Neovascular glaucoma causes"
+},
+"1205": {
+"ch": [
+"10-10",
+"10-11",
+"6-21",
+"8-6"
+],
+"topic": "Glaucoma subtypes demographics"
+},
+"1206": {
+"ch": [
+"10-12"
+],
+"topic": "Glaucoma medication contraindications"
+},
+"1207": {
+"ch": [
+"10-6"
+],
+"topic": "Static vs kinetic perimetry"
+},
+"1208": {
+"ch": [
+"10-2"
+],
+"topic": "Factors affecting IOP"
+},
+"1209": {
+"ch": [
+"10-5"
+],
+"topic": "Age-related RNFL loss rate"
+},
+"1210": {
+"ch": [
+"10-8",
+"10-4",
+"5-11",
+"7-5"
+],
+"topic": "Carotid-cavernous fistula glaucoma"
+},
+"1211": {
+"ch": [
+"10-8",
+"10-4"
+],
+"topic": "Pigment deposition signs"
+},
+"1212": {
+"ch": [
+"10-7"
+],
+"topic": "Open-angle glaucoma suspect"
+},
+"1213": {
+"ch": [
+"10-8",
+"10-10",
+"10-11",
+"9-16"
+],
+"topic": "Secondary glaucoma features"
+},
+"1214": {
+"ch": [
+"10-10",
+"10-8",
+"11-11"
+],
+"topic": "IOL-related secondary glaucoma"
+},
+"1215": {
+"ch": [
+"10-7"
+],
+"topic": "OHTS results"
+},
+"1216": {
+"ch": [
+"10-8",
+"10-12"
+],
+"topic": "Drug-induced IOP elevation"
+},
+"1217": {
+"ch": [
+"10-2"
+],
+"topic": "Tonometry artifacts"
+},
+"1218": {
+"ch": [
+"10-2"
+],
+"topic": "Factors lowering IOP"
+},
+"1219": {
+"ch": [
+"10-5"
+],
+"topic": "Red-free RNFL examination"
+},
+"1220": {
+"ch": [
+"10-11",
+"6-21",
+"10-1"
+],
+"topic": "Primary congenital glaucoma genetics"
+},
+"1221": {
+"ch": [
+"10-2",
+"2-2"
+],
+"topic": "Trabecular meshwork anatomy"
+},
+"1222": {
+"ch": [
+"10-2"
+],
+"topic": "Tonometry accuracy"
+},
+"1223": {
+"ch": [
+"10-6"
+],
+"topic": "Automated perimetry"
+},
+"1224": {
+"ch": [
+"10-6"
+],
+"topic": "Perimetry testing factors"
+},
+"1225": {
+"ch": [
+"10-7",
+"10-9"
+],
+"topic": "POAG features and management"
+},
+"1226": {
+"ch": [
+"10-8"
+],
+"topic": "Secondary open-angle glaucoma"
+},
+"1227": {
+"ch": [
+"10-8",
+"10-10"
+],
+"topic": "Secondary glaucomas"
+},
+"1228": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "Pediatric glaucoma"
+},
+"1229": {
+"ch": [
+"10-10",
+"10-9",
+"10-8"
+],
+"topic": "Angle obstruction mechanisms"
+},
+"1230": {
+"ch": [
+"10-10"
+],
+"topic": "Posterior pushing angle closure"
+},
+"1231": {
+"ch": [
+"10-2"
+],
+"topic": "Tonometer types"
+},
+"1232": {
+"ch": [
+"10-4"
+],
+"topic": "UBM anterior segment imaging"
+},
+"1233": {
+"ch": [
+"10-6"
+],
+"topic": "Humphrey visual field indices"
+},
+"1234": {
+"ch": [
+"10-8",
+"10-10"
+],
+"topic": "Lens-induced open-angle glaucoma"
+},
+"1235": {
+"ch": [
+"10-8",
+"2-16"
+],
+"topic": "Steroid-induced IOP potency"
+},
+"1236": {
+"ch": [
+"10-8"
+],
+"topic": "Pigment dispersion syndrome signs"
+},
+"1237": {
+"ch": [
+"10-12"
+],
+"topic": "Glaucoma drugs during breastfeeding"
+},
+"1238": {
+"ch": [
+"10-13"
+],
+"topic": "Post-trabeculectomy hypotony"
+},
+"1239": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "Corneal diameter in congenital glaucoma"
+},
+"1240": {
+"ch": [
+"10-7"
+],
+"topic": "AGIS results"
+},
+"1241": {
+"ch": [
+"10-13"
+],
+"topic": "Fornix vs limbus-based flap"
+},
+"1242": {
+"ch": [
+"10-7",
+"10-1"
+],
+"topic": "POAG risk factors"
+},
+"1243": {
+"ch": [
+"10-12",
+"10-11",
+"6-21"
+],
+"topic": "Brimonidine in young children"
+},
+"1244": {
+"ch": [
+"10-9"
+],
+"topic": "PACG mechanisms"
+},
+"1245": {
+"ch": [
+"10-8"
+],
+"topic": "Phacolytic glaucoma"
+},
+"1246": {
+"ch": [
+"10-2",
+"2-9"
+],
+"topic": "Aqueous humor production"
+},
+"1247": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "PCG classic triad"
+},
+"1248": {
+"ch": [
+"10-2",
+"2-9"
+],
+"topic": "Aqueous humor composition"
+},
+"1249": {
+"ch": [
+"10-2"
+],
+"topic": "Factors affecting IOP"
+},
+"1250": {
+"ch": [
+"10-2"
+],
+"topic": "Applanation tonometry"
+},
+"1251": {
+"ch": [
+"10-4"
+],
+"topic": "Gonioscopy grading and lenses"
+},
+"1252": {
+"ch": [
+"10-1",
+"2-3"
+],
+"topic": "Optic nerve blood supply"
+},
+"1253": {
+"ch": [
+"10-6"
+],
+"topic": "Perimetry testing parameters"
+},
+"1254": {
+"ch": [
+"10-8"
+],
+"topic": "Pseudoexfoliation syndrome"
+},
+"1255": {
+"ch": [
+"10-8",
+"10-10"
+],
+"topic": "Lens-induced glaucoma"
+},
+"1256": {
+"ch": [
+"10-8",
+"9-8"
+],
+"topic": "Glaucomatocyclitic crisis"
+},
+"1257": {
+"ch": [
+"10-9",
+"10-13"
+],
+"topic": "Acute angle closure treatment"
+},
+"1258": {
+"ch": [
+"10-10",
+"8-6"
+],
+"topic": "ICE syndrome"
+},
+"1259": {
+"ch": [
+"10-10",
+"10-13"
+],
+"topic": "Malignant glaucoma"
+},
+"1260": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "PCG diagnosis and treatment"
+},
+"1261": {
+"ch": [
+"10-12"
+],
+"topic": "Carbonic anhydrase inhibitors"
+},
+"1262": {
+"ch": [
+"10-12"
+],
+"topic": "Glaucoma drugs in pregnancy"
+},
+"1263": {
+"ch": [
+"10-13",
+"10-9",
+"10-10"
+],
+"topic": "Laser iridotomy indications"
+},
+"1264": {
+"ch": [
+"10-13"
+],
+"topic": "Post-trabeculectomy hypotony flat bleb"
+},
+"1265": {
+"ch": [
+"10-13"
+],
+"topic": "MIGS mechanisms"
+},
+"1266": {
+"ch": [
+"10-10",
+"10-8"
+],
+"topic": "Angle closure causes"
+},
+"1267": {
+"ch": [
+"10-10",
+"10-9",
+"10-8"
+],
+"topic": "Secondary angle closure with pupillary block"
+},
+"1268": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "Primary congenital glaucoma"
+},
+"1269": {
+"ch": [
+"10-12"
+],
+"topic": "Glaucoma medication adverse effects"
+},
+"1270": {
+"ch": [
+"10-13"
+],
+"topic": "Trabeculectomy failure risk factors"
+},
+"1271": {
+"ch": [
+"10-10",
+"8-8",
+"8-6"
+],
+"topic": "Causes of angle-closure glaucoma"
+},
+"1272": {
+"ch": [
+"9-16",
+"10-8",
+"10-12"
+],
+"topic": "Uveitic glaucoma drug avoidance"
+},
+"1273": {
+"ch": [
+"10-13",
+"10-8"
+],
+"topic": "Argon vs selective laser trabeculoplasty"
+},
+"1274": {
+"ch": [
+"10-13",
+"2-16"
+],
+"topic": "5-FU vs mitomycin C antifibrotics"
+},
+"1275": {
+"ch": [
+"10-12",
+"2-16"
+],
+"topic": "Glaucoma drug peak effect time"
+},
+"1276": {
+"ch": [
+"10-10",
+"10-9",
+"2-16"
+],
+"topic": "Drug-induced angle closure"
+},
+"1277": {
+"ch": [
+"10-10",
+"8-6"
+],
+"topic": "ICE syndrome glaucoma frequency"
+},
+"1278": {
+"ch": [
+"10-1",
+"10-11",
+"11-4",
+"6-22"
+],
+"topic": "LTBP2 microspherophakia genetics"
+},
+"1279": {
+"ch": [
+"10-11",
+"6-21",
+"6-20"
+],
+"topic": "Aniridia glaucoma onset age"
+},
+"1280": {
+"ch": [
+"10-8",
+"6-21",
+"10-11",
+"6-27"
+],
+"topic": "Sturge-Weber glaucoma prevalence"
+},
+"1281": {
+"ch": [
+"10-12",
+"6-21",
+"10-11"
+],
+"topic": "Alpha-2 agonists in children"
+},
+"1282": {
+"ch": [
+"10-12",
+"2-16"
+],
+"topic": "Rho kinase inhibitor side effects"
+},
+"1283": {
+"ch": [
+"10-13"
+],
+"topic": "MIGS subconjunctival devices"
+},
+"1284": {
+"ch": [
+"10-13",
+"1-11"
+],
+"topic": "Trabeculectomy in elderly patients"
+},
+"1285": {
+"ch": [
+"10-11",
+"6-21"
+],
+"topic": "Childhood glaucoma prognosis"
+},
+"1286": {
+"ch": [
+"10-9"
+],
+"topic": "Plateau iris configuration/syndrome"
+},
+"1287": {
+"ch": [
+"10-10",
+"8-6",
+"4-6"
+],
+"topic": "ICE syndrome clinical variants"
+},
+"1288": {
+"ch": [
+"10-10",
+"11-11"
+],
+"topic": "Malignant glaucoma treatment"
+},
+"1289": {
+"ch": [
+"10-10",
+"2-16"
+],
+"topic": "Topiramate-induced angle closure"
+},
+"1290": {
+"ch": [
+"10-8",
+"9-16"
+],
+"topic": "Steroid-induced glaucoma risk factors"
+},
+"1291": {
+"ch": [
+"11-4",
+"6-22",
+"8-10"
+],
+"topic": "Ectopia lentis associations"
+},
+"1292": {
+"ch": [
+"11-2",
+"2-2"
+],
+"topic": "Lens capsule thickness"
+},
+"1293": {
+"ch": [
+"11-3",
+"2-10"
+],
+"topic": "Lens active transport site"
+},
+"1294": {
+"ch": [
+"11-3",
+"13-10"
+],
+"topic": "Accommodation mechanism"
+},
+"1295": {
+"ch": [
+"11-2",
+"11-3"
+],
+"topic": "Aging lens changes"
+},
+"1296": {
+"ch": [
+"11-5"
+],
+"topic": "Cataract associated conditions"
+},
+"1297": {
+"ch": [
+"11-4",
+"6-22"
+],
+"topic": "Lens coloboma features"
+},
+"1298": {
+"ch": [
+"11-4",
+"6-22"
+],
+"topic": "Maternal infection pediatric cataract"
+},
+"1299": {
+"ch": [
+"11-11"
+],
+"topic": "Toxic anterior segment syndrome"
+},
+"1300": {
+"ch": [
+"11-10",
+"7-6"
+],
+"topic": "Retrobulbar hemorrhage management"
+},
+"1301": {
+"ch": [
+"11-11"
+],
+"topic": "Pseudophakic cystoid macular edema"
+},
+"1302": {
+"ch": [
+"11-11",
+"10-10"
+],
+"topic": "Postoperative ciliary block glaucoma"
+},
+"1303": {
+"ch": [
+"11-7",
+"13-3"
+],
+"topic": "Astigmatism correction at cataract surgery"
+},
+"1304": {
+"ch": [
+"11-2",
+"11-3"
+],
+"topic": "Lens dimensions and aging optics"
+},
+"1305": {
+"ch": [
+"11-3",
+"2-10"
+],
+"topic": "Lens active transport site"
+},
+"1306": {
+"ch": [
+"11-3",
+"13-10"
+],
+"topic": "Accommodation lens changes"
+},
+"1307": {
+"ch": [
+"11-4",
+"6-22"
+],
+"topic": "Marfan lens subluxation management"
+},
+"1308": {
+"ch": [
+"11-5",
+"1-3"
+],
+"topic": "Diabetic lens changes"
+},
+"1309": {
+"ch": [
+"11-5"
+],
+"topic": "Cataract with degenerative eye disease"
+},
+"1310": {
+"ch": [
+"11-5"
+],
+"topic": "Vossius ring etiology"
+},
+"1311": {
+"ch": [
+"11-12",
+"11-7"
+],
+"topic": "Cataract surgery in silicone oil eyes"
+},
+"1312": {
+"ch": [
+"11-11"
+],
+"topic": "Postoperative corneal edema"
+},
+"1313": {
+"ch": [
+"11-11"
+],
+"topic": "Toxic anterior segment syndrome"
+},
+"1314": {
+"ch": [
+"11-10",
+"11-6",
+"11-11"
+],
+"topic": "Intraoperative floppy iris syndrome"
+},
+"1315": {
+"ch": [
+"11-6",
+"11-5"
+],
+"topic": "Visual effects of cataract types"
+},
+"1316": {
+"ch": [
+"11-11"
+],
+"topic": "Nd:YAG capsulotomy"
+},
+"1317": {
+"ch": [
+"11-11",
+"9-14",
+"11-7"
+],
+"topic": "Postoperative endophthalmitis"
+},
+"1318": {
+"ch": [
+"11-11"
+],
+"topic": "Pseudophakic cystoid macular edema"
+},
+"1319": {
+"ch": [
+"11-2",
+"11-3"
+],
+"topic": "Lens anatomy and optics"
+},
+"1320": {
+"ch": [
+"11-4",
+"6-22"
+],
+"topic": "Congenital cataract features"
+},
+"1321": {
+"ch": [
+"11-4",
+"2-4"
+],
+"topic": "Lens embryology and anomalies"
+},
+"1322": {
+"ch": [
+"11-5",
+"11-1"
+],
+"topic": "Cataract causes and associations"
+},
+"1323": {
+"ch": [
+"11-5"
+],
+"topic": "Traumatic and toxic cataracts"
+},
+"1324": {
+"ch": [
+"11-12",
+"11-10",
+"11-4"
+],
+"topic": "Posterior polar cataract surgery"
+},
+"1325": {
+"ch": [
+"11-1"
+],
+"topic": "Cataract epidemiology"
+},
+"1326": {
+"ch": [
+"11-5"
+],
+"topic": "Drug-induced lens changes"
+},
+"1327": {
+"ch": [
+"11-7"
+],
+"topic": "Ophthalmic viscosurgical devices"
+},
+"1328": {
+"ch": [
+"11-10",
+"11-6"
+],
+"topic": "IFIS-associated drugs"
+},
+"1329": {
+"ch": [
+"11-11"
+],
+"topic": "Toxic anterior segment syndrome"
+},
+"1330": {
+"ch": [
+"11-11"
+],
+"topic": "Pseudophakic cystoid macular edema"
+},
+"1331": {
+"ch": [
+"11-10",
+"11-11"
+],
+"topic": "Suprachoroidal hemorrhage risk factors"
+},
+"1332": {
+"ch": [
+"11-12",
+"11-7"
+],
+"topic": "Cataract surgery in silicone oil eyes"
+},
+"1333": {
+"ch": [
+"11-11",
+"9-14"
+],
+"topic": "Chronic endophthalmitis organisms"
+},
+"1334": {
+"ch": [
+"11-3",
+"2-10"
+],
+"topic": "Lens carbohydrate metabolism"
+},
+"1335": {
+"ch": [
+"11-2",
+"11-3"
+],
+"topic": "Lens composition and capsule"
+},
+"1336": {
+"ch": [
+"11-4",
+"2-4"
+],
+"topic": "Lens embryology and anomalies"
+},
+"1337": {
+"ch": [
+"11-4",
+"6-22"
+],
+"topic": "Congenital cataract visual significance"
+},
+"1338": {
+"ch": [
+"11-5",
+"11-1"
+],
+"topic": "Cataract types and risk factors"
+},
+"1339": {
+"ch": [
+"11-12",
+"11-7",
+"1-16",
+"11-11"
+],
+"topic": "Cataract surgery in special situations"
+},
+"1340": {
+"ch": [
+"11-12",
+"11-5",
+"11-7"
+],
+"topic": "Cataract in special situations, IOL choice"
+},
+"1341": {
+"ch": [
+"11-6",
+"11-5"
+],
+"topic": "Visual effects of cataract types"
+},
+"1342": {
+"ch": [
+"11-11",
+"10-10"
+],
+"topic": "Ciliary block glaucoma treatment"
+},
+"1343": {
+"ch": [
+"11-7",
+"3-7"
+],
+"topic": "Biometry errors and silicone oil"
+},
+"1344": {
+"ch": [
+"11-10",
+"11-8"
+],
+"topic": "Phaco wound burn"
+},
+"1345": {
+"ch": [
+"11-11"
+],
+"topic": "Brown-McLean syndrome"
+},
+"1346": {
+"ch": [
+"11-10",
+"11-6"
+],
+"topic": "IFIS-associated drugs"
+},
+"1347": {
+"ch": [
+"11-11"
+],
+"topic": "Cataract surgery complications"
+},
+"1348": {
+"ch": [
+"11-5"
+],
+"topic": "Vossius ring etiology"
+},
+"1349": {
+"ch": [
+"11-5",
+"11-6"
+],
+"topic": "Nuclear cataract features"
+},
+"1350": {
+"ch": [
+"11-4",
+"2-4"
+],
+"topic": "Lens development"
+},
+"1351": {
+"ch": [
+"11-2",
+"11-3"
+],
+"topic": "Lens capsule and accommodation"
+},
+"1352": {
+"ch": [
+"11-12",
+"11-6",
+"12-5"
+],
+"topic": "Cataract surgery with retinal disease"
+},
+"1353": {
+"ch": [
+"11-10",
+"11-12",
+"11-11"
+],
+"topic": "Cataract surgery management pearls"
+},
+"1354": {
+"ch": [
+"11-3",
+"11-2"
+],
+"topic": "Lens composition and physiology"
+},
+"1355": {
+"ch": [
+"11-10"
+],
+"topic": "IFIS intraoperative management"
+},
+"1356": {
+"ch": [
+"11-4",
+"6-22"
+],
+"topic": "Marfan lens subluxation management"
+},
+"1357": {
+"ch": [
+"11-5",
+"12-17"
+],
+"topic": "Chalcosis cataract"
+},
+"1358": {
+"ch": [
+"11-7",
+"11-12",
+"11-11"
+],
+"topic": "Endophthalmitis prophylaxis with blepharitis"
+},
+"1359": {
+"ch": [
+"11-11",
+"11-7"
+],
+"topic": "PCO by IOL material"
+},
+"1360": {
+"ch": [
+"11-7"
+],
+"topic": "Ophthalmic viscosurgical devices"
+},
+"1361": {
+"ch": [
+"11-11",
+"3-7"
+],
+"topic": "Dysphotopsia"
+},
+"1362": {
+"ch": [
+"11-7",
+"3-7"
+],
+"topic": "AI-based IOL formulas"
+},
+"1363": {
+"ch": [
+"11-8"
+],
+"topic": "Postocclusion surge prevention"
+},
+"1364": {
+"ch": [
+"11-11",
+"3-7"
+],
+"topic": "Negative dysphotopsia"
+},
+"1365": {
+"ch": [
+"11-10",
+"11-12"
+],
+"topic": "Intraoperative zonular dialysis"
+},
+"1366": {
+"ch": [
+"11-11"
+],
+"topic": "Irvine-Gass syndrome risk factors"
+},
+"1367": {
+"ch": [
+"11-7",
+"3-7",
+"11-12"
+],
+"topic": "IOL power calculation"
+},
+"1368": {
+"ch": [
+"11-1",
+"11-4",
+"11-5"
+],
+"topic": "Cataract genetics, ectopia lentis"
+},
+"1369": {
+"ch": [
+"11-5"
+],
+"topic": "Myotonic dystrophy lens crystals"
+},
+"1370": {
+"ch": [
+"11-6",
+"11-5"
+],
+"topic": "Cataract symptoms and glare testing"
+},
+"1371": {
+"ch": [
+"11-7"
+],
+"topic": "Ophthalmic viscosurgical devices"
+},
+"1372": {
+"ch": [
+"11-8"
+],
+"topic": "Phaco fluidics surge"
+},
+"1373": {
+"ch": [
+"11-7",
+"13-10",
+"13-9"
+],
+"topic": "Presbyopia correction after cataract"
+},
+"1374": {
+"ch": [
+"11-11",
+"11-6"
+],
+"topic": "Postoperative monocular diplopia"
+},
+"1375": {
+"ch": [
+"11-7",
+"13-9"
+],
+"topic": "Toric IOL and surgically induced astigmatism"
+},
+"1376": {
+"ch": [
+"11-5",
+"11-1"
+],
+"topic": "PSC cataract risk factors"
+},
+"1377": {
+"ch": [
+"11-11"
+],
+"topic": "Toxic anterior segment syndrome"
+},
+"1378": {
+"ch": [
+"11-11",
+"11-7"
+],
+"topic": "HORV intracameral vancomycin"
+},
+"1379": {
+"ch": [
+"11-7",
+"11-10",
+"3-7"
+],
+"topic": "Sulcus IOL power adjustment"
+},
+"1380": {
+"ch": [
+"11-12",
+"13-8"
+],
+"topic": "Cataract surgery after radial keratotomy"
+},
+"1381": {
+"ch": [
+"11-6"
+],
+"topic": "Macular function testing before cataract surgery"
+},
+"1382": {
+"ch": [
+"11-12",
+"11-11",
+"10-8"
+],
+"topic": "Pseudoexfoliation cataract surgery"
+},
+"1383": {
+"ch": [
+"11-12",
+"8-3"
+],
+"topic": "Rosacea/blepharitis endophthalmitis risk"
+},
+"1384": {
+"ch": [
+"11-10"
+],
+"topic": "Suprachoroidal hemorrhage risk factors"
+},
+"1385": {
+"ch": [
+"11-1"
+],
+"topic": "Cataract epidemiology"
+},
+"1386": {
+"ch": [
+"11-2",
+"11-3"
+],
+"topic": "Lens structure"
+},
+"1387": {
+"ch": [
+"11-3",
+"11-2",
+"13-10"
+],
+"topic": "Accommodation and presbyopia"
+},
+"1388": {
+"ch": [
+"11-4",
+"2-4"
+],
+"topic": "Lens embryology and anomalies"
+},
+"1389": {
+"ch": [
+"11-4",
+"6-20",
+"2-6"
+],
+"topic": "Aniridia"
+},
+"1390": {
+"ch": [
+"11-5",
+"11-6"
+],
+"topic": "Posterior subcapsular cataract"
+},
+"1391": {
+"ch": [
+"11-5"
+],
+"topic": "Oil droplet cataract"
+},
+"1392": {
+"ch": [
+"11-7"
+],
+"topic": "Axial length measurement techniques"
+},
+"1393": {
+"ch": [
+"11-5",
+"5-18"
+],
+"topic": "Myotonic dystrophy lens crystals"
+},
+"1394": {
+"ch": [
+"11-10",
+"11-12"
+],
+"topic": "Lens-iris diaphragm retropulsion syndrome"
+},
+"1395": {
+"ch": [
+"11-11"
+],
+"topic": "Irvine-Gass syndrome"
+},
+"1396": {
+"ch": [
+"11-1",
+"11-4"
+],
+"topic": "Cataract epidemiology"
+},
+"1397": {
+"ch": [
+"11-3"
+],
+"topic": "Lens metabolism and electrolytes"
+},
+"1398": {
+"ch": [
+"11-7",
+"13-10"
+],
+"topic": "Presbyopia-correcting IOLs"
+},
+"1399": {
+"ch": [
+"11-8"
+],
+"topic": "Postocclusion surge prevention"
+},
+"1400": {
+"ch": [
+"11-7",
+"3-7"
+],
+"topic": "IOL formula for short eyes"
+},
+"1401": {
+"ch": [
+"11-12",
+"13-8"
+],
+"topic": "Cataract surgery after refractive surgery"
+},
+"1402": {
+"ch": [
+"11-2",
+"11-3"
+],
+"topic": "Crystalline lens anatomy"
+},
+"1403": {
+"ch": [
+"11-3",
+"2-10"
+],
+"topic": "Lens carbohydrate metabolism"
+},
+"1404": {
+"ch": [
+"11-3",
+"2-14"
+],
+"topic": "Lens antioxidant enzymes"
+},
+"1405": {
+"ch": [
+"11-4",
+"6-22"
+],
+"topic": "Microspherophakia associations"
+},
+"1406": {
+"ch": [
+"11-4",
+"6-22"
+],
+"topic": "Congenital cataract morphology"
+},
+"1407": {
+"ch": [
+"11-5"
+],
+"topic": "Drug-induced cataract"
+},
+"1408": {
+"ch": [
+"11-5",
+"1-3"
+],
+"topic": "Diabetic snowflake cataract"
+},
+"1409": {
+"ch": [
+"11-6",
+"11-5"
+],
+"topic": "Cataract visual symptoms"
+},
+"1410": {
+"ch": [
+"11-7",
+"3-7",
+"11-10"
+],
+"topic": "Sulcus IOL power adjustment"
+},
+"1411": {
+"ch": [
+"11-7",
+"3-7",
+"11-12"
+],
+"topic": "IOL power formulas"
+},
+"1412": {
+"ch": [
+"11-11",
+"11-10",
+"12-19"
+],
+"topic": "Retained lens fragments"
+},
+"1413": {
+"ch": [
+"11-11",
+"11-7"
+],
+"topic": "Posterior capsule opacification"
+},
+"1414": {
+"ch": [
+"11-8"
+],
+"topic": "Phaco machine settings and modes"
+},
+"1415": {
+"ch": [
+"11-7",
+"3-7",
+"11-11"
+],
+"topic": "IOL materials and optics"
+},
+"1416": {
+"ch": [
+"11-7",
+"13-10"
+],
+"topic": "Pseudophakic monovision"
+},
+"1417": {
+"ch": [
+"11-12",
+"11-10"
+],
+"topic": "Cataract surgery in high myopia"
+},
+"1418": {
+"ch": [
+"11-12",
+"11-11"
+],
+"topic": "Cataract surgery special situations"
+},
+"1419": {
+"ch": [
+"11-10"
+],
+"topic": "Posterior fluid misdirection syndrome"
+},
+"1420": {
+"ch": [
+"11-11"
+],
+"topic": "Irvine-Gass syndrome"
+},
+"1421": {
+"ch": [
+"11-11",
+"11-6"
+],
+"topic": "Postoperative diplopia"
+},
+"1422": {
+"ch": [
+"11-8"
+],
+"topic": "Phaco aspiration pumps"
+},
+"1423": {
+"ch": [
+"11-8"
+],
+"topic": "Phaco power modes"
+},
+"1424": {
+"ch": [
+"11-7",
+"11-10",
+"11-8"
+],
+"topic": "IOL types and placement"
+},
+"1425": {
+"ch": [
+"11-7",
+"3-7"
+],
+"topic": "IOL optics and materials"
+},
+"1426": {
+"ch": [
+"11-7",
+"13-3"
+],
+"topic": "Limbal relaxing incisions"
+},
+"1427": {
+"ch": [
+"11-10"
+],
+"topic": "Intraoperative cataract complications"
+},
+"1428": {
+"ch": [
+"11-10"
+],
+"topic": "Expulsive suprachoroidal hemorrhage"
+},
+"1429": {
+"ch": [
+"11-11",
+"10-10"
+],
+"topic": "Postoperative shallow anterior chamber"
+},
+"1430": {
+"ch": [
+"11-11"
+],
+"topic": "Pseudophakic bullous keratopathy"
+},
+"1431": {
+"ch": [
+"11-11"
+],
+"topic": "Toxic anterior segment syndrome"
+},
+"1432": {
+"ch": [
+"12-11",
+"12-6"
+],
+"topic": "Acute macular neuroretinopathy post-COVID"
+},
+"1433": {
+"ch": [
+"12-11",
+"9-9"
+],
+"topic": "APMPPE features"
+},
+"1434": {
+"ch": [
+"12-11",
+"9-9",
+"5-5"
+],
+"topic": "AZOOR diagnosis"
+},
+"1435": {
+"ch": [
+"12-4"
+],
+"topic": "AMD genetics and pathology"
+},
+"1436": {
+"ch": [
+"12-4"
+],
+"topic": "AMD AREDS and CNV"
+},
+"1437": {
+"ch": [
+"12-4",
+"12-2"
+],
+"topic": "AMD MNV classification"
+},
+"1438": {
+"ch": [
+"12-15",
+"4-9"
+],
+"topic": "Familial amyloidosis vitreous"
+},
+"1439": {
+"ch": [
+"12-15",
+"4-9"
+],
+"topic": "Amyloidosis diagnosis"
+},
+"1440": {
+"ch": [
+"12-4",
+"1-9",
+"8-10"
+],
+"topic": "Angioid streaks associations"
+},
+"1441": {
+"ch": [
+"12-4",
+"8-10"
+],
+"topic": "Angioid streaks associations"
+},
+"1442": {
+"ch": [
+"12-4"
+],
+"topic": "RPE tear after anti-VEGF"
+},
+"1443": {
+"ch": [
+"12-15",
+"12-12",
+"12-13"
+],
+"topic": "Inheritance of retinal dystrophies"
+},
+"1444": {
+"ch": [
+"12-1",
+"2-2"
+],
+"topic": "Bruch membrane layers"
+},
+"1445": {
+"ch": [
+"12-9",
+"12-4"
+],
+"topic": "Central serous chorioretinopathy"
+},
+"1446": {
+"ch": [
+"12-9",
+"12-4"
+],
+"topic": "Central serous chorioretinopathy"
+},
+"1447": {
+"ch": [
+"12-9",
+"12-4"
+],
+"topic": "Central serous chorioretinopathy"
+},
+"1448": {
+"ch": [
+"12-9",
+"12-4"
+],
+"topic": "CSC diagnosis and treatment"
+},
+"1449": {
+"ch": [
+"12-13",
+"6-24"
+],
+"topic": "Cherry-red spot causes"
+},
+"1450": {
+"ch": [
+"12-14",
+"1-10"
+],
+"topic": "Chloroquine/HCQ toxicity"
+},
+"1451": {
+"ch": [
+"12-14",
+"1-10"
+],
+"topic": "Chloroquine/HCQ toxicity"
+},
+"1452": {
+"ch": [
+"12-14",
+"1-10"
+],
+"topic": "HCQ retinopathy screening"
+},
+"1453": {
+"ch": [
+"12-14",
+"12-12",
+"12-13",
+"12-4"
+],
+"topic": "HCQ retinopathy differential"
+},
+"1454": {
+"ch": [
+"12-14",
+"1-10"
+],
+"topic": "HCQ toxicity risk factors"
+},
+"1455": {
+"ch": [
+"12-9",
+"12-4"
+],
+"topic": "Choroidal disease manifestations"
+},
+"1456": {
+"ch": [
+"12-4"
+],
+"topic": "CNV types on OCT"
+},
+"1457": {
+"ch": [
+"12-7",
+"6-24",
+"12-12"
+],
+"topic": "Coats disease"
+},
+"1458": {
+"ch": [
+"12-7",
+"6-24"
+],
+"topic": "Coats disease"
+},
+"1459": {
+"ch": [
+"12-17"
+],
+"topic": "Commotio retinae, choroidal rupture"
+},
+"1460": {
+"ch": [
+"12-6",
+"12-7",
+"9-13"
+],
+"topic": "Nondiabetic cotton-wool spots"
+},
+"1461": {
+"ch": [
+"12-14"
+],
+"topic": "Tamoxifen crystalline retinopathy"
+},
+"1462": {
+"ch": [
+"12-5",
+"12-18"
+],
+"topic": "Diabetic macular edema management"
+},
+"1463": {
+"ch": [
+"12-5"
+],
+"topic": "DRCR Protocol I outcomes"
+},
+"1464": {
+"ch": [
+"12-5",
+"11-12"
+],
+"topic": "Diabetic retinopathy classification/treatment"
+},
+"1465": {
+"ch": [
+"12-5"
+],
+"topic": "Diabetic retinopathy natural history"
+},
+"1466": {
+"ch": [
+"12-5",
+"11-12"
+],
+"topic": "PDR management"
+},
+"1467": {
+"ch": [
+"12-5",
+"11-12"
+],
+"topic": "Diabetic retinopathy management"
+},
+"1468": {
+"ch": [
+"12-5",
+"1-3"
+],
+"topic": "DR screening and high-risk PDR"
+},
+"1469": {
+"ch": [
+"12-5"
+],
+"topic": "Vision loss in diabetic retinopathy"
+},
+"1470": {
+"ch": [
+"12-5",
+"11-12"
+],
+"topic": "Cataract surgery in diabetics"
+},
+"1471": {
+"ch": [
+"12-5"
+],
+"topic": "High-risk PDR characteristics"
+},
+"1472": {
+"ch": [
+"12-3"
+],
+"topic": "Electro-oculography"
+},
+"1473": {
+"ch": [
+"12-3",
+"12-12"
+],
+"topic": "Best disease EOG"
+},
+"1474": {
+"ch": [
+"12-3",
+"5-4"
+],
+"topic": "Electrophysiologic testing"
+},
+"1475": {
+"ch": [
+"12-3"
+],
+"topic": "ERG components"
+},
+"1476": {
+"ch": [
+"12-3",
+"12-12",
+"12-13"
+],
+"topic": "Negative ERG causes"
+},
+"1477": {
+"ch": [
+"9-14",
+"11-11"
+],
+"topic": "Acute postoperative endophthalmitis"
+},
+"1478": {
+"ch": [
+"12-15",
+"12-19"
+],
+"topic": "ERM surgery complications"
+},
+"1479": {
+"ch": [
+"12-15",
+"6-24"
+],
+"topic": "FEVR systemic associations"
+},
+"1480": {
+"ch": [
+"12-15",
+"6-24"
+],
+"topic": "FEVR diagnosis"
+},
+"1481": {
+"ch": [
+"12-15",
+"6-24"
+],
+"topic": "FEVR features"
+},
+"1482": {
+"ch": [
+"12-2"
+],
+"topic": "Fluorescein angiography hyperfluorescence"
+},
+"1483": {
+"ch": [
+"12-2"
+],
+"topic": "Fluorescein angiography hyperfluorescence"
+},
+"1484": {
+"ch": [
+"12-14"
+],
+"topic": "Drug-induced foveal cone toxicity"
+},
+"1485": {
+"ch": [
+"12-12",
+"12-3"
+],
+"topic": "Goldmann-Favre/enhanced S-cone syndrome"
+},
+"1486": {
+"ch": [
+"2-11",
+"12-15"
+],
+"topic": "Vitreoretinal adhesion molecules"
+},
+"1487": {
+"ch": [
+"12-17"
+],
+"topic": "Intraocular foreign body toxicity"
+},
+"1488": {
+"ch": [
+"12-17"
+],
+"topic": "Intraocular foreign body removal"
+},
+"1489": {
+"ch": [
+"12-18"
+],
+"topic": "Laser wavelength selection"
+},
+"1490": {
+"ch": [
+"12-18",
+"12-4"
+],
+"topic": "Laser wavelength for CNV"
+},
+"1491": {
+"ch": [
+"12-15",
+"12-19"
+],
+"topic": "Macular hole vitrectomy"
+},
+"1492": {
+"ch": [
+"12-19",
+"12-15"
+],
+"topic": "Face-down positioning complications"
+},
+"1493": {
+"ch": [
+"12-15"
+],
+"topic": "Macular hole staging OCT"
+},
+"1494": {
+"ch": [
+"12-15"
+],
+"topic": "Macular hole features"
+},
+"1495": {
+"ch": [
+"12-15"
+],
+"topic": "Fellow-eye macular hole risk"
+},
+"1496": {
+"ch": [
+"12-15",
+"12-19"
+],
+"topic": "Idiopathic macular hole"
+},
+"1497": {
+"ch": [
+"12-7"
+],
+"topic": "Macular telangiectasia type 2"
+},
+"1498": {
+"ch": [
+"12-12",
+"12-3"
+],
+"topic": "Congenital stationary night blindness"
+},
+"1499": {
+"ch": [
+"12-12",
+"12-17",
+"12-14"
+],
+"topic": "Night blindness differential"
+},
+"1500": {
+"ch": [
+"12-12",
+"12-3"
+],
+"topic": "Congenital stationary night blindness"
+},
+"1501": {
+"ch": [
+"12-12",
+"12-3"
+],
+"topic": "Night blindness with normal fundus"
+},
+"1502": {
+"ch": [
+"12-13",
+"6-27",
+"2-6"
+],
+"topic": "Albinism"
+},
+"1503": {
+"ch": [
+"12-17",
+"8-15",
+"9-10"
+],
+"topic": "Open globe and IOFB evaluation"
+},
+"1504": {
+"ch": [
+"12-16",
+"6-23"
+],
+"topic": "Optic pit maculopathy"
+},
+"1505": {
+"ch": [
+"12-6",
+"12-11"
+],
+"topic": "PAMM"
+},
+"1506": {
+"ch": [
+"12-10",
+"12-4"
+],
+"topic": "Pathologic myopia maculopathy"
+},
+"1507": {
+"ch": [
+"12-10",
+"12-16",
+"12-4"
+],
+"topic": "Pathologic myopia"
+},
+"1508": {
+"ch": [
+"12-10",
+"12-4"
+],
+"topic": "Myopic CNV and schisis"
+},
+"1509": {
+"ch": [
+"12-17"
+],
+"topic": "Photic retinopathy"
+},
+"1510": {
+"ch": [
+"12-13"
+],
+"topic": "Refsum disease"
+},
+"1511": {
+"ch": [
+"12-13"
+],
+"topic": "Usher syndrome"
+},
+"1512": {
+"ch": [
+"12-13"
+],
+"topic": "Bull's-eye maculopathy syndromes"
+},
+"1513": {
+"ch": [
+"12-13"
+],
+"topic": "Pigmentary retinopathy with hearing loss"
+},
+"1514": {
+"ch": [
+"2-5",
+"12-12"
+],
+"topic": "Pleiotropy in retinal dystrophies"
+},
+"1515": {
+"ch": [
+"12-19",
+"12-16"
+],
+"topic": "Pneumatic retinopexy indications"
+},
+"1516": {
+"ch": [
+"12-4"
+],
+"topic": "Polypoidal choroidal vasculopathy"
+},
+"1517": {
+"ch": [
+"12-19"
+],
+"topic": "Silicone Study PVR"
+},
+"1518": {
+"ch": [
+"12-7"
+],
+"topic": "Purtscher retinopathy"
+},
+"1519": {
+"ch": [
+"12-7"
+],
+"topic": "Purtscher retinopathy"
+},
+"1520": {
+"ch": [
+"12-7"
+],
+"topic": "Purtscher retinopathy"
+},
+"1521": {
+"ch": [
+"12-7",
+"4-19",
+"12-5"
+],
+"topic": "Radiation retinopathy"
+},
+"1522": {
+"ch": [
+"11-10",
+"11-11"
+],
+"topic": "Retained lens fragment management"
+},
+"1523": {
+"ch": [
+"12-1",
+"2-2"
+],
+"topic": "Retinal layer order"
+},
+"1524": {
+"ch": [
+"12-6",
+"5-9"
+],
+"topic": "Central retinal artery occlusion"
+},
+"1525": {
+"ch": [
+"12-16"
+],
+"topic": "Retinal break treatment indications"
+},
+"1526": {
+"ch": [
+"12-16"
+],
+"topic": "Retinal break prophylaxis"
+},
+"1527": {
+"ch": [
+"4-17",
+"12-7"
+],
+"topic": "Retinal cavernous hemangioma"
+},
+"1528": {
+"ch": [
+"12-16",
+"12-1"
+],
+"topic": "Lesions predisposing to RD"
+},
+"1529": {
+"ch": [
+"12-16"
+],
+"topic": "Exudative RD signs"
+},
+"1530": {
+"ch": [
+"12-16"
+],
+"topic": "Lesions predisposing to RD"
+},
+"1531": {
+"ch": [
+"12-16",
+"4-10"
+],
+"topic": "Lesions predisposing to RD"
+},
+"1532": {
+"ch": [
+"12-16"
+],
+"topic": "RD types and features"
+},
+"1533": {
+"ch": [
+"12-16"
+],
+"topic": "Prophylactic laser for RD"
+},
+"1534": {
+"ch": [
+"12-16"
+],
+"topic": "Peripheral retinoschisis and cystoid degeneration"
+},
+"1535": {
+"ch": [
+"1-16",
+"1-8",
+"12-19"
+],
+"topic": "Anesthesia for retinal surgery"
+},
+"1536": {
+"ch": [
+"12-14"
+],
+"topic": "Drug-induced retinal toxicity"
+},
+"1537": {
+"ch": [
+"12-7",
+"12-6",
+"4-17"
+],
+"topic": "Retinal vascular diseases"
+},
+"1538": {
+"ch": [
+"12-6",
+"1-4"
+],
+"topic": "Hypertensive retinopathy CRVO OIS"
+},
+"1539": {
+"ch": [
+"12-6",
+"7-13"
+],
+"topic": "RVO and ophthalmic artery occlusion"
+},
+"1540": {
+"ch": [
+"12-7"
+],
+"topic": "Coats disease and MacTel"
+},
+"1541": {
+"ch": [
+"12-7",
+"4-17",
+"6-24"
+],
+"topic": "Coats MacTel VHL"
+},
+"1542": {
+"ch": [
+"12-6"
+],
+"topic": "Retinal vein occlusion"
+},
+"1543": {
+"ch": [
+"12-6"
+],
+"topic": "Retinal vein occlusion"
+},
+"1544": {
+"ch": [
+"12-6"
+],
+"topic": "Retinal vein occlusion management"
+},
+"1545": {
+"ch": [
+"12-6"
+],
+"topic": "RVO risk factors"
+},
+"1546": {
+"ch": [
+"12-8"
+],
+"topic": "ROP classification"
+},
+"1547": {
+"ch": [
+"12-8"
+],
+"topic": "ROP classification"
+},
+"1548": {
+"ch": [
+"12-8"
+],
+"topic": "ROP screening and treatment"
+},
+"1549": {
+"ch": [
+"12-8"
+],
+"topic": "ETROP Type 1 ROP"
+},
+"1550": {
+"ch": [
+"12-8"
+],
+"topic": "ROP pathogenesis phases"
+},
+"1551": {
+"ch": [
+"12-8",
+"12-18"
+],
+"topic": "ROP laser treatment"
+},
+"1552": {
+"ch": [
+"12-8"
+],
+"topic": "ROP classification and risk"
+},
+"1553": {
+"ch": [
+"12-3",
+"2-13"
+],
+"topic": "EOG and RPE function"
+},
+"1554": {
+"ch": [
+"12-17",
+"12-3"
+],
+"topic": "Siderosis bulbi"
+},
+"1555": {
+"ch": [
+"12-4",
+"12-2"
+],
+"topic": "Subretinal drusenoid deposits"
+},
+"1556": {
+"ch": [
+"12-18",
+"12-5"
+],
+"topic": "Subthreshold laser"
+},
+"1557": {
+"ch": [
+"11-10",
+"12-19",
+"11-11"
+],
+"topic": "Suprachoroidal hemorrhage risk factors"
+},
+"1558": {
+"ch": [
+"12-19",
+"11-5"
+],
+"topic": "Cataract after vitrectomy"
+},
+"1559": {
+"ch": [
+"2-11",
+"12-1",
+"12-15"
+],
+"topic": "Vitreous attachments"
+},
+"1560": {
+"ch": [
+"12-11",
+"9-9"
+],
+"topic": "White dot syndromes"
+},
+"1561": {
+"ch": [
+"12-11",
+"9-9"
+],
+"topic": "MEWDS"
+},
+"1562": {
+"ch": [
+"12-11",
+"9-9"
+],
+"topic": "MEWDS findings"
+},
+"1563": {
+"ch": [
+"12-11",
+"9-9"
+],
+"topic": "White dot syndromes"
+},
+"1564": {
+"ch": [
+"12-12",
+"6-24"
+],
+"topic": "X-linked retinoschisis"
+},
+"1565": {
+"ch": [
+"8-9",
+"13-7"
+],
+"topic": "Corneal collagen crosslinking"
+},
+"1566": {
+"ch": [
+"13-5",
+"8-9"
+],
+"topic": "Post-refractive ectasia"
+},
+"1567": {
+"ch": [
+"13-2",
+"13-4"
+],
+"topic": "Residual stromal bed limits"
+},
+"1568": {
+"ch": [
+"13-9"
+],
+"topic": "Phakic IOL types"
+},
+"1569": {
+"ch": [
+"13-8",
+"11-7",
+"3-7"
+],
+"topic": "IOL calculation after refractive surgery"
+},
+"1570": {
+"ch": [
+"13-5"
+],
+"topic": "Pressure-induced stromal keratopathy"
+},
+"1571": {
+"ch": [
+"13-5"
+],
+"topic": "DLK vs infectious keratitis"
+},
+"1572": {
+"ch": [
+"13-5"
+],
+"topic": "Post-LASIK infectious keratitis"
+},
+"1573": {
+"ch": [
+"13-1",
+"3-8",
+"13-4"
+],
+"topic": "Higher-order aberrations"
+},
+"1574": {
+"ch": [
+"13-4",
+"13-5"
+],
+"topic": "Femtosecond laser flaps"
+},
+"1575": {
+"ch": [
+"8-9",
+"13-7"
+],
+"topic": "Intrastromal corneal ring segments"
+},
+"1576": {
+"ch": [
+"13-1",
+"8-2",
+"3-8"
+],
+"topic": "Corneal topography imaging"
+},
+"1577": {
+"ch": [
+"3-2",
+"13-1",
+"13-4"
+],
+"topic": "Laser biophysics"
+},
+"1578": {
+"ch": [
+"8-9",
+"13-7"
+],
+"topic": "Intrastromal corneal ring segments"
+},
+"1579": {
+"ch": [
+"13-9",
+"13-2"
+],
+"topic": "Refractive procedure correction ranges"
+},
+"1580": {
+"ch": [
+"13-3",
+"13-8"
+],
+"topic": "Radial keratotomy"
+},
+"1581": {
+"ch": [
+"13-5"
+],
+"topic": "Diffuse lamellar keratitis"
+},
+"1582": {
+"ch": [
+"13-4",
+"13-5"
+],
+"topic": "Mechanical microkeratome"
+},
+"1583": {
+"ch": [
+"13-9"
+],
+"topic": "Iris-fixated phakic IOL"
+},
+"1584": {
+"ch": [
+"13-7",
+"13-3",
+"8-16"
+],
+"topic": "Post-PKP astigmatism management"
+},
+"1585": {
+"ch": [
+"13-7"
+],
+"topic": "Refractive surgery after PKP"
+},
+"1586": {
+"ch": [
+"13-7"
+],
+"topic": "Refractive surgery in glaucoma"
+},
+"1587": {
+"ch": [
+"13-5"
+],
+"topic": "Post-LASIK dry eye"
+},
+"1588": {
+"ch": [
+"13-5",
+"8-9",
+"3-6"
+],
+"topic": "Post-LASIK ectasia management"
+},
+"1589": {
+"ch": [
+"13-4",
+"13-5"
+],
+"topic": "Femtosecond vs microkeratome"
+},
+"1590": {
+"ch": [
+"13-1",
+"3-8",
+"3-1"
+],
+"topic": "Spherical aberration"
+},
+"1591": {
+"ch": [
+"13-1",
+"3-8",
+"13-4"
+],
+"topic": "Munnerlyn formula RSB calculation"
+},
+"1592": {
+"ch": [
+"13-9"
+],
+"topic": "Phakic IOL criteria"
+},
+"1593": {
+"ch": [
+"3-7",
+"13-9",
+"13-10",
+"11-7"
+],
+"topic": "Premium IOLs toric accommodating"
+},
+"1594": {
+"ch": [
+"8-9",
+"13-7"
+],
+"topic": "Corneal collagen crosslinking"
+},
+"1595": {
+"ch": [
+"13-9"
+],
+"topic": "Iris-fixated phakic IOL"
+},
+"1596": {
+"ch": [
+"13-7",
+"13-8",
+"10-3"
+],
+"topic": "Tonometry after LASIK"
+},
+"1597": {
+"ch": [
+"13-8",
+"11-7",
+"3-7"
+],
+"topic": "IOL calculation after LASIK"
+},
+"1598": {
+"ch": [
+"13-7"
+],
+"topic": "Refractive surgery in glaucoma"
+},
+"1599": {
+"ch": [
+"13-7"
+],
+"topic": "Refractive surgery after PKP"
+},
+"1600": {
+"ch": [
+"13-8",
+"11-7",
+"3-7"
+],
+"topic": "IOL calculation after LASIK"
+},
+"1601": {
+"ch": [
+"13-3",
+"13-8"
+],
+"topic": "RK late complications"
+},
+"1602": {
+"ch": [
+"13-6"
+],
+"topic": "SMILE vs LASIK"
+},
+"1603": {
+"ch": [
+"13-5"
+],
+"topic": "LASIK interface complications"
+},
+"1604": {
+"ch": [
+"13-4",
+"13-5"
+],
+"topic": "Surface ablation vs LASIK"
+},
+"1605": {
+"ch": [
+"8-9",
+"13-7"
+],
+"topic": "Intrastromal corneal ring segments"
+},
+"1606": {
+"ch": [
+"13-1",
+"13-4",
+"3-8"
+],
+"topic": "Wavefront and HOAs"
+},
+"1607": {
+"ch": [
+"13-5"
+],
+"topic": "Epithelial ingrowth"
+},
+"1608": {
+"ch": [
+"13-1",
+"13-4",
+"3-8"
+],
+"topic": "Munnerlyn ablation limit"
+},
+"1609": {
+"ch": [
+"13-5"
+],
+"topic": "Post-PRK haze"
+},
+"1610": {
+"ch": [
+"13-5",
+"2-16"
+],
+"topic": "Night glare after LASIK"
+},
+"1611": {
+"ch": [
+"13-5",
+"13-4"
+],
+"topic": "High myopia LASIK complications"
+},
+"1612": {
+"ch": [
+"13-10"
+],
+"topic": "Presbyopia treatments"
+},
+"1613": {
+"ch": [
+"13-2",
+"13-7"
+],
+"topic": "LASIK contraindications"
+},
+"1614": {
+"ch": [
+"13-10",
+"13-2",
+"11-7"
+],
+"topic": "Monovision planning"
+},
+"1615": {
+"ch": [
+"13-6"
+],
+"topic": "SMILE outcomes"
+},
+"1616": {
+"ch": [
+"13-9",
+"11-11",
+"3-7"
+],
+"topic": "Piggyback IOL"
+},
+"1617": {
+"ch": [
+"13-2",
+"13-6"
+],
+"topic": "Preoperative refractive evaluation"
+},
+"1618": {
+"ch": [
+"13-2",
+"13-7"
+],
+"topic": "Refractive surgery candidacy"
+},
+"1619": {
+"ch": [
+"13-5"
+],
+"topic": "PRK complications"
+},
+"1620": {
+"ch": [
+"13-5"
+],
+"topic": "Post-LASIK dry eye"
+},
+"1621": {
+"ch": [
+"13-3"
+],
+"topic": "Radial keratotomy"
+},
+"1622": {
+"ch": [
+"13-4",
+"13-5"
+],
+"topic": "Excimer overcorrection factors"
+},
+"1623": {
+"ch": [
+"3-8",
+"13-1",
+"13-5"
+],
+"topic": "Coma from decentration"
+},
+"1624": {
+"ch": [
+"13-5"
+],
+"topic": "LASIK complications"
+},
+"1625": {
+"ch": [
+"13-1",
+"13-5"
+],
+"topic": "Corneal wound healing after refractive surgery"
+},
+"1626": {
+"ch": [
+"13-4",
+"13-2"
+],
+"topic": "Optical zone size"
+},
+"1627": {
+"ch": [
+"13-6"
+],
+"topic": "SMILE"
+},
+"1628": {
+"ch": [
+"13-7",
+"8-8"
+],
+"topic": "Refractive surgery in corneal dystrophy"
+},
+"1629": {
+"ch": [
+"13-9"
+],
+"topic": "Phakic IOL"
+},
+"1630": {
+"ch": [
+"13-6",
+"3-2",
+"13-1"
+],
+"topic": "SMILE laser mechanism"
+},
+"1631": {
+"ch": [
+"13-4",
+"10-13",
+"8-14",
+"13-6"
+],
+"topic": "Mitomycin C uses"
+},
+"1632": {
+"ch": [
+"13-5",
+"13-2",
+"8-9"
+],
+"topic": "Post-refractive ectasia risk factors"
+},
+"1633": {
+"ch": [
+"13-3",
+"13-8"
+],
+"topic": "RK complications management"
+},
+"1634": {
+"ch": [
+"13-4",
+"13-5"
+],
+"topic": "PRK/LASIK outcomes and regression"
+},
+"1635": {
+"ch": [
+"13-5"
+],
+"topic": "LASIK flap complications"
+},
+"1636": {
+"ch": [
+"13-1",
+"13-4",
+"3-8"
+],
+"topic": "Munnerlyn ablation depth"
+},
+"1637": {
+"ch": [
+"13-4",
+"13-5"
+],
+"topic": "LASIK keratometry and flap risks"
+},
+"1638": {
+"ch": [
+"13-8",
+"11-12",
+"11-7"
+],
+"topic": "Cataract surgery after RK"
+},
+"1639": {
+"ch": [
+"13-4",
+"13-5"
+],
+"topic": "Femtosecond LASIK flaps"
+},
+"1640": {
+"ch": [
+"13-5"
+],
+"topic": "Central toxic keratopathy"
+},
+"1641": {
+"ch": [
+"13-4",
+"13-1"
+],
+"topic": "Wavefront-optimized ablation"
+},
+"1642": {
+"ch": [
+"13-2"
+],
+"topic": "Pre-LASIK evaluation"
+},
+"1643": {
+"ch": [
+"13-5"
+],
+"topic": "Persistent epithelial defect after PRK"
+},
+"1644": {
+"ch": [
+"13-5"
+],
+"topic": "LASIK interface complications"
+},
+"1645": {
+"ch": [
+"13-10",
+"13-2"
+],
+"topic": "Mini-monovision"
+},
+"1646": {
+"ch": [
+"13-6"
+],
+"topic": "Lenticule extraction advantages"
+},
+"1647": {
+"ch": [
+"13-5"
+],
+"topic": "Transient light sensitivity syndrome"
+},
+"1648": {
+"ch": [
+"13-1",
+"13-4"
+],
+"topic": "Optical zone and ablation depth"
+},
+"1649": {
+"ch": [
+"13-9"
+],
+"topic": "Refractive lens exchange"
+},
+"1650": {
+"ch": [
+"13-6"
+],
+"topic": "SMILE vs LASIK"
+},
+"1651": {
+"ch": [
+"13-8",
+"11-7",
+"3-6"
+],
+"topic": "Contact lens method corneal power"
+},
+"1652": {
+"ch": [
+"1-6",
+"1-17"
+],
+"topic": "Systemic beta-blocker ocular effects"
+},
+"1653": {
+"ch": [
+"1-5"
+],
+"topic": "Lipid treatment targets"
+},
+"1654": {
+"ch": [
+"1-2"
+],
+"topic": "Diagnostic test statistics"
+},
+"1655": {
+"ch": [
+"1-16",
+"1-9"
+],
+"topic": "Perioperative anticoagulants"
+},
+"1656": {
+"ch": [
+"1-17",
+"1-6"
+],
+"topic": "Systemic drug ocular side effects"
+},
+"1657": {
+"ch": [
+"1-14"
+],
+"topic": "Chemotherapy terminology"
+},
+"1658": {
+"ch": [
+"2-1",
+"7-1",
+"7-4",
+"7-6"
+],
+"topic": "Orbital anatomy"
+},
+"1659": {
+"ch": [
+"2-11"
+],
+"topic": "Vitreous composition"
+},
+"1660": {
+"ch": [
+"12-12",
+"2-12",
+"2-13"
+],
+"topic": "ABCA4 and Stargardt"
+},
+"1661": {
+"ch": [
+"2-13",
+"12-3"
+],
+"topic": "RPE functions"
+},
+"1662": {
+"ch": [
+"2-15"
+],
+"topic": "Drug concentration units"
+},
+"1663": {
+"ch": [
+"3-2",
+"2-8"
+],
+"topic": "Light scattering in corneal edema"
+},
+"1664": {
+"ch": [
+"3-9",
+"10-2"
+],
+"topic": "Goldmann applanation principle"
+},
+"1665": {
+"ch": [
+"3-9"
+],
+"topic": "Manual lensmeter"
+},
+"1666": {
+"ch": [
+"3-6"
+],
+"topic": "RGP lens power calculation"
+},
+"1667": {
+"ch": [
+"3-6",
+"8-4"
+],
+"topic": "Contact lens inflammatory complications"
+},
+"1668": {
+"ch": [
+"3-3"
+],
+"topic": "Visual acuity notation"
+},
+"1669": {
+"ch": [
+"3-5"
+],
+"topic": "Bifocal image jump"
+},
+"1670": {
+"ch": [
+"3-10"
+],
+"topic": "Low vision near magnification"
+},
+"1671": {
+"ch": [
+"3-4"
+],
+"topic": "Retinoscopy"
+},
+"1672": {
+"ch": [
+"3-3"
+],
+"topic": "Pinhole size"
+},
+"1673": {
+"ch": [
+"4-2",
+"4-18"
+],
+"topic": "Molecular pathology techniques"
+},
+"1674": {
+"ch": [
+"4-19",
+"4-9",
+"9-15",
+"12-11",
+"4-2"
+],
+"topic": "Vitreoretinal lymphoma diagnosis"
+},
+"1675": {
+"ch": [
+"12-2",
+"12-1",
+"4-10"
+],
+"topic": "Petaloid CME Henle layer"
+},
+"1676": {
+"ch": [
+"4-16",
+"4-14"
+],
+"topic": "Melanocytic tumor management"
+},
+"1677": {
+"ch": [
+"4-19",
+"9-15",
+"12-11"
+],
+"topic": "Ocular lymphoma"
+},
+"1678": {
+"ch": [
+"5-11",
+"5-14"
+],
+"topic": "Third nerve palsy"
+},
+"1679": {
+"ch": [
+"5-6",
+"4-14"
+],
+"topic": "Optic perineuritis"
+},
+"1680": {
+"ch": [
+"5-9",
+"5-6",
+"1-10"
+],
+"topic": "Giant cell arteritis TVL"
+},
+"1681": {
+"ch": [
+"5-11",
+"5-2"
+],
+"topic": "Orbital apex syndrome"
+},
+"1682": {
+"ch": [
+"5-12"
+],
+"topic": "Supranuclear gaze palsy"
+},
+"1683": {
+"ch": [
+"5-6",
+"5-18"
+],
+"topic": "NMOSD optic neuritis"
+},
+"1684": {
+"ch": [
+"5-6",
+"1-10"
+],
+"topic": "Giant cell arteritis"
+},
+"1685": {
+"ch": [
+"5-15",
+"5-11"
+],
+"topic": "Synkinetic lid retraction"
+},
+"1686": {
+"ch": [
+"5-14",
+"1-15"
+],
+"topic": "Argyll Robertson pupil"
+},
+"1687": {
+"ch": [
+"6-14",
+"3-3"
+],
+"topic": "Pediatric eye growth"
+},
+"1688": {
+"ch": [
+"6-17",
+"6-9",
+"6-10"
+],
+"topic": "Craniosynostosis strabismus"
+},
+"1689": {
+"ch": [
+"6-27"
+],
+"topic": "Neurofibromatosis type 1"
+},
+"1690": {
+"ch": [
+"6-13",
+"1-16"
+],
+"topic": "Strabismus surgery complications"
+},
+"1691": {
+"ch": [
+"6-4"
+],
+"topic": "Sensory binocularity tests"
+},
+"1692": {
+"ch": [
+"6-21",
+"10-11"
+],
+"topic": "Primary congenital glaucoma"
+},
+"1693": {
+"ch": [
+"6-21",
+"10-11"
+],
+"topic": "PCG surgical treatment"
+},
+"1694": {
+"ch": [
+"6-21",
+"10-11"
+],
+"topic": "PCG surgical treatment"
+},
+"1695": {
+"ch": [
+"6-3"
+],
+"topic": "Motor physiology laws"
+},
+"1696": {
+"ch": [
+"6-4"
+],
+"topic": "Suppression and ARC"
+},
+"1697": {
+"ch": [
+"6-8",
+"6-7",
+"3-3"
+],
+"topic": "Pseudostrabismus"
+},
+"1698": {
+"ch": [
+"2-1",
+"7-1",
+"2-3",
+"6-2"
+],
+"topic": "Orbital nerve course"
+},
+"1699": {
+"ch": [
+"7-5"
+],
+"topic": "Orbital varices"
+},
+"1700": {
+"ch": [
+"7-5",
+"7-4"
+],
+"topic": "Enophthalmos causes"
+},
+"1701": {
+"ch": [
+"7-3",
+"7-2"
+],
+"topic": "Hypertelorism"
+},
+"1702": {
+"ch": [
+"7-3",
+"4-13"
+],
+"topic": "Orbital dermoid cyst"
+},
+"1703": {
+"ch": [
+"7-2",
+"7-4",
+"7-5"
+],
+"topic": "Periorbital signs and etiology"
+},
+"1704": {
+"ch": [
+"7-4",
+"1-3"
+],
+"topic": "TED treatment"
+},
+"1705": {
+"ch": [
+"7-3",
+"7-8"
+],
+"topic": "Microphthalmia"
+},
+"1706": {
+"ch": [
+"7-13",
+"7-9"
+],
+"topic": "Filler embolism arteries"
+},
+"1707": {
+"ch": [
+"7-4",
+"6-17"
+],
+"topic": "Orbital cellulitis and infections"
+},
+"1708": {
+"ch": [
+"7-4",
+"1-3"
+],
+"topic": "Thyroid eye disease"
+},
+"1709": {
+"ch": [
+"8-5",
+"8-15",
+"8-6"
+],
+"topic": "Ocular surface reconstruction"
+},
+"1710": {
+"ch": [
+"8-9"
+],
+"topic": "Pellucid marginal degeneration"
+},
+"1711": {
+"ch": [
+"8-14",
+"4-4"
+],
+"topic": "Conjunctival melanoma"
+},
+"1712": {
+"ch": [
+"8-7",
+"2-4"
+],
+"topic": "Peters anomaly"
+},
+"1713": {
+"ch": [
+"8-11"
+],
+"topic": "HSV keratitis"
+},
+"1714": {
+"ch": [
+"8-1",
+"8-8",
+"8-16"
+],
+"topic": "Corneal anatomy and endothelium"
+},
+"1715": {
+"ch": [
+"8-3",
+"8-13"
+],
+"topic": "Ocular rosacea"
+},
+"1716": {
+"ch": [
+"8-9"
+],
+"topic": "Corneal ectasia"
+},
+"1717": {
+"ch": [
+"8-9"
+],
+"topic": "Keratoconus risk factors"
+},
+"1718": {
+"ch": [
+"8-11",
+"2-16"
+],
+"topic": "Herpetic keratitis treatment"
+},
+"1719": {
+"ch": [
+"12-11",
+"9-9"
+],
+"topic": "APMPPE"
+},
+"1720": {
+"ch": [
+"9-12",
+"9-8"
+],
+"topic": "Viral anterior uveitis"
+},
+"1721": {
+"ch": [
+"9-6"
+],
+"topic": "Corticosteroid-sparing IMT threshold"
+},
+"1722": {
+"ch": [
+"9-1"
+],
+"topic": "Innate immunity effector cells"
+},
+"1723": {
+"ch": [
+"9-11",
+"1-15"
+],
+"topic": "Syphilis serology"
+},
+"1724": {
+"ch": [
+"9-6",
+"9-8"
+],
+"topic": "Biologics and multiple sclerosis"
+},
+"1725": {
+"ch": [
+"9-10",
+"1-10"
+],
+"topic": "Behcet disease"
+},
+"1726": {
+"ch": [
+"9-10",
+"1-10"
+],
+"topic": "Behcet diagnostic criteria"
+},
+"1727": {
+"ch": [
+"9-11",
+"9-12",
+"12-11",
+"5-6"
+],
+"topic": "Neuroretinitis differential"
+},
+"1728": {
+"ch": [
+"9-5"
+],
+"topic": "Uveitis diagnostic approach"
+},
+"1729": {
+"ch": [
+"9-10",
+"9-8",
+"1-10"
+],
+"topic": "Granulomatous uveitis VKH Behcet"
+},
+"1730": {
+"ch": [
+"10-5"
+],
+"topic": "Glaucomatous optic disc signs"
+},
+"1731": {
+"ch": [
+"10-5"
+],
+"topic": "OCT RNFL progression"
+},
+"1732": {
+"ch": [
+"10-2",
+"2-9"
+],
+"topic": "Aqueous humor production"
+},
+"1733": {
+"ch": [
+"10-2",
+"10-1"
+],
+"topic": "IOP physiology"
+},
+"1734": {
+"ch": [
+"10-2",
+"10-1",
+"10-7"
+],
+"topic": "IOP fluctuation"
+},
+"1735": {
+"ch": [
+"10-13",
+"9-14"
+],
+"topic": "Bleb-related endophthalmitis"
+},
+"1736": {
+"ch": [
+"10-8",
+"9-8"
+],
+"topic": "Glaucomatocyclitic crisis"
+},
+"1737": {
+"ch": [
+"10-8",
+"8-15"
+],
+"topic": "Hyphema and IOP"
+},
+"1738": {
+"ch": [
+"10-6"
+],
+"topic": "FDT perimetry"
+},
+"1739": {
+"ch": [
+"10-9",
+"10-10"
+],
+"topic": "Angle-closure mechanisms"
+},
+"1740": {
+"ch": [
+"10-9"
+],
+"topic": "Primary angle-closure glaucoma"
+},
+"1741": {
+"ch": [
+"10-6"
+],
+"topic": "Central field testing"
+},
+"1742": {
+"ch": [
+"10-6"
+],
+"topic": "Perimetry reliability"
+},
+"1743": {
+"ch": [
+"11-8"
+],
+"topic": "Phacoemulsification steps"
+},
+"1744": {
+"ch": [
+"11-11"
+],
+"topic": "Pseudophakic CME risk factors"
+},
+"1745": {
+"ch": [
+"11-5",
+"12-19"
+],
+"topic": "Surgery-induced nuclear cataract"
+},
+"1746": {
+"ch": [
+"11-3",
+"11-5"
+],
+"topic": "Lens physiology and transparency"
+},
+"1747": {
+"ch": [
+"11-4",
+"6-22"
+],
+"topic": "Microspherophakia"
+},
+"1748": {
+"ch": [
+"11-5",
+"1-17"
+],
+"topic": "Drug-induced cataract"
+},
+"1749": {
+"ch": [
+"11-3",
+"3-3",
+"13-10"
+],
+"topic": "Accommodation mechanism"
+},
+"1750": {
+"ch": [
+"11-10",
+"11-7"
+],
+"topic": "IFIS drugs"
+},
+"1751": {
+"ch": [
+"11-8"
+],
+"topic": "Phaco fluidics and technique"
+},
+"1752": {
+"ch": [
+"11-8",
+"11-10"
+],
+"topic": "Thermal wound burn"
+},
+"1753": {
+"ch": [
+"12-18",
+"3-2",
+"12-4"
+],
+"topic": "Laser wavelengths retina"
+},
+"1754": {
+"ch": [
+"12-8"
+],
+"topic": "ROP risk factors"
+},
+"1755": {
+"ch": [
+"12-10",
+"12-4"
+],
+"topic": "Pathologic myopia"
+},
+"1756": {
+"ch": [
+"11-10",
+"11-11",
+"12-19"
+],
+"topic": "Retained lens fragments"
+},
+"1757": {
+"ch": [
+"12-16"
+],
+"topic": "Lesions predisposing to RD"
+},
+"1758": {
+"ch": [
+"12-2"
+],
+"topic": "Fluorescein angiography patterns"
+},
+"1759": {
+"ch": [
+"12-3"
+],
+"topic": "Electrophysiology ERG EOG"
+},
+"1760": {
+"ch": [
+"12-17"
+],
+"topic": "Intraocular foreign body inflammation"
+},
+"1761": {
+"ch": [
+"12-15"
+],
+"topic": "Vitreoretinal interface disorders"
+},
+"1762": {
+"ch": [
+"9-12",
+"12-11"
+],
+"topic": "Toxoplasmosis treatment"
+},
+"1763": {
+"ch": [
+"12-12"
+],
+"topic": "Stargardt disease"
+},
+"1764": {
+"ch": [
+"3-8",
+"13-1",
+"3-9",
+"3-1"
+],
+"topic": "Wavefront aberrations"
+},
+"1765": {
+"ch": [
+"13-6"
+],
+"topic": "SMILE vs LASIK"
+},
+"1766": {
+"ch": [
+"13-2",
+"13-7"
+],
+"topic": "Keratorefractive surgery candidacy"
+},
+"1767": {
+"ch": [
+"13-9",
+"3-7"
+],
+"topic": "Refractive lens exchange"
+},
+"1768": {
+"ch": [
+"13-10"
+],
+"topic": "Presbyopia treatments"
+},
+"1769": {
+"ch": [
+"13-2",
+"8-9"
+],
+"topic": "Topography screening before LASIK"
+},
+"1770": {
+"ch": [
+"13-5"
+],
+"topic": "Diffuse lamellar keratitis"
+},
+"1771": {
+"ch": [
+"13-3"
+],
+"topic": "Arcuate keratotomy coupling"
+},
+"1772": {
+"ch": [
+"13-9"
+],
+"topic": "Posterior chamber phakic IOL complications"
+},
+"1773": {
+"ch": [
+"13-6"
+],
+"topic": "SMILE vs LASIK"
+},
+"1774": {
+"ch": [
+"13-8",
+"11-7",
+"3-6"
+],
+"topic": "Contact lens method corneal power"
+}
+}

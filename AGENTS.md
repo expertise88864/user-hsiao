@@ -118,6 +118,7 @@ check` job. For the full chain explanation and known idempotency quirks see
 python _gen_og_images.py
 # build-chain:start
 python halfwidth_to_fullwidth.py
+python _gen_exam.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py

@@ -66,6 +66,20 @@ EXPECTED = {
         "Content-Type": "application/javascript; charset=utf-8",
         "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",
     },
+    "/exam/exam.js": {
+        "Content-Type": "application/javascript; charset=utf-8",
+        "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",
+    },
+    "/exam/exam-data.json": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",
+    },
+    "/exam": {
+        "Cache-Control": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400",
+    },
+    "/exam/:page([a-z0-9-]+)": {
+        "Cache-Control": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400",
+    },
     "/tools/eye-3d-worker.js": {
         "Content-Type": "application/javascript; charset=utf-8",
         "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",

@@ -60,6 +60,7 @@ APPROVED_EXCLUSIONS = {
     'playwright.seo.config.js',
     'deploy.ps1',                 # deployment procedure
     'deploy.bat',
+    'data/',                      # build-time sources (exam bank, notes); pages are generated from them
 }
 
 # Of those, the ones whose removal would re-open S-08.
@@ -80,7 +81,7 @@ PATTERN_SYNTAX_OK = re.compile(r'^/?(?:[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*/?|\*
 # every guard while silently breaking IndexNow. Any allow-list of "the files that
 # matter" will keep being wrong that way; a deny-list of known-inert categories
 # cannot miss a new asset.
-NON_RUNTIME_DIRS = {'docs', 'tests', 'scripts', '.github', '.githooks', '_cms'}
+NON_RUNTIME_DIRS = {'docs', 'tests', 'scripts', '.github', '.githooks', '_cms', 'data'}
 NON_RUNTIME_SUFFIXES = ('.py', '.md')
 NON_RUNTIME_ROOT_FILES = {
     'playwright.config.js', 'playwright.seo.config.js',
