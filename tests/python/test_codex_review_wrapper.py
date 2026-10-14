@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -11,6 +12,34 @@ import unittest
 ROOT = Path(__file__).resolve().parents[2]
 SESSION = "11111111-2222-3333-4444-555555555555"
 HEX_SESSION = "abcdef12-3456-7890-abcd-ef1234567890"
+
+# The fixture reports the profile it was asked for (or a forced wrong one)
+# through the same machine-readable events and session log the real CLI
+# writes, so the wrapper's actual-identity check runs for real.
+EMITTER = r"""import datetime, json, os, pathlib, subprocess, sys
+args = sys.argv[1:]
+capture = pathlib.Path(os.environ["CODEX_REVIEW_TEST_CAPTURE"])
+capture.write_bytes(b"".join(a.encode("utf-8") + b"\0" for a in args))
+pathlib.Path(str(capture) + ".git").write_text(os.environ.get("GIT_CONFIG_PARAMETERS", ""), encoding="utf-8")
+def value(flag):
+    return args[args.index(flag) + 1] if flag in args else ""
+config = dict(a.split("=", 1) for a in args if "=" in a and not a.startswith("-"))
+pathlib.Path(value("-o")).write_text("Fixture CLI only; no model called.\nREQUEST_CHANGES\n", encoding="utf-8")
+sid = os.environ.get("CODEX_FIXTURE_FORCE_SID") or (args[2] if args[:2] == ["exec", "resume"] else os.environ["CODEX_FIXTURE_SESSION"])
+model = os.environ.get("CODEX_FIXTURE_ACTUAL_MODEL") or value("--model")
+sandbox = value("--sandbox") or config.get("sandbox_mode", "")
+top = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True, check=True).stdout.strip()
+context = {"cwd": top, "model": model, "effort": config.get("model_reasoning_effort", ""),
+           "sandbox_policy": {"type": sandbox}, "turn_id": "fixture"}
+rows = [{"type": "session_meta", "payload": {"id": sid, "cwd": top}},
+        {"type": "turn_context", "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(), "payload": context}]
+sessions = pathlib.Path(os.environ["CODEX_HOME"]) / "sessions"
+sessions.mkdir(parents=True, exist_ok=True)
+(sessions / ("rollout-" + sid + ".jsonl")).write_text("\n".join(map(json.dumps, rows)), encoding="utf-8")
+if os.environ.get("CODEX_FIXTURE_NO_SESSION") != "1":
+    print(json.dumps({"type": "thread.started", "thread_id": sid}))
+print(json.dumps({"type": "turn.completed", "usage": {"input_tokens": 3, "output_tokens": 2}}))
+"""
 
 
 class ReviewEntryTests(unittest.TestCase):
@@ -22,6 +51,7 @@ class ReviewEntryTests(unittest.TestCase):
         scripts.mkdir()
         self.wrapper = scripts / "codex_review.sh"
         shutil.copyfile(ROOT / "scripts/codex_review.sh", self.wrapper)
+        shutil.copyfile(ROOT / "scripts/codex_review_identity.py", scripts / "codex_review_identity.py")
         subprocess.run(["git", "init", "-q", str(self.repo)], check=True,
                        capture_output=True)
         subprocess.run(["git", "-C", str(self.repo), "-c", "user.name=Fixture",
@@ -32,20 +62,13 @@ class ReviewEntryTests(unittest.TestCase):
         self.bin.mkdir()
         self.capture = self.repo / "fixture-argv"
         codex = self.bin / "codex"
+        emitter = self.repo / "fixture-emit.py"
+        emitter.write_text(EMITTER, encoding="utf-8")
+        python = sys.executable.replace("\\", "/")
         codex.write_text(
             "#!/usr/bin/env bash\n"
             "if [ \"${CODEX_FIXTURE_READ_STDIN:-}\" = 1 ]; then cat > /dev/null; fi\n"
-            "printf '%s\\0' \"$@\" > \"$CODEX_REVIEW_TEST_CAPTURE\"\n"
-            "last=''; next=0\n"
-            "for arg in \"$@\"; do\n"
-            "  if [ \"$next\" = 1 ]; then last=\"$arg\"; next=0; fi\n"
-            "  if [ \"$arg\" = -o ]; then next=1; fi\n"
-            "done\n"
-            "printf 'Fixture CLI only; no model called.\\nREQUEST_CHANGES\\n' > \"$last\"\n"
-            "if [ \"${CODEX_FIXTURE_NO_SESSION:-}\" != 1 ]; then\n"
-            f"  printf 'session id: {SESSION}\\n'\n"
-            "fi\n"
-            "printf 'tokens used\\n0\\n'\n",
+            f'exec "{python}" "{emitter.as_posix()}" "$@"\n',
             encoding="utf-8")
         codex.chmod(0o755)
         uname = self.bin / "uname"
@@ -62,6 +85,13 @@ class ReviewEntryTests(unittest.TestCase):
         env = os.environ.copy()
         env.pop("CODEX_FIXTURE_READ_STDIN", None)
         env.pop("CODEX_FIXTURE_NO_SESSION", None)
+        env.pop("CODEX_FIXTURE_ACTUAL_MODEL", None)
+        env.pop("CODEX_FIXTURE_FORCE_SID", None)
+        env.pop("GIT_CONFIG_PARAMETERS", None)
+        env["CODEX_FIXTURE_SESSION"] = SESSION
+        # The fixture CLI, never the highest-version CLI installed on this machine.
+        env["CODEX_REVIEW_CLI"] = "codex"
+        env["CODEX_HOME"] = str(self.repo / "fixture-codex-home")
         env.update(extra_env or {})
         env["CODEX_REVIEW_TEST_CAPTURE"] = self.capture.as_posix()
         env["CODEX_REVIEW_TEST_PLATFORM"] = platform
@@ -115,7 +145,8 @@ class ReviewEntryTests(unittest.TestCase):
     def test_windows_entry_keeps_readonly_and_isolation_with_explicit_backend(self):
         result, args = self.run_entry("deep", "HEAD")
         self.assertEqual(result.returncode, 2, result.stderr)
-        self.assertEqual(args[args.index("--model") + 1], "gpt-5.6-sol")
+        self.assertEqual(args[args.index("--model") + 1], "gpt-6.1-sol")
+        self.assertIn("--json", args)
         self.assertEqual(args[args.index("--sandbox") + 1], "read-only")
         self.assertIn("model_reasoning_effort=high", args)
         self.assertIn("approval_policy=never", args)
@@ -208,12 +239,14 @@ class ReviewEntryTests(unittest.TestCase):
 
     def test_new_first_pass_without_session_id_does_not_leave_the_old_record(self):
         # A new task's pass 1 whose output carries no session id must not leave
-        # the previous task's record behind for a bare resume to pick up.
+        # the previous task's record behind for a bare resume to pick up, and
+        # an unverifiable pass does not count.
         state = self.seed_session()
         result, args = self.run_entry("deep", "HEAD", extra_env={"CODEX_FIXTURE_NO_SESSION": "1"})
-        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(result.returncode, 4, result.stderr)
         self.assertNotEqual(args, [])
         self.assertFalse((state / "last_session_id").exists())
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8").strip(), "0")
         self.capture.unlink()
         result, args = self.run_entry("resume")
         self.assertEqual(result.returncode, 64)
@@ -242,6 +275,52 @@ class ReviewEntryTests(unittest.TestCase):
                                       extra_env={"CODEX_FIXTURE_READ_STDIN": "1"})
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertEqual(args[:3], ["exec", "resume", SESSION])
+
+    def test_every_mode_requests_gpt61_sol_high(self):
+        for mode in ("diff", "targeted", "deep"):
+            with self.subTest(mode=mode):
+                result, args = self.run_entry(mode, "HEAD")
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertEqual(args[args.index("--model") + 1], "gpt-6.1-sol")
+                self.assertIn("model_reasoning_effort=high", args)
+
+    def test_resume_requests_high_even_after_a_medium_record(self):
+        state = self.seed_session()
+        usage = (state / "usage.tsv").read_text(encoding="utf-8").replace("\thigh\t", "\tmedium\t")
+        (state / "usage.tsv").write_text(usage, encoding="utf-8")
+        result, args = self.run_entry("resume", SESSION)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("model_reasoning_effort=high", args)
+
+    def test_wrong_actual_model_never_counts(self):
+        state = self.seed_session()
+        result, _ = self.run_entry("deep", "HEAD", extra_env={"CODEX_FIXTURE_ACTUAL_MODEL": "gpt-5.6-sol"})
+        self.assertEqual(result.returncode, 4, result.stderr)
+        self.assertFalse((state / "last_session_id").exists())
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8").strip(), "0")
+
+    def test_resume_with_wrong_actual_model_never_counts(self):
+        state = self.seed_session()
+        result, _ = self.run_entry("resume", SESSION, extra_env={"CODEX_FIXTURE_ACTUAL_MODEL": "gpt-5.5"})
+        self.assertEqual(result.returncode, 4, result.stderr)
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
+        self.assertEqual((state / "last_session_id").read_text(encoding="utf-8"), SESSION)
+
+    def test_resume_answered_by_another_session_never_counts(self):
+        state = self.seed_session()
+        result, args = self.run_entry("resume", SESSION, extra_env={"CODEX_FIXTURE_FORCE_SID": HEX_SESSION})
+        self.assertEqual(result.returncode, 4, result.stderr)
+        self.assertEqual(args[:3], ["exec", "resume", SESSION])
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
+        self.assertEqual((state / "last_session_id").read_text(encoding="utf-8"), SESSION)
+
+    def test_only_this_repository_is_marked_safe_for_the_review_child(self):
+        result, _ = self.run_entry("deep", "HEAD")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        top = subprocess.run(["git", "-C", str(self.repo), "rev-parse", "--show-toplevel"],
+                             capture_output=True, text=True, check=True).stdout.strip()
+        self.assertEqual(Path(str(self.capture) + ".git").read_text(encoding="utf-8"),
+                         f"'safe.directory'='{top}'")
 
     def test_missing_resume_context_never_calls_cli(self):
         state = self.seed_session()

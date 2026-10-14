@@ -8,8 +8,9 @@ change medical content, visual baselines, credentials, recipients or scoring.
 1. Fetch main. Preserve other work. Use an isolated codex/* branch based on current main.
 2. Make task-owned changes; run relevant local regression tests, syntax/lint and
    required generators. Commit the exact source and generated artifacts together.
-3. Complete existing independent Codex review and Claude Code review using the exact
-   model ID `claude-opus-5-5`, effort `high`, read-only tools and verified actual modelUsage.
+3. Complete the independent diff review: gpt-6.1-sol/high read-only via scripts/codex_review.sh,
+   which verifies the actual model (user decision 2026-10-14). Claude `claude-opus-5-5`/high
+   applies only to pre-switch pending backfill.
    Only confirmed provider quota exhaustion permits pending trailers and scheduled retry.
 4. Install the tracked pre-push hook with the documented existing hook mechanism.
 5. Push the exact SHA to codex/* normally. The hook runs the offline delivery tests.
