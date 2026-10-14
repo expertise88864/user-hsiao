@@ -328,7 +328,22 @@ def crumbs_html(items: list[tuple[str, str]]) -> str:
     return f'<nav class="ex-crumbs" aria-label="麵包屑">{sep.join(parts)}</nav>'
 
 
+TITLE_MAX = 70   # validate.py --strict warns above these (escaped length)
+DESC_MAX = 160
+
+
+def fit(text: str, limit: int) -> str:
+    """Shorten text (with an ellipsis) so its HTML-escaped form fits in limit characters."""
+    if len(esc(text)) <= limit:
+        return text
+    while text and len(esc(text)) > limit - 1:
+        text = text[:-1]
+    return text.rstrip(" ,:–-") + "…"
+
+
 def page(*, path, title, description, crumbs, schema_type, body, kind, robots, version) -> str:
+    if len(esc(title + SITE_SUFFIX)) > TITLE_MAX or not 50 <= len(esc(description)) <= DESC_MAX:
+        raise SystemExit(f"{path}: title/description outside validate.py limits")
     items = [("首頁", "/"), ("專科考試", "/exam")] + crumbs
     jsonld = [
         {"@context": "https://schema.org", "@type": schema_type, "@id": f"{DOMAIN}{path}#webpage",
@@ -463,9 +478,11 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         f"{notes_html}"
         f'<section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">歷屆考題</h2>{q_html}</section>'
     )
-    title = f"BCSC {ch['book']} Ch.{ch['ch']} {ch['title']}：重點與歷屆考題"
-    desc = (f"眼科專科醫師考試讀書筆記：BCSC 2025–2026 第 {ch['book']} 冊第 {ch['ch']} 章 {ch['title']}"
-            + ("的課本重點整理，" if note else "，") + f"以及標到本章的歷屆考題 {len(qs)} 題。")
+    head_label = f"BCSC {ch['book']} Ch.{ch['ch']} "
+    title = head_label + fit(ch["title"], TITLE_MAX - len(SITE_SUFFIX) - len(head_label) - len("：重點與考古題")) + "：重點與考古題"
+    tail = ("的課本重點整理，" if note else "，") + f"以及標到本章的歷屆考題 {len(qs)} 題。"
+    lead = f"眼科專科醫師考試讀書筆記：BCSC 2025–2026 第 {ch['book']} 冊第 {ch['ch']} 章 "
+    desc = lead + fit(ch["title"], DESC_MAX - len(lead) - len(tail)) + tail
     return page(path=f"/exam/{slug(key)}", title=title, description=desc,
                 crumbs=[(f"BCSC {ch['book']} Ch.{ch['ch']}", f"/exam/{slug(key)}")], schema_type="WebPage",
                 body=body, kind="chapter", version=version,
@@ -557,7 +574,7 @@ def practice_page(data: dict, version: str) -> str:
         '<p class="ex-pending">選好範圍、題數與順序後按「產生試卷」。這個功能需要啟用 JavaScript。</p></div>'
     )
     return page(path="/exam/practice", title="眼科專科考試模擬考：自選範圍與隨機出題",
-                description="從眼科專科醫師歷屆考題中自選 BCSC 冊別與題數，隨機或依題號出題，計時作答並交卷計分。",
+                description="眼科專科醫師考試模擬考：從歷屆考題中自選 BCSC 冊別與題數，隨機或依題號出題，計時作答、交卷計分，並對照答案與 BCSC 詳解。",
                 crumbs=[("模擬考", "/exam/practice")], schema_type="WebPage", body=body, kind="practice",
                 robots="noindex,follow", version=version)
 
@@ -590,7 +607,7 @@ def search_page(version: str) -> str:
         '<div id="ex-search-results" class="ex-list" aria-live="polite"></div>'
     )
     return page(path="/exam/search", title="搜尋眼科專科考試重點與歷屆考題",
-                description="在眼科專科醫師考試讀書筆記中搜尋關鍵字，同時找出相關的 BCSC 課本重點整理與歷屆考題。",
+                description="在眼科專科醫師考試讀書筆記中搜尋關鍵字，例如藥名、試驗名稱或基因，同時找出相關的 BCSC 課本重點整理與歷屆考題詳解。",
                 crumbs=[("搜尋", "/exam/search")], schema_type="WebPage", body=body, kind="search",
                 robots="noindex,follow", version=version)
 
