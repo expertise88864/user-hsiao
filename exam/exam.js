@@ -219,6 +219,32 @@
     return chip;
   }
 
+  // Flagged question: the exam answer's rationale and, if guidance has moved on, the current concept.
+  function doubtBox(q) {
+    var box = el('div', 'ex-doubt');
+    var exam = rich('p', 'ex-doubt-exam', q.doubt.exam);
+    exam.insertBefore(el('span', 'ex-doubt-tag', '考試答案 ' + q.answer), exam.firstChild);
+    box.appendChild(exam);
+    if (q.doubt.now) {
+      var now = rich('p', 'ex-doubt-now', q.doubt.now);
+      now.insertBefore(el('span', 'ex-doubt-tag ex-doubt-tag-now', '現行觀念'), now.firstChild);
+      box.appendChild(now);
+      var list = el('ol', 'ex-cites');
+      q.doubt.refs.forEach(function (r) {
+        var li = el('li');
+        var a = el('a', null, r.t);
+        if (/^https?:\/\//.test(r.u)) a.href = r.u;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        li.appendChild(a);
+        li.appendChild(el('span', 'ex-cite-meta', r.s));
+        list.appendChild(li);
+      });
+      box.appendChild(list);
+    }
+    return box;
+  }
+
   function renderCard(q, data, opts) {
     opts = opts || {};
     var answered = !!q.answer;
@@ -299,6 +325,7 @@
       });
       reveal.appendChild(items);
       (q.expl.flags || []).forEach(function (f) { reveal.appendChild(rich('p', 'ex-warn', '⚠ ' + f)); });
+      if (q.doubt) reveal.appendChild(doubtBox(q));
       if (q.go && q.go.length) {
         var go = el('p', 'ex-goto', '回去看重點：');
         q.go.forEach(function (spot, i) {
@@ -517,6 +544,13 @@
         back += '<br>' + htmlText(it.key + ' ' + it.label + '：' + it.text + '（' + it.refs.join('；') + '）');
       });
       (q.expl.flags || []).forEach(function (f) { back += '<br>' + htmlText('⚠ ' + f); });
+      if (q.doubt) {
+        back += '<br>' + htmlText('⚠ 考試答案 ' + q.answer + '：' + q.doubt.exam);
+        if (q.doubt.now) {
+          back += '<br>' + htmlText('現行觀念：' + q.doubt.now);
+          q.doubt.refs.forEach(function (r) { back += '<br>' + htmlText('・' + r.t + '（' + r.s + '）' + r.u); });
+        }
+      }
       return csvCell(front) + ',' + csvCell(back);
     }).join('\n');
   }
@@ -606,6 +640,7 @@
     Object.keys(q.options).forEach(function (k) { parts.push(q.options[k]); });
     if (q.expl) {
       parts.push(q.expl.summary);
+      if (q.doubt) parts.push(q.doubt.exam, q.doubt.now);
       q.expl.items.forEach(function (it) { parts.push(it.text); });
     }
     return parts.join(' ');

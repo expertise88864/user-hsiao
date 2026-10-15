@@ -6,6 +6,7 @@ Sources (hand-maintained):
   data/exam/explanations.json   answers + per-option explanations with BCSC page refs
   data/exam/chapters.json       BCSC 2025-2026 sections, chapter titles, printed pages
   data/exam/concepts.json       groups of questions that test the same concept ("考點")
+  data/exam/doubts.json         flagged questions: exam-answer rationale + current concept with refs
   data/exam/notes/bcsc<b>-<c>.htm   chapter study notes (trusted HTML fragments; .htm keeps
                                     the site-wide *.html page audits off them)
 
@@ -177,6 +178,16 @@ def load() -> dict:
         notes[key], links = anchor_notes(key, notes[key])
         for n, spots in links.items():
             note_links[n].extend((key, hid, label) for hid, label in spots)
+    doubts = json.loads((DATA / "doubts.json").read_text(encoding="utf-8"))
+    for n, d in doubts.items():
+        if n not in explanations or d.get("cat") not in DOUBT_CATS or not d.get("exam"):
+            raise SystemExit(f"doubts.json: bad entry for Q{n}")
+        if bool(d.get("now")) != bool(d.get("refs")) or len(d.get("refs", [])) > 3:
+            raise SystemExit(f"doubts.json: Q{n} needs a current-concept text with 1-3 references, or neither")
+        for r in d.get("refs", []):
+            if not re.fullmatch(r"https?://[^\s\"'<>]+", r.get("u", "")) or not r.get("t"):
+                raise SystemExit(f"doubts.json: Q{n} reference needs a title and an http(s) URL")
+        check_traditional(f"doubt Q{n}", d["exam"] + d.get("now", ""))
     concepts = json.loads((DATA / "concepts.json").read_text(encoding="utf-8"))
     concept_of: dict[int, dict] = {}
     for c in concepts:
@@ -193,7 +204,7 @@ def load() -> dict:
             by_chapter[key].append(q)
     return {"questions": questions, "tags": tags, "explanations": explanations, "books": books,
             "chapters": chapters, "notes": notes, "by_chapter": by_chapter, "note_links": note_links,
-            "concepts": concepts, "concept_of": concept_of}
+            "concepts": concepts, "concept_of": concept_of, "doubts": doubts}
 
 
 def anchor_notes(key: str, fragment: str) -> tuple[str, dict[int, list]]:
@@ -456,6 +467,28 @@ def note_spots(n: int, data: dict) -> list[tuple[str, str, str]]:
     return spots[:4]
 
 
+DOUBT_CATS = {"outdated", "bcsc_silent", "bcsc_conflict", "ambiguous", "typo"}
+
+
+def cite_meta(ref: dict) -> str:
+    parts = [str(ref.get("s") or "").strip(), str(ref.get("y") or "").strip()]
+    meta = " ".join(p for p in parts if p)
+    return meta + (f" · PMID {ref['pmid']}" if ref.get("pmid") else "")
+
+
+def doubt_html(doubt: dict, answer: str) -> str:
+    """Flagged question: the exam answer and, when guidance has moved on, the current concept."""
+    out = (f'<div class="ex-doubt"><p class="ex-doubt-exam"><span class="ex-doubt-tag">考試答案 {answer}</span>'
+           f'{rich(doubt["exam"])}</p>')
+    if doubt.get("now"):
+        cites = "".join(
+            f'<li><a href="{esc(r["u"])}" target="_blank" rel="noopener noreferrer">{esc(r["t"])}</a>'
+            f'<span class="ex-cite-meta">{esc(cite_meta(r))}</span></li>' for r in doubt["refs"])
+        out += (f'<p class="ex-doubt-now"><span class="ex-doubt-tag ex-doubt-tag-now">現行觀念</span>{rich(doubt["now"])}</p>'
+                f'<ol class="ex-cites">{cites}</ol>')
+    return out + "</div>"
+
+
 def goto_html(n: int, data: dict, current: str | None) -> str:
     links = []
     for key, hid, label in note_spots(n, data):
@@ -499,7 +532,9 @@ def question_html(q: dict, data: dict, *, current: str | None = None, on_page: s
             f'<span class="ex-item-refs">{"；".join(f"<span class=\"ex-ref\">{esc(ref_label(r))}</span>" for r in it["refs"])}</span></li>'
             for it in expl["items"]
         )
-        flags = "".join(f'<p class="ex-warn">⚠ {rich(f)}</p>' for f in expl.get("flags", []))
+        doubt = data["doubts"].get(str(n))
+        flags = (doubt_html(doubt, answer) if doubt
+                 else "".join(f'<p class="ex-warn">⚠ {rich(f)}</p>' for f in expl.get("flags", [])))
         reveal = (f'<p class="ex-answer">答案：<strong>{answer}</strong><span class="ex-answer-src">依 BCSC 判斷</span></p>'
                   f'<p class="ex-summary">{rich(expl["summary"])}</p><ul class="ex-items">{items}</ul>{flags}'
                   f'{goto_html(n, data, current)}{siblings_html(n, data, on_page)}')
@@ -757,9 +792,13 @@ def client_data(data: dict) -> dict:
         expl = data["explanations"].get(str(q["n"]))
         if expl:
             row["answer"] = expl["answer"]
-            row["expl"] = {"summary": expl["summary"], "flags": expl.get("flags", []), "items": [
+            doubt = data["doubts"].get(str(q["n"]))
+            row["expl"] = {"summary": expl["summary"], "flags": [] if doubt else expl.get("flags", []), "items": [
                 {"key": it["key"], "label": it["label"], "text": it["text"], "ok": it["answer"],
                  "refs": [ref_label(r) for r in it["refs"]]} for it in expl["items"]]}
+            if doubt:
+                row["doubt"] = {"exam": doubt["exam"], "now": doubt.get("now", ""), "refs": [
+                    {"t": r["t"], "u": r["u"], "s": cite_meta(r)} for r in doubt.get("refs", [])]}
         spots = note_spots(q["n"], data)
         if spots:
             row["go"] = [list(s) for s in spots]
@@ -922,6 +961,13 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-hitbox{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:14px;line-height:1.8}
 .ex-hitbox a{color:var(--ex-accent);font-weight:700}
 .ex-hitbox mark{background:#fef08a;color:inherit;border-radius:3px}
+.ex-doubt{margin:10px 0 0;border:1px solid #f3d38a;background:#fffbeb;border-radius:10px;padding:8px 12px;font-size:13.5px;line-height:1.8}
+.ex-doubt p{margin:4px 0}
+.ex-doubt-tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:6px;background:#fde68a;color:#713f12}
+.ex-doubt-tag-now{background:#dbeafe;color:#1e3a8a}
+.ex-cites{margin:2px 0 4px;padding-left:22px;font-size:12.5px;line-height:1.7}
+.ex-cites a{color:var(--ex-accent);word-break:break-word}
+.ex-cite-meta{margin-left:6px;color:var(--muted)}
 .ex-goto,.ex-sibs{font-size:13px;line-height:1.8;margin:8px 0 0;color:var(--ink-2)}
 .ex-goto a,.ex-sibs a{color:var(--ex-accent);font-weight:600}
 .ex-goto{background:var(--ex-soft);border-radius:8px;padding:6px 10px}
@@ -958,6 +1004,9 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-note .ex-trap{background:#2d1616;border-color:#7f1d1d}
 :root[data-theme="dark"] .ex-note .ex-trap h3{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc{border-color:#36404b}
+:root[data-theme="dark"] .ex-doubt{background:#2a2414;border-color:#5c4a1a}
+:root[data-theme="dark"] .ex-doubt-tag{background:#5c4a1a;color:#fde68a}
+:root[data-theme="dark"] .ex-doubt-tag-now{background:#1e3a5f;color:#dbeafe}
 :root[data-theme="dark"] .ex-strip,:root[data-theme="dark"] .ex-summary-box{border-color:#36404b}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}

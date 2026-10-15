@@ -66,3 +66,23 @@ test('client-rendered cards carry the note and same-concept links', async ({ pag
   await expect(card).toBeVisible();
   await expect(page.locator('#ex-search-results .ex-goto a[href^="/exam/bcsc"]').first()).toBeAttached();
 });
+
+// Owner request 2026-10-15: flagged questions show the exam answer's rationale
+// separately from the current concept, which cites verified sources.
+test('flagged questions separate the exam answer from the current concept', async ({ page }) => {
+  await page.goto('/exam/bcsc1-4');
+  const doubt = page.locator('#q-4 .ex-doubt');
+  await expect(doubt.locator('.ex-doubt-exam')).toContainText('考試答案 A');
+  await expect(doubt.locator('.ex-doubt-now')).toContainText('現行觀念');
+  const cite = doubt.locator('.ex-cites a').first();
+  await expect(cite).toHaveAttribute('href', /^https:\/\//);
+  await expect(cite).toHaveAttribute('rel', 'noopener noreferrer');
+  await expect(page.locator('#q-4 .ex-warn')).toHaveCount(0);
+});
+
+test('client-rendered flagged cards carry the same two parts', async ({ page }) => {
+  await page.goto('/exam/search?q=' + encodeURIComponent('130/80'));
+  const doubt = page.locator('#ex-search-results #q-4 .ex-doubt');
+  await expect(doubt.locator('.ex-doubt-tag').first()).toHaveText('考試答案 A');
+  await expect(doubt.locator('.ex-cites a').first()).toHaveAttribute('href', /^https:\/\//);
+});
