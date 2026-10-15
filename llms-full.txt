@@ -1608,13 +1608,13 @@ Tomlinson G, Detsky AS. Composite end points in randomized trials: there is no f
 - English mirror: https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review
 - Topic: 白內障 · Published 2026-05-16 · Updated 2026-10-15
 
-> 2026 年 ESCRS 整合性回顧：散光人工水晶體 Toric IOL 適應症（≥1.0 D 規則散光）、術前評估、計算公式、旋轉風險（90-97% 內 5°）、特殊族群（雷射術後/圓錐角膜/PEX/角膜移植後）注意事項、台灣全自費現況。蕭閔謙醫師整理。
+> 2026 年 ESCRS 整合性回顧：散光人工水晶體 Toric IOL 適應症（≥1.0 D 規則散光）、術前評估、計算公式、旋轉風險（90-97% 內 5°）、特殊族群（雷射術後/圓錐角膜/PEX/角膜移植後）注意事項、台灣健保自付差額參考。蕭閔謙醫師整理。
 
 散光人工水晶體一張圖看懂。① 角膜散光是「子午線曲率不同」的屈光不正，臨床用 WTR（垂直子午線較陡）/ ATR（水平子午線較陡）/ 斜軸分類；斜軸散光及人工水晶體軸位須依實際量測判讀；盛行率隨年齡上升（14.9% 兒童 → 40.4% 成人）。② Toric IOL 把柱面（cylinder power）做進人工水晶體，植入後對準角膜陡軸即可同時矯正白內障 + 散光；對位每偏離 1°，矯正力損失 3.3%。③ Cochrane 2019 系統性回顧顯示 toric IOL 約 70% 達成殘餘散光 ≤ 0.5 D，LRI 約 50%，不矯正僅約 30%。④ 旋轉穩定性高，90–97% 維持在 ±5° 內，需重置的比例約 0.65%（6431 眼大型回顧）。資料整合自 Verstraaten 等 2026、Lake 2019、Oshika 2018 等多篇文獻。
 
 一、診間常見情境
 
-「醫師，我今年 56 歲，白內障比較嚴重了，眼科說可以開刀。我以前就有 200 度的散光，戴眼鏡很多年了。手術之後我能不能不要再戴眼鏡？聽說有一種『散光人工水晶體』，但好像要自費二、三萬以上？這值得嗎？」
+「醫師，我今年 56 歲，白內障比較嚴重了，眼科說可以開刀。我以前就有 200 度的散光，戴眼鏡很多年了。手術之後我能不能不要再戴眼鏡？聽說有一種『散光人工水晶體』，但好像一眼要自付差額四萬多？這值得嗎？」
 
 「醫師，我之前做過近視雷射，現在 60 歲開始有白內障。聽說做過雷射的人，白內障手術會比較複雜、度數算不準。我還可以裝散光人工水晶體嗎？」
 
@@ -1626,7 +1626,7 @@ Tomlinson G, Detsky AS. Composite end points in randomized trials: there is no f
 
 Q1：「我有散光，做白內障一定要裝散光人工水晶體嗎？」
 
-A：不一定。國際共識是當「規則性角膜散光」≥ 1.0 D 且您希望術後盡量擺脫眼鏡時，才會考慮 toric IOL。散光 < 0.75 D 通常裝一般單焦人工水晶體就夠；0.75–1.0 D 之間屬灰色地帶——可考慮 toric、也可以選擇一般球面 IOL + 角膜緣鬆弛切口（LRI），甚至直接裝一般 IOL 然後術後配戴有散光度數的眼鏡。台灣是全自費，請和醫師詳細討論預算、生活型態（夜間駕駛？閱讀？運動？）、與術後對眼鏡的接受度，再決定。
+A：不一定。國際共識是當「規則性角膜散光」≥ 1.0 D 且您希望術後盡量擺脫眼鏡時，才會考慮 toric IOL。散光 < 0.75 D 通常裝一般單焦人工水晶體就夠；0.75–1.0 D 之間屬灰色地帶——可考慮 toric、也可以選擇一般球面 IOL + 角膜緣鬆弛切口（LRI），甚至直接裝一般 IOL 然後術後配戴有散光度數的眼鏡。台灣需自付差額（單焦點散光全國中位數約 4.5 萬／眼），請和醫師詳細討論預算、生活型態（夜間駕駛？閱讀？運動？）、與術後對眼鏡的接受度，再決定。
 
 Q2：「Toric IOL 比角膜緣鬆弛切口（LRI）或飛秒雷射散光切口（FSAK）好嗎？」
 
@@ -1646,7 +1646,7 @@ A：可以，但需要嚴格選擇條件。國際文獻共識：(1) 疾病穩定
 
 Q6：「散光人工水晶體在台灣健保有給付嗎？大概要多少錢？」
 
-A：❌ 健保不給付。台灣全民健保的「藥品給付規定」並不包含人工水晶體（IOL 屬於醫療器材，另有「特殊材料給付規定」），標準球面 IOL 由健保部分給付（手術費 + 標準鏡片），但散光（toric）、延焦（EDOF）、多焦（multifocal/trifocal）等「升級型」IOL 都是自費，採「健保 + 自費差額」方式計費。實際費用因品牌、是否合併多焦設計而差異很大，本文不便報價，請直接詢問您的眼科醫師或診所。經濟負擔較重者也可考慮：(1) 一般球面 IOL + 術後配戴有散光度數的眼鏡（健保完全給付，是最便宜選項）；(2) 一般球面 IOL + 同步做 LRI 切口（部分院所有提供）。重點是不要因為「升級」聽起來高級就裝——真正的判斷標準是您的角膜散光大小、生活型態、預算、與醫師討論後的個別化決策。
+A：健保不全額給付，需自付差額。台灣全民健保的「藥品給付規定」並不包含人工水晶體（IOL 屬於醫療器材，另有「特殊材料給付規定」），標準單焦點球面 IOL 由健保全額給付；散光（toric）、延焦（EDOF）、多焦（multifocal/trifocal）等特殊功能 IOL 採「健保給付 2,744 點 + 病人自付差額」方式計費，白內障手術本身仍由健保給付。依健保署自付差額醫材比價查詢（2026-10-15），單焦點非球面＋散光矯正的差額全國中位數為 NT$ 45,000／眼，合併延焦或多焦設計約 NT$ 55,000–110,000／眼（各類別見第十三節收費表）；金額僅供參考，收費依各醫療院所公告為準。經濟負擔較重者也可考慮：(1) 一般球面 IOL + 術後配戴有散光度數的眼鏡（健保完全給付，是最便宜選項）；(2) 一般球面 IOL + 同步做 LRI 切口（部分院所有提供）。重點是不要因為「升級」聽起來高級就裝——真正的判斷標準是您的角膜散光大小、生活型態、預算、與醫師討論後的個別化決策。
 
 Q7：「裝 Toric IOL 之後，我還會看到光暈、星芒、眩光嗎？」
 
@@ -1672,7 +1672,7 @@ A：可以，但通常建議等術後 3 個月以上、屈光穩定後再考慮�
 
 特殊族群可行但要嚴選：雷射近視術後（須用 Barrett True-K Toric、嚴格收案）、輕中度圓錐角膜（穩定 ≥ 1 年）、角膜移植後（custom toric 報告良好）、Fuchs/DMEK（過矯正常見、需 epithelial mapping）；嚴重 PEX 慎用
 
-台灣全自費：健保只給付一般球面 IOL；toric / 多焦 / 延焦 IOL 屬「特殊材料給付規定」（不在藥品給付規定內），採「健保 + 自費差額」結構，費用因品牌差異大
+台灣需自付差額：健保全額給付一般單焦點球面 IOL；toric / 多焦 / 延焦 IOL 屬「特殊材料給付規定」（不在藥品給付規定內），健保給付 2,744 點、病人自付差額——單焦點散光全國中位數約 4.5 萬、三焦點散光約 11 萬／眼（2026-10-15 健保署比價查詢）
 
 未解決的問題：cost-effectiveness 證據仍少、長期 ≥ 5 年 PROM 不足、不規則散光適應症模糊、image-guided 系統 vs 手動畫線的健康經濟分析有限
 
@@ -1710,7 +1710,7 @@ ATR 眼：前表面與後表面同向 → 相加，TCA 比 KA 高約 0.3 D；如
 
 多儀器量得的散光大小與軸位一致（差異 ≤ 0.5 D / ≤ 10°，代表散光「規則且可重複」）
 
-能承擔自費（台灣健保不給付）並接受「殘餘散光不為零」「極少數可能要重置」的風險
+能承擔自付差額（台灣健保不全額給付；單焦點散光全國中位數約 4.5 萬／眼）並接受「殘餘散光不為零」「極少數可能要重置」的風險
 
 ⚠️ 相對禁忌 / 慎用情況
 
@@ -1738,7 +1738,7 @@ Toric IOL 「準不準」很大一部分取決於術前測量的品質。國際�
 
 ④ 角膜地形圖檢視檢查是否為規則 bowtie pattern；不規則者（如圓錐角膜、雷射術後不規則、Salzmann's nodular degeneration）需專業判讀，且通常需用特殊公式或考慮其他方案
 
-⑤ 病人期望管理坦白說明：(a) 殘餘散光不會是零，70% 達 ≤ 0.5 D 不代表 100%；(b) 極少數需重置；(c) 多焦 toric 有光暈/眩光的可能；(d) 雷射術後/圓錐角膜的特殊風險；(e) 台灣全自費的費用結構
+⑤ 病人期望管理坦白說明：(a) 殘餘散光不會是零，70% 達 ≤ 0.5 D 不代表 100%；(b) 極少數需重置；(c) 多焦 toric 有光暈/眩光的可能；(d) 雷射術後/圓錐角膜的特殊風險；(e) 台灣自付差額的費用結構
 
 七、IOL 度數計算公式：哪一個最準？
 
@@ -1788,7 +1788,7 @@ PROMs（病人報告結果）：常用工具有 NEI-RQL 42（Refractive Error Qu
 
 對角膜健康的影響無；角膜不額外傷害小：可能輕度上皮缺損小：較 LRI 更精準，但仍可能延遲角膜上皮癒合
 
-成本（台灣）高（全自費，IOL 差額）低（部分院所內含，無額外費用）中–高（飛秒雷射設備費通常另計）
+成本（台灣）高（自付 IOL 差額，單焦點散光約 4.5 萬／眼）低（部分院所內含，無額外費用）中–高（飛秒雷射設備費通常另計）
 
 實務建議：散光 ≥ 1.5 D 通常 toric IOL 優於 LRI/FSAK；< 1.0 D 則 LRI/FSAK 可作為較便宜的替代；1.0–1.5 D 屬灰色地帶，可考慮 toric IOL 也可考慮 LRI+ 般 IOL（或合併使用）。FSAK 在需要極精準對位的特殊族群（如雷射術後）有優勢但成本較高。最終決策需依您的角膜散光大小、生活型態、預算、醫師專業判斷而個別化。
 
@@ -1874,15 +1874,47 @@ Fuchs 內皮失養症（FECD）病人若同時需要 cataract surgery 和 endoth
 
 十三、台灣本土考量：健保 vs 自費結構
 
-⚠️ 重要：Toric IOL 在台灣健保不給付
+⚠️ 重要：Toric IOL 在台灣需自付差額（健保不全額給付）
 
-健保的藥品給付規定並不包含人工水晶體——因為 IOL 屬於醫療器材，屬於另一套「特殊材料」相關規範。Toric IOL 屬自費項目，實際費用結構與健保標準 IOL 之差額請以您就醫醫院的事前說明為準。
+健保的藥品給付規定並不包含人工水晶體——因為 IOL 屬於醫療器材，屬於另一套「特殊材料」相關規範。Toric IOL 屬自付差額項目：健保給付人工水晶體 2,744 點，病人自付差額；白內障手術本身由健保給付。實際收費依您就醫院所的公告與事前說明為準。
 
-標準球面 IOL：健保部分給付（手術費 + 標準鏡片成本）
+標準單焦點球面 IOL：健保全額給付，不需自付（手術費 + 標準鏡片）
 
-Toric IOL / 多焦 IOL / 延焦 IOL / 三焦 IOL / LAL：全部自費（採「健保 + 自費差額」結構，差額由病人自付）
+Toric IOL / 多焦 IOL / 延焦 IOL / 三焦 IOL / LAL：需自付差額（採「健保 + 自費差額」結構，差額由病人自付）
 
-實際費用因品牌、是否合併多焦/延焦設計而差異大。本文不便報價，請直接詢問您的眼科醫師或診所
+全國收費參考：單焦點非球面＋散光矯正約 4.5 萬、三焦點約 8.5 萬、三焦點＋散光矯正約 11 萬／眼（全國中位數）；各類別見下表
+
+特殊功能人工水晶體：全國收費參考
+
+以下為健保署「自付差額醫材比價查詢」的全國資料（2026-10-15 查詢；548 家特約醫療院所、10,554 筆收費紀錄），依人工水晶體類別整理單眼收費的全國中位數與最高收費，不列個別院所或品牌。單焦點球面人工水晶體由健保全額給付，不需自付；選擇特殊功能人工水晶體時，健保仍給付人工水晶體 2,744 點，病人自付下表差額；白內障手術本身由健保給付。
+
+類別（單眼）常見收費（全國中位數）最高收費
+
+單焦點球面（標準型）健保全額給付，不需自付—
+
+單焦點非球面（aspheric monofocal）NT$ 30,500NT$ 30,856
+
+單焦點非球面＋散光矯正（toric）NT$ 45,000NT$ 45,000
+
+短焦延伸焦距（增視型）NT$ 40,000NT$ 40,000
+
+短焦延伸焦距（增視型）＋散光矯正NT$ 55,000NT$ 55,000
+
+多焦點－二焦點NT$ 60,000NT$ 60,000
+
+多焦點－二焦點＋散光矯正NT$ 90,000NT$ 90,000
+
+長焦延伸焦距（EDOF）NT$ 75,000NT$ 75,000
+
+長焦延伸焦距（EDOF）＋散光矯正NT$ 98,000NT$ 98,000
+
+多焦點－三焦點（trifocal）NT$ 85,000NT$ 85,000
+
+多焦點－三焦點（trifocal）＋散光矯正NT$ 110,000NT$ 110,000
+
+金額為單眼人工水晶體差額，不含手術（健保給付）；少數院所收費低於表列。
+
+資料來源：衛生福利部中央健康保險署 自付差額醫材比價查詢（2026-10-15 查詢）。本表僅供參考，實際收費依各醫療院所公告為準。
 
 術後用藥：健保給付（民國 115 年 9 月 22 日更新版）
 
@@ -1898,7 +1930,7 @@ Toric IOL / 多焦 IOL / 延焦 IOL / 三焦 IOL / LAL：全部自費（採「�
 
 方案 2：一般球面 IOL + 同步做 LRI 切口（部分院所有提供，可能含在手術內）→ 散光部分矯正，仍可能需要一些眼鏡
 
-方案 3：自費裝 Toric IOL（單焦 toric 比多焦 toric 便宜）→ 散光直接由 IOL 矯正
+方案 3：自付差額裝 Toric IOL（單焦 toric 約 4.5 萬／眼，比多焦 toric 的 9–11 萬／眼便宜）→ 散光直接由 IOL 矯正
 
 重點：不要因為「升級」聽起來高級就裝。真正的判斷標準是您的角膜散光大小、生活型態、預算、與醫師討論後的個別化決策。
 
@@ -1956,7 +1988,7 @@ ESCRS 工作組在結論中也誠實列出 toric IOL 領域仍待解決的幾個
 
 「我有（雷射術後 / 圓錐角膜 / PEX / Fuchs 等），這會影響我裝 toric IOL 的選擇與結果嗎？您會用哪一種公式？」（依個別狀況選擇對應問題）
 
-結語：散光人工水晶體（Toric IOL）在 2026 年的眼科實務中已從「premium 選項」變成「中高度散光白內障病人的主流建議」。國際整合性回顧顯示，在嚴選病人、精準術前測量、適當公式、與正確術中對位的條件下，toric IOL 安全且有效，能顯著改善術後 UDVA 與生活品質。但這個技術不是「萬靈丹」——殘餘散光不會是零、極少數仍需重置、台灣全自費的費用負擔不小、不規則散光與特殊族群仍需謹慎評估。最終決策永遠是「您的散光 + 您的生活型態 + 您的預算 + 您的醫師判斷」的個別化結果。祝術後視覺清晰、生活順利。
+結語：散光人工水晶體（Toric IOL）在 2026 年的眼科實務中已從「premium 選項」變成「中高度散光白內障病人的主流建議」。國際整合性回顧顯示，在嚴選病人、精準術前測量、適當公式、與正確術中對位的條件下，toric IOL 安全且有效，能顯著改善術後 UDVA 與生活品質。但這個技術不是「萬靈丹」——殘餘散光不會是零、極少數仍需重置、台灣自付差額的費用負擔不小（單焦點散光全國中位數約 4.5 萬／眼）、不規則散光與特殊族群仍需謹慎評估。最終決策永遠是「您的散光 + 您的生活型態 + 您的預算 + 您的醫師判斷」的個別化結果。祝術後視覺清晰、生活順利。
 
 📚 HsiaoEye「白內障」系列文章
 
@@ -3510,7 +3542,7 @@ ESCRS 2024 RecommendationsGRADE 評估：FLACS 證據等級「中等－低」，
 
 ③ 三大特殊功能
 
-非球面（aspheric）──模仿天然年輕水晶體的曲率，補償角膜的正球面像差，明顯改善夜間對比敏感度。多數現代人工水晶體（包括健保）已是非球面設計。
+非球面（aspheric）──模仿天然年輕水晶體的曲率，補償角膜的正球面像差，明顯改善夜間對比敏感度。台灣健保全額給付的是標準球面單焦人工水晶體；非球面單焦在健保屬於「特殊功能人工水晶體」，需付自付差額（全國中位數約 NT$ 30,500／眼，見第十章收費參考表）。
 
 藍光濾過（blue-light filter）──黃色色調水晶體可過濾部分高能藍光（理論上保護黃斑部）。但實際對黃斑部退化（AMD）預防的證據仍有爭議，且可能影響色彩感受、生理時鐘調節（褪黑激素分泌）。是否選擇可與醫師討論，並非必選。
 
@@ -3662,7 +3694,7 @@ EDOF 適合的情境：
 
 缺點：
 
-自費差額──比同型非 toric 版本貴 2-5 萬不等（依品牌與焦點類型）
+自費差額──比同型非 toric 版本貴約 1.5-3 萬（依焦點類型；單焦點散光全國中位數約 4.5 萬 / 眼，見收費參考表）
 
 對齊不準的風險（下方詳述）
 
@@ -3900,23 +3932,55 @@ ESCRS 2024 Recommendations 對人工水晶體公式選擇有具體指引（GRADE
 
 手術費（含醫師技術費、麻醉、術後追蹤）✓ 健保完全給付—
 
-基本單焦非球面人工水晶體✓ 健保完全給付（多家品牌可選）—
+基本單焦點球面人工水晶體✓ 健保完全給付（多家品牌可選）—
 
-FLACS 飛秒雷射輔助—約 3-6 萬 / 眼
+FLACS 飛秒雷射輔助—自費；金額依各醫療院所公告
 
-升級為自費單焦人工水晶體（疏水性壓克力、藍光濾過、特殊設計等）—約 1-3 萬 / 眼
+升級為自費單焦點非球面人工水晶體（疏水性壓克力、藍光濾過、特殊設計等）—約 3 萬 / 眼（全國中位數 NT$ 30,500）
 
-散光矯正（Toric IOL）—約 2-5 萬 / 眼（與焦點類型加乘）
+散光矯正（Toric IOL）—單焦點散光約 4.5 萬 / 眼（全國中位數）；合併延焦或多焦約 5.5-11 萬 / 眼
 
-延焦深 EDOF—約 5-8 萬 / 眼
+延焦深 EDOF—短焦延伸焦距（增視型）約 4 萬、長焦延伸焦距（EDOF）約 7.5 萬 / 眼
 
-多焦／三焦人工水晶體—約 6-12 萬 / 眼（依品牌與設計）
+多焦／三焦人工水晶體—二焦點約 6 萬、三焦點約 8.5 萬 / 眼（加散光矯正約 9-11 萬）
 
-LAL 光可調整水晶體—約 10-15 萬 / 眼（含多次術後微調）
+LAL 光可調整水晶體—自費（含多次術後微調）；金額依各醫療院所公告
 
-* 上述為國內常見區間參考，實際價格依醫院、品牌、附加服務而異；最新價格請以各醫院公告為準。
+* 人工水晶體金額為健保署自付差額醫材比價查詢的全國中位數（2026-10-15 查詢，各類別見下表）；FLACS 與 LAL 不在該查詢範圍，因此不列金額。實際收費依各醫療院所公告為準。
 
-② 健保水晶體真的「比較差」嗎？
+② 特殊功能人工水晶體：全國收費參考
+
+以下為健保署「自付差額醫材比價查詢」的全國資料（2026-10-15 查詢；548 家特約醫療院所、10,554 筆收費紀錄），依人工水晶體類別整理單眼收費的全國中位數與最高收費，不列個別院所或品牌。單焦點球面人工水晶體由健保全額給付，不需自付；選擇特殊功能人工水晶體時，健保仍給付人工水晶體 2,744 點，病人自付下表差額；白內障手術本身由健保給付。
+
+類別（單眼）常見收費（全國中位數）最高收費
+
+單焦點球面（標準型）健保全額給付，不需自付—
+
+單焦點非球面（aspheric monofocal）NT$ 30,500NT$ 30,856
+
+單焦點非球面＋散光矯正（toric）NT$ 45,000NT$ 45,000
+
+短焦延伸焦距（增視型）NT$ 40,000NT$ 40,000
+
+短焦延伸焦距（增視型）＋散光矯正NT$ 55,000NT$ 55,000
+
+多焦點－二焦點NT$ 60,000NT$ 60,000
+
+多焦點－二焦點＋散光矯正NT$ 90,000NT$ 90,000
+
+長焦延伸焦距（EDOF）NT$ 75,000NT$ 75,000
+
+長焦延伸焦距（EDOF）＋散光矯正NT$ 98,000NT$ 98,000
+
+多焦點－三焦點（trifocal）NT$ 85,000NT$ 85,000
+
+多焦點－三焦點（trifocal）＋散光矯正NT$ 110,000NT$ 110,000
+
+金額為單眼人工水晶體差額，不含手術（健保給付）；少數院所收費低於表列。
+
+資料來源：衛生福利部中央健康保險署 自付差額醫材比價查詢（2026-10-15 查詢）。本表僅供參考，實際收費依各醫療院所公告為準。
+
+③ 健保水晶體真的「比較差」嗎？
 
 不是。健保給付的單焦人工水晶體在國際指引中仍是多數族群的合理首選。健保水晶體與自費單焦的差異主要在：
 
@@ -3926,7 +3990,7 @@ LAL 光可調整水晶體—約 10-15 萬 / 眼（含多次術後微調）
 
 藍光濾過：是否含黃色色調（理論上保護黃斑部，但證據仍有爭議）
 
-非球面設計：補償角膜球面像差（健保水晶體多數已是非球面）
+非球面設計：補償角膜球面像差（健保全額給付的是球面設計；非球面需付自付差額）
 
 這些差異對日常生活視覺品質的影響多為「邊際」。對沒有特殊需求的長者，健保單焦提供的視力品質完全符合預期。自費差額的真正價值在「功能升級」（散光矯正、多焦、EDOF、LAL），不是基本水晶體本身比較好。
 
@@ -3952,7 +4016,7 @@ LAL 光可調整水晶體—約 10-15 萬 / 眼（含多次術後微調）
 
 📌 識破話術後該做什麼：問醫師「這個升級對我『個人』的好處是什麼？不升級的具體後果是什麼？」── 真正適合你的升級值得花錢，但「為了升級而升級」是浪費。
 
-③ 健保 vs 自費的決策原則
+④ 健保 vs 自費的決策原則
 
 ✅ 自費值得花錢的情境
 
@@ -3984,21 +4048,21 @@ LAL 光可調整水晶體—約 10-15 萬 / 眼（含多次術後微調）
 
 80 歲長者、生活簡單、無散光傳統超音波健保單焦（設遠視力） + 老花眼鏡看書0（健保完整給付）
 
-50-60 歲還在工作、看電腦多傳統超音波（FLACS 可選但非必要）EDOF──遠中距離強化、夜間光暈輕EDOF：約 5-8 萬／眼
+50-60 歲還在工作、看電腦多傳統超音波（FLACS 可選但非必要）EDOF──遠中距離強化、夜間光暈輕EDOF：短焦約 4 萬、長焦約 7.5 萬／眼
 
-角膜散光 1.5-3.0 D傳統超音波（FLACS 對散光精準有邊際幫助）單焦 + Toric（或 EDOF + Toric）Toric 差額：約 2-5 萬／眼
+角膜散光 1.5-3.0 D傳統超音波（FLACS 對散光精準有邊際幫助）單焦 + Toric（或 EDOF + Toric）單焦 + Toric：約 4.5 萬／眼（EDOF + Toric 約 5.5-9.8 萬）
 
-強烈想脫鏡、健康眼睛、能接受光暈傳統超音波或 FLACS多焦／三焦（散光大時加 toric）多焦／三焦：約 6-12 萬／眼
+強烈想脫鏡、健康眼睛、能接受光暈傳統超音波或 FLACS多焦／三焦（散光大時加 toric）多焦／三焦：約 6-8.5 萬／眼（加 toric 約 9-11 萬）
 
-夜間開車多、龜毛性格傳統超音波避開多焦──健保單焦或 monovision；散光大才加 toric0-5 萬／眼（依是否加 toric）
+夜間開車多、龜毛性格傳統超音波避開多焦──健保單焦或 monovision；散光大才加 toric0-4.5 萬／眼（依是否加 toric）
 
-合併黃斑部病變、進階期青光眼傳統超音波絕對避開多焦／三焦──健保單焦最佳；散光大可加 toric0-5 萬／眼
+合併黃斑部病變、進階期青光眼傳統超音波絕對避開多焦／三焦──健保單焦最佳；散光大可加 toric0-4.5 萬／眼
 
-近視雷射術後（LASIK、PRK、SMILE）傳統超音波單焦或 LAL──LAL 提供術後微調保險；多焦／三焦在這類眼睛屈光誤差大、不建議LAL：約 10-15 萬／眼
+近視雷射術後（LASIK、PRK、SMILE）傳統超音波單焦或 LAL──LAL 提供術後微調保險；多焦／三焦在這類眼睛屈光誤差大、不建議LAL 自費；金額依院所公告
 
 圓錐角膜、不規則散光傳統超音波單焦（不適合 toric 與多焦）；可考慮 LAL0 或 LAL 自費
 
-單眼弱視（另眼視力不佳）傳統超音波單焦設定遠視力（避開多焦，因為對比下降會雙重打擊）0-5 萬／眼
+單眼弱視（另眼視力不佳）傳統超音波單焦設定遠視力（避開多焦，因為對比下降會雙重打擊）0-4.5 萬／眼
 
 十二、台灣本土考量
 
@@ -5486,7 +5550,7 @@ Tamsulosin（攝護腺肥大用藥）與其他 α1 阻斷劑：會造成 術中�
 
 超音波乳化術（Phaco）2.2-2.8 mm 角膜點藥（topical）主流、健保、無縫線、恢復快台灣 99% 以上手術採用此法
 
-飛秒雷射輔助（FLACS）2.2 mm 角膜（雷射）點藥切口與撕囊更精準、超音波能量略低視力結果與併發症與 phaco 相當，沒有更好；自費約 6-10 萬
+飛秒雷射輔助（FLACS）2.2 mm 角膜（雷射）點藥切口與撕囊更精準、超音波能量略低視力結果與併發症與 phaco 相當，沒有更好；需自費
 
 手動小切口（MSICS）5-7 mm 鞏膜隧道點藥／周邊神經阻斷不需昂貴超音波儀；適合非常硬的核台灣較少使用；發展中國家主流
 
@@ -5508,7 +5572,7 @@ Tamsulosin（攝護腺肥大用藥）與其他 α1 阻斷劑：會造成 術中�
 
 視覺品質最好──對比敏感度高、夜間眩光與光暈最少。
 
-健保完全給付（無需自費）。
+標準單焦點球面人工水晶體由健保全額給付（無需自費）；若選單焦點非球面（aspheric monofocal），自付差額約 3 萬／眼（全國中位數 NT$ 30,500）。
 
 適合：絕大多數病人、夜間開車多、有黃斑部疾病、龜毛性格。
 
@@ -5520,7 +5584,7 @@ ESCRS 2024 散光門檻建議：against-the-rule（ATR）≥ 1.0 D 或 with-the-
 
 不適合不規則散光（圓錐角膜、嚴重乾眼、近視雷射術後）。
 
-自費：約 3-6 萬（依品牌與屈光度）。
+自付差額：單焦點散光約 4.5 萬／眼；搭配延焦或多焦約 5.5-11 萬／眼（全國中位數）。
 
 ◆ 延伸景深 EDOF（Extended Depth of Focus）
 
@@ -5532,7 +5596,7 @@ ESCRS 2024 散光門檻建議：against-the-rule（ATR）≥ 1.0 D 或 with-the-
 
 ESCRS 建議：適合想要中距離視力、可接受光暈／眩光較少的病人（GRADE +）。
 
-自費：約 6-8 萬。
+自付差額：短焦延伸焦距（增視型）約 4 萬、長焦延伸焦距（EDOF）約 7.5 萬／眼（全國中位數）。
 
 ◆ 多焦／三焦（Multifocal / Trifocal）
 
@@ -5544,7 +5608,7 @@ ESCRS 建議：適合想要中距離視力、可接受光暈／眩光較少的�
 
 ESCRS 建議：適合想要全距離脫鏡的病人（GRADE +），但須充分告知光暈／眩光比單焦明顯（GRADE +）。
 
-自費：約 8-15 萬。
+自付差額：二焦點約 6 萬、三焦點約 8.5 萬、三焦點散光約 11 萬／眼（全國中位數）。
 
 ◆ 光可調整水晶體（LAL, Light-Adjustable Lens）
 
@@ -5555,6 +5619,8 @@ ESCRS 建議：適合想要全距離脫鏡的病人（GRADE +），但須充分�
 缺點：較貴；術後需戴特殊紫外線濾鏡眼鏡 2-3 個月直到鎖定；門診次數較多。
 
 台灣目前供應有限。
+
+以上金額為健保署自付差額醫材比價查詢的單眼人工水晶體差額全國中位數（2026-10-15 查詢），不含手術：白內障手術由健保給付，選擇特殊功能人工水晶體時健保仍給付 2,744 點，病人自付差額。僅供參考，收費依各醫療院所公告為準。各類別完整收費表見白內障手術深度選擇的「特殊功能人工水晶體：全國收費參考」。
 
 ② 人工水晶體取捨雷達圖（視覺化比較）
 
@@ -5816,392 +5882,344 @@ Mathew MC, Ervin A-M, Tao J, Davis RM. Antioxidant vitamin supplementation for p
 
 ---
 
-## 淚腺腫瘤與淚腺癌：症狀、檢查與治療的 6 個問題
+## 飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！
 
-- Canonical: https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor
+- Canonical: https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment
 - English mirror: translation in progress
-- Topic: 淚腺腫瘤 · Published 2026-05-06 · Updated 2026-10-15
+- Topic: 飛蚊症 · Published 2026-05-04 · Updated 2026-10-07
 
-> 淚腺腫瘤一定是癌症嗎？眼球突出、疼痛時要做哪些檢查？整理良性與惡性淚腺腫瘤的差異，聚焦淚腺癌中的腺樣囊狀癌，說明保留眼球手術、放射治療、動脈內化療與追蹤的常見問題，附研究來源與治療限制。
+> 飛蚊症會自己好嗎？突然增多的飛蚊代表什麼？閃光是視網膜要剝離的警訊嗎？高度近視族群最該注意什麼?6 個民眾最常誤會的飛蚊症與視網膜剝離觀念。引用 AAO PPP 2019、JAMA 2009、Br J Ophthalmol 2010;94:678–684 大型研究，蕭閔謙醫師（眼科）整理。
 
 依照你的問題閱讀
 
-淚腺腫瘤一定是癌症嗎？眼睛突出怎麼辦？治療可以保留眼球嗎？治療後視力與副作用
+飛蚊症需要看醫師嗎？飛蚊突然變多怎麼辦？閃光感是什麼（photopsia）？視網膜剝離如何治療？
 
-淚腺位於右眼眶外上角，分為較大的眼眶葉（orbital lobe）與較小的眼瞼葉（palpebral lobe）。腫瘤多由眼眶葉開始，可沿三叉神經眼支向後侵犯到眼眶尖端與顱底，造成持續性鈍痛（神經周圍侵犯， perineural invasion）。
+後玻璃體剝離（PVD）與視網膜裂孔:左為正常，玻璃體與視網膜密合；右為 PVD 過程中玻璃體拉扯出視網膜裂孔。患者會經歷突發大量飛蚊 + 閃光。約 10-15% 急性 PVD 會合併視網膜裂孔，須當天接受眼科評估及散瞳眼底檢查。
 
-疾病速覽
+迷思 1 · 「飛蚊症大家都有，不用看醫生」
 
-淚腺位於眼眶外上角，負責分泌大部分的水液層淚水。淚腺腫瘤約佔所有眼眶腫瘤 10%，盛行率約每年 每百萬人 1 例 為惡性病例（Zhao 2023, BJO）。
+迷思：朋友說飛蚊症很正常，不用緊張、不用看眼科。
 
-淚腺腫瘤分兩大類：
+真相：對，大多數飛蚊症是良性的，但「新發或突然增多」的飛蚊症必須立刻看眼科，因為 10-15% 合併視網膜裂孔。
 
-上皮性腫瘤（epithelial tumor）：約佔淚腺腫瘤 20%，當中約一半（即 9% 整體）為原發性惡性。最常見良性為多形性腺瘤（pleomorphic adenoma）；最常見惡性為腺樣囊狀癌（adenoid cystic carcinoma, ACC），其次是癌肉瘤（carcinoma ex pleomorphic adenoma）與腺癌。
+「飛蚊症」(floaters）是看到眼前有黑點、線狀物、蜘蛛網狀飄動的影子。本質是玻璃體混濁 — 玻璃體本來像膠狀蛋白，隨年齡逐漸液化、產生細小膠質聚集，在視網膜上投射出陰影。
 
-非上皮性腫瘤（non-epithelial tumor）：包括淋巴增生疾病、慢性淚腺炎、IgG4 相關疾病等，多數可由內科或免疫治療處理。
+引起飛蚊症的常見原因：
 
-本文聚焦於最具挑戰的腺樣囊狀癌（LGACC），因為它是診斷上最容易延誤、治療策略最具爭議、預後也最受治療選擇影響的疾病。
+玻璃體液化（synchysis) — 30 歲後逐漸發生，多無大礙
 
-問題 1 · 「眼睛突出來幾個月了，會不會嚴重？」
+後玻璃體剝離（PVD) — 50 歲後最常見，80 歲以上 80% 都有
 
-迷思：凸眼可能只是甲狀腺眼疾或良性囊腫，等等再說沒關係。
+葡萄膜炎、玻璃體出血 — 病理性，需治療
 
-真相：進行性凸眼超過 1-3 個月，尤其合併眼球往下、往內偏移，必須立刻做眼眶 CT 或 MRI 排除腫瘤。淚腺病灶中約 20% 為上皮性腫瘤，其中近半數（整體約 9%）為原發性惡性，最常見是腺樣囊狀癌。甲狀腺眼疾是更常見的雙側凸眼成因，但典型呈現是雙側、合併眼瞼退縮、與甲狀腺功能異常。
+視網膜裂孔 / 剝離 — 急症，必須處置
 
-淚腺腫瘤最常見的初期表現是無痛、進行性的單側眼球前突（proptosis）。因為淚腺位於眼眶外上角，腫瘤增大時會把眼球推向下方且偏內（downward-medial displacement），這是與其他眼眶腫瘤鑑別的線索之一。
+突然增加大量飛蚊或閃光，請當天就醫做眼科評估，排除視網膜裂孔；長期穩定且沒有新警訊的飛蚊，可依醫師建議追蹤。
 
-根據美國 SEER（Surveillance, Epidemiology, and End Results）資料庫 1999-2016 年 118 例 LGACC 分析（Goldberg / Esmaeli 等；由 Ma 2024 Heliyon 引用），LGACC 可發生於所有年齡層：
+迷思 2 · 「突然增多的飛蚊不算什麼」
 
-最常見年齡：40-69 歲（中位數 50-59 歲）
+迷思：這幾天突然多了很多黑點，但白天看比較不明顯，應該是壓力或太累。
 
-男性略多（63.6%）
+真相：急性新發飛蚊是後玻璃體剝離（PVD)典型表現。10-15% 合併視網膜裂孔，需當天接受眼科評估及散瞳眼底檢查。
 
-左右眼比例 1.03 : 1（無明顯偏側）
+後玻璃體剝離（Posterior Vitreous Detachment, PVD)是 50 歲後常見的玻璃體變化：玻璃體後表面與視網膜內表面分離。多數良性，但分離過程可能拉扯出視網膜裂孔。
 
-但兒童亦會發生：文獻最年輕個案僅 7 歲（Tellado 1997, Golani 2024）
+大型回顧研究 Hollands H 等人 2009 年發表在 JAMA 的系統性回顧結論：
 
-初期表現容易被誤認為「眼皮腫」、「結膜炎」或「壓力大引起」。如果出現以下任一情況請及早就醫：
+族群合併視網膜裂孔比例建議
 
-需立刻安排眼眶影像學檢查的警訊
+急性 PVD，僅有飛蚊症~7%當天眼科評估及散瞳眼底檢查
 
-單側進行性凸眼超過 1-3 個月，照鏡子可發現雙眼不對稱
+急性 PVD，飛蚊症 + 閃光~14%當天散瞳檢查
 
-眼球向下、向內偏移（醫師檢查時更明顯）
+急性 PVD + 玻璃體出血~62%立刻檢查，可能需手術
 
-上眼瞼外上 1/3 區域可摸到硬塊或腫脹
+已知視網膜裂孔史顯著升高每年定期追蹤
 
-淚腺區域持續鈍痛、刺痛或麻痺感（重要警訊，見問題 2）
+圖 1 · 後玻璃體剝離 PVD 進展 4 階段（Reichel 2008）
 
-眼球運動受限，尤其是向上、向外看
+迷思 3 · 「閃光感是腦血管問題，不是眼睛」
 
-視力下降、複視、視野缺損
+迷思：看到閃電光點以為是偏頭痛或腦血管問題，先去神經內科。
 
-診斷工具：眼眶電腦斷層（CT）看骨頭破壞與鈣化點；磁振造影（MRI）看軟組織延伸與神經侵犯。良性的多形性腺瘤通常邊界清楚、骨頭壓迫但不破壞；惡性 ACC 則邊界不清、可有骨頭破壞與鈣化點（Ma 2024 案例報告即如此呈現）。
+真相：無外來光源的閃光感（photopsia）在眼科多為玻璃體拉扯視網膜所致，是視網膜裂孔的高風險警訊，需先看眼科。
 
-問題 2 · 「為什麼有些淚腺腫瘤會痛？」
+閃光感（Photopsia)定義：在沒有外界光源的情況下感知到光點、閃電狀光、火花。可分兩大類：
 
-迷思：眼眶腫瘤都是無痛的，會痛應該不是腫瘤。
+眼科性閃光 — 玻璃體拉扯視網膜時，機械刺激讓光感受器放電產生「假光」訊號。典型特徵:單眼、週邊視野（尤其太陽穴側）、暗處更明顯、頭部轉動或眼球轉動會誘發。
 
-真相：疼痛在淚腺腫瘤中是高度懷疑惡性的訊號。腺樣囊狀癌（ACC）有典型的「神經周圍侵犯（perineural invasion）」傾向，沿著三叉神經眼支生長，造成持續鈍痛、刺痛或麻痺感。多形性腺瘤（良性）通常完全不痛。
+偏頭痛先兆（Migraine aura) — 雙眼、中央視野、鋸齒狀「城堡光譜（fortification)」、持續 15-30 分鐘後出現頭痛。
 
-神經周圍侵犯（perineural invasion, PNI）是 ACC 最關鍵的病理特徵之一。癌細胞會沿著神經外膜（perineurium）的潛在空間滲透，特別偏好三叉神經第一支（V1, ophthalmic division）的淚腺神經（lacrimal nerve）與額神經（frontal nerve）。這條路徑可一路向後延伸到：
+大腦皮質性 — 罕見，如癲癇、TIA（暫時性腦缺血）、後皮質視覺異常。
 
-眼眶尖（orbital apex）
+判斷簡單：蓋住一隻眼睛還有閃光 → 那隻眼睛的問題（眼科）;蓋住任一眼都還在 → 雙眼或中樞性問題。
 
-眶上裂（superior orbital fissure）
+眼科性閃光感即使單一次出現也建議當天看眼科散瞳檢查 — 因為可能是視網膜裂孔正在形成。
 
-海綿竇（cavernous sinus）
+迷思 4 · 「只有高度近視才會視網膜剝離」
 
-三叉神經 Meckel's cave
+迷思：我度數不深，大概 200-300 度，應該不用擔心視網膜剝離。
 
-顱內擴散（intracranial spread）
+真相：高度近視（>500 度）風險增加 5-10 倍，但其他危險因子也很多 — 白內障術後、眼外傷、家族史、晶格狀變性等。
 
-這就是為什麼 LGACC 即使「外觀上腫瘤已切除乾淨」，仍可能在 1-2 年內出現顱內復發（Ma 2024 案例即是如此），也是為什麼術後輔助放療不可省略（見問題 4）。
+視網膜剝離（Rhegmatogenous Retinal Detachment, RRD）在一般人群年發生率約10-12 / 10 萬人(Mitry D et al, Br J Ophthalmol 2010;94:678–684 系統性回顧）。主要危險因子：
 
-臨床上要警覺的疼痛特徵：
+高度近視(≤ −5.00 D / 500 度）— 風險增加 5-10 倍。眼軸越長，周邊視網膜越薄，越易裂孔。
 
-持續性、慢性鈍痛，止痛藥效果有限
+白內障手術後 — 約 5-10 倍風險，前 4 年最高，終身仍偏高。手術干擾玻璃體前表面，加速 PVD。
 
-眼眶外上角自發性疼痛或壓痛
+眼部外傷 — 拳擊、運動衝擊、車禍可直接造成裂孔。
 
-合併額頭、上眼瞼麻痺感（V1 神經分布區）
+家族史 — 一等親罹患風險增加 3-4 倍。
 
-夜間或頭部姿勢改變時加重
+晶格狀變性（Lattice degeneration) — 周邊視網膜變薄，8-10% 一般人有，合併 PVD 時裂孔風險顯著升高。
 
-注意：疼痛只發生在部分病人。Ma 2024 報告的 34 歲男性個案就僅有凸眼、無痛，使早期診斷更困難。所以「沒有痛」也不能排除惡性，仍要影像學評估。
+另一眼曾剝離 — 對側眼風險約 10-15%,終身追蹤。
 
-問題 3 · 「醫師說可以保留眼球？是不是治療不徹底？」
+所以即使度數不深，有上述任一危險因子（尤其白內障術後）都應該每年眼底檢查 + 注意警訊。
 
-迷思：眼科腫瘤就是要把整個眼球連同眼眶內容物挖掉（exenteration）才能根治，不然一定復發。
+迷思 5 · 「視網膜剝離只要打雷射就好」
 
-真相：在能達到完整手術切除的篩選病人中，「保留眼球手術 + 輔助放療」與「眼眶內容物清除術」的存活率與局部控制率相當。眼眶內容物清除（exenteration）僅保留給無法保留眼球的進階期或復發病例。
+迷思：聽說視網膜雷射就像補破網，打一次就好了。
 
-過去 30 年，淚腺癌的手術觀念有重大變化：
+真相：雷射只能處理「視網膜裂孔」（尚未剝離）;一旦剝離，需要手術（氣體填充、鞏膜扣壓或玻璃體切除術），恢復期數週到數月。
 
-年代主流觀念佐證研究
+處置的關鍵時機取決於當下狀態：
 
-1980-2000眼眶內容物清除術（orbital exenteration）+ 放療為標準多為單中心個案系列；認為徹底切除可改善局部控制
+階段處置成功率恢復
 
-2000-2015保留眼球手術（eye-sparing surgery）+ 輔助放療逐漸被接受Esmaeli 等系列研究：篩選病人存活率與 exenteration 相當
+視網膜裂孔（尚未剝離）雷射光凝固（Laser retinopexy)或冷凍治療，門診 15 分鐘>95%當日返家;1 週避運動
 
-2015 至今多模式治療：保留眼球 + 質子放療 ± 同步化療 ± 動脈內化療為新趨勢Zhao 2023 BJO; Yan 2024 IJO meta-analysis
+剛剝離 / 局部剝離氣體填充（Pneumatic retinopexy):打氣 + 雷射，術後需特定姿勢 1-2 週~70-80%（挑案）1-2 週，可能合併雷射
 
-哪些病人適合保留眼球手術？關鍵是能否達到顯微鏡下乾淨切除（gross total resection）。可考慮保留眼球的條件：
+大範圍剝離鞏膜扣壓 + 玻璃體切除術（PPV),有時合併矽油填充初次 80-90%,複合性較低數週至數月，矽油 3-6 個月後再取出
 
-腫瘤未直接侵犯眼球本身
+剝離已侵犯黃斑（macula-off)同上，但中央視力預後較差解剖復位 80%,視力恢復差視力多無法回到剝離前
 
-眼眶尖端神經與肌肉複合體仍可保留
+黑幕／視野缺損或視力下降可能是視網膜剝離警訊，請當天就醫；治療時機與預後依病況決定，不能以 24–72 小時作為安全等待或視力保證。
 
-顱內無明確侵犯
+所以發現警訊時的緊急性 = 分秒必爭,絕非「等門診時間」。
 
-病人能接受並完成術後完整輔助放療 + 化療
+圖 2 · 飛蚊症急診分流流程圖（依 AAO PVD/RD/Lattice PPP 2023）
 
-多專科團隊（眼整形、放腫科、頭頸外科）認可
+在家可以做的「視野缺損」自我檢查
 
-仍需 exenteration 的情況：腫瘤瀰漫侵犯眼眶軟組織與肌肉、合併眼球或視神經受侵、復發病例（Ma 2024 案例），或保留眼球後仍將造成嚴重視覺併發症（如腫瘤緊貼視網膜、無法達到放射治療安全劑量）。
+單眼自我檢查 — 30 秒
 
-問題 4 · 「為什麼開完刀還要做放射治療？」
+選擇一面有清晰直線網格的牆面（如磁磚、書架、阿姆斯勒方格表 Amsler grid)。
 
-迷思：腫瘤已經切乾淨了，放療只是多此一舉、副作用又多，可以不做嗎？
+距離 30 公分，先閉左眼,只用右眼看。
 
-真相：不能。輔助放療能將 5 年存活率從 50% 提升至 67%、復發率從 63% 降至 41%。Ma 2024 報告的 34 歲案例就是因為拒絕術後放療，3 個月後復發、最後仍發生顱內轉移。
+視線盯住中央一點，留意四周邊緣有沒有缺損、扭曲、暗影。
 
-目前最完整的證據來自 Yan HH 等人 2024 年發表於 International Journal of Ophthalmology 的系統性回顧與 meta-analysis，整合 30 個研究、585 例 LGACC 病人：
+換閉右眼,只用左眼看，重複。
 
-治療策略5 年總存活率5 年復發率5 年遠端轉移率
+正常雙眼視覺會「補償」單眼盲區 — 必須單眼測試才能發現。
 
-手術 alone50%63%34%
-
-手術 + 輔助放療67% (95% CI 61-73%)41%35%
-
-手術 + 輔助放化療72% (95% CI 59-84%)48%36%
-
-動脈內化療 + 手術 + 放化療78% (95% CI 68-89%)15%（最低）27%
-
-放療標準劑量：60 Gy 分 30 次（每次 2 Gy）給予腫瘤床與危險區。質子治療（IMPT）為近年首選，因為它能更精準避開視網膜、視神經與晶體；MD Anderson 系列 23 例中有 87% 採質子、僅 13% 用一般 IMRT 強度調控放療（Zhao 2023）。
-
-放療時機：術後 4-6 週內啟動，等手術傷口癒合後即開始。延遲過久（>3 個月）會降低治療效果。
-
-問題 5 · 「動脈內化療（IACC）是什麼？台灣有嗎？」
-
-迷思：化療都是打靜脈或吃藥，動脈內化療是不是實驗性治療？
-
-真相：動脈內細胞減量化療（intra-arterial cytoreductive chemotherapy, IACC）由 MD Anderson 的 Tse 與 Esmaeli 團隊開創，從眼動脈（ophthalmic artery）直接灌注高濃度 cisplatin + doxorubicin 到腫瘤，可顯著縮小腫瘤、改善後續手術與放療效果。在 meta-analysis 中達到最佳治療成效（5 年 OS 78%、復發率 15%）。但需要眼科 + 介入放射科 + 放腫科的多專科團隊，目前台灣僅少數醫學中心可執行。
-
-IACC 的原理：
-
-介入放射科醫師經股動脈或橈動脈插管，導入眼動脈（ophthalmic artery, 內頸動脈第一分支）
-
-注入高濃度cisplatin + doxorubicin（典型每療程約 cisplatin 60-100 mg/m² + doxorubicin 20-30 mg/m²）
-
-每 3-4 週一次，總共 3-4 個療程，做為「術前縮瘤（neoadjuvant）」
-
-之後接續手術 + 放化療
-
-為什麼比靜脈化療有效？動脈內給藥讓腫瘤局部濃度比靜脈高 5-10 倍，副作用反而較小（全身性 cisplatin 毒性減少），同時可在術前縮小腫瘤、提高保留眼球的機會。Tse 等 2006 年發表於 Am J Ophthalmol 的初步研究即顯示明顯優勢；Manjandavida 等 2021 年延伸研究中，IACC 組存活率達 87%。
-
-適應症：
-
-AJCC 第 8 版 T2c 以上（腫瘤直徑 >2 cm 或侵犯眼眶骨壁）
-
-MRI 顯示腫瘤體積較大、邊界不清
-
-初診時即有神經周圍侵犯影像學徵象
-
-無眼動脈解剖變異導致無法安全導管
-
-台灣現況：少數設有眼科腫瘤次專科 + 介入放射科團隊的醫學中心可執行，疑似 LGACC 病人應優先轉診至這類醫院討論。健保現多以「神經肌肉血管栓塞或灌注」相關項目給付。
-
-問題 6 · 「治療後視力會剩多少？副作用是什麼？」
-
-迷思：保留眼球但放完療視力一定壞掉，還不如直接拿掉換義眼。
-
-真相：MD Anderson 2023 年 23 例追蹤資料：57% 病人術後視力 ≥ 20/40（仍可閱讀、開車）、13% 中度視力下降、30% 嚴重視力下降（≤ 20/200）。多數病人能保留有用視力，但要為副作用做準備。
-
-Zhao 等 2023 年發表於 British Journal of Ophthalmology 的研究追蹤 23 位 MD Anderson 接受保留眼球手術 + 輔助放療的病人（中位追蹤 37 個月）：
-
-視力結果比例實際意義
-
-≥ 20/4057%（13/23）仍可閱讀、開車、自理生活
-
-中度視力下降（20/40-20/200）13%（3/23）需放大鏡或配戴新眼鏡
-
-嚴重視力下降 ≤ 20/20030%（7/23）達法定低視力標準
-
-主要併發症（按發生率排序）：
-
-併發症發生率處置
-
-乾眼症（淚腺被切除 + 放療傷害）91%（21/23）無防腐劑人工淚液 q1h、淚點塞、自體血清眼藥水、鞏膜鏡
-
-放射性視網膜病變（radiation retinopathy）70%（16/23），中位 17 個月後出現玻璃體腔注射 anti-VEGF（如 Eylea, Lucentis）
-
-白內障進展49%（11/23）白內障手術可顯著改善視力
-
-放射性視神經病變4%（1/23）類固醇治療效果有限，預防為主
-
-外傷性斜視（手術中肌肉損傷）4%（1/23）後續斜視手術或稜鏡眼鏡
-
-健保給付提醒：依健保署藥品給付規定（115.9.22 更新）第 14.9.2 節，玻璃體腔注射 anti-VEGF（ranibizumab、aflibercept、faricimab）的給付適應症限於濕性年齡相關性黃斑部病變、糖尿病黃斑部水腫、多足型脈絡膜血管病變、視網膜靜脈阻塞續發黃斑部水腫及病理性近視脈絡膜新生血管，並須事前審查；早產兒視網膜病變另依第 14.9.7 節。放射性視網膜病變不在所列給付適應症內，治療前請先與醫師確認費用。人工淚液（第 14.5 節）初次使用須經眼科醫師診斷，並符合淚液分泌測試（basal Schirmer test）至少單眼 < 5 mm、淚膜破裂時間（TBUT）< 5 秒，或乾眼造成角膜病變等條件之一，且每月或每 3 個月有處方瓶數上限。細節請與醫師討論。
-
-嚴重視力下降的風險因子（Zhao 2023 多變項分析）：
-
-腫瘤跨越眼眶中線（midline crossing）— 風險顯著上升（P=0.014）
-
-視網膜接受劑量過高（> 40 Gy）
-
-同步化療（concurrent chemotherapy）— 增加放射性視網膜病變風險
-
-注意：研究中5 年總存活率達 93.8%，意義是「多數病人活得下來」，但「活下來的病人中 30% 會嚴重視力下降」。所以治療前的諮詢應同時涵蓋「存活率」與「治療後生活品質」兩個面向。
-
-AJCC 第 8 版 淚腺癌分期摘要
-
-2017 年起改用 AJCC 第 8 版（取代第 7 版）。簡化版分期如下：
-
-T 分期定義典型治療
-
-T1腫瘤 ≤ 2 cm手術 + 輔助放療
-
-T2a腫瘤 > 2 cm 但 ≤ 4 cm手術 + 輔助放療 ± 同步化療
-
-T2b骨頭侵犯或眼眶尖端侵犯多模式治療（可考慮 IACC)
-
-T2c軟組織延伸超出眼眶多模式治療（IACC + 手術 + 放化療）
-
-T3顱內侵犯或大範圍骨破壞多模式 ± 神經外科介入
-
-T4侵犯腦實質或顱內主要血管個別化處置 ± 緩和性治療
-
-長期追蹤建議
-
-LGACC 即使治療完成，晚期復發（5-10 年後）仍可能發生。建議終身追蹤：
-
-第 1-2 年：每 3 個月回診，含眼眶 MRI、胸部 CT（排除肺轉移，最常見的轉移部位）
-
-第 3-5 年：每 6 個月一次
-
-第 5 年後：每年一次，但若有任何新症狀（疼痛、視力變化、複視）立即回診
-
-視力與眼壓監測：每 6 個月（追蹤白內障進展、青光眼、放射性視網膜病變）
+已知有 PVD 病史、高度近視、家族史的族群，建議每週做一次單眼自我檢查。若出現新的視野缺損、暗影／黑幕或視力下降，請當天就醫做眼科評估，不要等到下一次每週自我檢查。新出現的扭曲或變形也需眼科評估；自我檢查不能排除視網膜裂孔或剝離。
 
 主要參考文獻
 
-Yan HH, Liu R, Wang N, Xu LY, Guo QH, Li J, Ma JM. Treatment of lacrimal gland adenoid cystic carcinoma: a systematic review and Meta-analysis. Int J Ophthalmol. 2024;17(1):164-172. doi:10.18240/ijo.2024.01.22
+American Academy of Ophthalmology. Posterior Vitreous Detachment, Retinal Breaks, and Lattice Degeneration Preferred Practice Pattern. Ophthalmology. 2020;127(1):P146-P181.
 
-Ma M, Ren T, Liu R, Wu W, Kang X, Hei Y, Li Y, Li J, Yang X, Tao Y. Recurrent lacrimal gland adenoid cystic carcinoma: A case report and literature review. Heliyon. 2024;10:e33889. doi:10.1016/j.heliyon.2024.e33889
+Hollands H, et al. Acute-onset floaters and flashes: is this patient at risk for retinal detachment? JAMA. 2009;302(20):2243-2249.
 
-Zhao Z, Frank SJ, Ning J, Zhao J, Jiang X, Wang XA, Schefler AC, Hanna E, Moreno A, Gunn B, Ferrarotto R, Esmaeli B. Visual outcome and ocular complications in patients with lacrimal gland carcinoma after eye-sparing surgery and adjuvant radiation therapy. Br J Ophthalmol. 2023;107(12):1914-1919. doi:10.1136/bjo-2022-321889
+Mitry D, et al. The epidemiology of rhegmatogenous retinal detachment: geographical variation and clinical associations. Br J Ophthalmol. 2010;94(6):678-684.
 
-Esmaeli B, Ahmadi MA, Youssef A, Diba R, Amato M, Myers JN, Kies M, El-Naggar A. Outcomes in patients with adenoid cystic carcinoma of the lacrimal gland. Ophthalmic Plast Reconstr Surg. 2004;20(1):22-26.
+Coffee RE, et al. Symptomatic posterior vitreous detachment and the incidence of delayed retinal breaks. Am J Ophthalmol. 2007;144(3):409-413.
 
-Esmaeli B, Golio D, Kies M, DeMonte F. Surgical management of locally advanced adenoid cystic carcinoma of the lacrimal gland. Ophthalmic Plast Reconstr Surg. 2006;22(5):366-370.
+Sebag J. Vitreous and Vision Degrading Myodesopsia. Prog Retin Eye Res. 2020;79:100847.
 
-Tse DT, Benedetto P, Dubovy S, Schiffman JC, Feuer WJ. Clinical analysis of the effect of intraarterial cytoreductive chemotherapy in the treatment of lacrimal gland adenoid cystic carcinoma. Am J Ophthalmol. 2006;141(1):44-53.
+Schwartz SG, Flynn HW. Pneumatic retinopexy. Curr Opin Ophthalmol. 2018;29(3):252-258.
 
-Ahmad SM, Esmaeli B, Williams M, et al. American Joint Committee on Cancer classification predicts outcome of patients with lacrimal gland adenoid cystic carcinoma. Ophthalmology. 2009;116(6):1210-1215.
+Shah CP, Heier JS. YAG Laser Vitreolysis vs Sham YAG Vitreolysis for Symptomatic Vitreous Floaters: A Randomized Clinical Trial. JAMA Ophthalmol. 2017;135(9):918-923.
 
-Manjandavida FP, Stathopoulos C, Zhang J, Honavar SG, Shields CL. Intra-arterial chemotherapy in retinoblastoma — a paradigm change. [methodology reference] Indian J Ophthalmol. 2019. (Manjandavida 2021 LGACC IACC series cited in Yan 2024)
+Myth 1 · "Everyone has floaters; no need to see a doctor"
 
-Bradley EA, Bradley DJ. Adenoid cystic carcinoma of the lacrimal gland: rare … lethal … cured. Ophthalmology. 2013;120(7):1311-1312. doi:10.1016/j.ophtha.2013.05.006
+Myth: Friends say floaters are common — no need to worry, no need to see an ophthalmologist.
 
-AJCC Cancer Staging Manual, 8th edition. New York: Springer; 2017. (Chapter on lacrimal gland carcinoma)
+Truth: Most are benign, but new-onset or sudden increase in floaters demands urgent evaluation — 10–15% have a concurrent retinal break.
 
-Epidemiology references for "20% epithelial / 9% malignant" figures used in this article:
+Floaters are perceived as black dots, lines, or cobweb-like shadows drifting in the visual field. They originate from vitreous opacities — gel-like vitreous protein gradually liquefies with age, forming small aggregates that cast shadows on the retina.
 
-Shields JA, Shields CL, Scartozzi R. Survey of 1264 patients with orbital tumors and simulating lesions: The 2002 Montgomery Lecture, part 1. Ophthalmology. 2004;111(5):997-1008. doi:10.1016/j.ophtha.2003.01.002 — large referral series; lacrimal-fossa lesions made up 9% of orbital cases, of which inflammatory / lymphoid lesions outnumbered epithelial neoplasms.
+Common causes:
 
-Shields CL, Shields JA, Eagle RC, Rathmell JP. Clinicopathologic review of 142 cases of lacrimal gland lesions. Ophthalmology. 1989;96(4):431-435. — classic series demonstrating roughly half non-epithelial / half epithelial split.
+Vitreous syneresis — gradual liquefaction starting after age 30, mostly benign
 
-Wright JE, Rose GE, Garner A. Primary malignant neoplasms of the lacrimal gland. Br J Ophthalmol. 1992;76(7):401-407. — large epithelial tumor cohort showing benign-to-malignant ratio approximately 1:1 within the epithelial subgroup.
+Posterior vitreous detachment (PVD) — most common after age 50; 80%+ of those over 80
 
-Andreoli MT, Aakalu V, Setabutr P. Epidemiology of lacrimal gland and lacrimal sac malignancies in the United States, 1973-2010. Br J Ophthalmol. 2015;99(11):1535-1540. — SEER-based incidence data.
+Uveitis, vitreous hemorrhage — pathologic, needs treatment
 
-📋 Source note · 來源說明
+Retinal break / detachment — emergency
 
-本文「淚腺腫瘤約 20% 為上皮性，9% 為原發性惡性」的數字來自 Zhao 2023 BJO 引用的綜合資料（同時參考 Shields 2004 與 Wright 1992 系列）。不同研究中心因為轉診特性不同，實際比例可能落在「上皮性 15-25%」與「整體惡性 8-13%」之間，但「上皮性中約半數為惡性」的趨勢一致。注意：常被引用的「50/50/50 法則」(50% 非上皮性 / 50% 上皮性，其中 50% 惡性）是教科書記憶法，實際真實世界資料因為大量 IgG4 與淋巴增生個案，非上皮性比例可能更高。
+Sudden new floaters or flashes require same-day ophthalmic assessment to rule out a retinal tear. Long-standing stable floaters without new red flags can be followed according to medical advice.
 
-Quick overview
+Myth 2 · "A sudden increase in floaters is no big deal"
 
-The lacrimal gland sits in the supero-lateral orbit and produces most of the aqueous tear layer. Lacrimal gland tumors account for ~10% of all orbital tumors. Roughly half of lacrimal gland epithelial tumors are malignant; the most common malignancy is adenoid cystic carcinoma (LGACC).
+Myth: I've had a lot of new dark spots these past few days, but they're less obvious in daylight — must be stress or fatigue.
 
-This article focuses on LGACC because it is the most commonly delayed diagnosis, has the most controversial treatment strategy, and the prognosis is most affected by treatment choice.
+Truth: Acute new floaters are textbook posterior vitreous detachment (PVD). 10–15% have a concurrent retinal break — same-day ophthalmic assessment and dilated examination required.
 
-Q1 · "Has my proptosis been around too long?"
+Posterior Vitreous Detachment (PVD) — separation of the posterior vitreous face from the inner retinal surface, common after 50. Mostly benign, but separation can tear the retina.
 
-Myth: Bulging eyes are usually thyroid disease or benign cysts; it can wait.
+Hollands et al's 2009 JAMA systematic review:
 
-Truth: Progressive proptosis lasting 1-3 months, especially with downward-medial globe displacement, must prompt immediate orbital CT or MRI to rule out tumor. Of all lacrimal gland masses, ~20% are epithelial neoplasms; about half of those are malignant — so ~9% overall are primary epithelial malignancies (Zhao 2023 BJO).
+GroupConcurrent retinal breakRecommendation
 
-The most common initial presentation of LGACC is painless, progressive unilateral proptosis. Because the lacrimal gland sits supero-laterally, the tumor pushes the globe downward and medially. According to SEER data (1999-2016, n=118): median age 50-59, male predominance 63.6%, and although most patients are middle-aged, LGACC has been reported in children as young as 7 (Tellado 1997, Golani 2024).
+Acute PVD, floaters only~7%Same-day ophthalmic assessment and dilated fundus examination
 
-Q2 · "Why does some lacrimal gland tumor cause pain?"
+Acute PVD, floaters + flashes~14%Same-day dilated exam
 
-Myth: Orbital tumors are painless — pain probably means infection.
+Acute PVD + vitreous hemorrhage~62%Immediate evaluation, may need surgery
 
-Truth: Pain is a high-suspicion red flag for malignancy in lacrimal gland masses. ACC has a strong tendency for perineural invasion (PNI), spreading along trigeminal V1 branches and producing persistent dull pain or paresthesia. Pleomorphic adenoma (benign) is usually painless.
+Known prior retinal breakMarkedly elevatedAnnual surveillance
 
-PNI is the hallmark pathologic feature of ACC. Cancer cells track along the perineurium of the lacrimal nerve and frontal nerve (V1 branches), with potential spread to the orbital apex, superior orbital fissure, cavernous sinus, Meckel's cave, and intracranially. This explains why even "completely resected" LGACC can recur intracranially within 1-2 years (Ma 2024 case), and why adjuvant radiotherapy is non-negotiable.
+So sudden new floaters absolutely cannot be deferred, even if symptoms seem mild. Even if the first dilated exam shows no break, ~3% develop a delayed break within 1–6 weeks — a follow-up exam at 1 month is typical.
 
-Q3 · "The doctor said we can save the eye — is that incomplete treatment?"
+Myth 3 · "Flashes mean a brain problem, not the eye"
 
-Myth: Orbital cancers always require exenteration; otherwise recurrence is inevitable.
+Myth: Lightning-like flashes — must be migraine or vascular brain issue. See a neurologist first.
 
-Truth: In carefully selected patients with achievable gross total resection, eye-sparing surgery + adjuvant radiotherapy gives equivalent survival and local control compared to orbital exenteration. Exenteration is reserved for advanced or recurrent disease.
+Truth: Flashes (photopsia) without external light source are usually vitreous tugging on retina — a high-risk warning for retinal break. See ophthalmology first.
 
-The treatment paradigm has evolved over 30 years from "exenteration is standard" (1980-2000) to "eye-sparing acceptable in selected cases" (2000-2015) to today's multimodal approach with proton therapy and intra-arterial chemotherapy. Esmaeli's MD Anderson series provided the key evidence base for eye-sparing surgery.
+Photopsia = perception of light/flashes/sparks without external light source. Major categories:
 
-Q4 · "Why do I need radiation if surgery looked clean?"
+Ocular flashes — vitreous traction on retina mechanically activates photoreceptors. Hallmarks: monocular, peripheral (especially temporal), more visible in dim light, triggered by head/eye movement.
 
-Myth: Radiation is overkill if margins are negative; the side effects aren't worth it.
+Migraine aura — binocular, central field, zigzag "fortification spectra," lasts 15–30 minutes, followed by headache.
 
-Truth: Adjuvant RT raises 5-year OS from 50% to 67% and reduces recurrence from 63% to 41%. The 34-year-old in Ma 2024 refused adjuvant RT, recurred at 3 months, and ultimately developed intracranial metastasis.
+Cortical — rare: epilepsy, TIA, posterior cortical visual disturbance.
 
-The most rigorous evidence is Yan HH et al's 2024 systematic review and meta-analysis in International Journal of Ophthalmology (30 studies, 585 patients):
+Quick test: Cover one eye — flashes still there in the other = ocular issue. Persists with either eye covered = bilateral or central origin.
 
-Surgery alone: 5-yr OS 50%, recurrence 63%, metastasis 34%
+Even a single new ocular flash warrants same-day dilated exam — a retinal break may be forming.
 
-Surgery + RT: 5-yr OS 67% (95% CI 61-73%), recurrence 41%
+Myth 4 · "Only high myopes get retinal detachment"
 
-Surgery + chemoradiotherapy: 5-yr OS 72% (59-84%), recurrence 48%
+Myth: I'm only −2.00 to −3.00 D — I shouldn't worry about retinal detachment.
 
-IACC + Surgery + chemoradiotherapy: 5-yr OS 78% (68-89%), recurrence 15% (lowest)
+Truth: High myopia (<−5.00 D) raises risk 5–10×, but other risk factors matter — post-cataract, eye trauma, family history, lattice degeneration.
 
-Standard dose: 60 Gy in 30 fractions. Intensity-modulated proton therapy (IMPT) is now preferred for orbital tumors due to better sparing of retina, optic nerve, and lens.
+Population incidence of rhegmatogenous retinal detachment (RRD) is about 10–12 per 100,000 person-years (Mitry D et al, Br J Ophthalmol 2010;94:678–684 systematic review). Major risk factors:
 
-Q5 · "What is intra-arterial chemo (IACC)?"
+High myopia (≤ −5.00 D) — 5–10× elevated risk; longer axial length thins peripheral retina, easier to tear.
 
-Myth: Intra-arterial chemo sounds experimental.
+Post-cataract surgery — 5–10× increased risk; highest in the first 4 years, lifelong elevation. Surgery disturbs anterior vitreous face, accelerating PVD.
 
-Truth: Intra-arterial cytoreductive chemotherapy (IACC) is a specialized neoadjuvant approach pioneered by Tse and Esmaeli at MD Anderson — high-dose cisplatin + doxorubicin delivered directly via the ophthalmic artery. It produces the best outcomes in meta-analysis (5-yr OS 78%, recurrence 15%) but requires multidisciplinary teams (orbital oncology + interventional radiology + radiation oncology) available only at select tertiary centers.
+Eye trauma — boxing, sports impact, motor vehicle accidents can directly produce breaks.
 
-Q6 · "How much vision will I have left?"
+Family history — first-degree relative raises risk 3–4×.
 
-Myth: Eye-sparing + radiation will destroy vision anyway.
+Lattice degeneration — peripheral retinal thinning in 8–10% of population; risk amplifies markedly when PVD develops.
 
-Truth: MD Anderson 2023 (n=23, median follow-up 37 mo): 57% retain ≥20/40, 13% moderate vision loss, 30% severe vision loss. Most patients keep useful vision, but expect side effects.
+Detachment in fellow eye — ~10–15% lifetime risk in the contralateral eye; lifelong follow-up.
 
-Common ocular complications (Zhao 2023 BJO): dry eye 91%, radiation retinopathy 70% (median onset 17 months), cataract progression 49%, radiation optic neuropathy 4%. Risk factor for severe vision loss: tumor crossing the orbital midline (P=0.014).
+So even with mild myopia, any of the above risk factors (especially post-cataract) warrants annual fundus exam plus warning-sign awareness.
+
+Myth 5 · "Retinal detachment is just a quick laser fix"
+
+Myth: I heard it's like patching a net — laser once and you're done.
+
+Truth: Laser only treats retinal breaks (before detachment). Once detached, surgery is required (gas, scleral buckle, or vitrectomy) with weeks-to-months of recovery.
+
+Treatment timing depends entirely on current stage:
+
+StageTreatmentSuccess rateRecovery
+
+Retinal break (no detachment)Laser retinopexy or cryotherapy, 15-min outpatient>95%Same-day return; avoid exercise 1 wk
+
+Localized fresh detachmentPneumatic retinopexy: gas + laser; specific positioning 1–2 wk post-op~70–80% (selected cases)1–2 weeks; may need additional laser
+
+Extensive detachmentScleral buckle + PPV, sometimes silicone-oil tamponadePrimary 80–90%; lower for complexWeeks to months; oil removed at 3–6 mo
+
+Macula-off (central retina detached)Same, but central visual prognosis worseAnatomic ~80%; visual recovery limitedOften does not return to pre-detachment
+
+A curtain/field defect or reduced vision may signal retinal detachment and requires same-day assessment. Treatment timing and prognosis depend on the condition; 24–72 hours is not a safe waiting window or a guarantee of vision.
+
+Therefore the urgency at symptom onset is not "wait for clinic appointment" — it's emergency-room-level immediate.
+
+A 30-second monocular self-check
+
+Visual field self-test
+
+Choose a wall with clear straight lines (tile, bookshelf, or an Amsler grid).
+
+30 cm distance; close the left eye, view with right.
+
+Fix on a central point; observe whether the peripheral edges show defects, distortion, or shadows.
+
+Switch — close right eye, view with left, repeat.
+
+Binocular vision masks monocular blind spots — always test one eye at a time.
+
+Patients with prior PVD, high myopia, or family history should self-check weekly. A new field defect, shadow/curtain or reduced vision requires same-day ophthalmic assessment; do not wait for the next weekly self-check. New distortion or warping also warrants ophthalmic assessment. Self-checking cannot rule out a retinal tear or detachment.
 
 Key references
 
-Yan HH, et al. Treatment of lacrimal gland adenoid cystic carcinoma: a systematic review and Meta-analysis. Int J Ophthalmol. 2024;17(1):164-172.
+American Academy of Ophthalmology. Posterior Vitreous Detachment, Retinal Breaks, and Lattice Degeneration Preferred Practice Pattern. Ophthalmology. 2020;127(1):P146-P181.
 
-Ma M, et al. Recurrent lacrimal gland adenoid cystic carcinoma: A case report and literature review. Heliyon. 2024;10:e33889.
+Hollands H, et al. Acute-onset floaters and flashes: is this patient at risk for retinal detachment? JAMA. 2009;302(20):2243-2249.
 
-Zhao Z, et al. Visual outcome and ocular complications in patients with lacrimal gland carcinoma after eye-sparing surgery and adjuvant radiation therapy. Br J Ophthalmol. 2023;107(12):1914-1919.
+Mitry D, et al. The epidemiology of rhegmatogenous retinal detachment: geographical variation and clinical associations. Br J Ophthalmol. 2010;94(6):678-684.
 
-Tse DT, et al. Clinical analysis of intraarterial cytoreductive chemotherapy in lacrimal gland ACC. Am J Ophthalmol. 2006;141(1):44-53.
+Coffee RE, et al. Symptomatic posterior vitreous detachment and the incidence of delayed retinal breaks. Am J Ophthalmol. 2007;144(3):409-413.
 
-Esmaeli B, et al. Surgical management of locally advanced adenoid cystic carcinoma of the lacrimal gland. Ophthalmic Plast Reconstr Surg. 2006;22(5):366-370.
+Sebag J. Vitreous and Vision Degrading Myodesopsia. Prog Retin Eye Res. 2020;79:100847.
 
-AJCC Cancer Staging Manual, 8th edition. Springer; 2017.
+Schwartz SG, Flynn HW. Pneumatic retinopexy. Curr Opin Ophthalmol. 2018;29(3):252-258.
 
-🚨 何時應立刻就醫？
+Shah CP, Heier JS. YAG Laser Vitreolysis vs Sham YAG Vitreolysis for Symptomatic Vitreous Floaters: A Randomized Clinical Trial. JAMA Ophthalmol. 2017;135(9):918-923.
 
-單側進行性凸眼超過 1-3 個月，合併眼球往下、往內偏移
+常見問題
 
-淚腺區持續鈍痛或麻痺感 — 神經周圍侵犯的高度警訊
+飛蚊症會自己好嗎？
 
-上眼瞼外上 1/3 摸到硬塊或腫脹
+多數飛蚊症屬於良性的玻璃體混濁或後玻璃體剝離，大腦會逐漸適應，飛蚊在數週到數月後常變得較不明顯，但顆粒本身通常不會完全消失。重點在於：已存在多年、穩定不變的飛蚊可以例行追蹤，然而「新發或突然增多」的飛蚊不能等它自己好，必須先排除視網膜裂孔。
 
-眼球運動受限、複視、視力下降
+突然增多的飛蚊代表什麼？多久內要看醫生？
 
-LGACC 治療後 5-10 年內任何新發疼痛、複視或頭痛 — 警覺晚期復發
+突然增加大量飛蚊、閃光、黑幕／視野缺損或視力下降，請當天就醫做眼科評估。本工具不能排除視網膜裂孔或剝離。長期穩定且沒有新警訊者可依醫師建議追蹤。
+
+看到閃光一定是視網膜出問題嗎？
+
+不一定，但無外來光源的閃光感（photopsia）在眼科多為玻璃體拉扯視網膜所致，是視網膜裂孔的高風險警訊。眼科性閃光的特徵是單眼、出現在週邊視野、暗處更明顯；偏頭痛先兆則多為雙眼、中央視野的鋸齒狀光。簡單判斷：蓋住一隻眼還有閃光，就是那隻眼睛的問題，即使只出現一次也建議當天看眼科散瞳檢查。
+
+只有高度近視的人才會視網膜剝離嗎？
+
+不是。高度近視（500 度以上）確實會讓風險增加 5 到 10 倍，但其他危險因子也很重要，包括白內障手術後、眼部外傷、家族史、晶格狀變性，以及另一眼曾經剝離。因此即使度數不深，只要有上述任一危險因子（尤其白內障術後），都應每年接受眼底檢查並留意警訊。
+
+視網膜剝離是不是打雷射就能解決？
+
+不行。雷射只能處理尚未剝離的視網膜裂孔；已剝離時需由眼科醫師評估手術。突然增加大量飛蚊、閃光、黑幕／視野缺損或視力下降，請當天就醫做眼科評估。本工具不能排除視網膜裂孔或剝離。治療時機與預後依病況決定，不能以等待時限保證結果。
+
+哪些飛蚊症狀需要當天掛急診？
+
+突然增加大量飛蚊、閃光、黑幕／視野缺損或視力下降，請當天就醫做眼科評估。本工具不能排除視網膜裂孔或剝離。
+
+🚨 何時應該立刻就醫？
+
+突然新發大量飛蚊（尤其大量黑點如墨汁）— 立刻急診
+
+閃光感（photopsia）類似閃電 — 當天眼科散瞳檢查
+
+視野缺損像窗簾從周邊往中央拉 — 當天就醫，必要時急診
+
+視力突然模糊或一眼變黑 — 排除視網膜中央動脈阻塞、急性青光眼
 
 延伸閱讀
 
 繼續探索相關眼科主題：
 
-→ 放療後乾眼處置→ 視網膜剝離警訊
+→ 高度近視 + 視網膜風險→ 高度近視黃斑部病變追蹤→ 乾眼症常見問題
 
 ---
 
 ## Additional Articles (links only — size budget reached)
 
 - [甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯](https://hsiao.chendermatologist.com/blog/thyroid-eye-disease)
+- [淚腺腫瘤與淚腺癌：症狀、檢查與治療的 6 個問題](https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor)
 - [兒童近視控制 8 大迷思 — 阿托品、OK 鏡、紅光、戶外時間](https://hsiao.chendermatologist.com/blog/pediatric-myopia-control)
 - [乾眼症 8 大迷思 — 點人工淚液真的越點越乾嗎？](https://hsiao.chendermatologist.com/blog/dry-eye-myths)
 - [眼外傷：被忽視的失明原因｜IGATES 8238 例分析](https://hsiao.chendermatologist.com/blog/ophthalmic-trauma-overlooked-burden)
-- [飛蚊症 6 大警訊 — 突發閃光、視野缺損要立刻看醫生！](https://hsiao.chendermatologist.com/blog/floaters-retinal-detachment)
 
 Note: 5 article(s) listed as links to keep llms-full.txt under the size budget. Fetch the compact map at https://hsiao.chendermatologist.com/llms.txt or the canonical URLs above for full text.
