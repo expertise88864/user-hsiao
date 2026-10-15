@@ -931,7 +931,8 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-badge,:root[data-theme="dark"] .ex-ok .ex-item-label{background:#14532d;color:#dcfce7}
 :root[data-theme="dark"] .ex-no .ex-item-label{background:#36404b;color:#e7e5e4}
 :root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{color:#cfe0ee}
-:root[data-theme="dark"] .ex-mode[aria-pressed="true"],:root[data-theme="dark"] .ex-chip-on,:root[data-theme="dark"] .ex-cta{color:#14181d}
+:root[data-theme="dark"] .ex-mode[aria-pressed="true"],:root[data-theme="dark"] .ex-chip-on,:root[data-theme="dark"] .ex-cta,:root[data-theme="dark"] .ex-cta-btn{color:#14181d}
+:root[data-theme="dark"] .ex-cta.ex-cta-alt{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-note .hs-tip-box{background:#12301d}
 :root[data-theme="dark"] .ex-note .hs-warn-box{background:#332a14}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt[data-correct],:root[data-theme="dark"] body:not(.ex-quiz) .ex-opt[data-correct]{background:#12301d;border-color:#16a34a}
