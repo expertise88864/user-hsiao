@@ -384,6 +384,26 @@ class ReviewEntryTests(unittest.TestCase):
                 self.assertEqual(args, [])
                 self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
 
+    def test_resume_hands_the_rebuttal_to_the_reviewer(self):
+        self.seed_session()
+        rebuttal = self.repo / "rebuttal.txt"
+        rebuttal.write_text("Finding 1 is intended: see AGENTS.md line 8.\n", encoding="utf-8")
+        result, args = self.run_entry("resume", extra_env={"CODEX_REVIEW_REBUTTAL_FILE": str(rebuttal)})
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("Never withdraw a finding on assertion alone. Rebuttal text:\n"
+                      "Finding 1 is intended: see AGENTS.md line 8.", args[-1])
+
+    def test_missing_or_diff_shaped_rebuttal_never_calls_cli(self):
+        state = self.seed_session()
+        diff = self.repo / "rebuttal-diff.txt"
+        diff.write_text("evidence\ndiff --git a/x b/x\n", encoding="utf-8")
+        for path in (self.repo / "missing.txt", diff):
+            with self.subTest(path=path.name):
+                result, args = self.run_entry("resume", extra_env={"CODEX_REVIEW_REBUTTAL_FILE": str(path)})
+                self.assertEqual(result.returncode, 64, result.stderr)
+                self.assertEqual(args, [])
+                self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
+
     def test_missing_resume_context_never_calls_cli(self):
         state = self.seed_session()
         result, args = self.run_entry("resume", SESSION, self.repo / "missing.txt")
