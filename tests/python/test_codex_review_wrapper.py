@@ -322,6 +322,40 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(Path(str(self.capture) + ".git").read_text(encoding="utf-8"),
                          f"'safe.directory'='{top}'")
 
+    def _pr_range(self):
+        def git(*args):
+            return subprocess.run(["git", "-C", str(self.repo), *args], check=True,
+                                  capture_output=True, text=True).stdout.strip()
+        base = git("rev-parse", "HEAD")
+        git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+            "commit", "--allow-empty", "-qm", "fixture-pr-head")
+        return base, git("rev-parse", "HEAD")
+
+    def test_pr_range_is_named_in_first_round_and_resume(self):
+        base, tip = self._pr_range()
+        env = {"CODEX_REVIEW_BASE": base, "CODEX_REVIEW_TIP": tip}
+        result, args = self.run_entry("targeted", base, extra_env=env)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn(f"Committed range {base}..{tip} (one whole pull request: "
+                      "merge-base of main .. exact PR head).", args[-1])
+        result, args = self.run_entry("resume", extra_env=env)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(args[:3], ["exec", "resume", SESSION])
+        self.assertIn(f"The pull request range is now {base}..{tip};", args[-1])
+
+    def test_pr_range_must_be_the_exact_checkout_before_cli(self):
+        base, tip = self._pr_range()
+        cases = ({"CODEX_REVIEW_BASE": base, "CODEX_REVIEW_TIP": base},       # tip is not HEAD
+                 {"CODEX_REVIEW_BASE": base},                                  # tip missing
+                 {"CODEX_REVIEW_BASE": base[:12], "CODEX_REVIEW_TIP": tip},    # abbreviated
+                 {"CODEX_REVIEW_BASE": tip, "CODEX_REVIEW_TIP": tip, "_arg": base})  # arg != env base
+        for env in cases:
+            with self.subTest(env=env):
+                arg = env.pop("_arg", base)
+                result, args = self.run_entry("targeted", arg, extra_env=env)
+                self.assertEqual(result.returncode, 64, result.stderr)
+                self.assertEqual(args, [])
+
     def test_missing_resume_context_never_calls_cli(self):
         state = self.seed_session()
         result, args = self.run_entry("resume", SESSION, self.repo / "missing.txt")

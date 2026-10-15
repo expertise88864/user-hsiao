@@ -31,6 +31,10 @@
 #   CODEX_REVIEW_WINDOWS_SANDBOX  Windows 原生沙箱實作:unelevated(預設)或 elevated。
 #   CODEX_REVIEW_CLI           明示要用的 Codex CLI;未設時由 codex_review_identity.py which
 #                              挑本機版本最高者(npm 0.155.1 不支援 gpt-6.1-sol,桌面版內附的可以)。
+#   CODEX_REVIEW_BASE / CODEX_REVIEW_TIP
+#                              每個 PR review 一次(2026-10-15):tools/pr_review.py 傳入
+#                              merge-base(main, head) 與 PR head 的完整 SHA。本 wrapper 審的是
+#                              目前 checkout,所以 TIP 必須等於 HEAD,否則拒跑。
 set -uo pipefail
 
 MODEL="gpt-6.1-sol"
@@ -67,6 +71,23 @@ case "$MODE" in
   resume)   EFFORT="";       EXTRA_FILE_LIMIT="";  FINDING_LIMIT="" ;;
   *) die "未知 mode '$MODE'(可用:diff | targeted | deep | resume)" ;;
 esac
+
+# 每個 PR review 一次(使用者 2026-10-15 定案):tools/pr_review.py 在乾淨的 PR head
+# checkout 上呼叫,並以環境變數標明整個 PR 範圍。Codex 只看得到這個 checkout,
+# 所以 TIP 必須正是 HEAD、BASE 必須是 TIP 的祖先;不符就拒跑,絕不在 prompt 裡
+# 描述一個審查者看不到的範圍。兩者都只接受完整 40 位小寫十六進位 SHA。
+PR_RANGE=""
+if [ -n "${CODEX_REVIEW_BASE:-}${CODEX_REVIEW_TIP:-}" ]; then
+  for _sha in "${CODEX_REVIEW_BASE:-}" "${CODEX_REVIEW_TIP:-}"; do
+    printf '%s' "$_sha" | grep -Eqx '[0-9a-f]{40}' \
+      || die "CODEX_REVIEW_BASE 與 CODEX_REVIEW_TIP 必須同時提供完整 40 位 SHA。"
+  done
+  [ "$(git -C "$REPO_ROOT" rev-parse --verify --quiet HEAD)" = "$CODEX_REVIEW_TIP" ] \
+    || die "CODEX_REVIEW_TIP 不是目前 checkout 的 HEAD;請先切到 PR head 再審。"
+  git -C "$REPO_ROOT" merge-base --is-ancestor "$CODEX_REVIEW_BASE" "$CODEX_REVIEW_TIP" 2>/dev/null \
+    || die "CODEX_REVIEW_BASE 不是 CODEX_REVIEW_TIP 的祖先。"
+  PR_RANGE="${CODEX_REVIEW_BASE}..${CODEX_REVIEW_TIP}"
+fi
 
 # ---------- codex 旗標(read-only + 隔離) ----------
 build_flags() {   # $1 = effort ; $2 = kind("exec" | "resume",預設 exec)
@@ -259,6 +280,10 @@ RP
     RESUME_PROMPT+=$'\n\nUPDATED TASK CONTEXT (complete scope and coverage requirements):\n'
     RESUME_PROMPT+="$(cat "$RESUME_CTX_FILE")"
   fi
+  # PR flow: the head moved after the fixes; name the exact range under review.
+  if [ -n "$PR_RANGE" ]; then
+    RESUME_PROMPT+=$'\n\n'"The pull request range is now ${PR_RANGE}; inspect the corrections with git diff/log inside that range."
+  fi
 
   echo "[codex-review] resume session=$SID effort=$RESUME_EFFORT (pass $THIS_PASS)"
   : > "$LAST_MSG"
@@ -294,6 +319,9 @@ BASE="${2:-}"
 [ -n "$BASE" ] || die "缺少 base-ref。例:$0 $MODE origin/main [task-context-file]"
 git -C "$REPO_ROOT" rev-parse --verify --quiet "${BASE}^{commit}" >/dev/null \
   || die "base-ref '$BASE' 不存在或無法解析為 commit。請提供有效的 base(如 origin/main)。"
+if [ -n "$PR_RANGE" ] && [ "$(git -C "$REPO_ROOT" rev-parse --verify --quiet "${BASE}^{commit}")" != "$CODEX_REVIEW_BASE" ]; then
+  die "base-ref 與 CODEX_REVIEW_BASE 不一致;PR review 的 base 必須正是 merge-base(main, head)。"
+fi
 
 CTX_FILE="${3:-}"
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
@@ -430,6 +458,10 @@ PROMPT
 # Codex review P2 兩輪:跳脫在 GNU sed 上實測不可靠、字元白名單又誤拒合法 ref,r/d 才是正解;
 # 亦與 .ps1 的字面 .Replace() 行為對齊)。置換失敗即中止,不帶壞 prompt 呼叫 codex。
 printf '%s\n' "$BASE" > "$TMP/base.txt"
+if [ -n "$PR_RANGE" ]; then
+  printf 'Committed range %s (one whole pull request: merge-base of main .. exact PR head).\n' \
+    "$PR_RANGE" >> "$TMP/base.txt"
+fi
 sed -i -e "s|{{MODE}}|$MODE|" \
        -e "s|{{EXTRA_FILE_LIMIT}}|$EXTRA_FILE_LIMIT|" -e "s|{{FINDING_LIMIT}}|$FINDING_LIMIT|" "$TMP/prompt.txt" \
   || die "prompt 構建失敗(sed 置換錯誤)"

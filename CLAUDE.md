@@ -1,5 +1,15 @@
 # Claude Code instructions for HsiaoEye
 
+## 最新使用者定案：每個 PR review 一次（2026-10-15）
+
+本節優先於下方及舊文件中所有「逐 commit review」「review trailer」「audit commit」規則；模型、CI、資料保護、醫療內容核可與視覺基準人工確認要求不變。
+- 不再逐 commit review，也不用 pre-commit／commit-msg hook 審查；commit 不需要 review trailer。
+- 分支推上 `codex/*` 後執行 `python tools/pr_review.py`：開（或找到）指向 main 的 same-repository PR，以 `gpt-6.1-sol`／`xhigh` 經 `scripts/codex_review.sh` 唯讀審查 `merge-base(main, head)..head` 整段 diff（wrapper 以 session 紀錄驗證實際模型），結論與 findings 寫成 PR comment，並在 exact head SHA 設 `codex-review/gpt-6.1-sol` commit status。
+- findings 逐條驗證（CONFIRMED／REJECTED／UNCERTAIN），只修 CONFIRMED；修正後 push，再跑 `python tools/pr_review.py --resume`（同一 session）直到 APPROVE。head 一變，舊 APPROVE 即作廢。
+- 推 main 時 pre-push hook（`_delivery.py`）除候選 CI 外，還要求 exact head 有本人建立的 APPROVE status，且審查範圍涵蓋所有要進 main 的 commit。額度不足時 status 為 quota-pending：可照常發佈但不是通過；額度恢復後用 `python tools/pr_review.py --pending` 找出並補審，結果寫在同一 PR。
+- 不再產生 audit commit；「空 audit commit 也走候選流程」已刪除。純文件變更仍走候選分支、CI 與 PR review。
+- 切換前帶 `Claude-Opus-5-Review: pending` 的舊 commit 仍以 `claude-opus-5-5`／high 補審，結果記在 PR comment 或 issue，不再寫 audit commit。
+
 ## 最新使用者定案：遠端 CI 候選驗證與正式發佈（2026-09-06）
 本節取代下方／舊任務／舊排程中「每次候選 push 前完整本機 CI」及「直接推 main 再修」的規則；不變更醫療內容核可、獨立 Codex/Claude review 或資料保護要求。
 - 四個專案採本機快速檢查與相關回歸測試 → codex/* 候選分支 → 完整遠端 CI → 已驗證同一 SHA 才正常快轉進 main；候選 push 不要求先有完整本機 CI。
@@ -8,18 +18,18 @@
 - HsiaoEye 視覺基準只能由 Ubuntu 產生並人工確認，不自動接受差異；保留 CMS 新修改，衝突停止，不 force-push。CMS 存檔不等於正式發佈完成。
 - 晨報候選 CI 不得寄信、寫回正式 state 或觸發正式排程；變更產報/LLM/外部資料關鍵路徑時另做不寄信 dry-run。既有正式寄信排程不得因候選驗證中斷。
 - CI 失敗持續診斷並修正可確認缺陷，修正後重跑完整遠端驗證；取消、逾時、缺失、讀不到及應跑卻跳過皆不通過。禁止 skip-ci、降門檻或繞 hook 製造全綠。
-- Claude 固定 claude-opus-5 / high / read-only；quota pending 只延後模型審查，不豁免正式發佈的遠端 CI。保留精確 pending/passed/Reviewed-Commit trailers 及重置後補審。
-- main 發佈後還要驗證 exact-SHA 正式 CI／部署及適用 smoke checks，才可宣告交付；純文件與空 audit commit 也走候選流程。
+- 審查方式見上方 2026-10-15 定案（每個 PR 一次，gpt-6.1-sol／xhigh／read-only）；quota pending 只延後模型審查，不豁免正式發佈的遠端 CI。
+- main 發佈後還要驗證 exact-SHA 正式 CI／部署及適用 smoke checks，才可宣告交付；純文件變更也走候選流程。
 - 詳細入口、範圍與限制見 REMOTE_CI_DELIVERY.md。不得把本機快速檢查說成完整 CI，也不得把候選 CI 綠燈當作正式部署成功。
 
 ## 使用者最新定案：本機 CI 全過後推送，GitHub CI 全綠才交付（2026-09-06）
 
-- 所有專案、所有改動與任何分支均適用，包括文件、設定、生成物、修正及空 audit commit。
+- 所有專案、所有改動與任何分支均適用，包括文件、設定、生成物及修正。
 - 每次 push 前，實際待推送版本必須通過完整適用的本機 CI 等效檢查，保存版本與結果證據；模型 review 不能替代 CI。
 - 使用者已明確授權「本機 CI 全過 → push → 驗證該 SHA 的 GitHub CI」流程，不要求第一次 push 前先取得尚未觸發的遠端 CI。
 - push 後核對該 SHA 所有適用 GitHub CI checks，全部成功才可宣告交付完成。失敗、取消、逾時、排隊、執行中、缺失、無法查證或應跑卻跳過都不是全綠；沒有 CI 也不能當成通過。
 - 修正、重新生成、合併、rebase 或新增 commit 後，重新驗證受影響的最終版本；不能拿舊 SHA 的結果替代新 SHA。
-- Claude 額度不足僅延後外審：依既有 pending trailers 與補審排程處理，仍須先通過本機 CI，且該 SHA 的 GitHub CI 全綠前不得宣告完成。audit push 同樣適用。
+- 審查額度不足僅延後 PR review：status 記為 quota-pending，額度恢復後以 `python tools/pr_review.py --pending` 補審；該 SHA 的 GitHub CI 全綠前仍不得宣告完成。
 - 不得用 --no-verify、skip-ci 標記、關閉檢查、降低門檻、修改 branch protection 或 force-push 繞過驗證。
 - 本規則取代舊的「遠端 CI 必須先於第一次 push」敘述；既有內容核可、模型、effort、審查、推送範圍與防覆寫規則仍須遵守。
 

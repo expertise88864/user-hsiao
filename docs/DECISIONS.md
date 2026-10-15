@@ -8,6 +8,7 @@
 - CMS 新 commit 必須納入候選祖先；整合後 SHA 改變就重驗，不 force-push。存檔與正式發佈分開。
 - 視覺基準：只能在 codex/* 的已部署 Preview 上產生 Ubuntu artifact；HTTP 錯誤、登入導向、空主內容不得成為新基準，必須人工確認且另走候選 CI。
 - Codex 使用既有 `scripts/codex_review.sh`，依 2026-10-14 使用者定案一律 `gpt-6.1-sol`／xhigh／read-only（wrapper 以 session 紀錄驗證實際模型，證明不了不算一輪），不使用舊文中的 MCP／貼 diff 範例。Claude `claude-opus-5-5`／high 只用於切換前帶 Claude pending 的補審；保留已完成歷史審查的真實模型。
+- 2026-10-15 使用者定案：每個 PR review 一次，不再逐 commit review、review trailer 或 audit commit。`python tools/pr_review.py` 審 `merge-base(main, head)..head`，結論寫 PR comment 與 exact head 的 `codex-review/gpt-6.1-sol` status；`_delivery.py` 推 main 前要求本人建立的 APPROVE（或註記的 quota-pending）且審查 base 涵蓋所有要進 main 的 commit。
 - 範圍：本機 hook 與 Git 自動部署防護，不宣稱已設定 GitHub server rules 或能阻止管理員手動繞過 Vercel ignored-build。
 - 錨：本次 delivery 設定 commit；重開條件：使用者另行定案。
 
@@ -147,9 +148,9 @@
 
 ### D-20 發佈閘門（依 2026-09-06 D-28 與 2026-09-23 模型定案）
 1. 本機快速檢查與相關回歸；涉及生成時跑必要產生器及固定點驗證。動態建置鏈以 `.github/workflows/quality.yml` 為準。本機結果不能冒充完整遠端 CI。
-2. 完整差異獨立 Codex `gpt-6.1-sol/xhigh/read-only` 審查（2026-10-14 定案取代 Claude diff review），使用 `scripts/codex_review.sh`，以 session 紀錄驗證實際模型。切換前帶 Claude pending 的 commit 仍以 Claude Code 精確 `claude-opus-5-5/high`、唯讀工具補審。額度不足才保留 pending 並補審；不是 APPROVE，也不豁免 CI。
+2. 每個 PR 一次獨立 Codex `gpt-6.1-sol/xhigh/read-only` 審查（2026-10-15 定案；不逐 commit、無 trailer、無 audit commit）：候選推上 `codex/*` 後跑 `python tools/pr_review.py`，經 `scripts/codex_review.sh` 審整段 `merge-base(main, head)..head` 並以 session 紀錄驗證實際模型；修正 CONFIRMED findings 後 `--resume` 至 APPROVE。切換前帶 Claude pending 的 commit 仍以 Claude Code 精確 `claude-opus-5-5/high`、唯讀工具補審，結果記在 PR。額度不足時 status 為 quota-pending 並以 `--pending` 補審；不是 APPROVE，也不豁免 CI。
 3. 正常推 `codex/*` 候選；同 SHA 的完整候選 workflows/jobs/steps、same-repository PR、exact Preview/browser 與適用 Ubuntu 人工視覺核可全部符合，才正常快轉 main。新的修改、生成或整合需要新 SHA 證據，保留 CMS 新提交與受保護修改。
-4. main 後再驗證 exact-SHA 正式 CI、部署與 smoke，才算該批交付；純文件與空 audit commit 同樣適用。缺失、取消、逾時及應跑卻跳過均不通過，禁止 force、no-verify、skip-ci 或降低門檻。
+4. main 後再驗證 exact-SHA 正式 CI、部署與 smoke，才算該批交付；純文件變更同樣適用。缺失、取消、逾時及應跑卻跳過均不通過，禁止 force、no-verify、skip-ci 或降低門檻。
 - **錨**：D-28、`REMOTE_CI_DELIVERY.md`、`_delivery.py`、`_delivery_policy.json`。早期完整本機 CI 後直接 main／歷史 MCP 入口已被取代。
 
 ### D-21 CI drift 也必須核對最終 SHA

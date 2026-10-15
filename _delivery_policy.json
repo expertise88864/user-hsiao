@@ -1,6 +1,7 @@
 {
   "repository": "expertise88864/user-hsiao",
   "require_pr": true,
+  "pr_review": true,
   "preview_paths": [
     "/",
     "/en/",

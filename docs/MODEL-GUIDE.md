@@ -1,6 +1,6 @@
 # MODEL-GUIDE.md — 模型能力路由 + Harness 極限 + 誠實條款
 
-> 2026-09-06 發佈順序更新：以 DECISIONS D-28 與 `REMOTE_CI_DELIVERY.md` 為準。下方 §5 完整本機 CI 後直接 main 的順序已被候選遠端驗證流程取代。獨立二審仍必要，走 `scripts/codex_review.sh`，不使用 §3 歷史 MCP／stdin diff 範例；不得更换指定模型。
+> 2026-09-06 發佈順序更新：以 DECISIONS D-28 與 `REMOTE_CI_DELIVERY.md` 為準。下方 §5 完整本機 CI 後直接 main 的順序已被候選遠端驗證流程取代。獨立二審仍必要，2026-10-15 起每個 PR 一次：`python tools/pr_review.py`（經 `scripts/codex_review.sh`），不逐 commit、不寫 review trailer 或 audit commit，不使用 §3 歷史 MCP／stdin diff 範例；不得更换指定模型。
 
 > **這份檔案的存在理由**：本 repo 未來由**輪替的 AI session**維護，多數是較小模型（Sonnet/Haiku/較舊 Opus）。這份檔案由一個較強模型寫成，把「哪些任務靠自己就能做好、哪些必須升級或求助、遇到能力邊界怎麼辦」固化下來，讓每個弱模型 session 開場就知道自己的邊界，不會**假裝**有它沒有的判斷力。
 > **給正在讀這份檔的你（AI）**：先自問「我現在是什麼等級的模型？」——看系統提示的 model id。然後對照 §1 的表決定你能不能獨立完成手上的任務。**不確定自己能不能做好，就當作不能，走升級路徑。** 過度自信是這個 repo 最貴的失敗模式（YMYL 醫療站，錯誤會傷到真實病人與站主信譽）。
@@ -68,7 +68,7 @@ CLI 後備（任何 session）：`git diff --cached | codex exec -c model="gpt-5
 
 ## 5. 驗證儀式（每個等級都要做，這是品質的地板）
 
-**所有改動（包括文件、設定與 audit commit）→ 完整 pre-push 閘門（DECISIONS D-20）**：
+**所有改動（包括文件與設定）→ 完整 pre-push 閘門（DECISIONS D-20）**：
 ```bash
 python preflight.py          # 生成／靜態子閘門；不得使用 --fast 或 --allow-fallback 當交付證據
 npm run test:api
@@ -76,7 +76,7 @@ python -m unittest discover -s tests/python
 npm run test:seo
 python _check_size_budget.py # 與 hosted Size budget 共用同一份門檻；也已納入 preflight 靜態檢查
 # 完成所有其他適用本機 CI 等效檢查，保存版本、exit code 及平台差異
-# → Codex 二審 APPROVE 與獨立 Opus review（額度例外依 AGENTS pending 規則）
+# → 推 codex/* 候選後 python tools/pr_review.py，整個 PR 一次 Codex APPROVE（額度例外為 quota-pending）
 git push origin main
 python _ci_status.py <sha> --watch   # 無 gh CLI，用這個盯 CI
 ```
