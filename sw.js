@@ -11,8 +11,12 @@
 // v71 -> v72: install no longer precaches LAZY, a content-shape change, which
 // REVIEW-PLAYBOOK §6 requires a bump for (else old installs keep ~19 stale LAZY
 // entries: the 404 sweep skips PRECACHE paths and count-trim idles under 50).
-const CACHE = 'hs-v72';
-const RUNTIME = 'hs-runtime-v35';
+// v72 -> v73 and runtime v35 -> v36: /exam questions moved behind a login. Old
+// caches may hold chapter HTML and /exam/exam-data.json with question text;
+// renaming both makes activate delete them, so no signed-out reader is served
+// a cached copy.
+const CACHE = 'hs-v73';
+const RUNTIME = 'hs-runtime-v36';
 const RUNTIME_MAX_ENTRIES = 60;
 const GENERATED_JSON = new Set([
   '/assets/search-index.json',

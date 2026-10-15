@@ -12,7 +12,12 @@ Sources (hand-maintained):
 
 Outputs (generated, never hand-edit):
   exam/index.html, exam/bcsc<b>-<c>.html, exam/practice.html, exam/review.html,
-  exam/progress.html, exam/search.html, exam/exam-data.json
+  exam/progress.html, exam/search.html, exam/login.html, exam/notes-data.json (public),
+  api/_exam_bank.js (question bank; served only to signed-in readers by api/exam-data.js)
+
+Access: chapter notes are public. Question text, answers and explanations never appear
+in public files (build() fails closed if they do); readers sign in with the shared
+EXAM_PASSWORD (api/exam-login.js) and exam.js fetches the bank from /api/exam-data.
 
 The question bank carries no official answer key, so an answer exists only once
 explanations.json has determined it from BCSC; unanswered questions render in
@@ -31,6 +36,7 @@ import json
 import re
 import sys
 from collections import defaultdict
+from urllib.parse import quote
 from pathlib import Path
 
 from halfwidth_to_fullwidth import convert as fullwidth
@@ -430,15 +436,6 @@ def ref_label(ref) -> str:
     return f"BCSC {book} p.{pages}"
 
 
-def chip_html(key: str, n: int, current: str | None, data: dict) -> str:
-    book, ch = key.split("-")
-    label = f"BCSC {book} · Ch.{ch}"
-    title = esc(data["chapters"][key]["title"])
-    if key == current:
-        return f'<span class="ex-chip ex-chip-on" title="{title}">{esc(label)}</span>'
-    return f'<a class="ex-chip" href="/exam/{slug(key)}#q-{n}" title="{title}">{esc(label)}</a>'
-
-
 DOUBT_CATS = {"outdated", "bcsc_silent", "bcsc_conflict", "ambiguous", "typo"}
 
 
@@ -448,61 +445,8 @@ def cite_meta(ref: dict) -> str:
     return meta + (f" · PMID {ref['pmid']}" if ref.get("pmid") else "")
 
 
-def doubt_html(doubt: dict, answer: str) -> str:
-    """Flagged question: the exam answer and, when guidance has moved on, the current concept."""
-    out = (f'<div class="ex-doubt"><p class="ex-doubt-exam"><span class="ex-doubt-tag">考試答案 {answer}</span>'
-           f'{rich(doubt["exam"])}</p>')
-    if doubt.get("now"):
-        cites = "".join(
-            f'<li><a href="{esc(r["u"])}" target="_blank" rel="noopener noreferrer">{esc(r["t"])}</a>'
-            f'<span class="ex-cite-meta">{esc(cite_meta(r))}</span></li>' for r in doubt["refs"])
-        out += (f'<p class="ex-doubt-now"><span class="ex-doubt-tag ex-doubt-tag-now">現行觀念</span>{rich(doubt["now"])}</p>'
-                f'<ol class="ex-cites">{cites}</ol>')
-    return out + "</div>"
-
-
-def question_html(q: dict, data: dict, *, current: str | None = None) -> str:
-    n = q["n"]
-    expl = data["explanations"].get(str(n))
-    answer = expl["answer"] if expl else ""
-    chips = "".join(chip_html(k, n, current, data) for k in data["tags"][str(n)]["ch"])
-    figure = ""
-    if q.get("image"):
-        img = q["image"]
-        figure = (f'<img class="ex-fig" src="{img["src"]}" alt="第 {n} 題附圖" width="{img["width"]}" '
-                  f'height="{img["height"]}" loading="lazy" decoding="async">')
-    opts = "".join(
-        f'<label class="ex-opt" data-key="{k}"{" data-correct" if k == answer else ""}>'
-        f'<input type="radio" name="ans-{n}" value="{k}"{"" if expl else " disabled"}>'
-        f'<span class="ex-opt-key">{k}</span><span class="ex-opt-text">{rich(v)}</span></label>'
-        for k, v in q["options"].items()
-    )
-    if expl:
-        items = "".join(
-            f'<li class="{"ex-ok" if it["answer"] else "ex-no"}"><span class="ex-item-key">{it["key"]}</span>'
-            f'<span class="ex-item-label">{esc(it["label"])}</span>'
-            f'<span class="ex-item-text">{rich(it["text"])}</span>'
-            f'<span class="ex-item-refs">{"；".join(f"<span class=\"ex-ref\">{esc(ref_label(r))}</span>" for r in it["refs"])}</span></li>'
-            for it in expl["items"]
-        )
-        doubt = data["doubts"].get(str(n))
-        flags = (doubt_html(doubt, answer) if doubt
-                 else "".join(f'<p class="ex-warn">⚠ {rich(f)}</p>' for f in expl.get("flags", [])))
-        reveal = (f'<p class="ex-answer">答案：<strong>{answer}</strong><span class="ex-answer-src">依 BCSC 判斷</span></p>'
-                  f'<p class="ex-summary">{rich(expl["summary"])}</p><ul class="ex-items">{items}</ul>{flags}')
-        actions = ('<div class="ex-actions"><button type="button" class="ex-submit">送出答案</button>'
-                   '<button type="button" class="ex-reset">重新作答</button>'
-                   '<span class="ex-result" aria-live="polite"></span></div>')
-    else:
-        reveal = '<p class="ex-pending">這題的答案與詳解尚未整理（讀到相關章節時會補上）。</p>'
-        actions = '<div class="ex-actions"><span class="ex-result">尚未整理答案，暫時無法作答。</span></div>'
-    return (
-        f'<article class="ex-q{"" if expl else " ex-unanswered"}" id="q-{n}" data-qid="{n}" data-answer="{answer}">'
-        f'<div class="ex-q-head"><span class="ex-q-no">第 {n} 題</span><span class="ex-chips">{chips}</span></div>'
-        f'<p class="ex-stem">{rich(q["stem"])}</p>{figure}'
-        f'<fieldset class="ex-opts"><legend class="ex-sr">第 {n} 題選項</legend>{opts}</fieldset>'
-        f'{actions}<div class="ex-reveal">{reveal}</div></article>'
-    )
+def login_href(target: str) -> str:
+    return "/exam/login?next=" + quote(target, safe="/")
 
 
 def expand_hits(fragment: str, key: str, on_page: set[int]) -> str:
@@ -511,7 +455,7 @@ def expand_hits(fragment: str, key: str, on_page: set[int]) -> str:
         bad = [i for i in nums if i not in on_page]
         if bad:
             raise SystemExit(f"notes {key}: {{{{q:...}}}} cites questions not on this chapter page: {bad}")
-        links = "、".join(f'<a href="#q-{i}">第 {i} 題</a>' for i in nums)
+        links = "、".join(f'<a href="{login_href(f"/exam/{slug(key)}#q-{i}")}" data-q="{i}">第 {i} 題</a>' for i in nums)
         return f'<span class="ex-hit">考過：{links}</span>'
     out = re.sub(r"\{\{q:([0-9,\s]+)\}\}", repl, fragment)
     if "{{" in out:
@@ -540,27 +484,12 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
                       '<p class="ex-pending">這一章的重點尚未整理。</p></section>')
     if qs:
-        groups = []
-        for c in data["concepts"]:
-            members = [q for q in qs if q["n"] in c["qs"]]
-            if len(members) >= 2:
-                groups.append((c, members))
-        groups.sort(key=lambda g: (-len(g[1]), g[1][0]["n"]))
-        grouped = {q["n"] for _c, members in groups for q in members}
-        rest = [q for q in qs if q["n"] not in grouped]
-
-        def cards(items: list) -> str:
-            return "".join(question_html(q, data, current=key) for q in items)
-
-        q_html = MODE_BAR
-        if groups:
-            q_html += ('<p class="ex-meta">考同一個觀念的題目排在一起，可以一次看完不同考法。</p>'
-                       + "".join(f'<h3 class="ex-concept" id="cg-{c["id"]}">考點：{esc(c["title"])}'
-                                 f'<span class="ex-count">{len(members)} 題</span></h3>{cards(members)}'
-                                 for c, members in groups))
-            if rest:
-                q_html += f'<h3 class="ex-concept" id="cg-other">其他考題<span class="ex-count">{len(rest)} 題</span></h3>'
-        q_html += cards(rest)
+        # Questions, answers and explanations are served only to signed-in readers by
+        # /api/exam-data; exam.js renders them here (grouped by concept) after login.
+        q_html = (f'<div class="ex-qs-tools" hidden>{MODE_BAR}</div>'
+                  f'<div id="ex-chapter-qs" class="ex-list" data-chapter="{key}">'
+                  f'<p class="ex-locked">本章歷屆考題 {len(qs)} 題。<a href="{login_href(f"/exam/{slug(key)}")}">登入</a>'
+                  '後可以作答、看答案與詳解。</p></div>')
     else:
         q_html = '<p class="ex-pending">歷屆題庫中沒有標到這一章的題目。</p>'
     body = (
@@ -620,7 +549,9 @@ def hub_page(data: dict, version: str) -> str:
         '<li><a class="ex-cta" href="/exam/practice">模擬考：自選範圍／隨機出題</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/progress">讀書進度</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li>'
-        '<li><a class="ex-cta ex-cta-alt" href="/exam/search">搜尋重點與考題</a></li></ul>'
+        '<li><a class="ex-cta ex-cta-alt" href="/exam/search">搜尋重點與考題</a></li>'
+        '<li><a class="ex-cta ex-cta-alt" href="/exam/login">登入／登出題庫</a></li></ul>'
+        '<p class="ex-meta">課本重點整理公開；歷屆考題、答案與詳解需要登入才能看。</p>'
         + f'<h2 class="ex-h2">出題頻率：最常考的 {TOP_N} 章</h2>'
         '<p class="ex-meta">一題可能同時考到多章，會計入每一章，所以加總會超過題數。這裡統計的是累計題數。</p>'
         '<table class="ex-rank"><thead><tr><th scope="col">章節</th><th scope="col">題數</th>'
@@ -705,6 +636,25 @@ def progress_page(version: str) -> str:
                 robots="noindex,follow", version=version)
 
 
+def login_page(version: str) -> str:
+    body = (
+        '<p class="ex-kicker">題庫登入</p><h1 class="ex-h1">登入題庫</h1>'
+        '<p class="ex-meta">歷屆考題、答案與詳解需要登入才能看；課本重點整理不用登入。登入後 30 天內不需要再輸入密碼。</p>'
+        '<p class="ex-login-msg" role="alert" hidden></p>'
+        '<form class="ex-login" method="post" action="/api/exam-login">'
+        '<input type="hidden" name="next" value="/exam">'
+        '<label class="ex-label" for="ex-password">密碼</label>'
+        '<input id="ex-password" name="password" type="password" class="ex-input" autocomplete="current-password" required>'
+        '<button type="submit" class="ex-cta-btn">登入</button></form>'
+        '<form class="ex-logout" method="post" action="/api/exam-logout">'
+        '<button type="submit" class="ex-link-btn">登出這台裝置</button></form>'
+    )
+    return page(path="/exam/login", title="眼科專科考試題庫登入",
+                description="眼科專科醫師考試讀書筆記的題庫登入頁：登入後可以看歷屆考題、答案與詳解；各章課本重點整理不需要登入即可閱讀。",
+                crumbs=[("登入", "/exam/login")], schema_type="WebPage", body=body, kind="login",
+                robots="noindex,nofollow", version=version)
+
+
 def search_page(version: str) -> str:
     body = (
         '<p class="ex-kicker">搜尋</p><h1 class="ex-h1">搜尋課本重點與歷屆考題</h1>'
@@ -712,7 +662,7 @@ def search_page(version: str) -> str:
         '<label class="ex-sr" for="ex-q">關鍵字</label>'
         '<input id="ex-q" name="q" type="search" class="ex-input" placeholder="例如 HLA-B*1502、AREDS2、Protocol T" autocomplete="off">'
         '<button type="submit" class="ex-cta-btn">搜尋</button></form>'
-        '<p class="ex-meta">同時搜尋題幹、選項、詳解與各章重點整理；英文不分大小寫，多個關鍵字以空白分隔（需全部符合）。</p>'
+        '<p class="ex-meta">搜尋各章重點整理；登入後也會搜尋題幹、選項與詳解。英文不分大小寫，多個關鍵字以空白分隔（需全部符合）。</p>'
         '<div id="ex-search-results" class="ex-list" aria-live="polite"></div>'
     )
     return page(path="/exam/search", title="搜尋眼科專科考試重點與歷屆考題",
@@ -734,7 +684,17 @@ def note_text(fragment: str) -> list[dict]:
     return out
 
 
-def client_data(data: dict) -> dict:
+def notes_data(data: dict) -> dict:
+    """Public: chapter labels, note text for search, and question→chapter numbers for progress."""
+    chapters = {k: {"label": f"BCSC {c['book']} Ch.{c['ch']}", "title": c["title"]} for k, c in data["chapters"].items()}
+    notes = {k: note_text(v) for k, v in data["notes"].items()}
+    books = {str(b["book"]): b["title"] for b in data["books"]}
+    qs = [[q["n"], data["tags"][str(q["n"])]["ch"]] for q in data["questions"] if str(q["n"]) in data["explanations"]]
+    return {"chapters": chapters, "notes": notes, "books": books, "qs": qs, "taxa": TAXON_RE.pattern}
+
+
+def bank_data(data: dict) -> dict:
+    """Signed-in only (served by /api/exam-data): question text, answers, explanations, concept groups."""
     questions = []
     for q in data["questions"]:
         row = {"n": q["n"], "stem": q["stem"], "options": q["options"], "ch": data["tags"][str(q["n"])]["ch"]}
@@ -751,11 +711,15 @@ def client_data(data: dict) -> dict:
                 row["doubt"] = {"exam": doubt["exam"], "now": doubt.get("now", ""), "refs": [
                     {"t": r["t"], "u": r["u"], "s": cite_meta(r)} for r in doubt.get("refs", [])]}
         questions.append(row)
-    chapters = {k: {"label": f"BCSC {c['book']} Ch.{c['ch']}", "title": c["title"]} for k, c in data["chapters"].items()}
-    notes = {k: note_text(v) for k, v in data["notes"].items()}
-    books = {str(b["book"]): b["title"] for b in data["books"]}
-    return {"questions": questions, "chapters": chapters, "notes": notes, "books": books,
-            "taxa": TAXON_RE.pattern}
+    concepts = [{"id": c["id"], "t": c["title"], "qs": c["qs"]} for c in data["concepts"]]
+    return {"questions": questions, "concepts": concepts}
+
+
+def bank_module(data: dict) -> str:
+    payload = json.dumps(bank_data(data), ensure_ascii=False, separators=(",", ":"))
+    return ("// Generated by _gen_exam.py — do not edit. Signed-in exam bank, read only by api/exam-data.js.\n"
+            "// Underscore-prefixed api/ modules are not routes, so this is never served directly.\n"
+            f"export const EXAM_BANK_JSON = {json.dumps(payload, ensure_ascii=False)};\n")
 
 
 def build() -> dict[str, str]:
@@ -769,8 +733,17 @@ def build() -> dict[str, str]:
     files["review.html"] = review_page(version)
     files["progress.html"] = progress_page(version)
     files["search.html"] = search_page(version)
-    files["exam-data.json"] = json.dumps(client_data(data), ensure_ascii=False, separators=(",", ":")) + "\n"
+    files["login.html"] = login_page(version)
+    files["notes-data.json"] = json.dumps(notes_data(data), ensure_ascii=False, separators=(",", ":")) + "\n"
     files["../api/_exam_routes.js"] = routes_module(data)
+    files["../api/_exam_bank.js"] = bank_module(data)
+    # Fail closed: no public file may carry question cards or question text.
+    stems = [q["stem"].strip()[:60] for q in data["questions"] if len(q["stem"].strip()) >= 30]
+    for name, content in files.items():
+        if name == "../api/_exam_bank.js":
+            continue
+        if '<article class="ex-q' in content or any(stem in content for stem in stems):
+            raise SystemExit(f"{name}: public exam output must not contain question text")
     return files
 
 
@@ -906,6 +879,14 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-hitbox{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:14px;line-height:1.8}
 .ex-hitbox a{color:var(--ex-accent);font-weight:700}
 .ex-hitbox mark{background:#fef08a;color:inherit;border-radius:3px}
+.ex-locked{background:var(--ex-soft);border:1px dashed var(--border);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.8}
+.ex-locked a,.ex-hit a{font-weight:700}
+.ex-login{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
+.ex-label{font-weight:700;font-size:14px}
+.ex-login .ex-input{flex:1;min-width:12em}
+.ex-login-msg{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px 12px;font-size:14px;color:#991b1b}
+.ex-link-btn{background:none;border:0;padding:0;color:var(--ex-accent);text-decoration:underline;cursor:pointer;font-size:13px}
+.ex-qs-tools[hidden]{display:none}
 .ex-doubt{margin:10px 0 0;border:1px solid #f3d38a;background:#fffbeb;border-radius:10px;padding:8px 12px;font-size:13.5px;line-height:1.8}
 .ex-doubt p{margin:4px 0}
 .ex-doubt-tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:6px;background:#fde68a;color:#713f12}
@@ -946,6 +927,8 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-note .ex-trap{background:#2d1616;border-color:#7f1d1d}
 :root[data-theme="dark"] .ex-note .ex-trap h3{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc{border-color:#36404b}
+:root[data-theme="dark"] .ex-locked{border-color:#36404b}
+:root[data-theme="dark"] .ex-login-msg{background:#3a1a1a;border-color:#7f1d1d;color:#fecaca}
 :root[data-theme="dark"] .ex-doubt{background:#2a2414;border-color:#5c4a1a}
 :root[data-theme="dark"] .ex-doubt-tag{background:#5c4a1a;color:#fde68a}
 :root[data-theme="dark"] .ex-doubt-tag-now{background:#1e3a5f;color:#dbeafe}
