@@ -284,6 +284,18 @@ RP
   if [ -n "$PR_RANGE" ]; then
     RESUME_PROMPT+=$'\n\n'"The pull request range is now ${PR_RANGE}; inspect the corrections with git diff/log inside that range."
   fi
+  # 續審時上一次裁決所審的 head(pr_review.py 設定):續審必須涵蓋 PREV..TIP 的**所有**變更,
+  # 不只修正 —— 否則 APPROVE 後再推的其他 commit 會在「只看修正」的指示下被略過。
+  PREV_TIP="${CODEX_REVIEW_PREV_TIP:-}"
+  if [ -n "$PREV_TIP" ]; then
+    printf '%s' "$PREV_TIP" | grep -Eqx '[0-9a-f]{40}' || die "CODEX_REVIEW_PREV_TIP 必須是完整 40 碼 SHA。"
+    # PR_RANGE 只在 CODEX_REVIEW_BASE/TIP 皆有效且 TIP 正是 HEAD 時才會設定(見上方檢查)。
+    [ -n "$PR_RANGE" ] || die "CODEX_REVIEW_PREV_TIP 只用於 PR 續審(需同時有 CODEX_REVIEW_BASE 與 CODEX_REVIEW_TIP)。"
+    git -C "$REPO_ROOT" merge-base --is-ancestor "$PREV_TIP" "$CODEX_REVIEW_TIP" 2>/dev/null \
+      || die "CODEX_REVIEW_PREV_TIP 不是 CODEX_REVIEW_TIP 的祖先;請重跑第一輪。"
+    # An APPROVE here covers the whole new head, so every new commit is in scope.
+    RESUME_PROMPT+=$'\n\n'"Scope override: your previous verdict covered ${PREV_TIP}. Review EVERY change in ${PREV_TIP}..${CODEX_REVIEW_TIP} (git log/diff ${PREV_TIP}..${CODEX_REVIEW_TIP}), not only corrections: any other commit pushed since then gets the same full review contract, severities and limits as the first pass. Also confirm the previous CONFIRMED findings are resolved."
+  fi
 
   echo "[codex-review] resume session=$SID effort=$RESUME_EFFORT (pass $THIS_PASS)"
   : > "$LAST_MSG"

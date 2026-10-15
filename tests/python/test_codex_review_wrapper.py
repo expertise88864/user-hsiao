@@ -356,6 +356,34 @@ class ReviewEntryTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 64, result.stderr)
                 self.assertEqual(args, [])
 
+    def test_resume_scope_covers_every_commit_since_the_last_verdict(self):
+        base, tip = self._pr_range()
+        self.seed_session()
+        env = {"CODEX_REVIEW_BASE": base, "CODEX_REVIEW_TIP": tip, "CODEX_REVIEW_PREV_TIP": base}
+        result, args = self.run_entry("resume", extra_env=env)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn(f"Scope override: your previous verdict covered {base}. "
+                      f"Review EVERY change in {base}..{tip}", args[-1])
+
+    def test_invalid_previous_tip_never_calls_cli(self):
+        base, tip = self._pr_range()
+        state = self.seed_session()
+        pr = {"CODEX_REVIEW_BASE": base, "CODEX_REVIEW_TIP": tip}
+        unrelated = subprocess.run(
+            ["git", "-C", str(self.repo), "-c", "user.name=Fixture", "-c",
+             "user.email=fixture@example.invalid", "commit-tree", "-m", "unrelated",
+             "4b825dc642cb6eb9a060e54bf8d69288fbee4904"],
+            check=True, capture_output=True, text=True).stdout.strip()
+        cases = ({**pr, "CODEX_REVIEW_PREV_TIP": base[:12]},     # abbreviated
+                 {"CODEX_REVIEW_PREV_TIP": base},                # no PR range
+                 {**pr, "CODEX_REVIEW_PREV_TIP": unrelated})     # not an ancestor of the tip
+        for env in cases:
+            with self.subTest(env=env):
+                result, args = self.run_entry("resume", extra_env=env)
+                self.assertEqual(result.returncode, 64, result.stderr)
+                self.assertEqual(args, [])
+                self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
+
     def test_missing_resume_context_never_calls_cli(self):
         state = self.seed_session()
         result, args = self.run_entry("resume", SESSION, self.repo / "missing.txt")
