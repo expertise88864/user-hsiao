@@ -1,19 +1,18 @@
 const { test, expect } = require('@playwright/test');
 test.use({ serviceWorkers: 'block' });
 
-// Owner request 2026-10-15: questions link back to the matching note section,
-// same-concept questions sit together, and a per-chapter progress overview.
+// Owner request 2026-10-15: same-concept questions sit together under 「考點」
+// headings and a per-chapter progress overview. Follow-up the same day:
+// explanations carry no "回去看重點" / "同考點" lines (the notes' own 「考過」
+// markers are enough), so they must not reappear.
 
-test('chapter questions link to their note sections and same-concept groups', async ({ page }) => {
+test('chapter pages group same-concept questions without link lines in explanations', async ({ page }) => {
   await page.goto('/exam/bcsc12-4');
-  const goto = page.locator('.ex-goto a').first();
-  await expect(goto).toBeAttached();
-  const id = (await goto.getAttribute('href')).replace(/^#/, '');
-  await expect(page.locator(`[id="${id}"]`)).toHaveCount(1);
   await expect(page.locator('.ex-concept').first()).toContainText('考點：');
-  const sibling = page.locator('.ex-sibs a[href^="#q-"]').first();
-  const target = (await sibling.getAttribute('href')).slice(1);
-  await expect(page.locator(`[id="${target}"]`)).toHaveCount(1);
+  await expect(page.locator('.ex-note .ex-hit a').first()).toBeAttached();
+  await expect(page.locator('.ex-note h3[id]').first()).toBeAttached();
+  await expect(page.locator('.ex-goto, .ex-sibs')).toHaveCount(0);
+  await expect(page.locator('.ex-reveal').filter({ hasText: '回去看重點' })).toHaveCount(0);
 });
 
 test('answering and marking a chapter read shows up on the progress page', async ({ page }) => {
@@ -60,11 +59,10 @@ test('toggling a progress checkbox keeps focus and expanded books', async ({ pag
   await expect(page.locator('input[data-chapter="12-4"]')).toBeFocused();
 });
 
-test('client-rendered cards carry the note and same-concept links', async ({ page }) => {
+test('client-rendered cards carry no note or same-concept link lines', async ({ page }) => {
   await page.goto('/exam/search?q=AREDS2');
-  const card = page.locator('#ex-search-results .ex-q').first();
-  await expect(card).toBeVisible();
-  await expect(page.locator('#ex-search-results .ex-goto a[href^="/exam/bcsc"]').first()).toBeAttached();
+  await expect(page.locator('#ex-search-results .ex-q').first()).toBeVisible();
+  await expect(page.locator('#ex-search-results .ex-goto, #ex-search-results .ex-sibs')).toHaveCount(0);
 });
 
 // Owner request 2026-10-15: flagged questions show the exam answer's rationale

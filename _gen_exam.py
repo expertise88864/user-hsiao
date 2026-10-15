@@ -173,11 +173,8 @@ def load() -> dict:
         notes[key] = path.read_text(encoding="utf-8")
         check_traditional(path.name, notes[key])
         check_note_markup(key, notes[key])
-    note_links: dict[int, list] = defaultdict(list)
     for key in notes:
-        notes[key], links = anchor_notes(key, notes[key])
-        for n, spots in links.items():
-            note_links[n].extend((key, hid, label) for hid, label in spots)
+        notes[key] = anchor_notes(key, notes[key])
     doubts = json.loads((DATA / "doubts.json").read_text(encoding="utf-8"))
     for n, d in doubts.items():
         if n not in explanations or d.get("cat") not in DOUBT_CATS or not d.get("exam"):
@@ -203,16 +200,12 @@ def load() -> dict:
         for key in tags[str(q["n"])]["ch"]:
             by_chapter[key].append(q)
     return {"questions": questions, "tags": tags, "explanations": explanations, "books": books,
-            "chapters": chapters, "notes": notes, "by_chapter": by_chapter, "note_links": note_links,
-            "concepts": concepts, "concept_of": concept_of, "doubts": doubts}
+            "chapters": chapters, "notes": notes, "by_chapter": by_chapter,
+            "concepts": concepts, "doubts": doubts}
 
 
-def anchor_notes(key: str, fragment: str) -> tuple[str, dict[int, list]]:
-    """Give every <h3> an id and map each {{q:...}} citation to its nearest heading.
-
-    Returns the anchored fragment and {question: [(heading id, "h2 › h3" label)]},
-    which the question cards use for their "回去看重點" links.
-    """
+def anchor_notes(key: str, fragment: str) -> str:
+    """Give every note <h3> an id ("<h2 id>-<n>") so each subsection can be linked."""
     h2 = {"id": "", "n": 0}
 
     def add_id(m: re.Match) -> str:
@@ -231,21 +224,7 @@ def anchor_notes(key: str, fragment: str) -> tuple[str, dict[int, list]]:
     ids = re.findall(r'<h[23]\b[^>]*\sid="([^"]+)"', fragment)
     if len(ids) != len(set(ids)):
         raise SystemExit(f"notes {key}: duplicate heading ids")
-    links: dict[int, list] = defaultdict(list)
-    h2_text, spot = "", None
-    for m in re.finditer(r'<(h2|h3)\b[^>]*\sid="([^"]+)"[^>]*>(.*?)</\1>|\{\{q:([0-9,\s]+)\}\}', fragment, re.S):
-        if m.group(1):
-            text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", m.group(3)))).strip()
-            if m.group(1) == "h2":
-                h2_text = text
-                spot = (m.group(2), text)
-            else:
-                spot = (m.group(2), f"{h2_text} › {text}" if h2_text else text)
-            continue
-        for n in (int(i) for i in re.split(r"\s*,\s*", m.group(4).strip()) if i):
-            if spot and spot not in links[n]:
-                links[n].append(spot)
-    return fragment, links
+    return fragment
 
 
 def slug(key: str) -> str:
@@ -460,13 +439,6 @@ def chip_html(key: str, n: int, current: str | None, data: dict) -> str:
     return f'<a class="ex-chip" href="/exam/{slug(key)}#q-{n}" title="{title}">{esc(label)}</a>'
 
 
-def note_spots(n: int, data: dict) -> list[tuple[str, str, str]]:
-    """Note sections that cover question n; else the notes of its chapters that have any."""
-    spots = data["note_links"].get(n) or [(k, "notes-h", "本章重點整理")
-                                          for k in data["tags"][str(n)]["ch"] if k in data["notes"]]
-    return spots[:4]
-
-
 DOUBT_CATS = {"outdated", "bcsc_silent", "bcsc_conflict", "ambiguous", "typo"}
 
 
@@ -489,26 +461,7 @@ def doubt_html(doubt: dict, answer: str) -> str:
     return out + "</div>"
 
 
-def goto_html(n: int, data: dict, current: str | None) -> str:
-    links = []
-    for key, hid, label in note_spots(n, data):
-        href = f"#{hid}" if key == current else f"/exam/{slug(key)}#{hid}"
-        text = label if key == current else f"{chapter_label(data['chapters'][key])} › {label}"
-        links.append(f'<a href="{href}">{esc(text)}</a>')
-    return f'<p class="ex-goto">回去看重點：{"、".join(links)}</p>' if links else ""
-
-
-def siblings_html(n: int, data: dict, on_page: set[int]) -> str:
-    c = data["concept_of"].get(n)
-    if not c:
-        return ""
-    links = "、".join(
-        f'<a href="{"" if m in on_page else "/exam/" + slug(data["tags"][str(m)]["ch"][0])}#q-{m}">第 {m} 題</a>'
-        for m in c["qs"] if m != n)
-    return f'<p class="ex-sibs">同考點（{esc(c["title"])}）：{links}</p>'
-
-
-def question_html(q: dict, data: dict, *, current: str | None = None, on_page: set[int] = frozenset()) -> str:
+def question_html(q: dict, data: dict, *, current: str | None = None) -> str:
     n = q["n"]
     expl = data["explanations"].get(str(n))
     answer = expl["answer"] if expl else ""
@@ -536,8 +489,7 @@ def question_html(q: dict, data: dict, *, current: str | None = None, on_page: s
         flags = (doubt_html(doubt, answer) if doubt
                  else "".join(f'<p class="ex-warn">⚠ {rich(f)}</p>' for f in expl.get("flags", [])))
         reveal = (f'<p class="ex-answer">答案：<strong>{answer}</strong><span class="ex-answer-src">依 BCSC 判斷</span></p>'
-                  f'<p class="ex-summary">{rich(expl["summary"])}</p><ul class="ex-items">{items}</ul>{flags}'
-                  f'{goto_html(n, data, current)}{siblings_html(n, data, on_page)}')
+                  f'<p class="ex-summary">{rich(expl["summary"])}</p><ul class="ex-items">{items}</ul>{flags}')
         actions = ('<div class="ex-actions"><button type="button" class="ex-submit">送出答案</button>'
                    '<button type="button" class="ex-reset">重新作答</button>'
                    '<span class="ex-result" aria-live="polite"></span></div>')
@@ -588,7 +540,6 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
                       '<p class="ex-pending">這一章的重點尚未整理。</p></section>')
     if qs:
-        on_page = {q["n"] for q in qs}
         groups = []
         for c in data["concepts"]:
             members = [q for q in qs if q["n"] in c["qs"]]
@@ -599,7 +550,7 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         rest = [q for q in qs if q["n"] not in grouped]
 
         def cards(items: list) -> str:
-            return "".join(question_html(q, data, current=key, on_page=on_page) for q in items)
+            return "".join(question_html(q, data, current=key) for q in items)
 
         q_html = MODE_BAR
         if groups:
@@ -799,18 +750,12 @@ def client_data(data: dict) -> dict:
             if doubt:
                 row["doubt"] = {"exam": doubt["exam"], "now": doubt.get("now", ""), "refs": [
                     {"t": r["t"], "u": r["u"], "s": cite_meta(r)} for r in doubt.get("refs", [])]}
-        spots = note_spots(q["n"], data)
-        if spots:
-            row["go"] = [list(s) for s in spots]
-        if q["n"] in data["concept_of"]:
-            row["cg"] = data["concepts"].index(data["concept_of"][q["n"]])
         questions.append(row)
     chapters = {k: {"label": f"BCSC {c['book']} Ch.{c['ch']}", "title": c["title"]} for k, c in data["chapters"].items()}
     notes = {k: note_text(v) for k, v in data["notes"].items()}
     books = {str(b["book"]): b["title"] for b in data["books"]}
-    concepts = [{"t": c["title"], "qs": c["qs"]} for c in data["concepts"]]
     return {"questions": questions, "chapters": chapters, "notes": notes, "books": books,
-            "concepts": concepts, "taxa": TAXON_RE.pattern}
+            "taxa": TAXON_RE.pattern}
 
 
 def build() -> dict[str, str]:
@@ -968,9 +913,6 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-cites{margin:2px 0 4px;padding-left:22px;font-size:12.5px;line-height:1.7}
 .ex-cites a{color:var(--ex-accent);word-break:break-word}
 .ex-cite-meta{margin-left:6px;color:var(--muted)}
-.ex-goto,.ex-sibs{font-size:13px;line-height:1.8;margin:8px 0 0;color:var(--ink-2)}
-.ex-goto a,.ex-sibs a{color:var(--ex-accent);font-weight:600}
-.ex-goto{background:var(--ex-soft);border-radius:8px;padding:6px 10px}
 .ex-concept{font-size:15px;font-weight:700;margin:26px 0 4px;padding-top:10px;border-top:1px solid var(--line);color:var(--ex-accent);scroll-margin-top:80px}
 .ex-concept .ex-count{margin-left:8px;font-weight:500}
 .ex-strip{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:8px 14px;margin:10px 0;font-size:13.5px}

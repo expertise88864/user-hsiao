@@ -326,28 +326,6 @@
       reveal.appendChild(items);
       (q.expl.flags || []).forEach(function (f) { reveal.appendChild(rich('p', 'ex-warn', '⚠ ' + f)); });
       if (q.doubt) reveal.appendChild(doubtBox(q));
-      if (q.go && q.go.length) {
-        var go = el('p', 'ex-goto', '回去看重點：');
-        q.go.forEach(function (spot, i) {
-          if (i) go.appendChild(document.createTextNode('、'));
-          var a = el('a', null, data.chapters[spot[0]].label + ' › ' + spot[2]);
-          a.href = '/exam/bcsc' + spot[0] + '#' + spot[1];
-          go.appendChild(a);
-        });
-        reveal.appendChild(go);
-      }
-      var concept = typeof q.cg === 'number' ? data.concepts[q.cg] : null;
-      if (concept) {
-        var sibs = el('p', 'ex-sibs', '同考點（' + concept.t + '）：');
-        var byN = questionIndex(data);
-        concept.qs.filter(function (m) { return m !== q.n; }).forEach(function (m, i) {
-          if (i) sibs.appendChild(document.createTextNode('、'));
-          var link = el('a', null, '第 ' + m + ' 題');
-          link.href = '/exam/bcsc' + byN[m].ch[0] + '#q-' + m;
-          sibs.appendChild(link);
-        });
-        reveal.appendChild(sibs);
-      }
     } else {
       reveal.appendChild(el('p', 'ex-pending', '這題的答案與詳解尚未整理（讀到相關章節時會補上）。'));
     }
@@ -371,14 +349,6 @@
     return dataPromise;
   }
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
-  var qIndex = null;
-  function questionIndex(data) {
-    if (!qIndex) {
-      qIndex = {};
-      data.questions.forEach(function (q) { qIndex[q.n] = q; });
-    }
-    return qIndex;
-  }
 
   // ---------------------------------------------------------- progress page
   function renderProgress(out, focusKey) {
