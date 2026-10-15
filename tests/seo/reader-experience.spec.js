@@ -2,15 +2,16 @@ const { test, expect } = require('@playwright/test');
 test.use({ serviceWorkers: 'block' });
 
 for (const prefix of ['', '/en']) {
-  // Owner decision 2026-10-15: the homepage hero carries only the eyebrow,
-  // title and cover story — no lede, no audience buttons, no reading lanes.
-  test(`homepage hero has no audience lanes or lede ${prefix || 'zh'}`, async ({ browser }) => {
+  // Owner decision 2026-10-15: the homepage hero keeps its title and lede but
+  // has no audience buttons and no reading lanes.
+  test(`homepage hero keeps the lede without audience lanes ${prefix || 'zh'}`, async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled:false, viewport:{width:390,height:844} });
     const page = await context.newPage();
     const base = test.info().project.use.baseURL;
     await page.goto(base + prefix + '/');
     await expect(page.locator('.mag-title')).toBeVisible();
-    await expect(page.locator('.hs-reader-ctas, .hs-reading-lanes, .mag-lede, #patient-reading, #research-reading')).toHaveCount(0);
+    await expect(page.locator('.mag-lede')).toHaveCount(1);
+    await expect(page.locator('.hs-reader-ctas, .hs-reading-lanes, #patient-reading, #research-reading')).toHaveCount(0);
     await context.close();
   });
 }
