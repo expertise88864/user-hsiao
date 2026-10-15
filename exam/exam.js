@@ -1,6 +1,8 @@
 /* Board-exam review pages (/exam/**): quiz/browse mode, practice exams, wrong-answer
- * notebook, search and Anki export. Pages are fully rendered as static HTML; this
- * script only adds interaction. Progress lives in localStorage on this device only.
+ * notebook, search and Anki export. Chapter notes are static and public; the question
+ * bank (questions, answers, explanations) is fetched from /api/exam-data, which only
+ * answers signed-in readers, and rendered here. Progress lives in localStorage on this
+ * device only.
  * All dynamic text is inserted with textContent / DOM nodes (no innerHTML), and the
  * pages carry no inline script, so this file also starts the shared site chrome. */
 (function () {
@@ -74,9 +76,9 @@
       var s = all[card.getAttribute('data-qid')];
       if (validStat(s)) { done += 1; right += s[0]; }
     });
-    strip.querySelector('.ex-strip-text').textContent = done
-      ? '已作答 ' + done + ' / ' + cards.length + ' 題 · 正確率 ' + percent(right, done)
-      : '本章 ' + cards.length + ' 題，還沒有作答紀錄';
+    strip.querySelector('.ex-strip-text').textContent = !cards.length ? '登入題庫後可以作答並記錄進度'
+      : done ? '已作答 ' + done + ' / ' + cards.length + ' 題 · 正確率 ' + percent(right, done)
+        : '本章 ' + cards.length + ' 題，還沒有作答紀錄';
   }
   function initStrip(strip) {
     var key = strip.getAttribute('data-progress-chapter');
@@ -334,25 +336,69 @@
     return card;
   }
 
-  var dataPromise = null;
-  function examData() {
-    if (!dataPromise) {
-      var src = document.querySelector('script[src^="/exam/exam.js"]');
-      var v = src ? (src.getAttribute('src').split('?v=')[1] || '') : '';
-      dataPromise = fetch('/exam/exam-data.json' + (v ? '?v=' + v : ''), { credentials: 'same-origin' })
+  function assetVersion() {
+    var src = document.querySelector('script[src^="/exam/exam.js"]');
+    return src ? (src.getAttribute('src').split('?v=')[1] || '') : '';
+  }
+  var notesPromise = null;
+  // Public: chapter labels, note text for search, question→chapter numbers for progress.
+  function notesData() {
+    if (!notesPromise) {
+      var v = assetVersion();
+      notesPromise = fetch('/exam/notes-data.json' + (v ? '?v=' + v : ''), { credentials: 'same-origin' })
         .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
         .then(function (data) {
           try { if (data.taxa) taxonRe = new RegExp(data.taxa, 'g'); } catch (e) { taxonRe = null; }
           return data;
         });
     }
-    return dataPromise;
+    return notesPromise;
+  }
+  var bankPromise = null;
+  // Signed-in only: the server answers 401 without a valid session cookie.
+  function bankData() {
+    if (!bankPromise) {
+      bankPromise = fetch('/api/exam-data', { credentials: 'same-origin', cache: 'no-store' })
+        .then(function (r) {
+          if (r.status === 401 || r.status === 503) {
+            var err = new Error('login required');
+            err.login = true;
+            throw err;
+          }
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        });
+    }
+    return bankPromise;
+  }
+  function examData() {
+    return Promise.all([notesData(), bankData()]).then(function (both) {
+      return { questions: both[1].questions, concepts: both[1].concepts, chapters: both[0].chapters,
+        notes: both[0].notes, books: both[0].books };
+    });
+  }
+  function loginHref() {
+    return '/exam/login?next=' + encodeURIComponent(location.pathname);
+  }
+  // Replace a container's content with a login prompt (or a load error).
+  function lockedNote(node, err, what) {
+    clear(node);
+    if (err && err.login) {
+      var p = el('p', 'ex-locked', what + '需要先');
+      var a = el('a', null, '登入題庫');
+      a.href = loginHref();
+      p.appendChild(a);
+      p.appendChild(document.createTextNode('。'));
+      node.appendChild(p);
+    } else {
+      node.appendChild(el('p', 'ex-pending', '題庫載入失敗，請重新整理頁面。'));
+    }
   }
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 
   // ---------------------------------------------------------- progress page
   function renderProgress(out, focusKey) {
-    examData().then(function (data) {
+    notesData().then(function (data) {
       // Re-rendering keeps the reader's expanded books and the focused checkbox.
       var parts = out.querySelectorAll('details[data-book]');
       var openBooks = null;
@@ -368,8 +414,8 @@
       var done = 0;
       var right = 0;
       var books = {};  // distinct questions per BCSC book (a question can span several chapters)
-      data.questions.forEach(function (q) {
-        if (!q.answer) return;
+      data.qs.forEach(function (pair) {
+        var q = { n: pair[0], ch: pair[1] };
         var s0 = validStat(all[q.n]) ? all[q.n] : null;
         if (s0) { done += 1; right += s0[0]; }
         var seenBooks = {};
@@ -400,7 +446,7 @@
         }
       });
       clear(out);
-      var answeredTotal = data.questions.filter(function (q) { return q.answer; }).length;
+      var answeredTotal = data.qs.length;
       var readCount = order.filter(function (k) { return read.indexOf(k) !== -1; }).length;
       var summary = el('div', 'ex-summary-box');
       summary.appendChild(el('p', null, '已作答 ' + done + ' / ' + answeredTotal + ' 題 · 答對 ' + right
@@ -493,10 +539,7 @@
       }
       list.appendChild(el('p', 'ex-meta', '共 ' + rows.length + ' 題錯題'));
       rows.forEach(function (q) { list.appendChild(renderCard(q, data, { removable: true })); });
-    }).catch(function () {
-      clear(list);
-      list.appendChild(el('p', 'ex-pending', '題庫載入失敗，請重新整理頁面。'));
-    });
+    }).catch(function (err) { lockedNote(list, err, '錯題本'); });
   }
 
   // ---------------------------------------------------------- Anki export
@@ -573,8 +616,9 @@
         bar.hidden = false;
         barApi.start();
         list.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }).catch(function () {
-        note.textContent = '題庫載入失敗，請重新整理頁面。';
+      }).catch(function (err) {
+        note.textContent = '';
+        lockedNote(list, err, '模擬考');
       });
     });
   }
@@ -621,7 +665,7 @@
     clear(out);
     if (!words.length) return;
     out.appendChild(el('p', 'ex-pending', '搜尋中…'));
-    examData().then(function (data) {
+    notesData().then(function (data) {
       clear(out);
       var noteHits = [];
       Object.keys(data.notes).forEach(function (key) {
@@ -629,8 +673,7 @@
           if (matches(para.t, words)) noteHits.push({ key: key, h: para.h, t: para.t });
         });
       });
-      var qHits = data.questions.filter(function (q) { return matches(questionText(q), words); });
-      out.appendChild(el('p', 'ex-meta', '重點 ' + noteHits.length + ' 筆 · 考題 ' + qHits.length + ' 題'));
+      out.appendChild(el('p', 'ex-meta', '重點 ' + noteHits.length + ' 筆'));
       if (noteHits.length) {
         out.appendChild(el('h2', 'ex-h2', '課本重點'));
         noteHits.slice(0, 60).forEach(function (hit) {
@@ -644,15 +687,18 @@
           out.appendChild(box);
         });
       }
-      if (qHits.length) {
-        out.appendChild(el('h2', 'ex-h2', '歷屆考題'));
-        if (qHits.length > 80) out.appendChild(el('p', 'ex-meta', '只顯示前 80 題，請加關鍵字縮小範圍。'));
-        qHits.slice(0, 80).forEach(function (q) { out.appendChild(renderCard(q, data, { suffix: '-s' })); });
-      }
-      if (!noteHits.length && !qHits.length) out.appendChild(el('p', 'ex-pending', '找不到符合的重點或考題。'));
+      if (!noteHits.length) out.appendChild(el('p', 'ex-pending', '重點整理中找不到符合的內容。'));
+      var qBox = el('div', 'ex-search-qs');
+      out.appendChild(qBox);
+      examData().then(function (bank) {
+        var qHits = bank.questions.filter(function (q) { return matches(questionText(q), words); });
+        qBox.appendChild(el('h2', 'ex-h2', '歷屆考題（' + qHits.length + ' 題）'));
+        if (qHits.length > 80) qBox.appendChild(el('p', 'ex-meta', '只顯示前 80 題，請加關鍵字縮小範圍。'));
+        qHits.slice(0, 80).forEach(function (q) { qBox.appendChild(renderCard(q, bank, { suffix: '-s' })); });
+      }).catch(function (err) { lockedNote(qBox, err, '搜尋歷屆考題'); });
     }).catch(function () {
       clear(out);
-      out.appendChild(el('p', 'ex-pending', '題庫載入失敗，請重新整理頁面。'));
+      out.appendChild(el('p', 'ex-pending', '資料載入失敗，請重新整理頁面。'));
     });
   }
 
@@ -667,6 +713,60 @@
       try { history.replaceState(null, '', q ? '?q=' + encodeURIComponent(q) : location.pathname); } catch (e) { /* ignore */ }
       runSearch(q, out);
     });
+  }
+
+  // ---------------------------------------------------------- chapter questions
+  function renderChapterQuestions(box) {
+    var key = box.getAttribute('data-chapter');
+    examData().then(function (data) {
+      var qs = data.questions.filter(function (q) { return q.ch.indexOf(key) !== -1; });
+      var byN = {};
+      qs.forEach(function (q) { byN[q.n] = q; });
+      var groups = [];
+      data.concepts.forEach(function (c) {
+        var members = c.qs.filter(function (n) { return byN[n]; }).map(function (n) { return byN[n]; });
+        if (members.length >= 2) groups.push({ c: c, m: members });
+      });
+      groups.sort(function (a, b) { return b.m.length - a.m.length || a.m[0].n - b.m[0].n; });
+      var grouped = {};
+      groups.forEach(function (g) { g.m.forEach(function (q) { grouped[q.n] = true; }); });
+      var rest = qs.filter(function (q) { return !grouped[q.n]; });
+      function heading(id, text, count) {
+        var h = el('h3', 'ex-concept', text);
+        h.id = id;
+        h.appendChild(el('span', 'ex-count', count + ' 題'));
+        return h;
+      }
+      clear(box);
+      if (groups.length) box.appendChild(el('p', 'ex-meta', '考同一個觀念的題目排在一起，可以一次看完不同考法。'));
+      groups.forEach(function (g) {
+        box.appendChild(heading('cg-' + g.c.id, '考點：' + g.c.t, g.m.length));
+        g.m.forEach(function (q) { box.appendChild(renderCard(q, data, { current: key })); });
+      });
+      if (groups.length && rest.length) box.appendChild(heading('cg-other', '其他考題', rest.length));
+      rest.forEach(function (q) { box.appendChild(renderCard(q, data, { current: key })); });
+      var tools = document.querySelector('.ex-qs-tools');
+      if (tools) tools.hidden = false;
+      // Signed in: the notes' 「考過」 links jump straight to the question on this page.
+      document.querySelectorAll('.ex-hit a[data-q]').forEach(function (a) {
+        a.setAttribute('href', '#q-' + a.getAttribute('data-q'));
+      });
+      refreshStrip();
+      var target = /^#q-\d+$/.test(location.hash) ? document.getElementById(location.hash.slice(1)) : null;
+      if (target) target.scrollIntoView();
+    }).catch(function (err) {
+      if (!err || !err.login) lockedNote(box, err, '本章歷屆考題');
+    });
+  }
+
+  function initLogin(form) {
+    var params = new URLSearchParams(location.search);
+    var next = params.get('next') || '';
+    if (/^\/exam(?:\/[a-z0-9-]+)?(?:#q-\d{1,5})?$/.test(next)) form.querySelector('input[name=next]').value = next;
+    var msg = document.querySelector('.ex-login-msg');
+    var text = { wrong: '密碼不正確，請再試一次。', rate: '嘗試次數過多，請 10 分鐘後再試。',
+      config: '題庫登入尚未設定，請聯絡網站管理者。' }[params.get('error') || ''] || (params.get('out') ? '已登出這台裝置。' : '');
+    if (msg && text) { msg.textContent = text; msg.hidden = false; }
   }
 
   // ---------------------------------------------------------- init
@@ -685,6 +785,10 @@
     if (search) initSearch(search);
     var strip = document.querySelector('[data-progress-chapter]');
     if (strip) initStrip(strip);
+    var chapterQs = document.getElementById('ex-chapter-qs');
+    if (chapterQs) renderChapterQuestions(chapterQs);
+    var loginForm = document.querySelector('form.ex-login');
+    if (loginForm) initLogin(loginForm);
     var progress = document.getElementById('ex-progress');
     if (progress) renderProgress(progress);
     var clearProgress = document.querySelector('.ex-clear-progress');
@@ -705,6 +809,8 @@
             return q.answer && (scope !== 'wrong' || wrong.indexOf(q.n) !== -1);
           });
           download(scope === 'wrong' ? 'ophtho-board-wrong.csv' : 'ophtho-board-answered.csv', ankiRows(rows));
+        }).catch(function (err) {
+          if (err && err.login) location.href = loginHref();
         });
       });
     });

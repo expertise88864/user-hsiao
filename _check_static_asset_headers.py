@@ -70,7 +70,7 @@ EXPECTED = {
         "Content-Type": "application/javascript; charset=utf-8",
         "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",
     },
-    "/exam/exam-data.json": {
+    "/exam/notes-data.json": {
         "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",
     },

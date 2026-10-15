@@ -371,7 +371,7 @@
       ]
     },
     {
-      "source": "/exam/exam-data.json",
+      "source": "/exam/notes-data.json",
       "headers": [
         {
           "key": "Content-Type",
