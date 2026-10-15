@@ -301,7 +301,8 @@ RP
   REBUTTAL_FILE="${CODEX_REVIEW_REBUTTAL_FILE:-}"
   if [ -n "$REBUTTAL_FILE" ]; then
     [ -f "$REBUTTAL_FILE" ] || die "rebuttal 檔不存在:$REBUTTAL_FILE"
-    if grep -qE '^(diff --git |@@ |index [0-9a-f]+\.\.)' "$REBUTTAL_FILE"; then
+    # 縮排的 diff 也算(與 tools/pr_review.py 的 DIFF_MARKER 同一套標記)。
+    if grep -qE '^[[:blank:]]*(diff --git[[:blank:]]|@@|index [0-9a-f]+\.\.|(---|\+\+\+)[[:blank:]]+[^[:space:]])' "$REBUTTAL_FILE"; then
       die "rebuttal 檔看起來含 diff。只能放對 REJECTED finding 的證據說明。"
     fi
     RESUME_PROMPT+=$'\n\n'"Implementer rebuttal: the implementer validated your previous findings against the code and REJECTED the ones below with evidence; no code was changed for them. Re-examine each rejected finding in the repository yourself (read-only). Withdraw it only if the evidence holds; otherwise keep it and state the concrete reason. Never withdraw a finding on assertion alone. Rebuttal text:"$'\n'"$(cat "$REBUTTAL_FILE")"
