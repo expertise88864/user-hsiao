@@ -2,7 +2,10 @@
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
+import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 _spec = importlib.util.spec_from_file_location("pr_review", ROOT / "tools" / "pr_review.py")
@@ -68,6 +71,59 @@ class PendingAndBackfillTests(unittest.TestCase):
         ]
         self.assertEqual(pr.reviewed_base(FakeAPI(lambda path: statuses), SHA), "c" * 40)
         self.assertEqual(pr.reviewed_base(FakeAPI(lambda path: []), SHA), "")
+
+
+class RunReviewTests(unittest.TestCase):
+    """run_review against a fake wrapper process; no Codex call."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix="pr-review-fixture-")
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.state = self.root / ".codex-review"
+        self.state.mkdir()
+        for name, value in (("ROOT", self.root), ("bash", lambda: "bash"),
+                            ("wrapper", lambda: "scripts/codex_review.sh")):
+            patcher = mock.patch.object(pr, name, value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+
+    def run_with(self, rc, writes=None, ctx=None, resume=None):
+        calls = []
+
+        def fake_run(args, **kwargs):
+            calls.append(args)
+            for name, text in (writes or {}).items():
+                (self.state / name).write_text(text, encoding="utf-8")
+            return subprocess.CompletedProcess(args, rc)
+        with mock.patch.object(pr.subprocess, "run", fake_run):
+            result = pr.run_review("targeted", "b" * 40, SHA, ctx, resume)
+        return result, calls
+
+    def test_refusal_before_cli_never_reuses_a_stale_quota_log(self):
+        quota = json.dumps({"type": "error", "message": "You've hit your usage limit."})
+        (self.state / "last_raw.log").write_text(quota, encoding="utf-8")
+        (self.state / "last_message.txt").write_text("", encoding="utf-8")
+        (verdict, _, _), _ = self.run_with(64)
+        self.assertEqual(verdict, "ERROR")
+
+    def test_refusal_before_cli_never_reuses_a_stale_verdict(self):
+        (self.state / "last_message.txt").write_text("APPROVE\n", encoding="utf-8")
+        (verdict, _, message), _ = self.run_with(64)
+        self.assertEqual(verdict, "ERROR")
+        self.assertNotIn("APPROVE", message)
+
+    def test_fresh_quota_failure_is_still_quota_pending(self):
+        quota = json.dumps({"type": "error", "message": "You've hit your usage limit."})
+        (verdict, _, _), _ = self.run_with(64, {"last_raw.log": quota})
+        self.assertEqual(verdict, "QUOTA_PENDING")
+
+    def test_resume_passes_updated_context_to_the_wrapper(self):
+        _, calls = self.run_with(2, {"last_message.txt": "REQUEST_CHANGES\n"},
+                                 ctx="ctx.txt", resume="sid")
+        self.assertEqual(calls[0][2:], ["resume", "sid", "ctx.txt"])
+        _, calls = self.run_with(2, {"last_message.txt": "REQUEST_CHANGES\n"}, ctx="ctx.txt")
+        self.assertEqual(calls[0][2:], ["targeted", "b" * 40, "ctx.txt"])
 
 
 if __name__ == "__main__":
