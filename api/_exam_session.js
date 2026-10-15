@@ -2,7 +2,7 @@
  * Exam question-bank session helpers (Node runtime only — uses `crypto`).
  *
  * The site owner sets one shared password in the Vercel env var EXAM_PASSWORD.
- * A successful /api/exam-login sets the HttpOnly cookie `hs_exam_session` =
+ * A successful /api/exam/login sets the HttpOnly cookie `hs_exam_session` =
  * `<expiry-ms>.<hmac>`, where the HMAC (SHA-256, keyed by EXAM_PASSWORD) covers
  * `exam:<expiry-ms>`. Changing the password therefore invalidates every session.
  * Without EXAM_PASSWORD nothing verifies (fail closed).

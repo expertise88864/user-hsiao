@@ -1,5 +1,5 @@
 /**
- * GET /api/exam-data — the exam question bank (questions, answers, explanations,
+ * GET /api/exam/data — the exam question bank (questions, answers, explanations,
  * concept groups) for signed-in readers only.
  *
  *   ?check=1  → 204 when signed in (cheap status probe for page scripts)

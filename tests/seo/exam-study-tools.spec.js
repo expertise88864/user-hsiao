@@ -9,7 +9,7 @@ test.use({ serviceWorkers: 'block' });
 // - explanations carry no "回去看重點" / "同考點" lines;
 // - flagged questions show 考試答案 / 現行觀念;
 // - a per-chapter progress overview.
-// The static test server has no API, so "signed in" means /api/exam-data is
+// The static test server has no API, so "signed in" means /api/exam/data is
 // answered with the generated bank; "signed out" means it answers 401.
 
 let bankJson;
@@ -22,10 +22,10 @@ async function bank() {
 }
 async function signIn(page) {
   const body = await bank();
-  await page.route('**/api/exam-data**', route => route.fulfill({ status: 200, contentType: 'application/json', body }));
+  await page.route('**/api/exam/data**', route => route.fulfill({ status: 200, contentType: 'application/json', body }));
 }
 async function signOut(page) {
-  await page.route('**/api/exam-data**', route => route.fulfill({ status: 401, contentType: 'application/json', body: '{"error":"login required"}' }));
+  await page.route('**/api/exam/data**', route => route.fulfill({ status: 401, contentType: 'application/json', body: '{"error":"login required"}' }));
 }
 
 test('signed out: chapter pages show the notes but no questions', async ({ page, request }) => {
@@ -66,7 +66,7 @@ test('login page keeps a safe return path and explains errors', async ({ page })
   await page.goto('/exam/login?error=wrong&next=' + encodeURIComponent('/exam/bcsc6-27#q-873'));
   await expect(page.locator('.ex-login-msg')).toHaveText('密碼不正確，請再試一次。');
   await expect(page.locator('form.ex-login input[name=next]')).toHaveValue('/exam/bcsc6-27#q-873');
-  await expect(page.locator('form.ex-login')).toHaveAttribute('action', '/api/exam-login');
+  await expect(page.locator('form.ex-login')).toHaveAttribute('action', '/api/exam/login');
   await page.goto('/exam/login?next=' + encodeURIComponent('https://evil.example/'));
   await expect(page.locator('form.ex-login input[name=next]')).toHaveValue('/exam');
 });
