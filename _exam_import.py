@@ -10,7 +10,7 @@ Live Text OCR of handwriting. Only spans in the typeset fonts are kept, so the
 handwritten marks never leak into the stems or options. Question numbers sit in
 their own left-hand column, which is how question boundaries are found.
 
-Embedded figures are written to assets/exam/q<n>.webp and attached to the
+Embedded figures are written to data/exam/figures/q<n>.webp (never deployed) and attached to the
 question whose vertical span contains them.
 """
 from __future__ import annotations
@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "data" / "exam" / "questions.json"
-IMG_DIR = ROOT / "assets" / "exam"
+IMG_DIR = ROOT / "data" / "exam" / "figures"
 TYPED_FONTS = {"TimesNewRomanPSMT", "PMingLiU", "DFKaiShu-SB-Estd-BF", "MS-Gothic", "SegoeUISymbol"}
 OPTION_RE = re.compile(r"^\(([A-E])\)\s*(.*)")
 CJK = r"一-鿿"
@@ -127,7 +127,7 @@ def attach_images(doc, questions: list[dict]) -> None:
             img = Image.open(io.BytesIO(pix["image"])).convert("RGB")
             name = f"q{owner['n']}.webp"
             img.save(IMG_DIR / name, "WEBP", quality=82, method=6)
-            owner["image"] = {"src": f"/assets/exam/{name}", "width": img.width, "height": img.height}
+            owner["image"] = {"src": f"figures/{name}", "width": img.width, "height": img.height}
 
 
 def main() -> int:

@@ -163,3 +163,28 @@ test('the sign-in bar offers logout when signed in and login when signed out', a
   await page.goto('/exam/login');
   await expect(page.locator('.ex-auth')).toHaveCount(0);
 });
+
+test('a page restored from the back/forward cache after logout drops the bank', async ({ page }) => {
+  await signIn(page);
+  await page.goto('/exam/bcsc12-4');
+  await expect(page.locator('#ex-chapter-qs .ex-q').first()).toBeVisible();
+  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })));
+  await expect(page.locator('.ex-q')).toHaveCount(0);
+  await page.unrouteAll();
+  await signOut(page);
+  await Promise.all([
+    page.waitForEvent('load'),
+    page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true }))),
+  ]);
+  await expect(page.locator('#ex-chapter-qs .ex-locked')).toBeVisible();
+  await expect(page.locator('.ex-q')).toHaveCount(0);
+});
+
+test('exam figures are not public files; signed-in cards embed them', async ({ page, request }) => {
+  for (const n of [532, 535, 1769]) expect((await request.get(`/assets/exam/q${n}.webp`)).status()).toBe(404);
+  await signIn(page);
+  await page.goto('/exam/search?q=' + encodeURIComponent('第 532'));
+  const bankData = JSON.parse(await bank());
+  const q = bankData.questions.find(x => x.n === 532);
+  expect(q.image.src).toMatch(/^data:image\/webp;base64,/);
+});

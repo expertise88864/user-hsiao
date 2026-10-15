@@ -366,6 +366,7 @@
             throw err;
           }
           if (!r.ok) throw new Error('HTTP ' + r.status);
+          document.body.setAttribute('data-exam-bank', '1');
           return r.json();
         });
     }
@@ -792,6 +793,17 @@
       config: '題庫登入尚未設定，請聯絡網站管理者。' }[params.get('error') || ''] || (params.get('out') ? '已登出這台裝置。' : '');
     if (msg && text) { msg.textContent = text; msg.hidden = false; }
   }
+
+  // Back/forward cache: a page restored after logout must not keep the signed-in
+  // bank. Drop it (and rendered question cards) when the page is hidden, and
+  // reload a restored page that had it so access is checked again.
+  window.addEventListener('pagehide', function () {
+    bankPromise = null;
+    document.querySelectorAll('.ex-q, .ex-search-qs').forEach(function (node) { node.remove(); });
+  });
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted && document.body.getAttribute('data-exam-bank') === '1') location.reload();
+  });
 
   // ---------------------------------------------------------- init
   function init() {

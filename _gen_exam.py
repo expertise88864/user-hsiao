@@ -31,6 +31,7 @@ output, so every chain run regenerates byte-identical pages.
 """
 from __future__ import annotations
 
+import base64
 import html
 import json
 import re
@@ -702,7 +703,14 @@ def bank_data(data: dict) -> dict:
     for q in data["questions"]:
         row = {"n": q["n"], "stem": q["stem"], "options": q["options"], "ch": data["tags"][str(q["n"])]["ch"]}
         if q.get("image"):
-            row["image"] = q["image"]
+            # Exam figures are question content: embed them in the signed-in bank
+            # (data/exam/figures is never deployed) instead of serving a public file.
+            img = q["image"]
+            fig = (DATA / img["src"]).resolve()
+            if fig.parent != (DATA / "figures").resolve() or fig.suffix != ".webp":
+                raise SystemExit(f"Q{q['n']}: figure must be data/exam/figures/*.webp")
+            row["image"] = {"src": "data:image/webp;base64," + base64.b64encode(fig.read_bytes()).decode("ascii"),
+                            "width": img["width"], "height": img["height"]}
         expl = data["explanations"].get(str(q["n"]))
         if expl:
             row["answer"] = expl["answer"]

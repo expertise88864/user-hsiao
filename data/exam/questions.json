@@ -5319,7 +5319,7 @@
    "D": "左側內側縱束與外旋神經核Left MLF and CN VI nucleus"
   },
   "image": {
-   "src": "/assets/exam/q532.webp",
+   "src": "figures/q532.webp",
    "width": 558,
    "height": 120
   }
@@ -5354,7 +5354,7 @@
    "D": "左下運動神經元（周圍）顏面神經損傷Left lower motor neuron (peripheral) facial nerve injury"
   },
   "image": {
-   "src": "/assets/exam/q535.webp",
+   "src": "figures/q535.webp",
    "width": 372,
    "height": 488
   }
@@ -17699,7 +17699,7 @@
    "D": "此病人的角膜地形圖正常，若計算術後角膜殘餘基質>250 µm，則可接受近視雷射"
   },
   "image": {
-   "src": "/assets/exam/q1769.webp",
+   "src": "figures/q1769.webp",
    "width": 554,
    "height": 375
   }
