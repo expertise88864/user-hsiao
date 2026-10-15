@@ -1,6 +1,6 @@
 /* Board-exam review pages (/exam/**): quiz/browse mode, practice exams, wrong-answer
  * notebook, search and Anki export. Chapter notes are static and public; the question
- * bank (questions, answers, explanations) is fetched from /api/exam-data, which only
+ * bank (questions, answers, explanations) is fetched from /api/exam/data, which only
  * answers signed-in readers, and rendered here. Progress lives in localStorage on this
  * device only.
  * All dynamic text is inserted with textContent / DOM nodes (no innerHTML), and the
@@ -358,7 +358,7 @@
   // Signed-in only: the server answers 401 without a valid session cookie.
   function bankData() {
     if (!bankPromise) {
-      bankPromise = fetch('/api/exam-data', { credentials: 'same-origin', cache: 'no-store' })
+      bankPromise = fetch('/api/exam/data', { credentials: 'same-origin', cache: 'no-store' })
         .then(function (r) {
           if (r.status === 401 || r.status === 503) {
             var err = new Error('login required');

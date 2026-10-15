@@ -31,9 +31,12 @@ function mockReq({ method = 'GET', body, cookie, query = {}, ip = '203.0.113.' +
 async function load() {
   process.env.EXAM_PASSWORD = PASSWORD;
   const session = await import('../../api/_exam_session.js');
-  const login = (await import('../../api/exam-login.js')).default;
-  const logout = (await import('../../api/exam-logout.js')).default;
-  const data = (await import('../../api/exam-data.js')).default;
+  // Go through the deployed dispatcher (/api/exam/<op>), not the private modules.
+  const dispatch = (await import('../../api/exam/[op].js')).default;
+  const via = op => (req, res) => dispatch({ ...req, query: { ...(req.query || {}), op } }, res);
+  const login = via('login');
+  const logout = via('logout');
+  const data = via('data');
   return { session, login, logout, data };
 }
 
@@ -85,7 +88,7 @@ test('without EXAM_PASSWORD nothing can sign in or read the bank (fail closed)',
     await login(mockReq({ method: 'POST', body: { password: '', next: '/exam' } }), res);
     assert.match(res.headers.location, /error=config/);
     const d = mockRes();
-    data(mockReq({ cookie: 'hs_exam_session=1.abc' }), d);
+    await data(mockReq({ cookie: 'hs_exam_session=1.abc' }), d);
     assert.equal(d.statusCode, 503);
   } finally {
     process.env.EXAM_PASSWORD = PASSWORD;
@@ -96,7 +99,7 @@ test('the bank is served only with a valid, unexpired, untampered session', asyn
   const { session, data } = await load();
   const good = session.makeExamToken(PASSWORD);
   const ok = mockRes();
-  data(mockReq({ cookie: 'x=1; hs_exam_session=' + encodeURIComponent(good) }), ok);
+  await data(mockReq({ cookie: 'x=1; hs_exam_session=' + encodeURIComponent(good) }), ok);
   assert.equal(ok.statusCode, 200);
   assert.equal(ok.headers['cache-control'], 'private, no-store');
   assert.match(ok.headers['x-robots-tag'], /noindex/);
@@ -104,7 +107,7 @@ test('the bank is served only with a valid, unexpired, untampered session', asyn
   assert.ok(bank.questions.length > 1000 && bank.questions[0].stem && bank.concepts.length > 100);
 
   const check = mockRes();
-  data(mockReq({ cookie: 'hs_exam_session=' + good, query: { check: '1' } }), check);
+  await data(mockReq({ cookie: 'hs_exam_session=' + good, query: { check: '1' } }), check);
   assert.equal(check.statusCode, 204);
 
   const expired = session.makeExamToken(PASSWORD, Date.now() - session.EXAM_SESSION_MS - 1000);
@@ -114,7 +117,7 @@ test('the bank is served only with a valid, unexpired, untampered session', asyn
   for (const cookie of ['', 'hs_exam_session=' + expired, 'hs_exam_session=' + tampered,
     'hs_exam_session=' + otherKey, 'hs_exam_session=garbage', 'hs_admin_session=' + good]) {
     const res = mockRes();
-    data(mockReq({ cookie }), res);
+    await data(mockReq({ cookie }), res);
     assert.equal(res.statusCode, 401, cookie);
     assert.equal(res.body.questions, undefined);
   }
@@ -123,7 +126,7 @@ test('the bank is served only with a valid, unexpired, untampered session', asyn
 test('logout clears the session cookie; non-POST methods are refused', async () => {
   const { logout, login } = await load();
   const res = mockRes();
-  logout(mockReq({ method: 'POST' }), res);
+  await logout(mockReq({ method: 'POST' }), res);
   assert.equal(res.statusCode, 303);
   assert.match(res.headers['set-cookie'], /^hs_exam_session=; .*Max-Age=0$/);
   const get = mockRes();
@@ -140,7 +143,7 @@ test('login and logout refuse cross-site form posts', async () => {
     assert.equal(a.statusCode, 403);
     assert.equal(a.headers['set-cookie'], undefined);
     const b = mockRes();
-    logout(mockReq({ method: 'POST', ...opts }), b);
+    await logout(mockReq({ method: 'POST', ...opts }), b);
     assert.equal(b.statusCode, 403);
     assert.equal(b.headers['set-cookie'], undefined);
   }
@@ -156,4 +159,28 @@ test('the service worker drops caches that may hold pre-login question pages', a
   assert.ok(Number(cache.slice(4)) > 72, cache);
   assert.ok(Number(runtime.slice(12)) > 35, runtime);
   assert.match(sw, /keys\.filter\(\(k\) => k !== CACHE && k !== RUNTIME\)\.map\(\(k\) => caches\.delete\(k\)\)/);
+});
+
+test('unknown /api/exam ops are 404', async () => {
+  const dispatch = (await import('../../api/exam/[op].js')).default;
+  for (const op of ['', 'bank', '__proto__', 'constructor', '../_exam_bank']) {
+    const res = mockRes();
+    await dispatch(mockReq({ query: { op } }), res);
+    assert.equal(res.statusCode, 404, op);
+  }
+});
+
+test('the deployment stays within the Vercel Hobby limit of 12 serverless functions', async () => {
+  const { readdir } = await import('node:fs/promises');
+  const root = new URL('../../api/', import.meta.url);
+  async function walk(dir) {
+    let n = 0;
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+      if (entry.name.startsWith('_') || entry.name === 'node_modules') continue;
+      if (entry.isDirectory()) n += await walk(new URL(entry.name + '/', dir));
+      else if (/\.(?:js|mjs|ts)$/.test(entry.name)) n += 1;
+    }
+    return n;
+  }
+  assert.ok(await walk(root) <= 12);
 });

@@ -1,5 +1,5 @@
 /**
- * POST /api/exam-logout — clears the exam question-bank session on this device.
+ * POST /api/exam/logout — clears the exam question-bank session on this device.
  */
 import { clearedExamCookie, isSameOriginPost } from './_exam_session.js';
 

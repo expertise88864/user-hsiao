@@ -1,5 +1,5 @@
 /**
- * POST /api/exam-login — shared-password gate for the exam question bank.
+ * POST /api/exam/login — shared-password gate for the exam question bank.
  *
  * Form fields: `password`, `next` (an /exam path to return to). Always answers
  * with a 303 redirect: to `next` with the session cookie on success, otherwise
