@@ -411,7 +411,7 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
         head(title=title, description=description, path=path, robots=robots, jsonld=jsonld, version=version)
         + f'<body class="hs-exam" data-exam-page="{kind}">\n'
         + header()
-        + f'<main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16">{crumbs_html(items)}{body}</main>\n'
+        + f'<main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16">{crumbs_html(items)}{"" if kind == "login" else AUTH_BAR}{body}</main>\n'
         + FOOTER
         + f'<script src="/blog/blog-shared.min.js?v={version}" defer></script>\n'
         + f'<script src="/exam/exam.js?v={version}" defer></script>\n'
@@ -419,6 +419,9 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
     )
     return fullwidth(out)[0]
 
+
+# Filled by exam.js: "已登入題庫 · 登出" when signed in, a login link otherwise.
+AUTH_BAR = '<div class="ex-auth" aria-live="polite" hidden></div>'
 
 MODE_BAR = (
     '<div class="ex-toolbar" role="group" aria-label="作答模式">'
@@ -887,6 +890,10 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-login-msg{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px 12px;font-size:14px;color:#991b1b}
 .ex-link-btn{background:none;border:0;padding:0;color:var(--ex-accent);text-decoration:underline;cursor:pointer;font-size:13px}
 .ex-qs-tools[hidden]{display:none}
+.ex-auth{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:6px 10px;font-size:13px;color:var(--ink-2);margin:-8px 0 12px}
+.ex-auth[hidden]{display:none}
+.ex-auth form{display:inline;margin:0}
+.ex-auth a{color:var(--ex-accent);font-weight:600}
 .ex-doubt{margin:10px 0 0;border:1px solid #f3d38a;background:#fffbeb;border-radius:10px;padding:8px 12px;font-size:13.5px;line-height:1.8}
 .ex-doubt p{margin:4px 0}
 .ex-doubt-tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:6px;background:#fde68a;color:#713f12}

@@ -22,7 +22,9 @@ async function bank() {
 }
 async function signIn(page) {
   const body = await bank();
-  await page.route('**/api/exam/data**', route => route.fulfill({ status: 200, contentType: 'application/json', body }));
+  await page.route('**/api/exam/data**', route => (route.request().url().includes('check=1')
+    ? route.fulfill({ status: 204 })
+    : route.fulfill({ status: 200, contentType: 'application/json', body })));
 }
 async function signOut(page) {
   await page.route('**/api/exam/data**', route => route.fulfill({ status: 401, contentType: 'application/json', body: '{"error":"login required"}' }));
@@ -144,4 +146,20 @@ test('signed in: question search renders cards without link lines', async ({ pag
   const doubt = page.locator('#ex-search-results #q-4 .ex-doubt');
   await expect(doubt.locator('.ex-doubt-tag').first()).toHaveText('考試答案 A');
   await expect(page.locator('#ex-search-results .ex-goto, #ex-search-results .ex-sibs')).toHaveCount(0);
+});
+
+test('the sign-in bar offers logout when signed in and login when signed out', async ({ page }) => {
+  await signIn(page);
+  await page.goto('/exam');
+  const bar = page.locator('.ex-auth');
+  await expect(bar).toContainText('已登入題庫');
+  await expect(bar.locator('form')).toHaveAttribute('action', '/api/exam/logout');
+  await expect(bar.locator('form')).toHaveAttribute('method', 'post');
+  await expect(bar.getByRole('button', { name: '登出' })).toBeVisible();
+  await page.unrouteAll();
+  await signOut(page);
+  await page.goto('/exam/bcsc12-4');
+  await expect(page.locator('.ex-auth a')).toHaveAttribute('href', '/exam/login?next=%2Fexam%2Fbcsc12-4');
+  await page.goto('/exam/login');
+  await expect(page.locator('.ex-auth')).toHaveCount(0);
 });

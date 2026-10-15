@@ -759,6 +759,30 @@
     });
   }
 
+  // Every exam page except the login page shows the sign-in state with a one-click logout.
+  function initAuthBar(bar) {
+    fetch('/api/exam/data?check=1', { credentials: 'same-origin', cache: 'no-store' })
+      .then(function (r) { return r.status === 204; }, function () { return false; })
+      .then(function (signedIn) {
+        clear(bar);
+        if (signedIn) {
+          bar.appendChild(el('span', null, '已登入題庫'));
+          var form = el('form');
+          form.method = 'post';
+          form.action = '/api/exam/logout';
+          var btn = el('button', 'ex-link-btn', '登出');
+          btn.type = 'submit';
+          form.appendChild(btn);
+          bar.appendChild(form);
+        } else {
+          var a = el('a', null, '登入題庫');
+          a.href = loginHref();
+          bar.appendChild(a);
+        }
+        bar.hidden = false;
+      });
+  }
+
   function initLogin(form) {
     var params = new URLSearchParams(location.search);
     var next = params.get('next') || '';
@@ -787,6 +811,8 @@
     if (strip) initStrip(strip);
     var chapterQs = document.getElementById('ex-chapter-qs');
     if (chapterQs) renderChapterQuestions(chapterQs);
+    var authBar = document.querySelector('.ex-auth');
+    if (authBar) initAuthBar(authBar);
     var loginForm = document.querySelector('form.ex-login');
     if (loginForm) initLogin(loginForm);
     var progress = document.getElementById('ex-progress');
