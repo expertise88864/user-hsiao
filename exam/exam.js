@@ -7,6 +7,9 @@
   'use strict';
   var MODE_KEY = 'hs:exam:mode';
   var WRONG_KEY = 'hs:exam:wrong';
+  var STATS_KEY = 'hs:exam:stats';   // { n: [last result 1|0, attempts, last answered ms] }
+  var READ_KEY = 'hs:exam:read';     // [chapter keys whose textbook chapter is read]
+  var VISIT_KEY = 'hs:exam:visit';   // { chapter key: last visit ms }
   var body = document.body;
 
   function store(key, value) {
@@ -27,6 +30,64 @@
     var list = wrongList().filter(function (x) { return x !== n; });
     if (isWrong) list.push(n);
     store(WRONG_KEY, list);
+  }
+
+  function plainObject(value) {
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  }
+  function stats() { return plainObject(load(STATS_KEY, {})); }
+  // A usable record is [1|0, attempts, ms]; anything else (hand-edited or older
+  // storage) is treated as "not answered" by every view.
+  function validStat(s) { return Array.isArray(s) && (s[0] === 0 || s[0] === 1); }
+  function recordAnswer(n, ok) {
+    var all = stats();
+    var prev = Array.isArray(all[n]) ? all[n] : [];
+    all[n] = [ok ? 1 : 0, (Number(prev[1]) || 0) + 1, Date.now()];
+    store(STATS_KEY, all);
+  }
+  function readList() {
+    var list = load(READ_KEY, []);
+    return Array.isArray(list) ? list.map(String) : [];
+  }
+  function setRead(key, isRead) {
+    var list = readList().filter(function (k) { return k !== key; });
+    if (isRead) list.push(key);
+    store(READ_KEY, list);
+  }
+  function visits() { return plainObject(load(VISIT_KEY, {})); }
+  function dateText(ms) {
+    if (!ms) return '—';
+    var d = new Date(ms);
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
+  function percent(right, done) { return done ? Math.round(100 * right / done) + '%' : '—'; }
+
+  // Chapter page strip: "textbook read" box plus this chapter's answered count and accuracy.
+  function refreshStrip() {
+    var strip = document.querySelector('[data-progress-chapter]');
+    if (!strip) return;
+    var all = stats();
+    var done = 0;
+    var right = 0;
+    var cards = document.querySelectorAll('.ex-q:not(.ex-unanswered)');
+    cards.forEach(function (card) {
+      var s = all[card.getAttribute('data-qid')];
+      if (validStat(s)) { done += 1; right += s[0]; }
+    });
+    strip.querySelector('.ex-strip-text').textContent = done
+      ? '已作答 ' + done + ' / ' + cards.length + ' 題 · 正確率 ' + percent(right, done)
+      : '本章 ' + cards.length + ' 題，還沒有作答紀錄';
+  }
+  function initStrip(strip) {
+    var key = strip.getAttribute('data-progress-chapter');
+    var all = visits();
+    all[key] = Date.now();
+    store(VISIT_KEY, all);
+    var box = strip.querySelector('.ex-read-box');
+    box.checked = readList().indexOf(key) !== -1;
+    box.addEventListener('change', function () { setRead(key, box.checked); });
+    strip.hidden = false;
+    refreshStrip();
   }
 
   function setMode(mode) {
@@ -63,6 +124,8 @@
     card.querySelectorAll('input[type=radio]').forEach(function (input) { input.disabled = true; });
     if (result) result.textContent = ok ? '答對了' : '答錯了，答案是 ' + answer;
     markWrong(card.getAttribute('data-qid'), !ok);
+    recordAnswer(card.getAttribute('data-qid'), ok);
+    refreshStrip();
     return ok;
   }
 
@@ -236,6 +299,28 @@
       });
       reveal.appendChild(items);
       (q.expl.flags || []).forEach(function (f) { reveal.appendChild(rich('p', 'ex-warn', '⚠ ' + f)); });
+      if (q.go && q.go.length) {
+        var go = el('p', 'ex-goto', '回去看重點：');
+        q.go.forEach(function (spot, i) {
+          if (i) go.appendChild(document.createTextNode('、'));
+          var a = el('a', null, data.chapters[spot[0]].label + ' › ' + spot[2]);
+          a.href = '/exam/bcsc' + spot[0] + '#' + spot[1];
+          go.appendChild(a);
+        });
+        reveal.appendChild(go);
+      }
+      var concept = typeof q.cg === 'number' ? data.concepts[q.cg] : null;
+      if (concept) {
+        var sibs = el('p', 'ex-sibs', '同考點（' + concept.t + '）：');
+        var byN = questionIndex(data);
+        concept.qs.filter(function (m) { return m !== q.n; }).forEach(function (m, i) {
+          if (i) sibs.appendChild(document.createTextNode('、'));
+          var link = el('a', null, '第 ' + m + ' 題');
+          link.href = '/exam/bcsc' + byN[m].ch[0] + '#q-' + m;
+          sibs.appendChild(link);
+        });
+        reveal.appendChild(sibs);
+      }
     } else {
       reveal.appendChild(el('p', 'ex-pending', '這題的答案與詳解尚未整理（讀到相關章節時會補上）。'));
     }
@@ -259,6 +344,143 @@
     return dataPromise;
   }
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  var qIndex = null;
+  function questionIndex(data) {
+    if (!qIndex) {
+      qIndex = {};
+      data.questions.forEach(function (q) { qIndex[q.n] = q; });
+    }
+    return qIndex;
+  }
+
+  // ---------------------------------------------------------- progress page
+  function renderProgress(out, focusKey) {
+    examData().then(function (data) {
+      // Re-rendering keeps the reader's expanded books and the focused checkbox.
+      var parts = out.querySelectorAll('details[data-book]');
+      var openBooks = null;
+      if (parts.length) {
+        openBooks = {};
+        parts.forEach(function (d) { if (d.open) openBooks[d.getAttribute('data-book')] = true; });
+      }
+      var all = stats();
+      var seen = visits();
+      var read = readList();
+      var rows = {};
+      var order = [];
+      var done = 0;
+      var right = 0;
+      var books = {};  // distinct questions per BCSC book (a question can span several chapters)
+      data.questions.forEach(function (q) {
+        if (!q.answer) return;
+        var s0 = validStat(all[q.n]) ? all[q.n] : null;
+        if (s0) { done += 1; right += s0[0]; }
+        var seenBooks = {};
+        q.ch.forEach(function (key) {
+          var b = key.split('-')[0];
+          if (seenBooks[b]) return;
+          seenBooks[b] = true;
+          var t = books[b] || (books[b] = { total: 0, done: 0, right: 0 });
+          t.total += 1;
+          if (s0) { t.done += 1; t.right += s0[0]; }
+        });
+        q.ch.forEach(function (key) {
+          if (!rows[key]) { rows[key] = { total: 0, done: 0, right: 0, last: 0 }; }
+          var r = rows[key];
+          r.total += 1;
+          if (s0) {
+            r.done += 1;
+            r.right += s0[0];
+            r.last = Math.max(r.last, Number(s0[2]) || 0);
+          }
+        });
+      });
+      Object.keys(data.chapters).forEach(function (key) {
+        if (rows[key] || data.notes[key]) {
+          if (!rows[key]) rows[key] = { total: 0, done: 0, right: 0, last: 0 };
+          rows[key].last = Math.max(rows[key].last, Number(seen[key]) || 0);
+          order.push(key);
+        }
+      });
+      clear(out);
+      var answeredTotal = data.questions.filter(function (q) { return q.answer; }).length;
+      var readCount = order.filter(function (k) { return read.indexOf(k) !== -1; }).length;
+      var summary = el('div', 'ex-summary-box');
+      summary.appendChild(el('p', null, '已作答 ' + done + ' / ' + answeredTotal + ' 題 · 答對 ' + right
+        + ' 題 · 正確率 ' + percent(right, done) + ' · 課本已讀完 ' + readCount + ' / ' + order.length + ' 章'));
+      var weak = order.filter(function (k) { return rows[k].done >= 5 && rows[k].right / rows[k].done < 0.6; })
+        .sort(function (a, b) { return rows[a].right / rows[a].done - rows[b].right / rows[b].done; });
+      if (weak.length) {
+        var w = el('p', 'ex-weak', '建議優先複習（作答 5 題以上、正確率低於 60%）：');
+        weak.slice(0, 10).forEach(function (k, i) {
+          if (i) w.appendChild(document.createTextNode('、'));
+          var a = el('a', null, data.chapters[k].label + ' ' + data.chapters[k].title + '（' + percent(rows[k].right, rows[k].done) + '）');
+          a.href = '/exam/bcsc' + k;
+          w.appendChild(a);
+        });
+        summary.appendChild(w);
+      }
+      out.appendChild(summary);
+      var byBook = {};
+      order.forEach(function (k) { (byBook[k.split('-')[0]] = byBook[k.split('-')[0]] || []).push(k); });
+      Object.keys(byBook).sort(function (a, b) { return a - b; }).forEach(function (book) {
+        var keys = byBook[book];
+        var t = books[book] || { total: 0, done: 0, right: 0 };
+        var readHere = keys.filter(function (k) { return read.indexOf(k) !== -1; }).length;
+        var part = el('details', 'ex-part');
+        part.setAttribute('data-book', book);
+        part.open = openBooks ? !!openBooks[book] : !!(t.done || readHere);
+        var bookTitle = data.books && data.books[book] ? data.books[book] : '';
+        part.appendChild(el('summary', null, 'BCSC ' + book + ' ' + bookTitle + ' · 作答 ' + t.done + ' / '
+          + t.total + ' 題 · 正確率 ' + percent(t.right, t.done) + ' · 已讀 ' + readHere + ' / ' + keys.length + ' 章'));
+        var table = el('table', 'ex-prog');
+        var head = el('tr');
+        ['章節', '課本已讀', '已作答', '正確率', '最後讀'].forEach(function (h, i) {
+          var th = el('th', i >= 2 ? 'ex-num' : null, h);
+          th.scope = 'col';
+          head.appendChild(th);
+        });
+        var thead = el('thead');
+        thead.appendChild(head);
+        table.appendChild(thead);
+        var tbody = el('tbody');
+        keys.forEach(function (k) {
+          var r = rows[k];
+          var tr = el('tr');
+          var name = el('td');
+          var link = el('a', null, data.chapters[k].label + ' ' + data.chapters[k].title);
+          link.href = '/exam/bcsc' + k;
+          name.appendChild(link);
+          tr.appendChild(name);
+          var cell = el('td');
+          var box = el('input');
+          box.type = 'checkbox';
+          box.checked = read.indexOf(k) !== -1;
+          box.setAttribute('aria-label', data.chapters[k].label + ' 課本已讀完');
+          box.setAttribute('data-chapter', k);
+          box.addEventListener('change', function () { setRead(k, box.checked); renderProgress(out, k); });
+          cell.appendChild(box);
+          tr.appendChild(cell);
+          tr.appendChild(el('td', 'ex-num', r.done + ' / ' + r.total));
+          var acc = el('td', 'ex-num', percent(r.right, r.done));
+          if (r.done >= 5 && r.right / r.done < 0.6) acc.classList.add('ex-low');
+          tr.appendChild(acc);
+          tr.appendChild(el('td', 'ex-num', dateText(r.last)));
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        part.appendChild(table);
+        out.appendChild(part);
+      });
+      if (focusKey) {
+        var again = out.querySelector('input[data-chapter="' + focusKey + '"]');
+        if (again) again.focus();
+      }
+    }).catch(function () {
+      clear(out);
+      out.appendChild(el('p', 'ex-pending', '題庫載入失敗，請重新整理頁面。'));
+    });
+  }
 
   // ---------------------------------------------------------- review page
   function renderReview(list) {
@@ -456,6 +678,19 @@
     if (list) renderReview(list);
     var search = document.querySelector('[data-search-form]');
     if (search) initSearch(search);
+    var strip = document.querySelector('[data-progress-chapter]');
+    if (strip) initStrip(strip);
+    var progress = document.getElementById('ex-progress');
+    if (progress) renderProgress(progress);
+    var clearProgress = document.querySelector('.ex-clear-progress');
+    if (clearProgress) {
+      clearProgress.addEventListener('click', function () {
+        if (!window.confirm('確定要清除這台裝置上的作答紀錄與最後讀的日期嗎？（「課本已讀完」與錯題本不受影響）')) return;
+        store(STATS_KEY, {});
+        store(VISIT_KEY, {});
+        if (progress) renderProgress(progress);
+      });
+    }
     document.querySelectorAll('.ex-anki').forEach(function (btn) {
       btn.addEventListener('click', function () {
         examData().then(function (data) {

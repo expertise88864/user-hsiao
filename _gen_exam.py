@@ -5,12 +5,13 @@ Sources (hand-maintained):
   data/exam/tags.json           question number -> BCSC chapters ("12-4") it tests
   data/exam/explanations.json   answers + per-option explanations with BCSC page refs
   data/exam/chapters.json       BCSC 2025-2026 sections, chapter titles, printed pages
+  data/exam/concepts.json       groups of questions that test the same concept ("考點")
   data/exam/notes/bcsc<b>-<c>.htm   chapter study notes (trusted HTML fragments; .htm keeps
                                     the site-wide *.html page audits off them)
 
 Outputs (generated, never hand-edit):
   exam/index.html, exam/bcsc<b>-<c>.html, exam/practice.html, exam/review.html,
-  exam/search.html, exam/exam-data.json
+  exam/progress.html, exam/search.html, exam/exam-data.json
 
 The question bank carries no official answer key, so an answer exists only once
 explanations.json has determined it from BCSC; unanswered questions render in
@@ -171,12 +172,69 @@ def load() -> dict:
         notes[key] = path.read_text(encoding="utf-8")
         check_traditional(path.name, notes[key])
         check_note_markup(key, notes[key])
+    note_links: dict[int, list] = defaultdict(list)
+    for key in notes:
+        notes[key], links = anchor_notes(key, notes[key])
+        for n, spots in links.items():
+            note_links[n].extend((key, hid, label) for hid, label in spots)
+    concepts = json.loads((DATA / "concepts.json").read_text(encoding="utf-8"))
+    concept_of: dict[int, dict] = {}
+    for c in concepts:
+        if not re.fullmatch(r"c\d+-\d{3}", c["id"]) or not 0 < len(c["title"]) <= 24 or len(c["qs"]) < 2:
+            raise SystemExit(f"concepts.json: bad group {c.get('id')}")
+        check_traditional(f"concept {c['id']}", c["title"])
+        for n in c["qs"]:
+            if str(n) not in numbers or n in concept_of:
+                raise SystemExit(f"concepts.json: question {n} unknown or in two groups")
+            concept_of[n] = c
     by_chapter: dict[str, list] = defaultdict(list)
     for q in questions:
         for key in tags[str(q["n"])]["ch"]:
             by_chapter[key].append(q)
     return {"questions": questions, "tags": tags, "explanations": explanations, "books": books,
-            "chapters": chapters, "notes": notes, "by_chapter": by_chapter}
+            "chapters": chapters, "notes": notes, "by_chapter": by_chapter, "note_links": note_links,
+            "concepts": concepts, "concept_of": concept_of}
+
+
+def anchor_notes(key: str, fragment: str) -> tuple[str, dict[int, list]]:
+    """Give every <h3> an id and map each {{q:...}} citation to its nearest heading.
+
+    Returns the anchored fragment and {question: [(heading id, "h2 › h3" label)]},
+    which the question cards use for their "回去看重點" links.
+    """
+    h2 = {"id": "", "n": 0}
+
+    def add_id(m: re.Match) -> str:
+        if m.group(1) == "h2":
+            found = re.search(r'\sid="([^"]+)"', m.group(2))
+            if not found:
+                raise SystemExit(f"notes {key}: every <h2> needs an id")
+            h2["id"], h2["n"] = found.group(1), 0
+            return m.group(0)
+        if re.search(r'\sid="', m.group(2)):
+            return m.group(0)
+        h2["n"] += 1
+        return f'<h3 id="{h2["id"] or "notes"}-{h2["n"]}"{m.group(2)}>'
+
+    fragment = re.sub(r"<(h2|h3)\b([^>]*)>", add_id, fragment)
+    ids = re.findall(r'<h[23]\b[^>]*\sid="([^"]+)"', fragment)
+    if len(ids) != len(set(ids)):
+        raise SystemExit(f"notes {key}: duplicate heading ids")
+    links: dict[int, list] = defaultdict(list)
+    h2_text, spot = "", None
+    for m in re.finditer(r'<(h2|h3)\b[^>]*\sid="([^"]+)"[^>]*>(.*?)</\1>|\{\{q:([0-9,\s]+)\}\}', fragment, re.S):
+        if m.group(1):
+            text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", m.group(3)))).strip()
+            if m.group(1) == "h2":
+                h2_text = text
+                spot = (m.group(2), text)
+            else:
+                spot = (m.group(2), f"{h2_text} › {text}" if h2_text else text)
+            continue
+        for n in (int(i) for i in re.split(r"\s*,\s*", m.group(4).strip()) if i):
+            if spot and spot not in links[n]:
+                links[n].append(spot)
+    return fragment, links
 
 
 def slug(key: str) -> str:
@@ -391,7 +449,33 @@ def chip_html(key: str, n: int, current: str | None, data: dict) -> str:
     return f'<a class="ex-chip" href="/exam/{slug(key)}#q-{n}" title="{title}">{esc(label)}</a>'
 
 
-def question_html(q: dict, data: dict, *, current: str | None = None) -> str:
+def note_spots(n: int, data: dict) -> list[tuple[str, str, str]]:
+    """Note sections that cover question n; else the notes of its chapters that have any."""
+    spots = data["note_links"].get(n) or [(k, "notes-h", "本章重點整理")
+                                          for k in data["tags"][str(n)]["ch"] if k in data["notes"]]
+    return spots[:4]
+
+
+def goto_html(n: int, data: dict, current: str | None) -> str:
+    links = []
+    for key, hid, label in note_spots(n, data):
+        href = f"#{hid}" if key == current else f"/exam/{slug(key)}#{hid}"
+        text = label if key == current else f"{chapter_label(data['chapters'][key])} › {label}"
+        links.append(f'<a href="{href}">{esc(text)}</a>')
+    return f'<p class="ex-goto">回去看重點：{"、".join(links)}</p>' if links else ""
+
+
+def siblings_html(n: int, data: dict, on_page: set[int]) -> str:
+    c = data["concept_of"].get(n)
+    if not c:
+        return ""
+    links = "、".join(
+        f'<a href="{"" if m in on_page else "/exam/" + slug(data["tags"][str(m)]["ch"][0])}#q-{m}">第 {m} 題</a>'
+        for m in c["qs"] if m != n)
+    return f'<p class="ex-sibs">同考點（{esc(c["title"])}）：{links}</p>'
+
+
+def question_html(q: dict, data: dict, *, current: str | None = None, on_page: set[int] = frozenset()) -> str:
     n = q["n"]
     expl = data["explanations"].get(str(n))
     answer = expl["answer"] if expl else ""
@@ -417,7 +501,8 @@ def question_html(q: dict, data: dict, *, current: str | None = None) -> str:
         )
         flags = "".join(f'<p class="ex-warn">⚠ {rich(f)}</p>' for f in expl.get("flags", []))
         reveal = (f'<p class="ex-answer">答案：<strong>{answer}</strong><span class="ex-answer-src">依 BCSC 判斷</span></p>'
-                  f'<p class="ex-summary">{rich(expl["summary"])}</p><ul class="ex-items">{items}</ul>{flags}')
+                  f'<p class="ex-summary">{rich(expl["summary"])}</p><ul class="ex-items">{items}</ul>{flags}'
+                  f'{goto_html(n, data, current)}{siblings_html(n, data, on_page)}')
         actions = ('<div class="ex-actions"><button type="button" class="ex-submit">送出答案</button>'
                    '<button type="button" class="ex-reset">重新作答</button>'
                    '<span class="ex-result" aria-live="polite"></span></div>')
@@ -468,13 +553,38 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
                       '<p class="ex-pending">這一章的重點尚未整理。</p></section>')
     if qs:
-        q_html = MODE_BAR + "".join(question_html(q, data, current=key) for q in qs)
+        on_page = {q["n"] for q in qs}
+        groups = []
+        for c in data["concepts"]:
+            members = [q for q in qs if q["n"] in c["qs"]]
+            if len(members) >= 2:
+                groups.append((c, members))
+        groups.sort(key=lambda g: (-len(g[1]), g[1][0]["n"]))
+        grouped = {q["n"] for _c, members in groups for q in members}
+        rest = [q for q in qs if q["n"] not in grouped]
+
+        def cards(items: list) -> str:
+            return "".join(question_html(q, data, current=key, on_page=on_page) for q in items)
+
+        q_html = MODE_BAR
+        if groups:
+            q_html += ('<p class="ex-meta">考同一個觀念的題目排在一起，可以一次看完不同考法。</p>'
+                       + "".join(f'<h3 class="ex-concept" id="cg-{c["id"]}">考點：{esc(c["title"])}'
+                                 f'<span class="ex-count">{len(members)} 題</span></h3>{cards(members)}'
+                                 for c, members in groups))
+            if rest:
+                q_html += f'<h3 class="ex-concept" id="cg-other">其他考題<span class="ex-count">{len(rest)} 題</span></h3>'
+        q_html += cards(rest)
     else:
         q_html = '<p class="ex-pending">歷屆題庫中沒有標到這一章的題目。</p>'
     body = (
         f'<p class="ex-kicker">BCSC {ch["book"]} · {esc(ch["bookTitle"])}</p>'
         f'<h1 class="ex-h1">Ch.{ch["ch"]} {esc(ch["title"])}</h1>'
         f'<p class="ex-meta">原書 p.{esc(ch["pages"])} · 歷屆考題 {len(qs)} 題</p>'
+        f'<div class="ex-strip" data-progress-chapter="{key}" hidden>'
+        f'<label class="ex-check"><input type="checkbox" class="ex-read-box" value="{key}"> 課本已讀完</label>'
+        '<span class="ex-strip-text" aria-live="polite"></span>'
+        '<a class="ex-strip-link" href="/exam/progress">讀書進度</a></div>'
         f"{notes_html}"
         f'<section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">歷屆考題</h2>{q_html}</section>'
     )
@@ -522,6 +632,7 @@ def hub_page(data: dict, version: str) -> str:
         "讀完一章就能在同一頁快速複習重點與考古題。陸續更新中。</p>"
         '<ul class="ex-tools">'
         '<li><a class="ex-cta" href="/exam/practice">模擬考：自選範圍／隨機出題</a></li>'
+        '<li><a class="ex-cta ex-cta-alt" href="/exam/progress">讀書進度</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/search">搜尋重點與考題</a></li></ul>'
         + f'<h2 class="ex-h2">出題頻率：最常考的 {TOP_N} 章</h2>'
@@ -532,7 +643,7 @@ def hub_page(data: dict, version: str) -> str:
         '<h2 class="ex-h2">依 BCSC 章節瀏覽</h2>' + "".join(books_html)
     )
     desc = ("眼科專科醫師考試讀書筆記：依 BCSC 2025–2026 章節整理課本重點，收錄歷屆考題並標註所屬章節，"
-            "附出題頻率統計、作答與瀏覽模式、模擬考、錯題本、搜尋與 Anki 匯出。")
+            "附出題頻率統計、作答與瀏覽模式、模擬考、錯題本、讀書進度、搜尋與 Anki 匯出。")
     return page(path="/exam", title=HUB_TITLE, description=desc, crumbs=[], schema_type="CollectionPage",
                 body=body, kind="hub", robots="index,follow,max-image-preview:large", version=version)
 
@@ -594,6 +705,20 @@ def review_page(version: str) -> str:
                 robots="noindex,follow", version=version)
 
 
+def progress_page(version: str) -> str:
+    body = (
+        '<p class="ex-kicker">複習工具</p><h1 class="ex-h1">讀書進度</h1>'
+        '<p class="ex-meta">依 BCSC 章節統計已作答題數、正確率與最後讀的日期，並可勾選「課本已讀完」。'
+        '正確率以每題最近一次作答計算；作答紀錄只存在這台裝置的瀏覽器裡（不同電腦或手機不會同步）。</p>'
+        '<div id="ex-progress" class="ex-list"><p class="ex-pending">進度載入中；這個功能需要啟用 JavaScript。</p></div>'
+        '<div class="ex-toolbar"><button type="button" class="ex-clear-progress">清除作答紀錄</button></div>'
+    )
+    return page(path="/exam/progress", title="眼科專科考試讀書進度：各章作答與正確率",
+                description="眼科專科醫師考試讀書筆記的讀書進度：依 BCSC 章節顯示已作答題數、正確率與最後讀的日期，標記課本已讀完的章節，找出需要優先複習的章節。",
+                crumbs=[("讀書進度", "/exam/progress")], schema_type="WebPage", body=body, kind="progress",
+                robots="noindex,follow", version=version)
+
+
 def search_page(version: str) -> str:
     body = (
         '<p class="ex-kicker">搜尋</p><h1 class="ex-h1">搜尋課本重點與歷屆考題</h1>'
@@ -635,10 +760,18 @@ def client_data(data: dict) -> dict:
             row["expl"] = {"summary": expl["summary"], "flags": expl.get("flags", []), "items": [
                 {"key": it["key"], "label": it["label"], "text": it["text"], "ok": it["answer"],
                  "refs": [ref_label(r) for r in it["refs"]]} for it in expl["items"]]}
+        spots = note_spots(q["n"], data)
+        if spots:
+            row["go"] = [list(s) for s in spots]
+        if q["n"] in data["concept_of"]:
+            row["cg"] = data["concepts"].index(data["concept_of"][q["n"]])
         questions.append(row)
     chapters = {k: {"label": f"BCSC {c['book']} Ch.{c['ch']}", "title": c["title"]} for k, c in data["chapters"].items()}
     notes = {k: note_text(v) for k, v in data["notes"].items()}
-    return {"questions": questions, "chapters": chapters, "notes": notes, "taxa": TAXON_RE.pattern}
+    books = {str(b["book"]): b["title"] for b in data["books"]}
+    concepts = [{"t": c["title"], "qs": c["qs"]} for c in data["concepts"]]
+    return {"questions": questions, "chapters": chapters, "notes": notes, "books": books,
+            "concepts": concepts, "taxa": TAXON_RE.pattern}
 
 
 def build() -> dict[str, str]:
@@ -650,6 +783,7 @@ def build() -> dict[str, str]:
             files[f"{slug(key)}.html"] = chapter_page(data, key, version)
     files["practice.html"] = practice_page(data, version)
     files["review.html"] = review_page(version)
+    files["progress.html"] = progress_page(version)
     files["search.html"] = search_page(version)
     files["exam-data.json"] = json.dumps(client_data(data), ensure_ascii=False, separators=(",", ":")) + "\n"
     files["../api/_exam_routes.js"] = routes_module(data)
@@ -788,6 +922,23 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-hitbox{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:14px;line-height:1.8}
 .ex-hitbox a{color:var(--ex-accent);font-weight:700}
 .ex-hitbox mark{background:#fef08a;color:inherit;border-radius:3px}
+.ex-goto,.ex-sibs{font-size:13px;line-height:1.8;margin:8px 0 0;color:var(--ink-2)}
+.ex-goto a,.ex-sibs a{color:var(--ex-accent);font-weight:600}
+.ex-goto{background:var(--ex-soft);border-radius:8px;padding:6px 10px}
+.ex-concept{font-size:15px;font-weight:700;margin:26px 0 4px;padding-top:10px;border-top:1px solid var(--line);color:var(--ex-accent);scroll-margin-top:80px}
+.ex-concept .ex-count{margin-left:8px;font-weight:500}
+.ex-strip{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:8px 14px;margin:10px 0;font-size:13.5px}
+.ex-strip[hidden]{display:none}
+.ex-strip-text{color:var(--ink-2)}
+.ex-strip-link{color:var(--ex-accent);font-weight:600;margin-left:auto}
+.ex-summary-box{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin:12px 0;font-size:14px;line-height:1.9}
+.ex-weak a{color:#b91c1c;font-weight:600}
+.ex-prog{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+.ex-prog th,.ex-prog td{border-bottom:1px solid var(--line);padding:6px 6px;text-align:left;vertical-align:top}
+.ex-prog th{font-size:12px;color:var(--muted);font-weight:600}
+.ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
+.ex-prog a{color:var(--ex-accent)}
+.ex-prog .ex-low{color:#b91c1c;font-weight:700}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -807,6 +958,8 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-note .ex-trap{background:#2d1616;border-color:#7f1d1d}
 :root[data-theme="dark"] .ex-note .ex-trap h3{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc{border-color:#36404b}
+:root[data-theme="dark"] .ex-strip,:root[data-theme="dark"] .ex-summary-box{border-color:#36404b}
+:root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
 </style>
