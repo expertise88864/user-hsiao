@@ -332,13 +332,10 @@
       form.querySelectorAll('input[name=ex-book]:checked').forEach(function (box) { books.push(box.value); });
       if (!books.length) { note.textContent = '請至少選一冊'; return; }
       var count = Number(form.querySelector('select[name=ex-count]').value);
-      var answeredBox = form.querySelector('input[name=ex-answered-only]');
-      var answeredOnly = !!(answeredBox && answeredBox.checked);
       var order = form.querySelector('input[name=ex-order]:checked').value;
       note.textContent = '題目載入中…';
       examData().then(function (data) {
         var pool = data.questions.filter(function (q) {
-          if (answeredOnly && !q.answer) return false;
           return q.ch.some(function (key) { return books.indexOf(key.split('-')[0]) !== -1; });
         });
         if (!pool.length) { note.textContent = '選的範圍內沒有符合的題目'; return; }

@@ -41,7 +41,11 @@
   // Falls back silently in browsers without Trusted Types (Firefox/Safari
   // mostly). Already-strict CSP `require-trusted-types-for 'script'`
   // means policies MUST exist to use string-sinks at all.
-  if (window.trustedTypes && window.trustedTypes.createPolicy) {
+  // Pages load /assets/trusted-types.js first, which already creates both
+  // policies and sets __hsTrustedTypesReady. Creating a policy name twice is a
+  // CSP violation (console error + CSP report) even when the throw is caught,
+  // so only create them here when that bootstrap did not run.
+  if (window.trustedTypes && window.trustedTypes.createPolicy && !window.__hsTrustedTypesReady) {
     var SCRIPT_URL_ALLOW = /^(https?:\/\/(?:www\.googletagmanager\.com|www\.google-analytics\.com|www\.clarity\.ms|stats\.g\.doubleclick\.net|cdn\.jsdelivr\.net)\/|\/)/;
     function sanitizeHTML(s) {
       var out = String(s);
@@ -72,6 +76,7 @@
         createScriptURL: rejectScriptURL,
       });
     } catch (e) { /* default may already exist */ }
+    window.__hsTrustedTypesReady = true;
   }
 
   const DN = (window.DN = window.DN || {});
@@ -3153,7 +3158,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260715';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260716';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3800,7 +3805,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260715';
+    s.src = '/blog/blog-admin.js?v=20260716';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');

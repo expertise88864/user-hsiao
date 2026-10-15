@@ -525,7 +525,7 @@ def hub_page(data: dict, version: str) -> str:
         '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/search">搜尋重點與考題</a></li></ul>'
         + f'<h2 class="ex-h2">出題頻率：最常考的 {TOP_N} 章</h2>'
-        '<p class="ex-meta">一題可能同時考到多章，會計入每一章，所以加總會超過題數。題庫沒有年份資訊，這裡統計的是累計題數。</p>'
+        '<p class="ex-meta">一題可能同時考到多章，會計入每一章，所以加總會超過題數。這裡統計的是累計題數。</p>'
         '<table class="ex-rank"><thead><tr><th scope="col">章節</th><th scope="col">題數</th>'
         '<th scope="col"><span class="ex-sr">相對比例</span></th></tr></thead>'
         f"<tbody>{rows}</tbody></table>"
@@ -549,14 +549,12 @@ def practice_page(data: dict, version: str) -> str:
     )
     body = (
         '<p class="ex-kicker">模擬考</p><h1 class="ex-h1">自選範圍／隨機出題</h1>'
-        '<p class="ex-meta">一題考到多冊時，勾選其中任一冊就會被抽到。尚未整理答案的題目一樣會出，'
-        "但交卷時不計分，只顯示題目供自我練習。</p>"
+        '<p class="ex-meta">一題考到多冊時，勾選其中任一冊就會被抽到。</p>'
         '<form class="ex-practice-form" data-practice-form>'
         '<fieldset class="ex-fieldset"><legend>出題範圍（BCSC 冊別）</legend>'
         f'<div class="ex-checks">{boxes}</div>'
         '<div class="ex-toolbar"><button type="button" class="ex-books-all">全選</button>'
-        '<button type="button" class="ex-books-none">全不選</button></div>'
-        '<label class="ex-check"><input type="checkbox" name="ex-answered-only"> 只出已整理答案、可計分的題目</label></fieldset>'
+        '<button type="button" class="ex-books-none">全不選</button></div></fieldset>'
         '<fieldset class="ex-fieldset"><legend>題數</legend>'
         '<select name="ex-count" class="ex-select" aria-label="題數">'
         '<option value="10">10 題</option><option value="25">25 題</option><option value="50" selected>50 題</option>'

@@ -2,21 +2,15 @@ const { test, expect } = require('@playwright/test');
 test.use({ serviceWorkers: 'block' });
 
 for (const prefix of ['', '/en']) {
-  test(`equal audience entry points work without JavaScript ${prefix || 'zh'}`, async ({ browser }) => {
+  // Owner decision 2026-10-15: the homepage hero carries only the eyebrow,
+  // title and cover story — no lede, no audience buttons, no reading lanes.
+  test(`homepage hero has no audience lanes or lede ${prefix || 'zh'}`, async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled:false, viewport:{width:390,height:844} });
     const page = await context.newPage();
     const base = test.info().project.use.baseURL;
     await page.goto(base + prefix + '/');
-    const links = page.locator('.hs-reader-ctas a');
-    await expect(links).toHaveCount(2);
-    await expect(page.locator('.hs-reading-lanes')).toHaveAccessibleName(
-      prefix ? 'Patient education Research notes' : '一般衛教 醫師研究筆記');
-    for (const audience of ['patient', 'research']) {
-      const link = page.locator(`.hs-reader-ctas [data-reader-route="${audience}"]`);
-      await link.click();
-      await expect(page).toHaveURL(new RegExp('#' + audience + '-reading$'));
-      await expect(page.locator('#' + audience + '-reading h2')).toBeInViewport();
-    }
+    await expect(page.locator('.mag-title')).toBeVisible();
+    await expect(page.locator('.hs-reader-ctas, .hs-reading-lanes, .mag-lede, #patient-reading, #research-reading')).toHaveCount(0);
     await context.close();
   });
 }
@@ -89,7 +83,7 @@ test('search synonyms and a useful empty state work in the shipped bundle', asyn
 });
 
 
-for (const [route, selector] of [['/', '.hs-reading-lanes'], ['/blog/glaucoma-comprehensive-guide', '.hs-reading-path'], ['/blog/cataract-comprehensive-guide', '.hs-reading-path'], ['/en/blog/cataract-comprehensive-guide', '.hs-reading-path']]) {
+for (const [route, selector] of [['/', '.mag-hero'],['/blog/glaucoma-comprehensive-guide', '.hs-reading-path'], ['/blog/cataract-comprehensive-guide', '.hs-reading-path'], ['/en/blog/cataract-comprehensive-guide', '.hs-reading-path']]) {
   test(`reading links remain accessible in dark mode: ${route}`, async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark' });
     await page.goto(route);
