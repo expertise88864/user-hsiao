@@ -572,7 +572,12 @@
         back += '<br>' + htmlText(it.key + ' ' + it.label + '：' + it.text + '（' + it.refs.join('；') + '）');
       });
       (q.expl.flags || []).forEach(function (f) { back += '<br>' + htmlText('⚠ ' + f); });
-      if (q.dispute) back += '<br>' + htmlText('⚠ 答案存疑：' + q.dispute.text);
+      if (q.dispute) {
+        back += '<br>' + htmlText('⚠ 答案存疑：' + q.dispute.text);
+        q.dispute.refs.forEach(function (r) {
+          back += '<br>' + htmlText('・' + r.t + (r.s ? '（' + r.s + '）' : '') + (r.u ? ' ' + r.u : ''));
+        });
+      }
       if (q.doubt) {
         back += '<br>' + htmlText('⚠ 考試答案 ' + q.answer + '：' + q.doubt.exam);
         if (q.doubt.now) {
