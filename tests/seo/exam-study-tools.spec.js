@@ -188,3 +188,15 @@ test('exam figures are not public files; signed-in cards embed them', async ({ p
   const q = bankData.questions.find(x => x.n === 532);
   expect(q.image.src).toMatch(/^data:image\/webp;base64,/);
 });
+
+// Owner request 2026-10-16: the 14 questions whose answer key itself is doubtful
+// keep their answer but show a 「答案存疑」 note with its sources first.
+test('signed in: doubtful answer keys show 答案存疑 with sources', async ({ page }) => {
+  await signIn(page);
+  await page.goto('/exam/bcsc2-6');
+  const box = page.locator('#q-162 .ex-doubt');
+  await expect(box.locator('.ex-doubt-tag-dispute')).toHaveText('答案存疑');
+  await expect(box.locator('.ex-doubt-dispute')).toContainText('X-linked');
+  await expect(box.locator('.ex-cites').first().locator('li')).not.toHaveCount(0);
+  await expect(box.locator('.ex-doubt-exam')).toContainText('考試答案 C');
+});

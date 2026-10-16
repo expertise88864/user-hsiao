@@ -6,7 +6,7 @@
   <!-- ===== Chinese (canonical) ===== -->
   <url>
     <loc>https://hsiao.chendermatologist.com/</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
@@ -19,7 +19,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/about</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
@@ -32,7 +32,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/tools</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
@@ -45,7 +45,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/tools/eye-3d</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools/eye-3d" />
@@ -53,7 +53,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog" />
@@ -66,7 +66,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/topics</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/topics" />
@@ -79,7 +79,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/privacy</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
@@ -92,7 +92,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/exam</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam" />
@@ -100,7 +100,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc6-27</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc6-27" />
@@ -108,7 +108,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc7-11</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc7-11" />
@@ -116,7 +116,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc12-4</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc12-4" />
@@ -124,7 +124,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc12-5</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc12-5" />
@@ -134,7 +134,7 @@
   <!-- ===== Published articles ===== -->
   <url>
     <loc>https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression" />
@@ -143,6 +143,19 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/pediatric-high-myopia-maculopathy-progression.png</image:loc>
       <image:title>高度近視兒童：8 年內 1/3 黃斑部病變惡化，眼軸變化可預警</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/blog/thyroid-eye-disease</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png</image:loc>
+      <image:title>甲狀腺眼疾完整衛教</image:title>
     </image:image>
   </url>
   <url>
@@ -315,19 +328,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://hsiao.chendermatologist.com/blog/thyroid-eye-disease</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png</image:loc>
-      <image:title>甲狀腺眼疾完整衛教</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://hsiao.chendermatologist.com/blog/lacrimal-gland-tumor</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -394,7 +394,7 @@
   <!-- ===== English mirror (/en/) ===== -->
   <url>
     <loc>https://hsiao.chendermatologist.com/en</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/" />
@@ -407,7 +407,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/about</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/about" />
@@ -420,7 +420,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/tools</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/tools" />
@@ -433,7 +433,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog" />
@@ -446,7 +446,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/topics</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/topics" />
@@ -459,7 +459,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/privacy</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/privacy" />
@@ -472,7 +472,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/pediatric-high-myopia-maculopathy-progression</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression" />
@@ -481,6 +481,19 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/pediatric-high-myopia-maculopathy-progression.png</image:loc>
       <image:title>Childhood High Myopia: 1-in-3 Maculopathy in 8 Years</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png</image:loc>
+      <image:title>Thyroid Eye Disease — Patient Education</image:title>
     </image:image>
   </url>
   <url>
@@ -650,19 +663,6 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/cataract-comprehensive-guide.png</image:loc>
       <image:title>Cataract Surgery — Patient Education</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/thyroid-eye-disease" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png</image:loc>
-      <image:title>Thyroid Eye Disease — Patient Education</image:title>
     </image:image>
   </url>
   <url>

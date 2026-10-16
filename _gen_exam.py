@@ -191,7 +191,14 @@ def load() -> dict:
         for r in d.get("refs", []):
             if not re.fullmatch(r"https?://[^\s\"'<>]+", r.get("u", "")) or not r.get("t"):
                 raise SystemExit(f"doubts.json: Q{n} reference needs a title and an http(s) URL")
-        check_traditional(f"doubt Q{n}", d["exam"] + d.get("now", ""))
+        if "dispute" in d:
+            refs = d.get("drefs", [])
+            if not d["dispute"] or not 1 <= len(refs) <= 3 or any(not r.get("t") for r in refs):
+                raise SystemExit(f"doubts.json: Q{n} dispute needs text and 1-3 titled sources")
+            for r in refs:
+                if r.get("u") and not re.fullmatch(r"https?://[^\s\"'<>]+", r["u"]):
+                    raise SystemExit(f"doubts.json: Q{n} dispute source URL must be http(s)")
+        check_traditional(f"doubt Q{n}", d["exam"] + d.get("now", "") + d.get("dispute", ""))
     concepts = json.loads((DATA / "concepts.json").read_text(encoding="utf-8"))
     concept_of: dict[int, dict] = {}
     for c in concepts:
@@ -719,6 +726,9 @@ def bank_data(data: dict) -> dict:
                 {"key": it["key"], "label": it["label"], "text": it["text"], "ok": it["answer"],
                  "refs": [ref_label(r) for r in it["refs"]]} for it in expl["items"]]}
             if doubt:
+                if doubt.get("dispute"):
+                    row["dispute"] = {"text": doubt["dispute"], "refs": [
+                        {"t": r["t"], "u": r.get("u", ""), "s": cite_meta(r)} for r in doubt["drefs"]]}
                 row["doubt"] = {"exam": doubt["exam"], "now": doubt.get("now", ""), "refs": [
                     {"t": r["t"], "u": r["u"], "s": cite_meta(r)} for r in doubt.get("refs", [])]}
         questions.append(row)
@@ -905,6 +915,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-doubt{margin:10px 0 0;border:1px solid #f3d38a;background:#fffbeb;border-radius:10px;padding:8px 12px;font-size:13.5px;line-height:1.8}
 .ex-doubt p{margin:4px 0}
 .ex-doubt-tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:6px;background:#fde68a;color:#713f12}
+.ex-doubt-tag-dispute{background:#fecaca;color:#7f1d1d}
 .ex-doubt-tag-now{background:#dbeafe;color:#1e3a8a}
 .ex-cites{margin:2px 0 4px;padding-left:22px;font-size:12.5px;line-height:1.7}
 .ex-cites a{color:var(--ex-accent);word-break:break-word}
@@ -947,6 +958,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-login-msg{background:#3a1a1a;border-color:#7f1d1d;color:#fecaca}
 :root[data-theme="dark"] .ex-doubt{background:#2a2414;border-color:#5c4a1a}
 :root[data-theme="dark"] .ex-doubt-tag{background:#5c4a1a;color:#fde68a}
+:root[data-theme="dark"] .ex-doubt-tag-dispute{background:#7f1d1d;color:#fee2e2}
 :root[data-theme="dark"] .ex-doubt-tag-now{background:#1e3a5f;color:#dbeafe}
 :root[data-theme="dark"] .ex-strip,:root[data-theme="dark"] .ex-summary-box{border-color:#36404b}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}

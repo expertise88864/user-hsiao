@@ -23,7 +23,7 @@
       "image": "https://hsiao.chendermatologist.com/assets/og/pediatric-high-myopia-maculopathy-progression.png",
       "banner_image": "https://hsiao.chendermatologist.com/assets/og/pediatric-high-myopia-maculopathy-progression.png",
       "date_published": "2026-06-05T00:00:00Z",
-      "date_modified": "2026-10-15T00:00:00Z",
+      "date_modified": "2026-10-16T00:00:00Z",
       "tags": [
         "兒童近視"
       ],
@@ -43,6 +43,37 @@
       "_hsiaoeye": {
         "category": "research",
         "english_url": "https://hsiao.chendermatologist.com/en/blog/pediatric-high-myopia-maculopathy-progression"
+      }
+    },
+    {
+      "id": "https://hsiao.chendermatologist.com/blog/thyroid-eye-disease",
+      "url": "https://hsiao.chendermatologist.com/blog/thyroid-eye-disease",
+      "title": "甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯",
+      "summary": "甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。",
+      "content_html": "<p>甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。</p><p><img src=\"https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png\" alt=\"甲狀腺眼疾（TED / Graves&#x27; Orbitopathy）完整衛教 — 病因、警訊、治療階梯\" /></p><p><a href=\"https://hsiao.chendermatologist.com/blog/thyroid-eye-disease\">閱讀全文</a></p>",
+      "image": "https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png",
+      "banner_image": "https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png",
+      "date_published": "2026-05-07T00:00:00Z",
+      "date_modified": "2026-10-16T00:00:00Z",
+      "tags": [
+        "甲狀腺眼疾"
+      ],
+      "authors": [
+        {
+          "name": "蕭閔謙 醫師",
+          "url": "https://hsiao.chendermatologist.com/about"
+        }
+      ],
+      "attachments": [
+        {
+          "url": "https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png",
+          "mime_type": "image/png",
+          "title": "甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯"
+        }
+      ],
+      "_hsiaoeye": {
+        "category": "alert",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease"
       }
     },
     {
@@ -446,37 +477,6 @@
       "_hsiaoeye": {
         "category": "rx",
         "english_url": "https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide"
-      }
-    },
-    {
-      "id": "https://hsiao.chendermatologist.com/blog/thyroid-eye-disease",
-      "url": "https://hsiao.chendermatologist.com/blog/thyroid-eye-disease",
-      "title": "甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯",
-      "summary": "甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。",
-      "content_html": "<p>甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。</p><p><img src=\"https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png\" alt=\"甲狀腺眼疾（TED / Graves&#x27; Orbitopathy）完整衛教 — 病因、警訊、治療階梯\" /></p><p><a href=\"https://hsiao.chendermatologist.com/blog/thyroid-eye-disease\">閱讀全文</a></p>",
-      "image": "https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png",
-      "banner_image": "https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png",
-      "date_published": "2026-05-07T00:00:00Z",
-      "date_modified": "2026-10-15T00:00:00Z",
-      "tags": [
-        "甲狀腺眼疾"
-      ],
-      "authors": [
-        {
-          "name": "蕭閔謙 醫師",
-          "url": "https://hsiao.chendermatologist.com/about"
-        }
-      ],
-      "attachments": [
-        {
-          "url": "https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png",
-          "mime_type": "image/png",
-          "title": "甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯"
-        }
-      ],
-      "_hsiaoeye": {
-        "category": "alert",
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease"
       }
     },
     {
