@@ -4,7 +4,7 @@
 
 This site explains eye symptoms, common ophthalmology conditions, surgery choices, and study notes in Traditional Chinese with English mirrors. It is educational only and does not replace an in-person ophthalmology visit.
 
-Last content update: 2026-10-15
+Last content update: 2026-10-16
 Canonical host: https://hsiao.chendermatologist.com
 Primary language: zh-Hant-TW
 Secondary language: en
@@ -34,10 +34,20 @@ Secondary language: en
 - English title: Childhood High Myopia: 1-in-3 Maculopathy in 8 Years
 - Topic: 高度近視
 - Published: 2026-06-05
-- Updated: 2026-10-15
+- Updated: 2026-10-16
 - Canonical: https://hsiao.chendermatologist.com/blog/pediatric-high-myopia-maculopathy-progression
 - English mirror: https://hsiao.chendermatologist.com/en/blog/pediatric-high-myopia-maculopathy-progression
 - Summary: 2026 AJO 中山眼科 8 年前瞻世代：155 名高度近視兒童、310 隻眼。8 年內 31.3% 出現近視性黃斑部病變惡化；2 年眼軸變化率把預測準確度從 AUC 0.772 提升到 0.829，最佳切點 0.325 mm/年。機轉、高風險族群與台灣處境整理。
+
+### 甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯
+
+- English title: Thyroid Eye Disease — Patient Education
+- Topic: 甲狀腺眼疾
+- Published: 2026-05-07
+- Updated: 2026-10-16
+- Canonical: https://hsiao.chendermatologist.com/blog/thyroid-eye-disease
+- English mirror: https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease
+- Summary: 甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。
 
 ### 難治型非感染性葡萄膜炎生物製劑怎麼選？2026 RUBI 三藥隨機試驗
 
@@ -168,16 +178,6 @@ Secondary language: en
 - Canonical: https://hsiao.chendermatologist.com/blog/cataract-comprehensive-guide
 - English mirror: https://hsiao.chendermatologist.com/en/blog/cataract-comprehensive-guide
 - Summary: 白內障什麼時候該開刀？人工水晶體怎麼選？整合 AAO、AAPPO、ESCRS 指引，整理視力以外的手術時機、單焦/散光/EDOF/多焦 IOL 取捨、飛秒雷射與術後恢復。
-
-### 甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯
-
-- English title: Thyroid Eye Disease — Patient Education
-- Topic: 甲狀腺眼疾
-- Published: 2026-05-07
-- Updated: 2026-10-15
-- Canonical: https://hsiao.chendermatologist.com/blog/thyroid-eye-disease
-- English mirror: https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease
-- Summary: 甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。
 
 ### 淚腺腫瘤與淚腺癌：症狀、檢查與治療的 6 個問題
 

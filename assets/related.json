@@ -32,13 +32,13 @@
   ],
   "refractory-noninfectious-uveitis-biologics-rubi-trial": [
     {
-      "slug": "pterygium-surgery-fixation-methods-2026-nma",
+      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": [
         "same-cat"
       ]
     },
     {
-      "slug": "pediatric-high-myopia-maculopathy-progression",
+      "slug": "pterygium-surgery-fixation-methods-2026-nma",
       "reasons": [
         "same-cat"
       ]
@@ -58,6 +58,12 @@
   ],
   "osa-amd-systematic-review-2026": [
     {
+      "slug": "pediatric-high-myopia-maculopathy-progression",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
       "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
       "reasons": [
         "same-cat"
@@ -65,12 +71,6 @@
     },
     {
       "slug": "pterygium-surgery-fixation-methods-2026-nma",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": [
         "same-cat"
       ]
@@ -84,13 +84,13 @@
   ],
   "pterygium-surgery-fixation-methods-2026-nma": [
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": [
         "same-cat"
       ]
     },
     {
-      "slug": "pediatric-high-myopia-maculopathy-progression",
+      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
       "reasons": [
         "same-cat"
       ]
@@ -110,6 +110,12 @@
   ],
   "diabetic-retinopathy-dementia-trinetx-cohort": [
     {
+      "slug": "pediatric-high-myopia-maculopathy-progression",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
       "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
       "reasons": [
         "same-cat"
@@ -117,12 +123,6 @@
     },
     {
       "slug": "pterygium-surgery-fixation-methods-2026-nma",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": [
         "same-cat"
       ]
@@ -136,6 +136,12 @@
   ],
   "hzo-stromal-keratitis-zeds-lessons": [
     {
+      "slug": "pediatric-high-myopia-maculopathy-progression",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
       "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
       "reasons": [
         "same-cat"
@@ -143,12 +149,6 @@
     },
     {
       "slug": "pterygium-surgery-fixation-methods-2026-nma",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": [
         "same-cat"
       ]
@@ -162,6 +162,12 @@
   ],
   "ophthalmic-trauma-overlooked-burden": [
     {
+      "slug": "pediatric-high-myopia-maculopathy-progression",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
       "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
       "reasons": [
         "same-cat"
@@ -169,12 +175,6 @@
     },
     {
       "slug": "pterygium-surgery-fixation-methods-2026-nma",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": [
         "same-cat"
       ]
@@ -223,6 +223,12 @@
       ]
     },
     {
+      "slug": "pediatric-high-myopia-maculopathy-progression",
+      "reasons": [
+        "same-cat"
+      ]
+    },
+    {
       "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
       "reasons": [
         "same-cat"
@@ -230,12 +236,6 @@
     },
     {
       "slug": "pterygium-surgery-fixation-methods-2026-nma",
-      "reasons": [
-        "same-cat"
-      ]
-    },
-    {
-      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": [
         "same-cat"
       ]
@@ -379,7 +379,7 @@
       ]
     },
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": []
     }
   ],
@@ -425,11 +425,11 @@
       ]
     },
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": []
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "toric-iol-astigmatism-cataract-review",
       "reasons": []
     }
   ],
@@ -447,11 +447,11 @@
       ]
     },
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "pediatric-high-myopia-maculopathy-progression",
       "reasons": []
     },
     {
-      "slug": "refractory-noninfectious-uveitis-biologics-rubi-trial",
+      "slug": "toric-iol-astigmatism-cataract-review",
       "reasons": []
     }
   ],
@@ -476,7 +476,7 @@
       ]
     },
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "thyroid-eye-disease",
       "reasons": []
     }
   ],
@@ -529,7 +529,7 @@
       ]
     },
     {
-      "slug": "toric-iol-astigmatism-cataract-review",
+      "slug": "thyroid-eye-disease",
       "reasons": []
     }
   ]

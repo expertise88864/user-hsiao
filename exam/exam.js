@@ -222,8 +222,33 @@
   }
 
   // Flagged question: the exam answer's rationale and, if guidance has moved on, the current concept.
+  function citeList(refs) {
+    var list = el('ol', 'ex-cites');
+    refs.forEach(function (r) {
+      var li = el('li');
+      if (/^https?:\/\//.test(r.u || '')) {
+        var a = el('a', null, r.t);
+        a.href = r.u;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        li.appendChild(a);
+      } else {
+        li.appendChild(el('span', null, r.t));
+      }
+      li.appendChild(el('span', 'ex-cite-meta', r.s));
+      list.appendChild(li);
+    });
+    return list;
+  }
+
   function doubtBox(q) {
     var box = el('div', 'ex-doubt');
+    if (q.dispute) {
+      var dis = rich('p', 'ex-doubt-dispute', q.dispute.text);
+      dis.insertBefore(el('span', 'ex-doubt-tag ex-doubt-tag-dispute', '答案存疑'), dis.firstChild);
+      box.appendChild(dis);
+      box.appendChild(citeList(q.dispute.refs));
+    }
     var exam = rich('p', 'ex-doubt-exam', q.doubt.exam);
     exam.insertBefore(el('span', 'ex-doubt-tag', '考試答案 ' + q.answer), exam.firstChild);
     box.appendChild(exam);
@@ -231,18 +256,7 @@
       var now = rich('p', 'ex-doubt-now', q.doubt.now);
       now.insertBefore(el('span', 'ex-doubt-tag ex-doubt-tag-now', '現行觀念'), now.firstChild);
       box.appendChild(now);
-      var list = el('ol', 'ex-cites');
-      q.doubt.refs.forEach(function (r) {
-        var li = el('li');
-        var a = el('a', null, r.t);
-        if (/^https?:\/\//.test(r.u)) a.href = r.u;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        li.appendChild(a);
-        li.appendChild(el('span', 'ex-cite-meta', r.s));
-        list.appendChild(li);
-      });
-      box.appendChild(list);
+      box.appendChild(citeList(q.doubt.refs));
     }
     return box;
   }
@@ -558,6 +572,7 @@
         back += '<br>' + htmlText(it.key + ' ' + it.label + '：' + it.text + '（' + it.refs.join('；') + '）');
       });
       (q.expl.flags || []).forEach(function (f) { back += '<br>' + htmlText('⚠ ' + f); });
+      if (q.dispute) back += '<br>' + htmlText('⚠ 答案存疑：' + q.dispute.text);
       if (q.doubt) {
         back += '<br>' + htmlText('⚠ 考試答案 ' + q.answer + '：' + q.doubt.exam);
         if (q.doubt.now) {
@@ -656,6 +671,7 @@
     if (q.expl) {
       parts.push(q.expl.summary);
       if (q.doubt) parts.push(q.doubt.exam, q.doubt.now);
+      if (q.dispute) parts.push(q.dispute.text);
       q.expl.items.forEach(function (it) { parts.push(it.text); });
     }
     return parts.join(' ');
