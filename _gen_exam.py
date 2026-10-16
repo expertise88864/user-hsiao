@@ -479,7 +479,7 @@ def chapter_page(data: dict, key: str, version: str) -> str:
             for hid, text in re.findall(r'<h2[^>]*\sid="([^"]+)"[^>]*>(.*?)</h2>', note, re.S)
         )
         toc_html = (f'<nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol>{toc}'
-                    '<li><a href="#qs-h">歷屆考題</a></li></ol></nav>') if toc else ""
+                    '<li><a href="#qs-h">考題</a></li></ol></nav>') if toc else ""
         notes_html = (f'<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>{toc_html}'
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'
                       f'<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p>'
@@ -492,24 +492,24 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         # /api/exam/data; exam.js renders them here (grouped by concept) after login.
         q_html = (f'<div class="ex-qs-tools" hidden>{MODE_BAR}</div>'
                   f'<div id="ex-chapter-qs" class="ex-list" data-chapter="{key}">'
-                  f'<p class="ex-locked">本章歷屆考題 {len(qs)} 題。<a href="{login_href(f"/exam/{slug(key)}")}">登入</a>'
+                  f'<p class="ex-locked">本章考題 {len(qs)} 題。<a href="{login_href(f"/exam/{slug(key)}")}">登入</a>'
                   '後可以作答、看答案與詳解。</p></div>')
     else:
-        q_html = '<p class="ex-pending">歷屆題庫中沒有標到這一章的題目。</p>'
+        q_html = '<p class="ex-pending">題庫中沒有標到這一章的題目。</p>'
     body = (
         f'<p class="ex-kicker">BCSC {ch["book"]} · {esc(ch["bookTitle"])}</p>'
         f'<h1 class="ex-h1">Ch.{ch["ch"]} {esc(ch["title"])}</h1>'
-        f'<p class="ex-meta">原書 p.{esc(ch["pages"])} · 歷屆考題 {len(qs)} 題</p>'
+        f'<p class="ex-meta">原書 p.{esc(ch["pages"])} · 考題 {len(qs)} 題</p>'
         f'<div class="ex-strip" data-progress-chapter="{key}" hidden>'
         f'<label class="ex-check"><input type="checkbox" class="ex-read-box" value="{key}"> 課本已讀完</label>'
         '<span class="ex-strip-text" aria-live="polite"></span>'
         '<a class="ex-strip-link" href="/exam/progress">讀書進度</a></div>'
         f"{notes_html}"
-        f'<section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">歷屆考題</h2>{q_html}</section>'
+        f'<section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2>{q_html}</section>'
     )
     head_label = f"BCSC {ch['book']} Ch.{ch['ch']} "
-    title = head_label + fit(ch["title"], TITLE_MAX - len(SITE_SUFFIX) - len(head_label) - len("：重點與考古題")) + "：重點與考古題"
-    tail = ("的課本重點整理，" if note else "，") + f"以及標到本章的歷屆考題 {len(qs)} 題。"
+    title = head_label + fit(ch["title"], TITLE_MAX - len(SITE_SUFFIX) - len(head_label) - len("：重點與考題")) + "：重點與考題"
+    tail = ("的課本重點整理，" if note else "，") + f"以及標到本章的考題 {len(qs)} 題。"
     lead = f"眼科專科醫師考試讀書筆記：BCSC 2025–2026 第 {ch['book']} 冊第 {ch['ch']} 章 "
     desc = lead + fit(ch["title"], DESC_MAX - len(lead) - len(tail)) + tail
     return page(path=f"/exam/{slug(key)}", title=title, description=desc,
@@ -555,7 +555,7 @@ def hub_page(data: dict, version: str) -> str:
         '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/search">搜尋重點與考題</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/login">登入／登出題庫</a></li></ul>'
-        '<p class="ex-meta">課本重點整理公開；歷屆考題、答案與詳解需要登入才能看。</p>'
+        '<p class="ex-meta">課本重點整理公開；考題、答案與詳解需要登入才能看。</p>'
         + f'<h2 class="ex-h2">出題頻率：最常考的 {TOP_N} 章</h2>'
         '<p class="ex-meta">一題可能同時考到多章，會計入每一章，所以加總會超過題數。這裡統計的是累計題數。</p>'
         '<table class="ex-rank"><thead><tr><th scope="col">章節</th><th scope="col">題數</th>'
@@ -563,7 +563,7 @@ def hub_page(data: dict, version: str) -> str:
         f"<tbody>{rows}</tbody></table>"
         '<h2 class="ex-h2">依 BCSC 章節瀏覽</h2>' + "".join(books_html)
     )
-    desc = ("眼科專科醫師考試讀書筆記：依 BCSC 2025–2026 章節整理課本重點，收錄歷屆考題並標註所屬章節，"
+    desc = ("眼科專科醫師考試讀書筆記：依 BCSC 2025–2026 章節整理課本重點，收錄考題並標註所屬章節，"
             "附出題頻率統計、作答與瀏覽模式、模擬考、錯題本、讀書進度、搜尋與 Anki 匯出。")
     return page(path="/exam", title=HUB_TITLE, description=desc, crumbs=[], schema_type="CollectionPage",
                 body=body, kind="hub", robots="index,follow,max-image-preview:large", version=version)
@@ -604,7 +604,7 @@ def practice_page(data: dict, version: str) -> str:
         '<p class="ex-pending">選好範圍、題數與順序後按「產生試卷」。這個功能需要啟用 JavaScript。</p></div>'
     )
     return page(path="/exam/practice", title="眼科專科考試模擬考：自選範圍與隨機出題",
-                description="眼科專科醫師考試模擬考：從歷屆考題中自選 BCSC 冊別與題數，隨機或依題號出題，計時作答、交卷計分，並對照答案與 BCSC 詳解。",
+                description="眼科專科醫師考試模擬考：從考題中自選 BCSC 冊別與題數，隨機或依題號出題，計時作答、交卷計分，並對照答案與 BCSC 詳解。",
                 crumbs=[("模擬考", "/exam/practice")], schema_type="WebPage", body=body, kind="practice",
                 robots="noindex,follow", version=version)
 
@@ -621,7 +621,7 @@ def review_page(version: str) -> str:
         '<div id="ex-review-list" class="ex-list"><p class="ex-pending">目前沒有錯題，或瀏覽器停用了 JavaScript。</p></div>'
     )
     return page(path="/exam/review", title="眼科專科考試錯題本與 Anki 匯出",
-                description="眼科專科醫師考試讀書筆記的錯題本：集中重練作答模式答錯的歷屆考題，並可把題目與詳解匯出成 Anki 卡片。",
+                description="眼科專科醫師考試讀書筆記的錯題本：集中重練作答模式答錯的考題，並可把題目與詳解匯出成 Anki 卡片。",
                 crumbs=[("錯題本", "/exam/review")], schema_type="WebPage", body=body, kind="review",
                 robots="noindex,follow", version=version)
 
@@ -643,7 +643,7 @@ def progress_page(version: str) -> str:
 def login_page(version: str) -> str:
     body = (
         '<p class="ex-kicker">題庫登入</p><h1 class="ex-h1">登入題庫</h1>'
-        '<p class="ex-meta">歷屆考題、答案與詳解需要登入才能看；課本重點整理不用登入。登入後 30 天內不需要再輸入密碼。</p>'
+        '<p class="ex-meta">考題、答案與詳解需要登入才能看；課本重點整理不用登入。登入後 30 天內不需要再輸入密碼。</p>'
         '<p class="ex-login-msg" role="alert" hidden></p>'
         '<form class="ex-login" method="post" action="/api/exam/login">'
         '<input type="hidden" name="next" value="/exam">'
@@ -654,14 +654,14 @@ def login_page(version: str) -> str:
         '<button type="submit" class="ex-link-btn">登出這台裝置</button></form>'
     )
     return page(path="/exam/login", title="眼科專科考試題庫登入",
-                description="眼科專科醫師考試讀書筆記的題庫登入頁：登入後可以看歷屆考題、答案與詳解；各章課本重點整理不需要登入即可閱讀。",
+                description="眼科專科醫師考試讀書筆記的題庫登入頁：登入後可以看考題、答案與詳解；各章課本重點整理不需要登入即可閱讀。",
                 crumbs=[("登入", "/exam/login")], schema_type="WebPage", body=body, kind="login",
                 robots="noindex,nofollow", version=version)
 
 
 def search_page(version: str) -> str:
     body = (
-        '<p class="ex-kicker">搜尋</p><h1 class="ex-h1">搜尋課本重點與歷屆考題</h1>'
+        '<p class="ex-kicker">搜尋</p><h1 class="ex-h1">搜尋課本重點與考題</h1>'
         '<form class="ex-search" role="search" data-search-form>'
         '<label class="ex-sr" for="ex-q">關鍵字</label>'
         '<input id="ex-q" name="q" type="search" class="ex-input" placeholder="例如 HLA-B*1502、AREDS2、Protocol T" autocomplete="off">'
@@ -669,8 +669,8 @@ def search_page(version: str) -> str:
         '<p class="ex-meta">搜尋各章重點整理；登入後也會搜尋題幹、選項與詳解。英文不分大小寫，多個關鍵字以空白分隔（需全部符合）。</p>'
         '<div id="ex-search-results" class="ex-list" aria-live="polite"></div>'
     )
-    return page(path="/exam/search", title="搜尋眼科專科考試重點與歷屆考題",
-                description="在眼科專科醫師考試讀書筆記中搜尋關鍵字，例如藥名、試驗名稱或基因，同時找出相關的 BCSC 課本重點整理與歷屆考題詳解。",
+    return page(path="/exam/search", title="搜尋眼科專科考試重點與考題",
+                description="在眼科專科醫師考試讀書筆記中搜尋關鍵字，例如藥名、試驗名稱或基因，同時找出相關的 BCSC 課本重點整理與考題詳解。",
                 crumbs=[("搜尋", "/exam/search")], schema_type="WebPage", body=body, kind="search",
                 robots="noindex,follow", version=version)
 

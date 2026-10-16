@@ -552,7 +552,7 @@
     return questions.map(function (q) {
       var front = htmlText(q.stem) + '<br>';
       Object.keys(q.options).forEach(function (k) { front += htmlText('(' + k + ') ' + q.options[k]) + '<br>'; });
-      front += '<small>眼科專科歷屆題 第 ' + q.n + ' 題 · ' + q.ch.map(function (c) { return 'BCSC ' + c; }).join('、') + '</small>';
+      front += '<small>眼科專科考題 第 ' + q.n + ' 題 · ' + q.ch.map(function (c) { return 'BCSC ' + c; }).join('、') + '</small>';
       var back = '答案：' + q.answer + '<br>' + htmlText(q.expl.summary);
       q.expl.items.forEach(function (it) {
         back += '<br>' + htmlText(it.key + ' ' + it.label + '：' + it.text + '（' + it.refs.join('；') + '）');
@@ -693,10 +693,10 @@
       out.appendChild(qBox);
       examData().then(function (bank) {
         var qHits = bank.questions.filter(function (q) { return matches(questionText(q), words); });
-        qBox.appendChild(el('h2', 'ex-h2', '歷屆考題（' + qHits.length + ' 題）'));
+        qBox.appendChild(el('h2', 'ex-h2', '考題（' + qHits.length + ' 題）'));
         if (qHits.length > 80) qBox.appendChild(el('p', 'ex-meta', '只顯示前 80 題，請加關鍵字縮小範圍。'));
         qHits.slice(0, 80).forEach(function (q) { qBox.appendChild(renderCard(q, bank, { suffix: '-s' })); });
-      }).catch(function (err) { lockedNote(qBox, err, '搜尋歷屆考題'); });
+      }).catch(function (err) { lockedNote(qBox, err, '搜尋考題'); });
     }).catch(function () {
       clear(out);
       out.appendChild(el('p', 'ex-pending', '資料載入失敗，請重新整理頁面。'));
@@ -756,7 +756,7 @@
       var target = /^#q-\d+$/.test(location.hash) ? document.getElementById(location.hash.slice(1)) : null;
       if (target) target.scrollIntoView();
     }).catch(function (err) {
-      if (!err || !err.login) lockedNote(box, err, '本章歷屆考題');
+      if (!err || !err.login) lockedNote(box, err, '本章考題');
     });
   }
 
