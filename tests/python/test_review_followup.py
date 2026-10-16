@@ -85,7 +85,7 @@ class ReviewFollowup(unittest.TestCase):
             p=BeautifulSoup((ROOT / locale / 'pterygium-surgery-fixation-methods-2026-nma.html').read_text(encoding='utf-8'),'html.parser')
             comparisons=[row.get_text(' ',strip=True) for row in p.select('tr')]
             self.assertTrue(any('FG vs Vicryl' in r and '0.39' in r and '0.69' in r for r in comparisons))
-            self.assertTrue(any('FG vs Nylon' in r and '0.38' in r and '0.82' in r for r in comparisons))
+            self.assertTrue(any(('FG vs Nylon' in r or 'FG vs 尼龍' in r) and '0.38' in r and '0.82' in r for r in comparisons))
             self.assertTrue(any('0.52' in r and '0.96' in r for r in comparisons))
             h=(ROOT / locale / 'hzo-stromal-keratitis-zeds-lessons.html').read_text(encoding='utf-8')
             self.assertNotIn('3 個月最危險',h)
@@ -161,4 +161,5 @@ class ReviewFollowup(unittest.TestCase):
             self.assertNotIn('≥ -5.00 D',source)
             self.assertNotIn('≥ −5.00 D',source)
             self.assertNotIn('(>−5.00 D)',source)
-            self.assertIn('≤ −5.00 D',source)
+            # 2026-10-16 proofread: myopia risk now uses the sourced −1 to −3 D / beyond −3 D bands.
+            self.assertIn('about 4× at −1 to −3 D' if locale.startswith('en') else '100–300 度約為不近視者的 4 倍',source)
