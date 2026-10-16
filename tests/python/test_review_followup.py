@@ -86,7 +86,9 @@ class ReviewFollowup(unittest.TestCase):
             comparisons=[row.get_text(' ',strip=True) for row in p.select('tr')]
             self.assertTrue(any('FG vs Vicryl' in r and '0.39' in r and '0.69' in r for r in comparisons))
             self.assertTrue(any(('FG vs Nylon' in r or 'FG vs 尼龍' in r) and '0.38' in r and '0.82' in r for r in comparisons))
-            self.assertTrue(any('0.52' in r and '0.96' in r for r in comparisons))
+            # Full-text check 2026-10-16: the abstract's FG vs a_blood 0.52 (0.28-0.96) is the league table's
+            # a_blood vs nylon cell; FG vs a_blood is 1/1.35 = 0.74 (0.42-1.30), not significant (Fig. 3).
+            self.assertTrue(any('0.74' in r and '1.30' in r for r in comparisons))
             h=(ROOT / locale / 'hzo-stromal-keratitis-zeds-lessons.html').read_text(encoding='utf-8')
             self.assertNotIn('3 個月最危險',h)
             self.assertNotIn('Highest relapse risk',h)
