@@ -46,7 +46,7 @@ ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data" / "exam"
 OUT = ROOT / "exam"
 DOMAIN = "https://hsiao.chendermatologist.com"
-HUB_TITLE = "眼科專科醫師考試重點及歷屆考古題"
+HUB_TITLE = "眼科專科醫師考試重點及考題"
 SITE_SUFFIX = " | HsiaoEye · 蕭閔謙醫師"
 REFERENCE = "AAO Basic and Clinical Science Course (BCSC) 2025–2026"
 OG_IMAGE = f"{DOMAIN}/assets/og/notes.png"
@@ -547,8 +547,8 @@ def hub_page(data: dict, version: str) -> str:
         )
     body = (
         f'<h1 class="ex-h1">{HUB_TITLE}</h1>'
-        f'<p class="ex-lead">依 {esc(REFERENCE)} 章節整理課本重點，並把歷屆考題標到每一題考到的所有章節；'
-        "讀完一章就能在同一頁快速複習重點與考古題。陸續更新中。</p>"
+        f'<p class="ex-lead">依 {esc(REFERENCE)} 章節整理課本重點，並把考題標到每一題考到的所有章節；'
+        "讀完一章就能在同一頁快速複習重點與考題。陸續更新中。</p>"
         '<ul class="ex-tools">'
         '<li><a class="ex-cta" href="/exam/practice">模擬考：自選範圍／隨機出題</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/progress">讀書進度</a></li>'
