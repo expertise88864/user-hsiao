@@ -289,6 +289,19 @@
     </image:image>
   </url>
   <url>
+    <loc>https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png</image:loc>
+      <image:title>青光眼藥物與手術選擇</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -373,19 +386,6 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/floaters-retinal-detachment.png</image:loc>
       <image:title>飛蚊症 6 大警訊</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png</image:loc>
-      <image:title>青光眼藥物與手術選擇</image:title>
     </image:image>
   </url>
 
@@ -480,7 +480,7 @@
     <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/pediatric-high-myopia-maculopathy-progression" />
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/pediatric-high-myopia-maculopathy-progression.png</image:loc>
-      <image:title>Childhood High Myopia: 1-in-3 Maculopathy in 8 Years</image:title>
+      <image:title>Childhood High Myopia: Maculopathy Worsened in ~1/3 of Eyes</image:title>
     </image:image>
   </url>
   <url>
@@ -627,6 +627,19 @@
     </image:image>
   </url>
   <url>
+    <loc>https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" />
+    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection" />
+    <image:image>
+      <image:loc>https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png</image:loc>
+      <image:title>Glaucoma Treatment Selection</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/en/blog/glaucoma-comprehensive-guide</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -663,19 +676,6 @@
     <image:image>
       <image:loc>https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png</image:loc>
       <image:title>Thyroid Eye Disease — Patient Education</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" />
-    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection" />
-    <xhtml:link rel="alternate" hreflang="en"         href="https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection" />
-    <image:image>
-      <image:loc>https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png</image:loc>
-      <image:title>Glaucoma Treatment Selection</image:title>
     </image:image>
   </url>
 

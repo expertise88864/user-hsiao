@@ -31,7 +31,7 @@ Secondary language: en
 
 ### 高度近視兒童：8 年內 1/3 黃斑部病變惡化，眼軸變化可預警
 
-- English title: Childhood High Myopia: 1-in-3 Maculopathy in 8 Years
+- English title: Childhood High Myopia: Maculopathy Worsened in ~1/3 of Eyes
 - Topic: 高度近視
 - Published: 2026-06-05
 - Updated: 2026-10-16
@@ -149,6 +149,16 @@ Secondary language: en
 - English mirror: https://hsiao.chendermatologist.com/en/blog/cataract-surgery-selection
 - Summary: 白內障手術種類有哪些？健保與自費人工水晶體差在哪？比較超音波、飛秒雷射等術式，以及單焦、多焦、延焦深與散光人工水晶體的取捨，整理術前評估、生活需求與回診可問的問題，協助你與醫師討論選擇。
 
+### 青光眼藥物與手術選擇 — 醫師決策邏輯、副作用與台灣現況
+
+- English title: Glaucoma Treatment Selection
+- Topic: 青光眼治療
+- Published: 2026-05-10
+- Updated: 2026-10-16
+- Canonical: https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection
+- English mirror: https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection
+- Summary: 青光眼治療怎麼選？整理 SLT 雷射與藥物第一線、前列腺素類副作用、複方眼藥水、加藥/換藥邏輯、MIGS、傳統手術階梯、閉角型路徑與台灣健保現況。
+
 ### 青光眼症狀、檢查與治療：早期沒症狀怎麼發現？
 
 - English title: Glaucoma — Patient Education
@@ -177,7 +187,7 @@ Secondary language: en
 - Updated: 2026-10-16
 - Canonical: https://hsiao.chendermatologist.com/blog/thyroid-eye-disease
 - English mirror: https://hsiao.chendermatologist.com/en/blog/thyroid-eye-disease
-- Summary: 甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。
+- Summary: 甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明活動期／不活動期分期、CAS 評分、嚴重度、類固醇／放療／手術階梯與視神經壓迫急症。
 
 ### 淚腺腫瘤與淚腺癌：症狀、檢查與治療的 6 個問題
 
@@ -218,16 +228,6 @@ Secondary language: en
 - Canonical: https://hsiao.chendermatologist.com/blog/dry-eye-myths
 - English mirror: translation in progress
 - Summary: 點人工淚液會依賴？流淚就不是乾眼？葉黃素能治乾眼？整理 8 個常見乾眼迷思，說明 BAK 防腐劑、Omega-3 證據、瞼板腺熱敷、何時該就醫檢查。
-
-### 青光眼藥物與手術選擇 — 醫師決策邏輯、副作用與台灣現況
-
-- English title: Glaucoma Treatment Selection
-- Topic: 青光眼治療
-- Published: 2026-05-10
-- Updated: 2026-10-15
-- Canonical: https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection
-- English mirror: https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection
-- Summary: 青光眼治療怎麼選？整理 SLT 雷射與藥物第一線、前列腺素類副作用、複方眼藥水、加藥/換藥邏輯、MIGS、傳統手術階梯、閉角型路徑與台灣健保現況。
 
 ## Citation Guidance
 

@@ -33,9 +33,9 @@ BREADCRUMB_SCHEMA_RE = re.compile(
 
 ARTICLE_SNIPPETS = {
     'pediatric-high-myopia-maculopathy-progression':
-        '2026《美國眼科期刊》中山眼科 8 年前瞻世代：155 名高度近視兒童、310 隻眼。8 年內 31.3% 出現近視性黃斑部病變惡化；把「2 年眼軸變化率」加入模型，可將預測準確度從 AUC 0.772 提升到 0.829，最佳切點約每年 0.325 mm。整理 Meta-PM 分級、機轉、高風險族群、紅旗與台灣家長對策。蕭閔謙醫師整理。',
+        '2026 AJO 中山眼科 8 年前瞻世代：155 名高度近視兒童、310 隻眼。8 年內 31.3% 出現近視性黃斑部病變惡化；2 年眼軸變化率把預測準確度從 AUC 0.772 提升到 0.829，最佳切點 0.325 mm/年。機轉、高風險族群與台灣處境整理。',
     'refractory-noninfectious-uveitis-biologics-rubi-trial':
-        '2026 AJO RUBI 多中心貝氏隨機試驗：112 名成人難治型非感染性、非前段葡萄膜炎，比較 adalimumab（抗 TNF-α）、tocilizumab（抗 IL-6R）、anakinra（抗 IL-1）16 週。主要複合終點 ADA 16% vs TCZ 14%（相當、不顯著）；anakinra 因療效不足提早停止；類固醇減量達標 ADA 59% vs TCZ 74%。機轉、安全性、研究限制與台灣處境完整整理。蕭閔謙醫師整理。',
+        '2026 AJO RUBI 隨機試驗比較難治型非感染性葡萄膜炎三種生物製劑：adalimumab 16% vs tocilizumab 14%（主要終點相當）、anakinra 因療效不足提早停止。112 人、27 中心、貝氏設計。機轉、安全性、研究限制、台灣處境完整整理。蕭閔謙醫師整理。',
     'osa-amd-systematic-review-2026':
         '2026 AJO Yaldo 等系統性回顧整合 8 篇研究、353 萬人：睡眠呼吸中止症與黃斑部病變風險顯著相關（調整 aOR 1.44，中等證據力，I²=0%）；時間風險 aHR 1.66；機轉：間歇缺氧、補體活化、脈絡膜血流不足。蕭閔謙醫師整理。',
     'pterygium-surgery-fixation-methods-2026-nma':
@@ -63,7 +63,7 @@ ARTICLE_SNIPPETS = {
     'cataract-comprehensive-guide':
         '白內障什麼時候該開刀？人工水晶體怎麼選？整合 AAO、AAPPO、ESCRS 指引，整理視力以外的手術時機、單焦／散光／EDOF／多焦 IOL 取捨、飛秒雷射與術後恢復。',
     'thyroid-eye-disease':
-        '甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。',
+        '甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明活動期／不活動期分期、CAS 評分、嚴重度、類固醇／放療／手術階梯與視神經壓迫急症。',
     'lacrimal-gland-tumor':
         '淚腺腫瘤一定是癌症嗎？眼球突出、疼痛時要做哪些檢查？整理良性與惡性淚腺腫瘤的差異，聚焦淚腺癌中的腺樣囊狀癌，說明保留眼球手術、放射治療、動脈內化療與追蹤的常見問題，附研究來源與治療限制。',
     'dry-eye-myths':

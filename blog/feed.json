@@ -387,6 +387,37 @@
       }
     },
     {
+      "id": "https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection",
+      "url": "https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection",
+      "title": "青光眼藥物與手術選擇 — 醫師決策邏輯、副作用與台灣現況",
+      "summary": "青光眼治療怎麼選？整理 SLT 雷射與藥物第一線、前列腺素類副作用、複方眼藥水、加藥/換藥邏輯、MIGS、傳統手術階梯、閉角型路徑與台灣健保現況。",
+      "content_html": "<p>青光眼治療怎麼選？整理 SLT 雷射與藥物第一線、前列腺素類副作用、複方眼藥水、加藥/換藥邏輯、MIGS、傳統手術階梯、閉角型路徑與台灣健保現況。</p><p><img src=\"https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png\" alt=\"青光眼藥物與手術選擇 — 醫師決策邏輯、副作用與台灣現況\" /></p><p><a href=\"https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection\">閱讀全文</a></p>",
+      "image": "https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png",
+      "banner_image": "https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png",
+      "date_published": "2026-05-10T00:00:00Z",
+      "date_modified": "2026-10-16T00:00:00Z",
+      "tags": [
+        "青光眼"
+      ],
+      "authors": [
+        {
+          "name": "蕭閔謙 醫師",
+          "url": "https://hsiao.chendermatologist.com/about"
+        }
+      ],
+      "attachments": [
+        {
+          "url": "https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png",
+          "mime_type": "image/png",
+          "title": "青光眼藥物與手術選擇 — 醫師決策邏輯、副作用與台灣現況"
+        }
+      ],
+      "_hsiaoeye": {
+        "category": "rx",
+        "english_url": "https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection"
+      }
+    },
+    {
       "id": "https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide",
       "url": "https://hsiao.chendermatologist.com/blog/glaucoma-comprehensive-guide",
       "title": "青光眼症狀、檢查與治療：早期沒症狀怎麼發現？",
@@ -452,8 +483,8 @@
       "id": "https://hsiao.chendermatologist.com/blog/thyroid-eye-disease",
       "url": "https://hsiao.chendermatologist.com/blog/thyroid-eye-disease",
       "title": "甲狀腺眼疾（TED / Graves' Orbitopathy）完整衛教 — 病因、警訊、治療階梯",
-      "summary": "甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。",
-      "content_html": "<p>甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明 active/inactive 分期、CAS 評分、嚴重度、類固醇/放療/手術階梯與視神經壓迫急症。</p><p><img src=\"https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png\" alt=\"甲狀腺眼疾（TED / Graves&#x27; Orbitopathy）完整衛教 — 病因、警訊、治療階梯\" /></p><p><a href=\"https://hsiao.chendermatologist.com/blog/thyroid-eye-disease\">閱讀全文</a></p>",
+      "summary": "甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明活動期／不活動期分期、CAS 評分、嚴重度、類固醇／放療／手術階梯與視神經壓迫急症。",
+      "content_html": "<p>甲狀腺眼疾（TED）何時需要治療？整理 EUGOGO、ATA/ETA 與 2025 回顧，說明活動期／不活動期分期、CAS 評分、嚴重度、類固醇／放療／手術階梯與視神經壓迫急症。</p><p><img src=\"https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png\" alt=\"甲狀腺眼疾（TED / Graves&#x27; Orbitopathy）完整衛教 — 病因、警訊、治療階梯\" /></p><p><a href=\"https://hsiao.chendermatologist.com/blog/thyroid-eye-disease\">閱讀全文</a></p>",
       "image": "https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png",
       "banner_image": "https://hsiao.chendermatologist.com/assets/og/thyroid-eye-disease.png",
       "date_published": "2026-05-07T00:00:00Z",
@@ -597,37 +628,6 @@
       ],
       "_hsiaoeye": {
         "category": "myth"
-      }
-    },
-    {
-      "id": "https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection",
-      "url": "https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection",
-      "title": "青光眼藥物與手術選擇 — 醫師決策邏輯、副作用與台灣現況",
-      "summary": "青光眼治療怎麼選？整理 SLT 雷射與藥物第一線、前列腺素類副作用、複方眼藥水、加藥/換藥邏輯、MIGS、傳統手術階梯、閉角型路徑與台灣健保現況。",
-      "content_html": "<p>青光眼治療怎麼選？整理 SLT 雷射與藥物第一線、前列腺素類副作用、複方眼藥水、加藥/換藥邏輯、MIGS、傳統手術階梯、閉角型路徑與台灣健保現況。</p><p><img src=\"https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png\" alt=\"青光眼藥物與手術選擇 — 醫師決策邏輯、副作用與台灣現況\" /></p><p><a href=\"https://hsiao.chendermatologist.com/blog/glaucoma-treatment-selection\">閱讀全文</a></p>",
-      "image": "https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png",
-      "banner_image": "https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png",
-      "date_published": "2026-05-10T00:00:00Z",
-      "date_modified": "2026-10-15T00:00:00Z",
-      "tags": [
-        "青光眼"
-      ],
-      "authors": [
-        {
-          "name": "蕭閔謙 醫師",
-          "url": "https://hsiao.chendermatologist.com/about"
-        }
-      ],
-      "attachments": [
-        {
-          "url": "https://hsiao.chendermatologist.com/assets/og/glaucoma-treatment-selection.png",
-          "mime_type": "image/png",
-          "title": "青光眼藥物與手術選擇 — 醫師決策邏輯、副作用與台灣現況"
-        }
-      ],
-      "_hsiaoeye": {
-        "category": "rx",
-        "english_url": "https://hsiao.chendermatologist.com/en/blog/glaucoma-treatment-selection"
       }
     }
   ]

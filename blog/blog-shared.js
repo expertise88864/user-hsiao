@@ -138,7 +138,7 @@
 
   // ---------- article catalog ----------
   DN.ARTICLES = [
-    { slug:'pediatric-high-myopia-maculopathy-progression', title:'高度近視兒童：8 年內 1/3 黃斑部病變惡化，眼軸變化可預警', title_en:'Childhood High Myopia: Maculopathy Progressed in ~1/3 of Eyes', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-06-05', updated:'2026-10-16' },
+    { slug:'pediatric-high-myopia-maculopathy-progression', title:'高度近視兒童：8 年內 1/3 黃斑部病變惡化，眼軸變化可預警', title_en:'Childhood High Myopia: Maculopathy Worsened in ~1/3 of Eyes', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-06-05', updated:'2026-10-16' },
     { slug:'refractory-noninfectious-uveitis-biologics-rubi-trial', title:'難治型非感染性葡萄膜炎：Adalimumab、Tocilizumab、Anakinra 隨機試驗解析', title_en:'Refractory Noninfectious Uveitis — RUBI Biologics Trial', cat:'research', tag:'葡萄膜炎', tag_en:'Uveitis', date:'2026-06-02', updated:'2026-10-16' },
     { slug:'osa-amd-systematic-review-2026', title:'睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析', title_en:'Sleep Apnea and AMD Risk — 2026 Meta-Analysis', cat:'research', tag:'黃斑部病變', tag_en:'AMD', date:'2026-05-26', updated:'2026-10-16' },
     { slug:'pterygium-surgery-fixation-methods-2026-nma', title:'翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析', title_en:'Pterygium Fixation Methods — 2026 NMA of 35 RCTs', cat:'research', tag:'翼狀贅肉', tag_en:'Pterygium', date:'2026-05-23', updated:'2026-10-16' },
@@ -150,7 +150,7 @@
     { slug:'monitoring-myopia-ser-vs-axial-length', title:'監測兒童近視，該追蹤「度數」還是「眼軸」？', title_en:'Monitoring Childhood Myopia: SER or Axial Length?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-13', updated:'2026-10-16' },
     { slug:'dims-pediatric-myopia-control', title:'兒童近視控制鏡片（DIMS）有效嗎？', title_en:'Are DIMS Lenses Effective for Pediatric Myopia?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-12', updated:'2026-10-16' },
     { slug:'cataract-surgery-selection',   title:'白內障手術深度選擇',     title_en:'Cataract Surgery Selection',             cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-11', updated:'2026-10-16' },
-    { slug:'glaucoma-treatment-selection', title:'青光眼藥物與手術選擇',  title_en:'Glaucoma Treatment Selection',           cat:'rx',    tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-10', updated:'2026-10-15' },
+    { slug:'glaucoma-treatment-selection', title:'青光眼藥物與手術選擇',  title_en:'Glaucoma Treatment Selection',           cat:'rx',    tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-10', updated:'2026-10-16' },
     { slug:'glaucoma-comprehensive-guide', title:'青光眼完整衛教',       title_en:'Glaucoma — Patient Education',           cat:'alert', tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-09', updated:'2026-10-16' },
     { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09', updated:'2026-10-16' },
     { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07', updated:'2026-10-16' },
@@ -3158,7 +3158,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260725';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260726';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3805,7 +3805,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260725';
+    s.src = '/blog/blog-admin.js?v=20260726';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
