@@ -139,25 +139,25 @@
   // ---------- article catalog ----------
   DN.ARTICLES = [
     { slug:'pediatric-high-myopia-maculopathy-progression', title:'高度近視兒童：8 年內 1/3 黃斑部病變惡化，眼軸變化可預警', title_en:'Childhood High Myopia: 1-in-3 Maculopathy in 8 Years', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-06-05', updated:'2026-10-16' },
-    { slug:'refractory-noninfectious-uveitis-biologics-rubi-trial', title:'難治型非感染性葡萄膜炎：Adalimumab、Tocilizumab、Anakinra 隨機試驗解析', title_en:'Refractory Noninfectious Uveitis — RUBI Biologics Trial', cat:'research', tag:'葡萄膜炎', tag_en:'Uveitis', date:'2026-06-02', updated:'2026-10-15' },
-    { slug:'osa-amd-systematic-review-2026', title:'睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析', title_en:'Sleep Apnea and AMD Risk — 2026 Meta-Analysis', cat:'research', tag:'黃斑部病變', tag_en:'AMD', date:'2026-05-26', updated:'2026-10-15' },
-    { slug:'pterygium-surgery-fixation-methods-2026-nma', title:'翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析', title_en:'Pterygium Fixation Methods — 2026 NMA of 35 RCTs', cat:'research', tag:'翼狀贅肉', tag_en:'Pterygium', date:'2026-05-23', updated:'2026-10-15' },
-    { slug:'diabetic-retinopathy-dementia-trinetx-cohort', title:'糖尿病視網膜病變越嚴重，失智症風險越高？', title_en:'Diabetic Retinopathy and Dementia — 2026 TriNetX Cohort', cat:'research', tag:'糖尿病視網膜病變', tag_en:'Diabetic retinopathy', date:'2026-05-23', updated:'2026-10-15' },
-    { slug:'hzo-stromal-keratitis-zeds-lessons', title:'帶狀疱疹眼疾反覆角膜炎：部分復發病例有近期停藥史', title_en:'Recurrent Stromal Keratitis After HZO — 2026 ZEDS Lessons', cat:'research', tag:'角膜炎', tag_en:'Keratitis', date:'2026-05-23', updated:'2026-10-15' },
-    { slug:'ophthalmic-trauma-overlooked-burden', title:'眼外傷：被忽視的全球失明禍首', title_en:'Ophthalmic Trauma — The Overlooked Cause of Blindness', cat:'research', tag:'眼外傷', tag_en:'Eye trauma', date:'2026-05-23', updated:'2026-10-07' },
-    { slug:'toric-iol-astigmatism-cataract-review', title:'散光人工水晶體（Toric IOL）值得嗎？', title_en:'Toric IOL for Cataract — Is It Worth It?', cat:'rx', tag:'白內障', tag_en:'Cataract', date:'2026-05-16', updated:'2026-10-15' },
-    { slug:'dry-eye-symptom-sign-discordance-dream', title:'為什麼我覺得眼睛超乾，醫師卻說沒事？', title_en:'Why Do My Dry-Eye Symptoms Not Match the Exam?', cat:'research', tag:'乾眼症', tag_en:'Dry eye', date:'2026-05-16', updated:'2026-10-15' },
-    { slug:'monitoring-myopia-ser-vs-axial-length', title:'監測兒童近視，該追蹤「度數」還是「眼軸」？', title_en:'Monitoring Childhood Myopia: SER or Axial Length?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-13', updated:'2026-10-15' },
-    { slug:'dims-pediatric-myopia-control', title:'兒童近視控制鏡片（DIMS）有效嗎？', title_en:'Are DIMS Lenses Effective for Pediatric Myopia?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-12', updated:'2026-10-15' },
-    { slug:'cataract-surgery-selection',   title:'白內障手術深度選擇',     title_en:'Cataract Surgery Selection',             cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-11', updated:'2026-10-15' },
+    { slug:'refractory-noninfectious-uveitis-biologics-rubi-trial', title:'難治型非感染性葡萄膜炎：Adalimumab、Tocilizumab、Anakinra 隨機試驗解析', title_en:'Refractory Noninfectious Uveitis — RUBI Biologics Trial', cat:'research', tag:'葡萄膜炎', tag_en:'Uveitis', date:'2026-06-02', updated:'2026-10-16' },
+    { slug:'osa-amd-systematic-review-2026', title:'睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析', title_en:'Sleep Apnea and AMD Risk — 2026 Meta-Analysis', cat:'research', tag:'黃斑部病變', tag_en:'AMD', date:'2026-05-26', updated:'2026-10-16' },
+    { slug:'pterygium-surgery-fixation-methods-2026-nma', title:'翼狀贅肉手術後復發 vs 穩定，怎麼選？2026 NMA 35 RCT 分析', title_en:'Pterygium Fixation Methods — 2026 NMA of 35 RCTs', cat:'research', tag:'翼狀贅肉', tag_en:'Pterygium', date:'2026-05-23', updated:'2026-10-16' },
+    { slug:'diabetic-retinopathy-dementia-trinetx-cohort', title:'糖尿病視網膜病變越嚴重，失智症風險越高？', title_en:'Diabetic Retinopathy and Dementia — 2026 TriNetX Cohort', cat:'research', tag:'糖尿病視網膜病變', tag_en:'Diabetic retinopathy', date:'2026-05-23', updated:'2026-10-16' },
+    { slug:'hzo-stromal-keratitis-zeds-lessons', title:'帶狀疱疹眼疾反覆角膜炎：部分復發病例有近期停藥史', title_en:'Recurrent Stromal Keratitis After HZO — 2026 ZEDS Lessons', cat:'research', tag:'角膜炎', tag_en:'Keratitis', date:'2026-05-23', updated:'2026-10-16' },
+    { slug:'ophthalmic-trauma-overlooked-burden', title:'眼外傷：被忽視的全球失明禍首', title_en:'Ophthalmic Trauma — The Overlooked Cause of Blindness', cat:'research', tag:'眼外傷', tag_en:'Eye trauma', date:'2026-05-23', updated:'2026-10-16' },
+    { slug:'toric-iol-astigmatism-cataract-review', title:'散光人工水晶體（Toric IOL）值得嗎？', title_en:'Toric IOL for Cataract — Is It Worth It?', cat:'rx', tag:'白內障', tag_en:'Cataract', date:'2026-05-16', updated:'2026-10-16' },
+    { slug:'dry-eye-symptom-sign-discordance-dream', title:'為什麼我覺得眼睛超乾，醫師卻說沒事？', title_en:'Why Do My Dry-Eye Symptoms Not Match the Exam?', cat:'research', tag:'乾眼症', tag_en:'Dry eye', date:'2026-05-16', updated:'2026-10-16' },
+    { slug:'monitoring-myopia-ser-vs-axial-length', title:'監測兒童近視，該追蹤「度數」還是「眼軸」？', title_en:'Monitoring Childhood Myopia: SER or Axial Length?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-13', updated:'2026-10-16' },
+    { slug:'dims-pediatric-myopia-control', title:'兒童近視控制鏡片（DIMS）有效嗎？', title_en:'Are DIMS Lenses Effective for Pediatric Myopia?', cat:'research', tag:'兒童近視', tag_en:'Pediatric myopia', date:'2026-05-12', updated:'2026-10-16' },
+    { slug:'cataract-surgery-selection',   title:'白內障手術深度選擇',     title_en:'Cataract Surgery Selection',             cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-11', updated:'2026-10-16' },
     { slug:'glaucoma-treatment-selection', title:'青光眼藥物與手術選擇',  title_en:'Glaucoma Treatment Selection',           cat:'rx',    tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-10', updated:'2026-10-15' },
-    { slug:'glaucoma-comprehensive-guide', title:'青光眼完整衛教',       title_en:'Glaucoma — Patient Education',           cat:'alert', tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-09', updated:'2026-10-15' },
-    { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09', updated:'2026-10-15' },
+    { slug:'glaucoma-comprehensive-guide', title:'青光眼完整衛教',       title_en:'Glaucoma — Patient Education',           cat:'alert', tag:'青光眼',     tag_en:'Glaucoma',        date:'2026-05-09', updated:'2026-10-16' },
+    { slug:'cataract-comprehensive-guide', title:'白內障手術完整衛教',     title_en:'Cataract Surgery — Patient Education',     cat:'rx',    tag:'白內障',     tag_en:'Cataract',        date:'2026-05-09', updated:'2026-10-16' },
     { slug:'thyroid-eye-disease',        title:'甲狀腺眼疾完整衛教',     title_en:'Thyroid Eye Disease — Patient Education',   cat:'alert', tag:'甲狀腺眼疾', tag_en:'TED',             date:'2026-05-07', updated:'2026-10-16' },
-    { slug:'lacrimal-gland-tumor',        title:'淚腺腫瘤 6 個關鍵問題',  title_en:'6 Key Questions on Lacrimal Gland Tumor',  cat:'alert', tag:'淚腺腫瘤',  tag_en:'Lacrimal tumor',  date:'2026-05-06', updated:'2026-10-15' },
-    { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         title_en:'8 Dry-Eye Myths',                        cat:'myth', tag:'乾眼症',     tag_en:'Dry Eye',         date:'2026-05-04', updated:'2026-10-15' },
-    { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  title_en:'8 Pediatric Myopia Control Myths',         cat:'myth', tag:'兒童近視',   tag_en:'Myopia control',  date:'2026-05-04', updated:'2026-10-15' },
-    { slug:'floaters-retinal-detachment', title:'飛蚊症 6 大警訊',         title_en:'6 Floater Red Flags',                     cat:'myth', tag:'飛蚊症',     tag_en:'Floaters',        date:'2026-05-04', updated:'2026-10-07' }
+    { slug:'lacrimal-gland-tumor',        title:'淚腺腫瘤 6 個關鍵問題',  title_en:'6 Key Questions on Lacrimal Gland Tumor',  cat:'alert', tag:'淚腺腫瘤',  tag_en:'Lacrimal tumor',  date:'2026-05-06', updated:'2026-10-16' },
+    { slug:'dry-eye-myths',              title:'乾眼症 8 大迷思',         title_en:'8 Dry-Eye Myths',                        cat:'myth', tag:'乾眼症',     tag_en:'Dry Eye',         date:'2026-05-04', updated:'2026-10-16' },
+    { slug:'pediatric-myopia-control',   title:'兒童近視控制 8 大迷思',  title_en:'8 Pediatric Myopia Control Myths',         cat:'myth', tag:'兒童近視',   tag_en:'Myopia control',  date:'2026-05-04', updated:'2026-10-16' },
+    { slug:'floaters-retinal-detachment', title:'飛蚊症 6 大警訊',         title_en:'6 Floater Red Flags',                     cat:'myth', tag:'飛蚊症',     tag_en:'Floaters',        date:'2026-05-04', updated:'2026-10-16' }
   ];
   DN.totalArticles = DN.ARTICLES.length;
 
@@ -3158,7 +3158,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260724';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260725';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3805,7 +3805,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260724';
+    s.src = '/blog/blog-admin.js?v=20260725';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
