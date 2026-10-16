@@ -6,7 +6,6 @@ import save, { articleBlobSha } from '../../api/admin/_save.js';
 import md from '../../api/admin/_md.js';
 import precompute from '../../api/admin/_precompute-meta.js';
 import { makeSessionToken } from '../../api/admin/_login.js';
-import { kvMigrateJSONHash } from '../../api/_kv.js';
 import sitemap from '../../api/sitemap.js';
 import feed from '../../api/feed.js';
 import { FALLBACK_ARTICLES } from '../../api/_content_snapshot.js';
@@ -149,21 +148,6 @@ test('actual CMS handlers protect revisions and bilingual data and allow repeat 
     if(originalPassword===undefined)delete process.env.ADMIN_PASSWORD;else process.env.ADMIN_PASSWORD=originalPassword;
     if(originalToken===undefined)delete process.env.GITHUB_TOKEN;else process.env.GITHUB_TOKEN=originalToken;
   }
-});
-
-test('migration fails closed on KV errors and retries the entire atomic operation', async () => {
-  const originalFetch=globalThis.fetch;
-  const url=process.env.KV_REST_API_URL, token=process.env.KV_REST_API_TOKEN;
-  process.env.KV_REST_API_URL='https://fixture.invalid';process.env.KV_REST_API_TOKEN='fixture';
-  let calls=0;
-  globalThis.fetch=async (_,options) => {
-    const [command]=JSON.parse(options.body); calls++;
-    assert.equal(command[0],'EVAL');assert.deepEqual(command.slice(2),['3','legacy','hash','marker']);
-    assert.match(command[1],/HSETNX/);assert.ok(command[1].indexOf('HSETNX')<command[1].indexOf("redis.call('SET'"));
-    return calls===1?json({error:'transient'},503):json([{result:1}]);
-  };
-  try { await assert.rejects(kvMigrateJSONHash('legacy','hash','marker'),/migration failed/); await kvMigrateJSONHash('legacy','hash','marker'); assert.equal(calls,2); }
-  finally {globalThis.fetch=originalFetch;if(url===undefined)delete process.env.KV_REST_API_URL;else process.env.KV_REST_API_URL=url;if(token===undefined)delete process.env.KV_REST_API_TOKEN;else process.env.KV_REST_API_TOKEN=token;}
 });
 
 

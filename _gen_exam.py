@@ -41,6 +41,7 @@ from urllib.parse import quote
 from pathlib import Path
 
 from halfwidth_to_fullwidth import convert as fullwidth
+from _gen_site_chrome import home_footer, home_header
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data" / "exam"
@@ -256,7 +257,6 @@ def indexable(key: str, data: dict) -> bool:
 
 # ---------------------------------------------------------------- page shell
 
-HEADER_LINK = 'class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)"'
 
 
 def font_bootstrap() -> str:
@@ -323,52 +323,13 @@ def head(*, title: str, description: str, path: str, robots: str, jsonld: list[d
 
 
 def header() -> str:
-    return (
-        '<header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(250,247,242,.92); border-color:var(--border)">\n'
-        '  <div class="max-w-6xl mx-auto px-5 sm:px-8">\n'
-        '    <div class="h-16 flex items-center justify-between gap-4">\n'
-        '      <a href="/" class="flex items-center gap-3 min-w-0">\n'
-        '        <img src="/icon.svg" alt="HsiaoEye" class="w-9 h-9 rounded-lg flex-shrink-0" width="36" height="36" fetchpriority="high" decoding="async" loading="eager">\n'
-        '        <div class="min-w-0 leading-tight">\n'
-        '          <div class="font-display font-semibold text-[16px] sm:text-[18px] blue-text">HsiaoEye</div>\n'
-        '          <div class="text-[10.5px] sm:text-[11.5px] mt-0.5 truncate" style="color:var(--muted)" data-zh="蕭閔謙醫師 · 眼科衛教筆記" data-en="Dr. Min-Chien Hsiao · Ophthalmology Notes">蕭閔謙醫師 · 眼科衛教筆記</div>\n'
-        "        </div>\n"
-        "      </a>\n"
-        '      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">\n'
-        f'        <a href="/blog" {HEADER_LINK} data-zh="衛教文章" data-en="Articles">衛教文章</a>\n'
-        f'        <a href="/exam" aria-current="page" {HEADER_LINK} data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>\n'
-        f'        <a href="/tools" {HEADER_LINK} data-zh="量表" data-en="Tools">量表</a>\n'
-        '        <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">\n'
-        '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>\n'
-        "        </button>\n"
-        '        <select id="langToggle" class="lang-select" aria-label="Language">\n'
-        '          <option value="zh">中文</option><option value="en">EN</option>\n'
-        "        </select>\n"
-        "      </div>\n"
-        "    </div>\n"
-        "  </div>\n"
-        "</header>\n"
-    )
+    # Owner decision 2026-10-17: exam pages use the homepage header verbatim
+    # (single source of truth: index.html via _gen_site_chrome.py).
+    return home_header(ROOT) + "\n"
 
 
-FOOTER = """<footer class="mag-footer cv-auto-short">
-  <div class="mag-foot-top">
-    <div class="mag-foot-brand">
-      <h2 class="mag-foot-brand-h3" data-zh="HsiaoEye<br>蕭閔謙醫師 眼科筆記" data-en="HsiaoEye<br>Dr. Min-Chien Hsiao · Ophthalmology Notes">HsiaoEye<br>蕭閔謙醫師 眼科筆記</h2>
-      <p data-zh="從診間到日常，好好照顧你的眼睛。" data-en="From the clinic to your everyday eyes.">從診間到日常，好好照顧你的眼睛。</p>
-    </div>
-    <div class="mag-foot-cols">
-      <div><h3 data-zh="網站" data-en="Site">網站</h3><ul><li><a href="/" data-zh="首頁" data-en="Home">首頁</a></li><li><a href="/blog" data-zh="衛教文章" data-en="Articles">衛教文章</a></li><li><a href="/exam" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a></li><li><a href="/about" data-zh="關於作者" data-en="About">關於作者</a></li></ul></div>
-      <div><h3 data-zh="關於" data-en="About">關於</h3><ul><li><a href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li><li><a href="mailto:f94001115@gmail.com" data-zh="聯絡 Email" data-en="Contact">聯絡 Email</a></li></ul></div>
-      <div><h3 id="dn-subscribe" data-zh="訂閱" data-en="Subscribe">訂閱</h3><ul><li><a href="/blog/feed.xml">RSS Feed</a></li><li><a href="/blog/atom.xml">Atom Feed</a></li></ul></div>
-    </div>
-  </div>
-  <div class="mag-foot-bot">
-    <span>© <span id="yr">2026</span> Min-Chien Hsiao M.D. · <span data-zh="眼科衛教筆記" data-en="Ophthalmology Notes">眼科衛教筆記</span></span>
-    <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
-  </div>
-</footer>
-"""
+def footer() -> str:
+    return home_footer(ROOT) + "\n"
 
 
 def breadcrumb(items: list[tuple[str, str]], path: str) -> dict:
@@ -420,7 +381,7 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
         + f'<body class="hs-exam" data-exam-page="{kind}">\n'
         + header()
         + f'<main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16">{crumbs_html(items)}{"" if kind == "login" else AUTH_BAR}{body}</main>\n'
-        + FOOTER
+        + footer()
         + f'<script src="/blog/blog-shared.min.js?v={version}" defer></script>\n'
         + f'<script src="/exam/exam.js?v={version}" defer></script>\n'
         + "</body>\n</html>\n"

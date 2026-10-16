@@ -91,7 +91,6 @@ hsiao.chendermatologist.com/
 ├── /assets/                CSS, JS, OG images, AVIF/WebP
 └── /api/                   Vercel serverless functions
     ├── /api/admin/[op]     admin operations dispatcher
-    ├── /api/push/[op]      Web Push dispatcher
     ├── /api/og             dynamic Open Graph
     └── /api/sitemap, /api/feed, /api/csp-report, etc.
 ```

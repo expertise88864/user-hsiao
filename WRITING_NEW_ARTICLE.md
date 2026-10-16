@@ -23,6 +23,7 @@ python _gen_og_images.py
 # build-chain:start
 python halfwidth_to_fullwidth.py
 python _gen_exam.py
+python _gen_site_chrome.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py
@@ -77,6 +78,7 @@ python _gen_og_images.py
 # build-chain:start
 python halfwidth_to_fullwidth.py
 python _gen_exam.py
+python _gen_site_chrome.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py
@@ -140,7 +142,7 @@ Use an existing article as a template — `blog/toric-iol-astigmatism-cataract-r
 ### Body sections
 
 - **Hero figure**: `<figure class="article-fig">` with inline SVG. Must have `viewBox` AND `aspect-ratio` (set by `_apply_a11y_vt.py`). First `<img>` gets `fetchpriority="high"` auto-applied.
-- **Section H2s**: numbered `一、`, `二、` …. Conventional order: 開場 → Q&A → 重點總整 → 背景 → 適應症 → 細節 → 進階 → 結語 → 系列文章 → 參考文獻
+- **Section H2s**: numbered `一、`, `二、` …. Conventional order: 開場 → Q&A → 重點總整 → 背景 → 適應症 → 細節 → 進階 → 結語 → 參考文獻
 - **Disclaimer block**: every article opens with `<div class="disclaimer">⚠️ 免責聲明：…</div>`
 
 ### Bilingual content pattern
@@ -175,23 +177,12 @@ All defined in `assets/article.css` (defensive inline copies in each article too
 | `.keypoint` + `<h3>` 30秒重點 + `<ul>` | TL;DR keypoint box near top |
 | `.references` + `<ol>` | Vancouver-style reference list at end |
 
-## Adding a Topic Silo Cross-Link Box
+## Cross-linking related articles
 
-Use the established pattern in `blog/toric-iol-astigmatism-cataract-review.html`:
-
-```html
-<div class="hs-tip-box">
-  <p class="hs-tip-title">📚 <span data-zh="HsiaoEye「白內障」系列文章" data-en="HsiaoEye Cataract Series">HsiaoEye「白內障」系列文章</span></p>
-  <ul>
-    <li><a href="/blog/cataract-comprehensive-guide" style="color:var(--blue-deep);text-decoration:underline">
-      <strong data-zh="白內障手術完整衛教" data-en="Cataract Surgery — Patient Education">白內障手術完整衛教</strong>
-    </a> <span data-zh="— 基礎知識…" data-en="— Basics…">— 基礎知識…</span></li>
-    ...
-  </ul>
-</div>
-```
-
-Always place at the bottom of the article, just before references.
+Do not add a 「📚 HsiaoEye「…」系列文章」 `.hs-tip-box` or a 「依照你的問題閱讀」
+`.hs-reading-path` block (both removed site-wide at the owner's request,
+2026-10-17). Related articles are linked by the generated 「你可能也會想看」
+cards (`_gen_related.py`) and by in-text links.
 
 ## 健保條文引用
 

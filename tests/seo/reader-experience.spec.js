@@ -18,23 +18,14 @@ for (const prefix of ['', '/en']) {
 
 for (const prefix of ['', '/en']) {
  for (const slug of ['glaucoma-comprehensive-guide','cataract-surgery-selection','dry-eye-symptom-sign-discordance-dream','cataract-comprehensive-guide']) {
-  test(`mobile question shortcuts reach visible sections: ${prefix}/${slug}`, async ({ page }) => {
+  // Owner decision 2026-10-17: the 「依照你的問題閱讀」 reading path is gone.
+  test(`mobile article opens without the reading path: ${prefix}/${slug}`, async ({ page }) => {
     await page.setViewportSize({width:390,height:844});
     await page.goto(prefix + '/blog/' + slug);
-    const nav = page.locator('.hs-reading-path');
-    await expect(nav).toBeVisible();
-    await expect(nav).toHaveAccessibleName(prefix ? 'Choose what you want to understand' : '依照你的問題閱讀');
+    await expect(page.locator('.hs-reading-path')).toHaveCount(0);
     const breadcrumb = page.getByRole('navigation', {name:'Breadcrumb',exact:true});
     await expect(breadcrumb).toBeVisible();
     await expect(breadcrumb.locator('a').first()).toHaveAttribute('href', prefix ? '/en' : '/');
-    expect((await nav.boundingBox()).y).toBeLessThan(750);
-    const links = nav.locator('a');
-    await expect(links).toHaveCount(4);
-    for (const link of await links.all()) {
-      const id = (await link.getAttribute('href')).slice(1);
-      await link.click();
-      await expect(page.locator(`[id="${id}"]`)).toBeInViewport();
-    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
  }
@@ -55,13 +46,9 @@ for (const prefix of ['', '/en']) {
     const page = await context.newPage();
     try {
       await page.goto(test.info().project.use.baseURL + prefix + '/blog/cataract-comprehensive-guide');
-      const nav = page.getByRole('navigation', {name:prefix ? 'Choose what you want to understand' : '依照你的問題閱讀',exact:true});
-      await expect(nav).toBeVisible();
-      expect((await nav.boundingBox()).y).toBeLessThan(750);
+      await expect(page.locator('.hs-reading-path')).toHaveCount(0);
       for (const id of ['surgical-methods','iol','postop','complications']) {
-        const link = nav.locator(`a[href="#${id}"]`);
-        await link.focus();
-        await page.keyboard.press('Enter');
+        await page.goto(test.info().project.use.baseURL + prefix + '/blog/cataract-comprehensive-guide#' + id);
         await expect(page).toHaveURL(new RegExp('#' + id + '$'));
         await expect(page.locator('#' + id)).toBeInViewport();
       }
@@ -84,7 +71,7 @@ test('search synonyms and a useful empty state work in the shipped bundle', asyn
 });
 
 
-for (const [route, selector] of [['/', '.mag-hero'],['/blog/glaucoma-comprehensive-guide', '.hs-reading-path'], ['/blog/cataract-comprehensive-guide', '.hs-reading-path'], ['/en/blog/cataract-comprehensive-guide', '.hs-reading-path']]) {
+for (const [route, selector] of [['/', '.mag-hero'],['/blog/glaucoma-comprehensive-guide', 'header.sticky'], ['/blog/cataract-comprehensive-guide', 'header.sticky'], ['/en/blog/cataract-comprehensive-guide', 'header.sticky']]) {
   test(`reading links remain accessible in dark mode: ${route}`, async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark' });
     await page.goto(route);

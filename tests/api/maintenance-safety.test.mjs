@@ -4,7 +4,6 @@ import { readFile } from 'node:fs/promises';
 import batch from '../../api/admin/_batch.js';
 import { makeSessionToken } from '../../api/admin/_login.js';
 import { autolinkOnce } from '../../api/admin/_dictionary.js';
-import { upsertSubscription } from '../../api/push/_store.js';
 import { catalogRecords } from '../../api/_articles.js';
 
 function response() {
@@ -130,42 +129,3 @@ test('dictionary is idempotent and preserves authored bytes across the published
   assert.ok(changed > 0, 'must exercise real article text');
 });
 
-test('push admission uses one atomic command for simultaneous subscriptions at the limit', async t => {
-  environment(t, { KV_REST_API_URL: 'https://fixture.invalid', KV_REST_API_TOKEN: 'fixture' });
-  const stored = new Map([['existing', { endpoint: 'existing' }]]);
-  const commands = [];
-  t.mock.method(globalThis, 'fetch', async (url, options = {}) => {
-    if (String(url).includes('/get/')) return json({ result: '1' });
-    assert.equal(url, 'https://fixture.invalid/pipeline');
-    const [command] = JSON.parse(options.body);
-    commands.push(command);
-    assert.equal(command[0], 'EVAL');
-    assert.deepEqual(command.slice(2, 4), ['1', 'push:subscribers:v2']);
-    assert.match(command[1], /HEXISTS/);
-    assert.match(command[1], /HLEN/);
-    assert.match(command[1], /HSET/);
-    const [, , , , endpoint, payload, limit] = command;
-    const exists = stored.has(endpoint);
-    if (!exists && stored.size >= Number(limit)) return json([{ result: [-1, stored.size] }]);
-    stored.set(endpoint, JSON.parse(payload));
-    return json([{ result: [exists ? 0 : 1, stored.size] }]);
-  });
-  const results = await Promise.all(['one', 'two'].map(endpoint => upsertSubscription({ endpoint }, 2)));
-  assert.equal(results.filter(r => r.inserted).length, 1);
-  assert.equal(results.filter(r => r.full).length, 1);
-  assert.equal(stored.size, 2);
-  const refresh = await upsertSubscription({ endpoint: 'existing', ts: 'refreshed' }, 2);
-  assert.deepEqual(refresh, { inserted: false, count: 2 });
-  assert.equal(stored.get('existing').ts, 'refreshed');
-  assert.equal(commands.length, 3);
-});
-
-test('push storage refuses missing, failed or malformed atomic results', async t => {
-  environment(t, { KV_REST_API_URL: 'https://fixture.invalid', KV_REST_API_TOKEN: 'fixture' });
-  let reply;
-  t.mock.method(globalThis, 'fetch', async url => String(url).includes('/get/')
-    ? json({ result: '1' }) : json(reply));
-  for (reply of [[], [{ error: 'WRONGTYPE' }], [{ result: null }], [{ result: [2, 1] }], [{ result: [1, -1] }], [{ result: [1, '2'] }]]) {
-    await assert.rejects(upsertSubscription({ endpoint: 'one' }, 2), /storage|subscription/i);
-  }
-});

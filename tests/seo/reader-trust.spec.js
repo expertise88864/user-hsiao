@@ -11,7 +11,7 @@ async function fit(page) {
 for (const prefix of ['', '/en']) {
   for (const width of [360, 390, 768, 1440]) {
     for (const colorScheme of ['light', 'dark']) {
-      test(`published notes and correction route ${prefix || 'zh'} ${width} ${colorScheme}`, async ({ browser, baseURL }) => {
+      test(`published notes route ${prefix || 'zh'} ${width} ${colorScheme}`, async ({ browser, baseURL }) => {
         const context = await browser.newContext({ viewport: { width, height: 900 }, colorScheme, locale: 'zh-TW', serviceWorkers: 'block' });
         try {
           const page = await context.newPage();
@@ -28,12 +28,10 @@ for (const prefix of ['', '/en']) {
             await expect(page.locator('h1')).toBeVisible();
             await page.goto(baseURL + prefix + '/notes');
           }
+          // Owner decision 2026-10-17: the about page no longer carries the
+          // 「內容來源、更新與更正」 section.
           await page.goto(baseURL + prefix + '/about');
-          const policy = page.locator('#editorial-policy');
-          await expect(policy).toContainText(prefix ? 'self-review' : '自行審閱');
-          const correction = policy.getByRole('link', { name: prefix ? 'Email a correction' : '以 Email 提供更正資訊', exact: true });
-          await expect(correction).toHaveAttribute('href', 'mailto:f94001115@gmail.com');
-          await correction.focus(); await expect(correction).toBeFocused();
+          await expect(page.locator('#editorial-policy')).toHaveCount(0);
           await fit(page);
         } finally { await context.close(); }
       });
@@ -46,10 +44,11 @@ for (const prefix of ['', '/en']) {
         await page.locator(`main a[href="${prefix}/blog/monitoring-myopia-ser-vs-axial-length"]`).click();
         await expect(page.locator('h1')).toBeVisible();
         await page.goto(baseURL + prefix + '/about');
-        await expect(page.locator('#editorial-policy')).toBeVisible(); await fit(page);
+        await expect(page.locator('h1')).toBeVisible(); await fit(page);
         await page.goto(baseURL + prefix + '/blog/topics');
         await page.locator(`main a[href="${prefix}/blog/cataract-comprehensive-guide"]`).first().click();
-        await page.locator('.hs-reading-path a[href="#postop"]').click();
+        await expect(page).toHaveURL(new RegExp(prefix + '/blog/cataract-comprehensive-guide$'));
+        await page.goto(page.url() + '#postop');
         await expect(page.locator('#postop')).toBeInViewport(); await fit(page);
         await page.goto(baseURL + prefix + '/blog');
         // The authored index uses canonical links; JS localizes them when enabled.
@@ -83,7 +82,7 @@ for (const prefix of ['', '/en']) {
       }
     });
   }
-  test(`native 200 percent zoom preserves notes and corrections ${prefix || 'zh'}`, async ({ baseURL }) => {
+  test(`native 200 percent zoom preserves notes and information pages ${prefix || 'zh'}`, async ({ baseURL }) => {
     const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'hsiaoeye-trust-zoom-'));
     fs.mkdirSync(path.join(profile, 'Default'));
     fs.writeFileSync(path.join(profile, 'Default/Preferences'), JSON.stringify({ partition: { default_zoom_level: { x: Math.log(2) / Math.log(1.2) } } }));
@@ -97,7 +96,10 @@ for (const prefix of ['', '/en']) {
         const layout = await cdp.send('Page.getLayoutMetrics');
         expect(layout.cssVisualViewport.zoom).toBe(2); expect(layout.cssVisualViewport.scale).toBe(1); await cdp.detach();
         await fit(page);
-        const link = page.locator('main a').first(); await link.focus(); await expect(link).toBeFocused();
+        // /about has no in-content links since the 2026-10-17 removal of its
+        // corrections section; its keyboard entry point is the shared header.
+        const link = (await page.locator('main a').count()) ? page.locator('main a').first() : page.locator('header a').first();
+        await link.focus(); await expect(link).toBeFocused();
       }
     } finally {
       if (context) await context.close();

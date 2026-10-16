@@ -727,6 +727,7 @@
         '<a href="/" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="首頁" data-en="Home"></a>' +
         '<a href="/blog/" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles"></a>' +
         '<a href="/exam" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam"></a>' +
+        '<a href="/tools" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools"></a>' +
         '<a href="/about" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About"></a>' +
       '</nav>';
     header.appendChild(drawer);
@@ -1358,36 +1359,22 @@
     update();
   };
 
-  // ---------- author bio + disclaimer (mounted at #hs-author-bio) ----------
+  // ---------- article disclaimer (mounted at #hs-author-bio) ----------
+  // Owner 2026-10-17: the in-article author card (name / 現職 / 學歷 / 完整自介)
+  // was removed; the mount keeps its id for existing pages and only shows the
+  // site-wide medical disclaimer (same wording as the footer).
+  DN.ARTICLE_DISCLAIMER_ZH = '本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。';
+  DN.ARTICLE_DISCLAIMER_EN = 'This website is for general medical education and information only. It is not individual medical advice and cannot replace an in-person consultation, examination or prescription. For any decision to start, stop or adjust a medication, or to seek care, follow your treating physician\'s judgement.';
   DN.injectAuthorBio = function (mountId) {
     const mount = document.getElementById(mountId || 'hs-author-bio');
     if (!mount) return;
     mount.innerHTML =
       '<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:32px 0 24px;box-shadow:0 8px 18px -10px rgba(58,90,124,.18)">' +
-        '<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">' +
-          '<picture>' +
-            '<source srcset="/SUNN1302-200.avif" type="image/avif" />' +
-            '<source srcset="/SUNN1302-200.webp" type="image/webp" />' +
-            '<img src="/SUNN1302-200.jpg" alt="蕭閔謙 醫師" width="54" height="54" loading="lazy" decoding="async" style="width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:2px solid #fff;box-shadow:0 4px 10px -2px rgba(58,90,124,.3);background:var(--blue-soft)" />' +
-          '</picture>' +
-          '<div style="flex:1;min-width:200px">' +
-            '<div style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:16px;font-weight:700;color:var(--ink)">' +
-              '<span data-zh="' + DN.AUTHOR_NAME_ZH + '" data-en="' + DN.AUTHOR_NAME_EN + '">' + DN.AUTHOR_NAME_ZH + '</span>' + 
-            '</div>' +
-            '<div style="font-size:13px;color:#334155;line-height:1.85;margin-top:6px" ' +
-              'data-zh="<strong>現職</strong>:眼科住院醫師<br/><strong>學歷</strong>:高雄醫學大學 學士後醫學系" ' +
-              'data-en="<strong>Position</strong>: Ophthalmology Resident<br/><strong>Education</strong>: KMU School of Post-Baccalaureate Medicine">' +
-              '<strong>現職</strong>:眼科住院醫師<br/>' +
-              '<strong>學歷</strong>:高雄醫學大學 學士後醫學系' +
-            '</div>' +
-          '</div>' +
-          '<a href="' + DN.AUTHOR_BIO_URL + '" style="display:inline-flex;align-items:center;justify-content:center;padding:8px 14px;border-radius:9999px;background:var(--blue-deep);color:#fff;font-size:13px;font-weight:600;text-decoration:none;flex-shrink:0;line-height:1;text-align:center" data-zh="完整自介 →" data-en="Full bio →">完整自介 →</a>' +
-        '</div>' +
-        '<div style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:12px;line-height:1.75;color:#64748b" ' +
-          'data-zh="本文為眼科住院醫師的<strong>衛教與學習筆記</strong>,內容依據國際醫學文獻與臨床指引整理,僅作為<strong>一般教育用途</strong>。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。本網站不涉及任何藥品、醫療器材、療程或診所之推薦或業配。依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。" ' +
-          'data-en="This article is a residency-level patient-education note, compiled from international literature for general education only — not individual medical advice. This site does not endorse any drug, device, procedure, or clinic. Per Taiwan Medical Care Act §§85–86, individual outcomes vary.">' +
-          '本文為眼科住院醫師的<strong>衛教與學習筆記</strong>,內容依據國際醫學文獻與臨床指引整理,僅作為<strong>一般教育用途</strong>。任何用藥、停藥、調整劑量或就醫決定,請以您的主治醫師判斷為準。本網站不涉及任何藥品、醫療器材、療程或診所之推薦或業配。依《醫療法》§85-86 及《醫師法》§17,個別治療效果因人而異,本文不保證任何結果。' +
-        '</div>' +
+        '<p style="margin:0;font-size:13px;line-height:1.8;color:#64748b" ' +
+          'data-zh="' + DN.ARTICLE_DISCLAIMER_ZH + '" ' +
+          'data-en="' + DN.ARTICLE_DISCLAIMER_EN + '">' +
+          DN.ARTICLE_DISCLAIMER_ZH +
+        '</p>' +
       '</div>';
   };
 
@@ -3158,7 +3145,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260726';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260727';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3805,7 +3792,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260726';
+    s.src = '/blog/blog-admin.js?v=20260727';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -5020,114 +5007,6 @@
     }).catch(function () {});
   };
 
-  // ---------------------------------------------------------------------
-  // Web Push — subscription UI. Renders a small "🔔 訂閱通知" link on the
-  // article author-bio that, when clicked, requests permission and POSTs
-  // the PushSubscription to /api/push/subscribe.
-  //
-  // VAPID public key must be set on `DN.VAPID_PUBLIC_KEY` (or window var)
-  // for the request to succeed. Without the key the button is hidden.
-  // Generate via: `npx web-push generate-vapid-keys`
-  // ---------------------------------------------------------------------
-  DN.VAPID_PUBLIC_KEY = window.VAPID_PUBLIC_KEY || '';
-
-  function urlBase64ToUint8Array(base64String) {
-    var padding = '='.repeat((4 - base64String.length % 4) % 4);
-    var base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-    var rawData = atob(base64);
-    var arr = new Uint8Array(rawData.length);
-    for (var i = 0; i < rawData.length; ++i) arr[i] = rawData.charCodeAt(i);
-    return arr;
-  }
-
-  // Fetches the VAPID public key from /api/push/key (cached at edge).
-  // Returns null if VAPID is not configured server-side, in which case
-  // bindPushSubscribe is a no-op.
-  DN._vapidKeyPromise = null;
-  function getVapidKey() {
-    if (DN.VAPID_PUBLIC_KEY) return Promise.resolve(DN.VAPID_PUBLIC_KEY);
-    if (!DN._vapidKeyPromise) {
-      DN._vapidKeyPromise = fetch('/api/push/key').then(function (r) {
-        if (!r.ok) return null;
-        return r.json().then(function (j) { DN.VAPID_PUBLIC_KEY = j.key; return j.key; });
-      }).catch(function () { return null; });
-    }
-    return DN._vapidKeyPromise;
-  }
-
-  DN.bindPushSubscribe = function (containerSel) {
-    if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
-    var host = document.querySelector(containerSel || '#hs-author-bio');
-    if (!host) return;
-    if (host.querySelector('.hs-push-btn')) return;
-
-    // Resolve VAPID key first; if missing, silently skip
-    getVapidKey().then(function (key) {
-      if (!key) return;
-      DN._renderPushButton(host);
-    });
-  };
-
-  DN._renderPushButton = function (host) {
-    if (host.querySelector('.hs-push-btn')) return;
-
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'hs-push-btn';
-    btn.style.cssText = 'margin-top:10px;padding:8px 14px;border-radius:9999px;border:1px solid #b8cfe3;background:#fff;color:#3a5a7c;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px';
-    btn.textContent = '🔔 訂閱新文章通知';
-
-    function setStateUnsubscribed() { btn.textContent = '🔔 訂閱新文章通知'; btn.disabled = false; }
-    function setStateSubscribed()   { btn.textContent = '✓ 已訂閱新文章通知 (取消)'; btn.disabled = false; }
-
-    navigator.serviceWorker.ready.then(function (reg) {
-      reg.pushManager.getSubscription().then(function (sub) {
-        if (sub) setStateSubscribed(); else setStateUnsubscribed();
-      });
-    });
-
-    btn.addEventListener('click', async function () {
-      btn.disabled = true; btn.textContent = '處理中⋯';
-      try {
-        var reg = await navigator.serviceWorker.ready;
-        var existing = await reg.pushManager.getSubscription();
-        if (existing) {
-          // Unsubscribe
-          await fetch('/api/push/subscribe', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ endpoint: existing.endpoint })
-          });
-          await existing.unsubscribe();
-          DN.toast && DN.toast('✓ 已取消訂閱');
-          setStateUnsubscribed();
-          return;
-        }
-        var perm = await Notification.requestPermission();
-        if (perm !== 'granted') { DN.toast && DN.toast('未授權通知'); setStateUnsubscribed(); return; }
-        var sub = await reg.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array(DN.VAPID_PUBLIC_KEY)
-        });
-        var saveResponse = await fetch('/api/push/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ endpoint: sub.endpoint, keys: sub.toJSON().keys, userAgent: navigator.userAgent })
-        });
-        if (!saveResponse.ok) {
-          await sub.unsubscribe().catch(function () {});
-          throw new Error('subscription registration failed');
-        }
-        DN.toast && DN.toast('✓ 已訂閱,新文章發布時會收到通知');
-        setStateSubscribed();
-      } catch (e) {
-        DN.toast && DN.toast('訂閱失敗: ' + (e.message || e));
-        setStateUnsubscribed();
-      }
-    });
-    host.appendChild(btn);
-  };
-
   // v37.29 — GA4 event instrumentation. Adds article context to every
   // event + tracks user behavior signals: search, language toggle, scroll
   // depth, time-on-page, share clicks. All gated by DNT + analytics
@@ -5419,7 +5298,6 @@
         safeCall('addBookmarkButton', function () { DN.addBookmarkButton(); });   // no-op cleanup stub
         safeCall('lazyLoadAudit', function () { DN.lazyLoadAudit(); });       // backstop loading="lazy" / fetchpriority
         safeCall('injectDictTooltips', function () { DN.injectDictTooltips(); });  // medical-dictionary hover popups
-        safeCall('bindPushSubscribe', function () { DN.bindPushSubscribe(); });   // 🔔 web-push subscribe button (if VAPID key set)
         safeCall('loadMermaid', function () { DN.loadMermaid(); });         // lazy-load mermaid if <pre class="mermaid"> present
         safeCall('loadKatex', function () { DN.loadKatex(); });           // lazy-load KaTeX if $$math$$ present
         safeCall('bindDocPiP', function () { DN.bindDocPiP(); });          // 📺 picture-in-picture reading mode

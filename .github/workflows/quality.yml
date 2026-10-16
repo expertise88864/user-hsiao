@@ -86,6 +86,7 @@ jobs:
           # _gen_exam.py rebuilds /exam/** from data/exam/ first, so every later
           # generator and injector sees the exam pages in the same run.
           python _gen_exam.py
+          python _gen_site_chrome.py
           python _normalize_reviewed_by.py
           python _normalize_entity_links.py
           python _inject_speed_insights.py

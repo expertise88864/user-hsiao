@@ -82,12 +82,12 @@ const TEMPLATE = (vars) => `<!doctype html>
 
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260726" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260727" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260726" />
-<link rel="preload" as="style" href="/assets/article.css?v=20260726" />
-<link rel="stylesheet" href="/assets/article.css?v=20260726" />
+<link rel="stylesheet" href="/assets/app.css?v=20260727" />
+<link rel="preload" as="style" href="/assets/article.css?v=20260727" />
+<link rel="stylesheet" href="/assets/article.css?v=20260727" />
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -105,7 +105,7 @@ const TEMPLATE = (vars) => `<!doctype html>
 ${vars.jsonLd}
 </script>
 
-<script defer src="/assets/telemetry.js?v=20260726"></script>
+<script defer src="/assets/telemetry.js?v=20260727"></script>
 </head>
 <body class="font-sans antialiased text-ink-900">
 <style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a></nav>
@@ -114,14 +114,17 @@ ${vars.jsonLd}
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
     <div class="h-16 flex items-center justify-between gap-4">
       <a href="/" class="flex items-center gap-3 min-w-0">
-        <img src="/icon.svg" alt="HsiaoEye" class="w-9 h-9 rounded-lg flex-shrink-0" width="36" height="36" fetchpriority="high" decoding="async" />
+        <img src="/icon.svg" alt="HsiaoEye" class="w-9 h-9 rounded-lg flex-shrink-0" width="36" height="36" fetchpriority="high" loading="eager" decoding="async">
         <div class="min-w-0 leading-tight">
           <div class="font-display font-semibold text-[16px] sm:text-[18px] blue-text">HsiaoEye</div>
-          <div class="text-[10.5px] sm:text-[11.5px] mt-0.5 truncate" style="color:var(--muted)">蕭閔謙醫師 · 眼科衛教筆記</div>
+          <div class="text-[10.5px] sm:text-[11.5px] text-ink-500 mt-0.5 truncate" data-zh="蕭閔謙醫師 · 眼科衛教筆記" data-en="Dr. Min-Chien Hsiao · Ophthalmology Notes">蕭閔謙醫師 · 眼科衛教筆記</div>
         </div>
       </a>
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-        <a href="/blog/" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="← 文章索引" data-en="← Articles">← 文章索引</a>
+        <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
+        <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
+        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
+        <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
         </button>
@@ -168,14 +171,49 @@ ${vars.jsonLd}
 </article>
 </main>
 
-<footer class="mag-footer cv-auto-short" style="background:var(--ink); color:var(--bg); padding:48px 24px; margin-top:60px;">
-  <div style="max-width:1440px; margin:0 auto; text-align:center; font-size:13px;">
-    <h3 style="font-family:'Noto Serif TC',Georgia,serif; font-style:italic; font-weight:600; font-size:24px; margin:0 0 8px;">HsiaoEye · 蕭閔謙醫師 眼科筆記</h3>
-    <p style="opacity:.7; margin:0;">從診間到日常，好好照顧你的眼睛。</p>
+<footer class="mag-footer cv-auto-short">
+  <div class="mag-foot-top">
+    <div class="mag-foot-brand">
+      <h2 class="mag-foot-brand-h3" data-zh="HsiaoEye<br>蕭閔謙醫師 眼科筆記" data-en="HsiaoEye<br>Dr. Min-Chien Hsiao · Ophthalmology Notes">HsiaoEye<br>蕭閔謙醫師 眼科筆記</h2>
+    </div>
+    <div class="mag-foot-cols">
+      <div>
+        <h3 data-zh="網站" data-en="Site">網站</h3>
+        <ul>
+          <li><a href="/" data-zh="首頁" data-en="Home">首頁</a></li>
+          <li><a href="/blog" data-zh="衛教文章" data-en="Articles">衛教文章</a></li>
+          <li><a href="/about" data-zh="關於作者" data-en="About">關於作者</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-zh="關於" data-en="About">關於</h3>
+        <ul>
+          <li><a href="/privacy" data-zh="隱私權政策" data-en="Privacy">隱私權政策</a></li>
+          <li><a href="mailto:f94001115@gmail.com" data-zh="聯絡 Email" data-en="Contact">聯絡 Email</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 id="dn-subscribe" data-zh="訂閱" data-en="Subscribe">訂閱</h3>
+        <ul>
+          <li><a href="/blog/feed.xml">RSS Feed</a></li>
+          <li><a href="/blog/atom.xml">Atom Feed</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="mag-foot-disclaimer">
+    <span class="mag-disc-tag">Disclaimer</span>
+    <p data-zh="本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。" data-en="This website is for general medical education and information only. It is not individual medical advice and cannot replace an in-person consultation, examination or prescription. For any decision to start, stop or adjust a medication, or to seek care, follow your treating physician's judgement.">本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。</p>
+  </div>
+
+  <div class="mag-foot-bot">
+    <span>© <span id="yr">2026</span> Min-Chien Hsiao M.D. · <span data-zh="眼科衛教筆記" data-en="Ophthalmology Notes">眼科衛教筆記</span></span>
+    <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
 
-<script src="/blog/blog-shared.min.js?v=20260726" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260727" defer></script>
 <script>document.addEventListener('DOMContentLoaded', function () { if (window.DN) DN.initBlog({}); });</script>
 </body>
 </html>

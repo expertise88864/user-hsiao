@@ -47,23 +47,6 @@ test('public telemetry cannot fall back to GitHub writes', async () => {
   assert.match(source, /rateLimitOk/);
 });
 
-test('Web Push credentials remain in private, independently writable KV fields', async () => {
-  for (const path of [
-    'api/push/_subscribe.js',
-    'api/push/_send.js',
-    'api/admin/_push-stats.js',
-  ]) {
-    const source = await read(path);
-    assert.doesNotMatch(source, /ghGetFile|ghPutFile|push-subscribers\.json/, path);
-    assert.match(source, /pushStorageAvailable|loadSubscriptions|upsertSubscription/, path);
-  }
-  const store = await read('api/push/_store.js');
-  assert.match(store, /push:subscribers:v2/);
-  assert.match(store, /kvHSet/);
-  assert.match(store, /kvHDel/);
-  assert.doesNotMatch(store, /assets\/|ghPutFile/);
-});
-
 test('admin batch writes are serialized and validate explicit slugs', async () => {
   const batch = await import('../../api/admin/_batch.js');
   const source = await read('api/admin/_batch.js');
@@ -412,12 +395,6 @@ test('medical dictionary content is validated and HTML-escaped', async () => {
   );
   assert.doesNotMatch(tooltip, /popup\.innerHTML/);
   assert.match(tooltip, /document\.createTextNode\(def\)/);
-});
-
-test('Push UI does not report success when private storage rejects registration', async () => {
-  const client = await read('blog/blog-shared.js');
-  assert.match(client, /if \(!saveResponse\.ok\)/);
-  assert.match(client, /await sub\.unsubscribe\(\)\.catch/);
 });
 
 test('admin status panels escape dynamic errors before using innerHTML', async () => {

@@ -33,12 +33,6 @@ single `/api/admin/[op]` dispatcher and private `_*.js` handlers.
 - Cmd/Ctrl+S → save
 - Cmd/Ctrl+B/I/U → bold/italic/underline
 
-**Web Push notifications**:
-- `/api/push/subscribe.js` — register PushSubscription
-- `/api/push/send.js` — broadcast (admin-gated, VAPID-signed)
-- `DN.bindPushSubscribe()` — adds 🔔 button under author bio when `window.VAPID_PUBLIC_KEY` is set
-- Service Worker handles `push` + `notificationclick` events (sw.js)
-
 **Security headers**:
 - `middleware.js` — Vercel Edge Middleware injects per-request CSP nonce + Trusted Types policy. Report-Only for now; flip to enforce after monitoring `/api/csp-report`.
 - Trusted Types `hs-policy` + `default` registered in blog-shared.js bootstrap.
@@ -62,12 +56,9 @@ Environment Variables**. Apply to **Production** + **Preview** environments.
 | `GITHUB_OWNER` | `expertise88864` | (default if unset) |
 | `GITHUB_REPO` | `user-hsiao` | (default if unset) |
 | `GITHUB_BRANCH` | `main` | (default if unset) |
-| `VAPID_PUBLIC_KEY` | base64url-encoded ECDSA P-256 public key | optional — for Web Push. Generate via `npx web-push generate-vapid-keys`. **Also paste the public key into a `<meta name="vapid-public-key">` tag or set `window.VAPID_PUBLIC_KEY` in your HTML so the client can subscribe.** |
-| `VAPID_PRIVATE_KEY` | base64url-encoded private key | optional — for Web Push (paired with above) |
-| `VAPID_SUBJECT` | `mailto:f94001115@gmail.com` | optional — VAPID JWT `sub` claim |
 | `GA4_PROPERTY_ID` | `properties/477123456` | optional — for `/api/admin/cwv` dashboard. See **GA4 Service Account setup** below. |
 | `GA4_SERVICE_ACCOUNT_JSON` | full GCP service account JSON | optional — paired with above |
-| `KV_REST_API_URL` | auto-set when you connect Vercel KV | optional — replaces GitHub blob for push subscribers + A/B stats |
+| `KV_REST_API_URL` | auto-set when you connect Vercel KV | optional — A/B stats and telemetry lists |
 | `KV_REST_API_TOKEN` | auto-set when you connect Vercel KV | optional |
 | `VERCEL_TOKEN` | a Vercel API token | optional — for `/api/admin/purge` edge cache invalidation. Generate at <https://vercel.com/account/tokens>, scope = "Full Account" or just the project. |
 | `VERCEL_PROJECT_ID` | `prj_xxxxx` | optional — find via `vercel link` or Vercel Dashboard → Project Settings → "Project ID" |

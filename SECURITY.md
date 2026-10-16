@@ -108,7 +108,6 @@ in production.
 |-----------------------------|--------------------|-------------------|
 | `/api/csp-report`           | Origin-allowlisted | Origin header     |
 | `/api/cwv-ingest`           | 30 / minute        | Cookie or IP      |
-| `/api/push/subscribe`       | 10 / minute        | Cookie or IP      |
 | `/api/errors`               | 60 / minute        | IP                |
 | `/api/admin/*`              | 30 / minute        | Session cookie    |
 

@@ -52,32 +52,6 @@ export async function kvGet(key) {
   } catch (e) { return null; }
 }
 
-// Atomic and retryable: publish the marker only after all legacy records land.
-// HSETNX preserves subscriptions refreshed since a previous partial migration.
-export async function kvMigrateJSONHash(legacyKey, hashKey, markerKey) {
-  const script = `
-    if redis.call('GET', KEYS[3]) then return 1 end
-    local raw = redis.call('GET', KEYS[1])
-    local entries = {}
-    if raw then
-      if not string.match(raw, '^%s*%[') then return redis.error_reply('Legacy subscriptions must be an array') end
-      entries = cjson.decode(raw)
-      for _, sub in ipairs(entries) do
-        if type(sub) ~= 'table' or type(sub.endpoint) ~= 'string' then
-          return redis.error_reply('Invalid legacy subscription')
-        end
-      end
-    end
-    for _, sub in ipairs(entries) do
-      redis.call('HSETNX', KEYS[2], sub.endpoint, cjson.encode(sub))
-    end
-    redis.call('SET', KEYS[3], '1')
-    return 1
-  `;
-  const result = await kvPipeline([['EVAL', script, '3', legacyKey, hashKey, markerKey]]);
-  if (!result || result[0]?.result !== 1) throw new Error('Push subscription migration failed');
-}
-
 export async function kvSet(key, value, opts = {}) {
   if (!kvAvailable()) return false;
   try {
@@ -135,24 +109,6 @@ export async function kvHSet(key, field, value) {
     await kvCall(path);
     return true;
   } catch (e) { return false; }
-}
-
-// Admission and refresh share one Redis execution, including the capacity check.
-export async function kvHSetBounded(key, field, value, maxFields) {
-  if (!Number.isSafeInteger(maxFields) || maxFields < 1) return null;
-  const script = `
-    local exists = redis.call('HEXISTS', KEYS[1], ARGV[1])
-    local count = redis.call('HLEN', KEYS[1])
-    if exists == 0 and count >= tonumber(ARGV[3]) then return {-1, count} end
-    redis.call('HSET', KEYS[1], ARGV[1], ARGV[2])
-    if exists == 1 then return {0, count} end
-    return {1, count + 1}
-  `;
-  const result = await kvPipeline([['EVAL', script, '1', key, field, value, String(maxFields)]]);
-  const reply = result?.[0]?.result;
-  if (!Array.isArray(reply) || reply.length !== 2 || ![-1, 0, 1].includes(reply[0]) ||
-      !Number.isSafeInteger(reply[1]) || reply[1] < 0) return null;
-  return { inserted: reply[0] === 1, ...(reply[0] === -1 ? { full: true } : {}), count: reply[1] };
 }
 
 export async function kvHDel(key, field) {

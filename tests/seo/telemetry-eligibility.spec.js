@@ -36,7 +36,7 @@ async function fixture(page, { human = true, prerender = false, optOut = false, 
       if (url.pathname === '/api/cwv-ingest') requests.cwvEvents.push(route.request().postDataJSON());
       if (ab && url.pathname === '/api/ab-config') {
         return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ tests: {
-          'prerender-fixture': { selector: '.hs-reading-path', variants: [{ name: 'a', html: '<p>Fixture A</p>' }, { name: 'b', html: '<p>Fixture B</p>' }] },
+          'prerender-fixture': { selector: '.tldr', variants: [{ name: 'a', html: '<p>Fixture A</p>' }, { name: 'b', html: '<p>Fixture B</p>' }] },
         } }) });
       }
       return route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
@@ -150,7 +150,7 @@ test('failed vitals script retry retains original width with only one successful
 
 test('prerender captures context only after activation and ignores duplicate version parameters', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  const requests = await fixture(page, { vitals: true, prerender: true, sharedQuery: '?v=20260726&v=20999999' });
+  const requests = await fixture(page, { vitals: true, prerender: true, sharedQuery: '?v=20260727&v=20999999' });
   await page.goto('https://' + HOST + ARTICLE);
   await expect.poll(() => page.evaluate(() => !!DN._engagementBound)).toBe(true);
   expect(requests.cwvEvents).toHaveLength(0);

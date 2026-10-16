@@ -634,36 +634,6 @@ self.addEventListener('message', async (e) => {
   }
 });
 
-// ── Web Push handler — fired when /api/push/send wakes us up ──
-// v29: payload is now aes128gcm-encrypted (RFC 8291) so the browser decrypts
-// it and event.data.json() returns the actual title/body/url. SW transparently
-// handles decryption via the keys negotiated during pushManager.subscribe.
-self.addEventListener('push', (event) => {
-  let data = {};
-  try { data = event.data ? event.data.json() : {}; } catch (e) {
-    try { data = { body: event.data ? event.data.text() : '' }; } catch (e2) { data = {}; }
-  }
-  const title = data.title || 'HsiaoEye · 新文章發布';
-  const body  = data.body  || '點擊查看最新眼科衛教筆記。';
-  const url   = data.url   || '/blog/';
-  const icon  = data.icon  || '/icon-192.png';
-  const badge = data.badge || '/icon-32.png';
-  const tag   = data.tag   || 'hsiao-newpost';
-  event.waitUntil(
-    self.registration.showNotification(title, {
-      body,
-      icon,
-      badge,
-      tag,
-      renotify: false,
-      requireInteraction: false,
-      data: { url, ts: Date.now() },
-      actions: [{ action: 'view', title: '查看' }, { action: 'dismiss', title: '稍後' }],
-      lang: 'zh-Hant-TW',
-    })
-  );
-});
-
 // v32: Periodic Background Sync — wakes the SW periodically (browser-decided
 // frequency, typically once per 12 hours when the user has the site
 // installed as a PWA) to pre-cache the newest article. So when the user
@@ -696,17 +666,4 @@ self.addEventListener('periodicsync', (event) => {
       } catch (e) { /* ignore */ }
     })());
   }
-});
-
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  const url = (event.notification.data && event.notification.data.url) || '/blog/';
-  event.waitUntil(
-    clients.matchAll({ type: 'window' }).then((wins) => {
-      for (const w of wins) {
-        if (w.url.includes(self.location.origin)) { w.focus(); w.navigate && w.navigate(url); return; }
-      }
-      return clients.openWindow(url);
-    })
-  );
 });

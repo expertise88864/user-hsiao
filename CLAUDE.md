@@ -151,6 +151,7 @@ python _gen_og_images.py
 # build-chain:start
 python halfwidth_to_fullwidth.py
 python _gen_exam.py
+python _gen_site_chrome.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py
@@ -186,6 +187,9 @@ Set `PYTHONIOENCODING=utf-8` if `validate.py` errors on Unicode.
 ## Editing guidelines
 
 - **Never** touch files in `/en/blog/` directly — they are regenerated.
+- The site header and footer live **only** in `index.html`; `_gen_site_chrome.py`
+  copies them onto every other page (owner decision 2026-10-17, guarded by
+  `tests/python/test_site_chrome.py`). Edit them in `index.html`, never per page.
 - **Never** use `--no-verify`, `--force`, or amend old commits.
 - **Always** prefer creating a new commit over rewriting history.
 - Commit message format: `<type>(<scope>): <imperative summary>`
@@ -241,6 +245,7 @@ python _gen_og_images.py
 # build-chain:start
 python halfwidth_to_fullwidth.py
 python _gen_exam.py
+python _gen_site_chrome.py
 python _normalize_reviewed_by.py
 python _normalize_entity_links.py
 python _inject_speed_insights.py

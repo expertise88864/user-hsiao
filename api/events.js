@@ -3,7 +3,6 @@
  *
  * Authenticated (admin cookie required). Streams real-time:
  *   - new article published     (emit when /api/admin/new succeeds)
- *   - new push subscriber       (emit when /api/push/subscribe succeeds)
  *   - new SEO violation         (emit by /api/csp-report)
  *   - heartbeat every 25 sec    (keeps connection alive past proxy timeouts)
  *

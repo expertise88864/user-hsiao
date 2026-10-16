@@ -141,6 +141,7 @@
 
 ### D-19 push 訂閱防濫用
 - **決策**：`api/push/_subscribe.js`：`MAX_SUBS=5000` 上限 + endpoint host 白名單（googleapis/apple/windows/mozilla push 網域）。放寬前先想清楚無認證端點的存儲膨脹與 SSRF 放大。
+- **撤除（2026-10-17）**：站主要求移除「訂閱新文章通知」。`api/push/*`、`api/admin/_push-stats.js`、文章內 🔔 按鈕、後台推播面板與 Service Worker 的 push／notificationclick handler 已刪；RSS／Atom 保留。日後若重新加入 Web Push，須重新評估並沿用本條的上限與白名單。
 
 ---
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260726"></script>
+<script src="/assets/trusted-types.js?v=20260727"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>HsiaoEye Admin</title>
@@ -22,7 +22,7 @@
 // has cached a buggy precache list. The user shouldn't have to F12 →
 // Application → Clear site data themselves on every deploy.
 (function () {
-  var TARGET = '20260726';  // bump this whenever blog-shared.js / sw.js change shape
+  var TARGET = '20260727';  // bump this whenever blog-shared.js / sw.js change shape
   try {
     if (localStorage.getItem('hs:siteVer') === TARGET) return;
     var hasSW     = ('serviceWorker' in navigator);
@@ -565,14 +565,6 @@
           <button type="button" class="btn primary" data-action="runBatch">⚡ 全部跑一次</button>
         </div>
         <div class="info-card" style="margin:0">
-          <h4>📢 發送 Web Push 通知</h4>
-          <p style="color:var(--ink-2); margin:0 0 12px">所有訂閱者會收到加密推播 (aes128gcm)。需先設好 VAPID env vars。</p>
-          <button type="button" class="btn primary" data-action="showPushModal">📤 撰寫通知</button>
-          <button type="button" class="btn" data-action="loadPushStats">📊 訂閱人數</button>
-          <span id="push-stat" style="margin-left:8px; font-size:11.5px; color:var(--muted);"></span>
-          <div id="push-stats-result" style="margin-top:14px; font-size:12.5px;"></div>
-        </div>
-        <div class="info-card" style="margin:0">
           <h4>🛠️ 動態 Sitemap / Feed</h4>
           <p style="color:var(--ink-2); margin:0 0 12px">已從 DN.ARTICLES 動態產生。手動觸發 CDN 失效以立即更新。</p>
           <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" class="btn">看 sitemap.xml</a>
@@ -590,7 +582,6 @@
           <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; line-height:1.8;">
             ADMIN_PASSWORD: <span style="color:var(--green)">✓ set （隱含）</span><br>
             GITHUB_TOKEN: <span id="env-gh">檢查中⋯</span><br>
-            VAPID_PUBLIC_KEY: <span id="env-vapid">檢查中⋯</span><br>
             VERCEL_KV: <span id="env-kv">檢查中⋯</span><br>
             GITHUB_OWNER: expertise88864<br>
             GITHUB_REPO: user-hsiao<br>
@@ -648,34 +639,6 @@
   <iframe id="edit-iframe" src="about:blank" style="flex:1;border:0;width:100%;background:#faf7f2;"></iframe>
 </div>
 
-<!-- ─── PUSH SEND MODAL ─── -->
-<div id="push-modal" class="modal-bg" hidden>
-  <div class="modal">
-    <h3>📢 發送推播通知</h3>
-    <p>所有訂閱者（已點 🔔 的訪客）都會收到。aes128gcm 加密，實際標題與內文會顯示。</p>
-    <form data-submit-action="doPushSend">
-      <label for="push-title">通知標題</label>
-      <input id="push-title" placeholder="例： 新文章 — 黃斑部病變 5 大警訊" required maxlength="60" />
-      <label for="push-body">通知內文</label>
-      <textarea id="push-body" placeholder="例： 飛蚊伴閃光、視野缺損都應立刻就醫..." maxlength="200"></textarea>
-      <label for="push-url">點擊跳轉 URL</label>
-      <input id="push-url" placeholder="/blog/<slug>" value="/blog/" />
-      <label for="push-urgency">優先度</label>
-      <select id="push-urgency">
-        <option value="normal">normal （預設）</option>
-        <option value="low">low</option>
-        <option value="high">high</option>
-        <option value="very-low">very-low</option>
-      </select>
-      <div class="row">
-        <button type="button" data-action="hidePushModal">取消</button>
-        <button type="button" data-action="doPushSend" data-dry-run="true">🧪 dry run （不發送）</button>
-        <button class="primary" type="submit" id="push-send-btn">📤 確定發送</button>
-      </div>
-    </form>
-  </div>
-</div>
-
 <!-- ─── HISTORY / ROLLBACK MODAL ─── -->
 <div id="history-modal" class="modal-bg" hidden>
   <div class="modal wide">
@@ -729,7 +692,7 @@
   </div>
 </div>
 
-<script src="/assets/admin-cwv.js?v=20260726"></script>
+<script src="/assets/admin-cwv.js?v=20260727"></script>
 <script>
 // ───────────────── State ─────────────────
 const API = '/api/admin';
@@ -766,18 +729,6 @@ async function checkEnvStatus() {
     else el.innerHTML = '<span style="color:var(--red)">✗ ' + escapeHTML((j.error || r.status).toString().slice(0, 60)) + '</span>';
   } catch (e) {}
 
-  // Probe VAPID
-  try {
-    const r = await fetch('/api/push/key');
-    const el = document.getElementById('env-vapid');
-    if (r.ok) {
-      const j = await r.json();
-      el.innerHTML = '<span style="color:var(--green)">✓ ' + j.key.slice(0, 12) + '⋯</span>';
-    } else {
-      el.innerHTML = '<span style="color:var(--amber)">○ 未設定</span>';
-    }
-  } catch (e) {}
-
   // Report the API's explicit configuration flag; latency is not evidence.
   try {
     const r = await fetch(API + '/ab-stats', { credentials: 'include' });
@@ -790,18 +741,6 @@ async function checkEnvStatus() {
       el.innerHTML = '<span style="color:var(--red)">✗ ' + r.status + '</span>';
     }
   } catch (e) { document.getElementById('env-kv').textContent = '○ 讀取失敗，無法確認設定'; }
-
-  // Show subscriber count
-  try {
-    const r = await fetch(API + '/ab-stats?testId=__never__', { credentials: 'include' });
-    if (r.ok) {
-      // Just to verify endpoint health — actual subscriber count comes from /api/push/send dryRun
-      fetch('/api/push/send', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: 'test', dryRun: true }) })
-        .then(r2 => r2.ok ? r2.json() : null).then(j => {
-          if (j) document.getElementById('push-stat').textContent = '訂閱人數: ' + (j.count || 0);
-        }).catch(() => {});
-    }
-  } catch (e) {}
 }
 
 // ───────────────── Embedded editor ─────────────────
@@ -871,36 +810,6 @@ function editorMsgHandler(e) {
       ? String(e.data.message || '')
       : (e.data.dirty ? 'GitHub 已保存上一版；仍有修改尚未儲存。' : '✓ 已保存至 GitHub；正式上線尚未確認。');
   }
-}
-
-// ───────────────── Push send ─────────────────
-function showPushModal() { document.getElementById('push-modal').hidden = false; setTimeout(() => document.getElementById('push-title').focus(), 50); }
-function hidePushModal() { document.getElementById('push-modal').hidden = true; }
-
-async function doPushSend(dryRun) {
-  const btn = document.getElementById('push-send-btn');
-  btn.disabled = true; btn.textContent = dryRun ? '檢查中⋯' : '發送中⋯';
-  const payload = {
-    title:   document.getElementById('push-title').value.trim(),
-    body:    document.getElementById('push-body').value.trim(),
-    url:     document.getElementById('push-url').value.trim() || '/blog/',
-    urgency: document.getElementById('push-urgency').value,
-    dryRun:  Boolean(dryRun),
-  };
-  if (!payload.title) { toast('需要標題', 3000); btn.disabled = false; btn.textContent = '📤 確定發送'; return; }
-  try {
-    const r = await fetch('/api/push/send', {
-      method: 'POST', credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const j = await r.json().catch(() => ({}));
-    if (r.ok) {
-      if (dryRun) toast('🧪 訂閱者數: ' + j.count, 4000);
-      else { toast(`✓ 已送 ${j.sent}/${j.total} (失敗 ${j.failed}, 清除無效 ${j.pruned})`, 6000); hidePushModal(); }
-    } else { toast('失敗: ' + (j.error || r.status), 6000); }
-  } catch (e) { toast('網路錯誤: ' + e.message, 5000); }
-  finally { btn.disabled = false; btn.textContent = '📤 確定發送'; }
 }
 
 // ───────────────── SEO auto-fix ─────────────────
@@ -1056,9 +965,6 @@ function runAdminAction(action, el) {
     buildRelated,
     precomputeMeta,
     runBatch,
-    showPushModal,
-    hidePushModal,
-    loadPushStats,
     pingIndexNow,
     closeEditor,
     hideHistory,
@@ -1074,7 +980,6 @@ function runAdminAction(action, el) {
   if (action === 'deleteAbTest') return deleteAbTest(el.dataset.id || '');
   if (action === 'removeDictRow') return el.closest('tr')?.remove();
   if (action === 'pickImage') return document.getElementById('img-input')?.click();
-  if (action === 'doPushSend') return doPushSend(el.dataset.dryRun === 'true');
   console.warn('[admin] unknown action:', action);
 }
 
@@ -1394,42 +1299,6 @@ async function clearSearchLog() {
     const r = await fetch(API + '/search-log?action=clear', { method: 'POST', credentials: 'include' });
     if (r.ok) loadSearchLog();
     else host.innerHTML = '<div class="loading">清除失敗：' + r.status + '</div>';
-  } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
-}
-
-// ───────────────── Push subscriber stats ─────────────────
-async function loadPushStats() {
-  const host = document.getElementById('push-stats-result');
-  host.innerHTML = '<div class="loading"><span class="spinner"></span>拉取訂閱統計⋯</div>';
-  try {
-    const r = await fetch(API + '/push-stats', { credentials: 'include' });
-    const j = await r.json().catch(() => ({}));
-    if (!r.ok) { host.innerHTML = '<div class="loading">錯誤: ' + escapeHTML(j.error || r.status) + '</div>'; return; }
-    if (!j.count) {
-      host.innerHTML = '<div class="loading">目前沒有 Web Push 訂閱者</div>';
-      return;
-    }
-    const fmt = (iso) => iso ? new Date(iso).toLocaleDateString('zh-TW') : '—';
-    const renderRow = (rows) => rows.length === 0 ? '' :
-      '<table class="dict-table" style="margin:6px 0 12px"><tbody>' +
-      rows.map(x => `<tr><td><code>${escapeHTML(x.key)}</code></td><td style="text-align:right">${x.count}</td></tr>`).join('') +
-      '</tbody></table>';
-    host.innerHTML =
-      '<div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px">' +
-        '<span style="color:var(--blue-deep);font-size:18px">' + j.count + '</span> 位訂閱者' +
-        ' <span style="font-size:11px;color:var(--muted);font-weight:400">' +
-          '(來源：' + (j.source === 'kv' ? 'KV' : 'GitHub blob') + ')</span>' +
-      '</div>' +
-      '<div style="font-size:11.5px;color:var(--muted);margin-bottom:10px">最舊訂閱：' + fmt(j.oldest_iso) +
-      '　|　最新訂閱：' + fmt(j.newest_iso) + '</div>' +
-      '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">' +
-        '<div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">瀏覽器</div>' +
-          renderRow(j.by_browser) + '</div>' +
-        '<div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">推播服務</div>' +
-          renderRow(j.by_push_host) + '</div>' +
-        '<div><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">訂閱年齡</div>' +
-          renderRow(j.by_age) + '</div>' +
-      '</div>';
   } catch (e) { host.innerHTML = '<div class="loading">網路錯誤: ' + escapeHTML(e.message || e) + '</div>'; }
 }
 
