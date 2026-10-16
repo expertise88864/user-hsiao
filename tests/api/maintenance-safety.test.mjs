@@ -128,4 +128,3 @@ test('dictionary is idempotent and preserves authored bytes across the published
   }
   assert.ok(changed > 0, 'must exercise real article text');
 });
-
