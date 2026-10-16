@@ -200,3 +200,17 @@ test('signed in: doubtful answer keys show 答案存疑 with sources', async ({ 
   await expect(box.locator('.ex-cites').first().locator('li')).not.toHaveCount(0);
   await expect(box.locator('.ex-doubt-exam')).toContainText('考試答案 C');
 });
+
+test('signed in: Anki export keeps the 答案存疑 sources', async ({ page }) => {
+  await signIn(page);
+  await page.goto('/exam/review');
+  await page.evaluate(() => localStorage.setItem('hs:exam:wrong', JSON.stringify([162])));
+  await page.reload();
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('button', { name: '錯題匯出 Anki（CSV）' }).click(),
+  ]);
+  const csv = require('fs').readFileSync(await download.path(), 'utf8');
+  expect(csv).toContain('答案存疑：');
+  expect(csv).toMatch(/BCSC Section 8|pubmed\.ncbi\.nlm\.nih\.gov/);
+});
