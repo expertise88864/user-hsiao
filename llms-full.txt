@@ -1064,7 +1064,7 @@ Ethicon (Johnson & Johnson MedTech). VICRYL (polyglactin 910) Suture, product in
 
 > IGATES 全球 8238 例眼外傷登錄：99% 受傷時沒戴護目鏡、38% 發生在家、70% 拖過 12 小時才就醫。整理眼外傷高風險族群、預防方式與立即就醫警訊。
 
-眼外傷一張圖看懂。① 全球每年新發約 6 千萬件眼外傷、約 438,000 年失能生命年（YLD）；全球約 160 萬人因眼外傷失明、230 萬人雙眼低視力（現存人數）。② IGATES 8238 例多國登錄：78.5% 為男性、平均 31.4 歲；閉合性眼球傷 56.9%、開放性 34.0%；最終最佳矯正視力（BCVA）差於 6/60 佔 30%、無光感 7%。③ 發生場域以居家 38.2% 最高，超過工作 19.4% 與交通 8.8% 的加總；運動 5.2%、煙火 3.5%。④ 99% 受傷時沒戴護目鏡，70% 拖過 12 小時才就醫；AAO 估計最高 90% 眼外傷可被適當護目預防。資料整合自 Agrawal 2026 與 Li 2023 全球疾病負擔分析。
+眼外傷一張圖看懂。① 全球每年新發約 6 千萬件眼外傷、約 438,000 年失能生命年（YLD）；全球約 160 萬人因眼外傷失明、230 萬人雙眼低視力（現存人數）。② IGATES 8238 例多國登錄：78.5% 為男性、平均 31.4 歲；閉合性眼球傷 56.9%、開放性 34.0%；最終最佳矯正視力（BCVA）差於 6/60 佔 30%、無光感 7%。③ 發生場域以居家 38.2% 最高，超過工作 19.4% 與交通 8.8% 的加總；運動 5.2%、煙火 3.5%。④ 99% 受傷時沒戴護目鏡，70% 拖過 12 小時才就醫；AAO 估計最高 90% 眼外傷可被適當護目預防。資料整合自 Agrawal 2026、Li 2023 全球疾病負擔分析與 Négrel 1998。
 
 一、診間常見情境
 
@@ -1086,7 +1086,7 @@ A：是真的。IGATES 全球 8238 例眼外傷登錄資料顯示，受傷當下
 
 Q2：為什麼「眼睛受傷」要當成公共衛生問題來看？
 
-A：因為它規模大、後果重、可預防，但被忽視。全球疾病負擔分析估計每年新發眼外傷約 6 千萬件、約 438,000 年失能生命年（YLD）；全球約 160 萬人因眼外傷失明、約 230 萬人雙眼低視力。美國 2001–2014 年眼外傷住院總費用估計為 17.2 億美元（Iftikhar 等 2019）；這是該期間合計，不是單一年或台灣費用，也不是引用它的 Bashir 英國研究自行估算。但相對於白內障與屈光不正，眼外傷得到的全球公衛資源明顯偏少，2026 年觀點文章直接點出，眼外傷未被納入主流眼健康與發展框架（例如 WHO《全球眼健康行動計畫 2014–2019》（Universal eye health: a global action plan 2014–2019）、IAPB「2030 In Sight」策略、聯合國永續發展目標（SDG）），是當前最大的政策缺口。
+A：因為它規模大、後果重、可預防，但被忽視。全球疾病負擔分析估計每年新發眼外傷約 6 千萬件、約 438,000 年失能生命年（YLD）；全球約 160 萬人因眼外傷失明、約 230 萬人雙眼低視力。美國 2001–2014 年眼外傷住院總費用估計為 17.2 億美元（Iftikhar 等 2019）；這是該期間合計，不是單一年或台灣費用，也不是引用它的 Bashir 英國研究自行估算。2026 年觀點文章指出，白內障與屈光不正已有強而有力的全球行動，眼外傷得到的關注卻相對很少；作者呼籲在 IAPB Global Action Plan、WHO VISION 2030、聯合國永續發展目標（SDG）等全球倡議中正式納入眼外傷（框架名稱照原文；WHO 的行動計畫正式名稱是《Universal eye health: a global action plan 2014–2019》，IAPB 現行策略是「2030 In Sight」）。
 
 Q3：家裡哪些活動最危險？我以為家裡應該很安全？
 
@@ -1098,7 +1098,7 @@ A：遊戲、運動、玩具、煙火、缺乏監督是主要因子。雪梨一�
 
 Q5：受傷拖過 12 小時才看會怎麼樣？
 
-A：在 IGATES 8238 例中，70% 的患者拖過 12 小時才到醫療院所，且這些延遲往往伴隨較差的最終視力結果。在開放性眼球傷（open-globe injury）尤其重要——McMaster 等 2025 年發表於《Ophthalmology》的系統性回顧與統合分析比較早期與延遲的初次縫合手術，發現受傷後 24 小時內縫合與較低的感染性眼內炎風險相關；最終視力則沒有顯著差異，且納入的研究都是回溯性研究，證據確定性低。哪些情況請立刻就醫（不要等明天）：視力突降、看見眼裡有異物、眼球外觀變形、眼內物外漏（虹膜、葡萄膜、玻璃體脫出）、化學潑濺、爆炸或穿透傷史、無光感。請當天直接掛眼科急診或一般急診，不要先上網搜尋、不要等到第二天門診。
+A：在 IGATES 8238 例中，70% 的患者拖過 12 小時才到醫療院所，觀點文章提醒，這樣的延遲可能嚴重影響最終視力。在開放性眼球傷（open-globe injury）尤其重要——McMaster 等 2025 年發表於《Ophthalmology》的系統性回顧與統合分析比較早期與延遲的初次縫合手術，發現受傷後 24 小時內縫合與較低的感染性眼內炎風險相關；最終視力則沒有顯著差異，且納入的研究都是回溯性研究，證據確定性低。哪些情況請立刻就醫（不要等明天）：視力突降、看見眼裡有異物、眼球外觀變形、眼內物外漏（虹膜、葡萄膜、玻璃體脫出）、化學潑濺、爆炸或穿透傷史、無光感。請當天直接掛眼科急診或一般急診，不要先上網搜尋、不要等到第二天門診。
 
 Q6：煙火季要怎麼保護？放仙女棒應該還好吧？
 
@@ -1130,7 +1130,7 @@ A：保守原則——立刻就醫，避免任何二次傷害。本文遵循「�
 
 99% 沒戴護目鏡——這是最大的可介入缺口；AAO 估計最高 90% 眼外傷可被適當護目避免
 
-70% 拖過 12 小時——延遲就醫與較差的視力預後相關（特別是開放性眼球傷）
+70% 拖過 12 小時——觀點文章提醒，延遲可能嚴重影響最終視力（特別是開放性眼球傷）
 
 兒童與煙火季是雙重高風險：兒童 35.9% 飛來物、煙火事件中 39.4% 兒童當下無人監督
 
@@ -1142,7 +1142,7 @@ A：保守原則——立刻就醫，避免任何二次傷害。本文遵循「�
 
 每年新發約 6 千萬件（Li et al. 2023，全球疾病負擔研究 GBD 2019 的二次分析）；同年約 438,000 年失能生命年（YLD）
 
-全球約 160 萬人因眼外傷失明、約 230 萬人雙眼低視力——即使在白內障、屈光不正以外，眼外傷仍是視覺障礙的重要來源
+全球約 160 萬人因眼外傷失明、約 230 萬人雙眼低視力（現存人數，Négrel 1998）——即使在白內障、屈光不正以外，眼外傷仍是視覺障礙的重要來源
 
 區域不平等：GBD 2019 分析中，年齡標準化失能生命年率最高的地區是澳紐（Australasia）（Li 2023）；GBD 2021 分析中，2021 年的年齡標準化發生率則以高社會人口指數（SDI）地區最高（Wang 2025）。2025 年 IGATES 跨國比較顯示 LMIC 病人就醫延遲較長、視力結果較差；Wang 2025 也發現，1990–2021 年間不同 SDI 地區之間的不平等已經縮小（不平等斜率指數 SII 由 3.10 降至 2.21），但仍然存在
 
@@ -1152,7 +1152,7 @@ A：保守原則——立刻就醫，避免任何二次傷害。本文遵循「�
 
 五、IGATES 8238 例是什麼？為什麼這份資料這麼重要？
 
-IGATES（International Globe and Adnexal Trauma Epidemiology Study）是目前全球最大、最具代表性的眼外傷多國登錄計畫。它由新加坡 Tan Tock Seng Hospital 的 Rupesh Agrawal 醫師等人主導，整合 32 間醫學中心、橫跨 12 國（印度、尼泊爾、印尼、泰國、瓜地馬拉、伊朗、哥倫比亞、波士尼亞、美國、巴基斯坦、墨西哥、新加坡），自 2009 年 1 月至 2024 年 8 月已累積 8238 例。
+IGATES（International Globe and Adnexal Trauma Epidemiology Study）是全球最早的多國前瞻性網路眼外傷登錄系統之一。它由新加坡 Tan Tock Seng Hospital 的 Rupesh Agrawal 醫師等人主導，整合 32 間三級眼科中心、橫跨 12 國（印度、尼泊爾、印尼、泰國、瓜地馬拉、伊朗、哥倫比亞、波士尼亞、美國、巴基斯坦、墨西哥、新加坡），自 2009 年 1 月至 2024 年 8 月已累積 8238 例。
 
 2026 年觀點文章公布的最新分析包含以下核心結果：
 
@@ -1160,7 +1160,7 @@ IGATES（International Globe and Adnexal Trauma Epidemiology Study）是目前�
 
 性別與年齡78.5% 男性、平均 31.4 歲工作年齡男性是核心高風險族群——對職場護目鏡推廣最具實用價值
 
-傷害類型閉合性 56.9%／開放性 34.0%（其餘為眼附屬器傷害或未分類）開放性 34% 並不少，且消耗最多醫療資源；早期辨識、轉診是關鍵
+傷害類型閉合性 56.9%／開放性 34.0%（其餘 9.1% 原文未細分）開放性 34% 並不少，且消耗最多醫療資源；早期辨識、轉診是關鍵
 
 就醫延遲70% 拖過 12 小時延遲與較差的視力預後相關；提升民眾「立刻就醫」意識是低成本高效益的介入
 
@@ -1186,7 +1186,7 @@ IGATES 還整合了眼外傷分數（Ocular Trauma Score，OTS）等臨床預後
 
 運動5.2%（425）球類、羽球、板球、曲棍球、冰球、籃球、棒球等高風險項目；護目鏡強制法規顯著降低風險
 
-其他4.1%（335）包含暴力攻擊、家暴等
+其他4.1%（335）原文未列出細項
 
 煙火3.5%（291）集中於節慶；IGATES 煙火研究中 18.3% 出現嚴重視力喪失（Hoskin 2022）
 
@@ -1208,11 +1208,11 @@ IGATES 還整合了眼外傷分數（Ocular Trauma Score，OTS）等臨床預後
 
 ③ 節慶煙火季
 
-不分國家——印度排燈節（Diwali）、美國國慶、新年、中秋遶境煙火、台灣春節鞭炮、媽祖遶境——煙火季都是眼外傷集中爆發期。Hoskin 2022 IGATES 388 例煙火研究顯示 18.3% 嚴重視力喪失，且 39.4% 受傷兒童當下無人監督。對應預防策略：學校與社區教育、節慶煙火法規與執行（販售年齡限制、煙火使用區域限制、酒測等）。
+不分國家——印度排燈節（Diwali）、美國國慶、新年、中秋遶境煙火、台灣春節鞭炮、媽祖遶境——煙火季都是眼外傷集中爆發期。Hoskin 2022 IGATES 388 例煙火研究顯示 18.3% 嚴重視力喪失，且 39.4% 受傷兒童當下無人監督。對應預防策略：學校與社區教育、節慶煙火法規與執行（年齡限制、執照與販售管制、指定施放區域）。
 
 ④ 武裝衝突地區與軍人
 
-這是被低估、卻日益嚴重的次族群。2026 年觀點文章點名近年的以巴衝突、敘利亞內戰（2011 年起）與烏俄戰爭三大武裝衝突，使眼外傷成為新興公衛議題。美軍 2001–2020 年資料顯示 17,555 名服役人員眼外傷、平均每人 0.64 DALY（每例 DALY 高於 GBD 一般人口）、每 10,000 名服役人員每年 20.6 DALY（Travor 2024）。
+這是被低估、卻日益嚴重的次族群。2026 年觀點文章點名近年的以巴衝突、敘利亞內戰（2011 年起）與烏俄戰爭三大武裝衝突，進一步推升眼外傷的發生。美軍 2001–2020 年資料顯示 17,555 名服役人員眼外傷、平均每人 0.64 DALY（每例 DALY 高於 GBD 一般人口）、每 10,000 名服役人員每年 20.6 DALY（Travor 2024）。
 
 ⑤ 低中所得國（LMIC）
 
@@ -1220,7 +1220,7 @@ IGATES 還整合了眼外傷分數（Ocular Trauma Score，OTS）等臨床預後
 
 八、損傷分類：開放性 vs 閉合性眼球傷與 BETT 系統
 
-眼外傷的標準化分類是BETT（Birmingham Eye Trauma Terminology，伯明罕眼外傷術語）系統。2022 年發表的一項德菲法（Delphi）專家共識（IGATES 術語共識小組，APOTS 等眼外傷學會參與；Hoskin 2022，JAMA Ophthalmol）同意沿用 BETT，並建議擴充傷害分區、人工水晶體併發症、受傷機轉、淚小管與鼻淚管、水晶體、視網膜、中央與旁中央角膜等術語。BETT 把眼外傷分為兩大類：
+眼外傷的標準化分類是BETT（Birmingham Eye Trauma Terminology，伯明罕眼外傷術語）系統。2022 年發表的一項德菲法（Delphi）專家共識（IGATES 術語共識小組，APOTS 等眼外傷學會參與；Hoskin 2022，JAMA Ophthalmol）同意沿用 BETT，並建議擴充傷害分區、受傷機轉、淚小管與鼻淚管、水晶體、視網膜、中央與旁中央角膜等術語。BETT 把眼外傷分為兩大類：
 
 類別定義常見次分類／範例
 
@@ -1264,13 +1264,13 @@ IGATES 8238 例中 70% 拖過 12 小時才到醫療院所，這在開放性眼�
 
 支柱代表性介入
 
-① 立法與執法煙火販售與使用規範（販售年齡、執照、用途指定區）；運動護目鏡強制法規（曲棍球、袋棍球、板球、羽球等）；職場護目鏡稽核與通報；機車強制安全帽、汽車安全帶法規
+① 立法與執法煙火販售與使用規範（販售年齡、執照、用途指定區）；運動護目鏡強制規定（曲棍球、羽球、板球等），以及營建、化學工業等高風險環境強制護目；職場護目鏡稽核與通報；機車強制安全帽、汽車安全帶法規
 
 ② 社區與校園教育校園安全遊戲教育、節慶（春節、中元、媽祖遶境、跨年）的眼安全宣導、針對漁業／工地／化學業的母語安全廣告、針對學齡兒童的「玩具安全」與「運動護目」課程
 
-③ 系統準備把眼外傷登錄整合進國家電子病歷系統；訓練第一線醫師（基層、急診、軍醫）做眼外傷分流；建立眼外傷臨床指引與運送協定；把眼外傷納入災害應變計畫
+③ 系統準備把眼外傷登錄整合進國家數位健康系統；訓練第一線醫療人員（基層、急診）做眼外傷分流；建立眼外傷臨床指引與運送協定；把眼外傷納入災害應變計畫
 
-④ 專科化在醫學中心開設眼外傷次專科訓練（fellowship）；推動 WHO 與 IAPB 的眼健康策略（如 IAPB「2030 In Sight」）及 SDG 把眼外傷列為主流項目
+④ 專科化在醫學中心開設眼外傷次專科訓練（fellowship）；在 IAPB Global Action Plan、WHO VISION 2030、SDG 等全球倡議中正式承認眼外傷（框架名稱照原文）
 
 💡 民眾端最具實證的 5 件小事
 
@@ -1294,7 +1294,7 @@ IGATES 8238 例中 70% 拖過 12 小時才到醫療院所，這在開放性眼�
 
 職業安全護目鏡：台灣勞動部職業安全衛生署相關規範（眼面部防護的規定），請以職安署最新公告為主。
 
-煙火管理：台灣節慶煙火施放規範、銷售年齡限制，請以行政院消防署、各縣市消防局最新公告為主。
+煙火管理：台灣節慶煙火施放規範、銷售年齡限制，請以內政部消防署、各縣市消防局最新公告為主。
 
 身心障礙鑑定／身心障礙證明：眼外傷後若有永久性視力或視野損害，相關鑑定基準與輔具補助，請以衛福部社家署與各縣市社會處最新公告為主。
 
@@ -1333,6 +1333,8 @@ Hoskin AK, Sheng SNM, Blanch RJ, et al. Geographical differences in ophthalmic t
 Kousiouris P, Klavdianou O, Douglas KA, et al. Role of socioeconomic status (SES) in globe injuries: a review. Clin Ophthalmol. 2022;16:25–31.
 
 Li C, Fu Y, Liu S, et al. The global incidence and disability of eye injury: an analysis from the Global Burden of Disease Study 2019. EClinicalMedicine. 2023;62:102134.
+
+Négrel AD, Thylefors B. The global impact of eye injuries. Ophthalmic Epidemiol. 1998;5(3):143–169.
 
 Ng SMS, Low R, Hoskin AK, et al. The application of clinical registries in ophthalmic trauma — the International Globe and Adnexal Trauma Epidemiology Study (IGATES). Graefes Arch Clin Exp Ophthalmol. 2022;260(4):1055–1067.
 
@@ -1778,9 +1780,11 @@ A：第 2 型糖尿病確診時就該安排第一次眼底檢查，之後依眼�
 
 重度 NPDR廣泛出血、靜脈串珠樣、視網膜內微血管異常（IRMA）即將進入 PDR；3-4 個月密切追蹤
 
-增殖性 PDR新生血管（NV）、玻璃體出血、纖維增殖、可能視網膜剝離高風險視力喪失；需要泛視網膜雷射、玻璃體內注射或手術介入
+增殖性 PDR新生血管（NV）、玻璃體出血、纖維增殖、可能視網膜剝離視力喪失風險高；非高風險 PDR 每 3-4 個月、高風險 PDR 每 2-4 個月追蹤；高風險 PDR 建議泛視網膜雷射，也可能需要玻璃體內注射或手術
 
-合併黃斑部水腫（DME）黃斑部視網膜厚度增加、囊樣空泡（OCT 上可見）可發生在任何 DR 階段；視力直接受威脅；本研究排除此族群以單純分析 DR 嚴重度
+合併黃斑部水腫（DME）黃斑部視網膜厚度增加、囊樣空泡（OCT 上可見）可發生在任何 DR 階段；視力直接受威脅；未侵犯黃斑中心者依 DR 分期每 2-6 個月追蹤，侵犯中心者約每 1 個月追蹤，多需玻璃體內注射治療；本研究排除此族群以單純分析 DR 嚴重度
+
+資料來源：NPDR、PDR 與黃斑部水腫各列的追蹤間隔依 AAO《糖尿病視網膜病變臨床指引》（Diabetic Retinopathy Preferred Practice Pattern）2024 年版的初始處置建議表（Table 5）；「無視網膜病變」列依 ADA 2026 年照護標準（AAO 同表為每 12 個月）。實際回診間隔由眼科醫師依個別狀況決定。
 
 流行病學：DR 是糖尿病最常見的微血管併發症之一，在糖尿病人中盛行率高達 26%（美國 2021 年資料）；也是 50 歲以上成人全球第五大致盲原因（2020 年，GBD 2019 視力損失研究）。重要的是，糖友前期常常「自己沒症狀」就已經有眼底病變了——這正是定期眼科檢查的價值所在。
 
@@ -1936,6 +1940,8 @@ Flaxman SR, Bourne RRA, Resnikoff S, et al. Global causes of blindness and dista
 
 GBD 2019 Blindness and Vision Impairment Collaborators; Vision Loss Expert Group of the Global Burden of Disease Study. Causes of blindness and vision impairment in 2020 and trends over 30 years, and prevalence of avoidable blindness in relation to VISION 2020: the Right to Sight: an analysis for the Global Burden of Disease Study. Lancet Glob Health. 2021;9(2):e144–e160. doi:10.1016/S2214-109X(20)30489-7.
 
+Lim JI, Kim SJ, Bailey ST, Kovach JL, Vemulakonda GA, Ying GS, Flaxel CJ; American Academy of Ophthalmology Preferred Practice Pattern Retina/Vitreous Committee. Diabetic Retinopathy Preferred Practice Pattern®. Ophthalmology. 2025;132(4):P75–P162. doi:10.1016/j.ophtha.2024.12.020.
+
 Mutlu U, Colijn JM, Ikram MA, et al. Association of retinal neurodegeneration on optical coherence tomography with dementia: a population-based study. JAMA Neurol. 2018;75(10):1256–1263.
 
 Little K, Llorián-Salvador M, Scullion S, et al. Common pathways in dementia and diabetic retinopathy: understanding the mechanisms of diabetes-related cognitive decline. Trends Endocrinol Metab. 2022;33(1):50–71.
@@ -2002,7 +2008,7 @@ A：不一定。國際共識是當「規則性角膜散光」≥ 1.0 D 且您希
 
 Q2：「Toric IOL 比角膜緣鬆弛切口（LRI）或飛秒雷射散光切口（FSAK）好嗎？」
 
-A：以「術後殘餘散光 ≤ 0.5 D 的達成率」來說，toric IOL 表現較好。Cochrane 2019 年的系統性回顧（Lake 等，10 個 RCT、共 626 眼）顯示：toric 組約 70% 達成 ≤ 0.5 D 殘餘散光，LRI 組約 50%；平均術後散光也比 LRI 低約 0.3 D，但作者認為這個差距可能不具臨床意義，兩組的視力與生活品質也沒有重要差異。Yen 2025 和 Zheng 2023 的統合分析顯示 toric IOL 對比 FSAK 也有相近優勢（特別是中高度散光）。LRI/FSAK 的優點是不用額外水晶體費用、可在標準 IOL 上加做；缺點是矯正力與穩定性較弱、長期可能回退。Toric IOL 的優點是矯正準確度高、穩定；缺點是費用較高、術中需精確軸位對位、極少數需重置手術（約 0.65%）。
+A：以「術後殘餘散光 ≤ 0.5 D 的達成率」來說，toric IOL 表現較好。Cochrane 2019 年的系統性回顧（Lake 等，10 個 RCT、共 626 眼）顯示：toric 組約 70% 達成 ≤ 0.5 D 殘餘散光，LRI 組約 50%；平均術後散光也比 LRI 低約 0.3 D，但作者認為這個差距可能不具臨床意義，兩組的視力與生活品質也沒有重要差異。Yen 2025 的統合分析（9 篇研究、590 位病人）也顯示 toric IOL 術後散光比 FSAK 略少（平均少約 0.17 D）、裸眼遠距視力略好，但納入研究的散光都不超過 4.5 D，沒有依散光高低分組比較；Zheng 2023 的統合分析顯示 toric IOL 對比 FSAK 也有相近優勢（特別是中高度散光）。LRI/FSAK 的優點是不用額外水晶體費用、可在標準 IOL 上加做；缺點是矯正力與穩定性較弱、長期可能回退。Toric IOL 的優點是矯正準確度高、穩定；缺點是費用較高、術中需精確軸位對位、極少數需重置手術（約 0.65%）。
 
 Q3：「Toric IOL 會不會轉位？轉位了怎麼辦？」
 
@@ -2154,7 +2160,7 @@ UDVA：Kessel 等 2016 年統合分析（13 個 RCT）顯示，toric IOL 組的 
 
 適用散光範圍1.0–8.0 D（部分品牌可達 12.0 D）0.5–2.5 D（散光更高時準確性下降）0.75–3.5 D
 
-殘餘散光 ≤ 0.5 D 比例~70%（Cochrane 2019）~50%（Cochrane 2019）~50–60%（Yen 2025、Zheng 2023）
+殘餘散光 ≤ 0.5 D 比例~70%（Cochrane 2019）~50%（Cochrane 2019）~50–60%（Zheng 2023）；Yen 2025 未報 ≤ 0.5 D 的比例，只報 ≤ 1.0 D：FSAK 約 69%（3 篇研究合計 65／94），toric IOL 約 92%（84／91）
 
 長期穩定性高；少數轉位可重置中等；可能回退中等到高；準確度依儀器
 
@@ -3860,15 +3866,17 @@ FLACS 從 2010 年代上市以來常被宣傳為「更精準、更安全、更�
 
 ① FEMCAT 試驗：歐洲的關鍵研究
 
-FEMCAT 試驗（Lancet 2020）是目前最具代表性的隨機對照試驗：法國 5 家大學醫院共 907 位白內障手術病人（1,476 眼）隨機分為 FLACS 組或傳統超音波組，870 位納入分析。
+FEMCAT 試驗（Lancet 2020）是發表時（2020 年）規模最大的同類隨機對照試驗之一：法國 5 家大學醫院共 907 位白內障手術病人（1,476 眼）隨機分為 FLACS 組或傳統超音波組，870 位納入分析。
 
-主要終點：3 個月時的手術成功率（須同時符合無嚴重併發症、最佳矯正視力 0.0 logMAR 以上、屈光誤差 ≤ 0.75 D、角膜散光幾乎不變等 4 項）──FLACS 41.1%、傳統超音波 43.6%，兩組無顯著差異
+主要終點：3 個月時的手術成功率（須同時符合無嚴重併發症、最佳矯正視力 0.0 logMAR 或更好、屈光誤差 ≤ 0.75 D、角膜散光度數變化 ≤ 0.5 D 且軸度變化 ≤ 20° 等 4 項）──FLACS 41.1%、傳統超音波 43.6%，兩組無顯著差異
 
 屈光精準度（術後屈光與目標差距）── 兩組相當
 
-併發症率──兩組相當（後囊破裂、角膜內皮損失、眼內炎發生率均無差異）
+併發症率──兩組相當（後囊破裂率 1.4% vs 1.6%，角膜內皮細胞數也沒有差異；兩組都沒有發生眼內炎）
 
-成本效益──FLACS 顯著較貴，但臨床效益未提升 → 結論是「不具成本效益」
+改做傳統手術──分到 FLACS 組的 736 眼中，有 63 眼（9%）最後改做傳統超音波，過半（35 眼）是因為手術當天或前一天雷射機故障
+
+成本效益──FLACS 每位病人平均多花約 305 歐元，成功率卻沒有比較高（反而低 2.8 個百分點）→ 作者結論：對法國健保體系「不具成本效益」
 
 ② 主要指引一致立場
 
@@ -4630,7 +4638,7 @@ AAO 2025 PPP 引述：依不同研究，30-92% 的 POAG 病人未治療時眼壓
 
 ⑤ 高眼壓症（ocular hypertension，OHT）──還不是青光眼
 
-眼壓 > 21 mmHg 但視神經與視野正常。OHTS（高眼壓治療試驗）顯示：未治療者 5 年內發展為原發性開角型青光眼（POAG）的累積比例約 9.5%；眼壓 > 25.75 mmHg 且中央角膜厚度 ≤ 555 μm 者，5 年內約 36% 發展為 POAG。是否治療依個別風險評估而定。NICE 2022 建議：眼壓 ≥ 24 mmHg 且有未來視力損失風險者，建議 360° 選擇性雷射小樑成形術（selective laser trabeculoplasty，SLT）或前列腺素類眼藥水（prostaglandin analogue，PGA）治療。
+眼壓 > 21 mmHg 但視神經與視野正常。OHTS（高眼壓治療試驗）顯示：未治療者 5 年內發展為原發性開角型青光眼（POAG）的累積比例約 9.5%；年紀較大、眼壓較高、垂直杯盤比較大、視野檢查 PSD（pattern standard deviation）值較大及中央角膜較薄，都可預測誰會發展為 POAG。未治療的觀察組中，基礎眼壓 > 25.75 mmHg 且中央角膜厚度 ≤ 555 μm 者，在中位追蹤 72 個月（約 6 年）期間有 36%（78 人中 28 人）發展為 POAG。是否治療依個別風險評估而定。NICE 2022 建議：眼壓 ≥ 24 mmHg 且有未來視力損失風險者，建議 360° 選擇性雷射小樑成形術（selective laser trabeculoplasty，SLT）或前列腺素類眼藥水（prostaglandin analogue，PGA）治療。
 
 三、流行病學與風險因子
 
@@ -4656,7 +4664,7 @@ AAO 2025 PPP 引述：依不同研究，30-92% 的 POAG 病人未治療時眼壓
 
 近視（特別是高度近視）──眼軸長使視神經盤面結構變弱
 
-薄角膜（中央角膜厚度 CCT < 555 μm）──同時是 IOP 量測偏低的原因（真正眼壓被低估）
+中央角膜較薄（OHTS 研究中，中央角膜厚度 CCT ≤ 555 μm 者風險最高）──同時是 IOP 量測偏低的原因（真正眼壓被低估）
 
 角膜遲滯性低（low corneal hysteresis）──近年新發現的獨立風險因子
 
@@ -4780,7 +4788,7 @@ OCT 與視野檢查互補──視野是「功能」評估、OCT 是「結構」
 
 ⑥ 中央角膜厚度（CCT）
 
-角膜厚度會影響眼壓量測精準度（薄角膜會讓眼壓量起來偏低）。CCT 也是 POAG 的獨立風險因子──薄角膜患者進展風險較高（OHTS）。
+角膜厚度會影響眼壓量測精準度（薄角膜會讓眼壓量起來偏低）。CCT 也是 POAG 的獨立風險因子──OHTS 發現，高眼壓症患者的角膜越薄，日後發展為 POAG 的風險越高（≤ 555 μm 對比 > 588 μm，風險比 3.4）。
 
 視神經盤面變化：青光眼視神經杯（cup）會逐漸擴大、神經視網膜邊緣（neuroretinal rim）變薄。正常人杯盤比約 0.3，且符合 ISNT 規則（下方最厚 → 上 → 鼻 → 顳）。早期青光眼會出現下方或上方切跡（notch，局部變窄）、盤面出血（disc hemorrhage，DH；為即將惡化的早期警訊）。進階期視神經杯變大、變深，盤緣幾乎消失，並可見盤旁萎縮（parapapillary atrophy）與血管在杯緣被深凹陷扭折成刺刀狀（bayoneting）。OCT 量測 RNFL 與黃斑 GCC 厚度，可比肉眼觀察更早發現損傷。
 
@@ -5051,6 +5059,10 @@ Li M, Wang M, Guo W, Wang J, Sun X. The effect of caffeine on intraocular pressu
 Jiwani AZ, Rhee DJ, Brauner SC, et al. Effects of caffeinated coffee consumption on intraocular pressure, ocular perfusion pressure, and ocular pulse amplitude: a randomized controlled trial. Eye (Lond). 2012;26(8):1122-1130.
 
 Simanjuntak OP, Jocelyn O, Simanjuntak KT, et al. Caffeine Intake Effects on Intraocular Pressure in Healthy and Glaucomatous Populations: A Systematic Review and Meta-Analysis. J Curr Ophthalmol. 2026;38(1):1-16.
+
+Kass MA, Heuer DK, Higginbotham EJ, et al. The Ocular Hypertension Treatment Study: a randomized trial determines that topical ocular hypotensive medication delays or prevents the onset of primary open-angle glaucoma. Arch Ophthalmol. 2002;120(6):701-713.
+
+Gordon MO, Beiser JA, Brandt JD, et al. The Ocular Hypertension Treatment Study: baseline factors that predict the onset of primary open-angle glaucoma. Arch Ophthalmol. 2002;120(6):714-720.
 
 ---
 
