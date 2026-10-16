@@ -39,6 +39,13 @@ FW_EXCL = '！'   # !
 FW_QUES = '？'   # ?
 
 RULES = [
+    # Must run before the generic paren rules below, which would convert only one side.
+    # Enumerations inside Chinese prose (owner request 2026-10-16):
+    # "：(1) 標準化" / "中(2)中" / ">(1) 中" -> "：（1）標準化". Fires only when a
+    # Chinese character or full-width punctuation (or a tag end) precedes and a
+    # Chinese character or 「 follows, so English "(1) item" stays untouched.
+    (re.compile(rf'({CN}|[：；，、。」）]|>)[ 	]?\((\d{{1,2}})\)[ 	]?(?=(?:{CN}|「))'),
+     rf'\g<1>{FW_LP}\g<2>{FW_RP}'),
     # (中  -> (中
     (re.compile(rf'\(({CN})'),                rf'{FW_LP}\g<1>'),
     # 中(  -> 中(

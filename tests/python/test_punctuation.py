@@ -10,6 +10,14 @@ class TerminalPunctuationTests(unittest.TestCase):
         self.assertEqual(convert('問題 1: 內容'), ('問題 1： 內容', 1))
         self.assertEqual(convert('問題12:<b>內容</b>'), ('問題12：<b>內容</b>', 1))
 
+    def test_enumerations_in_chinese_prose_become_full_width(self):
+        self.assertEqual(convert('用途：(1) 標準化；(2) 比較'), ('用途：（1）標準化；（2）比較', 2))
+        self.assertEqual(convert('<li>(3) 避免直吹</li>'), ('<li>（3）避免直吹</li>', 1))
+        self.assertEqual(convert('包括(12)「乾眼」'), ('包括（12）「乾眼」', 1))
+        for english in ('<p>Uses: (1) standardise, (2) compare</p>', 'see (1) above', '<li>(2) Avoid</li>'):
+            with self.subTest(english=english):
+                self.assertEqual(convert(english), (english, 0))
+
     def test_bilingual_attributes_and_visible_copy_agree(self):
         for quote in ('"', "'"):
             for half, full in (('?', '？'), ('!', '！')):
