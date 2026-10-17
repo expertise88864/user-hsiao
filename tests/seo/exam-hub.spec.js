@@ -177,7 +177,9 @@ test('hub search: abbreviations stand alone, full names ignore hyphens, Chinese 
   expect(marks.length).toBeGreaterThan(0);
   expect(marks.every(m => /^rps?$/i.test(m))).toBe(true);
   const snippets = await page.locator('.ex-find-snip').allTextContents();
-  expect(snippets.every(s => /(^|[^A-Za-z0-9])RPs?([^A-Za-z]|$)/i.test(s))).toBe(true);
+  expect(snippets.every(s => /(^|[^A-Za-z0-9])RPs?([^A-Za-z0-9]|$)/i.test(s))).toBe(true);
+  // RP must not match inside a gene name such as RP1L1 (bcsc12-12 occult macular dystrophy).
+  expect(snippets.some(s => /RP1L1/i.test(s) && !/(^|[^A-Za-z0-9])RPs?([^A-Za-z0-9]|$)/i.test(s))).toBe(false);
   await page.getByLabel('搜尋疾病（全名或縮寫）').fill('圓錐角膜');
   await expect(page.locator('.ex-find-status')).toContainText('「圓錐角膜」出現在');
   await expect(page.locator('.ex-find-group').first().locator('a').first()).toHaveAttribute('href', /\?hl=%E5%9C%93%E9%8C%90%E8%A7%92%E8%86%9C#np-\d+$/);

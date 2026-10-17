@@ -830,7 +830,7 @@
       if (f.word) {
         var next = text.charAt(e);
         if (/[A-Za-z0-9]/.test(text.charAt(s - 1))) continue;
-        if (/[A-Za-z]/.test(next) && !(next.toLowerCase() === 's' && !/[A-Za-z0-9]/.test(text.charAt(e + 1)))) continue;
+        if (/[A-Za-z0-9]/.test(next) && !(next.toLowerCase() === 's' && !/[A-Za-z0-9]/.test(text.charAt(e + 1)))) continue;
       }
       out.push([s, e]);
     }
@@ -1395,9 +1395,10 @@
     var clearProgress = document.querySelector('.ex-clear-progress');
     if (clearProgress) {
       clearProgress.addEventListener('click', function () {
-        if (!window.confirm('確定要清除這台裝置上的作答紀錄與最後讀的日期嗎？（「課本已讀完」與錯題本不受影響）')) return;
+        if (!window.confirm('確定要清除這台裝置上的作答紀錄（含各題上次選的答案）與最後讀的日期嗎？（「課本已讀完」與錯題本不受影響）')) return;
         store(STATS_KEY, {});
         store(VISIT_KEY, {});
+        store(ANS_KEY, {});
         if (progress) renderProgress(progress);
       });
     }

@@ -250,6 +250,32 @@ test('signed in: 清除本章作答紀錄 resets only this chapter', async ({ pa
   await expect(page.locator('#ex-chapter-qs .ex-q.ex-done')).toHaveCount(0);
 });
 
+test('signed in: 清除作答紀錄 on /exam/progress also forgets the stored answers', async ({ page }) => {
+  await signIn(page);
+  await page.addInitScript(() => {
+    if (localStorage.getItem('seeded')) return;
+    localStorage.setItem('seeded', '1');
+    localStorage.setItem('hs:exam:mode', JSON.stringify('quiz'));
+  });
+  await page.goto(CHAPTER);
+  const first = page.locator('#ex-chapter-qs .ex-q:not(.ex-unanswered)').first();
+  await first.locator('.ex-opt').first().click();
+  await first.getByRole('button', { name: '送出答案' }).click();
+  await expect(first).toHaveClass(/ex-done/);
+  expect(Object.keys(await stored(page, 'hs:exam:ans')).length).toBe(1);
+
+  await page.goto('/exam/progress');
+  page.once('dialog', d => d.accept());
+  await page.locator('.ex-clear-progress').click();
+  expect(await stored(page, 'hs:exam:ans')).toEqual({});
+  expect(await stored(page, 'hs:exam:stats')).toEqual({});
+
+  await page.goto(CHAPTER);
+  await expect(page.locator('#ex-chapter-qs .ex-q').first()).toBeVisible();
+  await expect(page.locator('#ex-chapter-qs .ex-q.ex-done')).toHaveCount(0);
+  await expect(page.locator('.ex-ans-bar .ex-ans-text')).toHaveText(/^已作答 0／\d+ 題/);
+});
+
 test('signed out: no answer bar; storage disabled: pages still work', async ({ page, browser }) => {
   await signOut(page);
   await page.goto(CHAPTER);
