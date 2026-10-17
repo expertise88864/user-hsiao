@@ -951,8 +951,7 @@ details[open] > summary ~ * {
    sometimes wrong here, but disabling on home is the easy win).
    ============================================================ */
 @supports (animation-timeline: scroll()) {
-  /* Only animate on /blog/* pages, not home — and never when the reader asks for
-     reduced motion (this block used to override the reduced-motion reset above). */
+  /* /blog/* only, never under reduced motion */
   @media (prefers-reduced-motion: no-preference) {
   body:not(.home) .reveal,
   body:not(.home) .article-list-item,
