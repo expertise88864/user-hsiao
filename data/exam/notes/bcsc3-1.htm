@@ -1,0 +1,456 @@
+<h2 id="ch1-s1">一、幾何光學基本原則</h2>
+<ul>
+<li><strong>Geometric optics（幾何光學）</strong>：以直線行進的光線（ray）描述光學現象，只有遇到透鏡或面鏡才改變方向；光線遇到物體可發生 refraction（折射）、reflection（反射）或兩者。<span class="ref">p.53, p.56</span></li>
+<li>四條基本規則：① 光在均勻介質中直線行進；② 光路只能被 <strong>reflection</strong>（依 law of reflection）或 <strong>refraction</strong>（依 Snell's law）改變；③ 經過多個折射面時，<mark>前一面所成的像即為下一面的物</mark>；④ 光路可逆（reversible）。<span class="ref">p.57</span></li>
+<li>Diffraction（繞射）、polarization（偏光）、<strong>interference（干涉）</strong>屬光的波動性質（wavefront theory of light），fluorescence、phosphorescence、雷射屬量子性質，皆於第 2 章討論，<mark>不屬幾何光學</mark>；抗反射膜靠 destructive interference（破壞性干涉）而非 diffraction（本章外，BCSC 3 第 2 章）；night myopia（夜間近視）與 constructive interference（建設性干涉）無關。{{q:213,270}}<span class="ref">p.56–57；3 p.122–124</span></li>
+<li><strong>Fermat's principle（費馬原理）</strong>：兩點間光走「所需時間最短」的路徑；直線傳播、反射定律、Snell's law 皆可由此推得（Appendix 1-2）。<span class="ref">p.54, p.87, p.105–107</span></li>
+<li><strong>Paraxial（近軸）</strong>：光線靠近光軸、與光軸夾角很小；本章的 vergence equation、lensmaker's equation 皆在近軸近似（φ ≈ sin φ ≈ tan φ）下由 Snell's law 推導。<span class="ref">p.55, p.66, p.104</span></li>
+<li><strong>Stigmatic imaging（理想成像）</strong>：點光源聚焦於單一像點；<strong>aberration（像差）</strong>即任何偏離 stigmatic imaging 的情形。<span class="ref">p.53, p.56</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>「Antireflection film–diffraction」是錯誤配對：抗反射膜用 interference（第 2 章），gonioscopy lens 對應 total internal reflection（本章），chromatic aberration 對應 wavelength（本章）。{{q:213}}<span class="ref">p.56–57, p.65, p.92；3 p.122–124</span></li>
+</ul></div>
+
+<h2 id="ch1-s2">二、折射率（Refractive index）</h2>
+<ul>
+<li>定義：<strong>n = 真空光速 / 介質中光速</strong>；真空光速 <span class="num">299,792,458 m/s</span>，空氣中幾乎相同。<mark>n 越大，光在該介質中越慢</mark>；任何物質介質的 n 必 <span class="num">&gt; 1.0</span>。{{q:255}}<span class="ref">p.57</span></li>
+<li>光學玻璃加入添加物可使 n 由 <span class="num">&lt; 1.4</span> 調到 <span class="num">&gt; 1.9</span>；空氣、水、角膜的折射率應背熟。<span class="ref">p.57</span></li>
+<li>Vitreous（玻璃體）n = <span class="num">1.336</span>，可用 <span class="num">4/3</span> 近似，誤差可忽略。<span class="ref">p.58</span></li>
+<li>IOL 計算的生物測量：傳統光學生物測量用廠商假設的單一折射率量眼軸；依各眼內構造各自折射率分段計算的 <strong>"sum of segments"</strong> 眼軸可能讓 IOL 度數更準。<span class="ref">p.58</span></li>
+</ul>
+<table class="ted-table">
+<thead><tr><th>Medium（介質，Table 1-1）</th><th>Refractive index（折射率）</th><th>Approximate（近似值）</th></tr></thead>
+<tbody>
+<tr><td>Vacuum（真空）</td><td><span class="num">1.00000</span>（exactly）</td><td>—</td></tr>
+<tr><td>Air at STP（標準溫壓空氣）</td><td><span class="num">1.000277</span></td><td><span class="num">1.000</span></td></tr>
+<tr><td>Water at 25°C（水）</td><td><span class="num">1.3325</span></td><td><span class="num">1.33</span>，或 4/3</td></tr>
+<tr><td>Aqueous and vitreous humors（房水、玻璃體）</td><td><span class="num">1.336</span></td><td><span class="num">1.33</span>，或 4/3</td></tr>
+<tr><td>Cornea（角膜）</td><td><span class="num">1.376</span></td><td><span class="num">1.37</span></td></tr>
+<tr><td>PMMA（polymethyl methacrylate）</td><td><span class="num">1.49</span></td><td><span class="num">1.50</span>，或 3/2</td></tr>
+<tr><td>HEMA（hydroxyethyl methacrylate，monomer）</td><td><span class="num">1.4505</span></td><td><span class="num">1.45</span></td></tr>
+</tbody>
+</table>
+<p>出處 <span class="ref">p.58</span>（HEMA polymer 的 n 隨含水量而異；水的 n 隨溫度而變）</p>
+<ul>
+<li>眼球屈光力主要來自<mark>空氣（<span class="num">1.000</span>）→ 角膜（<span class="num">1.376</span>）這個折射率差最大的介面</mark>；角膜–房水介面差距小（1.376 vs 1.336），只使空氣–角膜介面的屈光力減少約 <span class="num">10%</span>。{{q:255}}<span class="ref">p.58, p.67–68</span></li>
+<li>Gullstrand 模型眼的 crystalline lens（水晶體）n 約 <span class="num">1.386–1.406</span>，高於角膜 1.376 → <mark>光在水晶體中比在角膜中更慢</mark>（本章外，BCSC 3 第 3 章）。{{q:255}}<span class="ref">p.57；3 p.145–147</span></li>
+<li>光由角膜（較高 n）進入房水（較低 n）屬「高 → 低」，入射角超過臨界角即可發生 total internal reflection，理論上可能；鏡片材料折射率越高，Abbe number（阿貝數）通常越低、dispersion（色散）越明顯（本章外，BCSC 3 第 5 章）。{{q:255}}<span class="ref">p.64–65；3 p.213–214</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>「光在角膜中比在水晶體中慢」是錯的：水晶體 n 較高，光在水晶體中較慢。{{q:255}}<span class="ref">p.57；3 p.145–147</span></li>
+<li>題目給 PMMA IOL n = 1.785 與實際 PMMA <span class="num">1.49</span> 不符；計算時照題目數字代入即可（見第五節）。{{q:287}}<span class="ref">p.58</span></li>
+</ul></div>
+
+<h2 id="ch1-s3">三、Snell's law 與稜鏡（Prisms）</h2>
+<h3>Snell's law（司乃耳定律）</h3>
+<ul>
+<li><strong>n1 sin θ1 = n2 sin θ2</strong>；θ 為光線與 <strong>surface normal（法線）</strong>的夾角。<span class="ref">p.58–59</span></li>
+<li>由低 n 進入高 n（光變慢）→ 偏向法線；由高 n 進入低 n → 偏離法線。此種平面介面的偏折造成物體視位移（如看水中的魚、眼用稜鏡）。<span class="ref">p.58–59</span></li>
+<li>例：魚的光由水（高 n）進入空氣時偏離法線，漁夫看到的是位於真魚後方的虛像，須朝虛像「前方」投矛。<span class="ref">p.59</span></li>
+</ul>
+<h3>稜鏡的基本性質</h3>
+<ul>
+<li><strong>Dispersion（色散）</strong>：折射率隨光頻率（波長）而變；色散稜鏡把白光分成光譜即 chromatic aberration（色像差）。眼用稜鏡選用對各頻率折射率幾乎相同的材料，以減少色分離。<span class="ref">p.58–59</span></li>
+<li><mark>光經稜鏡偏向 base（底）；觀察者看到的虛像則移向 apex（尖）</mark>。<span class="ref">p.53, p.59–60</span></li>
+<li>Convex（plus，凸）透鏡 = 兩稜鏡 base 對 base；concave（minus，凹）透鏡 = 兩稜鏡 apex 對 apex。<span class="ref">p.59</span></li>
+<li>同一稜鏡偏折量隨入射角而變；光線<strong>對稱通過</strong>時偏折最小（minimum deviation position）。<span class="ref">p.60</span></li>
+</ul>
+<h3>Prism power（稜鏡度）與持握位置</h3>
+<ul>
+<li>標示度數只在依其校正位置擺放時才準確：<mark><strong>glass prism（玻璃稜鏡）用 Prentice position</strong>（光線垂直進入或離開其中一面，後表面垂直視線）；<strong>plastic prism / prism bar（塑膠稜鏡、稜鏡條）用 minimum angle of deviation（MAD）position</strong></mark>，臨床以「後表面置於 <strong>frontal plane（額狀面）</strong>」近似（後表面垂直注視目標方向）。臨床較常用塑膠稜鏡。{{q:619}}<span class="ref">p.60–61</span></li>
+<li>Prentice <strong>position</strong>（持握位置）≠ Prentice's <strong>rule</strong>（看偏離鏡片光學中心時產生的稜鏡效應，第 5 章）。{{q:242}}<span class="ref">p.60–61</span></li>
+<li><strong>Prentice's rule</strong>（本章外）：<strong>Δ = h（cm，偏離光學中心距離）× D（鏡片度數）</strong>，描述 <mark>decentration of lens（鏡片偏心）</mark>造成的稜鏡；與像距（vergence equation）、像大小（放大率）、調節幅度無關。{{q:242}}<span class="ref">p.60–61；3 p.185, p.201</span></li>
+<li><mark>疊在一起（相鄰表面接觸）的兩個稜鏡度數不可相加</mark>，實際偏折遠大於兩者和（第二片遠離 Prentice position），絕不可如此組合；但<strong>分放兩眼前的稜鏡效果可相加</strong> → 大角度斜視宜把稜鏡分到兩眼測量。{{q:619}}<span class="ref">p.61–62</span></li>
+<li><strong>Prism diopter（Δ，稜鏡屈光度）</strong>：距稜鏡 <span class="num">100 cm</span> 處光線偏移的公分數 = <span class="num">100 × tan</span>（偏折角）；<span class="num">15Δ</span> 稜鏡在 1 m 處偏移 <span class="num">15 cm</span>（朝 base）。<span class="ref">p.55, p.61–62</span></li>
+<li>稜鏡方向以 base 表示：base up / down / in / out；同時有垂直與水平偏斜（如 CN IV palsy，第四對腦神經麻痺）時，<strong>稜鏡度以向量相加</strong>：右眼 <span class="num">4Δ</span> BO + <span class="num">3Δ</span> BU = <span class="num">5Δ</span>、base 在 <span class="num">143°</span> 子午線（base up and out）。處方可分別寫 BU/BO 量，由驗光師合成單一斜向稜鏡。<span class="ref">p.61, p.63</span></li>
+</ul>
+<h3>計算範例</h3>
+<ul>
+<li><strong>由距離換算 Δ</strong>：Δ = 偏移（cm）/ 距離（m）。光線在 <span class="num">40 cm</span> 處偏移 <span class="num">5 cm</span> → 5 / 0.4 = <mark><span class="num">12.5Δ</span></mark>（等於 100 cm 處偏移 12.5 cm）；2Δ（0.4×5）、8Δ（40/5）皆為算法錯誤。{{q:275}}<span class="ref">p.61–62</span></li>
+<li><strong>Example 1-1</strong>（Prentice position、n = <span class="num">1.5</span>、頂角 <span class="num">30°</span>）：入射面不偏折；出射面 1.5 × sin30° = sin θ2 → sin θ2 = <span class="num">0.75</span>、θ2 = <span class="num">48.6°</span>；偏折角 48.6 − 30 = <span class="num">18.6°</span>，tan 18.6° = 0.3365 → <span class="num">33.65Δ</span>。<span class="ref">p.63</span></li>
+<li><strong>Prentice's rule 雙眼範例</strong>（本章外）：右眼 +2.00 D、左眼 −2.00 D，看近時視軸下移 <span class="num">8 mm</span>、內移 <span class="num">2 mm</span>：垂直右眼 0.8 × 2 = <span class="num">1.6Δ</span> BU、左眼 1.6Δ BD → 兩眼方向相反，<mark>垂直不平衡相加為 <span class="num">3.2Δ</span></mark>；水平右眼 0.2 × 2 = 0.4Δ BO、左眼 0.4Δ BI → 同向互相抵銷，淨值 0。{{q:219}}<span class="ref">p.61；3 p.201–203</span></li>
+</ul>
+<h3>Fresnel prism（Fresnel 稜鏡）</h3>
+<ul>
+<li>稜鏡度數取決於兩面夾角而非厚度；Fresnel prism 把斜面分成許多同角度的小稜鏡，同度數但薄得多。<span class="ref">p.63–64</span></li>
+<li><strong>Fresnel Press-On prism</strong>（軟塑膠，可任意方向貼於鏡片）：適合暫時性或需常改度數的情況，如門診試戴處理 <strong>non–pupil-involving CN III palsy</strong>（未侵犯瞳孔的第三對腦神經麻痺）；ground-in prism 昂貴、增加重量與厚度。<span class="ref">p.64</span></li>
+<li>缺點：光學品質較 ground-in 差、易髒或脫落、外觀不佳；高度數需較厚材料而更模糊；<mark>chromatic aberration 可降低 best-corrected visual acuity（最佳矯正視力）</mark>。<span class="ref">p.64</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>兩個水平稜鏡疊在同一眼前 → 誤差大、度數不相加；應每眼各放一個。{{q:619}}<span class="ref">p.61–62</span></li>
+<li>稜鏡條的平面或斜面朝病人「結果相同」是錯的：持握位置錯誤會量錯；塑膠稜鏡條以後表面平行受檢者 frontal plane。Congenital nystagmus（先天性眼振）有融像者給雙眼 <strong>base-out</strong> prism 誘發內聚，不是 base-in（本章外，BCSC 6）。{{q:619}}<span class="ref">p.60–61；6 p.168</span></li>
+<li>光偏向 base，像移向 apex，兩者不要記反。<span class="ref">p.59–60</span></li>
+</ul></div>
+
+<h2 id="ch1-s4">四、臨界角與全內反射（Critical angle and total internal reflection）</h2>
+<ul>
+<li>只在光由<strong>高 n → 低 n</strong>時發生：入射角超過 <strong>critical angle（臨界角）</strong>時無法滿足 Snell's law，光全部反射回較密介質 = <strong>total internal reflection（TIR，全內反射）</strong>。恰在臨界角時折射光沿介面行進（折射角 90°）。<span class="ref">p.56, p.64–65</span></li>
+<li>公式：<mark><strong>sin θcrit = n2 / n1</strong></mark>（n1 為較密介質）。<span class="ref">p.65</span></li>
+<li>計算：某介質進入空氣臨界角 <span class="num">30°</span> → sin30° = 0.5 = 1/n → <mark>n = <span class="num">2.0</span></mark>（n = 1.7 對應臨界角約 36°）。{{q:284}}<span class="ref">p.65</span></li>
+<li>空氣–淚膜（tear film）介面：sin θcrit = 1.00/1.33 = <span class="num">0.75</span> → θcrit = <span class="num">48.75°</span>（空氣–水性組織約 <span class="num">48°</span>）。<span class="ref">p.65–66</span></li>
+<li>臨床：前房角射出的光在空氣–淚膜介面發生 TIR，<mark>不用光學器材無法從外面看到前房角</mark>；<strong>goniolens（前房角鏡）</strong>貼於角膜，消除 TIR 才能看到隅角結構。{{q:213}}<span class="ref">p.65</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>TIR 只發生在「密 → 疏」；空氣進入角膜（疏 → 密）不會發生。<span class="ref">p.64–65</span></li>
+<li>公式是 sin θc = n疏/n密，不是 n密/n疏（sine 不能大於 1）。{{q:284}}<span class="ref">p.65</span></li>
+</ul></div>
+
+<h2 id="ch1-s5">五、單一曲面折射：Vergence equation 與 lensmaker's equation</h2>
+<h3>公式與符號規則</h3>
+<ul>
+<li><strong>Vergence equation（聚散度方程式）</strong>：<mark><strong>n1/u + P = n2/v</strong></mark>，簡寫 <strong>U + P = V</strong>。<span class="ref">p.66–67</span></li>
+<li><strong>Lensmaker's equation（造鏡者方程式）</strong>：<mark><strong>P = (n2 − n1) / r</strong></mark>；兩式在近軸近似下同時由 Snell's law 推得（Appendix 1-1）。<span class="ref">p.66, p.103–105</span></li>
+<li>符號：光由左向右；<strong>介面左側距離為負、右側為正</strong>（u、v、r 皆帶號）。r 單位為公尺。<span class="ref">p.67</span></li>
+<li><strong>Vergence（聚散度）</strong>= 物或像到透鏡距離的倒數；空氣中 U = 1/u、V = 1/v。介質 n &gt; 1 時 n/u、n/v 稱 <strong>reduced vergence（約化聚散度）</strong>。單位：reciprocal meters = <strong>diopter（D，屈光度）</strong>；計算前一律換成公尺。{{q:238}}<span class="ref">p.55–56, p.67</span></li>
+<li>遠物 U = 0 → 像位於焦點，距離 = 1/P。<span class="ref">p.66</span></li>
+</ul>
+<table class="ted-table">
+<thead><tr><th>Diopters</th><th>Distance（Table 1-2）</th><th>Diopters</th><th>Distance</th></tr></thead>
+<tbody>
+<tr><td><span class="num">0.25</span></td><td><span class="num">4 m</span></td><td><span class="num">3.00</span></td><td>1/3 m（<span class="num">33–34 cm</span>）</td></tr>
+<tr><td><span class="num">0.50</span></td><td><span class="num">2 m</span></td><td><span class="num">4.00</span></td><td><span class="num">25 cm</span></td></tr>
+<tr><td><span class="num">1.00</span></td><td><span class="num">1 m</span></td><td><span class="num">5.00</span></td><td><span class="num">20 cm</span></td></tr>
+<tr><td><span class="num">1.25</span></td><td><span class="num">80 cm</span></td><td><span class="num">6.00</span></td><td>1/6 m（<span class="num">16–17 cm</span>）</td></tr>
+<tr><td><span class="num">1.50</span></td><td>2/3 m（<span class="num">66–67 cm</span>）</td><td><span class="num">7.00</span></td><td>1/7 m（<span class="num">14.0–14.5 cm</span>）</td></tr>
+<tr><td><span class="num">2.00</span></td><td><span class="num">50 cm</span></td><td><span class="num">8.00</span></td><td><span class="num">12.5 cm</span></td></tr>
+<tr><td><span class="num">2.50</span></td><td><span class="num">40 cm</span></td><td><span class="num">9.00</span></td><td>1/9 m（<span class="num">11.0–11.5 cm</span>）</td></tr>
+<tr><td></td><td></td><td><span class="num">10.00</span></td><td><span class="num">10 cm</span></td></tr>
+</tbody>
+</table>
+<p>出處 <span class="ref">p.67</span></p>
+<h3>空氣中薄透鏡練習（Exercises 1-2 至 1-6，P = +2.00 D 除首題外）</h3>
+<ul>
+<li>U = 0、P = +4.00 D → V = +4、v = <span class="num">+0.25 m</span>。<span class="ref">p.68</span></li>
+<li>u = −4 m → −0.25 + 2 = +1.75 → v = <span class="num">+0.57 m</span>（實像）；u = −1 m → V = +1 → v = <span class="num">+1 m</span>（實像）。<span class="ref">p.69, p.80</span></li>
+<li>u = −0.5 m（物在焦點）→ V = 0 → v = ∞，不成像（afocal）；u = −0.4 m → −2.5 + 2 = −0.5 → v = <span class="num">−2 m</span>（<strong>虛像</strong>，在透鏡左側）。<span class="ref">p.69, p.80</span></li>
+</ul>
+<h3>像空間為水（n2 = 1.33）時（Exercises 1-7 至 1-10）</h3>
+<ul>
+<li>必須用完整式 V = 1.33/v：u = −4 m → v = 1.33/1.75 = <span class="num">0.76 m</span>；u = −1 m → v = <span class="num">1.33 m</span>；u = −0.5 m → ∞；u = −0.4 m → v = 1.33/−0.50 = <span class="num">−2.66 m</span>。<mark>像在水中時距離 = n/V，比空氣中長</mark>。<span class="ref">p.69</span></li>
+<li><strong>範例</strong>：+6.00 D 透鏡左為空氣、右為水，物在左 <span class="num">50 cm</span>：U = −2、V = −2 + 6 = <span class="num">+4 D</span>（正值 → 實像在右側水中）；v = 1.33/4 ≈ <mark><span class="num">0.33 m</span>，即水中透鏡後約 33 cm</mark>。25 cm 是誤用空氣公式（1/V）。{{q:238}}<span class="ref">p.67–69</span></li>
+</ul>
+<h3>Aphakic eye（無水晶體眼）：單一折射面的實例</h3>
+<ul>
+<li>無水晶體眼近似為單一曲面（忽略角膜–房水介面，該介面使空氣–角膜屈光力減少約 <span class="num">10%</span>）。<span class="ref">p.67–68</span></li>
+<li><strong>範例</strong>：角膜 <span class="num">44.0 D</span>、眼內 n = <span class="num">1.33</span>，遠物 U = 0 → 1.33/v = 44 → v = <mark><span class="num">30.2 mm</span></mark>（角膜後）；遠在約 24 mm 的視網膜之後 → 高度遠視。26.2 mm 需約 50.8 D、32.2 mm 需約 41.3 D。{{q:257}}<span class="ref">p.67–68, p.78</span></li>
+</ul>
+<h3>IOL 在空氣中與在房水中的度數（Example 1-2）</h3>
+<ul>
+<li>Planoconvex IOL（平凸，凸面朝角膜）、r = <span class="num">8.0 mm</span>、n = <span class="num">1.5</span>：空氣中 (1.5 − 1.0)/0.008 = <span class="num">+62.50 D</span>（平的後表面為 0）；房水中（n = 1.333）(1.5 − 1.333)/0.008 = <span class="num">+20.90 D</span>（精確值 20.875，原文進位為 20.90） → <mark>IOL 在空氣中約為標示度數的 <span class="num">3 倍</span></mark>（標示度數假設置於房水中）；兩者差約 <span class="num">41.6 D</span>（選項最接近 40 D）。{{q:277}}<span class="ref">p.68</span></li>
+<li><strong>通式</strong>：曲率不變時 <strong>P ∝ (n鏡片 − n介質）</strong> → P空氣 = P房水 × (n鏡片 − 1)/(n鏡片 − 1.336)。<span class="ref">p.68</span></li>
+<li>例 1：n = <span class="num">1.492</span>、房水中 20 D：曲率不變，度數比 = 折射率差比；房水 n = <span class="num">1.336</span> → 差 1.492 − 1.336 = 0.156，空氣差 1.492 − 1 = 0.492 → 20 × 0.492/0.156 ≈ <mark><span class="num">63 D</span></mark>（約 3 倍；43、53、73 D 皆不合此比例）。{{q:216}}<span class="ref">p.58, p.68</span></li>
+<li>例 2：標示 +22.0 D、題目設 n = 1.785、房水 n = 1.336 → 22 × 0.785/0.449 ≈ <mark><span class="num">+38.5 D</span></mark>；放到空氣中與介質折射率差變大，度數只會上升（+20 D 方向錯）；+62.5 D 是 Example 1-2 的數字，與本題無關。{{q:287}}<span class="ref">p.68</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>像落在水（或眼內）時用 v = n/V；只有空氣中才是 v = 1/V。{{q:238,257}}<span class="ref">p.67, p.69</span></li>
+<li>IOL 從房水拿到空氣中：度數變大（約 3 倍），不是變小。{{q:216,277,287}}<span class="ref">p.68</span></li>
+<li>V 為負 → 虛像（在透鏡左側）；V = 0 → 物在前焦點，像在無窮遠。<span class="ref">p.69, p.80</span></li>
+</ul></div>
+
+<h2 id="ch1-s6">六、雙面透鏡、主平面、光線追蹤與焦深</h2>
+<h3>Thin lens 與 thick lens</h3>
+<ul>
+<li><strong>Thin-lens approximation（薄透鏡近似）</strong>：前後表面間距很小時 <strong>P = P1 + P2</strong>（注意符號）。空氣中雙凸透鏡前後表面皆為正屈光力（後表面 lensmaker 公式分子分母皆為負）。<span class="ref">p.56, p.70</span></li>
+<li><strong>Thick lens（厚透鏡）</strong>：<mark><strong>P = P1 + P2 − (t/n) P1 P2</strong></mark>（t：厚度，公尺；n：鏡片折射率）；t → 0 時回到薄透鏡式。水晶體與 IOL 不能忽略厚度。<span class="ref">p.70–71</span></li>
+</ul>
+<h3>Principal planes（主平面）</h3>
+<ul>
+<li>平行光經厚透鏡聚於 F2，入射與出射光延長線交於 <strong>second（back）principal plane</strong>（過光軸於 H2）；由 F1 發出、出射平行者交於 <strong>first（front）principal plane</strong>（H1）。H1、H2 = principal points（主點）。<span class="ref">p.71</span></li>
+<li>物 vergence 以前主平面為參考、像 vergence 以後主平面為參考。主平面位置取決於鏡片設計與物空間、鏡片、像空間的折射率；<mark><strong>meniscus lens（新月形鏡片，眼鏡用）</strong>的主平面可能落在鏡片之外</mark>。<span class="ref">p.71–72</span></li>
+<li>眼鏡、隱形眼鏡在空氣中用薄透鏡近似即可；眼內水晶體厚度佔眼軸比例大，需較詳細處理 → 新一代 IOL 公式（如 <strong>Olsen</strong>、<strong>Barrett Universal 2</strong>）納入 lens thickness 以提高準確度。<span class="ref">p.73</span></li>
+<li><strong>General refracting systems</strong>：再複雜的系統，在近軸下都可化為<strong>一對主平面 + 單一屈光力 P</strong>：U 參考 H1、加上 P、V 參考 H2。<span class="ref">p.76</span></li>
+<li>Example 1-4：主平面相距 <span class="num">1.0 cm</span>、P = +2.00 D，物距自 H1 算、像距自 H2 算時與前述練習相同；若像距改自 H1（前主平面）量，則各多 1.0 cm：0.57 + 0.01 = <span class="num">+0.58 m</span>、1 + 0.01 = <span class="num">+1.01 m</span>、∞、−2 + 0.01 = <span class="num">−1.99 m</span>（原文印 +1.1 m、−1.9 m，依同一算法應為 +1.01 m、−1.99 m）。P = +10.00 D 時 u = −4、−1、−0.5、−0.4 m 對應 v = <span class="num">0.10256</span>、<span class="num">0.111</span>、<span class="num">0.125</span>、<span class="num">0.1333 m</span>。<span class="ref">p.77</span></li>
+<li><strong>Gaussian optics（高斯光學）</strong>：以線性代數處理近軸光學，用兩種 2 × 2 矩陣——<strong>translation operator</strong>（光在 n 介質中前進距離 t，即把 vergence 換算到下一個面）與 <strong>refraction operator</strong>（在曲面加上 P）——相乘求整體系統。<span class="ref">p.54, p.79</span></li>
+</ul>
+<h3>Ray tracing（光線追蹤）</h3>
+<ul>
+<li>薄凸透鏡三條光線：① 平行光軸 → 經 F2；② 經 F1 → 出射平行光軸；③ 經透鏡中心（主點）→ 不偏折。<span class="ref">p.73</span></li>
+</ul>
+<table class="ted-table">
+<thead><tr><th>Object position（凸透鏡，物的位置）</th><th>Image（像）</th></tr></thead>
+<tbody>
+<tr><td>遠在 F1 左方</td><td>對側<strong>實像</strong>，倒立、縮小</td></tr>
+<tr><td>F1 左方附近</td><td>對側<strong>實像</strong>，倒立、放大</td></tr>
+<tr><td>恰在 F1</td><td>像在無窮遠</td></tr>
+<tr><td>F1 與透鏡之間</td><td><strong>虛像</strong>（物的左側），正立、放大</td></tr>
+<tr><td>凹透鏡：物在 F2 左方或 F2 與透鏡之間</td><td>焦點與透鏡間的虛像，正立、縮小（物越近縮小越少）</td></tr>
+</tbody>
+</table>
+<p>出處（Fig 1-14、1-15）<span class="ref">p.73–75</span></p>
+<h3>Depth of focus 與 depth of field</h3>
+<ul>
+<li><strong>Depth of focus（焦深）</strong>：固定物體下，可得到可接受清晰像的<strong>像位置</strong>範圍；屬成像系統的性質，可用可接受的矯正鏡度數範圍（D）表示。<mark>Pinhole（針孔）焦深無限大</mark>，透鏡則有限。<span class="ref">p.54, p.73–75</span></li>
+<li><strong>Depth of field（景深）</strong>：在單一像位置都清晰的<strong>物位置</strong>範圍；臨床上對開立 bifocal / trifocal（雙焦、三焦）給 presbyopia（老花）很重要；焦深小時景深仍可能很大。<span class="ref">p.54, p.75–76</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>Depth of focus 講「像」的範圍，depth of field 講「物」的範圍。<span class="ref">p.54</span></li>
+<li>Meniscus 眼鏡片的主平面可在鏡片外；薄透鏡近似在眼鏡/隱形眼鏡計算已足夠。<span class="ref">p.71–73</span></li>
+</ul></div>
+
+<h2 id="ch1-s7">七、模型眼計算與鏡片有效度（Effectivity of lenses）</h2>
+<h3>Gullstrand 模型眼（Example 1-5）</h3>
+<ul>
+<li>全眼 P = <span class="num">+58.64 D</span>、玻璃體 n = <span class="num">1.336</span>、後主平面在角膜前表面後 <span class="num">1.602 mm</span>；遠物 U = 0 → 1.336/v = 58.64 → v = <span class="num">22.78 mm</span> → 距角膜 <span class="num">24.382 mm</span>，接近多數眼的視網膜位置。<span class="ref">p.78</span></li>
+</ul>
+<h3>簡化模型眼：屈光力與眼軸的換算</h3>
+<ul>
+<li>原則：<strong>恰好成像所需屈光力 = n / 眼軸（m）</strong>；眼球屈光力過強 → 近視（需負鏡），不足 → 遠視（需正鏡）；隱形眼鏡位於角膜，頂點距離可忽略，所需度數 ≈ 兩者差。<span class="ref">p.67, p.78</span></li>
+<li>例 1：屈光力 <span class="num">55.42 D</span>、n = 1.33、眼軸 <span class="num">23 mm</span> → 需 1.33/0.023 ≈ <span class="num">57.83 D</span>，不足 <span class="num">2.41 D</span>（焦點在網膜後）→ <mark>需 <span class="num">+2.41 D</span> 隱形眼鏡</mark>；負度數方向相反、+3.50/+4.00 D 過度矯正。{{q:261}}<span class="ref">p.67, p.78；3 p.157</span></li>
+<li>例 2：屈光力 <span class="num">57 D</span>、眼軸 <span class="num">24 mm</span> → 需 1.33/0.024 ≈ <span class="num">55.42 D</span>，過強約 <span class="num">1.58 D</span>（近視）→ 隱形眼鏡約 <span class="num">−1.5 D</span>。{{q:259}}<span class="ref">p.78；3 p.157</span></li>
+<li>例 3（axial myopia，軸性近視：屈光力正常、眼軸過長）：全眼 <span class="num">+59 D</span>、n = 1.33、近視 −3.00 D → 眼軸只配 59 − 3 = <span class="num">56 D</span> → 眼軸 = 1.33/56 ≈ <mark><span class="num">23.75 mm</span></mark>；22.54 mm（1.33/59）是正視、21.45 mm（1.33/62）是 +3 D 軸性遠視。{{q:282}}<span class="ref">p.78；3 p.157</span></li>
+</ul>
+<h3>Effectivity of lenses（Example 1-6）</h3>
+<ul>
+<li>定義：鏡片與目標成像位置距離改變時，為維持同一像位置所需的度數調整。<span class="ref">p.54, p.78</span></li>
+<li><strong>公式</strong>：遠物經 P 成像於 v；鏡片<strong>往右（往眼睛）移動 t 公尺</strong>後所需度數 <mark><strong>P2 = P / (1 − tP)</strong></mark>；凹透鏡同樣適用（注意符號）；鏡片遠離眼睛時 t 為負。<span class="ref">p.78</span></li>
+<li>等價的 <strong>far point（遠點）法</strong>：矯正鏡把遠物成像於眼的遠點（與 fovea 共軛、調節放鬆）→ 先求遠點相對角膜位置，再算新位置所需焦距。遠視者遠點在網膜後方。<span class="ref">p.78</span></li>
+<li><mark>由眼鏡換成隱形眼鏡：遠視（正鏡）的隱形眼鏡度數要<strong>比眼鏡大</strong></mark>；BCSC 例：+4.00 D 眼鏡、標準頂點距離 <span class="num">13.75 mm</span> → 4/(1 − 0.01375 × 4) = <span class="num">+4.232 D</span>（約加 0.25 D）；<strong>約 <span class="num">3.00 D</span> 以下</strong>的鏡片此修正可忽略。<span class="ref">p.78</span></li>
+<li>例 1（近視眼鏡 → 軟式隱形眼鏡）：−9.0 D、vertex distance（頂點距離）<span class="num">12 mm</span>，鏡片移向眼 t = +0.012：−9/(1 − 0.012 × (−9)) = −9/1.108 ≈ <mark><span class="num">−8.1 D</span></mark>；近視鏡片移近眼睛，負度數要<strong>減少</strong>（−10.1、−9.4 D 方向錯；−7.1 D 減太多）。{{q:212}}<span class="ref">p.78；3 p.234</span></li>
+<li>例 2（遠視鏡移遠）：+9.0 D、頂點 <span class="num">12 → 22 mm</span>：焦點在鏡後 111.1 mm = 角膜後 <span class="num">99.1 mm</span>（遠點）；新位置焦距 99.1 + 22 = 121.1 mm → P = 1/0.1211 ≈ +8.26 D，選項最接近 <mark><span class="num">+8.25 D</span></mark>（公式：9/(1 + 0.010 × 9) = 8.26）。<strong>正鏡離眼越遠有效度越強 → 所需度數越低</strong>；+9.25、+10.25 D 方向錯，+7.25 D 減太多。{{q:222}}<span class="ref">p.78；3 p.186–187</span></li>
+<li>例 3（近視鏡移遠）：−8.0 D、頂點 <span class="num">10 → 14 mm</span>：遠點在鏡前 125 mm = 角膜前 <span class="num">135 mm</span>；新焦距 135 − 14 = 121 mm → P = −1/0.121 ≈ −8.26 D，選項最接近 <mark><span class="num">−8.25 D</span></mark>（變化約 0.26 D；公式 −8/(1 − 0.004 × 8) = −8.26）。<strong>負鏡離眼越遠有效度越弱 → 需增加負度數</strong>；−7.25 D 方向錯，−8.75、−9.5 D 改變過大。{{q:235}}<span class="ref">p.78；3 p.186–187</span></li>
+</ul>
+<table class="ted-table">
+<thead><tr><th>鏡片移動方向</th><th>Plus lens（遠視）</th><th>Minus lens（近視）</th></tr></thead>
+<tbody>
+<tr><td>移近眼睛（如眼鏡 → 隱形眼鏡）</td><td>需<strong>更多</strong>正度數</td><td>需<strong>較少</strong>負度數</td></tr>
+<tr><td>移離眼睛（頂點距離加大）</td><td>需<strong>較少</strong>正度數</td><td>需<strong>更多</strong>負度數</td></tr>
+</tbody>
+</table>
+<p>出處 <span class="ref">p.78</span></p>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>口訣：鏡片往眼睛靠，度數「往正」調整（正鏡加、負鏡減）；離眼越遠，度數「往負」調整。{{q:212,222,235}}<span class="ref">p.78</span></li>
+<li>單位一律換公尺；12 mm = 0.012 m。{{q:212}}<span class="ref">p.67, p.78</span></li>
+<li>軸性近視是「眼軸較長」，所以 −3 D 對應的眼軸比正視長，不是短。{{q:282}}<span class="ref">p.78</span></li>
+</ul></div>
+
+<h2 id="ch1-s8">八、實像、虛像與放大率</h2>
+<h3>Real vs virtual（實／虛）</h3>
+<ul>
+<li>多面系統：各面依序處理，前一面的像為下一面的物；對下一面而言無法分辨光是來自真實物體或前一面的像。<span class="ref">p.79</span></li>
+<li><strong>Real object（實物）</strong>：光自其發散而來（<strong>U 為負</strong>）；<strong>virtual object（虛物）</strong>：光朝其會聚（<strong>U 為正</strong>）。<strong>Real image（實像）</strong>：在成像光線同側（<strong>V 為正</strong>，透鏡右側）；<strong>virtual image（虛像）</strong>：在無成像光線的一側（<strong>V 為負</strong>）。<span class="ref">p.79–80</span></li>
+<li>兩鏡系統範例：物在 +3.00 D 左 50 cm → −2 + 3 = +1，實像在第一鏡右 1 m，即第二鏡（+2.00 D）右 50 cm → 對第二鏡為<strong>虛物</strong>（U = +2）→ +2 + 2 = +4，終像在第二鏡右 <span class="num">25 cm</span>（實像）。<span class="ref">p.80</span></li>
+</ul>
+<h3>Transverse magnification（橫向放大率，MT）</h3>
+<ul>
+<li>空氣中：<mark><strong>MT = h2/h1 = v/u = U/V</strong></mark>（u、v 同 vergence 符號規則）；不同介質：MT = n1v / (n2u)。又稱 lateral / linear magnification。<span class="ref">p.80–81</span></li>
+<li><mark><strong>MT 為負 → 倒立</strong>（不是縮小）；|MT| &lt; 1 → 縮小，|MT| &gt; 1 → 放大</mark>（原文此句寫「magnification is indicated by an MT less than 1 in absolute value」，與同頁 Exercise 1-19 的 |MT| = 0.66 為縮小、1-22 的 +5 為放大矛盾，應為筆誤）。<span class="ref">p.81–82</span></li>
+<li>例：物高 <span class="num">+4 cm</span>、像高 <span class="num">−2 cm</span> → MT = −2/+4 = <mark><span class="num">−0.5</span></mark>（倒立、縮小一半）；+0.5 忽略負號，−2 / +2 是物高除以像高。{{q:263}}<span class="ref">p.81</span></li>
+<li>Exercises：物在 +5.00 D 左 0.5 m → V = +3、v = 0.33 m、MT = U/V = −2/3 ≈ <span class="num">−0.67</span>（原文截為 −0.66；倒立、約 2/3 大小）；+2.00 D 左 1 m → MT = <span class="num">−1</span>（倒立、等大）；+2.00 D 左 0.5 m → v = ∞、MT 無意義；+2.00 D 左 0.4 m → v = −2 m、MT = <span class="num">+5</span>（正立、放大 5 倍）。<span class="ref">p.81–82</span></li>
+</ul>
+<h3>Axial（longitudinal）magnification（軸向放大率，ML）</h3>
+<ul>
+<li>空氣中折射系統：<mark><strong>ML = (MT)²</strong></mark>（由 vergence equation 微分而得），故在空氣中為正值。<span class="ref">p.54, p.82</span></li>
+<li>例 1：物高 <span class="num">4 cm</span>、長 <span class="num">0.5 cm</span>，MT = 2×、ML = 4× → 像高 <span class="num">8 cm</span>、像長 0.5 × 4 = <span class="num">2 cm</span>；像長 1 cm 是誤用 MT。{{q:218}}<span class="ref">p.81–83</span></li>
+<li>例 2：物距 2 m、像距 −1 m → |MT| = 1/2 → ML = <mark><span class="num">1/4</span></mark>（1/2 與 −1/2 是 MT，不是 ML；ML 為平方，不會是負）。{{q:278}}<span class="ref">p.81–82</span></li>
+<li>臨床：直接/間接檢眼鏡的影像因 ML ≠ MT 而變形；indirect ophthalmoscope（間接檢眼鏡）的立體像使腫瘤、視神經盤凹陷等深度<strong>被誇大</strong>（periscopic 系統縮小瞳距，部分抵銷）。由 <span class="num">14.00 D</span> 換到 <span class="num">30.00 D</span> 集光鏡，變形可差到 <span class="num">4 倍</span>。<span class="ref">p.82–83</span></li>
+<li><strong>Example 1-8</strong>：間接檢眼鏡 MT = 眼屈光力（約 <span class="num">60 D</span>）/ 集光鏡度數（類似 Keplerian telescope）→ 15 D、20 D、30 D 分別 <span class="num">4×、3×、2×</span>，相對軸向放大 <span class="num">16 : 9 : 4</span>；15 D 所見視網膜厚度近 20 D 的 2 倍、30 D 的 4 倍；<span class="num">90 D</span> 鏡所成像約為視網膜厚度的 <span class="num">44.4%</span>。<span class="ref">p.83</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>負號代表「倒立」，大小看絕對值。{{q:263}}<span class="ref">p.81</span></li>
+<li>軸向放大率是橫向放大率的平方：高度乘 MT、長度乘 MT²。{{q:218,278}}<span class="ref">p.82</span></li>
+<li>集光鏡度數越低，放大越多、立體深度誇大越明顯。<span class="ref">p.83</span></li>
+</ul></div>
+
+<h2 id="ch1-s9">九、Conjugate points、nodal points 與 reduced optical system</h2>
+<ul>
+<li><strong>Conjugate points（共軛點）</strong>：構成物–像關係的一對點；因光路可逆，互為彼此的像。左方無窮遠點與 F2 共軛、F1 與右方無窮遠點共軛；<mark>F1 與 F2 彼此<strong>不</strong>共軛</mark>。空氣中 F1、F2 距前後主平面 f = 1/P。<span class="ref">p.54, p.83</span></li>
+<li><strong>Nodal points（節點，N1、N2）</strong>：光線對準 N1 以角度 θ 入射，出射時好像從 N2 以相同角度 θ 射出；作用相當於薄透鏡的中心點。<mark><strong>n1 = n2 時節點與主點重合</strong></mark>；介質兩側不同時節點<strong>偏向較密介質</strong>（Example 1-10）。節點特別適合計算像大小。<span class="ref">p.55, p.83–85</span></li>
+<li>節點 ≠ 針孔：有限孔徑系統並非所有光都經過節點；<mark>小的 posterior subcapsular（後囊下）混濁並不因靠近後節點而不成比例地降低視力</mark>，但可強烈散射而降低 contrast sensitivity（對比敏感度）。<span class="ref">p.84</span></li>
+<li><strong>Example 1-9</strong>（reduced model eye）：節點在網膜前 <span class="num">17 mm</span>、角膜後 <span class="num">7 mm</span>；<span class="num">1.0 cm</span> 目標在 33 cm → 像高 = 10 mm × 17/337 = <span class="num">0.50 mm</span>（單位要一致）。<span class="ref">p.84</span></li>
+<li><strong>Reduced（equivalent）optical system（簡化等效系統）</strong>：多鏡系統可等效為 1 對主平面、1 對焦點、1 對節點、1 個屈光力，近軸性質完全相同，只需一次 vergence 計算。<span class="ref">p.55, p.84–85</span></li>
+<li>視網膜像大小取決於物體在 N1 所張的角：物體大小為 2 倍但距離 4 倍遠時，所張角只有一半 → 這是望遠鏡放大作用的基礎。<span class="ref">p.85</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>前後焦點互不共軛；共軛的是「無窮遠–F2」與「F1–無窮遠」。<span class="ref">p.83</span></li>
+<li>PSC 白內障影響視力的原因是散射（降低對比），不是「靠近節點」。<span class="ref">p.84</span></li>
+</ul></div>
+
+<h2 id="ch1-s10">十、像差（Aberrations）</h2>
+<h3>Point spread function 與 wavefront</h3>
+<ul>
+<li>Stigmatic imaging 實際上永遠達不到：即使最佳焦點，單一物點的光仍分布於一小區域。<span class="ref">p.86</span></li>
+<li><strong>Point spread function（PSF，點擴散函數）</strong>：單一物點在像面的光分布，描述系統像差；曲線下面積固定（= 點光源總能量）；<mark>PSF 越窄越尖，影像越清晰</mark>；系統所有成像特性皆可由 PSF 推得。<span class="ref">p.55, p.86</span></li>
+<li>屈光力的概念只適用於近軸區；角膜地形圖的 axial 與 tangential power map 給周邊每點一個「power」，兩者都不符本章對屈光力的正確定義。分析近軸以外與像差的適當方法為 1950 年代初發展的 <strong>wavefront theory（波前理論）</strong>。<span class="ref">p.86–87</span></li>
+<li><strong>Reference sphere（參考球面）</strong>：以像點為中心、所有光線同時通過即為 stigmatic focus 的球面；<strong>geometric wavefront（幾何波前）</strong>是等時面（isochronic surface）；實際波前與參考球面的差 = <strong>wavefront aberration（波前像差）</strong>，形狀似洋芋片。<span class="ref">p.87–88</span></li>
+<li>常見誤解：幾何波前與光的波動性<strong>無關</strong>，只是「等時面」（isochrone）。<span class="ref">p.87</span></li>
+</ul>
+<h3>Zernike polynomials 與 Seidel aberrations</h3>
+<ul>
+<li><strong>Zernike polynomials（Zernike 多項式）</strong>：定義於圓盤區域的一組基本形狀，任何波前像差都是這些固定形狀的加總（類比任何 toric 面 = sphere + cylinder）。<span class="ref">p.56, p.88</span></li>
+<li><strong>Seidel aberrations</strong>（19 世紀 von Seidel）：<mark>spherical aberration（球面像差）、coma（彗形像差）、astigmatism（散光）、curvature of field（場曲）、distortion（畸變）</mark>。<span class="ref">p.56, p.88–89</span></li>
+<li>定義：SA = 單一<strong>軸上</strong>物點、經透鏡不同半徑處光線的屈折不同；coma = 單一<strong>軸外</strong>物點、不同半徑光線焦距不同；astigmatism = 單一物點、<strong>不同子午線</strong>焦距不同；curvature of field = 距光軸不同距離的物體焦距不同；distortion = 距光軸不同距離的物體<strong>橫向放大率</strong>不同。{{q:1764}}<span class="ref">p.88–89</span></li>
+<li>Zernike 階層（Fig 1-27）：piston（不可測）→ 1st order <strong>tilt</strong>（≈ 稜鏡偏折）→ 2nd order <strong>defocus</strong>（近視/遠視）與 <strong>astigmatism</strong> → 3rd order <strong>coma</strong>、<strong>trefoil</strong>（屈光手術後偶見的三重對稱）→ 第五列（4th order）quatrefoil、secondary astigmatism，<mark>中央為 <strong>spherical aberration</strong>，白內障與屈光手術最重要的高階像差</mark>。{{q:1590,1764}}<span class="ref">p.89–90</span></li>
+<li>臨床最重要的 wavefront aberrations：<strong>spherical aberration、coma、trefoil</strong>。<span class="ref">p.53</span></li>
+<li>Myopia 的波前仍為球面但半徑比參考球面小 → 仍是 stigmatic focus，波前像差呈拋物線形。<span class="ref">p.90–91</span></li>
+</ul>
+<h3>Spherical aberration（球面像差）與 night myopia</h3>
+<ul>
+<li>Seidel 像差中臨床<mark>最重要的是 SA</mark>。<strong>Positive SA</strong>：周邊光線聚焦於中央（近軸）光線之<strong>前</strong>；波前像差呈碗狀（中央平、邊緣陡）。<span class="ref">p.90–91</span></li>
+<li>好處：人眼是「imperfectly perfect」，SA 可<mark>增加 depth of focus（焦深）</mark>與立體感。<span class="ref">p.90</span></li>
+<li>壞處 ①：移動最佳焦點，且<mark>強烈依賴瞳孔大小</mark>——正 SA 者瞳孔放大時變得較近視 = <strong>night myopia（夜間近視）</strong>；處理：夜間/低光源使用、遠用處方多加 <span class="num">−0.50 D</span> 的眼鏡（約「低亮度下近視增加 50 度」）。{{q:270,1590,1764}}<span class="ref">p.91</span></li>
+<li>壞處 ②：客觀視功能下降，如低光源下 <strong>contrast sensitivity（對比敏感度）降低</strong>；③ 主觀症狀：低光源下點光源周圍 <strong>glare（眩光）與 halos（光暈）</strong>。{{q:1590}}<span class="ref">p.91</span></li>
+<li>多數醫師白內障手術使用帶 <strong>negative SA 的 aspheric IOL（非球面人工水晶體）</strong>，以恢復原水晶體數值、減少全眼正 SA、提升術後視覺品質。<span class="ref">p.91</span></li>
+<li>本章外（BCSC 13）：SA 為徑向對稱的 fourth-order aberration；RK、傳統 myopic LASIK、surface ablation 後角膜變 oblate、正 SA 增加；coma 常見於 decentered ablation、keratoconus；Hartmann-Shack wavefront sensor 結果<strong>受 pupil size 影響</strong>，須註明分析瞳孔大小。{{q:1590,1764}}<span class="ref">13 p.22, p.26–27</span></li>
+</ul>
+<h3>Chromatic aberration（色像差）</h3>
+<ul>
+<li>屬 monochromatic 以外的像差：白光的顏色被透鏡系統分開；原因為 <strong>dispersion（色散）</strong>，即折射率隨<mark>波長（wavelength）</mark>變化。{{q:269}}<span class="ref">p.54, p.92</span></li>
+<li>稜鏡對藍光的偏折比紅光強；凸透鏡的<strong>藍光焦點在紅光焦點之前</strong> → <mark>眼睛對藍光比對紅光約近視 <span class="num">0.50 D</span></mark>（考試以 BCSC 0.50 D 為準；文獻測得整個可見光譜 400–700 nm 的縱向色像差約 2–2.5 D）。{{q:204,269}}<span class="ref">p.92</span></li>
+<li>推論：藍光聚在網膜前（相對近視）→ <mark>看藍字所需 accommodation（調節）較<strong>少</strong></mark>；紅光聚在較後（相對遠視）→ 看紅色需較多調節，大腦常把較大調節量解讀為較近，故紅色物體常顯得較近（本章未直接討論，依色差原理推論；近年研究認為此「紅近藍遠」的 chromostereopsis 主要來自雙眼的橫向色像差，而非調節）。{{q:204}}<span class="ref">p.92</span></li>
+<li>臨床應用：<strong>Lancaster red–green（duochrome）test（紅綠測試）</strong>用於控制調節（≠ 斜視用的 Lancaster red–green test，BCSC 6）。{{q:204,269}}<span class="ref">p.92</span></li>
+<li>Duochrome 判讀（本章外，BCSC 3 第 4 章）：<strong>綠字較清楚 = 偏 over-minus / under-plus → 加正度</strong>（green add plus）；遠視者戴正鏡看綠字較清楚，表示<strong>正度數不足</strong>。{{q:204}}<span class="ref">p.92；3 p.179–180</span></li>
+<li>色像差相關：Abbe number（阿貝數，越低色像差越大，本章外 3 p.213）、wavelength、duochrome test；<mark><strong>astigmatism 是單色（monochromatic）像差</strong>，與波長無關</mark>。{{q:269}}<span class="ref">p.88–89, p.92；3 p.213</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>「看藍字需要較多 accommodation」是錯的：眼對藍光相對近視，需要較少。0.5 D 是 BCSC 紅–藍差距。{{q:204}}<span class="ref">p.92</span></li>
+<li>「與色像差最不相關」選 astigmatism（Seidel 單色像差）。{{q:269}}<span class="ref">p.88–89, p.92</span></li>
+<li>SA 會降低 contrast sensitivity，但<strong>增加</strong> depth of focus；說「降低 depth of field / focus」是錯的。{{q:1590}}<span class="ref">p.90–91</span></li>
+<li>Night myopia 相關：pupil size、positive SA、約 −0.50 D；constructive interference 屬波動光學，無關。{{q:270}}<span class="ref">p.91</span></li>
+<li>Hartmann-Shack 結果「不受 pupil size 影響」是錯的：像差（尤其 SA）強烈依賴瞳孔。{{q:1764}}<span class="ref">p.91；13 p.22, p.26</span></li>
+</ul></div>
+
+<h2 id="ch1-s11">十一、散光鏡片：Conoid of Sturm、SE、power cross、PVMG、JCC</h2>
+<h3>Toric lens 的兩條焦線</h3>
+<ul>
+<li>Toric（spherocylindrical）鏡片把一個點成兩條互相垂直的線像，一條平行柱鏡軸、一條垂直柱鏡軸；兩焦線位置分別用兩主子午線的 vergence equation 求。<span class="ref">p.92</span></li>
+<li><mark>某子午線的屈光力所形成的焦線方向<strong>垂直於該子午線</strong></mark>（即平行於產生它的柱鏡軸）；「光通過柱鏡會在<strong>軸子午線</strong>方向形成線」。{{q:272}}<span class="ref">p.92, p.95</span></li>
+<li><strong>Example 1-11A</strong>：點光源在 +2.00 +3.00 × 030 左 1 m（U = −1）：30° 子午線 +2 D → V = +1 → 1 m 處、方向 120° 的線（實、倒立、等大）；120° 子午線 +5 D → V = +4 → <span class="num">25 cm</span> 處、方向 30° 的線（實、倒立、1/4 大）；兩焦線相距 <span class="num">75 cm</span>。<span class="ref">p.92–94</span></li>
+<li>Example 1-11B：物在左 25 cm（U = −4）：30° 方向線像 V = +1（右 1 m，實）；120° 方向線像 V = −2（左 50 cm，虛）。<span class="ref">p.93</span></li>
+<li>Example 1-11C：純柱鏡 +2.00 × 180、物在左 1 m：一條線像 V = +1（右 1 m、實、沿 180°），另一條 V = −1（左 1 m、虛、沿 90°，與物同位置）。<span class="ref">p.93</span></li>
+<li><strong>Maddox rod</strong>：高度數平行柱鏡陣列；實像在柱鏡後數 mm、太近看不到，<mark>病人看到的是垂直於柱鏡軸的虛像線</mark>，用於檢查眼位。<span class="ref">p.93</span></li>
+</ul>
+<h3>Conoid of Sturm 與 circle of least confusion</h3>
+<ul>
+<li><strong>Conoid of Sturm（Sturm 錐）</strong>：散光鏡片出射光形成的三維圖形；由一條焦線往另一條焦線，截面由線 → 橢圓 → 圓 → 另一方向橢圓 → 另一方向線。<span class="ref">p.54, p.93–94</span></li>
+<li><strong>Circle of least confusion（COLC，最小模糊圈）</strong>：位於兩焦線之間的圓形截面，<mark>以「屈光度」計在正中間，不是線性距離的中點</mark>（圖中 COLC 較靠近其中一條焦線）。<span class="ref">p.93–94</span></li>
+<li><strong>Spherical equivalent（SE，等效球面度）</strong>= 兩主子午線平均 = <mark><strong>sphere + cylinder/2</strong></mark>；plus 或 minus cylinder 寫法 SE 完全相同。例：+2.00 +3.00 × 010 → +3.50 D；+2.00 −5.00 × 020 → −0.50 D。<span class="ref">p.56, p.94</span></li>
+<li><strong>用 SE 求 COLC 位置</strong>：V = U + SE。例：SE +3.50、U = −1 → +2.50 D → 鏡後 <span class="num">40 cm</span>。<span class="ref">p.95</span></li>
+<li>例 1：+3.0 DS / −3.0 DC × 180 → 兩子午線 +3 與 0 D → COLC = SE = 3 − 1.5 = <mark><span class="num">+1.50 D</span></mark>（+3.0 D 只是一條焦線）。{{q:229}}<span class="ref">p.93–95</span></li>
+<li>例 2：眼 −6.0 / −3.0 × 180、遠物 → 兩焦線 −6 與 −9 D → COLC = −6 − 1.5 = <mark><span class="num">−7.5 D</span></mark>（−10.5 D 超出兩焦線範圍，不可能）。{{q:256}}<span class="ref">p.94–95</span></li>
+<li>例 3：物在 +4.0 −2.0 × 60 左 1 m：60° 子午線 +4 → V = +3 → <span class="num">33 cm</span>（一端焦線）；150° 子午線 +2 → V = +1 → <span class="num">100 cm</span>（另一端）；「最清晰」= COLC：SE = +3 → V = −1 + 3 = +2 → <mark>鏡後 <span class="num">50 cm</span></mark>。{{q:260}}<span class="ref">p.92–95</span></li>
+</ul>
+<h3>Power cross（屈光力十字）與 transposition</h3>
+<ul>
+<li>Power cross 表示 toric 鏡片兩主子午線（必相差 <span class="num">90°</span>）的最大、最小屈光力；任何 toric 鏡片只有<strong>一種</strong> power cross 表示。<span class="ref">p.55, p.95–96</span></li>
+<li><mark>純柱鏡在<strong>軸子午線</strong>（axis meridian）屈光力為 0，屈光力在與軸垂直的 <strong>power meridian</strong></mark>。例：+2.00 × 015 → 15° 為 0、105° 為 +2.00 D；−3.00 +2.00 × 015 → 105° 為 −1.00 D、15° 為 −3.00 D。<span class="ref">p.95</span></li>
+<li><strong>Transposition（正負柱鏡換算）</strong>：新球面 = 舊球面 + 舊柱鏡；新柱鏡 = 同值反號；軸 ±90°。例：+1.00 +2.00 × 080 = +3.00 −2.00 × 170；−2.00 −3.00 × 010 = −5.00 +3.00 × 100；−1.00 −0.75 × 180 = −1.75 +0.75 × 090。<span class="ref">p.96–97</span></li>
+<li>Power cross 只能合併<strong>子午線方向相同</strong>（軸相同或相差 90°）的鏡片：逐子午線相加。例：+2.00 +1.00 × 080 與 +3.00 −2.00 × 080 → 80° 為 +5、170° 為 +4 → +5.00 −1.00 × 080（= +4.00 +1.00 × 170）。<span class="ref">p.96</span></li>
+<li>Example 1-12：眼的多餘屈光力相當 +1.00 × 180（180° 為 0、90° 為 +1）→ 加 +1.00 @ 180° 的柱鏡成 +1.00 球面，再加 −1.00 D 球面 → 矯正鏡 <span class="num">−1.00 +1.00 × 090</span>（矯正柱鏡的屈光力在其軸 90° 外）。<span class="ref">p.96</span></li>
+</ul>
+<h3>兩柱鏡合成的計算範例</h3>
+<ul>
+<li>例 1：+3.0 × 150 與 −2.0 × 60（軸互相垂直）：+3.0 × 150 的屈光力在 <strong>60° 子午線（+3）</strong>，−2.0 × 60 的屈光力在 <strong>150° 子午線（−2）</strong> → 以軸 150 寫 plus cylinder：球面 = 150° 的 −2、柱鏡 = +3 − (−2) = +5 → <mark><span class="num">−2.0 / +5.0 × 150</span></mark>（= +3.0 / −5.0 × 60）。{{q:215}}<span class="ref">p.95–96</span></li>
+<li>例 2：+3.0 DC × 30 與 −4.0 DC × 120：120° 子午線 +3、30° 子午線 −4 → <mark><span class="num">−4.0 DS / +7.0 DC × 30</span></mark>（= +3.0 / −7.0 × 120）；−4.0 / +7.0 × 120 把兩子午線對調。{{q:226}}<span class="ref">p.95–96</span></li>
+<li>例 3（over-refraction 戴鏡驗光）：隱形眼鏡 −4.25 / −0.75 × 180（180° −4.25、90° −5.00）+ 戴鏡驗光 −1.00 / −0.50 × 090（90° −1.00、180° −1.50）→ 180° −5.75、90° −6.00 → <mark><span class="num">−5.75 DS / −0.25 DC × 180</span></mark>；不可把球面、柱鏡分別直接相加。{{q:292}}<span class="ref">p.96；3 p.182–183</span></li>
+</ul>
+<h3>Power-versus-meridian graph（PVMG）</h3>
+<ul>
+<li>任意子午線屈光力：<mark><strong>Pθ = PS + PC sin²(θ − φ)</strong></mark>（θ 自水平逆時針量、面對病人；PS 球面、PC 柱鏡、φ 柱鏡軸）。例：+3.00 D 柱鏡軸 020 在 050 子午線：3 × sin²30° = <span class="num">+0.75 D</span>。<span class="ref">p.97</span></li>
+<li>PVMG 每個 toric 鏡片只有一張（plus / minus 寫法相同），比 power cross 更完整；<mark>不同軸向的鏡片可把 sin² 式直接相加</mark>，不需軸向相同。Plus cylinder 讀法看谷底（球面 = 谷底值、軸 = 谷底子午線）；minus cylinder 看峰頂。<span class="ref">p.97–98</span></li>
+<li>例 1：−3.0 DS + 2.0 DC × 160 在垂直（90°）方向：θ − φ = −70°，sin²70° = 0.94² ≈ 0.884 → −3 + 2 × 0.884 ≈ <mark><span class="num">−1.23 D</span></mark>；正柱鏡只會加正，結果不可能比 −3 D 更負。{{q:264}}<span class="ref">p.97</span></li>
+<li>例 2：−4.0 −1.50 × 170 與 −2.0 −1.50 × 10 的水平（180°）屈光力：兩軸距 180° 皆 <span class="num">10°</span>，柱鏡分量同為 −1.5 × sin²10° ≈ −0.05 D → 差值只來自球面 = <mark><span class="num">2 D</span></mark>。{{q:273}}<span class="ref">p.97</span></li>
+</ul>
+<h3>Jackson cross cylinder（JCC，交叉圓柱鏡）</h3>
+<ul>
+<li>兩垂直主子午線屈光力<strong>大小相等、符號相反</strong>的 spherocylinder；手柄位於兩主子午線之間，轉動即對調兩子午線。<mark>JCC 的 <strong>SE 永遠為 0</strong></mark>，任何 SE = 0 的鏡片都是 JCC（如 −1.00 +2.00 × 180）；製作：一面磨柱鏡，另一面磨半度數、反號的球面。<span class="ref">p.54, p.97–98</span></li>
+<li>JCC 標記（本章外，第 4 章）：<strong>白點 = plus cylinder 軸、紅點 = minus cylinder 軸</strong>。<span class="ref">3 p.177</span></li>
+<li>例：正視眼前放 JCC、白點水平（plus 軸 180、minus 軸 90）：正度數作用於<strong>垂直子午線</strong>（光聚在網膜前、形成水平焦線）；負度數作用於<strong>水平子午線</strong> → 水平子午線光線<mark>聚焦在網膜<strong>後</strong>，形成<strong>垂直</strong>焦線</mark>（焦線平行於產生它的柱鏡軸＝紅點方向）。{{q:272}}<span class="ref">p.92, p.95, p.97–98；3 p.177</span></li>
+</ul>
+<h3>SE 練習（Exercises 1-27 至 1-30）</h3>
+<ul>
+<li>−1.00 +2.00 × 180 → SE 0（等同 JCC）；−1.00 +4.00 × 180 → <span class="num">+1.00 D</span>；−1.00 −2.00 × 090 → <span class="num">−2.00 D</span>；−5.00 −6.00 × 090 → <span class="num">−8.00 D</span>。<span class="ref">p.98</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>柱鏡的「軸」沒有屈光力；+3.0 × 150 的 +3 在 60° 子午線。{{q:215,226}}<span class="ref">p.95</span></li>
+<li>COLC 在兩焦線的「屈光度」中點 = SE，不是距離中點；也不會在兩焦線之外。{{q:229,256,260}}<span class="ref">p.93–95</span></li>
+<li>Power cross 只能加軸向相同/垂直的鏡片；任意軸要用 PVMG（sin² 式）。{{q:273,292}}<span class="ref">p.96–97</span></li>
+<li>焦線方向與造成它的子午線垂直：水平子午線的光形成「垂直」焦線。{{q:272}}<span class="ref">p.92, p.95</span></li>
+</ul></div>
+
+<h2 id="ch1-s12">十二、面鏡（Mirrors）</h2>
+<h3>反射定律與平面鏡</h3>
+<ul>
+<li><strong>Law of reflection（反射定律，specular reflection）</strong>：反射角 = 入射角（皆以法線為準）。<span class="ref">p.55, p.99</span></li>
+<li><strong>Plane mirror（平面鏡）</strong>：只反轉傳播方向（reversal of the image space），<strong>不改變 vergence</strong>；像為<mark>正立、虛像、等大、左右相反</mark>。曲面鏡另外增減 vergence。<span class="ref">p.99</span></li>
+</ul>
+<h3>面鏡公式與符號</h3>
+<ul>
+<li><mark><strong>P = −2/r = −1/f</strong></mark>；<strong>1/u + P = 1/"v"</strong>（U + P = V）；r（帶號、公尺）= 焦距的 2 倍。<span class="ref">p.99</span></li>
+<li>符號：<strong>凹向左（concave）r 為負 → P 為正</strong>；<strong>凸向左（convex）r 為正 → P 為負</strong>。<span class="ref">p.99</span></li>
+<li>"v" 在<strong>反轉的像空間</strong>：由右向左會聚為正 vergence（實像在鏡前、與物同側），由右向左發散為負（虛像在鏡後）。<mark>面鏡公式中沒有折射率</mark>。<span class="ref">p.99</span></li>
+<li>平行光照凹面鏡 → 會聚於鏡前 r/2 的焦點；照凸面鏡 → 似由鏡後 r/2 發散（虛焦點）。<span class="ref">p.99</span></li>
+<li>三條特殊光線：① 經<strong>曲率中心 C</strong>（不是鏡頂點）→ 原路反射；② 經焦點 → 反射後平行光軸；③ 平行光軸 → 經焦點（焦點在鏡面與 C 正中）。<span class="ref">p.99–100</span></li>
+<li><mark><strong>Convex mirror（凸面鏡）永遠形成虛像、正立、縮小</strong></mark>；concave mirror（凹面鏡）視物距而定，<strong>物在焦點與鏡面之間時</strong>才成正立、虛像、放大；物越靠近鏡面放大越少，貼近鏡面時與物等大（似平面鏡）。<span class="ref">p.100</span></li>
+<li>生活實例：大半徑凹面鏡當化妝/刮鬍鏡（臉在焦點內）；小半徑凸面鏡當汽車後照鏡；眼科以<strong>角膜當小半徑凸面反射鏡</strong>測曲率（keratometry，角膜弧度測量），Hirschberg test 的角膜反光點亦同（Fig 1-35B）。<span class="ref">p.101</span></li>
+</ul>
+<h3>面鏡計算範例</h3>
+<ul>
+<li><strong>Example 1-13 刮鬍鏡</strong>：凹面鏡 r = <span class="num">−2.0 m</span> → P = <span class="num">+1.00 D</span>、焦點在鏡左 1.0 m；站在鏡前 <span class="num">0.5 m</span>：U = −2 → V = −2 + 1 = −1 → v = −1 m（鏡後 1 m 的虛像）→ <mark>MT = U/V = −2/−1 = <span class="num">+2×</span></mark>（正立放大）；1× 是平面鏡。{{q:274}}<span class="ref">p.101</span></li>
+<li>凸面鏡例：r = +50 cm（<span class="num">+0.5 m</span>）→ <mark>P = −2/0.5 = <span class="num">−4 D</span></mark>；物在左 1 m：U = −1 → V = −5 → 鏡後（右側）<span class="num">20 cm</span> 虛像，MT = U/V = <span class="num">1/5</span>，正立；不會成倒立實像、不是 1/3、不在左側 33 cm。{{q:236}}<span class="ref">p.81, p.99–100</span></li>
+<li>凹面鏡例：曲率半徑 50 cm（r = −0.5 m）→ P = <span class="num">+4 D</span>、焦距 25 cm；物在左 100 cm：U = −1 → V = +3 → <mark>實像在鏡<strong>左側</strong>（與物同側）<span class="num">33 cm</span></mark>，MT = −1/3（倒立、1/3 大）；物在 50 cm（曲率中心）：U = −2、V = +2 → 像亦在曲率中心，MT = −1（倒立等大）。說「成像在鏡右側 33 cm」是錯的。{{q:288}}<span class="ref">p.81, p.99–100</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>面鏡 V 為正 → 實像在鏡前（左側）；V 為負 → 虛像在鏡後（右側）——與透鏡左右相反。{{q:236,288}}<span class="ref">p.99, p.101</span></li>
+<li>凸面鏡 P 為負；任何物距都是正立縮小虛像。{{q:236}}<span class="ref">p.99–100</span></li>
+<li>面鏡的「不偏折光線」經曲率中心，不是經鏡面中心。<span class="ref">p.100</span></li>
+</ul></div>
+
+<h2 id="ch1-s13">十三、望遠鏡（Telescopes）</h2>
+<ul>
+<li><strong>Galilean（terrestrial）telescope（伽利略望遠鏡）</strong>：<mark>低度數<strong>正</strong>鏡為 objective（物鏡）+ 高度數<strong>負</strong>鏡為 ocular / eyepiece（目鏡）</mark>，鏡間距 = 兩焦距之<strong>差</strong>；成<strong>正立</strong>像。{{q:289}}<span class="ref">p.54, p.102</span></li>
+<li><strong>Keplerian（astronomical）telescope（克卜勒望遠鏡）</strong>：<mark>低度數正鏡為物鏡 + 高度數正鏡為目鏡</mark>，鏡間距 = 兩焦距之<strong>和</strong>；成<strong>倒立</strong>像，內加 <strong>inverting prisms（倒像稜鏡）</strong>可正立；多數 binoculars（雙筒望遠鏡）即 Keplerian + 倒像稜鏡。（技術上兩型間距皆為 f1 − f2，Keplerian 的 f2 取負。）{{q:237,289}}<span class="ref">p.54, p.102</span></li>
+<li>多數手術用 loupes（放大鏡）採 Galilean 構造，也有 astronomical 型。<span class="ref">p.102</span></li>
+<li><mark>平行入射光以平行光射出 → 整體為 <strong>afocal system（無焦系統）</strong>：沒有焦點，也沒有主平面與節點</mark>。{{q:265}}<span class="ref">p.102</span></li>
+<li>橫向放大 MT = −P1/P2，兩型皆使像<strong>小於</strong>原物；但像離眼近很多，所張角較大。Fig 1-36 例：+2.00 / −4.00 D 相距 <span class="num">25 cm</span>（Galilean）、+2.00 / +4.00 D 相距 <span class="num">75 cm</span>（Keplerian）；像為原物一半大但近 4 倍 → 視角 2 倍。<span class="ref">p.102–103</span></li>
+<li><strong>Angular magnification（角放大率）</strong>：<mark><strong>Ma = −P目鏡 / P物鏡</strong></mark>；Keplerian 為負（倒立），Galilean 為正（正立）。<span class="ref">p.103</span></li>
+<li>Low vision 輔具較常用 Galilean：較短、正立；Keplerian 需倒像稜鏡而較重，但<strong>收光較多</strong>。{{q:289}}<span class="ref">p.103</span></li>
+<li>眼鏡放大的解釋：aphakia（無水晶體）眼內相當有 −12.50 D 的「error lens」，戴 +10.00 D 眼鏡 → 形成 Galilean telescope → 放大 <span class="num">1.25×</span>，病人可能不滿意；高度近視眼內為正的 error lens，戴高度負鏡 → reverse Galilean telescope → 抱怨影像縮小（minification）。<span class="ref">p.103</span></li>
+</ul>
+<h3>望遠鏡計算範例</h3>
+<ul>
+<li>例 1：+2 D 與 +5 D 組成 Keplerian → 物鏡 <strong>+2 D</strong>（低度數）、目鏡 +5 D；管長 = 50 + 20 = <span class="num">70 cm</span>（30 cm 是焦距差，屬 Galilean 算法）；<mark>Ma = −5/2 = <span class="num">−2.5×</span></mark>；倒立像。{{q:237}}<span class="ref">p.102–103</span></li>
+<li>例 2：+3 D 與 +1 D → 物鏡 +1 D、目鏡 +3 D；管長 1 + 0.33 ≈ <span class="num">1.33 m</span>；Ma = −3×、倒立；<mark>「焦點位於接目鏡後方」錯誤——望遠鏡是 afocal，沒有焦點</mark>。{{q:265}}<span class="ref">p.102–103</span></li>
+<li>例 3：Keplerian 物鏡 3 D、目鏡 12 D → 管長 33.3 + 8.3 ≈ <span class="num">42 cm</span>。{{q:289}}<span class="ref">p.102</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>Galilean 是「正物鏡 + 負目鏡」，把物鏡寫成負鏡就錯。{{q:289}}<span class="ref">p.102</span></li>
+<li>兩型的物鏡都是<strong>低度數</strong>正鏡；高度數者為目鏡。{{q:237,265}}<span class="ref">p.102</span></li>
+<li>管長：Keplerian 焦距和、Galilean 焦距差。{{q:237}}<span class="ref">p.102</span></li>
+</ul></div>
+
+<h2 id="ch1-s14">十四、附錄推導與公式總整理</h2>
+<ul>
+<li>Appendix 1-1：以小角近似（φ = sin φ = tan φ）把 Snell's law 化為 n1θ = n2σ，配合幾何得 n1/u + (n2 − n1)/r = n2/v，令 (n2 − n1)/r = P 即同時得到 vergence 與 lensmaker's equation。<span class="ref">p.103–105</span></li>
+<li>Appendix 1-2：由 Fermat's principle 對總時間 T 微分 dT/dx = 0，可推得 n1 sin θ1 = n2 sin θ2；光在玻璃中較慢，最短直線不一定是最短時間路徑。<span class="ref">p.105–107</span></li>
+<li>Appendix 1-3：由反射定律與小角近似得 1/u − 2/r = −1/v，令 P = −2/r，右側負號表示反轉像空間中的 vergence。<span class="ref">p.107–108</span></li>
+</ul>
+<table class="ted-table">
+<thead><tr><th>Formula（公式）</th><th>用途 / 重點</th><th>Page</th></tr></thead>
+<tbody>
+<tr><td>n = c真空 / c介質</td><td>n 越大光越慢；必 &gt; 1</td><td><span class="ref">p.57</span></td></tr>
+<tr><td>n1 sin θ1 = n2 sin θ2</td><td>Snell's law；低 → 高 n 偏向法線</td><td><span class="ref">p.58</span></td></tr>
+<tr><td>sin θc = n2/n1</td><td>臨界角（高 → 低 n）；淚膜–空氣 48.75°</td><td><span class="ref">p.65–66</span></td></tr>
+<tr><td>Δ = 100 tan θ = 偏移 cm / 距離 m</td><td>稜鏡度；分放兩眼可加、疊放不可加</td><td><span class="ref">p.61</span></td></tr>
+<tr><td>n1/u + P = n2/v（U + P = V）</td><td>Vergence equation；左負右正</td><td><span class="ref">p.66–67</span></td></tr>
+<tr><td>P = (n2 − n1)/r</td><td>Lensmaker's；IOL 空氣中約 3 倍</td><td><span class="ref">p.66, p.68</span></td></tr>
+<tr><td>P = P1 + P2 − (t/n)P1P2</td><td>Thick lens</td><td><span class="ref">p.70</span></td></tr>
+<tr><td>P2 = P/(1 − tP)</td><td>Effectivity；t 為往眼移動距離</td><td><span class="ref">p.78</span></td></tr>
+<tr><td>MT = h2/h1 = v/u = U/V；MT = n1v/(n2u)</td><td>負 = 倒立</td><td><span class="ref">p.81</span></td></tr>
+<tr><td>ML = (MT)²</td><td>軸向放大（空氣中）</td><td><span class="ref">p.82</span></td></tr>
+<tr><td>SE = sphere + cyl/2</td><td>COLC 位置：V = U + SE</td><td><span class="ref">p.94–95</span></td></tr>
+<tr><td>Pθ = PS + PC sin²(θ − φ)</td><td>任意子午線屈光力（PVMG）</td><td><span class="ref">p.97</span></td></tr>
+<tr><td>P = −2/r = −1/f；U + P = V</td><td>面鏡；凹面鏡 P 正、凸面鏡 P 負</td><td><span class="ref">p.99</span></td></tr>
+<tr><td>Ma = −P目鏡/P物鏡</td><td>望遠鏡角放大率；afocal</td><td><span class="ref">p.103</span></td></tr>
+</tbody>
+</table>
+
+<div class="hs-tip-box">
+<h3>易混淆比較與口訣</h3>
+<ul>
+<li><strong>Prentice position vs MAD</strong>：玻璃稜鏡 = Prentice（後表面垂直視線）；塑膠稜鏡/稜鏡條 = MAD ≈ frontal plane。Prentice's rule 則是鏡片偏心的稜鏡效應。{{q:619,242}}<span class="ref">p.60–61</span></li>
+<li><strong>像差分類</strong>：單色像差 = Seidel 五種（SA、coma、astigmatism、curvature of field、distortion）；色像差 = dispersion、隨波長，duochrome 紅綠差約 0.50 D。{{q:269}}<span class="ref">p.88–89, p.92；3 p.179</span></li>
+<li><strong>符號三規則</strong>：透鏡 V 正 = 實像在右；面鏡 V 正 = 實像在左（反轉像空間）；MT 負 = 倒立。{{q:236,263,288}}<span class="ref">p.80–81, p.99</span></li>
+<li><strong>眼內計算</strong>：像在眼內/水中，距離 = n/V（如 1.33/44 D = 30.2 mm）。{{q:238,257,261,282}}<span class="ref">p.67, p.78</span></li>
+<li><strong>望遠鏡</strong>：物鏡永遠是低度數正鏡；Galilean 正立、短、間距焦距差；Keplerian 倒立、收光多、間距焦距和；整體 afocal。{{q:237,265,289}}<span class="ref">p.102–103</span></li>
+</ul>
+</div>

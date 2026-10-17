@@ -13400,6 +13400,10 @@
      [
       3,
       "68"
+     ],
+     [
+      3,
+      "146"
      ]
     ]
    },
@@ -13424,6 +13428,10 @@
      [
       3,
       "68"
+     ],
+     [
+      3,
+      "146"
      ]
     ]
    },
@@ -14793,7 +14801,7 @@
     "key": "B",
     "answer": false,
     "label": "錯誤",
-    "text": "7 與 6 + 5/2.5 的計算結果不符，可能是斜視差的正負號處理錯誤。",
+    "text": "7 與 6 + 5/2.5 = 8 的計算結果不符。",
     "refs": [
      [
       3,
@@ -15160,6 +15168,10 @@
      ],
      [
       3,
+      "288"
+     ],
+     [
+      3,
       "307–308"
      ]
     ]
@@ -15408,14 +15420,14 @@
  },
  "251": {
   "answer": "A",
-  "summary": "角膜散光 1.50 D 但屈光散光只有 0.50 D，代表有 1.00 D 逆規水晶體散光抵銷角膜散光；軟式鏡片保留此抵銷，視力最好。",
+  "summary": "角膜散光 1.50 D（44.00 − 42.50，順規），但處方為純球面 −3.50 D、沒有屈光散光，代表約 1.50 D 逆規水晶體散光抵銷了角膜散光；軟式鏡片保留此抵銷，視力最好（BCSC 同型例題為 −3.50 −0.50 × 180，結論相同）。",
   "flags": [],
   "items": [
    {
     "key": "A",
     "answer": true,
     "label": "正確",
-    "text": "Soft contact lens（軟式隱形眼鏡）會順著角膜形狀，角膜的順規散光與 lenticular astigmatism（水晶體散光）繼續互相抵銷，只剩約 0.50 D 散光，可被球面軟鏡遮蓋。",
+    "text": "Soft contact lens（軟式隱形眼鏡）會順著角膜形狀，角膜的順規散光與 lenticular astigmatism（水晶體散光）繼續互相抵銷，維持本例沒有屈光散光的狀態，球面軟鏡即可。",
     "refs": [
      [
       3,
@@ -15427,11 +15439,15 @@
     "key": "B",
     "answer": false,
     "label": "錯誤",
-    "text": "Toric soft lens（軟式散光鏡片）一般用於 1.00 D 以上的屈光散光；本例屈光散光僅 0.50 D，不需要散光片。",
+    "text": "Toric soft lens（軟式散光鏡片）依 BCSC Table 6-8 用於 1.00 D 以上的散光；本例處方沒有屈光散光（BCSC 同型例題也只有 0.50 D），不需要散光片。",
     "refs": [
      [
       3,
       "241"
+     ],
+     [
+      3,
+      "230–231"
      ]
     ]
    },
@@ -15439,7 +15455,7 @@
     "key": "C",
     "answer": false,
     "label": "錯誤",
-    "text": "Rigid gas-permeable lens（RGP，硬式透氧鏡片）會以 tear lens（淚液鏡）中和角膜散光，反而暴露原本被抵銷的 1.00 D 逆規水晶體散光，產生 residual astigmatism（殘餘散光）。",
+    "text": "Rigid gas-permeable lens（RGP，硬式透氧鏡片）會以 tear lens（淚液鏡）中和角膜散光，反而暴露原本被抵銷的約 1.50 D 逆規水晶體散光（BCSC 例題為 1.00 D），產生 residual astigmatism（殘餘散光）。",
     "refs": [
      [
       3,
@@ -52804,7 +52820,7 @@
     "key": "D",
     "answer": false,
     "label": "敘述正確",
-    "text": "先天性梅毒在 2 歲內的表現屬感染性，IK 則是較晚發生的免疫媒介表現，通常在 10 到 20 歲間才出現基質角膜炎。",
+    "text": "先天性梅毒在 2 歲內的表現屬感染性，IK 則是較晚發生的免疫媒介表現，通常在生命的第一或第二個十年（約 20 歲以前）才出現基質角膜炎。",
     "refs": [
      [
       8,
@@ -59358,6 +59374,10 @@
     "label": "不相關",
     "text": "Peters anomaly（Peters 異常）出生時即有中央角膜白斑，80% 為雙眼，與成人單眼虹彩萎縮不符。",
     "refs": [
+     [
+      8,
+      "161"
+     ],
      [
       8,
       "169"
@@ -83197,7 +83217,7 @@
     "key": "A",
     "answer": false,
     "label": "敘述正確",
-    "text": "Posterior subcapsular cataract（PSC，後囊下白內障）病人多在 50–70 歲就診，比具視覺意義的 nuclear 或 cortical cataract 病人年輕。",
+    "text": "Posterior subcapsular cataract（PSC，後囊下白內障）病人常在第 5 至第 7 個十年（約 40 多歲至 60 多歲）就診，比具視覺意義的 nuclear 或 cortical cataract 病人年輕。",
     "refs": [
      [
       11,
@@ -85178,7 +85198,7 @@
     "key": "A",
     "answer": false,
     "label": "敘述正確",
-    "text": "Posterior subcapsular cataract（PSC，後囊下白內障）病人多在 50–70 歲出現，比其他類型年輕。",
+    "text": "Posterior subcapsular cataract（PSC，後囊下白內障）病人多在 40 至 60 多歲（第五至第七個十年）出現，比其他類型年輕。",
     "refs": [
      [
       11,
@@ -86369,7 +86389,7 @@
     "key": "A",
     "answer": false,
     "label": "敘述正確",
-    "text": "Posterior subcapsular cataract（PSC，後囊下白內障）病人常在 50–70 歲出現，比 nuclear 或 cortical 白內障病人年輕。",
+    "text": "Posterior subcapsular cataract（PSC，後囊下白內障）病人常在 40 至 60 多歲（第五至第七個十年）出現，比 nuclear 或 cortical 白內障病人年輕。",
     "refs": [
      [
       11,
@@ -92910,7 +92930,7 @@
  },
  "1497": {
   "answer": "A",
-  "summary": "MacTel type 2 是中老年（50–70 歲）發病的雙側疾病；常見於年輕男性且單側的是 MacTel type 1。",
+  "summary": "MacTel type 2 是中老年（第五至第七個十年，約 40 至 60 多歲）發病的雙側疾病；常見於年輕男性且單側的是 MacTel type 1。",
   "flags": [
    "B 的「常見」視網膜下新生血管措辭與 BCSC「可能發生」略有出入，但 A 明確錯誤，答案不受影響。"
   ],
@@ -92919,7 +92939,7 @@
     "key": "A",
     "answer": true,
     "label": "敘述錯誤",
-    "text": "Macular telangiectasia type 2（MacTel 2，第二型黃斑部微血管擴張）是雙側、進行性的神經退化疾病，多在 50–70 歲出現；年輕男性、單側是 MacTel 1 的特徵。",
+    "text": "Macular telangiectasia type 2（MacTel 2，第二型黃斑部微血管擴張）是雙側、進行性的神經退化疾病，多在 40 至 60 多歲（第五至第七個十年）出現；年輕男性、單側是 MacTel 1 的特徵。",
     "refs": [
      [
       12,
@@ -101672,11 +101692,15 @@
     "key": "B",
     "answer": false,
     "label": "錯誤",
-    "text": "30 μm 較接近每 D 約 10 μm 的粗估，但 6 mm 光學區的正確值應為每 D 12 μm。",
+    "text": "30 μm 相當於每 D 10 μm（約為 5.5 mm 光學區的值，5.5² / 3 ≈ 10），但 6 mm 光學區依 Munnerlyn formula 應為每 D 12 μm。",
     "refs": [
      [
       13,
       "33"
+     ],
+     [
+      3,
+      "289"
      ]
     ]
    },
