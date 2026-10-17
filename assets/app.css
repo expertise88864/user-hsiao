@@ -951,13 +951,16 @@ details[open] > summary ~ * {
    sometimes wrong here, but disabling on home is the easy win).
    ============================================================ */
 @supports (animation-timeline: scroll()) {
-  /* Only animate on /blog/* pages, not home */
+  /* Only animate on /blog/* pages, not home — and never when the reader asks for
+     reduced motion (this block used to override the reduced-motion reset above). */
+  @media (prefers-reduced-motion: no-preference) {
   body:not(.home) .reveal,
   body:not(.home) .article-list-item,
   body:not(.home) .myth-card {
     animation: hs-reveal both;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
+  }
   }
   /* Reset rule from v33 — explicitly NOT animate on home */
   body.home .reveal,
