@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 9 Ch.5 Diagnostic Considerations in Uve…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc9-5#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 9 Ch.5","item":"https://hsiao.chendermatologist.com/exam/bcsc9-5"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -182,6 +182,40 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
 .ex-prog a{color:var(--ex-accent)}
 .ex-prog .ex-low{color:#b91c1c;font-weight:700}
+.ex-find{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:18px 0 8px}
+.ex-find-row{display:flex;gap:8px;margin:6px 0 4px}
+.ex-find-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-find-title{font-size:15px;font-weight:700;margin:10px 0 4px}
+.ex-find-group{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0}
+.ex-find-h{font-size:15px;font-weight:700;line-height:1.6;margin:0}
+.ex-find-h a{color:var(--ex-accent)}
+.ex-find-h .ex-count{margin-left:8px;font-weight:500;color:var(--ink-2)}
+.ex-find-list{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.75}
+.ex-find-list li{border-top:1px solid var(--line);padding:6px 0}
+.ex-find-list a{display:block;color:var(--ink);text-decoration:none}
+.ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
+.ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
+.ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
+.ex-practice{margin:12px 0 4px}
+.ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-more[hidden],.ex-rank tr[hidden]{display:none}
+.ex-note [id^="np-"]{scroll-margin-top:96px}
+.ex-note [id^="np-"]:target{background:var(--ex-soft);outline:2px solid var(--ex-accent);outline-offset:-2px;border-radius:6px}
+.ex-resume{position:sticky;top:72px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--ex-card);border:1px solid var(--border);border-left:4px solid var(--ex-accent);border-radius:10px;padding:6px 8px 6px 12px;margin:8px 0 12px;font-size:13px;line-height:1.6;box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(15,23,42,.35)}
+.ex-resume-text{flex:1;min-width:12em}
+.ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
+.ex-resume-close:hover{background:var(--ex-soft)}
+.ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
+.ex-ans-text{color:var(--ink-2);font-weight:600}
+.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next:disabled{opacity:.5;cursor:default}
+.ex-ans-clear{margin:0 0 6px}
+.ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
+.ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -212,8 +246,14 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
+:root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -229,7 +269,6 @@ body:not(.ex-quiz) .ex-opt input{display:none}
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
         <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
-        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
         <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
@@ -245,496 +284,496 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 9 Ch.5</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 9 · Uveitis and Ocular Inflammation</p><h1 class="ex-h1">Ch.5 Diagnostic Considerations in Uveitis</h1><p class="ex-meta">原書 p.67–96 · 考題 25 題</p><div class="ex-strip" data-progress-chapter="9-5" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="9-5"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch5-s1">一、概論與流行病學</a></li><li><a href="#ch5-s2">二、Classification of uveitis（葡萄膜炎分類）：SUN 系統</a></li><li><a href="#ch5-s3">三、Anatomical classification（解剖分類）各論與視網膜血管炎</a></li><li><a href="#ch5-s4">四、Classification by clinical features（依臨床特徵分類）：granulomatous vs nongranulomatous</a></li><li><a href="#ch5-s5">五、Symptoms of uveitis（症狀）</a></li><li><a href="#ch5-s6">六、Signs of uveitis（徵候）：前段</a></li><li><a href="#ch5-s7">七、徵候：中段與後段</a></li><li><a href="#ch5-s8">八、病史回顧與 differential diagnosis（鑑別診斷）</a></li><li><a href="#ch5-s9">九、Ancillary testing（輔助檢查）原則與實驗室檢查</a></li><li><a href="#ch5-s10">十、Ophthalmic imaging and functional tests（眼科影像與功能檢查）</a></li><li><a href="#ch5-s11">十一、Ocular fluid and tissue sampling（眼內液與組織採檢）</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 9 第 5 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch5-s1">一、概論與流行病學</h2>
 <h3 id="ch5-s1-1">Uveitis（葡萄膜炎）的定義</h3>
 <ul>
-<li><strong>Uvea（葡萄膜）</strong>：含色素與血管的眼球中層，包括 iris（虹膜）、ciliary body（睫狀體）、choroid（脈絡膜）；名稱源自拉丁文 uva（葡萄）。<span class="ref">p.67</span></li>
-<li>臨床上 uveitis 指<strong>眼內發炎</strong>，可波及非葡萄膜構造（vitreous（玻璃體）、optic nerve（視神經）、retina（視網膜））；<mark>前房水及/或玻璃體中可見發炎細胞</mark>是眼內發炎的標誌；retinal vasculitis（視網膜血管炎）、macular edema（黃斑部水腫）等可能需影像檢查才能發現。<span class="ref">p.67–68</span></li>
-<li>「Uveitis」一詞<strong>不代表病因</strong>：可為 noninfectious（非感染性，推定為自體免疫或自體發炎）或 infectious（感染性）；兩者皆可單獨存在於眼睛或合併全身疾病。只侷限於眼睛的非感染性葡萄膜炎稱 <strong>undifferentiated（未分化）</strong>或 <strong>idiopathic（特發性）uveitis</strong>。<span class="ref">p.68</span></li>
-<li>評估重點：發炎的解剖位置與特徵、multimodal imaging（多模式影像）、詳細病史與 review of systems（系統回顧）；<mark>實驗室檢查不能取代完整病史與系統回顧</mark>，不完整或不適當的檢查會延誤診斷、導致錯誤治療。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1728" data-q="1728">第 1728 題</a></span><span class="ref">p.68</span></li>
+<li id="np-1"><strong>Uvea（葡萄膜）</strong>：含色素與血管的眼球中層，包括 iris（虹膜）、ciliary body（睫狀體）、choroid（脈絡膜）；名稱源自拉丁文 uva（葡萄）。<span class="ref">p.67</span></li>
+<li id="np-2">臨床上 uveitis 指<strong>眼內發炎</strong>，可波及非葡萄膜構造（vitreous（玻璃體）、optic nerve（視神經）、retina（視網膜））；<mark>前房水及/或玻璃體中可見發炎細胞</mark>是眼內發炎的標誌；retinal vasculitis（視網膜血管炎）、macular edema（黃斑部水腫）等可能需影像檢查才能發現。<span class="ref">p.67–68</span></li>
+<li id="np-3">「Uveitis」一詞<strong>不代表病因</strong>：可為 noninfectious（非感染性，推定為自體免疫或自體發炎）或 infectious（感染性）；兩者皆可單獨存在於眼睛或合併全身疾病。只侷限於眼睛的非感染性葡萄膜炎稱 <strong>undifferentiated（未分化）</strong>或 <strong>idiopathic（特發性）uveitis</strong>。<span class="ref">p.68</span></li>
+<li id="np-4">評估重點：發炎的解剖位置與特徵、multimodal imaging（多模式影像）、詳細病史與 review of systems（系統回顧）；<mark>實驗室檢查不能取代完整病史與系統回顧</mark>，不完整或不適當的檢查會延誤診斷、導致錯誤治療。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1728" data-q="1728">第 1728 題</a></span><span class="ref">p.68</span></li>
 </ul>
 <h3 id="ch5-s1-2">Epidemiology（流行病學）</h3>
 <ul>
-<li>美國與歐洲約 <span class="num">10%</span> 失明、全球高達 <span class="num">25%</span> 失明由 uveitis 造成。<span class="ref">p.68</span></li>
-<li>盛行率：美國每 10 萬人 <span class="num">58–121</span> 例；開發中國家可達每 10 萬人 <span class="num">730</span> 例。<span class="ref">p.68</span></li>
-<li><mark>Anterior uveitis（前葡萄膜炎）最常見，占 <span class="num">70%–80%</span></mark>，其次依序為 <strong>panuveitis（全葡萄膜炎）＞ posterior uveitis（後葡萄膜炎）＞ intermediate uveitis（中間葡萄膜炎）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1000" data-q="1000">第 1000 題</a></span><span class="ref">p.68</span></li>
-<li>性別：<mark>整體而言<strong>女性</strong>略高</mark>（不是男性多於女性）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a></span><span class="ref">p.68</span></li>
-<li>年齡：多數調查發生率高峰在 <span class="num">20–60 歲</span>，但近年資料顯示 <span class="num">&gt;65 歲</span>風險也增加；<mark>兒童盛行率約比成人低 <span class="num">5–10 倍</span></mark>，故老年人多於兒童。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.68</span></li>
-<li>開發中國家 infectious uveitis、posterior uveitis、panuveitis 比例高於工業化國家；醫學中心（轉診中心）資料因 referral bias（轉診偏差），後葡萄膜炎等複雜病例比例高於社區調查（後者為一般流行病學觀念，課本未直接討論；1996 年 UCLA 社區對照研究：社區眼科前葡萄膜炎 90.6%、後葡萄膜炎 4.7%，同城大學轉診中心則為 60.6% 與 14.6%）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a></span><span class="ref">p.68</span></li>
-<li>地區關聯：<strong>birdshot chorioretinopathy（鳥槍彈樣脈絡視網膜病變）</strong>—西歐；<strong>Behcet disease（貝西氏症）</strong>—土耳其與中國；<strong>tuberculosis-associated uveitis（結核相關葡萄膜炎）</strong>—印度。<span class="ref">p.68</span></li>
+<li id="np-5">美國與歐洲約 <span class="num">10%</span> 失明、全球高達 <span class="num">25%</span> 失明由 uveitis 造成。<span class="ref">p.68</span></li>
+<li id="np-6">盛行率：美國每 10 萬人 <span class="num">58–121</span> 例；開發中國家可達每 10 萬人 <span class="num">730</span> 例。<span class="ref">p.68</span></li>
+<li id="np-7"><mark>Anterior uveitis（前葡萄膜炎）最常見，占 <span class="num">70%–80%</span></mark>，其次依序為 <strong>panuveitis（全葡萄膜炎）＞ posterior uveitis（後葡萄膜炎）＞ intermediate uveitis（中間葡萄膜炎）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1000" data-q="1000">第 1000 題</a></span><span class="ref">p.68</span></li>
+<li id="np-8">性別：<mark>整體而言<strong>女性</strong>略高</mark>（不是男性多於女性）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a></span><span class="ref">p.68</span></li>
+<li id="np-9">年齡：多數調查發生率高峰在 <span class="num">20–60 歲</span>，但近年資料顯示 <span class="num">&gt;65 歲</span>風險也增加；<mark>兒童盛行率約比成人低 <span class="num">5–10 倍</span></mark>，故老年人多於兒童。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.68</span></li>
+<li id="np-10">開發中國家 infectious uveitis、posterior uveitis、panuveitis 比例高於工業化國家；醫學中心（轉診中心）資料因 referral bias（轉診偏差），後葡萄膜炎等複雜病例比例高於社區調查（後者為一般流行病學觀念，課本未直接討論；1996 年 UCLA 社區對照研究：社區眼科前葡萄膜炎 90.6%、後葡萄膜炎 4.7%，同城大學轉診中心則為 60.6% 與 14.6%）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a></span><span class="ref">p.68</span></li>
+<li id="np-11">地區關聯：<strong>birdshot chorioretinopathy（鳥槍彈樣脈絡視網膜病變）</strong>—西歐；<strong>Behcet disease（貝西氏症）</strong>—土耳其與中國；<strong>tuberculosis-associated uveitis（結核相關葡萄膜炎）</strong>—印度。<span class="ref">p.68</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s1-3">易錯陷阱</h3><ul>
-<li>「葡萄膜炎男性多於女性」是錯的：課本寫整體女性略高。（注意：HLA-B27 相關前葡萄膜炎則是男性較多，本章外，BCSC 9 第 8 章。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a></span><span class="ref">p.68, p.138</span></li>
-<li>排序是前 ＞ 全 ＞ 後 ＞ 中間；中間葡萄膜炎最少，不是後葡萄膜炎最少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a></span><span class="ref">p.68</span></li>
+<li id="np-12">「葡萄膜炎男性多於女性」是錯的：課本寫整體女性略高。（注意：HLA-B27 相關前葡萄膜炎則是男性較多，本章外，BCSC 9 第 8 章。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a></span><span class="ref">p.68, p.138</span></li>
+<li id="np-13">排序是前 ＞ 全 ＞ 後 ＞ 中間；中間葡萄膜炎最少，不是後葡萄膜炎最少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1013" data-q="1013">第 1013 題</a></span><span class="ref">p.68</span></li>
 </ul></div>
 
 <h2 id="ch5-s2">二、Classification of uveitis（葡萄膜炎分類）：SUN 系統</h2>
 <h3 id="ch5-s2-1">總則</h3>
 <ul>
-<li><strong>Standardization of Uveitis Nomenclature（SUN，葡萄膜炎命名標準化）</strong>系統由多個國際學會於 <span class="num">2005</span> 年制定，依<strong>解剖位置</strong>與 onset（發作）、duration（病程長短）、course（病程型態）描述葡萄膜炎，已被全球葡萄膜炎專家採用。<span class="ref">p.69</span></li>
-<li>病因上分為 <mark>noninfectious（autoimmune/autoinflammatory）與 infectious 兩大類</mark>，並依是否合併全身表現再區分。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a></span><span class="ref">p.69</span></li>
-<li>解剖分類 <span class="num">4</span> 類：<mark>anterior、intermediate、posterior、panuveitis</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a></span><span class="ref">p.69</span></li>
-<li>前房與玻璃體都有細胞、但玻璃體發炎多於單純前葡萄膜炎應有的程度 → 分類為「<strong>anterior and intermediate uveitis</strong>」，<mark>不是 panuveitis</mark>。<span class="ref">p.69</span></li>
-<li><mark>Posterior uveitis 或 panuveitis 必須有 choroidal 及/或 retinal lesions（脈絡膜/視網膜病灶）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.69</span></li>
-<li><span class="num">2021</span> 年 SUN 另建立 <span class="num">25</span> 種特定葡萄膜炎的分類標準。<span class="ref">p.69</span></li>
+<li id="np-14"><strong>Standardization of Uveitis Nomenclature（SUN，葡萄膜炎命名標準化）</strong>系統由多個國際學會於 <span class="num">2005</span> 年制定，依<strong>解剖位置</strong>與 onset（發作）、duration（病程長短）、course（病程型態）描述葡萄膜炎，已被全球葡萄膜炎專家採用。<span class="ref">p.69</span></li>
+<li id="np-15">病因上分為 <mark>noninfectious（autoimmune/autoinflammatory）與 infectious 兩大類</mark>，並依是否合併全身表現再區分。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a></span><span class="ref">p.69</span></li>
+<li id="np-16">解剖分類 <span class="num">4</span> 類：<mark>anterior、intermediate、posterior、panuveitis</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a></span><span class="ref">p.69</span></li>
+<li id="np-17">前房與玻璃體都有細胞、但玻璃體發炎多於單純前葡萄膜炎應有的程度 → 分類為「<strong>anterior and intermediate uveitis</strong>」，<mark>不是 panuveitis</mark>。<span class="ref">p.69</span></li>
+<li id="np-18"><mark>Posterior uveitis 或 panuveitis 必須有 choroidal 及/或 retinal lesions（脈絡膜/視網膜病灶）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.69</span></li>
+<li id="np-19"><span class="num">2021</span> 年 SUN 另建立 <span class="num">25</span> 種特定葡萄膜炎的分類標準。<span class="ref">p.69</span></li>
 </ul>
 <h3 id="ch5-s2-2">Table 5-1 解剖分類</h3>
 <table class="ted-table">
 <thead><tr><th>Type（類型）</th><th>Primary site（主要發炎部位）</th><th>Includes（包含）</th></tr></thead>
 <tbody>
-<tr><td>Anterior uveitis</td><td>Anterior chamber（前房）</td><td>Iritis、iridocyclitis、anterior cyclitis</td></tr>
-<tr><td>Intermediate uveitis</td><td>Vitreous（玻璃體）</td><td>Pars planitis（睫狀體扁平部炎）、posterior cyclitis、hyalitis</td></tr>
-<tr><td>Posterior uveitis</td><td>Retina or choroid</td><td>Focal/multifocal/diffuse choroiditis、chorioretinitis、retinochoroiditis、retinitis、neuroretinitis</td></tr>
-<tr><td>Panuveitis</td><td>Anterior chamber、vitreous 及 retina 或 choroid</td><td>—</td></tr>
+<tr><td id="np-20">Anterior uveitis</td><td id="np-21">Anterior chamber（前房）</td><td id="np-22">Iritis、iridocyclitis、anterior cyclitis</td></tr>
+<tr><td id="np-23">Intermediate uveitis</td><td id="np-24">Vitreous（玻璃體）</td><td id="np-25">Pars planitis（睫狀體扁平部炎）、posterior cyclitis、hyalitis</td></tr>
+<tr><td id="np-26">Posterior uveitis</td><td id="np-27">Retina or choroid</td><td id="np-28">Focal/multifocal/diffuse choroiditis、chorioretinitis、retinochoroiditis、retinitis、neuroretinitis</td></tr>
+<tr><td id="np-29">Panuveitis</td><td id="np-30">Anterior chamber、vitreous 及 retina 或 choroid</td><td id="np-31">—</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-1）<span class="ref">p.69</span></p>
+<p id="np-32">出處（Table 5-1）<span class="ref">p.69</span></p>
 <h3 id="ch5-s2-3">Table 5-2 描述詞（onset、duration、course）</h3>
 <table class="ted-table">
 <thead><tr><th>Category（類別）</th><th>Descriptor（描述詞）</th><th>Definition（定義）</th></tr></thead>
 <tbody>
-<tr><td>Onset</td><td>Sudden / Insidious</td><td>突發 / 隱伏</td></tr>
-<tr><td>Duration</td><td>Limited</td><td><span class="num">≤3 個月</span></td></tr>
-<tr><td>Duration</td><td>Persistent</td><td><span class="num">&gt;3 個月</span></td></tr>
-<tr><td>Course</td><td><strong>Acute</strong></td><td>突然發作且病程有限的單次發作</td></tr>
-<tr><td>Course</td><td><strong>Recurrent</strong></td><td>反覆發作，發作之間有<strong>未治療</strong>下的不活動期 <span class="num">≥3 個月</span></td></tr>
-<tr><td>Course</td><td><strong>Chronic</strong></td><td>Persistent uveitis，<strong>停止治療後 <span class="num">&lt;3 個月</span>即復發</strong></td></tr>
+<tr><td id="np-33">Onset</td><td id="np-34">Sudden / Insidious</td><td id="np-35">突發 / 隱伏</td></tr>
+<tr><td id="np-36">Duration</td><td id="np-37">Limited</td><td id="np-38"><span class="num">≤3 個月</span></td></tr>
+<tr><td id="np-39">Duration</td><td id="np-40">Persistent</td><td id="np-41"><span class="num">&gt;3 個月</span></td></tr>
+<tr><td id="np-42">Course</td><td id="np-43"><strong>Acute</strong></td><td id="np-44">突然發作且病程有限的單次發作</td></tr>
+<tr><td id="np-45">Course</td><td id="np-46"><strong>Recurrent</strong></td><td id="np-47">反覆發作，發作之間有<strong>未治療</strong>下的不活動期 <span class="num">≥3 個月</span></td></tr>
+<tr><td id="np-48">Course</td><td id="np-49"><strong>Chronic</strong></td><td id="np-50">Persistent uveitis，<strong>停止治療後 <span class="num">&lt;3 個月</span>即復發</strong></td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-2）<span class="ref">p.70</span></p>
+<p id="np-51">出處（Table 5-2）<span class="ref">p.70</span></p>
 <h3 id="ch5-s2-4">Table 5-3 活性用語</h3>
 <table class="ted-table">
 <thead><tr><th>Term（用語）</th><th>Definition（定義）</th></tr></thead>
 <tbody>
-<tr><td>Inactive</td><td>前房細胞 grade <span class="num">0</span></td></tr>
-<tr><td>Worsening activity</td><td>發炎程度（如前房細胞、vitreous haze）<strong>上升兩級</strong>，或由 <span class="num">3+</span> 升到 <span class="num">4+</span></td></tr>
-<tr><td>Improved activity</td><td>發炎程度<strong>下降兩級</strong>，或降到 grade <span class="num">0</span></td></tr>
-<tr><td>Remission</td><td><strong>停止所有眼部治療後</strong>仍不活動 <span class="num">≥3 個月</span></td></tr>
+<tr><td id="np-52">Inactive</td><td id="np-53">前房細胞 grade <span class="num">0</span></td></tr>
+<tr><td id="np-54">Worsening activity</td><td id="np-55">發炎程度（如前房細胞、vitreous haze）<strong>上升兩級</strong>，或由 <span class="num">3+</span> 升到 <span class="num">4+</span></td></tr>
+<tr><td id="np-56">Improved activity</td><td id="np-57">發炎程度<strong>下降兩級</strong>，或降到 grade <span class="num">0</span></td></tr>
+<tr><td id="np-58">Remission</td><td id="np-59"><strong>停止所有眼部治療後</strong>仍不活動 <span class="num">≥3 個月</span></td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-3）<span class="ref">p.70</span></p>
+<p id="np-60">出處（Table 5-3）<span class="ref">p.70</span></p>
 <ul>
-<li><mark>Remission 的前提是「停掉所有眼部治療」</mark>後不活動 <span class="num">≥3 個月</span>；在治療中被藥物控制住（即使超過 3 個月）只是 inactive，不算 remission。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1008" data-q="1008">第 1008 題</a></span><span class="ref">p.70</span></li>
-<li><mark>Chronic vs recurrent 看停藥後多久復發</mark>：停藥 <span class="num">&lt;3 個月</span>就復發 → chronic；兩次發作之間有 <span class="num">≥3 個月</span>不需治療的不活動期 → recurrent。Acute 則是突發、病程有限（limited，<span class="num">≤3 個月</span>）的單次發作。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1008" data-q="1008">第 1008 題</a></span><span class="ref">p.70</span></li>
-<li>例：VKH 經類固醇治療約 8 個月、停藥 6 週（<span class="num">&lt;3 個月</span>）即前房細胞 2+ → <strong>chronic</strong>；不是 recurrent（未達 3 個月無治療不活動期）、不是 acute、更不是 remission。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1008" data-q="1008">第 1008 題</a></span><span class="ref">p.70</span></li>
-<li>Worsening 的「兩級」以 SUN 分級的級距計算：前房細胞 0 → 0.5+ → 1+，故 <mark>0 升到 1+ 即為 two-step increase</mark>（0.5+ 也是一級）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.70, p.77</span></li>
+<li id="np-61"><mark>Remission 的前提是「停掉所有眼部治療」</mark>後不活動 <span class="num">≥3 個月</span>；在治療中被藥物控制住（即使超過 3 個月）只是 inactive，不算 remission。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1008" data-q="1008">第 1008 題</a></span><span class="ref">p.70</span></li>
+<li id="np-62"><mark>Chronic vs recurrent 看停藥後多久復發</mark>：停藥 <span class="num">&lt;3 個月</span>就復發 → chronic；兩次發作之間有 <span class="num">≥3 個月</span>不需治療的不活動期 → recurrent。Acute 則是突發、病程有限（limited，<span class="num">≤3 個月</span>）的單次發作。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1008" data-q="1008">第 1008 題</a></span><span class="ref">p.70</span></li>
+<li id="np-63">例：VKH 經類固醇治療約 8 個月、停藥 6 週（<span class="num">&lt;3 個月</span>）即前房細胞 2+ → <strong>chronic</strong>；不是 recurrent（未達 3 個月無治療不活動期）、不是 acute、更不是 remission。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1008" data-q="1008">第 1008 題</a></span><span class="ref">p.70</span></li>
+<li id="np-64">Worsening 的「兩級」以 SUN 分級的級距計算：前房細胞 0 → 0.5+ → 1+，故 <mark>0 升到 1+ 即為 two-step increase</mark>（0.5+ 也是一級）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.70, p.77</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s2-5">易錯陷阱</h3><ul>
-<li>「Remission＝治療中發炎消失並受藥物控制 3 個月以上」是錯的；必須是停藥後 <span class="num">≥3 個月</span>仍不活動。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a></span><span class="ref">p.70</span></li>
-<li>停藥 6 週復發是 chronic，不是 recurrent：recurrent 要求發作間隔中「未治療」的不活動期 <span class="num">≥3 個月</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1008" data-q="1008">第 1008 題</a></span><span class="ref">p.70</span></li>
-<li>前房與玻璃體都有細胞不一定是 panuveitis；沒有視網膜/脈絡膜病灶時應稱 anterior and intermediate uveitis。<span class="ref">p.69</span></li>
-<li>由 0 升到 1+ 已算兩級惡化（中間隔著 0.5+）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.70, p.77</span></li>
+<li id="np-65">「Remission＝治療中發炎消失並受藥物控制 3 個月以上」是錯的；必須是停藥後 <span class="num">≥3 個月</span>仍不活動。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-997" data-q="997">第 997 題</a></span><span class="ref">p.70</span></li>
+<li id="np-66">停藥 6 週復發是 chronic，不是 recurrent：recurrent 要求發作間隔中「未治療」的不活動期 <span class="num">≥3 個月</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1008" data-q="1008">第 1008 題</a></span><span class="ref">p.70</span></li>
+<li id="np-67">前房與玻璃體都有細胞不一定是 panuveitis；沒有視網膜/脈絡膜病灶時應稱 anterior and intermediate uveitis。<span class="ref">p.69</span></li>
+<li id="np-68">由 0 升到 1+ 已算兩級惡化（中間隔著 0.5+）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.70, p.77</span></li>
 </ul></div>
 
 <h2 id="ch5-s3">三、Anatomical classification（解剖分類）各論與視網膜血管炎</h2>
 <h3 id="ch5-s3-1">Anterior uveitis（前葡萄膜炎）</h3>
 <ul>
-<li>發炎徵象主要在前房，源於 iris 與 ciliary body 發炎；只在前房稱 <strong>iritis</strong>，retrolental（晶體後，前玻璃體）空間也有細胞可稱 <strong>iridocyclitis</strong>。<span class="ref">p.70</span></li>
-<li>命名慣例：多個構造受累時<strong>先寫主要發炎部位</strong>，例如 <strong>sclerokeratitis</strong>＝伴隨 scleritis 的 keratitis；源自角膜、續發前房發炎＝<strong>keratouveitis</strong>；鞏膜與葡萄膜同時發炎＝<strong>sclerouveitis</strong>。<span class="ref">p.70</span></li>
-<li>嚴重或慢性前葡萄膜炎的結構併發症：corneal edema、band keratopathy（帶狀角膜病變）、虹膜異常、cataract、uveitic macular edema、optic disc swelling；這些不屬正式分類，<mark>出現 macular edema 等後段併發症不代表就是 posterior/panuveitis</mark>。<span class="ref">p.71</span></li>
+<li id="np-69">發炎徵象主要在前房，源於 iris 與 ciliary body 發炎；只在前房稱 <strong>iritis</strong>，retrolental（晶體後，前玻璃體）空間也有細胞可稱 <strong>iridocyclitis</strong>。<span class="ref">p.70</span></li>
+<li id="np-70">命名慣例：多個構造受累時<strong>先寫主要發炎部位</strong>，例如 <strong>sclerokeratitis</strong>＝伴隨 scleritis 的 keratitis；源自角膜、續發前房發炎＝<strong>keratouveitis</strong>；鞏膜與葡萄膜同時發炎＝<strong>sclerouveitis</strong>。<span class="ref">p.70</span></li>
+<li id="np-71">嚴重或慢性前葡萄膜炎的結構併發症：corneal edema、band keratopathy（帶狀角膜病變）、虹膜異常、cataract、uveitic macular edema、optic disc swelling；這些不屬正式分類，<mark>出現 macular edema 等後段併發症不代表就是 posterior/panuveitis</mark>。<span class="ref">p.71</span></li>
 </ul>
 <h3 id="ch5-s3-2">Intermediate uveitis（中間葡萄膜炎）</h3>
 <ul>
-<li>發炎以 vitreous cavity 最明顯；vitritis 來自 ciliary body、視網膜血管、pars plana 及/或周邊視網膜發炎；表現 vitreous haze、細胞碎屑，常伴周邊或瀰漫性視網膜血管滲漏。<span class="ref">p.71</span></li>
-<li><mark>Macular edema 是中間葡萄膜炎最常見的結構併發症</mark>；嚴重/慢性者可有周邊 exudative 或 tractional detachment、retinal neovascularization、cataract、retrolental membrane。<span class="ref">p.71</span></li>
-<li><strong>Pars planitis</strong>：中間葡萄膜炎的一個 subset，周邊視網膜前有滲出/發炎碎屑聚積，且<strong>沒有相關感染或全身疾病</strong>。<span class="ref">p.71</span></li>
+<li id="np-72">發炎以 vitreous cavity 最明顯；vitritis 來自 ciliary body、視網膜血管、pars plana 及/或周邊視網膜發炎；表現 vitreous haze、細胞碎屑，常伴周邊或瀰漫性視網膜血管滲漏。<span class="ref">p.71</span></li>
+<li id="np-73"><mark>Macular edema 是中間葡萄膜炎最常見的結構併發症</mark>；嚴重/慢性者可有周邊 exudative 或 tractional detachment、retinal neovascularization、cataract、retrolental membrane。<span class="ref">p.71</span></li>
+<li id="np-74"><strong>Pars planitis</strong>：中間葡萄膜炎的一個 subset，周邊視網膜前有滲出/發炎碎屑聚積，且<strong>沒有相關感染或全身疾病</strong>。<span class="ref">p.71</span></li>
 </ul>
 <h3 id="ch5-s3-3">Posterior uveitis 與 panuveitis</h3>
 <ul>
-<li>Posterior uveitis：主要侵犯 retina 及/或 choroid；細胞可瀰漫於玻璃體、位於活動性病灶上方或 posterior vitreous face；眼底見 focal/multifocal/diffuse retinitis 及/或 choroiditis，常合併 retinal vasculitis；部分臨床型態幾乎可直接診斷（nearly pathognomonic）。<span class="ref">p.71</span></li>
-<li><mark>Macular edema、epiretinal membrane（視網膜前膜）、retinal 或 choroidal neovascularization 等結構併發症<strong>不足以</strong>歸類為 posterior uveitis</mark>。<span class="ref">p.71</span></li>
-<li>Panuveitis：眼內所有解剖部位皆有發炎且<strong>無明顯主要部位</strong>；可合併感染或非感染性全身疾病。<span class="ref">p.71</span></li>
+<li id="np-75">Posterior uveitis：主要侵犯 retina 及/或 choroid；細胞可瀰漫於玻璃體、位於活動性病灶上方或 posterior vitreous face；眼底見 focal/multifocal/diffuse retinitis 及/或 choroiditis，常合併 retinal vasculitis；部分臨床型態幾乎可直接診斷（nearly pathognomonic）。<span class="ref">p.71</span></li>
+<li id="np-76"><mark>Macular edema、epiretinal membrane（視網膜前膜）、retinal 或 choroidal neovascularization 等結構併發症<strong>不足以</strong>歸類為 posterior uveitis</mark>。<span class="ref">p.71</span></li>
+<li id="np-77">Panuveitis：眼內所有解剖部位皆有發炎且<strong>無明顯主要部位</strong>；可合併感染或非感染性全身疾病。<span class="ref">p.71</span></li>
 </ul>
 <h3 id="ch5-s3-4">Retinal vasculitis（視網膜血管炎）</h3>
 <ul>
-<li>定義：視網膜血管變化<strong>合併眼內發炎</strong>；有血管變化但無可見發炎者稱 <strong>vasculopathy（血管病變）</strong>。FA 上表現 perivascular sheathing（血管周圍鞘化）、vascular leakage（滲漏）或 occlusion（阻塞）。<span class="ref">p.71</span></li>
-<li><mark>Peripheral vascular sheathing（周邊血管鞘化）可見於 intermediate uveitis，但<strong>不足以</strong>歸為 posterior uveitis/panuveitis</mark>；retinal vasculitis 也不是任何一型葡萄膜炎解剖分類的定義條件。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.71–72</span></li>
+<li id="np-78">定義：視網膜血管變化<strong>合併眼內發炎</strong>；有血管變化但無可見發炎者稱 <strong>vasculopathy（血管病變）</strong>。FA 上表現 perivascular sheathing（血管周圍鞘化）、vascular leakage（滲漏）或 occlusion（阻塞）。<span class="ref">p.71</span></li>
+<li id="np-79"><mark>Peripheral vascular sheathing（周邊血管鞘化）可見於 intermediate uveitis，但<strong>不足以</strong>歸為 posterior uveitis/panuveitis</mark>；retinal vasculitis 也不是任何一型葡萄膜炎解剖分類的定義條件。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.71–72</span></li>
 </ul>
 <h3 id="ch5-s3-5">Table 5-4 Diseases with retinal vasculitis（伴視網膜血管炎的疾病）</h3>
 <table class="ted-table">
 <thead><tr><th>Primarily arteritis（以動脈炎為主）</th><th>Primarily phlebitis（以靜脈炎為主）</th><th>Arteritis and phlebitis（動靜脈皆有）</th></tr></thead>
 <tbody>
-<tr><td>Systemic lupus erythematosus（SLE，全身性紅斑性狼瘡）</td><td>Sarcoidosis（類肉瘤病）</td><td>Ocular toxoplasmosis（眼弓蟲症）</td></tr>
-<tr><td>Polyarteritis nodosa（PAN，結節性多動脈炎）</td><td>Multiple sclerosis（MS，多發性硬化症）</td><td>Relapsing polychondritis（復發性多軟骨炎）</td></tr>
-<tr><td>Syphilis（梅毒）</td><td>Behcet disease</td><td>Granulomatosis with polyangiitis（GPA，肉芽腫合併多血管炎）</td></tr>
-<tr><td>HSV、VZV（ARN/BARN）</td><td>Birdshot chorioretinopathy</td><td>Crohn disease（克隆氏症）</td></tr>
-<tr><td>HSV、VZV（PORN）</td><td>HIV paraviral syndrome</td><td><strong>Frosted branch angiitis（霜樣分支血管炎）</strong></td></tr>
-<tr><td><strong>IRVAN</strong></td><td><strong>Eales disease（伊爾斯病）</strong></td><td>—</td></tr>
-<tr><td>Churg-Strauss syndrome</td><td>—</td><td>—</td></tr>
-<tr><td><strong>Susac syndrome（蘇薩克症候群）</strong></td><td>—</td><td>—</td></tr>
+<tr><td id="np-80">Systemic lupus erythematosus（SLE，全身性紅斑性狼瘡）</td><td id="np-81">Sarcoidosis（類肉瘤病）</td><td id="np-82">Ocular toxoplasmosis（眼弓蟲症）</td></tr>
+<tr><td id="np-83">Polyarteritis nodosa（PAN，結節性多動脈炎）</td><td id="np-84">Multiple sclerosis（MS，多發性硬化症）</td><td id="np-85">Relapsing polychondritis（復發性多軟骨炎）</td></tr>
+<tr><td id="np-86">Syphilis（梅毒）</td><td id="np-87">Behcet disease</td><td id="np-88">Granulomatosis with polyangiitis（GPA，肉芽腫合併多血管炎）</td></tr>
+<tr><td id="np-89">HSV、VZV（ARN/BARN）</td><td id="np-90">Birdshot chorioretinopathy</td><td id="np-91">Crohn disease（克隆氏症）</td></tr>
+<tr><td id="np-92">HSV、VZV（PORN）</td><td id="np-93">HIV paraviral syndrome</td><td id="np-94"><strong>Frosted branch angiitis（霜樣分支血管炎）</strong></td></tr>
+<tr><td id="np-95"><strong>IRVAN</strong></td><td id="np-96"><strong>Eales disease（伊爾斯病）</strong></td><td id="np-97">—</td></tr>
+<tr><td id="np-98">Churg-Strauss syndrome</td><td id="np-99">—</td><td id="np-100">—</td></tr>
+<tr><td id="np-101"><strong>Susac syndrome（蘇薩克症候群）</strong></td><td id="np-102">—</td><td id="np-103">—</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-4，已對照 PDF 版面確認欄位）<span class="ref">p.72</span></p>
+<p id="np-104">出處（Table 5-4，已對照 PDF 版面確認欄位）<span class="ref">p.72</span></p>
 <ul>
-<li><mark>Susac syndrome 屬 primarily arteritis</mark>（不是 phlebitis）：本質為免疫介導的 occlusive microvascular endotheliopathy（阻塞性微血管內皮病變），三聯徵為 encephalopathy、低至中頻感音性聽損及/或耳鳴、<strong>branch retinal artery occlusions（視網膜分支動脈阻塞）</strong>（本章外，BCSC 9 第 10 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1087" data-q="1087">第 1087 題</a></span><span class="ref">p.72, p.206–207</span></li>
-<li><strong>IRVAN</strong>（idiopathic retinal vasculitis, aneurysms, and neuroretinitis，特發性視網膜血管炎、動脈瘤與神經視網膜炎）：primarily arteritis；<strong>Eales disease</strong>：primarily phlebitis（典型為 periphlebitis，可伴靜脈阻塞、周邊無灌流、新生血管，本章外）；<strong>Frosted branch angiitis</strong>：arteritis and phlebitis。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1087" data-q="1087">第 1087 題</a></span><span class="ref">p.72, p.240</span></li>
-<li>SLE、PAN 列在 arteritis 欄，GPA 列在動靜脈皆有欄。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.72</span></li>
+<li id="np-105"><mark>Susac syndrome 屬 primarily arteritis</mark>（不是 phlebitis）：本質為免疫介導的 occlusive microvascular endotheliopathy（阻塞性微血管內皮病變），三聯徵為 encephalopathy、低至中頻感音性聽損及/或耳鳴、<strong>branch retinal artery occlusions（視網膜分支動脈阻塞）</strong>（本章外，BCSC 9 第 10 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1087" data-q="1087">第 1087 題</a></span><span class="ref">p.72, p.206–207</span></li>
+<li id="np-106"><strong>IRVAN</strong>（idiopathic retinal vasculitis, aneurysms, and neuroretinitis，特發性視網膜血管炎、動脈瘤與神經視網膜炎）：primarily arteritis；<strong>Eales disease</strong>：primarily phlebitis（典型為 periphlebitis，可伴靜脈阻塞、周邊無灌流、新生血管，本章外）；<strong>Frosted branch angiitis</strong>：arteritis and phlebitis。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1087" data-q="1087">第 1087 題</a></span><span class="ref">p.72, p.240</span></li>
+<li id="np-107">SLE、PAN 列在 arteritis 欄，GPA 列在動靜脈皆有欄。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.72</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s3-6">易錯陷阱</h3><ul>
-<li>Susac＝動脈（BRAO）；Eales＝靜脈；Frosted branch angiitis＝兩者；IRVAN＝動脈。考題把 Susac 寫成 phlebitis 是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1087" data-q="1087">第 1087 題</a></span><span class="ref">p.72</span></li>
-<li>中間葡萄膜炎出現周邊血管鞘化仍是 intermediate uveitis，不升級為 posterior/panuveitis。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.71</span></li>
-<li>前葡萄膜炎合併 macular edema 仍是 anterior uveitis；併發症不改變解剖分類。<span class="ref">p.71</span></li>
+<li id="np-108">Susac＝動脈（BRAO）；Eales＝靜脈；Frosted branch angiitis＝兩者；IRVAN＝動脈。考題把 Susac 寫成 phlebitis 是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1087" data-q="1087">第 1087 題</a></span><span class="ref">p.72</span></li>
+<li id="np-109">中間葡萄膜炎出現周邊血管鞘化仍是 intermediate uveitis，不升級為 posterior/panuveitis。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.71</span></li>
+<li id="np-110">前葡萄膜炎合併 macular edema 仍是 anterior uveitis；併發症不改變解剖分類。<span class="ref">p.71</span></li>
 </ul></div>
 
 <h2 id="ch5-s4">四、Classification by clinical features（依臨床特徵分類）：granulomatous vs nongranulomatous</h2>
 <ul>
-<li>SUN 描述 onset、duration、course；另可描述嚴重度、單眼/雙眼或兩眼交替，以及病灶（特別是 chorioretinal lesions 與 keratic precipitates）的外觀、大小、分布。<span class="ref">p.72</span></li>
-<li>臨床上分 <strong>granulomatous（肉芽腫性）</strong>與 <strong>nongranulomatous（非肉芽腫性）</strong>，但<mark>臨床描述不一定與組織學相符</mark>，且受疾病分期、抗原量、治療（如開始類固醇後）影響；肉芽腫性表現可隨慢性化或治療而變得像非肉芽腫性。<span class="ref">p.72</span></li>
+<li id="np-111">SUN 描述 onset、duration、course；另可描述嚴重度、單眼/雙眼或兩眼交替，以及病灶（特別是 chorioretinal lesions 與 keratic precipitates）的外觀、大小、分布。<span class="ref">p.72</span></li>
+<li id="np-112">臨床上分 <strong>granulomatous（肉芽腫性）</strong>與 <strong>nongranulomatous（非肉芽腫性）</strong>，但<mark>臨床描述不一定與組織學相符</mark>，且受疾病分期、抗原量、治療（如開始類固醇後）影響；肉芽腫性表現可隨慢性化或治療而變得像非肉芽腫性。<span class="ref">p.72</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（類型）</th><th>Histology（組織學）</th><th>Clinical signs（臨床表現）</th><th>Examples（代表疾病）</th></tr></thead>
 <tbody>
-<tr><td>Granulomatous</td><td>Epithelioid cells（上皮樣細胞）與 giant cells（巨細胞）</td><td>大型、偏下方、成團的 KPs；虹膜、玻璃體、視神經、脈絡膜的結節或乳脂狀沉積</td><td>Discrete granuloma：sarcoidosis、tuberculosis；diffuse：VKH、sympathetic ophthalmia（交感性眼炎）；zonal：lens-induced uveitis</td></tr>
-<tr><td>Nongranulomatous</td><td>Lymphocyte 與 plasma cell 浸潤</td><td>較小、瀰漫分布的 KPs；無葡萄膜沉積物</td><td>如 HLA-B27 急性前葡萄膜炎（本章外）</td></tr>
-<tr><td>Viral anterior uveitis</td><td>—</td><td>可呈肉芽腫性或非肉芽腫性</td><td>HSV、VZV、CMV</td></tr>
+<tr><td id="np-113">Granulomatous</td><td id="np-114">Epithelioid cells（上皮樣細胞）與 giant cells（巨細胞）</td><td id="np-115">大型、偏下方、成團的 KPs；虹膜、玻璃體、視神經、脈絡膜的結節或乳脂狀沉積</td><td id="np-116">Discrete granuloma：sarcoidosis、tuberculosis；diffuse：VKH、sympathetic ophthalmia（交感性眼炎）；zonal：lens-induced uveitis</td></tr>
+<tr><td id="np-117">Nongranulomatous</td><td id="np-118">Lymphocyte 與 plasma cell 浸潤</td><td id="np-119">較小、瀰漫分布的 KPs；無葡萄膜沉積物</td><td id="np-120">如 HLA-B27 急性前葡萄膜炎（本章外）</td></tr>
+<tr><td id="np-121">Viral anterior uveitis</td><td id="np-122">—</td><td id="np-123">可呈肉芽腫性或非肉芽腫性</td><td id="np-124">HSV、VZV、CMV</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.72, p.138</span></p>
+<p id="np-125">出處 <span class="ref">p.72, p.138</span></p>
 <ul>
-<li>單眼 <strong>mutton-fat KP（羊脂狀 KP）合併高眼壓</strong>：herpetic iritis（trabeculitis 使眼壓很高，可達 <span class="num">50–60</span> mm Hg）、ocular toxoplasmosis（輕至中度肉芽腫性前葡萄膜炎，最多 <span class="num">20%</span> 就診時眼壓急性升高）、ARN（早期前段發炎明顯、KPs、眼壓升高）都可能；<mark>HLA-B27 急性前葡萄膜炎為 nongranulomatous、細小 KP，眼壓通常偏低</mark>，最不可能（本章外，BCSC 9 第 8、12 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-972" data-q="972">第 972 題</a></span><span class="ref">p.72, p.138, p.257, p.259, p.286</span></li>
+<li id="np-126">單眼 <strong>mutton-fat KP（羊脂狀 KP）合併高眼壓</strong>：herpetic iritis（trabeculitis 使眼壓很高，可達 <span class="num">50–60</span> mm Hg）、ocular toxoplasmosis（輕至中度肉芽腫性前葡萄膜炎，最多 <span class="num">20%</span> 就診時眼壓急性升高）、ARN（早期前段發炎明顯、KPs、眼壓升高）都可能；<mark>HLA-B27 急性前葡萄膜炎為 nongranulomatous、細小 KP，眼壓通常偏低</mark>，最不可能（本章外，BCSC 9 第 8、12 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-972" data-q="972">第 972 題</a></span><span class="ref">p.72, p.138, p.257, p.259, p.286</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s4-1">易錯陷阱</h3><ul>
-<li>VKH 與 sympathetic ophthalmia 是 <strong>diffuse</strong> 肉芽腫性發炎；sarcoidosis、TB 才是 discrete granuloma；lens-induced 是 zonal。<span class="ref">p.72</span></li>
-<li>Viral anterior uveitis 不一定是非肉芽腫性，也可以有 mutton-fat 型 KP。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-972" data-q="972">第 972 題</a></span><span class="ref">p.72</span></li>
+<li id="np-127">VKH 與 sympathetic ophthalmia 是 <strong>diffuse</strong> 肉芽腫性發炎；sarcoidosis、TB 才是 discrete granuloma；lens-induced 是 zonal。<span class="ref">p.72</span></li>
+<li id="np-128">Viral anterior uveitis 不一定是非肉芽腫性，也可以有 mutton-fat 型 KP。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-972" data-q="972">第 972 題</a></span><span class="ref">p.72</span></li>
 </ul></div>
 
 <h2 id="ch5-s5">五、Symptoms of uveitis（症狀）</h2>
 <ul>
-<li>症狀取決於發炎部位、發作速度、病程長短、病程型態，有時與病因有關。<span class="ref">p.73</span></li>
-<li><strong>急性前葡萄膜炎</strong>：眼痛、紅、photophobia（畏光）、視力模糊；疼痛來自虹膜發炎相關的 ciliary spasm（睫狀肌痙攣），可沿 trigeminal nerve（三叉神經，第五對腦神經）分布區放射；angle closure 或 trabeculitis 造成的 IOP 上升也會痛。<span class="ref">p.73</span></li>
-<li><mark><strong>Juvenile idiopathic arthritis（JIA，幼年型特發性關節炎）</strong>的慢性前葡萄膜炎可完全無症狀</mark>；但仍可因 calcific band keratopathy、cataract、macular edema 導致視力模糊。<span class="ref">p.73</span></li>
-<li><strong>單純中間葡萄膜炎</strong>：白而安靜的眼睛，飛蚊（玻璃體細胞與碎屑投影於視網膜）與視力模糊（macular edema 或視軸上的玻璃體混濁）。<span class="ref">p.73</span></li>
-<li><strong>後葡萄膜炎</strong>：<mark>無痛</mark>視力模糊、飛蚊、photopsia（閃光感）、scotoma（暗點）、metamorphopsia（視物變形）、nyctalopia（夜盲）；視力模糊主要因 retinitis/choroiditis 直接影響黃斑，或續發 macular edema。<span class="ref">p.73</span></li>
+<li id="np-129">症狀取決於發炎部位、發作速度、病程長短、病程型態，有時與病因有關。<span class="ref">p.73</span></li>
+<li id="np-130"><strong>急性前葡萄膜炎</strong>：眼痛、紅、photophobia（畏光）、視力模糊；疼痛來自虹膜發炎相關的 ciliary spasm（睫狀肌痙攣），可沿 trigeminal nerve（三叉神經，第五對腦神經）分布區放射；angle closure 或 trabeculitis 造成的 IOP 上升也會痛。<span class="ref">p.73</span></li>
+<li id="np-131"><mark><strong>Juvenile idiopathic arthritis（JIA，幼年型特發性關節炎）</strong>的慢性前葡萄膜炎可完全無症狀</mark>；但仍可因 calcific band keratopathy、cataract、macular edema 導致視力模糊。<span class="ref">p.73</span></li>
+<li id="np-132"><strong>單純中間葡萄膜炎</strong>：白而安靜的眼睛，飛蚊（玻璃體細胞與碎屑投影於視網膜）與視力模糊（macular edema 或視軸上的玻璃體混濁）。<span class="ref">p.73</span></li>
+<li id="np-133"><strong>後葡萄膜炎</strong>：<mark>無痛</mark>視力模糊、飛蚊、photopsia（閃光感）、scotoma（暗點）、metamorphopsia（視物變形）、nyctalopia（夜盲）；視力模糊主要因 retinitis/choroiditis 直接影響黃斑，或續發 macular edema。<span class="ref">p.73</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Acute anterior segment inflammation（急性前段發炎）</th><th>Posterior segment inflammation（後段發炎）</th></tr></thead>
 <tbody>
-<tr><td>Redness、pain、photophobia、epiphora（流淚）、blurred vision</td><td>Floaters、photopsias、scotomas（中央或周邊）、metamorphopsia、nyctalopia、blurred vision</td></tr>
+<tr><td id="np-134">Redness、pain、photophobia、epiphora（流淚）、blurred vision</td><td id="np-135">Floaters、photopsias、scotomas（中央或周邊）、metamorphopsia、nyctalopia、blurred vision</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-5；視力模糊可來自屈光改變、發炎細胞遮擋、白內障、鈣化帶狀角膜病變、黃斑水腫、retinochoroiditis、角膜/黃斑/視盤水腫；部分類型可無症狀）<span class="ref">p.73</span></p>
+<p id="np-136">出處（Table 5-5；視力模糊可來自屈光改變、發炎細胞遮擋、白內障、鈣化帶狀角膜病變、黃斑水腫、retinochoroiditis、角膜/黃斑/視盤水腫；部分類型可無症狀）<span class="ref">p.73</span></p>
 
 <h2 id="ch5-s6">六、Signs of uveitis（徵候）：前段</h2>
 <h3 id="ch5-s6-1">發炎機轉與前段表現</h3>
 <ul>
-<li>發炎介質造成：血管擴張（<strong>ciliary flush（睫狀充血）</strong>）、血管通透性增加 → 蛋白質進入眼內（<strong>aqueous flare（房水閃輝）</strong>）、chemotaxis（趨化作用）→ 房水與玻璃體細胞反應。<span class="ref">p.73</span></li>
-<li>前段徵候與結構併發症：發炎細胞、flare、hypopyon（前房蓄膿）、前房 fibrin（纖維素）、keratic precipitates（KPs，角膜後沉澱物）、iris nodules（虹膜結節）、虹膜萎縮或 heterochromia（虹膜異色）、瞳孔縮小、前後粘連、色素散布；<mark>cataract 與 band keratopathy 在慢性比急性葡萄膜炎更常見</mark>。<span class="ref">p.74</span></li>
+<li id="np-137">發炎介質造成：血管擴張（<strong>ciliary flush（睫狀充血）</strong>）、血管通透性增加 → 蛋白質進入眼內（<strong>aqueous flare（房水閃輝）</strong>）、chemotaxis（趨化作用）→ 房水與玻璃體細胞反應。<span class="ref">p.73</span></li>
+<li id="np-138">前段徵候與結構併發症：發炎細胞、flare、hypopyon（前房蓄膿）、前房 fibrin（纖維素）、keratic precipitates（KPs，角膜後沉澱物）、iris nodules（虹膜結節）、虹膜萎縮或 heterochromia（虹膜異色）、瞳孔縮小、前後粘連、色素散布；<mark>cataract 與 band keratopathy 在慢性比急性葡萄膜炎更常見</mark>。<span class="ref">p.74</span></li>
 </ul>
 <h3 id="ch5-s6-2">Table 5-6 葡萄膜炎相關表現（依部位精簡）</h3>
 <ul>
-<li>眼瞼與皮膚：vitiligo（白斑）、結節、眼瞼下垂/水腫；結膜或鞏膜：perilimbal（ciliary flush）、瀰漫/扇形、表鞏膜或鞏膜充血、結節、鞏膜變薄。<span class="ref">p.74</span></li>
-<li>角膜內皮：KPs（瀰漫或下方角膜）、fibrin、非特異性色素；前房：細胞、flare（蛋白質滲入）、色素；虹膜：結節、posterior synechiae（後粘連）、萎縮、異色；隅角：peripheral anterior synechiae（周邊前粘連）、結節、血管化。<span class="ref">p.74</span></li>
-<li>眼壓：hypotony（低眼壓）、高眼壓、trabeculitis 或續發性青光眼；玻璃體：細胞（單顆或成團）、haze（蛋白質滲入）、traction bands；pars plana：<strong>snowbanks</strong>。<span class="ref">p.74</span></li>
-<li>視網膜：增厚/變白（retinitis、浸潤、缺血、壞死）、血管發炎性 cuffing（sheathing）、新生血管、水腫、黃斑水腫、ERM、視網膜下液、RPE 肥厚/聚集/流失；脈絡膜：發炎浸潤/增厚、萎縮、新生血管；視神經：水腫（非特異性）、新生血管、蒼白。<span class="ref">p.74</span></li>
+<li id="np-139">眼瞼與皮膚：vitiligo（白斑）、結節、眼瞼下垂/水腫；結膜或鞏膜：perilimbal（ciliary flush）、瀰漫/扇形、表鞏膜或鞏膜充血、結節、鞏膜變薄。<span class="ref">p.74</span></li>
+<li id="np-140">角膜內皮：KPs（瀰漫或下方角膜）、fibrin、非特異性色素；前房：細胞、flare（蛋白質滲入）、色素；虹膜：結節、posterior synechiae（後粘連）、萎縮、異色；隅角：peripheral anterior synechiae（周邊前粘連）、結節、血管化。<span class="ref">p.74</span></li>
+<li id="np-141">眼壓：hypotony（低眼壓）、高眼壓、trabeculitis 或續發性青光眼；玻璃體：細胞（單顆或成團）、haze（蛋白質滲入）、traction bands；pars plana：<strong>snowbanks</strong>。<span class="ref">p.74</span></li>
+<li id="np-142">視網膜：增厚/變白（retinitis、浸潤、缺血、壞死）、血管發炎性 cuffing（sheathing）、新生血管、水腫、黃斑水腫、ERM、視網膜下液、RPE 肥厚/聚集/流失；脈絡膜：發炎浸潤/增厚、萎縮、新生血管；視神經：水腫（非特異性）、新生血管、蒼白。<span class="ref">p.74</span></li>
 </ul>
 <h3 id="ch5-s6-3">前房細胞與 flare 分級（SUN）</h3>
 <ul>
-<li>計數方法：裂隙燈 <strong><span class="num">1 × 1-mm</span> 高倍（<span class="num">16×–20×</span>）光束</strong>、全強度、<span class="num">45°–60°</span> 角、暗室中計算視野內細胞數。<span class="ref">p.76–77</span></li>
-<li>Grade <span class="num">0.5+</span> 要求前房 <span class="num">4</span> 個象限每個高倍視野至少 <span class="num">1</span> 顆細胞。<span class="ref">p.77</span></li>
-<li>Flare 依前房內裂隙光束可見程度定義；SUN 採用 Hogan 等人的分級法。正常眼前房光學上是空的、光束呈中斷狀；嚴重發炎時蛋白質散射光線、光束連續（4+ flare）。<span class="ref">p.75, p.77</span></li>
+<li id="np-143">計數方法：裂隙燈 <strong><span class="num">1 × 1-mm</span> 高倍（<span class="num">16×–20×</span>）光束</strong>、全強度、<span class="num">45°–60°</span> 角、暗室中計算視野內細胞數。<span class="ref">p.76–77</span></li>
+<li id="np-144">Grade <span class="num">0.5+</span> 要求前房 <span class="num">4</span> 個象限每個高倍視野至少 <span class="num">1</span> 顆細胞。<span class="ref">p.77</span></li>
+<li id="np-145">Flare 依前房內裂隙光束可見程度定義；SUN 採用 Hogan 等人的分級法。正常眼前房光學上是空的、光束呈中斷狀；嚴重發炎時蛋白質散射光線、光束連續（4+ flare）。<span class="ref">p.75, p.77</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Grade（分級）</th><th>Cells（1 × 1-mm 高強度光束細胞數）</th><th>Flare（閃輝）</th></tr></thead>
 <tbody>
-<tr><td>0</td><td><span class="num">&lt;1</span></td><td>None</td></tr>
-<tr><td>0.5+</td><td><span class="num">1–5</span></td><td>不適用</td></tr>
-<tr><td><strong>1+</strong></td><td><strong><span class="num">6–15</span></strong></td><td>Faint（微弱）</td></tr>
-<tr><td>2+</td><td><span class="num">16–25</span></td><td>Moderate（虹膜細節清楚）</td></tr>
-<tr><td>3+</td><td><span class="num">26–50</span></td><td>Marked（虹膜細節模糊）</td></tr>
-<tr><td>4+</td><td><span class="num">&gt;50</span></td><td>Intense（fibrin 或 plasmoid aqueous）</td></tr>
+<tr><td id="np-146">0</td><td id="np-147"><span class="num">&lt;1</span></td><td id="np-148">None</td></tr>
+<tr><td id="np-149">0.5+</td><td id="np-150"><span class="num">1–5</span></td><td id="np-151">不適用</td></tr>
+<tr><td id="np-152"><strong>1+</strong></td><td id="np-153"><strong><span class="num">6–15</span></strong></td><td id="np-154">Faint（微弱）</td></tr>
+<tr><td id="np-155">2+</td><td id="np-156"><span class="num">16–25</span></td><td id="np-157">Moderate（虹膜細節清楚）</td></tr>
+<tr><td id="np-158">3+</td><td id="np-159"><span class="num">26–50</span></td><td id="np-160">Marked（虹膜細節模糊）</td></tr>
+<tr><td id="np-161">4+</td><td id="np-162"><span class="num">&gt;50</span></td><td id="np-163">Intense（fibrin 或 plasmoid aqueous）</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-7）<span class="ref">p.77</span></p>
+<p id="np-164">出處（Table 5-7）<span class="ref">p.77</span></p>
 <ul>
-<li><mark>SUN 前房細胞 1+＝<span class="num">6–15</span> 顆</mark>；<span class="num">1–5</span> 顆是 0.5+；<span class="num">6–10</span> 是 MUST 試驗玻璃體細胞 1+ 的範圍（Table 5-8），不要混用；「1–10」不是任何一級。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1088" data-q="1088">第 1088 題</a></span><span class="ref">p.77, p.79</span></li>
+<li id="np-165"><mark>SUN 前房細胞 1+＝<span class="num">6–15</span> 顆</mark>；<span class="num">1–5</span> 顆是 0.5+；<span class="num">6–10</span> 是 MUST 試驗玻璃體細胞 1+ 的範圍（Table 5-8），不要混用；「1–10」不是任何一級。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1088" data-q="1088">第 1088 題</a></span><span class="ref">p.77, p.79</span></li>
 </ul>
 <h3 id="ch5-s6-4">前房反應型態</h3>
 <ul>
-<li><strong>Serous</strong>：蛋白質滲入造成的 flare；<strong>purulent</strong>：多形核白血球與壞死碎屑 → <mark>hypopyon</mark>；<strong>fibrinous</strong>：plasmoid 或強烈纖維素滲出；<strong>sanguinoid</strong>：發炎細胞加紅血球（hypopyon 混合 hyphema（前房出血））。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-975" data-q="975">第 975 題</a></span><span class="ref">p.77</span></li>
-<li>Hypopyon 的鑑別：Table 5-10 中「急性、嚴重、有/無 fibrin 膜或 hypopyon」對應 seronegative spondyloarthritis（HLA-B27），「aphthous ulcers、hypopyon」對應 Behcet disease；leukemia（白血病）等 masquerade 也可有 hypopyon/pseudohypopyon；<mark>VKH 以雙側肉芽腫性前葡萄膜炎合併多發 serous retinal detachment 為主，課本未列 hypopyon</mark>，四者中最少見（本章外：Behcet 的 hypopyon 其實也不常見）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-975" data-q="975">第 975 題</a></span><span class="ref">p.82, p.84–85, p.218, p.225, p.333</span></li>
+<li id="np-166"><strong>Serous</strong>：蛋白質滲入造成的 flare；<strong>purulent</strong>：多形核白血球與壞死碎屑 → <mark>hypopyon</mark>；<strong>fibrinous</strong>：plasmoid 或強烈纖維素滲出；<strong>sanguinoid</strong>：發炎細胞加紅血球（hypopyon 混合 hyphema（前房出血））。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-975" data-q="975">第 975 題</a></span><span class="ref">p.77</span></li>
+<li id="np-167">Hypopyon 的鑑別：Table 5-10 中「急性、嚴重、有/無 fibrin 膜或 hypopyon」對應 seronegative spondyloarthritis（HLA-B27），「aphthous ulcers、hypopyon」對應 Behcet disease；leukemia（白血病）等 masquerade 也可有 hypopyon/pseudohypopyon；<mark>VKH 以雙側肉芽腫性前葡萄膜炎合併多發 serous retinal detachment 為主，課本未列 hypopyon</mark>，四者中最少見（本章外：Behcet 的 hypopyon 其實也不常見）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-975" data-q="975">第 975 題</a></span><span class="ref">p.82, p.84–85, p.218, p.225, p.333</span></li>
 </ul>
 <h3 id="ch5-s6-5">Keratic precipitates（KPs，角膜後沉澱物）</h3>
 <ul>
-<li>KPs＝附著於角膜內皮的發炎細胞，依三方面描述：<strong>size</strong>（small、medium、large）；<strong>morphology</strong>（fine、round、nummular、stellate、granulomatous、mutton-fat）；<strong>distribution</strong>（瀰漫於整個角膜內皮、依重力沉積於下方角膜的三角形 <strong>Arlt triangle</strong>、或局部伴角膜發炎）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1066" data-q="1066">第 1066 題</a></span><span class="ref">p.77</span></li>
-<li>新形成的 KPs 白色、圓滑，之後變皺縮（crenated）、帶色素或玻璃樣。<span class="ref">p.78</span></li>
-<li><mark>大型、偏黃的 <strong>mutton-fat KPs</strong> → 肉芽腫性發炎</mark>（如 sarcoidosis，常沉積於下方 Arlt triangle）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-972" data-q="972">第 972 題</a></span><span class="ref">p.76, p.78</span></li>
-<li><mark>小型 <strong>stellate（星狀）KPs 瀰漫分布於整個角膜</strong> → <strong>Fuchs uveitis syndrome（Fuchs 葡萄膜炎症候群）</strong>或 herpetic anterior uveitis</mark>；可伴角膜水腫。Fuchs 的 KP 是小、白、星狀、散布於整個內皮（本章外 BCSC 9 第 8 章同樣描述）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1066" data-q="1066">第 1066 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a></span><span class="ref">p.78, p.155</span></li>
-<li>本章外補充：CMV 前葡萄膜炎的特徵是 <strong>ring-shaped（coin-shaped）環狀聚集</strong>或少量小型白色圓頂狀 KPs；<strong>紡錘狀（spindle）</strong>分布是 pigment dispersion 的 Krukenberg spindle（垂直紡錘狀色素沉積），與 Fuchs 無關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1066" data-q="1066">第 1066 題</a></span><span class="ref">p.257；BCSC 10 p.132</span></li>
-<li><strong>Band keratopathy</strong> 見於慢性葡萄膜炎，特別是 JIA 相關者。<span class="ref">p.78</span></li>
+<li id="np-168">KPs＝附著於角膜內皮的發炎細胞，依三方面描述：<strong>size</strong>（small、medium、large）；<strong>morphology</strong>（fine、round、nummular、stellate、granulomatous、mutton-fat）；<strong>distribution</strong>（瀰漫於整個角膜內皮、依重力沉積於下方角膜的三角形 <strong>Arlt triangle</strong>、或局部伴角膜發炎）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1066" data-q="1066">第 1066 題</a></span><span class="ref">p.77</span></li>
+<li id="np-169">新形成的 KPs 白色、圓滑，之後變皺縮（crenated）、帶色素或玻璃樣。<span class="ref">p.78</span></li>
+<li id="np-170"><mark>大型、偏黃的 <strong>mutton-fat KPs</strong> → 肉芽腫性發炎</mark>（如 sarcoidosis，常沉積於下方 Arlt triangle）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-972" data-q="972">第 972 題</a></span><span class="ref">p.76, p.78</span></li>
+<li id="np-171"><mark>小型 <strong>stellate（星狀）KPs 瀰漫分布於整個角膜</strong> → <strong>Fuchs uveitis syndrome（Fuchs 葡萄膜炎症候群）</strong>或 herpetic anterior uveitis</mark>；可伴角膜水腫。Fuchs 的 KP 是小、白、星狀、散布於整個內皮（本章外 BCSC 9 第 8 章同樣描述）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1066" data-q="1066">第 1066 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a></span><span class="ref">p.78, p.155</span></li>
+<li id="np-172">本章外補充：CMV 前葡萄膜炎的特徵是 <strong>ring-shaped（coin-shaped）環狀聚集</strong>或少量小型白色圓頂狀 KPs；<strong>紡錘狀（spindle）</strong>分布是 pigment dispersion 的 Krukenberg spindle（垂直紡錘狀色素沉積），與 Fuchs 無關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1066" data-q="1066">第 1066 題</a></span><span class="ref">p.257；BCSC 10 p.132</span></li>
+<li id="np-173"><strong>Band keratopathy</strong> 見於慢性葡萄膜炎，特別是 JIA 相關者。<span class="ref">p.78</span></li>
 </ul>
 <h3 id="ch5-s6-6">Iris（虹膜）表現</h3>
 <ul>
-<li>前/後粘連、iris granulomas、heterochromia（如 Fuchs uveitis syndrome）、stromal atrophy（如 herpetic uveitis）。<span class="ref">p.78</span></li>
-<li>Iris nodules：<mark><strong>Koeppe nodules</strong>—瞳孔緣；<strong>Busacca nodules</strong>—虹膜基質內；<strong>Berlin nodules</strong>—隅角</mark>（Fig 5-5 皆為 sarcoidosis 病例）。<span class="ref">p.76, p.78</span></li>
+<li id="np-174">前/後粘連、iris granulomas、heterochromia（如 Fuchs uveitis syndrome）、stromal atrophy（如 herpetic uveitis）。<span class="ref">p.78</span></li>
+<li id="np-175">Iris nodules：<mark><strong>Koeppe nodules</strong>—瞳孔緣；<strong>Busacca nodules</strong>—虹膜基質內；<strong>Berlin nodules</strong>—隅角</mark>（Fig 5-5 皆為 sarcoidosis 病例）。<span class="ref">p.76, p.78</span></li>
 </ul>
 <h3 id="ch5-s6-7">Intraocular pressure（IOP，眼壓）</h3>
 <ul>
-<li><mark>葡萄膜炎侵犯 ciliary body 與 trabecular meshwork（小樑網）時 <strong>IOP 常偏低</strong></mark>，因 aqueous production（房水分泌）減少或 uveoscleral outflow（葡萄膜鞏膜流出）增加。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1000" data-q="1000">第 1000 題</a></span><span class="ref">p.78</span></li>
-<li>IOP 可急遽升高：小樑網被發炎細胞或碎屑阻塞；小樑網本身發炎（<strong>trabeculitis</strong>，典型見於 <strong>herpetic uveitis</strong>）；pupillary block（瞳孔阻滯）合併 iris bombe（虹膜膨隆）與續發性隅角閉鎖。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1000" data-q="1000">第 1000 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-972" data-q="972">第 972 題</a></span><span class="ref">p.78</span></li>
-<li>急性前葡萄膜炎的 IOP 可升可降；HLA-B27 相關前葡萄膜炎典型為<mark>急性單眼發作、兩眼輪流復發，通常不會兩眼同時活動</mark>，好發 20–40 歲、男性較多；及時診斷、積極的初始治療與良好遵從可減少眼部併發症（本章外，BCSC 9 第 8 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1000" data-q="1000">第 1000 題</a></span><span class="ref">p.78, p.138–139</span></li>
+<li id="np-176"><mark>葡萄膜炎侵犯 ciliary body 與 trabecular meshwork（小樑網）時 <strong>IOP 常偏低</strong></mark>，因 aqueous production（房水分泌）減少或 uveoscleral outflow（葡萄膜鞏膜流出）增加。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1000" data-q="1000">第 1000 題</a></span><span class="ref">p.78</span></li>
+<li id="np-177">IOP 可急遽升高：小樑網被發炎細胞或碎屑阻塞；小樑網本身發炎（<strong>trabeculitis</strong>，典型見於 <strong>herpetic uveitis</strong>）；pupillary block（瞳孔阻滯）合併 iris bombe（虹膜膨隆）與續發性隅角閉鎖。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1000" data-q="1000">第 1000 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-972" data-q="972">第 972 題</a></span><span class="ref">p.78</span></li>
+<li id="np-178">急性前葡萄膜炎的 IOP 可升可降；HLA-B27 相關前葡萄膜炎典型為<mark>急性單眼發作、兩眼輪流復發，通常不會兩眼同時活動</mark>，好發 20–40 歲、男性較多；及時診斷、積極的初始治療與良好遵從可減少眼部併發症（本章外，BCSC 9 第 8 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1000" data-q="1000">第 1000 題</a></span><span class="ref">p.78, p.138–139</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s6-8">易錯陷阱</h3><ul>
-<li>Fuchs 的星狀 KP 是「瀰漫分布於整個內皮」，不是只在下方 Arlt triangle、不是環狀（CMV）、也不是紡錘狀（Krukenberg spindle）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1066" data-q="1066">第 1066 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a></span><span class="ref">p.77–78</span></li>
-<li>Arlt triangle 的重力性分布對應肉芽腫性大型 KP（如 sarcoidosis）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a></span><span class="ref">p.72, p.77</span></li>
-<li>睫狀體受侵犯時眼壓「通常偏低」；高眼壓多因 trabeculitis（herpetic）、阻塞或瞳孔阻滯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.78</span></li>
-<li>Koeppe＝瞳孔緣、Busacca＝基質、Berlin＝隅角，不要記反。<span class="ref">p.78</span></li>
+<li id="np-179">Fuchs 的星狀 KP 是「瀰漫分布於整個內皮」，不是只在下方 Arlt triangle、不是環狀（CMV）、也不是紡錘狀（Krukenberg spindle）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1066" data-q="1066">第 1066 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a></span><span class="ref">p.77–78</span></li>
+<li id="np-180">Arlt triangle 的重力性分布對應肉芽腫性大型 KP（如 sarcoidosis）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1053" data-q="1053">第 1053 題</a></span><span class="ref">p.72, p.77</span></li>
+<li id="np-181">睫狀體受侵犯時眼壓「通常偏低」；高眼壓多因 trabeculitis（herpetic）、阻塞或瞳孔阻滯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.78</span></li>
+<li id="np-182">Koeppe＝瞳孔緣、Busacca＝基質、Berlin＝隅角，不要記反。<span class="ref">p.78</span></li>
 </ul></div>
 
 <h2 id="ch5-s7">七、徵候：中段與後段</h2>
 <h3 id="ch5-s7-1">Intermediate segment（中段）</h3>
 <ul>
-<li>徵候：玻璃體發炎細胞、vitreous haze、<strong>snowballs（雪球，玻璃體內成團的發炎細胞）</strong>、<strong>snowbanks（雪堤，pars plana 上的滲出物）</strong>、ciliary body detachment、retrolental membrane、玻璃體條索或 traction band。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.78</span></li>
-<li><mark>中間葡萄膜炎的 hallmark 是 vitreous cells 與 haze</mark>；細胞可成團或單顆；haze 來自蛋白質性碎屑；可有細胞而無 haze。<span class="ref">p.78</span></li>
-<li>玻璃體細胞分級：散瞳後以裂隙燈 <span class="num">1 × 0.5-mm</span> 光束觀察 retrolental space，<span class="num">0–4</span> 分級。<span class="ref">p.78</span></li>
-<li><mark><strong>SUN 系統並未規定玻璃體細胞的分級法</strong></mark>；共識認為位於 vitreous strands（玻璃體條索）上的細胞是<strong>舊的</strong>，位於 syneretic（液化）區域者多為<strong>新的</strong>。Table 5-8 是 Multicenter Uveitis Steroid Treatment（MUST）Trial 使用的分級。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.78</span></li>
-<li><mark><strong>Vitreous haze 可能比單純細胞計數更能反映疾病活性</strong></mark>；以 indirect ophthalmoscope 加 <span class="num">20 D</span> 鏡看後段清晰度分級；SUN 採用 National Institutes of Health（NIH）的標準眼底照片，<span class="num">0–4</span> 級。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.78</span></li>
-<li>Vitreous haze 被用作臨床試驗收案條件，haze <strong>改善 <span class="num">2</span> 級</strong>常作為主要療效指標。<span class="ref">p.80</span></li>
+<li id="np-183">徵候：玻璃體發炎細胞、vitreous haze、<strong>snowballs（雪球，玻璃體內成團的發炎細胞）</strong>、<strong>snowbanks（雪堤，pars plana 上的滲出物）</strong>、ciliary body detachment、retrolental membrane、玻璃體條索或 traction band。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.78</span></li>
+<li id="np-184"><mark>中間葡萄膜炎的 hallmark 是 vitreous cells 與 haze</mark>；細胞可成團或單顆；haze 來自蛋白質性碎屑；可有細胞而無 haze。<span class="ref">p.78</span></li>
+<li id="np-185">玻璃體細胞分級：散瞳後以裂隙燈 <span class="num">1 × 0.5-mm</span> 光束觀察 retrolental space，<span class="num">0–4</span> 分級。<span class="ref">p.78</span></li>
+<li id="np-186"><mark><strong>SUN 系統並未規定玻璃體細胞的分級法</strong></mark>；共識認為位於 vitreous strands（玻璃體條索）上的細胞是<strong>舊的</strong>，位於 syneretic（液化）區域者多為<strong>新的</strong>。Table 5-8 是 Multicenter Uveitis Steroid Treatment（MUST）Trial 使用的分級。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.78</span></li>
+<li id="np-187"><mark><strong>Vitreous haze 可能比單純細胞計數更能反映疾病活性</strong></mark>；以 indirect ophthalmoscope 加 <span class="num">20 D</span> 鏡看後段清晰度分級；SUN 採用 National Institutes of Health（NIH）的標準眼底照片，<span class="num">0–4</span> 級。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.78</span></li>
+<li id="np-188">Vitreous haze 被用作臨床試驗收案條件，haze <strong>改善 <span class="num">2</span> 級</strong>常作為主要療效指標。<span class="ref">p.80</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Grade（分級）</th><th>Vitreous cells（1 × 0.5-mm 光束，retrolental space）</th><th>Vitreous haze（玻璃體混濁）</th></tr></thead>
 <tbody>
-<tr><td>0</td><td><span class="num">0</span></td><td>眼底清楚</td></tr>
-<tr><td>0.5+</td><td><span class="num">1–5</span></td><td>不適用</td></tr>
-<tr><td>1+</td><td><span class="num">6–10</span></td><td>Faint</td></tr>
-<tr><td>2+</td><td><span class="num">11–20</span></td><td>Moderate（視神經細節清楚）</td></tr>
-<tr><td>3+</td><td><span class="num">21–50</span></td><td>Marked（視神經細節模糊）</td></tr>
-<tr><td>4+</td><td><span class="num">&gt;50</span></td><td>Intense（幾乎/完全看不到視神經細節）</td></tr>
+<tr><td id="np-189">0</td><td id="np-190"><span class="num">0</span></td><td id="np-191">眼底清楚</td></tr>
+<tr><td id="np-192">0.5+</td><td id="np-193"><span class="num">1–5</span></td><td id="np-194">不適用</td></tr>
+<tr><td id="np-195">1+</td><td id="np-196"><span class="num">6–10</span></td><td id="np-197">Faint</td></tr>
+<tr><td id="np-198">2+</td><td id="np-199"><span class="num">11–20</span></td><td id="np-200">Moderate（視神經細節清楚）</td></tr>
+<tr><td id="np-201">3+</td><td id="np-202"><span class="num">21–50</span></td><td id="np-203">Marked（視神經細節模糊）</td></tr>
+<tr><td id="np-204">4+</td><td id="np-205"><span class="num">&gt;50</span></td><td id="np-206">Intense（幾乎/完全看不到視神經細節）</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-8，MUST 試驗用）<span class="ref">p.79</span></p>
+<p id="np-207">出處（Table 5-8，MUST 試驗用）<span class="ref">p.79</span></p>
 <ul>
-<li>NIH vitreous haze 標準照（Fig 5-7）：Grade 0 清楚；trace（0.5+）；Grade 1 少量混濁、視神經與血管輕度模糊；Grade 2 視神經與血管明顯模糊但仍可見；Grade 3 視神經可見但邊界模糊、看不到視網膜血管；Grade 4 濃密混濁遮蔽視神經盤。<span class="ref">p.79</span></li>
-<li>Snowballs 與 snowbanks：snowbanks 尤其在<strong>下方</strong>明顯；活動性 snowbank 呈蓬鬆（fluffy/shaggy）外觀；pars planitis 轉為不活動後 pars plana 變成 gliotic/fibrotic 而平滑，此時<strong>不再稱為 snowbank</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.80</span></li>
-<li><mark>慢性中間葡萄膜炎可形成 <strong>cyclitic membrane（睫狀膜）</strong> → 續發 <strong>ciliary body detachment（睫狀體剝離）</strong> → <strong>hypotony（低眼壓）</strong></mark>，不是眼壓升高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.80</span></li>
+<li id="np-208">NIH vitreous haze 標準照（Fig 5-7）：Grade 0 清楚；trace（0.5+）；Grade 1 少量混濁、視神經與血管輕度模糊；Grade 2 視神經與血管明顯模糊但仍可見；Grade 3 視神經可見但邊界模糊、看不到視網膜血管；Grade 4 濃密混濁遮蔽視神經盤。<span class="ref">p.79</span></li>
+<li id="np-209">Snowballs 與 snowbanks：snowbanks 尤其在<strong>下方</strong>明顯；活動性 snowbank 呈蓬鬆（fluffy/shaggy）外觀；pars planitis 轉為不活動後 pars plana 變成 gliotic/fibrotic 而平滑，此時<strong>不再稱為 snowbank</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.80</span></li>
+<li id="np-210"><mark>慢性中間葡萄膜炎可形成 <strong>cyclitic membrane（睫狀膜）</strong> → 續發 <strong>ciliary body detachment（睫狀體剝離）</strong> → <strong>hypotony（低眼壓）</strong></mark>，不是眼壓升高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.80</span></li>
 </ul>
 <h3 id="ch5-s7-2">Posterior segment（後段）</h3>
 <ul>
-<li>徵候：視網膜或脈絡膜發炎浸潤、動脈或靜脈的發炎性鞘化、血管周圍出血、exudative/tractional/rhegmatogenous retinal detachment、RPE 肥厚或萎縮、視網膜/脈絡膜/視神經盤萎縮或腫脹、視網膜前或下纖維化、視網膜或脈絡膜新生血管。<span class="ref">p.80</span></li>
-<li>病灶可 unifocal、multifocal 或 diffuse；以大小、顏色、型態及與後極部標誌的相對位置描述；活動性病灶邊界模糊，不活動時變清楚及/或有色素。<span class="ref">p.80</span></li>
-<li>Chorioretinal lesion 型態：<strong>punched out</strong>（圓形、邊界清楚）、<strong>placoid</strong>（大而扁平的灰白病灶、斑塊狀分布、邊界不清）、<strong>serpentine</strong>（邊界清楚的波浪狀）。<span class="ref">p.80</span></li>
+<li id="np-211">徵候：視網膜或脈絡膜發炎浸潤、動脈或靜脈的發炎性鞘化、血管周圍出血、exudative/tractional/rhegmatogenous retinal detachment、RPE 肥厚或萎縮、視網膜/脈絡膜/視神經盤萎縮或腫脹、視網膜前或下纖維化、視網膜或脈絡膜新生血管。<span class="ref">p.80</span></li>
+<li id="np-212">病灶可 unifocal、multifocal 或 diffuse；以大小、顏色、型態及與後極部標誌的相對位置描述；活動性病灶邊界模糊，不活動時變清楚及/或有色素。<span class="ref">p.80</span></li>
+<li id="np-213">Chorioretinal lesion 型態：<strong>punched out</strong>（圓形、邊界清楚）、<strong>placoid</strong>（大而扁平的灰白病灶、斑塊狀分布、邊界不清）、<strong>serpentine</strong>（邊界清楚的波浪狀）。<span class="ref">p.80</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s7-3">易錯陷阱</h3><ul>
-<li>慢性中間葡萄膜炎的 cyclitic membrane → 睫狀體剝離 → <strong>低眼壓</strong>；說「眼壓升高」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.80</span></li>
-<li>SUN 沒有玻璃體細胞分級（只採用 NIH haze 分級）；條索上的細胞「舊」、液化區的細胞「新」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.78</span></li>
-<li>玻璃體細胞用 <span class="num">1 × 0.5-mm</span> 光束、前房細胞用 <span class="num">1 × 1-mm</span> 光束；1+ 分別是 <span class="num">6–10</span> 與 <span class="num">6–15</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1088" data-q="1088">第 1088 題</a></span><span class="ref">p.77–79</span></li>
-<li>疾病活性的較佳指標是 vitreous haze，而非單純 vitreous cells。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.78</span></li>
+<li id="np-214">慢性中間葡萄膜炎的 cyclitic membrane → 睫狀體剝離 → <strong>低眼壓</strong>；說「眼壓升高」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.80</span></li>
+<li id="np-215">SUN 沒有玻璃體細胞分級（只採用 NIH haze 分級）；條索上的細胞「舊」、液化區的細胞「新」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1043" data-q="1043">第 1043 題</a></span><span class="ref">p.78</span></li>
+<li id="np-216">玻璃體細胞用 <span class="num">1 × 0.5-mm</span> 光束、前房細胞用 <span class="num">1 × 1-mm</span> 光束；1+ 分別是 <span class="num">6–10</span> 與 <span class="num">6–15</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1088" data-q="1088">第 1088 題</a></span><span class="ref">p.77–79</span></li>
+<li id="np-217">疾病活性的較佳指標是 vitreous haze，而非單純 vitreous cells。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1035" data-q="1035">第 1035 題</a></span><span class="ref">p.78</span></li>
 </ul></div>
 
 <h2 id="ch5-s8">八、病史回顧與 differential diagnosis（鑑別診斷）</h2>
 <h3 id="ch5-s8-1">病人相關因素</h3>
 <ul>
-<li>完整病史與 review of systems 可縮小鑑別診斷、引導輔助檢查與治療；免疫低下、性行為、靜脈藥癮、hyperalimentation（全靜脈營養）、特定職業等是導向調查的危險因子；可利用 Appendix A 的診斷問卷。<span class="ref">p.80–81</span></li>
-<li><mark>眼部發炎雖可合併全身疾病，但 <strong>uveitis 活性常與身體其他部位的發炎活性不相關</strong>，而且可能<strong>早於</strong>其他部位的發炎出現</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.81</span></li>
-<li>Table 5-9 病人因素：<strong>病人特徵</strong>（年齡、性別、遺傳特徵，有時包括種族/原國籍）；<strong>家族與社會史</strong>（自體免疫病或地方性感染家族/個人史、靜脈藥癮、菸、職業、性行為、飲食習慣、動物接觸）；<strong>其他修飾因素</strong>（疫苗史、免疫狀態、全身用藥、外傷史、旅遊史、住院/手術、留置導管/器械、系統回顧與既有疾病）。<span class="ref">p.81</span></li>
+<li id="np-218">完整病史與 review of systems 可縮小鑑別診斷、引導輔助檢查與治療；免疫低下、性行為、靜脈藥癮、hyperalimentation（全靜脈營養）、特定職業等是導向調查的危險因子；可利用 Appendix A 的診斷問卷。<span class="ref">p.80–81</span></li>
+<li id="np-219"><mark>眼部發炎雖可合併全身疾病，但 <strong>uveitis 活性常與身體其他部位的發炎活性不相關</strong>，而且可能<strong>早於</strong>其他部位的發炎出現</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.81</span></li>
+<li id="np-220">Table 5-9 病人因素：<strong>病人特徵</strong>（年齡、性別、遺傳特徵，有時包括種族/原國籍）；<strong>家族與社會史</strong>（自體免疫病或地方性感染家族/個人史、靜脈藥癮、菸、職業、性行為、飲食習慣、動物接觸）；<strong>其他修飾因素</strong>（疫苗史、免疫狀態、全身用藥、外傷史、旅遊史、住院/手術、留置導管/器械、系統回顧與既有疾病）。<span class="ref">p.81</span></li>
 </ul>
 <h3 id="ch5-s8-2">Differential diagnosis（鑑別診斷）</h3>
 <ul>
-<li>包括感染性（病毒、細菌、真菌、原蟲、蠕蟲）、推定免疫性非感染性疾病，以及原因不明（idiopathic/undifferentiated uveitis）。<span class="ref">p.81</span></li>
-<li><strong>Masquerade syndromes（偽裝症候群）</strong>：vitreoretinal lymphoma（玻璃體視網膜淋巴瘤）、retinoblastoma、leukemia、choroidal metastases、malignant melanoma；另有 juvenile xanthogranuloma、pigment dispersion syndrome、retinal detachment、vitreous hemorrhage、retinitis pigmentosa、ocular ischemic syndrome，都應列入鑑別。<span class="ref">p.81</span></li>
-<li>許多病人無典型表現或隨時間與治療改變 → 仍以解剖位置及相關因素（急性 vs 慢性、單眼 vs 雙眼、成人 vs 兒童）縮小範圍（Table 5-10）。<span class="ref">p.81</span></li>
+<li id="np-221">包括感染性（病毒、細菌、真菌、原蟲、蠕蟲）、推定免疫性非感染性疾病，以及原因不明（idiopathic/undifferentiated uveitis）。<span class="ref">p.81</span></li>
+<li id="np-222"><strong>Masquerade syndromes（偽裝症候群）</strong>：vitreoretinal lymphoma（玻璃體視網膜淋巴瘤）、retinoblastoma、leukemia、choroidal metastases、malignant melanoma；另有 juvenile xanthogranuloma、pigment dispersion syndrome、retinal detachment、vitreous hemorrhage、retinitis pigmentosa、ocular ischemic syndrome，都應列入鑑別。<span class="ref">p.81</span></li>
+<li id="np-223">許多病人無典型表現或隨時間與治療改變 → 仍以解剖位置及相關因素（急性 vs 慢性、單眼 vs 雙眼、成人 vs 兒童）縮小範圍（Table 5-10）。<span class="ref">p.81</span></li>
 </ul>
 <h3 id="ch5-s8-3">Table 5-10 Simplified scheme for patient evaluation（簡化評估流程）：前葡萄膜炎</h3>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Suspected disease（疑似疾病）</th><th>Clue（線索）</th><th>Tests / consultation（檢查與會診）</th></tr></thead>
 <tbody>
-<tr><td>Seronegative spondyloarthritis（血清陰性脊椎關節病變：僵直性脊椎炎、反應性關節炎、發炎性腸病、乾癬性關節炎）</td><td>急性、嚴重，±fibrin 膜或 hypopyon；關節炎、背痛、腸胃/泌尿生殖症狀</td><td><strong>HLA-B27</strong>、薦髂關節 X 光；風濕科、腸胃科</td></tr>
-<tr><td>Behcet disease</td><td>口腔與生殖器潰瘍、皮膚表現</td><td>臨床診斷，篩檢其他器官；風濕科</td></tr>
-<tr><td>TINU syndrome</td><td>發燒、腰側或腹痛</td><td><strong>Renal function tests、urinalysis、urine β2-microglobulin</strong>；腎臟科</td></tr>
-<tr><td>Infectious endophthalmitis、toxic anterior segment syndrome</td><td>術後、穿透傷、全身留置導管/器械/感染</td><td>B-scan 看 vitritis，考慮玻璃體培養、玻璃體切除；內因性者血液培養與全身感染檢查</td></tr>
-<tr><td>Undifferentiated（idiopathic）</td><td>無</td><td>HLA-B27</td></tr>
-<tr><td>Sarcoidosis</td><td>中度（紅、痛）；呼吸短促、皮膚表現、肉芽腫性發炎</td><td>ACE、lysozyme；CXR/chest CT；biopsy</td></tr>
-<tr><td>Glaucomatocyclitic crisis、herpetic iritis（人工水晶體眼另想到 uveitis-glaucoma-hyphema syndrome）</td><td>眼壓升高</td><td>臨床診斷；眼內液 PCR 可選</td></tr>
-<tr><td>Syphilis</td><td>類固醇反應差</td><td>Syphilis IgG 或 FTA-ABS 或 MHA-TP，接著 RPR 或 VDRL</td></tr>
-<tr><td>Low-grade endophthalmitis（如 <i>Cutibacterium acnes</i>）、IOL 相關</td><td>術後</td><td>考慮 vitrectomy、capsulectomy 並培養</td></tr>
-<tr><td>JIA-associated anterior uveitis</td><td>慢性（輕微紅痛）；兒童，尤其有關節炎</td><td><strong>ANA、ESR、RF</strong>；風濕科</td></tr>
-<tr><td>Fuchs uveitis syndrome</td><td>虹膜異色或小結節、瀰漫 KPs、單眼</td><td>臨床診斷</td></tr>
+<tr><td id="np-224">Seronegative spondyloarthritis（血清陰性脊椎關節病變：僵直性脊椎炎、反應性關節炎、發炎性腸病、乾癬性關節炎）</td><td id="np-225">急性、嚴重，±fibrin 膜或 hypopyon；關節炎、背痛、腸胃/泌尿生殖症狀</td><td id="np-226"><strong>HLA-B27</strong>、薦髂關節 X 光；風濕科、腸胃科</td></tr>
+<tr><td id="np-227">Behcet disease</td><td id="np-228">口腔與生殖器潰瘍、皮膚表現</td><td id="np-229">臨床診斷，篩檢其他器官；風濕科</td></tr>
+<tr><td id="np-230">TINU syndrome</td><td id="np-231">發燒、腰側或腹痛</td><td id="np-232"><strong>Renal function tests、urinalysis、urine β2-microglobulin</strong>；腎臟科</td></tr>
+<tr><td id="np-233">Infectious endophthalmitis、toxic anterior segment syndrome</td><td id="np-234">術後、穿透傷、全身留置導管/器械/感染</td><td id="np-235">B-scan 看 vitritis，考慮玻璃體培養、玻璃體切除；內因性者血液培養與全身感染檢查</td></tr>
+<tr><td id="np-236">Undifferentiated（idiopathic）</td><td id="np-237">無</td><td id="np-238">HLA-B27</td></tr>
+<tr><td id="np-239">Sarcoidosis</td><td id="np-240">中度（紅、痛）；呼吸短促、皮膚表現、肉芽腫性發炎</td><td id="np-241">ACE、lysozyme；CXR/chest CT；biopsy</td></tr>
+<tr><td id="np-242">Glaucomatocyclitic crisis、herpetic iritis（人工水晶體眼另想到 uveitis-glaucoma-hyphema syndrome）</td><td id="np-243">眼壓升高</td><td id="np-244">臨床診斷；眼內液 PCR 可選</td></tr>
+<tr><td id="np-245">Syphilis</td><td id="np-246">類固醇反應差</td><td id="np-247">Syphilis IgG 或 FTA-ABS 或 MHA-TP，接著 RPR 或 VDRL</td></tr>
+<tr><td id="np-248">Low-grade endophthalmitis（如 <i>Cutibacterium acnes</i>）、IOL 相關</td><td id="np-249">術後</td><td id="np-250">考慮 vitrectomy、capsulectomy 並培養</td></tr>
+<tr><td id="np-251">JIA-associated anterior uveitis</td><td id="np-252">慢性（輕微紅痛）；兒童，尤其有關節炎</td><td id="np-253"><strong>ANA、ESR、RF</strong>；風濕科</td></tr>
+<tr><td id="np-254">Fuchs uveitis syndrome</td><td id="np-255">虹膜異色或小結節、瀰漫 KPs、單眼</td><td id="np-256">臨床診斷</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-10，前葡萄膜炎部分；另有外傷性虹膜炎—鈍挫傷）<span class="ref">p.82–83</span></p>
+<p id="np-257">出處（Table 5-10，前葡萄膜炎部分；另有外傷性虹膜炎—鈍挫傷）<span class="ref">p.82–83</span></p>
 <h3 id="ch5-s8-4">Table 5-10（中間、後、全葡萄膜炎）</h3>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Suspected disease（疑似疾病）</th><th>Clue（線索）</th><th>Tests / consultation（檢查與會診）</th></tr></thead>
 <tbody>
-<tr><td>Sarcoidosis（中間）</td><td>輕至中度；呼吸短促、皮膚表現、肉芽腫性發炎</td><td>ACE、lysozyme；<strong>CXR/chest CT</strong>；biopsy</td></tr>
-<tr><td>Lyme disease（也可為前、後或全葡萄膜炎）</td><td>壁蝨接觸、erythema chronicum migrans、流行區</td><td>ELISA，Western blot 確認</td></tr>
-<tr><td>Multiple sclerosis</td><td>神經症狀</td><td><strong>MRI of brain and C-spine</strong>；LP 驗 oligoclonal bands；神經科</td></tr>
-<tr><td>Vitreoretinal lymphoma</td><td><strong>年齡 <span class="num">&gt;50</span> 歲</strong></td><td>Vitrectomy、chorioretinal biopsy、cytology、IL-10:IL-6 ratio、MYD88 突變/基因檢測、brain MRI、LP</td></tr>
-<tr><td>Pars planitis</td><td>無相關因素</td><td>—</td></tr>
-<tr><td>Toxoplasmosis（focal chorioretinitis with vitritis）</td><td>鄰近舊疤；生肉、未洗蔬菜、流行區</td><td>臨床診斷；血清陰性可排除；眼內液 PCR 可選</td></tr>
-<tr><td>Toxocariasis</td><td>兒童；geophagia（食土癖）</td><td>臨床診斷；ELISA、CBC with differential</td></tr>
-<tr><td>CMV retinitis（vitritis 程度不一）</td><td>HIV 或免疫抑制</td><td>眼內液 PCR</td></tr>
-<tr><td>TB（multifocal）</td><td>TB 流行區</td><td>IGRA 或 PPD、CXR/chest CT</td></tr>
-<tr><td>ARN</td><td>周邊視網膜壞死 + 阻塞性小動脈血管炎</td><td>眼內液 PCR；可能需 vitrectomy/retinal biopsy</td></tr>
-<tr><td><i>Candida</i>、<i>Aspergillus</i></td><td>靜脈藥癮、留置導管</td><td>血液、玻璃體培養</td></tr>
-<tr><td>Cysticercosis / onchocerciasis</td><td>可見眼內寄生蟲；來自非洲或中南美洲</td><td>ELISA、brain MRI / skin snip</td></tr>
-<tr><td>Birdshot chorioretinopathy</td><td>無</td><td>臨床診斷；<strong>HLA-A29</strong></td></tr>
-<tr><td>Multifocal choroiditis with panuveitis</td><td>無</td><td>排除 TB、sarcoidosis、syphilis</td></tr>
-<tr><td><strong>VKH syndrome</strong>（diffuse）</td><td>皮膚/中樞神經症狀；serous retinal disease；<strong>無眼部手術或穿透性外傷史</strong></td><td>臨床診斷；LP 證實 CSF pleocytosis；考慮聽力科</td></tr>
-<tr><td>Sympathetic ophthalmia</td><td>手術/外傷後、雙眼、serous retinal disease</td><td>—</td></tr>
-<tr><td>Infectious endophthalmitis</td><td>手術/外傷後、單眼</td><td>考慮 vitrectomy、培養</td></tr>
-<tr><td>DUSN（unilateral）</td><td>溫暖氣候、宿主動物接觸；早期灰色成簇病灶與 vitritis，晚期瀰漫 RPE 退化、蠟樣視盤蒼白、小動脈變細</td><td>臨床診斷；看到線蟲</td></tr>
-<tr><td>Neoplastic masquerade（無 vitritis，focal）</td><td>癌症病史</td><td>轉移檢查</td></tr>
-<tr><td>Ocular histoplasmosis（無 vitritis，multifocal）</td><td>Ohio/Mississippi Valley</td><td>臨床診斷</td></tr>
-<tr><td>White dot syndromes（APMPPE、MEWDS、PIC）</td><td>病灶侷限於後極部</td><td>臨床診斷</td></tr>
-<tr><td>Serpiginous choroiditis</td><td>蛇行或地圖狀疤痕</td><td>IGRA 或 PPD；CXR</td></tr>
-<tr><td>Progressive outer retinal necrosis（PORN）</td><td>嚴重免疫低下（如 AIDS）</td><td>同 ARN</td></tr>
-<tr><td>Behcet disease（vasculitis）</td><td>Aphthous ulcers、hypopyon</td><td>臨床診斷；篩檢其他器官；風濕科</td></tr>
-<tr><td>SLE（vasculitis）</td><td>顴部紅疹、女性、關節痛</td><td><strong>ANA、anti-dsDNA、C3、C4</strong>；風濕科</td></tr>
-<tr><td>GPA（vasculitis）</td><td>慢性鼻竇炎伴血性鼻涕、呼吸困難、腎功能不全、紫斑</td><td><strong>c-ANCA（anti–proteinase 3）</strong>；風濕科</td></tr>
+<tr><td id="np-258">Sarcoidosis（中間）</td><td id="np-259">輕至中度；呼吸短促、皮膚表現、肉芽腫性發炎</td><td id="np-260">ACE、lysozyme；<strong>CXR/chest CT</strong>；biopsy</td></tr>
+<tr><td id="np-261">Lyme disease（也可為前、後或全葡萄膜炎）</td><td id="np-262">壁蝨接觸、erythema chronicum migrans、流行區</td><td id="np-263">ELISA，Western blot 確認</td></tr>
+<tr><td id="np-264">Multiple sclerosis</td><td id="np-265">神經症狀</td><td id="np-266"><strong>MRI of brain and C-spine</strong>；LP 驗 oligoclonal bands；神經科</td></tr>
+<tr><td id="np-267">Vitreoretinal lymphoma</td><td id="np-268"><strong>年齡 <span class="num">&gt;50</span> 歲</strong></td><td id="np-269">Vitrectomy、chorioretinal biopsy、cytology、IL-10:IL-6 ratio、MYD88 突變/基因檢測、brain MRI、LP</td></tr>
+<tr><td id="np-270">Pars planitis</td><td id="np-271">無相關因素</td><td id="np-272">—</td></tr>
+<tr><td id="np-273">Toxoplasmosis（focal chorioretinitis with vitritis）</td><td id="np-274">鄰近舊疤；生肉、未洗蔬菜、流行區</td><td id="np-275">臨床診斷；血清陰性可排除；眼內液 PCR 可選</td></tr>
+<tr><td id="np-276">Toxocariasis</td><td id="np-277">兒童；geophagia（食土癖）</td><td id="np-278">臨床診斷；ELISA、CBC with differential</td></tr>
+<tr><td id="np-279">CMV retinitis（vitritis 程度不一）</td><td id="np-280">HIV 或免疫抑制</td><td id="np-281">眼內液 PCR</td></tr>
+<tr><td id="np-282">TB（multifocal）</td><td id="np-283">TB 流行區</td><td id="np-284">IGRA 或 PPD、CXR/chest CT</td></tr>
+<tr><td id="np-285">ARN</td><td id="np-286">周邊視網膜壞死 + 阻塞性小動脈血管炎</td><td id="np-287">眼內液 PCR；可能需 vitrectomy/retinal biopsy</td></tr>
+<tr><td id="np-288"><i>Candida</i>、<i>Aspergillus</i></td><td id="np-289">靜脈藥癮、留置導管</td><td id="np-290">血液、玻璃體培養</td></tr>
+<tr><td id="np-291">Cysticercosis / onchocerciasis</td><td id="np-292">可見眼內寄生蟲；來自非洲或中南美洲</td><td id="np-293">ELISA、brain MRI / skin snip</td></tr>
+<tr><td id="np-294">Birdshot chorioretinopathy</td><td id="np-295">無</td><td id="np-296">臨床診斷；<strong>HLA-A29</strong></td></tr>
+<tr><td id="np-297">Multifocal choroiditis with panuveitis</td><td id="np-298">無</td><td id="np-299">排除 TB、sarcoidosis、syphilis</td></tr>
+<tr><td id="np-300"><strong>VKH syndrome</strong>（diffuse）</td><td id="np-301">皮膚/中樞神經症狀；serous retinal disease；<strong>無眼部手術或穿透性外傷史</strong></td><td id="np-302">臨床診斷；LP 證實 CSF pleocytosis；考慮聽力科</td></tr>
+<tr><td id="np-303">Sympathetic ophthalmia</td><td id="np-304">手術/外傷後、雙眼、serous retinal disease</td><td id="np-305">—</td></tr>
+<tr><td id="np-306">Infectious endophthalmitis</td><td id="np-307">手術/外傷後、單眼</td><td id="np-308">考慮 vitrectomy、培養</td></tr>
+<tr><td id="np-309">DUSN（unilateral）</td><td id="np-310">溫暖氣候、宿主動物接觸；早期灰色成簇病灶與 vitritis，晚期瀰漫 RPE 退化、蠟樣視盤蒼白、小動脈變細</td><td id="np-311">臨床診斷；看到線蟲</td></tr>
+<tr><td id="np-312">Neoplastic masquerade（無 vitritis，focal）</td><td id="np-313">癌症病史</td><td id="np-314">轉移檢查</td></tr>
+<tr><td id="np-315">Ocular histoplasmosis（無 vitritis，multifocal）</td><td id="np-316">Ohio/Mississippi Valley</td><td id="np-317">臨床診斷</td></tr>
+<tr><td id="np-318">White dot syndromes（APMPPE、MEWDS、PIC）</td><td id="np-319">病灶侷限於後極部</td><td id="np-320">臨床診斷</td></tr>
+<tr><td id="np-321">Serpiginous choroiditis</td><td id="np-322">蛇行或地圖狀疤痕</td><td id="np-323">IGRA 或 PPD；CXR</td></tr>
+<tr><td id="np-324">Progressive outer retinal necrosis（PORN）</td><td id="np-325">嚴重免疫低下（如 AIDS）</td><td id="np-326">同 ARN</td></tr>
+<tr><td id="np-327">Behcet disease（vasculitis）</td><td id="np-328">Aphthous ulcers、hypopyon</td><td id="np-329">臨床診斷；篩檢其他器官；風濕科</td></tr>
+<tr><td id="np-330">SLE（vasculitis）</td><td id="np-331">顴部紅疹、女性、關節痛</td><td id="np-332"><strong>ANA、anti-dsDNA、C3、C4</strong>；風濕科</td></tr>
+<tr><td id="np-333">GPA（vasculitis）</td><td id="np-334">慢性鼻竇炎伴血性鼻涕、呼吸困難、腎功能不全、紫斑</td><td id="np-335"><strong>c-ANCA（anti–proteinase 3）</strong>；風濕科</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-10；panuveitis 參考上述 sarcoidosis、VKH、sympathetic ophthalmia、Behcet、syphilis、toxoplasmosis、endophthalmitis、toxocariasis、cysticercosis）<span class="ref">p.83–85</span></p>
+<p id="np-336">出處（Table 5-10；panuveitis 參考上述 sarcoidosis、VKH、sympathetic ophthalmia、Behcet、syphilis、toxoplasmosis、endophthalmitis、toxocariasis、cysticercosis）<span class="ref">p.83–85</span></p>
 <ul>
-<li><mark>表註：<strong>syphilis 可表現為任何型態的葡萄膜炎，應在所有病人考慮</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.85</span></li>
-<li>中老年人雙眼雪球/雪堤型中間葡萄膜炎（無前房發炎、無脈絡膜視網膜病灶）的檢查：<mark>sarcoidosis → 胸部影像（CXR/chest CT）；MS → brain（及 C-spine）MRI；<span class="num">&gt;50</span> 歲 → vitreoretinal lymphoma，需 vitrectomy/眼內檢體細胞學與分子檢測</mark>；<strong>HLA-B27</strong> 屬急性前葡萄膜炎（seronegative spondyloarthritis）或 undifferentiated anterior uveitis 的檢查，對此情境<strong>最沒有必要</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.82–83, p.87</span></li>
-<li>本章外補充（BCSC 9 第 8 章）：中間葡萄膜炎檢查可包括 sarcoidosis 與 MS 評估；年長者新出現玻璃體細胞應懷疑 vitreoretinal lymphoma（通常 <span class="num">50–60</span> 歲或以上）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.159</span></li>
-<li>中老年女性雙眼慢性全葡萄膜炎合併 choroiditis、<strong>CXR 正常</strong> → 下一步 <mark><strong>chest CT</strong></mark>（Table 5-10 與 5-11 中 chest CT 用於 sarcoidosis、TB、GPA）；本章外：sarcoidosis 在 <span class="num">50–65</span> 歲有第二高峰，晚發者較常有葡萄膜炎、較少無症狀 CXR 異常；臨床高度懷疑時 high-resolution chest CT 比 CXR 敏感。HLA-B27 對此型全葡萄膜炎關聯低；聽力檢查屬 VKH（需有 serous retinal detachment）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-986" data-q="986">第 986 題</a></span><span class="ref">p.83–84, p.88, p.208, p.212</span></li>
-<li><strong>VKH</strong> 的評估線索包括「<mark>無眼部手術或穿透性外傷史</mark>」；有手術/外傷史且雙眼 serous retinal disease 應想到 sympathetic ophthalmia。本章外：VKH 診斷標準限定的是發病前無 <strong>penetrating trauma 或 vitreoretinal surgery</strong>；傳統分四期，但多模式影像顯示 VKH 是早期到晚期的連續病程，prodrome（前驅期）以頭痛、噁心、腦膜刺激、聽覺異常、耳鳴等為主、尚未有眼部症狀，晚期呈悶燒型 panuveitis 並可反覆發作肉芽腫性前葡萄膜炎，故「四期皆為後/全葡萄膜炎」是錯的；<strong>sunset-glow fundus（晚霞樣眼底）</strong>為脈絡膜脫色素的晚期特徵。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.84, p.218, p.222</span></li>
-<li><strong>TINU syndrome</strong> 的檢查：<mark>腎功能、尿液檢查、<strong>尿中</strong> β2-microglobulin</mark>（Table 5-11 亦列 urinary β2-microglobulin）；課本未列 serum β2-microglobulin。本章外診斷要件：serum creatinine 異常或 creatinine clearance 下降、尿液異常（β2-microglobulin 上升、蛋白尿、嗜酸性白血球、膿尿或血尿、白血球圓柱、血糖正常的糖尿）、相關全身症狀。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1125" data-q="1125">第 1125 題</a></span><span class="ref">p.82, p.88, p.144</span></li>
-<li><strong>SLE</strong> 檢查為 ANA、anti-dsDNA、C3、C4；<strong>c-ANCA（proteinase 3）是 GPA</strong> 的標記（Table 5-11：ANCA 用於 systemic vasculitides），不屬 SLE 抗體。本章外：SLE 為具 <strong>B-lymphocyte hyperactivity</strong> 的自體免疫病，相關自體抗體為 ANA、抗單/雙股 DNA、anti-Sm、anti-Ro、anti-La、antiphospholipid antibodies；約 <span class="num">50%</span> 病人有眼部表現；lupus retinopathy 是 SLE 全身活性的非葡萄膜炎標記。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.85, p.87, p.200–201</span></li>
-<li>本章外（BCSC 9 第 10 章）：SLE 與 uveitis 關聯低；lupus retinopathy 本質是 vasculopathy，可直接產生 <strong>cotton-wool spots（棉絮狀斑）</strong>與視網膜無灌流，<mark>不限於有腎病變高血壓者</mark>；PAN 未治療 5 年存活率 <span class="num">13%</span>，可有各型 scleritis；<strong>MPA 的眼部侵犯比 GPA 少</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.200–201, p.203–205</span></li>
+<li id="np-337"><mark>表註：<strong>syphilis 可表現為任何型態的葡萄膜炎，應在所有病人考慮</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.85</span></li>
+<li id="np-338">中老年人雙眼雪球/雪堤型中間葡萄膜炎（無前房發炎、無脈絡膜視網膜病灶）的檢查：<mark>sarcoidosis → 胸部影像（CXR/chest CT）；MS → brain（及 C-spine）MRI；<span class="num">&gt;50</span> 歲 → vitreoretinal lymphoma，需 vitrectomy/眼內檢體細胞學與分子檢測</mark>；<strong>HLA-B27</strong> 屬急性前葡萄膜炎（seronegative spondyloarthritis）或 undifferentiated anterior uveitis 的檢查，對此情境<strong>最沒有必要</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.82–83, p.87</span></li>
+<li id="np-339">本章外補充（BCSC 9 第 8 章）：中間葡萄膜炎檢查可包括 sarcoidosis 與 MS 評估；年長者新出現玻璃體細胞應懷疑 vitreoretinal lymphoma（通常 <span class="num">50–60</span> 歲或以上）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.159</span></li>
+<li id="np-340">中老年女性雙眼慢性全葡萄膜炎合併 choroiditis、<strong>CXR 正常</strong> → 下一步 <mark><strong>chest CT</strong></mark>（Table 5-10 與 5-11 中 chest CT 用於 sarcoidosis、TB、GPA）；本章外：sarcoidosis 在 <span class="num">50–65</span> 歲有第二高峰，晚發者較常有葡萄膜炎、較少無症狀 CXR 異常；臨床高度懷疑時 high-resolution chest CT 比 CXR 敏感。HLA-B27 對此型全葡萄膜炎關聯低；聽力檢查屬 VKH（需有 serous retinal detachment）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-986" data-q="986">第 986 題</a></span><span class="ref">p.83–84, p.88, p.208, p.212</span></li>
+<li id="np-341"><strong>VKH</strong> 的評估線索包括「<mark>無眼部手術或穿透性外傷史</mark>」；有手術/外傷史且雙眼 serous retinal disease 應想到 sympathetic ophthalmia。本章外：VKH 診斷標準限定的是發病前無 <strong>penetrating trauma 或 vitreoretinal surgery</strong>；傳統分四期，但多模式影像顯示 VKH 是早期到晚期的連續病程，prodrome（前驅期）以頭痛、噁心、腦膜刺激、聽覺異常、耳鳴等為主、尚未有眼部症狀，晚期呈悶燒型 panuveitis 並可反覆發作肉芽腫性前葡萄膜炎，故「四期皆為後/全葡萄膜炎」是錯的；<strong>sunset-glow fundus（晚霞樣眼底）</strong>為脈絡膜脫色素的晚期特徵。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.84, p.218, p.222</span></li>
+<li id="np-342"><strong>TINU syndrome</strong> 的檢查：<mark>腎功能、尿液檢查、<strong>尿中</strong> β2-microglobulin</mark>（Table 5-11 亦列 urinary β2-microglobulin）；課本未列 serum β2-microglobulin。本章外診斷要件：serum creatinine 異常或 creatinine clearance 下降、尿液異常（β2-microglobulin 上升、蛋白尿、嗜酸性白血球、膿尿或血尿、白血球圓柱、血糖正常的糖尿）、相關全身症狀。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1125" data-q="1125">第 1125 題</a></span><span class="ref">p.82, p.88, p.144</span></li>
+<li id="np-343"><strong>SLE</strong> 檢查為 ANA、anti-dsDNA、C3、C4；<strong>c-ANCA（proteinase 3）是 GPA</strong> 的標記（Table 5-11：ANCA 用於 systemic vasculitides），不屬 SLE 抗體。本章外：SLE 為具 <strong>B-lymphocyte hyperactivity</strong> 的自體免疫病，相關自體抗體為 ANA、抗單/雙股 DNA、anti-Sm、anti-Ro、anti-La、antiphospholipid antibodies；約 <span class="num">50%</span> 病人有眼部表現；lupus retinopathy 是 SLE 全身活性的非葡萄膜炎標記。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.85, p.87, p.200–201</span></li>
+<li id="np-344">本章外（BCSC 9 第 10 章）：SLE 與 uveitis 關聯低；lupus retinopathy 本質是 vasculopathy，可直接產生 <strong>cotton-wool spots（棉絮狀斑）</strong>與視網膜無灌流，<mark>不限於有腎病變高血壓者</mark>；PAN 未治療 5 年存活率 <span class="num">13%</span>，可有各型 scleritis；<strong>MPA 的眼部侵犯比 GPA 少</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.200–201, p.203–205</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s8-5">易錯陷阱</h3><ul>
-<li>「葡萄膜炎活性通常與全身疾病的發炎活性相關」是錯的：常不相關，甚至先於全身表現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.81</span></li>
-<li>雪球/雪堤中間葡萄膜炎不需驗 HLA-B27；HLA-B27 用於急性前葡萄膜炎/脊椎關節病變。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.82–83</span></li>
-<li>TINU 驗「尿中」β2-microglobulin，不是血清。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1125" data-q="1125">第 1125 題</a></span><span class="ref">p.82, p.88</span></li>
-<li>ANCA 是 GPA/MPA 等血管炎的標記，不是 SLE 的抗體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.85, p.87</span></li>
-<li>VKH 與 sympathetic ophthalmia 的分界在於有無眼部手術/穿透傷病史。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.84</span></li>
+<li id="np-345">「葡萄膜炎活性通常與全身疾病的發炎活性相關」是錯的：常不相關，甚至先於全身表現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.81</span></li>
+<li id="np-346">雪球/雪堤中間葡萄膜炎不需驗 HLA-B27；HLA-B27 用於急性前葡萄膜炎/脊椎關節病變。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.82–83</span></li>
+<li id="np-347">TINU 驗「尿中」β2-microglobulin，不是血清。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1125" data-q="1125">第 1125 題</a></span><span class="ref">p.82, p.88</span></li>
+<li id="np-348">ANCA 是 GPA/MPA 等血管炎的標記，不是 SLE 的抗體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.85, p.87</span></li>
+<li id="np-349">VKH 與 sympathetic ophthalmia 的分界在於有無眼部手術/穿透傷病史。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.84</span></li>
 </ul></div>
 
 <h2 id="ch5-s9">九、Ancillary testing（輔助檢查）原則與實驗室檢查</h2>
 <h3 id="ch5-s9-1">原則</h3>
 <ul>
-<li><mark>病史、review of systems、完整眼科與全身理學檢查，以及建立 working differential diagnosis，是葡萄膜炎評估的<strong>基石（cornerstones）</strong></mark>；依解剖位置與臨床特徵列出鑑別診斷後，才安排適當的檢驗。實驗室檢查、OCT、胸部影像等都只是依臨床懷疑選用的輔助工具，<strong>不能取代</strong>親手的臨床評估。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1728" data-q="1728">第 1728 題</a></span><span class="ref">p.86</span></li>
-<li>「<strong>Shotgun</strong>」式檢查（未考慮合理鑑別診斷就大量開檢驗）昂貴、可能產生與葡萄膜炎無關但仍需追查的混淆結果。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1728" data-q="1728">第 1728 題</a></span><span class="ref">p.86</span></li>
-<li>沒有適用所有病人的標準 battery 或「uveitis workup」；應依最可能病因量身安排，許多病人只需少數檢查。<span class="ref">p.86</span></li>
-<li><mark>多數葡萄膜炎專家建議<strong>所有</strong>葡萄膜炎病人都驗 <strong>syphilis（梅毒）</strong></mark>：梅毒可表現為任何形式的眼內發炎、全身感染常未被診斷，若隱性梅毒只用類固醇治療，全身與眼部後果可能災難性。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.86</span></li>
-<li>在適當臨床情境下或<strong>將使用全身 immunomodulatory therapy（免疫調節治療）時</strong>，多數專家也建議驗 <strong>tuberculosis（結核）</strong>；chest radiograph 也可篩檢 sarcoidosis。本章外：開始全身 IMT（特別是 TNF inhibitor（腫瘤壞死因子抑制劑））前所有病人都應篩檢 TB 暴露；latent TB 可用 isoniazid <span class="num">6–12</span> 個月（± rifapentine 或 rifampin）。（2020 CDC/NTCA 指引已改以 3 個月每週 isoniazid 加 rifapentine、4 個月每日 rifampin、3 個月每日 isoniazid 加 rifampin 為優先，6 或 9 個月 isoniazid 列為替代方案。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a></span><span class="ref">p.86, p.243</span></li>
+<li id="np-350"><mark>病史、review of systems、完整眼科與全身理學檢查，以及建立 working differential diagnosis，是葡萄膜炎評估的<strong>基石（cornerstones）</strong></mark>；依解剖位置與臨床特徵列出鑑別診斷後，才安排適當的檢驗。實驗室檢查、OCT、胸部影像等都只是依臨床懷疑選用的輔助工具，<strong>不能取代</strong>親手的臨床評估。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1728" data-q="1728">第 1728 題</a></span><span class="ref">p.86</span></li>
+<li id="np-351">「<strong>Shotgun</strong>」式檢查（未考慮合理鑑別診斷就大量開檢驗）昂貴、可能產生與葡萄膜炎無關但仍需追查的混淆結果。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1728" data-q="1728">第 1728 題</a></span><span class="ref">p.86</span></li>
+<li id="np-352">沒有適用所有病人的標準 battery 或「uveitis workup」；應依最可能病因量身安排，許多病人只需少數檢查。<span class="ref">p.86</span></li>
+<li id="np-353"><mark>多數葡萄膜炎專家建議<strong>所有</strong>葡萄膜炎病人都驗 <strong>syphilis（梅毒）</strong></mark>：梅毒可表現為任何形式的眼內發炎、全身感染常未被診斷，若隱性梅毒只用類固醇治療，全身與眼部後果可能災難性。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.86</span></li>
+<li id="np-354">在適當臨床情境下或<strong>將使用全身 immunomodulatory therapy（免疫調節治療）時</strong>，多數專家也建議驗 <strong>tuberculosis（結核）</strong>；chest radiograph 也可篩檢 sarcoidosis。本章外：開始全身 IMT（特別是 TNF inhibitor（腫瘤壞死因子抑制劑））前所有病人都應篩檢 TB 暴露；latent TB 可用 isoniazid <span class="num">6–12</span> 個月（± rifapentine 或 rifampin）。（2020 CDC/NTCA 指引已改以 3 個月每週 isoniazid 加 rifapentine、4 個月每日 rifampin、3 個月每日 isoniazid 加 rifampin 為優先，6 或 9 個月 isoniazid 列為替代方案。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a></span><span class="ref">p.86, p.243</span></li>
 </ul>
 <h3 id="ch5-s9-2">Bayes theorem（貝氏定理）與檢查判讀</h3>
 <ul>
-<li><mark>即使非常敏感且特異的檢查，若病人罹病可能性（pretest probability，事前機率）低，也可能產生誤導結果</mark>；對大群人檢測很罕見的疾病時，陽性結果不一定代表真的有病。Bayes theorem 依已知相關條件計算事件機率，描述此觀念。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1048" data-q="1048">第 1048 題</a></span><span class="ref">p.86, p.89</span></li>
-<li>因此 TB 等檢查宜用於有提示性表現、事前機率高或準備使用免疫抑制藥者，而非常規篩檢所有葡萄膜炎。本章外：PPD 皮膚測試以注射 <span class="num">0.1</span> mL PPD 後 <span class="num">48–72</span> 小時的 <mark><strong>induration（硬結）</strong> <span class="num">≥10</span> mm</mark> 為陽性，<strong>不是看紅斑大小</strong>；接種 BCG 者可能偽陽性，改用血液檢查（IGRA）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a></span><span class="ref">p.86；BCSC 1 p.266</span></li>
-<li><strong>ANA</strong>：Table 5-11 適應症為 connective tissue disease 與 JIA；本章外：在眼內發炎情境下 ANA 的 positive predictive value（陽性預測值）僅 <span class="num">4.4%</span>，故只用於有 SLE 徵候者或 JIA 病人（用以判斷發生葡萄膜炎風險）；<mark>常規驗 ANA 的問題是<strong>偽陽性</strong>多，不是偽陰性</mark>。SLE 可合併葡萄膜炎但很少見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1048" data-q="1048">第 1048 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.87, p.200</span></li>
+<li id="np-355"><mark>即使非常敏感且特異的檢查，若病人罹病可能性（pretest probability，事前機率）低，也可能產生誤導結果</mark>；對大群人檢測很罕見的疾病時，陽性結果不一定代表真的有病。Bayes theorem 依已知相關條件計算事件機率，描述此觀念。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1048" data-q="1048">第 1048 題</a></span><span class="ref">p.86, p.89</span></li>
+<li id="np-356">因此 TB 等檢查宜用於有提示性表現、事前機率高或準備使用免疫抑制藥者，而非常規篩檢所有葡萄膜炎。本章外：PPD 皮膚測試以注射 <span class="num">0.1</span> mL PPD 後 <span class="num">48–72</span> 小時的 <mark><strong>induration（硬結）</strong> <span class="num">≥10</span> mm</mark> 為陽性，<strong>不是看紅斑大小</strong>；接種 BCG 者可能偽陽性，改用血液檢查（IGRA）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a></span><span class="ref">p.86；BCSC 1 p.266</span></li>
+<li id="np-357"><strong>ANA</strong>：Table 5-11 適應症為 connective tissue disease 與 JIA；本章外：在眼內發炎情境下 ANA 的 positive predictive value（陽性預測值）僅 <span class="num">4.4%</span>，故只用於有 SLE 徵候者或 JIA 病人（用以判斷發生葡萄膜炎風險）；<mark>常規驗 ANA 的問題是<strong>偽陽性</strong>多，不是偽陰性</mark>。SLE 可合併葡萄膜炎但很少見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1048" data-q="1048">第 1048 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.87, p.200</span></li>
 </ul>
 <h3 id="ch5-s9-3">Table 5-11 實驗室與影像檢查（精簡）</h3>
 <table class="ted-table">
 <thead><tr><th>Test（檢查）</th><th>Indication / diagnosis（適應症／可能診斷）</th></tr></thead>
 <tbody>
-<tr><td>CBC with differential</td><td>IMT 及部分抗生素/抗病毒藥的基線與監測；白血病、淋巴瘤、免疫狀態（如 neutropenia）</td></tr>
-<tr><td>ESR</td><td>Giant cell arteritis（巨細胞動脈炎）、非特異性全身發炎</td></tr>
-<tr><td>Interferon-gamma release assay（IGRA）</td><td>Latent 與 active TB</td></tr>
-<tr><td>T-cell subsets</td><td>伺機性感染、HIV</td></tr>
-<tr><td>Liver function tests（ALT、AST）</td><td>IMT 監測（antimetabolites）；sarcoidosis、hepatitis</td></tr>
-<tr><td>Serum urea nitrogen、creatinine</td><td>IMT 監測（T-cell inhibitors）；interstitial nephritis</td></tr>
-<tr><td>ACE、lysozyme、calcium</td><td>Sarcoidosis</td></tr>
-<tr><td>ANA</td><td>Connective tissue disease、JIA</td></tr>
-<tr><td>Antiphospholipid antibodies</td><td>Vasculitis、vascular occlusion</td></tr>
-<tr><td>RF、anti-citrullinated protein antibody</td><td>Rheumatoid arthritis、JIA</td></tr>
-<tr><td>HLA-B27</td><td>Spondyloarthritis、acute anterior uveitis</td></tr>
-<tr><td>HLA-A29</td><td>Birdshot chorioretinopathy</td></tr>
-<tr><td>HLA-B51（很少檢驗、價值有限）</td><td>Behcet disease（<strong>診斷不需要</strong>）</td></tr>
-<tr><td>HLA-DRB1*01:02</td><td>TINU syndrome</td></tr>
-<tr><td>c-ANCA（proteinase 3）、p-ANCA（myeloperoxidase）</td><td>Systemic vasculitides（全身性血管炎）</td></tr>
-<tr><td>Treponemal tests（syphilis IgG/FTA-ABS/MHA-TP）→ reflex nontreponemal（VDRL/RPR）</td><td>Syphilis</td></tr>
-<tr><td>Lyme、<i>Brucella</i>、<i>Toxoplasma gondii</i>、<i>Bartonella</i>（quintana、henselae）serology</td><td>Lyme disease、brucellosis、toxoplasmosis、cat-scratch disease（貓抓病）</td></tr>
-<tr><td>Fungal serology（complement fixation）、(1→3)-β-D-glucan</td><td>Coccidioidomycosis、非特異性真菌感染；presumed ocular histoplasmosis 通常不驗</td></tr>
-<tr><td>EBV、HSV、VZV、CMV serology</td><td>Viral uveitis（除非陰性，否則幫助不大）</td></tr>
-<tr><td>HIV serology/Western blot</td><td>HIV/AIDS、伺機性感染、血管阻塞</td></tr>
-<tr><td>CSF studies（protein、glucose、細胞數/細胞學、培養、Gram stain、CSF VDRL、oligoclonal bands）</td><td>APMPPE（MRI 有 CNS vasculitis 時）、VKH、syphilis 等感染、惡性腫瘤、vitreoretinal lymphoma、MS</td></tr>
-<tr><td>Urinalysis（血尿、蛋白尿、圓柱）、urinary β2-microglobulin</td><td>IMT 監測（cyclophosphamide 毒性）；ANCA-associated vasculitides、<strong>TINU</strong></td></tr>
-<tr><td>Chest radiography / chest CT</td><td>TB、sarcoidosis、GPA</td></tr>
-<tr><td>Sacroiliac joint x-rays</td><td>Spondyloarthritis</td></tr>
-<tr><td>CT/MRI of brain and orbits</td><td>Sarcoidosis、CNS lymphoma、toxoplasmosis、APMPPE、MS</td></tr>
-<tr><td>Intraocular fluid PCR</td><td>病毒（HSV-1、HSV-2、VZV、CMV、EBV、Ebola、Zika、West Nile、rubella）；細菌 universal 16S；<i>Toxoplasma gondii</i>；真菌 universal 18S 或 28S；vitreoretinal lymphoma（IgH、TCR、MYD88 等）</td></tr>
-<tr><td>Endoretinal、subretinal、choroidal biopsy</td><td>Necrotizing retinitis、腫瘤（vitreoretinal lymphoma、metastasis）</td></tr>
-<tr><td>Skin、conjunctival、lacrimal biopsy</td><td>Sarcoidosis、感染、lymphoma、amyloidosis</td></tr>
-<tr><td>Stool（糞便病原檢查）</td><td>寄生蟲病；病毒、細菌、真菌</td></tr>
+<tr><td id="np-358">CBC with differential</td><td id="np-359">IMT 及部分抗生素/抗病毒藥的基線與監測；白血病、淋巴瘤、免疫狀態（如 neutropenia）</td></tr>
+<tr><td id="np-360">ESR</td><td id="np-361">Giant cell arteritis（巨細胞動脈炎）、非特異性全身發炎</td></tr>
+<tr><td id="np-362">Interferon-gamma release assay（IGRA）</td><td id="np-363">Latent 與 active TB</td></tr>
+<tr><td id="np-364">T-cell subsets</td><td id="np-365">伺機性感染、HIV</td></tr>
+<tr><td id="np-366">Liver function tests（ALT、AST）</td><td id="np-367">IMT 監測（antimetabolites）；sarcoidosis、hepatitis</td></tr>
+<tr><td id="np-368">Serum urea nitrogen、creatinine</td><td id="np-369">IMT 監測（T-cell inhibitors）；interstitial nephritis</td></tr>
+<tr><td id="np-370">ACE、lysozyme、calcium</td><td id="np-371">Sarcoidosis</td></tr>
+<tr><td id="np-372">ANA</td><td id="np-373">Connective tissue disease、JIA</td></tr>
+<tr><td id="np-374">Antiphospholipid antibodies</td><td id="np-375">Vasculitis、vascular occlusion</td></tr>
+<tr><td id="np-376">RF、anti-citrullinated protein antibody</td><td id="np-377">Rheumatoid arthritis、JIA</td></tr>
+<tr><td id="np-378">HLA-B27</td><td id="np-379">Spondyloarthritis、acute anterior uveitis</td></tr>
+<tr><td id="np-380">HLA-A29</td><td id="np-381">Birdshot chorioretinopathy</td></tr>
+<tr><td id="np-382">HLA-B51（很少檢驗、價值有限）</td><td id="np-383">Behcet disease（<strong>診斷不需要</strong>）</td></tr>
+<tr><td id="np-384">HLA-DRB1*01:02</td><td id="np-385">TINU syndrome</td></tr>
+<tr><td id="np-386">c-ANCA（proteinase 3）、p-ANCA（myeloperoxidase）</td><td id="np-387">Systemic vasculitides（全身性血管炎）</td></tr>
+<tr><td id="np-388">Treponemal tests（syphilis IgG/FTA-ABS/MHA-TP）→ reflex nontreponemal（VDRL/RPR）</td><td id="np-389">Syphilis</td></tr>
+<tr><td id="np-390">Lyme、<i>Brucella</i>、<i>Toxoplasma gondii</i>、<i>Bartonella</i>（quintana、henselae）serology</td><td id="np-391">Lyme disease、brucellosis、toxoplasmosis、cat-scratch disease（貓抓病）</td></tr>
+<tr><td id="np-392">Fungal serology（complement fixation）、(1→3)-β-D-glucan</td><td id="np-393">Coccidioidomycosis、非特異性真菌感染；presumed ocular histoplasmosis 通常不驗</td></tr>
+<tr><td id="np-394">EBV、HSV、VZV、CMV serology</td><td id="np-395">Viral uveitis（除非陰性，否則幫助不大）</td></tr>
+<tr><td id="np-396">HIV serology/Western blot</td><td id="np-397">HIV/AIDS、伺機性感染、血管阻塞</td></tr>
+<tr><td id="np-398">CSF studies（protein、glucose、細胞數/細胞學、培養、Gram stain、CSF VDRL、oligoclonal bands）</td><td id="np-399">APMPPE（MRI 有 CNS vasculitis 時）、VKH、syphilis 等感染、惡性腫瘤、vitreoretinal lymphoma、MS</td></tr>
+<tr><td id="np-400">Urinalysis（血尿、蛋白尿、圓柱）、urinary β2-microglobulin</td><td id="np-401">IMT 監測（cyclophosphamide 毒性）；ANCA-associated vasculitides、<strong>TINU</strong></td></tr>
+<tr><td id="np-402">Chest radiography / chest CT</td><td id="np-403">TB、sarcoidosis、GPA</td></tr>
+<tr><td id="np-404">Sacroiliac joint x-rays</td><td id="np-405">Spondyloarthritis</td></tr>
+<tr><td id="np-406">CT/MRI of brain and orbits</td><td id="np-407">Sarcoidosis、CNS lymphoma、toxoplasmosis、APMPPE、MS</td></tr>
+<tr><td id="np-408">Intraocular fluid PCR</td><td id="np-409">病毒（HSV-1、HSV-2、VZV、CMV、EBV、Ebola、Zika、West Nile、rubella）；細菌 universal 16S；<i>Toxoplasma gondii</i>；真菌 universal 18S 或 28S；vitreoretinal lymphoma（IgH、TCR、MYD88 等）</td></tr>
+<tr><td id="np-410">Endoretinal、subretinal、choroidal biopsy</td><td id="np-411">Necrotizing retinitis、腫瘤（vitreoretinal lymphoma、metastasis）</td></tr>
+<tr><td id="np-412">Skin、conjunctival、lacrimal biopsy</td><td id="np-413">Sarcoidosis、感染、lymphoma、amyloidosis</td></tr>
+<tr><td id="np-414">Stool（糞便病原檢查）</td><td id="np-415">寄生蟲病；病毒、細菌、真菌</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-11）<span class="ref">p.87–88</span></p>
+<p id="np-416">出處（Table 5-11）<span class="ref">p.87–88</span></p>
 <ul>
-<li><mark><strong>HLA-B51</strong> 與 Behcet disease 相關，但<strong>不是診斷標準</strong></mark>，很少檢驗、價值有限。本章外：International Study Group 標準為<strong>反覆口腔潰瘍（每年至少 <span class="num">3</span> 次）</strong>加上以下 <span class="num">2</span> 項：反覆生殖器潰瘍、眼部發炎、皮膚病灶、cutaneous pathergy test（皮膚針刺反應）陽性。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1726" data-q="1726">第 1726 題</a></span><span class="ref">p.87, p.227</span></li>
+<li id="np-417"><mark><strong>HLA-B51</strong> 與 Behcet disease 相關，但<strong>不是診斷標準</strong></mark>，很少檢驗、價值有限。本章外：International Study Group 標準為<strong>反覆口腔潰瘍（每年至少 <span class="num">3</span> 次）</strong>加上以下 <span class="num">2</span> 項：反覆生殖器潰瘍、眼部發炎、皮膚病灶、cutaneous pathergy test（皮膚針刺反應）陽性。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1726" data-q="1726">第 1726 題</a></span><span class="ref">p.87, p.227</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s9-4">易錯陷阱</h3><ul>
-<li>葡萄膜炎診斷最重要的步驟是臨床評估（病史、系統回顧、完整眼科與全身理學檢查），不是 lab、OCT 或胸部影像。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1728" data-q="1728">第 1728 題</a></span><span class="ref">p.86</span></li>
-<li>梅毒是「所有病人都驗」；TB 是「適當情境或準備用全身 IMT 時」驗。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a></span><span class="ref">p.86</span></li>
-<li>PPD 判讀看硬結（induration），不是紅斑。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a></span><span class="ref">p.86；BCSC 1 p.266</span></li>
-<li>常規驗 ANA 的問題是偽陽性（PPV 低），不是偽陰性。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1048" data-q="1048">第 1048 題</a></span><span class="ref">p.87, p.200</span></li>
-<li>HLA-B51 不是 Behcet 的診斷標準；HLA-A29＝birdshot；HLA-DRB1*01:02＝TINU。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1726" data-q="1726">第 1726 題</a></span><span class="ref">p.87</span></li>
+<li id="np-418">葡萄膜炎診斷最重要的步驟是臨床評估（病史、系統回顧、完整眼科與全身理學檢查），不是 lab、OCT 或胸部影像。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1728" data-q="1728">第 1728 題</a></span><span class="ref">p.86</span></li>
+<li id="np-419">梅毒是「所有病人都驗」；TB 是「適當情境或準備用全身 IMT 時」驗。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a>、<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a></span><span class="ref">p.86</span></li>
+<li id="np-420">PPD 判讀看硬結（induration），不是紅斑。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-993" data-q="993">第 993 題</a></span><span class="ref">p.86；BCSC 1 p.266</span></li>
+<li id="np-421">常規驗 ANA 的問題是偽陽性（PPV 低），不是偽陰性。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1048" data-q="1048">第 1048 題</a></span><span class="ref">p.87, p.200</span></li>
+<li id="np-422">HLA-B51 不是 Behcet 的診斷標準；HLA-A29＝birdshot；HLA-DRB1*01:02＝TINU。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1726" data-q="1726">第 1726 題</a></span><span class="ref">p.87</span></li>
 </ul></div>
 
 <h2 id="ch5-s10">十、Ophthalmic imaging and functional tests（眼科影像與功能檢查）</h2>
 <ul>
-<li>影像與功能檢查用於診斷與監測治療反應，可提供裂隙燈或眼底檢查得不到的資訊；結合多種影像（multimodal imaging）可互補。<span class="ref">p.89</span></li>
+<li id="np-423">影像與功能檢查用於診斷與監測治療反應，可提供裂隙燈或眼底檢查得不到的資訊；結合多種影像（multimodal imaging）可互補。<span class="ref">p.89</span></li>
 </ul>
 <h3 id="ch5-s10-1">Optical coherence tomography（OCT，光學同調斷層掃描）</h3>
 <ul>
-<li>非接觸、高解析的視網膜與脈絡膜橫切面影像；<mark>已成為客觀測量 <strong>uveitic macular edema</strong> 的 <strong>reference standard（參考標準）</strong></mark>，也用於視網膜增厚、CNV 相關視網膜下/內液、serous retinal detachment、chorioretinal lesions。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.89</span></li>
-<li>瞳孔散不開時仍可評估黃斑，但介質混濁會降低清晰度；可監測 uveitic glaucoma 的神經纖維層；anterior segment OCT 可評估持續性術後葡萄膜炎的殘留晶體碎片或 IOL chafing（磨擦）；以 OCT 客觀分級眼內細胞的方法仍在發展中。<span class="ref">p.89</span></li>
-<li><strong>Enhanced depth imaging OCT（EDI-OCT）</strong>：穿透較深，可看脈絡膜結構變化，尤其 <mark>VKH、sympathetic ophthalmia、birdshot chorioretinopathy</mark>（VKH 活動期脈絡膜大幅瀰漫增厚）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.89–90</span></li>
-<li><strong>OCT angiography（OCTA）</strong>：重複掃描同一區域偵測血流差異；可協助區分 white dot syndromes 的發炎病灶與 choroidal neovascularization。<span class="ref">p.89</span></li>
+<li id="np-424">非接觸、高解析的視網膜與脈絡膜橫切面影像；<mark>已成為客觀測量 <strong>uveitic macular edema</strong> 的 <strong>reference standard（參考標準）</strong></mark>，也用於視網膜增厚、CNV 相關視網膜下/內液、serous retinal detachment、chorioretinal lesions。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.89</span></li>
+<li id="np-425">瞳孔散不開時仍可評估黃斑，但介質混濁會降低清晰度；可監測 uveitic glaucoma 的神經纖維層；anterior segment OCT 可評估持續性術後葡萄膜炎的殘留晶體碎片或 IOL chafing（磨擦）；以 OCT 客觀分級眼內細胞的方法仍在發展中。<span class="ref">p.89</span></li>
+<li id="np-426"><strong>Enhanced depth imaging OCT（EDI-OCT）</strong>：穿透較深，可看脈絡膜結構變化，尤其 <mark>VKH、sympathetic ophthalmia、birdshot chorioretinopathy</mark>（VKH 活動期脈絡膜大幅瀰漫增厚）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.89–90</span></li>
+<li id="np-427"><strong>OCT angiography（OCTA）</strong>：重複掃描同一區域偵測血流差異；可協助區分 white dot syndromes 的發炎病灶與 choroidal neovascularization。<span class="ref">p.89</span></li>
 </ul>
 <h3 id="ch5-s10-2">Fluorescein angiography（FA，螢光血管攝影）與其他影像</h3>
 <ul>
-<li><mark>FA 可偵測 <strong>macular edema</strong>、<strong>retinal vasculitis</strong>、續發 choroidal 或 retinal <strong>neovascularization</strong></mark>，以及視神經、視網膜、脈絡膜發炎區域；數種 white dot syndromes 有特徵性 FA 表現；wide-field FA 可找出臨床看不到的血管病變。葡萄膜炎黃斑水腫在 FA 晚期呈典型 <strong>petalloid（花瓣狀）</strong>型態。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.90–91</span></li>
-<li><strong>Color photography（彩色眼底照）</strong>：記錄病灶大小、顏色、位置、型態；作為反覆發作疾病的基線（如前葡萄膜炎新出現的後粘連、Behcet disease 的短暫後段發炎）。<span class="ref">p.91</span></li>
-<li><strong>Fundus autofluorescence（FAF，眼底自發螢光）</strong>：顯示 RPE 內 lipofuscin（脂褐素）螢光；適用侵犯外層視網膜、RPE、內層脈絡膜的後葡萄膜炎。<mark>Hyperautofluorescence＝RPE 代謝增加或感光細胞流失造成的 window defect；hypoautofluorescence＝RPE 流失或遮蔽</mark>；常見活性增加時 hyperautofluorescence，發炎消退後消失或轉為 hypoautofluorescence。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.91</span></li>
-<li><strong>Indocyanine green angiography（ICGA，吲哚青綠血管攝影）</strong>：專門顯示<strong>脈絡膜循環</strong>；外層視網膜與脈絡膜發炎時所見常多於眼底檢查或 FA；特別有助於 choroidal neovascular membrane、white dot syndromes、VKH、sympathetic ophthalmia、後段 sarcoidosis；birdshot 晚期 ICGA 可見多發 hypocyanescent spots（低螢光點）。<span class="ref">p.91–92</span></li>
+<li id="np-428"><mark>FA 可偵測 <strong>macular edema</strong>、<strong>retinal vasculitis</strong>、續發 choroidal 或 retinal <strong>neovascularization</strong></mark>，以及視神經、視網膜、脈絡膜發炎區域；數種 white dot syndromes 有特徵性 FA 表現；wide-field FA 可找出臨床看不到的血管病變。葡萄膜炎黃斑水腫在 FA 晚期呈典型 <strong>petalloid（花瓣狀）</strong>型態。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.90–91</span></li>
+<li id="np-429"><strong>Color photography（彩色眼底照）</strong>：記錄病灶大小、顏色、位置、型態；作為反覆發作疾病的基線（如前葡萄膜炎新出現的後粘連、Behcet disease 的短暫後段發炎）。<span class="ref">p.91</span></li>
+<li id="np-430"><strong>Fundus autofluorescence（FAF，眼底自發螢光）</strong>：顯示 RPE 內 lipofuscin（脂褐素）螢光；適用侵犯外層視網膜、RPE、內層脈絡膜的後葡萄膜炎。<mark>Hyperautofluorescence＝RPE 代謝增加或感光細胞流失造成的 window defect；hypoautofluorescence＝RPE 流失或遮蔽</mark>；常見活性增加時 hyperautofluorescence，發炎消退後消失或轉為 hypoautofluorescence。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.91</span></li>
+<li id="np-431"><strong>Indocyanine green angiography（ICGA，吲哚青綠血管攝影）</strong>：專門顯示<strong>脈絡膜循環</strong>；外層視網膜與脈絡膜發炎時所見常多於眼底檢查或 FA；特別有助於 choroidal neovascular membrane、white dot syndromes、VKH、sympathetic ophthalmia、後段 sarcoidosis；birdshot 晚期 ICGA 可見多發 hypocyanescent spots（低螢光點）。<span class="ref">p.91–92</span></li>
 </ul>
 <h3 id="ch5-s10-3">Ultrasonography（超音波）</h3>
 <ul>
-<li><strong>Ultrasound biomicroscopy（UBM，超音波生物顯微鏡）</strong>：睫狀體、虹膜、隅角病變；可顯示 IOL haptic 位置不正。<span class="ref">p.92</span></li>
-<li><strong>B-scan ultrasonography</strong>：顯示玻璃體混濁、脈絡膜增厚或隆起、視網膜剝離、cyclitic membrane，並排除隱匿異物（尤其介質混濁時）；兩種超音波都可看到殘留晶體碎片。<span class="ref">p.92</span></li>
-<li><mark><strong>B-scan 的表現可診斷 posterior scleritis（後鞏膜炎）</strong></mark>：本章外（BCSC 9 第 7 章）—鞏膜增厚合併 sub-Tenon space（Tenon 囊下腔）積液，鄰接視神經影時形成典型 <strong>T-sign</strong>。（文獻回顧：B-scan 最常見的是鞏膜瀰漫或結節性增厚 &gt;2 mm，T-sign 只見於約 25%–41% 病例，沒有 T-sign 不能排除。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-518" data-q="518">第 518 題</a></span><span class="ref">p.92, p.131–133</span></li>
+<li id="np-432"><strong>Ultrasound biomicroscopy（UBM，超音波生物顯微鏡）</strong>：睫狀體、虹膜、隅角病變；可顯示 IOL haptic 位置不正。<span class="ref">p.92</span></li>
+<li id="np-433"><strong>B-scan ultrasonography</strong>：顯示玻璃體混濁、脈絡膜增厚或隆起、視網膜剝離、cyclitic membrane，並排除隱匿異物（尤其介質混濁時）；兩種超音波都可看到殘留晶體碎片。<span class="ref">p.92</span></li>
+<li id="np-434"><mark><strong>B-scan 的表現可診斷 posterior scleritis（後鞏膜炎）</strong></mark>：本章外（BCSC 9 第 7 章）—鞏膜增厚合併 sub-Tenon space（Tenon 囊下腔）積液，鄰接視神經影時形成典型 <strong>T-sign</strong>。（文獻回顧：B-scan 最常見的是鞏膜瀰漫或結節性增厚 &gt;2 mm，T-sign 只見於約 25%–41% 病例，沒有 T-sign 不能排除。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-518" data-q="518">第 518 題</a></span><span class="ref">p.92, p.131–133</span></li>
 </ul>
 <h3 id="ch5-s10-4">功能檢查</h3>
 <ul>
-<li><strong>Full-field electroretinography（ERG，視網膜電圖）</strong>：監測 birdshot chorioretinopathy 進展，診斷 acute zonal occult outer retinopathy（AZOOR）complex 與 autoimmune retinopathy；可協助區分 retinal dystrophy（視網膜失養症）與後葡萄膜炎。<span class="ref">p.92</span></li>
-<li><strong>Visual field testing（視野檢查）</strong>：kinetic 與 static perimetry 監測 birdshot、AZOOR complex 的進展與治療反應，以及 uveitic glaucoma、inflammatory optic neuritis 的視野缺損；microperimetry 可用於黃斑疾病如 punctate inner choroiditis。<mark>視野屬監測工具，對後鞏膜炎無診斷特異性</mark>；swinging flashlight test（偵測 RAPD）與 visual evoked potentials（視覺誘發電位）評估視神經傳導功能，也不能證實後鞏膜發炎（後兩者為一般觀念，本章未列）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-518" data-q="518">第 518 題</a></span><span class="ref">p.92</span></li>
+<li id="np-435"><strong>Full-field electroretinography（ERG，視網膜電圖）</strong>：監測 birdshot chorioretinopathy 進展，診斷 acute zonal occult outer retinopathy（AZOOR）complex 與 autoimmune retinopathy；可協助區分 retinal dystrophy（視網膜失養症）與後葡萄膜炎。<span class="ref">p.92</span></li>
+<li id="np-436"><strong>Visual field testing（視野檢查）</strong>：kinetic 與 static perimetry 監測 birdshot、AZOOR complex 的進展與治療反應，以及 uveitic glaucoma、inflammatory optic neuritis 的視野缺損；microperimetry 可用於黃斑疾病如 punctate inner choroiditis。<mark>視野屬監測工具，對後鞏膜炎無診斷特異性</mark>；swinging flashlight test（偵測 RAPD）與 visual evoked potentials（視覺誘發電位）評估視神經傳導功能，也不能證實後鞏膜發炎（後兩者為一般觀念，本章未列）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-518" data-q="518">第 518 題</a></span><span class="ref">p.92</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s10-5">易錯陷阱</h3><ul>
-<li>診斷後鞏膜炎最有幫助的是 B-scan（T-sign），不是視野、VEP 或 swinging flashlight test。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-518" data-q="518">第 518 題</a></span><span class="ref">p.92</span></li>
-<li>OCT 是 uveitic macular edema 客觀測量的參考標準；FA 能看 macular edema、vasculitis 與新生血管。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.89–90</span></li>
-<li>脈絡膜看 EDI-OCT 與 ICGA；FAF 看 RPE（hyper＝活性/window defect，hypo＝RPE 流失/遮蔽）；SD-OCT 與 FAF 合用可非侵入性評估慢性 VKH 的 RPE 與外層視網膜（本章外，BCSC 9 第 10 章：VKH 的 OCT/EDI-OCT 看視網膜下液與脈絡膜增厚，FAF 看 RPE 損傷）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.89, p.91, p.220</span></li>
+<li id="np-437">診斷後鞏膜炎最有幫助的是 B-scan（T-sign），不是視野、VEP 或 swinging flashlight test。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-518" data-q="518">第 518 題</a></span><span class="ref">p.92</span></li>
+<li id="np-438">OCT 是 uveitic macular edema 客觀測量的參考標準；FA 能看 macular edema、vasculitis 與新生血管。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1034" data-q="1034">第 1034 題</a></span><span class="ref">p.89–90</span></li>
+<li id="np-439">脈絡膜看 EDI-OCT 與 ICGA；FAF 看 RPE（hyper＝活性/window defect，hypo＝RPE 流失/遮蔽）；SD-OCT 與 FAF 合用可非侵入性評估慢性 VKH 的 RPE 與外層視網膜（本章外，BCSC 9 第 10 章：VKH 的 OCT/EDI-OCT 看視網膜下液與脈絡膜增厚，FAF 看 RPE 損傷）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-994" data-q="994">第 994 題</a></span><span class="ref">p.89, p.91, p.220</span></li>
 </ul></div>
 
 <h2 id="ch5-s11">十一、Ocular fluid and tissue sampling（眼內液與組織採檢）</h2>
 <h3 id="ch5-s11-1">Polymerase chain reaction（PCR，聚合酶連鎖反應）</h3>
 <ul>
-<li>PCR 對感染性葡萄膜炎<strong>高敏感、高特異</strong>，可由少量眼內液直接擴增病原 DNA；也可用於疑似 vitreoretinal lymphoma 的玻璃體基因檢測。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-990" data-q="990">第 990 題</a></span><span class="ref">p.93</span></li>
-<li><mark>Anterior chamber paracentesis（前房穿刺）通常比玻璃體採檢安全、容易</mark>；病毒 PCR 在房水與玻璃體都有高敏感度與特異度，但產出率受臨床表現影響。<span class="ref">p.93</span></li>
-<li>Herpetic 後/全葡萄膜炎（ARN）：<mark>房水與玻璃體 PCR 幾乎同樣有用</mark>；疑似病毒性前葡萄膜炎：房水 PCR 可能無法診斷，特別是採檢時發炎輕微；<strong><i>Toxoplasma</i></strong>：房水 PCR 通常不如玻璃體，除非病人免疫低下或病灶大及/或多發。<span class="ref">p.93</span></li>
-<li>Pan-bacterial（<span class="num">16S</span>）與 pan-fungal（<span class="num">5.8S/18S/28S</span>）PCR 利用保守基因次單元篩檢；<mark>PCR 的診斷率<strong>等於或優於</strong>眼內液培養</mark>。<span class="ref">p.93</span></li>
-<li>PCR 陰性但臨床高度懷疑 → 可在發炎程度高時或停用抗微生物藥後重複採檢。缺點：費用、檢體量少無法測多種病原、汙染物擴增、細胞量少時偽陰性。<span class="ref">p.93</span></li>
-<li>本章外（BCSC 9 第 12 章）：American Uveitis Society 的 ARN 診斷標準<strong>只依臨床表現與病程</strong>，與病毒病因或宿主免疫狀態無關，PCR 不是標準之一；HSV/VZV/CMV 可在<strong>免疫正常</strong>者造成前葡萄膜炎；<mark>herpetic anterior uveitis 除抗病毒藥外，可能需<strong>長期局部類固醇並非常緩慢減量</strong></mark>。Goldmann-Witmer coefficient 是比較眼內與血清特異 IgG 比例以判斷眼內局部抗體產生（BCSC 9 第 2 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-990" data-q="990">第 990 題</a></span><span class="ref">p.43, p.256, p.258, p.260</span></li>
+<li id="np-440">PCR 對感染性葡萄膜炎<strong>高敏感、高特異</strong>，可由少量眼內液直接擴增病原 DNA；也可用於疑似 vitreoretinal lymphoma 的玻璃體基因檢測。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-990" data-q="990">第 990 題</a></span><span class="ref">p.93</span></li>
+<li id="np-441"><mark>Anterior chamber paracentesis（前房穿刺）通常比玻璃體採檢安全、容易</mark>；病毒 PCR 在房水與玻璃體都有高敏感度與特異度，但產出率受臨床表現影響。<span class="ref">p.93</span></li>
+<li id="np-442">Herpetic 後/全葡萄膜炎（ARN）：<mark>房水與玻璃體 PCR 幾乎同樣有用</mark>；疑似病毒性前葡萄膜炎：房水 PCR 可能無法診斷，特別是採檢時發炎輕微；<strong><i>Toxoplasma</i></strong>：房水 PCR 通常不如玻璃體，除非病人免疫低下或病灶大及/或多發。<span class="ref">p.93</span></li>
+<li id="np-443">Pan-bacterial（<span class="num">16S</span>）與 pan-fungal（<span class="num">5.8S/18S/28S</span>）PCR 利用保守基因次單元篩檢；<mark>PCR 的診斷率<strong>等於或優於</strong>眼內液培養</mark>。<span class="ref">p.93</span></li>
+<li id="np-444">PCR 陰性但臨床高度懷疑 → 可在發炎程度高時或停用抗微生物藥後重複採檢。缺點：費用、檢體量少無法測多種病原、汙染物擴增、細胞量少時偽陰性。<span class="ref">p.93</span></li>
+<li id="np-445">本章外（BCSC 9 第 12 章）：American Uveitis Society 的 ARN 診斷標準<strong>只依臨床表現與病程</strong>，與病毒病因或宿主免疫狀態無關，PCR 不是標準之一；HSV/VZV/CMV 可在<strong>免疫正常</strong>者造成前葡萄膜炎；<mark>herpetic anterior uveitis 除抗病毒藥外，可能需<strong>長期局部類固醇並非常緩慢減量</strong></mark>。Goldmann-Witmer coefficient 是比較眼內與血清特異 IgG 比例以判斷眼內局部抗體產生（BCSC 9 第 2 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-990" data-q="990">第 990 題</a></span><span class="ref">p.43, p.256, p.258, p.260</span></li>
 </ul>
 <h3 id="ch5-s11-2">Culture and vital staining、cytology and pathology（培養、染色、細胞學與病理）</h3>
 <ul>
-<li>細胞培養與細菌/真菌染色用於疑似細菌或真菌 endophthalmitis；分離費時、病原量少時敏感度不足，但因普及且便宜，仍是疑似感染的<strong>傳統第一線檢查</strong>。<span class="ref">p.93–94</span></li>
-<li>房水 cytology 可診斷前段（有時後段）疾病，如 leukemia、lymphoma；疑似 vitreoretinal lymphoma → <mark><strong>未稀釋</strong>玻璃體檢體</mark>送 cytology、flow cytometry、gene rearrangement 與 cytokine 分析。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.94</span></li>
-<li><strong>Chorioretinal biopsy</strong>：技術困難需資深玻璃體視網膜醫師；適用於快速進展、威脅視力、其他檢查找不到病因且經驗治療反應差的後葡萄膜炎，或疑似 vitreoretinal lymphoma 的視網膜下浸潤但玻璃體細胞不多、或玻璃體切片陰性時。<span class="ref">p.94</span></li>
-<li>結膜可見病灶的切片可用於 lymphoma、cicatricial pemphigoid、sarcoidosis；高度懷疑感染時罕需 scleral biopsy。<mark>若疾病涉及眼外器官，切片眼外部位通常產出率較高、併發症較低</mark>。<span class="ref">p.94</span></li>
+<li id="np-446">細胞培養與細菌/真菌染色用於疑似細菌或真菌 endophthalmitis；分離費時、病原量少時敏感度不足，但因普及且便宜，仍是疑似感染的<strong>傳統第一線檢查</strong>。<span class="ref">p.93–94</span></li>
+<li id="np-447">房水 cytology 可診斷前段（有時後段）疾病，如 leukemia、lymphoma；疑似 vitreoretinal lymphoma → <mark><strong>未稀釋</strong>玻璃體檢體</mark>送 cytology、flow cytometry、gene rearrangement 與 cytokine 分析。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-1054" data-q="1054">第 1054 題</a></span><span class="ref">p.94</span></li>
+<li id="np-448"><strong>Chorioretinal biopsy</strong>：技術困難需資深玻璃體視網膜醫師；適用於快速進展、威脅視力、其他檢查找不到病因且經驗治療反應差的後葡萄膜炎，或疑似 vitreoretinal lymphoma 的視網膜下浸潤但玻璃體細胞不多、或玻璃體切片陰性時。<span class="ref">p.94</span></li>
+<li id="np-449">結膜可見病灶的切片可用於 lymphoma、cicatricial pemphigoid、sarcoidosis；高度懷疑感染時罕需 scleral biopsy。<mark>若疾病涉及眼外器官，切片眼外部位通常產出率較高、併發症較低</mark>。<span class="ref">p.94</span></li>
 </ul>
 <h3 id="ch5-s11-3">採檢技術</h3>
 <ul>
-<li><strong>前房穿刺</strong>：裂隙燈下或平躺；局部麻醉、povidone-iodine 消毒、可放置開瞼器；<span class="num">1-mL</span> tuberculin syringe 接 <span class="num">30-gauge</span> 針，經<strong>顳側角膜緣或透明角膜、平行虹膜面</strong>進入前房；安全範圍內盡量抽（通常 <span class="num">0.1–0.2 mL</span>），避免碰觸虹膜與水晶體。併發症：虹膜出血與 hyphema、傷口滲漏、感染、虹膜或水晶體受傷。<span class="ref">p.94</span></li>
-<li><strong>Vitreous biopsy（玻璃體切片）最常見適應症</strong>：疑似 vitreoretinal lymphoma 或其他眼內惡性腫瘤、感染性後段發炎、表現不典型或治療反應不佳的慢性葡萄膜炎。<span class="ref">p.94</span></li>
-<li>Vitreous needle tap：經 pars plana，局部與結膜下麻醉、povidone-iodine、開瞼器；通常用 <span class="num">25-gauge</span>、<span class="num">1-inch</span> 針接 <span class="num">3-mL</span> 針筒（提供較大負壓），朝中玻璃體抽吸，通常 <span class="num">0.2–0.5 mL</span>。<span class="ref">p.94–95</span></li>
-<li>Diagnostic vitrectomy：標準 <span class="num">3</span>-port pars plana vitrectomy，檢驗通常需<strong>未稀釋</strong>檢體，可取得 <span class="num">0.5–1.0 mL</span>。<span class="ref">p.95</span></li>
-<li>葡萄膜炎眼診斷性玻璃體切除併發症：視網膜裂孔或剝離、脈絡膜上腔或玻璃體出血、白內障或發炎惡化，罕見 sympathetic ophthalmia；<mark>玻璃體切除後眼內藥物藥動學改變，例如玻璃體內類固醇半衰期明顯縮短</mark>。<span class="ref">p.95</span></li>
+<li id="np-450"><strong>前房穿刺</strong>：裂隙燈下或平躺；局部麻醉、povidone-iodine 消毒、可放置開瞼器；<span class="num">1-mL</span> tuberculin syringe 接 <span class="num">30-gauge</span> 針，經<strong>顳側角膜緣或透明角膜、平行虹膜面</strong>進入前房；安全範圍內盡量抽（通常 <span class="num">0.1–0.2 mL</span>），避免碰觸虹膜與水晶體。併發症：虹膜出血與 hyphema、傷口滲漏、感染、虹膜或水晶體受傷。<span class="ref">p.94</span></li>
+<li id="np-451"><strong>Vitreous biopsy（玻璃體切片）最常見適應症</strong>：疑似 vitreoretinal lymphoma 或其他眼內惡性腫瘤、感染性後段發炎、表現不典型或治療反應不佳的慢性葡萄膜炎。<span class="ref">p.94</span></li>
+<li id="np-452">Vitreous needle tap：經 pars plana，局部與結膜下麻醉、povidone-iodine、開瞼器；通常用 <span class="num">25-gauge</span>、<span class="num">1-inch</span> 針接 <span class="num">3-mL</span> 針筒（提供較大負壓），朝中玻璃體抽吸，通常 <span class="num">0.2–0.5 mL</span>。<span class="ref">p.94–95</span></li>
+<li id="np-453">Diagnostic vitrectomy：標準 <span class="num">3</span>-port pars plana vitrectomy，檢驗通常需<strong>未稀釋</strong>檢體，可取得 <span class="num">0.5–1.0 mL</span>。<span class="ref">p.95</span></li>
+<li id="np-454">葡萄膜炎眼診斷性玻璃體切除併發症：視網膜裂孔或剝離、脈絡膜上腔或玻璃體出血、白內障或發炎惡化，罕見 sympathetic ophthalmia；<mark>玻璃體切除後眼內藥物藥動學改變，例如玻璃體內類固醇半衰期明顯縮短</mark>。<span class="ref">p.95</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s11-4">易錯陷阱</h3><ul>
-<li>ARN 的房水與玻璃體 PCR 同樣有用；病毒性前葡萄膜炎發炎輕微時房水 PCR 可能陰性；<i>Toxoplasma</i> 通常玻璃體較佳。<span class="ref">p.93</span></li>
-<li>PCR 是 ARN 的確認病因工具，但 American Uveitis Society 的 ARN 診斷標準不含 PCR。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-990" data-q="990">第 990 題</a></span><span class="ref">p.93, p.260</span></li>
-<li>前房穿刺用 <span class="num">30-gauge</span> 針抽 <span class="num">0.1–0.2 mL</span>；玻璃體 tap 用 <span class="num">25-gauge</span> 針、<span class="num">3-mL</span> 針筒抽 <span class="num">0.2–0.5 mL</span>；vitrectomy 可取 <span class="num">0.5–1.0 mL</span> 未稀釋檢體。<span class="ref">p.94–95</span></li>
+<li id="np-455">ARN 的房水與玻璃體 PCR 同樣有用；病毒性前葡萄膜炎發炎輕微時房水 PCR 可能陰性；<i>Toxoplasma</i> 通常玻璃體較佳。<span class="ref">p.93</span></li>
+<li id="np-456">PCR 是 ARN 的確認病因工具，但 American Uveitis Society 的 ARN 診斷標準不含 PCR。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc9-5%23q-990" data-q="990">第 990 題</a></span><span class="ref">p.93, p.260</span></li>
+<li id="np-457">前房穿刺用 <span class="num">30-gauge</span> 針抽 <span class="num">0.1–0.2 mL</span>；玻璃體 tap 用 <span class="num">25-gauge</span> 針、<span class="num">3-mL</span> 針筒抽 <span class="num">0.2–0.5 mL</span>；vitrectomy 可取 <span class="num">0.5–1.0 mL</span> 未稀釋檢體。<span class="ref">p.94–95</span></li>
 </ul></div>
 
 <div class="hs-tip-box">
 <h4>易混淆比較與口訣</h4>
 <ul>
-<li><strong>SUN 的「3 個月」</strong>：duration limited <span class="num">≤3</span>、persistent <span class="num">&gt;3</span>；recurrent＝未治療不活動 <span class="num">≥3</span>；chronic＝停藥 <span class="num">&lt;3</span> 復發；remission＝停所有治療後 <span class="num">≥3</span> 不活動。<span class="ref">p.70</span></li>
-<li><strong>前房 vs 玻璃體細胞</strong>：前房 <span class="num">1 × 1-mm</span>，1+＝<span class="num">6–15</span>、2+＝<span class="num">16–25</span>；玻璃體（MUST）<span class="num">1 × 0.5-mm</span>，1+＝<span class="num">6–10</span>、2+＝<span class="num">11–20</span>；兩者 0.5+ 都是 <span class="num">1–5</span>、4+ 都是 <span class="num">&gt;50</span>。<span class="ref">p.77, p.79</span></li>
-<li><strong>「不足以升級」三件事</strong>：macular edema（及 ERM、新生血管）、peripheral vascular sheathing、retinal vasculitis 都不能把分類改成 posterior/panuveitis；必須有視網膜或脈絡膜病灶。<span class="ref">p.69, p.71–72</span></li>
-<li><strong>Nodule 位置</strong>：Koeppe 瞳孔緣、Busacca 基質、Berlin 隅角。<span class="ref">p.78</span></li>
-<li><strong>HLA 對照</strong>：B27 脊椎關節病變/急性前葡萄膜炎；A29 birdshot；B51 Behcet（非診斷必需）；DRB1*01:02 TINU。<span class="ref">p.87</span></li>
+<li id="np-458"><strong>SUN 的「3 個月」</strong>：duration limited <span class="num">≤3</span>、persistent <span class="num">&gt;3</span>；recurrent＝未治療不活動 <span class="num">≥3</span>；chronic＝停藥 <span class="num">&lt;3</span> 復發；remission＝停所有治療後 <span class="num">≥3</span> 不活動。<span class="ref">p.70</span></li>
+<li id="np-459"><strong>前房 vs 玻璃體細胞</strong>：前房 <span class="num">1 × 1-mm</span>，1+＝<span class="num">6–15</span>、2+＝<span class="num">16–25</span>；玻璃體（MUST）<span class="num">1 × 0.5-mm</span>，1+＝<span class="num">6–10</span>、2+＝<span class="num">11–20</span>；兩者 0.5+ 都是 <span class="num">1–5</span>、4+ 都是 <span class="num">&gt;50</span>。<span class="ref">p.77, p.79</span></li>
+<li id="np-460"><strong>「不足以升級」三件事</strong>：macular edema（及 ERM、新生血管）、peripheral vascular sheathing、retinal vasculitis 都不能把分類改成 posterior/panuveitis；必須有視網膜或脈絡膜病灶。<span class="ref">p.69, p.71–72</span></li>
+<li id="np-461"><strong>Nodule 位置</strong>：Koeppe 瞳孔緣、Busacca 基質、Berlin 隅角。<span class="ref">p.78</span></li>
+<li id="np-462"><strong>HLA 對照</strong>：B27 脊椎關節病變/急性前葡萄膜炎；A29 birdshot；B51 Behcet（非診斷必需）；DRB1*01:02 TINU。<span class="ref">p.87</span></li>
 </ul>
 </div>
 </div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="9-5"><p class="ex-locked">本章考題 25 題。<a href="/exam/login?next=/exam/bcsc9-5">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
@@ -779,7 +818,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260728" defer></script>
-<script src="/exam/exam.js?v=20260728" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
+<script src="/exam/exam.js?v=20260729" defer></script>
 </body>
 </html>

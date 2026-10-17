@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 7 Ch.11 Reconstructive Eyelid Surgery：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc7-11#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 7 Ch.11","item":"https://hsiao.chendermatologist.com/exam/bcsc7-11"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -182,6 +182,40 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
 .ex-prog a{color:var(--ex-accent)}
 .ex-prog .ex-low{color:#b91c1c;font-weight:700}
+.ex-find{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:18px 0 8px}
+.ex-find-row{display:flex;gap:8px;margin:6px 0 4px}
+.ex-find-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-find-title{font-size:15px;font-weight:700;margin:10px 0 4px}
+.ex-find-group{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0}
+.ex-find-h{font-size:15px;font-weight:700;line-height:1.6;margin:0}
+.ex-find-h a{color:var(--ex-accent)}
+.ex-find-h .ex-count{margin-left:8px;font-weight:500;color:var(--ink-2)}
+.ex-find-list{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.75}
+.ex-find-list li{border-top:1px solid var(--line);padding:6px 0}
+.ex-find-list a{display:block;color:var(--ink);text-decoration:none}
+.ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
+.ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
+.ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
+.ex-practice{margin:12px 0 4px}
+.ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-more[hidden],.ex-rank tr[hidden]{display:none}
+.ex-note [id^="np-"]{scroll-margin-top:96px}
+.ex-note [id^="np-"]:target{background:var(--ex-soft);outline:2px solid var(--ex-accent);outline-offset:-2px;border-radius:6px}
+.ex-resume{position:sticky;top:72px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--ex-card);border:1px solid var(--border);border-left:4px solid var(--ex-accent);border-radius:10px;padding:6px 8px 6px 12px;margin:8px 0 12px;font-size:13px;line-height:1.6;box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(15,23,42,.35)}
+.ex-resume-text{flex:1;min-width:12em}
+.ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
+.ex-resume-close:hover{background:var(--ex-soft)}
+.ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
+.ex-ans-text{color:var(--ink-2);font-weight:600}
+.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next:disabled{opacity:.5;cursor:default}
+.ex-ans-clear{margin:0 0 6px}
+.ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
+.ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -212,8 +246,14 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
+:root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -229,7 +269,6 @@ body:not(.ex-quiz) .ex-opt input{display:none}
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
         <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
-        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
         <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
@@ -245,288 +284,288 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 7 Ch.11</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 7 · Oculofacial Plastic and Orbital Surgery</p><h1 class="ex-h1">Ch.11 Reconstructive Eyelid Surgery</h1><p class="ex-meta">原書 p.229–248 · 考題 5 題</p><div class="ex-strip" data-progress-chapter="7-11" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="7-11"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch11-s1">一、本章重點與眼瞼外傷總則</a></li><li><a href="#ch11-s2">二、穿刺傷：撕裂傷修復</a></li><li><a href="#ch11-s3">三、次發修復、植皮來源與外傷性下垂</a></li><li><a href="#ch11-s4">四、咬傷與燒傷</a></li><li><a href="#ch11-s5">五、眼瞼重建原則與常用縫線</a></li><li><a href="#ch11-s6">六、未涉及瞼緣的缺損</a></li><li><a href="#ch11-s7">七、上眼瞼瞼緣缺損（Fig 11-8 重建階梯）</a></li><li><a href="#ch11-s8">八、下眼瞼瞼緣缺損（Fig 11-10 重建階梯）</a></li><li><a href="#ch11-s9">九、外眥缺損</a></li><li><a href="#ch11-s10">十、內眥缺損</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 7 第 11 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch11-s1">一、本章重點與眼瞼外傷總則</h2>
 <h3 id="ch11-s1-1">Highlights（本章重點）</h3>
 <ul>
-<li>初次修復就做到<mark>精準的解剖對位</mark>，可避免日後因 cicatrization（疤痕攣縮）而需更大範圍組織重排的二次手術。<span class="ref">p.229</span></li>
-<li>切口沿 <strong>relaxed skin tension lines（RSTL，鬆弛皮膚張力線）</strong>，疤痕最不明顯。<span class="ref">p.229</span></li>
-<li>術後可能需要調控癒合/攣縮/疤痕的介入，例如 <strong>5-fluorouracil（5-FU）</strong>局部注射。<span class="ref">p.229</span></li>
-<li><strong>Traumatic ptosis（外傷性眼瞼下垂）</strong>先觀察數月，等待自行改善再考慮手術。<span class="ref">p.229</span></li>
-<li>縫合時<mark>張力走水平方向，避免垂直張力</mark>，以免術後 eyelid retraction（眼瞼退縮）。<span class="ref">p.229</span></li>
+<li id="np-1">初次修復就做到<mark>精準的解剖對位</mark>，可避免日後因 cicatrization（疤痕攣縮）而需更大範圍組織重排的二次手術。<span class="ref">p.229</span></li>
+<li id="np-2">切口沿 <strong>relaxed skin tension lines（RSTL，鬆弛皮膚張力線）</strong>，疤痕最不明顯。<span class="ref">p.229</span></li>
+<li id="np-3">術後可能需要調控癒合/攣縮/疤痕的介入，例如 <strong>5-fluorouracil（5-FU）</strong>局部注射。<span class="ref">p.229</span></li>
+<li id="np-4"><strong>Traumatic ptosis（外傷性眼瞼下垂）</strong>先觀察數月，等待自行改善再考慮手術。<span class="ref">p.229</span></li>
+<li id="np-5">縫合時<mark>張力走水平方向，避免垂直張力</mark>，以免術後 eyelid retraction（眼瞼退縮）。<span class="ref">p.229</span></li>
 </ul>
 <h3 id="ch11-s1-2">眼瞼外傷分類與處理原則</h3>
 <ul>
-<li>分為 <strong>blunt trauma（鈍傷）</strong>與 <strong>penetrating trauma（穿刺傷）</strong>。<span class="ref">p.229</span></li>
-<li>共同的 cardinal rules（基本原則）：熟悉眼瞼與眼眶解剖、詳細病史、記錄雙眼最佳視力、完整評估眼球與眼眶、適當影像檢查、做出最好的 primary repair（初次修復）。<span class="ref">p.229</span></li>
-<li>鈍傷最常見表現：<mark><strong>ecchymosis（瘀斑）與 edema（水腫）</strong></mark>；需 slit-lamp 與散瞳眼底檢查排除眼內傷，懷疑 orbital fracture（眼眶骨折）時安排 computed tomography（CT，電腦斷層）。<span class="ref">p.229</span></li>
+<li id="np-6">分為 <strong>blunt trauma（鈍傷）</strong>與 <strong>penetrating trauma（穿刺傷）</strong>。<span class="ref">p.229</span></li>
+<li id="np-7">共同的 cardinal rules（基本原則）：熟悉眼瞼與眼眶解剖、詳細病史、記錄雙眼最佳視力、完整評估眼球與眼眶、適當影像檢查、做出最好的 primary repair（初次修復）。<span class="ref">p.229</span></li>
+<li id="np-8">鈍傷最常見表現：<mark><strong>ecchymosis（瘀斑）與 edema（水腫）</strong></mark>；需 slit-lamp 與散瞳眼底檢查排除眼內傷，懷疑 orbital fracture（眼眶骨折）時安排 computed tomography（CT，電腦斷層）。<span class="ref">p.229</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch11-s1-3">易錯陷阱</h3><ul>
-<li>眼瞼外傷時第一件事是評估眼球與記錄視力，不要只看眼瞼傷口就直接縫。<span class="ref">p.229</span></li>
-<li>外傷性 ptosis 不急著修，與縫合時「張力要水平」都是本章 highlight 的考點。<span class="ref">p.229</span></li>
+<li id="np-9">眼瞼外傷時第一件事是評估眼球與記錄視力，不要只看眼瞼傷口就直接縫。<span class="ref">p.229</span></li>
+<li id="np-10">外傷性 ptosis 不急著修，與縫合時「張力要水平」都是本章 highlight 的考點。<span class="ref">p.229</span></li>
 </ul></div>
 
 <h2 id="ch11-s2">二、穿刺傷：撕裂傷修復</h2>
 <h3 id="ch11-s2-1">未涉及瞼緣的撕裂傷</h3>
 <ul>
-<li>只傷及皮膚與 orbicularis oculi muscle（眼輪匝肌）的淺層撕裂傷：通常只需皮膚縫合 ± 埋入式皮下縫線。<span class="ref">p.230</span></li>
-<li>減少疤痕的基本原則：保守清創、細口徑縫線、<strong>wound-edge eversion（傷口邊緣外翻）</strong>、及早拆線。<span class="ref">p.230</span></li>
-<li>傷口內見到 <strong>orbital fat（眼眶脂肪）</strong> → 代表 <mark>orbital septum（眶隔）已被穿破</mark>；修補前先找出並移除異物、充分沖洗。<span class="ref">p.230</span></li>
-<li><strong>上眼瞼</strong>傷口有眼眶脂肪脫出 → 須探查 <strong>levator muscle（提上眼瞼肌）與 aponeurosis（腱膜）</strong>；若斷裂，可能需修補以恢復功能。<span class="ref">p.230</span></li>
-<li><mark>Orbital septum 撕裂不需縫合</mark>：縫到眶隔會使其垂直縮短 → eyelid retraction；誤把眶隔或提肌縫入傷口，常導致上眼瞼退縮與黏連至 superior orbital rim（上眶緣）。<span class="ref">p.230</span></li>
+<li id="np-11">只傷及皮膚與 orbicularis oculi muscle（眼輪匝肌）的淺層撕裂傷：通常只需皮膚縫合 ± 埋入式皮下縫線。<span class="ref">p.230</span></li>
+<li id="np-12">減少疤痕的基本原則：保守清創、細口徑縫線、<strong>wound-edge eversion（傷口邊緣外翻）</strong>、及早拆線。<span class="ref">p.230</span></li>
+<li id="np-13">傷口內見到 <strong>orbital fat（眼眶脂肪）</strong> → 代表 <mark>orbital septum（眶隔）已被穿破</mark>；修補前先找出並移除異物、充分沖洗。<span class="ref">p.230</span></li>
+<li id="np-14"><strong>上眼瞼</strong>傷口有眼眶脂肪脫出 → 須探查 <strong>levator muscle（提上眼瞼肌）與 aponeurosis（腱膜）</strong>；若斷裂，可能需修補以恢復功能。<span class="ref">p.230</span></li>
+<li id="np-15"><mark>Orbital septum 撕裂不需縫合</mark>：縫到眶隔會使其垂直縮短 → eyelid retraction；誤把眶隔或提肌縫入傷口，常導致上眼瞼退縮與黏連至 superior orbital rim（上眶緣）。<span class="ref">p.230</span></li>
 </ul>
 <h3 id="ch11-s2-2">涉及瞼緣的撕裂傷</h3>
 <ul>
-<li>目標：避免瞼緣 <strong>notching（缺口）</strong>。以 interrupted 或 vertical mattress sutures（垂直褥式縫合）對齊三條線：<mark><strong>eyelash line（睫毛線）、gray line（灰線）、mucocutaneous junction（黏膜皮膚交界）</strong></mark>。<span class="ref">p.230–231</span></li>
-<li>瞼緣縫線打結時讓傷緣<strong>輕度外翻</strong>，以抵銷癒合時的收縮。<span class="ref">p.230</span></li>
-<li>瞼緣以外的 tarsus（瞼板）斷端以<strong>lamellar（部分厚度）縫合</strong>對齊，強化閉合並避免瞼板邊緣重疊與角膜擦傷。<span class="ref">p.230</span></li>
-<li>線尾導離眼表：瞼緣 silk 線留長，再用皮膚縫線壓住線尾，避免刺激角膜。<span class="ref">p.230–231</span></li>
-<li>病人可回診拆線 → 用 <strong>silk（絲線）</strong>；否則改用可吸收、結埋在瞼緣外的 vertical mattress sutures。<span class="ref">p.230–231</span></li>
+<li id="np-16">目標：避免瞼緣 <strong>notching（缺口）</strong>。以 interrupted 或 vertical mattress sutures（垂直褥式縫合）對齊三條線：<mark><strong>eyelash line（睫毛線）、gray line（灰線）、mucocutaneous junction（黏膜皮膚交界）</strong></mark>。<span class="ref">p.230–231</span></li>
+<li id="np-17">瞼緣縫線打結時讓傷緣<strong>輕度外翻</strong>，以抵銷癒合時的收縮。<span class="ref">p.230</span></li>
+<li id="np-18">瞼緣以外的 tarsus（瞼板）斷端以<strong>lamellar（部分厚度）縫合</strong>對齊，強化閉合並避免瞼板邊緣重疊與角膜擦傷。<span class="ref">p.230</span></li>
+<li id="np-19">線尾導離眼表：瞼緣 silk 線留長，再用皮膚縫線壓住線尾，避免刺激角膜。<span class="ref">p.230–231</span></li>
+<li id="np-20">病人可回診拆線 → 用 <strong>silk（絲線）</strong>；否則改用可吸收、結埋在瞼緣外的 vertical mattress sutures。<span class="ref">p.230–231</span></li>
 </ul>
 <h3 id="ch11-s2-3">Canthal soft tissue（眥部軟組織）外傷</h3>
 <ul>
-<li>機轉：眼瞼受<strong>水平牽拉</strong> → 在最弱點 <mark>medial 或 lateral canthal tendon（內/外眥韌帶）</mark>處撕脫。<span class="ref">p.232</span></li>
-<li>內眥傷需仔細評估 lacrimal drainage apparatus（淚液引流系統）；懷疑 canalicular injury（淚小管損傷）以視診、輕柔探針與沖洗確認（詳見第 15 章）。<span class="ref">p.232</span></li>
-<li>評估韌帶：以有齒鑷夾住眼瞼往遠離傷處拉，同時觸診韌帶附著處。<span class="ref">p.232</span></li>
-<li><strong>Medial canthal tendon avulsion（內眥韌帶撕脫）</strong>徵象：內眥角變圓、acquired telecanthus（後天性眥距過寬）。<span class="ref">p.232</span></li>
-<li>處理關鍵在<mark>附著於 posterior lacrimal crest（後淚嵴）的後肢是否完整</mark>（見下表）。<span class="ref">p.232–233</span></li>
+<li id="np-21">機轉：眼瞼受<strong>水平牽拉</strong> → 在最弱點 <mark>medial 或 lateral canthal tendon（內/外眥韌帶）</mark>處撕脫。<span class="ref">p.232</span></li>
+<li id="np-22">內眥傷需仔細評估 lacrimal drainage apparatus（淚液引流系統）；懷疑 canalicular injury（淚小管損傷）以視診、輕柔探針與沖洗確認（詳見第 15 章）。<span class="ref">p.232</span></li>
+<li id="np-23">評估韌帶：以有齒鑷夾住眼瞼往遠離傷處拉，同時觸診韌帶附著處。<span class="ref">p.232</span></li>
+<li id="np-24"><strong>Medial canthal tendon avulsion（內眥韌帶撕脫）</strong>徵象：內眥角變圓、acquired telecanthus（後天性眥距過寬）。<span class="ref">p.232</span></li>
+<li id="np-25">處理關鍵在<mark>附著於 posterior lacrimal crest（後淚嵴）的後肢是否完整</mark>（見下表）。<span class="ref">p.232–233</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Medial canthal tendon injury（內眥韌帶損傷）</th><th>Repair（修復方式）</th></tr></thead>
 <tbody>
-<tr><td>上或下肢撕脫，後方附著完整</td><td>縫回殘端，或縫至 anterior lacrimal crest（前淚嵴）骨膜</td></tr>
-<tr><td>整條（含後肢）撕脫，<strong>無</strong> naso-orbital fracture（鼻眶骨折）</td><td>經小鑽孔以鋼絲固定於同側 posterior lacrimal crest</td></tr>
-<tr><td>整條撕脫 <strong>合併</strong> naso-orbital fracture</td><td>骨折復位後 <strong>transnasal wiring（經鼻鋼絲）或 plating（骨板）</strong>；T 形 miniplate 固定於鼻骨並延伸入眶，韌帶縫線穿過骨板孔——後淚嵴骨缺損時特別有用</td></tr>
+<tr><td id="np-26">上或下肢撕脫，後方附著完整</td><td id="np-27">縫回殘端，或縫至 anterior lacrimal crest（前淚嵴）骨膜</td></tr>
+<tr><td id="np-28">整條（含後肢）撕脫，<strong>無</strong> naso-orbital fracture（鼻眶骨折）</td><td id="np-29">經小鑽孔以鋼絲固定於同側 posterior lacrimal crest</td></tr>
+<tr><td id="np-30">整條撕脫 <strong>合併</strong> naso-orbital fracture</td><td id="np-31">骨折復位後 <strong>transnasal wiring（經鼻鋼絲）或 plating（骨板）</strong>；T 形 miniplate 固定於鼻骨並延伸入眶，韌帶縫線穿過骨板孔——後淚嵴骨缺損時特別有用</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.232–233</span></p>
+<p id="np-32">出處 <span class="ref">p.232–233</span></p>
 <div class="ex-trap"><h3 id="ch11-s2-4">易錯陷阱</h3><ul>
-<li>看到脂肪＝眶隔破了，但「把眶隔縫起來」是錯的，會造成退縮與 lagophthalmos（兔眼）。<span class="ref">p.230</span></li>
-<li>瞼緣修補要對齊的是睫毛線、灰線、黏膜皮膚交界，打結要讓傷緣微外翻，不是平整對合。<span class="ref">p.230</span></li>
-<li>內眥韌帶修復看「後肢」：後肢斷且合併骨折才需 transnasal wiring。<span class="ref">p.232–233</span></li>
+<li id="np-33">看到脂肪＝眶隔破了，但「把眶隔縫起來」是錯的，會造成退縮與 lagophthalmos（兔眼）。<span class="ref">p.230</span></li>
+<li id="np-34">瞼緣修補要對齊的是睫毛線、灰線、黏膜皮膚交界，打結要讓傷緣微外翻，不是平整對合。<span class="ref">p.230</span></li>
+<li id="np-35">內眥韌帶修復看「後肢」：後肢斷且合併骨折才需 transnasal wiring。<span class="ref">p.232–233</span></li>
 </ul></div>
 
 <h2 id="ch11-s3">三、次發修復、植皮來源與外傷性下垂</h2>
 <ul>
-<li>Secondary repair（次發修復）：處理原始外傷的疤痕變化，或修正不理想初次修復造成的 ectropion（外翻）、entropion（內翻）、eyelid retraction、lagophthalmos。<span class="ref">p.233</span></li>
-<li>疤痕修正方式取決於疤痕與 RSTL 的關係：<mark>順著 RSTL → elliptical excision（橢圓形切除）</mark>；<mark>不順著 RSTL → 單一或多重 <strong>Z-plasty（Z 字成形）</strong></mark>。<span class="ref">p.233</span></li>
-<li>Skin graft（植皮）± flap：用於組織缺失，或需<strong>延長 anterior lamella（前層）</strong>以矯正疤痕攣縮。<span class="ref">p.233</span></li>
-<li>任何無毛皮膚皆可用，但<mark>理想供皮為上眼瞼全層皮膚</mark>（如同只切皮的 blepharoplasty（眼瞼成形術）取皮）；替代來源：<strong>preauricular（耳前）/ postauricular（耳後）、supraclavicular（鎖骨上）、upper inner arm（上臂內側）</strong>。理想植皮顏色、厚度與受區相近，光老化少。<span class="ref">p.233</span></li>
-<li>Posterior lamella（後層）缺損：瞼板與結膜皆不足 → <strong>tarsoconjunctival flap/graft（瞼板結膜瓣/移植）</strong>；只缺結膜 → <strong>buccal mucosa（頰黏膜）</strong>。<span class="ref">p.233</span></li>
-<li><strong>Hard palate（硬顎）composite graft</strong>可修補下眼瞼後層瞼板缺損，但<mark>避免用於上眼瞼</mark>——角質化上皮會刺激角膜。<span class="ref">p.233</span></li>
-<li>外傷性 ptosis 手術應<mark>延後 <span class="num">3–6 個月</span></mark>等待自行恢復；例外：幼兒有 amblyogenic（會造成弱視）的下垂。<span class="ref">p.234</span></li>
+<li id="np-36">Secondary repair（次發修復）：處理原始外傷的疤痕變化，或修正不理想初次修復造成的 ectropion（外翻）、entropion（內翻）、eyelid retraction、lagophthalmos。<span class="ref">p.233</span></li>
+<li id="np-37">疤痕修正方式取決於疤痕與 RSTL 的關係：<mark>順著 RSTL → elliptical excision（橢圓形切除）</mark>；<mark>不順著 RSTL → 單一或多重 <strong>Z-plasty（Z 字成形）</strong></mark>。<span class="ref">p.233</span></li>
+<li id="np-38">Skin graft（植皮）± flap：用於組織缺失，或需<strong>延長 anterior lamella（前層）</strong>以矯正疤痕攣縮。<span class="ref">p.233</span></li>
+<li id="np-39">任何無毛皮膚皆可用，但<mark>理想供皮為上眼瞼全層皮膚</mark>（如同只切皮的 blepharoplasty（眼瞼成形術）取皮）；替代來源：<strong>preauricular（耳前）/ postauricular（耳後）、supraclavicular（鎖骨上）、upper inner arm（上臂內側）</strong>。理想植皮顏色、厚度與受區相近，光老化少。<span class="ref">p.233</span></li>
+<li id="np-40">Posterior lamella（後層）缺損：瞼板與結膜皆不足 → <strong>tarsoconjunctival flap/graft（瞼板結膜瓣/移植）</strong>；只缺結膜 → <strong>buccal mucosa（頰黏膜）</strong>。<span class="ref">p.233</span></li>
+<li id="np-41"><strong>Hard palate（硬顎）composite graft</strong>可修補下眼瞼後層瞼板缺損，但<mark>避免用於上眼瞼</mark>——角質化上皮會刺激角膜。<span class="ref">p.233</span></li>
+<li id="np-42">外傷性 ptosis 手術應<mark>延後 <span class="num">3–6 個月</span></mark>等待自行恢復；例外：幼兒有 amblyogenic（會造成弱視）的下垂。<span class="ref">p.234</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch11-s3-1">易錯陷阱</h3><ul>
-<li>全層植皮供皮區：首選上眼瞼，替代為 preauricular / postauricular（耳前/耳後，即 periauricular 耳周）、<mark>supraclavicular（鎖骨<strong>上</strong>）</mark>、upper inner arm（上臂內側）；<mark>subclavicular（鎖骨下）不在列</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-823" data-q="823">第 823 題</a></span><span class="ref">p.233, p.235–237</span></li>
-<li>硬顎移植只用於<strong>下</strong>眼瞼；用在上眼瞼時，其角質化上皮會刺激角膜。<span class="ref">p.233</span></li>
-<li>外傷性 ptosis 等 <span class="num">3–6 個月</span>；唯一例外是幼兒弱視風險。<span class="ref">p.234</span></li>
+<li id="np-43">全層植皮供皮區：首選上眼瞼，替代為 preauricular / postauricular（耳前/耳後，即 periauricular 耳周）、<mark>supraclavicular（鎖骨<strong>上</strong>）</mark>、upper inner arm（上臂內側）；<mark>subclavicular（鎖骨下）不在列</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-823" data-q="823">第 823 題</a></span><span class="ref">p.233, p.235–237</span></li>
+<li id="np-44">硬顎移植只用於<strong>下</strong>眼瞼；用在上眼瞼時，其角質化上皮會刺激角膜。<span class="ref">p.233</span></li>
+<li id="np-45">外傷性 ptosis 等 <span class="num">3–6 個月</span>；唯一例外是幼兒弱視風險。<span class="ref">p.234</span></li>
 </ul></div>
 
 <h2 id="ch11-s4">四、咬傷與燒傷</h2>
 <h3 id="ch11-s4-1">Dog and human bites（狗與人咬傷）</h3>
 <ul>
-<li>常見撕裂與壓碎傷、部分/全層撕裂、canthal avulsion（眥部撕脫）、canalicular laceration（淚小管斷裂）；組織缺失少見。<span class="ref">p.234</span></li>
-<li>處理：沖洗、<strong>早期修復</strong>為佳；遵循 tetanus（破傷風）與 rabies（狂犬病）預防流程。<span class="ref">p.234</span></li>
-<li><mark>所有咬傷都建議全身性抗生素</mark>（感染風險高）；成人與兒童皆可用 <strong>amoxicillin-clavulanate</strong>。<span class="ref">p.234</span></li>
-<li>狗咬傷菌叢：最常見 <strong>Pasteurella canis</strong>，另有需氧菌（streptococci、staphylococci、<i>Moraxella</i>、<i>Neisseria</i>）與厭氧菌（Fusobacterium、Bacteroides、Porphyromonas）。<span class="ref">p.234</span></li>
-<li>眼、淚小管、臉部咬傷<strong>以兒童最常見</strong>，多為混種犬、German shepherd、Labrador retriever、pit bull terrier、rottweiler。<span class="ref">p.234</span></li>
+<li id="np-46">常見撕裂與壓碎傷、部分/全層撕裂、canthal avulsion（眥部撕脫）、canalicular laceration（淚小管斷裂）；組織缺失少見。<span class="ref">p.234</span></li>
+<li id="np-47">處理：沖洗、<strong>早期修復</strong>為佳；遵循 tetanus（破傷風）與 rabies（狂犬病）預防流程。<span class="ref">p.234</span></li>
+<li id="np-48"><mark>所有咬傷都建議全身性抗生素</mark>（感染風險高）；成人與兒童皆可用 <strong>amoxicillin-clavulanate</strong>。<span class="ref">p.234</span></li>
+<li id="np-49">狗咬傷菌叢：最常見 <strong>Pasteurella canis</strong>，另有需氧菌（streptococci、staphylococci、<i>Moraxella</i>、<i>Neisseria</i>）與厭氧菌（Fusobacterium、Bacteroides、Porphyromonas）。<span class="ref">p.234</span></li>
+<li id="np-50">眼、淚小管、臉部咬傷<strong>以兒童最常見</strong>，多為混種犬、German shepherd、Labrador retriever、pit bull terrier、rottweiler。<span class="ref">p.234</span></li>
 </ul>
 <h3 id="ch11-s4-2">Burns（燒傷）</h3>
 <ul>
-<li>單獨眼瞼燒傷少見，多伴隨臉部與全身大面積燒傷；病人常意識不清或深度鎮靜 → 需保護眼表避免 exposure（暴露）、潰瘍與感染。<span class="ref">p.234</span></li>
-<li>早期：潤滑抗生素藥膏、<strong>moisture chamber（保濕罩）</strong>、頻繁評估。<span class="ref">p.234</span></li>
-<li>疤痕變化若不積極處理 → cicatricial ectropion（疤痕性外翻）、lagophthalmos、角膜暴露快速惡化。<span class="ref">p.234</span></li>
-<li>若做 <strong>tarsorrhaphy（瞼緣縫合術）</strong>，範圍要<mark>比當下看起來需要的更大</mark>，以抵抗疤痕牽引與裂開。<span class="ref">p.234</span></li>
-<li>觀念轉變：過去等數月疤痕穩定才植皮重建 → 多次手術、結果差；現在主張<mark>上皮化後早期積極介入</mark>。<span class="ref">p.234</span></li>
-<li>疤痕內注射 wound-modulating agents（5-FU、triamcinolone）與 <strong>fractional ablative laser resurfacing（分段式剝離雷射）</strong>可治療/預防外翻、攣縮、hypertrophic scar（肥厚性疤痕），雷射也改善質地與色素；可作為延遲重建手術的替代或輔助。<span class="ref">p.234–235</span></li>
+<li id="np-51">單獨眼瞼燒傷少見，多伴隨臉部與全身大面積燒傷；病人常意識不清或深度鎮靜 → 需保護眼表避免 exposure（暴露）、潰瘍與感染。<span class="ref">p.234</span></li>
+<li id="np-52">早期：潤滑抗生素藥膏、<strong>moisture chamber（保濕罩）</strong>、頻繁評估。<span class="ref">p.234</span></li>
+<li id="np-53">疤痕變化若不積極處理 → cicatricial ectropion（疤痕性外翻）、lagophthalmos、角膜暴露快速惡化。<span class="ref">p.234</span></li>
+<li id="np-54">若做 <strong>tarsorrhaphy（瞼緣縫合術）</strong>，範圍要<mark>比當下看起來需要的更大</mark>，以抵抗疤痕牽引與裂開。<span class="ref">p.234</span></li>
+<li id="np-55">觀念轉變：過去等數月疤痕穩定才植皮重建 → 多次手術、結果差；現在主張<mark>上皮化後早期積極介入</mark>。<span class="ref">p.234</span></li>
+<li id="np-56">疤痕內注射 wound-modulating agents（5-FU、triamcinolone）與 <strong>fractional ablative laser resurfacing（分段式剝離雷射）</strong>可治療/預防外翻、攣縮、hypertrophic scar（肥厚性疤痕），雷射也改善質地與色素；可作為延遲重建手術的替代或輔助。<span class="ref">p.234–235</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch11-s4-3">易錯陷阱</h3><ul>
-<li>咬傷不是「乾淨傷口可不給抗生素」：書中建議所有咬傷都給全身抗生素。<span class="ref">p.234</span></li>
-<li>燒傷不是「等疤痕穩定再處理」；舊做法結果較差。<span class="ref">p.234</span></li>
+<li id="np-57">咬傷不是「乾淨傷口可不給抗生素」：書中建議所有咬傷都給全身抗生素。<span class="ref">p.234</span></li>
+<li id="np-58">燒傷不是「等疤痕穩定再處理」；舊做法結果較差。<span class="ref">p.234</span></li>
 </ul></div>
 
 <h2 id="ch11-s5">五、眼瞼重建原則與常用縫線</h2>
 <h3 id="ch11-s5-1">重建優先順序</h3>
 <ul>
-<li>術式選擇取決於年齡與共病、眼瞼狀況、缺損大小與位置、醫師偏好。<span class="ref">p.235</span></li>
-<li>Priorities（優先目標）：保留眼瞼功能 → 穩定瞼緣 → 足以保護眼球的閉合 → 足夠垂直高度 → 平滑上皮化的內表面 → 最後才是外觀與對稱。<span class="ref">p.235</span></li>
+<li id="np-59">術式選擇取決於年齡與共病、眼瞼狀況、缺損大小與位置、醫師偏好。<span class="ref">p.235</span></li>
+<li id="np-60">Priorities（優先目標）：保留眼瞼功能 → 穩定瞼緣 → 足以保護眼球的閉合 → 足夠垂直高度 → 平滑上皮化的內表面 → 最後才是外觀與對稱。<span class="ref">p.235</span></li>
 </ul>
 <h3 id="ch11-s5-2">General principles（一般原則）</h3>
 <ul>
-<li><mark>前層或後層只能其中一層用 graft（游離移植），不可兩層都用</mark>；至少一層須提供血流（pedicle flap，帶蒂皮瓣）。<span class="ref">p.235</span></li>
-<li>張力導向水平，盡量減少垂直張力。<span class="ref">p.235</span></li>
-<li>維持足夠且符合解剖的 canthal fixation（眥部固定）。<span class="ref">p.235</span></li>
-<li>組織顏色與厚度相配；決定 graft 大小前先盡量縮小缺損。<span class="ref">p.235</span></li>
+<li id="np-61"><mark>前層或後層只能其中一層用 graft（游離移植），不可兩層都用</mark>；至少一層須提供血流（pedicle flap，帶蒂皮瓣）。<span class="ref">p.235</span></li>
+<li id="np-62">張力導向水平，盡量減少垂直張力。<span class="ref">p.235</span></li>
+<li id="np-63">維持足夠且符合解剖的 canthal fixation（眥部固定）。<span class="ref">p.235</span></li>
+<li id="np-64">組織顏色與厚度相配；決定 graft 大小前先盡量縮小缺損。<span class="ref">p.235</span></li>
 </ul>
 <h3 id="ch11-s5-3">Table 11-1 常用縫線（精簡）</h3>
 <table class="ted-table">
 <thead><tr><th>Site（部位）</th><th>Suture（縫線）</th><th>Notes（備註）</th></tr></thead>
 <tbody>
-<tr><td>眼瞼皮膚</td><td>6-0 plain gut；7-0 Vicryl；6-0 Prolene / nylon</td><td>Plain gut <span class="num">2–4 週</span>溶、Vicryl <span class="num">1–2 個月</span>溶（可提早拆）；Prolene/nylon <span class="num">1–2 週</span>內拆</td></tr>
-<tr><td>眉、額、頰</td><td>5-0 Prolene；5-0 fast-absorbing gut</td><td><span class="num">1–2 週</span>內拆</td></tr>
-<tr><td>眼輪匝肌</td><td>7-0 Vicryl</td><td>—</td></tr>
-<tr><td>有張力的深層閉合</td><td>4-0/5-0 Monocryl、Vicryl、Mersilene</td><td>Monocryl 適合皮內縫合、少發炎與肉芽腫；Vicryl <span class="num">1–3 個月</span>溶、可致 granuloma（肉芽腫）；Mersilene 為永久線</td></tr>
-<tr><td>瞼緣</td><td><strong>6-0 silk</strong></td><td><span class="num">1–2 週</span>內拆</td></tr>
-<tr><td>內/外眥</td><td>4-0/5-0 Vicryl、Mersilene、Prolene</td><td>Vicryl/Mersilene 可致 granuloma</td></tr>
-<tr><td>口腔唇黏膜</td><td>4-0 chromic gut</td><td>—</td></tr>
+<tr><td id="np-65">眼瞼皮膚</td><td id="np-66">6-0 plain gut；7-0 Vicryl；6-0 Prolene / nylon</td><td id="np-67">Plain gut <span class="num">2–4 週</span>溶、Vicryl <span class="num">1–2 個月</span>溶（可提早拆）；Prolene/nylon <span class="num">1–2 週</span>內拆</td></tr>
+<tr><td id="np-68">眉、額、頰</td><td id="np-69">5-0 Prolene；5-0 fast-absorbing gut</td><td id="np-70"><span class="num">1–2 週</span>內拆</td></tr>
+<tr><td id="np-71">眼輪匝肌</td><td id="np-72">7-0 Vicryl</td><td id="np-73">—</td></tr>
+<tr><td id="np-74">有張力的深層閉合</td><td id="np-75">4-0/5-0 Monocryl、Vicryl、Mersilene</td><td id="np-76">Monocryl 適合皮內縫合、少發炎與肉芽腫；Vicryl <span class="num">1–3 個月</span>溶、可致 granuloma（肉芽腫）；Mersilene 為永久線</td></tr>
+<tr><td id="np-77">瞼緣</td><td id="np-78"><strong>6-0 silk</strong></td><td id="np-79"><span class="num">1–2 週</span>內拆</td></tr>
+<tr><td id="np-80">內/外眥</td><td id="np-81">4-0/5-0 Vicryl、Mersilene、Prolene</td><td id="np-82">Vicryl/Mersilene 可致 granuloma</td></tr>
+<tr><td id="np-83">口腔唇黏膜</td><td id="np-84">4-0 chromic gut</td><td id="np-85">—</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.236</span></p>
+<p id="np-86">出處 <span class="ref">p.236</span></p>
 <div class="ex-trap"><h3 id="ch11-s5-4">易錯陷阱</h3><ul>
-<li>「前後層都用游離移植」是錯的——兩層都沒血流會壞死；graft 必須蓋在帶蒂 flap 上（或反之）。<span class="ref">p.235</span></li>
-<li>外觀對稱是最後順位，功能與眼球保護優先。<span class="ref">p.235</span></li>
+<li id="np-87">「前後層都用游離移植」是錯的——兩層都沒血流會壞死；graft 必須蓋在帶蒂 flap 上（或反之）。<span class="ref">p.235</span></li>
+<li id="np-88">外觀對稱是最後順位，功能與眼球保護優先。<span class="ref">p.235</span></li>
 </ul></div>
 
 <h2 id="ch11-s6">六、未涉及瞼緣的缺損</h2>
 <ul>
-<li>不扭曲瞼緣即可 <strong>direct closure（直接縫合）</strong>；張力水平導向，<mark>垂直張力會造成退縮或外翻</mark>，可用垂直走向的切口避免。<span class="ref">p.235</span></li>
-<li>太大無法直接縫 → local flaps（局部皮瓣）：最常用 <strong>advancement（推進）、rotational（旋轉）、transposition（轉位）</strong>flap。<span class="ref">p.235</span></li>
-<li><mark>Flap 通常提供最佳組織匹配與外觀</mark>，優於非眼瞼來源的植皮，但需精心設計以減少續發變形。<span class="ref">p.235</span></li>
-<li>局部皮瓣不足 → <strong>full-thickness skin graft（FTSG，全層植皮）</strong>：首選上眼瞼皮膚；其次耳前/耳後、鎖骨上窩、上臂內側（Fig 11-7）。<span class="ref">p.235–237</span></li>
-<li>較厚的植皮可能限制上眼瞼活動；植皮應<mark>稍微放大</mark>，因會收縮。<span class="ref">p.236</span></li>
-<li><strong>Split-thickness graft（STSG，部分厚度植皮）應避免</strong>，只在沒有足夠全層皮膚時才用。<span class="ref">p.236</span></li>
+<li id="np-89">不扭曲瞼緣即可 <strong>direct closure（直接縫合）</strong>；張力水平導向，<mark>垂直張力會造成退縮或外翻</mark>，可用垂直走向的切口避免。<span class="ref">p.235</span></li>
+<li id="np-90">太大無法直接縫 → local flaps（局部皮瓣）：最常用 <strong>advancement（推進）、rotational（旋轉）、transposition（轉位）</strong>flap。<span class="ref">p.235</span></li>
+<li id="np-91"><mark>Flap 通常提供最佳組織匹配與外觀</mark>，優於非眼瞼來源的植皮，但需精心設計以減少續發變形。<span class="ref">p.235</span></li>
+<li id="np-92">局部皮瓣不足 → <strong>full-thickness skin graft（FTSG，全層植皮）</strong>：首選上眼瞼皮膚；其次耳前/耳後、鎖骨上窩、上臂內側（Fig 11-7）。<span class="ref">p.235–237</span></li>
+<li id="np-93">較厚的植皮可能限制上眼瞼活動；植皮應<mark>稍微放大</mark>，因會收縮。<span class="ref">p.236</span></li>
+<li id="np-94"><strong>Split-thickness graft（STSG，部分厚度植皮）應避免</strong>，只在沒有足夠全層皮膚時才用。<span class="ref">p.236</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>FTSG donor site（全層植皮供皮區，Fig 11-7）</th><th>Comment（說明）</th></tr></thead>
 <tbody>
-<tr><td>Upper eyelid（上眼瞼）</td><td>理想首選，顏色厚度最匹配</td></tr>
-<tr><td>Preauricular（耳前）</td><td>替代</td></tr>
-<tr><td>Postauricular（耳後）</td><td>替代</td></tr>
-<tr><td>Supraclavicular（鎖骨上窩）</td><td>替代；注意是「上」</td></tr>
-<tr><td>Inner upper arm（上臂內側）</td><td>替代；例如內眥大缺損（Fig 11-17）</td></tr>
+<tr><td id="np-95">Upper eyelid（上眼瞼）</td><td id="np-96">理想首選，顏色厚度最匹配</td></tr>
+<tr><td id="np-97">Preauricular（耳前）</td><td id="np-98">替代</td></tr>
+<tr><td id="np-99">Postauricular（耳後）</td><td id="np-100">替代</td></tr>
+<tr><td id="np-101">Supraclavicular（鎖骨上窩）</td><td id="np-102">替代；注意是「上」</td></tr>
+<tr><td id="np-103">Inner upper arm（上臂內側）</td><td id="np-104">替代；例如內眥大缺損（Fig 11-17）</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.233, p.235–237, p.246</span></p>
+<p id="np-105">出處 <span class="ref">p.233, p.235–237, p.246</span></p>
 <div class="ex-trap"><h3 id="ch11-s6-1">易錯陷阱</h3><ul>
-<li>Subclavicular（鎖骨下）不在 BCSC 列出的供皮區。<span class="ref">p.236–237</span></li>
-<li>植皮要稍大不是稍小；眼瞼重建避免 split-thickness graft。<span class="ref">p.236</span></li>
+<li id="np-106">Subclavicular（鎖骨下）不在 BCSC 列出的供皮區。<span class="ref">p.236–237</span></li>
+<li id="np-107">植皮要稍大不是稍小；眼瞼重建避免 split-thickness graft。<span class="ref">p.236</span></li>
 </ul></div>
 
 <h2 id="ch11-s7">七、上眼瞼瞼緣缺損（Fig 11-8 重建階梯）</h2>
 <h3 id="ch11-s7-1">Small（≤ 1/3）</h3>
 <ul>
-<li>張力不過大時 <strong>primary closure（直接縫合）</strong>；一般用於 <span class="num">≤ 1/3</span> 瞼緣，floppy eyelid syndrome（鬆弛眼瞼症候群）或眼瞼極鬆弛者可閉合更大缺損。<span class="ref">p.236</span></li>
-<li>可加 lateral canthotomy（外眥切開）與 <strong>superior cantholysis</strong>（釋放外眥韌帶上肢）→ 外側瞼緣可再內移 <span class="num">3–5 mm</span>。<span class="ref">p.236, p.238</span></li>
-<li>注意避開上眼瞼外側的 <strong>lacrimal ductules（淚腺小管）</strong>——破壞會造成慢性乾眼。<span class="ref">p.236</span></li>
-<li>術後初期眼瞼可能緊繃、下垂，通常數週內放鬆。<span class="ref">p.236</span></li>
+<li id="np-108">張力不過大時 <strong>primary closure（直接縫合）</strong>；一般用於 <span class="num">≤ 1/3</span> 瞼緣，floppy eyelid syndrome（鬆弛眼瞼症候群）或眼瞼極鬆弛者可閉合更大缺損。<span class="ref">p.236</span></li>
+<li id="np-109">可加 lateral canthotomy（外眥切開）與 <strong>superior cantholysis</strong>（釋放外眥韌帶上肢）→ 外側瞼緣可再內移 <span class="num">3–5 mm</span>。<span class="ref">p.236, p.238</span></li>
+<li id="np-110">注意避開上眼瞼外側的 <strong>lacrimal ductules（淚腺小管）</strong>——破壞會造成慢性乾眼。<span class="ref">p.236</span></li>
+<li id="np-111">術後初期眼瞼可能緊繃、下垂，通常數週內放鬆。<span class="ref">p.236</span></li>
 </ul>
 <h3 id="ch11-s7-2">Moderate（33%–50%）</h3>
 <ul>
-<li>釋放外眥韌帶，於外側眉下做 <strong>semicircular skin flap（半圓皮瓣，Tenzel 型）</strong>，推進外側眼瞼與顳側組織；切開時避開 <mark>facial nerve temporal branch（顏面神經顳支）</mark>。<span class="ref">p.237</span></li>
-<li>年輕、眼瞼較不鬆弛者可能需用下眼瞼的 tarsal-sharing（瞼板分享）術式。<span class="ref">p.237</span></li>
+<li id="np-112">釋放外眥韌帶，於外側眉下做 <strong>semicircular skin flap（半圓皮瓣，Tenzel 型）</strong>，推進外側眼瞼與顳側組織；切開時避開 <mark>facial nerve temporal branch（顏面神經顳支）</mark>。<span class="ref">p.237</span></li>
+<li id="np-113">年輕、眼瞼較不鬆弛者可能需用下眼瞼的 tarsal-sharing（瞼板分享）術式。<span class="ref">p.237</span></li>
 </ul>
 <h3 id="ch11-s7-3">Large（&gt; 50%）</h3>
 <ul>
-<li>常需 eyelid-sharing（眼瞼分享）技術或 tarsoconjunctival graft。<span class="ref">p.237</span></li>
-<li><strong>Cutler-Beard flap</strong>：於<mark>下眼瞼</mark>瞼板下緣下方 <span class="num">1–2 mm</span> 做水平全層 blepharotomy（眼瞼切開），將全層下眼瞼皮瓣<strong>穿過保留的下眼瞼瞼緣橋下方</strong>推進到<mark>上眼瞼</mark>缺損處。<span class="ref">p.237, p.239</span></li>
-<li>Cutler-Beard 需第二階段打開眼瞼；常造成上眼瞼<strong>厚且活動差</strong>。替代：下眼瞼 tarsoconjunctival flap + 覆蓋植皮，外觀較佳。<span class="ref">p.237</span></li>
-<li>Eyelid-sharing 術式會遮蔽視軸 → <mark>較不適合 monocular（獨眼）病人或有 deprivation amblyopia（剝奪性弱視）風險的兒童</mark>。<span class="ref">p.237</span></li>
-<li>若上眼瞼多餘皮膚足夠：取<strong>對側上眼瞼</strong> tarsoconjunctival graft + skin–muscle flap 覆蓋。<span class="ref">p.237</span></li>
-<li>階梯最上層：<strong>median forehead flap（正中額皮瓣）</strong>。<span class="ref">p.238</span></li>
+<li id="np-114">常需 eyelid-sharing（眼瞼分享）技術或 tarsoconjunctival graft。<span class="ref">p.237</span></li>
+<li id="np-115"><strong>Cutler-Beard flap</strong>：於<mark>下眼瞼</mark>瞼板下緣下方 <span class="num">1–2 mm</span> 做水平全層 blepharotomy（眼瞼切開），將全層下眼瞼皮瓣<strong>穿過保留的下眼瞼瞼緣橋下方</strong>推進到<mark>上眼瞼</mark>缺損處。<span class="ref">p.237, p.239</span></li>
+<li id="np-116">Cutler-Beard 需第二階段打開眼瞼；常造成上眼瞼<strong>厚且活動差</strong>。替代：下眼瞼 tarsoconjunctival flap + 覆蓋植皮，外觀較佳。<span class="ref">p.237</span></li>
+<li id="np-117">Eyelid-sharing 術式會遮蔽視軸 → <mark>較不適合 monocular（獨眼）病人或有 deprivation amblyopia（剝奪性弱視）風險的兒童</mark>。<span class="ref">p.237</span></li>
+<li id="np-118">若上眼瞼多餘皮膚足夠：取<strong>對側上眼瞼</strong> tarsoconjunctival graft + skin–muscle flap 覆蓋。<span class="ref">p.237</span></li>
+<li id="np-119">階梯最上層：<strong>median forehead flap（正中額皮瓣）</strong>。<span class="ref">p.238</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Defect size（缺損，% 瞼緣）</th><th>Upper eyelid ladder（上眼瞼，Fig 11-8）</th></tr></thead>
 <tbody>
-<tr><td><span class="num">≤ 33%</span></td><td>A：primary closure ± lateral canthotomy / superior cantholysis</td></tr>
-<tr><td><span class="num">33%–50%</span></td><td>B：semicircular flap；C：相鄰 tarsoconjunctival flap + FTSG</td></tr>
-<tr><td><span class="num">50%–100%</span></td><td>D：tarsoconjunctival graft + skin flap；E：<strong>Cutler-Beard</strong>（全層下眼瞼推進瓣）；F：median forehead flap</td></tr>
+<tr><td id="np-120"><span class="num">≤ 33%</span></td><td id="np-121">A：primary closure ± lateral canthotomy / superior cantholysis</td></tr>
+<tr><td id="np-122"><span class="num">33%–50%</span></td><td id="np-123">B：semicircular flap；C：相鄰 tarsoconjunctival flap + FTSG</td></tr>
+<tr><td id="np-124"><span class="num">50%–100%</span></td><td id="np-125">D：tarsoconjunctival graft + skin flap；E：<strong>Cutler-Beard</strong>（全層下眼瞼推進瓣）；F：median forehead flap</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.238</span></p>
+<p id="np-126">出處 <span class="ref">p.238</span></p>
 <div class="ex-trap"><h3 id="ch11-s7-4">易錯陷阱</h3><ul>
-<li><mark>Cutler-Beard 是「用下眼瞼補上眼瞼」</mark>，不是下眼瞼缺損的修補法；考題常把它混入下眼瞼選項。<span class="ref">p.237–239</span></li>
-<li>Eyelid-sharing（Cutler-Beard、Hughes）會暫時遮眼，幼兒與獨眼者要小心。<span class="ref">p.237, p.241</span></li>
-<li>上眼瞼外側修補別傷到 lacrimal ductules（乾眼），半圓皮瓣別傷到顏面神經顳支。<span class="ref">p.236–237</span></li>
+<li id="np-127"><mark>Cutler-Beard 是「用下眼瞼補上眼瞼」</mark>，不是下眼瞼缺損的修補法；考題常把它混入下眼瞼選項。<span class="ref">p.237–239</span></li>
+<li id="np-128">Eyelid-sharing（Cutler-Beard、Hughes）會暫時遮眼，幼兒與獨眼者要小心。<span class="ref">p.237, p.241</span></li>
+<li id="np-129">上眼瞼外側修補別傷到 lacrimal ductules（乾眼），半圓皮瓣別傷到顏面神經顳支。<span class="ref">p.236–237</span></li>
 </ul></div>
 
 <h2 id="ch11-s8">八、下眼瞼瞼緣缺損（Fig 11-10 重建階梯）</h2>
 <h3 id="ch11-s8-1">Small（&lt; 1/3）</h3>
 <ul>
-<li><strong>Primary closure</strong>；可內外方式釋放<strong>外眥韌帶下肢（inferior crus）</strong>，外側瞼緣再內移 <span class="num">3–5 mm</span>。<span class="ref">p.238</span></li>
+<li id="np-130"><strong>Primary closure</strong>；可內外方式釋放<strong>外眥韌帶下肢（inferior crus）</strong>，外側瞼緣再內移 <span class="num">3–5 mm</span>。<span class="ref">p.238</span></li>
 </ul>
 <h3 id="ch11-s8-2">Moderate（約 1/3–1/2）</h3>
 <ul>
-<li><strong>Semicircular rotational flap（半圓旋轉皮瓣，Tenzel flap）</strong>同樣可用於下眼瞼中度缺損。<span class="ref">p.239</span></li>
-<li>後層：從上眼瞼內面取 <strong>tarsoconjunctival autograft</strong> 移植到下眼瞼；取材時<mark>保留上眼瞼瞼板靠瞼緣 <span class="num">4–5 mm</span> 高度</mark>，避免供區瞼緣變形；上方以 skin flap 或 skin–muscle flap 覆蓋。<span class="ref">p.239</span></li>
-<li>可能需 cheek elevation（臉頰提升，<strong>suborbicularis oculi fat（SOOF）lift</strong>）以避免外翻與垂直牽引。<span class="ref">p.239</span></li>
-<li>缺損偏大或其他方法不適用 → 上眼瞼 tarsoconjunctival flap + FTSG（即下段的 Hughes）。<span class="ref">p.239–240</span></li>
+<li id="np-131"><strong>Semicircular rotational flap（半圓旋轉皮瓣，Tenzel flap）</strong>同樣可用於下眼瞼中度缺損。<span class="ref">p.239</span></li>
+<li id="np-132">後層：從上眼瞼內面取 <strong>tarsoconjunctival autograft</strong> 移植到下眼瞼；取材時<mark>保留上眼瞼瞼板靠瞼緣 <span class="num">4–5 mm</span> 高度</mark>，避免供區瞼緣變形；上方以 skin flap 或 skin–muscle flap 覆蓋。<span class="ref">p.239</span></li>
+<li id="np-133">可能需 cheek elevation（臉頰提升，<strong>suborbicularis oculi fat（SOOF）lift</strong>）以避免外翻與垂直牽引。<span class="ref">p.239</span></li>
+<li id="np-134">缺損偏大或其他方法不適用 → 上眼瞼 tarsoconjunctival flap + FTSG（即下段的 Hughes）。<span class="ref">p.239–240</span></li>
 </ul>
 <h3 id="ch11-s8-3">Large（&gt; 1/2）</h3>
 <ul>
-<li>原則：tarsoconjunctival flap 或 graft 重建後層 + anterior lamellar flap 或植皮重建前層。<span class="ref">p.240</span></li>
-<li><strong>Modified Hughes flap（改良 Hughes 皮瓣）</strong>：取自上眼瞼的<mark>垂直基底（vertically based）tarsoconjunctival flap</mark>，搭配前層皮瓣或 FTSG 重建下眼瞼全層缺損。<span class="ref">p.240–241</span></li>
-<li>Hughes 像 tarsorrhaphy 一樣<mark>遮眼數週</mark>；待皮瓣再血管化後，第二階段斷蒂（divide and inset）。<span class="ref">p.241</span></li>
-<li>替代：<strong>laterally based tarsoconjunctival flap（外側基底瞼板結膜瓣）</strong>——單階段、<strong>不需遮眼</strong>，最適合下眼瞼<strong>外側</strong>缺損（Fig 11-12）。<span class="ref">p.241–242</span></li>
-<li><strong>Free tarsoconjunctival graft</strong>（取自上眼瞼）+ 帶血流的 skin flap：單階段、不遮視軸。<span class="ref">p.241</span></li>
-<li>無法取瞼板結膜時，後層替代品：<strong>hard palate graft（硬顎）、nasal septal chondromucosal graft（鼻中膈軟骨黏膜）、ear cartilage graft（耳軟骨）</strong>。<span class="ref">p.241</span></li>
-<li><strong>Mustarde flap（大型臉頰旋轉皮瓣）</strong>：適合<mark>大範圍<strong>前層</strong>缺損</mark>，必須合併後層重建；位於下眼瞼階梯最上層。<span class="ref">p.240–242</span></li>
-<li>Cheek rotation flap 與 semicircular flap 都可能造成<strong>外眥變圓</strong>；從外眥朝眉尾外側做<strong>高拱形切口</strong>可減輕。<span class="ref">p.242</span></li>
+<li id="np-135">原則：tarsoconjunctival flap 或 graft 重建後層 + anterior lamellar flap 或植皮重建前層。<span class="ref">p.240</span></li>
+<li id="np-136"><strong>Modified Hughes flap（改良 Hughes 皮瓣）</strong>：取自上眼瞼的<mark>垂直基底（vertically based）tarsoconjunctival flap</mark>，搭配前層皮瓣或 FTSG 重建下眼瞼全層缺損。<span class="ref">p.240–241</span></li>
+<li id="np-137">Hughes 像 tarsorrhaphy 一樣<mark>遮眼數週</mark>；待皮瓣再血管化後，第二階段斷蒂（divide and inset）。<span class="ref">p.241</span></li>
+<li id="np-138">替代：<strong>laterally based tarsoconjunctival flap（外側基底瞼板結膜瓣）</strong>——單階段、<strong>不需遮眼</strong>，最適合下眼瞼<strong>外側</strong>缺損（Fig 11-12）。<span class="ref">p.241–242</span></li>
+<li id="np-139"><strong>Free tarsoconjunctival graft</strong>（取自上眼瞼）+ 帶血流的 skin flap：單階段、不遮視軸。<span class="ref">p.241</span></li>
+<li id="np-140">無法取瞼板結膜時，後層替代品：<strong>hard palate graft（硬顎）、nasal septal chondromucosal graft（鼻中膈軟骨黏膜）、ear cartilage graft（耳軟骨）</strong>。<span class="ref">p.241</span></li>
+<li id="np-141"><strong>Mustarde flap（大型臉頰旋轉皮瓣）</strong>：適合<mark>大範圍<strong>前層</strong>缺損</mark>，必須合併後層重建；位於下眼瞼階梯最上層。<span class="ref">p.240–242</span></li>
+<li id="np-142">Cheek rotation flap 與 semicircular flap 都可能造成<strong>外眥變圓</strong>；從外眥朝眉尾外側做<strong>高拱形切口</strong>可減輕。<span class="ref">p.242</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Defect size（缺損，% 瞼緣）</th><th>Lower eyelid ladder（下眼瞼，Fig 11-10）</th></tr></thead>
 <tbody>
-<tr><td><span class="num">≤ 33%</span></td><td>A：primary closure ± lateral canthotomy / cantholysis</td></tr>
-<tr><td><span class="num">33%–50%</span></td><td>B：semicircular flap（<strong>Tenzel</strong>）；C：相鄰 tarsoconjunctival flap + FTSG</td></tr>
-<tr><td><span class="num">50%–100%</span></td><td>D：free tarsoconjunctival graft + skin flap；E：<strong>modified Hughes</strong>（上眼瞼 tarsoconjunctival flap + skin graft）；F：composite graft + cheek advancement（<strong>Mustarde</strong>）</td></tr>
+<tr><td id="np-143"><span class="num">≤ 33%</span></td><td id="np-144">A：primary closure ± lateral canthotomy / cantholysis</td></tr>
+<tr><td id="np-145"><span class="num">33%–50%</span></td><td id="np-146">B：semicircular flap（<strong>Tenzel</strong>）；C：相鄰 tarsoconjunctival flap + FTSG</td></tr>
+<tr><td id="np-147"><span class="num">50%–100%</span></td><td id="np-148">D：free tarsoconjunctival graft + skin flap；E：<strong>modified Hughes</strong>（上眼瞼 tarsoconjunctival flap + skin graft）；F：composite graft + cheek advancement（<strong>Mustarde</strong>）</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.240</span></p>
+<p id="np-149">出處 <span class="ref">p.240</span></p>
 <div class="keypoint">下眼瞼由大到小：Mustarde → modified Hughes → Tenzel → primary closure；Cutler-Beard 不在下眼瞼階梯裡。<span class="ref">p.240</span></div>
 <div class="ex-trap"><h3 id="ch11-s8-4">易錯陷阱</h3><ul>
-<li>依缺損寬度由大到小排下眼瞼術式：<mark><strong>Mustarde flap → modified Hughes flap → Tenzel flap</strong></mark>（Fig 11-10 階梯：F 為 composite graft + Mustarde 頰部推進瓣，位於最大缺損端；E 為 modified Hughes，屬 <span class="num">50%–100%</span>；B 為 semicircular / Tenzel，屬 <span class="num">33%–50%</span>）。Mustarde 與 Hughes 都用於 <span class="num">&gt; 1/2</span> 缺損，先後依階梯位置判斷。<strong>Cutler-Beard</strong> 是上眼瞼術式，排序中出現即錯；把 Tenzel 排在 Hughes 之前也錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-799" data-q="799">第 799 題</a></span><span class="ref">p.239–242</span></li>
-<li>下眼瞼 <span class="num">&gt; 50%</span> 缺損的標準答案是 <mark>modified Hughes</mark>（上眼瞼垂直基底瞼板結膜瓣 + 前層皮瓣或 FTSG，兩階段斷蒂）。其他選項：primary closure 只適用 <span class="num">&lt; 1/3</span>（± cantholysis 多 <span class="num">3–5 mm</span>）；Tenzel 半圓旋轉瓣用於約 <span class="num">1/3–1/2</span> 的中度缺損或外眥缺損；Cutler-Beard 用於上眼瞼大缺損。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-746" data-q="746">第 746 題</a></span><span class="ref">p.238–242</span></li>
-<li>何者「不是」下眼瞼修補法 → <mark>Cutler-Beard</mark>：以下眼瞼全層瓣經下眼瞼瞼緣橋下方推進，修補<strong>上</strong>眼瞼 <span class="num">&gt; 50%</span> 缺損。其餘都在下眼瞼階梯上：semicircular flap（Tenzel）用於中度缺損；Hughes 用於 <span class="num">&gt; 1/2</span> 缺損；composite graft + cheek advancement（Mustarde）為最大缺損端。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-719" data-q="719">第 719 題</a></span><span class="ref">p.237–242</span></li>
-<li>Hughes 是「上補下」、Cutler-Beard 是「下補上」，兩者都是兩階段且會遮眼；laterally based flap 與 free graft 則單階段不遮眼。<span class="ref">p.237, p.241</span></li>
-<li>Mustarde 只補前層，必須搭配後層重建；Hughes 的 flap 是「vertically based」。<span class="ref">p.240–241</span></li>
-<li>取上眼瞼瞼板當移植時要留 <span class="num">4–5 mm</span> 瞼緣側瞼板。<span class="ref">p.239</span></li>
+<li id="np-150">依缺損寬度由大到小排下眼瞼術式：<mark><strong>Mustarde flap → modified Hughes flap → Tenzel flap</strong></mark>（Fig 11-10 階梯：F 為 composite graft + Mustarde 頰部推進瓣，位於最大缺損端；E 為 modified Hughes，屬 <span class="num">50%–100%</span>；B 為 semicircular / Tenzel，屬 <span class="num">33%–50%</span>）。Mustarde 與 Hughes 都用於 <span class="num">&gt; 1/2</span> 缺損，先後依階梯位置判斷。<strong>Cutler-Beard</strong> 是上眼瞼術式，排序中出現即錯；把 Tenzel 排在 Hughes 之前也錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-799" data-q="799">第 799 題</a></span><span class="ref">p.239–242</span></li>
+<li id="np-151">下眼瞼 <span class="num">&gt; 50%</span> 缺損的標準答案是 <mark>modified Hughes</mark>（上眼瞼垂直基底瞼板結膜瓣 + 前層皮瓣或 FTSG，兩階段斷蒂）。其他選項：primary closure 只適用 <span class="num">&lt; 1/3</span>（± cantholysis 多 <span class="num">3–5 mm</span>）；Tenzel 半圓旋轉瓣用於約 <span class="num">1/3–1/2</span> 的中度缺損或外眥缺損；Cutler-Beard 用於上眼瞼大缺損。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-746" data-q="746">第 746 題</a></span><span class="ref">p.238–242</span></li>
+<li id="np-152">何者「不是」下眼瞼修補法 → <mark>Cutler-Beard</mark>：以下眼瞼全層瓣經下眼瞼瞼緣橋下方推進，修補<strong>上</strong>眼瞼 <span class="num">&gt; 50%</span> 缺損。其餘都在下眼瞼階梯上：semicircular flap（Tenzel）用於中度缺損；Hughes 用於 <span class="num">&gt; 1/2</span> 缺損；composite graft + cheek advancement（Mustarde）為最大缺損端。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-719" data-q="719">第 719 題</a></span><span class="ref">p.237–242</span></li>
+<li id="np-153">Hughes 是「上補下」、Cutler-Beard 是「下補上」，兩者都是兩階段且會遮眼；laterally based flap 與 free graft 則單階段不遮眼。<span class="ref">p.237, p.241</span></li>
+<li id="np-154">Mustarde 只補前層，必須搭配後層重建；Hughes 的 flap 是「vertically based」。<span class="ref">p.240–241</span></li>
+<li id="np-155">取上眼瞼瞼板當移植時要留 <span class="num">4–5 mm</span> 瞼緣側瞼板。<span class="ref">p.239</span></li>
 </ul></div>
 
 <h2 id="ch11-s9">九、外眥缺損</h2>
 <ul>
-<li>可單獨或合併外側下眼瞼缺損；修補選擇：<strong>semicircular rotational flap（Tenzel flap）</strong>、<strong>O-to-Z flap</strong>、<strong>rhomboid flap（菱形皮瓣）</strong>、<strong>laterally based upper eyelid pedicle flap（外側基底上眼瞼帶蒂皮瓣）</strong>。<span class="ref">p.242</span></li>
-<li>下眼瞼瞼板受侵犯 → 取一條<mark>附著於 lateral orbital rim（外眶緣）的 periosteum（骨膜）及/或 deep temporal fascia（深顳筋膜）</mark>向內翻轉縫到瞼板殘端，重建後層。<span class="ref">p.242, p.244</span></li>
-<li><strong>Y-shaped periosteal pedicle flap（Y 形骨膜帶蒂瓣）</strong>可同時重建上、下眼瞼的整個外眥後層。<span class="ref">p.242</span></li>
-<li>Laterally based upper eyelid pedicle flap 向下旋轉，重建外眥與外側下眼瞼的前層（Fig 11-16）。<span class="ref">p.245</span></li>
+<li id="np-156">可單獨或合併外側下眼瞼缺損；修補選擇：<strong>semicircular rotational flap（Tenzel flap）</strong>、<strong>O-to-Z flap</strong>、<strong>rhomboid flap（菱形皮瓣）</strong>、<strong>laterally based upper eyelid pedicle flap（外側基底上眼瞼帶蒂皮瓣）</strong>。<span class="ref">p.242</span></li>
+<li id="np-157">下眼瞼瞼板受侵犯 → 取一條<mark>附著於 lateral orbital rim（外眶緣）的 periosteum（骨膜）及/或 deep temporal fascia（深顳筋膜）</mark>向內翻轉縫到瞼板殘端，重建後層。<span class="ref">p.242, p.244</span></li>
+<li id="np-158"><strong>Y-shaped periosteal pedicle flap（Y 形骨膜帶蒂瓣）</strong>可同時重建上、下眼瞼的整個外眥後層。<span class="ref">p.242</span></li>
+<li id="np-159">Laterally based upper eyelid pedicle flap 向下旋轉，重建外眥與外側下眼瞼的前層（Fig 11-16）。<span class="ref">p.245</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch11-s9-1">易錯陷阱</h3><ul>
-<li>外眥後層缺損用的是外眶緣骨膜瓣，不是硬顎或鼻中膈。<span class="ref">p.242</span></li>
-<li>Tenzel flap 主要用於中度缺損與外眥缺損，不是 <span class="num">&gt; 50%</span> 的首選。<span class="ref">p.239, p.242</span></li>
+<li id="np-160">外眥後層缺損用的是外眶緣骨膜瓣，不是硬顎或鼻中膈。<span class="ref">p.242</span></li>
+<li id="np-161">Tenzel flap 主要用於中度缺損與外眥缺損，不是 <span class="num">&gt; 50%</span> 的首選。<span class="ref">p.239, p.242</span></li>
 </ul></div>
 
 <h2 id="ch11-s10">十、內眥缺損</h2>
 <h3 id="ch11-s10-1">腫瘤切除與淚道</h3>
 <ul>
-<li>內眥惡性腫瘤以 <strong>frozen section（冰凍切片）+ 寬邊緣</strong>或 <strong>Mohs micrographic surgery（莫氏顯微手術）</strong>切除，以降低復發與侵犯眼眶、淚道的風險。<span class="ref">p.242</span></li>
-<li>若須大範圍犧牲<strong>患眼上、下兩條 canaliculi（淚小管）</strong>，病人須先忍受 epiphora（溢淚），<mark>待判斷腫瘤不太可能復發後</mark>才考慮 <strong>conjunctivodacryocystorhinostomy（CDCR，結膜淚囊鼻腔吻合術）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-762" data-q="762">第 762 題</a></span><span class="ref">p.242</span></li>
-<li>全層內側眼瞼缺損：內眥附著須以<strong>粗永久縫線（Prolene、Mersilene）、鋼絲或 titanium miniplate（鈦骨板）</strong>固定於骨膜或骨。<span class="ref">p.243</span></li>
-<li>淚道受影響者可能需 canalicular repair + lacrimal intubation（淚道插管）。<span class="ref">p.243</span></li>
+<li id="np-162">內眥惡性腫瘤以 <strong>frozen section（冰凍切片）+ 寬邊緣</strong>或 <strong>Mohs micrographic surgery（莫氏顯微手術）</strong>切除，以降低復發與侵犯眼眶、淚道的風險。<span class="ref">p.242</span></li>
+<li id="np-163">若須大範圍犧牲<strong>患眼上、下兩條 canaliculi（淚小管）</strong>，病人須先忍受 epiphora（溢淚），<mark>待判斷腫瘤不太可能復發後</mark>才考慮 <strong>conjunctivodacryocystorhinostomy（CDCR，結膜淚囊鼻腔吻合術）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc7-11%23q-762" data-q="762">第 762 題</a></span><span class="ref">p.242</span></li>
+<li id="np-164">全層內側眼瞼缺損：內眥附著須以<strong>粗永久縫線（Prolene、Mersilene）、鋼絲或 titanium miniplate（鈦骨板）</strong>固定於骨膜或骨。<span class="ref">p.243</span></li>
+<li id="np-165">淚道受影響者可能需 canalicular repair + lacrimal intubation（淚道插管）。<span class="ref">p.243</span></li>
 </ul>
 <h3 id="ch11-s10-2">修補選擇</h3>
 <ul>
-<li>選項：FTSG、glabellar flap（眉間皮瓣）、forehead flap（額皮瓣），或 <strong>second intention（二期癒合）</strong>。<span class="ref">p.243</span></li>
-<li><strong>Second intention</strong>：功能與外觀常可接受；癒合需長達 <span class="num">6 週</span>；適用於無法手術重建、供體組織不足、或<mark>先前放療使血流受損</mark>；可能發生肥厚疤痕與疤痕性外翻而需手術。<span class="ref">p.243</span></li>
-<li><strong>FTSG</strong>：內眥極佳選擇，<mark>夠薄便於監測腫瘤復發</mark>；但易攣縮，可能需 wound-modulating 注射。缺損涉及額或頰而植皮深度不足時，可考慮 acellular dermal allograft（無細胞真皮異體移植）或 regeneration template（再生基質）。<span class="ref">p.244</span></li>
-<li><strong>Forehead / glabellar flap</strong>：常得到最佳外觀，但<mark>皮瓣厚，可能妨礙偵測復發</mark>；可能需第二階段修薄或雷射。<span class="ref">p.244</span></li>
+<li id="np-166">選項：FTSG、glabellar flap（眉間皮瓣）、forehead flap（額皮瓣），或 <strong>second intention（二期癒合）</strong>。<span class="ref">p.243</span></li>
+<li id="np-167"><strong>Second intention</strong>：功能與外觀常可接受；癒合需長達 <span class="num">6 週</span>；適用於無法手術重建、供體組織不足、或<mark>先前放療使血流受損</mark>；可能發生肥厚疤痕與疤痕性外翻而需手術。<span class="ref">p.243</span></li>
+<li id="np-168"><strong>FTSG</strong>：內眥極佳選擇，<mark>夠薄便於監測腫瘤復發</mark>；但易攣縮，可能需 wound-modulating 注射。缺損涉及額或頰而植皮深度不足時，可考慮 acellular dermal allograft（無細胞真皮異體移植）或 regeneration template（再生基質）。<span class="ref">p.244</span></li>
+<li id="np-169"><strong>Forehead / glabellar flap</strong>：常得到最佳外觀，但<mark>皮瓣厚，可能妨礙偵測復發</mark>；可能需第二階段修薄或雷射。<span class="ref">p.244</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Flap（皮瓣）</th><th>Design（設計）</th><th>Indication（適用位置）</th><th>Notes（重點）</th></tr></thead>
 <tbody>
-<tr><td><strong>Glabellar flap</strong></td><td>三角形旋轉瓣，基底在兩眉之間、尖端朝額；旋轉約 <span class="num">120°</span></td><td>內眥<mark>以上</mark>、涉及鼻側</td><td>供區把兩眉往中線拉攏 → 垂直切口、眉距縮短</td></tr>
-<tr><td><strong>Paramedian forehead flap</strong></td><td>長軸型 axial flap，基底以 <strong>supratrochlear artery（滑車上動脈）</strong>為中心，距中線約 <span class="num">1.7 cm</span>；可用 Doppler 確認</td><td>內眥<mark>以下</mark>、涉及鼻、頰或下眼瞼</td><td>通常取<strong>對側</strong>以減少蒂部扭轉；<strong>兩階段</strong>（血管化後斷蒂）</td></tr>
+<tr><td id="np-170"><strong>Glabellar flap</strong></td><td id="np-171">三角形旋轉瓣，基底在兩眉之間、尖端朝額；旋轉約 <span class="num">120°</span></td><td id="np-172">內眥<mark>以上</mark>、涉及鼻側</td><td id="np-173">供區把兩眉往中線拉攏 → 垂直切口、眉距縮短</td></tr>
+<tr><td id="np-174"><strong>Paramedian forehead flap</strong></td><td id="np-175">長軸型 axial flap，基底以 <strong>supratrochlear artery（滑車上動脈）</strong>為中心，距中線約 <span class="num">1.7 cm</span>；可用 Doppler 確認</td><td id="np-176">內眥<mark>以下</mark>、涉及鼻、頰或下眼瞼</td><td id="np-177">通常取<strong>對側</strong>以減少蒂部扭轉；<strong>兩階段</strong>（血管化後斷蒂）</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.244–247</span></p>
+<p id="np-178">出處 <span class="ref">p.244–247</span></p>
 <div class="ex-trap"><h3 id="ch11-s10-3">易錯陷阱</h3><ul>
-<li>腫瘤侵犯淚道時，切除當下就做 CDCR 是錯的；先忍受溢淚，確認無復發疑慮再重建淚道。<span class="ref">p.242</span></li>
-<li>Glabellar 管內眥「以上」、paramedian forehead 管內眥「以下」；後者靠 supratrochlear artery、取對側、需兩階段。<span class="ref">p.244–247</span></li>
-<li>FTSG 薄利於監測復發；額/眉間皮瓣好看但厚，較難看出復發。<span class="ref">p.244</span></li>
+<li id="np-179">腫瘤侵犯淚道時，切除當下就做 CDCR 是錯的；先忍受溢淚，確認無復發疑慮再重建淚道。<span class="ref">p.242</span></li>
+<li id="np-180">Glabellar 管內眥「以上」、paramedian forehead 管內眥「以下」；後者靠 supratrochlear artery、取對側、需兩階段。<span class="ref">p.244–247</span></li>
+<li id="np-181">FTSG 薄利於監測復發；額/眉間皮瓣好看但厚，較難看出復發。<span class="ref">p.244</span></li>
 </ul></div>
 
 <div class="hs-tip-box">
 <h4>易混淆比較與口訣</h4>
 <ul>
-<li><strong>上眼瞼階梯</strong>：直接縫 → 半圓瓣 → tarsoconjunctival + 皮 → <strong>Cutler-Beard（下補上）</strong> → median forehead。<span class="ref">p.238</span></li>
-<li><strong>下眼瞼階梯</strong>：直接縫 → <strong>Tenzel</strong> → tarsoconjunctival + 皮 → <strong>Hughes（上補下）</strong> → <strong>Mustarde</strong>。<span class="ref">p.240</span></li>
-<li><strong>1/3 與 1/2</strong>：<span class="num">≤ 1/3</span> 直接縫（± cantholysis 多 <span class="num">3–5 mm</span>）；<span class="num">1/3–1/2</span> 半圓瓣；<span class="num">&gt; 1/2</span> 眼瞼分享或後層移植 + 前層皮瓣。<span class="ref">p.236–240</span></li>
-<li><strong>一層 graft、一層 flap</strong>：Hughes flap + FTSG、free tarsoconjunctival graft + skin flap、Mustarde（前層）+ 後層移植。<span class="ref">p.235, p.240–241</span></li>
-<li><strong>後層材料</strong>：tarsoconjunctiva（首選）、頰黏膜（只缺結膜）、硬顎（只限下眼瞼）、鼻中膈軟骨黏膜、耳軟骨、外眶緣骨膜（外眥）。<span class="ref">p.233, p.241–242</span></li>
-<li><strong>等多久</strong>：外傷性 ptosis <span class="num">3–6 個月</span>；內眥二期癒合約 <span class="num">6 週</span>；淚道重建等腫瘤復發風險低；Hughes 遮眼數週後斷蒂。<span class="ref">p.234, p.241–243</span></li>
+<li id="np-182"><strong>上眼瞼階梯</strong>：直接縫 → 半圓瓣 → tarsoconjunctival + 皮 → <strong>Cutler-Beard（下補上）</strong> → median forehead。<span class="ref">p.238</span></li>
+<li id="np-183"><strong>下眼瞼階梯</strong>：直接縫 → <strong>Tenzel</strong> → tarsoconjunctival + 皮 → <strong>Hughes（上補下）</strong> → <strong>Mustarde</strong>。<span class="ref">p.240</span></li>
+<li id="np-184"><strong>1/3 與 1/2</strong>：<span class="num">≤ 1/3</span> 直接縫（± cantholysis 多 <span class="num">3–5 mm</span>）；<span class="num">1/3–1/2</span> 半圓瓣；<span class="num">&gt; 1/2</span> 眼瞼分享或後層移植 + 前層皮瓣。<span class="ref">p.236–240</span></li>
+<li id="np-185"><strong>一層 graft、一層 flap</strong>：Hughes flap + FTSG、free tarsoconjunctival graft + skin flap、Mustarde（前層）+ 後層移植。<span class="ref">p.235, p.240–241</span></li>
+<li id="np-186"><strong>後層材料</strong>：tarsoconjunctiva（首選）、頰黏膜（只缺結膜）、硬顎（只限下眼瞼）、鼻中膈軟骨黏膜、耳軟骨、外眶緣骨膜（外眥）。<span class="ref">p.233, p.241–242</span></li>
+<li id="np-187"><strong>等多久</strong>：外傷性 ptosis <span class="num">3–6 個月</span>；內眥二期癒合約 <span class="num">6 週</span>；淚道重建等腫瘤復發風險低；Hughes 遮眼數週後斷蒂。<span class="ref">p.234, p.241–243</span></li>
 </ul>
 </div>
 </div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="7-11"><p class="ex-locked">本章考題 5 題。<a href="/exam/login?next=/exam/bcsc7-11">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
@@ -571,7 +610,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260728" defer></script>
-<script src="/exam/exam.js?v=20260728" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
+<script src="/exam/exam.js?v=20260729" defer></script>
 </body>
 </html>

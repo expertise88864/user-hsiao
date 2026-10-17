@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 13 Ch.5 Photoablation: Complications an…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc13-5#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 13 Ch.5","item":"https://hsiao.chendermatologist.com/exam/bcsc13-5"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -182,6 +182,40 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
 .ex-prog a{color:var(--ex-accent)}
 .ex-prog .ex-low{color:#b91c1c;font-weight:700}
+.ex-find{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:18px 0 8px}
+.ex-find-row{display:flex;gap:8px;margin:6px 0 4px}
+.ex-find-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-find-title{font-size:15px;font-weight:700;margin:10px 0 4px}
+.ex-find-group{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0}
+.ex-find-h{font-size:15px;font-weight:700;line-height:1.6;margin:0}
+.ex-find-h a{color:var(--ex-accent)}
+.ex-find-h .ex-count{margin-left:8px;font-weight:500;color:var(--ink-2)}
+.ex-find-list{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.75}
+.ex-find-list li{border-top:1px solid var(--line);padding:6px 0}
+.ex-find-list a{display:block;color:var(--ink);text-decoration:none}
+.ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
+.ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
+.ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
+.ex-practice{margin:12px 0 4px}
+.ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-more[hidden],.ex-rank tr[hidden]{display:none}
+.ex-note [id^="np-"]{scroll-margin-top:96px}
+.ex-note [id^="np-"]:target{background:var(--ex-soft);outline:2px solid var(--ex-accent);outline-offset:-2px;border-radius:6px}
+.ex-resume{position:sticky;top:72px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--ex-card);border:1px solid var(--border);border-left:4px solid var(--ex-accent);border-radius:10px;padding:6px 8px 6px 12px;margin:8px 0 12px;font-size:13px;line-height:1.6;box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(15,23,42,.35)}
+.ex-resume-text{flex:1;min-width:12em}
+.ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
+.ex-resume-close:hover{background:var(--ex-soft)}
+.ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
+.ex-ans-text{color:var(--ink-2);font-weight:600}
+.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next:disabled{opacity:.5;cursor:default}
+.ex-ans-clear{margin:0 0 6px}
+.ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
+.ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -212,8 +246,14 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
+:root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -229,7 +269,6 @@ body:not(.ex-quiz) .ex-opt input{display:none}
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
         <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
-        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
         <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
@@ -245,358 +284,358 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 13 Ch.5</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 13 · Refractive Surgery</p><h1 class="ex-h1">Ch.5 Photoablation: Complications and Adverse Effects</h1><p class="ex-meta">原書 p.95–118 · 考題 33 題</p><div class="ex-strip" data-progress-chapter="13-5" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="13-5"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch5-s1">一、雷射切削的一般併發症：過度矯正、矯正不足與再治療</a></li><li><a href="#ch5-s2">二、乾眼與神經病變性疼痛</a></li><li><a href="#ch5-s3">三、光學像差、central island 與偏心切削</a></li><li><a href="#ch5-s4">四、類固醇相關併發症與 central toxic keratopathy</a></li><li><a href="#ch5-s5">五、Infectious keratitis（感染性角膜炎）總論</a></li><li><a href="#ch5-s6">六、表層切削特有的併發症</a></li><li><a href="#ch5-s7">七、LASIK 特有：角膜瓣相關併發症</a></li><li><a href="#ch5-s8">八、LASIK 介面併發症</a></li><li><a href="#ch5-s9">九、飛秒雷射輔助 LASIK 角膜瓣相關併發症</a></li><li><a href="#ch5-s10">十、Ectasia（角膜擴張）</a></li><li><a href="#ch5-s11">十一、罕見併發症</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 13 第 5 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch5-s1">一、雷射切削的一般併發症：過度矯正、矯正不足與再治療</h2>
 <h3 id="ch5-s1-1">Overcorrection（過度矯正）</h3>
 <ul>
-<li>機轉：雷射開始前若 <strong>stromal dehydration（基質脫水）</strong>明顯，<mark>每一發 pulse 切除的基質較多 → 過矯</mark>；脫水來自表層切削去上皮後或 LASIK 掀瓣後延遲切削。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.95</span></li>
-<li>反之基質偏濕潤、或掀瓣／去上皮後很快切削（暴露時間短）並不會增加過矯；「基質太濕易過矯」是把方向記反。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.95</span></li>
-<li>控制雷射室溫度、濕度於廠商建議範圍內可能減少變異，但研究結果不一致。<span class="ref">p.95</span></li>
-<li><mark>過矯較常見於<strong>年長者</strong></mark>：傷口癒合反應較弱，且角膜切削速度較快（原因未明）；年輕人癒合反應較旺盛，不是過矯因子（BCSC 未直接寫「年輕者較易回退」）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.95</span></li>
-<li>Surface ablation（表層切削）術後通常有至少 <span class="num">3–6 個月</span>某種程度的屈光 regression；高度近視與<strong>任何度數的遠視</strong>需更久才穩定，穩定後才能決定是否再治療。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.95</span></li>
-<li>Overcorrection／undercorrection 一詞通常指初期癒合期的殘餘屈光不正，而非長期偏離目標的 drift。<span class="ref">p.95</span></li>
+<li id="np-1">機轉：雷射開始前若 <strong>stromal dehydration（基質脫水）</strong>明顯，<mark>每一發 pulse 切除的基質較多 → 過矯</mark>；脫水來自表層切削去上皮後或 LASIK 掀瓣後延遲切削。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.95</span></li>
+<li id="np-2">反之基質偏濕潤、或掀瓣／去上皮後很快切削（暴露時間短）並不會增加過矯；「基質太濕易過矯」是把方向記反。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.95</span></li>
+<li id="np-3">控制雷射室溫度、濕度於廠商建議範圍內可能減少變異，但研究結果不一致。<span class="ref">p.95</span></li>
+<li id="np-4"><mark>過矯較常見於<strong>年長者</strong></mark>：傷口癒合反應較弱，且角膜切削速度較快（原因未明）；年輕人癒合反應較旺盛，不是過矯因子（BCSC 未直接寫「年輕者較易回退」）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.95</span></li>
+<li id="np-5">Surface ablation（表層切削）術後通常有至少 <span class="num">3–6 個月</span>某種程度的屈光 regression；高度近視與<strong>任何度數的遠視</strong>需更久才穩定，穩定後才能決定是否再治療。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.95</span></li>
+<li id="np-6">Overcorrection／undercorrection 一詞通常指初期癒合期的殘餘屈光不正，而非長期偏離目標的 drift。<span class="ref">p.95</span></li>
 </ul>
 <h3 id="ch5-s1-2">殘餘屈光不正的處理與再治療</h3>
 <ul>
-<li>表層切削後<mark>突然停用 corticosteroid（類固醇）可誘發 myopic regression（近視回退）</mark>（可用來處理少量過矯）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.96</span></li>
-<li><strong>Consecutive hyperopia（續發性遠視，近視過矯）</strong>或 <strong>consecutive myopia（續發性近視，遠視過矯）</strong>者屬 overresponder，再治療量比未治療眼少；傳統切削通常將切削量減 <span class="num">20%–25%</span>；wavefront 術式則參考切削深度與高階像差量調整。<span class="ref">p.96</span></li>
-<li>表層切削後的再治療一般仍用表層術式；LASIK enhancement 若原角膜瓣正常，通常<strong>重新掀瓣</strong>進行。<span class="ref">p.96</span></li>
+<li id="np-7">表層切削後<mark>突然停用 corticosteroid（類固醇）可誘發 myopic regression（近視回退）</mark>（可用來處理少量過矯）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.96</span></li>
+<li id="np-8"><strong>Consecutive hyperopia（續發性遠視，近視過矯）</strong>或 <strong>consecutive myopia（續發性近視，遠視過矯）</strong>者屬 overresponder，再治療量比未治療眼少；傳統切削通常將切削量減 <span class="num">20%–25%</span>；wavefront 術式則參考切削深度與高階像差量調整。<span class="ref">p.96</span></li>
+<li id="np-9">表層切削後的再治療一般仍用表層術式；LASIK enhancement 若原角膜瓣正常，通常<strong>重新掀瓣</strong>進行。<span class="ref">p.96</span></li>
 </ul>
 <h3 id="ch5-s1-3">Undercorrection（矯正不足）與 regression（回退）</h3>
 <ul>
-<li><mark>矯正不足遠較常見於高度屈光不正</mark>；高度近視（如 −10.0 D）較易矯正不足、可預測性較低，也較易回退、需更久才穩定；「低度屈光不正」不是過矯危險因子（BCSC 列的過矯因子是基質脫水與年長）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1611" data-q="1611">第 1611 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a></span><span class="ref">p.95–96</span></li>
-<li><mark>第一眼術後發生 regression 者，第二眼回退的機率也增加</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.96</span></li>
-<li>初次表層切削時使用 topical <strong>mitomycin C（MMC，絲裂黴素 C）</strong>可調節癒合反應，尤其用於高度屈光不正；部分回退可用積極的局部類固醇逆轉。<span class="ref">p.96</span></li>
-<li>再治療一般<strong>不早於術後 <span class="num">3 個月</span></strong>，且須屈光已穩定。<span class="ref">p.96</span></li>
-<li>表層切削後有明顯 haze（霧化）合併回退者，再治療後回退、haze 復發／加重及 CDVA 下降風險較高 → 宜等待至少 <span class="num">6–12 個月</span>讓 haze 改善再重做表層切削。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.96</span></li>
-<li>Haze 未自行消退或仍有殘餘近視時，<mark>以 MMC 輔助移除 haze、<strong>不加屈光切削</strong>，常即可改善屈光結果</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.96</span></li>
-<li>延遲且持續進行的回退，再治療前要先評估是否有提示 <strong>corneal ectasia（角膜擴張）</strong>的不規則散光（此時不應再切削）；年長者的屈光偏移可能是有意義的白內障 → 應做白內障手術。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.96</span></li>
+<li id="np-10"><mark>矯正不足遠較常見於高度屈光不正</mark>；高度近視（如 −10.0 D）較易矯正不足、可預測性較低，也較易回退、需更久才穩定；「低度屈光不正」不是過矯危險因子（BCSC 列的過矯因子是基質脫水與年長）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1611" data-q="1611">第 1611 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a></span><span class="ref">p.95–96</span></li>
+<li id="np-11"><mark>第一眼術後發生 regression 者，第二眼回退的機率也增加</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.96</span></li>
+<li id="np-12">初次表層切削時使用 topical <strong>mitomycin C（MMC，絲裂黴素 C）</strong>可調節癒合反應，尤其用於高度屈光不正；部分回退可用積極的局部類固醇逆轉。<span class="ref">p.96</span></li>
+<li id="np-13">再治療一般<strong>不早於術後 <span class="num">3 個月</span></strong>，且須屈光已穩定。<span class="ref">p.96</span></li>
+<li id="np-14">表層切削後有明顯 haze（霧化）合併回退者，再治療後回退、haze 復發／加重及 CDVA 下降風險較高 → 宜等待至少 <span class="num">6–12 個月</span>讓 haze 改善再重做表層切削。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.96</span></li>
+<li id="np-15">Haze 未自行消退或仍有殘餘近視時，<mark>以 MMC 輔助移除 haze、<strong>不加屈光切削</strong>，常即可改善屈光結果</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.96</span></li>
+<li id="np-16">延遲且持續進行的回退，再治療前要先評估是否有提示 <strong>corneal ectasia（角膜擴張）</strong>的不規則散光（此時不應再切削）；年長者的屈光偏移可能是有意義的白內障 → 應做白內障手術。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.96</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s1-4">易錯陷阱</h3><ul>
-<li>過矯三要素：基質<strong>脫水</strong>、<strong>年長</strong>、暴露時間<strong>較長</strong>；「年輕、基質太濕、暴露時間短」都不是過矯因子。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.95</span></li>
-<li>表層切削的回退期比 LASIK 長（至少 3–6 個月），「表層切削 regression 較少」是錯的；LASIK 屈光穩定較早，通常術後 3 個月內即可 enhancement，表層切削則需等 3–6 個月（本章外，BCSC 13 第 4 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.95, p.91</span></li>
-<li>第一眼回退 → 第二眼回退機率「增加」，不是不受影響。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.96</span></li>
-<li>Haze 合併殘餘近視：BCSC 建議的是 MMC 輔助移除 haze「不加」屈光切削，不是刮除後再加做雷射屈光矯正。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.96</span></li>
+<li id="np-17">過矯三要素：基質<strong>脫水</strong>、<strong>年長</strong>、暴露時間<strong>較長</strong>；「年輕、基質太濕、暴露時間短」都不是過矯因子。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1622" data-q="1622">第 1622 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.95</span></li>
+<li id="np-18">表層切削的回退期比 LASIK 長（至少 3–6 個月），「表層切削 regression 較少」是錯的；LASIK 屈光穩定較早，通常術後 3 個月內即可 enhancement，表層切削則需等 3–6 個月（本章外，BCSC 13 第 4 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.95, p.91</span></li>
+<li id="np-19">第一眼回退 → 第二眼回退機率「增加」，不是不受影響。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1634" data-q="1634">第 1634 題</a></span><span class="ref">p.96</span></li>
+<li id="np-20">Haze 合併殘餘近視：BCSC 建議的是 MMC 輔助移除 haze「不加」屈光切削，不是刮除後再加做雷射屈光矯正。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.96</span></li>
 </ul></div>
 
 <h2 id="ch5-s2">二、乾眼與神經病變性疼痛</h2>
 <h3 id="ch5-s2-1">Dry eye（乾眼）</h3>
 <ul>
-<li>雷射視力矯正（laser vision correction，LVC）常見不良反應是 <strong>ocular surface disease（眼表疾病，常稱乾眼）</strong>的暫時惡化；<mark>一般在術後<strong>第 <span class="num">6</span> 個月</strong>回到術前基準</mark>，少數症狀持續 → 「通常需 1–2 年才改善」不符教科書。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.96</span></li>
-<li>LASIK 術後乾眼是 LVC <strong>最常見、也最可預期</strong>的後果，症狀多為自限性（本章外，BCSC 13 第 7 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a></span><span class="ref">p.130</span></li>
-<li>機轉：製作角膜瓣或切削時<mark>切斷角膜神經</mark> → 角膜暫時性神經營養不良（neurotrophic）狀態 → <strong>punctate epithelial erosions（點狀上皮糜爛）</strong>、淚液分泌減少、tear breakup time（淚膜破裂時間）縮短；多數暫時性角膜知覺低下持續 <span class="num">3–6 個月</span>（本章外，BCSC 13 第 7 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1587" data-q="1587">第 1587 題</a></span><span class="ref">p.131</span></li>
-<li>乾眼造成的點狀上皮糜爛與淚膜不穩會使視力波動／下降；知情同意時應告知乾眼可能惡化並導致不適或視力下降（本章外，BCSC 13 第 7 章）。DLK、角膜瓣移位、flap striae 都不是乾眼的常見直接後果。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1587" data-q="1587">第 1587 題</a></span><span class="ref">p.130–131</span></li>
-<li>術前與術後都應考慮 ocular surface optimization（眼表優化）。<span class="ref">p.96</span></li>
-<li><strong>PROWL-1／PROWL-2</strong>（前瞻觀察，分別為軍人與平民的 LASIK 病人）：術前 Ocular Surface Disease Index（OSDI，乾眼問卷）正常者約 <span class="num">5%</span> 術後達中度或重度；但整體而言 LVC 反而使 OSDI 正常的比例顯著增加；滿意度 <span class="num">91%–93%</span>、不滿意 <span class="num">2%</span>，不滿意程度與 OSDI 抱怨中度相關。<span class="ref">p.96</span></li>
-<li>一項 <span class="num">13,319</span> 人的回溯研究：<mark>PRK 病人術後 <span class="num">3 個月</span>回報乾眼症狀增加的比例<strong>高於</strong> LASIK</mark>；術前已有乾眼症狀者術後也較常有乾眼症狀（較新證據亦不支持「表層切削乾眼較輕」：軍人前瞻研究 12 個月慢性乾眼 PRK 5.0%、LASIK 0.8%；一眼 LASIK、一眼 PRK 的隨機試驗 12 個月時兩者皆回到術前基準）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a></span><span class="ref">p.96–97</span></li>
-<li>SMILE（small-incision lenticule extraction，小切口角膜基質透鏡摘除術）對前基質神經破壞較少，乾眼可能性較低；與 FS-LASIK 比較，LASIK 組術後乾眼顯著較多（本章外，BCSC 13 第 6 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a></span><span class="ref">p.121, p.125</span></li>
-<li>LASIK 造瓣會切斷 3 點與 9 點方向的角膜神經（上方 hinge），乾眼者可考慮 PRK 或 phakic IOL（本章外，BCSC 13 第 2 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.54</span></li>
+<li id="np-21">雷射視力矯正（laser vision correction，LVC）常見不良反應是 <strong>ocular surface disease（眼表疾病，常稱乾眼）</strong>的暫時惡化；<mark>一般在術後<strong>第 <span class="num">6</span> 個月</strong>回到術前基準</mark>，少數症狀持續 → 「通常需 1–2 年才改善」不符教科書。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.96</span></li>
+<li id="np-22">LASIK 術後乾眼是 LVC <strong>最常見、也最可預期</strong>的後果，症狀多為自限性（本章外，BCSC 13 第 7 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a></span><span class="ref">p.130</span></li>
+<li id="np-23">機轉：製作角膜瓣或切削時<mark>切斷角膜神經</mark> → 角膜暫時性神經營養不良（neurotrophic）狀態 → <strong>punctate epithelial erosions（點狀上皮糜爛）</strong>、淚液分泌減少、tear breakup time（淚膜破裂時間）縮短；多數暫時性角膜知覺低下持續 <span class="num">3–6 個月</span>（本章外，BCSC 13 第 7 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1587" data-q="1587">第 1587 題</a></span><span class="ref">p.131</span></li>
+<li id="np-24">乾眼造成的點狀上皮糜爛與淚膜不穩會使視力波動／下降；知情同意時應告知乾眼可能惡化並導致不適或視力下降（本章外，BCSC 13 第 7 章）。DLK、角膜瓣移位、flap striae 都不是乾眼的常見直接後果。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1587" data-q="1587">第 1587 題</a></span><span class="ref">p.130–131</span></li>
+<li id="np-25">術前與術後都應考慮 ocular surface optimization（眼表優化）。<span class="ref">p.96</span></li>
+<li id="np-26"><strong>PROWL-1／PROWL-2</strong>（前瞻觀察，分別為軍人與平民的 LASIK 病人）：術前 Ocular Surface Disease Index（OSDI，乾眼問卷）正常者約 <span class="num">5%</span> 術後達中度或重度；但整體而言 LVC 反而使 OSDI 正常的比例顯著增加；滿意度 <span class="num">91%–93%</span>、不滿意 <span class="num">2%</span>，不滿意程度與 OSDI 抱怨中度相關。<span class="ref">p.96</span></li>
+<li id="np-27">一項 <span class="num">13,319</span> 人的回溯研究：<mark>PRK 病人術後 <span class="num">3 個月</span>回報乾眼症狀增加的比例<strong>高於</strong> LASIK</mark>；術前已有乾眼症狀者術後也較常有乾眼症狀（較新證據亦不支持「表層切削乾眼較輕」：軍人前瞻研究 12 個月慢性乾眼 PRK 5.0%、LASIK 0.8%；一眼 LASIK、一眼 PRK 的隨機試驗 12 個月時兩者皆回到術前基準）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a></span><span class="ref">p.96–97</span></li>
+<li id="np-28">SMILE（small-incision lenticule extraction，小切口角膜基質透鏡摘除術）對前基質神經破壞較少，乾眼可能性較低；與 FS-LASIK 比較，LASIK 組術後乾眼顯著較多（本章外，BCSC 13 第 6 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a></span><span class="ref">p.121, p.125</span></li>
+<li id="np-29">LASIK 造瓣會切斷 3 點與 9 點方向的角膜神經（上方 hinge），乾眼者可考慮 PRK 或 phakic IOL（本章外，BCSC 13 第 2 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.54</span></li>
 </ul>
 <h3 id="ch5-s2-2">Neuropathic pain（神經病變性疼痛）</h3>
 <ul>
-<li>罕見：嚴重乾眼症狀持續且<mark>與臨床檢查不成比例</mark>；其他症狀有灼熱、針刺、電擊樣或射痛。<span class="ref">p.97</span></li>
-<li>任何角膜屈光手術都會影響神經密度與功能，但發生率似以 LASIK 較高；其他危險因子：thyroid disease（甲狀腺疾病）、其他疼痛症候群、神經精神疾病。此族群較難治療。<span class="ref">p.97</span></li>
-<li>建議治療：serum tears（血清淚液）、gabapentin 或 pregabalin、cenegermin、抗憂鬱劑及其他神經作用藥物、botulinum toxin（肉毒桿菌素）、trigeminal nerve stimulation（三叉神經刺激）。<span class="ref">p.97</span></li>
+<li id="np-30">罕見：嚴重乾眼症狀持續且<mark>與臨床檢查不成比例</mark>；其他症狀有灼熱、針刺、電擊樣或射痛。<span class="ref">p.97</span></li>
+<li id="np-31">任何角膜屈光手術都會影響神經密度與功能，但發生率似以 LASIK 較高；其他危險因子：thyroid disease（甲狀腺疾病）、其他疼痛症候群、神經精神疾病。此族群較難治療。<span class="ref">p.97</span></li>
+<li id="np-32">建議治療：serum tears（血清淚液）、gabapentin 或 pregabalin、cenegermin、抗憂鬱劑及其他神經作用藥物、botulinum toxin（肉毒桿菌素）、trigeminal nerve stimulation（三叉神經刺激）。<span class="ref">p.97</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s2-3">易錯陷阱</h3><ul>
-<li>術後乾眼大多 3–6 個月內緩解、6 個月回到基準；不是 1–2 年。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.96, p.131</span></li>
-<li>「LASIK 乾眼一定比 PRK 多」不完全成立：BCSC 引述的回溯研究中 PRK 術後 3 個月乾眼症狀增加者反而較多；有明確支持的是 SMILE 比 LASIK 少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a></span><span class="ref">p.97</span></li>
+<li id="np-33">術後乾眼大多 3–6 個月內緩解、6 個月回到基準；不是 1–2 年。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.96, p.131</span></li>
+<li id="np-34">「LASIK 乾眼一定比 PRK 多」不完全成立：BCSC 引述的回溯研究中 PRK 術後 3 個月乾眼症狀增加者反而較多；有明確支持的是 SMILE 比 LASIK 少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1620" data-q="1620">第 1620 題</a></span><span class="ref">p.97</span></li>
 </ul></div>
 
 <h2 id="ch5-s3">三、光學像差、central island 與偏心切削</h2>
 <h3 id="ch5-s3-1">Optical aberrations（光學像差）</h3>
 <ul>
-<li>症狀：<strong>glare（眩光）</strong>、ghost images（鬼影）、<strong>halo（光暈）</strong>。最常見於：<mark>切削區較小（直徑 <span class="num">&lt; 6.0 mm</span>）</mark>、矯正的球面與散光量較高、術前已有類似症狀者。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1611" data-q="1611">第 1611 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1626" data-q="1626">第 1626 題</a></span><span class="ref">p.97</span></li>
-<li>光學區縮小的代價是眩光、光暈與回退增加，因此光學區建議 <span class="num">≥ 6 mm</span>；但依 Munnerlyn formula（Munnerlyn 公式），切削深度與光學區直徑平方成正比，<mark>縮小光學區會使切削變淺</mark>，並不增加 ectasia 風險（本章外，BCSC 13 第 1 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1626" data-q="1626">第 1626 題</a></span><span class="ref">p.33–34</span></li>
-<li><mark>暗光下瞳孔放大時症狀加重</mark>；wavefront mapping 可顯示相關高階像差；較大、較均勻、置中的光學區提供較佳視覺品質，尤其夜間。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1610" data-q="1610">第 1610 題</a></span><span class="ref">p.97</span></li>
-<li>減少暗處瞳孔散大的藥物如 <strong>brimonidine</strong>（或縮瞳的 pilocarpine）可讓瞳孔維持在中央光學區內，以減輕夜間 glare／halo（BCSC 於 RK 與多焦點 IOL 段落提及；本章外，BCSC 13 第 3、10 章）；timolol、dorzolamide、latanoprost 不影響瞳孔大小。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1610" data-q="1610">第 1610 題</a></span><span class="ref">p.63, p.187</span></li>
-<li>夜視困難多來自 <strong>spherical aberration（球面像差）</strong>；角膜與水晶體本有球面像差，準分子雷射切削會增加中周邊角膜的 <mark>positive spherical aberration（正球面像差）</mark>。Wavefront-guided 與 wavefront-optimized 切削設計用以減少既有像差並避免產生新像差。<span class="ref">p.97</span></li>
-<li>PROWL-1／-2：halo、starburst 等症狀與光學像差或 uncorrected distance visual acuity（UDVA，裸眼遠距視力）下降<strong>不相關</strong>；約 <span class="num">45%</span> 病人出現新視覺症狀（術前應告知），但極少造成明顯困擾，且有症狀比例在術後下降。<span class="ref">p.97</span></li>
-<li>LASIK 後低階與高階像差變化<mark>多數由準分子切削本身造成</mark>；微型角膜刀造瓣也有誘發像差的報告，飛秒雷射造瓣則幾乎不誘發。<span class="ref">p.98</span></li>
+<li id="np-35">症狀：<strong>glare（眩光）</strong>、ghost images（鬼影）、<strong>halo（光暈）</strong>。最常見於：<mark>切削區較小（直徑 <span class="num">&lt; 6.0 mm</span>）</mark>、矯正的球面與散光量較高、術前已有類似症狀者。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1611" data-q="1611">第 1611 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1626" data-q="1626">第 1626 題</a></span><span class="ref">p.97</span></li>
+<li id="np-36">光學區縮小的代價是眩光、光暈與回退增加，因此光學區建議 <span class="num">≥ 6 mm</span>；但依 Munnerlyn formula（Munnerlyn 公式），切削深度與光學區直徑平方成正比，<mark>縮小光學區會使切削變淺</mark>，並不增加 ectasia 風險（本章外，BCSC 13 第 1 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1626" data-q="1626">第 1626 題</a></span><span class="ref">p.33–34</span></li>
+<li id="np-37"><mark>暗光下瞳孔放大時症狀加重</mark>；wavefront mapping 可顯示相關高階像差；較大、較均勻、置中的光學區提供較佳視覺品質，尤其夜間。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1610" data-q="1610">第 1610 題</a></span><span class="ref">p.97</span></li>
+<li id="np-38">減少暗處瞳孔散大的藥物如 <strong>brimonidine</strong>（或縮瞳的 pilocarpine）可讓瞳孔維持在中央光學區內，以減輕夜間 glare／halo（BCSC 於 RK 與多焦點 IOL 段落提及；本章外，BCSC 13 第 3、10 章）；timolol、dorzolamide、latanoprost 不影響瞳孔大小。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1610" data-q="1610">第 1610 題</a></span><span class="ref">p.63, p.187</span></li>
+<li id="np-39">夜視困難多來自 <strong>spherical aberration（球面像差）</strong>；角膜與水晶體本有球面像差，準分子雷射切削會增加中周邊角膜的 <mark>positive spherical aberration（正球面像差）</mark>。Wavefront-guided 與 wavefront-optimized 切削設計用以減少既有像差並避免產生新像差。<span class="ref">p.97</span></li>
+<li id="np-40">PROWL-1／-2：halo、starburst 等症狀與光學像差或 uncorrected distance visual acuity（UDVA，裸眼遠距視力）下降<strong>不相關</strong>；約 <span class="num">45%</span> 病人出現新視覺症狀（術前應告知），但極少造成明顯困擾，且有症狀比例在術後下降。<span class="ref">p.97</span></li>
+<li id="np-41">LASIK 後低階與高階像差變化<mark>多數由準分子切削本身造成</mark>；微型角膜刀造瓣也有誘發像差的報告，飛秒雷射造瓣則幾乎不誘發。<span class="ref">p.98</span></li>
 </ul>
 <h3 id="ch5-s3-2">Central island（中央島）</h3>
 <ul>
-<li>定義：視軸上<mark>直徑 <span class="num">1–3 mm</span>、至少 <span class="num">1.00 D</span> 的局部變陡</mark>（相對於近視切削造成的旁中央變平），造成視力下降、單眼複視／多重影像、鬼影、對比敏感度下降。<span class="ref">p.98</span></li>
-<li>現代 scanning 與 variable-spot-size 雷射使其大幅減少；多數會隨時間減輕（尤其表層切削後），但可能需 <span class="num">6–12 個月</span>；持續者可考慮 topography-guided ablation（角膜地形圖導引切削）。<span class="ref">p.98</span></li>
+<li id="np-42">定義：視軸上<mark>直徑 <span class="num">1–3 mm</span>、至少 <span class="num">1.00 D</span> 的局部變陡</mark>（相對於近視切削造成的旁中央變平），造成視力下降、單眼複視／多重影像、鬼影、對比敏感度下降。<span class="ref">p.98</span></li>
+<li id="np-43">現代 scanning 與 variable-spot-size 雷射使其大幅減少；多數會隨時間減輕（尤其表層切削後），但可能需 <span class="num">6–12 個月</span>；持續者可考慮 topography-guided ablation（角膜地形圖導引切削）。<span class="ref">p.98</span></li>
 </ul>
 <h3 id="ch5-s3-3">Decentered ablation（偏心切削）</h3>
 <ul>
-<li>置中對結果極重要，<mark>尤其遠視切削</mark>。原因：頭位擺放不當、術前測量或術中 eye tracking 錯誤、病人眼位漂移失去固視、眼睛未與雷射垂直。<span class="ref">p.98</span></li>
-<li>發生率增加：<strong>手術者經驗不足、遠視切削、較高矯正量</strong>（切削時間較長）；現代追蹤系統已降低風險；可用 topography-guided 治療使角膜較規則。<span class="ref">p.98–99</span></li>
-<li>偏心切削最典型的高階像差是 <strong>coma（彗形像差，三階）</strong>：常見於偏心角膜移植、keratoconus（圓錐角膜）與偏心雷射切削；trefoil（三葉像差）則較常見於 RK 後（本章外，BCSC 13 第 1 章）。本章 Fig 5-1 亦示遠視 LASIK 後不規則散光伴 coma 增加。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1623" data-q="1623">第 1623 題</a></span><span class="ref">p.27, p.98</span></li>
+<li id="np-44">置中對結果極重要，<mark>尤其遠視切削</mark>。原因：頭位擺放不當、術前測量或術中 eye tracking 錯誤、病人眼位漂移失去固視、眼睛未與雷射垂直。<span class="ref">p.98</span></li>
+<li id="np-45">發生率增加：<strong>手術者經驗不足、遠視切削、較高矯正量</strong>（切削時間較長）；現代追蹤系統已降低風險；可用 topography-guided 治療使角膜較規則。<span class="ref">p.98–99</span></li>
+<li id="np-46">偏心切削最典型的高階像差是 <strong>coma（彗形像差，三階）</strong>：常見於偏心角膜移植、keratoconus（圓錐角膜）與偏心雷射切削；trefoil（三葉像差）則較常見於 RK 後（本章外，BCSC 13 第 1 章）。本章 Fig 5-1 亦示遠視 LASIK 後不規則散光伴 coma 增加。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1623" data-q="1623">第 1623 題</a></span><span class="ref">p.27, p.98</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s3-4">易錯陷阱</h3><ul>
-<li>Central island 是「中央變陡」（相對周邊變平），不是中央變平。<span class="ref">p.98</span></li>
-<li>夜間眩光的危險因子是「小」切削區（&lt; 6.0 mm）與「高」矯正量；縮小光學區雖增加眩光、回退與不可預測性，但切削變淺，不會增加 ectasia。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1626" data-q="1626">第 1626 題</a></span><span class="ref">p.97, p.33–34, p.88–89</span></li>
-<li>Decentration → coma，不是 spherical aberration（後者主要隨切削量與光學區大小增加）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1623" data-q="1623">第 1623 題</a></span><span class="ref">p.27</span></li>
+<li id="np-47">Central island 是「中央變陡」（相對周邊變平），不是中央變平。<span class="ref">p.98</span></li>
+<li id="np-48">夜間眩光的危險因子是「小」切削區（&lt; 6.0 mm）與「高」矯正量；縮小光學區雖增加眩光、回退與不可預測性，但切削變淺，不會增加 ectasia。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1626" data-q="1626">第 1626 題</a></span><span class="ref">p.97, p.33–34, p.88–89</span></li>
+<li id="np-49">Decentration → coma，不是 spherical aberration（後者主要隨切削量與光學區大小增加）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1623" data-q="1623">第 1623 題</a></span><span class="ref">p.27</span></li>
 </ul></div>
 
 <h2 id="ch5-s4">四、類固醇相關併發症與 central toxic keratopathy</h2>
 <h3 id="ch5-s4-1">Corticosteroid-induced complications（類固醇相關併發症）</h3>
 <ul>
-<li><mark>術後眼壓升高大多與<strong>表層切削後長期使用局部類固醇</strong>有關</mark>；發生與否取決於療程長短及類固醇種類；通常以局部降眼壓藥控制，減量或停用後恢復。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.99</span></li>
-<li>表層切削病人術後 <span class="num">3 個月</span>時高達 <span class="num">15%</span> 眼壓 <span class="num">&gt; 22 mm Hg</span>（本章外，BCSC 13 第 8 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.155</span></li>
-<li>屈光手術影響眼壓測量：LVC 後 Goldmann tonometry 準確度較差；LASIK 眼壓高時液體可積於角膜瓣介面，掩蓋危險的高眼壓 → 即 <strong>pressure-induced stromal keratitis／keratopathy（PISK）</strong>，壓平式眼壓計量到的是液腔壓力而<mark>低估真實眼壓</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a></span><span class="ref">p.99</span></li>
-<li>表層切削後其他類固醇相關併發症：herpes simplex virus keratitis（單純疱疹病毒角膜炎）再活化、ptosis（眼瞼下垂）、cataract（白內障）。<span class="ref">p.100</span></li>
+<li id="np-50"><mark>術後眼壓升高大多與<strong>表層切削後長期使用局部類固醇</strong>有關</mark>；發生與否取決於療程長短及類固醇種類；通常以局部降眼壓藥控制，減量或停用後恢復。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.99</span></li>
+<li id="np-51">表層切削病人術後 <span class="num">3 個月</span>時高達 <span class="num">15%</span> 眼壓 <span class="num">&gt; 22 mm Hg</span>（本章外，BCSC 13 第 8 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.155</span></li>
+<li id="np-52">屈光手術影響眼壓測量：LVC 後 Goldmann tonometry 準確度較差；LASIK 眼壓高時液體可積於角膜瓣介面，掩蓋危險的高眼壓 → 即 <strong>pressure-induced stromal keratitis／keratopathy（PISK）</strong>，壓平式眼壓計量到的是液腔壓力而<mark>低估真實眼壓</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a></span><span class="ref">p.99</span></li>
+<li id="np-53">表層切削後其他類固醇相關併發症：herpes simplex virus keratitis（單純疱疹病毒角膜炎）再活化、ptosis（眼瞼下垂）、cataract（白內障）。<span class="ref">p.100</span></li>
 </ul>
 <h3 id="ch5-s4-2">Central toxic keratopathy（CTK，中央毒性角膜病變）</h3>
 <ul>
-<li><mark>罕見、急性、<strong>非發炎性</strong>的中央角膜混濁</mark>，可在順利的 LVC 後數天內出現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
-<li>與多數介面病變不同：<mark>急性發作、<strong>不隨時間惡化</strong></mark>。病因不明，造成的基質變薄可能與 keratinocyte apoptosis（細胞凋亡）有關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
-<li><strong>Confocal microscopy（共軛焦顯微鏡）</strong>：keratocyte（角膜基質細胞）<strong>活化但無發炎細胞</strong>；基質床的 keratocyte <mark>起初是流失（減少）</mark>，之後才逐漸再增生 → 「早期 keratocyte 增加」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
-<li>Anterior segment tomography（前段斷層攝影）：<mark>前表面曲率變平、後表面曲率不變</mark>；部分病例所有斷層參數都改變，可能是量測假象。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
-<li>常見明顯 <strong>hyperopic shift（遠視偏移）</strong>，會隨時間回復 → enhancement 應延後至屈光穩定且臨床表現消退；局部高張溶液治療僅有個案報告。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
+<li id="np-54"><mark>罕見、急性、<strong>非發炎性</strong>的中央角膜混濁</mark>，可在順利的 LVC 後數天內出現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
+<li id="np-55">與多數介面病變不同：<mark>急性發作、<strong>不隨時間惡化</strong></mark>。病因不明，造成的基質變薄可能與 keratinocyte apoptosis（細胞凋亡）有關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
+<li id="np-56"><strong>Confocal microscopy（共軛焦顯微鏡）</strong>：keratocyte（角膜基質細胞）<strong>活化但無發炎細胞</strong>；基質床的 keratocyte <mark>起初是流失（減少）</mark>，之後才逐漸再增生 → 「早期 keratocyte 增加」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
+<li id="np-57">Anterior segment tomography（前段斷層攝影）：<mark>前表面曲率變平、後表面曲率不變</mark>；部分病例所有斷層參數都改變，可能是量測假象。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
+<li id="np-58">常見明顯 <strong>hyperopic shift（遠視偏移）</strong>，會隨時間回復 → enhancement 應延後至屈光穩定且臨床表現消退；局部高張溶液治療僅有個案報告。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s4-3">易錯陷阱</h3><ul>
-<li>CTK 是「非發炎」：共軛焦下 keratocyte 活化、無發炎細胞，且初期數量減少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
-<li>PISK 時 Goldmann 讀值偏低，正常讀數不能排除高眼壓。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a></span><span class="ref">p.99, p.112</span></li>
+<li id="np-59">CTK 是「非發炎」：共軛焦下 keratocyte 活化、無發炎細胞，且初期數量減少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span><span class="ref">p.100</span></li>
+<li id="np-60">PISK 時 Goldmann 讀值偏低，正常讀數不能排除高眼壓。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a></span><span class="ref">p.99, p.112</span></li>
 </ul></div>
 
 <h2 id="ch5-s5">五、Infectious keratitis（感染性角膜炎）總論</h2>
 <ul>
-<li>任何 LVC 都會擾亂眼表而可能感染 → 建議眼瞼消毒與適當鋪單。<mark>風險依術式而異：<strong>表層切削高於 LASIK</strong></mark>；PRK 當然也會發生感染性角膜炎。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a></span><span class="ref">p.101</span></li>
-<li><mark>最常見致病菌為 <strong>gram-positive（革蘭氏陽性）</strong>菌</mark>：<i>Staphylococcus aureus</i>、methicillin-resistant <i>Staphylococcus aureus</i>（MRSA）、<i>Streptococcus pneumoniae</i>、<i>Streptococcus viridans</i>；MRSA 即使無醫療工作等傳統危險因子也日益增加。Atypical mycobacteria（非典型分枝桿菌）、<i>Nocardia asteroides</i>、fungi（真菌）亦有報告。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.101</span></li>
-<li>表層切削的醫源性上皮缺損需數天癒合，此期間因<strong>上皮缺損 + bandage contact lens（治療性隱形眼鏡）+ 局部類固醇</strong>，眼瞼與結膜菌叢易進入基質 → 感染風險最高。<span class="ref">p.101</span></li>
-<li>處置：先對隱形眼鏡與角膜刮片做培養與藥敏，並依 gram-positive 盛行率給廣效抗生素；常需多種抗微生物藥頻繁點用；培養應含真菌，疑似或對抗菌藥反應不佳者加抗真菌藥。<span class="ref">p.101</span></li>
-<li>LASIK 時或術後不久菌叢可被封存在角膜瓣下，淚液與局部抗生素難以穿透基質到達病原。<span class="ref">p.101</span></li>
+<li id="np-61">任何 LVC 都會擾亂眼表而可能感染 → 建議眼瞼消毒與適當鋪單。<mark>風險依術式而異：<strong>表層切削高於 LASIK</strong></mark>；PRK 當然也會發生感染性角膜炎。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a></span><span class="ref">p.101</span></li>
+<li id="np-62"><mark>最常見致病菌為 <strong>gram-positive（革蘭氏陽性）</strong>菌</mark>：<i>Staphylococcus aureus</i>、methicillin-resistant <i>Staphylococcus aureus</i>（MRSA）、<i>Streptococcus pneumoniae</i>、<i>Streptococcus viridans</i>；MRSA 即使無醫療工作等傳統危險因子也日益增加。Atypical mycobacteria（非典型分枝桿菌）、<i>Nocardia asteroides</i>、fungi（真菌）亦有報告。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.101</span></li>
+<li id="np-63">表層切削的醫源性上皮缺損需數天癒合，此期間因<strong>上皮缺損 + bandage contact lens（治療性隱形眼鏡）+ 局部類固醇</strong>，眼瞼與結膜菌叢易進入基質 → 感染風險最高。<span class="ref">p.101</span></li>
+<li id="np-64">處置：先對隱形眼鏡與角膜刮片做培養與藥敏，並依 gram-positive 盛行率給廣效抗生素；常需多種抗微生物藥頻繁點用；培養應含真菌，疑似或對抗菌藥反應不佳者加抗真菌藥。<span class="ref">p.101</span></li>
+<li id="np-65">LASIK 時或術後不久菌叢可被封存在角膜瓣下，淚液與局部抗生素難以穿透基質到達病原。<span class="ref">p.101</span></li>
 </ul>
 
 <h2 id="ch5-s6">六、表層切削特有的併發症</h2>
 <h3 id="ch5-s6-1">Persistent epithelial defects（持續性上皮缺損）</h3>
 <ul>
-<li>表層切削造成的上皮缺損<mark>在 bandage contact lens 輔助下通常 <span class="num">3–4 天</span>癒合</mark>；鏡片過緊時需更換。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a></span><span class="ref">p.102</span></li>
-<li>延遲再上皮化的常見原因：<strong>keratoconjunctivitis sicca（乾性角結膜炎）或其他淚膜異常</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a></span><span class="ref">p.102</span></li>
-<li>治療：積極的無防腐劑人工淚液、局部抗發炎藥、暫時性 punctal occlusion（淚點栓塞）、amniotic membrane（羊膜）、autologous serum eyedrops（自體血清）。<span class="ref">p.102</span></li>
-<li><mark>延遲再上皮化者應<strong>停用 topical NSAIDs（非類固醇消炎藥）</strong></mark>；並非「停類固醇、改用 NSAID」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a></span><span class="ref">p.102</span></li>
-<li>Autoimmune connective tissue disease（自體免疫結締組織病）、diabetes mellitus（糖尿病）、吸菸者上皮癒合差，可能不適合表層切削，或術前需更積極的眼表療程。<span class="ref">p.102</span></li>
-<li>Tetracycline 類口服抗生素抑制 collagenase（膠原蛋白酶）活性，可能有助癒合；壞死上皮阻礙癒合時可輕柔清創其邊緣。<span class="ref">p.102–103</span></li>
-<li>需密切追蹤至上皮癒合：<mark>持續性上皮缺損增加 <strong>corneal haze</strong>、不規則散光、屈光不穩、視力恢復延遲、視覺品質差及 <strong>infectious keratitis</strong> 的風險</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.103</span></li>
+<li id="np-66">表層切削造成的上皮缺損<mark>在 bandage contact lens 輔助下通常 <span class="num">3–4 天</span>癒合</mark>；鏡片過緊時需更換。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a></span><span class="ref">p.102</span></li>
+<li id="np-67">延遲再上皮化的常見原因：<strong>keratoconjunctivitis sicca（乾性角結膜炎）或其他淚膜異常</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a></span><span class="ref">p.102</span></li>
+<li id="np-68">治療：積極的無防腐劑人工淚液、局部抗發炎藥、暫時性 punctal occlusion（淚點栓塞）、amniotic membrane（羊膜）、autologous serum eyedrops（自體血清）。<span class="ref">p.102</span></li>
+<li id="np-69"><mark>延遲再上皮化者應<strong>停用 topical NSAIDs（非類固醇消炎藥）</strong></mark>；並非「停類固醇、改用 NSAID」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a></span><span class="ref">p.102</span></li>
+<li id="np-70">Autoimmune connective tissue disease（自體免疫結締組織病）、diabetes mellitus（糖尿病）、吸菸者上皮癒合差，可能不適合表層切削，或術前需更積極的眼表療程。<span class="ref">p.102</span></li>
+<li id="np-71">Tetracycline 類口服抗生素抑制 collagenase（膠原蛋白酶）活性，可能有助癒合；壞死上皮阻礙癒合時可輕柔清創其邊緣。<span class="ref">p.102–103</span></li>
+<li id="np-72">需密切追蹤至上皮癒合：<mark>持續性上皮缺損增加 <strong>corneal haze</strong>、不規則散光、屈光不穩、視力恢復延遲、視覺品質差及 <strong>infectious keratitis</strong> 的風險</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.103</span></li>
 </ul>
 <h3 id="ch5-s6-2">Sterile infiltrates（無菌性浸潤）</h3>
 <ul>
-<li>與 bandage contact lens 相關；<mark>局部 NSAIDs 使用 <span class="num">&gt; 24 小時</span>而未併用局部類固醇</mark>者較常見；發生率約 <span class="num">1/300</span>，為免疫反應所致。<span class="ref">p.103</span></li>
-<li><mark>任何浸潤都應先假設為感染</mark>；確定無菌後：局部類固醇、停用 NSAIDs、密切追蹤。<span class="ref">p.103</span></li>
+<li id="np-73">與 bandage contact lens 相關；<mark>局部 NSAIDs 使用 <span class="num">&gt; 24 小時</span>而未併用局部類固醇</mark>者較常見；發生率約 <span class="num">1/300</span>，為免疫反應所致。<span class="ref">p.103</span></li>
+<li id="np-74"><mark>任何浸潤都應先假設為感染</mark>；確定無菌後：局部類固醇、停用 NSAIDs、密切追蹤。<span class="ref">p.103</span></li>
 </ul>
 <h3 id="ch5-s6-3">Corneal haze（角膜霧化）</h3>
 <ul>
-<li>依癒合反應調整類固醇：<mark>有 haze 或矯正不足者可<strong>增加</strong>類固醇</mark>；過矯但角膜清澈者可減量（可能誘發回退）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.103</span></li>
-<li>時程：subepithelial haze（上皮下霧化）通常術後<strong>數週</strong>出現、<mark><span class="num">1–2 個月</span>達高峰</mark>，之後 <span class="num">6–12 個月</span>逐漸減輕或消失；<strong>late-onset haze（遲發性霧化）</strong>可在角膜清澈一段時間後、術後數個月或更久才出現。<span class="ref">p.103</span></li>
-<li>組織學：前基質沉積異常 glycosaminoglycans 及／或非層狀膠原（上皮–基質癒合結果）；keratocyte 數量與活性增加，推測為細胞外沉積物來源。<span class="ref">p.103–104</span></li>
-<li><mark>持續性嚴重 haze 多與<strong>較大矯正量</strong>（如高度近視）或<strong>較小切削區</strong>相關</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1626" data-q="1626">第 1626 題</a></span><span class="ref">p.104</span></li>
-<li>UVB 暴露延長基質癒合並增加 haze（高海拔等高紫外線環境有臨床案例）→ 表層切削後常建議戴太陽眼鏡；<mark>術中 MMC 降低 haze 風險</mark>。<span class="ref">p.104</span></li>
-<li>臨床上無法接受的持續 haze：<strong>superficial keratectomy（表層角膜切除）</strong>或 <strong>phototherapeutic keratectomy（PTK，治療性角膜切除術）</strong>，常併用 MMC。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.104</span></li>
-<li>Haze 可隨正常癒合重塑自行消退，<mark>再治療一般延後至少 <span class="num">6–12 個月</span></mark>；有 haze 時驗光常不準確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.104</span></li>
+<li id="np-75">依癒合反應調整類固醇：<mark>有 haze 或矯正不足者可<strong>增加</strong>類固醇</mark>；過矯但角膜清澈者可減量（可能誘發回退）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.103</span></li>
+<li id="np-76">時程：subepithelial haze（上皮下霧化）通常術後<strong>數週</strong>出現、<mark><span class="num">1–2 個月</span>達高峰</mark>，之後 <span class="num">6–12 個月</span>逐漸減輕或消失；<strong>late-onset haze（遲發性霧化）</strong>可在角膜清澈一段時間後、術後數個月或更久才出現。<span class="ref">p.103</span></li>
+<li id="np-77">組織學：前基質沉積異常 glycosaminoglycans 及／或非層狀膠原（上皮–基質癒合結果）；keratocyte 數量與活性增加，推測為細胞外沉積物來源。<span class="ref">p.103–104</span></li>
+<li id="np-78"><mark>持續性嚴重 haze 多與<strong>較大矯正量</strong>（如高度近視）或<strong>較小切削區</strong>相關</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1626" data-q="1626">第 1626 題</a></span><span class="ref">p.104</span></li>
+<li id="np-79">UVB 暴露延長基質癒合並增加 haze（高海拔等高紫外線環境有臨床案例）→ 表層切削後常建議戴太陽眼鏡；<mark>術中 MMC 降低 haze 風險</mark>。<span class="ref">p.104</span></li>
+<li id="np-80">臨床上無法接受的持續 haze：<strong>superficial keratectomy（表層角膜切除）</strong>或 <strong>phototherapeutic keratectomy（PTK，治療性角膜切除術）</strong>，常併用 MMC。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.104</span></li>
+<li id="np-81">Haze 可隨正常癒合重塑自行消退，<mark>再治療一般延後至少 <span class="num">6–12 個月</span></mark>；有 haze 時驗光常不準確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.104</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s6-4">易錯陷阱</h3><ul>
-<li>上皮延遲癒合：停的是 NSAID（會延緩癒合），不是停類固醇改 NSAID。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a></span><span class="ref">p.102</span></li>
-<li>Sterile infiltrate 的危險情境是「NSAID 單用超過 24 小時、沒有類固醇」；治療反而是給類固醇、停 NSAID。<span class="ref">p.103</span></li>
-<li>Haze 高峰在 1–2 個月；再治療至少等 6–12 個月；持續 haze 的移除可併用 MMC，haze 合併殘餘近視時不必再加屈光切削。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.96, p.103–104</span></li>
-<li>PRK 後上皮缺損越久，haze 風險越高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.103</span></li>
+<li id="np-82">上皮延遲癒合：停的是 NSAID（會延緩癒合），不是停類固醇改 NSAID。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1643" data-q="1643">第 1643 題</a></span><span class="ref">p.102</span></li>
+<li id="np-83">Sterile infiltrate 的危險情境是「NSAID 單用超過 24 小時、沒有類固醇」；治療反而是給類固醇、停 NSAID。<span class="ref">p.103</span></li>
+<li id="np-84">Haze 高峰在 1–2 個月；再治療至少等 6–12 個月；持續 haze 的移除可併用 MMC，haze 合併殘餘近視時不必再加屈光切削。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1609" data-q="1609">第 1609 題</a></span><span class="ref">p.96, p.103–104</span></li>
+<li id="np-85">PRK 後上皮缺損越久，haze 風險越高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.103</span></li>
 </ul></div>
 
 <h2 id="ch5-s7">七、LASIK 特有：角膜瓣相關併發症</h2>
 <ul>
-<li>LASIK 併發症主要與<strong>造瓣、術後瓣位置、介面問題</strong>相關。過去最嚴重者與手動微型角膜刀有關；微型角膜刀進步與飛秒雷射造瓣已大幅減少嚴重、威脅視力的併發症。<span class="ref">p.104–105</span></li>
+<li id="np-86">LASIK 併發症主要與<strong>造瓣、術後瓣位置、介面問題</strong>相關。過去最嚴重者與手動微型角膜刀有關；微型角膜刀進步與飛秒雷射造瓣已大幅減少嚴重、威脅視力的併發症。<span class="ref">p.104–105</span></li>
 </ul>
 <h3 id="ch5-s7-1">Microkeratome complications（微型角膜刀併發症）</h3>
 <ul>
-<li>現代微型角膜刀有防止角膜穿孔的設計，但<mark>刀片缺陷、吸引不良、刀頭推進不均</mark>可造成不規則、過薄或 <strong>buttonhole（鈕扣孔）</strong>角膜瓣；<mark>陡峭角膜</mark>增加薄瓣、不規則瓣與 buttonhole 風險 → buttonhole 與角膜曲率／器械相關，<strong>與近視度數本身無關</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1611" data-q="1611">第 1611 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1637" data-q="1637">第 1637 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105</span></li>
-<li>處理：發生上述情形，或不完全角膜瓣面積不足以切削時，<mark>理想上<strong>不掀瓣</strong></mark>；若未及時發現已掀起，應覆回角膜瓣、戴 bandage contact lens、<strong>不做切削</strong>；待角膜瓣癒合後再做另一種屈光手術（通常為表層切削）可避免明顯視力喪失。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a></span><span class="ref">p.105</span></li>
-<li>偶爾會意外切成 <strong>free cap（游離瓣）</strong>而非帶 hinge 的角膜瓣；<mark><strong>平坦角膜</strong>是 free cap 的危險因子</mark>。夾起時要維持上皮面朝外的方向以免覆回時翻面；微型角膜刀造瓣前先做標記較謹慎；必要時可縫合，但常靠 endothelial pump（內皮幫浦）即足以貼合。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1637" data-q="1637">第 1637 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105–106</span></li>
-<li>BCSC 未寫出 40 D／46 D／48 D 等確切切點，只寫「陡 → buttonhole、平 → free cap」，第 2 章另提異常陡或異常平的角膜都會增加微型角膜刀造瓣不良風險；AAO EyeWiki 則寫 K &lt; 40 D（瓣直徑偏小）易 free cap、K &gt; 48 D 易 buttonhole（本章外）。同一刀片切第二眼時，角膜瓣較第一眼<strong>薄</strong>（不是較厚）：MK-2000 與 Amadeus 研究第二眼瓣較薄且變異較大，Moria M2 單次刀頭研究差異不顯著，沒有研究顯示第二眼較厚；BCSC 現版未討論（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105–106, p.52</span></li>
-<li>屈光改變與 K 值：約每矯正 <span class="num">0.80 D</span> 近視角膜變平 <span class="num">1.00 D</span>；<mark>每矯正 <span class="num">1.00 D</span> 遠視角膜變陡 <span class="num">1.00 D</span></mark>（本章外，BCSC 13 第 2 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1637" data-q="1637">第 1637 題</a></span><span class="ref">p.55</span></li>
+<li id="np-87">現代微型角膜刀有防止角膜穿孔的設計，但<mark>刀片缺陷、吸引不良、刀頭推進不均</mark>可造成不規則、過薄或 <strong>buttonhole（鈕扣孔）</strong>角膜瓣；<mark>陡峭角膜</mark>增加薄瓣、不規則瓣與 buttonhole 風險 → buttonhole 與角膜曲率／器械相關，<strong>與近視度數本身無關</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1611" data-q="1611">第 1611 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1637" data-q="1637">第 1637 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105</span></li>
+<li id="np-88">處理：發生上述情形，或不完全角膜瓣面積不足以切削時，<mark>理想上<strong>不掀瓣</strong></mark>；若未及時發現已掀起，應覆回角膜瓣、戴 bandage contact lens、<strong>不做切削</strong>；待角膜瓣癒合後再做另一種屈光手術（通常為表層切削）可避免明顯視力喪失。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a></span><span class="ref">p.105</span></li>
+<li id="np-89">偶爾會意外切成 <strong>free cap（游離瓣）</strong>而非帶 hinge 的角膜瓣；<mark><strong>平坦角膜</strong>是 free cap 的危險因子</mark>。夾起時要維持上皮面朝外的方向以免覆回時翻面；微型角膜刀造瓣前先做標記較謹慎；必要時可縫合，但常靠 endothelial pump（內皮幫浦）即足以貼合。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1637" data-q="1637">第 1637 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105–106</span></li>
+<li id="np-90">BCSC 未寫出 40 D／46 D／48 D 等確切切點，只寫「陡 → buttonhole、平 → free cap」，第 2 章另提異常陡或異常平的角膜都會增加微型角膜刀造瓣不良風險；AAO EyeWiki 則寫 K &lt; 40 D（瓣直徑偏小）易 free cap、K &gt; 48 D 易 buttonhole（本章外）。同一刀片切第二眼時，角膜瓣較第一眼<strong>薄</strong>（不是較厚）：MK-2000 與 Amadeus 研究第二眼瓣較薄且變異較大，Moria M2 單次刀頭研究差異不顯著，沒有研究顯示第二眼較厚；BCSC 現版未討論（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105–106, p.52</span></li>
+<li id="np-91">屈光改變與 K 值：約每矯正 <span class="num">0.80 D</span> 近視角膜變平 <span class="num">1.00 D</span>；<mark>每矯正 <span class="num">1.00 D</span> 遠視角膜變陡 <span class="num">1.00 D</span></mark>（本章外，BCSC 13 第 2 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1637" data-q="1637">第 1637 題</a></span><span class="ref">p.55</span></li>
 </ul>
 <h3 id="ch5-s7-2">Epithelial sloughing or defects（上皮剝脫或缺損）</h3>
 <ul>
-<li>微型角膜刀在加壓角膜上推進的<mark>摩擦</mark>可使一片上皮鬆脫（sloughing）或造成上皮缺損；<strong>epithelial basement membrane dystrophy（上皮基底膜失養症）</strong>者風險特別高，宜改做表層切削；風險隨年齡增加。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105</span></li>
-<li>預防：限制用藥避免毒性、使用冰過的 proparacaine、減少表面麻醉劑、盡量用無防腐劑點藥；微型角膜刀需仔細保養，回程時關閉吸引。<span class="ref">p.105–106</span></li>
-<li><mark>飛秒雷射造瓣不必讓刀頭通過角膜，上皮缺損較少</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span><span class="ref">p.106</span></li>
-<li>明顯上皮缺損：術後立即戴 bandage contact lens 至上皮穩定，加強潤滑 ± 淚點栓塞；持續異常上皮伴反覆糜爛或 CDVA 下降可能需上皮清創或 PTK。<span class="ref">p.106</span></li>
-<li><mark>上皮缺損增加術後 <strong>DLK、infectious keratitis、flap striae、epithelial ingrowth</strong> 的發生率</mark>，需密切觀察。<span class="ref">p.106</span></li>
+<li id="np-92">微型角膜刀在加壓角膜上推進的<mark>摩擦</mark>可使一片上皮鬆脫（sloughing）或造成上皮缺損；<strong>epithelial basement membrane dystrophy（上皮基底膜失養症）</strong>者風險特別高，宜改做表層切削；風險隨年齡增加。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105</span></li>
+<li id="np-93">預防：限制用藥避免毒性、使用冰過的 proparacaine、減少表面麻醉劑、盡量用無防腐劑點藥；微型角膜刀需仔細保養，回程時關閉吸引。<span class="ref">p.105–106</span></li>
+<li id="np-94"><mark>飛秒雷射造瓣不必讓刀頭通過角膜，上皮缺損較少</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span><span class="ref">p.106</span></li>
+<li id="np-95">明顯上皮缺損：術後立即戴 bandage contact lens 至上皮穩定，加強潤滑 ± 淚點栓塞；持續異常上皮伴反覆糜爛或 CDVA 下降可能需上皮清創或 PTK。<span class="ref">p.106</span></li>
+<li id="np-96"><mark>上皮缺損增加術後 <strong>DLK、infectious keratitis、flap striae、epithelial ingrowth</strong> 的發生率</mark>，需密切觀察。<span class="ref">p.106</span></li>
 </ul>
 <h3 id="ch5-s7-3">Flap striae（角膜瓣皺褶）</h3>
 <ul>
-<li>大多在術後<strong>第 1 天</strong>發現，幾乎都在<strong>第 1 週內</strong>出現。<span class="ref">p.106</span></li>
-<li><mark>危險因子：角膜瓣下<strong>過度沖洗</strong>、<strong>薄瓣</strong>、角膜瓣滑脫或覆位不當、<strong>深切削</strong>造成瓣與新基質床不匹配</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a></span><span class="ref">p.106</span></li>
-<li>造成 CDVA 下降或視覺扭曲者需早期辨識與介入；無症狀且 CDVA、UDVA 不受影響者通常不處理。<span class="ref">p.106</span></li>
-<li>環狀皺褶可與高度近視相關，通常隨時間消退；<mark>平行、由 hinge 發出、同一方向成群的皺褶表示<strong>角膜瓣滑脫</strong> → 須立即處理</mark>。<span class="ref">p.107</span></li>
+<li id="np-97">大多在術後<strong>第 1 天</strong>發現，幾乎都在<strong>第 1 週內</strong>出現。<span class="ref">p.106</span></li>
+<li id="np-98"><mark>危險因子：角膜瓣下<strong>過度沖洗</strong>、<strong>薄瓣</strong>、角膜瓣滑脫或覆位不當、<strong>深切削</strong>造成瓣與新基質床不匹配</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a></span><span class="ref">p.106</span></li>
+<li id="np-99">造成 CDVA 下降或視覺扭曲者需早期辨識與介入；無症狀且 CDVA、UDVA 不受影響者通常不處理。<span class="ref">p.106</span></li>
+<li id="np-100">環狀皺褶可與高度近視相關，通常隨時間消退；<mark>平行、由 hinge 發出、同一方向成群的皺褶表示<strong>角膜瓣滑脫</strong> → 須立即處理</mark>。<span class="ref">p.107</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（類型）</th><th>Pathology／cause（病理與原因）</th><th>Slit lamp／topography（檢查）</th><th>Treatment（處置）</th></tr></thead>
 <tbody>
-<tr><td>Macrostriae（大皺褶）</td><td>全層角膜瓣皺褶；角膜瓣滑脫（slippage）</td><td>寬波浪、平行或放射狀匯聚線；瓣溝（gutter）可變寬；negative staining；類比「歪斜地毯的皺摺」；地形圖在皺褶處可能不規則；中央者 CDVA 下降／多重影像</td><td>早期發現立即 refloat／reposition；已固定者去上皮、hydrate and stroke、牽拉、縫合或 PTK</td></tr>
-<tr><td>Microstriae（微皺褶）</td><td>細皺褶，主要在 Bowman layer；瓣與新基質床不匹配、角膜瓣收縮</td><td>Gutter 多對稱；retroillumination 較明顯；可 negative staining；類比「乾裂的泥巴」；color map 正常或輕度異常，Placido 環細微不規則；有臨床意義者 CDVA 輕微下降或多重影像，被上皮遮蔽的微皺褶普遍存在且無症狀</td><td>通常觀察 + 積極潤滑；有視覺意義者同 macrostriae</td></tr>
+<tr><td id="np-101">Macrostriae（大皺褶）</td><td id="np-102">全層角膜瓣皺褶；角膜瓣滑脫（slippage）</td><td id="np-103">寬波浪、平行或放射狀匯聚線；瓣溝（gutter）可變寬；negative staining；類比「歪斜地毯的皺摺」；地形圖在皺褶處可能不規則；中央者 CDVA 下降／多重影像</td><td id="np-104">早期發現立即 refloat／reposition；已固定者去上皮、hydrate and stroke、牽拉、縫合或 PTK</td></tr>
+<tr><td id="np-105">Microstriae（微皺褶）</td><td id="np-106">細皺褶，主要在 Bowman layer；瓣與新基質床不匹配、角膜瓣收縮</td><td id="np-107">Gutter 多對稱；retroillumination 較明顯；可 negative staining；類比「乾裂的泥巴」；color map 正常或輕度異常，Placido 環細微不規則；有臨床意義者 CDVA 輕微下降或多重影像，被上皮遮蔽的微皺褶普遍存在且無症狀</td><td id="np-108">通常觀察 + 積極潤滑；有視覺意義者同 macrostriae</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-1）<span class="ref">p.107</span></p>
+<p id="np-109">出處（Table 5-1）<span class="ref">p.107</span></p>
 <h4>Macrostriae 處理重點</h4>
 <ul>
-<li>覆位後以同軸與斜照光仔細檢查皺褶；術後早期檢查以偵測滑脫；術後 <span class="num">24 小時</span>常戴保護眼罩避免揉眼。<span class="ref">p.107</span></li>
-<li>大型系列中，需要掀瓣處理的 striae 約 <span class="num">1.2%</span>；滑脫應<mark>一發現即矯正</mark>，因皺褶很快固定；皺褶最明顯的一側 gutter 較寬。<span class="ref">p.107</span></li>
-<li>步驟：重新掀瓣、以無菌 balanced salt solution（BSS，平衡鹽溶液）大量沖洗介面，再垂直於皺褶方向拉平。<span class="ref">p.108</span></li>
-<li>低張生理食鹽水或無菌蒸餾水會使瓣腫脹，初期可減少 striae，但瓣直徑縮小 → gutter 變寬、延長內皮脫水時間而延遲貼合，脫水後可能更糟。<span class="ref">p.108</span></li>
-<li>存在 <span class="num">&gt; 24 小時</span>：上皮反應性變化把皺褶固定 → 除 refloat 外，可去除皺褶上方中央 <span class="num">6 mm</span> 的角膜瓣上皮；戴 bandage contact lens 至完全再上皮化；頑固者縫合數週，拆線後仍可能有不規則散光。<span class="ref">p.108</span></li>
+<li id="np-110">覆位後以同軸與斜照光仔細檢查皺褶；術後早期檢查以偵測滑脫；術後 <span class="num">24 小時</span>常戴保護眼罩避免揉眼。<span class="ref">p.107</span></li>
+<li id="np-111">大型系列中，需要掀瓣處理的 striae 約 <span class="num">1.2%</span>；滑脫應<mark>一發現即矯正</mark>，因皺褶很快固定；皺褶最明顯的一側 gutter 較寬。<span class="ref">p.107</span></li>
+<li id="np-112">步驟：重新掀瓣、以無菌 balanced salt solution（BSS，平衡鹽溶液）大量沖洗介面，再垂直於皺褶方向拉平。<span class="ref">p.108</span></li>
+<li id="np-113">低張生理食鹽水或無菌蒸餾水會使瓣腫脹，初期可減少 striae，但瓣直徑縮小 → gutter 變寬、延長內皮脫水時間而延遲貼合，脫水後可能更糟。<span class="ref">p.108</span></li>
+<li id="np-114">存在 <span class="num">&gt; 24 小時</span>：上皮反應性變化把皺褶固定 → 除 refloat 外，可去除皺褶上方中央 <span class="num">6 mm</span> 的角膜瓣上皮；戴 bandage contact lens 至完全再上皮化；頑固者縫合數週，拆線後仍可能有不規則散光。<span class="ref">p.108</span></li>
 </ul>
 <h4>Microstriae 處理重點</h4>
 <ul>
-<li>細如毛髮，紅光反射 retroillumination 或虹膜反光最易看見；位於 Bowman layer 的前方位置是部分眼 CDVA 下降的原因；稀釋 fluorescein 常見 negative staining。<span class="ref">p.108</span></li>
-<li>PTK：broad-beam 雷射、最大直徑 <span class="num">6.5 mm</span>，先約 <span class="num">200</span> 發穿透上皮（上皮作 masking agent，先暴露隆起的皺褶）；之後每 <span class="num">5–10</span> 發給一層中黏度人工淚液，追加最多 <span class="num">100</span> 發；結果幾乎無 haze，平均遠視偏移 <span class="num">&lt; +1.00 D</span>。<span class="ref">p.108</span></li>
+<li id="np-115">細如毛髮，紅光反射 retroillumination 或虹膜反光最易看見；位於 Bowman layer 的前方位置是部分眼 CDVA 下降的原因；稀釋 fluorescein 常見 negative staining。<span class="ref">p.108</span></li>
+<li id="np-116">PTK：broad-beam 雷射、最大直徑 <span class="num">6.5 mm</span>，先約 <span class="num">200</span> 發穿透上皮（上皮作 masking agent，先暴露隆起的皺褶）；之後每 <span class="num">5–10</span> 發給一層中黏度人工淚液，追加最多 <span class="num">100</span> 發；結果幾乎無 haze，平均遠視偏移 <span class="num">&lt; +1.00 D</span>。<span class="ref">p.108</span></li>
 </ul>
 <h3 id="ch5-s7-4">Traumatic flap dislocation（外傷性角膜瓣移位）</h3>
 <ul>
-<li>罕見，<mark>最常發生於術後<strong>第 1 天</strong></mark>：乾燥與角膜瓣黏附上瞼結膜足以使其滑脫；之後 gutter 再上皮化增加穩定度。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1587" data-q="1587">第 1587 題</a></span><span class="ref">p.109</span></li>
-<li>數週內 keratocyte 在 Bowman layer 切緣產生新膠原，最終在瓣緣形成細疤；但<mark>基質介面<strong>幾乎不癒合</strong></mark> → 術後多年仍可因鈍挫傷遲發移位（也因此多年後仍可掀瓣）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.109</span></li>
-<li>需緊急覆回正確解剖位置；確認瓣下與介面無上皮，以減少 epithelial ingrowth。<span class="ref">p.109</span></li>
+<li id="np-117">罕見，<mark>最常發生於術後<strong>第 1 天</strong></mark>：乾燥與角膜瓣黏附上瞼結膜足以使其滑脫；之後 gutter 再上皮化增加穩定度。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1587" data-q="1587">第 1587 題</a></span><span class="ref">p.109</span></li>
+<li id="np-118">數週內 keratocyte 在 Bowman layer 切緣產生新膠原，最終在瓣緣形成細疤；但<mark>基質介面<strong>幾乎不癒合</strong></mark> → 術後多年仍可因鈍挫傷遲發移位（也因此多年後仍可掀瓣）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1625" data-q="1625">第 1625 題</a></span><span class="ref">p.109</span></li>
+<li id="np-119">需緊急覆回正確解剖位置；確認瓣下與介面無上皮，以減少 epithelial ingrowth。<span class="ref">p.109</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s7-5">易錯陷阱</h3><ul>
-<li>陡峭角膜 → buttonhole；平坦角膜 → free cap；考題常把兩者對調。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1637" data-q="1637">第 1637 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105–106</span></li>
-<li>薄瓣或 buttonhole「不」掀瓣、不切削，待癒合後改做表層切削。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a></span><span class="ref">p.105</span></li>
-<li>瓣下過度沖洗是 striae 危險因子（不是保護因子）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a></span><span class="ref">p.106</span></li>
-<li>微型角膜刀較易造成上皮剝脫，飛秒雷射較少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span><span class="ref">p.105–106</span></li>
+<li id="np-120">陡峭角膜 → buttonhole；平坦角膜 → free cap；考題常把兩者對調。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1637" data-q="1637">第 1637 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a></span><span class="ref">p.105–106</span></li>
+<li id="np-121">薄瓣或 buttonhole「不」掀瓣、不切削，待癒合後改做表層切削。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a></span><span class="ref">p.105</span></li>
+<li id="np-122">瓣下過度沖洗是 striae 危險因子（不是保護因子）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a></span><span class="ref">p.106</span></li>
+<li id="np-123">微型角膜刀較易造成上皮剝脫，飛秒雷射較少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1582" data-q="1582">第 1582 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span><span class="ref">p.105–106</span></li>
 </ul></div>
 
 <h2 id="ch5-s8">八、LASIK 介面併發症</h2>
 <h3 id="ch5-s8-1">Diffuse lamellar keratitis（DLK，瀰漫性層狀角膜炎）</h3>
 <ul>
-<li>表現：從無症狀、瓣緣附近的介面霧化，到中央瀰漫性霧化伴 CDVA 下降。本質是<mark>對機械和／或毒性刺激的<strong>非特異性無菌</strong>發炎反應</mark>；介面為潛在空間，任何前基質發炎都可使白血球堆積。<span class="ref">p.109</span></li>
-<li><mark>以 <strong>femtosecond flap（飛秒雷射角膜瓣）</strong>製作者盛行率<strong>較高</strong></mark>；也可在術後數月甚至數年伴隨上皮缺損發生。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span><span class="ref">p.109</span></li>
-<li>誘因：微型角膜刀刀片或馬達上的異物、困住的 <strong>meibomian gland（瞼板腺）</strong>分泌物、術前皮膚消毒的 povidone-iodine、標記墨水、雷射切削產物、<mark>消毒器遭 <strong>gram-negative endotoxin（革蘭氏陰性內毒素）</strong>汙染</mark>、介面紅血球；以及上皮缺損。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a></span><span class="ref">p.106, p.109</span></li>
-<li>多數僅局部類固醇即可無後遺症消退；嚴重者可留疤或 <strong>flap melting（角膜瓣溶解）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a></span><span class="ref">p.109</span></li>
-<li>DLK <mark>眼壓正常</mark>，發病早；與眼壓升高相關的是 PISK。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.112</span></li>
+<li id="np-124">表現：從無症狀、瓣緣附近的介面霧化，到中央瀰漫性霧化伴 CDVA 下降。本質是<mark>對機械和／或毒性刺激的<strong>非特異性無菌</strong>發炎反應</mark>；介面為潛在空間，任何前基質發炎都可使白血球堆積。<span class="ref">p.109</span></li>
+<li id="np-125"><mark>以 <strong>femtosecond flap（飛秒雷射角膜瓣）</strong>製作者盛行率<strong>較高</strong></mark>；也可在術後數月甚至數年伴隨上皮缺損發生。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span><span class="ref">p.109</span></li>
+<li id="np-126">誘因：微型角膜刀刀片或馬達上的異物、困住的 <strong>meibomian gland（瞼板腺）</strong>分泌物、術前皮膚消毒的 povidone-iodine、標記墨水、雷射切削產物、<mark>消毒器遭 <strong>gram-negative endotoxin（革蘭氏陰性內毒素）</strong>汙染</mark>、介面紅血球；以及上皮缺損。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a></span><span class="ref">p.106, p.109</span></li>
+<li id="np-127">多數僅局部類固醇即可無後遺症消退；嚴重者可留疤或 <strong>flap melting（角膜瓣溶解）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a></span><span class="ref">p.109</span></li>
+<li id="np-128">DLK <mark>眼壓正常</mark>，發病早；與眼壓升高相關的是 PISK。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.112</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Stage（分期）</th><th>Findings（表現）</th><th>Treatment（處置）</th></tr></thead>
 <tbody>
-<tr><td>1</td><td>周邊淡薄白血球，顆粒狀外觀</td><td rowspan="2">頻繁局部類固醇通常有效 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span></td></tr>
-<tr><td>2</td><td>中央散在白血球，顆粒狀外觀</td></tr>
-<tr><td>3</td><td>視軸中央緻密白血球</td><td rowspan="2"><mark>通常需<strong>掀瓣沖洗</strong>，再密集局部類固醇</mark>；嚴重者可輔以口服類固醇 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a></span></td></tr>
-<tr><td>4</td><td>永久性疤痕或基質溶解</td></tr>
+<tr><td id="np-129">1</td><td id="np-130">周邊淡薄白血球，顆粒狀外觀</td><td id="np-131" rowspan="2">頻繁局部類固醇通常有效 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span></td></tr>
+<tr><td id="np-132">2</td><td id="np-133">中央散在白血球，顆粒狀外觀</td></tr>
+<tr><td id="np-134">3</td><td id="np-135">視軸中央緻密白血球</td><td id="np-136" rowspan="2"><mark>通常需<strong>掀瓣沖洗</strong>，再密集局部類固醇</mark>；嚴重者可輔以口服類固醇 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a></span></td></tr>
+<tr><td id="np-137">4</td><td id="np-138">永久性疤痕或基質溶解</td></tr>
 </tbody>
 </table>
-<p>出處（Table 5-2）<span class="ref">p.109–110</span></p>
+<p id="np-139">出處（Table 5-2）<span class="ref">p.109–110</span></p>
 <ul>
-<li>及早發現並治療時視力恢復通常極佳；疑似嚴重 DLK 應<mark>低門檻掀瓣或瓣下沖洗</mark>：移除介面發炎介質，並可直接放置類固醇與 NSAIDs 抑制發炎與壞死。<span class="ref">p.109</span></li>
-<li>只要懷疑是感染：考慮掀瓣、介面培養並於介面放置局部抗生素。<span class="ref">p.109–110</span></li>
-<li><mark>疑似 DLK 用類固醇 <span class="num">7–10 天</span>無反應 → 重新考慮診斷</mark>：infectious keratitis 或 PISK 可模仿 DLK，且兩者都需要<strong>停用類固醇</strong> → 「加強類固醇即可痊癒」不正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a></span><span class="ref">p.110</span></li>
+<li id="np-140">及早發現並治療時視力恢復通常極佳；疑似嚴重 DLK 應<mark>低門檻掀瓣或瓣下沖洗</mark>：移除介面發炎介質，並可直接放置類固醇與 NSAIDs 抑制發炎與壞死。<span class="ref">p.109</span></li>
+<li id="np-141">只要懷疑是感染：考慮掀瓣、介面培養並於介面放置局部抗生素。<span class="ref">p.109–110</span></li>
+<li id="np-142"><mark>疑似 DLK 用類固醇 <span class="num">7–10 天</span>無反應 → 重新考慮診斷</mark>：infectious keratitis 或 PISK 可模仿 DLK，且兩者都需要<strong>停用類固醇</strong> → 「加強類固醇即可痊癒」不正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a></span><span class="ref">p.110</span></li>
 </ul>
 <h3 id="ch5-s8-2">LASIK infectious keratitis（LASIK 術後感染性角膜炎）</h3>
 <ul>
-<li>LASIK 病人常有術後不適與角膜知覺下降，<strong>疼痛不是可靠的感染症狀</strong>；感染通常伴隨<mark>紅眼、畏光、視力下降</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1647" data-q="1647">第 1647 題</a></span><span class="ref">p.111</span></li>
-<li><mark>DLK 通常<strong>術後 24 小時內</strong>即可在裂隙燈看見，典型<strong>由瓣周邊開始</strong></mark>，周邊最強、向中央遞減；發炎侷限於介面、不太超出瓣緣。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.111</span></li>
-<li><mark>感染性角膜炎通常<strong>術後 2–3 天</strong>才開始</mark>，為較局部（focal）的發炎，<strong>不侷限於層狀介面</strong>：可向上進入角膜瓣、向下深入基質床並超出瓣緣；<strong>前房反應</strong>較支持感染。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.111</span></li>
-<li>介面感染可導致 flap melting、嚴重不規則散光與角膜疤痕。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a></span><span class="ref">p.111</span></li>
-<li><mark>懷疑感染 → <strong>掀瓣</strong>、介面培養並以抗生素沖洗</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a></span><span class="ref">p.111</span></li>
-<li><mark>最常見為 <strong>gram-positive</strong> 菌，其次為 <strong>atypical mycobacteria（非典型分枝桿菌）</strong></mark>；分枝桿菌以 acid-fast 與 fluorochrome 染色診斷較快（培養需特殊培養基）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.111–112</span></li>
-<li>臨床無進展時可能需重複培養，並可能需 <mark><strong>flap amputation（角膜瓣切除）</strong>以改善抗微生物藥穿透</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a></span><span class="ref">p.112</span></li>
-<li>症狀出現時間是病因線索：<mark>術後 <span class="num">10 天</span>內的感染通常為細菌性</mark>；第四代 fluoroquinolone（gatifloxacin、moxifloxacin）對常見菌（含部分 atypical mycobacteria）效果極佳，但單一藥物可能不足；遲發性感染可發生於 recurrent erosion（復發性糜爛）之後。<span class="ref">p.112</span></li>
+<li id="np-143">LASIK 病人常有術後不適與角膜知覺下降，<strong>疼痛不是可靠的感染症狀</strong>；感染通常伴隨<mark>紅眼、畏光、視力下降</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1647" data-q="1647">第 1647 題</a></span><span class="ref">p.111</span></li>
+<li id="np-144"><mark>DLK 通常<strong>術後 24 小時內</strong>即可在裂隙燈看見，典型<strong>由瓣周邊開始</strong></mark>，周邊最強、向中央遞減；發炎侷限於介面、不太超出瓣緣。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.111</span></li>
+<li id="np-145"><mark>感染性角膜炎通常<strong>術後 2–3 天</strong>才開始</mark>，為較局部（focal）的發炎，<strong>不侷限於層狀介面</strong>：可向上進入角膜瓣、向下深入基質床並超出瓣緣；<strong>前房反應</strong>較支持感染。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.111</span></li>
+<li id="np-146">介面感染可導致 flap melting、嚴重不規則散光與角膜疤痕。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a></span><span class="ref">p.111</span></li>
+<li id="np-147"><mark>懷疑感染 → <strong>掀瓣</strong>、介面培養並以抗生素沖洗</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a></span><span class="ref">p.111</span></li>
+<li id="np-148"><mark>最常見為 <strong>gram-positive</strong> 菌，其次為 <strong>atypical mycobacteria（非典型分枝桿菌）</strong></mark>；分枝桿菌以 acid-fast 與 fluorochrome 染色診斷較快（培養需特殊培養基）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.111–112</span></li>
+<li id="np-149">臨床無進展時可能需重複培養，並可能需 <mark><strong>flap amputation（角膜瓣切除）</strong>以改善抗微生物藥穿透</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a></span><span class="ref">p.112</span></li>
+<li id="np-150">症狀出現時間是病因線索：<mark>術後 <span class="num">10 天</span>內的感染通常為細菌性</mark>；第四代 fluoroquinolone（gatifloxacin、moxifloxacin）對常見菌（含部分 atypical mycobacteria）效果極佳，但單一藥物可能不足；遲發性感染可發生於 recurrent erosion（復發性糜爛）之後。<span class="ref">p.112</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Onset（發病）</th><th>Location／pattern（位置）</th><th>AC reaction／IOP（前房與眼壓）</th><th>Treatment（處置）</th></tr></thead>
 <tbody>
-<tr><td>DLK</td><td>通常 <span class="num">24 小時</span>內可見</td><td>始於瓣周邊、向中央遞減；主要侷限於介面、瀰漫性</td><td>極少或無前房反應；眼壓正常</td><td>類固醇；第 3–4 期掀瓣沖洗 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span></td></tr>
-<tr><td>Infectious keratitis</td><td>通常至少術後 <span class="num">2–3 天</span></td><td>瓣下任何位置；延伸至介面上下及瓣緣外、局部性</td><td>輕至中度前房反應</td><td>掀瓣培養、抗生素沖洗；必要時 flap amputation <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span></td></tr>
-<tr><td>PISK</td><td>通常 <span class="num">10–14 天</span>後（長期類固醇）</td><td>瀰漫基質與介面混濁，有時可見介面 fluid cleft</td><td><mark>眼壓升高</mark>（Goldmann 可能低估）</td><td>迅速停類固醇 + 降眼壓藥 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span></td></tr>
-<tr><td>Central toxic keratopathy</td><td>順利 LVC 後數天內，急性</td><td>中央混濁，不隨時間惡化</td><td>非發炎性</td><td>觀察，遠視偏移回復後再 enhancement <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span></td></tr>
-<tr><td>Transient light sensitivity</td><td>飛秒 LASIK 後（急性發作）</td><td>角膜與介面正常，白而安靜</td><td>無</td><td>頻繁局部抗發炎藥 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1647" data-q="1647">第 1647 題</a></span></td></tr>
+<tr><td id="np-151">DLK</td><td id="np-152">通常 <span class="num">24 小時</span>內可見</td><td id="np-153">始於瓣周邊、向中央遞減；主要侷限於介面、瀰漫性</td><td id="np-154">極少或無前房反應；眼壓正常</td><td id="np-155">類固醇；第 3–4 期掀瓣沖洗 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span></td></tr>
+<tr><td id="np-156">Infectious keratitis</td><td id="np-157">通常至少術後 <span class="num">2–3 天</span></td><td id="np-158">瓣下任何位置；延伸至介面上下及瓣緣外、局部性</td><td id="np-159">輕至中度前房反應</td><td id="np-160">掀瓣培養、抗生素沖洗；必要時 flap amputation <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span></td></tr>
+<tr><td id="np-161">PISK</td><td id="np-162">通常 <span class="num">10–14 天</span>後（長期類固醇）</td><td id="np-163">瀰漫基質與介面混濁，有時可見介面 fluid cleft</td><td id="np-164"><mark>眼壓升高</mark>（Goldmann 可能低估）</td><td id="np-165">迅速停類固醇 + 降眼壓藥 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span></td></tr>
+<tr><td id="np-166">Central toxic keratopathy</td><td id="np-167">順利 LVC 後數天內，急性</td><td id="np-168">中央混濁，不隨時間惡化</td><td id="np-169">非發炎性</td><td id="np-170">觀察，遠視偏移回復後再 enhancement <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1640" data-q="1640">第 1640 題</a></span></td></tr>
+<tr><td id="np-171">Transient light sensitivity</td><td id="np-172">飛秒 LASIK 後（急性發作）</td><td id="np-173">角膜與介面正常，白而安靜</td><td id="np-174">無</td><td id="np-175">頻繁局部抗發炎藥 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1647" data-q="1647">第 1647 題</a></span></td></tr>
 </tbody>
 </table>
-<p>DLK 與感染性角膜炎<mark>兩者皆可發生 flap melt</mark>。出處（Table 5-3 與內文）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a></span><span class="ref">p.100, p.111–112, p.116</span></p>
+<p id="np-176">DLK 與感染性角膜炎<mark>兩者皆可發生 flap melt</mark>。出處（Table 5-3 與內文）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a></span><span class="ref">p.100, p.111–112, p.116</span></p>
 <h3 id="ch5-s8-3">Pressure-induced stromal keratopathy（PISK，壓力誘發基質角膜病變）</h3>
 <ul>
-<li><mark>由<strong>眼壓升高</strong>引起</mark>的瀰漫基質與介面混濁，易被誤認為 DLK；<mark>有時可見介面 <strong>fluid cleft（液體間隙）</strong></mark>，但也可無間隙。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a></span><span class="ref">p.112–113</span></li>
-<li>推測機轉：類固醇誘發眼壓升高 → 液體經內皮滲出至瓣與基質床之間。<mark>PRK 無角膜瓣介面，不會發生 PISK</mark>（PISK 不是 PRK 的併發症）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a></span><span class="ref">p.99, p.113</span></li>
-<li><mark>治療：<strong>迅速停用類固醇</strong>並開始降眼壓藥</mark> → 用或加強類固醇會使病情惡化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a></span><span class="ref">p.112</span></li>
-<li>與<strong>長期類固醇</strong>相關，<mark>通常在 <span class="num">10–14 天</span>後出現</mark>（不是 1–2 個月）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.112</span></li>
-<li><mark>DLK 與 PISK 的關鍵區別：DLK <strong>發病較早且眼壓正常</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span><span class="ref">p.112</span></li>
-<li>Fluid cleft 會使 Goldmann 讀值偏低 → 疑似病例應在中央與周邊測量，並使用 pneumotonometer、Tono-Pen 或 dynamic contour tonometry；高解析前段 optical coherence tomography（OCT，光學同調斷層掃描）有助診斷；延誤診斷曾造成嚴重青光眼性視力喪失。<span class="ref">p.112</span></li>
+<li id="np-177"><mark>由<strong>眼壓升高</strong>引起</mark>的瀰漫基質與介面混濁，易被誤認為 DLK；<mark>有時可見介面 <strong>fluid cleft（液體間隙）</strong></mark>，但也可無間隙。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a></span><span class="ref">p.112–113</span></li>
+<li id="np-178">推測機轉：類固醇誘發眼壓升高 → 液體經內皮滲出至瓣與基質床之間。<mark>PRK 無角膜瓣介面，不會發生 PISK</mark>（PISK 不是 PRK 的併發症）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a></span><span class="ref">p.99, p.113</span></li>
+<li id="np-179"><mark>治療：<strong>迅速停用類固醇</strong>並開始降眼壓藥</mark> → 用或加強類固醇會使病情惡化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a></span><span class="ref">p.112</span></li>
+<li id="np-180">與<strong>長期類固醇</strong>相關，<mark>通常在 <span class="num">10–14 天</span>後出現</mark>（不是 1–2 個月）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.112</span></li>
+<li id="np-181"><mark>DLK 與 PISK 的關鍵區別：DLK <strong>發病較早且眼壓正常</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span><span class="ref">p.112</span></li>
+<li id="np-182">Fluid cleft 會使 Goldmann 讀值偏低 → 疑似病例應在中央與周邊測量，並使用 pneumotonometer、Tono-Pen 或 dynamic contour tonometry；高解析前段 optical coherence tomography（OCT，光學同調斷層掃描）有助診斷；延誤診斷曾造成嚴重青光眼性視力喪失。<span class="ref">p.112</span></li>
 </ul>
 <h3 id="ch5-s8-4">Epithelial ingrowth（上皮內生）</h3>
 <ul>
-<li>初次 LASIK 後罕見，<mark>盛行率通常 <span class="num">&lt; 3%</span></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a></span><span class="ref">p.112</span></li>
-<li><mark>周邊介面孤立、<strong>不前進且不影響視力</strong>的上皮巢<strong>不需治療</strong></mark>；周邊 <span class="num">1–2 mm</span> 的內生很常見、通常無影響，除非誘發上方角膜瓣溶解 → 「一經發現就要盡快手術」「全部都要手術」皆錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.112, p.114</span></li>
-<li>需處理的情況：<mark>向視軸前進、因不規則散光（地形圖／斷層可見）而視力下降、或誘發角膜瓣溶解</mark> → 掀瓣，刮除瓣下表面與基質床上皮，再覆回。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a></span><span class="ref">p.112</span></li>
-<li>輔助技巧：一併去除瓣周邊與基質床周邊上皮以利貼合；<mark>角膜瓣縫合或在瓣緣使用 <strong>fibrin glue（纖維蛋白膠）</strong></mark>；以 absolute alcohol（無水酒精）處理瓣下表面；早期內生也可用 Nd:YAG laser 取代掀瓣。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a></span><span class="ref">p.112–113</span></li>
-<li><mark>發生率較高：手術時出現<strong>上皮缺損</strong>、<strong>掀起原有角膜瓣再治療</strong>、外傷性 flap dehiscence（角膜瓣裂開）</mark> → 覆瓣時特別確認瓣緣下無上皮；術畢戴 bandage contact lens 可能減少發生。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a></span><span class="ref">p.113, p.115</span></li>
+<li id="np-183">初次 LASIK 後罕見，<mark>盛行率通常 <span class="num">&lt; 3%</span></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a></span><span class="ref">p.112</span></li>
+<li id="np-184"><mark>周邊介面孤立、<strong>不前進且不影響視力</strong>的上皮巢<strong>不需治療</strong></mark>；周邊 <span class="num">1–2 mm</span> 的內生很常見、通常無影響，除非誘發上方角膜瓣溶解 → 「一經發現就要盡快手術」「全部都要手術」皆錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.112, p.114</span></li>
+<li id="np-185">需處理的情況：<mark>向視軸前進、因不規則散光（地形圖／斷層可見）而視力下降、或誘發角膜瓣溶解</mark> → 掀瓣，刮除瓣下表面與基質床上皮，再覆回。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a></span><span class="ref">p.112</span></li>
+<li id="np-186">輔助技巧：一併去除瓣周邊與基質床周邊上皮以利貼合；<mark>角膜瓣縫合或在瓣緣使用 <strong>fibrin glue（纖維蛋白膠）</strong></mark>；以 absolute alcohol（無水酒精）處理瓣下表面；早期內生也可用 Nd:YAG laser 取代掀瓣。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a></span><span class="ref">p.112–113</span></li>
+<li id="np-187"><mark>發生率較高：手術時出現<strong>上皮缺損</strong>、<strong>掀起原有角膜瓣再治療</strong>、外傷性 flap dehiscence（角膜瓣裂開）</mark> → 覆瓣時特別確認瓣緣下無上皮；術畢戴 bandage contact lens 可能減少發生。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a></span><span class="ref">p.113, p.115</span></li>
 </ul>
 <h3 id="ch5-s8-5">Interface debris（介面異物）</h3>
 <ul>
-<li>掀瓣沖洗的主要適應症是<mark>異物引起<strong>發炎反應</strong></mark>；少量棉絮、不明顆粒或不鏽鋼器械的微小金屬顆粒通常可耐受。<span class="ref">p.115</span></li>
-<li>周邊血管切斷滲入介面的少量血液可耐受並自行消退；大量血液會引起發炎細胞反應，應於 LASIK 時沖出。局部血管收縮劑（如 epinephrine）可減少出血，但會使瞳孔放大，增加固視與 pupil tracking 困難。<span class="ref">p.115</span></li>
+<li id="np-188">掀瓣沖洗的主要適應症是<mark>異物引起<strong>發炎反應</strong></mark>；少量棉絮、不明顆粒或不鏽鋼器械的微小金屬顆粒通常可耐受。<span class="ref">p.115</span></li>
+<li id="np-189">周邊血管切斷滲入介面的少量血液可耐受並自行消退；大量血液會引起發炎細胞反應，應於 LASIK 時沖出。局部血管收縮劑（如 epinephrine）可減少出血，但會使瞳孔放大，增加固視與 pupil tracking 困難。<span class="ref">p.115</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s8-6">易錯陷阱</h3><ul>
-<li>DLK「24 小時內、瓣周邊開始、侷限介面、前房反應少」；感染「2–3 天後、任何位置、超出介面、前房反應」——考題常把「至少 2–3 天」或「侷限於介面」錯配。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.111</span></li>
-<li>LASIK 術後感染最常見是 gram-positive，其次 atypical mycobacteria；不是 gram-negative（gram-negative endotoxin 是 DLK 的誘因）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a></span><span class="ref">p.109, p.111</span></li>
-<li>PISK：10–14 天、眼壓高、停類固醇；不是 1–2 個月，也不能用類固醇治療。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.112</span></li>
-<li>DLK 3–4 期一定要掀瓣沖洗，且 7–10 天無效要懷疑感染或 PISK。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a></span><span class="ref">p.109–110</span></li>
-<li>飛秒雷射角膜瓣的 DLK 盛行率較「高」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span><span class="ref">p.109</span></li>
-<li>上皮內生周邊孤立、不進展、不影響視力 → 觀察即可。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.112</span></li>
+<li id="np-190">DLK「24 小時內、瓣周邊開始、侷限介面、前房反應少」；感染「2–3 天後、任何位置、超出介面、前房反應」——考題常把「至少 2–3 天」或「侷限於介面」錯配。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1571" data-q="1571">第 1571 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1635" data-q="1635">第 1635 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.111</span></li>
+<li id="np-191">LASIK 術後感染最常見是 gram-positive，其次 atypical mycobacteria；不是 gram-negative（gram-negative endotoxin 是 DLK 的誘因）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1572" data-q="1572">第 1572 題</a></span><span class="ref">p.109, p.111</span></li>
+<li id="np-192">PISK：10–14 天、眼壓高、停類固醇；不是 1–2 個月，也不能用類固醇治療。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1570" data-q="1570">第 1570 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1644" data-q="1644">第 1644 題</a></span><span class="ref">p.112</span></li>
+<li id="np-193">DLK 3–4 期一定要掀瓣沖洗，且 7–10 天無效要懷疑感染或 PISK。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1581" data-q="1581">第 1581 題</a></span><span class="ref">p.109–110</span></li>
+<li id="np-194">飛秒雷射角膜瓣的 DLK 盛行率較「高」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span><span class="ref">p.109</span></li>
+<li id="np-195">上皮內生周邊孤立、不進展、不影響視力 → 觀察即可。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1607" data-q="1607">第 1607 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.112</span></li>
 </ul></div>
 
 <h2 id="ch5-s9">九、飛秒雷射輔助 LASIK 角膜瓣相關併發症</h2>
 <h3 id="ch5-s9-1">Opaque bubble layer（OBL，不透明氣泡層）與 gas breakthrough（氣體突破）</h3>
 <ul>
-<li>OBL 是基質內 photodisruption（光破壞）<mark>最常見的不良反應之一</mark>，由 carbon dioxide（二氧化碳）與水組成；可明顯干擾雷射追蹤系統；隨時間及／或機械按摩消散；高重複頻率的新一代飛秒雷射 OBL 較少。<span class="ref">p.116</span></li>
-<li><strong>Epithelial gas breakthrough</strong>：罕見但嚴重；<mark>角膜疤痕是飛秒造瓣的禁忌</mark>。如同微型角膜刀 buttonhole，及時發現就<strong>不掀瓣</strong>，破口癒合後可做表層切削。<span class="ref">p.116</span></li>
-<li>罕見情況下 cavitation bubble（空化氣泡）的氣體進入前房，<mark><strong>可能干擾雷射 tracking 與 registration</strong></mark> → 可等數小時讓氣泡消失，或點散瞳劑使瞳孔在氣泡周圍放大，讓雷射得以辨識與擷取。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span><span class="ref">p.116</span></li>
+<li id="np-196">OBL 是基質內 photodisruption（光破壞）<mark>最常見的不良反應之一</mark>，由 carbon dioxide（二氧化碳）與水組成；可明顯干擾雷射追蹤系統；隨時間及／或機械按摩消散；高重複頻率的新一代飛秒雷射 OBL 較少。<span class="ref">p.116</span></li>
+<li id="np-197"><strong>Epithelial gas breakthrough</strong>：罕見但嚴重；<mark>角膜疤痕是飛秒造瓣的禁忌</mark>。如同微型角膜刀 buttonhole，及時發現就<strong>不掀瓣</strong>，破口癒合後可做表層切削。<span class="ref">p.116</span></li>
+<li id="np-198">罕見情況下 cavitation bubble（空化氣泡）的氣體進入前房，<mark><strong>可能干擾雷射 tracking 與 registration</strong></mark> → 可等數小時讓氣泡消失，或點散瞳劑使瞳孔在氣泡周圍放大，讓雷射得以辨識與擷取。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span><span class="ref">p.116</span></li>
 </ul>
 <h3 id="ch5-s9-2">Transient light sensitivity（暫時性光敏感）</h3>
 <ul>
-<li><mark>飛秒 LASIK 後</mark>部分病人急性出現疼痛與畏光，但<mark>眼睛<strong>白而安靜</strong>、UDVA 極佳，角膜與介面外觀正常</mark>；推測飛秒雷射以某種方式引起急性眼內發炎或乾眼 → 與飛秒雷射相關，並非比傳統 LASIK 少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1647" data-q="1647">第 1647 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span><span class="ref">p.116</span></li>
-<li><mark>治療：<strong>頻繁局部抗發炎藥</strong></mark>；幾乎都有反應，數週至數月緩解；無感染證據，不需密集抗生素或掀瓣培養沖洗。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1647" data-q="1647">第 1647 題</a></span><span class="ref">p.116</span></li>
+<li id="np-199"><mark>飛秒 LASIK 後</mark>部分病人急性出現疼痛與畏光，但<mark>眼睛<strong>白而安靜</strong>、UDVA 極佳，角膜與介面外觀正常</mark>；推測飛秒雷射以某種方式引起急性眼內發炎或乾眼 → 與飛秒雷射相關，並非比傳統 LASIK 少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1647" data-q="1647">第 1647 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span><span class="ref">p.116</span></li>
+<li id="np-200"><mark>治療：<strong>頻繁局部抗發炎藥</strong></mark>；幾乎都有反應，數週至數月緩解；無感染證據，不需密集抗生素或掀瓣培養沖洗。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1647" data-q="1647">第 1647 題</a></span><span class="ref">p.116</span></li>
 </ul>
 <h3 id="ch5-s9-3">飛秒雷射 vs 微型角膜刀造瓣（本章外，BCSC 13 第 4 章 Table 4-1）</h3>
 <table class="ted-table">
 <thead><tr><th>Advantages（優點）</th><th>Disadvantages（缺點）</th></tr></thead>
 <tbody>
-<tr><td>角膜瓣參數較可客製化；<mark>大小與厚度較不受 keratometry（角膜曲率）影響</mark>；置中較易控制 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span></td><td>需要較多 flap manipulation（角膜瓣處理） <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span></td></tr>
-<tr><td><mark>角膜瓣上皮缺損罕見</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span></td><td>OBL 可能干擾準分子切削與 eye tracking</td></tr>
-<tr><td><mark>Free cap 與 buttonhole 風險較低</mark>；<mark>角膜瓣厚度較可靠</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1589" data-q="1589">第 1589 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span></td><td><mark>前房氣泡可能干擾 tracking 與 registration</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span></td></tr>
-<tr><td>Planar flap（平面瓣）；角膜緣血管出血較少</td><td><mark>術後 6 個月後較難掀起角膜瓣</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1589" data-q="1589">第 1589 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span></td></tr>
-<tr><td><mark>切割不完全時可立即再治療</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1589" data-q="1589">第 1589 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span></td><td><mark>Transient light sensitivity 風險增加</mark>；費用較高；延遲性光敏感（或視力佳卻光敏感） <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span></td></tr>
+<tr><td id="np-201">角膜瓣參數較可客製化；<mark>大小與厚度較不受 keratometry（角膜曲率）影響</mark>；置中較易控制 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span></td><td id="np-202">需要較多 flap manipulation（角膜瓣處理） <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span></td></tr>
+<tr><td id="np-203"><mark>角膜瓣上皮缺損罕見</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span></td><td id="np-204">OBL 可能干擾準分子切削與 eye tracking</td></tr>
+<tr><td id="np-205"><mark>Free cap 與 buttonhole 風險較低</mark>；<mark>角膜瓣厚度較可靠</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1589" data-q="1589">第 1589 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span></td><td id="np-206"><mark>前房氣泡可能干擾 tracking 與 registration</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span></td></tr>
+<tr><td id="np-207">Planar flap（平面瓣）；角膜緣血管出血較少</td><td id="np-208"><mark>術後 6 個月後較難掀起角膜瓣</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1589" data-q="1589">第 1589 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span></td></tr>
+<tr><td id="np-209"><mark>切割不完全時可立即再治療</mark> <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1589" data-q="1589">第 1589 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span></td><td id="np-210"><mark>Transient light sensitivity 風險增加</mark>；費用較高；延遲性光敏感（或視力佳卻光敏感） <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a></span></td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.80</span></p>
+<p id="np-211">出處 <span class="ref">p.80</span></p>
 <div class="ex-trap"><h3 id="ch5-s9-4">易錯陷阱</h3><ul>
-<li>前房氣泡「會」干擾 tracking 與 registration。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span><span class="ref">p.116</span></li>
-<li>「6 個月後容易掀瓣」是錯的：難掀瓣列為飛秒的缺點。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1589" data-q="1589">第 1589 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span><span class="ref">p.80</span></li>
-<li>飛秒造瓣增加 transient light sensitivity 與 DLK，但減少上皮缺損與 buttonhole。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span><span class="ref">p.80, p.106, p.109, p.116</span></li>
+<li id="np-212">前房氣泡「會」干擾 tracking 與 registration。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span><span class="ref">p.116</span></li>
+<li id="np-213">「6 個月後容易掀瓣」是錯的：難掀瓣列為飛秒的缺點。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1589" data-q="1589">第 1589 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1574" data-q="1574">第 1574 題</a></span><span class="ref">p.80</span></li>
+<li id="np-214">飛秒造瓣增加 transient light sensitivity 與 DLK，但減少上皮缺損與 buttonhole。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1639" data-q="1639">第 1639 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1770" data-q="1770">第 1770 題</a></span><span class="ref">p.80, p.106, p.109, p.116</span></li>
 </ul></div>
 
 <h2 id="ch5-s10">十、Ectasia（角膜擴張）</h2>
 <ul>
-<li>定義：準分子切削後<mark>角膜生物力學強度降到功能閾值以下</mark>；發生於本身易患角膜擴張性疾病者，或切削後 <strong>residual stromal bed（RSB，殘餘基質床）</strong>明顯減少者。<span class="ref">p.117</span></li>
-<li><mark>LASIK 後遠比表層切削後常見</mark>；發生率估計 LASIK <span class="num">0.10%</span>、PRK <span class="num">0.025%</span>（本章外，BCSC 13 第 2 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.117, p.53</span></li>
-<li>一項大型回溯研究估計 2018 年 post-LASIK ectasia 發生率 <span class="num">0.033%</span>，較 Pallikaris 2001 年發表的 <span class="num">0.66%</span> 大幅下降（篩檢進步）。<span class="ref">p.117</span></li>
-<li>危險因子：<mark>術前地形圖異常</mark>（最常相關）、<mark><strong>較年輕</strong>（非年長）</mark>、<strong>角膜較薄</strong>、<strong>較高近視矯正量</strong>；術前地形圖正常仍發生者，<mark>最顯著因子為 tissue altered <span class="num">≥ 40%</span></mark>；揉眼也相關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1632" data-q="1632">第 1632 題</a></span><span class="ref">p.117</span></li>
-<li>BCSC 第 2 章 sidebar 列出：年齡 <span class="num">18–21 歲</span>、高度近視（等效球面 <span class="num">−12 至 −14</span>）、CCT <span class="num">&lt; 450 μm</span>、RSB <span class="num">&lt; 240 μm</span>、地形圖異常、多次 enhancement、tissue alteration <span class="num">&gt; 40%</span>；PTA（percent tissue altered）＝（flap thickness＋ablation depth）／CCT → PTA <span class="num">&lt; 40%</span> 不是危險因子（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1632" data-q="1632">第 1632 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a></span><span class="ref">p.52–53</span></li>
-<li><mark>也有完全沒有可證實危險因子的 ectasia</mark>；任何危險因子或評分系統都無法確定預測。正在評估的新技術：角膜生物力學分析、以 artificial intelligence（AI，人工智慧）判讀術前地形圖。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a></span><span class="ref">p.117, p.53</span></li>
-<li>臨床線索：年輕、高度近視者術後初期結果良好，之後出現漸進性近視散光與 CDVA 下降 → 懷疑 ectasia；此時不可再做切削 enhancement。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.96, p.117</span></li>
+<li id="np-215">定義：準分子切削後<mark>角膜生物力學強度降到功能閾值以下</mark>；發生於本身易患角膜擴張性疾病者，或切削後 <strong>residual stromal bed（RSB，殘餘基質床）</strong>明顯減少者。<span class="ref">p.117</span></li>
+<li id="np-216"><mark>LASIK 後遠比表層切削後常見</mark>；發生率估計 LASIK <span class="num">0.10%</span>、PRK <span class="num">0.025%</span>（本章外，BCSC 13 第 2 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.117, p.53</span></li>
+<li id="np-217">一項大型回溯研究估計 2018 年 post-LASIK ectasia 發生率 <span class="num">0.033%</span>，較 Pallikaris 2001 年發表的 <span class="num">0.66%</span> 大幅下降（篩檢進步）。<span class="ref">p.117</span></li>
+<li id="np-218">危險因子：<mark>術前地形圖異常</mark>（最常相關）、<mark><strong>較年輕</strong>（非年長）</mark>、<strong>角膜較薄</strong>、<strong>較高近視矯正量</strong>；術前地形圖正常仍發生者，<mark>最顯著因子為 tissue altered <span class="num">≥ 40%</span></mark>；揉眼也相關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1632" data-q="1632">第 1632 題</a></span><span class="ref">p.117</span></li>
+<li id="np-219">BCSC 第 2 章 sidebar 列出：年齡 <span class="num">18–21 歲</span>、高度近視（等效球面 <span class="num">−12 至 −14</span>）、CCT <span class="num">&lt; 450 μm</span>、RSB <span class="num">&lt; 240 μm</span>、地形圖異常、多次 enhancement、tissue alteration <span class="num">&gt; 40%</span>；PTA（percent tissue altered）＝（flap thickness＋ablation depth）／CCT → PTA <span class="num">&lt; 40%</span> 不是危險因子（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1632" data-q="1632">第 1632 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a></span><span class="ref">p.52–53</span></li>
+<li id="np-220"><mark>也有完全沒有可證實危險因子的 ectasia</mark>；任何危險因子或評分系統都無法確定預測。正在評估的新技術：角膜生物力學分析、以 artificial intelligence（AI，人工智慧）判讀術前地形圖。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a></span><span class="ref">p.117, p.53</span></li>
+<li id="np-221">臨床線索：年輕、高度近視者術後初期結果良好，之後出現漸進性近視散光與 CDVA 下降 → 懷疑 ectasia；此時不可再做切削 enhancement。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.96, p.117</span></li>
 </ul>
 <h3 id="ch5-s10-1">治療</h3>
 <ul>
-<li><mark><strong>Corneal crosslinking（CXL，角膜交聯）</strong>是穩定角膜的<strong>第一線</strong>治療</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.117</span></li>
-<li><mark>功能視力常可藉 <strong>rigid gas-permeable（RGP，硬式透氣）</strong>或 hybrid（混合式）隱形眼鏡恢復</mark>；radial／astigmatic keratotomy、wavefront-guided 再切削都會進一步削弱角膜，refractive lens exchange（屈光性水晶體置換）也無法矯正角膜不規則散光。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.117</span></li>
-<li>對稱或不對稱 intrastromal ring segments（角膜基質內環）在部分病例可減少不規則散光；CXL 可與同時或分次的準分子切削合併以減少散光；極端病例需 corneal transplantation（角膜移植）。<span class="ref">p.117</span></li>
-<li>Post-LASIK ectasia 經 CXL 後可能不如 keratoconus 穩定。<span class="ref">p.117</span></li>
+<li id="np-222"><mark><strong>Corneal crosslinking（CXL，角膜交聯）</strong>是穩定角膜的<strong>第一線</strong>治療</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.117</span></li>
+<li id="np-223"><mark>功能視力常可藉 <strong>rigid gas-permeable（RGP，硬式透氣）</strong>或 hybrid（混合式）隱形眼鏡恢復</mark>；radial／astigmatic keratotomy、wavefront-guided 再切削都會進一步削弱角膜，refractive lens exchange（屈光性水晶體置換）也無法矯正角膜不規則散光。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.117</span></li>
+<li id="np-224">對稱或不對稱 intrastromal ring segments（角膜基質內環）在部分病例可減少不規則散光；CXL 可與同時或分次的準分子切削合併以減少散光；極端病例需 corneal transplantation（角膜移植）。<span class="ref">p.117</span></li>
+<li id="np-225">Post-LASIK ectasia 經 CXL 後可能不如 keratoconus 穩定。<span class="ref">p.117</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s10-2">易錯陷阱</h3><ul>
-<li>Ectasia 的年齡危險因子是「年輕」，不是年長。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a></span><span class="ref">p.117</span></li>
-<li>PTA 的危險門檻是 ≥ 40%；「PTA &lt; 40%」不是危險因子；RSB 少、角膜薄、近視度高都是。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1632" data-q="1632">第 1632 題</a></span><span class="ref">p.117</span></li>
-<li>Ectasia 看視力：RGP；穩定角膜：CXL。不要選再切削或角膜切開術。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.117</span></li>
+<li id="np-226">Ectasia 的年齡危險因子是「年輕」，不是年長。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1566" data-q="1566">第 1566 題</a></span><span class="ref">p.117</span></li>
+<li id="np-227">PTA 的危險門檻是 ≥ 40%；「PTA &lt; 40%」不是危險因子；RSB 少、角膜薄、近視度高都是。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1632" data-q="1632">第 1632 題</a></span><span class="ref">p.117</span></li>
+<li id="np-228">Ectasia 看視力：RGP；穩定角膜：CXL。不要選再切削或角膜切開術。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1588" data-q="1588">第 1588 題</a></span><span class="ref">p.117</span></li>
 </ul></div>
 
 <h2 id="ch5-s11">十一、罕見併發症</h2>
 <ul>
-<li>LASIK 罕見（有時為巧合）併發症：optic nerve ischemia（視神經缺血）、premacular subhyaloid hemorrhage（黃斑前玻璃體膜下出血）、與既有 lacquer cracks（漆裂紋）或 choroidal neovascularization（脈絡膜新生血管）相關的黃斑出血、choroidal infarcts（脈絡膜梗塞）、術前有 cornea guttae 者術後角膜水腫、ring scotoma（環狀暗點）。<span class="ref">p.118</span></li>
-<li><strong>Binocular diplopia（雙眼複視）</strong>：屈光矯正後出現於醫源性 monovision（單眼視）、調節控制不當或 decompensated phorias（失代償隱斜視）者。<span class="ref">p.118</span></li>
-<li><strong>Rainbow glare（彩虹眩光）</strong>：夜間白光周圍的彩色光帶，可能與較高 raster energy 及飛秒雷射機型有關；可對角膜瓣基質面做雷射治療，但多會隨時間消退。<span class="ref">p.118</span></li>
+<li id="np-229">LASIK 罕見（有時為巧合）併發症：optic nerve ischemia（視神經缺血）、premacular subhyaloid hemorrhage（黃斑前玻璃體膜下出血）、與既有 lacquer cracks（漆裂紋）或 choroidal neovascularization（脈絡膜新生血管）相關的黃斑出血、choroidal infarcts（脈絡膜梗塞）、術前有 cornea guttae 者術後角膜水腫、ring scotoma（環狀暗點）。<span class="ref">p.118</span></li>
+<li id="np-230"><strong>Binocular diplopia（雙眼複視）</strong>：屈光矯正後出現於醫源性 monovision（單眼視）、調節控制不當或 decompensated phorias（失代償隱斜視）者。<span class="ref">p.118</span></li>
+<li id="np-231"><strong>Rainbow glare（彩虹眩光）</strong>：夜間白光周圍的彩色光帶，可能與較高 raster energy 及飛秒雷射機型有關；可對角膜瓣基質面做雷射治療，但多會隨時間消退。<span class="ref">p.118</span></li>
 </ul>
 
 <div class="hs-tip-box">
 <h3 id="ch5-s11-1">易混淆比較與口訣</h3>
 <ul>
-<li><strong>PRK vs LASIK 併發症分家</strong>：表層切削獨有 → 持續上皮缺損、sterile infiltrate、haze；感染風險與類固醇眼壓上升也以表層切削較高。LASIK 獨有 → 角膜瓣（buttonhole、free cap、striae、移位）與介面（DLK、PISK、上皮內生、介面異物）。PISK 需要介面，所以不是 PRK 併發症。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.99, p.101–104, p.112</span></li>
-<li><strong>介面病變時間軸</strong>：DLK <span class="num">24 小時</span> → 感染 <span class="num">2–3 天</span>（<span class="num">10 天</span>內多為細菌）→ PISK <span class="num">10–14 天</span>；CTK 是數天內急性、非發炎、不惡化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.100, p.111–112</span></li>
-<li><strong>表層切削的數字</strong>：上皮 <span class="num">3–4 天</span>癒合；sterile infiltrate <span class="num">1/300</span>、NSAID <span class="num">&gt; 24 小時</span>；haze 高峰 <span class="num">1–2 個月</span>、消退 <span class="num">6–12 個月</span>、再治療至少等 <span class="num">6–12 個月</span>；回退至少 <span class="num">3–6 個月</span>，再治療不早於 <span class="num">3 個月</span>。<span class="ref">p.95–96, p.102–104</span></li>
-<li><strong>角膜曲率與角膜瓣</strong>：陡（steep）→ buttonhole；平（flat）→ free cap。<span class="ref">p.105–106</span></li>
-<li><strong>過矯 vs 回退</strong>：年長、基質脫水 → 過矯；高度屈光不正、任何度數遠視（需較久才穩定）、第一眼曾回退 → 矯正不足／回退。<span class="ref">p.95–96</span></li>
-<li><strong>同一個「停藥」</strong>：PISK 停類固醇；上皮延遲癒合停 NSAID；sterile infiltrate 停 NSAID、加類固醇；表層切削後突然停類固醇 → 近視回退。<span class="ref">p.96, p.102–103, p.112</span></li>
+<li id="np-232"><strong>PRK vs LASIK 併發症分家</strong>：表層切削獨有 → 持續上皮缺損、sterile infiltrate、haze；感染風險與類固醇眼壓上升也以表層切削較高。LASIK 獨有 → 角膜瓣（buttonhole、free cap、striae、移位）與介面（DLK、PISK、上皮內生、介面異物）。PISK 需要介面，所以不是 PRK 併發症。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1619" data-q="1619">第 1619 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1604" data-q="1604">第 1604 題</a></span><span class="ref">p.99, p.101–104, p.112</span></li>
+<li id="np-233"><strong>介面病變時間軸</strong>：DLK <span class="num">24 小時</span> → 感染 <span class="num">2–3 天</span>（<span class="num">10 天</span>內多為細菌）→ PISK <span class="num">10–14 天</span>；CTK 是數天內急性、非發炎、不惡化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc13-5%23q-1603" data-q="1603">第 1603 題</a>、<a href="/exam/login?next=/exam/bcsc13-5%23q-1624" data-q="1624">第 1624 題</a></span><span class="ref">p.100, p.111–112</span></li>
+<li id="np-234"><strong>表層切削的數字</strong>：上皮 <span class="num">3–4 天</span>癒合；sterile infiltrate <span class="num">1/300</span>、NSAID <span class="num">&gt; 24 小時</span>；haze 高峰 <span class="num">1–2 個月</span>、消退 <span class="num">6–12 個月</span>、再治療至少等 <span class="num">6–12 個月</span>；回退至少 <span class="num">3–6 個月</span>，再治療不早於 <span class="num">3 個月</span>。<span class="ref">p.95–96, p.102–104</span></li>
+<li id="np-235"><strong>角膜曲率與角膜瓣</strong>：陡（steep）→ buttonhole；平（flat）→ free cap。<span class="ref">p.105–106</span></li>
+<li id="np-236"><strong>過矯 vs 回退</strong>：年長、基質脫水 → 過矯；高度屈光不正、任何度數遠視（需較久才穩定）、第一眼曾回退 → 矯正不足／回退。<span class="ref">p.95–96</span></li>
+<li id="np-237"><strong>同一個「停藥」</strong>：PISK 停類固醇；上皮延遲癒合停 NSAID；sterile infiltrate 停 NSAID、加類固醇；表層切削後突然停類固醇 → 近視回退。<span class="ref">p.96, p.102–103, p.112</span></li>
 </ul>
 </div>
 </div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="13-5"><p class="ex-locked">本章考題 33 題。<a href="/exam/login?next=/exam/bcsc13-5">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
@@ -641,7 +680,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260728" defer></script>
-<script src="/exam/exam.js?v=20260728" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
+<script src="/exam/exam.js?v=20260729" defer></script>
 </body>
 </html>

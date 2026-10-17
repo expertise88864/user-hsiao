@@ -181,13 +181,13 @@ table.dn tr:last-child td { border-bottom: 0; }
   .hs-table-hint{display:block;font-size:13px!important;line-height:1.6;color:var(--ink-2);margin:0 0 8px!important}
 }
 
-/* ── Disclaimer / keypoint / selfcheck / references ── */
-.disclaimer {
-  background: #fef9f0;
-  border: 1px solid #f4dfae;
+/* ── Article note (study limits, COI, red flags) / keypoint / selfcheck / references ── */
+.hs-article-note {
+  background: #f3f7fb;
+  border: 1px solid #d6e4f0;
   border-radius: 14px;
   padding: 14px 16px;
-  color: #7a5a18;
+  color: #334155;
   font-size: 13px;
   line-height: 1.7;
   margin: 18px 0;

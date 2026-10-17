@@ -114,7 +114,11 @@ class ReviewFollowup(unittest.TestCase):
             text=soup.get_text(' ',strip=True)
             self.assertNotIn('OSDI / DEQ-5 / SE',text)
             self.assertNotIn('5 clinical scales',text)
-            self.assertIn('12',text)
+            # Owner 2026-10-17: no "not the official OSDI" notes, and the tool is never called OSDI.
+            for phrase in ['正式 OSDI','正式OSDI','12 題 OSDI','validated OSDI','12-item OSDI','不分級']:
+                self.assertNotIn(phrase,text)
+            self.assertNotIn('OSDI',soup.select_one('#osdi').get_text(' ',strip=True))
+            self.assertIn('飛蚊警訊不能排除視網膜裂孔或剝離' if path=='tools.html' else 'cannot exclude a retinal tear',text)
 
     def test_hzo_conclusion_and_export_do_not_reintroduce_the_rejected_treatment_inference(self):
         for path in ['blog/hzo-stromal-keratitis-zeds-lessons.html',
@@ -140,6 +144,7 @@ class ReviewFollowup(unittest.TestCase):
             self.assertEqual(custom['@type'],'SoftwareApplication')
             self.assertNotIn('OSDI',custom['name'])
             self.assertNotRegex(custom['description'],r'0-100|13-22|23-32|≥33')
+            self.assertNotIn('OSDI',custom['description'])
             listing=next(item for item in schema if item.get('@type')=='ItemList')
             self.assertNotIn('OSDI',listing['itemListElement'][0]['name'])
             self.assertTrue(listing['itemListElement'][0]['url'].endswith('/tools#osdi'))
@@ -148,6 +153,7 @@ class ReviewFollowup(unittest.TestCase):
                 description=soup.select_one(selector)['content']
                 self.assertNotIn('分級解讀',description)
                 self.assertNotIn('tools: OSDI',description)
+                self.assertNotIn('OSDI',description)
                 self.assertTrue('六題' in description or 'six' in description)
 
     def test_selenium_faq_names_the_approved_formulation_and_elemental_equivalence(self):

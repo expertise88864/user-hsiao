@@ -14,7 +14,7 @@ Secondary language: en
 - [Home](https://hsiao.chendermatologist.com/): 蕭閔謙醫師（眼科住院醫師）的個人衛教網站。乾眼症、兒童近視控制、白內障、視網膜疾病等民眾最常見的眼科問題與學習筆記。
 - [Article Index](https://hsiao.chendermatologist.com/blog): HsiaoEye 全部眼科衛教文章索引 — 乾眼症、兒童近視控制、白內障、青光眼、視網膜疾病。蕭閔謙醫師（眼科）整理。
 - [Topic Map](https://hsiao.chendermatologist.com/blog/topics): HsiaoEye 全部眼科衛教主題地圖 — 乾眼症、兒童近視控制、飛蚊症、白內障、青光眼、葉黃素等。
-- [Tools](https://hsiao.chendermatologist.com/tools): 六題乾眼症狀檢視、DEQ-5、Snellen↔LogMAR、球面等價度數 (SE)、飛蚊症警訊自我檢核 — 眼科衛教與計算工具，蕭閔謙醫師整理，整理症狀、換算與警訊；六題症狀檢視不是正式 OSDI，不能診斷或分級。
+- [Tools](https://hsiao.chendermatologist.com/tools): 六題乾眼症狀檢視、DEQ-5、Snellen↔LogMAR、球面等價度數 (SE)、飛蚊症警訊自我檢核 — 眼科衛教與計算工具，蕭閔謙醫師整理，整理症狀、換算與警訊。
 - [About the Author](https://hsiao.chendermatologist.com/about): 蕭閔謙醫師（Min-Chien Hsiao, MD）個人簡介。眼科住院醫師。學歷：高雄醫學大學 學士後醫學系。
 
 ## Machine-Readable Feeds

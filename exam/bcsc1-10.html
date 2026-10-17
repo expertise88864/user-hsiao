@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 1 Ch.10 Rheumatic Disorders：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc1-10#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 1 Ch.10","item":"https://hsiao.chendermatologist.com/exam/bcsc1-10"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -182,6 +182,40 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
 .ex-prog a{color:var(--ex-accent)}
 .ex-prog .ex-low{color:#b91c1c;font-weight:700}
+.ex-find{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:18px 0 8px}
+.ex-find-row{display:flex;gap:8px;margin:6px 0 4px}
+.ex-find-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-find-title{font-size:15px;font-weight:700;margin:10px 0 4px}
+.ex-find-group{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0}
+.ex-find-h{font-size:15px;font-weight:700;line-height:1.6;margin:0}
+.ex-find-h a{color:var(--ex-accent)}
+.ex-find-h .ex-count{margin-left:8px;font-weight:500;color:var(--ink-2)}
+.ex-find-list{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.75}
+.ex-find-list li{border-top:1px solid var(--line);padding:6px 0}
+.ex-find-list a{display:block;color:var(--ink);text-decoration:none}
+.ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
+.ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
+.ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
+.ex-practice{margin:12px 0 4px}
+.ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-more[hidden],.ex-rank tr[hidden]{display:none}
+.ex-note [id^="np-"]{scroll-margin-top:96px}
+.ex-note [id^="np-"]:target{background:var(--ex-soft);outline:2px solid var(--ex-accent);outline-offset:-2px;border-radius:6px}
+.ex-resume{position:sticky;top:72px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--ex-card);border:1px solid var(--border);border-left:4px solid var(--ex-accent);border-radius:10px;padding:6px 8px 6px 12px;margin:8px 0 12px;font-size:13px;line-height:1.6;box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(15,23,42,.35)}
+.ex-resume-text{flex:1;min-width:12em}
+.ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
+.ex-resume-close:hover{background:var(--ex-soft)}
+.ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
+.ex-ans-text{color:var(--ink-2);font-weight:600}
+.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next:disabled{opacity:.5;cursor:default}
+.ex-ans-clear{margin:0 0 6px}
+.ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
+.ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -212,8 +246,14 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
+:root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -229,7 +269,6 @@ body:not(.ex-quiz) .ex-opt input{display:none}
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
         <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
-        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
         <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
@@ -244,456 +283,456 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 </header>
 <main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 1 Ch.10</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 1 · Update on General Medicine</p><h1 class="ex-h1">Ch.10 Rheumatic Disorders</h1><p class="ex-meta">原書 p.161–192 · 考題 48 題</p><div class="ex-strip" data-progress-chapter="1-10" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="1-10"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch10-s1">一、概論與本章重點</a></li><li><a href="#ch10-s2">二、Rheumatoid arthritis（RA，類風濕性關節炎）</a></li><li><a href="#ch10-s3">三、Spondyloarthritis（SpA，脊椎關節炎）</a></li><li><a href="#ch10-s4">四、Juvenile idiopathic arthritis（JIA，幼年型特發性關節炎）</a></li><li><a href="#ch10-s5">五、Systemic lupus erythematosus（SLE，全身性紅斑性狼瘡）</a></li><li><a href="#ch10-s6">六、Sarcoidosis（類肉瘤病）</a></li><li><a href="#ch10-s7">七、Antiphospholipid syndrome（APS，抗磷脂抗體症候群）</a></li><li><a href="#ch10-s8">八、Systemic sclerosis（SSc，全身性硬化症）</a></li><li><a href="#ch10-s9">九、Sjögren syndrome（修格蘭氏症候群，乾燥症）</a></li><li><a href="#ch10-s10">十、Polymyositis（多發性肌炎）與 Dermatomyositis（皮肌炎）</a></li><li><a href="#ch10-s11">十一、Polymyalgia rheumatica（PMR，風濕性多肌痛）</a></li><li><a href="#ch10-s12">十二、Relapsing polychondritis（復發性多軟骨炎）</a></li><li><a href="#ch10-s13">十三、Vasculitis（血管炎）</a></li><li><a href="#ch10-s14">十四、COVID-19 與風濕病</a></li><li><a href="#ch10-s15">十五、Corticosteroids（皮質類固醇）</a></li><li><a href="#ch10-s16">十六、Nonsteroidal anti-inflammatory drugs（NSAIDs，非類固醇抗發炎藥）</a></li><li><a href="#ch10-s17">十七、DMARDs：nonbiologic agents（非生物製劑）</a></li><li><a href="#ch10-s18">十八、Biologic 與其他 anticytokine agents（生物製劑）</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 1 第 10 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch10-s1">一、概論與本章重點</h2>
 <ul>
-<li><strong>Rheumatic disorders（風濕性疾病）</strong>是一群異質性自體免疫/發炎疾病：rheumatoid arthritis（RA）、spondyloarthritis（SpA）、connective tissue diseases（結締組織疾病）與 vasculitides（血管炎）；眼部侵犯常見，但盛行率與表現因病而異，眼科與風濕科需互相溝通、協調治療。<span class="ref">p.161</span></li>
-<li>本章 highlights：<mark>SpA 的第一個表現可以是 anterior uveitis（前葡萄膜炎）</mark>；<strong>oligoarticular JIA</strong> 的 uveitis 常無症狀，需定期篩檢；<mark><span class="num">&lt; 50 歲</span>出現非典型眼部血管阻塞要想到 antiphospholipid syndrome（APS）</mark>。<span class="ref">p.161</span></li>
-<li>新一代 biologic agents（生物製劑）機轉：抑制 tumor necrosis factor（TNF）-α、阻斷 interleukin（IL）受體、調節 T/B 細胞活性，或抑制 Janus kinase（JAK）；anti-TNF-α 可能引起 <strong>optic neuritis（視神經炎）與 uveitis</strong>。<span class="ref">p.161</span></li>
+<li id="np-1"><strong>Rheumatic disorders（風濕性疾病）</strong>是一群異質性自體免疫/發炎疾病：rheumatoid arthritis（RA）、spondyloarthritis（SpA）、connective tissue diseases（結締組織疾病）與 vasculitides（血管炎）；眼部侵犯常見，但盛行率與表現因病而異，眼科與風濕科需互相溝通、協調治療。<span class="ref">p.161</span></li>
+<li id="np-2">本章 highlights：<mark>SpA 的第一個表現可以是 anterior uveitis（前葡萄膜炎）</mark>；<strong>oligoarticular JIA</strong> 的 uveitis 常無症狀，需定期篩檢；<mark><span class="num">&lt; 50 歲</span>出現非典型眼部血管阻塞要想到 antiphospholipid syndrome（APS）</mark>。<span class="ref">p.161</span></li>
+<li id="np-3">新一代 biologic agents（生物製劑）機轉：抑制 tumor necrosis factor（TNF）-α、阻斷 interleukin（IL）受體、調節 T/B 細胞活性，或抑制 Janus kinase（JAK）；anti-TNF-α 可能引起 <strong>optic neuritis（視神經炎）與 uveitis</strong>。<span class="ref">p.161</span></li>
 </ul>
 
 <h2 id="ch10-s2">二、Rheumatoid arthritis（RA，類風濕性關節炎）</h2>
 <h3 id="ch10-s2-1">臨床表現</h3>
 <ul>
-<li><mark>最常見的風濕性疾病</mark>：約 <span class="num">1%</span> 成人；女性為男性 <span class="num">2 倍</span>。典型為進行性、<strong>對稱性</strong>、變形性周邊多關節炎，主要侵犯手腳小關節，特徵為 synovial inflammation（滑膜炎）、肥厚與自體抗體產生。<span class="ref">p.161</span></li>
-<li>手部變形：nodules、ulnar deviation（尺側偏移）、<strong>Boutonnière deformity</strong>（PIP 屈曲＋DIP 伸展）、<strong>swan-neck deformity</strong>（PIP 過度伸展＋DIP 屈曲）；分類仍用 ACR/EULAR <span class="num">2010</span> 標準。<span class="ref">p.162</span></li>
-<li>Extra-articular involvement（關節外侵犯）約 <span class="num">40%</span>，是疾病嚴重度指標；危險因子：rheumatoid factor（RF，類風濕因子）、anti–cyclic citrullinated peptide（anti-CCP）抗體、<strong>吸菸</strong>。<span class="ref">p.162</span></li>
-<li>關節外表現：subcutaneous rheumatoid nodules（約 <span class="num">25%</span>）、anemia of chronic disease、lymphoma 風險上升、<strong>Felty syndrome</strong>（seropositive RA＋neutropenia＋splenomegaly）、骨質減少、胸膜積液/肺結節/間質纖維化、心臟病變、小至中型血管炎、carpal tunnel syndrome、肌無力。<span class="ref">p.162</span></li>
-<li>眼部：dry eye、scleritis（鞏膜炎）、episcleritis（表層鞏膜炎）、角膜發炎、<mark>corneal melting（角膜融解）</mark>與感染（詳見 BCSC 8）。RA 病人單側周邊角膜上皮缺損＋基質變薄＋浸潤 → 首先想到 <strong>peripheral ulcerative keratitis（PUK，周邊潰瘍性角膜炎）</strong>；已知全身病因者不稱 Mooren ulcer（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-932" data-q="932">第 932 題</a></span><span class="ref">p.162；BCSC 8 p.371–374</span></li>
+<li id="np-4"><mark>最常見的風濕性疾病</mark>：約 <span class="num">1%</span> 成人；女性為男性 <span class="num">2 倍</span>。典型為進行性、<strong>對稱性</strong>、變形性周邊多關節炎，主要侵犯手腳小關節，特徵為 synovial inflammation（滑膜炎）、肥厚與自體抗體產生。<span class="ref">p.161</span></li>
+<li id="np-5">手部變形：nodules、ulnar deviation（尺側偏移）、<strong>Boutonnière deformity</strong>（PIP 屈曲＋DIP 伸展）、<strong>swan-neck deformity</strong>（PIP 過度伸展＋DIP 屈曲）；分類仍用 ACR/EULAR <span class="num">2010</span> 標準。<span class="ref">p.162</span></li>
+<li id="np-6">Extra-articular involvement（關節外侵犯）約 <span class="num">40%</span>，是疾病嚴重度指標；危險因子：rheumatoid factor（RF，類風濕因子）、anti–cyclic citrullinated peptide（anti-CCP）抗體、<strong>吸菸</strong>。<span class="ref">p.162</span></li>
+<li id="np-7">關節外表現：subcutaneous rheumatoid nodules（約 <span class="num">25%</span>）、anemia of chronic disease、lymphoma 風險上升、<strong>Felty syndrome</strong>（seropositive RA＋neutropenia＋splenomegaly）、骨質減少、胸膜積液/肺結節/間質纖維化、心臟病變、小至中型血管炎、carpal tunnel syndrome、肌無力。<span class="ref">p.162</span></li>
+<li id="np-8">眼部：dry eye、scleritis（鞏膜炎）、episcleritis（表層鞏膜炎）、角膜發炎、<mark>corneal melting（角膜融解）</mark>與感染（詳見 BCSC 8）。RA 病人單側周邊角膜上皮缺損＋基質變薄＋浸潤 → 首先想到 <strong>peripheral ulcerative keratitis（PUK，周邊潰瘍性角膜炎）</strong>；已知全身病因者不稱 Mooren ulcer（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-932" data-q="932">第 932 題</a></span><span class="ref">p.162；BCSC 8 p.371–374</span></li>
 </ul>
 <h3 id="ch10-s2-2">實驗室檢查</h3>
 <ul>
-<li><strong>RF</strong>：RA 中 <span class="num">70%–80%</span> 陽性，但特異性有限——正常人最多 <span class="num">10%</span>、SLE 約 <span class="num">1/3</span> 也陽性。<span class="ref">p.163</span></li>
-<li><strong>Anti–citrullinated peptide antibody（ACPA）</strong>（anti-CCP、anti-MCV）：敏感度與 RF 相當，<mark>特異度較高（<span class="num">&gt; 95%</span>）</mark>；但最多 <span class="num">50%</span> RA 病人 ACPA 與 RF 都陰性。<span class="ref">p.163</span></li>
-<li>ESR、CRP 通常上升；<strong>ANA 只有 <span class="num">30%</span> 陽性、不具特異性</strong>，但可協助排除 SLE。RA 的特殊檢查是 RF 與 anti-CCP，而非 ANA。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.163</span></li>
+<li id="np-9"><strong>RF</strong>：RA 中 <span class="num">70%–80%</span> 陽性，但特異性有限——正常人最多 <span class="num">10%</span>、SLE 約 <span class="num">1/3</span> 也陽性。<span class="ref">p.163</span></li>
+<li id="np-10"><strong>Anti–citrullinated peptide antibody（ACPA）</strong>（anti-CCP、anti-MCV）：敏感度與 RF 相當，<mark>特異度較高（<span class="num">&gt; 95%</span>）</mark>；但最多 <span class="num">50%</span> RA 病人 ACPA 與 RF 都陰性。<span class="ref">p.163</span></li>
+<li id="np-11">ESR、CRP 通常上升；<strong>ANA 只有 <span class="num">30%</span> 陽性、不具特異性</strong>，但可協助排除 SLE。RA 的特殊檢查是 RF 與 anti-CCP，而非 ANA。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.163</span></li>
 </ul>
 <h3 id="ch10-s2-3">治療</h3>
 <ul>
-<li>非藥物：飲食、運動、物理治療、戒菸、血脂控制（降心血管風險）、預防接種（免疫抑制感染風險）。<span class="ref">p.163</span></li>
-<li>目標為 remission（緩解）；<mark>症狀發生 <span class="num">3 個月</span>內開始 DMARDs</mark>。開始前應篩檢 hepatitis B、C 與 tuberculosis（結核）。<span class="ref">p.163</span></li>
-<li>Nonbiologic DMARD 中 <strong>methotrexate 為第一線</strong>；biologics 最大宗為 TNF-α inhibitors，另有 IL-1/IL-6 受體阻斷、T/B 細胞調節；JAK inhibitors 嚴格說是 small-molecule drugs（小分子藥），不是真正生物製劑。<span class="ref">p.163</span></li>
-<li>NSAIDs 可併用；短期 glucocorticoids 用於等待 DMARD 完全起效前控制急性發炎。<span class="ref">p.163</span></li>
+<li id="np-12">非藥物：飲食、運動、物理治療、戒菸、血脂控制（降心血管風險）、預防接種（免疫抑制感染風險）。<span class="ref">p.163</span></li>
+<li id="np-13">目標為 remission（緩解）；<mark>症狀發生 <span class="num">3 個月</span>內開始 DMARDs</mark>。開始前應篩檢 hepatitis B、C 與 tuberculosis（結核）。<span class="ref">p.163</span></li>
+<li id="np-14">Nonbiologic DMARD 中 <strong>methotrexate 為第一線</strong>；biologics 最大宗為 TNF-α inhibitors，另有 IL-1/IL-6 受體阻斷、T/B 細胞調節；JAK inhibitors 嚴格說是 small-molecule drugs（小分子藥），不是真正生物製劑。<span class="ref">p.163</span></li>
+<li id="np-15">NSAIDs 可併用；短期 glucocorticoids 用於等待 DMARD 完全起效前控制急性發炎。<span class="ref">p.163</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s2-4">易錯陷阱</h3><ul>
-<li>RF 不等於 RA：SLE 約 1/3 也 RF 陽性；SLE 的特殊檢查是 ANA（入門）與 anti-dsDNA/anti-Smith。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.163, p.171</span></li>
-<li>Boutonnière 是 PIP「屈」、DIP「伸」；swan-neck 相反。<span class="ref">p.162</span></li>
+<li id="np-16">RF 不等於 RA：SLE 約 1/3 也 RF 陽性；SLE 的特殊檢查是 ANA（入門）與 anti-dsDNA/anti-Smith。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.163, p.171</span></li>
+<li id="np-17">Boutonnière 是 PIP「屈」、DIP「伸」；swan-neck 相反。<span class="ref">p.162</span></li>
 </ul></div>
 
 <h2 id="ch10-s3">三、Spondyloarthritis（SpA，脊椎關節炎）</h2>
 <h3 id="ch10-s3-1">總論</h3>
 <ul>
-<li>一群 <strong>HLA-B27</strong> 相關、好侵犯 axial（脊椎與 sacroiliac joint（薦腸關節））的疾病；主症狀 low back pain（下背痛），少數只有周邊關節病變。<mark>男性為女性 <span class="num">2–3 倍</span></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-36" data-q="36">第 36 題</a></span><span class="ref">p.164</span></li>
-<li>成員（四類）：<mark><strong>ankylosing spondylitis（AS）、reactive arthritis、psoriatic arthritis、enteropathic arthritis（IBD 相關：ulcerative colitis、Crohn disease）</strong></mark>；atopic dermatitis 不屬於 SpA。沒有 X 光 sacroiliitis 證據者稱 nonradiographic axial SpA。SpA 依定義為 RF 陰性（seronegative，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1027" data-q="1027">第 1027 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-977" data-q="977">第 977 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.164；BCSC 9 p.140</span></li>
-<li>與其他關節炎的分別：<strong>enthesitis（附著點炎）</strong>，常見於 heel/Achilles tendon（足跟/跟腱）；其他為 asymmetric oligoarthritis、<strong>dactylitis</strong>（「sausage digits」）。Sacroiliac X 光或 MRI 有幫助，但早期不一定異常。<span class="ref">p.164</span></li>
-<li>兒童少見（第二個十年前、即約 10 歲前罕見）；juvenile-onset 歸為 JIA 中的 <strong>enthesitis-related arthritis</strong>，多數 HLA-B27 陽性、男多於女，可發生典型 HLA-B27 急性 uveitis；X 光表現相似，有時被誤診為外傷。<span class="ref">p.164</span></li>
-<li><mark>急性反覆 HLA-B27 anterior uveitis 可為 SpA 的首發表現</mark>；疑似 SpA（如 enthesitis、發炎性背痛、晨僵、足跟痛）應適當轉介風濕科，早期治療可減少日後失能。HLA-B27 陽性 AAU 不需「無症狀就直接轉診」，也沒有「5 年內 70–80% 發作 AS」之說（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1037" data-q="1037">第 1037 題</a></span><span class="ref">p.164；BCSC 9 p.140</span></li>
-<li>HLA-B27 屬 <strong>MHC class I</strong>（HLA-A/B/C），位於 chromosome 6；class II 是 HLA-DR/DP/DQ（本章外）。一般人口 HLA-B27 約 <span class="num">6%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-977" data-q="977">第 977 題</a></span><span class="ref">p.166；BCSC 9 p.62, p.139</span></li>
+<li id="np-18">一群 <strong>HLA-B27</strong> 相關、好侵犯 axial（脊椎與 sacroiliac joint（薦腸關節））的疾病；主症狀 low back pain（下背痛），少數只有周邊關節病變。<mark>男性為女性 <span class="num">2–3 倍</span></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-36" data-q="36">第 36 題</a></span><span class="ref">p.164</span></li>
+<li id="np-19">成員（四類）：<mark><strong>ankylosing spondylitis（AS）、reactive arthritis、psoriatic arthritis、enteropathic arthritis（IBD 相關：ulcerative colitis、Crohn disease）</strong></mark>；atopic dermatitis 不屬於 SpA。沒有 X 光 sacroiliitis 證據者稱 nonradiographic axial SpA。SpA 依定義為 RF 陰性（seronegative，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1027" data-q="1027">第 1027 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-977" data-q="977">第 977 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.164；BCSC 9 p.140</span></li>
+<li id="np-20">與其他關節炎的分別：<strong>enthesitis（附著點炎）</strong>，常見於 heel/Achilles tendon（足跟/跟腱）；其他為 asymmetric oligoarthritis、<strong>dactylitis</strong>（「sausage digits」）。Sacroiliac X 光或 MRI 有幫助，但早期不一定異常。<span class="ref">p.164</span></li>
+<li id="np-21">兒童少見（第二個十年前、即約 10 歲前罕見）；juvenile-onset 歸為 JIA 中的 <strong>enthesitis-related arthritis</strong>，多數 HLA-B27 陽性、男多於女，可發生典型 HLA-B27 急性 uveitis；X 光表現相似，有時被誤診為外傷。<span class="ref">p.164</span></li>
+<li id="np-22"><mark>急性反覆 HLA-B27 anterior uveitis 可為 SpA 的首發表現</mark>；疑似 SpA（如 enthesitis、發炎性背痛、晨僵、足跟痛）應適當轉介風濕科，早期治療可減少日後失能。HLA-B27 陽性 AAU 不需「無症狀就直接轉診」，也沒有「5 年內 70–80% 發作 AS」之說（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1037" data-q="1037">第 1037 題</a></span><span class="ref">p.164；BCSC 9 p.140</span></li>
+<li id="np-23">HLA-B27 屬 <strong>MHC class I</strong>（HLA-A/B/C），位於 chromosome 6；class II 是 HLA-DR/DP/DQ（本章外）。一般人口 HLA-B27 約 <span class="num">6%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-977" data-q="977">第 977 題</a></span><span class="ref">p.166；BCSC 9 p.62, p.139</span></li>
 </ul>
 <h3 id="ch10-s3-2">Ankylosing spondylitis（AS，僵直性脊椎炎）</h3>
 <ul>
-<li><mark>最常見的 axial SpA</mark>；<strong>HLA-B27 最多 <span class="num">90%</span> 陽性</strong>；好發年輕男性；下背痛合併脊椎活動受限，晚期可完全融合。周邊關節炎最常見於 ankles、hips、knees。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-36" data-q="36">第 36 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.164</span></li>
-<li>關節外：心血管疾病、venous thromboembolism、stroke、restrictive pulmonary disease 風險上升。<span class="ref">p.164</span></li>
-<li>治療：<strong>NSAIDs 第一線</strong>且很有效（<span class="num">70%–80%</span> 明顯改善）；TNF-α inhibitor 為第二線、IL-17 inhibitor 為第三線，通常在 <span class="num">2</span> 種 NSAID 試驗失敗後才用。Nonbiologic DMARDs（sulfasalazine、methotrexate）對周邊關節炎較 axial 病變有效；局部 glucocorticoid 注射對部分病人有幫助。NSAIDs 是治療關節症狀，不是用來長期預防 AAU 復發。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1037" data-q="1037">第 1037 題</a></span><span class="ref">p.164–165</span></li>
+<li id="np-24"><mark>最常見的 axial SpA</mark>；<strong>HLA-B27 最多 <span class="num">90%</span> 陽性</strong>；好發年輕男性；下背痛合併脊椎活動受限，晚期可完全融合。周邊關節炎最常見於 ankles、hips、knees。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-36" data-q="36">第 36 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.164</span></li>
+<li id="np-25">關節外：心血管疾病、venous thromboembolism、stroke、restrictive pulmonary disease 風險上升。<span class="ref">p.164</span></li>
+<li id="np-26">治療：<strong>NSAIDs 第一線</strong>且很有效（<span class="num">70%–80%</span> 明顯改善）；TNF-α inhibitor 為第二線、IL-17 inhibitor 為第三線，通常在 <span class="num">2</span> 種 NSAID 試驗失敗後才用。Nonbiologic DMARDs（sulfasalazine、methotrexate）對周邊關節炎較 axial 病變有效；局部 glucocorticoid 注射對部分病人有幫助。NSAIDs 是治療關節症狀，不是用來長期預防 AAU 復發。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1037" data-q="1037">第 1037 題</a></span><span class="ref">p.164–165</span></li>
 </ul>
 <h3 id="ch10-s3-3">Reactive arthritis（反應性關節炎）</h3>
 <ul>
-<li>感染後的 SpA，感染多來自 gastrointestinal（GI）或 genitourinary（GU）系統；好發年輕成人（書中寫男女皆可；BCSC 9 指出以年輕男性為主）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.165；BCSC 9 p.141</span></li>
-<li>病原：GU 為 <mark><strong><i>Chlamydia trachomatis</i></strong></mark>；GI 為 Salmonella、Shigella、<i>Yersinia</i>、Campylobacter；近年新增 <i>Escherichia coli</i>、<i>Clostridioides</i>（<i>Clostridium</i>）difficile、<i>Chlamydia pneumoniae</i>。<mark>易感性與 <strong>HLA-B27</strong> 有關</mark>（HLA-B51 是 Behçet disease 的基因，與本病無關）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.165, p.183</span></li>
-<li>關節炎在感染後<strong>數天至數週</strong>出現（BCSC 9：約 <span class="num">80%</span> 在 <span class="num">30 天</span>內）；為 aseptic（關節內找不到病原），不對稱、陣發，主要侵犯 knees 與 ankles。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.165；BCSC 9 p.141</span></li>
-<li>其他：urethritis 或 diarrhea 前驅、enthesitis、dactylitis、sacroiliitis、oral ulceration、nail pitting、<strong>keratoderma blennorrhagicum（膿漏性角皮症，足底過度角化病灶，似乾癬）</strong>、erythema nodosum（結節性紅斑）；眼部侵犯最多 <span class="num">40%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.165</span></li>
-<li>常陣發，多數 <span class="num">2 年</span>內緩解；潛在感染用抗生素；NSAIDs 多數有效；頑固者關節內 glucocorticoid 注射，少數需 biologics。<span class="ref">p.165</span></li>
+<li id="np-27">感染後的 SpA，感染多來自 gastrointestinal（GI）或 genitourinary（GU）系統；好發年輕成人（書中寫男女皆可；BCSC 9 指出以年輕男性為主）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.165；BCSC 9 p.141</span></li>
+<li id="np-28">病原：GU 為 <mark><strong><i>Chlamydia trachomatis</i></strong></mark>；GI 為 Salmonella、Shigella、<i>Yersinia</i>、Campylobacter；近年新增 <i>Escherichia coli</i>、<i>Clostridioides</i>（<i>Clostridium</i>）difficile、<i>Chlamydia pneumoniae</i>。<mark>易感性與 <strong>HLA-B27</strong> 有關</mark>（HLA-B51 是 Behçet disease 的基因，與本病無關）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.165, p.183</span></li>
+<li id="np-29">關節炎在感染後<strong>數天至數週</strong>出現（BCSC 9：約 <span class="num">80%</span> 在 <span class="num">30 天</span>內）；為 aseptic（關節內找不到病原），不對稱、陣發，主要侵犯 knees 與 ankles。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.165；BCSC 9 p.141</span></li>
+<li id="np-30">其他：urethritis 或 diarrhea 前驅、enthesitis、dactylitis、sacroiliitis、oral ulceration、nail pitting、<strong>keratoderma blennorrhagicum（膿漏性角皮症，足底過度角化病灶，似乾癬）</strong>、erythema nodosum（結節性紅斑）；眼部侵犯最多 <span class="num">40%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.165</span></li>
+<li id="np-31">常陣發，多數 <span class="num">2 年</span>內緩解；潛在感染用抗生素；NSAIDs 多數有效；頑固者關節內 glucocorticoid 注射，少數需 biologics。<span class="ref">p.165</span></li>
 </ul>
 <h3 id="ch10-s3-4">Enteropathic arthritis（腸病性關節炎）</h3>
 <ul>
-<li>伴隨 inflammatory bowel disease（IBD，發炎性腸道疾病），多為 ulcerative colitis（潰瘍性結腸炎）與 Crohn disease；男女相當，但 spondylitis 男性較多；兒童到成人皆可發病。<span class="ref">p.165–166</span></li>
-<li>Ulcerative colitis：結腸黏膜瀰漫性發炎；Crohn disease（regional enteritis、granulomatous ileocolitis）：局灶肉芽腫性，大小腸都可侵犯。<span class="ref">p.166</span></li>
-<li>關節炎在<strong>大腸侵犯</strong>或有腸外表現（erythema nodosum、stomatitis、uveitis）者較多；<mark>axial 侵犯者 HLA-B27 高達 <span class="num">75%</span></mark>，周邊型稍低。ESR/CRP 反映腸道發炎，對評估關節炎活性幫助有限。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.166</span></li>
+<li id="np-32">伴隨 inflammatory bowel disease（IBD，發炎性腸道疾病），多為 ulcerative colitis（潰瘍性結腸炎）與 Crohn disease；男女相當，但 spondylitis 男性較多；兒童到成人皆可發病。<span class="ref">p.165–166</span></li>
+<li id="np-33">Ulcerative colitis：結腸黏膜瀰漫性發炎；Crohn disease（regional enteritis、granulomatous ileocolitis）：局灶肉芽腫性，大小腸都可侵犯。<span class="ref">p.166</span></li>
+<li id="np-34">關節炎在<strong>大腸侵犯</strong>或有腸外表現（erythema nodosum、stomatitis、uveitis）者較多；<mark>axial 侵犯者 HLA-B27 高達 <span class="num">75%</span></mark>，周邊型稍低。ESR/CRP 反映腸道發炎，對評估關節炎活性幫助有限。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.166</span></li>
 </ul>
 <h3 id="ch10-s3-5">Psoriatic arthritis（乾癬性關節炎）</h3>
 <ul>
-<li>型態：oligoarthritis（<span class="num">≤ 4</span> 關節）、distal polyarthritis（<span class="num">&gt; 4</span> 關節）、破壞性的 <strong>arthritis mutilans</strong>。<span class="ref">p.166</span></li>
-<li><mark>HLA-B27 <span class="num">30%</span>（一般人口 <span class="num">6%</span>；AS 最多 <span class="num">90%</span>）</mark>；病程常似 RA，病程 <span class="num">&gt; 10 年</span>者過半在 <span class="num">≥ 5</span> 個關節出現變形。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-977" data-q="977">第 977 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.166</span></li>
-<li>治療：methotrexate、各種 biologics、<strong>apremilast</strong>（selective phosphodiesterase-4 inhibitor）、JAK-1 inhibitor <strong>upadacitinib</strong>。<span class="ref">p.166</span></li>
+<li id="np-35">型態：oligoarthritis（<span class="num">≤ 4</span> 關節）、distal polyarthritis（<span class="num">&gt; 4</span> 關節）、破壞性的 <strong>arthritis mutilans</strong>。<span class="ref">p.166</span></li>
+<li id="np-36"><mark>HLA-B27 <span class="num">30%</span>（一般人口 <span class="num">6%</span>；AS 最多 <span class="num">90%</span>）</mark>；病程常似 RA，病程 <span class="num">&gt; 10 年</span>者過半在 <span class="num">≥ 5</span> 個關節出現變形。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-977" data-q="977">第 977 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.166</span></li>
+<li id="np-37">治療：methotrexate、各種 biologics、<strong>apremilast</strong>（selective phosphodiesterase-4 inhibitor）、JAK-1 inhibitor <strong>upadacitinib</strong>。<span class="ref">p.166</span></li>
 </ul>
 <h3 id="ch10-s3-6">眼科考量</h3>
 <ul>
-<li><mark>北美與歐洲所有免疫疾病中，SpA 與 uveitis 的關聯最強</mark>；少數「特發性」acute anterior uveitis 其實有未診斷的 SpA。<span class="ref">p.167</span></li>
-<li>AS 或 reactive arthritis 最多 <span class="num">40%</span> 發生典型 <strong>acute nongranulomatous iridocyclitis（急性非肉芽腫性虹膜睫狀體炎）</strong>，可反覆、可雙側。<mark>眼部侵犯與關節疾病活性<strong>不相關</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-36" data-q="36">第 36 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.167</span></li>
-<li>Reactive arthritis：culture-negative 雙側 conjunctivitis（結膜炎）常見、多自限。<span class="ref">p.167</span></li>
-<li>IBD：較常合併 <strong>episcleritis</strong>；uveitis 最多 <span class="num">3%</span>，<mark>女性明顯較多</mark>，與腸道疾病活性無關。<span class="ref">p.167</span></li>
-<li>Psoriatic arthritis：眼部與其他 SpA 類似，但 uveitis 可能較隱伏、偏後段、雙側。<span class="ref">p.167</span></li>
-<li>非 HLA-B27 相關：<strong>glaucomatocyclitic crisis（Posner-Schlossman syndrome）</strong>為反覆單眼輕度前葡萄膜炎合併高眼壓，近年指向 CMV，與 HLA-B27 無關（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">BCSC 9 p.144</span></li>
-<li>非感染性前葡萄膜炎：局部 corticosteroid 第一線；反覆/頑固者可用 IMT，TNF inhibitor 可作二線（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1027" data-q="1027">第 1027 題</a></span><span class="ref">BCSC 9 p.139, p.120</span></li>
+<li id="np-38"><mark>北美與歐洲所有免疫疾病中，SpA 與 uveitis 的關聯最強</mark>；少數「特發性」acute anterior uveitis 其實有未診斷的 SpA。<span class="ref">p.167</span></li>
+<li id="np-39">AS 或 reactive arthritis 最多 <span class="num">40%</span> 發生典型 <strong>acute nongranulomatous iridocyclitis（急性非肉芽腫性虹膜睫狀體炎）</strong>，可反覆、可雙側。<mark>眼部侵犯與關節疾病活性<strong>不相關</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-36" data-q="36">第 36 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.167</span></li>
+<li id="np-40">Reactive arthritis：culture-negative 雙側 conjunctivitis（結膜炎）常見、多自限。<span class="ref">p.167</span></li>
+<li id="np-41">IBD：較常合併 <strong>episcleritis</strong>；uveitis 最多 <span class="num">3%</span>，<mark>女性明顯較多</mark>，與腸道疾病活性無關。<span class="ref">p.167</span></li>
+<li id="np-42">Psoriatic arthritis：眼部與其他 SpA 類似，但 uveitis 可能較隱伏、偏後段、雙側。<span class="ref">p.167</span></li>
+<li id="np-43">非 HLA-B27 相關：<strong>glaucomatocyclitic crisis（Posner-Schlossman syndrome）</strong>為反覆單眼輕度前葡萄膜炎合併高眼壓，近年指向 CMV，與 HLA-B27 無關（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">BCSC 9 p.144</span></li>
+<li id="np-44">非感染性前葡萄膜炎：局部 corticosteroid 第一線；反覆/頑固者可用 IMT，TNF inhibitor 可作二線（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1027" data-q="1027">第 1027 題</a></span><span class="ref">BCSC 9 p.139, p.120</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s3-7">易錯陷阱</h3><ul>
-<li>「AS 眼睛症狀與關節症狀高度相關」是錯的：眼炎與關節活性無關，可在關節症狀輕微或尚未診斷時出現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-36" data-q="36">第 36 題</a></span><span class="ref">p.167</span></li>
-<li>SpA 四成員是 AS、reactive、psoriatic、IBD 相關；不要把 atopic dermatitis 或 glaucomatocyclitic crisis 放進 HLA-B27 疾病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1027" data-q="1027">第 1027 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.164</span></li>
-<li>HLA-B27 屬 class I；SpA 配 HLA-B27，不是 HLA-DR4。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-977" data-q="977">第 977 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.164；BCSC 9 p.62</span></li>
-<li>HLA-B27 盛行率：一般人口 <span class="num">6%</span>、psoriatic <span class="num">30%</span>、IBD axial <span class="num">75%</span>、AS <span class="num">90%</span>。<span class="ref">p.164, p.166</span></li>
-<li>IBD 的 uveitis 女性較多；SpA 整體則男性較多。<span class="ref">p.164, p.167</span></li>
+<li id="np-45">「AS 眼睛症狀與關節症狀高度相關」是錯的：眼炎與關節活性無關，可在關節症狀輕微或尚未診斷時出現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-36" data-q="36">第 36 題</a></span><span class="ref">p.167</span></li>
+<li id="np-46">SpA 四成員是 AS、reactive、psoriatic、IBD 相關；不要把 atopic dermatitis 或 glaucomatocyclitic crisis 放進 HLA-B27 疾病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1027" data-q="1027">第 1027 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1001" data-q="1001">第 1001 題</a></span><span class="ref">p.164</span></li>
+<li id="np-47">HLA-B27 屬 class I；SpA 配 HLA-B27，不是 HLA-DR4。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-977" data-q="977">第 977 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.164；BCSC 9 p.62</span></li>
+<li id="np-48">HLA-B27 盛行率：一般人口 <span class="num">6%</span>、psoriatic <span class="num">30%</span>、IBD axial <span class="num">75%</span>、AS <span class="num">90%</span>。<span class="ref">p.164, p.166</span></li>
+<li id="np-49">IBD 的 uveitis 女性較多；SpA 整體則男性較多。<span class="ref">p.164, p.167</span></li>
 </ul></div>
 
 <h2 id="ch10-s4">四、Juvenile idiopathic arthritis（JIA，幼年型特發性關節炎）</h2>
 <ul>
-<li>JIA 取代舊名 juvenile rheumatoid arthritis，因與成人 RA 無直接關係。<mark>女：男 = <span class="num">3:1</span></mark>；女孩發病較早（<span class="num">1–4 歲</span>），男孩 <span class="num">8–10 歲</span>；African American 與 Asian 族群較 White 少見。<span class="ref">p.167</span></li>
-<li>International League of Associations for Rheumatology（ILAR）分 <span class="num">7</span> 類。<mark>眼部侵犯<strong>以 oligoarticular 最常見、systemic 最少見</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.167</span></li>
-<li>Oligoarticular 或 polyarticular（尤其 RF-negative）病人的 uveitis <strong>常無症狀</strong>，須定期篩檢；oligoarticular、polyarticular 或 psoriatic 型若 <strong>ANA 陽性</strong> → uveitis 風險增加。其他後遺症：cataract、glaucoma、band keratopathy（帶狀角膜病變）。<span class="ref">p.167</span></li>
-<li><strong>Systemic JIA</strong>：間歇發燒、關節炎、macular rash、淋巴結腫、肝脾腫、pericarditis、肋膜積液；ESR/CRP 上升與 thrombocytosis 典型；ANA、RF 罕見；<mark>眼部侵犯不典型</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.167</span></li>
+<li id="np-50">JIA 取代舊名 juvenile rheumatoid arthritis，因與成人 RA 無直接關係。<mark>女：男 = <span class="num">3:1</span></mark>；女孩發病較早（<span class="num">1–4 歲</span>），男孩 <span class="num">8–10 歲</span>；African American 與 Asian 族群較 White 少見。<span class="ref">p.167</span></li>
+<li id="np-51">International League of Associations for Rheumatology（ILAR）分 <span class="num">7</span> 類。<mark>眼部侵犯<strong>以 oligoarticular 最常見、systemic 最少見</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.167</span></li>
+<li id="np-52">Oligoarticular 或 polyarticular（尤其 RF-negative）病人的 uveitis <strong>常無症狀</strong>，須定期篩檢；oligoarticular、polyarticular 或 psoriatic 型若 <strong>ANA 陽性</strong> → uveitis 風險增加。其他後遺症：cataract、glaucoma、band keratopathy（帶狀角膜病變）。<span class="ref">p.167</span></li>
+<li id="np-53"><strong>Systemic JIA</strong>：間歇發燒、關節炎、macular rash、淋巴結腫、肝脾腫、pericarditis、肋膜積液；ESR/CRP 上升與 thrombocytosis 典型；ANA、RF 罕見；<mark>眼部侵犯不典型</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.167</span></li>
 </ul>
 <h3 id="ch10-s4-1">ILAR 分類與眼科檢查間隔（Table 10-1）</h3>
 <table class="ted-table">
 <thead><tr><th>Subtype（亞型）</th><th>% of JIA</th><th>Sex（性別）</th><th>% with uveitis</th><th>ANA+ 檢查間隔（月）</th><th>ANA− 檢查間隔（月）</th></tr></thead>
 <tbody>
-<tr><td>Oligoarticular</td><td><span class="num">40–50</span></td><td>F &gt; M</td><td><span class="num">約 30</span></td><td><span class="num">3</span></td><td><span class="num">6–12</span></td></tr>
-<tr><td>RF-negative polyarticular</td><td><span class="num">20–25</span></td><td>F &gt; M</td><td><span class="num">約 10</span></td><td><span class="num">3</span></td><td><span class="num">6–12</span></td></tr>
-<tr><td>RF-positive polyarticular</td><td><span class="num">5</span></td><td>F &gt; M</td><td><span class="num">&lt; 1</span></td><td><span class="num">6–12</span></td><td><span class="num">6–12</span></td></tr>
-<tr><td>Psoriatic</td><td><span class="num">5–10</span></td><td>F &gt; M</td><td><span class="num">約 10</span></td><td><span class="num">3</span></td><td><span class="num">6–12</span></td></tr>
-<tr><td>Enthesitis-related</td><td><span class="num">5–10</span></td><td>M &gt; F</td><td><span class="num">約 10</span></td><td><span class="num">6–12</span></td><td><span class="num">6–12</span></td></tr>
-<tr><td>Systemic</td><td><span class="num">5–10</span></td><td>F = M</td><td><span class="num">&lt; 1</span></td><td><span class="num">6–12</span></td><td><span class="num">6–12</span></td></tr>
-<tr><td>Undifferentiated</td><td><span class="num">10–15</span></td><td>–</td><td>Unknown</td><td><span class="num">6–12</span></td><td><span class="num">6–12</span></td></tr>
+<tr><td id="np-54">Oligoarticular</td><td id="np-55"><span class="num">40–50</span></td><td id="np-56">F &gt; M</td><td id="np-57"><span class="num">約 30</span></td><td id="np-58"><span class="num">3</span></td><td id="np-59"><span class="num">6–12</span></td></tr>
+<tr><td id="np-60">RF-negative polyarticular</td><td id="np-61"><span class="num">20–25</span></td><td id="np-62">F &gt; M</td><td id="np-63"><span class="num">約 10</span></td><td id="np-64"><span class="num">3</span></td><td id="np-65"><span class="num">6–12</span></td></tr>
+<tr><td id="np-66">RF-positive polyarticular</td><td id="np-67"><span class="num">5</span></td><td id="np-68">F &gt; M</td><td id="np-69"><span class="num">&lt; 1</span></td><td id="np-70"><span class="num">6–12</span></td><td id="np-71"><span class="num">6–12</span></td></tr>
+<tr><td id="np-72">Psoriatic</td><td id="np-73"><span class="num">5–10</span></td><td id="np-74">F &gt; M</td><td id="np-75"><span class="num">約 10</span></td><td id="np-76"><span class="num">3</span></td><td id="np-77"><span class="num">6–12</span></td></tr>
+<tr><td id="np-78">Enthesitis-related</td><td id="np-79"><span class="num">5–10</span></td><td id="np-80">M &gt; F</td><td id="np-81"><span class="num">約 10</span></td><td id="np-82"><span class="num">6–12</span></td><td id="np-83"><span class="num">6–12</span></td></tr>
+<tr><td id="np-84">Systemic</td><td id="np-85"><span class="num">5–10</span></td><td id="np-86">F = M</td><td id="np-87"><span class="num">&lt; 1</span></td><td id="np-88"><span class="num">6–12</span></td><td id="np-89"><span class="num">6–12</span></td></tr>
+<tr><td id="np-90">Undifferentiated</td><td id="np-91"><span class="num">10–15</span></td><td id="np-92">–</td><td id="np-93">Unknown</td><td id="np-94"><span class="num">6–12</span></td><td id="np-95"><span class="num">6–12</span></td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.168</span></p>
+<p id="np-96">出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.168</span></p>
 <div class="ex-trap"><h3 id="ch10-s4-2">易錯陷阱</h3><ul>
-<li>Systemic JIA 男女相當，但 uveitis <span class="num">&lt; 1%</span>，是<strong>最不易</strong>發生 uveitis 的一型；最常見的是 oligoarticular（約 <span class="num">30%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.167–168</span></li>
-<li>RF-negative 與 RF-positive polyarticular 都是 F &gt; M；只有 enthesitis-related 是 M &gt; F、systemic 是 F = M。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.168</span></li>
-<li>只有 ANA 陽性的 oligoarticular、RF-negative polyarticular、psoriatic 需每 <span class="num">3 個月</span>檢查；其餘每 <span class="num">6–12 個月</span>。<span class="ref">p.168</span></li>
+<li id="np-97">Systemic JIA 男女相當，但 uveitis <span class="num">&lt; 1%</span>，是<strong>最不易</strong>發生 uveitis 的一型；最常見的是 oligoarticular（約 <span class="num">30%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.167–168</span></li>
+<li id="np-98">RF-negative 與 RF-positive polyarticular 都是 F &gt; M；只有 enthesitis-related 是 M &gt; F、systemic 是 F = M。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-71" data-q="71">第 71 題</a></span><span class="ref">p.168</span></li>
+<li id="np-99">只有 ANA 陽性的 oligoarticular、RF-negative polyarticular、psoriatic 需每 <span class="num">3 個月</span>檢查；其餘每 <span class="num">6–12 個月</span>。<span class="ref">p.168</span></li>
 </ul></div>
 
 <h2 id="ch10-s5">五、Systemic lupus erythematosus（SLE，全身性紅斑性狼瘡）</h2>
 <h3 id="ch10-s5-1">流行病學與致病</h3>
 <ul>
-<li>原因不明的異質性自體免疫疾病，可侵犯任何器官，緩解與復發交替。美國約 <span class="num">240/100,000</span>；歐洲較低、非洲與澳洲最低。<span class="ref">p.168</span></li>
-<li>女性遠多於男性；發病年齡中位數 <span class="num">35–50 歲</span>；African、Asian、Native American 較 White 易罹病。<span class="ref">p.168</span></li>
-<li>與 <mark><strong>B-cell hyperactivity（B 細胞過度活化）</strong></mark>、hypergammaglobulinemia 及大量自體抗體（ANA、抗 DNA 與細胞質成分抗體）相關；傳統視為 immune complex disease（免疫複合體疾病）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.168</span></li>
+<li id="np-100">原因不明的異質性自體免疫疾病，可侵犯任何器官，緩解與復發交替。美國約 <span class="num">240/100,000</span>；歐洲較低、非洲與澳洲最低。<span class="ref">p.168</span></li>
+<li id="np-101">女性遠多於男性；發病年齡中位數 <span class="num">35–50 歲</span>；African、Asian、Native American 較 White 易罹病。<span class="ref">p.168</span></li>
+<li id="np-102">與 <mark><strong>B-cell hyperactivity（B 細胞過度活化）</strong></mark>、hypergammaglobulinemia 及大量自體抗體（ANA、抗 DNA 與細胞質成分抗體）相關；傳統視為 immune complex disease（免疫複合體疾病）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.168</span></li>
 </ul>
 <h3 id="ch10-s5-2">臨床表現</h3>
 <ul>
-<li>皮膚：<strong>butterfly（malar）rash</strong> <span class="num">70%–80%</span>；discoid lesions（常留疤）、alopecia；黏膜病灶（通常<strong>無痛</strong>的口腔或鼻腔潰瘍）最多 <span class="num">40%</span>；photosensitivity。<span class="ref">p.168</span></li>
-<li>關節約 <span class="num">90%</span>（polyarthralgia 或 nondeforming migratory polyarthritis）；腎臟約 <span class="num">50%</span>（血尿、蛋白尿、腎病症候群到猛爆性腎絲球腎炎）。<span class="ref">p.168</span></li>
-<li>Raynaud phenomenon 最多 <span class="num">50%</span>；anemia of chronic disease、白血球與血小板減少；coronary artery disease 明顯增加；pericarditis、myocarditis、<strong>Libman-Sacks endocarditis</strong>；瓣膜病 <span class="num">&gt; 50%</span>。<span class="ref">p.169</span></li>
-<li>Thromboembolism 較常見，尤其有 antiphospholipid antibodies 與 lupus anticoagulant；肺：pleuritis、間質性肺病、肺高壓；GI：dysphagia、esophagitis、hepatitis、pancreatitis。<span class="ref">p.170</span></li>
-<li>CNS 侵犯 <span class="num">&gt; 1/3</span>，多為暫時性；最常見 headache、認知障礙、seizures、psychosis、peripheral neuropathy。<span class="ref">p.170</span></li>
+<li id="np-103">皮膚：<strong>butterfly（malar）rash</strong> <span class="num">70%–80%</span>；discoid lesions（常留疤）、alopecia；黏膜病灶（通常<strong>無痛</strong>的口腔或鼻腔潰瘍）最多 <span class="num">40%</span>；photosensitivity。<span class="ref">p.168</span></li>
+<li id="np-104">關節約 <span class="num">90%</span>（polyarthralgia 或 nondeforming migratory polyarthritis）；腎臟約 <span class="num">50%</span>（血尿、蛋白尿、腎病症候群到猛爆性腎絲球腎炎）。<span class="ref">p.168</span></li>
+<li id="np-105">Raynaud phenomenon 最多 <span class="num">50%</span>；anemia of chronic disease、白血球與血小板減少；coronary artery disease 明顯增加；pericarditis、myocarditis、<strong>Libman-Sacks endocarditis</strong>；瓣膜病 <span class="num">&gt; 50%</span>。<span class="ref">p.169</span></li>
+<li id="np-106">Thromboembolism 較常見，尤其有 antiphospholipid antibodies 與 lupus anticoagulant；肺：pleuritis、間質性肺病、肺高壓；GI：dysphagia、esophagitis、hepatitis、pancreatitis。<span class="ref">p.170</span></li>
+<li id="np-107">CNS 侵犯 <span class="num">&gt; 1/3</span>，多為暫時性；最常見 headache、認知障礙、seizures、psychosis、peripheral neuropathy。<span class="ref">p.170</span></li>
 </ul>
 <h3 id="ch10-s5-3">眼科考量</h3>
 <ul>
-<li><mark>眼部侵犯最多約 <span class="num">1/3</span>（BCSC 1）</mark>，可能與全身疾病活性相關；BCSC 9 則寫約 <span class="num">50%</span>。考題「高達 50% 以上」超過兩書數字 → 錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.170；BCSC 9 p.200</span></li>
-<li><mark>最常見眼部表現：secondary Sjögren syndrome 引起的 <strong>keratoconjunctivitis sicca（乾性角結膜炎）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-62" data-q="62">第 62 題</a></span><span class="ref">p.170</span></li>
-<li>其他：眼瞼 discoid 皮膚病灶；視網膜或脈絡膜微血管病灶——<strong>cotton-wool spots（棉絮狀斑）、出血、vascular occlusion（血管阻塞）、neovascularization</strong>。這是 SLE 本身的血管病變，不限於腎病變高血壓者。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.170</span></li>
-<li>SLE 的 inflammatory vasculopathy 需與續發問題區分：腎病造成的 hypertension、embolic disease 或 antiphospholipid antibodies 造成的阻塞——兩者外觀相似，不易分辨。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.170</span></li>
-<li><mark>典型 anterior 或 intermediate uveitis <strong>不是</strong> SLE 的常見特徵</mark>；因此對所有初診 uveitis 例行驗 ANA 偽陽性高（BCSC 9：只對有 SLE 症狀或 JIA 者驗）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.170；BCSC 9 p.200</span></li>
-<li>Neuro-ophthalmic：<strong>cranial nerve palsies（腦神經麻痺）</strong>、lupus optic neuropathy、central retrochiasmal（視交叉後）視覺障礙；cerebral：hallucinations、visual field defects、<strong>cortical blindness（皮質盲）</strong>。<mark>Orbital inflammation 僅罕見報告</mark> → proptosis 不是 SLE 的典型眼部疾病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-62" data-q="62">第 62 題</a></span><span class="ref">p.170</span></li>
-<li>Lupus retinopathy 是全身疾病活性的重要（非葡萄膜炎性）指標，盛行率由輕症約 <span class="num">3%</span> 到活動性疾病 <span class="num">29%</span>，並非總是發生（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">BCSC 9 p.200–201</span></li>
-<li>服用 hydroxychloroquine 的 SLE 病人需定期眼科篩檢 retinal toxicity（見第十七節）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.172, p.189</span></li>
+<li id="np-108"><mark>眼部侵犯最多約 <span class="num">1/3</span>（BCSC 1）</mark>，可能與全身疾病活性相關；BCSC 9 則寫約 <span class="num">50%</span>。考題「高達 50% 以上」超過兩書數字 → 錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.170；BCSC 9 p.200</span></li>
+<li id="np-109"><mark>最常見眼部表現：secondary Sjögren syndrome 引起的 <strong>keratoconjunctivitis sicca（乾性角結膜炎）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-62" data-q="62">第 62 題</a></span><span class="ref">p.170</span></li>
+<li id="np-110">其他：眼瞼 discoid 皮膚病灶；視網膜或脈絡膜微血管病灶——<strong>cotton-wool spots（棉絮狀斑）、出血、vascular occlusion（血管阻塞）、neovascularization</strong>。這是 SLE 本身的血管病變，不限於腎病變高血壓者。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.170</span></li>
+<li id="np-111">SLE 的 inflammatory vasculopathy 需與續發問題區分：腎病造成的 hypertension、embolic disease 或 antiphospholipid antibodies 造成的阻塞——兩者外觀相似，不易分辨。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.170</span></li>
+<li id="np-112"><mark>典型 anterior 或 intermediate uveitis <strong>不是</strong> SLE 的常見特徵</mark>；因此對所有初診 uveitis 例行驗 ANA 偽陽性高（BCSC 9：只對有 SLE 症狀或 JIA 者驗）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.170；BCSC 9 p.200</span></li>
+<li id="np-113">Neuro-ophthalmic：<strong>cranial nerve palsies（腦神經麻痺）</strong>、lupus optic neuropathy、central retrochiasmal（視交叉後）視覺障礙；cerebral：hallucinations、visual field defects、<strong>cortical blindness（皮質盲）</strong>。<mark>Orbital inflammation 僅罕見報告</mark> → proptosis 不是 SLE 的典型眼部疾病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-62" data-q="62">第 62 題</a></span><span class="ref">p.170</span></li>
+<li id="np-114">Lupus retinopathy 是全身疾病活性的重要（非葡萄膜炎性）指標，盛行率由輕症約 <span class="num">3%</span> 到活動性疾病 <span class="num">29%</span>，並非總是發生（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">BCSC 9 p.200–201</span></li>
+<li id="np-115">服用 hydroxychloroquine 的 SLE 病人需定期眼科篩檢 retinal toxicity（見第十七節）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.172, p.189</span></li>
 </ul>
 <h3 id="ch10-s5-4">診斷：2019 EULAR/ACR classification criteria（Table 10-2）</h3>
 <ul>
-<li><mark>Entry criterion：ANA titer <span class="num">≥ 1:80</span></mark>（HEp-2 cells 或等效陽性，曾經陽性即可）；無則不分類為 SLE。<span class="ref">p.170–171</span></li>
-<li>Additive criteria 分 <span class="num">7</span> 個 clinical 與 <span class="num">3</span> 個 immunologic domains，權重 <span class="num">2–10</span>；需 <span class="num">≥ 10</span> 分且至少 <span class="num">1</span> 項 clinical criterion；同一 domain 只算最高分項；不必同時出現；有更可能的解釋時不計。Sensitivity <span class="num">96%</span>、specificity <span class="num">93%</span>；原為研究用途。<span class="ref">p.170–171</span></li>
-<li><strong>SLE-specific antibodies</strong>：anti-dsDNA 或 anti-Smith（<span class="num">6</span> 分）；<mark>ANCA 不是 SLE 的抗體</mark>，是 GPA/MPA 等血管炎的標記。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.171, p.182</span></li>
+<li id="np-116"><mark>Entry criterion：ANA titer <span class="num">≥ 1:80</span></mark>（HEp-2 cells 或等效陽性，曾經陽性即可）；無則不分類為 SLE。<span class="ref">p.170–171</span></li>
+<li id="np-117">Additive criteria 分 <span class="num">7</span> 個 clinical 與 <span class="num">3</span> 個 immunologic domains，權重 <span class="num">2–10</span>；需 <span class="num">≥ 10</span> 分且至少 <span class="num">1</span> 項 clinical criterion；同一 domain 只算最高分項；不必同時出現；有更可能的解釋時不計。Sensitivity <span class="num">96%</span>、specificity <span class="num">93%</span>；原為研究用途。<span class="ref">p.170–171</span></li>
+<li id="np-118"><strong>SLE-specific antibodies</strong>：anti-dsDNA 或 anti-Smith（<span class="num">6</span> 分）；<mark>ANCA 不是 SLE 的抗體</mark>，是 GPA/MPA 等血管炎的標記。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.171, p.182</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Domain（領域）</th><th>Criterion（項目）與 weight（分數）</th></tr></thead>
 <tbody>
-<tr><td>Constitutional</td><td>Fever <span class="num">2</span></td></tr>
-<tr><td>Hematologic</td><td>Leukopenia <span class="num">3</span>；thrombocytopenia <span class="num">4</span>；autoimmune hemolysis <span class="num">4</span></td></tr>
-<tr><td>Neuropsychiatric</td><td>Delirium <span class="num">2</span>；psychosis <span class="num">3</span>；seizure <span class="num">5</span></td></tr>
-<tr><td>Mucocutaneous</td><td>Nonscarring alopecia <span class="num">2</span>；oral ulcers <span class="num">2</span>；subacute cutaneous 或 discoid lupus <span class="num">4</span>；acute cutaneous lupus <span class="num">6</span></td></tr>
-<tr><td>Serosal</td><td>Pleural 或 pericardial effusion <span class="num">5</span>；acute pericarditis <span class="num">6</span></td></tr>
-<tr><td>Musculoskeletal</td><td>Joint involvement <span class="num">6</span></td></tr>
-<tr><td>Renal</td><td>Proteinuria <span class="num">&gt; 0.5 g/24 h</span> <span class="num">4</span>；renal biopsy class II 或 V <span class="num">8</span>；class III 或 IV <span class="num">10</span></td></tr>
-<tr><td>Antiphospholipid antibodies</td><td>Anticardiolipin 或 anti-β2GPI 或 lupus anticoagulant <span class="num">2</span></td></tr>
-<tr><td>Complement proteins</td><td>Low C3 或 low C4 <span class="num">3</span>；low C3 且 low C4 <span class="num">4</span></td></tr>
-<tr><td>SLE-specific antibodies</td><td>Anti-dsDNA 或 anti-Smith <span class="num">6</span></td></tr>
+<tr><td id="np-119">Constitutional</td><td id="np-120">Fever <span class="num">2</span></td></tr>
+<tr><td id="np-121">Hematologic</td><td id="np-122">Leukopenia <span class="num">3</span>；thrombocytopenia <span class="num">4</span>；autoimmune hemolysis <span class="num">4</span></td></tr>
+<tr><td id="np-123">Neuropsychiatric</td><td id="np-124">Delirium <span class="num">2</span>；psychosis <span class="num">3</span>；seizure <span class="num">5</span></td></tr>
+<tr><td id="np-125">Mucocutaneous</td><td id="np-126">Nonscarring alopecia <span class="num">2</span>；oral ulcers <span class="num">2</span>；subacute cutaneous 或 discoid lupus <span class="num">4</span>；acute cutaneous lupus <span class="num">6</span></td></tr>
+<tr><td id="np-127">Serosal</td><td id="np-128">Pleural 或 pericardial effusion <span class="num">5</span>；acute pericarditis <span class="num">6</span></td></tr>
+<tr><td id="np-129">Musculoskeletal</td><td id="np-130">Joint involvement <span class="num">6</span></td></tr>
+<tr><td id="np-131">Renal</td><td id="np-132">Proteinuria <span class="num">&gt; 0.5 g/24 h</span> <span class="num">4</span>；renal biopsy class II 或 V <span class="num">8</span>；class III 或 IV <span class="num">10</span></td></tr>
+<tr><td id="np-133">Antiphospholipid antibodies</td><td id="np-134">Anticardiolipin 或 anti-β2GPI 或 lupus anticoagulant <span class="num">2</span></td></tr>
+<tr><td id="np-135">Complement proteins</td><td id="np-136">Low C3 或 low C4 <span class="num">3</span>；low C3 且 low C4 <span class="num">4</span></td></tr>
+<tr><td id="np-137">SLE-specific antibodies</td><td id="np-138">Anti-dsDNA 或 anti-Smith <span class="num">6</span></td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.171</span></p>
+<p id="np-139">出處 <span class="ref">p.171</span></p>
 <h3 id="ch10-s5-5">治療</h3>
 <ul>
-<li>依嚴重度；多數為復發–緩解，需頻繁調藥。非藥物：防曬、戒菸、預防接種。<span class="ref">p.170, p.172</span></li>
-<li><mark>最常用藥物：<strong>hydroxychloroquine</strong></mark>；另有 NSAIDs、glucocorticoids（宜低劑量、短期）、免疫抑制劑。<span class="ref">p.172</span></li>
-<li>有 antiphospholipid antibodies → <strong>low-dose aspirin</strong> 似可降低血栓風險。<span class="ref">p.172</span></li>
-<li><strong>Anifrolumab</strong>（type I interferon receptor antagonist）：FDA 新核准，用於至少 1 種第一線治療失敗的 moderate–severe SLE；<strong>belimumab</strong>（抑制 B 細胞活化）也核准用於 SLE。<span class="ref">p.172, p.191</span></li>
+<li id="np-140">依嚴重度；多數為復發–緩解，需頻繁調藥。非藥物：防曬、戒菸、預防接種。<span class="ref">p.170, p.172</span></li>
+<li id="np-141"><mark>最常用藥物：<strong>hydroxychloroquine</strong></mark>；另有 NSAIDs、glucocorticoids（宜低劑量、短期）、免疫抑制劑。<span class="ref">p.172</span></li>
+<li id="np-142">有 antiphospholipid antibodies → <strong>low-dose aspirin</strong> 似可降低血栓風險。<span class="ref">p.172</span></li>
+<li id="np-143"><strong>Anifrolumab</strong>（type I interferon receptor antagonist）：FDA 新核准，用於至少 1 種第一線治療失敗的 moderate–severe SLE；<strong>belimumab</strong>（抑制 B 細胞活化）也核准用於 SLE。<span class="ref">p.172, p.191</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s5-6">易錯陷阱</h3><ul>
-<li>SLE 眼部「最常見」是 KCS，不是 uveitis；典型 anterior uveitis 不常見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.170</span></li>
-<li>Proptosis／眼眶發炎在 SLE 罕見；cranial nerve palsy 與 cortical blindness 則是書中列出的表現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-62" data-q="62">第 62 題</a></span><span class="ref">p.170</span></li>
-<li>SLE 的 cotton-wool spots 不只見於腎病變高血壓者；但判讀時要與高血壓、栓塞、aPL 阻塞區分。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.170</span></li>
-<li>SLE 的口腔潰瘍通常無痛；Behçet 的口瘡則是疼痛性的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">p.168；BCSC 9 p.223</span></li>
-<li>BCSC 1「眼部最多約 1/3」vs BCSC 9「約 50%」：題目寫「約 50%」可視為正確，「50% 以上」則過高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.170</span></li>
+<li id="np-144">SLE 眼部「最常見」是 KCS，不是 uveitis；典型 anterior uveitis 不常見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-25" data-q="25">第 25 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.170</span></li>
+<li id="np-145">Proptosis／眼眶發炎在 SLE 罕見；cranial nerve palsy 與 cortical blindness 則是書中列出的表現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-62" data-q="62">第 62 題</a></span><span class="ref">p.170</span></li>
+<li id="np-146">SLE 的 cotton-wool spots 不只見於腎病變高血壓者；但判讀時要與高血壓、栓塞、aPL 阻塞區分。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.170</span></li>
+<li id="np-147">SLE 的口腔潰瘍通常無痛；Behçet 的口瘡則是疼痛性的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">p.168；BCSC 9 p.223</span></li>
+<li id="np-148">BCSC 1「眼部最多約 1/3」vs BCSC 9「約 50%」：題目寫「約 50%」可視為正確，「50% 以上」則過高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-43" data-q="43">第 43 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.170</span></li>
 </ul></div>
 
 <h2 id="ch10-s6">六、Sarcoidosis（類肉瘤病）</h2>
 <h3 id="ch10-s6-1">臨床表現</h3>
 <ul>
-<li>原因不明的多系統疾病，受侵組織有 <strong>noncaseating granulomas（非乾酪性肉芽腫）</strong>；主要侵犯年輕成人；傾向 hilar adenopathy（肺門淋巴結腫大）、肺浸潤、關節與皮膚侵犯；常見咳嗽、發燒、體重減輕、呼吸困難、關節痛、erythema nodosum。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a></span><span class="ref">p.172</span></li>
-<li><mark>肺部表現最典型</mark>（本章寫約 <span class="num">30%</span>；BCSC 9 寫肺部約 <span class="num">90%</span>）；肺外表現因種族與性別而異：皮膚、肝、眼在 African American 較多；皮膚與眼在女性較多；心臟侵犯男性較多。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a></span><span class="ref">p.172；BCSC 9 p.208</span></li>
-<li>皮膚：papules、plaques、nodules（如疼痛的 erythema nodosum）；arthropathy <span class="num">10%–15%</span>，多為急性，可能被誤診為 reactive arthritis。<span class="ref">p.172</span></li>
+<li id="np-149">原因不明的多系統疾病，受侵組織有 <strong>noncaseating granulomas（非乾酪性肉芽腫）</strong>；主要侵犯年輕成人；傾向 hilar adenopathy（肺門淋巴結腫大）、肺浸潤、關節與皮膚侵犯；常見咳嗽、發燒、體重減輕、呼吸困難、關節痛、erythema nodosum。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a></span><span class="ref">p.172</span></li>
+<li id="np-150"><mark>肺部表現最典型</mark>（本章寫約 <span class="num">30%</span>；BCSC 9 寫肺部約 <span class="num">90%</span>）；肺外表現因種族與性別而異：皮膚、肝、眼在 African American 較多；皮膚與眼在女性較多；心臟侵犯男性較多。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a></span><span class="ref">p.172；BCSC 9 p.208</span></li>
+<li id="np-151">皮膚：papules、plaques、nodules（如疼痛的 erythema nodosum）；arthropathy <span class="num">10%–15%</span>，多為急性，可能被誤診為 reactive arthritis。<span class="ref">p.172</span></li>
 </ul>
 <h3 id="ch10-s6-2">眼科考量</h3>
 <ul>
-<li>疑似 sarcoidosis 都應做眼科檢查。<mark>眼部表現約 <span class="num">25%</span>（BCSC 1），<span class="num">5%</span> 以眼部為首發</mark>（BCSC 9 寫 <span class="num">12%–50%</span>，題目「約 50%」為其上限，大致可接受）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a></span><span class="ref">p.172；BCSC 9 p.208</span></li>
-<li>可侵犯任何眼周構造（皮膚、眼眶、淚腺、肌肉）及前、後段；視神經侵犯較少。<span class="ref">p.172</span></li>
-<li>Uveitis 細節在 BCSC 9（本章外）：<mark>anterior uveitis 最常見（約 <span class="num">71%</span>）</mark>，後段表現最多約 <span class="num">20%</span>，並非佔 2/3；典型為 granulomatous uveitis（mutton-fat KPs、iris nodules、snowballs、string of pearls、choroidal granuloma、perivascular sheathing／candlewax drippings）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1729" data-q="1729">第 1729 題</a></span><span class="ref">BCSC 9 p.210–211</span></li>
-<li>兒童：<span class="num">&lt; 5 歲</span>者較少肺部、較多皮膚與關節侵犯；<span class="num">8–15 歲</span>表現類似成人（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a></span><span class="ref">BCSC 9 p.208</span></li>
+<li id="np-152">疑似 sarcoidosis 都應做眼科檢查。<mark>眼部表現約 <span class="num">25%</span>（BCSC 1），<span class="num">5%</span> 以眼部為首發</mark>（BCSC 9 寫 <span class="num">12%–50%</span>，題目「約 50%」為其上限，大致可接受）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a></span><span class="ref">p.172；BCSC 9 p.208</span></li>
+<li id="np-153">可侵犯任何眼周構造（皮膚、眼眶、淚腺、肌肉）及前、後段；視神經侵犯較少。<span class="ref">p.172</span></li>
+<li id="np-154">Uveitis 細節在 BCSC 9（本章外）：<mark>anterior uveitis 最常見（約 <span class="num">71%</span>）</mark>，後段表現最多約 <span class="num">20%</span>，並非佔 2/3；典型為 granulomatous uveitis（mutton-fat KPs、iris nodules、snowballs、string of pearls、choroidal granuloma、perivascular sheathing／candlewax drippings）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1729" data-q="1729">第 1729 題</a></span><span class="ref">BCSC 9 p.210–211</span></li>
+<li id="np-155">兒童：<span class="num">&lt; 5 歲</span>者較少肺部、較多皮膚與關節侵犯；<span class="num">8–15 歲</span>表現類似成人（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a></span><span class="ref">BCSC 9 p.208</span></li>
 </ul>
 <h3 id="ch10-s6-3">診斷</h3>
 <ul>
-<li><mark>組織學檢查是確診關鍵</mark>：常見切片部位 lung、lymph node、skin、liver、bone marrow；疑似 sarcoid 的 conjunctival nodule 切片可得確認性病理（多為 noncaseating granulomatous inflammation）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1105" data-q="1105">第 1105 題</a></span><span class="ref">p.172–173</span></li>
-<li>三種情況可不切片而合理診斷：<span class="ref">p.173</span>
+<li id="np-156"><mark>組織學檢查是確診關鍵</mark>：常見切片部位 lung、lymph node、skin、liver、bone marrow；疑似 sarcoid 的 conjunctival nodule 切片可得確認性病理（多為 noncaseating granulomatous inflammation）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1105" data-q="1105">第 1105 題</a></span><span class="ref">p.172–173</span></li>
+<li id="np-157">三種情況可不切片而合理診斷：<span class="ref">p.173</span>
 <ul>
 <li><strong>Löfgren syndrome</strong>：erythema nodosum＋hilar adenopathy＋migratory polyarthralgia＋fever（不含腮腺腫大）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1105" data-q="1105">第 1105 題</a></span><span class="ref">p.173</span></li>
-<li><mark><strong>Heerfordt-Waldenström syndrome（uveoparotid fever，葡萄膜腮腺熱）</strong>：parotid gland swelling（腮腺腫大）＋facial nerve palsy（顏面神經麻痺）＋uveitis＋fever</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1105" data-q="1105">第 1105 題</a></span><span class="ref">p.173</span></li>
-<li>無症狀的雙側 hilar adenopathy。<span class="ref">p.173</span></li>
+<li id="np-158"><mark><strong>Heerfordt-Waldenström syndrome（uveoparotid fever，葡萄膜腮腺熱）</strong>：parotid gland swelling（腮腺腫大）＋facial nerve palsy（顏面神經麻痺）＋uveitis＋fever</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1105" data-q="1105">第 1105 題</a></span><span class="ref">p.173</span></li>
+<li id="np-159">無症狀的雙側 hilar adenopathy。<span class="ref">p.173</span></li>
 </ul></li>
-<li>Erythema nodosum 皮膚切片<strong>無幫助</strong>（該皮疹無肉芽腫）。<span class="ref">p.173</span></li>
-<li><mark>沒有任何血清檢查是 pathognomonic</mark>：serum angiotensin-converting enzyme（ACE）在 <span class="num">75%</span> 病人升高，但敏感度差、特異度低 → <strong>不能用 ACE/lysozyme「確認診斷」</strong>（BCSC 9：兩者合併敏感度約 <span class="num">61%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a></span><span class="ref">p.173；BCSC 9 p.213</span></li>
-<li>肺部影像：X 光、CT、positron emission tomography（PET）。Gallium scan 可找隱性病灶但非特異，現行 BCSC 9 改以 FDG-PET 描述（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a></span><span class="ref">p.173；BCSC 9 p.213</span></li>
-<li>Blau syndrome＝familial juvenile systemic granulomatosis（NOD2 突變，兒童、家族史）（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1105" data-q="1105">第 1105 題</a></span><span class="ref">BCSC 9 p.209</span></li>
+<li id="np-160">Erythema nodosum 皮膚切片<strong>無幫助</strong>（該皮疹無肉芽腫）。<span class="ref">p.173</span></li>
+<li id="np-161"><mark>沒有任何血清檢查是 pathognomonic</mark>：serum angiotensin-converting enzyme（ACE）在 <span class="num">75%</span> 病人升高，但敏感度差、特異度低 → <strong>不能用 ACE/lysozyme「確認診斷」</strong>（BCSC 9：兩者合併敏感度約 <span class="num">61%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a></span><span class="ref">p.173；BCSC 9 p.213</span></li>
+<li id="np-162">肺部影像：X 光、CT、positron emission tomography（PET）。Gallium scan 可找隱性病灶但非特異，現行 BCSC 9 改以 FDG-PET 描述（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a></span><span class="ref">p.173；BCSC 9 p.213</span></li>
+<li id="np-163">Blau syndrome＝familial juvenile systemic granulomatosis（NOD2 突變，兒童、家族史）（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1105" data-q="1105">第 1105 題</a></span><span class="ref">BCSC 9 p.209</span></li>
 </ul>
 <h3 id="ch10-s6-4">治療</h3>
 <ul>
-<li>無症狀者常不需治療；輕症常自發緩解；廣泛侵犯時依器官治療。<mark><strong>Glucocorticoids 第一線</strong></mark>，有時需維持數年；頑固者用 DMARDs。<span class="ref">p.173</span></li>
+<li id="np-164">無症狀者常不需治療；輕症常自發緩解；廣泛侵犯時依器官治療。<mark><strong>Glucocorticoids 第一線</strong></mark>，有時需維持數年；頑固者用 DMARDs。<span class="ref">p.173</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s6-5">易錯陷阱</h3><ul>
-<li>腮腺腫大＋uveitis（＋facial palsy、fever）＝Heerfordt；erythema nodosum＋肺門淋巴結＋關節痛＝Löfgren。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1105" data-q="1105">第 1105 題</a></span><span class="ref">p.173</span></li>
-<li>ACE 升高 <span class="num">75%</span>，但不是診斷性；確診靠切片見 noncaseating granuloma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a></span><span class="ref">p.173</span></li>
-<li>Sarcoid uveitis 以 anterior 最常見，不是 posterior。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a></span><span class="ref">BCSC 9 p.210</span></li>
+<li id="np-165">腮腺腫大＋uveitis（＋facial palsy、fever）＝Heerfordt；erythema nodosum＋肺門淋巴結＋關節痛＝Löfgren。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1105" data-q="1105">第 1105 題</a></span><span class="ref">p.173</span></li>
+<li id="np-166">ACE 升高 <span class="num">75%</span>，但不是診斷性；確診靠切片見 noncaseating granuloma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1092" data-q="1092">第 1092 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1031" data-q="1031">第 1031 題</a></span><span class="ref">p.173</span></li>
+<li id="np-167">Sarcoid uveitis 以 anterior 最常見，不是 posterior。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1018" data-q="1018">第 1018 題</a></span><span class="ref">BCSC 9 p.210</span></li>
 </ul></div>
 
 <h2 id="ch10-s7">七、Antiphospholipid syndrome（APS，抗磷脂抗體症候群）</h2>
 <h3 id="ch10-s7-1">臨床表現</h3>
 <ul>
-<li>使病人易發生<strong>動脈或靜脈血栓</strong>的自體免疫疾病；可原發，或伴隨其他自體免疫疾病（尤其 SLE）；屬 secondary hypercoagulable state（次發性高凝狀態），與 protein C 缺乏、hyperhomocysteinemia 同屬高凝；von Willebrand disease 則是出血性疾病（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-6" data-q="6">第 6 題</a></span><span class="ref">p.173；p.155–159</span></li>
-<li><mark><strong>Deep venous thrombosis（DVT，深部靜脈栓塞）最常見</strong>，約 <span class="num">1/3</span> 病人</mark>；高抗體效價者易復發；也可有 pulmonary embolism 與 superficial thrombophlebitis（皆不如 DVT 常見；書中未列 renal vein thrombosis）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-91" data-q="91">第 91 題</a></span><span class="ref">p.173</span></li>
-<li>CNS：stroke、transient cerebral ischemia（舊稱 TIA）、dementia、psychosis；<strong>年輕且無中風危險因子</strong>者發生血栓或腦血管病要想到 APS。<span class="ref">p.173</span></li>
-<li>懷孕：多次第一孕期自然流產、preeclampsia 或胎盤功能不全造成早產、晚期胎死。<span class="ref">p.173</span></li>
-<li>其他：thrombocytopenia、hemolytic anemia、nephropathy、livedo reticularis；心臟瓣膜增厚與結節（Libman-Sacks endocarditis）。<span class="ref">p.173</span></li>
-<li><strong>Catastrophic APS</strong>：多處血管阻塞、多重器官衰竭，死亡率 <span class="num">48%</span>。<span class="ref">p.173–174</span></li>
+<li id="np-168">使病人易發生<strong>動脈或靜脈血栓</strong>的自體免疫疾病；可原發，或伴隨其他自體免疫疾病（尤其 SLE）；屬 secondary hypercoagulable state（次發性高凝狀態），與 protein C 缺乏、hyperhomocysteinemia 同屬高凝；von Willebrand disease 則是出血性疾病（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-6" data-q="6">第 6 題</a></span><span class="ref">p.173；p.155–159</span></li>
+<li id="np-169"><mark><strong>Deep venous thrombosis（DVT，深部靜脈栓塞）最常見</strong>，約 <span class="num">1/3</span> 病人</mark>；高抗體效價者易復發；也可有 pulmonary embolism 與 superficial thrombophlebitis（皆不如 DVT 常見；書中未列 renal vein thrombosis）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-91" data-q="91">第 91 題</a></span><span class="ref">p.173</span></li>
+<li id="np-170">CNS：stroke、transient cerebral ischemia（舊稱 TIA）、dementia、psychosis；<strong>年輕且無中風危險因子</strong>者發生血栓或腦血管病要想到 APS。<span class="ref">p.173</span></li>
+<li id="np-171">懷孕：多次第一孕期自然流產、preeclampsia 或胎盤功能不全造成早產、晚期胎死。<span class="ref">p.173</span></li>
+<li id="np-172">其他：thrombocytopenia、hemolytic anemia、nephropathy、livedo reticularis；心臟瓣膜增厚與結節（Libman-Sacks endocarditis）。<span class="ref">p.173</span></li>
+<li id="np-173"><strong>Catastrophic APS</strong>：多處血管阻塞、多重器官衰竭，死亡率 <span class="num">48%</span>。<span class="ref">p.173–174</span></li>
 </ul>
 <h3 id="ch10-s7-2">診斷</h3>
 <ul>
-<li>免疫檢測：<mark><strong>anticardiolipin antibodies</strong>（IgG、IgM）</mark>、anti–β2-glycoprotein 抗體（IgG、IgM）、<strong>lupus anticoagulants</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.174</span></li>
-<li>新診斷 APS 應評估潛在自體免疫疾病：<mark>SLE 最多佔 <span class="num">36%</span></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.174</span></li>
+<li id="np-174">免疫檢測：<mark><strong>anticardiolipin antibodies</strong>（IgG、IgM）</mark>、anti–β2-glycoprotein 抗體（IgG、IgM）、<strong>lupus anticoagulants</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.174</span></li>
+<li id="np-175">新診斷 APS 應評估潛在自體免疫疾病：<mark>SLE 最多佔 <span class="num">36%</span></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.174</span></li>
 </ul>
 <h3 id="ch10-s7-3">眼科考量</h3>
 <ul>
-<li>眼部表現：transient monocular blindness（暫時性單眼失明）、<strong>ischemic optic neuropathy（缺血性視神經病變，含 NAION）</strong>、<strong>retinal vascular occlusion（視網膜動/靜脈阻塞）</strong>；亦有視野缺損、diplopia、甚至 proliferative retinopathy 報告。BCSC 1 ch9 另列 choroidal infarction。<mark>AMD 不是 APS 的併發症</mark>（退化性疾病，非血栓機轉）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-44" data-q="44">第 44 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.174；p.159</span></li>
-<li><mark>非典型 ocular vaso-occlusive disease 發生於 <strong><span class="num">&lt; 50 歲</span></strong>或<strong>雙側</strong>時要考慮 APS</mark>（不是「&gt; 50 歲」）；檢查需與家醫或風濕科協調。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.161, p.174</span></li>
+<li id="np-176">眼部表現：transient monocular blindness（暫時性單眼失明）、<strong>ischemic optic neuropathy（缺血性視神經病變，含 NAION）</strong>、<strong>retinal vascular occlusion（視網膜動/靜脈阻塞）</strong>；亦有視野缺損、diplopia、甚至 proliferative retinopathy 報告。BCSC 1 ch9 另列 choroidal infarction。<mark>AMD 不是 APS 的併發症</mark>（退化性疾病，非血栓機轉）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-44" data-q="44">第 44 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.174；p.159</span></li>
+<li id="np-177"><mark>非典型 ocular vaso-occlusive disease 發生於 <strong><span class="num">&lt; 50 歲</span></strong>或<strong>雙側</strong>時要考慮 APS</mark>（不是「&gt; 50 歲」）；檢查需與家醫或風濕科協調。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.161, p.174</span></li>
 </ul>
 <h3 id="ch10-s7-4">治療</h3>
 <ul>
-<li>血栓：<strong>heparin → warfarin</strong>；最佳療程不明，抗體效價下降可考慮停藥，但<mark>反覆發作者建議終身抗凝</mark>。<span class="ref">p.174</span></li>
-<li>相關自體免疫疾病常用 hydroxychloroquine 以降低 APS 併發症。<span class="ref">p.174</span></li>
-<li>孕婦（具爭議）：heparin 或 low-molecular-weight heparin＋aspirin，因 <strong>warfarin 會致畸</strong>。<span class="ref">p.174</span></li>
-<li>有抗體但無血栓史 → 可能受益於預防性 aspirin；autologous stem cell transplantation 或 rituximab 效益仍有疑問。<span class="ref">p.174</span></li>
+<li id="np-178">血栓：<strong>heparin → warfarin</strong>；最佳療程不明，抗體效價下降可考慮停藥，但<mark>反覆發作者建議終身抗凝</mark>。<span class="ref">p.174</span></li>
+<li id="np-179">相關自體免疫疾病常用 hydroxychloroquine 以降低 APS 併發症。<span class="ref">p.174</span></li>
+<li id="np-180">孕婦（具爭議）：heparin 或 low-molecular-weight heparin＋aspirin，因 <strong>warfarin 會致畸</strong>。<span class="ref">p.174</span></li>
+<li id="np-181">有抗體但無血栓史 → 可能受益於預防性 aspirin；autologous stem cell transplantation 或 rituximab 效益仍有疑問。<span class="ref">p.174</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s7-5">易錯陷阱</h3><ul>
-<li>APS 最常見血栓是 DVT（約 1/3），不是 PE、表淺血栓靜脈炎或腎靜脈血栓。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-91" data-q="91">第 91 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.173</span></li>
-<li>考慮 APS 的年齡門檻是「小於 50 歲」或雙側；&gt; 50 歲的非動脈炎性缺血要先想 GCA 與動脈硬化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.174</span></li>
-<li>APS 配 anticardiolipin antibody 是正確配對。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.174</span></li>
+<li id="np-182">APS 最常見血栓是 DVT（約 1/3），不是 PE、表淺血栓靜脈炎或腎靜脈血栓。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-91" data-q="91">第 91 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.173</span></li>
+<li id="np-183">考慮 APS 的年齡門檻是「小於 50 歲」或雙側；&gt; 50 歲的非動脈炎性缺血要先想 GCA 與動脈硬化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-53" data-q="53">第 53 題</a></span><span class="ref">p.174</span></li>
+<li id="np-184">APS 配 anticardiolipin antibody 是正確配對。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-22" data-q="22">第 22 題</a></span><span class="ref">p.174</span></li>
 </ul></div>
 
 <h2 id="ch10-s8">八、Systemic sclerosis（SSc，全身性硬化症）</h2>
 <ul>
-<li>舊稱 scleroderma（現多指只侵犯皮膚者）；皮膚與其他器官纖維化與退化；分 <strong>limited</strong> 與 <strong>diffuse</strong>（依皮膚侵犯範圍）；機轉為 fibroblast 活化 → 膠原過度沉積、發炎、纖維化。<span class="ref">p.174</span></li>
-<li>女性為男性 <span class="num">4 倍</span>；發病多在 <span class="num">20–30 多歲</span>（第三或第四個十年）；African American diffuse 型較多。<span class="ref">p.174–175</span></li>
-<li>Limited 型很少侵犯內臟、預後較好、壽命常正常；常與 <strong>CREST syndrome</strong>（calcinosis、Raynaud phenomenon、esophageal involvement、sclerodactyly、telangiectasia）相關。<span class="ref">p.175</span></li>
-<li>皮膚增厚、緊繃、硬化 → 活動受限與攣縮；由手指向心性擴散到臉與軀幹；telangiectasia 與 calcinosis 常見；<mark>Raynaud phenomenon <span class="num">&gt; 95%</span></mark>；少數有 digital ulcers 與缺血。<span class="ref">p.175</span></li>
-<li>器官侵犯 <span class="num">&gt; 90%</span>，<strong>最常見 esophageal dysmotility（食道蠕動異常）</strong>合併胃食道逆流；腸道蠕動下降、吸收不良；心肺：肺血管纖維化 → 限制性肺病、擴散量下降、肺高壓、右心衰竭；加上心臟纖維化心律不整 → 診斷起 5 年存活率約 <span class="num">75%</span>。腎臟約 <span class="num">50%</span>。<span class="ref">p.175</span></li>
-<li>眼部約 <span class="num">50%</span>：<mark>最常見為眼周皮膚纖維化緊繃與 keratoconjunctivitis sicca</mark>；可致 blepharophimosis（瞼裂狹小）或 lagophthalmos（兔眼）；FA 見斑塊狀 choroidal nonperfusion；腎侵犯偶致 malignant hypertension retinopathy（CWS、視網膜內出血、視神經盤水腫）。<span class="ref">p.176</span></li>
-<li>診斷：絕大多數 ANA 陽性；<strong>anti–DNA topoisomerase I</strong> 與 <strong>anti–RNA polymerase III</strong> 高度特異；<mark><strong>anticentromere antibody</strong> 常見於 limited 型</mark>。<span class="ref">p.176</span></li>
-<li>治療依器官：endothelin-1 receptor antagonists（肺高壓）、<strong>ACE inhibitors</strong>（腎病高血壓）、calcium channel blockers（Raynaud）、methotrexate 與 cyclophosphamide（diffuse 皮膚表現）；關節炎處理同 RA。<span class="ref">p.176</span></li>
+<li id="np-185">舊稱 scleroderma（現多指只侵犯皮膚者）；皮膚與其他器官纖維化與退化；分 <strong>limited</strong> 與 <strong>diffuse</strong>（依皮膚侵犯範圍）；機轉為 fibroblast 活化 → 膠原過度沉積、發炎、纖維化。<span class="ref">p.174</span></li>
+<li id="np-186">女性為男性 <span class="num">4 倍</span>；發病多在 <span class="num">20–30 多歲</span>（第三或第四個十年）；African American diffuse 型較多。<span class="ref">p.174–175</span></li>
+<li id="np-187">Limited 型很少侵犯內臟、預後較好、壽命常正常；常與 <strong>CREST syndrome</strong>（calcinosis、Raynaud phenomenon、esophageal involvement、sclerodactyly、telangiectasia）相關。<span class="ref">p.175</span></li>
+<li id="np-188">皮膚增厚、緊繃、硬化 → 活動受限與攣縮；由手指向心性擴散到臉與軀幹；telangiectasia 與 calcinosis 常見；<mark>Raynaud phenomenon <span class="num">&gt; 95%</span></mark>；少數有 digital ulcers 與缺血。<span class="ref">p.175</span></li>
+<li id="np-189">器官侵犯 <span class="num">&gt; 90%</span>，<strong>最常見 esophageal dysmotility（食道蠕動異常）</strong>合併胃食道逆流；腸道蠕動下降、吸收不良；心肺：肺血管纖維化 → 限制性肺病、擴散量下降、肺高壓、右心衰竭；加上心臟纖維化心律不整 → 診斷起 5 年存活率約 <span class="num">75%</span>。腎臟約 <span class="num">50%</span>。<span class="ref">p.175</span></li>
+<li id="np-190">眼部約 <span class="num">50%</span>：<mark>最常見為眼周皮膚纖維化緊繃與 keratoconjunctivitis sicca</mark>；可致 blepharophimosis（瞼裂狹小）或 lagophthalmos（兔眼）；FA 見斑塊狀 choroidal nonperfusion；腎侵犯偶致 malignant hypertension retinopathy（CWS、視網膜內出血、視神經盤水腫）。<span class="ref">p.176</span></li>
+<li id="np-191">診斷：絕大多數 ANA 陽性；<strong>anti–DNA topoisomerase I</strong> 與 <strong>anti–RNA polymerase III</strong> 高度特異；<mark><strong>anticentromere antibody</strong> 常見於 limited 型</mark>。<span class="ref">p.176</span></li>
+<li id="np-192">治療依器官：endothelin-1 receptor antagonists（肺高壓）、<strong>ACE inhibitors</strong>（腎病高血壓）、calcium channel blockers（Raynaud）、methotrexate 與 cyclophosphamide（diffuse 皮膚表現）；關節炎處理同 RA。<span class="ref">p.176</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s8-1">易錯陷阱</h3><ul>
-<li>Anticentromere 對應 limited SSc（CREST）；anti-topoisomerase I、anti-RNA polymerase III 為 SSc 高度特異抗體。<span class="ref">p.176</span></li>
-<li>SSc 腎危象性高血壓用 ACE inhibitor；Raynaud 用 calcium channel blocker。<span class="ref">p.176</span></li>
+<li id="np-193">Anticentromere 對應 limited SSc（CREST）；anti-topoisomerase I、anti-RNA polymerase III 為 SSc 高度特異抗體。<span class="ref">p.176</span></li>
+<li id="np-194">SSc 腎危象性高血壓用 ACE inhibitor；Raynaud 用 calcium channel blocker。<span class="ref">p.176</span></li>
 </ul></div>
 
 <h2 id="ch10-s9">九、Sjögren syndrome（修格蘭氏症候群，乾燥症）</h2>
 <ul>
-<li>慢性自體免疫疾病，外分泌腺 <strong>lymphocytic infiltration（淋巴球浸潤）</strong>；primary（單獨）或 secondary（伴 RA、SLE、SSc）。任何年齡性別皆可，<strong>40–50 多歲（第五、六個十年）女性</strong>最常見。<span class="ref">p.176</span></li>
-<li>症狀：乾眼、口乾吞嚥困難、皮膚乾（xerosis）；嚴重者腮腺與淚腺腫大（<strong>Mikulicz syndrome</strong>）；眼科醫師常是第一位看診者。<span class="ref">p.176</span></li>
-<li>Primary 型全身表現：上呼吸道乾燥、黏液栓、purpuric vasculitis、hyperglobulinemia；約 <span class="num">50%</span> 關節痛但關節炎較少；約 <span class="num">20%</span> 輕度全血球減少；<mark><strong>non-Hodgkin lymphoma</strong> 風險增加</mark>；中樞與周邊神經侵犯可擬似 multiple sclerosis 或精神疾病。<span class="ref">p.176–177</span></li>
-<li><mark>ACR/EULAR primary Sjögren 分類標準的 <span class="num">5</span> 項客觀指標：labial salivary gland biopsy 特異發現、<strong>anti-Ro antibodies</strong>、<strong>abnormal ocular surface staining</strong>、<strong>abnormal Schirmer test</strong>、<strong>reduced unstimulated salivary flow</strong></mark>；tear-film break-up time（TBUT）<strong>不在其中</strong>。主要用於研究，臨床價值有限。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-79" data-q="79">第 79 題</a></span><span class="ref">p.177</span></li>
-<li>血清：ANA、RF、anti-SS-A/Ro、anti-SS-B/La，最多 <span class="num">80%</span> 有其一或兩者；缺乏自體免疫證據者（抗體低/無、無相關疾病）可用 labial salivary gland biopsy 確認。<span class="ref">p.177</span></li>
-<li>治療：緩解症狀、補充或替代分泌物；有全身表現者可能需免疫抑制。<span class="ref">p.177</span></li>
+<li id="np-195">慢性自體免疫疾病，外分泌腺 <strong>lymphocytic infiltration（淋巴球浸潤）</strong>；primary（單獨）或 secondary（伴 RA、SLE、SSc）。任何年齡性別皆可，<strong>40–50 多歲（第五、六個十年）女性</strong>最常見。<span class="ref">p.176</span></li>
+<li id="np-196">症狀：乾眼、口乾吞嚥困難、皮膚乾（xerosis）；嚴重者腮腺與淚腺腫大（<strong>Mikulicz syndrome</strong>）；眼科醫師常是第一位看診者。<span class="ref">p.176</span></li>
+<li id="np-197">Primary 型全身表現：上呼吸道乾燥、黏液栓、purpuric vasculitis、hyperglobulinemia；約 <span class="num">50%</span> 關節痛但關節炎較少；約 <span class="num">20%</span> 輕度全血球減少；<mark><strong>non-Hodgkin lymphoma</strong> 風險增加</mark>；中樞與周邊神經侵犯可擬似 multiple sclerosis 或精神疾病。<span class="ref">p.176–177</span></li>
+<li id="np-198"><mark>ACR/EULAR primary Sjögren 分類標準的 <span class="num">5</span> 項客觀指標：labial salivary gland biopsy 特異發現、<strong>anti-Ro antibodies</strong>、<strong>abnormal ocular surface staining</strong>、<strong>abnormal Schirmer test</strong>、<strong>reduced unstimulated salivary flow</strong></mark>；tear-film break-up time（TBUT）<strong>不在其中</strong>。主要用於研究，臨床價值有限。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-79" data-q="79">第 79 題</a></span><span class="ref">p.177</span></li>
+<li id="np-199">血清：ANA、RF、anti-SS-A/Ro、anti-SS-B/La，最多 <span class="num">80%</span> 有其一或兩者；缺乏自體免疫證據者（抗體低/無、無相關疾病）可用 labial salivary gland biopsy 確認。<span class="ref">p.177</span></li>
+<li id="np-200">治療：緩解症狀、補充或替代分泌物；有全身表現者可能需免疫抑制。<span class="ref">p.177</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s9-1">易錯陷阱</h3><ul>
-<li>5 項客觀指標中眼部只有「ocular surface staining」與「Schirmer test」；TBUT 不是。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-79" data-q="79">第 79 題</a></span><span class="ref">p.177</span></li>
-<li>Mikulicz syndrome＝腮腺＋淚腺腫大；Heerfordt syndrome 則是 sarcoid 的腮腺＋uveitis＋顏面神經麻痺＋發燒。<span class="ref">p.173, p.176</span></li>
+<li id="np-201">5 項客觀指標中眼部只有「ocular surface staining」與「Schirmer test」；TBUT 不是。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-79" data-q="79">第 79 題</a></span><span class="ref">p.177</span></li>
+<li id="np-202">Mikulicz syndrome＝腮腺＋淚腺腫大；Heerfordt syndrome 則是 sarcoid 的腮腺＋uveitis＋顏面神經麻痺＋發燒。<span class="ref">p.173, p.176</span></li>
 </ul></div>
 
 <h2 id="ch10-s10">十、Polymyositis（多發性肌炎）與 Dermatomyositis（皮肌炎）</h2>
 <ul>
-<li>特發性骨骼肌發炎，進行性<strong>近端肌無力</strong>（肩、髖）。Dermatomyositis：血管 immune complex 沉積；polymyositis：T-cell 介導肌肉傷害。<span class="ref">p.177</span></li>
-<li>女：男 = <span class="num">2:1</span>，高峰 <span class="num">40–50 歲</span>；伴 polyarthritis、dysphagia、間質性肺病。眼部侵犯相對少見；罕見侵犯 extraocular muscles → ophthalmoplegia。<span class="ref">p.177</span></li>
-<li>Dermatomyositis 以皮膚病灶與 polymyositis 區分：紅至紫羅蘭色皮疹，侵犯眼瞼（<mark><strong>heliotrope rash</strong>，非常特異</mark>）、臉頰、鼻、胸前（V-neck sign）、伸側（<strong>Gottron sign</strong>）。<span class="ref">p.177</span></li>
-<li>檢驗：血清肌肉酵素、血/尿 myoglobin 上升、electromyography 異常；多數有自體抗體（含 myositis-specific autoantibodies）；muscle biopsy 可確認。<span class="ref">p.177</span></li>
-<li>診斷時即開始 glucocorticoids，通常 <span class="num">9–12 個月</span>減量；無效或副作用者用 azathioprine 或 methotrexate。<span class="ref">p.177</span></li>
+<li id="np-203">特發性骨骼肌發炎，進行性<strong>近端肌無力</strong>（肩、髖）。Dermatomyositis：血管 immune complex 沉積；polymyositis：T-cell 介導肌肉傷害。<span class="ref">p.177</span></li>
+<li id="np-204">女：男 = <span class="num">2:1</span>，高峰 <span class="num">40–50 歲</span>；伴 polyarthritis、dysphagia、間質性肺病。眼部侵犯相對少見；罕見侵犯 extraocular muscles → ophthalmoplegia。<span class="ref">p.177</span></li>
+<li id="np-205">Dermatomyositis 以皮膚病灶與 polymyositis 區分：紅至紫羅蘭色皮疹，侵犯眼瞼（<mark><strong>heliotrope rash</strong>，非常特異</mark>）、臉頰、鼻、胸前（V-neck sign）、伸側（<strong>Gottron sign</strong>）。<span class="ref">p.177</span></li>
+<li id="np-206">檢驗：血清肌肉酵素、血/尿 myoglobin 上升、electromyography 異常；多數有自體抗體（含 myositis-specific autoantibodies）；muscle biopsy 可確認。<span class="ref">p.177</span></li>
+<li id="np-207">診斷時即開始 glucocorticoids，通常 <span class="num">9–12 個月</span>減量；無效或副作用者用 azathioprine 或 methotrexate。<span class="ref">p.177</span></li>
 </ul>
 
 <h2 id="ch10-s11">十一、Polymyalgia rheumatica（PMR，風濕性多肌痛）</h2>
 <ul>
-<li>常見於老年人的慢性發炎：近端肌痛及頸、肩、髖帶<strong>晨僵</strong>；成人風濕病終生風險僅次於 RA。<span class="ref">p.178</span></li>
-<li><mark>與 GCA 密切相關：PMR 約 <span class="num">10%</span> 會發生 GCA；GCA 最多 <span class="num">50%</span> 有 PMR 表現</mark>；兩者可能共享病理機轉。歐洲裔風險最高，Asian、Latino、African American 最低。<span class="ref">p.178</span></li>
-<li>症狀可突然出現，起床時最明顯；<strong>沒有晨僵有助排除</strong>；典型為<strong>無法舉臂超過 <span class="num">90°</span></strong>。ESR、CRP 常升高。<span class="ref">p.178</span></li>
-<li>PMR 病人應詢問 GCA 症狀（<mark>scalp tenderness（頭皮壓痛）、jaw claudication（下顎跛行）</mark>）；無 GCA 症狀者不需 temporal artery biopsy（很少陽性）。老年人暫時性視力模糊＋複視＋頭皮壓痛＋咀嚼疲勞 → 高度懷疑 GCA，<strong>立即驗 ESR（與 CRP、CBC）</strong>，而非頸動脈超音波、aPL 或 AChR 抗體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1680" data-q="1680">第 1680 題</a></span><span class="ref">p.178；BCSC 5 p.203, p.391–392</span></li>
-<li>Prednisone 通常 <span class="num">2–3 天</span>顯著緩解、<span class="num">3 週</span>內完全恢復；無復發者約 <span class="num">1 年</span>可停藥；長期治療可加 methotrexate 減少類固醇；biologics 結果不一。<span class="ref">p.178</span></li>
+<li id="np-208">常見於老年人的慢性發炎：近端肌痛及頸、肩、髖帶<strong>晨僵</strong>；成人風濕病終生風險僅次於 RA。<span class="ref">p.178</span></li>
+<li id="np-209"><mark>與 GCA 密切相關：PMR 約 <span class="num">10%</span> 會發生 GCA；GCA 最多 <span class="num">50%</span> 有 PMR 表現</mark>；兩者可能共享病理機轉。歐洲裔風險最高，Asian、Latino、African American 最低。<span class="ref">p.178</span></li>
+<li id="np-210">症狀可突然出現，起床時最明顯；<strong>沒有晨僵有助排除</strong>；典型為<strong>無法舉臂超過 <span class="num">90°</span></strong>。ESR、CRP 常升高。<span class="ref">p.178</span></li>
+<li id="np-211">PMR 病人應詢問 GCA 症狀（<mark>scalp tenderness（頭皮壓痛）、jaw claudication（下顎跛行）</mark>）；無 GCA 症狀者不需 temporal artery biopsy（很少陽性）。老年人暫時性視力模糊＋複視＋頭皮壓痛＋咀嚼疲勞 → 高度懷疑 GCA，<strong>立即驗 ESR（與 CRP、CBC）</strong>，而非頸動脈超音波、aPL 或 AChR 抗體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1680" data-q="1680">第 1680 題</a></span><span class="ref">p.178；BCSC 5 p.203, p.391–392</span></li>
+<li id="np-212">Prednisone 通常 <span class="num">2–3 天</span>顯著緩解、<span class="num">3 週</span>內完全恢復；無復發者約 <span class="num">1 年</span>可停藥；長期治療可加 methotrexate 減少類固醇；biologics 結果不一。<span class="ref">p.178</span></li>
 </ul>
 
 <h2 id="ch10-s12">十二、Relapsing polychondritis（復發性多軟骨炎）</h2>
 <ul>
-<li>罕見、陣發性自體免疫疾病，全身軟骨發炎破壞：<mark><strong>耳朵最常侵犯</strong></mark>，另有鼻、心臟與呼吸道結構、關節、眼睛；各年齡性別皆可，White 較易感。最多 <span class="num">1/3</span> 合併其他結締組織病（SLE、RA）、系統性血管炎或惡性腫瘤。<span class="ref">p.178–179</span></li>
-<li>鼻樑侵犯 → <strong>saddle nose deformity（鞍鼻）</strong>；laryngotracheobronchial disease 可隱伏進展，導致致命的 laryngeal collapse（喉部塌陷）。<span class="ref">p.179</span></li>
-<li><mark>眼部最多 <span class="num">60%</span>：episcleritis、scleritis、uveitis</mark>，罕見 retinal vasculitis。內耳、心血管、皮膚較少；心血管：aortic root 擴張致 aortic insufficiency、血管炎。<span class="ref">p.179</span></li>
-<li>治療：systemic corticosteroids、dapsone、methotrexate、cyclophosphamide；可能需 tracheostomy、主動脈瘤修補、瓣膜置換。<span class="ref">p.179</span></li>
-<li>慢性 scleritis＋頭痛＋視網膜分支動脈阻塞＋氣管軟骨病變：要想到 GPA 等系統性血管炎（亦可考慮 relapsing polychondritis）；<mark><strong>urinalysis</strong> 找 glomerulonephritis（GPA 最多 <span class="num">85%</span>）可協助診斷與決定積極治療</mark>，而非 ANA、腰椎穿刺或 anti-CCP。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1072" data-q="1072">第 1072 題</a></span><span class="ref">p.179, p.182</span></li>
+<li id="np-213">罕見、陣發性自體免疫疾病，全身軟骨發炎破壞：<mark><strong>耳朵最常侵犯</strong></mark>，另有鼻、心臟與呼吸道結構、關節、眼睛；各年齡性別皆可，White 較易感。最多 <span class="num">1/3</span> 合併其他結締組織病（SLE、RA）、系統性血管炎或惡性腫瘤。<span class="ref">p.178–179</span></li>
+<li id="np-214">鼻樑侵犯 → <strong>saddle nose deformity（鞍鼻）</strong>；laryngotracheobronchial disease 可隱伏進展，導致致命的 laryngeal collapse（喉部塌陷）。<span class="ref">p.179</span></li>
+<li id="np-215"><mark>眼部最多 <span class="num">60%</span>：episcleritis、scleritis、uveitis</mark>，罕見 retinal vasculitis。內耳、心血管、皮膚較少；心血管：aortic root 擴張致 aortic insufficiency、血管炎。<span class="ref">p.179</span></li>
+<li id="np-216">治療：systemic corticosteroids、dapsone、methotrexate、cyclophosphamide；可能需 tracheostomy、主動脈瘤修補、瓣膜置換。<span class="ref">p.179</span></li>
+<li id="np-217">慢性 scleritis＋頭痛＋視網膜分支動脈阻塞＋氣管軟骨病變：要想到 GPA 等系統性血管炎（亦可考慮 relapsing polychondritis）；<mark><strong>urinalysis</strong> 找 glomerulonephritis（GPA 最多 <span class="num">85%</span>）可協助診斷與決定積極治療</mark>，而非 ANA、腰椎穿刺或 anti-CCP。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1072" data-q="1072">第 1072 題</a></span><span class="ref">p.179, p.182</span></li>
 </ul>
 
 <h2 id="ch10-s13">十三、Vasculitis（血管炎）</h2>
 <h3 id="ch10-s13-1">總論與 Chapel Hill 分類（Table 10-3）</h3>
 <ul>
-<li>以血管自體免疫傷害為主要病理 → 供應組織缺血壞死；依受侵血管大小與位置分類；可原發，或續發於其他免疫疾病、感染、腫瘤、藥物。採 <span class="num">2012</span> 修訂 International Chapel Hill Consensus Conference 命名。<span class="ref">p.179</span></li>
-<li>定義：<strong>large vessel</strong>＝主動脈及通往主要身體區域的最大分支；<strong>medium</strong>＝主要內臟動脈（腎、肝、冠狀、腸繫膜）；<strong>small</strong>＝venules、capillaries、arterioles 與實質內遠端小動脈。<span class="ref">p.180</span></li>
+<li id="np-218">以血管自體免疫傷害為主要病理 → 供應組織缺血壞死；依受侵血管大小與位置分類；可原發，或續發於其他免疫疾病、感染、腫瘤、藥物。採 <span class="num">2012</span> 修訂 International Chapel Hill Consensus Conference 命名。<span class="ref">p.179</span></li>
+<li id="np-219">定義：<strong>large vessel</strong>＝主動脈及通往主要身體區域的最大分支；<strong>medium</strong>＝主要內臟動脈（腎、肝、冠狀、腸繫膜）；<strong>small</strong>＝venules、capillaries、arterioles 與實質內遠端小動脈。<span class="ref">p.180</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Category（分類）</th><th>Diseases（疾病）</th></tr></thead>
 <tbody>
-<tr><td>Large-vessel vasculitis</td><td>Giant cell（temporal）arteritis；Takayasu arteritis</td></tr>
-<tr><td>Medium-sized–vessel vasculitis</td><td>Polyarteritis nodosa；Kawasaki disease</td></tr>
-<tr><td>Small-vessel：ANCA-associated</td><td>Granulomatosis with polyangiitis（舊稱 Wegener granulomatosis）；eosinophilic granulomatosis with polyangiitis（舊稱 Churg-Strauss syndrome）；microscopic polyangiitis</td></tr>
-<tr><td>Small-vessel：immune complex</td><td>IgA vasculitis（Henoch-Schönlein purpura）；cryoglobulinemic vasculitis；anti-GBM disease</td></tr>
-<tr><td>Variable-vessel vasculitis</td><td>Behçet disease；Cogan syndrome</td></tr>
+<tr><td id="np-220">Large-vessel vasculitis</td><td id="np-221">Giant cell（temporal）arteritis；Takayasu arteritis</td></tr>
+<tr><td id="np-222">Medium-sized–vessel vasculitis</td><td id="np-223">Polyarteritis nodosa；Kawasaki disease</td></tr>
+<tr><td id="np-224">Small-vessel：ANCA-associated</td><td id="np-225">Granulomatosis with polyangiitis（舊稱 Wegener granulomatosis）；eosinophilic granulomatosis with polyangiitis（舊稱 Churg-Strauss syndrome）；microscopic polyangiitis</td></tr>
+<tr><td id="np-226">Small-vessel：immune complex</td><td id="np-227">IgA vasculitis（Henoch-Schönlein purpura）；cryoglobulinemic vasculitis；anti-GBM disease</td></tr>
+<tr><td id="np-228">Variable-vessel vasculitis</td><td id="np-229">Behçet disease；Cogan syndrome</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a></span><span class="ref">p.180</span></p>
+<p id="np-230">出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a></span><span class="ref">p.180</span></p>
 <ul>
-<li>表註 b：書中把 <strong>polyarteritis nodosa</strong> 標為「strongly associated with ANCA」（PDF 原版即如此，非文字擷取錯誤）；但其引用的 2012 Chapel Hill 原文定義 PAN 為 <mark>not associated with ANCA</mark>，ANCA 相關的是小血管的 GPA、EGPA、MPA（本書正文 p.181 的 PAN 段落也未提 ANCA）。考題若問 ANCA-associated vasculitis，答 GPA/EGPA/MPA，不選 PAN。<span class="ref">p.180–183</span></li>
+<li id="np-231">表註 b：書中把 <strong>polyarteritis nodosa</strong> 標為「strongly associated with ANCA」（PDF 原版即如此，非文字擷取錯誤）；但其引用的 2012 Chapel Hill 原文定義 PAN 為 <mark>not associated with ANCA</mark>，ANCA 相關的是小血管的 GPA、EGPA、MPA（本書正文 p.181 的 PAN 段落也未提 ANCA）。考題若問 ANCA-associated vasculitis，答 GPA/EGPA/MPA，不選 PAN。<span class="ref">p.180–183</span></li>
 </ul>
 <h3 id="ch10-s13-2">Large-vessel vasculitis（大血管炎）</h3>
 <ul>
-<li><strong>Giant cell（temporal）arteritis（GCA，巨細胞動脈炎）</strong>：可致盲的 granulomatous 發炎，侵犯主動脈及其分支；<mark>幾乎只見於 <span class="num">&gt; 50 歲</span></mark>（老年人常見）；詳見 BCSC 5。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.179</span></li>
-<li>GCA 治療（本章外，BCSC 5）：<mark>corticosteroids 為基石；急性視力喪失首選靜脈 <strong>methylprednisolone</strong></mark>（BCSC 5：1 g/day × 3–5 天後口服 prednisone 慢慢減量）；<strong>懷疑即開始，不必等 temporal artery biopsy</strong>（切片可於 10–14 天內完成）；雙眼已嚴重受損仍須全身類固醇（全身性疾病）；ESR、CRP 升高與 thrombocytosis 常見。本章：IL-6 inhibitor <strong>tocilizumab</strong> 可能有效於 GCA 與 PMR（FDA 核准為輔助，加速類固醇減量，非急性首選）；azathioprine（Imuran）與 fingolimod 非 GCA 首選。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-473" data-q="473">第 473 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1684" data-q="1684">第 1684 題</a></span><span class="ref">p.191；BCSC 5 p.147–149, p.392–394</span></li>
-<li><strong>Takayasu arteritis（高安氏動脈炎）</strong>：同 GCA 侵犯大動脈（尤其主動脈分支）；但<mark>主要見於<strong>兒童與年輕女性</strong>，<strong>西方國家罕見、亞洲（尤其日本）較常見</strong></mark>。別名 aortic arch arteritis、aortitis syndrome、<strong>pulseless disease（無脈症）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.179</span></li>
-<li>Takayasu 病理：granulomatous panarteritis → 血管狹窄或閉塞、缺血；血管壁變弱處可 dissection 或 aneurysm。全身症狀（疲倦、頭痛、體重減輕、低燒）常見；大動脈狹窄 → 特徵性 pulseless phase。<mark>Angiography（含 MRA）為確診必要</mark>；治療 systemic corticosteroids，頑固加 cyclophosphamide 或 methotrexate，必要時血管重建。<span class="ref">p.179–180</span></li>
-<li>Takayasu 眼部：灌流下降致暫時性視覺障礙與失明；<mark>最具特徵者為 <strong>retinal arteriovenous anastomoses（視網膜動靜脈吻合）</strong>，以 FA 顯示最佳</mark>；早期較輕：小血管擴張、microaneurysm；嚴重缺血：周邊 nonperfusion、虹膜與視網膜新生血管、vitreous hemorrhage。<span class="ref">p.180</span></li>
+<li id="np-232"><strong>Giant cell（temporal）arteritis（GCA，巨細胞動脈炎）</strong>：可致盲的 granulomatous 發炎，侵犯主動脈及其分支；<mark>幾乎只見於 <span class="num">&gt; 50 歲</span></mark>（老年人常見）；詳見 BCSC 5。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.179</span></li>
+<li id="np-233">GCA 治療（本章外，BCSC 5）：<mark>corticosteroids 為基石；急性視力喪失首選靜脈 <strong>methylprednisolone</strong></mark>（BCSC 5：1 g/day × 3–5 天後口服 prednisone 慢慢減量）；<strong>懷疑即開始，不必等 temporal artery biopsy</strong>（切片可於 10–14 天內完成）；雙眼已嚴重受損仍須全身類固醇（全身性疾病）；ESR、CRP 升高與 thrombocytosis 常見。本章：IL-6 inhibitor <strong>tocilizumab</strong> 可能有效於 GCA 與 PMR（FDA 核准為輔助，加速類固醇減量，非急性首選）；azathioprine（Imuran）與 fingolimod 非 GCA 首選。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-473" data-q="473">第 473 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1684" data-q="1684">第 1684 題</a></span><span class="ref">p.191；BCSC 5 p.147–149, p.392–394</span></li>
+<li id="np-234"><strong>Takayasu arteritis（高安氏動脈炎）</strong>：同 GCA 侵犯大動脈（尤其主動脈分支）；但<mark>主要見於<strong>兒童與年輕女性</strong>，<strong>西方國家罕見、亞洲（尤其日本）較常見</strong></mark>。別名 aortic arch arteritis、aortitis syndrome、<strong>pulseless disease（無脈症）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.179</span></li>
+<li id="np-235">Takayasu 病理：granulomatous panarteritis → 血管狹窄或閉塞、缺血；血管壁變弱處可 dissection 或 aneurysm。全身症狀（疲倦、頭痛、體重減輕、低燒）常見；大動脈狹窄 → 特徵性 pulseless phase。<mark>Angiography（含 MRA）為確診必要</mark>；治療 systemic corticosteroids，頑固加 cyclophosphamide 或 methotrexate，必要時血管重建。<span class="ref">p.179–180</span></li>
+<li id="np-236">Takayasu 眼部：灌流下降致暫時性視覺障礙與失明；<mark>最具特徵者為 <strong>retinal arteriovenous anastomoses（視網膜動靜脈吻合）</strong>，以 FA 顯示最佳</mark>；早期較輕：小血管擴張、microaneurysm；嚴重缺血：周邊 nonperfusion、虹膜與視網膜新生血管、vitreous hemorrhage。<span class="ref">p.180</span></li>
 </ul>
 <h3 id="ch10-s13-3">Medium-sized–vessel vasculitis（中型血管炎）</h3>
 <ul>
-<li><strong>Polyarteritis nodosa（PAN，結節性多動脈炎）</strong>：中型與小型肌性動脈的 necrotizing vasculitis；節段性、可形成 aneurysm（血管攝影可見）；<strong>mononeuritis multiplex</strong>（疼痛性血管炎神經病變）可為首發；可有 CNS 病灶。<span class="ref">p.181</span></li>
-<li>PAN：腎臟常侵犯並伴腎絲球缺血性高血壓；腸胃內臟梗塞常見；可只侵犯單一器官（闌尾、子宮、睪丸）；與 <strong>hepatitis B、C</strong> 及 hairy cell leukemia 有關；切片確診。好發 <span class="num">40–50 多歲</span>（第五、六個十年）、男多於女；未治療存活差；corticosteroids＋cyclophosphamide；B/C 肝相關者可用抗病毒藥。<span class="ref">p.181</span></li>
-<li>PAN 眼部最多 <span class="num">20%</span>：hypertensive retinopathy、retinal vasculitis、CNS 病灶致視野缺損、cranial nerve palsies、scleritis、marginal corneal ulceration；<mark><strong>choroidal vasculitis 常被忽略</strong>，可致暫時性視覺症狀、exudative RD 與 <strong>Elschnig spots</strong>，需 FA 顯示</mark>。PAN 未治療死亡率高，眼科及時診斷可救命（BCSC 9：未治療 5 年存活 <span class="num">13%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.181；BCSC 9 p.203–204</span></li>
-<li><strong>Kawasaki disease（川崎病，mucocutaneous lymph node syndrome）</strong>：嬰幼兒；持續高燒、淋巴結腫、<strong>雙側 conjunctivitis</strong>、軀幹皮疹；特徵 <strong>strawberry tongue（草莓舌）</strong>；多自限，但可有 coronary artery aneurysms、myocarditis、心律不整；<mark>IV immunoglobulin＋aspirin</mark> 可減少長期併發症。<span class="ref">p.181</span></li>
+<li id="np-237"><strong>Polyarteritis nodosa（PAN，結節性多動脈炎）</strong>：中型與小型肌性動脈的 necrotizing vasculitis；節段性、可形成 aneurysm（血管攝影可見）；<strong>mononeuritis multiplex</strong>（疼痛性血管炎神經病變）可為首發；可有 CNS 病灶。<span class="ref">p.181</span></li>
+<li id="np-238">PAN：腎臟常侵犯並伴腎絲球缺血性高血壓；腸胃內臟梗塞常見；可只侵犯單一器官（闌尾、子宮、睪丸）；與 <strong>hepatitis B、C</strong> 及 hairy cell leukemia 有關；切片確診。好發 <span class="num">40–50 多歲</span>（第五、六個十年）、男多於女；未治療存活差；corticosteroids＋cyclophosphamide；B/C 肝相關者可用抗病毒藥。<span class="ref">p.181</span></li>
+<li id="np-239">PAN 眼部最多 <span class="num">20%</span>：hypertensive retinopathy、retinal vasculitis、CNS 病灶致視野缺損、cranial nerve palsies、scleritis、marginal corneal ulceration；<mark><strong>choroidal vasculitis 常被忽略</strong>，可致暫時性視覺症狀、exudative RD 與 <strong>Elschnig spots</strong>，需 FA 顯示</mark>。PAN 未治療死亡率高，眼科及時診斷可救命（BCSC 9：未治療 5 年存活 <span class="num">13%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.181；BCSC 9 p.203–204</span></li>
+<li id="np-240"><strong>Kawasaki disease（川崎病，mucocutaneous lymph node syndrome）</strong>：嬰幼兒；持續高燒、淋巴結腫、<strong>雙側 conjunctivitis</strong>、軀幹皮疹；特徵 <strong>strawberry tongue（草莓舌）</strong>；多自限，但可有 coronary artery aneurysms、myocarditis、心律不整；<mark>IV immunoglobulin＋aspirin</mark> 可減少長期併發症。<span class="ref">p.181</span></li>
 </ul>
 <h3 id="ch10-s13-4">Small-vessel vasculitis（小血管炎）</h3>
 <ul>
-<li>主要侵犯 arterioles、venules、capillaries；依血管壁有無免疫球蛋白/補體沉積再分 ANCA-associated 與 immune complex 型。<span class="ref">p.181</span></li>
-<li><strong>Granulomatosis with polyangiitis（GPA，肉芽腫性多血管炎；舊稱 Wegener granulomatosis）</strong>：免疫媒介 necrotizing granulomatous vasculitis，<mark>侵犯小血管</mark>；好發較年長成人、男女相當、White 為主。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a></span><span class="ref">p.182</span></li>
-<li>GPA 表現：多數有鼻竇或鼻咽組織肉芽腫發炎；<mark><strong>glomerulonephritis 最多 <span class="num">85%</span></strong>，晚期前可無症狀</mark>（→ urinalysis 很重要）；cutaneous vasculitis，較少 neurovasculitis；limited forms 診斷困難。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1072" data-q="1072">第 1072 題</a></span><span class="ref">p.182</span></li>
-<li>GPA 眼部最多 <span class="num">50%</span>，可為首發：<mark><strong>scleritis（± peripheral keratitis／PUK）</strong>、<strong>idiopathic orbital inflammatory disease（眼眶發炎，orbital pseudotumor）</strong></mark>、血管炎造成的視網膜血管或神經眼科病灶。Uveitis 相對少見（BCSC 9：約 <span class="num">10%</span>，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-973" data-q="973">第 973 題</a></span><span class="ref">p.182；BCSC 9 p.205</span></li>
-<li><span class="num">&gt; 85%</span> ANCA 陽性；<strong>組織學仍是確診的決定性方法</strong>。GPA 傾向 <mark>anti–<strong>proteinase 3（PR3）</strong>-ANCA</mark>，MPA 傾向 anti–myeloperoxidase（MPO）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a></span><span class="ref">p.182–183</span></li>
-<li><mark>未治療的嚴重 GPA，發病 <span class="num">2 年</span>內死亡率接近 <span class="num">90%</span></mark> → 早期積極治療；glucocorticoids＋<strong>rituximab（優於 cyclophosphamide）</strong>誘導與維持緩解；有時用 trimethoprim-sulfamethoxazole 預防伺機感染。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.182</span></li>
-<li><strong>Eosinophilic granulomatosis with polyangiitis（EGPA，嗜酸性肉芽腫性多血管炎；舊稱 Churg-Strauss syndrome）</strong>：小至中型動脈血管炎，特徵 <mark>chronic rhinosinusitis、<strong>asthma（氣喘）</strong>、eosinophilia（嗜酸性球增多）</mark>；原因不明；平均發病 <span class="num">50–60 歲</span>、無性別差異。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a></span><span class="ref">p.182</span></li>
-<li>EGPA：肺與皮膚（壓痛性皮下結節）最常侵犯；<strong>心血管侵犯佔死亡的一半</strong>；周邊 mononeuropathy/polyneuropathy 常見；眼部：conjunctival granulomas、retinal vasculitis 與阻塞、uveitis、cranial nerve palsies。診斷條件：asthma、eosinophilia、eosinophilic vasculitis、暫時性肺浸潤、neuropathy；肺或皮膚結節切片；ANCA 約 <span class="num">50%</span> 陽性；多數單用 glucocorticoids 可緩解，嚴重者加 rituximab 或 cyclophosphamide。<span class="ref">p.182</span></li>
-<li><strong>Microscopic polyangiitis（MPA，顯微多血管炎）</strong>：與 GPA 同樣侵犯小血管、有時難區分；但<mark>病理<strong>沒有</strong> necrotizing granuloma</mark>、較少復發；MPO-ANCA 為主；治療同 GPA。MPA 眼部侵犯比 GPA 少（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.182–183；BCSC 9 p.205</span></li>
+<li id="np-241">主要侵犯 arterioles、venules、capillaries；依血管壁有無免疫球蛋白/補體沉積再分 ANCA-associated 與 immune complex 型。<span class="ref">p.181</span></li>
+<li id="np-242"><strong>Granulomatosis with polyangiitis（GPA，肉芽腫性多血管炎；舊稱 Wegener granulomatosis）</strong>：免疫媒介 necrotizing granulomatous vasculitis，<mark>侵犯小血管</mark>；好發較年長成人、男女相當、White 為主。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a></span><span class="ref">p.182</span></li>
+<li id="np-243">GPA 表現：多數有鼻竇或鼻咽組織肉芽腫發炎；<mark><strong>glomerulonephritis 最多 <span class="num">85%</span></strong>，晚期前可無症狀</mark>（→ urinalysis 很重要）；cutaneous vasculitis，較少 neurovasculitis；limited forms 診斷困難。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1072" data-q="1072">第 1072 題</a></span><span class="ref">p.182</span></li>
+<li id="np-244">GPA 眼部最多 <span class="num">50%</span>，可為首發：<mark><strong>scleritis（± peripheral keratitis／PUK）</strong>、<strong>idiopathic orbital inflammatory disease（眼眶發炎，orbital pseudotumor）</strong></mark>、血管炎造成的視網膜血管或神經眼科病灶。Uveitis 相對少見（BCSC 9：約 <span class="num">10%</span>，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-973" data-q="973">第 973 題</a></span><span class="ref">p.182；BCSC 9 p.205</span></li>
+<li id="np-245"><span class="num">&gt; 85%</span> ANCA 陽性；<strong>組織學仍是確診的決定性方法</strong>。GPA 傾向 <mark>anti–<strong>proteinase 3（PR3）</strong>-ANCA</mark>，MPA 傾向 anti–myeloperoxidase（MPO）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a></span><span class="ref">p.182–183</span></li>
+<li id="np-246"><mark>未治療的嚴重 GPA，發病 <span class="num">2 年</span>內死亡率接近 <span class="num">90%</span></mark> → 早期積極治療；glucocorticoids＋<strong>rituximab（優於 cyclophosphamide）</strong>誘導與維持緩解；有時用 trimethoprim-sulfamethoxazole 預防伺機感染。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.182</span></li>
+<li id="np-247"><strong>Eosinophilic granulomatosis with polyangiitis（EGPA，嗜酸性肉芽腫性多血管炎；舊稱 Churg-Strauss syndrome）</strong>：小至中型動脈血管炎，特徵 <mark>chronic rhinosinusitis、<strong>asthma（氣喘）</strong>、eosinophilia（嗜酸性球增多）</mark>；原因不明；平均發病 <span class="num">50–60 歲</span>、無性別差異。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a></span><span class="ref">p.182</span></li>
+<li id="np-248">EGPA：肺與皮膚（壓痛性皮下結節）最常侵犯；<strong>心血管侵犯佔死亡的一半</strong>；周邊 mononeuropathy/polyneuropathy 常見；眼部：conjunctival granulomas、retinal vasculitis 與阻塞、uveitis、cranial nerve palsies。診斷條件：asthma、eosinophilia、eosinophilic vasculitis、暫時性肺浸潤、neuropathy；肺或皮膚結節切片；ANCA 約 <span class="num">50%</span> 陽性；多數單用 glucocorticoids 可緩解，嚴重者加 rituximab 或 cyclophosphamide。<span class="ref">p.182</span></li>
+<li id="np-249"><strong>Microscopic polyangiitis（MPA，顯微多血管炎）</strong>：與 GPA 同樣侵犯小血管、有時難區分；但<mark>病理<strong>沒有</strong> necrotizing granuloma</mark>、較少復發；MPO-ANCA 為主；治療同 GPA。MPA 眼部侵犯比 GPA 少（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1030" data-q="1030">第 1030 題</a></span><span class="ref">p.182–183；BCSC 9 p.205</span></li>
 </ul>
 <h3 id="ch10-s13-5">Variable-vessel vasculitis（不定血管炎）：Behçet disease（貝賽特氏症）</h3>
 <ul>
-<li><mark>最初描述為三聯徵：oral ulcers、genital ulcers、uveitis with hypopyon</mark>；現認為是原因不明、可侵犯<strong>任何大小動脈與靜脈</strong>的多系統血管炎（閉塞性）。中東與亞洲最常見；男女相當；多在 <span class="num">20–30 多歲</span>（第三或第四個十年）發病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1725" data-q="1725">第 1725 題</a></span><span class="ref">p.183</span></li>
-<li><mark><strong>Recurrent oral ulcers 最常見，<span class="num">&gt; 95%</span></strong></mark>；recurrent genital ulcers 與皮膚侵犯各約 <span class="num">75%</span>（genital ulcer 也很常見）；CNS 約 <span class="num">20%</span>。Oral aphthae 是<strong>疼痛性</strong>潰瘍（BCSC 9，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-47" data-q="47">第 47 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">p.183；BCSC 9 p.223</span></li>
-<li>皮膚：<strong>erythema nodosum</strong>（壓痛性結節，常在膝下伸側）、superficial thrombophlebitis、pyoderma、<strong>pathergy（皮膚受傷後膿疱反應）</strong>。約半數有不對稱、不變形的關節炎（膝、腕、踝）——<mark>arthritis 不是診斷標準</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1113" data-q="1113">第 1113 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">p.166, p.183</span></li>
-<li>血管：遊走性表淺血栓靜脈炎、大血管血栓、動脈瘤、周邊壞疽；CNS：brainstem syndrome、meningoencephalitis、confusional states。<mark>主要死因：CNS 侵犯與大血管病（含動脈瘤）</mark>。心臟侵犯（含 pericarditis）見 BCSC 9（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-47" data-q="47">第 47 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">p.183；BCSC 9 p.224</span></li>
-<li>檢驗非特異：ESR、CRP、circulating immune complexes 上升；可有高凝血清證據；<mark><strong>HLA-B51</strong> 盛行率較高，但不是 pathognomonic，也<strong>不列入診斷標準</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1725" data-q="1725">第 1725 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1726" data-q="1726">第 1726 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.183</span></li>
-<li><mark>診斷（臨床標準）：<strong>recurrent oral ulcers</strong>（必要）＋以下任 <span class="num">2</span> 項：<strong>uveitis</strong>（眼部發炎）、<strong>recurrent genital ulcers</strong>、<strong>skin involvement</strong>、<strong>pathergy</strong></mark>；依地區可能用其他標準。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-47" data-q="47">第 47 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1113" data-q="1113">第 1113 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1726" data-q="1726">第 1726 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1729" data-q="1729">第 1729 題</a></span><span class="ref">p.183</span></li>
-<li>治療：輕症 colchicine（關節炎、潰瘍）；口腔/生殖器病灶用局部類固醇，嚴重需全身治療。<mark>單用 corticosteroids 可控制急性惡化，但<strong>不改變疾病結果</strong> → 通常加 1 種以上免疫抑制劑</mark>；interferon-alfa（尤其黏膜皮膚）；posterior uveitis 用 azathioprine＋corticosteroids；頑固用 cyclophosphamide 等 alkylating agents（毒性大）；TNF-α inhibitors 亦有幫助。威脅視力的眼部 Behçet 不宜類固醇單一治療（BCSC 9：減量易反彈）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1058" data-q="1058">第 1058 題</a></span><span class="ref">p.183–184；BCSC 9 p.227</span></li>
-<li>眼部：重要致病原因，<mark>最多 <span class="num">70%</span>、常雙側</mark>；最常見為 uveitis（± hypopyon）與 <strong>retinal vasculitis</strong>；<strong>posterior uveitis 與 retinal vasculitis 常伴缺血、macular edema、exudates</strong> → 嚴重視力喪失（動靜脈皆可阻塞，缺血可致新生血管）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1058" data-q="1058">第 1058 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1725" data-q="1725">第 1725 題</a></span><span class="ref">p.184</span></li>
-<li>BCSC 9（本章外）：ocular Behçet 以 <strong>posterior uveitis／panuveitis 最常見（<span class="num">50%–80%</span>）</strong>，多為雙側 nongranulomatous；hypopyon 雖與 Behçet 相關但<strong>並不常見</strong>，典型可隨頭位移動、無大量纖維素滲出；男性（尤其年輕男性）病程較嚴重。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1058" data-q="1058">第 1058 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1725" data-q="1725">第 1725 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">BCSC 9 p.225–228</span></li>
+<li id="np-250"><mark>最初描述為三聯徵：oral ulcers、genital ulcers、uveitis with hypopyon</mark>；現認為是原因不明、可侵犯<strong>任何大小動脈與靜脈</strong>的多系統血管炎（閉塞性）。中東與亞洲最常見；男女相當；多在 <span class="num">20–30 多歲</span>（第三或第四個十年）發病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1725" data-q="1725">第 1725 題</a></span><span class="ref">p.183</span></li>
+<li id="np-251"><mark><strong>Recurrent oral ulcers 最常見，<span class="num">&gt; 95%</span></strong></mark>；recurrent genital ulcers 與皮膚侵犯各約 <span class="num">75%</span>（genital ulcer 也很常見）；CNS 約 <span class="num">20%</span>。Oral aphthae 是<strong>疼痛性</strong>潰瘍（BCSC 9，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-47" data-q="47">第 47 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">p.183；BCSC 9 p.223</span></li>
+<li id="np-252">皮膚：<strong>erythema nodosum</strong>（壓痛性結節，常在膝下伸側）、superficial thrombophlebitis、pyoderma、<strong>pathergy（皮膚受傷後膿疱反應）</strong>。約半數有不對稱、不變形的關節炎（膝、腕、踝）——<mark>arthritis 不是診斷標準</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1113" data-q="1113">第 1113 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">p.166, p.183</span></li>
+<li id="np-253">血管：遊走性表淺血栓靜脈炎、大血管血栓、動脈瘤、周邊壞疽；CNS：brainstem syndrome、meningoencephalitis、confusional states。<mark>主要死因：CNS 侵犯與大血管病（含動脈瘤）</mark>。心臟侵犯（含 pericarditis）見 BCSC 9（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-47" data-q="47">第 47 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">p.183；BCSC 9 p.224</span></li>
+<li id="np-254">檢驗非特異：ESR、CRP、circulating immune complexes 上升；可有高凝血清證據；<mark><strong>HLA-B51</strong> 盛行率較高，但不是 pathognomonic，也<strong>不列入診斷標準</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1725" data-q="1725">第 1725 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1726" data-q="1726">第 1726 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1055" data-q="1055">第 1055 題</a></span><span class="ref">p.183</span></li>
+<li id="np-255"><mark>診斷（臨床標準）：<strong>recurrent oral ulcers</strong>（必要）＋以下任 <span class="num">2</span> 項：<strong>uveitis</strong>（眼部發炎）、<strong>recurrent genital ulcers</strong>、<strong>skin involvement</strong>、<strong>pathergy</strong></mark>；依地區可能用其他標準。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-47" data-q="47">第 47 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1113" data-q="1113">第 1113 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1726" data-q="1726">第 1726 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1729" data-q="1729">第 1729 題</a></span><span class="ref">p.183</span></li>
+<li id="np-256">治療：輕症 colchicine（關節炎、潰瘍）；口腔/生殖器病灶用局部類固醇，嚴重需全身治療。<mark>單用 corticosteroids 可控制急性惡化，但<strong>不改變疾病結果</strong> → 通常加 1 種以上免疫抑制劑</mark>；interferon-alfa（尤其黏膜皮膚）；posterior uveitis 用 azathioprine＋corticosteroids；頑固用 cyclophosphamide 等 alkylating agents（毒性大）；TNF-α inhibitors 亦有幫助。威脅視力的眼部 Behçet 不宜類固醇單一治療（BCSC 9：減量易反彈）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1058" data-q="1058">第 1058 題</a></span><span class="ref">p.183–184；BCSC 9 p.227</span></li>
+<li id="np-257">眼部：重要致病原因，<mark>最多 <span class="num">70%</span>、常雙側</mark>；最常見為 uveitis（± hypopyon）與 <strong>retinal vasculitis</strong>；<strong>posterior uveitis 與 retinal vasculitis 常伴缺血、macular edema、exudates</strong> → 嚴重視力喪失（動靜脈皆可阻塞，缺血可致新生血管）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1058" data-q="1058">第 1058 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1725" data-q="1725">第 1725 題</a></span><span class="ref">p.184</span></li>
+<li id="np-258">BCSC 9（本章外）：ocular Behçet 以 <strong>posterior uveitis／panuveitis 最常見（<span class="num">50%–80%</span>）</strong>，多為雙側 nongranulomatous；hypopyon 雖與 Behçet 相關但<strong>並不常見</strong>，典型可隨頭位移動、無大量纖維素滲出；男性（尤其年輕男性）病程較嚴重。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1058" data-q="1058">第 1058 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1725" data-q="1725">第 1725 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1133" data-q="1133">第 1133 題</a></span><span class="ref">BCSC 9 p.225–228</span></li>
 </ul>
 <h3 id="ch10-s13-6">Cogan syndrome（柯根氏症候群）</h3>
 <ul>
-<li>年輕成人的免疫媒介疾病，侵犯<strong>眼與內耳</strong>；可有疲倦、發燒、體重減輕；<span class="num">10%</span> 有中或大血管炎（含 aortitis）。<span class="ref">p.184</span></li>
-<li>眼部：<mark><strong>interstitial keratitis（間質性角膜炎）</strong></mark>、uveitis、scleritis；內耳：眩暈（vestibular dysfunction）與 sensorineural hearing loss；未治療反覆發炎可致盲與聾。治療：口服 corticosteroids 與 methotrexate、azathioprine、mycophenolate。<span class="ref">p.184</span></li>
+<li id="np-259">年輕成人的免疫媒介疾病，侵犯<strong>眼與內耳</strong>；可有疲倦、發燒、體重減輕；<span class="num">10%</span> 有中或大血管炎（含 aortitis）。<span class="ref">p.184</span></li>
+<li id="np-260">眼部：<mark><strong>interstitial keratitis（間質性角膜炎）</strong></mark>、uveitis、scleritis；內耳：眩暈（vestibular dysfunction）與 sensorineural hearing loss；未治療反覆發炎可致盲與聾。治療：口服 corticosteroids 與 methotrexate、azathioprine、mycophenolate。<span class="ref">p.184</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Vessel / 族群</th><th>Key systemic clue（全身線索）</th><th>Key ocular finding（眼部重點）</th></tr></thead>
 <tbody>
-<tr><td>GCA</td><td>Large；<span class="num">&gt; 50 歲</span></td><td>PMR、頭皮壓痛、jaw claudication、ESR/CRP↑</td><td>可致盲（BCSC 5）</td></tr>
-<tr><td>Takayasu</td><td>Large；兒童、年輕女性、亞洲（日本）</td><td>Pulseless、angiography 確診</td><td>Retinal AV anastomoses（FA）</td></tr>
-<tr><td>PAN</td><td>Medium/small muscular；<span class="num">40–50 多歲</span>男</td><td>Mononeuritis multiplex、腎性高血壓、HBV/HCV</td><td>Choroidal vasculitis、Elschnig spots、marginal ulcer</td></tr>
-<tr><td>Kawasaki</td><td>Medium；嬰幼兒</td><td>高燒、草莓舌、冠狀動脈瘤</td><td>雙側 conjunctivitis</td></tr>
-<tr><td>GPA</td><td>Small；較年長、White</td><td>鼻竇/鼻咽、GN <span class="num">85%</span>、PR3-ANCA</td><td>Scleritis ± PUK、orbital inflammation（最多 <span class="num">50%</span>）</td></tr>
-<tr><td>EGPA</td><td>Small–medium；<span class="num">50–60 歲</span></td><td>Asthma、eosinophilia、ANCA <span class="num">50%</span></td><td>Conjunctival granulomas、retinal vasculitis</td></tr>
-<tr><td>MPA</td><td>Small</td><td>無 granuloma、MPO-ANCA</td><td>較 GPA 少</td></tr>
-<tr><td>Behçet</td><td>Variable；中東/亞洲、男=女</td><td>Oral ulcer <span class="num">&gt; 95%</span>、HLA-B51</td><td>Uveitis ± hypopyon、occlusive retinal vasculitis（最多 <span class="num">70%</span>）</td></tr>
-<tr><td>Cogan</td><td>Variable；年輕成人</td><td>內耳（眩暈、SNHL）、aortitis <span class="num">10%</span></td><td>Interstitial keratitis</td></tr>
+<tr><td id="np-261">GCA</td><td id="np-262">Large；<span class="num">&gt; 50 歲</span></td><td id="np-263">PMR、頭皮壓痛、jaw claudication、ESR/CRP↑</td><td id="np-264">可致盲（BCSC 5）</td></tr>
+<tr><td id="np-265">Takayasu</td><td id="np-266">Large；兒童、年輕女性、亞洲（日本）</td><td id="np-267">Pulseless、angiography 確診</td><td id="np-268">Retinal AV anastomoses（FA）</td></tr>
+<tr><td id="np-269">PAN</td><td id="np-270">Medium/small muscular；<span class="num">40–50 多歲</span>男</td><td id="np-271">Mononeuritis multiplex、腎性高血壓、HBV/HCV</td><td id="np-272">Choroidal vasculitis、Elschnig spots、marginal ulcer</td></tr>
+<tr><td id="np-273">Kawasaki</td><td id="np-274">Medium；嬰幼兒</td><td id="np-275">高燒、草莓舌、冠狀動脈瘤</td><td id="np-276">雙側 conjunctivitis</td></tr>
+<tr><td id="np-277">GPA</td><td id="np-278">Small；較年長、White</td><td id="np-279">鼻竇/鼻咽、GN <span class="num">85%</span>、PR3-ANCA</td><td id="np-280">Scleritis ± PUK、orbital inflammation（最多 <span class="num">50%</span>）</td></tr>
+<tr><td id="np-281">EGPA</td><td id="np-282">Small–medium；<span class="num">50–60 歲</span></td><td id="np-283">Asthma、eosinophilia、ANCA <span class="num">50%</span></td><td id="np-284">Conjunctival granulomas、retinal vasculitis</td></tr>
+<tr><td id="np-285">MPA</td><td id="np-286">Small</td><td id="np-287">無 granuloma、MPO-ANCA</td><td id="np-288">較 GPA 少</td></tr>
+<tr><td id="np-289">Behçet</td><td id="np-290">Variable；中東/亞洲、男=女</td><td id="np-291">Oral ulcer <span class="num">&gt; 95%</span>、HLA-B51</td><td id="np-292">Uveitis ± hypopyon、occlusive retinal vasculitis（最多 <span class="num">70%</span>）</td></tr>
+<tr><td id="np-293">Cogan</td><td id="np-294">Variable；年輕成人</td><td id="np-295">內耳（眩暈、SNHL）、aortitis <span class="num">10%</span></td><td id="np-296">Interstitial keratitis</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.179–184</span></p>
+<p id="np-297">出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.179–184</span></p>
 <div class="ex-trap"><h3 id="ch10-s13-7">易錯陷阱</h3><ul>
-<li>Takayasu 是 <strong>large</strong>-vessel，不是中動脈；且西方罕見、亞洲常見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.179–180</span></li>
-<li>GPA 的 PR3、MPA 的 MPO；ANCA 不是 SLE 抗體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.182–183</span></li>
-<li>GPA 眼部以 scleritis/PUK 與 orbital inflammation 為主，uveitis 相對少見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-973" data-q="973">第 973 題</a></span><span class="ref">p.182</span></li>
-<li>Behçet 診斷標準不含 arthritis 與 HLA-B51；必要條件是 recurrent oral ulcers。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1113" data-q="1113">第 1113 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1726" data-q="1726">第 1726 題</a></span><span class="ref">p.183</span></li>
-<li>Behçet 單用類固醇不改變結局，要加免疫抑制劑。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1058" data-q="1058">第 1058 題</a></span><span class="ref">p.183</span></li>
-<li>懷疑 GCA 立即給類固醇，不可等切片結果；tocilizumab 是輔助（減量），不是急性首選。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1684" data-q="1684">第 1684 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-473" data-q="473">第 473 題</a></span><span class="ref">p.191；BCSC 5 p.149, p.392</span></li>
+<li id="np-298">Takayasu 是 <strong>large</strong>-vessel，不是中動脈；且西方罕見、亞洲常見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-29" data-q="29">第 29 題</a></span><span class="ref">p.179–180</span></li>
+<li id="np-299">GPA 的 PR3、MPA 的 MPO；ANCA 不是 SLE 抗體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-8" data-q="8">第 8 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1017" data-q="1017">第 1017 題</a></span><span class="ref">p.182–183</span></li>
+<li id="np-300">GPA 眼部以 scleritis/PUK 與 orbital inflammation 為主，uveitis 相對少見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-973" data-q="973">第 973 題</a></span><span class="ref">p.182</span></li>
+<li id="np-301">Behçet 診斷標準不含 arthritis 與 HLA-B51；必要條件是 recurrent oral ulcers。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1113" data-q="1113">第 1113 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1726" data-q="1726">第 1726 題</a></span><span class="ref">p.183</span></li>
+<li id="np-302">Behçet 單用類固醇不改變結局，要加免疫抑制劑。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1058" data-q="1058">第 1058 題</a></span><span class="ref">p.183</span></li>
+<li id="np-303">懷疑 GCA 立即給類固醇，不可等切片結果；tocilizumab 是輔助（減量），不是急性首選。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1684" data-q="1684">第 1684 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-473" data-q="473">第 473 題</a></span><span class="ref">p.191；BCSC 5 p.149, p.392</span></li>
 </ul></div>
 
 <h2 id="ch10-s14">十四、COVID-19 與風濕病</h2>
 <ul>
-<li>目前不清楚風濕病人感染 COVID-19 是否預後較差；接受免疫調節治療者疫苗反應可能受損 → ACR 建議追加劑（<span class="num">2022 年 8 月</span>）並依藥物調整接種時機。<span class="ref">p.184</span></li>
-<li>兒童多輕症；罕見 <strong>multisystem inflammatory syndrome in children（MIS-C）</strong>，類似 Kawasaki disease 或 toxic shock syndrome，常需住院加護並有血栓風險，但死亡率 <span class="num">&lt; 1%</span>。<span class="ref">p.184</span></li>
+<li id="np-304">目前不清楚風濕病人感染 COVID-19 是否預後較差；接受免疫調節治療者疫苗反應可能受損 → ACR 建議追加劑（<span class="num">2022 年 8 月</span>）並依藥物調整接種時機。<span class="ref">p.184</span></li>
+<li id="np-305">兒童多輕症；罕見 <strong>multisystem inflammatory syndrome in children（MIS-C）</strong>，類似 Kawasaki disease 或 toxic shock syndrome，常需住院加護並有血栓風險，但死亡率 <span class="num">&lt; 1%</span>。<span class="ref">p.184</span></li>
 </ul>
 
 <h2 id="ch10-s15">十五、Corticosteroids（皮質類固醇）</h2>
 <h3 id="ch10-s15-1">作用機轉</h3>
 <ul>
-<li>抑制 phospholipid 轉為 <strong>arachidonic acid</strong>，阻斷 prostaglandins、leukotrienes 等發炎介質。<span class="ref">p.185</span></li>
-<li>其他作用：促進 gluconeogenesis（伴負氮平衡、蛋白合成下降）；影響脂肪代謝；<mark>循環 <strong>neutrophils 增加</strong></mark>（骨髓釋出成熟嗜中性球、移出血管減少），其他白血球減少。<span class="ref">p.185</span></li>
-<li><mark>Mineralocorticoid 作用：<strong>鈉滯留、鉀排出</strong> → hypokalemia</mark>（不是 hyperkalemia）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-65" data-q="65">第 65 題</a></span><span class="ref">p.185</span></li>
+<li id="np-306">抑制 phospholipid 轉為 <strong>arachidonic acid</strong>，阻斷 prostaglandins、leukotrienes 等發炎介質。<span class="ref">p.185</span></li>
+<li id="np-307">其他作用：促進 gluconeogenesis（伴負氮平衡、蛋白合成下降）；影響脂肪代謝；<mark>循環 <strong>neutrophils 增加</strong></mark>（骨髓釋出成熟嗜中性球、移出血管減少），其他白血球減少。<span class="ref">p.185</span></li>
+<li id="np-308"><mark>Mineralocorticoid 作用：<strong>鈉滯留、鉀排出</strong> → hypokalemia</mark>（不是 hyperkalemia）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-65" data-q="65">第 65 題</a></span><span class="ref">p.185</span></li>
 </ul>
 <h3 id="ch10-s15-2">相對效力（Table 10-4）</h3>
 <table class="ted-table">
 <thead><tr><th>Glucocorticoid</th><th>Approximate equivalent dose（約當劑量，mg）</th><th>Relative anti-inflammatory potency（相對抗發炎效力）</th></tr></thead>
 <tbody>
-<tr><td>Cortisone</td><td><span class="num">25</span></td><td><span class="num">0.8</span></td></tr>
-<tr><td>Hydrocortisone</td><td><span class="num">20</span></td><td><span class="num">1.0</span></td></tr>
-<tr><td>Prednisone</td><td><span class="num">5</span></td><td><span class="num">4.0</span></td></tr>
-<tr><td>Prednisolone</td><td><span class="num">5</span></td><td><span class="num">4.0</span></td></tr>
-<tr><td>Methylprednisolone</td><td><span class="num">4</span></td><td><span class="num">5.0</span></td></tr>
-<tr><td>Triamcinolone</td><td><span class="num">4</span></td><td><span class="num">5.0</span></td></tr>
-<tr><td>Dexamethasone</td><td><span class="num">0.75</span></td><td><span class="num">25.0</span></td></tr>
+<tr><td id="np-309">Cortisone</td><td id="np-310"><span class="num">25</span></td><td id="np-311"><span class="num">0.8</span></td></tr>
+<tr><td id="np-312">Hydrocortisone</td><td id="np-313"><span class="num">20</span></td><td id="np-314"><span class="num">1.0</span></td></tr>
+<tr><td id="np-315">Prednisone</td><td id="np-316"><span class="num">5</span></td><td id="np-317"><span class="num">4.0</span></td></tr>
+<tr><td id="np-318">Prednisolone</td><td id="np-319"><span class="num">5</span></td><td id="np-320"><span class="num">4.0</span></td></tr>
+<tr><td id="np-321">Methylprednisolone</td><td id="np-322"><span class="num">4</span></td><td id="np-323"><span class="num">5.0</span></td></tr>
+<tr><td id="np-324">Triamcinolone</td><td id="np-325"><span class="num">4</span></td><td id="np-326"><span class="num">5.0</span></td></tr>
+<tr><td id="np-327">Dexamethasone</td><td id="np-328"><span class="num">0.75</span></td><td id="np-329"><span class="num">25.0</span></td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-72" data-q="72">第 72 題</a></span><span class="ref">p.185</span></p>
+<p id="np-330">出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-72" data-q="72">第 72 題</a></span><span class="ref">p.185</span></p>
 <ul>
-<li><mark>效力排序：dexamethasone <span class="num">25</span> ＞ methylprednisolone＝triamcinolone <span class="num">5</span> ＞ prednisone＝prednisolone <span class="num">4</span> ＞ hydrocortisone <span class="num">1</span> ＞ cortisone <span class="num">0.8</span></mark>；故「dexamethasone ＞ triamcinolone ＞ prednisolone ＞ hydrocortisone」正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-72" data-q="72">第 72 題</a></span><span class="ref">p.185</span></li>
-<li>可修飾類固醇核結構以分離 glucocorticoid 與 mineralocorticoid 作用，但仍無法完全分離抗發炎與不良 glucocorticoid 作用。<span class="ref">p.185</span></li>
+<li id="np-331"><mark>效力排序：dexamethasone <span class="num">25</span> ＞ methylprednisolone＝triamcinolone <span class="num">5</span> ＞ prednisone＝prednisolone <span class="num">4</span> ＞ hydrocortisone <span class="num">1</span> ＞ cortisone <span class="num">0.8</span></mark>；故「dexamethasone ＞ triamcinolone ＞ prednisolone ＞ hydrocortisone」正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-72" data-q="72">第 72 題</a></span><span class="ref">p.185</span></li>
+<li id="np-332">可修飾類固醇核結構以分離 glucocorticoid 與 mineralocorticoid 作用，但仍無法完全分離抗發炎與不良 glucocorticoid 作用。<span class="ref">p.185</span></li>
 </ul>
 <h3 id="ch10-s15-3">不良反應</h3>
 <ul>
-<li>眼部：<strong>posterior subcapsular cataract</strong>、glaucoma、mydriasis、ptosis、idiopathic intracranial hypertension 相關 papilledema、眼部感染惡化、傷口癒合延遲。<span class="ref">p.185</span></li>
-<li>全身：peptic ulcer、<strong>osteoporosis</strong>、<strong>aseptic necrosis of the femoral head（股骨頭無菌性壞死）</strong>、肌肉與皮膚萎縮、hyperglycemia、hypertension、水腫、體重增加、cushingoid habitus、hyperosmolar nonketotic states、<mark><strong>hypokalemia</strong></mark>、<strong>growth delay in children（兒童生長遲緩）</strong>、精神變化（輕微情緒到嚴重反應、心理依賴）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-65" data-q="65">第 65 題</a></span><span class="ref">p.185–186</span></li>
-<li>Osteoporosis：開始治療<strong>數個月內</strong>骨折風險即上升；以 bone mineral density 評估；補充 calcium、vitamin D，有時用 hormone replacement 與 bisphosphonates。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-65" data-q="65">第 65 題</a></span><span class="ref">p.186</span></li>
+<li id="np-333">眼部：<strong>posterior subcapsular cataract</strong>、glaucoma、mydriasis、ptosis、idiopathic intracranial hypertension 相關 papilledema、眼部感染惡化、傷口癒合延遲。<span class="ref">p.185</span></li>
+<li id="np-334">全身：peptic ulcer、<strong>osteoporosis</strong>、<strong>aseptic necrosis of the femoral head（股骨頭無菌性壞死）</strong>、肌肉與皮膚萎縮、hyperglycemia、hypertension、水腫、體重增加、cushingoid habitus、hyperosmolar nonketotic states、<mark><strong>hypokalemia</strong></mark>、<strong>growth delay in children（兒童生長遲緩）</strong>、精神變化（輕微情緒到嚴重反應、心理依賴）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-65" data-q="65">第 65 題</a></span><span class="ref">p.185–186</span></li>
+<li id="np-335">Osteoporosis：開始治療<strong>數個月內</strong>骨折風險即上升；以 bone mineral density 評估；補充 calcium、vitamin D，有時用 hormone replacement 與 bisphosphonates。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-65" data-q="65">第 65 題</a></span><span class="ref">p.186</span></li>
 </ul>
 <h3 id="ch10-s15-4">停藥</h3>
 <ul>
-<li>減量速度取決於：(1) hypothalamic-pituitary-adrenal（HPA）axis 抑制程度（與效力、劑量、療程相關）；（2）原疾病對減量的反應。<span class="ref">p.186</span></li>
-<li><mark>可能已 HPA 抑制：cushingoid 外觀，或 prednisone 當量每日 <span class="num">≥ 10 mg</span>（或持續晚間/睡前 <span class="num">≥ 5 mg</span>）超過 <span class="num">3 週</span></mark>。<span class="ref">p.186</span></li>
-<li>實務減量：每 <span class="num">2–4 週</span>減 <span class="num">5%–10%</span> 並監測；驟停 → adrenal insufficiency（疲倦、無力、關節痛、噁心、orthostatic hypotension、hypoglycemia），嚴重可致死。<span class="ref">p.186</span></li>
-<li>停藥後腎上腺功能可能 <span class="num">1 年以上</span>才恢復，期間重病或手術需補充類固醇。<span class="ref">p.186</span></li>
-<li>眼科開立全身類固醇應請家醫協助監測；需高劑量或長期者應及早考慮其他免疫抑制劑（steroid-sparing）。<span class="ref">p.186</span></li>
+<li id="np-336">減量速度取決於：(1) hypothalamic-pituitary-adrenal（HPA）axis 抑制程度（與效力、劑量、療程相關）；（2）原疾病對減量的反應。<span class="ref">p.186</span></li>
+<li id="np-337"><mark>可能已 HPA 抑制：cushingoid 外觀，或 prednisone 當量每日 <span class="num">≥ 10 mg</span>（或持續晚間/睡前 <span class="num">≥ 5 mg</span>）超過 <span class="num">3 週</span></mark>。<span class="ref">p.186</span></li>
+<li id="np-338">實務減量：每 <span class="num">2–4 週</span>減 <span class="num">5%–10%</span> 並監測；驟停 → adrenal insufficiency（疲倦、無力、關節痛、噁心、orthostatic hypotension、hypoglycemia），嚴重可致死。<span class="ref">p.186</span></li>
+<li id="np-339">停藥後腎上腺功能可能 <span class="num">1 年以上</span>才恢復，期間重病或手術需補充類固醇。<span class="ref">p.186</span></li>
+<li id="np-340">眼科開立全身類固醇應請家醫協助監測；需高劑量或長期者應及早考慮其他免疫抑制劑（steroid-sparing）。<span class="ref">p.186</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s15-5">易錯陷阱</h3><ul>
-<li>類固醇造成 hypokalemia、hyperglycemia、neutrophilia；不是 hyperkalemia。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-65" data-q="65">第 65 題</a></span><span class="ref">p.185</span></li>
-<li>Prednisolone（<span class="num">4</span>）＜ methylprednisolone（<span class="num">5</span>）；cortisone（<span class="num">0.8</span>）最弱；dexamethasone <span class="num">0.75 mg</span> 約當 prednisone <span class="num">5 mg</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-72" data-q="72">第 72 題</a></span><span class="ref">p.185</span></li>
+<li id="np-341">類固醇造成 hypokalemia、hyperglycemia、neutrophilia；不是 hyperkalemia。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-65" data-q="65">第 65 題</a></span><span class="ref">p.185</span></li>
+<li id="np-342">Prednisolone（<span class="num">4</span>）＜ methylprednisolone（<span class="num">5</span>）；cortisone（<span class="num">0.8</span>）最弱；dexamethasone <span class="num">0.75 mg</span> 約當 prednisone <span class="num">5 mg</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-72" data-q="72">第 72 題</a></span><span class="ref">p.185</span></li>
 </ul></div>
 
 <h2 id="ch10-s16">十六、Nonsteroidal anti-inflammatory drugs（NSAIDs，非類固醇抗發炎藥）</h2>
 <ul>
-<li>抑制 <strong>cyclooxygenase（COX）</strong>，減少 prostaglandins；皆有止痛、退燒、抗發炎作用。<span class="ref">p.186</span></li>
-<li><strong>COX-1</strong>：多數細胞皆有，參與胃黏膜保護、血小板凝集、腎功能；<strong>COX-2</strong>：腦、骨等組織，並在發炎時誘導表現。傳統 NSAIDs（ibuprofen、naproxen）兩者皆抑制。<span class="ref">p.186</span></li>
-<li>口服 NSAIDs 併發症約佔美國住院 <span class="num">12%</span>；重要副作用：GI bleeding、renal failure、hypertension、heart failure、aspirin-sensitive 者誘發 asthma；影響血小板、骨髓抑制、肝毒性、CNS（頭痛、頭暈、混亂）。<span class="ref">p.186–187</span></li>
-<li>眼部（罕見）：非特異視力模糊、diplopia；可能 optic neuropathy 與 macular edema（<strong>尤其 ibuprofen</strong>）。<span class="ref">p.187</span></li>
-<li><strong>Selective COX-2 inhibitors</strong>：減少 GI 傷害、對血小板影響較小；<strong>celecoxib</strong> 為美國唯一，高劑量有心血管血栓警告；parecoxib、etoricoxib 在部分歐洲國家；眼部報告 conjunctivitis、transient visual loss、blurred vision。<span class="ref">p.187</span></li>
-<li>全身 NSAIDs 可協助控制部分 uveitis 或 scleritis，但<mark>效果不如 corticosteroids</mark>；有多種 FDA 核准的眼用 NSAIDs。<span class="ref">p.187</span></li>
+<li id="np-343">抑制 <strong>cyclooxygenase（COX）</strong>，減少 prostaglandins；皆有止痛、退燒、抗發炎作用。<span class="ref">p.186</span></li>
+<li id="np-344"><strong>COX-1</strong>：多數細胞皆有，參與胃黏膜保護、血小板凝集、腎功能；<strong>COX-2</strong>：腦、骨等組織，並在發炎時誘導表現。傳統 NSAIDs（ibuprofen、naproxen）兩者皆抑制。<span class="ref">p.186</span></li>
+<li id="np-345">口服 NSAIDs 併發症約佔美國住院 <span class="num">12%</span>；重要副作用：GI bleeding、renal failure、hypertension、heart failure、aspirin-sensitive 者誘發 asthma；影響血小板、骨髓抑制、肝毒性、CNS（頭痛、頭暈、混亂）。<span class="ref">p.186–187</span></li>
+<li id="np-346">眼部（罕見）：非特異視力模糊、diplopia；可能 optic neuropathy 與 macular edema（<strong>尤其 ibuprofen</strong>）。<span class="ref">p.187</span></li>
+<li id="np-347"><strong>Selective COX-2 inhibitors</strong>：減少 GI 傷害、對血小板影響較小；<strong>celecoxib</strong> 為美國唯一，高劑量有心血管血栓警告；parecoxib、etoricoxib 在部分歐洲國家；眼部報告 conjunctivitis、transient visual loss、blurred vision。<span class="ref">p.187</span></li>
+<li id="np-348">全身 NSAIDs 可協助控制部分 uveitis 或 scleritis，但<mark>效果不如 corticosteroids</mark>；有多種 FDA 核准的眼用 NSAIDs。<span class="ref">p.187</span></li>
 </ul>
 
 <h2 id="ch10-s17">十七、DMARDs：nonbiologic agents（非生物製劑）</h2>
@@ -701,60 +740,60 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <table class="ted-table">
 <thead><tr><th>Drug（藥物）</th><th>Mechanism（機轉）</th><th>Adverse effects（副作用）</th></tr></thead>
 <tbody>
-<tr><td>Methotrexate</td><td>抑制 folate 代謝/DNA 合成</td><td>GI、肝、pneumonitis、cytopenia、sterility、teratogenicity</td></tr>
-<tr><td>Leflunomide</td><td>抑制 DNA/RNA 合成</td><td>GI、hepatotoxicity、hypertension、pneumonitis（罕見）</td></tr>
-<tr><td>Hydroxychloroquine</td><td>抑制 lysosomal enzymes</td><td>GI、<strong>retinal toxicity</strong>、G6PD 缺乏者 hemolytic anemia</td></tr>
-<tr><td>Sulfasalazine</td><td>確切機轉不明</td><td>GI、過敏、G6PD 缺乏者 hemolytic anemia</td></tr>
-<tr><td>Azathioprine</td><td>抑制 purine 合成，干擾 DNA 複製與 RNA 轉錄</td><td>GI、感染、<strong>cytopenia</strong>、lymphoma</td></tr>
-<tr><td>Cyclophosphamide、chlorambucil</td><td>細胞毒性/DNA cross-linking</td><td>Cytopenia、感染、<strong>infertility</strong>、malignancy</td></tr>
-<tr><td>Cyclosporine、tacrolimus</td><td>抑制 T-cell 活化</td><td><strong>Hypertension、renal toxicity</strong></td></tr>
-<tr><td>Mycophenolate mofetil</td><td>抑制 T/B 細胞增生</td><td>GI、cytopenia、感染</td></tr>
+<tr><td id="np-349">Methotrexate</td><td id="np-350">抑制 folate 代謝/DNA 合成</td><td id="np-351">GI、肝、pneumonitis、cytopenia、sterility、teratogenicity</td></tr>
+<tr><td id="np-352">Leflunomide</td><td id="np-353">抑制 DNA/RNA 合成</td><td id="np-354">GI、hepatotoxicity、hypertension、pneumonitis（罕見）</td></tr>
+<tr><td id="np-355">Hydroxychloroquine</td><td id="np-356">抑制 lysosomal enzymes</td><td id="np-357">GI、<strong>retinal toxicity</strong>、G6PD 缺乏者 hemolytic anemia</td></tr>
+<tr><td id="np-358">Sulfasalazine</td><td id="np-359">確切機轉不明</td><td id="np-360">GI、過敏、G6PD 缺乏者 hemolytic anemia</td></tr>
+<tr><td id="np-361">Azathioprine</td><td id="np-362">抑制 purine 合成，干擾 DNA 複製與 RNA 轉錄</td><td id="np-363">GI、感染、<strong>cytopenia</strong>、lymphoma</td></tr>
+<tr><td id="np-364">Cyclophosphamide、chlorambucil</td><td id="np-365">細胞毒性/DNA cross-linking</td><td id="np-366">Cytopenia、感染、<strong>infertility</strong>、malignancy</td></tr>
+<tr><td id="np-367">Cyclosporine、tacrolimus</td><td id="np-368">抑制 T-cell 活化</td><td id="np-369"><strong>Hypertension、renal toxicity</strong></td></tr>
+<tr><td id="np-370">Mycophenolate mofetil</td><td id="np-371">抑制 T/B 細胞增生</td><td id="np-372">GI、cytopenia、感染</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.188</span></p>
+<p id="np-373">出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.188</span></p>
 <h3 id="ch10-s17-2">Methotrexate（MTX）</h3>
 <ul>
-<li><mark><strong>Folic acid 結構類似物</strong>，干擾 folate 依賴的 purine 代謝與 pyrimidine 代謝（DNA 合成）</mark>——不是干擾蛋白質合成。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187–188</span></li>
-<li><mark>Disease-modifying 作用部分經由<strong>增加 extracellular adenosine（細胞外腺苷）</strong>（本身具抗發炎活性）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187</span></li>
-<li>每週給藥：起始 <span class="num">7.5–10 mg</span>，視反應漸增至最高 <span class="num">25 mg</span>；<mark>補充 <strong>folic acid</strong> 減少副作用</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187</span></li>
-<li>主要副作用：<strong>hepatic fibrosis</strong>、interstitial lung disease、<strong>bone marrow toxicity</strong>、teratogenicity、sterility、高劑量腎毒性；基線與定期監測 CBC with differential、肝酵素、albumin、creatinine。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187</span></li>
+<li id="np-374"><mark><strong>Folic acid 結構類似物</strong>，干擾 folate 依賴的 purine 代謝與 pyrimidine 代謝（DNA 合成）</mark>——不是干擾蛋白質合成。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187–188</span></li>
+<li id="np-375"><mark>Disease-modifying 作用部分經由<strong>增加 extracellular adenosine（細胞外腺苷）</strong>（本身具抗發炎活性）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187</span></li>
+<li id="np-376">每週給藥：起始 <span class="num">7.5–10 mg</span>，視反應漸增至最高 <span class="num">25 mg</span>；<mark>補充 <strong>folic acid</strong> 減少副作用</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187</span></li>
+<li id="np-377">主要副作用：<strong>hepatic fibrosis</strong>、interstitial lung disease、<strong>bone marrow toxicity</strong>、teratogenicity、sterility、高劑量腎毒性；基線與定期監測 CBC with differential、肝酵素、albumin、creatinine。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187</span></li>
 </ul>
 <h3 id="ch10-s17-3">Leflunomide</h3>
 <ul>
-<li>針對快速分裂細胞（活化淋巴球）；最常用於 RA，也用於 psoriatic arthritis、juvenile polyarthritis、refractory dermatomyositis、SLE；療效與 MTX 相近，MTX 單用無效時可合併；副作用 GI、hepatotoxicity、hypertension（尤其併用 NSAIDs）。<span class="ref">p.187</span></li>
+<li id="np-378">針對快速分裂細胞（活化淋巴球）；最常用於 RA，也用於 psoriatic arthritis、juvenile polyarthritis、refractory dermatomyositis、SLE；療效與 MTX 相近，MTX 單用無效時可合併；副作用 GI、hepatotoxicity、hypertension（尤其併用 NSAIDs）。<span class="ref">p.187</span></li>
 </ul>
 <h3 id="ch10-s17-4">Hydroxychloroquine（HCQ，羥氯奎寧）</h3>
 <ul>
-<li>抗瘧藥；<mark>提高細胞內各區室 pH → 減少 <strong>cytokine production</strong> 與 <strong>lymphocyte proliferation</strong></mark>；半衰期長（<span class="num">1–2 個月</span>），需數週至數月才見效。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">p.189</span></li>
-<li>是最安全的免疫抑制藥之一；<mark>retinopathy（bull's-eye maculopathy）是<strong>相對少見（relatively unusual）</strong>的併發症</mark>，但未及早發現會造成<strong>不可逆</strong>視力喪失（停藥也很少恢復）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1452" data-q="1452">第 1452 題</a></span><span class="ref">p.189</span></li>
-<li><mark>依 <strong>actual body weight（實際體重）</strong>評估風險較 ideal body weight 準確；每日最高 <span class="num">5 mg/kg</span></mark>。舊版以理想體重計算的門檻為 <span class="num">6.5 mg/kg/day</span>（超過則風險上升，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">p.189；BCSC 12 p.334</span></li>
-<li>危險因子：<strong>用藥時間</strong>（約 <span class="num">20%</span> 在用藥 <span class="num">20 年</span>後出現毒性；BCSC 12：&gt; <span class="num">5 年</span>）、既有視網膜疾病、<mark><strong>renal disease（腎臟病，非肝病）</strong></mark>、<mark>併用 <strong>tamoxifen</strong>（增加風險，非保護）</mark>；累積劑量 &gt; <span class="num">1000 g</span>（chloroquine &gt; <span class="num">460 g</span>）屬高風險（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1451" data-q="1451">第 1451 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1454" data-q="1454">第 1454 題</a></span><span class="ref">p.189；BCSC 12 p.334</span></li>
-<li>篩檢：散瞳眼底檢查外，定期 <strong>SD-OCT</strong> 與 <strong>10-2 visual field</strong>；<mark><strong>Asian</strong> 病人損傷偏周邊（黃斑外），宜改用 <strong>24-2 或 30-2</strong> 視野</mark>；Amsler grid、color vision、electro-oculogram <strong>不建議</strong>用於篩檢。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1452" data-q="1452">第 1452 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.189</span></li>
-<li>即使在「安全」劑量且無危險因子仍有發生案例，故不能僅靠劑量確保無虞；chloroquine 毒性高於 HCQ，兩者安全性不同；最早毒性徵象為雙眼 paracentral VF 缺損與 SD-OCT 旁中心 ellipsoid 流失（flying saucer sign），bull's-eye 是持續暴露後較晚期的外觀（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1451" data-q="1451">第 1451 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1452" data-q="1452">第 1452 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">BCSC 12 p.333–337</span></li>
+<li id="np-379">抗瘧藥；<mark>提高細胞內各區室 pH → 減少 <strong>cytokine production</strong> 與 <strong>lymphocyte proliferation</strong></mark>；半衰期長（<span class="num">1–2 個月</span>），需數週至數月才見效。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">p.189</span></li>
+<li id="np-380">是最安全的免疫抑制藥之一；<mark>retinopathy（bull's-eye maculopathy）是<strong>相對少見（relatively unusual）</strong>的併發症</mark>，但未及早發現會造成<strong>不可逆</strong>視力喪失（停藥也很少恢復）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1452" data-q="1452">第 1452 題</a></span><span class="ref">p.189</span></li>
+<li id="np-381"><mark>依 <strong>actual body weight（實際體重）</strong>評估風險較 ideal body weight 準確；每日最高 <span class="num">5 mg/kg</span></mark>。舊版以理想體重計算的門檻為 <span class="num">6.5 mg/kg/day</span>（超過則風險上升，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">p.189；BCSC 12 p.334</span></li>
+<li id="np-382">危險因子：<strong>用藥時間</strong>（約 <span class="num">20%</span> 在用藥 <span class="num">20 年</span>後出現毒性；BCSC 12：&gt; <span class="num">5 年</span>）、既有視網膜疾病、<mark><strong>renal disease（腎臟病，非肝病）</strong></mark>、<mark>併用 <strong>tamoxifen</strong>（增加風險，非保護）</mark>；累積劑量 &gt; <span class="num">1000 g</span>（chloroquine &gt; <span class="num">460 g</span>）屬高風險（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1451" data-q="1451">第 1451 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1454" data-q="1454">第 1454 題</a></span><span class="ref">p.189；BCSC 12 p.334</span></li>
+<li id="np-383">篩檢：散瞳眼底檢查外，定期 <strong>SD-OCT</strong> 與 <strong>10-2 visual field</strong>；<mark><strong>Asian</strong> 病人損傷偏周邊（黃斑外），宜改用 <strong>24-2 或 30-2</strong> 視野</mark>；Amsler grid、color vision、electro-oculogram <strong>不建議</strong>用於篩檢。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1452" data-q="1452">第 1452 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.189</span></li>
+<li id="np-384">即使在「安全」劑量且無危險因子仍有發生案例，故不能僅靠劑量確保無虞；chloroquine 毒性高於 HCQ，兩者安全性不同；最早毒性徵象為雙眼 paracentral VF 缺損與 SD-OCT 旁中心 ellipsoid 流失（flying saucer sign），bull's-eye 是持續暴露後較晚期的外觀（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1451" data-q="1451">第 1451 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1452" data-q="1452">第 1452 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">BCSC 12 p.333–337</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>AAO screening（Table 10-6）</th><th>內容</th></tr></thead>
 <tbody>
-<tr><td>Baseline screening（基線）</td><td>用藥<strong>第一年內</strong>眼底檢查；若已有 maculopathy，加做 visual fields 與 SD-OCT</td></tr>
-<tr><td>Annual screening（每年）</td><td>用藥 <span class="num">5 年</span>後開始；有主要危險因子者提早</td></tr>
+<tr><td id="np-385">Baseline screening（基線）</td><td id="np-386">用藥<strong>第一年內</strong>眼底檢查；若已有 maculopathy，加做 visual fields 與 SD-OCT</td></tr>
+<tr><td id="np-387">Annual screening（每年）</td><td id="np-388">用藥 <span class="num">5 年</span>後開始；有主要危險因子者提早</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.189</span></p>
+<p id="np-389">出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1102" data-q="1102">第 1102 題</a></span><span class="ref">p.189</span></p>
 <h3 id="ch10-s17-5">Sulfasalazine、azathioprine、alkylating agents、calcineurin inhibitors、mycophenolate</h3>
 <ul>
-<li><strong>Sulfasalazine</strong>：機轉不明，對 RA 有效，常與 HCQ、MTX 合併。<mark>Sulfasalazine 與 HCQ 在 <strong>G6PD deficiency</strong> 可引起 hemolytic anemia</mark>（磺胺類藥物顧慮；G6PD 缺乏嬰兒的哺乳母親青光眼藥以排除法選 prostaglandin analogues，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1237" data-q="1237">第 1237 題</a></span><span class="ref">p.188, p.190；BCSC 10 p.242</span></li>
-<li><strong>Azathioprine</strong>：antimetabolite，干擾 purine 代謝；最常見副作用 GI、感染、<mark>bone marrow suppression（cytopenia）</mark>；lymphoma 風險最多增加 <span class="num">4 倍</span>；IBD 病人因毒性使用受限。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.190</span></li>
-<li><strong>Alkylating agents（cyclophosphamide、chlorambucil）</strong>：DNA cross-linking 阻斷複製；<mark>infertility</mark>、骨髓抑制、感染、惡性腫瘤 → 保留給極頑固或危及生命疾病（如 GPA）；<strong>口服 cyclophosphamide 增加 bladder cancer</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.190</span></li>
-<li><strong>Calcineurin inhibitors（cyclosporine、tacrolimus）</strong>：阻斷 calcineurin → 抑制 helper T cell 的 IL-2 等 cytokine 轉錄；<mark>主要副作用 <strong>nephrotoxicity 與 hypertension</strong></mark>（肝毒性不是代表性毒性）；另有感染與 nonmelanoma skin cancer；保留給頑固病例。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.190</span></li>
-<li><strong>Mycophenolate mofetil</strong>：抑制淋巴球 guanosine 生成 → 減少增生與抗體；副作用 GI、骨髓抑制、感染；enteric-coated mycophenolate sodium 減少 GI 副作用；耐受性佳。<span class="ref">p.190</span></li>
+<li id="np-390"><strong>Sulfasalazine</strong>：機轉不明，對 RA 有效，常與 HCQ、MTX 合併。<mark>Sulfasalazine 與 HCQ 在 <strong>G6PD deficiency</strong> 可引起 hemolytic anemia</mark>（磺胺類藥物顧慮；G6PD 缺乏嬰兒的哺乳母親青光眼藥以排除法選 prostaglandin analogues，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1237" data-q="1237">第 1237 題</a></span><span class="ref">p.188, p.190；BCSC 10 p.242</span></li>
+<li id="np-391"><strong>Azathioprine</strong>：antimetabolite，干擾 purine 代謝；最常見副作用 GI、感染、<mark>bone marrow suppression（cytopenia）</mark>；lymphoma 風險最多增加 <span class="num">4 倍</span>；IBD 病人因毒性使用受限。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.190</span></li>
+<li id="np-392"><strong>Alkylating agents（cyclophosphamide、chlorambucil）</strong>：DNA cross-linking 阻斷複製；<mark>infertility</mark>、骨髓抑制、感染、惡性腫瘤 → 保留給極頑固或危及生命疾病（如 GPA）；<strong>口服 cyclophosphamide 增加 bladder cancer</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.190</span></li>
+<li id="np-393"><strong>Calcineurin inhibitors（cyclosporine、tacrolimus）</strong>：阻斷 calcineurin → 抑制 helper T cell 的 IL-2 等 cytokine 轉錄；<mark>主要副作用 <strong>nephrotoxicity 與 hypertension</strong></mark>（肝毒性不是代表性毒性）；另有感染與 nonmelanoma skin cancer；保留給頑固病例。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.190</span></li>
+<li id="np-394"><strong>Mycophenolate mofetil</strong>：抑制淋巴球 guanosine 生成 → 減少增生與抗體；副作用 GI、骨髓抑制、感染；enteric-coated mycophenolate sodium 減少 GI 副作用；耐受性佳。<span class="ref">p.190</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s17-6">易錯陷阱</h3><ul>
-<li>MTX 作用在 folate/purine/pyrimidine（DNA），不是蛋白質合成；要補 folic acid。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187</span></li>
-<li>Cyclosporine 配 nephrotoxicity＋hypertension，不是 liver toxicity；azathioprine 配 cytopenia、cyclophosphamide 配 infertility 正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.188, p.190</span></li>
-<li>HCQ bull's-eye maculopathy「常見」是錯的（相對少見、屬晚期）；劑量依<strong>實際</strong>體重；危險因子是腎病不是肝病；tamoxifen 增加風險。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1454" data-q="1454">第 1454 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a></span><span class="ref">p.189</span></li>
-<li>HCQ 視力喪失不可逆，「停藥即可完全恢復／視力受損可恢復」皆錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1452" data-q="1452">第 1452 題</a></span><span class="ref">p.189</span></li>
-<li>本書 Table 10-6 依 2016 AAO：實際體重 <span class="num">≤ 5.0 mg/kg</span>（舊版以理想體重 <span class="num">6.5 mg/kg</span> 為界）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">p.189；BCSC 12 p.334</span></li>
-<li>（2025 AAO 修訂已改為：劑量仍 ≤ 5.0 mg/kg 實際體重、重度肥胖者每日 &lt; 400 mg；主要篩檢工具改為 SD-OCT＋廣視野 fundus autofluorescence（FAF），視野與 mfERG 降為確認檢查；基線檢查即加做 SD-OCT 與 FAF，之後每年篩檢，無明顯危險因子者前 5 年可延後；須同時注意 parafoveal 與 pericentral（東亞族群多見）型態。考試仍以本書 2016 版為準。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">p.189</span></li>
+<li id="np-395">MTX 作用在 folate/purine/pyrimidine（DNA），不是蛋白質合成；要補 folic acid。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-54" data-q="54">第 54 題</a></span><span class="ref">p.187</span></li>
+<li id="np-396">Cyclosporine 配 nephrotoxicity＋hypertension，不是 liver toxicity；azathioprine 配 cytopenia、cyclophosphamide 配 infertility 正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.188, p.190</span></li>
+<li id="np-397">HCQ bull's-eye maculopathy「常見」是錯的（相對少見、屬晚期）；劑量依<strong>實際</strong>體重；危險因子是腎病不是肝病；tamoxifen 增加風險。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1454" data-q="1454">第 1454 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a></span><span class="ref">p.189</span></li>
+<li id="np-398">HCQ 視力喪失不可逆，「停藥即可完全恢復／視力受損可恢復」皆錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-1450" data-q="1450">第 1450 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1452" data-q="1452">第 1452 題</a></span><span class="ref">p.189</span></li>
+<li id="np-399">本書 Table 10-6 依 2016 AAO：實際體重 <span class="num">≤ 5.0 mg/kg</span>（舊版以理想體重 <span class="num">6.5 mg/kg</span> 為界）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">p.189；BCSC 12 p.334</span></li>
+<li id="np-400">（2025 AAO 修訂已改為：劑量仍 ≤ 5.0 mg/kg 實際體重、重度肥胖者每日 &lt; 400 mg；主要篩檢工具改為 SD-OCT＋廣視野 fundus autofluorescence（FAF），視野與 mfERG 降為確認檢查；基線檢查即加做 SD-OCT 與 FAF，之後每年篩檢，無明顯危險因子者前 5 年可延後；須同時注意 parafoveal 與 pericentral（東亞族群多見）型態。考試仍以本書 2016 版為準。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-26" data-q="26">第 26 題</a></span><span class="ref">p.189</span></li>
 </ul></div>
 
 <h2 id="ch10-s18">十八、Biologic 與其他 anticytokine agents（生物製劑）</h2>
@@ -762,51 +801,51 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <table class="ted-table">
 <thead><tr><th>Class / drug（類別/藥物）</th><th>Mechanism（機轉）</th><th>Adverse effects（副作用）</th></tr></thead>
 <tbody>
-<tr><td>TNF-α inhibitors：adalimumab、certolizumab pegol、etanercept、infliximab</td><td>抑制 cytokines</td><td>過敏、皮疹、感染、lymphoma；可能 <strong>optic neuritis、uveitis</strong></td></tr>
-<tr><td>IL inhibitors：anakinra、canakinumab、ixekizumab、rilonacept、sarilumab、secukinumab、tocilizumab、ustekinumab</td><td>抑制 interleukin cytokines</td><td>Cytopenia、感染</td></tr>
-<tr><td>Abatacept</td><td>抑制 T-cell 活化</td><td>Infusion reaction、感染</td></tr>
-<tr><td>Alemtuzumab</td><td>Lymphocyte depletion</td><td>GI、感染、cytopenia</td></tr>
-<tr><td>Belimumab</td><td>抑制 B-cell 活化</td><td>GI、過敏、leukopenia</td></tr>
-<tr><td>Rituximab</td><td>B-cell lysis/suppression</td><td>Infusion reaction（可很嚴重）；<strong>progressive multifocal leukoencephalopathy（PML）</strong></td></tr>
-<tr><td>JAK inhibitors：baricitinib、filgotinib、tofacitinib、upadacitinib</td><td>抑制 Janus kinase/cytokine</td><td>GI、感染、anemia</td></tr>
+<tr><td id="np-401">TNF-α inhibitors：adalimumab、certolizumab pegol、etanercept、infliximab</td><td id="np-402">抑制 cytokines</td><td id="np-403">過敏、皮疹、感染、lymphoma；可能 <strong>optic neuritis、uveitis</strong></td></tr>
+<tr><td id="np-404">IL inhibitors：anakinra、canakinumab、ixekizumab、rilonacept、sarilumab、secukinumab、tocilizumab、ustekinumab</td><td id="np-405">抑制 interleukin cytokines</td><td id="np-406">Cytopenia、感染</td></tr>
+<tr><td id="np-407">Abatacept</td><td id="np-408">抑制 T-cell 活化</td><td id="np-409">Infusion reaction、感染</td></tr>
+<tr><td id="np-410">Alemtuzumab</td><td id="np-411">Lymphocyte depletion</td><td id="np-412">GI、感染、cytopenia</td></tr>
+<tr><td id="np-413">Belimumab</td><td id="np-414">抑制 B-cell 活化</td><td id="np-415">GI、過敏、leukopenia</td></tr>
+<tr><td id="np-416">Rituximab</td><td id="np-417">B-cell lysis/suppression</td><td id="np-418">Infusion reaction（可很嚴重）；<strong>progressive multifocal leukoencephalopathy（PML）</strong></td></tr>
+<tr><td id="np-419">JAK inhibitors：baricitinib、filgotinib、tofacitinib、upadacitinib</td><td id="np-420">抑制 Janus kinase/cytokine</td><td id="np-421">GI、感染、anemia</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.188</span></p>
+<p id="np-422">出處 <span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.188</span></p>
 <h3 id="ch10-s18-2">TNF-α inhibitors</h3>
 <ul>
-<li>TNF-α 是主要促發炎 cytokine；FDA 與 EMA 核准 <span class="num">5</span> 種：adalimumab、certolizumab pegol、etanercept、golimumab、infliximab。<span class="ref">p.190</span></li>
-<li><mark><strong>Certolizumab pegol</strong> 為 FDA category B → 懷孕或哺乳者的選項</mark>。<span class="ref">p.190–191</span></li>
-<li>通常耐受良好，但可有嚴重副作用；<mark>可能與 demyelinating disease（含 <strong>optic neuritis</strong>）相關</mark>（未確立）；anterior 與 posterior uveitis 亦有報告，<strong>尤其 etanercept</strong>。所有免疫抑制治療都需密切監測。<span class="ref">p.191</span></li>
+<li id="np-423">TNF-α 是主要促發炎 cytokine；FDA 與 EMA 核准 <span class="num">5</span> 種：adalimumab、certolizumab pegol、etanercept、golimumab、infliximab。<span class="ref">p.190</span></li>
+<li id="np-424"><mark><strong>Certolizumab pegol</strong> 為 FDA category B → 懷孕或哺乳者的選項</mark>。<span class="ref">p.190–191</span></li>
+<li id="np-425">通常耐受良好，但可有嚴重副作用；<mark>可能與 demyelinating disease（含 <strong>optic neuritis</strong>）相關</mark>（未確立）；anterior 與 posterior uveitis 亦有報告，<strong>尤其 etanercept</strong>。所有免疫抑制治療都需密切監測。<span class="ref">p.191</span></li>
 </ul>
 <h3 id="ch10-s18-3">Interleukin inhibitors 與其他</h3>
 <ul>
-<li>IL inhibitors 效力不如 TNF-α inhibitors。IL-1：anakinra、canakinumab、rilonacept；<mark>IL-6：<strong>tocilizumab</strong>（主要用於 RA、JIA，可能對 <strong>GCA 與 PMR</strong> 有效）</mark>；IL-17：secukinumab、ixekizumab（主要 psoriatic arthritis）；IL-12/23：ustekinumab（psoriatic arthritis）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-473" data-q="473">第 473 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1684" data-q="1684">第 1684 題</a></span><span class="ref">p.191</span></li>
-<li><strong>Abatacept</strong>：阻斷 CD28（T 細胞活化）；RA、JIA 頑固病例。<span class="ref">p.191</span></li>
-<li><strong>Rituximab</strong>：B-cell–depleting monoclonal antibody；主要用於化療，也用於其他藥無效的 RA；副作用嚴重 infusion reaction 與 <mark>PML（progressive multifocal leukoencephalopathy）</mark>（考題誤寫為 leukodystrophy，配對本身正確）；GPA 誘導/維持緩解優於 cyclophosphamide。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.182, p.188, p.191</span></li>
-<li><strong>Belimumab</strong>：抑制 B 細胞活化，FDA 與 EMA 核准用於 SLE。<span class="ref">p.191</span></li>
-<li><strong>Alemtuzumab</strong>：結合成熟淋巴球上的 <strong>CD52</strong>；用於 chronic lymphocytic leukemia，自體免疫有潛力。<span class="ref">p.191</span></li>
+<li id="np-426">IL inhibitors 效力不如 TNF-α inhibitors。IL-1：anakinra、canakinumab、rilonacept；<mark>IL-6：<strong>tocilizumab</strong>（主要用於 RA、JIA，可能對 <strong>GCA 與 PMR</strong> 有效）</mark>；IL-17：secukinumab、ixekizumab（主要 psoriatic arthritis）；IL-12/23：ustekinumab（psoriatic arthritis）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-473" data-q="473">第 473 題</a>、<a href="/exam/login?next=/exam/bcsc1-10%23q-1684" data-q="1684">第 1684 題</a></span><span class="ref">p.191</span></li>
+<li id="np-427"><strong>Abatacept</strong>：阻斷 CD28（T 細胞活化）；RA、JIA 頑固病例。<span class="ref">p.191</span></li>
+<li id="np-428"><strong>Rituximab</strong>：B-cell–depleting monoclonal antibody；主要用於化療，也用於其他藥無效的 RA；副作用嚴重 infusion reaction 與 <mark>PML（progressive multifocal leukoencephalopathy）</mark>（考題誤寫為 leukodystrophy，配對本身正確）；GPA 誘導/維持緩解優於 cyclophosphamide。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.182, p.188, p.191</span></li>
+<li id="np-429"><strong>Belimumab</strong>：抑制 B 細胞活化，FDA 與 EMA 核准用於 SLE。<span class="ref">p.191</span></li>
+<li id="np-430"><strong>Alemtuzumab</strong>：結合成熟淋巴球上的 <strong>CD52</strong>；用於 chronic lymphocytic leukemia，自體免疫有潛力。<span class="ref">p.191</span></li>
 </ul>
 <h3 id="ch10-s18-4">JAK inhibitors 與 biosimilars</h3>
 <ul>
-<li>口服小分子：<strong>tofacitinib</strong>（JAK-1、JAK-3）、<strong>baricitinib</strong>（JAK-1、JAK-2）；<strong>upadacitinib、filgotinib</strong> 為 selective JAK-1；用於其他類藥物（含 nonbiologic 與 TNF-α inhibitors）無效者。<mark>Tofacitinib 是第一個 FDA 核准治療 JIA 的 JAK inhibitor</mark>。<span class="ref">p.191</span></li>
-<li><strong>Biosimilar（生物相似藥）</strong>：胺基酸序列與原廠「類似但不完全相同」；FDA 要求「highly similar」且「無臨床上有意義差異」；已有超過一打核准用於風濕病。<span class="ref">p.191</span></li>
+<li id="np-431">口服小分子：<strong>tofacitinib</strong>（JAK-1、JAK-3）、<strong>baricitinib</strong>（JAK-1、JAK-2）；<strong>upadacitinib、filgotinib</strong> 為 selective JAK-1；用於其他類藥物（含 nonbiologic 與 TNF-α inhibitors）無效者。<mark>Tofacitinib 是第一個 FDA 核准治療 JIA 的 JAK inhibitor</mark>。<span class="ref">p.191</span></li>
+<li id="np-432"><strong>Biosimilar（生物相似藥）</strong>：胺基酸序列與原廠「類似但不完全相同」；FDA 要求「highly similar」且「無臨床上有意義差異」；已有超過一打核准用於風濕病。<span class="ref">p.191</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch10-s18-5">易錯陷阱</h3><ul>
-<li>Anti-TNF-α 可「引起」optic neuritis 與 uveitis（尤其 etanercept）；但 TNF inhibitor 也用於治療頑固 uveitis——不要混淆。<span class="ref">p.161, p.191</span></li>
-<li>懷孕/哺乳可用的 TNF 抑制劑是 certolizumab pegol（category B）。<span class="ref">p.191</span></li>
-<li>Rituximab 配 PML；tocilizumab 是 IL-6（不是 IL-17）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.188, p.191</span></li>
+<li id="np-433">Anti-TNF-α 可「引起」optic neuritis 與 uveitis（尤其 etanercept）；但 TNF inhibitor 也用於治療頑固 uveitis——不要混淆。<span class="ref">p.161, p.191</span></li>
+<li id="np-434">懷孕/哺乳可用的 TNF 抑制劑是 certolizumab pegol（category B）。<span class="ref">p.191</span></li>
+<li id="np-435">Rituximab 配 PML；tocilizumab 是 IL-6（不是 IL-17）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc1-10%23q-63" data-q="63">第 63 題</a></span><span class="ref">p.188, p.191</span></li>
 </ul></div>
 
 <div class="hs-tip-box">
 <h4>易混淆比較與口訣</h4>
 <ul>
-<li><strong>「最常見眼部表現」</strong>：SLE → KCS（secondary Sjögren）；SSc → 眼周皮膚纖維化＋KCS；GPA → scleritis/orbital；Behçet → uveitis ± hypopyon＋retinal vasculitis；Cogan → interstitial keratitis；Takayasu → retinal AV anastomoses；IBD → episcleritis；reactive arthritis → conjunctivitis＋AAU。<span class="ref">p.167, p.170, p.176, p.180, p.182, p.184</span></li>
-<li><strong>眼部侵犯比例</strong>：SLE 最多 <span class="num">1/3</span>、sarcoid 約 <span class="num">25%</span>、SSc 約 <span class="num">50%</span>、GPA 最多 <span class="num">50%</span>、relapsing polychondritis 最多 <span class="num">60%</span>、Behçet 最多 <span class="num">70%</span>、PAN 最多 <span class="num">20%</span>、AS/reactive arthritis AAU 最多 <span class="num">40%</span>、IBD uveitis 最多 <span class="num">3%</span>。<span class="ref">p.167, p.170, p.172, p.176, p.179, p.181–182, p.184</span></li>
-<li><strong>「85」</strong>：GPA glomerulonephritis 最多 <span class="num">85%</span>、ANCA <span class="num">&gt; 85%</span>；<strong>「90」</strong>：AS HLA-B27 最多 <span class="num">90%</span>、GPA 未治療 <span class="num">2 年</span>死亡率近 <span class="num">90%</span>、SLE 關節 <span class="num">90%</span>。<span class="ref">p.164, p.168, p.182</span></li>
-<li><strong>年齡口訣</strong>：GCA <span class="num">&gt; 50</span>；考慮 APS <span class="num">&lt; 50</span>；Takayasu 兒童/年輕女性；Kawasaki 嬰幼兒；EGPA <span class="num">50–60</span>；PAN 40–50 多歲男性。<span class="ref">p.174, p.179, p.181–182</span></li>
-<li><strong>HLA</strong>：SpA → HLA-B27（class I）；Behçet → HLA-B51（非診斷標準）。<span class="ref">p.164, p.183</span></li>
-<li><strong>G6PD 溶血</strong>：hydroxychloroquine、sulfasalazine。<strong>腎毒＋高血壓</strong>：cyclosporine、tacrolimus。<strong>膀胱癌</strong>：口服 cyclophosphamide。<strong>lymphoma 4 倍</strong>：azathioprine。<span class="ref">p.188, p.190</span></li>
-<li><strong>HPA 抑制 10/5/3</strong>：prednisone <span class="num">≥ 10 mg</span>/日（睡前 <span class="num">≥ 5 mg</span>）超過 <span class="num">3 週</span>；減量每 <span class="num">2–4 週</span>減 <span class="num">5%–10%</span>。<span class="ref">p.186</span></li>
+<li id="np-436"><strong>「最常見眼部表現」</strong>：SLE → KCS（secondary Sjögren）；SSc → 眼周皮膚纖維化＋KCS；GPA → scleritis/orbital；Behçet → uveitis ± hypopyon＋retinal vasculitis；Cogan → interstitial keratitis；Takayasu → retinal AV anastomoses；IBD → episcleritis；reactive arthritis → conjunctivitis＋AAU。<span class="ref">p.167, p.170, p.176, p.180, p.182, p.184</span></li>
+<li id="np-437"><strong>眼部侵犯比例</strong>：SLE 最多 <span class="num">1/3</span>、sarcoid 約 <span class="num">25%</span>、SSc 約 <span class="num">50%</span>、GPA 最多 <span class="num">50%</span>、relapsing polychondritis 最多 <span class="num">60%</span>、Behçet 最多 <span class="num">70%</span>、PAN 最多 <span class="num">20%</span>、AS/reactive arthritis AAU 最多 <span class="num">40%</span>、IBD uveitis 最多 <span class="num">3%</span>。<span class="ref">p.167, p.170, p.172, p.176, p.179, p.181–182, p.184</span></li>
+<li id="np-438"><strong>「85」</strong>：GPA glomerulonephritis 最多 <span class="num">85%</span>、ANCA <span class="num">&gt; 85%</span>；<strong>「90」</strong>：AS HLA-B27 最多 <span class="num">90%</span>、GPA 未治療 <span class="num">2 年</span>死亡率近 <span class="num">90%</span>、SLE 關節 <span class="num">90%</span>。<span class="ref">p.164, p.168, p.182</span></li>
+<li id="np-439"><strong>年齡口訣</strong>：GCA <span class="num">&gt; 50</span>；考慮 APS <span class="num">&lt; 50</span>；Takayasu 兒童/年輕女性；Kawasaki 嬰幼兒；EGPA <span class="num">50–60</span>；PAN 40–50 多歲男性。<span class="ref">p.174, p.179, p.181–182</span></li>
+<li id="np-440"><strong>HLA</strong>：SpA → HLA-B27（class I）；Behçet → HLA-B51（非診斷標準）。<span class="ref">p.164, p.183</span></li>
+<li id="np-441"><strong>G6PD 溶血</strong>：hydroxychloroquine、sulfasalazine。<strong>腎毒＋高血壓</strong>：cyclosporine、tacrolimus。<strong>膀胱癌</strong>：口服 cyclophosphamide。<strong>lymphoma 4 倍</strong>：azathioprine。<span class="ref">p.188, p.190</span></li>
+<li id="np-442"><strong>HPA 抑制 10/5/3</strong>：prednisone <span class="num">≥ 10 mg</span>/日（睡前 <span class="num">≥ 5 mg</span>）超過 <span class="num">3 週</span>；減量每 <span class="num">2–4 週</span>減 <span class="num">5%–10%</span>。<span class="ref">p.186</span></li>
 </ul>
 </div>
 </div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="1-10"><p class="ex-locked">本章考題 48 題。<a href="/exam/login?next=/exam/bcsc1-10">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
@@ -851,7 +890,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260728" defer></script>
-<script src="/exam/exam.js?v=20260728" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
+<script src="/exam/exam.js?v=20260729" defer></script>
 </body>
 </html>

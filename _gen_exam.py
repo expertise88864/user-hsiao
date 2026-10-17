@@ -219,8 +219,20 @@ def load() -> dict:
             "concepts": concepts, "doubts": doubts}
 
 
+# Searchable note paragraphs: the elements note_text() indexes (li/p/td; h2/h3 only
+# advance the section). anchor_notes() and note_text() walk the same matches, so the
+# n-th searchable paragraph of a chapter is the element with id "np-<n>".
+PARA_RE = re.compile(r"<(h2|h3|li|p|td)\b([^>]*)>(.*?)</\1>", re.S)
+
+
+def para_text(inner: str) -> str:
+    text = html.unescape(re.sub(r"<[^>]+>", "", re.sub(r"\{\{q:[^}]*\}\}", "", inner))).strip()
+    return re.sub(r"\s+", " ", text)
+
+
 def anchor_notes(key: str, fragment: str) -> str:
-    """Give every note <h3> an id ("<h2 id>-<n>") so each subsection can be linked."""
+    """Give every note <h3> an id ("<h2 id>-<n>") so each subsection can be linked, and
+    every searchable paragraph an id ("np-<n>") so search results can land on it."""
     h2 = {"id": "", "n": 0}
 
     def add_id(m: re.Match) -> str:
@@ -239,7 +251,18 @@ def anchor_notes(key: str, fragment: str) -> str:
     ids = re.findall(r'<h[23]\b[^>]*\sid="([^"]+)"', fragment)
     if len(ids) != len(set(ids)):
         raise SystemExit(f"notes {key}: duplicate heading ids")
-    return fragment
+    para = {"n": 0}
+
+    def number(m: re.Match) -> str:
+        tag, attrs, inner = m.groups()
+        if tag in ("h2", "h3") or not para_text(inner):
+            return m.group(0)
+        if re.search(r'\sid="', attrs):
+            raise SystemExit(f"notes {key}: <{tag}> ids are generated (np-<n>); remove the id from the notes file")
+        para["n"] += 1
+        return f'<{tag} id="np-{para["n"]}"{attrs}>{inner}</{tag}>'
+
+    return PARA_RE.sub(number, fragment)
 
 
 def slug(key: str) -> str:
@@ -392,6 +415,21 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
 # Filled by exam.js: "已登入題庫 · 登出" when signed in, a login link otherwise.
 AUTH_BAR = '<div class="ex-auth" aria-live="polite" hidden></div>'
 
+# Hub disease search (owner request 2026-10-17). exam.js searches the public notes
+# (notes-data.json) as the reader types and lists the chapters and paragraphs that
+# mention the term; without JavaScript the form falls back to /exam/search?q=.
+HUB_SEARCH = (
+    '<form class="ex-find" role="search" action="/exam/search" method="get" data-hub-search>'
+    '<label class="ex-label" for="ex-find-q">搜尋疾病（全名或縮寫）</label>'
+    '<div class="ex-find-row"><input id="ex-find-q" name="q" type="search" class="ex-input" '
+    'placeholder="例如 PVRL、Vogt-Koyanagi-Harada、圓錐角膜" autocomplete="off" aria-describedby="ex-find-hint">'
+    '<button type="submit" class="ex-cta-btn">找章節</button></div>'
+    '<p id="ex-find-hint" class="ex-meta">列出提到這個病的章節與段落，點段落會直接跳到課本重點的那一段。只搜尋公開的課本重點，不含考題。</p>'
+    '</form>'
+    '<p class="ex-find-status" aria-live="polite"></p>'
+    '<div id="ex-find-results" class="ex-find-results"></div>'
+)
+
 MODE_BAR = (
     '<div class="ex-toolbar" role="group" aria-label="作答模式">'
     '<button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button>'
@@ -488,7 +526,9 @@ def chapter_page(data: dict, key: str, version: str) -> str:
 
 def hub_page(data: dict, version: str) -> str:
     chapters, by_chapter = data["chapters"], data["by_chapter"]
-    ranked = sorted(by_chapter.items(), key=lambda kv: (-len(kv[1]), kv[0]))[:TOP_N]
+    # Every chapter with questions is ranked; exam.js shows TOP_N rows at a time
+    # ("載入更多"), and without JavaScript the whole table stays visible.
+    ranked = sorted(by_chapter.items(), key=lambda kv: (-len(kv[1]), kv[0]))
     peak = len(ranked[0][1]) if ranked else 1
     badge = '<span class="ex-badge">有重點</span>'
     rows = "".join(
@@ -513,26 +553,33 @@ def hub_page(data: dict, version: str) -> str:
             f'<details class="ex-part"><summary>BCSC {book["book"]} {esc(book["title"])} '
             f'<span class="ex-count">{count} 題次</span></summary><ul class="ex-chapter-list">{"".join(items)}</ul></details>'
         )
+    # Owner order 2026-10-17: search → tools → access note → 考古卷 → chapters → frequency.
     body = (
         f'<h1 class="ex-h1">{HUB_TITLE}</h1>'
         f'<p class="ex-lead">依 {esc(REFERENCE)} 章節整理課本重點，並把考題標到每一題考到的所有章節；'
         "讀完一章就能在同一頁快速複習重點與考題。陸續更新中。</p>"
+        f"{HUB_SEARCH}"
         '<ul class="ex-tools">'
-        '<li><a class="ex-cta" href="/exam/practice">模擬考：自選範圍／隨機出題</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/progress">讀書進度</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/search">搜尋重點與考題</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/login">登入／登出題庫</a></li></ul>'
         '<p class="ex-meta">課本重點整理公開；考題、答案與詳解需要登入才能看。</p>'
-        + f'<h2 class="ex-h2">出題頻率：最常考的 {TOP_N} 章</h2>'
-        '<p class="ex-meta">一題可能同時考到多章，會計入每一章，所以加總會超過題數。這裡統計的是累計題數。</p>'
-        '<table class="ex-rank"><thead><tr><th scope="col">章節</th><th scope="col">題數</th>'
+        '<p class="ex-practice"><a class="ex-cta" href="/exam/practice">考古卷：自選範圍／隨機出題</a></p>'
+        '<h2 class="ex-h2">依 BCSC 章節瀏覽</h2>' + "".join(books_html)
+        + '<h2 class="ex-h2" id="rank-h">出題頻率：最常考</h2>'
+        f'<p class="ex-meta">依題數排序，共 {len(ranked)} 章有考題，先顯示前 {TOP_N} 章；'
+        "按表格右下角的「載入更多」再顯示下一批。"
+        "一題可能同時考到多章，會計入每一章，所以加總會超過題數。這裡統計的是累計題數。</p>"
+        f'<table class="ex-rank" aria-labelledby="rank-h" data-rank-step="{TOP_N}">'
+        '<thead><tr><th scope="col">章節</th><th scope="col">題數</th>'
         '<th scope="col"><span class="ex-sr">相對比例</span></th></tr></thead>'
         f"<tbody>{rows}</tbody></table>"
-        '<h2 class="ex-h2">依 BCSC 章節瀏覽</h2>' + "".join(books_html)
+        '<div class="ex-more" hidden><span class="ex-more-status" aria-live="polite"></span>'
+        '<button type="button" class="ex-more-btn">載入更多</button></div>'
     )
     desc = ("眼科專科醫師考試讀書筆記：依 BCSC 2025–2026 章節整理課本重點，收錄考題並標註所屬章節，"
-            "附出題頻率統計、作答與瀏覽模式、模擬考、錯題本、讀書進度、搜尋與 Anki 匯出。")
+            "附疾病搜尋、出題頻率、作答與瀏覽模式、考古卷、錯題本、讀書進度與 Anki 匯出。")
     return page(path="/exam", title=HUB_TITLE, description=desc, crumbs=[], schema_type="CollectionPage",
                 body=body, kind="hub", robots="index,follow,max-image-preview:large", version=version)
 
@@ -548,7 +595,7 @@ def practice_page(data: dict, version: str) -> str:
         for b in data["books"]
     )
     body = (
-        '<p class="ex-kicker">模擬考</p><h1 class="ex-h1">自選範圍／隨機出題</h1>'
+        '<p class="ex-kicker">考古卷</p><h1 class="ex-h1">自選範圍／隨機出題</h1>'
         '<p class="ex-meta">一題考到多冊時，勾選其中任一冊就會被抽到。</p>'
         '<form class="ex-practice-form" data-practice-form>'
         '<fieldset class="ex-fieldset"><legend>出題範圍（BCSC 冊別）</legend>'
@@ -571,9 +618,9 @@ def practice_page(data: dict, version: str) -> str:
         '<div id="ex-practice-list" class="ex-list">'
         '<p class="ex-pending">選好範圍、題數與順序後按「產生試卷」。這個功能需要啟用 JavaScript。</p></div>'
     )
-    return page(path="/exam/practice", title="眼科專科考試模擬考：自選範圍與隨機出題",
-                description="眼科專科醫師考試模擬考：從考題中自選 BCSC 冊別與題數，隨機或依題號出題，計時作答、交卷計分，並對照答案與 BCSC 詳解。",
-                crumbs=[("模擬考", "/exam/practice")], schema_type="WebPage", body=body, kind="practice",
+    return page(path="/exam/practice", title="眼科專科考試考古卷：自選範圍與隨機出題",
+                description="眼科專科醫師考試考古卷：從考題中自選 BCSC 冊別與題數，隨機或依題號出題，計時作答、交卷計分，並對照答案與 BCSC 詳解。",
+                crumbs=[("考古卷", "/exam/practice")], schema_type="WebPage", body=body, kind="practice",
                 robots="noindex,follow", version=version)
 
 
@@ -645,20 +692,37 @@ def search_page(version: str) -> str:
 
 def note_text(fragment: str) -> list[dict]:
     """Split a notes fragment into searchable paragraphs keyed by their section heading."""
+    """Paragraph i (0-based) is the note element with id "np-<i+1>" (see anchor_notes)."""
     out, heading = [], ""
-    for m in re.finditer(r"<(h2|h3|li|p|td)\b[^>]*?(?:\sid=\"([^\"]+)\")?[^>]*>(.*?)</\1>", fragment, re.S):
-        text = html.unescape(re.sub(r"<[^>]+>", "", re.sub(r"\{\{q:[^}]*\}\}", "", m.group(3)))).strip()
-        text = re.sub(r"\s+", " ", text)
-        if m.group(1) == "h2":
-            heading = m.group(2) or ""
-        if text and m.group(1) in ("li", "p", "td"):
+    for m in PARA_RE.finditer(fragment):
+        tag, attrs, inner = m.groups()
+        found = re.search(r'\sid="([^"]+)"', attrs)
+        text = para_text(inner)
+        if tag == "h2":
+            heading = found.group(1) if found else ""
+        if text and tag in ("li", "p", "td"):
+            if not found or found.group(1) != f"np-{len(out) + 1}":
+                raise SystemExit("notes: paragraph ids are out of step with the search index")
             out.append({"h": heading, "t": text})
     return out
 
 
+def note_sections(fragment: str) -> dict[str, str]:
+    """h2 id -> plain heading text, for labelling search hits with their section."""
+    return {hid: html.unescape(re.sub(r"<[^>]+>", "", text)).strip()
+            for hid, text in re.findall(r'<h2[^>]*\sid="([^"]+)"[^>]*>(.*?)</h2>', fragment, re.S)}
+
+
 def notes_data(data: dict) -> dict:
-    """Public: chapter labels, note text for search, and question→chapter numbers for progress."""
-    chapters = {k: {"label": f"BCSC {c['book']} Ch.{c['ch']}", "title": c["title"]} for k, c in data["chapters"].items()}
+    """Public: chapter labels, note text for search, and question→chapter numbers for progress.
+    Each chapter carries its question count ("q", so the hub search can tell which chapters
+    have a page) and, when it has notes, its section titles ("secs")."""
+    chapters = {}
+    for k, c in data["chapters"].items():
+        chapters[k] = {"label": f"BCSC {c['book']} Ch.{c['ch']}", "title": c["title"],
+                       "q": len(data["by_chapter"].get(k, []))}
+        if k in data["notes"]:
+            chapters[k]["secs"] = note_sections(data["notes"][k])
     notes = {k: note_text(v) for k, v in data["notes"].items()}
     books = {str(b["book"]): b["title"] for b in data["books"]}
     qs = [[q["n"], data["tags"][str(q["n"])]["ch"]] for q in data["questions"] if str(q["n"]) in data["explanations"]]
@@ -895,6 +959,40 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
 .ex-prog a{color:var(--ex-accent)}
 .ex-prog .ex-low{color:#b91c1c;font-weight:700}
+.ex-find{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:18px 0 8px}
+.ex-find-row{display:flex;gap:8px;margin:6px 0 4px}
+.ex-find-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-find-title{font-size:15px;font-weight:700;margin:10px 0 4px}
+.ex-find-group{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0}
+.ex-find-h{font-size:15px;font-weight:700;line-height:1.6;margin:0}
+.ex-find-h a{color:var(--ex-accent)}
+.ex-find-h .ex-count{margin-left:8px;font-weight:500;color:var(--ink-2)}
+.ex-find-list{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.75}
+.ex-find-list li{border-top:1px solid var(--line);padding:6px 0}
+.ex-find-list a{display:block;color:var(--ink);text-decoration:none}
+.ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
+.ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
+.ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
+.ex-practice{margin:12px 0 4px}
+.ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-more[hidden],.ex-rank tr[hidden]{display:none}
+.ex-note [id^="np-"]{scroll-margin-top:96px}
+.ex-note [id^="np-"]:target{background:var(--ex-soft);outline:2px solid var(--ex-accent);outline-offset:-2px;border-radius:6px}
+.ex-resume{position:sticky;top:72px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--ex-card);border:1px solid var(--border);border-left:4px solid var(--ex-accent);border-radius:10px;padding:6px 8px 6px 12px;margin:8px 0 12px;font-size:13px;line-height:1.6;box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(15,23,42,.35)}
+.ex-resume-text{flex:1;min-width:12em}
+.ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
+.ex-resume-close:hover{background:var(--ex-soft)}
+.ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
+.ex-ans-text{color:var(--ink-2);font-weight:600}
+.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next:disabled{opacity:.5;cursor:default}
+.ex-ans-clear{margin:0 0 6px}
+.ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
+.ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -925,6 +1023,12 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
+:root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
 """
 

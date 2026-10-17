@@ -12,6 +12,8 @@
   var STATS_KEY = 'hs:exam:stats';   // { n: [last result 1|0, attempts, last answered ms] }
   var READ_KEY = 'hs:exam:read';     // [chapter keys whose textbook chapter is read]
   var VISIT_KEY = 'hs:exam:visit';   // { chapter key: last visit ms }
+  var ANS_KEY = 'hs:exam:ans';       // { n: { c: chosen option key, t: answered ms } }
+  var POS_KEY = 'hs:exam:pos';       // { chapter key: { id: note anchor id, t: saved ms } }
   var body = document.body;
 
   function store(key, value) {
@@ -57,6 +59,31 @@
     store(READ_KEY, list);
   }
   function visits() { return plainObject(load(VISIT_KEY, {})); }
+  // Last chosen option per question, so quiz mode can show it again on the next visit.
+  function choices() { return plainObject(load(ANS_KEY, {})); }
+  function rememberChoice(n, key) {
+    var all = choices();
+    all[n] = { c: String(key), t: Date.now() };
+    store(ANS_KEY, all);
+  }
+  function forget(storeKey, ns) {
+    var all = plainObject(load(storeKey, {}));
+    ns.forEach(function (n) { delete all[n]; });
+    store(storeKey, all);
+  }
+  function positions() { return plainObject(load(POS_KEY, {})); }
+  function reducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+  function scrollToY(y, smooth) {
+    var top = Math.max(0, Math.round(y));
+    try { window.scrollTo({ top: top, behavior: smooth && !reducedMotion() ? 'smooth' : 'instant' }); } catch (e) { window.scrollTo(0, top); }
+  }
+  // Bottom edge of the sticky site header (content scrolled under it is hidden).
+  function headerBottom() {
+    var header = document.querySelector('header');
+    return header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+  }
   function dateText(ms) {
     if (!ms) return '—';
     var d = new Date(ms);
@@ -100,7 +127,13 @@
     store(MODE_KEY, mode);
   }
 
-  function resetQuestion(card) {
+  // Chapter page answer bar (status line + "next unanswered"); set once questions render.
+  var answerBar = null;
+  function refreshAnswerBar() { if (answerBar) answerBar.refresh(); }
+
+  // forgetChoice: the reader pressed 「重新作答」, so the stored choice goes too
+  // (a practice exam restarting its own cards keeps it).
+  function resetQuestion(card, forgetChoice) {
     if (card.classList.contains('ex-unanswered')) return;
     card.classList.remove('ex-done');
     card.removeAttribute('data-outcome');
@@ -108,6 +141,21 @@
     card.querySelectorAll('input[type=radio]').forEach(function (input) { input.checked = false; input.disabled = false; });
     var result = card.querySelector('.ex-result');
     if (result) result.textContent = '';
+    if (forgetChoice) forget(ANS_KEY, [card.getAttribute('data-qid')]);
+    refreshAnswerBar();
+  }
+
+  // Graded look of a card: picked option, right/wrong feedback, explanation shown.
+  function showGraded(card, picked) {
+    var answer = card.getAttribute('data-answer') || '';
+    var ok = picked.value === answer;
+    card.classList.add('ex-done');
+    card.setAttribute('data-outcome', ok ? 'right' : 'wrong');
+    picked.closest('.ex-opt').classList.add('ex-picked');
+    card.querySelectorAll('input[type=radio]').forEach(function (input) { input.disabled = true; });
+    var result = card.querySelector('.ex-result');
+    if (result) result.textContent = ok ? '答對了' : '答錯了，答案是 ' + answer;
+    return ok;
   }
 
   function grade(card, silent) {
@@ -119,23 +167,43 @@
       if (!silent && result) result.textContent = '請先選擇一個選項';
       return null;
     }
-    var ok = picked.value === answer;
-    card.classList.add('ex-done');
-    card.setAttribute('data-outcome', ok ? 'right' : 'wrong');
-    picked.closest('.ex-opt').classList.add('ex-picked');
-    card.querySelectorAll('input[type=radio]').forEach(function (input) { input.disabled = true; });
-    if (result) result.textContent = ok ? '答對了' : '答錯了，答案是 ' + answer;
+    var ok = showGraded(card, picked);
     markWrong(card.getAttribute('data-qid'), !ok);
     recordAnswer(card.getAttribute('data-qid'), ok);
+    rememberChoice(card.getAttribute('data-qid'), picked.value);
     refreshStrip();
+    refreshAnswerBar();
     return ok;
+  }
+
+  // Show the stored choice of a not-yet-answered card as if it had just been submitted
+  // (stats and the wrong-answer notebook were updated when it was answered).
+  function restoreChoice(card, all) {
+    if (card.classList.contains('ex-unanswered') || card.classList.contains('ex-done')) return;
+    if (card.querySelector('input[type=radio]:checked')) return;
+    var saved = all[card.getAttribute('data-qid')];
+    if (!saved || typeof saved !== 'object' || typeof saved.c !== 'string') return;
+    var inputs = card.querySelectorAll('input[type=radio]');
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].value === saved.c) {
+        inputs[i].checked = true;
+        showGraded(card, inputs[i]);
+        return;
+      }
+    }
+  }
+  function restoreChoices(box) {
+    if (!box || !body.classList.contains('ex-quiz')) return;
+    var all = choices();
+    box.querySelectorAll('.ex-q').forEach(function (card) { restoreChoice(card, all); });
+    refreshAnswerBar();
   }
 
   function wireQuestion(card) {
     var submit = card.querySelector('.ex-submit');
     var reset = card.querySelector('.ex-reset');
     if (submit) submit.addEventListener('click', function () { grade(card, false); });
-    if (reset) reset.addEventListener('click', function () { resetQuestion(card); });
+    if (reset) reset.addEventListener('click', function () { resetQuestion(card, true); });
     card.querySelectorAll('input[type=radio]').forEach(function (input) {
       input.addEventListener('change', function () {
         var result = card.querySelector('.ex-result');
@@ -156,7 +224,7 @@
     }
     function start() {
       setMode('quiz');
-      scope.querySelectorAll('.ex-q').forEach(resetQuestion);
+      scope.querySelectorAll('.ex-q').forEach(function (card) { resetQuestion(card, false); });
       scoreEl.textContent = '';
       startedAt = Date.now();
       if (timer) clearInterval(timer);
@@ -549,7 +617,7 @@
       clear(list);
       var rows = wrong.map(function (n) { return byN[n]; }).filter(function (q) { return q && q.answer; });
       if (!rows.length) {
-        list.appendChild(el('p', 'ex-pending', '目前沒有錯題。到章節頁或模擬考切換「作答模式」作答，答錯的題目會出現在這裡。'));
+        list.appendChild(el('p', 'ex-pending', '目前沒有錯題。到章節頁或考古卷切換「作答模式」作答，答錯的題目會出現在這裡。'));
         return;
       }
       list.appendChild(el('p', 'ex-meta', '共 ' + rows.length + ' 題錯題'));
@@ -639,7 +707,7 @@
         list.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }).catch(function (err) {
         note.textContent = '';
-        lockedNote(list, err, '模擬考');
+        lockedNote(list, err, '考古卷');
       });
     });
   }
@@ -737,6 +805,465 @@
     });
   }
 
+  // ---------------------------------------------------------- hub disease search
+  // A disease name, full or abbreviated, in any letter case. Hyphens, dashes and
+  // spaces are interchangeable ("Vogt Koyanagi Harada" finds "Vogt-Koyanagi-Harada").
+  // A short Latin abbreviation (PVRL, VKH, RP) must stand alone, so "RP" does not
+  // match inside "RPE"; a trailing plural "s" is allowed.
+  var SEP_RE = /[\s\-‐-―\/]+/;
+  function finder(query) {
+    var q = String(query || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+    var parts = q.split(SEP_RE).filter(Boolean);
+    if (!parts.length) return null;
+    var src = parts.map(function (p) { return p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); })
+      .join('[\\s\\-\\u2010-\\u2015\\/]*');
+    return { q: q, parts: parts, re: new RegExp(src, 'gi'), word: /^[A-Za-z0-9]{1,6}$/.test(q) };
+  }
+  function ranges(text, f) {
+    var out = [];
+    var m;
+    f.re.lastIndex = 0;
+    while ((m = f.re.exec(text))) {
+      var s = m.index;
+      var e = s + m[0].length;
+      if (e === s) { f.re.lastIndex += 1; continue; }
+      if (f.word) {
+        var next = text.charAt(e);
+        if (/[A-Za-z0-9]/.test(text.charAt(s - 1))) continue;
+        if (/[A-Za-z]/.test(next) && !(next.toLowerCase() === 's' && !/[A-Za-z0-9]/.test(text.charAt(e + 1)))) continue;
+      }
+      out.push([s, e]);
+    }
+    return out;
+  }
+  // Ranges for the whole phrase; with several words and no phrase hit, every word
+  // must appear somewhere in the text (and each is marked).
+  function hitRanges(text, f) {
+    var r = ranges(text, f);
+    if (r.length || f.parts.length < 2 || !f.each) return r;
+    var all = [];
+    for (var i = 0; i < f.each.length; i++) {
+      var one = ranges(text, f.each[i]);
+      if (!one.length) return [];
+      all = all.concat(one);
+    }
+    return all.sort(function (a, b) { return a[0] - b[0]; });
+  }
+  function wordFinders(f) {
+    return f.parts.map(function (p) { return finder(p); });
+  }
+  function markedText(text, rs) {
+    var frag = document.createDocumentFragment();
+    var at = 0;
+    rs.forEach(function (r) {
+      if (r[0] < at) return;
+      if (r[0] > at) frag.appendChild(document.createTextNode(text.slice(at, r[0])));
+      frag.appendChild(el('mark', null, text.slice(r[0], r[1])));
+      at = r[1];
+    });
+    if (at < text.length) frag.appendChild(document.createTextNode(text.slice(at)));
+    return frag;
+  }
+  function snippet(text, rs) {
+    var start = Math.max(0, rs[0][0] - 36);
+    var end = Math.min(text.length, rs[0][1] + 96);
+    var shifted = rs.filter(function (r) { return r[0] >= start && r[1] <= end; })
+      .map(function (r) { return [r[0] - start, r[1] - start]; });
+    var span = el('span', 'ex-find-snip');
+    if (start > 0) span.appendChild(document.createTextNode('…'));
+    span.appendChild(markedText(text.slice(start, end), shifted));
+    if (end < text.length) span.appendChild(document.createTextNode('…'));
+    return span;
+  }
+  function chapterOrder(a, b) {
+    var x = a.split('-').map(Number);
+    var y = b.split('-').map(Number);
+    return x[0] - y[0] || x[1] - y[1];
+  }
+  function landingHref(key, f, para) {
+    return '/exam/bcsc' + key + '?hl=' + encodeURIComponent(f.q) + '#np-' + (para + 1);
+  }
+  var SHOW_HITS = 5;
+  function hubSearch(query, input, out, status) {
+    var f = finder(query);
+    clear(out);
+    if (!f || f.q.length < 2) { status.textContent = ''; return; }
+    status.textContent = '搜尋中…';
+    notesData().then(function (data) {
+      if (finder(input.value) === null || finder(input.value).q !== f.q) return;  // a newer query is pending
+      var groups = [];
+      var total = 0;
+      function collect(fd) {
+        groups = [];
+        total = 0;
+        Object.keys(data.chapters).forEach(function (key) {
+          var ch = data.chapters[key];
+          var paras = data.notes[key] || [];
+          if (!paras.length && !ch.q) return;  // no chapter page to link to
+          var hits = [];
+          paras.forEach(function (p, i) {
+            var r = hitRanges(p.t, fd);
+            if (r.length) hits.push({ i: i, p: p, r: r });
+          });
+          if (hits.length || ranges(ch.title, fd).length) {
+            groups.push({ key: key, ch: ch, hits: hits });
+            total += hits.length;
+          }
+        });
+      }
+      collect(f);
+      var loose = false;
+      if (!groups.length && f.parts.length > 1) {
+        f.each = wordFinders(f);
+        collect(f);
+        loose = groups.length > 0;
+      }
+      groups.sort(function (a, b) { return b.hits.length - a.hits.length || chapterOrder(a.key, b.key); });
+      clear(out);
+      var more = el('p', 'ex-meta');
+      var link = el('a', null, '到搜尋頁也搜尋考題（需登入）');
+      link.href = '/exam/search?q=' + encodeURIComponent(f.q);
+      more.appendChild(link);
+      if (!groups.length) {
+        status.textContent = '課本重點與章節名稱中找不到「' + f.q + '」。';
+        out.appendChild(more);
+        return;
+      }
+      status.textContent = '「' + f.q + '」出現在 ' + groups.length + ' 章' + (total ? '、共 ' + total + ' 段重點' : '')
+        + (loose ? '（找不到完整詞組，列出含有所有關鍵字的段落）' : '') + '。';
+      out.appendChild(el('h2', 'ex-find-title', '搜尋結果'));
+      groups.forEach(function (g) {
+        var box = el('section', 'ex-find-group');
+        var h = el('h3', 'ex-find-h');
+        var a = el('a', null, g.ch.label + ' ' + g.ch.title);
+        a.href = g.hits.length ? landingHref(g.key, f, g.hits[0].i) : '/exam/bcsc' + g.key;
+        h.appendChild(a);
+        h.appendChild(el('span', 'ex-count', g.hits.length ? g.hits.length + ' 段'
+          : (data.notes[g.key] ? '章節名稱符合' : '章節名稱符合，重點尚未整理')));
+        box.appendChild(h);
+        if (g.hits.length) {
+          var list = el('ul', 'ex-find-list');
+          g.hits.forEach(function (hit, n) {
+            var li = el('li');
+            if (n >= SHOW_HITS) li.hidden = true;
+            var link = el('a');
+            link.href = landingHref(g.key, f, hit.i);
+            var sec = g.ch.secs && g.ch.secs[hit.p.h];
+            if (sec) link.appendChild(el('span', 'ex-find-sec', sec));
+            link.appendChild(snippet(hit.p.t, hit.r));
+            li.appendChild(link);
+            list.appendChild(li);
+          });
+          box.appendChild(list);
+          if (g.hits.length > SHOW_HITS) {
+            var btn = el('button', 'ex-find-more', '再顯示 ' + (g.hits.length - SHOW_HITS) + ' 段');
+            btn.type = 'button';
+            btn.addEventListener('click', function () {
+              var first = null;
+              list.querySelectorAll('li[hidden]').forEach(function (li) { li.hidden = false; first = first || li; });
+              btn.remove();
+              if (first) first.querySelector('a').focus();
+            });
+            box.appendChild(btn);
+          }
+        }
+        out.appendChild(box);
+      });
+      out.appendChild(more);
+    }).catch(function () {
+      status.textContent = '資料載入失敗，請重新整理頁面。';
+    });
+  }
+  function initHubSearch(form) {
+    var input = form.querySelector('input[name=q]');
+    var out = document.getElementById('ex-find-results');
+    var status = document.querySelector('.ex-find-status');
+    var timer = null;
+    function run() {
+      clearTimeout(timer);
+      var q = input.value.trim();
+      try { history.replaceState(null, '', q ? '?q=' + encodeURIComponent(q) : location.pathname); } catch (e) { /* ignore */ }
+      hubSearch(q, input, out, status);
+    }
+    input.addEventListener('focus', function () { notesData().catch(function () { /* reported on search */ }); });
+    input.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(run, 250); });
+    input.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && input.value) { input.value = ''; run(); }
+    });
+    form.addEventListener('submit', function (ev) { ev.preventDefault(); run(); });
+    var initial = new URLSearchParams(location.search).get('q');
+    if (initial) { input.value = initial; run(); }
+  }
+
+  // Frequency table: TOP_N rows at a time; the server-rendered table lists every chapter.
+  function initRank(table) {
+    var step = Number(table.getAttribute('data-rank-step')) || 25;
+    var rows = table.tBodies[0] ? table.tBodies[0].rows : [];
+    var more = document.querySelector('.ex-more');
+    if (!more || rows.length <= step) return;
+    var btn = more.querySelector('.ex-more-btn');
+    var status = more.querySelector('.ex-more-status');
+    var shown = step;
+    for (var i = step; i < rows.length; i++) rows[i].hidden = true;
+    function update() { status.textContent = '已顯示 ' + shown + ' / ' + rows.length + ' 章'; }
+    btn.addEventListener('click', function () {
+      var first = rows[shown];
+      var end = Math.min(shown + step, rows.length);
+      for (var j = shown; j < end; j++) rows[j].hidden = false;
+      shown = end;
+      update();
+      if (shown >= rows.length) {
+        more.hidden = true;
+        var a = first.querySelector('a');
+        if (a) a.focus();
+      }
+    });
+    update();
+    more.hidden = false;
+  }
+
+  // Chapter page reached from a search result (?hl=term#np-N): mark the term in the
+  // notes and keep the linked paragraph (styled by :target) in view while the page settles.
+  function markNotes(root, f) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    var count = 0;
+    nodes.forEach(function (node) {
+      if (count > 400) return;
+      var rs = ranges(node.nodeValue, f);
+      if (!rs.length) return;
+      var frag = markedText(node.nodeValue, rs);
+      frag.querySelectorAll('mark').forEach(function (m) { m.className = 'ex-find-hl'; });
+      count += rs.length;
+      node.parentNode.replaceChild(frag, node);
+    });
+    return count;
+  }
+  function initLanding() {
+    var note = document.querySelector('.ex-note');
+    if (!note) return null;
+    var f = finder(new URLSearchParams(location.search).get('hl'));
+    if (f && f.q.length >= 2 && !markNotes(note, f) && f.parts.length > 1) {
+      wordFinders(f).forEach(function (one) { if (one.q.length >= 2) markNotes(note, one); });
+    }
+    var target = /^#np-\d+$/.test(location.hash) ? document.getElementById(location.hash.slice(1)) : null;
+    if (!target || !note.contains(target)) return null;
+    var moved = false;
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (type) {
+      window.addEventListener(type, function () { moved = true; }, { once: true, passive: true });
+    });
+    function place() { if (!moved) target.scrollIntoView({ block: 'center' }); }
+    place();
+    window.addEventListener('load', place);
+    return place;
+  }
+
+  // ---------------------------------------------------------- reading position
+  // Chapter notes remember, per device, the section the reader was in (the last note
+  // heading or np-N paragraph that has scrolled up to just under the sticky header).
+  // The next visit without an explicit target (#hash or ?hl=) lands there again with a
+  // notice offering 「從頭開始」. Scrolling above the notes forgets the position;
+  // reading the questions below the notes keeps it.
+  function initReadingPosition(key) {
+    var note = document.querySelector('.ex-note');
+    if (!note || !key) return null;
+    var anchors = note.querySelectorAll('h2[id], h3[id], [id^="np-"]');
+    if (!anchors.length) return null;
+    var notice = null;
+    var armed = false;   // only the reader's own scrolling is saved, not the page settling
+    var timer = null;
+    var lastId;
+
+    function line() {
+      // Note anchors scroll to 80–96px from the top (scroll-margin-top); count those as reached.
+      return headerBottom() + (notice ? notice.offsetHeight + 8 : 0) + 48;
+    }
+    // '' = above the notes (top of the page); null = below them (keep what is saved).
+    function currentAnchor() {
+      var y = line();
+      var box = note.getBoundingClientRect();
+      if (box.top > y) return '';
+      if (box.bottom <= y) return null;
+      var found = '';
+      for (var i = 0; i < anchors.length; i++) {
+        var r = anchors[i].getBoundingClientRect();
+        if (!r.width && !r.height) continue;
+        if (r.top > y) break;
+        found = anchors[i].id;
+      }
+      return found;
+    }
+    function save() {
+      timer = null;
+      if (!armed) return;
+      var id = currentAnchor();
+      if (id === null || id === lastId) return;
+      lastId = id;
+      var all = positions();
+      if (id) all[key] = { id: id, t: Date.now() };
+      else delete all[key];
+      store(POS_KEY, all);
+    }
+    function arm() { armed = true; }
+    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (type) {
+      window.addEventListener(type, arm, { once: true, passive: true });
+    });
+    // Scrollbar drags send no input event: arm anyway once the page has settled.
+    window.addEventListener('load', function () { setTimeout(arm, 1500); });
+    // Saved once scrolling pauses, so a long (or smooth) scroll stores where it ended.
+    window.addEventListener('scroll', function () {
+      if (!armed) return;
+      clearTimeout(timer);
+      timer = setTimeout(save, 250);
+    }, { passive: true });
+    window.addEventListener('pagehide', function () { clearTimeout(timer); save(); });
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') { clearTimeout(timer); save(); }
+    });
+
+    var params = new URLSearchParams(location.search);
+    if (location.hash || params.has('hl')) return null;   // an explicit target wins
+    var saved = positions()[key];
+    var target = saved && typeof saved.id === 'string' && /^[\w-]+$/.test(saved.id) ? document.getElementById(saved.id) : null;
+    if (!target || !note.contains(target)) return null;
+    // Already on the first screen: nothing to skip.
+    if (target.getBoundingClientRect().top + window.pageYOffset < window.innerHeight * 0.5) return null;
+    lastId = saved.id;
+
+    var h2 = null;
+    var h3 = null;
+    for (var i = 0; i < anchors.length; i++) {
+      var a = anchors[i];
+      if (a.tagName === 'H2') { h2 = a; h3 = null; } else if (a.tagName === 'H3') { h3 = a; }
+      if (a === target) break;
+    }
+    function text(node) { return (node.textContent || '').replace(/\s+/g, ' ').trim(); }
+    var title = [h2, h3].filter(Boolean).map(text).join(' › ');
+    if (!title) { title = text(target); if (title.length > 30) title = title.slice(0, 30) + '…'; }
+
+    notice = el('div', 'ex-resume');
+    notice.setAttribute('role', 'status');
+    var msg = el('span', 'ex-resume-text');
+    var restart = el('button', 'ex-resume-top', '從頭開始');
+    restart.type = 'button';
+    var close = el('button', 'ex-resume-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', '關閉提示');
+    notice.appendChild(msg);
+    notice.appendChild(restart);
+    notice.appendChild(close);
+    var section = note.closest('.ex-notes') || note.parentNode;
+    var heading = section.querySelector('#notes-h');
+    section.insertBefore(notice, heading ? heading.nextSibling : section.firstChild);
+    // Filled after insertion so screen readers announce it as a status message.
+    setTimeout(function () { msg.textContent = '已跳到上次讀到的位置：' + title; }, 50);
+
+    var moved = false;
+    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (type) {
+      window.addEventListener(type, function () { moved = true; }, { once: true, passive: true });
+    });
+    function dismiss(focusNode) {
+      if (!notice) return;
+      notice.remove();
+      notice = null;
+      if (focusNode) {
+        if (!focusNode.hasAttribute('tabindex')) focusNode.setAttribute('tabindex', '-1');
+        try { focusNode.focus({ preventScroll: true }); } catch (e) { focusNode.focus(); }
+      }
+    }
+    restart.addEventListener('click', function () {
+      var all = positions();
+      delete all[key];
+      store(POS_KEY, all);
+      lastId = '';
+      dismiss(document.querySelector('.ex-h1'));
+      scrollToY(0, true);
+    });
+    close.addEventListener('click', function () { dismiss(target); });
+    function place() {
+      if (moved || !notice || !document.contains(target)) return;
+      scrollToY(target.getBoundingClientRect().top + window.pageYOffset - line() + 36, false);
+    }
+    place();
+    window.addEventListener('load', place);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place, function () { /* ignore */ });
+    return place;
+  }
+
+  // ---------------------------------------------------------- chapter answer bar
+  // Quiz mode only (CSS hides it in browse mode): 「已作答 X／Y 題・未作答 Z 題」, a
+  // button to the next unanswered question, and 「清除本章作答紀錄」 in the tools row.
+  function initAnswerBar(box, tools) {
+    function cards() {
+      var seen = {};
+      return Array.prototype.filter.call(box.querySelectorAll('.ex-q:not(.ex-unanswered)'), function (card) {
+        var n = card.getAttribute('data-qid');
+        if (seen[n]) return false;
+        seen[n] = true;
+        return true;
+      });
+    }
+    var bar = el('div', 'ex-ans-bar');
+    var status = el('span', 'ex-ans-text');
+    var next = el('button', 'ex-ans-next', '跳到下一題未作答');
+    next.type = 'button';
+    var live = el('span', 'ex-sr');
+    live.setAttribute('aria-live', 'polite');
+    bar.appendChild(status);
+    bar.appendChild(next);
+    bar.appendChild(live);
+    box.parentNode.insertBefore(bar, box);
+    var lastJump = null;
+    var wipe = el('button', 'ex-ans-clear', '清除本章作答紀錄');
+    wipe.type = 'button';
+    if (tools) tools.appendChild(wipe);
+
+    function refresh() {
+      var list = cards();
+      var done = list.filter(function (c) { return c.classList.contains('ex-done'); }).length;
+      bar.hidden = !list.length;
+      wipe.hidden = !list.length;
+      status.textContent = '已作答 ' + done + '／' + list.length + ' 題・未作答 ' + (list.length - done) + ' 題';
+      next.disabled = done >= list.length;
+    }
+    next.addEventListener('click', function () {
+      var list = cards();
+      // Search onward from the question at the top of the screen (or the one just
+      // jumped to, while a smooth scroll is still on its way), wrapping to the start.
+      var current = -1;
+      var y = headerBottom() + bar.offsetHeight + 24;
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].getBoundingClientRect().top > y) break;
+        current = i;
+      }
+      if (lastJump && Date.now() - lastJump.t < 1500) current = Math.max(current, list.indexOf(lastJump.card));
+      for (var k = 1; k <= list.length; k++) {
+        var card = list[(current + k) % list.length];
+        if (card.classList.contains('ex-done')) continue;
+        scrollToY(card.getBoundingClientRect().top + window.pageYOffset - headerBottom() - bar.offsetHeight - 12, true);
+        card.setAttribute('tabindex', '-1');
+        try { card.focus({ preventScroll: true }); } catch (e) { card.focus(); }
+        lastJump = { card: card, t: Date.now() };
+        return;
+      }
+      live.textContent = '本章題目都作答過了';
+    });
+    wipe.addEventListener('click', function () {
+      var all = Array.prototype.slice.call(box.querySelectorAll('.ex-q'));
+      var ns = all.map(function (c) { return c.getAttribute('data-qid'); });
+      if (!window.confirm('確定要清除本章 ' + cards().length + ' 題在這台裝置上的作答紀錄嗎？'
+        + '（同一題若也標在其他章節，那邊的作答紀錄也會一起清除；錯題本與「課本已讀完」不受影響）')) return;
+      forget(ANS_KEY, ns);
+      forget(STATS_KEY, ns);
+      all.forEach(function (card) { resetQuestion(card, false); });
+      refreshStrip();
+      refresh();
+      live.textContent = '已清除本章作答紀錄';
+    });
+    return { refresh: refresh };
+  }
+
   // ---------------------------------------------------------- chapter questions
   function renderChapterQuestions(box) {
     var key = box.getAttribute('data-chapter');
@@ -769,6 +1296,9 @@
       rest.forEach(function (q) { box.appendChild(renderCard(q, data, { current: key })); });
       var tools = document.querySelector('.ex-qs-tools');
       if (tools) tools.hidden = false;
+      answerBar = initAnswerBar(box, tools);
+      restoreChoices(box);
+      refreshAnswerBar();
       // Signed in: the notes' 「考過」 links jump straight to the question on this page.
       document.querySelectorAll('.ex-hit a[data-q]').forEach(function (a) {
         a.setAttribute('href', '#q-' + a.getAttribute('data-q'));
@@ -782,7 +1312,7 @@
   }
 
   // Every exam page except the login page shows the sign-in state with a one-click logout.
-  function initAuthBar(bar) {
+  function initAuthBar(bar, settle) {
     fetch('/api/exam/data?check=1', { credentials: 'same-origin', cache: 'no-store' })
       .then(function (r) { return r.status === 204; }, function () { return false; })
       .then(function (signedIn) {
@@ -802,6 +1332,7 @@
           bar.appendChild(a);
         }
         bar.hidden = false;
+        if (settle) settle();
       });
   }
 
@@ -830,7 +1361,11 @@
   function init() {
     if (window.DN && typeof window.DN.initBlog === 'function') window.DN.initBlog({});
     document.querySelectorAll('.ex-mode').forEach(function (btn) {
-      btn.addEventListener('click', function () { setMode(btn.getAttribute('data-mode')); });
+      btn.addEventListener('click', function () {
+        setMode(btn.getAttribute('data-mode'));
+        // Entering quiz mode shows the stored answers of this chapter's questions.
+        restoreChoices(document.getElementById('ex-chapter-qs'));
+      });
     });
     setMode(load(MODE_KEY, 'browse') === 'quiz' ? 'quiz' : 'browse');
     document.querySelectorAll('.ex-q').forEach(wireQuestion);
@@ -844,8 +1379,15 @@
     if (strip) initStrip(strip);
     var chapterQs = document.getElementById('ex-chapter-qs');
     if (chapterQs) renderChapterQuestions(chapterQs);
+    var landing = initLanding();
+    var resume = initReadingPosition(strip ? strip.getAttribute('data-progress-chapter') : '');
+    var settle = landing || resume;
+    var hubSearchForm = document.querySelector('[data-hub-search]');
+    if (hubSearchForm) initHubSearch(hubSearchForm);
+    var rank = document.querySelector('table.ex-rank[data-rank-step]');
+    if (rank) initRank(rank);
     var authBar = document.querySelector('.ex-auth');
-    if (authBar) initAuthBar(authBar);
+    if (authBar) initAuthBar(authBar, settle);
     var loginForm = document.querySelector('form.ex-login');
     if (loginForm) initLogin(loginForm);
     var progress = document.getElementById('ex-progress');

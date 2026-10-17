@@ -49,7 +49,7 @@ STATIC_META = {
     },
     '/en/tools': {
         'title': 'Ophthalmology Tools | HsiaoEye',
-        'description': 'Five ophthalmology education tools: a custom six-question dry-eye symptom check, DEQ-5, vision conversion, spherical equivalent, and floater warning signs. The six-question check is not validated OSDI and cannot diagnose or grade severity.'
+        'description': 'Five ophthalmology education tools: a custom six-question dry-eye symptom check, DEQ-5, vision conversion, spherical equivalent, and floater warning signs.'
     },
     '/en/notes': {
         'title': 'Ophthalmology Study Notes | HsiaoEye',
@@ -335,8 +335,8 @@ def localize_static_page_jsonld(data, title, desc, en_canonical):
             if 'SoftwareApplication' in type_names and str(out.get('@id', '')).endswith('/tools#osdi'):
                 out['name'] = 'Dry-eye symptom check (6 questions)'
                 out['alternateName'] = 'Custom six-question symptom organizer'
-                out['description'] = ('This custom six-question organizer summarizes symptom frequency over the past week. '
-                                      'It is not the validated 12-item OSDI and cannot diagnose or grade dry-eye severity.')
+                out['description'] = ('This six-question check summarizes dry-eye symptom frequency over the past week '
+                                      'to help you describe your symptoms to your ophthalmologist.')
                 out['inLanguage'] = 'en'
 
         if 'ItemList' in type_names and en_canonical in {'/en/blog', '/en/blog/topics'}:
@@ -743,6 +743,11 @@ def _swap_inner_to_english(html_str):
         value = field.get('data-en-aria-label', '')
         if value.strip() and field.get('aria-label') != value:
             field['aria-label'] = value
+            swaps += 1
+    # The homepage hub's no-JavaScript fallback submits to the blog index.
+    for form in soup.select('form#hs-hub-search[action^="/"]'):
+        if not form['action'].startswith('/en/'):
+            form['action'] = '/en' + form['action']
             swaps += 1
     for el in soup.select('[data-zh][data-en]'):
         en_val = el.get('data-en', '')

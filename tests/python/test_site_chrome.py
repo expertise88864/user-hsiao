@@ -3,6 +3,8 @@
 Owner decision 2026-10-17: index.html is the single source of truth for the
 site chrome; _gen_site_chrome.py copies it onto every other page and the
 English generator mirrors it into /en/. These tests fail on any drift.
+Later that day the owner removed 量表 (/tools) from the header and the mobile
+menu (「刪除頁首 右上角 量表」); the /tools page itself stays.
 """
 import importlib.util
 import re
@@ -38,8 +40,10 @@ class HomepageChrome(unittest.TestCase):
         self.header, self.footer = chrome.home_chrome(ROOT)
 
     def test_homepage_chrome_carries_the_owner_requested_content(self):
-        for href, label in (('/blog', '衛教文章'), ('/exam', '眼科專科醫師考試'), ('/tools', '量表'), ('/about', '關於我')):
+        for href, label in (('/blog', '衛教文章'), ('/exam', '眼科專科醫師考試'), ('/about', '關於我')):
             self.assertRegex(self.header, rf'<a href="{href}" [^>]*data-zh="{label}"[^>]*>{label}</a>')
+        self.assertNotIn('/tools', self.header)
+        self.assertNotIn('量表', self.header)
         self.assertIn('aria-label="搜尋"', self.header)
         self.assertIn('id="langToggle"', self.header)
         self.assertIn('class="mag-foot-disclaimer"', self.footer)
@@ -48,6 +52,23 @@ class HomepageChrome(unittest.TestCase):
         self.assertIn(f'>{DISCLAIMER_ZH}</p>', self.footer)
         self.assertNotIn('本站不接受業配', self.footer)
         self.assertNotIn('No sponsorship', self.footer)
+
+    def test_mobile_menu_has_no_tools_link(self):
+        source = read(ROOT / 'blog' / 'blog-shared.js')
+        start = source.index('DN.injectMobileMenu = function')
+        menu = source[start:source.index('DN.injectFooterYear', start)]
+        for href in ('/blog/', '/exam', '/about'):
+            self.assertIn(f'<a href="{href}"', menu)
+        self.assertNotIn('/tools', menu)
+        self.assertNotIn('量表', menu)
+        self.assertTrue((ROOT / 'tools.html').exists(), 'only the header link goes; the page stays')
+
+    def test_no_page_header_links_to_tools(self):
+        for path in [*chrome.pages(ROOT), ROOT / 'index.html', *sorted((ROOT / 'en').glob('**/*.html'))]:
+            headers, _ = chrome_of(path)
+            with self.subTest(page=path.relative_to(ROOT).as_posix()):
+                self.assertTrue(headers)
+                self.assertFalse(any('/tools' in h or '量表' in h for h in headers))
 
     def test_every_page_uses_the_homepage_header_and_footer(self):
         pages = chrome.pages(ROOT)

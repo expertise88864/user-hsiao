@@ -573,6 +573,12 @@
     if (!('IntersectionObserver' in window)) return;
     const targets = document.querySelectorAll('.reveal, .article-list-item, .myth-card');
     if (!targets.length) return;
+    // Reduced motion: no fade-in at all (no inline opacity/transform/transition);
+    // app.css also neutralises the inline styles if the preference changes later.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      targets.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
     const io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) {
@@ -727,7 +733,6 @@
         '<a href="/" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="首頁" data-en="Home"></a>' +
         '<a href="/blog/" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles"></a>' +
         '<a href="/exam" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam"></a>' +
-        '<a href="/tools" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools"></a>' +
         '<a href="/about" class="block px-3 py-2.5 rounded-lg text-[14px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About"></a>' +
       '</nav>';
     header.appendChild(drawer);
@@ -767,50 +772,6 @@
   DN.getReadCount = function () { return DN.getReadSlugs().length; };
   DN.resetRead = function () {
     try { localStorage.removeItem(DN.READ_KEY); window.dispatchEvent(new CustomEvent('hs-read-updated')); } catch (e) {}
-  };
-
-  // ---------- read-progress widget (mounts into #hs-read-progress) ----------
-  DN.injectReadProgress = function () {
-    const host = document.getElementById('hs-read-progress');
-    if (!host) return;
-    function render() {
-      const read = DN.getReadCount();
-      // We deliberately do NOT show "X / N total" — total article count is a
-      // moving target and tends to feel "thin" early on. Just celebrate what
-      // the reader has actually read; the bar grows monotonically up to the
-      // current total but the label hides the denominator.
-      const total = DN.totalArticles || 1;
-      const pct = Math.min(100, Math.round((read / total) * 100));
-      host.innerHTML =
-        '<div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 22px;box-shadow:0 1px 2px rgba(15,23,42,.04)">' +
-          '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">' +
-            '<div>' +
-              '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--blue-deep);font-weight:700;margin-bottom:2px" data-zh="閱讀進度" data-en="Reading progress">閱讀進度</div>' +
-              '<div style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:18px;font-weight:700;color:var(--ink)">' +
-                '<span data-zh="已讀" data-en="Read">已讀</span> <span style="color:var(--blue-deep)">' + read + '</span> <span data-zh="篇" data-en="article' + (read === 1 ? '' : 's') + '">篇</span>' +
-                (read > 0 ? ' <span style="font-size:13px;font-weight:500;color:var(--ink-2)">(' + pct + '%)</span>' : '') +
-              '</div>' +
-            '</div>' +
-            (read > 0
-              ? '<button id="hs-read-reset" type="button" style="background:#fff;border:1px solid var(--border);color:var(--ink-2);padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer" data-zh="重設" data-en="Reset">重設</button>'
-              : '<span style="font-size:12px;color:var(--muted);font-style:italic" data-zh="閱讀後自動記錄" data-en="Auto-tracked">閱讀後自動記錄</span>') +
-          '</div>' +
-          '<div style="height:8px;background:var(--blue-soft);border-radius:9999px;overflow:hidden">' +
-            '<div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,#8fb3d4,#243b56);transition:width .35s ease;"></div>' +
-          '</div>' +
-        '</div>';
-      const resetBtn = document.getElementById('hs-read-reset');
-      if (resetBtn) resetBtn.addEventListener('click', function () {
-        if (confirm('要重設閱讀進度嗎? 本動作只會清除本裝置的紀錄,不會影響網站。')) DN.resetRead();
-      });
-      // v34.10: every render() rebuilds innerHTML, so the freshly inserted
-      // data-zh/data-en spans need re-translation. Without this the widget
-      // reverts to Chinese on /en/ pages whenever the read-count changes.
-      if (DN.applyTextOnly) DN.applyTextOnly(DN.detectLang());
-    }
-    render();
-    window.addEventListener('hs-read-updated', render);
-    window.addEventListener('storage', function (e) { if (e.key === DN.READ_KEY) render(); });
   };
 
   // ---------- visible breadcrumb (renders BreadcrumbList JSON-LD as HTML) ----------
@@ -911,14 +872,15 @@
   // ---------------------------------------------------------------------
   // Engagement-gated read tracking — only mark an article as "read" when the
   // user has demonstrably engaged with it. Prevents bounce-traffic from
-  // counting toward the home-page progress widget.
+  // counting as read.
   //
   // Criteria (BOTH required):
   //   1. ≥ 30 seconds of foreground time (visibility-aware)
   //   2. ≥ 50 % of the article scrolled past the viewport bottom
   //
   // Once both are met for the current slug, we localStorage-persist it and
-  // dispatch 'hs-read-updated' so DN.injectReadProgress re-renders. We also
+  // dispatch 'hs-read-updated' (the homepage 閱讀進度 widget was removed
+  // 2026-10-17; the read list still personalises suggestions). We also
   // fire a GA4 'article_read' event for analytics segmentation.
   // ---------------------------------------------------------------------
   DN.READ_DWELL_MS = 30 * 1000;     // 30 s minimum dwell
@@ -1359,24 +1321,18 @@
     update();
   };
 
-  // ---------- article disclaimer (mounted at #hs-author-bio) ----------
-  // Owner 2026-10-17: the in-article author card (name / 現職 / 學歷 / 完整自介)
-  // was removed; the mount keeps its id for existing pages and only shows the
-  // site-wide medical disclaimer (same wording as the footer).
-  DN.ARTICLE_DISCLAIMER_ZH = '本網站內容僅作為一般醫學教育與資訊參考，不構成個別醫療建議，亦不能取代面對面的問診、檢查與處方。任何用藥、停藥、調整劑量或就醫決定，請以您的主治醫師判斷為準。';
-  DN.ARTICLE_DISCLAIMER_EN = 'This website is for general medical education and information only. It is not individual medical advice and cannot replace an in-person consultation, examination or prescription. For any decision to start, stop or adjust a medication, or to seek care, follow your treating physician\'s judgement.';
+  // ---------- #hs-author-bio mount (now empty) ----------
+  // Owner 2026-10-17: the author card was removed, then the in-article copy of
+  // the medical disclaimer too (the footer on every page already carries it).
+  // Existing pages keep the empty mount; this clears anything an older build or
+  // an editor save left inside it.
   DN.injectAuthorBio = function (mountId) {
     const mount = document.getElementById(mountId || 'hs-author-bio');
-    if (!mount) return;
-    mount.innerHTML =
-      '<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:32px 0 24px;box-shadow:0 8px 18px -10px rgba(58,90,124,.18)">' +
-        '<p style="margin:0;font-size:13px;line-height:1.8;color:#64748b" ' +
-          'data-zh="' + DN.ARTICLE_DISCLAIMER_ZH + '" ' +
-          'data-en="' + DN.ARTICLE_DISCLAIMER_EN + '">' +
-          DN.ARTICLE_DISCLAIMER_ZH +
-        '</p>' +
-      '</div>';
+    if (mount && mount.childNodes.length) mount.textContent = '';
   };
+
+  // Monochrome line icon (cup) for the support blocks; no emoji (owner 2026-10-17).
+  DN.SUPPORT_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c0 1 1 1.5 1 2.5M12 3.5c0 1 1 1.5 1 2.5"/></svg>';
 
   // ---------------------------------------------------------------------
   // v34.6: Article support section — independent block, mounted AFTER
@@ -1400,7 +1356,7 @@
     sec.innerHTML =
       '<div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:32px 0 24px;box-shadow:0 8px 18px -10px rgba(58,90,124,.18)">' +
         '<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">' +
-          '<div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#f3f7fb,#e6eef6);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;border:2px solid #fff;box-shadow:0 4px 10px -2px rgba(58,90,124,.3)" aria-hidden="true">☕</div>' +
+          '<div style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#f3f7fb,#e6eef6);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid #fff;box-shadow:0 4px 10px -2px rgba(58,90,124,.3);color:var(--blue-deep)" aria-hidden="true">' + DN.SUPPORT_ICON + '</div>' +
           '<div style="flex:1;min-width:200px">' +
             '<div style="font-family:\'Noto Serif TC\',Georgia,serif;font-size:16px;font-weight:700;color:var(--ink)" data-zh="支持作者" data-en="Support the author">支持作者</div>' +
             '<div style="font-size:13px;color:#334155;line-height:1.85;margin-top:6px" ' +
@@ -1413,7 +1369,7 @@
             'style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;' +
             'border-radius:9999px;background:#fff;color:var(--blue-deep);text-decoration:none;' +
             'font-size:13px;font-weight:600;flex-shrink:0;line-height:1;border:1px solid var(--border)" ' +
-            'data-zh="☕ Ko-fi 支持" data-en="☕ Support on Ko-fi">☕ Ko-fi 支持</a>' +
+            'data-zh="Ko-fi 支持" data-en="Support on Ko-fi">Ko-fi 支持</a>' +
         '</div>' +
       '</div>';
     if (!existing) {
@@ -1468,24 +1424,11 @@
     if (mount) { mount.innerHTML = ''; mount.style.display = 'none'; }
   };
 
-  DN._kofiButtonHTML = function () {
-    if (!DN.BMC_URL) return '';
-    return (
-      '<a href="' + DN.BMC_URL + '" target="_blank" rel="noopener noreferrer" ' +
-        'class="hs-kofi-btn" ' +
-        'style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:9999px;background:#13C3FF;color:#fff;text-decoration:none;font-weight:700;font-size:13.5px;box-shadow:0 6px 14px -6px rgba(19,195,255,.45);transition:transform .15s,box-shadow .15s">' +
-        '<span style="font-size:16px">☕</span>' +
-        '<span data-zh="支持我寫更多衛教文章" data-en="Support my writing on Ko-fi">支持我寫更多衛教文章</span>' +
-      '</a>'
-    );
-  };
-
   // v34.3: Footer auto-mount disabled per user request — Ko-fi support card
   // now lives inline at:
-  //   • Home: dedicated <section id="hs-support-section"> directly under
-  //     the medical disclaimer (HTML-defined in index.html).
-  //   • Articles: bottom card inside the author-bio block (added by
-  //     DN.injectAuthorBio).
+  //   • Home: dedicated <section id="hs-support-section"> (HTML-defined in
+  //     index.html).
+  //   • Articles: the #hs-support card (DN.injectArticleSupport).
   // This stub stays so any code that still calls it doesn't throw, and
   // it ALSO clears any leftover .hs-kofi-btn that previous SW caches
   // may have injected at the page bottom.
@@ -2363,7 +2306,6 @@
         ':root[data-theme="dark"] .article-list-item,' +
         ':root[data-theme="dark"] .topic-card,' +
         ':root[data-theme="dark"] .home-faq details.hf,' +
-        ':root[data-theme="dark"] .quick-find a,' +
         ':root[data-theme="dark"] .keypoint,' +
         ':root[data-theme="dark"] .selfcheck,' +
         ':root[data-theme="dark"] .references,' +
@@ -2373,7 +2315,7 @@
         ':root[data-theme="dark"] .hs-search-input,' +
         ':root[data-theme="dark"] header.sticky,' +
         ':root[data-theme="dark"] .lang-select{background:var(--surface)!important;color:var(--ink)}' +
-        ':root[data-theme="dark"] .disclaimer{background:#2a2418;color:#e8d9b0;border-color:#5a4720}' +
+        ':root[data-theme="dark"] .hs-article-note{background:#1f2e42;color:#d6e4f0;border-color:#3d5470}' +
         ':root[data-theme="dark"] .alert-card{background:#3a1f1f;border-color:#7a3a3a}' +
         ':root[data-theme="dark"] .alert-card h4,' +
         ':root[data-theme="dark"] .alert-card li{color:#fcaaaa}' +
@@ -2537,36 +2479,94 @@
     });
   };
 
-  // ---------- home search (filter article-list-item by title/tag/text) ----------
-  DN.bindHomeSearch = function () {
-    const input = document.getElementById('hs-search-input');
-    if (!input) return;
-    const empty = document.getElementById('dn-search-empty');
-    // v34.12: when no query, honor the "max 5 visible" cap from
-    // capHomeArticleList. When a query is active, show every match (cap lifted)
-    // so users can find older articles via search. Re-query each call so the
-    // DOM-order (post-sort) is what drives the i<5 cap rather than original
-    // HTML order.
-    function applyFilter() {
-      const q = input.value.trim().toLowerCase();
-      const allItems = Array.prototype.slice.call(
-        document.querySelectorAll('#hs-article-list .article-list-item')
-      );
-      let visible = 0;
-      allItems.forEach(function (it, i) {
-        const text = (it.textContent || '').toLowerCase();
-        const matches = !q || text.indexOf(q) !== -1;
-        const show = matches && (q ? true : i < 5);
-        it.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      if (empty) empty.style.display = (q && visible === 0) ? 'block' : 'none';
+  // ---------- homepage 快速查找眼科主題 hub (owner 2026-10-17) ----------
+  // Markup comes from _gen_blog_filter.py (#hs-hub). One search box with a live
+  // result count, 「全部主題」 + category chips and topic chips filter the
+  // #hs-article-list cards. Nothing selected: the newest DN.HOME_CAP articles
+  // (CSS cap). A search or chip shows every match and drops the pinned card.
+  DN.HOME_CAP = 5;
+  DN.bindHomeHub = function () {
+    var hub = document.getElementById('hs-hub');
+    var list = document.getElementById('hs-article-list');
+    var input = document.getElementById('hs-search-input');
+    if (!hub || !list || !input) return;
+    var status = document.getElementById('hs-hub-status');
+    var empty = document.getElementById('dn-search-empty');
+    var chips = Array.prototype.slice.call(hub.querySelectorAll('.hub-chip'));
+    var active = null;   // the pressed category/topic chip, or null for 全部主題
+    function catOf(card) {
+      var chip = card.querySelector('.chip[class*="cat-"]');
+      var m = chip && chip.className.match(/(?:^|\s)cat-([a-z]+)/);
+      return m ? m[1] : '';
     }
-    input.addEventListener('input', applyFilter);
-    // Esc clears
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') { input.value = ''; applyFilter(); }
+    function topicOf(card) {
+      var tag = card.querySelector('.chip.tag');
+      return tag ? (tag.getAttribute('data-zh') || '').trim() : '';
+    }
+    function say(zh, en) {
+      if (!status) return;
+      status.setAttribute('data-zh', zh);
+      status.setAttribute('data-en', en);
+      status.textContent = DN.detectLang() === 'en' ? en : zh;
+    }
+    function apply() {
+      var q = input.value.trim().toLowerCase();
+      var cards = Array.prototype.slice.call(list.querySelectorAll('.article-list-item'));
+      var filtering = !!(q || active);
+      var shown = 0;
+      cards.forEach(function (card) {
+        var ok = true;
+        if (active && active.hasAttribute('data-hub-cat')) ok = catOf(card) === active.getAttribute('data-hub-cat');
+        if (active && active.hasAttribute('data-hub-topic')) ok = topicOf(card) === active.getAttribute('data-hub-topic');
+        if (ok && q) {
+          var h = card.querySelector('h3');
+          var text = card.textContent + ' ' + (h ? (h.getAttribute('data-zh') || '') + ' ' + (h.getAttribute('data-en') || '') : '');
+          ok = text.toLowerCase().indexOf(q) !== -1;
+        }
+        card.classList.toggle('is-hidden', filtering && !ok);
+        if (filtering && ok) shown++;
+      });
+      list.classList.toggle('is-filtered', filtering);
+      if (empty) empty.style.display = filtering && !shown ? 'block' : 'none';
+      if (!filtering) {
+        var cap = Math.min(DN.HOME_CAP, cards.length);
+        say('最新 ' + cap + ' 篇・共 ' + cards.length + ' 篇文章', 'Latest ' + cap + ' of ' + cards.length + ' articles');
+      } else if (active && !q) {
+        var name = active.querySelector('[data-zh]');
+        say((name ? name.getAttribute('data-zh') : '') + '：' + shown + ' 篇文章',
+          (name ? name.getAttribute('data-en') : '') + ': ' + shown + ' article' + (shown === 1 ? '' : 's'));
+      } else {
+        say('找到 ' + shown + ' 篇文章', shown + ' article' + (shown === 1 ? '' : 's') + ' found');
+      }
+    }
+    function press(chip) {
+      active = chip && !chip.hasAttribute('data-hub-all') ? chip : null;
+      chips.forEach(function (b) {
+        var on = active ? b === active : b.hasAttribute('data-hub-all');
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      apply();
+    }
+    chips.forEach(function (chip) {
+      chip.disabled = false;
+      chip.addEventListener('click', function () {
+        press(chip === active ? null : chip);
+        // Phones: the topic cards push the results below the fold.
+        var top = list.getBoundingClientRect().top;
+        if (active && top > window.innerHeight * 0.7) {
+          var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          document.getElementById('articles').scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+        }
+      });
     });
+    input.addEventListener('input', apply);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; apply(); }
+    });
+    var form = document.getElementById('hs-hub-search');
+    if (form) form.addEventListener('submit', function (e) { e.preventDefault(); apply(); });
+    apply();
   };
 
   // ---------------------------------------------------------------------
@@ -3071,10 +3071,9 @@
     });
   };
 
-  // v34.12: homepage article list — sort by date desc, cap at 5 visible.
-  // The author writes the items in any order in HTML; this function ensures
-  // the most-recent 5 surface at the top regardless. Items beyond #5 are
-  // hidden via display:none (kept in DOM for future "show all" expansion).
+  // Homepage article list — sort by date desc after the pinned card. The CSS
+  // in index.html shows the first DN.HOME_CAP articles (newest = the large
+  // feature card); DN.bindHomeHub lifts the cap while a search/chip is active.
   DN.capHomeArticleList = function () {
     var list = document.getElementById('hs-article-list');
     if (!list) return;
@@ -3085,10 +3084,7 @@
       return t ? Date.parse(t.textContent.trim()) || 0 : 0;
     }
     items.sort(function (a, b) { return dateOf(b) - dateOf(a); });
-    items.forEach(function (el, i) {
-      list.appendChild(el);                 // re-attach in sorted order
-      el.style.display = (i >= 5) ? 'none' : '';
-    });
+    items.forEach(function (el) { list.appendChild(el); });   // re-attach in sorted order
   };
 
   // ---------------------------------------------------------------------
@@ -3145,7 +3141,7 @@
     if (DN._vitalsBound) return;
     DN._vitalsBound = true;
     var vitalsScript = document.createElement('script');
-    vitalsScript.src = '/assets/vitals.min.js?v=20260728';
+    vitalsScript.src = '/assets/vitals.min.js?v=20260729';
     vitalsScript.addEventListener('load', function () {
       if (window.HsiaoVitals) window.HsiaoVitals.observeVitals(send);
     });
@@ -3323,7 +3319,7 @@
   };
 
   // ---------------------------------------------------------------------
-  // CALCULATOR 1 — custom six-item symptom organizer, not the validated OSDI.
+  // CALCULATOR 1 — custom six-item dry-eye symptom check (乾眼症狀檢視).
   // Keep the legacy function/DOM/anchor names for saved links and CMS stripping.
   // Version the event identity: historical OSDI views are not comparable scores.
   // ---------------------------------------------------------------------
@@ -3334,7 +3330,7 @@
       guideLabelZh: '乾眼症狀檢視', guideLabelEn: 'dry-eye symptom check',
       mountSel: mountSel, allowUnanswered: true, resultBilingual: true,
       title: '<span data-zh="乾眼症狀檢視（6題）" data-en="Dry-eye symptom check (6 questions)">乾眼症狀檢視（6題）</span>',
-      sub: '<span data-zh="這六題是本站的症狀整理，並非經驗證的12題OSDI量表，不能用正式OSDI門檻診斷或分級。回想最近一週，0=從未、4=一直；可略過不適用的題目。" data-en="These six questions organize symptoms, not the validated 12-item OSDI. They cannot use OSDI thresholds for diagnosis or severity grading. Recall the past week: 0=never, 4=all the time; skip items that do not apply.">這六題是本站的症狀整理，並非經驗證的12題OSDI量表，不能用正式OSDI門檻診斷或分級。回想最近一週，0=從未、4=一直；可略過不適用的題目。</span>',
+      sub: '<span data-zh="回想最近一週，0=從未、4=一直；可略過不適用的題目。" data-en="Recall the past week: 0=never, 4=all the time; skip items that do not apply.">回想最近一週，0=從未、4=一直；可略過不適用的題目。</span>',
       rows: [
         { type:'number', key:'q1', min:0, max:4, def:'', label:'<span data-zh="眼睛畏光" data-en="Eyes sensitive to light">眼睛畏光</span>', hint:'0–4' },
         { type:'number', key:'q2', min:0, max:4, def:'', label:'<span data-zh="眼睛有沙礫感 / 異物感" data-en="Gritty / foreign-body sensation">眼睛有沙礫感 / 異物感</span>', hint:'0–4' },
@@ -3351,7 +3347,7 @@
           interp: '平均頻率：' + average + ' / 4。無論頻率高低，都不能確認或排除乾眼；持續或影響生活請就醫，突然視力變化或劇痛請儘速就醫。',
           interpEn: 'Mean frequency: ' + average + ' / 4. Frequency alone does not confirm or exclude dry eye. Seek assessment for persistent or troublesome symptoms; sudden vision changes or severe pain need urgent care.' };
       },
-      disclaimer: '<span data-zh="本工具不是正式OSDI，不能診斷或分級。結果可協助向眼科醫師描述症狀；正式12題OSDI見Schiffman等2000年研究。" data-en="This is not the validated OSDI and cannot diagnose or grade severity. Use the result to describe symptoms to your ophthalmologist; the validated 12-item OSDI is described by Schiffman et al. (2000).">本工具不是正式OSDI，不能診斷或分級。結果可協助向眼科醫師描述症狀；正式12題OSDI見Schiffman等2000年研究。</span>'
+      disclaimer: '<span data-zh="結果可協助向眼科醫師描述症狀。" data-en="Use the result to describe your symptoms to your ophthalmologist.">結果可協助向眼科醫師描述症狀。</span>'
     });
   };
 
@@ -3792,7 +3788,7 @@
     DN._adminLoaded = true;
     var s = document.createElement('script');
     s.id = 'hs-admin-runtime';
-    s.src = '/blog/blog-admin.js?v=20260728';
+    s.src = '/blog/blog-admin.js?v=20260729';
     s.defer = true;
     s.onerror = function () {
       console.warn('[hs-admin] failed to load /blog/blog-admin.js');
@@ -5217,12 +5213,12 @@
     safeCall('bindEngagementTracking', function () { DN.bindEngagementTracking(); }); // v37.29 — GA4 events (scroll/time/share/nav)
     safeCall('addReadingProgress', function () { DN.addReadingProgress(); });   // top scroll bar — visible immediately, cheap
     safeCall('shuffleHeroCards', function () { DN.shuffleHeroCards(); });     // home cover-story shuffle (above-the-fold)
-    safeCall('injectSpotlight', function () { DN.injectSpotlight(); });      // 最近更新 + 熱門推薦 (above-the-fold on mobile)
-    safeCall('bindHomeSearch', function () { DN.bindHomeSearch(); });
+    safeCall('injectSpotlight', function () { DN.injectSpotlight(); });      // no-op: no #hs-recent-list / #hs-popular-list mounts
     safeCall('bindThemeToggle', function () { DN.bindThemeToggle(); });      // dark-mode toggle button (header)
     safeCall('injectMobileBottomNav', function () { DN.injectMobileBottomNav(); });
     safeCall('markNewArticles', function () { DN.markNewArticles(); });      // NEW badge on home article cards
-    safeCall('capHomeArticleList', function () { DN.capHomeArticleList(); });   // v34.12: sort by date desc, cap visible at 5
+    safeCall('capHomeArticleList', function () { DN.capHomeArticleList(); });   // sort by date desc (CSS shows the newest 5)
+    safeCall('bindHomeHub', function () { DN.bindHomeHub(); });               // 快速查找眼科主題: search + topic chips
 
     // Article-only enhancements that affect above-the-fold layout
     var isArticle = document.getElementById('proseZh') || document.querySelector('article .prose');
@@ -5260,15 +5256,12 @@
       safeCall('injectSpeculationRules', function () { DN.injectSpeculationRules(); });   // Chromium prerender hint (v37.30)
       safeCall('bindAlgoliaDocSearch', function () { DN.bindAlgoliaDocSearch(); });   // upgrades to DocSearch if creds in <meta>
       safeCall('bindLottieHero', function () { DN.bindLottieHero(); });         // mount Lottie players on [data-lottie] divs
-      safeCall('injectReadProgress', function () { DN.injectReadProgress(); });
       safeCall('addFontSizer', function () { DN.addFontSizer(); });
       safeCall('bindFAQDeepLink', function () { DN.bindFAQDeepLink(); });
       safeCall('applyAbConfig', function () { DN.applyAbConfig(); });      // server-driven A/B variant swaps
       safeCall('injectFooterKofi', function () { DN.injectFooterKofi(); });   // Ko-fi support button in every page footer
-      // v34.10: injectReadProgress / addFontSizer / initCmdK populate fresh
-      // DOM with data-zh/data-en. Re-run applyTextOnly so they show in the
-      // current language (otherwise the homepage 閱讀進度 / 已讀 / 篇 /
-      // 重設 / 閱讀後自動記錄 stays Chinese in /en/ mode).
+      // v34.10: addFontSizer / initCmdK populate fresh DOM with data-zh/data-en.
+      // Re-run applyTextOnly so they show in the current language.
       safeCall('applyTextOnly', function () { DN.applyTextOnly(curLang); });
     }, { timeout: 800 });
 
@@ -5284,7 +5277,7 @@
         safeCall('injectAuthorBio', function () { DN.injectAuthorBio('hs-author-bio'); });
         safeCall('injectArticleSupport', function () { DN.injectArticleSupport(); });   // independent Ko-fi support section
         safeCall('injectShareToolbar', function () { DN.injectShareToolbar('hs-share'); });
-        // v34.8: DN.injectBMC removed — it was a 2nd "☕ 支持我寫更多衛教文章"
+        // v34.8: DN.injectBMC removed — it was a 2nd "支持我寫更多衛教文章"
         // pill that duplicated the new injectArticleSupport section above.
         // The injectBMC function stays in the code but no longer auto-mounts.
         safeCall('addRelatedArticles', function () { DN.addRelatedArticles(); });

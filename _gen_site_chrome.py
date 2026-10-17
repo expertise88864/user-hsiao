@@ -2,8 +2,9 @@
 """Copy the homepage header and footer onto every other public page.
 
 Owner decision 2026-10-17: every page shows exactly the same sticky header
-(衛教文章 / 眼科專科醫師考試 / 量表 / 關於我 + search + language select, with the
-theme toggle and mobile menu injected by blog-shared.js) and the same magazine
+(衛教文章 / 眼科專科醫師考試 / 關於我 + search + language select, with the
+theme toggle and mobile menu injected by blog-shared.js; the 量表 link was
+removed from the header and the mobile menu later that day — /tools stays) and the same magazine
 footer (full-width disclaimer) as the homepage. ``index.html`` is the single
 source of truth: edit the header or footer there, then run the build chain.
 

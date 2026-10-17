@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 4 Ch.13 Orbit and Lacrimal Drainage Sys…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc4-13#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 4 Ch.13","item":"https://hsiao.chendermatologist.com/exam/bcsc4-13"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -182,6 +182,40 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
 .ex-prog a{color:var(--ex-accent)}
 .ex-prog .ex-low{color:#b91c1c;font-weight:700}
+.ex-find{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:18px 0 8px}
+.ex-find-row{display:flex;gap:8px;margin:6px 0 4px}
+.ex-find-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-find-title{font-size:15px;font-weight:700;margin:10px 0 4px}
+.ex-find-group{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0}
+.ex-find-h{font-size:15px;font-weight:700;line-height:1.6;margin:0}
+.ex-find-h a{color:var(--ex-accent)}
+.ex-find-h .ex-count{margin-left:8px;font-weight:500;color:var(--ink-2)}
+.ex-find-list{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.75}
+.ex-find-list li{border-top:1px solid var(--line);padding:6px 0}
+.ex-find-list a{display:block;color:var(--ink);text-decoration:none}
+.ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
+.ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
+.ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
+.ex-practice{margin:12px 0 4px}
+.ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-more[hidden],.ex-rank tr[hidden]{display:none}
+.ex-note [id^="np-"]{scroll-margin-top:96px}
+.ex-note [id^="np-"]:target{background:var(--ex-soft);outline:2px solid var(--ex-accent);outline-offset:-2px;border-radius:6px}
+.ex-resume{position:sticky;top:72px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--ex-card);border:1px solid var(--border);border-left:4px solid var(--ex-accent);border-radius:10px;padding:6px 8px 6px 12px;margin:8px 0 12px;font-size:13px;line-height:1.6;box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(15,23,42,.35)}
+.ex-resume-text{flex:1;min-width:12em}
+.ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
+.ex-resume-close:hover{background:var(--ex-soft)}
+.ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
+.ex-ans-text{color:var(--ink-2);font-weight:600}
+.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next:disabled{opacity:.5;cursor:default}
+.ex-ans-clear{margin:0 0 6px}
+.ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
+.ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -212,8 +246,14 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
+:root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -229,7 +269,6 @@ body:not(.ex-quiz) .ex-opt input{display:none}
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
         <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
-        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
         <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
@@ -245,402 +284,402 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 4 Ch.13</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 4 · Ophthalmic Pathology and Intraocular Tumors</p><h1 class="ex-h1">Ch.13 Orbit and Lacrimal Drainage System</h1><p class="ex-meta">原書 p.265–288 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="4-13" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="4-13"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch13-s1">一、解剖構造（Topography）</a></li><li><a href="#ch13-s2">二、發育異常：眼窩囊腫（Developmental Anomalies: Cysts）</a></li><li><a href="#ch13-s3">三、非感染性眼窩發炎（Noninfectious Inflammation）</a></li><li><a href="#ch13-s4">四、感染性眼窩與淚道發炎（Infectious Inflammation）</a></li><li><a href="#ch13-s5">五、退化性病變（Degenerations）：Amyloid（類澱粉）</a></li><li><a href="#ch13-s6">六、眼窩腫瘤總論與常見腫瘤比較（Neoplasia, Table 13-1）</a></li><li><a href="#ch13-s7">七、淚腺腫瘤（Lacrimal Gland Neoplasia）</a></li><li><a href="#ch13-s8">八、淋巴增生病變（Lymphoproliferative Lesions）</a></li><li><a href="#ch13-s9">九、軟組織腫瘤：血管性與纖維性（Soft-Tissue Tumors）</a></li><li><a href="#ch13-s10">十、Rhabdomyosarcoma（橫紋肌肉瘤，Tumors With Muscle Differentiation）</a></li><li><a href="#ch13-s11">十一、周邊神經鞘與中樞神經腫瘤（Peripheral Nerve Sheath and Central Nervous System Tumors）</a></li><li><a href="#ch13-s12">十二、脂肪性腫瘤與眼窩骨病變（Adipocytic Tumors; Bony Lesions of the Orbit）</a></li><li><a href="#ch13-s13">十三、淚囊腫瘤與續發性眼窩腫瘤（Lacrimal Sac Neoplasia; Secondary Tumors）</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 4 第 13 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch13-s1">一、解剖構造（Topography）</h2>
 <h3 id="ch13-s1-1">Bony orbit and soft tissues（骨性眼窩與軟組織）</h3>
 <ul>
-<li>眼窩由 <span class="num">7</span> 塊骨構成：ethmoid（篩骨）、frontal（額骨）、lacrimal（淚骨）、maxillary（上頜骨）、palatine（顎骨）、sphenoid（蝶骨）、zygomatic（顴骨）。<span class="ref">p.265</span></li>
-<li>眼窩內容物：眼球、淚腺、肌肉與肌腱、脂肪、筋膜、血管、神經、ciliary ganglion（睫狀神經節）與軟骨性 trochlea（滑車）。<span class="ref">p.265</span></li>
-<li>發炎或腫瘤使眼窩內容體積增加 → <strong>proptosis（眼球突出）</strong>和／或 <strong>dystopia（眼球水平或垂直移位）</strong>；<mark>移位的程度與方向可用來推定腫塊位置</mark>。<span class="ref">p.265</span></li>
+<li id="np-1">眼窩由 <span class="num">7</span> 塊骨構成：ethmoid（篩骨）、frontal（額骨）、lacrimal（淚骨）、maxillary（上頜骨）、palatine（顎骨）、sphenoid（蝶骨）、zygomatic（顴骨）。<span class="ref">p.265</span></li>
+<li id="np-2">眼窩內容物：眼球、淚腺、肌肉與肌腱、脂肪、筋膜、血管、神經、ciliary ganglion（睫狀神經節）與軟骨性 trochlea（滑車）。<span class="ref">p.265</span></li>
+<li id="np-3">發炎或腫瘤使眼窩內容體積增加 → <strong>proptosis（眼球突出）</strong>和／或 <strong>dystopia（眼球水平或垂直移位）</strong>；<mark>移位的程度與方向可用來推定腫塊位置</mark>。<span class="ref">p.265</span></li>
 </ul>
 <h3 id="ch13-s1-2">Lacrimal gland（淚腺）</h3>
 <ul>
-<li>位於眼窩<strong>顳上象限前方</strong>；被 levator palpebrae superioris（提上眼瞼肌）aponeurosis（腱膜）的外側部分隔成 <strong>orbital lobe（眼窩葉）</strong>與 <strong>palpebral lobe（眼瞼葉）</strong>。<span class="ref">p.265</span></li>
-<li>組織學：<strong>eccrine gland（外分泌腺）</strong>；acini（腺泡）呈圓形、由 cuboidal epithelium（立方上皮）組成，細胞核偏向腺泡外緣；導管位於纖維血管基質中，內襯 <span class="num">2</span> 層：內層低立方上皮、外層扁平 <strong>myoepithelial cells（肌上皮細胞）</strong>。<span class="ref">p.265</span></li>
-<li>淚腺的組織學外觀<mark>與 salivary gland（唾液腺）非常相似</mark>，因此上皮性淚腺腫瘤沿用 WHO 唾液腺腫瘤分類（見第七節）。<span class="ref">p.265, p.274</span></li>
+<li id="np-4">位於眼窩<strong>顳上象限前方</strong>；被 levator palpebrae superioris（提上眼瞼肌）aponeurosis（腱膜）的外側部分隔成 <strong>orbital lobe（眼窩葉）</strong>與 <strong>palpebral lobe（眼瞼葉）</strong>。<span class="ref">p.265</span></li>
+<li id="np-5">組織學：<strong>eccrine gland（外分泌腺）</strong>；acini（腺泡）呈圓形、由 cuboidal epithelium（立方上皮）組成，細胞核偏向腺泡外緣；導管位於纖維血管基質中，內襯 <span class="num">2</span> 層：內層低立方上皮、外層扁平 <strong>myoepithelial cells（肌上皮細胞）</strong>。<span class="ref">p.265</span></li>
+<li id="np-6">淚腺的組織學外觀<mark>與 salivary gland（唾液腺）非常相似</mark>，因此上皮性淚腺腫瘤沿用 WHO 唾液腺腫瘤分類（見第七節）。<span class="ref">p.265, p.274</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s1-3">易錯陷阱</h3><ul>
-<li>把淚腺分成兩葉的是提上眼瞼肌腱膜的<strong>外側部分</strong>；pleomorphic adenoma 與 adenoid cystic carcinoma 都長在 <strong>orbital lobe</strong>（Table 13-1）。<span class="ref">p.265, p.275</span></li>
-<li>淚腺導管是「內立方上皮＋外肌上皮」兩層，pleomorphic adenoma 的腫瘤小管也是兩層細胞，外層與基質融合。<span class="ref">p.265, p.274</span></li>
+<li id="np-7">把淚腺分成兩葉的是提上眼瞼肌腱膜的<strong>外側部分</strong>；pleomorphic adenoma 與 adenoid cystic carcinoma 都長在 <strong>orbital lobe</strong>（Table 13-1）。<span class="ref">p.265, p.275</span></li>
+<li id="np-8">淚腺導管是「內立方上皮＋外肌上皮」兩層，pleomorphic adenoma 的腫瘤小管也是兩層細胞，外層與基質融合。<span class="ref">p.265, p.274</span></li>
 </ul></div>
 
 <h2 id="ch13-s2">二、發育異常：眼窩囊腫（Developmental Anomalies: Cysts）</h2>
 <ul>
-<li>Orbital cyst（眼窩囊腫）來源：結膜或眼瞼上皮來源囊腫、teratomatous cyst（畸胎瘤性囊腫）、neural cyst（神經性囊腫）、secondary cyst（續發性，即 <strong>mucocele（黏液囊腫）</strong>）、inflammatory cyst（寄生蟲性）、具囊性成分的實質病灶；可為發育性或後天性。<span class="ref">p.266</span></li>
-<li><mark>最常見的眼窩囊腫是 <strong>dermoid cyst（皮樣囊腫）</strong></mark>，屬發育性病灶。<span class="ref">p.266</span></li>
-<li>成因：胚胎期 <strong>surface ectoderm（表皮外胚層）細胞巢陷入骨縫</strong>；正常組織長在不該出現的位置 → 屬 choristoma（迷離瘤）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.266; BCSC 7 p.43</span></li>
-<li>多在<strong>兒童期</strong>以單側 <strong>lateral brow（眉外側）</strong>腫塊表現，典型位置為顳上方。<span class="ref">p.266</span></li>
-<li>組織學：內襯 <mark>keratinized stratified squamous epithelium（角化複層鱗狀上皮）</mark>，內含 keratin（角蛋白）、sebum（皮脂）、毛髮；囊壁有真皮附屬器：sebaceous glands（皮脂腺）、hair follicles（毛囊）、sweat glands（汗腺）。<span class="ref">p.266</span></li>
-<li>囊壁<strong>沒有附屬器構造</strong> → <strong>simple epithelial（epidermoid）cyst（單純上皮／表皮樣囊腫）</strong>；單純上皮囊腫也可內襯 respiratory（呼吸道）、conjunctival（結膜）或 apocrine（頂漿分泌）上皮。<span class="ref">p.266</span></li>
-<li>Dermoid cyst 破裂 → 明顯 <strong>granulomatous reaction（肉芽腫反應）</strong>，主要是囊腔內 <mark>sebum</mark> 引起 → 宜<strong>完整切除（intact excision）</strong>。<span class="ref">p.267</span></li>
-<li>（本章外）Section 4 總論：<strong>choristoma</strong> = 正常成熟組織（<span class="num">1 或 2</span> 個胚層）出現在異常位置，代表例為 <strong>epibulbar（limbal）dermoid（角膜緣皮樣瘤）</strong>；<strong>hamartoma（缺陷瘤）</strong> = 成熟組織在原本位置過度肥大增生，例如 <strong>orbital cavernous venous malformation（舊稱 cavernous hemangioma）</strong>；含 <span class="num">3</span> 個胚層組織者為 <strong>teratoma（畸胎瘤）</strong>；congenital hypertrophy of the RPE（CHRPE）只被列為原位的 developmental anomaly，不是 choristoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a></span><span class="ref">BCSC 4 p.8</span></li>
-<li>（本章外）Section 7：dermoid cyst、epidermoid cyst、dermolipoma、teratoma 為典型 choristoma；infantile（capillary）hemangioma 與 neurofibromatosis 的病灶為典型 hamartoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">BCSC 7 p.43</span></li>
-<li>（本章外）Section 7 臨床：最常位於眉外側 frontozygomatic suture（額顴縫）旁，較少在上眼瞼內側 frontoethmoidal suture 旁；顳窩的 <strong>dumbbell dermoid（啞鈴狀皮樣囊腫）</strong>穿過骨縫進入眼窩，<mark>咀嚼時造成 pulsating proptosis（搏動性眼突），為高度特異表現</mark>；MRI 以 <strong>fat-suppression（脂肪抑制）</strong>序列最易觀察，T1 相對眼窩脂肪低訊號、T2 相對高訊號；CT 為增強囊壁＋不增強囊腔，多數可見部分鈣化邊緣；<mark>長期存在者可造成眼窩骨 erosion（侵蝕）或 remodeling（重塑）</mark>，故「不會造成骨侵蝕」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">BCSC 7 p.44</span></li>
-<li>（本章外）Section 6：dermoid cyst 是兒童最常見的眼窩佔位病灶，影像常見 bony remodeling（骨重塑）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">BCSC 6 p.238–239</span></li>
+<li id="np-9">Orbital cyst（眼窩囊腫）來源：結膜或眼瞼上皮來源囊腫、teratomatous cyst（畸胎瘤性囊腫）、neural cyst（神經性囊腫）、secondary cyst（續發性，即 <strong>mucocele（黏液囊腫）</strong>）、inflammatory cyst（寄生蟲性）、具囊性成分的實質病灶；可為發育性或後天性。<span class="ref">p.266</span></li>
+<li id="np-10"><mark>最常見的眼窩囊腫是 <strong>dermoid cyst（皮樣囊腫）</strong></mark>，屬發育性病灶。<span class="ref">p.266</span></li>
+<li id="np-11">成因：胚胎期 <strong>surface ectoderm（表皮外胚層）細胞巢陷入骨縫</strong>；正常組織長在不該出現的位置 → 屬 choristoma（迷離瘤）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.266; BCSC 7 p.43</span></li>
+<li id="np-12">多在<strong>兒童期</strong>以單側 <strong>lateral brow（眉外側）</strong>腫塊表現，典型位置為顳上方。<span class="ref">p.266</span></li>
+<li id="np-13">組織學：內襯 <mark>keratinized stratified squamous epithelium（角化複層鱗狀上皮）</mark>，內含 keratin（角蛋白）、sebum（皮脂）、毛髮；囊壁有真皮附屬器：sebaceous glands（皮脂腺）、hair follicles（毛囊）、sweat glands（汗腺）。<span class="ref">p.266</span></li>
+<li id="np-14">囊壁<strong>沒有附屬器構造</strong> → <strong>simple epithelial（epidermoid）cyst（單純上皮／表皮樣囊腫）</strong>；單純上皮囊腫也可內襯 respiratory（呼吸道）、conjunctival（結膜）或 apocrine（頂漿分泌）上皮。<span class="ref">p.266</span></li>
+<li id="np-15">Dermoid cyst 破裂 → 明顯 <strong>granulomatous reaction（肉芽腫反應）</strong>，主要是囊腔內 <mark>sebum</mark> 引起 → 宜<strong>完整切除（intact excision）</strong>。<span class="ref">p.267</span></li>
+<li id="np-16">（本章外）Section 4 總論：<strong>choristoma</strong> = 正常成熟組織（<span class="num">1 或 2</span> 個胚層）出現在異常位置，代表例為 <strong>epibulbar（limbal）dermoid（角膜緣皮樣瘤）</strong>；<strong>hamartoma（缺陷瘤）</strong> = 成熟組織在原本位置過度肥大增生，例如 <strong>orbital cavernous venous malformation（舊稱 cavernous hemangioma）</strong>；含 <span class="num">3</span> 個胚層組織者為 <strong>teratoma（畸胎瘤）</strong>；congenital hypertrophy of the RPE（CHRPE）只被列為原位的 developmental anomaly，不是 choristoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a></span><span class="ref">BCSC 4 p.8</span></li>
+<li id="np-17">（本章外）Section 7：dermoid cyst、epidermoid cyst、dermolipoma、teratoma 為典型 choristoma；infantile（capillary）hemangioma 與 neurofibromatosis 的病灶為典型 hamartoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">BCSC 7 p.43</span></li>
+<li id="np-18">（本章外）Section 7 臨床：最常位於眉外側 frontozygomatic suture（額顴縫）旁，較少在上眼瞼內側 frontoethmoidal suture 旁；顳窩的 <strong>dumbbell dermoid（啞鈴狀皮樣囊腫）</strong>穿過骨縫進入眼窩，<mark>咀嚼時造成 pulsating proptosis（搏動性眼突），為高度特異表現</mark>；MRI 以 <strong>fat-suppression（脂肪抑制）</strong>序列最易觀察，T1 相對眼窩脂肪低訊號、T2 相對高訊號；CT 為增強囊壁＋不增強囊腔，多數可見部分鈣化邊緣；<mark>長期存在者可造成眼窩骨 erosion（侵蝕）或 remodeling（重塑）</mark>，故「不會造成骨侵蝕」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">BCSC 7 p.44</span></li>
+<li id="np-19">（本章外）Section 6：dermoid cyst 是兒童最常見的眼窩佔位病灶，影像常見 bony remodeling（骨重塑）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">BCSC 6 p.238–239</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s2-1">易錯陷阱</h3><ul>
-<li>Dermoid 與 epidermoid 的分界是<strong>囊壁有無真皮附屬器</strong>，不是內容物；兩者都可含 keratin。<span class="ref">p.266</span></li>
-<li>破裂後的肉芽腫反應主要來自 <strong>sebum</strong>，所以手術要保持囊壁完整。<span class="ref">p.267</span></li>
-<li>（本章外）Orbital dermoid 與 limbal dermoid 都是 choristoma；cavernous venous malformation 是 hamartoma；CHRPE 不是 choristoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a></span><span class="ref">BCSC 4 p.8</span></li>
+<li id="np-20">Dermoid 與 epidermoid 的分界是<strong>囊壁有無真皮附屬器</strong>，不是內容物；兩者都可含 keratin。<span class="ref">p.266</span></li>
+<li id="np-21">破裂後的肉芽腫反應主要來自 <strong>sebum</strong>，所以手術要保持囊壁完整。<span class="ref">p.267</span></li>
+<li id="np-22">（本章外）Orbital dermoid 與 limbal dermoid 都是 choristoma；cavernous venous malformation 是 hamartoma；CHRPE 不是 choristoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a></span><span class="ref">BCSC 4 p.8</span></li>
 </ul></div>
 
 <h2 id="ch13-s3">三、非感染性眼窩發炎（Noninfectious Inflammation）</h2>
 <h3 id="ch13-s3-1">總論（Inflammation）</h3>
 <ul>
-<li>眼窩發炎可為 idiopathic（特發性），或續發於全身性發炎（如 granulomatosis with polyangiitis（GPA，肉芽腫合併多發性血管炎））、retained foreign body（殘留異物）或感染。<span class="ref">p.267</span></li>
-<li>分布：<strong>diffuse（瀰漫）</strong>，侵犯多種組織（如 sclerosing orbititis、diffuse anterior inflammation）；或 <strong>localized（局部）</strong>，如 orbital myositis（眼窩肌炎）、optic perineuritis（視神經周圍炎）。<span class="ref">p.267</span></li>
-<li><mark>偽裝成眼窩發炎的疾病</mark>：發育性眼窩腫塊、腫瘤（如 orbital lymphoma、rhabdomyosarcoma）。<span class="ref">p.267</span></li>
+<li id="np-23">眼窩發炎可為 idiopathic（特發性），或續發於全身性發炎（如 granulomatosis with polyangiitis（GPA，肉芽腫合併多發性血管炎））、retained foreign body（殘留異物）或感染。<span class="ref">p.267</span></li>
+<li id="np-24">分布：<strong>diffuse（瀰漫）</strong>，侵犯多種組織（如 sclerosing orbititis、diffuse anterior inflammation）；或 <strong>localized（局部）</strong>，如 orbital myositis（眼窩肌炎）、optic perineuritis（視神經周圍炎）。<span class="ref">p.267</span></li>
+<li id="np-25"><mark>偽裝成眼窩發炎的疾病</mark>：發育性眼窩腫塊、腫瘤（如 orbital lymphoma、rhabdomyosarcoma）。<span class="ref">p.267</span></li>
 </ul>
 <h3 id="ch13-s3-2">Thyroid eye disease（TED，甲狀腺眼疾）</h3>
 <ul>
-<li>又稱 Graves disease、thyroid ophthalmopathy、thyroid-associated orbitopathy；與甲狀腺功能異常相關，<mark>是成人單側與雙側 proptosis（exophthalmos）最常見的原因</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a></span><span class="ref">p.267</span></li>
-<li>症狀與病徵來自：<strong>orbital connective tissue（眼窩結締組織）發炎</strong>、<strong>眼外肌 extracellular matrix（細胞外基質）改變</strong>、眼外肌發炎與纖維化、<strong>adipogenesis（脂肪生成）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a></span><span class="ref">p.267</span></li>
-<li>肌肉外觀硬而白，<mark>肌腱通常不受侵犯</mark>；CT 呈眼外肌 <strong>fusiform enlargement（梭形腫大）且肌腱保留</strong>。所以「大部分眼外肌<strong>及其肌腱</strong>皆發炎纖維化」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.267–268</span></li>
-<li>早期：mononuclear inflammatory cells（單核發炎細胞，如 lymphocytes、plasma cells、mast cells）與 fibroblasts（纖維母細胞）浸潤眼外肌間質，<mark>最常侵犯 inferior rectus 與 medial rectus</mark>；fibroblasts 合成 <strong>hyaluronic acid（hyaluronan，玻尿酸）</strong>等 glycosaminoglycans（GAGs，醣胺聚醣）→ 肌肉腫大。<span class="ref">p.267</span></li>
-<li><strong>Clinical Pearl</strong>：TED 病人的甲狀腺功能檢查<mark>可以正常</mark>。<span class="ref">p.267</span></li>
-<li>Orbital fibrocytes（眼窩纖維細胞，fibroblast 的前驅細胞）源自 <strong>neural crest（神經脊）</strong>且具多能性 → TED 的細胞訊號增強促使 adipocyte differentiation（脂肪細胞分化）與脂肪生成。<span class="ref">p.267</span></li>
-<li>眼窩內容量增加 → optic nerve 在 <strong>orbital apex（眼窩尖）</strong>受壓、視神經盤腫脹；晚期進行性纖維化 → 眼球運動受限、嚴重 eyelid retraction（眼瞼退縮）→ exposure keratitis（暴露性角膜炎）。<span class="ref">p.267</span></li>
+<li id="np-26">又稱 Graves disease、thyroid ophthalmopathy、thyroid-associated orbitopathy；與甲狀腺功能異常相關，<mark>是成人單側與雙側 proptosis（exophthalmos）最常見的原因</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a></span><span class="ref">p.267</span></li>
+<li id="np-27">症狀與病徵來自：<strong>orbital connective tissue（眼窩結締組織）發炎</strong>、<strong>眼外肌 extracellular matrix（細胞外基質）改變</strong>、眼外肌發炎與纖維化、<strong>adipogenesis（脂肪生成）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a></span><span class="ref">p.267</span></li>
+<li id="np-28">肌肉外觀硬而白，<mark>肌腱通常不受侵犯</mark>；CT 呈眼外肌 <strong>fusiform enlargement（梭形腫大）且肌腱保留</strong>。所以「大部分眼外肌<strong>及其肌腱</strong>皆發炎纖維化」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.267–268</span></li>
+<li id="np-29">早期：mononuclear inflammatory cells（單核發炎細胞，如 lymphocytes、plasma cells、mast cells）與 fibroblasts（纖維母細胞）浸潤眼外肌間質，<mark>最常侵犯 inferior rectus 與 medial rectus</mark>；fibroblasts 合成 <strong>hyaluronic acid（hyaluronan，玻尿酸）</strong>等 glycosaminoglycans（GAGs，醣胺聚醣）→ 肌肉腫大。<span class="ref">p.267</span></li>
+<li id="np-30"><strong>Clinical Pearl</strong>：TED 病人的甲狀腺功能檢查<mark>可以正常</mark>。<span class="ref">p.267</span></li>
+<li id="np-31">Orbital fibrocytes（眼窩纖維細胞，fibroblast 的前驅細胞）源自 <strong>neural crest（神經脊）</strong>且具多能性 → TED 的細胞訊號增強促使 adipocyte differentiation（脂肪細胞分化）與脂肪生成。<span class="ref">p.267</span></li>
+<li id="np-32">眼窩內容量增加 → optic nerve 在 <strong>orbital apex（眼窩尖）</strong>受壓、視神經盤腫脹；晚期進行性纖維化 → 眼球運動受限、嚴重 eyelid retraction（眼瞼退縮）→ exposure keratitis（暴露性角膜炎）。<span class="ref">p.267</span></li>
 </ul>
 <h3 id="ch13-s3-3">Immunoglobulin G4–related disease（IgG4-RD，IgG4 相關疾病）</h3>
 <ul>
-<li>特徵（全部要記）：① <mark>1 個或多個器官</mark>的 tumefactive lesion（腫塊樣病灶）；② 富含 <strong>IgG4-positive plasma cells（IgG4 陽性漿細胞）</strong>的 lymphoplasmacytic infiltrate（淋巴漿細胞浸潤）；③ 不同程度纖維化，常呈 <strong>storiform pattern（車輻狀，細胞呈漩渦狀）</strong>；④ <strong>obliterative phlebitis（阻塞性靜脈炎）</strong>；⑤ <mark>serum IgG4 升高</mark>。所以「只侵犯單一器官」與「血清 IgG4 未上升」都是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-356" data-q="356">第 356 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-365" data-q="365">第 365 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-783" data-q="783">第 783 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a></span><span class="ref">p.268</span></li>
-<li>眼窩與眼附屬器的 IgG4-RD 稱 <strong>IgG4-related ophthalmic disease</strong>：最初描述為雙側對稱、持續的淚腺腫大合併 IgG4 漿細胞浸潤；但<mark>除淚腺外也可侵犯 extraocular muscles（眼外肌）、orbital nerves（眼窩神經）、sclerae（鞏膜）與 eyelids（眼瞼）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-356" data-q="356">第 356 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-365" data-q="365">第 365 題</a></span><span class="ref">p.268</span></li>
-<li>IgG4-related ophthalmic disease 建議診斷標準：① 影像見淚腺腫大，或腫塊侵犯淚腺、<strong>trigeminal nerve（三叉神經）</strong>或其他眼部組織；② 組織學見淋巴漿細胞浸潤合併纖維化，且 IgG4 陽性／IgG 陽性漿細胞比例 <span class="num">≥40%</span>，或每個 high-power field（高倍視野，<span class="num">40×</span> 物鏡）<span class="num">&gt;50</span> 個 IgG4 陽性漿細胞；③ <mark>serum IgG4 <span class="num">≥135 mg/dL</span></mark>。（2023 年日本修訂版 IgG4-related ophthalmic disease 診斷標準三項門檻不變，另提醒注意視神經病變與 MALT 以外的淋巴瘤）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-365" data-q="365">第 365 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a></span><span class="ref">p.268</span></li>
-<li>IgG4-RD 的診斷標準與臨床意義仍在演進；<mark>偶有 extranodal marginal zone lymphoma（EMZL）of mucosa-associated lymphoid tissue（MALT）發生在既有 IgG4-RD 病人</mark> → 與惡性腫瘤風險有關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a></span><span class="ref">p.268</span></li>
-<li>圖例（Fig 13-3）：<span class="num">67</span> 歲病人右淚腺窩無痛腫塊 <span class="num">3</span> 年，CT 為均勻增強、邊界清楚的淚腺腫塊；組織見大量膠原纖維化、lymphoid follicular hyperplasia（淋巴濾泡增生）與漿細胞，IgG4 陽性漿細胞佔 IgG 陽性漿細胞 <span class="num">40%–50%</span>，之後血清 IgG4 也升高。<span class="ref">p.269</span></li>
-<li>IgG4 陽性的淋巴漿細胞浸潤是 IgG4-related sclerosing disease 的標記，是 NSOI 的鑑別診斷之一。<span class="ref">p.270</span></li>
-<li>（本章外）Section 7：IgG4-RD 是可侵犯 1 個或多個器官的 fibroinflammatory disorder；眼窩病灶可單獨出現，或與全身疾病同時或先後出現；<mark>眼窩內最常侵犯淚腺</mark>；常見型態：眼窩神經（<mark>典型為 infraorbital nerve（眶下神經）</mark>）、眼外肌與淚腺腫大，常合併 sinusitis、peripheral eosinophilia 與全身侵犯；sclerosing dacryoadenitis（單側或雙側）；無淚腺炎的 sclerosing orbital inflammation。<mark>約半數眼窩病人有其他器官病灶</mark>，風濕科評估常以影像檢查唾液腺、淋巴結、肺、肝、後腹膜。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-356" data-q="356">第 356 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-783" data-q="783">第 783 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-767" data-q="767">第 767 題</a></span><span class="ref">BCSC 7 p.70–71</span></li>
-<li>（本章外）Section 7：組織學另有 eosinophil infiltration；國際共識淚腺最低標準為每高倍視野 <span class="num">&gt;100</span> 個 IgG4 陽性漿細胞，多數病例 IgG4／IgG 漿細胞比 <span class="num">&gt;40%</span>；血清學可見 <mark>peripheral eosinophilia（周邊嗜酸性球增多）與 IgG4 升高</mark>（書中未提嗜鹼性球增加）；治療為 corticosteroids、其他免疫抑制劑與 rituximab 等生物製劑；過去許多被歸為 NSOI 的病例其實是 IgG4-RD，眼窩發炎切片應常規檢查 IgG4-RD 特徵。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-767" data-q="767">第 767 題</a></span><span class="ref">BCSC 7 p.71</span></li>
-<li>（本章外）Section 7 Table 4-5：IgG4-RD 建議驗 <strong>serum IgG4</strong>（具提示性但非確診必要）；TNF-alpha、IL-2 不在建議檢驗中；total IgE 升高見於 allergic aspergillosis sinusitis（過敏性麴菌鼻竇炎）。因此淚腺腫大、病理為非特異性發炎者應驗 IgG4。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-767" data-q="767">第 767 題</a></span><span class="ref">BCSC 7 p.56, p.75</span></li>
-<li>（本章外）Section 5：IgG4-RD 病人有時可見 infraorbital nerve 增粗（不是 supraorbital nerve）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-783" data-q="783">第 783 題</a></span><span class="ref">BCSC 5 p.250</span></li>
+<li id="np-33">特徵（全部要記）：① <mark>1 個或多個器官</mark>的 tumefactive lesion（腫塊樣病灶）；② 富含 <strong>IgG4-positive plasma cells（IgG4 陽性漿細胞）</strong>的 lymphoplasmacytic infiltrate（淋巴漿細胞浸潤）；③ 不同程度纖維化，常呈 <strong>storiform pattern（車輻狀，細胞呈漩渦狀）</strong>；④ <strong>obliterative phlebitis（阻塞性靜脈炎）</strong>；⑤ <mark>serum IgG4 升高</mark>。所以「只侵犯單一器官」與「血清 IgG4 未上升」都是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-356" data-q="356">第 356 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-365" data-q="365">第 365 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-783" data-q="783">第 783 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a></span><span class="ref">p.268</span></li>
+<li id="np-34">眼窩與眼附屬器的 IgG4-RD 稱 <strong>IgG4-related ophthalmic disease</strong>：最初描述為雙側對稱、持續的淚腺腫大合併 IgG4 漿細胞浸潤；但<mark>除淚腺外也可侵犯 extraocular muscles（眼外肌）、orbital nerves（眼窩神經）、sclerae（鞏膜）與 eyelids（眼瞼）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-356" data-q="356">第 356 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-365" data-q="365">第 365 題</a></span><span class="ref">p.268</span></li>
+<li id="np-35">IgG4-related ophthalmic disease 建議診斷標準：① 影像見淚腺腫大，或腫塊侵犯淚腺、<strong>trigeminal nerve（三叉神經）</strong>或其他眼部組織；② 組織學見淋巴漿細胞浸潤合併纖維化，且 IgG4 陽性／IgG 陽性漿細胞比例 <span class="num">≥40%</span>，或每個 high-power field（高倍視野，<span class="num">40×</span> 物鏡）<span class="num">&gt;50</span> 個 IgG4 陽性漿細胞；③ <mark>serum IgG4 <span class="num">≥135 mg/dL</span></mark>。（2023 年日本修訂版 IgG4-related ophthalmic disease 診斷標準三項門檻不變，另提醒注意視神經病變與 MALT 以外的淋巴瘤）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-365" data-q="365">第 365 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a></span><span class="ref">p.268</span></li>
+<li id="np-36">IgG4-RD 的診斷標準與臨床意義仍在演進；<mark>偶有 extranodal marginal zone lymphoma（EMZL）of mucosa-associated lymphoid tissue（MALT）發生在既有 IgG4-RD 病人</mark> → 與惡性腫瘤風險有關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a></span><span class="ref">p.268</span></li>
+<li id="np-37">圖例（Fig 13-3）：<span class="num">67</span> 歲病人右淚腺窩無痛腫塊 <span class="num">3</span> 年，CT 為均勻增強、邊界清楚的淚腺腫塊；組織見大量膠原纖維化、lymphoid follicular hyperplasia（淋巴濾泡增生）與漿細胞，IgG4 陽性漿細胞佔 IgG 陽性漿細胞 <span class="num">40%–50%</span>，之後血清 IgG4 也升高。<span class="ref">p.269</span></li>
+<li id="np-38">IgG4 陽性的淋巴漿細胞浸潤是 IgG4-related sclerosing disease 的標記，是 NSOI 的鑑別診斷之一。<span class="ref">p.270</span></li>
+<li id="np-39">（本章外）Section 7：IgG4-RD 是可侵犯 1 個或多個器官的 fibroinflammatory disorder；眼窩病灶可單獨出現，或與全身疾病同時或先後出現；<mark>眼窩內最常侵犯淚腺</mark>；常見型態：眼窩神經（<mark>典型為 infraorbital nerve（眶下神經）</mark>）、眼外肌與淚腺腫大，常合併 sinusitis、peripheral eosinophilia 與全身侵犯；sclerosing dacryoadenitis（單側或雙側）；無淚腺炎的 sclerosing orbital inflammation。<mark>約半數眼窩病人有其他器官病灶</mark>，風濕科評估常以影像檢查唾液腺、淋巴結、肺、肝、後腹膜。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-356" data-q="356">第 356 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-783" data-q="783">第 783 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-767" data-q="767">第 767 題</a></span><span class="ref">BCSC 7 p.70–71</span></li>
+<li id="np-40">（本章外）Section 7：組織學另有 eosinophil infiltration；國際共識淚腺最低標準為每高倍視野 <span class="num">&gt;100</span> 個 IgG4 陽性漿細胞，多數病例 IgG4／IgG 漿細胞比 <span class="num">&gt;40%</span>；血清學可見 <mark>peripheral eosinophilia（周邊嗜酸性球增多）與 IgG4 升高</mark>（書中未提嗜鹼性球增加）；治療為 corticosteroids、其他免疫抑制劑與 rituximab 等生物製劑；過去許多被歸為 NSOI 的病例其實是 IgG4-RD，眼窩發炎切片應常規檢查 IgG4-RD 特徵。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-767" data-q="767">第 767 題</a></span><span class="ref">BCSC 7 p.71</span></li>
+<li id="np-41">（本章外）Section 7 Table 4-5：IgG4-RD 建議驗 <strong>serum IgG4</strong>（具提示性但非確診必要）；TNF-alpha、IL-2 不在建議檢驗中；total IgE 升高見於 allergic aspergillosis sinusitis（過敏性麴菌鼻竇炎）。因此淚腺腫大、病理為非特異性發炎者應驗 IgG4。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-767" data-q="767">第 767 題</a></span><span class="ref">BCSC 7 p.56, p.75</span></li>
+<li id="np-42">（本章外）Section 5：IgG4-RD 病人有時可見 infraorbital nerve 增粗（不是 supraorbital nerve）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-783" data-q="783">第 783 題</a></span><span class="ref">BCSC 5 p.250</span></li>
 </ul>
 <h3 id="ch13-s3-4">Nonspecific orbital inflammation（NSOI，非特異性眼窩發炎）</h3>
 <ul>
-<li>又稱 <strong>orbital pseudotumor（眼窩偽腫瘤）</strong>、idiopathic orbital inflammatory syndrome；是<mark>類似腫瘤、但找不到原因的佔位性發炎</mark>；約佔眼窩病灶 <span class="num">5%</span>，兒童與成人皆可發生。<span class="ref">p.270</span></li>
-<li>臨床：常<strong>急性發作</strong>、通常<strong>疼痛</strong>；可瀰漫或侷限：侷限在眼外肌 → <strong>orbital myositis（眼窩肌炎）</strong>；侷限在淚腺 → <strong>dacryoadenitis（淚腺炎）</strong>。<span class="ref">p.270</span></li>
-<li>早期以發炎為主：混合性浸潤（eosinophils、neutrophils、plasma cells、lymphocytes、histiocytes（macrophages））常在血管周圍，浸潤肌肉與脂肪 → <strong>fat necrosis（脂肪壞死）</strong>。<span class="ref">p.270</span></li>
-<li>晚期以 <strong>fibrosis（纖維化）</strong>為主，常夾雜具 germinal center（生發中心）的淋巴濾泡；纖維化可取代眼窩脂肪、包住眼外肌與視神經而限制其功能。<span class="ref">p.270</span></li>
-<li><strong>Sclerosing variant（硬化型）</strong>：病程早期即以纖維化與膠原沉積為主，缺乏一般的發炎臨床徵象；是否為獨立疾病仍有爭議。<span class="ref">p.270</span></li>
-<li>鑑別 lymphoma：以 immunophenotypic（免疫表型）與 molecular genetic（分子遺傳）分析判斷淋巴球 <mark><strong>polyclonal（多株，NSOI）</strong> vs <strong>monoclonal（單株，lymphoma）</strong></mark>。<span class="ref">p.270</span></li>
-<li><mark>與 TED 不同，orbital myositis 會侵犯肌腱</mark>（Fig 13-4）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.270</span></li>
-<li>（本章外）Section 7：NSOI 影像上<mark>最多 <span class="num">50%</span> 可見眼外肌肌腱附著處增厚</mark>，TED 則典型不侵犯附著處；因此 CT 上「fusiform 眼外肌腫大」是 TED 的描述，不是 NSOI。初始治療為全身類固醇，成人 prednisone <span class="num">1 mg/kg</span>/day；達最大反應後才減量，低於約 <span class="num">40 mg/day</span> 要減得更慢、低於 <span class="num">20 mg/day</span> 更慢，快速減量可能復發；兒童 NSOI 約 <span class="num">1/3</span> 雙側、約 <span class="num">1/2</span> 有全身症狀（頭痛、發燒、嘔吐、腹痛、嗜睡）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-810" data-q="810">第 810 題</a></span><span class="ref">BCSC 7 p.72–74</span></li>
+<li id="np-43">又稱 <strong>orbital pseudotumor（眼窩偽腫瘤）</strong>、idiopathic orbital inflammatory syndrome；是<mark>類似腫瘤、但找不到原因的佔位性發炎</mark>；約佔眼窩病灶 <span class="num">5%</span>，兒童與成人皆可發生。<span class="ref">p.270</span></li>
+<li id="np-44">臨床：常<strong>急性發作</strong>、通常<strong>疼痛</strong>；可瀰漫或侷限：侷限在眼外肌 → <strong>orbital myositis（眼窩肌炎）</strong>；侷限在淚腺 → <strong>dacryoadenitis（淚腺炎）</strong>。<span class="ref">p.270</span></li>
+<li id="np-45">早期以發炎為主：混合性浸潤（eosinophils、neutrophils、plasma cells、lymphocytes、histiocytes（macrophages））常在血管周圍，浸潤肌肉與脂肪 → <strong>fat necrosis（脂肪壞死）</strong>。<span class="ref">p.270</span></li>
+<li id="np-46">晚期以 <strong>fibrosis（纖維化）</strong>為主，常夾雜具 germinal center（生發中心）的淋巴濾泡；纖維化可取代眼窩脂肪、包住眼外肌與視神經而限制其功能。<span class="ref">p.270</span></li>
+<li id="np-47"><strong>Sclerosing variant（硬化型）</strong>：病程早期即以纖維化與膠原沉積為主，缺乏一般的發炎臨床徵象；是否為獨立疾病仍有爭議。<span class="ref">p.270</span></li>
+<li id="np-48">鑑別 lymphoma：以 immunophenotypic（免疫表型）與 molecular genetic（分子遺傳）分析判斷淋巴球 <mark><strong>polyclonal（多株，NSOI）</strong> vs <strong>monoclonal（單株，lymphoma）</strong></mark>。<span class="ref">p.270</span></li>
+<li id="np-49"><mark>與 TED 不同，orbital myositis 會侵犯肌腱</mark>（Fig 13-4）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.270</span></li>
+<li id="np-50">（本章外）Section 7：NSOI 影像上<mark>最多 <span class="num">50%</span> 可見眼外肌肌腱附著處增厚</mark>，TED 則典型不侵犯附著處；因此 CT 上「fusiform 眼外肌腫大」是 TED 的描述，不是 NSOI。初始治療為全身類固醇，成人 prednisone <span class="num">1 mg/kg</span>/day；達最大反應後才減量，低於約 <span class="num">40 mg/day</span> 要減得更慢、低於 <span class="num">20 mg/day</span> 更慢，快速減量可能復發；兒童 NSOI 約 <span class="num">1/3</span> 雙側、約 <span class="num">1/2</span> 有全身症狀（頭痛、發燒、嘔吐、腹痛、嗜睡）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-810" data-q="810">第 810 題</a></span><span class="ref">BCSC 7 p.72–74</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>眼外肌／肌腱</th><th>組織學重點</th><th>考點</th></tr></thead>
 <tbody>
-<tr><td>TED</td><td>肌腹梭形腫大，<strong>肌腱保留</strong>；最常 inferior、medial rectus</td><td>單核細胞＋fibroblasts，GAGs（hyaluronan）堆積；晚期纖維化</td><td>成人單側／雙側眼突最常見原因；甲狀腺功能可正常</td></tr>
-<tr><td>NSOI／orbital myositis</td><td><strong>肌腱受侵犯</strong></td><td>早期混合發炎＋脂肪壞死；晚期纖維化＋生發中心；polyclonal</td><td>急性、疼痛；約佔眼窩病灶 <span class="num">5%</span></td></tr>
-<tr><td>IgG4-RD</td><td>可侵犯眼外肌、神經、鞏膜、眼瞼；最典型為淚腺</td><td>IgG4 漿細胞、storiform fibrosis、obliterative phlebitis</td><td>血清 IgG4 <span class="num">≥135 mg/dL</span>；比例 <span class="num">≥40%</span>；可合併 EMZL</td></tr>
-<tr><td>Lymphoma（鑑別）</td><td>包繞眼球塑形</td><td>monoclonal 淋巴球</td><td>可偽裝成眼窩發炎</td></tr>
+<tr><td id="np-51">TED</td><td id="np-52">肌腹梭形腫大，<strong>肌腱保留</strong>；最常 inferior、medial rectus</td><td id="np-53">單核細胞＋fibroblasts，GAGs（hyaluronan）堆積；晚期纖維化</td><td id="np-54">成人單側／雙側眼突最常見原因；甲狀腺功能可正常</td></tr>
+<tr><td id="np-55">NSOI／orbital myositis</td><td id="np-56"><strong>肌腱受侵犯</strong></td><td id="np-57">早期混合發炎＋脂肪壞死；晚期纖維化＋生發中心；polyclonal</td><td id="np-58">急性、疼痛；約佔眼窩病灶 <span class="num">5%</span></td></tr>
+<tr><td id="np-59">IgG4-RD</td><td id="np-60">可侵犯眼外肌、神經、鞏膜、眼瞼；最典型為淚腺</td><td id="np-61">IgG4 漿細胞、storiform fibrosis、obliterative phlebitis</td><td id="np-62">血清 IgG4 <span class="num">≥135 mg/dL</span>；比例 <span class="num">≥40%</span>；可合併 EMZL</td></tr>
+<tr><td id="np-63">Lymphoma（鑑別）</td><td id="np-64">包繞眼球塑形</td><td id="np-65">monoclonal 淋巴球</td><td id="np-66">可偽裝成眼窩發炎</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.267–270</span></p>
+<p id="np-67">出處 <span class="ref">p.267–270</span></p>
 <div class="ex-trap"><h3 id="ch13-s3-5">易錯陷阱</h3><ul>
-<li>TED「肌腱保留」，orbital myositis「肌腱受侵」；說 TED 眼外肌<strong>及肌腱</strong>都發炎纖維化是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.267–268, p.270</span></li>
-<li>TED 仍屬成人<strong>單側</strong>眼突最常見原因（不只雙側）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a></span><span class="ref">p.267</span></li>
-<li>IgG4-RD：<strong>多器官</strong>、<strong>血清 IgG4 升高</strong>，兩者都是定義的一部分。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-356" data-q="356">第 356 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-365" data-q="365">第 365 題</a></span><span class="ref">p.268</span></li>
-<li>（本章外）IgG4-RD 增粗的神經是 <strong>infraorbital nerve</strong>，不是 supraorbital nerve；血清學是 eosinophilia，不是 basophilia。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-783" data-q="783">第 783 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a></span><span class="ref">BCSC 7 p.71</span></li>
-<li>NSOI 與 lymphoma 靠 clonality 區分：NSOI polyclonal、lymphoma monoclonal。<span class="ref">p.270</span></li>
+<li id="np-68">TED「肌腱保留」，orbital myositis「肌腱受侵」；說 TED 眼外肌<strong>及肌腱</strong>都發炎纖維化是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.267–268, p.270</span></li>
+<li id="np-69">TED 仍屬成人<strong>單側</strong>眼突最常見原因（不只雙側）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-382" data-q="382">第 382 題</a></span><span class="ref">p.267</span></li>
+<li id="np-70">IgG4-RD：<strong>多器官</strong>、<strong>血清 IgG4 升高</strong>，兩者都是定義的一部分。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-356" data-q="356">第 356 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-365" data-q="365">第 365 題</a></span><span class="ref">p.268</span></li>
+<li id="np-71">（本章外）IgG4-RD 增粗的神經是 <strong>infraorbital nerve</strong>，不是 supraorbital nerve；血清學是 eosinophilia，不是 basophilia。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-783" data-q="783">第 783 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-805" data-q="805">第 805 題</a></span><span class="ref">BCSC 7 p.71</span></li>
+<li id="np-72">NSOI 與 lymphoma 靠 clonality 區分：NSOI polyclonal、lymphoma monoclonal。<span class="ref">p.270</span></li>
 </ul></div>
 
 <h2 id="ch13-s4">四、感染性眼窩與淚道發炎（Infectious Inflammation）</h2>
 <h3 id="ch13-s4-1">Bacterial infections of the orbit（細菌性眼窩感染）</h3>
 <ul>
-<li><strong>Orbital cellulitis（眼窩蜂窩性組織炎）</strong>途徑：直接接種（外傷、手術）、伺機性感染（necrotizing fasciitis（壞死性筋膜炎）、mucormycosis）、鄰近構造蔓延（sinusitis）、遠處病灶（bacteremia，菌血症）。<span class="ref">p.271</span></li>
-<li><mark>Orbital cellulitis 最常見原因是 paranasal sinus（副鼻竇）感染</mark>。<span class="ref">p.271</span></li>
-<li>病原：<i>Haemophilus influenzae</i>、<i>Streptococcus</i>、<i>Staphylococcus</i>、<i>Clostridium</i>、Bacteroides、<i>Klebsiella</i>、Proteus；<strong>最常見病原隨年齡而異</strong>。組織學：急性發炎、壞死、膿瘍。<span class="ref">p.271</span></li>
-<li><strong>Tuberculosis（結核）</strong>極少侵犯眼窩，造成 necrotizing granulomatous reaction（壞死性肉芽腫反應）。<span class="ref">p.271</span></li>
+<li id="np-73"><strong>Orbital cellulitis（眼窩蜂窩性組織炎）</strong>途徑：直接接種（外傷、手術）、伺機性感染（necrotizing fasciitis（壞死性筋膜炎）、mucormycosis）、鄰近構造蔓延（sinusitis）、遠處病灶（bacteremia，菌血症）。<span class="ref">p.271</span></li>
+<li id="np-74"><mark>Orbital cellulitis 最常見原因是 paranasal sinus（副鼻竇）感染</mark>。<span class="ref">p.271</span></li>
+<li id="np-75">病原：<i>Haemophilus influenzae</i>、<i>Streptococcus</i>、<i>Staphylococcus</i>、<i>Clostridium</i>、Bacteroides、<i>Klebsiella</i>、Proteus；<strong>最常見病原隨年齡而異</strong>。組織學：急性發炎、壞死、膿瘍。<span class="ref">p.271</span></li>
+<li id="np-76"><strong>Tuberculosis（結核）</strong>極少侵犯眼窩，造成 necrotizing granulomatous reaction（壞死性肉芽腫反應）。<span class="ref">p.271</span></li>
 </ul>
 <h3 id="ch13-s4-2">Fungal and parasitic infections（黴菌與寄生蟲感染）</h3>
 <ul>
-<li>黴菌感染通常造成嚴重而隱伏的眼窩發炎。<span class="ref">p.271</span></li>
-<li><strong>Rhinocerebral／rhino-orbito-cerebral mucormycosis（鼻腦／鼻眼窩腦白黴菌病）</strong>危險因子：控制不良的糖尿病（<mark>尤其 ketoacidosis，酮酸中毒</mark>）、solid malignant neoplasms（實體惡性腫瘤）、大面積燒傷、使用 corticosteroids、嚴重 neutropenia（嗜中性球低下）；COVID-19 大流行期間，中重度 SARS-CoV-2 感染康復者出現前所未有的大量病例。<span class="ref">p.271</span></li>
-<li>Mucormycosis 通常由<strong>鄰近鼻竇</strong>蔓延；菌屬<mark>通常為 <i>Mucor</i> 或 <i>Rhizopus</i></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">p.271</span></li>
-<li>組織學：壞死背景中的急性與慢性發炎，常為肉芽腫性；<mark>寬大、<strong>nonseptate（無隔）</strong>菌絲</mark>，可用 hematoxylin and eosin（H&amp;E）、periodic acid–Schiff（PAS）、Gomori methenamine silver（GMS）看到；菌絲侵犯血管壁 → <strong>thrombotic vasculitis（血栓性血管炎）</strong>→ ischemic necrosis（缺血性壞死）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">p.271–272</span></li>
-<li>可經血行侵犯 central nervous system（CNS，中樞神經系統）→ 中風、死亡；診斷靠切片，常取鼻咽部壞死組織（<strong>eschar，焦痂</strong>）。<span class="ref">p.272</span></li>
-<li>（本章外）Section 7：<i>Mucor</i>／<i>Rhizopus</i> 屬 Zygomycetes（接合菌綱），幾乎都由鄰近鼻竇或鼻腔延伸；因 thrombosing vasculitis，眼窩可能沒有明顯發炎，<mark>異常「白而安靜」的眼睛應警覺眼窩缺血</mark>；菌絲與多數黴菌不同、可被 H&amp;E 染出；<mark>diabetic ketoacidosis 要立即矯正，因其使 <strong>free serum iron（游離血清鐵）</strong>增加</mark>，被認為是致病關鍵（不是鈣）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">BCSC 7 p.54–55</span></li>
-<li><strong><i>Aspergillus</i>（麴菌）</strong>：由鄰近鼻竇或身體他處血行散播；<mark>免疫低下者與健康人都會發生</mark>；sino-orbital aspergillosis 症狀緩慢隱伏、常被忽略 → <strong>sclerosing granulomatous reaction（硬化性肉芽腫反應）</strong>；不易培養，切片可見 <mark><strong>septate（有隔）</strong>菌絲、<span class="num">45°</span> 分枝</mark>；即使積極手術加抗黴菌藥，延伸入腦仍可致命。<span class="ref">p.272</span></li>
-<li>寄生蟲感染罕見（尤其高所得國家）：<strong><i>Echinococcus</i></strong>（orbital hydatid cyst，包蟲囊腫）、<strong><i>Taenia</i> solium</strong>（cysticercosis，囊尾蟲症）、<strong><i>Loa loa</i></strong>（loiasis，眼絲蟲症）；多見於來自或去過流行區者，特定寄生蟲血清學有助診斷。<span class="ref">p.272</span></li>
+<li id="np-77">黴菌感染通常造成嚴重而隱伏的眼窩發炎。<span class="ref">p.271</span></li>
+<li id="np-78"><strong>Rhinocerebral／rhino-orbito-cerebral mucormycosis（鼻腦／鼻眼窩腦白黴菌病）</strong>危險因子：控制不良的糖尿病（<mark>尤其 ketoacidosis，酮酸中毒</mark>）、solid malignant neoplasms（實體惡性腫瘤）、大面積燒傷、使用 corticosteroids、嚴重 neutropenia（嗜中性球低下）；COVID-19 大流行期間，中重度 SARS-CoV-2 感染康復者出現前所未有的大量病例。<span class="ref">p.271</span></li>
+<li id="np-79">Mucormycosis 通常由<strong>鄰近鼻竇</strong>蔓延；菌屬<mark>通常為 <i>Mucor</i> 或 <i>Rhizopus</i></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">p.271</span></li>
+<li id="np-80">組織學：壞死背景中的急性與慢性發炎，常為肉芽腫性；<mark>寬大、<strong>nonseptate（無隔）</strong>菌絲</mark>，可用 hematoxylin and eosin（H&amp;E）、periodic acid–Schiff（PAS）、Gomori methenamine silver（GMS）看到；菌絲侵犯血管壁 → <strong>thrombotic vasculitis（血栓性血管炎）</strong>→ ischemic necrosis（缺血性壞死）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">p.271–272</span></li>
+<li id="np-81">可經血行侵犯 central nervous system（CNS，中樞神經系統）→ 中風、死亡；診斷靠切片，常取鼻咽部壞死組織（<strong>eschar，焦痂</strong>）。<span class="ref">p.272</span></li>
+<li id="np-82">（本章外）Section 7：<i>Mucor</i>／<i>Rhizopus</i> 屬 Zygomycetes（接合菌綱），幾乎都由鄰近鼻竇或鼻腔延伸；因 thrombosing vasculitis，眼窩可能沒有明顯發炎，<mark>異常「白而安靜」的眼睛應警覺眼窩缺血</mark>；菌絲與多數黴菌不同、可被 H&amp;E 染出；<mark>diabetic ketoacidosis 要立即矯正，因其使 <strong>free serum iron（游離血清鐵）</strong>增加</mark>，被認為是致病關鍵（不是鈣）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">BCSC 7 p.54–55</span></li>
+<li id="np-83"><strong><i>Aspergillus</i>（麴菌）</strong>：由鄰近鼻竇或身體他處血行散播；<mark>免疫低下者與健康人都會發生</mark>；sino-orbital aspergillosis 症狀緩慢隱伏、常被忽略 → <strong>sclerosing granulomatous reaction（硬化性肉芽腫反應）</strong>；不易培養，切片可見 <mark><strong>septate（有隔）</strong>菌絲、<span class="num">45°</span> 分枝</mark>；即使積極手術加抗黴菌藥，延伸入腦仍可致命。<span class="ref">p.272</span></li>
+<li id="np-84">寄生蟲感染罕見（尤其高所得國家）：<strong><i>Echinococcus</i></strong>（orbital hydatid cyst，包蟲囊腫）、<strong><i>Taenia</i> solium</strong>（cysticercosis，囊尾蟲症）、<strong><i>Loa loa</i></strong>（loiasis，眼絲蟲症）；多見於來自或去過流行區者，特定寄生蟲血清學有助診斷。<span class="ref">p.272</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病原）</th><th>菌絲</th><th>病人族群</th><th>病理反應</th></tr></thead>
 <tbody>
-<tr><td><i>Mucor</i>／<i>Rhizopus</i>（mucormycosis）</td><td>寬大、<strong>無隔</strong>；H&amp;E、PAS、GMS 皆可見</td><td>糖尿病（酮酸中毒）、惡性腫瘤、燒傷、類固醇、嗜中性球低下、COVID-19 後</td><td>侵犯血管 → 血栓性血管炎、缺血壞死；鼻咽 eschar 切片</td></tr>
-<tr><td><i>Aspergillus</i></td><td><strong>有隔</strong>、<span class="num">45°</span> 分枝；不易培養</td><td>免疫低下或健康人</td><td>緩慢隱伏 → 硬化性肉芽腫反應</td></tr>
-<tr><td>Tuberculosis</td><td>—</td><td>罕見侵犯眼窩</td><td>壞死性肉芽腫反應</td></tr>
+<tr><td id="np-85"><i>Mucor</i>／<i>Rhizopus</i>（mucormycosis）</td><td id="np-86">寬大、<strong>無隔</strong>；H&amp;E、PAS、GMS 皆可見</td><td id="np-87">糖尿病（酮酸中毒）、惡性腫瘤、燒傷、類固醇、嗜中性球低下、COVID-19 後</td><td id="np-88">侵犯血管 → 血栓性血管炎、缺血壞死；鼻咽 eschar 切片</td></tr>
+<tr><td id="np-89"><i>Aspergillus</i></td><td id="np-90"><strong>有隔</strong>、<span class="num">45°</span> 分枝；不易培養</td><td id="np-91">免疫低下或健康人</td><td id="np-92">緩慢隱伏 → 硬化性肉芽腫反應</td></tr>
+<tr><td id="np-93">Tuberculosis</td><td id="np-94">—</td><td id="np-95">罕見侵犯眼窩</td><td id="np-96">壞死性肉芽腫反應</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.271–272</span></p>
+<p id="np-97">出處 <span class="ref">p.271–272</span></p>
 <h3 id="ch13-s4-3">Infections of the lacrimal drainage system（淚道感染）</h3>
 <ul>
-<li>可為急性或慢性；<mark>最常侵犯 <strong>canaliculus（淚小管，canaliculitis）</strong>與 <strong>lacrimal sac（淚囊，dacryocystitis）</strong></mark>。<span class="ref">p.272–273</span></li>
-<li>阻塞或異物（如 <strong>dacryolith（淚石）</strong>、punctal plug（淚點塞））易導致感染，但沒有這些因素也可能感染；細菌、黴菌、病毒皆可。<span class="ref">p.273</span></li>
-<li><mark>Canaliculitis 最常見病原：<strong><i>Actinomyces</i> israelii</strong>（絲狀 gram-positive 細菌）</mark>；可聚集成黃色淚石，稱 <strong>"sulfur granule"（硫磺顆粒）</strong>，組織學為 gram 陽性、細緻分枝的絲狀菌落。<span class="ref">p.273</span></li>
+<li id="np-98">可為急性或慢性；<mark>最常侵犯 <strong>canaliculus（淚小管，canaliculitis）</strong>與 <strong>lacrimal sac（淚囊，dacryocystitis）</strong></mark>。<span class="ref">p.272–273</span></li>
+<li id="np-99">阻塞或異物（如 <strong>dacryolith（淚石）</strong>、punctal plug（淚點塞））易導致感染，但沒有這些因素也可能感染；細菌、黴菌、病毒皆可。<span class="ref">p.273</span></li>
+<li id="np-100"><mark>Canaliculitis 最常見病原：<strong><i>Actinomyces</i> israelii</strong>（絲狀 gram-positive 細菌）</mark>；可聚集成黃色淚石，稱 <strong>"sulfur granule"（硫磺顆粒）</strong>，組織學為 gram 陽性、細緻分枝的絲狀菌落。<span class="ref">p.273</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s4-4">易錯陷阱</h3><ul>
-<li><i>Mucor</i> 是<strong>無隔、寬大</strong>菌絲且 H&amp;E 可見；<i>Aspergillus</i> 是<strong>有隔、<span class="num">45°</span></strong> 分枝。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">p.271–272</span></li>
-<li><i>Aspergillus</i> 不只感染免疫低下者，健康人也會。<span class="ref">p.272</span></li>
-<li><i>Actinomyces</i> 雖是「絲狀」，但屬 gram-positive <strong>細菌</strong>，不是黴菌。<span class="ref">p.273</span></li>
-<li>（本章外）DKA 增加的是游離血清<strong>鐵</strong>，不是鈣。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">BCSC 7 p.55</span></li>
+<li id="np-101"><i>Mucor</i> 是<strong>無隔、寬大</strong>菌絲且 H&amp;E 可見；<i>Aspergillus</i> 是<strong>有隔、<span class="num">45°</span></strong> 分枝。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">p.271–272</span></li>
+<li id="np-102"><i>Aspergillus</i> 不只感染免疫低下者，健康人也會。<span class="ref">p.272</span></li>
+<li id="np-103"><i>Actinomyces</i> 雖是「絲狀」，但屬 gram-positive <strong>細菌</strong>，不是黴菌。<span class="ref">p.273</span></li>
+<li id="np-104">（本章外）DKA 增加的是游離血清<strong>鐵</strong>，不是鈣。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-771" data-q="771">第 771 題</a></span><span class="ref">BCSC 7 p.55</span></li>
 </ul></div>
 
 <h2 id="ch13-s5">五、退化性病變（Degenerations）：Amyloid（類澱粉）</h2>
 <ul>
-<li>眼窩 amyloid deposition（類澱粉沉積）可為局部，或為全身性 amyloidosis 的表現。<span class="ref">p.273</span></li>
-<li>沉積在眼外肌與神經 → <mark>ophthalmoplegia（眼肌麻痺）與 ptosis（眼瞼下垂）</mark>。<span class="ref">p.273</span></li>
+<li id="np-105">眼窩 amyloid deposition（類澱粉沉積）可為局部，或為全身性 amyloidosis 的表現。<span class="ref">p.273</span></li>
+<li id="np-106">沉積在眼外肌與神經 → <mark>ophthalmoplegia（眼肌麻痺）與 ptosis（眼瞼下垂）</mark>。<span class="ref">p.273</span></li>
 </ul>
 
 <h2 id="ch13-s6">六、眼窩腫瘤總論與常見腫瘤比較（Neoplasia, Table 13-1）</h2>
 <ul>
-<li>眼窩腫瘤分原發與續發（鄰近構造延伸或轉移）；<mark>續發性腫瘤略多於原發性</mark>。<span class="ref">p.273</span></li>
-<li>兒童與成人的腫瘤種類不同：兒童最常見的原發眼窩病灶是<strong>發育性腫瘤</strong>；成人是 <strong>vascular（血管性）與 lymphoid（淋巴性）腫瘤</strong>。<span class="ref">p.273</span></li>
-<li>兒童眼窩腫瘤約 <span class="num">90%</span> 為良性；良性囊性病灶（dermoid 或 simple epithelial cyst）佔兒童眼窩病灶 <span class="num">50%</span>。<span class="ref">p.273</span></li>
-<li><mark><strong>Rhabdomyosarcoma（橫紋肌肉瘤）</strong>是兒童最常見的原發眼窩惡性腫瘤</mark>，佔所有眼窩腫塊 <span class="num">3%</span>；兒童眼窩也可被 retinoblastoma、neuroblastoma、leukemia／lymphoma 續發侵犯。<span class="ref">p.273</span></li>
+<li id="np-107">眼窩腫瘤分原發與續發（鄰近構造延伸或轉移）；<mark>續發性腫瘤略多於原發性</mark>。<span class="ref">p.273</span></li>
+<li id="np-108">兒童與成人的腫瘤種類不同：兒童最常見的原發眼窩病灶是<strong>發育性腫瘤</strong>；成人是 <strong>vascular（血管性）與 lymphoid（淋巴性）腫瘤</strong>。<span class="ref">p.273</span></li>
+<li id="np-109">兒童眼窩腫瘤約 <span class="num">90%</span> 為良性；良性囊性病灶（dermoid 或 simple epithelial cyst）佔兒童眼窩病灶 <span class="num">50%</span>。<span class="ref">p.273</span></li>
+<li id="np-110"><mark><strong>Rhabdomyosarcoma（橫紋肌肉瘤）</strong>是兒童最常見的原發眼窩惡性腫瘤</mark>，佔所有眼窩腫塊 <span class="num">3%</span>；兒童眼窩也可被 retinoblastoma、neuroblastoma、leukemia／lymphoma 續發侵犯。<span class="ref">p.273</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Feature（特徵）</th><th>Cavernous venous malformation</th><th>Schwannoma</th><th>Pleomorphic adenoma</th><th>Adenoid cystic carcinoma</th><th>Ocular adnexal lymphoma</th></tr></thead>
 <tbody>
-<tr><td>Age（年齡）</td><td><span class="num">20–40</span> 歲</td><td><span class="num">20–60</span> 歲</td><td><span class="num">20–50</span> 歲</td><td><span class="num">40–60</span> 歲</td><td><span class="num">60–70</span> 歲</td></tr>
-<tr><td>Laterality（側別）</td><td>單側</td><td>單側</td><td>單側</td><td>單側</td><td><strong>單側或雙側</strong></td></tr>
-<tr><td>Location（位置）</td><td>多在 <strong>intraconal（肌錐內）</strong></td><td>多在 <strong>extraconal（肌錐外）</strong></td><td>淚腺 orbital lobe</td><td>淚腺 orbital lobe</td><td>肌錐內與肌錐外</td></tr>
-<tr><td>Pain（疼痛）</td><td>無</td><td>部分有痛，± paresthesia（感覺異常）</td><td>無</td><td><strong>有</strong>，± paresthesia</td><td>無</td></tr>
-<tr><td>Imaging（影像）</td><td>邊界清楚均質腫塊；輕度增強；MRI 有 flow voids</td><td>邊界清楚、長橢圓均質；強烈增強</td><td>邊界清楚，<strong>平滑骨凹陷（smooth bony scalloping）</strong>；中度增強</td><td>浸潤性、<strong>骨破壞</strong>；常見 <strong>perineural invasion（神經周圍侵犯）</strong>；瀰漫增強</td><td>邊界不清均質腫塊，<strong>包繞眼球塑形、無骨侵蝕</strong></td></tr>
-<tr><td>Treatment（治療）</td><td>完整切除</td><td>完整切除</td><td>完整切除</td><td>完整切除後放療；晚期考慮 orbital exenteration 或 intra-arterial chemotherapy（動脈內化療）</td><td>依亞型放療、化療或免疫治療；企圖完整切除可能傷及鄰近構造</td></tr>
-<tr><td>Prognosis（預後）</td><td>好</td><td>好</td><td>好</td><td><strong>差</strong></td><td>EMZL 好；LPL（lymphoplasmacytic lymphoma）與 MCL（mantle cell lymphoma）差</td></tr>
+<tr><td id="np-111">Age（年齡）</td><td id="np-112"><span class="num">20–40</span> 歲</td><td id="np-113"><span class="num">20–60</span> 歲</td><td id="np-114"><span class="num">20–50</span> 歲</td><td id="np-115"><span class="num">40–60</span> 歲</td><td id="np-116"><span class="num">60–70</span> 歲</td></tr>
+<tr><td id="np-117">Laterality（側別）</td><td id="np-118">單側</td><td id="np-119">單側</td><td id="np-120">單側</td><td id="np-121">單側</td><td id="np-122"><strong>單側或雙側</strong></td></tr>
+<tr><td id="np-123">Location（位置）</td><td id="np-124">多在 <strong>intraconal（肌錐內）</strong></td><td id="np-125">多在 <strong>extraconal（肌錐外）</strong></td><td id="np-126">淚腺 orbital lobe</td><td id="np-127">淚腺 orbital lobe</td><td id="np-128">肌錐內與肌錐外</td></tr>
+<tr><td id="np-129">Pain（疼痛）</td><td id="np-130">無</td><td id="np-131">部分有痛，± paresthesia（感覺異常）</td><td id="np-132">無</td><td id="np-133"><strong>有</strong>，± paresthesia</td><td id="np-134">無</td></tr>
+<tr><td id="np-135">Imaging（影像）</td><td id="np-136">邊界清楚均質腫塊；輕度增強；MRI 有 flow voids</td><td id="np-137">邊界清楚、長橢圓均質；強烈增強</td><td id="np-138">邊界清楚，<strong>平滑骨凹陷（smooth bony scalloping）</strong>；中度增強</td><td id="np-139">浸潤性、<strong>骨破壞</strong>；常見 <strong>perineural invasion（神經周圍侵犯）</strong>；瀰漫增強</td><td id="np-140">邊界不清均質腫塊，<strong>包繞眼球塑形、無骨侵蝕</strong></td></tr>
+<tr><td id="np-141">Treatment（治療）</td><td id="np-142">完整切除</td><td id="np-143">完整切除</td><td id="np-144">完整切除</td><td id="np-145">完整切除後放療；晚期考慮 orbital exenteration 或 intra-arterial chemotherapy（動脈內化療）</td><td id="np-146">依亞型放療、化療或免疫治療；企圖完整切除可能傷及鄰近構造</td></tr>
+<tr><td id="np-147">Prognosis（預後）</td><td id="np-148">好</td><td id="np-149">好</td><td id="np-150">好</td><td id="np-151"><strong>差</strong></td><td id="np-152">EMZL 好；LPL（lymphoplasmacytic lymphoma）與 MCL（mantle cell lymphoma）差</td></tr>
 </tbody>
 </table>
-<p>出處（Table 13-1）<span class="ref">p.275</span></p>
+<p id="np-153">出處（Table 13-1）<span class="ref">p.275</span></p>
 <ul>
-<li>依 Table 13-1：<mark>會痛的是 adenoid cystic carcinoma（神經侵犯）</mark>，schwannoma 只有部分病人疼痛；淋巴瘤以<strong>切片後放療／化療</strong>為主（勉強完整切除會傷及鄰近構造），ACC 則以<strong>完整切除</strong>為主；淋巴瘤包繞塑形、可雙側，ACC 則骨破壞與神經周圍侵犯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-724" data-q="724">第 724 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.275</span></li>
+<li id="np-154">依 Table 13-1：<mark>會痛的是 adenoid cystic carcinoma（神經侵犯）</mark>，schwannoma 只有部分病人疼痛；淋巴瘤以<strong>切片後放療／化療</strong>為主（勉強完整切除會傷及鄰近構造），ACC 則以<strong>完整切除</strong>為主；淋巴瘤包繞塑形、可雙側，ACC 則骨破壞與神經周圍侵犯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-724" data-q="724">第 724 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.275</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s6-1">易錯陷阱</h3><ul>
-<li>Perineural invasion 屬 ACC，不屬 lymphoma；lymphoma 才較常雙側。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-724" data-q="724">第 724 題</a></span><span class="ref">p.275</span></li>
-<li>骨變化三型：pleomorphic adenoma = 平滑 scalloping（不破壞）；ACC = 骨破壞；lymphoma = 塑形、<strong>不侵蝕骨</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.275</span></li>
-<li>Cavernous venous malformation 多在肌錐<strong>內</strong>，schwannoma 多在肌錐<strong>外</strong>。<span class="ref">p.275</span></li>
-<li>原發 vs 續發：<strong>續發性</strong>眼窩腫瘤略多。<span class="ref">p.273</span></li>
+<li id="np-155">Perineural invasion 屬 ACC，不屬 lymphoma；lymphoma 才較常雙側。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-724" data-q="724">第 724 題</a></span><span class="ref">p.275</span></li>
+<li id="np-156">骨變化三型：pleomorphic adenoma = 平滑 scalloping（不破壞）；ACC = 骨破壞；lymphoma = 塑形、<strong>不侵蝕骨</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.275</span></li>
+<li id="np-157">Cavernous venous malformation 多在肌錐<strong>內</strong>，schwannoma 多在肌錐<strong>外</strong>。<span class="ref">p.275</span></li>
+<li id="np-158">原發 vs 續發：<strong>續發性</strong>眼窩腫瘤略多。<span class="ref">p.273</span></li>
 </ul></div>
 
 <h2 id="ch13-s7">七、淚腺腫瘤（Lacrimal Gland Neoplasia）</h2>
 <ul>
-<li>淚腺是 modified salivary gland（變形的唾液腺）→ 上皮性淚腺腫瘤依 WHO 上皮性唾液腺腫瘤分類。<span class="ref">p.274</span></li>
-<li>最常見的上皮性淚腺腫瘤類型：<strong>pleomorphic adenoma（多形性腺瘤）</strong>、<strong>carcinoma ex pleomorphic adenoma</strong>（源自 pleomorphic adenoma 的 adenocarcinoma）、<strong>adenoid cystic carcinoma（腺樣囊性癌）</strong>。<span class="ref">p.274</span></li>
+<li id="np-159">淚腺是 modified salivary gland（變形的唾液腺）→ 上皮性淚腺腫瘤依 WHO 上皮性唾液腺腫瘤分類。<span class="ref">p.274</span></li>
+<li id="np-160">最常見的上皮性淚腺腫瘤類型：<strong>pleomorphic adenoma（多形性腺瘤）</strong>、<strong>carcinoma ex pleomorphic adenoma</strong>（源自 pleomorphic adenoma 的 adenocarcinoma）、<strong>adenoid cystic carcinoma（腺樣囊性癌）</strong>。<span class="ref">p.274</span></li>
 </ul>
 <h3 id="ch13-s7-1">Pleomorphic adenoma（多形性腺瘤，benign mixed tumor）</h3>
 <ul>
-<li><mark>淚腺最常見的上皮性腫瘤</mark>，又稱 benign mixed tumor（良性混合瘤）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a></span><span class="ref">p.274</span></li>
-<li>多在 fourth or fifth decade（三十多到四十多歲）出現，表現為<mark>緩慢、無痛的 proptosis</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">p.274</span></li>
-<li>有 <strong>pseudocapsule（假被膜）</strong>、膨脹性生長 → <mark>平滑的 bony scalloping（骨凹陷）而無骨破壞</mark>；腫瘤刺激骨膜沉積一薄層新骨（<strong>cortication，皮質化</strong>）。所以「侵蝕眼眶骨、造成疼痛」是錯的（那是 ACC）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.274</span></li>
-<li>組織學：epithelial（上皮）、myoepithelial（肌上皮）與 stromal（基質）細胞混合，全部源自淚腺腺上皮；fibrous pseudocapsule；上皮成分形成巢或小管，內襯 <span class="num">2</span> 層細胞，外層與基質無明顯界線；基質可呈 myxoid（黏液樣），並含 heterologous elements（異質成分）如 <strong>cartilage（軟骨）與 bone（骨）</strong>。<span class="ref">p.274</span></li>
-<li>大體：腫塊有圓形突起（"bosselations"）、外觀有被膜；CT 為顳上方邊界清楚腫塊、無骨破壞，使眼球往<strong>內下方</strong>移位（Fig 13-8）。<span class="ref">p.276</span></li>
-<li><mark>可惡性轉變</mark>：長期存在或切除不完全者 → adenocarcinoma（carcinoma ex pleomorphic adenoma），在一段靜止期後相對快速長大；眼窩內復發的 pleomorphic adenoma 也可發生 adenocarcinoma 或 adenoid cystic carcinoma。因此「幾乎不會惡性化」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">p.274</span></li>
-<li>治療：<mark>連同一圈正常組織完整切除</mark>；切除不完全可導致晚期復發。<span class="ref">p.274</span></li>
-<li><strong>Clinical Pearl</strong>：<mark>避免 incisional biopsy（切開式切片）或 fine-needle aspiration biopsy（細針抽吸）</mark>，以免破壞 pseudocapsule 與腫瘤溢出；最好的診斷與治療是完整不破裂地整顆切除送病理。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-726" data-q="726">第 726 題</a></span><span class="ref">p.274</span></li>
-<li>（本章外）Section 7：上皮性淚腺腫瘤約 <span class="num">50%</span> 為 pleomorphic adenoma、約 <span class="num">50%</span> 為癌；癌中約一半為 adenoid cystic carcinoma，其餘為 malignant mixed tumor、primary adenocarcinoma、mucoepidermoid carcinoma、squamous carcinoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a></span><span class="ref">BCSC 7 p.107</span></li>
-<li>（本章外）Section 7：男性略多；眼球無痛往內下方移位；應<strong>不先切片</strong>、連同 pseudocapsule 與周圍組織完整切除——早期研究切開被膜直接切片者復發率 <span class="num">32%</span>；復發者惡性轉變為 carcinoma ex pleomorphic adenoma 的風險<mark>每十年 <span class="num">10%</span></mark>。CT／MRI 與基因檢查都不能取代完整切除後的病理。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-726" data-q="726">第 726 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">BCSC 7 p.107</span></li>
+<li id="np-161"><mark>淚腺最常見的上皮性腫瘤</mark>，又稱 benign mixed tumor（良性混合瘤）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a></span><span class="ref">p.274</span></li>
+<li id="np-162">多在 fourth or fifth decade（三十多到四十多歲）出現，表現為<mark>緩慢、無痛的 proptosis</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">p.274</span></li>
+<li id="np-163">有 <strong>pseudocapsule（假被膜）</strong>、膨脹性生長 → <mark>平滑的 bony scalloping（骨凹陷）而無骨破壞</mark>；腫瘤刺激骨膜沉積一薄層新骨（<strong>cortication，皮質化</strong>）。所以「侵蝕眼眶骨、造成疼痛」是錯的（那是 ACC）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.274</span></li>
+<li id="np-164">組織學：epithelial（上皮）、myoepithelial（肌上皮）與 stromal（基質）細胞混合，全部源自淚腺腺上皮；fibrous pseudocapsule；上皮成分形成巢或小管，內襯 <span class="num">2</span> 層細胞，外層與基質無明顯界線；基質可呈 myxoid（黏液樣），並含 heterologous elements（異質成分）如 <strong>cartilage（軟骨）與 bone（骨）</strong>。<span class="ref">p.274</span></li>
+<li id="np-165">大體：腫塊有圓形突起（"bosselations"）、外觀有被膜；CT 為顳上方邊界清楚腫塊、無骨破壞，使眼球往<strong>內下方</strong>移位（Fig 13-8）。<span class="ref">p.276</span></li>
+<li id="np-166"><mark>可惡性轉變</mark>：長期存在或切除不完全者 → adenocarcinoma（carcinoma ex pleomorphic adenoma），在一段靜止期後相對快速長大；眼窩內復發的 pleomorphic adenoma 也可發生 adenocarcinoma 或 adenoid cystic carcinoma。因此「幾乎不會惡性化」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">p.274</span></li>
+<li id="np-167">治療：<mark>連同一圈正常組織完整切除</mark>；切除不完全可導致晚期復發。<span class="ref">p.274</span></li>
+<li id="np-168"><strong>Clinical Pearl</strong>：<mark>避免 incisional biopsy（切開式切片）或 fine-needle aspiration biopsy（細針抽吸）</mark>，以免破壞 pseudocapsule 與腫瘤溢出；最好的診斷與治療是完整不破裂地整顆切除送病理。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-726" data-q="726">第 726 題</a></span><span class="ref">p.274</span></li>
+<li id="np-169">（本章外）Section 7：上皮性淚腺腫瘤約 <span class="num">50%</span> 為 pleomorphic adenoma、約 <span class="num">50%</span> 為癌；癌中約一半為 adenoid cystic carcinoma，其餘為 malignant mixed tumor、primary adenocarcinoma、mucoepidermoid carcinoma、squamous carcinoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a></span><span class="ref">BCSC 7 p.107</span></li>
+<li id="np-170">（本章外）Section 7：男性略多；眼球無痛往內下方移位；應<strong>不先切片</strong>、連同 pseudocapsule 與周圍組織完整切除——早期研究切開被膜直接切片者復發率 <span class="num">32%</span>；復發者惡性轉變為 carcinoma ex pleomorphic adenoma 的風險<mark>每十年 <span class="num">10%</span></mark>。CT／MRI 與基因檢查都不能取代完整切除後的病理。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-726" data-q="726">第 726 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">BCSC 7 p.107</span></li>
 </ul>
 <h3 id="ch13-s7-2">Adenoid cystic carcinoma（ACC，腺樣囊性癌）</h3>
 <ul>
-<li>可發生在 pleomorphic adenoma 病人，但<strong>更常 de novo（原發）</strong>；女性略多；中位年齡約 <span class="num">40</span> 歲。<span class="ref">p.276</span></li>
-<li><mark>沒有 pseudocapsule</mark>，傾向<strong>侵蝕骨頭</strong>並<strong>侵犯眼窩神經</strong> → <mark>常見疼痛與 paresthesia</mark>；大體呈浸潤性。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.276–277</span></li>
-<li>組織學型態多樣：<mark><strong>cribriform（"Swiss cheese"，篩狀）最常見</strong></mark>；<strong>basaloid（solid，基底細胞樣／實體）型</strong>與 high-grade transformation（高惡度轉化）<mark>預後較差</mark>；可見 perineural invasion（腫瘤包圍周邊神經）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a></span><span class="ref">p.277</span></li>
-<li>治療：orbital exenteration（眼窩內容物剜除）是現行接受的治療之一，也有人主張保留眼球的 intra-arterial chemotherapy。<span class="ref">p.277</span></li>
-<li>Q383 的官方答案 D（ACC 表現 p53 → 預後較差）是以<strong>排除法</strong>得到：BCSC 並未討論 p53；其餘選項都與本章相反——pleomorphic adenoma 可惡性轉變、為無痛且平滑骨凹陷、ACC 是 basaloid 型預後較差（不是較佳）。（文獻中 p53 與淚腺 ACC 預後的關係只有小型研究，結果方向不一致）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">p.274, p.277</span></li>
-<li>（本章外）Section 7：<mark>ACC 是淚腺最常見的惡性上皮腫瘤</mark>；病程通常 <span class="num">&lt;1</span> 年且早期疼痛，pleomorphic adenoma 則無痛且眼突超過一年；因浸潤性且無真被膜，腫瘤常往 <strong>posterior orbit（眼窩後方）</strong>延伸；basaloid 型存活較 cribriform 型差。<strong>Malignant mixed tumor</strong> 通常源自長期或復發的 pleomorphic adenoma，<strong>不是</strong>淚腺最常見的惡性腫瘤；淚腺上皮腫瘤影像多為孤立球狀腫塊，推移並壓凹眼球。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">BCSC 7 p.107–108</span></li>
+<li id="np-171">可發生在 pleomorphic adenoma 病人，但<strong>更常 de novo（原發）</strong>；女性略多；中位年齡約 <span class="num">40</span> 歲。<span class="ref">p.276</span></li>
+<li id="np-172"><mark>沒有 pseudocapsule</mark>，傾向<strong>侵蝕骨頭</strong>並<strong>侵犯眼窩神經</strong> → <mark>常見疼痛與 paresthesia</mark>；大體呈浸潤性。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.276–277</span></li>
+<li id="np-173">組織學型態多樣：<mark><strong>cribriform（"Swiss cheese"，篩狀）最常見</strong></mark>；<strong>basaloid（solid，基底細胞樣／實體）型</strong>與 high-grade transformation（高惡度轉化）<mark>預後較差</mark>；可見 perineural invasion（腫瘤包圍周邊神經）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a></span><span class="ref">p.277</span></li>
+<li id="np-174">治療：orbital exenteration（眼窩內容物剜除）是現行接受的治療之一，也有人主張保留眼球的 intra-arterial chemotherapy。<span class="ref">p.277</span></li>
+<li id="np-175">Q383 的官方答案 D（ACC 表現 p53 → 預後較差）是以<strong>排除法</strong>得到：BCSC 並未討論 p53；其餘選項都與本章相反——pleomorphic adenoma 可惡性轉變、為無痛且平滑骨凹陷、ACC 是 basaloid 型預後較差（不是較佳）。（文獻中 p53 與淚腺 ACC 預後的關係只有小型研究，結果方向不一致）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">p.274, p.277</span></li>
+<li id="np-176">（本章外）Section 7：<mark>ACC 是淚腺最常見的惡性上皮腫瘤</mark>；病程通常 <span class="num">&lt;1</span> 年且早期疼痛，pleomorphic adenoma 則無痛且眼突超過一年；因浸潤性且無真被膜，腫瘤常往 <strong>posterior orbit（眼窩後方）</strong>延伸；basaloid 型存活較 cribriform 型差。<strong>Malignant mixed tumor</strong> 通常源自長期或復發的 pleomorphic adenoma，<strong>不是</strong>淚腺最常見的惡性腫瘤；淚腺上皮腫瘤影像多為孤立球狀腫塊，推移並壓凹眼球。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">BCSC 7 p.107–108</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s7-3">易錯陷阱</h3><ul>
-<li>Pleomorphic adenoma：良性但<strong>會</strong>惡性轉變（長期存在、切不乾淨、復發）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">p.274</span></li>
-<li>Pleomorphic adenoma 無痛＋平滑 scalloping；ACC 疼痛＋骨破壞＋神經侵犯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.274, p.276</span></li>
-<li>ACC 最常見型是 cribriform，但預後差的是 <strong>basaloid</strong>；「cribriform 比 basaloid 差」或「basaloid 存活較佳」都是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a></span><span class="ref">p.277</span></li>
-<li>疑似 pleomorphic adenoma 不做 incisional biopsy 或 FNA；直接完整切除。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-726" data-q="726">第 726 題</a></span><span class="ref">p.274</span></li>
-<li>ACC 較常 <strong>de novo</strong>，不是多由 pleomorphic adenoma 轉變。<span class="ref">p.276</span></li>
+<li id="np-177">Pleomorphic adenoma：良性但<strong>會</strong>惡性轉變（長期存在、切不乾淨、復發）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a></span><span class="ref">p.274</span></li>
+<li id="np-178">Pleomorphic adenoma 無痛＋平滑 scalloping；ACC 疼痛＋骨破壞＋神經侵犯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a></span><span class="ref">p.274, p.276</span></li>
+<li id="np-179">ACC 最常見型是 cribriform，但預後差的是 <strong>basaloid</strong>；「cribriform 比 basaloid 差」或「basaloid 存活較佳」都是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-383" data-q="383">第 383 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-741" data-q="741">第 741 題</a></span><span class="ref">p.277</span></li>
+<li id="np-180">疑似 pleomorphic adenoma 不做 incisional biopsy 或 FNA；直接完整切除。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-726" data-q="726">第 726 題</a></span><span class="ref">p.274</span></li>
+<li id="np-181">ACC 較常 <strong>de novo</strong>，不是多由 pleomorphic adenoma 轉變。<span class="ref">p.276</span></li>
 </ul></div>
 
 <h2 id="ch13-s8">八、淋巴增生病變（Lymphoproliferative Lesions）</h2>
 <ul>
-<li>Ocular adnexal（結膜、眼窩、眼瞼）lymphoproliferative lesions 傳統分為 <strong>reactive lymphoid hyperplasia（RLH，反應性淋巴增生）</strong>、<strong>atypical lymphoid hyperplasia（ALH，非典型淋巴增生）</strong>與 <strong>ocular adnexal lymphoma（OAL，眼附屬器淋巴瘤）</strong>；OAL 依 WHO 造血與淋巴組織腫瘤分類第 <span class="num">5</span> 版分型，分類影響治療與預後。<span class="ref">p.277–278</span></li>
-<li>眼窩淋巴增生病灶表現為<mark>緩慢、無痛</mark>的單側或雙側眼突；分期需與 medical oncologist（腫瘤內科）合作，可包括 positron emission tomography（PET，正子造影）或 CT 以及 bone marrow biopsy（骨髓切片）。<span class="ref">p.278</span></li>
+<li id="np-182">Ocular adnexal（結膜、眼窩、眼瞼）lymphoproliferative lesions 傳統分為 <strong>reactive lymphoid hyperplasia（RLH，反應性淋巴增生）</strong>、<strong>atypical lymphoid hyperplasia（ALH，非典型淋巴增生）</strong>與 <strong>ocular adnexal lymphoma（OAL，眼附屬器淋巴瘤）</strong>；OAL 依 WHO 造血與淋巴組織腫瘤分類第 <span class="num">5</span> 版分型，分類影響治療與預後。<span class="ref">p.277–278</span></li>
+<li id="np-183">眼窩淋巴增生病灶表現為<mark>緩慢、無痛</mark>的單側或雙側眼突；分期需與 medical oncologist（腫瘤內科）合作，可包括 positron emission tomography（PET，正子造影）或 CT 以及 bone marrow biopsy（骨髓切片）。<span class="ref">p.278</span></li>
 </ul>
 <h3 id="ch13-s8-1">Tissue handling of ocular adnexal lymphoid lesions（淋巴病灶檢體處理）</h3>
 <ul>
-<li>切片前先與 pathologist（病理科醫師）討論組織量、固定液或培養液種類。<span class="ref">p.278</span></li>
-<li>組織要輕柔處理：<mark>crush artifact（擠壓假影）可使病理無法診斷</mark>。<span class="ref">p.278</span></li>
-<li><mark>Touch preparation（觸印片）與 flow cytometry（流式細胞儀）需要新鮮、未固定組織</mark>；避免長時間暴露空氣，可用生理食鹽水沾濕的紗布包覆或放入 tissue culture medium（組織培養液）以減緩自溶。<span class="ref">p.278</span></li>
-<li>Molecular genetic 與 immunohistochemical（IHC，免疫組織化學）檢查可用<strong>已固定</strong>組織。<span class="ref">p.278</span></li>
+<li id="np-184">切片前先與 pathologist（病理科醫師）討論組織量、固定液或培養液種類。<span class="ref">p.278</span></li>
+<li id="np-185">組織要輕柔處理：<mark>crush artifact（擠壓假影）可使病理無法診斷</mark>。<span class="ref">p.278</span></li>
+<li id="np-186"><mark>Touch preparation（觸印片）與 flow cytometry（流式細胞儀）需要新鮮、未固定組織</mark>；避免長時間暴露空氣，可用生理食鹽水沾濕的紗布包覆或放入 tissue culture medium（組織培養液）以減緩自溶。<span class="ref">p.278</span></li>
+<li id="np-187">Molecular genetic 與 immunohistochemical（IHC，免疫組織化學）檢查可用<strong>已固定</strong>組織。<span class="ref">p.278</span></li>
 </ul>
 <h3 id="ch13-s8-2">Lymphoid hyperplasia（淋巴增生）</h3>
 <ul>
-<li><strong>RLH</strong>：明顯具 germinal center 的淋巴濾泡、<strong>tingible body macrophages</strong>（含凋亡碎屑的巨噬細胞）、成熟淋巴球的多形性族群；可混少量其他發炎細胞；免疫染色與流式顯示 <strong>polyclonal</strong>。<span class="ref">p.278–279</span></li>
-<li><strong>ALH</strong> 是 <mark>diagnosis of exclusion（排除性診斷）</mark>：經完整組織學、免疫表型與分子遺傳評估後，仍無法歸為明確 RLH 或 lymphoma 者。<span class="ref">p.278</span></li>
+<li id="np-188"><strong>RLH</strong>：明顯具 germinal center 的淋巴濾泡、<strong>tingible body macrophages</strong>（含凋亡碎屑的巨噬細胞）、成熟淋巴球的多形性族群；可混少量其他發炎細胞；免疫染色與流式顯示 <strong>polyclonal</strong>。<span class="ref">p.278–279</span></li>
+<li id="np-189"><strong>ALH</strong> 是 <mark>diagnosis of exclusion（排除性診斷）</mark>：經完整組織學、免疫表型與分子遺傳評估後，仍無法歸為明確 RLH 或 lymphoma 者。<span class="ref">p.278</span></li>
 </ul>
 <h3 id="ch13-s8-3">Lymphoma（淋巴瘤）</h3>
 <ul>
-<li>眼窩淋巴瘤目前佔眼窩與眼附屬器惡性腫瘤的<mark>一半</mark>，且發生率上升；較常是<strong>原發眼窩腫瘤</strong>，較少是全身性淋巴瘤的首發表現。<span class="ref">p.279</span></li>
-<li>眼附屬器淋巴瘤 <span class="num">90%</span> 為 mature B-cell lymphoma（成熟 B 細胞淋巴瘤）；<mark><strong>EMZL</strong> 是最常見的眼窩淋巴瘤</mark>；其他 non-Hodgkin lymphoma 如 follicular、large B-cell、mantle cell 較少見，各亞型的存活預後與治療不同。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a></span><span class="ref">p.279</span></li>
-<li>組織學：單形性 B 細胞浸潤，表現 B 細胞標記 <strong>CD20</strong>；可再以多種淋巴標記做免疫表型分型。<mark>T-cell lymphoma 罕見、較具侵襲性</mark>，通常表現 T 細胞標記 <strong>CD3</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a></span><span class="ref">p.279</span></li>
-<li>Low-grade B-cell lymphoma 圖例：上穹窿 <strong>salmon-pink patch（鮭魚肉色斑塊）</strong>、MRI 為肌錐內包繞眼球的浸潤性均質腫塊；高倍可見核內 <strong>Dutcher bodies</strong>（免疫球蛋白偽包涵體），為 EMZL 的典型表現。<span class="ref">p.280</span></li>
-<li><mark>原發眼窩淋巴瘤病人發生全身性淋巴瘤的風險 <span class="num">30%–40%</span></mark>；反之全身性淋巴瘤續發侵犯眼窩只有約 <span class="num">1%–2%</span>。<span class="ref">p.280</span></li>
-<li>（本章外）Section 7：眼窩淋巴增生病灶<strong>絕大多數為 non-Hodgkin lymphoma</strong>；<mark>眼窩淋巴瘤 <span class="num">98%</span> 為 B 細胞來源，T-cell lymphoma 罕見但較致命</mark>；依 Revised European-American Lymphoma（REAL）／WHO 分類，四種常見眼窩淋巴瘤依序為 EMZL（MALT）約 <span class="num">57%</span>、diffuse large B-cell lymphoma（DLBCL）<span class="num">15%</span>、follicular lymphoma <span class="num">11%</span>、mantle cell lymphoma <span class="num">8%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.99–100</span></li>
-<li>（本章外）Section 7：<mark>有或發生 systemic NHL 的風險：結膜最低、眼窩居中、眼瞼最高</mark>；淚腺窩淋巴病灶風險可能高於眼窩其他部位；雙側病灶明顯增加風險但不等於已有全身疾病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.99</span></li>
-<li>（本章外）Section 7：影像為 <strong>puttylike molding（油灰般塑形）</strong>貼附正常構造；<mark>除高惡度淋巴瘤外通常不見骨侵蝕</mark>；最多 <span class="num">50%</span> 發生於淚腺窩；約 <span class="num">17%</span> 為雙側；建議 open biopsy（開放式切片）以取得足量組織；淋巴增生病灶使淚腺瀰漫拉長、包繞眼球，通常不造成骨變化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-724" data-q="724">第 724 題</a></span><span class="ref">BCSC 7 p.100, p.107</span></li>
-<li>（本章外）Section 7：EMZL 與 follicular lymphoma 放療效果好，<span class="num">10</span> 年存活率分別 <span class="num">92%</span>、<span class="num">71%</span>；DLBCL、MCL 較差（<span class="num">41%</span>、<span class="num">32%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.102</span></li>
+<li id="np-190">眼窩淋巴瘤目前佔眼窩與眼附屬器惡性腫瘤的<mark>一半</mark>，且發生率上升；較常是<strong>原發眼窩腫瘤</strong>，較少是全身性淋巴瘤的首發表現。<span class="ref">p.279</span></li>
+<li id="np-191">眼附屬器淋巴瘤 <span class="num">90%</span> 為 mature B-cell lymphoma（成熟 B 細胞淋巴瘤）；<mark><strong>EMZL</strong> 是最常見的眼窩淋巴瘤</mark>；其他 non-Hodgkin lymphoma 如 follicular、large B-cell、mantle cell 較少見，各亞型的存活預後與治療不同。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a></span><span class="ref">p.279</span></li>
+<li id="np-192">組織學：單形性 B 細胞浸潤，表現 B 細胞標記 <strong>CD20</strong>；可再以多種淋巴標記做免疫表型分型。<mark>T-cell lymphoma 罕見、較具侵襲性</mark>，通常表現 T 細胞標記 <strong>CD3</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a></span><span class="ref">p.279</span></li>
+<li id="np-193">Low-grade B-cell lymphoma 圖例：上穹窿 <strong>salmon-pink patch（鮭魚肉色斑塊）</strong>、MRI 為肌錐內包繞眼球的浸潤性均質腫塊；高倍可見核內 <strong>Dutcher bodies</strong>（免疫球蛋白偽包涵體），為 EMZL 的典型表現。<span class="ref">p.280</span></li>
+<li id="np-194"><mark>原發眼窩淋巴瘤病人發生全身性淋巴瘤的風險 <span class="num">30%–40%</span></mark>；反之全身性淋巴瘤續發侵犯眼窩只有約 <span class="num">1%–2%</span>。<span class="ref">p.280</span></li>
+<li id="np-195">（本章外）Section 7：眼窩淋巴增生病灶<strong>絕大多數為 non-Hodgkin lymphoma</strong>；<mark>眼窩淋巴瘤 <span class="num">98%</span> 為 B 細胞來源，T-cell lymphoma 罕見但較致命</mark>；依 Revised European-American Lymphoma（REAL）／WHO 分類，四種常見眼窩淋巴瘤依序為 EMZL（MALT）約 <span class="num">57%</span>、diffuse large B-cell lymphoma（DLBCL）<span class="num">15%</span>、follicular lymphoma <span class="num">11%</span>、mantle cell lymphoma <span class="num">8%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.99–100</span></li>
+<li id="np-196">（本章外）Section 7：<mark>有或發生 systemic NHL 的風險：結膜最低、眼窩居中、眼瞼最高</mark>；淚腺窩淋巴病灶風險可能高於眼窩其他部位；雙側病灶明顯增加風險但不等於已有全身疾病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.99</span></li>
+<li id="np-197">（本章外）Section 7：影像為 <strong>puttylike molding（油灰般塑形）</strong>貼附正常構造；<mark>除高惡度淋巴瘤外通常不見骨侵蝕</mark>；最多 <span class="num">50%</span> 發生於淚腺窩；約 <span class="num">17%</span> 為雙側；建議 open biopsy（開放式切片）以取得足量組織；淋巴增生病灶使淚腺瀰漫拉長、包繞眼球，通常不造成骨變化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-811" data-q="811">第 811 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-724" data-q="724">第 724 題</a></span><span class="ref">BCSC 7 p.100, p.107</span></li>
+<li id="np-198">（本章外）Section 7：EMZL 與 follicular lymphoma 放療效果好，<span class="num">10</span> 年存活率分別 <span class="num">92%</span>、<span class="num">71%</span>；DLBCL、MCL 較差（<span class="num">41%</span>、<span class="num">32%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.102</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s8-4">易錯陷阱</h3><ul>
-<li>（本章外）全身性淋巴瘤風險：<strong>結膜 &lt; 眼窩 &lt; 眼瞼</strong>；說「結膜大於眼瞼」是反的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.99</span></li>
-<li>原發眼窩淋巴瘤 → 全身（<span class="num">30%–40%</span>）遠高於全身淋巴瘤 → 眼窩（<span class="num">1%–2%</span>），方向別記反。<span class="ref">p.280</span></li>
-<li>B 細胞標記 CD20、T 細胞標記 CD3；T-cell 眼窩淋巴瘤罕見但更兇。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a></span><span class="ref">p.279</span></li>
-<li>新鮮組織才做得了 flow cytometry 與 touch prep；IHC 與分子檢查用固定組織即可。<span class="ref">p.278</span></li>
-<li>低惡度淋巴瘤（如 EMZL）塑形而不破壞骨，見到骨破壞要想 ACC、轉移或高惡度淋巴瘤。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a></span><span class="ref">p.275; BCSC 7 p.100, p.113</span></li>
+<li id="np-199">（本章外）全身性淋巴瘤風險：<strong>結膜 &lt; 眼窩 &lt; 眼瞼</strong>；說「結膜大於眼瞼」是反的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.99</span></li>
+<li id="np-200">原發眼窩淋巴瘤 → 全身（<span class="num">30%–40%</span>）遠高於全身淋巴瘤 → 眼窩（<span class="num">1%–2%</span>），方向別記反。<span class="ref">p.280</span></li>
+<li id="np-201">B 細胞標記 CD20、T 細胞標記 CD3；T-cell 眼窩淋巴瘤罕見但更兇。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a></span><span class="ref">p.279</span></li>
+<li id="np-202">新鮮組織才做得了 flow cytometry 與 touch prep；IHC 與分子檢查用固定組織即可。<span class="ref">p.278</span></li>
+<li id="np-203">低惡度淋巴瘤（如 EMZL）塑形而不破壞骨，見到骨破壞要想 ACC、轉移或高惡度淋巴瘤。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-773" data-q="773">第 773 題</a></span><span class="ref">p.275; BCSC 7 p.100, p.113</span></li>
 </ul></div>
 
 <h2 id="ch13-s9">九、軟組織腫瘤：血管性與纖維性（Soft-Tissue Tumors）</h2>
 <ul>
-<li>軟組織腫瘤依組織型態（round cell（圓形細胞）、spindle cell（梭形細胞）、myxoid、epithelioid（類上皮）、pericytomatous（周皮細胞樣）、pleomorphic）加上 IHC 與分子遺傳檢查診斷；分類隨分子遺傳了解持續演變。<span class="ref">p.280</span></li>
+<li id="np-204">軟組織腫瘤依組織型態（round cell（圓形細胞）、spindle cell（梭形細胞）、myxoid、epithelioid（類上皮）、pericytomatous（周皮細胞樣）、pleomorphic）加上 IHC 與分子遺傳檢查診斷；分類隨分子遺傳了解持續演變。<span class="ref">p.280</span></li>
 </ul>
 <h3 id="ch13-s9-1">Vascular tumors（血管性腫瘤）</h3>
 <ul>
-<li><strong>Orbital lymphatic malformation 與 lymphatic-venous malformation（淋巴管／淋巴靜脈畸形，舊稱 lymphangioma）</strong>：多在<strong>兒童期</strong>出現，<mark>反覆、起伏的 proptosis，常在上呼吸道感染時變大</mark>；組織為<strong>無被膜</strong>、浸潤性的淋巴管與靜脈管道，散在淋巴聚集，背景纖維化與陳舊出血（hemosiderin，含鐵血黃素沉積）。<span class="ref">p.280–281</span></li>
-<li><strong>Orbital cavernous venous malformation（眼窩海綿狀靜脈畸形，舊稱 cavernous hemangioma）</strong>：典型位於 <mark>intraconal（肌錐內）、有被膜</mark>；由擴大的大型靜脈管道構成，內有 <strong>serum–red blood cell separation（血清與紅血球分層）</strong>，偶有血栓與鈣化；屬低流量病灶（Table 13-1：<span class="num">20–40</span> 歲、不痛、完整切除）。<span class="ref">p.275, p.281–282</span></li>
-<li>對照 <strong>infantile（capillary）hemangioma（嬰兒血管瘤）</strong>：<strong>無被膜</strong>、細胞較多、常合併皮膚病灶，由微血管大小的血管構成（見第 12 章）。<span class="ref">p.281</span></li>
-<li>（本章外）Section 4 總論以 orbital cavernous venous malformation（成熟靜脈管道組成的有被膜腫塊）作為 <strong>hamartoma</strong> 的例子，不是 choristoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a></span><span class="ref">BCSC 4 p.8</span></li>
+<li id="np-205"><strong>Orbital lymphatic malformation 與 lymphatic-venous malformation（淋巴管／淋巴靜脈畸形，舊稱 lymphangioma）</strong>：多在<strong>兒童期</strong>出現，<mark>反覆、起伏的 proptosis，常在上呼吸道感染時變大</mark>；組織為<strong>無被膜</strong>、浸潤性的淋巴管與靜脈管道，散在淋巴聚集，背景纖維化與陳舊出血（hemosiderin，含鐵血黃素沉積）。<span class="ref">p.280–281</span></li>
+<li id="np-206"><strong>Orbital cavernous venous malformation（眼窩海綿狀靜脈畸形，舊稱 cavernous hemangioma）</strong>：典型位於 <mark>intraconal（肌錐內）、有被膜</mark>；由擴大的大型靜脈管道構成，內有 <strong>serum–red blood cell separation（血清與紅血球分層）</strong>，偶有血栓與鈣化；屬低流量病灶（Table 13-1：<span class="num">20–40</span> 歲、不痛、完整切除）。<span class="ref">p.275, p.281–282</span></li>
+<li id="np-207">對照 <strong>infantile（capillary）hemangioma（嬰兒血管瘤）</strong>：<strong>無被膜</strong>、細胞較多、常合併皮膚病灶，由微血管大小的血管構成（見第 12 章）。<span class="ref">p.281</span></li>
+<li id="np-208">（本章外）Section 4 總論以 orbital cavernous venous malformation（成熟靜脈管道組成的有被膜腫塊）作為 <strong>hamartoma</strong> 的例子，不是 choristoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-360" data-q="360">第 360 題</a></span><span class="ref">BCSC 4 p.8</span></li>
 </ul>
 <h3 id="ch13-s9-2">Solitary fibrous tumor（SFT，孤立性纖維瘤）</h3>
 <ul>
-<li><mark>成人眼窩最常見的 mesenchymal tumor（間質腫瘤）</mark>；好發 <strong>superonasal（鼻上側）</strong>眼窩；典型在 fifth decade（四十多歲）出現，但更年輕或更年長也可發生；表現眼突、疼痛、複視、視力模糊、流淚。<span class="ref">p.282</span></li>
-<li>Hemangiopericytoma（血管周皮細胞瘤）、fibrous histiocytoma（纖維組織球瘤）、giant cell angiofibroma（巨細胞血管纖維瘤）因組織、免疫染色與分子特徵相同，已<mark>重新歸類為 SFT</mark>。<span class="ref">p.282</span></li>
-<li>組織學：邊界清楚，梭形細胞疏密不一，背景為膠原基質，並有特徵性分枝的 <strong>"staghorn"（鹿角狀）血管</strong>。<span class="ref">p.282</span></li>
-<li>IHC：<mark><strong>STAT6 nuclear positivity（細胞核 STAT6 陽性）</strong>對 SFT 高度敏感且特異</mark>，反映 STAT6 基因重組。<span class="ref">p.282</span></li>
-<li>與復發、轉移相關：腫瘤較大、病人年紀較大、mitotic activity（有絲分裂）增加、necrosis（壞死）。<span class="ref">p.282</span></li>
+<li id="np-209"><mark>成人眼窩最常見的 mesenchymal tumor（間質腫瘤）</mark>；好發 <strong>superonasal（鼻上側）</strong>眼窩；典型在 fifth decade（四十多歲）出現，但更年輕或更年長也可發生；表現眼突、疼痛、複視、視力模糊、流淚。<span class="ref">p.282</span></li>
+<li id="np-210">Hemangiopericytoma（血管周皮細胞瘤）、fibrous histiocytoma（纖維組織球瘤）、giant cell angiofibroma（巨細胞血管纖維瘤）因組織、免疫染色與分子特徵相同，已<mark>重新歸類為 SFT</mark>。<span class="ref">p.282</span></li>
+<li id="np-211">組織學：邊界清楚，梭形細胞疏密不一，背景為膠原基質，並有特徵性分枝的 <strong>"staghorn"（鹿角狀）血管</strong>。<span class="ref">p.282</span></li>
+<li id="np-212">IHC：<mark><strong>STAT6 nuclear positivity（細胞核 STAT6 陽性）</strong>對 SFT 高度敏感且特異</mark>，反映 STAT6 基因重組。<span class="ref">p.282</span></li>
+<li id="np-213">與復發、轉移相關：腫瘤較大、病人年紀較大、mitotic activity（有絲分裂）增加、necrosis（壞死）。<span class="ref">p.282</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s9-3">易錯陷阱</h3><ul>
-<li>Cavernous venous malformation <strong>有被膜</strong>、肌錐內；lymphatic malformation 與 infantile hemangioma <strong>無被膜</strong>。<span class="ref">p.281</span></li>
-<li>上呼吸道感染時變大、反覆起伏的眼突 → lymphatic（-venous）malformation。<span class="ref">p.281</span></li>
-<li>SFT 的標記是 <strong>STAT6</strong>；舊稱 hemangiopericytoma 的病灶現在歸為 SFT。<span class="ref">p.282</span></li>
+<li id="np-214">Cavernous venous malformation <strong>有被膜</strong>、肌錐內；lymphatic malformation 與 infantile hemangioma <strong>無被膜</strong>。<span class="ref">p.281</span></li>
+<li id="np-215">上呼吸道感染時變大、反覆起伏的眼突 → lymphatic（-venous）malformation。<span class="ref">p.281</span></li>
+<li id="np-216">SFT 的標記是 <strong>STAT6</strong>；舊稱 hemangiopericytoma 的病灶現在歸為 SFT。<span class="ref">p.282</span></li>
 </ul></div>
 
 <h2 id="ch13-s10">十、Rhabdomyosarcoma（橫紋肌肉瘤，Tumors With Muscle Differentiation）</h2>
 <ul>
-<li><mark>兒童最常見的原發眼窩惡性腫瘤</mark>，平均發病 <span class="num">5–7</span> 歲；典型為兒童<strong>快速發生、進行性單側眼突</strong>。<span class="ref">p.283</span></li>
-<li>眼瞼常泛紅，但<mark>沒有局部發熱（calor）或全身發燒</mark>，與 cellulitis 不同。<span class="ref">p.283</span></li>
-<li><strong>Clinical Pearl</strong>：腫瘤生長極快，疑似者要<mark>立即安排影像與切片</mark>。<span class="ref">p.283</span></li>
-<li>起源於朝 skeletal muscle（骨骼肌）分化的 primitive mesenchymal cells（原始間質細胞）。<span class="ref">p.283</span></li>
-<li>本章的 <span class="num">4</span> 型眼窩 rhabdomyosarcoma：<mark><strong>embryonal（胚胎型，最常見，通常預後極佳）</strong></mark>；<strong>alveolar（腺泡型，預後不佳）</strong>；<strong>pleomorphic（多形型，極罕見、成人、預後不佳）</strong>；<strong>spindle cell（梭形細胞型，罕見、預後極佳）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">p.283–284</span></li>
-<li><strong>Botryoid variant（葡萄狀型）屬 embryonal 的一型</strong>，可長在結膜基質，呈葡萄串狀的黏膜下團塊；所以「botryoid」與「grapelike」都是 embryonal 的變型描述，不是最常見型。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">p.284</span></li>
-<li>組織學：梭形細胞排成鬆散 syncytium（合胞體），偶有細長、細胞質具 <strong>cross-striations（橫紋）</strong>的 <strong>strap cells（帶狀細胞）</strong>；<mark>embryonal 型只有約 <span class="num">60%</span> 可見橫紋</mark> → 診斷不一定要看到橫紋。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.284</span></li>
-<li>IHC：典型為 <mark><strong>desmin</strong>、muscle-specific actin、<strong>myogenin</strong> 陽性</mark>。<span class="ref">p.284</span></li>
-<li>分子遺傳檢查找出具預後與治療意義的 translocation（轉位）；alveolar 型的 <strong>PAX3-FOXO1</strong> 與 <strong>PAX7-FOXO1</strong>（原文印作 PAX7-FOX1）基因重組與不良預後相關。<span class="ref">p.284</span></li>
-<li><mark>眼窩 rhabdomyosarcoma 預後優於身體其他部位</mark>，整體 <span class="num">5</span> 年存活率約 <span class="num">90%</span>。<span class="ref">p.284</span></li>
+<li id="np-217"><mark>兒童最常見的原發眼窩惡性腫瘤</mark>，平均發病 <span class="num">5–7</span> 歲；典型為兒童<strong>快速發生、進行性單側眼突</strong>。<span class="ref">p.283</span></li>
+<li id="np-218">眼瞼常泛紅，但<mark>沒有局部發熱（calor）或全身發燒</mark>，與 cellulitis 不同。<span class="ref">p.283</span></li>
+<li id="np-219"><strong>Clinical Pearl</strong>：腫瘤生長極快，疑似者要<mark>立即安排影像與切片</mark>。<span class="ref">p.283</span></li>
+<li id="np-220">起源於朝 skeletal muscle（骨骼肌）分化的 primitive mesenchymal cells（原始間質細胞）。<span class="ref">p.283</span></li>
+<li id="np-221">本章的 <span class="num">4</span> 型眼窩 rhabdomyosarcoma：<mark><strong>embryonal（胚胎型，最常見，通常預後極佳）</strong></mark>；<strong>alveolar（腺泡型，預後不佳）</strong>；<strong>pleomorphic（多形型，極罕見、成人、預後不佳）</strong>；<strong>spindle cell（梭形細胞型，罕見、預後極佳）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">p.283–284</span></li>
+<li id="np-222"><strong>Botryoid variant（葡萄狀型）屬 embryonal 的一型</strong>，可長在結膜基質，呈葡萄串狀的黏膜下團塊；所以「botryoid」與「grapelike」都是 embryonal 的變型描述，不是最常見型。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">p.284</span></li>
+<li id="np-223">組織學：梭形細胞排成鬆散 syncytium（合胞體），偶有細長、細胞質具 <strong>cross-striations（橫紋）</strong>的 <strong>strap cells（帶狀細胞）</strong>；<mark>embryonal 型只有約 <span class="num">60%</span> 可見橫紋</mark> → 診斷不一定要看到橫紋。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.284</span></li>
+<li id="np-224">IHC：典型為 <mark><strong>desmin</strong>、muscle-specific actin、<strong>myogenin</strong> 陽性</mark>。<span class="ref">p.284</span></li>
+<li id="np-225">分子遺傳檢查找出具預後與治療意義的 translocation（轉位）；alveolar 型的 <strong>PAX3-FOXO1</strong> 與 <strong>PAX7-FOXO1</strong>（原文印作 PAX7-FOX1）基因重組與不良預後相關。<span class="ref">p.284</span></li>
+<li id="np-226"><mark>眼窩 rhabdomyosarcoma 預後優於身體其他部位</mark>，整體 <span class="num">5</span> 年存活率約 <span class="num">90%</span>。<span class="ref">p.284</span></li>
 </ul>
 <h3 id="ch13-s10-1">Tissue handling of sarcoma（肉瘤檢體處理）</h3>
 <ul>
-<li>切片前先與病理科討論組織量與固定液／培養液。<span class="ref">p.285</span></li>
-<li><mark>Touch preparation 與 cytogenetic studies（細胞遺傳檢查）需要新鮮、未固定組織</mark>；避免長時間暴露空氣，用生理食鹽水沾濕紗布或組織培養液減緩自溶；分子遺傳與 IHC 可用固定組織。<span class="ref">p.285</span></li>
+<li id="np-227">切片前先與病理科討論組織量與固定液／培養液。<span class="ref">p.285</span></li>
+<li id="np-228"><mark>Touch preparation 與 cytogenetic studies（細胞遺傳檢查）需要新鮮、未固定組織</mark>；避免長時間暴露空氣，用生理食鹽水沾濕紗布或組織培養液減緩自溶；分子遺傳與 IHC 可用固定組織。<span class="ref">p.285</span></li>
 </ul>
 <h3 id="ch13-s10-2">他冊補充（本章外）</h3>
 <ul>
-<li>（本章外）Section 7 的 4 類：<mark>embryonal 遠為最常見，<span class="num">&gt;80%</span></mark>，典型在鼻上側，<span class="num">5</span> 年存活率 <span class="num">94%</span>；alveolar 多在下方眼窩、佔 <span class="num">9%</span>，<mark>最惡性，<span class="num">5</span> 年存活率 <span class="num">65%</span></mark>；pleomorphic 最少見、分化最好、多見於年輕成人，<mark>預後最好（<span class="num">5</span> 年存活率 <span class="num">97%</span>）</mark>；botryoid 是 embryonal 的罕見變型，<strong>不以眼窩為原發</strong>，只由副鼻竇或結膜續發延伸。所以「alveolar 10 年存活率約 80%」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">BCSC 7 p.95</span></li>
-<li>（本章外）Section 6：最常見組織型為 embryonal（少數細胞有橫紋），其次是預後不佳的 alveolar；botryoid 與分化好的 pleomorphic 很少見於眼窩；<span class="num">5</span> 年存活率 alveolar <span class="num">74%</span>、embryonal <span class="num">94%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">BCSC 6 p.233</span></li>
-<li>（本章外）Section 7：橫紋在光學顯微鏡下常看不到，電子顯微鏡較明顯；embryonal 由鬆散未分化梭形細胞組成，trichrome 染色只有少數可見橫紋。<mark>1965 年後以 radiation therapy 加 systemic chemotherapy 為主要治療</mark>，exenteration 保留給復發病例；局部放射 <span class="num">4500–6000 cGy</span>、約 <span class="num">6</span> 週；腫瘤未侵出眼窩骨壁者存活率 <span class="num">&gt;90%</span>；治療不包括 hyperbaric oxygen（高壓氧）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-723" data-q="723">第 723 題</a></span><span class="ref">BCSC 7 p.95–96</span></li>
+<li id="np-229">（本章外）Section 7 的 4 類：<mark>embryonal 遠為最常見，<span class="num">&gt;80%</span></mark>，典型在鼻上側，<span class="num">5</span> 年存活率 <span class="num">94%</span>；alveolar 多在下方眼窩、佔 <span class="num">9%</span>，<mark>最惡性，<span class="num">5</span> 年存活率 <span class="num">65%</span></mark>；pleomorphic 最少見、分化最好、多見於年輕成人，<mark>預後最好（<span class="num">5</span> 年存活率 <span class="num">97%</span>）</mark>；botryoid 是 embryonal 的罕見變型，<strong>不以眼窩為原發</strong>，只由副鼻竇或結膜續發延伸。所以「alveolar 10 年存活率約 80%」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">BCSC 7 p.95</span></li>
+<li id="np-230">（本章外）Section 6：最常見組織型為 embryonal（少數細胞有橫紋），其次是預後不佳的 alveolar；botryoid 與分化好的 pleomorphic 很少見於眼窩；<span class="num">5</span> 年存活率 alveolar <span class="num">74%</span>、embryonal <span class="num">94%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">BCSC 6 p.233</span></li>
+<li id="np-231">（本章外）Section 7：橫紋在光學顯微鏡下常看不到，電子顯微鏡較明顯；embryonal 由鬆散未分化梭形細胞組成，trichrome 染色只有少數可見橫紋。<mark>1965 年後以 radiation therapy 加 systemic chemotherapy 為主要治療</mark>，exenteration 保留給復發病例；局部放射 <span class="num">4500–6000 cGy</span>、約 <span class="num">6</span> 週；腫瘤未侵出眼窩骨壁者存活率 <span class="num">&gt;90%</span>；治療不包括 hyperbaric oxygen（高壓氧）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-723" data-q="723">第 723 題</a></span><span class="ref">BCSC 7 p.95–96</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s10-3">易錯陷阱</h3><ul>
-<li>最常見型是 <strong>embryonal</strong>；botryoid（grapelike）只是 embryonal 的變型。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a></span><span class="ref">p.283–284</span></li>
-<li><strong>Pleomorphic 型預後書間不一致</strong>：本章（Section 4）寫「極罕見、成人、預後不佳」，Section 7 則寫預後最好（見上方他冊補充）；Q710 依 Section 7 把「pleomorphic 預後最好」當正確敘述。兩冊都同意 alveolar 預後差。（現行 WHO 2020 軟組織腫瘤分類與成人系列報告：pleomorphic 型為好發於中老年成人的高惡度肉瘤、預後差，與本章一致）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">p.284</span></li>
-<li>橫紋只見於約 <span class="num">60%</span> embryonal 型，看不到橫紋不能排除。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.284</span></li>
-<li>眼瞼泛紅但不熱、不發燒、快速單側眼突的兒童 → 先想 rhabdomyosarcoma，不是 cellulitis。<span class="ref">p.283</span></li>
-<li>（本章外）治療以化放療為主，不是先做 exenteration；高壓氧不在治療中。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-723" data-q="723">第 723 題</a></span><span class="ref">BCSC 7 p.95–96</span></li>
+<li id="np-232">最常見型是 <strong>embryonal</strong>；botryoid（grapelike）只是 embryonal 的變型。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-660" data-q="660">第 660 題</a></span><span class="ref">p.283–284</span></li>
+<li id="np-233"><strong>Pleomorphic 型預後書間不一致</strong>：本章（Section 4）寫「極罕見、成人、預後不佳」，Section 7 則寫預後最好（見上方他冊補充）；Q710 依 Section 7 把「pleomorphic 預後最好」當正確敘述。兩冊都同意 alveolar 預後差。（現行 WHO 2020 軟組織腫瘤分類與成人系列報告：pleomorphic 型為好發於中老年成人的高惡度肉瘤、預後差，與本章一致）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-710" data-q="710">第 710 題</a></span><span class="ref">p.284</span></li>
+<li id="np-234">橫紋只見於約 <span class="num">60%</span> embryonal 型，看不到橫紋不能排除。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.284</span></li>
+<li id="np-235">眼瞼泛紅但不熱、不發燒、快速單側眼突的兒童 → 先想 rhabdomyosarcoma，不是 cellulitis。<span class="ref">p.283</span></li>
+<li id="np-236">（本章外）治療以化放療為主，不是先做 exenteration；高壓氧不在治療中。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-723" data-q="723">第 723 題</a></span><span class="ref">BCSC 7 p.95–96</span></li>
 </ul></div>
 
 <h2 id="ch13-s11">十一、周邊神經鞘與中樞神經腫瘤（Peripheral Nerve Sheath and Central Nervous System Tumors）</h2>
 <h3 id="ch13-s11-1">Neurofibroma（神經纖維瘤）</h3>
 <ul>
-<li><mark>最常見的 peripheral nerve sheath tumor（周邊神經鞘腫瘤）</mark>；生長緩慢，由 endoneurial fibroblasts（神經內膜纖維母細胞）、Schwann cells 與 <strong>axons（軸突）</strong>混合組成。<span class="ref">p.285</span></li>
-<li>可邊界清楚但<mark>沒有被膜</mark>；質地硬而有彈性；梭形細胞的核細長呈波浪狀，排成帶狀與索狀，基質為黏液樣組織與膠原，夾有 mast cells（肥大細胞），內含軸突。<span class="ref">p.285</span></li>
-<li>可散發或與 <strong>neurofibromatosis 1（NF1，第一型神經纖維瘤病）</strong>相關；<mark>diffuse 與 plexiform type（叢狀）neurofibroma 被視為 NF1 的特徵性（pathognomonic）病灶</mark>，表現為邊界不清、厚而不規則的病灶，觸感像 "bag of worms"（一袋蟲）。<span class="ref">p.285</span></li>
-<li>眼瞼 plexiform neurofibroma 典型造成 <strong>S-shaped eyelid deformity（S 形眼瞼變形）</strong>。<span class="ref">p.285</span></li>
-<li>NF1 相關 neurofibroma 可轉變為 <strong>malignant peripheral nerve sheath tumor（惡性周邊神經鞘腫瘤）</strong>，為高度侵襲性肉瘤。<span class="ref">p.285–286</span></li>
+<li id="np-237"><mark>最常見的 peripheral nerve sheath tumor（周邊神經鞘腫瘤）</mark>；生長緩慢，由 endoneurial fibroblasts（神經內膜纖維母細胞）、Schwann cells 與 <strong>axons（軸突）</strong>混合組成。<span class="ref">p.285</span></li>
+<li id="np-238">可邊界清楚但<mark>沒有被膜</mark>；質地硬而有彈性；梭形細胞的核細長呈波浪狀，排成帶狀與索狀，基質為黏液樣組織與膠原，夾有 mast cells（肥大細胞），內含軸突。<span class="ref">p.285</span></li>
+<li id="np-239">可散發或與 <strong>neurofibromatosis 1（NF1，第一型神經纖維瘤病）</strong>相關；<mark>diffuse 與 plexiform type（叢狀）neurofibroma 被視為 NF1 的特徵性（pathognomonic）病灶</mark>，表現為邊界不清、厚而不規則的病灶，觸感像 "bag of worms"（一袋蟲）。<span class="ref">p.285</span></li>
+<li id="np-240">眼瞼 plexiform neurofibroma 典型造成 <strong>S-shaped eyelid deformity（S 形眼瞼變形）</strong>。<span class="ref">p.285</span></li>
+<li id="np-241">NF1 相關 neurofibroma 可轉變為 <strong>malignant peripheral nerve sheath tumor（惡性周邊神經鞘腫瘤）</strong>，為高度侵襲性肉瘤。<span class="ref">p.285–286</span></li>
 </ul>
 <h3 id="ch13-s11-2">Schwannoma（神經鞘瘤，neurilemoma）</h3>
 <ul>
-<li>源自周邊神經的 Schwann cells，<mark>是成人眼窩最常見的神經鞘腫瘤</mark>；生長慢、<strong>有被膜</strong>，可含囊狀空腔與出血壞死區。<span class="ref">p.286</span></li>
-<li>可單發，或與 neurofibromatosis、schwannomatosis 等遺傳症候群相關。<span class="ref">p.286</span></li>
-<li>組織學：<strong>Antoni A</strong>（細長梭形細胞呈柵欄狀排列，形成 <strong>Verocay bodies</strong>，似感覺小體的纖維集合）與 <strong>Antoni B</strong>（黏液樣基質中鬆散排列的細胞）；<mark>通常沒有軸突</mark>。<span class="ref">p.286</span></li>
-<li>IHC：<mark>典型為瀰漫強烈的 <strong>S-100 protein</strong> 陽性</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-353" data-q="353">第 353 題</a></span><span class="ref">p.286</span></li>
-<li>Table 13-1：<span class="num">20–60</span> 歲、單側、多在肌錐外；<strong>部分病人有疼痛</strong>（± paresthesia）；長橢圓均質、強烈增強；完整切除、預後好。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a></span><span class="ref">p.275</span></li>
-<li>（本章外）Section 4 Table 2-3 的 schwannoma 標記為 <strong>S-100、GFAP</strong>（GFAP 也列，但代表性標記是 S-100）；<strong>Melan A</strong>（與 HMB-45）用於 melanocytic tumors（nevus、melanoma）；<strong>neuron-specific enolase（NSE）</strong>列於 neuroblastoma 與 retinoblastoma；GFAP 也是 optic nerve glioma 的標記。S-100 用於 neuroectodermal 與 neural crest 來源腫瘤（schwannoma、neurofibroma、melanoma）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-353" data-q="353">第 353 題</a></span><span class="ref">BCSC 4 p.38–39</span></li>
-<li>（本章外）Section 7：schwannoma 被 perineurium 包住、通常包膜完整、相對容易切除，hypercellular 型偶可復發但很少惡性變。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a></span><span class="ref">BCSC 7 p.93</span></li>
+<li id="np-242">源自周邊神經的 Schwann cells，<mark>是成人眼窩最常見的神經鞘腫瘤</mark>；生長慢、<strong>有被膜</strong>，可含囊狀空腔與出血壞死區。<span class="ref">p.286</span></li>
+<li id="np-243">可單發，或與 neurofibromatosis、schwannomatosis 等遺傳症候群相關。<span class="ref">p.286</span></li>
+<li id="np-244">組織學：<strong>Antoni A</strong>（細長梭形細胞呈柵欄狀排列，形成 <strong>Verocay bodies</strong>，似感覺小體的纖維集合）與 <strong>Antoni B</strong>（黏液樣基質中鬆散排列的細胞）；<mark>通常沒有軸突</mark>。<span class="ref">p.286</span></li>
+<li id="np-245">IHC：<mark>典型為瀰漫強烈的 <strong>S-100 protein</strong> 陽性</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-353" data-q="353">第 353 題</a></span><span class="ref">p.286</span></li>
+<li id="np-246">Table 13-1：<span class="num">20–60</span> 歲、單側、多在肌錐外；<strong>部分病人有疼痛</strong>（± paresthesia）；長橢圓均質、強烈增強；完整切除、預後好。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a></span><span class="ref">p.275</span></li>
+<li id="np-247">（本章外）Section 4 Table 2-3 的 schwannoma 標記為 <strong>S-100、GFAP</strong>（GFAP 也列，但代表性標記是 S-100）；<strong>Melan A</strong>（與 HMB-45）用於 melanocytic tumors（nevus、melanoma）；<strong>neuron-specific enolase（NSE）</strong>列於 neuroblastoma 與 retinoblastoma；GFAP 也是 optic nerve glioma 的標記。S-100 用於 neuroectodermal 與 neural crest 來源腫瘤（schwannoma、neurofibroma、melanoma）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-353" data-q="353">第 353 題</a></span><span class="ref">BCSC 4 p.38–39</span></li>
+<li id="np-248">（本章外）Section 7：schwannoma 被 perineurium 包住、通常包膜完整、相對容易切除，hypercellular 型偶可復發但很少惡性變。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-785" data-q="785">第 785 題</a></span><span class="ref">BCSC 7 p.93</span></li>
 </ul>
 <h3 id="ch13-s11-3">Meningioma（腦膜瘤）</h3>
 <ul>
-<li>源自 meninges（腦膜），屬 CNS 腫瘤；<mark>影響眼窩者多為顱內原發腫瘤穿過眼窩骨（通常是 <strong>sphenoid bone（蝶骨）</strong>）侵入</mark>，在眼窩內呈浸潤性腫塊。<span class="ref">p.286</span></li>
-<li>少數原發於 <strong>optic nerve sheath（視神經鞘）</strong>，傾向留在鞘內而壓迫視神經（詳見第 14 章）。<span class="ref">p.286</span></li>
+<li id="np-249">源自 meninges（腦膜），屬 CNS 腫瘤；<mark>影響眼窩者多為顱內原發腫瘤穿過眼窩骨（通常是 <strong>sphenoid bone（蝶骨）</strong>）侵入</mark>，在眼窩內呈浸潤性腫塊。<span class="ref">p.286</span></li>
+<li id="np-250">少數原發於 <strong>optic nerve sheath（視神經鞘）</strong>，傾向留在鞘內而壓迫視神經（詳見第 14 章）。<span class="ref">p.286</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（腫瘤）</th><th>被膜</th><th>軸突</th><th>組織學／標記</th><th>相關</th></tr></thead>
 <tbody>
-<tr><td>Neurofibroma</td><td>無（可邊界清楚）</td><td><strong>有</strong></td><td>波浪狀細長核、帶狀排列、mast cells</td><td>Plexiform 型 = NF1；可轉為 MPNST</td></tr>
-<tr><td>Schwannoma</td><td><strong>有</strong></td><td>通常無</td><td>Antoni A（Verocay bodies）／Antoni B；S-100 瀰漫強陽性</td><td>成人眼窩最常見神經鞘腫瘤；NF、schwannomatosis</td></tr>
-<tr><td>Meningioma</td><td>—</td><td>—</td><td>多由顱內經蝶骨侵入；少數原發視神經鞘</td><td>見第 14 章</td></tr>
+<tr><td id="np-251">Neurofibroma</td><td id="np-252">無（可邊界清楚）</td><td id="np-253"><strong>有</strong></td><td id="np-254">波浪狀細長核、帶狀排列、mast cells</td><td id="np-255">Plexiform 型 = NF1；可轉為 MPNST</td></tr>
+<tr><td id="np-256">Schwannoma</td><td id="np-257"><strong>有</strong></td><td id="np-258">通常無</td><td id="np-259">Antoni A（Verocay bodies）／Antoni B；S-100 瀰漫強陽性</td><td id="np-260">成人眼窩最常見神經鞘腫瘤；NF、schwannomatosis</td></tr>
+<tr><td id="np-261">Meningioma</td><td id="np-262">—</td><td id="np-263">—</td><td id="np-264">多由顱內經蝶骨侵入；少數原發視神經鞘</td><td id="np-265">見第 14 章</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.285–286</span></p>
+<p id="np-266">出處 <span class="ref">p.285–286</span></p>
 <div class="ex-trap"><h3 id="ch13-s11-4">易錯陷阱</h3><ul>
-<li>「最常見的周邊神經鞘腫瘤」是 neurofibroma；「成人眼窩最常見的神經鞘腫瘤」是 schwannoma。<span class="ref">p.285–286</span></li>
-<li>Schwannoma 的代表染色是 S-100，不是 Melan A（黑色素細胞）或 NSE（neuroblastoma／retinoblastoma）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-353" data-q="353">第 353 題</a></span><span class="ref">p.286</span></li>
-<li>Neurofibroma 含軸突、無被膜；schwannoma 有被膜、通常無軸突。<span class="ref">p.285–286</span></li>
+<li id="np-267">「最常見的周邊神經鞘腫瘤」是 neurofibroma；「成人眼窩最常見的神經鞘腫瘤」是 schwannoma。<span class="ref">p.285–286</span></li>
+<li id="np-268">Schwannoma 的代表染色是 S-100，不是 Melan A（黑色素細胞）或 NSE（neuroblastoma／retinoblastoma）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-353" data-q="353">第 353 題</a></span><span class="ref">p.286</span></li>
+<li id="np-269">Neurofibroma 含軸突、無被膜；schwannoma 有被膜、通常無軸突。<span class="ref">p.285–286</span></li>
 </ul></div>
 
 <h2 id="ch13-s12">十二、脂肪性腫瘤與眼窩骨病變（Adipocytic Tumors; Bony Lesions of the Orbit）</h2>
 <h3 id="ch13-s12-1">Adipocytic tumors（脂肪性腫瘤）</h3>
 <ul>
-<li><strong>Lipoma（脂肪瘤）</strong>在眼窩極罕見；病理特徵為有被膜、獨特的分葉狀外觀。<span class="ref">p.286</span></li>
-<li>因 lipoma 組織學上像正常或脫垂的脂肪，以及 atypical lipomatous tumor／well-differentiated liposarcoma（非典型脂肪瘤樣腫瘤／高分化脂肪肉瘤），<mark>其發生率過去被高估</mark>。<span class="ref">p.286</span></li>
-<li><strong>Liposarcoma（脂肪肉瘤）</strong>也罕見，為具脂肪分化的惡性腫瘤，常見 <strong>lipoblasts（脂肪母細胞）</strong>；有多種型別，診斷越來越依賴細胞遺傳／分子檢查（染色體轉位、包括 <strong>MDM2 amplification（擴增）</strong>在內的多基因變化）。<span class="ref">p.286</span></li>
+<li id="np-270"><strong>Lipoma（脂肪瘤）</strong>在眼窩極罕見；病理特徵為有被膜、獨特的分葉狀外觀。<span class="ref">p.286</span></li>
+<li id="np-271">因 lipoma 組織學上像正常或脫垂的脂肪，以及 atypical lipomatous tumor／well-differentiated liposarcoma（非典型脂肪瘤樣腫瘤／高分化脂肪肉瘤），<mark>其發生率過去被高估</mark>。<span class="ref">p.286</span></li>
+<li id="np-272"><strong>Liposarcoma（脂肪肉瘤）</strong>也罕見，為具脂肪分化的惡性腫瘤，常見 <strong>lipoblasts（脂肪母細胞）</strong>；有多種型別，診斷越來越依賴細胞遺傳／分子檢查（染色體轉位、包括 <strong>MDM2 amplification（擴增）</strong>在內的多基因變化）。<span class="ref">p.286</span></li>
 </ul>
 <h3 id="ch13-s12-2">Fibrous tumors of the bone（骨纖維性病變）</h3>
 <ul>
-<li><strong>Fibrous dysplasia（纖維性骨發育不良）</strong>：可侵犯 <span class="num">1</span> 塊骨（monostotic）或多塊（polyostotic）；<mark>侵犯眼窩時通常 monostotic，但可越過骨縫侵犯多塊眼窩骨</mark>。<span class="ref">p.286</span></li>
-<li>多在人生前 <span class="num">3</span> 個十年（三十歲以前）就診，症狀來自眼球移位、<strong>optic canal（視神經管）</strong>與淚道狹窄。<span class="ref">p.286</span></li>
-<li>X 光：<mark><strong>ground-glass（毛玻璃）</strong>外觀合併溶骨灶</mark>，也可有含液囊腫。<span class="ref">p.286–287</span></li>
-<li>骨成熟停滯 → 骨小樑為 <strong>woven bone（編織骨）</strong>而非 lamellar bone（板層骨），周圍為富血管的纖維基質；骨小樑常呈 <strong>C-shaped（C 形）</strong>，<mark>缺乏明顯 osteoblastic rimming（成骨細胞鑲邊）</mark>。<span class="ref">p.287</span></li>
-<li><strong>Fibro-osseous dysplasia（juvenile ossifying fibroma，幼年骨化性纖維瘤）</strong>：骨針<mark>周圍有 osteoblasts 鑲邊</mark>；低倍下可能誤認為 <strong>psammomatous meningioma（砂粒型腦膜瘤）</strong>；與 psammoma bodies 不同，骨針內含 osteocytes（骨細胞）且有成骨細胞鑲邊。<span class="ref">p.287–288</span></li>
+<li id="np-273"><strong>Fibrous dysplasia（纖維性骨發育不良）</strong>：可侵犯 <span class="num">1</span> 塊骨（monostotic）或多塊（polyostotic）；<mark>侵犯眼窩時通常 monostotic，但可越過骨縫侵犯多塊眼窩骨</mark>。<span class="ref">p.286</span></li>
+<li id="np-274">多在人生前 <span class="num">3</span> 個十年（三十歲以前）就診，症狀來自眼球移位、<strong>optic canal（視神經管）</strong>與淚道狹窄。<span class="ref">p.286</span></li>
+<li id="np-275">X 光：<mark><strong>ground-glass（毛玻璃）</strong>外觀合併溶骨灶</mark>，也可有含液囊腫。<span class="ref">p.286–287</span></li>
+<li id="np-276">骨成熟停滯 → 骨小樑為 <strong>woven bone（編織骨）</strong>而非 lamellar bone（板層骨），周圍為富血管的纖維基質；骨小樑常呈 <strong>C-shaped（C 形）</strong>，<mark>缺乏明顯 osteoblastic rimming（成骨細胞鑲邊）</mark>。<span class="ref">p.287</span></li>
+<li id="np-277"><strong>Fibro-osseous dysplasia（juvenile ossifying fibroma，幼年骨化性纖維瘤）</strong>：骨針<mark>周圍有 osteoblasts 鑲邊</mark>；低倍下可能誤認為 <strong>psammomatous meningioma（砂粒型腦膜瘤）</strong>；與 psammoma bodies 不同，骨針內含 osteocytes（骨細胞）且有成骨細胞鑲邊。<span class="ref">p.287–288</span></li>
 </ul>
 <h3 id="ch13-s12-3">Osteogenic and chondrogenic tumors（骨與軟骨腫瘤）</h3>
 <ul>
-<li>眼窩少見；其中<mark>最常見的是 <strong>osteoma（骨瘤）</strong></mark>，最常源自 <strong>frontal sinus（額竇）</strong>，生長慢、邊界清楚，由成熟骨組成。<span class="ref">p.288</span></li>
-<li>其他罕見者：良性如 osteoblastoma（骨母細胞瘤）；惡性如 osteosarcoma（骨肉瘤）、Ewing sarcoma（尤文氏肉瘤）、mesenchymal chondrosarcoma（間質軟骨肉瘤）。<span class="ref">p.288</span></li>
+<li id="np-278">眼窩少見；其中<mark>最常見的是 <strong>osteoma（骨瘤）</strong></mark>，最常源自 <strong>frontal sinus（額竇）</strong>，生長慢、邊界清楚，由成熟骨組成。<span class="ref">p.288</span></li>
+<li id="np-279">其他罕見者：良性如 osteoblastoma（骨母細胞瘤）；惡性如 osteosarcoma（骨肉瘤）、Ewing sarcoma（尤文氏肉瘤）、mesenchymal chondrosarcoma（間質軟骨肉瘤）。<span class="ref">p.288</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s12-4">易錯陷阱</h3><ul>
-<li>Fibrous dysplasia：C 形編織骨、<strong>沒有</strong>成骨細胞鑲邊；juvenile ossifying fibroma：骨針<strong>有</strong>成骨細胞鑲邊。<span class="ref">p.287</span></li>
-<li>眼窩 fibrous dysplasia 多為 monostotic，「越過骨縫」不代表 polyostotic。<span class="ref">p.286</span></li>
-<li>Lipoma 在眼窩其實極罕見，常是脫垂脂肪被誤診。<span class="ref">p.286</span></li>
+<li id="np-280">Fibrous dysplasia：C 形編織骨、<strong>沒有</strong>成骨細胞鑲邊；juvenile ossifying fibroma：骨針<strong>有</strong>成骨細胞鑲邊。<span class="ref">p.287</span></li>
+<li id="np-281">眼窩 fibrous dysplasia 多為 monostotic，「越過骨縫」不代表 polyostotic。<span class="ref">p.286</span></li>
+<li id="np-282">Lipoma 在眼窩其實極罕見，常是脫垂脂肪被誤診。<span class="ref">p.286</span></li>
 </ul></div>
 
 <h2 id="ch13-s13">十三、淚囊腫瘤與續發性眼窩腫瘤（Lacrimal Sac Neoplasia; Secondary Tumors）</h2>
 <h3 id="ch13-s13-1">Lacrimal sac neoplasia（淚囊腫瘤）</h3>
 <ul>
-<li>淚囊腫瘤罕見，臨床上<mark>可偽裝成 dacryocystitis（淚囊炎）</mark>。<span class="ref">p.288</span></li>
-<li>一項研究中，接受 dacryocystorhinostomy（DCR，淚囊鼻腔吻合術）或慢性 nasolacrimal duct obstruction（鼻淚管阻塞）的病人，腫瘤只佔 <span class="num">5%</span>。<span class="ref">p.288</span></li>
-<li>多數淚囊腫瘤為 <strong>papilloma（乳突瘤）</strong>與 <strong>squamous cell carcinoma（鱗狀細胞癌）</strong>。<span class="ref">p.288</span></li>
+<li id="np-283">淚囊腫瘤罕見，臨床上<mark>可偽裝成 dacryocystitis（淚囊炎）</mark>。<span class="ref">p.288</span></li>
+<li id="np-284">一項研究中，接受 dacryocystorhinostomy（DCR，淚囊鼻腔吻合術）或慢性 nasolacrimal duct obstruction（鼻淚管阻塞）的病人，腫瘤只佔 <span class="num">5%</span>。<span class="ref">p.288</span></li>
+<li id="np-285">多數淚囊腫瘤為 <strong>papilloma（乳突瘤）</strong>與 <strong>squamous cell carcinoma（鱗狀細胞癌）</strong>。<span class="ref">p.288</span></li>
 </ul>
 <h3 id="ch13-s13-2">Secondary tumors（續發性腫瘤）</h3>
 <ul>
-<li><strong>Secondary malignant orbital tumors</strong>：由鄰近構造直接延伸，如副鼻竇、顱內、眼球、眼瞼或眼表面。<span class="ref">p.288</span></li>
-<li><strong>Metastatic tumors（轉移性腫瘤）</strong>：由遠處原發部位散播，通常經血行。<span class="ref">p.288</span></li>
-<li>本章：造成眼窩轉移最常見的原發部位為<mark>女性 <strong>breast（乳房）</strong>、男性 <strong>prostate（攝護腺）</strong></mark>；<mark>兒童為 <strong>neuroblastoma（神經母細胞瘤）</strong></mark>。<span class="ref">p.288</span></li>
-<li>（本章外）Section 7：成人眼窩轉移大多來自 lung、breast、prostate；<strong>男性最常見來源寫的是 bronchogenic carcinoma（支氣管癌）</strong>，與本章「男性 prostate」不同，作答時注意題目引用哪一冊（2021 年 873 例系統性回顧：prostate 佔 8.5%，多於 lung 5.6%）；女性最常見為 breast；prostate 轉移可類似急性 NSOI，影像典型為 <mark>osteoblastic（成骨性）骨病灶</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a></span><span class="ref">BCSC 7 p.113–114</span></li>
-<li>（本章外）Section 7／Section 6：<mark>兒童的遠處轉移較常轉移到眼窩而不是眼球</mark>（成人則以脈絡膜較多）；兒童眼窩轉移包括 Burkitt lymphoma、leukemia、neuroblastoma、Ewing sarcoma、Wilms tumor。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a></span><span class="ref">BCSC 7 p.111; BCSC 6 p.233</span></li>
-<li>（本章外）Section 7 骨變化：sinus <strong>mucocele</strong> 擴張並侵蝕眼窩骨壁而推移眼球；<strong>silent sinus syndrome（靜默鼻竇症候群）</strong>為上頜竇骨壁變薄、眼窩底塌陷 → enophthalmos（眼球內陷）；相對地 B-cell lymphoma 通常塑形而不造成骨變化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a></span><span class="ref">BCSC 7 p.110</span></li>
+<li id="np-286"><strong>Secondary malignant orbital tumors</strong>：由鄰近構造直接延伸，如副鼻竇、顱內、眼球、眼瞼或眼表面。<span class="ref">p.288</span></li>
+<li id="np-287"><strong>Metastatic tumors（轉移性腫瘤）</strong>：由遠處原發部位散播，通常經血行。<span class="ref">p.288</span></li>
+<li id="np-288">本章：造成眼窩轉移最常見的原發部位為<mark>女性 <strong>breast（乳房）</strong>、男性 <strong>prostate（攝護腺）</strong></mark>；<mark>兒童為 <strong>neuroblastoma（神經母細胞瘤）</strong></mark>。<span class="ref">p.288</span></li>
+<li id="np-289">（本章外）Section 7：成人眼窩轉移大多來自 lung、breast、prostate；<strong>男性最常見來源寫的是 bronchogenic carcinoma（支氣管癌）</strong>，與本章「男性 prostate」不同，作答時注意題目引用哪一冊（2021 年 873 例系統性回顧：prostate 佔 8.5%，多於 lung 5.6%）；女性最常見為 breast；prostate 轉移可類似急性 NSOI，影像典型為 <mark>osteoblastic（成骨性）骨病灶</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a></span><span class="ref">BCSC 7 p.113–114</span></li>
+<li id="np-290">（本章外）Section 7／Section 6：<mark>兒童的遠處轉移較常轉移到眼窩而不是眼球</mark>（成人則以脈絡膜較多）；兒童眼窩轉移包括 Burkitt lymphoma、leukemia、neuroblastoma、Ewing sarcoma、Wilms tumor。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-754" data-q="754">第 754 題</a></span><span class="ref">BCSC 7 p.111; BCSC 6 p.233</span></li>
+<li id="np-291">（本章外）Section 7 骨變化：sinus <strong>mucocele</strong> 擴張並侵蝕眼窩骨壁而推移眼球；<strong>silent sinus syndrome（靜默鼻竇症候群）</strong>為上頜竇骨壁變薄、眼窩底塌陷 → enophthalmos（眼球內陷）；相對地 B-cell lymphoma 通常塑形而不造成骨變化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc4-13%23q-795" data-q="795">第 795 題</a></span><span class="ref">BCSC 7 p.110</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch13-s13-3">易錯陷阱</h3><ul>
-<li>兒童眼窩轉移最常見來源是 neuroblastoma；兒童最常見原發眼窩惡性腫瘤則是 rhabdomyosarcoma。<span class="ref">p.273, p.288</span></li>
-<li>淚囊腫瘤會被誤認為淚囊炎；最常見為 papilloma 與 SCC。<span class="ref">p.288</span></li>
+<li id="np-292">兒童眼窩轉移最常見來源是 neuroblastoma；兒童最常見原發眼窩惡性腫瘤則是 rhabdomyosarcoma。<span class="ref">p.273, p.288</span></li>
+<li id="np-293">淚囊腫瘤會被誤認為淚囊炎；最常見為 papilloma 與 SCC。<span class="ref">p.288</span></li>
 </ul></div>
 
 <div class="hs-tip-box">
 <h4>易混淆比較與口訣</h4>
 <ul>
-<li><strong>「最常見」一次記</strong>：眼窩囊腫 = dermoid；成人眼突 = TED；orbital cellulitis 原因 = 鼻竇炎；canaliculitis = <i>Actinomyces</i> israelii；淚腺上皮腫瘤 = pleomorphic adenoma；ACC 組織型 = cribriform；眼窩淋巴瘤 = EMZL；兒童原發眼窩惡性 = rhabdomyosarcoma（embryonal 型）；成人眼窩 mesenchymal = SFT；周邊神經鞘 = neurofibroma；成人眼窩神經鞘 = schwannoma；眼窩骨／軟骨腫瘤 = osteoma；兒童眼窩轉移 = neuroblastoma。<span class="ref">p.266–288</span></li>
-<li><strong>肌腱</strong>：TED 保留、myositis 侵犯。<strong>骨</strong>：PA scalloping、ACC 破壞、lymphoma 塑形不侵蝕。<strong>痛</strong>：ACC 有、schwannoma 部分、PA 與 lymphoma 無。<span class="ref">p.267–270, p.275</span></li>
-<li><strong>IgG4 三個數字</strong>：比例 <span class="num">≥40%</span>、每高倍視野 <span class="num">&gt;50</span> 個、血清 <span class="num">≥135 mg/dL</span>。<span class="ref">p.268</span></li>
-<li><strong>Clonality</strong>：NSOI、RLH = polyclonal；lymphoma = monoclonal；ALH = 排除性診斷。<span class="ref">p.270, p.278</span></li>
-<li><strong>黴菌</strong>：<i>Mucor</i> 無隔寬大（H&amp;E 可見）、侵血管；<i>Aspergillus</i> 有隔 <span class="num">45°</span>。<span class="ref">p.271–272</span></li>
-<li><strong>新鮮組織才行</strong>：touch prep、flow cytometry（淋巴）、cytogenetics（肉瘤）；IHC 與分子檢查可用固定組織。<span class="ref">p.278, p.285</span></li>
-<li><strong>標記</strong>：B cell CD20、T cell CD3；rhabdomyosarcoma desmin／myogenin／MSA；SFT STAT6；schwannoma S-100。<span class="ref">p.279, p.282, p.284, p.286</span></li>
+<li id="np-294"><strong>「最常見」一次記</strong>：眼窩囊腫 = dermoid；成人眼突 = TED；orbital cellulitis 原因 = 鼻竇炎；canaliculitis = <i>Actinomyces</i> israelii；淚腺上皮腫瘤 = pleomorphic adenoma；ACC 組織型 = cribriform；眼窩淋巴瘤 = EMZL；兒童原發眼窩惡性 = rhabdomyosarcoma（embryonal 型）；成人眼窩 mesenchymal = SFT；周邊神經鞘 = neurofibroma；成人眼窩神經鞘 = schwannoma；眼窩骨／軟骨腫瘤 = osteoma；兒童眼窩轉移 = neuroblastoma。<span class="ref">p.266–288</span></li>
+<li id="np-295"><strong>肌腱</strong>：TED 保留、myositis 侵犯。<strong>骨</strong>：PA scalloping、ACC 破壞、lymphoma 塑形不侵蝕。<strong>痛</strong>：ACC 有、schwannoma 部分、PA 與 lymphoma 無。<span class="ref">p.267–270, p.275</span></li>
+<li id="np-296"><strong>IgG4 三個數字</strong>：比例 <span class="num">≥40%</span>、每高倍視野 <span class="num">&gt;50</span> 個、血清 <span class="num">≥135 mg/dL</span>。<span class="ref">p.268</span></li>
+<li id="np-297"><strong>Clonality</strong>：NSOI、RLH = polyclonal；lymphoma = monoclonal；ALH = 排除性診斷。<span class="ref">p.270, p.278</span></li>
+<li id="np-298"><strong>黴菌</strong>：<i>Mucor</i> 無隔寬大（H&amp;E 可見）、侵血管；<i>Aspergillus</i> 有隔 <span class="num">45°</span>。<span class="ref">p.271–272</span></li>
+<li id="np-299"><strong>新鮮組織才行</strong>：touch prep、flow cytometry（淋巴）、cytogenetics（肉瘤）；IHC 與分子檢查可用固定組織。<span class="ref">p.278, p.285</span></li>
+<li id="np-300"><strong>標記</strong>：B cell CD20、T cell CD3；rhabdomyosarcoma desmin／myogenin／MSA；SFT STAT6；schwannoma S-100。<span class="ref">p.279, p.282, p.284, p.286</span></li>
 </ul>
 </div>
 </div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="4-13"><p class="ex-locked">本章考題 24 題。<a href="/exam/login?next=/exam/bcsc4-13">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
@@ -685,7 +724,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260728" defer></script>
-<script src="/exam/exam.js?v=20260728" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
+<script src="/exam/exam.js?v=20260729" defer></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 6 Ch.17 Orbital Disorders：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc6-17#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 6 Ch.17","item":"https://hsiao.chendermatologist.com/exam/bcsc6-17"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -182,6 +182,40 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
 .ex-prog a{color:var(--ex-accent)}
 .ex-prog .ex-low{color:#b91c1c;font-weight:700}
+.ex-find{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:18px 0 8px}
+.ex-find-row{display:flex;gap:8px;margin:6px 0 4px}
+.ex-find-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-find-title{font-size:15px;font-weight:700;margin:10px 0 4px}
+.ex-find-group{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0}
+.ex-find-h{font-size:15px;font-weight:700;line-height:1.6;margin:0}
+.ex-find-h a{color:var(--ex-accent)}
+.ex-find-h .ex-count{margin-left:8px;font-weight:500;color:var(--ink-2)}
+.ex-find-list{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.75}
+.ex-find-list li{border-top:1px solid var(--line);padding:6px 0}
+.ex-find-list a{display:block;color:var(--ink);text-decoration:none}
+.ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
+.ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
+.ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
+.ex-practice{margin:12px 0 4px}
+.ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-more[hidden],.ex-rank tr[hidden]{display:none}
+.ex-note [id^="np-"]{scroll-margin-top:96px}
+.ex-note [id^="np-"]:target{background:var(--ex-soft);outline:2px solid var(--ex-accent);outline-offset:-2px;border-radius:6px}
+.ex-resume{position:sticky;top:72px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--ex-card);border:1px solid var(--border);border-left:4px solid var(--ex-accent);border-radius:10px;padding:6px 8px 6px 12px;margin:8px 0 12px;font-size:13px;line-height:1.6;box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(15,23,42,.35)}
+.ex-resume-text{flex:1;min-width:12em}
+.ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
+.ex-resume-close:hover{background:var(--ex-soft)}
+.ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
+.ex-ans-text{color:var(--ink-2);font-weight:600}
+.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next:disabled{opacity:.5;cursor:default}
+.ex-ans-clear{margin:0 0 6px}
+.ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
+.ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -212,8 +246,14 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
+:root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -229,7 +269,6 @@ body:not(.ex-quiz) .ex-opt input{display:none}
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
         <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
-        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
         <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
@@ -245,566 +284,566 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 6 Ch.17</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 6 · Pediatric Ophthalmology and Strabismus</p><h1 class="ex-h1">Ch.17 Orbital Disorders</h1><p class="ex-meta">原書 p.217–242 · 考題 35 題</p><div class="ex-strip" data-progress-chapter="6-17" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="6-17"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch17-s1">一、重點與眼距異常術語</a></li><li><a href="#ch17-s2">二、Craniosynostosis（顱縫早閉）：生長機轉、頭型與病因</a></li><li><a href="#ch17-s3">三、Craniosynostosis syndromes（顱縫早閉症候群，Table 17-1）</a></li><li><a href="#ch17-s4">四、Craniosynostosis 的眼部併發症與手術</a></li><li><a href="#ch17-s5">五、Nonsynostotic craniofacial conditions（非顱縫早閉顱顏疾病）</a></li><li><a href="#ch17-s6">六、Preseptal cellulitis（隔前蜂窩性組織炎）</a></li><li><a href="#ch17-s7">七、Orbital cellulitis（眼窩蜂窩性組織炎）與 subperiosteal abscess（骨膜下膿瘍）</a></li><li><a href="#ch17-s8">八、Childhood orbital inflammation（兒童眼窩發炎）</a></li><li><a href="#ch17-s9">九、Orbital neoplasms：總論與鑑別診斷</a></li><li><a href="#ch17-s10">十、Primary malignant neoplasms：rhabdomyosarcoma（橫紋肌肉瘤）與其他肉瘤</a></li><li><a href="#ch17-s11">十一、Metastatic tumors 與 hematopoietic、lymphoproliferative、histiocytic neoplasms</a></li><li><a href="#ch17-s12">十二、Benign tumors：hemangioma（血管瘤，hamartoma）</a></li><li><a href="#ch17-s13">十三、Vascular malformations（血管畸形）</a></li><li><a href="#ch17-s14">十四、Tumors of bony, connective tissue and neural origin（骨、結締組織、神經來源腫瘤）</a></li><li><a href="#ch17-s15">十五、Ectopic tissue masses 與 cystic lesions（異位組織腫塊與囊性病灶）</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 6 第 17 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch17-s1">一、重點與眼距異常術語</h2>
 <h3 id="ch17-s1-1">本章重點（Highlights）</h3>
 <ul>
-<li>顱顏異常的眼部併發症：<strong>proptosis（眼球突出）</strong>、<strong>strabismus（斜視）</strong>、<strong>corneal exposure（角膜暴露）</strong>、<strong>optic neuropathy（視神經病變）</strong>。<span class="ref">p.217</span></li>
-<li>Orbital cellulitis（眼窩蜂窩性組織炎）與 subperiosteal abscess（骨膜下膿瘍）若未治療，可進展為 <mark>cavernous sinus thrombosis（海綿竇栓塞）</mark>。<span class="ref">p.217</span></li>
-<li><mark>快速進展、無痛的眼球突出</mark> → 懷疑 orbital rhabdomyosarcoma（眼窩橫紋肌肉瘤）。<span class="ref">p.217</span></li>
-<li>兒童眼窩疾病可為先天或後天，常合併眼部與顱內異常。<span class="ref">p.217</span></li>
+<li id="np-1">顱顏異常的眼部併發症：<strong>proptosis（眼球突出）</strong>、<strong>strabismus（斜視）</strong>、<strong>corneal exposure（角膜暴露）</strong>、<strong>optic neuropathy（視神經病變）</strong>。<span class="ref">p.217</span></li>
+<li id="np-2">Orbital cellulitis（眼窩蜂窩性組織炎）與 subperiosteal abscess（骨膜下膿瘍）若未治療，可進展為 <mark>cavernous sinus thrombosis（海綿竇栓塞）</mark>。<span class="ref">p.217</span></li>
+<li id="np-3"><mark>快速進展、無痛的眼球突出</mark> → 懷疑 orbital rhabdomyosarcoma（眼窩橫紋肌肉瘤）。<span class="ref">p.217</span></li>
+<li id="np-4">兒童眼窩疾病可為先天或後天，常合併眼部與顱內異常。<span class="ref">p.217</span></li>
 </ul>
 <h3 id="ch17-s1-2">Abnormal interocular distance（眼距異常）</h3>
 <ul>
-<li><strong>Telecanthus（內眥距過寬）</strong>：兩側內眥間距大於正常，許多症候群常見；與 orbital hypertelorism 不同，但可同時存在。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1701" data-q="1701">第 1701 題</a></span><span class="ref">p.217</span></li>
-<li><strong>Primary telecanthus（原發性內眥距過寬）</strong>：異常只在軟組織、沒有 hypertelorism，<mark>interpupillary distance（瞳孔間距）正常</mark>；telecanthus 若續發於 hypertelorism，瞳孔間距則大於正常。<span class="ref">p.217</span></li>
-<li><strong>Orbital hypertelorism（眼窩距過寬）</strong>：<mark>兩側 medial orbital walls（眼窩內壁）間距過大</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1701" data-q="1701">第 1701 題</a></span><span class="ref">p.217</span></li>
-<li><strong>Orbital hypotelorism（眼窩距過窄）</strong>：兩側眼窩內壁間距小於正常，內、外眥距離皆減少；可源自顱骨畸形或腦發育失敗。<span class="ref">p.217</span></li>
-<li><strong>Exorbitism（眼窩外突）</strong>：定義不一——淺眼窩造成的眼球突出，或眼窩壁 angle of divergence（分散角）增加。BCSC 7 定義為兩側眼窩外壁夾角大於 <span class="num">90°</span>、常伴淺眼窩；exophthalmos 則與 proptosis 同義（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1701" data-q="1701">第 1701 題</a></span><span class="ref">p.217；BCSC 7 p.25</span></li>
+<li id="np-5"><strong>Telecanthus（內眥距過寬）</strong>：兩側內眥間距大於正常，許多症候群常見；與 orbital hypertelorism 不同，但可同時存在。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1701" data-q="1701">第 1701 題</a></span><span class="ref">p.217</span></li>
+<li id="np-6"><strong>Primary telecanthus（原發性內眥距過寬）</strong>：異常只在軟組織、沒有 hypertelorism，<mark>interpupillary distance（瞳孔間距）正常</mark>；telecanthus 若續發於 hypertelorism，瞳孔間距則大於正常。<span class="ref">p.217</span></li>
+<li id="np-7"><strong>Orbital hypertelorism（眼窩距過寬）</strong>：<mark>兩側 medial orbital walls（眼窩內壁）間距過大</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1701" data-q="1701">第 1701 題</a></span><span class="ref">p.217</span></li>
+<li id="np-8"><strong>Orbital hypotelorism（眼窩距過窄）</strong>：兩側眼窩內壁間距小於正常，內、外眥距離皆減少；可源自顱骨畸形或腦發育失敗。<span class="ref">p.217</span></li>
+<li id="np-9"><strong>Exorbitism（眼窩外突）</strong>：定義不一——淺眼窩造成的眼球突出，或眼窩壁 angle of divergence（分散角）增加。BCSC 7 定義為兩側眼窩外壁夾角大於 <span class="num">90°</span>、常伴淺眼窩；exophthalmos 則與 proptosis 同義（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1701" data-q="1701">第 1701 題</a></span><span class="ref">p.217；BCSC 7 p.25</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s1-3">易錯陷阱</h3><ul>
-<li>「內壁距離過寬」是 hypertelorism（骨性），telecanthus 是內眥「軟組織」距離；primary telecanthus 的瞳孔間距正常。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1701" data-q="1701">第 1701 題</a></span><span class="ref">p.217</span></li>
+<li id="np-10">「內壁距離過寬」是 hypertelorism（骨性），telecanthus 是內眥「軟組織」距離；primary telecanthus 的瞳孔間距正常。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1701" data-q="1701">第 1701 題</a></span><span class="ref">p.217</span></li>
 </ul></div>
 
 <h2 id="ch17-s2">二、Craniosynostosis（顱縫早閉）：生長機轉、頭型與病因</h2>
 <h3 id="ch17-s2-1">定義與 Virchow's law</h3>
 <ul>
-<li>顱骨以 supraorbital rims（眶上緣）至枕骨底的假想線分為 <strong>calvarium（顱蓋）</strong>與 <strong>skull base（顱底）</strong>。<span class="ref">p.218</span></li>
-<li>顱縫正常在出生後<span class="num">前 2 年</span>內融合；<strong>craniosynostosis</strong> = 胚胎期或幼兒期 <span class="num">≥ 1</span> 條顱縫過早閉合。<span class="ref">p.218</span></li>
-<li>骨生長中心在顱縫處，骨頭沿顱縫平行與垂直方向沉積；過早閉合<mark>阻止垂直於顱縫的生長、但仍允許平行生長</mark> = <strong>Virchow's law</strong> → 可辨識的頭型變形。<span class="ref">p.218</span></li>
-<li>頭型異常的孩子要懷疑 craniosynostosis，因有 <strong>hydrocephalus（水腦）</strong>與眼部併發症風險。<span class="ref">p.218</span></li>
+<li id="np-11">顱骨以 supraorbital rims（眶上緣）至枕骨底的假想線分為 <strong>calvarium（顱蓋）</strong>與 <strong>skull base（顱底）</strong>。<span class="ref">p.218</span></li>
+<li id="np-12">顱縫正常在出生後<span class="num">前 2 年</span>內融合；<strong>craniosynostosis</strong> = 胚胎期或幼兒期 <span class="num">≥ 1</span> 條顱縫過早閉合。<span class="ref">p.218</span></li>
+<li id="np-13">骨生長中心在顱縫處，骨頭沿顱縫平行與垂直方向沉積；過早閉合<mark>阻止垂直於顱縫的生長、但仍允許平行生長</mark> = <strong>Virchow's law</strong> → 可辨識的頭型變形。<span class="ref">p.218</span></li>
+<li id="np-14">頭型異常的孩子要懷疑 craniosynostosis，因有 <strong>hydrocephalus（水腦）</strong>與眼部併發症風險。<span class="ref">p.218</span></li>
 </ul>
 <h3 id="ch17-s2-2">Abnormal head shapes（頭型）</h3>
 <table class="ted-table">
 <thead><tr><th>Head shape（頭型）</th><th>Suture / cause（顱縫或原因）</th><th>Features（特徵）</th></tr></thead>
 <tbody>
-<tr><td>Plagiocephaly（斜頭畸形）</td><td>多為 deformational（外力壓迫，產前或嬰兒期）；或 <strong>unilateral coronal（單側冠狀縫）</strong>早閉</td><td>子宮內壓迫（如 oligohydramnios，羊水過少）：同側枕部扁平 + 對側前額扁平。單側冠狀縫早閉：同側 occipitoparietal（枕頂骨）扁平、frontal bossing（額部隆起）、耳朵前移；患側瞼裂較寬、眼窩常較高</td></tr>
-<tr><td>Brachycephaly（短頭畸形）</td><td><strong>兩側 coronal sutures（冠狀縫）</strong>皆閉合</td><td>前後軸生長受限 → 頭短；前額多寬而平</td></tr>
-<tr><td>Scaphocephaly（舟狀頭）／dolichocephaly（長頭）</td><td><strong>Sagittal suture（矢狀縫）</strong></td><td>顱骨前後拉長 + bitemporal narrowing（雙顳變窄）</td></tr>
-<tr><td>Trigonocephaly（三角頭）</td><td><strong>Metopic suture（額縫）</strong></td><td>三角形頭 + <mark>hypotelorism（眼距過窄）與 pseudoesotropia（假性內斜視）</mark></td></tr>
-<tr><td>Acrocephaly／kleeblattschädel（尖頭／苜蓿葉狀頭）</td><td>Cloverleaf skull 典型為 coronal + lambdoidal（人字縫）+ sagittal 縫早閉</td><td>三葉狀顱骨</td></tr>
+<tr><td id="np-15">Plagiocephaly（斜頭畸形）</td><td id="np-16">多為 deformational（外力壓迫，產前或嬰兒期）；或 <strong>unilateral coronal（單側冠狀縫）</strong>早閉</td><td id="np-17">子宮內壓迫（如 oligohydramnios，羊水過少）：同側枕部扁平 + 對側前額扁平。單側冠狀縫早閉：同側 occipitoparietal（枕頂骨）扁平、frontal bossing（額部隆起）、耳朵前移；患側瞼裂較寬、眼窩常較高</td></tr>
+<tr><td id="np-18">Brachycephaly（短頭畸形）</td><td id="np-19"><strong>兩側 coronal sutures（冠狀縫）</strong>皆閉合</td><td id="np-20">前後軸生長受限 → 頭短；前額多寬而平</td></tr>
+<tr><td id="np-21">Scaphocephaly（舟狀頭）／dolichocephaly（長頭）</td><td id="np-22"><strong>Sagittal suture（矢狀縫）</strong></td><td id="np-23">顱骨前後拉長 + bitemporal narrowing（雙顳變窄）</td></tr>
+<tr><td id="np-24">Trigonocephaly（三角頭）</td><td id="np-25"><strong>Metopic suture（額縫）</strong></td><td id="np-26">三角形頭 + <mark>hypotelorism（眼距過窄）與 pseudoesotropia（假性內斜視）</mark></td></tr>
+<tr><td id="np-27">Acrocephaly／kleeblattschädel（尖頭／苜蓿葉狀頭）</td><td id="np-28">Cloverleaf skull 典型為 coronal + lambdoidal（人字縫）+ sagittal 縫早閉</td><td id="np-29">三葉狀顱骨</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.218</span></p>
+<p id="np-30">出處 <span class="ref">p.218</span></p>
 <h3 id="ch17-s2-3">Etiology（病因）</h3>
 <ul>
-<li>可為散發、單獨異常（如 sagittal synostosis、<mark>大多數 unilateral coronal synostosis</mark>），或屬遺傳症候群的一部分。<span class="ref">p.218</span></li>
-<li>Craniosynostosis syndromes 通常為 <strong>autosomal dominant（體染色體顯性）</strong>，常合併肢體異常；彼此特徵重疊，臨床診斷困難，特定突變可確診。<span class="ref">p.219</span></li>
-<li>多數症候群性顱縫早閉帶有 <mark><strong>fibroblast growth factor receptor（FGFR，纖維母細胞生長因子受體）</strong>基因或 <strong>TWIST</strong> 基因突變</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.219</span></li>
+<li id="np-31">可為散發、單獨異常（如 sagittal synostosis、<mark>大多數 unilateral coronal synostosis</mark>），或屬遺傳症候群的一部分。<span class="ref">p.218</span></li>
+<li id="np-32">Craniosynostosis syndromes 通常為 <strong>autosomal dominant（體染色體顯性）</strong>，常合併肢體異常；彼此特徵重疊，臨床診斷困難，特定突變可確診。<span class="ref">p.219</span></li>
+<li id="np-33">多數症候群性顱縫早閉帶有 <mark><strong>fibroblast growth factor receptor（FGFR，纖維母細胞生長因子受體）</strong>基因或 <strong>TWIST</strong> 基因突變</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.219</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s2-4">易錯陷阱</h3><ul>
-<li>Scaphocephaly／dolichocephaly 對應「矢狀縫」；brachycephaly 對應「兩側冠狀縫」；plagiocephaly 對應「單側冠狀縫」或外力變形。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a></span><span class="ref">p.218</span></li>
-<li>Metopic synostosis 造成的是 hypotelorism，不是 hypertelorism。<span class="ref">p.218</span></li>
+<li id="np-34">Scaphocephaly／dolichocephaly 對應「矢狀縫」；brachycephaly 對應「兩側冠狀縫」；plagiocephaly 對應「單側冠狀縫」或外力變形。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a></span><span class="ref">p.218</span></li>
+<li id="np-35">Metopic synostosis 造成的是 hypotelorism，不是 hypertelorism。<span class="ref">p.218</span></li>
 </ul></div>
 
 <h2 id="ch17-s3">三、Craniosynostosis syndromes（顱縫早閉症候群，Table 17-1）</h2>
 <ul>
-<li>共同全身特徵：多條 calvarial sutures（顱蓋縫）與 skull base sutures（顱底縫）融合。<span class="ref">p.221</span></li>
-<li><strong>Syndactyly（併指）</strong>與 <strong>brachydactyly（短指）</strong>是這群症候群的標誌，嚴重度不一，<mark>唯一例外是 Crouzon syndrome</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.221</span></li>
-<li>Table 17-1 所列症候群<mark>全部為 autosomal dominant</mark>（另有許多未列出）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.221</span></li>
+<li id="np-36">共同全身特徵：多條 calvarial sutures（顱蓋縫）與 skull base sutures（顱底縫）融合。<span class="ref">p.221</span></li>
+<li id="np-37"><strong>Syndactyly（併指）</strong>與 <strong>brachydactyly（短指）</strong>是這群症候群的標誌，嚴重度不一，<mark>唯一例外是 Crouzon syndrome</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.221</span></li>
+<li id="np-38">Table 17-1 所列症候群<mark>全部為 autosomal dominant</mark>（另有許多未列出）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.221</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Syndrome（症候群）</th><th>Sutures（顱縫）</th><th>Head shape（頭型）</th><th>Other cranial / extracranial（其他顱部與全身）</th><th>External eye（外眼表現）</th><th>Additional eye（其他眼部）</th></tr></thead>
 <tbody>
-<tr><td><strong>Crouzon syndrome（克魯松症候群）</strong>：<mark>最常見</mark>；嚴重度不一，輕症可漏診</td><td>常包含<strong>兩側冠狀縫</strong>；顱底縫也受累</td><td>Brachycephaly 或 scaphocephaly；tower-shaped skull（塔狀頭）；寬而後縮的前額；midfacial retrusion（中臉後縮）</td><td><strong>hydrocephalus 常見</strong>；<mark>智力正常</mark>；<mark>顱外表現通常沒有</mark></td><td>Hypertelorism、proptosis、<strong>inferior scleral show（下方鞏膜外露）</strong>、shallow orbits（淺眼窩）</td><td>Proptosis、角膜暴露、斜視、papilledema（視乳頭水腫）、optic atrophy（視神經萎縮）</td></tr>
-<tr><td><strong>Apert syndrome（Apert 症候群）</strong>：外觀似 Crouzon，但<mark>顱部與顱外表現更多</mark></td><td>多條顱蓋縫，最常為兩側冠狀縫；顱底縫融合</td><td><mark>Brachycephaly + acrocephaly</mark>；midface hypoplasia（中臉發育不全）</td><td>Hydrocephalus；<strong>intellectual disability（智能障礙）</strong>；conductive hearing loss（傳導性聽損）；beak-shaped nose（鳥嘴鼻）；cleft palate（顎裂）；<strong>polydactyly（多指）</strong>、<strong>嚴重 syndactyly（"mitten" 手套狀）</strong>、hyperhidrosis（多汗）、vertebral fusion（脊椎融合）、visceral abnormalities（內臟異常）</td><td>Hypertelorism、shallow orbits</td><td>Proptosis、角膜暴露、斜視、papilledema、optic atrophy</td></tr>
-<tr><td><strong>Pfeiffer syndrome（Pfeiffer 症候群）</strong>：顱顏異常非常嚴重</td><td><mark>兩側冠狀縫融合</mark>，可能合併矢狀縫</td><td>Cloverleaf skull（比 Apert 更嚴重）；brachycephaly + acrocephaly；midface hypoplasia；tracheal abnormalities（氣管異常）</td><td>智力正常；<strong>hydrocephalus 高風險</strong>；傳導性聽損；上頷發育不全、上頷突出（prominent upper jaw）、牙齒異常、鳥嘴鼻；syndactyly；<strong>short, broad thumbs and toes（短寬拇指／拇趾）</strong>；內臟異常；elbow ankylosis（肘關節僵直）</td><td>Hypertelorism、proptosis、inferior scleral show、shallow orbits</td><td>Proptosis、角膜暴露、斜視、papilledema、optic atrophy</td></tr>
-<tr><td><strong>Saethre-Chotzen syndrome</strong>：特徵容易漏掉</td><td>通常<strong>只有 1 條冠狀縫</strong></td><td><mark>Plagiocephaly</mark></td><td>智力正常；<strong>low hairline（低髮際）</strong>、耳朵異常；brachydactyly、輕度 syndactyly；short stature（身材矮小）；cardiac defects（心臟缺陷）</td><td><mark><strong>Ptosis（眼瞼下垂）</strong>、shallow orbits</mark></td><td>Proptosis、角膜暴露、斜視</td></tr>
+<tr><td id="np-39"><strong>Crouzon syndrome（克魯松症候群）</strong>：<mark>最常見</mark>；嚴重度不一，輕症可漏診</td><td id="np-40">常包含<strong>兩側冠狀縫</strong>；顱底縫也受累</td><td id="np-41">Brachycephaly 或 scaphocephaly；tower-shaped skull（塔狀頭）；寬而後縮的前額；midfacial retrusion（中臉後縮）</td><td id="np-42"><strong>hydrocephalus 常見</strong>；<mark>智力正常</mark>；<mark>顱外表現通常沒有</mark></td><td id="np-43">Hypertelorism、proptosis、<strong>inferior scleral show（下方鞏膜外露）</strong>、shallow orbits（淺眼窩）</td><td id="np-44">Proptosis、角膜暴露、斜視、papilledema（視乳頭水腫）、optic atrophy（視神經萎縮）</td></tr>
+<tr><td id="np-45"><strong>Apert syndrome（Apert 症候群）</strong>：外觀似 Crouzon，但<mark>顱部與顱外表現更多</mark></td><td id="np-46">多條顱蓋縫，最常為兩側冠狀縫；顱底縫融合</td><td id="np-47"><mark>Brachycephaly + acrocephaly</mark>；midface hypoplasia（中臉發育不全）</td><td id="np-48">Hydrocephalus；<strong>intellectual disability（智能障礙）</strong>；conductive hearing loss（傳導性聽損）；beak-shaped nose（鳥嘴鼻）；cleft palate（顎裂）；<strong>polydactyly（多指）</strong>、<strong>嚴重 syndactyly（"mitten" 手套狀）</strong>、hyperhidrosis（多汗）、vertebral fusion（脊椎融合）、visceral abnormalities（內臟異常）</td><td id="np-49">Hypertelorism、shallow orbits</td><td id="np-50">Proptosis、角膜暴露、斜視、papilledema、optic atrophy</td></tr>
+<tr><td id="np-51"><strong>Pfeiffer syndrome（Pfeiffer 症候群）</strong>：顱顏異常非常嚴重</td><td id="np-52"><mark>兩側冠狀縫融合</mark>，可能合併矢狀縫</td><td id="np-53">Cloverleaf skull（比 Apert 更嚴重）；brachycephaly + acrocephaly；midface hypoplasia；tracheal abnormalities（氣管異常）</td><td id="np-54">智力正常；<strong>hydrocephalus 高風險</strong>；傳導性聽損；上頷發育不全、上頷突出（prominent upper jaw）、牙齒異常、鳥嘴鼻；syndactyly；<strong>short, broad thumbs and toes（短寬拇指／拇趾）</strong>；內臟異常；elbow ankylosis（肘關節僵直）</td><td id="np-55">Hypertelorism、proptosis、inferior scleral show、shallow orbits</td><td id="np-56">Proptosis、角膜暴露、斜視、papilledema、optic atrophy</td></tr>
+<tr><td id="np-57"><strong>Saethre-Chotzen syndrome</strong>：特徵容易漏掉</td><td id="np-58">通常<strong>只有 1 條冠狀縫</strong></td><td id="np-59"><mark>Plagiocephaly</mark></td><td id="np-60">智力正常；<strong>low hairline（低髮際）</strong>、耳朵異常；brachydactyly、輕度 syndactyly；short stature（身材矮小）；cardiac defects（心臟缺陷）</td><td id="np-61"><mark><strong>Ptosis（眼瞼下垂）</strong>、shallow orbits</mark></td><td id="np-62">Proptosis、角膜暴露、斜視</td></tr>
 </tbody>
 </table>
-<p>出處（Table 17-1）<span class="ref">p.220</span></p>
+<p id="np-63">出處（Table 17-1）<span class="ref">p.220</span></p>
 <ul>
-<li><strong>Crouzon syndrome</strong> 綜合重點：最常見的 craniosynostosis syndrome、AD；常有兩側冠狀縫 + 顱底縫早閉；外眼表現為 <mark>hypertelorism、proptosis、inferior scleral show、shallow orbits</mark>；hydrocephalus 常見但<mark>智力正常</mark>；通常沒有手指／腳趾異常（syndactyly 的例外）。本章未載明染色體位置；本章外：Crouzon 的致病基因為 <strong>FGFR2</strong>（BCSC 2 p.220），位於第 10 對染色體長臂 10q26（OMIM 123500），故「第十對染色體變異」正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.219–221；BCSC 2 p.220</span></li>
-<li>Crouzon 的外眼表列<strong>沒有 ptosis</strong>；Table 17-1 中把 ptosis 列為外眼表現的是 <strong>Saethre-Chotzen</strong>。因此「Crouzon 典型特徵為 hypertelorism、ptosis、hydrocephalus」的組合不符。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.220</span></li>
-<li><strong>Apert syndrome</strong>：頭型 brachycephaly + acrocephaly；<mark>有大量顱外表現</mark>（polydactyly、嚴重 mitten syndactyly、hyperhidrosis、vertebral fusion、內臟異常），並有智能障礙——與 Crouzon 的「智力正常、通常無顱外表現」相反。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.220</span></li>
-<li><strong>Pfeiffer syndrome</strong>：兩側冠狀縫融合（± 矢狀縫）；頭型 brachycephaly + acrocephaly，嚴重者 cloverleaf skull，不是 plagiocephaly。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.220</span></li>
-<li><strong>Saethre-Chotzen syndrome</strong>：典型 1 條冠狀縫 → <mark>plagiocephaly</mark>（不是 scaphocephaly）；Table 17-1 的外眼表現欄為 <mark>ptosis 與 shallow orbits</mark>（所以「上瞼下垂和淺眼眶是 Saethre-Chotzen 的外眼表現」正確），其他眼徵為 proptosis、角膜暴露、斜視；Fig 17-3 病例另有雙側 ptosis（已做 frontalis sling）、第 2–3 指部分併指、鼻淚管阻塞、水腦。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.220, p.222</span></li>
+<li id="np-64"><strong>Crouzon syndrome</strong> 綜合重點：最常見的 craniosynostosis syndrome、AD；常有兩側冠狀縫 + 顱底縫早閉；外眼表現為 <mark>hypertelorism、proptosis、inferior scleral show、shallow orbits</mark>；hydrocephalus 常見但<mark>智力正常</mark>；通常沒有手指／腳趾異常（syndactyly 的例外）。本章未載明染色體位置；本章外：Crouzon 的致病基因為 <strong>FGFR2</strong>（BCSC 2 p.220），位於第 10 對染色體長臂 10q26（OMIM 123500），故「第十對染色體變異」正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.219–221；BCSC 2 p.220</span></li>
+<li id="np-65">Crouzon 的外眼表列<strong>沒有 ptosis</strong>；Table 17-1 中把 ptosis 列為外眼表現的是 <strong>Saethre-Chotzen</strong>。因此「Crouzon 典型特徵為 hypertelorism、ptosis、hydrocephalus」的組合不符。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.220</span></li>
+<li id="np-66"><strong>Apert syndrome</strong>：頭型 brachycephaly + acrocephaly；<mark>有大量顱外表現</mark>（polydactyly、嚴重 mitten syndactyly、hyperhidrosis、vertebral fusion、內臟異常），並有智能障礙——與 Crouzon 的「智力正常、通常無顱外表現」相反。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.220</span></li>
+<li id="np-67"><strong>Pfeiffer syndrome</strong>：兩側冠狀縫融合（± 矢狀縫）；頭型 brachycephaly + acrocephaly，嚴重者 cloverleaf skull，不是 plagiocephaly。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.220</span></li>
+<li id="np-68"><strong>Saethre-Chotzen syndrome</strong>：典型 1 條冠狀縫 → <mark>plagiocephaly</mark>（不是 scaphocephaly）；Table 17-1 的外眼表現欄為 <mark>ptosis 與 shallow orbits</mark>（所以「上瞼下垂和淺眼眶是 Saethre-Chotzen 的外眼表現」正確），其他眼徵為 proptosis、角膜暴露、斜視；Fig 17-3 病例另有雙側 ptosis（已做 frontalis sling）、第 2–3 指部分併指、鼻淚管阻塞、水腦。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.220, p.222</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s3-1">易錯陷阱</h3><ul>
-<li>頭型配對：Apert = brachycephaly + acrocephaly（最典型配對）；Crouzon = brachycephaly 或 scaphocephaly（非 dolichocephaly 為代表）；Saethre-Chotzen = plagiocephaly；Pfeiffer = brachycephaly + acrocephaly／cloverleaf。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a></span><span class="ref">p.220</span></li>
-<li>「Apert 通常沒有顱外表現」是錯的：沒有顱外表現、沒有併指的是 Crouzon。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.220–221</span></li>
-<li>Crouzon 常有水腦，但「智力因此受影響」是錯的——表列智力正常；有 intellectual disability 的是 Apert。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.220</span></li>
-<li>Ptosis 是 Saethre-Chotzen 的外眼表現，不屬 Crouzon 的外眼表現（hypertelorism、proptosis、inferior scleral show、shallow orbits）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.220</span></li>
+<li id="np-69">頭型配對：Apert = brachycephaly + acrocephaly（最典型配對）；Crouzon = brachycephaly 或 scaphocephaly（非 dolichocephaly 為代表）；Saethre-Chotzen = plagiocephaly；Pfeiffer = brachycephaly + acrocephaly／cloverleaf。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-655" data-q="655">第 655 題</a></span><span class="ref">p.220</span></li>
+<li id="np-70">「Apert 通常沒有顱外表現」是錯的：沒有顱外表現、沒有併指的是 Crouzon。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.220–221</span></li>
+<li id="np-71">Crouzon 常有水腦，但「智力因此受影響」是錯的——表列智力正常；有 intellectual disability 的是 Apert。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-698" data-q="698">第 698 題</a></span><span class="ref">p.220</span></li>
+<li id="np-72">Ptosis 是 Saethre-Chotzen 的外眼表現，不屬 Crouzon 的外眼表現（hypertelorism、proptosis、inferior scleral show、shallow orbits）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-658" data-q="658">第 658 題</a></span><span class="ref">p.220</span></li>
 </ul></div>
 
 <h2 id="ch17-s4">四、Craniosynostosis 的眼部併發症與手術</h2>
 <h3 id="ch17-s4-1">Proptosis、角膜暴露、globe luxation</h3>
 <ul>
-<li><strong>Proptosis（或 exorbitism）</strong>：骨性眼窩容積減少所致；嚴重度不一，且因眼窩生長受限<mark>常隨年齡加重</mark>。<span class="ref">p.221</span></li>
-<li><strong>Corneal exposure（角膜暴露）</strong>：眼瞼無法完全閉合 → exposure keratitis（暴露性角膜炎）；處置：積極潤滑、<strong>tarsorrhaphy（瞼縫合術）</strong>，極端者手術擴大眼窩容積以消除突眼。<span class="ref">p.221</span></li>
-<li><strong>Globe luxation（眼球脫位）</strong>：極淺眼窩者在翻動眼瞼或眼窩壓力升高（如 <strong>Valsalva maneuver</strong>）時，眼球前脫、眼瞼關在赤道後方；非常疼痛、可致角膜暴露，<mark>可能危及眼球血流，屬醫療急症</mark>。<span class="ref">p.221–222</span></li>
-<li>復位：醫師或病人／照顧者應迅速將眼球推回眼瞼後方；最佳手法是拇指與食指放在瞼裂內的 conjunctiva（結膜）上施以輕柔但穩定的壓力，<mark>不會傷到角膜</mark>。反覆脫位：短期 tarsorrhaphy，長期 orbital volume expansion（眼窩擴容）。<span class="ref">p.222</span></li>
+<li id="np-73"><strong>Proptosis（或 exorbitism）</strong>：骨性眼窩容積減少所致；嚴重度不一，且因眼窩生長受限<mark>常隨年齡加重</mark>。<span class="ref">p.221</span></li>
+<li id="np-74"><strong>Corneal exposure（角膜暴露）</strong>：眼瞼無法完全閉合 → exposure keratitis（暴露性角膜炎）；處置：積極潤滑、<strong>tarsorrhaphy（瞼縫合術）</strong>，極端者手術擴大眼窩容積以消除突眼。<span class="ref">p.221</span></li>
+<li id="np-75"><strong>Globe luxation（眼球脫位）</strong>：極淺眼窩者在翻動眼瞼或眼窩壓力升高（如 <strong>Valsalva maneuver</strong>）時，眼球前脫、眼瞼關在赤道後方；非常疼痛、可致角膜暴露，<mark>可能危及眼球血流，屬醫療急症</mark>。<span class="ref">p.221–222</span></li>
+<li id="np-76">復位：醫師或病人／照顧者應迅速將眼球推回眼瞼後方；最佳手法是拇指與食指放在瞼裂內的 conjunctiva（結膜）上施以輕柔但穩定的壓力，<mark>不會傷到角膜</mark>。反覆脫位：短期 tarsorrhaphy，長期 orbital volume expansion（眼窩擴容）。<span class="ref">p.222</span></li>
 </ul>
 <h3 id="ch17-s4-2">Strabismus（斜視）</h3>
 <ul>
-<li>原位最常見的水平偏斜是 <mark><strong>exotropia（外斜視）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-588" data-q="588">第 588 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1688" data-q="1688">第 1688 題</a></span><span class="ref">p.222</span></li>
-<li><mark>明顯的 <strong>V-pattern strabismus（V 型斜視）</strong>非常常見</mark>，常伴明顯的 <strong>overelevation in adduction（內轉時過度上飄）</strong>，尤其一側或兩側冠狀縫融合時（如 Apert、Crouzon）。Fig 17-4 Apert 病例：原位正位、內轉明顯上飄、上視外斜（V pattern）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-588" data-q="588">第 588 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-607" data-q="607">第 607 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1688" data-q="1688">第 1688 題</a></span><span class="ref">p.222–223</span></li>
-<li>冠狀縫融合側「看似 inferior oblique overaction（下斜肌過強）」的 4 種可能機轉：<span class="ref">p.223</span>
+<li id="np-77">原位最常見的水平偏斜是 <mark><strong>exotropia（外斜視）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-588" data-q="588">第 588 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1688" data-q="1688">第 1688 題</a></span><span class="ref">p.222</span></li>
+<li id="np-78"><mark>明顯的 <strong>V-pattern strabismus（V 型斜視）</strong>非常常見</mark>，常伴明顯的 <strong>overelevation in adduction（內轉時過度上飄）</strong>，尤其一側或兩側冠狀縫融合時（如 Apert、Crouzon）。Fig 17-4 Apert 病例：原位正位、內轉明顯上飄、上視外斜（V pattern）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-588" data-q="588">第 588 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-607" data-q="607">第 607 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1688" data-q="1688">第 1688 題</a></span><span class="ref">p.222–223</span></li>
+<li id="np-79">冠狀縫融合側「看似 inferior oblique overaction（下斜肌過強）」的 4 種可能機轉：<span class="ref">p.223</span>
 <ol>
 <li>眼窩與眼球 <strong>excyclorotation（外旋）</strong> → 內轉時 medial rectus（內直肌）變成上轉肌（<strong>pseudo-overaction，假性過強</strong>）。<span class="ref">p.223</span></li>
-<li>眶上緣後縮 → <strong>superior oblique trochlear retrusion（上斜肌滑車後移）</strong> → <mark><strong>superior oblique underaction（上斜肌功能不足）</strong></mark>，繼發真性下斜肌過強。<span class="ref">p.223</span></li>
-<li>眼外肌附著異常或 agenesis（缺如），<mark>最常見為 superior oblique 缺如</mark>。<span class="ref">p.223</span></li>
-<li>Orbital pulley（眼窩滑車）異常。<span class="ref">p.223</span></li>
+<li id="np-80">眶上緣後縮 → <strong>superior oblique trochlear retrusion（上斜肌滑車後移）</strong> → <mark><strong>superior oblique underaction（上斜肌功能不足）</strong></mark>，繼發真性下斜肌過強。<span class="ref">p.223</span></li>
+<li id="np-81">眼外肌附著異常或 agenesis（缺如），<mark>最常見為 superior oblique 缺如</mark>。<span class="ref">p.223</span></li>
+<li id="np-82">Orbital pulley（眼窩滑車）異常。<span class="ref">p.223</span></li>
 </ol></li>
-<li>因此顱縫早閉的上斜肌是「功能不足甚至缺如」，<strong>不是</strong> superior oblique overaction。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1688" data-q="1688">第 1688 題</a></span><span class="ref">p.223</span></li>
+<li id="np-83">因此顱縫早閉的上斜肌是「功能不足甚至缺如」，<strong>不是</strong> superior oblique overaction。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1688" data-q="1688">第 1688 題</a></span><span class="ref">p.223</span></li>
 </ul>
 <h3 id="ch17-s4-3">Optic nerve abnormalities（視神經異常）</h3>
 <ul>
-<li>慢性 <strong>intracranial pressure（ICP，顱內壓）</strong>升高：來自 hydrocephalus，或顱縫早閉造成顱內內容物擁擠 → 視神經功能惡化。<span class="ref">p.223</span></li>
-<li>中臉後縮者可發生 <strong>sleep apnea（睡眠呼吸中止）</strong>，進而造成 idiopathic intracranial hypertension（特發性顱內高壓）。<span class="ref">p.223</span></li>
-<li>罕見：optic foramina（視神經孔）早閉造成壓迫。Optic atrophy 可有或沒有先前的 papilledema。<span class="ref">p.223</span></li>
+<li id="np-84">慢性 <strong>intracranial pressure（ICP，顱內壓）</strong>升高：來自 hydrocephalus，或顱縫早閉造成顱內內容物擁擠 → 視神經功能惡化。<span class="ref">p.223</span></li>
+<li id="np-85">中臉後縮者可發生 <strong>sleep apnea（睡眠呼吸中止）</strong>，進而造成 idiopathic intracranial hypertension（特發性顱內高壓）。<span class="ref">p.223</span></li>
+<li id="np-86">罕見：optic foramina（視神經孔）早閉造成壓迫。Optic atrophy 可有或沒有先前的 papilledema。<span class="ref">p.223</span></li>
 </ul>
 <h3 id="ch17-s4-4">Ocular adnexal abnormalities（眼附屬器異常）</h3>
 <ul>
-<li>常見：orbital hypertelorism、telecanthus、內眥上移造成瞼裂斜度異常、ptosis、鼻淚管異常。<span class="ref">p.223</span></li>
-<li><strong>Epiphora（溢淚）</strong>常見，原因：鼻淚管阻塞、突眼致眨眼不良、瞼裂傾斜、角膜暴露刺激。<span class="ref">p.223</span></li>
+<li id="np-87">常見：orbital hypertelorism、telecanthus、內眥上移造成瞼裂斜度異常、ptosis、鼻淚管異常。<span class="ref">p.223</span></li>
+<li id="np-88"><strong>Epiphora（溢淚）</strong>常見，原因：鼻淚管阻塞、突眼致眨眼不良、瞼裂傾斜、角膜暴露刺激。<span class="ref">p.223</span></li>
 </ul>
 <h3 id="ch17-s4-5">Surgical management（手術處置）</h3>
 <ul>
-<li>重建手術範圍大，常需 en bloc（整塊）移動顏面結構；<mark>術前記錄視覺狀態、術後持續監測</mark>。<span class="ref">p.223</span></li>
-<li>移動眼窩的手術可能顯著改變斜視的度數或型態 → <mark>斜視治療延後到顱顏手術完成後</mark>可能是適當的。<span class="ref">p.223–224</span></li>
-<li>顱骨手術後仍可能因 ICP 升高而發生 papilledema。<span class="ref">p.224</span></li>
+<li id="np-89">重建手術範圍大，常需 en bloc（整塊）移動顏面結構；<mark>術前記錄視覺狀態、術後持續監測</mark>。<span class="ref">p.223</span></li>
+<li id="np-90">移動眼窩的手術可能顯著改變斜視的度數或型態 → <mark>斜視治療延後到顱顏手術完成後</mark>可能是適當的。<span class="ref">p.223–224</span></li>
+<li id="np-91">顱骨手術後仍可能因 ICP 升高而發生 papilledema。<span class="ref">p.224</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s4-6">易錯陷阱</h3><ul>
-<li>顱縫早閉 = <strong>exotropia + V pattern</strong>（內轉上飄），不是內斜視、也不是 A pattern。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-588" data-q="588">第 588 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-607" data-q="607">第 607 題</a></span><span class="ref">p.222–223</span></li>
-<li>常見的是 overelevation in adduction 與（假性或真性）下斜肌過強；上斜肌是 underaction／缺如，所以「superior oblique overaction」不是常見合併。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1688" data-q="1688">第 1688 題</a></span><span class="ref">p.223</span></li>
-<li>V 型外斜視是顱縫早閉症候群的特徵；Goldenhar syndrome 相關的斜視是 Duane syndrome，不是 V 型外斜視。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.222, p.225</span></li>
-<li>Globe luxation 是急症（血流受損），要立即用手指壓結膜復位，不是等待自行回復。<span class="ref">p.222</span></li>
+<li id="np-92">顱縫早閉 = <strong>exotropia + V pattern</strong>（內轉上飄），不是內斜視、也不是 A pattern。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-588" data-q="588">第 588 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-607" data-q="607">第 607 題</a></span><span class="ref">p.222–223</span></li>
+<li id="np-93">常見的是 overelevation in adduction 與（假性或真性）下斜肌過強；上斜肌是 underaction／缺如，所以「superior oblique overaction」不是常見合併。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1688" data-q="1688">第 1688 題</a></span><span class="ref">p.223</span></li>
+<li id="np-94">V 型外斜視是顱縫早閉症候群的特徵；Goldenhar syndrome 相關的斜視是 Duane syndrome，不是 V 型外斜視。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.222, p.225</span></li>
+<li id="np-95">Globe luxation 是急症（血流受損），要立即用手指壓結膜復位，不是等待自行回復。<span class="ref">p.222</span></li>
 </ul></div>
 
 <h2 id="ch17-s5">五、Nonsynostotic craniofacial conditions（非顱縫早閉顱顏疾病）</h2>
 <h3 id="ch17-s5-1">Anophthalmia（無眼症）</h3>
 <ul>
-<li>眼組織缺如，是 typical coloboma（缺損）→ microphthalmia（小眼症）→ anophthalmia 這一系列中<mark>最嚴重、最罕見</mark>的表現型；可單獨存在，但常合併其他先天異常。<span class="ref">p.224</span></li>
-<li>Anophthalmia 與嚴重 microphthalmia 伴 <mark>hypoplastic orbits and eyelids（眼窩與眼瞼發育不全）</mark>；有多種眼窩擴張技術，<mark>越早治療效果越好</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-769" data-q="769">第 769 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1705" data-q="1705">第 1705 題</a></span><span class="ref">p.224</span></li>
-<li>BCSC 7（本章外）：microphthalmia 定義為眼軸長低於同齡平均至少 <span class="num">2 SD</span>；所有小眼症兒童的眼窩都發育不全（無囊腫者亦然，並非「眼球小、眼眶正常」）；治療在<strong>出生後不久</strong>即以逐步加大的 conformer（擴張片）做 socket expansion（眼窩擴張），不是等到 3–6 歲；通常不需 enucleation（眼球摘除）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-769" data-q="769">第 769 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1705" data-q="1705">第 1705 題</a></span><span class="ref">BCSC 7 p.38–39</span></li>
+<li id="np-96">眼組織缺如，是 typical coloboma（缺損）→ microphthalmia（小眼症）→ anophthalmia 這一系列中<mark>最嚴重、最罕見</mark>的表現型；可單獨存在，但常合併其他先天異常。<span class="ref">p.224</span></li>
+<li id="np-97">Anophthalmia 與嚴重 microphthalmia 伴 <mark>hypoplastic orbits and eyelids（眼窩與眼瞼發育不全）</mark>；有多種眼窩擴張技術，<mark>越早治療效果越好</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-769" data-q="769">第 769 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1705" data-q="1705">第 1705 題</a></span><span class="ref">p.224</span></li>
+<li id="np-98">BCSC 7（本章外）：microphthalmia 定義為眼軸長低於同齡平均至少 <span class="num">2 SD</span>；所有小眼症兒童的眼窩都發育不全（無囊腫者亦然，並非「眼球小、眼眶正常」）；治療在<strong>出生後不久</strong>即以逐步加大的 conformer（擴張片）做 socket expansion（眼窩擴張），不是等到 3–6 歲；通常不需 enucleation（眼球摘除）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-769" data-q="769">第 769 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1705" data-q="1705">第 1705 題</a></span><span class="ref">BCSC 7 p.38–39</span></li>
 </ul>
 <h3 id="ch17-s5-2">Branchial arch syndromes（鰓弓症候群）</h3>
 <ul>
-<li>第 <span class="num">1、2</span> 鰓弓胚胎發育中斷；這兩個鰓弓負責上頷骨、下頷骨、耳朵與顏面肌肉。<span class="ref">p.224</span></li>
-<li>代表：<strong>Treacher Collins syndrome</strong> 與 <strong>oculoauriculovertebral spectrum（OAVS，眼耳脊椎譜系）</strong>（含 hemifacial microsomia 與 Goldenhar syndrome）；<strong>hemifacial microsomia（半側顏面短小）</strong>是 OAVS 的較輕型。<span class="ref">p.224</span></li>
-<li>OAVS 可有 hemivertebrae（半椎體）、vertebral hypoplasia 等脊椎異常，及神經、心血管、泌尿生殖異常；<mark>多數為散發</mark>。<span class="ref">p.224</span></li>
+<li id="np-99">第 <span class="num">1、2</span> 鰓弓胚胎發育中斷；這兩個鰓弓負責上頷骨、下頷骨、耳朵與顏面肌肉。<span class="ref">p.224</span></li>
+<li id="np-100">代表：<strong>Treacher Collins syndrome</strong> 與 <strong>oculoauriculovertebral spectrum（OAVS，眼耳脊椎譜系）</strong>（含 hemifacial microsomia 與 Goldenhar syndrome）；<strong>hemifacial microsomia（半側顏面短小）</strong>是 OAVS 的較輕型。<span class="ref">p.224</span></li>
+<li id="np-101">OAVS 可有 hemivertebrae（半椎體）、vertebral hypoplasia 等脊椎異常，及神經、心血管、泌尿生殖異常；<mark>多數為散發</mark>。<span class="ref">p.224</span></li>
 </ul>
 <h3 id="ch17-s5-3">Goldenhar syndrome（Goldenhar 症候群）</h3>
 <ul>
-<li>單側或雙側 <strong>hemifacial microsomia</strong> + 特徵性眼部異常；<mark>大多數為 sporadic（散發，與遺傳無關）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.224</span></li>
-<li>特徵眼徵：<strong>epibulbar (limbal) dermoid（眼球表面／角膜緣皮樣瘤）</strong>與 <strong>dermolipoma（皮脂瘤，又稱 lipodermoid）</strong>。<span class="ref">p.225</span></li>
-<li>Dermolipoma：<mark>通常在 temporal quadrant（顳側象限）、由結膜覆蓋，常被外側上下眼瞼遮住</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.225</span></li>
-<li>Epibulbar limbal dermoid：比 dermolipoma 更常見，可雙側（約 <span class="num">25%</span>）；偶爾侵入視軸，但<mark>更常因造成 <strong>astigmatism（散光）</strong>而導致 <strong>anisometropic amblyopia（不等視性弱視）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-590" data-q="590">第 590 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-602" data-q="602">第 602 題</a></span><span class="ref">p.225</span></li>
-<li>可有 <strong>eyelid coloboma（眼瞼缺損）</strong>；其他：microphthalmia、cataract（白內障）、虹膜異常。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.225</span></li>
-<li><mark><strong>Duane syndrome</strong> 在 Goldenhar 病人較常見</mark>（Fig 17-6：左眼 dermolipoma、esotropia、左眼 Duane）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.225</span></li>
-<li>Limbal dermoid 的處置（本章外，BCSC 6 第 20 章）：dermoid 可延伸入角膜基質與鄰近鞏膜，但很少侵犯全層；手術是將隆起處 <strong>excise flush（削平）</strong>至周圍組織平面，切除無法消除既有散光，散光以屈光矯正與弱視治療處理；並非「需完全切除以防復發」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-602" data-q="602">第 602 題</a></span><span class="ref">BCSC 6 p.271–272</span></li>
+<li id="np-102">單側或雙側 <strong>hemifacial microsomia</strong> + 特徵性眼部異常；<mark>大多數為 sporadic（散發，與遺傳無關）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.224</span></li>
+<li id="np-103">特徵眼徵：<strong>epibulbar (limbal) dermoid（眼球表面／角膜緣皮樣瘤）</strong>與 <strong>dermolipoma（皮脂瘤，又稱 lipodermoid）</strong>。<span class="ref">p.225</span></li>
+<li id="np-104">Dermolipoma：<mark>通常在 temporal quadrant（顳側象限）、由結膜覆蓋，常被外側上下眼瞼遮住</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.225</span></li>
+<li id="np-105">Epibulbar limbal dermoid：比 dermolipoma 更常見，可雙側（約 <span class="num">25%</span>）；偶爾侵入視軸，但<mark>更常因造成 <strong>astigmatism（散光）</strong>而導致 <strong>anisometropic amblyopia（不等視性弱視）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-590" data-q="590">第 590 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-602" data-q="602">第 602 題</a></span><span class="ref">p.225</span></li>
+<li id="np-106">可有 <strong>eyelid coloboma（眼瞼缺損）</strong>；其他：microphthalmia、cataract（白內障）、虹膜異常。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.225</span></li>
+<li id="np-107"><mark><strong>Duane syndrome</strong> 在 Goldenhar 病人較常見</mark>（Fig 17-6：左眼 dermolipoma、esotropia、左眼 Duane）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.225</span></li>
+<li id="np-108">Limbal dermoid 的處置（本章外，BCSC 6 第 20 章）：dermoid 可延伸入角膜基質與鄰近鞏膜，但很少侵犯全層；手術是將隆起處 <strong>excise flush（削平）</strong>至周圍組織平面，切除無法消除既有散光，散光以屈光矯正與弱視治療處理；並非「需完全切除以防復發」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-602" data-q="602">第 602 題</a></span><span class="ref">BCSC 6 p.271–272</span></li>
 </ul>
 <h3 id="ch17-s5-4">Treacher Collins syndrome（mandibulofacial dysostosis，下頷顏面發育不全）</h3>
 <ul>
-<li>第 1、2 鰓弓生長異常 → zygoma（顴骨）與 malar eminences（顴突）發育不全甚至缺如；外側眶緣下陷，lateral canthal dystopia（外眥異位）造成<mark>瞼裂向下斜</mark>。<span class="ref">p.225</span></li>
-<li>下眼瞼<strong>外 1/3</strong> 有 <strong>pseudocoloboma（假性缺損）</strong>（少數為真性 coloboma）；meibomian glands（瞼板腺）可缺如；假性缺損內側的下瞼睫毛也可缺如。<span class="ref">p.225–226</span></li>
-<li>耳朵畸形、聽力喪失常見；下頷發育不全 → micrognathia（小頷）；<mark>智力正常</mark>；<strong>AD</strong>；多數有 <strong>TCOF1</strong> 基因突變。<span class="ref">p.226</span></li>
+<li id="np-109">第 1、2 鰓弓生長異常 → zygoma（顴骨）與 malar eminences（顴突）發育不全甚至缺如；外側眶緣下陷，lateral canthal dystopia（外眥異位）造成<mark>瞼裂向下斜</mark>。<span class="ref">p.225</span></li>
+<li id="np-110">下眼瞼<strong>外 1/3</strong> 有 <strong>pseudocoloboma（假性缺損）</strong>（少數為真性 coloboma）；meibomian glands（瞼板腺）可缺如；假性缺損內側的下瞼睫毛也可缺如。<span class="ref">p.225–226</span></li>
+<li id="np-111">耳朵畸形、聽力喪失常見；下頷發育不全 → micrognathia（小頷）；<mark>智力正常</mark>；<strong>AD</strong>；多數有 <strong>TCOF1</strong> 基因突變。<span class="ref">p.226</span></li>
 </ul>
 <h3 id="ch17-s5-5">Pierre Robin sequence（皮耶羅賓序列）</h3>
 <ul>
-<li>三特徵：<strong>micrognathia（小頷）</strong>、<strong>glossoptosis（舌後垂）</strong>、<strong>cleft palate（顎裂）</strong>；常見於 <mark><strong>Stickler syndrome</strong></mark>。<span class="ref">p.226</span></li>
-<li>眼部：<mark>retinal detachment（視網膜剝離）、microphthalmia、childhood glaucoma（兒童青光眼）、cataract、high myopia（高度近視）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.226</span></li>
+<li id="np-112">三特徵：<strong>micrognathia（小頷）</strong>、<strong>glossoptosis（舌後垂）</strong>、<strong>cleft palate（顎裂）</strong>；常見於 <mark><strong>Stickler syndrome</strong></mark>。<span class="ref">p.226</span></li>
+<li id="np-113">眼部：<mark>retinal detachment（視網膜剝離）、microphthalmia、childhood glaucoma（兒童青光眼）、cataract、high myopia（高度近視）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.226</span></li>
 </ul>
 <h3 id="ch17-s5-6">Fetal alcohol syndrome（FAS，胎兒酒精症候群）</h3>
 <ul>
-<li>子宮內 ethanol 暴露；產前與產後生長遲緩、中樞神經與顱顏異常、智能障礙。<span class="ref">p.226</span></li>
-<li>典型眼徵：<mark>short palpebral fissures（短瞼裂）、telecanthus、epicanthus（內眥贅皮）、ptosis、microphthalmia、esotropia（內斜視）</mark>；另報告 anterior segment dysgenesis（前段發育不全）、optic nerve hypoplasia（視神經發育不全）、高屈光不正。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.226</span></li>
-<li>此症常被低估，<span class="num">50%</span> 患童有某種視覺障礙。<span class="ref">p.226</span></li>
+<li id="np-114">子宮內 ethanol 暴露；產前與產後生長遲緩、中樞神經與顱顏異常、智能障礙。<span class="ref">p.226</span></li>
+<li id="np-115">典型眼徵：<mark>short palpebral fissures（短瞼裂）、telecanthus、epicanthus（內眥贅皮）、ptosis、microphthalmia、esotropia（內斜視）</mark>；另報告 anterior segment dysgenesis（前段發育不全）、optic nerve hypoplasia（視神經發育不全）、高屈光不正。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.226</span></li>
+<li id="np-116">此症常被低估，<span class="num">50%</span> 患童有某種視覺障礙。<span class="ref">p.226</span></li>
 </ul>
 <h3 id="ch17-s5-7">Nonsynostotic disorders of bone growth（非顱縫早閉骨生長疾病）</h3>
 <ul>
-<li><strong>Infantile malignant osteopetrosis（嬰兒型惡性骨質石化症）</strong>：罕見、嚴重、<strong>autosomal recessive（體染色體隱性）</strong>；骨增生使顱骨孔道變窄，<mark>optic canal stenosis（視神經管狹窄）→ 壓迫性視神經病變</mark>。約 <span class="num">12 個月</span>大時 bone marrow transplant（骨髓移植）可改善長期存活與失能，但移植失敗及肝、肺毒性比率高。<span class="ref">p.226–227</span></li>
-<li><strong>Craniometaphyseal dysplasia（顱骨幹骺端發育不良）</strong>：罕見的 osteoclast（蝕骨細胞）吸收障礙 → 顱骨 hyperostosis（骨肥厚）；額部與鼻旁隆起；腦神經孔進行性狹窄 → 壓迫性視神經病變。<span class="ref">p.227</span></li>
+<li id="np-117"><strong>Infantile malignant osteopetrosis（嬰兒型惡性骨質石化症）</strong>：罕見、嚴重、<strong>autosomal recessive（體染色體隱性）</strong>；骨增生使顱骨孔道變窄，<mark>optic canal stenosis（視神經管狹窄）→ 壓迫性視神經病變</mark>。約 <span class="num">12 個月</span>大時 bone marrow transplant（骨髓移植）可改善長期存活與失能，但移植失敗及肝、肺毒性比率高。<span class="ref">p.226–227</span></li>
+<li id="np-118"><strong>Craniometaphyseal dysplasia（顱骨幹骺端發育不良）</strong>：罕見的 osteoclast（蝕骨細胞）吸收障礙 → 顱骨 hyperostosis（骨肥厚）；額部與鼻旁隆起；腦神經孔進行性狹窄 → 壓迫性視神經病變。<span class="ref">p.227</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s5-8">易錯陷阱</h3><ul>
-<li>Limbal dermoid 雖在角膜緣、不一定擋視軸，仍常因散光造成不等視性弱視——「不會有弱視問題」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-590" data-q="590">第 590 題</a></span><span class="ref">p.225</span></li>
-<li>Goldenhar：大多散發；dermolipoma 在顳側、常被眼瞼遮住；可有 eyelid coloboma；相關斜視是 <strong>Duane</strong>，不是 V 型外斜視。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.224–225</span></li>
-<li>Pierre Robin（Stickler）的眼部重點是 RD、high myopia；FAS 的斜視是 esotropia。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.226</span></li>
-<li>Treacher Collins 的缺損在下眼瞼「外 1/3」且多為 pseudocoloboma；Goldenhar 的 eyelid coloboma 則多在上眼瞼（BCSC 8，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.225–226；BCSC 8 p.261</span></li>
-<li>Osteopetrosis 是 AR；本章其他顱縫早閉症候群與 Treacher Collins 為 AD。<span class="ref">p.221, p.226</span></li>
+<li id="np-119">Limbal dermoid 雖在角膜緣、不一定擋視軸，仍常因散光造成不等視性弱視——「不會有弱視問題」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-590" data-q="590">第 590 題</a></span><span class="ref">p.225</span></li>
+<li id="np-120">Goldenhar：大多散發；dermolipoma 在顳側、常被眼瞼遮住；可有 eyelid coloboma；相關斜視是 <strong>Duane</strong>，不是 V 型外斜視。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.224–225</span></li>
+<li id="np-121">Pierre Robin（Stickler）的眼部重點是 RD、high myopia；FAS 的斜視是 esotropia。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-627" data-q="627">第 627 題</a></span><span class="ref">p.226</span></li>
+<li id="np-122">Treacher Collins 的缺損在下眼瞼「外 1/3」且多為 pseudocoloboma；Goldenhar 的 eyelid coloboma 則多在上眼瞼（BCSC 8，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-616" data-q="616">第 616 題</a></span><span class="ref">p.225–226；BCSC 8 p.261</span></li>
+<li id="np-123">Osteopetrosis 是 AR；本章其他顱縫早閉症候群與 Treacher Collins 為 AD。<span class="ref">p.221, p.226</span></li>
 </ul></div>
 
 <h2 id="ch17-s6">六、Preseptal cellulitis（隔前蜂窩性組織炎）</h2>
 <ul>
-<li>兒童的 preseptal 與 orbital cellulitis 通常<mark>比成人進展更快、更嚴重</mark>。<span class="ref">p.227</span></li>
-<li>定義：<strong>orbital septum（眼窩隔膜）前方</strong>組織的發炎；兒童常見。眼瞼水腫可延伸至前額，皮膚緊繃發炎，對側眼瞼也可水腫。<span class="ref">p.227</span></li>
-<li><mark>沒有 proptosis、眼球不受侵犯</mark>；<strong>眼球運動完整、轉動不痛</strong>是與 orbital cellulitis 區分的關鍵。<span class="ref">p.227</span></li>
+<li id="np-124">兒童的 preseptal 與 orbital cellulitis 通常<mark>比成人進展更快、更嚴重</mark>。<span class="ref">p.227</span></li>
+<li id="np-125">定義：<strong>orbital septum（眼窩隔膜）前方</strong>組織的發炎；兒童常見。眼瞼水腫可延伸至前額，皮膚緊繃發炎，對側眼瞼也可水腫。<span class="ref">p.227</span></li>
+<li id="np-126"><mark>沒有 proptosis、眼球不受侵犯</mark>；<strong>眼球運動完整、轉動不痛</strong>是與 orbital cellulitis 區分的關鍵。<span class="ref">p.227</span></li>
 </ul>
 <h3 id="ch17-s6-1">三種形成途徑（兒童）</h3>
 <table class="ted-table">
 <thead><tr><th>Route（途徑）</th><th>Typical organisms（常見菌）</th></tr></thead>
 <tbody>
-<tr><td>眼瞼皮膚穿刺、蟲咬、撕裂傷（posttraumatic cellulitis）</td><td>皮膚菌：<i>Staphylococcus</i>、<i>Streptococcus</i> species</td></tr>
-<tr><td>合併嚴重結膜炎（epidemic keratoconjunctivitis、methicillin-resistant <i>Staphylococcus aureus</i>（MRSA）結膜炎）或皮膚感染（impetigo（膿痂疹）、herpes zoster（帶狀疱疹））</td><td>—</td></tr>
-<tr><td>續發於上呼吸道或鼻竇感染</td><td>S aureus、<i>Streptococcus pneumoniae</i> 及其他鏈球菌</td></tr>
+<tr><td id="np-127">眼瞼皮膚穿刺、蟲咬、撕裂傷（posttraumatic cellulitis）</td><td id="np-128">皮膚菌：<i>Staphylococcus</i>、<i>Streptococcus</i> species</td></tr>
+<tr><td id="np-129">合併嚴重結膜炎（epidemic keratoconjunctivitis、methicillin-resistant <i>Staphylococcus aureus</i>（MRSA）結膜炎）或皮膚感染（impetigo（膿痂疹）、herpes zoster（帶狀疱疹））</td><td id="np-130">—</td></tr>
+<tr><td id="np-131">續發於上呼吸道或鼻竇感染</td><td id="np-132">S aureus、<i>Streptococcus pneumoniae</i> 及其他鏈球菌</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.227</span></p>
+<p id="np-133">出處 <span class="ref">p.227</span></p>
 <ul>
-<li>BCSC 7（本章外）：<mark>成人 preseptal cellulitis 多源自穿刺性皮膚外傷或 dacryocystitis（淚囊炎）</mark>，鼻竇直接擴散主要見於兒童與 orbital cellulitis；故「preseptal cellulitis 最常見原因是篩竇、上頷竇直接散播」是過度概括。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-380" data-q="380">第 380 題</a></span><span class="ref">p.227；BCSC 7 p.48</span></li>
+<li id="np-134">BCSC 7（本章外）：<mark>成人 preseptal cellulitis 多源自穿刺性皮膚外傷或 dacryocystitis（淚囊炎）</mark>，鼻竇直接擴散主要見於兒童與 orbital cellulitis；故「preseptal cellulitis 最常見原因是篩竇、上頷竇直接散播」是過度概括。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-380" data-q="380">第 380 題</a></span><span class="ref">p.227；BCSC 7 p.48</span></li>
 </ul>
 <h3 id="ch17-s6-2">治療</h3>
 <ul>
-<li>輕度（眼瞼腫但<strong>無</strong> chemosis（結膜水腫）、發燒、突眼、ophthalmoplegia（眼肌麻痺）或視神經病變）→ <mark>門診口服抗生素</mark>：廣效 cephalosporins 或 ampicillin–clavulanic acid 通常有效。<span class="ref">p.227</span></li>
-<li>尤其有 <strong>eyelid abscess（眼瞼膿瘍）</strong>時，因 MRSA 盛行率上升，<strong>clindamycin</strong> 可能是合適選擇；治療無改善者也要考慮 MRSA。眼瞼膿瘍可能需緊急切開引流。<span class="ref">p.227</span></li>
-<li>小嬰兒或有全身病徵（sepsis（敗血症）、腦膜侵犯）→ 住院做培養、鼻竇與眼窩影像、IV 抗生素。<span class="ref">p.227</span></li>
-<li>新生兒的鑑別診斷要考慮 <strong>dacryocystocele（淚囊膨出）</strong>。<span class="ref">p.227</span></li>
+<li id="np-135">輕度（眼瞼腫但<strong>無</strong> chemosis（結膜水腫）、發燒、突眼、ophthalmoplegia（眼肌麻痺）或視神經病變）→ <mark>門診口服抗生素</mark>：廣效 cephalosporins 或 ampicillin–clavulanic acid 通常有效。<span class="ref">p.227</span></li>
+<li id="np-136">尤其有 <strong>eyelid abscess（眼瞼膿瘍）</strong>時，因 MRSA 盛行率上升，<strong>clindamycin</strong> 可能是合適選擇；治療無改善者也要考慮 MRSA。眼瞼膿瘍可能需緊急切開引流。<span class="ref">p.227</span></li>
+<li id="np-137">小嬰兒或有全身病徵（sepsis（敗血症）、腦膜侵犯）→ 住院做培養、鼻竇與眼窩影像、IV 抗生素。<span class="ref">p.227</span></li>
+<li id="np-138">新生兒的鑑別診斷要考慮 <strong>dacryocystocele（淚囊膨出）</strong>。<span class="ref">p.227</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s6-3">易錯陷阱</h3><ul>
-<li>Preseptal cellulitis 沒有突眼、眼動正常且不痛；一旦出現突眼、chemosis、眼動受限就要想 orbital cellulitis。<span class="ref">p.227–228</span></li>
-<li>鼻竇是 orbital cellulitis 最常見原因；preseptal cellulitis 在兒童可源自外傷、結膜炎或上呼吸道／鼻竇，成人則以外傷、淚囊炎為主。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-380" data-q="380">第 380 題</a></span><span class="ref">p.227–228</span></li>
+<li id="np-139">Preseptal cellulitis 沒有突眼、眼動正常且不痛；一旦出現突眼、chemosis、眼動受限就要想 orbital cellulitis。<span class="ref">p.227–228</span></li>
+<li id="np-140">鼻竇是 orbital cellulitis 最常見原因；preseptal cellulitis 在兒童可源自外傷、結膜炎或上呼吸道／鼻竇，成人則以外傷、淚囊炎為主。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-380" data-q="380">第 380 題</a></span><span class="ref">p.227–228</span></li>
 </ul></div>
 
 <h2 id="ch17-s7">七、Orbital cellulitis（眼窩蜂窩性組織炎）與 subperiosteal abscess（骨膜下膿瘍）</h2>
 <h3 id="ch17-s7-1">病因與病原</h3>
 <ul>
-<li>侵犯 <strong>orbital septum 後方</strong>組織；最常與 <mark>ethmoid（篩竇）或 frontal（額竇）sinusitis</mark> 相關，也可發生於眼窩穿刺傷後。<span class="ref">p.228</span></li>
-<li>多數幼童為<strong>單一需氧菌</strong>感染。新生兒：S aureus 與 gram-negative bacilli（革蘭氏陰性桿菌）；較大兒童與成人：S aureus、<i>Streptococcus pyogenes</i>、<i>Streptococcus pneumoniae</i>。年長或免疫抑制者可有多菌種（含革蘭氏陰性與厭氧菌）混合感染。<span class="ref">p.228</span></li>
-<li><mark><strong>Paranasal sinusitis（鼻竇炎）是細菌性眼窩蜂窩性組織炎最常見原因</strong></mark>；<span class="num">&lt; 10 歲</span>兒童最常侵犯 <strong>ethmoid sinuses（篩竇）</strong>。<span class="ref">p.228</span></li>
+<li id="np-141">侵犯 <strong>orbital septum 後方</strong>組織；最常與 <mark>ethmoid（篩竇）或 frontal（額竇）sinusitis</mark> 相關，也可發生於眼窩穿刺傷後。<span class="ref">p.228</span></li>
+<li id="np-142">多數幼童為<strong>單一需氧菌</strong>感染。新生兒：S aureus 與 gram-negative bacilli（革蘭氏陰性桿菌）；較大兒童與成人：S aureus、<i>Streptococcus pyogenes</i>、<i>Streptococcus pneumoniae</i>。年長或免疫抑制者可有多菌種（含革蘭氏陰性與厭氧菌）混合感染。<span class="ref">p.228</span></li>
+<li id="np-143"><mark><strong>Paranasal sinusitis（鼻竇炎）是細菌性眼窩蜂窩性組織炎最常見原因</strong></mark>；<span class="num">&lt; 10 歲</span>兒童最常侵犯 <strong>ethmoid sinuses（篩竇）</strong>。<span class="ref">p.228</span></li>
 </ul>
 <h3 id="ch17-s7-2">臨床表現與鑑別</h3>
 <ul>
-<li>早期：lethargy（倦怠）、發燒、眼瞼水腫、rhinorrhea（流鼻水）、頭痛、眼窩痛、觸痛；鼻黏膜充血、膿性鼻涕；靜脈充血可使眼壓升高。<span class="ref">p.228</span></li>
-<li><mark>Proptosis、chemosis、眼球運動受限 → 提示眼窩受侵</mark>。<span class="ref">p.228</span></li>
-<li>鑑別診斷：nonspecific orbital inflammation（NSOI）、良性腫瘤（lymphatic malformation、hemangioma）、惡性腫瘤（rhabdomyosarcoma、leukemia、metastases（轉移））。<span class="ref">p.228</span></li>
-<li>懷疑時應做眼窩影像：確認眼窩受侵、記錄鼻竇炎與 subperiosteal abscess 的有無與範圍、有外傷史者排除異物。<span class="ref">p.228</span></li>
+<li id="np-144">早期：lethargy（倦怠）、發燒、眼瞼水腫、rhinorrhea（流鼻水）、頭痛、眼窩痛、觸痛；鼻黏膜充血、膿性鼻涕；靜脈充血可使眼壓升高。<span class="ref">p.228</span></li>
+<li id="np-145"><mark>Proptosis、chemosis、眼球運動受限 → 提示眼窩受侵</mark>。<span class="ref">p.228</span></li>
+<li id="np-146">鑑別診斷：nonspecific orbital inflammation（NSOI）、良性腫瘤（lymphatic malformation、hemangioma）、惡性腫瘤（rhabdomyosarcoma、leukemia、metastases（轉移））。<span class="ref">p.228</span></li>
+<li id="np-147">懷疑時應做眼窩影像：確認眼窩受侵、記錄鼻竇炎與 subperiosteal abscess 的有無與範圍、有外傷史者排除異物。<span class="ref">p.228</span></li>
 </ul>
 <h3 id="ch17-s7-3">CT findings（Table 17-2）</h3>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>CT findings（CT 表現）</th></tr></thead>
 <tbody>
-<tr><td>Preseptal cellulitis</td><td>Orbital septum 前方軟組織腫脹與 stranding（條紋狀浸潤）、鄰近脂肪層消失；pertinent negatives：無 exophthalmos、無球後發炎、無 ethmoid sinusitis、眼外肌無移位或腫大</td></tr>
-<tr><td>Orbital cellulitis</td><td>Orbital septum 後方瀰漫性軟組織 stranding（exophthalmos）、proptosis</td></tr>
-<tr><td>Subperiosteal abscess</td><td>沿眼窩壁的 <strong>lenticular（透鏡狀）邊緣增強液體聚積</strong>合併鄰近鼻竇炎；extraconal space（肌錐外）air-fluid level（氣液面）；急性 ethmoid sinusitis（兒童常見）；突眼嚴重時眼球變形（<strong>"guitar pick" sign，吉他撥片徵</strong>）；鄰近直肌移位；極重者眼窩壁 osteomyelitis（骨髓炎）</td></tr>
+<tr><td id="np-148">Preseptal cellulitis</td><td id="np-149">Orbital septum 前方軟組織腫脹與 stranding（條紋狀浸潤）、鄰近脂肪層消失；pertinent negatives：無 exophthalmos、無球後發炎、無 ethmoid sinusitis、眼外肌無移位或腫大</td></tr>
+<tr><td id="np-150">Orbital cellulitis</td><td id="np-151">Orbital septum 後方瀰漫性軟組織 stranding（exophthalmos）、proptosis</td></tr>
+<tr><td id="np-152">Subperiosteal abscess</td><td id="np-153">沿眼窩壁的 <strong>lenticular（透鏡狀）邊緣增強液體聚積</strong>合併鄰近鼻竇炎；extraconal space（肌錐外）air-fluid level（氣液面）；急性 ethmoid sinusitis（兒童常見）；突眼嚴重時眼球變形（<strong>"guitar pick" sign，吉他撥片徵</strong>）；鄰近直肌移位；極重者眼窩壁 osteomyelitis（骨髓炎）</td></tr>
 </tbody>
 </table>
-<p>出處（Table 17-2）<span class="ref">p.229</span></p>
+<p id="np-154">出處（Table 17-2）<span class="ref">p.229</span></p>
 <h3 id="ch17-s7-4">治療與引流適應症</h3>
 <ul>
-<li>必須與 preseptal 區分，因為 orbital cellulitis <mark>需住院與 IV 廣效抗生素</mark>（依最可能病原選藥，待培養結果）；合併鼻竇炎或骨膜下膿瘍時會診小兒耳鼻喉科。<span class="ref">p.229</span></li>
-<li>密切觀察視力受損徵象。<mark><span class="num">&lt; 9 歲</span>兒童的 subperiosteal abscess 多數可藥物治療消退</mark>——年齡小本身不是緊急引流的理由。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">p.229</span></li>
-<li><strong>任何年齡</strong>出現下列任一項 → <mark>緊急引流 subperiosteal abscess</mark>：<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a></span><span class="ref">p.229</span>
+<li id="np-155">必須與 preseptal 區分，因為 orbital cellulitis <mark>需住院與 IV 廣效抗生素</mark>（依最可能病原選藥，待培養結果）；合併鼻竇炎或骨膜下膿瘍時會診小兒耳鼻喉科。<span class="ref">p.229</span></li>
+<li id="np-156">密切觀察視力受損徵象。<mark><span class="num">&lt; 9 歲</span>兒童的 subperiosteal abscess 多數可藥物治療消退</mark>——年齡小本身不是緊急引流的理由。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">p.229</span></li>
+<li id="np-157"><strong>任何年齡</strong>出現下列任一項 → <mark>緊急引流 subperiosteal abscess</mark>：<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a></span><span class="ref">p.229</span>
 <ol>
 <li>視神經受損證據（視力下降、relative afferent pupillary defect（RAPD，相對性傳入性瞳孔缺陷））<span class="ref">p.229</span></li>
-<li>膿瘍<strong>擴大中</strong><span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a></span><span class="ref">p.229</span></li>
-<li>抗生素使用 <span class="num">48–72 小時</span>內未消退<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a></span><span class="ref">p.229</span></li>
-<li><strong>intraconal（肌錐內）orbital abscess</strong>：兒童比骨膜下膿瘍少見得多，需緊急手術引流<span class="ref">p.229</span></li>
-<li>懷疑 <strong>anaerobic infection（厭氧菌感染）</strong>：CT 顯示<strong>膿瘍內有氣體</strong><span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a></span><span class="ref">p.229</span></li>
+<li id="np-158">膿瘍<strong>擴大中</strong><span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a></span><span class="ref">p.229</span></li>
+<li id="np-159">抗生素使用 <span class="num">48–72 小時</span>內未消退<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a></span><span class="ref">p.229</span></li>
+<li id="np-160"><strong>intraconal（肌錐內）orbital abscess</strong>：兒童比骨膜下膿瘍少見得多，需緊急手術引流<span class="ref">p.229</span></li>
+<li id="np-161">懷疑 <strong>anaerobic infection（厭氧菌感染）</strong>：CT 顯示<strong>膿瘍內有氣體</strong><span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a></span><span class="ref">p.229</span></li>
 </ol></li>
-<li>BCSC 7（本章外）：<span class="num">&lt; 9 歲</span>、單純 ethmoid sinusitis 合併<strong>內側</strong>（或下方）骨膜下膿瘍、視力正常 → 通常對藥物有反應，可審慎觀察；年齡 <span class="num">≥ 9 歲</span>、合併 <strong>frontal sinusitis</strong>、膿瘍內有氣體、大型膿瘍、視力受損等則傾向手術。<mark>發燒不是必須引流的條件</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">BCSC 7 p.50</span></li>
-<li>引流通常由眼窩外科醫師與耳鼻喉科或神經外科合作。CT-guided percutaneous drainage（電腦斷層導引經皮引流）有爭議：成功率低、復發率高（鼻竇無法引流）；先試經皮或可避免較大手術，但更可能讓孩子<strong>全身麻醉兩次</strong>。<span class="ref">p.229</span></li>
-<li>手術入路：內側膿瘍 → <strong>transnasal endoscopic（經鼻內視鏡）</strong>；上方膿瘍 → <strong>external（外部）</strong>入路；較大膿瘍可合併兩者。<span class="ref">p.229</span></li>
+<li id="np-162">BCSC 7（本章外）：<span class="num">&lt; 9 歲</span>、單純 ethmoid sinusitis 合併<strong>內側</strong>（或下方）骨膜下膿瘍、視力正常 → 通常對藥物有反應，可審慎觀察；年齡 <span class="num">≥ 9 歲</span>、合併 <strong>frontal sinusitis</strong>、膿瘍內有氣體、大型膿瘍、視力受損等則傾向手術。<mark>發燒不是必須引流的條件</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">BCSC 7 p.50</span></li>
+<li id="np-163">引流通常由眼窩外科醫師與耳鼻喉科或神經外科合作。CT-guided percutaneous drainage（電腦斷層導引經皮引流）有爭議：成功率低、復發率高（鼻竇無法引流）；先試經皮或可避免較大手術，但更可能讓孩子<strong>全身麻醉兩次</strong>。<span class="ref">p.229</span></li>
+<li id="np-164">手術入路：內側膿瘍 → <strong>transnasal endoscopic（經鼻內視鏡）</strong>；上方膿瘍 → <strong>external（外部）</strong>入路；較大膿瘍可合併兩者。<span class="ref">p.229</span></li>
 </ul>
 <h3 id="ch17-s7-5">Complications（併發症）</h3>
 <ul>
-<li><strong>Cavernous sinus thrombosis（海綿竇栓塞）</strong>與顱內擴散（subdural（硬膜下）或腦膿瘍、meningitis（腦膜炎）、periosteal abscess），可致死。<span class="ref">p.229</span></li>
-<li>Cavernous sinus thrombosis 與單純 orbital cellulitis 不易區分：<mark>眼球運動麻痺常與突眼程度不成比例</mark>；<strong>沒有</strong>轉動痛與觸痛；cranial nerve V（三叉神經）上頷支（V2）感覺下降支持診斷；<mark><strong>雙側 ophthalmoplegia 幾乎可確診</strong></mark>。<span class="ref">p.229–230</span></li>
-<li>其他：暴露性角膜炎併潰瘍、neurotrophic keratitis（神經營養性角膜炎）、續發性青光眼、septic uveitis／retinitis、exudative retinal detachment（滲出性視網膜剝離）、視神經水腫、發炎性／感染性視神經炎、central retinal artery occlusion（CRAO，視網膜中央動脈阻塞）、panophthalmitis（全眼球炎）。<span class="ref">p.230</span></li>
+<li id="np-165"><strong>Cavernous sinus thrombosis（海綿竇栓塞）</strong>與顱內擴散（subdural（硬膜下）或腦膿瘍、meningitis（腦膜炎）、periosteal abscess），可致死。<span class="ref">p.229</span></li>
+<li id="np-166">Cavernous sinus thrombosis 與單純 orbital cellulitis 不易區分：<mark>眼球運動麻痺常與突眼程度不成比例</mark>；<strong>沒有</strong>轉動痛與觸痛；cranial nerve V（三叉神經）上頷支（V2）感覺下降支持診斷；<mark><strong>雙側 ophthalmoplegia 幾乎可確診</strong></mark>。<span class="ref">p.229–230</span></li>
+<li id="np-167">其他：暴露性角膜炎併潰瘍、neurotrophic keratitis（神經營養性角膜炎）、續發性青光眼、septic uveitis／retinitis、exudative retinal detachment（滲出性視網膜剝離）、視神經水腫、發炎性／感染性視神經炎、central retinal artery occlusion（CRAO，視網膜中央動脈阻塞）、panophthalmitis（全眼球炎）。<span class="ref">p.230</span></li>
 </ul>
 <h3 id="ch17-s7-6">Related conditions（相關疾病）</h3>
 <ul>
-<li><strong>Fungal orbital cellulitis（mucormycosis，白黴菌症）</strong>：最常見於 ketoacidosis（酮酸中毒）或嚴重免疫抑制者；<mark>thrombosing vasculitis（血栓性血管炎）→ 受侵組織缺血壞死</mark>；腦神經常受累、常延伸入中樞神經；組織抹片與切片可見真菌；治療為 debridement（清創）+ 全身抗黴菌藥。BCSC 7（本章外）：因缺血，眼窩發炎反而可能不明顯（眼睛「白而安靜」），所以「因血管炎引起嚴重眼窩發炎」的說法不正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">p.230；BCSC 7 p.54</span></li>
-<li><strong>Allergic fungal sinusitis（過敏性黴菌鼻竇炎）</strong>：較不猛爆，常以眼窩徵象表現，包括骨性眼窩重塑造成的突眼。<span class="ref">p.230</span></li>
-<li>BCSC 7（本章外）：<strong>necrotizing fasciitis（壞死性筋膜炎）</strong>侵犯皮下軟組織與筋膜，最常見菌為 <mark>group A β-hemolytic <i>Streptococcus</i>（A 群乙型溶血性鏈球菌）</mark>；齒源性 orbital cellulitis 多為多菌種、含厭氧菌，抗生素不能只涵蓋 gram-positive aerobes。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">BCSC 7 p.50, p.52</span></li>
+<li id="np-168"><strong>Fungal orbital cellulitis（mucormycosis，白黴菌症）</strong>：最常見於 ketoacidosis（酮酸中毒）或嚴重免疫抑制者；<mark>thrombosing vasculitis（血栓性血管炎）→ 受侵組織缺血壞死</mark>；腦神經常受累、常延伸入中樞神經；組織抹片與切片可見真菌；治療為 debridement（清創）+ 全身抗黴菌藥。BCSC 7（本章外）：因缺血，眼窩發炎反而可能不明顯（眼睛「白而安靜」），所以「因血管炎引起嚴重眼窩發炎」的說法不正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">p.230；BCSC 7 p.54</span></li>
+<li id="np-169"><strong>Allergic fungal sinusitis（過敏性黴菌鼻竇炎）</strong>：較不猛爆，常以眼窩徵象表現，包括骨性眼窩重塑造成的突眼。<span class="ref">p.230</span></li>
+<li id="np-170">BCSC 7（本章外）：<strong>necrotizing fasciitis（壞死性筋膜炎）</strong>侵犯皮下軟組織與筋膜，最常見菌為 <mark>group A β-hemolytic <i>Streptococcus</i>（A 群乙型溶血性鏈球菌）</mark>；齒源性 orbital cellulitis 多為多菌種、含厭氧菌，抗生素不能只涵蓋 gram-positive aerobes。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">BCSC 7 p.50, p.52</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s7-7">易錯陷阱</h3><ul>
-<li>「<span class="num">&lt; 9 歲</span>」是傾向藥物治療的條件，不是緊急引流指標；緊急引流看的是視神經受損、膿瘍擴大、<span class="num">48–72 小時</span>不退、intraconal abscess、膿瘍內有氣體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a></span><span class="ref">p.229</span></li>
-<li>6–8 歲、單純篩竇炎合併內側骨膜下膿瘍、視力正常，即使發燒也可先藥物觀察。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">p.229；BCSC 7 p.50</span></li>
-<li>海綿竇栓塞：眼肌麻痺「大於」突眼程度、沒有轉動痛、V2 感覺下降、雙側眼肌麻痺。<span class="ref">p.230</span></li>
-<li>&lt; 10 歲最常侵犯的鼻竇是 ethmoid（不是 maxillary）。<span class="ref">p.228</span></li>
+<li id="np-171">「<span class="num">&lt; 9 歲</span>」是傾向藥物治療的條件，不是緊急引流指標；緊急引流看的是視神經受損、膿瘍擴大、<span class="num">48–72 小時</span>不退、intraconal abscess、膿瘍內有氣體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-659" data-q="659">第 659 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a></span><span class="ref">p.229</span></li>
+<li id="np-172">6–8 歲、單純篩竇炎合併內側骨膜下膿瘍、視力正常，即使發燒也可先藥物觀察。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-779" data-q="779">第 779 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1707" data-q="1707">第 1707 題</a></span><span class="ref">p.229；BCSC 7 p.50</span></li>
+<li id="np-173">海綿竇栓塞：眼肌麻痺「大於」突眼程度、沒有轉動痛、V2 感覺下降、雙側眼肌麻痺。<span class="ref">p.230</span></li>
+<li id="np-174">&lt; 10 歲最常侵犯的鼻竇是 ethmoid（不是 maxillary）。<span class="ref">p.228</span></li>
 </ul></div>
 
 <h2 id="ch17-s8">八、Childhood orbital inflammation（兒童眼窩發炎）</h2>
 <ul>
-<li>多種非感染、非外傷疾病可造成兒童眼窩發炎，可能類似感染或腫塊。<span class="ref">p.230</span></li>
-<li><strong>Thyroid eye disease（TED，甲狀腺眼病變）</strong>：<mark>成人突眼最常見原因</mark>，青春期前兒童罕見，青少年偶見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.230</span></li>
-<li>雙側眼窩發炎可見於 <strong>sarcoidosis（類肉瘤病）</strong>。<span class="ref">p.230</span></li>
+<li id="np-175">多種非感染、非外傷疾病可造成兒童眼窩發炎，可能類似感染或腫塊。<span class="ref">p.230</span></li>
+<li id="np-176"><strong>Thyroid eye disease（TED，甲狀腺眼病變）</strong>：<mark>成人突眼最常見原因</mark>，青春期前兒童罕見，青少年偶見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.230</span></li>
+<li id="np-177">雙側眼窩發炎可見於 <strong>sarcoidosis（類肉瘤病）</strong>。<span class="ref">p.230</span></li>
 </ul>
 <h3 id="ch17-s8-1">Nonspecific orbital inflammation（NSOI，非特異性眼窩發炎）</h3>
 <ul>
-<li>又稱 orbital pseudotumor（眼窩偽瘤）、idiopathic orbital inflammatory syndrome；兒童期的發炎性突眼原因，<mark>與成人型明顯不同</mark>。<span class="ref">p.230</span></li>
-<li>兒童典型：<mark>急性、疼痛</mark>，較像 orbital cellulitis（視力下降、紅眼、突眼、眼周水腫、ophthalmoplegia、疼痛／感覺缺失），而不像腫瘤或 TED。<span class="ref">p.230–231</span></li>
-<li>與 cellulitis 不同：<mark>通常不發燒、complete blood cell count（CBC，全血球計數）通常正常</mark>；iritis（虹膜炎）、scleritis（鞏膜炎）少見。<span class="ref">p.231</span></li>
-<li><mark>常為雙側</mark>，可合併<strong>全身症狀</strong>：頭痛、噁心、嘔吐、倦怠。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.231</span></li>
-<li>影像：眼窩脂肪密度增加、後鞏膜與 Tenon 層增厚、眼外肌腫大；<strong>淚腺常受累</strong>；<mark>通常沒有鼻竇炎</mark>。<span class="ref">p.231</span></li>
+<li id="np-178">又稱 orbital pseudotumor（眼窩偽瘤）、idiopathic orbital inflammatory syndrome；兒童期的發炎性突眼原因，<mark>與成人型明顯不同</mark>。<span class="ref">p.230</span></li>
+<li id="np-179">兒童典型：<mark>急性、疼痛</mark>，較像 orbital cellulitis（視力下降、紅眼、突眼、眼周水腫、ophthalmoplegia、疼痛／感覺缺失），而不像腫瘤或 TED。<span class="ref">p.230–231</span></li>
+<li id="np-180">與 cellulitis 不同：<mark>通常不發燒、complete blood cell count（CBC，全血球計數）通常正常</mark>；iritis（虹膜炎）、scleritis（鞏膜炎）少見。<span class="ref">p.231</span></li>
+<li id="np-181"><mark>常為雙側</mark>，可合併<strong>全身症狀</strong>：頭痛、噁心、嘔吐、倦怠。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.231</span></li>
+<li id="np-182">影像：眼窩脂肪密度增加、後鞏膜與 Tenon 層增厚、眼外肌腫大；<strong>淚腺常受累</strong>；<mark>通常沒有鼻竇炎</mark>。<span class="ref">p.231</span></li>
 </ul>
 <h3 id="ch17-s8-2">Orbital myositis（眼窩肌炎）</h3>
 <ul>
-<li>侷限於 <span class="num">≥ 1</span> 條眼外肌的 NSOI；表現隨發炎量而定：diplopia（複視）、結膜 chemosis、眼窩痛常見；可亞急性或快速進展；除非肌肉巨大腫脹，<strong>視力很少受損</strong>。<span class="ref">p.231</span></li>
-<li>影像：肌肉瀰漫腫大，<mark>一路延伸到 insertion（肌腱附著處）</mark>；不同於 <strong>thyroid myopathy（甲狀腺肌病變）</strong>主要侵犯 muscle belly（肌腹，fusiform 梭形、不侵犯肌腱）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.231</span></li>
+<li id="np-183">侷限於 <span class="num">≥ 1</span> 條眼外肌的 NSOI；表現隨發炎量而定：diplopia（複視）、結膜 chemosis、眼窩痛常見；可亞急性或快速進展；除非肌肉巨大腫脹，<strong>視力很少受損</strong>。<span class="ref">p.231</span></li>
+<li id="np-184">影像：肌肉瀰漫腫大，<mark>一路延伸到 insertion（肌腱附著處）</mark>；不同於 <strong>thyroid myopathy（甲狀腺肌病變）</strong>主要侵犯 muscle belly（肌腹，fusiform 梭形、不侵犯肌腱）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.231</span></li>
 </ul>
 <h3 id="ch17-s8-3">診斷與治療</h3>
 <ul>
-<li>NSOI 與 orbital myositis 都是 <mark>diagnosis of exclusion（排除性診斷）</mark>，必須評估感染（含病毒）及全身性發炎或浸潤性病因。<span class="ref">p.231</span></li>
-<li><strong>Corticosteroid（皮質類固醇，可口服）</strong>通常迅速緩解症狀；<mark>常需長期治療、復發常見</mark>。BCSC 7（本章外）：達最大反應後才緩慢減量，快速減量易復發。Fig 17-12：11 歲雙側 NSOI，所有眼外肌腫大，類固醇 1 個月後完全緩解。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.231；BCSC 7 p.74</span></li>
+<li id="np-185">NSOI 與 orbital myositis 都是 <mark>diagnosis of exclusion（排除性診斷）</mark>，必須評估感染（含病毒）及全身性發炎或浸潤性病因。<span class="ref">p.231</span></li>
+<li id="np-186"><strong>Corticosteroid（皮質類固醇，可口服）</strong>通常迅速緩解症狀；<mark>常需長期治療、復發常見</mark>。BCSC 7（本章外）：達最大反應後才緩慢減量，快速減量易復發。Fig 17-12：11 歲雙側 NSOI，所有眼外肌腫大，類固醇 1 個月後完全緩解。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.231；BCSC 7 p.74</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s8-4">易錯陷阱</h3><ul>
-<li>「Fusiform（梭形）肌肉腫大、不侵犯肌腱」是 TED；NSOI 肌炎延伸到肌腱附著處。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.231</span></li>
-<li>兒童 NSOI 像蜂窩性組織炎（急性疼痛），但不發燒、CBC 正常、通常沒有鼻竇炎；常雙側、可有全身症狀。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.230–231</span></li>
-<li>TED 是成人突眼最常見原因，但在青春期前兒童罕見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.230</span></li>
+<li id="np-187">「Fusiform（梭形）肌肉腫大、不侵犯肌腱」是 TED；NSOI 肌炎延伸到肌腱附著處。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.231</span></li>
+<li id="np-188">兒童 NSOI 像蜂窩性組織炎（急性疼痛），但不發燒、CBC 正常、通常沒有鼻竇炎；常雙側、可有全身症狀。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-810" data-q="810">第 810 題</a></span><span class="ref">p.230–231</span></li>
+<li id="np-189">TED 是成人突眼最常見原因，但在青春期前兒童罕見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.230</span></li>
 </ul></div>
 
 <h2 id="ch17-s9">九、Orbital neoplasms：總論與鑑別診斷</h2>
 <ul>
-<li>兒童眼窩可發生多種惡性腫瘤；可能威脅視力的良性附屬器腫塊在兒童很常見。<span class="ref">p.231</span></li>
-<li>眼窩佔位病灶的臨床表現既非特異又有限：突眼或眼球移位、眼瞼腫脹或變色、可觸及皮下腫塊、ptosis、斜視。<span class="ref">p.231</span></li>
-<li>許多眼窩病變可快速發作，包括病史不可靠的<strong>外傷</strong>；不合作且眼瞼腫的孩子，輕中度突眼不易察覺。<span class="ref">p.231–232</span></li>
-<li>常見良性腫塊（hemangioma、dermoid cyst）的典型表現足以讓多數病例臨床確診。<span class="ref">p.232</span></li>
-<li><mark>懷疑惡性</mark>：像蜂窩性組織炎的突眼與眼瞼腫<strong>卻沒有發炎徵象</strong>；或<mark><strong>無外傷史卻出現眼周 ecchymosis（瘀青）或血腫</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.232</span></li>
-<li><strong>Pseudoproptosis（假性突眼）</strong>：眼球體積超過眼窩容量，如 primary congenital glaucoma（原發性先天性青光眼）或 high myopia。<span class="ref">p.232</span></li>
-<li>影像：<mark><strong>MRI 是多數病人的首選</strong></mark>；CT 對骨異常較佳，但有輻射，除非必要（尤其重複）應避免；超音波可能有用。<span class="ref">p.232</span></li>
-<li>確診常需 biopsy（切片）；適時會診小兒腫瘤科；眼窩手術前可考慮 metastatic workup（轉移評估），因有時其他較易取得的部位可切片。<span class="ref">p.232</span></li>
+<li id="np-190">兒童眼窩可發生多種惡性腫瘤；可能威脅視力的良性附屬器腫塊在兒童很常見。<span class="ref">p.231</span></li>
+<li id="np-191">眼窩佔位病灶的臨床表現既非特異又有限：突眼或眼球移位、眼瞼腫脹或變色、可觸及皮下腫塊、ptosis、斜視。<span class="ref">p.231</span></li>
+<li id="np-192">許多眼窩病變可快速發作，包括病史不可靠的<strong>外傷</strong>；不合作且眼瞼腫的孩子，輕中度突眼不易察覺。<span class="ref">p.231–232</span></li>
+<li id="np-193">常見良性腫塊（hemangioma、dermoid cyst）的典型表現足以讓多數病例臨床確診。<span class="ref">p.232</span></li>
+<li id="np-194"><mark>懷疑惡性</mark>：像蜂窩性組織炎的突眼與眼瞼腫<strong>卻沒有發炎徵象</strong>；或<mark><strong>無外傷史卻出現眼周 ecchymosis（瘀青）或血腫</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.232</span></li>
+<li id="np-195"><strong>Pseudoproptosis（假性突眼）</strong>：眼球體積超過眼窩容量，如 primary congenital glaucoma（原發性先天性青光眼）或 high myopia。<span class="ref">p.232</span></li>
+<li id="np-196">影像：<mark><strong>MRI 是多數病人的首選</strong></mark>；CT 對骨異常較佳，但有輻射，除非必要（尤其重複）應避免；超音波可能有用。<span class="ref">p.232</span></li>
+<li id="np-197">確診常需 biopsy（切片）；適時會診小兒腫瘤科；眼窩手術前可考慮 metastatic workup（轉移評估），因有時其他較易取得的部位可切片。<span class="ref">p.232</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s9-1">易錯陷阱</h3><ul>
-<li>無外傷兒童突然眼瞼瘀青 + 突眼 → 想惡性（典型為 metastatic neuroblastoma 的 ecchymotic proptosis），不是 plexiform neurofibroma；plexiform neurofibroma 的特徵是 S-shaped eyelid（S 形眼瞼，BCSC 7，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.232–233；BCSC 7 p.24</span></li>
-<li>兒童眼窩影像首選 MRI（避免輻射），CT 用於骨病變。<span class="ref">p.232</span></li>
+<li id="np-198">無外傷兒童突然眼瞼瘀青 + 突眼 → 想惡性（典型為 metastatic neuroblastoma 的 ecchymotic proptosis），不是 plexiform neurofibroma；plexiform neurofibroma 的特徵是 S-shaped eyelid（S 形眼瞼，BCSC 7，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.232–233；BCSC 7 p.24</span></li>
+<li id="np-199">兒童眼窩影像首選 MRI（避免輻射），CT 用於骨病變。<span class="ref">p.232</span></li>
 </ul></div>
 
 <h2 id="ch17-s10">十、Primary malignant neoplasms：rhabdomyosarcoma（橫紋肌肉瘤）與其他肉瘤</h2>
 <ul>
-<li>兒童原發性眼窩惡性腫瘤<mark>多數是 sarcomas（肉瘤）</mark>；上皮來源腫瘤極罕見。<span class="ref">p.232</span></li>
+<li id="np-200">兒童原發性眼窩惡性腫瘤<mark>多數是 sarcomas（肉瘤）</mark>；上皮來源腫瘤極罕見。<span class="ref">p.232</span></li>
 </ul>
 <h3 id="ch17-s10-1">流行病學</h3>
 <ul>
-<li><mark><strong>兒童最常見的原發性眼窩惡性腫瘤</strong></mark>；被認為源自 <strong>undifferentiated mesenchymal cells（未分化間質細胞）</strong>（而非外眼肌本身）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-740" data-q="740">第 740 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a></span><span class="ref">p.232</span></li>
-<li>約佔兒童眼窩切片的 <span class="num">5%</span>；發生率超過其他所有肉瘤總和。<span class="ref">p.232</span></li>
-<li>Rhabdomyosarcoma 有 <span class="num">10%</span> 原發於眼窩；<span class="num">25%</span> 發生於頭頸其他部位，偶爾續發侵犯眼窩。<span class="ref">p.232</span></li>
-<li><mark>平均發病年齡 <span class="num">5–7 歲</span></mark>，但任何年齡皆可；<mark><strong>infancy（嬰兒期）</strong>發病者更具侵襲性、預後較差</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a></span><span class="ref">p.232</span></li>
+<li id="np-201"><mark><strong>兒童最常見的原發性眼窩惡性腫瘤</strong></mark>；被認為源自 <strong>undifferentiated mesenchymal cells（未分化間質細胞）</strong>（而非外眼肌本身）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-740" data-q="740">第 740 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a></span><span class="ref">p.232</span></li>
+<li id="np-202">約佔兒童眼窩切片的 <span class="num">5%</span>；發生率超過其他所有肉瘤總和。<span class="ref">p.232</span></li>
+<li id="np-203">Rhabdomyosarcoma 有 <span class="num">10%</span> 原發於眼窩；<span class="num">25%</span> 發生於頭頸其他部位，偶爾續發侵犯眼窩。<span class="ref">p.232</span></li>
+<li id="np-204"><mark>平均發病年齡 <span class="num">5–7 歲</span></mark>，但任何年齡皆可；<mark><strong>infancy（嬰兒期）</strong>發病者更具侵襲性、預後較差</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a></span><span class="ref">p.232</span></li>
 </ul>
 <h3 id="ch17-s10-2">臨床表現</h3>
 <ul>
-<li>通常原發於眼窩，偶見於結膜、眼瞼或前葡萄膜。<span class="ref">p.232</span></li>
-<li>表現頻率：proptosis <span class="num">80%–100%</span>、globe displacement（眼球移位）<span class="num">80%</span>、blepharoptosis（眼瞼下垂）<span class="num">30%–50%</span>、結膜與眼瞼腫 <span class="num">60%</span>、可觸及腫塊 <span class="num">25%</span>、疼痛 <span class="num">10%</span>。<span class="ref">p.232</span></li>
-<li>發作通常快速；<mark>急性、快速進展、<strong>無痛</strong>的突眼</mark>提示眼窩 rhabdomyosarcoma。影像：不規則但界線清楚、密度均勻的腫塊。<span class="ref">p.232</span></li>
-<li>BCSC 7（本章外）：可觸及腫塊尤其常在 <mark><strong>superonasal quadrant（上鼻側象限）</strong></mark>，最常見的 embryonal 型也典型位於上鼻側——不是 superotemporal。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-740" data-q="740">第 740 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a></span><span class="ref">BCSC 7 p.94–95</span></li>
+<li id="np-205">通常原發於眼窩，偶見於結膜、眼瞼或前葡萄膜。<span class="ref">p.232</span></li>
+<li id="np-206">表現頻率：proptosis <span class="num">80%–100%</span>、globe displacement（眼球移位）<span class="num">80%</span>、blepharoptosis（眼瞼下垂）<span class="num">30%–50%</span>、結膜與眼瞼腫 <span class="num">60%</span>、可觸及腫塊 <span class="num">25%</span>、疼痛 <span class="num">10%</span>。<span class="ref">p.232</span></li>
+<li id="np-207">發作通常快速；<mark>急性、快速進展、<strong>無痛</strong>的突眼</mark>提示眼窩 rhabdomyosarcoma。影像：不規則但界線清楚、密度均勻的腫塊。<span class="ref">p.232</span></li>
+<li id="np-208">BCSC 7（本章外）：可觸及腫塊尤其常在 <mark><strong>superonasal quadrant（上鼻側象限）</strong></mark>，最常見的 embryonal 型也典型位於上鼻側——不是 superotemporal。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-740" data-q="740">第 740 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a></span><span class="ref">BCSC 7 p.94–95</span></li>
 </ul>
 <h3 id="ch17-s10-3">組織學（Histology）</h3>
 <ul>
-<li>懷疑時<strong>一定要切片</strong>確診。<span class="ref">p.233</span></li>
-<li><mark>最常見：<strong>embryonal（胚胎型）</strong></mark>，只有少數細胞可見特徵性 <strong>cross-striations（橫紋）</strong>。BCSC 7（本章外）：embryonal 佔 <span class="num">&gt; 80%</span>，由鬆散的未分化 spindle cells（梭形細胞）組成，光顯下常看不到橫紋（trichrome 染色或電顯較易見）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-723" data-q="723">第 723 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-740" data-q="740">第 740 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-710" data-q="710">第 710 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
-<li>第二常見：<strong>alveolar（腺泡型／肺泡型）</strong>，<mark>預後不良</mark>；分化差的腫瘤細胞被整齊的結締組織隔間分隔。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.233</span></li>
-<li><strong>Botryoid（葡萄狀，grapelike）</strong>或分化良好的 <strong>pleomorphic（多形型）</strong>：<mark>很少見於眼窩</mark>，但可原發於結膜。BCSC 7（本章外）：botryoid 為 embryonal 的罕見變異型，<mark>不以眼窩為原發</mark>，只經鼻竇或結膜續發延伸入眼窩；pleomorphic 分化最好、<mark>預後最佳</mark>（5 年存活率約 <span class="num">97%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-710" data-q="710">第 710 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
+<li id="np-209">懷疑時<strong>一定要切片</strong>確診。<span class="ref">p.233</span></li>
+<li id="np-210"><mark>最常見：<strong>embryonal（胚胎型）</strong></mark>，只有少數細胞可見特徵性 <strong>cross-striations（橫紋）</strong>。BCSC 7（本章外）：embryonal 佔 <span class="num">&gt; 80%</span>，由鬆散的未分化 spindle cells（梭形細胞）組成，光顯下常看不到橫紋（trichrome 染色或電顯較易見）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-723" data-q="723">第 723 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-740" data-q="740">第 740 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-710" data-q="710">第 710 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
+<li id="np-211">第二常見：<strong>alveolar（腺泡型／肺泡型）</strong>，<mark>預後不良</mark>；分化差的腫瘤細胞被整齊的結締組織隔間分隔。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.233</span></li>
+<li id="np-212"><strong>Botryoid（葡萄狀，grapelike）</strong>或分化良好的 <strong>pleomorphic（多形型）</strong>：<mark>很少見於眼窩</mark>，但可原發於結膜。BCSC 7（本章外）：botryoid 為 embryonal 的罕見變異型，<mark>不以眼窩為原發</mark>，只經鼻竇或結膜續發延伸入眼窩；pleomorphic 分化最好、<mark>預後最佳</mark>（5 年存活率約 <span class="num">97%</span>）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-710" data-q="710">第 710 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
 </ul>
 <h3 id="ch17-s10-4">治療與預後</h3>
 <ul>
-<li>小而有包膜或局限的腫瘤，可行時應完全切除；通常 <mark><strong>chemotherapy（化療）+ radiation（放療）合併手術</strong></mark>；<mark><strong>exenteration（眼窩內容物剜除術）很少需要</strong></mark>。BCSC 7（本章外）：1965 年後以放療與全身化療為主要治療，exenteration 保留給復發病例；標準治療不包括 hyperbaric oxygen（高壓氧）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
-<li>原發性眼窩 rhabdomyosarcoma 預後相對良好：5 年存活率 <mark><strong>alveolar <span class="num">74%</span></strong>、<strong>embryonal <span class="num">94%</span></strong></mark>。BCSC 7（本章外）記 alveolar 約 <span class="num">65%</span>——兩冊都遠低於「10 年存活率約 80%」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-710" data-q="710">第 710 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
+<li id="np-213">小而有包膜或局限的腫瘤，可行時應完全切除；通常 <mark><strong>chemotherapy（化療）+ radiation（放療）合併手術</strong></mark>；<mark><strong>exenteration（眼窩內容物剜除術）很少需要</strong></mark>。BCSC 7（本章外）：1965 年後以放療與全身化療為主要治療，exenteration 保留給復發病例；標準治療不包括 hyperbaric oxygen（高壓氧）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
+<li id="np-214">原發性眼窩 rhabdomyosarcoma 預後相對良好：5 年存活率 <mark><strong>alveolar <span class="num">74%</span></strong>、<strong>embryonal <span class="num">94%</span></strong></mark>。BCSC 7（本章外）記 alveolar 約 <span class="num">65%</span>——兩冊都遠低於「10 年存活率約 80%」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-710" data-q="710">第 710 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Type（組織型）</th><th>Frequency（頻率）</th><th>Prognosis（預後）</th><th>Notes（備註）</th></tr></thead>
 <tbody>
-<tr><td>Embryonal</td><td>最常見（BCSC 7：&gt; 80%）</td><td>良好，5 年 <span class="num">94%</span></td><td>少數細胞有橫紋；典型上鼻側（BCSC 7）</td></tr>
-<tr><td>Alveolar</td><td>第二常見</td><td>不良，5 年 <span class="num">74%</span>（BCSC 7：約 65%）</td><td>結締組織隔間；最惡性</td></tr>
-<tr><td>Botryoid</td><td>眼窩罕見</td><td>—</td><td>葡萄狀；BCSC 6：可原發於結膜；BCSC 7：不原發於眼窩，只由鼻竇／結膜續發延伸</td></tr>
-<tr><td>Pleomorphic</td><td>眼窩罕見</td><td>最佳（BCSC 7：約 97%）</td><td>分化最好</td></tr>
+<tr><td id="np-215">Embryonal</td><td id="np-216">最常見（BCSC 7：&gt; 80%）</td><td id="np-217">良好，5 年 <span class="num">94%</span></td><td id="np-218">少數細胞有橫紋；典型上鼻側（BCSC 7）</td></tr>
+<tr><td id="np-219">Alveolar</td><td id="np-220">第二常見</td><td id="np-221">不良，5 年 <span class="num">74%</span>（BCSC 7：約 65%）</td><td id="np-222">結締組織隔間；最惡性</td></tr>
+<tr><td id="np-223">Botryoid</td><td id="np-224">眼窩罕見</td><td id="np-225">—</td><td id="np-226">葡萄狀；BCSC 6：可原發於結膜；BCSC 7：不原發於眼窩，只由鼻竇／結膜續發延伸</td></tr>
+<tr><td id="np-227">Pleomorphic</td><td id="np-228">眼窩罕見</td><td id="np-229">最佳（BCSC 7：約 97%）</td><td id="np-230">分化最好</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.233；BCSC 7 p.95</span></p>
+<p id="np-231">出處 <span class="ref">p.233；BCSC 7 p.95</span></p>
 <h3 id="ch17-s10-5">Other sarcomas（其他肉瘤）</h3>
 <ul>
-<li>Osteosarcoma（骨肉瘤）、chondrosarcoma（軟骨肉瘤）、fibrosarcoma（纖維肉瘤）可在兒童眼窩發生；<mark>有 <strong>heritable retinoblastoma（遺傳性視網膜母細胞瘤）</strong>病史者風險增加，尤其曾接受 external-beam radiation（體外放射治療）</mark>。<span class="ref">p.233</span></li>
+<li id="np-232">Osteosarcoma（骨肉瘤）、chondrosarcoma（軟骨肉瘤）、fibrosarcoma（纖維肉瘤）可在兒童眼窩發生；<mark>有 <strong>heritable retinoblastoma（遺傳性視網膜母細胞瘤）</strong>病史者風險增加，尤其曾接受 external-beam radiation（體外放射治療）</mark>。<span class="ref">p.233</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s10-6">易錯陷阱</h3><ul>
-<li>更具侵襲性、預後差的是「嬰兒期」發病，不是青少年。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a></span><span class="ref">p.232</span></li>
-<li>最常見 embryonal；最差 alveolar；最好 pleomorphic；botryoid（= grapelike）眼窩少見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-710" data-q="710">第 710 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
-<li>Rhabdomyosarcoma 好發上鼻側，不是上顳側（上顳側是 dermoid cyst）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-740" data-q="740">第 740 題</a></span><span class="ref">p.239；BCSC 7 p.94–95</span></li>
-<li>治療不追求 exenteration；化放療 + 能完整切除才切除。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.233</span></li>
-<li>典型表現是「快速、無痛」突眼；疼痛只有約 <span class="num">10%</span>。<span class="ref">p.232</span></li>
+<li id="np-233">更具侵襲性、預後差的是「嬰兒期」發病，不是青少年。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a></span><span class="ref">p.232</span></li>
+<li id="np-234">最常見 embryonal；最差 alveolar；最好 pleomorphic；botryoid（= grapelike）眼窩少見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-660" data-q="660">第 660 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-710" data-q="710">第 710 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-753" data-q="753">第 753 題</a></span><span class="ref">p.233；BCSC 7 p.95</span></li>
+<li id="np-235">Rhabdomyosarcoma 好發上鼻側，不是上顳側（上顳側是 dermoid cyst）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-740" data-q="740">第 740 題</a></span><span class="ref">p.239；BCSC 7 p.94–95</span></li>
+<li id="np-236">治療不追求 exenteration；化放療 + 能完整切除才切除。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-678" data-q="678">第 678 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-723" data-q="723">第 723 題</a></span><span class="ref">p.233</span></li>
+<li id="np-237">典型表現是「快速、無痛」突眼；疼痛只有約 <span class="num">10%</span>。<span class="ref">p.232</span></li>
 </ul></div>
 
 <h2 id="ch17-s11">十一、Metastatic tumors 與 hematopoietic、lymphoproliferative、histiocytic neoplasms</h2>
 <h3 id="ch17-s11-1">Metastatic tumors（轉移性腫瘤）</h3>
 <ul>
-<li><mark>兒童眼部轉移最常見部位是 <strong>orbit（眼窩）</strong></mark>；成人則以 uvea（葡萄膜）最常見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-754" data-q="754">第 754 題</a></span><span class="ref">p.233</span></li>
-<li><strong>Neuroblastoma（神經母細胞瘤）</strong>：<mark>兒童眼窩轉移最常見來源</mark>（詳見第 27 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.233</span></li>
-<li><strong>Ewing sarcoma（尤文氏肉瘤）</strong>：small round cells（小圓細胞），常源自四肢長骨或中軸骨；<mark>實體腫瘤中眼窩轉移第二常見來源</mark>；手術、放療、化療可使許多已擴散者長期存活。<span class="ref">p.233</span></li>
-<li>BCSC 7（本章外，Q754 其他選項）：淚腺最常見惡性上皮腫瘤是 <strong>adenoid cystic carcinoma（腺樣囊狀癌）</strong>，不是 malignant mixed tumor；眼窩淋巴瘤以 extranodal marginal zone（MALT）lymphoma 最常見（約 <span class="num">57%</span>），約 <span class="num">98%</span> 為 B 細胞，T 細胞淋巴瘤罕見但較致命。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-754" data-q="754">第 754 題</a></span><span class="ref">BCSC 7 p.99, p.107–108</span></li>
+<li id="np-238"><mark>兒童眼部轉移最常見部位是 <strong>orbit（眼窩）</strong></mark>；成人則以 uvea（葡萄膜）最常見。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-754" data-q="754">第 754 題</a></span><span class="ref">p.233</span></li>
+<li id="np-239"><strong>Neuroblastoma（神經母細胞瘤）</strong>：<mark>兒童眼窩轉移最常見來源</mark>（詳見第 27 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.233</span></li>
+<li id="np-240"><strong>Ewing sarcoma（尤文氏肉瘤）</strong>：small round cells（小圓細胞），常源自四肢長骨或中軸骨；<mark>實體腫瘤中眼窩轉移第二常見來源</mark>；手術、放療、化療可使許多已擴散者長期存活。<span class="ref">p.233</span></li>
+<li id="np-241">BCSC 7（本章外，Q754 其他選項）：淚腺最常見惡性上皮腫瘤是 <strong>adenoid cystic carcinoma（腺樣囊狀癌）</strong>，不是 malignant mixed tumor；眼窩淋巴瘤以 extranodal marginal zone（MALT）lymphoma 最常見（約 <span class="num">57%</span>），約 <span class="num">98%</span> 為 B 細胞，T 細胞淋巴瘤罕見但較致命。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-754" data-q="754">第 754 題</a></span><span class="ref">BCSC 7 p.99, p.107–108</span></li>
 </ul>
 <h3 id="ch17-s11-2">Leukemia（白血病）</h3>
 <ul>
-<li>眼窩白血病浸潤相對少見，<mark>較典型於 <strong>acute myelogenous leukemia（AML，急性骨髓性白血病）</strong></mark>。<span class="ref">p.233</span></li>
-<li>可能難與細菌或黴菌性 orbital cellulitis 區分；影像上浸潤<mark>通常雙側、不破壞骨頭</mark>。表現：突眼、眼瞼腫、瘀青、ophthalmoplegia、視神經病變；可能以 <strong>radiation therapy</strong> 處理最佳。<span class="ref">p.233</span></li>
-<li><strong>Granulocytic sarcoma（顆粒球肉瘤）／chloroma（綠色瘤）</strong>（組織呈綠色）：骨髓性白血病細胞的局部聚積，可發生於全身含眼窩；<mark>可在血液學出現白血病<strong>數個月前</strong>就發生</mark>。<span class="ref">p.233</span></li>
+<li id="np-242">眼窩白血病浸潤相對少見，<mark>較典型於 <strong>acute myelogenous leukemia（AML，急性骨髓性白血病）</strong></mark>。<span class="ref">p.233</span></li>
+<li id="np-243">可能難與細菌或黴菌性 orbital cellulitis 區分；影像上浸潤<mark>通常雙側、不破壞骨頭</mark>。表現：突眼、眼瞼腫、瘀青、ophthalmoplegia、視神經病變；可能以 <strong>radiation therapy</strong> 處理最佳。<span class="ref">p.233</span></li>
+<li id="np-244"><strong>Granulocytic sarcoma（顆粒球肉瘤）／chloroma（綠色瘤）</strong>（組織呈綠色）：骨髓性白血病細胞的局部聚積，可發生於全身含眼窩；<mark>可在血液學出現白血病<strong>數個月前</strong>就發生</mark>。<span class="ref">p.233</span></li>
 </ul>
 <h3 id="ch17-s11-3">Lymphoma（淋巴瘤）</h3>
 <ul>
-<li>與成人相反，<mark>兒童淋巴瘤極少侵犯眼窩</mark>；最可能侵犯眼窩的是 <strong>Burkitt lymphoma</strong>（東非流行、北美少見）。<span class="ref">p.234</span></li>
+<li id="np-245">與成人相反，<mark>兒童淋巴瘤極少侵犯眼窩</mark>；最可能侵犯眼窩的是 <strong>Burkitt lymphoma</strong>（東非流行、北美少見）。<span class="ref">p.234</span></li>
 </ul>
 <h3 id="ch17-s11-4">Langerhans cell histiocytosis（LCH，蘭格漢斯細胞組織球增生症）</h3>
 <ul>
-<li>舊稱 histiocytosis X；通常兒童期發生，組織球異常增生、常在骨內；分 3 型。<span class="ref">p.234</span></li>
+<li id="np-246">舊稱 histiocytosis X；通常兒童期發生，組織球異常增生、常在骨內；分 3 型。<span class="ref">p.234</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（分型）</th><th>Age（年齡）</th><th>Features（特徵）</th><th>Treatment / prognosis（治療與預後）</th></tr></thead>
 <tbody>
-<tr><td><strong>Unifocal eosinophilic granuloma of bone（單灶性嗜酸性肉芽腫）</strong>：最局限、最良性</td><td>兒童或青少年</td><td>侵犯眼窩、顱骨、肋骨或長骨；突眼、ptosis、眼周腫；<strong>局部疼痛與壓痛相對常見</strong>；CT：<mark>界線銳利的 osteolytic（溶骨性）病灶、周圍無硬化</mark>（Fig 17-14：15 歲，右後外側眶壁破壞）</td><td>無症狀單一病灶觀察、切除或刮除、全身或病灶內 corticosteroid、低劑量放療；<mark>各方式成功率都高</mark></td></tr>
-<tr><td><strong>Multifocal eosinophilic granuloma of bone（多灶性）</strong>：擴散、侵襲性</td><td><span class="num">2–5 歲</span></td><td>侵犯骨性眼窩致突眼；<strong>pituitary dysfunction（腦下垂體功能異常）常見</strong></td><td>常需化療，預後通常良好</td></tr>
-<tr><td><strong>Diffuse soft-tissue histiocytosis（瀰漫性軟組織組織球增生）</strong>：最嚴重</td><td><span class="num">&lt; 2 歲</span>嬰兒</td><td>多器官（肝、脾）軟組織病灶</td><td>很少侵犯眼睛</td></tr>
+<tr><td id="np-247"><strong>Unifocal eosinophilic granuloma of bone（單灶性嗜酸性肉芽腫）</strong>：最局限、最良性</td><td id="np-248">兒童或青少年</td><td id="np-249">侵犯眼窩、顱骨、肋骨或長骨；突眼、ptosis、眼周腫；<strong>局部疼痛與壓痛相對常見</strong>；CT：<mark>界線銳利的 osteolytic（溶骨性）病灶、周圍無硬化</mark>（Fig 17-14：15 歲，右後外側眶壁破壞）</td><td id="np-250">無症狀單一病灶觀察、切除或刮除、全身或病灶內 corticosteroid、低劑量放療；<mark>各方式成功率都高</mark></td></tr>
+<tr><td id="np-251"><strong>Multifocal eosinophilic granuloma of bone（多灶性）</strong>：擴散、侵襲性</td><td id="np-252"><span class="num">2–5 歲</span></td><td id="np-253">侵犯骨性眼窩致突眼；<strong>pituitary dysfunction（腦下垂體功能異常）常見</strong></td><td id="np-254">常需化療，預後通常良好</td></tr>
+<tr><td id="np-255"><strong>Diffuse soft-tissue histiocytosis（瀰漫性軟組織組織球增生）</strong>：最嚴重</td><td id="np-256"><span class="num">&lt; 2 歲</span>嬰兒</td><td id="np-257">多器官（肝、脾）軟組織病灶</td><td id="np-258">很少侵犯眼睛</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.234</span></p>
+<p id="np-259">出處 <span class="ref">p.234</span></p>
 <div class="ex-trap"><h3 id="ch17-s11-5">易錯陷阱</h3><ul>
-<li>轉移部位：兒童 → 眼窩；成人 → 葡萄膜。來源：神經母細胞瘤第一、Ewing sarcoma（實體腫瘤）第二。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-754" data-q="754">第 754 題</a></span><span class="ref">p.233</span></li>
-<li>白血病浸潤：影像上通常雙側、不破壞骨頭；chloroma 可早於血液學診斷。<span class="ref">p.233</span></li>
-<li>LCH 單灶型會痛、CT 溶骨無硬化邊；多灶型 2–5 歲合併腦下垂體異常。<span class="ref">p.234</span></li>
+<li id="np-260">轉移部位：兒童 → 眼窩；成人 → 葡萄膜。來源：神經母細胞瘤第一、Ewing sarcoma（實體腫瘤）第二。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-754" data-q="754">第 754 題</a></span><span class="ref">p.233</span></li>
+<li id="np-261">白血病浸潤：影像上通常雙側、不破壞骨頭；chloroma 可早於血液學診斷。<span class="ref">p.233</span></li>
+<li id="np-262">LCH 單灶型會痛、CT 溶骨無硬化邊；多灶型 2–5 歲合併腦下垂體異常。<span class="ref">p.234</span></li>
 </ul></div>
 
 <h2 id="ch17-s12">十二、Benign tumors：hemangioma（血管瘤，hamartoma）</h2>
 <h3 id="ch17-s12-1">命名與分類</h3>
 <ul>
-<li>現行分類區分 <strong>hemangiomas（hamartomatous growths，錯構性增生）</strong>與 <strong>vascular malformations（血管畸形）</strong>，兩者臨床、組織與預後不同。<mark>舊稱 capillary、strawberry hemangioma 統一改稱 hemangioma</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a></span><span class="ref">p.234–235</span></li>
-<li>Cavernous hemangioma、port-wine birthmark（葡萄酒色斑）、lymphangioma 歸類為「malformations」；眼科文獻用法並不一致。<span class="ref">p.235</span></li>
-<li>Hamartoma = 該部位原本就有的組織異常增生（infantile／capillary hemangioma 是典型）；相對地 <strong>dermoid cyst、dermolipoma、teratoma 屬 choristoma（迷芽瘤）</strong>（見十五節；dermolipoma 屬 choristoma 見 BCSC 7，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a></span><span class="ref">p.234, p.238, p.241；BCSC 7 p.43</span></li>
-<li>組成：增生的微血管內皮細胞。眼周血管瘤分 <strong>preseptal</strong>（皮膚與隔前）、<strong>intraorbital</strong>（隔後）、<strong>compound／mixed</strong>（隔前 + 隔後）。<span class="ref">p.235</span></li>
+<li id="np-263">現行分類區分 <strong>hemangiomas（hamartomatous growths，錯構性增生）</strong>與 <strong>vascular malformations（血管畸形）</strong>，兩者臨床、組織與預後不同。<mark>舊稱 capillary、strawberry hemangioma 統一改稱 hemangioma</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a></span><span class="ref">p.234–235</span></li>
+<li id="np-264">Cavernous hemangioma、port-wine birthmark（葡萄酒色斑）、lymphangioma 歸類為「malformations」；眼科文獻用法並不一致。<span class="ref">p.235</span></li>
+<li id="np-265">Hamartoma = 該部位原本就有的組織異常增生（infantile／capillary hemangioma 是典型）；相對地 <strong>dermoid cyst、dermolipoma、teratoma 屬 choristoma（迷芽瘤）</strong>（見十五節；dermolipoma 屬 choristoma 見 BCSC 7，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a></span><span class="ref">p.234, p.238, p.241；BCSC 7 p.43</span></li>
+<li id="np-266">組成：增生的微血管內皮細胞。眼周血管瘤分 <strong>preseptal</strong>（皮膚與隔前）、<strong>intraorbital</strong>（隔後）、<strong>compound／mixed</strong>（隔前 + 隔後）。<span class="ref">p.235</span></li>
 </ul>
 <h3 id="ch17-s12-2">流行病學與自然病史</h3>
 <ul>
-<li>見於 <span class="num">1%–3%</span> 足月新生兒；<mark>premature（早產）、女嬰、chorionic villus sampling（絨毛膜取樣）後較常見</mark>。<span class="ref">p.235</span></li>
-<li><mark>多數出生時臨床上不明顯</mark>：可看不到，或只是紅斑或微血管擴張。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.235</span></li>
-<li><mark>出生後數個月快速增生，很少持續超過 <span class="num">1 歲</span>；1 歲後通常開始消退</mark>，消退速度與程度不一——<strong>不會持續長到成人</strong>。BCSC 7（本章外）：約 <span class="num">75%</span> 在 3–7 歲間消退。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.235；BCSC 7 p.77</span></li>
-<li>眼周病灶可因誘發 <strong>astigmatism</strong> 或<strong>遮蔽視軸</strong>造成 <mark>amblyopia（弱視）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.235</span></li>
+<li id="np-267">見於 <span class="num">1%–3%</span> 足月新生兒；<mark>premature（早產）、女嬰、chorionic villus sampling（絨毛膜取樣）後較常見</mark>。<span class="ref">p.235</span></li>
+<li id="np-268"><mark>多數出生時臨床上不明顯</mark>：可看不到，或只是紅斑或微血管擴張。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.235</span></li>
+<li id="np-269"><mark>出生後數個月快速增生，很少持續超過 <span class="num">1 歲</span>；1 歲後通常開始消退</mark>，消退速度與程度不一——<strong>不會持續長到成人</strong>。BCSC 7（本章外）：約 <span class="num">75%</span> 在 3–7 歲間消退。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.235；BCSC 7 p.77</span></li>
+<li id="np-270">眼周病灶可因誘發 <strong>astigmatism</strong> 或<strong>遮蔽視軸</strong>造成 <mark>amblyopia（弱視）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.235</span></li>
 </ul>
 <h3 id="ch17-s12-3">Systemic associations（相關全身疾病）</h3>
 <ul>
-<li><strong>PHACE syndrome</strong>：<strong>P</strong>osterior fossa malformations（後顱窩畸形）、<strong>H</strong>emangiomas、<strong>A</strong>rterial lesions（動脈病變）、<strong>C</strong>ardiac（心臟）and <strong>E</strong>ye anomalies。眼部：視網膜血管增加、microphthalmia、optic nerve hypoplasia、突眼、choroidal hemangioma（脈絡膜血管瘤）、斜視、coloboma、cataract、glaucoma。<span class="ref">p.235</span></li>
-<li><mark>大型、segmental（節段性）、plaquelike（斑塊狀）、侵犯 ≥ 1 個 dermatome（皮節）的臉部血管瘤 → 考慮 PHACE</mark>。<span class="ref">p.235</span></li>
-<li><strong>Kasabach-Merritt syndrome</strong>：血管病灶內血小板滯留造成的 thrombocytopenic coagulopathy（血小板減少性凝血病變），死亡率高。<span class="ref">p.235</span></li>
-<li><strong>Diffuse neonatal hemangiomatosis（瀰漫性新生兒血管瘤病）</strong>：多個小皮膚血管瘤 + 肝、腸胃道、腦內臟病灶；起初無症狀，但可在數週內心衰竭死亡；<mark>皮膚病灶 <span class="num">&gt; 3</span> 個 → 評估內臟病灶</mark>。<span class="ref">p.235</span></li>
+<li id="np-271"><strong>PHACE syndrome</strong>：<strong>P</strong>osterior fossa malformations（後顱窩畸形）、<strong>H</strong>emangiomas、<strong>A</strong>rterial lesions（動脈病變）、<strong>C</strong>ardiac（心臟）and <strong>E</strong>ye anomalies。眼部：視網膜血管增加、microphthalmia、optic nerve hypoplasia、突眼、choroidal hemangioma（脈絡膜血管瘤）、斜視、coloboma、cataract、glaucoma。<span class="ref">p.235</span></li>
+<li id="np-272"><mark>大型、segmental（節段性）、plaquelike（斑塊狀）、侵犯 ≥ 1 個 dermatome（皮節）的臉部血管瘤 → 考慮 PHACE</mark>。<span class="ref">p.235</span></li>
+<li id="np-273"><strong>Kasabach-Merritt syndrome</strong>：血管病灶內血小板滯留造成的 thrombocytopenic coagulopathy（血小板減少性凝血病變），死亡率高。<span class="ref">p.235</span></li>
+<li id="np-274"><strong>Diffuse neonatal hemangiomatosis（瀰漫性新生兒血管瘤病）</strong>：多個小皮膚血管瘤 + 肝、腸胃道、腦內臟病灶；起初無症狀，但可在數週內心衰竭死亡；<mark>皮膚病灶 <span class="num">&gt; 3</span> 個 → 評估內臟病灶</mark>。<span class="ref">p.235</span></li>
 </ul>
 <h3 id="ch17-s12-4">Treatment（治療）</h3>
 <ul>
-<li>診斷通常由臨床即明顯；MRI 或超音波有時有助確診與界定後方範圍。<span class="ref">p.236</span></li>
-<li>小且無弱視風險 → <strong>observation（觀察）</strong>。<span class="ref">p.236</span></li>
-<li><mark><strong>Propranolol</strong>（非選擇性 β-blocker）可使多數血管瘤消退</mark>，是現行主要治療。嬰兒全身 β-blocker 風險：<mark>bradycardia（心搏過慢）、hypotension（低血壓）、hypoglycemia（低血糖）、bronchospasm（支氣管痙攣）</mark>，但通常耐受良好。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a></span><span class="ref">p.236</span></li>
-<li><mark>PHACE 病童使用 propranolol 要謹慎：可能增加 <strong>stroke（中風）</strong>風險</mark>。<span class="ref">p.236</span></li>
-<li><strong>Topical timolol maleate</strong>（局部塗抹）可能對表淺血管瘤有效。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.236</span></li>
-<li><strong>Pulsed dye laser（脈衝染料雷射）</strong>：治療表淺血管瘤、併發症少，但對深部成分效果有限。<span class="ref">p.236</span></li>
-<li><mark>Surgical excision（手術切除）</mark>：部分 <strong>well-localized（界線清楚）</strong>病灶，或對 propranolol 無反應者可行。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a></span><span class="ref">p.236</span></li>
-<li>本章治療選項沒有把 corticosteroid 列為主要治療；BCSC 7（本章外）：類固醇（局部、病灶內注射、口服）已退居 β-blocker 反應不足時的選項，且有 HPA axis 抑制、生長遲緩、注射栓塞等風險。<mark>「類固醇仍是主要治療」是錯的</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a></span><span class="ref">p.236；BCSC 7 p.78</span></li>
+<li id="np-275">診斷通常由臨床即明顯；MRI 或超音波有時有助確診與界定後方範圍。<span class="ref">p.236</span></li>
+<li id="np-276">小且無弱視風險 → <strong>observation（觀察）</strong>。<span class="ref">p.236</span></li>
+<li id="np-277"><mark><strong>Propranolol</strong>（非選擇性 β-blocker）可使多數血管瘤消退</mark>，是現行主要治療。嬰兒全身 β-blocker 風險：<mark>bradycardia（心搏過慢）、hypotension（低血壓）、hypoglycemia（低血糖）、bronchospasm（支氣管痙攣）</mark>，但通常耐受良好。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a></span><span class="ref">p.236</span></li>
+<li id="np-278"><mark>PHACE 病童使用 propranolol 要謹慎：可能增加 <strong>stroke（中風）</strong>風險</mark>。<span class="ref">p.236</span></li>
+<li id="np-279"><strong>Topical timolol maleate</strong>（局部塗抹）可能對表淺血管瘤有效。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.236</span></li>
+<li id="np-280"><strong>Pulsed dye laser（脈衝染料雷射）</strong>：治療表淺血管瘤、併發症少，但對深部成分效果有限。<span class="ref">p.236</span></li>
+<li id="np-281"><mark>Surgical excision（手術切除）</mark>：部分 <strong>well-localized（界線清楚）</strong>病灶，或對 propranolol 無反應者可行。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a></span><span class="ref">p.236</span></li>
+<li id="np-282">本章治療選項沒有把 corticosteroid 列為主要治療；BCSC 7（本章外）：類固醇（局部、病灶內注射、口服）已退居 β-blocker 反應不足時的選項，且有 HPA axis 抑制、生長遲緩、注射栓塞等風險。<mark>「類固醇仍是主要治療」是錯的</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a></span><span class="ref">p.236；BCSC 7 p.78</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s12-5">易錯陷阱</h3><ul>
-<li>第一線是 propranolol（表淺用 timolol），不是類固醇。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a></span><span class="ref">p.236</span></li>
-<li>Hemangioma 多數出生時不明顯，第 1 年長大後消退，不會長到成人；會隨年齡持續存在、相對靜止的是 vascular malformation。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.235–236</span></li>
-<li>S-shaped eyelid contour 是 plexiform neurofibroma（或淚腺腫塊）的徵象，不是 hemangioma（BCSC 7，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a></span><span class="ref">BCSC 7 p.24, p.90</span></li>
-<li>Hemangioma 是 hamartoma；dermoid、dermolipoma、teratoma 是 choristoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a></span><span class="ref">p.234, p.238, p.241；BCSC 7 p.43</span></li>
-<li>PHACE 用 propranolol 的顧慮是「中風」。<span class="ref">p.236</span></li>
+<li id="np-283">第一線是 propranolol（表淺用 timolol），不是類固醇。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-559" data-q="559">第 559 題</a></span><span class="ref">p.236</span></li>
+<li id="np-284">Hemangioma 多數出生時不明顯，第 1 年長大後消退，不會長到成人；會隨年齡持續存在、相對靜止的是 vascular malformation。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-760" data-q="760">第 760 題</a></span><span class="ref">p.235–236</span></li>
+<li id="np-285">S-shaped eyelid contour 是 plexiform neurofibroma（或淚腺腫塊）的徵象，不是 hemangioma（BCSC 7，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-747" data-q="747">第 747 題</a></span><span class="ref">BCSC 7 p.24, p.90</span></li>
+<li id="np-286">Hemangioma 是 hamartoma；dermoid、dermolipoma、teratoma 是 choristoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a></span><span class="ref">p.234, p.238, p.241；BCSC 7 p.43</span></li>
+<li id="np-287">PHACE 用 propranolol 的顧慮是「中風」。<span class="ref">p.236</span></li>
 </ul></div>
 
 <h2 id="ch17-s13">十三、Vascular malformations（血管畸形）</h2>
 <ul>
-<li>源自 capillary venous、arterial 或 lymphatic 血管的發育異常；<mark>與 hemangioma 相反，畸形<strong>相對靜止</strong></mark>。發病年齡與表現不一：port-wine birthmark 等皮膚畸形出生即可見，但許多畸形到較晚才表現。<span class="ref">p.236</span></li>
+<li id="np-288">源自 capillary venous、arterial 或 lymphatic 血管的發育異常；<mark>與 hemangioma 相反，畸形<strong>相對靜止</strong></mark>。發病年齡與表現不一：port-wine birthmark 等皮膚畸形出生即可見，但許多畸形到較晚才表現。<span class="ref">p.236</span></li>
 </ul>
 <h3 id="ch17-s13-1">Orbital lymphatic malformation（眼窩淋巴管畸形，舊稱 lymphangioma）</h3>
 <ul>
-<li>可在嬰兒期造成突眼，但<mark>通常到 <strong>second decade（10 多歲，10–19 歲）</strong>或更晚才出現</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-780" data-q="780">第 780 題</a></span><span class="ref">p.236</span></li>
-<li>單側較小角膜、前段血管異常、視網膜血管分支異常 + 眼窩淋巴管畸形 = 一種獨特的畸形症候群。<span class="ref">p.236</span></li>
-<li><mark>以保守治療為主</mark>；<strong>上呼吸道感染時易惡化</strong>，可短期全身類固醇處理；<strong>病灶內出血</strong>時可快速膨大（Fig 17-17）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-780" data-q="780">第 780 題</a></span><span class="ref">p.236</span></li>
-<li>威脅視力時可能需部分切除與引流；因浸潤性，<mark>通常無法完全切除</mark>，術中出血與復發風險高。新療法：口服 <strong>sildenafil</strong>、病灶內注射 <strong>sclerosing agents（硬化劑）</strong>；尚無比較藥物與手術的臨床試驗。<span class="ref">p.236–237</span></li>
-<li>BCSC 7（本章外）：lymphatic malformation 屬 <strong>low-flow（低流量）</strong>病灶，<mark>不會因 Valsalva maneuver 而膨大</mark>；會隨 Valsalva／低頭膨大的是 distensible venous malformation（orbital varix）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-780" data-q="780">第 780 題</a></span><span class="ref">BCSC 7 p.78–80</span></li>
+<li id="np-289">可在嬰兒期造成突眼，但<mark>通常到 <strong>second decade（10 多歲，10–19 歲）</strong>或更晚才出現</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-780" data-q="780">第 780 題</a></span><span class="ref">p.236</span></li>
+<li id="np-290">單側較小角膜、前段血管異常、視網膜血管分支異常 + 眼窩淋巴管畸形 = 一種獨特的畸形症候群。<span class="ref">p.236</span></li>
+<li id="np-291"><mark>以保守治療為主</mark>；<strong>上呼吸道感染時易惡化</strong>，可短期全身類固醇處理；<strong>病灶內出血</strong>時可快速膨大（Fig 17-17）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-780" data-q="780">第 780 題</a></span><span class="ref">p.236</span></li>
+<li id="np-292">威脅視力時可能需部分切除與引流；因浸潤性，<mark>通常無法完全切除</mark>，術中出血與復發風險高。新療法：口服 <strong>sildenafil</strong>、病灶內注射 <strong>sclerosing agents（硬化劑）</strong>；尚無比較藥物與手術的臨床試驗。<span class="ref">p.236–237</span></li>
+<li id="np-293">BCSC 7（本章外）：lymphatic malformation 屬 <strong>low-flow（低流量）</strong>病灶，<mark>不會因 Valsalva maneuver 而膨大</mark>；會隨 Valsalva／低頭膨大的是 distensible venous malformation（orbital varix）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-780" data-q="780">第 780 題</a></span><span class="ref">BCSC 7 p.78–80</span></li>
 </ul>
 <h3 id="ch17-s13-2">Orbital venous malformations（眼窩靜脈畸形，varices）</h3>
 <ul>
-<li>兩型：<strong>primary</strong>（侷限眼窩、與 arteriovenous malformation（AVM，動靜脈畸形）無關）；<strong>secondary</strong>（顱內 AVM 分流使眼窩靜脈擴張）。<span class="ref">p.237</span></li>
-<li>通常經多年進行性充血才出現症狀；<mark>在 10 歲以前（second decade 之前）表現者罕見</mark>；只有症狀明顯者才治療。<span class="ref">p.237</span></li>
-<li>BCSC 7（本章外）：平時外觀正常、低頭或 Valsalva 後突眼 → 懷疑 orbital varix（distensible venous malformation）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">BCSC 7 p.80</span></li>
+<li id="np-294">兩型：<strong>primary</strong>（侷限眼窩、與 arteriovenous malformation（AVM，動靜脈畸形）無關）；<strong>secondary</strong>（顱內 AVM 分流使眼窩靜脈擴張）。<span class="ref">p.237</span></li>
+<li id="np-295">通常經多年進行性充血才出現症狀；<mark>在 10 歲以前（second decade 之前）表現者罕見</mark>；只有症狀明顯者才治療。<span class="ref">p.237</span></li>
+<li id="np-296">BCSC 7（本章外）：平時外觀正常、低頭或 Valsalva 後突眼 → 懷疑 orbital varix（distensible venous malformation）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">BCSC 7 p.80</span></li>
 </ul>
 <h3 id="ch17-s13-3">Orbital arteriovenous malformations（眼窩動靜脈畸形）</h3>
 <ul>
-<li>單獨侷限於眼窩的 AVM 極罕見；視網膜與中腦先天 AVM（<strong>racemose angioma／Wyburn-Mason syndrome</strong>）可有眼窩侵犯。<span class="ref">p.237</span></li>
-<li>骨性眼窩 AVM 兒童期罕見；特徵：<mark><strong>pulsatile proptosis（搏動性突眼）</strong>、chemosis、結膜血管充血、眼壓升高</mark>；治療為 embolization（栓塞）、手術切除或兩者。<span class="ref">p.237</span></li>
+<li id="np-297">單獨侷限於眼窩的 AVM 極罕見；視網膜與中腦先天 AVM（<strong>racemose angioma／Wyburn-Mason syndrome</strong>）可有眼窩侵犯。<span class="ref">p.237</span></li>
+<li id="np-298">骨性眼窩 AVM 兒童期罕見；特徵：<mark><strong>pulsatile proptosis（搏動性突眼）</strong>、chemosis、結膜血管充血、眼壓升高</mark>；治療為 embolization（栓塞）、手術切除或兩者。<span class="ref">p.237</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s13-4">易錯陷阱</h3><ul>
-<li>Lymphatic malformation：上呼吸道感染時變大、病灶內出血突然突眼；但「Valsalva 後膨大」是 varix 的特徵。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-780" data-q="780">第 780 題</a></span><span class="ref">p.236；BCSC 7 p.79–80</span></li>
-<li>Lymphatic malformation 通常無法完全切除、復發與出血風險高，治療以保守為主。<span class="ref">p.236–237</span></li>
+<li id="np-299">Lymphatic malformation：上呼吸道感染時變大、病灶內出血突然突眼；但「Valsalva 後膨大」是 varix 的特徵。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-780" data-q="780">第 780 題</a></span><span class="ref">p.236；BCSC 7 p.79–80</span></li>
+<li id="np-300">Lymphatic malformation 通常無法完全切除、復發與出血風險高，治療以保守為主。<span class="ref">p.236–237</span></li>
 </ul></div>
 
 <h2 id="ch17-s14">十四、Tumors of bony, connective tissue and neural origin（骨、結締組織、神經來源腫瘤）</h2>
 <h3 id="ch17-s14-1">Tumors of bony origin（骨源性）</h3>
 <ul>
-<li>多種少見良性骨源腫瘤，可在幼年以<strong>逐漸加重的突眼</strong>表現。<span class="ref">p.237</span></li>
-<li><strong>Fibrous dysplasia（纖維性骨失養症）</strong>與 <strong>juvenile ossifying fibroma（幼年骨化性纖維瘤）</strong>：正常骨被 fibro-osseous（纖維骨性）組織取代；CT 呈不同程度的透亮與硬化。<span class="ref">p.237</span></li>
-<li>Fibrous dysplasia：緩慢進展，<mark>骨骼成熟後停止</mark>；最嚴重併發症是<mark>視神經壓迫造成視力喪失，可能急性發生</mark> → 定期評估視力、瞳孔與視神經盤；功能惡化或毀容時手術；持續因視神經壓迫惡化 → 神經外科與整形外科合作做 optic canal decompression（視神經管減壓）。<span class="ref">p.237–238</span></li>
-<li>Juvenile ossifying fibroma：組織上以<strong>有 osteoblasts（造骨細胞）</strong>區分；<mark>比 fibrous dysplasia 更具局部侵襲性</mark>，部分專家建議早期切除。<span class="ref">p.238</span></li>
-<li><strong>Brown tumor（棕色瘤）</strong>：hyperparathyroidism（副甲狀腺功能亢進）造成的 osteoclastic giant cell（蝕骨巨細胞）反應。<strong>Aneurysmal bone cyst（動脈瘤樣骨囊腫）</strong>：退化性過程，骨被含纖維組織、發炎細胞與血液的囊腔取代，有特徵性影像。<span class="ref">p.238</span></li>
+<li id="np-301">多種少見良性骨源腫瘤，可在幼年以<strong>逐漸加重的突眼</strong>表現。<span class="ref">p.237</span></li>
+<li id="np-302"><strong>Fibrous dysplasia（纖維性骨失養症）</strong>與 <strong>juvenile ossifying fibroma（幼年骨化性纖維瘤）</strong>：正常骨被 fibro-osseous（纖維骨性）組織取代；CT 呈不同程度的透亮與硬化。<span class="ref">p.237</span></li>
+<li id="np-303">Fibrous dysplasia：緩慢進展，<mark>骨骼成熟後停止</mark>；最嚴重併發症是<mark>視神經壓迫造成視力喪失，可能急性發生</mark> → 定期評估視力、瞳孔與視神經盤；功能惡化或毀容時手術；持續因視神經壓迫惡化 → 神經外科與整形外科合作做 optic canal decompression（視神經管減壓）。<span class="ref">p.237–238</span></li>
+<li id="np-304">Juvenile ossifying fibroma：組織上以<strong>有 osteoblasts（造骨細胞）</strong>區分；<mark>比 fibrous dysplasia 更具局部侵襲性</mark>，部分專家建議早期切除。<span class="ref">p.238</span></li>
+<li id="np-305"><strong>Brown tumor（棕色瘤）</strong>：hyperparathyroidism（副甲狀腺功能亢進）造成的 osteoclastic giant cell（蝕骨巨細胞）反應。<strong>Aneurysmal bone cyst（動脈瘤樣骨囊腫）</strong>：退化性過程，骨被含纖維組織、發炎細胞與血液的囊腔取代，有特徵性影像。<span class="ref">p.238</span></li>
 </ul>
 <h3 id="ch17-s14-2">Tumors of connective tissue origin（結締組織源性）</h3>
 <ul>
-<li>兒童少見。<strong>Juvenile fibromatosis（幼年纖維瘤病）</strong>：可在眼窩前下方形成腫塊；又稱 myofibroma 或 desmoid tumor，由較成熟的 fibroblasts 組成；<mark>切除後易局部復發、難控制，但不轉移</mark>。<span class="ref">p.238</span></li>
+<li id="np-306">兒童少見。<strong>Juvenile fibromatosis（幼年纖維瘤病）</strong>：可在眼窩前下方形成腫塊；又稱 myofibroma 或 desmoid tumor，由較成熟的 fibroblasts 組成；<mark>切除後易局部復發、難控制，但不轉移</mark>。<span class="ref">p.238</span></li>
 </ul>
 <h3 id="ch17-s14-3">Tumors of neural origin（神經源性）</h3>
 <ul>
-<li><mark><strong>Optic pathway glioma（視路膠質瘤）</strong>是兒童最常見的神經源性眼窩腫瘤</mark>；通常為低惡性度 <strong>pilocytic astrocytoma（毛狀星狀細胞瘤）</strong>，但不論治療與否生長速度難預測。<span class="ref">p.238</span></li>
-<li>處置有爭議，主要依視功能決定：頻繁檢查視力，可行時做連續視野與 OCT。約 <span class="num">50%</span> 與 <strong>neurofibromatosis type 1（NF1，第一型神經纖維瘤病）</strong>相關。<span class="ref">p.238</span></li>
-<li><strong>Plexiform neurofibroma（叢狀神經纖維瘤）</strong>：<mark>幾乎都發生於 neurofibromatosis 患者</mark>，常侵犯眼瞼與眼窩（詳見第 27 章）。<span class="ref">p.238</span></li>
-<li>眼窩 meningioma（腦膜瘤）與 schwannoma（neurilemoma、neurinoma，神經鞘瘤）在兒童罕見。BCSC 7（本章外）：sphenoid wing meningioma（蝶骨翼腦膜瘤）可造成 prominent temple（太陽穴隆起）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.238；BCSC 7 p.24</span></li>
+<li id="np-307"><mark><strong>Optic pathway glioma（視路膠質瘤）</strong>是兒童最常見的神經源性眼窩腫瘤</mark>；通常為低惡性度 <strong>pilocytic astrocytoma（毛狀星狀細胞瘤）</strong>，但不論治療與否生長速度難預測。<span class="ref">p.238</span></li>
+<li id="np-308">處置有爭議，主要依視功能決定：頻繁檢查視力，可行時做連續視野與 OCT。約 <span class="num">50%</span> 與 <strong>neurofibromatosis type 1（NF1，第一型神經纖維瘤病）</strong>相關。<span class="ref">p.238</span></li>
+<li id="np-309"><strong>Plexiform neurofibroma（叢狀神經纖維瘤）</strong>：<mark>幾乎都發生於 neurofibromatosis 患者</mark>，常侵犯眼瞼與眼窩（詳見第 27 章）。<span class="ref">p.238</span></li>
+<li id="np-310">眼窩 meningioma（腦膜瘤）與 schwannoma（neurilemoma、neurinoma，神經鞘瘤）在兒童罕見。BCSC 7（本章外）：sphenoid wing meningioma（蝶骨翼腦膜瘤）可造成 prominent temple（太陽穴隆起）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-751" data-q="751">第 751 題</a></span><span class="ref">p.238；BCSC 7 p.24</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s14-4">易錯陷阱</h3><ul>
-<li>Fibrous dysplasia 骨骼成熟後停止進展；juvenile ossifying fibroma 有 osteoblasts 且較具侵襲性。<span class="ref">p.237–238</span></li>
-<li>Optic pathway glioma 約一半與 NF1 相關；plexiform neurofibroma 則「幾乎都」有 NF。<span class="ref">p.238</span></li>
+<li id="np-311">Fibrous dysplasia 骨骼成熟後停止進展；juvenile ossifying fibroma 有 osteoblasts 且較具侵襲性。<span class="ref">p.237–238</span></li>
+<li id="np-312">Optic pathway glioma 約一半與 NF1 相關；plexiform neurofibroma 則「幾乎都」有 NF。<span class="ref">p.238</span></li>
 </ul></div>
 
 <h2 id="ch17-s15">十五、Ectopic tissue masses 與 cystic lesions（異位組織腫塊與囊性病灶）</h2>
 <h3 id="ch17-s15-1">Choristoma（迷芽瘤）</h3>
 <ul>
-<li><strong>Choristoma</strong>：組織學正常但位置異常的組織；可源自胚胎期胚層組織異常隔離、多潛能細胞分化錯誤，或鄰近構造組織疝入眼窩。<mark>Dermoid cyst 與 limbal dermoid 都屬 choristoma</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.238；BCSC 6 p.271</span></li>
+<li id="np-313"><strong>Choristoma</strong>：組織學正常但位置異常的組織；可源自胚胎期胚層組織異常隔離、多潛能細胞分化錯誤，或鄰近構造組織疝入眼窩。<mark>Dermoid cyst 與 limbal dermoid 都屬 choristoma</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.238；BCSC 6 p.271</span></li>
 </ul>
 <h3 id="ch17-s15-2">Dermoid and epidermoid cysts（皮樣與表皮樣囊腫）</h3>
 <ul>
-<li><mark><strong>Dermoid cysts 是兒童最常見的眼窩佔位病灶</strong></mark>；良性發育性 choristoma，源自<mark>被隔離在胎兒顱骨 <strong>suture lines（骨縫）</strong>的原始真皮與表皮成分</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.238</span></li>
-<li>Dermoid cyst 內襯 keratinized epithelium（角化上皮）並含 dermal appendages（真皮附屬器：毛囊、汗腺、皮脂腺）；只含鱗狀上皮、<strong>無</strong>真皮附屬器者稱 <strong>epidermoid cyst</strong>。<span class="ref">p.238–239</span></li>
-<li>兒童眼窩 dermoid <mark>最常見於 <strong>superotemporal（上顳側）</strong>與 superonasal（上鼻側）象限</mark>（Fig 17-18：8 個月大、典型上顳側），有時延伸入骨縫。BCSC 7（本章外）：最常在 lateral brow、<strong>frontozygomatic suture（額顴縫）</strong>旁；不在淚腺內、也不好發下眶緣；位於眼窩深部者常到成年才發現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-714" data-q="714">第 714 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a></span><span class="ref">p.239；BCSC 7 p.44</span></li>
-<li>臨床：<mark>無痛、平滑、可移動、與表面皮膚不相連</mark>的腫塊；囊腫破裂、內容物外漏可引起發炎；多數無視覺症狀；臨床檢查常足以診斷。<span class="ref">p.239</span></li>
-<li>影像：界線清楚、低密度管腔，<mark>常見 <strong>bony remodeling（骨重塑）</strong></mark>（Fig 17-19：6 歲，右眼上鼻側前眼窩）——所以「不會造成眶骨侵蝕／重塑」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.239</span></li>
-<li>BCSC 7（本章外）：穿越骨縫進入顳窩的 dumbbell dermoid（啞鈴狀皮樣囊腫）咀嚼時可有 pulsating proptosis（搏動性突眼）；MRI 在 fat-suppression（脂肪抑制）序列最容易觀察。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">BCSC 7 p.44</span></li>
-<li>處置為<strong>手術</strong>：<mark>早期切除可降低外傷性破裂及其後發炎風險</mark>；經 infrabrow（眉下）或 eyelid crease（眼瞼皺褶）切口小心剝離。<span class="ref">p.239</span></li>
-<li>術中盡量避免囊腫破裂，以減少 <strong>lipogranulomatous inflammation（脂肪肉芽腫性發炎）</strong>與疤痕；若破裂，須徹底清除腔內物質。Sutural cyst 延伸入或穿過骨頭時可能無法完整取出；為減少復發，應盡量移除所有殘餘囊壁。<span class="ref">p.239</span></li>
+<li id="np-314"><mark><strong>Dermoid cysts 是兒童最常見的眼窩佔位病灶</strong></mark>；良性發育性 choristoma，源自<mark>被隔離在胎兒顱骨 <strong>suture lines（骨縫）</strong>的原始真皮與表皮成分</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.238</span></li>
+<li id="np-315">Dermoid cyst 內襯 keratinized epithelium（角化上皮）並含 dermal appendages（真皮附屬器：毛囊、汗腺、皮脂腺）；只含鱗狀上皮、<strong>無</strong>真皮附屬器者稱 <strong>epidermoid cyst</strong>。<span class="ref">p.238–239</span></li>
+<li id="np-316">兒童眼窩 dermoid <mark>最常見於 <strong>superotemporal（上顳側）</strong>與 superonasal（上鼻側）象限</mark>（Fig 17-18：8 個月大、典型上顳側），有時延伸入骨縫。BCSC 7（本章外）：最常在 lateral brow、<strong>frontozygomatic suture（額顴縫）</strong>旁；不在淚腺內、也不好發下眶緣；位於眼窩深部者常到成年才發現。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-714" data-q="714">第 714 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a></span><span class="ref">p.239；BCSC 7 p.44</span></li>
+<li id="np-317">臨床：<mark>無痛、平滑、可移動、與表面皮膚不相連</mark>的腫塊；囊腫破裂、內容物外漏可引起發炎；多數無視覺症狀；臨床檢查常足以診斷。<span class="ref">p.239</span></li>
+<li id="np-318">影像：界線清楚、低密度管腔，<mark>常見 <strong>bony remodeling（骨重塑）</strong></mark>（Fig 17-19：6 歲，右眼上鼻側前眼窩）——所以「不會造成眶骨侵蝕／重塑」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.239</span></li>
+<li id="np-319">BCSC 7（本章外）：穿越骨縫進入顳窩的 dumbbell dermoid（啞鈴狀皮樣囊腫）咀嚼時可有 pulsating proptosis（搏動性突眼）；MRI 在 fat-suppression（脂肪抑制）序列最容易觀察。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">BCSC 7 p.44</span></li>
+<li id="np-320">處置為<strong>手術</strong>：<mark>早期切除可降低外傷性破裂及其後發炎風險</mark>；經 infrabrow（眉下）或 eyelid crease（眼瞼皺褶）切口小心剝離。<span class="ref">p.239</span></li>
+<li id="np-321">術中盡量避免囊腫破裂，以減少 <strong>lipogranulomatous inflammation（脂肪肉芽腫性發炎）</strong>與疤痕；若破裂，須徹底清除腔內物質。Sutural cyst 延伸入或穿過骨頭時可能無法完整取出；為減少復發，應盡量移除所有殘餘囊壁。<span class="ref">p.239</span></li>
 </ul>
 <h3 id="ch17-s15-3">Microphthalmia with cyst（合併囊腫的小眼症，colobomatous cyst）</h3>
 <ul>
-<li>小而畸形的眼球 + <strong>posterior segment coloboma（後段缺損）</strong> + 源自眼球壁組織的囊腫；多數眼底缺損都有某種程度 scleral ectasia（鞏膜膨出）；極端者囊腫可與眼球一樣大或更大，而眼球<mark>必定是小眼</mark>。BCSC 7（本章外）：源於胚胎期 <strong>choroidal fissure（脈絡膜裂）</strong>未閉合。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1705" data-q="1705">第 1705 題</a></span><span class="ref">p.239–240；BCSC 7 p.39</span></li>
-<li>可單獨存在或合併多種顱內或全身異常；<mark>對側眼也常有 coloboma</mark>。<span class="ref">p.240</span></li>
-<li>囊腫通常在眼球<strong>下方或後方</strong>，且<mark>一定與眼球相連</mark>。後方囊腫是否造成突眼取決於眼球與囊腫大小；下方囊腫表現為下眼瞼隆起或藍色結膜下腫塊（Fig 17-20）。<span class="ref">p.240</span></li>
-<li>眼底檢查無法確診時，影像顯示<mark>與眼球相連、內部密度均勻如玻璃體</mark>的囊性病灶。<span class="ref">p.240</span></li>
-<li>治療目標：<mark>促進眼窩正常生長</mark>——囊腫抽吸或手術切除、眼窩 expanders（擴張器）與 conformers。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-769" data-q="769">第 769 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1705" data-q="1705">第 1705 題</a></span><span class="ref">p.240</span></li>
+<li id="np-322">小而畸形的眼球 + <strong>posterior segment coloboma（後段缺損）</strong> + 源自眼球壁組織的囊腫；多數眼底缺損都有某種程度 scleral ectasia（鞏膜膨出）；極端者囊腫可與眼球一樣大或更大，而眼球<mark>必定是小眼</mark>。BCSC 7（本章外）：源於胚胎期 <strong>choroidal fissure（脈絡膜裂）</strong>未閉合。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1705" data-q="1705">第 1705 題</a></span><span class="ref">p.239–240；BCSC 7 p.39</span></li>
+<li id="np-323">可單獨存在或合併多種顱內或全身異常；<mark>對側眼也常有 coloboma</mark>。<span class="ref">p.240</span></li>
+<li id="np-324">囊腫通常在眼球<strong>下方或後方</strong>，且<mark>一定與眼球相連</mark>。後方囊腫是否造成突眼取決於眼球與囊腫大小；下方囊腫表現為下眼瞼隆起或藍色結膜下腫塊（Fig 17-20）。<span class="ref">p.240</span></li>
+<li id="np-325">眼底檢查無法確診時，影像顯示<mark>與眼球相連、內部密度均勻如玻璃體</mark>的囊性病灶。<span class="ref">p.240</span></li>
+<li id="np-326">治療目標：<mark>促進眼窩正常生長</mark>——囊腫抽吸或手術切除、眼窩 expanders（擴張器）與 conformers。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-769" data-q="769">第 769 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-1705" data-q="1705">第 1705 題</a></span><span class="ref">p.240</span></li>
 </ul>
 <h3 id="ch17-s15-4">Mucocele（黏液囊腫）</h3>
 <ul>
-<li>源自鼻竇引流阻塞的囊性病灶；可隨時間擴大，破壞骨頭並侵入眼窩或顱內。<span class="ref">p.240</span></li>
-<li><mark>最常源自 <strong>frontal（額竇）或 anterior ethmoid（前篩竇）</strong></mark> → 眼球向<strong>下方或內側</strong>移位。<span class="ref">p.240</span></li>
-<li>鑑別：合併顱底變形的 encephalocele。治療：重建鼻竇正常引流 + 移除囊壁。<span class="ref">p.240</span></li>
+<li id="np-327">源自鼻竇引流阻塞的囊性病灶；可隨時間擴大，破壞骨頭並侵入眼窩或顱內。<span class="ref">p.240</span></li>
+<li id="np-328"><mark>最常源自 <strong>frontal（額竇）或 anterior ethmoid（前篩竇）</strong></mark> → 眼球向<strong>下方或內側</strong>移位。<span class="ref">p.240</span></li>
+<li id="np-329">鑑別：合併顱底變形的 encephalocele。治療：重建鼻竇正常引流 + 移除囊壁。<span class="ref">p.240</span></li>
 </ul>
 <h3 id="ch17-s15-5">Encephalocele and meningocele（腦膨出與腦膜膨出）</h3>
 <ul>
-<li>先天骨缺損使顱內組織疝出，或外傷破壞前顱窩骨與 dura mater（硬腦膜）後發生。<span class="ref">p.240</span></li>
-<li>眼窩內 → 突眼或眼球<strong>向下</strong>移位；前方表現為皮下腫塊，可被誤診為 dacryocystocele。<span class="ref">p.240–241</span></li>
-<li><mark>Encephalocele／meningocele 通常位於 <strong>medial canthal tendon（內眥韌帶）上方</strong>；dacryocystocele 通常在<strong>下方</strong></mark>。BCSC 6 第 18 章（本章外）：dermoid cyst 也多在內眥韌帶上方，在下方的是淚囊膨出；dacryocystocele 約佔嬰兒鼻淚管阻塞的 <span class="num">3%</span>，鑑別包括 hemangioma、dermoid cyst、encephalocele。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-699" data-q="699">第 699 題</a></span><span class="ref">p.241；BCSC 6 p.245–246</span></li>
-<li><mark>眼球或腫塊因傳導顱內脈搏壓而<strong>搏動</strong></mark>是特徵；神經影像確診；通常由神經外科修補。<span class="ref">p.241</span></li>
+<li id="np-330">先天骨缺損使顱內組織疝出，或外傷破壞前顱窩骨與 dura mater（硬腦膜）後發生。<span class="ref">p.240</span></li>
+<li id="np-331">眼窩內 → 突眼或眼球<strong>向下</strong>移位；前方表現為皮下腫塊，可被誤診為 dacryocystocele。<span class="ref">p.240–241</span></li>
+<li id="np-332"><mark>Encephalocele／meningocele 通常位於 <strong>medial canthal tendon（內眥韌帶）上方</strong>；dacryocystocele 通常在<strong>下方</strong></mark>。BCSC 6 第 18 章（本章外）：dermoid cyst 也多在內眥韌帶上方，在下方的是淚囊膨出；dacryocystocele 約佔嬰兒鼻淚管阻塞的 <span class="num">3%</span>，鑑別包括 hemangioma、dermoid cyst、encephalocele。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-699" data-q="699">第 699 題</a></span><span class="ref">p.241；BCSC 6 p.245–246</span></li>
+<li id="np-333"><mark>眼球或腫塊因傳導顱內脈搏壓而<strong>搏動</strong></mark>是特徵；神經影像確診；通常由神經外科修補。<span class="ref">p.241</span></li>
 </ul>
 <h3 id="ch17-s15-6">Teratoma（畸胎瘤）</h3>
 <ul>
-<li>含 <mark><strong>3 胚層</strong>（ectoderm（外胚層）、mesoderm（中胚層）、endoderm（內胚層））</mark>組織的 choristomatous 腫瘤；多數部分囊性、液體量不一。<span class="ref">p.241</span></li>
-<li>眼窩 teratoma 在眼窩腫瘤與 teratoma 中都只佔極小部分；表現可很戲劇性：<mark>出生即巨大突眼</mark>（Fig 17-21：1 天大女嬰）。<span class="ref">p.241</span></li>
-<li>與其他部位傾向惡性生長不同，<mark>眼窩 teratoma 多數為良性</mark>；先抽吸液體有助手術切除，常可保留眼球；但視神經被拉扯與壓迫的永久損傷可導致患眼視力差。<span class="ref">p.241</span></li>
+<li id="np-334">含 <mark><strong>3 胚層</strong>（ectoderm（外胚層）、mesoderm（中胚層）、endoderm（內胚層））</mark>組織的 choristomatous 腫瘤；多數部分囊性、液體量不一。<span class="ref">p.241</span></li>
+<li id="np-335">眼窩 teratoma 在眼窩腫瘤與 teratoma 中都只佔極小部分；表現可很戲劇性：<mark>出生即巨大突眼</mark>（Fig 17-21：1 天大女嬰）。<span class="ref">p.241</span></li>
+<li id="np-336">與其他部位傾向惡性生長不同，<mark>眼窩 teratoma 多數為良性</mark>；先抽吸液體有助手術切除，常可保留眼球；但視神經被拉扯與壓迫的永久損傷可導致患眼視力差。<span class="ref">p.241</span></li>
 </ul>
 <h3 id="ch17-s15-7">Ectopic lacrimal gland（異位淚腺）</h3>
 <ul>
-<li>罕見 choristoma，兒童期可以突眼表現；囊性擴大與慢性發炎有時使病情加重。<span class="ref">p.241</span></li>
+<li id="np-337">罕見 choristoma，兒童期可以突眼表現；囊性擴大與慢性發炎有時使病情加重。<span class="ref">p.241</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch17-s15-8">易錯陷阱</h3><ul>
-<li>Dermoid cyst：兒童最常見眼窩佔位病灶、源自骨縫、最常上顳側（額顴縫）——不是淚腺內、不是下眶緣。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-714" data-q="714">第 714 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a></span><span class="ref">p.238–239；BCSC 7 p.44</span></li>
-<li>Dermoid 外觀圓滑，但影像常見骨重塑；早期切除可減少外傷破裂。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.239</span></li>
-<li>內眥韌帶「上方」：encephalocele、meningocele（及 dermoid）；「下方」：dacryocystocele。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-699" data-q="699">第 699 題</a></span><span class="ref">p.241；BCSC 6 p.246</span></li>
-<li>Choristoma：dermoid cyst、dermolipoma、limbal dermoid、teratoma、ectopic lacrimal gland；hamartoma：hemangioma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a></span><span class="ref">p.234, p.238, p.241；BCSC 7 p.43</span></li>
-<li>Mucocele 多源自額竇／前篩竇 → 眼球向下或內移；Microphthalmia with cyst 的囊腫在下方或後方且一定與眼球相連。<span class="ref">p.240</span></li>
+<li id="np-338">Dermoid cyst：兒童最常見眼窩佔位病灶、源自骨縫、最常上顳側（額顴縫）——不是淚腺內、不是下眶緣。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-714" data-q="714">第 714 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a></span><span class="ref">p.238–239；BCSC 7 p.44</span></li>
+<li id="np-339">Dermoid 外觀圓滑，但影像常見骨重塑；早期切除可減少外傷破裂。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-1702" data-q="1702">第 1702 題</a></span><span class="ref">p.239</span></li>
+<li id="np-340">內眥韌帶「上方」：encephalocele、meningocele（及 dermoid）；「下方」：dacryocystocele。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-699" data-q="699">第 699 題</a></span><span class="ref">p.241；BCSC 6 p.246</span></li>
+<li id="np-341">Choristoma：dermoid cyst、dermolipoma、limbal dermoid、teratoma、ectopic lacrimal gland；hamartoma：hemangioma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc6-17%23q-752" data-q="752">第 752 題</a>、<a href="/exam/login?next=/exam/bcsc6-17%23q-552" data-q="552">第 552 題</a></span><span class="ref">p.234, p.238, p.241；BCSC 7 p.43</span></li>
+<li id="np-342">Mucocele 多源自額竇／前篩竇 → 眼球向下或內移；Microphthalmia with cyst 的囊腫在下方或後方且一定與眼球相連。<span class="ref">p.240</span></li>
 </ul></div>
 
 <div class="hs-tip-box">
 <h4>易混淆比較與口訣</h4>
 <ul>
-<li><strong>顱縫早閉四症候群</strong>：Crouzon 最常見、智力正常、無併指、hypertelorism + proptosis + inferior scleral show；Apert 有智能障礙與大量顱外表現（mitten syndactyly、多指）；Pfeiffer 最嚴重、cloverleaf、短寬拇指；Saethre-Chotzen 單側冠狀縫、plagiocephaly、ptosis、低髮際。<span class="ref">p.220</span></li>
-<li><strong>顱縫早閉斜視</strong>：XT + V pattern + overelevation in adduction；上斜肌 underaction／缺如。<span class="ref">p.222–223</span></li>
-<li><strong>骨膜下膿瘍緊急引流 5 條</strong>：視神經受損、擴大、<span class="num">48–72 小時</span>不退、intraconal、gas；<span class="num">&lt; 9 歲</span>多可藥物治療。<span class="ref">p.229</span></li>
-<li><strong>Rhabdomyosarcoma 數字</strong>：平均 <span class="num">5–7 歲</span>；眼窩為 <span class="num">10%</span> 原發部位；突眼 <span class="num">80%–100%</span>、痛 <span class="num">10%</span>；5 年存活 embryonal <span class="num">94%</span>、alveolar <span class="num">74%</span>。<span class="ref">p.232–233</span></li>
-<li><strong>兒童 vs 成人</strong>：眼部轉移兒童在眼窩、成人在葡萄膜；淋巴瘤兒童極少侵犯眼窩；TED 成人最常見突眼、兒童罕見；NSOI 兒童急性疼痛、常雙側。<span class="ref">p.230–234</span></li>
-<li><strong>Hemangioma vs malformation</strong>：hemangioma 出生不明顯、第 1 年長大後退化、propranolol；malformation 相對靜止、lymphatic 在 10 多歲出現、URI 時變大、保守治療。<span class="ref">p.235–237</span></li>
-<li><strong>好發位置</strong>：dermoid 上顳側；rhabdomyosarcoma 上鼻側（BCSC 7）；juvenile fibromatosis 前下方；mucocele 使眼球向下／內移；encephalocele 在內眥韌帶上方。<span class="ref">p.238–241；BCSC 7 p.94–95</span></li>
+<li id="np-343"><strong>顱縫早閉四症候群</strong>：Crouzon 最常見、智力正常、無併指、hypertelorism + proptosis + inferior scleral show；Apert 有智能障礙與大量顱外表現（mitten syndactyly、多指）；Pfeiffer 最嚴重、cloverleaf、短寬拇指；Saethre-Chotzen 單側冠狀縫、plagiocephaly、ptosis、低髮際。<span class="ref">p.220</span></li>
+<li id="np-344"><strong>顱縫早閉斜視</strong>：XT + V pattern + overelevation in adduction；上斜肌 underaction／缺如。<span class="ref">p.222–223</span></li>
+<li id="np-345"><strong>骨膜下膿瘍緊急引流 5 條</strong>：視神經受損、擴大、<span class="num">48–72 小時</span>不退、intraconal、gas；<span class="num">&lt; 9 歲</span>多可藥物治療。<span class="ref">p.229</span></li>
+<li id="np-346"><strong>Rhabdomyosarcoma 數字</strong>：平均 <span class="num">5–7 歲</span>；眼窩為 <span class="num">10%</span> 原發部位；突眼 <span class="num">80%–100%</span>、痛 <span class="num">10%</span>；5 年存活 embryonal <span class="num">94%</span>、alveolar <span class="num">74%</span>。<span class="ref">p.232–233</span></li>
+<li id="np-347"><strong>兒童 vs 成人</strong>：眼部轉移兒童在眼窩、成人在葡萄膜；淋巴瘤兒童極少侵犯眼窩；TED 成人最常見突眼、兒童罕見；NSOI 兒童急性疼痛、常雙側。<span class="ref">p.230–234</span></li>
+<li id="np-348"><strong>Hemangioma vs malformation</strong>：hemangioma 出生不明顯、第 1 年長大後退化、propranolol；malformation 相對靜止、lymphatic 在 10 多歲出現、URI 時變大、保守治療。<span class="ref">p.235–237</span></li>
+<li id="np-349"><strong>好發位置</strong>：dermoid 上顳側；rhabdomyosarcoma 上鼻側（BCSC 7）；juvenile fibromatosis 前下方；mucocele 使眼球向下／內移；encephalocele 在內眥韌帶上方。<span class="ref">p.238–241；BCSC 7 p.94–95</span></li>
 </ul>
 </div>
 </div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="6-17"><p class="ex-locked">本章考題 35 題。<a href="/exam/login?next=/exam/bcsc6-17">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
@@ -849,7 +888,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260728" defer></script>
-<script src="/exam/exam.js?v=20260728" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
+<script src="/exam/exam.js?v=20260729" defer></script>
 </body>
 </html>

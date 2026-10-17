@@ -608,14 +608,7 @@ hr.sep {
 hr.sep-wide { max-width: 1120px; }
 hr.sep-tight { margin: 4px auto; opacity: 0.5; }
 
-/* ============================================================
-   PERFORMANCE — CSS Containment
-   ------------------------------------------------------------
-   `contain` tells the browser the element's render is independent
-   of the rest of the layout, so style/layout/paint can be done in
-   isolation. Big win for cards in long lists (spotlight, topics,
-   article-list-item) — recalcs scoped to a single card.
-   ============================================================ */
+/* PERFORMANCE — CSS containment: card recalcs stay inside the card. */
 .article-list-item,
 .topic-card,
 .mag-card,
@@ -827,20 +820,16 @@ p, li, .lede { text-wrap: pretty; }
     to { opacity: 1; transform: translateY(0); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .reveal, .article-list-item, .myth-card { animation: none; opacity: 1; transform: none; }
     .hs-css-progress { animation: none; transform: scaleX(0); }
   }
 }
+/* Reduced motion beats the reveal's inline styles, even if set after load. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .article-list-item, .hs-pin-card, .myth-card { animation: none !important; opacity: 1 !important; transform: none !important; transition: none !important; }
+}
 
-/* ============================================================
-   v34 — view-transition-name for cross-page hero morph
-   ------------------------------------------------------------
-   Cards on the article-list / topic-cards / spotlight rows get a
-   unique view-transition-name keyed off their slug. The matching
-   element on the destination article page (.article-hero, the
-   <h1>, or the OG image) shares the same name → browser
-   automatically morphs them during cross-doc navigation.
-   ============================================================ */
+/* v34 — listing cards morph into the article hero on cross-doc
+   navigation (names per slug are set by DN.assignVTNames). */
 .article-list-item,
 .topic-card,
 #hs-recent-list > li > a,

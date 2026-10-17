@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 8 Ch.14 Clinical Approach to Neoplastic…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc8-14#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 8 Ch.14","item":"https://hsiao.chendermatologist.com/exam/bcsc8-14"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -182,6 +182,40 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
 .ex-prog a{color:var(--ex-accent)}
 .ex-prog .ex-low{color:#b91c1c;font-weight:700}
+.ex-find{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:18px 0 8px}
+.ex-find-row{display:flex;gap:8px;margin:6px 0 4px}
+.ex-find-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-find-title{font-size:15px;font-weight:700;margin:10px 0 4px}
+.ex-find-group{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0}
+.ex-find-h{font-size:15px;font-weight:700;line-height:1.6;margin:0}
+.ex-find-h a{color:var(--ex-accent)}
+.ex-find-h .ex-count{margin-left:8px;font-weight:500;color:var(--ink-2)}
+.ex-find-list{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.75}
+.ex-find-list li{border-top:1px solid var(--line);padding:6px 0}
+.ex-find-list a{display:block;color:var(--ink);text-decoration:none}
+.ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
+.ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
+.ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
+.ex-practice{margin:12px 0 4px}
+.ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-more[hidden],.ex-rank tr[hidden]{display:none}
+.ex-note [id^="np-"]{scroll-margin-top:96px}
+.ex-note [id^="np-"]:target{background:var(--ex-soft);outline:2px solid var(--ex-accent);outline-offset:-2px;border-radius:6px}
+.ex-resume{position:sticky;top:72px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--ex-card);border:1px solid var(--border);border-left:4px solid var(--ex-accent);border-radius:10px;padding:6px 8px 6px 12px;margin:8px 0 12px;font-size:13px;line-height:1.6;box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(15,23,42,.35)}
+.ex-resume-text{flex:1;min-width:12em}
+.ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
+.ex-resume-close:hover{background:var(--ex-soft)}
+.ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
+.ex-ans-text{color:var(--ink-2);font-weight:600}
+.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next:disabled{opacity:.5;cursor:default}
+.ex-ans-clear{margin:0 0 6px}
+.ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
+.ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -212,8 +246,14 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
+:root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -229,7 +269,6 @@ body:not(.ex-quiz) .ex-opt input{display:none}
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
         <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
-        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
         <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
@@ -245,67 +284,67 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 8 Ch.14</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 8 · External Disease and Cornea</p><h1 class="ex-h1">Ch.14 Clinical Approach to Neoplastic Disorders of the Conjunctiva and Cornea</h1><p class="ex-meta">原書 p.385–412 · 考題 26 題</p><div class="ex-strip" data-progress-chapter="8-14" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="8-14"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch14-s1">一、總論與病人評估</a></li><li><a href="#ch14-s2">二、眼表腫瘤的處置原則</a></li><li><a href="#ch14-s3">三、上皮來源腫瘤與 conjunctival papilloma</a></li><li><a href="#ch14-s4">四、Ocular surface squamous neoplasia（OSSN，眼表鱗狀上皮贅瘤）</a></li><li><a href="#ch14-s5">五、OSSN 的處置</a></li><li><a href="#ch14-s6">六、Glandular tumors of the conjunctiva（結膜腺體腫瘤）</a></li><li><a href="#ch14-s7">七、神經外胚層腫瘤與良性色素病灶</a></li><li><a href="#ch14-s8">八、Primary acquired melanosis（PAM，原發性後天黑變）</a></li><li><a href="#ch14-s9">九、Conjunctival melanoma（結膜黑色素瘤）與 neurogenic tumors</a></li><li><a href="#ch14-s10">十、Vascular and mesenchymal tumors（血管與間質腫瘤）</a></li><li><a href="#ch14-s11">十一、Lymphocytic tumors（淋巴腫瘤）</a></li><li><a href="#ch14-s12">十二、Metastatic tumors（轉移性腫瘤）</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 8 第 14 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch14-s1">一、總論與病人評估</h2>
 <h3 id="ch14-s1-1">分類與流行病學</h3>
 <ul>
-<li>眼表腫瘤依<strong>細胞來源</strong>分類：epithelium（上皮）、neuroectodermal（神經外胚層：melanocytes（黑色素細胞）、nevus cells（痣細胞）、神經及其他細胞）、vascular endothelium（血管內皮）、mesenchymal cells（間質細胞）、lymphocytes（淋巴球）；多數與眼瞼病灶相對應。<span class="ref">p.385</span></li>
-<li>同一種外觀可涵蓋良性 → 癌前（premalignant）→ 惡性的連續光譜，<mark>確診常需組織學檢查</mark>。<span class="ref">p.385</span></li>
-<li><mark>眼表最常見的惡性腫瘤：squamous cell carcinoma（SCC，鱗狀細胞癌）、melanoma（黑色素瘤）、lymphoma（淋巴瘤）</mark>。<span class="ref">p.385</span></li>
-<li>美國約每 <span class="num">2500</span> 人有 1 人（每年約 <span class="num">100,000</span> 人）因眼瞼或眼表腫瘤就醫；良性腫瘤至少是惡性的 <span class="num">3</span> 倍；多數源自眼瞼皮膚。<span class="ref">p.385</span></li>
+<li id="np-1">眼表腫瘤依<strong>細胞來源</strong>分類：epithelium（上皮）、neuroectodermal（神經外胚層：melanocytes（黑色素細胞）、nevus cells（痣細胞）、神經及其他細胞）、vascular endothelium（血管內皮）、mesenchymal cells（間質細胞）、lymphocytes（淋巴球）；多數與眼瞼病灶相對應。<span class="ref">p.385</span></li>
+<li id="np-2">同一種外觀可涵蓋良性 → 癌前（premalignant）→ 惡性的連續光譜，<mark>確診常需組織學檢查</mark>。<span class="ref">p.385</span></li>
+<li id="np-3"><mark>眼表最常見的惡性腫瘤：squamous cell carcinoma（SCC，鱗狀細胞癌）、melanoma（黑色素瘤）、lymphoma（淋巴瘤）</mark>。<span class="ref">p.385</span></li>
+<li id="np-4">美國約每 <span class="num">2500</span> 人有 1 人（每年約 <span class="num">100,000</span> 人）因眼瞼或眼表腫瘤就醫；良性腫瘤至少是惡性的 <span class="num">3</span> 倍；多數源自眼瞼皮膚。<span class="ref">p.385</span></li>
 </ul>
 <h3 id="ch14-s1-2">Approach to the patient（初診評估）</h3>
 <ul>
-<li>病史：<strong>sun exposure（日曬）</strong>、<strong>prior skin cancer（皮膚癌病史）</strong>、<strong>immunosuppression（免疫抑制）</strong>、病灶存在多久與外觀是否改變。<span class="ref">p.386</span></li>
-<li>種族背景很重要：<mark>結膜色素在膚色較深者可以是正常的，但在膚色白皙者需警覺</mark>。<span class="ref">p.386</span></li>
-<li>檢查：完整眼科檢查（含散瞳眼底）；檢查整個眼表，包括需翻眼瞼才看得到的 <strong>superior fornix（上穹窿）</strong>；觸診<strong>頸部與耳前淋巴結</strong>，因惡性病灶（如 conjunctival melanoma）可轉移至區域淋巴結。<span class="ref">p.386</span></li>
-<li>描述病灶要記錄：大小（含 <strong>clock-hours（鐘點範圍）</strong>）、前後範圍與形狀；侵犯球結膜/瞼結膜/穹窿/輪部/角膜；平坦、隆起或侵襲；邊界；有色素或 <strong>amelanotic（無色素）</strong>；實心或囊性；固定或可移動；血管程度與 <strong>feeder vessels（營養血管）</strong>；單一或多灶。<span class="ref">p.386</span></li>
-<li>以照片或詳細示意圖記錄外觀與範圍，利於手術規劃或觀察追蹤。<span class="ref">p.386</span></li>
+<li id="np-5">病史：<strong>sun exposure（日曬）</strong>、<strong>prior skin cancer（皮膚癌病史）</strong>、<strong>immunosuppression（免疫抑制）</strong>、病灶存在多久與外觀是否改變。<span class="ref">p.386</span></li>
+<li id="np-6">種族背景很重要：<mark>結膜色素在膚色較深者可以是正常的，但在膚色白皙者需警覺</mark>。<span class="ref">p.386</span></li>
+<li id="np-7">檢查：完整眼科檢查（含散瞳眼底）；檢查整個眼表，包括需翻眼瞼才看得到的 <strong>superior fornix（上穹窿）</strong>；觸診<strong>頸部與耳前淋巴結</strong>，因惡性病灶（如 conjunctival melanoma）可轉移至區域淋巴結。<span class="ref">p.386</span></li>
+<li id="np-8">描述病灶要記錄：大小（含 <strong>clock-hours（鐘點範圍）</strong>）、前後範圍與形狀；侵犯球結膜/瞼結膜/穹窿/輪部/角膜；平坦、隆起或侵襲；邊界；有色素或 <strong>amelanotic（無色素）</strong>；實心或囊性；固定或可移動；血管程度與 <strong>feeder vessels（營養血管）</strong>；單一或多灶。<span class="ref">p.386</span></li>
+<li id="np-9">以照片或詳細示意圖記錄外觀與範圍，利於手術規劃或觀察追蹤。<span class="ref">p.386</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch14-s1-3">易錯陷阱</h3><ul>
-<li>眼表三大惡性腫瘤是 SCC、melanoma、lymphoma；不是 basal cell carcinoma（那是眼瞼皮膚最常見）。<span class="ref">p.385</span></li>
-<li>懷疑惡性時別忘了翻眼瞼看上穹窿與觸診區域淋巴結。<span class="ref">p.386</span></li>
+<li id="np-10">眼表三大惡性腫瘤是 SCC、melanoma、lymphoma；不是 basal cell carcinoma（那是眼瞼皮膚最常見）。<span class="ref">p.385</span></li>
+<li id="np-11">懷疑惡性時別忘了翻眼瞼看上穹窿與觸診區域淋巴結。<span class="ref">p.386</span></li>
 </ul></div>
 
 <h2 id="ch14-s2">二、眼表腫瘤的處置原則</h2>
 <h3 id="ch14-s2-1">Observation（觀察）</h3>
 <ul>
-<li>外觀不像惡性（如 inclusion cyst（包涵囊腫））或病史與檢查無法判定者，可選擇觀察；需<strong>每年或更頻繁</strong>回診，以 slit-lamp photography（裂隙燈攝影）記錄比較。若長大或出現可疑變化，通常需手術或局部化療。<span class="ref">p.386–387</span></li>
-<li>提示惡性的變化：病灶變大與邊界改變、隆起、<mark>廣泛色素沉著（即使病灶平坦）</mark>、固定於下方組織、粗大 feeder vessel。<span class="ref">p.387</span></li>
-<li><strong>「Optical biopsy」</strong>：以 optical coherence tomography（OCT，光學同調斷層掃描）、confocal microscopy（共軛焦顯微鏡）、ultrasound biomicroscopy（UBM，超音波生物顯微鏡）等非侵入影像協助決定繼續觀察或治療。<span class="ref">p.387</span></li>
+<li id="np-12">外觀不像惡性（如 inclusion cyst（包涵囊腫））或病史與檢查無法判定者，可選擇觀察；需<strong>每年或更頻繁</strong>回診，以 slit-lamp photography（裂隙燈攝影）記錄比較。若長大或出現可疑變化，通常需手術或局部化療。<span class="ref">p.386–387</span></li>
+<li id="np-13">提示惡性的變化：病灶變大與邊界改變、隆起、<mark>廣泛色素沉著（即使病灶平坦）</mark>、固定於下方組織、粗大 feeder vessel。<span class="ref">p.387</span></li>
+<li id="np-14"><strong>「Optical biopsy」</strong>：以 optical coherence tomography（OCT，光學同調斷層掃描）、confocal microscopy（共軛焦顯微鏡）、ultrasound biomicroscopy（UBM，超音波生物顯微鏡）等非侵入影像協助決定繼續觀察或治療。<span class="ref">p.387</span></li>
 </ul>
 <h3 id="ch14-s2-2">Surgery（手術切除）</h3>
 <ul>
-<li>優點：提供組織確診、確認邊緣乾淨、立即見效、較不受病人用藥遵從度影響、部分情況較省成本（藥物與回診較少）。缺點：無法處理顯微/亞臨床病灶，以及疤痕與 <strong>symblepharon（瞼球黏連）</strong>。<span class="ref">p.387</span></li>
-<li><mark>移除超過三分之二的輪部上皮 → limbal stem cell deficiency（LSCD，輪部幹細胞缺乏）與慢性上皮病變</mark>，日後可能需取對側眼組織或異體組織做幹細胞移植。<span class="ref">p.387</span></li>
-<li>可能為惡性的腫瘤，切除原則：① 完整切除並保留 <span class="num">2–4 mm</span> 乾淨邊緣；② <strong>no-touch technique（不碰觸技術）</strong>，避免碰觸腫瘤造成播種（seeding）；③ 鱗狀或黑色素細胞腫瘤：周圍結膜與輪部邊緣做 <strong>double freeze–thaw cryotherapy（雙次冷凍-解凍）</strong>，受侵與周圍角膜上皮用 absolute alcohol（無水酒精）或冷凍。<span class="ref">p.387</span></li>
-<li>檢體處理：應由 ophthalmic pathologist（眼病理專家）判讀；可平放於濾紙並以墨水或縫線標示方向；取下時避免夾傷檢體；immunostaining（免疫染色）有助區分良惡性；標籤註明年齡、種族、病灶病程及臨床是否變化。<span class="ref">p.388</span></li>
+<li id="np-15">優點：提供組織確診、確認邊緣乾淨、立即見效、較不受病人用藥遵從度影響、部分情況較省成本（藥物與回診較少）。缺點：無法處理顯微/亞臨床病灶，以及疤痕與 <strong>symblepharon（瞼球黏連）</strong>。<span class="ref">p.387</span></li>
+<li id="np-16"><mark>移除超過三分之二的輪部上皮 → limbal stem cell deficiency（LSCD，輪部幹細胞缺乏）與慢性上皮病變</mark>，日後可能需取對側眼組織或異體組織做幹細胞移植。<span class="ref">p.387</span></li>
+<li id="np-17">可能為惡性的腫瘤，切除原則：① 完整切除並保留 <span class="num">2–4 mm</span> 乾淨邊緣；② <strong>no-touch technique（不碰觸技術）</strong>，避免碰觸腫瘤造成播種（seeding）；③ 鱗狀或黑色素細胞腫瘤：周圍結膜與輪部邊緣做 <strong>double freeze–thaw cryotherapy（雙次冷凍-解凍）</strong>，受侵與周圍角膜上皮用 absolute alcohol（無水酒精）或冷凍。<span class="ref">p.387</span></li>
+<li id="np-18">檢體處理：應由 ophthalmic pathologist（眼病理專家）判讀；可平放於濾紙並以墨水或縫線標示方向；取下時避免夾傷檢體；immunostaining（免疫染色）有助區分良惡性；標籤註明年齡、種族、病灶病程及臨床是否變化。<span class="ref">p.388</span></li>
 </ul>
 <h3 id="ch14-s2-3">Topical chemotherapy（局部化療）</h3>
 <ul>
-<li>可作為手術以外的<strong>主要治療</strong>，或手術前後的<strong>輔助治療</strong>。<mark>優點：可治療肉眼可見範圍以外的病灶</mark>；缺點：與手術不同，<strong>無法取得組織診斷、也無法確認邊緣</strong>。<span class="ref">p.388</span></li>
+<li id="np-19">可作為手術以外的<strong>主要治療</strong>，或手術前後的<strong>輔助治療</strong>。<mark>優點：可治療肉眼可見範圍以外的病灶</mark>；缺點：與手術不同，<strong>無法取得組織診斷、也無法確認邊緣</strong>。<span class="ref">p.388</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Agent（藥物）</th><th>Concentration（濃度）</th><th>特色與副作用</th></tr></thead>
 <tbody>
-<tr><td>5-fluorouracil（5-FU）</td><td><span class="num">1%</span></td><td>副作用通常輕微：眼痛、眼瞼水腫、充血、keratitis（角膜炎）、LSCD；費用較低；<strong>不需冷藏</strong></td></tr>
-<tr><td>Mitomycin C（MMC）</td><td><span class="num">0.02%</span></td><td>耐受度比 5-FU 差，但 5-FU 失敗後有時仍有效；眼表毒性可很嚴重（眼痛、充血、keratitis、corneal erosion（角膜糜爛）、LSCD）；可致 punctal stenosis（淚點狹窄），可放 punctal plug（淚點塞）預防</td></tr>
-<tr><td>Interferon-α2b（IFN-α2b，干擾素）</td><td>—</td><td>歷史上的第三種局部藥，<strong>目前美國已無供應</strong></td></tr>
+<tr><td id="np-20">5-fluorouracil（5-FU）</td><td id="np-21"><span class="num">1%</span></td><td id="np-22">副作用通常輕微：眼痛、眼瞼水腫、充血、keratitis（角膜炎）、LSCD；費用較低；<strong>不需冷藏</strong></td></tr>
+<tr><td id="np-23">Mitomycin C（MMC）</td><td id="np-24"><span class="num">0.02%</span></td><td id="np-25">耐受度比 5-FU 差，但 5-FU 失敗後有時仍有效；眼表毒性可很嚴重（眼痛、充血、keratitis、corneal erosion（角膜糜爛）、LSCD）；可致 punctal stenosis（淚點狹窄），可放 punctal plug（淚點塞）預防</td></tr>
+<tr><td id="np-26">Interferon-α2b（IFN-α2b，干擾素）</td><td id="np-27">—</td><td id="np-28">歷史上的第三種局部藥，<strong>目前美國已無供應</strong></td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.388</span></p>
+<p id="np-29">出處 <span class="ref">p.388</span></p>
 <ul>
-<li>各細胞型的最佳化療方案尚無對照試驗定論；<mark>OSSN 第一線為 5-FU 或 MMC</mark>。<span class="ref">p.388</span></li>
-<li><strong>Melanocytic tumors（黑色素細胞腫瘤）</strong>較不易因局部化療消退，<mark>對 MMC 的反應可能優於 5-FU</mark>。<span class="ref">p.388</span></li>
-<li>IFN-α2b：現行 BCSC 只記載它是歷史上第三種局部化療藥、目前美國無供應，<strong>未載明給藥途徑與療程</strong>。舊版考題觀念：可局部點藥或結膜下注射；療程依病灶反應而定（點到臨床消失後再延長一段時間），<mark>不是固定「滿三個月就停藥」</mark>（療程細節 BCSC 未載明）。（文獻補充：常用點藥為 1 百萬 IU/mL 每天 4 次直到臨床消失，結膜下注射多用 3 百萬 IU/mL；病例系列多在臨床消失後至少再點 1 個月；原廠 Intron A 已於 2021–2022 年永久停產，與本章「美國已無供應」一致。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-868" data-q="868">第 868 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.388</span></li>
+<li id="np-30">各細胞型的最佳化療方案尚無對照試驗定論；<mark>OSSN 第一線為 5-FU 或 MMC</mark>。<span class="ref">p.388</span></li>
+<li id="np-31"><strong>Melanocytic tumors（黑色素細胞腫瘤）</strong>較不易因局部化療消退，<mark>對 MMC 的反應可能優於 5-FU</mark>。<span class="ref">p.388</span></li>
+<li id="np-32">IFN-α2b：現行 BCSC 只記載它是歷史上第三種局部化療藥、目前美國無供應，<strong>未載明給藥途徑與療程</strong>。舊版考題觀念：可局部點藥或結膜下注射；療程依病灶反應而定（點到臨床消失後再延長一段時間），<mark>不是固定「滿三個月就停藥」</mark>（療程細節 BCSC 未載明）。（文獻補充：常用點藥為 1 百萬 IU/mL 每天 4 次直到臨床消失，結膜下注射多用 3 百萬 IU/mL；病例系列多在臨床消失後至少再點 1 個月；原廠 Intron A 已於 2021–2022 年永久停產，與本章「美國已無供應」一致。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-868" data-q="868">第 868 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.388</span></li>
 </ul>
 <h3 id="ch14-s2-4">Other options 與 Treatment follow-up（其他治療與追蹤）</h3>
 <ul>
-<li>Ocular lymphoid tumors（眼部淋巴腫瘤）：<strong>immunomodulatory agents（免疫調節劑，如 rituximab）</strong>與 <strong>radiotherapy（放射治療）</strong>有效。其他發展中的選項依細胞型而定：radioimmunotherapy（放射免疫治療）、targeted gene therapy（標靶基因治療）、checkpoint inhibitors（免疫檢查點抑制劑）。<span class="ref">p.388–389</span></li>
-<li>治療後仍會復發 → <strong>長期（每年或更頻繁）追蹤</strong>，每次都要完整檢查眼表並觸診區域淋巴結。<span class="ref">p.389</span></li>
-<li><mark>惡性上皮或黑色素細胞眼表腫瘤 → 轉介 dermatologist（皮膚科）做全身皮膚檢查</mark>。<span class="ref">p.389</span></li>
+<li id="np-33">Ocular lymphoid tumors（眼部淋巴腫瘤）：<strong>immunomodulatory agents（免疫調節劑，如 rituximab）</strong>與 <strong>radiotherapy（放射治療）</strong>有效。其他發展中的選項依細胞型而定：radioimmunotherapy（放射免疫治療）、targeted gene therapy（標靶基因治療）、checkpoint inhibitors（免疫檢查點抑制劑）。<span class="ref">p.388–389</span></li>
+<li id="np-34">治療後仍會復發 → <strong>長期（每年或更頻繁）追蹤</strong>，每次都要完整檢查眼表並觸診區域淋巴結。<span class="ref">p.389</span></li>
+<li id="np-35"><mark>惡性上皮或黑色素細胞眼表腫瘤 → 轉介 dermatologist（皮膚科）做全身皮膚檢查</mark>。<span class="ref">p.389</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch14-s2-5">易錯陷阱</h3><ul>
-<li>局部化療能治療亞臨床病灶但不能提供病理與邊緣；手術能確認邊緣但可能殘留顯微病灶。<span class="ref">p.387–388</span></li>
-<li>MMC <span class="num">0.02%</span> 與 <span class="num">0.2 mg/mL</span> 是同一濃度的兩種寫法；5-FU 是 <span class="num">1%</span>。<span class="ref">p.388–389</span></li>
-<li>黑色素細胞腫瘤若用局部化療，偏好 MMC 而非 5-FU。<span class="ref">p.388</span></li>
-<li>輪部上皮切除超過三分之二才是 LSCD 的警戒線。<span class="ref">p.387</span></li>
+<li id="np-36">局部化療能治療亞臨床病灶但不能提供病理與邊緣；手術能確認邊緣但可能殘留顯微病灶。<span class="ref">p.387–388</span></li>
+<li id="np-37">MMC <span class="num">0.02%</span> 與 <span class="num">0.2 mg/mL</span> 是同一濃度的兩種寫法；5-FU 是 <span class="num">1%</span>。<span class="ref">p.388–389</span></li>
+<li id="np-38">黑色素細胞腫瘤若用局部化療，偏好 MMC 而非 5-FU。<span class="ref">p.388</span></li>
+<li id="np-39">輪部上皮切除超過三分之二才是 LSCD 的警戒線。<span class="ref">p.387</span></li>
 </ul></div>
 
 <h2 id="ch14-s3">三、上皮來源腫瘤與 conjunctival papilloma</h2>
@@ -313,145 +352,145 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <table class="ted-table">
 <thead><tr><th>Benign（良性）</th><th>Preinvasive（侵襲前）</th><th>Malignant（惡性）</th></tr></thead>
 <tbody>
-<tr><td>Conjunctival papilloma（結膜乳突瘤）；pseudoepitheliomatous hyperplasia（假上皮瘤樣增生）；benign hereditary intraepithelial dyskeratosis（良性遺傳性上皮內角化不良）</td><td>Conjunctival and corneal intraepithelial neoplasia（CIN，結膜與角膜上皮內贅瘤）</td><td>Squamous cell carcinoma；adenosquamous carcinoma（腺鱗狀癌，舊稱 mucoepidermoid carcinoma）</td></tr>
+<tr><td id="np-40">Conjunctival papilloma（結膜乳突瘤）；pseudoepitheliomatous hyperplasia（假上皮瘤樣增生）；benign hereditary intraepithelial dyskeratosis（良性遺傳性上皮內角化不良）</td><td id="np-41">Conjunctival and corneal intraepithelial neoplasia（CIN，結膜與角膜上皮內贅瘤）</td><td id="np-42">Squamous cell carcinoma；adenosquamous carcinoma（腺鱗狀癌，舊稱 mucoepidermoid carcinoma）</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.391</span></p>
+<p id="np-43">出處 <span class="ref">p.391</span></p>
 <ul>
-<li>眼表腫瘤總分類（Fig 14-3）：上皮——papilloma（良性）、noninvasive OSSN／CIN（癌前）、invasive OSSN／SCC（惡性）；神經外胚層——conjunctival nevus（良性）、primary acquired melanosis（PAM，癌前）、melanoma（惡性）；血管與間質——hemangioma（良性）、Kaposi sarcoma（惡性）；淋巴——lymphoid hyperplasia（良性）、lymphoma（惡性）。<span class="ref">p.390</span></li>
+<li id="np-44">眼表腫瘤總分類（Fig 14-3）：上皮——papilloma（良性）、noninvasive OSSN／CIN（癌前）、invasive OSSN／SCC（惡性）；神經外胚層——conjunctival nevus（良性）、primary acquired melanosis（PAM，癌前）、melanoma（惡性）；血管與間質——hemangioma（良性）、Kaposi sarcoma（惡性）；淋巴——lymphoid hyperplasia（良性）、lymphoma（惡性）。<span class="ref">p.390</span></li>
 </ul>
 <h3 id="ch14-s3-2">Conjunctival papilloma（結膜乳突瘤）</h3>
 <ul>
-<li>Conjunctival squamous papilloma 分 <strong>pedunculated（有蒂）</strong>與 <strong>sessile（無蒂）</strong>兩型，病因、組織與臨床皆不同。<span class="ref">p.390</span></li>
-<li><strong>Pedunculated</strong>：肉質外生、具 fibrovascular core（纖維血管核心）；<mark>常見於 inferior fornix（下穹窿）</mark>，也可在瞼結膜、球結膜或 plica semilunaris（半月皺襞）；由蒂長出、多分葉，上皮平滑透明，底下有許多細小 <strong>corkscrew（螺旋狀）血管</strong>；可多發，免疫低下者可很廣泛。<span class="ref">p.390</span></li>
-<li><strong>Sessile</strong>：典型位於<strong>輪部</strong>、基底平坦，表面發亮帶許多紅點，<strong>像草莓</strong>；可擴展到角膜。Dysplasia（異型增生）徵象：leukoplakia（白斑，代表角化）、symblepharon、發炎、侵襲。<span class="ref">p.390</span></li>
-<li>病因：<mark>human papillomavirus（HPV，人類乳突病毒）——兒童 <span class="num">6</span>、<span class="num">11</span> 型，成人 <span class="num">16</span> 型</mark> → pedunculated papilloma；sessile 雖多為良性，但可能是 dysplastic 或癌性病灶，尤其 HPV <span class="num">16</span>、<span class="num">18</span>、<span class="num">33</span> 型。HPV 疫苗可能有預防效果。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.390</span></li>
-<li>Pedunculated 處置：小、外觀可接受、不刺激者可觀察，數月至數年可能自行消退；<mark>切除並在基部冷凍或燒灼，約 <span class="num">90%</span> 治癒</mark>；切除不完全反而會刺激生長、外觀更差；手術操作應盡量少，避免病毒散播到健康結膜。<span class="ref">p.391</span></li>
-<li>廣泛或頑固病例：口服 <strong>cimetidine</strong>（經免疫途徑作用）可能有益；MMC 亦曾使用。<span class="ref">p.391</span></li>
-<li>Sessile limbal papilloma：必須密切觀察或切除；若長大或出現 dysplastic／癌性特徵 → <strong>excisional biopsy（切除式切片）+ 輔助冷凍</strong>。<span class="ref">p.391</span></li>
+<li id="np-45">Conjunctival squamous papilloma 分 <strong>pedunculated（有蒂）</strong>與 <strong>sessile（無蒂）</strong>兩型，病因、組織與臨床皆不同。<span class="ref">p.390</span></li>
+<li id="np-46"><strong>Pedunculated</strong>：肉質外生、具 fibrovascular core（纖維血管核心）；<mark>常見於 inferior fornix（下穹窿）</mark>，也可在瞼結膜、球結膜或 plica semilunaris（半月皺襞）；由蒂長出、多分葉，上皮平滑透明，底下有許多細小 <strong>corkscrew（螺旋狀）血管</strong>；可多發，免疫低下者可很廣泛。<span class="ref">p.390</span></li>
+<li id="np-47"><strong>Sessile</strong>：典型位於<strong>輪部</strong>、基底平坦，表面發亮帶許多紅點，<strong>像草莓</strong>；可擴展到角膜。Dysplasia（異型增生）徵象：leukoplakia（白斑，代表角化）、symblepharon、發炎、侵襲。<span class="ref">p.390</span></li>
+<li id="np-48">病因：<mark>human papillomavirus（HPV，人類乳突病毒）——兒童 <span class="num">6</span>、<span class="num">11</span> 型，成人 <span class="num">16</span> 型</mark> → pedunculated papilloma；sessile 雖多為良性，但可能是 dysplastic 或癌性病灶，尤其 HPV <span class="num">16</span>、<span class="num">18</span>、<span class="num">33</span> 型。HPV 疫苗可能有預防效果。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.390</span></li>
+<li id="np-49">Pedunculated 處置：小、外觀可接受、不刺激者可觀察，數月至數年可能自行消退；<mark>切除並在基部冷凍或燒灼，約 <span class="num">90%</span> 治癒</mark>；切除不完全反而會刺激生長、外觀更差；手術操作應盡量少，避免病毒散播到健康結膜。<span class="ref">p.391</span></li>
+<li id="np-50">廣泛或頑固病例：口服 <strong>cimetidine</strong>（經免疫途徑作用）可能有益；MMC 亦曾使用。<span class="ref">p.391</span></li>
+<li id="np-51">Sessile limbal papilloma：必須密切觀察或切除；若長大或出現 dysplastic／癌性特徵 → <strong>excisional biopsy（切除式切片）+ 輔助冷凍</strong>。<span class="ref">p.391</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（型別）</th><th>位置與外觀</th><th>HPV 型別</th><th>處置</th></tr></thead>
 <tbody>
-<tr><td>Pedunculated papilloma</td><td>下穹窿最常見；有蒂、多分葉、corkscrew 血管</td><td>兒童 <span class="num">6</span>、<span class="num">11</span>；成人 <span class="num">16</span></td><td>可觀察；切除 + 基部冷凍/燒灼（約 <span class="num">90%</span> 治癒）；頑固者 cimetidine</td></tr>
-<tr><td>Sessile papilloma</td><td>輪部；平坦基底、草莓狀紅點，可延伸至角膜</td><td><span class="num">16</span>、<span class="num">18</span>、<span class="num">33</span>（較可能 dysplasia／癌）</td><td>密切觀察或切除；可疑者 excisional biopsy + 冷凍</td></tr>
+<tr><td id="np-52">Pedunculated papilloma</td><td id="np-53">下穹窿最常見；有蒂、多分葉、corkscrew 血管</td><td id="np-54">兒童 <span class="num">6</span>、<span class="num">11</span>；成人 <span class="num">16</span></td><td id="np-55">可觀察；切除 + 基部冷凍/燒灼（約 <span class="num">90%</span> 治癒）；頑固者 cimetidine</td></tr>
+<tr><td id="np-56">Sessile papilloma</td><td id="np-57">輪部；平坦基底、草莓狀紅點，可延伸至角膜</td><td id="np-58"><span class="num">16</span>、<span class="num">18</span>、<span class="num">33</span>（較可能 dysplasia／癌）</td><td id="np-59">密切觀察或切除；可疑者 excisional biopsy + 冷凍</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.390–391</span></p>
+<p id="np-60">出處 <span class="ref">p.390–391</span></p>
 <div class="ex-trap"><h3 id="ch14-s3-3">易錯陷阱</h3><ul>
-<li>Conjunctival papilloma 的成因與 HPV 有關（考題拼成 pupilloma 也一樣）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.390</span></li>
-<li>Papilloma 是 HPV 引起的局部病灶（多為良性），本章未提及它合併全身性腫瘤；最常合併全身腫瘤的是 lymphoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-856" data-q="856">第 856 題</a></span><span class="ref">p.390–391</span></li>
-<li>不完全切除會刺激復發與長大，不是「先切一部分看看」。<span class="ref">p.391</span></li>
-<li>輪部、平坦的 sessile 型比下穹窿有蒂型更需要擔心 dysplasia。<span class="ref">p.390–391</span></li>
+<li id="np-61">Conjunctival papilloma 的成因與 HPV 有關（考題拼成 pupilloma 也一樣）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.390</span></li>
+<li id="np-62">Papilloma 是 HPV 引起的局部病灶（多為良性），本章未提及它合併全身性腫瘤；最常合併全身腫瘤的是 lymphoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-856" data-q="856">第 856 題</a></span><span class="ref">p.390–391</span></li>
+<li id="np-63">不完全切除會刺激復發與長大，不是「先切一部分看看」。<span class="ref">p.391</span></li>
+<li id="np-64">輪部、平坦的 sessile 型比下穹窿有蒂型更需要擔心 dysplasia。<span class="ref">p.390–391</span></li>
 </ul></div>
 
 <h2 id="ch14-s4">四、Ocular surface squamous neoplasia（OSSN，眼表鱗狀上皮贅瘤）</h2>
 <ul>
-<li><strong>OSSN</strong> 是涵蓋性名詞，包含臨床外觀相似、需切片區分的結膜與角膜鱗狀腫瘤；傳統上依<strong>組織學</strong>分為 conjunctival or corneal intraepithelial neoplasia（CIN）與 squamous cell carcinoma（SCC）。<span class="ref">p.392</span></li>
-<li>危險因子：<mark>UV light exposure（紫外線）、prior skin cancer、older age（年長）、male sex（男性）、smoking（吸菸）、HPV infection、HIV infection、systemic immunosuppression（全身免疫抑制，似會加劇鱗狀腫瘤）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.392</span></li>
-<li>AIDS 病人病灶可快速長大；<mark>年輕成人出現 OSSN → 應考慮做 HIV 血清檢驗</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.392</span></li>
-<li>Section 4 補充（本章外）：UV 是已知危險因子，<strong>尤其膚色較淺者</strong>（不是較深者）；遺傳性 DNA 修復缺陷如 xeroderma pigmentosum（著色性乾皮症）會增加風險；任何 <span class="num">50</span> 歲以下的 OSSN 病人都應懷疑 HIV；<mark>CIN 最重要的組織學評估是上皮基底膜完整（CIN／SCC in situ）還是已被突破、腫瘤侵入基質（SCC）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">BCSC 4 p.72–73</span></li>
+<li id="np-65"><strong>OSSN</strong> 是涵蓋性名詞，包含臨床外觀相似、需切片區分的結膜與角膜鱗狀腫瘤；傳統上依<strong>組織學</strong>分為 conjunctival or corneal intraepithelial neoplasia（CIN）與 squamous cell carcinoma（SCC）。<span class="ref">p.392</span></li>
+<li id="np-66">危險因子：<mark>UV light exposure（紫外線）、prior skin cancer、older age（年長）、male sex（男性）、smoking（吸菸）、HPV infection、HIV infection、systemic immunosuppression（全身免疫抑制，似會加劇鱗狀腫瘤）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.392</span></li>
+<li id="np-67">AIDS 病人病灶可快速長大；<mark>年輕成人出現 OSSN → 應考慮做 HIV 血清檢驗</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.392</span></li>
+<li id="np-68">Section 4 補充（本章外）：UV 是已知危險因子，<strong>尤其膚色較淺者</strong>（不是較深者）；遺傳性 DNA 修復缺陷如 xeroderma pigmentosum（著色性乾皮症）會增加風險；任何 <span class="num">50</span> 歲以下的 OSSN 病人都應懷疑 HIV；<mark>CIN 最重要的組織學評估是上皮基底膜完整（CIN／SCC in situ）還是已被突破、腫瘤侵入基質（SCC）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">BCSC 4 p.72–73</span></li>
 </ul>
 <h3 id="ch14-s4-1">Noninvasive OSSN：conjunctival or corneal intraepithelial neoplasia（CIN）</h3>
 <ul>
-<li>CIN（dysplasia）類比皮膚的 <strong>actinic keratosis（光化性角化症）</strong>；<mark>異型增生不侵犯底下的基底膜（basement membrane）</mark>；屬 premalignant（癌前），有轉變為 SCC 的風險。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a></span><span class="ref">p.392</span></li>
-<li>相關名詞：<strong>squamous dysplasia</strong>＝非典型細胞只佔部分上皮厚度；<strong>squamous cell carcinoma in situ（原位癌）</strong>＝非典型細胞佔滿上皮全層。<span class="ref">p.392</span></li>
-<li><mark>三種主要臨床型（noninvasive 與 invasive OSSN 都會出現）</mark>：<strong>papilliform（乳突狀）</strong>＝sessile papilloma 內含異型細胞；<strong>gelatinous（膠狀）</strong>＝acanthosis（棘細胞增生）與 dysplasia；<strong>leukoplakic（白斑狀）</strong>＝hyperkeratosis（角化過度）、parakeratosis（角化不全）、dyskeratosis（角化不良）。<mark>沒有「cystic（囊泡狀）」型</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-867" data-q="867">第 867 題</a></span><span class="ref">p.393</span></li>
-<li>CIN 多為<strong>緩慢生長</strong>、<mark>幾乎都以輪部為中心</mark>，可擴展到眼表其他部位；可伴輕度發炎與不同程度的異常血管；<mark>粗大 feeder vessels 代表侵犯到上皮基底膜下的機率增加</mark>。<span class="ref">p.393</span></li>
-<li>角膜侵犯：半透明、有時呈顆粒狀、略隆起的灰色上皮片，自輪部延伸到角膜，<strong>通常不穿過 Bowman layer（鮑氏層）</strong>；邊緣呈 <strong>fimbriated（鬚狀）</strong>並有 pseudopodia-like（偽足狀）延伸。<span class="ref">p.393</span></li>
-<li>Rose bengal（玫瑰紅）、lissamine green（麗絲胺綠）、toluidine blue（甲苯胺藍）染色可界定範圍；有時結膜/輪部部分臨床上看不出來，偶有角膜上的游離病灶島。<span class="ref">p.393</span></li>
+<li id="np-69">CIN（dysplasia）類比皮膚的 <strong>actinic keratosis（光化性角化症）</strong>；<mark>異型增生不侵犯底下的基底膜（basement membrane）</mark>；屬 premalignant（癌前），有轉變為 SCC 的風險。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a></span><span class="ref">p.392</span></li>
+<li id="np-70">相關名詞：<strong>squamous dysplasia</strong>＝非典型細胞只佔部分上皮厚度；<strong>squamous cell carcinoma in situ（原位癌）</strong>＝非典型細胞佔滿上皮全層。<span class="ref">p.392</span></li>
+<li id="np-71"><mark>三種主要臨床型（noninvasive 與 invasive OSSN 都會出現）</mark>：<strong>papilliform（乳突狀）</strong>＝sessile papilloma 內含異型細胞；<strong>gelatinous（膠狀）</strong>＝acanthosis（棘細胞增生）與 dysplasia；<strong>leukoplakic（白斑狀）</strong>＝hyperkeratosis（角化過度）、parakeratosis（角化不全）、dyskeratosis（角化不良）。<mark>沒有「cystic（囊泡狀）」型</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-867" data-q="867">第 867 題</a></span><span class="ref">p.393</span></li>
+<li id="np-72">CIN 多為<strong>緩慢生長</strong>、<mark>幾乎都以輪部為中心</mark>，可擴展到眼表其他部位；可伴輕度發炎與不同程度的異常血管；<mark>粗大 feeder vessels 代表侵犯到上皮基底膜下的機率增加</mark>。<span class="ref">p.393</span></li>
+<li id="np-73">角膜侵犯：半透明、有時呈顆粒狀、略隆起的灰色上皮片，自輪部延伸到角膜，<strong>通常不穿過 Bowman layer（鮑氏層）</strong>；邊緣呈 <strong>fimbriated（鬚狀）</strong>並有 pseudopodia-like（偽足狀）延伸。<span class="ref">p.393</span></li>
+<li id="np-74">Rose bengal（玫瑰紅）、lissamine green（麗絲胺綠）、toluidine blue（甲苯胺藍）染色可界定範圍；有時結膜/輪部部分臨床上看不出來，偶有角膜上的游離病灶島。<span class="ref">p.393</span></li>
 </ul>
 <h3 id="ch14-s4-2">Invasive OSSN：squamous cell carcinoma（SCC）</h3>
 <ul>
-<li>SCC：病變<strong>越過基底膜進入基質</strong>，具轉移潛能；<mark>免疫低下者與 xeroderma pigmentosum 病人較常見且較具侵襲性</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.394</span></li>
-<li>外觀：斑塊狀、膠狀或乳突狀，位於輪部與球結膜，通常在 <strong>interpalpebral zone（瞼裂區）</strong>；沿輪部常有寬基底；向外生長、邊界清楚；<mark>常見 leukoplakia</mark>。膚色較深者可有結膜色素；<strong>充血怒張的結膜血管提示惡性</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.394</span></li>
-<li>雖組織學上已侵犯上皮基底膜，<mark>生長通常仍表淺，腫瘤細胞很少穿透 sclera（鞏膜）或 Bowman layer</mark>。<span class="ref">p.394</span></li>
-<li><strong>CIN 與侵襲性 SCC 臨床外觀可很相似</strong>，無法單憑外觀區分。<span class="ref">p.394</span></li>
-<li>Variants of squamous cell carcinoma（變異型）：<strong>adenosquamous carcinoma（舊稱 mucoepidermoid carcinoma）</strong>——侵襲性變異型，<mark>比一般 SCC 更易侵犯眼球或眼眶</mark>；多見於唾液腺、結膜罕見；組織學除腫瘤上皮細胞外，可用 mucin stain（黏液染色）見惡性 goblet cells（杯狀細胞）；治療為大範圍切除，可輔以冷凍與放射治療。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.394</span></li>
-<li><strong>Spindle cell carcinoma（梭形細胞癌）</strong>：罕見、高度惡性的球結膜或輪部 SCC，退行性（anaplastic）細胞呈梭形，像 fibroblast（纖維母細胞）。<span class="ref">p.394</span></li>
+<li id="np-75">SCC：病變<strong>越過基底膜進入基質</strong>，具轉移潛能；<mark>免疫低下者與 xeroderma pigmentosum 病人較常見且較具侵襲性</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.394</span></li>
+<li id="np-76">外觀：斑塊狀、膠狀或乳突狀，位於輪部與球結膜，通常在 <strong>interpalpebral zone（瞼裂區）</strong>；沿輪部常有寬基底；向外生長、邊界清楚；<mark>常見 leukoplakia</mark>。膚色較深者可有結膜色素；<strong>充血怒張的結膜血管提示惡性</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.394</span></li>
+<li id="np-77">雖組織學上已侵犯上皮基底膜，<mark>生長通常仍表淺，腫瘤細胞很少穿透 sclera（鞏膜）或 Bowman layer</mark>。<span class="ref">p.394</span></li>
+<li id="np-78"><strong>CIN 與侵襲性 SCC 臨床外觀可很相似</strong>，無法單憑外觀區分。<span class="ref">p.394</span></li>
+<li id="np-79">Variants of squamous cell carcinoma（變異型）：<strong>adenosquamous carcinoma（舊稱 mucoepidermoid carcinoma）</strong>——侵襲性變異型，<mark>比一般 SCC 更易侵犯眼球或眼眶</mark>；多見於唾液腺、結膜罕見；組織學除腫瘤上皮細胞外，可用 mucin stain（黏液染色）見惡性 goblet cells（杯狀細胞）；治療為大範圍切除，可輔以冷凍與放射治療。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.394</span></li>
+<li id="np-80"><strong>Spindle cell carcinoma（梭形細胞癌）</strong>：罕見、高度惡性的球結膜或輪部 SCC，退行性（anaplastic）細胞呈梭形，像 fibroblast（纖維母細胞）。<span class="ref">p.394</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病灶）</th><th>組織學定義</th><th>臨床重點</th></tr></thead>
 <tbody>
-<tr><td>CIN／squamous dysplasia</td><td>異型細胞佔部分上皮，基底膜完整</td><td>輪部為中心、緩慢生長；papilliform／gelatinous／leukoplakic</td></tr>
-<tr><td>SCC in situ（原位癌）</td><td>異型細胞佔上皮全層，基底膜仍完整</td><td>臨床與 CIN 難分</td></tr>
-<tr><td>Invasive SCC</td><td>穿過基底膜進入基質，可轉移</td><td>瞼裂區輪部、寬基底、leukoplakia、怒張血管；免疫低下與 XP 較常見</td></tr>
-<tr><td>Adenosquamous carcinoma</td><td>SCC + 惡性 goblet cells（mucin stain）</td><td>侵襲性高，較易侵犯眼球/眼眶；大範圍切除 ± 冷凍、放療</td></tr>
-<tr><td>Spindle cell carcinoma</td><td>梭形 anaplastic 細胞</td><td>罕見、高度惡性</td></tr>
+<tr><td id="np-81">CIN／squamous dysplasia</td><td id="np-82">異型細胞佔部分上皮，基底膜完整</td><td id="np-83">輪部為中心、緩慢生長；papilliform／gelatinous／leukoplakic</td></tr>
+<tr><td id="np-84">SCC in situ（原位癌）</td><td id="np-85">異型細胞佔上皮全層，基底膜仍完整</td><td id="np-86">臨床與 CIN 難分</td></tr>
+<tr><td id="np-87">Invasive SCC</td><td id="np-88">穿過基底膜進入基質，可轉移</td><td id="np-89">瞼裂區輪部、寬基底、leukoplakia、怒張血管；免疫低下與 XP 較常見</td></tr>
+<tr><td id="np-90">Adenosquamous carcinoma</td><td id="np-91">SCC + 惡性 goblet cells（mucin stain）</td><td id="np-92">侵襲性高，較易侵犯眼球/眼眶；大範圍切除 ± 冷凍、放療</td></tr>
+<tr><td id="np-93">Spindle cell carcinoma</td><td id="np-94">梭形 anaplastic 細胞</td><td id="np-95">罕見、高度惡性</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.392–394</span></p>
+<p id="np-96">出處 <span class="ref">p.392–394</span></p>
 <div class="ex-trap"><h3 id="ch14-s4-3">易錯陷阱</h3><ul>
-<li>CIN 三型是 papilliform、gelatinous、leukoplakic；<strong>cystic（囊泡）不是 CIN 的表現</strong>，病灶內囊泡反而是 conjunctival nevus 的特徵（<span class="num">50%</span> 以上含 intralesional cysts）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-867" data-q="867">第 867 題</a></span><span class="ref">p.393, p.401</span></li>
-<li>Xeroderma pigmentosum 會「增加」SCC 的發生與侵襲性，不是不影響。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.394</span></li>
-<li>HIV 篩檢對象是<strong>年輕</strong> OSSN 病人（Section 4：<span class="num">50</span> 歲以下），不是 <span class="num">50</span> 歲以上。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.392；BCSC 4 p.72</span></li>
-<li>Pterygium（翼狀贅肉）vs OSSN 的 OCT（本章外，BCSC 8 第 6 章）：<mark>上皮顯著增厚是 OSSN 的特徵，pterygium 的上皮厚度正常</mark>；考題說「OSSN 異常細胞侵犯基質、pterygium 只有上皮增厚」是把兩者說反，且 CIN 型 OSSN 根本沒有突破基底膜。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-922" data-q="922">第 922 題</a></span><span class="ref">p.392；BCSC 8 p.134–135</span></li>
-<li>Mucoepidermoid carcinoma＝adenosquamous carcinoma，是 SCC 的變異型且更易侵犯眼球/眼眶（敘述正確）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.394</span></li>
+<li id="np-97">CIN 三型是 papilliform、gelatinous、leukoplakic；<strong>cystic（囊泡）不是 CIN 的表現</strong>，病灶內囊泡反而是 conjunctival nevus 的特徵（<span class="num">50%</span> 以上含 intralesional cysts）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-867" data-q="867">第 867 題</a></span><span class="ref">p.393, p.401</span></li>
+<li id="np-98">Xeroderma pigmentosum 會「增加」SCC 的發生與侵襲性，不是不影響。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.394</span></li>
+<li id="np-99">HIV 篩檢對象是<strong>年輕</strong> OSSN 病人（Section 4：<span class="num">50</span> 歲以下），不是 <span class="num">50</span> 歲以上。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-389" data-q="389">第 389 題</a></span><span class="ref">p.392；BCSC 4 p.72</span></li>
+<li id="np-100">Pterygium（翼狀贅肉）vs OSSN 的 OCT（本章外，BCSC 8 第 6 章）：<mark>上皮顯著增厚是 OSSN 的特徵，pterygium 的上皮厚度正常</mark>；考題說「OSSN 異常細胞侵犯基質、pterygium 只有上皮增厚」是把兩者說反，且 CIN 型 OSSN 根本沒有突破基底膜。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-922" data-q="922">第 922 題</a></span><span class="ref">p.392；BCSC 8 p.134–135</span></li>
+<li id="np-101">Mucoepidermoid carcinoma＝adenosquamous carcinoma，是 SCC 的變異型且更易侵犯眼球/眼眶（敘述正確）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.394</span></li>
 </ul></div>
 
 <h2 id="ch14-s5">五、OSSN 的處置</h2>
 <h3 id="ch14-s5-1">Management of OSSN（原則）</h3>
 <ul>
-<li><mark>所有 OSSN 都應視為可能具轉移潛能的癌</mark>，因臨床上難以區分 dysplasia 與侵襲性 SCC。外觀穩定、較良性者可在嚴密追蹤下觀察（示意圖、照片、OCT）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a></span><span class="ref">p.395</span></li>
-<li><strong>OCT</strong> 可協助判斷腫瘤侷限於上皮（CIN）或已穿透基底膜（SCC）；<mark>典型 OSSN OCT：高反射（hyperreflective）、增厚的上皮層，正常與異常上皮之間呈 abrupt transition（突然轉換）</mark>；治療後恢復為薄的正常上皮。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-922" data-q="922">第 922 題</a></span><span class="ref">p.395</span></li>
-<li>長大中或疑似惡性的病灶 → 手術切除和/或局部化療。<mark>局部 MMC 或 5-FU 的成功率相近，均 <span class="num">&gt; 85%</span>，與 wide-margin excision（大範圍切除）加冷凍治療的成功率相當</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.396</span></li>
-<li>SCC 可長入 iris（虹膜）、trabecular meshwork（小樑網）或眼眶，成為進入全身循環與轉移的門戶；眼眶侵犯可能需 <strong>orbital exenteration（眼眶內容物剜除）</strong>；特定病例可輔以放射治療。<span class="ref">p.396</span></li>
+<li id="np-102"><mark>所有 OSSN 都應視為可能具轉移潛能的癌</mark>，因臨床上難以區分 dysplasia 與侵襲性 SCC。外觀穩定、較良性者可在嚴密追蹤下觀察（示意圖、照片、OCT）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a></span><span class="ref">p.395</span></li>
+<li id="np-103"><strong>OCT</strong> 可協助判斷腫瘤侷限於上皮（CIN）或已穿透基底膜（SCC）；<mark>典型 OSSN OCT：高反射（hyperreflective）、增厚的上皮層，正常與異常上皮之間呈 abrupt transition（突然轉換）</mark>；治療後恢復為薄的正常上皮。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-922" data-q="922">第 922 題</a></span><span class="ref">p.395</span></li>
+<li id="np-104">長大中或疑似惡性的病灶 → 手術切除和/或局部化療。<mark>局部 MMC 或 5-FU 的成功率相近，均 <span class="num">&gt; 85%</span>，與 wide-margin excision（大範圍切除）加冷凍治療的成功率相當</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.396</span></li>
+<li id="np-105">SCC 可長入 iris（虹膜）、trabecular meshwork（小樑網）或眼眶，成為進入全身循環與轉移的門戶；眼眶侵犯可能需 <strong>orbital exenteration（眼眶內容物剜除）</strong>；特定病例可輔以放射治療。<span class="ref">p.396</span></li>
 </ul>
 <h3 id="ch14-s5-2">Surgical treatment（手術步驟）</h3>
 <ul>
-<li>標準：完整切除腫瘤並盡可能包含 <span class="num">2–4 mm</span> 周圍正常組織邊緣（Video 14-1，no-touch technique）。<span class="ref">p.396</span></li>
+<li id="np-106">標準：完整切除腫瘤並盡可能包含 <span class="num">2–4 mm</span> 周圍正常組織邊緣（Video 14-1，no-touch technique）。<span class="ref">p.396</span></li>
 </ul>
 <ol>
-<li><strong>Corneal epitheliectomy（角膜上皮切除）</strong>：以海綿沾 absolute alcohol 敷於受侵上皮 <span class="num">60</span> 秒，再以刀片或鈍 spatula 輕捲刮除上皮；<mark>避免破壞 Bowman membrane——它是腫瘤侵入角膜基質的天然屏障</mark>。替代法：對受侵角膜上皮及周圍 <span class="num">2 mm</span> 上皮做 double freeze–thaw 冷凍。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a></span><span class="ref">p.396</span></li>
-<li><strong>Conjunctival resection（結膜切除）</strong>：以 no-touch technique 大範圍切除受侵結膜以防播種；部分病灶需 <strong>lamellar sclerectomy（板層鞏膜切除）</strong>才能完整移除。<span class="ref">p.396</span></li>
-<li><strong>周圍結膜邊緣 double freeze–thaw cryotherapy</strong>：掀起結膜邊緣，冷凍探頭貼結膜背面直到完全變白（full blanching），解凍約 <span class="num">10</span> 秒後再冷凍；移動 <span class="num">2–3 mm</span> 重複至涵蓋整個邊緣；輪部邊緣則探頭直接貼輪部表面。<span class="ref">p.396</span></li>
-<li><strong>Scleral bed（鞏膜床）</strong>：以 absolute alcohol 處理；也可冷凍，但較易造成發炎與 <strong>ciliary body（睫狀體）</strong>傷害。<span class="ref">p.396</span></li>
-<li><strong>Wound closure（關閉傷口）</strong>：缺損小可直接縫合或 conjunctival autograft（結膜自體移植）；以黏合或縫合的 <strong>amniotic membrane transplantation（羊膜移植）</strong>重建可容許更寬的切除邊緣並減少術後疤痕。<span class="ref">p.396</span></li>
+<li id="np-107"><strong>Corneal epitheliectomy（角膜上皮切除）</strong>：以海綿沾 absolute alcohol 敷於受侵上皮 <span class="num">60</span> 秒，再以刀片或鈍 spatula 輕捲刮除上皮；<mark>避免破壞 Bowman membrane——它是腫瘤侵入角膜基質的天然屏障</mark>。替代法：對受侵角膜上皮及周圍 <span class="num">2 mm</span> 上皮做 double freeze–thaw 冷凍。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a></span><span class="ref">p.396</span></li>
+<li id="np-108"><strong>Conjunctival resection（結膜切除）</strong>：以 no-touch technique 大範圍切除受侵結膜以防播種；部分病灶需 <strong>lamellar sclerectomy（板層鞏膜切除）</strong>才能完整移除。<span class="ref">p.396</span></li>
+<li id="np-109"><strong>周圍結膜邊緣 double freeze–thaw cryotherapy</strong>：掀起結膜邊緣，冷凍探頭貼結膜背面直到完全變白（full blanching），解凍約 <span class="num">10</span> 秒後再冷凍；移動 <span class="num">2–3 mm</span> 重複至涵蓋整個邊緣；輪部邊緣則探頭直接貼輪部表面。<span class="ref">p.396</span></li>
+<li id="np-110"><strong>Scleral bed（鞏膜床）</strong>：以 absolute alcohol 處理；也可冷凍，但較易造成發炎與 <strong>ciliary body（睫狀體）</strong>傷害。<span class="ref">p.396</span></li>
+<li id="np-111"><strong>Wound closure（關閉傷口）</strong>：缺損小可直接縫合或 conjunctival autograft（結膜自體移植）；以黏合或縫合的 <strong>amniotic membrane transplantation（羊膜移植）</strong>重建可容許更寬的切除邊緣並減少術後疤痕。<span class="ref">p.396</span></li>
 </ol>
 <ul>
-<li>Fig 14-1 整理：角膜部分——<span class="num">2–4 mm</span> 邊緣、邊緣冷凍、刀片刮除 ± 酒精上皮切除；結膜/輪部部分——<span class="num">2–4 mm</span> 邊緣、邊緣冷凍 ± 酒精；基質床——± lamellar sclerectomy ± 冷凍 ± 酒精。<span class="ref">p.389</span></li>
-<li>臨床應用：老年人輪部大型（含色素）病灶合併 leukoplakia → 最符合 OSSN（CIN／原位癌），<mark>應完整切除送病理，角膜部分以酒精上皮刮除、保留 Bowman layer</mark>；不宜只觀察；即使是侵襲性 SCC 也很少穿透 Bowman layer，故不需常規做角膜 lamellar keratectomy（板層角膜切除）；也不是「部分切除送病理」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.394–396</span></li>
+<li id="np-112">Fig 14-1 整理：角膜部分——<span class="num">2–4 mm</span> 邊緣、邊緣冷凍、刀片刮除 ± 酒精上皮切除；結膜/輪部部分——<span class="num">2–4 mm</span> 邊緣、邊緣冷凍 ± 酒精；基質床——± lamellar sclerectomy ± 冷凍 ± 酒精。<span class="ref">p.389</span></li>
+<li id="np-113">臨床應用：老年人輪部大型（含色素）病灶合併 leukoplakia → 最符合 OSSN（CIN／原位癌），<mark>應完整切除送病理，角膜部分以酒精上皮刮除、保留 Bowman layer</mark>；不宜只觀察；即使是侵襲性 SCC 也很少穿透 Bowman layer，故不需常規做角膜 lamellar keratectomy（板層角膜切除）；也不是「部分切除送病理」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.394–396</span></li>
 </ul>
 <h3 id="ch14-s5-3">Topical chemotherapy（局部化療療程）</h3>
 <table class="ted-table">
 <thead><tr><th>Agent（藥物）</th><th>Regimen（用法）</th><th>Notes（重點）</th></tr></thead>
 <tbody>
-<tr><td>5-FU <span class="num">1%</span></td><td>每天 <span class="num">4</span> 次 × <span class="num">1</span> 週，再停 <span class="num">3</span> 週（structured treatment interruption，藥物假期）為一循環，直到臨床消退，<strong>通常需 <span class="num">4</span> 個循環</strong>；或每天 <span class="num">4</span> 次連續 <span class="num">1</span> 個月（若需重複，至少間隔數個月）</td><td>對殘留有疑慮可再多做幾個循環</td></tr>
-<tr><td>MMC <span class="num">0.2 mg/mL</span></td><td>每天 <span class="num">4</span> 次 × <span class="num">1–2</span> 週，再停 <span class="num">1–2</span> 週；<strong>最多 <span class="num">3</span> 或 <span class="num">4</span> 個循環</strong>（Fig 14-1 寫最多 <span class="num">4</span> 個循環）；用藥期間加 punctal occlusion（淚點阻塞）</td><td>療程以「週」計而非「月」計，但副作用較重；仍有殘留 → 改其他治療，避免 MMC 毒性</td></tr>
+<tr><td id="np-114">5-FU <span class="num">1%</span></td><td id="np-115">每天 <span class="num">4</span> 次 × <span class="num">1</span> 週，再停 <span class="num">3</span> 週（structured treatment interruption，藥物假期）為一循環，直到臨床消退，<strong>通常需 <span class="num">4</span> 個循環</strong>；或每天 <span class="num">4</span> 次連續 <span class="num">1</span> 個月（若需重複，至少間隔數個月）</td><td id="np-116">對殘留有疑慮可再多做幾個循環</td></tr>
+<tr><td id="np-117">MMC <span class="num">0.2 mg/mL</span></td><td id="np-118">每天 <span class="num">4</span> 次 × <span class="num">1–2</span> 週，再停 <span class="num">1–2</span> 週；<strong>最多 <span class="num">3</span> 或 <span class="num">4</span> 個循環</strong>（Fig 14-1 寫最多 <span class="num">4</span> 個循環）；用藥期間加 punctal occlusion（淚點阻塞）</td><td id="np-119">療程以「週」計而非「月」計，但副作用較重；仍有殘留 → 改其他治療，避免 MMC 毒性</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.389, p.397</span></p>
+<p id="np-120">出處 <span class="ref">p.389, p.397</span></p>
 <ul>
-<li><mark>MMC 療程比 5-FU 短（以週計，不以月計），不宜持續數個月</mark>；每次 <span class="num">1–2</span> 週、最多 <span class="num">3</span> 或 <span class="num">4</span> 個循環，仍有殘留時改用其他治療，不是「點到病灶消失後再多點一個月」。換算：每循環最多點 <span class="num">2</span> 週 × 最多 <span class="num">4</span> 循環，累計用藥約 <span class="num">8</span> 週以內，故「MMC 局部給藥勿超過 2 個月」為正確敘述。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-868" data-q="868">第 868 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a></span><span class="ref">p.397</span></li>
-<li><mark>局部化療造成的眼痛與眼表毒性，可用 fluorometholone（FML）眼藥水每天 <span class="num">1</span> 或 <span class="num">2</span> 次減輕</mark>（合併低效價類固醇點眼可減少毒性反應）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-868" data-q="868">第 868 題</a></span><span class="ref">p.397</span></li>
-<li>MMC 在 OSSN 屬局部化療用藥（本章）；其他章節的用途（本章外）：中高度屈光不正或較深切削的 PRK，切削後以 MMC（通常 <span class="num">0.02%</span>）短暫敷於切削面預防 corneal haze（角膜霧化）、trabeculectomy（小樑切除術）以 MMC 抗纖維化；SMILE／KLEx（角膜基質透鏡取出術）保留前層角膜，BCSC 未提及使用 MMC。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1631" data-q="1631">第 1631 題</a></span><span class="ref">p.388；BCSC 13 p.85, p.121；BCSC 10 p.265</span></li>
+<li id="np-121"><mark>MMC 療程比 5-FU 短（以週計，不以月計），不宜持續數個月</mark>；每次 <span class="num">1–2</span> 週、最多 <span class="num">3</span> 或 <span class="num">4</span> 個循環，仍有殘留時改用其他治療，不是「點到病灶消失後再多點一個月」。換算：每循環最多點 <span class="num">2</span> 週 × 最多 <span class="num">4</span> 循環，累計用藥約 <span class="num">8</span> 週以內，故「MMC 局部給藥勿超過 2 個月」為正確敘述。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-868" data-q="868">第 868 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a></span><span class="ref">p.397</span></li>
+<li id="np-122"><mark>局部化療造成的眼痛與眼表毒性，可用 fluorometholone（FML）眼藥水每天 <span class="num">1</span> 或 <span class="num">2</span> 次減輕</mark>（合併低效價類固醇點眼可減少毒性反應）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-868" data-q="868">第 868 題</a></span><span class="ref">p.397</span></li>
+<li id="np-123">MMC 在 OSSN 屬局部化療用藥（本章）；其他章節的用途（本章外）：中高度屈光不正或較深切削的 PRK，切削後以 MMC（通常 <span class="num">0.02%</span>）短暫敷於切削面預防 corneal haze（角膜霧化）、trabeculectomy（小樑切除術）以 MMC 抗纖維化；SMILE／KLEx（角膜基質透鏡取出術）保留前層角膜，BCSC 未提及使用 MMC。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1631" data-q="1631">第 1631 題</a></span><span class="ref">p.388；BCSC 13 p.85, p.121；BCSC 10 p.265</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch14-s5-4">易錯陷阱</h3><ul>
-<li>「局部化療（IFN-α2b、MMC、5-FU）療效很差」或「不如大範圍切除 + 冷凍」都是錯的：成功率 <span class="num">&gt; 85%</span>，與手術相當。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.396</span></li>
-<li>5-FU 可連續用 <span class="num">1</span> 個月；MMC 不行（以週計）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.397</span></li>
-<li>Bowman layer 要保留，不是要切掉；OSSN 很少穿透 Bowman layer。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a></span><span class="ref">p.394, p.396</span></li>
-<li>鞏膜床首選 absolute alcohol；冷凍較易傷睫狀體。<span class="ref">p.396</span></li>
-<li>冷凍步驟：凍到全白 → 解凍約 <span class="num">10</span> 秒 → 再凍，每次移動 <span class="num">2–3 mm</span>。<span class="ref">p.396</span></li>
+<li id="np-124">「局部化療（IFN-α2b、MMC、5-FU）療效很差」或「不如大範圍切除 + 冷凍」都是錯的：成功率 <span class="num">&gt; 85%</span>，與手術相當。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-833" data-q="833">第 833 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.396</span></li>
+<li id="np-125">5-FU 可連續用 <span class="num">1</span> 個月；MMC 不行（以週計）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-912" data-q="912">第 912 題</a></span><span class="ref">p.397</span></li>
+<li id="np-126">Bowman layer 要保留，不是要切掉；OSSN 很少穿透 Bowman layer。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-879" data-q="879">第 879 題</a></span><span class="ref">p.394, p.396</span></li>
+<li id="np-127">鞏膜床首選 absolute alcohol；冷凍較易傷睫狀體。<span class="ref">p.396</span></li>
+<li id="np-128">冷凍步驟：凍到全白 → 解凍約 <span class="num">10</span> 秒 → 再凍，每次移動 <span class="num">2–3 mm</span>。<span class="ref">p.396</span></li>
 </ul></div>
 
 <h2 id="ch14-s6">六、Glandular tumors of the conjunctiva（結膜腺體腫瘤）</h2>
 <h3 id="ch14-s6-1">Oncocytoma（嗜酸性細胞瘤）</h3>
 <ul>
-<li>緩慢生長的 <strong>cystadenoma（囊腺瘤）</strong>，<mark>良性</mark>，源自主淚腺與副淚腺的 ductal（導管）與 acinar（腺泡）細胞；<mark>最常見於年長者與女性</mark>，可表現為 <strong>caruncle（淚阜）</strong>表面黃褐至紅色結節。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-361" data-q="361">第 361 題</a></span><span class="ref">p.397</span></li>
-<li>Section 4 補充（本章外）：又稱 oxyphilic adenoma，多起源於淚阜的副淚腺，好發女性、median age <span class="num">73</span> 歲；組織學為大量、強嗜酸性顆粒狀細胞質（dense eosinophilic granular cytoplasm），<mark>反映細胞內含大量 mitochondria（粒線體）</mark>。<strong>它不是由外傷或發炎引起</strong>（外傷、手術或 chalazion 後的反應性增生是 pyogenic granuloma）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-361" data-q="361">第 361 題</a></span><span class="ref">p.397, p.408；BCSC 4 p.89</span></li>
+<li id="np-129">緩慢生長的 <strong>cystadenoma（囊腺瘤）</strong>，<mark>良性</mark>，源自主淚腺與副淚腺的 ductal（導管）與 acinar（腺泡）細胞；<mark>最常見於年長者與女性</mark>，可表現為 <strong>caruncle（淚阜）</strong>表面黃褐至紅色結節。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-361" data-q="361">第 361 題</a></span><span class="ref">p.397</span></li>
+<li id="np-130">Section 4 補充（本章外）：又稱 oxyphilic adenoma，多起源於淚阜的副淚腺，好發女性、median age <span class="num">73</span> 歲；組織學為大量、強嗜酸性顆粒狀細胞質（dense eosinophilic granular cytoplasm），<mark>反映細胞內含大量 mitochondria（粒線體）</mark>。<strong>它不是由外傷或發炎引起</strong>（外傷、手術或 chalazion 後的反應性增生是 pyogenic granuloma）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-361" data-q="361">第 361 題</a></span><span class="ref">p.397, p.408；BCSC 4 p.89</span></li>
 </ul>
 <h3 id="ch14-s6-2">Sebaceous carcinoma（皮脂腺癌）</h3>
 <ul>
-<li>約佔所有眼瞼腫瘤 <span class="num">1%</span>、眼瞼惡性腫瘤 <span class="num">5%</span>；源自 meibomian glands（瞼板腺）、glands of Zeis（蔡氏腺）與淚阜的皮脂腺。<span class="ref">p.397</span></li>
-<li>通常發生於 <span class="num">50</span> 歲以上，但放射治療後的年輕人也可發生。<span class="ref">p.397</span></li>
-<li><mark>可偽裝成 chalazion（霰粒腫）或慢性單側 blepharoconjunctivitis（瞼結膜炎）→ 超過 <span class="num">50%</span> 初診被誤診</mark>。<span class="ref">p.397</span></li>
-<li>結膜上皮侵犯約 <span class="num">50%</span>（almost 50%），延伸至角膜 <span class="num">&gt; 25%</span>。<span class="ref">p.397</span></li>
-<li><strong>Map biopsies（地圖式切片）</strong>：在瞼結膜與球結膜多處可疑區取直徑 <span class="num">3–4 mm</span> 組織，找出 multicentric（多中心）侵犯與臨床看不到的 <strong>pagetoid spread（佩吉特樣擴散）</strong>。<span class="ref">p.397</span></li>
-<li>治療：原發腫瘤大範圍切除 + 冷凍；廣泛病灶 → exenteration；局部 MMC 輔助可能有些幫助。<span class="ref">p.397–398</span></li>
+<li id="np-131">約佔所有眼瞼腫瘤 <span class="num">1%</span>、眼瞼惡性腫瘤 <span class="num">5%</span>；源自 meibomian glands（瞼板腺）、glands of Zeis（蔡氏腺）與淚阜的皮脂腺。<span class="ref">p.397</span></li>
+<li id="np-132">通常發生於 <span class="num">50</span> 歲以上，但放射治療後的年輕人也可發生。<span class="ref">p.397</span></li>
+<li id="np-133"><mark>可偽裝成 chalazion（霰粒腫）或慢性單側 blepharoconjunctivitis（瞼結膜炎）→ 超過 <span class="num">50%</span> 初診被誤診</mark>。<span class="ref">p.397</span></li>
+<li id="np-134">結膜上皮侵犯約 <span class="num">50%</span>（almost 50%），延伸至角膜 <span class="num">&gt; 25%</span>。<span class="ref">p.397</span></li>
+<li id="np-135"><strong>Map biopsies（地圖式切片）</strong>：在瞼結膜與球結膜多處可疑區取直徑 <span class="num">3–4 mm</span> 組織，找出 multicentric（多中心）侵犯與臨床看不到的 <strong>pagetoid spread（佩吉特樣擴散）</strong>。<span class="ref">p.397</span></li>
+<li id="np-136">治療：原發腫瘤大範圍切除 + 冷凍；廣泛病灶 → exenteration；局部 MMC 輔助可能有些幫助。<span class="ref">p.397–398</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch14-s6-3">易錯陷阱</h3><ul>
-<li>年長者「反覆霰粒腫」或「頑固單側瞼結膜炎」要想到 sebaceous carcinoma 並做切片／map biopsy。<span class="ref">p.397</span></li>
-<li>Oncocytoma 是良性腺體腫瘤，「常因 trauma 或 inflammation 引起」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-361" data-q="361">第 361 題</a></span><span class="ref">p.397</span></li>
+<li id="np-137">年長者「反覆霰粒腫」或「頑固單側瞼結膜炎」要想到 sebaceous carcinoma 並做切片／map biopsy。<span class="ref">p.397</span></li>
+<li id="np-138">Oncocytoma 是良性腺體腫瘤，「常因 trauma 或 inflammation 引起」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-361" data-q="361">第 361 題</a></span><span class="ref">p.397</span></li>
 </ul></div>
 
 <h2 id="ch14-s7">七、神經外胚層腫瘤與良性色素病灶</h2>
@@ -459,254 +498,254 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <table class="ted-table">
 <thead><tr><th>Cell of origin（起源細胞）</th><th>Benign（良性）</th><th>Preinvasive or malignant（侵襲前或惡性）</th></tr></thead>
 <tbody>
-<tr><td>Epithelial melanocytes（上皮黑色素細胞）</td><td>Freckle（雀斑）；complexion-associated melanosis</td><td>Primary acquired melanosis；melanoma</td></tr>
-<tr><td>Subepithelial melanocytes（上皮下黑色素細胞）</td><td>Ocular melanocytosis；melanocytoma</td><td>Melanoma</td></tr>
-<tr><td>Nevus cells（痣細胞）</td><td>Intraepithelial、junctional（上皮-基質交界）、subepithelial、compound nevus</td><td>Melanoma</td></tr>
-<tr><td>Neural and other cells（神經及其他）</td><td>Neurofibroma（神經纖維瘤）</td><td>Leiomyosarcoma（平滑肌肉瘤）</td></tr>
+<tr><td id="np-139">Epithelial melanocytes（上皮黑色素細胞）</td><td id="np-140">Freckle（雀斑）；complexion-associated melanosis</td><td id="np-141">Primary acquired melanosis；melanoma</td></tr>
+<tr><td id="np-142">Subepithelial melanocytes（上皮下黑色素細胞）</td><td id="np-143">Ocular melanocytosis；melanocytoma</td><td id="np-144">Melanoma</td></tr>
+<tr><td id="np-145">Nevus cells（痣細胞）</td><td id="np-146">Intraepithelial、junctional（上皮-基質交界）、subepithelial、compound nevus</td><td id="np-147">Melanoma</td></tr>
+<tr><td id="np-148">Neural and other cells（神經及其他）</td><td id="np-149">Neurofibroma（神經纖維瘤）</td><td id="np-150">Leiomyosarcoma（平滑肌肉瘤）</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.399</span></p>
+<p id="np-151">出處 <span class="ref">p.399</span></p>
 <ul>
-<li>正常色素：<strong>pigment spot of the sclera（鞏膜色素點）</strong>＝伴隨鞏膜內神經環（intrascleral nerve loop）或穿通的前睫狀血管的黑色素細胞群。<span class="ref">p.398</span></li>
-<li><strong>Melanosis（黑變）</strong>＝色素過多但<strong>沒有隆起腫塊</strong>；可為先天（上皮或上皮下）或後天（primary 或 secondary）。<span class="ref">p.398</span></li>
-<li>外源性結膜色素：長期使用 topical epinephrine（腎上腺素）類藥物、口服 <strong>minocycline</strong>、含銀（silver）製劑、睫毛膏（mascara）。<span class="ref">p.398</span></li>
+<li id="np-152">正常色素：<strong>pigment spot of the sclera（鞏膜色素點）</strong>＝伴隨鞏膜內神經環（intrascleral nerve loop）或穿通的前睫狀血管的黑色素細胞群。<span class="ref">p.398</span></li>
+<li id="np-153"><strong>Melanosis（黑變）</strong>＝色素過多但<strong>沒有隆起腫塊</strong>；可為先天（上皮或上皮下）或後天（primary 或 secondary）。<span class="ref">p.398</span></li>
+<li id="np-154">外源性結膜色素：長期使用 topical epinephrine（腎上腺素）類藥物、口服 <strong>minocycline</strong>、含銀（silver）製劑、睫毛膏（mascara）。<span class="ref">p.398</span></li>
 </ul>
 <h3 id="ch14-s7-2">Ocular melanocytosis（眼部黑色素細胞增生症）</h3>
 <ul>
-<li>上皮下黑色素細胞的局部增生；先天性鞏膜外層黑變約每 <span class="num">2500</span> 人 1 例，Black（黑人）、Hispanic（西語裔）、Asian（亞洲人）較常見。<span class="ref">p.399</span></li>
-<li>臨床：透過正常結膜看到 <strong>slate gray（石板灰）</strong>的鞏膜外層色素斑，<mark>不可推動、通常單側</mark>；可合併 uveal tract（葡萄膜）的瀰漫性痣，表現為<mark>虹膜與脈絡膜色素「增加」</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a></span><span class="ref">p.399</span></li>
-<li>約 <span class="num">50%</span> 病人同側有 dermal melanocytosis（真皮黑色素細胞增生），位於三叉神經（cranial nerve V）第一、二分支皮節的眼周皮膚 → 合稱 <strong>oculodermal melanocytosis（眼皮膚黑色素細胞增生症）／nevus of Ota（太田痣）</strong>；約 <span class="num">5%</span> 為雙側。<span class="ref">p.399–400</span></li>
-<li><mark>約 <span class="num">10%</span> 患眼發生 secondary glaucoma（續發性青光眼）</mark>；惡性轉化罕見，似乎只發生於膚色白皙者；melanoma 可發生於皮膚、結膜、葡萄膜或眼眶。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.400</span></li>
-<li><mark>終生 uveal melanoma（葡萄膜黑色素瘤）風險約每 <span class="num">400</span> 人 1 人，遠高於一般人約每百萬 <span class="num">6</span> 人</mark>（Table 14-3 惡性潛能 <span class="num">&lt; 1%</span>）→ 建議<strong>每年兩次</strong>含檢眼鏡的眼科檢查。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-850" data-q="850">第 850 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.400–401</span></li>
-<li>Section 6 補充（本章外）：ocular melanocytosis 為單側片狀而廣泛的灰藍色鞏膜外層變色，眼內色素增加並與較高的青光眼與惡性黑色素瘤風險相關；<strong>nevus of Ota 特別見於亞洲裔</strong>；黑人與亞洲兒童常見的則是雙側、小片、無臨床意義的鞏膜灰色斑。兩書族群寫法不同：本章（p.399）寫先天鞏膜外層黑變在 Black、Hispanic、Asian 族群都較常見；Section 6 則說 nevus of Ota 特別見於亞洲裔。考題「太田痣常見於非洲血統」依 Section 6 判為錯，且 D（眼內色素增加、青光眼與 melanoma 風險升高）才是兩書一致的明確正確敘述。（文獻補充：太田痣最常見於東亞人，尤其日本人，非洲裔也有報告；白人最少見，但伴發 melanoma 的風險最高。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a></span><span class="ref">BCSC 6 p.268</span></li>
+<li id="np-155">上皮下黑色素細胞的局部增生；先天性鞏膜外層黑變約每 <span class="num">2500</span> 人 1 例，Black（黑人）、Hispanic（西語裔）、Asian（亞洲人）較常見。<span class="ref">p.399</span></li>
+<li id="np-156">臨床：透過正常結膜看到 <strong>slate gray（石板灰）</strong>的鞏膜外層色素斑，<mark>不可推動、通常單側</mark>；可合併 uveal tract（葡萄膜）的瀰漫性痣，表現為<mark>虹膜與脈絡膜色素「增加」</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a></span><span class="ref">p.399</span></li>
+<li id="np-157">約 <span class="num">50%</span> 病人同側有 dermal melanocytosis（真皮黑色素細胞增生），位於三叉神經（cranial nerve V）第一、二分支皮節的眼周皮膚 → 合稱 <strong>oculodermal melanocytosis（眼皮膚黑色素細胞增生症）／nevus of Ota（太田痣）</strong>；約 <span class="num">5%</span> 為雙側。<span class="ref">p.399–400</span></li>
+<li id="np-158"><mark>約 <span class="num">10%</span> 患眼發生 secondary glaucoma（續發性青光眼）</mark>；惡性轉化罕見，似乎只發生於膚色白皙者；melanoma 可發生於皮膚、結膜、葡萄膜或眼眶。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.400</span></li>
+<li id="np-159"><mark>終生 uveal melanoma（葡萄膜黑色素瘤）風險約每 <span class="num">400</span> 人 1 人，遠高於一般人約每百萬 <span class="num">6</span> 人</mark>（Table 14-3 惡性潛能 <span class="num">&lt; 1%</span>）→ 建議<strong>每年兩次</strong>含檢眼鏡的眼科檢查。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-850" data-q="850">第 850 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.400–401</span></li>
+<li id="np-160">Section 6 補充（本章外）：ocular melanocytosis 為單側片狀而廣泛的灰藍色鞏膜外層變色，眼內色素增加並與較高的青光眼與惡性黑色素瘤風險相關；<strong>nevus of Ota 特別見於亞洲裔</strong>；黑人與亞洲兒童常見的則是雙側、小片、無臨床意義的鞏膜灰色斑。兩書族群寫法不同：本章（p.399）寫先天鞏膜外層黑變在 Black、Hispanic、Asian 族群都較常見；Section 6 則說 nevus of Ota 特別見於亞洲裔。考題「太田痣常見於非洲血統」依 Section 6 判為錯，且 D（眼內色素增加、青光眼與 melanoma 風險升高）才是兩書一致的明確正確敘述。（文獻補充：太田痣最常見於東亞人，尤其日本人，非洲裔也有報告；白人最少見，但伴發 melanoma 的風險最高。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a></span><span class="ref">BCSC 6 p.268</span></li>
 </ul>
 <h3 id="ch14-s7-3">Nevus（結膜痣）</h3>
 <ul>
-<li>Nevocellular nevi：良性黑色素細胞成巢或瀰漫浸潤；<strong>出現於 first or second decade（兒童至青少年期）</strong>。<span class="ref">p.401</span></li>
-<li>輪部附近的痣通常幾乎平坦；球結膜其他處、plica semilunaris、caruncle、瞼緣的痣較隆起。<span class="ref">p.401</span></li>
-<li><mark>Intralesional cysts（病灶內囊泡）見於 <span class="num">50%</span> 以上的結膜痣，但結膜 melanoma 幾乎不會有</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-867" data-q="867">第 867 題</a></span><span class="ref">p.401</span></li>
-<li>色素不一：淺黃褐到褐色，<span class="num">15%</span> 為 amelanotic；青春期或懷孕時可因荷爾蒙輕度變大，易誤以為 melanoma；發炎時 amelanotic、血管多的痣可像 angioma（血管瘤）或被誤診為慢性結膜炎。<span class="ref">p.401</span></li>
-<li>組織分類：<strong>junctional</strong>（侷限於上皮-基質交界，年輕人較多）、<strong>subepithelial</strong>、<strong>stromal</strong>（侷限於基質）、<strong>compound</strong>（junctional + subepithelial）；純 intraepithelial nevus 除兒童外罕見。<span class="ref">p.401</span></li>
-<li>組織上痣偶爾很難與 melanoma 區分；junctional nevus 可難與 PAM 區分。約一半的痣含上皮包涵囊泡（尤其 compound 或 subepithelial），囊內 goblet cell 分泌黏液可使痣變大，造成惡變假象；細胞增生可誘發續發性淋巴球發炎。<span class="ref">p.401–402</span></li>
-<li>處置：只有一小部分會惡變 → <mark>痣不應視為癌前病變</mark>；每 <span class="num">6–12</span> 個月以連續照相或含尺寸的詳細繪圖追蹤；教病人自我檢查大小、顏色、隆起、血管變化；可疑變化或長大 → excisional biopsy。<span class="ref">p.402</span></li>
-<li><mark>位於瞼結膜、角膜或穹窿的色素病灶可考慮切片，因為痣很少長在這些位置</mark>。<span class="ref">p.402</span></li>
+<li id="np-161">Nevocellular nevi：良性黑色素細胞成巢或瀰漫浸潤；<strong>出現於 first or second decade（兒童至青少年期）</strong>。<span class="ref">p.401</span></li>
+<li id="np-162">輪部附近的痣通常幾乎平坦；球結膜其他處、plica semilunaris、caruncle、瞼緣的痣較隆起。<span class="ref">p.401</span></li>
+<li id="np-163"><mark>Intralesional cysts（病灶內囊泡）見於 <span class="num">50%</span> 以上的結膜痣，但結膜 melanoma 幾乎不會有</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-867" data-q="867">第 867 題</a></span><span class="ref">p.401</span></li>
+<li id="np-164">色素不一：淺黃褐到褐色，<span class="num">15%</span> 為 amelanotic；青春期或懷孕時可因荷爾蒙輕度變大，易誤以為 melanoma；發炎時 amelanotic、血管多的痣可像 angioma（血管瘤）或被誤診為慢性結膜炎。<span class="ref">p.401</span></li>
+<li id="np-165">組織分類：<strong>junctional</strong>（侷限於上皮-基質交界，年輕人較多）、<strong>subepithelial</strong>、<strong>stromal</strong>（侷限於基質）、<strong>compound</strong>（junctional + subepithelial）；純 intraepithelial nevus 除兒童外罕見。<span class="ref">p.401</span></li>
+<li id="np-166">組織上痣偶爾很難與 melanoma 區分；junctional nevus 可難與 PAM 區分。約一半的痣含上皮包涵囊泡（尤其 compound 或 subepithelial），囊內 goblet cell 分泌黏液可使痣變大，造成惡變假象；細胞增生可誘發續發性淋巴球發炎。<span class="ref">p.401–402</span></li>
+<li id="np-167">處置：只有一小部分會惡變 → <mark>痣不應視為癌前病變</mark>；每 <span class="num">6–12</span> 個月以連續照相或含尺寸的詳細繪圖追蹤；教病人自我檢查大小、顏色、隆起、血管變化；可疑變化或長大 → excisional biopsy。<span class="ref">p.402</span></li>
+<li id="np-168"><mark>位於瞼結膜、角膜或穹窿的色素病灶可考慮切片，因為痣很少長在這些位置</mark>。<span class="ref">p.402</span></li>
 </ul>
 <h3 id="ch14-s7-4">Complexion-associated melanosis（CAM，膚色相關黑變；racial melanosis）</h3>
 <ul>
-<li>膚色較深者較常見，但各族群皆可發生：約 Black <span class="num">95%</span>、Asian <span class="num">35%</span>、Hispanic <span class="num">30%</span>、White <span class="num">5%</span>。<span class="ref">p.402</span></li>
-<li>外觀：平坦、淺至深褐色、邊緣不規則的結膜斑，<strong>輪部最明顯</strong>、往穹窿漸淡；可延及淚阜與瞼結膜，或以條紋/漩渦延伸到角膜（<strong>striate melanokeratosis</strong>）。<span class="ref">p.402</span></li>
-<li>組織學：<mark>結膜基底上皮細胞色素增加，沒有 atypia（細胞異型）或 hyperplasia（增生）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-371" data-q="371">第 371 題</a></span><span class="ref">p.402</span></li>
-<li><mark>CAM 為雙側、大致對稱、良性，進展為 melanoma 的風險很小</mark>；組織上無 atypia，不會常轉變成 PAM with atypia。需與 PAM 區分：PAM 很少見於深膚色者、通常單側或明顯不對稱、可轉變為 melanoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.402</span></li>
+<li id="np-169">膚色較深者較常見，但各族群皆可發生：約 Black <span class="num">95%</span>、Asian <span class="num">35%</span>、Hispanic <span class="num">30%</span>、White <span class="num">5%</span>。<span class="ref">p.402</span></li>
+<li id="np-170">外觀：平坦、淺至深褐色、邊緣不規則的結膜斑，<strong>輪部最明顯</strong>、往穹窿漸淡；可延及淚阜與瞼結膜，或以條紋/漩渦延伸到角膜（<strong>striate melanokeratosis</strong>）。<span class="ref">p.402</span></li>
+<li id="np-171">組織學：<mark>結膜基底上皮細胞色素增加，沒有 atypia（細胞異型）或 hyperplasia（增生）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-371" data-q="371">第 371 題</a></span><span class="ref">p.402</span></li>
+<li id="np-172"><mark>CAM 為雙側、大致對稱、良性，進展為 melanoma 的風險很小</mark>；組織上無 atypia，不會常轉變成 PAM with atypia。需與 PAM 區分：PAM 很少見於深膚色者、通常單側或明顯不對稱、可轉變為 melanoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.402</span></li>
 </ul>
 <h3 id="ch14-s7-5">Table 14-3：Clinical comparison of conjunctival pigmented lesions</h3>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Lesion（病灶）</th><th>Onset（發生）</th><th>Characteristics（特徵）</th><th>Location（位置）</th><th>Malignant potential（惡性潛能）</th></tr></thead>
 <tbody>
-<tr><td>Ocular and oculodermal melanocytosis</td><td>Congenital（先天）</td><td>通常單側；平坦、石板灰</td><td>Episclera（鞏膜外層）</td><td><span class="num">&lt; 1%</span>，uveal melanoma</td></tr>
-<tr><td>Nevus</td><td>First or second decade（兒童至青少年期）</td><td>界限清楚，淺黃褐至褐色或 amelanotic；可平坦或隆起；<span class="num">50%</span> 含上皮包涵囊泡</td><td>結膜上皮和/或基質</td><td><span class="num">5%</span></td></tr>
-<tr><td>CAM</td><td>Adulthood（成年）</td><td>雙側、平坦、斑片狀、褐色；主要見於深膚色成人</td><td>結膜上皮</td><td>None to low（無至低）</td></tr>
-<tr><td>PAM</td><td>Middle age（中年）</td><td>通常單側或不對稱雙側；平坦、斑片或瀰漫、黃褐至褐色；多見於淺膚色成人</td><td>結膜上皮</td><td>中至重度 cellular atypia 時 <span class="num">30%</span></td></tr>
-<tr><td>Malignant melanoma</td><td>Middle to late adulthood（中年至老年）</td><td>褐色或 amelanotic，常呈結節、富血管</td><td>結膜基質</td><td>整體死亡率 <span class="num">25%</span></td></tr>
+<tr><td id="np-173">Ocular and oculodermal melanocytosis</td><td id="np-174">Congenital（先天）</td><td id="np-175">通常單側；平坦、石板灰</td><td id="np-176">Episclera（鞏膜外層）</td><td id="np-177"><span class="num">&lt; 1%</span>，uveal melanoma</td></tr>
+<tr><td id="np-178">Nevus</td><td id="np-179">First or second decade（兒童至青少年期）</td><td id="np-180">界限清楚，淺黃褐至褐色或 amelanotic；可平坦或隆起；<span class="num">50%</span> 含上皮包涵囊泡</td><td id="np-181">結膜上皮和/或基質</td><td id="np-182"><span class="num">5%</span></td></tr>
+<tr><td id="np-183">CAM</td><td id="np-184">Adulthood（成年）</td><td id="np-185">雙側、平坦、斑片狀、褐色；主要見於深膚色成人</td><td id="np-186">結膜上皮</td><td id="np-187">None to low（無至低）</td></tr>
+<tr><td id="np-188">PAM</td><td id="np-189">Middle age（中年）</td><td id="np-190">通常單側或不對稱雙側；平坦、斑片或瀰漫、黃褐至褐色；多見於淺膚色成人</td><td id="np-191">結膜上皮</td><td id="np-192">中至重度 cellular atypia 時 <span class="num">30%</span></td></tr>
+<tr><td id="np-193">Malignant melanoma</td><td id="np-194">Middle to late adulthood（中年至老年）</td><td id="np-195">褐色或 amelanotic，常呈結節、富血管</td><td id="np-196">結膜基質</td><td id="np-197">整體死亡率 <span class="num">25%</span></td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.400</span></p>
+<p id="np-198">出處 <span class="ref">p.400</span></p>
 <ul>
-<li><mark>惡性潛能排序：PAM with moderate–severe atypia（<span class="num">30%</span>）＞ nevus（<span class="num">5%</span>）＞ ocular/oculodermal melanocytosis（<span class="num">&lt; 1%</span>）＞ CAM（none to low）</mark>。選項中「惡性潛能最高」的是 PAM；oculodermal melanocytosis 的惡性機率<strong>低於</strong> PAM。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-850" data-q="850">第 850 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.400, p.404</span></li>
+<li id="np-199"><mark>惡性潛能排序：PAM with moderate–severe atypia（<span class="num">30%</span>）＞ nevus（<span class="num">5%</span>）＞ ocular/oculodermal melanocytosis（<span class="num">&lt; 1%</span>）＞ CAM（none to low）</mark>。選項中「惡性潛能最高」的是 PAM；oculodermal melanocytosis 的惡性機率<strong>低於</strong> PAM。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-850" data-q="850">第 850 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.400, p.404</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch14-s7-6">易錯陷阱</h3><ul>
-<li>CAM 是<strong>雙側</strong>、對稱；「CAM 多為單側」錯——單側或明顯不對稱是 PAM 的特徵。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.400, p.402</span></li>
-<li>「CAM 轉變成 PAM with atypia 機率高」錯：CAM 無 atypia、惡變風險很低。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.402</span></li>
-<li>Ocular melanocytosis：通常<strong>單側</strong>（雙側約 <span class="num">5%</span>）、眼內色素<strong>增加</strong>、青光眼約 <span class="num">10%</span>、uveal melanoma 風險升高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.399–400</span></li>
-<li>只要病灶內有囊泡，傾向 nevus，不像 melanoma 或 OSSN。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-867" data-q="867">第 867 題</a></span><span class="ref">p.401</span></li>
-<li>痣在青春期/懷孕變大或因囊內黏液變大，不一定是惡變。<span class="ref">p.401–402</span></li>
+<li id="np-200">CAM 是<strong>雙側</strong>、對稱；「CAM 多為單側」錯——單側或明顯不對稱是 PAM 的特徵。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.400, p.402</span></li>
+<li id="np-201">「CAM 轉變成 PAM with atypia 機率高」錯：CAM 無 atypia、惡變風險很低。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.402</span></li>
+<li id="np-202">Ocular melanocytosis：通常<strong>單側</strong>（雙側約 <span class="num">5%</span>）、眼內色素<strong>增加</strong>、青光眼約 <span class="num">10%</span>、uveal melanoma 風險升高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-689" data-q="689">第 689 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.399–400</span></li>
+<li id="np-203">只要病灶內有囊泡，傾向 nevus，不像 melanoma 或 OSSN。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-867" data-q="867">第 867 題</a></span><span class="ref">p.401</span></li>
+<li id="np-204">痣在青春期/懷孕變大或因囊內黏液變大，不一定是惡變。<span class="ref">p.401–402</span></li>
 </ul></div>
 
 <h2 id="ch14-s8">八、Primary acquired melanosis（PAM，原發性後天黑變）</h2>
 <h3 id="ch14-s8-1">Clinical presentation（臨床表現）</h3>
 <ul>
-<li>後天、<strong>noncystic（無囊泡）</strong>、平坦、斑片或瀰漫的黃褐至褐色<strong>結膜上皮</strong>色素；<mark>通常單側（若雙側則不對稱），多見於淺膚色者</mark>；Table 14-3：中年發生。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.400, p.403</span></li>
-<li><strong>Secondary acquired melanosis（續發性後天黑變）</strong>外觀相似，但與全身疾病（如 Addison disease（愛迪生氏病））、放射暴露、懷孕有關，或續發於其他結膜病灶（如 squamous papilloma 或 carcinoma）；<mark>無明顯進展為 melanoma 的風險</mark>。<span class="ref">p.403–404</span></li>
-<li>PAM 大小變化可能與發炎或荷爾蒙有關；任何結膜色素病人都要完整檢查眼表，<strong>包括上眼瞼 double eversion（雙重翻瞼）</strong>。<span class="ref">p.403</span></li>
+<li id="np-205">後天、<strong>noncystic（無囊泡）</strong>、平坦、斑片或瀰漫的黃褐至褐色<strong>結膜上皮</strong>色素；<mark>通常單側（若雙側則不對稱），多見於淺膚色者</mark>；Table 14-3：中年發生。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.400, p.403</span></li>
+<li id="np-206"><strong>Secondary acquired melanosis（續發性後天黑變）</strong>外觀相似，但與全身疾病（如 Addison disease（愛迪生氏病））、放射暴露、懷孕有關，或續發於其他結膜病灶（如 squamous papilloma 或 carcinoma）；<mark>無明顯進展為 melanoma 的風險</mark>。<span class="ref">p.403–404</span></li>
+<li id="np-207">PAM 大小變化可能與發炎或荷爾蒙有關；任何結膜色素病人都要完整檢查眼表，<strong>包括上眼瞼 double eversion（雙重翻瞼）</strong>。<span class="ref">p.403</span></li>
 </ul>
 <h3 id="ch14-s8-2">Management（處置與預後）</h3>
 <ul>
-<li>多數 PAM 為良性，但有相當比例會進展為 melanoma。<mark>預後較差的臨床特徵：範圍較大、<strong>caruncular（淚阜）、forniceal（穹窿）或 palpebral（瞼結膜）位置</strong>、持續變大、<strong>nodular component（結節成分）</strong>、增厚、feeder vessels</mark>；<strong>顏色深淺（如深黑色）不在危險因子之列</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-869" data-q="869">第 869 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.403</span></li>
-<li><mark>侵犯 <span class="num">≤ 3</span> clock-hours 惡性轉化風險較低；<span class="num">&gt; 3</span> clock-hours 是切除送病理的適應症</mark>；Section 4（本章外）則寫範圍 <span class="num">3</span> clock-hours 或以上（含 3）即預後較差，所以考題「≧3 clock-hours」算惡變機率較高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-869" data-q="869">第 869 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.403；BCSC 4 p.82</span></li>
-<li>可行時以 no-touch technique 完整切除，但不可危及鄰近構造；瀰漫病灶以 <strong>map biopsies</strong> 決定是否切除和/或輔助治療：cryotherapy、topical MMC、alcohol-assisted keratectomy（酒精輔助角膜上皮切除）。<span class="ref">p.403</span></li>
-<li><mark>預測進展為 melanoma 最重要的是 <strong>cellular atypia（細胞異型）</strong>，只能靠切除式切片的組織學與免疫組織化學判定</mark>（無法臨床判斷）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-869" data-q="869">第 869 題</a></span><span class="ref">p.403</span></li>
+<li id="np-208">多數 PAM 為良性，但有相當比例會進展為 melanoma。<mark>預後較差的臨床特徵：範圍較大、<strong>caruncular（淚阜）、forniceal（穹窿）或 palpebral（瞼結膜）位置</strong>、持續變大、<strong>nodular component（結節成分）</strong>、增厚、feeder vessels</mark>；<strong>顏色深淺（如深黑色）不在危險因子之列</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-869" data-q="869">第 869 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-891" data-q="891">第 891 題</a></span><span class="ref">p.403</span></li>
+<li id="np-209"><mark>侵犯 <span class="num">≤ 3</span> clock-hours 惡性轉化風險較低；<span class="num">&gt; 3</span> clock-hours 是切除送病理的適應症</mark>；Section 4（本章外）則寫範圍 <span class="num">3</span> clock-hours 或以上（含 3）即預後較差，所以考題「≧3 clock-hours」算惡變機率較高。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-869" data-q="869">第 869 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.403；BCSC 4 p.82</span></li>
+<li id="np-210">可行時以 no-touch technique 完整切除，但不可危及鄰近構造；瀰漫病灶以 <strong>map biopsies</strong> 決定是否切除和/或輔助治療：cryotherapy、topical MMC、alcohol-assisted keratectomy（酒精輔助角膜上皮切除）。<span class="ref">p.403</span></li>
+<li id="np-211"><mark>預測進展為 melanoma 最重要的是 <strong>cellular atypia（細胞異型）</strong>，只能靠切除式切片的組織學與免疫組織化學判定</mark>（無法臨床判斷）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-869" data-q="869">第 869 題</a></span><span class="ref">p.403</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Histology（組織學）</th><th>Risk（惡變風險）</th><th>Management（處置）</th></tr></thead>
 <tbody>
-<tr><td>PAM without atypia</td><td>惡性潛能很小（little）</td><td>每 <span class="num">6–12</span> 個月追蹤</td></tr>
-<tr><td>PAM with mild atypia</td><td>惡性轉化風險極低（minimal）</td><td>更密切追蹤</td></tr>
-<tr><td>PAM with moderate to severe atypia</td><td><mark><span class="num">30%</span> 進展為 melanoma</mark></td><td>盡一切努力清除所有結膜色素；瀰漫而無法完整切除 → 輔助局部 MMC 或 5-FU 治療整個眼表</td></tr>
-<tr><td>Secondary acquired melanosis</td><td>無明顯風險</td><td>處理原因</td></tr>
+<tr><td id="np-212">PAM without atypia</td><td id="np-213">惡性潛能很小（little）</td><td id="np-214">每 <span class="num">6–12</span> 個月追蹤</td></tr>
+<tr><td id="np-215">PAM with mild atypia</td><td id="np-216">惡性轉化風險極低（minimal）</td><td id="np-217">更密切追蹤</td></tr>
+<tr><td id="np-218">PAM with moderate to severe atypia</td><td id="np-219"><mark><span class="num">30%</span> 進展為 melanoma</mark></td><td id="np-220">盡一切努力清除所有結膜色素；瀰漫而無法完整切除 → 輔助局部 MMC 或 5-FU 治療整個眼表</td></tr>
+<tr><td id="np-221">Secondary acquired melanosis</td><td id="np-222">無明顯風險</td><td id="np-223">處理原因</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.403–404</span></p>
+<p id="np-224">出處 <span class="ref">p.403–404</span></p>
 <ul>
-<li>Section 4 組織學補充（本章外）：PAM without atypia＝細胞形態正常的黑色素細胞沿<strong>基底上皮層</strong>線狀增加、色素主要在上皮細胞，<strong>無惡性轉化風險</strong>；<mark>中重度 atypia 的特徵包括 mitotic activity（有絲分裂）、nesting（成巢）、extensive pagetoid spread（上移至表層）、epithelioid cell morphology（上皮樣細胞）、enlarged pleomorphic hyperchromatic nuclei 與 prominent nucleoli（明顯核仁）</mark>，進展為 melanoma 的風險高。因此切片只見<strong>黑色素沉積於基底細胞層</strong>（無異型、無上移）不需擔心惡變；pagetoid spreading、prominent nucleoli、atypical melanocytic hyperplasia 則需擔心。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-371" data-q="371">第 371 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.402, p.404；BCSC 4 p.82, p.84</span></li>
-<li>Section 4 另載：約 <span class="num">50%–70%</span> 的結膜 melanoma 源自 PAM with atypia（本章寫 <span class="num">70%</span> 源自 PAM）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.404；BCSC 4 p.84</span></li>
+<li id="np-225">Section 4 組織學補充（本章外）：PAM without atypia＝細胞形態正常的黑色素細胞沿<strong>基底上皮層</strong>線狀增加、色素主要在上皮細胞，<strong>無惡性轉化風險</strong>；<mark>中重度 atypia 的特徵包括 mitotic activity（有絲分裂）、nesting（成巢）、extensive pagetoid spread（上移至表層）、epithelioid cell morphology（上皮樣細胞）、enlarged pleomorphic hyperchromatic nuclei 與 prominent nucleoli（明顯核仁）</mark>，進展為 melanoma 的風險高。因此切片只見<strong>黑色素沉積於基底細胞層</strong>（無異型、無上移）不需擔心惡變；pagetoid spreading、prominent nucleoli、atypical melanocytic hyperplasia 則需擔心。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-371" data-q="371">第 371 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.402, p.404；BCSC 4 p.82, p.84</span></li>
+<li id="np-226">Section 4 另載：約 <span class="num">50%–70%</span> 的結膜 melanoma 源自 PAM with atypia（本章寫 <span class="num">70%</span> 源自 PAM）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-315" data-q="315">第 315 題</a></span><span class="ref">p.404；BCSC 4 p.84</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch14-s8-3">易錯陷阱</h3><ul>
-<li>PAM 惡變危險因子沒有「深黑色」；看的是大小（<span class="num">&gt; 3</span> clock-hours）、位置（淚阜/穹窿/瞼結膜）、結節、增厚、變大、feeder vessels。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-869" data-q="869">第 869 題</a></span><span class="ref">p.403</span></li>
-<li>切除門檻是 <span class="num">&gt; 3</span> clock-hours（考題寫「大於兩個鐘點」較保守，非 BCSC 數字）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.403</span></li>
-<li>有沒有 atypia 臨床看不出來，一定要切片。<span class="ref">p.403</span></li>
-<li>Secondary acquired melanosis（Addison、懷孕、放射、續發於 papilloma/carcinoma）無明顯惡變風險。<span class="ref">p.403–404</span></li>
+<li id="np-227">PAM 惡變危險因子沒有「深黑色」；看的是大小（<span class="num">&gt; 3</span> clock-hours）、位置（淚阜/穹窿/瞼結膜）、結節、增厚、變大、feeder vessels。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-869" data-q="869">第 869 題</a></span><span class="ref">p.403</span></li>
+<li id="np-228">切除門檻是 <span class="num">&gt; 3</span> clock-hours（考題寫「大於兩個鐘點」較保守，非 BCSC 數字）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.403</span></li>
+<li id="np-229">有沒有 atypia 臨床看不出來，一定要切片。<span class="ref">p.403</span></li>
+<li id="np-230">Secondary acquired melanosis（Addison、懷孕、放射、續發於 papilloma/carcinoma）無明顯惡變風險。<span class="ref">p.403–404</span></li>
 </ul></div>
 
 <h2 id="ch14-s9">九、Conjunctival melanoma（結膜黑色素瘤）與 neurogenic tumors</h2>
 <h3 id="ch14-s9-1">Epidemiology 與 origin（流行病學與來源）</h3>
 <ul>
-<li>歐洲血統族群盛行率約每 <span class="num">2</span> 百萬人 <span class="num">1</span> 例；佔眼部惡性腫瘤 <span class="num">2%</span>；黑人與亞洲人罕見。<span class="ref">p.404</span></li>
-<li><mark>來源：PAM <span class="num">70%</span>、nevi <span class="num">5%</span>、de novo（原發）<span class="num">25%</span></mark>；「大多數源自 nevus」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.404</span></li>
-<li>罕見情況下，睫狀體或葡萄膜 melanoma 經鞏膜向外延伸可模仿結膜 melanoma。<span class="ref">p.404</span></li>
-<li>預後比皮膚 melanoma 好，但<strong>整體死亡率 <span class="num">25%</span></strong>。<span class="ref">p.404</span></li>
+<li id="np-231">歐洲血統族群盛行率約每 <span class="num">2</span> 百萬人 <span class="num">1</span> 例；佔眼部惡性腫瘤 <span class="num">2%</span>；黑人與亞洲人罕見。<span class="ref">p.404</span></li>
+<li id="np-232"><mark>來源：PAM <span class="num">70%</span>、nevi <span class="num">5%</span>、de novo（原發）<span class="num">25%</span></mark>；「大多數源自 nevus」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.404</span></li>
+<li id="np-233">罕見情況下，睫狀體或葡萄膜 melanoma 經鞏膜向外延伸可模仿結膜 melanoma。<span class="ref">p.404</span></li>
+<li id="np-234">預後比皮膚 melanoma 好，但<strong>整體死亡率 <span class="num">25%</span></strong>。<span class="ref">p.404</span></li>
 </ul>
 <h3 id="ch14-s9-2">Clinical presentation（臨床表現）</h3>
 <ul>
-<li>可在瞼結膜，但<mark>最常見於 <strong>bulbar conjunctiva（球結膜）或 limbus（輪部）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.404</span></li>
-<li><mark>約 <span class="num">25%</span> 為 amelanotic；復發的 melanoma 即使原發有色素也常是 amelanotic</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.404</span></li>
-<li>常富含血管而易出血；呈結節狀生長，可侵犯眼球或眼眶。<span class="ref">p.404</span></li>
-<li><mark>預後不良指標：位於瞼結膜、caruncle 或 fornix；侵犯深部組織；厚度 <span class="num">&gt; 1.8 mm</span>；侵犯瞼緣；pagetoid 或全層上皮內擴散；lymphatic invasion（淋巴管侵犯）；mixed cell type（混合細胞型）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.404</span></li>
-<li><mark>可轉移至區域淋巴結、腦、肺、肝、骨</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.405</span></li>
-<li>Section 4 補充（本章外）：預後較差特徵為 nonbulbar 位置（plica semilunaris／caruncle、穹窿、瞼結膜）、厚度 <span class="num">&gt; 1.8 mm</span>、侵犯瞼緣；結膜 melanoma 的細胞型態<strong>不像 uveal melanoma 具相同預後意義</strong>，而是像皮膚 melanoma，以侵犯深度較能預測預後；已辨識 <strong>BRAF、NRAS、NF1、ATRX</strong> 等致病變異，可作標靶治療依據。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a></span><span class="ref">BCSC 4 p.85–86</span></li>
+<li id="np-235">可在瞼結膜，但<mark>最常見於 <strong>bulbar conjunctiva（球結膜）或 limbus（輪部）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.404</span></li>
+<li id="np-236"><mark>約 <span class="num">25%</span> 為 amelanotic；復發的 melanoma 即使原發有色素也常是 amelanotic</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.404</span></li>
+<li id="np-237">常富含血管而易出血；呈結節狀生長，可侵犯眼球或眼眶。<span class="ref">p.404</span></li>
+<li id="np-238"><mark>預後不良指標：位於瞼結膜、caruncle 或 fornix；侵犯深部組織；厚度 <span class="num">&gt; 1.8 mm</span>；侵犯瞼緣；pagetoid 或全層上皮內擴散；lymphatic invasion（淋巴管侵犯）；mixed cell type（混合細胞型）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.404</span></li>
+<li id="np-239"><mark>可轉移至區域淋巴結、腦、肺、肝、骨</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.405</span></li>
+<li id="np-240">Section 4 補充（本章外）：預後較差特徵為 nonbulbar 位置（plica semilunaris／caruncle、穹窿、瞼結膜）、厚度 <span class="num">&gt; 1.8 mm</span>、侵犯瞼緣；結膜 melanoma 的細胞型態<strong>不像 uveal melanoma 具相同預後意義</strong>，而是像皮膚 melanoma，以侵犯深度較能預測預後；已辨識 <strong>BRAF、NRAS、NF1、ATRX</strong> 等致病變異，可作標靶治療依據。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a></span><span class="ref">BCSC 4 p.85–86</span></li>
 </ul>
 <h3 id="ch14-s9-3">Management（處置）</h3>
 <ul>
-<li>疑似 melanoma 應儘速以 <mark>完整大範圍（<span class="num">2–4 mm</span> 邊緣）切除 + 結膜邊緣 double freeze–thaw 冷凍</mark>，避免直接操作腫瘤（no-touch technique）。<span class="ref">p.405</span></li>
-<li><strong>Sentinel lymph node biopsy（SLNB，前哨淋巴結切片）</strong>：部分外科醫師主張，但<strong>尚未廣泛採用</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-722" data-q="722">第 722 題</a></span><span class="ref">p.405</span></li>
-<li>BCSC 7 補充（本章外）：SLNB 可考慮用於 Breslow thickness <span class="num">&gt; 1 mm</span> 的結膜或皮膚 melanoma、具高風險特徵的眼瞼 sebaceous carcinoma（復發、眼瞼侵犯 <span class="num">&gt; 10 mm</span> 或侵犯眼眶）及眼瞼 Merkel cell carcinoma；<mark>除 basal cell carcinoma（基底細胞癌）外，眼瞼與結膜癌典型先轉移至區域淋巴結</mark> → BCC 最不需要 SLNB。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-722" data-q="722">第 722 題</a></span><span class="ref">BCSC 7 p.224</span></li>
-<li>可改善局部控制的輔助治療：radiotherapy、局部 MMC。<span class="ref">p.405</span></li>
-<li>Orbital exenteration：偶用於局部切除或 enucleation（眼球摘除）無法完整切除、且已排除轉移的晚期病例；也可作為無法局部控制之晚期侵襲性腫瘤的緩和治療。<span class="ref">p.405–406</span></li>
-<li>轉移性結膜 melanoma 可能對 <strong>immune checkpoint inhibitors（免疫檢查點抑制劑）</strong>有反應；melanoma biomarkers 有助預後判斷與標靶治療選擇。<span class="ref">p.406</span></li>
-<li>BCSC 7 補充（本章外）：<mark>cryotherapy 可用於結膜 melanoma，但<strong>不應</strong>用於皮膚（眼瞼）melanoma</mark>；眼瞼皮膚 melanoma 以大範圍切除並以永久切片確認完整移除。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-774" data-q="774">第 774 題</a></span><span class="ref">p.405；BCSC 7 p.226</span></li>
+<li id="np-241">疑似 melanoma 應儘速以 <mark>完整大範圍（<span class="num">2–4 mm</span> 邊緣）切除 + 結膜邊緣 double freeze–thaw 冷凍</mark>，避免直接操作腫瘤（no-touch technique）。<span class="ref">p.405</span></li>
+<li id="np-242"><strong>Sentinel lymph node biopsy（SLNB，前哨淋巴結切片）</strong>：部分外科醫師主張，但<strong>尚未廣泛採用</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-722" data-q="722">第 722 題</a></span><span class="ref">p.405</span></li>
+<li id="np-243">BCSC 7 補充（本章外）：SLNB 可考慮用於 Breslow thickness <span class="num">&gt; 1 mm</span> 的結膜或皮膚 melanoma、具高風險特徵的眼瞼 sebaceous carcinoma（復發、眼瞼侵犯 <span class="num">&gt; 10 mm</span> 或侵犯眼眶）及眼瞼 Merkel cell carcinoma；<mark>除 basal cell carcinoma（基底細胞癌）外，眼瞼與結膜癌典型先轉移至區域淋巴結</mark> → BCC 最不需要 SLNB。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-722" data-q="722">第 722 題</a></span><span class="ref">BCSC 7 p.224</span></li>
+<li id="np-244">可改善局部控制的輔助治療：radiotherapy、局部 MMC。<span class="ref">p.405</span></li>
+<li id="np-245">Orbital exenteration：偶用於局部切除或 enucleation（眼球摘除）無法完整切除、且已排除轉移的晚期病例；也可作為無法局部控制之晚期侵襲性腫瘤的緩和治療。<span class="ref">p.405–406</span></li>
+<li id="np-246">轉移性結膜 melanoma 可能對 <strong>immune checkpoint inhibitors（免疫檢查點抑制劑）</strong>有反應；melanoma biomarkers 有助預後判斷與標靶治療選擇。<span class="ref">p.406</span></li>
+<li id="np-247">BCSC 7 補充（本章外）：<mark>cryotherapy 可用於結膜 melanoma，但<strong>不應</strong>用於皮膚（眼瞼）melanoma</mark>；眼瞼皮膚 melanoma 以大範圍切除並以永久切片確認完整移除。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-774" data-q="774">第 774 題</a></span><span class="ref">p.405；BCSC 7 p.226</span></li>
 </ul>
 <h3 id="ch14-s9-4">Recurrence 與 prognosis（復發與預後）</h3>
 <ul>
-<li><mark>復發率高（<span class="num">&gt; 50%</span>）</mark>，需終身密切追蹤，並囑病人發現患眼變化立即就醫；<strong>15 年轉移率 <span class="num">&gt; 35%</span></strong>。<span class="ref">p.406</span></li>
-<li>預後較差因子：<mark>de novo melanoma（非源自既有痣或 PAM）、<strong>未侵犯輪部</strong>的腫瘤、手術邊緣有殘留</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.406</span></li>
+<li id="np-248"><mark>復發率高（<span class="num">&gt; 50%</span>）</mark>，需終身密切追蹤，並囑病人發現患眼變化立即就醫；<strong>15 年轉移率 <span class="num">&gt; 35%</span></strong>。<span class="ref">p.406</span></li>
+<li id="np-249">預後較差因子：<mark>de novo melanoma（非源自既有痣或 PAM）、<strong>未侵犯輪部</strong>的腫瘤、手術邊緣有殘留</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a></span><span class="ref">p.406</span></li>
 </ul>
 <h3 id="ch14-s9-5">Neurogenic tumors（神經源性腫瘤）</h3>
 <ul>
-<li>結膜下 peripheral nerve sheath tumors（周邊神經鞘腫瘤）：neuroma、neurofibroma、schwannoma。<span class="ref">p.406</span></li>
-<li>Neuroma 可見於 <strong>multiple endocrine neoplasia（MEN，多發性內分泌腫瘤）</strong>；<mark>結膜或眼瞼 neurofibroma 幾乎都是 neurofibromatosis（神經纖維瘤病，autosomal dominant（體染色體顯性）phakomatosis）的表現</mark>；schwannoma 源自周邊神經鞘的 Schwann cells，結膜極罕見。<span class="ref">p.406</span></li>
+<li id="np-250">結膜下 peripheral nerve sheath tumors（周邊神經鞘腫瘤）：neuroma、neurofibroma、schwannoma。<span class="ref">p.406</span></li>
+<li id="np-251">Neuroma 可見於 <strong>multiple endocrine neoplasia（MEN，多發性內分泌腫瘤）</strong>；<mark>結膜或眼瞼 neurofibroma 幾乎都是 neurofibromatosis（神經纖維瘤病，autosomal dominant（體染色體顯性）phakomatosis）的表現</mark>；schwannoma 源自周邊神經鞘的 Schwann cells，結膜極罕見。<span class="ref">p.406</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch14-s9-6">易錯陷阱</h3><ul>
-<li>「輪部的 melanoma 比淚阜預後差」錯：淚阜/穹窿/瞼結膜是預後不良位置，<strong>未侵犯輪部</strong>的腫瘤預後較差。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.404, p.406</span></li>
-<li>結膜 melanoma 預後不良：厚度 <span class="num">&gt; 1.8 mm</span>（不是 1 mm；1 mm 是 SLNB 的 Breslow 門檻，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-722" data-q="722">第 722 題</a></span><span class="ref">p.404</span></li>
-<li>結膜 melanoma 死亡率 <span class="num">25%</span>、復發 <span class="num">&gt; 50%</span>、15 年轉移 <span class="num">&gt; 35%</span>。<span class="ref">p.404, p.406</span></li>
-<li>眼瞼 melanoma 與結膜 melanoma 處理不同：冷凍只用於結膜。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-774" data-q="774">第 774 題</a></span><span class="ref">BCSC 7 p.226</span></li>
-<li>結膜 melanoma 源自 PAM 約 <span class="num">70%</span>（考題寫 75% 為近似值），痣只佔 <span class="num">5%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a></span><span class="ref">p.404</span></li>
+<li id="np-252">「輪部的 melanoma 比淚阜預後差」錯：淚阜/穹窿/瞼結膜是預後不良位置，<strong>未侵犯輪部</strong>的腫瘤預後較差。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-1711" data-q="1711">第 1711 題</a></span><span class="ref">p.404, p.406</span></li>
+<li id="np-253">結膜 melanoma 預後不良：厚度 <span class="num">&gt; 1.8 mm</span>（不是 1 mm；1 mm 是 SLNB 的 Breslow 門檻，本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-722" data-q="722">第 722 題</a></span><span class="ref">p.404</span></li>
+<li id="np-254">結膜 melanoma 死亡率 <span class="num">25%</span>、復發 <span class="num">&gt; 50%</span>、15 年轉移 <span class="num">&gt; 35%</span>。<span class="ref">p.404, p.406</span></li>
+<li id="np-255">眼瞼 melanoma 與結膜 melanoma 處理不同：冷凍只用於結膜。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-774" data-q="774">第 774 題</a></span><span class="ref">BCSC 7 p.226</span></li>
+<li id="np-256">結膜 melanoma 源自 PAM 約 <span class="num">70%</span>（考題寫 75% 為近似值），痣只佔 <span class="num">5%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-969" data-q="969">第 969 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-390" data-q="390">第 390 題</a></span><span class="ref">p.404</span></li>
 </ul></div>
 
 <h2 id="ch14-s10">十、Vascular and mesenchymal tumors（血管與間質腫瘤）</h2>
 <ul>
-<li>眼瞼緣或結膜的血管病灶<mark>多為良性 hamartoma（缺陷瘤）或對感染等刺激的續發反應</mark>。<span class="ref">p.406</span></li>
+<li id="np-257">眼瞼緣或結膜的血管病灶<mark>多為良性 hamartoma（缺陷瘤）或對感染等刺激的續發反應</mark>。<span class="ref">p.406</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Hamartomatous（缺陷瘤性）</th><th>Reactive（反應性）</th><th>Malignant（惡性）</th></tr></thead>
 <tbody>
-<tr><td>Cavernous venous malformation（舊稱 cavernous hemangioma）；infantile hemangioma（舊稱 capillary hemangioma）；nevus flammeus</td><td>Glomus tumor（血管球瘤）；intravascular papillary endothelial hyperplasia（血管內乳突狀內皮增生）；pyogenic granuloma</td><td>Angiosarcoma（血管肉瘤）；Kaposi sarcoma</td></tr>
+<tr><td id="np-258">Cavernous venous malformation（舊稱 cavernous hemangioma）；infantile hemangioma（舊稱 capillary hemangioma）；nevus flammeus</td><td id="np-259">Glomus tumor（血管球瘤）；intravascular papillary endothelial hyperplasia（血管內乳突狀內皮增生）；pyogenic granuloma</td><td id="np-260">Angiosarcoma（血管肉瘤）；Kaposi sarcoma</td></tr>
 </tbody>
 </table>
-<p>出處（Table 14-4，各欄未依順序、左右不對應）<span class="ref">p.407</span></p>
+<p id="np-261">出處（Table 14-4，各欄未依順序、左右不對應）<span class="ref">p.407</span></p>
 <h3 id="ch14-s10-1">Benign vascular lesions（良性血管病灶）</h3>
 <ul>
-<li><strong>Infantile hemangioma（嬰兒血管瘤，舊稱 capillary hemangioma）</strong>：無包膜、增生微血管內皮的 hamartomatous 生長；出生後數週至數月出現，第一年內可長大，之後通常在 <span class="num">3–7</span> 年間自行消退。<span class="ref">p.406</span></li>
-<li>眼瞼 infantile hemangioma 常侵犯瞼結膜；<mark>瞼結膜或穹窿瀰漫性 hemangiomatosis 提示有 orbital infantile hemangioma</mark>。治療：觀察、全身或局部 <strong>propranolol</strong>、病灶內或全身類固醇。<span class="ref">p.406–407</span></li>
-<li><strong>Vascular malformations（血管畸形）</strong>：含異常微血管-靜脈、動脈或淋巴管成分；大小可波動但通常不變。<span class="ref">p.407</span></li>
-<li><strong>Cavernous venous malformation（CVM，海綿狀靜脈畸形）</strong>：<mark>成人最常見的原發性眼眶腫瘤</mark>；擴張充血靜脈、通常有厚纖維化包膜 → 較易手術切除；單獨球結膜 CVM 罕見，多為鄰近構造延伸。<span class="ref">p.407</span></li>
-<li><strong>Nevus flammeus（火焰痣，port-wine birthmark）</strong>：先天性，可單獨或為 encephalofacial angiomatosis（<strong>Sturge-Weber syndrome（斯特奇-韋伯症候群）</strong>）的一部分；可伴血管 hamartoma、secondary glaucoma、leptomeningeal angiomatosis（軟腦膜血管瘤病）；部分病例為 angiopoietin 1 受體（血管內皮蛋白，控制血管周圍平滑肌組裝）基因的致病變異。<span class="ref">p.407</span></li>
-<li><strong>Ataxia-telangiectasia（共濟失調微血管擴張症，Louis-Bar syndrome）</strong>：epibulbar telangiectasis（眼球表面微血管擴張）、小腦異常、免疫異常；<mark>autosomal recessive（體染色體隱性）</mark>；瞼裂區動脈擴張<strong>無淋巴管成分</strong>，會隨病人與眼球長大，但<strong>不會反覆出血或腫脹</strong>。<span class="ref">p.407</span></li>
-<li><strong>Lymphangiectasia（淋巴管擴張）</strong>：球結膜不規則擴張的淋巴管；可為發育異常或外傷/發炎後；與小靜脈異常相通時淋巴管可自發充血。<span class="ref">p.407</span></li>
-<li><strong>Lymphatic malformation（淋巴管畸形，舊稱 lymphangioma）</strong>：異常淋巴管呈「成形」而非無定形外觀；單一或多灶；常有較深的眼眶部分 → 疼痛、眼球突出、運動障礙、視力喪失；通常出生即有、緩慢長大；<mark>病灶內出血形成 <strong>chocolate cyst（巧克力囊腫）</strong></mark>。<span class="ref">p.407–408</span></li>
+<li id="np-262"><strong>Infantile hemangioma（嬰兒血管瘤，舊稱 capillary hemangioma）</strong>：無包膜、增生微血管內皮的 hamartomatous 生長；出生後數週至數月出現，第一年內可長大，之後通常在 <span class="num">3–7</span> 年間自行消退。<span class="ref">p.406</span></li>
+<li id="np-263">眼瞼 infantile hemangioma 常侵犯瞼結膜；<mark>瞼結膜或穹窿瀰漫性 hemangiomatosis 提示有 orbital infantile hemangioma</mark>。治療：觀察、全身或局部 <strong>propranolol</strong>、病灶內或全身類固醇。<span class="ref">p.406–407</span></li>
+<li id="np-264"><strong>Vascular malformations（血管畸形）</strong>：含異常微血管-靜脈、動脈或淋巴管成分；大小可波動但通常不變。<span class="ref">p.407</span></li>
+<li id="np-265"><strong>Cavernous venous malformation（CVM，海綿狀靜脈畸形）</strong>：<mark>成人最常見的原發性眼眶腫瘤</mark>；擴張充血靜脈、通常有厚纖維化包膜 → 較易手術切除；單獨球結膜 CVM 罕見，多為鄰近構造延伸。<span class="ref">p.407</span></li>
+<li id="np-266"><strong>Nevus flammeus（火焰痣，port-wine birthmark）</strong>：先天性，可單獨或為 encephalofacial angiomatosis（<strong>Sturge-Weber syndrome（斯特奇-韋伯症候群）</strong>）的一部分；可伴血管 hamartoma、secondary glaucoma、leptomeningeal angiomatosis（軟腦膜血管瘤病）；部分病例為 angiopoietin 1 受體（血管內皮蛋白，控制血管周圍平滑肌組裝）基因的致病變異。<span class="ref">p.407</span></li>
+<li id="np-267"><strong>Ataxia-telangiectasia（共濟失調微血管擴張症，Louis-Bar syndrome）</strong>：epibulbar telangiectasis（眼球表面微血管擴張）、小腦異常、免疫異常；<mark>autosomal recessive（體染色體隱性）</mark>；瞼裂區動脈擴張<strong>無淋巴管成分</strong>，會隨病人與眼球長大，但<strong>不會反覆出血或腫脹</strong>。<span class="ref">p.407</span></li>
+<li id="np-268"><strong>Lymphangiectasia（淋巴管擴張）</strong>：球結膜不規則擴張的淋巴管；可為發育異常或外傷/發炎後；與小靜脈異常相通時淋巴管可自發充血。<span class="ref">p.407</span></li>
+<li id="np-269"><strong>Lymphatic malformation（淋巴管畸形，舊稱 lymphangioma）</strong>：異常淋巴管呈「成形」而非無定形外觀；單一或多灶；常有較深的眼眶部分 → 疼痛、眼球突出、運動障礙、視力喪失；通常出生即有、緩慢長大；<mark>病灶內出血形成 <strong>chocolate cyst（巧克力囊腫）</strong></mark>。<span class="ref">p.407–408</span></li>
 </ul>
 <h3 id="ch14-s10-2">Inflammatory vascular tumors（發炎性血管腫瘤）</h3>
 <ul>
-<li><strong>Pyogenic granuloma（化膿性肉芽腫）</strong>：常見的 reactive hemangioma；<mark>名稱錯誤——既不化膿也沒有 giant cells（巨細胞）</mark>；可發生在 chalazion 上或輕微外傷、手術後，為含纖維母細胞的肉芽組織與放射狀增生的微血管。<span class="ref">p.408</span></li>
-<li>快速長大、紅色、有蒂、表面光滑，<strong>易出血、可被 fluorescein 染色</strong>；局部或病灶內類固醇可能治癒；切除 + 基部燒灼 + 術後充分局部類固醇可減少復發。<span class="ref">p.408</span></li>
-<li>結膜下 granuloma（肉芽腫）：寄生蟲或黴菌感染灶周圍；也見於 rheumatoid arthritis（類風溼性關節炎）等結締組織病；<strong>sarcoid nodules（類肉瘤結節）</strong>呈黃褐色隆起、可像 follicles（濾泡），可切片協助診斷；<strong>juvenile xanthogranuloma（幼年黃色肉芽腫）</strong>為組織球疾病，可表現為結膜腫塊。<span class="ref">p.408</span></li>
+<li id="np-270"><strong>Pyogenic granuloma（化膿性肉芽腫）</strong>：常見的 reactive hemangioma；<mark>名稱錯誤——既不化膿也沒有 giant cells（巨細胞）</mark>；可發生在 chalazion 上或輕微外傷、手術後，為含纖維母細胞的肉芽組織與放射狀增生的微血管。<span class="ref">p.408</span></li>
+<li id="np-271">快速長大、紅色、有蒂、表面光滑，<strong>易出血、可被 fluorescein 染色</strong>；局部或病灶內類固醇可能治癒；切除 + 基部燒灼 + 術後充分局部類固醇可減少復發。<span class="ref">p.408</span></li>
+<li id="np-272">結膜下 granuloma（肉芽腫）：寄生蟲或黴菌感染灶周圍；也見於 rheumatoid arthritis（類風溼性關節炎）等結締組織病；<strong>sarcoid nodules（類肉瘤結節）</strong>呈黃褐色隆起、可像 follicles（濾泡），可切片協助診斷；<strong>juvenile xanthogranuloma（幼年黃色肉芽腫）</strong>為組織球疾病，可表現為結膜腫塊。<span class="ref">p.408</span></li>
 </ul>
 <h3 id="ch14-s10-3">Malignant tumors：Kaposi sarcoma（卡波西肉瘤）與其他</h3>
 <ul>
-<li>血管內皮的惡性腫瘤，侵犯皮膚與黏膜，偶及內臟；<mark>由 Kaposi sarcoma–associated herpesvirus（human herpesvirus 8，HHV-8）引起</mark>。<span class="ref">p.408</span></li>
-<li>年輕病人最常見於 <strong>AIDS</strong>；器官移植者與其他高度免疫抑制者風險增加。<span class="ref">p.408</span></li>
-<li>臨床：眼瞼皮膚為紫色結節；眼眶侵犯 → 眼瞼與結膜水腫；<mark>結膜為紅色、高度血管性的結膜下病灶，可像 subconjunctival hemorrhage（結膜下出血）</mark>；<strong>最常見於下穹窿</strong>，可為結節或瀰漫。<span class="ref">p.409</span></li>
-<li>處置：未必能治癒；除優化 antiretroviral therapy（抗反轉錄病毒治療）外，可手術減積、冷凍、放射治療；可能需局部或全身化療；<mark>結節型比瀰漫型較不易對治療反應</mark>。<span class="ref">p.409</span></li>
-<li>其他少見侵犯結膜的惡性間質病灶：malignant fibrous histiocytoma（惡性纖維組織球瘤）、liposarcoma（脂肪肉瘤）、leiomyosarcoma、rhabdomyosarcoma（橫紋肌肉瘤）。<span class="ref">p.410</span></li>
+<li id="np-273">血管內皮的惡性腫瘤，侵犯皮膚與黏膜，偶及內臟；<mark>由 Kaposi sarcoma–associated herpesvirus（human herpesvirus 8，HHV-8）引起</mark>。<span class="ref">p.408</span></li>
+<li id="np-274">年輕病人最常見於 <strong>AIDS</strong>；器官移植者與其他高度免疫抑制者風險增加。<span class="ref">p.408</span></li>
+<li id="np-275">臨床：眼瞼皮膚為紫色結節；眼眶侵犯 → 眼瞼與結膜水腫；<mark>結膜為紅色、高度血管性的結膜下病灶，可像 subconjunctival hemorrhage（結膜下出血）</mark>；<strong>最常見於下穹窿</strong>，可為結節或瀰漫。<span class="ref">p.409</span></li>
+<li id="np-276">處置：未必能治癒；除優化 antiretroviral therapy（抗反轉錄病毒治療）外，可手術減積、冷凍、放射治療；可能需局部或全身化療；<mark>結節型比瀰漫型較不易對治療反應</mark>。<span class="ref">p.409</span></li>
+<li id="np-277">其他少見侵犯結膜的惡性間質病灶：malignant fibrous histiocytoma（惡性纖維組織球瘤）、liposarcoma（脂肪肉瘤）、leiomyosarcoma、rhabdomyosarcoma（橫紋肌肉瘤）。<span class="ref">p.410</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch14-s10-4">易錯陷阱</h3><ul>
-<li>Pyogenic granuloma 不化膿、無 giant cells，是外傷/手術/霰粒腫後的反應性病灶。<span class="ref">p.408</span></li>
-<li>Glomus tumor 在 Table 14-4 列為 reactive，不是 hamartomatous。<span class="ref">p.407</span></li>
-<li>Ataxia-telangiectasia 是體染色體<strong>隱性</strong>，結膜血管不會出血腫脹；lymphatic malformation 才會出血成 chocolate cyst。<span class="ref">p.407–408</span></li>
-<li>Kaposi sarcoma 像結膜下出血、好發下穹窿；結節型反應較差。<span class="ref">p.409</span></li>
-<li>CVM 是成人最常見原發性眼眶腫瘤；infantile hemangioma 才是嬰兒期增生後自行消退。<span class="ref">p.406–407</span></li>
+<li id="np-278">Pyogenic granuloma 不化膿、無 giant cells，是外傷/手術/霰粒腫後的反應性病灶。<span class="ref">p.408</span></li>
+<li id="np-279">Glomus tumor 在 Table 14-4 列為 reactive，不是 hamartomatous。<span class="ref">p.407</span></li>
+<li id="np-280">Ataxia-telangiectasia 是體染色體<strong>隱性</strong>，結膜血管不會出血腫脹；lymphatic malformation 才會出血成 chocolate cyst。<span class="ref">p.407–408</span></li>
+<li id="np-281">Kaposi sarcoma 像結膜下出血、好發下穹窿；結節型反應較差。<span class="ref">p.409</span></li>
+<li id="np-282">CVM 是成人最常見原發性眼眶腫瘤；infantile hemangioma 才是嬰兒期增生後自行消退。<span class="ref">p.406–407</span></li>
 </ul></div>
 
 <h2 id="ch14-s11">十一、Lymphocytic tumors（淋巴腫瘤）</h2>
 <ul>
-<li>結膜淋巴腫瘤可為良性、惡性或不確定，臨床與病理特徵重疊。<mark>約 <span class="num">20%</span> 的結膜 lymphoid tumor 病人有可偵測的 extraocular lymphoma（眼外淋巴瘤）</mark>（即「大於 <span class="num">10%</span>」的敘述正確）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-856" data-q="856">第 856 題</a></span><span class="ref">p.410</span></li>
+<li id="np-283">結膜淋巴腫瘤可為良性、惡性或不確定，臨床與病理特徵重疊。<mark>約 <span class="num">20%</span> 的結膜 lymphoid tumor 病人有可偵測的 extraocular lymphoma（眼外淋巴瘤）</mark>（即「大於 <span class="num">10%</span>」的敘述正確）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-856" data-q="856">第 856 題</a></span><span class="ref">p.410</span></li>
 </ul>
 <h3 id="ch14-s11-1">Lymphoid hyperplasia（淋巴組織增生）</h3>
 <ul>
-<li>舊稱 reactive lymphoid hyperplasia；外觀良性的淋巴球與其他白血球聚集，<mark>「可能代表」low-grade B-cell lymphoma（低度惡性 B 細胞淋巴瘤）</mark>——並非本身就等於淋巴瘤。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a></span><span class="ref">p.410</span></li>
-<li>臨床：輕度隆起、可推動、<strong>salmon-colored（鮭魚色）</strong>上皮下腫塊，表面多平滑，但可因濾泡形成而呈卵石狀；常中度至高度血管化。<span class="ref">p.410</span></li>
-<li><mark>臨床上無法與 conjunctival lymphoma 區分，必須切片</mark>；外觀也可像 primary localized amyloidosis（原發局部類澱粉沉積）。多數病人 <span class="num">&gt; 40</span> 歲，兒童罕見。<span class="ref">p.410</span></li>
-<li>病理：<mark>需<strong>新鮮組織（fresh tissue）</strong>做 immunohistochemistry（免疫組織化學）、flow cytometry（流式細胞儀）與 gene rearrangement（基因重組）分析</mark>，檢體需特殊處理。<span class="ref">p.410</span></li>
-<li>處置：可自行消退，也可局部切除、局部類固醇或放射治療；因看似良性的 polyclonal（多株）病灶日後仍可能發生全身 lymphoma，建議一般內科會診。<span class="ref">p.410–411</span></li>
+<li id="np-284">舊稱 reactive lymphoid hyperplasia；外觀良性的淋巴球與其他白血球聚集，<mark>「可能代表」low-grade B-cell lymphoma（低度惡性 B 細胞淋巴瘤）</mark>——並非本身就等於淋巴瘤。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a></span><span class="ref">p.410</span></li>
+<li id="np-285">臨床：輕度隆起、可推動、<strong>salmon-colored（鮭魚色）</strong>上皮下腫塊，表面多平滑，但可因濾泡形成而呈卵石狀；常中度至高度血管化。<span class="ref">p.410</span></li>
+<li id="np-286"><mark>臨床上無法與 conjunctival lymphoma 區分，必須切片</mark>；外觀也可像 primary localized amyloidosis（原發局部類澱粉沉積）。多數病人 <span class="num">&gt; 40</span> 歲，兒童罕見。<span class="ref">p.410</span></li>
+<li id="np-287">病理：<mark>需<strong>新鮮組織（fresh tissue）</strong>做 immunohistochemistry（免疫組織化學）、flow cytometry（流式細胞儀）與 gene rearrangement（基因重組）分析</mark>，檢體需特殊處理。<span class="ref">p.410</span></li>
+<li id="np-288">處置：可自行消退，也可局部切除、局部類固醇或放射治療；因看似良性的 polyclonal（多株）病灶日後仍可能發生全身 lymphoma，建議一般內科會診。<span class="ref">p.410–411</span></li>
 </ul>
 <h3 id="ch14-s11-2">Lymphoma（淋巴瘤）</h3>
 <ul>
-<li>好發於免疫抑制者或 <span class="num">50</span> 歲以上；可侷限於結膜，也可與全身 malignant lymphoma 並存；<strong>Sjögren syndrome（修格蘭氏症候群）</strong>病人風險增加。<span class="ref">p.411</span></li>
-<li><mark>主要為 B-cell non-Hodgkin lymphoma（非何傑金氏 B 細胞淋巴瘤）</mark>，<span class="num">4</span> 個亞型是預後的主要預測因子（見下表）；<strong>Hodgkin lymphoma 與 T-cell lymphoma 較少見</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a></span><span class="ref">p.411</span></li>
+<li id="np-289">好發於免疫抑制者或 <span class="num">50</span> 歲以上；可侷限於結膜，也可與全身 malignant lymphoma 並存；<strong>Sjögren syndrome（修格蘭氏症候群）</strong>病人風險增加。<span class="ref">p.411</span></li>
+<li id="np-290"><mark>主要為 B-cell non-Hodgkin lymphoma（非何傑金氏 B 細胞淋巴瘤）</mark>，<span class="num">4</span> 個亞型是預後的主要預測因子（見下表）；<strong>Hodgkin lymphoma 與 T-cell lymphoma 較少見</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a></span><span class="ref">p.411</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Subtype（亞型）</th><th>Proportion（比例）</th><th>5-year survival（5 年存活率）</th></tr></thead>
 <tbody>
-<tr><td>Extranodal marginal zone lymphoma（EMZL）of mucosa-associated lymphoid tissue（舊稱 MALT lymphoma）</td><td><span class="num">68%</span></td><td><span class="num">97%</span></td></tr>
-<tr><td>Follicular lymphoma（濾泡性淋巴瘤）</td><td><span class="num">16%</span></td><td><span class="num">82%</span></td></tr>
-<tr><td>Diffuse large B-cell lymphoma（瀰漫性大 B 細胞淋巴瘤）</td><td><span class="num">5%</span></td><td><span class="num">55%</span></td></tr>
-<tr><td>Mantle cell lymphoma（被套細胞淋巴瘤）</td><td><span class="num">7%</span></td><td><span class="num">9%</span></td></tr>
+<tr><td id="np-291">Extranodal marginal zone lymphoma（EMZL）of mucosa-associated lymphoid tissue（舊稱 MALT lymphoma）</td><td id="np-292"><span class="num">68%</span></td><td id="np-293"><span class="num">97%</span></td></tr>
+<tr><td id="np-294">Follicular lymphoma（濾泡性淋巴瘤）</td><td id="np-295"><span class="num">16%</span></td><td id="np-296"><span class="num">82%</span></td></tr>
+<tr><td id="np-297">Diffuse large B-cell lymphoma（瀰漫性大 B 細胞淋巴瘤）</td><td id="np-298"><span class="num">5%</span></td><td id="np-299"><span class="num">55%</span></td></tr>
+<tr><td id="np-300">Mantle cell lymphoma（被套細胞淋巴瘤）</td><td id="np-301"><span class="num">7%</span></td><td id="np-302"><span class="num">9%</span></td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.411</span></p>
+<p id="np-303">出處 <span class="ref">p.411</span></p>
 <ul>
-<li>臨床：與良性 lymphoid hyperplasia 外觀幾乎相同——<mark>可推動的 <strong>salmon-pink（鮭魚粉紅色）</strong>結膜腫塊</mark>；穹窿（cul-de-sac）出現 salmon-colored mass 首先想到 lymphoma／淋巴增生性病灶。通常單側，<span class="num">20%</span> 雙側；可偽裝成 chronic follicular conjunctivitis（慢性濾泡性結膜炎）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-729" data-q="729">第 729 題</a></span><span class="ref">p.410–411</span></li>
-<li>固定於鞏膜的 epibulbar mass（眼球表面腫塊）可能是 uveal lymphoid neoplasia 的鞏膜外延伸。<span class="ref">p.411</span></li>
-<li>處置：<mark>一律轉介 oncologist（腫瘤科）做全身評估，因可能已有或日後發生全身 lymphoma（最多 <span class="num">31%</span>）</mark>；不能只做局部切除而不做全身 work-up。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-856" data-q="856">第 856 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-391" data-q="391">第 391 題</a></span><span class="ref">p.412</span></li>
-<li>除非腫瘤小到可完整切除，否則做 incisional biopsy（切開式切片）確診。<span class="ref">p.412</span></li>
-<li><mark>侷限於結膜者：局部 low-dose 或 ultra-low-dose external beam radiotherapy（低劑量/超低劑量體外放射治療）常可治癒</mark>；病灶內 rituximab 注射也可能有效；靜脈 rituximab 越來越常用於局部與全身疾病；全身 lymphoma 需全身化療。<span class="ref">p.412</span></li>
-<li>本章外補充：Section 4——結膜淋巴瘤在所有眼附屬器部位中預後最好，但仍有 <span class="num">25%–30%</span> 合併全身疾病，診斷後必須做全身分期評估（tumor staging）。Section 7——<mark>發生全身性 NHL 的風險以<strong>結膜病灶最低</strong>、眼眶居中、<strong>眼瞼最高</strong></mark>；眼窩淋巴瘤多為 B 細胞 non-Hodgkin lymphoma，EMZL 對放射治療反應通常良好。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-814" data-q="814">第 814 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-391" data-q="391">第 391 題</a></span><span class="ref">p.412；BCSC 4 p.88；BCSC 7 p.99, p.102</span></li>
+<li id="np-304">臨床：與良性 lymphoid hyperplasia 外觀幾乎相同——<mark>可推動的 <strong>salmon-pink（鮭魚粉紅色）</strong>結膜腫塊</mark>；穹窿（cul-de-sac）出現 salmon-colored mass 首先想到 lymphoma／淋巴增生性病灶。通常單側，<span class="num">20%</span> 雙側；可偽裝成 chronic follicular conjunctivitis（慢性濾泡性結膜炎）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-729" data-q="729">第 729 題</a></span><span class="ref">p.410–411</span></li>
+<li id="np-305">固定於鞏膜的 epibulbar mass（眼球表面腫塊）可能是 uveal lymphoid neoplasia 的鞏膜外延伸。<span class="ref">p.411</span></li>
+<li id="np-306">處置：<mark>一律轉介 oncologist（腫瘤科）做全身評估，因可能已有或日後發生全身 lymphoma（最多 <span class="num">31%</span>）</mark>；不能只做局部切除而不做全身 work-up。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-856" data-q="856">第 856 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-391" data-q="391">第 391 題</a></span><span class="ref">p.412</span></li>
+<li id="np-307">除非腫瘤小到可完整切除，否則做 incisional biopsy（切開式切片）確診。<span class="ref">p.412</span></li>
+<li id="np-308"><mark>侷限於結膜者：局部 low-dose 或 ultra-low-dose external beam radiotherapy（低劑量/超低劑量體外放射治療）常可治癒</mark>；病灶內 rituximab 注射也可能有效；靜脈 rituximab 越來越常用於局部與全身疾病；全身 lymphoma 需全身化療。<span class="ref">p.412</span></li>
+<li id="np-309">本章外補充：Section 4——結膜淋巴瘤在所有眼附屬器部位中預後最好，但仍有 <span class="num">25%–30%</span> 合併全身疾病，診斷後必須做全身分期評估（tumor staging）。Section 7——<mark>發生全身性 NHL 的風險以<strong>結膜病灶最低</strong>、眼眶居中、<strong>眼瞼最高</strong></mark>；眼窩淋巴瘤多為 B 細胞 non-Hodgkin lymphoma，EMZL 對放射治療反應通常良好。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-814" data-q="814">第 814 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-391" data-q="391">第 391 題</a></span><span class="ref">p.412；BCSC 4 p.88；BCSC 7 p.99, p.102</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch14-s11-3">易錯陷阱</h3><ul>
-<li>選項中最常合併全身性腫瘤的結膜病灶是 lymphoma（<span class="num">20%</span> 已有眼外淋巴瘤、最多 <span class="num">31%</span> 發生全身淋巴瘤），不是 papilloma 或 OSSN；本章未討論 conjunctival myxoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-856" data-q="856">第 856 題</a></span><span class="ref">p.410, p.412</span></li>
-<li>「結膜淋巴瘤局限即不需全身評估」錯：一律轉介腫瘤科。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-391" data-q="391">第 391 題</a></span><span class="ref">p.412</span></li>
-<li>「結膜淋巴瘤合併全身淋巴瘤機率大於眼瞼淋巴瘤」錯：結膜最低、眼瞼最高（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.99</span></li>
-<li>結膜淋巴瘤以 B-cell NHL（EMZL 最多）為主，不是 Hodgkin 或 T-cell。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a></span><span class="ref">p.411</span></li>
-<li>Mantle cell 只佔 <span class="num">7%</span> 但 5 年存活率僅 <span class="num">9%</span>；EMZL 最多（<span class="num">68%</span>）且存活率最高（<span class="num">97%</span>）。<span class="ref">p.411</span></li>
-<li>切片要送<strong>新鮮</strong>組織，不能全部泡 formalin。<span class="ref">p.410–411</span></li>
+<li id="np-310">選項中最常合併全身性腫瘤的結膜病灶是 lymphoma（<span class="num">20%</span> 已有眼外淋巴瘤、最多 <span class="num">31%</span> 發生全身淋巴瘤），不是 papilloma 或 OSSN；本章未討論 conjunctival myxoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-856" data-q="856">第 856 題</a></span><span class="ref">p.410, p.412</span></li>
+<li id="np-311">「結膜淋巴瘤局限即不需全身評估」錯：一律轉介腫瘤科。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-391" data-q="391">第 391 題</a></span><span class="ref">p.412</span></li>
+<li id="np-312">「結膜淋巴瘤合併全身淋巴瘤機率大於眼瞼淋巴瘤」錯：結膜最低、眼瞼最高（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-773" data-q="773">第 773 題</a>、<a href="/exam/login?next=/exam/bcsc8-14%23q-814" data-q="814">第 814 題</a></span><span class="ref">BCSC 7 p.99</span></li>
+<li id="np-313">結膜淋巴瘤以 B-cell NHL（EMZL 最多）為主，不是 Hodgkin 或 T-cell。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc8-14%23q-913" data-q="913">第 913 題</a></span><span class="ref">p.411</span></li>
+<li id="np-314">Mantle cell 只佔 <span class="num">7%</span> 但 5 年存活率僅 <span class="num">9%</span>；EMZL 最多（<span class="num">68%</span>）且存活率最高（<span class="num">97%</span>）。<span class="ref">p.411</span></li>
+<li id="np-315">切片要送<strong>新鮮</strong>組織，不能全部泡 formalin。<span class="ref">p.410–411</span></li>
 </ul></div>
 
 <h2 id="ch14-s12">十二、Metastatic tumors（轉移性腫瘤）</h2>
 <ul>
-<li>轉移到結膜<mark>遠少於轉移到葡萄膜與眼眶</mark>；原發可來自乳癌、肺癌、腎癌及其他，包括皮膚（cutaneous melanoma）。<span class="ref">p.412</span></li>
-<li>葡萄膜、眼眶或副鼻竇的轉移灶可延伸到結膜；輪部或角膜也可出現轉移或 leukemic infiltrates（白血病浸潤）。<span class="ref">p.412</span></li>
+<li id="np-316">轉移到結膜<mark>遠少於轉移到葡萄膜與眼眶</mark>；原發可來自乳癌、肺癌、腎癌及其他，包括皮膚（cutaneous melanoma）。<span class="ref">p.412</span></li>
+<li id="np-317">葡萄膜、眼眶或副鼻竇的轉移灶可延伸到結膜；輪部或角膜也可出現轉移或 leukemic infiltrates（白血病浸潤）。<span class="ref">p.412</span></li>
 </ul>
 
 <div class="hs-tip-box">
 <h3 id="ch14-s12-1">易混淆比較與口訣</h3>
 <ul>
-<li><strong>三大眼表惡性腫瘤</strong>：SCC、melanoma、lymphoma。<span class="ref">p.385</span></li>
-<li><strong>「2–4 mm」</strong>：OSSN 與 melanoma 切除邊緣都是 <span class="num">2–4 mm</span>；冷凍每次移動 <span class="num">2–3 mm</span>、解凍約 <span class="num">10</span> 秒；角膜酒精 <span class="num">60</span> 秒；sebaceous carcinoma 的 map biopsy 取 <span class="num">3–4 mm</span>。<span class="ref">p.387, p.396–397, p.405</span></li>
-<li><strong>5-FU vs MMC</strong>：5-FU <span class="num">1%</span>、1 週用 3 週停、通常 4 循環、便宜不需冷藏、副作用輕；MMC <span class="num">0.2 mg/mL</span>（<span class="num">0.02%</span>）、1–2 週用 1–2 週停、最多 3–4 循環、毒性大需淚點塞；成功率皆 <span class="num">&gt; 85%</span>。<span class="ref">p.388, p.396–397</span></li>
-<li><strong>色素病灶惡性潛能</strong>：PAM（中重度 atypia）<span class="num">30%</span> ＞ nevus <span class="num">5%</span> ＞ melanocytosis <span class="num">&lt; 1%</span> ＞ CAM none to low。<span class="ref">p.400</span></li>
-<li><strong>單/雙側</strong>：CAM 雙側對稱；PAM 單側或不對稱；melanocytosis 通常單側（雙側約 <span class="num">5%</span>）；lymphoma 通常單側（雙側 <span class="num">20%</span>）。<span class="ref">p.400, p.402–403, p.411</span></li>
-<li><strong>「3」與「1.8」</strong>：PAM <span class="num">&gt; 3</span> clock-hours → 切除送病理；melanoma 厚度 <span class="num">&gt; 1.8 mm</span> → 預後差。<span class="ref">p.403–404</span></li>
-<li><strong>Melanoma 來源 70、5、25</strong>：PAM <span class="num">70%</span>、nevus <span class="num">5%</span>、de novo <span class="num">25%</span>；amelanotic 也約 <span class="num">25%</span>；死亡率 <span class="num">25%</span>。<span class="ref">p.404</span></li>
-<li><strong>囊泡 → 痣</strong>（<span class="num">50%</span> 以上）；<strong>鮭魚色 → 淋巴</strong>；<strong>草莓 → sessile papilloma</strong>；<strong>像結膜下出血 → Kaposi</strong>；<strong>單側頑固瞼結膜炎 → sebaceous carcinoma</strong>。<span class="ref">p.390, p.397, p.401, p.409–411</span></li>
-<li><strong>淋巴瘤 20 與 31</strong>：<span class="num">20%</span> 已有眼外淋巴瘤、最多 <span class="num">31%</span> 發生全身淋巴瘤；EMZL <span class="num">68%</span>／存活 <span class="num">97%</span>。<span class="ref">p.410–412</span></li>
+<li id="np-318"><strong>三大眼表惡性腫瘤</strong>：SCC、melanoma、lymphoma。<span class="ref">p.385</span></li>
+<li id="np-319"><strong>「2–4 mm」</strong>：OSSN 與 melanoma 切除邊緣都是 <span class="num">2–4 mm</span>；冷凍每次移動 <span class="num">2–3 mm</span>、解凍約 <span class="num">10</span> 秒；角膜酒精 <span class="num">60</span> 秒；sebaceous carcinoma 的 map biopsy 取 <span class="num">3–4 mm</span>。<span class="ref">p.387, p.396–397, p.405</span></li>
+<li id="np-320"><strong>5-FU vs MMC</strong>：5-FU <span class="num">1%</span>、1 週用 3 週停、通常 4 循環、便宜不需冷藏、副作用輕；MMC <span class="num">0.2 mg/mL</span>（<span class="num">0.02%</span>）、1–2 週用 1–2 週停、最多 3–4 循環、毒性大需淚點塞；成功率皆 <span class="num">&gt; 85%</span>。<span class="ref">p.388, p.396–397</span></li>
+<li id="np-321"><strong>色素病灶惡性潛能</strong>：PAM（中重度 atypia）<span class="num">30%</span> ＞ nevus <span class="num">5%</span> ＞ melanocytosis <span class="num">&lt; 1%</span> ＞ CAM none to low。<span class="ref">p.400</span></li>
+<li id="np-322"><strong>單/雙側</strong>：CAM 雙側對稱；PAM 單側或不對稱；melanocytosis 通常單側（雙側約 <span class="num">5%</span>）；lymphoma 通常單側（雙側 <span class="num">20%</span>）。<span class="ref">p.400, p.402–403, p.411</span></li>
+<li id="np-323"><strong>「3」與「1.8」</strong>：PAM <span class="num">&gt; 3</span> clock-hours → 切除送病理；melanoma 厚度 <span class="num">&gt; 1.8 mm</span> → 預後差。<span class="ref">p.403–404</span></li>
+<li id="np-324"><strong>Melanoma 來源 70、5、25</strong>：PAM <span class="num">70%</span>、nevus <span class="num">5%</span>、de novo <span class="num">25%</span>；amelanotic 也約 <span class="num">25%</span>；死亡率 <span class="num">25%</span>。<span class="ref">p.404</span></li>
+<li id="np-325"><strong>囊泡 → 痣</strong>（<span class="num">50%</span> 以上）；<strong>鮭魚色 → 淋巴</strong>；<strong>草莓 → sessile papilloma</strong>；<strong>像結膜下出血 → Kaposi</strong>；<strong>單側頑固瞼結膜炎 → sebaceous carcinoma</strong>。<span class="ref">p.390, p.397, p.401, p.409–411</span></li>
+<li id="np-326"><strong>淋巴瘤 20 與 31</strong>：<span class="num">20%</span> 已有眼外淋巴瘤、最多 <span class="num">31%</span> 發生全身淋巴瘤；EMZL <span class="num">68%</span>／存活 <span class="num">97%</span>。<span class="ref">p.410–412</span></li>
 </ul>
 </div>
 </div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="8-14"><p class="ex-locked">本章考題 26 題。<a href="/exam/login?next=/exam/bcsc8-14">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
@@ -751,7 +790,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260728" defer></script>
-<script src="/exam/exam.js?v=20260728" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
+<script src="/exam/exam.js?v=20260729" defer></script>
 </body>
 </html>

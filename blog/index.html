@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260728';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var stale=!!(sw&&navigator.serviceWorker.controller);function settle(task){return Promise.resolve().then(task).catch(function(){stale=true})}var j=[];if(sw)j.push(settle(function(){return navigator.serviceWorker.getRegistrations().then(function(rs){if(rs.length)stale=true;return Promise.all(rs.map(function(r){return settle(function(){return r.unregister()})}))})}));if(ch)j.push(settle(function(){return caches.keys().then(function(ks){if(ks.length)stale=true;return Promise.all(ks.map(function(k){return settle(function(){return caches.delete(k)})}))})}));Promise.all(j).then(function(){try{localStorage.setItem('hs:siteVer',T);if(stale)location.reload()}catch(e){}})}catch(e){}})();
+(function(){var T='20260729';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var stale=!!(sw&&navigator.serviceWorker.controller);function settle(task){return Promise.resolve().then(task).catch(function(){stale=true})}var j=[];if(sw)j.push(settle(function(){return navigator.serviceWorker.getRegistrations().then(function(rs){if(rs.length)stale=true;return Promise.all(rs.map(function(r){return settle(function(){return r.unregister()})}))})}));if(ch)j.push(settle(function(){return caches.keys().then(function(ks){if(ks.length)stale=true;return Promise.all(ks.map(function(k){return settle(function(){return caches.delete(k)})}))})}));Promise.all(j).then(function(){try{localStorage.setItem('hs:siteVer',T);if(stale)location.reload()}catch(e){}})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -54,10 +54,10 @@
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260728" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260729" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -74,9 +74,9 @@
   .lang-select{ appearance:none; -webkit-appearance:none; -moz-appearance:none; padding:6px 26px 6px 12px; font-size:12px; font-weight:600; color:var(--ink); border:1px solid var(--border); border-radius:9999px; background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path fill='%23243b56' d='M6 8 0 0h12z'/></svg>") no-repeat right 10px center; background-size:8px 6px; cursor:pointer; line-height:1.2; }
 
   .article-list{ display:flex; flex-direction:column; gap:14px; }
-  .article-list-item{ display:flex; gap:18px; padding:20px 24px; background:#fff; border:1px solid var(--border); border-radius:16px; transition:all .18s ease; text-decoration:none; box-shadow:0 1px 2px rgba(15,23,42,.04); }
-  .article-list-item:hover{ border-color:rgba(58,90,124,.5); box-shadow:0 14px 32px -14px rgba(58,90,124,.25); transform:translateX(4px); }
-  .article-list-item::before{ content:''; display:block; width:3px; height:36px; background:linear-gradient(180deg,#8fb3d4,#243b56); border-radius:9999px; flex-shrink:0; align-self:center; }
+  .article-list-item, .hs-pin-card{ display:flex; gap:18px; padding:20px 24px; background:#fff; border:1px solid var(--border); border-radius:16px; transition:all .18s ease; text-decoration:none; box-shadow:0 1px 2px rgba(15,23,42,.04); }
+  .article-list-item:hover, .hs-pin-card:hover{ border-color:rgba(58,90,124,.5); box-shadow:0 14px 32px -14px rgba(58,90,124,.25); transform:translateX(4px); }
+  .article-list-item::before, .hs-pin-card::before{ content:''; display:block; width:3px; height:36px; background:linear-gradient(180deg,#8fb3d4,#243b56); border-radius:9999px; flex-shrink:0; align-self:center; }
   .al-body{ flex:1; min-width:0; }
   .al-meta{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:6px; }
   /* Muted, near-monochrome chips — matches homepage style. Neutral cream
@@ -95,8 +95,15 @@
   .al-body h3{ font-size:19px; font-family:'Noto Serif TC',Georgia,serif; font-weight:700; color:var(--ink); margin:0 0 6px; line-height:1.4; }
   .al-body p{ font-size:13.5px; color:var(--ink-2); margin:0; line-height:1.75; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; min-height:5.25em; max-height:5.25em; }
   .al-arrow{ align-self:center; color:var(--blue-deep); font-size:22px; flex-shrink:0; opacity:.55; transition:all .15s ease; font-weight:600; }
-  .article-list-item:hover .al-arrow{ opacity:1; transform:translateX(3px); }
-  @media(max-width:640px){ .article-list-item{ gap:14px; padding:16px; } .al-body h3{ font-size:16.5px; } .al-arrow{ display:none; } }
+  .article-list-item:hover .al-arrow, .hs-pin-card:hover .al-arrow{ opacity:1; transform:translateX(3px); }
+  /* Pinned board-exam card: same look as an article card, marked as pinned. */
+  .hs-pin-card{ border-color:#b8cfe3; background:linear-gradient(90deg,#eef4fa,#fff 70%); }
+  .hs-pin-card::before{ background:linear-gradient(180deg,#c9a961,#3a5a7c); }
+  .al-meta .chip.pin{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
+  .al-meta .chip.pin::before{ display:none; }
+  .al-meta .chip.exam{ color:#3a5a7c; }
+  :root[data-theme="dark"] .hs-pin-card{ background:var(--surface); border-color:#3d5470; }
+  @media(max-width:640px){ .article-list-item, .hs-pin-card{ gap:14px; padding:16px; } .al-body h3{ font-size:16.5px; } .al-arrow{ display:none; } }
 
   @media print{ .al-body p{ display:block; -webkit-line-clamp:unset; overflow:visible; min-height:0; max-height:none; } }
 
@@ -123,7 +130,7 @@
 <meta property="og:image:alt" content="眼科衛教文章索引 | HsiaoEye" />
 <meta name="twitter:image:alt" content="眼科衛教文章索引 | HsiaoEye" />
 <meta property="og:locale:alternate" content="en_US" />
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 </head>
 <body class="font-sans antialiased text-ink-900"><style>.hs-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.hs-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.hs-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.hs-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="hs-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -139,7 +146,6 @@
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
         <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
-        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
         <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
@@ -158,7 +164,7 @@
   <section class="pt-12 pb-6">
     <div class="text-[11px] uppercase tracking-[.24em] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章索引" data-en="All articles">衛教文章索引</div>
     <h1 class="font-display font-bold text-[34px] sm:text-[40px] mt-3 leading-tight" data-zh="眼科衛教文章" data-en="Ophthalmology articles">眼科衛教文章</h1>
-    <p class="mt-3 text-[14.5px] leading-[1.85]" style="color:var(--ink-2)" data-zh="把診間最常被問的眼科問題，整理成讀得懂的衛教筆記。內容依據國際醫學文獻與臨床指引，僅作為一般教育用途。" data-en="The most-asked questions in clinic, distilled into readable notes. Based on international literature — for general education only.">把診間最常被問的眼科問題，整理成讀得懂的衛教筆記。內容依據國際醫學文獻與臨床指引，僅作為一般教育用途。</p>
+    <p class="mt-3 text-[14.5px] leading-[1.85]" style="color:var(--ink-2)" data-zh="把診間最常被問的眼科問題，整理成讀得懂的衛教筆記。內容依據國際醫學文獻與臨床指引。" data-en="The most-asked questions in clinic, distilled into readable notes. Based on international literature and clinical guidelines.">把診間最常被問的眼科問題，整理成讀得懂的衛教筆記。內容依據國際醫學文獻與臨床指引。</p>
   </section>
 
   <section class="mb-16" aria-labelledby="all-articles-heading">
@@ -178,6 +184,20 @@
 <!-- hs-static-filter:end -->
 
     <div class="article-list">
+
+      <!-- Pinned (owner 2026-10-17): the board-exam section, always first. Not an
+           article: .hs-pin-card keeps it out of the date sort, filters and counts. -->
+      <a href="/exam" class="hs-pin-card">
+        <div class="al-body">
+          <div class="al-meta">
+            <span class="chip pin" data-zh="置頂" data-en="Pinned">置頂</span>
+            <span class="chip exam" data-zh="專科考試" data-en="Board exam">專科考試</span>
+          </div>
+          <h3 data-zh="眼科專科醫師考試重點整理與考題解析" data-en="Ophthalmology Board Exam: BCSC Notes and Question Explanations">眼科專科醫師考試重點整理與考題解析</h3>
+          <p data-zh="依 BCSC 章節整理的課本重點（公開）與考題詳解（需登入），附出題頻率、疾病搜尋與讀書進度。" data-en="BCSC chapter notes (public) and explained board-exam questions (sign-in required), with question frequency, disease search and study progress.">依 BCSC 章節整理的課本重點（公開）與考題詳解（需登入），附出題頻率、疾病搜尋與讀書進度。</p>
+        </div>
+        <div class="al-arrow" aria-hidden="true">→</div>
+      </a>
 
       <a href="/blog/pediatric-high-myopia-maculopathy-progression" class="article-list-item">
         <div class="al-body">
@@ -543,7 +563,7 @@
   </div>
 </footer>
 
-<script src="/blog/blog-shared.min.js?v=20260728" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {

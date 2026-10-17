@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 11 Ch.4 Embryology and Developmental An…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc11-4#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 11 Ch.4","item":"https://hsiao.chendermatologist.com/exam/bcsc11-4"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -182,6 +182,40 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-prog td.ex-num,.ex-prog th.ex-num{text-align:right;white-space:nowrap}
 .ex-prog a{color:var(--ex-accent)}
 .ex-prog .ex-low{color:#b91c1c;font-weight:700}
+.ex-find{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:18px 0 8px}
+.ex-find-row{display:flex;gap:8px;margin:6px 0 4px}
+.ex-find-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-find-title{font-size:15px;font-weight:700;margin:10px 0 4px}
+.ex-find-group{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0}
+.ex-find-h{font-size:15px;font-weight:700;line-height:1.6;margin:0}
+.ex-find-h a{color:var(--ex-accent)}
+.ex-find-h .ex-count{margin-left:8px;font-weight:500;color:var(--ink-2)}
+.ex-find-list{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.75}
+.ex-find-list li{border-top:1px solid var(--line);padding:6px 0}
+.ex-find-list a{display:block;color:var(--ink);text-decoration:none}
+.ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
+.ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
+.ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
+.ex-practice{margin:12px 0 4px}
+.ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-more[hidden],.ex-rank tr[hidden]{display:none}
+.ex-note [id^="np-"]{scroll-margin-top:96px}
+.ex-note [id^="np-"]:target{background:var(--ex-soft);outline:2px solid var(--ex-accent);outline-offset:-2px;border-radius:6px}
+.ex-resume{position:sticky;top:72px;z-index:6;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--ex-card);border:1px solid var(--border);border-left:4px solid var(--ex-accent);border-radius:10px;padding:6px 8px 6px 12px;margin:8px 0 12px;font-size:13px;line-height:1.6;box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(15,23,42,.35)}
+.ex-resume-text{flex:1;min-width:12em}
+.ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
+.ex-resume-close:hover{background:var(--ex-soft)}
+.ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
+.ex-ans-text{color:var(--ink-2);font-weight:600}
+.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next:disabled{opacity:.5;cursor:default}
+.ex-ans-clear{margin:0 0 6px}
+.ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
+body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
+.ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -212,8 +246,14 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
+:root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -229,7 +269,6 @@ body:not(.ex-quiz) .ex-opt input{display:none}
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="/blog" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="衛教文章" data-en="Articles">衛教文章</a>
         <a href="/exam" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="眼科專科醫師考試" data-en="Board Exam">眼科專科醫師考試</a>
-        <a href="/tools" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="量表" data-en="Tools">量表</a>
         <a href="/about" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" style="color:var(--blue-deep)" data-zh="關於我" data-en="About">關於我</a>
         <button type="button" aria-label="搜尋" title="搜尋 (Cmd/Ctrl + K)" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
@@ -245,378 +284,378 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 <main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 11 Ch.4</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 11 · Lens and Cataract</p><h1 class="ex-h1">Ch.4 Embryology and Developmental Anomalies</h1><p class="ex-meta">原書 p.37–58 · 考題 29 題</p><div class="ex-strip" data-progress-chapter="11-4" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="11-4"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch4-s1">一、水晶體的正常發育</a></li><li><a href="#ch4-s2">二、先天異常總論、congenital aphakia、lenticonus 與 lens coloboma</a></li><li><a href="#ch4-s3">三、Tunica vasculosa lentis 殘留：Mittendorf dot 與 epicapsular star</a></li><li><a href="#ch4-s4">四、Peters anomaly 與 microspherophakia</a></li><li><a href="#ch4-s5">五、Aniridia 與 persistent fetal vasculature</a></li><li><a href="#ch4-s6">六、Congenital cataract（先天性白內障）總論與病因</a></li><li><a href="#ch4-s7">七、先天性白內障的型態</a></li><li><a href="#ch4-s8">八、Ectopia lentis（水晶體異位）總論</a></li><li><a href="#ch4-s9">九、Marfan syndrome、homocystinuria、hyperlysinemia 與 ectopia lentis et pupillae</a></li><li><a href="#ch4-s10">十、年齡相關白內障的遺傳因素</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 11 第 4 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch4-s1">一、水晶體的正常發育</h2>
 <h3 id="ch4-s1-1">本章重點（Highlights）</h3>
 <ul>
-<li>水晶體源自 <mark><strong>surface ectoderm（表面外胚層）</strong></mark>，不是神經外胚層或中胚層。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.37</span></li>
-<li>先天性白內障約 <span class="num">1/3</span> 屬某症候群的一部分、<span class="num">1/3</span> 為單獨遺傳性狀、<span class="num">1/3</span> 原因不明。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a></span><span class="ref">p.37, p.49</span></li>
-<li><mark>多數 hereditary cataract（遺傳性白內障）為 <strong>autosomal dominant（AD，體染色體顯性）</strong>，且幾乎都是<strong>雙側</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.37</span></li>
-<li><mark><strong>Trauma（外傷）</strong>是後天性水晶體移位最常見的原因</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.37, p.54</span></li>
-<li><strong>Subluxated lens（半脫位水晶體）</strong>：部分移位但仍在瞳孔區內；<strong>luxated / dislocated lens（全脫位水晶體）</strong>：完全離開瞳孔區。<span class="ref">p.37</span></li>
+<li id="np-1">水晶體源自 <mark><strong>surface ectoderm（表面外胚層）</strong></mark>，不是神經外胚層或中胚層。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.37</span></li>
+<li id="np-2">先天性白內障約 <span class="num">1/3</span> 屬某症候群的一部分、<span class="num">1/3</span> 為單獨遺傳性狀、<span class="num">1/3</span> 原因不明。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a></span><span class="ref">p.37, p.49</span></li>
+<li id="np-3"><mark>多數 hereditary cataract（遺傳性白內障）為 <strong>autosomal dominant（AD，體染色體顯性）</strong>，且幾乎都是<strong>雙側</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.37</span></li>
+<li id="np-4"><mark><strong>Trauma（外傷）</strong>是後天性水晶體移位最常見的原因</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.37, p.54</span></li>
+<li id="np-5"><strong>Subluxated lens（半脫位水晶體）</strong>：部分移位但仍在瞳孔區內；<strong>luxated / dislocated lens（全脫位水晶體）</strong>：完全離開瞳孔區。<span class="ref">p.37</span></li>
 </ul>
 <h3 id="ch4-s1-2">胚胎時間軸（Fig 4-1）</h3>
 <table class="ted-table">
 <thead><tr><th>Stage（階段）</th><th>Timing（妊娠時間）</th><th>Key event（重點）</th></tr></thead>
 <tbody>
-<tr><td>Optic vesicle（視泡）</td><td>約 <span class="num">25 天</span></td><td>前腦（diencephalon，間腦）向兩側外突，貼附於表面外胚層</td></tr>
-<tr><td>Lens placode（水晶體板）</td><td>約 <span class="num">27 天</span>（圖示 <span class="num">27–29 天</span>）</td><td>視泡上方外胚層細胞由立方變柱狀；需 bone morphogenetic protein（BMP，骨成形蛋白）家族生長因子</td></tr>
-<tr><td>Lens pit（水晶體窩）</td><td><span class="num">29 天</span></td><td>水晶體板內凹</td></tr>
-<tr><td>Lens vesicle（水晶體泡）</td><td>形成 <span class="num">30 天</span>；完成 <span class="num">33 天</span></td><td>直徑約 <span class="num">0.2 mm</span>；與表面外胚層的柄以 apoptosis（細胞凋亡）退化而分離</td></tr>
-<tr><td>Primary lens fibers（初級水晶體纖維）</td><td><span class="num">33–35 天</span>開始延長（圖示約 <span class="num">35 天</span>）</td><td>後層細胞停止分裂、延長填滿水晶體泡腔</td></tr>
-<tr><td>Embryonic nucleus（胚胎核）</td><td>約 <span class="num">40 天</span></td><td>水晶體泡腔消失；由初級纖維構成</td></tr>
-<tr><td>Secondary lens fibers（次級水晶體纖維）</td><td>圖示 <span class="num">7 週</span></td><td>赤道部上皮細胞延長而成</td></tr>
-<tr><td>Y-sutures（Y 字縫）</td><td>約 <span class="num">8 週</span></td><td>前方正 Y、後方倒 Y</td></tr>
-<tr><td>Tunica vasculosa lentis（水晶體血管膜）</td><td>約 <span class="num">1 個月</span>出現、約 <span class="num">9 週</span>發育完全</td><td>出生前不久以細胞凋亡有序消失</td></tr>
-<tr><td>Fetal nucleus（胎兒核）</td><td>圖示 <span class="num">12–14 週</span>；由妊娠 <span class="num">2–8 個月</span>形成的次級纖維構成</td><td>其 Y 字縫為 sutural cataract 的位置</td></tr>
-<tr><td>Zonular fibers（懸韌帶纖維）</td><td>妊娠<span class="num">第 3 個月</span>末開始</td><td>推測由 ciliary epithelium（睫狀上皮）分泌</td></tr>
+<tr><td id="np-6">Optic vesicle（視泡）</td><td id="np-7">約 <span class="num">25 天</span></td><td id="np-8">前腦（diencephalon，間腦）向兩側外突，貼附於表面外胚層</td></tr>
+<tr><td id="np-9">Lens placode（水晶體板）</td><td id="np-10">約 <span class="num">27 天</span>（圖示 <span class="num">27–29 天</span>）</td><td id="np-11">視泡上方外胚層細胞由立方變柱狀；需 bone morphogenetic protein（BMP，骨成形蛋白）家族生長因子</td></tr>
+<tr><td id="np-12">Lens pit（水晶體窩）</td><td id="np-13"><span class="num">29 天</span></td><td id="np-14">水晶體板內凹</td></tr>
+<tr><td id="np-15">Lens vesicle（水晶體泡）</td><td id="np-16">形成 <span class="num">30 天</span>；完成 <span class="num">33 天</span></td><td id="np-17">直徑約 <span class="num">0.2 mm</span>；與表面外胚層的柄以 apoptosis（細胞凋亡）退化而分離</td></tr>
+<tr><td id="np-18">Primary lens fibers（初級水晶體纖維）</td><td id="np-19"><span class="num">33–35 天</span>開始延長（圖示約 <span class="num">35 天</span>）</td><td id="np-20">後層細胞停止分裂、延長填滿水晶體泡腔</td></tr>
+<tr><td id="np-21">Embryonic nucleus（胚胎核）</td><td id="np-22">約 <span class="num">40 天</span></td><td id="np-23">水晶體泡腔消失；由初級纖維構成</td></tr>
+<tr><td id="np-24">Secondary lens fibers（次級水晶體纖維）</td><td id="np-25">圖示 <span class="num">7 週</span></td><td id="np-26">赤道部上皮細胞延長而成</td></tr>
+<tr><td id="np-27">Y-sutures（Y 字縫）</td><td id="np-28">約 <span class="num">8 週</span></td><td id="np-29">前方正 Y、後方倒 Y</td></tr>
+<tr><td id="np-30">Tunica vasculosa lentis（水晶體血管膜）</td><td id="np-31">約 <span class="num">1 個月</span>出現、約 <span class="num">9 週</span>發育完全</td><td id="np-32">出生前不久以細胞凋亡有序消失</td></tr>
+<tr><td id="np-33">Fetal nucleus（胎兒核）</td><td id="np-34">圖示 <span class="num">12–14 週</span>；由妊娠 <span class="num">2–8 個月</span>形成的次級纖維構成</td><td id="np-35">其 Y 字縫為 sutural cataract 的位置</td></tr>
+<tr><td id="np-36">Zonular fibers（懸韌帶纖維）</td><td id="np-37">妊娠<span class="num">第 3 個月</span>末開始</td><td id="np-38">推測由 ciliary epithelium（睫狀上皮）分泌</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.37–41</span></p>
+<p id="np-39">出處 <span class="ref">p.37–41</span></p>
 <h3 id="ch4-s1-3">Optic vesicle、lens placode、lens pit 與 lens vesicle</h3>
 <ul>
-<li>約妊娠 <span class="num">25 天</span>，<strong>optic vesicles（視泡）</strong>由 forebrain（前腦，即 diencephalon）向兩側外突，擴大後緊貼兩側的 surface ectoderm（單層立方細胞）。<mark>「25 天」是 optic vesicle 形成的時間</mark>，lens placode 則約在 <span class="num">27 天</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.37</span></li>
-<li><strong>Lens placode（水晶體板）</strong>：約 <span class="num">27 天</span>，視泡上方的外胚層細胞變為柱狀；水晶體板及其後的水晶體形成都需要 <strong>BMP</strong> 家族生長因子。<span class="ref">p.37</span></li>
-<li><strong>Lens pit（水晶體窩）</strong>：<span class="num">29 天</span>出現，為水晶體板的內陷，逐漸加深內陷形成水晶體泡。<span class="ref">p.38</span></li>
-<li><strong>Lens vesicle（水晶體泡）</strong>：連接表面外胚層的細胞柄以 <strong>apoptosis</strong> 退化而分離；為包在 basement membrane（基底膜，即 lens capsule（水晶體囊））內的單層立方細胞球，<span class="num">30 天</span>形成時直徑約 <span class="num">0.2 mm</span>。<span class="ref">p.39</span></li>
-<li>因由內陷形成，細胞 apex（頂端）朝向水晶體泡腔、基底附著於周邊的囊；同時 optic vesicle 也內陷形成雙層的 <strong>optic cup（視杯）</strong>。<span class="ref">p.40</span></li>
+<li id="np-40">約妊娠 <span class="num">25 天</span>，<strong>optic vesicles（視泡）</strong>由 forebrain（前腦，即 diencephalon）向兩側外突，擴大後緊貼兩側的 surface ectoderm（單層立方細胞）。<mark>「25 天」是 optic vesicle 形成的時間</mark>，lens placode 則約在 <span class="num">27 天</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.37</span></li>
+<li id="np-41"><strong>Lens placode（水晶體板）</strong>：約 <span class="num">27 天</span>，視泡上方的外胚層細胞變為柱狀；水晶體板及其後的水晶體形成都需要 <strong>BMP</strong> 家族生長因子。<span class="ref">p.37</span></li>
+<li id="np-42"><strong>Lens pit（水晶體窩）</strong>：<span class="num">29 天</span>出現，為水晶體板的內陷，逐漸加深內陷形成水晶體泡。<span class="ref">p.38</span></li>
+<li id="np-43"><strong>Lens vesicle（水晶體泡）</strong>：連接表面外胚層的細胞柄以 <strong>apoptosis</strong> 退化而分離；為包在 basement membrane（基底膜，即 lens capsule（水晶體囊））內的單層立方細胞球，<span class="num">30 天</span>形成時直徑約 <span class="num">0.2 mm</span>。<span class="ref">p.39</span></li>
+<li id="np-44">因由內陷形成，細胞 apex（頂端）朝向水晶體泡腔、基底附著於周邊的囊；同時 optic vesicle 也內陷形成雙層的 <strong>optic cup（視杯）</strong>。<span class="ref">p.40</span></li>
 </ul>
 <h3 id="ch4-s1-4">纖維、核與縫</h3>
 <ul>
-<li><strong>Primary lens fibers（初級水晶體纖維）</strong>：水晶體泡<strong>後層</strong>細胞於 <span class="num">33–35 天</span>停止分裂並延長，約 <span class="num">40 天</span>填滿泡腔；成熟時細胞核與膜狀胞器分解以減少光散射；初級纖維構成 <strong>embryonic nucleus（胚胎核）</strong>，日後位於成人水晶體正中央。<span class="ref">p.40</span></li>
-<li>水晶體泡<strong>前層</strong>細胞 → <strong>lens epithelium（水晶體上皮）</strong>（單層立方細胞），其增生帶動水晶體日後生長。<span class="ref">p.40</span></li>
-<li>Lens capsule 是基底膜：<mark>前方由水晶體上皮分泌、後方由水晶體纖維分泌</mark>。<span class="ref">p.40</span></li>
-<li><strong>Secondary lens fibers（次級水晶體纖維）</strong>：赤道附近上皮細胞增生後延長，前端沿上皮下方伸向前極、後端沿囊伸向後極，一層層持續形成；纖維脫離囊時失去細胞核與胞器。妊娠 <span class="num">2–8 個月</span>形成的次級纖維構成 <strong>fetal nucleus（胎兒核）</strong>。<span class="ref">p.40</span></li>
-<li><strong>Lens sutures（水晶體縫）</strong>：前後兩側纖維末端在前、後極附近交會互嵌；<mark><strong>Y-shaped sutures</strong> 約妊娠 <span class="num">8 週</span>可辨識</mark>，前方為 <strong>erect Y（正 Y）</strong>、後方為 <strong>inverted Y（倒 Y）</strong>；隨生長愈來愈複雜，成人可達 <span class="num">12</span> 支以上；形成機制仍不明。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.40</span></li>
-<li>出生時水晶體約 <span class="num">90 mg</span>、直徑約 <span class="num">6 mm</span>、厚 <span class="num">4 mm</span>（約一顆嬰兒阿斯匹靈大小）；終生每年約增加 <span class="num">2 mg</span>。<span class="ref">p.40</span></li>
+<li id="np-45"><strong>Primary lens fibers（初級水晶體纖維）</strong>：水晶體泡<strong>後層</strong>細胞於 <span class="num">33–35 天</span>停止分裂並延長，約 <span class="num">40 天</span>填滿泡腔；成熟時細胞核與膜狀胞器分解以減少光散射；初級纖維構成 <strong>embryonic nucleus（胚胎核）</strong>，日後位於成人水晶體正中央。<span class="ref">p.40</span></li>
+<li id="np-46">水晶體泡<strong>前層</strong>細胞 → <strong>lens epithelium（水晶體上皮）</strong>（單層立方細胞），其增生帶動水晶體日後生長。<span class="ref">p.40</span></li>
+<li id="np-47">Lens capsule 是基底膜：<mark>前方由水晶體上皮分泌、後方由水晶體纖維分泌</mark>。<span class="ref">p.40</span></li>
+<li id="np-48"><strong>Secondary lens fibers（次級水晶體纖維）</strong>：赤道附近上皮細胞增生後延長，前端沿上皮下方伸向前極、後端沿囊伸向後極，一層層持續形成；纖維脫離囊時失去細胞核與胞器。妊娠 <span class="num">2–8 個月</span>形成的次級纖維構成 <strong>fetal nucleus（胎兒核）</strong>。<span class="ref">p.40</span></li>
+<li id="np-49"><strong>Lens sutures（水晶體縫）</strong>：前後兩側纖維末端在前、後極附近交會互嵌；<mark><strong>Y-shaped sutures</strong> 約妊娠 <span class="num">8 週</span>可辨識</mark>，前方為 <strong>erect Y（正 Y）</strong>、後方為 <strong>inverted Y（倒 Y）</strong>；隨生長愈來愈複雜，成人可達 <span class="num">12</span> 支以上；形成機制仍不明。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.40</span></li>
+<li id="np-50">出生時水晶體約 <span class="num">90 mg</span>、直徑約 <span class="num">6 mm</span>、厚 <span class="num">4 mm</span>（約一顆嬰兒阿斯匹靈大小）；終生每年約增加 <span class="num">2 mg</span>。<span class="ref">p.40</span></li>
 </ul>
 <h3 id="ch4-s1-5">Tunica vasculosa lentis（水晶體血管膜）與 zonule of Zinn（Zinn 小帶）</h3>
 <ul>
-<li>約妊娠 <span class="num">1 個月</span>，由視神經頭（optic disc）入眼的 <strong>hyaloid artery（玻璃體動脈）</strong>分支，在水晶體<strong>後囊</strong>表面形成微血管網 <strong>tunica vasculosa lentis</strong>，向赤道生長。<span class="ref">p.41</span></li>
-<li>在赤道與另一套微血管網 <strong>anterior pupillary membrane（前瞳孔膜）</strong>吻合；<mark>前瞳孔膜源自 <strong>ciliary veins（睫狀靜脈）</strong>，覆蓋水晶體前表面</mark>，不是 hyaloid artery 的分支。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.41</span></li>
-<li>組成（Fig 4-3）：anterior pupillary membrane、capsulopupillary portion（囊瞳孔部）、posterior pupillary membrane（後瞳孔膜）、hyaloid artery。<span class="ref">p.42</span></li>
-<li>約 <span class="num">9 週</span>時整個水晶體周圍血管網發育完全，<strong>出生前不久</strong>以 programmed cell death（計畫性細胞死亡）有序消失。<span class="ref">p.41</span></li>
-<li>殘留：後方血管膜殘留為水晶體後面的小混濁或細絲 = <strong>Mittendorf dot</strong>；前方瞳孔膜殘留則常見為 <strong>pupillary strands（瞳孔殘絲）</strong>，即 <strong>persistent pupillary membrane（永存瞳孔膜）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.41</span></li>
-<li><strong>Zonular fibers（懸韌帶纖維）</strong>：實驗證據顯示<mark>由 <strong>ciliary epithelium（睫狀上皮）</strong>分泌，不是由 lens capsule 發育而來</mark>；如何附著到水晶體囊仍不清楚；妊娠<span class="num">第 3 個月</span>末開始發育。BCSC 2 則把懸韌帶歸為 <strong>tertiary vitreous（第三玻璃體）</strong>的一部分（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.41；BCSC 2 p.161</span></li>
+<li id="np-51">約妊娠 <span class="num">1 個月</span>，由視神經頭（optic disc）入眼的 <strong>hyaloid artery（玻璃體動脈）</strong>分支，在水晶體<strong>後囊</strong>表面形成微血管網 <strong>tunica vasculosa lentis</strong>，向赤道生長。<span class="ref">p.41</span></li>
+<li id="np-52">在赤道與另一套微血管網 <strong>anterior pupillary membrane（前瞳孔膜）</strong>吻合；<mark>前瞳孔膜源自 <strong>ciliary veins（睫狀靜脈）</strong>，覆蓋水晶體前表面</mark>，不是 hyaloid artery 的分支。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.41</span></li>
+<li id="np-53">組成（Fig 4-3）：anterior pupillary membrane、capsulopupillary portion（囊瞳孔部）、posterior pupillary membrane（後瞳孔膜）、hyaloid artery。<span class="ref">p.42</span></li>
+<li id="np-54">約 <span class="num">9 週</span>時整個水晶體周圍血管網發育完全，<strong>出生前不久</strong>以 programmed cell death（計畫性細胞死亡）有序消失。<span class="ref">p.41</span></li>
+<li id="np-55">殘留：後方血管膜殘留為水晶體後面的小混濁或細絲 = <strong>Mittendorf dot</strong>；前方瞳孔膜殘留則常見為 <strong>pupillary strands（瞳孔殘絲）</strong>，即 <strong>persistent pupillary membrane（永存瞳孔膜）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.41</span></li>
+<li id="np-56"><strong>Zonular fibers（懸韌帶纖維）</strong>：實驗證據顯示<mark>由 <strong>ciliary epithelium（睫狀上皮）</strong>分泌，不是由 lens capsule 發育而來</mark>；如何附著到水晶體囊仍不清楚；妊娠<span class="num">第 3 個月</span>末開始發育。BCSC 2 則把懸韌帶歸為 <strong>tertiary vitreous（第三玻璃體）</strong>的一部分（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.41；BCSC 2 p.161</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch4-s1-6">易錯陷阱</h3><ul>
-<li>「水晶體發育在 25 天開始」可視為正確：25 天是 optic vesicle 形成；lens placode 是 27 天、lens pit 29 天、lens vesicle 30 天（33 天完成）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.37–38</span></li>
-<li>Lens capsule 前方由上皮、後方由纖維分泌；zonule 則由睫狀上皮分泌，「zonule 由 lens capsule 發育而來」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.40–41</span></li>
-<li>Y 字縫：前正 Y、後倒 Y，約 <span class="num">8 週</span>出現；縫位於 fetal nucleus。<span class="ref">p.40, p.51</span></li>
-<li>前瞳孔膜（睫狀靜脈來源）與後方血管膜（hyaloid artery 來源）兩套系統在赤道吻合；考「與 hyaloid 系統有關」時，persistent pupillary membrane 是前方瞳孔膜殘留，最不屬 hyaloid 系統。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a></span><span class="ref">p.41</span></li>
+<li id="np-57">「水晶體發育在 25 天開始」可視為正確：25 天是 optic vesicle 形成；lens placode 是 27 天、lens pit 29 天、lens vesicle 30 天（33 天完成）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.37–38</span></li>
+<li id="np-58">Lens capsule 前方由上皮、後方由纖維分泌；zonule 則由睫狀上皮分泌，「zonule 由 lens capsule 發育而來」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.40–41</span></li>
+<li id="np-59">Y 字縫：前正 Y、後倒 Y，約 <span class="num">8 週</span>出現；縫位於 fetal nucleus。<span class="ref">p.40, p.51</span></li>
+<li id="np-60">前瞳孔膜（睫狀靜脈來源）與後方血管膜（hyaloid artery 來源）兩套系統在赤道吻合；考「與 hyaloid 系統有關」時，persistent pupillary membrane 是前方瞳孔膜殘留，最不屬 hyaloid 系統。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a></span><span class="ref">p.41</span></li>
 </ul></div>
 
 <h2 id="ch4-s2">二、先天異常總論、congenital aphakia、lenticonus 與 lens coloboma</h2>
 <h3 id="ch4-s2-1">總論與 Table 4-1 Lens abnormalities（水晶體異常）</h3>
 <ul>
-<li>大多數重大眼與眼眶先天異常在出生前 ultrasonography（超音波）即可看到；<mark>異常愈嚴重，發生的發育時期愈早</mark>。<span class="ref">p.42</span></li>
-<li>水晶體異常包括形狀、大小、位置、發育的異常及白內障（Table 4-1）。<span class="ref">p.42</span></li>
+<li id="np-61">大多數重大眼與眼眶先天異常在出生前 ultrasonography（超音波）即可看到；<mark>異常愈嚴重，發生的發育時期愈早</mark>。<span class="ref">p.42</span></li>
+<li id="np-62">水晶體異常包括形狀、大小、位置、發育的異常及白內障（Table 4-1）。<span class="ref">p.42</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Abnormality（異常類別）</th><th>Disorder（疾病）</th><th>Associated with（相關疾病）</th></tr></thead>
 <tbody>
-<tr><td rowspan="3">Shape（形狀）</td><td>Microspherophakia（小球狀水晶體）</td><td>Weill-Marchesani syndrome（AR）、Peters anomaly type 2、Marfan syndrome、Alport syndrome、Lowe syndrome、congenital rubella</td></tr>
-<tr><td>Lenticonus / lentiglobus（下列 anterior lenticonus）</td><td>Alport syndrome、Lowe syndrome</td></tr>
-<tr><td>Coloboma（缺損）</td><td>—</td></tr>
-<tr><td>Lens position（位置）</td><td>Ectopia lentis（水晶體異位）</td><td>Simple（AD）、ectopia lentis et pupillae（AR）、trauma、Marfan syndrome、homocystinuria、aniridia、congenital glaucoma、Ehlers-Danlos syndrome、hyperlysinemia、Weill-Marchesani syndrome（AR）、sulfite oxidase deficiency、Peters anomaly type 2</td></tr>
-<tr><td>Extralenticular opacities（水晶體外混濁）</td><td>Persistent fetal vasculature、Mittendorf dot、epicapsular star</td><td>—</td></tr>
-<tr><td rowspan="4">Lenticular（cataract，白內障）</td><td>Capsulolenticular</td><td>Peters anomaly type 2</td></tr>
-<tr><td>Polar（capsulolenticular 之下）</td><td>Aniridia</td></tr>
-<tr><td>Capsular（capsulolenticular 之下）</td><td>Persistent fetal vasculature</td></tr>
-<tr><td>Sutural、coronary、cerulean、nuclear、complete、membranous、rubella</td><td>—</td></tr>
+<tr><td id="np-63" rowspan="3">Shape（形狀）</td><td id="np-64">Microspherophakia（小球狀水晶體）</td><td id="np-65">Weill-Marchesani syndrome（AR）、Peters anomaly type 2、Marfan syndrome、Alport syndrome、Lowe syndrome、congenital rubella</td></tr>
+<tr><td id="np-66">Lenticonus / lentiglobus（下列 anterior lenticonus）</td><td id="np-67">Alport syndrome、Lowe syndrome</td></tr>
+<tr><td id="np-68">Coloboma（缺損）</td><td id="np-69">—</td></tr>
+<tr><td id="np-70">Lens position（位置）</td><td id="np-71">Ectopia lentis（水晶體異位）</td><td id="np-72">Simple（AD）、ectopia lentis et pupillae（AR）、trauma、Marfan syndrome、homocystinuria、aniridia、congenital glaucoma、Ehlers-Danlos syndrome、hyperlysinemia、Weill-Marchesani syndrome（AR）、sulfite oxidase deficiency、Peters anomaly type 2</td></tr>
+<tr><td id="np-73">Extralenticular opacities（水晶體外混濁）</td><td id="np-74">Persistent fetal vasculature、Mittendorf dot、epicapsular star</td><td id="np-75">—</td></tr>
+<tr><td id="np-76" rowspan="4">Lenticular（cataract，白內障）</td><td id="np-77">Capsulolenticular</td><td id="np-78">Peters anomaly type 2</td></tr>
+<tr><td id="np-79">Polar（capsulolenticular 之下）</td><td id="np-80">Aniridia</td></tr>
+<tr><td id="np-81">Capsular（capsulolenticular 之下）</td><td id="np-82">Persistent fetal vasculature</td></tr>
+<tr><td id="np-83">Sutural、coronary、cerulean、nuclear、complete、membranous、rubella</td><td id="np-84">—</td></tr>
 </tbody>
 </table>
-<p>出處（Table 4-1；AD = autosomal dominant，AR = autosomal recessive）<span class="ref">p.43</span></p>
+<p id="np-85">出處（Table 4-1；AD = autosomal dominant，AR = autosomal recessive）<span class="ref">p.43</span></p>
 <h3 id="ch4-s2-2">Congenital aphakia（先天性無晶體）</h3>
 <ul>
-<li>先天沒有水晶體，<strong>非常罕見</strong>。<span class="ref">p.42</span></li>
-<li><strong>Primary aphakia（原發性無晶體）</strong>：表面外胚層<mark>未形成 lens placode</mark>。BCSC 4 補充：為 <strong>FOXE3</strong> 基因同型合子致病變異所致，合併 microphthalmia（小眼症）等嚴重眼部異常（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42；BCSC 4 p.142</span></li>
-<li><strong>Secondary aphakia（續發性無晶體）</strong>：<mark>較常見的一型</mark>，發育中的水晶體自發性被吸收。BCSC 4 補充：水晶體已發育，但在出生前或出生時被吸收或排出，<mark>常與 rubella（德國麻疹）等 congenital infections（先天感染）有關</mark>（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42；BCSC 4 p.142</span></li>
-<li>兩型通常都合併眼部其他畸形。<span class="ref">p.42</span></li>
+<li id="np-86">先天沒有水晶體，<strong>非常罕見</strong>。<span class="ref">p.42</span></li>
+<li id="np-87"><strong>Primary aphakia（原發性無晶體）</strong>：表面外胚層<mark>未形成 lens placode</mark>。BCSC 4 補充：為 <strong>FOXE3</strong> 基因同型合子致病變異所致，合併 microphthalmia（小眼症）等嚴重眼部異常（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42；BCSC 4 p.142</span></li>
+<li id="np-88"><strong>Secondary aphakia（續發性無晶體）</strong>：<mark>較常見的一型</mark>，發育中的水晶體自發性被吸收。BCSC 4 補充：水晶體已發育，但在出生前或出生時被吸收或排出，<mark>常與 rubella（德國麻疹）等 congenital infections（先天感染）有關</mark>（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42；BCSC 4 p.142</span></li>
+<li id="np-89">兩型通常都合併眼部其他畸形。<span class="ref">p.42</span></li>
 </ul>
 <h3 id="ch4-s2-3">Lenticonus（圓錐形水晶體）與 lentiglobus（球形水晶體）</h3>
 <ul>
-<li><strong>Lenticonus</strong>：水晶體前或後表面局部<strong>圓錐狀</strong>變形。<mark><strong>Posterior lenticonus</strong> 比 anterior 常見，通常<strong>單側、位於軸心</strong></mark>；<mark><strong>Anterior lenticonus</strong> 常為<strong>雙側</strong>，可能與 <strong>Alport syndrome（Alport 症候群）</strong>有關</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42</span></li>
-<li><strong>Lentiglobus</strong>：局部變形呈<strong>球狀</strong>；posterior lentiglobus 比 anterior 常見，常合併密度不一的 posterior polar opacity（後極混濁）。<span class="ref">p.42</span></li>
-<li>Clinical pearl：經水晶體中央做 retinoscopy（視網膜檢影）可見扭曲且偏 <strong>myopic（近視）</strong>的反射；red reflex 後照下呈「<strong>oil droplet（油滴）</strong>」外觀——勿與 <strong>galactosemia（半乳糖血症）的 oil droplet cataract</strong> 混淆（第 5 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a></span><span class="ref">p.43</span></li>
-<li>後凸可能進展：先使近視加深，之後缺損處混濁，周圍皮質層也可能混濁。<span class="ref">p.43</span></li>
-<li>單側 pediatric cataract 的眼部原因包括 posterior lenticonus 與 posterior lentiglobus（Table 4-2）。<span class="ref">p.49</span></li>
+<li id="np-90"><strong>Lenticonus</strong>：水晶體前或後表面局部<strong>圓錐狀</strong>變形。<mark><strong>Posterior lenticonus</strong> 比 anterior 常見，通常<strong>單側、位於軸心</strong></mark>；<mark><strong>Anterior lenticonus</strong> 常為<strong>雙側</strong>，可能與 <strong>Alport syndrome（Alport 症候群）</strong>有關</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42</span></li>
+<li id="np-91"><strong>Lentiglobus</strong>：局部變形呈<strong>球狀</strong>；posterior lentiglobus 比 anterior 常見，常合併密度不一的 posterior polar opacity（後極混濁）。<span class="ref">p.42</span></li>
+<li id="np-92">Clinical pearl：經水晶體中央做 retinoscopy（視網膜檢影）可見扭曲且偏 <strong>myopic（近視）</strong>的反射；red reflex 後照下呈「<strong>oil droplet（油滴）</strong>」外觀——勿與 <strong>galactosemia（半乳糖血症）的 oil droplet cataract</strong> 混淆（第 5 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a></span><span class="ref">p.43</span></li>
+<li id="np-93">後凸可能進展：先使近視加深，之後缺損處混濁，周圍皮質層也可能混濁。<span class="ref">p.43</span></li>
+<li id="np-94">單側 pediatric cataract 的眼部原因包括 posterior lenticonus 與 posterior lentiglobus（Table 4-2）。<span class="ref">p.49</span></li>
 </ul>
 <h3 id="ch4-s2-4">Lens coloboma（水晶體缺損）</h3>
 <ul>
-<li>屬水晶體<strong>形狀</strong>的<mark>發育異常（與外傷無關）</mark>。<strong>Primary coloboma</strong>：單獨出現的水晶體周邊楔形缺損或凹陷；<strong>secondary coloboma</strong>：因 ciliary body（睫狀體）或 zonule（懸韌帶）發育不足造成的周邊扁平或凹陷。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1297" data-q="1297">第 1297 題</a></span><span class="ref">p.43–44</span></li>
-<li><mark>典型位於 <strong>inferonasal（下鼻側）</strong></mark>（不是下顳側），可合併 iris（虹膜）、optic nerve（視神經）或 retina（視網膜）缺損。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1297" data-q="1297">第 1297 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.44</span></li>
-<li>缺損旁可出現 <strong>cortical lens opacification（皮質混濁）</strong>或水晶體囊增厚；<mark>缺損區的 zonular attachments（懸韌帶附著）通常變弱或缺如</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1297" data-q="1297">第 1297 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.44</span></li>
-<li>Coloboma 也列為單側 pediatric cataract 的眼部原因（Table 4-2）。<span class="ref">p.49</span></li>
+<li id="np-95">屬水晶體<strong>形狀</strong>的<mark>發育異常（與外傷無關）</mark>。<strong>Primary coloboma</strong>：單獨出現的水晶體周邊楔形缺損或凹陷；<strong>secondary coloboma</strong>：因 ciliary body（睫狀體）或 zonule（懸韌帶）發育不足造成的周邊扁平或凹陷。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1297" data-q="1297">第 1297 題</a></span><span class="ref">p.43–44</span></li>
+<li id="np-96"><mark>典型位於 <strong>inferonasal（下鼻側）</strong></mark>（不是下顳側），可合併 iris（虹膜）、optic nerve（視神經）或 retina（視網膜）缺損。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1297" data-q="1297">第 1297 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.44</span></li>
+<li id="np-97">缺損旁可出現 <strong>cortical lens opacification（皮質混濁）</strong>或水晶體囊增厚；<mark>缺損區的 zonular attachments（懸韌帶附著）通常變弱或缺如</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1297" data-q="1297">第 1297 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.44</span></li>
+<li id="np-98">Coloboma 也列為單側 pediatric cataract 的眼部原因（Table 4-2）。<span class="ref">p.49</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch4-s2-5">易錯陷阱</h3><ul>
-<li>Lens coloboma 是發育異常，「通常與外傷有關」是錯的；其餘下方位置、懸韌帶異常、皮質混濁皆正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1297" data-q="1297">第 1297 題</a></span><span class="ref">p.43–44</span></li>
-<li>Lens coloboma 與 Mittendorf dot 都在<strong>下鼻側</strong>；寫「下顳側」即錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.44</span></li>
-<li>Secondary aphakia 才是較常見型；它與 rubella 等先天感染相關，說「無關」是錯的（本章外細節見 BCSC 4）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42；BCSC 4 p.142</span></li>
-<li>常與 Alport syndrome 相關、常雙側的是 <strong>anterior</strong> lenticonus；posterior lenticonus 較常見但通常單側、位於軸心。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42</span></li>
-<li>Lenticonus 的「oil droplet」是後照反射外觀，galactosemia 的 oil droplet 是白內障，兩者不同。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a></span><span class="ref">p.43</span></li>
+<li id="np-99">Lens coloboma 是發育異常，「通常與外傷有關」是錯的；其餘下方位置、懸韌帶異常、皮質混濁皆正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1297" data-q="1297">第 1297 題</a></span><span class="ref">p.43–44</span></li>
+<li id="np-100">Lens coloboma 與 Mittendorf dot 都在<strong>下鼻側</strong>；寫「下顳側」即錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.44</span></li>
+<li id="np-101">Secondary aphakia 才是較常見型；它與 rubella 等先天感染相關，說「無關」是錯的（本章外細節見 BCSC 4）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42；BCSC 4 p.142</span></li>
+<li id="np-102">常與 Alport syndrome 相關、常雙側的是 <strong>anterior</strong> lenticonus；posterior lenticonus 較常見但通常單側、位於軸心。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-394" data-q="394">第 394 題</a></span><span class="ref">p.42</span></li>
+<li id="np-103">Lenticonus 的「oil droplet」是後照反射外觀，galactosemia 的 oil droplet 是白內障，兩者不同。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a></span><span class="ref">p.43</span></li>
 </ul></div>
 
 <h2 id="ch4-s3">三、Tunica vasculosa lentis 殘留：Mittendorf dot 與 epicapsular star</h2>
 <ul>
-<li><strong>Mittendorf dot（Mittendorf 點）</strong>：常見、許多健康眼都有；小而緻密的白點，<mark>通常位於水晶體<strong>後極的下鼻側</strong>（inferonasal to the posterior pole）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.44</span></li>
-<li>Mittendorf dot 是血管膜 <strong>posterior pupillary membrane（後瞳孔膜）</strong>的殘留，<mark>標記胎內 <strong>hyaloid artery</strong> 接觸水晶體後表面的位置</mark>；位於水晶體<strong>後方</strong>，不在前部。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.41, p.44</span></li>
-<li>有時 Mittendorf dot 連著伸入玻璃體的纖維尾或 hyaloid artery 殘留；這類殘留不同於 <strong>persistent fetal vasculature（PFV）</strong>——PFV 不見於健康眼。<span class="ref">p.44</span></li>
-<li>同屬 hyaloid 系統後段殘留：<strong>Bergmeister papilla（Bergmeister 乳頭）</strong>是 hyaloid artery 後段的小部分殘留，呈從視神經頭表面向前伸的薄紗狀或指狀突起（本章外，BCSC 4 第 9 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a></span><span class="ref">BCSC 4 p.153</span></li>
-<li><strong>Epicapsular star（囊上星狀色素）</strong>：<mark>tunica vasculosa lentis 另一種<strong>非常常見</strong>的殘留</mark>；在<strong>前囊中央</strong>呈星狀分布的細小棕色或金色斑點；可單側或雙側。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.45</span></li>
-<li>Mittendorf dot、epicapsular star 與 PFV 在 Table 4-1 列為 <strong>extralenticular opacities（水晶體外混濁）</strong>。<span class="ref">p.43</span></li>
+<li id="np-104"><strong>Mittendorf dot（Mittendorf 點）</strong>：常見、許多健康眼都有；小而緻密的白點，<mark>通常位於水晶體<strong>後極的下鼻側</strong>（inferonasal to the posterior pole）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.44</span></li>
+<li id="np-105">Mittendorf dot 是血管膜 <strong>posterior pupillary membrane（後瞳孔膜）</strong>的殘留，<mark>標記胎內 <strong>hyaloid artery</strong> 接觸水晶體後表面的位置</mark>；位於水晶體<strong>後方</strong>，不在前部。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.41, p.44</span></li>
+<li id="np-106">有時 Mittendorf dot 連著伸入玻璃體的纖維尾或 hyaloid artery 殘留；這類殘留不同於 <strong>persistent fetal vasculature（PFV）</strong>——PFV 不見於健康眼。<span class="ref">p.44</span></li>
+<li id="np-107">同屬 hyaloid 系統後段殘留：<strong>Bergmeister papilla（Bergmeister 乳頭）</strong>是 hyaloid artery 後段的小部分殘留，呈從視神經頭表面向前伸的薄紗狀或指狀突起（本章外，BCSC 4 第 9 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a></span><span class="ref">BCSC 4 p.153</span></li>
+<li id="np-108"><strong>Epicapsular star（囊上星狀色素）</strong>：<mark>tunica vasculosa lentis 另一種<strong>非常常見</strong>的殘留</mark>；在<strong>前囊中央</strong>呈星狀分布的細小棕色或金色斑點；可單側或雙側。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.45</span></li>
+<li id="np-109">Mittendorf dot、epicapsular star 與 PFV 在 Table 4-1 列為 <strong>extralenticular opacities（水晶體外混濁）</strong>。<span class="ref">p.43</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（殘留）</th><th>Origin（來源）</th><th>Location / appearance（位置與外觀）</th><th>Clinical note（臨床意義）</th></tr></thead>
 <tbody>
-<tr><td>Mittendorf dot</td><td>後方血管膜（posterior pupillary membrane）；hyaloid artery 接觸點</td><td>後極下鼻側的緻密小白點，可帶纖維尾</td><td>常見於健康眼</td></tr>
-<tr><td>Epicapsular star</td><td>Tunica vasculosa lentis</td><td>前囊中央星狀棕／金色細點；單或雙側</td><td>非常常見</td></tr>
-<tr><td>Persistent pupillary membrane（瞳孔殘絲）</td><td>前瞳孔膜（ciliary veins 來源）</td><td>水晶體前方的瞳孔殘絲</td><td>可合併 anterior polar cataract</td></tr>
-<tr><td>Bergmeister papilla（本章外）</td><td>Hyaloid artery 後段</td><td>視神經頭前方薄紗狀／指狀突起</td><td>BCSC 4 p.153</td></tr>
-<tr><td>Persistent fetal vasculature</td><td>Hyaloid 血管系統未退化</td><td>白色纖維性 retrolental tissue（晶體後組織）</td><td><span class="num">90%</span> 單側；不見於健康眼</td></tr>
+<tr><td id="np-110">Mittendorf dot</td><td id="np-111">後方血管膜（posterior pupillary membrane）；hyaloid artery 接觸點</td><td id="np-112">後極下鼻側的緻密小白點，可帶纖維尾</td><td id="np-113">常見於健康眼</td></tr>
+<tr><td id="np-114">Epicapsular star</td><td id="np-115">Tunica vasculosa lentis</td><td id="np-116">前囊中央星狀棕／金色細點；單或雙側</td><td id="np-117">非常常見</td></tr>
+<tr><td id="np-118">Persistent pupillary membrane（瞳孔殘絲）</td><td id="np-119">前瞳孔膜（ciliary veins 來源）</td><td id="np-120">水晶體前方的瞳孔殘絲</td><td id="np-121">可合併 anterior polar cataract</td></tr>
+<tr><td id="np-122">Bergmeister papilla（本章外）</td><td id="np-123">Hyaloid artery 後段</td><td id="np-124">視神經頭前方薄紗狀／指狀突起</td><td id="np-125">BCSC 4 p.153</td></tr>
+<tr><td id="np-126">Persistent fetal vasculature</td><td id="np-127">Hyaloid 血管系統未退化</td><td id="np-128">白色纖維性 retrolental tissue（晶體後組織）</td><td id="np-129"><span class="num">90%</span> 單側；不見於健康眼</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.41, p.44–45, p.47, p.51；BCSC 4 p.152–153</span></p>
+<p id="np-130">出處 <span class="ref">p.41, p.44–45, p.47, p.51；BCSC 4 p.152–153</span></p>
 <div class="ex-trap"><h3 id="ch4-s3-1">易錯陷阱</h3><ul>
-<li>Mittendorf dot 在水晶體<strong>後方</strong>（後極下鼻側）；前方常見的殘留是 epicapsular star 或瞳孔殘絲。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.41, p.44–45</span></li>
-<li>Mittendorf dot、Bergmeister papilla、PFV 都屬 hyaloid 系統殘留；persistent pupillary membrane 屬前方瞳孔膜，題目問「何者非 hyaloidolenticular 系統」選它。（注意：BCSC 2 寫 hyaloid 來源的 tunica vasculosa lentis 未退化可留下 pupillary membranes，且本章說前瞳孔膜與後方血管網在赤道吻合，所以兩系統並非完全無關；Q1350 的「anterior pupillary membrane 與 hyaloid artery 有關」因此算正確。EyeWiki 亦描述瞳孔膜由前睫狀血管供應、僅與後方 hyaloid 血管吻合，故 Q313 仍選 persistent pupillary membrane 為「最不相關」。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.41, p.44；BCSC 4 p.153；BCSC 2 p.160</span></li>
-<li>Epicapsular star 與 Mittendorf dot 都是 tunica vasculosa lentis 殘留，都屬「常見」、通常不影響視力。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.44–45</span></li>
+<li id="np-131">Mittendorf dot 在水晶體<strong>後方</strong>（後極下鼻側）；前方常見的殘留是 epicapsular star 或瞳孔殘絲。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.41, p.44–45</span></li>
+<li id="np-132">Mittendorf dot、Bergmeister papilla、PFV 都屬 hyaloid 系統殘留；persistent pupillary membrane 屬前方瞳孔膜，題目問「何者非 hyaloidolenticular 系統」選它。（注意：BCSC 2 寫 hyaloid 來源的 tunica vasculosa lentis 未退化可留下 pupillary membranes，且本章說前瞳孔膜與後方血管網在赤道吻合，所以兩系統並非完全無關；Q1350 的「anterior pupillary membrane 與 hyaloid artery 有關」因此算正確。EyeWiki 亦描述瞳孔膜由前睫狀血管供應、僅與後方 hyaloid 血管吻合，故 Q313 仍選 persistent pupillary membrane 為「最不相關」。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1350" data-q="1350">第 1350 題</a></span><span class="ref">p.41, p.44；BCSC 4 p.153；BCSC 2 p.160</span></li>
+<li id="np-133">Epicapsular star 與 Mittendorf dot 都是 tunica vasculosa lentis 殘留，都屬「常見」、通常不影響視力。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1336" data-q="1336">第 1336 題</a></span><span class="ref">p.44–45</span></li>
 </ul></div>
 
 <h2 id="ch4-s4">四、Peters anomaly 與 microspherophakia</h2>
 <h3 id="ch4-s4-1">Peters anomaly（Peters 異常）</h3>
 <ul>
-<li>屬 <strong>anterior segment dysgenesis syndrome（前段發育不全症候群）</strong>，又稱 neurocristopathy（神經嵴病變）或 mesodermal dysgenesis（中胚層發育不全）。<span class="ref">p.45</span></li>
-<li>特徵：中央或旁中央角膜混濁 <strong>leukoma（白斑）</strong>，合併鄰近 endothelium（內皮）與 Descemet membrane（德士密膜）變薄或缺如。<span class="ref">p.45</span></li>
-<li><strong>Type 1</strong>：常有 iris strands（虹膜條索）黏附角膜；<strong>type 2</strong>：<mark>水晶體黏附於角膜後面</mark>。<span class="ref">p.45</span></li>
-<li>正常發育時水晶體泡約 <span class="num">33 天</span>與表面外胚層（未來角膜上皮）分離；Peters anomaly 典型與<strong>此分離失敗</strong>有關。<span class="ref">p.45–46</span></li>
-<li>常與前段發育相關基因 1 個 allele（等位基因）改變或缺失有關：轉錄因子 <strong>PAX6、PITX2、FOXC1</strong>。<span class="ref">p.46</span></li>
-<li>Type 2 的水晶體異常：anterior cortical 或 polar cataract；變形水晶體向前移入瞳孔區與前房；microspherophakia。<span class="ref">p.46</span></li>
-<li>Anterior segment dysgenesis 在 Table 4-2 同時列於單側與雙側 pediatric cataract 的眼部原因。<span class="ref">p.49</span></li>
+<li id="np-134">屬 <strong>anterior segment dysgenesis syndrome（前段發育不全症候群）</strong>，又稱 neurocristopathy（神經嵴病變）或 mesodermal dysgenesis（中胚層發育不全）。<span class="ref">p.45</span></li>
+<li id="np-135">特徵：中央或旁中央角膜混濁 <strong>leukoma（白斑）</strong>，合併鄰近 endothelium（內皮）與 Descemet membrane（德士密膜）變薄或缺如。<span class="ref">p.45</span></li>
+<li id="np-136"><strong>Type 1</strong>：常有 iris strands（虹膜條索）黏附角膜；<strong>type 2</strong>：<mark>水晶體黏附於角膜後面</mark>。<span class="ref">p.45</span></li>
+<li id="np-137">正常發育時水晶體泡約 <span class="num">33 天</span>與表面外胚層（未來角膜上皮）分離；Peters anomaly 典型與<strong>此分離失敗</strong>有關。<span class="ref">p.45–46</span></li>
+<li id="np-138">常與前段發育相關基因 1 個 allele（等位基因）改變或缺失有關：轉錄因子 <strong>PAX6、PITX2、FOXC1</strong>。<span class="ref">p.46</span></li>
+<li id="np-139">Type 2 的水晶體異常：anterior cortical 或 polar cataract；變形水晶體向前移入瞳孔區與前房；microspherophakia。<span class="ref">p.46</span></li>
+<li id="np-140">Anterior segment dysgenesis 在 Table 4-2 同時列於單側與雙側 pediatric cataract 的眼部原因。<span class="ref">p.49</span></li>
 </ul>
 <h3 id="ch4-s4-2">Microspherophakia（小球狀水晶體）</h3>
 <ul>
-<li>定義：水晶體<strong>直徑小且呈球形</strong>；瞳孔充分散大時在 slit lamp（裂隙燈）下可看到<strong>整圈赤道</strong>。<span class="ref">p.46</span></li>
-<li>球形 → 屈光力增加 → <strong>高度近視</strong>。<span class="ref">p.46</span></li>
-<li>病因：推測為胚胎期 <strong>secondary lens fibers</strong> 發育缺陷。<span class="ref">p.46</span></li>
-<li><mark>最常見於 <strong>Weill-Marchesani syndrome（Weill-Marchesani 症候群）</strong></mark>；也可為單獨遺傳異常，或<strong>偶爾</strong>合併 Peters anomaly、Marfan syndrome、Alport syndrome、Lowe syndrome、congenital rubella。Table 4-1 未列 Axenfeld anomaly 或 Axenfeld-Rieger syndrome；galactosemia 對應的是 oil droplet cataract，不是小球狀水晶體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1747" data-q="1747">第 1747 題</a></span><span class="ref">p.43, p.46</span></li>
-<li>Weill-Marchesani syndrome：身材<strong>矮小</strong>、手指短粗、手掌寬且關節活動度降低；通常為 <strong>autosomal recessive（AR，體染色體隱性）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1747" data-q="1747">第 1747 題</a></span><span class="ref">p.46</span></li>
-<li>LTBP2（latent transforming growth factor beta binding protein 2）隱性致病變異可造成 primary congenital glaucoma（原發性先天性青光眼），也與 Weill-Marchesani syndrome、microspherophakia、ectopia lentis 相關；CYP1B1、TEK、ANGPT1 則與這些水晶體異常無此連結（本章外，BCSC 10 第 1 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1278" data-q="1278">第 1278 題</a></span><span class="ref">BCSC 10 p.18</span></li>
-<li>球形水晶體可阻塞瞳孔 → <strong>pupillary block（瞳孔阻滯）</strong>與 secondary angle-closure glaucoma（續發性隅角閉鎖性青光眼）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">p.46</span></li>
-<li><mark><strong>Miotics（縮瞳劑）會加重</strong>：增加瞳孔阻滯並讓水晶體更往前移</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a></span><span class="ref">p.46</span></li>
-<li><mark><strong>Cycloplegics（睫狀肌麻痺劑）</strong>是打斷急性隅角閉鎖的首選藥物</mark>：拉緊懸韌帶、減少水晶體前後徑、把水晶體往後拉 → 減輕瞳孔阻滯；<strong>laser iridotomy（雷射虹膜切開術）</strong>也有助解除隅角閉鎖。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a></span><span class="ref">p.46</span></li>
-<li>Weill-Marchesani syndrome 的球形水晶體隨時間可脫位進入前房造成 pupillary block glaucoma，因此可能需 lensectomy（水晶體切除）（本章外，BCSC 6 第 22 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">BCSC 6 p.322</span></li>
+<li id="np-141">定義：水晶體<strong>直徑小且呈球形</strong>；瞳孔充分散大時在 slit lamp（裂隙燈）下可看到<strong>整圈赤道</strong>。<span class="ref">p.46</span></li>
+<li id="np-142">球形 → 屈光力增加 → <strong>高度近視</strong>。<span class="ref">p.46</span></li>
+<li id="np-143">病因：推測為胚胎期 <strong>secondary lens fibers</strong> 發育缺陷。<span class="ref">p.46</span></li>
+<li id="np-144"><mark>最常見於 <strong>Weill-Marchesani syndrome（Weill-Marchesani 症候群）</strong></mark>；也可為單獨遺傳異常，或<strong>偶爾</strong>合併 Peters anomaly、Marfan syndrome、Alport syndrome、Lowe syndrome、congenital rubella。Table 4-1 未列 Axenfeld anomaly 或 Axenfeld-Rieger syndrome；galactosemia 對應的是 oil droplet cataract，不是小球狀水晶體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1747" data-q="1747">第 1747 題</a></span><span class="ref">p.43, p.46</span></li>
+<li id="np-145">Weill-Marchesani syndrome：身材<strong>矮小</strong>、手指短粗、手掌寬且關節活動度降低；通常為 <strong>autosomal recessive（AR，體染色體隱性）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1747" data-q="1747">第 1747 題</a></span><span class="ref">p.46</span></li>
+<li id="np-146">LTBP2（latent transforming growth factor beta binding protein 2）隱性致病變異可造成 primary congenital glaucoma（原發性先天性青光眼），也與 Weill-Marchesani syndrome、microspherophakia、ectopia lentis 相關；CYP1B1、TEK、ANGPT1 則與這些水晶體異常無此連結（本章外，BCSC 10 第 1 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1278" data-q="1278">第 1278 題</a></span><span class="ref">BCSC 10 p.18</span></li>
+<li id="np-147">球形水晶體可阻塞瞳孔 → <strong>pupillary block（瞳孔阻滯）</strong>與 secondary angle-closure glaucoma（續發性隅角閉鎖性青光眼）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">p.46</span></li>
+<li id="np-148"><mark><strong>Miotics（縮瞳劑）會加重</strong>：增加瞳孔阻滯並讓水晶體更往前移</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a></span><span class="ref">p.46</span></li>
+<li id="np-149"><mark><strong>Cycloplegics（睫狀肌麻痺劑）</strong>是打斷急性隅角閉鎖的首選藥物</mark>：拉緊懸韌帶、減少水晶體前後徑、把水晶體往後拉 → 減輕瞳孔阻滯；<strong>laser iridotomy（雷射虹膜切開術）</strong>也有助解除隅角閉鎖。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a></span><span class="ref">p.46</span></li>
+<li id="np-150">Weill-Marchesani syndrome 的球形水晶體隨時間可脫位進入前房造成 pupillary block glaucoma，因此可能需 lensectomy（水晶體切除）（本章外，BCSC 6 第 22 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">BCSC 6 p.322</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch4-s4-3">易錯陷阱</h3><ul>
-<li>Microspherophakia 治療用 <strong>cycloplegics</strong>，「必須給予縮瞳劑」是錯的——縮瞳劑會加重瞳孔阻滯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a></span><span class="ref">p.46</span></li>
-<li>Microspherophakia 最常見於 Weill-Marchesani syndrome（矮小、手指短粗），不是 Marfan（高、蜘蛛指）；Alport 只是「偶爾」合併，典型是 anterior lenticonus。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1747" data-q="1747">第 1747 題</a></span><span class="ref">p.42, p.46</span></li>
-<li>Fabry disease 在本章只出現在雙側 pediatric cataract 病因表，典型為 spokelike（輻射狀）白內障合併 corneal whorls（角膜漩渦），與小球狀水晶體無關（本章外，BCSC 6 第 22 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1747" data-q="1747">第 1747 題</a></span><span class="ref">p.49；BCSC 6 p.311</span></li>
-<li>Peters anomaly 是 lens vesicle 未與表面外胚層分離（約 <span class="num">33 天</span>）；type 2 才有水晶體黏角膜及 microspherophakia。<span class="ref">p.45–46</span></li>
+<li id="np-151">Microspherophakia 治療用 <strong>cycloplegics</strong>，「必須給予縮瞳劑」是錯的——縮瞳劑會加重瞳孔阻滯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1321" data-q="1321">第 1321 題</a></span><span class="ref">p.46</span></li>
+<li id="np-152">Microspherophakia 最常見於 Weill-Marchesani syndrome（矮小、手指短粗），不是 Marfan（高、蜘蛛指）；Alport 只是「偶爾」合併，典型是 anterior lenticonus。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1405" data-q="1405">第 1405 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1747" data-q="1747">第 1747 題</a></span><span class="ref">p.42, p.46</span></li>
+<li id="np-153">Fabry disease 在本章只出現在雙側 pediatric cataract 病因表，典型為 spokelike（輻射狀）白內障合併 corneal whorls（角膜漩渦），與小球狀水晶體無關（本章外，BCSC 6 第 22 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1747" data-q="1747">第 1747 題</a></span><span class="ref">p.49；BCSC 6 p.311</span></li>
+<li id="np-154">Peters anomaly 是 lens vesicle 未與表面外胚層分離（約 <span class="num">33 天</span>）；type 2 才有水晶體黏角膜及 microspherophakia。<span class="ref">p.45–46</span></li>
 </ul></div>
 
 <h2 id="ch4-s5">五、Aniridia 與 persistent fetal vasculature</h2>
 <h3 id="ch4-s5-1">Aniridia（無虹膜症）</h3>
 <ul>
-<li>少見的 <strong>panocular（全眼性）</strong>症候群，最明顯的是虹膜部分或幾乎完全缺失。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-657" data-q="657">第 657 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
-<li>與 <strong>PAX6</strong> 基因 <span class="num">1</span> 個 allele 缺失有關；PAX6 是對角膜、水晶體、視網膜發育與功能都重要的轉錄因子。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
-<li>相關表現：corneal pannus（角膜血管翳）與 epitheliopathy（上皮病變）、glaucoma（青光眼）、foveal hypoplasia（中心凹發育不全）與 optic nerve hypoplasia（視神經發育不全）、nystagmus（眼球震顫）。BCSC 6 補充：角膜病變源於 <strong>stem cell deficiency（角膜緣幹細胞缺乏）</strong>，嚴重者需 keratolimbal allograft（角膜緣異體移植）；不是內皮功能不良；foveal hypoplasia 時視力常低於 <span class="num">20/100</span>（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-657" data-q="657">第 657 題</a></span><span class="ref">p.47；BCSC 6 p.283</span></li>
-<li><mark>幾乎都是<strong>雙側</strong>；<strong>2/3 家族性、1/3 散發</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
-<li><mark><strong>散發性</strong> aniridia 與 <strong>Wilms tumor（威爾姆氏腫瘤）</strong>及 <strong>WAGR complex</strong>（Wilms tumor、aniridia、genitourinary malformations（泌尿生殖畸形）、range of developmental delays（各種發展遲緩））高發生率相關</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-657" data-q="657">第 657 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
-<li>水晶體：出生時可有 anterior 或 posterior polar opacity；<mark><span class="num">50%–85%</span> 在出生後前 <span class="num">2</span> 個十年（20 歲前）出現 cortical、subcapsular 或 lamellar 混濁</mark>，可能進展而加重視力損害；也有 poor zonular integrity（懸韌帶完整性差）與 ectopia lentis 的<strong>報告</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.47</span></li>
-<li>Aniridia 在 Table 4-2 列為<strong>雙側</strong>白內障的眼部異常；也是 nontraumatic ectopia lentis 的常見相關疾病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.49, p.54</span></li>
+<li id="np-155">少見的 <strong>panocular（全眼性）</strong>症候群，最明顯的是虹膜部分或幾乎完全缺失。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-657" data-q="657">第 657 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
+<li id="np-156">與 <strong>PAX6</strong> 基因 <span class="num">1</span> 個 allele 缺失有關；PAX6 是對角膜、水晶體、視網膜發育與功能都重要的轉錄因子。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
+<li id="np-157">相關表現：corneal pannus（角膜血管翳）與 epitheliopathy（上皮病變）、glaucoma（青光眼）、foveal hypoplasia（中心凹發育不全）與 optic nerve hypoplasia（視神經發育不全）、nystagmus（眼球震顫）。BCSC 6 補充：角膜病變源於 <strong>stem cell deficiency（角膜緣幹細胞缺乏）</strong>，嚴重者需 keratolimbal allograft（角膜緣異體移植）；不是內皮功能不良；foveal hypoplasia 時視力常低於 <span class="num">20/100</span>（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-657" data-q="657">第 657 題</a></span><span class="ref">p.47；BCSC 6 p.283</span></li>
+<li id="np-158"><mark>幾乎都是<strong>雙側</strong>；<strong>2/3 家族性、1/3 散發</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
+<li id="np-159"><mark><strong>散發性</strong> aniridia 與 <strong>Wilms tumor（威爾姆氏腫瘤）</strong>及 <strong>WAGR complex</strong>（Wilms tumor、aniridia、genitourinary malformations（泌尿生殖畸形）、range of developmental delays（各種發展遲緩））高發生率相關</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-657" data-q="657">第 657 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
+<li id="np-160">水晶體：出生時可有 anterior 或 posterior polar opacity；<mark><span class="num">50%–85%</span> 在出生後前 <span class="num">2</span> 個十年（20 歲前）出現 cortical、subcapsular 或 lamellar 混濁</mark>，可能進展而加重視力損害；也有 poor zonular integrity（懸韌帶完整性差）與 ectopia lentis 的<strong>報告</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.47</span></li>
+<li id="np-161">Aniridia 在 Table 4-2 列為<strong>雙側</strong>白內障的眼部異常；也是 nontraumatic ectopia lentis 的常見相關疾病。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.49, p.54</span></li>
 </ul>
 <h3 id="ch4-s5-2">Persistent fetal vasculature（PFV，持續性胎兒血管）</h3>
 <ul>
-<li>又稱 <strong>persistent hyperplastic primary vitreous（PHPV，持續性增生性原始玻璃體）</strong>；<mark><strong>先天、非遺傳</strong>的眼部畸形</mark>，常侵犯水晶體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a></span><span class="ref">p.47</span></li>
-<li><mark><span class="num">90%</span> 為<strong>單側</strong></mark> → Table 4-2 列為<strong>單側</strong> pediatric cataract 的眼部原因。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a></span><span class="ref">p.47, p.49</span></li>
-<li>表現：白色纖維性 retrolental tissue，常合併後皮質混濁；白內障常進展，有時成為 complete cataract。<span class="ref">p.47</span></li>
-<li>其他相關：<strong>elongated ciliary processes（睫狀突拉長）</strong>、明顯的 radial iris vessels（放射狀虹膜血管）、<strong>persistent hyaloid artery（永存玻璃體動脈）</strong>、intralenticular hemorrhage（水晶體內出血）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a></span><span class="ref">p.47</span></li>
-<li>Clinical pearl：PFV 眼通常<strong>比正常小</strong>；鑑別診斷要想到 retinoblastoma（視網膜母細胞瘤），但 retinoblastoma 很少發生於 microphthalmic（小眼）眼，且其眼內少見白內障。<span class="ref">p.48</span></li>
+<li id="np-162">又稱 <strong>persistent hyperplastic primary vitreous（PHPV，持續性增生性原始玻璃體）</strong>；<mark><strong>先天、非遺傳</strong>的眼部畸形</mark>，常侵犯水晶體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a></span><span class="ref">p.47</span></li>
+<li id="np-163"><mark><span class="num">90%</span> 為<strong>單側</strong></mark> → Table 4-2 列為<strong>單側</strong> pediatric cataract 的眼部原因。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a></span><span class="ref">p.47, p.49</span></li>
+<li id="np-164">表現：白色纖維性 retrolental tissue，常合併後皮質混濁；白內障常進展，有時成為 complete cataract。<span class="ref">p.47</span></li>
+<li id="np-165">其他相關：<strong>elongated ciliary processes（睫狀突拉長）</strong>、明顯的 radial iris vessels（放射狀虹膜血管）、<strong>persistent hyaloid artery（永存玻璃體動脈）</strong>、intralenticular hemorrhage（水晶體內出血）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-313" data-q="313">第 313 題</a></span><span class="ref">p.47</span></li>
+<li id="np-166">Clinical pearl：PFV 眼通常<strong>比正常小</strong>；鑑別診斷要想到 retinoblastoma（視網膜母細胞瘤），但 retinoblastoma 很少發生於 microphthalmic（小眼）眼，且其眼內少見白內障。<span class="ref">p.48</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch4-s5-3">易錯陷阱</h3><ul>
-<li>Aniridia 是 <strong>2/3 家族性、1/3 散發</strong>，不要顛倒；與 Wilms tumor 相關的是<strong>散發</strong>型。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
-<li>Aniridia 的角膜病變是 pannus／上皮病變（幹細胞缺乏），不是內皮問題。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-657" data-q="657">第 657 題</a></span><span class="ref">p.47；BCSC 6 p.283</span></li>
-<li>PFV <span class="num">90%</span> 單側，是「雙側白內障原因」選項中的錯誤者；myotonic dystrophy、CMV 子宮內感染、aniridia 都在雙側欄。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a></span><span class="ref">p.47, p.49</span></li>
-<li>PFV 是非遺傳性；考「先天性白內障以遺傳為主」時，單側案例多為特發性或眼部異常（如 PFV）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a></span><span class="ref">p.47, p.49</span></li>
+<li id="np-167">Aniridia 是 <strong>2/3 家族性、1/3 散發</strong>，不要顛倒；與 Wilms tumor 相關的是<strong>散發</strong>型。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1389" data-q="1389">第 1389 題</a></span><span class="ref">p.47</span></li>
+<li id="np-168">Aniridia 的角膜病變是 pannus／上皮病變（幹細胞缺乏），不是內皮問題。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-657" data-q="657">第 657 題</a></span><span class="ref">p.47；BCSC 6 p.283</span></li>
+<li id="np-169">PFV <span class="num">90%</span> 單側，是「雙側白內障原因」選項中的錯誤者；myotonic dystrophy、CMV 子宮內感染、aniridia 都在雙側欄。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a></span><span class="ref">p.47, p.49</span></li>
+<li id="np-170">PFV 是非遺傳性；考「先天性白內障以遺傳為主」時，單側案例多為特發性或眼部異常（如 PFV）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a></span><span class="ref">p.47, p.49</span></li>
 </ul></div>
 
 <h2 id="ch4-s6">六、Congenital cataract（先天性白內障）總論與病因</h2>
 <ul>
-<li><strong>Congenital cataract</strong>：出生時已存在但不一定立即被發現；<strong>infantile cataract（嬰兒期白內障）</strong>：出生後第 1 年內出現；兩詞常混用，本書統稱 congenital cataract。<span class="ref">p.48</span></li>
-<li><mark>發生率約每 <span class="num">2000</span> 個活產 <span class="num">1</span> 例</mark>，嚴重度範圍廣：有些不進展、不影響視力，有些造成嚴重視力障礙。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.48</span></li>
-<li>可單側或雙側；可依型態、推定或確定的遺傳病因、特定代謝疾病、合併眼部異常或全身表現分類（Table 4-2）。<span class="ref">p.48–49</span></li>
-<li>約 <span class="num">1/3</span> 為更廣泛症候群／疾病的一部分（如 congenital rubella syndrome）、<span class="num">1/3</span> 為單獨遺傳性狀、<span class="num">1/3</span> 原因不明；<mark>代謝疾病較常合併<strong>雙側</strong>白內障</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a></span><span class="ref">p.49</span></li>
-<li>型態：lamellar、polar、sutural、coronary、cerulean、nuclear、capsular、complete、membranous、rubella。<span class="ref">p.49</span></li>
+<li id="np-171"><strong>Congenital cataract</strong>：出生時已存在但不一定立即被發現；<strong>infantile cataract（嬰兒期白內障）</strong>：出生後第 1 年內出現；兩詞常混用，本書統稱 congenital cataract。<span class="ref">p.48</span></li>
+<li id="np-172"><mark>發生率約每 <span class="num">2000</span> 個活產 <span class="num">1</span> 例</mark>，嚴重度範圍廣：有些不進展、不影響視力，有些造成嚴重視力障礙。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.48</span></li>
+<li id="np-173">可單側或雙側；可依型態、推定或確定的遺傳病因、特定代謝疾病、合併眼部異常或全身表現分類（Table 4-2）。<span class="ref">p.48–49</span></li>
+<li id="np-174">約 <span class="num">1/3</span> 為更廣泛症候群／疾病的一部分（如 congenital rubella syndrome）、<span class="num">1/3</span> 為單獨遺傳性狀、<span class="num">1/3</span> 原因不明；<mark>代謝疾病較常合併<strong>雙側</strong>白內障</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a></span><span class="ref">p.49</span></li>
+<li id="np-175">型態：lamellar、polar、sutural、coronary、cerulean、nuclear、capsular、complete、membranous、rubella。<span class="ref">p.49</span></li>
 </ul>
 <h3 id="ch4-s6-1">Table 4-2 Etiology of pediatric cataracts（小兒白內障病因）</h3>
 <table class="ted-table">
 <thead><tr><th>Type（側別）</th><th>Causes（病因）</th></tr></thead>
 <tbody>
-<tr><td>Unilateral（單側）</td><td><strong>Idiopathic（特發性）</strong>；ocular anomalies（眼部異常）：<strong>persistent fetal vasculature</strong>、anterior segment dysgenesis、posterior lenticonus、posterior lentiglobus、posterior pole tumors（後極腫瘤）、retinal detachment（任何原因）、coloboma；trauma（含 child abuse，兒童虐待）；masked bilateral cataract（被掩蓋的雙側白內障）；radiation（可單側或雙側）</td></tr>
-<tr><td>Bilateral（雙側）</td><td>Idiopathic；<strong>heredity（遺傳）</strong>（AD 最常見，也可 AR 或 X-linked）；genetic and metabolic diseases（遺傳與代謝疾病）：trisomy 21（Down syndrome）、Hallermann-Streiff syndrome、Lowe syndrome、galactosemia、trisomy 13／15／18、hypoglycemia／hyperglycemia、Alport syndrome、<strong>myotonic dystrophy</strong>、Fabry disease、hypoparathyroidism（副甲狀腺低能症）；<strong>intrauterine infections（子宮內感染）</strong>：cytomegalovirus（CMV）、rubella、syphilis（梅毒）、toxoplasmosis（弓漿蟲症）、varicella（水痘）；ocular anomalies：<strong>aniridia</strong>、anterior segment dysgenesis syndrome；toxicity（毒性）：corticosteroids（皮質類固醇）、radiation（可單側或雙側）</td></tr>
+<tr><td id="np-176">Unilateral（單側）</td><td id="np-177"><strong>Idiopathic（特發性）</strong>；ocular anomalies（眼部異常）：<strong>persistent fetal vasculature</strong>、anterior segment dysgenesis、posterior lenticonus、posterior lentiglobus、posterior pole tumors（後極腫瘤）、retinal detachment（任何原因）、coloboma；trauma（含 child abuse，兒童虐待）；masked bilateral cataract（被掩蓋的雙側白內障）；radiation（可單側或雙側）</td></tr>
+<tr><td id="np-178">Bilateral（雙側）</td><td id="np-179">Idiopathic；<strong>heredity（遺傳）</strong>（AD 最常見，也可 AR 或 X-linked）；genetic and metabolic diseases（遺傳與代謝疾病）：trisomy 21（Down syndrome）、Hallermann-Streiff syndrome、Lowe syndrome、galactosemia、trisomy 13／15／18、hypoglycemia／hyperglycemia、Alport syndrome、<strong>myotonic dystrophy</strong>、Fabry disease、hypoparathyroidism（副甲狀腺低能症）；<strong>intrauterine infections（子宮內感染）</strong>：cytomegalovirus（CMV）、rubella、syphilis（梅毒）、toxoplasmosis（弓漿蟲症）、varicella（水痘）；ocular anomalies：<strong>aniridia</strong>、anterior segment dysgenesis syndrome；toxicity（毒性）：corticosteroids（皮質類固醇）、radiation（可單側或雙側）</td></tr>
 </tbody>
 </table>
-<p>出處（Table 4-2）<span class="ref">p.49</span></p>
+<p id="np-180">出處（Table 4-2）<span class="ref">p.49</span></p>
 <ul>
-<li><mark>致小兒白內障的子宮內感染為 <strong>CMV、rubella、syphilis、toxoplasmosis、varicella</strong>，全列在<strong>雙側</strong>欄；<strong>tuberculosis（結核）不在其中</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1298" data-q="1298">第 1298 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a></span><span class="ref">p.49</span></li>
-<li>雙側欄的 myotonic dystrophy、CMV 子宮內感染、aniridia 皆為雙側病因；PFV 屬單側欄。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a></span><span class="ref">p.49</span></li>
-<li>Table 4-2 單側欄列的是 idiopathic、眼部異常（如 PFV）、外傷等，沒有 heredity；<mark>遺傳性白內障幾乎都是雙側</mark>，所以「不論單側或雙側都以遺傳為主」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a></span><span class="ref">p.37, p.49</span></li>
+<li id="np-181"><mark>致小兒白內障的子宮內感染為 <strong>CMV、rubella、syphilis、toxoplasmosis、varicella</strong>，全列在<strong>雙側</strong>欄；<strong>tuberculosis（結核）不在其中</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1298" data-q="1298">第 1298 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a></span><span class="ref">p.49</span></li>
+<li id="np-182">雙側欄的 myotonic dystrophy、CMV 子宮內感染、aniridia 皆為雙側病因；PFV 屬單側欄。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-683" data-q="683">第 683 題</a></span><span class="ref">p.49</span></li>
+<li id="np-183">Table 4-2 單側欄列的是 idiopathic、眼部異常（如 PFV）、外傷等，沒有 heredity；<mark>遺傳性白內障幾乎都是雙側</mark>，所以「不論單側或雙側都以遺傳為主」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-562" data-q="562">第 562 題</a></span><span class="ref">p.37, p.49</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch4-s6-2">易錯陷阱</h3><ul>
-<li>子宮內感染致白內障：CMV、rubella、syphilis、toxoplasmosis、varicella——沒有 TB。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1298" data-q="1298">第 1298 題</a></span><span class="ref">p.49</span></li>
-<li>先天性白內障約 <span class="num">1/2000</span> 活產；「1/3、1/3、1/3」是病因分配（症候群／遺傳／不明）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.48–49</span></li>
-<li>Radiation 在 Table 4-2 單、雙側欄都出現（may be unilateral or bilateral）。<span class="ref">p.49</span></li>
+<li id="np-184">子宮內感染致白內障：CMV、rubella、syphilis、toxoplasmosis、varicella——沒有 TB。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1298" data-q="1298">第 1298 題</a></span><span class="ref">p.49</span></li>
+<li id="np-185">先天性白內障約 <span class="num">1/2000</span> 活產；「1/3、1/3、1/3」是病因分配（症候群／遺傳／不明）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.48–49</span></li>
+<li id="np-186">Radiation 在 Table 4-2 單、雙側欄都出現（may be unilateral or bilateral）。<span class="ref">p.49</span></li>
 </ul></div>
 
 <h2 id="ch4-s7">七、先天性白內障的型態</h2>
 <h3 id="ch4-s7-1">Lamellar（zonular，板層）cataract</h3>
 <ul>
-<li><mark>先天性白內障中<strong>最常見</strong>的型態</mark>（不是 polar）；典型為<strong>雙側、對稱</strong>；對視力的影響視混濁大小與密度而定。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.49–50</span></li>
-<li>可為 <strong>AD</strong> 遺傳；有些是胚胎期水晶體發育時短暫毒性影響所致——<mark>毒性影響愈早，板層混濁愈小、愈深</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.50</span></li>
-<li>外觀：特定層混濁，包住較清的中心、外面再被清澈皮質包圍；正面看呈盤狀；赤道部常有跨騎的弧形（馬蹄形）皮質混濁，稱 <strong>riders</strong>。<span class="ref">p.50</span></li>
+<li id="np-187"><mark>先天性白內障中<strong>最常見</strong>的型態</mark>（不是 polar）；典型為<strong>雙側、對稱</strong>；對視力的影響視混濁大小與密度而定。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.49–50</span></li>
+<li id="np-188">可為 <strong>AD</strong> 遺傳；有些是胚胎期水晶體發育時短暫毒性影響所致——<mark>毒性影響愈早，板層混濁愈小、愈深</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.50</span></li>
+<li id="np-189">外觀：特定層混濁，包住較清的中心、外面再被清澈皮質包圍；正面看呈盤狀；赤道部常有跨騎的弧形（馬蹄形）皮質混濁，稱 <strong>riders</strong>。<span class="ref">p.50</span></li>
 </ul>
 <h3 id="ch4-s7-2">Polar（極性）cataract</h3>
 <ul>
-<li>侵犯前極或後極的囊下皮質與囊。<span class="ref">p.50</span></li>
-<li><strong>Anterior polar cataract（前極白內障）</strong>：<mark>通常小、<strong>雙側、對稱</strong>、不進展、不影響視力</mark>；多為先天散發，也可 AD；可合併 microphthalmos（小眼）、persistent pupillary membrane、anterior lenticonus；通常不需治療，但<mark>常造成 <strong>anisometropia（不等視）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.50–51</span></li>
-<li><strong>Posterior polar cataract（後極白內障）</strong>：比前極更影響視力（較大、較靠近 nodal point（節點））；<mark>有 <strong>capsular fragility（囊脆弱）</strong>的報告</mark>；通常穩定，偶爾進展。家族性者通常雙側、AD；散發者常單側，可合併血管膜殘留或 lenticonus／lentiglobus。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1324" data-q="1324">第 1324 題</a></span><span class="ref">p.51</span></li>
-<li>手術（本章外，BCSC 11 第 12 章）：混濁處後囊薄弱或缺損，<strong>避免 complete hydrodissection（完全水分離）</strong>，以 <strong>low</strong> irrigation and aspiration（低灌流低吸力）維持前房；<mark>後極混濁若與後囊黏得很緊可<strong>先留在原處</strong>，術後評估影響，需要時再做 laser capsulotomy（雷射後囊切開）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1324" data-q="1324">第 1324 題</a></span><span class="ref">BCSC 11 p.240–241</span></li>
+<li id="np-190">侵犯前極或後極的囊下皮質與囊。<span class="ref">p.50</span></li>
+<li id="np-191"><strong>Anterior polar cataract（前極白內障）</strong>：<mark>通常小、<strong>雙側、對稱</strong>、不進展、不影響視力</mark>；多為先天散發，也可 AD；可合併 microphthalmos（小眼）、persistent pupillary membrane、anterior lenticonus；通常不需治療，但<mark>常造成 <strong>anisometropia（不等視）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.50–51</span></li>
+<li id="np-192"><strong>Posterior polar cataract（後極白內障）</strong>：比前極更影響視力（較大、較靠近 nodal point（節點））；<mark>有 <strong>capsular fragility（囊脆弱）</strong>的報告</mark>；通常穩定，偶爾進展。家族性者通常雙側、AD；散發者常單側，可合併血管膜殘留或 lenticonus／lentiglobus。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1324" data-q="1324">第 1324 題</a></span><span class="ref">p.51</span></li>
+<li id="np-193">手術（本章外，BCSC 11 第 12 章）：混濁處後囊薄弱或缺損，<strong>避免 complete hydrodissection（完全水分離）</strong>，以 <strong>low</strong> irrigation and aspiration（低灌流低吸力）維持前房；<mark>後極混濁若與後囊黏得很緊可<strong>先留在原處</strong>，術後評估影響，需要時再做 laser capsulotomy（雷射後囊切開）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1324" data-q="1324">第 1324 題</a></span><span class="ref">BCSC 11 p.240–241</span></li>
 </ul>
 <h3 id="ch4-s7-3">Sutural、coronary、cerulean</h3>
 <ul>
-<li><strong>Sutural（stellate，縫線／星狀）cataract</strong>：<strong>fetal nucleus</strong> Y 字縫混濁，常有分支或結節；通常不影響視力；<mark>雙側對稱，常為 <strong>AD</strong>（不是 AR）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.51</span></li>
-<li><strong>Coronary（冠狀）cataract</strong>：一群棒狀皮質混濁環繞赤道如皇冠；<mark>不散瞳看不到</mark>、通常不影響視力；常為 AD。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a></span><span class="ref">p.51</span></li>
-<li><strong>Cerulean（blue-dot，藍點）cataract</strong>：皮質內小藍色混濁；不進展，通常無視覺症狀。<span class="ref">p.51</span></li>
+<li id="np-194"><strong>Sutural（stellate，縫線／星狀）cataract</strong>：<strong>fetal nucleus</strong> Y 字縫混濁，常有分支或結節；通常不影響視力；<mark>雙側對稱，常為 <strong>AD</strong>（不是 AR）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.51</span></li>
+<li id="np-195"><strong>Coronary（冠狀）cataract</strong>：一群棒狀皮質混濁環繞赤道如皇冠；<mark>不散瞳看不到</mark>、通常不影響視力；常為 AD。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a></span><span class="ref">p.51</span></li>
+<li id="np-196"><strong>Cerulean（blue-dot，藍點）cataract</strong>：皮質內小藍色混濁；不進展，通常無視覺症狀。<span class="ref">p.51</span></li>
 </ul>
 <h3 id="ch4-s7-4">Nuclear、capsular、complete、membranous</h3>
 <ul>
-<li><strong>Nuclear（核性）cataract</strong>：只侵犯 embryonic nucleus，或同時侵犯 embryonic 與 fetal nucleus；通常雙側，嚴重度不一，可全核混濁或只限於核內某些層；<mark>眼睛傾向 microphthalmic，<strong>aphakic glaucoma（無晶體青光眼）</strong>風險增加</mark>。<span class="ref">p.52</span></li>
-<li><strong>Capsular（囊性）cataract</strong>：水晶體上皮與<strong>前囊</strong>的小混濁，不侵犯皮質；以<strong>向前房突出</strong>與 anterior polar cataract 區分；<mark>通常不影響視力</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.52</span></li>
-<li><strong>Complete（total，全白）cataract</strong>：所有纖維混濁，red reflex 完全看不到，直接或間接檢眼鏡都看不到視網膜；有些出生時次全、隨後快速變全白；可單或雙側，造成嚴重視力障礙。<span class="ref">p.53</span></li>
-<li><strong>Membranous（膜狀）cataract</strong>：完整或受傷水晶體的蛋白被吸收，前後囊融合成<strong>緻密白膜</strong>；<mark>混濁與變形通常造成<strong>明顯視力障礙</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a></span><span class="ref">p.53</span></li>
+<li id="np-197"><strong>Nuclear（核性）cataract</strong>：只侵犯 embryonic nucleus，或同時侵犯 embryonic 與 fetal nucleus；通常雙側，嚴重度不一，可全核混濁或只限於核內某些層；<mark>眼睛傾向 microphthalmic，<strong>aphakic glaucoma（無晶體青光眼）</strong>風險增加</mark>。<span class="ref">p.52</span></li>
+<li id="np-198"><strong>Capsular（囊性）cataract</strong>：水晶體上皮與<strong>前囊</strong>的小混濁，不侵犯皮質；以<strong>向前房突出</strong>與 anterior polar cataract 區分；<mark>通常不影響視力</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.52</span></li>
+<li id="np-199"><strong>Complete（total，全白）cataract</strong>：所有纖維混濁，red reflex 完全看不到，直接或間接檢眼鏡都看不到視網膜；有些出生時次全、隨後快速變全白；可單或雙側，造成嚴重視力障礙。<span class="ref">p.53</span></li>
+<li id="np-200"><strong>Membranous（膜狀）cataract</strong>：完整或受傷水晶體的蛋白被吸收，前後囊融合成<strong>緻密白膜</strong>；<mark>混濁與變形通常造成<strong>明顯視力障礙</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a></span><span class="ref">p.53</span></li>
 </ul>
 <h3 id="ch4-s7-5">Rubella（德國麻疹）cataract</h3>
 <ul>
-<li>母體感染 <strong>rubella virus</strong>（RNA rubivirus）可傷害胎兒，<mark>尤其發生在<strong>第一孕期</strong>（first trimester）</mark>，不是第二孕期。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1298" data-q="1298">第 1298 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.53</span></li>
-<li>Congenital rubella syndrome 的白內障：<strong>pearly white nuclear opacification（珍珠白核混濁）</strong>；有時全白，皮質可液化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.53</span></li>
-<li>組織學：<mark><strong>lens-fiber nuclei（水晶體纖維細胞核）滯留</strong>於水晶體深部</mark>——這是 rubella 白內障的特徵，不是 posterior subcapsular cataract（PSC，後囊下白內障）的機轉；PSC 是赤道部水晶體上皮細胞沿後囊<strong>向後移行</strong>並膨大成 Wedl（bladder）cells（本章外，BCSC 11 第 5 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-303" data-q="303">第 303 題</a></span><span class="ref">p.53；BCSC 11 p.66</span></li>
-<li><mark>出生後最晚 <span class="num">3 年</span>仍可從水晶體分離出活病毒</mark>；摘除白內障時病毒顆粒釋出可導致術後過度發炎。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.53</span></li>
-<li>其他眼部表現：diffuse pigmentary retinopathy（瀰漫性色素性視網膜病變）、microphthalmos、glaucoma、暫時或永久角膜混濁。<mark>雖可造成白內障或青光眼，但<strong>兩者通常不會同時出現在同一眼</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.53</span></li>
-<li>Congenital rubella 也列於 microspherophakia 的相關疾病（Table 4-1）。<span class="ref">p.43, p.46</span></li>
+<li id="np-201">母體感染 <strong>rubella virus</strong>（RNA rubivirus）可傷害胎兒，<mark>尤其發生在<strong>第一孕期</strong>（first trimester）</mark>，不是第二孕期。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1298" data-q="1298">第 1298 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.53</span></li>
+<li id="np-202">Congenital rubella syndrome 的白內障：<strong>pearly white nuclear opacification（珍珠白核混濁）</strong>；有時全白，皮質可液化。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.53</span></li>
+<li id="np-203">組織學：<mark><strong>lens-fiber nuclei（水晶體纖維細胞核）滯留</strong>於水晶體深部</mark>——這是 rubella 白內障的特徵，不是 posterior subcapsular cataract（PSC，後囊下白內障）的機轉；PSC 是赤道部水晶體上皮細胞沿後囊<strong>向後移行</strong>並膨大成 Wedl（bladder）cells（本章外，BCSC 11 第 5 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-303" data-q="303">第 303 題</a></span><span class="ref">p.53；BCSC 11 p.66</span></li>
+<li id="np-204"><mark>出生後最晚 <span class="num">3 年</span>仍可從水晶體分離出活病毒</mark>；摘除白內障時病毒顆粒釋出可導致術後過度發炎。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.53</span></li>
+<li id="np-205">其他眼部表現：diffuse pigmentary retinopathy（瀰漫性色素性視網膜病變）、microphthalmos、glaucoma、暫時或永久角膜混濁。<mark>雖可造成白內障或青光眼，但<strong>兩者通常不會同時出現在同一眼</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.53</span></li>
+<li id="np-206">Congenital rubella 也列於 microspherophakia 的相關疾病（Table 4-1）。<span class="ref">p.43, p.46</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（型態）</th><th>Location / look（位置與外觀）</th><th>Laterality / inheritance（側別與遺傳）</th><th>Vision（視力影響）</th></tr></thead>
 <tbody>
-<tr><td>Lamellar（最常見）</td><td>特定層混濁包住清中心；riders</td><td>雙側對稱；可 AD 或短暫毒性</td><td>視大小與密度而定</td></tr>
-<tr><td>Anterior polar</td><td>前極囊下皮質與囊；小</td><td>雙側對稱；多散發，可 AD</td><td>不影響視力，但常不等視</td></tr>
-<tr><td>Posterior polar</td><td>後極；較大、近節點；囊脆弱</td><td>家族性雙側 AD；散發常單側</td><td>較前極明顯</td></tr>
-<tr><td>Sutural（stellate）</td><td>胎兒核 Y 字縫</td><td>雙側對稱；常 AD</td><td>通常不影響</td></tr>
-<tr><td>Coronary</td><td>赤道棒狀皮質混濁如皇冠；需散瞳</td><td>常 AD</td><td>通常不影響</td></tr>
-<tr><td>Cerulean（blue-dot）</td><td>皮質小藍點</td><td>—</td><td>通常無症狀；不進展</td></tr>
-<tr><td>Nuclear</td><td>胚胎核 ± 胎兒核</td><td>通常雙側</td><td>範圍廣；小眼、無晶體青光眼風險</td></tr>
-<tr><td>Capsular</td><td>上皮與前囊，突入前房，不侵犯皮質</td><td>—</td><td>通常不影響</td></tr>
-<tr><td>Complete</td><td>全部纖維混濁，無 red reflex</td><td>單或雙側</td><td>嚴重障礙</td></tr>
-<tr><td>Membranous</td><td>蛋白吸收、前後囊融合成白膜</td><td>—</td><td>明顯障礙</td></tr>
-<tr><td>Rubella</td><td>珍珠白核混濁，皮質可液化；纖維核滯留</td><td>第一孕期感染</td><td>常全白；術後強烈發炎</td></tr>
+<tr><td id="np-207">Lamellar（最常見）</td><td id="np-208">特定層混濁包住清中心；riders</td><td id="np-209">雙側對稱；可 AD 或短暫毒性</td><td id="np-210">視大小與密度而定</td></tr>
+<tr><td id="np-211">Anterior polar</td><td id="np-212">前極囊下皮質與囊；小</td><td id="np-213">雙側對稱；多散發，可 AD</td><td id="np-214">不影響視力，但常不等視</td></tr>
+<tr><td id="np-215">Posterior polar</td><td id="np-216">後極；較大、近節點；囊脆弱</td><td id="np-217">家族性雙側 AD；散發常單側</td><td id="np-218">較前極明顯</td></tr>
+<tr><td id="np-219">Sutural（stellate）</td><td id="np-220">胎兒核 Y 字縫</td><td id="np-221">雙側對稱；常 AD</td><td id="np-222">通常不影響</td></tr>
+<tr><td id="np-223">Coronary</td><td id="np-224">赤道棒狀皮質混濁如皇冠；需散瞳</td><td id="np-225">常 AD</td><td id="np-226">通常不影響</td></tr>
+<tr><td id="np-227">Cerulean（blue-dot）</td><td id="np-228">皮質小藍點</td><td id="np-229">—</td><td id="np-230">通常無症狀；不進展</td></tr>
+<tr><td id="np-231">Nuclear</td><td id="np-232">胚胎核 ± 胎兒核</td><td id="np-233">通常雙側</td><td id="np-234">範圍廣；小眼、無晶體青光眼風險</td></tr>
+<tr><td id="np-235">Capsular</td><td id="np-236">上皮與前囊，突入前房，不侵犯皮質</td><td id="np-237">—</td><td id="np-238">通常不影響</td></tr>
+<tr><td id="np-239">Complete</td><td id="np-240">全部纖維混濁，無 red reflex</td><td id="np-241">單或雙側</td><td id="np-242">嚴重障礙</td></tr>
+<tr><td id="np-243">Membranous</td><td id="np-244">蛋白吸收、前後囊融合成白膜</td><td id="np-245">—</td><td id="np-246">明顯障礙</td></tr>
+<tr><td id="np-247">Rubella</td><td id="np-248">珍珠白核混濁，皮質可液化；纖維核滯留</td><td id="np-249">第一孕期感染</td><td id="np-250">常全白；術後強烈發炎</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.49–53</span></p>
+<p id="np-251">出處 <span class="ref">p.49–53</span></p>
 <div class="ex-trap"><h3 id="ch4-s7-6">易錯陷阱</h3><ul>
-<li>最常見的先天性白內障是 <strong>lamellar</strong>，不是 polar。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.49</span></li>
-<li>Anterior polar 是<strong>雙側</strong>對稱（寫「單側」即錯）；sutural 常為 <strong>AD</strong>（寫 AR 即錯）；rubella 是<strong>第一孕期</strong>（寫第二孕期即錯）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.50–51, p.53</span></li>
-<li>對視力影響最大的是 membranous（及 complete）；anterior polar、sutural、coronary、capsular、cerulean 通常不影響視力。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.51–53</span></li>
-<li>Rubella：白內障與青光眼通常<strong>不會</strong>同眼同時出現；活病毒可存 <span class="num">3 年</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.53</span></li>
-<li>Capsular 與 anterior polar 的差別：capsular 向前房突出、不侵犯皮質。<span class="ref">p.52</span></li>
-<li>後極白內障黏很緊時可先不處理，術後再雷射；應避免 complete hydrodissection、用低灌流低吸力；capsular tension ring 是懸韌帶支撐不足時才用的器材，BCSC 未把它列為後極白內障的處置。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1324" data-q="1324">第 1324 題</a></span><span class="ref">p.51；BCSC 11 p.241–242</span></li>
+<li id="np-252">最常見的先天性白內障是 <strong>lamellar</strong>，不是 polar。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.49</span></li>
+<li id="np-253">Anterior polar 是<strong>雙側</strong>對稱（寫「單側」即錯）；sutural 常為 <strong>AD</strong>（寫 AR 即錯）；rubella 是<strong>第一孕期</strong>（寫第二孕期即錯）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.50–51, p.53</span></li>
+<li id="np-254">對視力影響最大的是 membranous（及 complete）；anterior polar、sutural、coronary、capsular、cerulean 通常不影響視力。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1337" data-q="1337">第 1337 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a></span><span class="ref">p.51–53</span></li>
+<li id="np-255">Rubella：白內障與青光眼通常<strong>不會</strong>同眼同時出現；活病毒可存 <span class="num">3 年</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1320" data-q="1320">第 1320 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1406" data-q="1406">第 1406 題</a></span><span class="ref">p.53</span></li>
+<li id="np-256">Capsular 與 anterior polar 的差別：capsular 向前房突出、不侵犯皮質。<span class="ref">p.52</span></li>
+<li id="np-257">後極白內障黏很緊時可先不處理，術後再雷射；應避免 complete hydrodissection、用低灌流低吸力；capsular tension ring 是懸韌帶支撐不足時才用的器材，BCSC 未把它列為後極白內障的處置。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1324" data-q="1324">第 1324 題</a></span><span class="ref">p.51；BCSC 11 p.241–242</span></li>
 </ul></div>
 
 <h2 id="ch4-s8">八、Ectopia lentis（水晶體異位）總論</h2>
 <ul>
-<li>水晶體移位，可為 congenital（先天）、developmental（發育期）或 acquired（後天）。<span class="ref">p.54</span></li>
-<li><strong>Subluxated</strong>：部分移位、仍在瞳孔區；<strong>luxated / dislocated</strong>：完全離開瞳孔區，代表<strong>所有</strong>懸韌帶附著都已分離。<span class="ref">p.54</span></li>
-<li>半脫位的表現：視力下降、<strong>明顯 astigmatism（散光）</strong>、<strong>monocular diplopia（單眼複視）</strong>、<strong>iridodonesis（虹膜震顫）</strong>。<span class="ref">p.54</span></li>
-<li>併發症：白內障；水晶體移入前房或玻璃體腔。<mark>移入<strong>前房或瞳孔</strong> → pupillary block 與 angle-closure glaucoma</mark>；<strong>向後</strong>掉入玻璃體腔常無其他不良後果，只有屈光大幅改變。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">p.54</span></li>
-<li><mark><strong>Trauma</strong> 是後天水晶體移位最常見原因</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.54</span></li>
-<li>非外傷性 ectopia lentis 常見相關：<strong>Marfan syndrome、homocystinuria（同胱胺酸尿症）、aniridia、congenital glaucoma（先天性青光眼）</strong>；較少見：<strong>Ehlers-Danlos syndrome、hyperlysinemia（高離胺酸血症）、Weill-Marchesani syndrome、sulfite oxidase deficiency（亞硫酸鹽氧化酶缺乏）</strong>。<mark>Myotonic dystrophy 不在此列</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-930" data-q="930">第 930 題</a></span><span class="ref">p.54–55</span></li>
-<li><strong>Simple ectopia lentis（單純水晶體異位）</strong>：單獨異常，通常 AD；另可合併瞳孔異常 = ectopia lentis et pupillae。<span class="ref">p.55</span></li>
-<li>Ehlers-Danlos syndrome type VI（ocular-scoliotic type，眼—脊柱側彎型）：AR，嚴重 scoliosis（脊柱側彎）；眼部有 keratoconus、keratoglobus、易破裂角膜、blue sclera（藍鞏膜）、ectopia lentis 等（本章外，BCSC 8 第 10 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-930" data-q="930">第 930 題</a></span><span class="ref">BCSC 8 p.256</span></li>
-<li>Myotonic dystrophy 的典型水晶體表現是皮質 polychromatic iridescent crystals（多彩虹彩結晶），之後 PSC，而非水晶體脫位（本章外，BCSC 11 第 5 章）；它在本章只出現在雙側 pediatric cataract 病因表。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.49；BCSC 11 p.78</span></li>
+<li id="np-258">水晶體移位，可為 congenital（先天）、developmental（發育期）或 acquired（後天）。<span class="ref">p.54</span></li>
+<li id="np-259"><strong>Subluxated</strong>：部分移位、仍在瞳孔區；<strong>luxated / dislocated</strong>：完全離開瞳孔區，代表<strong>所有</strong>懸韌帶附著都已分離。<span class="ref">p.54</span></li>
+<li id="np-260">半脫位的表現：視力下降、<strong>明顯 astigmatism（散光）</strong>、<strong>monocular diplopia（單眼複視）</strong>、<strong>iridodonesis（虹膜震顫）</strong>。<span class="ref">p.54</span></li>
+<li id="np-261">併發症：白內障；水晶體移入前房或玻璃體腔。<mark>移入<strong>前房或瞳孔</strong> → pupillary block 與 angle-closure glaucoma</mark>；<strong>向後</strong>掉入玻璃體腔常無其他不良後果，只有屈光大幅改變。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">p.54</span></li>
+<li id="np-262"><mark><strong>Trauma</strong> 是後天水晶體移位最常見原因</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.54</span></li>
+<li id="np-263">非外傷性 ectopia lentis 常見相關：<strong>Marfan syndrome、homocystinuria（同胱胺酸尿症）、aniridia、congenital glaucoma（先天性青光眼）</strong>；較少見：<strong>Ehlers-Danlos syndrome、hyperlysinemia（高離胺酸血症）、Weill-Marchesani syndrome、sulfite oxidase deficiency（亞硫酸鹽氧化酶缺乏）</strong>。<mark>Myotonic dystrophy 不在此列</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-930" data-q="930">第 930 題</a></span><span class="ref">p.54–55</span></li>
+<li id="np-264"><strong>Simple ectopia lentis（單純水晶體異位）</strong>：單獨異常，通常 AD；另可合併瞳孔異常 = ectopia lentis et pupillae。<span class="ref">p.55</span></li>
+<li id="np-265">Ehlers-Danlos syndrome type VI（ocular-scoliotic type，眼—脊柱側彎型）：AR，嚴重 scoliosis（脊柱側彎）；眼部有 keratoconus、keratoglobus、易破裂角膜、blue sclera（藍鞏膜）、ectopia lentis 等（本章外，BCSC 8 第 10 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-930" data-q="930">第 930 題</a></span><span class="ref">BCSC 8 p.256</span></li>
+<li id="np-266">Myotonic dystrophy 的典型水晶體表現是皮質 polychromatic iridescent crystals（多彩虹彩結晶），之後 PSC，而非水晶體脫位（本章外，BCSC 11 第 5 章）；它在本章只出現在雙側 pediatric cataract 病因表。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.49；BCSC 11 p.78</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch4-s8-1">易錯陷阱</h3><ul>
-<li>後天水晶體移位最常見原因是<strong>外傷</strong>，不是 Marfan（Marfan 是非外傷性中最常提及者之一）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.54</span></li>
-<li>前脫位（前房／瞳孔）才會瞳孔阻滯；後脫位入玻璃體腔通常只有屈光改變。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a></span><span class="ref">p.54</span></li>
-<li>「與水晶體脫位無關」選 myotonic dystrophy；hyperlysinemia、sulfite oxidase deficiency、aniridia、Ehlers-Danlos 都相關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.54–55</span></li>
+<li id="np-267">後天水晶體移位最常見原因是<strong>外傷</strong>，不是 Marfan（Marfan 是非外傷性中最常提及者之一）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1388" data-q="1388">第 1388 題</a></span><span class="ref">p.54</span></li>
+<li id="np-268">前脫位（前房／瞳孔）才會瞳孔阻滯；後脫位入玻璃體腔通常只有屈光改變。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a></span><span class="ref">p.54</span></li>
+<li id="np-269">「與水晶體脫位無關」選 myotonic dystrophy；hyperlysinemia、sulfite oxidase deficiency、aniridia、Ehlers-Danlos 都相關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-702" data-q="702">第 702 題</a></span><span class="ref">p.54–55</span></li>
 </ul></div>
 
 <h2 id="ch4-s9">九、Marfan syndrome、homocystinuria、hyperlysinemia 與 ectopia lentis et pupillae</h2>
 <h3 id="ch4-s9-1">Marfan syndrome（馬凡氏症候群）</h3>
 <ul>
-<li>眼、心血管、骨骼表現的遺傳疾病；通常 <strong>AD</strong>，但約 <span class="num">15%</span> 無家族史；致病為 <strong>FBN1</strong>（fibrillin，原纖維蛋白基因），位於<strong>第 <span class="num">15</span> 號染色體</strong>。<span class="ref">p.55</span></li>
-<li>身材<strong>高</strong>、<strong>arachnodactyly（蜘蛛指）</strong>、胸壁畸形；心血管：dilated aortic root（主動脈根擴張）、mitral valve prolapse（二尖瓣脫垂）。<span class="ref">p.55</span></li>
-<li><mark><span class="num">50%–80%</span> 有 ectopia lentis</mark>；半脫位傾向<strong>雙側對稱</strong>，<mark>通常往<strong>上方與顳側</strong></mark>；懸韌帶多<strong>完整但被拉長</strong>。多半為先天；部分病人隨時間進展，許多人位置穩定。（BCSC 1 寫 <span class="num">50%</span>。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-19" data-q="19">第 19 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a></span><span class="ref">p.55；BCSC 1 p.151</span></li>
-<li>其他眼部：axial myopia（軸性近視）、retinal detachment（視網膜剝離）風險增加、open-angle glaucoma（隅角開放性青光眼）；水晶體脫入瞳孔或前房時可發生 pupillary block glaucoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">p.55</span></li>
-<li>兒童半脫位若兩眼屈光差異大或早期未矯正 → <strong>amblyopia（弱視）</strong>。<span class="ref">p.55</span></li>
-<li><mark>處置首選<strong>光學矯正</strong>：眼鏡或隱形眼鏡在<strong>多數</strong>病例即可達滿意視力</mark>；先做完整驗光，可分別驗 phakic（有晶體）與 aphakic（無晶體）部分以找最佳視力；<mark>半脫位水晶體調節力不足 → 常需 <strong>reading add（近用加入度）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1307" data-q="1307">第 1307 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1356" data-q="1356">第 1356 題</a></span><span class="ref">p.55</span></li>
-<li><mark><strong>Pupillary dilation（散瞳）</strong>有時有幫助</mark>（不是縮瞳）；書中未建議 miotics 或 prism（稜鏡）處理半脫位。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1307" data-q="1307">第 1307 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1356" data-q="1356">第 1356 題</a></span><span class="ref">p.55</span></li>
-<li>只有眼鏡或隱形眼鏡無法達足夠視力時才考慮摘除水晶體；<mark>Marfan 病人做 ECCE 或 ICCE 的併發症（<strong>vitreous loss（玻璃體流失）</strong>、<strong>complex retinal detachment（複雜性視網膜剝離）</strong>）比例高</mark>；capsular tension ring（囊袋張力環）與 capsular tension segment 日益用於改善結果。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1307" data-q="1307">第 1307 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1356" data-q="1356">第 1356 題</a></span><span class="ref">p.55–56</span></li>
+<li id="np-270">眼、心血管、骨骼表現的遺傳疾病；通常 <strong>AD</strong>，但約 <span class="num">15%</span> 無家族史；致病為 <strong>FBN1</strong>（fibrillin，原纖維蛋白基因），位於<strong>第 <span class="num">15</span> 號染色體</strong>。<span class="ref">p.55</span></li>
+<li id="np-271">身材<strong>高</strong>、<strong>arachnodactyly（蜘蛛指）</strong>、胸壁畸形；心血管：dilated aortic root（主動脈根擴張）、mitral valve prolapse（二尖瓣脫垂）。<span class="ref">p.55</span></li>
+<li id="np-272"><mark><span class="num">50%–80%</span> 有 ectopia lentis</mark>；半脫位傾向<strong>雙側對稱</strong>，<mark>通常往<strong>上方與顳側</strong></mark>；懸韌帶多<strong>完整但被拉長</strong>。多半為先天；部分病人隨時間進展，許多人位置穩定。（BCSC 1 寫 <span class="num">50%</span>。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-19" data-q="19">第 19 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a></span><span class="ref">p.55；BCSC 1 p.151</span></li>
+<li id="np-273">其他眼部：axial myopia（軸性近視）、retinal detachment（視網膜剝離）風險增加、open-angle glaucoma（隅角開放性青光眼）；水晶體脫入瞳孔或前房時可發生 pupillary block glaucoma。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">p.55</span></li>
+<li id="np-274">兒童半脫位若兩眼屈光差異大或早期未矯正 → <strong>amblyopia（弱視）</strong>。<span class="ref">p.55</span></li>
+<li id="np-275"><mark>處置首選<strong>光學矯正</strong>：眼鏡或隱形眼鏡在<strong>多數</strong>病例即可達滿意視力</mark>；先做完整驗光，可分別驗 phakic（有晶體）與 aphakic（無晶體）部分以找最佳視力；<mark>半脫位水晶體調節力不足 → 常需 <strong>reading add（近用加入度）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1307" data-q="1307">第 1307 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1356" data-q="1356">第 1356 題</a></span><span class="ref">p.55</span></li>
+<li id="np-276"><mark><strong>Pupillary dilation（散瞳）</strong>有時有幫助</mark>（不是縮瞳）；書中未建議 miotics 或 prism（稜鏡）處理半脫位。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1307" data-q="1307">第 1307 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1356" data-q="1356">第 1356 題</a></span><span class="ref">p.55</span></li>
+<li id="np-277">只有眼鏡或隱形眼鏡無法達足夠視力時才考慮摘除水晶體；<mark>Marfan 病人做 ECCE 或 ICCE 的併發症（<strong>vitreous loss（玻璃體流失）</strong>、<strong>complex retinal detachment（複雜性視網膜剝離）</strong>）比例高</mark>；capsular tension ring（囊袋張力環）與 capsular tension segment 日益用於改善結果。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1307" data-q="1307">第 1307 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1356" data-q="1356">第 1356 題</a></span><span class="ref">p.55–56</span></li>
 </ul>
 <h3 id="ch4-s9-2">Homocystinuria（同胱胺酸尿症）</h3>
 <ul>
-<li>Methionine（甲硫胺酸）代謝先天異常：<strong>cystathionine β-synthase（胱硫醚 β-合成酶）</strong>缺乏，血中 homocysteine 與 methionine 升高；<strong>AR</strong>。<span class="ref">p.56</span></li>
-<li>出生時健康，<strong>第 1 年內</strong>出現 seizures（癲癇）與 osteoporosis（骨質疏鬆），之後出現認知障礙；身材高、髮色淡。<span class="ref">p.56</span></li>
-<li>易 <strong>thromboembolism（血栓栓塞）</strong>；手術與全身麻醉被認為增加血栓風險。<span class="ref">p.56</span></li>
-<li>水晶體脫位<strong>雙側對稱</strong>；嬰兒期約 <span class="num">30%</span>、<span class="num">15</span> 歲前 <span class="num">80%</span> 出現；<mark>通常往<strong>下方與鼻側</strong>半脫位</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">p.56</span></li>
-<li>懸韌帶富含 <strong>cysteine（半胱胺酸）</strong>，cysteine 缺乏 → 懸韌帶發育異常、<strong>脆而易斷</strong>。<span class="ref">p.56</span></li>
-<li>嬰兒以 low-methionine、high-cysteine 飲食加 <strong>pyridoxine（vitamin B6）</strong>治療，部分病人包含 ectopia lentis 的後遺症減少。<span class="ref">p.56</span></li>
+<li id="np-278">Methionine（甲硫胺酸）代謝先天異常：<strong>cystathionine β-synthase（胱硫醚 β-合成酶）</strong>缺乏，血中 homocysteine 與 methionine 升高；<strong>AR</strong>。<span class="ref">p.56</span></li>
+<li id="np-279">出生時健康，<strong>第 1 年內</strong>出現 seizures（癲癇）與 osteoporosis（骨質疏鬆），之後出現認知障礙；身材高、髮色淡。<span class="ref">p.56</span></li>
+<li id="np-280">易 <strong>thromboembolism（血栓栓塞）</strong>；手術與全身麻醉被認為增加血栓風險。<span class="ref">p.56</span></li>
+<li id="np-281">水晶體脫位<strong>雙側對稱</strong>；嬰兒期約 <span class="num">30%</span>、<span class="num">15</span> 歲前 <span class="num">80%</span> 出現；<mark>通常往<strong>下方與鼻側</strong>半脫位</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a></span><span class="ref">p.56</span></li>
+<li id="np-282">懸韌帶富含 <strong>cysteine（半胱胺酸）</strong>，cysteine 缺乏 → 懸韌帶發育異常、<strong>脆而易斷</strong>。<span class="ref">p.56</span></li>
+<li id="np-283">嬰兒以 low-methionine、high-cysteine 飲食加 <strong>pyridoxine（vitamin B6）</strong>治療，部分病人包含 ectopia lentis 的後遺症減少。<span class="ref">p.56</span></li>
 </ul>
 <h3 id="ch4-s9-3">Hyperlysinemia（高離胺酸血症）</h3>
 <ul>
-<li>Lysine（離胺酸）代謝的先天異常，<mark>與 ectopia lentis 相關</mark>；另有認知障礙與 muscular hypotony（肌張力低下）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a></span><span class="ref">p.56</span></li>
+<li id="np-284">Lysine（離胺酸）代謝的先天異常，<mark>與 ectopia lentis 相關</mark>；另有認知障礙與 muscular hypotony（肌張力低下）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a></span><span class="ref">p.56</span></li>
 </ul>
 <h3 id="ch4-s9-4">Ectopia lentis et pupillae（水晶體瞳孔異位）</h3>
 <ul>
-<li><strong>AR</strong>；<mark>水晶體與瞳孔往<strong>相反方向</strong>移位</mark>；瞳孔不規則、常呈 slit（裂縫）狀並偏離正常位置；脫位水晶體可把瞳孔一分為二或完全不在瞳孔區。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.57</span></li>
-<li><mark>通常<strong>雙側但不對稱</strong></mark>（不是單側）；典型虹膜<strong>散瞳差</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.57</span></li>
-<li>相關眼部異常：嚴重 axial myopia、retinal detachment、角膜直徑增大、cataract、虹膜 transillumination（透照）異常。<span class="ref">p.57</span></li>
+<li id="np-285"><strong>AR</strong>；<mark>水晶體與瞳孔往<strong>相反方向</strong>移位</mark>；瞳孔不規則、常呈 slit（裂縫）狀並偏離正常位置；脫位水晶體可把瞳孔一分為二或完全不在瞳孔區。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.57</span></li>
+<li id="np-286"><mark>通常<strong>雙側但不對稱</strong></mark>（不是單側）；典型虹膜<strong>散瞳差</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.57</span></li>
+<li id="np-287">相關眼部異常：嚴重 axial myopia、retinal detachment、角膜直徑增大、cataract、虹膜 transillumination（透照）異常。<span class="ref">p.57</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Inheritance / gene（遺傳）</th><th>Lens displacement（脫位方向）</th><th>Systemic clue（全身線索）</th><th>Pitfall（重點）</th></tr></thead>
 <tbody>
-<tr><td>Marfan syndrome</td><td>AD（約 <span class="num">15%</span> 無家族史）；FBN1，chr <span class="num">15</span></td><td><span class="num">50%–80%</span>；雙側對稱，上顳側；懸韌帶拉長但完整</td><td>高、蜘蛛指、主動脈根擴張、二尖瓣脫垂</td><td>先光學矯正 + 近用加入度；手術併發症高</td></tr>
-<tr><td>Homocystinuria</td><td>AR；cystathionine β-synthase 缺乏</td><td>雙側對稱，下鼻側；嬰兒期 <span class="num">30%</span>、15 歲 <span class="num">80%</span>；懸韌帶脆</td><td>高、淡髮、癲癇、骨鬆、認知障礙、血栓</td><td>麻醉／手術增加血栓風險</td></tr>
-<tr><td>Weill-Marchesani syndrome</td><td>通常 AR（Table 4-1 標 AR）</td><td>Microspherophakia，可前脫位</td><td>矮小、手指短粗、手寬、關節僵</td><td>瞳孔阻滯：用 cycloplegics，勿用 miotics</td></tr>
-<tr><td>Hyperlysinemia</td><td>Lysine 代謝先天異常</td><td>Ectopia lentis</td><td>認知障礙、肌張力低</td><td>較少見的相關疾病</td></tr>
-<tr><td>Ectopia lentis et pupillae</td><td>AR</td><td>水晶體與瞳孔反向移位</td><td>—</td><td>雙側但不對稱；瞳孔裂縫狀、散瞳差</td></tr>
-<tr><td>Simple ectopia lentis</td><td>通常 AD</td><td>單獨異位</td><td>—</td><td>無瞳孔異常</td></tr>
+<tr><td id="np-288">Marfan syndrome</td><td id="np-289">AD（約 <span class="num">15%</span> 無家族史）；FBN1，chr <span class="num">15</span></td><td id="np-290"><span class="num">50%–80%</span>；雙側對稱，上顳側；懸韌帶拉長但完整</td><td id="np-291">高、蜘蛛指、主動脈根擴張、二尖瓣脫垂</td><td id="np-292">先光學矯正 + 近用加入度；手術併發症高</td></tr>
+<tr><td id="np-293">Homocystinuria</td><td id="np-294">AR；cystathionine β-synthase 缺乏</td><td id="np-295">雙側對稱，下鼻側；嬰兒期 <span class="num">30%</span>、15 歲 <span class="num">80%</span>；懸韌帶脆</td><td id="np-296">高、淡髮、癲癇、骨鬆、認知障礙、血栓</td><td id="np-297">麻醉／手術增加血栓風險</td></tr>
+<tr><td id="np-298">Weill-Marchesani syndrome</td><td id="np-299">通常 AR（Table 4-1 標 AR）</td><td id="np-300">Microspherophakia，可前脫位</td><td id="np-301">矮小、手指短粗、手寬、關節僵</td><td id="np-302">瞳孔阻滯：用 cycloplegics，勿用 miotics</td></tr>
+<tr><td id="np-303">Hyperlysinemia</td><td id="np-304">Lysine 代謝先天異常</td><td id="np-305">Ectopia lentis</td><td id="np-306">認知障礙、肌張力低</td><td id="np-307">較少見的相關疾病</td></tr>
+<tr><td id="np-308">Ectopia lentis et pupillae</td><td id="np-309">AR</td><td id="np-310">水晶體與瞳孔反向移位</td><td id="np-311">—</td><td id="np-312">雙側但不對稱；瞳孔裂縫狀、散瞳差</td></tr>
+<tr><td id="np-313">Simple ectopia lentis</td><td id="np-314">通常 AD</td><td id="np-315">單獨異位</td><td id="np-316">—</td><td id="np-317">無瞳孔異常</td></tr>
 </tbody>
 </table>
-<p>出處 <span class="ref">p.43, p.46, p.55–57</span></p>
+<p id="np-318">出處 <span class="ref">p.43, p.46, p.55–57</span></p>
 <div class="ex-trap"><h3 id="ch4-s9-5">易錯陷阱</h3><ul>
-<li>Marfan 早期半脫位：第一步是遠、近完整驗光（光學矯正，常加 reading add）；不是縮瞳劑、不是稜鏡、也不是儘早摘除水晶體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1307" data-q="1307">第 1307 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1356" data-q="1356">第 1356 題</a></span><span class="ref">p.55–56</span></li>
-<li>Marfan 往<strong>上顳</strong>、homocystinuria 往<strong>下鼻</strong>；Marfan 懸韌帶拉長但完整，homocystinuria 懸韌帶脆易斷。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a></span><span class="ref">p.55–56</span></li>
-<li>Ectopia lentis et pupillae 是 AR、<strong>雙側不對稱</strong>，「通常單側」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.57</span></li>
-<li>題幹「水晶體脫位後易致 pupillary block glaucoma、建議手術」的經典答案是 Weill-Marchesani（microspherophakia）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a></span><span class="ref">p.46；BCSC 6 p.322</span></li>
-<li>本章外 BCSC 1 的結締組織疾病眼部表現：HHT（hereditary hemorrhagic telangiectasia，遺傳性出血性微血管擴張症）是<strong>結膜病灶</strong>（不是 microcornea）、osteogenesis imperfecta（成骨不全症）藍鞏膜、pseudoxanthoma elasticum（彈性纖維假黃色瘤）angioid streaks（血管樣條紋）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-19" data-q="19">第 19 題</a></span><span class="ref">BCSC 1 p.151</span></li>
+<li id="np-319">Marfan 早期半脫位：第一步是遠、近完整驗光（光學矯正，常加 reading add）；不是縮瞳劑、不是稜鏡、也不是儘早摘除水晶體。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1307" data-q="1307">第 1307 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-1356" data-q="1356">第 1356 題</a></span><span class="ref">p.55–56</span></li>
+<li id="np-320">Marfan 往<strong>上顳</strong>、homocystinuria 往<strong>下鼻</strong>；Marfan 懸韌帶拉長但完整，homocystinuria 懸韌帶脆易斷。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1291" data-q="1291">第 1291 題</a></span><span class="ref">p.55–56</span></li>
+<li id="np-321">Ectopia lentis et pupillae 是 AR、<strong>雙側不對稱</strong>，「通常單側」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.57</span></li>
+<li id="np-322">題幹「水晶體脫位後易致 pupillary block glaucoma、建議手術」的經典答案是 Weill-Marchesani（microspherophakia）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-671" data-q="671">第 671 題</a>、<a href="/exam/login?next=/exam/bcsc11-4%23q-548" data-q="548">第 548 題</a></span><span class="ref">p.46；BCSC 6 p.322</span></li>
+<li id="np-323">本章外 BCSC 1 的結締組織疾病眼部表現：HHT（hereditary hemorrhagic telangiectasia，遺傳性出血性微血管擴張症）是<strong>結膜病灶</strong>（不是 microcornea）、osteogenesis imperfecta（成骨不全症）藍鞏膜、pseudoxanthoma elasticum（彈性纖維假黃色瘤）angioid streaks（血管樣條紋）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-19" data-q="19">第 19 題</a></span><span class="ref">BCSC 1 p.151</span></li>
 </ul></div>
 
 <h2 id="ch4-s10">十、年齡相關白內障的遺傳因素</h2>
 <ul>
-<li>同卵與異卵雙胞胎及家族研究顯示，年齡相關白內障的風險有很大比例來自遺傳。<span class="ref">p.56</span></li>
-<li><mark>遺傳佔 <strong>cortical cataract（皮質性白內障）</strong>風險 <span class="num">&gt;50%</span></mark>；<strong>nuclear cataract（核性白內障）</strong>風險 <span class="num">35%–50%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.56</span></li>
-<li><strong>EPHA2</strong>（定位於 <span class="num">1p36</span>）與先天及年齡相關皮質性白內障有關，是第一個已知造成遺傳性、非症候群性年齡相關皮質性白內障的基因，但只解釋一小部分皮質混濁。<span class="ref">p.56</span></li>
-<li>其他相關基因：<strong>GALK1</strong>、<strong>CRYAA</strong>。找出這些基因有助了解生化路徑，以延緩或預防白內障。<span class="ref">p.56</span></li>
-<li>Tamoxifen（泰莫西芬）資料分歧：部分研究無關，部分研究顯示白內障風險最多增加 <span class="num">4</span> 倍，尤其 PSC（本章外，BCSC 11 第 5 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">BCSC 11 p.68</span></li>
+<li id="np-324">同卵與異卵雙胞胎及家族研究顯示，年齡相關白內障的風險有很大比例來自遺傳。<span class="ref">p.56</span></li>
+<li id="np-325"><mark>遺傳佔 <strong>cortical cataract（皮質性白內障）</strong>風險 <span class="num">&gt;50%</span></mark>；<strong>nuclear cataract（核性白內障）</strong>風險 <span class="num">35%–50%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.56</span></li>
+<li id="np-326"><strong>EPHA2</strong>（定位於 <span class="num">1p36</span>）與先天及年齡相關皮質性白內障有關，是第一個已知造成遺傳性、非症候群性年齡相關皮質性白內障的基因，但只解釋一小部分皮質混濁。<span class="ref">p.56</span></li>
+<li id="np-327">其他相關基因：<strong>GALK1</strong>、<strong>CRYAA</strong>。找出這些基因有助了解生化路徑，以延緩或預防白內障。<span class="ref">p.56</span></li>
+<li id="np-328">Tamoxifen（泰莫西芬）資料分歧：部分研究無關，部分研究顯示白內障風險最多增加 <span class="num">4</span> 倍，尤其 PSC（本章外，BCSC 11 第 5 章）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">BCSC 11 p.68</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch4-s10-1">易錯陷阱</h3><ul>
-<li>遺傳比例：cortical <span class="num">&gt;50%</span>、nuclear <span class="num">35%–50%</span>，別對調。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.56</span></li>
-<li>EPHA2 在 <span class="num">1p36</span>，與<strong>皮質性</strong>白內障相關。<span class="ref">p.56</span></li>
+<li id="np-329">遺傳比例：cortical <span class="num">&gt;50%</span>、nuclear <span class="num">35%–50%</span>，別對調。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc11-4%23q-1368" data-q="1368">第 1368 題</a></span><span class="ref">p.56</span></li>
+<li id="np-330">EPHA2 在 <span class="num">1p36</span>，與<strong>皮質性</strong>白內障相關。<span class="ref">p.56</span></li>
 </ul></div>
 
 <div class="hs-tip-box">
 <h3 id="ch4-s10-2">易混淆比較與口訣</h3>
 <ul>
-<li><strong>25-27-29-30-33-40</strong>：視泡 <span class="num">25</span> 天 → 水晶體板 <span class="num">27</span> 天 → 水晶體窩 <span class="num">29</span> 天 → 水晶體泡 <span class="num">30</span> 天（<span class="num">33</span> 天完成、與外胚層分離）→ 胚胎核（泡腔消失）<span class="num">40</span> 天。<span class="ref">p.37–40</span></li>
-<li><strong>「下鼻」雙胞胎</strong>：Mittendorf dot（後極下鼻）與 lens coloboma（下鼻）；homocystinuria 脫位也往下鼻，Marfan 往上顳。<span class="ref">p.44, p.55–56</span></li>
-<li><strong>2/3 vs 1/3</strong>：aniridia 2/3 家族、1/3 散發（散發 → Wilms）；先天性白內障是 1/3 症候群、1/3 遺傳、1/3 不明。<span class="ref">p.47, p.49</span></li>
-<li><strong>90% 單側</strong>：PFV；<strong>幾乎都雙側</strong>：aniridia、遺傳性白內障。<span class="ref">p.37, p.47</span></li>
-<li><strong>Microspherophakia 急性閉角</strong>：縮瞳劑加重、睫狀肌麻痺劑治療、可做 laser iridotomy。<span class="ref">p.46</span></li>
-<li><strong>Marfan 50–80%、上顳、拉長；Homocystinuria 30%→80%（15 歲）、下鼻、脆</strong>。<span class="ref">p.55–56</span></li>
+<li id="np-331"><strong>25-27-29-30-33-40</strong>：視泡 <span class="num">25</span> 天 → 水晶體板 <span class="num">27</span> 天 → 水晶體窩 <span class="num">29</span> 天 → 水晶體泡 <span class="num">30</span> 天（<span class="num">33</span> 天完成、與外胚層分離）→ 胚胎核（泡腔消失）<span class="num">40</span> 天。<span class="ref">p.37–40</span></li>
+<li id="np-332"><strong>「下鼻」雙胞胎</strong>：Mittendorf dot（後極下鼻）與 lens coloboma（下鼻）；homocystinuria 脫位也往下鼻，Marfan 往上顳。<span class="ref">p.44, p.55–56</span></li>
+<li id="np-333"><strong>2/3 vs 1/3</strong>：aniridia 2/3 家族、1/3 散發（散發 → Wilms）；先天性白內障是 1/3 症候群、1/3 遺傳、1/3 不明。<span class="ref">p.47, p.49</span></li>
+<li id="np-334"><strong>90% 單側</strong>：PFV；<strong>幾乎都雙側</strong>：aniridia、遺傳性白內障。<span class="ref">p.37, p.47</span></li>
+<li id="np-335"><strong>Microspherophakia 急性閉角</strong>：縮瞳劑加重、睫狀肌麻痺劑治療、可做 laser iridotomy。<span class="ref">p.46</span></li>
+<li id="np-336"><strong>Marfan 50–80%、上顳、拉長；Homocystinuria 30%→80%（15 歲）、下鼻、脆</strong>。<span class="ref">p.55–56</span></li>
 </ul>
 </div>
 </div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="11-4"><p class="ex-locked">本章考題 29 題。<a href="/exam/login?next=/exam/bcsc11-4">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
@@ -661,7 +700,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260728" defer></script>
-<script src="/exam/exam.js?v=20260728" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
+<script src="/exam/exam.js?v=20260729" defer></script>
 </body>
 </html>

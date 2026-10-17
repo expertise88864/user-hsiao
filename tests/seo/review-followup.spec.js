@@ -57,7 +57,7 @@ test('runtime reading estimate preserves English word boundaries', async ({ page
 test('editor metadata recovery preserves English numbered labels within a Chinese summary', async ({ page }) => {
   await page.goto('/blog/dry-eye-myths');
   const recovered = await page.evaluate(async () => {
-    const { readOverrides } = await import('/blog/editor-metadata.js?v=20260728');
+    const { readOverrides } = await import('/blog/editor-metadata.js?v=20260729');
     const value = { version: 1, descriptionZh: '中文摘要 · Outcome 1: unchanged · Day 1: follow-up' };
     const source = new DOMParser().parseFromString('<html><head><meta name="hs-editor-metadata" content="' +
       encodeURIComponent(JSON.stringify(value)) + '"></head></html>', 'text/html');
@@ -77,6 +77,10 @@ test('six-item symptom organizer counts actual answers and never grades formal O
   await expect(tool.locator('[data-result="score"]')).toHaveText('2 / 6');
   await expect(tool.locator('[data-result="interp"]')).toContainText('2.0 / 4');
   await expect(tool).not.toContainText(/重度乾眼|正常 \(OSDI|Cyclosporine|LipiFlow|IPL/);
+  // Owner 2026-10-17: the tool carries no "not the official OSDI" note and is never called OSDI.
+  await expect(tool).not.toContainText('OSDI');
+  await expect(tool).toContainText('回想最近一週');
+  await expect(page.locator('#osdi')).not.toContainText('OSDI');
   await page.selectOption('#langToggle', 'en');
   await expect(tool.locator('[data-result="interp"]')).toContainText('not confirm or exclude');
   await tool.locator('[data-key="q3"]').fill('4');

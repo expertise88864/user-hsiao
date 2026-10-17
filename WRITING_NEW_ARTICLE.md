@@ -143,7 +143,7 @@ Use an existing article as a template — `blog/toric-iol-astigmatism-cataract-r
 
 - **Hero figure**: `<figure class="article-fig">` with inline SVG. Must have `viewBox` AND `aspect-ratio` (set by `_apply_a11y_vt.py`). First `<img>` gets `fetchpriority="high"` auto-applied.
 - **Section H2s**: numbered `一、`, `二、` …. Conventional order: 開場 → Q&A → 重點總整 → 背景 → 適應症 → 細節 → 進階 → 結語 → 參考文獻
-- **Disclaimer block**: every article opens with `<div class="disclaimer">⚠️ 免責聲明：…</div>`
+- **No disclaimer block** (owner 2026-10-17): the site footer on every page already carries the medical disclaimer, so articles do not add their own 免責聲明 box. Study limitations, conflict-of-interest notes or red-flag advice that belong to this article go in a `<div class="hs-article-note">` (no ⚠️ / 免責聲明 label).
 
 ### Bilingual content pattern
 
@@ -166,7 +166,7 @@ All defined in `assets/article.css` (defensive inline copies in each article too
 
 | Class | Use case |
 |---|---|
-| `.disclaimer` | Top medical disclaimer banner |
+| `.hs-article-note` | Article-specific note (study limits, COI, NHI source date) — not a disclaimer |
 | `.hs-redflag-box` + `.hs-redflag-title` + `.hs-redflag-list` | 🚨 急診紅旗 — clinical "see doctor now" warning |
 | `.hs-warn-box` + `.hs-warn-title` | ⚠️ 警示框 — yellow advisory |
 | `.hs-tip-box` + `.hs-tip-title` | 💡 提示框 — green tip / suggestion |

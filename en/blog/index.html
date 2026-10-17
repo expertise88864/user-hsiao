@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script src="/assets/trusted-types.js?v=20260728"></script>
+<script src="/assets/trusted-types.js?v=20260729"></script>
 <script>
 // Auto cache-bust on stale SW / cache. See admin.html for the full rationale.
-(function(){var T='20260728';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var stale=!!(sw&&navigator.serviceWorker.controller);function settle(task){return Promise.resolve().then(task).catch(function(){stale=true})}var j=[];if(sw)j.push(settle(function(){return navigator.serviceWorker.getRegistrations().then(function(rs){if(rs.length)stale=true;return Promise.all(rs.map(function(r){return settle(function(){return r.unregister()})}))})}));if(ch)j.push(settle(function(){return caches.keys().then(function(ks){if(ks.length)stale=true;return Promise.all(ks.map(function(k){return settle(function(){return caches.delete(k)})}))})}));Promise.all(j).then(function(){try{localStorage.setItem('hs:siteVer',T);if(stale)location.reload()}catch(e){}})}catch(e){}})();
+(function(){var T='20260729';try{if(localStorage.getItem('hs:siteVer')===T)return;var sw='serviceWorker' in navigator,ch='caches' in window;if(!sw&&!ch){localStorage.setItem('hs:siteVer',T);return}var stale=!!(sw&&navigator.serviceWorker.controller);function settle(task){return Promise.resolve().then(task).catch(function(){stale=true})}var j=[];if(sw)j.push(settle(function(){return navigator.serviceWorker.getRegistrations().then(function(rs){if(rs.length)stale=true;return Promise.all(rs.map(function(r){return settle(function(){return r.unregister()})}))})}));if(ch)j.push(settle(function(){return caches.keys().then(function(ks){if(ks.length)stale=true;return Promise.all(ks.map(function(k){return settle(function(){return caches.delete(k)})}))})}));Promise.all(j).then(function(){try{localStorage.setItem('hs:siteVer',T);if(stale)location.reload()}catch(e){}})}catch(e){}})();
 </script>
 <meta charset="UTF-8" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -54,10 +54,10 @@
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://www.clarity.ms" />
-<link rel="preload" as="style" href="/assets/app.css?v=20260728" />
+<link rel="preload" as="style" href="/assets/app.css?v=20260729" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260728">
+<link rel="stylesheet" href="/assets/app.css?v=20260729">
 <style>
   :root{
     --bg:#faf7f2; --surface:#ffffff; --ink:#2a2620; --ink-2:#5e574e; --muted:#8b8378;
@@ -74,9 +74,9 @@
   .lang-select{ appearance:none; -webkit-appearance:none; -moz-appearance:none; padding:6px 26px 6px 12px; font-size:12px; font-weight:600; color:var(--ink); border:1px solid var(--border); border-radius:9999px; background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path fill='%23243b56' d='M6 8 0 0h12z'/></svg>") no-repeat right 10px center; background-size:8px 6px; cursor:pointer; line-height:1.2; }
 
   .article-list{ display:flex; flex-direction:column; gap:14px; }
-  .article-list-item{ display:flex; gap:18px; padding:20px 24px; background:#fff; border:1px solid var(--border); border-radius:16px; transition:all .18s ease; text-decoration:none; box-shadow:0 1px 2px rgba(15,23,42,.04); }
-  .article-list-item:hover{ border-color:rgba(58,90,124,.5); box-shadow:0 14px 32px -14px rgba(58,90,124,.25); transform:translateX(4px); }
-  .article-list-item::before{ content:''; display:block; width:3px; height:36px; background:linear-gradient(180deg,#8fb3d4,#243b56); border-radius:9999px; flex-shrink:0; align-self:center; }
+  .article-list-item, .hs-pin-card{ display:flex; gap:18px; padding:20px 24px; background:#fff; border:1px solid var(--border); border-radius:16px; transition:all .18s ease; text-decoration:none; box-shadow:0 1px 2px rgba(15,23,42,.04); }
+  .article-list-item:hover, .hs-pin-card:hover{ border-color:rgba(58,90,124,.5); box-shadow:0 14px 32px -14px rgba(58,90,124,.25); transform:translateX(4px); }
+  .article-list-item::before, .hs-pin-card::before{ content:''; display:block; width:3px; height:36px; background:linear-gradient(180deg,#8fb3d4,#243b56); border-radius:9999px; flex-shrink:0; align-self:center; }
   .al-body{ flex:1; min-width:0; }
   .al-meta{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:6px; }
   /* Muted, near-monochrome chips — matches homepage style. Neutral cream
@@ -95,8 +95,15 @@
   .al-body h3{ font-size:19px; font-family:'Noto Serif TC',Georgia,serif; font-weight:700; color:var(--ink); margin:0 0 6px; line-height:1.4; }
   .al-body p{ font-size:13.5px; color:var(--ink-2); margin:0; line-height:1.75; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; min-height:5.25em; max-height:5.25em; }
   .al-arrow{ align-self:center; color:var(--blue-deep); font-size:22px; flex-shrink:0; opacity:.55; transition:all .15s ease; font-weight:600; }
-  .article-list-item:hover .al-arrow{ opacity:1; transform:translateX(3px); }
-  @media(max-width:640px){ .article-list-item{ gap:14px; padding:16px; } .al-body h3{ font-size:16.5px; } .al-arrow{ display:none; } }
+  .article-list-item:hover .al-arrow, .hs-pin-card:hover .al-arrow{ opacity:1; transform:translateX(3px); }
+  /* Pinned board-exam card: same look as an article card, marked as pinned. */
+  .hs-pin-card{ border-color:#b8cfe3; background:linear-gradient(90deg,#eef4fa,#fff 70%); }
+  .hs-pin-card::before{ background:linear-gradient(180deg,#c9a961,#3a5a7c); }
+  .al-meta .chip.pin{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
+  .al-meta .chip.pin::before{ display:none; }
+  .al-meta .chip.exam{ color:#3a5a7c; }
+  :root[data-theme="dark"] .hs-pin-card{ background:var(--surface); border-color:#3d5470; }
+  @media(max-width:640px){ .article-list-item, .hs-pin-card{ gap:14px; padding:16px; } .al-body h3{ font-size:16.5px; } .al-arrow{ display:none; } }
 
   @media print{ .al-body p{ display:block; -webkit-line-clamp:unset; overflow:visible; min-height:0; max-height:none; } }
 
@@ -129,7 +136,7 @@
 <meta property="og:image:alt" content="Ophthalmology Articles" />
 <meta name="twitter:image:alt" content="Ophthalmology Articles" />
 <meta property="og:locale:alternate" content="zh_TW" />
-<script defer src="/assets/telemetry.js?v=20260728"></script>
+<script defer src="/assets/telemetry.js?v=20260729"></script>
 </head>
 <body class="font-sans antialiased text-ink-900"><style>.hs-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.hs-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.hs-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.hs-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav aria-label="Skip navigation" class="hs-skiplinks"><a data-en="Skip to main content" data-zh="跳至主要內容" href="#main-content">Skip to main content</a><a data-en="Skip to subscribe" data-zh="跳至訂閱" href="#dn-subscribe">Skip to subscribe</a></nav><a class="skip-to-main" data-en="Skip to main content" data-zh="跳至主要內容" href="#main-content">Skip to main content</a>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -145,7 +152,6 @@
 <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
 <a class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" data-en="Articles" data-zh="衛教文章" href="/en/blog" style="color:var(--blue-deep)">Articles</a>
 <a class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" data-en="Board Exam" data-zh="眼科專科醫師考試" href="/exam" style="color:var(--blue-deep)">Board Exam</a>
-<a class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" data-en="Tools" data-zh="量表" href="/en/tools" style="color:var(--blue-deep)">Tools</a>
 <a class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[12px] font-semibold" data-en="About" data-zh="關於我" href="/en/about" style="color:var(--blue-deep)">About</a>
 <button aria-label="搜尋" class="inline-flex items-center justify-center w-9 h-9 rounded-full" style="background:#fff;border:1px solid var(--border);color:var(--blue-deep)" title="搜尋 (Cmd/Ctrl + K)" type="button">
 <svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="7"></circle><line x1="21" x2="16.5" y1="21" y2="16.5"></line></svg>
@@ -166,7 +172,7 @@
 <section class="pt-12 pb-6">
 <div class="text-[11px] uppercase tracking-[.24em] font-semibold" data-en="All articles" data-zh="衛教文章索引" style="color:var(--blue-deep)">All articles</div>
 <h1 class="font-display font-bold text-[34px] sm:text-[40px] mt-3 leading-tight" data-en="Ophthalmology articles" data-zh="眼科衛教文章">Ophthalmology articles</h1>
-<p class="mt-3 text-[14.5px] leading-[1.85]" data-en="The most-asked questions in clinic, distilled into readable notes. Based on international literature &mdash; for general education only." data-zh="把診間最常被問的眼科問題，整理成讀得懂的衛教筆記。內容依據國際醫學文獻與臨床指引，僅作為一般教育用途。" style="color:var(--ink-2)">The most-asked questions in clinic, distilled into readable notes. Based on international literature &mdash; for general education only.</p>
+<p class="mt-3 text-[14.5px] leading-[1.85]" data-en="The most-asked questions in clinic, distilled into readable notes. Based on international literature and clinical guidelines." data-zh="把診間最常被問的眼科問題，整理成讀得懂的衛教筆記。內容依據國際醫學文獻與臨床指引。" style="color:var(--ink-2)">The most-asked questions in clinic, distilled into readable notes. Based on international literature and clinical guidelines.</p>
 </section>
 <section aria-labelledby="all-articles-heading" class="mb-16">
 <!-- v37.33 — visually hidden h2 to satisfy h1 → h2 → h3 ordering for
@@ -182,6 +188,19 @@
 <div class="hs-blog-filter" data-static-filter="1" id="hs-blog-filter"><div class="row"><span class="label" data-en="Category" data-zh="分類">Category</span><button aria-pressed="true" class="chip-btn active" data-cat disabled type="button"><span data-en="All" data-zh="全部">All</span><span class="count">20</span></button><button aria-pressed="false" class="chip-btn" data-cat="research" disabled type="button"><span data-en="Latest Research" data-zh="最新研究">Latest Research</span><span class="count">10</span></button><button aria-pressed="false" class="chip-btn" data-cat="rx" disabled type="button"><span data-en="Patient Ed" data-zh="衛教">Patient Ed</span><span class="count">4</span></button><button aria-pressed="false" class="chip-btn" data-cat="alert" disabled type="button"><span data-en="Red Flags" data-zh="警訊辨識">Red Flags</span><span class="count">4</span></button><button aria-pressed="false" class="chip-btn" data-cat="myth" disabled type="button"><span data-en="Myth-busting" data-zh="迷思澄清">Myth-busting</span><span class="count">2</span></button><button class="reset" data-en="Reset" data-zh="清除篩選" disabled type="button">Reset</button></div><details class="hs-topic-disclosure"><summary><span data-en="Browse by topic" data-zh="按主題找文章">Browse by topic</span><span class="count"> (13)</span><span class="hs-topic-selected" data-en="No selected topic" data-zh="未選取主題" hidden>No selected topic</span></summary><div class="row"><span class="label" data-en="Tags" data-zh="標籤">Tags</span><button aria-pressed="false" class="chip-btn" data-tag="兒童近視" disabled type="button"><span data-en="Pediatric myopia" data-zh="兒童近視">Pediatric myopia</span><span class="count">4</span></button><button aria-pressed="false" class="chip-btn" data-tag="白內障" disabled type="button"><span data-en="Cataract" data-zh="白內障">Cataract</span><span class="count">3</span></button><button aria-pressed="false" class="chip-btn" data-tag="乾眼症" disabled type="button"><span data-en="Dry Eye" data-zh="乾眼症">Dry Eye</span><span class="count">2</span></button><button aria-pressed="false" class="chip-btn" data-tag="青光眼" disabled type="button"><span data-en="Glaucoma" data-zh="青光眼">Glaucoma</span><span class="count">2</span></button><button aria-pressed="false" class="chip-btn" data-tag="葡萄膜炎" disabled type="button"><span data-en="Uveitis" data-zh="葡萄膜炎">Uveitis</span><span class="count">1</span></button><button aria-pressed="false" class="chip-btn" data-tag="黃斑部病變" disabled type="button"><span data-en="AMD" data-zh="黃斑部病變">AMD</span><span class="count">1</span></button><button aria-pressed="false" class="chip-btn" data-tag="翼狀贅肉" disabled type="button"><span data-en="Pterygium" data-zh="翼狀贅肉">Pterygium</span><span class="count">1</span></button><button aria-pressed="false" class="chip-btn" data-tag="糖尿病視網膜病變" disabled type="button"><span data-en="Diabetic retinopathy" data-zh="糖尿病視網膜病變">Diabetic retinopathy</span><span class="count">1</span></button><button aria-pressed="false" class="chip-btn" data-tag="角膜炎" disabled type="button"><span data-en="Keratitis" data-zh="角膜炎">Keratitis</span><span class="count">1</span></button><button aria-pressed="false" class="chip-btn" data-tag="眼外傷" disabled type="button"><span data-en="Eye trauma" data-zh="眼外傷">Eye trauma</span><span class="count">1</span></button><button aria-pressed="false" class="chip-btn" data-tag="甲狀腺眼疾" disabled type="button"><span data-en="TED" data-zh="甲狀腺眼疾">TED</span><span class="count">1</span></button><button aria-pressed="false" class="chip-btn" data-tag="淚腺腫瘤" disabled type="button"><span data-en="Lacrimal tumor" data-zh="淚腺腫瘤">Lacrimal tumor</span><span class="count">1</span></button><button aria-pressed="false" class="chip-btn" data-tag="飛蚊症" disabled type="button"><span data-en="Floaters" data-zh="飛蚊症">Floaters</span><span class="count">1</span></button></div></details><div class="row"><label class="label" data-en="Search" data-zh="搜尋" for="hs-blog-search">Search</label><input autocomplete="off" data-en-placeholder="Type to search&hellip;" data-zh-placeholder="輸入關鍵字&hellip;" disabled id="hs-blog-search" placeholder="Type to search&hellip;" type="search"></div></div>
 <!-- hs-static-filter:end -->
 <div class="article-list">
+<!-- Pinned (owner 2026-10-17): the board-exam section, always first. Not an
+           article: .hs-pin-card keeps it out of the date sort, filters and counts. -->
+<a class="hs-pin-card" href="/exam">
+<div class="al-body">
+<div class="al-meta">
+<span class="chip pin" data-en="Pinned" data-zh="置頂">Pinned</span>
+<span class="chip exam" data-en="Board exam" data-zh="專科考試">Board exam</span>
+</div>
+<h3 data-en="Ophthalmology Board Exam: BCSC Notes and Question Explanations" data-zh="眼科專科醫師考試重點整理與考題解析">Ophthalmology Board Exam: BCSC Notes and Question Explanations</h3>
+<p data-en="BCSC chapter notes (public) and explained board-exam questions (sign-in required), with question frequency, disease search and study progress." data-zh="依 BCSC 章節整理的課本重點（公開）與考題詳解（需登入），附出題頻率、疾病搜尋與讀書進度。">BCSC chapter notes (public) and explained board-exam questions (sign-in required), with question frequency, disease search and study progress.</p>
+</div>
+<div aria-hidden="true" class="al-arrow">&rarr;</div>
+</a>
 <a class="article-list-item" href="/en/blog/pediatric-high-myopia-maculopathy-progression">
 <div class="al-body">
 <div class="al-meta">
@@ -531,7 +550,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (sw) sw.href = location.pathname.replace(/^\/en\//, '/').replace(/^\/en$/, '/');
 });
 </script>
-<script defer src="/blog/blog-shared.min.js?v=20260728"></script>
+<script defer src="/blog/blog-shared.min.js?v=20260729"></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.DN)DN.initBlog({});});</script>
 <script type="speculationrules">
 {
