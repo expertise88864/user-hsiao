@@ -26,7 +26,10 @@ permissions:
 # the same deployment. A newer candidate push supersedes the older run; main
 # runs are never cancelled.
 concurrency:
-  group: quality-${{ github.ref }}
+  # A group holds one running and one pending run; a newer pending run
+  # replaces the older one even without cancel-in-progress. Every main run
+  # therefore gets its own group, so none is ever cancelled.
+  group: quality-${{ github.ref == 'refs/heads/main' && github.run_id || github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:

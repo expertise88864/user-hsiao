@@ -9,6 +9,9 @@ function createMeter(label, origin) {
   const target = new URL(origin).origin;
   let browser = 0;
   let manual = 0;
+  // Only this meter's share of the process-wide module counter.
+  const httpBase = httpRequestCount();
+  const http = () => httpRequestCount() - httpBase;
   const counts = request => {
     try { if (new URL(request.url()).origin === target) browser++; } catch { /* data:, about: */ }
   };
@@ -18,11 +21,11 @@ function createMeter(label, origin) {
     attach(emitter) { emitter.on('request', counts); return emitter; },
     // Requests made outside an attached browser (e.g. APIRequestContext).
     add(count = 1) { manual += count; },
-    total() { return browser + manual + httpRequestCount(); },
+    total() { return browser + manual + http(); },
     report() {
-      const http = httpRequestCount();
-      console.log('[vercel-requests] ' + label + ': ' + (browser + manual + http) +
-        ' (browser ' + browser + ', other ' + (manual + http) + ') host=' + new URL(target).hostname.replace(/^[^.]+(?=\.vercel\.app$)/, '<preview>'));
+      const other = manual + http();
+      console.log('[vercel-requests] ' + label + ': ' + (browser + other) +
+        ' (browser ' + browser + ', other ' + other + ') host=' + new URL(target).hostname.replace(/^[^.]+(?=\.vercel\.app$)/, '<preview>'));
     },
   };
 }

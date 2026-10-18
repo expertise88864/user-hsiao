@@ -68,19 +68,20 @@ async function collectPreparedFontEnvironment(page, base, route) {
 // it only re-downloaded the page from the deployment under test.
 const preparedUrls = new Set();
 let cookiesPromise;
-let meter;
 
 // Lighthouse uses this browser after setup; scoped cookies survive between runs.
 module.exports = async (browser, context) => {
   const base = process.env.SITE_URL;
   const sha = process.env.CANDIDATE_SHA;
   if (!/^[a-f0-9]{40}$/.test(sha || '')) throw new Error('Font report requires exact candidate SHA');
+  // One meter per prepared URL, so every [vercel-requests] line is a delta
+  // (the first also carries the one authentication exchange).
+  const meter = preparedUrls.has(context.url) ? null : createMeter('lighthouse setup ' + new URL(context.url).pathname, base);
   // One authentication exchange per process; a failed exchange is not cached.
   cookiesPromise = cookiesPromise || previewCookies(base, request).catch(error => { cookiesPromise = undefined; throw error; });
   const cookies = await cookiesPromise;
   if (cookies.length) await browser.setCookie(...cookies);
-  if (preparedUrls.has(context.url)) return;
-  meter = meter || createMeter('lighthouse setup pages', base);
+  if (!meter) return;
   const page = meter.attach(await browser.newPage());
   try {
     await page.setCacheEnabled(false);

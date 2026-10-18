@@ -100,6 +100,9 @@ class DeliveryTests(unittest.TestCase):
         self.assertIn("if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/codex/')", delivery)
         for text in (visual, quality, delivery):
             self.assertIn("cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}", text)
+            # A pending run in a shared group is replaced by a newer one, so main
+            # runs need a group of their own (not only cancel-in-progress: false).
+            self.assertIn("-${{ github.ref == 'refs/heads/main' && github.run_id || github.ref }}", text)
             self.assertNotIn("cancel-in-progress: true", text)
             self.assertNotIn("--wait 600", text)
 
