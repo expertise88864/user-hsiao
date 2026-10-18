@@ -63,16 +63,16 @@ test('English mirrors show the pinned card in English', async ({ page }) => {
   await expect(page.locator('.hs-pin-card .chip.pin')).toHaveText('Pinned');
 });
 
-test('hub order: search, tools, access note, 考古卷, chapters, frequency', async ({ page }) => {
+test('hub order: tools, access note, 考古卷, search, chapters, frequency', async ({ page }) => {
   await signedOut(page);
   await page.goto('/exam');
   const order = await page.evaluate(() => {
     const pick = [
       ['h1', document.querySelector('main h1')],
-      ['search', document.querySelector('form[data-hub-search]')],
       ['tools', document.querySelector('.ex-tools')],
       ['note', [...document.querySelectorAll('main .ex-meta')].find(p => p.textContent.startsWith('課本重點整理公開'))],
       ['practice', document.querySelector('a[href="/exam/practice"]')],
+      ['search', document.querySelector('form[data-hub-search]')],
       ['chapters', [...document.querySelectorAll('main h2')].find(h => h.textContent === '依 BCSC 章節瀏覽')],
       ['books', document.querySelector('details.ex-part')],
       ['rank', [...document.querySelectorAll('main h2')].find(h => h.textContent === '出題頻率：最常考')],
@@ -84,6 +84,7 @@ test('hub order: search, tools, access note, 考古卷, chapters, frequency', as
   expect(tops.every(t => t !== null)).toBe(true);
   expect(tops).toEqual([...tops].sort((a, b) => a - b));
   await expect(page.locator('a[href="/exam/practice"]')).toHaveText('考古卷：自選範圍／隨機出題');
+  await expect(page.locator('.ex-tools a')).toHaveText(['讀書進度', '錯題本與 Anki 匯出', '登入／登出題庫']);
   await page.goto('/exam/practice');
   await expect(page.locator('.ex-kicker')).toHaveText('考古卷');
   await expect(page).toHaveTitle(/考古卷/);

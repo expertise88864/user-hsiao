@@ -610,19 +610,20 @@ def hub_page(data: dict, version: str) -> str:
             f'<details class="ex-part"><summary>BCSC {book["book"]} {esc(book["title"])} '
             f'<span class="ex-count">{count} 題次</span></summary><ul class="ex-chapter-list">{"".join(items)}</ul></details>'
         )
-    # Owner order 2026-10-17: search → tools → access note → 考古卷 → chapters → frequency.
+    # Owner order 2026-10-18: tools → access note → 考古卷 → search → chapters → frequency.
+    # The 搜尋重點與考題 button is gone: it duplicated the search box (whose results still
+    # link to /exam/search).
     body = (
         f'<h1 class="ex-h1">{HUB_TITLE}</h1>'
         f'<p class="ex-lead">依 {esc(REFERENCE)} 章節整理課本重點，並把考題標到每一題考到的所有章節；'
         "讀完一章就能在同一頁快速複習重點與考題。陸續更新中。</p>"
-        f"{HUB_SEARCH}"
         '<ul class="ex-tools">'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/progress">讀書進度</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li>'
-        '<li><a class="ex-cta ex-cta-alt" href="/exam/search">搜尋重點與考題</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/login">登入／登出題庫</a></li></ul>'
         '<p class="ex-meta">課本重點整理公開；考題、答案與詳解需要登入才能看。</p>'
         '<p class="ex-practice"><a class="ex-cta" href="/exam/practice">考古卷：自選範圍／隨機出題</a></p>'
+        f"{HUB_SEARCH}"
         '<h2 class="ex-h2">依 BCSC 章節瀏覽</h2>' + "".join(books_html)
         + '<h2 class="ex-h2" id="rank-h">出題頻率：最常考</h2>'
         f'<p class="ex-meta">依題數排序，共 {len(ranked)} 章有考題，先顯示前 {TOP_N} 章；'
