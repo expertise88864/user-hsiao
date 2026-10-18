@@ -267,8 +267,13 @@ def audit_service_worker(errors: list[str]) -> None:
         # Assert the SHELL cache-add, not merely "some array is allSettled".
         # A `\w+\.map` pattern accepts PRECACHE.map — i.e. it accepts the exact
         # P-04 regression this check exists to prevent.
+        # An optional single `.filter(...)` may skip pages that are already open
+        # (the page that registered the worker was just downloaded); the add
+        # itself must still map over SHELL and nothing else.
         shell_precache = (
-            r'Promise\.allSettled\(\s*SHELL\.map\(\s*\(?\s*\w+\s*\)?\s*=>\s*\w+\.add\('
+            r'Promise\.allSettled\(\s*SHELL'
+            r'(?:\.filter\(\s*\(?\s*\w+\s*\)?\s*=>\s*!\s*\w+\.has\(\s*\w+\s*\)\s*\))?'
+            r'\.map\(\s*\(?\s*\w+\s*\)?\s*=>\s*\w+\.add\('
         )
         if not re.search(shell_precache, install_src):
             errors.append(
@@ -402,6 +407,18 @@ def audit_service_worker(errors: list[str]) -> None:
             precache.extend(re.findall(r"['\"]([^'\"]+)['\"]", sub.group(1)))
     if not precache:
         errors.append("sw.js PRECACHE list is empty")
+    # Vercel redirects /x.html and /x/ when cleanUrls / trailingSlash:false are
+    # set: a cached redirect costs two requests per install and a redirected
+    # response cannot answer a navigation (the offline page would fail).
+    vercel = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
+    for url in precache:
+        path = url.split("?", 1)[0]
+        if not path.startswith("/"):
+            continue
+        if vercel.get("cleanUrls") and path.endswith(".html"):
+            errors.append(f"sw.js tier lists a cleanUrls redirect; use the clean path: {url}")
+        if vercel.get("trailingSlash") is False and path != "/" and path.endswith("/"):
+            errors.append(f"sw.js tier lists a trailing-slash redirect; drop the slash: {url}")
     for url in precache:
         if url.startswith("/") and not local_url_exists(url):
             errors.append(f"sw.js PRECACHE target missing locally: {url}")

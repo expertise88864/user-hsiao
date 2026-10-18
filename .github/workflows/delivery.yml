@@ -6,6 +6,11 @@ on:
     branches: [main]
 permissions:
   contents: read
+# A newer push to the same candidate branch supersedes the older run; main
+# runs are never cancelled.
+concurrency:
+  group: delivery-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 jobs:
   contract:
     name: Delivery contract
@@ -31,7 +36,8 @@ jobs:
     name: Preview browser
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/codex/')
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # The Preview wait below can take up to 40 minutes on a queued Hobby build.
+    timeout-minutes: 60
     permissions:
       contents: read
       deployments: read
@@ -49,7 +55,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python _delivery.py preview "$GITHUB_SHA" --wait 600 > "$RUNNER_TEMP/delivery-preview-url"
+          python _delivery.py preview "$GITHUB_SHA" --wait 2400 > "$RUNNER_TEMP/delivery-preview-url"
           echo "PW_BASE_URL=$(cat "$RUNNER_TEMP/delivery-preview-url")" >> "$GITHUB_ENV"
       - name: Install browser
         run: |
@@ -59,6 +65,10 @@ jobs:
         env:
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
         run: node _delivery_preview.cjs
+      - name: Verify service worker on the preview home page
+        env:
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
+        run: node scripts/sw-smoke.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -528,8 +528,15 @@
   };
 
   // ---------- prefetch on idle ----------
+  // Prefetch is only a navigation hint and never changes the rendered page.
+  // Automated browsers (CI screenshots, Lighthouse, axe: navigator.webdriver)
+  // never follow the hinted links, so skip it there: every hinted page was one
+  // more billed request on the deployment under test.
+  DN.prefetchAllowed = function () {
+    return navigator.webdriver !== true;
+  };
   DN.prefetchOnIdle = function () {
-    if (!('IntersectionObserver' in window)) return;
+    if (!('IntersectionObserver' in window) || !DN.prefetchAllowed()) return;
     const idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 1500); };
     idle(function () {
       const seen = new Set();
@@ -542,6 +549,9 @@
           seen.add(href);
           if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
           if (/^https?:\/\//.test(href) && !href.startsWith(location.origin)) return;
+          // The page being read is already loaded; prefetching it is a wasted request.
+          const target = new URL(href, location.href);
+          if (target.origin === location.origin && target.pathname.replace(/\/$/, '') === location.pathname.replace(/\/$/, '')) return;
           const link = document.createElement('link');
           link.rel = 'prefetch';
           link.href = href;
@@ -1480,6 +1490,7 @@
 
   // Inject <link rel="prefetch"> for next article so click→load is near-instant.
   function _addNextArticlePrefetch() {
+    if (!DN.prefetchAllowed()) return;
     try {
       var all = DN.ARTICLES || [];
       var slug = DN.currentSlug && DN.currentSlug();

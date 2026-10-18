@@ -4,12 +4,14 @@ const fs = require('node:fs');
 const { chromium, request } = require('playwright');
 const { previewCookies, verifyContent, verifyRuntimeIdentity } = require('./scripts/preview-access.cjs');
 const { captureEditorTasks } = require('./scripts/preview-editor-tasks.cjs');
+const { createMeter } = require('./scripts/vercel-request-meter.cjs');
 
 (async () => {
   const base = new URL(process.env.PW_BASE_URL);
   assert.equal(base.protocol, 'https:');
   assert.ok(base.hostname.endsWith('.vercel.app'));
   const policy = JSON.parse(fs.readFileSync('_delivery_policy.json', 'utf8'));
+  const meter = createMeter('delivery preview', base.href);
   const cookies = await previewCookies(base.href, request);
   fs.mkdirSync('delivery-preview', { recursive: true });
   const browser = await chromium.launch();
@@ -17,7 +19,9 @@ const { captureEditorTasks } = require('./scripts/preview-editor-tasks.cjs');
     for (const width of [390, 1440]) {
       for (const [index, route] of policy.preview_paths.entries()) {
         // Each route represents a first visit; prior routes must not seed preferences.
-        const context = await browser.newContext({ viewport: { width, height: 900 }, locale: 'zh-TW' });
+        // Content checks never need the service worker; scripts/sw-smoke.cjs tests it.
+        const context = meter.attach(await browser.newContext({ viewport: { width, height: 900 }, locale: 'zh-TW',
+          serviceWorkers: 'block' }));
         try {
           await context.addCookies(cookies);
           if (width === 390 && index === 0) {
@@ -41,6 +45,6 @@ const { captureEditorTasks } = require('./scripts/preview-editor-tasks.cjs');
         } finally { await context.close(); }
       }
     }
-    await captureEditorTasks(browser, base, cookies, process.env.GITHUB_SHA, policy.repository);
-  } finally { await browser.close(); }
+    await captureEditorTasks(browser, base, cookies, process.env.GITHUB_SHA, policy.repository, meter);
+  } finally { await browser.close(); meter.report(); }
 })().catch(error => { console.error(error.message); process.exitCode = 1; });

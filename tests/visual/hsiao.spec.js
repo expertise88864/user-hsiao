@@ -10,10 +10,14 @@
 const { test, expect } = require('@playwright/test');
 const { request } = require('playwright');
 const { previewCookies } = require('../../scripts/preview-access.cjs');
+const { createMeter } = require('../../scripts/vercel-request-meter.cjs');
 
 const BASE = process.env.PW_BASE_URL || 'https://hsiao.chendermatologist.com';
+// One meter per worker process; each worker prints its own total.
+const meter = createMeter('visual worker ' + (process.env.TEST_WORKER_INDEX || '0'), BASE);
 let authCookies;
 test.beforeAll(async () => { authCookies = await previewCookies(BASE, request); });
+test.afterAll(() => meter.report());
 
 const PAGES = [
   { name: 'home',             path: '/' },
@@ -36,6 +40,7 @@ const VIEWPORTS = [
 // Block flaky third-party requests that pollute screenshots (analytics
 // pixels, ad iframes, font CDN slowness sometimes causes FOIT in shot).
 test.beforeEach(async ({ page, context }) => {
+  meter.attach(context);
   await context.addCookies(authCookies);
   await context.route('**/*', (route) => {
     const url = route.request().url();

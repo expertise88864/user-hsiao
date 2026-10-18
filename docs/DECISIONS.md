@@ -1,5 +1,18 @@
 # DECISIONS.md — 已定案決策帳本（Decision Ledger）
 
+### D-31 CI 對 Vercel 的請求預算（2026-10-18）
+
+- 背景：Vercel Hobby 帳號 30 天 100 萬次 CDN 請求（所有專案共用）在 2026-10-18 用完、網站被暫停；本專案用量最大（改動前每次推 codex/* 約 6,700 次、推 main 約 2,000 次）。使用者核可下列做法，品質門檻不變。
+- 同一個 SHA 只對部署跑一次瀏覽器檢查：`visual-regression.yml` 只在 push（codex/** 與 main）與手動觸發執行；`quality.yml` 的 Lighthouse 與 axe 只在 push／手動執行，pull_request 只跑不連部署的驗證與連結檢查；刪除與 Preview browser job 重複的 `pr-preview-screenshots.yml`。交付證據（`_delivery.py`、`_vercel_gate.cjs`）本來就只讀 push run。候選分支的新 push 取消舊 run，main 從不取消。
+- CI 瀏覽器不預抓：`DN.prefetchAllowed()` 在 `navigator.webdriver` 為真時停用 `prefetchOnIdle` 與下一篇預抓（預抓只是提示、不改畫面）；一般讀者也不再預抓目前頁面本身。
+- 內容檢查與截圖封鎖 service worker（Playwright `serviceWorkers: 'block'`）；`scripts/sw-smoke.cjs` 在 Preview browser job 對 `/` 驗證註冊、啟用、SHELL 預快取（不得是轉址回應）與離線頁，為必要步驟，與 `_check_pwa.py` 互補。`sw.js` 的清單只用 cleanUrls／無結尾斜線的正式網址，安裝時不重抓已開啟的頁面（CACHE `hs-v74`）。
+- Lighthouse 的字型環境準備頁每個 URL 只跑一次；計分仍是每 URL 3 runs、門檻不變。
+- 視覺測試不自動重試（`retries: 0`）：10/14–10/17 歷史沒有任何「重試後通過」，重試只讓確定性差異的請求變三倍。失敗要診斷，不重擲。
+- Preview／正式部署等待由 600 秒改為 2400 秒：重跑的主因是 Hobby 建置排隊（10/14–10/17 實測首次 Preview 完成最慢 2,227 秒），不是測試不穩。部署失敗仍由既有 finality 判斷提早結束。重跑時只用「Re-run failed jobs」。
+- 各 job 在 log 印出 `[vercel-requests]` 行（`scripts/vercel-request-meter.cjs`、`scripts/count-lighthouse-requests.cjs`），加總即為每次 push 的實際用量。
+- 不做：減少 Lighthouse runs、視覺頁數／viewport、axe 範圍或 main 上對正式站的檢查；不改 branch protection；不使用 skip-ci。runner 本機 `vercel build` 服務（需 project 範圍的 `VERCEL_TOKEN`）尚未採用，須先證明與 Preview 一致並重新取得 Ubuntu 基準的人工核可。
+- 重開條件：Vercel 方案或計費方式改變，或使用者另定預算。
+
 ### D-28 候選 CI 與 Preview 驗證後才正式發佈（2026-09-06）
 
 - 決策：使用者核可候選分支遠端完整 CI → PR/Preview 瀏覽器與視覺回歸 → 同一 SHA 正常快轉 main → 核對正式 CI/部署。

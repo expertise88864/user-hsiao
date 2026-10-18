@@ -2,6 +2,9 @@
 // traces or saved storage-state files. Cookies remain in the browser's memory.
 const assert = require('node:assert/strict');
 const PRODUCTION = 'https://hsiao.chendermatologist.com';
+// Requests this module sends to a deployment, for the CI request meter.
+let httpRequests = 0;
+const httpRequestCount = () => httpRequests;
 
 function targetUrl(value) {
   const url = new URL(value);
@@ -19,6 +22,7 @@ async function previewCookies(value, request, secret = process.env.VERCEL_AUTOMA
   // redirect with the secret. Vercel sets a cookie on its redirect response.
   const client = await request.newContext();
   try {
+    httpRequests++;
     const response = await client.get(base.href, {
       maxRedirects: 0,
       headers: { 'x-vercel-protection-bypass': secret, 'x-vercel-set-bypass-cookie': 'true' },
@@ -60,6 +64,7 @@ async function verifyRuntimeIdentity(client, baseValue, sha, repository) {
   assert.match(sha || '', /^[a-f0-9]{40}$/, 'Missing exact candidate SHA');
   assert.match(repository || '', /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/, 'Invalid candidate repository');
   const url = new URL('/api/admin/site-version', base).href;
+  httpRequests++;
   const response = await client.get(url, { maxRedirects: 0 })
     .catch(() => { throw new Error('Preview runtime identity request failed'); });
   assert.equal(response.status(), 200, 'Preview runtime identity must return HTTP200');
@@ -83,4 +88,4 @@ async function verifyRuntimeIdentity(client, baseValue, sha, repository) {
   return { environment: identity.environment, repository: identity.repository, sha: identity.sha };
 }
 
-module.exports = { targetUrl, previewCookies, verifyContent, verifyRuntimeIdentity, PRODUCTION };
+module.exports = { targetUrl, previewCookies, verifyContent, verifyRuntimeIdentity, httpRequestCount, PRODUCTION };

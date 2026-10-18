@@ -471,7 +471,8 @@ test('generation and baseline workflows retain checks without publishing unvalid
   assert.match(workflow, /exit 1/);
   assert.match(visual, /npx playwright test tests\/visual\/ --reporter=list/);
   assert.match(quality, /group: quality-\$\{\{ github\.ref \}\}/);
-  assert.match(quality, /cancel-in-progress: true/);
+  // Superseded candidate runs are cancelled; main runs never are.
+  assert.match(quality, /cancel-in-progress: \$\{\{ github\.ref != 'refs\/heads\/main' \}\}/);
 });
 
 test('CMS saves atomically update published modified dates', async () => {

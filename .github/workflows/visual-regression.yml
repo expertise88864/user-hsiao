@@ -1,10 +1,11 @@
 name: Visual regression
 
+# Push only: the exact candidate SHA (codex/**) or main is compared once.
+# A pull_request run tested the same deployment again and doubled the requests
+# to it; delivery evidence (_delivery.py, _vercel_gate.cjs) only reads push runs.
 on:
   push:
     branches: [main, 'codex/**']
-  pull_request:
-    branches: [main]
   workflow_dispatch:
     inputs:
       force_update:
@@ -14,13 +15,14 @@ on:
 
 concurrency:
   group: visual-regression-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   visual:
     if: inputs.force_update != 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Up to 40 minutes of the budget is the wait for a queued Hobby Preview build.
+    timeout-minutes: 60
     permissions:
       contents: read
       deployments: read
@@ -47,16 +49,15 @@ jobs:
         if: github.ref != 'refs/heads/main'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
-          python _delivery.py preview "$CANDIDATE_SHA" --wait 600 > "$RUNNER_TEMP/visual-preview-url"
+          python _delivery.py preview "$GITHUB_SHA" --wait 2400 > "$RUNNER_TEMP/visual-preview-url"
           echo "PW_BASE_URL=$(cat "$RUNNER_TEMP/visual-preview-url")" >> "$GITHUB_ENV"
 
       - name: Require exact production deployment
         if: github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python _delivery.py production "$GITHUB_SHA" --wait 600
+        run: python _delivery.py production "$GITHUB_SHA" --wait 2400
 
       - name: Require the complete reviewed baseline set
         run: |
@@ -83,7 +84,8 @@ jobs:
   update-baselines:
     if: github.event_name == 'workflow_dispatch' && inputs.force_update == 'true' && startsWith(github.ref, 'refs/heads/codex/')
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Up to 40 minutes of the budget is the wait for a queued Hobby Preview build.
+    timeout-minutes: 60
     permissions:
       contents: read
       deployments: read
@@ -108,7 +110,7 @@ jobs:
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          URL=$(python _delivery.py preview "$GITHUB_SHA" --wait 600)
+          URL=$(python _delivery.py preview "$GITHUB_SHA" --wait 2400)
           PW_BASE_URL="$URL" npx playwright test tests/visual/ --update-snapshots --reporter=list
 
       - name: Upload candidate baselines for review

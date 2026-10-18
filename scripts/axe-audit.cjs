@@ -3,14 +3,16 @@ const { chromium, request } = require('playwright');
 const AxeBuilder = require('@axe-core/playwright').default;
 const { previewCookies, verifyContent } = require('./preview-access.cjs');
 const { prepareA11yPage } = require('./a11y-rendering.cjs');
+const { createMeter } = require('./vercel-request-meter.cjs');
 
 (async () => {
   const base = process.env.SITE_URL;
+  const meter = createMeter('axe', base);
   const cookies = await previewCookies(base, request);
   const browser = await chromium.launch();
   const results = [];
   try {
-    const context = await browser.newContext({ serviceWorkers: 'block' });
+    const context = meter.attach(await browser.newContext({ serviceWorkers: 'block' }));
     await context.addCookies(cookies);
     for (const route of ['/', '/blog/', '/blog/dry-eye-myths', '/blog/pediatric-myopia-control',
       '/blog/floaters-retinal-detachment', '/blog/lacrimal-gland-tumor',
@@ -45,5 +47,6 @@ const { prepareA11yPage } = require('./a11y-rendering.cjs');
   } finally {
     fs.writeFileSync('axe-report.json', JSON.stringify(results, null, 2));
     await browser.close();
+    meter.report();
   }
 })().catch(error => { console.error(error.message); process.exitCode = 1; });

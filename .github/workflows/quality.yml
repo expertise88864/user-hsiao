@@ -20,9 +20,14 @@ permissions:
   contents: read
   deployments: read
 
+# pull_request runs keep only the jobs that never contact a deployment
+# (validation, link check). Lighthouse and axe test the exact pushed SHA once,
+# on the push run that delivery evidence reads; a PR run repeated them against
+# the same deployment. A newer candidate push supersedes the older run; main
+# runs are never cancelled.
 concurrency:
   group: quality-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   validate:
@@ -360,7 +365,7 @@ jobs:
     name: Lighthouse CI
     runs-on: ubuntu-latest
     needs: validate
-    if: github.event_name != 'schedule' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v5
         with:
@@ -374,13 +379,13 @@ jobs:
         id: site
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          CANDIDATE_SHA: ${{ github.sha }}
         run: |
           if [ "$GITHUB_REF" = refs/heads/main ]; then
-            python _delivery.py production "$CANDIDATE_SHA" --wait 600
+            python _delivery.py production "$CANDIDATE_SHA" --wait 2400
             echo 'url=https://hsiao.chendermatologist.com' >> "$GITHUB_OUTPUT"
           else
-            URL=$(python _delivery.py preview "$CANDIDATE_SHA" --wait 600)
+            URL=$(python _delivery.py preview "$CANDIDATE_SHA" --wait 2400)
             echo "url=$URL" >> "$GITHUB_OUTPUT"
           fi
 
@@ -399,7 +404,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@3e7e23fb74242897f95c0ba9cabad3d0227b9b18 # v12
         env:
           SITE_URL: ${{ steps.site.outputs.url }}
-          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          CANDIDATE_SHA: ${{ github.sha }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
         with:
           urls: |
@@ -412,61 +417,12 @@ jobs:
           temporaryPublicStorage: false
           configPath: ./.github/workflows/lighthouserc.json
 
-      # Separate browser AFTER scoring: controlled prototypes never alter a
-      # Lighthouse navigation, production style, auth policy or PNG baseline.
-      - name: Measure isolated candidate font geometry
-        if: github.ref != 'refs/heads/main'
-        timeout-minutes: 3
+      # Diagnostic only: requests the scored runs sent to the deployment.
+      - name: Count deployment requests
+        if: always()
         env:
           SITE_URL: ${{ steps.site.outputs.url }}
-          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
-        run: node scripts/index-font-experiment.cjs
-
-      # Diagnose the runner's missing CJK fallback AFTER the scored navigation.
-      # Both reports use the same Preview, Chrome, matrix and font release gate.
-      - name: Probe installed CJK system fallback
-        if: github.ref != 'refs/heads/main'
-        timeout-minutes: 4
-        env:
-          SITE_URL: ${{ steps.site.outputs.url }}
-          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
-        run: |
-          REPORT="font-layout-experiment-results/index-font-experiment-$CANDIDATE_SHA.json"
-          test -s "$REPORT"
-          mv "$REPORT" "${REPORT%.json}-before-system-cjk.json"
-          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
-          fc-cache -f
-          node scripts/index-font-experiment.cjs
-          mv "$REPORT" "${REPORT%.json}-after-system-cjk.json"
-          python - "$CANDIDATE_SHA" <<'PY'
-          import hashlib, json, pathlib, subprocess, sys
-          sha = sys.argv[1]
-          root = pathlib.Path('font-layout-experiment-results')
-          paths = [root / f'index-font-experiment-{sha}-{side}-system-cjk.json' for side in ('before', 'after')]
-          reports = [json.loads(path.read_text()) for path in paths]
-          for report in reports:
-              assert report['sha'] == sha and report['platform'] == 'linux' and len(report['rows']) == 12
-              assert report['identity']['sha'] == sha and report['identity']['repository'] == 'expertise88864/user-hsiao'
-              assert report['identity']['environment'] == 'preview'
-          assert reports[0]['browser'] == reports[1]['browser']
-          version = subprocess.check_output(['dpkg-query', '-W', '-f=${Version}', 'fonts-noto-cjk'], text=True).strip()
-          assert version
-          manifest = {'schemaVersion': 1, 'sha': sha, 'browser': reports[0]['browser'], 'package': 'fonts-noto-cjk',
-              'packageVersion': version, 'intervention': 'system-font installation after Lighthouse, disposable candidate runner only',
-              'reports': [{'file': path.name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()} for path in paths],
-              'scope': 'Paired numeric geometry and fixed glyph diagnostics; not scored Lighthouse, production font changes or field/CTR improvement.'}
-          (root / f'system-font-intervention-{sha}.json').write_text(json.dumps(manifest, indent=2) + '\n')
-          PY
-
-      - name: Upload controlled font experiment
-        if: github.ref != 'refs/heads/main'
-        uses: actions/upload-artifact@v4
-        with:
-          name: controlled-font-experiment
-          path: font-layout-experiment-results/*.json
-          if-no-files-found: error
+        run: node scripts/count-lighthouse-requests.cjs
 
       - name: Upload font environment
         uses: actions/upload-artifact@v4
@@ -495,8 +451,9 @@ jobs:
     name: A11y scan (axe-core)
     runs-on: ubuntu-latest
     needs: validate
-    if: github.event_name != 'schedule' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-    timeout-minutes: 10
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    # Up to 40 minutes of the budget is the wait for a queued Hobby Preview build.
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v5
         with:
@@ -509,13 +466,13 @@ jobs:
       - name: Resolve verified deployment for this revision
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          CANDIDATE_SHA: ${{ github.sha }}
         run: |
           if [ "$GITHUB_REF" = refs/heads/main ]; then
-            python _delivery.py production "$CANDIDATE_SHA" --wait 600
+            python _delivery.py production "$CANDIDATE_SHA" --wait 2400
             echo 'SITE_URL=https://hsiao.chendermatologist.com' >> "$GITHUB_ENV"
           else
-            URL=$(python _delivery.py preview "$CANDIDATE_SHA" --wait 600)
+            URL=$(python _delivery.py preview "$CANDIDATE_SHA" --wait 2400)
             echo "SITE_URL=$URL" >> "$GITHUB_ENV"
           fi
 

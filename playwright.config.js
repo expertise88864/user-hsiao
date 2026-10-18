@@ -12,7 +12,11 @@ module.exports = defineConfig({
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  // No automatic retries. 10/14-10/17 CI history had zero flaky passes: every
+  // retried screenshot failed all three attempts (reviewed content changes
+  // awaiting owner-approved baselines), so retries only tripled the requests
+  // to the deployment under test. A failure must be diagnosed, not re-rolled.
+  retries: 0,
   workers: process.env.CI ? 2 : undefined,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
@@ -25,9 +29,10 @@ module.exports = defineConfig({
     // Disable JS animations in headless context — reduces flake from
     // reveal-on-scroll, view-transitions, hover effects.
     reducedMotion: 'reduce',
-    // Block third-party analytics / ad-tech that load asynchronously and
-    // can leak into screenshots (GTM iframes, Clarity overlay, etc.)
-    // serviceWorkers controlled per-test below.
+    // The service worker never paints and a first visit is not controlled by
+    // it, but installing it precaches the shell on every fresh context: block
+    // it here. scripts/sw-smoke.cjs (Delivery verification) tests the worker.
+    serviceWorkers: 'block',
   },
   snapshotPathTemplate: 'tests/visual/snapshots/{testFilePath}/{arg}{ext}',
   projects: [

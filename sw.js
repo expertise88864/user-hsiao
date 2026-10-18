@@ -15,7 +15,12 @@
 // caches may hold chapter HTML and /exam/exam-data.json with question text;
 // renaming both makes activate delete them, so no signed-out reader is served
 // a cached copy.
-const CACHE = 'hs-v73';
+// v73 -> v74: SHELL/LAZY now list the canonical clean URLs. Vercel serves
+// cleanUrls with trailingSlash:false, so /index.html, /offline.html and /blog/
+// were 308 redirects: each install fetched the redirect plus its target, and
+// the offline fallback held a redirected response for /offline.html. Renaming
+// the cache drops those entries.
+const CACHE = 'hs-v74';
 const RUNTIME = 'hs-runtime-v36';
 const RUNTIME_MAX_ENTRIES = 60;
 const GENERATED_JSON = new Set([
@@ -32,12 +37,11 @@ const GENERATED_JSON = new Set([
 // which matters because slow installs delay first paint on poor networks.
 const SHELL = [
   '/',
-  '/index.html',
-  '/offline.html',
+  '/offline',
   '/icon.svg',
   '/favicon.ico',
   '/manifest.json',
-  '/blog/',
+  '/blog',
   '/assets/app.css',
   '/assets/article.css',
   '/blog/blog-shared.min.js',
@@ -63,13 +67,13 @@ const POPULAR = [
 // noindex placeholders not yet content-complete; precaching them wasted
 // ~20 KB of user quota per install.
 const LAZY = [
-  '/about', '/privacy', '/404.html', '/notes', '/tools',
+  '/about', '/privacy', '/404', '/notes', '/tools',
   '/icon-32.png', '/icon-192.png', '/icon-512.png',
   '/apple-touch-icon.png',
   '/SUNN1302-220.webp', '/SUNN1302-220.avif', '/SUNN1302-440.webp',
   '/blog/feed.xml', '/blog/atom.xml',
   '/blog/topics',
-  '/en/', '/en/about', '/en/tools', '/en/blog/',
+  '/en', '/en/about', '/en/tools', '/en/blog',
 ];
 
 // Combined tier list. Its ONLY consumer is the activate-time 404 sweep, which
@@ -83,6 +87,17 @@ const PRECACHE = [...SHELL, ...POPULAR, ...LAZY];
 // favourites have their own quota + persistence policy. Falls back to a
 // single CacheStorage namespace when Buckets API unsupported (Firefox /
 // Safari).
+// Paths of the open windows in scope, controlled or not. Best-effort: an
+// unavailable Clients API only means nothing is skipped.
+async function openPagePaths() {
+  try {
+    const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    return new Set(windows.map((w) => new URL(w.url).pathname));
+  } catch (e) {
+    return new Set();
+  }
+}
+
 async function getFavBucket() {
   try {
     if (navigator.storageBuckets) {
@@ -107,9 +122,12 @@ self.addEventListener('install', (e) => {
   // to SHELL; the checker now asserts the real invariant. LAZY reaches the
   // cache via the runtime handler and no longer eats 19 of the 50-entry
   // trimCache budget. Full account + the 8-round audit: BACKLOG P-04.
+  // The page that registered this worker has just been downloaded, so do not
+  // fetch it again here: the navigation handler caches pages on later visits.
   e.waitUntil(
-    caches.open(CACHE)
-      .then((c) => Promise.allSettled(SHELL.map((u) => c.add(u))))
+    openPagePaths()
+      .then((open) => caches.open(CACHE)
+        .then((c) => Promise.allSettled(SHELL.filter((u) => !open.has(u)).map((u) => c.add(u)))))
       .then(() => self.skipWaiting())
   );
 });
@@ -227,10 +245,15 @@ let popularWarm = null;
 let popularDone = false;
 function warmPopular(e) {
   if (popularDone || popularWarm) return;
-  popularWarm = caches.open(CACHE)
-    .then(async (c) => {
+  // Pages already open, and the page this navigation is fetching, were just
+  // downloaded: skip them. The navigation handler caches a page on its next
+  // controlled visit, and a later worker lifetime warms what is still missing.
+  const fetching = e.request.mode === 'navigate' ? new URL(e.request.url).pathname : null;
+  popularWarm = Promise.all([caches.open(CACHE), openPagePaths()])
+    .then(async ([c, open]) => {
+      if (fetching) open.add(fetching);
       const present = await Promise.all(POPULAR.map((u) => c.match(u)));
-      const missing = POPULAR.filter((u, i) => !present[i]);
+      const missing = POPULAR.filter((u, i) => !present[i] && !open.has(u));
       if (!missing.length) { popularDone = true; return; }
       const results = await Promise.allSettled(missing.map((u) => c.add(u)));
       // allSettled resolves even if every add rejected, so latch only on a
@@ -357,7 +380,7 @@ self.addEventListener('fetch', (e) => {
           const fav = await (await favCaches.open('hs-favorites')).match(req);
           if (fav) return fav;
         } catch (e2) { /* skip */ }
-        const off = await caches.match('/offline.html');
+        const off = await caches.match('/offline');
         return off || caches.match('/');
       }
     })());

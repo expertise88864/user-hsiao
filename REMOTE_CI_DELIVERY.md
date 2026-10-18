@@ -74,6 +74,17 @@ changed. Review results live on the PR; no audit commits are created.
 GitHub/Vercel outages are blockers, not code bugs to paper over. Keep results compact;
 ordinary bounded polling does not need model reasoning on every interval.
 
+## Vercel request budget (D-31, 2026-10-18)
+Preview and production share the account's Hobby CDN request allowance, which ran
+out on 2026-10-18. Browser checks therefore contact a deployment once per SHA:
+visual regression, Lighthouse and axe run on push (codex/** and main) and manual
+dispatch only; pull_request runs keep the jobs that never contact a deployment.
+CI browsers block the service worker and skip link prefetch (navigator.webdriver);
+scripts/sw-smoke.cjs is the one required service-worker check, on the Preview home
+page. Deployment waits allow 2400 s because Hobby builds queue. When a job fails,
+use "Re-run failed jobs", never "Re-run all jobs". Each job prints a
+`[vercel-requests]` line; sum them to measure a push. Quality gates are unchanged.
+
 ## Protected Preview checks
 Keep Vercel Deployment Protection enabled. The project owner creates an Automation
 Bypass Secret in Vercel and stores the same value as the repository Actions secret

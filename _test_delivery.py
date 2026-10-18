@@ -56,39 +56,61 @@ class DeliveryTests(unittest.TestCase):
             with self.subTest(steps=steps), self.assertRaises(d.Blocked):
                 d.assess_jobs([{**job, "steps": steps}], ["test"], [], contract)
 
-    def test_controlled_font_diagnostic_is_required_only_for_candidate(self):
-        quality = next(entry for entry in d.policy()["workflows"]
-                       if entry["path"] == ".github/workflows/quality.yml")
-        name = "Lighthouse CI"
-        contract = quality["steps"][name]
-        probe_steps = ["Measure isolated candidate font geometry", "Probe installed CJK system fallback", "Upload controlled font experiment"]
-        self.assertEqual(contract["candidate_required"], probe_steps)
+    def test_phase_required_steps_bind_only_their_phase(self):
+        visual = next(entry for entry in d.policy()["workflows"]
+                      if entry["path"] == ".github/workflows/visual-regression.yml")
+        name = "visual"
+        contract = visual["steps"][name]
+        candidate, main = contract["candidate_required"], contract["main_required"]
         steps = [{"name": step, "status": "completed", "conclusion": "success"}
-                 for step in contract["required"] + probe_steps]
+                 for step in contract["required"] + candidate + main]
         job = {"name": name, "status": "completed", "conclusion": "success", "steps": steps}
-        d.assess_jobs([job], [name], [], {name: contract}, "candidate")
-        for probe in probe_steps:
-            skipped = [{**step, "conclusion": "skipped"} if step["name"] == probe else step for step in steps]
-            with self.subTest(probe=probe), self.assertRaises(d.Blocked):
-                d.assess_jobs([{**job, "steps": skipped}], [name], [], {name: contract}, "candidate")
-        main_steps = [{**step, "conclusion": "skipped"} if step["name"] in probe_steps else step for step in steps]
-        d.assess_jobs([{**job, "steps": main_steps}], [name], [], {name: contract}, "main")
+        for phase, own, other in (("candidate", candidate, main), ("main", main, candidate)):
+            skip_other = [{**step, "conclusion": "skipped"} if step["name"] in other else step for step in steps]
+            d.assess_jobs([{**job, "steps": skip_other}], [name], [], {name: contract}, phase)
+            skip_own = [{**step, "conclusion": "skipped"} if step["name"] in own else step for step in steps]
+            with self.subTest(phase=phase), self.assertRaises(d.Blocked):
+                d.assess_jobs([{**job, "steps": skip_own}], [name], [], {name: contract}, phase)
 
-    def test_font_experiment_cannot_run_before_scoring_or_on_main(self):
+    def test_ended_font_experiment_is_not_run_or_required(self):
+        # The index three-line excerpt it compared shipped on 2026-10-07; the
+        # variant now equals the product CSS (docs/BACKLOG.md P-07).
         workflow = (d.ROOT / ".github/workflows/quality.yml").read_text(encoding="utf-8")
-        scoring = workflow.index("      - name: Run Lighthouse CI\n")
-        measure = workflow.index("      - name: Measure isolated candidate font geometry\n")
-        install = workflow.index("      - name: Probe installed CJK system fallback\n")
-        upload = workflow.index("      - name: Upload controlled font experiment\n")
-        normal_fonts = workflow.index("      - name: Upload font environment\n")
-        self.assertLess(scoring, measure)
-        self.assertLess(measure, install)
-        self.assertLess(install, upload)
-        self.assertLess(upload, normal_fonts)
-        for block in (workflow[measure:install], workflow[install:upload], workflow[upload:normal_fonts]):
-            self.assertIn("if: github.ref != 'refs/heads/main'", block)
-        self.assertIn("CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}", workflow[measure:upload])
-        self.assertIn("temporaryPublicStorage: false", workflow[scoring:measure])
+        policy = (d.ROOT / "_delivery_policy.json").read_text(encoding="utf-8")
+        for text in (workflow, policy):
+            self.assertNotIn("font geometry", text)
+            self.assertNotIn("index-font-experiment", text)
+        self.assertFalse((d.ROOT / "scripts/index-font-experiment.cjs").exists())
+
+    def test_deployment_checks_run_once_per_sha_on_push(self):
+        # Each pull_request run repeated the push run's checks against the same
+        # deployment; delivery evidence only reads push runs (select_run).
+        flows = d.ROOT / ".github/workflows"
+        self.assertFalse((flows / "pr-preview-screenshots.yml").exists())
+        visual = (flows / "visual-regression.yml").read_text(encoding="utf-8")
+        triggers = visual[visual.index("\non:\n"):visual.index("\nconcurrency:")]
+        self.assertNotIn("pull_request", triggers)
+        quality = (flows / "quality.yml").read_text(encoding="utf-8")
+        push_only = "    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'\n"
+        for job in ("  lighthouse:\n", "  axe-a11y:\n"):
+            block = quality[quality.index(job):]
+            block = block[:block.index("    steps:\n")]
+            self.assertIn(push_only, block, job)
+        delivery = (flows / "delivery.yml").read_text(encoding="utf-8")
+        self.assertIn("if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/codex/')", delivery)
+        for text in (visual, quality, delivery):
+            self.assertIn("cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}", text)
+            self.assertNotIn("cancel-in-progress: true", text)
+            self.assertNotIn("--wait 600", text)
+
+    def test_service_worker_smoke_is_a_required_preview_step(self):
+        delivery = next(entry for entry in d.policy()["workflows"]
+                        if entry["path"] == ".github/workflows/delivery.yml")
+        step = "Verify service worker on the preview home page"
+        self.assertIn(step, delivery["steps"]["Preview browser"]["required"])
+        workflow = (d.ROOT / ".github/workflows/delivery.yml").read_text(encoding="utf-8")
+        self.assertIn("      - name: " + step + "\n", workflow)
+        self.assertIn("run: node scripts/sw-smoke.cjs", workflow)
 
     def test_candidate_non_fast_forward_blocks_before_tests(self):
         with patch.object(d, "git", side_effect=["https://github.com/owner/repo.git", "b"*40]), \

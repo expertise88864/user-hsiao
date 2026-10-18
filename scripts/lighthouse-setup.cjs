@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { collectFontEnvironment } = require('./font-environment.cjs');
 const { installStartupGeometry, readStartupGeometry, removeStartupGeometry } = require('./startup-font-geometry.cjs');
+const { createMeter } = require('./vercel-request-meter.cjs');
 let reportNumber = 0;
 
 // The public cache-version guard can reload a fresh preparation page after
@@ -61,14 +62,26 @@ async function collectPreparedFontEnvironment(page, base, route) {
   }
 }
 
+// LHCI calls this before EVERY scored run (numberOfRuns per URL) in one process.
+// The font-environment preparation describes the deployment, not a run, so it
+// is captured once per URL; the scored runs themselves are unchanged. Repeating
+// it only re-downloaded the page from the deployment under test.
+const preparedUrls = new Set();
+let cookiesPromise;
+let meter;
+
 // Lighthouse uses this browser after setup; scoped cookies survive between runs.
 module.exports = async (browser, context) => {
   const base = process.env.SITE_URL;
   const sha = process.env.CANDIDATE_SHA;
   if (!/^[a-f0-9]{40}$/.test(sha || '')) throw new Error('Font report requires exact candidate SHA');
-  const cookies = await previewCookies(base, request);
+  // One authentication exchange per process; a failed exchange is not cached.
+  cookiesPromise = cookiesPromise || previewCookies(base, request).catch(error => { cookiesPromise = undefined; throw error; });
+  const cookies = await cookiesPromise;
   if (cookies.length) await browser.setCookie(...cookies);
-  const page = await browser.newPage();
+  if (preparedUrls.has(context.url)) return;
+  meter = meter || createMeter('lighthouse setup pages', base);
+  const page = meter.attach(await browser.newPage());
   try {
     await page.setCacheEnabled(false);
     await page.setBypassServiceWorker(true);
@@ -81,7 +94,10 @@ module.exports = async (browser, context) => {
       sha, route, checkedAt:new Date().toISOString(), ...fonts,
       scope:'CI preparation page; font selection and fallback dimensions, not a Lighthouse CLS result or real-user metrics',
     }, null, 2), { flag:'wx' });
-  } finally { await page.close(); }
+    preparedUrls.add(context.url);
+    console.log('[lighthouse-setup] prepared ' + route + ' (requested ' + new URL(context.url).pathname +
+      ', navigation attempts ' + fonts.preparationNavigationAttempts + ')');
+  } finally { await page.close(); meter.report(); }
 };
 
 module.exports.collectPreparedFontEnvironment = collectPreparedFontEnvironment;

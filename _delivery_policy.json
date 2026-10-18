@@ -95,16 +95,7 @@
             "Run Lighthouse CI",
             "Upload font environment"
           ],
-          "conditional": [
-            "Measure isolated candidate font geometry",
-            "Probe installed CJK system fallback",
-            "Upload controlled font experiment"
-          ],
-          "candidate_required": [
-            "Measure isolated candidate font geometry",
-            "Probe installed CJK system fallback",
-            "Upload controlled font experiment"
-          ]
+          "conditional": []
         },
         "Internal link check": {
           "required": [
@@ -200,7 +191,8 @@
           "required": [
             "Resolve exact-SHA preview (never production)",
             "Install browser",
-            "Verify preview pages in desktop and mobile browsers"
+            "Verify preview pages in desktop and mobile browsers",
+            "Verify service worker on the preview home page"
           ],
           "conditional": []
         }

@@ -13,6 +13,7 @@ test('Preview captures do not carry language or storage state from another route
   const cookies = [{name:'preview-auth',value:'fixture-only'}];
   let editorCalled = false;
   let browserClosed = false;
+  let meterReported = false;
   const browser = {
     async newContext(options) {
       const state = {id:contexts.length, options, language:null, closed:false};
@@ -52,6 +53,7 @@ test('Preview captures do not carry language or storage state from another route
       verifyRuntimeIdentity:async()=>({sha:process.env.GITHUB_SHA,environment:'preview',repository:'expertise88864/user-hsiao'}),
     },
     './scripts/preview-editor-tasks.cjs':{captureEditorTasks:async()=>{editorCalled=true;}},
+    './scripts/vercel-request-meter.cjs':{createMeter:()=>({attach:emitter=>emitter,add(){},report(){meterReported=true;}})},
   };
   const source = fs.readFileSync(path.join(__dirname,'../../_delivery_preview.cjs'),'utf8');
   await vm.runInNewContext(source,{URL,process,console:{error:message=>errors.push(message)},require:name=>{
@@ -64,5 +66,7 @@ test('Preview captures do not carry language or storage state from another route
   for (const shot of shots) assert.equal(shot.language,shot.route.startsWith('/en/')?'en':'zh-TW');
   assert.equal(new Set(shots.map(shot=>shot.context)).size,shots.length);
   assert.ok(contexts.every(context=>context.closed));
-  assert.ok(editorCalled && browserClosed);
+  assert.ok(editorCalled && browserClosed && meterReported);
+  // Content checks never install the service worker (scripts/sw-smoke.cjs tests it).
+  assert.ok(contexts.every(context=>context.options.serviceWorkers==='block'));
 });

@@ -13,7 +13,7 @@ function withExampleImages(html) {
     .replace('<div id="proseEn" class="prose" style="display:none">', '<div id="proseEn" class="prose" style="display:none">' + picture('English', 'Example image for editing'));
 }
 
-function editorFixtureRoute(base, source, blockedWrites) {
+function editorFixtureRoute(base, source, blockedWrites, meter) {
   return async route => {
     const request = route.request(), url = new URL(request.url());
     if (!['GET', 'HEAD'].includes(request.method())) {
@@ -29,11 +29,13 @@ function editorFixtureRoute(base, source, blockedWrites) {
     if (url.origin !== base.origin && !['https://fonts.googleapis.com', 'https://fonts.gstatic.com'].includes(url.origin)) {
       return route.abort();
     }
+    // Only requests that actually leave the fixture reach the deployment.
+    if (meter && url.origin === base.origin) meter.add();
     return route.continue();
   };
 }
 
-async function captureEditorTasks(browser, base, cookies, expectedSHA, repository) {
+async function captureEditorTasks(browser, base, cookies, expectedSHA, repository, meter) {
   base = targetUrl(base.href);
   assert.ok(base.hostname.endsWith('.vercel.app'));
   const rows = [];
@@ -65,12 +67,13 @@ async function captureEditorTasks(browser, base, cookies, expectedSHA, repositor
       const identity = await verifyRuntimeIdentity(context.request, base.href, expectedSHA, repository);
       assert.equal(identity.environment, 'preview');
       const articleURL = new URL('/blog/dry-eye-myths', base).href;
+      if (meter) meter.add();
       const response = await context.request.get(articleURL, { maxRedirects: 0 });
       assert.equal(response.status(), 200);
       assert.equal(response.url(), articleURL);
       const source = withExampleImages(await response.text());
       const blockedWrites = [];
-      await context.route('**/*', editorFixtureRoute(base, source, blockedWrites));
+      await context.route('**/*', editorFixtureRoute(base, source, blockedWrites, meter));
       const page = await context.newPage();
       await page.goto(new URL('/blog/dry-eye-myths?admin=1', base).href, { waitUntil: 'load' });
       await page.locator('#hs-adm-save').waitFor({ state: 'visible' });
