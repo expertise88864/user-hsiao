@@ -387,7 +387,7 @@ def fit(text: str, limit: int) -> str:
     return text.rstrip(" ,:–-") + "…"
 
 
-def page(*, path, title, description, crumbs, schema_type, body, kind, robots, version) -> str:
+def page(*, path, title, description, crumbs, schema_type, body, kind, robots, version, side="") -> str:
     if len(esc(title + SITE_SUFFIX)) > TITLE_MAX or not 50 <= len(esc(description)) <= DESC_MAX:
         raise SystemExit(f"{path}: title/description outside validate.py limits")
     items = [("首頁", "/"), ("專科考試", "/exam")] + crumbs
@@ -399,11 +399,14 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
          "breadcrumb": {"@id": f"{DOMAIN}{path}#breadcrumb"}},
         breadcrumb(items, path),
     ]
+    content = f'{crumbs_html(items)}{"" if kind == "login" else AUTH_BAR}{body}'
+    if side:
+        content = f'{side}<div class="ex-content">{content}</div>'
     out = (
         head(title=title, description=description, path=path, robots=robots, jsonld=jsonld, version=version)
         + f'<body class="hs-exam" data-exam-page="{kind}">\n'
         + header()
-        + f'<main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16">{crumbs_html(items)}{"" if kind == "login" else AUTH_BAR}{body}</main>\n'
+        + f'<main id="main-content" class="ex-main{" ex-has-side" if side else ""} max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16">{content}</main>\n'
         + footer()
         + f'<script src="/blog/blog-shared.min.js?v={version}" defer></script>\n'
         + f'<script src="/exam/exam.js?v={version}" defer></script>\n'
@@ -411,6 +414,14 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
     )
     return fullwidth(out)[0]
 
+
+# Chapter notes key, as on the dermatology exam section (owner request 2026-10-18).
+NOTES_LEGEND = (
+    '<p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>'
+    '＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span>'
+    '<span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span>'
+    '<span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p>'
+)
 
 # Filled by exam.js: "已登入題庫 · 登出" when signed in, a login link otherwise.
 AUTH_BAR = '<div class="ex-auth" aria-live="polite" hidden></div>'
@@ -459,18 +470,57 @@ def login_href(target: str) -> str:
     return "/exam/login?next=" + quote(target, safe="/")
 
 
+# Owner request 2026-10-18: question citations look like the dermatology exam section
+# (chendermatologist.com/exam): the tested phrase carries a soft highlighter and the
+# question numbers follow it as small superscript links.
+# A citation separated from the highlighted phrase by one punctuation mark moves onto
+# the phrase: 「<mark>鐵質線</mark>。{{q:960}}」 -> 「<mark>鐵質線</mark>{{q:960}}。」
+LIFT_RE = re.compile(r"(</mark>)([。；，、：）]?)(\{\{q:[0-9,\s]+\}\})")
+# Elsewhere a citation after a sentence-ending mark goes before it, footnote style:
+# 「上皮增厚。{{q:922}}」 -> 「上皮增厚{{q:922}}。」
+STOP_RE = re.compile(r"([。；，、：])(\{\{q:[0-9,\s]+\}\})")
+# Tokens that end a cited statement: block tags, line breaks and the citation itself.
+CITE_SCAN = re.compile(r"<mark>|\{\{q:[0-9,\s]+\}\}|</?(?:li|p|td|th|ul|ol|h[1-6]|div|table|tr)\b[^>]*>|<br\s*/?>")
+
+
+def key_marks(fragment: str) -> str:
+    """Tag each <mark> that a {{q:...}} citation follows within the same statement
+    (no block boundary or earlier citation in between) as a tested fact (class ex-key)."""
+    fragment = STOP_RE.sub(r"\2\1", LIFT_RE.sub(r"\1\3\2", fragment))
+    cited, pending = set(), []
+    for m in CITE_SCAN.finditer(fragment):
+        token = m.group(0)
+        if token == "<mark>":
+            pending.append(m.start())
+        elif token.startswith("{{"):
+            cited.update(pending)
+            pending = []
+        else:
+            pending = []
+    out, pos = [], 0
+    for start in sorted(cited):
+        out.append(fragment[pos:start])
+        out.append('<mark class="ex-key">')
+        pos = start + len("<mark>")
+    out.append(fragment[pos:])
+    return "".join(out)
+
+
 def expand_hits(fragment: str, key: str, on_page: set[int]) -> str:
     def repl(m: re.Match) -> str:
         nums = [int(i) for i in re.split(r"\s*,\s*", m.group(1).strip()) if i]
         bad = [i for i in nums if i not in on_page]
         if bad:
             raise SystemExit(f"notes {key}: {{{{q:...}}}} cites questions not on this chapter page: {bad}")
-        links = "、".join(f'<a href="{login_href(f"/exam/{slug(key)}#q-{i}")}" data-q="{i}">第 {i} 題</a>' for i in nums)
-        return f'<span class="ex-hit">考過：{links}</span>'
-    out = re.sub(r"\{\{q:([0-9,\s]+)\}\}", repl, fragment)
+        links = " ".join(f'<a href="{login_href(f"/exam/{slug(key)}#q-{i}")}" data-q="{i}" '
+                         f'aria-label="考題 Q{i}">Q{i}</a>' for i in nums)
+        # U+2060 WORD JOINER: the superscript never wraps onto a line of its own.
+        return f'⁠<sup class="ex-qref">{links}</sup>'
+    out = re.sub(r"\{\{q:([0-9,\s]+)\}\}", repl, key_marks(fragment))
     if "{{" in out:
         raise SystemExit(f"notes {key}: unexpanded placeholder")
-    return out
+    # Page references to other BCSC sections (「BCSC 8 p.429」) get their own chip colour.
+    return out.replace('<span class="ref">BCSC ', '<span class="ref ref-ext">BCSC ')
 
 
 # ---------------------------------------------------------------- pages
@@ -479,6 +529,7 @@ def chapter_page(data: dict, key: str, version: str) -> str:
     ch = data["chapters"][key]
     qs = data["by_chapter"].get(key, [])
     note = data["notes"].get(key)
+    side = ""
     if note:
         toc = "".join(
             f'<li><a href="#{hid}">{esc(html.unescape(re.sub(r"<[^>]+>", "", text)).strip())}</a></li>'
@@ -486,9 +537,15 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         )
         toc_html = (f'<nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol>{toc}'
                     '<li><a href="#qs-h">考題</a></li></ol></nav>') if toc else ""
+        # Wide screens: the same list as a sticky left column that follows the reader
+        # (like the dermatology exam section); the inline list above serves phones.
+        side = (f'<nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary>'
+                f'<ol>{toc}<li class="ex-toc-qs"><a href="#qs-h">考題（{len(qs)} 題）</a></li></ol></details></nav>'
+                ) if toc else ""
         notes_html = (f'<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>{toc_html}'
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'
                       f'<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p>'
+                      f"{NOTES_LEGEND}"
                       f'<div class="ex-note">{taxa_html(expand_hits(note, key, {q["n"] for q in qs}))}</div></section>')
     else:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
@@ -520,7 +577,7 @@ def chapter_page(data: dict, key: str, version: str) -> str:
     desc = lead + fit(ch["title"], DESC_MAX - len(lead) - len(tail)) + tail
     return page(path=f"/exam/{slug(key)}", title=title, description=desc,
                 crumbs=[(f"BCSC {ch['book']} Ch.{ch['ch']}", f"/exam/{slug(key)}")], schema_type="WebPage",
-                body=body, kind="chapter", version=version,
+                body=body, kind="chapter", version=version, side=side,
                 robots="index,follow,max-image-preview:large" if indexable(key, data) else "noindex,follow")
 
 
@@ -833,14 +890,22 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note ul>li::before{content:"";position:absolute;left:5px;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--ex-accent)}
 .ex-note ul ul>li::before{background:transparent;border:1.5px solid var(--ex-accent);width:6px;height:6px}
 .ex-note ol{list-style:decimal;padding-left:24px;margin:6px 0}
-.ex-note mark{background:linear-gradient(transparent 45%,#fde68a 45%);color:inherit;padding:0 1px;font-weight:600}
+.ex-note mark,.ex-legend mark{background:linear-gradient(transparent 80%,#f7d77a 80%);color:inherit;padding:0 1px}
+.ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
+.ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
+.ex-qref a,.ex-qref span{color:#a0460a;text-decoration:none;white-space:nowrap;padding:0 1px;border-radius:3px}
+.ex-qref a:hover{text-decoration:underline}
+.ex-qref a:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
+.ex-legend-trap,.ex-legend-tip{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
+.ex-legend-tip{border-left-color:#6fbf8a;background:#f3f9f5}
 .ex-note .num,.ex-num-hl{font-family:Inter,ui-monospace,monospace;font-weight:700;color:#9a3412;background:#fff1e6;border-radius:5px;padding:0 4px;white-space:nowrap}
-.ex-note .ex-trap{background:#fef2f2;border:1px solid #fecaca;border-left:5px solid #dc2626;border-radius:12px;padding:10px 16px;margin:14px 0}
-.ex-note .ex-trap h3{margin:2px 0 6px;color:#b91c1c;font-size:15px}
-.ex-note .ex-trap h3::before{content:"⚠ ";}
-.ex-note .ex-trap ul>li::before{background:#dc2626}
-.ex-note .ex-ddx tbody td:first-child{font-weight:700;background:var(--ex-soft);width:26%;min-width:8.5em}
-.ex-note .ex-ddx thead th{background:var(--ex-accent);color:#fff}
+.ex-note .ex-trap{background:#fef5f5;border-left:3px solid #f87171;border-radius:8px;padding:8px 14px;margin:12px 0}
+.ex-note .ex-trap>h3:first-child,.ex-note .hs-tip-box>:is(h3,h4):first-child{display:inline-block;margin:2px 0 4px;padding:0 8px;border-radius:6px;background:#c62828;color:#fff;font-size:11.5px;font-weight:700;line-height:1.7;letter-spacing:.04em}
+.ex-note .hs-tip-box>:is(h3,h4):first-child{background:#2f7a4d}
+.ex-note .ex-trap ul>li::before{background:#f87171}
+.ex-note .ex-ddx tbody td:first-child{font-weight:700;background:#f6f8fb;width:26%;min-width:8.5em}
+.ex-note .ex-ddx thead th{background:var(--ex-soft);color:var(--ex-accent)}
 .ex-note .ex-ddx{table-layout:auto;min-width:560px}
 .ex-note .ex-ddx td,.ex-note .ex-ddx th{word-break:normal;overflow-wrap:break-word}
 .ex-toc{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin:12px 0 18px;font-size:14px}
@@ -849,17 +914,28 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-toc a{color:var(--ink-2);text-decoration:none}
 .ex-toc a:hover{color:var(--ex-accent);text-decoration:underline}
 .ex-note h2,.ex-note h3{scroll-margin-top:80px}
-.ex-note .keypoint,.ex-note .hs-tip-box,.ex-note .hs-warn-box{border-radius:12px;padding:12px 16px;margin:14px 0}
-.ex-note .keypoint{background:var(--ex-soft);border-left:4px solid var(--ex-accent)}
-.ex-note .hs-tip-box{background:#f0fdf4;border-left:4px solid #16a34a}
-.ex-note .hs-warn-box{background:#fffbeb;border-left:4px solid #d97706}
+.ex-content{min-width:0}
+.ex-toc-side{display:none}
+@media (min-width:1100px){main.ex-has-side{max-width:76rem;display:grid;grid-template-columns:230px minmax(0,48rem);gap:44px;justify-content:center;align-items:start}.ex-toc-side{display:block;position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;overscroll-behavior:contain}.ex-has-side .ex-toc{display:none}}
+.ex-toc-side{border:1px solid var(--border);border-radius:12px;background:var(--ex-card);padding:10px 10px 10px 12px;font-size:13px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.ex-toc-side::-webkit-scrollbar{width:6px}
+.ex-toc-side::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+.ex-toc-side summary{font-weight:700;cursor:pointer;color:var(--ex-accent);letter-spacing:.06em}
+.ex-toc-side ol{list-style:none;margin:6px 0 0;padding:0;line-height:1.55}
+.ex-toc-side a{display:block;padding:4px 8px;margin:1px 0;border-left:2px solid transparent;border-radius:0 6px 6px 0;color:var(--ink-2);text-decoration:none}
+.ex-toc-side a:hover{color:var(--ex-accent);background:var(--ex-soft)}
+.ex-toc-side a[aria-current]{color:var(--ex-accent);background:var(--ex-soft);border-left-color:var(--ex-accent);font-weight:700}
+.ex-toc-qs{border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
+.ex-note .keypoint,.ex-note .hs-tip-box,.ex-note .hs-warn-box{border-radius:8px;padding:8px 14px;margin:12px 0}
+.ex-note .keypoint{background:#f3f7fb;border-left:3px solid #8fb0cf}
+.ex-note .hs-tip-box{background:#f3f9f5;border-left:3px solid #6fbf8a}
+.ex-note .hs-warn-box{background:#fffaf0;border-left:3px solid #f0b453}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
 .ex-note{overflow-x:auto}
-.ref,.ex-ref{font-size:11.5px;color:#46556a;background:var(--ex-soft);border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
-.ex-hit{display:inline-block;font-size:11.5px;font-weight:600;color:#854d0e;background:#fef3c7;border-radius:9999px;padding:1px 9px;margin-left:6px}
-.ex-hit a{color:#854d0e}
+.ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
+.ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
 .ex-bar-cell{width:30%}
 .ex-bar{display:block;height:9px;border-radius:9px;background:#6b8caf}
@@ -926,7 +1002,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-hitbox a{color:var(--ex-accent);font-weight:700}
 .ex-hitbox mark{background:#fef08a;color:inherit;border-radius:3px}
 .ex-locked{background:var(--ex-soft);border:1px dashed var(--border);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.8}
-.ex-locked a,.ex-hit a{font-weight:700}
+.ex-locked a{font-weight:700}
 .ex-login{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
 .ex-label{font-weight:700;font-size:14px}
 .ex-login .ex-input{flex:1;min-width:12em}
@@ -996,22 +1072,26 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
-:root[data-theme="dark"] .ex-hit,:root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
-:root[data-theme="dark"] .ex-hit a{color:#fde68a}
+:root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
 :root[data-theme="dark"] .ex-badge,:root[data-theme="dark"] .ex-ok .ex-item-label{background:#14532d;color:#dcfce7}
 :root[data-theme="dark"] .ex-no .ex-item-label{background:#36404b;color:#e7e5e4}
-:root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{color:#cfe0ee}
+:root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{background:#2c2925;color:#d6d3d1}
+:root[data-theme="dark"] .ref-ext{background:#2e1065;color:#ddd6fe}
 :root[data-theme="dark"] .ex-mode[aria-pressed="true"],:root[data-theme="dark"] .ex-chip-on,:root[data-theme="dark"] .ex-cta,:root[data-theme="dark"] .ex-cta-btn{color:#14181d}
 :root[data-theme="dark"] .ex-cta.ex-cta-alt{color:var(--ex-accent)}
-:root[data-theme="dark"] .ex-note .hs-tip-box{background:#12301d}
-:root[data-theme="dark"] .ex-note .hs-warn-box{background:#332a14}
+:root[data-theme="dark"] .ex-note .hs-tip-box,:root[data-theme="dark"] .ex-legend-tip{background:rgba(20,83,45,.3);border-left-color:#3f8a5c}
+:root[data-theme="dark"] .ex-note .hs-warn-box{background:rgba(120,83,14,.3);border-left-color:#b9852c}
+:root[data-theme="dark"] .ex-note .keypoint{background:rgba(58,90,124,.3);border-left-color:#5f86ab}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt[data-correct],:root[data-theme="dark"] body:not(.ex-quiz) .ex-opt[data-correct]{background:#12301d;border-color:#16a34a}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt.ex-picked:not([data-correct]){background:#3a1a1a;border-color:#dc2626}
 :root[data-theme="dark"] .ex-hitbox mark{background:#854d0e;color:#fff}
-:root[data-theme="dark"] .ex-note mark{background:linear-gradient(transparent 45%,#854d0e 45%)}
+:root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:linear-gradient(transparent 80%,rgba(234,179,8,.5) 80%)}
+:root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
+:root[data-theme="dark"] .ex-qref a,:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
 :root[data-theme="dark"] .ex-note .num{background:#3b2414;color:#fdba74}
-:root[data-theme="dark"] .ex-note .ex-trap{background:#2d1616;border-color:#7f1d1d}
-:root[data-theme="dark"] .ex-note .ex-trap h3{color:#fca5a5}
+:root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
+:root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
+:root[data-theme="dark"] .ex-note .ex-ddx tbody td:first-child{background:var(--ex-soft)}
 :root[data-theme="dark"] .ex-toc{border-color:#36404b}
 :root[data-theme="dark"] .ex-locked{border-color:#36404b}
 :root[data-theme="dark"] .ex-login-msg{background:#3a1a1a;border-color:#7f1d1d;color:#fecaca}
@@ -1021,8 +1101,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-doubt-tag-now{background:#1e3a5f;color:#dbeafe}
 :root[data-theme="dark"] .ex-strip,:root[data-theme="dark"] .ex-summary-box{border-color:#36404b}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
-:root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
-:root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-toc a,:root[data-theme="dark"] .ex-toc-side a{color:#d6d3d1}
+:root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
+:root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260729"></script>
+<script src="/assets/trusted-types.js?v=20260730"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 2 Ch.2 The Eye：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc2-2#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 2 Ch.2","item":"https://hsiao.chendermatologist.com/exam/bcsc2-2"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260729">
+<link rel="stylesheet" href="/assets/app.css?v=20260730">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -56,14 +56,22 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note ul>li::before{content:"";position:absolute;left:5px;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--ex-accent)}
 .ex-note ul ul>li::before{background:transparent;border:1.5px solid var(--ex-accent);width:6px;height:6px}
 .ex-note ol{list-style:decimal;padding-left:24px;margin:6px 0}
-.ex-note mark{background:linear-gradient(transparent 45%,#fde68a 45%);color:inherit;padding:0 1px;font-weight:600}
+.ex-note mark,.ex-legend mark{background:linear-gradient(transparent 80%,#f7d77a 80%);color:inherit;padding:0 1px}
+.ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
+.ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
+.ex-qref a,.ex-qref span{color:#a0460a;text-decoration:none;white-space:nowrap;padding:0 1px;border-radius:3px}
+.ex-qref a:hover{text-decoration:underline}
+.ex-qref a:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
+.ex-legend-trap,.ex-legend-tip{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
+.ex-legend-tip{border-left-color:#6fbf8a;background:#f3f9f5}
 .ex-note .num,.ex-num-hl{font-family:Inter,ui-monospace,monospace;font-weight:700;color:#9a3412;background:#fff1e6;border-radius:5px;padding:0 4px;white-space:nowrap}
-.ex-note .ex-trap{background:#fef2f2;border:1px solid #fecaca;border-left:5px solid #dc2626;border-radius:12px;padding:10px 16px;margin:14px 0}
-.ex-note .ex-trap h3{margin:2px 0 6px;color:#b91c1c;font-size:15px}
-.ex-note .ex-trap h3::before{content:"⚠ ";}
-.ex-note .ex-trap ul>li::before{background:#dc2626}
-.ex-note .ex-ddx tbody td:first-child{font-weight:700;background:var(--ex-soft);width:26%;min-width:8.5em}
-.ex-note .ex-ddx thead th{background:var(--ex-accent);color:#fff}
+.ex-note .ex-trap{background:#fef5f5;border-left:3px solid #f87171;border-radius:8px;padding:8px 14px;margin:12px 0}
+.ex-note .ex-trap>h3:first-child,.ex-note .hs-tip-box>:is(h3,h4):first-child{display:inline-block;margin:2px 0 4px;padding:0 8px;border-radius:6px;background:#c62828;color:#fff;font-size:11.5px;font-weight:700;line-height:1.7;letter-spacing:.04em}
+.ex-note .hs-tip-box>:is(h3,h4):first-child{background:#2f7a4d}
+.ex-note .ex-trap ul>li::before{background:#f87171}
+.ex-note .ex-ddx tbody td:first-child{font-weight:700;background:#f6f8fb;width:26%;min-width:8.5em}
+.ex-note .ex-ddx thead th{background:var(--ex-soft);color:var(--ex-accent)}
 .ex-note .ex-ddx{table-layout:auto;min-width:560px}
 .ex-note .ex-ddx td,.ex-note .ex-ddx th{word-break:normal;overflow-wrap:break-word}
 .ex-toc{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin:12px 0 18px;font-size:14px}
@@ -72,17 +80,28 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-toc a{color:var(--ink-2);text-decoration:none}
 .ex-toc a:hover{color:var(--ex-accent);text-decoration:underline}
 .ex-note h2,.ex-note h3{scroll-margin-top:80px}
-.ex-note .keypoint,.ex-note .hs-tip-box,.ex-note .hs-warn-box{border-radius:12px;padding:12px 16px;margin:14px 0}
-.ex-note .keypoint{background:var(--ex-soft);border-left:4px solid var(--ex-accent)}
-.ex-note .hs-tip-box{background:#f0fdf4;border-left:4px solid #16a34a}
-.ex-note .hs-warn-box{background:#fffbeb;border-left:4px solid #d97706}
+.ex-content{min-width:0}
+.ex-toc-side{display:none}
+@media (min-width:1100px){main.ex-has-side{max-width:76rem;display:grid;grid-template-columns:230px minmax(0,48rem);gap:44px;justify-content:center;align-items:start}.ex-toc-side{display:block;position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;overscroll-behavior:contain}.ex-has-side .ex-toc{display:none}}
+.ex-toc-side{border:1px solid var(--border);border-radius:12px;background:var(--ex-card);padding:10px 10px 10px 12px;font-size:13px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.ex-toc-side::-webkit-scrollbar{width:6px}
+.ex-toc-side::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+.ex-toc-side summary{font-weight:700;cursor:pointer;color:var(--ex-accent);letter-spacing:.06em}
+.ex-toc-side ol{list-style:none;margin:6px 0 0;padding:0;line-height:1.55}
+.ex-toc-side a{display:block;padding:4px 8px;margin:1px 0;border-left:2px solid transparent;border-radius:0 6px 6px 0;color:var(--ink-2);text-decoration:none}
+.ex-toc-side a:hover{color:var(--ex-accent);background:var(--ex-soft)}
+.ex-toc-side a[aria-current]{color:var(--ex-accent);background:var(--ex-soft);border-left-color:var(--ex-accent);font-weight:700}
+.ex-toc-qs{border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
+.ex-note .keypoint,.ex-note .hs-tip-box,.ex-note .hs-warn-box{border-radius:8px;padding:8px 14px;margin:12px 0}
+.ex-note .keypoint{background:#f3f7fb;border-left:3px solid #8fb0cf}
+.ex-note .hs-tip-box{background:#f3f9f5;border-left:3px solid #6fbf8a}
+.ex-note .hs-warn-box{background:#fffaf0;border-left:3px solid #f0b453}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
 .ex-note{overflow-x:auto}
-.ref,.ex-ref{font-size:11.5px;color:#46556a;background:var(--ex-soft);border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
-.ex-hit{display:inline-block;font-size:11.5px;font-weight:600;color:#854d0e;background:#fef3c7;border-radius:9999px;padding:1px 9px;margin-left:6px}
-.ex-hit a{color:#854d0e}
+.ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
+.ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
 .ex-bar-cell{width:30%}
 .ex-bar{display:block;height:9px;border-radius:9px;background:#6b8caf}
@@ -149,7 +168,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-hitbox a{color:var(--ex-accent);font-weight:700}
 .ex-hitbox mark{background:#fef08a;color:inherit;border-radius:3px}
 .ex-locked{background:var(--ex-soft);border:1px dashed var(--border);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.8}
-.ex-locked a,.ex-hit a{font-weight:700}
+.ex-locked a{font-weight:700}
 .ex-login{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
 .ex-label{font-weight:700;font-size:14px}
 .ex-login .ex-input{flex:1;min-width:12em}
@@ -219,22 +238,26 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
-:root[data-theme="dark"] .ex-hit,:root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
-:root[data-theme="dark"] .ex-hit a{color:#fde68a}
+:root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
 :root[data-theme="dark"] .ex-badge,:root[data-theme="dark"] .ex-ok .ex-item-label{background:#14532d;color:#dcfce7}
 :root[data-theme="dark"] .ex-no .ex-item-label{background:#36404b;color:#e7e5e4}
-:root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{color:#cfe0ee}
+:root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{background:#2c2925;color:#d6d3d1}
+:root[data-theme="dark"] .ref-ext{background:#2e1065;color:#ddd6fe}
 :root[data-theme="dark"] .ex-mode[aria-pressed="true"],:root[data-theme="dark"] .ex-chip-on,:root[data-theme="dark"] .ex-cta,:root[data-theme="dark"] .ex-cta-btn{color:#14181d}
 :root[data-theme="dark"] .ex-cta.ex-cta-alt{color:var(--ex-accent)}
-:root[data-theme="dark"] .ex-note .hs-tip-box{background:#12301d}
-:root[data-theme="dark"] .ex-note .hs-warn-box{background:#332a14}
+:root[data-theme="dark"] .ex-note .hs-tip-box,:root[data-theme="dark"] .ex-legend-tip{background:rgba(20,83,45,.3);border-left-color:#3f8a5c}
+:root[data-theme="dark"] .ex-note .hs-warn-box{background:rgba(120,83,14,.3);border-left-color:#b9852c}
+:root[data-theme="dark"] .ex-note .keypoint{background:rgba(58,90,124,.3);border-left-color:#5f86ab}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt[data-correct],:root[data-theme="dark"] body:not(.ex-quiz) .ex-opt[data-correct]{background:#12301d;border-color:#16a34a}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt.ex-picked:not([data-correct]){background:#3a1a1a;border-color:#dc2626}
 :root[data-theme="dark"] .ex-hitbox mark{background:#854d0e;color:#fff}
-:root[data-theme="dark"] .ex-note mark{background:linear-gradient(transparent 45%,#854d0e 45%)}
+:root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:linear-gradient(transparent 80%,rgba(234,179,8,.5) 80%)}
+:root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
+:root[data-theme="dark"] .ex-qref a,:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
 :root[data-theme="dark"] .ex-note .num{background:#3b2414;color:#fdba74}
-:root[data-theme="dark"] .ex-note .ex-trap{background:#2d1616;border-color:#7f1d1d}
-:root[data-theme="dark"] .ex-note .ex-trap h3{color:#fca5a5}
+:root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
+:root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
+:root[data-theme="dark"] .ex-note .ex-ddx tbody td:first-child{background:var(--ex-soft)}
 :root[data-theme="dark"] .ex-toc{border-color:#36404b}
 :root[data-theme="dark"] .ex-locked{border-color:#36404b}
 :root[data-theme="dark"] .ex-login-msg{background:#3a1a1a;border-color:#7f1d1d;color:#fecaca}
@@ -244,8 +267,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-doubt-tag-now{background:#1e3a5f;color:#dbeafe}
 :root[data-theme="dark"] .ex-strip,:root[data-theme="dark"] .ex-summary-box{border-color:#36404b}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
-:root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
-:root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-toc a,:root[data-theme="dark"] .ex-toc-side a{color:#d6d3d1}
+:root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
+:root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
@@ -253,7 +277,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260729"></script>
+<script defer src="/assets/telemetry.js?v=20260730"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -281,7 +305,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 2 Ch.2</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 2 · Fundamentals and Principles of Ophthalmology</p><h1 class="ex-h1">Ch.2 The Eye</h1><p class="ex-meta">原書 p.47–106 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="2-2" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="2-2"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch2-s1">一、眼球外觀與腔室（Topographic Features of the Globe）</a></li><li><a href="#ch2-s2">二、淚膜（Tear Film）</a></li><li><a href="#ch2-s3">三、角膜（Cornea）</a></li><li><a href="#ch2-s4">四、角膜緣（Limbus）</a></li><li><a href="#ch2-s5">五、鞏膜（Sclera）</a></li><li><a href="#ch2-s6">六、前房、隅角與房水流出（Anterior Chamber）</a></li><li><a href="#ch2-s7">七、葡萄膜與虹膜（Uvea、Iris）</a></li><li><a href="#ch2-s8">八、睫狀體（Ciliary Body）</a></li><li><a href="#ch2-s9">九、脈絡膜（Choroid）</a></li><li><a href="#ch2-s10">十、水晶體（Lens）</a></li><li><a href="#ch2-s11">十一、視網膜：神經感覺視網膜（Retina、Neurosensory Retina）</a></li><li><a href="#ch2-s12">十二、視網膜地形：黃斑與中心凹（Topography of the Retina）</a></li><li><a href="#ch2-s13">十三、視網膜色素上皮與 Bruch membrane（Retinal Pigment Epithelium、Bruch Membrane）</a></li><li><a href="#ch2-s14">十四、鋸齒緣與玻璃體（Ora Serrata、Vitreous）</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 2 第 2 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch2-s1">一、眼球外觀與腔室（Topographic Features of the Globe）</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch2-s1">一、眼球外觀與腔室（Topographic Features of the Globe）</a></li><li><a href="#ch2-s2">二、淚膜（Tear Film）</a></li><li><a href="#ch2-s3">三、角膜（Cornea）</a></li><li><a href="#ch2-s4">四、角膜緣（Limbus）</a></li><li><a href="#ch2-s5">五、鞏膜（Sclera）</a></li><li><a href="#ch2-s6">六、前房、隅角與房水流出（Anterior Chamber）</a></li><li><a href="#ch2-s7">七、葡萄膜與虹膜（Uvea、Iris）</a></li><li><a href="#ch2-s8">八、睫狀體（Ciliary Body）</a></li><li><a href="#ch2-s9">九、脈絡膜（Choroid）</a></li><li><a href="#ch2-s10">十、水晶體（Lens）</a></li><li><a href="#ch2-s11">十一、視網膜：神經感覺視網膜（Retina、Neurosensory Retina）</a></li><li><a href="#ch2-s12">十二、視網膜地形：黃斑與中心凹（Topography of the Retina）</a></li><li><a href="#ch2-s13">十三、視網膜色素上皮與 Bruch membrane（Retinal Pigment Epithelium、Bruch Membrane）</a></li><li><a href="#ch2-s14">十四、鋸齒緣與玻璃體（Ora Serrata、Vitreous）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 2 Ch.2</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 2 · Fundamentals and Principles of Ophthalmology</p><h1 class="ex-h1">Ch.2 The Eye</h1><p class="ex-meta">原書 p.47–106 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="2-2" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="2-2"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch2-s1">一、眼球外觀與腔室（Topographic Features of the Globe）</a></li><li><a href="#ch2-s2">二、淚膜（Tear Film）</a></li><li><a href="#ch2-s3">三、角膜（Cornea）</a></li><li><a href="#ch2-s4">四、角膜緣（Limbus）</a></li><li><a href="#ch2-s5">五、鞏膜（Sclera）</a></li><li><a href="#ch2-s6">六、前房、隅角與房水流出（Anterior Chamber）</a></li><li><a href="#ch2-s7">七、葡萄膜與虹膜（Uvea、Iris）</a></li><li><a href="#ch2-s8">八、睫狀體（Ciliary Body）</a></li><li><a href="#ch2-s9">九、脈絡膜（Choroid）</a></li><li><a href="#ch2-s10">十、水晶體（Lens）</a></li><li><a href="#ch2-s11">十一、視網膜：神經感覺視網膜（Retina、Neurosensory Retina）</a></li><li><a href="#ch2-s12">十二、視網膜地形：黃斑與中心凹（Topography of the Retina）</a></li><li><a href="#ch2-s13">十三、視網膜色素上皮與 Bruch membrane（Retinal Pigment Epithelium、Bruch Membrane）</a></li><li><a href="#ch2-s14">十四、鋸齒緣與玻璃體（Ora Serrata、Vitreous）</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 2 第 2 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch2-s1">一、眼球外觀與腔室（Topographic Features of the Globe）</h2>
 <h3 id="ch2-s1-1">眼球形狀與大小</h3>
 <ul>
 <li id="np-1">眼球（globe）<mark>不是正球體</mark>：cornea（角膜）曲率半徑 <span class="num">8 mm</span>，小於 sclera（鞏膜）的 <span class="num">12 mm</span>；成人前後徑約 <span class="num">23–25 mm</span>、平均橫徑 <span class="num">24 mm</span> → 呈 <strong>oblate spheroid（扁球體）</strong>，赤道半徑大於極半徑。<span class="ref">p.47</span></li>
@@ -312,12 +336,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-26">外層 <strong>lipid layer（脂質層）</strong>：由 meibomian glands（瞼板腺）分泌，<mark>減少蒸發、穩定淚膜</mark>。<span class="ref">p.49</span></li>
 <li id="np-27">中層 <strong>mucoaqueous layer（黏液水層）</strong>：親水性，由 lacrimal gland（淚腺）／accessory lacrimal glands（副淚腺）與 <strong>conjunctival goblet cells（結膜杯狀細胞）</strong>分泌，成分多、呈凝膠狀；含 goblet cell mucin <strong>MUC5AC</strong>、EGF、TGF-β、IL-1RA、IgA、defensins、lactoferrin、MMP-9、TIMP1，也是氧氣到達無血管角膜的介質（Fig 2-2）。<span class="ref">p.49</span></li>
 <li id="np-28">內層 <strong>glycocalyx（醣萼）</strong>：由 goblet cells 及結膜、角膜上皮細胞分泌，含 membrane-associated mucins（MUC 1、4、16），介導黏液水層與表面上皮的互動，使凝膠狀黏液水層能平順滑過眼表。<span class="ref">p.49–50</span></li>
-<li id="np-29"><strong>Goblet cell（杯狀細胞）</strong>是<mark>結膜上皮</mark>的分泌細胞（淚膜黏液來源），<mark>不是 neurosensory retina（神經感覺視網膜）的細胞</mark>；視網膜細胞是感光細胞、bipolar、horizontal、amacrine、ganglion 細胞與 Muller 等膠細胞（見第十一節）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113">第 113 題</a></span><span class="ref">p.49–50, p.87–89, p.92</span></li>
+<li id="np-29"><strong>Goblet cell（杯狀細胞）</strong>是<mark class="ex-key">結膜上皮</mark>的分泌細胞（淚膜黏液來源），<mark class="ex-key">不是 neurosensory retina（神經感覺視網膜）的細胞</mark>；視網膜細胞是感光細胞、bipolar、horizontal、amacrine、ganglion 細胞與 Muller 等膠細胞（見第十一節）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113" aria-label="考題 Q113">Q113</a></sup>。<span class="ref">p.49–50, p.87–89, p.92</span></li>
 <li id="np-30">淚膜功能：潤滑角膜與結膜、促進溶質（包括氧氣）交換、眼表抗菌防禦、清除碎屑。<span class="ref">p.50</span></li>
 <li id="np-31">空氣與淚膜的界面因折射率差異大，是眼睛<mark>重要的屈光面</mark>；淚膜異常會明顯影響眼表完整性與視力。<span class="ref">p.50</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s2-1">易錯陷阱</h3><ul>
-<li id="np-32">脂質層來自 meibomian glands（防蒸發），黏液來自結膜 goblet cells；把 goblet cell 列為視網膜細胞是常見陷阱選項。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113">第 113 題</a></span><span class="ref">p.49</span></li>
+<li id="np-32">脂質層來自 meibomian glands（防蒸發），黏液來自結膜 goblet cells；把 goblet cell 列為視網膜細胞是常見陷阱選項⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113" aria-label="考題 Q113">Q113</a></sup>。<span class="ref">p.49</span></li>
 </ul></div>
 
 <h2 id="ch2-s3">三、角膜（Cornea）</h2>
@@ -342,27 +366,27 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <p id="np-53">出處（Fig 2-3 與各層內文）<span class="ref">p.50, p.52–54</span></p>
 <h3 id="ch2-s3-2">Epithelium and Basal Lamina（上皮與基底層）</h3>
 <ul>
-<li id="np-54">角膜上皮：<strong>lipophilic（親脂）</strong>、nonkeratinized stratified squamous epithelium（非角化複層鱗狀上皮），源自 surface ectoderm（表皮外胚層），<span class="num">4–6</span> 層細胞、厚 <span class="num">40–50 μm</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947">第 947 題</a></span><span class="ref">p.52</span></li>
-<li id="np-55">最深層 basal cells（基底細胞）寬 <span class="num">12 μm</span>、密度約 <span class="num">6000 cells/mm2</span>，以 <strong>hemidesmosomes（半橋粒）</strong>附著於下方 basal lamina（並錨定到 Bowman layer）；外傷破壞這層、半橋粒重建不良 → <mark>recurrent corneal erosion（反覆性角膜上皮糜爛）</mark>與結疤。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">p.47, p.52</span></li>
-<li id="np-56">其上為 2 或 3 層多角形 wing cells（翼細胞）；最表面 1–2 層 surface cells 極薄（<span class="num">30 μm</span>），以 <strong>tight junctions（緊密連接）</strong>相連 → 形成擴散屏障；表層細胞頂膜有 <strong>microvilli（微絨毛）</strong>使表面不規則，靠淚膜才變得光學平滑。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947">第 947 題</a></span><span class="ref">p.52</span></li>
+<li id="np-54">角膜上皮：<strong>lipophilic（親脂）</strong>、nonkeratinized stratified squamous epithelium（非角化複層鱗狀上皮），源自 surface ectoderm（表皮外胚層），<span class="num">4–6</span> 層細胞、厚 <span class="num">40–50 μm</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947" aria-label="考題 Q947">Q947</a></sup>。<span class="ref">p.52</span></li>
+<li id="np-55">最深層 basal cells（基底細胞）寬 <span class="num">12 μm</span>、密度約 <span class="num">6000 cells/mm2</span>，以 <strong>hemidesmosomes（半橋粒）</strong>附著於下方 basal lamina（並錨定到 Bowman layer）；外傷破壞這層、半橋粒重建不良 → <mark class="ex-key">recurrent corneal erosion（反覆性角膜上皮糜爛）</mark>與結疤⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref">p.47, p.52</span></li>
+<li id="np-56">其上為 2 或 3 層多角形 wing cells（翼細胞）；最表面 1–2 層 surface cells 極薄（<span class="num">30 μm</span>），以 <strong>tight junctions（緊密連接）</strong>相連 → 形成擴散屏障；表層細胞頂膜有 <strong>microvilli（微絨毛）</strong>使表面不規則，靠淚膜才變得光學平滑⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947" aria-label="考題 Q947">Q947</a></sup>。<span class="ref">p.52</span></li>
 <li id="np-57">較深層細胞以 desmosomes（橋粒）相連，持續由基底向淚膜移行並脫落；同時由角膜緣的 stem cells（幹細胞）向中央移行。廣泛 limbal stem cell 損傷（如 chemical burn（化學灼傷）、trachoma（砂眼））→ 慢性上皮表面疾病。<span class="ref">p.52</span></li>
 </ul>
 <ul>
-<li id="np-58">（本章外，BCSC 8 第 1 章）BCSC 8 稱角膜上皮為 <strong>hydrophobic（疏水）</strong>，與本章的 lipophilic 同義；基底細胞分泌連續、厚 <span class="num">50 nm</span> 的 basement membrane，<mark>由 type IV collagen、laminin 等組成</mark> → type IV collagen 不是 Descemet membrane 獨有。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947">第 947 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">BCSC 8 p.11</span></li>
-<li id="np-59">（本章外，BCSC 8 第 1 章）<strong>Corneal apex（角膜頂點）</strong>＝曲率最大點，通常在瞳孔中心顳側；<strong>corneal vertex</strong>＝line of sight（視線）與角膜表面的交點（同軸照明下的角膜反光點），<mark>兩者不一定重合</mark> → 「角膜頂點即視軸中心」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947">第 947 題</a></span><span class="ref">BCSC 8 p.11</span></li>
+<li id="np-58">（本章外，BCSC 8 第 1 章）BCSC 8 稱角膜上皮為 <strong>hydrophobic（疏水）</strong>，與本章的 lipophilic 同義；基底細胞分泌連續、厚 <span class="num">50 nm</span> 的 basement membrane，<mark class="ex-key">由 type IV collagen、laminin 等組成</mark> → type IV collagen 不是 Descemet membrane 獨有⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947" aria-label="考題 Q947">Q947</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref ref-ext">BCSC 8 p.11</span></li>
+<li id="np-59">（本章外，BCSC 8 第 1 章）<strong>Corneal apex（角膜頂點）</strong>＝曲率最大點，通常在瞳孔中心顳側；<strong>corneal vertex</strong>＝line of sight（視線）與角膜表面的交點（同軸照明下的角膜反光點），<mark class="ex-key">兩者不一定重合</mark> → 「角膜頂點即視軸中心」是錯的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947" aria-label="考題 Q947">Q947</a></sup>。<span class="ref ref-ext">BCSC 8 p.11</span></li>
 </ul>
 <h3 id="ch2-s3-3">Bowman Layer（包氏層）</h3>
 <ul>
 <li id="np-60">位於上皮 basal lamina 之下，由隨機分布的 collagen fibrils 組成，是前基質的變形區，厚 <span class="num">8–15 μm</span>。<span class="ref">p.52–53</span></li>
-<li id="np-61"><mark>受傷後不會恢復，而是由疤痕組織取代</mark>（與 Descemet membrane 可再生相反）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">p.53</span></li>
+<li id="np-61"><mark class="ex-key">受傷後不會恢復，而是由疤痕組織取代</mark>（與 Descemet membrane 可再生相反）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref">p.53</span></li>
 </ul>
 <h3 id="ch2-s3-4">Stroma（基質）</h3>
 <ul>
 <li id="np-62">厚 <span class="num">470–500 μm</span>，約占角膜總厚度 <span class="num">90%</span>；由製造膠原的 <strong>keratocytes（角膜細胞）</strong>、ground substance（基質）與 collagen lamellae（膠原板層）組成。<span class="ref">p.53</span></li>
-<li id="np-63">前三分之一基質的板層斜向排列且有交織；後三分之二板層互相垂直、<mark>較不緻密</mark> → 前基質比後基質緻密。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947">第 947 題</a></span><span class="ref">p.53</span></li>
+<li id="np-63">前三分之一基質的板層斜向排列且有交織；後三分之二板層互相垂直、<mark class="ex-key">較不緻密</mark> → 前基質比後基質緻密⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947" aria-label="考題 Q947">Q947</a></sup>。<span class="ref">p.53</span></li>
 <li id="np-64">膠原纖維橫貫整個角膜直徑，<mark>粗細與間距非常均一 → 角膜透明</mark>；水腫把纖維撐開 → 基質混濁。<span class="ref">p.53</span></li>
 <li id="np-65">膠原以 <strong>type I</strong> 為主、部分 type V；type III 與傷口癒合有關；type VI 纏繞於纖維間、黏合板層；type VII 形成上皮的 anchoring fibril（錨定纖維）。<span class="ref">p.53</span></li>
-<li id="np-66">Ground substance 為 proteoglycans；其 <strong>glycosaminoglycan（GAG，醣胺聚醣）</strong>（如 keratan sulfate）<mark>帶負電、互相排斥並吸入鈉離子與水 → 產生基質的 swelling pressure（膨脹壓）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947">第 947 題</a></span><span class="ref">p.53</span></li>
+<li id="np-66">Ground substance 為 proteoglycans；其 <strong>glycosaminoglycan（GAG，醣胺聚醣）</strong>（如 keratan sulfate）<mark class="ex-key">帶負電、互相排斥並吸入鈉離子與水 → 產生基質的 swelling pressure（膨脹壓）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947" aria-label="考題 Q947">Q947</a></sup>。<span class="ref">p.53</span></li>
 <li id="np-67">角膜約有 <span class="num">2.4 million</span> 個 keratocytes，占基質體積約 <span class="num">5%</span>；密度前方（<span class="num">1058 cells/mm2</span>）高於後方（<span class="num">771 cells/mm2</span>）；富含粒線體、粗糙內質網與 Golgi，以 gap junctions 溝通，超微結構似 fibrocyte；扁平且在冠狀面均勻分布，不干擾透光。<span class="ref">p.53</span></li>
 <li id="np-68">基質最深處有薄的無細胞層（<span class="num">10–20 μm</span>），緊貼 Descemet membrane，稱 <strong>Dua layer</strong>，是 deep anterior lamellar keratoplasty（DALK，深層前板層角膜移植）的重要標記。<span class="ref">p.53</span></li>
 </ul>
@@ -370,14 +394,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-69">角膜內皮的 basal lamina，<strong>PAS 陽性</strong>，是真正的 basement membrane，<mark>厚度隨年齡增加</mark>：出生 <span class="num">3–4 μm</span> → 成人 <span class="num">10–12 μm</span>。<span class="ref">p.53–54</span></li>
 <li id="np-70">分前 <strong>banded zone</strong>（胎兒期形成，<span class="num">4.6 ± 0.4 μm</span>）與後 <strong>nonbanded zone</strong>（內皮終生持續分泌，成人平均 <span class="num">11.8 ± 0.4 μm</span>，每年增加約 <span class="num">0.1 μm</span>），記錄了內皮的合成歷史。<span class="ref">p.54</span></li>
-<li id="np-71">「<mark>如同其他 basal laminae</mark>」，Descemet membrane 富含 <strong>type IV collagen（第四型膠原）</strong> → type IV 是所有基底膜共通成分，<mark>不是 Descemet 獨有</mark>（水晶體囊也富含 type IV collagen）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">p.54, p.83</span></li>
+<li id="np-71">「<mark class="ex-key">如同其他 basal laminae</mark>」，Descemet membrane 富含 <strong>type IV collagen（第四型膠原）</strong> → type IV 是所有基底膜共通成分，<mark class="ex-key">不是 Descemet 獨有</mark>（水晶體囊也富含 type IV collagen）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref">p.54, p.83</span></li>
 <li id="np-72">周邊贅生物 <strong>Hassall-Henle warts</strong> 常見於老年人；中央贅生物 <strong>corneal guttae</strong> 典型見於 Fuchs endothelial dystrophy（Fuchs 內皮失養症），也可隨年齡出現。<span class="ref">p.54</span></li>
 </ul>
 <h3 id="ch2-s3-6">Endothelium（內皮）</h3>
 <ul>
 <li id="np-73">厚 <span class="num">4–6 μm</span>，單層六角形細胞，源自 <strong>neural crest（神經嵴）</strong>（因此屬 neuroectodermal origin）。<span class="ref">p.54</span></li>
 <li id="np-74">年輕成人約 <span class="num">500,000</span> 個細胞，密度中央約 <span class="num">3000/mm2</span>、周邊可達 <span class="num">8000/mm2</span>；人類內皮<mark>分裂能力有限，細胞總數隨年齡下降</mark>；可在 slit lamp 以 specular microscopy（鏡面顯微鏡）觀察。<span class="ref">p.54</span></li>
-<li id="np-75">頂面朝前房、基底面分泌 Descemet membrane；<mark>年輕內皮細胞核大、粒線體豐富</mark>，以主動離子運輸把水帶出基質 → 維持 stromal deturgescence（基質脫水狀態）與透明。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">p.55</span></li>
+<li id="np-75">頂面朝前房、基底面分泌 Descemet membrane；<mark class="ex-key">年輕內皮細胞核大、粒線體豐富</mark>，以主動離子運輸把水帶出基質 → 維持 stromal deturgescence（基質脫水狀態）與透明⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref">p.55</span></li>
 <li id="np-76">手術傷害、發炎或疾病（如 Fuchs endothelial corneal dystrophy）造成內皮失能 → endothelial decompensation、基質水腫、視力下降；細胞流失後殘存細胞攤平、變大，密度下降。Fuchs 的 specular 影像：polymegathism（細胞變大）、pleomorphism（大小形狀不一）、guttae 暗區。<span class="ref">p.55</span></li>
 </ul>
 <h3 id="ch2-s3-7">Corneal Nerves（角膜神經）</h3>
@@ -388,11 +412,11 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-80">CN V1 的眼表痛覺與淚腺、orbicularis oculi（眼輪匝肌）配合，分別產生反射性流淚與眨眼。<span class="ref">p.56</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s3-8">易錯陷阱</h3><ul>
-<li id="np-81">Bowman layer 受傷不再生（結疤）；Descemet membrane 則持續增厚、可由內皮再分泌。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">p.53</span></li>
-<li id="np-82">「Descemet membrane 的 type IV collagen 是其他角膜組織沒有的」是錯的：type IV 是基底膜共通成分，上皮基底膜也有。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">p.54</span></li>
-<li id="np-83">反覆性角膜糜爛的病灶在基底細胞與 basal lamina 之間的 hemidesmosome 附著。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">p.52</span></li>
-<li id="np-84">中央角膜比周邊<strong>薄</strong>（<span class="num">500–600 μm</span> vs <span class="num">1000 μm</span>）；前基質比後基質<strong>緻密</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947">第 947 題</a></span><span class="ref">p.51, p.53</span></li>
-<li id="np-85">角膜內皮源自 neural crest；年輕成人約 <span class="num">500,000</span> 個細胞——不要與小樑網細胞數混淆（見第六節）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">p.54</span></li>
+<li id="np-81">Bowman layer 受傷不再生（結疤）；Descemet membrane 則持續增厚、可由內皮再分泌⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref">p.53</span></li>
+<li id="np-82">「Descemet membrane 的 type IV collagen 是其他角膜組織沒有的」是錯的：type IV 是基底膜共通成分，上皮基底膜也有⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref">p.54</span></li>
+<li id="np-83">反覆性角膜糜爛的病灶在基底細胞與 basal lamina 之間的 hemidesmosome 附著⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref">p.52</span></li>
+<li id="np-84">中央角膜比周邊<strong>薄</strong>（<span class="num">500–600 μm</span> vs <span class="num">1000 μm</span>）；前基質比後基質<strong>緻密</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-947" data-q="947" aria-label="考題 Q947">Q947</a></sup>。<span class="ref">p.51, p.53</span></li>
+<li id="np-85">角膜內皮源自 neural crest；年輕成人約 <span class="num">500,000</span> 個細胞——不要與小樑網細胞數混淆（見第六節）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref">p.54</span></li>
 </ul></div>
 
 <h2 id="ch2-s4">四、角膜緣（Limbus）</h2>
@@ -408,7 +432,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch2-s5-1">範圍與厚度</h3>
 <ul>
 <li id="np-91">鞏膜覆蓋眼球表面後方的六分之五，前方開口給角膜、後方開口給視神經；直肌肌腱附著於淺層鞏膜膠原；<strong>Tenon capsule（Tenon 囊）</strong>在前方覆蓋鞏膜與直肌，外面再由 bulbar conjunctiva（球結膜）覆蓋，兩者在角膜緣附近融合。<span class="ref">p.57</span></li>
-<li id="np-92"><mark>最薄處在直肌附著點正後方（<span class="num">0.3 mm</span>）</mark>；最厚處在後極視神經頭周圍（<span class="num">1.0 mm</span>）；赤道部 <span class="num">0.4–0.5 mm</span>；直肌附著點前方 <span class="num">0.6 mm</span>。因厚度變化，斜視與視網膜剝離手術縫合須避免穿孔。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-178" data-q="178">第 178 題</a></span><span class="ref">p.58</span></li>
+<li id="np-92"><mark class="ex-key">最薄處在直肌附著點正後方（<span class="num">0.3 mm</span>）</mark>；最厚處在後極視神經頭周圍（<span class="num">1.0 mm</span>）；赤道部 <span class="num">0.4–0.5 mm</span>；直肌附著點前方 <span class="num">0.6 mm</span>。因厚度變化，斜視與視網膜剝離手術縫合須避免穿孔⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-178" data-q="178" aria-label="考題 Q178">Q178</a></sup>。<span class="ref">p.58</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Location（位置）</th><th>Scleral thickness（鞏膜厚度）</th></tr></thead>
@@ -431,22 +455,22 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-106">脈絡膜 malignant melanoma（惡性黑色素瘤）經 <mark>middle emissaria</mark>（渦靜脈通道）向眼外延伸。<span class="ref">p.59</span></li>
 <li id="np-107"><strong>Axenfeld loops（Axenfeld 神經環）</strong>：供應角膜的睫狀神經分支在鼻側與顳側角膜緣後方穿出鞏膜成環，有時帶色素，易被誤認為葡萄膜組織或黑色素瘤。<span class="ref">p.59</span></li>
 <li id="np-108">直肌附著點前方的 episclera 為緻密血管性結締組織；scleral stroma 由膠原束、fibroblasts 與中等量 ground substance 組成。<span class="ref">p.59</span></li>
-<li id="np-109">鞏膜膠原粗細形狀不一、末端漸細（不像角膜是連續纖維）；鞏膜最內層 <strong>lamina fusca（棕黑層）</strong>與葡萄膜的 suprachoroidal、supraciliary lamellae 融合。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a></span><span class="ref">p.59</span></li>
+<li id="np-109">鞏膜膠原粗細形狀不一、末端漸細（不像角膜是連續纖維）；鞏膜最內層 <strong>lamina fusca（棕黑層）</strong>與葡萄膜的 suprachoroidal、supraciliary lamellae 融合⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a></sup>。<span class="ref">p.59</span></li>
 <li id="np-110">鞏膜不透明呈瓷白，主因：膠原纖維間距與直徑變異較大、纖維交織程度較高；角膜透明另一原因是缺乏血管。<span class="ref">p.59</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s5-3">易錯陷阱</h3><ul>
-<li id="np-111">鞏膜最薄是「直肌附著點正後方 <span class="num">0.3 mm</span>」，不是赤道（<span class="num">0.4–0.5 mm</span>），也不是附著點前方（<span class="num">0.6 mm</span>）；視神經周圍 <span class="num">1.0 mm</span> 最厚。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-178" data-q="178">第 178 題</a></span><span class="ref">p.58</span></li>
+<li id="np-111">鞏膜最薄是「直肌附著點正後方 <span class="num">0.3 mm</span>」，不是赤道（<span class="num">0.4–0.5 mm</span>），也不是附著點前方（<span class="num">0.6 mm</span>）；視神經周圍 <span class="num">1.0 mm</span> 最厚⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-178" data-q="178" aria-label="考題 Q178">Q178</a></sup>。<span class="ref">p.58</span></li>
 <li id="np-112">Episcleritis 是淺層 episcleral plexus，scleritis 是深層 plexus。<span class="ref">p.58</span></li>
 <li id="np-113">渦靜脈走 middle emissaria；長短後睫狀血管與神經走 posterior emissaria；前睫狀動脈走 anterior emissaria。<span class="ref">p.58</span></li>
-<li id="np-114">本章的 lamina fusca 是「鞏膜最內層」；BCSC 4 則把它列為脈絡膜最外層（見第九節），題目常以後者出題。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a></span><span class="ref">p.59；BCSC 4 p.218</span></li>
+<li id="np-114">本章的 lamina fusca 是「鞏膜最內層」；BCSC 4 則把它列為脈絡膜最外層（見第九節），題目常以後者出題⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a></sup>。<span class="ref">p.59；BCSC 4 p.218</span></li>
 </ul></div>
 
 <h2 id="ch2-s6">六、前房、隅角與房水流出（Anterior Chamber）</h2>
 <h3 id="ch2-s6-1">前房與隅角結構</h3>
 <ul>
 <li id="np-115">前房前界為角膜，後界為 iris diaphragm（虹膜）與瞳孔。<span class="ref">p.60</span></li>
-<li id="np-116"><strong>Anterior chamber angle（前房隅角）</strong>（角膜與虹膜交接處）包含：<mark>Schwalbe line、Schlemm canal 與 trabecular meshwork（小樑網）、scleral spur（鞏膜突）、ciliary body 前緣（縱行肌纖維附著於鞏膜突）、peripheral iris（周邊虹膜）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-155" data-q="155">第 155 題</a></span><span class="ref">p.60</span></li>
-<li id="np-117"><strong>Ora serrata（鋸齒緣）</strong>是極周邊視網膜與 pars plana 的交界，需以接觸鏡或 indirect ophthalmoscopy（間接眼底鏡）加 scleral depression（鞏膜壓迫）才看得到，<mark>不屬於前房隅角</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-155" data-q="155">第 155 題</a></span><span class="ref">p.87</span></li>
+<li id="np-116"><strong>Anterior chamber angle（前房隅角）</strong>（角膜與虹膜交接處）包含：<mark class="ex-key">Schwalbe line、Schlemm canal 與 trabecular meshwork（小樑網）、scleral spur（鞏膜突）、ciliary body 前緣（縱行肌纖維附著於鞏膜突）、peripheral iris（周邊虹膜）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-155" data-q="155" aria-label="考題 Q155">Q155</a></sup>。<span class="ref">p.60</span></li>
+<li id="np-117"><strong>Ora serrata（鋸齒緣）</strong>是極周邊視網膜與 pars plana 的交界，需以接觸鏡或 indirect ophthalmoscopy（間接眼底鏡）加 scleral depression（鞏膜壓迫）才看得到，<mark class="ex-key">不屬於前房隅角</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-155" data-q="155" aria-label="考題 Q155">Q155</a></sup>。<span class="ref">p.87</span></li>
 <li id="np-118">前房深度平均 <span class="num">3.11 mm</span>：無水晶體眼、人工水晶體眼、近視較深，遠視較淺；中央最深，最窄處在隅角隱窩稍中央側。<span class="ref">p.60</span></li>
 <li id="np-119">Internal scleral sulcus（鞏膜內溝）外側容納 Schlemm canal、內側容納小樑網；前緣是 Schwalbe line（Descemet membrane 的周邊終點）、後界標記是 scleral spur。睫狀肌縱行纖維附著於鞏膜突，<mark>收縮時撐開小樑間隙</mark>。<span class="ref">p.64</span></li>
 <li id="np-120">Scleral spur cells：環狀排列、似 myofibroblast（肌纖維母細胞）具收縮性，形似 mechanoreceptor（機械感受器）、有感覺神經支配，並以彈性組織連到小樑網；實驗中 vasoactive intestinal polypeptide（VIP）或 calcitonin gene–related peptide（CGRP）刺激可增加房水流出。<span class="ref">p.64</span></li>
@@ -461,50 +485,50 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch2-s6-3">Trabecular Meshwork（小樑網）</h3>
 <ul>
-<li id="np-126">流出裝置由角膜、鞏膜、虹膜與睫狀體來源的組織構成；小樑網是環狀海綿狀結締組織，內襯 <strong>trabeculocytes（小樑細胞）</strong>：<mark>具收縮性（可影響流出阻力）與 phagocytic（吞噬）功能</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1176" data-q="1176">第 1176 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202">第 1202 題</a></span><span class="ref">p.64</span></li>
+<li id="np-126">流出裝置由角膜、鞏膜、虹膜與睫狀體來源的組織構成；小樑網是環狀海綿狀結締組織，內襯 <strong>trabeculocytes（小樑細胞）</strong>：<mark class="ex-key">具收縮性（可影響流出阻力）與 phagocytic（吞噬）功能</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1176" data-q="1176" aria-label="考題 Q1176">Q1176</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a></sup>。<span class="ref">p.64</span></li>
 <li id="np-127">橫切面約呈三角形：頂點在 Schwalbe line，底部由 scleral spur 與 ciliary body 構成。<span class="ref">p.64</span></li>
 <li id="np-128">分三層：<strong>uveal</strong>、<strong>corneoscleral</strong>、<strong>juxtacanalicular（近管組織，緊鄰 Schlemm canal）</strong>；由 Schwalbe line 拉到 scleral spur 的假想線區分 uveal（內側）與 corneoscleral（外側）。<span class="ref">p.64</span></li>
-<li id="np-129"><mark>小樑網老化：色素增加、小樑細胞數減少、小樑細胞下方的 basement membrane（基底膜）增厚</mark>；小樑片增厚 2–3 倍；內皮細胞減少、<strong>結締組織增加</strong>、碎屑堆積、細胞外 glycosaminoglycans 累積 → 房水流出阻力上升，open-angle glaucoma（隅角開放性青光眼）時更明顯。所以「色素變少」「細胞增生」「結締組織變少」「基底膜變薄」皆錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-167" data-q="167">第 167 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142">第 1142 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202">第 1202 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1251" data-q="1251">第 1251 題</a></span><span class="ref">p.64–65</span></li>
-<li id="np-130"><strong>Uveal meshwork</strong>：面向前房，由索狀小樑構成，彈性纖維比 corneoscleral 少；<mark>其小樑細胞通常含 pigment granules（色素顆粒）</mark>；孔隙較不圓、<mark>較大</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142">第 1142 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.65</span></li>
+<li id="np-129"><mark class="ex-key">小樑網老化：色素增加、小樑細胞數減少、小樑細胞下方的 basement membrane（基底膜）增厚</mark>；小樑片增厚 2–3 倍；內皮細胞減少、<strong>結締組織增加</strong>、碎屑堆積、細胞外 glycosaminoglycans 累積 → 房水流出阻力上升，open-angle glaucoma（隅角開放性青光眼）時更明顯。所以「色素變少」「細胞增生」「結締組織變少」「基底膜變薄」皆錯⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-167" data-q="167" aria-label="考題 Q167">Q167</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142" aria-label="考題 Q1142">Q1142</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1251" data-q="1251" aria-label="考題 Q1251">Q1251</a></sup>。<span class="ref">p.64–65</span></li>
+<li id="np-130"><strong>Uveal meshwork</strong>：面向前房，由索狀小樑構成，彈性纖維比 corneoscleral 少；<mark class="ex-key">其小樑細胞通常含 pigment granules（色素顆粒）</mark>；孔隙較不圓、<mark class="ex-key">較大</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142" aria-label="考題 Q1142">Q1142</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.65</span></li>
 <li id="np-131"><strong>Corneoscleral meshwork</strong>：薄、扁平、有孔的結締組織片層狀排列；每根小樑表面覆單層薄小樑細胞（含多個 pinocytotic vesicles），細胞的 basal lamina 構成小樑外皮，內核為膠原與彈性纖維。<span class="ref">p.65</span></li>
-<li id="np-132"><strong>Juxtacanalicular meshwork</strong>：包覆整個 Schlemm canal 並構成其內壁；其中的 endothelial meshwork 為多層鬆散細胞網，細胞間隙最寬 <span class="num">10 μm</span>，房水由此滲到 Schlemm canal 內皮；因路徑窄而曲折，加上細胞外 proteoglycans 與 glycoproteins，<mark>是流出阻力最大處（endothelial meshwork within JCT = highest point of resistance）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">p.63, p.65</span></li>
-<li id="np-133">阻力由內而外遞增：<mark>uveal（孔隙最大）&lt; corneoscleral &lt; juxtacanalicular（最高）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.63, p.65</span></li>
+<li id="np-132"><strong>Juxtacanalicular meshwork</strong>：包覆整個 Schlemm canal 並構成其內壁；其中的 endothelial meshwork 為多層鬆散細胞網，細胞間隙最寬 <span class="num">10 μm</span>，房水由此滲到 Schlemm canal 內皮；因路徑窄而曲折，加上細胞外 proteoglycans 與 glycoproteins，<mark class="ex-key">是流出阻力最大處（endothelial meshwork within JCT = highest point of resistance）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref">p.63, p.65</span></li>
+<li id="np-133">阻力由內而外遞增：<mark class="ex-key">uveal（孔隙最大）&lt; corneoscleral &lt; juxtacanalicular（最高）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.63, p.65</span></li>
 <li id="np-134">MIGS（microinvasive glaucoma surgery，微創青光眼手術）之一是把 microstent 放進 Schlemm canal，繞過阻力最大的小樑網以增加流出。<span class="ref">p.67</span></li>
 </ul>
 <ul>
-<li id="np-135">（本章外，BCSC 10 第 2 章）每眼約有 <span class="num">200,000–300,000</span> 個小樑網細胞（不是 500,000–600,000）；多數年長成人小樑網細胞質內含大量色素顆粒；隨年齡細胞數減少、其下基底膜增厚，可能增加流出阻力。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221">第 1221 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142">第 1142 題</a></span><span class="ref">BCSC 10 p.25</span></li>
+<li id="np-135">（本章外，BCSC 10 第 2 章）每眼約有 <span class="num">200,000–300,000</span> 個小樑網細胞（不是 500,000–600,000）；多數年長成人小樑網細胞質內含大量色素顆粒；隨年齡細胞數減少、其下基底膜增厚，可能增加流出阻力⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142" aria-label="考題 Q1142">Q1142</a></sup>。<span class="ref ref-ext">BCSC 10 p.25</span></li>
 </ul>
 <h3 id="ch2-s6-4">Schlemm Canal（Schlemm 管）</h3>
 <ul>
-<li id="np-136">環狀管道，<mark>很像 lymphatic vessel（淋巴管）</mark>；由<strong>連續單層、無窗孔的內皮</strong>加薄層結締組織壁構成（即完全由內皮襯覆）；內皮 basement membrane 不明顯；內皮細胞側壁以 tight junctions 相連。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142">第 1142 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1176" data-q="1176">第 1176 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202">第 1202 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">p.65</span></li>
-<li id="np-137">內皮細胞頂面與底面都有 <strong>micropinocytotic vesicles（微胞飲小泡）</strong>；沿管內壁另有較大的 <strong>giant vacuoles（巨大空泡）</strong>，單層膜，<mark>大小與數目隨眼壓升高而增加</mark>，被認為參與壓力依賴性流出 → 題目把「隨眼壓增大增多」套在 micropinocytotic vesicles 上並不精確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.65</span></li>
+<li id="np-136">環狀管道，<mark class="ex-key">很像 lymphatic vessel（淋巴管）</mark>；由<strong>連續單層、無窗孔的內皮</strong>加薄層結締組織壁構成（即完全由內皮襯覆）；內皮 basement membrane 不明顯；內皮細胞側壁以 tight junctions 相連⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142" aria-label="考題 Q1142">Q1142</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1176" data-q="1176" aria-label="考題 Q1176">Q1176</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref">p.65</span></li>
+<li id="np-137">內皮細胞頂面與底面都有 <strong>micropinocytotic vesicles（微胞飲小泡）</strong>；沿管內壁另有較大的 <strong>giant vacuoles（巨大空泡）</strong>，單層膜，<mark class="ex-key">大小與數目隨眼壓升高而增加</mark>，被認為參與壓力依賴性流出 → 題目把「隨眼壓增大增多」套在 micropinocytotic vesicles 上並不精確⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.65</span></li>
 <li id="np-138">電顯可見空泡同時開口於基底側與管腔，形成暫時的 vacuolar transcellular channel（跨細胞通道），允許房水 bulk outflow（整體流出）。<span class="ref">p.67</span></li>
 </ul>
 <ul>
-<li id="np-139">（本章外，BCSC 10 第 2 章）Schlemm canal 是單一管道，直徑一般約 <span class="num">200–300 μm</span>（個體差異大，可有狹窄處）；<mark>眼壓上升時 Schlemm canal 截面積縮小，小樑網則擴張</mark> → 「眼壓上升時 Schlemm canal 變寬」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1176" data-q="1176">第 1176 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202">第 1202 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">BCSC 10 p.26</span></li>
+<li id="np-139">（本章外，BCSC 10 第 2 章）Schlemm canal 是單一管道，直徑一般約 <span class="num">200–300 μm</span>（個體差異大，可有狹窄處）；<mark class="ex-key">眼壓上升時 Schlemm canal 截面積縮小，小樑網則擴張</mark> → 「眼壓上升時 Schlemm canal 變寬」是錯的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1176" data-q="1176" aria-label="考題 Q1176">Q1176</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref ref-ext">BCSC 10 p.26</span></li>
 </ul>
 <h3 id="ch2-s6-5">Collector Channels（集液管）</h3>
 <ul>
-<li id="np-140">約 <span class="num">25–30</span> 條 collector channels 由 Schlemm canal 發出，流入 <strong>deep 與 midscleral venous plexuses</strong>；其中最多 <span class="num">8</span> 條直接以 <strong>aqueous veins（房水靜脈）</strong>流入 episcleral venous plexus，裂隙燈下可見（房水與血液的層流）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.67–68</span></li>
-<li id="np-141">Fig 2-22：Sondermann channels 為由 Schlemm canal 伸入小樑網的盲端小憩室；collector channels 吻合成 intrascleral 與 deep scleral venous plexuses；aqueous veins 由 intrascleral plexus 發出、直接接 episcleral veins；動脈供應雖貼近 Schlemm canal，但<mark>兩者沒有直接相通</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.68</span></li>
+<li id="np-140">約 <span class="num">25–30</span> 條 collector channels 由 Schlemm canal 發出，流入 <strong>deep 與 midscleral venous plexuses</strong>；其中最多 <span class="num">8</span> 條直接以 <strong>aqueous veins（房水靜脈）</strong>流入 episcleral venous plexus，裂隙燈下可見（房水與血液的層流）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.67–68</span></li>
+<li id="np-141">Fig 2-22：Sondermann channels 為由 Schlemm canal 伸入小樑網的盲端小憩室；collector channels 吻合成 intrascleral 與 deep scleral venous plexuses；aqueous veins 由 intrascleral plexus 發出、直接接 episcleral veins；動脈供應雖貼近 Schlemm canal，但<mark class="ex-key">兩者沒有直接相通</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.68</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s6-6">易錯陷阱</h3><ul>
-<li id="np-142">小樑網老化：色素「增加」、細胞「減少」、基底膜「增厚」、結締組織「增加」——四個方向都常被反寫。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-167" data-q="167">第 167 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142">第 1142 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202">第 1202 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1251" data-q="1251">第 1251 題</a></span><span class="ref">p.64–65</span></li>
-<li id="np-143">流出阻力最大在 juxtacanalicular meshwork（其 endothelial meshwork），不是 uveal meshwork。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221">第 1221 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.65</span></li>
-<li id="np-144">眼壓上升：giant vacuoles 變大變多、小樑網擴張，但 Schlemm canal 截面積「縮小」（後者本章外，BCSC 10 p.26）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1176" data-q="1176">第 1176 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.65</span></li>
-<li id="np-145">Ora serrata 不在隅角；隅角由前到後是 Schwalbe line → 小樑網（Schlemm canal）→ scleral spur → ciliary body band → peripheral iris。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-155" data-q="155">第 155 題</a></span><span class="ref">p.60, p.87</span></li>
-<li id="np-146">Uveoscleral outflow 在年輕人可達 <span class="num">50%</span>，隨年齡減少；與小樑網色素「隨年齡增加」方向相反。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1251" data-q="1251">第 1251 題</a></span><span class="ref">p.60, p.64</span></li>
+<li id="np-142">小樑網老化：色素「增加」、細胞「減少」、基底膜「增厚」、結締組織「增加」——四個方向都常被反寫⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-167" data-q="167" aria-label="考題 Q167">Q167</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1142" data-q="1142" aria-label="考題 Q1142">Q1142</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1251" data-q="1251" aria-label="考題 Q1251">Q1251</a></sup>。<span class="ref">p.64–65</span></li>
+<li id="np-143">流出阻力最大在 juxtacanalicular meshwork（其 endothelial meshwork），不是 uveal meshwork⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.65</span></li>
+<li id="np-144">眼壓上升：giant vacuoles 變大變多、小樑網擴張，但 Schlemm canal 截面積「縮小」（後者本章外，BCSC 10 p.26）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1176" data-q="1176" aria-label="考題 Q1176">Q1176</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.65</span></li>
+<li id="np-145">Ora serrata 不在隅角；隅角由前到後是 Schwalbe line → 小樑網（Schlemm canal）→ scleral spur → ciliary body band → peripheral iris⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-155" data-q="155" aria-label="考題 Q155">Q155</a></sup>。<span class="ref">p.60, p.87</span></li>
+<li id="np-146">Uveoscleral outflow 在年輕人可達 <span class="num">50%</span>，隨年齡減少；與小樑網色素「隨年齡增加」方向相反⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1251" data-q="1251" aria-label="考題 Q1251">Q1251</a></sup>。<span class="ref">p.60, p.64</span></li>
 </ul></div>
 
 <h2 id="ch2-s7">七、葡萄膜與虹膜（Uvea、Iris）</h2>
 <h3 id="ch2-s7-1">Uvea（葡萄膜）總論</h3>
 <ul>
 <li id="np-147">Uvea（uveal tract）是眼睛主要血管層，三部分：iris（anterior uvea）、ciliary body（anterior pars plicata 與 middle pars plana）、choroid（posterior uvea）。<span class="ref">p.69</span></li>
-<li id="np-148"><mark>葡萄膜只在 3 處與鞏膜緊密附著：scleral spur、vortex veins 出口、optic nerve</mark>；這些附著點造成脈絡膜剝離典型的前方圓頂狀外觀。故「uvea 與 sclera 在 vortex veins 出口只有 loose attachment」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a></span><span class="ref">p.69</span></li>
+<li id="np-148"><mark class="ex-key">葡萄膜只在 3 處與鞏膜緊密附著：scleral spur、vortex veins 出口、optic nerve</mark>；這些附著點造成脈絡膜剝離典型的前方圓頂狀外觀。故「uvea 與 sclera 在 vortex veins 出口只有 loose attachment」是錯的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a></sup>。<span class="ref">p.69</span></li>
 <li id="np-149">2005 SUN（Standardization of Uveitis Nomenclature）Working Group 依主要發炎部位分類：anterior uveitis（前房）、intermediate uveitis（玻璃體）、posterior uveitis（視網膜或脈絡膜）、panuveitis（前房、玻璃體及視網膜或脈絡膜）。<span class="ref">p.70</span></li>
 </ul>
 <ul>
-<li id="np-150">（本章外，BCSC 4 第 11 章）BCSC 4 將三處緊密附著寫為 scleral spur、emissarial canals（vortex veins 與 posterior ciliary arteries/nerves 出口）及 optic nerve，這些點限定了 suprauveal space（葡萄膜上腔）積液與出血的範圍。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a></span><span class="ref">BCSC 4 p.215</span></li>
+<li id="np-150">（本章外，BCSC 4 第 11 章）BCSC 4 將三處緊密附著寫為 scleral spur、emissarial canals（vortex veins 與 posterior ciliary arteries/nerves 出口）及 optic nerve，這些點限定了 suprauveal space（葡萄膜上腔）積液與出血的範圍⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a></sup>。<span class="ref ref-ext">BCSC 4 p.215</span></li>
 </ul>
 <h3 id="ch2-s7-2">Iris（虹膜）外觀</h3>
 <ul>
@@ -516,23 +540,23 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch2-s7-3">虹膜構造</h3>
 <ul>
-<li id="np-156">本章列出虹膜主要結構：<strong>stroma</strong>、vessels and nerves、<strong>dilator muscle 與 anterior pigmented epithelium</strong>、<strong>sphincter muscle</strong>、<strong>posterior pigmented epithelium</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a></span><span class="ref">p.72</span></li>
+<li id="np-156">本章列出虹膜主要結構：<strong>stroma</strong>、vessels and nerves、<strong>dilator muscle 與 anterior pigmented epithelium</strong>、<strong>sphincter muscle</strong>、<strong>posterior pigmented epithelium</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a></sup>。<span class="ref">p.72</span></li>
 <li id="np-157"><strong>Stroma（基質）</strong>：melanocytes、非色素細胞、膠原纖維與含 hyaluronic acid 的基質；房水可在前緣疏鬆基質內自由流動；各色虹膜基質結構相同，<mark>顏色差異來自 anterior border layer 與深層基質的色素量</mark>（藍色淡、棕色濃）。<span class="ref">p.72</span></li>
-<li id="np-158"><strong>Vessels（血管）</strong>構成基質的大部分，多呈放射狀，<mark>由 major arterial circle（大動脈環）發出</mark>走向瞳孔；collarette（虹膜最厚處）一帶動靜脈弓吻合成常不完整的 minor vascular circle（小動脈環）。<mark>Major arterial circle 位於睫狀體頂端，不在虹膜</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.73</span></li>
-<li id="np-159">虹膜微血管管徑相對大，<mark>內皮 nonfenestrated（無窗孔）</mark>，外有 basement membrane、pericytes 與膠原絲帶；intima 無 internal elastic lamina。有髓與無髓神經纖維負責感覺、血管運動與肌肉功能。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161">第 161 題</a></span><span class="ref">p.73</span></li>
-<li id="np-160"><strong>Dilator muscle（瞳孔擴大肌）</strong>：由 anterior pigmented epithelium 發育、源自 neuroectoderm；<mark>與 posterior pigmented epithelium 平行並位於其前方</mark>；為 myoepithelial cells，肌原纖維在基底部、伸入基質，黑色素體與核在頂部。受 sympathetic α1-adrenergic 刺激收縮，cholinergic 副交感可能有抑制作用。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a></span><span class="ref">p.73–74</span></li>
-<li id="np-161"><strong>Sphincter muscle（瞳孔括約肌）</strong>：亦源自 neuroectoderm；環狀平滑肌帶，<mark>位於瞳孔緣附近的深層基質、posterior pigmented epithelium 前方</mark>（組織上通常在瞳孔緣 <span class="num">1 mm</span> 內）；主要由 Edinger-Westphal nucleus 發出、隨 CN III 走的副交感纖維支配，對 muscarinic 刺激有反應；交感支配有抑制作用，幫助在暗處放鬆。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a></span><span class="ref">p.70, p.74</span></li>
+<li id="np-158"><strong>Vessels（血管）</strong>構成基質的大部分，多呈放射狀，<mark class="ex-key">由 major arterial circle（大動脈環）發出</mark>走向瞳孔；collarette（虹膜最厚處）一帶動靜脈弓吻合成常不完整的 minor vascular circle（小動脈環）。<mark class="ex-key">Major arterial circle 位於睫狀體頂端，不在虹膜</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.73</span></li>
+<li id="np-159">虹膜微血管管徑相對大，<mark class="ex-key">內皮 nonfenestrated（無窗孔）</mark>，外有 basement membrane、pericytes 與膠原絲帶；intima 無 internal elastic lamina。有髓與無髓神經纖維負責感覺、血管運動與肌肉功能⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161" aria-label="考題 Q161">Q161</a></sup>。<span class="ref">p.73</span></li>
+<li id="np-160"><strong>Dilator muscle（瞳孔擴大肌）</strong>：由 anterior pigmented epithelium 發育、源自 neuroectoderm；<mark class="ex-key">與 posterior pigmented epithelium 平行並位於其前方</mark>；為 myoepithelial cells，肌原纖維在基底部、伸入基質，黑色素體與核在頂部。受 sympathetic α1-adrenergic 刺激收縮，cholinergic 副交感可能有抑制作用⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a></sup>。<span class="ref">p.73–74</span></li>
+<li id="np-161"><strong>Sphincter muscle（瞳孔括約肌）</strong>：亦源自 neuroectoderm；環狀平滑肌帶，<mark class="ex-key">位於瞳孔緣附近的深層基質、posterior pigmented epithelium 前方</mark>（組織上通常在瞳孔緣 <span class="num">1 mm</span> 內）；主要由 Edinger-Westphal nucleus 發出、隨 CN III 走的副交感纖維支配，對 muscarinic 刺激有反應；交感支配有抑制作用，幫助在暗處放鬆⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a></sup>。<span class="ref">p.70, p.74</span></li>
 <li id="np-162"><strong>Posterior pigmented epithelium（iris pigment epithelium，IPE，虹膜色素上皮）</strong>：色素濃、外觀絲絨般均勻；與睫狀體 nonpigmented epithelium 連續，因此也與神經感覺視網膜連續；基底面朝後房，頂面朝基質並與前層上皮相貼。<span class="ref">p.74</span></li>
 <li id="np-163">IPE 繞過瞳孔緣形成 <strong>pigment ruff</strong>；rubeosis iridis（虹膜紅變）時色素上皮可進一步翻到前表面，稱 ectropion。「Ectropion uveae」其實是誤稱：IPE 源自 neuroectoderm（非 neural crest），不屬於葡萄膜。<span class="ref">p.74</span></li>
 </ul>
 <ul>
-<li id="np-164">（本章外，BCSC 4 第 11 章）病理學把虹膜分 <mark>4 層：anterior border layer、stroma、muscular layer（sphincter 與 dilator）、pigment epithelium</mark> → 只列三層（缺 muscular layer）是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a></span><span class="ref">BCSC 4 p.216</span></li>
-<li id="np-165">（本章外，BCSC 4 第 11 章）Iris nevus（虹膜痣）可有多種外觀，但<mark>不會出現 cellular atypia 與明顯 mitotic activity</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a></span><span class="ref">BCSC 4 p.225</span></li>
+<li id="np-164">（本章外，BCSC 4 第 11 章）病理學把虹膜分 <mark class="ex-key">4 層：anterior border layer、stroma、muscular layer（sphincter 與 dilator）、pigment epithelium</mark> → 只列三層（缺 muscular layer）是錯的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a></sup>。<span class="ref ref-ext">BCSC 4 p.216</span></li>
+<li id="np-165">（本章外，BCSC 4 第 11 章）Iris nevus（虹膜痣）可有多種外觀，但<mark class="ex-key">不會出現 cellular atypia 與明顯 mitotic activity</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a></sup>。<span class="ref ref-ext">BCSC 4 p.225</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s7-4">易錯陷阱</h3><ul>
-<li id="np-166">Major arterial circle 在睫狀體（angle recess 後方），虹膜放射血管由它發出；常被誤當成虹膜結構。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.73, p.76</span></li>
-<li id="np-167">Dilator 由 anterior pigmented epithelium 而來、位於 posterior pigmented epithelium 前方；sphincter 在瞳孔緣附近，兩者都源自 neuroectoderm。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a></span><span class="ref">p.73–74</span></li>
-<li id="np-168">葡萄膜與鞏膜在 vortex vein 出口是「緊密附著」，不是鬆散附著。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a></span><span class="ref">p.69</span></li>
+<li id="np-166">Major arterial circle 在睫狀體（angle recess 後方），虹膜放射血管由它發出；常被誤當成虹膜結構⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.73, p.76</span></li>
+<li id="np-167">Dilator 由 anterior pigmented epithelium 而來、位於 posterior pigmented epithelium 前方；sphincter 在瞳孔緣附近，兩者都源自 neuroectoderm⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a></sup>。<span class="ref">p.73–74</span></li>
+<li id="np-168">葡萄膜與鞏膜在 vortex vein 出口是「緊密附著」，不是鬆散附著⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a></sup>。<span class="ref">p.69</span></li>
 <li id="np-169">IPE 源自 neuroectoderm，故 ectropion uveae 是誤稱。<span class="ref">p.74</span></li>
 </ul></div>
 
@@ -541,7 +565,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-170">橫切面呈三角形，連接前後段；頂點朝後指向 ora serrata，底部發出虹膜；<mark>睫狀體與鞏膜唯一的附著在其底部</mark>——縱行肌纖維附著於 scleral spur。<span class="ref">p.74</span></li>
 <li id="np-171">兩大功能：<strong>房水生成</strong>與<strong>水晶體調節</strong>；也參與小樑網與 uveoscleral 流出。<span class="ref">p.74</span></li>
-<li id="np-172"><mark>睫狀體寬 <span class="num">6–7 mm</span></mark>，分 pars plana 與 pars plicata（所以「寬 8–10 mm」是錯的）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a></span><span class="ref">p.75</span></li>
+<li id="np-172"><mark class="ex-key">睫狀體寬 <span class="num">6–7 mm</span></mark>，分 pars plana 與 pars plicata（所以「寬 8–10 mm」是錯的）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a></sup>。<span class="ref">p.75</span></li>
 <li id="np-173"><strong>Pars plana（睫狀體平坦部）</strong>：相對無血管、平滑、有色素，寬 <span class="num">4 mm</span>，由 ora serrata 延伸到 ciliary processes；<mark>玻璃體腔最安全的後方手術入路</mark>，位於距角膜緣 <span class="num">3–4 mm</span>。<span class="ref">p.75</span></li>
 <li id="np-174"><strong>Pars plicata（睫狀體皺襞部）</strong>：血管豐富，約 <span class="num">70–80</span> 個放射狀皺褶即 ciliary processes（睫狀突）；zonular fibers（懸韌帶）主要附著於睫狀突之間的谷，也沿 pars plana 附著。<span class="ref">p.75</span></li>
 <li id="np-175">Intermediate uveitis（中間葡萄膜炎）侵犯玻璃體的發炎主要源自 pars plana；多數為 idiopathic，常稱 <strong>pars planitis</strong>。<span class="ref">p.75</span></li>
@@ -549,16 +573,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch2-s8-2">Ciliary Epithelium and Stroma（睫狀上皮與基質）</h3>
 <ul>
-<li id="np-177">睫狀體內襯<mark>雙層上皮：內層 nonpigmented ciliary epithelium（NPE，非色素睫狀上皮）、外層 pigmented ciliary epithelium（色素睫狀上皮）</mark>；兩層細胞頂對頂（apex to apex），以複雜連接與指狀交錯融合。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a></span><span class="ref">p.75</span></li>
+<li id="np-177">睫狀體內襯<mark class="ex-key">雙層上皮：內層 nonpigmented ciliary epithelium（NPE，非色素睫狀上皮）、外層 pigmented ciliary epithelium（色素睫狀上皮）</mark>；兩層細胞頂對頂（apex to apex），以複雜連接與指狀交錯融合⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a></sup>。<span class="ref">p.75</span></li>
 <li id="np-178">NPE 的 basal lamina 朝向後房；色素上皮的 basal lamina 附著於睫狀體基質與血管，且較厚、較均質。<span class="ref">p.75</span></li>
-<li id="np-179"><mark>NPE 近頂端外側細胞間的 tight junctions（zonulae occludentes）維持 blood–aqueous barrier（血液–房水屏障）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161">第 161 題</a></span><span class="ref">p.75</span></li>
+<li id="np-179"><mark class="ex-key">NPE 近頂端外側細胞間的 tight junctions（zonulae occludentes）維持 blood–aqueous barrier（血液–房水屏障）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161" aria-label="考題 Q161">Q161</a></sup>。<span class="ref">p.75</span></li>
 <li id="np-180">色素上皮在整個睫狀體相當一致：立方形，有基底摺疊、大核、粒線體、發達內質網與大量 melanosomes。NPE 在 pars plana 為立方形、在 pars plicata 為柱狀，粒線體豐富；其<mark>內質網與 Golgi 對房水生成很重要</mark>。<span class="ref">p.75</span></li>
 <li id="np-181">雙層上皮內面的 basement membrane 構成睫狀體的 internal limiting membrane（ILM）；老年眼此膜增厚、呈層狀（Fig 2-29）。<span class="ref">p.76–77</span></li>
 <li id="np-182">睫狀體基質（葡萄膜部分）：較大的 <strong>fenestrated（有窗孔）</strong>微血管、膠原纖維與 fibroblasts。<span class="ref">p.75</span></li>
-<li id="np-183">動脈主要來自 <mark>anterior ciliary arteries 與 long posterior ciliary arteries</mark>，兩者匯合成多層動脈叢：淺層 episcleral plexus、較深的 intramuscular plexus 與不完整的 major arterial circle；major arterial circle 常被誤歸於虹膜，實際位於 angle recess 後方的睫狀體內。主要靜脈經 vortex system 向後引流，部分經 intrascleral venous plexus 與 episcleral veins 流到角膜緣區。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.76</span></li>
+<li id="np-183">動脈主要來自 <mark class="ex-key">anterior ciliary arteries 與 long posterior ciliary arteries</mark>，兩者匯合成多層動脈叢：淺層 episcleral plexus、較深的 intramuscular plexus 與不完整的 major arterial circle；major arterial circle 常被誤歸於虹膜，實際位於 angle recess 後方的睫狀體內。主要靜脈經 vortex system 向後引流，部分經 intrascleral venous plexus 與 episcleral veins 流到角膜緣區⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.76</span></li>
 </ul>
 <ul>
-<li id="np-184">（本章外，BCSC 2 第 9 章）Blood–aqueous barrier 由三處的 tight junctions 構成：<mark>nonpigmented ciliary epithelium、iris vasculature、Schlemm canal 內壁內皮</mark>；<strong>corneal endothelium 不在其中</strong>。此屏障使房水幾乎不含蛋白。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161">第 161 題</a></span><span class="ref">BCSC 2 p.281–282</span></li>
+<li id="np-184">（本章外，BCSC 2 第 9 章）Blood–aqueous barrier 由三處的 tight junctions 構成：<mark class="ex-key">nonpigmented ciliary epithelium、iris vasculature、Schlemm canal 內壁內皮</mark>；<strong>corneal endothelium 不在其中</strong>。此屏障使房水幾乎不含蛋白⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161" aria-label="考題 Q161">Q161</a></sup>。<span class="ref ref-ext">BCSC 2 p.281–282</span></li>
 </ul>
 <h3 id="ch2-s8-3">Ciliary Muscle（睫狀肌）</h3>
 <ul>
@@ -572,22 +596,22 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-189">位於鞏膜下方、脈絡膜與睫狀體上方的潛在空間；某些病理狀況（如 uveal effusion syndrome（葡萄膜積液症候群））可積液擴張，也是潛在的給藥部位。<span class="ref">p.79</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s8-5">易錯陷阱</h3><ul>
-<li id="np-190">睫狀體寬 <span class="num">6–7 mm</span>（pars plana <span class="num">4 mm</span>）；手術入路 pars plana 在距角膜緣 <span class="num">3–4 mm</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a></span><span class="ref">p.75</span></li>
-<li id="np-191">雙層睫狀上皮：內層 nonpigmented、外層 pigmented，不要記反；blood–aqueous barrier 的 tight junction 在 NPE。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161">第 161 題</a></span><span class="ref">p.75</span></li>
-<li id="np-192">睫狀體基質微血管有窗孔（fenestrated），虹膜微血管無窗孔；虹膜血管內皮的 tight junction 屬 blood–aqueous barrier（本章外，見本節上方 blood–aqueous barrier 條目），睫狀體基質血管則不是。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161">第 161 題</a></span><span class="ref">p.73, p.75</span></li>
+<li id="np-190">睫狀體寬 <span class="num">6–7 mm</span>（pars plana <span class="num">4 mm</span>）；手術入路 pars plana 在距角膜緣 <span class="num">3–4 mm</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a></sup>。<span class="ref">p.75</span></li>
+<li id="np-191">雙層睫狀上皮：內層 nonpigmented、外層 pigmented，不要記反；blood–aqueous barrier 的 tight junction 在 NPE⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161" aria-label="考題 Q161">Q161</a></sup>。<span class="ref">p.75</span></li>
+<li id="np-192">睫狀體基質微血管有窗孔（fenestrated），虹膜微血管無窗孔；虹膜血管內皮的 tight junction 屬 blood–aqueous barrier（本章外，見本節上方 blood–aqueous barrier 條目），睫狀體基質血管則不是⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161" aria-label="考題 Q161">Q161</a></sup>。<span class="ref">p.73, p.75</span></li>
 <li id="np-193">短睫狀神經的副交感纖維約 <span class="num">97%</span> 給睫狀肌、<span class="num">3%</span> 給括約肌。<span class="ref">p.78</span></li>
 </ul></div>
 
 <h2 id="ch2-s9">九、脈絡膜（Choroid）</h2>
 <h3 id="ch2-s9-1">分層與血流</h3>
 <ul>
-<li id="np-194">脈絡膜是葡萄膜後部，<mark>供應外層視網膜養分</mark>；平均厚 <span class="num">0.25 mm</span>，含 3 層血管：<strong>choriocapillaris（脈絡膜微血管層，最內層）</strong>、中層小血管 <strong>Sattler layer</strong>、外層大血管 <strong>Haller layer</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a></span><span class="ref">p.79</span></li>
+<li id="np-194">脈絡膜是葡萄膜後部，<mark class="ex-key">供應外層視網膜養分</mark>；平均厚 <span class="num">0.25 mm</span>，含 3 層血管：<strong>choriocapillaris（脈絡膜微血管層，最內層）</strong>、中層小血管 <strong>Sattler layer</strong>、外層大血管 <strong>Haller layer</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a></sup>。<span class="ref">p.79</span></li>
 <li id="np-195">灌流來自 long 與 short posterior ciliary arteries，以及穿入的 anterior ciliary arteries；靜脈經 vortex system 引流。<span class="ref">p.79–80</span></li>
-<li id="np-196">Fig 2-32：<mark>short posterior ciliary arteries 供應後極到赤道的 choriocapillaris</mark>，後睫狀動脈的 recurrent branches 供應赤道前的 choriocapillaris，anterior ciliary artery 分支供應前方 choriocapillaris 並參與 episcleral plexus；另有 circle of Zinn-Haller 與 short PCA 的 pial branches。Short PCA <mark>不參與虹膜供血</mark>；虹膜血管來自 major arterial circle（由 anterior ciliary + long posterior ciliary arteries 形成）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.76, p.80</span></li>
-<li id="np-197"><mark>脈絡膜血流量比其他組織都高，每克組織血流甚至超過 renal cortex（腎皮質）</mark> → 脈絡膜靜脈血含氧量只比動脈血低 <span class="num">2%–3%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-100" data-q="100">第 100 題</a></span><span class="ref">p.80</span></li>
+<li id="np-196">Fig 2-32：<mark class="ex-key">short posterior ciliary arteries 供應後極到赤道的 choriocapillaris</mark>，後睫狀動脈的 recurrent branches 供應赤道前的 choriocapillaris，anterior ciliary artery 分支供應前方 choriocapillaris 並參與 episcleral plexus；另有 circle of Zinn-Haller 與 short PCA 的 pial branches。Short PCA <mark class="ex-key">不參與虹膜供血</mark>；虹膜血管來自 major arterial circle（由 anterior ciliary + long posterior ciliary arteries 形成）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.76, p.80</span></li>
+<li id="np-197"><mark class="ex-key">脈絡膜血流量比其他組織都高，每克組織血流甚至超過 renal cortex（腎皮質）</mark> → 脈絡膜靜脈血含氧量只比動脈血低 <span class="num">2%–3%</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-100" data-q="100" aria-label="考題 Q100">Q100</a></sup>。<span class="ref">p.80</span></li>
 </ul>
 <ul>
-<li id="np-198">（本章外，BCSC 4 第 11 章）病理學把脈絡膜分 3 個主要層：<mark>lamina fusca（最外、有色素，與鞏膜有細附著）、stroma（中層疏鬆纖維血管結締組織）、choriocapillaris（最內，緊貼 Bruch membrane）</mark>；choriocapillaris 供應 RPE 與外層視網膜。注意 BCSC 4 該段把 Sattler／Haller 寫成「外層大血管 Sattler、中層小血管 Haller」，與本章相反；以本章（Haller 為外層大血管）為準（一般解剖文獻與 OCT 分層亦為 Haller 外層大血管、Sattler 中層中型血管）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a></span><span class="ref">BCSC 4 p.218</span></li>
+<li id="np-198">（本章外，BCSC 4 第 11 章）病理學把脈絡膜分 3 個主要層：<mark class="ex-key">lamina fusca（最外、有色素，與鞏膜有細附著）、stroma（中層疏鬆纖維血管結締組織）、choriocapillaris（最內，緊貼 Bruch membrane）</mark>；choriocapillaris 供應 RPE 與外層視網膜。注意 BCSC 4 該段把 Sattler／Haller 寫成「外層大血管 Sattler、中層小血管 Haller」，與本章相反；以本章（Haller 為外層大血管）為準（一般解剖文獻與 OCT 分層亦為 Haller 外層大血管、Sattler 中層中型血管）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a></sup>。<span class="ref ref-ext">BCSC 4 p.218</span></li>
 </ul>
 <h3 id="ch2-s9-2">Choriocapillaris and Choroidal Vessels（脈絡膜微血管與脈絡膜血管）</h3>
 <ul>
@@ -600,9 +624,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-202">Choriocapillaris 窗孔利於視網膜/RPE 與脈絡膜間的溶質交換，但<mark>小到能把 albumin 留在血管內</mark> → 產生的 oncotic pressure（膠體滲透壓）把水拉過視網膜，<mark>有助視網膜貼附 RPE</mark>。<span class="ref">p.82</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s9-4">易錯陷阱</h3><ul>
-<li id="np-203">「血流量最高」是脈絡膜（每克超過腎皮質）；「單位重量耗氧最高」才是視網膜。角膜無血管。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-100" data-q="100">第 100 題</a></span><span class="ref">p.80, p.92</span></li>
-<li id="np-204">Choriocapillaris 是「最內層」（緊貼 RPE/Bruch），Haller 是外層大血管、Sattler 是中層小血管。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339">第 339 題</a></span><span class="ref">p.79</span></li>
-<li id="np-205">Short posterior ciliary arteries 供應脈絡膜（後極到赤道）與視神經頭周圍，不供應虹膜。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.80</span></li>
+<li id="np-203">「血流量最高」是脈絡膜（每克超過腎皮質）；「單位重量耗氧最高」才是視網膜。角膜無血管⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-100" data-q="100" aria-label="考題 Q100">Q100</a></sup>。<span class="ref">p.80, p.92</span></li>
+<li id="np-204">Choriocapillaris 是「最內層」（緊貼 RPE/Bruch），Haller 是外層大血管、Sattler 是中層小血管⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-339" data-q="339" aria-label="考題 Q339">Q339</a></sup>。<span class="ref">p.79</span></li>
+<li id="np-205">Short posterior ciliary arteries 供應脈絡膜（後極到赤道）與視神經頭周圍，不供應虹膜⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.80</span></li>
 <li id="np-206">FA 時 fluorescein 由 choriocapillaris 滲出造成脈絡膜瀰漫螢光，但被 RPE 擋住、不進入外層視網膜。<span class="ref">p.81–82, p.94</span></li>
 </ul></div>
 
@@ -629,12 +653,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch2-s10-2">Capsule（水晶體囊）</h3>
 <ul>
-<li id="np-220">Lens capsule 由水晶體上皮產生，<mark>富含 type IV collagen</mark> 與其他基質蛋白。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">p.83</span></li>
-<li id="np-221">前囊（覆蓋上皮）終生持續合成 → 越來越厚；<mark>後方沒有上皮 → 後囊厚度維持不變</mark>。成人前囊中央約 <span class="num">14 μm</span>、<mark>後囊中央約 <span class="num">4 μm</span>（最薄處在後極）</mark>，數值依個體與位置而異。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292">第 1292 題</a></span><span class="ref">p.83</span></li>
-<li id="np-222">囊由與表面平行、成層排列的細絲構成；前囊含 laminin（fibrogranular material），後囊沒有；<mark>後囊薄 → 白內障手術易破</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292">第 1292 題</a></span><span class="ref">p.83</span></li>
+<li id="np-220">Lens capsule 由水晶體上皮產生，<mark class="ex-key">富含 type IV collagen</mark> 與其他基質蛋白⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref">p.83</span></li>
+<li id="np-221">前囊（覆蓋上皮）終生持續合成 → 越來越厚；<mark class="ex-key">後方沒有上皮 → 後囊厚度維持不變</mark>。成人前囊中央約 <span class="num">14 μm</span>、<mark class="ex-key">後囊中央約 <span class="num">4 μm</span>（最薄處在後極）</mark>，數值依個體與位置而異⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292" aria-label="考題 Q1292">Q1292</a></sup>。<span class="ref">p.83</span></li>
+<li id="np-222">囊由與表面平行、成層排列的細絲構成；前囊含 laminin（fibrogranular material），後囊沒有；<mark class="ex-key">後囊薄 → 白內障手術易破</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292" aria-label="考題 Q1292">Q1292</a></sup>。<span class="ref">p.83</span></li>
 </ul>
 <ul>
-<li id="np-223">（本章外，BCSC 11 第 2 章）水晶體囊最厚處在前、後 preequatorial zones（近赤道區），<mark>最薄在中央後極，可能只有 <span class="num">2–4 μm</span></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292">第 1292 題</a></span><span class="ref">BCSC 11 p.20</span></li>
+<li id="np-223">（本章外，BCSC 11 第 2 章）水晶體囊最厚處在前、後 preequatorial zones（近赤道區），<mark class="ex-key">最薄在中央後極，可能只有 <span class="num">2–4 μm</span></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292" aria-label="考題 Q1292">Q1292</a></sup>。<span class="ref ref-ext">BCSC 11 p.20</span></li>
 </ul>
 <h3 id="ch2-s10-3">Epithelium（水晶體上皮）</h3>
 <ul>
@@ -654,7 +678,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-231">懸韌帶無力（外傷、pseudoexfoliation（假性脫落）、uveitis、high myopia、先天性）→ lens subluxation（水晶體半脫位）；<strong>Marfan syndrome（馬凡氏症候群）</strong>為 fibrillin-1 基因致病變異。<span class="ref">p.86</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s10-6">易錯陷阱</h3><ul>
-<li id="np-232">水晶體囊最薄在「後極中央」（約 <span class="num">4 μm</span>），前囊中央約 <span class="num">14 μm</span>；不是赤道部也不是近赤道部。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292">第 1292 題</a></span><span class="ref">p.83</span></li>
+<li id="np-232">水晶體囊最薄在「後極中央」（約 <span class="num">4 μm</span>），前囊中央約 <span class="num">14 μm</span>；不是赤道部也不是近赤道部⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292" aria-label="考題 Q1292">Q1292</a></sup>。<span class="ref">p.83</span></li>
 <li id="np-233">前囊隨年齡增厚、後囊不變——因為上皮只在前囊與赤道下方。<span class="ref">p.83</span></li>
 <li id="np-234">老花主因在水晶體（變大、核變硬），不是睫狀肌失能。<span class="ref">p.78, p.82</span></li>
 <li id="np-235">本章同時出現全眼 <span class="num">58.60 D</span>（角膜一節）與 <span class="num">60.00 D</span>（水晶體一節）兩個數字；角膜 <span class="num">43.25 D</span>、水晶體 <span class="num">20.00 D</span>。（兩者都是模型值：58.60 D 接近 Gullstrand schematic eye（模型眼）的 58.64 D，60 D 是 reduced eye（簡化眼）常用的約略值。）<span class="ref">p.51, p.82</span></li>
@@ -665,10 +689,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-236"><strong>Fundus oculi（眼底）</strong>是眼底鏡可見的部分：視網膜、其血管與視神經（前表面即 optic disc（視盤））；眼底的紅色來自光線經脈絡膜微血管床、由後方鞏膜反射。<span class="ref">p.86–87</span></li>
 <li id="np-237">Macula（黃斑）位於顳側血管弓之間，中心為 fovea（中心凹），其中央再有 foveola（中心小凹）。<span class="ref">p.87</span></li>
-<li id="np-238">周邊眼底可見脈絡膜血管與 <mark>vortex vein ampullae（渦靜脈壺腹）</mark>，<mark>壺腹的位置大致對應眼球赤道</mark> → 間接眼底鏡下用來定位 equator。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-99" data-q="99">第 99 題</a></span><span class="ref">p.87</span></li>
+<li id="np-238">周邊眼底可見脈絡膜血管與 <mark class="ex-key">vortex vein ampullae（渦靜脈壺腹）</mark>，<mark class="ex-key">壺腹的位置大致對應眼球赤道</mark> → 間接眼底鏡下用來定位 equator⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-99" data-q="99" aria-label="考題 Q99">Q99</a></sup>。<span class="ref">p.87</span></li>
 <li id="np-239">視網膜與其下的上皮層同源於 optic vesicle（視泡），分兩部分：① <strong>neurosensory retina（神經感覺視網膜）</strong>：含感光細胞、神經元與其他成分，由 optic cup 內層發育，透明，<mark>由 neuronal（神經元）、glial（膠細胞）與 vascular（血管）成分組成</mark>；② <strong>retinal pigment epithelium（RPE，視網膜色素上皮）</strong>。<span class="ref">p.87</span></li>
-<li id="np-240">神經感覺視網膜的細胞：感光細胞 <strong>rods 與 cones</strong>、<strong>horizontal cells（水平細胞）</strong>、<strong>bipolar cells（雙極細胞）</strong>、<strong>amacrine cells（無軸突細胞）</strong>、<strong>ganglion cells（神經節細胞）</strong>，以及 Muller cells、astrocytes、microglia 等膠細胞與血管；<mark>goblet cell 不在其中</mark>（它在結膜）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113">第 113 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-130" data-q="130">第 130 題</a></span><span class="ref">p.89, p.92–93</span></li>
-<li id="np-241">本章稱 rods 與 cones 為「<mark>highly specialized neuroepithelial cells（高度特化的神經上皮細胞）</mark>」，但它們同樣位於神經感覺視網膜（outer nuclear layer 與感光層）；因此 amacrine、bipolar、rod/cone、ganglion 四者<mark>都在 neurosensory retina</mark>，考題「何者除外」沒有真正的除外選項（官方答案選感光細胞，答案存疑）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-130" data-q="130">第 130 題</a></span><span class="ref">p.88–89</span></li>
+<li id="np-240">神經感覺視網膜的細胞：感光細胞 <strong>rods 與 cones</strong>、<strong>horizontal cells（水平細胞）</strong>、<strong>bipolar cells（雙極細胞）</strong>、<strong>amacrine cells（無軸突細胞）</strong>、<strong>ganglion cells（神經節細胞）</strong>，以及 Muller cells、astrocytes、microglia 等膠細胞與血管；<mark class="ex-key">goblet cell 不在其中</mark>（它在結膜）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113" aria-label="考題 Q113">Q113</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-130" data-q="130" aria-label="考題 Q130">Q130</a></sup>。<span class="ref">p.89, p.92–93</span></li>
+<li id="np-241">本章稱 rods 與 cones 為「<mark class="ex-key">highly specialized neuroepithelial cells（高度特化的神經上皮細胞）</mark>」，但它們同樣位於神經感覺視網膜（outer nuclear layer 與感光層）；因此 amacrine、bipolar、rod/cone、ganglion 四者<mark class="ex-key">都在 neurosensory retina</mark>，考題「何者除外」沒有真正的除外選項（官方答案選感光細胞，答案存疑）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-130" data-q="130" aria-label="考題 Q130">Q130</a></sup>。<span class="ref">p.88–89</span></li>
 </ul>
 <h3 id="ch2-s11-2">神經感覺視網膜分層（由內到外）</h3>
 <ol>
@@ -684,7 +708,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-251">Rod and cone inner segments → outer segments（感光細胞內節 → 外節），外節接 RPE<span class="ref">p.88</span></li>
 </ol>
 <ul>
-<li id="np-252">黃斑區由 ILM 往 RPE：<mark>IPL → INL → MLM（位於 OPL 內三分之一）→ OPL 突觸部 → Henle fiber layer → ONL</mark>（題目順序 d-b-a-e-f-c）；本章把 OPL 與 Henle fiber layer 視為同一層在中心凹區的名稱，e 在 f 內側是依 MLM 位置推論。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1523" data-q="1523">第 1523 題</a></span><span class="ref">p.88, p.96</span></li>
+<li id="np-252">黃斑區由 ILM 往 RPE：<mark class="ex-key">IPL → INL → MLM（位於 OPL 內三分之一）→ OPL 突觸部 → Henle fiber layer → ONL</mark>（題目順序 d-b-a-e-f-c）；本章把 OPL 與 Henle fiber layer 視為同一層在中心凹區的名稱，e 在 f 內側是依 MLM 位置推論⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1523" data-q="1523" aria-label="考題 Q1523">Q1523</a></sup>。<span class="ref">p.88, p.96</span></li>
 </ul>
 <h3 id="ch2-s11-3">Neuronal Elements（神經元成分）</h3>
 <ul>
@@ -694,16 +718,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-256">Ellipsoid 層的粒線體高反射 → OCT 上清楚可見（ellipsoid zone）。<span class="ref">p.89</span></li>
 <li id="np-257">Rod 突觸體 <strong>spherule</strong>：單一凹陷容納 2 個 horizontal-cell 突起與 1 個以上中央 bipolar dendrites；cone 突觸體 <strong>pedicle</strong> 較複雜，與其他 rods/cones、horizontal 與 bipolar 細胞突觸。<span class="ref">p.89</span></li>
 <li id="np-258"><mark>Rod discs 不附著於細胞膜（獨立結構）；cone discs 附著於細胞膜</mark>，被認為以膜置換更新。Extrafoveal cones 的 ellipsoid 與 myoid 呈圓錐形、核較 rod 核靠近 ELM；foveal cones 內節為圓柱形（似 rod），其餘細胞學特徵與周邊 cones 相同。<span class="ref">p.89</span></li>
-<li id="np-259">Horizontal cells 與許多 spherules/pedicles 突觸，突起在 OPL 內水平延伸；bipolar cells 垂直走向，樹突接感光細胞突觸體，軸突在 IPL 與 ganglion 及 amacrine cells 突觸。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113">第 113 題</a></span><span class="ref">p.89</span></li>
+<li id="np-259">Horizontal cells 與許多 spherules/pedicles 突觸，突起在 OPL 內水平延伸；bipolar cells 垂直走向，樹突接感光細胞突觸體，軸突在 IPL 與 ganglion 及 amacrine cells 突觸⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113" aria-label="考題 Q113">Q113</a></sup>。<span class="ref">p.89</span></li>
 <li id="np-260">Ganglion cell 軸突轉為與視網膜內表面平行形成 NFL，再成為視神經軸突；<mark>每條視神經超過 <span class="num">1 million</span> 條神經纖維</mark>。顳側纖維繞黃斑呈弓形進入視神經頭上下極；papillomacular fibers 由中心凹直行到視神經；鼻側纖維放射狀走行；green（red-free）光可增強神經纖維可見度。<span class="ref">p.92</span></li>
 </ul>
 <h3 id="ch2-s11-4">Glial Elements（膠細胞成分）</h3>
 <ul>
-<li id="np-261"><strong>Muller cells</strong> 由 ELM 垂直延伸到 ILM，核位於 INL；Muller cells 與 fibrous/protoplasmic astrocytes、microglia <mark>提供視網膜 structural support（結構支持）與營養</mark>，並參與 inner blood–retina barrier。→ 結構支持是膠細胞的功能，<mark>不在 RPE 的功能列表</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-126" data-q="126">第 126 題</a></span><span class="ref">p.92</span></li>
+<li id="np-261"><strong>Muller cells</strong> 由 ELM 垂直延伸到 ILM，核位於 INL；Muller cells 與 fibrous/protoplasmic astrocytes、microglia <mark class="ex-key">提供視網膜 structural support（結構支持）與營養</mark>，並參與 inner blood–retina barrier。→ 結構支持是膠細胞的功能，<mark class="ex-key">不在 RPE 的功能列表</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-126" data-q="126" aria-label="考題 Q126">Q126</a></sup>。<span class="ref">p.92</span></li>
 </ul>
 <h3 id="ch2-s11-5">Vascular Elements（血管成分）與血液視網膜屏障</h3>
 <ul>
-<li id="np-262">視網膜代謝極高，<mark>單位重量耗氧率為全身最高</mark>；視網膜血管類似腦血管，維持 <strong>inner blood–retina barrier（內血液視網膜屏障）</strong>：單層無窗孔內皮，細胞間連接在生理下不讓 fluorescein、horseradish peroxidase 通過。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-100" data-q="100">第 100 題</a></span><span class="ref">p.92–93</span></li>
+<li id="np-262">視網膜代謝極高，<mark class="ex-key">單位重量耗氧率為全身最高</mark>；視網膜血管類似腦血管，維持 <strong>inner blood–retina barrier（內血液視網膜屏障）</strong>：單層無窗孔內皮，細胞間連接在生理下不讓 fluorescein、horseradish peroxidase 通過⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-100" data-q="100" aria-label="考題 Q100">Q100</a></sup>。<span class="ref">p.92–93</span></li>
 <li id="np-263">內皮外有 basal lamina，外圍 pericytes（mural cells，抑制內皮增生），與膠細胞一起構成 inner BRB；Muller cells 等膠細胞一般附著於血管 basal lamina。<span class="ref">p.93</span></li>
 <li id="np-264">視網膜血管<mark>缺 internal elastic lamina 與連續平滑肌層 → 沒有自主神經調控</mark>。<span class="ref">p.93</span></li>
 <li id="np-265"><strong>Outer blood–retina barrier（外血液視網膜屏障）</strong>＝相鄰 RPE 細胞間的 tight junctions；fluorescein 自有窗孔的 choriocapillaris 漏出使脈絡膜瀰漫著色，但被 RPE 擋住。<span class="ref">p.47, p.94</span></li>
@@ -716,19 +740,19 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-269">感光外節為最外層，與 RPE 頂突互動；兩者間的潛在空間即 <mark>retinal detachment（視網膜剝離）的分離面</mark>。<span class="ref">p.94, p.96</span></li>
 <li id="np-270"><strong>ELM</strong>：subsensory space 的頂，分隔感光細胞核與其內外節；<mark>不是真正的膜，而是 junctional system</mark>（感光細胞與 Muller cells 的附著點）；通透性高，讓氧氣與大分子由脈絡膜進入外層視網膜。<span class="ref">p.96</span></li>
 <li id="np-271"><strong>ONL</strong> 含感光細胞核；<strong>OPL</strong> 為感光細胞與 bipolar cells 的突觸，horizontal-cell 纖維下行調節傳遞；OPL 也容納由中心凹中央放射出去的 rods/cones 斜行軸突 → 在 perifovea 較厚；這部分放射纖維稱 <strong>Henle fiber layer</strong>。<span class="ref">p.96</span></li>
-<li id="np-272"><mark>在 foveola 邊緣，Henle layer 幾乎與 ILM 平行 → 細胞外間隙充滿液體或滲出物時呈 petaloid（花瓣狀）或 star-shaped（星狀）型態</mark>：CME 在 FA 的 flower petal 即由 OPL（Henle fiber layer）的斜向放射排列造成。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1675" data-q="1675">第 1675 題</a></span><span class="ref">p.96</span></li>
-<li id="np-273"><strong>MLM</strong>：亦非真膜，是位於 <mark>OPL 內三分之一</mark>的 junctional system（感光細胞內纖維與 bipolar 突起間的突觸及橋粒連接）；OCT 上有時呈線狀高密度；<mark>視網膜血管通常不超過此處</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1523" data-q="1523">第 1523 題</a></span><span class="ref">p.96</span></li>
-<li id="np-274"><strong>INL</strong> 含 bipolar、Muller、horizontal、amacrine cells 的核；<strong>IPL</strong> 由 bipolar 與 amacrine 軸突及 ganglion 樹突與其突觸構成；amacrine 與 horizontal cells 可能扮演抑制性角色。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113">第 113 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-130" data-q="130">第 130 題</a></span><span class="ref">p.97</span></li>
+<li id="np-272"><mark class="ex-key">在 foveola 邊緣，Henle layer 幾乎與 ILM 平行 → 細胞外間隙充滿液體或滲出物時呈 petaloid（花瓣狀）或 star-shaped（星狀）型態</mark>：CME 在 FA 的 flower petal 即由 OPL（Henle fiber layer）的斜向放射排列造成⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1675" data-q="1675" aria-label="考題 Q1675">Q1675</a></sup>。<span class="ref">p.96</span></li>
+<li id="np-273"><strong>MLM</strong>：亦非真膜，是位於 <mark class="ex-key">OPL 內三分之一</mark>的 junctional system（感光細胞內纖維與 bipolar 突起間的突觸及橋粒連接）；OCT 上有時呈線狀高密度；<mark class="ex-key">視網膜血管通常不超過此處</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1523" data-q="1523" aria-label="考題 Q1523">Q1523</a></sup>。<span class="ref">p.96</span></li>
+<li id="np-274"><strong>INL</strong> 含 bipolar、Muller、horizontal、amacrine cells 的核；<strong>IPL</strong> 由 bipolar 與 amacrine 軸突及 ganglion 樹突與其突觸構成；amacrine 與 horizontal cells 可能扮演抑制性角色⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-113" data-q="113" aria-label="考題 Q113">Q113</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-130" data-q="130" aria-label="考題 Q130">Q130</a></sup>。<span class="ref">p.97</span></li>
 <li id="np-275"><strong>GCL</strong> 為神經節細胞體；<strong>NFL</strong> 為其軸突，<mark>通過視神經 lamina cribrosa 之後才有髓鞘</mark>。<span class="ref">p.97</span></li>
 <li id="np-276"><strong>ILM</strong>：同樣不是真膜，由 Muller cell footplates 與 basal lamina 附著形成；basal lamina 玻璃體側平滑、視網膜側隨 Muller 細胞起伏；ILM 是視網膜與 cortical vitreous 的接觸點（vitreoretinal interface）。<span class="ref">p.97</span></li>
-<li id="np-277">中層與外層的細胞與突起垂直於 RPE 平面，最內層則平行於視網膜表面 → <mark>外層的血或滲出物呈圓形 blot；NFL 內呈線狀或 flame-shaped（火焰狀）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1675" data-q="1675">第 1675 題</a></span><span class="ref">p.97</span></li>
+<li id="np-277">中層與外層的細胞與突起垂直於 RPE 平面，最內層則平行於視網膜表面 → <mark class="ex-key">外層的血或滲出物呈圓形 blot；NFL 內呈線狀或 flame-shaped（火焰狀）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1675" data-q="1675" aria-label="考題 Q1675">Q1675</a></sup>。<span class="ref">p.97</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s11-7">易錯陷阱</h3><ul>
-<li id="np-278">花瓣狀 CME → OPL／Henle fiber layer；火焰狀出血 → NFL；圓點狀出血 → 外層（垂直排列）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1675" data-q="1675">第 1675 題</a></span><span class="ref">p.96–97</span></li>
-<li id="np-279">MLM 位於 OPL 內三分之一，不是 INL 與 OPL 之間的獨立膜；ELM、MLM、ILM 都不是真正的膜。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1523" data-q="1523">第 1523 題</a></span><span class="ref">p.96–97</span></li>
+<li id="np-278">花瓣狀 CME → OPL／Henle fiber layer；火焰狀出血 → NFL；圓點狀出血 → 外層（垂直排列）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1675" data-q="1675" aria-label="考題 Q1675">Q1675</a></sup>。<span class="ref">p.96–97</span></li>
+<li id="np-279">MLM 位於 OPL 內三分之一，不是 INL 與 OPL 之間的獨立膜；ELM、MLM、ILM 都不是真正的膜⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1523" data-q="1523" aria-label="考題 Q1523">Q1523</a></sup>。<span class="ref">p.96–97</span></li>
 <li id="np-280">OPL 是內外兩循環的分水嶺；GCL 由淺層、INL 由深層微血管叢供應。<span class="ref">p.94</span></li>
 <li id="np-281">Rod 約 <span class="num">100–125 million</span>、cone <span class="num">6–7 million</span>（約 <span class="num">20:1</span>）；rod discs 獨立、cone discs 連在細胞膜上。<span class="ref">p.89</span></li>
-<li id="np-282">結構支持＝Muller cells 與其他膠細胞；inner BRB＝視網膜血管內皮（加 pericytes、膠細胞）；outer BRB＝RPE tight junctions。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-126" data-q="126">第 126 題</a></span><span class="ref">p.92–94</span></li>
+<li id="np-282">結構支持＝Muller cells 與其他膠細胞；inner BRB＝視網膜血管內皮（加 pericytes、膠細胞）；outer BRB＝RPE tight junctions⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-126" data-q="126" aria-label="考題 Q126">Q126</a></sup>。<span class="ref">p.92–94</span></li>
 </ul></div>
 
 <h2 id="ch2-s12">十二、視網膜地形：黃斑與中心凹（Topography of the Retina）</h2>
@@ -772,7 +796,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch2-s13-1">RPE 構造與功能</h3>
 <ul>
 <li id="np-315">RPE 由 optic cup 外層發育，為單層六角形細胞，由視神經頭向前延伸到 ora serrata，在此與睫狀體色素上皮相接。<span class="ref">p.100</span></li>
-<li id="np-316"><mark>RPE 功能（本章列表）</mark>：vitamin A metabolism（維生素 A 代謝）、形成並維持 outer blood–ocular barrier、phagocytosis of photoreceptor outer segments（吞噬感光外節）、吸收光線（減少散射）、形成 Bruch membrane 的 basal lamina、製造包圍外節的 mucopolysaccharide matrix、維持視網膜貼附、物質進出 RPE 的主動運輸、處理 reactive oxygen species（活性氧）。<mark>列表沒有 structural support</mark>（那是 Muller 等膠細胞）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-126" data-q="126">第 126 題</a></span><span class="ref">p.100</span></li>
+<li id="np-316"><mark class="ex-key">RPE 功能（本章列表）</mark>：vitamin A metabolism（維生素 A 代謝）、形成並維持 outer blood–ocular barrier、phagocytosis of photoreceptor outer segments（吞噬感光外節）、吸收光線（減少散射）、形成 Bruch membrane 的 basal lamina、製造包圍外節的 mucopolysaccharide matrix、維持視網膜貼附、物質進出 RPE 的主動運輸、處理 reactive oxygen species（活性氧）。<mark class="ex-key">列表沒有 structural support</mark>（那是 Muller 等膠細胞）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-126" data-q="126" aria-label="考題 Q126">Q126</a></sup>。<span class="ref">p.100</span></li>
 <li id="np-317">RPE 細胞具極性：基底面複雜摺疊，附著於構成 Bruch membrane 內層的薄 basal lamina；頂端有多個絨毛突包覆外節；但 <mark>RPE 與感光細胞之間沒有實體連接</mark> → 兩者分離即 retinal detachment。<span class="ref">p.100–101</span></li>
 <li id="np-318">相鄰 RPE 細胞以側面連接複合體緊密相連：<strong>zonulae occludentes</strong> 與 <strong>zonulae adherentes</strong> 提供結構穩定並維持 outer blood–ocular barrier；限制旁細胞運輸，使 RPE 能調控 choriocapillaris 與外層視網膜間的養分與大分子傳遞，並支持水（房水）單向經視網膜流向脈絡膜。<span class="ref">p.101</span></li>
 <li id="np-319">經視網膜流向脈絡膜的房水流幫助維持視網膜貼附；視網膜裂孔（不論有無剝離）時經裂孔的流量增加 → <mark>患眼眼壓可能下降</mark>。<span class="ref">p.101</span></li>
@@ -786,16 +810,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-327">RPE 胞質含大量粒線體（有氧代謝）、粗糙內質網、Golgi 與大圓核；利用所有葡萄糖代謝途徑產生能量與 NADPH，後者協助處理活性氧、調節氧化壓力。<span class="ref">p.102</span></li>
 </ul>
 <ul>
-<li id="np-328">（本章外，BCSC 2 第 13 章）傳統 RPE 功能表中的「heat exchange」：現行 BCSC 只描述 RPE 的 melanin 吸收雷射光能、以熱傳給周圍組織，熱再由脈絡膜高血流帶走。故此題以 structural support 為非（A 項亦有爭議）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-126" data-q="126">第 126 題</a></span><span class="ref">BCSC 2 p.341</span></li>
+<li id="np-328">（本章外，BCSC 2 第 13 章）傳統 RPE 功能表中的「heat exchange」：現行 BCSC 只描述 RPE 的 melanin 吸收雷射光能、以熱傳給周圍組織，熱再由脈絡膜高血流帶走。故此題以 structural support 為非（A 項亦有爭議）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-126" data-q="126" aria-label="考題 Q126">Q126</a></sup>。<span class="ref ref-ext">BCSC 2 p.341</span></li>
 </ul>
 <h3 id="ch2-s13-2">Bruch Membrane（Bruch 膜）</h3>
 <ul>
 <li id="np-329">PAS 陽性薄層，由 <mark>RPE 與 choriocapillaris 的 basal laminae 融合</mark>而成；由視神經頭邊緣延伸到 ora serrata。<span class="ref">p.102</span></li>
-<li id="np-330">超微結構 5 層（由內到外）：① RPE 的 basal lamina；② inner collagenous zone（內膠原層）；③ 較厚、多孔的 elastic fibers 帶（彈性纖維層）；④ outer collagenous zone（外膠原層）；⑤ <mark>choriocapillaris 的 basal lamina</mark>（choriocapillaris 是血管，襯裡為 <strong>endothelium（內皮）</strong>，不是 epithelium）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1444" data-q="1444">第 1444 題</a></span><span class="ref">p.102</span></li>
+<li id="np-330">超微結構 5 層（由內到外）：① RPE 的 basal lamina；② inner collagenous zone（內膠原層）；③ 較厚、多孔的 elastic fibers 帶（彈性纖維層）；④ outer collagenous zone（外膠原層）；⑤ <mark class="ex-key">choriocapillaris 的 basal lamina</mark>（choriocapillaris 是血管，襯裡為 <strong>endothelium（內皮）</strong>，不是 epithelium）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1444" data-q="1444" aria-label="考題 Q1444">Q1444</a></sup>。<span class="ref">p.102</span></li>
 <li id="np-331">對 fluorescein 等小分子通透性高；在 myopia、pseudoxanthoma elasticum（彈性纖維假黃瘤）、外傷或發炎時可出現缺損 → choroidal neovascularization（CNV，脈絡膜新生血管）；隨年齡碎屑堆積使其增厚。<span class="ref">p.102</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s13-3">易錯陷阱</h3><ul>
-<li id="np-332">Bruch membrane 最外層是「choriocapillaris 內皮的基底膜」；寫成「epithelium of the choriocapillaris」就是錯的結構名稱。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-1444" data-q="1444">第 1444 題</a></span><span class="ref">p.102</span></li>
+<li id="np-332">Bruch membrane 最外層是「choriocapillaris 內皮的基底膜」；寫成「epithelium of the choriocapillaris」就是錯的結構名稱⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-1444" data-q="1444" aria-label="考題 Q1444">Q1444</a></sup>。<span class="ref">p.102</span></li>
 <li id="np-333">Drusen 在 RPE 基底膜與 inner collagenous zone 之間（Bruch membrane 內），不是在感光層下。<span class="ref">p.102</span></li>
 <li id="np-334">RPE melanosomes 原位發育（neuroectoderm），葡萄膜 melanocytes 源自 neural crest。<span class="ref">p.101</span></li>
 <li id="np-335">健康成人 RPE 不分裂；細胞數由嬰兒期 <span class="num">4</span>–<span class="num">6 million</span> 幾乎不增加。<span class="ref">p.101</span></li>
@@ -804,7 +828,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h2 id="ch2-s14">十四、鋸齒緣與玻璃體（Ora Serrata、Vitreous）</h2>
 <h3 id="ch2-s14-1">Ora Serrata（鋸齒緣）</h3>
 <ul>
-<li id="np-336">Ora serrata 分隔視網膜與 pars plana；距 Schwalbe line 為 <span class="num">5.75 mm</span>（鼻側）至 <span class="num">6.50 mm</span>（顳側）；近視眼距離較長、遠視較短；外部位置在 <strong>spiral of Tillaux</strong> 之下。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-155" data-q="155">第 155 題</a></span><span class="ref">p.103</span></li>
+<li id="np-336">Ora serrata 分隔視網膜與 pars plana；距 Schwalbe line 為 <span class="num">5.75 mm</span>（鼻側）至 <span class="num">6.50 mm</span>（顳側）；近視眼距離較長、遠視較短；外部位置在 <strong>spiral of Tillaux</strong> 之下⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-155" data-q="155" aria-label="考題 Q155">Q155</a></sup>。<span class="ref">p.103</span></li>
 <li id="np-337">在 ora serrata 眼球直徑 <span class="num">20 mm</span>、周長 <span class="num">63 mm</span>；在赤道直徑 <span class="num">24 mm</span>、周長 <span class="num">75 mm</span>。<span class="ref">p.103</span></li>
 <li id="np-338">Ora 邊緣<mark>顳側相對平滑、鼻側呈鋸齒狀</mark>；視網膜血管在到達 ora 前以環狀結束。<span class="ref">p.103</span></li>
 <li id="np-339">Ora serrata 位於前、後血管系統之間的 watershed 區 → 部分解釋周邊視網膜退化相對常見；此處視網膜明顯變薄，感光細胞畸形，石蠟切片常見囊狀變化（<strong>Blessig-Iwanoff cysts</strong>）。<span class="ref">p.103</span></li>
@@ -827,16 +851,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <div class="hs-tip-box">
 <h4>易混淆比較與口訣</h4>
 <ul>
-<li id="np-349"><strong>「全身之最」</strong>：神經最密＝角膜（上皮神經末梢密度也是上皮組織之最）；單位重量耗氧最高＝視網膜；血流（每克）最高＝脈絡膜（超過腎皮質）；流出阻力最高＝juxtacanalicular endothelial meshwork。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-100" data-q="100">第 100 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">p.55–56, p.65, p.80, p.92</span></li>
-<li id="np-350"><strong>Type IV collagen 是基底膜的共通成分</strong>：Descemet membrane、上皮基底膜、水晶體囊都有；角膜基質 type I（+V）、上皮錨定纖維 type VII、玻璃體 type II。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168">第 168 題</a></span><span class="ref">p.53–54, p.83, p.103</span></li>
-<li id="np-351"><strong>「3」個緊密附著</strong>：葡萄膜–鞏膜＝scleral spur、vortex vein 出口、optic nerve；睫狀體–鞏膜唯一附著＝底部縱行肌附著 scleral spur。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295">第 295 題</a></span><span class="ref">p.69, p.74</span></li>
-<li id="np-352"><strong>Blood–ocular barriers</strong>：blood–aqueous＝NPE tight junctions（+ iris vessels、Schlemm 內壁）；inner BRB＝視網膜血管內皮；outer BRB＝RPE tight junctions。有窗孔：choriocapillaris、睫狀體基質微血管；無窗孔：虹膜、視網膜、中大型脈絡膜血管。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161">第 161 題</a></span><span class="ref">p.73, p.75, p.81, p.92–94</span></li>
+<li id="np-349"><strong>「全身之最」</strong>：神經最密＝角膜（上皮神經末梢密度也是上皮組織之最）；單位重量耗氧最高＝視網膜；血流（每克）最高＝脈絡膜（超過腎皮質）；流出阻力最高＝juxtacanalicular endothelial meshwork⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-100" data-q="100" aria-label="考題 Q100">Q100</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref">p.55–56, p.65, p.80, p.92</span></li>
+<li id="np-350"><strong>Type IV collagen 是基底膜的共通成分</strong>：Descemet membrane、上皮基底膜、水晶體囊都有；角膜基質 type I（+V）、上皮錨定纖維 type VII、玻璃體 type II⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-168" data-q="168" aria-label="考題 Q168">Q168</a></sup>。<span class="ref">p.53–54, p.83, p.103</span></li>
+<li id="np-351"><strong>「3」個緊密附著</strong>：葡萄膜–鞏膜＝scleral spur、vortex vein 出口、optic nerve；睫狀體–鞏膜唯一附著＝底部縱行肌附著 scleral spur⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-295" data-q="295" aria-label="考題 Q295">Q295</a></sup>。<span class="ref">p.69, p.74</span></li>
+<li id="np-352"><strong>Blood–ocular barriers</strong>：blood–aqueous＝NPE tight junctions（+ iris vessels、Schlemm 內壁）；inner BRB＝視網膜血管內皮；outer BRB＝RPE tight junctions。有窗孔：choriocapillaris、睫狀體基質微血管；無窗孔：虹膜、視網膜、中大型脈絡膜血管⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-161" data-q="161" aria-label="考題 Q161">Q161</a></sup>。<span class="ref">p.73, p.75, p.81, p.92–94</span></li>
 <li id="np-353"><strong>胚胎來源</strong>：角膜上皮＝surface ectoderm；角膜內皮＝neural crest；虹膜兩肌與 IPE、RPE＝neuroectoderm；葡萄膜 melanocytes＝neural crest。<span class="ref">p.52, p.54, p.73–74, p.101</span></li>
-<li id="np-354"><strong>厚薄對照</strong>：鞏膜最薄 <span class="num">0.3 mm</span>（直肌後）、最厚 <span class="num">1.0 mm</span>（視神經旁）；角膜中央 <span class="num">500–600 μm</span>、周邊 <span class="num">1000 μm</span>；水晶體前囊 <span class="num">14 μm</span>、後囊 <span class="num">4 μm</span>；視網膜最厚 <span class="num">0.23 mm</span>、foveola <span class="num">0.10 mm</span>；脈絡膜平均 <span class="num">0.25 mm</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-178" data-q="178">第 178 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292">第 1292 題</a></span><span class="ref">p.51, p.58, p.79, p.83, p.97</span></li>
-<li id="np-355"><strong>老化方向</strong>：Descemet 增厚、內皮細胞減少、小樑網色素增加且細胞減少、小樑基底膜增厚、uveoscleral outflow 減少、水晶體前囊增厚、lipofuscin 增加、Bruch membrane 增厚。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-2%23q-167" data-q="167">第 167 題</a>、<a href="/exam/login?next=/exam/bcsc2-2%23q-1251" data-q="1251">第 1251 題</a></span><span class="ref">p.54, p.60, p.64, p.83, p.102</span></li>
+<li id="np-354"><strong>厚薄對照</strong>：鞏膜最薄 <span class="num">0.3 mm</span>（直肌後）、最厚 <span class="num">1.0 mm</span>（視神經旁）；角膜中央 <span class="num">500–600 μm</span>、周邊 <span class="num">1000 μm</span>；水晶體前囊 <span class="num">14 μm</span>、後囊 <span class="num">4 μm</span>；視網膜最厚 <span class="num">0.23 mm</span>、foveola <span class="num">0.10 mm</span>；脈絡膜平均 <span class="num">0.25 mm</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-178" data-q="178" aria-label="考題 Q178">Q178</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1292" data-q="1292" aria-label="考題 Q1292">Q1292</a></sup>。<span class="ref">p.51, p.58, p.79, p.83, p.97</span></li>
+<li id="np-355"><strong>老化方向</strong>：Descemet 增厚、內皮細胞減少、小樑網色素增加且細胞減少、小樑基底膜增厚、uveoscleral outflow 減少、水晶體前囊增厚、lipofuscin 增加、Bruch membrane 增厚⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-2%23q-167" data-q="167" aria-label="考題 Q167">Q167</a> <a href="/exam/login?next=/exam/bcsc2-2%23q-1251" data-q="1251" aria-label="考題 Q1251">Q1251</a></sup>。<span class="ref">p.54, p.60, p.64, p.83, p.102</span></li>
 </ul>
 </div>
-</div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="2-2"><p class="ex-locked">本章考題 24 題。<a href="/exam/login?next=/exam/bcsc2-2">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
+</div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="2-2"><p class="ex-locked">本章考題 24 題。<a href="/exam/login?next=/exam/bcsc2-2">登入</a>後可以作答、看答案與詳解。</p></div></section></div></main>
 <footer class="mag-footer cv-auto-short">
   <div class="mag-foot-top">
     <div class="mag-foot-brand">
@@ -878,7 +902,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
-<script src="/exam/exam.js?v=20260729" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260730" defer></script>
+<script src="/exam/exam.js?v=20260730" defer></script>
 </body>
 </html>

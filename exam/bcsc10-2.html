@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260729"></script>
+<script src="/assets/trusted-types.js?v=20260730"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 10 Ch.2 Intraocular Pressure and Aqueou…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc10-2#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 10 Ch.2","item":"https://hsiao.chendermatologist.com/exam/bcsc10-2"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260729">
+<link rel="stylesheet" href="/assets/app.css?v=20260730">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -56,14 +56,22 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note ul>li::before{content:"";position:absolute;left:5px;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--ex-accent)}
 .ex-note ul ul>li::before{background:transparent;border:1.5px solid var(--ex-accent);width:6px;height:6px}
 .ex-note ol{list-style:decimal;padding-left:24px;margin:6px 0}
-.ex-note mark{background:linear-gradient(transparent 45%,#fde68a 45%);color:inherit;padding:0 1px;font-weight:600}
+.ex-note mark,.ex-legend mark{background:linear-gradient(transparent 80%,#f7d77a 80%);color:inherit;padding:0 1px}
+.ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
+.ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
+.ex-qref a,.ex-qref span{color:#a0460a;text-decoration:none;white-space:nowrap;padding:0 1px;border-radius:3px}
+.ex-qref a:hover{text-decoration:underline}
+.ex-qref a:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
+.ex-legend-trap,.ex-legend-tip{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
+.ex-legend-tip{border-left-color:#6fbf8a;background:#f3f9f5}
 .ex-note .num,.ex-num-hl{font-family:Inter,ui-monospace,monospace;font-weight:700;color:#9a3412;background:#fff1e6;border-radius:5px;padding:0 4px;white-space:nowrap}
-.ex-note .ex-trap{background:#fef2f2;border:1px solid #fecaca;border-left:5px solid #dc2626;border-radius:12px;padding:10px 16px;margin:14px 0}
-.ex-note .ex-trap h3{margin:2px 0 6px;color:#b91c1c;font-size:15px}
-.ex-note .ex-trap h3::before{content:"⚠ ";}
-.ex-note .ex-trap ul>li::before{background:#dc2626}
-.ex-note .ex-ddx tbody td:first-child{font-weight:700;background:var(--ex-soft);width:26%;min-width:8.5em}
-.ex-note .ex-ddx thead th{background:var(--ex-accent);color:#fff}
+.ex-note .ex-trap{background:#fef5f5;border-left:3px solid #f87171;border-radius:8px;padding:8px 14px;margin:12px 0}
+.ex-note .ex-trap>h3:first-child,.ex-note .hs-tip-box>:is(h3,h4):first-child{display:inline-block;margin:2px 0 4px;padding:0 8px;border-radius:6px;background:#c62828;color:#fff;font-size:11.5px;font-weight:700;line-height:1.7;letter-spacing:.04em}
+.ex-note .hs-tip-box>:is(h3,h4):first-child{background:#2f7a4d}
+.ex-note .ex-trap ul>li::before{background:#f87171}
+.ex-note .ex-ddx tbody td:first-child{font-weight:700;background:#f6f8fb;width:26%;min-width:8.5em}
+.ex-note .ex-ddx thead th{background:var(--ex-soft);color:var(--ex-accent)}
 .ex-note .ex-ddx{table-layout:auto;min-width:560px}
 .ex-note .ex-ddx td,.ex-note .ex-ddx th{word-break:normal;overflow-wrap:break-word}
 .ex-toc{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin:12px 0 18px;font-size:14px}
@@ -72,17 +80,28 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-toc a{color:var(--ink-2);text-decoration:none}
 .ex-toc a:hover{color:var(--ex-accent);text-decoration:underline}
 .ex-note h2,.ex-note h3{scroll-margin-top:80px}
-.ex-note .keypoint,.ex-note .hs-tip-box,.ex-note .hs-warn-box{border-radius:12px;padding:12px 16px;margin:14px 0}
-.ex-note .keypoint{background:var(--ex-soft);border-left:4px solid var(--ex-accent)}
-.ex-note .hs-tip-box{background:#f0fdf4;border-left:4px solid #16a34a}
-.ex-note .hs-warn-box{background:#fffbeb;border-left:4px solid #d97706}
+.ex-content{min-width:0}
+.ex-toc-side{display:none}
+@media (min-width:1100px){main.ex-has-side{max-width:76rem;display:grid;grid-template-columns:230px minmax(0,48rem);gap:44px;justify-content:center;align-items:start}.ex-toc-side{display:block;position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;overscroll-behavior:contain}.ex-has-side .ex-toc{display:none}}
+.ex-toc-side{border:1px solid var(--border);border-radius:12px;background:var(--ex-card);padding:10px 10px 10px 12px;font-size:13px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.ex-toc-side::-webkit-scrollbar{width:6px}
+.ex-toc-side::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+.ex-toc-side summary{font-weight:700;cursor:pointer;color:var(--ex-accent);letter-spacing:.06em}
+.ex-toc-side ol{list-style:none;margin:6px 0 0;padding:0;line-height:1.55}
+.ex-toc-side a{display:block;padding:4px 8px;margin:1px 0;border-left:2px solid transparent;border-radius:0 6px 6px 0;color:var(--ink-2);text-decoration:none}
+.ex-toc-side a:hover{color:var(--ex-accent);background:var(--ex-soft)}
+.ex-toc-side a[aria-current]{color:var(--ex-accent);background:var(--ex-soft);border-left-color:var(--ex-accent);font-weight:700}
+.ex-toc-qs{border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
+.ex-note .keypoint,.ex-note .hs-tip-box,.ex-note .hs-warn-box{border-radius:8px;padding:8px 14px;margin:12px 0}
+.ex-note .keypoint{background:#f3f7fb;border-left:3px solid #8fb0cf}
+.ex-note .hs-tip-box{background:#f3f9f5;border-left:3px solid #6fbf8a}
+.ex-note .hs-warn-box{background:#fffaf0;border-left:3px solid #f0b453}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
 .ex-note{overflow-x:auto}
-.ref,.ex-ref{font-size:11.5px;color:#46556a;background:var(--ex-soft);border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
-.ex-hit{display:inline-block;font-size:11.5px;font-weight:600;color:#854d0e;background:#fef3c7;border-radius:9999px;padding:1px 9px;margin-left:6px}
-.ex-hit a{color:#854d0e}
+.ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
+.ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
 .ex-bar-cell{width:30%}
 .ex-bar{display:block;height:9px;border-radius:9px;background:#6b8caf}
@@ -149,7 +168,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-hitbox a{color:var(--ex-accent);font-weight:700}
 .ex-hitbox mark{background:#fef08a;color:inherit;border-radius:3px}
 .ex-locked{background:var(--ex-soft);border:1px dashed var(--border);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.8}
-.ex-locked a,.ex-hit a{font-weight:700}
+.ex-locked a{font-weight:700}
 .ex-login{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
 .ex-label{font-weight:700;font-size:14px}
 .ex-login .ex-input{flex:1;min-width:12em}
@@ -219,22 +238,26 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
-:root[data-theme="dark"] .ex-hit,:root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
-:root[data-theme="dark"] .ex-hit a{color:#fde68a}
+:root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
 :root[data-theme="dark"] .ex-badge,:root[data-theme="dark"] .ex-ok .ex-item-label{background:#14532d;color:#dcfce7}
 :root[data-theme="dark"] .ex-no .ex-item-label{background:#36404b;color:#e7e5e4}
-:root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{color:#cfe0ee}
+:root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{background:#2c2925;color:#d6d3d1}
+:root[data-theme="dark"] .ref-ext{background:#2e1065;color:#ddd6fe}
 :root[data-theme="dark"] .ex-mode[aria-pressed="true"],:root[data-theme="dark"] .ex-chip-on,:root[data-theme="dark"] .ex-cta,:root[data-theme="dark"] .ex-cta-btn{color:#14181d}
 :root[data-theme="dark"] .ex-cta.ex-cta-alt{color:var(--ex-accent)}
-:root[data-theme="dark"] .ex-note .hs-tip-box{background:#12301d}
-:root[data-theme="dark"] .ex-note .hs-warn-box{background:#332a14}
+:root[data-theme="dark"] .ex-note .hs-tip-box,:root[data-theme="dark"] .ex-legend-tip{background:rgba(20,83,45,.3);border-left-color:#3f8a5c}
+:root[data-theme="dark"] .ex-note .hs-warn-box{background:rgba(120,83,14,.3);border-left-color:#b9852c}
+:root[data-theme="dark"] .ex-note .keypoint{background:rgba(58,90,124,.3);border-left-color:#5f86ab}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt[data-correct],:root[data-theme="dark"] body:not(.ex-quiz) .ex-opt[data-correct]{background:#12301d;border-color:#16a34a}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt.ex-picked:not([data-correct]){background:#3a1a1a;border-color:#dc2626}
 :root[data-theme="dark"] .ex-hitbox mark{background:#854d0e;color:#fff}
-:root[data-theme="dark"] .ex-note mark{background:linear-gradient(transparent 45%,#854d0e 45%)}
+:root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:linear-gradient(transparent 80%,rgba(234,179,8,.5) 80%)}
+:root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
+:root[data-theme="dark"] .ex-qref a,:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
 :root[data-theme="dark"] .ex-note .num{background:#3b2414;color:#fdba74}
-:root[data-theme="dark"] .ex-note .ex-trap{background:#2d1616;border-color:#7f1d1d}
-:root[data-theme="dark"] .ex-note .ex-trap h3{color:#fca5a5}
+:root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
+:root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
+:root[data-theme="dark"] .ex-note .ex-ddx tbody td:first-child{background:var(--ex-soft)}
 :root[data-theme="dark"] .ex-toc{border-color:#36404b}
 :root[data-theme="dark"] .ex-locked{border-color:#36404b}
 :root[data-theme="dark"] .ex-login-msg{background:#3a1a1a;border-color:#7f1d1d;color:#fecaca}
@@ -244,8 +267,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-doubt-tag-now{background:#1e3a5f;color:#dbeafe}
 :root[data-theme="dark"] .ex-strip,:root[data-theme="dark"] .ex-summary-box{border-color:#36404b}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
-:root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
-:root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-toc a,:root[data-theme="dark"] .ex-toc-side a{color:#d6d3d1}
+:root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
+:root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
@@ -253,7 +277,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260729"></script>
+<script defer src="/assets/telemetry.js?v=20260730"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -281,15 +305,15 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 10 Ch.2</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 10 · Glaucoma</p><h1 class="ex-h1">Ch.2 Intraocular Pressure and Aqueous Humor Dynamics</h1><p class="ex-meta">原書 p.21–40 · 考題 34 題</p><div class="ex-strip" data-progress-chapter="10-2" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="10-2"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch2-s1">一、房水的生成與組成</a></li><li><a href="#ch2-s2">二、抑制房水生成的藥理基礎</a></li><li><a href="#ch2-s3">三、房水排出：Trabecular meshwork 與 uveoscleral 路徑</a></li><li><a href="#ch2-s4">四、房水動力學：Goldmann equation 與各參數測量</a></li><li><a href="#ch2-s5">五、眼壓的族群分布與青光眼的關係</a></li><li><a href="#ch2-s6">六、眼壓的變異因素</a></li><li><a href="#ch2-s7">七、Applanation tonometry（壓平眼壓計）與誤差來源</a></li><li><a href="#ch2-s8">八、其他眼壓計、感染控制與觸診</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 10 第 2 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch2-s1">一、房水的生成與組成</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch2-s1">一、房水的生成與組成</a></li><li><a href="#ch2-s2">二、抑制房水生成的藥理基礎</a></li><li><a href="#ch2-s3">三、房水排出：Trabecular meshwork 與 uveoscleral 路徑</a></li><li><a href="#ch2-s4">四、房水動力學：Goldmann equation 與各參數測量</a></li><li><a href="#ch2-s5">五、眼壓的族群分布與青光眼的關係</a></li><li><a href="#ch2-s6">六、眼壓的變異因素</a></li><li><a href="#ch2-s7">七、Applanation tonometry（壓平眼壓計）與誤差來源</a></li><li><a href="#ch2-s8">八、其他眼壓計、感染控制與觸診</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（34 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 10 Ch.2</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 10 · Glaucoma</p><h1 class="ex-h1">Ch.2 Intraocular Pressure and Aqueous Humor Dynamics</h1><p class="ex-meta">原書 p.21–40 · 考題 34 題</p><div class="ex-strip" data-progress-chapter="10-2" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="10-2"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch2-s1">一、房水的生成與組成</a></li><li><a href="#ch2-s2">二、抑制房水生成的藥理基礎</a></li><li><a href="#ch2-s3">三、房水排出：Trabecular meshwork 與 uveoscleral 路徑</a></li><li><a href="#ch2-s4">四、房水動力學：Goldmann equation 與各參數測量</a></li><li><a href="#ch2-s5">五、眼壓的族群分布與青光眼的關係</a></li><li><a href="#ch2-s6">六、眼壓的變異因素</a></li><li><a href="#ch2-s7">七、Applanation tonometry（壓平眼壓計）與誤差來源</a></li><li><a href="#ch2-s8">八、其他眼壓計、感染控制與觸診</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 10 第 2 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch2-s1">一、房水的生成與組成</h2>
 <h3 id="ch2-s1-1">生成部位與速率</h3>
 <ul>
 <li id="np-1"><strong>Aqueous humor（房水）</strong>由 <strong>ciliary processes（睫狀突）</strong>產生 → 進入 posterior chamber（後房）→ 經瞳孔流入 anterior chamber（前房）。<span class="ref">p.21</span></li>
-<li id="np-2">平均生成速率：清醒（diurnal，日間）<mark><span class="num">2–3 μL/min</span></mark>；睡眠（nocturnal，夜間）約<mark>減少 <span class="num">50%</span></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169">第 1169 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201">第 1201 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248">第 1248 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732">第 1732 題</a></span><span class="ref">p.21, p.28</span></li>
-<li id="np-3">前段容積約 <span class="num">200–300 μL</span> → 全部房水約每 <span class="num">100 分鐘</span>更新一次，即每分鐘約更新 <span class="num">1%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1246" data-q="1246">第 1246 題</a></span><span class="ref">p.21, p.28</span></li>
+<li id="np-2">平均生成速率：清醒（diurnal，日間）<mark class="ex-key"><span class="num">2–3 μL/min</span></mark>；睡眠（nocturnal，夜間）約<mark class="ex-key">減少 <span class="num">50%</span></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169" aria-label="考題 Q1169">Q1169</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201" aria-label="考題 Q1201">Q1201</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248" aria-label="考題 Q1248">Q1248</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732" aria-label="考題 Q1732">Q1732</a></sup>。<span class="ref">p.21, p.28</span></li>
+<li id="np-3">前段容積約 <span class="num">200–300 μL</span> → 全部房水約每 <span class="num">100 分鐘</span>更新一次，即每分鐘約更新 <span class="num">1%</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1246" data-q="1246" aria-label="考題 Q1246">Q1246</a></sup>。<span class="ref">p.21, p.28</span></li>
 <li id="np-4">睫狀體約有 <span class="num">80</span> 個 ciliary processes，每個由雙層上皮包覆 stroma（基質）核心與豐富的 <strong>fenestrated capillaries（有窗孔微血管）</strong>；微血管主要來自 <strong>major arterial circle of the iris（虹膜大動脈環）</strong>的分支。<span class="ref">p.23</span></li>
 <li id="np-5">雙層上皮：外層 <strong>pigmented epithelium（色素上皮）</strong>與內層 <strong>nonpigmented epithelium（無色素上皮）</strong>，兩層<strong>頂面（apical surfaces）相對</strong>，以 tight junctions（緊密連接）相連 → 是 <strong>blood–aqueous barrier（血液房水屏障）</strong>的重要組成。<span class="ref">p.23</span></li>
-<li id="np-6"><mark>房水生成部位被認為是內層 <strong>nonpigmented epithelial cells</strong></mark>：突入後房，富含 mitochondria（粒線體）、zonula occludens（緊密連接）與 microvilli（微絨毛）；不是外層 pigmented epithelium。睫狀突提供廣大分泌面積。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169">第 1169 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1246" data-q="1246">第 1246 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732">第 1732 題</a></span><span class="ref">p.23</span></li>
+<li id="np-6"><mark class="ex-key">房水生成部位被認為是內層 <strong>nonpigmented epithelial cells</strong></mark>：突入後房，富含 mitochondria（粒線體）、zonula occludens（緊密連接）與 microvilli（微絨毛）；不是外層 pigmented epithelium。睫狀突提供廣大分泌面積⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169" aria-label="考題 Q1169">Q1169</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1246" data-q="1246" aria-label="考題 Q1246">Q1246</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732" aria-label="考題 Q1732">Q1732</a></sup>。<span class="ref">p.23</span></li>
 <li id="np-7">Fig 2-1 組織學：nonpigmented 細胞約 <span class="num">20 μm</span> 高 × <span class="num">12 μm</span> 寬；cuboidal（立方形）pigmented 細胞約 <span class="num">10 μm</span> 高；melanin granules（黑色素顆粒）直徑約 <span class="num">1 μm</span>、多在頂部；基底膜在內面構成 internal limiting membrane（ILM，內界膜），老年眼 ILM 增厚、分層。<span class="ref">p.23</span></li>
 </ul>
 <h3 id="ch2-s1-2">三種生成機轉</h3>
@@ -301,18 +325,18 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-14"><strong>Simple diffusion（單純擴散）</strong></td><td id="np-15">被動，依電荷與濃度順梯度通過膜</td><td id="np-16">—</td></tr>
 </tbody>
 </table>
-<p id="np-17">出處（三機轉皆列出）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248">第 1248 題</a></span><span class="ref">p.23–24</span></p>
+<p id="np-17">出處（三機轉皆列出）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248" aria-label="考題 Q1248">Q1248</a></sup><span class="ref">p.23–24</span></p>
 <h3 id="ch2-s1-3">房水組成</h3>
 <ul>
-<li id="np-18">人類（及其他日行性動物）房水的 <strong>ascorbate（抗壞血酸）</strong>濃度<mark>高於血漿</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248">第 1248 題</a></span><span class="ref">p.24</span></li>
+<li id="np-18">人類（及其他日行性動物）房水的 <strong>ascorbate（抗壞血酸）</strong>濃度<mark class="ex-key">高於血漿</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248" aria-label="考題 Q1248">Q1248</a></sup>。<span class="ref">p.24</span></li>
 <li id="np-19">Blood–aqueous barrier 限制血漿蛋白進入 → 房水幾乎無蛋白（約血漿的 <span class="num">1/200–1/500</span>），維持光學透明；<strong>albumin（白蛋白）</strong>約佔總蛋白一半。<span class="ref">p.24</span></li>
-<li id="np-20">房水從後房經瞳孔流到前房時<mark>成分持續改變</mark>：經 vitreous 的 hyaloid face（玻璃體前界面）、水晶體表面、虹膜血管與 corneal endothelium（角膜內皮）交換，加上稀釋與主動過程。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732">第 1732 題</a></span><span class="ref">p.24</span></li>
-<li id="np-21">（本章外，BCSC 2 Table 9-1）與血漿相比：房水 <strong>Cl⁻ 較高</strong>（約 <span class="num">134</span> vs <span class="num">109</span> mmol/kg）、<strong>HCO₃⁻ 較低</strong>（約 <span class="num">20</span> vs <span class="num">28</span> mmol/kg）、ascorbate 明顯較高；BCSC 未直接比較人類房水與血漿的 H⁺。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169">第 1169 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248">第 1248 題</a></span><span class="ref">BCSC 2 p.285</span></li>
+<li id="np-20">房水從後房經瞳孔流到前房時<mark class="ex-key">成分持續改變</mark>：經 vitreous 的 hyaloid face（玻璃體前界面）、水晶體表面、虹膜血管與 corneal endothelium（角膜內皮）交換，加上稀釋與主動過程⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732" aria-label="考題 Q1732">Q1732</a></sup>。<span class="ref">p.24</span></li>
+<li id="np-21">（本章外，BCSC 2 Table 9-1）與血漿相比：房水 <strong>Cl⁻ 較高</strong>（約 <span class="num">134</span> vs <span class="num">109</span> mmol/kg）、<strong>HCO₃⁻ 較低</strong>（約 <span class="num">20</span> vs <span class="num">28</span> mmol/kg）、ascorbate 明顯較高；BCSC 未直接比較人類房水與血漿的 H⁺⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169" aria-label="考題 Q1169">Q1169</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248" aria-label="考題 Q1248">Q1248</a></sup>。<span class="ref ref-ext">BCSC 2 p.285</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s1-4">易錯陷阱</h3><ul>
-<li id="np-22">分泌房水的是<strong>內層 nonpigmented</strong> epithelium，不是外層 pigmented epithelium。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1246" data-q="1246">第 1246 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732">第 1732 題</a></span><span class="ref">p.23</span></li>
-<li id="np-23">單位是 <span class="num">μL/min</span>；睡眠時「減少」約一半，不是增加。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169">第 1169 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248">第 1248 題</a></span><span class="ref">p.21</span></li>
-<li id="np-24">房水 bicarbonate 比血漿「低」、chloride 比血漿「高」、ascorbate「高」（本章外）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169">第 1169 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248">第 1248 題</a></span><span class="ref">BCSC 2 p.285</span></li>
+<li id="np-22">分泌房水的是<strong>內層 nonpigmented</strong> epithelium，不是外層 pigmented epithelium⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1246" data-q="1246" aria-label="考題 Q1246">Q1246</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732" aria-label="考題 Q1732">Q1732</a></sup>。<span class="ref">p.23</span></li>
+<li id="np-23">單位是 <span class="num">μL/min</span>；睡眠時「減少」約一半，不是增加⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169" aria-label="考題 Q1169">Q1169</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248" aria-label="考題 Q1248">Q1248</a></sup>。<span class="ref">p.21</span></li>
+<li id="np-24">房水 bicarbonate 比血漿「低」、chloride 比血漿「高」、ascorbate「高」（本章外）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1169" data-q="1169" aria-label="考題 Q1169">Q1169</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248" aria-label="考題 Q1248">Q1248</a></sup>。<span class="ref ref-ext">BCSC 2 p.285</span></li>
 <li id="np-25">Active secretion 是「壓力無關」且佔大部分；ultrafiltration 才是「壓力依賴」。<span class="ref">p.23</span></li>
 </ul></div>
 
@@ -322,10 +346,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-27"><strong>Carbonic anhydrase II 抑制</strong> → 抑制房水生成；其確切角色仍有爭議：可能提供（被主動分泌的）bicarbonate，或提供 HCO₃⁻/H⁺ 給細胞內緩衝系統。<span class="ref">p.24</span></li>
 <li id="np-28"><strong>β2-receptors</strong> 是睫狀上皮<mark>最主要的 adrenergic receptor（腎上腺素受體）</mark>；阻斷後可能降低 <strong>Na⁺,K⁺-ATPase（鈉鉀幫浦）</strong>效率或幫浦數目，而減少主動分泌。<span class="ref">p.24</span></li>
 <li id="np-29"><strong>α2-receptor 刺激</strong>也減少房水生成，可能經<strong>抑制 cyclic adenosine monophosphate（cAMP，環磷酸腺苷）</strong>而降低睫狀體血流；確切機轉不明。<span class="ref">p.24</span></li>
-<li id="np-30">第 12 章另寫 topical β-blockers 經抑制睫狀上皮 cAMP 生成而減少房水（本章外），所以「β 阻斷劑可經抑制 cAMP 減少房水生成」視為正確敘述。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732">第 1732 題</a></span><span class="ref">p.24; BCSC 10 p.229</span></li>
+<li id="np-30">第 12 章另寫 topical β-blockers 經抑制睫狀上皮 cAMP 生成而減少房水（本章外），所以「β 阻斷劑可經抑制 cAMP 減少房水生成」視為正確敘述⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732" aria-label="考題 Q1732">Q1732</a></sup>。<span class="ref">p.24; BCSC 10 p.229</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s2-1">易錯陷阱</h3><ul>
-<li id="np-31">本章把「cAMP 抑制 → 睫狀體血流下降」放在 α2 agonist 下，β2 阻斷則寫 Na⁺,K⁺-ATPase；第 12 章又把 cAMP 寫給 β-blocker。兩種說法都出自 BCSC，題目寫 β-blocker 經 cAMP 不算錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732">第 1732 題</a></span><span class="ref">p.24; BCSC 10 p.229</span></li>
+<li id="np-31">本章把「cAMP 抑制 → 睫狀體血流下降」放在 α2 agonist 下，β2 阻斷則寫 Na⁺,K⁺-ATPase；第 12 章又把 cAMP 寫給 β-blocker。兩種說法都出自 BCSC，題目寫 β-blocker 經 cAMP 不算錯⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1732" data-q="1732" aria-label="考題 Q1732">Q1732</a></sup>。<span class="ref">p.24; BCSC 10 p.229</span></li>
 </ul></div>
 
 <h2 id="ch2-s3">三、房水排出：Trabecular meshwork 與 uveoscleral 路徑</h2>
@@ -334,7 +358,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch2-s3-1">Trabecular（conventional，傳統）路徑</h3>
 <ul>
-<li id="np-33">路線：TM → <strong>Schlemm canal（許氏管）</strong>→ 外壁 <strong>collector channels（集液管）</strong>→ 直接接 <strong>aqueous veins（房水靜脈）</strong>，或先經 <strong>intrascleral plexus（鞏膜內靜脈叢）</strong>再到 aqueous veins → episcleral venous system（上鞏膜靜脈系統）→ superior ophthalmic veins（上眼靜脈）→ cavernous sinus（海綿竇）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189">第 189 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248">第 1248 題</a></span><span class="ref">p.24–26</span></li>
+<li id="np-33">路線：TM → <strong>Schlemm canal（許氏管）</strong>→ 外壁 <strong>collector channels（集液管）</strong>→ 直接接 <strong>aqueous veins（房水靜脈）</strong>，或先經 <strong>intrascleral plexus（鞏膜內靜脈叢）</strong>再到 aqueous veins → episcleral venous system（上鞏膜靜脈系統）→ superior ophthalmic veins（上眼靜脈）→ cavernous sinus（海綿竇）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1248" data-q="1248" aria-label="考題 Q1248">Q1248</a></sup>。<span class="ref">p.24–26</span></li>
 </ul>
 <h3 id="ch2-s3-2">TM 三層構造</h3>
 <table class="ted-table">
@@ -345,25 +369,25 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-38"><strong>Juxtacanalicular meshwork（近管組織）</strong></td><td id="np-39">緊鄰並構成 Schlemm canal <strong>內壁</strong>；<mark>被認為是 outflow resistance（排出阻力）的主要部位</mark></td></tr>
 </tbody>
 </table>
-<p id="np-40">Juxtacanalicular meshwork 被認為是排出阻力的主要部位（緊鄰並構成 Schlemm canal 內壁）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189">第 189 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">p.25</span></p>
+<p id="np-40">Juxtacanalicular meshwork 被認為是排出阻力的主要部位（緊鄰並構成 Schlemm canal 內壁）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref">p.25</span></p>
 <ul>
-<li id="np-41">（本章外，BCSC 2）阻力由內往外遞增：uveal &lt; corneoscleral &lt; juxtacanalicular。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">BCSC 2 p.63, p.65</span></li>
+<li id="np-41">（本章外，BCSC 2）阻力由內往外遞增：uveal &lt; corneoscleral &lt; juxtacanalicular⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref ref-ext">BCSC 2 p.63, p.65</span></li>
 <li id="np-42">房水穿過 Schlemm canal 內壁內皮細胞，<strong>跨細胞與細胞間</strong>皆有。<span class="ref">p.25</span></li>
 <li id="np-43">TM 每層為 collagen（膠原）結締組織核心外覆連續內皮；功能如<strong>單向閥（one-way valve）</strong>：以 bulk flow（整體流）讓房水離眼、限制逆流，<strong>不耗能</strong>。<span class="ref">p.25</span></li>
-<li id="np-44">TM 細胞具 <mark><strong>phagocytic（吞噬）</strong>功能</mark>，發炎時與 laser trabeculoplasty（雷射小樑成形術）後吞噬可增加。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1176" data-q="1176">第 1176 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202">第 1202 題</a></span><span class="ref">p.25</span></li>
-<li id="np-45">多數<strong>年長成人</strong> TM 細胞的細胞質含大量 <strong>pigment granules（色素顆粒）</strong>，使小樑網呈色素外觀，程度依部位與個人而異。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1142" data-q="1142">第 1142 題</a></span><span class="ref">p.25</span></li>
-<li id="np-46">每眼約 <mark><span class="num">200,000–300,000</span> 個 TM 細胞</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">p.25</span></li>
-<li id="np-47"><strong>老化</strong>：TM 細胞數<strong>減少</strong>，其下 basement membrane（基底膜）<mark><strong>增厚</strong></mark>（不是變薄），可能增加排出阻力。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1142" data-q="1142">第 1142 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202">第 1202 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.25</span></li>
+<li id="np-44">TM 細胞具 <mark class="ex-key"><strong>phagocytic（吞噬）</strong>功能</mark>，發炎時與 laser trabeculoplasty（雷射小樑成形術）後吞噬可增加⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1176" data-q="1176" aria-label="考題 Q1176">Q1176</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a></sup>。<span class="ref">p.25</span></li>
+<li id="np-45">多數<strong>年長成人</strong> TM 細胞的細胞質含大量 <strong>pigment granules（色素顆粒）</strong>，使小樑網呈色素外觀，程度依部位與個人而異⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1142" data-q="1142" aria-label="考題 Q1142">Q1142</a></sup>。<span class="ref">p.25</span></li>
+<li id="np-46">每眼約 <mark class="ex-key"><span class="num">200,000–300,000</span> 個 TM 細胞</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref">p.25</span></li>
+<li id="np-47"><strong>老化</strong>：TM 細胞數<strong>減少</strong>，其下 basement membrane（基底膜）<mark class="ex-key"><strong>增厚</strong></mark>（不是變薄），可能增加排出阻力⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1142" data-q="1142" aria-label="考題 Q1142">Q1142</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.25</span></li>
 <li id="np-48">各類 laser trabeculoplasty 都會誘發 TM 細胞分裂，並改變 cytokines（細胞激素）與細胞外基質成分的生成。<span class="ref">p.25</span></li>
 </ul>
 <h3 id="ch2-s3-3">Schlemm canal 與 distal outflow system（遠端排出系統）</h3>
 <ul>
-<li id="np-49">Schlemm canal 類似淋巴管，<mark><strong>完全</strong>由 endothelial layer（內皮層）襯覆</mark>，下方為<strong>不連續</strong>的基底膜。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1142" data-q="1142">第 1142 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1176" data-q="1176">第 1176 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202">第 1202 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">p.26</span></li>
-<li id="np-50">單一管道，直徑一般約 <mark><span class="num">200–300 μm</span></mark>，但差異很大，可有阻塞流動的狹窄處。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">p.26</span></li>
+<li id="np-49">Schlemm canal 類似淋巴管，<mark class="ex-key"><strong>完全</strong>由 endothelial layer（內皮層）襯覆</mark>，下方為<strong>不連續</strong>的基底膜⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1142" data-q="1142" aria-label="考題 Q1142">Q1142</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1176" data-q="1176" aria-label="考題 Q1176">Q1176</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref">p.26</span></li>
+<li id="np-50">單一管道，直徑一般約 <mark class="ex-key"><span class="num">200–300 μm</span></mark>，但差異很大，可有阻塞流動的狹窄處⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref">p.26</span></li>
 <li id="np-51">內壁：intracellular 與 intercellular pores（細胞內/間孔）提示 bulk flow；與 intertrabecular spaces 直接相通的 <strong>giant vacuoles（巨大空泡）</strong>提示主動運輸，但可能是組織處理的假影。外壁為<strong>無孔</strong>的單層內皮。<span class="ref">p.26</span></li>
-<li id="np-52">（本章外，BCSC 2）隨 IOP 上升而變大、變多的是 giant vacuoles；micropinocytotic vesicles（微胞飲小泡）存在於內皮頂、底面。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">BCSC 2 p.65</span></li>
+<li id="np-52">（本章外，BCSC 2）隨 IOP 上升而變大、變多的是 giant vacuoles；micropinocytotic vesicles（微胞飲小泡）存在於內皮頂、底面⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref ref-ext">BCSC 2 p.65</span></li>
 <li id="np-53">Collector channels → aqueous veins → episcleral veins，構成 distal outflow system；Video 2-1 以 indocyanine green aqueous angiography（ICG 房水血管攝影）呈現。<span class="ref">p.26</span></li>
-<li id="np-54"><strong>TM 路徑是動態的</strong>：<mark>IOP 上升時 Schlemm canal 截面積<strong>減少</strong>，TM 則<strong>擴張（expand）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1176" data-q="1176">第 1176 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202">第 1202 題</a></span><span class="ref">p.26</span></li>
+<li id="np-54"><strong>TM 路徑是動態的</strong>：<mark class="ex-key">IOP 上升時 Schlemm canal 截面積<strong>減少</strong>，TM 則<strong>擴張（expand）</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1176" data-q="1176" aria-label="考題 Q1176">Q1176</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a></sup>。<span class="ref">p.26</span></li>
 <li id="np-55"><strong>Segmental outflow（節段性排出）</strong>：遠端各血管流量動態不同，可能影響 trabecular bypass（小樑繞道）手術成效；但目前沒有有力證據支持依位置選擇手術部位。<span class="ref">p.26</span></li>
 </ul>
 <h3 id="ch2-s3-4">Uveoscleral（unconventional，非傳統）路徑</h3>
@@ -372,10 +396,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-57">路線：前房 → <strong>ciliary muscle bundles（睫狀肌束）間的間隙</strong>→ supraciliary（睫狀體上）與 suprachoroidal（脈絡膜上）腔 → 之後不明：可能穿過完整鞏膜、沿穿鞏膜的神經血管、或經 vortex veins（渦靜脈）吸收；睫狀體也發現淋巴管，有 uveolymphatic pathway（葡萄膜淋巴路徑）之說。<span class="ref">p.26</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s3-5">易錯陷阱</h3><ul>
-<li id="np-58">IOP 上升 → Schlemm canal「變窄」（截面積減少）、TM「擴張」；說 Schlemm canal 變寬是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1176" data-q="1176">第 1176 題</a></span><span class="ref">p.26</span></li>
-<li id="np-59">老化：細胞數減少 + 基底膜「增厚」；「變薄」是常見錯誤選項。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1142" data-q="1142">第 1142 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202">第 1202 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.25</span></li>
-<li id="np-60">TM 細胞數是 <span class="num">200,000–300,000</span>，不是 500,000–600,000；Schlemm canal 直徑是 <span class="num">200–300 μm</span>，兩個「200–300」別混。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221">第 1221 題</a></span><span class="ref">p.25–26</span></li>
-<li id="np-61">阻力主要在 juxtacanalicular meshwork（與 Schlemm canal 內壁），不是 uveal meshwork。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221">第 1221 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189">第 189 題</a></span><span class="ref">p.25</span></li>
+<li id="np-58">IOP 上升 → Schlemm canal「變窄」（截面積減少）、TM「擴張」；說 Schlemm canal 變寬是錯的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1176" data-q="1176" aria-label="考題 Q1176">Q1176</a></sup>。<span class="ref">p.26</span></li>
+<li id="np-59">老化：細胞數減少 + 基底膜「增厚」；「變薄」是常見錯誤選項⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1142" data-q="1142" aria-label="考題 Q1142">Q1142</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1202" data-q="1202" aria-label="考題 Q1202">Q1202</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.25</span></li>
+<li id="np-60">TM 細胞數是 <span class="num">200,000–300,000</span>，不是 500,000–600,000；Schlemm canal 直徑是 <span class="num">200–300 μm</span>，兩個「200–300」別混⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a></sup>。<span class="ref">p.25–26</span></li>
+<li id="np-61">阻力主要在 juxtacanalicular meshwork（與 Schlemm canal 內壁），不是 uveal meshwork⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1221" data-q="1221" aria-label="考題 Q1221">Q1221</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-189" data-q="189" aria-label="考題 Q189">Q189</a></sup>。<span class="ref">p.25</span></li>
 </ul></div>
 
 <h2 id="ch2-s4">四、房水動力學：Goldmann equation 與各參數測量</h2>
@@ -383,7 +407,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <div class="keypoint"><strong>P₀ = (F − U)/C + Pv</strong>：P₀ = IOP（mm Hg）；F = 房水生成率（μL/min）；U = uveoscleral 排出率（μL/min）；C = TM outflow facility（排出易度，μL/min/mm Hg）；Pv = episcleral venous pressure（EVP，上鞏膜靜脈壓，mm Hg）。<span class="ref">p.27</span></div>
 <ul>
 <li id="np-62">穩態模型；5 個參數只需量 <span class="num">4</span> 個，第 5 個可推算。<strong>Resistance（R，阻力）= 1/C</strong>。<span class="ref">p.27</span></li>
-<li id="np-63">青光眼患者<mark>房水生成通常正常</mark>，排出量也不變，但<strong>排出阻力常增加</strong> → 需更高眼壓才能維持排出。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193">第 1193 題</a></span><span class="ref">p.27</span></li>
+<li id="np-63">青光眼患者<mark class="ex-key">房水生成通常正常</mark>，排出量也不變，但<strong>排出阻力常增加</strong> → 需更高眼壓才能維持排出⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193" aria-label="考題 Q1193">Q1193</a></sup>。<span class="ref">p.27</span></li>
 <li id="np-64">臨床常見眼壓範圍下 outflow facility 約 <span class="num">0.2–0.3 μL/min/mm Hg</span>，位於 Fig 2-3 曲線平坦段：facility 大幅變化只造成 IOP 小幅變化。Fig 2-3 假設生成 <span class="num">2.5 μL/min</span>、uveoscleral <span class="num">35%</span>、EVP <span class="num">7 mm Hg</span>。<span class="ref">p.27</span></li>
 </ul>
 <table class="ted-table">
@@ -398,53 +422,53 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <p id="np-81">出處 <span class="ref">p.27–29</span></p>
 <h3 id="ch2-s4-2">房水生成的測量與影響因素</h3>
 <ul>
-<li id="np-82">最常用 <strong>fluorophotometry</strong>：局部點 fluorescein（螢光素），光學測量其在前房逐漸稀釋，由濃度隨時間變化算出房水流率。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1246" data-q="1246">第 1246 題</a></span><span class="ref">p.27–28</span></li>
+<li id="np-82">最常用 <strong>fluorophotometry</strong>：局部點 fluorescein（螢光素），光學測量其在前房逐漸稀釋，由濃度隨時間變化算出房水流率⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1246" data-q="1246" aria-label="考題 Q1246">Q1246</a></sup>。<span class="ref">p.27–28</span></li>
 <li id="np-83">生成率隨 circadian rhythm（晝夜節律）變化，睡眠約減半，並<strong>隨年齡下降</strong>；受 blood–aqueous barrier 完整性、睫狀體血流、血管與睫狀上皮的 neurohumoral regulation（神經體液調節）影響。<span class="ref">p.28</span></li>
-<li id="np-84">會<mark>減少</mark>房水生成：trauma（外傷）、intraocular inflammation（眼內發炎）、全身藥物（如 general anesthetics（全身麻醉劑）、部分 systemic hypotensive agents（降血壓藥））、青光眼用房水抑制劑，以及 <mark><strong>carotid occlusive disease（頸動脈阻塞疾病）</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201">第 1201 題</a></span><span class="ref">p.28</span></li>
+<li id="np-84">會<mark class="ex-key">減少</mark>房水生成：trauma（外傷）、intraocular inflammation（眼內發炎）、全身藥物（如 general anesthetics（全身麻醉劑）、部分 systemic hypotensive agents（降血壓藥））、青光眼用房水抑制劑，以及 <mark class="ex-key"><strong>carotid occlusive disease（頸動脈阻塞疾病）</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201" aria-label="考題 Q1201">Q1201</a></sup>。<span class="ref">p.28</span></li>
 </ul>
 <h3 id="ch2-s4-3">Outflow facility 與 tonography</h3>
 <ul>
-<li id="np-85">C 是 outflow resistance 的數學倒數；健康眼平均 <mark><span class="num">0.22–0.30 μL/min/mm Hg</span></mark>（這是 facility，不是「排出速率」）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201">第 1201 題</a></span><span class="ref">p.28</span></li>
-<li id="np-86">健康眼約 <span class="num">50%</span> 傳統路徑阻力在 TM，其餘在 distal outflow system；但 <strong>POAG 合併高眼壓或 ocular hypertension（高眼壓症）</strong>時，病變主要在 <mark><strong>juxtacanalicular tissue 與 Schlemm canal 內壁</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193">第 1193 題</a></span><span class="ref">p.28</span></li>
-<li id="np-87"><strong>Tonography</strong>：以加重的 <strong>Schiøtz tonometer</strong> 或 pneumotonometer 探頭壓在角膜上急性升高 IOP，由壓力隨時間下降速率算出 <mark>outflow facility</mark>（不是 uveoscleral outflow）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733">第 1733 題</a></span><span class="ref">p.28</span></li>
+<li id="np-85">C 是 outflow resistance 的數學倒數；健康眼平均 <mark class="ex-key"><span class="num">0.22–0.30 μL/min/mm Hg</span></mark>（這是 facility，不是「排出速率」）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201" aria-label="考題 Q1201">Q1201</a></sup>。<span class="ref">p.28</span></li>
+<li id="np-86">健康眼約 <span class="num">50%</span> 傳統路徑阻力在 TM，其餘在 distal outflow system；但 <strong>POAG 合併高眼壓或 ocular hypertension（高眼壓症）</strong>時，病變主要在 <mark class="ex-key"><strong>juxtacanalicular tissue 與 Schlemm canal 內壁</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193" aria-label="考題 Q1193">Q1193</a></sup>。<span class="ref">p.28</span></li>
+<li id="np-87"><strong>Tonography</strong>：以加重的 <strong>Schiøtz tonometer</strong> 或 pneumotonometer 探頭壓在角膜上急性升高 IOP，由壓力隨時間下降速率算出 <mark class="ex-key">outflow facility</mark>（不是 uveoscleral outflow）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733" aria-label="考題 Q1733">Q1733</a></sup>。<span class="ref">p.28</span></li>
 <li id="np-88">Tonography 的假設：ocular rigidity（眼球硬度）、房水生成穩定、眼內血量恆定；誤差來源：固視不良、擠眼 → 個人準確度與再現性差，<strong>主要為研究工具</strong>，臨床少用。<span class="ref">p.28</span></li>
 </ul>
 <h3 id="ch2-s4-4">Episcleral venous pressure（EVP）</h3>
 <ul>
 <li id="np-89">Episcleral veins 是 TM 路徑房水的最終去處 → EVP 代表房水生成正常的完整眼中<mark>可能的最低 IOP</mark>。<span class="ref">p.29</span></li>
 <li id="np-90">動態參數：隨<strong>體位</strong>與全身血壓改變。<span class="ref">p.29</span></li>
-<li id="np-91">EVP 常升高於：顏面血管瘤症候群（如 <strong>Sturge-Weber syndrome（斯特奇-韋伯症候群，encephalofacial angiomatosis）</strong>）、<strong>carotid-cavernous sinus fistula（CCF，頸動脈海綿竇瘻管）</strong>、<strong>cavernous sinus thrombosis（海綿竇血栓）</strong>；topical <strong>Rho kinase inhibitors</strong> 等藥物也可能影響 EVP；<strong>thyroid eye disease（甲狀腺眼疾）</strong>的高眼壓可能部分由 EVP 造成。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1165" data-q="1165">第 1165 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193">第 1193 題</a></span><span class="ref">p.29</span></li>
-<li id="np-92">（本章外）<strong>Corticosteroid-induced glaucoma（類固醇性青光眼）</strong>是 TM 流出阻力增加所致，<mark>與 EVP 升高無關</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1165" data-q="1165">第 1165 題</a></span><span class="ref">BCSC 10 p.148</span></li>
+<li id="np-91">EVP 常升高於：顏面血管瘤症候群（如 <strong>Sturge-Weber syndrome（斯特奇-韋伯症候群，encephalofacial angiomatosis）</strong>）、<strong>carotid-cavernous sinus fistula（CCF，頸動脈海綿竇瘻管）</strong>、<strong>cavernous sinus thrombosis（海綿竇血栓）</strong>；topical <strong>Rho kinase inhibitors</strong> 等藥物也可能影響 EVP；<strong>thyroid eye disease（甲狀腺眼疾）</strong>的高眼壓可能部分由 EVP 造成⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1165" data-q="1165" aria-label="考題 Q1165">Q1165</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193" aria-label="考題 Q1193">Q1193</a></sup>。<span class="ref">p.29</span></li>
+<li id="np-92">（本章外）<strong>Corticosteroid-induced glaucoma（類固醇性青光眼）</strong>是 TM 流出阻力增加所致，<mark class="ex-key">與 EVP 升高無關</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1165" data-q="1165" aria-label="考題 Q1165">Q1165</a></sup>。<span class="ref ref-ext">BCSC 10 p.148</span></li>
 <li id="np-93"><strong>Venomanometry</strong>：透明可彎膜貼於鞏膜、慢慢加壓，episcleral vein 開始塌陷時的壓力即 EVP；終點不易判斷，可用自動加壓、錄影與影像分析輔助。常見 <span class="num">6–9 mm Hg</span>，換用其他終點或技術會測得較高值。<span class="ref">p.29</span></li>
-<li id="np-94">依 Goldmann 公式，<mark>EVP 每上升 <span class="num">1 mm Hg</span>，IOP 約急性上升 <span class="num">1 mm Hg</span></mark>；但 EVP 升高可使血液逆流入 Schlemm canal 改變排出，實際 IOP 變化可能大於或小於預測。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733">第 1733 題</a></span><span class="ref">p.29</span></li>
+<li id="np-94">依 Goldmann 公式，<mark class="ex-key">EVP 每上升 <span class="num">1 mm Hg</span>，IOP 約急性上升 <span class="num">1 mm Hg</span></mark>；但 EVP 升高可使血液逆流入 Schlemm canal 改變排出，實際 IOP 變化可能大於或小於預測⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733" aria-label="考題 Q1733">Q1733</a></sup>。<span class="ref">p.29</span></li>
 </ul>
 <h3 id="ch2-s4-5">Uveoscleral outflow rate</h3>
 <ul>
 <li id="np-95">無法非侵入測量，通常在其他參數量好後由 Goldmann 公式計算；人眼證據顯示約佔總排出 <span class="num">50%</span>，侵入性 tracer（示蹤劑）研究數值較低。有研究顯示隨年齡下降、青光眼患者減少。<span class="ref">p.29</span></li>
-<li id="np-96"><mark><strong>增加</strong>：cycloplegia（睫狀肌麻痺）、adrenergic agents（腎上腺素類藥物）、prostaglandin F2α analogues（前列腺素類似物）；<strong>減少</strong>：miotics（縮瞳劑）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1154" data-q="1154">第 1154 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733">第 1733 題</a></span><span class="ref">p.29</span></li>
-<li id="np-97">也會被 <strong>suprachoroidal stents（脈絡膜上支架）</strong>與 <strong>cyclodialysis clefts（睫狀體分離裂隙）</strong>增加 →（本章外，BCSC 8）cyclodialysis cleft 因 uveoscleral outflow 增加可致慢性低眼壓，而非高眼壓。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193">第 1193 題</a></span><span class="ref">p.29; BCSC 8 p.429</span></li>
-<li id="np-98">（本章外）鈍挫傷後眼壓升高主要來自發炎、hyphema（前房出血）、angle recession（隅角後退）等；cyclodialysis cleft 只有晚期瘢痕癒合（約傷後 <span class="num">90 天</span>）時才可能升壓。POAG 眼壓升高主因是 trabecular outflow 阻力增加；PACG 常因 pupillary block（瞳孔阻滯）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193">第 1193 題</a></span><span class="ref">p.27; BCSC 10 p.142, p.151; BCSC 8 p.429</span></li>
+<li id="np-96"><mark class="ex-key"><strong>增加</strong>：cycloplegia（睫狀肌麻痺）、adrenergic agents（腎上腺素類藥物）、prostaglandin F2α analogues（前列腺素類似物）；<strong>減少</strong>：miotics（縮瞳劑）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1154" data-q="1154" aria-label="考題 Q1154">Q1154</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733" aria-label="考題 Q1733">Q1733</a></sup>。<span class="ref">p.29</span></li>
+<li id="np-97">也會被 <strong>suprachoroidal stents（脈絡膜上支架）</strong>與 <strong>cyclodialysis clefts（睫狀體分離裂隙）</strong>增加 →（本章外，BCSC 8）cyclodialysis cleft 因 uveoscleral outflow 增加可致慢性低眼壓，而非高眼壓⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193" aria-label="考題 Q1193">Q1193</a></sup>。<span class="ref">p.29; BCSC 8 p.429</span></li>
+<li id="np-98">（本章外）鈍挫傷後眼壓升高主要來自發炎、hyphema（前房出血）、angle recession（隅角後退）等；cyclodialysis cleft 只有晚期瘢痕癒合（約傷後 <span class="num">90 天</span>）時才可能升壓。POAG 眼壓升高主因是 trabecular outflow 阻力增加；PACG 常因 pupillary block（瞳孔阻滯）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1193" data-q="1193" aria-label="考題 Q1193">Q1193</a></sup>。<span class="ref">p.27; BCSC 10 p.142, p.151; BCSC 8 p.429</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s4-6">易錯陷阱</h3><ul>
-<li id="np-99">Tonography 量的是 outflow facility（C），uveoscleral outflow 無法直接測，只能推算。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733">第 1733 題</a></span><span class="ref">p.28–29</span></li>
-<li id="np-100">散瞳/睫狀肌麻痺劑「增加」uveoscleral outflow；只有 miotics 減少。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1154" data-q="1154">第 1154 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733">第 1733 題</a></span><span class="ref">p.29</span></li>
-<li id="np-101">Carotid occlusive disease 使房水生成「減少」，不是增加。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201">第 1201 題</a></span><span class="ref">p.28</span></li>
-<li id="np-102">0.22–0.30 是 outflow facility（μL/min/mm Hg）；2–3 是生成率（μL/min），單位不同。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201">第 1201 題</a></span><span class="ref">p.28</span></li>
-<li id="np-103">EVP 與 IOP 近 1:1 是 Goldmann 公式的「急性」預測，Schlemm canal 逆流時可偏離。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733">第 1733 題</a></span><span class="ref">p.29</span></li>
-<li id="np-104">Steroid response 是 TM 阻力增加，不屬於 EVP 升高的病因。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1165" data-q="1165">第 1165 題</a></span><span class="ref">BCSC 10 p.148</span></li>
+<li id="np-99">Tonography 量的是 outflow facility（C），uveoscleral outflow 無法直接測，只能推算⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733" aria-label="考題 Q1733">Q1733</a></sup>。<span class="ref">p.28–29</span></li>
+<li id="np-100">散瞳/睫狀肌麻痺劑「增加」uveoscleral outflow；只有 miotics 減少⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1154" data-q="1154" aria-label="考題 Q1154">Q1154</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733" aria-label="考題 Q1733">Q1733</a></sup>。<span class="ref">p.29</span></li>
+<li id="np-101">Carotid occlusive disease 使房水生成「減少」，不是增加⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201" aria-label="考題 Q1201">Q1201</a></sup>。<span class="ref">p.28</span></li>
+<li id="np-102">0.22–0.30 是 outflow facility（μL/min/mm Hg）；2–3 是生成率（μL/min），單位不同⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1201" data-q="1201" aria-label="考題 Q1201">Q1201</a></sup>。<span class="ref">p.28</span></li>
+<li id="np-103">EVP 與 IOP 近 1:1 是 Goldmann 公式的「急性」預測，Schlemm canal 逆流時可偏離⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733" aria-label="考題 Q1733">Q1733</a></sup>。<span class="ref">p.29</span></li>
+<li id="np-104">Steroid response 是 TM 阻力增加，不屬於 EVP 升高的病因⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1165" data-q="1165" aria-label="考題 Q1165">Q1165</a></sup>。<span class="ref ref-ext">BCSC 10 p.148</span></li>
 </ul></div>
 
 <h2 id="ch2-s5">五、眼壓的族群分布與青光眼的關係</h2>
 <ul>
 <li id="np-105">歐洲裔一般族群平均 IOP 約 <span class="num">15.5 mm Hg</span>，SD <span class="num">2.6 mm Hg</span>。<span class="ref">p.30</span></li>
-<li id="np-106">分布為<mark><strong>non-Gaussian（非常態）</strong>、偏向高壓側（skew toward higher pressures）</mark>，<span class="num">40 歲</span>以上尤其明顯（Fig 2-4：Framingham Eye Study <span class="num">5220</span> 眼）；IOP 也受遺傳影響。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733">第 1733 題</a></span><span class="ref">p.30</span></li>
+<li id="np-106">分布為<mark class="ex-key"><strong>non-Gaussian（非常態）</strong>、偏向高壓側（skew toward higher pressures）</mark>，<span class="num">40 歲</span>以上尤其明顯（Fig 2-4：Framingham Eye Study <span class="num">5220</span> 眼）；IOP 也受遺傳影響⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733" aria-label="考題 Q1733">Q1733</a></sup>。<span class="ref">p.30</span></li>
 <li id="np-107"><strong><span class="num">21 mm Hg</span></strong>（平均 + <span class="num">2</span> SD）傳統上用來區分正常/異常與決定是否治療。<span class="ref">p.30</span></li>
 <li id="np-108">但許多青光眼患者 IOP 一直 <span class="num">≤ 21 mm Hg</span>，而多數 IOP <span class="num">&gt; 21 mm Hg</span> 者不會發生青光眼 → 只用 IOP <span class="num">&gt; 21</span> 篩檢會<mark>漏掉多達一半</mark>有視神經損傷的青光眼患者。<span class="ref">p.30</span></li>
-<li id="np-109">IOP 是貫穿整個範圍的 <mark><strong>continuous risk factor（連續性危險因子）</strong></mark>：越高風險越大，族群層次沒有明確「安全」或「危險」界值。其他危險因子也影響個人易感性，但現行所有治療都以降 IOP 為目的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734">第 1734 題</a></span><span class="ref">p.30</span></li>
+<li id="np-109">IOP 是貫穿整個範圍的 <mark class="ex-key"><strong>continuous risk factor（連續性危險因子）</strong></mark>：越高風險越大，族群層次沒有明確「安全」或「危險」界值。其他危險因子也影響個人易感性，但現行所有治療都以降 IOP 為目的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734" aria-label="考題 Q1734">Q1734</a></sup>。<span class="ref">p.30</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s5-1">易錯陷阱</h3><ul>
-<li id="np-110">「族群眼壓呈高斯常態分布」是錯的：是非常態、右偏（偏高壓）；21 mm Hg = 平均 + 2 SD 這半句本身沒錯。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733">第 1733 題</a></span><span class="ref">p.30</span></li>
-<li id="np-111">沒有一個眼壓臨界值會讓青光眼風險突然大增；風險是連續的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734">第 1734 題</a></span><span class="ref">p.30</span></li>
+<li id="np-110">「族群眼壓呈高斯常態分布」是錯的：是非常態、右偏（偏高壓）；21 mm Hg = 平均 + 2 SD 這半句本身沒錯⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1733" data-q="1733" aria-label="考題 Q1733">Q1733</a></sup>。<span class="ref">p.30</span></li>
+<li id="np-111">沒有一個眼壓臨界值會讓青光眼風險突然大增；風險是連續的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734" aria-label="考題 Q1734">Q1734</a></sup>。<span class="ref">p.30</span></li>
 </ul></div>
 
 <h2 id="ch2-s6">六、眼壓的變異因素</h2>
@@ -464,18 +488,18 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-132">非青光眼藥物</td><td id="np-133"><strong>Alcohol（酒精）</strong>、heroin（海洛因）、marijuana（cannabis，大麻）</td></tr>
 </tbody>
 </table>
-<p id="np-134">出處（Table 2-1）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170">第 1170 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1187" data-q="1187">第 1187 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190">第 1190 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1198" data-q="1198">第 1198 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1208" data-q="1208">第 1208 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218">第 1218 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1249" data-q="1249">第 1249 題</a></span><span class="ref">p.31</span></p>
+<p id="np-134">出處（Table 2-1）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170" aria-label="考題 Q1170">Q1170</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1187" data-q="1187" aria-label="考題 Q1187">Q1187</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190" aria-label="考題 Q1190">Q1190</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1198" data-q="1198" aria-label="考題 Q1198">Q1198</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1208" data-q="1208" aria-label="考題 Q1208">Q1208</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218" aria-label="考題 Q1218">Q1218</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1249" data-q="1249" aria-label="考題 Q1249">Q1249</a></sup><span class="ref">p.31</span></p>
 <ul>
-<li id="np-135"><mark>有氧運動、懷孕、酸中毒、酒精 → 降 IOP；LSD、憋氣、插管、Valsalva、平躺、甲狀腺功能低下、幼兒擠眼哭鬧 → 升 IOP</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170">第 1170 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1187" data-q="1187">第 1187 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190">第 1190 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1198" data-q="1198">第 1198 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1208" data-q="1208">第 1208 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218">第 1218 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1249" data-q="1249">第 1249 題</a></span><span class="ref">p.31</span></li>
-<li id="np-136">Succinylcholine 的方向有爭議：Table 2-1 把 depolarizing muscle relaxants 列在「可能降低」的麻醉藥下；但同書第 11 章寫 succinylcholine 一般使眼壓上升（臨床亦公認短暫升壓）。考題以 Table 2-1 為準時，它不是升壓答案。（麻醉文獻：靜脈 succinylcholine 一般短暫升高 IOP 約 8–10 mm Hg，數分鐘內回復。）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170">第 1170 題</a></span><span class="ref">p.31; BCSC 10 p.206</span></li>
+<li id="np-135"><mark class="ex-key">有氧運動、懷孕、酸中毒、酒精 → 降 IOP；LSD、憋氣、插管、Valsalva、平躺、甲狀腺功能低下、幼兒擠眼哭鬧 → 升 IOP</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170" aria-label="考題 Q1170">Q1170</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1187" data-q="1187" aria-label="考題 Q1187">Q1187</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190" aria-label="考題 Q1190">Q1190</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1198" data-q="1198" aria-label="考題 Q1198">Q1198</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1208" data-q="1208" aria-label="考題 Q1208">Q1208</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218" aria-label="考題 Q1218">Q1218</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1249" data-q="1249" aria-label="考題 Q1249">Q1249</a></sup>。<span class="ref">p.31</span></li>
+<li id="np-136">Succinylcholine 的方向有爭議：Table 2-1 把 depolarizing muscle relaxants 列在「可能降低」的麻醉藥下；但同書第 11 章寫 succinylcholine 一般使眼壓上升（臨床亦公認短暫升壓）。考題以 Table 2-1 為準時，它不是升壓答案。（麻醉文獻：靜脈 succinylcholine 一般短暫升高 IOP 約 8–10 mm Hg，數分鐘內回復。）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170" aria-label="考題 Q1170">Q1170</a></sup><span class="ref">p.31; BCSC 10 p.206</span></li>
 </ul>
 <h3 id="ch2-s6-2">體位與其他因素</h3>
 <ul>
-<li id="np-137"><strong>Body position（體位）</strong>影響顯著：坐姿且頸部垂直、中立時 IOP 最低；<mark>平躺比直立高，主要因 <strong>EVP 上升</strong></mark>（不是 uveoscleral outflow 改變）。部分人平躺時升幅特別大，可能與某些青光眼的致病有關。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734">第 1734 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218">第 1218 題</a></span><span class="ref">p.31</span></li>
-<li id="np-138"><strong>Alcohol</strong> 造成<mark>短暫</mark> IOP 下降。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734">第 1734 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190">第 1190 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1249" data-q="1249">第 1249 題</a></span><span class="ref">p.31</span></li>
+<li id="np-137"><strong>Body position（體位）</strong>影響顯著：坐姿且頸部垂直、中立時 IOP 最低；<mark class="ex-key">平躺比直立高，主要因 <strong>EVP 上升</strong></mark>（不是 uveoscleral outflow 改變）。部分人平躺時升幅特別大，可能與某些青光眼的致病有關⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734" aria-label="考題 Q1734">Q1734</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218" aria-label="考題 Q1218">Q1218</a></sup>。<span class="ref">p.31</span></li>
+<li id="np-138"><strong>Alcohol</strong> 造成<mark class="ex-key">短暫</mark> IOP 下降⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734" aria-label="考題 Q1734">Q1734</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190" aria-label="考題 Q1190">Q1190</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1249" data-q="1249" aria-label="考題 Q1249">Q1249</a></sup>。<span class="ref">p.31</span></li>
 <li id="np-139"><strong>Cannabis（大麻）</strong>會降 IOP，但作用時間短、副作用多，且降低全身血壓可能抵銷對視神經灌流的好處 → 臨床上不實用。<span class="ref">p.31</span></li>
 <li id="np-140"><strong>Caffeine（咖啡因）</strong>：多數研究未顯示對 IOP 有明顯影響。<span class="ref">p.31–32</span></li>
-<li id="np-141">健康人 <mark>IOP 隨年齡變化很小</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734">第 1734 題</a></span><span class="ref">p.32</span></li>
+<li id="np-141">健康人 <mark class="ex-key">IOP 隨年齡變化很小</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734" aria-label="考題 Q1734">Q1734</a></sup>。<span class="ref">p.32</span></li>
 </ul>
 <h3 id="ch2-s6-3">Circadian variation（晝夜變化）</h3>
 <ul>
@@ -491,10 +515,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-148">手術比藥物的 IOP 波動小，但臨床意義未證實；何種變異指標最能預測進展未知，短時間內有效測量波動的技術也有限。<span class="ref">p.32</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s6-5">易錯陷阱</h3><ul>
-<li id="np-149">平躺使 IOP 升高的主因是 EVP 上升，不是 uveoscleral outflow 能力不同。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734">第 1734 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218">第 1218 題</a></span><span class="ref">p.31</span></li>
-<li id="np-150">Aerobic exercise 是「降」眼壓；考題常把它混進升壓選項。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170">第 1170 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1187" data-q="1187">第 1187 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1198" data-q="1198">第 1198 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1208" data-q="1208">第 1208 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218">第 1218 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1249" data-q="1249">第 1249 題</a></span><span class="ref">p.31</span></li>
-<li id="np-151">LSD 是「升」眼壓（列在非青光眼藥物升壓欄）；alcohol、heroin、marijuana 是「降」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170">第 1170 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190">第 1190 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1198" data-q="1198">第 1198 題</a></span><span class="ref">p.31</span></li>
-<li id="np-152">Hypothyroidism 屬升壓的荷爾蒙因素；pregnancy 屬降壓。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218">第 1218 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190">第 1190 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1208" data-q="1208">第 1208 題</a></span><span class="ref">p.31</span></li>
+<li id="np-149">平躺使 IOP 升高的主因是 EVP 上升，不是 uveoscleral outflow 能力不同⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1734" data-q="1734" aria-label="考題 Q1734">Q1734</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218" aria-label="考題 Q1218">Q1218</a></sup>。<span class="ref">p.31</span></li>
+<li id="np-150">Aerobic exercise 是「降」眼壓；考題常把它混進升壓選項⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170" aria-label="考題 Q1170">Q1170</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1187" data-q="1187" aria-label="考題 Q1187">Q1187</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1198" data-q="1198" aria-label="考題 Q1198">Q1198</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1208" data-q="1208" aria-label="考題 Q1208">Q1208</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218" aria-label="考題 Q1218">Q1218</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1249" data-q="1249" aria-label="考題 Q1249">Q1249</a></sup>。<span class="ref">p.31</span></li>
+<li id="np-151">LSD 是「升」眼壓（列在非青光眼藥物升壓欄）；alcohol、heroin、marijuana 是「降」⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1170" data-q="1170" aria-label="考題 Q1170">Q1170</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190" aria-label="考題 Q1190">Q1190</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1198" data-q="1198" aria-label="考題 Q1198">Q1198</a></sup>。<span class="ref">p.31</span></li>
+<li id="np-152">Hypothyroidism 屬升壓的荷爾蒙因素；pregnancy 屬降壓⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1218" data-q="1218" aria-label="考題 Q1218">Q1218</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1190" data-q="1190" aria-label="考題 Q1190">Q1190</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1208" data-q="1208" aria-label="考題 Q1208">Q1208</a></sup>。<span class="ref">p.31</span></li>
 <li id="np-153">睡眠時房水生成減少，但多數人 IOP 高峰反而在睡眠中的清晨（平躺 + 排出下降）。<span class="ref">p.32</span></li>
 </ul></div>
 
@@ -502,18 +526,18 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch2-s7-1">原理與 Goldmann tonometer</h3>
 <ul>
 <li id="np-154">Tonometry（眼壓測量）為非侵入測量；各方法皆有誤差來源，<strong>沒有任何裝置能在所有眼睛準確測得前房內真正壓力</strong>。<span class="ref">p.21, p.33</span></li>
-<li id="np-155"><strong>Applanation tonometry</strong> 是<mark>最廣泛使用的方法</mark>，基於 <mark><strong>Imbert-Fick principle（Imbert-Fick 原則）</strong></mark>：理想乾燥、無限薄壁球體內壓 = 壓平其表面所需的力 ÷ 壓平面積，即 <strong>P = F/A</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250">第 1250 題</a></span><span class="ref">p.33</span></li>
-<li id="np-156"><strong>Goldmann applanation tonometer（GAT）</strong>：臨床與研究最常用，量壓平直徑 <mark><span class="num">3.06 mm</span></mark> 角膜所需的力。此直徑下，<mark>角膜對壓平的 material resistance（材料阻力，corneal rigidity）恰被淚膜 meniscus（新月面）對探頭的 capillary attraction（毛細吸引力/表面張力）抵銷</mark>；且 IOP（mm Hg）= 壓平力（gram-force）× <span class="num">10</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250">第 1250 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1664" data-q="1664">第 1664 題</a></span><span class="ref">p.33</span></li>
+<li id="np-155"><strong>Applanation tonometry</strong> 是<mark class="ex-key">最廣泛使用的方法</mark>，基於 <mark class="ex-key"><strong>Imbert-Fick principle（Imbert-Fick 原則）</strong></mark>：理想乾燥、無限薄壁球體內壓 = 壓平其表面所需的力 ÷ 壓平面積，即 <strong>P = F/A</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250" aria-label="考題 Q1250">Q1250</a></sup>。<span class="ref">p.33</span></li>
+<li id="np-156"><strong>Goldmann applanation tonometer（GAT）</strong>：臨床與研究最常用，量壓平直徑 <mark class="ex-key"><span class="num">3.06 mm</span></mark> 角膜所需的力。此直徑下，<mark class="ex-key">角膜對壓平的 material resistance（材料阻力，corneal rigidity）恰被淚膜 meniscus（新月面）對探頭的 capillary attraction（毛細吸引力/表面張力）抵銷</mark>；且 IOP（mm Hg）= 壓平力（gram-force）× <span class="num">10</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250" aria-label="考題 Q1250">Q1250</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1664" data-q="1664" aria-label="考題 Q1664">Q1664</a></sup>。<span class="ref">p.33</span></li>
 <li id="np-157">操作：點局部麻醉與 fluorescein；split-image prism（分像稜鏡）把圓形 meniscus 分成兩個半圓（mires），mires 隨 ocular pulse（眼脈搏）移動；<strong>終點 = 兩半圓內緣在擺動中點相接</strong>。<span class="ref">p.33–34</span></li>
-<li id="np-158"><strong>Perkins tonometer</strong>：<mark>counterbalanced（平衡式）applanation tonometer</mark>，與 Goldmann 一樣用 split-image prism、需 fluorescein，依 Imbert-Fick 原則；可攜帶，病人<strong>直立或平躺</strong>皆可測。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173">第 1173 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185">第 1185 題</a></span><span class="ref">p.33</span></li>
-<li id="np-159">壓平只排開約 <span class="num">0.5 μL</span> 液體、不明顯升高眼內壓 → 與 <strong>indentation（壓陷式）Schiøtz tonometry</strong> 相比，較不受 ocular rigidity 影響。Schiøtz 是壓陷原理，不是 Imbert-Fick 壓平原理。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173">第 1173 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185">第 1185 題</a></span><span class="ref">p.33</span></li>
+<li id="np-158"><strong>Perkins tonometer</strong>：<mark class="ex-key">counterbalanced（平衡式）applanation tonometer</mark>，與 Goldmann 一樣用 split-image prism、需 fluorescein，依 Imbert-Fick 原則；可攜帶，病人<strong>直立或平躺</strong>皆可測⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173" aria-label="考題 Q1173">Q1173</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185" aria-label="考題 Q1185">Q1185</a></sup>。<span class="ref">p.33</span></li>
+<li id="np-159">壓平只排開約 <span class="num">0.5 μL</span> 液體、不明顯升高眼內壓 → 與 <strong>indentation（壓陷式）Schiøtz tonometry</strong> 相比，較不受 ocular rigidity 影響。Schiøtz 是壓陷原理，不是 Imbert-Fick 壓平原理⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173" aria-label="考題 Q1173">Q1173</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185" aria-label="考題 Q1185">Q1185</a></sup>。<span class="ref">p.33</span></li>
 </ul>
 <h3 id="ch2-s7-2">淚膜、散光、角膜狀況造成的誤差</h3>
 <ul>
-<li id="np-160"><strong>Fluorescein 不足</strong> → mires 與終點看不清 → 讀值不準（Table 2-2 列為假性偏低）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189">第 1189 題</a></span><span class="ref">p.33, p.35</span></li>
-<li id="np-161">常見誤解：「mires 太粗需更大力」→ 錯；不論 mire 粗細，壓平 3.06 mm 時內緣即相接。真正原因是<strong>表面張力隨淚膜厚度改變</strong>：<mark>淚膜過厚 → meniscus 曲率半徑大、表面張力低，抵不過角膜阻力 → <strong>假性偏高</strong>；淚膜過薄 → 曲率半徑小、表面張力高 → <strong>假性偏低</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217">第 1217 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250">第 1250 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199">第 1199 題</a></span><span class="ref">p.33, p.35</span></li>
-<li id="np-162"><strong>Marked corneal astigmatism（明顯角膜散光）</strong>：螢光圖案呈橢圓，IOP 可能假性偏高<strong>或</strong>偏低；矯正：轉動稜鏡，把稜鏡座<strong>紅色記號對準角膜最平的 meridian（負軸）</strong>，或取相隔 <span class="num">90°</span> 的兩次讀值平均。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171">第 1171 題</a></span><span class="ref">p.35</span></li>
-<li id="np-163"><mark><strong>Corneal edema（角膜水腫）→ 假性偏低</strong>；<strong>corneal scar（角膜瘢痕）處測量 → 假性偏高</strong>；<strong>隔 soft contact lens（軟式隱形眼鏡）測 → 假性偏低</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171">第 1171 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189">第 1189 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199">第 1199 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217">第 1217 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250">第 1250 題</a></span><span class="ref">p.35</span></li>
+<li id="np-160"><strong>Fluorescein 不足</strong> → mires 與終點看不清 → 讀值不準（Table 2-2 列為假性偏低）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189" aria-label="考題 Q1189">Q1189</a></sup>。<span class="ref">p.33, p.35</span></li>
+<li id="np-161">常見誤解：「mires 太粗需更大力」→ 錯；不論 mire 粗細，壓平 3.06 mm 時內緣即相接。真正原因是<strong>表面張力隨淚膜厚度改變</strong>：<mark class="ex-key">淚膜過厚 → meniscus 曲率半徑大、表面張力低，抵不過角膜阻力 → <strong>假性偏高</strong>；淚膜過薄 → 曲率半徑小、表面張力高 → <strong>假性偏低</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217" aria-label="考題 Q1217">Q1217</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250" aria-label="考題 Q1250">Q1250</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199" aria-label="考題 Q1199">Q1199</a></sup>。<span class="ref">p.33, p.35</span></li>
+<li id="np-162"><strong>Marked corneal astigmatism（明顯角膜散光）</strong>：螢光圖案呈橢圓，IOP 可能假性偏高<strong>或</strong>偏低；矯正：轉動稜鏡，把稜鏡座<strong>紅色記號對準角膜最平的 meridian（負軸）</strong>，或取相隔 <span class="num">90°</span> 的兩次讀值平均⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171" aria-label="考題 Q1171">Q1171</a></sup>。<span class="ref">p.35</span></li>
+<li id="np-163"><mark class="ex-key"><strong>Corneal edema（角膜水腫）→ 假性偏低</strong>；<strong>corneal scar（角膜瘢痕）處測量 → 假性偏高</strong>；<strong>隔 soft contact lens（軟式隱形眼鏡）測 → 假性偏低</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171" aria-label="考題 Q1171">Q1171</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189" aria-label="考題 Q1189">Q1189</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199" aria-label="考題 Q1199">Q1199</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217" aria-label="考題 Q1217">Q1217</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250" aria-label="考題 Q1250">Q1250</a></sup>。<span class="ref">p.35</span></li>
 </ul>
 <h3 id="ch2-s7-3">Table 2-2：Tonometry 中不具代表性 IOP 的來源（可能依方法而異）</h3>
 <table class="ted-table">
@@ -522,42 +546,42 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-164">Corneal biomechanical properties（如 rigidity）<br>Corneal irregularity（如 ectasia）<br>Tonometer 校正不準<br>High corneal astigmatism<br><strong>Inadequate fluorescein</strong><br>Technician errors<br><strong>Thin central cornea</strong><br><strong>Soft contact lens 上測量</strong><br><strong>Corneal edema</strong></td><td id="np-165">Corneal biomechanical properties（如 rigidity）<br>Corneal irregularity（如 ectasia）<br>Tonometer 校正不準<br>High corneal astigmatism<br><strong>Excessive fluorescein 或淚膜極厚</strong><br>Technician errors<br><strong>Thick central cornea</strong><br><strong>Corneal scarring 或 band keratopathy（帶狀角膜病變）</strong></td><td id="np-166"><strong>Breath holding 或 Valsalva</strong><br>Extraocular muscle force（眼外肌力）作用於受限眼球<br>Straining（伸長脖子勉強靠上 slit lamp）<br>Pressure on the globe（壓迫眼球）<br><strong>Squeezing of the eyelids（擠眼）</strong><br>Tight collar/necktie（常戴可能有意義的升壓）</td></tr>
 </tbody>
 </table>
-<p id="np-167">出處（Table 2-2）<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171">第 1171 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189">第 1189 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199">第 1199 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217">第 1217 題</a></span><span class="ref">p.35</span></p>
+<p id="np-167">出處（Table 2-2）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171" aria-label="考題 Q1171">Q1171</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189" aria-label="考題 Q1189">Q1189</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199" aria-label="考題 Q1199">Q1199</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217" aria-label="考題 Q1217">Q1217</a></sup><span class="ref">p.35</span></p>
 <ul>
-<li id="np-168">只出現在「偏低」欄（方向確定）：inadequate fluorescein、thin CCT、soft CL、<mark>corneal edema</mark>；只在「偏高」欄：excessive fluorescein/厚淚膜、thick CCT、<mark>corneal scarring/band keratopathy</mark>；兩欄都有（方向不定）：biomechanics、<strong>corneal irregularity</strong>、校正不準、<strong>high astigmatism</strong>、technician errors。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171">第 1171 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189">第 1189 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217">第 1217 題</a></span><span class="ref">p.35</span></li>
-<li id="np-169">Breath holding、squeezing eyelids 屬「測量時真的升高 IOP」，讀值偏高而非偏低。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199">第 1199 題</a></span><span class="ref">p.35</span></li>
+<li id="np-168">只出現在「偏低」欄（方向確定）：inadequate fluorescein、thin CCT、soft CL、<mark class="ex-key">corneal edema</mark>；只在「偏高」欄：excessive fluorescein/厚淚膜、thick CCT、<mark class="ex-key">corneal scarring/band keratopathy</mark>；兩欄都有（方向不定）：biomechanics、<strong>corneal irregularity</strong>、校正不準、<strong>high astigmatism</strong>、technician errors⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171" aria-label="考題 Q1171">Q1171</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189" aria-label="考題 Q1189">Q1189</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217" aria-label="考題 Q1217">Q1217</a></sup>。<span class="ref">p.35</span></li>
+<li id="np-169">Breath holding、squeezing eyelids 屬「測量時真的升高 IOP」，讀值偏高而非偏低⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199" aria-label="考題 Q1199">Q1199</a></sup>。<span class="ref">p.35</span></li>
 </ul>
 <h3 id="ch2-s7-4">Central corneal thickness（CCT，中央角膜厚度）</h3>
 <ul>
-<li id="np-170">常用眼壓計都受 CCT 影響；<mark>Goldmann 在 CCT <span class="num">520 μm</span> 時最準確</mark>（BCSC 以此為 Goldmann 假設的角膜厚度；文獻：Goldmann 原設計約假設 500 μm，520 μm 來自 Ehlers 1975 前房插管研究）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222">第 1222 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231">第 1231 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1596" data-q="1596">第 1596 題</a></span><span class="ref">p.35</span></li>
-<li id="np-171"><mark>角膜較厚 → 抗形變 → <strong>高估</strong> IOP；較薄 → 可能<strong>低估</strong></mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-919" data-q="919">第 919 題</a></span><span class="ref">p.35</span></li>
-<li id="np-172">Laser 或其他 keratorefractive surgery（角膜屈光手術）使 CCT 明顯小於 Goldmann 假設值時，IOP 可能被<strong>低估</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1596" data-q="1596">第 1596 題</a></span><span class="ref">p.35</span></li>
-<li id="np-173">（本章外，BCSC 13）近視 LASIK 後量得的眼壓已偏低，應<strong>向上</strong>修正，而非再減；眼壓控制不佳的青光眼不宜做此類手術；ocular hypertension 不是 LASIK 禁忌，但須告知術後眼壓評估困難。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1596" data-q="1596">第 1596 題</a></span><span class="ref">BCSC 13 p.137–138</span></li>
-<li id="np-174">（本章外，BCSC 8）成人中央角膜平均厚度典型約 <span class="num">540–550 μm</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-919" data-q="919">第 919 題</a></span><span class="ref">BCSC 8 p.39</span></li>
-<li id="np-175">測得 IOP 與 CCT <mark>不是線性關係</mark> → 校正係數只是估計；個別角膜的 biomechanical properties（生物力學特性，stiffness/elasticity）也影響測量；目前<strong>沒有經驗證的 CCT 校正公式</strong>，文獻提出的校正法不適用於臨床。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222">第 1222 題</a></span><span class="ref">p.36</span></li>
+<li id="np-170">常用眼壓計都受 CCT 影響；<mark class="ex-key">Goldmann 在 CCT <span class="num">520 μm</span> 時最準確</mark>（BCSC 以此為 Goldmann 假設的角膜厚度；文獻：Goldmann 原設計約假設 500 μm，520 μm 來自 Ehlers 1975 前房插管研究）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222" aria-label="考題 Q1222">Q1222</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231" aria-label="考題 Q1231">Q1231</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1596" data-q="1596" aria-label="考題 Q1596">Q1596</a></sup>。<span class="ref">p.35</span></li>
+<li id="np-171"><mark class="ex-key">角膜較厚 → 抗形變 → <strong>高估</strong> IOP；較薄 → 可能<strong>低估</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-919" data-q="919" aria-label="考題 Q919">Q919</a></sup>。<span class="ref">p.35</span></li>
+<li id="np-172">Laser 或其他 keratorefractive surgery（角膜屈光手術）使 CCT 明顯小於 Goldmann 假設值時，IOP 可能被<strong>低估</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1596" data-q="1596" aria-label="考題 Q1596">Q1596</a></sup>。<span class="ref">p.35</span></li>
+<li id="np-173">（本章外，BCSC 13）近視 LASIK 後量得的眼壓已偏低，應<strong>向上</strong>修正，而非再減；眼壓控制不佳的青光眼不宜做此類手術；ocular hypertension 不是 LASIK 禁忌，但須告知術後眼壓評估困難⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1596" data-q="1596" aria-label="考題 Q1596">Q1596</a></sup>。<span class="ref ref-ext">BCSC 13 p.137–138</span></li>
+<li id="np-174">（本章外，BCSC 8）成人中央角膜平均厚度典型約 <span class="num">540–550 μm</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-919" data-q="919" aria-label="考題 Q919">Q919</a></sup>。<span class="ref ref-ext">BCSC 8 p.39</span></li>
+<li id="np-175">測得 IOP 與 CCT <mark class="ex-key">不是線性關係</mark> → 校正係數只是估計；個別角膜的 biomechanical properties（生物力學特性，stiffness/elasticity）也影響測量；目前<strong>沒有經驗證的 CCT 校正公式</strong>，文獻提出的校正法不適用於臨床⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222" aria-label="考題 Q1222">Q1222</a></sup>。<span class="ref">p.36</span></li>
 <li id="np-176"><strong>薄 CCT</strong> 是 ocular hypertension 進展成青光眼的已知危險因子（OHTS），但尚不確定是單純低估 IOP，或是獨立於 IOP 測量的另一危險因子的 biomarker（生物標記）。<span class="ref">p.36</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s7-5">易錯陷阱</h3><ul>
-<li id="np-177">淚膜/螢光環過厚 → 假性「偏高」；不足或過薄才偏低。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217">第 1217 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250">第 1250 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199">第 1199 題</a></span><span class="ref">p.33, p.35</span></li>
-<li id="np-178">Corneal edema 偏低、scar（與 band keratopathy）偏高；irregularity 與 high astigmatism 方向不定，不能當「確定偏低」的答案。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171">第 1171 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189">第 1189 題</a></span><span class="ref">p.35</span></li>
-<li id="np-179">3.06 mm 抵銷的是「角膜硬度（rigidity）」與「淚膜表面張力」，角膜厚度不在抵銷之列（厚度反而是誤差來源）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1664" data-q="1664">第 1664 題</a></span><span class="ref">p.33, p.35</span></li>
-<li id="np-180">IOP 與 CCT 不是線性關係，也沒有臨床可用的校正公式。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222">第 1222 題</a></span><span class="ref">p.36</span></li>
-<li id="np-181">Perkins 是 applanation（Imbert-Fick）；Schiøtz 是 indentation。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173">第 1173 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185">第 1185 題</a></span><span class="ref">p.33</span></li>
+<li id="np-177">淚膜/螢光環過厚 → 假性「偏高」；不足或過薄才偏低⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1217" data-q="1217" aria-label="考題 Q1217">Q1217</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1250" data-q="1250" aria-label="考題 Q1250">Q1250</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1199" data-q="1199" aria-label="考題 Q1199">Q1199</a></sup>。<span class="ref">p.33, p.35</span></li>
+<li id="np-178">Corneal edema 偏低、scar（與 band keratopathy）偏高；irregularity 與 high astigmatism 方向不定，不能當「確定偏低」的答案⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1171" data-q="1171" aria-label="考題 Q1171">Q1171</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1189" data-q="1189" aria-label="考題 Q1189">Q1189</a></sup>。<span class="ref">p.35</span></li>
+<li id="np-179">3.06 mm 抵銷的是「角膜硬度（rigidity）」與「淚膜表面張力」，角膜厚度不在抵銷之列（厚度反而是誤差來源）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1664" data-q="1664" aria-label="考題 Q1664">Q1664</a></sup>。<span class="ref">p.33, p.35</span></li>
+<li id="np-180">IOP 與 CCT 不是線性關係，也沒有臨床可用的校正公式⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222" aria-label="考題 Q1222">Q1222</a></sup>。<span class="ref">p.36</span></li>
+<li id="np-181">Perkins 是 applanation（Imbert-Fick）；Schiøtz 是 indentation⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173" aria-label="考題 Q1173">Q1173</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185" aria-label="考題 Q1185">Q1185</a></sup>。<span class="ref">p.33</span></li>
 </ul></div>
 
 <h2 id="ch2-s8">八、其他眼壓計、感染控制與觸診</h2>
 <h3 id="ch2-s8-1">Mackay-Marg–type tonometry（Mackay-Marg 型）</h3>
 <ul>
 <li id="np-182">以 <strong>annular ring（環狀探頭）</strong>輕壓平小面積角膜；壓平面積增加時環中央壓力上升，由 transducer（傳感器）量測；環中央剛好被壓平角膜蓋住時的壓力即 IOP。<span class="ref">p.36</span></li>
-<li id="np-183"><strong>Tono-Pen</strong> 即<mark>屬於 Mackay-Marg 型</mark>的可攜電子裝置：以 strain gauge（應變計）量環中央壓力；探頭輕點角膜多次，輸出 IOP 與 coefficient of variation（變異係數）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222">第 1222 題</a></span><span class="ref">p.36</span></li>
-<li id="np-184">探頭小、可只放在正常角膜區 → <mark>特別適合 <strong>corneal scars 或 edema</strong></mark>；任何體位皆可測。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231">第 1231 題</a></span><span class="ref">p.36</span></li>
+<li id="np-183"><strong>Tono-Pen</strong> 即<mark class="ex-key">屬於 Mackay-Marg 型</mark>的可攜電子裝置：以 strain gauge（應變計）量環中央壓力；探頭輕點角膜多次，輸出 IOP 與 coefficient of variation（變異係數）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222" aria-label="考題 Q1222">Q1222</a></sup>。<span class="ref">p.36</span></li>
+<li id="np-184">探頭小、可只放在正常角膜區 → <mark class="ex-key">特別適合 <strong>corneal scars 或 edema</strong></mark>；任何體位皆可測⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231" aria-label="考題 Q1231">Q1231</a></sup>。<span class="ref">p.36</span></li>
 <li id="np-185">部分研究顯示 Tono-Pen <strong>高估低 IOP、低估高 IOP</strong>。<span class="ref">p.36</span></li>
 </ul>
 <h3 id="ch2-s8-2">Pneumotonometry（氣動眼壓計）</h3>
 <ul>
-<li id="np-186"><mark>兼具 applanation 與 Mackay-Marg 型裝置的特性</mark>（即部分屬 Mackay-Marg 型），但不是 BCSC 所指的典型 Imbert-Fick 眼壓計：充氣圓柱腔 + 探頭覆 <strong>Silastic membrane（矽膠彈性膜）</strong>；持續氣流使膜與探頭邊緣間留小縫，壓平角膜時氣壓上升至縫隙完全閉合，此時氣壓 = IOP。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222">第 1222 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173">第 1173 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185">第 1185 題</a></span><span class="ref">p.36</span></li>
+<li id="np-186"><mark class="ex-key">兼具 applanation 與 Mackay-Marg 型裝置的特性</mark>（即部分屬 Mackay-Marg 型），但不是 BCSC 所指的典型 Imbert-Fick 眼壓計：充氣圓柱腔 + 探頭覆 <strong>Silastic membrane（矽膠彈性膜）</strong>；持續氣流使膜與探頭邊緣間留小縫，壓平角膜時氣壓上升至縫隙完全閉合，此時氣壓 = IOP⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222" aria-label="考題 Q1222">Q1222</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173" aria-label="考題 Q1173">Q1173</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185" aria-label="考題 Q1185">Q1185</a></sup>。<span class="ref">p.36</span></li>
 <li id="np-187">只接觸小面積角膜 → 適合 corneal scars 或局部水腫；可直立、側臥（lateral decubitus）或平躺測量。<span class="ref">p.36, p.38</span></li>
-<li id="np-188">探頭放在 <strong>sclera（鞏膜）</strong>的讀值與角膜讀值相關良好 → 可能用於嚴重角膜病（如 <strong>keratoprosthesis（人工角膜）</strong>），但<mark>驗證資料仍不足</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231">第 1231 題</a></span><span class="ref">p.38</span></li>
+<li id="np-188">探頭放在 <strong>sclera（鞏膜）</strong>的讀值與角膜讀值相關良好 → 可能用於嚴重角膜病（如 <strong>keratoprosthesis（人工角膜）</strong>），但<mark class="ex-key">驗證資料仍不足</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231" aria-label="考題 Q1231">Q1231</a></sup>。<span class="ref">p.38</span></li>
 <li id="np-189">可在探頭接觸時連續記錄 IOP，也可用於 tonography。<span class="ref">p.38</span></li>
 </ul>
 <h3 id="ch2-s8-3">Dynamic contour tonometry（DCT，動態輪廓眼壓計）</h3>
@@ -574,9 +598,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch2-s8-5">Rebound tonometry（回彈式）</h3>
 <ul>
-<li id="np-196">測量小探針射向角膜後減速並回彈的速度來推估 IOP（不是 Imbert-Fick）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185">第 1185 題</a></span><span class="ref">p.39</span></li>
+<li id="np-196">測量小探針射向角膜後減速並回彈的速度來推估 IOP（不是 Imbert-Fick）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185" aria-label="考題 Q1185">Q1185</a></sup>。<span class="ref">p.39</span></li>
 <li id="np-197">可攜、<strong>不需局部麻醉</strong> → 特別適合<strong>兒童</strong>與部分病人的居家測量（<strong>iCare HOME</strong>，可評估門診外眼壓）。<span class="ref">p.39</span></li>
-<li id="np-198"><mark>受 CCT 影響很強，甚至比 applanation 更明顯</mark> → 角膜過厚或過薄時須小心解讀。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231">第 1231 題</a></span><span class="ref">p.39</span></li>
+<li id="np-198"><mark class="ex-key">受 CCT 影響很強，甚至比 applanation 更明顯</mark> → 角膜過厚或過薄時須小心解讀⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231" aria-label="考題 Q1231">Q1231</a></sup>。<span class="ref">p.39</span></li>
 </ul>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Tonometer（眼壓計）</th><th>原理</th><th>優點/適用</th><th>限制</th></tr></thead>
@@ -603,10 +627,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-235">以手指壓眼球估計 IOP，可用於不合作病人；即使資深醫師也可能不準，<mark>一般只用於偵測兩眼間的<strong>大幅</strong>差異</mark>。<span class="ref">p.39</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch2-s8-8">易錯陷阱</h3><ul>
-<li id="np-236">Rebound tonometer「不易受 CCT 影響」是錯的：它受 CCT 影響比壓平式還強。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231">第 1231 題</a></span><span class="ref">p.39</span></li>
-<li id="np-237">Tono-Pen「屬於」Mackay-Marg 型；pneumotonometer「兼具」壓平與 Mackay-Marg 特性。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222">第 1222 題</a></span><span class="ref">p.36</span></li>
-<li id="np-238">角膜瘢痕/水腫首選小探頭的 Tono-Pen 或 pneumotonometer，不是 Goldmann。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231">第 1231 題</a></span><span class="ref">p.36</span></li>
-<li id="np-239">DCT 是「非壓平」接觸式；pneumotonometer 與 rebound 也不是典型 Imbert-Fick 眼壓計。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173">第 1173 題</a>、<a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185">第 1185 題</a></span><span class="ref">p.36–39</span></li>
+<li id="np-236">Rebound tonometer「不易受 CCT 影響」是錯的：它受 CCT 影響比壓平式還強⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231" aria-label="考題 Q1231">Q1231</a></sup>。<span class="ref">p.39</span></li>
+<li id="np-237">Tono-Pen「屬於」Mackay-Marg 型；pneumotonometer「兼具」壓平與 Mackay-Marg 特性⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1222" data-q="1222" aria-label="考題 Q1222">Q1222</a></sup>。<span class="ref">p.36</span></li>
+<li id="np-238">角膜瘢痕/水腫首選小探頭的 Tono-Pen 或 pneumotonometer，不是 Goldmann⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1231" data-q="1231" aria-label="考題 Q1231">Q1231</a></sup>。<span class="ref">p.36</span></li>
+<li id="np-239">DCT 是「非壓平」接觸式；pneumotonometer 與 rebound 也不是典型 Imbert-Fick 眼壓計⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc10-2%23q-1173" data-q="1173" aria-label="考題 Q1173">Q1173</a> <a href="/exam/login?next=/exam/bcsc10-2%23q-1185" data-q="1185" aria-label="考題 Q1185">Q1185</a></sup>。<span class="ref">p.36–39</span></li>
 <li id="np-240">酒精擦拭不足以清除所有病毒；稀釋漂白水對 adenovirus/HSV 有效。<span class="ref">p.39</span></li>
 </ul></div>
 
@@ -622,7 +646,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-247"><strong>測量方法對應</strong>：生成 → fluorophotometry；facility → tonography；EVP → venomanometry；uveoscleral → 公式推算。<span class="ref">p.28–29</span></li>
 </ul>
 </div>
-</div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="10-2"><p class="ex-locked">本章考題 34 題。<a href="/exam/login?next=/exam/bcsc10-2">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
+</div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="10-2"><p class="ex-locked">本章考題 34 題。<a href="/exam/login?next=/exam/bcsc10-2">登入</a>後可以作答、看答案與詳解。</p></div></section></div></main>
 <footer class="mag-footer cv-auto-short">
   <div class="mag-foot-top">
     <div class="mag-foot-brand">
@@ -664,7 +688,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
-<script src="/exam/exam.js?v=20260729" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260730" defer></script>
+<script src="/exam/exam.js?v=20260730" defer></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260729"></script>
+<script src="/assets/trusted-types.js?v=20260730"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 2 Ch.1 Orbit and Ocular Adnexa：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc2-1#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 2 Ch.1","item":"https://hsiao.chendermatologist.com/exam/bcsc2-1"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260729">
+<link rel="stylesheet" href="/assets/app.css?v=20260730">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -56,14 +56,22 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note ul>li::before{content:"";position:absolute;left:5px;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--ex-accent)}
 .ex-note ul ul>li::before{background:transparent;border:1.5px solid var(--ex-accent);width:6px;height:6px}
 .ex-note ol{list-style:decimal;padding-left:24px;margin:6px 0}
-.ex-note mark{background:linear-gradient(transparent 45%,#fde68a 45%);color:inherit;padding:0 1px;font-weight:600}
+.ex-note mark,.ex-legend mark{background:linear-gradient(transparent 80%,#f7d77a 80%);color:inherit;padding:0 1px}
+.ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
+.ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
+.ex-qref a,.ex-qref span{color:#a0460a;text-decoration:none;white-space:nowrap;padding:0 1px;border-radius:3px}
+.ex-qref a:hover{text-decoration:underline}
+.ex-qref a:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
+.ex-legend-trap,.ex-legend-tip{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
+.ex-legend-tip{border-left-color:#6fbf8a;background:#f3f9f5}
 .ex-note .num,.ex-num-hl{font-family:Inter,ui-monospace,monospace;font-weight:700;color:#9a3412;background:#fff1e6;border-radius:5px;padding:0 4px;white-space:nowrap}
-.ex-note .ex-trap{background:#fef2f2;border:1px solid #fecaca;border-left:5px solid #dc2626;border-radius:12px;padding:10px 16px;margin:14px 0}
-.ex-note .ex-trap h3{margin:2px 0 6px;color:#b91c1c;font-size:15px}
-.ex-note .ex-trap h3::before{content:"⚠ ";}
-.ex-note .ex-trap ul>li::before{background:#dc2626}
-.ex-note .ex-ddx tbody td:first-child{font-weight:700;background:var(--ex-soft);width:26%;min-width:8.5em}
-.ex-note .ex-ddx thead th{background:var(--ex-accent);color:#fff}
+.ex-note .ex-trap{background:#fef5f5;border-left:3px solid #f87171;border-radius:8px;padding:8px 14px;margin:12px 0}
+.ex-note .ex-trap>h3:first-child,.ex-note .hs-tip-box>:is(h3,h4):first-child{display:inline-block;margin:2px 0 4px;padding:0 8px;border-radius:6px;background:#c62828;color:#fff;font-size:11.5px;font-weight:700;line-height:1.7;letter-spacing:.04em}
+.ex-note .hs-tip-box>:is(h3,h4):first-child{background:#2f7a4d}
+.ex-note .ex-trap ul>li::before{background:#f87171}
+.ex-note .ex-ddx tbody td:first-child{font-weight:700;background:#f6f8fb;width:26%;min-width:8.5em}
+.ex-note .ex-ddx thead th{background:var(--ex-soft);color:var(--ex-accent)}
 .ex-note .ex-ddx{table-layout:auto;min-width:560px}
 .ex-note .ex-ddx td,.ex-note .ex-ddx th{word-break:normal;overflow-wrap:break-word}
 .ex-toc{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 16px;margin:12px 0 18px;font-size:14px}
@@ -72,17 +80,28 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-toc a{color:var(--ink-2);text-decoration:none}
 .ex-toc a:hover{color:var(--ex-accent);text-decoration:underline}
 .ex-note h2,.ex-note h3{scroll-margin-top:80px}
-.ex-note .keypoint,.ex-note .hs-tip-box,.ex-note .hs-warn-box{border-radius:12px;padding:12px 16px;margin:14px 0}
-.ex-note .keypoint{background:var(--ex-soft);border-left:4px solid var(--ex-accent)}
-.ex-note .hs-tip-box{background:#f0fdf4;border-left:4px solid #16a34a}
-.ex-note .hs-warn-box{background:#fffbeb;border-left:4px solid #d97706}
+.ex-content{min-width:0}
+.ex-toc-side{display:none}
+@media (min-width:1100px){main.ex-has-side{max-width:76rem;display:grid;grid-template-columns:230px minmax(0,48rem);gap:44px;justify-content:center;align-items:start}.ex-toc-side{display:block;position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;overscroll-behavior:contain}.ex-has-side .ex-toc{display:none}}
+.ex-toc-side{border:1px solid var(--border);border-radius:12px;background:var(--ex-card);padding:10px 10px 10px 12px;font-size:13px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.ex-toc-side::-webkit-scrollbar{width:6px}
+.ex-toc-side::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+.ex-toc-side summary{font-weight:700;cursor:pointer;color:var(--ex-accent);letter-spacing:.06em}
+.ex-toc-side ol{list-style:none;margin:6px 0 0;padding:0;line-height:1.55}
+.ex-toc-side a{display:block;padding:4px 8px;margin:1px 0;border-left:2px solid transparent;border-radius:0 6px 6px 0;color:var(--ink-2);text-decoration:none}
+.ex-toc-side a:hover{color:var(--ex-accent);background:var(--ex-soft)}
+.ex-toc-side a[aria-current]{color:var(--ex-accent);background:var(--ex-soft);border-left-color:var(--ex-accent);font-weight:700}
+.ex-toc-qs{border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
+.ex-note .keypoint,.ex-note .hs-tip-box,.ex-note .hs-warn-box{border-radius:8px;padding:8px 14px;margin:12px 0}
+.ex-note .keypoint{background:#f3f7fb;border-left:3px solid #8fb0cf}
+.ex-note .hs-tip-box{background:#f3f9f5;border-left:3px solid #6fbf8a}
+.ex-note .hs-warn-box{background:#fffaf0;border-left:3px solid #f0b453}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
 .ex-note{overflow-x:auto}
-.ref,.ex-ref{font-size:11.5px;color:#46556a;background:var(--ex-soft);border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
-.ex-hit{display:inline-block;font-size:11.5px;font-weight:600;color:#854d0e;background:#fef3c7;border-radius:9999px;padding:1px 9px;margin-left:6px}
-.ex-hit a{color:#854d0e}
+.ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
+.ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
 .ex-bar-cell{width:30%}
 .ex-bar{display:block;height:9px;border-radius:9px;background:#6b8caf}
@@ -149,7 +168,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-hitbox a{color:var(--ex-accent);font-weight:700}
 .ex-hitbox mark{background:#fef08a;color:inherit;border-radius:3px}
 .ex-locked{background:var(--ex-soft);border:1px dashed var(--border);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.8}
-.ex-locked a,.ex-hit a{font-weight:700}
+.ex-locked a{font-weight:700}
 .ex-login{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
 .ex-label{font-weight:700;font-size:14px}
 .ex-login .ex-input{flex:1;min-width:12em}
@@ -219,22 +238,26 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
-:root[data-theme="dark"] .ex-hit,:root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
-:root[data-theme="dark"] .ex-hit a{color:#fde68a}
+:root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
 :root[data-theme="dark"] .ex-badge,:root[data-theme="dark"] .ex-ok .ex-item-label{background:#14532d;color:#dcfce7}
 :root[data-theme="dark"] .ex-no .ex-item-label{background:#36404b;color:#e7e5e4}
-:root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{color:#cfe0ee}
+:root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{background:#2c2925;color:#d6d3d1}
+:root[data-theme="dark"] .ref-ext{background:#2e1065;color:#ddd6fe}
 :root[data-theme="dark"] .ex-mode[aria-pressed="true"],:root[data-theme="dark"] .ex-chip-on,:root[data-theme="dark"] .ex-cta,:root[data-theme="dark"] .ex-cta-btn{color:#14181d}
 :root[data-theme="dark"] .ex-cta.ex-cta-alt{color:var(--ex-accent)}
-:root[data-theme="dark"] .ex-note .hs-tip-box{background:#12301d}
-:root[data-theme="dark"] .ex-note .hs-warn-box{background:#332a14}
+:root[data-theme="dark"] .ex-note .hs-tip-box,:root[data-theme="dark"] .ex-legend-tip{background:rgba(20,83,45,.3);border-left-color:#3f8a5c}
+:root[data-theme="dark"] .ex-note .hs-warn-box{background:rgba(120,83,14,.3);border-left-color:#b9852c}
+:root[data-theme="dark"] .ex-note .keypoint{background:rgba(58,90,124,.3);border-left-color:#5f86ab}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt[data-correct],:root[data-theme="dark"] body:not(.ex-quiz) .ex-opt[data-correct]{background:#12301d;border-color:#16a34a}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt.ex-picked:not([data-correct]){background:#3a1a1a;border-color:#dc2626}
 :root[data-theme="dark"] .ex-hitbox mark{background:#854d0e;color:#fff}
-:root[data-theme="dark"] .ex-note mark{background:linear-gradient(transparent 45%,#854d0e 45%)}
+:root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:linear-gradient(transparent 80%,rgba(234,179,8,.5) 80%)}
+:root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
+:root[data-theme="dark"] .ex-qref a,:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
 :root[data-theme="dark"] .ex-note .num{background:#3b2414;color:#fdba74}
-:root[data-theme="dark"] .ex-note .ex-trap{background:#2d1616;border-color:#7f1d1d}
-:root[data-theme="dark"] .ex-note .ex-trap h3{color:#fca5a5}
+:root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
+:root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
+:root[data-theme="dark"] .ex-note .ex-ddx tbody td:first-child{background:var(--ex-soft)}
 :root[data-theme="dark"] .ex-toc{border-color:#36404b}
 :root[data-theme="dark"] .ex-locked{border-color:#36404b}
 :root[data-theme="dark"] .ex-login-msg{background:#3a1a1a;border-color:#7f1d1d;color:#fecaca}
@@ -244,8 +267,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-doubt-tag-now{background:#1e3a5f;color:#dbeafe}
 :root[data-theme="dark"] .ex-strip,:root[data-theme="dark"] .ex-summary-box{border-color:#36404b}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
-:root[data-theme="dark"] .ex-toc a{color:#d6d3d1}
-:root[data-theme="dark"] .ex-note .ex-ddx thead th{color:#14181d}
+:root[data-theme="dark"] .ex-toc a,:root[data-theme="dark"] .ex-toc-side a{color:#d6d3d1}
+:root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
+:root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
@@ -253,7 +277,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 </style>
-<script defer src="/assets/telemetry.js?v=20260729"></script>
+<script defer src="/assets/telemetry.js?v=20260730"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -281,10 +305,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 2 Ch.1</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 2 · Fundamentals and Principles of Ophthalmology</p><h1 class="ex-h1">Ch.1 Orbit and Ocular Adnexa</h1><p class="ex-meta">原書 p.5–46 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="2-1" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="2-1"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch1-s1">一、Orbital anatomy（眼眶解剖）：成人眼眶尺寸與骨性眼眶</a></li><li><a href="#ch1-s2">二、眼眶四壁</a></li><li><a href="#ch1-s3">三、Foramina, canals, and fissures（眼眶的孔、管與裂）</a></li><li><a href="#ch1-s4">四、眶周鼻竇</a></li><li><a href="#ch1-s5">五、腦神經與睫狀神經節</a></li><li><a href="#ch1-s6">六、眼外肌</a></li><li><a href="#ch1-s7">七、眼眶血管與靜脈回流</a></li><li><a href="#ch1-s8">八、Eyelids（眼瞼）：外觀、anatomy 分層與瞼緣</a></li><li><a href="#ch1-s9">九、眼瞼牽開肌與瞼板</a></li><li><a href="#ch1-s10">十、眼瞼血管與淋巴</a></li><li><a href="#ch1-s11">十一、淚腺與淚液排出系統</a></li><li><a href="#ch1-s12">十二、結膜、淚阜與半月皺襞</a></li><li><a href="#ch1-s13">十三、Tenon capsule（Tenon 囊）</a></li><li><a href="#ch1-s14">十四、總整理</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 2 第 1 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><div class="ex-note"><h2 id="ch1-s1">一、Orbital anatomy（眼眶解剖）：成人眼眶尺寸與骨性眼眶</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch1-s1">一、Orbital anatomy（眼眶解剖）：成人眼眶尺寸與骨性眼眶</a></li><li><a href="#ch1-s2">二、眼眶四壁</a></li><li><a href="#ch1-s3">三、Foramina, canals, and fissures（眼眶的孔、管與裂）</a></li><li><a href="#ch1-s4">四、眶周鼻竇</a></li><li><a href="#ch1-s5">五、腦神經與睫狀神經節</a></li><li><a href="#ch1-s6">六、眼外肌</a></li><li><a href="#ch1-s7">七、眼眶血管與靜脈回流</a></li><li><a href="#ch1-s8">八、Eyelids（眼瞼）：外觀、anatomy 分層與瞼緣</a></li><li><a href="#ch1-s9">九、眼瞼牽開肌與瞼板</a></li><li><a href="#ch1-s10">十、眼瞼血管與淋巴</a></li><li><a href="#ch1-s11">十一、淚腺與淚液排出系統</a></li><li><a href="#ch1-s12">十二、結膜、淚阜與半月皺襞</a></li><li><a href="#ch1-s13">十三、Tenon capsule（Tenon 囊）</a></li><li><a href="#ch1-s14">十四、總整理</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 2 Ch.1</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 2 · Fundamentals and Principles of Ophthalmology</p><h1 class="ex-h1">Ch.1 Orbit and Ocular Adnexa</h1><p class="ex-meta">原書 p.5–46 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="2-1" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="2-1"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch1-s1">一、Orbital anatomy（眼眶解剖）：成人眼眶尺寸與骨性眼眶</a></li><li><a href="#ch1-s2">二、眼眶四壁</a></li><li><a href="#ch1-s3">三、Foramina, canals, and fissures（眼眶的孔、管與裂）</a></li><li><a href="#ch1-s4">四、眶周鼻竇</a></li><li><a href="#ch1-s5">五、腦神經與睫狀神經節</a></li><li><a href="#ch1-s6">六、眼外肌</a></li><li><a href="#ch1-s7">七、眼眶血管與靜脈回流</a></li><li><a href="#ch1-s8">八、Eyelids（眼瞼）：外觀、anatomy 分層與瞼緣</a></li><li><a href="#ch1-s9">九、眼瞼牽開肌與瞼板</a></li><li><a href="#ch1-s10">十、眼瞼血管與淋巴</a></li><li><a href="#ch1-s11">十一、淚腺與淚液排出系統</a></li><li><a href="#ch1-s12">十二、結膜、淚阜與半月皺襞</a></li><li><a href="#ch1-s13">十三、Tenon capsule（Tenon 囊）</a></li><li><a href="#ch1-s14">十四、總整理</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 2 第 1 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch1-s1">一、Orbital anatomy（眼眶解剖）：成人眼眶尺寸與骨性眼眶</h2>
 <h3 id="ch1-s1-1">Dimensions of the adult orbit（成人眼眶尺寸）</h3>
 <ul>
-<li id="np-1">每側 bony orbit（骨性眼眶）容積<mark>略少於 <span class="num">30 mL</span></mark>；外形像梨，optic nerve（視神經）是梨柄。BCSC 7 的表列平均值寫作 <span class="num">30 cm³</span>（本章外），題目寫「約 30 cc」視為正確。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736">第 736 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750">第 750 題</a></span><span class="ref">p.6; BCSC 7 p.6</span></li>
+<li id="np-1">每側 bony orbit（骨性眼眶）容積<mark class="ex-key">略少於 <span class="num">30 mL</span></mark>；外形像梨，optic nerve（視神經）是梨柄。BCSC 7 的表列平均值寫作 <span class="num">30 cm³</span>（本章外），題目寫「約 30 cc」視為正確⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736" aria-label="考題 Q736">Q736</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750" aria-label="考題 Q750">Q750</a></sup>。<span class="ref">p.6; BCSC 7 p.6</span></li>
 <li id="np-2">Orbital entrance（眶口）平均高約 <span class="num">35 mm</span>、寬約 <span class="num">45 mm</span>；眼眶最寬處在前眶緣後方約 <span class="num">1 cm</span>。<span class="ref">p.6</span></li>
 <li id="np-3">眶深（眶口量到 orbital apex（眶尖））<span class="num">40–45 mm</span>，差別在於沿外側壁或內側壁量。<span class="ref">p.6</span></li>
 <li id="np-4">種族與性別都會影響上述尺寸，所以 <strong>exophthalmometry（眼球突出度測量）</strong>的正常值也因族群而異（Table 1-1）。<span class="ref">p.6</span></li>
@@ -300,7 +324,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <p id="np-20">出處（Table 1-1 Exophthalmometry Based on Race and Gender）<span class="ref">p.6</span></p>
 <h3 id="ch1-s1-2">Bony orbit（骨性眼眶）：7 塊骨</h3>
 <ul>
-<li id="np-21">眼眶由 <span class="num">7</span> 塊骨構成：<strong>ethmoid（篩骨）</strong>、<strong>frontal（額骨）</strong>、<strong>lacrimal（淚骨）</strong>、<strong>maxillary（上頷骨）</strong>、<strong>palatine（顎骨）</strong>、<strong>sphenoid（蝶骨，含 greater wing 大翼與 lesser wing 小翼）</strong>、<strong>zygomatic（顴骨）</strong>。<mark>Petrous bone（顳骨岩部）屬顳骨、位於顱底，不參與構成眼眶</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-127" data-q="127">第 127 題</a></span><span class="ref">p.6</span></li>
+<li id="np-21">眼眶由 <span class="num">7</span> 塊骨構成：<strong>ethmoid（篩骨）</strong>、<strong>frontal（額骨）</strong>、<strong>lacrimal（淚骨）</strong>、<strong>maxillary（上頷骨）</strong>、<strong>palatine（顎骨）</strong>、<strong>sphenoid（蝶骨，含 greater wing 大翼與 lesser wing 小翼）</strong>、<strong>zygomatic（顴骨）</strong>。<mark class="ex-key">Petrous bone（顳骨岩部）屬顳骨、位於顱底，不參與構成眼眶</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-127" data-q="127" aria-label="考題 Q127">Q127</a></sup>。<span class="ref">p.6</span></li>
 <li id="np-22">骨性眼眶包住眼球，保護它免於鈍傷。<span class="ref">p.6</span></li>
 </ul>
 <h3 id="ch1-s1-3">Orbital margin（眶緣）</h3>
@@ -309,44 +333,44 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-24">內緣：上方 frontal bone；下方是 lacrimal bone 的 <strong>posterior lacrimal crest（後淚嵴）</strong>與 maxillary bone 的 <strong>anterior lacrimal crest（前淚嵴）</strong>。下緣：maxillary + zygomatic；外緣：zygomatic + frontal。<span class="ref">p.7</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch1-s1-4">易錯陷阱</h3><ul>
-<li id="np-25">眼眶 7 骨裡沒有 temporal（顳骨）、petrous、nasal（鼻骨）；sphenoid 同時提供大翼與小翼。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-127" data-q="127">第 127 題</a></span><span class="ref">p.6</span></li>
-<li id="np-26">BCSC 2 寫「略少於 30 mL」，BCSC 7 表列「30 cm³」；「成人眼眶約 30 cc」是正確敘述，不是陷阱。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736">第 736 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750">第 750 題</a></span><span class="ref">p.6</span></li>
+<li id="np-25">眼眶 7 骨裡沒有 temporal（顳骨）、petrous、nasal（鼻骨）；sphenoid 同時提供大翼與小翼⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-127" data-q="127" aria-label="考題 Q127">Q127</a></sup>。<span class="ref">p.6</span></li>
+<li id="np-26">BCSC 2 寫「略少於 30 mL」，BCSC 7 表列「30 cm³」；「成人眼眶約 30 cc」是正確敘述，不是陷阱⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736" aria-label="考題 Q736">Q736</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750" aria-label="考題 Q750">Q750</a></sup>。<span class="ref">p.6</span></li>
 </ul></div>
 
 <h2 id="ch1-s2">二、眼眶四壁</h2>
 <h3 id="ch1-s2-1">Orbital roof（眶頂）：2 塊骨</h3>
 <ul>
 <li id="np-27">Orbital plate of the frontal bone（額骨眶板）＋ <mark>lesser wing of the sphenoid（蝶骨小翼）</mark>。<span class="ref">p.7</span></li>
-<li id="np-28"><strong>Lacrimal gland fossa（淚腺窩）</strong>位於眶頂前外側、frontal bone 的 zygomatic process 後方。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763">第 763 題</a></span><span class="ref">p.7</span></li>
+<li id="np-28"><strong>Lacrimal gland fossa（淚腺窩）</strong>位於眶頂前外側、frontal bone 的 zygomatic process 後方⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763" aria-label="考題 Q763">Q763</a></sup>。<span class="ref">p.7</span></li>
 <li id="np-29"><strong>Trochlea（滑車）</strong>：一片彎曲的 hyaline cartilage（透明軟骨），附著於 frontal bone 的 trochlear fossa，約在眶緣後 <span class="num">4–5 mm</span>，是 superior oblique（上斜肌）的滑輪。<span class="ref">p.7–8</span></li>
 <li id="np-30">Frontal sinus（額竇）位於眶頂前部；supraorbital foramen/notch 在眶上緣內側 <span class="num">1/3</span>，通過 supraorbital nerve（V1 frontal nerve 的終末支）；內側的 frontal bone 構成篩竇頂並延伸到 cribriform plate（篩板）。<span class="ref">p.8</span></li>
 </ul>
 <h3 id="ch1-s2-2">Medial orbital wall（內側壁）：4 塊骨</h3>
 <ul>
 <li id="np-31">Frontal process of the maxillary bone（上頷骨額突）、lacrimal bone、orbital plate of the ethmoid、lesser wing of the sphenoid。<span class="ref">p.8</span></li>
-<li id="np-32">Ethmoid 眶板占內側壁最大部分，薄如紙，故名 <strong>lamina papyracea（篩骨紙板）</strong>，<mark>是眼眶鈍傷後最常骨折的部位，也是最薄的眼眶壁</mark>（「最薄」一詞見 BCSC 7；相對地，外側壁最厚最堅固）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-98" data-q="98">第 98 題</a></span><span class="ref">p.8, p.10; BCSC 7 p.9</span></li>
+<li id="np-32">Ethmoid 眶板占內側壁最大部分，薄如紙，故名 <strong>lamina papyracea（篩骨紙板）</strong>，<mark class="ex-key">是眼眶鈍傷後最常骨折的部位，也是最薄的眼眶壁</mark>（「最薄」一詞見 BCSC 7；相對地，外側壁最厚最堅固）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-98" data-q="98" aria-label="考題 Q98">Q98</a></sup>。<span class="ref">p.8, p.10; BCSC 7 p.9</span></li>
 <li id="np-33">內側壁有 <strong>anterior / posterior ethmoidal foramina（前／後篩孔）</strong>，分別通過前、後篩動脈，也是篩竇病變進入眼眶的通道。<span class="ref">p.8</span></li>
-<li id="np-34"><strong>Lacrimal sac fossa（淚囊窩）</strong>由上頷骨額突與 lacrimal bone 共同構成，往下接 bony nasolacrimal canal（骨性鼻淚管），通到 inferior turbinate（下鼻甲）下方的 <strong>inferior meatus（下鼻道）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763">第 763 題</a></span><span class="ref">p.8</span></li>
+<li id="np-34"><strong>Lacrimal sac fossa（淚囊窩）</strong>由上頷骨額突與 lacrimal bone 共同構成，往下接 bony nasolacrimal canal（骨性鼻淚管），通到 inferior turbinate（下鼻甲）下方的 <strong>inferior meatus（下鼻道）</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763" aria-label="考題 Q763">Q763</a></sup>。<span class="ref">p.8</span></li>
 <li id="np-35">Lacrimal bone 被 posterior lacrimal crest 分為前後兩部分；淚囊窩前部由上頷骨的 anterior lacrimal crest 形成；前、後篩孔位於 <strong>frontoethmoidal suture（額篩縫）</strong>高度。<span class="ref">p.9</span></li>
-<li id="np-36">（本章外，BCSC 7）Frontoethmoidal suture 大致標示 cribriform plate、篩竇頂與前顱窩底的高度，內側壁手術應保持在此線以下。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736">第 736 題</a></span><span class="ref">BCSC 7 p.9</span></li>
-<li id="np-37"><strong>Clinical pearl</strong>：骨質極薄加上 emissary channels（導出通道），使 <mark><strong>ethmoid sinusitis（篩竇炎）成為 orbital cellulitis（眼眶蜂窩性組織炎）最常見的原因</strong></mark>；前、後篩動脈經其導出孔連通眼眶與篩竇，是篩竇炎蔓延入眶的常見路徑。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658">第 1658 題</a></span><span class="ref">p.5, p.8, p.25</span></li>
+<li id="np-36">（本章外，BCSC 7）Frontoethmoidal suture 大致標示 cribriform plate、篩竇頂與前顱窩底的高度，內側壁手術應保持在此線以下⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736" aria-label="考題 Q736">Q736</a></sup>。<span class="ref ref-ext">BCSC 7 p.9</span></li>
+<li id="np-37"><strong>Clinical pearl</strong>：骨質極薄加上 emissary channels（導出通道），使 <mark class="ex-key"><strong>ethmoid sinusitis（篩竇炎）成為 orbital cellulitis（眼眶蜂窩性組織炎）最常見的原因</strong></mark>；前、後篩動脈經其導出孔連通眼眶與篩竇，是篩竇炎蔓延入眶的常見路徑⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658" aria-label="考題 Q1658">Q1658</a></sup>。<span class="ref">p.5, p.8, p.25</span></li>
 <li id="np-38"><strong>Clinical pearl</strong>：<mark>到視神經最短、最直接的路徑是沿內側壁</mark>（enucleation（眼球摘除）、optic nerve sheath decompression（視神經鞘減壓）時有用）。<span class="ref">p.5, p.9</span></li>
-<li id="np-39"><strong>Rule of twelves（24-12-6 法則）</strong>：anterior lacrimal crest → anterior ethmoidal foramen <span class="num">24 mm</span>；anterior → posterior ethmoidal foramen <span class="num">12 mm</span>；<mark>posterior ethmoidal foramen → optic canal（視神經管）<span class="num">6 mm</span></mark>（不是 12 mm）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658">第 1658 題</a></span><span class="ref">p.9</span></li>
+<li id="np-39"><strong>Rule of twelves（24-12-6 法則）</strong>：anterior lacrimal crest → anterior ethmoidal foramen <span class="num">24 mm</span>；anterior → posterior ethmoidal foramen <span class="num">12 mm</span>；<mark class="ex-key">posterior ethmoidal foramen → optic canal（視神經管）<span class="num">6 mm</span></mark>（不是 12 mm）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658" aria-label="考題 Q1658">Q1658</a></sup>。<span class="ref">p.9</span></li>
 </ul>
 <h3 id="ch1-s2-3">Orbital floor（眶底）：3 塊骨</h3>
 <ul>
-<li id="np-40">Orbital plate of the maxillary bone、<strong>palatine bone</strong>、orbital plate of the zygomatic bone；<mark>lacrimal bone 不在眶底</mark>（它屬內側壁）。眶底就是 maxillary antrum（上頷竇）的頂。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-824" data-q="824">第 824 題</a></span><span class="ref">p.9</span></li>
+<li id="np-40">Orbital plate of the maxillary bone、<strong>palatine bone</strong>、orbital plate of the zygomatic bone；<mark class="ex-key">lacrimal bone 不在眶底</mark>（它屬內側壁）。眶底就是 maxillary antrum（上頷竇）的頂⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-824" data-q="824" aria-label="考題 Q824">Q824</a></sup>。<span class="ref">p.9</span></li>
 <li id="np-41"><strong>Infraorbital groove（眶下溝）</strong>橫越眶底、往前下降成 <strong>infraorbital canal（眶下管）</strong>，兩者都容納 <strong>infraorbital nerve（眶下神經，CN V2 上頷支）</strong>，於眶緣下方的 infraorbital foramen（眶下孔）穿出。<span class="ref">p.9</span></li>
-<li id="np-42">Inferior oblique（下斜肌）起自眶底、緊鄰 nasolacrimal canal 開口外側，<mark>是唯一不起自眶尖的眼外肌</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-129" data-q="129">第 129 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411">第 411 題</a></span><span class="ref">p.10</span></li>
+<li id="np-42">Inferior oblique（下斜肌）起自眶底、緊鄰 nasolacrimal canal 開口外側，<mark class="ex-key">是唯一不起自眶尖的眼外肌</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-129" data-q="129" aria-label="考題 Q129">Q129</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411" aria-label="考題 Q411">Q411</a></sup>。<span class="ref">p.10</span></li>
 <li id="np-43">眶底由後往前約向下傾斜 <span class="num">20°</span>；青春期前眶底骨未成熟，易發生 <strong>"trapdoor" fracture（活板門骨折）</strong>並續發肌肉嵌頓。<span class="ref">p.10</span></li>
-<li id="np-44"><strong>Clinical pearl</strong>：infraorbital groove 位於上頷骨眶板內，眶底骨折要檢查 V2 分布區的麻木／刺痛：<mark>同側上唇、上排後牙、臉頰、鼻側、下眼瞼</mark>；眼眶外傷合併 infraorbital hypoesthesia（眶下感覺減退）應懷疑眶底骨折。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658">第 1658 題</a></span><span class="ref">p.5, p.10</span></li>
-<li id="np-45">（本章外，BCSC 7）眶底不延伸到眶尖、止於 inferior orbital fissure，<mark>所以是最短的眼眶壁</mark>；上頷骨後內側部也很薄，與 lamina papyracea 同為 blowout fracture（爆裂性骨折）最常見部位。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750">第 750 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-98" data-q="98">第 98 題</a></span><span class="ref">BCSC 7 p.9</span></li>
+<li id="np-44"><strong>Clinical pearl</strong>：infraorbital groove 位於上頷骨眶板內，眶底骨折要檢查 V2 分布區的麻木／刺痛：<mark class="ex-key">同側上唇、上排後牙、臉頰、鼻側、下眼瞼</mark>；眼眶外傷合併 infraorbital hypoesthesia（眶下感覺減退）應懷疑眶底骨折⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658" aria-label="考題 Q1658">Q1658</a></sup>。<span class="ref">p.5, p.10</span></li>
+<li id="np-45">（本章外，BCSC 7）眶底不延伸到眶尖、止於 inferior orbital fissure，<mark class="ex-key">所以是最短的眼眶壁</mark>；上頷骨後內側部也很薄，與 lamina papyracea 同為 blowout fracture（爆裂性骨折）最常見部位⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750" aria-label="考題 Q750">Q750</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-98" data-q="98" aria-label="考題 Q98">Q98</a></sup>。<span class="ref ref-ext">BCSC 7 p.9</span></li>
 </ul>
 <h3 id="ch1-s2-4">Lateral orbital wall（外側壁）：2 塊骨</h3>
 <ul>
-<li id="np-46"><mark>最厚、最堅固的眼眶壁</mark>，由 <strong>zygomatic bone</strong> 與 <strong>greater wing of the sphenoid（蝶骨大翼）</strong>構成；<mark>lesser wing 不屬外側壁</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-98" data-q="98">第 98 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750">第 750 題</a></span><span class="ref">p.10</span></li>
+<li id="np-46"><mark class="ex-key">最厚、最堅固的眼眶壁</mark>，由 <strong>zygomatic bone</strong> 與 <strong>greater wing of the sphenoid（蝶骨大翼）</strong>構成；<mark class="ex-key">lesser wing 不屬外側壁</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-98" data-q="98" aria-label="考題 Q98">Q98</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750" aria-label="考題 Q750">Q750</a></sup>。<span class="ref">p.10</span></li>
 <li id="np-47"><strong>Lateral orbital tubercle（Whitnall tubercle，外側眶結節）</strong>：zygomatic bone 眶緣上的小隆起，位於 frontozygomatic suture（額顴縫）下方約 <span class="num">11 mm</span>。<span class="ref">p.10</span></li>
-<li id="np-48">Whitnall tubercle 是 4 種構造的附著點：lateral rectus 的 check ligament（節制韌帶）、<strong>Lockwood suspensory ligament（眼球懸韌帶）</strong>、<mark><strong>lateral canthal tendon（外眥韌帶）</strong></mark>、levator aponeurosis 的 lateral horn（外角）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736">第 736 題</a></span><span class="ref">p.10–11</span></li>
+<li id="np-48">Whitnall tubercle 是 4 種構造的附著點：lateral rectus 的 check ligament（節制韌帶）、<strong>Lockwood suspensory ligament（眼球懸韌帶）</strong>、<mark class="ex-key"><strong>lateral canthal tendon（外眥韌帶）</strong></mark>、levator aponeurosis 的 lateral horn（外角）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736" aria-label="考題 Q736">Q736</a></sup>。<span class="ref">p.10–11</span></li>
 <li id="np-49">外側壁與眶頂交界為 frontosphenoid suture（額蝶縫）；後方以 inferior／superior orbital fissure 為界；sphenoid wing 構成外側壁後部，把眼眶與 middle cranial fossa（中顱窩）隔開。<span class="ref">p.11</span></li>
 </ul>
 <table class="ted-table">
@@ -360,36 +384,36 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-62">出處 <span class="ref">p.7–11</span></p>
 <div class="ex-trap"><h3 id="ch1-s2-5">易錯陷阱</h3><ul>
-<li id="np-63">Sphenoid lesser wing 參與眶頂與內側壁（並含 optic canal），greater wing 才參與外側壁；「外側壁含 lesser wing」是錯的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750">第 750 題</a></span><span class="ref">p.7–8, p.10</span></li>
-<li id="np-64">Lacrimal bone 屬內側壁；眶底是 maxillary、palatine、zygomatic。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-824" data-q="824">第 824 題</a></span><span class="ref">p.8–9</span></li>
-<li id="np-65">單選「最薄」選內側壁（lamina papyracea，BCSC 2 稱其薄如紙、鈍傷後最常骨折）；BCSC 7 把上頷骨（眶底）後內側部與 lamina papyracea 並列為最薄、最常 blowout 骨折處，所以眶底是主要誘答但非標準答案；眶頂不是答案，外側壁是最厚。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-98" data-q="98">第 98 題</a></span><span class="ref">p.8, p.10; BCSC 7 p.9</span></li>
-<li id="np-66">Rule of twelves 是 24-12-6：後篩孔到視神經管是 <span class="num">6 mm</span>，不是 12 mm。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658">第 1658 題</a></span><span class="ref">p.9</span></li>
-<li id="np-67">眶底骨折的麻木是 V2 分布：上唇、上排「後」牙、臉頰、鼻側、下眼瞼。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658">第 1658 題</a></span><span class="ref">p.10</span></li>
+<li id="np-63">Sphenoid lesser wing 參與眶頂與內側壁（並含 optic canal），greater wing 才參與外側壁；「外側壁含 lesser wing」是錯的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750" aria-label="考題 Q750">Q750</a></sup>。<span class="ref">p.7–8, p.10</span></li>
+<li id="np-64">Lacrimal bone 屬內側壁；眶底是 maxillary、palatine、zygomatic⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-824" data-q="824" aria-label="考題 Q824">Q824</a></sup>。<span class="ref">p.8–9</span></li>
+<li id="np-65">單選「最薄」選內側壁（lamina papyracea，BCSC 2 稱其薄如紙、鈍傷後最常骨折）；BCSC 7 把上頷骨（眶底）後內側部與 lamina papyracea 並列為最薄、最常 blowout 骨折處，所以眶底是主要誘答但非標準答案；眶頂不是答案，外側壁是最厚⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-98" data-q="98" aria-label="考題 Q98">Q98</a></sup>。<span class="ref">p.8, p.10; BCSC 7 p.9</span></li>
+<li id="np-66">Rule of twelves 是 24-12-6：後篩孔到視神經管是 <span class="num">6 mm</span>，不是 12 mm⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658" aria-label="考題 Q1658">Q1658</a></sup>。<span class="ref">p.9</span></li>
+<li id="np-67">眶底骨折的麻木是 V2 分布：上唇、上排「後」牙、臉頰、鼻側、下眼瞼⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658" aria-label="考題 Q1658">Q1658</a></sup>。<span class="ref">p.10</span></li>
 </ul></div>
 
 <h2 id="ch1-s3">三、Foramina, canals, and fissures（眼眶的孔、管與裂）</h2>
 <h3 id="ch1-s3-1">Foramina（孔）</h3>
 <ul>
-<li id="np-68"><strong>Optic foramen（視神經孔）</strong>是 <strong>optic canal（視神經管）</strong>的入口，視神經管由 middle cranial fossa 通到眶尖，走向朝前、朝外、略朝下；<mark>內容物：optic nerve、ophthalmic artery（眼動脈）、來自 carotid plexus 的 sympathetic fibers（交感纖維）</mark>；位於 <strong>sphenoid lesser wing</strong> 內。<mark>視神經走 optic canal，不經 superior orbital fissure</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470">第 470 題</a></span><span class="ref">p.5, p.11</span></li>
-<li id="np-69">（本章外，BCSC 7）Optic canal 與 superior orbital fissure 之間以骨性 <strong>optic strut（視神經柱）</strong>分隔。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470">第 470 題</a></span><span class="ref">BCSC 7 p.12</span></li>
+<li id="np-68"><strong>Optic foramen（視神經孔）</strong>是 <strong>optic canal（視神經管）</strong>的入口，視神經管由 middle cranial fossa 通到眶尖，走向朝前、朝外、略朝下；<mark class="ex-key">內容物：optic nerve、ophthalmic artery（眼動脈）、來自 carotid plexus 的 sympathetic fibers（交感纖維）</mark>；位於 <strong>sphenoid lesser wing</strong> 內。<mark class="ex-key">視神經走 optic canal，不經 superior orbital fissure</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470" aria-label="考題 Q470">Q470</a></sup>。<span class="ref">p.5, p.11</span></li>
+<li id="np-69">（本章外，BCSC 7）Optic canal 與 superior orbital fissure 之間以骨性 <strong>optic strut（視神經柱）</strong>分隔⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470" aria-label="考題 Q470">Q470</a></sup>。<span class="ref ref-ext">BCSC 7 p.12</span></li>
 <li id="np-70"><strong>Supraorbital foramen</strong>（部分人為 notch）：眶上緣內側 <span class="num">1/3</span>，通過血管與 supraorbital nerve（frontal nerve 的延續，屬 V1）。<span class="ref">p.11</span></li>
 <li id="np-71"><strong>Anterior ethmoidal foramen</strong>：位於 frontoethmoidal suture，通過前篩血管與神經；<strong>posterior ethmoidal foramen</strong>：位於眶頂與內側壁交界，經 frontal bone 通過後篩血管與神經。<span class="ref">p.11</span></li>
 <li id="np-72"><strong>Zygomaticotemporal / zygomaticofacial foramina（顴顳孔／顴面孔）</strong>：位於外側壁的 zygomatic bone 部分，通過血管與 zygomatic nerve 分支。原文此處把 zygomatic nerve 寫成 V1 分支，但同章 p.12–13 與 BCSC 7 p.11 都列為 <strong>V2</strong> 分支，以 V2 為準。<span class="ref">p.11–13</span></li>
 </ul>
 <h3 id="ch1-s3-2">Canals（管）</h3>
 <ul>
-<li id="np-73"><strong>Nasolacrimal canal（鼻淚管骨管）</strong>：nasolacrimal duct 由淚囊窩往下，經此骨管進入鼻腔的 inferior meatus。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763">第 763 題</a></span><span class="ref">p.12</span></li>
+<li id="np-73"><strong>Nasolacrimal canal（鼻淚管骨管）</strong>：nasolacrimal duct 由淚囊窩往下，經此骨管進入鼻腔的 inferior meatus⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763" aria-label="考題 Q763">Q763</a></sup>。<span class="ref">p.12</span></li>
 <li id="np-74"><strong>Infraorbital canal（眶下管）</strong>：由 infraorbital groove 往前延續，在眶下緣下方 <span class="num">4 mm</span> 開口為 infraorbital foramen，通過 infraorbital nerve（CN V2 分支）。<span class="ref">p.12</span></li>
 </ul>
 <h3 id="ch1-s3-3">Superior orbital fissure（SOF，上眼眶裂）</h3>
 <ul>
 <li id="np-75">位於 sphenoid 大翼與小翼之間、optic foramen 外側；長約 <span class="num">22 mm</span>；被 rectus 共同起點形成的腱環 <strong>annulus of Zinn（總腱環）</strong>橫跨。<span class="ref">p.12</span></li>
-<li id="np-76"><mark><strong>總腱環上方（環外）</strong>由外到內：lacrimal nerve（V1）、frontal nerve（V1）、CN IV（trochlear nerve，滑車神經）、superior ophthalmic vein（上眼靜脈）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-96" data-q="96">第 96 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-152" data-q="152">第 152 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-199" data-q="199">第 199 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792">第 792 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-824" data-q="824">第 824 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658">第 1658 題</a></span><span class="ref">p.12–13</span></li>
-<li id="np-77"><mark><strong>總腱環內</strong>（或 rectus 兩頭之間）：CN III（oculomotor nerve，動眼神經）上支與下支、nasociliary nerve（鼻睫神經，V1，並攜帶往 ciliary ganglion 的節後交感纖維）、CN VI（abducens nerve，外旋神經）</mark>。環內這段 SOF 又稱 <strong>oculomotor foramen（動眼神經孔）</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-199" data-q="199">第 199 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792">第 792 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698">第 1698 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470">第 470 題</a></span><span class="ref">p.12–13, p.21</span></li>
+<li id="np-76"><mark class="ex-key"><strong>總腱環上方（環外）</strong>由外到內：lacrimal nerve（V1）、frontal nerve（V1）、CN IV（trochlear nerve，滑車神經）、superior ophthalmic vein（上眼靜脈）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-96" data-q="96" aria-label="考題 Q96">Q96</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-152" data-q="152" aria-label="考題 Q152">Q152</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-199" data-q="199" aria-label="考題 Q199">Q199</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792" aria-label="考題 Q792">Q792</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-824" data-q="824" aria-label="考題 Q824">Q824</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658" aria-label="考題 Q1658">Q1658</a></sup>。<span class="ref">p.12–13</span></li>
+<li id="np-77"><mark class="ex-key"><strong>總腱環內</strong>（或 rectus 兩頭之間）：CN III（oculomotor nerve，動眼神經）上支與下支、nasociliary nerve（鼻睫神經，V1，並攜帶往 ciliary ganglion 的節後交感纖維）、CN VI（abducens nerve，外旋神經）</mark>。環內這段 SOF 又稱 <strong>oculomotor foramen（動眼神經孔）</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-199" data-q="199" aria-label="考題 Q199">Q199</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792" aria-label="考題 Q792">Q792</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698" aria-label="考題 Q1698">Q1698</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470" aria-label="考題 Q470">Q470</a></sup>。<span class="ref">p.12–13, p.21</span></li>
 <li id="np-78"><strong>Inferior ophthalmic vein（下眼靜脈）</strong>走法不定，可在環內或環下方離開眼眶；總腱環把 SOF 分成三段（上、環內、下）。<span class="ref">p.12–13</span></li>
-<li id="np-79"><strong>Optic nerve 與 ophthalmic artery</strong> 經 optic canal 進入眶尖時位於總腱環所圍之內（Fig 1-8、1-17）；總腱環與眶尖 periorbita 及部分視神經鞘相連，superior rectus 與 medial rectus 的起點緊貼視神經鞘。（本章外，BCSC 7）總腱環<mark>圍住 optic foramen 與 SOF 的中央部分</mark>，所以 optic nerve 算「在 annulus of Zinn 內」，<mark>frontal nerve 則在環外</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792">第 792 題</a></span><span class="ref">p.13, p.19, p.21; BCSC 7 p.14</span></li>
-<li id="np-80">（本章外，BCSC 7）CN III、CN VI、nasociliary nerve 經 oculomotor foramen 直接進入 <strong>muscle cone（肌錐）</strong>；CN IV、frontal、lacrimal nerve 與上眼靜脈經環外的 SOF 進入，<mark>位於肌錐外</mark>。<mark>CN IV 是唯一支配眼外肌、入眶時卻不直接進入肌錐的神經</mark>，因此 retrobulbar block（球後麻醉）通常不影響上斜肌。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698">第 1698 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736">第 736 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750">第 750 題</a></span><span class="ref">BCSC 7 p.10, p.14</span></li>
-<li id="np-81">（本章外，BCSC 7）SOF 只傳送 CN V 的第一分支 <strong>V1（ophthalmic division）</strong>的 lacrimal、frontal、nasociliary 分支；V2（maxillary division）經 foramen rotundum（圓孔）出顱、通過 pterygopalatine fossa（翼顎窩）後由 inferior orbital fissure 入眶；BCSC 7 列出的眶尖開口內容物沒有 V3（mandibular division）。所以「整條 CN V 經 SOF」不成立。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-96" data-q="96">第 96 題</a></span><span class="ref">BCSC 7 p.11</span></li>
+<li id="np-79"><strong>Optic nerve 與 ophthalmic artery</strong> 經 optic canal 進入眶尖時位於總腱環所圍之內（Fig 1-8、1-17）；總腱環與眶尖 periorbita 及部分視神經鞘相連，superior rectus 與 medial rectus 的起點緊貼視神經鞘。（本章外，BCSC 7）總腱環<mark class="ex-key">圍住 optic foramen 與 SOF 的中央部分</mark>，所以 optic nerve 算「在 annulus of Zinn 內」，<mark class="ex-key">frontal nerve 則在環外</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792" aria-label="考題 Q792">Q792</a></sup>。<span class="ref">p.13, p.19, p.21; BCSC 7 p.14</span></li>
+<li id="np-80">（本章外，BCSC 7）CN III、CN VI、nasociliary nerve 經 oculomotor foramen 直接進入 <strong>muscle cone（肌錐）</strong>；CN IV、frontal、lacrimal nerve 與上眼靜脈經環外的 SOF 進入，<mark class="ex-key">位於肌錐外</mark>。<mark class="ex-key">CN IV 是唯一支配眼外肌、入眶時卻不直接進入肌錐的神經</mark>，因此 retrobulbar block（球後麻醉）通常不影響上斜肌⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698" aria-label="考題 Q1698">Q1698</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736" aria-label="考題 Q736">Q736</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750" aria-label="考題 Q750">Q750</a></sup>。<span class="ref ref-ext">BCSC 7 p.10, p.14</span></li>
+<li id="np-81">（本章外，BCSC 7）SOF 只傳送 CN V 的第一分支 <strong>V1（ophthalmic division）</strong>的 lacrimal、frontal、nasociliary 分支；V2（maxillary division）經 foramen rotundum（圓孔）出顱、通過 pterygopalatine fossa（翼顎窩）後由 inferior orbital fissure 入眶；BCSC 7 列出的眶尖開口內容物沒有 V3（mandibular division）。所以「整條 CN V 經 SOF」不成立⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-96" data-q="96" aria-label="考題 Q96">Q96</a></sup>。<span class="ref ref-ext">BCSC 7 p.11</span></li>
 <li id="np-82">Fig 1-7：axial CT 上 SOF 常被誤認為 optic canal；optic canal 與 anterior clinoid process（前床突）位於同一平面，斜切時整段管道未必出現在同一層。<span class="ref">p.12</span></li>
 </ul>
 <table class="ted-table">
@@ -406,14 +430,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch1-s3-4">Inferior orbital fissure（IOF，下眼眶裂）</h3>
 <ul>
 <li id="np-99">位於 SOF 正下方、外側壁與眶底之間，通往 pterygopalatine fossa 與 inferotemporal fossa（顳下窩），故靠近 foramen rotundum 與 pterygoid canal（翼管）。<span class="ref">p.12</span></li>
-<li id="np-100">內容物：<mark>CN V2 的 infraorbital 與 zygomatic 分支</mark>、pterygopalatine ganglion（翼顎神經節）的 orbital nerve，有時還有 inferior ophthalmic vein；下眼靜脈先接 pterygoid plexus（翼靜脈叢）再流入 cavernous sinus（海綿竇）。<mark>Infraorbital nerve 走 IOF，不經 SOF</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-152" data-q="152">第 152 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-96" data-q="96">第 96 題</a></span><span class="ref">p.12–13</span></li>
+<li id="np-100">內容物：<mark class="ex-key">CN V2 的 infraorbital 與 zygomatic 分支</mark>、pterygopalatine ganglion（翼顎神經節）的 orbital nerve，有時還有 inferior ophthalmic vein；下眼靜脈先接 pterygoid plexus（翼靜脈叢）再流入 cavernous sinus（海綿竇）。<mark class="ex-key">Infraorbital nerve 走 IOF，不經 SOF</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-152" data-q="152" aria-label="考題 Q152">Q152</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-96" data-q="96" aria-label="考題 Q96">Q96</a></sup>。<span class="ref">p.12–13</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch1-s3-5">易錯陷阱</h3><ul>
-<li id="np-101">「不在 annulus of Zinn 內」的神經：CN IV、frontal、lacrimal（加上 superior ophthalmic vein）；在環內的是 CN III 上下支、nasociliary、CN VI（視神經與眼動脈也在環所圍範圍內）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-199" data-q="199">第 199 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792">第 792 題</a></span><span class="ref">p.12–13</span></li>
-<li id="np-102">支配眼外肌、但入眶時不進肌錐的只有 CN IV；CN V 在眼眶內是感覺神經，不支配眼外肌（眼外肌只由 CN III、IV、VI 支配）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698">第 1698 題</a></span><span class="ref">p.12, p.24</span></li>
-<li id="np-103">「CN III、IV、VI 都經過 muscle cone」是錯的：CN IV 在肌錐外。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736">第 736 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750">第 750 題</a></span><span class="ref">p.12; BCSC 7 p.14</span></li>
-<li id="np-104">不經 SOF 的常考選項：optic nerve（走 optic canal）、infraorbital nerve（V2，走 IOF）；交感纖維則兩條路都有（optic canal 與 SOF 環內隨 nasociliary nerve）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470">第 470 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-152" data-q="152">第 152 題</a></span><span class="ref">p.11–13, p.16</span></li>
-<li id="np-105">題目問「CN V 是否穿過 SOF」：只有 V1 分支通過，V2 經 foramen rotundum／IOF，故以整條 CN V 而言不算；但 V1 本身確實通過 SOF（AAO EyeWiki 的 SOF syndrome 條目同樣只列 V1），此題答案有歧義，選 CN V 是取「並非整條通過」之意。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-96" data-q="96">第 96 題</a></span><span class="ref">p.12; BCSC 7 p.11</span></li>
+<li id="np-101">「不在 annulus of Zinn 內」的神經：CN IV、frontal、lacrimal（加上 superior ophthalmic vein）；在環內的是 CN III 上下支、nasociliary、CN VI（視神經與眼動脈也在環所圍範圍內）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-199" data-q="199" aria-label="考題 Q199">Q199</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792" aria-label="考題 Q792">Q792</a></sup>。<span class="ref">p.12–13</span></li>
+<li id="np-102">支配眼外肌、但入眶時不進肌錐的只有 CN IV；CN V 在眼眶內是感覺神經，不支配眼外肌（眼外肌只由 CN III、IV、VI 支配）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698" aria-label="考題 Q1698">Q1698</a></sup>。<span class="ref">p.12, p.24</span></li>
+<li id="np-103">「CN III、IV、VI 都經過 muscle cone」是錯的：CN IV 在肌錐外⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-736" data-q="736" aria-label="考題 Q736">Q736</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-750" data-q="750" aria-label="考題 Q750">Q750</a></sup>。<span class="ref">p.12; BCSC 7 p.14</span></li>
+<li id="np-104">不經 SOF 的常考選項：optic nerve（走 optic canal）、infraorbital nerve（V2，走 IOF）；交感纖維則兩條路都有（optic canal 與 SOF 環內隨 nasociliary nerve）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470" aria-label="考題 Q470">Q470</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-152" data-q="152" aria-label="考題 Q152">Q152</a></sup>。<span class="ref">p.11–13, p.16</span></li>
+<li id="np-105">題目問「CN V 是否穿過 SOF」：只有 V1 分支通過，V2 經 foramen rotundum／IOF，故以整條 CN V 而言不算；但 V1 本身確實通過 SOF（AAO EyeWiki 的 SOF syndrome 條目同樣只列 V1），此題答案有歧義，選 CN V 是取「並非整條通過」之意⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-96" data-q="96" aria-label="考題 Q96">Q96</a></sup>。<span class="ref">p.12; BCSC 7 p.11</span></li>
 </ul></div>
 
 <h2 id="ch1-s4">四、眶周鼻竇</h2>
@@ -439,7 +463,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-114">位置：總腱環前約 <span class="num">1 cm</span>，在 ophthalmic artery 外側、optic nerve 與 lateral rectus 之間。<span class="ref">p.16</span></li>
 <li id="np-115"><strong>Sensory root（感覺根）</strong>：長（<span class="num">10–12 mm</span>），來自 V1 的 nasociliary branch，攜帶 cornea、iris、ciliary body 的感覺。<span class="ref">p.16</span></li>
 <li id="np-116"><strong>Motor root（運動根）</strong>：短，來自 <mark>CN III 下支</mark>，攜帶 Edinger-Westphal nucleus 的節前副交感纖維；在節內突觸，節後纖維支配 iris sphincter（瞳孔括約肌）與 ciliary muscle（睫狀肌）。<span class="ref">p.16</span></li>
-<li id="np-117"><strong>Sympathetic root（交感根）</strong>：superior cervical ganglion（上頸神經節）的節後纖維 → 沿 internal carotid artery 上行 → 在 cavernous sinus 暫時加入 abducens nerve → 隨 nasociliary nerve 或獨立成根，<mark>經 SOF 的總腱環內入眶</mark>，穿過睫狀神經節不突觸，支配眼內血管與 iris dilator（瞳孔開大肌）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470">第 470 題</a></span><span class="ref">p.16</span></li>
+<li id="np-117"><strong>Sympathetic root（交感根）</strong>：superior cervical ganglion（上頸神經節）的節後纖維 → 沿 internal carotid artery 上行 → 在 cavernous sinus 暫時加入 abducens nerve → 隨 nasociliary nerve 或獨立成根，<mark class="ex-key">經 SOF 的總腱環內入眶</mark>，穿過睫狀神經節不突觸，支配眼內血管與 iris dilator（瞳孔開大肌）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470" aria-label="考題 Q470">Q470</a></sup>。<span class="ref">p.16</span></li>
 <li id="np-118">往 <strong>Muller muscle</strong> 的交感纖維則沿 V1 的 frontal 與 lacrimal 分支走，<mark>不經睫狀神經節</mark>。<span class="ref">p.16</span></li>
 <li id="np-119"><mark>只有副交感纖維在睫狀神經節突觸</mark>；交感纖維已是節後纖維、感覺纖維的細胞體在 trigeminal ganglion（三叉神經節）。不突觸的交感纖維＋感覺纖維＋有髓鞘、傳導快的節後副交感纖維共同組成 short ciliary nerves。<span class="ref">p.16–17</span></li>
 </ul>
@@ -459,10 +483,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch1-s6-1">七條眼外肌與起點</h3>
 <ul>
 <li id="np-126"><span class="num">7</span> 條 extraocular muscles（眼外肌）：medial rectus（內直肌）、inferior rectus（下直肌）、lateral rectus（外直肌）、superior rectus（上直肌）、superior oblique（上斜肌）、inferior oblique（下斜肌）、<strong>levator palpebrae superioris（提上眼瞼肌）</strong>。<span class="ref">p.17–18</span></li>
-<li id="np-127"><strong>Annulus of Zinn</strong> 由上、下兩條 orbital tendons 組成，是 <span class="num">4</span> 條直肌的共同起點：上腱 → superior rectus 及部分 lateral、medial rectus；下腱 → inferior rectus 及部分 lateral、medial rectus。Lateral rectus 起自橫跨 SOF 的總腱環。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-129" data-q="129">第 129 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411">第 411 題</a></span><span class="ref">p.18–20</span></li>
+<li id="np-127"><strong>Annulus of Zinn</strong> 由上、下兩條 orbital tendons 組成，是 <span class="num">4</span> 條直肌的共同起點：上腱 → superior rectus 及部分 lateral、medial rectus；下腱 → inferior rectus 及部分 lateral、medial rectus。Lateral rectus 起自橫跨 SOF 的總腱環⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-129" data-q="129" aria-label="考題 Q129">Q129</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411" aria-label="考題 Q411">Q411</a></sup>。<span class="ref">p.18–20</span></li>
 <li id="np-128">Levator palpebrae superioris 起自眶尖 <strong>sphenoid lesser wing</strong>，在總腱環正上方。<span class="ref">p.19</span></li>
-<li id="np-129"><strong>Superior oblique</strong> 起自 optic foramen 上內方的 sphenoid body 骨膜（Table 1-2：在 optic foramen 內側、總腱環與 periorbita（眶骨膜）之間）；它雖起自眶尖，嚴格說並非總腱環本身。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411">第 411 題</a></span><span class="ref">p.19–20</span></li>
-<li id="np-130"><strong>Inferior oblique</strong> 起自前方：眶底前內角、上頷骨眶板的淺凹，靠近淚囊窩。<mark>除 inferior oblique 外，所有眼外肌都起自眶尖</mark>；因此「不起自 annulus of Zinn」最典型的答案是 inferior oblique。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-129" data-q="129">第 129 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411">第 411 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186">第 186 題</a></span><span class="ref">p.10, p.19, p.21</span></li>
+<li id="np-129"><strong>Superior oblique</strong> 起自 optic foramen 上內方的 sphenoid body 骨膜（Table 1-2：在 optic foramen 內側、總腱環與 periorbita（眶骨膜）之間）；它雖起自眶尖，嚴格說並非總腱環本身⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411" aria-label="考題 Q411">Q411</a></sup>。<span class="ref">p.19–20</span></li>
+<li id="np-130"><strong>Inferior oblique</strong> 起自前方：眶底前內角、上頷骨眶板的淺凹，靠近淚囊窩。<mark class="ex-key">除 inferior oblique 外，所有眼外肌都起自眶尖</mark>；因此「不起自 annulus of Zinn」最典型的答案是 inferior oblique⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-129" data-q="129" aria-label="考題 Q129">Q129</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411" aria-label="考題 Q411">Q411</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186" aria-label="考題 Q186">Q186</a></sup>。<span class="ref">p.10, p.19, p.21</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Muscle（肌肉）</th><th>Origin（起點）</th><th>Insertion（附著）</th><th>Size（長度／肌腱）</th><th>Blood supply（血供）</th><th>Nerve（神經）</th></tr></thead>
@@ -482,7 +506,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch1-s6-2">附著點與 spiral of Tillaux</h3>
 <ul>
-<li id="np-175">4 條直肌都附著於前方鞏膜；由 medial → inferior → lateral → superior rectus，附著點離 limbus（角膜緣）越來越遠，連線成 <strong>spiral of Tillaux（Tillaux 螺旋）</strong>：MR <span class="num">5.5 mm</span>、IR <span class="num">6.5 mm</span>、LR <span class="num">6.9 mm</span>、<mark>SR <span class="num">7.7 mm</span>（最遠）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-640" data-q="640">第 640 題</a></span><span class="ref">p.20–22</span></li>
+<li id="np-175">4 條直肌都附著於前方鞏膜；由 medial → inferior → lateral → superior rectus，附著點離 limbus（角膜緣）越來越遠，連線成 <strong>spiral of Tillaux（Tillaux 螺旋）</strong>：MR <span class="num">5.5 mm</span>、IR <span class="num">6.5 mm</span>、LR <span class="num">6.9 mm</span>、<mark class="ex-key">SR <span class="num">7.7 mm</span>（最遠）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-640" data-q="640" aria-label="考題 Q640">Q640</a></sup>。<span class="ref">p.20–22</span></li>
 <li id="np-176">直肌附著點的假想連線大致對應內部的 <strong>ora serrata（鋸齒緣）</strong>：鞏膜縫合時針方向錯誤可能刺穿視網膜；鞏膜撕裂傷延伸超過 spiral of Tillaux 時，retinal incarceration（視網膜嵌頓）與 tractional retinal detachment（牽引性視網膜剝離）風險增加。<span class="ref">p.5, p.21</span></li>
 <li id="np-177">Superior oblique 穿過眶上內緣的 trochlea 後，附著於上方鞏膜、superior rectus 附著點下方；肌腱呈扇形：<mark>前部纖維負責 intorsion（內旋），後部纖維負責 depression（下轉）與 abduction（外轉）</mark>。<span class="ref">p.22</span></li>
 <li id="np-178">Inferior oblique 由起點往後、外、上走，附著於後下顳側象限鞏膜；兩條斜肌都附著於眼球後方、黃斑附近。<span class="ref">p.18, p.22</span></li>
@@ -496,15 +520,15 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch1-s6-4">Blood supply（血液供應）</h3>
 <ul>
 <li id="np-182">來源三條：<strong>ophthalmic artery 的 muscular branches</strong>、<strong>infraorbital artery</strong>、<strong>lacrimal artery</strong>。<span class="ref">p.23</span></li>
-<li id="np-183">Muscular branches 分 lateral（superior）與 medial（inferior）兩支，並發出 anterior ciliary arteries（前睫狀動脈）。<mark>Lateral（superior）branch → lateral rectus、superior rectus、superior oblique；medial（inferior）branch → medial rectus、inferior rectus、inferior oblique</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186">第 186 題</a></span><span class="ref">p.20, p.23</span></li>
-<li id="np-184">Lateral rectus 部分血供來自 <strong>lacrimal artery</strong>；inferior oblique 與 inferior rectus 部分來自 <strong>infraorbital artery</strong>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186">第 186 題</a></span><span class="ref">p.23</span></li>
+<li id="np-183">Muscular branches 分 lateral（superior）與 medial（inferior）兩支，並發出 anterior ciliary arteries（前睫狀動脈）。<mark class="ex-key">Lateral（superior）branch → lateral rectus、superior rectus、superior oblique；medial（inferior）branch → medial rectus、inferior rectus、inferior oblique</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186" aria-label="考題 Q186">Q186</a></sup>。<span class="ref">p.20, p.23</span></li>
+<li id="np-184">Lateral rectus 部分血供來自 <strong>lacrimal artery</strong>；inferior oblique 與 inferior rectus 部分來自 <strong>infraorbital artery</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186" aria-label="考題 Q186">Q186</a></sup>。<span class="ref">p.23</span></li>
 <li id="np-185">每條直肌有 <span class="num">1–4</span> 條 anterior ciliary arteries，穿過肌腹與鞏膜，與 major arterial circle（大動脈環）吻合，供應前段。<span class="ref">p.23</span></li>
 <li id="np-186"><strong>Clinical pearl</strong>：斜視手術一次離斷 <span class="num">2</span> 條以上直肌可導致 <mark>anterior segment ischemia（前段缺血）</mark>；可用 fornix approach（穹窿切口）、分次手術或保留血管的技術降低風險。<span class="ref">p.24</span></li>
 </ul>
 <h3 id="ch1-s6-5">Innervation（神經支配）</h3>
 <ul>
-<li id="np-187"><mark>CN III 上支 → levator palpebrae superioris、superior rectus；CN III 下支 → medial rectus、inferior rectus、inferior oblique；CN IV → superior oblique（唯一由 CN IV 支配的眼外肌）；CN VI → lateral rectus</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-154" data-q="154">第 154 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186">第 186 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698">第 1698 題</a></span><span class="ref">p.20, p.24</span></li>
-<li id="np-188"><strong>Facial nerve（顏面神經，CN VII）</strong>支配 orbicularis oculi（眼輪匝肌）等表情肌，<mark>不支配任何眼外肌</mark>；「medial rectus – facial nerve」是錯的配對。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-154" data-q="154">第 154 題</a></span><span class="ref">p.24, p.31</span></li>
+<li id="np-187"><mark class="ex-key">CN III 上支 → levator palpebrae superioris、superior rectus；CN III 下支 → medial rectus、inferior rectus、inferior oblique；CN IV → superior oblique（唯一由 CN IV 支配的眼外肌）；CN VI → lateral rectus</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-154" data-q="154" aria-label="考題 Q154">Q154</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186" aria-label="考題 Q186">Q186</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698" aria-label="考題 Q1698">Q1698</a></sup>。<span class="ref">p.20, p.24</span></li>
+<li id="np-188"><strong>Facial nerve（顏面神經，CN VII）</strong>支配 orbicularis oculi（眼輪匝肌）等表情肌，<mark class="ex-key">不支配任何眼外肌</mark>；「medial rectus – facial nerve」是錯的配對⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-154" data-q="154" aria-label="考題 Q154">Q154</a></sup>。<span class="ref">p.24, p.31</span></li>
 </ul>
 <h3 id="ch1-s6-6">Fine structure（細微構造）</h3>
 <ul>
@@ -512,28 +536,28 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-190">兩型肌纖維：<strong>slow tonic fibers</strong>（多個葡萄狀神經末梢 <em>en grappe</em>）→ smooth pursuit（平滑追視）；<strong>fast twitch fibers</strong>（板狀末梢 <em>en plaque</em>）→ saccade（掃視）。<span class="ref">p.24</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch1-s6-7">易錯陷阱</h3><ul>
-<li id="np-191">不起自 annulus of Zinn：inferior oblique（唯一不起自眶尖）；superior oblique 與 levator 也不是總腱環本身，但都在眶尖，題目若問「唯一」選 inferior oblique。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-129" data-q="129">第 129 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411">第 411 題</a></span><span class="ref">p.19–21</span></li>
-<li id="np-192">Lateral rectus、superior rectus 的血供是 OA 的 <strong>lateral（superior）</strong> muscular branch，不是 medial；medial（inferior）branch 供應 MR、IR、IO。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186">第 186 題</a></span><span class="ref">p.20, p.23</span></li>
-<li id="np-193">Inferior oblique 的起點描述「depression on orbital floor near orbital rim」是正確的。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186">第 186 題</a></span><span class="ref">p.20</span></li>
-<li id="np-194">附著點離角膜緣最遠是 superior rectus（<span class="num">7.7 mm</span>），最近是 medial rectus（<span class="num">5.5 mm</span>）；記順序 MR → IR → LR → SR。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-640" data-q="640">第 640 題</a></span><span class="ref">p.21–22</span></li>
+<li id="np-191">不起自 annulus of Zinn：inferior oblique（唯一不起自眶尖）；superior oblique 與 levator 也不是總腱環本身，但都在眶尖，題目若問「唯一」選 inferior oblique⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-129" data-q="129" aria-label="考題 Q129">Q129</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-411" data-q="411" aria-label="考題 Q411">Q411</a></sup>。<span class="ref">p.19–21</span></li>
+<li id="np-192">Lateral rectus、superior rectus 的血供是 OA 的 <strong>lateral（superior）</strong> muscular branch，不是 medial；medial（inferior）branch 供應 MR、IR、IO⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186" aria-label="考題 Q186">Q186</a></sup>。<span class="ref">p.20, p.23</span></li>
+<li id="np-193">Inferior oblique 的起點描述「depression on orbital floor near orbital rim」是正確的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186" aria-label="考題 Q186">Q186</a></sup>。<span class="ref">p.20</span></li>
+<li id="np-194">附著點離角膜緣最遠是 superior rectus（<span class="num">7.7 mm</span>），最近是 medial rectus（<span class="num">5.5 mm</span>）；記順序 MR → IR → LR → SR⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-640" data-q="640" aria-label="考題 Q640">Q640</a></sup>。<span class="ref">p.21–22</span></li>
 <li id="np-195">Superior oblique 前部纖維管 intorsion，後部纖維管 depression ＋ abduction，不要對調。<span class="ref">p.22</span></li>
 </ul></div>
 
 <h2 id="ch1-s7">七、眼眶血管與靜脈回流</h2>
 <h3 id="ch1-s7-1">Posterior and anterior ciliary arteries（後、前睫狀動脈）</h3>
 <ul>
-<li id="np-196">約 <span class="num">16–20</span> 條 short posterior ciliary arteries（短後睫狀動脈）與 <span class="num">6–10</span> 條 short ciliary nerves 在視神經周圍環狀進入眼球。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.24, p.26</span></li>
-<li id="np-197">通常 <span class="num">2</span> 條 long posterior ciliary arteries（長後睫狀動脈）與 <span class="num">2</span> 條 long ciliary nerves 在視神經兩側、靠近水平經線穿入鞏膜；長後睫狀動脈在 suprachoroidal space（脈絡膜上腔）往前走，<mark>終止於 iris 的 major arterial circle</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.24</span></li>
+<li id="np-196">約 <span class="num">16–20</span> 條 short posterior ciliary arteries（短後睫狀動脈）與 <span class="num">6–10</span> 條 short ciliary nerves 在視神經周圍環狀進入眼球⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.24, p.26</span></li>
+<li id="np-197">通常 <span class="num">2</span> 條 long posterior ciliary arteries（長後睫狀動脈）與 <span class="num">2</span> 條 long ciliary nerves 在視神經兩側、靠近水平經線穿入鞏膜；長後睫狀動脈在 suprachoroidal space（脈絡膜上腔）往前走，<mark class="ex-key">終止於 iris 的 major arterial circle</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.24</span></li>
 <li id="np-198">Posterior ciliary vessels 來自 ophthalmic artery，供應整個 uvea（葡萄膜）、cilioretinal arteries（睫狀視網膜動脈）、sclera、角膜邊緣與鄰近結膜；阻塞（如 giant cell arteritis（巨細胞動脈炎））可造成 anterior ischemic optic neuropathy（前部缺血性視神經病變）。<span class="ref">p.24</span></li>
-<li id="np-199"><strong>Anterior ciliary arteries</strong> 也來自 ophthalmic artery，通常成對供應 superior、medial、inferior rectus；從直肌表面穿出後，<mark>在直肌附著點前方穿入鞏膜</mark>，於 major arterial circle 與長後睫狀動脈吻合；episcleral arterial circle（鞏膜表層動脈環）在鞏膜表面連接各前睫狀動脈。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188">第 188 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-99" data-q="99">第 99 題</a></span><span class="ref">p.24, p.26–27</span></li>
-<li id="np-200">眼內由後睫狀血管形成 intramuscular circle of the iris，其分支供應 <strong>major arterial circle</strong>（通常不連續）；此環位於 ciliary muscle 頂端，供應睫狀肌與虹膜。<mark>虹膜血供＝major arterial circle（長後睫狀動脈＋前睫狀動脈吻合）</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.27</span></li>
+<li id="np-199"><strong>Anterior ciliary arteries</strong> 也來自 ophthalmic artery，通常成對供應 superior、medial、inferior rectus；從直肌表面穿出後，<mark class="ex-key">在直肌附著點前方穿入鞏膜</mark>，於 major arterial circle 與長後睫狀動脈吻合；episcleral arterial circle（鞏膜表層動脈環）在鞏膜表面連接各前睫狀動脈⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188" aria-label="考題 Q188">Q188</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-99" data-q="99" aria-label="考題 Q99">Q99</a></sup>。<span class="ref">p.24, p.26–27</span></li>
+<li id="np-200">眼內由後睫狀血管形成 intramuscular circle of the iris，其分支供應 <strong>major arterial circle</strong>（通常不連續）；此環位於 ciliary muscle 頂端，供應睫狀肌與虹膜。<mark class="ex-key">虹膜血供＝major arterial circle（長後睫狀動脈＋前睫狀動脈吻合）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.27</span></li>
 <li id="np-201">虹膜血管呈放射狀排列，淺藍虹膜在裂隙燈下可見，可與 rubeosis iridis（虹膜紅變）不規則的新生血管區分。<span class="ref">p.27</span></li>
-<li id="np-202">（本章外，BCSC 2 第 2 章）<strong>Short posterior ciliary arteries</strong> 負責後極到赤道的 choriocapillaris（脈絡膜微血管層），後睫狀動脈的 recurrent branches 才供應赤道前方；<mark>短後睫狀動脈不參與虹膜血供</mark>。本章 Fig 1-22 圖說寫短後睫狀動脈是「pre-equatorial」脈絡膜循環的主要來源，與第 2 章 p.80 及一般解剖（短後睫狀動脈供應後部脈絡膜）不一致，以 p.80 為準。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.26, p.80</span></li>
+<li id="np-202">（本章外，BCSC 2 第 2 章）<strong>Short posterior ciliary arteries</strong> 負責後極到赤道的 choriocapillaris（脈絡膜微血管層），後睫狀動脈的 recurrent branches 才供應赤道前方；<mark class="ex-key">短後睫狀動脈不參與虹膜血供</mark>。本章 Fig 1-22 圖說寫短後睫狀動脈是「pre-equatorial」脈絡膜循環的主要來源，與第 2 章 p.80 及一般解剖（短後睫狀動脈供應後部脈絡膜）不一致，以 p.80 為準⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.26, p.80</span></li>
 </ul>
 <h3 id="ch1-s7-2">Vortex veins（渦靜脈）</h3>
 <ul>
 <li id="np-203">引流 choroid、ciliary body、iris 的靜脈；每眼 <span class="num">4–7</span> 條（或更多），通常每象限至少 <span class="num">1</span> 條，在直肌之間、距 limbus <span class="num">14–25 mm</span> 處穿出。<span class="ref">p.27</span></li>
-<li id="np-204"><mark>Vortex vein 的 <strong>ampullae（壺腹）</strong>距 ora serrata <span class="num">8–9 mm</span>，間接眼底鏡可見；連接各壺腹的圓圈大致等於 <strong>equator（赤道）</strong></mark>，把中央／後部眼底與周邊／前部分開。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-99" data-q="99">第 99 題</a></span><span class="ref">p.27–28</span></li>
+<li id="np-204"><mark class="ex-key">Vortex vein 的 <strong>ampullae（壺腹）</strong>距 ora serrata <span class="num">8–9 mm</span>，間接眼底鏡可見；連接各壺腹的圓圈大致等於 <strong>equator（赤道）</strong></mark>，把中央／後部眼底與周邊／前部分開⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-99" data-q="99" aria-label="考題 Q99">Q99</a></sup>。<span class="ref">p.27–28</span></li>
 <li id="np-205">渦靜脈出眼後匯入 superior、inferior ophthalmic veins，主要流到 cavernous sinus；離眼靜脈血也含經 aqueous veins（房水靜脈）來的房水。<span class="ref">p.26, p.28</span></li>
 </ul>
 <h3 id="ch1-s7-3">Orbital veins（眼眶靜脈）</h3>
@@ -542,8 +566,8 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-207"><strong>Clinical pearl</strong>：臉部靜脈在內眥及其上方與眼眶靜脈吻合 → 此區皮膚感染可直達 cavernous sinus，造成 <mark>cavernous sinus thrombosis（海綿竇栓塞）</mark>；superior ophthalmic vein 擴大可能代表海綿竇病變。<span class="ref">p.28</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch1-s7-4">易錯陷阱</h3><ul>
-<li id="np-208">間接眼底鏡定位赤道用 <strong>vortex vein ampullae</strong>；anterior ciliary artery 在直肌附著點前方入鞏膜（靠近角膜緣）、posterior ciliary arteries 在視神經周圍入眼（後極），都不是赤道標記；choroidal vessel 外觀也不是 BCSC 指定的標記。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-99" data-q="99">第 99 題</a></span><span class="ref">p.24, p.27–28</span></li>
-<li id="np-209">與虹膜血供「無關」的是 short posterior ciliary artery；major arterial circle、long posterior ciliary artery、anterior ciliary arteries 都參與。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188">第 188 題</a></span><span class="ref">p.24, p.27</span></li>
+<li id="np-208">間接眼底鏡定位赤道用 <strong>vortex vein ampullae</strong>；anterior ciliary artery 在直肌附著點前方入鞏膜（靠近角膜緣）、posterior ciliary arteries 在視神經周圍入眼（後極），都不是赤道標記；choroidal vessel 外觀也不是 BCSC 指定的標記⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-99" data-q="99" aria-label="考題 Q99">Q99</a></sup>。<span class="ref">p.24, p.27–28</span></li>
+<li id="np-209">與虹膜血供「無關」的是 short posterior ciliary artery；major arterial circle、long posterior ciliary artery、anterior ciliary arteries 都參與⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-188" data-q="188" aria-label="考題 Q188">Q188</a></sup>。<span class="ref">p.24, p.27</span></li>
 <li id="np-210">Major arterial circle 位於睫狀肌頂端（睫狀體），不在虹膜本身，而且通常不連續。<span class="ref">p.27</span></li>
 </ul></div>
 
@@ -565,7 +589,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-217"><strong>Punctum（淚點）</strong>位於內側 lacrimal papilla（淚乳頭）頂端；上淚點平時因輕微內轉而看不到，<mark>比下淚點更靠內側</mark>；下淚點貼著眼球，不翻開眼瞼通常看不到。<span class="ref">p.29</span></li>
 <li id="np-218"><strong>Gray line（灰線，intermarginal sulcus）</strong>沿整個瞼緣，組織學上對應 preseptal orbicularis 最表淺部分、muscle of Riolan 及眼瞼的無血管平面；<mark>灰線前方長睫毛，後方是 meibomian gland 開口</mark>。<span class="ref">p.29–30</span></li>
 <li id="np-219">睫毛沿瞼緣前緣排成 <span class="num">2</span> 或 <span class="num">3</span> 列不規則，上瞼較長、較多。<span class="ref">p.30</span></li>
-<li id="np-220">瞼緣腺體：<mark><strong>glands of Zeis（蔡氏腺）</strong>是附於睫毛的變異 sebaceous glands（皮脂腺），分泌油脂</mark>；<strong>glands of Moll（摩爾腺）</strong>是皮膚的 apocrine sweat glands（頂漿汗腺），分泌汗液。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-179" data-q="179">第 179 題</a></span><span class="ref">p.30</span></li>
+<li id="np-220">瞼緣腺體：<mark class="ex-key"><strong>glands of Zeis（蔡氏腺）</strong>是附於睫毛的變異 sebaceous glands（皮脂腺），分泌油脂</mark>；<strong>glands of Moll（摩爾腺）</strong>是皮膚的 apocrine sweat glands（頂漿汗腺），分泌汗液⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-179" data-q="179" aria-label="考題 Q179">Q179</a></sup>。<span class="ref">p.30</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Gland（腺體）</th><th>Location（位置）</th><th>Secretion（分泌方式）</th><th>Content（分泌物）</th></tr></thead>
@@ -583,7 +607,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <p id="np-253">出處（Table 1-3 Glands of the Eye and Adnexa）<span class="ref">p.32</span></p>
 <h3 id="ch1-s8-4">Orbicularis oculi muscle（眼輪匝肌，閉瞼肌）</h3>
 <ul>
-<li id="np-254">眼瞼主要的 protractor（閉合肌），呈同心圓環繞瞼裂，分 <strong>orbital</strong> 與 <strong>palpebral</strong>（preseptal ＋ pretarsal）部分；<mark>全部由 CN VII（facial nerve）支配</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-154" data-q="154">第 154 題</a></span><span class="ref">p.31</span></li>
+<li id="np-254">眼瞼主要的 protractor（閉合肌），呈同心圓環繞瞼裂，分 <strong>orbital</strong> 與 <strong>palpebral</strong>（preseptal ＋ pretarsal）部分；<mark class="ex-key">全部由 CN VII（facial nerve）支配</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-154" data-q="154" aria-label="考題 Q154">Q154</a></sup>。<span class="ref">p.31</span></li>
 <li id="np-255">Orbital part 附著於 medial canthal tendon、其他眶緣部位與 corrugator supercilii（皺眉肌），作用如括約肌，<mark>只在用力（自主）閉眼時作用</mark>。<span class="ref">p.31, p.33</span></li>
 <li id="np-256">Palpebral part（preseptal、pretarsal）參與自主與不自主的自發性、反射性眨眼。<span class="ref">p.32–33</span></li>
 <li id="np-257">Pretarsal orbicularis 緊貼瞼板；一部分附著於 anterior 與 posterior lacrimal crest（後者稱 <strong>Horner muscle</strong>），參與淚液排出。<span class="ref">p.32</span></li>
@@ -597,7 +621,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-262"><strong>Clinical pearl</strong>：眼周撕裂傷中看到眶脂肪 → 表示 orbital septum 已破。<span class="ref">p.32</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch1-s8-6">易錯陷阱</h3><ul>
-<li id="np-263">分泌油脂的是 Zeis、meibomian（holocrine）；Moll 是汗腺（apocrine）；Krause、Wolfring 是副淚腺（exocrine、aqueous）；goblet cell 分泌 mucus。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-179" data-q="179">第 179 題</a></span><span class="ref">p.30, p.32</span></li>
+<li id="np-263">分泌油脂的是 Zeis、meibomian（holocrine）；Moll 是汗腺（apocrine）；Krause、Wolfring 是副淚腺（exocrine、aqueous）；goblet cell 分泌 mucus⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-179" data-q="179" aria-label="考題 Q179">Q179</a></sup>。<span class="ref">p.30, p.32</span></li>
 <li id="np-264">上淚點比下淚點更「內側」；下淚點貼眼球、平常看不到。<span class="ref">p.29</span></li>
 <li id="np-265">Orbital part 的 orbicularis 只在用力閉眼時作用；自發與反射眨眼靠 palpebral part。<span class="ref">p.31–33</span></li>
 <li id="np-266">Preaponeurotic fat pad 上 <span class="num">2</span> 下 <span class="num">3</span>，不要記反。<span class="ref">p.32</span></li>
@@ -639,11 +663,11 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h2 id="ch1-s10">十、眼瞼血管與淋巴</h2>
 <h3 id="ch1-s10-1">Vascular supply（血液供應）</h3>
 <ul>
-<li id="np-287">眼瞼血流來自 external carotid artery（外頸動脈）的 facial system 與 internal carotid artery（內頸動脈）經 ophthalmic artery 分支的 orbital system → <mark>眼瞼血管是內、外頸動脈的吻合</mark>（例如 angular artery（角動脈）；angular artery 也是 DCR 的重要標誌）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817">第 817 題</a></span><span class="ref">p.5, p.38–39</span></li>
-<li id="np-288"><mark><strong>Marginal arterial arcade（邊緣動脈弓）</strong>距瞼緣（free border）<span class="num">2 mm</span>、就在睫毛毛囊上方</mark>，位於瞼板與眼輪匝肌之間或在瞼板內；並非「瞼板上方 2 mm」。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817">第 817 題</a></span><span class="ref">p.38</span></li>
-<li id="np-289">較小的 <strong>peripheral arterial arcade（周邊動脈弓）</strong>沿上瞼板上緣走、<mark>位於 Muller muscle 前方</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-791" data-q="791">第 791 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817">第 817 題</a></span><span class="ref">p.38</span></li>
-<li id="np-290">（本章外，BCSC 7）Peripheral arcade 位於 <mark>levator aponeurosis 與 Muller muscle 之間</mark>、瞼板上緣正上方，是辨認 Muller muscle 的手術標誌；由皮膚切口往深處、在腱膜應在的位置直接看到它，表示前方的 aponeurosis 已 dehiscence（裂開、脫離）——aponeurotic ptosis（腱膜性眼瞼下垂）的機轉；外路手術是把腱膜前移縫回瞼板（external levator advancement）。看得到它也代表已穿過位於腱膜前方的 orbital septum。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-791" data-q="791">第 791 題</a></span><span class="ref">BCSC 7 p.177, p.180–181, p.264, p.270</span></li>
-<li id="np-291">（本章外，BCSC 7）<mark>下眼瞼通常只有 <span class="num">1</span> 條動脈弓</mark>，位於下瞼板下緣。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817">第 817 題</a></span><span class="ref">BCSC 7 p.185</span></li>
+<li id="np-287">眼瞼血流來自 external carotid artery（外頸動脈）的 facial system 與 internal carotid artery（內頸動脈）經 ophthalmic artery 分支的 orbital system → <mark class="ex-key">眼瞼血管是內、外頸動脈的吻合</mark>（例如 angular artery（角動脈）；angular artery 也是 DCR 的重要標誌）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817" aria-label="考題 Q817">Q817</a></sup>。<span class="ref">p.5, p.38–39</span></li>
+<li id="np-288"><mark class="ex-key"><strong>Marginal arterial arcade（邊緣動脈弓）</strong>距瞼緣（free border）<span class="num">2 mm</span>、就在睫毛毛囊上方</mark>，位於瞼板與眼輪匝肌之間或在瞼板內；並非「瞼板上方 2 mm」⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817" aria-label="考題 Q817">Q817</a></sup>。<span class="ref">p.38</span></li>
+<li id="np-289">較小的 <strong>peripheral arterial arcade（周邊動脈弓）</strong>沿上瞼板上緣走、<mark class="ex-key">位於 Muller muscle 前方</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-791" data-q="791" aria-label="考題 Q791">Q791</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817" aria-label="考題 Q817">Q817</a></sup>。<span class="ref">p.38</span></li>
+<li id="np-290">（本章外，BCSC 7）Peripheral arcade 位於 <mark class="ex-key">levator aponeurosis 與 Muller muscle 之間</mark>、瞼板上緣正上方，是辨認 Muller muscle 的手術標誌；由皮膚切口往深處、在腱膜應在的位置直接看到它，表示前方的 aponeurosis 已 dehiscence（裂開、脫離）——aponeurotic ptosis（腱膜性眼瞼下垂）的機轉；外路手術是把腱膜前移縫回瞼板（external levator advancement）。看得到它也代表已穿過位於腱膜前方的 orbital septum⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-791" data-q="791" aria-label="考題 Q791">Q791</a></sup>。<span class="ref ref-ext">BCSC 7 p.177, p.180–181, p.264, p.270</span></li>
+<li id="np-291">（本章外，BCSC 7）<mark class="ex-key">下眼瞼通常只有 <span class="num">1</span> 條動脈弓</mark>，位於下瞼板下緣⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817" aria-label="考題 Q817">Q817</a></sup>。<span class="ref ref-ext">BCSC 7 p.185</span></li>
 <li id="np-292">Superficial temporal artery 是 external carotid artery 的終末分支。<span class="ref">p.38</span></li>
 <li id="np-293">靜脈：superficial（preseptal）系統 → internal 與 external jugular veins；deep（postseptal）系統 → <strong>cavernous sinus</strong>；所以眼瞼靜脈把臉部與海綿竇連起來，是感染擴散途徑。<span class="ref">p.38–39</span></li>
 </ul>
@@ -654,27 +678,27 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-296"><strong>Clinical pearl</strong>：淋巴結腫大是 adenoviral conjunctivitis（腺病毒結膜炎）、Parinaud oculoglandular syndrome（Parinaud 眼腺症候群）等外眼感染的診斷線索。<span class="ref">p.39</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch1-s10-3">易錯陷阱</h3><ul>
-<li id="np-297">Marginal arcade：距瞼緣 <span class="num">2 mm</span>、靠睫毛毛囊；peripheral arcade：瞼板上緣、Muller muscle 前方（腱膜後方）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817">第 817 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-791" data-q="791">第 791 題</a></span><span class="ref">p.38</span></li>
-<li id="np-298">看到 peripheral arcade 不代表要重建 Muller muscle，也不代表眶隔尚未打開；它在瞼板上緣「上方」，靠近睫毛毛囊的是 marginal arcade。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-791" data-q="791">第 791 題</a></span><span class="ref">p.38; BCSC 7 p.180, p.185</span></li>
+<li id="np-297">Marginal arcade：距瞼緣 <span class="num">2 mm</span>、靠睫毛毛囊；peripheral arcade：瞼板上緣、Muller muscle 前方（腱膜後方）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-817" data-q="817" aria-label="考題 Q817">Q817</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-791" data-q="791" aria-label="考題 Q791">Q791</a></sup>。<span class="ref">p.38</span></li>
+<li id="np-298">看到 peripheral arcade 不代表要重建 Muller muscle，也不代表眶隔尚未打開；它在瞼板上緣「上方」，靠近睫毛毛囊的是 marginal arcade⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-791" data-q="791" aria-label="考題 Q791">Q791</a></sup>。<span class="ref">p.38; BCSC 7 p.180, p.185</span></li>
 <li id="np-299">淋巴：內側 → 頷下，外側 → 耳前；不要記成全部到耳前。<span class="ref">p.39</span></li>
 </ul></div>
 
 <h2 id="ch1-s11">十一、淚腺與淚液排出系統</h2>
 <h3 id="ch1-s11-1">Lacrimal gland（淚腺）</h3>
 <ul>
-<li id="np-300">主淚腺位於 frontal bone 眶部的淺凹（眶頂前外側的 <mark>lacrimal gland fossa</mark>），以纖維脂肪組織與眼眶隔開；被 levator aponeurosis 的 <strong>lateral horn</strong> 分成較大的 <strong>orbital lobe（眶部）</strong>與較小的 <strong>palpebral lobe（瞼部）</strong>，翻開上瞼可在上外側穹窿看到瞼部；兩葉間可有腺體峽部。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763">第 763 題</a></span><span class="ref">p.7, p.39–40</span></li>
+<li id="np-300">主淚腺位於 frontal bone 眶部的淺凹（眶頂前外側的 <mark class="ex-key">lacrimal gland fossa</mark>），以纖維脂肪組織與眼眶隔開；被 levator aponeurosis 的 <strong>lateral horn</strong> 分成較大的 <strong>orbital lobe（眶部）</strong>與較小的 <strong>palpebral lobe（瞼部）</strong>，翻開上瞼可在上外側穹窿看到瞼部；兩葉間可有腺體峽部⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763" aria-label="考題 Q763">Q763</a></sup>。<span class="ref">p.7, p.39–40</span></li>
 <li id="np-301">排出管、血管、淋巴與神經由 orbital lobe 穿過 palpebral lobe；<span class="num">8–12</span> 條排出管開口於上瞼板上緣上方約 <span class="num">5 mm</span> 的穹窿。<span class="ref">p.40</span></li>
-<li id="np-302"><strong>Clinical pearl</strong>：眶部與瞼部的排出管都經過瞼部 → <mark>淚腺切片通常取 orbital lobe，以免犧牲排出管</mark>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735">第 735 題</a></span><span class="ref">p.41</span></li>
+<li id="np-302"><strong>Clinical pearl</strong>：眶部與瞼部的排出管都經過瞼部 → <mark class="ex-key">淚腺切片通常取 orbital lobe，以免犧牲排出管</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735" aria-label="考題 Q735">Q735</a></sup>。<span class="ref">p.41</span></li>
 <li id="np-303">淚腺是 exocrine gland，分泌水液；腺體含 glandular epithelial cells（襯於腺腔）與 myoepithelial cells（包圍實質、外覆基底膜）。<span class="ref">p.41</span></li>
 <li id="np-304">淚液水液成分含 <strong>lysozyme（溶菌酶）</strong>、<strong>lactoferrin（乳鐵蛋白）</strong>、<strong>immunoglobulin A（IgA）</strong>；淚腺隨年齡改變，可能參與後天性乾眼症。<span class="ref">p.41</span></li>
 <li id="np-305">血供：lacrimal artery（ophthalmic artery 分支）。神經：secretomotor cholinergic、vasoactive intestinal polypeptide（VIP，血管活性腸肽）能、sympathetic 纖維，以及經 lacrimal nerve（V1）的感覺。<span class="ref">p.41</span></li>
 <li id="np-306"><strong>Clinical pearl</strong>：膽鹼能神經刺激分泌 → <mark>具抗膽鹼作用的藥（包括 antihistamines（抗組織胺））可造成或加重乾眼</mark>。<span class="ref">p.41</span></li>
-<li id="np-307">（本章外，BCSC 7）Reflex tearing（反射性流淚）：傳入是 CN V 眼支（V1）；傳出是 pons（橋腦）superior salivatory nucleus（上唾液核）的副交感纖維，隨 CN VII 出腦幹、經 greater superficial petrosal nerve 到 sphenopalatine ganglion（翼顎神經節），再到淚腺。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763">第 763 題</a></span><span class="ref">BCSC 7 p.304</span></li>
+<li id="np-307">（本章外，BCSC 7）Reflex tearing（反射性流淚）：傳入是 CN V 眼支（V1）；傳出是 pons（橋腦）superior salivatory nucleus（上唾液核）的副交感纖維，隨 CN VII 出腦幹、經 greater superficial petrosal nerve 到 sphenopalatine ganglion（翼顎神經節），再到淚腺⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763" aria-label="考題 Q763">Q763</a></sup>。<span class="ref ref-ext">BCSC 7 p.304</span></li>
 </ul>
 <h3 id="ch1-s11-2">Accessory glands（副淚腺）</h3>
 <ul>
-<li id="np-308"><strong>Krause</strong> 與 <strong>Wolfring</strong> 副淚腺位於瞼板近端緣或穹窿，細胞學與主淚腺相同、神經支配相似，<mark>屬 exocrine gland</mark>，約占全部淚液分泌組織的 <span class="num">10%</span>。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735">第 735 題</a></span><span class="ref">p.32, p.41–42</span></li>
-<li id="np-309">（本章外，BCSC 7）Krause 位於上穹窿深處，Wolfring 位於瞼板上緣正上方。<span class="ref">BCSC 7 p.304</span></li>
+<li id="np-308"><strong>Krause</strong> 與 <strong>Wolfring</strong> 副淚腺位於瞼板近端緣或穹窿，細胞學與主淚腺相同、神經支配相似，<mark class="ex-key">屬 exocrine gland</mark>，約占全部淚液分泌組織的 <span class="num">10%</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735" aria-label="考題 Q735">Q735</a></sup>。<span class="ref">p.32, p.41–42</span></li>
+<li id="np-309">（本章外，BCSC 7）Krause 位於上穹窿深處，Wolfring 位於瞼板上緣正上方。<span class="ref ref-ext">BCSC 7 p.304</span></li>
 </ul>
 <h3 id="ch1-s11-3">Lacrimal excretory system（淚液排出系統）</h3>
 <ul>
@@ -682,17 +706,17 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-311">淚點直徑約 <span class="num">0.3 mm</span>，位於眼瞼最內側、與內眥交界；<mark>下淚點距內眥約 <span class="num">6.5 mm</span>，上淚點約 <span class="num">6.0 mm</span></mark>。下淚點因上頷竇發育把它往外拉，較靠近角膜緣；淚點朝後對著內眥 tear lake（淚湖）。<span class="ref">p.42–43</span></li>
 <li id="np-312"><strong>Ampulla（壺腹）</strong>：淚點後方、淚小管轉角處的輕微膨大（垂直段）。<span class="ref">p.43</span></li>
 <li id="np-313"><mark><span class="num">90%</span> 的人上下淚小管先合成 <strong>common canaliculus（總淚小管）</strong>再進淚囊</mark>；瞼板部眼輪匝肌纖維環繞淚小管與淚囊，眨眼時把淚液推入並往下送。<span class="ref">p.43</span></li>
-<li id="np-314">成人長度（Fig 1-43）：<mark>canaliculus（水平段）<span class="num">8–10 mm</span>、lacrimal sac <span class="num">12–15 mm</span>、nasolacrimal duct <span class="num">12–18 mm</span></mark>；BCSC 未列垂直段長度（一般解剖約 2 mm）；（本章外，BCSC 7）淚點後先是垂直段 ampulla，再轉 <span class="num">90°</span> 往內水平走 <span class="num">8–10 mm</span> 接總淚小管。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735">第 735 題</a></span><span class="ref">p.43; BCSC 7 p.305</span></li>
-<li id="np-315"><strong>Clinical pearl</strong>：<mark>鼻淚管開口於 <strong>inferior turbinate（下鼻甲）</strong>下方（inferior meatus）</mark>，不是中鼻甲；此處 <strong>valve of Hasner（Hasner 瓣）</strong>上殘存膜是嬰兒 nasolacrimal duct obstruction（NLDO，鼻淚管阻塞）流淚、分泌物的常見原因，可淚囊按摩或 lacrimal probing（淚道探通）治療。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763">第 763 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735">第 735 題</a></span><span class="ref">p.8, p.12, p.43</span></li>
-<li id="np-316">（本章外，BCSC 7）<mark>傳統上防止淚液由淚囊逆流回淚小管的是 <strong>valve of Rosenmuller（Rosenmuller 瓣）</strong></mark>（總淚小管進淚囊處的黏膜皺褶；總淚小管的彎曲可能也有作用）；valve of Hasner 位於鼻淚管下鼻道開口處。從鼻內看，淚囊位置對應中鼻甲前方的外側鼻壁。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735">第 735 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763">第 763 題</a></span><span class="ref">BCSC 7 p.306–307</span></li>
+<li id="np-314">成人長度（Fig 1-43）：<mark class="ex-key">canaliculus（水平段）<span class="num">8–10 mm</span>、lacrimal sac <span class="num">12–15 mm</span>、nasolacrimal duct <span class="num">12–18 mm</span></mark>；BCSC 未列垂直段長度（一般解剖約 2 mm）；（本章外，BCSC 7）淚點後先是垂直段 ampulla，再轉 <span class="num">90°</span> 往內水平走 <span class="num">8–10 mm</span> 接總淚小管⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735" aria-label="考題 Q735">Q735</a></sup>。<span class="ref">p.43; BCSC 7 p.305</span></li>
+<li id="np-315"><strong>Clinical pearl</strong>：<mark class="ex-key">鼻淚管開口於 <strong>inferior turbinate（下鼻甲）</strong>下方（inferior meatus）</mark>，不是中鼻甲；此處 <strong>valve of Hasner（Hasner 瓣）</strong>上殘存膜是嬰兒 nasolacrimal duct obstruction（NLDO，鼻淚管阻塞）流淚、分泌物的常見原因，可淚囊按摩或 lacrimal probing（淚道探通）治療⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763" aria-label="考題 Q763">Q763</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735" aria-label="考題 Q735">Q735</a></sup>。<span class="ref">p.8, p.12, p.43</span></li>
+<li id="np-316">（本章外，BCSC 7）<mark class="ex-key">傳統上防止淚液由淚囊逆流回淚小管的是 <strong>valve of Rosenmuller（Rosenmuller 瓣）</strong></mark>（總淚小管進淚囊處的黏膜皺褶；總淚小管的彎曲可能也有作用）；valve of Hasner 位於鼻淚管下鼻道開口處。從鼻內看，淚囊位置對應中鼻甲前方的外側鼻壁⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735" aria-label="考題 Q735">Q735</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763" aria-label="考題 Q763">Q763</a></sup>。<span class="ref ref-ext">BCSC 7 p.306–307</span></li>
 <li id="np-317">上皮：淚點與淚小管為 nonkeratinized stratified squamous epithelium（非角化複層鱗狀上皮），與瞼緣上皮相連；近淚囊處分化為 2 層（表層 columnar、深層扁平細胞），有 goblet cells、偶有纖毛。<span class="ref">p.43–44</span></li>
 <li id="np-318">淚小管 substantia propria 為膠原與彈性纖維；淚囊壁類似 adenoid tissue（腺樣組織），富含靜脈叢與彈性纖維。<span class="ref">p.44</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch1-s11-4">易錯陷阱</h3><ul>
-<li id="np-319">防逆流（淚囊→淚小管）的是 Rosenmuller 瓣；Hasner 瓣在鼻淚管下端，是先天性 NLDO 的阻塞處。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735">第 735 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763">第 763 題</a></span><span class="ref">p.43; BCSC 7 p.306–307</span></li>
-<li id="np-320">鼻淚管開口在下鼻甲下方的下鼻道，不在中鼻甲。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763">第 763 題</a></span><span class="ref">p.8, p.43</span></li>
-<li id="np-321">淚腺切片取 orbital lobe、保留 palpebral lobe（排出管都經過瞼部）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735">第 735 題</a></span><span class="ref">p.41</span></li>
-<li id="np-322">Krause、Wolfring 是 exocrine（水液）副淚腺，不是油腺。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735">第 735 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-179" data-q="179">第 179 題</a></span><span class="ref">p.32</span></li>
+<li id="np-319">防逆流（淚囊→淚小管）的是 Rosenmuller 瓣；Hasner 瓣在鼻淚管下端，是先天性 NLDO 的阻塞處⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735" aria-label="考題 Q735">Q735</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763" aria-label="考題 Q763">Q763</a></sup>。<span class="ref">p.43; BCSC 7 p.306–307</span></li>
+<li id="np-320">鼻淚管開口在下鼻甲下方的下鼻道，不在中鼻甲⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-763" data-q="763" aria-label="考題 Q763">Q763</a></sup>。<span class="ref">p.8, p.43</span></li>
+<li id="np-321">淚腺切片取 orbital lobe、保留 palpebral lobe（排出管都經過瞼部）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735" aria-label="考題 Q735">Q735</a></sup>。<span class="ref">p.41</span></li>
+<li id="np-322">Krause、Wolfring 是 exocrine（水液）副淚腺，不是油腺⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-735" data-q="735" aria-label="考題 Q735">Q735</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-179" data-q="179" aria-label="考題 Q179">Q179</a></sup>。<span class="ref">p.32</span></li>
 <li id="np-323">下淚點距內眥 <span class="num">6.5 mm</span>、上淚點 <span class="num">6.0 mm</span>；上淚點較內側。<span class="ref">p.29, p.42–43</span></li>
 </ul></div>
 
@@ -707,7 +731,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-329">組織：nonkeratinized stratified squamous epithelium ＋ 大量 goblet cells；substantia propria 薄、血管豐富，含淋巴管、plasma cells、macrophages、mast cells；淋巴層由球結膜延伸到瞼板下皺褶。<span class="ref">p.44</span></li>
 <li id="np-330"><strong>Conjunctiva-associated lymphoid tissue（CALT，結膜相關淋巴組織）</strong>相當於他處的 mucosa-associated lymphoid tissue（MALT）：T、B 淋巴球聚集於變異上皮下，負責抗原處理。<span class="ref">p.44</span></li>
 <li id="np-331">上皮厚 <span class="num">2–5</span> 層細胞，基底 cuboidal、往表面變成扁平多角形細胞。<span class="ref">p.44</span></li>
-<li id="np-332"><strong>Goblet cells</strong>（單細胞黏液腺）<mark>集中於結膜下方與內側，尤其 caruncle 與 plica semilunaris 一帶；其他區域稀疏，limbus 沒有</mark>；分泌 mucin，參與淚膜 mucoaqueous layer 與 glycocalyx。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-179" data-q="179">第 179 題</a></span><span class="ref">p.44</span></li>
+<li id="np-332"><strong>Goblet cells</strong>（單細胞黏液腺）<mark class="ex-key">集中於結膜下方與內側，尤其 caruncle 與 plica semilunaris 一帶；其他區域稀疏，limbus 沒有</mark>；分泌 mucin，參與淚膜 mucoaqueous layer 與 glycocalyx⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-179" data-q="179" aria-label="考題 Q179">Q179</a></sup>。<span class="ref">p.44</span></li>
 </ul>
 <h3 id="ch1-s12-2">Caruncle（淚阜）與 plica semilunaris（半月皺襞）</h3>
 <ul>
@@ -740,18 +764,18 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch1-s14-1">易混淆比較與口訣</h3>
 <ul>
 <li id="np-347"><strong>眶壁骨數 2-4-3-2</strong>：眶頂 2（frontal、lesser wing）、內側 4（maxilla、lacrimal、ethmoid、lesser wing）、眶底 3（maxilla、palatine、zygomatic）、外側 2（zygomatic、greater wing）。<span class="ref">p.7–10</span></li>
-<li id="np-348"><strong>SOF 環上「LFT-S」</strong>：Lacrimal、Frontal、Trochlear（CN IV）、Superior ophthalmic vein（由外到內）；環內是 CN III 上下支、nasociliary、CN VI。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-199" data-q="199">第 199 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792">第 792 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698">第 1698 題</a></span><span class="ref">p.12</span></li>
-<li id="np-349"><strong>24-12-6</strong>：前淚嵴 → 前篩孔 → 後篩孔 → 視神經管。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658">第 1658 題</a></span><span class="ref">p.9</span></li>
-<li id="np-350"><strong>Tillaux 5.5 / 6.5 / 6.9 / 7.7</strong>：MR → IR → LR → SR，SR 最遠。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-640" data-q="640">第 640 題</a></span><span class="ref">p.20–22</span></li>
-<li id="np-351"><strong>LR6 SO4，其餘 3</strong>；CN III 上支管 SR＋levator，下支管 MR、IR、IO（並發出睫狀神經節運動根）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-154" data-q="154">第 154 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186">第 186 題</a></span><span class="ref">p.16, p.24</span></li>
+<li id="np-348"><strong>SOF 環上「LFT-S」</strong>：Lacrimal、Frontal、Trochlear（CN IV）、Superior ophthalmic vein（由外到內）；環內是 CN III 上下支、nasociliary、CN VI⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-199" data-q="199" aria-label="考題 Q199">Q199</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-792" data-q="792" aria-label="考題 Q792">Q792</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698" aria-label="考題 Q1698">Q1698</a></sup>。<span class="ref">p.12</span></li>
+<li id="np-349"><strong>24-12-6</strong>：前淚嵴 → 前篩孔 → 後篩孔 → 視神經管⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-1658" data-q="1658" aria-label="考題 Q1658">Q1658</a></sup>。<span class="ref">p.9</span></li>
+<li id="np-350"><strong>Tillaux 5.5 / 6.5 / 6.9 / 7.7</strong>：MR → IR → LR → SR，SR 最遠⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-640" data-q="640" aria-label="考題 Q640">Q640</a></sup>。<span class="ref">p.20–22</span></li>
+<li id="np-351"><strong>LR6 SO4，其餘 3</strong>；CN III 上支管 SR＋levator，下支管 MR、IR、IO（並發出睫狀神經節運動根）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-154" data-q="154" aria-label="考題 Q154">Q154</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-186" data-q="186" aria-label="考題 Q186">Q186</a></sup>。<span class="ref">p.16, p.24</span></li>
 <li id="np-352"><strong>上瞼提升 15 + 2 + 2</strong>：levator <span class="num">15 mm</span>、Muller <span class="num">2 mm</span>、frontalis 再 <span class="num">2 mm</span>。<span class="ref">p.28</span></li>
 <li id="np-353"><strong>瞼板 29 / 1 / 10–12 vs 4</strong>：寬 <span class="num">29 mm</span>、厚 <span class="num">1 mm</span>；上瞼板高 <span class="num">10–12 mm</span>、下瞼板 <span class="num">4 mm</span>；meibomian 開口上 <span class="num">30–40</span>、下約 <span class="num">20</span>。<span class="ref">p.37</span></li>
 <li id="np-354"><strong>淚道 0.3 / 8–10 / 12–15 / 12–18</strong>：淚點直徑、淚小管、淚囊、鼻淚管（mm）。<span class="ref">p.42–43</span></li>
-<li id="np-355"><strong>渦靜脈 4–7 / 14–25 / 8–9</strong>：條數、離角膜緣出口距離（mm）、壺腹距鋸齒緣（mm，連線≈赤道）。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-99" data-q="99">第 99 題</a></span><span class="ref">p.27</span></li>
-<li id="np-356"><strong>只在 SOF 環外、卻支配眼外肌的是 CN IV</strong>；眶下神經走 IOF、視神經走 optic canal。<span class="ex-hit">考過：<a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698">第 1698 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-152" data-q="152">第 152 題</a>、<a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470">第 470 題</a></span><span class="ref">p.11–13</span></li>
+<li id="np-355"><strong>渦靜脈 4–7 / 14–25 / 8–9</strong>：條數、離角膜緣出口距離（mm）、壺腹距鋸齒緣（mm，連線≈赤道）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-99" data-q="99" aria-label="考題 Q99">Q99</a></sup>。<span class="ref">p.27</span></li>
+<li id="np-356"><strong>只在 SOF 環外、卻支配眼外肌的是 CN IV</strong>；眶下神經走 IOF、視神經走 optic canal⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-1%23q-1698" data-q="1698" aria-label="考題 Q1698">Q1698</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-152" data-q="152" aria-label="考題 Q152">Q152</a> <a href="/exam/login?next=/exam/bcsc2-1%23q-470" data-q="470" aria-label="考題 Q470">Q470</a></sup>。<span class="ref">p.11–13</span></li>
 </ul>
 </div>
-</div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="2-1"><p class="ex-locked">本章考題 24 題。<a href="/exam/login?next=/exam/bcsc2-1">登入</a>後可以作答、看答案與詳解。</p></div></section></main>
+</div></section><section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2><div class="ex-qs-tools" hidden><div class="ex-toolbar" role="group" aria-label="作答模式"><button type="button" class="ex-mode" data-mode="quiz" aria-pressed="false">作答模式</button><button type="button" class="ex-mode" data-mode="browse" aria-pressed="true">瀏覽模式</button><span class="ex-toolbar-hint">作答模式：選完送出才顯示答案與詳解。瀏覽模式：直接顯示答案與詳解。</span></div></div><div id="ex-chapter-qs" class="ex-list" data-chapter="2-1"><p class="ex-locked">本章考題 24 題。<a href="/exam/login?next=/exam/bcsc2-1">登入</a>後可以作答、看答案與詳解。</p></div></section></div></main>
 <footer class="mag-footer cv-auto-short">
   <div class="mag-foot-top">
     <div class="mag-foot-brand">
@@ -793,7 +817,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260729" defer></script>
-<script src="/exam/exam.js?v=20260729" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260730" defer></script>
+<script src="/exam/exam.js?v=20260730" defer></script>
 </body>
 </html>

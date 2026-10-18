@@ -162,7 +162,8 @@ test('hub disease search groups note paragraphs by chapter and lands on the para
   await expect(target.locator('mark.ex-find-hl').first()).toHaveText(/^PVRL$/);
   expect(await page.evaluate(() => document.querySelector(':target').id)).toBe(id);
   // Existing chapter features still work.
-  await expect(page.locator('.ex-toc')).toBeVisible();
+  // Desktop: the outline is the sticky left column (the inline list is for phones).
+  await expect(page.locator('.ex-toc-side')).toBeVisible();
   await expect(page.locator('#ex-chapter-qs .ex-locked')).toContainText('登入');
 });
 

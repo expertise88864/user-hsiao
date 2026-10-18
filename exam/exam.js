@@ -1191,6 +1191,50 @@
     return place;
   }
 
+  // ---------------------------------------------------------- sticky chapter outline
+  // Wide screens show 「本章目錄」 as a sticky left column (CSS). Mark the section the
+  // reader is in (aria-current) and keep that entry inside the column's own scroll.
+  function initTocSpy(nav) {
+    var links = Array.prototype.filter.call(nav.querySelectorAll('a[href^="#"]'), function (a) {
+      return document.getElementById(a.getAttribute('href').slice(1));
+    });
+    if (!links.length) return;
+    var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    var current = null;
+    var queued = false;
+    function update() {
+      queued = false;
+      if (!nav.offsetParent) return;   // hidden on narrow screens
+      var y = headerBottom() + 96;
+      var found = null;
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i].getBoundingClientRect().top > y) break;
+        found = links[i];
+      }
+      if (found === current) return;
+      if (current) current.removeAttribute('aria-current');
+      current = found;
+      if (!current) return;
+      current.setAttribute('aria-current', 'location');
+      // Scroll only the outline column, never the page (the sticky nav is the
+      // links' offsetParent, so offsetTop is measured inside it).
+      var top = current.offsetTop;
+      if (top < nav.scrollTop + 32 || top + current.offsetHeight > nav.scrollTop + nav.clientHeight - 32) {
+        nav.scrollTop = Math.max(0, top - nav.clientHeight / 3);
+      }
+    }
+    function queue() {
+      if (queued) return;
+      queued = true;
+      if (window.requestAnimationFrame) window.requestAnimationFrame(update);
+      else setTimeout(update, 16);
+    }
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    window.addEventListener('load', queue);
+    update();
+  }
+
   // ---------------------------------------------------------- chapter answer bar
   // Quiz mode only (CSS hides it in browse mode): 「已作答 X／Y 題・未作答 Z 題」, a
   // button to the next unanswered question, and 「清除本章作答紀錄」 in the tools row.
@@ -1299,8 +1343,8 @@
       answerBar = initAnswerBar(box, tools);
       restoreChoices(box);
       refreshAnswerBar();
-      // Signed in: the notes' 「考過」 links jump straight to the question on this page.
-      document.querySelectorAll('.ex-hit a[data-q]').forEach(function (a) {
+      // Signed in: the notes' superscript question links jump straight to the question on this page.
+      document.querySelectorAll('.ex-qref a[data-q]').forEach(function (a) {
         a.setAttribute('href', '#q-' + a.getAttribute('data-q'));
       });
       refreshStrip();
@@ -1382,6 +1426,8 @@
     var landing = initLanding();
     var resume = initReadingPosition(strip ? strip.getAttribute('data-progress-chapter') : '');
     var settle = landing || resume;
+    var tocSide = document.querySelector('.ex-toc-side');
+    if (tocSide) initTocSpy(tocSide);
     var hubSearchForm = document.querySelector('[data-hub-search]');
     if (hubSearchForm) initHubSearch(hubSearchForm);
     var rank = document.querySelector('table.ex-rank[data-rank-step]');

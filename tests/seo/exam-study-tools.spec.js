@@ -41,7 +41,7 @@ test('signed out: chapter pages show the notes but no questions', async ({ page,
   await expect(page.locator('#ex-chapter-qs .ex-locked')).toContainText('登入');
   await expect(page.locator('.ex-q')).toHaveCount(0);
   await expect(page.locator('.ex-qs-tools')).toBeHidden();
-  await expect(page.locator('.ex-hit a').first()).toHaveAttribute('href', /^\/exam\/login\?next=\/exam\/bcsc12-4%23q-\d+$/);
+  await expect(page.locator('.ex-qref a').first()).toHaveAttribute('href', /^\/exam\/login\?next=\/exam\/bcsc12-4%23q-\d+$/);
 });
 
 test('signed out: the public notes data carries no question text', async ({ request }) => {
@@ -79,7 +79,7 @@ test('signed in: chapter questions render grouped by concept, without link lines
   await expect(page.locator('.ex-concept').first()).toContainText('考點：');
   await expect(page.locator('#ex-chapter-qs .ex-q').first()).toBeVisible();
   await expect(page.locator('.ex-qs-tools')).toBeVisible();
-  await expect(page.locator('.ex-hit a').first()).toHaveAttribute('href', /^#q-\d+$/);
+  await expect(page.locator('.ex-qref a').first()).toHaveAttribute('href', /^#q-\d+$/);
   await expect(page.locator('.ex-goto, .ex-sibs')).toHaveCount(0);
 });
 

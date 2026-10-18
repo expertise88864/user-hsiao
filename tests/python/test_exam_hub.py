@@ -111,7 +111,7 @@ class ExamHubTests(unittest.TestCase):
         self.assertTrue(notes)
         for key, paras in notes.items():
             page = BeautifulSoup(gen.chapter_page(self.data, key, self.version), "html.parser")
-            for hit in page.select(".ex-hit"):  # expanded {{q:...}} links are not indexed
+            for hit in page.select(".ex-qref"):  # expanded {{q:...}} links are not indexed
                 hit.decompose()
             ids = [el["id"] for el in page.select('.ex-note [id^="np-"]')]
             self.assertEqual(ids, [f"np-{i + 1}" for i in range(len(paras))], key)
