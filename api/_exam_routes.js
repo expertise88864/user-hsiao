@@ -19,6 +19,7 @@ export const EXAM_ROUTES = [
   { url: '/exam/bcsc5-12', priority: '0.6', changefreq: 'monthly', has_en: false },
   { url: '/exam/bcsc5-14', priority: '0.6', changefreq: 'monthly', has_en: false },
   { url: '/exam/bcsc5-18', priority: '0.6', changefreq: 'monthly', has_en: false },
+  { url: '/exam/bcsc6-2', priority: '0.6', changefreq: 'monthly', has_en: false },
   { url: '/exam/bcsc6-17', priority: '0.6', changefreq: 'monthly', has_en: false },
   { url: '/exam/bcsc6-20', priority: '0.6', changefreq: 'monthly', has_en: false },
   { url: '/exam/bcsc6-21', priority: '0.6', changefreq: 'monthly', has_en: false },

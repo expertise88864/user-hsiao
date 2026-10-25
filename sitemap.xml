@@ -243,6 +243,14 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc5-18" />
   </url>
   <url>
+    <loc>https://hsiao.chendermatologist.com/exam/bcsc6-2</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc6-2" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc6-2" />
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc6-17</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
