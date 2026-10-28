@@ -128,6 +128,16 @@ def check_note_markup(key: str, fragment: str) -> None:
                 raise SystemExit(f"notes {key}: class {value!r} is not allowed")
             if name not in ("class", "id", "scope", "colspan", "rowspan"):
                 raise SystemExit(f"notes {key}: attribute {name} is not allowed")
+    # Notes are public; answers are login-only (PR #73 review, 2026-10-28). A note states
+    # the textbook fact and cites {{q:N}}; it never names a question's answer or key.
+    leak = ANSWER_LEAK.search(fragment)
+    if leak:
+        raise SystemExit(f"notes {key}: public notes must not disclose an answer: {leak.group(0)!r}")
+
+
+ANSWER_LEAK = re.compile(
+    r"官方答案|官方解答|官方\s*key|本題答案|考題答案|正確答案(?:為|是)|答案(?:為|是|選)\s*[（(]?[A-E]\b"
+    r"|故選\s*[A-E]\b|(?:題目|考題|出題者)(?:要的|想考的)答案|exam\s+convention|answer\s+key")
 
 
 def site_version() -> str:

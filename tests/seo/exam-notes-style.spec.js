@@ -14,16 +14,28 @@ test('superscript question labels are plain text that never jumps (owner 2026-10
   await signedOut(page);
   await page.goto('/exam/bcsc8-6');
   await expect(page.locator('.ex-note sup.ex-qref a')).toHaveCount(0);
-  const link = page.locator('.ex-note sup.ex-qref span', { hasText: /^Q960$/ }).first();
-  await expect(link).toHaveText('Q960');
-  // It sits right after the highlighted (tested) phrase, as a small superscript.
+  // A label that follows its highlighted (tested) phrase directly. Which label that is
+  // depends on the chapter text (corrections add page/figure notes), so pick it here.
+  const label = await page.evaluate(() => {
+    const prevOf = sup => {
+      let prev = sup.previousSibling;
+      while (prev && prev.nodeType === 3 && !prev.nodeValue.replace('⁠', '')) prev = prev.previousSibling;
+      return prev;
+    };
+    const sup = [...document.querySelectorAll('.ex-note sup.ex-qref')]
+      .find(s => { const p = prevOf(s); return p && p.nodeName === 'MARK' && p.classList.contains('ex-key'); });
+    return sup ? sup.querySelector('span').textContent : null;
+  });
+  expect(label).toMatch(/^Q\d+$/);
+  const link = page.locator('.ex-note sup.ex-qref span', { hasText: new RegExp('^' + label + '$') }).first();
+  // It sits right after the highlighted phrase, as a small superscript.
   expect(await link.evaluate(a => {
     const sup = a.closest('sup.ex-qref');
     let prev = sup.previousSibling;
     while (prev && prev.nodeType === 3 && !prev.nodeValue.replace('⁠', '')) prev = prev.previousSibling;
     // Raised above the phrase's baseline (the site's CSS reset sets sup via position/top).
     const raised = a.getBoundingClientRect().bottom < prev.getBoundingClientRect().bottom - 3;
-    return [prev && prev.nodeName, prev && prev.className, raised, parseFloat(getComputedStyle(a).fontSize) < 12];
+    return [prev.nodeName, prev.className, raised, parseFloat(getComputedStyle(a).fontSize) < 12];
   })).toEqual(['MARK', 'ex-key', true, true]);
   await expect(page.locator('.ex-hit')).toHaveCount(0);
   // Clicking it stays on the page.

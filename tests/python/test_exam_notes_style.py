@@ -62,6 +62,24 @@ class CitationMarkupTests(unittest.TestCase):
         self.assertIn('<span class="ref ref-ext">BCSC 9 p.343</span>', out)
 
 
+class NoAnswerInPublicNotesTests(unittest.TestCase):
+    """Notes are public; question answers are login-only (PR #73 review, 2026-10-28)."""
+
+    def test_answer_disclosures_are_rejected(self):
+        for text in ("<li>課本寫 X。本題官方答案為 A。</li>", "<li>答案為 B。</li>", "<li>故選 C。</li>",
+                     "<li>key B is the exam convention</li>", "<li>考題要的答案是外直肌</li>"):
+            with self.subTest(text=text), self.assertRaises(SystemExit):
+                gen.check_note_markup("6-2", text)
+
+    def test_textbook_facts_with_citations_pass(self):
+        gen.check_note_markup("6-2", "<li>上直肌附著點距角膜緣最遠（7.7 mm）{{q:640}}<span class=\"ref\">p.21</span></li>")
+
+    def test_no_shipped_note_discloses_an_answer(self):
+        for path in sorted((gen.DATA / "notes").glob("bcsc*.htm")):
+            with self.subTest(note=path.name):
+                self.assertIsNone(gen.ANSWER_LEAK.search(path.read_text(encoding="utf-8")))
+
+
 class ChapterPageTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
