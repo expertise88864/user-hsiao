@@ -11,7 +11,7 @@ Sources (hand-maintained):
                                     the site-wide *.html page audits off them)
 
 Outputs (generated, never hand-edit):
-  exam/index.html, exam/bcsc<b>-<c>.html, exam/practice.html, exam/review.html,
+  exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/review.html,
   exam/progress.html, exam/search.html, exam/login.html, exam/notes-data.json (public),
   api/_exam_bank.js (question bank; served only to signed-in readers by api/_exam_data.js (via api/exam/[op].js))
 
@@ -214,9 +214,11 @@ def load() -> dict:
     for q in questions:
         for key in tags[str(q["n"])]["ch"]:
             by_chapter[key].append(q)
-    return {"questions": questions, "tags": tags, "explanations": explanations, "books": books,
+    data = {"questions": questions, "tags": tags, "explanations": explanations, "books": books,
             "chapters": chapters, "notes": notes, "by_chapter": by_chapter,
             "concepts": concepts, "doubts": doubts}
+    data["concept_rows"] = concept_rows(data)
+    return data
 
 
 # Searchable note paragraphs: the elements note_text() indexes (li/p/td; h2/h3 only
@@ -276,6 +278,81 @@ def chapter_label(ch: dict) -> str:
 def indexable(key: str, data: dict) -> bool:
     """Only chapters with written notes are substantive enough to index (D-02)."""
     return key in data["notes"]
+
+
+# ---------------------------------------------------------------- concepts (考點)
+# Owner decision 2026-10-28 (mirrors the dermatology exam section): every chapter with
+# notes lists its 考點 in a 「本章考點」 block, and one /exam/concepts page lists all of
+# them. Public: concept titles, question numbers (plain text, never links) and the
+# chapters involved; never question stems, options, answers or explanations.
+CONCEPT_STEP = 25
+
+
+def concept_rows(data: dict) -> list[dict]:
+    """Each concept with its sorted question numbers, the chapters its questions are
+    tagged to (BCSC order) and its home chapter: the chapter of the concept's own BCSC
+    section (the book in its id, c<book>-NNN) that most of its questions are tagged to,
+    ties going to the earlier chapter. Sorted by question count, then home chapter."""
+    order = {k: i for i, k in enumerate(data["chapters"])}
+    rows = []
+    for c in data["concepts"]:
+        qs = sorted(c["qs"])
+        count: dict[str, int] = defaultdict(int)
+        for n in qs:
+            for key in data["tags"][str(n)]["ch"]:
+                count[key] += 1
+        chapters = sorted(count, key=order.get)
+        book = int(c["id"][1:].split("-")[0])
+        own = [k for k in chapters if data["chapters"][k]["book"] == book] or chapters
+        home = min(own, key=lambda k: (-count[k], order[k]))
+        rows.append({"id": c["id"], "title": c["title"], "qs": qs, "chapters": chapters, "home": home})
+    rows.sort(key=lambda r: (-len(r["qs"]), order[r["home"]], r["id"]))
+    return rows
+
+
+def concept_html(row: dict, data: dict, *, current: str = "", prefix: str = "cpt-") -> str:
+    """One concept as a <details>: title and count; open it for the question numbers
+    (plain-text labels) and the chapters involved (chips linking to chapter pages)."""
+    nums = "".join(f'<span class="ex-qno">Q{n}</span>' for n in row["qs"])
+    chips = []
+    for key in row["chapters"]:
+        ch = data["chapters"][key]
+        label = esc(chapter_label(ch))
+        if key == current:
+            chips.append(f'<span class="ex-chip ex-chip-on" title="{esc(ch["title"])}">{label}</span>')
+        else:
+            chips.append(f'<a class="ex-chip" href="/exam/{slug(key)}" title="{esc(ch["title"])}">{label}</a>')
+    return (f'<details class="ex-cpt" id="{prefix}{row["id"]}" data-n="{len(row["qs"])}" '
+            f'data-home="{row["home"]}" data-ch="{" ".join(row["chapters"])}">'
+            f'<summary><span class="ex-cpt-t">{rich(row["title"])}</span>'
+            f'<span class="ex-count">{len(row["qs"])} 題</span></summary>'
+            f'<div class="ex-cpt-body"><p class="ex-cpt-line"><span class="ex-cpt-k">題號</span>{nums}</p>'
+            f'<p class="ex-cpt-line"><span class="ex-cpt-k">章節</span><span class="ex-chips">{"".join(chips)}</span></p>'
+            "</div></details>")
+
+
+def chapter_concepts(data: dict, key: str) -> tuple[list[dict], list[dict]]:
+    """(home concepts, other concepts) among the concepts with a question tagged to key."""
+    rows = [r for r in data["concept_rows"] if key in r["chapters"]]
+    return [r for r in rows if r["home"] == key], [r for r in rows if r["home"] != key]
+
+
+def chapter_concepts_html(data: dict, key: str) -> str:
+    home, other = chapter_concepts(data, key)
+    if not home and not other:
+        return ""
+    parts = [f'<section class="ex-cpts" aria-labelledby="cpts-h"><h2 id="cpts-h" class="ex-h2">本章考點</h2>'
+             '<p class="ex-meta">考同一個觀念的考題歸成一個考點，依題數排序；點開看題號與涉及的章節。'
+             '考題內容在下方「考題」，需要登入。<a href="/exam/concepts">看全部考點總覽</a></p>']
+    if home:
+        parts.append(f'<div class="ex-cpt-list">{"".join(concept_html(r, data, current=key) for r in home)}</div>')
+    else:
+        parts.append('<p class="ex-pending">沒有以本章為主的考點。</p>')
+    if other:
+        parts.append(f'<details class="ex-cpt-other"><summary>本章考題也考到的其他章考點'
+                     f'<span class="ex-count">{len(other)} 個</span></summary><div class="ex-cpt-list">'
+                     f'{"".join(concept_html(r, data, current=key) for r in other)}</div></details>')
+    return "".join(parts) + "</section>"
 
 
 # ---------------------------------------------------------------- page shell
@@ -535,18 +612,24 @@ def chapter_page(data: dict, key: str, version: str) -> str:
             f'<li><a href="#{hid}">{esc(html.unescape(re.sub(r"<[^>]+>", "", text)).strip())}</a></li>'
             for hid, text in re.findall(r'<h2[^>]*\sid="([^"]+)"[^>]*>(.*?)</h2>', note, re.S)
         )
+        concepts_html = chapter_concepts_html(data, key)
+        n_concepts = sum(map(len, chapter_concepts(data, key)))
+        toc_cpts = '<li><a href="#cpts-h">本章考點</a></li>' if concepts_html else ""
+        side_cpts = (f'<li class="ex-toc-cpts"><a href="#cpts-h">本章考點（{n_concepts} 個）</a></li>'
+                     if concepts_html else "")
         toc_html = (f'<nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol>{toc}'
-                    '<li><a href="#qs-h">考題</a></li></ol></nav>') if toc else ""
+                    f'{toc_cpts}<li><a href="#qs-h">考題</a></li></ol></nav>') if toc else ""
         # Wide screens: the same list as a sticky left column that follows the reader
         # (like the dermatology exam section); the inline list above serves phones.
         side = (f'<nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary>'
-                f'<ol>{toc}<li class="ex-toc-qs"><a href="#qs-h">考題（{len(qs)} 題）</a></li></ol></details></nav>'
+                f'<ol>{toc}{side_cpts}<li class="ex-toc-qs"><a href="#qs-h">考題（{len(qs)} 題）</a></li></ol></details></nav>'
                 ) if toc else ""
         notes_html = (f'<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>{toc_html}'
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'
                       f'<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p>'
                       f"{NOTES_LEGEND}"
-                      f'<div class="ex-note">{taxa_html(expand_hits(note, key, {q["n"] for q in qs}))}</div></section>')
+                      f'<div class="ex-note">{taxa_html(expand_hits(note, key, {q["n"] for q in qs}))}</div></section>'
+                      f"{concepts_html}")
     else:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
                       '<p class="ex-pending">這一章的重點尚未整理。</p></section>')
@@ -618,6 +701,7 @@ def hub_page(data: dict, version: str) -> str:
         f'<p class="ex-lead">依 {esc(REFERENCE)} 章節整理課本重點，並把考題標到每一題考到的所有章節；'
         "讀完一章就能在同一頁快速複習重點與考題。陸續更新中。</p>"
         '<ul class="ex-tools">'
+        '<li><a class="ex-cta ex-cta-alt" href="/exam/concepts">考點總覽</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/progress">讀書進度</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/login">登入／登出題庫</a></li></ul>'
@@ -640,6 +724,52 @@ def hub_page(data: dict, version: str) -> str:
             "附疾病搜尋、出題頻率、作答與瀏覽模式、考古卷、錯題本、讀書進度與 Anki 匯出。")
     return page(path="/exam", title=HUB_TITLE, description=desc, crumbs=[], schema_type="CollectionPage",
                 body=body, kind="hub", robots="index,follow,max-image-preview:large", version=version)
+
+
+def concepts_page(data: dict, version: str) -> str:
+    rows = data["concept_rows"]
+    used = {k for r in rows for k in r["chapters"]}
+    per_ch: dict[str, int] = defaultdict(int)
+    for r in rows:
+        for k in r["chapters"]:
+            per_ch[k] += 1
+    groups = []
+    for book in data["books"]:
+        opts = "".join(
+            f'<option value="{k}">{esc(chapter_label(data["chapters"][k]))} {esc(data["chapters"][k]["title"])}'
+            f'（{per_ch[k]}）</option>'
+            for k in (f"{book['book']}-{ch['ch']}" for ch in book["chapters"]) if k in used)
+        if opts:
+            groups.append(f'<optgroup label="BCSC {book["book"]} {esc(book["title"])}">{opts}</optgroup>')
+    total_q = sum(len(r["qs"]) for r in rows)
+    # Without JavaScript the whole list shows (sorted by question count) and the
+    # filter form stays hidden; exam.js reveals it, filters, sorts and pages the list
+    # CONCEPT_STEP at a time, and mirrors the state in ?kw=&ch=&sort=.
+    body = (
+        '<p class="ex-kicker">考點</p><h1 class="ex-h1">考點總覽</h1>'
+        f'<p class="ex-lead">把考同一個觀念的考題歸成一個考點，共 {len(rows)} 個考點、涵蓋 {total_q} 題，'
+        "依題數由多到少排列。點開考點可以看題號與涉及的章節，點章節進入該章的課本重點與考題。</p>"
+        '<p class="ex-meta">題號只是編號；考題、答案與詳解需要登入，在各章頁面的「考題」裡。</p>'
+        '<form class="ex-cpt-form" role="search" data-concept-filter hidden>'
+        '<div class="ex-cpt-field ex-cpt-kw"><label class="ex-label" for="cpt-kw">關鍵字</label>'
+        '<input id="cpt-kw" name="kw" type="search" class="ex-input" placeholder="例如 HIV、青光眼、Q120" autocomplete="off"></div>'
+        '<div class="ex-cpt-field"><label class="ex-label" for="cpt-ch">章節</label>'
+        f'<select id="cpt-ch" name="ch" class="ex-select"><option value="">全部章節</option>{"".join(groups)}</select></div>'
+        '<div class="ex-cpt-field"><label class="ex-label" for="cpt-sort">排序</label>'
+        '<select id="cpt-sort" name="sort" class="ex-select"><option value="count">依題數</option>'
+        '<option value="chapter">依章節</option></select></div></form>'
+        '<p class="ex-cpt-status" aria-live="polite"></p>'
+        f'<div id="ex-cpt-all" class="ex-cpt-list" data-cpt-step="{CONCEPT_STEP}">'
+        f'{"".join(concept_html(r, data, prefix="") for r in rows)}</div>'
+        '<p class="ex-pending ex-cpt-empty" hidden>沒有符合的考點。</p>'
+        '<div class="ex-more" data-cpt-more hidden><span class="ex-more-status" aria-live="polite"></span>'
+        '<button type="button" class="ex-more-btn">載入更多</button></div>'
+    )
+    return page(path="/exam/concepts", title="考點總覽",
+                description=f"眼科專科醫師考試讀書筆記的考點總覽：把考同一觀念的考題歸成 {len(rows)} 個考點，"
+                            "依題數排序，可用關鍵字搜尋、依 BCSC 章節篩選，並連到各章課本重點。",
+                crumbs=[("考點總覽", "/exam/concepts")], schema_type="CollectionPage", body=body,
+                kind="concepts", robots="noindex,follow", version=version)
 
 
 def practice_page(data: dict, version: str) -> str:
@@ -833,6 +963,7 @@ def build() -> dict[str, str]:
     for key in data["chapters"]:
         if data["by_chapter"].get(key) or key in data["notes"]:
             files[f"{slug(key)}.html"] = chapter_page(data, key, version)
+    files["concepts.html"] = concepts_page(data, version)
     files["practice.html"] = practice_page(data, version)
     files["review.html"] = review_page(version)
     files["progress.html"] = progress_page(version)
@@ -1070,6 +1201,31 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #b8cfe3}
 body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"・未作答";font-weight:500;color:var(--muted)}
 .ex-q:focus{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-toc-cpts{border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
+.ex-toc-cpts+.ex-toc-qs{border-top:0;margin-top:0;padding-top:0}
+#cpts-h,#qs-h{scroll-margin-top:80px}
+.ex-cpt-list{margin:8px 0}
+.ex-cpt{background:var(--ex-card);border:1px solid var(--border);border-radius:10px;margin:6px 0;padding:0}
+.ex-cpt[hidden]{display:none}
+.ex-cpt summary{display:flex;align-items:baseline;gap:10px;cursor:pointer;padding:8px 14px;font-size:14.5px;font-weight:600;line-height:1.6}
+.ex-cpt-t{flex:1;min-width:0}
+.ex-cpt summary .ex-count,.ex-cpt-other summary .ex-count{white-space:nowrap;margin-left:8px;color:var(--ink-2);font-weight:500}
+.ex-cpt-body{border-top:1px solid var(--line);padding:6px 14px 10px}
+.ex-cpt-line{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:4px 0;font-size:13px;line-height:1.7}
+.ex-cpt-k{font-size:12px;font-weight:700;color:var(--ink-2);margin-right:4px}
+.ex-qno{font-family:Inter,ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--ink-2);background:var(--ex-soft);border-radius:5px;padding:0 6px}
+.ex-cpt .ex-chip{font-size:12px;padding:2px 9px}
+.ex-cpt .ex-chip:hover{text-decoration:underline}
+.ex-cpt-other{border:1px dashed var(--border);border-radius:12px;padding:6px 12px;margin:12px 0}
+.ex-cpt-other>summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--ex-accent)}
+.ex-cpt-form{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 14px;background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin:16px 0 8px}
+.ex-cpt-form[hidden],.ex-cpt-empty[hidden]{display:none}
+.ex-cpt-field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.ex-cpt-kw{flex:1 1 100%}
+.ex-cpts .ex-meta a{color:var(--ex-accent);font-weight:600}
+.ex-cpt-field .ex-select{max-width:100%}
+#cpt-ch{max-width:min(22em,100%)}
+.ex-cpt-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -1111,6 +1267,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
+:root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
+:root[data-theme="dark"] .ex-cpt-body{border-color:#36404b}
+:root[data-theme="dark"] .ex-qno{color:#e7e5e4}
+:root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
 """
 

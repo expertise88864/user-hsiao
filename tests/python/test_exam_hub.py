@@ -77,7 +77,7 @@ class ExamHubTests(unittest.TestCase):
 
     def test_tools_drop_the_duplicate_search_button(self):
         tools = [a["href"] for a in self.doc.select(".ex-tools a")]
-        self.assertEqual(tools, ["/exam/progress", "/exam/review", "/exam/login"])
+        self.assertEqual(tools, ["/exam/concepts", "/exam/progress", "/exam/review", "/exam/login"])
         self.assertNotIn("搜尋重點與考題", str(self.doc.select_one("main")))
 
     def test_practice_is_called_kaoguzhuan(self):

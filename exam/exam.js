@@ -1355,6 +1355,102 @@
     });
   }
 
+  // ---------------------------------------------------------- concept overview (/exam/concepts)
+  // The server renders every concept (sorted by question count) and keeps the form
+  // hidden, so without JavaScript the whole list shows. Here: keyword search (title,
+  // chapter labels, or a question number such as "Q120"), chapter filter, sort, and
+  // 「載入更多」 every data-cpt-step items; the state is mirrored in ?kw=&ch=&sort=.
+  function initConcepts(list) {
+    var form = document.querySelector('form[data-concept-filter]');
+    var more = document.querySelector('[data-cpt-more]');
+    if (!form || !more) return;
+    var step = Number(list.getAttribute('data-cpt-step')) || 25;
+    var kw = form.querySelector('#cpt-kw');
+    var ch = form.querySelector('#cpt-ch');
+    var sort = form.querySelector('#cpt-sort');
+    var status = document.querySelector('.ex-cpt-status');
+    var empty = document.querySelector('.ex-cpt-empty');
+    var btn = more.querySelector('.ex-more-btn');
+    var moreStatus = more.querySelector('.ex-more-status');
+    var order = {};
+    Array.prototype.forEach.call(ch.querySelectorAll('option[value]'), function (o, i) { if (o.value) order[o.value] = i; });
+    var items = Array.prototype.map.call(list.querySelectorAll(':scope > details.ex-cpt'), function (node, i) {
+      var nums = Array.prototype.map.call(node.querySelectorAll('.ex-qno'), function (q) { return q.textContent.slice(1); });
+      return {
+        node: node, rank: i, n: Number(node.getAttribute('data-n')) || 0,
+        home: node.getAttribute('data-home') || '', ch: (node.getAttribute('data-ch') || '').split(' '),
+        nums: nums, text: (node.textContent || '').toLowerCase()
+      };
+    });
+    var shown = 0;
+    var matched = [];
+    function homeOrder(it) { return it.home in order ? order[it.home] : 1e6; }
+    function hit(it, words) {
+      return words.every(function (w) {
+        var num = /^q?(\d{1,5})$/.exec(w);
+        if (num) return it.nums.indexOf(String(Number(num[1]))) !== -1;
+        return it.text.indexOf(w) !== -1;
+      });
+    }
+    function paint() {
+      var visible = {};
+      matched.slice(0, shown).forEach(function (it) { visible[it.rank] = true; });
+      items.forEach(function (it) { it.node.hidden = !visible[it.rank]; });
+      empty.hidden = matched.length > 0;
+      status.textContent = matched.length === items.length
+        ? '共 ' + items.length + ' 個考點'
+        : '符合 ' + matched.length + ' / ' + items.length + ' 個考點';
+      moreStatus.textContent = '已顯示 ' + Math.min(shown, matched.length) + ' / ' + matched.length + ' 個';
+      more.hidden = shown >= matched.length;
+    }
+    function syncUrl() {
+      var params = new URLSearchParams(location.search);
+      [['kw', kw.value.trim()], ['ch', ch.value], ['sort', sort.value === 'count' ? '' : sort.value]].forEach(function (p) {
+        if (p[1]) params.set(p[0], p[1]); else params.delete(p[0]);
+      });
+      var qs = params.toString();
+      history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    }
+    function apply(keepUrl) {
+      var words = terms(kw.value);
+      var key = ch.value;
+      matched = items.filter(function (it) {
+        return (!key || it.ch.indexOf(key) !== -1) && hit(it, words);
+      });
+      matched.sort(sort.value === 'chapter'
+        ? function (a, b) { return homeOrder(a) - homeOrder(b) || b.n - a.n || a.rank - b.rank; }
+        : function (a, b) { return a.rank - b.rank; });
+      matched.forEach(function (it) { list.appendChild(it.node); });
+      shown = step;
+      paint();
+      if (!keepUrl) syncUrl();
+    }
+    btn.addEventListener('click', function () {
+      var first = matched[shown];
+      shown += step;
+      paint();
+      if (first && shown >= matched.length) first.node.querySelector('summary').focus();
+    });
+    var params = new URLSearchParams(location.search);
+    kw.value = (params.get('kw') || '').slice(0, 100);
+    if (params.get('ch') && params.get('ch') in order) ch.value = params.get('ch');
+    if (params.get('sort') === 'chapter') sort.value = 'chapter';
+    var timer = 0;
+    kw.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(function () { apply(false); }, 200); });
+    ch.addEventListener('change', function () { apply(false); });
+    sort.addEventListener('change', function () { apply(false); });
+    form.addEventListener('submit', function (ev) { ev.preventDefault(); clearTimeout(timer); apply(false); });
+    form.hidden = false;
+    apply(true);
+    // A link to one concept (#c1-001) opens it and shows it even when it is past the first page.
+    var target = /^#c\d+-\d{3}$/.test(location.hash) ? document.getElementById(location.hash.slice(1)) : null;
+    if (target) {
+      target.hidden = false;
+      target.open = true;
+      target.scrollIntoView();
+    }
+  }
+
   // Every exam page except the login page shows the sign-in state with a one-click logout.
   function initAuthBar(bar, settle) {
     fetch('/api/exam/data?check=1', { credentials: 'same-origin', cache: 'no-store' })
@@ -1430,6 +1526,8 @@
     if (tocSide) initTocSpy(tocSide);
     var hubSearchForm = document.querySelector('[data-hub-search]');
     if (hubSearchForm) initHubSearch(hubSearchForm);
+    var concepts = document.getElementById('ex-cpt-all');
+    if (concepts) initConcepts(concepts);
     var rank = document.querySelector('table.ex-rank[data-rank-step]');
     if (rank) initRank(rank);
     var authBar = document.querySelector('.ex-auth');

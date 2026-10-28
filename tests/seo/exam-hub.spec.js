@@ -84,7 +84,7 @@ test('hub order: tools, access note, 考古卷, search, chapters, frequency', as
   expect(tops.every(t => t !== null)).toBe(true);
   expect(tops).toEqual([...tops].sort((a, b) => a - b));
   await expect(page.locator('a[href="/exam/practice"]')).toHaveText('考古卷：自選範圍／隨機出題');
-  await expect(page.locator('.ex-tools a')).toHaveText(['讀書進度', '錯題本與 Anki 匯出', '登入／登出題庫']);
+  await expect(page.locator('.ex-tools a')).toHaveText(['考點總覽', '讀書進度', '錯題本與 Anki 匯出', '登入／登出題庫']);
   await page.goto('/exam/practice');
   await expect(page.locator('.ex-kicker')).toHaveText('考古卷');
   await expect(page).toHaveTitle(/考古卷/);
