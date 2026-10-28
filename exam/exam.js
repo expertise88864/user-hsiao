@@ -1381,9 +1381,12 @@
     var shown = 0;
     var matched = [];
     function homeOrder(it) { return it.home in order ? order[it.home] : 1e6; }
+    // "Q120" is always a question number; a bare number is one only when it is the whole
+    // query ("120"). Inside a longer query it is ordinary text, so "MNV Type 1" still
+    // finds 「MNV Type 1/2 影像特徵」.
     function hit(it, words) {
       return words.every(function (w) {
-        var num = /^q?(\d{1,5})$/.exec(w);
+        var num = /^q(\d{1,5})$/.exec(w) || (words.length === 1 && /^(\d{1,5})$/.exec(w));
         if (num) return it.nums.indexOf(String(Number(num[1]))) !== -1;
         return it.text.indexOf(w) !== -1;
       });

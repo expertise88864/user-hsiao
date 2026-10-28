@@ -59,6 +59,12 @@ test('overview: keyword, chapter filter and sort are mirrored in the URL', async
   const q = (await items(page).first().locator('.ex-qno').first().textContent()).trim();
   await page.fill('#cpt-kw', q);
   await expect(visible(page)).toHaveCount(1);
+  // A bare number alone is a question number too…
+  await page.fill('#cpt-kw', q.slice(1));
+  await expect(visible(page)).toHaveCount(1);
+  // …but inside a longer query a number is ordinary text (PR #70 review round 1).
+  await page.fill('#cpt-kw', 'MNV Type 1');
+  await expect(visible(page).filter({ hasText: 'MNV Type 1/2 影像特徵' })).toHaveCount(1);
   await page.fill('#cpt-kw', 'zzzz-no-such-concept');
   await expect(visible(page)).toHaveCount(0);
   await expect(page.locator('.ex-cpt-empty')).toBeVisible();
