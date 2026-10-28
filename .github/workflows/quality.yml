@@ -35,7 +35,7 @@ concurrency:
 jobs:
   validate:
     name: HTML validation + SEO check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     steps:
       - uses: actions/checkout@v5
         with:
@@ -257,7 +257,7 @@ jobs:
 
   indexnow:
     name: IndexNow ping (Bing / Yandex / Naver)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     # v37.44 — auto-notify IndexNow-subscribing engines on every push to
@@ -345,7 +345,7 @@ jobs:
 
   live-indexability:
     name: Live indexability audit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -366,7 +366,7 @@ jobs:
 
   lighthouse:
     name: Lighthouse CI
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     needs: validate
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
@@ -436,7 +436,7 @@ jobs:
 
   link-check:
     name: Internal link check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     needs: validate
     if: github.event_name != 'schedule'
     steps:
@@ -452,7 +452,7 @@ jobs:
 
   axe-a11y:
     name: A11y scan (axe-core)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     needs: validate
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     # Up to 40 minutes of the budget is the wait for a queued Hobby Preview build.

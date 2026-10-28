@@ -23,7 +23,7 @@ concurrency:
 jobs:
   visual:
     if: inputs.force_update != 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     # Up to 40 minutes of the budget is the wait for a queued Hobby Preview build.
     timeout-minutes: 60
     permissions:
@@ -86,7 +86,7 @@ jobs:
 
   update-baselines:
     if: github.event_name == 'workflow_dispatch' && inputs.force_update == 'true' && startsWith(github.ref, 'refs/heads/codex/')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     # Up to 40 minutes of the budget is the wait for a queued Hobby Preview build.
     timeout-minutes: 60
     permissions:

@@ -17,7 +17,7 @@ concurrency:
 jobs:
   contract:
     name: Delivery contract
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
@@ -38,7 +38,7 @@ jobs:
   preview:
     name: Preview browser
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/codex/')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
     # The Preview wait below can take up to 40 minutes on a queued Hobby build.
     timeout-minutes: 60
     permissions:
