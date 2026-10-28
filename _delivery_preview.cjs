@@ -6,6 +6,8 @@ const { previewCookies, verifyContent, verifyRuntimeIdentity } = require('./scri
 const { captureEditorTasks } = require('./scripts/preview-editor-tasks.cjs');
 const { createMeter } = require('./scripts/vercel-request-meter.cjs');
 
+const MAX_CAPTURE_HEIGHT = 16000;
+
 (async () => {
   const base = new URL(process.env.PW_BASE_URL);
   assert.equal(base.protocol, 'https:');
@@ -39,7 +41,13 @@ const { createMeter } = require('./scripts/vercel-request-meter.cjs');
           assert.match(await page.locator('html').getAttribute('lang'),
             route.startsWith('/en/') ? /^en(?:-|$)/i : /^zh(?:-|$)/i,
             'Preview language must match the first-visit route');
-          await page.screenshot({ path: 'delivery-preview/' + width + '-' + index + '.png', fullPage: true });
+          // Chromium cannot reliably capture past its ~16384 px texture limit: the
+          // 23,707 px /en/blog/cataract page at 390 px intermittently failed with
+          // "Unable to capture screenshot". The capture is evidence only (content is
+          // asserted above), so keep it within the limit.
+          const pageHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+          await page.screenshot({ path: 'delivery-preview/' + width + '-' + index + '.png', fullPage: true,
+            clip: { x: 0, y: 0, width, height: Math.min(pageHeight, MAX_CAPTURE_HEIGHT) } });
           assert.deepEqual(errors, [], 'Page JavaScript errors');
           await page.close();
         } finally { await context.close(); }

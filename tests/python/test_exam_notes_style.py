@@ -44,17 +44,15 @@ class CitationMarkupTests(unittest.TestCase):
         self.assertEqual(out.count('class="ex-key"'), 2)
         self.assertIn("<li><mark>X</mark></li>", out)
 
-    def test_superscript_links_keep_the_login_gated_jump(self):
+    def test_superscript_labels_are_plain_text_not_links(self):
+        # Owner 2026-10-28: the Q labels never jump to the question, signed in or not.
         out = gen.expand_hits("<li><mark>A</mark>{{q:922,359}}</li>", "8-6", {922, 359})
         doc = BeautifulSoup(out, "html.parser")
         sup = doc.select_one("sup.ex-qref")
         self.assertIsNotNone(sup)
         self.assertTrue(sup.previous_sibling.endswith("⁠"), "word joiner keeps the label on the phrase's line")
-        links = sup.select("a")
-        self.assertEqual([a.get_text() for a in links], ["Q922", "Q359"])
-        self.assertEqual([a["aria-label"] for a in links], ["考題 Q922", "考題 Q359"])
-        self.assertEqual(links[0]["href"], "/exam/login?next=/exam/bcsc8-6%23q-922")
-        self.assertEqual(links[0]["data-q"], "922")
+        self.assertEqual([s.get_text() for s in sup.select("span")], ["Q922", "Q359"])
+        self.assertFalse(sup.select("a"))
         self.assertNotIn("ex-hit", out)
         self.assertNotIn("考過", out)
 
@@ -78,10 +76,11 @@ class ChapterPageTests(unittest.TestCase):
             doc = self.page(key)
             with self.subTest(key=key):
                 self.assertFalse(doc.select(".ex-hit"))
-                for a in doc.select(".ex-note sup.ex-qref a"):
-                    self.assertRegex(a.get_text(), r"^Q\d+$")
-                    self.assertEqual(a["aria-label"], "考題 " + a.get_text())
-                    self.assertEqual(a["href"], gen.login_href(f"/exam/bcsc{key}#q-{a['data-q']}"))
+                sups = doc.select(".ex-note sup.ex-qref")
+                self.assertTrue(sups)
+                self.assertFalse(doc.select(".ex-note sup.ex-qref a"))
+                for label in doc.select(".ex-note sup.ex-qref span"):
+                    self.assertRegex(label.get_text(), r"^Q\d+$")
 
     def test_sticky_outline_mirrors_the_inline_outline(self):
         key = "8-6"

@@ -34,7 +34,9 @@ test('Preview captures do not carry language or storage state from another route
               return {};
             },
             locator(selector) { assert.equal(selector,'html');return {async getAttribute(name) {assert.equal(name,'lang');return state.language;}}; },
-            async screenshot(options) { shots.push({route,language:state.language,context:state.id,path:options.path}); },
+            // The English cataract guide is ~23,707 px tall at 390 px: past Chromium's capture limit.
+            async evaluate() { return route==='/en/blog/cataract-comprehensive-guide' ? 23707 : 1200; },
+            async screenshot(options) { shots.push({route,language:state.language,context:state.id,path:options.path,clip:options.clip}); },
             async close() {},
           };
         },
@@ -64,6 +66,8 @@ test('Preview captures do not carry language or storage state from another route
   assert.equal(process.exitCode,undefined);
   assert.equal(shots.length,routes.length*2);
   for (const shot of shots) assert.equal(shot.language,shot.route.startsWith('/en/')?'en':'zh-TW');
+  // Captures stay within Chromium's texture limit; short pages are captured whole.
+  for (const shot of shots) assert.equal(shot.clip.height, shot.route==='/en/blog/cataract-comprehensive-guide' ? 16000 : 1200);
   assert.equal(new Set(shots.map(shot=>shot.context)).size,shots.length);
   assert.ok(contexts.every(context=>context.closed));
   assert.ok(editorCalled && browserClosed && meterReported);

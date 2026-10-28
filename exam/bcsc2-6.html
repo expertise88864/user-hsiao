@@ -59,9 +59,7 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note mark,.ex-legend mark{background:linear-gradient(transparent 80%,#f7d77a 80%);color:inherit;padding:0 1px}
 .ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
 .ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
-.ex-qref a,.ex-qref span{color:#a0460a;text-decoration:none;white-space:nowrap;padding:0 1px;border-radius:3px}
-.ex-qref a:hover{text-decoration:underline}
-.ex-qref a:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.ex-qref span{color:#a0460a;white-space:nowrap;padding:0 1px;border-radius:3px}
 .ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
 .ex-legend-trap,.ex-legend-tip{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
 .ex-legend-tip{border-left-color:#6fbf8a;background:#f3f9f5}
@@ -278,7 +276,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-hitbox mark{background:#854d0e;color:#fff}
 :root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:linear-gradient(transparent 80%,rgba(234,179,8,.5) 80%)}
 :root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
-:root[data-theme="dark"] .ex-qref a,:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
+:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
 :root[data-theme="dark"] .ex-note .num{background:#3b2414;color:#fdba74}
 :root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
 :root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
@@ -340,7 +338,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1">診斷遺傳性眼疾的第一步是<mark>詳細家族史 + 辨認遺傳型態</mark>（dominant／recessive、X-linked、mitochondrial、autosomal）；基因位置可查 <strong>OMIM（Online Mendelian Inheritance in Man）</strong>。<span class="ref">p.211</span></li>
 <li id="np-2">眼科最重要的兩個染色體異常：<strong>RB1</strong>（13q）→ retinoblastoma（視網膜母細胞瘤）；<strong>PAX6</strong>（11p）→ aniridia（無虹膜症）。<span class="ref">p.211</span></li>
 <li id="np-3">Neurocutaneous syndromes（神經皮膚症候群，phakomatoses（斑痣性錯構瘤病））多為細胞層次「隱性」的腫瘤基因，兩個 allele（等位基因）都失去才長腫瘤，機轉類似 retinoblastoma。<span class="ref">p.211</span></li>
-<li id="np-4">Mitochondrial DNA（mtDNA，粒線體 DNA）由<mark class="ex-key">母親</mark>傳給子女；代表疾病 chronic progressive external ophthalmoplegia（CPEO，慢性進行性外眼肌麻痺）與 Leber hereditary optic neuropathy（LHON，Leber 遺傳性視神經病變）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-141" data-q="141" aria-label="考題 Q141">Q141</a></sup>。<span class="ref">p.211</span></li>
+<li id="np-4">Mitochondrial DNA（mtDNA，粒線體 DNA）由<mark class="ex-key">母親</mark>傳給子女；代表疾病 chronic progressive external ophthalmoplegia（CPEO，慢性進行性外眼肌麻痺）與 Leber hereditary optic neuropathy（LHON，Leber 遺傳性視神經病變）⁠<sup class="ex-qref"><span>Q141</span></sup>。<span class="ref">p.211</span></li>
 <li id="np-5">AAO 現行建議：age-related macular degeneration（AMD，老年性黃斑部病變）、primary open-angle glaucoma（POAG，原發性隱角青光眼）等多因子常見病，<mark>研究以外不建議做基因檢測</mark>。<span class="ref">p.211</span></li>
 </ul>
 <h3 id="ch6-s1-2">Introduction（引言）</h3>
@@ -383,7 +381,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-28">兩個帶原者父母：平均 4 名子女中 <span class="num">1</span> 名發病、<span class="num">2</span> 名帶原、<span class="num">1</span> 名正常（臨床上 1 發病：3 正常），<mark>男女比例相同</mark>。<span class="ref">p.218</span></li>
 <li id="np-29">因此 AR 病人常是家族唯一患者：約 <span class="num">40%–50%</span> retinitis pigmentosa（RP，色素性視網膜炎）病人無家族史。<span class="ref">p.218</span></li>
 <li id="np-30">健康父母已生一名 AR 患童 → 之後每胎風險 <span class="num">25%</span>；患童的<strong>未發病手足為帶原者的機率 <span class="num">2/3</span></strong>。<span class="ref">p.218</span></li>
-<li id="np-31"><mark class="ex-key">AR 患者的所有子女都是帶原者</mark>，除非另一方父母也帶原，否則通常不發病（男女機率相同）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-102" data-q="102" aria-label="考題 Q102">Q102</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-142" data-q="142" aria-label="考題 Q142">Q142</a></sup>。<span class="ref">p.218</span></li>
+<li id="np-31"><mark class="ex-key">AR 患者的所有子女都是帶原者</mark>，除非另一方父母也帶原，否則通常不發病（男女機率相同）⁠<sup class="ex-qref"><span>Q102</span> <span>Q142</span></sup>。<span class="ref">p.218</span></li>
 </ul>
 <h3 id="ch6-s2-3">Carrier heterozygotes（帶原者）的偵測方法</h3>
 <table class="ted-table">
@@ -439,10 +437,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-126">出處（Table 6-1）<span class="ref">p.216–217</span></p>
 <ul>
-<li id="np-127">表中出現 <strong>macular cherry-red spot</strong> 的四個：<mark class="ex-key">GM1 gangliosidosis type I、Tay-Sachs（GM2 type I）、Sandhoff（GM2 type II）、Niemann-Pick disease</mark>；<strong>Ehlers-Danlos syndrome type VI</strong>（lysyl hydroxylase）是結締組織疾病，表現為 microcornea、角膜擴張、藍鞏膜、ectopia lentis、angioid streaks、RD，<mark class="ex-key">沒有 cherry-red spot</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-201" data-q="201" aria-label="考題 Q201">Q201</a></sup>。<span class="ref">p.216–217</span></li>
-<li id="np-128">GM1 gangliosidosis type I 的缺陷酵素是 <strong>β-galactosidase</strong>，眼底可見 cherry-red spot（考題寫作「β-Galactoside 基因突變 → cherry-red spot」為正確配對）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-137" data-q="137" aria-label="考題 Q137">Q137</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-151" data-q="151" aria-label="考題 Q151">Q151</a></sup>。<span class="ref">p.216</span></li>
-<li id="np-129">Fabry disease 是 α-galactosidase A 缺乏的<strong>溶小體儲積症</strong>（表中列為 storage disease），且為 X-linked（帶原女性有 verticillata，見 Table 6-8），<mark class="ex-key">不是 mitochondrial disease</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-200" data-q="200" aria-label="考題 Q200">Q200</a></sup>。<span class="ref">p.216, p.238, p.240</span></li>
-<li id="np-130">Table 6-1 將 albinism 的缺陷酵素列為 <strong>tyrosinase</strong>；但嚴格說 tyrosinase 變異造成的是 oculocutaneous albinism（OCA，眼皮膚白化症），X-linked 的 ocular albinism type 1（OA1）是 <strong>GPR143</strong> 半合子變異（本章外，BCSC 6 第 27 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-149" data-q="149" aria-label="考題 Q149">Q149</a></sup>。<span class="ref">p.216；BCSC 6 p.428</span></li>
+<li id="np-127">表中出現 <strong>macular cherry-red spot</strong> 的四個：<mark class="ex-key">GM1 gangliosidosis type I、Tay-Sachs（GM2 type I）、Sandhoff（GM2 type II）、Niemann-Pick disease</mark>；<strong>Ehlers-Danlos syndrome type VI</strong>（lysyl hydroxylase）是結締組織疾病，表現為 microcornea、角膜擴張、藍鞏膜、ectopia lentis、angioid streaks、RD，<mark class="ex-key">沒有 cherry-red spot</mark>⁠<sup class="ex-qref"><span>Q201</span></sup>。<span class="ref">p.216–217</span></li>
+<li id="np-128">GM1 gangliosidosis type I 的缺陷酵素是 <strong>β-galactosidase</strong>，眼底可見 cherry-red spot（考題寫作「β-Galactoside 基因突變 → cherry-red spot」為正確配對）⁠<sup class="ex-qref"><span>Q137</span> <span>Q151</span></sup>。<span class="ref">p.216</span></li>
+<li id="np-129">Fabry disease 是 α-galactosidase A 缺乏的<strong>溶小體儲積症</strong>（表中列為 storage disease），且為 X-linked（帶原女性有 verticillata，見 Table 6-8），<mark class="ex-key">不是 mitochondrial disease</mark>⁠<sup class="ex-qref"><span>Q200</span></sup>。<span class="ref">p.216, p.238, p.240</span></li>
+<li id="np-130">Table 6-1 將 albinism 的缺陷酵素列為 <strong>tyrosinase</strong>；但嚴格說 tyrosinase 變異造成的是 oculocutaneous albinism（OCA，眼皮膚白化症），X-linked 的 ocular albinism type 1（OA1）是 <strong>GPR143</strong> 半合子變異（本章外，BCSC 6 第 27 章）⁠<sup class="ex-qref"><span>Q149</span></sup>。<span class="ref">p.216；BCSC 6 p.428</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Table 6-2 AR 特徵</th></tr></thead>
@@ -456,24 +454,24 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-136">出處（Table 6-2）<span class="ref">p.219</span></p>
 <div class="ex-trap"><h3 id="ch6-s2-6">易錯陷阱</h3><ul>
-<li id="np-137">「媽媽是 AR 患者、爸爸正常（非帶原）→ 兒女均帶原且機率相同」是正確敘述，不是錯誤選項⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-102" data-q="102" aria-label="考題 Q102">Q102</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-142" data-q="142" aria-label="考題 Q142">Q142</a></sup>。<span class="ref">p.218</span></li>
+<li id="np-137">「媽媽是 AR 患者、爸爸正常（非帶原）→ 兒女均帶原且機率相同」是正確敘述，不是錯誤選項⁠<sup class="ex-qref"><span>Q102</span> <span>Q142</span></sup>。<span class="ref">p.218</span></li>
 <li id="np-138">AR 患童未發病手足的帶原機率是 <span class="num">2/3</span>，不是 1/2；下一胎發病風險才是 <span class="num">25%</span>。<span class="ref">p.218</span></li>
-<li id="np-139">Cherry-red spot 不出現在 Ehlers-Danlos、Fabry、Hunter；四個記法：GM1、Tay-Sachs、Sandhoff、Niemann-Pick⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-201" data-q="201" aria-label="考題 Q201">Q201</a></sup>。<span class="ref">p.216–217</span></li>
+<li id="np-139">Cherry-red spot 不出現在 Ehlers-Danlos、Fabry、Hunter；四個記法：GM1、Tay-Sachs、Sandhoff、Niemann-Pick⁠<sup class="ex-qref"><span>Q201</span></sup>。<span class="ref">p.216–217</span></li>
 <li id="np-140">Pseudodominance 看起來像顯性，但其實是 AR 同型合子 × 帶原者。<span class="ref">p.219</span></li>
 </ul></div>
 
 <h2 id="ch6-s3">三、Autosomal dominant inheritance（體染色體顯性遺傳）</h2>
 <ul>
-<li id="np-141">AD 多為<mark class="ex-key">結構性非酵素蛋白</mark>缺陷：Marfan syndrome 的 <strong>fibrillin</strong>、Stickler syndrome（hereditary progressive arthro-ophthalmopathy，遺傳性進行性關節眼病變）的 <strong>collagen</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-182" data-q="182" aria-label="考題 Q182">Q182</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-445" data-q="445" aria-label="考題 Q445">Q445</a></sup>。<span class="ref">p.219</span></li>
-<li id="np-142">Stickler syndrome 最常見致病基因是 <strong>COL2A1</strong>（type II collagen），不是 COL1A2；玻璃體 optically empty。Wagner syndrome 為 <strong>VCAN</strong>（versican）變異，同樣 optically empty vitreous 且 RD 風險增加（本章外，BCSC 2 第 11 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-182" data-q="182" aria-label="考題 Q182">Q182</a></sup>。<span class="ref ref-ext">BCSC 2 p.307, p.313</span></li>
-<li id="np-143">部分惡性腫瘤症候群呈 AD：<strong>retinoblastoma</strong>、retinocerebral angiomatosis（von Hippel–Lindau syndrome（VHL，馮希伯－林道症候群））、tuberous sclerosis（結節性硬化症）、familial colorectal polyposis（Gardner syndrome）；<mark class="ex-key">家族遺傳為 AD，但細胞層次為隱性</mark>，兩個 allele 都失去功能才長腫瘤⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-114" data-q="114" aria-label="考題 Q114">Q114</a></sup>。<span class="ref">p.219</span></li>
+<li id="np-141">AD 多為<mark class="ex-key">結構性非酵素蛋白</mark>缺陷：Marfan syndrome 的 <strong>fibrillin</strong>、Stickler syndrome（hereditary progressive arthro-ophthalmopathy，遺傳性進行性關節眼病變）的 <strong>collagen</strong>⁠<sup class="ex-qref"><span>Q182</span> <span>Q445</span></sup>。<span class="ref">p.219</span></li>
+<li id="np-142">Stickler syndrome 最常見致病基因是 <strong>COL2A1</strong>（type II collagen），不是 COL1A2；玻璃體 optically empty。Wagner syndrome 為 <strong>VCAN</strong>（versican）變異，同樣 optically empty vitreous 且 RD 風險增加（本章外，BCSC 2 第 11 章）⁠<sup class="ex-qref"><span>Q182</span></sup>。<span class="ref ref-ext">BCSC 2 p.307, p.313</span></li>
+<li id="np-143">部分惡性腫瘤症候群呈 AD：<strong>retinoblastoma</strong>、retinocerebral angiomatosis（von Hippel–Lindau syndrome（VHL，馮希伯－林道症候群））、tuberous sclerosis（結節性硬化症）、familial colorectal polyposis（Gardner syndrome）；<mark class="ex-key">家族遺傳為 AD，但細胞層次為隱性</mark>，兩個 allele 都失去功能才長腫瘤⁠<sup class="ex-qref"><span>Q114</span></sup>。<span class="ref">p.219</span></li>
 <li id="np-144">人群中幾乎所有 AD 患者都是 heterozygote；兩個 heterozygous 父母 → 子女 <span class="num">25%</span> 為 affected homozygote。<span class="ref">p.220</span></li>
 <li id="np-145">其他 AD 機轉：生長因子受體（Crouzon syndrome（顱顏骨發育不全）的 <strong>FGFR2</strong>）、異常 polypeptide（多肽）次單元（unstable hemoglobins）；<strong>aniridia</strong> 與 <strong>Waardenburg syndrome</strong> 分別是失去發育轉錄因子 <strong>PAX6</strong> 與 <strong>PAX3</strong> 的一個 allele。<span class="ref">p.220</span></li>
 <li id="np-146"><strong>Incomplete penetrance（不完全外顯）／skipped generation（隔代）</strong>：帶缺陷基因卻無臨床表現，例如部分 AD RP 家族。<span class="ref">p.220</span></li>
 <li id="np-147">確立「完全外顯的 AD」需要：至少 <span class="num">3</span> 代連續發病、兩性皆典型表現、且有<mark>男傳男（male-to-male transmission）</mark>。<span class="ref">p.220</span></li>
 <li id="np-148">AD 患者子女不論性別遺傳機率 <span class="num">1/2</span>；<strong>variable expressivity（表現度變異）</strong>在 AD 最明顯。<span class="ref">p.221</span></li>
 <li id="np-149">同一臨床疾病若有 1 種以上孟德爾遺傳型態，課本寫 <mark>dominant（顯性）型的臨床表現通常比 recessive（隱性）型<strong>更嚴重</strong></mark>。（現行文獻多見相反情形：同一基因的隱性型常較嚴重；EyeWiki 的 RP 預後以 AD RP 最好、X-linked 最差、AR 居中。考試仍以課本敘述為準。）<span class="ref">p.221</span></li>
-<li id="np-150">諮詢時要檢查父母：父母之一即使只有輕微表現，其他手足的風險就升到 <span class="num">50%</span>；臨床正常的家人可用電生理或基因檢測找出，例如 <strong>Best vitelliform macular dystrophy（Best 卵黃樣黃斑部失養症）</strong>的變異檢測不貴⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-203" data-q="203" aria-label="考題 Q203">Q203</a></sup>。<span class="ref">p.221</span></li>
+<li id="np-150">諮詢時要檢查父母：父母之一即使只有輕微表現，其他手足的風險就升到 <span class="num">50%</span>；臨床正常的家人可用電生理或基因檢測找出，例如 <strong>Best vitelliform macular dystrophy（Best 卵黃樣黃斑部失養症）</strong>的變異檢測不貴⁠<sup class="ex-qref"><span>Q203</span></sup>。<span class="ref">p.221</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Table 6-3 完全外顯 AD 的特徵</th></tr></thead>
@@ -492,9 +490,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <p id="np-160">出處（Table 6-3）<span class="ref">p.220</span></p>
 <div class="ex-trap"><h3 id="ch6-s3-1">易錯陷阱</h3><ul>
 <li id="np-161">能證明 AD（排除 X-linked）的關鍵是<strong>男傳男</strong>；X-linked 絕對沒有父傳子。<span class="ref">p.220–221</span></li>
-<li id="np-162">Retinoblastoma、VHL、tuberous sclerosis 是「家族 AD、細胞隱性」，不要說成 dominant oncogene⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-114" data-q="114" aria-label="考題 Q114">Q114</a></sup>。<span class="ref">p.219, p.232</span></li>
-<li id="np-163">Stickler 是 COL2A1（type II collagen）；COL1A2 屬 type I collagen，是錯誤配對（本章外）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-182" data-q="182" aria-label="考題 Q182">Q182</a></sup>。<span class="ref ref-ext">BCSC 2 p.313</span></li>
-<li id="np-164">Marfan syndrome 是 fibrillin（FBN1）的 AD 結締組織疾病，沒有皮膚、CNS 的 hamartoma，<mark class="ex-key">不屬於神經皮膚症候群</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-445" data-q="445" aria-label="考題 Q445">Q445</a></sup>。<span class="ref">p.219；BCSC 6 p.320</span></li>
+<li id="np-162">Retinoblastoma、VHL、tuberous sclerosis 是「家族 AD、細胞隱性」，不要說成 dominant oncogene⁠<sup class="ex-qref"><span>Q114</span></sup>。<span class="ref">p.219, p.232</span></li>
+<li id="np-163">Stickler 是 COL2A1（type II collagen）；COL1A2 屬 type I collagen，是錯誤配對（本章外）⁠<sup class="ex-qref"><span>Q182</span></sup>。<span class="ref ref-ext">BCSC 2 p.313</span></li>
+<li id="np-164">Marfan syndrome 是 fibrillin（FBN1）的 AD 結締組織疾病，沒有皮膚、CNS 的 hamartoma，<mark class="ex-key">不屬於神經皮膚症候群</mark>⁠<sup class="ex-qref"><span>Q445</span></sup>。<span class="ref">p.219；BCSC 6 p.320</span></li>
 </ul></div>
 
 <h2 id="ch6-s4">四、X-linked inheritance（性聯遺傳）與 Maternal inheritance（母系遺傳）</h2>
@@ -529,7 +527,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch6-s4-3">X-linked dominant（XLD，性聯顯性）</h3>
 <ul>
 <li id="np-182">Heterozygous 女性與 hemizygous 男性都發病；女性發病約為男性 <span class="num">2</span> 倍。<span class="ref">p.223</span></li>
-<li id="np-183"><mark class="ex-key">患病父親的女兒全部發病、兒子全部正常</mark>（除非母親也患病）；只有患病男性的子女能區分 XLD 與 AD⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-102" data-q="102" aria-label="考題 Q102">Q102</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-142" data-q="142" aria-label="考題 Q142">Q142</a></sup>。<span class="ref">p.223</span></li>
+<li id="np-183"><mark class="ex-key">患病父親的女兒全部發病、兒子全部正常</mark>（除非母親也患病）；只有患病男性的子女能區分 XLD 與 AD⁠<sup class="ex-qref"><span>Q102</span> <span>Q142</span></sup>。<span class="ref">p.223</span></li>
 <li id="np-184">部分 XLD 對 hemizygous 男性致死，如 <strong>incontinentia pigmenti（色素失禁症，Bloch-Sulzberger syndrome）</strong>。<span class="ref">p.223</span></li>
 </ul>
 <table class="ted-table">
@@ -553,14 +551,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch6-s4-5">Maternal inheritance（母系遺傳）</h3>
 <ul>
-<li id="np-196">患病女性的幾乎所有子女都有風險，<mark class="ex-key">女兒能再往下傳；所有男性子代（不論是否發病）傳遞即終止</mark> → 強烈提示 mitochondrial disorder（粒線體疾病）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-97" data-q="97" aria-label="考題 Q97">Q97</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-141" data-q="141" aria-label="考題 Q141">Q141</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-163" data-q="163" aria-label="考題 Q163">Q163</a></sup>。<span class="ref">p.225</span></li>
-<li id="np-197">粒線體來自 <strong>ovum（卵子）</strong>，因此 mtDNA 遵循母系遺傳；後天累積或 de novo 的 mtDNA 變化不是「傳遞途徑」（本章外，BCSC 2 第 5 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-141" data-q="141" aria-label="考題 Q141">Q141</a></sup>。<span class="ref ref-ext">BCSC 2 p.186</span></li>
+<li id="np-196">患病女性的幾乎所有子女都有風險，<mark class="ex-key">女兒能再往下傳；所有男性子代（不論是否發病）傳遞即終止</mark> → 強烈提示 mitochondrial disorder（粒線體疾病）⁠<sup class="ex-qref"><span>Q97</span> <span>Q141</span> <span>Q163</span></sup>。<span class="ref">p.225</span></li>
+<li id="np-197">粒線體來自 <strong>ovum（卵子）</strong>，因此 mtDNA 遵循母系遺傳；後天累積或 de novo 的 mtDNA 變化不是「傳遞途徑」（本章外，BCSC 2 第 5 章）⁠<sup class="ex-qref"><span>Q141</span></sup>。<span class="ref ref-ext">BCSC 2 p.186</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch6-s4-6">易錯陷阱</h3><ul>
-<li id="np-198">「父親患 XLD → 女兒也會得病」是正確敘述（女兒全部發病）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-102" data-q="102" aria-label="考題 Q102">Q102</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-142" data-q="142" aria-label="考題 Q142">Q142</a></sup>。<span class="ref">p.223</span></li>
+<li id="np-198">「父親患 XLD → 女兒也會得病」是正確敘述（女兒全部發病）⁠<sup class="ex-qref"><span>Q102</span> <span>Q142</span></sup>。<span class="ref">p.223</span></li>
 <li id="np-199">XLR 患病男性的女兒是 obligate carrier（不是有一半機率）；兒子全部正常。<span class="ref">p.222</span></li>
 <li id="np-200">Aicardi syndrome 只有女性、不復發；incontinentia pigmenti 也是 XLD 對男性致死。<span class="ref">p.223–225</span></li>
-<li id="np-201">母系遺傳與 X-linked 都沒有男傳男，但母系遺傳的患病男性<strong>連女兒也不傳</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-97" data-q="97" aria-label="考題 Q97">Q97</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-163" data-q="163" aria-label="考題 Q163">Q163</a></sup>。<span class="ref">p.225, p.240</span></li>
+<li id="np-201">母系遺傳與 X-linked 都沒有男傳男，但母系遺傳的患病男性<strong>連女兒也不傳</strong>⁠<sup class="ex-qref"><span>Q97</span> <span>Q163</span></sup>。<span class="ref">p.225, p.240</span></li>
 </ul></div>
 
 <h2 id="ch6-s5">五、Terminology（術語）、Heritability（遺傳率）與 Genetic heterogeneity（遺傳異質性）</h2>
@@ -572,7 +570,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-206"><strong>Heritability（遺傳率）</strong>：族群表型變異中歸因於基因變異的比例；以 monozygotic（MZ，同卵）雙胞胎（共享 <span class="num">100%</span> DNA）對比 dizygotic（DZ，異卵，共享 <span class="num">50%</span>）。<span class="ref">p.226</span></li>
 <li id="np-207">Central corneal thickness（CCT，中央角膜厚度）雙胞胎研究：MZ（<span class="num">131</span> 對）相關係數 <span class="num">0.95</span>、DZ（<span class="num">125</span> 對）<span class="num">0.52</span> → heritability <span class="num">95%</span>。<span class="ref">p.226</span></li>
 <li id="np-208">遺傳病在家系中只出現 1 人稱 <strong>simplex（isolated）</strong>：家系小、其他親屬表現未被找出或尚未出現、新生變異／染色體變化、隱性疾病而父母帶原檢查不足、nonpaternity。<span class="ref">p.226–227</span></li>
-<li id="np-209">同一臨床表型可有多種遺傳型態：RP 可為 AD、AR、X-linked recessive 或 mitochondrial⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-104" data-q="104" aria-label="考題 Q104">Q104</a></sup>。<span class="ref">p.227</span></li>
+<li id="np-209">同一臨床表型可有多種遺傳型態：RP 可為 AD、AR、X-linked recessive 或 mitochondrial⁠<sup class="ex-qref"><span>Q104</span></sup>。<span class="ref">p.227</span></li>
 <li id="np-210">Marfan syndrome 與 homocystinuria 都高瘦、長肢、ectopia lentis；<mark>Marfan 為顯性 + 主動脈瘤、瓣膜疾病；homocystinuria 為隱性 + thromboembolic disease（血栓栓塞）</mark>。<span class="ref">p.227</span></li>
 <li id="np-211"><strong>Genetic heterogeneity（遺傳異質性）</strong>：不同（nonallelic，非等位）基因造成相似表型；例：Leber congenital amaurosis（LCA，Leber 先天性黑矇）有超過 <span class="num">14</span> 個致病基因。<span class="ref">p.227</span></li>
 <li id="np-212">Allelic heterogeneity 例：Norrie disease 基因 <strong>NDP</strong> 通常造成 exudative RD 所致 pseudoglioma，部分 NDP 變異只造成無全身表現的 X-linked exudative vitreoretinopathy（性聯滲出性玻璃體視網膜病變）。<span class="ref">p.227</span></li>
@@ -580,7 +578,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <div class="ex-trap"><h3 id="ch6-s5-1">易錯陷阱</h3><ul>
 <li id="np-213">Hereditary 與 genetic 不同義：genetic 不一定能遺傳（如 ocular melanoma）。<span class="ref">p.225</span></li>
 <li id="np-214">Familial 不等於 hereditary（例：腺病毒結膜炎全家感染）。<span class="ref">p.226</span></li>
-<li id="np-215">RP 致病基因舉例：<strong>rhodopsin（視紫質）</strong>變異（3q）造成 AD RP（本章外，BCSC 2 第 5 章）；而 LHON 是 mtDNA、Stargardt disease 是 <strong>ABCA4</strong>、juvenile open-angle glaucoma（JOAG，青少年型隱角青光眼）是 <strong>MYOC（myocilin）</strong>，選項常故意錯配⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-104" data-q="104" aria-label="考題 Q104">Q104</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-137" data-q="137" aria-label="考題 Q137">Q137</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-151" data-q="151" aria-label="考題 Q151">Q151</a></sup>。<span class="ref ref-ext">BCSC 2 p.199；BCSC 12 p.302；BCSC 10 p.16</span></li>
+<li id="np-215">RP 致病基因舉例：<strong>rhodopsin（視紫質）</strong>變異（3q）造成 AD RP（本章外，BCSC 2 第 5 章）；而 LHON 是 mtDNA、Stargardt disease 是 <strong>ABCA4</strong>、juvenile open-angle glaucoma（JOAG，青少年型隱角青光眼）是 <strong>MYOC（myocilin）</strong>，選項常故意錯配⁠<sup class="ex-qref"><span>Q104</span> <span>Q137</span> <span>Q151</span></sup>。<span class="ref ref-ext">BCSC 2 p.199；BCSC 12 p.302；BCSC 10 p.16</span></li>
 </ul></div>
 
 <h2 id="ch6-s6">六、Chromosome analysis（染色體分析）：Aneuploidy、Down syndrome 與 Mosaicism</h2>
@@ -589,13 +587,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-216">染色體缺陷 = 數目或結構改變，來自細胞分裂時染色體移動機制異常，或結構改變使基因數目／排列改變 → 發育或生殖障礙。<span class="ref">p.227–228</span></li>
 <li id="np-217">命名：染色體編號（1–22、X、Y）→ 臂（<strong>p = 短臂、q = 長臂</strong>）→ 位置，離 centromere（著絲點）越遠數字越大。例：DiGeorge syndrome = <strong>22q11.2 deletion syndrome</strong>（22 號長臂、region 1、band 1、sub-band 2）。<span class="ref">p.228</span></li>
 <li id="np-218">重大染色體異常：活產 <span class="num">0.5%–0.7%</span>；父母 <span class="num">&gt;35 歲</span>的懷孕 <span class="num">1%–2%</span>；周產期死亡約 <span class="num">7%</span>、可取得的自然流產胚胎 <span class="num">40%–50%</span> 由明顯染色體異常造成。多數合併發育遲緩與認知障礙。<span class="ref">p.228</span></li>
-<li id="np-219"><strong>Karyotype（染色體核型）</strong>是單一體細胞染色體的系統排列，<mark class="ex-key">只能看出數目異常或可見的大片段缺失／轉位，無法偵測單一基因點突變</mark>（定義見 BCSC 2 第 5 章，本章外）；retinoblastoma 只有 <span class="num">3%–7%</span> 有 karyotype 可見的 13q 缺失⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-102" data-q="102" aria-label="考題 Q102">Q102</a></sup>。<span class="ref">p.228, p.232；BCSC 2 p.201</span></li>
-<li id="np-220">建議做 karyotyping：retinoblastoma 嬰兒（體質與腫瘤 karyotype，尤其新生變異）；<mark class="ex-key">isolated（非家族性）aniridia</mark>（常合併 nephroblastoma（Wilms tumor，腎母細胞瘤））及其他全身畸形⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-681" data-q="681" aria-label="考題 Q681">Q681</a></sup>。<span class="ref">p.228</span></li>
+<li id="np-219"><strong>Karyotype（染色體核型）</strong>是單一體細胞染色體的系統排列，<mark class="ex-key">只能看出數目異常或可見的大片段缺失／轉位，無法偵測單一基因點突變</mark>（定義見 BCSC 2 第 5 章，本章外）；retinoblastoma 只有 <span class="num">3%–7%</span> 有 karyotype 可見的 13q 缺失⁠<sup class="ex-qref"><span>Q102</span></sup>。<span class="ref">p.228, p.232；BCSC 2 p.201</span></li>
+<li id="np-220">建議做 karyotyping：retinoblastoma 嬰兒（體質與腫瘤 karyotype，尤其新生變異）；<mark class="ex-key">isolated（非家族性）aniridia</mark>（常合併 nephroblastoma（Wilms tumor，腎母細胞瘤））及其他全身畸形⁠<sup class="ex-qref"><span>Q681</span></sup>。<span class="ref">p.228</span></li>
 <li id="np-221">前一胎染色體異常 → 下一胎考慮 amniocentesis（羊膜穿刺）或 chorionic villus sampling（CVS，絨毛取樣），或 preimplantation genetic diagnosis（PGD，胚胎著床前基因診斷）。<span class="ref">p.228</span></li>
 </ul>
 <h3 id="ch6-s6-2">Aneuploidy of autosomes（體染色體非整倍體）</h3>
 <ul>
-<li id="np-222"><strong>Aneuploidy（非整倍體）</strong>：細胞內染色體<mark class="ex-key">數目異常</mark>；<strong>trisomy（三體）</strong>為 3 條同源染色體，<strong>monosomy（單體）</strong>為一對中只有 1 條（或只有 1 條性染色體）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-102" data-q="102" aria-label="考題 Q102">Q102</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-142" data-q="142" aria-label="考題 Q142">Q142</a></sup>。<span class="ref">p.228</span></li>
+<li id="np-222"><strong>Aneuploidy（非整倍體）</strong>：細胞內染色體<mark class="ex-key">數目異常</mark>；<strong>trisomy（三體）</strong>為 3 條同源染色體，<strong>monosomy（單體）</strong>為一對中只有 1 條（或只有 1 條性染色體）⁠<sup class="ex-qref"><span>Q102</span> <span>Q142</span></sup>。<span class="ref">p.228</span></li>
 <li id="np-223">缺一條體染色體幾乎都對胚胎致死；多一條體染色體常是災難性；性染色體非整倍體（X、XXX、XXY、XYY）較不嚴重。<span class="ref">p.228</span></li>
 <li id="np-224">最常見原因：<strong>meiotic nondisjunction（減數分裂不分離）</strong>。<span class="ref">p.228</span></li>
 <li id="np-225"><strong>Trisomy 21（Down syndrome，唐氏症）</strong>：人類最常見染色體症候群，活產 <span class="num">1/800</span>。<span class="ref">p.228</span></li>
@@ -629,7 +627,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-245">性染色體 mosaicism：<span class="num">45,X/46,XX</span> 可正常或有 Turner syndrome 特徵（矮小、卵巢功能不全、webbed neck（蹼頸）、手足淋巴水腫）；<span class="num">45,X/46,XY</span> 可為正常男性、Turner 女性或 intersex（雙性）。<span class="ref">p.230–231</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch6-s6-4">易錯陷阱</h3><ul>
-<li id="np-246">「Karyotyping 是檢驗基因缺陷的一種方法」被視為錯誤：karyotype 只看到染色體層次（數目、大片段），不能看單一基因缺陷⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-102" data-q="102" aria-label="考題 Q102">Q102</a></sup>。<span class="ref">p.228, p.232；BCSC 2 p.201</span></li>
+<li id="np-246">「Karyotyping 是檢驗基因缺陷的一種方法」被視為錯誤：karyotype 只看到染色體層次（數目、大片段），不能看單一基因缺陷⁠<sup class="ex-qref"><span>Q102</span></sup>。<span class="ref">p.228, p.232；BCSC 2 p.201</span></li>
 <li id="np-247">Down syndrome 的錯誤 &gt;95% 來自<strong>母親</strong>、&gt;80% 在 <strong>meiosis I</strong>；轉位型只占約 <span class="num">5%</span>。<span class="ref">p.229</span></li>
 <li id="np-248">Down syndrome 的母親年齡風險在 <span class="num">30 歲</span>前幾乎持平（每 10,000 活產約 6.2–6.3），<span class="num">≥40 歲</span>升到 <span class="num">81.6</span>。<span class="ref">p.229</span></li>
 </ul></div>
@@ -637,58 +635,58 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h2 id="ch6-s7">七、Important chromosomal aberrations（眼科重要染色體異常）：Aniridia（11p13）與 Retinoblastoma（13q14）</h2>
 <h3 id="ch6-s7-1">Short arm 11 deletion（11p13）syndrome：aniridia（無虹膜症）</h3>
 <ul>
-<li id="np-249">Classic aniridia 由位於 <strong>11p13</strong> 的發育基因 <mark class="ex-key"><strong>PAX6</strong></mark> 缺陷造成；PAX6 產物是眼睛正常發育必需的 transcription factor（轉錄因子）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-149" data-q="149" aria-label="考題 Q149">Q149</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-661" data-q="661" aria-label="考題 Q661">Q661</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-681" data-q="681" aria-label="考題 Q681">Q681</a></sup>。<span class="ref">p.231</span></li>
-<li id="np-250">Panophthalmic（全眼性）疾病特徵：虹膜缺如或嚴重發育不全；<strong>白內障（通常 anterior polar（前極性））</strong>；<mark class="ex-key">limbal stem cell failure（角膜緣幹細胞衰竭）造成的 keratitis（角膜炎）</mark>；視力低下；先天性眼球震顫；foveal／macular hypoplasia（中心小凹／黃斑發育不全）；optic nerve hypoplasia（視神經發育不全）；青光眼；斜視；ectopia lentis⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-657" data-q="657" aria-label="考題 Q657">Q657</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-681" data-q="681" aria-label="考題 Q681">Q681</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-1389" data-q="1389" aria-label="考題 Q1389">Q1389</a></sup>。<span class="ref">p.231</span></li>
+<li id="np-249">Classic aniridia 由位於 <strong>11p13</strong> 的發育基因 <mark class="ex-key"><strong>PAX6</strong></mark> 缺陷造成；PAX6 產物是眼睛正常發育必需的 transcription factor（轉錄因子）⁠<sup class="ex-qref"><span>Q149</span> <span>Q661</span> <span>Q681</span></sup>。<span class="ref">p.231</span></li>
+<li id="np-250">Panophthalmic（全眼性）疾病特徵：虹膜缺如或嚴重發育不全；<strong>白內障（通常 anterior polar（前極性））</strong>；<mark class="ex-key">limbal stem cell failure（角膜緣幹細胞衰竭）造成的 keratitis（角膜炎）</mark>；視力低下；先天性眼球震顫；foveal／macular hypoplasia（中心小凹／黃斑發育不全）；optic nerve hypoplasia（視神經發育不全）；青光眼；斜視；ectopia lentis⁠<sup class="ex-qref"><span>Q657</span> <span>Q681</span> <span>Q1389</span></sup>。<span class="ref">p.231</span></li>
 <li id="np-251">新診斷 aniridia 要盡可能檢查父母，看有無 AD aniridia 的輕微表現（variable expression）。<span class="ref">p.231</span></li>
 <li id="np-252">幾乎所有 aniridia 都是 PAX6 變異；罕見例外 <strong>Gillespie syndrome</strong>（AR，OMIM 206700）：partial aniridia + cerebellar ataxia（小腦失調）+ 智能不足 + 先天白內障。<span class="ref">p.231</span></li>
-<li id="np-253"><strong>WAGR syndrome</strong>：sporadic aniridia（常合併白內障、青光眼）+ <strong>W</strong>ilms tumor + <strong>G</strong>enitourinary anomalies（泌尿生殖異常）+ cognitive disability（認知障礙）；屬 <strong>contiguous gene-deletion syndrome（相鄰基因缺失症候群）</strong>，多數有 karyotype 可見的 11p13 interstitial deletion（中間缺失）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-661" data-q="661" aria-label="考題 Q661">Q661</a></sup>。<span class="ref">p.231</span></li>
-<li id="np-254">WAGR 中造成 Wilms tumor 的是與 PAX6 相鄰、一併缺失的 <mark class="ex-key"><strong>WT1</strong></mark>（tumor suppressor gene）；約 <span class="num">1/3</span> aniridia 為新生缺失，若夠大就波及 WT1，<span class="num">5 歲</span>前有 Wilms tumor 風險（本章外，BCSC 6 第 20 章）。單純 PAX6 突變只造成 aniridia⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-661" data-q="661" aria-label="考題 Q661">Q661</a></sup>。<span class="ref ref-ext">BCSC 6 p.284</span></li>
-<li id="np-255">不明確屬於 AD 家族遺傳的 aniridia、或合併全身畸形者 → <mark class="ex-key">karyotyping + 追蹤 Wilms tumor</mark>；BCSC 6 建議所有 sporadic aniridia 患童做 11p13 deletion analysis，等報告期間以腹部超音波追蹤（本章外）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-657" data-q="657" aria-label="考題 Q657">Q657</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-681" data-q="681" aria-label="考題 Q681">Q681</a></sup>。<span class="ref">p.231；BCSC 6 p.284</span></li>
-<li id="np-256">PAX6 變異也見於 <strong>Peters anomaly</strong>、<strong>AD keratitis</strong>、<strong>dominant foveal hypoplasia</strong>；<mark class="ex-key">與 granular corneal dystrophy（顆粒狀角膜失養症）無關</mark>——後者屬 5q31 的 <strong>TGFBI</strong> epithelial–stromal dystrophy（本章外，BCSC 8 第 8 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-137" data-q="137" aria-label="考題 Q137">Q137</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-151" data-q="151" aria-label="考題 Q151">Q151</a></sup>。<span class="ref">p.231；BCSC 8 p.188</span></li>
+<li id="np-253"><strong>WAGR syndrome</strong>：sporadic aniridia（常合併白內障、青光眼）+ <strong>W</strong>ilms tumor + <strong>G</strong>enitourinary anomalies（泌尿生殖異常）+ cognitive disability（認知障礙）；屬 <strong>contiguous gene-deletion syndrome（相鄰基因缺失症候群）</strong>，多數有 karyotype 可見的 11p13 interstitial deletion（中間缺失）⁠<sup class="ex-qref"><span>Q661</span></sup>。<span class="ref">p.231</span></li>
+<li id="np-254">WAGR 中造成 Wilms tumor 的是與 PAX6 相鄰、一併缺失的 <mark class="ex-key"><strong>WT1</strong></mark>（tumor suppressor gene）；約 <span class="num">1/3</span> aniridia 為新生缺失，若夠大就波及 WT1，<span class="num">5 歲</span>前有 Wilms tumor 風險（本章外，BCSC 6 第 20 章）。單純 PAX6 突變只造成 aniridia⁠<sup class="ex-qref"><span>Q661</span></sup>。<span class="ref ref-ext">BCSC 6 p.284</span></li>
+<li id="np-255">不明確屬於 AD 家族遺傳的 aniridia、或合併全身畸形者 → <mark class="ex-key">karyotyping + 追蹤 Wilms tumor</mark>；BCSC 6 建議所有 sporadic aniridia 患童做 11p13 deletion analysis，等報告期間以腹部超音波追蹤（本章外）⁠<sup class="ex-qref"><span>Q657</span> <span>Q681</span></sup>。<span class="ref">p.231；BCSC 6 p.284</span></li>
+<li id="np-256">PAX6 變異也見於 <strong>Peters anomaly</strong>、<strong>AD keratitis</strong>、<strong>dominant foveal hypoplasia</strong>；<mark class="ex-key">與 granular corneal dystrophy（顆粒狀角膜失養症）無關</mark>——後者屬 5q31 的 <strong>TGFBI</strong> epithelial–stromal dystrophy（本章外，BCSC 8 第 8 章）⁠<sup class="ex-qref"><span>Q137</span> <span>Q151</span></sup>。<span class="ref">p.231；BCSC 8 p.188</span></li>
 <li id="np-257">機轉為 <strong>haploid insufficiency（單倍劑量不足）</strong>：只剩一個有功能 allele 無法啟動 PAX6 調控的發育基因；這與 retinoblastoma、Wilms tumor 需要<strong>兩個</strong> allele 都喪失不同。<span class="ref">p.231–232</span></li>
-<li id="np-258">補充（本章外）：aniridia 約 <span class="num">2/3</span> 為家族性、<span class="num">1/3</span> 為散發；視力常 <span class="num">&lt;20/100</span>（foveal hypoplasia）；keratopathy 多在<strong>兒童後期</strong>才出現並可漸進惡化，屬幹細胞缺乏（非內皮功能不良），嚴重時需 keratolimbal allograft（角膜緣異體移植）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-657" data-q="657" aria-label="考題 Q657">Q657</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-681" data-q="681" aria-label="考題 Q681">Q681</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-1389" data-q="1389" aria-label="考題 Q1389">Q1389</a></sup>。<span class="ref ref-ext">BCSC 6 p.283；BCSC 11 p.47</span></li>
+<li id="np-258">補充（本章外）：aniridia 約 <span class="num">2/3</span> 為家族性、<span class="num">1/3</span> 為散發；視力常 <span class="num">&lt;20/100</span>（foveal hypoplasia）；keratopathy 多在<strong>兒童後期</strong>才出現並可漸進惡化，屬幹細胞缺乏（非內皮功能不良），嚴重時需 keratolimbal allograft（角膜緣異體移植）⁠<sup class="ex-qref"><span>Q657</span> <span>Q681</span> <span>Q1389</span></sup>。<span class="ref ref-ext">BCSC 6 p.283；BCSC 11 p.47</span></li>
 </ul>
 <h3 id="ch6-s7-2">Long arm 13 deletion（13q14）syndrome：retinoblastoma（視網膜母細胞瘤）</h3>
 <ul>
 <li id="np-259">通常 <span class="num">4 歲</span>前發現；美國發生率 <span class="num">1/15,000</span> 至 <span class="num">1/34,000</span> 活產。<span class="ref">p.232</span></li>
-<li id="np-260"><mark class="ex-key">Hereditary（遺傳型）約 <span class="num">30%–40%</span>：腫瘤<strong>傾向</strong>雙側、multicentric（多病灶）</mark>；sporadic（散發型）通常單側、單一腫瘤⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-124" data-q="124" aria-label="考題 Q124">Q124</a></sup>。<span class="ref">p.232</span></li>
-<li id="np-261">就診時只有約 <span class="num">10%</span> 有家族史，<mark class="ex-key"><span class="num">90%</span> 家族史陰性</mark>（即新生 germ cell variant）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-124" data-q="124" aria-label="考題 Q124">Q124</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-142" data-q="142" aria-label="考題 Q142">Q142</a></sup>。<span class="ref">p.232</span></li>
-<li id="np-262">約 <span class="num">10%</span> 的 obligate carriers（必然帶原者）不發病 → <strong>incomplete penetrance</strong>（外顯率約 90%）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-666" data-q="666" aria-label="考題 Q666">Q666</a></sup>。<span class="ref">p.232</span></li>
-<li id="np-263">Karyotype 可見的 13 號長臂部分缺失只占所有 retinoblastoma 的 <span class="num">3%–7%</span>；大片缺失表型較重：認知障礙、發育遲緩、microcephaly（小頭）、手足異常、ambiguous genitalia（性器官不明確）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-142" data-q="142" aria-label="考題 Q142">Q142</a></sup>。<span class="ref">p.232</span></li>
-<li id="np-264">家族遺傳為 AD，<mark class="ex-key">細胞層次為隱性</mark>：致病傾向來自 13q14 內 <strong>RB1</strong> 的 hemizygosity；RB1 屬 <strong>recessive tumor suppressor gene（隱性腫瘤抑制基因）</strong>，其產物在 <strong>G1 checkpoint</strong> 調控細胞週期；至少要 1 個正常 allele 才能控制增生 → 兩個 allele 都失功能才長腫瘤⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-114" data-q="114" aria-label="考題 Q114">Q114</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-124" data-q="124" aria-label="考題 Q124">Q124</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-149" data-q="149" aria-label="考題 Q149">Q149</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-579" data-q="579" aria-label="考題 Q579">Q579</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-191" data-q="191" aria-label="考題 Q191">Q191</a></sup>。<span class="ref">p.232</span></li>
-<li id="np-265">G1 checkpoint 位於 <strong>G1 → S</strong> 轉換點（評估細胞大小、營養、生長因子並檢查 DNA 損傷），通過後才進入 S 期；G2 checkpoint 把關 G2 → M（本章外，BCSC 2 第 5 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-191" data-q="191" aria-label="考題 Q191">Q191</a></sup>。<span class="ref ref-ext">BCSC 2 p.180–181</span></li>
+<li id="np-260"><mark class="ex-key">Hereditary（遺傳型）約 <span class="num">30%–40%</span>：腫瘤<strong>傾向</strong>雙側、multicentric（多病灶）</mark>；sporadic（散發型）通常單側、單一腫瘤⁠<sup class="ex-qref"><span>Q124</span></sup>。<span class="ref">p.232</span></li>
+<li id="np-261">就診時只有約 <span class="num">10%</span> 有家族史，<mark class="ex-key"><span class="num">90%</span> 家族史陰性</mark>（即新生 germ cell variant）⁠<sup class="ex-qref"><span>Q124</span> <span>Q142</span></sup>。<span class="ref">p.232</span></li>
+<li id="np-262">約 <span class="num">10%</span> 的 obligate carriers（必然帶原者）不發病 → <strong>incomplete penetrance</strong>（外顯率約 90%）⁠<sup class="ex-qref"><span>Q666</span></sup>。<span class="ref">p.232</span></li>
+<li id="np-263">Karyotype 可見的 13 號長臂部分缺失只占所有 retinoblastoma 的 <span class="num">3%–7%</span>；大片缺失表型較重：認知障礙、發育遲緩、microcephaly（小頭）、手足異常、ambiguous genitalia（性器官不明確）⁠<sup class="ex-qref"><span>Q142</span></sup>。<span class="ref">p.232</span></li>
+<li id="np-264">家族遺傳為 AD，<mark class="ex-key">細胞層次為隱性</mark>：致病傾向來自 13q14 內 <strong>RB1</strong> 的 hemizygosity；RB1 屬 <strong>recessive tumor suppressor gene（隱性腫瘤抑制基因）</strong>，其產物在 <strong>G1 checkpoint</strong> 調控細胞週期；至少要 1 個正常 allele 才能控制增生 → 兩個 allele 都失功能才長腫瘤⁠<sup class="ex-qref"><span>Q114</span> <span>Q124</span> <span>Q149</span> <span>Q579</span> <span>Q191</span></sup>。<span class="ref">p.232</span></li>
+<li id="np-265">G1 checkpoint 位於 <strong>G1 → S</strong> 轉換點（評估細胞大小、營養、生長因子並檢查 DNA 損傷），通過後才進入 S 期；G2 checkpoint 把關 G2 → M（本章外，BCSC 2 第 5 章）⁠<sup class="ex-qref"><span>Q191</span></sup>。<span class="ref ref-ext">BCSC 2 p.180–181</span></li>
 <li id="np-266">致瘤第一步：一個 allele 的隱性變異（遺傳、germinal 或 somatic）；<strong>遺傳型只需再 1 次 somatic event，散發型需 2 次 somatic events</strong>；約 <span class="num">50%</span> 腫瘤的同型合子化來自 13 號染色體（含 13q14）部分的 mitotic loss。<span class="ref">p.232</span></li>
-<li id="np-267">RB 是「基因調控缺陷」而非 dominant oncogene；遺傳 RB1 變異者非眼部 second tumor（續發腫瘤）發生率高，<mark class="ex-key">將近一半為 <strong>osteosarcoma（骨肉瘤）</strong></mark>，其他有 soft-tissue sarcoma（軟組織肉瘤）、pineoblastoma（松果體母細胞瘤）、melanoma⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-124" data-q="124" aria-label="考題 Q124">Q124</a></sup>。<span class="ref">p.232</span></li>
+<li id="np-267">RB 是「基因調控缺陷」而非 dominant oncogene；遺傳 RB1 變異者非眼部 second tumor（續發腫瘤）發生率高，<mark class="ex-key">將近一半為 <strong>osteosarcoma（骨肉瘤）</strong></mark>，其他有 soft-tissue sarcoma（軟組織肉瘤）、pineoblastoma（松果體母細胞瘤）、melanoma⁠<sup class="ex-qref"><span>Q124</span></sup>。<span class="ref">p.232</span></li>
 <li id="np-268"><strong>Trilateral retinoblastoma（三側性視網膜母細胞瘤）</strong>：單或雙側 RB 合併顱內 midline tumor（中線腫瘤）。<span class="ref">p.232</span></li>
 </ul>
 <h3 id="ch6-s7-3">Knudson's 2-hit hypothesis（Knudson 雙擊假說）</h3>
 <ul>
-<li id="np-269">由單側／雙側 RB 研究提出：散發型 = 同一體細胞兩個 RB1 拷貝都發生 de novo 變異；遺傳型 = 每個細胞已帶 germline 第一擊，任一視網膜細胞再發生 somatic 第二擊即成瘤 → 可單發或多發（故常雙側多發）。已被證實，適用於許多癌症⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-579" data-q="579" aria-label="考題 Q579">Q579</a></sup>。<span class="ref">p.233</span></li>
+<li id="np-269">由單側／雙側 RB 研究提出：散發型 = 同一體細胞兩個 RB1 拷貝都發生 de novo 變異；遺傳型 = 每個細胞已帶 germline 第一擊，任一視網膜細胞再發生 somatic 第二擊即成瘤 → 可單發或多發（故常雙側多發）。已被證實，適用於許多癌症⁠<sup class="ex-qref"><span>Q579</span></sup>。<span class="ref">p.233</span></li>
 <li id="np-270">RB1 變異發生在 <strong>cone precursor cell（錐細胞前驅細胞）</strong>造成 retinoblastoma；其他細胞株的額外變異（有時由放射治療或 computed tomography（CT，電腦斷層）輻射誘發）造成其他腫瘤。<span class="ref">p.233</span></li>
-<li id="np-271"><mark class="ex-key">Clinical pearl：CT 雖可看鈣化，但因輻射增加 second malignancy 風險，應避免作為初始檢查；首選 ultrasound（超音波）與 MRI（眼眶／頭部）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-579" data-q="579" aria-label="考題 Q579">Q579</a></sup>。<span class="ref">p.234</span></li>
+<li id="np-271"><mark class="ex-key">Clinical pearl：CT 雖可看鈣化，但因輻射增加 second malignancy 風險，應避免作為初始檢查；首選 ultrasound（超音波）與 MRI（眼眶／頭部）</mark>⁠<sup class="ex-qref"><span>Q579</span></sup>。<span class="ref">p.234</span></li>
 <li id="np-272">Germline variant 可來自任一父母，或來自未發病父母的生殖細胞（較常是精子），風險隨父親年齡增加；RB 高危兒童篩檢與 DNA 檢測指引於 <span class="num">2018</span> 年修訂。<span class="ref">p.234</span></li>
 </ul>
 <h3 id="ch6-s7-4">Retinoblastoma 遺傳諮詢（本章外補充）</h3>
 <ul>
-<li id="np-273">BCSC 6 Table 24-8：父母為<strong>雙側</strong> RB → 子女 <span class="num">45%</span> 罹病；父母為<strong>單側</strong> RB（germline 狀態未知）→ <span class="num">7%–15%</span>；<mark class="ex-key">父母本身未發病 → <span class="num">&lt;1%</span></mark>（表註：未發病父母若其實是帶原者，下一胎手足罹病機率為 45%）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-666" data-q="666" aria-label="考題 Q666">Q666</a></sup>。<span class="ref ref-ext">BCSC 6 p.367</span></li>
-<li id="np-274">約 <span class="num">15%</span> 的單側 RB 也帶 germline 變異，所以「遺傳型都侵犯雙眼」過於絕對；germline 變異者不論單雙側，子女罹病機率 <span class="num">45%</span>（本章外，BCSC 4 第 18 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-124" data-q="124" aria-label="考題 Q124">Q124</a></sup>。<span class="ref ref-ext">BCSC 4 p.375</span></li>
+<li id="np-273">BCSC 6 Table 24-8：父母為<strong>雙側</strong> RB → 子女 <span class="num">45%</span> 罹病；父母為<strong>單側</strong> RB（germline 狀態未知）→ <span class="num">7%–15%</span>；<mark class="ex-key">父母本身未發病 → <span class="num">&lt;1%</span></mark>（表註：未發病父母若其實是帶原者，下一胎手足罹病機率為 45%）⁠<sup class="ex-qref"><span>Q666</span></sup>。<span class="ref ref-ext">BCSC 6 p.367</span></li>
+<li id="np-274">約 <span class="num">15%</span> 的單側 RB 也帶 germline 變異，所以「遺傳型都侵犯雙眼」過於絕對；germline 變異者不論單雙側，子女罹病機率 <span class="num">45%</span>（本章外，BCSC 4 第 18 章）⁠<sup class="ex-qref"><span>Q124</span></sup>。<span class="ref ref-ext">BCSC 4 p.375</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch6-s7-5">易錯陷阱</h3><ul>
-<li id="np-275">「遺傳型 RB 90% 有家族史」是錯的：所有 RB 就診時只有約 <span class="num">10%</span> 有家族史，多數遺傳型是新生 germline 變異⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-124" data-q="124" aria-label="考題 Q124">Q124</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-142" data-q="142" aria-label="考題 Q142">Q142</a></sup>。<span class="ref">p.232</span></li>
-<li id="np-276">「90% 有家族史，可由 karyotyping 檢出 13 長臂缺陷」雙重錯誤：karyotype 可見的 13q 缺失只有 <span class="num">3%–7%</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-142" data-q="142" aria-label="考題 Q142">Q142</a></sup>。<span class="ref">p.232</span></li>
-<li id="np-277">RB1 是 <strong>tumor suppressor gene</strong>，不是「腫瘤形成基因」；正常人本來就有 RB1，「基因存在」不是致病指標，兩個 allele 都失去功能才成瘤⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-579" data-q="579" aria-label="考題 Q579">Q579</a></sup>。<span class="ref">p.232–233</span></li>
+<li id="np-275">「遺傳型 RB 90% 有家族史」是錯的：所有 RB 就診時只有約 <span class="num">10%</span> 有家族史，多數遺傳型是新生 germline 變異⁠<sup class="ex-qref"><span>Q124</span> <span>Q142</span></sup>。<span class="ref">p.232</span></li>
+<li id="np-276">「90% 有家族史，可由 karyotyping 檢出 13 長臂缺陷」雙重錯誤：karyotype 可見的 13q 缺失只有 <span class="num">3%–7%</span>⁠<sup class="ex-qref"><span>Q142</span></sup>。<span class="ref">p.232</span></li>
+<li id="np-277">RB1 是 <strong>tumor suppressor gene</strong>，不是「腫瘤形成基因」；正常人本來就有 RB1，「基因存在」不是致病指標，兩個 allele 都失去功能才成瘤⁠<sup class="ex-qref"><span>Q579</span></sup>。<span class="ref">p.232–233</span></li>
 <li id="np-278">Aniridia 是 haploinsufficiency（一個 allele 不夠）；RB、Wilms tumor 是兩個 allele 都失去。<span class="ref">p.231–232</span></li>
-<li id="np-279">Second tumor 最常見是 osteosarcoma（將近一半），不是 melanoma⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-124" data-q="124" aria-label="考題 Q124">Q124</a></sup>。<span class="ref">p.232</span></li>
-<li id="np-280">Aniridia 角膜混濁來自 limbal stem cell failure，不是內皮細胞功能不良⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-657" data-q="657" aria-label="考題 Q657">Q657</a></sup>。<span class="ref">p.231</span></li>
-<li id="np-281">本人未發病、父母一方為單側 RB 的女性，其子女罹病機率 <span class="num">&lt;1%</span>（不是 7%–15% 或 45%）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-666" data-q="666" aria-label="考題 Q666">Q666</a></sup>。<span class="ref ref-ext">BCSC 6 p.367</span></li>
+<li id="np-279">Second tumor 最常見是 osteosarcoma（將近一半），不是 melanoma⁠<sup class="ex-qref"><span>Q124</span></sup>。<span class="ref">p.232</span></li>
+<li id="np-280">Aniridia 角膜混濁來自 limbal stem cell failure，不是內皮細胞功能不良⁠<sup class="ex-qref"><span>Q657</span></sup>。<span class="ref">p.231</span></li>
+<li id="np-281">本人未發病、父母一方為單側 RB 的女性，其子女罹病機率 <span class="num">&lt;1%</span>（不是 7%–15% 或 45%）⁠<sup class="ex-qref"><span>Q666</span></sup>。<span class="ref ref-ext">BCSC 6 p.367</span></li>
 </ul></div>
 
 <h2 id="ch6-s8">八、Neurocutaneous syndromes（神經皮膚症候群）的遺傳學</h2>
 <ul>
-<li id="np-282">Knudson 2-hit 也適用於 neurocutaneous syndromes（phakomatoses）：一群以皮膚、眼、CNS、內臟 <strong>hamartoma（錯構瘤）</strong>為特徵的遺傳疾病；常見者 NF1、NF2、retinocerebral angiomatosis、tuberous sclerosis⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-445" data-q="445" aria-label="考題 Q445">Q445</a></sup>。<span class="ref">p.234</span></li>
+<li id="np-282">Knudson 2-hit 也適用於 neurocutaneous syndromes（phakomatoses）：一群以皮膚、眼、CNS、內臟 <strong>hamartoma（錯構瘤）</strong>為特徵的遺傳疾病；常見者 NF1、NF2、retinocerebral angiomatosis、tuberous sclerosis⁠<sup class="ex-qref"><span>Q445</span></sup>。<span class="ref">p.234</span></li>
 <li id="np-283"><strong>Neurofibromatosis type 1（NF1，第一型神經纖維瘤病，von Recklinghausen disease）</strong>：germline <strong>NF1</strong> 變異（產物 <strong>neurofibromin</strong>）；第二擊 → 神經 neurofibroma、optic nerve glioma（視神經膠質瘤）、<strong>Lisch nodules（虹膜錯構瘤）</strong>、café-au-lait spots（牛奶咖啡斑）等；孤立的 glioma 也可由 NF1 兩擊造成。<span class="ref">p.234</span></li>
 <li id="np-284"><strong>NF2</strong>：<strong>NF2</strong> 基因產物 <strong>merlin（schwannomin）</strong>；第二擊 → acoustic neuroma（聽神經瘤）、meningioma（腦膜瘤）、glioma、ependymoma（室管膜瘤）、schwannoma（神經鞘瘤）。<span class="ref">p.234</span></li>
-<li id="np-285"><strong>VHL</strong>：germline <strong>VHL tumor suppressor gene</strong> 變異；VHL 蛋白作用於 <strong>hypoxia-inducible factor（HIF，缺氧誘導因子）</strong>；多系統良惡性腫瘤：視網膜與 CNS hemangioblastoma（血管母細胞瘤）、clear cell renal carcinoma（亮細胞腎癌）、pheochromocytoma（嗜鉻細胞瘤）、epididymal cystadenoma（副睪囊腺瘤）、pancreatic carcinoma⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-114" data-q="114" aria-label="考題 Q114">Q114</a></sup>。<span class="ref">p.234</span></li>
+<li id="np-285"><strong>VHL</strong>：germline <strong>VHL tumor suppressor gene</strong> 變異；VHL 蛋白作用於 <strong>hypoxia-inducible factor（HIF，缺氧誘導因子）</strong>；多系統良惡性腫瘤：視網膜與 CNS hemangioblastoma（血管母細胞瘤）、clear cell renal carcinoma（亮細胞腎癌）、pheochromocytoma（嗜鉻細胞瘤）、epididymal cystadenoma（副睪囊腺瘤）、pancreatic carcinoma⁠<sup class="ex-qref"><span>Q114</span></sup>。<span class="ref">p.234</span></li>
 <li id="np-286">Clinical pearl：缺血（如 diabetic retinopathy）使 HIF-1 活化 → vascular endothelial growth factor（VEGF，血管內皮生長因子）上升；缺乏 VHL 也活化 HIF-1 → 血管性腫瘤。<span class="ref">p.234</span></li>
 <li id="np-287"><strong>Tuberous sclerosis</strong>：<strong>TSC1</strong>（產物 hamartin）或 <strong>TSC2</strong>（產物 tuberin）變異，兩蛋白在細胞質形成 heterodimer；TSC1、TSC2 <mark>各占 <span class="num">50%</span></mark>；表現：視神經或視網膜 astrocytic hamartoma（星狀細胞錯構瘤，扁平或桑椹狀）、cerebral tubers（腦皮質結節）、ash-leaf（葉狀）皮膚病灶、subungual fibroma（甲下纖維瘤）、facial angiofibroma（臉部血管纖維瘤，兒童時期推測由 UV 造成第二擊）。<span class="ref">p.237</span></li>
 <li id="np-288">遺傳者通常多發腫瘤；散發者為單一腫瘤（體細胞兩擊）。<span class="ref">p.237</span></li>
@@ -711,16 +709,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-344">出處（Table 6-7）<span class="ref">p.235–236</span></p>
 <ul>
-<li id="np-345">NF1 遺傳方式為 <mark class="ex-key"><strong>autosomal dominant</strong></mark>（17q11.2 的 tumor suppressor），新生變異常見；神經皮膚症候群中 AR 的是 ataxia-telangiectasia，X-linked dominant 的是 incontinentia pigmenti，與 mitochondrial 無關⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-550" data-q="550" aria-label="考題 Q550">Q550</a></sup>。<span class="ref">p.235–236</span></li>
-<li id="np-346">Tuberous sclerosis 是表中唯一把 <strong>infantile spasms／seizures</strong> 與認知障礙列為主要 CNS 表現的 AD 症候群；經典 <strong>Vogt triad</strong> = cognitive impairment、seizures、facial angiofibromas（本章外，BCSC 6 第 27 章）。10 歲男孩有癲癇病史 → 最可能 TSC⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-537" data-q="537" aria-label="考題 Q537">Q537</a></sup>。<span class="ref">p.235；BCSC 6 p.418</span></li>
-<li id="np-347">屬於神經皮膚症候群：Sturge-Weber、tuberous sclerosis、VHL、NF1/2、AT、incontinentia pigmenti 等；<strong>Marfan syndrome 不屬於</strong>（fibrillin 結構蛋白疾病）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-445" data-q="445" aria-label="考題 Q445">Q445</a></sup>。<span class="ref">p.219, p.234–236</span></li>
-<li id="np-348">Tumor suppressor gene 疾病（本章外，BCSC 2 第 5 章列舉）：retinoblastoma、Wilms tumor、NF1/NF2、tuberous sclerosis、ataxia-telangiectasia、VHL；<mark class="ex-key">LHON 是 mtDNA 點突變的粒線體疾病，與 tumor suppressor gene 無關</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-114" data-q="114" aria-label="考題 Q114">Q114</a></sup>。<span class="ref">p.235–236, p.242–243；BCSC 2 p.194</span></li>
+<li id="np-345">NF1 遺傳方式為 <mark class="ex-key"><strong>autosomal dominant</strong></mark>（17q11.2 的 tumor suppressor），新生變異常見；神經皮膚症候群中 AR 的是 ataxia-telangiectasia，X-linked dominant 的是 incontinentia pigmenti，與 mitochondrial 無關⁠<sup class="ex-qref"><span>Q550</span></sup>。<span class="ref">p.235–236</span></li>
+<li id="np-346">Tuberous sclerosis 是表中唯一把 <strong>infantile spasms／seizures</strong> 與認知障礙列為主要 CNS 表現的 AD 症候群；經典 <strong>Vogt triad</strong> = cognitive impairment、seizures、facial angiofibromas（本章外，BCSC 6 第 27 章）。10 歲男孩有癲癇病史 → 最可能 TSC⁠<sup class="ex-qref"><span>Q537</span></sup>。<span class="ref">p.235；BCSC 6 p.418</span></li>
+<li id="np-347">屬於神經皮膚症候群：Sturge-Weber、tuberous sclerosis、VHL、NF1/2、AT、incontinentia pigmenti 等；<strong>Marfan syndrome 不屬於</strong>（fibrillin 結構蛋白疾病）⁠<sup class="ex-qref"><span>Q445</span></sup>。<span class="ref">p.219, p.234–236</span></li>
+<li id="np-348">Tumor suppressor gene 疾病（本章外，BCSC 2 第 5 章列舉）：retinoblastoma、Wilms tumor、NF1/NF2、tuberous sclerosis、ataxia-telangiectasia、VHL；<mark class="ex-key">LHON 是 mtDNA 點突變的粒線體疾病，與 tumor suppressor gene 無關</mark>⁠<sup class="ex-qref"><span>Q114</span></sup>。<span class="ref">p.235–236, p.242–243；BCSC 2 p.194</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch6-s8-2">易錯陷阱</h3><ul>
 <li id="np-349">Sturge-Weber 是 <strong>somatic</strong> GNAQ 變異，不遺傳；Wyburn-Mason 也是非遺傳性。<span class="ref">p.236–237</span></li>
 <li id="np-350">NF2 的眼部特徵是 <strong>PSC</strong> 與 combined hamartoma，不是 Lisch nodules（NF1）。<span class="ref">p.235</span></li>
 <li id="np-351">VHL 皮膚表現罕見（<span class="num">&lt;5%</span>），<span class="num">70%–80%</span> 為 de novo。<span class="ref">p.236</span></li>
-<li id="np-352">Ataxia-telangiectasia 是表中唯一 AR 的神經皮膚症候群⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-550" data-q="550" aria-label="考題 Q550">Q550</a></sup>。<span class="ref">p.236</span></li>
+<li id="np-352">Ataxia-telangiectasia 是表中唯一 AR 的神經皮膚症候群⁠<sup class="ex-qref"><span>Q550</span></sup>。<span class="ref">p.236</span></li>
 <li id="np-353">TSC1、TSC2 各占一半，不是 TSC2 為主。<span class="ref">p.237</span></li>
 </ul></div>
 
@@ -731,13 +729,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-355"><strong>Tay-Sachs disease（GM2 gangliosidosis type I）</strong>：cherry-red spot，主要見於東歐猶太裔（<strong>Ashkenazi</strong>）；帶原率 Ashkenazi 約 <span class="num">1/30</span>、其他族群 <span class="num">1/300</span>。<span class="ref">p.237</span></li>
 <li id="np-356">Ashkenazi 族群也較多：familial dysautonomia（Riley-Day：alacrima、角膜知覺低下、exodeviation、methacholine 縮瞳）、<strong>MAK</strong>（male germ cell-associated kinase）相關 RP、Gaucher disease、Niemann-Pick disease。<span class="ref">p.237</span></li>
 <li id="np-357">南太平洋 <strong>Pingelap</strong> 島：achromatopsia（全色盲）合併近視，占 <span class="num">5%</span> 人口。<span class="ref">p.237</span></li>
-<li id="np-358"><strong>Oguchi disease（小口病，stationary night blindness（靜止性夜盲））</strong>主要（非僅）見於日本人；致病為 arrestin（<strong>SAG</strong>）或 rhodopsin kinase（<strong>GRK1</strong>）變異；<mark class="ex-key">Arrestin 異常對應的是 Oguchi disease，不是 Best disease</mark>——Best disease 由 <strong>BEST1</strong>（bestrophin，RPE 基底側氯離子通道）變異造成；rod transducin（<strong>GNAT1</strong>）顯性變異 → CSNB Nougaret type；<strong>ABCA4</strong> 隱性缺陷 → Stargardt disease（本章外，BCSC 2 第 12、13 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-203" data-q="203" aria-label="考題 Q203">Q203</a></sup>。<span class="ref">p.237；BCSC 2 p.323, p.343</span></li>
+<li id="np-358"><strong>Oguchi disease（小口病，stationary night blindness（靜止性夜盲））</strong>主要（非僅）見於日本人；致病為 arrestin（<strong>SAG</strong>）或 rhodopsin kinase（<strong>GRK1</strong>）變異；<mark class="ex-key">Arrestin 異常對應的是 Oguchi disease，不是 Best disease</mark>——Best disease 由 <strong>BEST1</strong>（bestrophin，RPE 基底側氯離子通道）變異造成；rod transducin（<strong>GNAT1</strong>）顯性變異 → CSNB Nougaret type；<strong>ABCA4</strong> 隱性缺陷 → Stargardt disease（本章外，BCSC 2 第 12、13 章）⁠<sup class="ex-qref"><span>Q203</span></sup>。<span class="ref">p.237；BCSC 2 p.323, p.343</span></li>
 <li id="np-359">Oculocutaneous albinism 在巴拿馬 <strong>Kuna Indians</strong> 盛行率高。<span class="ref">p.238</span></li>
-<li id="np-360"><strong>Hermansky-Pudlak syndrome（HPS）</strong>：<mark class="ex-key">AR</mark>，oculocutaneous albinism + <strong>pulmonary interstitial fibrosis（肺間質纖維化）</strong> + 易瘀青、出血傾向（bleeding time 延長、血小板凝集異常），好發於 <strong>Puerto Rico</strong> 裔⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-625" data-q="625" aria-label="考題 Q625">Q625</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-707" data-q="707" aria-label="考題 Q707">Q707</a></sup>。<span class="ref">p.238</span></li>
+<li id="np-360"><strong>Hermansky-Pudlak syndrome（HPS）</strong>：<mark class="ex-key">AR</mark>，oculocutaneous albinism + <strong>pulmonary interstitial fibrosis（肺間質纖維化）</strong> + 易瘀青、出血傾向（bleeding time 延長、血小板凝集異常），好發於 <strong>Puerto Rico</strong> 裔⁠<sup class="ex-qref"><span>Q625</span> <span>Q707</span></sup>。<span class="ref">p.238</span></li>
 </ul>
 <h3 id="ch6-s9-2">Lyonization（X-inactivation）</h3>
 <ul>
-<li id="np-361">理論上只帶一個 X-linked 隱性變異的女性不應有表現，但眼科有許多帶原女性有結構或功能異常（通常輕微、偶嚴重）：<mark class="ex-key">choroideremia（脈絡膜缺失症）、X-linked ocular albinism（OA1，又稱 <strong>Nettleship-Falls</strong> ocular albinism）、X-linked RP、X-linked sutural cataract（縫狀白內障）、Lowe syndrome、Fabry disease、protan／deutan 色覺異常</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-149" data-q="149" aria-label="考題 Q149">Q149</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-162" data-q="162" aria-label="考題 Q162">Q162</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-707" data-q="707" aria-label="考題 Q707">Q707</a></sup>。<span class="ref">p.238</span></li>
+<li id="np-361">理論上只帶一個 X-linked 隱性變異的女性不應有表現，但眼科有許多帶原女性有結構或功能異常（通常輕微、偶嚴重）：<mark class="ex-key">choroideremia（脈絡膜缺失症）、X-linked ocular albinism（OA1，又稱 <strong>Nettleship-Falls</strong> ocular albinism）、X-linked RP、X-linked sutural cataract（縫狀白內障）、Lowe syndrome、Fabry disease、protan／deutan 色覺異常</mark>⁠<sup class="ex-qref"><span>Q149</span> <span>Q162</span> <span>Q707</span></sup>。<span class="ref">p.238</span></li>
 <li id="np-362">偵測帶原狀態對患病男性的姊妹與阿姨（母親的姊妹）特別重要。<span class="ref">p.238</span></li>
 <li id="np-363"><span class="num">1961</span> 年 Mary Lyon 提出：女性每個體細胞只有 1 條 X 有功能，另一條去活化形成 <strong>Barr body</strong>（口腔抹片）或 "drumsticks"（約 <span class="num">5%</span> 正常女性白血球可見）；去活化在胚胎早期<strong>隨機</strong>發生且不可逆 → 帶原女性為兩種細胞株的 <strong>mosaic（嵌合）</strong>表型。<span class="ref">p.238</span></li>
 <li id="np-364">平均父源與母源 X 各 <span class="num">50%</span> 被去活化；若極端偏斜，女性也可完整發病，例如 classic color deficiency、X-linked OA、XLRP、choroideremia。<span class="ref">p.238</span></li>
@@ -760,12 +758,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-383">出處（Table 6-8）<span class="ref">p.240</span></p>
 <ul>
-<li id="np-384"><mark class="ex-key">Choroideremia 為 X-linked</mark>（<strong>CHM</strong> 基因，本章外 BCSC 12），不是 autosomal dominant；女性帶原者呈蟲蛀樣眼底⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-137" data-q="137" aria-label="考題 Q137">Q137</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-149" data-q="149" aria-label="考題 Q149">Q149</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-151" data-q="151" aria-label="考題 Q151">Q151</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-162" data-q="162" aria-label="考題 Q162">Q162</a></sup>。<span class="ref">p.238, p.240；BCSC 12 p.299</span></li>
-<li id="np-385">Table 6-8 列出的 X-linked 疾病：S-cone monochromatism、choroideremia、CSNB with myopia、Fabry、Lowe、ocular albinism、red–green 色覺異常、XLRP。<strong>Mucopolysaccharidosis II（Hunter syndrome）</strong>不在 Table 6-8（Table 6-1 只列其酵素 iduronate-2-sulfatase），但它是 MPS 中<mark class="ex-key">唯一 X-linked recessive</mark> 的類型（本章外，BCSC 8 第 10 章）——四個選項醫學上其實都是 X-linked，該題答案存疑（StatPearls 與 2024 年 Hum Genomics 回顧亦記載 MPS II 為 IDS 基因的 X-linked recessive 疾病）；考試答 C 的理由只是 MPS II 不在 Table 6-8⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-162" data-q="162" aria-label="考題 Q162">Q162</a></sup>。<span class="ref">p.216, p.240；BCSC 8 p.249</span></li>
+<li id="np-384"><mark class="ex-key">Choroideremia 為 X-linked</mark>（<strong>CHM</strong> 基因，本章外 BCSC 12），不是 autosomal dominant；女性帶原者呈蟲蛀樣眼底⁠<sup class="ex-qref"><span>Q137</span> <span>Q149</span> <span>Q151</span> <span>Q162</span></sup>。<span class="ref">p.238, p.240；BCSC 12 p.299</span></li>
+<li id="np-385">Table 6-8 列出的 X-linked 疾病：S-cone monochromatism、choroideremia、CSNB with myopia、Fabry、Lowe、ocular albinism、red–green 色覺異常、XLRP。<strong>Mucopolysaccharidosis II（Hunter syndrome）</strong>不在 Table 6-8（Table 6-1 只列其酵素 iduronate-2-sulfatase），但它是 MPS 中<mark class="ex-key">唯一 X-linked recessive</mark> 的類型（本章外，BCSC 8 第 10 章）——四個選項醫學上其實都是 X-linked，該題答案存疑（StatPearls 與 2024 年 Hum Genomics 回顧亦記載 MPS II 為 IDS 基因的 X-linked recessive 疾病）；考試答 C 的理由只是 MPS II 不在 Table 6-8⁠<sup class="ex-qref"><span>Q162</span></sup>。<span class="ref">p.216, p.240；BCSC 8 p.249</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch6-s9-4">易錯陷阱</h3><ul>
-<li id="np-386">Choroideremia 是 X-linked；「Choroideremia 為 AD」是錯誤選項⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-149" data-q="149" aria-label="考題 Q149">Q149</a></sup>。<span class="ref">p.238, p.240</span></li>
-<li id="np-387">Nettleship-Falls syndrome = X-linked ocular albinism（OA1），與白化症相關；HPS 也是白化症相關症候群⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-707" data-q="707" aria-label="考題 Q707">Q707</a></sup>。<span class="ref">p.238</span></li>
+<li id="np-386">Choroideremia 是 X-linked；「Choroideremia 為 AD」是錯誤選項⁠<sup class="ex-qref"><span>Q149</span></sup>。<span class="ref">p.238, p.240</span></li>
+<li id="np-387">Nettleship-Falls syndrome = X-linked ocular albinism（OA1），與白化症相關；HPS 也是白化症相關症候群⁠<sup class="ex-qref"><span>Q707</span></sup>。<span class="ref">p.238</span></li>
 <li id="np-388">XLRP 帶原者是 gold-dust tapetal-like reflex；choroideremia 帶原者是 moth-eaten；OA 帶原者是 chocolate-brown 色素團。<span class="ref">p.239–240</span></li>
 <li id="np-389">帶原女性無典型表現仍可能是帶原者（隨機去活化可能剛好讓正常 X 表現）。<span class="ref">p.239–240</span></li>
 </ul></div>
@@ -773,7 +771,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h2 id="ch6-s10">十、Mitochondrial disease（粒線體疾病）</h2>
 <h3 id="ch6-s10-1">遺傳特性</h3>
 <ul>
-<li id="np-390">遺傳型態提示 <strong>maternal transmission</strong> 時要想到粒線體病；表面上像 X-linked，但差別在：<mark class="ex-key">患病女性的兒子與女兒都可遺傳到，但只有女兒能往下傳</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-97" data-q="97" aria-label="考題 Q97">Q97</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-141" data-q="141" aria-label="考題 Q141">Q141</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-196" data-q="196" aria-label="考題 Q196">Q196</a></sup>。<span class="ref">p.240</span></li>
+<li id="np-390">遺傳型態提示 <strong>maternal transmission</strong> 時要想到粒線體病；表面上像 X-linked，但差別在：<mark class="ex-key">患病女性的兒子與女兒都可遺傳到，但只有女兒能往下傳</mark>⁠<sup class="ex-qref"><span>Q97</span> <span>Q141</span> <span>Q196</span></sup>。<span class="ref">p.240</span></li>
 <li id="np-391">表型與嚴重度取決於：變異本質、<strong>heteroplasmy（異質性：野生型與變異 mtDNA 並存）</strong>的有無與程度、受影響組織的氧化需求。<span class="ref">p.240</span></li>
 <li id="np-392">自發性 mtDNA 缺失與變化隨年齡累積 → 電子傳遞鏈效率下降、ATP 減少，能量不足即發病；遺傳變異的表現受年齡與組織 oxidative phosphorylation（氧化磷酸化）閾值影響。<span class="ref">p.240</span></li>
 <li id="np-393">每次細胞分裂分配到的變異 mtDNA 數量是隨機的 → 漸趨 <strong>homoplasmy（同質性）</strong>，稱 <strong>replicative segregation（複製分離）</strong>；deleted 分子較小、優先複製而增加。這解釋病情隨年齡惡化、原本未受累的器官晚年才受累。<span class="ref">p.240–241</span></li>
@@ -790,31 +788,31 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-402">出處 <span class="ref">p.241</span></p>
 <ul>
-<li id="np-403">MELAS 的變異在 <mark class="ex-key">mtDNA 編碼的 <strong>tRNA</strong></mark>（tRNA Leu），不是 ribosomal RNA；rRNA 變異造成的是母系遺傳耳聾與 aminoglycoside 耳聾⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-163" data-q="163" aria-label="考題 Q163">Q163</a></sup>。<span class="ref">p.241</span></li>
+<li id="np-403">MELAS 的變異在 <mark class="ex-key">mtDNA 編碼的 <strong>tRNA</strong></mark>（tRNA Leu），不是 ribosomal RNA；rRNA 變異造成的是母系遺傳耳聾與 aminoglycoside 耳聾⁠<sup class="ex-qref"><span>Q163</span></sup>。<span class="ref">p.241</span></li>
 </ul>
 <h3 id="ch6-s10-3">Chronic progressive external ophthalmoplegia（CPEO）、Kearns-Sayre、Pearson</h3>
 <ul>
-<li id="np-404">CPEO：進行性 ptosis（眼瞼下垂）與眼外肌麻痺，合併 <strong>ragged red fibers（破碎紅纖維）</strong>肌病（modified Gomori trichrome 染色）；通常由部分粒線體基因組<strong>缺失</strong>造成，是典型粒線體疾病⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-112" data-q="112" aria-label="考題 Q112">Q112</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-163" data-q="163" aria-label="考題 Q163">Q163</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-200" data-q="200" aria-label="考題 Q200">Q200</a></sup>。<span class="ref">p.241, p.243</span></li>
+<li id="np-404">CPEO：進行性 ptosis（眼瞼下垂）與眼外肌麻痺，合併 <strong>ragged red fibers（破碎紅纖維）</strong>肌病（modified Gomori trichrome 染色）；通常由部分粒線體基因組<strong>缺失</strong>造成，是典型粒線體疾病⁠<sup class="ex-qref"><span>Q112</span> <span>Q163</span> <span>Q200</span></sup>。<span class="ref">p.241, p.243</span></li>
 <li id="np-405">CPEO 常有不太影響視力的 pigmentary retinopathy（色素性視網膜病變）；較明顯的視網膜或其他系統受累稱 CPEO-plus。<span class="ref">p.241</span></li>
-<li id="np-406"><strong>Kearns-Sayre syndrome</strong>：CPEO + <mark class="ex-key">heart block（心臟傳導阻滯）</mark> + 嚴重 RP（明顯視力障礙）；<mark class="ex-key">幾乎所有 KSS 都有 mtDNA 大片段缺失</mark>，是代表性粒線體疾病⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-97" data-q="97" aria-label="考題 Q97">Q97</a></sup>。<span class="ref">p.241</span></li>
+<li id="np-406"><strong>Kearns-Sayre syndrome</strong>：CPEO + <mark class="ex-key">heart block（心臟傳導阻滯）</mark> + 嚴重 RP（明顯視力障礙）；<mark class="ex-key">幾乎所有 KSS 都有 mtDNA 大片段缺失</mark>，是代表性粒線體疾病⁠<sup class="ex-qref"><span>Q97</span></sup>。<span class="ref">p.241</span></li>
 <li id="np-407"><strong>Pearson syndrome</strong>：mtDNA 大片段缺失，年幼時表現為 sideroblastic anemia（鐵粒母細胞貧血）與胰臟外分泌功能不全；較晚發病者可類似 KSS。<span class="ref">p.241</span></li>
-<li id="np-408"><mark class="ex-key">約 <span class="num">50%</span> CPEO 病人可檢出 mtDNA deletion</mark>；無缺失者最多 <span class="num">30%</span> 有 nucleotide <span class="num">3243</span> 點變異（與 MELAS 相同的 tRNA Leu 變異）。偵測缺失通常需要<strong>肌肉組織</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-196" data-q="196" aria-label="考題 Q196">Q196</a></sup>。<span class="ref">p.241</span></li>
+<li id="np-408"><mark class="ex-key">約 <span class="num">50%</span> CPEO 病人可檢出 mtDNA deletion</mark>；無缺失者最多 <span class="num">30%</span> 有 nucleotide <span class="num">3243</span> 點變異（與 MELAS 相同的 tRNA Leu 變異）。偵測缺失通常需要<strong>肌肉組織</strong>⁠<sup class="ex-qref"><span>Q196</span></sup>。<span class="ref">p.241</span></li>
 </ul>
 <h3 id="ch6-s10-4">MELAS 與 MIDD</h3>
 <ul>
-<li id="np-409"><strong>MELAS（mitochondrial encephalomyopathy, lactic acidosis, and strokelike episodes，粒線體腦肌病變、乳酸中毒及類中風發作）</strong>與 <strong>MIDD（maternally inherited diabetes and deafness，母系遺傳糖尿病與耳聾；又稱 type 2 diabetes mellitus with deafness）</strong>：mtDNA <mark class="ex-key"><span class="num">3243</span> 位點 A→G <strong>point variation（點變異）</strong></mark>，影響 mtDNA 編碼的 tRNA；MELAS 病人可見黃斑 RPE 萎縮⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-163" data-q="163" aria-label="考題 Q163">Q163</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-196" data-q="196" aria-label="考題 Q196">Q196</a></sup>。<span class="ref">p.241</span></li>
+<li id="np-409"><strong>MELAS（mitochondrial encephalomyopathy, lactic acidosis, and strokelike episodes，粒線體腦肌病變、乳酸中毒及類中風發作）</strong>與 <strong>MIDD（maternally inherited diabetes and deafness，母系遺傳糖尿病與耳聾；又稱 type 2 diabetes mellitus with deafness）</strong>：mtDNA <mark class="ex-key"><span class="num">3243</span> 位點 A→G <strong>point variation（點變異）</strong></mark>，影響 mtDNA 編碼的 tRNA；MELAS 病人可見黃斑 RPE 萎縮⁠<sup class="ex-qref"><span>Q163</span> <span>Q196</span></sup>。<span class="ref">p.241</span></li>
 </ul>
 <h3 id="ch6-s10-5">Leber hereditary optic neuropathy（LHON）</h3>
 <ul>
-<li id="np-410"><mark class="ex-key">LHON <strong>男性多於女性</strong></mark>，但不符合典型 X-linked 傳遞；<strong>患病男性的子女不會遺傳</strong>，患病女性的幾乎每個兒子和女兒都會遺傳到⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-163" data-q="163" aria-label="考題 Q163">Q163</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-196" data-q="196" aria-label="考題 Q196">Q196</a></sup>。<span class="ref">p.242–243</span></li>
-<li id="np-411">約 <span class="num">50%</span> 病例與 <mark class="ex-key"><strong>ND-4</strong> 基因 nucleotide <span class="num">11778</span> G→A</mark> 單一鹼基變異有關（ND = NADH dehydrogenase；EyeWiki 現載 11778 在北歐族群約占 70%、亞洲族群約 90%，三個 primary variants 合計約 90%）；其他 primary variants：<span class="num">3460</span>（<strong>ND-1</strong>）、<span class="num">14484</span>（<strong>ND-6</strong>）；至少 <span class="num">12</span> 個 secondary variants（多數在一般族群也存在，是否單獨致病仍有爭議）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-104" data-q="104" aria-label="考題 Q104">Q104</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-163" data-q="163" aria-label="考題 Q163">Q163</a></sup>。<span class="ref">p.243</span></li>
+<li id="np-410"><mark class="ex-key">LHON <strong>男性多於女性</strong></mark>，但不符合典型 X-linked 傳遞；<strong>患病男性的子女不會遺傳</strong>，患病女性的幾乎每個兒子和女兒都會遺傳到⁠<sup class="ex-qref"><span>Q163</span> <span>Q196</span></sup>。<span class="ref">p.242–243</span></li>
+<li id="np-411">約 <span class="num">50%</span> 病例與 <mark class="ex-key"><strong>ND-4</strong> 基因 nucleotide <span class="num">11778</span> G→A</mark> 單一鹼基變異有關（ND = NADH dehydrogenase；EyeWiki 現載 11778 在北歐族群約占 70%、亞洲族群約 90%，三個 primary variants 合計約 90%）；其他 primary variants：<span class="num">3460</span>（<strong>ND-1</strong>）、<span class="num">14484</span>（<strong>ND-6</strong>）；至少 <span class="num">12</span> 個 secondary variants（多數在一般族群也存在，是否單獨致病仍有爭議）⁠<sup class="ex-qref"><span>Q104</span> <span>Q163</span></sup>。<span class="ref">p.243</span></li>
 <li id="np-412">除視神經萎縮外可見 <strong>peripapillary microangiopathy（視盤旁微血管病變）</strong>。<span class="ref">p.243</span></li>
 <li id="np-413">視力恢復機會：<mark><span class="num">11778</span> 最低、<span class="num">14484</span> 最高</mark>。<span class="ref">p.243</span></li>
-<li id="np-414">LHON 由 mtDNA 點突變造成，<strong>不是 tumor suppressor gene 疾病</strong>，也與 ABCA4（Stargardt）無關⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-104" data-q="104" aria-label="考題 Q104">Q104</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-114" data-q="114" aria-label="考題 Q114">Q114</a></sup>。<span class="ref">p.241, p.243</span></li>
+<li id="np-414">LHON 由 mtDNA 點突變造成，<strong>不是 tumor suppressor gene 疾病</strong>，也與 ABCA4（Stargardt）無關⁠<sup class="ex-qref"><span>Q104</span> <span>Q114</span></sup>。<span class="ref">p.241, p.243</span></li>
 </ul>
 <h3 id="ch6-s10-6">Neuropathy, ataxia, and retinitis pigmentosa（NARP）</h3>
 <ul>
-<li id="np-415">NARP：<strong>ATPase-6</strong> 基因 nucleotide <span class="num">8993</span> 單一鹼基變異；變異 mtDNA <span class="num">&lt;80%</span> 為 NARP，<span class="num">&gt;95%</span> 則造成 <strong>Leigh syndrome</strong>（嬰幼兒嚴重神經退化）；8993 變異可在 fibroblasts 與 lymphoblasts 檢出⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-112" data-q="112" aria-label="考題 Q112">Q112</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-200" data-q="200" aria-label="考題 Q200">Q200</a></sup>。<span class="ref">p.243</span></li>
+<li id="np-415">NARP：<strong>ATPase-6</strong> 基因 nucleotide <span class="num">8993</span> 單一鹼基變異；變異 mtDNA <span class="num">&lt;80%</span> 為 NARP，<span class="num">&gt;95%</span> 則造成 <strong>Leigh syndrome</strong>（嬰幼兒嚴重神經退化）；8993 變異可在 fibroblasts 與 lymphoblasts 檢出⁠<sup class="ex-qref"><span>Q112</span> <span>Q200</span></sup>。<span class="ref">p.243</span></li>
 </ul>
 <h3 id="ch6-s10-7">Table 6-9 Causes and key features of mitochondrial diseases</h3>
 <table class="ted-table ex-ddx">
@@ -833,12 +831,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-443">出處（Table 6-9）<span class="ref">p.242</span></p>
 <div class="ex-trap"><h3 id="ch6-s10-8">易錯陷阱</h3><ul>
-<li id="np-444">「只有得病的兒子會把變異傳下去」是錯的：只有<strong>女兒</strong>能傳；男性（不論是否發病）傳遞終止；兒子女兒都會被傳到⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-97" data-q="97" aria-label="考題 Q97">Q97</a></sup>。<span class="ref">p.225, p.240</span></li>
-<li id="np-445">「患粒線體疾病的男性不會遺傳給女兒」是正確敘述⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-163" data-q="163" aria-label="考題 Q163">Q163</a></sup>。<span class="ref">p.243</span></li>
-<li id="np-446">LHON 是男 &gt; 女，「女性多於男性」是錯的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-196" data-q="196" aria-label="考題 Q196">Q196</a></sup>。<span class="ref">p.242</span></li>
-<li id="np-447">MELAS 是 tRNA 點變異（3243 A→G），不是 rRNA⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-163" data-q="163" aria-label="考題 Q163">Q163</a></sup>。<span class="ref">p.241</span></li>
-<li id="np-448">CPEO「約 50% 有 mtDNA deletion」是正確敘述；KSS 則「幾乎全部」有大片段缺失⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-196" data-q="196" aria-label="考題 Q196">Q196</a></sup>。<span class="ref">p.241</span></li>
-<li id="np-449">不是粒線體疾病的常見陷阱：<strong>Fabry disease</strong>（X-linked 溶小體儲積症）；<strong>Parinaud syndrome（dorsal midbrain syndrome，背側中腦症候群）</strong>是 pretectum（頂蓋前區）結構性病灶造成的垂直凝視（多為上視）受限（本章外，BCSC 5 第 12 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-112" data-q="112" aria-label="考題 Q112">Q112</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-200" data-q="200" aria-label="考題 Q200">Q200</a></sup>。<span class="ref">p.216；BCSC 5 p.280</span></li>
+<li id="np-444">「只有得病的兒子會把變異傳下去」是錯的：只有<strong>女兒</strong>能傳；男性（不論是否發病）傳遞終止；兒子女兒都會被傳到⁠<sup class="ex-qref"><span>Q97</span></sup>。<span class="ref">p.225, p.240</span></li>
+<li id="np-445">「患粒線體疾病的男性不會遺傳給女兒」是正確敘述⁠<sup class="ex-qref"><span>Q163</span></sup>。<span class="ref">p.243</span></li>
+<li id="np-446">LHON 是男 &gt; 女，「女性多於男性」是錯的⁠<sup class="ex-qref"><span>Q196</span></sup>。<span class="ref">p.242</span></li>
+<li id="np-447">MELAS 是 tRNA 點變異（3243 A→G），不是 rRNA⁠<sup class="ex-qref"><span>Q163</span></sup>。<span class="ref">p.241</span></li>
+<li id="np-448">CPEO「約 50% 有 mtDNA deletion」是正確敘述；KSS 則「幾乎全部」有大片段缺失⁠<sup class="ex-qref"><span>Q196</span></sup>。<span class="ref">p.241</span></li>
+<li id="np-449">不是粒線體疾病的常見陷阱：<strong>Fabry disease</strong>（X-linked 溶小體儲積症）；<strong>Parinaud syndrome（dorsal midbrain syndrome，背側中腦症候群）</strong>是 pretectum（頂蓋前區）結構性病灶造成的垂直凝視（多為上視）受限（本章外，BCSC 5 第 12 章）⁠<sup class="ex-qref"><span>Q112</span> <span>Q200</span></sup>。<span class="ref">p.216；BCSC 5 p.280</span></li>
 <li id="np-450">LHON 視力恢復：14484 最好、11778 最差（11778 也是最常見）。<span class="ref">p.242–243</span></li>
 </ul></div>
 
@@ -848,7 +846,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-451">身高、屈光不正、intraocular pressure（IOP，眼壓）、CCT、虹膜顏色呈<strong>連續分布</strong>（常態曲線），不同於單基因疾病的 bimodal（共顯性為 trimodal）曲線。<span class="ref">p.243–244</span></li>
 <li id="np-452"><strong>Polygenic（多基因）</strong>：多個各具小幅加成效應的基因共同作用；許多由 genome-wide association study（GWAS，全基因組關聯研究）找到，但<mark>除了 AMD</mark>，已知基因只解釋一小部分遺傳效應。<span class="ref">p.244</span></li>
 <li id="np-453"><strong>Multifactorial（多因子）</strong>：遺傳 + 環境，例：屈光不正、青光眼、AMD。<span class="ref">p.244</span></li>
-<li id="np-454">復發風險介於族群風險與孟德爾風險之間：<mark class="ex-key">POAG 族群風險 <span class="num">2%–3%</span>；嚴重 myocilin 變異家族近 <span class="num">50%</span>；POAG 一等親約 <span class="num">20%</span></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-104" data-q="104" aria-label="考題 Q104">Q104</a></sup>。<span class="ref">p.244</span></li>
+<li id="np-454">復發風險介於族群風險與孟德爾風險之間：<mark class="ex-key">POAG 族群風險 <span class="num">2%–3%</span>；嚴重 myocilin 變異家族近 <span class="num">50%</span>；POAG 一等親約 <span class="num">20%</span></mark>⁠<sup class="ex-qref"><span>Q104</span></sup>。<span class="ref">p.244</span></li>
 <li id="np-455">先證者越嚴重、家族中受影響者越多 → 復發風險越高（孟德爾疾病不會如此）；父系與母系親屬都有時風險明顯更高。斜視、青光眼、嚴重屈光不正皆有此觀察。<span class="ref">p.244</span></li>
 </ul>
 <h3 id="ch6-s11-2">Pharmacogenetics（藥物遺傳學）</h3>
@@ -860,7 +858,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-460"><strong>Succinylcholine</strong>：正常由 plasma cholinesterase（pseudocholinesterase，假性膽鹼酯酶）快速分解；隱性基因同型合子者酵素親和力低 → <mark>prolonged apnea（呼吸暫停延長）</mark>。<span class="ref">p.245</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch6-s11-3">易錯陷阱</h3><ul>
-<li id="np-461">Myocilin（MYOC）是青光眼基因（嚴重 myocilin 家族青光眼風險近 50%）；JOAG 與 MYOC 有關，不是 mitochondrial DNA⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-104" data-q="104" aria-label="考題 Q104">Q104</a></sup>。<span class="ref">p.244；BCSC 10 p.16</span></li>
+<li id="np-461">Myocilin（MYOC）是青光眼基因（嚴重 myocilin 家族青光眼風險近 50%）；JOAG 與 MYOC 有關，不是 mitochondrial DNA⁠<sup class="ex-qref"><span>Q104</span></sup>。<span class="ref">p.244；BCSC 10 p.16</span></li>
 <li id="np-462">G6PD deficiency 是 X-linked recessive；isoniazid slow inactivator 與 pseudocholinesterase 缺乏是 AR。<span class="ref">p.244–245</span></li>
 <li id="np-463">多因子疾病：家族中多一個患者，下一胎風險就上升；孟德爾疾病不會。<span class="ref">p.244</span></li>
 </ul></div>
@@ -894,17 +892,17 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-481">遺傳諮詢是 <mark><strong>nondirective（非指導性）</strong>：提供資訊而非替病人決定</mark>；告訴病人「不要生小孩」是不恰當甚至不道德的。<span class="ref">p.248–249</span></li>
 <li id="np-482">三大前提：① <strong>Accurate diagnosis</strong>——「congenital nystagmus」「color blindness」「macular degeneration」是徵象不是診斷，無法據以諮詢；② <strong>Complete family history</strong>——檢查父母、手足找顯性疾病的輕微表現或 X-linked 帶原狀態；③ <strong>Understanding of genetic and clinical aspects</strong>。<span class="ref">p.248–249</span></li>
 <li id="np-483">例：發現一名 Usher syndrome 年輕成人（prelingual deafness（語前聾）、夜盲、視野縮窄、後期中央視力惡化）→ 必須檢查先天聾但「沒有眼疾」的弟妹，罹病機率很高。<span class="ref">p.249</span></li>
-<li id="np-484">Tyrosinase-positive 與 tyrosinase-negative albinism 視覺預後差很多；<mark class="ex-key"><strong>Ocular albinism 為 X-linked recessive</strong>，女性極少見；<strong>oculocutaneous albinism 為 AR</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-615" data-q="615" aria-label="考題 Q615">Q615</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-625" data-q="625" aria-label="考題 Q625">Q625</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-1502" data-q="1502" aria-label="考題 Q1502">Q1502</a></sup>。<span class="ref">p.249</span></li>
+<li id="np-484">Tyrosinase-positive 與 tyrosinase-negative albinism 視覺預後差很多；<mark class="ex-key"><strong>Ocular albinism 為 X-linked recessive</strong>，女性極少見；<strong>oculocutaneous albinism 為 AR</strong></mark>⁠<sup class="ex-qref"><span>Q615</span> <span>Q625</span> <span>Q1502</span></sup>。<span class="ref">p.249</span></li>
 <li id="np-485">Pseudoxanthoma elasticum（彈性纖維假黃瘤）常晚發，有心血管、中風、腸胃出血與視力風險；只談 angioid streaks 的視力問題是不足的諮詢。<span class="ref">p.249</span></li>
 <li id="np-486">諮詢議題：搜尋近親、親子關係不明（nonpaternity、incest、隱瞞收養）、新生變異與父親高齡（或外祖父母高齡）；somatic 變異如 segmental neurofibromatosis、<strong>unilateral unifocal retinoblastoma</strong>；排除不外顯與輕微表現；染色體異常與感染／藥物 phenocopy（擬表型）也可造成孤立病例。<span class="ref">p.249</span></li>
 <li id="np-487">基因檢測可協助診斷、參與臨床試驗、找出帶原與無症狀變異者；父母要求為孩子檢測<strong>成人發病疾病</strong>而孩子無立即醫療益處時不適當。<span class="ref">p.249–250</span></li>
 </ul>
 <h3 id="ch6-s12-4">Albinism 的其他重點（本章外補充）</h3>
 <ul>
-<li id="np-488">主要眼部表現：iris transillumination、foveal aplasia／hypoplasia、nystagmus（Table 6-1）；true albinism 先天視力約 <span class="num">20/100–20/400</span> 合併眼震⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-615" data-q="615" aria-label="考題 Q615">Q615</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-625" data-q="625" aria-label="考題 Q625">Q625</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-1502" data-q="1502" aria-label="考題 Q1502">Q1502</a></sup>。<span class="ref">p.216；BCSC 12 p.324</span></li>
-<li id="np-489">Albinism 的 optic chiasm（視交叉）<mark class="ex-key">交叉纖維<strong>過多</strong></mark>（不是較少）→ 無法建立 stereopsis（立體視）並常誘發斜視⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-615" data-q="615" aria-label="考題 Q615">Q615</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-625" data-q="625" aria-label="考題 Q625">Q625</a></sup>。<span class="ref ref-ext">BCSC 6 p.429</span></li>
-<li id="np-490">診斷 true albinism 的 <strong>gold standard</strong> 是 flash 與 pattern <strong>visual evoked potential（VEP，視覺誘發電位）</strong>：單眼刺激得到不對稱枕葉反應（交叉纖維過多），<mark class="ex-key">不是 ERG</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-1502" data-q="1502" aria-label="考題 Q1502">Q1502</a></sup>。<span class="ref ref-ext">BCSC 12 p.324</span></li>
-<li id="np-491">OA 由 <strong>GPR143</strong> 半合子變異造成，帶原女性可有馬賽克色素與輕度透光；<strong>Chédiak-Higashi syndrome</strong>（LYST 雙等位變異）細菌感染易感性增加；<strong>HPS</strong> 有肺間質纖維化、出血異常；<strong>Weill-Marchesani syndrome</strong>（身材矮小、短指、球形水晶體）與白化症無關⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-625" data-q="625" aria-label="考題 Q625">Q625</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-707" data-q="707" aria-label="考題 Q707">Q707</a></sup>。<span class="ref ref-ext">BCSC 6 p.322, p.428</span></li>
+<li id="np-488">主要眼部表現：iris transillumination、foveal aplasia／hypoplasia、nystagmus（Table 6-1）；true albinism 先天視力約 <span class="num">20/100–20/400</span> 合併眼震⁠<sup class="ex-qref"><span>Q615</span> <span>Q625</span> <span>Q1502</span></sup>。<span class="ref">p.216；BCSC 12 p.324</span></li>
+<li id="np-489">Albinism 的 optic chiasm（視交叉）<mark class="ex-key">交叉纖維<strong>過多</strong></mark>（不是較少）→ 無法建立 stereopsis（立體視）並常誘發斜視⁠<sup class="ex-qref"><span>Q615</span> <span>Q625</span></sup>。<span class="ref ref-ext">BCSC 6 p.429</span></li>
+<li id="np-490">診斷 true albinism 的 <strong>gold standard</strong> 是 flash 與 pattern <strong>visual evoked potential（VEP，視覺誘發電位）</strong>：單眼刺激得到不對稱枕葉反應（交叉纖維過多），<mark class="ex-key">不是 ERG</mark>⁠<sup class="ex-qref"><span>Q1502</span></sup>。<span class="ref ref-ext">BCSC 12 p.324</span></li>
+<li id="np-491">OA 由 <strong>GPR143</strong> 半合子變異造成，帶原女性可有馬賽克色素與輕度透光；<strong>Chédiak-Higashi syndrome</strong>（LYST 雙等位變異）細菌感染易感性增加；<strong>HPS</strong> 有肺間質纖維化、出血異常；<strong>Weill-Marchesani syndrome</strong>（身材矮小、短指、球形水晶體）與白化症無關⁠<sup class="ex-qref"><span>Q625</span> <span>Q707</span></sup>。<span class="ref ref-ext">BCSC 6 p.322, p.428</span></li>
 </ul>
 <h3 id="ch6-s12-5">Reproductive issues（生育議題）</h3>
 <ul>
@@ -940,8 +938,8 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-515">遺傳諮詢是非指導性的：諮詢師告知而不建議，不得替病人做生育決定。<span class="ref">p.249</span></li>
 <li id="np-516">捐精人工授精在「母親」是 AD 患者或 X-linked／粒線體帶原者時無效（致病來自母方）。<span class="ref">p.250</span></li>
 <li id="np-517">CVS 較早（約 10 週）但流產風險較高（<span class="num">1%–2%</span>）；羊膜穿刺 15–16 週、約 <span class="num">0.5%</span>。<span class="ref">p.250–251</span></li>
-<li id="np-518">白化症是視交叉交叉纖維「過多」；診斷 gold standard 是 VEP 不是 ERG（本章外）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-615" data-q="615" aria-label="考題 Q615">Q615</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-625" data-q="625" aria-label="考題 Q625">Q625</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-1502" data-q="1502" aria-label="考題 Q1502">Q1502</a></sup>。<span class="ref ref-ext">BCSC 6 p.429；BCSC 12 p.324</span></li>
-<li id="np-519">OCA 通常 AR、OA 通常 X-linked，兩者都是正確敘述⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc2-6%23q-615" data-q="615" aria-label="考題 Q615">Q615</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-625" data-q="625" aria-label="考題 Q625">Q625</a> <a href="/exam/login?next=/exam/bcsc2-6%23q-1502" data-q="1502" aria-label="考題 Q1502">Q1502</a></sup>。<span class="ref">p.249</span></li>
+<li id="np-518">白化症是視交叉交叉纖維「過多」；診斷 gold standard 是 VEP 不是 ERG（本章外）⁠<sup class="ex-qref"><span>Q615</span> <span>Q625</span> <span>Q1502</span></sup>。<span class="ref ref-ext">BCSC 6 p.429；BCSC 12 p.324</span></li>
+<li id="np-519">OCA 通常 AR、OA 通常 X-linked，兩者都是正確敘述⁠<sup class="ex-qref"><span>Q615</span> <span>Q625</span> <span>Q1502</span></sup>。<span class="ref">p.249</span></li>
 </ul></div>
 
 <div class="hs-tip-box">

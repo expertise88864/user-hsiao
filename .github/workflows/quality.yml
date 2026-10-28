@@ -35,7 +35,10 @@ concurrency:
 jobs:
   validate:
     name: HTML validation + SEO check
-    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
+    # Every workflow pins ubuntu-24.04: ubuntu-latest moved to 26.04 on 2026-10-25, where
+    # Playwright 1.60 cannot install Chromium, and the owner-approved visual baselines
+    # were rendered on 24.04 (run 40615535953).
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
         with:
@@ -257,7 +260,7 @@ jobs:
 
   indexnow:
     name: IndexNow ping (Bing / Yandex / Naver)
-    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
+    runs-on: ubuntu-24.04
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     # v37.44 — auto-notify IndexNow-subscribing engines on every push to
@@ -345,7 +348,7 @@ jobs:
 
   live-indexability:
     name: Live indexability audit
-    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
+    runs-on: ubuntu-24.04
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -366,7 +369,7 @@ jobs:
 
   lighthouse:
     name: Lighthouse CI
-    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
+    runs-on: ubuntu-24.04
     needs: validate
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
@@ -410,9 +413,12 @@ jobs:
           CANDIDATE_SHA: ${{ github.sha }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
         with:
+          # /blog, not /blog/: the trailing-slash URL redirects to /blog, and that
+          # in-flight redirect left one scored run without a navigation start
+          # (NO_NAVSTART, run 39004952644; Lighthouse: "Try testing the second URL directly").
           urls: |
             ${{ steps.site.outputs.url }}/
-            ${{ steps.site.outputs.url }}/blog/
+            ${{ steps.site.outputs.url }}/blog
             ${{ steps.site.outputs.url }}/blog/dry-eye-myths
             ${{ steps.site.outputs.url }}/blog/pediatric-myopia-control
             ${{ steps.site.outputs.url }}/blog/floaters-retinal-detachment
@@ -436,7 +442,7 @@ jobs:
 
   link-check:
     name: Internal link check
-    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
+    runs-on: ubuntu-24.04
     needs: validate
     if: github.event_name != 'schedule'
     steps:
@@ -452,7 +458,7 @@ jobs:
 
   axe-a11y:
     name: A11y scan (axe-core)
-    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
+    runs-on: ubuntu-24.04
     needs: validate
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     # Up to 40 minutes of the budget is the wait for a queued Hobby Preview build.

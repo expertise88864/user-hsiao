@@ -59,9 +59,7 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note mark,.ex-legend mark{background:linear-gradient(transparent 80%,#f7d77a 80%);color:inherit;padding:0 1px}
 .ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
 .ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
-.ex-qref a,.ex-qref span{color:#a0460a;text-decoration:none;white-space:nowrap;padding:0 1px;border-radius:3px}
-.ex-qref a:hover{text-decoration:underline}
-.ex-qref a:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.ex-qref span{color:#a0460a;white-space:nowrap;padding:0 1px;border-radius:3px}
 .ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
 .ex-legend-trap,.ex-legend-tip{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
 .ex-legend-tip{border-left-color:#6fbf8a;background:#f3f9f5}
@@ -278,7 +276,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-hitbox mark{background:#854d0e;color:#fff}
 :root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:linear-gradient(transparent 80%,rgba(234,179,8,.5) 80%)}
 :root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
-:root[data-theme="dark"] .ex-qref a,:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
+:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
 :root[data-theme="dark"] .ex-note .num{background:#3b2414;color:#fdba74}
 :root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
 :root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
@@ -344,12 +342,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-2"><strong>Nonproliferative diabetic retinopathy（NPDR，非增殖性糖尿病視網膜病變）</strong>：只有視網膜內血管變化、<mark>沒有視網膜外纖維血管組織</mark>；分 mild / moderate / severe。舊稱「background DR」已不再使用。<span class="ref">p.100–101</span></li>
 <li id="np-3"><strong>Proliferative diabetic retinopathy（PDR，增殖性糖尿病視網膜病變）</strong>：因缺血產生 retinal neovascularization（視網膜新生血管），為最嚴重階段；臨床分 early PDR 與 PDR with high-risk characteristics。<span class="ref">p.101</span></li>
 <li id="np-4"><strong>Diabetic macular edema（DME，糖尿病黃斑部水腫）</strong>：血管通透性異常造成中央視網膜腫脹，可見於任何嚴重度的 DR。<span class="ref">p.101</span></li>
-<li id="np-5"><strong>Center-involved DME（CI-DME，中央型 DME）</strong>：optical coherence tomography（OCT，光學同調斷層掃描）中央 <span class="num">1-mm</span> 直徑 subfield 增厚；<strong>non-center-involved DME</strong>：增厚只在中央 subfield 以外⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1462" data-q="1462" aria-label="考題 Q1462">Q1462</a></sup>。<span class="ref">p.101</span></li>
+<li id="np-5"><strong>Center-involved DME（CI-DME，中央型 DME）</strong>：optical coherence tomography（OCT，光學同調斷層掃描）中央 <span class="num">1-mm</span> 直徑 subfield 增厚；<strong>non-center-involved DME</strong>：增厚只在中央 subfield 以外⁠<sup class="ex-qref"><span>Q1462</span></sup>。<span class="ref">p.101</span></li>
 <li id="np-6"><strong>Clinically significant macular edema（CSME，臨床顯著黃斑部水腫）</strong>為 ETDRS 舊名詞，<mark>現已不作為是否治療的常規依據</mark>。<span class="ref">p.101</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s1-3">易錯陷阱</h3><ul>
 <li id="np-7">「Background DR」是舊名詞，現在一律稱 NPDR。<span class="ref">p.101</span></li>
-<li id="np-8">決定是否治療 DME 看的是 OCT 的 CI-DME 與視力，而不是 CSME⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1462" data-q="1462" aria-label="考題 Q1462">Q1462</a></sup>。<span class="ref">p.101, p.122</span></li>
+<li id="np-8">決定是否治療 DME 看的是 OCT 的 CI-DME 與視力，而不是 CSME⁠<sup class="ex-qref"><span>Q1462</span></sup>。<span class="ref">p.101, p.122</span></li>
 </ul></div>
 
 <h2 id="ch5-s2">流行病學</h2>
@@ -380,16 +378,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch5-s3">致病機轉</h2>
 <ul>
-<li id="np-30">長期高血糖 → oxidative stress（氧化壓力）/發炎、advanced glycation end products（AGEs，糖化終產物）、<strong>plasma kallikrein</strong>、<strong>protein kinase C（PKC）</strong>路徑上升 → 內皮受損與 <strong>pericyte loss（周皮細胞流失）</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-134" data-q="134" aria-label="考題 Q134">Q134</a></sup>。<span class="ref">p.102</span></li>
-<li id="np-31">高血壓、高血脂會加重病變；血液學異常：<mark class="ex-key">platelet adhesion（血小板黏附）增加</mark>、erythrocyte aggregation（紅血球聚集）增加、fibrinolysis（纖維蛋白溶解）缺陷⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1464" data-q="1464" aria-label="考題 Q1464">Q1464</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1467" data-q="1467" aria-label="考題 Q1467">Q1467</a></sup>。<span class="ref">p.102</span></li>
+<li id="np-30">長期高血糖 → oxidative stress（氧化壓力）/發炎、advanced glycation end products（AGEs，糖化終產物）、<strong>plasma kallikrein</strong>、<strong>protein kinase C（PKC）</strong>路徑上升 → 內皮受損與 <strong>pericyte loss（周皮細胞流失）</strong>⁠<sup class="ex-qref"><span>Q134</span></sup>。<span class="ref">p.102</span></li>
+<li id="np-31">高血壓、高血脂會加重病變；血液學異常：<mark class="ex-key">platelet adhesion（血小板黏附）增加</mark>、erythrocyte aggregation（紅血球聚集）增加、fibrinolysis（纖維蛋白溶解）缺陷⁠<sup class="ex-qref"><span>Q1464</span> <span>Q1467</span></sup>。<span class="ref">p.102</span></li>
 <li id="np-32">神經病變：在臨床可見血管病灶出現<strong>之前</strong>，內層視網膜已可變薄。<span class="ref">p.102</span></li>
-<li id="np-33">Capillary basement membrane（微血管基底膜）增厚 + 選擇性 pericyte 流失 → 微血管阻塞、nonperfusion（無灌流）；內皮屏障失代償 → 滲漏、水腫；缺血組織產生 <strong>vascular endothelial growth factor（VEGF，血管內皮生長因子）</strong> → 新生血管⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-314" data-q="314" aria-label="考題 Q314">Q314</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-103" data-q="103" aria-label="考題 Q103">Q103</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-148" data-q="148" aria-label="考題 Q148">Q148</a></sup>。<span class="ref">p.102</span></li>
-<li id="np-34">OCT angiography（OCTA，光學同調斷層血管攝影）：即使 mild DR 也可見血管重塑，淺層與深層微血管叢皆受影響；foveal avascular zone（FAZ，中心凹無血管區）<mark class="ex-key">隨嚴重度擴大</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1468" data-q="1468" aria-label="考題 Q1468">Q1468</a></sup>。<span class="ref">p.102–103</span></li>
+<li id="np-33">Capillary basement membrane（微血管基底膜）增厚 + 選擇性 pericyte 流失 → 微血管阻塞、nonperfusion（無灌流）；內皮屏障失代償 → 滲漏、水腫；缺血組織產生 <strong>vascular endothelial growth factor（VEGF，血管內皮生長因子）</strong> → 新生血管⁠<sup class="ex-qref"><span>Q314</span> <span>Q103</span> <span>Q148</span></sup>。<span class="ref">p.102</span></li>
+<li id="np-34">OCT angiography（OCTA，光學同調斷層血管攝影）：即使 mild DR 也可見血管重塑，淺層與深層微血管叢皆受影響；foveal avascular zone（FAZ，中心凹無血管區）<mark class="ex-key">隨嚴重度擴大</mark>⁠<sup class="ex-qref"><span>Q1468</span></sup>。<span class="ref">p.102–103</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s3-1">易錯陷阱</h3><ul>
-<li id="np-35">DR 的血小板黏附是「增加」，考題常寫成「下降」⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1464" data-q="1464" aria-label="考題 Q1464">Q1464</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1467" data-q="1467" aria-label="考題 Q1467">Q1467</a></sup>。<span class="ref">p.102</span></li>
-<li id="np-36">FAZ 隨 DR 惡化而擴大，不是縮小⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1468" data-q="1468" aria-label="考題 Q1468">Q1468</a></sup>。<span class="ref">p.103</span></li>
-<li id="np-37">Pericyte 是「選擇性」流失，合併 basement membrane「增厚」⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-314" data-q="314" aria-label="考題 Q314">Q314</a></sup>。<span class="ref">p.102</span></li>
+<li id="np-35">DR 的血小板黏附是「增加」，考題常寫成「下降」⁠<sup class="ex-qref"><span>Q1464</span> <span>Q1467</span></sup>。<span class="ref">p.102</span></li>
+<li id="np-36">FAZ 隨 DR 惡化而擴大，不是縮小⁠<sup class="ex-qref"><span>Q1468</span></sup>。<span class="ref">p.103</span></li>
+<li id="np-37">Pericyte 是「選擇性」流失，合併 basement membrane「增厚」⁠<sup class="ex-qref"><span>Q314</span></sup>。<span class="ref">p.102</span></li>
 </ul></div>
 
 <h2 id="ch5-s4">篩檢與追蹤時程</h2>
@@ -404,7 +402,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-47">出處 <span class="ref">p.103–104</span></p>
 <ul>
-<li id="np-48">理由：Type 1 前 <span class="num">5 年</span>少見進展性 DR；Type 2 確診時高血糖可能已存在多年，<mark class="ex-key">不少人診斷時已有 DR</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1465" data-q="1465" aria-label="考題 Q1465">Q1465</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1468" data-q="1468" aria-label="考題 Q1468">Q1468</a></sup>。<span class="ref">p.103</span></li>
+<li id="np-48">理由：Type 1 前 <span class="num">5 年</span>少見進展性 DR；Type 2 確診時高血糖可能已存在多年，<mark class="ex-key">不少人診斷時已有 DR</mark>⁠<sup class="ex-qref"><span>Q1465</span> <span>Q1468</span></sup>。<span class="ref">p.103</span></li>
 <li id="np-49"><strong>Pregnancy（懷孕）</strong>會加速 DR 惡化；視力喪失來自 DME 或 PDR 併發症。產後 DR 可能退化，但孕前/孕期出現的 <strong>high-risk PDR 一般仍需雷射</strong>。追蹤頻率視 DR 嚴重度、血糖史、血壓控制而定。<span class="ref">p.103–104</span></li>
 <li id="np-50">遠距篩檢 + artificial intelligence（AI，人工智慧）：<strong>IDx-DR</strong>、<strong>EyeArt</strong> 已獲 FDA 核准用於 DR 篩檢。<span class="ref">p.104</span></li>
 </ul>
@@ -426,8 +424,8 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-80">CI-DME 一律 <span class="num">1 個月</span>追蹤並考慮 anti-VEGF；severe NPDR 考慮 panretinal photocoagulation（PRP，全視網膜雷射），尤其 Type 2；PDR 考慮 PRP 或 anti-VEGF。<span class="ref">p.105</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s4-3">易錯陷阱</h3><ul>
-<li id="np-81">「Type 2 診斷後 5 年再檢查」是錯的：5 年是 Type 1，Type 2 診斷時就要檢查⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1468" data-q="1468" aria-label="考題 Q1468">Q1468</a></sup>。<span class="ref">p.104</span></li>
-<li id="np-82">「Type 1 一診斷就能看到嚴重 DR」是錯的：前 5 年少見進展性 DR⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1465" data-q="1465" aria-label="考題 Q1465">Q1465</a></sup>。<span class="ref">p.103</span></li>
+<li id="np-81">「Type 2 診斷後 5 年再檢查」是錯的：5 年是 Type 1，Type 2 診斷時就要檢查⁠<sup class="ex-qref"><span>Q1468</span></sup>。<span class="ref">p.104</span></li>
+<li id="np-82">「Type 1 一診斷就能看到嚴重 DR」是錯的：前 5 年少見進展性 DR⁠<sup class="ex-qref"><span>Q1465</span></sup>。<span class="ref">p.103</span></li>
 <li id="np-83">懷孕追蹤看的是 DR 嚴重度：severe NPDR 以上每 <span class="num">1–3 個月</span>，不是固定每月。<span class="ref">p.104</span></li>
 </ul></div>
 
@@ -435,11 +433,11 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-84"><mark>血糖控制是最重要的系統因子</mark>（DCCT、UKPDS 證實）。<span class="ref">p.104</span></li>
 <li id="np-85">Diabetes Control and Complications Trial（DCCT）：強化控制亦減少進展到 severe NPDR/PDR、DME 發生率，以及 PRP 與 focal laser 需求；HbA1c 小幅但持續下降即有明顯效果。<span class="ref">p.105</span></li>
-<li id="np-86"><strong>Metabolic memory（代謝記憶）</strong>：DCCT 結束後兩組 HbA1c 趨同，但強化組的好處（延緩 DR、減少手術）持續至少 <span class="num">20 年</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1465" data-q="1465" aria-label="考題 Q1465">Q1465</a></sup>。<span class="ref">p.105</span></li>
+<li id="np-86"><strong>Metabolic memory（代謝記憶）</strong>：DCCT 結束後兩組 HbA1c 趨同，但強化組的好處（延緩 DR、減少手術）持續至少 <span class="num">20 年</span>⁠<sup class="ex-qref"><span>Q1465</span></sup>。<span class="ref">p.105</span></li>
 <li id="np-87"><strong>ACCORD / ACCORDION</strong>（Type 2）：HbA1c 壓到 <span class="num">&lt; 6.0%</span> 可延緩 DR 進展，但<mark>死亡率上升</mark>，故不建議常規採用。<span class="ref">p.105</span></li>
 <li id="np-88"><strong>Hypertension（高血壓）</strong>：長期控制不良與 DR/DME 進展相關；UKPDS 顯示控制血壓可減緩 Type 2 的 DR 進展與視力喪失。<span class="ref">p.105, p.108</span></li>
 <li id="np-89"><strong>Hyperlipidemia（高血脂）</strong>：與 DME hard exudate（硬性滲出物）造成的視力喪失有關 → 黃斑大量脂質沉積者應驗 fasting lipid panel 並治療。<span class="ref">p.108</span></li>
-<li id="np-90"><strong>Fenofibrate</strong>（ACCORD、FIELD）：可減緩 Type 2 DR 進展，機轉可能與降血脂無關⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-75" data-q="75" aria-label="考題 Q75">Q75</a></sup>。<span class="ref">p.111</span></li>
+<li id="np-90"><strong>Fenofibrate</strong>（ACCORD、FIELD）：可減緩 Type 2 DR 進展，機轉可能與降血脂無關⁠<sup class="ex-qref"><span>Q75</span></sup>。<span class="ref">p.111</span></li>
 <li id="np-91">嚴重頸動脈阻塞 → ocular ischemic syndrome（眼缺血症候群）可呈現 advanced PDR；晚期 diabetic nephropathy（糖尿病腎病變）與 <strong>anemia（貧血）</strong>會加重 DR。<span class="ref">p.108</span></li>
 </ul>
 <table class="ted-table">
@@ -453,14 +451,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-108">出處（Table 5-3）<span class="ref">p.105–106</span></p>
 <div class="hs-warn-box">
-<p id="np-109"><strong>DR 視力喪失三大機轉</strong>：(1) capillary leakage（微血管滲漏）→ DME；(2) capillary occlusion（微血管阻塞）→ macular ischemia（黃斑部缺血）；（3）缺血後遺症 → NV、VH、TRD、neovascular glaucoma（NVG，新生血管性青光眼）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1469" data-q="1469" aria-label="考題 Q1469">Q1469</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1204" data-q="1204" aria-label="考題 Q1204">Q1204</a></sup>。<span class="ref">p.108</span></p>
+<p id="np-109"><strong>DR 視力喪失三大機轉</strong>：(1) capillary leakage（微血管滲漏）→ DME；(2) capillary occlusion（微血管阻塞）→ macular ischemia（黃斑部缺血）；（3）缺血後遺症 → NV、VH、TRD、neovascular glaucoma（NVG，新生血管性青光眼）⁠<sup class="ex-qref"><span>Q1469</span> <span>Q1204</span></sup>。<span class="ref">p.108</span></p>
 </div>
 <div class="ex-trap"><h3 id="ch5-s5-1">易錯陷阱</h3><ul>
-<li id="np-110">「已出現 DR 後，控制血糖也無法延緩進程」是錯的：DCCT secondary cohort 進展仍減緩 <span class="num">54%</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1465" data-q="1465" aria-label="考題 Q1465">Q1465</a></sup>。<span class="ref">p.106</span></li>
-<li id="np-111">HbA1c 目標是 <span class="num">&lt; 7.0%</span>；<span class="num">&lt; 6.0%</span>（ACCORD）雖延緩 DR，但死亡率較高，不建議⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-57" data-q="57" aria-label="考題 Q57">Q57</a></sup>。<span class="ref">p.105</span></li>
+<li id="np-110">「已出現 DR 後，控制血糖也無法延緩進程」是錯的：DCCT secondary cohort 進展仍減緩 <span class="num">54%</span>⁠<sup class="ex-qref"><span>Q1465</span></sup>。<span class="ref">p.106</span></li>
+<li id="np-111">HbA1c 目標是 <span class="num">&lt; 7.0%</span>；<span class="num">&lt; 6.0%</span>（ACCORD）雖延緩 DR，但死亡率較高，不建議⁠<sup class="ex-qref"><span>Q57</span></sup>。<span class="ref">p.105</span></li>
 <li id="np-112">UKPDS 血壓組：ACE inhibitor 與 β-blocker 對 DR 結果無差異。<span class="ref">p.106</span></li>
-<li id="np-113">強化血糖控制也保護腎臟：DCCT 兩 cohort 合計 albuminuria（nephropathy，腎病變）風險 <span class="num">↓54%</span>；diabetic nephropathy 為末期腎病首要原因屬 Section 1 內容（本章外）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-56" data-q="56" aria-label="考題 Q56">Q56</a></sup>。<span class="ref">p.106</span></li>
-<li id="np-114">Retinal vasculitis（視網膜血管炎）不是 DR 的視力喪失機轉⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1469" data-q="1469" aria-label="考題 Q1469">Q1469</a></sup>。<span class="ref">p.108</span></li>
+<li id="np-113">強化血糖控制也保護腎臟：DCCT 兩 cohort 合計 albuminuria（nephropathy，腎病變）風險 <span class="num">↓54%</span>；diabetic nephropathy 為末期腎病首要原因屬 Section 1 內容（本章外）⁠<sup class="ex-qref"><span>Q56</span></sup>。<span class="ref">p.106</span></li>
+<li id="np-114">Retinal vasculitis（視網膜血管炎）不是 DR 的視力喪失機轉⁠<sup class="ex-qref"><span>Q1469</span></sup>。<span class="ref">p.108</span></li>
 </ul></div>
 
 <h2 id="ch5-s6">NPDR</h2>
@@ -468,7 +466,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-115">病變侷限於視網膜內、<strong>不穿越 internal limiting membrane（ILM，內界膜）</strong>；表現：intraretinal hemorrhage（視網膜內出血）、microaneurysm（MA，微血管瘤）、cotton-wool spot（棉絮狀斑）、<strong>intraretinal microvascular abnormality（IRMA，視網膜內微血管異常）</strong>、venous dilation/beading（靜脈擴張/串珠）。<span class="ref">p.108</span></li>
 <li id="np-116">依 ETDRS 標準照分 mild/moderate/severe；基線 ETDRS level 越高，進展為 PDR 風險越高。<span class="ref">p.108</span></li>
-<li id="np-117"><strong><span class="num">4-2-1 rule</span></strong>（源自 ETDRS Report 9）：<span class="num">4</span> 象限皆有嚴重視網膜內出血（通常估計 <span class="num">&gt; 20</span> 處）及 MA／<span class="num">≥ 2</span> 象限明確 venous beading／<mark class="ex-key"><span class="num">≥ 1</span> 象限 moderate IRMA</mark>，任一即 severe NPDR⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1464" data-q="1464" aria-label="考題 Q1464">Q1464</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1467" data-q="1467" aria-label="考題 Q1467">Q1467</a></sup>。<span class="ref">p.108–109</span></li>
+<li id="np-117"><strong><span class="num">4-2-1 rule</span></strong>（源自 ETDRS Report 9）：<span class="num">4</span> 象限皆有嚴重視網膜內出血（通常估計 <span class="num">&gt; 20</span> 處）及 MA／<span class="num">≥ 2</span> 象限明確 venous beading／<mark class="ex-key"><span class="num">≥ 1</span> 象限 moderate IRMA</mark>，任一即 severe NPDR⁠<sup class="ex-qref"><span>Q1464</span> <span>Q1467</span></sup>。<span class="ref">p.108–109</span></li>
 <li id="np-118">Severe NPDR → high-risk PDR：1 年 <span class="num">15%</span>、3 年 <span class="num">60%</span>；very severe（≥2 項）1 年 <span class="num">45%</span>。<span class="ref">p.109</span></li>
 </ul>
 <table class="ted-table ex-ddx">
@@ -500,18 +498,18 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-145">治療 DME 的 intravitreal steroid（玻璃體內類固醇）亦可降低 DR 嚴重度。<span class="ref">p.111</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s6-4">易錯陷阱</h3><ul>
-<li id="np-146">4-2-1 的「2」是 venous beading，「1」才是 IRMA；IRMA 只要 <span class="num">≥ 1</span> 象限就算 severe⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1464" data-q="1464" aria-label="考題 Q1464">Q1464</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1467" data-q="1467" aria-label="考題 Q1467">Q1467</a></sup>。<span class="ref">p.109</span></li>
+<li id="np-146">4-2-1 的「2」是 venous beading，「1」才是 IRMA；IRMA 只要 <span class="num">≥ 1</span> 象限就算 severe⁠<sup class="ex-qref"><span>Q1464</span> <span>Q1467</span></sup>。<span class="ref">p.109</span></li>
 <li id="np-147">Protocol W 與 PANORAMA 都是「解剖改善、2 年視力無差」，不能說預防性打針可提升視力。<span class="ref">p.111</span></li>
-<li id="np-148">類似 DR 的微血管病變（出血、cotton-wool spot、nonperfusion）也可能是 radiation retinopathy（放射性視網膜病變），要問放射治療史；它在治療後數月至數年才出現（本章外，BCSC 12 第 7 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-23" data-q="23" aria-label="考題 Q23">Q23</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1521" data-q="1521" aria-label="考題 Q1521">Q1521</a></sup>。<span class="ref">p.187–188</span></li>
+<li id="np-148">類似 DR 的微血管病變（出血、cotton-wool spot、nonperfusion）也可能是 radiation retinopathy（放射性視網膜病變），要問放射治療史；它在治療後數月至數年才出現（本章外，BCSC 12 第 7 章）⁠<sup class="ex-qref"><span>Q23</span> <span>Q1521</span></sup>。<span class="ref">p.187–188</span></li>
 </ul></div>
 
 <h2 id="ch5-s7">PDR</h2>
 <h3 id="ch5-s7-1">定義、分期與高危險特徵</h3>
 <ul>
 <li id="np-149">缺血 → 血管增生因子（主要為 VEGF）→ 視網膜、視神經盤或前段新生血管。<span class="ref">p.111</span></li>
-<li id="np-150">Fibrovascular proliferation（纖維血管增生）3 階段：① 細小新生血管穿越 ILM，常以 posterior hyaloid（後玻璃體膜）為支架；② 血管變粗、纖維成分增加；③ 血管退化，殘留纖維血管組織附著於 hyaloid⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1471" data-q="1471" aria-label="考題 Q1471">Q1471</a></sup>。<span class="ref">p.114</span></li>
+<li id="np-150">Fibrovascular proliferation（纖維血管增生）3 階段：① 細小新生血管穿越 ILM，常以 posterior hyaloid（後玻璃體膜）為支架；② 血管變粗、纖維成分增加；③ 血管退化，殘留纖維血管組織附著於 hyaloid⁠<sup class="ex-qref"><span>Q1471</span></sup>。<span class="ref">p.114</span></li>
 <li id="np-151"><strong>Neovascularization of the disc（NVD，視神經盤新生血管）</strong>：位於視神經盤上或 <span class="num">1 disc diameter</span> 內；其餘為 <strong>neovascularization elsewhere（NVE，其他部位新生血管）</strong>。<span class="ref">p.114</span></li>
-<li id="np-152">出現 <strong>high-risk characteristics（高危險特徵）</strong>時治療視為必要，可大幅降低 severe vision loss。<mark class="ex-key">標準照 10A 程度（<span class="num">≥ 1/4 DA</span>）的 NVD 即使無出血也屬 high-risk</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1465" data-q="1465" aria-label="考題 Q1465">Q1465</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1468" data-q="1468" aria-label="考題 Q1468">Q1468</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1471" data-q="1471" aria-label="考題 Q1471">Q1471</a></sup>。<span class="ref">p.114</span></li>
+<li id="np-152">出現 <strong>high-risk characteristics（高危險特徵）</strong>時治療視為必要，可大幅降低 severe vision loss。<mark class="ex-key">標準照 10A 程度（<span class="num">≥ 1/4 DA</span>）的 NVD 即使無出血也屬 high-risk</mark>⁠<sup class="ex-qref"><span>Q1465</span> <span>Q1468</span> <span>Q1471</span></sup>。<span class="ref">p.114</span></li>
 <li id="np-153">未達 high-risk、或周邊 NV 位於 <span class="num">7</span> 張 <span class="num">30°</span> 標準視野外且無眼內出血者可暫緩；但配合度差或系統控制差者應及早治療。<span class="ref">p.114–115</span></li>
 </ul>
 <h3 id="ch5-s7-2">治療目標與共通風險</h3>
@@ -525,7 +523,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-157"><strong>Protocol S</strong>：prompt PRP vs ranibizumab + deferred PRP；2 年與 5 年視力相當，前 2 年平均視力 ranibizumab 較佳；5 年內 ranibizumab 組周邊視野喪失、vitrectomy、DME 合併視力障礙較少；心血管事件無明顯差異；多數 5 年時仍在注射。<span class="ref">p.115</span></li>
 <li id="np-158"><strong>CLARITY</strong>：aflibercept 治療 PDR 1 年視力優於 PRP。<span class="ref">p.115</span></li>
 <li id="np-159">Anti-VEGF 可使前段 NV 退化、治療 NVG，但<strong>長期控制以 PRP 較佳</strong>。<span class="ref">p.116</span></li>
-<li id="np-160">術前輔助 anti-VEGF：<mark class="ex-key">應在 vitrectomy 前 <span class="num">1 週內</span>施打</mark>，以降低 TRD 惡化風險⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1466" data-q="1466" aria-label="考題 Q1466">Q1466</a></sup>。<span class="ref">p.116</span></li>
+<li id="np-160">術前輔助 anti-VEGF：<mark class="ex-key">應在 vitrectomy 前 <span class="num">1 週內</span>施打</mark>，以降低 TRD 惡化風險⁠<sup class="ex-qref"><span>Q1466</span></sup>。<span class="ref">p.116</span></li>
 <li id="np-161">選擇 anti-VEGF 者前 <span class="num">1–2 年</span>需近乎每月回診；失聯可導致 NV 復發與不可逆視力喪失 → 配合度差或醫療狀況不穩者以 <strong>PRP</strong> 較適當（效果可持續數十年）。臨床上也常合併兩者。<span class="ref">p.117</span></li>
 <li id="np-162">Steroid 非 PDR 主要治療，但因 DME 打 steroid 的眼睛，VH、需 PRP、新生 NV 的合併發生率較低。<span class="ref">p.117</span></li>
 </ul>
@@ -541,8 +539,8 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-167">機轉：破壞缺血視網膜 → VEGF 等生長因子減少；提高眼內氧分壓（耗氧減少 + 脈絡膜氧氣經疤痕擴散增加）。<span class="ref">p.117</span></li>
 <li id="np-168"><strong>Protocol F</strong>：單次 vs 多次分段 PRP，長期視力無差異。<span class="ref">p.117</span></li>
 <li id="np-169">DRS/ETDRS full PRP：<span class="num">≥ 1200</span> 發、<span class="num">500 μm</span>，argon green 或 blue-green，間距 <span class="num">1/2 burn width</span>；pattern scan laser 逐發效果不等同。<span class="ref">p.118</span></li>
-<li id="np-170">副作用：choroidal detachment（脈絡膜剝離）；周邊視野、夜視、色覺、對比敏感度下降；罕見瞳孔放大；暫時性 VA 掉 <span class="num">1–2</span> 行、眩光、accommodation（調節）喪失、角膜知覺下降、photopsia（閃光感）；<mark class="ex-key">可誘發或加重 macular edema</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1466" data-q="1466" aria-label="考題 Q1466">Q1466</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1467" data-q="1467" aria-label="考題 Q1467">Q1467</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-534" data-q="534" aria-label="考題 Q534">Q534</a></sup>。<span class="ref">p.118</span></li>
-<li id="np-171">技巧：避開 <strong>horizontal meridians（水平經線）</strong>（long ciliary vessels/nerves 路徑）以保護調節、瞳孔與角膜神經；需重打時優先下方視網膜；使用倒像鏡時特別小心避免打到 fovea⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-534" data-q="534" aria-label="考題 Q534">Q534</a></sup>。<span class="ref">p.118</span></li>
+<li id="np-170">副作用：choroidal detachment（脈絡膜剝離）；周邊視野、夜視、色覺、對比敏感度下降；罕見瞳孔放大；暫時性 VA 掉 <span class="num">1–2</span> 行、眩光、accommodation（調節）喪失、角膜知覺下降、photopsia（閃光感）；<mark class="ex-key">可誘發或加重 macular edema</mark>⁠<sup class="ex-qref"><span>Q1466</span> <span>Q1467</span> <span>Q534</span></sup>。<span class="ref">p.118</span></li>
+<li id="np-171">技巧：避開 <strong>horizontal meridians（水平經線）</strong>（long ciliary vessels/nerves 路徑）以保護調節、瞳孔與角膜神經；需重打時優先下方視網膜；使用倒像鏡時特別小心避免打到 fovea⁠<sup class="ex-qref"><span>Q534</span></sup>。<span class="ref">p.118</span></li>
 <li id="np-172">DRS 中 argon PRP 併發症：<span class="num">11%</span> VA 掉 ≥1 行、<span class="num">5%</span> 視野喪失。<span class="ref">p.107</span></li>
 </ul>
 <h3 id="ch5-s7-6">Pars plana vitrectomy（PPV，玻璃體切除術）適應症（PDR）</h3>
@@ -550,10 +548,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-173">Nonclearing VH；最大量 PRP 後仍反覆嚴重 VH；dense premacular subhyaloid hemorrhage（黃斑前玻璃體膜下出血）；TRD 侵犯或威脅黃斑；combined TRD/RRD；erythroclastic（紅血球誘發）/ghost cell glaucoma（鬼影細胞青光眼）；前段 NV 合併介質混濁無法 PRP。<span class="ref">p.119</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s7-7">易錯陷阱</h3><ul>
-<li id="np-174">任何大小的 NVD 只要合併出血就算 high-risk；NVE 則必須 <span class="num">≥ 1/2 DA</span> <strong>且</strong>合併出血⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1468" data-q="1468" aria-label="考題 Q1468">Q1468</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1471" data-q="1471" aria-label="考題 Q1471">Q1471</a></sup>。<span class="ref">p.114</span></li>
-<li id="np-175">已退化、只剩 hyaloid 內纖維組織且無出血的小 NVE，不屬 high-risk⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1471" data-q="1471" aria-label="考題 Q1471">Q1471</a></sup>。<span class="ref">p.114</span></li>
-<li id="np-176">術前 anti-VEGF 可減少出血，但會加重纖維收縮與牽引（crunch），不是「減少牽引」⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1466" data-q="1466" aria-label="考題 Q1466">Q1466</a></sup>。<span class="ref">p.115–116</span></li>
-<li id="np-177">PRP 副作用是夜視、色覺、對比敏感度「下降」，罕見情況下也可能使瞳孔放大，另可有暫時性調節喪失⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1466" data-q="1466" aria-label="考題 Q1466">Q1466</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-534" data-q="534" aria-label="考題 Q534">Q534</a></sup>。<span class="ref">p.118</span></li>
+<li id="np-174">任何大小的 NVD 只要合併出血就算 high-risk；NVE 則必須 <span class="num">≥ 1/2 DA</span> <strong>且</strong>合併出血⁠<sup class="ex-qref"><span>Q1468</span> <span>Q1471</span></sup>。<span class="ref">p.114</span></li>
+<li id="np-175">已退化、只剩 hyaloid 內纖維組織且無出血的小 NVE，不屬 high-risk⁠<sup class="ex-qref"><span>Q1471</span></sup>。<span class="ref">p.114</span></li>
+<li id="np-176">術前 anti-VEGF 可減少出血，但會加重纖維收縮與牽引（crunch），不是「減少牽引」⁠<sup class="ex-qref"><span>Q1466</span></sup>。<span class="ref">p.115–116</span></li>
+<li id="np-177">PRP 副作用是夜視、色覺、對比敏感度「下降」，罕見情況下也可能使瞳孔放大，另可有暫時性調節喪失⁠<sup class="ex-qref"><span>Q1466</span> <span>Q534</span></sup>。<span class="ref">p.118</span></li>
 </ul></div>
 
 <h2 id="ch5-s8">其他威脅視力併發症</h2>
@@ -565,8 +563,8 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch5-s8-2">Vitreous hemorrhage（VH，玻璃體出血）</h3>
 <ul>
-<li id="np-181">Diabetic Retinopathy Vitrectomy Study（<strong>DRVS</strong>，1985）：早期（VH 後 <span class="num">1–6 個月</span>）vs 晚期（<span class="num">1 年</span>）vitrectomy；<mark class="ex-key"><strong>Type 1 嚴重 VH</strong> 早做明顯有益</mark>，Type 2 或混合型則否⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1468" data-q="1468" aria-label="考題 Q1468">Q1468</a></sup>。<span class="ref">p.120</span></li>
-<li id="np-182">未做過 PRP 者應考慮較早介入；已有完整 PRP 者可觀察較久⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1466" data-q="1466" aria-label="考題 Q1466">Q1466</a></sup>。<span class="ref">p.120</span></li>
+<li id="np-181">Diabetic Retinopathy Vitrectomy Study（<strong>DRVS</strong>，1985）：早期（VH 後 <span class="num">1–6 個月</span>）vs 晚期（<span class="num">1 年</span>）vitrectomy；<mark class="ex-key"><strong>Type 1 嚴重 VH</strong> 早做明顯有益</mark>，Type 2 或混合型則否⁠<sup class="ex-qref"><span>Q1468</span></sup>。<span class="ref">p.120</span></li>
+<li id="np-182">未做過 PRP 者應考慮較早介入；已有完整 PRP 者可觀察較久⁠<sup class="ex-qref"><span>Q1466</span></sup>。<span class="ref">p.120</span></li>
 <li id="np-183">Dense nonclearing VH 需頻繁 <strong>B-scan ultrasonography（超音波）</strong>監測 RD；<strong>雙眼嚴重 VH</strong> → 盡快先做一眼 vitrectomy 以恢復視力。小口徑器械使早期手術更可行。<span class="ref">p.120</span></li>
 <li id="np-184"><strong>Protocol AB</strong>：VH from PDR，vitrectomy vs aflibercept → 6 個月與 2 年視力相近；vitrectomy 組（尤其基線較差者）前 <span class="num">4–12 週</span>恢復較快；兩組約 <span class="num">1/3</span> 於 2 年內接受另一種治療。<span class="ref">p.113, p.120</span></li>
 </ul>
@@ -580,8 +578,8 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-187">單/雙側視神經盤水腫，可伴 DME；危險因子：<strong>small cup–disc ratio（小杯盤比）</strong>、<strong>血糖快速下降</strong>；可見於任何 DR 分期；無確證療法，<mark>預後通常良好</mark>。<span class="ref">p.120</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s8-5">易錯陷阱</h3><ul>
-<li id="np-188">DRVS：早期 vitrectomy 對 <strong>Type 1</strong> 嚴重 VH 有益，「早晚效果相當」是錯的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1468" data-q="1468" aria-label="考題 Q1468">Q1468</a></sup>。<span class="ref">p.120</span></li>
-<li id="np-189">「沒做過 PRP 的 VH 不宜 vitrectomy」是錯的：沒做過 PRP 反而應較早介入⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1466" data-q="1466" aria-label="考題 Q1466">Q1466</a></sup>。<span class="ref">p.120</span></li>
+<li id="np-188">DRVS：早期 vitrectomy 對 <strong>Type 1</strong> 嚴重 VH 有益，「早晚效果相當」是錯的⁠<sup class="ex-qref"><span>Q1468</span></sup>。<span class="ref">p.120</span></li>
+<li id="np-189">「沒做過 PRP 的 VH 不宜 vitrectomy」是錯的：沒做過 PRP 反而應較早介入⁠<sup class="ex-qref"><span>Q1466</span></sup>。<span class="ref">p.120</span></li>
 <li id="np-190">NVI 的長期控制靠 PRP；anti-VEGF 只是過渡。<span class="ref">p.116, p.119</span></li>
 </ul></div>
 
@@ -589,7 +587,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch5-s9-1">機轉與診斷</h3>
 <ul>
 <li id="np-191">高血糖破壞 blood–retina barrier（血液視網膜屏障）→ 液體滲入神經視網膜；hard exudate 為脂蛋白沉澱，DME 消退後仍可殘留。<span class="ref">p.121</span></li>
-<li id="np-192">CI-DME 是常見視力喪失原因；non-CI DME 若未進展至中央通常不影響視力。<mark class="ex-key">DME 可見於任何 DR 分期</mark>，mild NPDR 也可能嚴重增厚而失明⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1465" data-q="1465" aria-label="考題 Q1465">Q1465</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1469" data-q="1469" aria-label="考題 Q1469">Q1469</a></sup>。<span class="ref">p.121–122</span></li>
+<li id="np-192">CI-DME 是常見視力喪失原因；non-CI DME 若未進展至中央通常不影響視力。<mark class="ex-key">DME 可見於任何 DR 分期</mark>，mild NPDR 也可能嚴重增厚而失明⁠<sup class="ex-qref"><span>Q1465</span> <span>Q1469</span></sup>。<span class="ref">p.121–122</span></li>
 <li id="np-193">FA 顯示滲漏，但<strong>有滲漏不等於有增厚</strong>；偵測增厚以 <strong>OCT</strong> 與 slit-lamp biomicroscopy（裂隙燈生物顯微鏡）最適當。<span class="ref">p.122</span></li>
 <li id="np-194">OCT 中央 subfield 異常厚度閾值<strong>依機型而異</strong>，平均男性較女性厚。<span class="ref">p.122</span></li>
 </ul>
@@ -615,12 +613,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-213">CI-DME 且影響視力 → 一般需治療；視力好或無症狀者可能自行緩解，可在密切追蹤下暫緩，視力惡化再治療。<span class="ref">p.123</span></li>
 <li id="np-214">考量因素：滲出/增厚距 fovea 遠近、對側眼狀況、預計白內障手術、是否合併 high-risk PDR、治療風險、加重水腫的藥物（如 <strong>thiazolidinediones</strong>）、系統控制。<span class="ref">p.123–124</span></li>
 <li id="np-215">理想上 DME 應在 PRP 與白內障手術<strong>之前</strong>先處理。<span class="ref">p.124</span></li>
-<li id="np-216">Anti-VEGF 適用大多數 CI-DME 且 VA <span class="num">20/32 或更差</span>者⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1462" data-q="1462" aria-label="考題 Q1462">Q1462</a></sup>。<span class="ref">p.126</span></li>
-<li id="np-217">DME 的治療選項：<mark class="ex-key">intravitreal anti-VEGF（第一線）、intravitreal corticosteroid（替代/輔助）、macular focal/grid laser photocoagulation（輔助，或特定情況第一線）</mark>；有玻璃體牽引/ERM 時可 vitrectomy⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1464" data-q="1464" aria-label="考題 Q1464">Q1464</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1462" data-q="1462" aria-label="考題 Q1462">Q1462</a></sup>。<span class="ref">p.99, p.124, p.127</span></li>
+<li id="np-216">Anti-VEGF 適用大多數 CI-DME 且 VA <span class="num">20/32 或更差</span>者⁠<sup class="ex-qref"><span>Q1462</span></sup>。<span class="ref">p.126</span></li>
+<li id="np-217">DME 的治療選項：<mark class="ex-key">intravitreal anti-VEGF（第一線）、intravitreal corticosteroid（替代/輔助）、macular focal/grid laser photocoagulation（輔助，或特定情況第一線）</mark>；有玻璃體牽引/ERM 時可 vitrectomy⁠<sup class="ex-qref"><span>Q1464</span> <span>Q1462</span></sup>。<span class="ref">p.99, p.124, p.127</span></li>
 </ul>
 <h3 id="ch5-s9-4">Anti-VEGF（第一線）</h3>
 <ul>
-<li id="np-218"><strong>Protocol I</strong>：第一個證明 anti-VEGF 優於雷射的 phase 3 試驗。Ranibizumab + prompt 或 deferred（<span class="num">≥ 24 週</span>）laser 在 1、2 年優於 laser 單獨或 triamcinolone + laser；1 年平均進步 <span class="num">8–9 letters</span> vs laser 約 <span class="num">3 letters</span>；5 年內維持，注射次數逐年減少；<mark class="ex-key">起始即合併 laser 不比延後好，甚至可能較差</mark>。Triamcinolone + laser 2 年時劣於 ranibizumab 組、也劣於 laser 單獨；第 3 年起只追蹤兩個 ranibizumab 組，3–5 年資料顯示 ranibizumab + prompt laser 不優於 ranibizumab + deferred laser → <strong>最佳為 ranibizumab + deferred laser</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1463" data-q="1463" aria-label="考題 Q1463">Q1463</a></sup>。<span class="ref">p.124–126</span></li>
+<li id="np-218"><strong>Protocol I</strong>：第一個證明 anti-VEGF 優於雷射的 phase 3 試驗。Ranibizumab + prompt 或 deferred（<span class="num">≥ 24 週</span>）laser 在 1、2 年優於 laser 單獨或 triamcinolone + laser；1 年平均進步 <span class="num">8–9 letters</span> vs laser 約 <span class="num">3 letters</span>；5 年內維持，注射次數逐年減少；<mark class="ex-key">起始即合併 laser 不比延後好，甚至可能較差</mark>。Triamcinolone + laser 2 年時劣於 ranibizumab 組、也劣於 laser 單獨；第 3 年起只追蹤兩個 ranibizumab 組，3–5 年資料顯示 ranibizumab + prompt laser 不優於 ranibizumab + deferred laser → <strong>最佳為 ranibizumab + deferred laser</strong>⁠<sup class="ex-qref"><span>Q1463</span></sup>。<span class="ref">p.124–126</span></li>
 <li id="np-219"><strong>RISE/RIDE</strong>：ranibizumab vs sham，快速且持續改善視力與水腫，併發症低。<span class="ref">p.124</span></li>
 <li id="np-220"><strong>VIVID/VISTA</strong>：aflibercept 先每月 ×<span class="num">5</span> 次，之後每 4 或 8 週至 <span class="num">148 週</span>，視力明顯優於雷射。<span class="ref">p.124</span></li>
 <li id="np-221"><strong>Protocol T</strong>：aflibercept vs bevacizumab vs ranibizumab。Aflibercept 1、2 年均優於 bevacizumab；1 年優於 ranibizumab、2 年統計相近；差異只出現在基線 <span class="num">≤ 20/50</span>；<span class="num">20/32–20/40</span> 三藥相當。2 年進步 <span class="num">≥ 10 letters</span>：<span class="num">50% / 41% / 46%</span>（A/B/R）；基線較差者 <span class="num">76% / 66% / 71%</span>。三組嚴重視力喪失皆低。<span class="ref">p.124–125</span></li>
@@ -631,7 +629,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch5-s9-5">Corticosteroids（皮質類固醇，第二線）</h3>
 <ul>
-<li id="np-226">定位：無法使用 anti-VEGF 或反應不完全者的替代；因視力結果較差且持續使用副作用多⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1464" data-q="1464" aria-label="考題 Q1464">Q1464</a></sup>。<span class="ref">p.124, p.126</span></li>
+<li id="np-226">定位：無法使用 anti-VEGF 或反應不完全者的替代；因視力結果較差且持續使用副作用多⁠<sup class="ex-qref"><span>Q1464</span></sup>。<span class="ref">p.124, p.126</span></li>
 <li id="np-227"><strong>Protocol B</strong>：2 年 focal/grid laser 優於 <span class="num">1 mg</span> 或 <span class="num">4 mg</span> preservative-free intravitreal triamcinolone acetonide（IVTA），且副作用較少。<span class="ref">p.112, p.126</span></li>
 <li id="np-228"><strong>Protocol I</strong>：IVTA + laser 2 年劣於 ranibizumab ± laser，也劣於 laser 單獨。<span class="ref">p.126</span></li>
 <li id="np-229"><strong>Protocol U</strong>：持續性 CI-DME（已打 <span class="num">≥ 6</span> 次 anti-VEGF），dexamethasone implant + ranibizumab vs sham + ranibizumab；6 個月解剖改善較多，但<strong>視力無額外進步</strong>。<span class="ref">p.113, p.126</span></li>
@@ -640,22 +638,22 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch5-s9-6">Macular focal/grid laser（黃斑部局部/格狀雷射）</h3>
 <ul>
-<li id="np-232">角色：anti-VEGF 反應不佳的輔助；非中央、可精準瞄準的 focal leakage 偶可第一線；醫療不穩或無法近每月注射者⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1464" data-q="1464" aria-label="考題 Q1464">Q1464</a></sup>。<span class="ref">p.127</span></li>
+<li id="np-232">角色：anti-VEGF 反應不佳的輔助；非中央、可精準瞄準的 focal leakage 偶可第一線；醫療不穩或無法近每月注射者⁠<sup class="ex-qref"><span>Q1464</span></sup>。<span class="ref">p.127</span></li>
 <li id="np-233">ETDRS：CSME 雷射降低 moderate vision loss、增加改善機會，僅輕微視野損失；未達 CSME 的 DME 2 年無益。<span class="ref">p.127</span></li>
-<li id="np-234">參數：spot <span class="num">50–100 μm</span>、時間 <span class="num">≤ 0.1 秒</span>、<strong>green/yellow 波長</strong>；focal：直接打距中心 <span class="num">500–3000 μm</span> 的滲漏 MA；grid：輕度、間隔 1 burn width，範圍距中心 <span class="num">&gt; 500 μm</span> 且距視盤顳側緣 <span class="num">500 μm</span>；最快每 <span class="num">16 週</span>重複⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1462" data-q="1462" aria-label="考題 Q1462">Q1462</a></sup>。<span class="ref">p.127–128</span></li>
+<li id="np-234">參數：spot <span class="num">50–100 μm</span>、時間 <span class="num">≤ 0.1 秒</span>、<strong>green/yellow 波長</strong>；focal：直接打距中心 <span class="num">500–3000 μm</span> 的滲漏 MA；grid：輕度、間隔 1 burn width，範圍距中心 <span class="num">&gt; 500 μm</span> 且距視盤顳側緣 <span class="num">500 μm</span>；最快每 <span class="num">16 週</span>重複⁠<sup class="ex-qref"><span>Q1462</span></sup>。<span class="ref">p.127–128</span></li>
 <li id="np-235">副作用：paracentral scotoma（旁中心暗點）、暫時性水腫加重/視力下降、laser scar expansion（雷射疤擴大）、subretinal fibrosis（視網膜下纖維化）、choroidal neovascularization（CNV，脈絡膜新生血管）、誤傷 fovea。<span class="ref">p.127</span></li>
 <li id="np-236">預後差因子：<strong>macular ischemia</strong>（廣泛 perifoveal nonperfusion）、<strong>中心凹 hard exudate</strong>。<span class="ref">p.127</span></li>
-<li id="np-237">Micropulse/subthreshold laser（微脈衝/閾值下雷射）可能等效且減少 retinal pigment epithelium（RPE，視網膜色素上皮）損傷；DME 眼針對 UWF FA 周邊 nonperfusion 做 scatter laser <strong>無助</strong>於視力或水腫⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1556" data-q="1556" aria-label="考題 Q1556">Q1556</a></sup>。<span class="ref">p.128</span></li>
+<li id="np-237">Micropulse/subthreshold laser（微脈衝/閾值下雷射）可能等效且減少 retinal pigment epithelium（RPE，視網膜色素上皮）損傷；DME 眼針對 UWF FA 周邊 nonperfusion 做 scatter laser <strong>無助</strong>於視力或水腫⁠<sup class="ex-qref"><span>Q1556</span></sup>。<span class="ref">p.128</span></li>
 </ul>
 <h3 id="ch5-s9-7">Vitrectomy for DME（DME 的玻璃體切除術）</h3>
 <ul>
-<li id="np-238">有 posterior hyaloid 牽引或 epiretinal membrane（ERM，視網膜前膜）時，製造 PVD ± ILM/ERM peeling 可減少增厚；無 vitreomacular traction（VMT，玻璃體黃斑牽引）時作為第一線在美國少見，國際較普遍⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1462" data-q="1462" aria-label="考題 Q1462">Q1462</a></sup>。<span class="ref">p.127–128</span></li>
+<li id="np-238">有 posterior hyaloid 牽引或 epiretinal membrane（ERM，視網膜前膜）時，製造 PVD ± ILM/ERM peeling 可減少增厚；無 vitreomacular traction（VMT，玻璃體黃斑牽引）時作為第一線在美國少見，國際較普遍⁠<sup class="ex-qref"><span>Q1462</span></sup>。<span class="ref">p.127–128</span></li>
 <li id="np-239"><strong>Protocol D</strong>：多數眼增厚減少，但視力不一致——<span class="num">38%</span> 進步 <span class="num">≥ 10 letters</span>、<span class="num">22%</span> 退步 <span class="num">≥ 10 letters</span>；6 個月 median VA 不變。<span class="ref">p.112, p.128</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s9-8">易錯陷阱</h3><ul>
-<li id="np-240">DME 雷射用 green 或 yellow，不是 red⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1462" data-q="1462" aria-label="考題 Q1462">Q1462</a></sup>。<span class="ref">p.127</span></li>
-<li id="np-241">Protocol I：最佳是 ranibizumab + <strong>deferred</strong> laser，不是 prompt laser⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1463" data-q="1463" aria-label="考題 Q1463">Q1463</a></sup>。<span class="ref">p.124–125</span></li>
-<li id="np-242">DME 嚴重度與 DR 嚴重度並非單純正相關：mild NPDR 也可能有嚴重 DME⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1465" data-q="1465" aria-label="考題 Q1465">Q1465</a></sup>。<span class="ref">p.121–122</span></li>
+<li id="np-240">DME 雷射用 green 或 yellow，不是 red⁠<sup class="ex-qref"><span>Q1462</span></sup>。<span class="ref">p.127</span></li>
+<li id="np-241">Protocol I：最佳是 ranibizumab + <strong>deferred</strong> laser，不是 prompt laser⁠<sup class="ex-qref"><span>Q1463</span></sup>。<span class="ref">p.124–125</span></li>
+<li id="np-242">DME 嚴重度與 DR 嚴重度並非單純正相關：mild NPDR 也可能有嚴重 DME⁠<sup class="ex-qref"><span>Q1465</span></sup>。<span class="ref">p.121–122</span></li>
 <li id="np-243">Protocol B/I：steroid（IVTA）甚至輸給 laser 單獨；但 pseudophakic 眼例外，steroid 可與 anti-VEGF 相當。<span class="ref">p.126</span></li>
 <li id="np-244">Protocol V 的族群是 VA <span class="num">≥ 20/25</span>；不是所有 CI-DME 都可觀察。<span class="ref">p.126</span></li>
 </ul></div>
@@ -663,16 +661,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h2 id="ch5-s10">糖尿病白內障手術</h2>
 <ul>
 <li id="np-245">白內障術後 DR 與 DME 可能惡化。<span class="ref">p.128</span></li>
-<li id="np-246"><strong>Protocol Q</strong>（術前無 CI-DME）：術前有 <mark class="ex-key"><strong>non-CI DME</strong> 或曾治療過 DME</mark> → 術後較易發生 CI-DME⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1470" data-q="1470" aria-label="考題 Q1470">Q1470</a></sup>。<span class="ref">p.112, p.128</span></li>
+<li id="np-246"><strong>Protocol Q</strong>（術前無 CI-DME）：術前有 <mark class="ex-key"><strong>non-CI DME</strong> 或曾治療過 DME</mark> → 術後較易發生 CI-DME⁠<sup class="ex-qref"><span>Q1470</span></sup>。<span class="ref">p.112, p.128</span></li>
 <li id="np-247"><strong>Protocol P</strong>（術前已有 CI-DME）：僅少數眼術後明顯視力喪失或水腫惡化。<span class="ref">p.112, p.128</span></li>
-<li id="np-248">臨床：CI-DME 術前常先打 anti-VEGF 或 steroid；手術前盡量優化系統控制⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1470" data-q="1470" aria-label="考題 Q1470">Q1470</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1352" data-q="1352" aria-label="考題 Q1352">Q1352</a></sup>。<span class="ref">p.128</span></li>
-<li id="np-249">Severe NPDR 或 PDR：介質許可時<strong>先 PRP 再摘除白內障</strong>；若白內障太濃無法評估/治療 → 術後儘速檢查與治療；所有既有 DR 者術後都要再評估⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1464" data-q="1464" aria-label="考題 Q1464">Q1464</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1466" data-q="1466" aria-label="考題 Q1466">Q1466</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1467" data-q="1467" aria-label="考題 Q1467">Q1467</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1470" data-q="1470" aria-label="考題 Q1470">Q1470</a></sup>。<span class="ref">p.128–129</span></li>
-<li id="np-250">手術技巧：capsulorrhexis（前囊撕開）要夠大以防 <strong>anterior capsular phimosis（前囊收縮）</strong>；<mark class="ex-key">避免 <strong>silicone IOL</strong>（日後 vitrectomy 時易起霧）</mark>；multifocal IOL（多焦點人工水晶體）可能妨礙日後手術且黃斑病變者效果差⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1352" data-q="1352" aria-label="考題 Q1352">Q1352</a></sup>。<span class="ref">p.129</span></li>
+<li id="np-248">臨床：CI-DME 術前常先打 anti-VEGF 或 steroid；手術前盡量優化系統控制⁠<sup class="ex-qref"><span>Q1470</span> <span>Q1352</span></sup>。<span class="ref">p.128</span></li>
+<li id="np-249">Severe NPDR 或 PDR：介質許可時<strong>先 PRP 再摘除白內障</strong>；若白內障太濃無法評估/治療 → 術後儘速檢查與治療；所有既有 DR 者術後都要再評估⁠<sup class="ex-qref"><span>Q1464</span> <span>Q1466</span> <span>Q1467</span> <span>Q1470</span></sup>。<span class="ref">p.128–129</span></li>
+<li id="np-250">手術技巧：capsulorrhexis（前囊撕開）要夠大以防 <strong>anterior capsular phimosis（前囊收縮）</strong>；<mark class="ex-key">避免 <strong>silicone IOL</strong>（日後 vitrectomy 時易起霧）</mark>；multifocal IOL（多焦點人工水晶體）可能妨礙日後手術且黃斑病變者效果差⁠<sup class="ex-qref"><span>Q1352</span></sup>。<span class="ref">p.129</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch5-s10-1">易錯陷阱</h3><ul>
-<li id="np-251">「CI-DME 術前不適合打針」是錯的：臨床上通常術前先打 anti-VEGF 或 steroid⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1470" data-q="1470" aria-label="考題 Q1470">Q1470</a></sup>。<span class="ref">p.128</span></li>
-<li id="np-252">順序是「先 PRP、再白內障」，不是「先開白內障以便追蹤」；DME 也要在術前先處理⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1464" data-q="1464" aria-label="考題 Q1464">Q1464</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1466" data-q="1466" aria-label="考題 Q1466">Q1466</a> <a href="/exam/login?next=/exam/bcsc12-5%23q-1467" data-q="1467" aria-label="考題 Q1467">Q1467</a></sup>。<span class="ref">p.124, p.128</span></li>
-<li id="np-253">將來可能做 vitrectomy 的人裝 silicone IOL 是錯的⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc12-5%23q-1352" data-q="1352" aria-label="考題 Q1352">Q1352</a></sup>。<span class="ref">p.129</span></li>
+<li id="np-251">「CI-DME 術前不適合打針」是錯的：臨床上通常術前先打 anti-VEGF 或 steroid⁠<sup class="ex-qref"><span>Q1470</span></sup>。<span class="ref">p.128</span></li>
+<li id="np-252">順序是「先 PRP、再白內障」，不是「先開白內障以便追蹤」；DME 也要在術前先處理⁠<sup class="ex-qref"><span>Q1464</span> <span>Q1466</span> <span>Q1467</span></sup>。<span class="ref">p.124, p.128</span></li>
+<li id="np-253">將來可能做 vitrectomy 的人裝 silicone IOL 是錯的⁠<sup class="ex-qref"><span>Q1352</span></sup>。<span class="ref">p.129</span></li>
 </ul></div>
 
 <h2 id="ch5-s11">重要試驗總整理</h2>

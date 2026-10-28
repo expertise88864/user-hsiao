@@ -116,6 +116,23 @@ ATTR_RE = re.compile(
 DISPLAY_TAG_RE = re.compile(r'<!--.*?-->|<[A-Za-z][^<>"\']*(?:(?:"[^"]*"|\'[^\']*\')[^<>"\']*)*>', re.DOTALL)
 BILINGUAL_ATTR_RE = re.compile(r'(\s([\w:-]+)\s*=\s*)("[^"]*"|\'[^\']*\'|[^\s>]+)')
 BILINGUAL_END_RE = re.compile(rf'({CN})([!?])$')
+# <meta name="keywords"> is a machine-read list, not prose: its separators are
+# always the ASCII comma (owner backlog, 2026-10-28). The comma rules below used
+# to turn only some of them into ，, leaving lists like "眼科醫師，PGY,HsiaoEye".
+KEYWORDS_RE = re.compile(
+    r'(<meta\s+name=(["\'])keywords\2\s+content=)(["\'])(.*?)\3', re.IGNORECASE | re.DOTALL)
+KEYWORD_SEP_RE = re.compile(r'\s*[,，、;；]\s*')
+# The CMS escapes keywords ("Graves&#39; disease"): an entity's own ";" is not a separator.
+CHAR_REF_RE = re.compile(r'&(?:#\d+|#[xX][0-9a-fA-F]+|[A-Za-z][A-Za-z0-9]*);')
+
+def normalize_keywords(value: str) -> str:
+    refs: list[str] = []
+    def hide(m: re.Match) -> str:
+        refs.append(m[0])
+        return f'\x01{len(refs) - 1}\x01'
+    parts = KEYWORD_SEP_RE.split(CHAR_REF_RE.sub(hide, value.strip()))
+    joined = ','.join(part for part in parts if part)
+    return re.sub('\x01(\\d+)\x01', lambda m: refs[int(m[1])], joined)
 
 def convert(text: str) -> tuple[str, int]:
     placeholders: list[str] = []
@@ -123,11 +140,19 @@ def convert(text: str) -> tuple[str, int]:
         placeholders.append(m.group(0))
         return f'\x00PH{len(placeholders)-1}\x00'
 
+    total = 0
+    def stash_keywords(m: re.Match) -> str:
+        nonlocal total
+        value = normalize_keywords(m[4])
+        total += value != m[4]
+        placeholders.append(f'{m[1]}{m[3]}{value}{m[3]}')
+        return f'\x00PH{len(placeholders)-1}\x00'
+
     text = STYLE_BLOCK_RE.sub(stash, text)
     text = SCRIPT_BLOCK_RE.sub(stash, text)
+    text = KEYWORDS_RE.sub(stash_keywords, text)
     text = ATTR_RE.sub(stash, text)
 
-    total = 0
     # Only bilingual display-copy values get the additional quote-end case.
     # Extending the global rules to quotes would also mutate pattern/action
     # and other technical attributes outside ATTR_RE's historical protection.

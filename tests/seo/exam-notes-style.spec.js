@@ -10,12 +10,12 @@ async function signedOut(page) {
   await page.route('**/api/exam/data**', r => r.fulfill({ status: 401, contentType: 'application/json', body: '{}' }));
 }
 
-test('superscript question labels have accessible names and keep the login-gated jump', async ({ page }) => {
+test('superscript question labels are plain text that never jumps (owner 2026-10-28)', async ({ page }) => {
   await signedOut(page);
   await page.goto('/exam/bcsc8-6');
-  const link = page.getByRole('link', { name: '考題 Q960' }).first();
+  await expect(page.locator('.ex-note sup.ex-qref a')).toHaveCount(0);
+  const link = page.locator('.ex-note sup.ex-qref span', { hasText: /^Q960$/ }).first();
   await expect(link).toHaveText('Q960');
-  await expect(link).toHaveAttribute('href', '/exam/login?next=/exam/bcsc8-6%23q-960');
   // It sits right after the highlighted (tested) phrase, as a small superscript.
   expect(await link.evaluate(a => {
     const sup = a.closest('sup.ex-qref');
@@ -26,12 +26,9 @@ test('superscript question labels have accessible names and keep the login-gated
     return [prev && prev.nodeName, prev && prev.className, raised, parseFloat(getComputedStyle(a).fontSize) < 12];
   })).toEqual(['MARK', 'ex-key', true, true]);
   await expect(page.locator('.ex-hit')).toHaveCount(0);
-  // Keyboard focus is visible.
-  await link.focus();
-  await expect(link).toHaveCSS('outline-style', 'solid');
+  // Clicking it stays on the page.
   await link.click();
-  await page.waitForURL(/\/exam\/login\?next=\/exam\/bcsc8-6%23q-960$/);
-  await expect(page.locator('input[name=next]')).toHaveValue('/exam/bcsc8-6#q-960');
+  await expect(page).toHaveURL(/\/exam\/bcsc8-6$/);
 });
 
 test('desktop: the chapter outline is a sticky left column that follows the reader', async ({ browser }) => {
@@ -74,7 +71,7 @@ test('phone: the inline outline stays, the sticky column is hidden, no horizonta
   await page.goto('/exam/bcsc8-6');
   await expect(page.locator('.ex-toc-side')).toBeHidden();
   await expect(page.locator('nav.ex-toc')).toBeVisible();
-  await expect(page.getByRole('link', { name: '考題 Q960' }).first()).toBeAttached();
+  await expect(page.locator('.ex-note sup.ex-qref span', { hasText: /^Q960$/ }).first()).toBeAttached();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await context.close();
 });

@@ -59,9 +59,7 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note mark,.ex-legend mark{background:linear-gradient(transparent 80%,#f7d77a 80%);color:inherit;padding:0 1px}
 .ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
 .ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
-.ex-qref a,.ex-qref span{color:#a0460a;text-decoration:none;white-space:nowrap;padding:0 1px;border-radius:3px}
-.ex-qref a:hover{text-decoration:underline}
-.ex-qref a:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.ex-qref span{color:#a0460a;white-space:nowrap;padding:0 1px;border-radius:3px}
 .ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
 .ex-legend-trap,.ex-legend-tip{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
 .ex-legend-tip{border-left-color:#6fbf8a;background:#f3f9f5}
@@ -278,7 +276,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-hitbox mark{background:#854d0e;color:#fff}
 :root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:linear-gradient(transparent 80%,rgba(234,179,8,.5) 80%)}
 :root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
-:root[data-theme="dark"] .ex-qref a,:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
+:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
 :root[data-theme="dark"] .ex-note .num{background:#3b2414;color:#fdba74}
 :root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
 :root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
@@ -355,16 +353,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <p id="np-15">出處 <span class="ref">p.102</span></p>
 <h3 id="ch7-s1-3">材質</h3>
 <ul>
-<li id="np-16"><strong>Silicone 屬 hydrophobic（疏水性）</strong>；acrylic 可為 hydrophobic 或 hydrophilic（親水性）；兩者皆適用於大多數病人⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1415" data-q="1415" aria-label="考題 Q1415">Q1415</a></sup>。<span class="ref">p.102</span></li>
-<li id="np-17"><mark class="ex-key">Silicone oil（矽油）會黏附在 silicone IOL 表面</mark> → 日後可能需 vitrectomy + silicone oil 的病人（如 proliferative diabetic retinopathy（PDR，增殖性糖尿病視網膜病變）、對側眼曾 retinal detachment（視網膜剝離））宜選其他材質。矽油眼白內障手術另需低流量灌流、降低 aspiration rate、避免過量 ophthalmic viscosurgical device（OVD，眼用黏彈劑）加壓，以免矽油經懸韌帶裂隙進入前房（本章外，BCSC 11 第 12 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1311" data-q="1311" aria-label="考題 Q1311">Q1311</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1332" data-q="1332" aria-label="考題 Q1332">Q1332</a></sup>。<span class="ref">p.102; BCSC 11 p.251</span></li>
-<li id="np-18"><strong>Hydrophilic acrylic IOL</strong> 術後 <mark class="ex-key">optic calcification（光學部鈣化）與接觸 air 或 gas 有關</mark>；日後需術中用氣體的手術（如 endothelial keratoplasty（角膜內皮移植）、vitrectomy）宜考慮其他材質。此混濁 <strong>Nd:YAG capsulotomy 無效</strong>，可能需取出 IOL⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1415" data-q="1415" aria-label="考題 Q1415">Q1415</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1347" data-q="1347" aria-label="考題 Q1347">Q1347</a></sup>。<span class="ref">p.102–103</span></li>
-<li id="np-19">葡萄膜炎眼較適合放入囊袋的 acrylic PCIOL、避免 silicone IOL；外傷性白內障亦偏好 hydrophobic acrylic（本章外，BCSC 11 第 12 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1340" data-q="1340" aria-label="考題 Q1340">Q1340</a></sup>。<span class="ref ref-ext">BCSC 11 p.249, p.254</span></li>
+<li id="np-16"><strong>Silicone 屬 hydrophobic（疏水性）</strong>；acrylic 可為 hydrophobic 或 hydrophilic（親水性）；兩者皆適用於大多數病人⁠<sup class="ex-qref"><span>Q1415</span></sup>。<span class="ref">p.102</span></li>
+<li id="np-17"><mark class="ex-key">Silicone oil（矽油）會黏附在 silicone IOL 表面</mark> → 日後可能需 vitrectomy + silicone oil 的病人（如 proliferative diabetic retinopathy（PDR，增殖性糖尿病視網膜病變）、對側眼曾 retinal detachment（視網膜剝離））宜選其他材質。矽油眼白內障手術另需低流量灌流、降低 aspiration rate、避免過量 ophthalmic viscosurgical device（OVD，眼用黏彈劑）加壓，以免矽油經懸韌帶裂隙進入前房（本章外，BCSC 11 第 12 章）⁠<sup class="ex-qref"><span>Q1311</span> <span>Q1332</span></sup>。<span class="ref">p.102; BCSC 11 p.251</span></li>
+<li id="np-18"><strong>Hydrophilic acrylic IOL</strong> 術後 <mark class="ex-key">optic calcification（光學部鈣化）與接觸 air 或 gas 有關</mark>；日後需術中用氣體的手術（如 endothelial keratoplasty（角膜內皮移植）、vitrectomy）宜考慮其他材質。此混濁 <strong>Nd:YAG capsulotomy 無效</strong>，可能需取出 IOL⁠<sup class="ex-qref"><span>Q1415</span> <span>Q1347</span></sup>。<span class="ref">p.102–103</span></li>
+<li id="np-19">葡萄膜炎眼較適合放入囊袋的 acrylic PCIOL、避免 silicone IOL；外傷性白內障亦偏好 hydrophobic acrylic（本章外，BCSC 11 第 12 章）⁠<sup class="ex-qref"><span>Q1340</span></sup>。<span class="ref ref-ext">BCSC 11 p.249, p.254</span></li>
 </ul>
 <h3 id="ch7-s1-4">光學設計</h3>
 <ul>
-<li id="np-20">光學部由早期 plano-convex（平凸）演進為 biconvex；<mark class="ex-key">square posterior optic edge 阻擋細胞移行到光學部後方 → 減少 PCO</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1425" data-q="1425" aria-label="考題 Q1425">Q1425</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1413" data-q="1413" aria-label="考題 Q1413">Q1413</a></sup>。<span class="ref">p.103</span></li>
-<li id="np-21">PCO 發生率依材質由高至低：hydrogel（親水性）&gt; PMMA &gt; silicone &gt; hydrophobic acrylic；術後延長使用 topical corticosteroid 或 NSAID 不影響 PCO 發生率；Soemmering ring 由 Wedl（bladder）cells 形成（本章外，BCSC 11 第 11 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1359" data-q="1359" aria-label="考題 Q1359">Q1359</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1413" data-q="1413" aria-label="考題 Q1413">Q1413</a></sup>。<span class="ref ref-ext">BCSC 11 p.207–209</span></li>
-<li id="np-22"><strong>多數角膜帶正 spherical aberration</strong>。舊式 spherical IOL 再加上正球差 → 對比敏感度下降；<mark class="ex-key">新式 aspheric IOL 帶零或負球差（<span class="num">0 至 −0.27 μm</span>）以抵銷角膜正球差、改善對比敏感度</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1415" data-q="1415" aria-label="考題 Q1415">Q1415</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1425" data-q="1425" aria-label="考題 Q1425">Q1425</a></sup>。<span class="ref">p.103</span></li>
+<li id="np-20">光學部由早期 plano-convex（平凸）演進為 biconvex；<mark class="ex-key">square posterior optic edge 阻擋細胞移行到光學部後方 → 減少 PCO</mark>⁠<sup class="ex-qref"><span>Q1425</span> <span>Q1413</span></sup>。<span class="ref">p.103</span></li>
+<li id="np-21">PCO 發生率依材質由高至低：hydrogel（親水性）&gt; PMMA &gt; silicone &gt; hydrophobic acrylic；術後延長使用 topical corticosteroid 或 NSAID 不影響 PCO 發生率；Soemmering ring 由 Wedl（bladder）cells 形成（本章外，BCSC 11 第 11 章）⁠<sup class="ex-qref"><span>Q1359</span> <span>Q1413</span></sup>。<span class="ref ref-ext">BCSC 11 p.207–209</span></li>
+<li id="np-22"><strong>多數角膜帶正 spherical aberration</strong>。舊式 spherical IOL 再加上正球差 → 對比敏感度下降；<mark class="ex-key">新式 aspheric IOL 帶零或負球差（<span class="num">0 至 −0.27 μm</span>）以抵銷角膜正球差、改善對比敏感度</mark>⁠<sup class="ex-qref"><span>Q1415</span> <span>Q1425</span></sup>。<span class="ref">p.103</span></li>
 <li id="np-23">曾做 hyperopic laser in situ keratomileusis（H-LASIK，遠視雷射層狀角膜重塑術）或 photorefractive keratectomy（PRK，屈光性角膜切除術）的角膜常為<strong>負球差</strong> → 宜選<strong>零球差</strong> IOL，以免加重負球差。<span class="ref">p.103</span></li>
 <li id="np-24">任何帶正或負球差的 IOL 若 decentered（偏心）會誘發 <strong>coma（彗差）</strong>。<span class="ref">p.103–104</span></li>
 </ul>
@@ -375,9 +373,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-27">老花與散光矯正 IOL（multifocal、EDOF、accommodating、toric）使用率有上升趨勢。<span class="ref">p.104</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch7-s1-6">易錯陷阱</h3><ul>
-<li id="np-28">「新式 IOL 多為正球差設計以增加對比敏感度」是錯的：新式 IOL 是零或負球差，用來抵銷角膜的正球差⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1415" data-q="1415" aria-label="考題 Q1415">Q1415</a></sup>。<span class="ref">p.103</span></li>
-<li id="np-29">Silicone 是 hydrophobic；會鈣化的是 hydrophilic acrylic（與 air/gas 接觸有關），YAG 雷射無法處理⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1415" data-q="1415" aria-label="考題 Q1415">Q1415</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1347" data-q="1347" aria-label="考題 Q1347">Q1347</a></sup>。<span class="ref">p.102–103</span></li>
-<li id="np-30">將來可能打矽油的眼睛（PDR、對側眼 RD）不要放 silicone IOL；矽油眼手術不是「多打 OVD」，而是降低灌流與吸力⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1311" data-q="1311" aria-label="考題 Q1311">Q1311</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1332" data-q="1332" aria-label="考題 Q1332">Q1332</a></sup>。<span class="ref">p.102; BCSC 11 p.251</span></li>
+<li id="np-28">「新式 IOL 多為正球差設計以增加對比敏感度」是錯的：新式 IOL 是零或負球差，用來抵銷角膜的正球差⁠<sup class="ex-qref"><span>Q1415</span></sup>。<span class="ref">p.103</span></li>
+<li id="np-29">Silicone 是 hydrophobic；會鈣化的是 hydrophilic acrylic（與 air/gas 接觸有關），YAG 雷射無法處理⁠<sup class="ex-qref"><span>Q1415</span> <span>Q1347</span></sup>。<span class="ref">p.102–103</span></li>
+<li id="np-30">將來可能打矽油的眼睛（PDR、對側眼 RD）不要放 silicone IOL；矽油眼手術不是「多打 OVD」，而是降低灌流與吸力⁠<sup class="ex-qref"><span>Q1311</span> <span>Q1332</span></sup>。<span class="ref">p.102; BCSC 11 p.251</span></li>
 <li id="np-31">H-LASIK/PRK 術後角膜為負球差 → 選零球差 IOL，不是負球差 IOL。<span class="ref">p.103</span></li>
 </ul></div>
 
@@ -389,27 +387,27 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch7-s2-2">Pseudophakic monovision（人工水晶體單眼視）</h3>
 <ul>
-<li id="np-34">兩眼設不同屈光目標以擴大視程：<mark class="ex-key">通常 <strong>dominant eye（主視眼）目標 emmetropia</strong>，另一眼留一些近視</mark>；單焦 IOL 搭配雙眼視覺即可矯正老花⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1398" data-q="1398" aria-label="考題 Q1398">Q1398</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1614" data-q="1614" aria-label="考題 Q1614">Q1614</a></sup>。<span class="ref">p.104</span></li>
-<li id="np-35"><strong>Modified monovision / mini-monovision（輕度單眼視）</strong>：近視目標較溫和，約 <span class="num">−0.50 至 −1.50 D</span>；<strong>traditional monovision（傳統單眼視）</strong>：<span class="num">−1.50 至 −2.50 D</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1373" data-q="1373" aria-label="考題 Q1373">Q1373</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1416" data-q="1416" aria-label="考題 Q1416">Q1416</a></sup>。<span class="ref">p.104</span></li>
-<li id="np-36">計算例：非主視眼以 <span class="num">22.0 D</span> 為正視，modified monovision 加約 <span class="num">2.0 D</span> 用 <span class="num">24.0 D</span>，約得 −1.3 至 −1.4 D 近視，落在 mini-monovision 範圍；<span class="num">22.5 D</span> 只約 −0.3 D、近視太少，<span class="num">25.0 D</span> 約 −2 D 屬傳統 monovision，<span class="num">20.5 D</span> 則變遠視（IOL 度數：眼鏡平面約 1.5 : 1 為臨床經驗換算，實際約 1.4–1.5 : 1、依 ELP 與角膜屈光力而異，本章外）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1416" data-q="1416" aria-label="考題 Q1416">Q1416</a></sup>。<span class="ref">p.104</span></li>
-<li id="np-37">BCSC 13：monovision 通常主視眼看遠、另一眼看近，兩眼度數差依近距需求設約 <span class="num">1.25–2.50 D</span>（本章外）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1614" data-q="1614" aria-label="考題 Q1614">Q1614</a></sup>。<span class="ref ref-ext">BCSC 13 p.182</span></li>
+<li id="np-34">兩眼設不同屈光目標以擴大視程：<mark class="ex-key">通常 <strong>dominant eye（主視眼）目標 emmetropia</strong>，另一眼留一些近視</mark>；單焦 IOL 搭配雙眼視覺即可矯正老花⁠<sup class="ex-qref"><span>Q1398</span> <span>Q1614</span></sup>。<span class="ref">p.104</span></li>
+<li id="np-35"><strong>Modified monovision / mini-monovision（輕度單眼視）</strong>：近視目標較溫和，約 <span class="num">−0.50 至 −1.50 D</span>；<strong>traditional monovision（傳統單眼視）</strong>：<span class="num">−1.50 至 −2.50 D</span>⁠<sup class="ex-qref"><span>Q1373</span> <span>Q1416</span></sup>。<span class="ref">p.104</span></li>
+<li id="np-36">計算例：非主視眼以 <span class="num">22.0 D</span> 為正視，modified monovision 加約 <span class="num">2.0 D</span> 用 <span class="num">24.0 D</span>，約得 −1.3 至 −1.4 D 近視，落在 mini-monovision 範圍；<span class="num">22.5 D</span> 只約 −0.3 D、近視太少，<span class="num">25.0 D</span> 約 −2 D 屬傳統 monovision，<span class="num">20.5 D</span> 則變遠視（IOL 度數：眼鏡平面約 1.5 : 1 為臨床經驗換算，實際約 1.4–1.5 : 1、依 ELP 與角膜屈光力而異，本章外）⁠<sup class="ex-qref"><span>Q1416</span></sup>。<span class="ref">p.104</span></li>
+<li id="np-37">BCSC 13：monovision 通常主視眼看遠、另一眼看近，兩眼度數差依近距需求設約 <span class="num">1.25–2.50 D</span>（本章外）⁠<sup class="ex-qref"><span>Q1614</span></sup>。<span class="ref ref-ext">BCSC 13 p.182</span></li>
 </ul>
 <h3 id="ch7-s2-3">Multifocal IOL（MFIOL，多焦人工水晶體）</h3>
 <ul>
 <li id="np-38">以 refractive（折射式）或 diffractive（繞射式）光學（或兩者合併）將光分成 <span class="num">≥ 2</span> 個焦點，兼顧遠與中/近距離；FDA 已核准多款（含 toric MFIOL 與 trifocal IOL），部分有不同 add。<span class="ref">p.104–105</span></li>
 <li id="np-39">優點：減少依賴眼鏡。缺點：<strong>contrast sensitivity 下降</strong>（感覺較暗）、glare/halos（眩光/光暈，尤其 mesopic/scotopic）、multiple images（多重影像）。<span class="ref">p.105</span></li>
-<li id="np-40"><mark class="ex-key"><strong>Lower-add</strong> MFIOL（近焦點離眼較遠）比 higher-add 較能減少這些症狀</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1398" data-q="1398" aria-label="考題 Q1398">Q1398</a></sup>。<span class="ref">p.105</span></li>
-<li id="np-41">Clinical Pearl：<mark class="ex-key">術前 <strong>hyperopia（遠視）</strong>者比術前 myopia（近視）者較不在意 MFIOL 的視覺干擾</mark>；需充分衛教，可用特殊同意流程⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1373" data-q="1373" aria-label="考題 Q1373">Q1373</a></sup>。<span class="ref">p.105</span></li>
+<li id="np-40"><mark class="ex-key"><strong>Lower-add</strong> MFIOL（近焦點離眼較遠）比 higher-add 較能減少這些症狀</mark>⁠<sup class="ex-qref"><span>Q1398</span></sup>。<span class="ref">p.105</span></li>
+<li id="np-41">Clinical Pearl：<mark class="ex-key">術前 <strong>hyperopia（遠視）</strong>者比術前 myopia（近視）者較不在意 MFIOL 的視覺干擾</mark>；需充分衛教，可用特殊同意流程⁠<sup class="ex-qref"><span>Q1373</span></sup>。<span class="ref">p.105</span></li>
 <li id="np-42">最適合眼睛健康良好者；有 amblyopia（弱視）、角膜病（如 dry eye）、視神經病（如 glaucoma）、黃斑病（如 epiretinal membrane（ERM，視網膜前膜）、AMD）時效果差 → 許多醫師術前做 macular optical coherence tomography（OCT，光學同調斷層掃描）。<span class="ref">p.106</span></li>
 <li id="np-43">雙眼植入、術後散光極小時效果最好；殘餘屈光不滿意可用眼鏡/隱形眼鏡、keratorefractive surgery（角膜屈光手術）或 IOL exchange（最好在 capsular fibrosis 前）。<span class="ref">p.106</span></li>
-<li id="np-44">RK 術後眼應避免 MFIOL（本章外，BCSC 13）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1638" data-q="1638" aria-label="考題 Q1638">Q1638</a></sup>。<span class="ref ref-ext">BCSC 13 p.64</span></li>
+<li id="np-44">RK 術後眼應避免 MFIOL（本章外，BCSC 13）⁠<sup class="ex-qref"><span>Q1638</span></sup>。<span class="ref ref-ext">BCSC 13 p.64</span></li>
 </ul>
 <h3 id="ch7-s2-4">Extended depth of focus（EDOF，延伸焦深）IOL</h3>
 <ul>
-<li id="np-45">以 diffractive 或 non-diffractive 光學製造<strong>拉長的焦段</strong>（非 2 個分離焦點），提供遠到中距離視程，<mark class="ex-key">dysphotopsia（glare、halos）程度低</mark>（較 MFIOL 少）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1425" data-q="1425" aria-label="考題 Q1425">Q1425</a></sup>。<span class="ref">p.106</span></li>
+<li id="np-45">以 diffractive 或 non-diffractive 光學製造<strong>拉長的焦段</strong>（非 2 個分離焦點），提供遠到中距離視程，<mark class="ex-key">dysphotopsia（glare、halos）程度低</mark>（較 MFIOL 少）⁠<sup class="ex-qref"><span>Q1425</span></sup>。<span class="ref">p.106</span></li>
 <li id="np-46">另有一種 FDA 核准的 monofocal lens 也有延伸焦深，但程度不如傳統 EDOF（Table 7-2 中 Eyehance、RayOne EMV 有 EDOF 特性但不符 FDA 的 EDOF 標準）。<span class="ref">p.106</span></li>
 <li id="np-47">Clinical Pearl：EDOF 可搭配 mini-monovision，非主視眼留輕度近視（如 <span class="num">−0.50 D</span>）、主視眼正視，以改善近距離。<span class="ref">p.106</span></li>
-<li id="np-48">優缺點與 MFIOL 相似，<mark class="ex-key">仍有部分 contrast sensitivity 下降</mark>；病人篩選與衛教非常重要⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1373" data-q="1373" aria-label="考題 Q1373">Q1373</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1398" data-q="1398" aria-label="考題 Q1398">Q1398</a></sup>。<span class="ref">p.107</span></li>
+<li id="np-48">優缺點與 MFIOL 相似，<mark class="ex-key">仍有部分 contrast sensitivity 下降</mark>；病人篩選與衛教非常重要⁠<sup class="ex-qref"><span>Q1373</span> <span>Q1398</span></sup>。<span class="ref">p.107</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>Multifocal（bifocal/trifocal）</th><th>EDOF</th><th>Accommodating</th></tr></thead>
@@ -421,8 +419,8 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch7-s2-5">Accommodating IOL（調節型人工水晶體）</h3>
 <ul>
 <li id="np-53">設計理念：調節時藉 <strong>hinged haptics（鉸鏈式支撐腳）</strong>移動以改善遠、中、近視力；目前 FDA 只核准一種設計（及其 toric 版）。<span class="ref">p.108</span></li>
-<li id="np-54">實際提供<strong>部分中距離視力改善</strong>；<mark class="ex-key">可能機轉是 <strong>pseudoaccommodative depth of focus（假性調節景深）</strong>，因為沒有明確臨床證據顯示看近時 IOL 會改變軸向位置</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1373" data-q="1373" aria-label="考題 Q1373">Q1373</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1398" data-q="1398" aria-label="考題 Q1398">Q1398</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1593" data-q="1593" aria-label="考題 Q1593">Q1593</a></sup>。<span class="ref">p.108</span></li>
-<li id="np-55">設計上看近時光學部是「往前」移以增加屈光力（不是往後）；位移幅度有限，近距離視力不如 MFIOL，常需搭配 mini-monovision（本章外，BCSC 13）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1398" data-q="1398" aria-label="考題 Q1398">Q1398</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1593" data-q="1593" aria-label="考題 Q1593">Q1593</a></sup>。<span class="ref">p.108; BCSC 13 p.174–175, p.182</span></li>
+<li id="np-54">實際提供<strong>部分中距離視力改善</strong>；<mark class="ex-key">可能機轉是 <strong>pseudoaccommodative depth of focus（假性調節景深）</strong>，因為沒有明確臨床證據顯示看近時 IOL 會改變軸向位置</mark>⁠<sup class="ex-qref"><span>Q1373</span> <span>Q1398</span> <span>Q1593</span></sup>。<span class="ref">p.108</span></li>
+<li id="np-55">設計上看近時光學部是「往前」移以增加屈光力（不是往後）；位移幅度有限，近距離視力不如 MFIOL，常需搭配 mini-monovision（本章外，BCSC 13）⁠<sup class="ex-qref"><span>Q1398</span> <span>Q1593</span></sup>。<span class="ref">p.108; BCSC 13 p.174–175, p.182</span></li>
 </ul>
 <h3 id="ch7-s2-6">其他老花矯正 IOL 與可術後調整 IOL</h3>
 <ul>
@@ -431,39 +429,39 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-58"><strong>Refractive index shaping（屈光指數塑形）</strong>：以特殊 femtosecond laser（飛秒雷射）改變 IOL 親水性 → 改變屈光指數，仍在開發中。<span class="ref">p.108</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch7-s2-7">易錯陷阱</h3><ul>
-<li id="np-59">Mini-monovision 是 <span class="num">−0.50 至 −1.50 D</span>；<span class="num">−1.50 至 −2.50 D</span> 是傳統 monovision，考題常互換⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1373" data-q="1373" aria-label="考題 Q1373">Q1373</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1416" data-q="1416" aria-label="考題 Q1416">Q1416</a></sup>。<span class="ref">p.104</span></li>
-<li id="np-60">High add 的 MFIOL 光學干擾「較多」，low add 才較少⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1398" data-q="1398" aria-label="考題 Q1398">Q1398</a></sup>。<span class="ref">p.105</span></li>
-<li id="np-61">EDOF 的光學干擾比 MFIOL 少，但對比敏感度「仍會」下降，不是不變⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1398" data-q="1398" aria-label="考題 Q1398">Q1398</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1373" data-q="1373" aria-label="考題 Q1373">Q1373</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1425" data-q="1425" aria-label="考題 Q1425">Q1425</a></sup>。<span class="ref">p.106–107</span></li>
-<li id="np-62">術前遠視者對 MFIOL 滿意度較好（較不在意干擾），不是近視者⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1373" data-q="1373" aria-label="考題 Q1373">Q1373</a></sup>。<span class="ref">p.105</span></li>
-<li id="np-63">Monovision 是主視眼看遠、非主視眼看近，不要反過來⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1614" data-q="1614" aria-label="考題 Q1614">Q1614</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1398" data-q="1398" aria-label="考題 Q1398">Q1398</a></sup>。<span class="ref">p.104</span></li>
-<li id="np-64">Accommodating IOL 的「調節」主要是假性調節景深，並無明確位移證據；近距離視力不比 MFIOL 好⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1593" data-q="1593" aria-label="考題 Q1593">Q1593</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1373" data-q="1373" aria-label="考題 Q1373">Q1373</a></sup>。<span class="ref">p.108</span></li>
+<li id="np-59">Mini-monovision 是 <span class="num">−0.50 至 −1.50 D</span>；<span class="num">−1.50 至 −2.50 D</span> 是傳統 monovision，考題常互換⁠<sup class="ex-qref"><span>Q1373</span> <span>Q1416</span></sup>。<span class="ref">p.104</span></li>
+<li id="np-60">High add 的 MFIOL 光學干擾「較多」，low add 才較少⁠<sup class="ex-qref"><span>Q1398</span></sup>。<span class="ref">p.105</span></li>
+<li id="np-61">EDOF 的光學干擾比 MFIOL 少，但對比敏感度「仍會」下降，不是不變⁠<sup class="ex-qref"><span>Q1398</span> <span>Q1373</span> <span>Q1425</span></sup>。<span class="ref">p.106–107</span></li>
+<li id="np-62">術前遠視者對 MFIOL 滿意度較好（較不在意干擾），不是近視者⁠<sup class="ex-qref"><span>Q1373</span></sup>。<span class="ref">p.105</span></li>
+<li id="np-63">Monovision 是主視眼看遠、非主視眼看近，不要反過來⁠<sup class="ex-qref"><span>Q1614</span> <span>Q1398</span></sup>。<span class="ref">p.104</span></li>
+<li id="np-64">Accommodating IOL 的「調節」主要是假性調節景深，並無明確位移證據；近距離視力不比 MFIOL 好⁠<sup class="ex-qref"><span>Q1593</span> <span>Q1373</span></sup>。<span class="ref">p.108</span></li>
 </ul></div>
 
 <h2 id="ch7-s3">三、既有散光的處理</h2>
 <h3 id="ch7-s3-1">基本概念</h3>
 <ul>
 <li id="np-65">約 <span class="num">40%</span> 白內障病人術前 keratometric astigmatism（角膜弧度散光）<span class="num">≥ 1.00 D</span>；MFIOL 術後殘餘散光低至 <span class="num">0.5 D</span> 即可降低遠視力 → 術中矯正 regular astigmatism（規則散光）越來越重要。<span class="ref">p.108</span></li>
-<li id="np-66"><mark class="ex-key"><strong>Refractive astigmatism（屈光散光，如驗光所得）＝ total corneal astigmatism（全角膜散光）＋ lenticular astigmatism（水晶體散光）</strong>；水晶體散光在白內障手術時即被移除</mark> → 散光矯正要針對<strong>全角膜散光</strong>，不是驗光散光⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-210" data-q="210" aria-label="考題 Q210">Q210</a></sup>。<span class="ref">p.109</span></li>
-<li id="np-67">臨床例：驗光 −3.00 +2.00 × 120、K 值 42.50 D / 42.75 D @120 → 角膜散光僅 <span class="num">0.25 D</span>，其餘約 2 D 為水晶體散光，摘除後消失 → <mark class="ex-key">植入 <strong>monofocal IOL</strong> 即可</mark>；不需 toric IOL（通常用於 <span class="num">&gt; ~1.00 D</span>），也不需 relaxing incision（若要做也應在陡峭軸 120°，30° 是平坦軸）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-210" data-q="210" aria-label="考題 Q210">Q210</a></sup>。<span class="ref">p.109–110</span></li>
-<li id="np-68">Total corneal astigmatism ＝ 前表面＋後表面散光。<mark class="ex-key"><strong>前表面</strong>散光隨年齡由 with-the-rule（WTR，順規；垂直軸較陡）漂向 ATR（水平軸較陡）</mark>；<strong>後表面散光不隨年齡改變</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1303" data-q="1303" aria-label="考題 Q1303">Q1303</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1375" data-q="1375" aria-label="考題 Q1375">Q1375</a></sup>。<span class="ref">p.109</span></li>
-<li id="np-69"><mark class="ex-key"><span class="num">&gt; 85%</span> 成人後角膜在<strong>垂直軸</strong>較陡</mark>；後角膜為 minus lens（負透鏡）→ 水平方向淨正屈光力 → 為全角膜散光<strong>增加 ATR 散光</strong>。後角膜散光平均約 <span class="num">0.30–0.50 D</span>，個體差異大⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1425" data-q="1425" aria-label="考題 Q1425">Q1425</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1375" data-q="1375" aria-label="考題 Q1375">Q1375</a></sup>。<span class="ref">p.109</span></li>
-<li id="np-70">因此只量前角膜會<strong>高估 WTR、低估 ATR</strong> 散光⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1425" data-q="1425" aria-label="考題 Q1425">Q1425</a></sup>。<span class="ref">p.109</span></li>
+<li id="np-66"><mark class="ex-key"><strong>Refractive astigmatism（屈光散光，如驗光所得）＝ total corneal astigmatism（全角膜散光）＋ lenticular astigmatism（水晶體散光）</strong>；水晶體散光在白內障手術時即被移除</mark> → 散光矯正要針對<strong>全角膜散光</strong>，不是驗光散光⁠<sup class="ex-qref"><span>Q210</span></sup>。<span class="ref">p.109</span></li>
+<li id="np-67">臨床例：驗光 −3.00 +2.00 × 120、K 值 42.50 D / 42.75 D @120 → 角膜散光僅 <span class="num">0.25 D</span>，其餘約 2 D 為水晶體散光，摘除後消失 → <mark class="ex-key">植入 <strong>monofocal IOL</strong> 即可</mark>；不需 toric IOL（通常用於 <span class="num">&gt; ~1.00 D</span>），也不需 relaxing incision（若要做也應在陡峭軸 120°，30° 是平坦軸）⁠<sup class="ex-qref"><span>Q210</span></sup>。<span class="ref">p.109–110</span></li>
+<li id="np-68">Total corneal astigmatism ＝ 前表面＋後表面散光。<mark class="ex-key"><strong>前表面</strong>散光隨年齡由 with-the-rule（WTR，順規；垂直軸較陡）漂向 ATR（水平軸較陡）</mark>；<strong>後表面散光不隨年齡改變</strong>⁠<sup class="ex-qref"><span>Q1303</span> <span>Q1375</span></sup>。<span class="ref">p.109</span></li>
+<li id="np-69"><mark class="ex-key"><span class="num">&gt; 85%</span> 成人後角膜在<strong>垂直軸</strong>較陡</mark>；後角膜為 minus lens（負透鏡）→ 水平方向淨正屈光力 → 為全角膜散光<strong>增加 ATR 散光</strong>。後角膜散光平均約 <span class="num">0.30–0.50 D</span>，個體差異大⁠<sup class="ex-qref"><span>Q1425</span> <span>Q1375</span></sup>。<span class="ref">p.109</span></li>
+<li id="np-70">因此只量前角膜會<strong>高估 WTR、低估 ATR</strong> 散光⁠<sup class="ex-qref"><span>Q1425</span></sup>。<span class="ref">p.109</span></li>
 <li id="np-71">前角膜散光可用 keratometry（手動/自動）、topography（角膜地形圖）、Scheimpflug imaging、OCT 準確測量；keratometry 宜合併其他影像，因 irregular astigmatism（不規則散光）或 ectatic disease（角膜擴張）可能需 topography/tomography 才看得出。後角膜散光較難量，可用 Scheimpflug、OCT、light-emitting diode（LED）裝置。<span class="ref">p.109</span></li>
 <li id="np-72">納入後角膜散光的 2 種方式：以前角膜散光 + 模型預測後角膜，或直接測量；把實測後角膜散光輸入 toric calculator（如 Barrett toric calculator）可提高準確度。<span class="ref">p.109</span></li>
 <li id="np-73">矯正方式：astigmatic keratotomy、limbal relaxing incision、toric IOL、術後 laser vision correction（LVC，雷射視力矯正）。<mark>Corneal relaxing incision 現多用於<strong>較低</strong>散光，較高散光改用 toric IOL</mark>。<span class="ref">p.109</span></li>
 </ul>
 <h3 id="ch7-s3-2">Surgically induced astigmatism（SIA，手術誘發散光）</h3>
 <ul>
-<li id="np-74">可把 SIA 的 centroid value（向量平均）輸入線上 toric calculator；<mark class="ex-key"><span class="num">2.4-mm</span> temporal clear corneal incision（顳側透明角膜切口）centroid 約為切口經線 <span class="num">0.10 D</span> 的變平</mark>，但個案差異很大；醫師也可用自己過往病例算出的 SIA⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1375" data-q="1375" aria-label="考題 Q1375">Q1375</a></sup>。<span class="ref">p.109</span></li>
-<li id="np-75">需較大切口時，<strong>放在較陡經線</strong>可減少術後散光；調整切口位置可產生細微效果⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1638" data-q="1638" aria-label="考題 Q1638">Q1638</a></sup>。<span class="ref">p.109–110</span></li>
+<li id="np-74">可把 SIA 的 centroid value（向量平均）輸入線上 toric calculator；<mark class="ex-key"><span class="num">2.4-mm</span> temporal clear corneal incision（顳側透明角膜切口）centroid 約為切口經線 <span class="num">0.10 D</span> 的變平</mark>，但個案差異很大；醫師也可用自己過往病例算出的 SIA⁠<sup class="ex-qref"><span>Q1375</span></sup>。<span class="ref">p.109</span></li>
+<li id="np-75">需較大切口時，<strong>放在較陡經線</strong>可減少術後散光；調整切口位置可產生細微效果⁠<sup class="ex-qref"><span>Q1638</span></sup>。<span class="ref">p.109–110</span></li>
 </ul>
 <h3 id="ch7-s3-3">Corneal relaxing incisions（角膜鬆弛切開）</h3>
 <ul>
 <li id="np-76">包括 astigmatic（arcuate）keratotomy 與 limbal relaxing incision；皆為 partial-thickness arcuate incision（部分厚度弧形切口），矯正 regular corneal astigmatism 而<strong>不改變角膜 spherical equivalent（等效球面度）</strong>。<span class="ref">p.110</span></li>
-<li id="np-77"><mark class="ex-key">使被切開的<strong>陡峭經線變平</strong>，並使 <span class="num">90°</span> 外的經線變陡 → <strong>coupling（耦合）</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1303" data-q="1303" aria-label="考題 Q1303">Q1303</a></sup>。<span class="ref">p.110</span></li>
-<li id="np-78"><strong>Astigmatic keratotomy（AK，散光角膜切開術）</strong>：單一或成對，<mark class="ex-key">以角膜<strong>陡峭經線</strong>為中心</mark>，通常在 <span class="num">7–10-mm</span> optical zone；<mark class="ex-key">太靠近視軸 → glare 與不規則散光</mark>。可用刀片或 femtosecond laser（可設定弧長、光學區、深度）；anterior-penetrating AK 日後可手動打開以「titrate」效果，也可做不穿透上皮的 intrastromal AK⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1303" data-q="1303" aria-label="考題 Q1303">Q1303</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1426" data-q="1426" aria-label="考題 Q1426">Q1426</a></sup>。<span class="ref">p.111</span></li>
-<li id="np-79"><strong>Limbal relaxing incision（LRI，角膜緣鬆弛切開）</strong>：單一或成對，位於近角膜緣的周邊角膜；<mark class="ex-key"><strong>比 AK 更周邊 → glare 與不規則散光風險較低</strong>；但因位置周邊，<strong>同樣效果需比 AK 更長</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1426" data-q="1426" aria-label="考題 Q1426">Q1426</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1303" data-q="1303" aria-label="考題 Q1303">Q1303</a></sup>。<span class="ref">p.111</span></li>
-<li id="np-80">LRI 常用 diamond blade；<mark class="ex-key">有些醫師把白內障主切口放在成對 LRI 其中一個位置內，也有人另選位置</mark>；也可術後在門診做。Nomogram：Donnenfeld、Nichamin⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1426" data-q="1426" aria-label="考題 Q1426">Q1426</a></sup>。<span class="ref">p.111</span></li>
+<li id="np-77"><mark class="ex-key">使被切開的<strong>陡峭經線變平</strong>，並使 <span class="num">90°</span> 外的經線變陡 → <strong>coupling（耦合）</strong></mark>⁠<sup class="ex-qref"><span>Q1303</span></sup>。<span class="ref">p.110</span></li>
+<li id="np-78"><strong>Astigmatic keratotomy（AK，散光角膜切開術）</strong>：單一或成對，<mark class="ex-key">以角膜<strong>陡峭經線</strong>為中心</mark>，通常在 <span class="num">7–10-mm</span> optical zone；<mark class="ex-key">太靠近視軸 → glare 與不規則散光</mark>。可用刀片或 femtosecond laser（可設定弧長、光學區、深度）；anterior-penetrating AK 日後可手動打開以「titrate」效果，也可做不穿透上皮的 intrastromal AK⁠<sup class="ex-qref"><span>Q1303</span> <span>Q1426</span></sup>。<span class="ref">p.111</span></li>
+<li id="np-79"><strong>Limbal relaxing incision（LRI，角膜緣鬆弛切開）</strong>：單一或成對，位於近角膜緣的周邊角膜；<mark class="ex-key"><strong>比 AK 更周邊 → glare 與不規則散光風險較低</strong>；但因位置周邊，<strong>同樣效果需比 AK 更長</strong></mark>⁠<sup class="ex-qref"><span>Q1426</span> <span>Q1303</span></sup>。<span class="ref">p.111</span></li>
+<li id="np-80">LRI 常用 diamond blade；<mark class="ex-key">有些醫師把白內障主切口放在成對 LRI 其中一個位置內，也有人另選位置</mark>；也可術後在門診做。Nomogram：Donnenfeld、Nichamin⁠<sup class="ex-qref"><span>Q1426</span></sup>。<span class="ref">p.111</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th></th><th>Corneal relaxing incisions</th><th>Toric IOL</th></tr></thead>
@@ -476,10 +474,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch7-s3-4">Toric IOL（散光人工水晶體）</h3>
 <ul>
 <li id="np-88"><mark>用於 <strong>regular corneal astigmatism（規則角膜散光）</strong></mark>；美國可矯正約 <span class="num">1.00 D 至 4.00 D</span> 角膜散光；accommodating、MFIOL、EDOF 皆有 toric 版。<span class="ref">p.112</span></li>
-<li id="np-89">需以現代 toric calculator 計算全角膜散光（含後角膜效應）；光學生物測量的軸向與量值應以 topography/tomography 確認，並<mark class="ex-key">排除 irregular astigmatism 或 corneal ectasia（不適合 relaxing incision 或 toric IOL）</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1303" data-q="1303" aria-label="考題 Q1303">Q1303</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1638" data-q="1638" aria-label="考題 Q1638">Q1638</a></sup>。<span class="ref">p.112</span></li>
+<li id="np-89">需以現代 toric calculator 計算全角膜散光（含後角膜效應）；光學生物測量的軸向與量值應以 topography/tomography 確認，並<mark class="ex-key">排除 irregular astigmatism 或 corneal ectasia（不適合 relaxing incision 或 toric IOL）</mark>⁠<sup class="ex-qref"><span>Q1303</span> <span>Q1638</span></sup>。<span class="ref">p.112</span></li>
 <li id="np-90">標記：病人<strong>坐姿</strong>時於角膜做水平/垂直參考記號或直接標出植入軸，以避免仰臥時 cyclotorsion（眼球旋轉）造成誤差；亦有標記器、手機 app、術中對位系統。IOL 放入囊袋後旋轉使軸記號對準計算出的<strong>角膜陡峭經線</strong>。<span class="ref">p.112</span></li>
-<li id="np-91"><mark class="ex-key">每偏離 <span class="num">1°</span> 矯正效果減少 <span class="num">3.3%</span>；偏差 <span class="num">&gt; 30°</span> 會使散光反而增加</mark>（約 30° 時已幾乎無淨矯正）。若需重新旋轉，應在術後早期、capsular fibrosis 與囊袋黏附 IOL 之前⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1593" data-q="1593" aria-label="考題 Q1593">Q1593</a></sup>。<span class="ref">p.112</span></li>
-<li id="np-92">不規則散光（如 RK 術後）不適合 toric IOL⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1638" data-q="1638" aria-label="考題 Q1638">Q1638</a></sup>。<span class="ref">p.112</span></li>
+<li id="np-91"><mark class="ex-key">每偏離 <span class="num">1°</span> 矯正效果減少 <span class="num">3.3%</span>；偏差 <span class="num">&gt; 30°</span> 會使散光反而增加</mark>（約 30° 時已幾乎無淨矯正）。若需重新旋轉，應在術後早期、capsular fibrosis 與囊袋黏附 IOL 之前⁠<sup class="ex-qref"><span>Q1593</span></sup>。<span class="ref">p.112</span></li>
+<li id="np-92">不規則散光（如 RK 術後）不適合 toric IOL⁠<sup class="ex-qref"><span>Q1638</span></sup>。<span class="ref">p.112</span></li>
 </ul>
 <h3 id="ch7-s3-5">Table 7-4：術後 toric IOL 旋轉的可能危險因子</h3>
 <table class="ted-table">
@@ -490,18 +488,18 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-96">出處 <span class="ref">p.112–113</span></p>
 <ul>
-<li id="np-97">長眼軸/大囊袋增加旋轉風險；這類近視眼需要的<strong>低度數 IOL 光學部較薄、在囊袋中佔較少空間</strong>；<mark class="ex-key">對準矯正 <strong>WTR</strong> 角膜散光也可能增加旋轉風險</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1375" data-q="1375" aria-label="考題 Q1375">Q1375</a></sup>。<span class="ref">p.112</span></li>
+<li id="np-97">長眼軸/大囊袋增加旋轉風險；這類近視眼需要的<strong>低度數 IOL 光學部較薄、在囊袋中佔較少空間</strong>；<mark class="ex-key">對準矯正 <strong>WTR</strong> 角膜散光也可能增加旋轉風險</mark>⁠<sup class="ex-qref"><span>Q1375</span></sup>。<span class="ref">p.112</span></li>
 <li id="np-98">預防：前囊緣完全覆蓋光學部（有些醫師不拋光前囊以增加黏附）、徹底清除 OVD（含 IOL 後方）、高風險者放 capsular tension ring（囊袋張力環）；儘管如此仍可能旋轉。<span class="ref">p.113</span></li>
 <li id="np-99"><strong>Tilt（傾斜）</strong>：IOL 繞垂直經線水平傾斜（鼻側緣前傾、顳側緣後傾）→ 誘發 <strong>ATR</strong> 散光；傾斜越大、IOL 度數越高，誘發散光越多。<span class="ref">p.113–114</span></li>
 <li id="np-100"><strong>Intraoperative wavefront aberrometry（術中波前像差儀）</strong>：以 infrared（IR，紅外線）光與 interferometry（干涉儀）在移除白內障後立即取得 aphakic refraction（無晶體屈光），並確認 toric 對位；可當場旋轉或更換 IOL，尤其未用現代公式與後角膜測量時有幫助。<span class="ref">p.114</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch7-s3-6">易錯陷阱</h3><ul>
-<li id="np-101">AK 與 LRI 都要做在「陡峭」經線（使其變平），不是平坦經線⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1303" data-q="1303" aria-label="考題 Q1303">Q1303</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-210" data-q="210" aria-label="考題 Q210">Q210</a></sup>。<span class="ref">p.110–111</span></li>
-<li id="np-102">LRI 比 AK 更「周邊」，所以 glare/不規則散光較少，但切口要「更長」⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1426" data-q="1426" aria-label="考題 Q1426">Q1426</a></sup>。<span class="ref">p.111</span></li>
-<li id="np-103">隨年齡往 ATR 漂移的是「前」表面；後表面不隨年齡變，且 &gt;85% 垂直軸較陡（造成 ATR，不是 WTR）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1303" data-q="1303" aria-label="考題 Q1303">Q1303</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1375" data-q="1375" aria-label="考題 Q1375">Q1375</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1425" data-q="1425" aria-label="考題 Q1425">Q1425</a></sup>。<span class="ref">p.109</span></li>
-<li id="np-104">Toric IOL 旋轉危險因子是 <strong>WTR</strong>（不是 ATR）與<strong>低</strong>度數 IOL（不是高度數）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1375" data-q="1375" aria-label="考題 Q1375">Q1375</a></sup>。<span class="ref">p.112–113</span></li>
-<li id="np-105">Toric IOL 只矯正規則角膜散光；驗光散光若主要來自水晶體，摘除後就消失⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1303" data-q="1303" aria-label="考題 Q1303">Q1303</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-210" data-q="210" aria-label="考題 Q210">Q210</a></sup>。<span class="ref">p.109, p.112</span></li>
-<li id="np-106">每偏 1° 少 3.3%，&gt;30° 散光反而變大⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1593" data-q="1593" aria-label="考題 Q1593">Q1593</a></sup>。<span class="ref">p.112</span></li>
+<li id="np-101">AK 與 LRI 都要做在「陡峭」經線（使其變平），不是平坦經線⁠<sup class="ex-qref"><span>Q1303</span> <span>Q210</span></sup>。<span class="ref">p.110–111</span></li>
+<li id="np-102">LRI 比 AK 更「周邊」，所以 glare/不規則散光較少，但切口要「更長」⁠<sup class="ex-qref"><span>Q1426</span></sup>。<span class="ref">p.111</span></li>
+<li id="np-103">隨年齡往 ATR 漂移的是「前」表面；後表面不隨年齡變，且 &gt;85% 垂直軸較陡（造成 ATR，不是 WTR）⁠<sup class="ex-qref"><span>Q1303</span> <span>Q1375</span> <span>Q1425</span></sup>。<span class="ref">p.109</span></li>
+<li id="np-104">Toric IOL 旋轉危險因子是 <strong>WTR</strong>（不是 ATR）與<strong>低</strong>度數 IOL（不是高度數）⁠<sup class="ex-qref"><span>Q1375</span></sup>。<span class="ref">p.112–113</span></li>
+<li id="np-105">Toric IOL 只矯正規則角膜散光；驗光散光若主要來自水晶體，摘除後就消失⁠<sup class="ex-qref"><span>Q1303</span> <span>Q210</span></sup>。<span class="ref">p.109, p.112</span></li>
+<li id="np-106">每偏 1° 少 3.3%，&gt;30° 散光反而變大⁠<sup class="ex-qref"><span>Q1593</span></sup>。<span class="ref">p.112</span></li>
 </ul></div>
 
 <h2 id="ch7-s4">四、術前測量（Biometry）</h2>
@@ -512,20 +510,20 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch7-s4-2">Axial length</h3>
 <ul>
-<li id="np-109"><mark class="ex-key">AL 誤差 <span class="num">1 mm</span> 即造成明顯術後屈光誤差：<span class="num">30-mm</span> 眼約 <span class="num">1.75 D</span>、<span class="num">23.5-mm</span> 眼約 <span class="num">2.35 D</span>、<span class="num">20-mm</span> 眼約 <span class="num">3.75 D</span></mark>（短眼影響最大；3.75 D 只對應約 20 mm 的極短眼）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1343" data-q="1343" aria-label="考題 Q1343">Q1343</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a></sup>。<span class="ref">p.114</span></li>
+<li id="np-109"><mark class="ex-key">AL 誤差 <span class="num">1 mm</span> 即造成明顯術後屈光誤差：<span class="num">30-mm</span> 眼約 <span class="num">1.75 D</span>、<span class="num">23.5-mm</span> 眼約 <span class="num">2.35 D</span>、<span class="num">20-mm</span> 眼約 <span class="num">3.75 D</span></mark>（短眼影響最大；3.75 D 只對應約 20 mm 的極短眼）⁠<sup class="ex-qref"><span>Q1343</span> <span>Q1367</span></sup>。<span class="ref">p.114</span></li>
 <li id="np-110">即使只開一眼也應量雙眼；兩眼 AL 差通常 <span class="num">≤ 0.3 mm</span>，差更多可能是量測錯誤（除非有屈光差異或其他眼部發現），需記錄並解釋。<span class="ref">p.114</span></li>
 <li id="np-111"><strong>Optical biometer（光學生物測量儀）</strong>：非接觸，用 IR 雷射與 partial coherence interferometry、swept-source OCT 或 optical low-coherence reflectometry 量 AL、角膜曲率、ACD、LT、WTW；<mark>需病人注視目標 → 得到沿 visual axis（視軸）的 AL</mark>。<span class="ref">p.114</span></li>
-<li id="np-112">新機型穿透緻密白內障的能力越來越好；<mark class="ex-key">對 posterior staphyloma（後葡萄腫）有利，<strong>凡可行皆優先於超音波</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1392" data-q="1392" aria-label="考題 Q1392">Q1392</a></sup>。<span class="ref">p.115</span></li>
-<li id="np-113"><mark class="ex-key">光學法需介質足夠透明以自主注視與透光 → 部分病例量不到，<strong>必須改用超音波</strong>（immersion 或 contact applanation）</mark>，例如緻密 posterior subcapsular cataract（PSC，後囊下白內障）或 mature cataract（成熟型白內障）（BCSC 3：約 <span class="num">5%–8%</span> 緻密白內障、尤其 PSC）；角膜屈光術後、矽油眼、aphakia（無晶體眼）都不是「必須改超音波」的理由⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1392" data-q="1392" aria-label="考題 Q1392">Q1392</a></sup>。<span class="ref">p.115; BCSC 3 p.264</span></li>
-<li id="np-114"><strong>A-scan ultrasonography（A 型超音波）</strong>：<mark class="ex-key">量的是超音波脈衝的 transit time（傳導時間）</mark>，以各介質平均音速換算 AL；音速異常時需修正。以 immersion（浸潤式，Fig 7-9）或 contact applanation（接觸壓平）取得；BCSC 3 認為 immersion 較準（接觸法壓陷角膜使 AL 偏短，本章外）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-294" data-q="294" aria-label="考題 Q294">Q294</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1392" data-q="1392" aria-label="考題 Q1392">Q1392</a></sup>。<span class="ref">p.115; BCSC 3 p.264</span></li>
+<li id="np-112">新機型穿透緻密白內障的能力越來越好；<mark class="ex-key">對 posterior staphyloma（後葡萄腫）有利，<strong>凡可行皆優先於超音波</strong></mark>⁠<sup class="ex-qref"><span>Q1392</span></sup>。<span class="ref">p.115</span></li>
+<li id="np-113"><mark class="ex-key">光學法需介質足夠透明以自主注視與透光 → 部分病例量不到，<strong>必須改用超音波</strong>（immersion 或 contact applanation）</mark>，例如緻密 posterior subcapsular cataract（PSC，後囊下白內障）或 mature cataract（成熟型白內障）（BCSC 3：約 <span class="num">5%–8%</span> 緻密白內障、尤其 PSC）；角膜屈光術後、矽油眼、aphakia（無晶體眼）都不是「必須改超音波」的理由⁠<sup class="ex-qref"><span>Q1392</span></sup>。<span class="ref">p.115; BCSC 3 p.264</span></li>
+<li id="np-114"><strong>A-scan ultrasonography（A 型超音波）</strong>：<mark class="ex-key">量的是超音波脈衝的 transit time（傳導時間）</mark>，以各介質平均音速換算 AL；音速異常時需修正。以 immersion（浸潤式，Fig 7-9）或 contact applanation（接觸壓平）取得；BCSC 3 認為 immersion 較準（接觸法壓陷角膜使 AL 偏短，本章外）⁠<sup class="ex-qref"><span>Q294</span> <span>Q1392</span></sup>。<span class="ref">p.115; BCSC 3 p.264</span></li>
 <li id="np-115">Immersion shell：美國以 infusion shell 為主（較易對準視軸、較好用），cup shell 現已少用；如 Prager shell、Kohn shell。<span class="ref">p.115</span></li>
 </ul>
 <div class="hs-warn-box">
-<p id="np-116"><strong>Silicone oil 眼的生物測量（Clinical Pearl）</strong>：矽油中音速 <span class="num">980 m/s 或 1040 m/s</span>（依黏度），玻璃體 <span class="num">1532 m/s</span>（約三分之二，不是二分之一）→ 傳導時間延長；<mark class="ex-key">未修正會量出<strong>過長</strong>的 AL → 選錯 IOL → <strong>意外的遠視</strong></mark>。此外<mark class="ex-key">矽油<strong>屈光指數高於玻璃體</strong>，選 IOL 時也必須考慮</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-294" data-q="294" aria-label="考題 Q294">Q294</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1343" data-q="1343" aria-label="考題 Q1343">Q1343</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1332" data-q="1332" aria-label="考題 Q1332">Q1332</a></sup>。<span class="ref">p.116</span></p>
+<p id="np-116"><strong>Silicone oil 眼的生物測量（Clinical Pearl）</strong>：矽油中音速 <span class="num">980 m/s 或 1040 m/s</span>（依黏度），玻璃體 <span class="num">1532 m/s</span>（約三分之二，不是二分之一）→ 傳導時間延長；<mark class="ex-key">未修正會量出<strong>過長</strong>的 AL → 選錯 IOL → <strong>意外的遠視</strong></mark>。此外<mark class="ex-key">矽油<strong>屈光指數高於玻璃體</strong>，選 IOL 時也必須考慮</mark>⁠<sup class="ex-qref"><span>Q294</span> <span>Q1343</span> <span>Q1367</span> <span>Q1332</span></sup>。<span class="ref">p.116</span></p>
 </div>
 <h3 id="ch7-s4-3">Corneal power</h3>
 <ul>
-<li id="np-117"><mark class="ex-key">角膜屈光力計算誤差 <span class="num">1.00 D</span> → 術後屈光約同等程度誤差</mark>（相較之下 1 mm AL 誤差約 1.75–3.75 D，眼越短越大）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a></sup>。<span class="ref">p.116, p.114</span></li>
+<li id="np-117"><mark class="ex-key">角膜屈光力計算誤差 <span class="num">1.00 D</span> → 術後屈光約同等程度誤差</mark>（相較之下 1 mm AL 誤差約 1.75–3.75 D，眼越短越大）⁠<sup class="ex-qref"><span>Q1367</span></sup>。<span class="ref">p.116, p.114</span></li>
 <li id="np-118">量測前先優化角膜：治療 ocular surface disease（眼表疾病）、減少隱形眼鏡造成的 warpage（角膜變形）；多數醫師要求停 rigid gas permeable（RGP，硬式透氣）鏡<strong>數週</strong>，軟式較短。<span class="ref">p.116</span></li>
 <li id="np-119">後角膜曲率越來越被視為避免 refractive surprise（屈光意外）的重要因素，尤其 toric IOL。<span class="ref">p.116</span></li>
 </ul>
@@ -544,24 +542,24 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-131">預測 ELP 與實際位置差異大 → refractive surprise，故 ACD 是現代公式的重要變數。<span class="ref">p.117</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch7-s4-5">易錯陷阱</h3><ul>
-<li id="np-132">IOL 計算最大的誤差來源是 <strong>AL</strong>，不是角膜弧度⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1343" data-q="1343" aria-label="考題 Q1343">Q1343</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a></sup>。<span class="ref">p.114, p.117</span></li>
-<li id="np-133">矽油：音速「較慢」→ AL 量「長」→ 術後「遠視」；矽油屈光指數「高於」玻璃體⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1343" data-q="1343" aria-label="考題 Q1343">Q1343</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-294" data-q="294" aria-label="考題 Q294">Q294</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1332" data-q="1332" aria-label="考題 Q1332">Q1332</a></sup>。<span class="ref">p.116</span></li>
-<li id="np-134">3.75 D/mm 是 20 mm 眼的數字，23.5 mm 眼是 2.35 D、30 mm 眼是 1.75 D⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1343" data-q="1343" aria-label="考題 Q1343">Q1343</a></sup>。<span class="ref">p.114</span></li>
-<li id="np-135">需要改用超音波（immersion 或 contact）的是光學法量不到的緻密/成熟白內障⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1392" data-q="1392" aria-label="考題 Q1392">Q1392</a></sup>。<span class="ref">p.115</span></li>
+<li id="np-132">IOL 計算最大的誤差來源是 <strong>AL</strong>，不是角膜弧度⁠<sup class="ex-qref"><span>Q1343</span> <span>Q1367</span></sup>。<span class="ref">p.114, p.117</span></li>
+<li id="np-133">矽油：音速「較慢」→ AL 量「長」→ 術後「遠視」；矽油屈光指數「高於」玻璃體⁠<sup class="ex-qref"><span>Q1343</span> <span>Q1367</span> <span>Q294</span> <span>Q1332</span></sup>。<span class="ref">p.116</span></li>
+<li id="np-134">3.75 D/mm 是 20 mm 眼的數字，23.5 mm 眼是 2.35 D、30 mm 眼是 1.75 D⁠<sup class="ex-qref"><span>Q1343</span></sup>。<span class="ref">p.114</span></li>
+<li id="np-135">需要改用超音波（immersion 或 contact）的是光學法量不到的緻密/成熟白內障⁠<sup class="ex-qref"><span>Q1392</span></sup>。<span class="ref">p.115</span></li>
 </ul></div>
 
 <h2 id="ch7-s5">五、IOL 度數計算</h2>
 <h3 id="ch7-s5-1">Classic regression formula（SRK）</h3>
 <ul>
 <li id="np-136">Sanders、Retzlaff、Kraff 於 1980 年代提出：<mark><strong>P = A − (2.5L) − 0.9K</strong></mark>（P＝正視所需 IOL 度數、L＝AL（mm）、K＝平均角膜弧度（D）、A＝鏡片常數）。<span class="ref">p.117</span></li>
-<li id="np-137">由公式可見：<mark class="ex-key">AL 或 K 越大，所需 IOL 度數越低</mark> → 兩者同時增加時 IOL power 必定降低；兩者同時減少時度數上升最多；一增一減則不一定。<mark class="ex-key">平均 K 每變 <span class="num">1 D</span>，IOL 度數變 <span class="num">0.9 D</span></mark>；AL 每 1 mm 變 2.5 D⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-233" data-q="233" aria-label="考題 Q233">Q233</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1411" data-q="1411" aria-label="考題 Q1411">Q1411</a></sup>。<span class="ref">p.117</span></li>
-<li id="np-138">已不常規使用，但說明 <strong>AL 的小誤差影響遠大於 K 的小誤差</strong>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1343" data-q="1343" aria-label="考題 Q1343">Q1343</a></sup>。<span class="ref">p.117</span></li>
+<li id="np-137">由公式可見：<mark class="ex-key">AL 或 K 越大，所需 IOL 度數越低</mark> → 兩者同時增加時 IOL power 必定降低；兩者同時減少時度數上升最多；一增一減則不一定。<mark class="ex-key">平均 K 每變 <span class="num">1 D</span>，IOL 度數變 <span class="num">0.9 D</span></mark>；AL 每 1 mm 變 2.5 D⁠<sup class="ex-qref"><span>Q233</span> <span>Q1411</span></sup>。<span class="ref">p.117</span></li>
+<li id="np-138">已不常規使用，但說明 <strong>AL 的小誤差影響遠大於 K 的小誤差</strong>⁠<sup class="ex-qref"><span>Q1367</span> <span>Q1343</span></sup>。<span class="ref">p.117</span></li>
 </ul>
 <h3 id="ch7-s5-2">計算準確度與公式選擇</h3>
 <ul>
 <li id="np-139">需讓病人了解公式並不完美：大型病例系列 <span class="num">20%–30%</span> 偏離目標最多 <span class="num">0.50 D</span>，<span class="num">&lt; 5%</span> 偏離 <span class="num">&gt; 1.00 D</span>；最困難的是屈光手術後、axial myopia（軸性近視）或 axial hyperopia（軸性遠視）。<span class="ref">p.117</span></li>
-<li id="np-140"><mark class="ex-key">傳統上 <strong>Hoffer Q 用於短眼軸</strong>（axial hyperopes），<strong>SRK/T 與 Haigis 用於長眼軸</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1400" data-q="1400" aria-label="考題 Q1400">Q1400</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1411" data-q="1411" aria-label="考題 Q1411">Q1411</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a></sup>。<span class="ref">p.117</span></li>
-<li id="np-141">現代公式結合 artificial intelligence（AI，人工智慧）、ray tracing（光線追跡）、theoretical optics（理論光學）、regression（迴歸），常需年齡、ACD、LT 等額外變數；<mark class="ex-key">大型研究中以 <strong>Barrett Universal II</strong> 與 <strong>Kane</strong> 最準確</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1400" data-q="1400" aria-label="考題 Q1400">Q1400</a></sup>。<span class="ref">p.117–118</span></li>
+<li id="np-140"><mark class="ex-key">傳統上 <strong>Hoffer Q 用於短眼軸</strong>（axial hyperopes），<strong>SRK/T 與 Haigis 用於長眼軸</strong></mark>⁠<sup class="ex-qref"><span>Q1400</span> <span>Q1411</span> <span>Q1367</span></sup>。<span class="ref">p.117</span></li>
+<li id="np-141">現代公式結合 artificial intelligence（AI，人工智慧）、ray tracing（光線追跡）、theoretical optics（理論光學）、regression（迴歸），常需年齡、ACD、LT 等額外變數；<mark class="ex-key">大型研究中以 <strong>Barrett Universal II</strong> 與 <strong>Kane</strong> 最準確</mark>⁠<sup class="ex-qref"><span>Q1400</span></sup>。<span class="ref">p.117–118</span></li>
 <li id="np-142">許多醫師同時用多個公式；European Society of Cataract and Refractive Surgery（ESCRS）網路計算器可同時跑 Barrett Universal II、Emmetropia Verifying Optical（EVO）、Hill-RBF 3.0、Kane。<span class="ref">p.118</span></li>
 </ul>
 <table class="ted-table">
@@ -570,52 +568,52 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-143">SRK、SRK II</td><td id="np-144">Holladay 1、SRK/T、Hoffer Q、Haigis、Holladay 2、Barrett Universal II</td><td id="np-145"><mark>Hill-RBF（version 3.0）</mark>、Kane</td><td id="np-146"><mark>Olsen</mark></td></tr>
 </tbody>
 </table>
-<p id="np-147">Table 7-5 IOL 公式部分列表：<mark class="ex-key">以機器學習/大數據持續改善準確度的是 AI 類的 <strong>Hill-RBF</strong>（Hill Radial Basis Function）；Olsen 屬 ray tracing，Haigis、Barrett、Holladay 1 屬 vergence</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1362" data-q="1362" aria-label="考題 Q1362">Q1362</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1411" data-q="1411" aria-label="考題 Q1411">Q1411</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1400" data-q="1400" aria-label="考題 Q1400">Q1400</a></sup>。<span class="ref">p.118</span></p>
+<p id="np-147">Table 7-5 IOL 公式部分列表：<mark class="ex-key">以機器學習/大數據持續改善準確度的是 AI 類的 <strong>Hill-RBF</strong>（Hill Radial Basis Function）；Olsen 屬 ray tracing，Haigis、Barrett、Holladay 1 屬 vergence</mark>⁠<sup class="ex-qref"><span>Q1362</span> <span>Q1411</span> <span>Q1400</span></sup>。<span class="ref">p.118</span></p>
 <ul>
-<li id="np-148">現行觀念補充：近年大型資料顯示 Kane、Barrett Universal II 等新公式在短眼軸也優於傳統 Hoffer Q（2020 英國 NHS 10,930 眼研究：Kane 在短、中、長眼軸平均絕對誤差皆最低，Hoffer Q 排名最後；短眼軸統合分析中各公式差異多未達統計顯著）；考題「短眼軸用 Hoffer Q」為傳統教學答案⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1400" data-q="1400" aria-label="考題 Q1400">Q1400</a></sup>。<span class="ref">p.117–118</span></li>
+<li id="np-148">現行觀念補充：近年大型資料顯示 Kane、Barrett Universal II 等新公式在短眼軸也優於傳統 Hoffer Q（2020 英國 NHS 10,930 眼研究：Kane 在短、中、長眼軸平均絕對誤差皆最低，Hoffer Q 排名最後；短眼軸統合分析中各公式差異多未達統計顯著）；考題「短眼軸用 Hoffer Q」為傳統教學答案⁠<sup class="ex-qref"><span>Q1400</span></sup>。<span class="ref">p.117–118</span></li>
 </ul>
 <h3 id="ch7-s5-3">Calculations following refractive surgery（屈光手術後的計算）</h3>
 <ul>
 <li id="np-149">這類病人期望高；應以 topography/tomography 辨識屈光術後角膜，並告知可能因過度/不足矯正而 refractive surprise，需眼鏡、隱形眼鏡、屈光手術或 IOL exchange 補救；<strong>記錄討論內容極重要</strong>。<span class="ref">p.118</span></li>
-<li id="np-150">即使已妥善校正，<mark class="ex-key">refractive surprise 風險：<strong>RK &gt; hyperopic LVC &gt; myopic LVC</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1638" data-q="1638" aria-label="考題 Q1638">Q1638</a></sup>。<span class="ref">p.118</span></li>
-<li id="np-151">問題在<strong>中央角膜屈光力</strong>（不是 AL；AL 量測仍準確）：中央曲率變化使前表面量測失準；LVC 後標準角膜屈光指數 <span class="num">1.3375</span> 不再適用於由前表面推算總屈光力⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1569" data-q="1569" aria-label="考題 Q1569">Q1569</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1597" data-q="1597" aria-label="考題 Q1597">Q1597</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1600" data-q="1600" aria-label="考題 Q1600">Q1600</a></sup>。<span class="ref">p.118–119</span></li>
-<li id="np-152"><mark class="ex-key"><strong>Myopic LVC 後</strong>若不調整，conventional keratometry <strong>高估</strong>角膜屈光力 → 算出的 IOL 度數<strong>偏低</strong> → 術後<strong>遠視</strong></mark>；hyperopic LVC 後相反⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1569" data-q="1569" aria-label="考題 Q1569">Q1569</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1597" data-q="1597" aria-label="考題 Q1597">Q1597</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1600" data-q="1600" aria-label="考題 Q1600">Q1600</a></sup>。<span class="ref">p.119</span></li>
+<li id="np-150">即使已妥善校正，<mark class="ex-key">refractive surprise 風險：<strong>RK &gt; hyperopic LVC &gt; myopic LVC</strong></mark>⁠<sup class="ex-qref"><span>Q1638</span></sup>。<span class="ref">p.118</span></li>
+<li id="np-151">問題在<strong>中央角膜屈光力</strong>（不是 AL；AL 量測仍準確）：中央曲率變化使前表面量測失準；LVC 後標準角膜屈光指數 <span class="num">1.3375</span> 不再適用於由前表面推算總屈光力⁠<sup class="ex-qref"><span>Q1569</span> <span>Q1597</span> <span>Q1600</span></sup>。<span class="ref">p.118–119</span></li>
+<li id="np-152"><mark class="ex-key"><strong>Myopic LVC 後</strong>若不調整，conventional keratometry <strong>高估</strong>角膜屈光力 → 算出的 IOL 度數<strong>偏低</strong> → 術後<strong>遠視</strong></mark>；hyperopic LVC 後相反⁠<sup class="ex-qref"><span>Q1569</span> <span>Q1597</span> <span>Q1600</span></sup>。<span class="ref">p.119</span></li>
 <li id="np-153"><strong>RK 後</strong>：後角膜比前角膜變得更平 → 角膜屈光力被高估 → 未校正則術後遠視。<span class="ref">p.119</span></li>
-<li id="np-154">許多公式以角膜屈光力估算 ELP，若直接用屈光術後的 K 值，ELP 估算也會錯誤⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1600" data-q="1600" aria-label="考題 Q1600">Q1600</a></sup>。<span class="ref">p.119</span></li>
-<li id="np-155">估算方法：早期用 historical data（LASIK/PRK 前 K 值與手術造成的屈光變化 ∆MR）；較新的合併目前角膜屈光力與 ∆MR，或完全不用歷史資料只用角膜量測；新的 topography/tomography 同時量前後表面；intraoperative aberrometry 結果與最新屈光術後公式相近⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1597" data-q="1597" aria-label="考題 Q1597">Q1597</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1600" data-q="1600" aria-label="考題 Q1600">Q1600</a></sup>。<span class="ref">p.119</span></li>
-<li id="np-156"><mark class="ex-key">理想方法未定；專家建議<strong>多種方法取共識</strong>，並較重視 <strong>Barrett True-K No-History</strong> 與 OCT-based IOL formula</mark>；可再參考術中像差儀。American Society of Cataract and Refractive Surgery（ASCRS）網站可同時跑多種屈光術後公式；Barrett True-K No-History 亦可在 Asia-Pacific Association of Cataract &amp; Refractive Surgeons（APACRS）取得。Haigis-L 為近視雷射術後專用公式（本章外，BCSC 13）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1411" data-q="1411" aria-label="考題 Q1411">Q1411</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1400" data-q="1400" aria-label="考題 Q1400">Q1400</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1569" data-q="1569" aria-label="考題 Q1569">Q1569</a></sup>。<span class="ref">p.119; BCSC 13 p.151–152</span></li>
-<li id="np-157">SRK、SRK II 等迴歸公式已不常規使用（BCSC 3：準確度差，尤其短/長眼軸），屈光手術後應改用上述專用方法，不是「最好用 SRK II」。RK 後 IOL exchange 時機因 RK 角膜短期水腫、變平與遠視偏移，需等數週至數月角膜與屈光穩定，與 LASIK/PRK 不同（本章外，BCSC 13）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1569" data-q="1569" aria-label="考題 Q1569">Q1569</a></sup>。<span class="ref">p.117, p.119; BCSC 3 p.261; BCSC 13 p.150</span></li>
-<li id="np-158">Hard contact lens method（硬式隱形眼鏡法，本章外）：角膜屈光力 ＝ 鏡片 base curve 屈光力 ＋（戴鏡後屈光 − 戴鏡前屈光）；例：39 D 鏡片，+1 D → −2 D，角膜 ＝ 39 − 3 ＝ 36 D；37 D 鏡片，−3 D → +3 D，角膜 ＝ 37 + 6 ＝ 43 D（戴鏡偏遠視表示鏡片比角膜平）；需矯正視力足夠（約 20/80 以上）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1651" data-q="1651" aria-label="考題 Q1651">Q1651</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1774" data-q="1774" aria-label="考題 Q1774">Q1774</a></sup>。<span class="ref ref-ext">BCSC 13 p.151</span></li>
+<li id="np-154">許多公式以角膜屈光力估算 ELP，若直接用屈光術後的 K 值，ELP 估算也會錯誤⁠<sup class="ex-qref"><span>Q1600</span></sup>。<span class="ref">p.119</span></li>
+<li id="np-155">估算方法：早期用 historical data（LASIK/PRK 前 K 值與手術造成的屈光變化 ∆MR）；較新的合併目前角膜屈光力與 ∆MR，或完全不用歷史資料只用角膜量測；新的 topography/tomography 同時量前後表面；intraoperative aberrometry 結果與最新屈光術後公式相近⁠<sup class="ex-qref"><span>Q1597</span> <span>Q1600</span></sup>。<span class="ref">p.119</span></li>
+<li id="np-156"><mark class="ex-key">理想方法未定；專家建議<strong>多種方法取共識</strong>，並較重視 <strong>Barrett True-K No-History</strong> 與 OCT-based IOL formula</mark>；可再參考術中像差儀。American Society of Cataract and Refractive Surgery（ASCRS）網站可同時跑多種屈光術後公式；Barrett True-K No-History 亦可在 Asia-Pacific Association of Cataract &amp; Refractive Surgeons（APACRS）取得。Haigis-L 為近視雷射術後專用公式（本章外，BCSC 13）⁠<sup class="ex-qref"><span>Q1411</span> <span>Q1400</span> <span>Q1569</span></sup>。<span class="ref">p.119; BCSC 13 p.151–152</span></li>
+<li id="np-157">SRK、SRK II 等迴歸公式已不常規使用（BCSC 3：準確度差，尤其短/長眼軸），屈光手術後應改用上述專用方法，不是「最好用 SRK II」。RK 後 IOL exchange 時機因 RK 角膜短期水腫、變平與遠視偏移，需等數週至數月角膜與屈光穩定，與 LASIK/PRK 不同（本章外，BCSC 13）⁠<sup class="ex-qref"><span>Q1569</span></sup>。<span class="ref">p.117, p.119; BCSC 3 p.261; BCSC 13 p.150</span></li>
+<li id="np-158">Hard contact lens method（硬式隱形眼鏡法，本章外）：角膜屈光力 ＝ 鏡片 base curve 屈光力 ＋（戴鏡後屈光 − 戴鏡前屈光）；例：39 D 鏡片，+1 D → −2 D，角膜 ＝ 39 − 3 ＝ 36 D；37 D 鏡片，−3 D → +3 D，角膜 ＝ 37 + 6 ＝ 43 D（戴鏡偏遠視表示鏡片比角膜平）；需矯正視力足夠（約 20/80 以上）⁠<sup class="ex-qref"><span>Q1651</span> <span>Q1774</span></sup>。<span class="ref ref-ext">BCSC 13 p.151</span></li>
 </ul>
 <h3 id="ch7-s5-4">Expected placement of IOL（預期 IOL 位置）</h3>
 <ul>
-<li id="np-159"><mark class="ex-key">IOL 由囊袋 → sulcus（睫狀溝）→ 前房逐步前移，離視網膜越遠，<strong>所需度數越低</strong></mark>；一般 anterior chamber IOL（ACIOL，前房人工水晶體）比原計畫囊袋內 PCIOL 約低 <span class="num">3.00 D</span>（極端 AL 眼不同）。ACIOL 長度通常取 WTW ＋ 1 mm（本章外，BCSC 11 第 8 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-291" data-q="291" aria-label="考題 Q291">Q291</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1424" data-q="1424" aria-label="考題 Q1424">Q1424</a></sup>。<span class="ref">p.120; BCSC 11 p.152</span></li>
+<li id="np-159"><mark class="ex-key">IOL 由囊袋 → sulcus（睫狀溝）→ 前房逐步前移，離視網膜越遠，<strong>所需度數越低</strong></mark>；一般 anterior chamber IOL（ACIOL，前房人工水晶體）比原計畫囊袋內 PCIOL 約低 <span class="num">3.00 D</span>（極端 AL 眼不同）。ACIOL 長度通常取 WTW ＋ 1 mm（本章外，BCSC 11 第 8 章）⁠<sup class="ex-qref"><span>Q291</span> <span>Q1424</span></sup>。<span class="ref">p.120; BCSC 11 p.152</span></li>
 <li id="np-160">例如後囊破裂而改放 sulcus 時，依 AL 與原囊袋度數調整（Table 7-6）。<span class="ref">p.120</span></li>
-<li id="np-161"><mark class="ex-key">放 sulcus 且做 <strong>optic capture（光學部嵌入，經前囊開口卡入囊袋）</strong> → <strong>不需調整</strong>，因光學部實際仍在囊袋位置</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1379" data-q="1379" aria-label="考題 Q1379">Q1379</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-291" data-q="291" aria-label="考題 Q291">Q291</a></sup>。<span class="ref">p.120</span></li>
-<li id="np-162"><mark class="ex-key">放 sulcus 的 IOL 應限於在 sulcus 穩定且角度正確者（即 <strong>3-piece IOL</strong>）；<strong>1-piece IOL 放 sulcus 易造成 uveitis-glaucoma-hyphema（UGH，葡萄膜炎-青光眼-前房出血）syndrome</strong></mark>。UGH 最早見於 ACIOL，如今也見於 PCIOL（尤其 sulcus 中的單片式壓克力 IOL）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1424" data-q="1424" aria-label="考題 Q1424">Q1424</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1347" data-q="1347" aria-label="考題 Q1347">Q1347</a></sup>。<span class="ref">p.120; BCSC 11 p.202</span></li>
+<li id="np-161"><mark class="ex-key">放 sulcus 且做 <strong>optic capture（光學部嵌入，經前囊開口卡入囊袋）</strong> → <strong>不需調整</strong>，因光學部實際仍在囊袋位置</mark>⁠<sup class="ex-qref"><span>Q1379</span> <span>Q1367</span> <span>Q291</span></sup>。<span class="ref">p.120</span></li>
+<li id="np-162"><mark class="ex-key">放 sulcus 的 IOL 應限於在 sulcus 穩定且角度正確者（即 <strong>3-piece IOL</strong>）；<strong>1-piece IOL 放 sulcus 易造成 uveitis-glaucoma-hyphema（UGH，葡萄膜炎-青光眼-前房出血）syndrome</strong></mark>。UGH 最早見於 ACIOL，如今也見於 PCIOL（尤其 sulcus 中的單片式壓克力 IOL）⁠<sup class="ex-qref"><span>Q1424</span> <span>Q1347</span></sup>。<span class="ref">p.120; BCSC 11 p.202</span></li>
 </ul>
 <table class="ted-table">
 <thead><tr><th>囊袋內計算度數</th><th>改放 sulcus 的調整（無 optic capture）</th></tr></thead>
 <tbody>
 <tr><td id="np-163"><span class="num">+28.50 D 至 +30.00 D</span></td><td id="np-164">減 <span class="num">1.50 D</span></td></tr>
-<tr><td id="np-165"><span class="num">+17.50 D 至 +28.00 D</span></td><td id="np-166"><mark class="ex-key">減 <span class="num">1.00 D</span></mark>（如 22.0 D → 21.0 D；23 D → 22 D）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1410" data-q="1410" aria-label="考題 Q1410">Q1410</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a></sup></td></tr>
+<tr><td id="np-165"><span class="num">+17.50 D 至 +28.00 D</span></td><td id="np-166"><mark class="ex-key">減 <span class="num">1.00 D</span></mark>（如 22.0 D → 21.0 D；23 D → 22 D）⁠<sup class="ex-qref"><span>Q1410</span> <span>Q1367</span></sup></td></tr>
 <tr><td id="np-167"><span class="num">+9.50 D 至 +17.00 D</span></td><td id="np-168">減 <span class="num">0.50 D</span></td></tr>
 <tr><td id="np-169"><span class="num">+5.00 D 至 +9.00 D</span></td><td id="np-170">不變</td></tr>
 </tbody>
 </table>
-<p id="np-171">Table 7-6：有 optic capture 時一律不調整（如原計畫 22 D、改 sulcus 並以前囊開口固定光學部 → 維持 22.0 D）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1379" data-q="1379" aria-label="考題 Q1379">Q1379</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1410" data-q="1410" aria-label="考題 Q1410">Q1410</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-291" data-q="291" aria-label="考題 Q291">Q291</a></sup>。<span class="ref">p.120</span></p>
+<p id="np-171">Table 7-6：有 optic capture 時一律不調整（如原計畫 22 D、改 sulcus 並以前囊開口固定光學部 → 維持 22.0 D）⁠<sup class="ex-qref"><span>Q1379</span> <span>Q1410</span> <span>Q291</span></sup>。<span class="ref">p.120</span></p>
 <h3 id="ch7-s5-5">Tracking refractive outcomes（追蹤屈光結果）</h3>
 <ul>
 <li id="np-172">收集：過度/不足矯正是否偏長眼或短眼、切口是否固定誘發散光、toric 是否如計算矯正、LRI 是否有效。<span class="ref">p.120</span></li>
 <li id="np-173">分析後可加入 <strong>surgeon factor（醫師因子）</strong>或更換計算軟體以改善結果。<span class="ref">p.120</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch7-s5-6">易錯陷阱</h3><ul>
-<li id="np-174">「Olsen 公式以大數據持續學習」是錯的：Olsen 是 ray tracing；AI 類是 Hill-RBF（與 Kane）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1411" data-q="1411" aria-label="考題 Q1411">Q1411</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1362" data-q="1362" aria-label="考題 Q1362">Q1362</a></sup>。<span class="ref">p.118</span></li>
-<li id="np-175">Hoffer Q 傳統上用於「短」眼軸（axial hyperope），不是 axial myope；Haigis-L 是屈光術後公式，不是短眼軸公式⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1367" data-q="1367" aria-label="考題 Q1367">Q1367</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1400" data-q="1400" aria-label="考題 Q1400">Q1400</a></sup>。<span class="ref">p.117</span></li>
-<li id="np-176">Myopic LASIK 後傳統方法算出的 IOL 度數「偏低」才造成術後遠視；說「計算值偏高造成遠視」是因果顛倒⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1597" data-q="1597" aria-label="考題 Q1597">Q1597</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1600" data-q="1600" aria-label="考題 Q1600">Q1600</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1569" data-q="1569" aria-label="考題 Q1569">Q1569</a></sup>。<span class="ref">p.119</span></li>
-<li id="np-177">屈光術後的問題在 K 值，不在 AL；A-scan 或光學法仍能正確量 AL⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1569" data-q="1569" aria-label="考題 Q1569">Q1569</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1597" data-q="1597" aria-label="考題 Q1597">Q1597</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1600" data-q="1600" aria-label="考題 Q1600">Q1600</a></sup>。<span class="ref">p.118–119</span></li>
-<li id="np-178">Sulcus 要「減」度數；optic capture 則「不變」，題目有寫「利用前囊開口固定」就不調整⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-291" data-q="291" aria-label="考題 Q291">Q291</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1379" data-q="1379" aria-label="考題 Q1379">Q1379</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1410" data-q="1410" aria-label="考題 Q1410">Q1410</a></sup>。<span class="ref">p.120</span></li>
-<li id="np-179">後囊破裂放 sulcus 應用 3-piece IOL，不是 single-piece⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1424" data-q="1424" aria-label="考題 Q1424">Q1424</a></sup>。<span class="ref">p.120</span></li>
+<li id="np-174">「Olsen 公式以大數據持續學習」是錯的：Olsen 是 ray tracing；AI 類是 Hill-RBF（與 Kane）⁠<sup class="ex-qref"><span>Q1411</span> <span>Q1362</span></sup>。<span class="ref">p.118</span></li>
+<li id="np-175">Hoffer Q 傳統上用於「短」眼軸（axial hyperope），不是 axial myope；Haigis-L 是屈光術後公式，不是短眼軸公式⁠<sup class="ex-qref"><span>Q1367</span> <span>Q1400</span></sup>。<span class="ref">p.117</span></li>
+<li id="np-176">Myopic LASIK 後傳統方法算出的 IOL 度數「偏低」才造成術後遠視；說「計算值偏高造成遠視」是因果顛倒⁠<sup class="ex-qref"><span>Q1597</span> <span>Q1600</span> <span>Q1569</span></sup>。<span class="ref">p.119</span></li>
+<li id="np-177">屈光術後的問題在 K 值，不在 AL；A-scan 或光學法仍能正確量 AL⁠<sup class="ex-qref"><span>Q1569</span> <span>Q1597</span> <span>Q1600</span></sup>。<span class="ref">p.118–119</span></li>
+<li id="np-178">Sulcus 要「減」度數；optic capture 則「不變」，題目有寫「利用前囊開口固定」就不調整⁠<sup class="ex-qref"><span>Q291</span> <span>Q1379</span> <span>Q1410</span></sup>。<span class="ref">p.120</span></li>
+<li id="np-179">後囊破裂放 sulcus 應用 3-piece IOL，不是 single-piece⁠<sup class="ex-qref"><span>Q1424</span></sup>。<span class="ref">p.120</span></li>
 </ul></div>
 
 <h2 id="ch7-s6">六、白內障手術麻醉</h2>
@@ -644,18 +642,18 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 <h3 id="ch7-s7-1">Before surgery（術前）</h3>
 <ul>
-<li id="np-195"><mark class="ex-key">手術日前應先治療共存的眼瞼/眼表疾病：conjunctivitis（結膜炎）、<strong>blepharitis（眼瞼炎）</strong>、hordeolum（麥粒腫）、chalazion（霰粒腫）</mark>，並找出、治療全身感染 → 嚴重眼瞼炎病人應先指導眼瞼清潔、治療後再追蹤安排手術⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1358" data-q="1358" aria-label="考題 Q1358">Q1358</a></sup>。<span class="ref">p.123</span></li>
+<li id="np-195"><mark class="ex-key">手術日前應先治療共存的眼瞼/眼表疾病：conjunctivitis（結膜炎）、<strong>blepharitis（眼瞼炎）</strong>、hordeolum（麥粒腫）、chalazion（霰粒腫）</mark>，並找出、治療全身感染 → 嚴重眼瞼炎病人應先指導眼瞼清潔、治療後再追蹤安排手術⁠<sup class="ex-qref"><span>Q1358</span></sup>。<span class="ref">p.123</span></li>
 <li id="np-196">白內障手術不被視為會誘發暫時性菌血症的侵入性處置 → <strong>不需全身性抗生素預防</strong>。<span class="ref">p.124</span></li>
-<li id="np-197"><mark class="ex-key">術前 topical antibiotics（局部抗生素）：<strong>沒有研究令人信服地證明可降低眼內炎</strong></mark>，只有證據顯示可減少眼表菌數與術後前房培養陽性率；但許多醫師仍會開立⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-174" data-q="174" aria-label="考題 Q174">Q174</a></sup>。<span class="ref">p.124</span></li>
+<li id="np-197"><mark class="ex-key">術前 topical antibiotics（局部抗生素）：<strong>沒有研究令人信服地證明可降低眼內炎</strong></mark>，只有證據顯示可減少眼表菌數與術後前房培養陽性率；但許多醫師仍會開立⁠<sup class="ex-qref"><span>Q174</span></sup>。<span class="ref">p.124</span></li>
 <li id="np-198">Herpetic eye disease（疱疹性眼病）病史者可考慮預防性抗病毒藥（見第 12 章）。<span class="ref">p.124</span></li>
 </ul>
 <h3 id="ch7-s7-2">During surgery（術中）</h3>
 <ul>
-<li id="np-199"><mark class="ex-key"><strong>5% povidone-iodine（優碘）溶液</strong>（不是 scrub 或 soap）滴於 conjunctival fornix（結膜穹窿）→ 術中眼表菌落數減少、<strong>culture-proven endophthalmitis（培養證實眼內炎）風險下降</strong></mark>，是局部預防中證據最明確者⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-174" data-q="174" aria-label="考題 Q174">Q174</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-147" data-q="147" aria-label="考題 Q147">Q147</a></sup>。<span class="ref">p.124</span></li>
-<li id="np-200">眼周皮膚以 <span class="num">10%</span> povidone-iodine 消毒可減少眼瞼緣菌數；眼瞼緣可能藏菌 → <strong>睫毛需以 drape 包覆隔離於手術野外</strong>；應確認 povidone-iodine 過敏；chlorhexidine 可能有眼毒性需小心⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1358" data-q="1358" aria-label="考題 Q1358">Q1358</a></sup>。<span class="ref">p.124</span></li>
+<li id="np-199"><mark class="ex-key"><strong>5% povidone-iodine（優碘）溶液</strong>（不是 scrub 或 soap）滴於 conjunctival fornix（結膜穹窿）→ 術中眼表菌落數減少、<strong>culture-proven endophthalmitis（培養證實眼內炎）風險下降</strong></mark>，是局部預防中證據最明確者⁠<sup class="ex-qref"><span>Q174</span> <span>Q147</span></sup>。<span class="ref">p.124</span></li>
+<li id="np-200">眼周皮膚以 <span class="num">10%</span> povidone-iodine 消毒可減少眼瞼緣菌數；眼瞼緣可能藏菌 → <strong>睫毛需以 drape 包覆隔離於手術野外</strong>；應確認 povidone-iodine 過敏；chlorhexidine 可能有眼毒性需小心⁠<sup class="ex-qref"><span>Q1358</span></sup>。<span class="ref">p.124</span></li>
 <li id="np-201">減少器械進出眼內次數、檢查器械尖端棉絮/睫毛/碎屑；傷口要仔細閉合。<span class="ref">p.124</span></li>
-<li id="np-202"><mark class="ex-key">眼內炎風險隨 <strong>torn posterior capsule（後囊破裂）、vitreous loss（玻璃體流失）、prolonged surgery（手術延長）</strong>而增加</mark>（改做 extracapsular cataract extraction（ECCE，囊外摘除）並不是預防方法）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1358" data-q="1358" aria-label="考題 Q1358">Q1358</a></sup>。<span class="ref">p.124</span></li>
-<li id="np-203">手術結束時 <strong>intracameral（前房內）抗生素</strong>使用快速增加；部分醫師加在灌注液中或打 intravitreal（玻璃體內）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1358" data-q="1358" aria-label="考題 Q1358">Q1358</a></sup>。<span class="ref">p.124</span></li>
+<li id="np-202"><mark class="ex-key">眼內炎風險隨 <strong>torn posterior capsule（後囊破裂）、vitreous loss（玻璃體流失）、prolonged surgery（手術延長）</strong>而增加</mark>（改做 extracapsular cataract extraction（ECCE，囊外摘除）並不是預防方法）⁠<sup class="ex-qref"><span>Q1358</span></sup>。<span class="ref">p.124</span></li>
+<li id="np-203">手術結束時 <strong>intracameral（前房內）抗生素</strong>使用快速增加；部分醫師加在灌注液中或打 intravitreal（玻璃體內）⁠<sup class="ex-qref"><span>Q1358</span></sup>。<span class="ref">p.124</span></li>
 </ul>
 <h3 id="ch7-s7-3">前房內抗生素比較</h3>
 <table class="ted-table ex-ddx">
@@ -668,22 +666,22 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </table>
 <p id="np-213">出處 <span class="ref">p.124–125</span></p>
 <ul>
-<li id="np-214"><mark class="ex-key">白內障術後數天出現 HORV → 最可能是前房內 <strong>vancomycin</strong></mark>（延遲型過敏，常於術後 1–21 天發生、預後很差，詳見第 11 章，本章外）；moxifloxacin 的問題是色素散布/虹膜脫色與 TASS，cefuroxime 為 ESCRS 證實有效的預防藥，triamcinolone acetonide 本章未列為 HORV 原因（術中可用於玻璃體染色、術後抗發炎）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-160" data-q="160" aria-label="考題 Q160">Q160</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1378" data-q="1378" aria-label="考題 Q1378">Q1378</a></sup>。<span class="ref">p.125; BCSC 11 p.223</span></li>
-<li id="np-215">ESCRS：手術結束前房注射 cefuroxime <span class="num">1 mg</span>，眼內炎由 0.34% 降至 0.07%（本章外，第 11 章）；急性眼內炎治療時 topical cycloplegic 與 corticosteroid 可能有幫助，並非禁用（本章外）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1317" data-q="1317" aria-label="考題 Q1317">Q1317</a></sup>。<span class="ref">p.125; BCSC 11 p.218, p.220</span></li>
-<li id="np-216">TASS 除器械清潔與 bacterial endotoxin（細菌內毒素）外，前房內抗生素配製/劑量錯誤或含添加物的 moxifloxacin 也會引起；典型於術後 12–48 小時出現畏光、視力嚴重下降、角膜水腫、明顯前房反應（本章外，第 11 章）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1329" data-q="1329" aria-label="考題 Q1329">Q1329</a></sup>。<span class="ref">p.125; BCSC 11 p.215–217</span></li>
-<li id="np-217">Cefuroxime 屬 second-generation cephalosporin（第二代頭孢菌素），非第三代（本章外，BCSC 2）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-147" data-q="147" aria-label="考題 Q147">Q147</a></sup>。<span class="ref ref-ext">BCSC 2 p.442</span></li>
+<li id="np-214"><mark class="ex-key">白內障術後數天出現 HORV → 最可能是前房內 <strong>vancomycin</strong></mark>（延遲型過敏，常於術後 1–21 天發生、預後很差，詳見第 11 章，本章外）；moxifloxacin 的問題是色素散布/虹膜脫色與 TASS，cefuroxime 為 ESCRS 證實有效的預防藥，triamcinolone acetonide 本章未列為 HORV 原因（術中可用於玻璃體染色、術後抗發炎）⁠<sup class="ex-qref"><span>Q160</span> <span>Q1378</span></sup>。<span class="ref">p.125; BCSC 11 p.223</span></li>
+<li id="np-215">ESCRS：手術結束前房注射 cefuroxime <span class="num">1 mg</span>，眼內炎由 0.34% 降至 0.07%（本章外，第 11 章）；急性眼內炎治療時 topical cycloplegic 與 corticosteroid 可能有幫助，並非禁用（本章外）⁠<sup class="ex-qref"><span>Q1317</span></sup>。<span class="ref">p.125; BCSC 11 p.218, p.220</span></li>
+<li id="np-216">TASS 除器械清潔與 bacterial endotoxin（細菌內毒素）外，前房內抗生素配製/劑量錯誤或含添加物的 moxifloxacin 也會引起；典型於術後 12–48 小時出現畏光、視力嚴重下降、角膜水腫、明顯前房反應（本章外，第 11 章）⁠<sup class="ex-qref"><span>Q1329</span></sup>。<span class="ref">p.125; BCSC 11 p.215–217</span></li>
+<li id="np-217">Cefuroxime 屬 second-generation cephalosporin（第二代頭孢菌素），非第三代（本章外，BCSC 2）⁠<sup class="ex-qref"><span>Q147</span></sup>。<span class="ref ref-ext">BCSC 2 p.442</span></li>
 <li id="np-218">Subconjunctival corticosteroid 可與前房內抗生素併用；亦可在手術結束時經 transzonular 或 intravitreal 注入抗生素＋類固醇 bolus。<strong>"Dropless" cataract surgery（無眼藥水白內障手術）</strong>：術中給藥以減少或免除術後眼藥，利於配合度差或有費用顧慮者。<span class="ref">p.125</span></li>
 <li id="np-219">Sutureless clear corneal wound 是否增加眼內炎<strong>仍有爭議</strong>；螢光素追蹤顯示眼表細菌可能經無縫線切口流入 → 以 stromal hydration（基質水化）使切口前後緣貼合，若可能滲漏就縫合。<span class="ref">p.125</span></li>
 </ul>
 <h3 id="ch7-s7-4">After surgery（術後）</h3>
 <ul>
-<li id="np-220">已用前房內抗生素時，術後局部抗生素是否必要仍有爭議；<mark class="ex-key">雖可減少菌數，但<strong>沒有確切證據降低眼內炎發生率</strong></mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-174" data-q="174" aria-label="考題 Q174">Q174</a></sup>。<span class="ref">p.125</span></li>
+<li id="np-220">已用前房內抗生素時，術後局部抗生素是否必要仍有爭議；<mark class="ex-key">雖可減少菌數，但<strong>沒有確切證據降低眼內炎發生率</strong></mark>⁠<sup class="ex-qref"><span>Q174</span></sup>。<span class="ref">p.125</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch7-s7-5">易錯陷阱</h3><ul>
-<li id="np-221">唯一被證實能減少眼內炎的「局部（topical）」處置是 5% povidone-iodine 滴入穹窿；局部 fluoroquinolone 只降菌數；cefuroxime 的證據是「前房內」不是點藥；vancomycin 前房內反而與 HORV 有關⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-174" data-q="174" aria-label="考題 Q174">Q174</a></sup>。<span class="ref">p.124–125</span></li>
-<li id="np-222">HORV → vancomycin；TASS → 含添加物或過量 moxifloxacin；pigment dispersion/iris depigmentation → moxifloxacin⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-160" data-q="160" aria-label="考題 Q160">Q160</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1378" data-q="1378" aria-label="考題 Q1378">Q1378</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1329" data-q="1329" aria-label="考題 Q1329">Q1329</a></sup>。<span class="ref">p.125</span></li>
-<li id="np-223">眼瞼炎病人的正確預防是「手術日之前」先治療眼瞼疾病，不是當天加強刷洗或改做 ECCE⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1358" data-q="1358" aria-label="考題 Q1358">Q1358</a></sup>。<span class="ref">p.123–124</span></li>
-<li id="np-224">皮膚用 10%、穹窿用 5% povidone-iodine，不要記反⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1358" data-q="1358" aria-label="考題 Q1358">Q1358</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-174" data-q="174" aria-label="考題 Q174">Q174</a></sup>。<span class="ref">p.124</span></li>
+<li id="np-221">唯一被證實能減少眼內炎的「局部（topical）」處置是 5% povidone-iodine 滴入穹窿；局部 fluoroquinolone 只降菌數；cefuroxime 的證據是「前房內」不是點藥；vancomycin 前房內反而與 HORV 有關⁠<sup class="ex-qref"><span>Q174</span></sup>。<span class="ref">p.124–125</span></li>
+<li id="np-222">HORV → vancomycin；TASS → 含添加物或過量 moxifloxacin；pigment dispersion/iris depigmentation → moxifloxacin⁠<sup class="ex-qref"><span>Q160</span> <span>Q1378</span> <span>Q1329</span></sup>。<span class="ref">p.125</span></li>
+<li id="np-223">眼瞼炎病人的正確預防是「手術日之前」先治療眼瞼疾病，不是當天加強刷洗或改做 ECCE⁠<sup class="ex-qref"><span>Q1358</span></sup>。<span class="ref">p.123–124</span></li>
+<li id="np-224">皮膚用 10%、穹窿用 5% povidone-iodine，不要記反⁠<sup class="ex-qref"><span>Q1358</span> <span>Q174</span></sup>。<span class="ref">p.124</span></li>
 <li id="np-225">白內障手術不需全身性抗生素預防。<span class="ref">p.124</span></li>
 </ul></div>
 
@@ -691,17 +689,17 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <h3 id="ch7-s8-1">成分</h3>
 <ul>
 <li id="np-226">OVD（viscoelastic agent）自 <span class="num">1979</span> 年用於前段手術，用來維持前房、保護角膜內皮。<span class="ref">p.126</span></li>
-<li id="np-227"><strong>Sodium hyaluronate（玻尿酸鈉）</strong>：存在於全身多種結締組織（如關節液、玻璃體）；最初由人類臍帶與雞冠萃取；半衰期房水約 <span class="num">1 天</span>、玻璃體約 <span class="num">3 天</span>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a></sup>。<span class="ref">p.126</span></li>
-<li id="np-228"><strong>Chondroitin sulfate（硫酸軟骨素）</strong>：sulfated glycosaminoglycan，軟骨的重要成分⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a></sup>。<span class="ref">p.126</span></li>
-<li id="np-229"><mark class="ex-key"><strong>Hydroxypropyl methylcellulose（HPMC，羥丙基甲基纖維素）<em>不</em>天然存在於動物組織</strong></mark>（cellulose 存在於植物纖維）；加 hydroxypropyl 與 methyl 基以增加親水性；methylcellulose 為非生理性物質，眼內似不代謝，最終隨房水排出，但易沖洗乾淨⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a></sup>。<span class="ref">p.126</span></li>
+<li id="np-227"><strong>Sodium hyaluronate（玻尿酸鈉）</strong>：存在於全身多種結締組織（如關節液、玻璃體）；最初由人類臍帶與雞冠萃取；半衰期房水約 <span class="num">1 天</span>、玻璃體約 <span class="num">3 天</span>⁠<sup class="ex-qref"><span>Q1327</span></sup>。<span class="ref">p.126</span></li>
+<li id="np-228"><strong>Chondroitin sulfate（硫酸軟骨素）</strong>：sulfated glycosaminoglycan，軟骨的重要成分⁠<sup class="ex-qref"><span>Q1327</span></sup>。<span class="ref">p.126</span></li>
+<li id="np-229"><mark class="ex-key"><strong>Hydroxypropyl methylcellulose（HPMC，羥丙基甲基纖維素）<em>不</em>天然存在於動物組織</strong></mark>（cellulose 存在於植物纖維）；加 hydroxypropyl 與 methyl 基以增加親水性；methylcellulose 為非生理性物質，眼內似不代謝，最終隨房水排出，但易沖洗乾淨⁠<sup class="ex-qref"><span>Q1327</span></sup>。<span class="ref">p.126</span></li>
 </ul>
 <h3 id="ch7-s8-2">四種物理性質</h3>
 <ul>
 <li id="np-230">物理性質主要取決於<strong>鏈長與分子交互作用</strong>，而非特定生物聚合物成分。<span class="ref">p.126</span></li>
-<li id="np-231"><strong>Viscosity（黏度）</strong>：對流動的阻力；主要由分子量與濃度決定（高分子量、高濃度 → 最高黏度）；<mark class="ex-key">黏度越高，越擅長推開組織、停留原位</mark>（不是越會 coating）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1360" data-q="1360" aria-label="考題 Q1360">Q1360</a></sup>。<span class="ref">p.126</span></li>
+<li id="np-231"><strong>Viscosity（黏度）</strong>：對流動的阻力；主要由分子量與濃度決定（高分子量、高濃度 → 最高黏度）；<mark class="ex-key">黏度越高，越擅長推開組織、停留原位</mark>（不是越會 coating）⁠<sup class="ex-qref"><span>Q1360</span></sup>。<span class="ref">p.126</span></li>
 <li id="np-232"><strong>Elasticity（彈性）</strong>：受力後恢復原狀的能力；高彈性物質擅長維持空間。<span class="ref">p.126</span></li>
 <li id="np-233"><strong>Pseudoplasticity（假塑性）</strong>：靜止時高黏、剪力增加時變稀（如牙膏）；零剪力時可潤滑、覆蓋組織，經細 cannula 推出時則像液體。<span class="ref">p.126</span></li>
-<li id="np-234"><strong>Surface tension（表面張力）</strong>：<mark class="ex-key">coatability（覆蓋能力）與表面張力<strong>成反比</strong> → 低表面張力 OVD 較會 coating，但較難移除</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1360" data-q="1360" aria-label="考題 Q1360">Q1360</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a></sup>。<span class="ref">p.127</span></li>
+<li id="np-234"><strong>Surface tension（表面張力）</strong>：<mark class="ex-key">coatability（覆蓋能力）與表面張力<strong>成反比</strong> → 低表面張力 OVD 較會 coating，但較難移除</mark>⁠<sup class="ex-qref"><span>Q1360</span> <span>Q1327</span></sup>。<span class="ref">p.127</span></li>
 </ul>
 <h3 id="ch7-s8-3">Cohesive vs dispersive</h3>
 <table class="ted-table ex-ddx">
@@ -713,24 +711,24 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-250">Viscoadaptive（黏彈適應型）</td><td id="np-251">Healon5：長而脆弱的鏈、高分子量</td><td id="np-252">低流速時黏稠 cohesive，高流速時鏈斷裂 → pseudodispersive（假分散）</td><td id="np-253"><mark>必須仔細移除，殘留可致<strong>極高眼壓</strong></mark></td><td id="np-254">Healon5</td></tr>
 </tbody>
 </table>
-<p id="np-255">Cohesive vs dispersive 對照（Fig 7-14 光譜：越 dispersive 越會 coating 與分隔，越 cohesive 越能維持空間與壓力）⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1360" data-q="1360" aria-label="考題 Q1360">Q1360</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1371" data-q="1371" aria-label="考題 Q1371">Q1371</a></sup>。<span class="ref">p.127–128</span></p>
+<p id="np-255">Cohesive vs dispersive 對照（Fig 7-14 光譜：越 dispersive 越會 coating 與分隔，越 cohesive 越能維持空間與壓力）⁠<sup class="ex-qref"><span>Q1327</span> <span>Q1360</span> <span>Q1371</span></sup>。<span class="ref">p.127–128</span></p>
 <h3 id="ch7-s8-4">Uses of OVDs（用途）</h3>
 <ul>
 <li id="np-256">維持空間：有切口時仍保持前房成形，使水晶體碎片遠離角膜內皮與後囊。<span class="ref">p.128</span></li>
-<li id="np-257"><mark class="ex-key"><strong>Cohesive OVD</strong> 可撐大邊緣性散大的瞳孔 → <strong>viscomydriasis（黏彈劑散瞳）</strong></mark>；也可壓平前囊以利 continuous curvilinear capsulorrhexis（CCC，連續環形撕囊）；以 OVD 撐開囊袋植入 IOL，對懸韌帶與後囊創傷較小⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1360" data-q="1360" aria-label="考題 Q1360">Q1360</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1371" data-q="1371" aria-label="考題 Q1371">Q1371</a></sup>。<span class="ref">p.128</span></li>
-<li id="np-258"><mark class="ex-key">Coatability 用於保護角膜內皮免受 phaco 能量傷害，<strong>尤其 dense cataract（緻密白內障）或長時間手術</strong> → 用 dispersive OVD</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1371" data-q="1371" aria-label="考題 Q1371">Q1371</a></sup>。<span class="ref">p.128</span></li>
-<li id="np-259"><mark class="ex-key">Dispersive OVD 必須完全移除，以免隅角阻塞造成術後高眼壓</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a></sup>。<span class="ref">p.128</span></li>
-<li id="np-260"><mark class="ex-key">後囊破裂時，將 <strong>dispersive OVD</strong> 注射於破口上作為 vitreous tamponade（玻璃體填塞），防止玻璃體往前脫出</mark>⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1360" data-q="1360" aria-label="考題 Q1360">Q1360</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1371" data-q="1371" aria-label="考題 Q1371">Q1371</a></sup>。<span class="ref">p.128</span></li>
+<li id="np-257"><mark class="ex-key"><strong>Cohesive OVD</strong> 可撐大邊緣性散大的瞳孔 → <strong>viscomydriasis（黏彈劑散瞳）</strong></mark>；也可壓平前囊以利 continuous curvilinear capsulorrhexis（CCC，連續環形撕囊）；以 OVD 撐開囊袋植入 IOL，對懸韌帶與後囊創傷較小⁠<sup class="ex-qref"><span>Q1327</span> <span>Q1360</span> <span>Q1371</span></sup>。<span class="ref">p.128</span></li>
+<li id="np-258"><mark class="ex-key">Coatability 用於保護角膜內皮免受 phaco 能量傷害，<strong>尤其 dense cataract（緻密白內障）或長時間手術</strong> → 用 dispersive OVD</mark>⁠<sup class="ex-qref"><span>Q1371</span></sup>。<span class="ref">p.128</span></li>
+<li id="np-259"><mark class="ex-key">Dispersive OVD 必須完全移除，以免隅角阻塞造成術後高眼壓</mark>⁠<sup class="ex-qref"><span>Q1327</span></sup>。<span class="ref">p.128</span></li>
+<li id="np-260"><mark class="ex-key">後囊破裂時，將 <strong>dispersive OVD</strong> 注射於破口上作為 vitreous tamponade（玻璃體填塞），防止玻璃體往前脫出</mark>⁠<sup class="ex-qref"><span>Q1360</span> <span>Q1371</span></sup>。<span class="ref">p.128</span></li>
 <li id="np-261">角膜表面塗一層 OVD（以 BSS 稍濕潤）可防乾燥、免沖洗，並有輕微放大效果。<span class="ref">p.128</span></li>
 <li id="np-262">調查：<span class="num">97%</span> 醫師在複雜病例會改變 OVD 選擇（如兒童白內障、低 endothelial cell count（內皮細胞數）、淺前房、IFIS）。<span class="ref">p.128</span></li>
 </ul>
 <div class="ex-trap"><h3 id="ch7-s8-5">易錯陷阱</h3><ul>
-<li id="np-263">「黏度越高 coating 越好」是錯的：coating 看低表面張力，高黏度 cohesive 的 coating 很差⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1360" data-q="1360" aria-label="考題 Q1360">Q1360</a></sup>。<span class="ref">p.126–127</span></li>
-<li id="np-264">低表面張力是 dispersive 的特性，不是 cohesive⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a></sup>。<span class="ref">p.127</span></li>
-<li id="np-265">Dispersive 分子量小但「較易」殘留阻塞隅角、升眼壓；cohesive 才易吸出⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1360" data-q="1360" aria-label="考題 Q1360">Q1360</a></sup>。<span class="ref">p.127</span></li>
-<li id="np-266">Viscomydriasis 用 cohesive；保護內皮（dense cataract）與後囊破裂填塞用 dispersive⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1360" data-q="1360" aria-label="考題 Q1360">Q1360</a> <a href="/exam/login?next=/exam/bcsc11-7%23q-1371" data-q="1371" aria-label="考題 Q1371">Q1371</a></sup>。<span class="ref">p.128</span></li>
-<li id="np-267">Healon5 不是「較不易高眼壓」：殘留會造成極高眼壓⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1371" data-q="1371" aria-label="考題 Q1371">Q1371</a></sup>。<span class="ref">p.128</span></li>
-<li id="np-268">三種成分中只有 HPMC 不存在於人體/動物組織⁠<sup class="ex-qref"><a href="/exam/login?next=/exam/bcsc11-7%23q-1327" data-q="1327" aria-label="考題 Q1327">Q1327</a></sup>。<span class="ref">p.126</span></li>
+<li id="np-263">「黏度越高 coating 越好」是錯的：coating 看低表面張力，高黏度 cohesive 的 coating 很差⁠<sup class="ex-qref"><span>Q1360</span></sup>。<span class="ref">p.126–127</span></li>
+<li id="np-264">低表面張力是 dispersive 的特性，不是 cohesive⁠<sup class="ex-qref"><span>Q1327</span></sup>。<span class="ref">p.127</span></li>
+<li id="np-265">Dispersive 分子量小但「較易」殘留阻塞隅角、升眼壓；cohesive 才易吸出⁠<sup class="ex-qref"><span>Q1327</span> <span>Q1360</span></sup>。<span class="ref">p.127</span></li>
+<li id="np-266">Viscomydriasis 用 cohesive；保護內皮（dense cataract）與後囊破裂填塞用 dispersive⁠<sup class="ex-qref"><span>Q1327</span> <span>Q1360</span> <span>Q1371</span></sup>。<span class="ref">p.128</span></li>
+<li id="np-267">Healon5 不是「較不易高眼壓」：殘留會造成極高眼壓⁠<sup class="ex-qref"><span>Q1371</span></sup>。<span class="ref">p.128</span></li>
+<li id="np-268">三種成分中只有 HPMC 不存在於人體/動物組織⁠<sup class="ex-qref"><span>Q1327</span></sup>。<span class="ref">p.126</span></li>
 </ul></div>
 
 <h2 id="ch7-s9">九、病人準備、知情同意與預防錯誤</h2>

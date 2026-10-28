@@ -1343,10 +1343,6 @@
       answerBar = initAnswerBar(box, tools);
       restoreChoices(box);
       refreshAnswerBar();
-      // Signed in: the notes' superscript question links jump straight to the question on this page.
-      document.querySelectorAll('.ex-qref a[data-q]').forEach(function (a) {
-        a.setAttribute('href', '#q-' + a.getAttribute('data-q'));
-      });
       refreshStrip();
       var target = /^#q-\d+$/.test(location.hash) ? document.getElementById(location.hash.slice(1)) : null;
       if (target) target.scrollIntoView();

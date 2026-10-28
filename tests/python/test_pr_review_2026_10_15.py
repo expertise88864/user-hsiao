@@ -60,6 +60,38 @@ class PendingAndBackfillTests(unittest.TestCase):
         self.assertEqual(len(pr.all_prs(api)), 201)
         self.assertEqual(len(api.calls), 3)
 
+    def test_legacy_per_commit_review_counts_only_with_evidence_on_every_commit(self):
+        def commit(sha, *trailers):
+            return {"sha": sha, "commit": {"message": "fix: x\n\n" + "\n".join(trailers)}}
+        audited = {"b" * 40}
+        passed = commit("a" * 40, "Claude-Opus-5-Review: passed")
+        cleared = commit("b" * 40, "Claude-Opus-5-Review: pending")
+        audit = commit("c" * 40, "Claude-Opus-5-Reviewed-Commit: " + "b" * 40)
+        uncleared = commit("d" * 40, "Claude-Opus-5-Review: pending")
+        bare = commit("e" * 40)
+        self.assertTrue(pr.legacy_reviewed([passed, cleared, audit], audited))
+        self.assertTrue(pr.legacy_reviewed([commit("f" * 40, "Codex-Review: passed")], set()))
+        self.assertFalse(pr.legacy_reviewed([passed, uncleared], audited))
+        self.assertFalse(pr.legacy_reviewed([passed, bare], audited))
+        self.assertFalse(pr.legacy_reviewed([], audited))
+        # A trailer quoted inside the body text does not count.
+        self.assertFalse(pr.legacy_reviewed([commit("g" * 40, "see Codex-Review: passed earlier")], set()))
+
+    def test_pr_commits_reads_every_page_or_gives_up(self):
+        def commits(total):
+            rows = [{"sha": f"{i:040x}"} for i in range(total)]
+
+            def routes(path):
+                page = int(path.rsplit("page=", 1)[1])
+                return rows[(page - 1) * 100:page * 100]
+            return FakeAPI(routes)
+        api = commits(205)
+        self.assertEqual(len(pr.pr_commits(api, 7, 205)), 205)
+        self.assertEqual(len(api.calls), 3)
+        # GitHub lists at most 250 commits: a longer PR can never be proven reviewed.
+        self.assertIsNone(pr.pr_commits(commits(250), 7, 300))
+        self.assertIsNone(pr.pr_commits(commits(0), 7, 0))
+
     def test_backfill_reuses_newest_owner_reviewed_base(self):
         statuses = [
             {"id": 1, "context": pr.CONTEXT, "creator": {"login": "owner"},

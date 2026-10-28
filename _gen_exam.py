@@ -589,10 +589,11 @@ def expand_hits(fragment: str, key: str, on_page: set[int]) -> str:
         bad = [i for i in nums if i not in on_page]
         if bad:
             raise SystemExit(f"notes {key}: {{{{q:...}}}} cites questions not on this chapter page: {bad}")
-        links = " ".join(f'<a href="{login_href(f"/exam/{slug(key)}#q-{i}")}" data-q="{i}" '
-                         f'aria-label="考題 Q{i}">Q{i}</a>' for i in nums)
+        # Plain labels, not links (owner 2026-10-28): clicking never jumps to the
+        # question, signed in or not.
+        labels = " ".join(f"<span>Q{i}</span>" for i in nums)
         # U+2060 WORD JOINER: the superscript never wraps onto a line of its own.
-        return f'⁠<sup class="ex-qref">{links}</sup>'
+        return f'⁠<sup class="ex-qref">{labels}</sup>'
     out = re.sub(r"\{\{q:([0-9,\s]+)\}\}", repl, key_marks(fragment))
     if "{{" in out:
         raise SystemExit(f"notes {key}: unexpanded placeholder")
@@ -1025,9 +1026,7 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note mark,.ex-legend mark{background:linear-gradient(transparent 80%,#f7d77a 80%);color:inherit;padding:0 1px}
 .ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
 .ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
-.ex-qref a,.ex-qref span{color:#a0460a;text-decoration:none;white-space:nowrap;padding:0 1px;border-radius:3px}
-.ex-qref a:hover{text-decoration:underline}
-.ex-qref a:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.ex-qref span{color:#a0460a;white-space:nowrap;padding:0 1px;border-radius:3px}
 .ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
 .ex-legend-trap,.ex-legend-tip{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
 .ex-legend-tip{border-left-color:#6fbf8a;background:#f3f9f5}
@@ -1244,7 +1243,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-hitbox mark{background:#854d0e;color:#fff}
 :root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:linear-gradient(transparent 80%,rgba(234,179,8,.5) 80%)}
 :root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
-:root[data-theme="dark"] .ex-qref a,:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
+:root[data-theme="dark"] .ex-qref span{color:#f2c14e}
 :root[data-theme="dark"] .ex-note .num{background:#3b2414;color:#fdba74}
 :root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
 :root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}

@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   regen:
-    runs-on: ubuntu-24.04  # pinned: Playwright 1.60 cannot install Chromium on ubuntu-latest (26.04)
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
 
     # This job never publishes unvalidated generated changes.
