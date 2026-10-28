@@ -60,6 +60,23 @@ class PendingAndBackfillTests(unittest.TestCase):
         self.assertEqual(len(pr.all_prs(api)), 201)
         self.assertEqual(len(api.calls), 3)
 
+    def test_legacy_per_commit_review_counts_only_with_evidence_on_every_commit(self):
+        def commit(sha, *trailers):
+            return {"sha": sha, "commit": {"message": "fix: x\n\n" + "\n".join(trailers)}}
+        audited = {"b" * 40}
+        passed = commit("a" * 40, "Claude-Opus-5-Review: passed")
+        cleared = commit("b" * 40, "Claude-Opus-5-Review: pending")
+        audit = commit("c" * 40, "Claude-Opus-5-Reviewed-Commit: " + "b" * 40)
+        uncleared = commit("d" * 40, "Claude-Opus-5-Review: pending")
+        bare = commit("e" * 40)
+        self.assertTrue(pr.legacy_reviewed([passed, cleared, audit], audited))
+        self.assertTrue(pr.legacy_reviewed([commit("f" * 40, "Codex-Review: passed")], set()))
+        self.assertFalse(pr.legacy_reviewed([passed, uncleared], audited))
+        self.assertFalse(pr.legacy_reviewed([passed, bare], audited))
+        self.assertFalse(pr.legacy_reviewed([], audited))
+        # A trailer quoted inside the body text does not count.
+        self.assertFalse(pr.legacy_reviewed([commit("g" * 40, "see Codex-Review: passed earlier")], set()))
+
     def test_backfill_reuses_newest_owner_reviewed_base(self):
         statuses = [
             {"id": 1, "context": pr.CONTEXT, "creator": {"login": "owner"},

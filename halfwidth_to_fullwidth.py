@@ -116,6 +116,15 @@ ATTR_RE = re.compile(
 DISPLAY_TAG_RE = re.compile(r'<!--.*?-->|<[A-Za-z][^<>"\']*(?:(?:"[^"]*"|\'[^\']*\')[^<>"\']*)*>', re.DOTALL)
 BILINGUAL_ATTR_RE = re.compile(r'(\s([\w:-]+)\s*=\s*)("[^"]*"|\'[^\']*\'|[^\s>]+)')
 BILINGUAL_END_RE = re.compile(rf'({CN})([!?])$')
+# <meta name="keywords"> is a machine-read list, not prose: its separators are
+# always the ASCII comma (owner backlog, 2026-10-28). The comma rules below used
+# to turn only some of them into ，, leaving lists like "眼科醫師，PGY,HsiaoEye".
+KEYWORDS_RE = re.compile(
+    r'(<meta\s+name=(["\'])keywords\2\s+content=)(["\'])(.*?)\3', re.IGNORECASE | re.DOTALL)
+KEYWORD_SEP_RE = re.compile(r'\s*[,，、;；]\s*')
+
+def normalize_keywords(value: str) -> str:
+    return ','.join(part for part in KEYWORD_SEP_RE.split(value.strip()) if part)
 
 def convert(text: str) -> tuple[str, int]:
     placeholders: list[str] = []
@@ -123,11 +132,19 @@ def convert(text: str) -> tuple[str, int]:
         placeholders.append(m.group(0))
         return f'\x00PH{len(placeholders)-1}\x00'
 
+    total = 0
+    def stash_keywords(m: re.Match) -> str:
+        nonlocal total
+        value = normalize_keywords(m[4])
+        total += value != m[4]
+        placeholders.append(f'{m[1]}{m[3]}{value}{m[3]}')
+        return f'\x00PH{len(placeholders)-1}\x00'
+
     text = STYLE_BLOCK_RE.sub(stash, text)
     text = SCRIPT_BLOCK_RE.sub(stash, text)
+    text = KEYWORDS_RE.sub(stash_keywords, text)
     text = ATTR_RE.sub(stash, text)
 
-    total = 0
     # Only bilingual display-copy values get the additional quote-end case.
     # Extending the global rules to quotes would also mutate pattern/action
     # and other technical attributes outside ATTR_RE's historical protection.

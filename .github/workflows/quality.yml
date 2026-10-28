@@ -410,9 +410,12 @@ jobs:
           CANDIDATE_SHA: ${{ github.sha }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ github.ref != 'refs/heads/main' && secrets.VERCEL_AUTOMATION_BYPASS_SECRET || '' }}
         with:
+          # /blog, not /blog/: the trailing-slash URL redirects to /blog, and that
+          # in-flight redirect left one scored run without a navigation start
+          # (NO_NAVSTART, run 39004952644; Lighthouse: "Try testing the second URL directly").
           urls: |
             ${{ steps.site.outputs.url }}/
-            ${{ steps.site.outputs.url }}/blog/
+            ${{ steps.site.outputs.url }}/blog
             ${{ steps.site.outputs.url }}/blog/dry-eye-myths
             ${{ steps.site.outputs.url }}/blog/pediatric-myopia-control
             ${{ steps.site.outputs.url }}/blog/floaters-retinal-detachment

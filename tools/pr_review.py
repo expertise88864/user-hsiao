@@ -279,19 +279,48 @@ def all_prs(api: API) -> list:
     raise Blocked("More than 5000 PRs; pending list would be incomplete")
 
 
+# Before 2026-10-15 every commit was reviewed on its own and the verdict lived in its
+# trailers: "...: passed", or "Claude-Opus-5-Review: pending" later cleared by an
+# audit commit naming it ("Claude-Opus-5-Reviewed-Commit: <sha>"). Such PRs are
+# reviewed; they just predate the per-PR status this tool records.
+LEGACY_PASSED = re.compile(r"^(?:Claude-Opus-5-Review|Codex-Review): passed\s*$", re.M)
+LEGACY_PENDING = re.compile(r"^Claude-Opus-5-Review: pending\s*$", re.M)
+LEGACY_AUDIT = re.compile(r"^Claude-Opus-5-Reviewed-Commit: ([0-9a-f]{40})\s*$", re.M)
+
+
+def legacy_reviewed(commits: list, audited: set) -> bool:
+    """True when every commit of a PR carries pre-2026-10-15 per-commit review evidence."""
+    def ok(c: dict) -> bool:
+        msg = c["commit"]["message"]
+        return bool(LEGACY_PASSED.search(msg) or LEGACY_AUDIT.search(msg)
+                    or (LEGACY_PENDING.search(msg) and c["sha"] in audited))
+    return bool(commits) and all(ok(c) for c in commits)
+
+
 def list_pending(api: API) -> int:
     rows = all_prs(api)
-    count = 0
+    subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", "main"], cwd=ROOT, check=True)
+    audited = set(LEGACY_AUDIT.findall(git("log", "FETCH_HEAD", "--format=%B")))
+    count = legacy = unshipped = 0
     for pr in rows:
         head = pr["head"]["sha"]
         status = latest_status(api, head)
         if status and status["state"] == "success":
             continue
+        if not pr.get("merged_at") and pr["state"] == "closed":
+            unshipped += 1  # closed without merging: nothing of it reached main
+            continue
+        if pr.get("merged_at") and legacy_reviewed(
+                api.call("GET", f"/pulls/{pr['number']}/commits?per_page=100") or [], audited):
+            legacy += 1
+            continue
         label = status["description"] if status else "never reviewed"
         merged = "merged" if pr.get("merged_at") else pr["state"]
         print(f"#{pr['number']} [{merged}] {head[:12]} {label} — {pr['title']}")
         count += 1
-    print(f"{count} PR(s) without an APPROVE status on their head")
+    print(f"{count} PR(s) without an APPROVE status on their head "
+          f"(not listed: {legacy} reviewed per commit before 2026-10-15, "
+          f"{unshipped} closed without merging)")
     return 0
 
 

@@ -4,6 +4,14 @@ from halfwidth_to_fullwidth import convert
 
 
 class TerminalPunctuationTests(unittest.TestCase):
+    def test_meta_keywords_use_ascii_comma_separators(self):
+        mixed = '<meta name="keywords" content="蕭閔謙，Min-Chien Hsiao、眼科醫師；PGY, HsiaoEye" />'
+        fixed = '<meta name="keywords" content="蕭閔謙,Min-Chien Hsiao,眼科醫師,PGY,HsiaoEye" />'
+        self.assertEqual(convert(mixed), (fixed, 1))
+        self.assertEqual(convert(fixed), (fixed, 0))
+        # Prose next to the tag still gets full-width commas.
+        self.assertEqual(convert(fixed + '<p>中,文</p>'), (fixed + '<p>中，文</p>', 1))
+
     def test_number_colons_require_actual_chinese_context(self):
         source = '<p data-en="Outcome 1: Day 1: Cochrane 2019: ">Outcome 1: Day 1: Cochrane 2019: </p>'
         self.assertEqual(convert(source), (source, 0))
