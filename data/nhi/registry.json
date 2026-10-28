@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "description": "HsiaoEye 健保規定版本登錄（第一階段）。rules 只收錄已開啟原始官方來源並逐字確認的規定；pending 為網站引用、但尚未對照原文確認的候選規定，只記網站引用的出處與受影響頁面。",
+  "updated": "2026-10-28",
+  "rules": [],
+  "pending": [
+    {
+      "id": "glaucoma-drops-14-1",
+      "topic": "高眼壓及青光眼眼用製劑（單方、複方、無防腐劑單次包裝、慢箋）",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.1 節（14.1.1、14.1.2），網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/glaucoma-comprehensive-guide.html",
+          "blog/glaucoma-treatment-selection.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "ophthalmic-acyclovir-14-2",
+      "topic": "眼用 acyclovir 使用條件",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.2 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/hzo-stromal-keratitis-zeds-lessons.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "steroid-antibiotic-ointment-14-3",
+      "topic": "Maxitrol、Pimafucin 眼膏門診處方量",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.3 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/cataract-surgery-selection.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "ophthalmic-quinolone-14-4-1",
+      "topic": "Quinolone 類眼用製劑使用條件",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.4.1 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/cataract-comprehensive-guide.html",
+          "blog/cataract-surgery-selection.html",
+          "blog/pterygium-surgery-fixation-methods-2026-nma.html",
+          "blog/toric-iol-astigmatism-cataract-review.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "section-14-topical-steroid-no-limit",
+      "topic": "第 14 節未對一般類固醇眼藥水另訂給付限制（網站的「未列」陳述）",
+      "site_cites": "《全民健康保險藥品給付規定》第 14 節全節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/cataract-comprehensive-guide.html",
+          "blog/cataract-surgery-selection.html",
+          "blog/hzo-stromal-keratitis-zeds-lessons.html",
+          "blog/pterygium-surgery-fixation-methods-2026-nma.html",
+          "blog/toric-iol-astigmatism-cataract-review.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "artificial-tears-14-5",
+      "topic": "人工淚液初次使用條件與處方量",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.5 節（網站稱最近修訂 113/7/1），網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/dry-eye-myths.html",
+          "blog/dry-eye-symptom-sign-discordance-dream.html",
+          "blog/lacrimal-gland-tumor.html",
+          "blog/thyroid-eye-disease.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "ophthalmic-ketorolac-14-8",
+      "topic": "Ketorolac tromethamine 眼用製劑限白內障術後發炎",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.8 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/cataract-comprehensive-guide.html",
+          "blog/cataract-surgery-selection.html",
+          "blog/toric-iol-astigmatism-cataract-review.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "anti-vegf-indications-14-9-2",
+      "topic": "玻璃體內注射 anti-VEGF 給付適應症清單與事前審查",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.9.2 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/lacrimal-gland-tumor.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "anti-vegf-nAMD-14-9-2",
+      "topic": "濕性年齡相關性黃斑部病變 anti-VEGF 申請條件",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.9.2 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/osa-amd-systematic-review-2026.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "anti-vegf-DME-14-9-2",
+      "topic": "糖尿病黃斑部水腫 anti-VEGF 申請條件、支數與續用條件",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.9.2 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/diabetic-retinopathy-dementia-trinetx-cohort.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "anti-vegf-mCNV-14-9-2",
+      "topic": "病理性近視脈絡膜新生血管 anti-VEGF 申請條件",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.9.2 節第（5）項，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/pediatric-high-myopia-maculopathy-progression.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "cyclosporine-eye-14-9-3",
+      "topic": "Cyclosporine 眼用製劑（嚴重乾眼）事前審查條件",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.9.3 節與附表二十七，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/dry-eye-myths.html",
+          "blog/dry-eye-symptom-sign-discordance-dream.html",
+          "blog/thyroid-eye-disease.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "dexamethasone-implant-14-9-4",
+      "topic": "Dexamethasone 眼後段植入劑（DME）給付條件",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.9.4 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/diabetic-retinopathy-dementia-trinetx-cohort.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "low-dose-atropine-14-9-6",
+      "topic": "低濃度 atropine（0.1–0.5 mg/mL）眼用製劑給付條件",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.9.6 節（網站稱 112/5/1、113/10/1、115/8/1），網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/dims-pediatric-myopia-control.html",
+          "blog/monitoring-myopia-ser-vs-axial-length.html",
+          "blog/pediatric-high-myopia-maculopathy-progression.html",
+          "blog/pediatric-myopia-control.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "rop-anti-vegf-14-9-7",
+      "topic": "早產兒視網膜病變 anti-VEGF（網站僅提及節次）",
+      "site_cites": "《全民健康保險藥品給付規定》第 14.9.7 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/lacrimal-gland-tumor.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "systemic-antiherpetic-10-7-1-1",
+      "topic": "全身性抗疱疹病毒劑使用條件與療程上限",
+      "site_cites": "《全民健康保險藥品給付規定》第 10.7.1.1 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/hzo-stromal-keratitis-zeds-lessons.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "oral-pilocarpine-1-5-1",
+      "topic": "Pilocarpine 口服劑型（修格蘭氏症候群）",
+      "site_cites": "《全民健康保險藥品給付規定》第 1.5.1 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/dry-eye-myths.html",
+          "blog/thyroid-eye-disease.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "neuropathic-pain-1-1-6-to-1-1-8",
+      "topic": "Gabapentin、pregabalin、duloxetine 止痛適應症（網站的「未列眼痛」陳述）",
+      "site_cites": "《全民健康保險藥品給付規定》第 1.1.6–1.1.8 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/dry-eye-symptom-sign-discordance-dream.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "smoking-cessation-1-2-1-1",
+      "topic": "Bupropion 戒菸不予給付；varenicline、尼古丁替代品未列（網站陳述）",
+      "site_cites": "《全民健康保險藥品給付規定》第 1.2.1.1 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/thyroid-eye-disease.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "dementia-drugs-1-3-3",
+      "topic": "阿茲海默症失智症用藥處方科別與 MMSE／CDR 條件",
+      "site_cites": "《全民健康保險藥品給付規定》第 1.3.3 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/diabetic-retinopathy-dementia-trinetx-cohort.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "biologics-uveitis-8-2-4-10",
+      "topic": "兒童非感染性葡萄膜炎 adalimumab；成人葡萄膜炎未列（網站陳述）",
+      "site_cites": "《全民健康保險藥品給付規定》第 8.2.4.10、8.2.4.2 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/refractory-noninfectious-uveitis-biologics-rubi-trial.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "immunomodulators-ted-8-2",
+      "topic": "Rituximab、tocilizumab、口服 cyclosporine 適應症未列甲狀腺眼疾（網站陳述）",
+      "site_cites": "《全民健康保險藥品給付規定》第 8.2.1、8.2.4、8.2.7 節，網站標示 115.9.22 更新版",
+      "source_kind": "健保署藥品給付規定",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/thyroid-eye-disease.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "teprotumumab-not-listed",
+      "topic": "Teprotumumab 許可證（網站稱衛部菌疫輸字第001294號，2025 年 8 月）與未列健保給付",
+      "site_cites": "衛福部食藥署藥品許可證開放資料、健保署「健保用藥品項」開放資料與《全民健康保險藥品給付規定》（網站稱 2026-10-16 查詢）",
+      "source_kind": "食藥署許可證資料與健保署健保用藥品項",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/thyroid-eye-disease.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "iol-self-pay-difference",
+      "topic": "人工水晶體自付差額制度：球面單焦全額給付、特殊功能人工水晶體健保給付 2,744 點",
+      "site_cites": "健保署特殊材料自付差額相關公告與「自付差額醫材比價查詢」（網站稱 2026-10 查詢）",
+      "source_kind": "健保署自付差額特材",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/cataract-comprehensive-guide.html",
+          "blog/cataract-surgery-faq.html",
+          "blog/cataract-surgery-selection.html",
+          "blog/toric-iol-astigmatism-cataract-review.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "iol-self-pay-price-lookup",
+      "topic": "各類特殊功能人工水晶體自付差額常見收費（全國比價資料）",
+      "site_cites": "健保署「自付差額醫材比價查詢」https://info.nhi.gov.tw/INAE2000/INAE2011S01（網站所列網址，本次未能開啟）",
+      "source_kind": "健保署自付差額醫材比價查詢",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/cataract-comprehensive-guide.html",
+          "blog/cataract-surgery-faq.html",
+          "blog/cataract-surgery-selection.html",
+          "blog/toric-iol-astigmatism-cataract-review.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "glaucoma-devices-special-material",
+      "topic": "MIGS 裝置不在特材給付或自付差額品項；Ahmed 與 PAUL 引流管需事前審查（網站陳述）",
+      "site_cites": "健保署特殊材料給付品項與自付差額品項（網站未列出處節次）",
+      "source_kind": "健保署特材給付與自付差額品項",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/glaucoma-treatment-selection.html"
+        ],
+        "questions": []
+      }
+    },
+    {
+      "id": "laser-trabeculoplasty-60007c",
+      "topic": "醫療服務給付項目「小樑雷射術」60007C",
+      "site_cites": "《全民健康保險醫療服務給付項目及支付標準》（網站未列版本）",
+      "source_kind": "健保署醫療服務給付項目及支付標準",
+      "blocker": "官方原文未能開啟：本次工作環境的網路政策封鎖 www.nhi.gov.tw 與 info.nhi.gov.tw（2026-10-28），依站主規則不寫入規定摘要、生效日、版本、網址與指紋。",
+      "affects": {
+        "articles": [
+          "blog/glaucoma-treatment-selection.html"
+        ],
+        "questions": []
+      }
+    }
+  ]
+}
