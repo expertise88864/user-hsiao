@@ -9,6 +9,10 @@ class TerminalPunctuationTests(unittest.TestCase):
         fixed = '<meta name="keywords" content="蕭閔謙,Min-Chien Hsiao,眼科醫師,PGY,HsiaoEye" />'
         self.assertEqual(convert(mixed), (fixed, 1))
         self.assertEqual(convert(fixed), (fixed, 0))
+        # Character references keep their own semicolon (CMS-escaped apostrophes, &amp;).
+        escaped = '<meta name="keywords" content="Graves&#39; disease；甲狀腺眼疾,R&amp;D,&#x27;x&#x27;" />'
+        self.assertEqual(convert(escaped),
+                         ('<meta name="keywords" content="Graves&#39; disease,甲狀腺眼疾,R&amp;D,&#x27;x&#x27;" />', 1))
         # Prose next to the tag still gets full-width commas.
         self.assertEqual(convert(fixed + '<p>中,文</p>'), (fixed + '<p>中，文</p>', 1))
 

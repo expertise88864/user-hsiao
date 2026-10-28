@@ -122,9 +122,17 @@ BILINGUAL_END_RE = re.compile(rf'({CN})([!?])$')
 KEYWORDS_RE = re.compile(
     r'(<meta\s+name=(["\'])keywords\2\s+content=)(["\'])(.*?)\3', re.IGNORECASE | re.DOTALL)
 KEYWORD_SEP_RE = re.compile(r'\s*[,，、;；]\s*')
+# The CMS escapes keywords ("Graves&#39; disease"): an entity's own ";" is not a separator.
+CHAR_REF_RE = re.compile(r'&(?:#\d+|#[xX][0-9a-fA-F]+|[A-Za-z][A-Za-z0-9]*);')
 
 def normalize_keywords(value: str) -> str:
-    return ','.join(part for part in KEYWORD_SEP_RE.split(value.strip()) if part)
+    refs: list[str] = []
+    def hide(m: re.Match) -> str:
+        refs.append(m[0])
+        return f'\x01{len(refs) - 1}\x01'
+    parts = KEYWORD_SEP_RE.split(CHAR_REF_RE.sub(hide, value.strip()))
+    joined = ','.join(part for part in parts if part)
+    return re.sub('\x01(\\d+)\x01', lambda m: refs[int(m[1])], joined)
 
 def convert(text: str) -> tuple[str, int]:
     placeholders: list[str] = []

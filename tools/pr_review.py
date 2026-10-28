@@ -297,6 +297,18 @@ def legacy_reviewed(commits: list, audited: set) -> bool:
     return bool(commits) and all(ok(c) for c in commits)
 
 
+def pr_commits(api: API, number: int, expected: int) -> list | None:
+    """Every commit of a PR, or None when the full list cannot be read (GitHub stops
+    listing at 250 commits); such a PR is never excluded from the pending list."""
+    rows = []
+    for page in range(1, 4):
+        batch = api.call("GET", f"/pulls/{number}/commits?per_page=100&page={page}") or []
+        rows.extend(batch)
+        if len(batch) < 100:
+            break
+    return rows if rows and len(rows) == expected else None
+
+
 def list_pending(api: API) -> int:
     rows = all_prs(api)
     subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", "main"], cwd=ROOT, check=True)
@@ -311,7 +323,8 @@ def list_pending(api: API) -> int:
             unshipped += 1  # closed without merging: nothing of it reached main
             continue
         if pr.get("merged_at") and legacy_reviewed(
-                api.call("GET", f"/pulls/{pr['number']}/commits?per_page=100") or [], audited):
+                pr_commits(api, pr["number"], int(api.call("GET", f"/pulls/{pr['number']}")["commits"])) or [],
+                audited):
             legacy += 1
             continue
         label = status["description"] if status else "never reviewed"
