@@ -1290,9 +1290,12 @@
   //
   // Several tabs may show the same chapter, so a page never writes back a copy of
   // the record it loaded. It keeps only `pending` (sections read since its last
-  // sync) and `baseG` (the generation of the record it last synced with); sync()
-  // re-reads the stored record and merges the pending sections into it. A record
-  // reset or recreated elsewhere (another g) is adopted and the pending reads dropped.
+  // sync) and `baseG` / `baseR` (the generation and round of the record it last
+  // synced with); sync() re-reads the stored record and merges the pending sections
+  // into it. A record reset or recreated elsewhere (another g), or one whose round was
+  // finished elsewhere (another r), is adopted and the pending reads dropped: they
+  // belong to a round that is over. Every read-merge-write and reset runs under one
+  // cross-tab lock (Web Locks) where the browser has it.
   function initReading(key) {
     var status = document.getElementById('ex-reading');
     var note = document.querySelector('.ex-notes .ex-note');
@@ -1330,11 +1333,19 @@
       return { g: record.g, r: record.r, seen: seen, pct: coverage(seen), t: record.t, done: record.done.slice() };
     }
     function stored() { return readingMap()[key] || null; }
+    // Run fn under the cross-tab reading lock (directly where Web Locks are missing).
+    function locked(fn) {
+      var locks = navigator.locks;
+      if (!locks || typeof locks.request !== 'function') { fn(); return; }
+      var ran = false;
+      locks.request(READING_KEY, function () { ran = true; fn(); }).then(null, function () { if (!ran) fn(); });
+    }
     function resetTimers() { secs.forEach(function (sec) { sec.ms = 0; }); }
 
     var pending = {};
     var first = stored();
     var baseG = first ? first.g : null;   // null: the chapter had no record when loaded
+    var baseR = first ? first.r : 0;
     var rec = first ? onPage(first) : freshRecord('');
 
     var line = el('span', 'ex-reading-text');
@@ -1352,17 +1363,18 @@
     // Show the stored record (null: none) without writing anything.
     function adopt(record) {
       var next = record ? onPage(record) : freshRecord('');
-      var forgotten = record ? (baseG !== null && record.g !== baseG) : baseG !== null;
+      var forgotten = record ? (baseG !== null && (record.g !== baseG || record.r !== baseR)) : baseG !== null;
       if (forgotten) pending = {};
       if (forgotten || next.r !== rec.r) resetTimers();
       baseG = record ? record.g : null;
+      baseR = record ? record.r : 0;
       rec = next;
       render();
     }
     function sync() {
       if (!Object.keys(pending).length) return;
       var latest = stored();
-      if (latest && baseG !== null && latest.g !== baseG) { adopt(latest); return; }
+      if (latest && baseG !== null && (latest.g !== baseG || latest.r !== baseR)) { adopt(latest); return; }
       var base, apply = true;
       if (latest) {
         base = latest;
@@ -1385,6 +1397,7 @@
       if (!saveReading(key, base)) return;  // keep the pending reads for the next try
       var changedRound = base.r !== rec.r;
       baseG = base.g;
+      baseR = base.r;
       pending = {};
       rec = base;
       render();
@@ -1416,7 +1429,7 @@
         var shown = Math.max(0, Math.min(b.bottom, vh) - Math.max(b.top, 0));
         if (shown < b.height * 0.5 && shown < vh * 0.5) return;
         sec.ms += dt;
-        if (sec.ms >= sec.need) { pending[sec.id] = 1; sync(); }
+        if (sec.ms >= sec.need) { pending[sec.id] = 1; locked(sync); }
       });
       if (!waiting) stop();
     }
@@ -1428,8 +1441,9 @@
 
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'visible') { adopt(stored()); start(); }
-      else { stop(); sync(); }
+      else { stop(); locked(sync); }
     });
+    // The page is going away and cannot wait for the lock: save what is left now.
     window.addEventListener('pagehide', sync);
     // Another tab changed the record: show it (nothing is written here).
     window.addEventListener('storage', function (event) {
@@ -1442,15 +1456,18 @@
       var ok = false;
       try { ok = window.confirm('重設本章重點的閱讀次數與進度？作答紀錄與「課本已讀完」不受影響。'); } catch (e) { ok = false; }
       if (!ok) return;
-      // A new generation, so tabs that still hold older reads cannot revive them.
-      var fresh = freshRecord(newGeneration());
-      if (!saveReading(key, fresh)) return;
-      pending = {};
-      baseG = fresh.g;
-      rec = fresh;
-      resetTimers();
-      render();
-      start();
+      locked(function () {
+        // A new generation, so tabs that still hold older reads cannot revive them.
+        var fresh = freshRecord(newGeneration());
+        if (!saveReading(key, fresh)) return;
+        pending = {};
+        baseG = fresh.g;
+        baseR = 0;
+        rec = fresh;
+        resetTimers();
+        render();
+        start();
+      });
     });
   }
   // Small status toast in the look of the reading-place hint; closes itself.

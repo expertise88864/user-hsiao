@@ -194,3 +194,39 @@ test('phone: the progress table with a ✓ count stays inside the screen', async
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await context.close();
 });
+
+test('reads wait for the cross-tab lock, so a reset made meanwhile wins (PR #80 review)', async ({ page }) => {
+  await page.clock.install();
+  await signedOut(page);
+  await seed(page, { '12-4': { g: 'old', r: 2, seen: {}, pct: 0, t: 1, done: [1, 2] } });
+  await page.goto(CHAPTER);
+  const target = (await sections(page)).reduce((x, s) => (s.w < x.w ? s : x));
+  // Another tab holds the reading lock.
+  await page.evaluate(k => { navigator.locks.request(k, () => new Promise(res => { window.__release = res; })); }, KEY);
+  await page.waitForFunction(() => typeof window.__release === 'function');
+  await show(page, target.id);
+  await page.clock.runFor(need(target.w) + 2000);
+  // Nothing is written while the lock is held; the other tab resets and releases it.
+  expect((await stored(page))['12-4']).toEqual({ g: 'old', r: 2, seen: {}, pct: 0, t: 1, done: [1, 2] });
+  await page.evaluate(k => {
+    localStorage.setItem(k, JSON.stringify({ '12-4': { g: 'new', r: 0, seen: {}, pct: 0, t: 2, done: [] } }));
+    window.__release();
+  }, KEY);
+  await expect(page.locator('#ex-reading .ex-reading-text')).toHaveText('本章重點：第 1 輪，已讀 0%');
+  expect((await stored(page))['12-4']).toEqual({ g: 'new', r: 0, seen: {}, pct: 0, t: 2, done: [] });
+});
+
+test('a round finished in another tab does not take this tab\'s earlier reads (PR #80 review)', async ({ page }) => {
+  await page.clock.install();
+  await signedOut(page);
+  await seed(page, { '12-4': { g: 'abc', r: 1, seen: {}, pct: 0, t: 1, done: [1] } });
+  await page.goto(CHAPTER);
+  const target = (await sections(page)).reduce((x, s) => (s.w < x.w ? s : x));
+  await show(page, target.id);
+  await page.clock.runFor(need(target.w) - 2000);
+  // Another tab finishes round 2 (same generation) before this tab's section completes.
+  await page.evaluate(k => localStorage.setItem(k, JSON.stringify({ '12-4': { g: 'abc', r: 2, seen: {}, pct: 0, t: 2, done: [1, 2] } })), KEY);
+  await page.clock.runFor(4000);
+  await expect(page.locator('#ex-reading .ex-reading-text')).toHaveText('本章重點：第 3 輪，已讀 0%（已讀完 2 次）');
+  expect((await stored(page))['12-4']).toEqual({ g: 'abc', r: 2, seen: {}, pct: 0, t: 2, done: [1, 2] });
+});
