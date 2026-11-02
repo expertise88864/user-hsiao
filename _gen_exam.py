@@ -140,6 +140,33 @@ ANSWER_LEAK = re.compile(
     r"|故選\s*[A-E]\b|(?:題目|考題|出題者)(?:要的|想考的)答案|exam\s+convention|answer\s+key")
 
 
+H2_RE = re.compile(r'<h2[^>]*\sid="([^"]+)"[^>]*>(.*?)</h2>', re.S)
+
+
+def load_toc_en(notes: dict[str, str]) -> dict[str, dict[str, str]]:
+    """English labels for the sticky left outline (owner 2026-11-02: English only, so the
+    outline stays short). Every <h2> of every noted chapter needs one; new chapters must
+    add theirs to data/exam/toc_en.json."""
+    labels = json.loads((DATA / "toc_en.json").read_text(encoding="utf-8"))
+    for key, note in notes.items():
+        mine = labels.get(key, {})
+        ids = [hid for hid, _ in H2_RE.findall(note)]
+        missing = [hid for hid in ids if hid not in mine]
+        if missing:
+            raise SystemExit(f"toc_en.json: chapter {key} needs English outline labels for {missing}")
+        extra = sorted(set(mine) - set(ids))
+        if extra:
+            raise SystemExit(f"toc_en.json: chapter {key} has labels for unknown headings {extra}")
+        for hid in ids:
+            label = mine[hid]
+            if not label or len(label) > 55 or not label.isascii() or not re.search(r"[A-Za-z]", label):
+                raise SystemExit(f"toc_en.json: {key} {hid} needs a short ASCII English label, got {label!r}")
+    unknown = sorted(set(labels) - set(notes))
+    if unknown:
+        raise SystemExit(f"toc_en.json: labels for chapters without notes {unknown}")
+    return labels
+
+
 def site_version() -> str:
     match = re.search(r"/assets/app\.css\?v=(\d+)", (ROOT / "index.html").read_text(encoding="utf-8"))
     if not match:
@@ -193,6 +220,7 @@ def load() -> dict:
         check_note_markup(key, notes[key])
     for key in notes:
         notes[key] = anchor_notes(key, notes[key])
+    toc_en = load_toc_en(notes)
     doubts = json.loads((DATA / "doubts.json").read_text(encoding="utf-8"))
     for n, d in doubts.items():
         if n not in explanations or d.get("cat") not in DOUBT_CATS or not d.get("exam"):
@@ -226,7 +254,7 @@ def load() -> dict:
             by_chapter[key].append(q)
     data = {"questions": questions, "tags": tags, "explanations": explanations, "books": books,
             "chapters": chapters, "notes": notes, "by_chapter": by_chapter,
-            "concepts": concepts, "doubts": doubts}
+            "concepts": concepts, "doubts": doubts, "toc_en": toc_en}
     data["concept_rows"] = concept_rows(data)
     return data
 
@@ -619,9 +647,16 @@ def chapter_page(data: dict, key: str, version: str) -> str:
     note = data["notes"].get(key)
     side = ""
     if note:
+        heads = H2_RE.findall(note)
         toc = "".join(
             f'<li><a href="#{hid}">{esc(html.unescape(re.sub(r"<[^>]+>", "", text)).strip())}</a></li>'
-            for hid, text in re.findall(r'<h2[^>]*\sid="([^"]+)"[^>]*>(.*?)</h2>', note, re.S)
+            for hid, text in heads
+        )
+        # The sticky left outline shows short English labels only (owner 2026-11-02);
+        # the inline outline above the notes keeps the full bilingual headings.
+        side_toc = "".join(
+            f'<li><a href="#{hid}" lang="en">{i}. {esc(data["toc_en"][key][hid])}</a></li>'
+            for i, (hid, _) in enumerate(heads, 1)
         )
         concepts_html = chapter_concepts_html(data, key)
         n_concepts = sum(map(len, chapter_concepts(data, key)))
@@ -633,7 +668,7 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         # Wide screens: the same list as a sticky left column that follows the reader
         # (like the dermatology exam section); the inline list above serves phones.
         side = (f'<nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary>'
-                f'<ol>{toc}{side_cpts}<li class="ex-toc-qs"><a href="#qs-h">考題（{len(qs)} 題）</a></li></ol></details></nav>'
+                f'<ol>{side_toc}{side_cpts}<li class="ex-toc-qs"><a href="#qs-h">考題（{len(qs)} 題）</a></li></ol></details></nav>'
                 ) if toc else ""
         notes_html = (f'<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>{toc_html}'
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'

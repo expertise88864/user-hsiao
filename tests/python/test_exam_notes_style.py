@@ -15,6 +15,7 @@ Plus two owner-approved deletions in the same change: privacy policy section
 import re
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from bs4 import BeautifulSoup
 
@@ -118,6 +119,32 @@ class ChapterPageTests(unittest.TestCase):
         for href in sticky:
             self.assertIsNotNone(doc.find(id=href[1:]), href)
         self.assertEqual(side.select_one(".ex-toc-qs").get_text(), f"考題（{len(self.data['by_chapter'][key])} 題）")
+
+    def test_sticky_outline_sections_are_short_english_labels(self):
+        # Owner 2026-11-02: the left outline shows English only so it stays short; the
+        # inline outline keeps the full bilingual headings.
+        for key in self.data["notes"]:
+            doc = self.page(key)
+            with self.subTest(key=key):
+                sections = [a for a in doc.select("nav.ex-toc-side a")
+                            if a["href"] not in ("#cpts-h", "#qs-h")]
+                self.assertTrue(sections)
+                for i, a in enumerate(sections, 1):
+                    text = a.get_text()
+                    self.assertRegex(text, rf"^{i}\. \S")
+                    self.assertIsNone(re.search(r"[　-〿一-鿿＀-￯]", text), text)
+                    self.assertEqual(a.get("lang"), "en")
+                inline = [a.get_text() for a in doc.select("nav.ex-toc a")][:len(sections)]
+                self.assertTrue(any(re.search(r"[一-鿿]", t) for t in inline))
+
+    def test_every_heading_needs_an_english_outline_label(self):
+        note = '<h2 id="x-s1">一、概論</h2><h2 id="x-s2">二、Tests</h2>'
+        with mock.patch.object(gen.json, "loads", return_value={"6-2": {"x-s1": "Overview"}}):
+            with self.assertRaises(SystemExit):
+                gen.load_toc_en({"6-2": note})
+        with mock.patch.object(gen.json, "loads", return_value={"6-2": {"x-s1": "概論", "x-s2": "Tests"}}):
+            with self.assertRaises(SystemExit):
+                gen.load_toc_en({"6-2": note})
 
     def test_chapters_without_notes_keep_the_plain_layout(self):
         key = next(k for k in self.data["by_chapter"] if k not in self.data["notes"])

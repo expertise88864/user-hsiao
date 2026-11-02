@@ -69,8 +69,12 @@ test('desktop: the chapter outline is a sticky left column that follows the read
   // A long outline scrolls on its own, without horizontal page scroll.
   expect(await side.evaluate(n => getComputedStyle(n).overflowY)).toBe('auto');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  // Section entries are short English labels (owner 2026-11-02); no Chinese in them.
+  const sections = side.locator('a[href^="#ch"]');
+  expect(await sections.evaluateAll(as => as.every(a => /^\d+\. /.test(a.textContent)
+    && !/[一-鿿]/.test(a.textContent)))).toBe(true);
   // Clicking an entry jumps to that section.
-  await side.getByRole('link', { name: /^二、/ }).click();
+  await side.getByRole('link', { name: /^2\. / }).click();
   await expect(page.locator('#ch6-s2')).toBeInViewport();
   await expect(side.locator('a[aria-current="location"]')).toHaveAttribute('href', '#ch6-s2');
   await context.close();
