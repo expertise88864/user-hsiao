@@ -206,7 +206,9 @@ test('reads wait for the cross-tab lock, so a reset made meanwhile wins (PR #80 
   await page.waitForFunction(() => typeof window.__release === 'function');
   await show(page, target.id);
   await page.clock.runFor(need(target.w) + 2000);
-  // Nothing is written while the lock is held; the other tab resets and releases it.
+  // Nothing is written while the lock is held, not even on leaving the page (pagehide);
+  // the other tab resets and releases it.
+  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })));
   expect((await stored(page))['12-4']).toEqual({ g: 'old', r: 2, seen: {}, pct: 0, t: 1, done: [1, 2] });
   await page.evaluate(k => {
     localStorage.setItem(k, JSON.stringify({ '12-4': { g: 'new', r: 0, seen: {}, pct: 0, t: 2, done: [] } }));

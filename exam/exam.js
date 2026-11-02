@@ -1294,8 +1294,8 @@
   // synced with); sync() re-reads the stored record and merges the pending sections
   // into it. A record reset or recreated elsewhere (another g), or one whose round was
   // finished elsewhere (another r), is adopted and the pending reads dropped: they
-  // belong to a round that is over. Every read-merge-write and reset runs under one
-  // cross-tab lock (Web Locks) where the browser has it.
+  // belong to a round that is over. Every read-merge-write and reset, also the one on
+  // leaving the page, runs under one cross-tab lock (Web Locks) where the browser has it.
   function initReading(key) {
     var status = document.getElementById('ex-reading');
     var note = document.querySelector('.ex-notes .ex-note');
@@ -1443,8 +1443,9 @@
       if (document.visibilityState === 'visible') { adopt(stored()); start(); }
       else { stop(); locked(sync); }
     });
-    // The page is going away and cannot wait for the lock: save what is left now.
-    window.addEventListener('pagehide', sync);
+    // Leaving the page: save under the same lock. If another tab holds it right then,
+    // the last unsaved section of this visit is lost rather than written over its work.
+    window.addEventListener('pagehide', function () { locked(sync); });
     // Another tab changed the record: show it (nothing is written here).
     window.addEventListener('storage', function (event) {
       if (event.key !== null && event.key !== READING_KEY) return;
