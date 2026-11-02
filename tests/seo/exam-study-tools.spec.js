@@ -104,8 +104,9 @@ test('signed in: answering and marking a chapter read shows up on the progress p
   await expect(page.locator('.ex-summary-box')).toContainText('已作答 1 /');
   await expect(page.locator('.ex-summary-box')).toContainText('課本已讀完 1 /');
   const row = page.locator('.ex-prog tr', { has: page.locator('a[href="/exam/bcsc12-4"]') });
-  await expect(row.locator('td').nth(2)).toHaveText(/^1 \/ \d+$/);
-  await expect(row.locator('td').nth(3)).toHaveText('100%');
+  // Columns: 章節, 課本已讀, 重點閱讀 (2026-11-02), 已作答, 正確率, 最後讀.
+  await expect(row.locator('td').nth(3)).toHaveText(/^1 \/ \d+$/);
+  await expect(row.locator('td').nth(4)).toHaveText('100%');
   await expect(row.getByRole('checkbox')).toBeChecked();
 });
 

@@ -14,6 +14,9 @@
   var VISIT_KEY = 'hs:exam:visit';   // { chapter key: last visit ms }
   var ANS_KEY = 'hs:exam:ans';       // { n: { c: chosen option key, t: answered ms } }
   var POS_KEY = 'hs:exam:pos';       // { chapter key: { id: note anchor id, t: saved ms } }
+  // { chapter key: { g: generation id, r: finished rounds, seen: { h2 id: 1 }, pct: 0-100,
+  //   t: saved ms, done: [finish ms, newest 20] } } (see "reading rounds")
+  var READING_KEY = 'hs:exam:reading';
   var body = document.body;
 
   function store(key, value) {
@@ -492,6 +495,7 @@
       var all = stats();
       var seen = visits();
       var read = readList();
+      var reading = storageWorks() ? readingMap() : {};
       var rows = {};
       var order = [];
       var done = 0;
@@ -531,9 +535,14 @@
       clear(out);
       var answeredTotal = data.qs.length;
       var readCount = order.filter(function (k) { return read.indexOf(k) !== -1; }).length;
+      var noted = order.filter(function (k) { return data.notes[k]; });
+      var roundsDone = noted.filter(function (k) { return reading[k] && reading[k].r >= 1; }).length;
+      var roundsTwice = noted.filter(function (k) { return reading[k] && reading[k].r >= 2; }).length;
       var summary = el('div', 'ex-summary-box');
       summary.appendChild(el('p', null, '已作答 ' + done + ' / ' + answeredTotal + ' 題 · 答對 ' + right
-        + ' 題 · 正確率 ' + percent(right, done) + ' · 課本已讀完 ' + readCount + ' / ' + order.length + ' 章'));
+        + ' 題 · 正確率 ' + percent(right, done) + ' · 課本已讀完 ' + readCount + ' / ' + order.length + ' 章'
+        + ' · 重點已讀完 ' + roundsDone + ' / ' + noted.length + ' 章'
+        + (roundsTwice ? '（其中 ' + roundsTwice + ' 章 2 次以上）' : '')));
       var weak = order.filter(function (k) { return rows[k].done >= 5 && rows[k].right / rows[k].done < 0.6; })
         .sort(function (a, b) { return rows[a].right / rows[a].done - rows[b].right / rows[b].done; });
       if (weak.length) {
@@ -561,8 +570,8 @@
           + t.total + ' 題 · 正確率 ' + percent(t.right, t.done) + ' · 已讀 ' + readHere + ' / ' + keys.length + ' 章'));
         var table = el('table', 'ex-prog');
         var head = el('tr');
-        ['章節', '課本已讀', '已作答', '正確率', '最後讀'].forEach(function (h, i) {
-          var th = el('th', i >= 2 ? 'ex-num' : null, h);
+        ['章節', '課本已讀', '重點閱讀', '已作答', '正確率', '最後讀'].forEach(function (h, i) {
+          var th = el('th', i >= 3 ? 'ex-num' : null, h);
           th.scope = 'col';
           head.appendChild(th);
         });
@@ -587,6 +596,7 @@
           box.addEventListener('change', function () { setRead(k, box.checked); renderProgress(out, k); });
           cell.appendChild(box);
           tr.appendChild(cell);
+          tr.appendChild(readingCell(k, data.notes[k] ? reading[k] || null : undefined));
           tr.appendChild(el('td', 'ex-num', r.done + ' / ' + r.total));
           var acc = el('td', 'ex-num', percent(r.right, r.done));
           if (r.done >= 5 && r.right / r.done < 0.6) acc.classList.add('ex-low');
@@ -606,6 +616,29 @@
       clear(out);
       out.appendChild(el('p', 'ex-pending', '題庫載入失敗，請重新整理頁面。'));
     });
+  }
+
+  // 重點閱讀 cell: ✓N (rounds finished) and this round's coverage; undefined = no notes.
+  function readingCell(k, rec) {
+    var td = el('td', 'ex-rd');
+    if (rec === undefined) {
+      td.textContent = '—';
+      td.title = '本章尚無重點整理';
+      return td;
+    }
+    var r = rec ? rec.r : 0;
+    var pct = rec ? rec.pct : 0;
+    if (r >= 1) td.appendChild(readBadge(r));
+    var meter = el('span', 'ex-rd-meter');
+    var bar = el('span', 'ex-rd-bar');
+    bar.setAttribute('aria-hidden', 'true');
+    var fill = el('span', 'ex-rd-fill');
+    fill.style.width = pct + '%';
+    bar.appendChild(fill);
+    meter.appendChild(bar);
+    meter.appendChild(el('span', 'ex-rd-pct', pct + '%'));
+    td.appendChild(meter);
+    return td;
   }
 
   // ---------------------------------------------------------- review page
@@ -1191,6 +1224,276 @@
     return place;
   }
 
+  // ---------------------------------------------------------- reading rounds
+  // How much of each chapter's notes has really been read, per round (owner
+  // 2026-11-02, as on the dermatology exam section). A note section (one <h2> and
+  // what follows it) counts as read once it has been on screen long enough for its
+  // length; about 75% of the notes read counts as one finished round, and the next
+  // round starts again from 0%. Everything stays in this browser.
+  var READ_FULL_PCT = 75;     // coverage that counts as one finished round
+  var DWELL_MIN = 5000;       // ms a section must stay on screen: 50 ms per character,
+  var DWELL_MAX = 30000;      // but never less than 5 s or more than 30 s
+  var DWELL_PER_CHAR = 50;
+  var DWELL_TICK = 1000;
+  var DONE_KEEP = 20;
+
+  function isMap(v) { return !!v && typeof v === 'object' && !Array.isArray(v); }
+  function own(obj, key) { return Object.prototype.hasOwnProperty.call(obj, key); }
+  function storeOk(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch (e) { return false; }
+  }
+  function storageWorks() {
+    try {
+      localStorage.setItem('hs:exam:probe', '1');
+      localStorage.removeItem('hs:exam:probe');
+      return true;
+    } catch (e) { return false; }
+  }
+  // A stored record, checked and copied; null when its shape is wrong.
+  function normReading(rec) {
+    if (!isMap(rec)) return null;
+    function whole(v, max) { return typeof v === 'number' && isFinite(v) && v >= 0 && v <= max && Math.floor(v) === v; }
+    if (!whole(rec.r, 100000) || !whole(rec.pct, 100)) return null;
+    if (typeof rec.t !== 'number' || !isFinite(rec.t) || rec.t < 0) return null;
+    if (!isMap(rec.seen) || !Array.isArray(rec.done)) return null;
+    var seen = {};
+    Object.keys(rec.seen).forEach(function (id) {
+      if (rec.seen[id] === 1 && /^[a-z0-9-]{1,80}$/.test(id)) seen[id] = 1;
+    });
+    var done = rec.done.filter(function (x) { return typeof x === 'number' && isFinite(x) && x >= 0; }).slice(-DONE_KEEP);
+    // g: generation id; a reset or a record recreated elsewhere gets a new one.
+    var g = typeof rec.g === 'string' && /^[a-z0-9]{1,40}$/.test(rec.g) ? rec.g : '';
+    return { g: g, r: rec.r, seen: seen, pct: rec.pct, t: rec.t, done: done };
+  }
+  // { '12-4': record } with every malformed entry left out.
+  function readingMap() {
+    var all = load(READING_KEY, {});
+    var out = {};
+    if (!isMap(all)) return out;
+    Object.keys(all).forEach(function (key) {
+      if (!/^\d{1,2}-\d{1,2}$/.test(key)) return;
+      var rec = normReading(all[key]);
+      if (rec) out[key] = rec;
+    });
+    return out;
+  }
+  // Replace one chapter's record, leaving every other entry as stored.
+  function saveReading(key, rec) {
+    var all = load(READING_KEY, {});
+    if (!isMap(all)) all = {};
+    all[key] = rec;
+    return storeOk(READING_KEY, all);
+  }
+
+  // Chapter page: time on screen per note section -> coverage of the notes. Only a
+  // visible tab counts, and the timer runs only while the notes are on screen.
+  //
+  // Several tabs may show the same chapter, so a page never writes back a copy of
+  // the record it loaded. It keeps only `pending` (sections read since its last
+  // sync) and `baseG` (the generation of the record it last synced with); sync()
+  // re-reads the stored record and merges the pending sections into it. A record
+  // reset or recreated elsewhere (another g) is adopted and the pending reads dropped.
+  function initReading(key) {
+    var status = document.getElementById('ex-reading');
+    var note = document.querySelector('.ex-notes .ex-note');
+    var heads = note ? note.querySelectorAll('h2[id][data-w]') : [];
+    if (!key || !status || !heads.length || !window.IntersectionObserver || !storageWorks()) return;
+
+    var secs = [], byId = {}, total = 0;
+    heads.forEach(function (h) {
+      if (own(byId, h.id)) return;
+      var w = parseInt(h.getAttribute('data-w'), 10);
+      if (!(w >= 1)) w = 1;
+      var sec = { el: h, id: h.id, w: w, need: Math.min(DWELL_MAX, Math.max(DWELL_MIN, DWELL_PER_CHAR * w)), ms: 0 };
+      secs.push(sec);
+      byId[sec.id] = sec;
+      total += w;
+    });
+    // A section runs from its heading to the next heading (the last one to the end of the notes).
+    function bounds(i) {
+      var top = secs[i].el.getBoundingClientRect().top;
+      var bottom = i + 1 < secs.length ? secs[i + 1].el.getBoundingClientRect().top : note.getBoundingClientRect().bottom;
+      return { top: top, bottom: bottom, height: bottom - top };
+    }
+
+    function newGeneration() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+    function freshRecord(g) { return { g: g, r: 0, seen: {}, pct: 0, t: Date.now(), done: [] }; }
+    // Only the sections of this page count towards coverage.
+    function coverage(seen) {
+      var sum = 0;
+      secs.forEach(function (sec) { if (own(seen, sec.id)) sum += sec.w; });
+      return Math.round(100 * sum / total);
+    }
+    function onPage(record) {
+      var seen = {};
+      Object.keys(record.seen).forEach(function (id) { if (own(byId, id)) seen[id] = 1; });
+      return { g: record.g, r: record.r, seen: seen, pct: coverage(seen), t: record.t, done: record.done.slice() };
+    }
+    function stored() { return readingMap()[key] || null; }
+    function resetTimers() { secs.forEach(function (sec) { sec.ms = 0; }); }
+
+    var pending = {};
+    var first = stored();
+    var baseG = first ? first.g : null;   // null: the chapter had no record when loaded
+    var rec = first ? onPage(first) : freshRecord('');
+
+    var line = el('span', 'ex-reading-text');
+    var reset = el('button', 'ex-reading-reset', '重設本章閱讀紀錄');
+    reset.type = 'button';
+    status.appendChild(line);
+    status.appendChild(reset);
+    function render() {
+      var text = '本章重點：第 ' + (rec.r + 1) + ' 輪，已讀 ' + rec.pct + '%' + (rec.r >= 1 ? '（已讀完 ' + rec.r + ' 次）' : '');
+      if (line.textContent !== text) line.textContent = text;
+    }
+    render();
+    status.hidden = false;
+
+    // Show the stored record (null: none) without writing anything.
+    function adopt(record) {
+      var next = record ? onPage(record) : freshRecord('');
+      var forgotten = record ? (baseG !== null && record.g !== baseG) : baseG !== null;
+      if (forgotten) pending = {};
+      if (forgotten || next.r !== rec.r) resetTimers();
+      baseG = record ? record.g : null;
+      rec = next;
+      render();
+    }
+    function sync() {
+      if (!Object.keys(pending).length) return;
+      var latest = stored();
+      if (latest && baseG !== null && latest.g !== baseG) { adopt(latest); return; }
+      var base, apply = true;
+      if (latest) {
+        base = latest;
+      } else {
+        base = freshRecord(newGeneration());
+        apply = baseG === null;  // storage was cleared since this page loaded: drop its reads
+      }
+      if (!base.g) base.g = newGeneration();
+      if (apply) Object.keys(pending).forEach(function (id) { if (own(byId, id)) base.seen[id] = 1; });
+      base = onPage(base);
+      var finished = apply && base.pct >= READ_FULL_PCT;
+      if (finished) {
+        base.r += 1;
+        base.done.push(Date.now());
+        if (base.done.length > DONE_KEEP) base.done = base.done.slice(-DONE_KEEP);
+        base.seen = {};
+        base.pct = 0;
+      }
+      base.t = Date.now();
+      if (!saveReading(key, base)) return;  // keep the pending reads for the next try
+      var changedRound = base.r !== rec.r;
+      baseG = base.g;
+      pending = {};
+      rec = base;
+      render();
+      if (finished || changedRound) resetTimers();
+      if (finished) showToast('本章重點第 ' + rec.r + ' 輪讀完 ✓');
+    }
+
+    var onScreen = false, timer = null, last = 0;
+    function unseen(sec) { return !own(rec.seen, sec.id) && !own(pending, sec.id); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() {
+      if (timer || !onScreen || document.visibilityState !== 'visible' || !secs.some(unseen)) return;
+      last = Date.now();
+      timer = setInterval(tick, DWELL_TICK);
+    }
+    function tick() {
+      if (document.visibilityState !== 'visible' || !onScreen) { stop(); return; }
+      var now = Date.now();
+      var dt = Math.min(Math.max(now - last, 0), 2500);  // a stalled timer is not reading time
+      last = now;
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      var waiting = false;
+      secs.forEach(function (sec, i) {
+        if (!unseen(sec)) return;
+        waiting = true;
+        // At least half of the section, or half of the window's height, is on screen.
+        var b = bounds(i);
+        if (!(b.height > 0)) return;
+        var shown = Math.max(0, Math.min(b.bottom, vh) - Math.max(b.top, 0));
+        if (shown < b.height * 0.5 && shown < vh * 0.5) return;
+        sec.ms += dt;
+        if (sec.ms >= sec.need) { pending[sec.id] = 1; sync(); }
+      });
+      if (!waiting) stop();
+    }
+
+    new IntersectionObserver(function (entries) {
+      onScreen = entries[entries.length - 1].isIntersecting;
+      if (onScreen) start(); else stop();
+    }).observe(note);
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') { adopt(stored()); start(); }
+      else { stop(); sync(); }
+    });
+    window.addEventListener('pagehide', sync);
+    // Another tab changed the record: show it (nothing is written here).
+    window.addEventListener('storage', function (event) {
+      if (event.key !== null && event.key !== READING_KEY) return;
+      adopt(stored());
+      start();
+    });
+
+    reset.addEventListener('click', function () {
+      var ok = false;
+      try { ok = window.confirm('重設本章重點的閱讀次數與進度？作答紀錄與「課本已讀完」不受影響。'); } catch (e) { ok = false; }
+      if (!ok) return;
+      // A new generation, so tabs that still hold older reads cannot revive them.
+      var fresh = freshRecord(newGeneration());
+      if (!saveReading(key, fresh)) return;
+      pending = {};
+      baseG = fresh.g;
+      rec = fresh;
+      resetTimers();
+      render();
+      start();
+    });
+  }
+  // Small status toast in the look of the reading-place hint; closes itself.
+  function showToast(text) {
+    var box = el('div', 'ex-resume ex-toast');
+    box.setAttribute('role', 'status');
+    var msg = el('span', 'ex-resume-text');
+    box.appendChild(msg);
+    var close = el('button', 'ex-resume-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', '關閉提示');
+    box.appendChild(close);
+    var timer = setTimeout(dismiss, 6000);
+    function dismiss() { clearTimeout(timer); box.remove(); }
+    close.addEventListener('click', dismiss);
+    document.body.appendChild(box);
+    // Filled after insertion so screen readers announce it as a status message.
+    setTimeout(function () { msg.textContent = text; }, 50);
+  }
+  // ✓N badge: this chapter's notes have been read N times (N >= 1).
+  function readBadge(r) {
+    var badge = el('span', 'ex-rd-badge', '✓' + r);
+    badge.setAttribute('role', 'img');
+    badge.setAttribute('aria-label', '重點讀完 ' + r + ' 次');
+    badge.title = '重點讀完 ' + r + ' 次';
+    return badge;
+  }
+  // Hub: a ✓N after each chapter link (chapter list and frequency table) whose notes
+  // were read at least once in this browser. Run again on a page restored from bfcache.
+  function fillHubBadges() {
+    var rows = document.querySelectorAll('.ex-chapter-list li[data-ch], table.ex-rank tr[data-ch]');
+    if (!rows.length) return;
+    var map = storageWorks() ? readingMap() : {};
+    rows.forEach(function (row) {
+      var old = row.querySelector('.ex-rd-badge');
+      if (old) old.remove();
+      var rec = map[row.getAttribute('data-ch')];
+      var link = row.querySelector('a');
+      if (!rec || rec.r < 1 || !link) return;
+      link.parentNode.insertBefore(readBadge(rec.r), link.nextSibling);
+    });
+  }
+
   // ---------------------------------------------------------- sticky chapter outline
   // Wide screens show 「本章目錄」 as a sticky left column (CSS). Mark the section the
   // reader is in (aria-current) and keep that entry inside the column's own scroll.
@@ -1494,6 +1797,12 @@
   });
   window.addEventListener('pageshow', function (ev) {
     if (ev.persisted && document.body.getAttribute('data-exam-bank') === '1') location.reload();
+    // Back from a chapter: show the reading rounds recorded meanwhile.
+    else if (ev.persisted) {
+      fillHubBadges();
+      var pg = document.getElementById('ex-progress');
+      if (pg) renderProgress(pg);
+    }
   });
 
   // ---------------------------------------------------------- init
@@ -1520,6 +1829,8 @@
     if (chapterQs) renderChapterQuestions(chapterQs);
     var landing = initLanding();
     var resume = initReadingPosition(strip ? strip.getAttribute('data-progress-chapter') : '');
+    if (strip) initReading(strip.getAttribute('data-progress-chapter'));
+    fillHubBadges();
     var settle = landing || resume;
     var tocSide = document.querySelector('.ex-toc-side');
     if (tocSide) initTocSpy(tocSide);
@@ -1538,7 +1849,7 @@
     var clearProgress = document.querySelector('.ex-clear-progress');
     if (clearProgress) {
       clearProgress.addEventListener('click', function () {
-        if (!window.confirm('確定要清除這台裝置上的作答紀錄（含各題上次選的答案）與最後讀的日期嗎？（「課本已讀完」與錯題本不受影響）')) return;
+        if (!window.confirm('確定要清除這台裝置上的作答紀錄（含各題上次選的答案）與最後讀的日期嗎？（「課本已讀完」、重點閱讀次數與錯題本不受影響）')) return;
         store(STATS_KEY, {});
         store(VISIT_KEY, {});
         store(ANS_KEY, {});

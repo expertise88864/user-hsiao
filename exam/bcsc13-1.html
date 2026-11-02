@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260732"></script>
+<script src="/assets/trusted-types.js?v=20260733"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 13 Ch.1 The Science of Refractive Surge…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc13-1#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 13 Ch.1","item":"https://hsiao.chendermatologist.com/exam/bcsc13-1"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260732">
+<link rel="stylesheet" href="/assets/app.css?v=20260733">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -224,6 +224,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -297,6 +309,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
@@ -304,7 +320,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-qno{color:#e7e5e4}
 :root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
-<script defer src="/assets/telemetry.js?v=20260732"></script>
+<script defer src="/assets/telemetry.js?v=20260733"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -332,7 +348,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch1-s1" lang="en">1. Introduction: Goals and Classification</a></li><li><a href="#ch1-s2" lang="en">2. Corneal Optics</a></li><li><a href="#ch1-s3" lang="en">3. Corneal Imaging and Topography</a></li><li><a href="#ch1-s4" lang="en">4. Tomography and Epithelial Mapping</a></li><li><a href="#ch1-s5" lang="en">5. Optical Principles and Wavefront Analysis</a></li><li><a href="#ch1-s6" lang="en">6. Corneal Biomechanics</a></li><li><a href="#ch1-s7" lang="en">7. Corneal Effects of Keratorefractive Surgery</a></li><li><a href="#ch1-s8" lang="en">8. Laser-Tissue Interactions</a></li><li><a href="#ch1-s9" lang="en">9. Excimer Photoablation and Munnerlyn Formula</a></li><li><a href="#ch1-s10" lang="en">10. Photoablative Lasers and Customized Ablation</a></li><li><a href="#ch1-s11" lang="en">11. Corneal Wound Healing</a></li><li><a href="#ch1-s12" lang="en">12. Emerging: Ocular Light Scatter Evaluation</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（10 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 13 Ch.1</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 13 · Refractive Surgery</p><h1 class="ex-h1">Ch.1 The Science of Refractive Surgery</h1><p class="ex-meta">原書 p.7–40 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="13-1" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="13-1"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch1-s1">一、Introduction：屈光手術的目標與分類</a></li><li><a href="#ch1-s2">二、Corneal Optics（角膜光學）</a></li><li><a href="#ch1-s3">三、Corneal Imaging for Keratorefractive Surgery 與 Corneal Topography（角膜地形圖）</a></li><li><a href="#ch1-s4">四、Corneal Tomography、Indications for Corneal Imaging 與 Corneal Epithelial Mapping</a></li><li><a href="#ch1-s5">五、Refractive Error: Optical Principles and Wavefront Analysis（波前分析）</a></li><li><a href="#ch1-s6">六、Corneal Biomechanics（角膜生物力學）</a></li><li><a href="#ch1-s7">七、Corneal Effects of Keratorefractive Surgery（角膜屈光手術如何改變角膜）</a></li><li><a href="#ch1-s8">八、Laser Biophysics：Laser–Tissue Interactions（雷射與組織作用）</a></li><li><a href="#ch1-s9">九、Fundamentals of Excimer Laser Photoablation 與 Munnerlyn formula</a></li><li><a href="#ch1-s10">十、Types of Photoablative Lasers 與 customized ablation（客製化切削）</a></li><li><a href="#ch1-s11">十一、Corneal Wound Healing（角膜傷口癒合）</a></li><li><a href="#ch1-s12">十二、Emerging Technologies：Ocular Light Scatter Evaluation（眼內光散射評估）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 13 第 1 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch1-s1">一、Introduction：屈光手術的目標與分類</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch1-s1" lang="en">1. Introduction: Goals and Classification</a></li><li><a href="#ch1-s2" lang="en">2. Corneal Optics</a></li><li><a href="#ch1-s3" lang="en">3. Corneal Imaging and Topography</a></li><li><a href="#ch1-s4" lang="en">4. Tomography and Epithelial Mapping</a></li><li><a href="#ch1-s5" lang="en">5. Optical Principles and Wavefront Analysis</a></li><li><a href="#ch1-s6" lang="en">6. Corneal Biomechanics</a></li><li><a href="#ch1-s7" lang="en">7. Corneal Effects of Keratorefractive Surgery</a></li><li><a href="#ch1-s8" lang="en">8. Laser-Tissue Interactions</a></li><li><a href="#ch1-s9" lang="en">9. Excimer Photoablation and Munnerlyn Formula</a></li><li><a href="#ch1-s10" lang="en">10. Photoablative Lasers and Customized Ablation</a></li><li><a href="#ch1-s11" lang="en">11. Corneal Wound Healing</a></li><li><a href="#ch1-s12" lang="en">12. Emerging: Ocular Light Scatter Evaluation</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（10 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 13 Ch.1</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 13 · Refractive Surgery</p><h1 class="ex-h1">Ch.1 The Science of Refractive Surgery</h1><p class="ex-meta">原書 p.7–40 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="13-1" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="13-1"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch1-s1">一、Introduction：屈光手術的目標與分類</a></li><li><a href="#ch1-s2">二、Corneal Optics（角膜光學）</a></li><li><a href="#ch1-s3">三、Corneal Imaging for Keratorefractive Surgery 與 Corneal Topography（角膜地形圖）</a></li><li><a href="#ch1-s4">四、Corneal Tomography、Indications for Corneal Imaging 與 Corneal Epithelial Mapping</a></li><li><a href="#ch1-s5">五、Refractive Error: Optical Principles and Wavefront Analysis（波前分析）</a></li><li><a href="#ch1-s6">六、Corneal Biomechanics（角膜生物力學）</a></li><li><a href="#ch1-s7">七、Corneal Effects of Keratorefractive Surgery（角膜屈光手術如何改變角膜）</a></li><li><a href="#ch1-s8">八、Laser Biophysics：Laser–Tissue Interactions（雷射與組織作用）</a></li><li><a href="#ch1-s9">九、Fundamentals of Excimer Laser Photoablation 與 Munnerlyn formula</a></li><li><a href="#ch1-s10">十、Types of Photoablative Lasers 與 customized ablation（客製化切削）</a></li><li><a href="#ch1-s11">十一、Corneal Wound Healing（角膜傷口癒合）</a></li><li><a href="#ch1-s12">十二、Emerging Technologies：Ocular Light Scatter Evaluation（眼內光散射評估）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 13 第 1 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch1-s1" data-w="3291">一、Introduction：屈光手術的目標與分類</h2>
 <ul>
 <li id="np-1">Refractive surgery（屈光手術）的目標：<mark>減少日常活動對隱形眼鏡或眼鏡的依賴</mark>；為達最佳屈光結果，術前須以適當診斷工具仔細評估候選資格；每種術式各有優缺點，應依病人特性挑選。<span class="ref">p.7</span></li>
 <li id="np-2">大致可分三大類：<strong>corneal（角膜）</strong>、<strong>scleral（鞏膜）</strong>、<strong>intraocular（眼內）</strong>。<span class="ref">p.7</span></li>
@@ -382,7 +398,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-66">ICRS 屬 nonlaser lamellar 類，Table 1-1 列為 myopia 與 keratoconus⁠<sup class="ex-qref"><span>Q1578</span> <span>Q1605</span></sup>。<span class="ref">p.8</span></li>
 </ul></div>
 
-<h2 id="ch1-s2">二、Corneal Optics（角膜光學）</h2>
+<h2 id="ch1-s2" data-w="654">二、Corneal Optics（角膜光學）</h2>
 <ul>
 <li id="np-67">眼睛大部分屈光力來自 <strong>air–tear interface（空氣–淚液介面）</strong>與角膜曲率的合併作用。正常淚膜對視力的不良影響極小；但異常淚膜——淚液過多（如 epiphora 溢淚）或淚膜改變（如 dry eye、blepharitis）——可<mark>大幅降低視覺品質</mark>。<span class="ref">p.7–8</span></li>
 <li id="np-68">角膜前表面曲率約占全眼屈光力 <span class="num">80%</span>，約 <span class="num">+49.00 D</span>；因後表面為負屈光力（約 <span class="num">−6.00 D</span>），<mark>全角膜屈光力約 <span class="num">+43.00 D</span></mark>。<span class="ref">p.8</span></li>
@@ -395,7 +411,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-73">正常是 prolate；myopic ablation 後變 oblate；hyperopic ablation 後變 hyperprolate。<span class="ref">p.9</span></li>
 </ul></div>
 
-<h2 id="ch1-s3">三、Corneal Imaging for Keratorefractive Surgery 與 Corneal Topography（角膜地形圖）</h2>
+<h2 id="ch1-s3" data-w="2920">三、Corneal Imaging for Keratorefractive Surgery 與 Corneal Topography（角膜地形圖）</h2>
 <h3 id="ch1-s3-1">影像技術與 Q value（非球面度）</h3>
 <ul>
 <li id="np-74">技術：<strong>Placido disk–based</strong> 系統與 <strong>elevation-based（高度式）</strong>系統（含 scanning-slit 掃描裂隙與 Scheimpflug imaging）；電腦化系統還可顯示瞳孔大小與位置、規則／不規則散光指數、keratoconus 機率估計、simulated keratometry、角膜 asphericity，部分可整合 wavefront aberrometry 資料。<mark>任何自動篩檢系統都不能取代判讀角膜影像的臨床經驗</mark>。<span class="ref">p.10</span></li>
@@ -448,7 +464,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-112">Corneal topography 可呈現不規則散光（如 nonorthogonal 經線）；wavefront analysis 可呈現 coma、trefoil 等高階像差⁠<sup class="ex-qref"><span>Q918</span></sup>。<span class="ref">p.13–14</span></li>
 </ul></div>
 
-<h2 id="ch1-s4">四、Corneal Tomography、Indications for Corneal Imaging 與 Corneal Epithelial Mapping</h2>
+<h2 id="ch1-s4" data-w="2334">四、Corneal Tomography、Indications for Corneal Imaging 與 Corneal Epithelial Mapping</h2>
 <h3 id="ch1-s4-1">Corneal tomography（角膜斷層造影）</h3>
 <ul>
 <li id="np-113"><mark class="ex-key">表面曲率（屈光力）最適合用 Placido topography 表示；整體形狀（含空間厚度分布）最適合用 tomography 表示</mark>。Tomography 以多張 slit 影像重建角膜形狀，包含<strong>前、後表面 elevation（高度）</strong>資料⁠<sup class="ex-qref"><span>Q918</span></sup>。<span class="ref">p.16</span></li>
@@ -480,7 +496,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-131">上皮在 KC 錐體上方傾向「變薄」、在 myopic LASIK 後中央「增厚」——都是上皮代償基質表面不規則的表現⁠<sup class="ex-qref"><span>Q1625</span></sup>。<span class="ref">p.21</span></li>
 </ul></div>
 
-<h2 id="ch1-s5">五、Refractive Error: Optical Principles and Wavefront Analysis（波前分析）</h2>
+<h2 id="ch1-s5" data-w="3221">五、Refractive Error: Optical Principles and Wavefront Analysis（波前分析）</h2>
 <h3 id="ch1-s5-1">Measurement of wavefront aberrations（波前像差的測量）</h3>
 <ul>
 <li id="np-132">目前臨床 wavefront analysis 有 <span class="num">4</span> 種方法：<strong>Hartmann-Shack</strong>、<strong>Tscherning</strong>、<strong>thin-beam single-ray tracing</strong>、<strong>optical path difference</strong>；都產生 lower-order（如 sphere、cylinder）與 higher-order（如 spherical aberration、coma、trefoil）像差的詳細報告，可用於計算 custom ablation 及解釋病人的視覺症狀。<span class="ref">p.22</span></li>
@@ -539,7 +555,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-173">波前像差受瞳孔大小強烈影響；多數病人 total RMS &lt; 0.3 μm 是指 6-mm 瞳孔⁠<sup class="ex-qref"><span>Q1764</span></sup>。<span class="ref">p.23, p.26</span></li>
 </ul></div>
 
-<h2 id="ch1-s6">六、Corneal Biomechanics（角膜生物力學）</h2>
+<h2 id="ch1-s6" data-w="1884">六、Corneal Biomechanics（角膜生物力學）</h2>
 <h3 id="ch1-s6-1">Characteristics of the stroma（基質特性）</h3>
 <ul>
 <li id="np-174">Stroma 是角膜的主要結構成分：膠原纖維排成約 <span class="num">200</span> 層 lamellar sheets，這個膠原網絡主要負責角膜的機械強度。<span class="ref">p.27</span></li>
@@ -577,7 +593,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-201">SMILE 生物力學「可能」較好，但也有 SMILE 後 ectasia 的報告。<span class="ref">p.29</span></li>
 </ul></div>
 
-<h2 id="ch1-s7">七、Corneal Effects of Keratorefractive Surgery（角膜屈光手術如何改變角膜）</h2>
+<h2 id="ch1-s7" data-w="3350">七、Corneal Effects of Keratorefractive Surgery（角膜屈光手術如何改變角膜）</h2>
 <ul>
 <li id="np-202">所有角膜屈光手術都靠改變角膜曲率：<mark>治療近視需中央曲率<strong>變平（減少）</strong>，治療遠視需中央曲率<strong>變陡（增加）</strong></mark>。技術：incisional、tissue addition or subtraction（組織增減）、alloplastic material addition（異質材料植入）、laser ablation。<span class="ref">p.30</span></li>
 <li id="np-203">整體滿意度主要取決於屈光不正的成功矯正與能最大化視覺品質的角膜形狀；正常 prolate 形成非球面光學系統，oblate 角膜增加 SA 及 glare、halos、對比敏感度下降等視覺症狀。<span class="ref">p.30</span></li>
@@ -622,7 +638,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-228">ICRS 的材質為 PMMA（BCSC 8 p.227）；Table 9-1 的 Visian ICL 材質為 Collamer（BCSC 13 p.159）⁠<sup class="ex-qref"><span>Q1578</span></sup>。<span class="ref ref-ext">BCSC 8 p.227；BCSC 13 p.159</span></li>
 </ul></div>
 
-<h2 id="ch1-s8">八、Laser Biophysics：Laser–Tissue Interactions（雷射與組織作用）</h2>
+<h2 id="ch1-s8" data-w="2363">八、Laser Biophysics：Laser–Tissue Interactions（雷射與組織作用）</h2>
 <ul>
 <li id="np-229">角膜屈光手術使用 <span class="num">3</span> 種雷射組織作用：<strong>photoablative（光切削）</strong>、<strong>photodisruptive（光破裂）</strong>、<strong>photothermal（光熱）</strong>。<mark>Photoablation 是屈光手術中最重要的一種</mark>，以 excimer（「excited dimer」）或其他適當波長雷射打斷化學鍵；每光子 <span class="num">4</span> electron volts（eV）以上即足以打斷組織的 carbon–nitrogen 或 carbon–carbon 鍵。<span class="ref">p.32</span></li>
 </ul>
@@ -660,7 +676,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-253">LASIK 以 lamellar incision 加上 excimer 的 photoablation 切削下方角膜（通常在 stromal bed）；BCSC 3 中 photodisruption 最重要的眼科應用是 Nd:YAG 後囊切開⁠<sup class="ex-qref"><span>Q290</span></sup>。<span class="ref">p.32–34；BCSC 3 p.135–136</span></li>
 </ul></div>
 
-<h2 id="ch1-s9">九、Fundamentals of Excimer Laser Photoablation 與 Munnerlyn formula</h2>
+<h2 id="ch1-s9" data-w="1902">九、Fundamentals of Excimer Laser Photoablation 與 Munnerlyn formula</h2>
 <ul>
 <li id="np-254">所有 photoablative 術式都會移除角膜組織。以 broad-beam 雷射治療近視時，中央移除的組織量以 <strong>Munnerlyn formula（Munnerlyn 公式）</strong>估算：<mark class="ex-key">Ablation depth（μm）≈ degree of myopia（D）× optical zone diameter［OZ（mm）］² ÷ <span class="num">3</span></mark>⁠<sup class="ex-qref"><span>Q1577</span> <span>Q1636</span></sup>。<span class="ref">p.33</span></li>
 <li id="np-255">Clinical example：屈光不正 <span class="num">−5.00 D</span>、optical zone <span class="num">6.0 mm</span> → ablation depth = <span class="num">5 × (6)² / 3 = 60 μm</span>⁠<sup class="ex-qref"><span>Q1636</span></sup>。<span class="ref">p.33</span></li>
@@ -681,7 +697,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-268">切削量隨 OZ 平方增加；OZ 縮小時 glare、halos、regression 增加；較大治療直徑改善光學品質與屈光穩定性⁠<sup class="ex-qref"><span>Q1626</span> <span>Q1648</span></sup>。<span class="ref">p.34；BCSC 13 p.88–89</span></li>
 </ul></div>
 
-<h2 id="ch1-s10">十、Types of Photoablative Lasers 與 customized ablation（客製化切削）</h2>
+<h2 id="ch1-s10" data-w="2492">十、Types of Photoablative Lasers 與 customized ablation（客製化切削）</h2>
 <h3 id="ch1-s10-1">Types of photoablative lasers（光切削雷射種類）</h3>
 <table class="ted-table">
 <thead><tr><th>Type（種類）</th><th>Beam（光束）</th><th>Features（特點）</th></tr></thead>
@@ -727,7 +743,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-312">TG 用 refraction + topography，WFG 用 aberrometer 波前資料；TG 已成功用於偏心切削、小光學區與不規則角膜表面。<span class="ref">p.35–36</span></li>
 </ul></div>
 
-<h2 id="ch1-s11">十一、Corneal Wound Healing（角膜傷口癒合）</h2>
+<h2 id="ch1-s11" data-w="2273">十一、Corneal Wound Healing（角膜傷口癒合）</h2>
 <ul>
 <li id="np-313">所有角膜屈光手術都高度依賴傷口癒合：滿意的結果需要<strong>調控</strong>癒合過程，或<strong>利用</strong>正常癒合。<span class="ref">p.36</span></li>
 <li id="np-314"><strong>AK</strong>：先使角膜變弱，再永久癒合——epithelial plugs（上皮栓）被膠原取代並重塑，以確保穩定、避免長期 <strong>hyperopic drift（遠視漂移）</strong>。<span class="ref">p.37</span></li>
@@ -761,7 +777,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-331">Losartan 的資料來自兔子研究與人類初步病例報告；vitamin C 尚未有 randomized prospective clinical trial。<span class="ref">p.38</span></li>
 </ul></div>
 
-<h2 id="ch1-s12">十二、Emerging Technologies：Ocular Light Scatter Evaluation（眼內光散射評估）</h2>
+<h2 id="ch1-s12" data-w="1571">十二、Emerging Technologies：Ocular Light Scatter Evaluation（眼內光散射評估）</h2>
 <ul>
 <li id="np-332"><strong>Intraocular light scatter（straylight，散射光）</strong>：光在角膜、水晶體、視網膜的反射、折射與繞射，以及穿透鞏膜與虹膜的光所造成；降低透光、影像對比與視網膜影像品質。<span class="ref">p.38–39</span></li>
 <li id="np-333"><strong>Forward scatter（前向散射，朝視網膜）</strong>：相對入射方向偏離 <span class="num">&lt; 90°</span>，在視網膜形成 veiling luminance（遮幕亮度）→ <mark>視網膜影像對比下降、glare</mark>；<strong>backward scatter（後向散射）</strong>：偏離 <span class="num">&gt; 90°</span>，主要結果是到達視網膜的光量減少。因前向散射直接影響視覺表現，測量它非常重要。<span class="ref">p.39</span></li>
@@ -830,7 +846,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260732" defer></script>
-<script src="/exam/exam.js?v=20260732" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260733" defer></script>
+<script src="/exam/exam.js?v=20260733" defer></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260732"></script>
+<script src="/assets/trusted-types.js?v=20260733"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 3 Ch.5 Eyeglasses：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc3-5#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 3 Ch.5","item":"https://hsiao.chendermatologist.com/exam/bcsc3-5"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260732">
+<link rel="stylesheet" href="/assets/app.css?v=20260733">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -224,6 +224,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -297,6 +309,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
@@ -304,7 +320,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-qno{color:#e7e5e4}
 :root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
-<script defer src="/assets/telemetry.js?v=20260732"></script>
+<script defer src="/assets/telemetry.js?v=20260733"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -332,7 +348,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch5-s1" lang="en">1. Highlights and Glossary</a></li><li><a href="#ch5-s2" lang="en">2. Far Point Concept and Vertex Distance</a></li><li><a href="#ch5-s3" lang="en">3. Cylindrical Lenses and Pantoscopic Tilt</a></li><li><a href="#ch5-s4" lang="en">4. Prescribing for Children</a></li><li><a href="#ch5-s5" lang="en">5. Clinical Accommodative Problems</a></li><li><a href="#ch5-s6" lang="en">6. AC/A Ratio</a></li><li><a href="#ch5-s7" lang="en">7. Effect of Lenses on Accommodation/Vergence</a></li><li><a href="#ch5-s8" lang="en">8. Determining the Add Power</a></li><li><a href="#ch5-s9" lang="en">9. Bifocal, Trifocal and Progressive Lenses</a></li><li><a href="#ch5-s10" lang="en">10. Prentice Rule, Image Displacement and Jump</a></li><li><a href="#ch5-s11" lang="en">11. Compensating for Induced Anisophoria</a></li><li><a href="#ch5-s12" lang="en">12. Occupation and Bifocal Segment</a></li><li><a href="#ch5-s13" lang="en">13. Aphakic Lenses</a></li><li><a href="#ch5-s14" lang="en">14. Absorptive Lenses</a></li><li><a href="#ch5-s15" lang="en">15. Special Lens Materials</a></li><li><a href="#ch5-s16" lang="en">16. Therapeutic Use of Prisms</a></li><li><a href="#ch5-s17" lang="en">17. Management of Anisometropia</a></li><li><a href="#ch5-s18" lang="en">18. Dissatisfied Spectacle Wearers</a></li><li><a href="#ch5-s19" lang="en">19. Pharmacologic Treatment of Presbyopia</a></li><li><a href="#ch5-s20" lang="en">20. Chapter Exercises: Key Points</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（9 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 3 Ch.5</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 3 · Clinical Optics and Vision Rehabilitation</p><h1 class="ex-h1">Ch.5 Eyeglasses</h1><p class="ex-meta">原書 p.185–222 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="3-5" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="3-5"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch5-s1">一、本章重點與名詞（Highlights／Glossary）</a></li><li><a href="#ch5-s2">二、球面矯正與頂點距離（Far Point Concept／Vertex Distance）</a></li><li><a href="#ch5-s3">三、散光鏡片與前傾角（Cylindrical Lenses／Pantoscopic Tilt）</a></li><li><a href="#ch5-s4">四、兒童配鏡（Prescribing for Children）</a></li><li><a href="#ch5-s5">五、調節問題：老花、調節不足與調節過度（Clinical Accommodative Problems）</a></li><li><a href="#ch5-s6">六、AC/A ratio（調節性聚合／調節比值）</a></li><li><a href="#ch5-s7">七、眼鏡與隱形眼鏡對調節與聚合的影響</a></li><li><a href="#ch5-s8">八、決定雙焦加入度（Determining the Add Power）</a></li><li><a href="#ch5-s9">九、雙焦、三焦與漸進多焦鏡片（Bifocal／Trifocal／PAL）</a></li><li><a href="#ch5-s10">十、Prentice 法則、影像位移與影像跳躍</a></li><li><a href="#ch5-s11">十一、補償誘發的不等隱斜（Compensating for Induced Anisophoria）</a></li><li><a href="#ch5-s12">十二、職業與雙焦子片（Occupation and Bifocal Segment）</a></li><li><a href="#ch5-s13">十三、無水晶體眼鏡（Aphakic Lenses）</a></li><li><a href="#ch5-s14">十四、吸收性鏡片：太陽眼鏡、變色鏡片與抗紫外線（Absorptive Lenses）</a></li><li><a href="#ch5-s15">十五、鏡片材料（Special Lens Materials）</a></li><li><a href="#ch5-s16">十六、稜鏡的治療用途（Therapeutic Use of Prisms）</a></li><li><a href="#ch5-s17">十七、屈光參差的處置（Management of Anisometropia）</a></li><li><a href="#ch5-s18">十八、配鏡不滿意的處理（Troubleshooting for Dissatisfied Spectacle Wearers）</a></li><li><a href="#ch5-s19">十九、老花的藥物治療（Pharmacologic Treatment of Presbyopia）</a></li><li><a href="#ch5-s20">二十、章末習題重點（Chapter Exercises：Questions／Answers）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 3 第 5 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch5-s1">一、本章重點與名詞（Highlights／Glossary）</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch5-s1" lang="en">1. Highlights and Glossary</a></li><li><a href="#ch5-s2" lang="en">2. Far Point Concept and Vertex Distance</a></li><li><a href="#ch5-s3" lang="en">3. Cylindrical Lenses and Pantoscopic Tilt</a></li><li><a href="#ch5-s4" lang="en">4. Prescribing for Children</a></li><li><a href="#ch5-s5" lang="en">5. Clinical Accommodative Problems</a></li><li><a href="#ch5-s6" lang="en">6. AC/A Ratio</a></li><li><a href="#ch5-s7" lang="en">7. Effect of Lenses on Accommodation/Vergence</a></li><li><a href="#ch5-s8" lang="en">8. Determining the Add Power</a></li><li><a href="#ch5-s9" lang="en">9. Bifocal, Trifocal and Progressive Lenses</a></li><li><a href="#ch5-s10" lang="en">10. Prentice Rule, Image Displacement and Jump</a></li><li><a href="#ch5-s11" lang="en">11. Compensating for Induced Anisophoria</a></li><li><a href="#ch5-s12" lang="en">12. Occupation and Bifocal Segment</a></li><li><a href="#ch5-s13" lang="en">13. Aphakic Lenses</a></li><li><a href="#ch5-s14" lang="en">14. Absorptive Lenses</a></li><li><a href="#ch5-s15" lang="en">15. Special Lens Materials</a></li><li><a href="#ch5-s16" lang="en">16. Therapeutic Use of Prisms</a></li><li><a href="#ch5-s17" lang="en">17. Management of Anisometropia</a></li><li><a href="#ch5-s18" lang="en">18. Dissatisfied Spectacle Wearers</a></li><li><a href="#ch5-s19" lang="en">19. Pharmacologic Treatment of Presbyopia</a></li><li><a href="#ch5-s20" lang="en">20. Chapter Exercises: Key Points</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（9 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 3 Ch.5</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 3 · Clinical Optics and Vision Rehabilitation</p><h1 class="ex-h1">Ch.5 Eyeglasses</h1><p class="ex-meta">原書 p.185–222 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="3-5" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="3-5"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch5-s1">一、本章重點與名詞（Highlights／Glossary）</a></li><li><a href="#ch5-s2">二、球面矯正與頂點距離（Far Point Concept／Vertex Distance）</a></li><li><a href="#ch5-s3">三、散光鏡片與前傾角（Cylindrical Lenses／Pantoscopic Tilt）</a></li><li><a href="#ch5-s4">四、兒童配鏡（Prescribing for Children）</a></li><li><a href="#ch5-s5">五、調節問題：老花、調節不足與調節過度（Clinical Accommodative Problems）</a></li><li><a href="#ch5-s6">六、AC/A ratio（調節性聚合／調節比值）</a></li><li><a href="#ch5-s7">七、眼鏡與隱形眼鏡對調節與聚合的影響</a></li><li><a href="#ch5-s8">八、決定雙焦加入度（Determining the Add Power）</a></li><li><a href="#ch5-s9">九、雙焦、三焦與漸進多焦鏡片（Bifocal／Trifocal／PAL）</a></li><li><a href="#ch5-s10">十、Prentice 法則、影像位移與影像跳躍</a></li><li><a href="#ch5-s11">十一、補償誘發的不等隱斜（Compensating for Induced Anisophoria）</a></li><li><a href="#ch5-s12">十二、職業與雙焦子片（Occupation and Bifocal Segment）</a></li><li><a href="#ch5-s13">十三、無水晶體眼鏡（Aphakic Lenses）</a></li><li><a href="#ch5-s14">十四、吸收性鏡片：太陽眼鏡、變色鏡片與抗紫外線（Absorptive Lenses）</a></li><li><a href="#ch5-s15">十五、鏡片材料（Special Lens Materials）</a></li><li><a href="#ch5-s16">十六、稜鏡的治療用途（Therapeutic Use of Prisms）</a></li><li><a href="#ch5-s17">十七、屈光參差的處置（Management of Anisometropia）</a></li><li><a href="#ch5-s18">十八、配鏡不滿意的處理（Troubleshooting for Dissatisfied Spectacle Wearers）</a></li><li><a href="#ch5-s19">十九、老花的藥物治療（Pharmacologic Treatment of Presbyopia）</a></li><li><a href="#ch5-s20">二十、章末習題重點（Chapter Exercises：Questions／Answers）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 3 第 5 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch5-s1" data-w="977">一、本章重點與名詞（Highlights／Glossary）</h2>
 <h3 id="ch5-s1-1">Highlights（四大臨床原則）</h3>
 <ul>
 <li id="np-1">開立超過 <span class="num">±5.00 D</span> 的眼鏡時，應考慮 <strong>vertex distance（頂點距離）</strong>。<span class="ref">p.185</span></li>
@@ -356,7 +372,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-14">Image jump 是視線跨過多焦鏡片看遠區與看近區交界時影像的突然移動；image displacement 是透過眼鏡鏡片周邊看時物體表觀位置的改變。<span class="ref">p.185</span></li>
 </ul></div>
 
-<h2 id="ch5-s2">二、球面矯正與頂點距離（Far Point Concept／Vertex Distance）</h2>
+<h2 id="ch5-s2" data-w="2334">二、球面矯正與頂點距離（Far Point Concept／Vertex Distance）</h2>
 <h3 id="ch5-s2-1">Far point concept（遠點概念）</h3>
 <ul>
 <li id="np-15"><strong>Ametropia（屈光不正）</strong>＝沒有 emmetropia（正視）；最常見的矯正方式是眼鏡。<span class="ref">p.186</span></li>
@@ -390,7 +406,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-35">Clinical Example 5-1 例後附註：眼鏡只往外移 5 mm、不改度數 → 眼睛會變成 0.50 D 近視。<span class="ref">p.189</span></li>
 </ul></div>
 
-<h2 id="ch5-s3">三、散光鏡片與前傾角（Cylindrical Lenses／Pantoscopic Tilt）</h2>
+<h2 id="ch5-s3" data-w="893">三、散光鏡片與前傾角（Cylindrical Lenses／Pantoscopic Tilt）</h2>
 <h3 id="ch5-s3-1">Cylindrical correcting lenses（柱鏡矯正）</h3>
 <ul>
 <li id="np-36">散光同樣用遠點概念，但需<strong>兩條主子午線分別</strong>決定所需度數。<span class="ref">p.189</span></li>
@@ -412,7 +428,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-47">成人必要時把軸度往 180°／90°（或舊軸）轉及／或降低柱鏡度數，並調球面維持等價球面度、以主觀驗光確認；兒童散光 ≥ 1.50 D 一般要矯正，給完整度數、正確軸度。<span class="ref">p.190</span></li>
 </ul></div>
 
-<h2 id="ch5-s4">四、兒童配鏡（Prescribing for Children）</h2>
+<h2 id="ch5-s4" data-w="1451">四、兒童配鏡（Prescribing for Children）</h2>
 <ul>
 <li id="np-48">成人矯正只有一個可量化終點（最佳矯正視力）；兒童常有兩個目標：<strong>清楚的視網膜影像</strong>與<strong>調節與聚合的最佳平衡</strong>。<span class="ref">p.191</span></li>
 <li id="np-49">嬰幼兒（尤其 esotropia（內斜視））的最佳驗光需完全 cycloplegia（睫狀肌麻痺）；無法配合主觀驗光時，以 retinoscopy（視網膜鏡檢）等客觀方法最佳；有斜視時可能需修改一般處方原則。<span class="ref">p.191</span></li>
@@ -446,7 +462,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-66">發展性近視通常在 7–10 歲出現；明顯兒童近視的睫狀肌麻痺驗光約到 10 歲前都是必要的。<span class="ref">p.191</span></li>
 </ul></div>
 
-<h2 id="ch5-s5">五、調節問題：老花、調節不足與調節過度（Clinical Accommodative Problems）</h2>
+<h2 id="ch5-s5" data-w="1867">五、調節問題：老花、調節不足與調節過度（Clinical Accommodative Problems）</h2>
 <h3 id="ch5-s5-1">Presbyopia（老花）</h3>
 <ul>
 <li id="np-67">水晶體彈性下降 → 調節反應逐漸喪失；剩餘調節不足以舒適閱讀與近距工作時才成為臨床問題，可用適當凸透鏡補償。<span class="ref">p.193</span></li>
@@ -488,7 +504,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-112">與睫狀肌痙攣相關的未矯正屈光不正通常是「遠視」（也可能是散光）；部分病人睫狀肌痙攣會加重原有近視。<span class="ref">p.194</span></li>
 </ul></div>
 
-<h2 id="ch5-s6">六、AC/A ratio（調節性聚合／調節比值）</h2>
+<h2 id="ch5-s6" data-w="1063">六、AC/A ratio（調節性聚合／調節比值）</h2>
 <ul>
 <li id="np-113">調節（A）伴隨對應的聚合（AC）；以每 1 D 調節產生多少 prism diopters 表示，<mark>正常 AC/A 為 <span class="num">3:1–5:1</span></mark>。<span class="ref">p.194</span></li>
 <li id="np-114">同一病人的 AC/A 相對固定，但個體間有差異：例如未矯正 <span class="num">1.00 D</span> 遠視者看遠可能調節 1.00 D 卻不產生聚合；未矯正近視者則必須在不調節的情況下聚合，才能融像遠點的物體。<span class="ref">p.194</span></li>
@@ -513,7 +529,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-125">Gradient method：−1.00 D 法以前後兩次測量的差值為 AC/A；+3.00 D 法差值除以 3 為 AC/A。<span class="ref">p.194–195</span></li>
 </ul></div>
 
-<h2 id="ch5-s7">七、眼鏡與隱形眼鏡對調節與聚合的影響</h2>
+<h2 id="ch5-s7" data-w="1116">七、眼鏡與隱形眼鏡對調節與聚合的影響</h2>
 <ul>
 <li id="np-126">眼鏡與隱形眼鏡所需的調節與聚合不同，矯正度數越高差異越明顯。<span class="ref">p.195</span></li>
 <li id="np-127">調節：<mark>近視者戴隱形眼鏡比戴眼鏡需要更多調節</mark>（40 歲出頭的近視者由單焦眼鏡改戴隱形眼鏡可能突然出現老花症狀）；遠視者相反，戴眼鏡比戴隱形眼鏡需要更多調節。<span class="ref">p.195</span></li>
@@ -528,7 +544,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-134">40 歲出頭的近視者由單焦眼鏡改戴隱形眼鏡可能突然出現老花症狀；戴眼鏡的高度近視者老花時只需很弱的 add（或不需要）。<span class="ref">p.195</span></li>
 </ul></div>
 
-<h2 id="ch5-s8">八、決定雙焦加入度（Determining the Add Power）</h2>
+<h2 id="ch5-s8" data-w="1719">八、決定雙焦加入度（Determining the Add Power）</h2>
 <ul>
 <li id="np-135">Multifocal lens（多焦鏡片）有 2 個以上屈光元件；各子片度數相對主鏡片另外開立，主鏡片以外的額外處方稱 <strong>add</strong>。<span class="ref">p.195</span></li>
 <li id="np-136">開立雙焦需要：（1）正確的基礎驗光、（2）調節幅度、（3）病人需要看近的社交或職業活動（閱讀、縫紉、電腦等）。<span class="ref">p.195</span></li>
@@ -558,7 +574,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-152">通常保留「一半」調節作儲備：2.00 D 幅度可舒適使用 1.00 D（有些病人可舒適使用超過一半）。<span class="ref">p.197</span></li>
 </ul></div>
 
-<h2 id="ch5-s9">九、雙焦、三焦與漸進多焦鏡片（Bifocal／Trifocal／PAL）</h2>
+<h2 id="ch5-s9" data-w="2324">九、雙焦、三焦與漸進多焦鏡片（Bifocal／Trifocal／PAL）</h2>
 <h3 id="ch5-s9-1">Types of bifocal lenses（雙焦種類）</h3>
 <ul>
 <li id="np-153">目前多數為 <strong>1-piece（一體成型）</strong>：在同一鏡坯上做出不同屈光面（Fig 5-7）；1-piece round segment 的子片在<strong>凹面</strong>。<span class="ref">p.198</span></li>
@@ -603,7 +619,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-186">PAL 較不成功的人選包括：屈光參差、需要稜鏡或高 add、需要大視野或多條看近視線、眼動劇烈／動態（常見於運動）者。<span class="ref">p.200–201</span></li>
 </ul></div>
 
-<h2 id="ch5-s10">十、Prentice 法則、影像位移與影像跳躍</h2>
+<h2 id="ch5-s10" data-w="2555">十、Prentice 法則、影像位移與影像跳躍</h2>
 <h3 id="ch5-s10-1">Prismatic effects of lenses（鏡片的稜鏡效應）</h3>
 <ul>
 <li id="np-187">透過光學中心以外的任何一點看，所有鏡片都像稜鏡；稜鏡量取決於鏡片度數與離光學中心的距離。<span class="ref">p.201</span></li>
@@ -650,7 +666,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-227">Prentice 的 h 用公分（8 mm → 0.8）；prism diopter 定義也是「公分／公尺」⁠<sup class="ex-qref"><span>Q242</span> <span>Q275</span></sup>。<span class="ref">p.201</span></li>
 </ul></div>
 
-<h2 id="ch5-s11">十一、補償誘發的不等隱斜（Compensating for Induced Anisophoria）</h2>
+<h2 id="ch5-s11" data-w="1857">十一、補償誘發的不等隱斜（Compensating for Induced Anisophoria）</h2>
 <ul>
 <li id="np-228">以眼鏡矯正 anisometropia 時，所有次要注視方向常會產生不等稜鏡 → 可能造成症狀甚至複視。特別在<strong>早期老花第一次戴雙焦</strong>，或屈光參差是新近／突發（視網膜剝離手術後、白內障不對稱進展、單眼植入 IOL 後）時出現。<span class="ref">p.205</span></li>
 <li id="np-229">水平不平衡通常靠增加頭部轉動來適應，但向下看書時可能有症狀；<mark>垂直融像幅度通常 <span class="num">&lt; 2Δ</span></mark>，遠小於水平聚散幅度。<span class="ref">p.205</span></li>
@@ -676,7 +692,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-244">章末 5.12 只看遠用度數差（3.00 D × 0.7 cm），add 相同不計入。<span class="ref">p.222</span></li>
 </ul></div>
 
-<h2 id="ch5-s12">十二、職業與雙焦子片（Occupation and Bifocal Segment）</h2>
+<h2 id="ch5-s12" data-w="923">十二、職業與雙焦子片（Occupation and Bifocal Segment）</h2>
 <ul>
 <li id="np-245">子片度數取決於病人的 accommodative reserve（調節儲備）與該工作所需距離；這是「個別病人對工作的適應」而不是工作本身的特性。允許使用一半（實測）調節，其餘由 add 補足。<span class="ref">p.207</span></li>
 <li id="np-246">例：40 cm 校稿需 <span class="num">2.50 D</span>；調節幅度 <span class="num">2.00 D</span>、用一半 1.00 D → add <span class="num">1.50 D</span>；必須實測調節範圍（近點到遠點）是否符合工作需求。<span class="ref">p.208</span></li>
@@ -699,7 +715,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-255">高正度數（無水晶體、遠視）聚合時 BO 效應較大 → 子片額外內移可能有幫助；高負度數則相反。<span class="ref">p.208</span></li>
 </ul></div>
 
-<h2 id="ch5-s13">十三、無水晶體眼鏡（Aphakic Lenses）</h2>
+<h2 id="ch5-s13" data-w="990">十三、無水晶體眼鏡（Aphakic Lenses）</h2>
 <ul>
 <li id="np-256">高正度數 aphakic 眼鏡的問題：放大約 <span class="num">20%–35%</span>；放大導致深度感改變；<strong>pincushion distortion（枕形扭曲）</strong>（如門框看起來向內彎）；手眼協調困難；鏡片邊緣稜鏡效應造成 <strong>ring scotoma（環形暗點）</strong>（「jack-in-the-box」現象）；對頂點距離、前傾角與高度的微小偏差極敏感；單眼無水晶體因不等放大而喪失有用雙眼視。<span class="ref">p.209</span></li>
 <li id="np-257">外觀問題：眼睛看起來被放大、斜看時因稜鏡效應似乎移位；高度數 lenticular lens（透鏡式鏡片）呈「fried-egg（荷包蛋）」外觀（Fig 5-18）。<span class="ref">p.209</span></li>
@@ -714,7 +730,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-264">Aphakic 驗光難以用 phoropter 可靠完成，宜用 trial frame 或 lens clips；trial frame 調到最短頂點距離、前傾角約 5°–7°。<span class="ref">p.209</span></li>
 </ul></div>
 
-<h2 id="ch5-s14">十四、吸收性鏡片：太陽眼鏡、變色鏡片與抗紫外線（Absorptive Lenses）</h2>
+<h2 id="ch5-s14" data-w="1682">十四、吸收性鏡片：太陽眼鏡、變色鏡片與抗紫外線（Absorptive Lenses）</h2>
 <h3 id="ch5-s14-1">Sunglasses（太陽眼鏡）</h3>
 <ul>
 <li id="np-265"><strong>Improvement of contrast sensitivity（改善對比敏感度）</strong>：晴天陽光照度 <span class="num">10,000–30,000 foot-lamberts</span>，易使視網膜飽和、細微對比敏感度下降；深色（常為灰、綠、棕）太陽眼鏡的主要功能是讓視網膜維持正常對比敏感度；多數深色鏡片吸收各波長入射光的 <span class="num">70%–80%</span>。<span class="ref">p.210</span></li>
@@ -748,7 +764,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-285">反射率：雪 60%–80% ＞ 沙 15% ＞ 水 5%。<span class="ref">p.211</span></li>
 </ul></div>
 
-<h2 id="ch5-s15">十五、鏡片材料（Special Lens Materials）</h2>
+<h2 id="ch5-s15" data-w="2766">十五、鏡片材料（Special Lens Materials）</h2>
 <ul>
 <li id="np-286">四大性質：(1) <strong>Index of refraction（折射率）</strong>越高，同度數鏡片可越薄；(2) <strong>Specific gravity（比重）</strong>越低越輕；(3) <strong>Abbe number（阿貝數）</strong>；(4) <strong>Impact resistance（耐衝擊性）</strong>。<span class="ref">p.212–213</span></li>
 <li id="np-287"><mark class="ex-key">Abbe number 表示折射率隨波長的變化 → 決定 dispersion（色散）程度 → 決定 chromatic aberration（色像差）</mark>；Abbe 數越高，色像差越少、光學品質越好⁠<sup class="ex-qref"><span>Q269</span></sup>。<span class="ref">p.213</span></li>
@@ -786,7 +802,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-331">開給兒童與活動量大的成人的鏡片也應符合 Z87.1（Table 5-2 中為 polycarbonate、Trivex），除非已告知病人其鏡片並非最耐衝擊者。<span class="ref">p.212–213</span></li>
 </ul></div>
 
-<h2 id="ch5-s16">十六、稜鏡的治療用途（Therapeutic Use of Prisms）</h2>
+<h2 id="ch5-s16" data-w="1099">十六、稜鏡的治療用途（Therapeutic Use of Prisms）</h2>
 <h3 id="ch5-s16-1">Horizontal heterophorias（水平隱斜）</h3>
 <ul>
 <li id="np-332">聚散幅度不足使融像被破壞時，病人（通常是成人）可能出現 asthenopia；無法維持融像 → 複視。近距外隱斜者在聚合儲備不足時出現症狀；年輕病人可能可藉 orthoptic exercises（視能訓練）改善融像幅度，有時配合 <strong>BO 稜鏡</strong>進一步刺激、增強聚合儲備。<span class="ref">p.214</span></li>
@@ -813,7 +829,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-345">Aspheric（非球面）鏡片設計不適合用偏心產生稜鏡。<span class="ref">p.215</span></li>
 </ul></div>
 
-<h2 id="ch5-s17">十七、屈光參差的處置（Management of Anisometropia）</h2>
+<h2 id="ch5-s17" data-w="450">十七、屈光參差的處置（Management of Anisometropia）</h2>
 <ul>
 <li id="np-346"><strong>Full correction with adaptation（完整矯正並適應）</strong>：較遠視眼的全矯正若無法耐受，矯正病人可耐受的遠視量，但<strong>保留兩眼之間的精確差值</strong>；屈光性弱視兒童常可耐受兩眼全矯正，甚至可能不需遮眼或 atropine penalization（atropine 壓抑治療）就足以矯正弱視。<span class="ref">p.215</span></li>
 <li id="np-347"><strong>Undercorrection of one eye（一眼少給）</strong>：治療弱視中的兒童要<strong>完整矯正弱視眼</strong>；成人則完整矯正<strong>視力較好（或優勢）眼</strong>。<span class="ref">p.216</span></li>
@@ -825,7 +841,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-351">一眼少給時：兒童全矯「弱視眼」、成人全矯「視力較好（或優勢）眼」。<span class="ref">p.216</span></li>
 </ul></div>
 
-<h2 id="ch5-s18">十八、配鏡不滿意的處理（Troubleshooting for Dissatisfied Spectacle Wearers）</h2>
+<h2 id="ch5-s18" data-w="1012">十八、配鏡不滿意的處理（Troubleshooting for Dissatisfied Spectacle Wearers）</h2>
 <ul>
 <li id="np-352">處理期待很關鍵；trial frame 示範與在現有眼鏡上 overrefraction 有幫助；重大變更（如柱鏡軸度改變）開立前要仔細評估並與病人討論。<span class="ref">p.216</span></li>
 <li id="np-353">書面處方應包含：瞳距（<strong>PAL 要單眼瞳距</strong>）、高度數處方的頂點距離、雙焦／三焦／PAL 的確切種類（或註明維持與現有相同）、任何稜鏡（及是否與現有相同）、要維持的 base curve（屈光參差時減少影像大小改變）、鏡片材料（尤其高折射率或耐衝擊材料）、變色、染色或其他鍍膜。未寫明者配鏡師有很大裁量空間。<span class="ref">p.216</span></li>
@@ -839,7 +855,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-359">度數沒變仍抱怨：查光學中心、稜鏡、base curve／中心厚度、PAL 型號、頂點距離與前傾角、材料。<span class="ref">p.217</span></li>
 </ul></div>
 
-<h2 id="ch5-s19">十九、老花的藥物治療（Pharmacologic Treatment of Presbyopia）</h2>
+<h2 id="ch5-s19" data-w="372">十九、老花的藥物治療（Pharmacologic Treatment of Presbyopia）</h2>
 <ul>
 <li id="np-360"><span class="num">2021</span> 年 FDA 核准 <strong>pilocarpine <span class="num">1.25%</span>（Vuity）</strong>治療老花，<strong>每天一次</strong>。（2023 年 FDA 仿單：每天一次，可於第一劑後 3–6 小時再點第二劑）<span class="ref">p.217</span></li>
 <li id="np-361">臨床試驗：<span class="num">40–55 歲</span>病人中 <span class="num">26%–31%</span> 近距視力進步 <span class="num">3 行</span>；推測來自瞳孔縮小造成的調節張力增加與景深增加；<span class="num">6 小時</span>後效果下降 <span class="num">50%</span>。<span class="ref">p.217</span></li>
@@ -849,7 +865,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-363">Vuity 為 pilocarpine 1.25%，本書寫每天一次（2023 年 FDA 仿單：可於第一劑後 3–6 小時再點第二劑）。<span class="ref">p.217</span></li>
 </ul></div>
 
-<h2 id="ch5-s20">二十、章末習題重點（Chapter Exercises：Questions／Answers）</h2>
+<h2 id="ch5-s20" data-w="1214">二十、章末習題重點（Chapter Exercises：Questions／Answers）</h2>
 <table class="ted-table">
 <thead><tr><th>題號</th><th>考點</th><th>原書解答重點</th><th>Page</th></tr></thead>
 <tbody>
@@ -925,7 +941,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260732" defer></script>
-<script src="/exam/exam.js?v=20260732" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260733" defer></script>
+<script src="/exam/exam.js?v=20260733" defer></script>
 </body>
 </html>

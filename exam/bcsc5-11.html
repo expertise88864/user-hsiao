@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260732"></script>
+<script src="/assets/trusted-types.js?v=20260733"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 5 Ch.11 The Patient With Abnormal Ocula…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc5-11#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 5 Ch.11","item":"https://hsiao.chendermatologist.com/exam/bcsc5-11"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260732">
+<link rel="stylesheet" href="/assets/app.css?v=20260733">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -224,6 +224,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -297,6 +309,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
@@ -304,7 +320,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-qno{color:#e7e5e4}
 :root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
-<script defer src="/assets/telemetry.js?v=20260732"></script>
+<script defer src="/assets/telemetry.js?v=20260733"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -332,7 +348,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch11-s1" lang="en">1. Ocular Motor Hierarchy and Overview</a></li><li><a href="#ch11-s2" lang="en">2. History and Monocular Diplopia</a></li><li><a href="#ch11-s3" lang="en">3. Ocular Alignment in Binocular Diplopia</a></li><li><a href="#ch11-s4" lang="en">4. Localization and Supranuclear Causes</a></li><li><a href="#ch11-s5" lang="en">5. Nuclear Causes</a></li><li><a href="#ch11-s6" lang="en">6. Internuclear: INO and One-and-a-Half</a></li><li><a href="#ch11-s7" lang="en">7. Ocular Motor Nerve Palsies: Overview</a></li><li><a href="#ch11-s8" lang="en">8. CN III Palsy</a></li><li><a href="#ch11-s9" lang="en">9. CN IV Palsy</a></li><li><a href="#ch11-s10" lang="en">10. CN VI Palsy</a></li><li><a href="#ch11-s11" lang="en">11. Recurrent Painful Ophthalmoplegic Neuropathy</a></li><li><a href="#ch11-s12" lang="en">12. Multiple Cranial Nerve Palsies</a></li><li><a href="#ch11-s13" lang="en">13. Cavernous Sinus and Orbital Apex</a></li><li><a href="#ch11-s14" lang="en">14. Neuromuscular, Orbital, Myopathic, Others</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（23 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（45 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 5 Ch.11</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 5 · Neuro-Ophthalmology</p><h1 class="ex-h1">Ch.11 The Patient With Abnormal Ocular Motility or Diplopia</h1><p class="ex-meta">原書 p.225–256 · 考題 45 題</p><div class="ex-strip" data-progress-chapter="5-11" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="5-11"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch11-s1">一、眼動系統分層與總論</a></li><li><a href="#ch11-s2">二、病史與單眼複視</a></li><li><a href="#ch11-s3">三、雙眼複視的眼位評估</a></li><li><a href="#ch11-s4">四、病灶定位與核上性原因</a></li><li><a href="#ch11-s5">五、核性病變（Nuclear causes）</a></li><li><a href="#ch11-s6">六、核間性病變：INO 與 one-and-a-half syndrome</a></li><li><a href="#ch11-s7">七、眼動腦神經麻痺總論</a></li><li><a href="#ch11-s8">八、第三對腦神經麻痺（CN III palsy）</a></li><li><a href="#ch11-s9">九、第四對腦神經麻痺（CN IV palsy）</a></li><li><a href="#ch11-s10">十、第六對腦神經麻痺（CN VI palsy）</a></li><li><a href="#ch11-s11">十一、Recurrent painful ophthalmoplegic neuropathy（RPON，復發性疼痛性眼肌麻痺神經病變）</a></li><li><a href="#ch11-s12">十二、多條腦神經麻痺</a></li><li><a href="#ch11-s13">十三、海綿竇與眶尖病變</a></li><li><a href="#ch11-s14">十四、神經肌肉、眼窩、肌病、限制性與其他原因</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 5 第 11 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch11-s1">一、眼動系統分層與總論</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch11-s1" lang="en">1. Ocular Motor Hierarchy and Overview</a></li><li><a href="#ch11-s2" lang="en">2. History and Monocular Diplopia</a></li><li><a href="#ch11-s3" lang="en">3. Ocular Alignment in Binocular Diplopia</a></li><li><a href="#ch11-s4" lang="en">4. Localization and Supranuclear Causes</a></li><li><a href="#ch11-s5" lang="en">5. Nuclear Causes</a></li><li><a href="#ch11-s6" lang="en">6. Internuclear: INO and One-and-a-Half</a></li><li><a href="#ch11-s7" lang="en">7. Ocular Motor Nerve Palsies: Overview</a></li><li><a href="#ch11-s8" lang="en">8. CN III Palsy</a></li><li><a href="#ch11-s9" lang="en">9. CN IV Palsy</a></li><li><a href="#ch11-s10" lang="en">10. CN VI Palsy</a></li><li><a href="#ch11-s11" lang="en">11. Recurrent Painful Ophthalmoplegic Neuropathy</a></li><li><a href="#ch11-s12" lang="en">12. Multiple Cranial Nerve Palsies</a></li><li><a href="#ch11-s13" lang="en">13. Cavernous Sinus and Orbital Apex</a></li><li><a href="#ch11-s14" lang="en">14. Neuromuscular, Orbital, Myopathic, Others</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（23 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（45 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 5 Ch.11</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 5 · Neuro-Ophthalmology</p><h1 class="ex-h1">Ch.11 The Patient With Abnormal Ocular Motility or Diplopia</h1><p class="ex-meta">原書 p.225–256 · 考題 45 題</p><div class="ex-strip" data-progress-chapter="5-11" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="5-11"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch11-s1">一、眼動系統分層與總論</a></li><li><a href="#ch11-s2">二、病史與單眼複視</a></li><li><a href="#ch11-s3">三、雙眼複視的眼位評估</a></li><li><a href="#ch11-s4">四、病灶定位與核上性原因</a></li><li><a href="#ch11-s5">五、核性病變（Nuclear causes）</a></li><li><a href="#ch11-s6">六、核間性病變：INO 與 one-and-a-half syndrome</a></li><li><a href="#ch11-s7">七、眼動腦神經麻痺總論</a></li><li><a href="#ch11-s8">八、第三對腦神經麻痺（CN III palsy）</a></li><li><a href="#ch11-s9">九、第四對腦神經麻痺（CN IV palsy）</a></li><li><a href="#ch11-s10">十、第六對腦神經麻痺（CN VI palsy）</a></li><li><a href="#ch11-s11">十一、Recurrent painful ophthalmoplegic neuropathy（RPON，復發性疼痛性眼肌麻痺神經病變）</a></li><li><a href="#ch11-s12">十二、多條腦神經麻痺</a></li><li><a href="#ch11-s13">十三、海綿竇與眶尖病變</a></li><li><a href="#ch11-s14">十四、神經肌肉、眼窩、肌病、限制性與其他原因</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 5 第 11 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch11-s1" data-w="940">一、眼動系統分層與總論</h2>
 <h3 id="ch11-s1-1">Supranuclear、internuclear、infranuclear 三層</h3>
 <ul>
 <li id="np-1">Efferent（傳出）眼動系統分 <strong>supranuclear（核上性）</strong>與 <strong>infranuclear（核下性）</strong>路徑；部分路徑（如 vestibular 前庭路徑）起源低於腦神經核，故 <strong>prenuclear</strong> 一詞較精確，但文獻慣用 supranuclear。<span class="ref">p.225</span></li>
@@ -347,7 +363,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-8">MLF 連接一側 CN VI 核與<strong>對側</strong> CN III 核的內直肌次核。<span class="ref">p.225, p.234</span></li>
 </ul></div>
 
-<h2 id="ch11-s2">二、病史與單眼複視</h2>
+<h2 id="ch11-s2" data-w="951">二、病史與單眼複視</h2>
 <h3 id="ch11-s2-1">病史重點</h3>
 <ul>
 <li id="np-9">遮任一眼複視消失 → <strong>binocular diplopia（雙眼複視）</strong>，通常來自視軸不正；遮一眼仍存在 → <strong>monocular diplopia（單眼複視）</strong>。<mark class="ex-key">先區分單眼或雙眼複視</mark>⁠<sup class="ex-qref"><span>Q633</span></sup>。<span class="ref">p.226</span></li>
@@ -368,7 +384,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-19">大腦性單眼複視或多視極罕見、必為雙側。<span class="ref">p.227</span></li>
 </ul></div>
 
-<h2 id="ch11-s3">三、雙眼複視的眼位評估</h2>
+<h2 id="ch11-s3" data-w="2580">三、雙眼複視的眼位評估</h2>
 <h3 id="ch11-s3-1">測量眼位的常用方法（Table 11-1）</h3>
 <table class="ted-table">
 <thead><tr><th>Technique（方法）</th><th>Type of assessment（類型）</th><th>Advantages（優點）</th><th>Indications（適用）</th><th>Contraindications（不適用）</th></tr></thead>
@@ -422,7 +438,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-65">PACT 量總偏斜 = manifest deviation（以 simultaneous prism and cover test 量）+ phoria。<span class="ref">p.229</span></li>
 </ul></div>
 
-<h2 id="ch11-s4">四、病灶定位與核上性原因</h2>
+<h2 id="ch11-s4" data-w="3331">四、病灶定位與核上性原因</h2>
 <ul>
 <li id="np-66">以「wiring diagram」概念定位：大腦、premotor 輸入、腦幹、腦神經、眼窩、神經肌肉接合處、EOMs；解剖定位可引導評估，包括影像選擇與鑑別診斷。<span class="ref">p.231</span></li>
 <li id="np-67">Fig 11-3 走行：<strong>CN III</strong> 自中腦前方出、在蜘蛛膜下腔經 ICA 與 posterior communicating artery 交界附近、入海綿竇後沿<strong>外側壁</strong>走；<strong>CN IV</strong> 自中腦<strong>背側</strong>出並交叉至對側；<strong>CN VI</strong> 自橋腦前方出、沿 clivus（斜坡）上行、越 petrous apex（岩尖）、經 <strong>petroclinoid ligament（岩床韌帶）</strong>下方入海綿竇，走在外側壁與 carotid artery 之間。<span class="ref">p.231</span></li>
@@ -475,7 +491,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-111">Dorsal midbrain syndrome（Parinaud syndrome）的可能病因包括 hydrocephalus、shunt 功能異常、mass lesions（尤其 pineal-based tumors）⁠<sup class="ex-qref"><span>Q112</span></sup>。<span class="ref">p.241; BCSC 5 p.281</span></li>
 </ul></div>
 
-<h2 id="ch11-s5">五、核性病變（Nuclear causes）</h2>
+<h2 id="ch11-s5" data-w="1413">五、核性病變（Nuclear causes）</h2>
 <ul>
 <li id="np-112">核性病變罕見，但因核的解剖特徵可產生可定位的眼動異常，<mark>出現即代表結構性病灶</mark>（如 stroke（中風）、tumor、inflammation）。<span class="ref">p.233</span></li>
 </ul>
@@ -503,7 +519,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-124">CN IV 核/束病變 → 對側上斜肌無力；伴隨的 first-order Horner 在 CN IV palsy 的對側，也就是病灶同側（p.241 稱 ipsilesional）。<span class="ref">p.233, p.241</span></li>
 </ul></div>
 
-<h2 id="ch11-s6">六、核間性病變：INO 與 one-and-a-half syndrome</h2>
+<h2 id="ch11-s6" data-w="2126">六、核間性病變：INO 與 one-and-a-half syndrome</h2>
 <h3 id="ch11-s6-1">Internuclear ophthalmoplegia（INO，核間眼肌麻痺）</h3>
 <ul>
 <li id="np-125">INO 是 <strong>MLF</strong> 病灶（MLF 連接一側橋腦 CN VI 核與對側中腦內直肌次核）。Ch 10 的 higher visual processing disorders（高階視覺處理障礙）列有 object agnosia、Balint syndrome（simultanagnosia、optic ataxia、acquired ocular motor apraxia）⁠<sup class="ex-qref"><span>Q524</span></sup>。<span class="ref">p.234; BCSC 5 p.212, p.216</span></li>
@@ -543,7 +559,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-145">INO 是 MLF 病灶；optic ataxia、acquired ocular motor apraxia（Balint syndrome 成分）與 object agnosia 列於 higher visual processing disorders⁠<sup class="ex-qref"><span>Q524</span></sup>。<span class="ref">p.234; BCSC 5 p.212, p.216</span></li>
 </ul></div>
 
-<h2 id="ch11-s7">七、眼動腦神經麻痺總論</h2>
+<h2 id="ch11-s7" data-w="840">七、眼動腦神經麻痺總論</h2>
 <ul>
 <li id="np-146">蜘蛛膜下腔病灶通常造成<strong>孤立</strong>單一腦神經麻痺；海綿竇、上眼眶裂、眶尖病灶常造成<strong>多條</strong>腦神經麻痺。<span class="ref">p.236</span></li>
 <li id="np-147"><mark>年長者孤立腦神經麻痺多數來自 microvascular disease（微血管病變）</mark>；缺血多發生在蜘蛛膜下腔段；年長者缺血性腦神經病變典型為孤立、發病即最嚴重，偶在 <span class="num">7–10 天</span>內進展。<span class="ref">p.236</span></li>
@@ -561,7 +577,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-157">多達 20% GCA 可只有眼部症狀（occult GCA），年長複視者即使無全身症狀也應把 GCA 留在鑑別中⁠<sup class="ex-qref"><span>Q1680</span></sup>。<span class="ref">p.236–237</span></li>
 </ul></div>
 
-<h2 id="ch11-s8">八、第三對腦神經麻痺（CN III palsy）</h2>
+<h2 id="ch11-s8" data-w="4526">八、第三對腦神經麻痺（CN III palsy）</h2>
 <h3 id="ch11-s8-1">中腦內（fascicular）症候群（皆含同側 CN III palsy）</h3>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Syndrome（症候群）</th><th>Lesion（病灶）</th><th>Contralateral / other findings（對側與其他表現）</th></tr></thead>
@@ -635,7 +651,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-206">CN III 下分支支配 inferior rectus、medial rectus、inferior oblique 與 pupillary sphincter、ciliary 肌；上分支支配 superior rectus 與 levator⁠<sup class="ex-qref"><span>Q487</span></sup>。<span class="ref">p.237</span></li>
 </ul></div>
 
-<h2 id="ch11-s9">九、第四對腦神經麻痺（CN IV palsy）</h2>
+<h2 id="ch11-s9" data-w="2471">九、第四對腦神經麻痺（CN IV palsy）</h2>
 <h3 id="ch11-s9-1">解剖與腦幹病灶</h3>
 <ul>
 <li id="np-207">CN IV 束在中腦內往背側走，因腦幹內行程相對短 → 束性病灶罕見；束性與核性病灶臨床無法區分，<mark>皆造成<strong>對側</strong>上斜肌無力</mark>；可伴半側感覺喪失、偏癱、<strong>同側（ipsilesional）Horner syndrome</strong>或其他腦幹腦神經病變。<span class="ref">p.241</span></li>
@@ -694,7 +710,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-236">3-step test 用於偵測特定垂直作用肌功能障礙的型態，特別有助於判斷垂直斜視是否符合 CN IV palsy⁠<sup class="ex-qref"><span>Q633</span></sup>。<span class="ref">p.241</span></li>
 </ul></div>
 
-<h2 id="ch11-s10">十、第六對腦神經麻痺（CN VI palsy）</h2>
+<h2 id="ch11-s10" data-w="2305">十、第六對腦神經麻痺（CN VI palsy）</h2>
 <h3 id="ch11-s10-1">橋腦內症候群</h3>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Syndrome（症候群）</th><th>Structures（受損結構）</th><th>Findings（表現）</th></tr></thead>
@@ -736,7 +752,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-266">CN VI palsy 恢復不一定代表良性（偶自行緩解後再發，為顱內腫瘤或 ocular MG 的表現）。<span class="ref">p.245</span></li>
 </ul></div>
 
-<h2 id="ch11-s11">十一、Recurrent painful ophthalmoplegic neuropathy（RPON，復發性疼痛性眼肌麻痺神經病變）</h2>
+<h2 id="ch11-s11" data-w="483">十一、Recurrent painful ophthalmoplegic neuropathy（RPON，復發性疼痛性眼肌麻痺神經病變）</h2>
 <ul>
 <li id="np-267"><span class="num">2018</span> 年 ICHD-3（International Classification of Headache Disorders, 3rd ed）以 RPON 作為「反覆頭痛後出現單側眼肌麻痺」的新分類，取代舊稱 <strong>ophthalmoplegic migraine（眼肌麻痺性偏頭痛）</strong>⁠<sup class="ex-qref"><span>Q447</span></sup>。<span class="ref">p.245</span></li>
 <li id="np-268"><mark class="ex-key">通常侵犯 <strong>CN III</strong></mark>，罕見 CN IV 或 VI；較常見於兒童與年輕成人⁠<sup class="ex-qref"><span>Q447</span></sup>。<span class="ref">p.245</span></li>
@@ -748,7 +764,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-272">Schwannoma 與 RPON 的分別：RPON 的增厚與顯影可逆，schwannoma 的顯影在麻痺緩解後仍持續。<span class="ref">p.246</span></li>
 </ul></div>
 
-<h2 id="ch11-s12">十二、多條腦神經麻痺</h2>
+<h2 id="ch11-s12" data-w="2019">十二、多條腦神經麻痺</h2>
 <ul>
 <li id="np-273">Clinical pearl：<mark>懷疑腦神經麻痺時要檢查所有腦神經，包括 CN V 與 VII</mark>。<span class="ref">p.246</span></li>
 <li id="np-274">良性微血管缺血<strong>罕見同時</strong>侵犯 <span class="num">&gt; 1</span> 條眼動腦神經。<span class="ref">p.247</span></li>
@@ -782,7 +798,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-312">多條腦神經麻痺而神經影像正常，可能需腰椎穿刺 + 細胞病理學檢查⁠<sup class="ex-qref"><span>Q499</span></sup>。<span class="ref">p.247</span></li>
 </ul></div>
 
-<h2 id="ch11-s13">十三、海綿竇與眶尖病變</h2>
+<h2 id="ch11-s13" data-w="3121">十三、海綿竇與眶尖病變</h2>
 <h3 id="ch11-s13-1">Cavernous sinus（海綿竇）vs orbital apex（眶尖）</h3>
 <ul>
 <li id="np-313"><mark class="ex-key">海綿竇病灶眼肌麻痺的標誌：同側 CN III、IV、V、VI 組合 + 交感纖維受損</mark>；<strong>CN V 受累（顏面感覺低下）</strong>、<strong>third-order（postganglionic，節後）Horner syndrome</strong>或兩者皆有，有助定位於海綿竇⁠<sup class="ex-qref"><span>Q499</span> <span>Q824</span></sup>。<span class="ref">p.247</span></li>
@@ -823,7 +839,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-340">海綿竇病灶只侵犯一條神經時通常是 CN VI（唯一不受外側硬腦膜壁保護）。<span class="ref">p.247</span></li>
 </ul></div>
 
-<h2 id="ch11-s14">十四、神經肌肉、眼窩、肌病、限制性與其他原因</h2>
+<h2 id="ch11-s14" data-w="6131">十四、神經肌肉、眼窩、肌病、限制性與其他原因</h2>
 <h3 id="ch11-s14-1">Neuromuscular junction：Myasthenia gravis（MG，重症肌無力）</h3>
 <ul>
 <li id="np-341">MG 典型造成<strong>變動的複視與 ptosis</strong>，可呈任何型態的<strong>無痛、瞳孔不受影響</strong>的眼位偏斜。<span class="ref">p.250</span></li>
@@ -970,7 +986,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260732" defer></script>
-<script src="/exam/exam.js?v=20260732" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260733" defer></script>
+<script src="/exam/exam.js?v=20260733" defer></script>
 </body>
 </html>

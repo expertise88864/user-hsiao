@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260732"></script>
+<script src="/assets/trusted-types.js?v=20260733"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 6 Ch.24 Disorders of the Retina and Vit…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc6-24#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 6 Ch.24","item":"https://hsiao.chendermatologist.com/exam/bcsc6-24"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260732">
+<link rel="stylesheet" href="/assets/app.css?v=20260733">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -224,6 +224,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -297,6 +309,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
@@ -304,7 +320,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-qno{color:#e7e5e4}
 :root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
-<script defer src="/assets/telemetry.js?v=20260732"></script>
+<script defer src="/assets/telemetry.js?v=20260733"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -332,7 +348,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch24-s1" lang="en">1. Overview and Scope</a></li><li><a href="#ch24-s2" lang="en">2. ROP: Definition, Pathogenesis, Risk Factors</a></li><li><a href="#ch24-s3" lang="en">3. ROP Classification (ICROP3)</a></li><li><a href="#ch24-s4" lang="en">4. ROP Screening and Follow-up</a></li><li><a href="#ch24-s5" lang="en">5. ROP Treatment</a></li><li><a href="#ch24-s6" lang="en">6. ROP Sequelae and Complications</a></li><li><a href="#ch24-s7" lang="en">7. Hereditary Vasculopathies: FEVR, Norrie</a></li><li><a href="#ch24-s8" lang="en">8. Early-Onset Inherited Retinal Disease</a></li><li><a href="#ch24-s9" lang="en">9. Leber Congenital Amaurosis</a></li><li><a href="#ch24-s10" lang="en">10. Achromatopsia, BCM and CSNB</a></li><li><a href="#ch24-s11" lang="en">11. Hereditary Macular Dystrophies</a></li><li><a href="#ch24-s12" lang="en">12. Hereditary Vitreoretinopathies</a></li><li><a href="#ch24-s13" lang="en">13. Toxic and Infectious Retinopathies</a></li><li><a href="#ch24-s14" lang="en">14. Choroidal and RPE Pigmented Lesions</a></li><li><a href="#ch24-s15" lang="en">15. Retinoblastoma: Presentation and Differential</a></li><li><a href="#ch24-s16" lang="en">16. Retinoblastoma: Diagnosis and Genetics</a></li><li><a href="#ch24-s17" lang="en">17. Retinoblastoma: Treatment and Follow-up</a></li><li><a href="#ch24-s18" lang="en">18. Other Retinal Disorders</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（12 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（38 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 6 Ch.24</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 6 · Pediatric Ophthalmology and Strabismus</p><h1 class="ex-h1">Ch.24 Disorders of the Retina and Vitreous</h1><p class="ex-meta">原書 p.339–370 · 考題 38 題</p><div class="ex-strip" data-progress-chapter="6-24" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="6-24"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch24-s1">一、概論與本章範圍</a></li><li><a href="#ch24-s2">二、ROP：定義、致病機轉與危險因子</a></li><li><a href="#ch24-s3">三、ROP 分類（ICROP3）</a></li><li><a href="#ch24-s4">四、ROP 篩檢、追蹤與停止篩檢</a></li><li><a href="#ch24-s5">五、ROP 治療</a></li><li><a href="#ch24-s6">六、ROP 後遺症與併發症</a></li><li><a href="#ch24-s7">七、遺傳性視網膜血管疾病（Wnt 路徑、FEVR、Norrie disease）</a></li><li><a href="#ch24-s8">八、早發性遺傳性視網膜疾病（IRD）概論</a></li><li><a href="#ch24-s9">九、Leber congenital amaurosis（LCA，萊伯氏先天性黑矇症）</a></li><li><a href="#ch24-s10">十、Achromatopsia、Blue-cone monochromatism 與 CSNB</a></li><li><a href="#ch24-s11">十一、遺傳性黃斑失養症（Stargardt、Best）</a></li><li><a href="#ch24-s12">十二、遺傳性玻璃體視網膜病變（XLRS、Stickler、Knobloch）</a></li><li><a href="#ch24-s13">十三、毒性與感染性視網膜病變</a></li><li><a href="#ch24-s14">十四、脈絡膜與 RPE 色素病灶</a></li><li><a href="#ch24-s15">十五、Retinoblastoma：流行病學、表現與鑑別（含 Coats disease）</a></li><li><a href="#ch24-s16">十六、Retinoblastoma：診斷與遺傳</a></li><li><a href="#ch24-s17">十七、Retinoblastoma：治療、退化型態與追蹤</a></li><li><a href="#ch24-s18">十八、其他視網膜疾病（Foveal hypoplasia、Aicardi syndrome）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 6 第 24 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch24-s1">一、概論與本章範圍</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch24-s1" lang="en">1. Overview and Scope</a></li><li><a href="#ch24-s2" lang="en">2. ROP: Definition, Pathogenesis, Risk Factors</a></li><li><a href="#ch24-s3" lang="en">3. ROP Classification (ICROP3)</a></li><li><a href="#ch24-s4" lang="en">4. ROP Screening and Follow-up</a></li><li><a href="#ch24-s5" lang="en">5. ROP Treatment</a></li><li><a href="#ch24-s6" lang="en">6. ROP Sequelae and Complications</a></li><li><a href="#ch24-s7" lang="en">7. Hereditary Vasculopathies: FEVR, Norrie</a></li><li><a href="#ch24-s8" lang="en">8. Early-Onset Inherited Retinal Disease</a></li><li><a href="#ch24-s9" lang="en">9. Leber Congenital Amaurosis</a></li><li><a href="#ch24-s10" lang="en">10. Achromatopsia, BCM and CSNB</a></li><li><a href="#ch24-s11" lang="en">11. Hereditary Macular Dystrophies</a></li><li><a href="#ch24-s12" lang="en">12. Hereditary Vitreoretinopathies</a></li><li><a href="#ch24-s13" lang="en">13. Toxic and Infectious Retinopathies</a></li><li><a href="#ch24-s14" lang="en">14. Choroidal and RPE Pigmented Lesions</a></li><li><a href="#ch24-s15" lang="en">15. Retinoblastoma: Presentation and Differential</a></li><li><a href="#ch24-s16" lang="en">16. Retinoblastoma: Diagnosis and Genetics</a></li><li><a href="#ch24-s17" lang="en">17. Retinoblastoma: Treatment and Follow-up</a></li><li><a href="#ch24-s18" lang="en">18. Other Retinal Disorders</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（12 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（38 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 6 Ch.24</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 6 · Pediatric Ophthalmology and Strabismus</p><h1 class="ex-h1">Ch.24 Disorders of the Retina and Vitreous</h1><p class="ex-meta">原書 p.339–370 · 考題 38 題</p><div class="ex-strip" data-progress-chapter="6-24" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="6-24"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch24-s1">一、概論與本章範圍</a></li><li><a href="#ch24-s2">二、ROP：定義、致病機轉與危險因子</a></li><li><a href="#ch24-s3">三、ROP 分類（ICROP3）</a></li><li><a href="#ch24-s4">四、ROP 篩檢、追蹤與停止篩檢</a></li><li><a href="#ch24-s5">五、ROP 治療</a></li><li><a href="#ch24-s6">六、ROP 後遺症與併發症</a></li><li><a href="#ch24-s7">七、遺傳性視網膜血管疾病（Wnt 路徑、FEVR、Norrie disease）</a></li><li><a href="#ch24-s8">八、早發性遺傳性視網膜疾病（IRD）概論</a></li><li><a href="#ch24-s9">九、Leber congenital amaurosis（LCA，萊伯氏先天性黑矇症）</a></li><li><a href="#ch24-s10">十、Achromatopsia、Blue-cone monochromatism 與 CSNB</a></li><li><a href="#ch24-s11">十一、遺傳性黃斑失養症（Stargardt、Best）</a></li><li><a href="#ch24-s12">十二、遺傳性玻璃體視網膜病變（XLRS、Stickler、Knobloch）</a></li><li><a href="#ch24-s13">十三、毒性與感染性視網膜病變</a></li><li><a href="#ch24-s14">十四、脈絡膜與 RPE 色素病灶</a></li><li><a href="#ch24-s15">十五、Retinoblastoma：流行病學、表現與鑑別（含 Coats disease）</a></li><li><a href="#ch24-s16">十六、Retinoblastoma：診斷與遺傳</a></li><li><a href="#ch24-s17">十七、Retinoblastoma：治療、退化型態與追蹤</a></li><li><a href="#ch24-s18">十八、其他視網膜疾病（Foveal hypoplasia、Aicardi syndrome）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 6 第 24 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch24-s1" data-w="823">一、概論與本章範圍</h2>
 <ul>
 <li id="np-1">本章聚焦<mark>前 <span class="num">20 年</span>（first 2 decades）最常診斷的視網膜疾病</mark>：後天與遺傳性血管疾病、vitreoretinopathy（玻璃體視網膜病變）、retinal dystrophy（視網膜失養症）與 retinoblastoma（RB，視網膜母細胞瘤）；腫瘤細節見 BCSC Section 4。<span class="ref">p.339</span></li>
 <li id="np-2">本章重點（Highlights）：多數 retinopathy of prematurity（ROP，早產兒視網膜病變）會自發退化，但有特定標準代表異常血管化造成視力喪失的高風險與治療需求；inherited retinal disorder（IRD，遺傳性視網膜疾病）的基因型與表現型具異質性，遺傳諮詢是照護的一部分；<mark>RB 是兒童最常見的眼內惡性腫瘤</mark>，早期辨識與及時轉診可改善存活與視力結果。<span class="ref">p.339</span></li>
@@ -341,7 +357,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-5">Retinopathy associated with hemoglobinopathies（血紅素病變相關視網膜病變）請見 BCSC Section 12。<span class="ref">p.351</span></li>
 </ul>
 
-<h2 id="ch24-s2">二、ROP：定義、致病機轉與危險因子</h2>
+<h2 id="ch24-s2" data-w="1460">二、ROP：定義、致病機轉與危險因子</h2>
 <ul>
 <li id="np-6"><strong>ROP</strong>：早產兒特有的 vasoproliferative（血管增生性）視網膜疾病，1940 年代首次描述；在美國是<mark>兒童失明的主要原因之一，僅次於 cerebral visual impairment（CVI，大腦性視覺障礙）</mark>。<span class="ref">p.340</span></li>
 <li id="np-7">正常視網膜血管化：妊娠第 <span class="num">16 週</span>開始，作為視網膜血管來源的 mesenchymal tissue（間質組織）由 optic nerve head（ONH，視神經盤）離心生長，<mark><span class="num">36 週</span>到達鼻側 ora serrata（鋸齒緣）、<span class="num">40 週</span>到達顳側 ora serrata</mark>。<span class="ref">p.340</span></li>
@@ -356,7 +372,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-14">血管化到達鼻側 ora serrata 在 <span class="num">36 週</span>、顳側 ora serrata 在 <span class="num">40 週</span>。<span class="ref">p.340</span></li>
 </ul></div>
 
-<h2 id="ch24-s3">三、ROP 分類（ICROP3）</h2>
+<h2 id="ch24-s3" data-w="2929">三、ROP 分類（ICROP3）</h2>
 <ul>
 <li id="np-15">International Classification of ROP 第 3 版（<strong>ICROP3</strong>，2021）：依 <strong>zone（位置）</strong>、<strong>stage（嚴重度）</strong>、<strong>extent（範圍，以 <span class="num">12</span> 個 clock-hour 區段計）</strong>與後極部血管特徵（plus disease 光譜）分類；<mark>stage 數字越高、zone 數字越低、有 plus disease → ROP 越嚴重</mark>。<span class="ref">p.340–341</span></li>
 <li id="np-16">同一眼有多個 stage 時以<strong>最嚴重的 stage</strong> 分類。<span class="ref">p.341</span></li>
@@ -407,7 +423,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-53">Plus disease 在 zone I 內評估血管，不以象限判定（not by quadrants）⁠<sup class="ex-qref"><span>Q1546</span></sup>。<span class="ref">p.341</span></li>
 </ul></div>
 
-<h2 id="ch24-s4">四、ROP 篩檢、追蹤與停止篩檢</h2>
+<h2 id="ch24-s4" data-w="1430">四、ROP 篩檢、追蹤與停止篩檢</h2>
 <h3 id="ch24-s4-1">篩檢對象與檢查方式</h3>
 <ul>
 <li id="np-54">美國建議篩檢：<mark class="ex-key">GA <span class="num">≤ 30 週</span>、出生體重 <span class="num">≤ 1500 g</span>、或 complicated clinical course（臨床病程複雜）</mark>。BCSC 12：出生體重 <span class="num">1500–2000 g</span> 或 GA <span class="num">&gt; 30 週</span>、臨床病程不穩定且經主治小兒科或新生兒科醫師認為高風險者，也應篩檢⁠<sup class="ex-qref"><span>Q565</span> <span>Q676</span></sup>。<span class="ref">p.345; BCSC 12 p.201</span></li>
@@ -441,7 +457,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-75">首次檢查一般在出生後 <span class="num">4–6 週</span>或 PMA <span class="num">31–33 週</span>，取較晚者⁠<sup class="ex-qref"><span>Q565</span> <span>Q1548</span></sup>。<span class="ref ref-ext">BCSC 12 p.202</span></li>
 </ul></div>
 
-<h2 id="ch24-s5">五、ROP 治療</h2>
+<h2 id="ch24-s5" data-w="3220">五、ROP 治療</h2>
 <h3 id="ch24-s5-1">治療閾值：CRYO-ROP 與 ETROP</h3>
 <ul>
 <li id="np-76">受檢嬰兒約 <span class="num">10%</span> 需要治療。<span class="ref">p.345</span></li>
@@ -492,7 +508,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-123">Table 24-3 註腳：type 1 ROP 舊稱 prethreshold ROP，定義為 zone II stage 3 或 zone I 任何 ROP；Table 24-4 的 type 1 為 zone I 任何 ROP 合併 plus、zone I stage 3 無 plus、zone II stage 2 或 3 合併 plus。<span class="ref">p.346</span></li>
 </ul></div>
 
-<h2 id="ch24-s6">六、ROP 後遺症與併發症</h2>
+<h2 id="ch24-s6" data-w="1415">六、ROP 後遺症與併發症</h2>
 <ul>
 <li id="np-124">ROP 兒童、<mark class="ex-key">尤其接受過雷射者，有發生 <strong>high myopia（高度近視）</strong>的風險</mark>⁠<sup class="ex-qref"><span>Q565</span> <span>Q1547</span></sup>。<span class="ref">p.348</span></li>
 <li id="np-125">其他問題：<strong>glaucoma（青光眼）</strong>（因前房隅角擁擠）、lattice-like degenerative disease（類格子狀變性）、周邊血管化失敗、血管扭曲。<span class="ref">p.348</span></li>
@@ -508,7 +524,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-133">ROP 兒童有發生 high myopia 的風險，尤其曾接受雷射者⁠<sup class="ex-qref"><span>Q1547</span></sup>。<span class="ref">p.348</span></li>
 </ul></div>
 
-<h2 id="ch24-s7">七、遺傳性視網膜血管疾病（Wnt 路徑、FEVR、Norrie disease）</h2>
+<h2 id="ch24-s7" data-w="1220">七、遺傳性視網膜血管疾病（Wnt 路徑、FEVR、Norrie disease）</h2>
 <ul>
 <li id="np-134"><strong>Wnt signaling pathway（Wnt 訊號路徑）</strong>在視網膜血管新生中扮演關鍵角色；此路徑蛋白的基因致病變異造成一系列遺傳性血管疾病。<span class="ref">p.349</span></li>
 <li id="np-135">表現光譜（依變異與訊號蛋白而定）：從 <strong>Norrie disease</strong> 的嚴重 retinal dysplasia（視網膜發育不良，pseudoglioma（假神經膠質瘤）），到無症狀成人細微的嬰兒期發生周邊無血管視網膜。<span class="ref">p.349</span></li>
@@ -523,7 +539,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-142">遺傳性視網膜血管疾病的視網膜表現可能類似 ROP，但沒有早產史；BCSC 12：FEVR 病人足月出生、呼吸狀態正常，家族史與檢查所有家族成員有助與 ROP 區分⁠<sup class="ex-qref"><span>Q1480</span></sup>。<span class="ref">p.349; BCSC 12 p.362</span></li>
 </ul></div>
 
-<h2 id="ch24-s8">八、早發性遺傳性視網膜疾病（IRD）概論</h2>
+<h2 id="ch24-s8" data-w="2094">八、早發性遺傳性視網膜疾病（IRD）概論</h2>
 <ul>
 <li id="np-143">早發性 IRD 的視網膜可能看起來正常，所以辨識表現很重要：<mark><strong>nystagmus（眼球震顫）</strong>是最常見的表現之一，通常出現在 <span class="num">8–12 週</span>大</mark>。<span class="ref">p.351</span></li>
 <li id="np-144">其他表現：視力差、nyctalopia（夜盲）、photodysphoria（畏光不適）、<strong>eye-poking（oculodigital sign，壓眼徵）</strong>、<strong>paradoxical pupil（矛盾性瞳孔）</strong>、高度屈光不正⁠<sup class="ex-qref"><span>Q626</span> <span>Q704</span></sup>。<span class="ref">p.351</span></li>
@@ -553,7 +569,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-169">Paradoxical pupil 是早發性 IRD 的表現之一；BCSC 6 第 12 章：瞳孔對暗反而收縮，可能有視神經或視網膜疾病⁠<sup class="ex-qref"><span>Q626</span> <span>Q704</span></sup>。<span class="ref">p.351; BCSC 6 p.166</span></li>
 </ul></div>
 
-<h2 id="ch24-s9">九、Leber congenital amaurosis（LCA，萊伯氏先天性黑矇症）</h2>
+<h2 id="ch24-s9" data-w="1437">九、Leber congenital amaurosis（LCA，萊伯氏先天性黑矇症）</h2>
 <ul>
 <li id="np-170">定義：一群遺傳性視網膜失養症，<mark class="ex-key"><strong>通常為 autosomal recessive（體染色體隱性）</strong></mark>，同時侵犯 <strong>rod 與 cone</strong> 感光細胞⁠<sup class="ex-qref"><span>Q610</span></sup>。<span class="ref">p.352</span></li>
 <li id="np-171">特徵：<mark class="ex-key">嬰兒期嚴重視力喪失、nystagmus、<strong>poorly reactive pupils（瞳孔反應差）</strong>、<strong>extinguished ERG（ERG 消失）</strong></mark>；視力通常 <span class="num">20/200</span> 至僅剩光覺，部分病人可較好⁠<sup class="ex-qref"><span>Q610</span> <span>Q626</span></sup>。<span class="ref">p.352</span></li>
@@ -573,7 +589,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-180">LCA 常見高度屈光不正，常為高度<strong>遠視</strong>；其他眼部表現含 oculodigital reflex、keratoconus、keratoglobus。<span class="ref">p.352</span></li>
 </ul></div>
 
-<h2 id="ch24-s10">十、Achromatopsia、Blue-cone monochromatism 與 CSNB</h2>
+<h2 id="ch24-s10" data-w="2218">十、Achromatopsia、Blue-cone monochromatism 與 CSNB</h2>
 <h3 id="ch24-s10-1">Achromatopsia（全色盲）</h3>
 <ul>
 <li id="np-181"><strong>Complete achromatopsia</strong>（又稱 rod monochromatism，桿細胞單色視）：<mark>autosomal recessive</mark> 的先天性 cone 感光細胞疾病。<span class="ref">p.355</span></li>
@@ -605,7 +621,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-213">Blue-cone monochromatism 是 X-linked；complete 與 incomplete achromatopsia 都是 AR。<span class="ref">p.355</span></li>
 </ul></div>
 
-<h2 id="ch24-s11">十一、遺傳性黃斑失養症（Stargardt、Best）</h2>
+<h2 id="ch24-s11" data-w="2151">十一、遺傳性黃斑失養症（Stargardt、Best）</h2>
 <ul>
 <li id="np-214">許多遺傳疾病可見黃斑異常，可與遺傳性全身疾病相關——例：<mark class="ex-key"><strong>GM2 gangliosidosis type I（Tay-Sachs disease）</strong>的 cherry-red spot（櫻桃紅斑）</mark>——或反映原發性視網膜疾病。BCSC 12：Niemann-Pick disease type A 約 <span class="num">50%</span> 有 cherry-red spot；Gaucher disease 的 chronic nonneuronopathic adult form 部分病人有 cherry-red spot；<strong>Fabry disease</strong> 的眼部表現為 cornea verticillata（渦狀角膜）、結膜血管扭曲、視網膜血管扭曲擴張與水晶體變化⁠<sup class="ex-qref"><span>Q1449</span></sup>。<span class="ref">p.356; BCSC 12 p.328–329</span></li>
 </ul>
@@ -634,7 +650,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-230">Stargardt 通常 AR（罕見 AD）；Best vitelliform macular dystrophy 為 AD（BEST1 最常見表現型）。<span class="ref">p.356–357</span></li>
 </ul></div>
 
-<h2 id="ch24-s12">十二、遺傳性玻璃體視網膜病變（XLRS、Stickler、Knobloch）</h2>
+<h2 id="ch24-s12" data-w="1702">十二、遺傳性玻璃體視網膜病變（XLRS、Stickler、Knobloch）</h2>
 <ul>
 <li id="np-231">遺傳性 vitreoretinopathy 涵蓋多種疾病，可侷限於眼睛或為症候群一部分。<span class="ref">p.359</span></li>
 <li id="np-232"><strong>X-linked retinoschisis（XLRS，X 性聯視網膜劈裂，juvenile retinoschisis）</strong>：<mark class="ex-key">vitreous–inner retina interface（玻璃體–內層視網膜介面）疾病</mark>的例子；可能以視力下降（視力篩檢未過）與中至高度遠視表現；眼底見<mark class="ex-key">中央黃斑小 cystoid spaces（囊樣腔隙）與細 <strong>radial striae（放射狀條紋）</strong></mark>（Fig 24-11：foveal retinoschisis）；<span class="num">50%</span> 可能有 peripheral schisis（周邊劈裂）⁠<sup class="ex-qref"><span>Q1564</span></sup>。<span class="ref">p.359</span></li>
@@ -650,7 +666,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-240">Stickler 後段特徵：vitreous liquefaction（optically empty vitreous）與 perivascular lattice degeneration（p.359）；BCSC 12 FEVR：temporal retina 無法血管化⁠<sup class="ex-qref"><span>Q1479</span></sup>。<span class="ref">p.359; BCSC 12 p.362</span></li>
 </ul></div>
 
-<h2 id="ch24-s13">十三、毒性與感染性視網膜病變</h2>
+<h2 id="ch24-s13" data-w="1094">十三、毒性與感染性視網膜病變</h2>
 <h3 id="ch24-s13-1">Hydroxychloroquine（HCQ，羥氯奎寧）篩檢（AAP，Table 24-6）</h3>
 <ul>
 <li id="np-241">對使用 HCQ 的<strong>風濕疾病兒童</strong>已有監測建議：因檢查表現（testing performance）有變異，<mark>依年齡選擇適當檢查，在基準期（baseline）與之後<strong>每年</strong>執行</mark>。<span class="ref">p.360–361</span></li>
@@ -672,7 +688,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-251"><strong>HIV</strong>：引入強效 antiretroviral therapy（抗反轉錄病毒治療）後，兒童 HIV 眼部併發症只有罕見報告，通常只發生於嚴重免疫抑制的晚期感染兒童。<span class="ref">p.361</span></li>
 </ul>
 
-<h2 id="ch24-s14">十四、脈絡膜與 RPE 色素病灶</h2>
+<h2 id="ch24-s14" data-w="1219">十四、脈絡膜與 RPE 色素病灶</h2>
 <ul>
 <li id="np-252"><mark>兒童眼底色素病灶通常良性</mark>；扁平 choroidal nevus（脈絡膜痣）常見且無須擔心；<strong>malignant melanoma of the choroid 在兒童極為罕見</strong>。<span class="ref">p.362</span></li>
 <li id="np-253"><strong>Choroidal osteoma（脈絡膜骨瘤）</strong>：葡萄膜的良性骨性腫瘤，可能在兒童期出現，通常以視力下降表現。Diffuse hemangioma of the choroid（瀰漫性脈絡膜血管瘤）合併 Sturge-Weber syndrome 見第 27 章；NF1 病人常有脈絡膜扁平高色素斑，可能只在 near-infrared imaging（近紅外光影像）可見。<span class="ref">p.362</span></li>
@@ -687,7 +703,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-260">BCSC 12：<strong>congenital grouped pigmentation（bear tracks）</strong>與 familial adenomatous polyposis（FAP，即 Gardner syndrome）無關；FAP 病灶為卵圓形、比典型孤立 CHRPE 色調更不均，通常多發且雙側；每眼 <span class="num">&gt; 4</span> 個分散的小病灶（<span class="num">&lt; 0.5 DD</span>）加上雙側侵犯，提示 FAP。<span class="ref ref-ext">BCSC 12 p.320</span></li>
 </ul></div>
 
-<h2 id="ch24-s15">十五、Retinoblastoma：流行病學、表現與鑑別（含 Coats disease）</h2>
+<h2 id="ch24-s15" data-w="2859">十五、Retinoblastoma：流行病學、表現與鑑別（含 Coats disease）</h2>
 <ul>
 <li id="np-261"><mark>RB 是兒童最常見的眼內惡性腫瘤</mark>，也是最常見的兒童實體腫瘤之一；發生率 <span class="num">1:14,000–1:20,000</span> 活產，全球每年約 <span class="num">9000</span> 新病例。<span class="ref">p.364</span></li>
 </ul>
@@ -733,7 +749,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-291">Coats disease 的表現含 telangiectasias（p.365）；多數具臨床意義的 PFV 中，晶體後 fibrovascular plaque 累及睫狀突，纖維血管組織的牽引可將睫狀突拉向視軸，斑塊通常向後與 hyaloid artery 殘端相連（BCSC 4 p.152）⁠<sup class="ex-qref"><span>Q374</span></sup>。<span class="ref">p.365; BCSC 4 p.152</span></li>
 </ul></div>
 
-<h2 id="ch24-s16">十六、Retinoblastoma：診斷與遺傳</h2>
+<h2 id="ch24-s16" data-w="1517">十六、Retinoblastoma：診斷與遺傳</h2>
 <h3 id="ch24-s16-1">診斷</h3>
 <ul>
 <li id="np-292">疑似 RB → 建議儘速轉介眼腫瘤中心。<mark class="ex-key"><strong>CT（computed tomography）在此族群不建議</strong>：輻射暴露有續發腫瘤風險</mark>；BCSC 4：評估視神經、眼眶與腦部時 MRI 為首選，軟組織解析度較好且無輻射暴露⁠<sup class="ex-qref"><span>Q564</span> <span>Q579</span></sup>。<span class="ref">p.366; BCSC 4 p.358</span></li>
@@ -766,7 +782,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-316">CT 因輻射暴露有續發腫瘤風險而不建議；RB 診斷通常依據眼底鏡外觀與超音波；BCSC 4：RB 屬禁忌做 biopsy⁠<sup class="ex-qref"><span>Q564</span> <span>Q579</span> <span>Q366</span></sup>。<span class="ref">p.366; BCSC 4 p.353</span></li>
 </ul></div>
 
-<h2 id="ch24-s17">十七、Retinoblastoma：治療、退化型態與追蹤</h2>
+<h2 id="ch24-s17" data-w="1938">十七、Retinoblastoma：治療、退化型態與追蹤</h2>
 <h3 id="ch24-s17-1">治療</h3>
 <ul>
 <li id="np-317">RB 處置持續演進，最好在眼腫瘤轉診中心由多專科處理。<mark>主要目標：保命，其次保眼球，再保護並最大化有用視力</mark>；方案依 germline 分子狀態、眼球分類、單/雙側、預期視功能與轉移風險而定。<span class="ref">p.366</span></li>
@@ -804,7 +820,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-339">Type 2 退化（fish flesh）可能難與活性腫瘤區分；type 1 為鈣化腫塊（cottage cheese）。<span class="ref">p.368</span></li>
 </ul></div>
 
-<h2 id="ch24-s18">十八、其他視網膜疾病（Foveal hypoplasia、Aicardi syndrome）</h2>
+<h2 id="ch24-s18" data-w="1947">十八、其他視網膜疾病（Foveal hypoplasia、Aicardi syndrome）</h2>
 <h3 id="ch24-s18-1">Foveal hypoplasia（中心凹發育不全）</h3>
 <ul>
 <li id="np-340">中心凹發育不完全，常在早期嬰兒期以 <strong>nystagmus</strong> 表現；<mark>雖然通常與 <strong>albinism（白化症）</strong>或 <strong>aniridia（無虹膜）</strong>相關</mark>，也可單獨或家族性出現，可能與 <strong>PAX6</strong> 基因缺陷有關；achromatopsia、Stickler syndrome、ROP、FEVR 病人也可有 foveal hypoplasia。<span class="ref">p.369</span></li>
@@ -875,7 +891,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260732" defer></script>
-<script src="/exam/exam.js?v=20260732" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260733" defer></script>
+<script src="/exam/exam.js?v=20260733" defer></script>
 </body>
 </html>

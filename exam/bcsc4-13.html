@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260732"></script>
+<script src="/assets/trusted-types.js?v=20260733"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 4 Ch.13 Orbit and Lacrimal Drainage Sys…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc4-13#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 4 Ch.13","item":"https://hsiao.chendermatologist.com/exam/bcsc4-13"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260732">
+<link rel="stylesheet" href="/assets/app.css?v=20260733">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -224,6 +224,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -297,6 +309,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
@@ -304,7 +320,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-qno{color:#e7e5e4}
 :root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
-<script defer src="/assets/telemetry.js?v=20260732"></script>
+<script defer src="/assets/telemetry.js?v=20260733"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -332,7 +348,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch13-s1" lang="en">1. Topography</a></li><li><a href="#ch13-s2" lang="en">2. Developmental Anomalies: Cysts</a></li><li><a href="#ch13-s3" lang="en">3. Noninfectious Inflammation</a></li><li><a href="#ch13-s4" lang="en">4. Infectious Inflammation</a></li><li><a href="#ch13-s5" lang="en">5. Degenerations: Amyloid</a></li><li><a href="#ch13-s6" lang="en">6. Neoplasia: Overview and Comparison</a></li><li><a href="#ch13-s7" lang="en">7. Lacrimal Gland Neoplasia</a></li><li><a href="#ch13-s8" lang="en">8. Lymphoproliferative Lesions</a></li><li><a href="#ch13-s9" lang="en">9. Soft-Tissue Tumors: Vascular, Fibrous</a></li><li><a href="#ch13-s10" lang="en">10. Rhabdomyosarcoma</a></li><li><a href="#ch13-s11" lang="en">11. Nerve Sheath and CNS Tumors</a></li><li><a href="#ch13-s12" lang="en">12. Adipocytic Tumors and Bony Lesions</a></li><li><a href="#ch13-s13" lang="en">13. Lacrimal Sac and Secondary Tumors</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（9 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 4 Ch.13</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 4 · Ophthalmic Pathology and Intraocular Tumors</p><h1 class="ex-h1">Ch.13 Orbit and Lacrimal Drainage System</h1><p class="ex-meta">原書 p.265–288 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="4-13" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="4-13"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch13-s1">一、解剖構造（Topography）</a></li><li><a href="#ch13-s2">二、發育異常：眼窩囊腫（Developmental Anomalies: Cysts）</a></li><li><a href="#ch13-s3">三、非感染性眼窩發炎（Noninfectious Inflammation）</a></li><li><a href="#ch13-s4">四、感染性眼窩與淚道發炎（Infectious Inflammation）</a></li><li><a href="#ch13-s5">五、退化性病變（Degenerations）：Amyloid（類澱粉）</a></li><li><a href="#ch13-s6">六、眼窩腫瘤總論與常見腫瘤比較（Neoplasia, Table 13-1）</a></li><li><a href="#ch13-s7">七、淚腺腫瘤（Lacrimal Gland Neoplasia）</a></li><li><a href="#ch13-s8">八、淋巴增生病變（Lymphoproliferative Lesions）</a></li><li><a href="#ch13-s9">九、軟組織腫瘤：血管性與纖維性（Soft-Tissue Tumors）</a></li><li><a href="#ch13-s10">十、Rhabdomyosarcoma（橫紋肌肉瘤，Tumors With Muscle Differentiation）</a></li><li><a href="#ch13-s11">十一、周邊神經鞘與中樞神經腫瘤（Peripheral Nerve Sheath and Central Nervous System Tumors）</a></li><li><a href="#ch13-s12">十二、脂肪性腫瘤與眼窩骨病變（Adipocytic Tumors; Bony Lesions of the Orbit）</a></li><li><a href="#ch13-s13">十三、淚囊腫瘤與續發性眼窩腫瘤（Lacrimal Sac Neoplasia; Secondary Tumors）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 4 第 13 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch13-s1">一、解剖構造（Topography）</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch13-s1" lang="en">1. Topography</a></li><li><a href="#ch13-s2" lang="en">2. Developmental Anomalies: Cysts</a></li><li><a href="#ch13-s3" lang="en">3. Noninfectious Inflammation</a></li><li><a href="#ch13-s4" lang="en">4. Infectious Inflammation</a></li><li><a href="#ch13-s5" lang="en">5. Degenerations: Amyloid</a></li><li><a href="#ch13-s6" lang="en">6. Neoplasia: Overview and Comparison</a></li><li><a href="#ch13-s7" lang="en">7. Lacrimal Gland Neoplasia</a></li><li><a href="#ch13-s8" lang="en">8. Lymphoproliferative Lesions</a></li><li><a href="#ch13-s9" lang="en">9. Soft-Tissue Tumors: Vascular, Fibrous</a></li><li><a href="#ch13-s10" lang="en">10. Rhabdomyosarcoma</a></li><li><a href="#ch13-s11" lang="en">11. Nerve Sheath and CNS Tumors</a></li><li><a href="#ch13-s12" lang="en">12. Adipocytic Tumors and Bony Lesions</a></li><li><a href="#ch13-s13" lang="en">13. Lacrimal Sac and Secondary Tumors</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（9 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 4 Ch.13</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 4 · Ophthalmic Pathology and Intraocular Tumors</p><h1 class="ex-h1">Ch.13 Orbit and Lacrimal Drainage System</h1><p class="ex-meta">原書 p.265–288 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="4-13" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="4-13"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch13-s1">一、解剖構造（Topography）</a></li><li><a href="#ch13-s2">二、發育異常：眼窩囊腫（Developmental Anomalies: Cysts）</a></li><li><a href="#ch13-s3">三、非感染性眼窩發炎（Noninfectious Inflammation）</a></li><li><a href="#ch13-s4">四、感染性眼窩與淚道發炎（Infectious Inflammation）</a></li><li><a href="#ch13-s5">五、退化性病變（Degenerations）：Amyloid（類澱粉）</a></li><li><a href="#ch13-s6">六、眼窩腫瘤總論與常見腫瘤比較（Neoplasia, Table 13-1）</a></li><li><a href="#ch13-s7">七、淚腺腫瘤（Lacrimal Gland Neoplasia）</a></li><li><a href="#ch13-s8">八、淋巴增生病變（Lymphoproliferative Lesions）</a></li><li><a href="#ch13-s9">九、軟組織腫瘤：血管性與纖維性（Soft-Tissue Tumors）</a></li><li><a href="#ch13-s10">十、Rhabdomyosarcoma（橫紋肌肉瘤，Tumors With Muscle Differentiation）</a></li><li><a href="#ch13-s11">十一、周邊神經鞘與中樞神經腫瘤（Peripheral Nerve Sheath and Central Nervous System Tumors）</a></li><li><a href="#ch13-s12">十二、脂肪性腫瘤與眼窩骨病變（Adipocytic Tumors; Bony Lesions of the Orbit）</a></li><li><a href="#ch13-s13">十三、淚囊腫瘤與續發性眼窩腫瘤（Lacrimal Sac Neoplasia; Secondary Tumors）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 4 第 13 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch13-s1" data-w="857">一、解剖構造（Topography）</h2>
 <h3 id="ch13-s1-1">Bony orbit and soft tissues（骨性眼窩與軟組織）</h3>
 <ul>
 <li id="np-1">眼窩由 <span class="num">7</span> 塊骨構成：ethmoid（篩骨）、frontal（額骨）、lacrimal（淚骨）、maxillary（上頜骨）、palatine（顎骨）、sphenoid（蝶骨）、zygomatic（顴骨）。<span class="ref">p.265</span></li>
@@ -350,7 +366,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-8">淚腺導管是「內立方上皮＋外肌上皮」兩層，pleomorphic adenoma 的上皮成分可形成內襯 <span class="num">2</span> 層細胞的巢或小管，最外層與基質無明顯界線。<span class="ref">p.265, p.274</span></li>
 </ul></div>
 
-<h2 id="ch13-s2">二、發育異常：眼窩囊腫（Developmental Anomalies: Cysts）</h2>
+<h2 id="ch13-s2" data-w="2001">二、發育異常：眼窩囊腫（Developmental Anomalies: Cysts）</h2>
 <ul>
 <li id="np-9">Orbital cyst（眼窩囊腫）來源：結膜或眼瞼上皮來源囊腫、teratomatous cyst（畸胎瘤性囊腫）、neural cyst（神經性囊腫）、secondary cyst（續發性，即 <strong>mucocele（黏液囊腫）</strong>）、inflammatory cyst（寄生蟲性）、具囊性成分的實質病灶；可為發育性或後天性。<span class="ref">p.266</span></li>
 <li id="np-10"><mark>最常見的眼窩囊腫是 <strong>dermoid cyst（皮樣囊腫）</strong></mark>，屬發育性病灶。<span class="ref">p.266</span></li>
@@ -370,7 +386,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-22">（本章外）Epibulbar（limbal）dermoid 是 choristoma 的例子、orbital cavernous venous malformation 是 hamartoma 的例子（BCSC 4 p.8）；dermoid cyst 是典型 choristoma（BCSC 7 p.43）⁠<sup class="ex-qref"><span>Q360</span></sup>。<span class="ref ref-ext">BCSC 4 p.8; BCSC 7 p.43</span></li>
 </ul></div>
 
-<h2 id="ch13-s3">三、非感染性眼窩發炎（Noninfectious Inflammation）</h2>
+<h2 id="ch13-s3" data-w="4899">三、非感染性眼窩發炎（Noninfectious Inflammation）</h2>
 <h3 id="ch13-s3-1">總論（Inflammation）</h3>
 <ul>
 <li id="np-23">眼窩發炎可為 idiopathic（特發性），或續發於全身性發炎（如 granulomatosis with polyangiitis（GPA，肉芽腫合併多發性血管炎））、retained foreign body（殘留異物）或感染。<span class="ref">p.267</span></li>
@@ -429,7 +445,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-72">NSOI 與 lymphoma 靠 clonality 區分：NSOI polyclonal、lymphoma monoclonal。<span class="ref">p.270</span></li>
 </ul></div>
 
-<h2 id="ch13-s4">四、感染性眼窩與淚道發炎（Infectious Inflammation）</h2>
+<h2 id="ch13-s4" data-w="2471">四、感染性眼窩與淚道發炎（Infectious Inflammation）</h2>
 <h3 id="ch13-s4-1">Bacterial infections of the orbit（細菌性眼窩感染）</h3>
 <ul>
 <li id="np-73"><strong>Orbital cellulitis（眼窩蜂窩性組織炎）</strong>途徑：直接接種（外傷、手術）、伺機性感染（necrotizing fasciitis（壞死性筋膜炎）、mucormycosis）、鄰近構造蔓延（sinusitis）、遠處病灶（bacteremia，菌血症）。<span class="ref">p.271</span></li>
@@ -470,13 +486,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-104">（本章外）Diabetic ketoacidosis 需立即矯正：它使 free serum <strong>iron（游離血清鐵）</strong>增加，被認為是黴菌致病的關鍵⁠<sup class="ex-qref"><span>Q771</span></sup>。<span class="ref ref-ext">BCSC 7 p.55</span></li>
 </ul></div>
 
-<h2 id="ch13-s5">五、退化性病變（Degenerations）：Amyloid（類澱粉）</h2>
+<h2 id="ch13-s5" data-w="144">五、退化性病變（Degenerations）：Amyloid（類澱粉）</h2>
 <ul>
 <li id="np-105">眼窩 amyloid deposition（類澱粉沉積）可為局部，或為全身性 amyloidosis 的表現。<span class="ref">p.273</span></li>
 <li id="np-106">沉積在眼外肌與神經 → 可造成 <mark>ophthalmoplegia（眼肌麻痺）與 ptosis（眼瞼下垂）</mark>。<span class="ref">p.273</span></li>
 </ul>
 
-<h2 id="ch13-s6">六、眼窩腫瘤總論與常見腫瘤比較（Neoplasia, Table 13-1）</h2>
+<h2 id="ch13-s6" data-w="1472">六、眼窩腫瘤總論與常見腫瘤比較（Neoplasia, Table 13-1）</h2>
 <ul>
 <li id="np-107">眼窩腫瘤分原發與續發（鄰近構造延伸或轉移）；<mark>續發性腫瘤略多於原發性</mark>。<span class="ref">p.273</span></li>
 <li id="np-108">兒童與成人的腫瘤種類不同：兒童最常見的原發眼窩病灶是<strong>發育性腫瘤</strong>；成人是 <strong>vascular（血管性）與 lymphoid（淋巴性）腫瘤</strong>。<span class="ref">p.273</span></li>
@@ -506,7 +522,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-158">原發 vs 續發：<strong>續發性</strong>眼窩腫瘤略多。<span class="ref">p.273</span></li>
 </ul></div>
 
-<h2 id="ch13-s7">七、淚腺腫瘤（Lacrimal Gland Neoplasia）</h2>
+<h2 id="ch13-s7" data-w="2628">七、淚腺腫瘤（Lacrimal Gland Neoplasia）</h2>
 <ul>
 <li id="np-159">淚腺是 modified salivary gland（變形的唾液腺）→ 上皮性淚腺腫瘤依 WHO 上皮性唾液腺腫瘤分類。<span class="ref">p.274</span></li>
 <li id="np-160">最常見的上皮性淚腺腫瘤類型：<strong>pleomorphic adenoma（多形性腺瘤）</strong>、<strong>carcinoma ex pleomorphic adenoma</strong>（源自 pleomorphic adenoma 的 adenocarcinoma）、<strong>adenoid cystic carcinoma（腺樣囊性癌）</strong>。<span class="ref">p.274</span></li>
@@ -541,7 +557,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-181">ACC 可發生在 pleomorphic adenoma 病人，但更常 <strong>de novo</strong>。<span class="ref">p.276</span></li>
 </ul></div>
 
-<h2 id="ch13-s8">八、淋巴增生病變（Lymphoproliferative Lesions）</h2>
+<h2 id="ch13-s8" data-w="2548">八、淋巴增生病變（Lymphoproliferative Lesions）</h2>
 <ul>
 <li id="np-182">Ocular adnexal（結膜、眼窩、眼瞼）lymphoproliferative lesions 傳統分為 <strong>reactive lymphoid hyperplasia（RLH，反應性淋巴增生）</strong>、<strong>atypical lymphoid hyperplasia（ALH，非典型淋巴增生）</strong>與 <strong>ocular adnexal lymphoma（OAL，眼附屬器淋巴瘤）</strong>；OAL 依 WHO 造血與淋巴組織腫瘤分類第 <span class="num">5</span> 版分型，分類對選擇治療方案與判斷預後很重要。<span class="ref">p.277–278</span></li>
 <li id="np-183">眼窩淋巴增生病灶表現為<mark>緩慢、無痛</mark>的單側或雙側眼突；分期需與 medical oncologist（腫瘤內科）合作，可包括 positron emission tomography（PET，正子造影）或 CT 以及 bone marrow biopsy（骨髓切片）。<span class="ref">p.278</span></li>
@@ -578,7 +594,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-203">Ocular adnexal lymphoma 包繞眼球塑形、無骨侵蝕（p.275）；Section 7：EMZL 屬低惡度，淋巴瘤除高惡度者外通常不見骨侵蝕（BCSC 7 p.100）；ACC 為骨破壞（p.275）；成人有疼痛、眼突、發炎、骨破壞與早期眼肌麻痺時提示轉移癌的可能（BCSC 7 p.113）⁠<sup class="ex-qref"><span>Q795</span> <span>Q773</span></sup>。<span class="ref">p.275; BCSC 7 p.100, p.113</span></li>
 </ul></div>
 
-<h2 id="ch13-s9">九、軟組織腫瘤：血管性與纖維性（Soft-Tissue Tumors）</h2>
+<h2 id="ch13-s9" data-w="1713">九、軟組織腫瘤：血管性與纖維性（Soft-Tissue Tumors）</h2>
 <ul>
 <li id="np-204">軟組織腫瘤依組織型態（round cell（圓形細胞）、spindle cell（梭形細胞）、myxoid、epithelioid（類上皮）、pericytomatous（周皮細胞樣）、pleomorphic）加上 IHC 與分子遺傳檢查診斷；分類隨分子遺傳了解持續演變。<span class="ref">p.280</span></li>
 </ul>
@@ -604,7 +620,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-217">SFT 的標記是 <strong>STAT6</strong>；舊稱 hemangiopericytoma 的病灶現在歸為 SFT。<span class="ref">p.282</span></li>
 </ul></div>
 
-<h2 id="ch13-s10">十、Rhabdomyosarcoma（橫紋肌肉瘤，Tumors With Muscle Differentiation）</h2>
+<h2 id="ch13-s10" data-w="2116">十、Rhabdomyosarcoma（橫紋肌肉瘤，Tumors With Muscle Differentiation）</h2>
 <ul>
 <li id="np-218"><mark>兒童最常見的原發眼窩惡性腫瘤</mark>，平均發病 <span class="num">5–7</span> 歲；典型為兒童<strong>快速發生、進行性單側眼突</strong>。<span class="ref">p.283</span></li>
 <li id="np-219">眼瞼常泛紅，但<mark>沒有局部發熱（calor）或全身發燒</mark>，與 cellulitis 不同。<span class="ref">p.283</span></li>
@@ -636,7 +652,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-237">（本章外）1965 年後以放射治療加全身化療為主要治療，exenteration 保留給復發病例⁠<sup class="ex-qref"><span>Q723</span></sup>。<span class="ref ref-ext">BCSC 7 p.95</span></li>
 </ul></div>
 
-<h2 id="ch13-s11">十一、周邊神經鞘與中樞神經腫瘤（Peripheral Nerve Sheath and Central Nervous System Tumors）</h2>
+<h2 id="ch13-s11" data-w="2077">十一、周邊神經鞘與中樞神經腫瘤（Peripheral Nerve Sheath and Central Nervous System Tumors）</h2>
 <h3 id="ch13-s11-1">Neurofibroma（神經纖維瘤）</h3>
 <ul>
 <li id="np-238"><mark>最常見的 peripheral nerve sheath tumor（周邊神經鞘腫瘤）</mark>；生長緩慢，由 endoneurial fibroblasts（神經內膜纖維母細胞）、Schwann cells 與 <strong>axons（軸突）</strong>混合組成。<span class="ref">p.285</span></li>
@@ -675,7 +691,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-270">Neurofibroma 含軸突、無被膜；schwannoma 有被膜、通常無軸突。<span class="ref">p.285–286</span></li>
 </ul></div>
 
-<h2 id="ch13-s12">十二、脂肪性腫瘤與眼窩骨病變（Adipocytic Tumors; Bony Lesions of the Orbit）</h2>
+<h2 id="ch13-s12" data-w="1318">十二、脂肪性腫瘤與眼窩骨病變（Adipocytic Tumors; Bony Lesions of the Orbit）</h2>
 <h3 id="ch13-s12-1">Adipocytic tumors（脂肪性腫瘤）</h3>
 <ul>
 <li id="np-271"><strong>Lipoma（脂肪瘤）</strong>在眼窩極罕見；病理特徵為有被膜、獨特的分葉狀外觀。<span class="ref">p.286</span></li>
@@ -701,7 +717,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-283">Lipoma 在眼窩極罕見；因其組織學上像正常或脫垂的脂肪及 atypical lipomatous tumor／well-differentiated liposarcoma，發生率過去被高估。<span class="ref">p.286</span></li>
 </ul></div>
 
-<h2 id="ch13-s13">十三、淚囊腫瘤與續發性眼窩腫瘤（Lacrimal Sac Neoplasia; Secondary Tumors）</h2>
+<h2 id="ch13-s13" data-w="2013">十三、淚囊腫瘤與續發性眼窩腫瘤（Lacrimal Sac Neoplasia; Secondary Tumors）</h2>
 <h3 id="ch13-s13-1">Lacrimal sac neoplasia（淚囊腫瘤）</h3>
 <ul>
 <li id="np-284">淚囊腫瘤罕見，臨床上<mark>可偽裝成 dacryocystitis（淚囊炎）</mark>。<span class="ref">p.288</span></li>
@@ -776,7 +792,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260732" defer></script>
-<script src="/exam/exam.js?v=20260732" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260733" defer></script>
+<script src="/exam/exam.js?v=20260733" defer></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260732"></script>
+<script src="/assets/trusted-types.js?v=20260733"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 3 Ch.6 Contact Lenses：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc3-6#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 3 Ch.6","item":"https://hsiao.chendermatologist.com/exam/bcsc3-6"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260732">
+<link rel="stylesheet" href="/assets/app.css?v=20260733">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -224,6 +224,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -297,6 +309,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
@@ -304,7 +320,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-qno{color:#e7e5e4}
 :root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
-<script defer src="/assets/telemetry.js?v=20260732"></script>
+<script defer src="/assets/telemetry.js?v=20260733"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -332,7 +348,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch6-s1" lang="en">1. Highlights, Glossary and Introduction</a></li><li><a href="#ch6-s2" lang="en">2. Contact Lens Optics and Anisometropia</a></li><li><a href="#ch6-s3" lang="en">3. Accommodation and Convergence</a></li><li><a href="#ch6-s4" lang="en">4. Correcting Astigmatism</a></li><li><a href="#ch6-s5" lang="en">5. Contact Lens Materials</a></li><li><a href="#ch6-s6" lang="en">6. Patient Evaluation and Lens Selection</a></li><li><a href="#ch6-s7" lang="en">7. Fitting Basics and Soft Contact Lenses</a></li><li><a href="#ch6-s8" lang="en">8. Corneal RGP Fitting and Tear Lens Power</a></li><li><a href="#ch6-s9" lang="en">9. Toric Soft Lenses and the LARS Rule</a></li><li><a href="#ch6-s10" lang="en">10. Contact Lenses for Presbyopia</a></li><li><a href="#ch6-s11" lang="en">11. Keratoconus, Scleral Lenses and Overrefraction</a></li><li><a href="#ch6-s12" lang="en">12. Therapeutic, Orthokeratology and Custom Lenses</a></li><li><a href="#ch6-s13" lang="en">13. Contact Lens Care and Solutions</a></li><li><a href="#ch6-s14" lang="en">14. Problems and Complications</a></li><li><a href="#ch6-s15" lang="en">15. Over-the-Counter Lenses and Federal Law</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（9 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（22 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 3 Ch.6</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 3 · Clinical Optics and Vision Rehabilitation</p><h1 class="ex-h1">Ch.6 Contact Lenses</h1><p class="ex-meta">原書 p.223–256 · 考題 22 題</p><div class="ex-strip" data-progress-chapter="3-6" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="3-6"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch6-s1">一、本章重點與名詞（Highlights／Glossary）</a></li><li><a href="#ch6-s2">二、隱形眼鏡光學：像差、不等視與影像大小</a></li><li><a href="#ch6-s3">三、調節與會聚：眼鏡 vs 隱形眼鏡</a></li><li><a href="#ch6-s4">四、散光矯正與殘餘散光（Correcting Astigmatism）</a></li><li><a href="#ch6-s5">五、鏡片材質（Contact Lens Materials）</a></li><li><a href="#ch6-s6">六、病史、檢查與鏡片選擇</a></li><li><a href="#ch6-s7">七、驗配基礎與軟式隱形眼鏡（Soft Contact Lenses）</a></li><li><a href="#ch6-s8">八、角膜 RGP 配適與淚液鏡（Tear Lens）</a></li><li><a href="#ch6-s9">九、軟式散光鏡片與 LARS（Toric Soft Contact Lenses）</a></li><li><a href="#ch6-s10">十、老花用隱形眼鏡（Contact Lenses for Presbyopia）</a></li><li><a href="#ch6-s11">十一、圓錐角膜、不規則角膜、鞏膜鏡與戴鏡驗光</a></li><li><a href="#ch6-s12">十二、治療用隱形眼鏡、角膜塑型與客製鏡片</a></li><li><a href="#ch6-s13">十三、鏡片護理與消毒（Care and Solutions）</a></li><li><a href="#ch6-s14">十四、隱形眼鏡相關問題與併發症</a></li><li><a href="#ch6-s15">十五、成藥販售與法規（Over-the-Counter／Federal Law）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 3 第 6 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch6-s1">一、本章重點與名詞（Highlights／Glossary）</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch6-s1" lang="en">1. Highlights, Glossary and Introduction</a></li><li><a href="#ch6-s2" lang="en">2. Contact Lens Optics and Anisometropia</a></li><li><a href="#ch6-s3" lang="en">3. Accommodation and Convergence</a></li><li><a href="#ch6-s4" lang="en">4. Correcting Astigmatism</a></li><li><a href="#ch6-s5" lang="en">5. Contact Lens Materials</a></li><li><a href="#ch6-s6" lang="en">6. Patient Evaluation and Lens Selection</a></li><li><a href="#ch6-s7" lang="en">7. Fitting Basics and Soft Contact Lenses</a></li><li><a href="#ch6-s8" lang="en">8. Corneal RGP Fitting and Tear Lens Power</a></li><li><a href="#ch6-s9" lang="en">9. Toric Soft Lenses and the LARS Rule</a></li><li><a href="#ch6-s10" lang="en">10. Contact Lenses for Presbyopia</a></li><li><a href="#ch6-s11" lang="en">11. Keratoconus, Scleral Lenses and Overrefraction</a></li><li><a href="#ch6-s12" lang="en">12. Therapeutic, Orthokeratology and Custom Lenses</a></li><li><a href="#ch6-s13" lang="en">13. Contact Lens Care and Solutions</a></li><li><a href="#ch6-s14" lang="en">14. Problems and Complications</a></li><li><a href="#ch6-s15" lang="en">15. Over-the-Counter Lenses and Federal Law</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（9 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（22 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 3 Ch.6</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 3 · Clinical Optics and Vision Rehabilitation</p><h1 class="ex-h1">Ch.6 Contact Lenses</h1><p class="ex-meta">原書 p.223–256 · 考題 22 題</p><div class="ex-strip" data-progress-chapter="3-6" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="3-6"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch6-s1">一、本章重點與名詞（Highlights／Glossary）</a></li><li><a href="#ch6-s2">二、隱形眼鏡光學：像差、不等視與影像大小</a></li><li><a href="#ch6-s3">三、調節與會聚：眼鏡 vs 隱形眼鏡</a></li><li><a href="#ch6-s4">四、散光矯正與殘餘散光（Correcting Astigmatism）</a></li><li><a href="#ch6-s5">五、鏡片材質（Contact Lens Materials）</a></li><li><a href="#ch6-s6">六、病史、檢查與鏡片選擇</a></li><li><a href="#ch6-s7">七、驗配基礎與軟式隱形眼鏡（Soft Contact Lenses）</a></li><li><a href="#ch6-s8">八、角膜 RGP 配適與淚液鏡（Tear Lens）</a></li><li><a href="#ch6-s9">九、軟式散光鏡片與 LARS（Toric Soft Contact Lenses）</a></li><li><a href="#ch6-s10">十、老花用隱形眼鏡（Contact Lenses for Presbyopia）</a></li><li><a href="#ch6-s11">十一、圓錐角膜、不規則角膜、鞏膜鏡與戴鏡驗光</a></li><li><a href="#ch6-s12">十二、治療用隱形眼鏡、角膜塑型與客製鏡片</a></li><li><a href="#ch6-s13">十三、鏡片護理與消毒（Care and Solutions）</a></li><li><a href="#ch6-s14">十四、隱形眼鏡相關問題與併發症</a></li><li><a href="#ch6-s15">十五、成藥販售與法規（Over-the-Counter／Federal Law）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 3 第 6 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch6-s1" data-w="1267">一、本章重點與名詞（Highlights／Glossary）</h2>
 <h3 id="ch6-s1-1">Highlights</h3>
 <ul>
 <li id="np-1">與眼鏡相比，contact lens（CL，隱形眼鏡）造成的像差與放大／縮小較少，對明顯的 <strong>anisometropia（不等視）</strong>治療可有幫助。<span class="ref">p.223</span></li>
@@ -362,7 +378,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-17">弦徑：軟式 13–15 mm、角膜 RGP 9–10 mm、scleral RGP 15–24 mm。<span class="ref">p.223</span></li>
 </ul></div>
 
-<h2 id="ch6-s2">二、隱形眼鏡光學：像差、不等視與影像大小</h2>
+<h2 id="ch6-s2" data-w="1940">二、隱形眼鏡光學：像差、不等視與影像大小</h2>
 <h3 id="ch6-s2-1">Contact lens optics（基本光學）</h3>
 <ul>
 <li id="np-18">CL 戴在角膜上時，<mark>大部分屈折發生在空氣與 CL 前表面淚膜的介面</mark>。<span class="ref">p.224</span></li>
@@ -402,7 +418,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-62">眼鏡造成影像大小不等的例外：差異主要來自眼軸長不等時。<span class="ref">p.224</span></li>
 </ul></div>
 
-<h2 id="ch6-s3">三、調節與會聚：眼鏡 vs 隱形眼鏡</h2>
+<h2 id="ch6-s3" data-w="1509">三、調節與會聚：眼鏡 vs 隱形眼鏡</h2>
 <h3 id="ch6-s3-1">Accommodation（調節）</h3>
 <ul>
 <li id="np-63">與眼鏡相比，CL <mark class="ex-key">增加近視眼、減少遠視眼的調節需求</mark>，增減量與屈光不正大小成比例⁠<sup class="ex-qref"><span>Q248</span></sup>。<span class="ref">p.226</span></li>
@@ -437,7 +453,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-98">章末習題 6.1：40 歲戴 −6.00 D 眼鏡、CL −5.50 D，戴 CL 讀字困難最可能的解釋是失去眼鏡的 near effectivity；CL 度數稍低是頂點距離差異所致⁠<sup class="ex-qref"><span>Q248</span></sup>。<span class="ref">p.254–255</span></li>
 </ul></div>
 
-<h2 id="ch6-s4">四、散光矯正與殘餘散光（Correcting Astigmatism）</h2>
+<h2 id="ch6-s4" data-w="822">四、散光矯正與殘餘散光（Correcting Astigmatism）</h2>
 <ul>
 <li id="np-99">後表面為球面的硬式鏡片在鏡片與角膜間形成 tear lens；硬式（及軟式 toric）CL 在角膜面中和散光時，<mark>可避免 toric 眼鏡造成的 meridional aniseikonia（子午線性影像不等）</mark>，因此散光以 CL 矯正的人換戴眼鏡時常有惱人的空間定向改變。<span class="ref">p.229–230</span></li>
 <li id="np-100"><strong>Refractive astigmatism（屈光散光）= corneal（角膜）+ lenticular（水晶體）散光</strong>；水晶體散光若存在，球面 CL 不會矯正，當球面硬式鏡中和角膜散光後即成為 <strong>residual astigmatism（殘餘散光）</strong>⁠<sup class="ex-qref"><span>Q251</span></sup>。<span class="ref">p.230</span></li>
@@ -452,7 +468,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-106">殘餘散光以年長者較常見。<span class="ref">p.230</span></li>
 </ul></div>
 
-<h2 id="ch6-s5">五、鏡片材質（Contact Lens Materials）</h2>
+<h2 id="ch6-s5" data-w="955">五、鏡片材質（Contact Lens Materials）</h2>
 <ul>
 <li id="np-107">理想材質：能貼合多種角膜形狀、耐用、易操作、舒適、透明、表面可濕潤且眨眼間保持濕潤、不易沉積、不利 <i>Pseudomonas</i> 附著、可傳送氧與二氧化碳、每次眨眼讓新淚液流入、不從角膜吸水加重乾眼。<span class="ref">p.231</span></li>
 <li id="np-108"><strong>Dk</strong>：材質的透氧性（D = 氧在材質中的擴散係數，k = 氧在材質中的溶解常數）；<strong>Dk/t</strong>：鏡片的 oxygen transmissibility（透氧率），取決於材質與中央厚度 t；<mark>高 Dk/t 與低 wetting angle 都是理想的</mark>。<span class="ref">p.231</span></li>
@@ -478,7 +494,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-126">PMMA hard lens：氧只經淚液交換從周圍通過。<span class="ref">p.231</span></li>
 </ul></div>
 
-<h2 id="ch6-s6">六、病史、檢查與鏡片選擇</h2>
+<h2 id="ch6-s6" data-w="1089">六、病史、檢查與鏡片選擇</h2>
 <h3 id="ch6-s6-1">Patient history and examination</h3>
 <ul>
 <li id="np-127">增加 CL 併發症風險的因素：糖尿病（尤其控制不佳）、免疫抑制、長期使用局部眼藥（如 corticosteroids）、職業性化學物或異物暴露。<span class="ref">p.232</span></li>
@@ -501,7 +517,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-139">軟式更換：每日或 1、2、4 週；RGP 通常每年。<span class="ref">p.233</span></li>
 </ul></div>
 
-<h2 id="ch6-s7">七、驗配基礎與軟式隱形眼鏡（Soft Contact Lenses）</h2>
+<h2 id="ch6-s7" data-w="2030">七、驗配基礎與軟式隱形眼鏡（Soft Contact Lenses）</h2>
 <h3 id="ch6-s7-1">驗配目標與鏡片幾何</h3>
 <ul>
 <li id="np-140">驗配目標：視力好且不隨眨眼或眼動波動、整天舒適、併發症風險低。<span class="ref">p.233</span></li>
@@ -579,7 +595,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-220">Table 6-4 以後頂點 12 mm 為準：−10.00 D → −9.00 D、−8.00 D → −7.25 D⁠<sup class="ex-qref"><span>Q212</span></sup>。<span class="ref">p.234</span></li>
 </ul></div>
 
-<h2 id="ch6-s8">八、角膜 RGP 配適與淚液鏡（Tear Lens）</h2>
+<h2 id="ch6-s8" data-w="3039">八、角膜 RGP 配適與淚液鏡（Tear Lens）</h2>
 <h3 id="ch6-s8-1">RGP 配適</h3>
 <ul>
 <li id="np-221">角膜 RGP 弦徑比軟式小，每次眨眼讓較多新鮮淚液在鏡下循環；中央與周邊弧、邊緣形狀與中央厚度可依視力穩定、舒適與淚液交換調整。常簡稱「RGP lenses」，scleral RGP 則常簡稱「scleral lenses」。<span class="ref">p.236</span></li>
@@ -631,7 +647,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-265">圓形孔徑（如瞳孔）在無像差時，點光源的網膜影像為中央亮斑 <strong>Airy disc</strong> 加明暗環，是 diffraction（繞射）及其干涉效應的結果⁠<sup class="ex-qref"><span>Q258</span></sup>。<span class="ref ref-ext">BCSC 3 p.125</span></li>
 </ul>
 
-<h2 id="ch6-s9">九、軟式散光鏡片與 LARS（Toric Soft Contact Lenses）</h2>
+<h2 id="ch6-s9" data-w="889">九、軟式散光鏡片與 LARS（Toric Soft Contact Lenses）</h2>
 <ul>
 <li id="np-266"><mark class="ex-key">可能約 1/3</mark> CL 配戴者至少有 <span class="num">1.00 D</span> 散光；最多 <span class="num">0.75 或 1.00 D</span> 散光<mark class="ex-key">很可能</mark>被球面軟式 CL 遮蓋到足以提供最佳視力；更高度散光通常無法被球面軟式鏡良好矯正⁠<sup class="ex-qref"><span>Q251</span></sup>。<span class="ref">p.241</span></li>
 <li id="np-267">防止旋轉的設計：<strong>prism ballast（稜鏡垂重）</strong>＝鏡片下緣加材料，靠重量定位；<strong>thin zones（薄區）</strong>＝上下各有薄區，靠眼瞼壓力維持位置；<strong>truncation（截邊）</strong>＝切掉下緣成直邊與下眼瞼對齊（較不常用）。<span class="ref">p.241</span></li>
@@ -656,7 +672,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-283">截邊（truncation）設計較不常用。<span class="ref">p.241</span></li>
 </ul></div>
 
-<h2 id="ch6-s10">十、老花用隱形眼鏡（Contact Lenses for Presbyopia）</h2>
+<h2 id="ch6-s10" data-w="718">十、老花用隱形眼鏡（Contact Lenses for Presbyopia）</h2>
 <ul>
 <li id="np-284">Presbyopia（老花）幾乎影響所有 <span class="num">40 歲</span>以上的人；三種選擇：(1) CL 加老花眼鏡、(2) <strong>monovision（單眼視）</strong>、（3）雙焦 CL。<span class="ref">p.241–242</span></li>
 <li id="np-285">CL 加老花眼鏡：簡單、便宜、有效。<span class="ref">p.242</span></li>
@@ -670,7 +686,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-291">交替視雙焦靠下眼瞼使鏡片位移，RGP 適合；同時視雙焦代價是對比度降低。<span class="ref">p.242–243</span></li>
 </ul></div>
 
-<h2 id="ch6-s11">十一、圓錐角膜、不規則角膜、鞏膜鏡與戴鏡驗光</h2>
+<h2 id="ch6-s11" data-w="1657">十一、圓錐角膜、不規則角膜、鞏膜鏡與戴鏡驗光</h2>
 <h3 id="ch6-s11-1">Keratoconus and the abnormal cornea</h3>
 <ul>
 <li id="np-292">CL 可遮蓋不規則角膜散光，提供比眼鏡更好的視力；輕中度不規則可用軟式球面、軟式 toric 或客製軟式 toric⁠<sup class="ex-qref"><span>Q937</span> <span>Q1588</span></sup>。<span class="ref">p.243</span></li>
@@ -700,7 +716,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-308">BCSC 8：戴 CL 可改善 KC 視力，但不能預防 KC 進展⁠<sup class="ex-qref"><span>Q937</span></sup>。<span class="ref ref-ext">BCSC 8 p.223</span></li>
 </ul></div>
 
-<h2 id="ch6-s12">十二、治療用隱形眼鏡、角膜塑型與客製鏡片</h2>
+<h2 id="ch6-s12" data-w="1762">十二、治療用隱形眼鏡、角膜塑型與客製鏡片</h2>
 <h3 id="ch6-s12-1">Therapeutic use（bandage contact lens，治療性隱形眼鏡）</h3>
 <ul>
 <li id="np-309">用途：促進上皮癒合、預防上皮糜爛、控制表面引起的疼痛；有時稱 bandage CL。<span class="ref">p.245</span></li>
@@ -730,7 +746,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-325">Ortho-K 最嚴重併發症是感染性角膜炎，似乎在兒童與青少年較成人常見；最多治療 −6.00 D。<span class="ref">p.246–247</span></li>
 </ul></div>
 
-<h2 id="ch6-s13">十三、鏡片護理與消毒（Care and Solutions）</h2>
+<h2 id="ch6-s13" data-w="926">十三、鏡片護理與消毒（Care and Solutions）</h2>
 <ul>
 <li id="np-326">除了只戴 1 天的單次拋棄式外，CL 使用後都要清潔消毒；保養系統以一瓶或多瓶提供清潔、消毒與保存功能（Table 6-9）。<span class="ref">p.247</span></li>
 <li id="np-327"><strong>Enzymatic cleaners（酵素清潔劑）</strong>去除鏡片表面蛋白沉積，用於不常更換的鏡片；易形成沉積者也可改開更頻繁更換的鏡片。<span class="ref">p.247</span></li>
@@ -758,7 +774,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-357">Saline 用途為沖洗；可與消毒系統合用，但不能取代消毒系統。<span class="ref">p.248</span></li>
 </ul></div>
 
-<h2 id="ch6-s14">十四、隱形眼鏡相關問題與併發症</h2>
+<h2 id="ch6-s14" data-w="3778">十四、隱形眼鏡相關問題與併發症</h2>
 <table class="ted-table">
 <thead><tr><th>分類（Table 6-10）</th><th>問題或併發症</th></tr></thead>
 <tbody>
@@ -835,7 +851,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-420">防腐劑過敏屬 type IV 遲發性過敏。<span class="ref">p.252</span></li>
 </ul></div>
 
-<h2 id="ch6-s15">十五、成藥販售與法規（Over-the-Counter／Federal Law）</h2>
+<h2 id="ch6-s15" data-w="398">十五、成藥販售與法規（Over-the-Counter／Federal Law）</h2>
 <ul>
 <li id="np-421">CL 不應未經合格人員驗配就在櫃檯販售；雖有聯邦法規定賣方不得在無有效處方下提供 CL，此情形仍持續發生。彩色片、circle lenses 等裝飾或變裝用 CL 常像玩具一樣廣告，消費者可能不了解使用未經處方鏡片的風險。<span class="ref">p.253</span></li>
 <li id="np-422"><strong>Federal Fairness to Contact Lens Consumers Act（PL 108-164）</strong>：病人<mark>不必要求就應獲得處方副本</mark>；病人把參數告知賣方、賣方留言給處方者後，若處方者在 <span class="num">8 個工作小時</span>（週一至週五，聯邦假日除外）內未回覆，視為「verified」。<span class="ref">p.253–254</span></li>
@@ -886,7 +902,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260732" defer></script>
-<script src="/exam/exam.js?v=20260732" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260733" defer></script>
+<script src="/exam/exam.js?v=20260733" defer></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260732"></script>
+<script src="/assets/trusted-types.js?v=20260733"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 2 Ch.16 Ocular Pharmacotherapeutics：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc2-16#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 2 Ch.16","item":"https://hsiao.chendermatologist.com/exam/bcsc2-16"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260732">
+<link rel="stylesheet" href="/assets/app.css?v=20260733">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -224,6 +224,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -297,6 +309,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
@@ -304,7 +320,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-qno{color:#e7e5e4}
 :root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
-<script defer src="/assets/telemetry.js?v=20260732"></script>
+<script defer src="/assets/telemetry.js?v=20260733"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -332,7 +348,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch16-s1" lang="en">1. Regulation, Off-Label Use, Compounding, Adherence</a></li><li><a href="#ch16-s2" lang="en">2. Cholinergic Drugs</a></li><li><a href="#ch16-s3" lang="en">3. Adrenergic Drugs</a></li><li><a href="#ch16-s4" lang="en">4. Carbonic Anhydrase Inhibitors</a></li><li><a href="#ch16-s5" lang="en">5. PGAs, NO Donors, ROCK Inhibitors, Fixed Combos</a></li><li><a href="#ch16-s6" lang="en">6. Osmotic Drugs</a></li><li><a href="#ch16-s7" lang="en">7. Glucocorticoids and Immunomodulatory Therapy</a></li><li><a href="#ch16-s8" lang="en">8. NSAIDs</a></li><li><a href="#ch16-s9" lang="en">9. Antiallergic Drugs</a></li><li><a href="#ch16-s10" lang="en">10. Antifibrotic Drugs</a></li><li><a href="#ch16-s11" lang="en">11. Dry Eye Agents and Ocular Decongestants</a></li><li><a href="#ch16-s12" lang="en">12. Antibacterial Drugs</a></li><li><a href="#ch16-s13" lang="en">13. Antifungal Drugs</a></li><li><a href="#ch16-s14" lang="en">14. Antivirals, Antiacanthamoeba, Drug Penetration</a></li><li><a href="#ch16-s15" lang="en">15. Local Anesthetics</a></li><li><a href="#ch16-s16" lang="en">16. Other Agents: Toxins, Dyes, OVDs, Vitamins</a></li><li><a href="#ch16-s17" lang="en">17. Growth Factors, Inhibitors and Biosimilars</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（11 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（32 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 2 Ch.16</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 2 · Fundamentals and Principles of Ophthalmology</p><h1 class="ex-h1">Ch.16 Ocular Pharmacotherapeutics</h1><p class="ex-meta">原書 p.387–478 · 考題 32 題</p><div class="ex-strip" data-progress-chapter="2-16" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="2-16"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch16-s1">一、法規、仿單外使用、調劑藥品與遵從性</a></li><li><a href="#ch16-s2">二、Cholinergic drugs（膽鹼性藥物）</a></li><li><a href="#ch16-s3">三、Adrenergic drugs（腎上腺素性藥物）</a></li><li><a href="#ch16-s4">四、Carbonic anhydrase inhibitors（CAIs，碳酸酐酶抑制劑）</a></li><li><a href="#ch16-s5">五、Prostaglandin analogues、NO donors、ROCK inhibitors 與固定複方</a></li><li><a href="#ch16-s6">六、Osmotic drugs（高滲透壓藥物）</a></li><li><a href="#ch16-s7">七、Glucocorticoids（糖皮質類固醇）與免疫調節治療</a></li><li><a href="#ch16-s8">八、Nonsteroidal anti-inflammatory drugs（NSAIDs，非類固醇抗發炎藥）</a></li><li><a href="#ch16-s9">九、Antiallergic drugs（抗過敏藥）：mast-cell stabilizers 與 antihistamines</a></li><li><a href="#ch16-s10">十、Antifibrotic drugs（抗纖維化藥）</a></li><li><a href="#ch16-s11">十一、Dry eye 用藥與 ocular decongestants（血管收縮劑）</a></li><li><a href="#ch16-s12">十二、Antibacterial drugs（抗細菌藥）</a></li><li><a href="#ch16-s13">十三、Antifungal drugs（抗黴菌藥）</a></li><li><a href="#ch16-s14">十四、Antiviral drugs、Acanthamoeba 用藥與全身抗微生物藥眼內穿透</a></li><li><a href="#ch16-s15">十五、Local anesthetics（局部麻醉劑）</a></li><li><a href="#ch16-s16">十六、其他藥物：神經毒素、高滲與灌注液、診斷染劑、OVD、凝血相關藥物、維生素與 interferon</a></li><li><a href="#ch16-s17">十七、Growth factors、growth factor inhibitors 與 biosimilars</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 2 第 16 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch16-s1">一、法規、仿單外使用、調劑藥品與遵從性</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch16-s1" lang="en">1. Regulation, Off-Label Use, Compounding, Adherence</a></li><li><a href="#ch16-s2" lang="en">2. Cholinergic Drugs</a></li><li><a href="#ch16-s3" lang="en">3. Adrenergic Drugs</a></li><li><a href="#ch16-s4" lang="en">4. Carbonic Anhydrase Inhibitors</a></li><li><a href="#ch16-s5" lang="en">5. PGAs, NO Donors, ROCK Inhibitors, Fixed Combos</a></li><li><a href="#ch16-s6" lang="en">6. Osmotic Drugs</a></li><li><a href="#ch16-s7" lang="en">7. Glucocorticoids and Immunomodulatory Therapy</a></li><li><a href="#ch16-s8" lang="en">8. NSAIDs</a></li><li><a href="#ch16-s9" lang="en">9. Antiallergic Drugs</a></li><li><a href="#ch16-s10" lang="en">10. Antifibrotic Drugs</a></li><li><a href="#ch16-s11" lang="en">11. Dry Eye Agents and Ocular Decongestants</a></li><li><a href="#ch16-s12" lang="en">12. Antibacterial Drugs</a></li><li><a href="#ch16-s13" lang="en">13. Antifungal Drugs</a></li><li><a href="#ch16-s14" lang="en">14. Antivirals, Antiacanthamoeba, Drug Penetration</a></li><li><a href="#ch16-s15" lang="en">15. Local Anesthetics</a></li><li><a href="#ch16-s16" lang="en">16. Other Agents: Toxins, Dyes, OVDs, Vitamins</a></li><li><a href="#ch16-s17" lang="en">17. Growth Factors, Inhibitors and Biosimilars</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（11 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（32 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 2 Ch.16</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 2 · Fundamentals and Principles of Ophthalmology</p><h1 class="ex-h1">Ch.16 Ocular Pharmacotherapeutics</h1><p class="ex-meta">原書 p.387–478 · 考題 32 題</p><div class="ex-strip" data-progress-chapter="2-16" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="2-16"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch16-s1">一、法規、仿單外使用、調劑藥品與遵從性</a></li><li><a href="#ch16-s2">二、Cholinergic drugs（膽鹼性藥物）</a></li><li><a href="#ch16-s3">三、Adrenergic drugs（腎上腺素性藥物）</a></li><li><a href="#ch16-s4">四、Carbonic anhydrase inhibitors（CAIs，碳酸酐酶抑制劑）</a></li><li><a href="#ch16-s5">五、Prostaglandin analogues、NO donors、ROCK inhibitors 與固定複方</a></li><li><a href="#ch16-s6">六、Osmotic drugs（高滲透壓藥物）</a></li><li><a href="#ch16-s7">七、Glucocorticoids（糖皮質類固醇）與免疫調節治療</a></li><li><a href="#ch16-s8">八、Nonsteroidal anti-inflammatory drugs（NSAIDs，非類固醇抗發炎藥）</a></li><li><a href="#ch16-s9">九、Antiallergic drugs（抗過敏藥）：mast-cell stabilizers 與 antihistamines</a></li><li><a href="#ch16-s10">十、Antifibrotic drugs（抗纖維化藥）</a></li><li><a href="#ch16-s11">十一、Dry eye 用藥與 ocular decongestants（血管收縮劑）</a></li><li><a href="#ch16-s12">十二、Antibacterial drugs（抗細菌藥）</a></li><li><a href="#ch16-s13">十三、Antifungal drugs（抗黴菌藥）</a></li><li><a href="#ch16-s14">十四、Antiviral drugs、Acanthamoeba 用藥與全身抗微生物藥眼內穿透</a></li><li><a href="#ch16-s15">十五、Local anesthetics（局部麻醉劑）</a></li><li><a href="#ch16-s16">十六、其他藥物：神經毒素、高滲與灌注液、診斷染劑、OVD、凝血相關藥物、維生素與 interferon</a></li><li><a href="#ch16-s17">十七、Growth factors、growth factor inhibitors 與 biosimilars</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 2 第 16 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch16-s1" data-w="4160">一、法規、仿單外使用、調劑藥品與遵從性</h2>
 <h3 id="ch16-s1-1">本章重點與註記</h3>
 <ul>
 <li id="np-1">Highlights：off-label（仿單外）用藥在眼科常見，某些仿單外用途甚至是部分疾病的主要治療選擇；調劑藥品用於治療多種眼病，執業眼科醫師應掌握最新州與聯邦調劑藥事法規；povidone-iodine 溶液塗於皮膚時應讓其完全乾燥以達最大消毒效果；無監督和／或長期使用局部麻醉眼藥可導致顯著眼部併發症；兒童全身用藥通常需依體重計算劑量。<span class="ref">p.387</span></li>
@@ -400,7 +416,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-52">病人自述的遵從度低於實際遵從度（原文如此）。<span class="ref">p.392</span></li>
 </ul></div>
 
-<h2 id="ch16-s2">二、Cholinergic drugs（膽鹼性藥物）</h2>
+<h2 id="ch16-s2" data-w="10140">二、Cholinergic drugs（膽鹼性藥物）</h2>
 <h3 id="ch16-s2-1">受體與分類</h3>
 <ul>
 <li id="np-53">多種常用眼藥影響體神經與自主神經系統突觸中的 acetylcholine（ACh，乙醯膽鹼）受體活性；這些受體位於：① extraocular（眼外肌）與 levator palpebrae superioris muscles 的 motor end plates（由體運動神經供應）；② superior cervical（交感）神經節與 ciliary、sphenopalatine（副交感）神經節的細胞（由節前自主神經供應）；③ iris sphincter（虹膜括約肌）與睫狀體，以及淚腺、副淚腺與 meibomian glands 的副交感效應位置（由節後副交感神經供應）。<span class="ref">p.392–393</span></li>
@@ -531,7 +547,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-210">Depolarizing agents 不應用於 open globe 手術的全麻誘導；EUA 時應謹慎使用（可升高 IOP）。<span class="ref">p.402</span></li>
 </ul></div>
 
-<h2 id="ch16-s3">三、Adrenergic drugs（腎上腺素性藥物）</h2>
+<h2 id="ch16-s3" data-w="9932">三、Adrenergic drugs（腎上腺素性藥物）</h2>
 <h3 id="ch16-s3-1">受體</h3>
 <ul>
 <li id="np-211">多種眼藥以周邊神經系統突觸中的 adrenergic receptors（adrenoceptors）為標的；這些受體位於：① iris dilator muscle、上瞼 Muller 平滑肌、睫狀上皮與睫狀突、TM 與眼血管平滑肌的細胞膜（由上頸神經節的節後自主纖維供應）；② 部分交感與副交感神經的突觸前末梢，在此具回饋抑制作用。<span class="ref">p.402</span></li>
@@ -645,7 +661,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-325">Table 16-7 將 dipivefrin 與 epinephrine 列於 β2-adrenergic agonists；Table 16-8 中增加小樑外流的 adrenergic agonists 為 epinephrine、dipivalyl epinephrine。<span class="ref">p.404–405</span></li>
 </ul></div>
 
-<h2 id="ch16-s4">四、Carbonic anhydrase inhibitors（CAIs，碳酸酐酶抑制劑）</h2>
+<h2 id="ch16-s4" data-w="3897">四、Carbonic anhydrase inhibitors（CAIs，碳酸酐酶抑制劑）</h2>
 <h3 id="ch16-s4-1">全身性 CAIs</h3>
 <ul>
 <li id="np-326">全身性 CAIs（如 <strong>acetazolamide</strong>、<strong>methazolamide</strong>）核准用於治療青光眼與 idiopathic intracranial hypertension（IIH，特發性顱內高壓，又稱 pseudotumor cerebri），以及其他全身疾病（Table 16-10）；也可能對 cystoid macular edema（CME，囊樣黃斑水腫）有效。<span class="ref">p.410</span></li>
@@ -692,7 +708,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-395">局部與口服 CAIs 足量使用時，降壓作用很可能不相加。<span class="ref">p.413</span></li>
 </ul></div>
 
-<h2 id="ch16-s5">五、Prostaglandin analogues、NO donors、ROCK inhibitors 與固定複方</h2>
+<h2 id="ch16-s5" data-w="6067">五、Prostaglandin analogues、NO donors、ROCK inhibitors 與固定複方</h2>
 <h3 id="ch16-s5-1">Prostaglandin（PG）analogues（前列腺素類似物）</h3>
 <ul>
 <li id="np-396">目前 FDA 核准臨床使用的 PG analogues 有 <span class="num">5</span> 種（Table 16-11）。Latanoprost、bimatoprost、travoprost 與 tafluprost 每日一次，<strong>以晚上點為佳</strong>；tafluprost 有無防腐劑的單次使用容器。<span class="ref">p.413</span></li>
@@ -769,7 +785,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-485">FDA 指引要求固定複方比任一單藥單獨使用更有效。<span class="ref">p.417</span></li>
 </ul></div>
 
-<h2 id="ch16-s6">六、Osmotic drugs（高滲透壓藥物）</h2>
+<h2 id="ch16-s6" data-w="1457">六、Osmotic drugs（高滲透壓藥物）</h2>
 <ul>
 <li id="np-486">血清滲透壓升高可將液體跨血管屏障拉出眼外，降低 IOP 與玻璃體體積；藥物的滲透活性取決於溶液中的<strong>粒子數</strong>，以及血漿與眼內液間滲透梯度的維持，<mark>與分子量無關</mark>。會穿透血眼屏障的低分子量藥物（如 urea），在初期下降後會使 IOP 小幅上升，因為腎臟清除血中多餘 urea 時滲透梯度反轉。<span class="ref">p.417</span></li>
 <li id="np-487">Osmotic drugs 已獲 FDA 核准用於成人急性青光眼的短期處置，也可在眼內手術前用來減少玻璃體體積。<span class="ref">p.417</span></li>
@@ -795,7 +811,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-523">Mannitol 無法經腸胃道吸收，必須靜脈給予。<span class="ref">p.418</span></li>
 </ul></div>
 
-<h2 id="ch16-s7">七、Glucocorticoids（糖皮質類固醇）與免疫調節治療</h2>
+<h2 id="ch16-s7" data-w="13076">七、Glucocorticoids（糖皮質類固醇）與免疫調節治療</h2>
 <h3 id="ch16-s7-1">抗發炎藥分類、用途與機轉</h3>
 <ul>
 <li id="np-524">眼部發炎可用局部點藥、局部注射、眼內植入或全身給藥治療；抗發炎藥分為 glucocorticoids、nonsteroidal anti-inflammatory drugs（NSAIDs）、mast-cell stabilizers、antihistamines 與 antifibrotics。<span class="ref">p.419</span></li>
@@ -952,7 +968,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-783">Glucocorticoids 似乎不干擾 cell-mediated immunity 的傳入端，而是干擾傳出端；不影響 IgE 或 IgG 效價。<span class="ref">p.420</span></li>
 </ul></div>
 
-<h2 id="ch16-s8">八、Nonsteroidal anti-inflammatory drugs（NSAIDs，非類固醇抗發炎藥）</h2>
+<h2 id="ch16-s8" data-w="4883">八、Nonsteroidal anti-inflammatory drugs（NSAIDs，非類固醇抗發炎藥）</h2>
 <h3 id="ch16-s8-1">Arachidonic acid 衍生物與 COX</h3>
 <ul>
 <li id="np-784"><strong>Arachidonic acid（花生四烯酸）</strong>是 <span class="num">20</span> 碳鏈必需脂肪酸，其衍生物介導多種生物功能，包括調節<mark class="ex-key">平滑肌張力（血管、支氣管、子宮與腸道）、platelet aggregation（血小板凝集）</mark>、荷爾蒙釋放（growth hormone、ACTH、insulin、renin、progesterone）與發炎⁠<sup class="ex-qref"><span>Q150</span></sup>。<span class="ref">p.430</span></li>
@@ -1026,7 +1042,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-877">NSAIDs 與角膜併發症相關，包括 corneal melting 與角膜穿孔，見於術後病人與葡萄膜炎個案，通常在原有糖尿病與眼表疾病者。<span class="ref">p.433</span></li>
 </ul></div>
 
-<h2 id="ch16-s9">九、Antiallergic drugs（抗過敏藥）：mast-cell stabilizers 與 antihistamines</h2>
+<h2 id="ch16-s9" data-w="3849">九、Antiallergic drugs（抗過敏藥）：mast-cell stabilizers 與 antihistamines</h2>
 <h3 id="ch16-s9-1">過敏機轉與用藥概念</h3>
 <ul>
 <li id="np-878">人眼約有 <span class="num">5000 萬</span>個 mast cells（肥大細胞），每個細胞含數百顆顆粒，顆粒內含預先形成的化學介質。<span class="ref">p.434</span></li>
@@ -1089,7 +1105,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-950">Table 16-21 分類：cetirizine、emedastine、levocabastine 為 H1-antagonist；cromolyn、lodoxamide、nedocromil、pemirolast 為 mast-cell stabilizer；alcaftadine、azelastine、bepotastine、epinastine、ketotifen、olopatadine 為 H1-antagonist/mast-cell stabilizer；loteprednol（Alrex）為 corticosteroid。<span class="ref">p.434</span></li>
 </ul></div>
 
-<h2 id="ch16-s10">十、Antifibrotic drugs（抗纖維化藥）</h2>
+<h2 id="ch16-s10" data-w="1793">十、Antifibrotic drugs（抗纖維化藥）</h2>
 <ul>
 <li id="np-951">Antiproliferative medications（抗增生藥，又稱 antimetabolites）用於治療嚴重的眼部發炎疾病；也可局部作為抗增生藥用於眼表腫瘤病人，或作為抗纖維化藥以限制眼科手術相關的結疤（尤其眼表，如青光眼過濾手術與 pterygium 手術）；其他用途包括減輕附屬器的頑固結疤，以及提高 dacryocystorhinostomy 的成功率。5-FU 與 MMC 用於這些目的雖然常見，仍屬 <strong>off-label</strong>。<span class="ref">p.436</span></li>
 <li id="np-952"><strong>5-Fluorouracil（5-FU）</strong>：fluorinated pyrimidine nucleoside analogue，阻斷 <strong>thymidylate synthase</strong> 的生成，並中斷正常細胞的 DNA 與 RNA 合成；其主要作用可能是造成細胞 thymine 缺乏而致細胞死亡⁠<sup class="ex-qref"><span>Q1274</span></sup>。<span class="ref">p.436</span></li>
@@ -1107,7 +1123,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-962">5-FU 阻斷 thymidylate synthase 的生成；MMC 在細胞內轉為 bifunctional alkylating agent，以 DNA cross-linkage 抑制 DNA 合成。<span class="ref">p.436–437</span></li>
 </ul></div>
 
-<h2 id="ch16-s11">十一、Dry eye 用藥與 ocular decongestants（血管收縮劑）</h2>
+<h2 id="ch16-s11" data-w="3414">十一、Dry eye 用藥與 ocular decongestants（血管收縮劑）</h2>
 <h3 id="ch16-s11-1">人工淚液與潤滑劑</h3>
 <ul>
 <li id="np-963">人工淚液製劑（demulcents 與 emollients）在角膜表面形成封閉膜，潤滑並保護眼睛免於乾燥。Demulcent 的主成分為 polyvinyl alcohol、cellulose、methylcellulose 及其衍生物（hydroxypropyl cellulose、hydroxyethylcellulose、hydroxypropyl methylcellulose、carboxymethylcellulose）；其他成分有 glycerin、polysorbate 80、polyethylene glycol 400、dextran 70、povidone 與 propylene glycol。<span class="ref">p.437</span></li>
@@ -1143,7 +1159,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-985">OTC decongestants 應告知病人不要長期使用；可能的副作用包括 rebound vasodilation 與結膜充血；易發生隅角閉鎖者使用可能散瞳並誘發急性隅角閉鎖青光眼⁠<sup class="ex-qref"><span>Q1276</span></sup>。<span class="ref">p.439</span></li>
 </ul></div>
 
-<h2 id="ch16-s12">十二、Antibacterial drugs（抗細菌藥）</h2>
+<h2 id="ch16-s12" data-w="17218">十二、Antibacterial drugs（抗細菌藥）</h2>
 <h3 id="ch16-s12-1">Penicillins 與 cephalosporins（β-lactams）</h3>
 <ul>
 <li id="np-986">Penicillins 與 cephalosporins 是含 β-lactam 的抗菌藥，與細菌細胞壁合成必需的特定 transpeptidase 反應並使其失活（Table 16-22）。<span class="ref">p.439</span></li>
@@ -1322,7 +1338,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1263">結合核糖體 30S：tetracyclines；結合 50S：chloramphenicol、erythromycin（macrolide）；結合 30S 與 50S：aminoglycosides。<span class="ref">p.446–449</span></li>
 </ul></div>
 
-<h2 id="ch16-s13">十三、Antifungal drugs（抗黴菌藥）</h2>
+<h2 id="ch16-s13" data-w="4411">十三、Antifungal drugs（抗黴菌藥）</h2>
 <h3 id="ch16-s13-1">Polyenes</h3>
 <ul>
 <li id="np-1264">Table 16-25 列出眼科常見的抗黴菌藥。Polyene 抗生素名稱來自含 <span class="num">4–7</span> 個共軛雙鍵的序列；此親脂區使其與敏感黴菌細胞膜的 sterols 結合，造成膜損傷與必需養分外漏；其他抗黴菌藥（如 flucytosine 與 imidazoles），甚至其他抗生素（如 tetracycline 與 rifampin）可經受損的膜進入，產生協同作用。<span class="ref">p.451</span></li>
@@ -1373,7 +1389,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1329">全身給藥：研究顯示 fluconazole 與 voriconazole 眼內穿透與臨床療效良好；amphotericin 與 echinocandins（micafungin、caspofungin、anidulafungin）穿透眼內各腔室差；posaconazole 的資料極少。<span class="ref">p.460</span></li>
 </ul></div>
 
-<h2 id="ch16-s14">十四、Antiviral drugs、<i>Acanthamoeba</i> 用藥與全身抗微生物藥眼內穿透</h2>
+<h2 id="ch16-s14" data-w="8034">十四、Antiviral drugs、<i>Acanthamoeba</i> 用藥與全身抗微生物藥眼內穿透</h2>
 <h3 id="ch16-s14-1">局部抗病毒藥</h3>
 <ul>
 <li id="np-1330">Table 16-26 整理常用抗病毒藥。Idoxuridine、ganciclovir、trifluridine、vidarabine 與天然核苷酸競爭摻入病毒與哺乳類 DNA，曾用於治療 herpes simplex virus（HSV）keratitis；idoxuridine（5-iodo-2′-deoxyuridine）與 trifluridine 為 thymidine 的結構類似物，作用方式相似；vidarabine 為 adenine 類似物，在需要不同作用機轉的藥物時使用。<span class="ref">p.454</span></li>
@@ -1452,7 +1468,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1424">口服生體可用率：valacyclovir <span class="num">54%</span> vs acyclovir <span class="num">20%</span>；valganciclovir <span class="num">60%</span> vs ganciclovir <span class="num">9%</span>。<span class="ref">p.457</span></li>
 </ul></div>
 
-<h2 id="ch16-s15">十五、Local anesthetics（局部麻醉劑）</h2>
+<h2 id="ch16-s15" data-w="6113">十五、Local anesthetics（局部麻醉劑）</h2>
 <h3 id="ch16-s15-1">概述與藥理</h3>
 <ul>
 <li id="np-1425">局部麻醉在眼科廣泛使用：表面製劑使角膜與結膜麻醉，可舒適地進行 tonometry、gonioscopy、移除淺層異物、角膜刮取細菌學檢查與 paracentesis，以及眼底檢查與雷射時的隱形眼鏡使用；表面與前房內麻醉在白內障、pterygium 與青光眼手術中漸被接受；局部 sub-Tenon、retrobulbar、peribulbar 與眼瞼阻斷可為眼內與眼窩手術提供良好麻醉與 akinesia（Tables 16-28、16-29）。<span class="ref">p.460–461</span></li>
@@ -1526,7 +1542,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1507">局部麻醉劑阻斷順序：副交感（瞳孔放大）與交感（血管擴張）纖維最先，接著感覺纖維（痛與溫度），最後運動纖維（akinesia）；視神經常不被 retrobulbar 注射阻斷。<span class="ref">p.462</span></li>
 </ul></div>
 
-<h2 id="ch16-s16">十六、其他藥物：神經毒素、高滲與灌注液、診斷染劑、OVD、凝血相關藥物、維生素與 interferon</h2>
+<h2 id="ch16-s16" data-w="5286">十六、其他藥物：神經毒素、高滲與灌注液、診斷染劑、OVD、凝血相關藥物、維生素與 interferon</h2>
 <h3 id="ch16-s16-1">Purified neurotoxin complex、hyperosmolar drugs 與 irrigating solutions</h3>
 <ul>
 <li id="np-1508"><strong>Botulinum toxin type A</strong>：由 <i>Clostridium</i> botulinum Hall strain 的培養產生；結合運動神經末梢的受體位點、進入神經末梢並<strong>抑制 acetylcholine 釋放</strong>，以阻斷神經肌肉傳導；注射可有效緩解 benign essential blepharospasm 與 hemifacial spasm 的過度異常收縮；美容用途（尤其 glabellar folds）也很普遍；botulinum 經 FDA 核准治療 strabismus，可能藉由使注射肌萎縮性延長、其拮抗肌相對縮短而作用。<span class="ref">p.466</span></li>
@@ -1573,7 +1589,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1535">Antifibrinolytics：有活動性血管內凝血（如 DIC）時禁用；不應用於孕婦、凝血病變或接受抗血小板治療者、腎或肝病病人。<span class="ref">p.470</span></li>
 </ul></div>
 
-<h2 id="ch16-s17">十七、Growth factors、growth factor inhibitors 與 biosimilars</h2>
+<h2 id="ch16-s17" data-w="8559">十七、Growth factors、growth factor inhibitors 與 biosimilars</h2>
 <h3 id="ch16-s17-1">Growth factors（生長因子）</h3>
 <ul>
 <li id="np-1536">Growth factors 是一群多樣的蛋白質，以 autocrine 與 paracrine 方式影響多種細胞過程，包括代謝調節、組織分化、細胞生長與增生、存活維持與細胞形態改變；在多種細胞中合成，作用於一系列標的細胞與組織。視網膜組織、玻璃體、房水與角膜組織中已發現：epidermal growth factor、fibroblast growth factors、transforming growth factor βs、vascular endothelial growth factor（VEGF）、insulin-like growth factors、platelet-derived growth factor；這些生長因子具多樣、協同、有時拮抗的生物活性。<span class="ref">p.471</span></li>
@@ -1696,7 +1712,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260732" defer></script>
-<script src="/exam/exam.js?v=20260732" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260733" defer></script>
+<script src="/exam/exam.js?v=20260733" defer></script>
 </body>
 </html>

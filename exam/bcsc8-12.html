@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260732"></script>
+<script src="/assets/trusted-types.js?v=20260733"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 8 Ch.12 Infectious Diseases of the Corn…：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc8-12#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 8 Ch.12","item":"https://hsiao.chendermatologist.com/exam/bcsc8-12"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260732">
+<link rel="stylesheet" href="/assets/app.css?v=20260733">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -224,6 +224,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -297,6 +309,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
@@ -304,7 +320,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-qno{color:#e7e5e4}
 :root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
-<script defer src="/assets/telemetry.js?v=20260732"></script>
+<script defer src="/assets/telemetry.js?v=20260733"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -332,7 +348,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch12-s1" lang="en">1. Normal Ocular Flora</a></li><li><a href="#ch12-s2" lang="en">2. Pathogenesis of Ocular Infections</a></li><li><a href="#ch12-s3" lang="en">3. Diagnostic Laboratory Techniques</a></li><li><a href="#ch12-s4" lang="en">4. Infections of the Eyelid Margin</a></li><li><a href="#ch12-s5" lang="en">5. Bacterial Conjunctivitis: Children, Adults</a></li><li><a href="#ch12-s6" lang="en">6. Hyperacute Gonococcal Conjunctivitis</a></li><li><a href="#ch12-s7" lang="en">7. Bacterial Conjunctivitis in Neonates</a></li><li><a href="#ch12-s8" lang="en">8. Chlamydial Conjunctivitis</a></li><li><a href="#ch12-s9" lang="en">9. Parinaud Oculoglandular Syndrome</a></li><li><a href="#ch12-s10" lang="en">10. Bacterial Keratitis</a></li><li><a href="#ch12-s11" lang="en">11. Atypical Mycobacteria</a></li><li><a href="#ch12-s12" lang="en">12. Fungal Keratitis</a></li><li><a href="#ch12-s13" lang="en">13. Acanthamoeba Keratitis</a></li><li><a href="#ch12-s14" lang="en">14. Microsporidiosis</a></li><li><a href="#ch12-s15" lang="en">15. Loiasis: Nematodes</a></li><li><a href="#ch12-s16" lang="en">16. Microbial Scleritis</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（10 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（29 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 8 Ch.12</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 8 · External Disease and Cornea</p><h1 class="ex-h1">Ch.12 Infectious Diseases of the Cornea and External Eye: Bacterial, Fungal, and Parasitic Infections</h1><p class="ex-meta">原書 p.307–342 · 考題 29 題</p><div class="ex-strip" data-progress-chapter="8-12" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="8-12"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch12-s1">一、正常眼表菌叢（Normal Ocular Flora）</a></li><li><a href="#ch12-s2">二、眼部感染的致病機轉（Pathogenesis of Ocular Infections）</a></li><li><a href="#ch12-s3">三、診斷檢驗與檢體採集（Diagnostic Laboratory Techniques and Specimen Collection）</a></li><li><a href="#ch12-s4">四、瞼緣感染（Infections of the Eyelid Margin）</a></li><li><a href="#ch12-s5">五、兒童與成人細菌性結膜炎（Bacterial Conjunctivitis in Children and Adults）</a></li><li><a href="#ch12-s6">六、超急性淋菌性結膜炎（Hyperacute Gonococcal Conjunctivitis）</a></li><li><a href="#ch12-s7">七、新生兒細菌性結膜炎（Bacterial Conjunctivitis in Neonates）</a></li><li><a href="#ch12-s8">八、披衣菌結膜炎（Chlamydial Conjunctivitis）</a></li><li><a href="#ch12-s9">九、Parinaud Oculoglandular Syndrome（帕里諾眼腺症候群）</a></li><li><a href="#ch12-s10">十、細菌性角膜炎（Bacterial Keratitis）</a></li><li><a href="#ch12-s11">十一、非典型分枝桿菌（Atypical Mycobacteria）</a></li><li><a href="#ch12-s12">十二、黴菌性角膜炎（Fungal Keratitis）</a></li><li><a href="#ch12-s13">十三、Acanthamoeba Keratitis（棘阿米巴角膜炎）</a></li><li><a href="#ch12-s14">十四、Microsporidiosis（微孢子蟲症）</a></li><li><a href="#ch12-s15">十五、Loiasis: Nematodes（羅阿絲蟲症：線蟲）</a></li><li><a href="#ch12-s16">十六、Microbial Scleritis（微生物性鞏膜炎）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 8 第 12 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch12-s1">一、正常眼表菌叢（Normal Ocular Flora）</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch12-s1" lang="en">1. Normal Ocular Flora</a></li><li><a href="#ch12-s2" lang="en">2. Pathogenesis of Ocular Infections</a></li><li><a href="#ch12-s3" lang="en">3. Diagnostic Laboratory Techniques</a></li><li><a href="#ch12-s4" lang="en">4. Infections of the Eyelid Margin</a></li><li><a href="#ch12-s5" lang="en">5. Bacterial Conjunctivitis: Children, Adults</a></li><li><a href="#ch12-s6" lang="en">6. Hyperacute Gonococcal Conjunctivitis</a></li><li><a href="#ch12-s7" lang="en">7. Bacterial Conjunctivitis in Neonates</a></li><li><a href="#ch12-s8" lang="en">8. Chlamydial Conjunctivitis</a></li><li><a href="#ch12-s9" lang="en">9. Parinaud Oculoglandular Syndrome</a></li><li><a href="#ch12-s10" lang="en">10. Bacterial Keratitis</a></li><li><a href="#ch12-s11" lang="en">11. Atypical Mycobacteria</a></li><li><a href="#ch12-s12" lang="en">12. Fungal Keratitis</a></li><li><a href="#ch12-s13" lang="en">13. Acanthamoeba Keratitis</a></li><li><a href="#ch12-s14" lang="en">14. Microsporidiosis</a></li><li><a href="#ch12-s15" lang="en">15. Loiasis: Nematodes</a></li><li><a href="#ch12-s16" lang="en">16. Microbial Scleritis</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（10 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（29 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 8 Ch.12</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 8 · External Disease and Cornea</p><h1 class="ex-h1">Ch.12 Infectious Diseases of the Cornea and External Eye: Bacterial, Fungal, and Parasitic Infections</h1><p class="ex-meta">原書 p.307–342 · 考題 29 題</p><div class="ex-strip" data-progress-chapter="8-12" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="8-12"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch12-s1">一、正常眼表菌叢（Normal Ocular Flora）</a></li><li><a href="#ch12-s2">二、眼部感染的致病機轉（Pathogenesis of Ocular Infections）</a></li><li><a href="#ch12-s3">三、診斷檢驗與檢體採集（Diagnostic Laboratory Techniques and Specimen Collection）</a></li><li><a href="#ch12-s4">四、瞼緣感染（Infections of the Eyelid Margin）</a></li><li><a href="#ch12-s5">五、兒童與成人細菌性結膜炎（Bacterial Conjunctivitis in Children and Adults）</a></li><li><a href="#ch12-s6">六、超急性淋菌性結膜炎（Hyperacute Gonococcal Conjunctivitis）</a></li><li><a href="#ch12-s7">七、新生兒細菌性結膜炎（Bacterial Conjunctivitis in Neonates）</a></li><li><a href="#ch12-s8">八、披衣菌結膜炎（Chlamydial Conjunctivitis）</a></li><li><a href="#ch12-s9">九、Parinaud Oculoglandular Syndrome（帕里諾眼腺症候群）</a></li><li><a href="#ch12-s10">十、細菌性角膜炎（Bacterial Keratitis）</a></li><li><a href="#ch12-s11">十一、非典型分枝桿菌（Atypical Mycobacteria）</a></li><li><a href="#ch12-s12">十二、黴菌性角膜炎（Fungal Keratitis）</a></li><li><a href="#ch12-s13">十三、Acanthamoeba Keratitis（棘阿米巴角膜炎）</a></li><li><a href="#ch12-s14">十四、Microsporidiosis（微孢子蟲症）</a></li><li><a href="#ch12-s15">十五、Loiasis: Nematodes（羅阿絲蟲症：線蟲）</a></li><li><a href="#ch12-s16">十六、Microbial Scleritis（微生物性鞏膜炎）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 8 第 12 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch12-s1" data-w="1171">一、正常眼表菌叢（Normal Ocular Flora）</h2>
 <ul>
 <li id="np-1">瞼緣與結膜有細菌寄居是正常的，且只要 <strong>normal flora（正常菌叢）</strong>能競爭性抑制致病菌株就可以是有益的；組成隨宿主年齡與地區而異。<span class="ref">p.307</span></li>
 <li id="np-2">自然產嬰兒眼部以多種菌為主：<i>Staphylococcus aureus</i>、<i>Staphylococcus epidermidis</i>、streptococci、<i>Escherichia coli</i>；生命最初 <span class="num">2</span> 個十年（first 2 decades of life）以 <strong>streptococci 與 pneumococci</strong> 為主。<span class="ref">p.307</span></li>
@@ -365,7 +381,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-50">Table 12-1：酵母菌（Malassezia furfur、<i>Candida</i> spp）正常結膜 −、正常瞼緣 +；<i>Demodex</i> 正常結膜 −、正常瞼緣 ++。<span class="ref">p.308</span></li>
 </ul></div>
 
-<h2 id="ch12-s2">二、眼部感染的致病機轉（Pathogenesis of Ocular Infections）</h2>
+<h2 id="ch12-s2" data-w="2044">二、眼部感染的致病機轉（Pathogenesis of Ocular Infections）</h2>
 <ul>
 <li id="np-51">眼部感染可經 exogenous inoculation（外源接種）發生，罕見情況下經 hematogenous seeding（血行播散）。感染的發病與嚴重度是多重因素的函數：病原 <strong>virulence（毒力）</strong>、<strong>inoculum size（接種量）</strong>，以及宿主防禦能力；宿主防禦狀態也決定在多少接種量時可能發生感染。<span class="ref">p.308</span></li>
 <li id="np-52">外源接種後第一步是 <strong>adherence（黏附）</strong>：部分微生物（如 <i>Candida albicans</i> 與 <i>Acanthamoeba</i> trophozoites〔滋養體〕）表現 <strong>adhesins（黏附素）</strong>，與宿主細胞表面分子高親和力結合。<span class="ref">p.308</span></li>
@@ -392,7 +408,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-94"><i>Acanthamoeba</i> 與部分真菌分泌 collagenases；P aeruginosa 分泌的酵素破壞角膜 collagen 與 proteoglycan，並降解 immunoglobulins、complement proteins、interleukins 等發炎 cytokines。<span class="ref">p.308</span></li>
 </ul></div>
 
-<h2 id="ch12-s3">三、診斷檢驗與檢體採集（Diagnostic Laboratory Techniques and Specimen Collection）</h2>
+<h2 id="ch12-s3" data-w="2799">三、診斷檢驗與檢體採集（Diagnostic Laboratory Techniques and Specimen Collection）</h2>
 <ul>
 <li id="np-95">非典型眼部感染與抗藥菌株增加，使特定微生物學診斷更重要；判讀前須了解眼表正常菌叢與細胞學。<span class="ref">p.310</span></li>
 <li id="np-96"><strong>「1-2-3 Rule」</strong>（感染性角膜潰瘍何時要培養），符合 <span class="num">≥ 1</span> 項即培養：前房細胞 <span class="num">≥ 1+</span>；浸潤 <span class="num">≥ 2 mm</span>；浸潤距角膜中心 <span class="num">≤ 3 mm</span>。這些病人做角膜培養已證實有助預防視力喪失；實施此演算法也可減少不必要的培養與相關醫療費用。<span class="ref">p.310</span></li>
@@ -430,7 +446,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-127">1-2-3 rule：「1」是前房細胞 <span class="num">≥ 1+</span>，「2」是浸潤大小 <span class="num">≥ 2 mm</span>，「3」是浸潤距角膜中心 <span class="num">≤ 3 mm</span>。<span class="ref">p.310</span></li>
 </ul></div>
 
-<h2 id="ch12-s4">四、瞼緣感染（Infections of the Eyelid Margin）</h2>
+<h2 id="ch12-s4" data-w="1598">四、瞼緣感染（Infections of the Eyelid Margin）</h2>
 <h3 id="ch12-s4-1">Staphylococcal blepharitis（葡萄球菌性瞼緣炎）</h3>
 <ul>
 <li id="np-128">前瞼緣的葡萄球菌可造成瞼緣炎；雖有感染性病因，<mark>發炎扮演重要角色</mark>，即使給予抗菌治療，發炎仍可導致細菌過度生長與延長的局部免疫反應。<span class="ref">p.313</span></li>
@@ -452,7 +468,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-139">瞼緣藥膏每日 <span class="num">2</span> 次、至少 <span class="num">10 天</span>；nits 孵化期 <span class="num">7–10 天</span>。<span class="ref">p.314</span></li>
 </ul></div>
 
-<h2 id="ch12-s5">五、兒童與成人細菌性結膜炎（Bacterial Conjunctivitis in Children and Adults）</h2>
+<h2 id="ch12-s5" data-w="3105">五、兒童與成人細菌性結膜炎（Bacterial Conjunctivitis in Children and Adults）</h2>
 <h3 id="ch12-s5-1">臨床、致病機轉與分類</h3>
 <ul>
 <li id="np-140">結膜發炎＋<strong>purulent discharge（膿性分泌物）</strong>最可能是細菌性；起病速度、發炎嚴重度、分泌物可推測菌種（Table 12-6）。<span class="ref">p.314</span></li>
@@ -497,7 +513,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-173">Acute purulent conjunctivitis 的特徵是急性發炎反應伴膿性分泌物；granulomatous conjunctivitis（肉芽腫性結膜炎）伴區域淋巴結腫大即 Parinaud oculoglandular syndrome⁠<sup class="ex-qref"><span>Q370</span></sup>。<span class="ref">p.315, p.323</span></li>
 </ul></div>
 
-<h2 id="ch12-s6">六、超急性淋菌性結膜炎（Hyperacute Gonococcal Conjunctivitis）</h2>
+<h2 id="ch12-s6" data-w="2527">六、超急性淋菌性結膜炎（Hyperacute Gonococcal Conjunctivitis）</h2>
 <table class="ted-table ex-ddx">
 <thead><tr><th>Organism（性傳染病原）</th><th>Onset（起病）</th><th>Presentation（表現）</th></tr></thead>
 <tbody>
@@ -532,7 +548,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-204">Gonococcal conjunctivitis 是少數合併 preauricular lymphadenopathy 與 conjunctival membranes 的細菌性疾病之一。<span class="ref">p.317</span></li>
 </ul></div>
 
-<h2 id="ch12-s7">七、新生兒細菌性結膜炎（Bacterial Conjunctivitis in Neonates）</h2>
+<h2 id="ch12-s7" data-w="1871">七、新生兒細菌性結膜炎（Bacterial Conjunctivitis in Neonates）</h2>
 <ul>
 <li id="np-205">病因反映產道與院內菌叢；<mark>最嚴重者為 N gonorrhoeae</mark>。<strong>Ophthalmia neonatorum（新生兒眼炎）</strong>＝出生第 <span class="num">1</span> 個月內的結膜炎，可為細菌、病毒或化學性。<span class="ref">p.315, p.319</span></li>
 <li id="np-206"><strong>新生兒淋菌性結膜炎</strong>：典型為出生後 <mark class="ex-key"><span class="num">3–4 天</span>出現雙側分泌物</mark>（Table 12-6：day <span class="num">1–13</span>，commonly day <span class="num">3–4</span>）；最初數天可為 serosanguineous（血清血性），之後大量膿性滲出、嚴重角膜併發症與 endophthalmitis（眼內炎）⁠<sup class="ex-qref"><span>Q612</span></sup>。<span class="ref">p.315, p.319</span></li>
@@ -559,7 +575,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-232">Cefotaxime <span class="num">100 mg/kg</span> 單次 IV 或 IM 是 CDC 建議的<strong>新生兒非播散性淋菌</strong>療法之一；成人披衣菌結膜炎常用口服 azithromycin、doxycycline、tetracycline 或 erythromycin⁠<sup class="ex-qref"><span>Q848</span></sup>。<span class="ref">p.319, p.322</span></li>
 </ul></div>
 
-<h2 id="ch12-s8">八、披衣菌結膜炎（Chlamydial Conjunctivitis）</h2>
+<h2 id="ch12-s8" data-w="4762">八、披衣菌結膜炎（Chlamydial Conjunctivitis）</h2>
 <ul>
 <li id="np-233">C trachomatis <strong>serotypes A–C</strong> → trachoma（砂眼）；<strong>serotypes D–K</strong> → 成人與新生兒 inclusion conjunctivitis（包涵體結膜炎）。<span class="ref">p.319–320</span></li>
 </ul>
@@ -619,7 +635,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-285">Trachoma 可致 cicatricial entropion，其機轉為 vertical tarsoconjunctival contracture（瞼板結膜垂直收縮）與瞼緣內轉⁠<sup class="ex-qref"><span>Q757</span></sup>。<span class="ref">p.321；BCSC 7 p.256–257</span></li>
 </ul></div>
 
-<h2 id="ch12-s9">九、Parinaud Oculoglandular Syndrome（帕里諾眼腺症候群）</h2>
+<h2 id="ch12-s9" data-w="1951">九、Parinaud Oculoglandular Syndrome（帕里諾眼腺症候群）</h2>
 <ul>
 <li id="np-286">定義：<mark>granulomatous conjunctivitis（肉芽腫性結膜炎）＋ regional lymphadenopathy（區域淋巴結腫大）</mark>，少見。<span class="ref">p.323</span></li>
 <li id="np-287"><strong>Cat-scratch disease（CSD，貓抓病）</strong>先於大多數病例；美國每年約 <span class="num">22,000</span> 人，約 <span class="num">10%</span> 發生結膜炎；<mark class="ex-key">CSD 主要病原為 <strong><i>Bartonella henselae</i></strong>；BCSC 6 明列 POS 最常見病因為 B henselae</mark>⁠<sup class="ex-qref"><span>Q667</span></sup>。<span class="ref">p.323；BCSC 6 p.256</span></li>
@@ -638,7 +654,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-298">POS 的病因（B henselae、M tuberculosis、T pallidum 等）可造成 granulomatous conjunctivitis；本章 acute purulent conjunctivitis 的常見病原為 S pneumoniae、S viridans、H influenzae、S aureus⁠<sup class="ex-qref"><span>Q370</span></sup>。<span class="ref">p.316, p.323</span></li>
 </ul></div>
 
-<h2 id="ch12-s10">十、細菌性角膜炎（Bacterial Keratitis）</h2>
+<h2 id="ch12-s10" data-w="6207">十、細菌性角膜炎（Bacterial Keratitis）</h2>
 <h3 id="ch12-s10-1">危險因子</h3>
 <ul>
 <li id="np-299">常見、威脅視力，可爆發性起病並快速進展的基質發炎；未治療常導致進行性組織破壞、角膜穿孔或感染擴散至鄰近組織。細菌性角膜炎常與破壞角膜上皮完整性的危險因子相關。<span class="ref">p.324</span></li>
@@ -738,7 +754,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-389">細菌性角膜炎手術 LK 可能優於 PK；感染未明顯緩解、病原未明確或已穿孔時，不建議單獨以羊膜移植處理。<span class="ref">p.330</span></li>
 </ul></div>
 
-<h2 id="ch12-s11">十一、非典型分枝桿菌（Atypical Mycobacteria）</h2>
+<h2 id="ch12-s11" data-w="604">十一、非典型分枝桿菌（Atypical Mycobacteria）</h2>
 <ul>
 <li id="np-390">屈光手術後<strong>早發性</strong>角膜炎最常見病原是 <strong><i>Staphylococcus</i></strong>；<mark>LASIK 術後 <span class="num">1 週</span>或更晚發生的感染常與 atypical mycobacteria 相關</mark>。<span class="ref">p.331</span></li>
 <li id="np-391">最常見為 <strong><i>Mycobacterium fortuitum</i></strong> 與 <strong><i>Mycobacterium chelonae</i></strong>，存在於土壤與水；遲發性 post-LASIK 感染、尤其頑固、<strong>nonsuppurative</strong> 浸潤時應懷疑。<span class="ref">p.331</span></li>
@@ -750,7 +766,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-395">分枝桿菌局部濃度：clarithromycin <span class="num">10 mg/mL</span>、amikacin <span class="num">20–40 mg/mL</span>、新一代 fluoroquinolones <span class="num">5–6 mg/mL</span>。<span class="ref">p.328</span></li>
 </ul></div>
 
-<h2 id="ch12-s12">十二、黴菌性角膜炎（Fungal Keratitis）</h2>
+<h2 id="ch12-s12" data-w="2490">十二、黴菌性角膜炎（Fungal Keratitis）</h2>
 <h3 id="ch12-s12-1">流行病學與危險因子</h3>
 <ul>
 <li id="np-396">美國較細菌性少見，占角膜感染 <span class="num">&lt; 10%</span>；絲狀真菌（<i>Fusarium</i>、<i>Aspergillus</i>）多見於溫暖潮濕地區。<span class="ref">p.332</span></li>
@@ -788,7 +804,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-417">疼痛不成比例：黴菌與 <i>Acanthamoeba</i> 都可見；黴菌早期充血可很少。<span class="ref">p.332, p.334</span></li>
 </ul></div>
 
-<h2 id="ch12-s13">十三、<i>Acanthamoeba</i> Keratitis（棘阿米巴角膜炎）</h2>
+<h2 id="ch12-s13" data-w="3991">十三、<i>Acanthamoeba</i> Keratitis（棘阿米巴角膜炎）</h2>
 <h3 id="ch12-s13-1">流行病學與臨床</h3>
 <ul>
 <li id="np-418">2003 年起美國病例增加（東岸與中西部）；兩個病例對照研究發現與 <strong>Complete Moisture Plus</strong> 多功能隱形眼鏡藥水相關 → <span class="num">2007</span> 年 <span class="num">5</span> 月自願回收；疫情持續，<span class="num">2011</span> 年 CDC 再做多州病例對照研究。<span class="ref">p.334</span></li>
@@ -840,7 +856,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-460">BCSC 4：<i>Acanthamoeba</i> 的 cyst 具 double wall（endocyst 與 exocyst）（本章外）⁠<sup class="ex-qref"><span>Q301</span></sup>。<span class="ref ref-ext">BCSC 4 p.98</span></li>
 </ul></div>
 
-<h2 id="ch12-s14">十四、Microsporidiosis（微孢子蟲症）</h2>
+<h2 id="ch12-s14" data-w="1262">十四、Microsporidiosis（微孢子蟲症）</h2>
 <ul>
 <li id="np-461">依免疫狀態可有 <span class="num">2</span> 種表現之一：<mark class="ex-key"><strong>免疫正常者可有 corneal stromal keratitis（基質角膜炎）</strong>；<strong>免疫低下者（尤其 AIDS）可有 conjunctivitis ＋ epithelial keratopathy（上皮角膜病變）</strong></mark>；免疫低下者亦可有播散性感染（鼻竇、呼吸道、胃腸道）⁠<sup class="ex-qref"><span>Q886</span> <span>Q959</span></sup>。<span class="ref">p.338</span></li>
 <li id="np-462">常見症狀：眼刺激、畏光、視力下降、雙側結膜充血但發炎輕微或無；依 microsporidium 的屬（genus）不同，可表現為 stromal keratitis 或 keratoconjunctivitis⁠<sup class="ex-qref"><span>Q959</span></sup>。<span class="ref">p.338</span></li>
@@ -857,7 +873,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-471">免疫正常者可有基質角膜炎（深層基質感染可呈慢性進行性）；免疫低下者可有結膜炎＋上皮角膜病變⁠<sup class="ex-qref"><span>Q959</span></sup>。<span class="ref">p.338</span></li>
 </ul></div>
 
-<h2 id="ch12-s15">十五、Loiasis: Nematodes（羅阿絲蟲症：線蟲）</h2>
+<h2 id="ch12-s15" data-w="238">十五、Loiasis: Nematodes（羅阿絲蟲症：線蟲）</h2>
 <ul>
 <li id="np-472"><i>Loa loa</i> 與其他 filarial nematodes（絲蟲）感染可造成結膜炎與皮膚表現。<span class="ref">p.339</span></li>
 <li id="np-473">Microfilaria（微絲蚴）期經<strong>受感染雌性 deerfly（鹿蠅）</strong>叮咬人傳人，鹿蠅原生於<strong>西非與中非</strong>。<span class="ref">p.339</span></li>
@@ -865,7 +881,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-475"><mark>取出絲蟲即可治癒結膜炎</mark>；播散性感染再給抗寄生蟲治療；可能需同時給類固醇及／或抗組織胺以減少過敏反應。<span class="ref">p.339</span></li>
 </ul>
 
-<h2 id="ch12-s16">十六、Microbial Scleritis（微生物性鞏膜炎）</h2>
+<h2 id="ch12-s16" data-w="1919">十六、Microbial Scleritis（微生物性鞏膜炎）</h2>
 <ul>
 <li id="np-476">細菌與真菌鞏膜感染罕見；<mark>多數由<strong>周邊角膜</strong>的微生物角膜炎延伸而來</mark>（如 CL 相關 pseudomonal keratitis 延伸）。<span class="ref">p.340</span></li>
 <li id="np-477">可能的危險因子：外傷、接觸汙染異物（含 scleral buckles，鞏膜扣帶）；細菌性鞏膜炎可發生於<strong>翼狀胬肉手術</strong>後受損的鞏膜，尤其曾用 <strong>beta irradiation（β 射線）或 mitomycin</strong> 時；鞏膜手術傷口周圍可被侵入，常導致 endophthalmitis。<span class="ref">p.340</span></li>
@@ -935,7 +951,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260732" defer></script>
-<script src="/exam/exam.js?v=20260732" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260733" defer></script>
+<script src="/exam/exam.js?v=20260733" defer></script>
 </body>
 </html>

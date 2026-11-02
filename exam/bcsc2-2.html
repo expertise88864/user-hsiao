@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
-<script src="/assets/trusted-types.js?v=20260732"></script>
+<script src="/assets/trusted-types.js?v=20260733"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>BCSC 2 Ch.2 The Eye：重點與考題 | HsiaoEye · 蕭閔謙醫師</title>
@@ -31,7 +31,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","@id":"https://hsiao.chendermatologist.com/exam/bcsc2-2#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://hsiao.chendermatologist.com/"},{"@type":"ListItem","position":2,"name":"專科考試","item":"https://hsiao.chendermatologist.com/exam"},{"@type":"ListItem","position":3,"name":"BCSC 2 Ch.2","item":"https://hsiao.chendermatologist.com/exam/bcsc2-2"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" id="hs-fonts" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@600&family=JetBrains+Mono:wght@500&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600&display=swap" /></noscript><script>(function(){var l=document.getElementById('hs-fonts');if(!l)return;function apply(){l.rel='stylesheet';}l.addEventListener('load',apply,{once:true});if(window.performance&&performance.getEntriesByName&&performance.getEntriesByName(l.href).length)apply();})();</script>
-<link rel="stylesheet" href="/assets/app.css?v=20260732">
+<link rel="stylesheet" href="/assets/app.css?v=20260733">
 <style data-exam-style>
 :root{--bg:#faf7f2;--surface:#fff;--ink:#2a2620;--ink-2:#5e574e;--muted:#8b8378;--teal-deep:#3a5a7c;--blue-deep:#3a5a7c;--blue-soft:#d6e4f0;--border:#dcd5c8;--line:#ebe4d8;--ex-accent:#3a5a7c;--ex-card:#fff;--ex-soft:#eef3f8}
 html,body{background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif}
@@ -224,6 +224,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -297,6 +309,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
@@ -304,7 +320,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-qno{color:#e7e5e4}
 :root[data-theme="dark"] .ex-cpt .ex-chip-on{color:#14181d}
 </style>
-<script defer src="/assets/telemetry.js?v=20260732"></script>
+<script defer src="/assets/telemetry.js?v=20260733"></script>
 <!-- i-series-applied --><!-- a11y-vt-applied --><meta name="view-transition" content="same-origin"><style data-critical-css>*{box-sizing:border-box;border-width:0;border-style:solid;}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;}body{margin:0;line-height:inherit;}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}h1,h2,h3,h4,h5,h6{margin:0;}.max-w-xl{max-width:36rem;}.max-w-3xl{max-width:48rem;}.max-w-4xl{max-width:56rem;}.max-w-5xl{max-width:64rem;}.max-w-6xl{max-width:72rem;}.mx-auto{margin-left:auto;margin-right:auto;}.px-2{padding-left:0.5rem;padding-right:0.5rem;}.px-3{padding-left:0.75rem;padding-right:0.75rem;}.px-5{padding-left:1.25rem;padding-right:1.25rem;}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem;}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem;}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem;}.py-4{padding-top:1rem;padding-bottom:1rem;}.py-8{padding-top:2rem;padding-bottom:2rem;}.py-10{padding-top:2.5rem;padding-bottom:2.5rem;}.py-12{padding-top:3rem;padding-bottom:3rem;}.py-16{padding-top:4rem;padding-bottom:4rem;}.pt-12{padding-top:3rem;}.pb-6{padding-bottom:1.5rem;}.pb-12{padding-bottom:3rem;}.block{display:block;}.inline-block{display:inline-block;}.inline-flex{display:inline-flex;}.flex{display:flex;}.grid{display:grid;}.hidden{display:none;}.flex-col{flex-direction:column;}.flex-shrink-0{flex-shrink:0;}.flex-wrap{flex-wrap:wrap;}.items-center{align-items:center;}.justify-between{justify-content:space-between;}.justify-center{justify-content:center;}.gap-1{gap:0.25rem;}.gap-2{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}.gap-6{gap:1.5rem;}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}.font-display{font-family:'Noto Serif TC','Fraunces',Georgia,serif;}main > section > .max-w-3xl > h1.font-display{font-size-adjust:ic-width 1;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400;font-style:normal;size-adjust:108.17083353799302%;ascent-override:89.67297082529232%;descent-override:22.187126802134184%;line-gap-override:0%;unicode-range:U+0000-024F;}@font-face{font-family:"Hsiao Summary Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:700;font-style:normal;size-adjust:103.97167305989967%;ascent-override:93.29464184356908%;descent-override:23.08321035304802%;line-gap-override:0%;unicode-range:U+0000-024F;}main > section > .max-w-3xl > .tldr{font-family:Inter,"Hsiao Summary Fallback",'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;}.font-bold{font-weight:700;}.font-semibold{font-weight:600;}.text-center{text-align:center;}.text-left{text-align:left;}.leading-tight{line-height:1.25;}.leading-none{line-height:1;}.text-ink-500{color:#5b6577;}.text-ink-900{color:#0f172a;}.bg-white{background-color:#fff;}.border{border-width:1px;}.border-t{border-top-width:1px;}.border-b{border-bottom-width:1px;}.border-\[var\(--border\)\]{border-color:var(--border);}.rounded-full{border-radius:9999px;}.rounded-lg{border-radius:0.5rem;}@media (min-width:640px){.sm\:hidden{display:none;}.sm\:inline-flex{display:inline-flex;}.sm\:gap-3{gap:0.75rem;}.sm\:px-8{padding-left:2rem;padding-right:2rem;}.sm\:pt-14{padding-top:3.5rem;}.sm\:pt-16{padding-top:4rem;}.sm\:text-\[11\.5px\]{font-size:11.5px;}.sm\:text-\[18px\]{font-size:18px;}.sm\:text-\[24px\]{font-size:24px;}.sm\:text-\[32px\]{font-size:32px;}.sm\:text-\[40px\]{font-size:40px;}.sm\:text-\[42px\]{font-size:42px;}.sm\:text-\[44px\]{font-size:44px;}.sm\:text-\[88px\]{font-size:88px;}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}@media print{header.sticky,footer.mag-footer,.mag-footer,#hs-progress,#hs-progress,/* top scroll progress bar */ #hs-totop,#dn-totop,/* scroll-to-top button */ #hs-cmdk-overlay,#dn-cmdk-overlay,/* search modal */ #hs-share,.hs-share,/* share toolbar */ #hs-bmc,.hs-bmc,/* support author CTA */ #hs-feedback,/* feedback widget */ #hs-related,#hs-related,/* related articles */ #hs-author-bio,#hs-author-bio,/* author bio card */ #hs-toc-float,#dn-toc-float,/* floating sidebar TOC */ #hs-mobile-nav,/* mobile bottom nav */ #hs-theme-toggle,/* theme toggle button */ #hs-font-sizer,/* font size buttons */ #hs-resume-toast,#hs-resume-toast,/* "continue reading" toast */ #hs-en-banner,#dn-en-banner,/* English-mode banner */ .skip-link,.home-faq summary::after,/* + sign on FAQ collapsibles */ .lang-select,.quick-find,.hs-search-wrap,button[aria-label="搜尋"],button[aria-label="Search"],details:not([open]) > *:not(summary),.hs-calc-tools-link,/* calc 'see full guide' link */ #hs-inline-cta,/* mid-article CTA */ .article-list-item .al-arrow,nav,.mag-feature,/* hero magazine cards */ .hs-img-lightbox,.pwa-prompt,.hs-new-pulse,/* NEW badge animation */ .reveal-root + script{display:none !important;}html,body{background:#fff !important;color:#000 !important;font-size:11pt;line-height:1.55;margin:0;padding:0;}body::before,body::after{content:none !important;display:none !important;}article.max-w-3xl,.max-w-3xl,.max-w-5xl,.max-w-6xl{max-width:100% !important;margin:0 !important;padding:0 !important;}.prose svg,article svg{max-height:45vh;display:block;margin:8pt auto;page-break-inside:avoid;}article.max-w-3xl::after{content:"© HsiaoEye · 蕭閔謙醫師 · hsiao.chendermatologist.com — 列印日期：" counter(page);display:block;margin-top:12pt;padding-top:8pt;border-top:1pt solid #333;font-size:9pt;color:#555;text-align:center;}}h1,h2,h3{text-wrap:balance;}@supports (animation-timeline:scroll()){body{scroll-timeline-name:--page;}body:has(.hs-css-progress) #hs-progress{display:none;}}@supports (animation-timeline:scroll()){body.home .reveal,body.home .article-list-item,body.home .myth-card{animation:none !important;opacity:1 !important;transform:none !important;}}@media (hover:none) and (pointer:coarse){header.sticky button[aria-label],header.sticky select.lang-select{min-width:44px;min-height:44px;}.chip{min-height:36px;/* slightly relaxed for inline tag pills */ padding:8px 14px;/* taller padding to make tap area generous */}nav a,footer a{padding-top:8px;padding-bottom:8px;}}.skip-to-main{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;}.skip-to-main:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;background:#0c5159;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.2);}*:focus-visible{outline:2px solid #0c5159;outline-offset:2px;border-radius:4px;}html,body{background:var(--bg,#faf7f2);}</style></head>
 <body class="hs-exam" data-exam-page="chapter"><a href="#main-content" class="skip-to-main" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><style>.dn-skiplinks{position:absolute;left:-9999px;top:auto;z-index:9999}.dn-skiplinks:focus-within{position:fixed;top:8px;left:8px;display:flex;gap:6px}.dn-skiplinks a{background:#0c5159;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2)}.dn-skiplinks a:focus{outline:2px solid #fff;outline-offset:2px}</style><nav class="dn-skiplinks" aria-label="Skip navigation"><a href="#main-content" data-zh="跳至主要內容" data-en="Skip to main content">跳至主要內容</a><a href="#dn-subscribe" data-zh="跳至訂閱" data-en="Skip to subscribe">跳至訂閱</a></nav>
 <header class="sticky top-0 z-40 backdrop-blur border-b" style="background:rgba(247,245,240,.92); border-color:var(--border)">
@@ -332,7 +348,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     </div>
   </div>
 </header>
-<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch2-s1" lang="en">1. Topographic Features of the Globe</a></li><li><a href="#ch2-s2" lang="en">2. Tear Film</a></li><li><a href="#ch2-s3" lang="en">3. Cornea</a></li><li><a href="#ch2-s4" lang="en">4. Limbus</a></li><li><a href="#ch2-s5" lang="en">5. Sclera</a></li><li><a href="#ch2-s6" lang="en">6. Anterior Chamber</a></li><li><a href="#ch2-s7" lang="en">7. Uvea and Iris</a></li><li><a href="#ch2-s8" lang="en">8. Ciliary Body</a></li><li><a href="#ch2-s9" lang="en">9. Choroid</a></li><li><a href="#ch2-s10" lang="en">10. Lens</a></li><li><a href="#ch2-s11" lang="en">11. Neurosensory Retina</a></li><li><a href="#ch2-s12" lang="en">12. Topography of the Retina</a></li><li><a href="#ch2-s13" lang="en">13. RPE and Bruch Membrane</a></li><li><a href="#ch2-s14" lang="en">14. Ora Serrata and Vitreous</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（7 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 2 Ch.2</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 2 · Fundamentals and Principles of Ophthalmology</p><h1 class="ex-h1">Ch.2 The Eye</h1><p class="ex-meta">原書 p.47–106 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="2-2" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="2-2"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch2-s1">一、眼球外觀與腔室（Topographic Features of the Globe）</a></li><li><a href="#ch2-s2">二、淚膜（Tear Film）</a></li><li><a href="#ch2-s3">三、角膜（Cornea）</a></li><li><a href="#ch2-s4">四、角膜緣（Limbus）</a></li><li><a href="#ch2-s5">五、鞏膜（Sclera）</a></li><li><a href="#ch2-s6">六、前房、隅角與房水流出（Anterior Chamber）</a></li><li><a href="#ch2-s7">七、葡萄膜與虹膜（Uvea、Iris）</a></li><li><a href="#ch2-s8">八、睫狀體（Ciliary Body）</a></li><li><a href="#ch2-s9">九、脈絡膜（Choroid）</a></li><li><a href="#ch2-s10">十、水晶體（Lens）</a></li><li><a href="#ch2-s11">十一、視網膜：神經感覺視網膜（Retina、Neurosensory Retina）</a></li><li><a href="#ch2-s12">十二、視網膜地形：黃斑與中心凹（Topography of the Retina）</a></li><li><a href="#ch2-s13">十三、視網膜色素上皮與 Bruch membrane（Retinal Pigment Epithelium、Bruch Membrane）</a></li><li><a href="#ch2-s14">十四、鋸齒緣與玻璃體（Ora Serrata、Vitreous）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 2 第 2 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><div class="ex-note"><h2 id="ch2-s1">一、眼球外觀與腔室（Topographic Features of the Globe）</h2>
+<main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch2-s1" lang="en">1. Topographic Features of the Globe</a></li><li><a href="#ch2-s2" lang="en">2. Tear Film</a></li><li><a href="#ch2-s3" lang="en">3. Cornea</a></li><li><a href="#ch2-s4" lang="en">4. Limbus</a></li><li><a href="#ch2-s5" lang="en">5. Sclera</a></li><li><a href="#ch2-s6" lang="en">6. Anterior Chamber</a></li><li><a href="#ch2-s7" lang="en">7. Uvea and Iris</a></li><li><a href="#ch2-s8" lang="en">8. Ciliary Body</a></li><li><a href="#ch2-s9" lang="en">9. Choroid</a></li><li><a href="#ch2-s10" lang="en">10. Lens</a></li><li><a href="#ch2-s11" lang="en">11. Neurosensory Retina</a></li><li><a href="#ch2-s12" lang="en">12. Topography of the Retina</a></li><li><a href="#ch2-s13" lang="en">13. RPE and Bruch Membrane</a></li><li><a href="#ch2-s14" lang="en">14. Ora Serrata and Vitreous</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（7 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（24 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 2 Ch.2</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 2 · Fundamentals and Principles of Ophthalmology</p><h1 class="ex-h1">Ch.2 The Eye</h1><p class="ex-meta">原書 p.47–106 · 考題 24 題</p><div class="ex-strip" data-progress-chapter="2-2" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="2-2"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch2-s1">一、眼球外觀與腔室（Topographic Features of the Globe）</a></li><li><a href="#ch2-s2">二、淚膜（Tear Film）</a></li><li><a href="#ch2-s3">三、角膜（Cornea）</a></li><li><a href="#ch2-s4">四、角膜緣（Limbus）</a></li><li><a href="#ch2-s5">五、鞏膜（Sclera）</a></li><li><a href="#ch2-s6">六、前房、隅角與房水流出（Anterior Chamber）</a></li><li><a href="#ch2-s7">七、葡萄膜與虹膜（Uvea、Iris）</a></li><li><a href="#ch2-s8">八、睫狀體（Ciliary Body）</a></li><li><a href="#ch2-s9">九、脈絡膜（Choroid）</a></li><li><a href="#ch2-s10">十、水晶體（Lens）</a></li><li><a href="#ch2-s11">十一、視網膜：神經感覺視網膜（Retina、Neurosensory Retina）</a></li><li><a href="#ch2-s12">十二、視網膜地形：黃斑與中心凹（Topography of the Retina）</a></li><li><a href="#ch2-s13">十三、視網膜色素上皮與 Bruch membrane（Retinal Pigment Epithelium、Bruch Membrane）</a></li><li><a href="#ch2-s14">十四、鋸齒緣與玻璃體（Ora Serrata、Vitreous）</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 2 第 2 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch2-s1" data-w="1048">一、眼球外觀與腔室（Topographic Features of the Globe）</h2>
 <h3 id="ch2-s1-1">眼球形狀與大小</h3>
 <ul>
 <li id="np-1">眼球（globe）<mark>不是正球體</mark>：cornea（角膜）曲率半徑 <span class="num">8 mm</span>，小於 sclera（鞏膜）的 <span class="num">12 mm</span>；成人前後徑約 <span class="num">23–25 mm</span>、平均橫徑 <span class="num">24 mm</span> → 呈 <strong>oblate spheroid（扁球體）</strong>，赤道半徑大於極半徑。<span class="ref">p.47</span></li>
@@ -357,7 +373,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-24">玻璃體容積本章前後兩種寫法：開頭寫玻璃體腔占全眼容積三分之二以上（<span class="num">5–6 mL</span>），Table 2-1 列玻璃體腔容積 <span class="num">5 to 6 mL</span>；玻璃體一節寫玻璃體腔占眼球容積五分之四、玻璃體本身容積接近 <span class="num">4.0 mL</span>。<span class="ref">p.48–49, p.103</span></li>
 </ul></div>
 
-<h2 id="ch2-s2">二、淚膜（Tear Film）</h2>
+<h2 id="ch2-s2" data-w="936">二、淚膜（Tear Film）</h2>
 <ul>
 <li id="np-25">角膜與結膜合稱 ocular surface（眼表），表面覆蓋三層 <strong>tear film（淚膜）</strong>：<span class="ref">p.49–50</span></li>
 <li id="np-26">外層 <strong>lipid layer（脂質層）</strong>：由 meibomian glands（瞼板腺）分泌，<mark>有助減少蒸發並穩定淚膜</mark>。<span class="ref">p.49</span></li>
@@ -371,7 +387,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-32">脂質層由 meibomian glands 分泌（有助減少蒸發）；mucoaqueous layer 由淚腺／副淚腺與結膜 goblet cells 分泌；glycocalyx 由 goblet cells 及結膜、角膜上皮細胞分泌⁠<sup class="ex-qref"><span>Q113</span></sup>。<span class="ref">p.49–50</span></li>
 </ul></div>
 
-<h2 id="ch2-s3">三、角膜（Cornea）</h2>
+<h2 id="ch2-s3" data-w="4415">三、角膜（Cornea）</h2>
 <h3 id="ch2-s3-1">總論與 Characteristics of the Central and Peripheral Cornea</h3>
 <ul>
 <li id="np-33">角膜為透明、<strong>無血管</strong>組織，分 5 層：epithelium（上皮）、Bowman layer（包氏層）、stroma（基質）、Descemet membrane（德士密膜）、endothelium（內皮）。<span class="ref">p.50–51</span></li>
@@ -446,7 +462,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-85">角膜內皮源自 neural crest；年輕成人眼約 <span class="num">500,000</span> 個內皮細胞（p.54）；小樑網細胞每眼約 <span class="num">200,000–300,000</span> 個（BCSC 10 p.25）⁠<sup class="ex-qref"><span>Q1221</span></sup>。<span class="ref">p.54；BCSC 10 p.25</span></li>
 </ul></div>
 
-<h2 id="ch2-s4">四、角膜緣（Limbus）</h2>
+<h2 id="ch2-s4" data-w="559">四、角膜緣（Limbus）</h2>
 <ul>
 <li id="np-86">Limbus（又稱 corneoscleral junction（角鞏膜交界））是周邊角膜與前鞏膜的移行帶；解剖學家、病理學家與臨床醫師的定義不同。<span class="ref">p.56</span></li>
 <li id="np-87">重要性有三：與前房隅角的關係、作為手術標記、供應角膜上皮 stem cells；另外也是 <mark>collector channels（集液管）連接 Schlemm canal 與 aqueous veins（房水靜脈）的通道</mark>。<span class="ref">p.47, p.56–57</span></li>
@@ -455,7 +471,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-90"><strong>Surgical limbus（手術角膜緣）</strong>有時稱 gray/blue zone，是白內障與青光眼手術切口的外部標記；藍灰色來自光線穿過斜向的角膜–鞏膜交界面而散射，此移行在 <span class="num">1–2 mm</span> 內逐漸發生；<mark>藍灰帶的後緣是一致的外部標記，在各經線都對應位於小樑網上方的內部角鞏膜交界</mark>。<span class="ref">p.57</span></li>
 </ul>
 
-<h2 id="ch2-s5">五、鞏膜（Sclera）</h2>
+<h2 id="ch2-s5" data-w="1674">五、鞏膜（Sclera）</h2>
 <h3 id="ch2-s5-1">範圍與厚度</h3>
 <ul>
 <li id="np-91">鞏膜覆蓋眼球表面後方的六分之五，前方開口給角膜、後方開口給視神經；直肌肌腱附著於淺層鞏膜膠原；<strong>Tenon capsule（Tenon 囊）</strong>在前方覆蓋鞏膜與直肌，外面再由 bulbar conjunctiva（球結膜）覆蓋，兩者在角膜緣附近融合。<span class="ref">p.57</span></li>
@@ -492,7 +508,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-114">本章的 lamina fusca 是「鞏膜內層」（inner layer of the sclera）；BCSC 4 則把它列為脈絡膜最外層（見第九節）⁠<sup class="ex-qref"><span>Q339</span></sup>。<span class="ref">p.59；BCSC 4 p.218</span></li>
 </ul></div>
 
-<h2 id="ch2-s6">六、前房、隅角與房水流出（Anterior Chamber）</h2>
+<h2 id="ch2-s6" data-w="3748">六、前房、隅角與房水流出（Anterior Chamber）</h2>
 <h3 id="ch2-s6-1">前房與隅角結構</h3>
 <ul>
 <li id="np-115">前房前界為角膜，後界為 iris diaphragm（虹膜）與瞳孔。<span class="ref">p.60</span></li>
@@ -547,7 +563,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-146">Uveoscleral outflow 在年輕人最多占 <span class="num">50%</span>，一般認為隨年齡減少（p.60）；小樑網色素隨年齡增加（p.64）⁠<sup class="ex-qref"><span>Q1251</span></sup>。<span class="ref">p.60, p.64</span></li>
 </ul></div>
 
-<h2 id="ch2-s7">七、葡萄膜與虹膜（Uvea、Iris）</h2>
+<h2 id="ch2-s7" data-w="2887">七、葡萄膜與虹膜（Uvea、Iris）</h2>
 <h3 id="ch2-s7-1">Uvea（葡萄膜）總論</h3>
 <ul>
 <li id="np-147">Uvea（uveal tract）是眼睛主要血管層，三部分：iris（anterior uvea）、ciliary body（anterior pars plicata 與 middle pars plana）、choroid（posterior uvea）。<span class="ref">p.69</span></li>
@@ -587,7 +603,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-169">IPE 源自 neuroectoderm，故 ectropion uveae 是誤稱。<span class="ref">p.74</span></li>
 </ul></div>
 
-<h2 id="ch2-s8">八、睫狀體（Ciliary Body）</h2>
+<h2 id="ch2-s8" data-w="2440">八、睫狀體（Ciliary Body）</h2>
 <h3 id="ch2-s8-1">形態與分區</h3>
 <ul>
 <li id="np-170">橫切面呈三角形，連接前後段；頂點朝後指向 ora serrata，底部發出虹膜；<mark>睫狀體與鞏膜唯一的附著在其底部</mark>——縱行肌纖維附著於 scleral spur。<span class="ref">p.74</span></li>
@@ -629,7 +645,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-193">短睫狀神經的副交感纖維約 <span class="num">97%</span> 給睫狀肌、約 <span class="num">3%</span> 給虹膜括約肌。<span class="ref">p.78</span></li>
 </ul></div>
 
-<h2 id="ch2-s9">九、脈絡膜（Choroid）</h2>
+<h2 id="ch2-s9" data-w="1980">九、脈絡膜（Choroid）</h2>
 <h3 id="ch2-s9-1">分層與血流</h3>
 <ul>
 <li id="np-194">脈絡膜是葡萄膜後部，<mark class="ex-key">供應外層視網膜養分</mark>；平均厚 <span class="num">0.25 mm</span>，含 3 層血管：<strong>choriocapillaris（脈絡膜微血管層，最內層）</strong>、中層小血管 <strong>Sattler layer</strong>、外層大血管 <strong>Haller layer</strong>⁠<sup class="ex-qref"><span>Q339</span></sup>。<span class="ref">p.79</span></li>
@@ -658,7 +674,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-207">Fluorescein 等小分子可穿過 choriocapillaris 有窗孔的內皮，但不會從中、大型脈絡膜血管滲漏（p.81–82）；Fig 2-43 大鼠視網膜切片：fluorescein 自有窗孔的 choriocapillaris 漏出使脈絡膜瀰漫著色，進一步滲入外層視網膜被 RPE 擋住（p.94）。<span class="ref">p.81–82, p.94</span></li>
 </ul></div>
 
-<h2 id="ch2-s10">十、水晶體（Lens）</h2>
+<h2 id="ch2-s10" data-w="2237">十、水晶體（Lens）</h2>
 <h3 id="ch2-s10-1">大小、屈光與調節</h3>
 <ul>
 <li id="np-208">雙凸結構，位於後房與瞳孔正後方；<mark>貢獻一般成人眼 <span class="num">60.00 D</span> 聚焦力中的 <span class="num">20.00 D</span></mark>。<span class="ref">p.82</span></li>
@@ -712,7 +728,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-236">本章同時出現全眼 <span class="num">58.60 D</span>（角膜一節）與 <span class="num">60.00 D</span>（水晶體一節）兩個數字；角膜 <span class="num">43.25 D</span>、水晶體 <span class="num">20.00 D</span>。<span class="ref">p.51, p.82</span></li>
 </ul></div>
 
-<h2 id="ch2-s11">十一、視網膜：神經感覺視網膜（Retina、Neurosensory Retina）</h2>
+<h2 id="ch2-s11" data-w="4738">十一、視網膜：神經感覺視網膜（Retina、Neurosensory Retina）</h2>
 <h3 id="ch2-s11-1">眼底與視網膜兩部分</h3>
 <ul>
 <li id="np-237"><strong>Fundus oculi（眼底）</strong>是眼底鏡可見的部分：視網膜、其血管與視神經（前表面即 optic disc（視盤））；眼底的紅色來自光線經脈絡膜微血管床、由後方鞏膜反射。<span class="ref">p.86–87</span></li>
@@ -783,7 +799,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-283">結構支持＝Muller cells 與其他膠細胞；inner BRB＝視網膜血管內皮（加 pericytes、膠細胞）；outer BRB＝RPE tight junctions⁠<sup class="ex-qref"><span>Q126</span></sup>。<span class="ref">p.92–94</span></li>
 </ul></div>
 
-<h2 id="ch2-s12">十二、視網膜地形：黃斑與中心凹（Topography of the Retina）</h2>
+<h2 id="ch2-s12" data-w="1959">十二、視網膜地形：黃斑與中心凹（Topography of the Retina）</h2>
 <ul>
 <li id="np-284">視網膜厚度依部位差異大：<mark>最厚在視神經旁的 papillomacular bundle（<span class="num">0.23 mm</span>），最薄在 foveola（<span class="num">0.10 mm</span>）與 ora serrata（<span class="num">0.11 mm</span>）</mark>。<span class="ref">p.97</span></li>
 <li id="np-285">Fig 2-47：papillomacular bundle 的 GCL 最厚；macula 的 GCL 為 ≥2 層細胞；周邊視網膜 GCL 單層、內外核層較薄；fovea 只有 ONL 與感光細胞。<span class="ref">p.98</span></li>
@@ -820,7 +836,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-315">Parafovea 寬 <span class="num">0.5 mm</span>、perifovea 寬 <span class="num">1.5 mm</span>；fovea 直徑約 <span class="num">1.5 mm</span>。<span class="ref">p.97, p.100</span></li>
 </ul></div>
 
-<h2 id="ch2-s13">十三、視網膜色素上皮與 Bruch membrane（Retinal Pigment Epithelium、Bruch Membrane）</h2>
+<h2 id="ch2-s13" data-w="2496">十三、視網膜色素上皮與 Bruch membrane（Retinal Pigment Epithelium、Bruch Membrane）</h2>
 <h3 id="ch2-s13-1">RPE 構造與功能</h3>
 <ul>
 <li id="np-316">RPE 由 optic cup 外層發育，為單層六角形細胞，由視神經頭向前延伸到 ora serrata，在此與睫狀體色素上皮相接。<span class="ref">p.100</span></li>
@@ -853,7 +869,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-336">健康成人眼 RPE 內看不到分裂相；胎兒或嬰兒眼 <span class="num">4</span>–<span class="num">6 million</span> 個 RPE 細胞，之後細胞數增加相對較少。<span class="ref">p.101</span></li>
 </ul></div>
 
-<h2 id="ch2-s14">十四、鋸齒緣與玻璃體（Ora Serrata、Vitreous）</h2>
+<h2 id="ch2-s14" data-w="2430">十四、鋸齒緣與玻璃體（Ora Serrata、Vitreous）</h2>
 <h3 id="ch2-s14-1">Ora Serrata（鋸齒緣）</h3>
 <ul>
 <li id="np-337">Ora serrata 分隔視網膜與 pars plana；距 Schwalbe line 為 <span class="num">5.75 mm</span>（鼻側）至 <span class="num">6.50 mm</span>（顳側）；近視眼距離較長、遠視較短；外部位置在 <strong>spiral of Tillaux</strong> 之下⁠<sup class="ex-qref"><span>Q155</span></sup>。<span class="ref">p.103</span></li>
@@ -930,7 +946,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
     <span data-zh="Made with patience, in Taiwan." data-en="Made with patience, in Taiwan.">Made with patience, in Taiwan.</span>
   </div>
 </footer>
-<script src="/blog/blog-shared.min.js?v=20260732" defer></script>
-<script src="/exam/exam.js?v=20260732" defer></script>
+<script src="/blog/blog-shared.min.js?v=20260733" defer></script>
+<script src="/exam/exam.js?v=20260733" defer></script>
 </body>
 </html>

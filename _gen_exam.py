@@ -620,6 +620,23 @@ def key_marks(fragment: str) -> str:
     out.append(fragment[pos:])
     return "".join(out)
 
+# Chapter reading rounds (owner 2026-11-02, as on the dermatology exam section): exam.js
+# fills this line with the round and how much of the notes has been read.
+READING_STATUS = '<p class="ex-reading" id="ex-reading" hidden></p>'
+
+
+def note_weights(fragment: str) -> str:
+    """Give every note <h2> a data-w: the visible characters (no spaces, no question
+    labels) up to the next <h2>. exam.js counts a section as read after it has been on
+    screen for a time that grows with this weight, and weighs coverage by it."""
+    parts = re.split(r"(<h2\b[^>]*>)", fragment)
+    for i in range(1, len(parts), 2):
+        text = re.sub(r'<sup class="ex-qref">.*?</sup>', "", parts[i + 1], flags=re.S)
+        text = html.unescape(re.sub(r"<[^>]+>", "", text))
+        weight = max(1, len(re.sub(r"\s+", "", text)))
+        parts[i] = parts[i][:-1] + f' data-w="{weight}">'
+    return "".join(parts)
+
 
 def expand_hits(fragment: str, key: str, on_page: set[int]) -> str:
     def repl(m: re.Match) -> str:
@@ -673,8 +690,8 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         notes_html = (f'<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>{toc_html}'
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'
                       f'<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p>'
-                      f"{NOTES_LEGEND}"
-                      f'<div class="ex-note">{taxa_html(expand_hits(note, key, {q["n"] for q in qs}))}</div></section>'
+                      f"{NOTES_LEGEND}{READING_STATUS}"
+                      f'<div class="ex-note">{note_weights(taxa_html(expand_hits(note, key, {q["n"] for q in qs})))}</div></section>'
                       f"{concepts_html}")
     else:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
@@ -718,7 +735,7 @@ def hub_page(data: dict, version: str) -> str:
     peak = len(ranked[0][1]) if ranked else 1
     badge = '<span class="ex-badge">有重點</span>'
     rows = "".join(
-        f'<tr><td><a href="/exam/{slug(k)}">BCSC {chapters[k]["book"]} Ch.{chapters[k]["ch"]} {esc(chapters[k]["title"])}</a>'
+        f'<tr data-ch="{k}"><td><a href="/exam/{slug(k)}">BCSC {chapters[k]["book"]} Ch.{chapters[k]["ch"]} {esc(chapters[k]["title"])}</a>'
         f'{" " + badge if k in data["notes"] else ""}</td><td class="ex-num">{len(qs)}</td>'
         f'<td class="ex-bar-cell"><span class="ex-bar" style="width:{round(100 * len(qs) / peak)}%"></span></td></tr>'
         for k, qs in ranked
@@ -733,7 +750,7 @@ def hub_page(data: dict, version: str) -> str:
             count += n
             label = f"Ch.{ch['ch']} {esc(ch['title'])}"
             extra = f' <span class="ex-count">{n} 題</span>' + (" " + badge if key in data["notes"] else "")
-            items.append(f'<li><a href="/exam/{slug(key)}">{label}</a>{extra}</li>' if n or key in data["notes"]
+            items.append(f'<li data-ch="{key}"><a href="/exam/{slug(key)}">{label}</a>{extra}</li>' if n or key in data["notes"]
                          else f'<li class="ex-none">{label}{extra}</li>')
         books_html.append(
             f'<details class="ex-part"><summary>BCSC {book["book"]} {esc(book["title"])} '
@@ -880,6 +897,9 @@ def progress_page(version: str) -> str:
         '<p class="ex-kicker">複習工具</p><h1 class="ex-h1">讀書進度</h1>'
         '<p class="ex-meta">依 BCSC 章節統計已作答題數、正確率與最後讀的日期，並可勾選「課本已讀完」。'
         '正確率以每題最近一次作答計算；作答紀錄只存在這台裝置的瀏覽器裡（不同電腦或手機不會同步）。</p>'
+        '<p class="ex-meta">「重點閱讀」欄記錄各章重點整理讀了幾次：每一段在畫面上停留夠久才算讀過，'
+        '讀過約 75% 算讀完一次（✓ 後面是次數），之後從 0% 開始下一輪；同樣只存在這台裝置。'
+        '讀完過的章節在考試區首頁也會打勾。</p>'
         '<div id="ex-progress" class="ex-list"><p class="ex-pending">進度載入中；這個功能需要啟用 JavaScript。</p></div>'
         '<div class="ex-toolbar"><button type="button" class="ex-clear-progress">清除作答紀錄</button></div>'
     )
@@ -1236,6 +1256,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-resume-top{border:1px solid var(--ex-accent);border-radius:9999px;padding:3px 12px;font-size:12.5px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
 .ex-resume-close{border:0;background:none;color:var(--ink-2);font-size:18px;line-height:1;padding:4px 8px;border-radius:6px;cursor:pointer}
 .ex-resume-close:hover{background:var(--ex-soft)}
+.ex-reading{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;background:rgba(58,90,124,.07);border-radius:9999px;padding:4px 6px 4px 14px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.ex-reading[hidden]{display:none}
+.ex-reading-reset{border:0;background:none;color:var(--ex-accent);font-size:12.5px;padding:2px 8px;border-radius:9999px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-reading-reset:hover{background:var(--ex-soft)}
+.ex-toast{position:fixed;left:50%;bottom:20px;top:auto;transform:translateX(-50%);z-index:40;width:max-content;max-width:calc(100vw - 32px);margin:0}
+.ex-rd-badge{display:inline-block;font-size:11px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:0 6px;margin-left:6px;white-space:nowrap}
+.ex-prog .ex-rd-badge{margin:0 6px 0 0}
+.ex-rd-meter{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ex-rd-bar{display:inline-block;width:40px;height:6px;border-radius:9999px;background:#e7e0d3;overflow:hidden}
+.ex-rd-fill{display:block;height:100%;background:#3a5a7c}
+.ex-prog td.ex-rd{white-space:nowrap}
+@media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
 .ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
@@ -1309,6 +1341,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
+:root[data-theme="dark"] .ex-rd-badge{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-rd-bar{background:#36404b}
+:root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
