@@ -123,6 +123,14 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc2-2" />
   </url>
   <url>
+    <loc>https://hsiao.chendermatologist.com/exam/bcsc2-4</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc2-4" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc2-4" />
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc2-6</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -161,6 +169,14 @@
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc3-5" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc3-5" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/exam/bcsc3-6</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc3-6" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc3-6" />
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc3-7</loc>
@@ -443,6 +459,14 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc10-8" />
   </url>
   <url>
+    <loc>https://hsiao.chendermatologist.com/exam/bcsc10-9</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc10-9" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc10-9" />
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc10-10</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -539,6 +563,14 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc12-5" />
   </url>
   <url>
+    <loc>https://hsiao.chendermatologist.com/exam/bcsc12-7</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc12-7" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc12-7" />
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc12-11</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -569,6 +601,14 @@
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc13-5" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc13-5" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/exam/bcsc13-7</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/bcsc13-7" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/bcsc13-7" />
   </url>
 
   <!-- ===== Published articles ===== -->
