@@ -113,6 +113,25 @@ test('hub search: Enter opens the top hit; 「再顯示」 is reachable from the
   await Promise.all([page.waitForURL(url => url.pathname === '/exam/bcsc12-11'), input.press('Enter')]);
 });
 
+test('hub search: clicking 「再顯示」 keeps the keyboard working (PR #82 review)', async ({ page }) => {
+  await signedOut(page);
+  await page.goto('/exam');
+  const input = page.getByLabel('搜尋疾病（全名或縮寫）');
+  await input.fill('pvrl');
+  const moreId = await page.getByRole('option', { name: /^再顯示 \d+ 段$/ }).first().getAttribute('id');
+  const more = page.locator('#' + moreId);
+  await more.click();
+  // The button is gone; focus is back in the input with the first revealed paragraph chosen.
+  await expect(more).toHaveCount(0);
+  await expect(input).toBeFocused();
+  const first = await input.getAttribute('aria-activedescendant');
+  expect(first).toBeTruthy();
+  await input.press('ArrowDown');
+  await expect(input).not.toHaveAttribute('aria-activedescendant', first);
+  const href = await page.locator('#' + await input.getAttribute('aria-activedescendant')).getAttribute('href');
+  await Promise.all([page.waitForURL(url => href.startsWith(url.pathname)), input.press('Enter')]);
+});
+
 test('ranked names: whole-word abbreviations, glossary full names and Chinese names', async ({ page }) => {
   await signedOut(page);
   await page.goto('/exam');

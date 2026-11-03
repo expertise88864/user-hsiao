@@ -1245,6 +1245,9 @@
               var shown = null;
               list.querySelectorAll('li[hidden]').forEach(function (li) { li.hidden = false; shown = shown || li; });
               btn.remove();
+              // The clicked button is gone: give focus back to the combobox input so the
+              // arrow keys and Enter keep working, and select the first revealed paragraph.
+              try { input.focus({ preventScroll: true }); } catch (e) { input.focus(); }
               if (shown) input.dispatchEvent(new CustomEvent('ex-find-focus', { detail: shown.querySelector('[role=option]') }));
             });
             group.appendChild(btn);
