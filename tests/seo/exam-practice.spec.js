@@ -343,3 +343,132 @@ test('changes wait for the cross-tab lock, so a hand-in made meanwhile is not un
   await expect(page.locator('.ex-score')).toHaveText('這份試卷已在其他分頁交卷或放棄，本頁不再計時或保存；請重新整理頁面。');
   expect(await stored(page)).toBeNull();
 });
+
+// PR #83 review: 交卷 must grade the latest stored paper, not this tab's possibly stale
+// view. Another tab's save is written here without a storage event (setItem in this
+// page fires none), as when the event has not arrived yet.
+async function twoTabs(context) {
+  await signIn(context);
+  const a = await context.newPage();
+  await a.goto('/exam/practice');
+  await build(a);
+  await expect.poll(async () => (await stored(a) || {}).id).toBeTruthy();
+  const b = await context.newPage();
+  await b.goto('/exam/practice');
+  await expect(note(b)).toHaveText(RESUMED(10));
+  const ids = await cards(b).evaluateAll(cs => cs.map(c => Number(c.dataset.qid)));
+  return { a, b, ids };
+}
+const elsewhere = (page, change) => page.evaluate(([k, src]) => {
+  const p = JSON.parse(localStorage.getItem(k));
+  (0, eval)('(' + src + ')')(p);
+  p.rev += 1;
+  localStorage.setItem(k, JSON.stringify(p));
+}, [PAPER, change]);
+
+test('交卷 grades the latest stored answers, once (PR #83 review)', async ({ context }) => {
+  const { a, b, ids } = await twoTabs(context);
+  await a.close();
+  const ans = [];
+  for (let i = 0; i < 3; i++) ans.push(await answerOf(card(b, i)));
+  // This tab picked Q1 (saved); another tab then submitted it, recorded it and picked Q2
+  // and Q3 (Q3 differently from this tab's pick, which it made first).
+  await pick(card(b, 0), ans[0]);
+  const wrong2 = await wrongOf(card(b, 2));
+  await pick(card(b, 2), wrong2);
+  await expect.poll(async () => (await stored(b)).sel).toEqual({ [ids[0]]: ans[0], [ids[2]]: wrong2 });
+  await b.evaluate(([n]) => localStorage.setItem('hs:exam:stats', JSON.stringify({ [n]: [1, 1, 5] })), [ids[0]]);
+  await elsewhere(b, `p => { p.done[${ids[0]}] = '${ans[0]}'; delete p.sel[${ids[0]}];
+    p.sel[${ids[1]}] = '${ans[1]}'; p.sel[${ids[2]}] = '${ans[2]}'; }`);
+  await b.getByRole('button', { name: '交卷並計分' }).click();
+  await expect(b.locator('.ex-score')).toHaveText('得分 3 / 10（未作答 7 題）');
+  await expect(card(b, 0)).toHaveAttribute('data-outcome', 'right');
+  await expect(card(b, 1)).toHaveAttribute('data-outcome', 'right');
+  await expect(card(b, 2)).toHaveAttribute('data-outcome', 'right');
+  const stats = await stored(b, 'hs:exam:stats');
+  expect(stats[ids[0]]).toEqual([1, 1, 5]);          // submitted elsewhere: not recorded again
+  expect(stats[ids[1]].slice(0, 2)).toEqual([1, 1]);  // picked elsewhere: recorded once at 交卷
+  expect(stats[ids[2]].slice(0, 2)).toEqual([1, 1]);
+  expect(await stored(b)).toBeNull();
+});
+
+test('交卷 after the paper was handed in or replaced elsewhere grades nothing (PR #83 review)', async ({ context }) => {
+  const { a, b, ids } = await twoTabs(context);
+  await a.close();
+  await pick(card(b, 0), await answerOf(card(b, 0)));
+  await expect.poll(async () => Object.keys((await stored(b)).sel)).toEqual([String(ids[0])]);
+  // Handed in elsewhere (its storage event not here yet).
+  await b.evaluate(k => localStorage.removeItem(k), PAPER);
+  await b.getByRole('button', { name: '交卷並計分' }).click();
+  await expect(b.locator('.ex-score')).toHaveText('這份試卷已在其他分頁交卷或放棄，本頁不再計時或保存；請重新整理頁面。');
+  await expect(b.locator('#ex-practice-list .ex-q[data-outcome]')).toHaveCount(0);
+  expect(await stored(b, 'hs:exam:stats')).toBeNull();
+  await expect(b.getByRole('button', { name: '交卷並計分' })).toBeDisabled();
+
+  // Replaced elsewhere: the new paper stays.
+  const c = await context.newPage();
+  await c.goto('/exam/practice');
+  await build(c);
+  await expect.poll(async () => (await stored(c) || {}).id).toBeTruthy();
+  const d = await context.newPage();
+  await d.goto('/exam/practice');
+  await expect(note(d)).toHaveText(RESUMED(10));
+  await c.close();
+  await pick(card(d, 0), await answerOf(card(d, 0)));
+  await expect.poll(async () => Object.keys((await stored(d)).sel).length).toBe(1);
+  await elsewhere(d, `p => { p.id = 'newer1'; p.sel = {}; }`);
+  const newer = await stored(d);
+  await d.getByRole('button', { name: '交卷並計分' }).click();
+  await expect(d.locator('.ex-score')).toHaveText('已在其他分頁產生新的試卷，本頁不再計時或保存；請重新整理頁面。');
+  await expect(d.locator('#ex-practice-list .ex-q[data-outcome]')).toHaveCount(0);
+  expect(await stored(d)).toEqual(newer);
+  expect(await stored(d, 'hs:exam:stats')).toBeNull();
+});
+
+// PR #83 review: two tabs writing their leave-time checkpoints at once must not lower the
+// time. Tab b's read of the checkpoints is pinned to a snapshot taken before tab a left,
+// so its write lands after a's as in a real race; the paper lock is held meanwhile, as
+// when both pages are being unloaded and never get it.
+test('leave-time checkpoints from two tabs never lower the time (PR #83 review)', async ({ context }) => {
+  await context.clock.install({ time: T0 });
+  await context.clock.pauseAt(T0 + 1000);
+  await signIn(context);
+  const a = await context.newPage();
+  await a.goto('/exam/practice');
+  await build(a);
+  await context.clock.runFor(10000);
+  await expect.poll(async () => (await stored(a)).el).toBe(10000);
+  const b = await context.newPage();
+  await b.goto('/exam/practice');
+  await expect(note(b)).toHaveText(RESUMED(10));
+  await setHidden(b, true);
+  await context.clock.runFor(39000);
+  await expect(timer(a)).toHaveText('00:49');
+  await expect.poll(async () => (await stored(a)).el).toBe(40000);
+  // b reads the checkpoints as they are now.
+  await b.evaluate(() => {
+    const snap = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k.startsWith('hs:exam:paper-time')) snap[k] = localStorage.getItem(k);
+    }
+    const get = Storage.prototype.getItem;
+    Storage.prototype.getItem = function (k) {
+      return String(k).startsWith('hs:exam:paper-time') ? (k in snap ? snap[k] : null) : get.call(this, k);
+    };
+  });
+  const holder = await context.newPage();
+  await holder.goto('/exam/login');
+  await holder.evaluate(k => { navigator.locks.request(k, () => new Promise(() => {})); }, PAPER);
+  await setHidden(a, true);    // a leaves at 49 s
+  await setHidden(b, false);
+  await expect(timer(b)).toHaveText('00:40');
+  await setHidden(b, true);    // b leaves at 40 s, after a
+  await a.close();
+  await b.close();
+  await holder.close();
+  const c = await context.newPage();
+  await c.goto('/exam/practice');
+  await expect(note(c)).toHaveText(RESUMED(10));
+  await expect(timer(c)).toHaveText('00:49');
+});

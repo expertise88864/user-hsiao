@@ -24,8 +24,9 @@
   //   picked, not submitted }, done: { n: option submitted }, el: ms the timer counted,
   //   t: saved ms, set: { b: [BCSC books], c: question count (0 = all), o: 'random' | 'number' } }
   var PAPER_KEY = 'hs:exam:paper';
-  // { id: paper id, el: ms counted } written when the practice page is hidden or left.
-  var PAPER_TIME_KEY = 'hs:exam:paper-time';
+  // hs:exam:paper-time:<page id> = { id: paper id, el: ms counted }, one key per open
+  // practice page, written by that page alone when it is hidden or left.
+  var PAPER_TIME_PREFIX = 'hs:exam:paper-time:';
   var body = document.body;
 
   function store(key, value) {
@@ -235,7 +236,7 @@
   // counts only while the page is shown: initPractice pauses it when the tab is hidden or
   // the page left, so time spent away never counts. A stalled interval (a sleeping
   // computer) adds at most TIMER_GAP. hooks.save runs every 10 s of counted time,
-  // hooks.finish when 交卷 is pressed (before grading).
+  // hooks.finish(gradeAll) when 交卷 is pressed (it grades when ready).
   var TIMER_GAP = 5000;
   function wireExamBar(bar, scope, hooks) {
     var timerEl = bar.querySelector('.ex-timer');
@@ -301,9 +302,14 @@
       accrue();
       if (ms > counted) { counted = ms; render(); }
     }
+    // Grade every card; hooks.finish(gradeAll) decides when (initPractice first brings
+    // the cards up to date with the stored paper).
     finishBtn.addEventListener('click', function () {
       stop();
-      if (hooks.finish) hooks.finish();
+      if (hooks.finish) hooks.finish(gradeAll);
+      else gradeAll();
+    });
+    function gradeAll() {
       setMode('quiz');
       var cards = scope.querySelectorAll('.ex-q:not(.ex-unanswered)');
       var right = 0;
@@ -324,7 +330,7 @@
       scoreEl.textContent = '得分 ' + right + ' / ' + cards.length + (blank ? '（未作答 ' + blank + ' 題）' : '')
         + (ungraded ? '；另有 ' + ungraded + ' 題尚未整理答案，不計分' : '');
       refreshAnswerBar();
-    });
+    }
     return { start: start, stop: stop, pause: pause, run: run, elapsed: elapsed, catchUp: catchUp };
   }
 
@@ -935,15 +941,47 @@
     };
   }
   // A Web Lock is granted asynchronously, and a page being unloaded never gets it, so
-  // the time counted since the last save is also written straight away on leaving, to a
-  // key of its own: only the larger time is kept, so this write cannot undo anything.
+  // the time counted since the last save is also written straight away on leaving. Each
+  // page writes only its own checkpoint key and only raises it, so two pages leaving at
+  // once cannot lower each other's time (PR #83 review); readers take the largest. Under
+  // the paper lock, checkpoints of other papers are removed (pruneTimes).
+  var PAGE_ID = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+  function timeKeys() {
+    var keys = [];
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf(PAPER_TIME_PREFIX) === 0) keys.push(k);
+      }
+    } catch (e) { /* storage disabled */ }
+    return keys;
+  }
+  function checkpoint(key) {
+    var rec = load(key, null);
+    return isMap(rec) && typeof rec.id === 'string' && typeof rec.el === 'number' && isFinite(rec.el) && rec.el >= 0
+      ? { id: rec.id, el: Math.min(rec.el, 36e7) } : null;
+  }
   function paperTime(id) {
-    var rec = load(PAPER_TIME_KEY, null);
-    return isMap(rec) && rec.id === id && typeof rec.el === 'number' && isFinite(rec.el) && rec.el >= 0
-      ? Math.min(rec.el, 36e7) : 0;
+    var ms = 0;
+    timeKeys().forEach(function (k) {
+      var rec = checkpoint(k);
+      if (rec && rec.id === id && rec.el > ms) ms = rec.el;
+    });
+    return ms;
   }
   function saveTime(id, ms) {
-    if (ms > paperTime(id)) storeOk(PAPER_TIME_KEY, { id: id, el: ms });
+    var key = PAPER_TIME_PREFIX + PAGE_ID;
+    var mine = checkpoint(key);
+    if (!mine || mine.id !== id || ms > mine.el) storeOk(key, { id: id, el: ms });
+  }
+  // Under the paper lock: drop every checkpoint not of paper keepId (null: all).
+  function pruneTimes(keepId) {
+    timeKeys().forEach(function (k) {
+      var rec = checkpoint(k);
+      if (!rec || rec.id !== keepId) {
+        try { localStorage.removeItem(k); } catch (e) { /* storage disabled */ }
+      }
+    });
   }
   function storedPaper() {
     var p = normPaper(load(PAPER_KEY, null));
@@ -1087,9 +1125,7 @@
         next.el = Math.max(next.el, timer.elapsed());
         next.t = Date.now();
         if (!storeOk(PAPER_KEY, next)) return;   // keep the edits for the next try
-        if (unsaved && !paperTime(next.id)) {   // the previous paper's time goes with it
-          try { localStorage.removeItem(PAPER_TIME_KEY); } catch (e) { /* storage disabled */ }
-        }
+        pruneTimes(next.id);
         unsaved = false;
         replaces = null;
         edits = [];
@@ -1120,31 +1156,55 @@
       finishBtn.disabled = true;
       discardBtn.hidden = true;
     }
-    // Remove this attempt from storage, never a newer paper begun in another tab.
+    // Under the paper lock: remove attempt id from storage (or, for a paper begun here
+    // and not written yet, the paper it replaces), never a newer paper begun elsewhere.
+    function removeStored(cur, id, wasNew, old) {
+      if (cur && (cur.id === id || (wasNew && cur.id === old))) {
+        try { localStorage.removeItem(PAPER_KEY); } catch (e) { /* storage disabled */ }
+        cur = null;
+      }
+      pruneTimes(cur ? cur.id : null);
+    }
+    function forgetPaper() {
+      paper = null;
+      edits = [];
+      unsaved = false;
+      replaces = null;
+    }
     function dropPaper() {
       var id = paper.id;
       var wasNew = unsaved;
       var old = replaces;
       var wasSynced = synced;
-      paper = null;
-      edits = [];
-      unsaved = false;
-      replaces = null;
+      forgetPaper();
       if (!wasSynced) return;
-      crossTabLock(PAPER_KEY, function () {
-        var cur = storedPaper();
-        if (cur && (cur.id === id || (wasNew && cur.id === old))) {
-          try {
-            localStorage.removeItem(PAPER_KEY);
-            localStorage.removeItem(PAPER_TIME_KEY);
-          } catch (e) { /* storage disabled */ }
-        }
-      });
+      crossTabLock(PAPER_KEY, function () { removeStored(storedPaper(), id, wasNew, old); });
     }
-    function handIn() {
-      if (!paper) return;   // handed in already (交卷 again recounts) or lost
-      dropPaper();
+    // 交卷 (PR #83 review): under the paper lock, merge this page's edits into the
+    // latest stored paper and show it, so answers saved by another tab whose storage
+    // event has not arrived yet are graded (and a submitted one is not recorded again);
+    // then grade and remove the attempt. A paper handed in or replaced elsewhere is not
+    // graded here; the other-tab notice is shown instead.
+    function handIn(gradeAll) {
+      if (!paper) { gradeAll(); return; }   // handed in here already: 交卷 again recounts
       discardBtn.hidden = true;
+      if (!synced) { forgetPaper(); gradeAll(); return; }
+      finishBtn.disabled = true;
+      var id = paper.id;
+      crossTabLock(PAPER_KEY, function () {
+        if (!paper || paper.id !== id) return;   // lost, or a new paper begun here meanwhile
+        var cur = storedPaper();
+        var wasNew = unsaved;
+        var old = replaces;
+        if (!wasNew) {
+          if (!cur || cur.id !== id) { lose(cur); return; }
+          adopt(cur);
+        }
+        removeStored(cur, id, wasNew, old);
+        forgetPaper();
+        finishBtn.disabled = false;
+        gradeAll();
+      });
     }
     discardBtn.addEventListener('click', function () {
       if (!paper) return;
