@@ -882,6 +882,7 @@ def practice_page(data: dict, version: str) -> str:
         '<div class="ex-exam-bar" data-exam-bar hidden>'
         '<span class="ex-timer" aria-live="off">00:00</span>'
         '<button type="button" class="ex-finish">交卷並計分</button>'
+        '<button type="button" class="ex-discard" hidden>放棄這份試卷</button>'
         '<span class="ex-score" aria-live="polite"></span></div>'
         '<div id="ex-practice-list" class="ex-list">'
         '<p class="ex-pending">選好範圍、題數與順序後按「產生試卷」。這個功能需要啟用 JavaScript。</p></div>'
@@ -1477,6 +1478,9 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-exam-bar{position:sticky;top:64px;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line)}
 .ex-timer{font-family:Inter,ui-monospace,monospace;font-size:15px;font-weight:700;min-width:4.5em}
 .ex-score{font-weight:700;color:var(--ex-accent)}
+.ex-exam-bar[hidden]{display:none}
+.ex-exam-bar button:disabled{opacity:.5;cursor:default}
+.ex-exam-bar .ex-ans-bar{position:static;flex-basis:100%;margin:0;padding:2px 0 0;border:0;background:transparent}
 .ex-q{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:14px 0;scroll-margin-top:80px}
 .ex-q-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;font-size:12px;color:var(--muted);margin-bottom:8px}
 .ex-q-no{font-weight:700;color:var(--ink-2)}

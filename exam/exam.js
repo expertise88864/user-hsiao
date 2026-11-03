@@ -19,6 +19,13 @@
   // { chapter key: { g: generation id, r: finished rounds, seen: { h2 id: 1 }, pct: 0-100,
   //   t: saved ms, done: [finish ms, newest 20] } } (see "reading rounds")
   var READING_KEY = 'hs:exam:reading';
+  // The /exam/practice paper not handed in yet (see "practice paper"):
+  // { id: attempt id, rev: save count, ids: [question n, paper order], sel: { n: option
+  //   picked, not submitted }, done: { n: option submitted }, el: ms the timer counted,
+  //   t: saved ms, set: { b: [BCSC books], c: question count (0 = all), o: 'random' | 'number' } }
+  var PAPER_KEY = 'hs:exam:paper';
+  // { id: paper id, el: ms counted } written when the practice page is hidden or left.
+  var PAPER_TIME_KEY = 'hs:exam:paper-time';
   var body = document.body;
 
   function store(key, value) {
@@ -224,27 +231,79 @@
     });
   }
 
-  function wireExamBar(bar, scope) {
+  // Practice paper bar. The timer keeps the time counted so far (not a start time), and
+  // counts only while the page is shown: initPractice pauses it when the tab is hidden or
+  // the page left, so time spent away never counts. A stalled interval (a sleeping
+  // computer) adds at most TIMER_GAP. hooks.save runs every 10 s of counted time,
+  // hooks.finish when 交卷 is pressed (before grading).
+  var TIMER_GAP = 5000;
+  function wireExamBar(bar, scope, hooks) {
     var timerEl = bar.querySelector('.ex-timer');
     var scoreEl = bar.querySelector('.ex-score');
-    var startedAt = null;
+    var finishBtn = bar.querySelector('.ex-finish');
+    var counted = 0;     // ms counted up to `last`
+    var last = null;     // when the running stretch was last counted (null: paused)
     var timer = null;
-    function tick() {
-      var s = Math.floor((Date.now() - startedAt) / 1000);
+    var active = false;  // a paper is being worked on (from start to hand-in)
+    var savedAt = 0;
+    function accrue() {
+      if (last === null) return;
+      var now = Date.now();
+      counted += Math.min(Math.max(now - last, 0), TIMER_GAP);
+      last = now;
+    }
+    function render() {
+      var s = Math.floor(counted / 1000);
       var m = Math.floor(s / 60);
       timerEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
     }
-    function start() {
-      setMode('quiz');
-      scope.querySelectorAll('.ex-q').forEach(function (card) { resetQuestion(card, false); });
-      scoreEl.textContent = '';
-      startedAt = Date.now();
-      if (timer) clearInterval(timer);
-      timer = setInterval(tick, 1000);
-      tick();
+    function tick() {
+      accrue();
+      render();
+      if (counted - savedAt >= 10000) {
+        savedAt = counted;
+        if (hooks.save) hooks.save();
+      }
     }
-    bar.querySelector('.ex-finish').addEventListener('click', function () {
+    function run() {
+      if (!active || timer || document.visibilityState === 'hidden') return;
+      last = Date.now();
+      timer = setInterval(tick, 1000);
+    }
+    function pause() {
+      accrue();
+      last = null;
       if (timer) { clearInterval(timer); timer = null; }
+      render();
+    }
+    // elapsed: time already counted (a resumed paper); keepCards: the cards show the
+    // resumed paper's answers, so they are not reset.
+    function start(elapsed, keepCards) {
+      setMode('quiz');
+      if (!keepCards) scope.querySelectorAll('.ex-q').forEach(function (card) { resetQuestion(card, false); });
+      scoreEl.textContent = '';
+      pause();
+      counted = elapsed > 0 ? elapsed : 0;
+      savedAt = counted;
+      active = true;
+      finishBtn.disabled = false;
+      render();
+      run();
+    }
+    function stop(message) {
+      pause();
+      active = false;
+      if (typeof message === 'string') scoreEl.textContent = message;
+    }
+    function elapsed() { accrue(); return counted; }
+    // Another tab counted further on the same paper: continue from its time.
+    function catchUp(ms) {
+      accrue();
+      if (ms > counted) { counted = ms; render(); }
+    }
+    finishBtn.addEventListener('click', function () {
+      stop();
+      if (hooks.finish) hooks.finish();
       setMode('quiz');
       var cards = scope.querySelectorAll('.ex-q:not(.ex-unanswered)');
       var right = 0;
@@ -264,8 +323,9 @@
       var ungraded = scope.querySelectorAll('.ex-q.ex-unanswered').length;
       scoreEl.textContent = '得分 ' + right + ' / ' + cards.length + (blank ? '（未作答 ' + blank + ' 題）' : '')
         + (ungraded ? '；另有 ' + ungraded + ' 題尚未整理答案，不計分' : '');
+      refreshAnswerBar();
     });
-    return { start: start };
+    return { start: start, stop: stop, pause: pause, run: run, elapsed: elapsed, catchUp: catchUp };
   }
 
   // ---------------------------------------------------------- client-rendered cards
@@ -831,16 +891,274 @@
     return list;
   }
 
+  // ---------------------------------------------------------- practice paper
+  // A paper not handed in yet survives a reload, leaving the page and a later visit
+  // (owner 2026-11-03, as on the dermatology exam section): its questions, the options
+  // picked and submitted, the time counted and the settings are kept in hs:exam:paper on
+  // this device. 交卷 or 放棄這份試卷 removes it; 產生試卷 replaces it.
+  //
+  // Several tabs may show the same paper, so a page never writes back the copy it holds.
+  // Every change made here is kept as an edit; flush() re-reads the stored paper, applies
+  // the edits to it and writes it with rev + 1, all under one cross-tab lock (Web Locks)
+  // where the browser has it, also on leaving the page. A stored paper with another id
+  // (a new paper) or none at all (handed in or given up elsewhere) ends this page's copy.
+  // Answers are recorded in hs:exam:stats / wrong / ans when submitted, as before; a
+  // resumed paper only shows them again.
+  function wholeNumber(v, max) { return typeof v === 'number' && isFinite(v) && v >= 0 && v <= max && Math.floor(v) === v; }
+  function normPaper(p) {
+    if (!isMap(p) || typeof p.id !== 'string' || !/^[a-z0-9]{1,40}$/.test(p.id)) return null;
+    if (!wholeNumber(p.rev, 1e9) || !Array.isArray(p.ids) || !p.ids.length || p.ids.length > 5000) return null;
+    var inPaper = {};
+    for (var i = 0; i < p.ids.length; i++) {
+      var n = p.ids[i];
+      if (!wholeNumber(n, 99999) || n < 1 || own(inPaper, n)) return null;
+      inPaper[n] = true;
+    }
+    function picks(map) {
+      var out = {};
+      if (!isMap(map)) return out;
+      Object.keys(map).forEach(function (n) {
+        if (own(inPaper, n) && typeof map[n] === 'string' && /^[A-Za-z0-9]{1,3}$/.test(map[n])) out[n] = map[n];
+      });
+      return out;
+    }
+    var set = isMap(p.set) ? p.set : {};
+    return {
+      id: p.id, rev: p.rev, ids: p.ids.slice(), sel: picks(p.sel), done: picks(p.done),
+      el: typeof p.el === 'number' && isFinite(p.el) && p.el >= 0 ? Math.min(p.el, 36e7) : 0,
+      t: typeof p.t === 'number' && isFinite(p.t) ? p.t : 0,
+      set: {
+        b: Array.isArray(set.b) ? set.b.filter(function (b) { return typeof b === 'string' && /^\d{1,2}$/.test(b); }) : [],
+        c: wholeNumber(set.c, 5000) ? set.c : -1,
+        o: set.o === 'random' || set.o === 'number' ? set.o : ''
+      }
+    };
+  }
+  // A Web Lock is granted asynchronously, and a page being unloaded never gets it, so
+  // the time counted since the last save is also written straight away on leaving, to a
+  // key of its own: only the larger time is kept, so this write cannot undo anything.
+  function paperTime(id) {
+    var rec = load(PAPER_TIME_KEY, null);
+    return isMap(rec) && rec.id === id && typeof rec.el === 'number' && isFinite(rec.el) && rec.el >= 0
+      ? Math.min(rec.el, 36e7) : 0;
+  }
+  function saveTime(id, ms) {
+    if (ms > paperTime(id)) storeOk(PAPER_TIME_KEY, { id: id, el: ms });
+  }
+  function storedPaper() {
+    var p = normPaper(load(PAPER_KEY, null));
+    if (p) p.el = Math.max(p.el, paperTime(p.id));
+    return p;
+  }
+  function copyPaper(p) { return JSON.parse(JSON.stringify(p)); }
+  // Run fn under the named cross-tab lock (directly where Web Locks are missing).
+  function crossTabLock(name, fn) {
+    var locks = navigator.locks;
+    if (!locks || typeof locks.request !== 'function') { fn(); return; }
+    var ran = false;
+    locks.request(name, function () { ran = true; fn(); }).then(null, function () { if (!ran) fn(); });
+  }
+
   function initPractice(form) {
     var list = document.getElementById('ex-practice-list');
     var note = form.querySelector('.ex-build-note');
     var bar = document.querySelector('[data-exam-bar]');
-    var barApi = wireExamBar(bar, list);
+    var finishBtn = bar.querySelector('.ex-finish');
+    var discardBtn = bar.querySelector('.ex-discard');
+    if (!discardBtn) {   // a page generated before the button existed
+      discardBtn = el('button', 'ex-discard', '放棄這份試卷');
+      discardBtn.type = 'button';
+      discardBtn.hidden = true;
+      finishBtn.parentNode.insertBefore(discardBtn, finishBtn.nextSibling);
+    }
+    var intro = list.firstElementChild ? list.firstElementChild.cloneNode(true) : null;
+    var canStore = storageWorks();
+    var paper = null;      // this page's paper: the stored copy plus this page's edits
+    var synced = false;    // kept in storage (false: storage is off, the paper lives here only)
+    var edits = [];        // changes made here, not merged into the stored paper yet
+    var unsaved = false;   // a paper begun here and not written yet
+    var replaces = null;   // id of the stored paper it replaces
+    var buildSeq = 0;      // a bank request answered after a newer 產生試卷 is dropped
+    var timer = wireExamBar(bar, list, { save: flush, finish: handIn });
+    // 已作答 x／y (the chapter pages' answer bar) inside the sticky timer bar.
+    answerBar = initAnswerBar(list, null, { host: bar, allDone: '本卷題目都作答過了' });
+
     function setAll(checked) {
       form.querySelectorAll('input[name=ex-book]').forEach(function (box) { box.checked = checked; });
     }
     form.querySelector('.ex-books-all').addEventListener('click', function () { setAll(true); });
     form.querySelector('.ex-books-none').addEventListener('click', function () { setAll(false); });
+    // The form shows the settings the stored paper was made with.
+    function applySettings(set) {
+      if (set.b.length) {
+        form.querySelectorAll('input[name=ex-book]').forEach(function (box) { box.checked = set.b.indexOf(box.value) !== -1; });
+      }
+      var select = form.querySelector('select[name=ex-count]');
+      if (set.c >= 0 && select.querySelector('option[value="' + set.c + '"]')) select.value = String(set.c);
+      var radio = set.o ? form.querySelector('input[name=ex-order][value="' + set.o + '"]') : null;
+      if (radio) radio.checked = true;
+    }
+
+    function cards() { return Array.prototype.slice.call(list.querySelectorAll('.ex-q:not(.ex-unanswered)')); }
+    function optionFor(card, key) {
+      var inputs = card.querySelectorAll('input[type=radio]');
+      for (var i = 0; i < inputs.length; i++) if (inputs[i].value === key) return inputs[i];
+      return null;
+    }
+    // Show paper.sel / paper.done on the cards whose shown state differs; returns how many changed.
+    function paint() {
+      var changed = 0;
+      cards().forEach(function (card) {
+        var n = card.getAttribute('data-qid');
+        var picked = card.querySelector('input[type=radio]:checked');
+        var outcome = card.getAttribute('data-outcome');
+        var shownDone = picked && (outcome === 'right' || outcome === 'wrong') ? picked.value : null;
+        var shownSel = picked && !shownDone ? picked.value : null;
+        var done = own(paper.done, n) && optionFor(card, paper.done[n]) ? paper.done[n] : null;
+        var sel = !done && own(paper.sel, n) && optionFor(card, paper.sel[n]) ? paper.sel[n] : null;
+        if (shownDone === done && shownSel === sel && (done || !outcome)) return;
+        changed += 1;
+        resetQuestion(card, false);
+        if (done) {
+          var input = optionFor(card, done);
+          input.checked = true;
+          showGraded(card, input);
+        } else if (sel) {
+          optionFor(card, sel).checked = true;
+        }
+      });
+      refreshAnswerBar();
+      return changed;
+    }
+    function show(pool, data) {
+      clear(list);
+      pool.forEach(function (q, i) {
+        var card = renderCard(q, data, { prefix: (i + 1) + '. ', suffix: '-p' });
+        watch(card);
+        list.appendChild(card);
+      });
+      bar.hidden = false;
+      discardBtn.hidden = false;
+    }
+    // Runs after wireQuestion's own handlers (grading, reset), which were added first.
+    function watch(card) {
+      var n = card.getAttribute('data-qid');
+      var submit = card.querySelector('.ex-submit');
+      var reset = card.querySelector('.ex-reset');
+      if (submit) submit.addEventListener('click', function () {
+        var picked = card.querySelector('input[type=radio]:checked');
+        var outcome = card.getAttribute('data-outcome');
+        if (!picked || (outcome !== 'right' && outcome !== 'wrong')) return;
+        var key = picked.value;
+        edit(function (p) { p.done[n] = key; delete p.sel[n]; });
+      });
+      if (reset) reset.addEventListener('click', function () {
+        edit(function (p) { delete p.done[n]; delete p.sel[n]; });
+      });
+      card.querySelectorAll('input[type=radio]').forEach(function (input) {
+        input.addEventListener('change', function () {
+          if (input.checked) edit(function (p) { if (!own(p.done, n)) p.sel[n] = input.value; });
+        });
+      });
+    }
+
+    function edit(fn) {
+      if (!paper) return;
+      fn(paper);
+      if (!synced) return;
+      edits.push(fn);
+      flush();
+    }
+    function flush() {
+      if (!paper || !synced) return;
+      crossTabLock(PAPER_KEY, function () {
+        if (!paper || !synced) return;   // handed in, given up or lost meanwhile
+        var cur = storedPaper();
+        var next;
+        if (unsaved) {
+          next = copyPaper(paper);       // this page's edits are in it already
+          next.rev = 1;
+        } else {
+          if (!cur || cur.id !== paper.id) { lose(cur); return; }
+          next = cur;
+          edits.forEach(function (fn) { fn(next); });
+          next.rev = cur.rev + 1;
+        }
+        next.el = Math.max(next.el, timer.elapsed());
+        next.t = Date.now();
+        if (!storeOk(PAPER_KEY, next)) return;   // keep the edits for the next try
+        if (unsaved && !paperTime(next.id)) {   // the previous paper's time goes with it
+          try { localStorage.removeItem(PAPER_TIME_KEY); } catch (e) { /* storage disabled */ }
+        }
+        unsaved = false;
+        replaces = null;
+        edits = [];
+        adopt(next);
+      });
+    }
+    // Show a stored copy of this paper (with this page's unsaved edits on top).
+    function adopt(cur) {
+      var view = copyPaper(cur);
+      edits.forEach(function (fn) { fn(view); });
+      paper = view;
+      timer.catchUp(cur.el);
+      if (paint()) answerBar.reapply();
+    }
+    // Another tab saved, handed in or replaced the paper: follow it (nothing is written).
+    function follow() {
+      if (!paper || !synced || unsaved) return;
+      var cur = storedPaper();
+      if (!cur || cur.id !== paper.id) lose(cur);
+      else if (cur.rev !== paper.rev) adopt(cur);
+    }
+    function lose(cur) {
+      paper = null;
+      edits = [];
+      unsaved = false;
+      timer.stop(cur ? '已在其他分頁產生新的試卷，本頁不再計時或保存；請重新整理頁面。'
+        : '這份試卷已在其他分頁交卷或放棄，本頁不再計時或保存；請重新整理頁面。');
+      finishBtn.disabled = true;
+      discardBtn.hidden = true;
+    }
+    // Remove this attempt from storage, never a newer paper begun in another tab.
+    function dropPaper() {
+      var id = paper.id;
+      var wasNew = unsaved;
+      var old = replaces;
+      var wasSynced = synced;
+      paper = null;
+      edits = [];
+      unsaved = false;
+      replaces = null;
+      if (!wasSynced) return;
+      crossTabLock(PAPER_KEY, function () {
+        var cur = storedPaper();
+        if (cur && (cur.id === id || (wasNew && cur.id === old))) {
+          try {
+            localStorage.removeItem(PAPER_KEY);
+            localStorage.removeItem(PAPER_TIME_KEY);
+          } catch (e) { /* storage disabled */ }
+        }
+      });
+    }
+    function handIn() {
+      if (!paper) return;   // handed in already (交卷 again recounts) or lost
+      dropPaper();
+      discardBtn.hidden = true;
+    }
+    discardBtn.addEventListener('click', function () {
+      if (!paper) return;
+      if (!window.confirm('放棄這份未交卷的試卷？已送出的答案仍會保留在作答紀錄與錯題本。')) return;
+      dropPaper();
+      timer.stop('');
+      clear(list);
+      if (intro) list.appendChild(intro.cloneNode(true));
+      bar.hidden = true;
+      answerBar.reset();
+      refreshAnswerBar();
+      note.textContent = '已放棄這份試卷。';
+    });
+
     form.querySelector('.ex-build').addEventListener('click', function () {
       var books = [];
       form.querySelectorAll('input[name=ex-book]:checked').forEach(function (box) { books.push(box.value); });
@@ -848,24 +1166,103 @@
       var count = Number(form.querySelector('select[name=ex-count]').value);
       var order = form.querySelector('input[name=ex-order]:checked').value;
       note.textContent = '題目載入中…';
+      var seq = ++buildSeq;
       examData().then(function (data) {
+        if (seq !== buildSeq) return;
         var pool = data.questions.filter(function (q) {
           return q.ch.some(function (key) { return books.indexOf(key.split('-')[0]) !== -1; });
         });
         if (!pool.length) { note.textContent = '選的範圍內沒有符合的題目'; return; }
         if (order === 'random') shuffle(pool);
         if (count > 0) pool = pool.slice(0, count);
-        clear(list);
-        pool.forEach(function (q, i) { list.appendChild(renderCard(q, data, { prefix: (i + 1) + '. ', suffix: '-p' })); });
+        var old = canStore ? storedPaper() : null;
+        paper = {
+          id: Date.now().toString(36) + Math.random().toString(36).slice(2, 10), rev: 0,
+          ids: pool.map(function (q) { return q.n; }), sel: {}, done: {}, el: 0, t: Date.now(),
+          set: { b: books, c: count, o: order }
+        };
+        synced = canStore;
+        unsaved = canStore;
+        replaces = old ? old.id : null;
+        edits = [];
+        show(pool, data);
         note.textContent = '共 ' + pool.length + ' 題，計時開始';
-        bar.hidden = false;
-        barApi.start();
+        timer.start(0, false);
+        answerBar.reset();
+        refreshAnswerBar();
+        flush();
         list.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }).catch(function (err) {
+        if (seq !== buildSeq) return;
         note.textContent = '';
         lockedNote(list, err, '考古卷');
       });
     });
+
+    // A paper generated earlier and not handed in continues where it was left. Signed
+    // out, it stays stored and continues once the bank loads (after signing in).
+    function resume() {
+      var saved = canStore && !paper ? storedPaper() : null;
+      if (!saved) return;
+      applySettings(saved.set);
+      note.textContent = '載入上次未交卷的試卷…';
+      var seq = buildSeq;
+      examData().then(function (data) {
+        if (seq !== buildSeq || paper) return;
+        var cur = storedPaper();   // handed in or replaced in another tab meanwhile?
+        if (!cur) { note.textContent = ''; return; }
+        var byN = {};
+        data.questions.forEach(function (q) { byN[q.n] = q; });
+        var pool = cur.ids.map(function (n) { return byN[n]; }).filter(Boolean);
+        paper = cur;
+        synced = true;
+        unsaved = false;
+        replaces = null;
+        edits = [];
+        if (!pool.length) { dropPaper(); note.textContent = ''; return; }
+        applySettings(cur.set);
+        show(pool, data);
+        timer.start(cur.el, true);
+        answerBar.reset();
+        paint();
+        note.textContent = '已接續上次未交卷的試卷（共 ' + pool.length + ' 題）。按「產生試卷並開始計時」會改出一份新的試卷。';
+      }).catch(function (err) {
+        if (seq !== buildSeq || paper) return;
+        if (err && err.login) {
+          note.textContent = '有一份未交卷的試卷（共 ' + saved.ids.length + ' 題），登入題庫後會接續作答。';
+          lockedNote(list, err, '考古卷');
+        } else {
+          note.textContent = '題庫載入失敗，請重新整理頁面。';
+        }
+      });
+    }
+
+    // Time away from the page is not counted: pause when hidden or left, save, and
+    // on return continue from the latest stored copy.
+    function leave() {
+      timer.pause();
+      if (synced) saveTime(paper.id, timer.elapsed());
+      flush();
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (!paper) return;
+      if (document.visibilityState === 'hidden') { leave(); return; }
+      follow();
+      if (paper) timer.run();
+    });
+    window.addEventListener('pagehide', function () { if (paper) leave(); });
+    // Back-forward cache: a page that had the bank reloads (see the pageshow handler
+    // below) and resumes from storage; a signed-out page tries to resume again.
+    window.addEventListener('pageshow', function (ev) {
+      if (!ev.persisted) return;
+      if (!paper) { resume(); return; }
+      follow();
+      if (paper) timer.run();
+    });
+    window.addEventListener('storage', function (ev) {
+      if (ev.key === null || ev.key === PAPER_KEY) follow();
+    });
+    resume();
   }
 
   // ---------------------------------------------------------- search page
@@ -1683,12 +2080,7 @@
     }
     function stored() { return readingMap()[key] || null; }
     // Run fn under the cross-tab reading lock (directly where Web Locks are missing).
-    function locked(fn) {
-      var locks = navigator.locks;
-      if (!locks || typeof locks.request !== 'function') { fn(); return; }
-      var ran = false;
-      locks.request(READING_KEY, function () { ran = true; fn(); }).then(null, function () { if (!ran) fn(); });
-    }
+    function locked(fn) { crossTabLock(READING_KEY, fn); }
     function resetTimers() { secs.forEach(function (sec) { sec.ms = 0; }); }
 
     var pending = {};
@@ -1987,7 +2379,12 @@
   // ---------------------------------------------------------- chapter answer bar
   // Quiz mode only (CSS hides it in browse mode): 「已作答 X／Y 題・未作答 Z 題」, a
   // button to the next unanswered question, and 「清除本章作答紀錄」 in the tools row.
-  function initAnswerBar(box, tools) {
+  // opts.host: put the bar inside this (sticky) element instead of above box (the
+  // practice paper's timer bar); opts.allDone: the message when nothing is left.
+  // A card left blank when a practice paper was handed in counts as not answered.
+  function initAnswerBar(box, tools, opts) {
+    opts = opts || {};
+    function answered(card) { return card.classList.contains('ex-done') && card.getAttribute('data-outcome') !== 'blank'; }
     function cards() {
       var seen = {};
       return Array.prototype.filter.call(box.querySelectorAll('.ex-q:not(.ex-unanswered)'), function (card) {
@@ -2010,7 +2407,9 @@
     bar.appendChild(only);
     bar.appendChild(next);
     bar.appendChild(live);
-    box.parentNode.insertBefore(bar, box);
+    if (opts.host) opts.host.appendChild(bar);
+    else box.parentNode.insertBefore(bar, box);
+    var sticky = opts.host || bar;
     var lastJump = null;
     var wipe = el('button', 'ex-ans-clear', '清除本章作答紀錄');
     wipe.type = 'button';
@@ -2018,7 +2417,7 @@
 
     function refresh() {
       var list = cards();
-      var done = list.filter(function (c) { return c.classList.contains('ex-done'); }).length;
+      var done = list.filter(answered).length;
       bar.hidden = !list.length;
       wipe.hidden = !list.length;
       status.textContent = '已作答 ' + done + '／' + list.length + ' 題・未作答 ' + (list.length - done) + ' 題';
@@ -2040,7 +2439,7 @@
           shown = false;
         } else if (node.classList.contains('ex-q')) {
           // Cards without an answer key cannot be answered and are not counted either.
-          var hide = on && (node.classList.contains('ex-done') || node.classList.contains('ex-unanswered'));
+          var hide = on && (answered(node) || node.classList.contains('ex-unanswered'));
           node.classList.toggle('ex-hide', hide);
           if (!hide) shown = true;
         }
@@ -2053,7 +2452,7 @@
       // Search onward from the question at the top of the screen (or the one just
       // jumped to, while a smooth scroll is still on its way), wrapping to the start.
       var current = -1;
-      var y = headerBottom() + bar.offsetHeight + 24;
+      var y = headerBottom() + sticky.offsetHeight + 24;
       for (var i = 0; i < list.length; i++) {
         if (list[i].getBoundingClientRect().top > y) break;
         current = i;
@@ -2061,14 +2460,14 @@
       if (lastJump && Date.now() - lastJump.t < 1500) current = Math.max(current, list.indexOf(lastJump.card));
       for (var k = 1; k <= list.length; k++) {
         var card = list[(current + k) % list.length];
-        if (card.classList.contains('ex-done')) continue;
-        scrollToY(card.getBoundingClientRect().top + window.pageYOffset - headerBottom() - bar.offsetHeight - 12, true);
+        if (answered(card)) continue;
+        scrollToY(card.getBoundingClientRect().top + window.pageYOffset - headerBottom() - sticky.offsetHeight - 12, true);
         card.setAttribute('tabindex', '-1');
         try { card.focus({ preventScroll: true }); } catch (e) { card.focus(); }
         lastJump = { card: card, t: Date.now() };
         return;
       }
-      live.textContent = '本章題目都作答過了';
+      live.textContent = opts.allDone || '本章題目都作答過了';
     });
     wipe.addEventListener('click', function () {
       var all = Array.prototype.slice.call(box.querySelectorAll('.ex-q'));
@@ -2083,7 +2482,12 @@
       refresh();
       live.textContent = '已清除本章作答紀錄';
     });
-    return { refresh: refresh };
+    return {
+      refresh: refresh,
+      reset: function () { setOnlyTodo(false); },
+      // Answers shown meanwhile (another tab's) are filtered like the rest.
+      reapply: function () { setOnlyTodo(only.getAttribute('aria-pressed') === 'true'); }
+    };
   }
 
   // ---------------------------------------------------------- chapter questions
