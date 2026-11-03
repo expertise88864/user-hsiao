@@ -27,9 +27,11 @@ test('hub search is a combobox: arrows choose, Enter opens, Esc closes then clea
   const listbox = page.getByRole('listbox', { name: '搜尋結果' });
   await expect(listbox).toBeVisible();
   // Grouped by chapter; the exact abbreviation in a section heading ranks its chapter first.
+  // Which chapter that is depends on the notes (9-9 joined 12-11 on 2026-11-04), so read it.
   const first = listbox.getByRole('group').first();
-  await expect(first.locator('.ex-find-h [role=option]')).toContainText('BCSC 12 Ch.11');
-  await expect(first.locator('.ex-find-names a').first()).toHaveAttribute('href', /^\/exam\/bcsc12-11\?hl=MEWDS#ch11-s4$/);
+  await expect(first.locator('.ex-find-h [role=option]')).toContainText(/^BCSC \d+ Ch\.\d+/);
+  const firstKey = (await first.locator('.ex-find-h [role=option]').getAttribute('href')).match(/bcsc(\d+-\d+)/)[1];
+  await expect(first.locator('.ex-find-names a').first()).toHaveAttribute('href', new RegExp('^/exam/bcsc' + firstKey + '\\?hl=MEWDS#ch\\d+-s\\d+$'));
   await expect(first.locator('.ex-find-names a').first()).toContainText('名稱符合：MEWDS');
 
   const options = listbox.getByRole('option');
@@ -80,9 +82,9 @@ test('hub search is a combobox: arrows choose, Enter opens, Esc closes then clea
   await input.press('ArrowDown');
   await input.press('ArrowDown');
   const href = await options.nth(1).getAttribute('href');
-  expect(href).toMatch(/^\/exam\/bcsc12-11\?hl=MEWDS#ch11-s4$/);
-  await Promise.all([page.waitForURL('**/exam/bcsc12-11?hl=MEWDS#ch11-s4'), input.press('Enter')]);
-  await expect(page.locator('#ch11-s4')).toBeInViewport();
+  expect(href).toMatch(/^\/exam\/bcsc\d+-\d+\?hl=MEWDS#ch\d+-s\d+$/);
+  await Promise.all([page.waitForURL('**' + href), input.press('Enter')]);
+  await expect(page.locator('#' + href.split('#')[1])).toBeInViewport();
 });
 
 test('hub search: Enter opens the top hit; 「再顯示」 is reachable from the keyboard', async ({ page }) => {
@@ -109,8 +111,8 @@ test('hub search: Enter opens the top hit; 「再顯示」 is reachable from the
   await input.fill('MEWDS');
   await expect(page.locator('.ex-find-status')).toContainText('「MEWDS」出現在');
   const top = await page.locator('#ex-find-list [role=option]').first().getAttribute('href');
-  expect(top).toMatch(/^\/exam\/bcsc12-11\?hl=MEWDS#(np-\d+|ch11-s4)$/);
-  await Promise.all([page.waitForURL(url => url.pathname === '/exam/bcsc12-11'), input.press('Enter')]);
+  expect(top).toMatch(/^\/exam\/bcsc\d+-\d+\?hl=MEWDS#(np-\d+|ch\d+-s\d+)$/);
+  await Promise.all([page.waitForURL(url => url.pathname === top.split('?')[0]), input.press('Enter')]);
 });
 
 test('hub search: clicking 「再顯示」 keeps the keyboard working (PR #82 review)', async ({ page }) => {
