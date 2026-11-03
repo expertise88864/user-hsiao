@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -445,7 +459,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-49"><mark class="ex-key">與 TED 不同，orbital myositis 會侵犯肌腱</mark>（Fig 13-4）⁠<sup class="ex-qref"><span>Q810</span></sup>。<span class="ref">p.270</span></li>
 <li id="np-50">（本章外）Section 7：NSOI 影像上<mark class="ex-key">最多 <span class="num">50%</span> 可見眼外肌肌腱附著處增厚</mark>，TED 則典型不侵犯附著處。初始治療為全身類固醇，成人典型起始劑量 prednisone <span class="num">1 mg/kg</span>/day；達最大臨床反應後才開始減量，依臨床反應於低於約 <span class="num">40 mg/day</span> 時減得更慢、低於 <span class="num">20 mg/day</span> 時更慢，快速減量可能導致復發；兒童 NSOI 約 <span class="num">1/3</span> 雙側、約 <span class="num">1/2</span> 有全身症狀（頭痛、發燒、嘔吐、腹痛、嗜睡）⁠<sup class="ex-qref"><span>Q810</span></sup>。<span class="ref ref-ext">BCSC 7 p.72–74</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>眼外肌／肌腱</th><th>組織學重點</th><th>考點</th></tr></thead>
 <tbody>
 <tr><td id="np-51">TED</td><td id="np-52">肌腹梭形腫大，<strong>肌腱保留</strong>；最常 inferior、medial rectus</td><td id="np-53">單核細胞＋fibroblasts；fibroblasts 合成 GAGs（hyaluronan）→ 肌肉腫大；晚期進行性纖維化</td><td id="np-54">成人單側／雙側眼突最常見原因；甲狀腺功能可正常</td></tr>
@@ -453,7 +467,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-59">IgG4-RD</td><td id="np-60">最初描述為雙側對稱淚腺腫大；也可侵犯眼外肌、眼窩神經、鞏膜、眼瞼</td><td id="np-61">富含 IgG4 陽性漿細胞的淋巴漿細胞浸潤、常呈 storiform 的纖維化、obliterative phlebitis</td><td id="np-62">IgG4-related ophthalmic disease 建議診斷標準：血清 IgG4 <span class="num">≥135 mg/dL</span>；IgG4／IgG 漿細胞比例 <span class="num">≥40%</span> 或每高倍視野 <span class="num">&gt;50</span> 個；偶有 EMZL 發生於既有 IgG4-RD</td></tr>
 <tr><td id="np-63">Lymphoma（鑑別）</td><td id="np-64">包繞眼球塑形</td><td id="np-65">monoclonal 淋巴球</td><td id="np-66">可偽裝成眼窩發炎</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-67">出處 <span class="ref">p.267–270, p.275, p.280</span></p>
 <div class="ex-trap"><h3 id="ch13-s3-5">易錯陷阱</h3><ul>
 <li id="np-68">TED 的 CT 呈眼外肌梭形腫大且「肌腱保留」；orbital myositis「肌腱受侵犯」⁠<sup class="ex-qref"><span>Q382</span> <span>Q810</span></sup>。<span class="ref">p.267–268, p.270</span></li>
@@ -482,14 +496,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-83"><strong><i>Aspergillus</i>（麴菌）</strong>：由鄰近鼻竇或身體他處血行散播；<mark>免疫低下者與其他方面健康的人都可能發生</mark>；sino-orbital aspergillosis 症狀緩慢隱伏、常被忽略 → <strong>sclerosing granulomatous reaction（硬化性肉芽腫反應）</strong>；常不易培養，切片可見 <mark><strong>septate（有隔）</strong>菌絲、<span class="num">45°</span> 分枝</mark>；即使積極手術加抗黴菌藥，延伸入腦仍可致命。<span class="ref">p.272</span></li>
 <li id="np-84">寄生蟲感染罕見（尤其高所得國家）：<strong><i>Echinococcus</i></strong>（orbital hydatid cyst，包蟲囊腫）、<strong><i>Taenia</i> solium</strong>（cysticercosis，囊尾蟲症）、<strong><i>Loa loa</i></strong>（loiasis，眼絲蟲症）；多見於來自或去過流行區者，特定寄生蟲血清學可能有助診斷。<span class="ref">p.272</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病原）</th><th>菌絲</th><th>病人族群</th><th>病理反應</th></tr></thead>
 <tbody>
 <tr><td id="np-85"><i>Mucor</i>／<i>Rhizopus</i>（mucormycosis）</td><td id="np-86">寬大、<strong>無隔</strong>；H&amp;E、PAS、GMS 皆可見</td><td id="np-87">控制不良的糖尿病（尤其酮酸中毒）、實體惡性腫瘤、大面積燒傷、接受類固醇治療、嚴重嗜中性球低下；COVID-19 大流行期間中重度 SARS-CoV-2 感染康復者</td><td id="np-88">可侵犯血管 → 血栓性血管炎、缺血壞死；常取鼻咽 eschar 切片診斷</td></tr>
 <tr><td id="np-89"><i>Aspergillus</i></td><td id="np-90"><strong>有隔</strong>、<span class="num">45°</span> 分枝；常不易培養</td><td id="np-91">免疫低下或健康人</td><td id="np-92">緩慢隱伏 → 硬化性肉芽腫反應</td></tr>
 <tr><td id="np-93">Tuberculosis</td><td id="np-94">—</td><td id="np-95">罕見侵犯眼窩</td><td id="np-96">壞死性肉芽腫反應</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-97">出處 <span class="ref">p.271–272</span></p>
 <h3 id="ch13-s4-3">Infections of the lacrimal drainage system（淚道感染）</h3>
 <ul>
@@ -517,7 +531,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-109">兒童眼窩腫瘤約 <span class="num">90%</span> 為良性；良性囊性病灶（dermoid 或 simple epithelial cyst）佔兒童眼窩病灶 <span class="num">50%</span>。<span class="ref">p.273</span></li>
 <li id="np-110"><mark><strong>Rhabdomyosarcoma（橫紋肌肉瘤）</strong>是兒童最常見的原發眼窩惡性腫瘤</mark>，佔所有眼窩腫塊 <span class="num">3%</span>；兒童眼窩也可被 retinoblastoma、neuroblastoma、leukemia／lymphoma 續發侵犯。<span class="ref">p.273</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Feature（特徵）</th><th>Cavernous venous malformation（海綿狀靜脈畸形）</th><th>Schwannoma（神經鞘瘤）</th><th>Pleomorphic adenoma（多形性腺瘤）</th><th>Adenoid cystic carcinoma（腺樣囊性癌）</th><th>Ocular adnexal lymphoma（眼附屬器淋巴瘤）</th></tr></thead>
 <tbody>
 <tr><td id="np-111">Age at presentation（就診年齡）</td><td id="np-112"><span class="num">20–40</span> 歲</td><td id="np-113"><span class="num">20–60</span> 歲</td><td id="np-114"><span class="num">20–50</span> 歲</td><td id="np-115"><span class="num">40–60</span> 歲</td><td id="np-116"><span class="num">60–70</span> 歲</td></tr>
@@ -528,7 +542,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-141">Treatment（治療）</td><td id="np-142">完整切除</td><td id="np-143">完整切除</td><td id="np-144">完整切除</td><td id="np-145">完整切除後放療；晚期考慮 orbital exenteration 或 intra-arterial chemotherapy（動脈內化療）</td><td id="np-146">依亞型放療、化療或免疫治療；企圖完整切除可能傷及鄰近構造</td></tr>
 <tr><td id="np-147">Prognosis（預後）</td><td id="np-148">好</td><td id="np-149">好</td><td id="np-150">好</td><td id="np-151"><strong>差</strong></td><td id="np-152">EMZL 好；LPL（lymphoplasmacytic lymphoma）與 MCL（mantle cell lymphoma）差</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-153">出處（Table 13-1）<span class="ref">p.275</span></p>
 <ul>
 <li id="np-154">依 Table 13-1：<mark class="ex-key">adenoid cystic carcinoma 有疼痛（± paresthesia）</mark>，schwannoma 部分病人有疼痛，其餘三者無痛；淋巴瘤依亞型採<strong>放療、化療或免疫治療</strong>（企圖完整切除可能傷及鄰近構造），ACC 則為<strong>完整切除後放療</strong>；淋巴瘤包繞眼球塑形、可單側或雙側，ACC 則為浸潤性、骨破壞，常見神經周圍侵犯⁠<sup class="ex-qref"><span>Q724</span> <span>Q785</span> <span>Q795</span> <span>Q811</span></sup>。<span class="ref">p.275</span></li>
@@ -694,14 +708,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-250">源自 meninges（腦膜），屬 CNS 腫瘤；<mark>影響眼窩者多為顱內原發腫瘤穿過眼窩骨（通常是 <strong>sphenoid bone（蝶骨）</strong>）侵入</mark>，在眼窩內呈浸潤性腫塊。<span class="ref">p.286</span></li>
 <li id="np-251">少數原發於 <strong>optic nerve sheath（視神經鞘）</strong>，傾向留在鞘內而壓迫視神經（詳見第 14 章）。<span class="ref">p.286</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（腫瘤）</th><th>Capsule（被膜）</th><th>Axons（軸突）</th><th>組織學／標記</th><th>相關</th></tr></thead>
 <tbody>
 <tr><td id="np-252">Neurofibroma</td><td id="np-253">無（可邊界清楚）</td><td id="np-254"><strong>有</strong></td><td id="np-255">波浪狀細長核、帶狀排列、mast cells</td><td id="np-256">Diffuse 與 plexiform 型被視為 NF1 特徵性病灶；NF1 相關者可轉為 malignant peripheral nerve sheath tumor</td></tr>
 <tr><td id="np-257">Schwannoma</td><td id="np-258"><strong>有</strong></td><td id="np-259">通常無</td><td id="np-260">Antoni A（Verocay bodies）／Antoni B；S-100 瀰漫強陽性</td><td id="np-261">成人眼窩最常見神經鞘腫瘤；NF、schwannomatosis</td></tr>
 <tr><td id="np-262">Meningioma</td><td id="np-263">—</td><td id="np-264">—</td><td id="np-265">多由顱內經蝶骨侵入；少數原發視神經鞘</td><td id="np-266">見第 14 章</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-267">出處 <span class="ref">p.285–286</span></p>
 <div class="ex-trap"><h3 id="ch13-s11-4">易錯陷阱</h3><ul>
 <li id="np-268">「最常見的周邊神經鞘腫瘤」是 neurofibroma；「成人眼窩最常見的神經鞘腫瘤」是 schwannoma。<span class="ref">p.285–286</span></li>

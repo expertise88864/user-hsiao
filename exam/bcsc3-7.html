@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -411,7 +425,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-24">部分醫師目標設為<mark>輕微近視</mark>：保留部分近視力，並降低術後 <strong>hyperopic refractive surprise（遠視性屈光意外）</strong>的機會。<span class="ref">p.261</span></li>
 </ul>
 <h3 id="ch7-s2-2">三大類公式（彼此有重疊）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Category（類別）</th><th>原理</th><th>代表</th><th>重點</th></tr></thead>
 <tbody>
 <tr><td id="np-25">Regression（迴歸）</td><td id="np-26">以 linear regression 等數學方法擬合實證資料</td><td id="np-27">SRK I、SRK II（Sanders, Retzlaff, Kraff）</td><td id="np-28"><span class="num">1980</span> 年代流行，簡單但表現差，<strong>尤其短與長眼軸</strong>；現已不建議、少用，但仍提供 A constant</td></tr>
@@ -419,7 +433,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-33">Artificial intelligence（AI，人工智慧）</td><td id="np-34">以 machine learning 等 AI 技術建模實證資料</td><td id="np-35"><strong>Hill Radial Basis Function（Hill RBF）</strong>：最流行的早期 AI 公式</td><td id="np-36"><span class="num">2010</span> 年代出現；<strong>特別擅長異常眼軸</strong>；表現可媲美 Barrett Universal II</td></tr>
 <tr><td id="np-37">Hybrid（理論＋AI）</td><td id="np-38">Kane 結合迴歸、理論光學與 AI 三種方法</td><td id="np-39"><strong>Kane</strong>（<span class="num">2017</span>）</td><td id="np-40">以 <span class="num">30,000</span> 筆實證資料建立，高度準確；結合理論與 AI 的公式在出版時表現最佳</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-41">出處 <span class="ref">p.261–262, p.268</span></p>
 <ul>
 <li id="np-42"><strong>Hill RBF</strong> 採 machine-learning 技術，是最流行的早期 AI 公式（以 AI 技術建模實證資料，而非單純線性迴歸）⁠<sup class="ex-qref"><span>Q1362</span> <span>Q1411</span></sup>。<span class="ref">p.262</span></li>
@@ -453,7 +467,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-55">A-scan 量的<strong>不是距離而是時間</strong>（音波由角膜到視網膜往返）；可假設全眼單一音速，或各構造分別以各自音速計算。<span class="ref">p.263</span></li>
 <li id="np-56">水晶體內各層音速可能不同，且受 nuclear sclerosis（核硬化）改變。<span class="ref">p.263</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>介質／眼睛</th><th>Sound velocity（音速）</th></tr></thead>
 <tbody>
 <tr><td id="np-57">Crystalline lens（水晶體）與 cornea（角膜）</td><td id="np-58"><span class="num">1641 m/s</span>（較快）</td></tr>
@@ -464,7 +478,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-67">Aphakic eye，任何眼長</td><td id="np-68"><span class="num">1554 m/s</span></td></tr>
 <tr><td id="np-69">Silicone oil（矽油）</td><td id="np-70"><span class="num">980 m/s</span>（vs 玻璃體 1532 m/s）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-71">出處 <span class="ref">p.263, p.272</span></p>
 <ul>
 <li id="np-72">Phakic 眼平均音速隨眼長變化是因為水晶體的存在；<mark>1554 m/s 對任何眼長的無晶體眼都準確</mark>（無晶體眼音速在短眼與長眼間差異不大）。<span class="ref">p.263, p.284</span></li>
@@ -505,7 +519,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-94">多數公式只用一個常數（ACD、A constant 或 surgeon factor（SF））；迴歸公式（如 SRK）已不建議、少用，但 A constant 仍提供。<span class="ref">p.268</span></li>
 </ul>
 <h3 id="ch7-s4-3">Sulcus placement（睫狀溝放置）度數調整（Table 7-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>In-the-bag 計算度數</th><th>改放 sulcus 的調整</th></tr></thead>
 <tbody>
 <tr><td id="np-95"><span class="num">+28.50 D</span> to <span class="num">+30.00 D</span></td><td id="np-96">減 <span class="num">1.50 D</span></td></tr>
@@ -513,7 +527,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-99"><span class="num">+9.50 D</span> to <span class="num">+17.00 D</span></td><td id="np-100">減 <span class="num">0.50 D</span></td></tr>
 <tr><td id="np-101"><span class="num">+5.00 D</span> to <span class="num">+9.00 D</span></td><td id="np-102">不變</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-103">出處 <span class="ref">p.268</span></p>
 <ul>
 <li id="np-104">術前宜先算好備用 IOL 度數；未預先計算時，原定放囊袋的 IOL 改放 sulcus 可依度數<mark class="ex-key"><strong>減少</strong>度數</mark>（Table 7-1）。BCSC 11：IOL 由囊袋往 sulcus、再往前房前移時，與視網膜距離增加，所需度數降低⁠<sup class="ex-qref"><span>Q291</span> <span>Q1410</span> <span>Q1367</span></sup>。<span class="ref">p.268；BCSC 11 p.120</span></li>
@@ -605,14 +619,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch7-s7" data-w="447">七、Image Magnification（影像放大）與 aniseikonia</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>矯正方式</th><th>影像放大</th></tr></thead>
 <tbody>
 <tr><td id="np-148">Aphakic spectacles（無晶體眼鏡）</td><td id="np-149">可達 <span class="num">20%–35%</span>（主要缺點）</td></tr>
 <tr><td id="np-150">Contact lens（隱形眼鏡）</td><td id="np-151">僅 <span class="num">7%–12%</span></td></tr>
 <tr><td id="np-152">IOL</td><td id="np-153"><span class="num">4%</span> 或更少；後房 IOL 放大比前房 IOL 少</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-154">出處 <span class="ref">p.273</span></p>
 <ul>
 <li id="np-155">Pseudophakic 眼外加眼鏡形成 <strong>Galilean telescope（伽利略望遠鏡）</strong>效應：<mark>vertex <span class="num">12 mm</span> 時每 <span class="num">1</span> D 眼鏡過矯造成 <span class="num">2%</span> 放大（正鏡）或縮小（負鏡）</mark>。<span class="ref">p.273</span></li>
@@ -630,13 +644,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-161"><strong>Negative dysphotopsia（負性光學異象）</strong>：主觀暗影／陰影；相關因素：<mark>小瞳孔、瞳孔與 IOL 距離 <span class="num">≥ 0.06 mm</span>、瞳孔相對光軸偏鼻側</mark>。<span class="ref">p.273</span></li>
 <li id="np-162">機轉：可能與光在 IOL 表面斜向反射與折射有關；<mark class="ex-key"><strong>high-index acrylic + square/truncated edge</strong> 產生較強的 edge glare（邊緣眩光）</mark>；也可能來自 IOL 內部 re-reflection，在高折射率材質（如 acrylic）較易發生 → 第二影像或光暈；<strong>前表面較不彎</strong>時內部反射可能較易射向 fovea 而更干擾（前表面較彎則影像離 fovea 較遠）。邊緣較圓滑的 IOL 較少發生（Fig 7-10）⁠<sup class="ex-qref"><span>Q1361</span></sup>。<span class="ref">p.273–274</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity</th><th>症狀</th><th>相關／好發</th><th>處理（本章外）</th></tr></thead>
 <tbody>
 <tr><td id="np-163">Positive dysphotopsia</td><td id="np-164">亮光、條紋、光芒，有時伴霧狀眩光（BCSC 3）；中周邊的眩光、條紋、閃光、弧光或光暈（BCSC 11）</td><td id="np-165">較常見於 truncated square-edge、高折射率材質及 multifocal IOL</td><td id="np-166">—（p.274：邊緣較圓滑的 IOL 較少發生邊緣眩光）</td></tr>
 <tr><td id="np-167">Negative dysphotopsia</td><td id="np-168">弧形暗或昏暗的新月形區域，通常在顳側視野</td><td id="np-169">可能發生於常規的<strong>囊袋內</strong>置中 PCIOL、前囊邊緣覆蓋 optic；任何囊袋內 IOL 都可能；<strong>不見於 ACIOL 與 sulcus／scleral-fixated IOL</strong>；左眼、女性較常見；可能較常見於 acrylic、方邊、高折射率 optic；縮瞳或鼻側瞳孔較常見</td><td id="np-170">術後早期常見（約 <span class="num">15%</span>），多數隨時間改善 → 先觀察；術後 1 年仍有持續症狀且視力受影響者（約 <span class="num">3%</span>）→ <strong>reverse optic capture</strong>（haptic 留在囊袋）或適當 PCIOL 改 sulcus 固定成功</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-171">出處 <span class="ref">p.257, p.273–274；BCSC 11 p.205–206</span></p>
 <ul>
 <li id="np-172">本章外：<mark class="ex-key">Negative dysphotopsia 可能發生於常規的<strong>囊袋內置中 PCIOL</strong>（前囊邊緣覆蓋 optic），任何囊袋內 IOL 都可能</mark>；不見於 ACIOL 與 sulcus 或 scleral-fixated IOL；對術後 1 年仍有持續症狀且視力受影響者，以 reverse optic capture 或 sulcus 固定把 optic 移到前囊開口之前可成功處理。Multifocal IOL 病人在輕微 IOL 偏位、瞳孔大小或位置改變、PCO 時較易有眩光、對比敏感度下降或失去多焦效果⁠<sup class="ex-qref"><span>Q1364</span> <span>Q1361</span></sup>。<span class="ref ref-ext">BCSC 11 p.205–206</span></li>
@@ -690,14 +704,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-197">多焦點 IOL 尤其需要準確度數計算，且術後散光要低（殘餘散光越多，視力與對比敏感度越差）。<span class="ref">p.276</span></li>
 </ul>
 <h3 id="ch7-s10-3">Types of Multifocal Intraocular Lenses</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Design（設計）</th><th>特點</th><th>瞳孔依賴</th><th>光能</th></tr></thead>
 <tbody>
 <tr><td id="np-198">Split bifocal（Hoffer）</td><td id="np-199">Hoffer <span class="num">1982</span> 發明、<span class="num">1990</span> 首次植入人眼（Santa Monica）；半個 optic 看遠、半個看近；<span class="num">2010</span> 以 Lentis Mplus 重新推出</td><td id="np-200">與瞳孔大小無關</td><td id="np-201">—</td></tr>
 <tr><td id="np-202">Refractive concentric annuli（折射式同心環）</td><td id="np-203">例：AMO ReZoom，中央遠區＋近環＋遠近環，共 <span class="num">6</span> 區交替</td><td id="np-204"><strong>高度依賴</strong>：極小瞳孔只剩遠距光線聚焦</td><td id="np-205">光線無損失</td></tr>
 <tr><td id="np-206">Diffractive（繞射式）</td><td id="np-207">繞射元件在前或後表面，擷取部分光線形成近距影像；add 高（閱讀）或適合中距／電腦距離不等</td><td id="np-208">比純折射設計<strong>遠較不依賴</strong>瞳孔</td><td id="np-209">部分光因 <strong>destructive interference（破壞性干涉）</strong>損失</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-210">出處 <span class="ref">p.276–278</span></p>
 <ul>
 <li id="np-211">IOL 隨眼球轉動，注視方向不影響通過 IOL 哪一區（與隱形眼鏡相同），視網膜影像是遠近部分的共同產物。<span class="ref">p.277</span></li>
@@ -738,14 +752,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch7-s12" data-w="504">十二、Intraocular Lens Standards（IOL 標準）</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>標示度數</th><th>允許誤差（ANSI／ISO）</th></tr></thead>
 <tbody>
 <tr><td id="np-235"><span class="num">&lt; 25.00 D</span></td><td id="np-236">±<span class="num">0.40 D</span>，且 axial-power variation 不超過 <span class="num">0.25 D</span></td></tr>
 <tr><td id="np-237"><span class="num">25.00–30.00 D</span></td><td id="np-238">±<span class="num">0.50 D</span></td></tr>
 <tr><td id="np-239"><span class="num">&gt; 30.00 D</span></td><td id="np-240">±<span class="num">1.00 D</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-241">出處 <span class="ref">p.281–282</span></p>
 <ul>
 <li id="np-242">American National Standards Institute（ANSI）與 International Standards Organization（ISO）訂定 IOL 標準；<mark>多數眼科醫師不知道高度數 IOL 的允許誤差這麼大</mark>；雖有爭議，仍在嘗試把所有度數縮到 ±<span class="num">0.25 D</span>；實際標示錯誤罕見但仍會發生。<span class="ref">p.281–282</span></li>

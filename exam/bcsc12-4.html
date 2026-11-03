@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -379,13 +393,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-5">Retinal pigment epithelium（RPE，視網膜色素上皮）超微結構變化：melanin granules 流失、lipofuscin（脂褐素）granules 形成、residual bodies 堆積 <span class="ref">p.67</span></li>
 <li id="np-6">Choriocapillaris（脈絡膜微血管層）出現漸進 involutional changes <span class="ref">p.67</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Deposit（沉積物）</th><th>位置</th><th>成分 / 意義</th></tr></thead>
 <tbody>
 <tr><td id="np-7">Basal <strong>laminar</strong> deposits（基底層狀沉積）</td><td id="np-8">AMD 中堆積於 RPE 細胞 plasma membrane 與 RPE 自身（native）basement membrane 之間</td><td id="np-9">Extracellular matrix proteins（細胞外基質蛋白），包括 widely spaced collagen fibers <span class="ref">p.67</span></td></tr>
 <tr><td id="np-10">Basal <strong>linear</strong> deposits（基底線狀沉積）</td><td id="np-11">RPE basement membrane 與 Bruch membrane inner collagenous layer 之間</td><td id="np-12">Lipid-rich（富含脂質），歸因於 lipoprotein particles 堆積；AMD 中堆積並擴大為 <strong>soft drusen</strong> <span class="ref">p.67</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="ch4-s1-3">Risk factors（危險因子）</h3>
 <ul>
 <li id="np-13">Population-based studies 顯示<mark>年齡為最重要（foremost）危險因子</mark>：resource-rich countries（資源充足國家）中 <span class="num">&gt;65 歲約 10%</span>、<span class="num">&gt;75 歲約 25%</span> 有 AMD <span class="ref">p.68</span></li>
@@ -405,14 +419,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-21">相關生化路徑：脂質運輸與代謝（如 <em>APOE</em>）、細胞外基質調節（如 <em>COL8A1</em>、<em>COL10A1</em>、<em>MMP9</em>、<em>TIMP3</em>）、感光細胞 all-trans-retinaldehyde 清除（<em>ABCA4</em>）、血管新生（如 <em>VEGFA</em>）；但遺傳研究中<mark class="ex-key">最一致相關的是 complement cascade（補體路徑）</mark>，CFD、CFH、CFI、C2/CFB、C3、C5、C7 等補體成分的 polymorphisms 與 AMD 風險強烈相關 ⁠<sup class="ex-qref"><span>Q1441</span></sup> <span class="ref">p.68</span></li>
 <li id="np-22">兩大易感基因：<em>CFH</em>（<span class="num">1q31</span>，編碼 complement factor H；Y402H）與 <em>ARMS2/HTRA1</em>（<span class="num">10q26</span>；A69S） ⁠<sup class="ex-qref"><span>Q1435</span></sup> <span class="ref">p.68</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Gene / locus</th><th>Polymorphism</th><th>Heterozygous（AMD 風險倍數）</th><th>Homozygous（AMD 風險倍數）</th></tr></thead>
 <tbody>
 <tr><td id="np-23"><em>CFH</em> (1q31)</td><td id="np-24">Y402H</td><td id="np-25"><span class="num">4.6×</span></td><td id="np-26"><span class="num">7.4×</span></td></tr>
 <tr><td id="np-27"><em>ARMS2/HTRA1</em> (10q26)</td><td id="np-28">A69S</td><td id="np-29"><span class="num">2.7×</span></td><td id="np-30"><span class="num">8.2×</span></td></tr>
 <tr><td id="np-31">兩基因皆為上述 polymorphism 的 homozygous</td><td id="np-32">—</td><td id="np-33">—</td><td id="np-34"><span class="num">50×</span> <span class="ref">p.68</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li id="np-35">AMD 基因檢測雖可取得，AAO 的正式建議是延後檢測，直到可重複研究確認其對預後或治療反應的價值 <span class="ref">p.68</span></li>
 </ul>
@@ -430,7 +444,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-41">依大小分（典型直徑）：small <span class="num">&lt;63 μm</span>、intermediate <span class="num">63–124 μm</span>、large <span class="num">≥125 μm</span>；增厚的 Bruch 內層連同 RPE 可分離成 pigment epithelial detachment（PED），小者可視為 large 或 soft druse，較大者（直徑 <span class="num">&gt;350 μm</span>）為融合成 PED 的 large confluent drusen，即 <strong>drusenoid PED</strong> <span class="ref">p.70</span></li>
 <li id="np-42">Drusen 大小、數量、融合程度增加 → 進展為 MNV 或 GA 的風險上升 <span class="ref">p.70</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>AREDS category</th><th>眼底表現</th><th>AREDS 中 5 年進展至 category 4 的風險</th></tr></thead>
 <tbody>
 <tr><td id="np-43">1（no AMD）</td><td id="np-44">少量 small drusen 或無 drusen，無色素變化</td><td id="np-45"><span class="num">0%</span></td></tr>
@@ -438,7 +452,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-49">3（intermediate）</td><td id="np-50">至少 1 個 large druse（≥125 μm）、extensive intermediate drusen，或 nonsubfoveal GA</td><td id="np-51"><span class="num">18%</span></td></tr>
 <tr><td id="np-52">4（advanced）</td><td id="np-53">進展為 MNV 或 subfoveal GA（p.70）；p.75 定義為僅一眼因 neovascular AMD 或 subfoveal GA 而視力喪失</td><td id="np-54">— <span class="ref">p.70, 75</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="ch4-s3-2">Reticular pseudodrusen（網狀假性隱結）</h3>
 <ul>
 <li id="np-55">又稱 subretinal drusenoid deposits（SDD，視網膜下類隱結沉積物）；外觀與 drusen 相似，以網狀分布辨識，<strong>FAF（眼底自發螢光）與 near-infrared 影像最易看見</strong>；通常比 soft drusen 小，常分布於上方黃斑 ⁠<sup class="ex-qref"><span>Q1555</span></sup> <span class="ref">p.70</span></li>
@@ -457,14 +471,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-62">Nonneovascular AMD 的特徵性 RPE 異常包括局部 hyperpigmentation 或 hypopigmentation、intraretinal pigment migration（視網膜內色素移行）、focal atrophy 與 GA；局部 hyperpigmentation 在 FA 通常呈 blocked fluorescence、SD-OCT 為外層視網膜 hyperreflective foci；這些異常的發生率隨年齡增加，其存在提高進展風險 ⁠<sup class="ex-qref"><span>Q1435</span></sup> <span class="ref">p.71</span></li>
 <li id="np-63">GA：相連萎縮區直徑 <span class="num">&gt;175 μm</span>；RPE 缺失或去色素使脈絡膜血管外露，上方外層視網膜通常變薄、下方 choriocapillaris 變細或萎縮 ⁠<sup class="ex-qref"><span>Q1435</span></sup> <span class="ref">p.71</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Imaging（影像）</th><th>GA 表現</th></tr></thead>
 <tbody>
 <tr><td id="np-64">FA</td><td id="np-65">大小不一、邊界清楚的 window defects，對應 RPE 缺失區 <span class="ref">p.71–72</span></td></tr>
 <tr><td id="np-66">SD-OCT</td><td id="np-67">感光細胞與 RPE 消失；也可能看到 choriocapillaris 流失 <span class="ref">p.72</span></td></tr>
 <tr><td id="np-68">FAF</td><td id="np-69">邊界清楚的訊號降低區（hypoautofluorescent）；也已描述鄰近組織的多種可能 FAF pattern；圖 4-4 中「sick」RPE 呈 hyperautofluorescent <span class="ref">p.72</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li id="np-70">GA 常<mark>到病程晚期才侵犯中心窩</mark>，病人在此之前可能保有好視力；中心窩受累、VA 下降後，病人可依賴非中心視網膜的 eccentric fixation（偏心注視）閱讀與執行精細視覺工作 <span class="ref">p.72–73</span></li>
 <li id="np-71">平均擴大速度約 <span class="num">1.79 mm²/年</span>，但變異很大，受基線病灶大小與鄰近 FAF pattern 等多種因素影響 <span class="ref">p.72</span></li>
@@ -477,7 +491,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-75"><strong>Outer retinal tubulation（外層視網膜管狀結構）</strong>：OCT 上可能被誤認為滲出液；為位於 outer nuclear layer 的卵圓形低反射腔、邊緣高反射，代表視網膜受傷後退化感光細胞的重排 <span class="ref">p.73</span></li>
 </ul>
 <h3 id="ch4-s3-6">Dry AMD 鑑別診斷</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity</th><th>脈絡膜（EDI-OCT）</th><th>鑑別要點</th></tr></thead>
 <tbody>
 <tr><td id="np-76">Dry AMD</td><td id="np-77">常變薄（或正常）</td><td id="np-78">Drusen、RPE 色素異常、GA <span class="ref">p.69, 71, 74</span></td></tr>
@@ -486,7 +500,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-85">Adult-onset foveomacular vitelliform dystrophy（AOFVD，成人型卵黃樣黃斑失養症）</td><td id="np-86">Subfoveal 脈絡膜常增厚</td><td id="np-87">可能呈單眼或雙眼黃色 subretinal 病灶；SD-OCT 為感光層與 RPE 之間的中央圓頂狀高反射病灶，常伴對 anti-VEGF 無反應的 SRF；FAF 典型為中央低、環狀 hyperautofluorescence；FA 早期 blocked、周圍 hyperfluorescence，晚期也可能 staining <span class="ref">p.74</span></td></tr>
 <tr><td id="np-88">Concurrent or past pharmaceutical exposure（目前或過去用藥）</td><td id="np-89">—</td><td id="np-90">鑑別 AMD 時必須考慮；用藥史與缺乏 large drusen 可能有助於區分 RPE 斑駁、黃斑萎縮與 AMD <span class="ref">p.74</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li id="np-91">CSC 可能產生與 AMD 相似的 RPE 變化與 PED；但 CSC 的 EDI-OCT 顯示患眼與對側眼脈絡膜增厚，AMD 則常為正常或薄脈絡膜 ⁠<sup class="ex-qref"><span>Q1445</span> <span>Q1446</span> <span>Q1447</span> <span>Q1448</span></sup> <span class="ref">p.73–74</span></li>
 <li id="np-92">CSC 主要發生於 <span class="num">35–55 歲</span>，男女比 <span class="num">3:1</span>（p.215）；症狀包括突發視力模糊或變暗、<strong>micropsia（視物顯小）</strong>、metamorphopsia、paracentral scotomata、色覺下降、殘像延長（p.216）；EDI-OCT 顯示脈絡膜<strong>增厚</strong>（p.217） ⁠<sup class="ex-qref"><span>Q1446</span></sup> <span class="ref ref-ext">BCSC 12 p.215–217</span></li>
@@ -519,15 +533,15 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-107">計分項目：<span class="num">≥1</span> 個 large drusen（≥125 μm）1 分；任何色素異常 1 分；無 large drusen 的病人，有雙側 intermediate drusen（63–124 μm）1 分；<strong>neovascular AMD 2 分</strong>；雙眼合計，用以估計 1 眼發生 advanced AMD 的 5 年與 10 年風險 ⁠<sup class="ex-qref"><span>Q1436</span></sup> <span class="ref">p.75</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Number of risk factor points（危險因子分數）</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead>
 <tbody>
 <tr><td id="np-108">5-year risk（1 眼 advanced AMD 5 年風險）</td><td id="np-109"><span class="num">0.5%</span></td><td id="np-110"><span class="num">3%</span></td><td id="np-111"><span class="num">12%</span></td><td id="np-112"><span class="num">25%</span></td><td id="np-113"><span class="num">50%</span></td></tr>
 <tr><td id="np-114">10-year risk（10 年風險）</td><td id="np-115"><span class="num">1%</span></td><td id="np-116"><span class="num">7%</span></td><td id="np-117"><span class="num">22%</span></td><td id="np-118"><span class="num">50%</span></td><td id="np-119"><span class="num">67%</span> <span class="ref">p.75</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="ch4-s4-4">AREDS2</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Nutrient（成分）</th><th>AREDS 配方（p.75 正文）</th><th>AREDS2 daily dose（Table 4-2）</th></tr></thead>
 <tbody>
 <tr><td id="np-120">Vitamin C</td><td id="np-121"><span class="num">500 mg</span></td><td id="np-122"><span class="num">500 mg</span></td></tr>
@@ -538,7 +552,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-135">Zinc</td><td id="np-136"><span class="num">80 mg</span>（zinc oxide）</td><td id="np-137"><span class="num">80 mg</span></td></tr>
 <tr><td id="np-138">Copper</td><td id="np-139"><span class="num">2 mg</span>（cupric oxide）</td><td id="np-140"><span class="num">2 mg</span>（as cupric oxide） <span class="ref">p.75–76</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li id="np-141">AREDS2 測試以 xanthophylls（lutein、zeaxanthin）取代 beta carotene 並加入 omega-3 LCPUFAs（DHA、EPA）；<span class="num">4000</span> 名受試者確認原 AREDS 的整體風險下降；lutein/zeaxanthin 效果與 beta carotene 相似，但沒有其他研究在現吸菸者與曾吸菸者報告的肺癌風險增加；確認 zinc <span class="num">80 mg</span> 適當；研究劑量的 LCPUFAs 未降低進展至 advanced AMD 的比率；最終建議以 lutein + zeaxanthin 取代 beta carotene，Table 4-2 建議成分為 vitamin C、vitamin E、lutein、zeaxanthin、zinc、copper ⁠<sup class="ex-qref"><span>Q1436</span></sup> <span class="ref">p.75–76</span></li>
 <li id="np-142">目前建議：<mark>category 3 或 4 AMD</mark> 病人服用 AREDS2 補充劑 <span class="ref">p.76</span></li>
@@ -572,14 +586,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-154">Type 2（又稱 classic CNV）：新生血管延伸至 <strong>RPE 與神經視網膜之間</strong>，檢查時可能呈 lacy 或灰綠色病灶；同時位於神經視網膜下與 RPE 下者為 mixed type 1 and type 2，又稱 minimally classic CNV ⁠<sup class="ex-qref"><span>Q1436</span> <span>Q1437</span> <span>Q1456</span></sup> <span class="ref">p.77</span></li>
 <li id="np-155">Type 3：<mark class="ex-key">病理血管源自視網膜 deep capillary plexus，向下長向 RPE</mark>；因起源於視網膜內，原稱 retinal angiomatous proliferation（RAP，視網膜血管瘤樣增生）；發生前可能先有 intraretinal pigment migration；外觀常為小片紅色區，伴視網膜滲出物或 SRF bleb ⁠<sup class="ex-qref"><span>Q1436</span> <span>Q1456</span></sup> <span class="ref">p.77–78</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Imaging</th><th>Type 1</th><th>Type 2</th><th>Type 3</th></tr></thead>
 <tbody>
 <tr><td id="np-156">FA</td><td id="np-157">Occult 型態與 type 1 相符</td><td id="np-158">Classic 型態（早期亮、蕾絲狀、邊界清楚，晚期漸漏）較常與 type 2 相關；非絕對規則</td><td id="np-159">黃斑可呈視網膜出血點；FA 與 ICGA 呈 focal hot spot，晚期 CME 或 pooling 入 PED</td></tr>
 <tr><td id="np-160">SD-OCT</td><td id="np-161">限於 sub-RPE space，呈不均質高反射 RPE 隆起（PED）</td><td id="np-162">Subneurosensory space 的高反射帶或斑塊，伴 SRF 和/或 IRF</td><td id="np-163">由 deep capillary plexus 發出的高反射點，伴或不伴 CME 與 PED</td></tr>
 <tr><td id="np-164">OCTA</td><td id="np-165">RPE 下異常血管（圖例呈 sea fan）</td><td id="np-166">RPE 上方的血管新生複合體</td><td id="np-167">可見向 RPE 向下生長的新生血管 <span class="ref">p.79, 81–82</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li id="np-168">Occult MNV 的 FA 表現與 type 1 相符；classic MNV 較常與 type 2 相關，但這不是絕對規則 ⁠<sup class="ex-qref"><span>Q1437</span></sup> <span class="ref">p.79</span></li>
 <li id="np-169">SD-OCT：type 1 從脈絡膜開始、限於 sub-RPE space，呈不均質高反射 RPE 隆起；type 2 為 subneurosensory space 的高反射帶或斑塊，伴 SRF 和/或 IRF；type 3 為 deep capillary plexus 發出的高反射點，伴或不伴 CME 與 PED ⁠<sup class="ex-qref"><span>Q1456</span></sup> <span class="ref">p.82</span></li>
@@ -638,7 +652,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-198">CSC：兩者都可見 SRF 而可能混淆；但 CSC 除非已發生續發 CNV，<mark class="ex-key">通常無 subretinal hemorrhage</mark>；EDI-OCT 上 CSC 脈絡膜常較厚，AMD 典型為薄脈絡膜 ⁠<sup class="ex-qref"><span>Q1445</span> <span>Q1446</span> <span>Q1447</span> <span>Q1448</span> <span>Q1455</span></sup> <span class="ref">p.86</span></li>
 <li id="np-199">Macular telangiectasia（MacTel，黃斑部微血管擴張症），尤其最常見的 type 2，也可能被誤診為 nAMD（見第 7 章） <span class="ref">p.86</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity</th><th>脈絡膜厚度</th><th>出血</th><th>其他鑑別點</th></tr></thead>
 <tbody>
 <tr><td id="np-200">nAMD（typical MNV）</td><td id="np-201">典型為薄</td><td id="np-202">可有（exudate 和/或 blood）</td><td id="np-203">Soft drusen 為 AMD 典型；MNV type 1/2/3 <span class="ref">p.77, 85–86</span></td></tr>
@@ -646,7 +660,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-208">CSC</td><td id="np-209">常較厚</td><td id="np-210">通常無 subretinal hemorrhage（除非已有續發 CNV）</td><td id="np-211">可見 SRF <span class="ref">p.86</span></td></tr>
 <tr><td id="np-212">MacTel type 2</td><td id="np-213">—</td><td id="np-214">—</td><td id="np-215">可能被誤診為 nAMD（見第 7 章） <span class="ref">p.86</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="ex-trap"><h3 id="ch4-s7-1">易錯陷阱</h3><ul>
 <li id="np-216">CSC 與 AMD 都可見 SRF；CSC 除非已有續發 CNV，通常無 subretinal hemorrhage，且 EDI-OCT 脈絡膜常較厚 ⁠<sup class="ex-qref"><span>Q1445</span> <span>Q1447</span></sup> <span class="ref">p.86</span></li>
 </ul></div>
@@ -664,7 +678,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-221">FDA 已核可 <span class="num">5</span> 種原廠 anti-VEGF 與數種 biosimilars 以玻璃體內注射治療 exudative AMD；另有一藥廣泛使用但未獲 FDA 眼科核可（p.87）；bevacizumab 也廣泛以 off-label 方式玻璃體內治療 exudative AMD（p.90）；一般而言，越早診斷並開始 anti-VEGF，長期結果越好 <span class="ref">p.87, 90</span></li>
 </ul>
 <h3 id="ch4-s8-3">Anti-VEGF 藥物比較</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Drug</th><th>Structure / target（結構 / 標的）</th><th>Key points（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-222">Pegaptanib</td><td id="np-223">RNA oligonucleotide ligand（aptamer），抑制 human VEGF165 isoform，不抑制所有 isoforms</td><td id="np-224"><span class="num">2004</span> 年 FDA 核可的第一個玻璃體內 anti-VEGF，可減緩視力喪失；已被抑制所有 isoforms、更有效的藥物取代 <span class="ref">p.88</span></td></tr>
@@ -675,12 +689,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-237">Faricimab</td><td id="np-238">Bispecific antibody（雙特異性抗體）：angiopoietin-2 + VEGF</td><td id="np-239"><span class="num">2022</span> FDA 核可；TENAYA/LUCERNE <span class="ref">p.98</span></td></tr>
 <tr><td id="np-240">Aflibercept 8 mg</td><td id="np-241">High-dose formulation（<span class="num">8.0 mg/0.07 mL</span>）</td><td id="np-242"><span class="num">2023</span> FDA 核可；PULSAR <span class="ref">p.98</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li id="np-243">Ranibizumab 為重組人源化抗體片段；aflibercept 為 soluble VEGF receptor decoy，結合 VEGF-A、VEGF-B 與 PlGF ⁠<sup class="ex-qref"><span>Q148</span></sup> <span class="ref">p.88, 90</span></li>
 </ul>
 <h3 id="ch4-s8-4">關鍵試驗與結果</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Trial</th><th>Design（設計）</th><th>Main outcome（主要結果）</th></tr></thead>
 <tbody>
 <tr><td id="np-244">MARINA</td><td id="np-245">Ranibizumab monthly vs sham treatment（minimally classic/occult）</td><td id="np-246">2 年 ranibizumab <span class="num">+7.2</span> vs sham <span class="num">−10.4</span> 字母（P &lt; 0.001） <span class="ref">p.66, 89</span></td></tr>
@@ -696,7 +710,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-274">TENAYA/LUCERNE</td><td id="np-275">Faricimab <span class="num">6 mg</span> vs aflibercept <span class="num">2 mg</span></td><td id="np-276">第 40、44、48 週平均 BCVA 變化不劣；1 年 <span class="num">46%</span>（TENAYA）/<span class="num">45%</span>（LUCERNE）維持 q16w；2 年 <span class="num">59%</span>/<span class="num">67%</span> <span class="ref">p.98</span></td></tr>
 <tr><td id="np-277">PULSAR</td><td id="np-278">Aflibercept <span class="num">8 mg</span> q12w/q16w vs <span class="num">2 mg</span> q8w</td><td id="np-279">不劣；2 年 <span class="num">88%</span> 維持 ≥12 週間隔 <span class="ref">p.98</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="ch4-s8-5">Dosing strategies（給藥策略）</h3>
 <ul>
 <li id="np-280"><strong>Fixed（monthly）</strong>：MARINA、ANCHOR 評估每月 ranibizumab；PIER、EXCITE 前 3 個月 VA 改善與 MARINA、ANCHOR 相近，但每季給藥者的治療效果相較每月給藥下降 <span class="ref">p.88</span></li>
@@ -762,7 +776,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-316">CNV 可能併發於任何已知會損傷 Bruch membrane 的疾病，包括發炎性脈絡膜視網膜病變、脈絡膜腫瘤（Table 4-5 列有 choroidal nevus 等）、外傷性 choroidal rupture、視神經盤異常；也可能發生於無明顯危險因子或誘發病灶的眼（idiopathic CNV） ⁠<sup class="ex-qref"><span>Q328</span></sup> <span class="ref">p.97</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Category（類別）</th><th>Conditions associated with CNV（Table 4-5）</th></tr></thead>
 <tbody>
 <tr><td id="np-317">Degenerative</td><td id="np-318">Age-related macular degeneration、angioid streaks、myopic degeneration</td></tr>
@@ -772,8 +786,8 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-325">Traumatic</td><td id="np-326">Choroidal rupture、intense photocoagulation（強烈光凝）</td></tr>
 <tr><td id="np-327">Idiopathic</td><td id="np-328">（表中未列細項；正文：無明顯危險因子或誘發病灶） <span class="ref">p.97</span></td></tr>
 </tbody>
-</table>
-<table class="ted-table ex-ddx">
+</table></div>
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity</th><th>Bruch membrane／脈絡膜視網膜病變</th><th>典型線索</th><th>CNV 相關重點</th></tr></thead>
 <tbody>
 <tr><td id="np-329">Angioid streaks</td><td id="np-330">增厚鈣化的 Bruch membrane 裂開 <span class="ref">p.95</span></td><td id="np-331">由視神經盤周圍放射的暗紅或棕色線；PXE 的 peau d'orange、comet lesions <span class="ref">p.95</span></td><td id="np-332">CNV 為最相關的視力併發症 <span class="ref">p.95</span></td></tr>
@@ -781,7 +795,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-337">OHS</td><td id="np-338">脈絡膜視網膜疤痕 <span class="ref">p.93–94</span></td><td id="np-339">Histo spots、周邊線狀萎縮帶、juxtapapillary 疤痕、無玻璃體發炎 <span class="ref">p.94–95</span></td><td id="np-340">非 AMD 的 CNV 現主要用 anti-VEGF <span class="ref">p.93</span></td></tr>
 <tr><td id="np-341">Idiopathic CNV</td><td id="np-342">—</td><td id="np-343">無明顯危險因子或誘發病灶 <span class="ref">p.97</span></td><td id="np-344">非 AMD 的 CNV 現主要用 anti-VEGF <span class="ref">p.93</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="ex-trap"><h3 id="ch4-s9-5">易錯陷阱</h3><ul>
 <li id="np-345">Angioid streaks 相關疾病列舉為 PXE（最常見）、Paget disease of bone、β-thalassemia、sickle cell anemia、Ehlers-Danlos syndrome（p.95）；病理性近視的 CNV 可伴或不伴 lacquer cracks（p.96） ⁠<sup class="ex-qref"><span>Q1440</span></sup> <span class="ref">p.95–96</span></li>
 <li id="np-346">PXE 以 autosomal recessive 為主，致病基因 <em>ABCC6</em>（16p13.11）（p.95）；<em>ABCA4</em> 屬 AMD 遺傳研究的 all-trans-retinaldehyde 清除路徑（p.68） ⁠<sup class="ex-qref"><span>Q1441</span></sup> <span class="ref">p.68, 95</span></li>
@@ -791,7 +805,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch4-s10" data-w="2094">十、GA 補體抑制劑與新藥</h2>
 <h3 id="ch4-s10-1">GA 的 anti-complement therapy（抗補體治療）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Item</th><th>Pegcetacoplan</th><th>Avacincaptad pegol</th></tr></thead>
 <tbody>
 <tr><td id="np-349">Target</td><td id="np-350">C3（cyclic peptide）</td><td id="np-351">C5（complement inhibitor）</td></tr>
@@ -800,7 +814,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-358">Efficacy</td><td id="np-359">24 個月 GA 成長統計顯著減少：monthly <span class="num">22%</span>（OAKS）/<span class="num">19%</span>（DERBY）；EOM <span class="num">18%</span>/<span class="num">16%</span></td><td id="np-360">6 個月時 GA 速率統計顯著下降</td></tr>
 <tr><td id="np-361">Adverse events</td><td id="np-362">CNV <span class="num">12%</span>（monthly）/<span class="num">7%</span>（EOM）/<span class="num">3%</span>（sham）；intraocular inflammation <span class="num">4%/2%/&lt;1%</span>；ischemic optic neuropathy <span class="num">1.7%/0.2%/0%</span></td><td id="np-363">暫時性 IOP 上升 <span class="num">9%</span>；neovascular AMD 增加（<span class="num">7%</span> vs sham <span class="num">4%</span>） <span class="ref">p.97–98</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li id="np-364">兩藥皆為 FDA 核可的 AMD 所致 GA 治療；OAKS、DERBY（phase 3）於 24 個月、GATHER1／GATHER2 於 6 個月皆顯示 GA 成長（速率）統計顯著減少；不良事件包括 CNV／neovascular AMD 發生率高於 sham ⁠<sup class="ex-qref"><span>Q1435</span></sup> <span class="ref">p.97–98</span></li>
 </ul>

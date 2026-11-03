@@ -1039,14 +1039,100 @@
   function landingHref(key, f, para) {
     return '/exam/bcsc' + key + '?hl=' + encodeURIComponent(f.q) + '#np-' + (para + 1);
   }
+  // Ranked names (ported from the dermatology exam section, 2026-11-03). The generator
+  // lists, per chapter page and per note section, the names a reader would type, plus
+  // abbreviations and Chinese names from a glossary built from the notes (notes-data.json
+  // "find"): 0 exact abbreviation, 1 exact name, 2 prefix, 3 word start, 4 substring.
+  // A short Latin query (PVRL, RP) matches whole words only, as in the paragraph search.
+  function normTerm(text) {
+    var s = String(text || '');
+    if (s.normalize) s = s.normalize('NFKD').replace(/[̀-ͯ]/g, '');
+    return s.toLowerCase().replace(/[\-‐-―_\/·]/g, ' ').replace(/[’']/g, '')
+      .replace(/\s+/g, ' ').trim();
+  }
+  var HAS_CJK = /[㐀-鿿]/;
+  function termIndex(data) {
+    if (data.findIndex) return data.findIndex;
+    var raw = data.find && Array.isArray(data.find.entries) ? data.find.entries : [];
+    data.findIndex = raw.filter(function (e) {
+      return Array.isArray(e) && own(data.chapters, e[0]) && Array.isArray(e[3]) && Array.isArray(e[4]);
+    }).map(function (e, i) {
+      var terms = [];
+      e[3].forEach(function (t, j) { terms.push({ text: String(t), key: normTerm(t), abbr: false, primary: j < e[5] }); });
+      e[4].forEach(function (t, j) { terms.push({ text: String(t), key: normTerm(t), abbr: true, primary: j < e[6] }); });
+      return { key: String(e[0]), sid: String(e[1] || ''), title: String(e[2] || ''), terms: terms, order: i };
+    });
+    return data.findIndex;
+  }
+  function matchTier(term, q, word, cjk) {
+    var k = term.key;
+    if (!k) return -1;
+    if (k === q) return term.abbr ? 0 : 1;
+    if (word) {
+      var m = new RegExp('(^|[^a-z0-9])' + q + 's?(?![a-z0-9])').exec(k);
+      if (!m) return -1;
+      return m.index === 0 && !m[1] ? 2 : 3;
+    }
+    var at = k.indexOf(q);
+    if (at < 0) return -1;
+    if (at === 0) return 2;
+    if (cjk || /[^a-z0-9]/.test(k.charAt(at - 1))) return 3;
+    return term.abbr ? -1 : 4;
+  }
+  // { chapter key: { best: score, hits: [{ entry, score, names }] } }, lower score = better.
+  function rankTerms(index, query) {
+    var q = normTerm(query);
+    var out = {};
+    if (!q) return out;
+    var cjk = HAS_CJK.test(q);
+    var word = /^[a-z0-9]{1,6}$/.test(q);
+    index.forEach(function (entry) {
+      var best = Infinity;
+      var matched = [];
+      entry.terms.forEach(function (term) {
+        var tier = matchTier(term, q, word, cjk);
+        if (tier < 0) return;
+        var score = tier * 2 + (term.primary ? 0 : 1);
+        matched.push({ text: term.text, score: score });
+        if (score < best) best = score;
+      });
+      if (!matched.length) return;
+      matched.sort(function (a, b) { return a.score - b.score; });
+      var names = [];
+      matched.forEach(function (m) {
+        if (names.length < 3 && m.score === best && names.indexOf(m.text) < 0) names.push(m.text);
+      });
+      var g = out[entry.key] || (out[entry.key] = { best: Infinity, hits: [] });
+      g.hits.push({ entry: entry, score: best, names: names });
+      if (best < g.best) g.best = best;
+    });
+    Object.keys(out).forEach(function (key) {
+      out[key].hits.sort(function (a, b) {
+        return a.score - b.score || (a.entry.sid ? 1 : 0) - (b.entry.sid ? 1 : 0) || a.entry.order - b.entry.order;
+      });
+    });
+    return out;
+  }
+
   var SHOW_HITS = 5;
-  function hubSearch(query, input, out, status) {
+  var SHOW_NAMES = 3;
+  // Results are an ARIA listbox (the input is its combobox): one group per chapter, whose
+  // options are the chapter link, the sections whose names match and the paragraphs.
+  function option(node, list) {
+    node.id = 'ex-find-o' + list.n++;
+    node.setAttribute('role', 'option');
+    node.setAttribute('aria-selected', 'false');
+    node.tabIndex = -1;
+    return node;
+  }
+  function hubSearch(query, input, out, status, done) {
     var f = finder(query);
     clear(out);
-    if (!f || f.q.length < 2) { status.textContent = ''; return; }
+    if (!f || f.q.length < 2) { status.textContent = ''; done(null); return; }
     status.textContent = '搜尋中…';
     notesData().then(function (data) {
       if (finder(input.value) === null || finder(input.value).q !== f.q) return;  // a newer query is pending
+      var named = rankTerms(termIndex(data), f.q);
       var groups = [];
       var total = 0;
       function collect(fd) {
@@ -1061,8 +1147,9 @@
             var r = hitRanges(p.t, fd);
             if (r.length) hits.push({ i: i, p: p, r: r });
           });
-          if (hits.length || ranges(ch.title, fd).length) {
-            groups.push({ key: key, ch: ch, hits: hits });
+          var names = own(named, key) ? named[key] : null;
+          if (hits.length || names || ranges(ch.title, fd).length) {
+            groups.push({ key: key, ch: ch, hits: hits, names: names ? names.hits : [], best: names ? names.best : Infinity });
             total += hits.length;
           }
         });
@@ -1074,77 +1161,187 @@
         collect(f);
         loose = groups.length > 0;
       }
-      groups.sort(function (a, b) { return b.hits.length - a.hits.length || chapterOrder(a.key, b.key); });
+      // Best name match first (exact abbreviation > name > prefix > word > substring),
+      // then the chapters that mention the term most often.
+      groups.sort(function (a, b) {
+        return a.best - b.best || b.hits.length - a.hits.length || chapterOrder(a.key, b.key);
+      });
       clear(out);
-      var more = el('p', 'ex-meta');
+      var more = el('p', 'ex-meta ex-find-all');
       var link = el('a', null, '到搜尋頁也搜尋考題（需登入）');
       link.href = '/exam/search?q=' + encodeURIComponent(f.q);
       more.appendChild(link);
       if (!groups.length) {
         status.textContent = '課本重點與章節名稱中找不到「' + f.q + '」。';
         out.appendChild(more);
+        done(null);
         return;
       }
       status.textContent = '「' + f.q + '」出現在 ' + groups.length + ' 章' + (total ? '、共 ' + total + ' 段重點' : '')
         + (loose ? '（找不到完整詞組，列出含有所有關鍵字的段落）' : '') + '。';
       out.appendChild(el('h2', 'ex-find-title', '搜尋結果'));
+      var box = el('div', 'ex-find-box');
+      box.id = 'ex-find-list';
+      box.setAttribute('role', 'listbox');
+      box.setAttribute('aria-label', '搜尋結果');
+      var ids = { n: 0 };
       groups.forEach(function (g) {
-        var box = el('section', 'ex-find-group');
-        var h = el('h3', 'ex-find-h');
-        var a = el('a', null, g.ch.label + ' ' + g.ch.title);
-        a.href = g.hits.length ? landingHref(g.key, f, g.hits[0].i) : '/exam/bcsc' + g.key;
+        var group = el('section', 'ex-find-group');
+        group.setAttribute('role', 'group');
+        var h = el('div', 'ex-find-h');
+        var top = g.names[0];
+        var a = option(el('a', 'ex-find-ch', g.ch.label + ' ' + g.ch.title), ids);
+        // The chapter link opens the best hit: the best-named section (its first matching
+        // paragraph when there is one), else the first matching paragraph, else the page.
+        var first = g.hits[0];
+        if (top && top.entry.sid) {
+          var inSec = g.hits.filter(function (hit) { return hit.p.h === top.entry.sid; })[0];
+          a.href = inSec ? landingHref(g.key, f, inSec.i)
+            : '/exam/bcsc' + g.key + '?hl=' + encodeURIComponent(f.q) + '#' + top.entry.sid;
+        } else {
+          a.href = first && !top ? landingHref(g.key, f, first.i) : '/exam/bcsc' + g.key;
+        }
+        group.setAttribute('aria-labelledby', a.id);
         h.appendChild(a);
         h.appendChild(el('span', 'ex-count', g.hits.length ? g.hits.length + ' 段'
-          : (data.notes[g.key] ? '章節名稱符合' : '章節名稱符合，重點尚未整理')));
-        box.appendChild(h);
+          : g.names.length ? '名稱符合' : (data.notes[g.key] ? '章節名稱符合' : '章節名稱符合，重點尚未整理')));
+        group.appendChild(h);
+        var secs = g.names.filter(function (hit) { return hit.entry.sid; }).slice(0, SHOW_NAMES);
+        if (secs.length) {
+          var nameList = el('ul', 'ex-find-names');
+          nameList.setAttribute('role', 'none');
+          secs.forEach(function (hit) {
+            var li = el('li');
+            li.setAttribute('role', 'none');
+            var sa = option(el('a'), ids);
+            sa.href = '/exam/bcsc' + g.key + '?hl=' + encodeURIComponent(f.q) + '#' + hit.entry.sid;
+            sa.appendChild(el('span', 'ex-find-sec', '› ' + hit.entry.title));
+            sa.appendChild(el('span', 'ex-find-why', '名稱符合：' + hit.names.join('、')));
+            li.appendChild(sa);
+            nameList.appendChild(li);
+          });
+          group.appendChild(nameList);
+        }
         if (g.hits.length) {
           var list = el('ul', 'ex-find-list');
+          list.setAttribute('role', 'none');
           g.hits.forEach(function (hit, n) {
             var li = el('li');
+            li.setAttribute('role', 'none');
             if (n >= SHOW_HITS) li.hidden = true;
-            var link = el('a');
-            link.href = landingHref(g.key, f, hit.i);
+            var pl = option(el('a'), ids);
+            pl.href = landingHref(g.key, f, hit.i);
             var sec = g.ch.secs && g.ch.secs[hit.p.h];
-            if (sec) link.appendChild(el('span', 'ex-find-sec', sec));
-            link.appendChild(snippet(hit.p.t, hit.r));
-            li.appendChild(link);
+            if (sec) pl.appendChild(el('span', 'ex-find-sec', sec));
+            pl.appendChild(snippet(hit.p.t, hit.r));
+            li.appendChild(pl);
             list.appendChild(li);
           });
-          box.appendChild(list);
+          group.appendChild(list);
           if (g.hits.length > SHOW_HITS) {
-            var btn = el('button', 'ex-find-more', '再顯示 ' + (g.hits.length - SHOW_HITS) + ' 段');
+            var btn = option(el('button', 'ex-find-more', '再顯示 ' + (g.hits.length - SHOW_HITS) + ' 段'), ids);
             btn.type = 'button';
             btn.addEventListener('click', function () {
-              var first = null;
-              list.querySelectorAll('li[hidden]').forEach(function (li) { li.hidden = false; first = first || li; });
+              var shown = null;
+              list.querySelectorAll('li[hidden]').forEach(function (li) { li.hidden = false; shown = shown || li; });
               btn.remove();
-              if (first) first.querySelector('a').focus();
+              if (shown) input.dispatchEvent(new CustomEvent('ex-find-focus', { detail: shown.querySelector('[role=option]') }));
             });
-            box.appendChild(btn);
+            group.appendChild(btn);
           }
         }
-        out.appendChild(box);
+        box.appendChild(group);
       });
+      out.appendChild(box);
       out.appendChild(more);
+      done(f.q);
     }).catch(function () {
       status.textContent = '資料載入失敗，請重新整理頁面。';
+      done(null);
     });
   }
   function initHubSearch(form) {
     var input = form.querySelector('input[name=q]');
     var out = document.getElementById('ex-find-results');
     var status = document.querySelector('.ex-find-status');
+    var hint = document.getElementById('ex-find-hint');
     var timer = null;
+    var active = null;
+    var shownQuery = null;   // the query the listed options were found for
+    // Combobox semantics only with JavaScript; without it the form posts to /exam/search.
+    input.setAttribute('role', 'combobox');
+    input.setAttribute('aria-autocomplete', 'list');
+    input.setAttribute('aria-expanded', 'false');
+    input.setAttribute('enterkeyhint', 'search');
+    if (hint) hint.appendChild(document.createTextNode('可用上下鍵選擇結果、Enter 開啟、Esc 關閉。'));
+    function options() {
+      return Array.prototype.filter.call(out.querySelectorAll('[role=option]'), function (o) {
+        var h = o.closest('[hidden]');
+        return !h || h === out;   // a collapsed list (Esc) still has its options
+      });
+    }
+    function setActive(node) {
+      if (active) active.setAttribute('aria-selected', 'false');
+      active = node || null;
+      if (active) {
+        active.setAttribute('aria-selected', 'true');
+        input.setAttribute('aria-activedescendant', active.id);
+        active.scrollIntoView({ block: 'nearest' });
+      } else {
+        input.removeAttribute('aria-activedescendant');
+      }
+    }
+    function expand(open) {
+      var list = document.getElementById('ex-find-list');
+      open = !!(open && list && out.contains(list));
+      out.hidden = !open && !!list;
+      input.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (list) input.setAttribute('aria-controls', list.id);
+      else input.removeAttribute('aria-controls');
+      if (!open) setActive(null);
+    }
     function run() {
       clearTimeout(timer);
       var q = input.value.trim();
       try { history.replaceState(null, '', q ? '?q=' + encodeURIComponent(q) : location.pathname); } catch (e) { /* ignore */ }
-      hubSearch(q, input, out, status);
+      active = null;
+      input.removeAttribute('aria-activedescendant');
+      out.hidden = false;
+      hubSearch(q, input, out, status, function (found) {
+        shownQuery = found === null ? null : input.value;
+        expand(found !== null);
+      });
     }
+    input.addEventListener('ex-find-focus', function (ev) { setActive(ev.detail); });
+    out.addEventListener('mousemove', function (ev) {
+      var o = ev.target.closest && ev.target.closest('[role=option]');
+      if (o && o !== active && out.contains(o)) setActive(o);
+    });
     input.addEventListener('focus', function () { notesData().catch(function () { /* reported on search */ }); });
     input.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(run, 250); });
     input.addEventListener('keydown', function (ev) {
-      if (ev.key === 'Escape' && input.value) { input.value = ''; run(); }
+      var opts;
+      if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
+        opts = options();
+        if (!opts.length) return;
+        ev.preventDefault();
+        if (input.getAttribute('aria-expanded') !== 'true') expand(true);
+        var at = opts.indexOf(active);
+        var step = ev.key === 'ArrowDown' ? 1 : -1;
+        setActive(opts[at < 0 ? (step > 0 ? 0 : opts.length - 1) : (at + step + opts.length) % opts.length]);
+      } else if (ev.key === 'Enter') {
+        if (ev.isComposing || ev.keyCode === 229) return;  // finishing a 注音／倉頡 composition
+        ev.preventDefault();
+        opts = options();
+        // Results listed for an earlier query (or none yet): search what is typed now.
+        if (!opts.length || shownQuery !== input.value || !input.value.trim()) { run(); return; }
+        var target = active && opts.indexOf(active) >= 0 ? active : opts[0];
+        if (target.tagName === 'BUTTON') target.click();
+        else location.href = target.href;
+      } else if (ev.key === 'Escape') {
+        if (input.getAttribute('aria-expanded') === 'true') { ev.preventDefault(); expand(false); }
+        else if (input.value) { ev.preventDefault(); input.value = ''; run(); }
+      }
     });
     form.addEventListener('submit', function (ev) { ev.preventDefault(); run(); });
     var initial = new URLSearchParams(location.search).get('q');
@@ -1213,6 +1410,23 @@
     place();
     window.addEventListener('load', place);
     return place;
+  }
+
+  // A link to #id must show its target even when it sits in a closed <details> (a 考點
+  // on a chapter page, a BCSC part on the hub); ported from the dermatology exam section.
+  function openDetails(target) {
+    var opened = false;
+    for (var d = target.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) {
+      if (!d.open) { d.open = true; opened = true; }
+    }
+    return opened;
+  }
+  function revealTarget() {
+    var id = location.hash.slice(1);
+    if (!id) return;
+    try { id = decodeURIComponent(id); } catch (e) { return; }
+    var target = document.getElementById(id);
+    if (target && openDetails(target)) target.scrollIntoView();
   }
 
   // ---------------------------------------------------------- reading position
@@ -2086,6 +2300,8 @@
     if (strip) initStrip(strip);
     var chapterQs = document.getElementById('ex-chapter-qs');
     if (chapterQs) renderChapterQuestions(chapterQs);
+    revealTarget();
+    window.addEventListener('hashchange', revealTarget);
     var landing = initLanding();
     var resume = initReadingPosition(strip ? strip.getAttribute('data-progress-chapter') : '');
     if (strip) initReading(strip.getAttribute('data-progress-chapter'));

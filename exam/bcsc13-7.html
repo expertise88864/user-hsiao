@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"ãƒ
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}

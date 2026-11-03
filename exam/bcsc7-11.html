@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -411,14 +425,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-24">出現內眥角變圓與 acquired telecanthus（後天性眥距過寬）時，應懷疑 <strong>medial canthal tendon avulsion（內眥韌帶撕脫）</strong>。<span class="ref">p.232</span></li>
 <li id="np-25">最佳處理取決於撕脫範圍；關鍵在<mark>附著於 posterior lacrimal crest（後淚嵴）的後方附著（posterior tendinous attachment）</mark>（見下表）。<span class="ref">p.232–233</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Medial canthal tendon injury（內眥韌帶損傷）</th><th>Repair（修復方式）</th></tr></thead>
 <tbody>
 <tr><td id="np-26">上或下肢撕脫，後方附著完整</td><td id="np-27">可縫回殘端，或縫至 anterior lacrimal crest（前淚嵴）上的骨膜</td></tr>
 <tr><td id="np-28">整條（含後部）撕脫，<strong>無</strong> naso-orbital fracture（鼻眶骨折）</td><td id="np-29">可經小鑽孔以鋼絲固定於同側 posterior lacrimal crest</td></tr>
 <tr><td id="np-30">整條撕脫 <strong>合併</strong> naso-orbital fracture</td><td id="np-31">骨折復位後需 <strong>transnasal wiring（經鼻鋼絲）或 plating（骨板）</strong>；可將 T 形 miniplate 固定於鼻骨並向後延伸入眶，韌帶縫線穿過骨板孔——後淚嵴骨缺損時特別有用</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-32">出處 <span class="ref">p.232–233</span></p>
 <div class="ex-trap"><h3 id="ch11-s2-4">易錯陷阱</h3><ul>
 <li id="np-33">傷口內見到眼眶脂肪代表眶隔已被穿破；眶隔撕裂不需修補，縫合眶隔可能使其垂直縮短而導致 eyelid retraction。<span class="ref">p.230</span></li>
@@ -479,7 +493,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-64">組織顏色與厚度相配；決定 graft 大小前先盡量縮小缺損。<span class="ref">p.235</span></li>
 </ul>
 <h3 id="ch11-s5-3">Table 11-1 常用縫線（精簡）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Site（部位）</th><th>Suture（縫線）</th><th>Notes（備註）</th></tr></thead>
 <tbody>
 <tr><td id="np-65">眼瞼皮膚</td><td id="np-66">6-0 express plain gut；7-0 Vicryl；6-0 Prolene / nylon</td><td id="np-67">Plain gut <span class="num">2–4 週</span>溶、Vicryl <span class="num">1–2 個月</span>溶（皆可提早拆以減少疤痕）；Prolene/nylon <span class="num">1–2 週</span>內拆</td></tr>
@@ -490,7 +504,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-80">內/外眥</td><td id="np-81">4-0/5-0 Vicryl、Mersilene、Prolene</td><td id="np-82">Vicryl/Mersilene 可致 suture granuloma</td></tr>
 <tr><td id="np-83">口腔唇黏膜</td><td id="np-84">4-0 chromic gut</td><td id="np-85">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-86">出處 <span class="ref">p.236</span></p>
 <div class="ex-trap"><h3 id="ch11-s5-4">易錯陷阱</h3><ul>
 <li id="np-87">前層或後層只能其中一層用 graft，不可兩層都用；其中一層必須提供血流（pedicle flap）。<span class="ref">p.235</span></li>
@@ -506,7 +520,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-93">較厚的植皮可能限制上眼瞼活動；植皮應<mark>稍微放大</mark>，因很可能發生收縮。<span class="ref">p.236</span></li>
 <li id="np-94"><strong>Split-thickness graft（STSG，部分厚度植皮）應避免</strong>，只在沒有足夠全層皮膚時才建議使用。<span class="ref">p.236</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>FTSG donor site（全層植皮供皮區，Fig 11-7）</th><th>Comment（說明）</th></tr></thead>
 <tbody>
 <tr><td id="np-95">Upper eyelid（上眼瞼）</td><td id="np-96">理想供皮</td></tr>
@@ -515,7 +529,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-101">Supraclavicular（鎖骨上窩）</td><td id="np-102">替代</td></tr>
 <tr><td id="np-103">Inner upper arm（上臂內側）</td><td id="np-104">替代；例如內眥大缺損（Fig 11-17）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-105">出處 <span class="ref">p.233, p.235–237, p.246</span></p>
 <div class="ex-trap"><h3 id="ch11-s6-1">易錯陷阱</h3><ul>
 <li id="np-106">Fig 11-7 的 FTSG 供皮區：upper eyelid、preauricular、postauricular、supraclavicular、inner upper arm。<span class="ref">p.236–237</span></li>
@@ -544,14 +558,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-118">若上眼瞼多餘皮膚足夠：取<strong>對側上眼瞼</strong> tarsoconjunctival graft + skin–muscle flap 覆蓋，可能是選項之一。<span class="ref">p.237</span></li>
 <li id="np-119">階梯最下端（最大缺損端）：<strong>median forehead flap（正中額皮瓣）</strong>。<span class="ref">p.238</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Defect size（缺損，% 瞼緣）</th><th>Upper eyelid ladder（上眼瞼，Fig 11-8）</th></tr></thead>
 <tbody>
 <tr><td id="np-120"><span class="num">≤ 33%</span></td><td id="np-121">A：primary closure ± lateral canthotomy / superior cantholysis</td></tr>
 <tr><td id="np-122"><span class="num">33%–50%</span></td><td id="np-123">B：semicircular flap；C：相鄰 tarsoconjunctival flap + FTSG</td></tr>
 <tr><td id="np-124"><span class="num">50%–100%</span></td><td id="np-125">D：tarsoconjunctival graft + skin flap；E：<strong>Cutler-Beard</strong>（全層下眼瞼推進瓣）；F：median forehead flap</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-126">出處 <span class="ref">p.238</span></p>
 <div class="ex-trap"><h3 id="ch11-s7-4">易錯陷阱</h3><ul>
 <li id="np-127"><mark>Cutler-Beard flap 以全層下眼瞼推進瓣修補大範圍上眼瞼缺損</mark>（Fig 11-8 E）。<span class="ref">p.237–239</span></li>
@@ -582,14 +596,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-141"><strong>Mustarde flap（大型臉頰旋轉皮瓣）</strong>：可有效用於<mark>大範圍<strong>前層</strong>缺損</mark>，並搭配後層重建選項使用；Fig 11-10 列為 F（階梯最下端）。<span class="ref">p.240–242</span></li>
 <li id="np-142">Cheek rotation flap 與 semicircular rotation flap 都可能造成<strong>外眥變圓</strong>；從外眥朝眉毛外側端做<strong>高拱形切口</strong>可減輕。<span class="ref">p.242</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Defect size（缺損，% 瞼緣）</th><th>Lower eyelid ladder（下眼瞼，Fig 11-10）</th></tr></thead>
 <tbody>
 <tr><td id="np-143"><span class="num">≤ 33%</span></td><td id="np-144">A：primary closure ± lateral canthotomy / superior cantholysis</td></tr>
 <tr><td id="np-145"><span class="num">33%–50%</span></td><td id="np-146">B：semicircular flap（<strong>Tenzel</strong>）；C：相鄰 tarsoconjunctival flap + FTSG</td></tr>
 <tr><td id="np-147"><span class="num">50%–100%</span></td><td id="np-148">D：free tarsoconjunctival graft + skin flap；E：<strong>modified Hughes</strong>（上眼瞼 tarsoconjunctival flap + skin graft）；F：composite graft + cheek advancement flap（<strong>Mustarde</strong>）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-149">出處 <span class="ref">p.239–240, p.242</span></p>
 <div class="keypoint">Fig 11-10 下眼瞼階梯沿缺損增大方向依序為 A primary closure → B semicircular（Tenzel）→ C → D → E modified Hughes → F Mustarde。<span class="ref">p.240, p.242</span></div>
 <div class="ex-trap"><h3 id="ch11-s8-4">易錯陷阱</h3><ul>
@@ -628,13 +642,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-168"><strong>FTSG</strong>：重建內眥缺損的極佳方式，<mark>夠薄便於監測腫瘤復發</mark>；但易術後攣縮，可能需 wound-modulating 注射。缺損涉及額或頰而植皮無法恢復足夠組織深度時，可考慮 acellular dermal allograft（無細胞真皮異體移植）或 regeneration template（再生基質）。<span class="ref">p.244</span></li>
 <li id="np-169"><strong>Forehead / glabellar flap</strong>：精心轉位常可得到最佳外觀，但<mark>皮瓣可能較厚，可能妨礙偵測復發</mark>；可能需第二階段修薄或雷射。<span class="ref">p.244</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Flap（皮瓣）</th><th>Design（設計）</th><th>Indication（適用位置）</th><th>Notes（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-170"><strong>Glabellar flap</strong></td><td id="np-171">三角形旋轉瓣，基底在兩眉之間、尖端朝額；旋轉約 <span class="num">120°</span></td><td id="np-172">內眥<mark>以上</mark>、涉及鼻側</td><td id="np-173">供區把兩眉往中線拉攏閉合 → 垂直切口、眉距縮短</td></tr>
 <tr><td id="np-174"><strong>Paramedian forehead flap</strong></td><td id="np-175">長軸型 axial flap，基底以 <strong>supratrochlear artery（滑車上動脈）</strong>為中心，距中線約 <span class="num">1.7 cm</span>；該動脈的確切走向可用 Doppler ultrasonography（都卜勒超音波）確認</td><td id="np-176">內眥<mark>以下</mark>、涉及鼻、頰或下眼瞼</td><td id="np-177">通常取<strong>對側</strong>以減少蒂部扭轉；<strong>兩階段</strong>（血管化後斷蒂）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-178">出處 <span class="ref">p.244–247</span></p>
 <div class="ex-trap"><h3 id="ch11-s10-3">易錯陷阱</h3><ul>
 <li id="np-179">切除內眥腫瘤若須大範圍犧牲兩條淚小管，病人可能須先忍受溢淚，待判斷腫瘤不太可能復發後才考慮 CDCR。<span class="ref">p.242</span></li>

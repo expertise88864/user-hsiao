@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -377,13 +391,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-6">只要已充分排除感染，<strong>不應因無法確定診斷而延誤治療</strong>。<span class="ref">p.199–200</span></li>
 <li id="np-7">許多非感染性後／全葡萄膜炎需要 systemic immunomodulatory therapy（IMT，全身免疫調節治療）；全身及／或局部 corticosteroids（類固醇）作為 IMT 起效前的 <strong>bridge（橋接）</strong>。<span class="ref">p.199</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>本章分組</th><th>疾病</th><th>頁碼</th></tr></thead>
 <tbody>
 <tr><td id="np-8">Posterior uveitis with possible systemic manifestations</td><td id="np-9">SLE、PAN、GPA／MPA、Susac syndrome</td><td id="np-10">p.200–207</td></tr>
 <tr><td id="np-11">Panuveitis with possible systemic manifestations</td><td id="np-12">Sarcoidosis、SO、VKH、Behcet disease</td><td id="np-13">p.208–228</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-14">出處 <span class="ref">p.200, p.208</span></p>
 <div class="ex-trap"><h3 id="ch10-s1-2">易錯陷阱</h3><ul>
 <li id="np-15">Sarcoidosis、SO、VKH、Behcet disease 列於本章「Panuveitis With Possible Systemic Manifestations」；<strong>Fuchs uveitis syndrome（Fuchs heterochromic uveitis，Fuchs 異色性葡萄膜炎）</strong>通常為單眼，列於 BCSC 9 第 8 章（noninfectious anterior and intermediate uveitis）（本章外）⁠<sup class="ex-qref"><span>Q1003</span></sup>。<span class="ref">p.208, p.214, p.217, p.223；BCSC 9 p.155</span></li>
@@ -440,7 +454,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-46">神經眼科：cranial nerve palsies、homonymous hemianopia（同側偏盲）、Horner syndrome、ischemic optic neuropathy；<strong>各型 scleritis</strong>（含 necrotizing 與 posterior scleritis）皆曾有報告；<strong>peripheral ulcerative keratitis（PUK，周邊潰瘍性角膜炎）</strong>常伴 scleritis，可能為 PAN 的早期表現⁠<sup class="ex-qref"><span>Q1030</span></sup>。<span class="ref">p.203</span></li>
 <li id="np-47">無確診檢驗；<mark>不同於 GPA，PAN 與 ANCA 無關聯</mark>；組織切片（常為皮膚或腎臟）可能可確認，但常依臨床：下列 <span class="num">10</span> 項中 <span class="num">≥ 3</span> 項。<span class="ref">p.203–204</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>PAN 臨床診斷條件（≥3/10）</th></tr></thead>
 <tbody>
 <tr><td id="np-48">體重減輕 <span class="num">&gt; 4 kg</span></td></tr>
@@ -454,7 +468,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-56">Arteriogram 顯示內臟動脈 aneurysm 或阻塞（非動脈硬化、fibromuscular dysplasia 等非發炎原因）</td></tr>
 <tr><td id="np-57">中小動脈切片見 granulocytes（或 granulocytes 加 mononuclear leukocytes）於動脈壁</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-58">出處 <span class="ref">p.204</span></p>
 <ul>
 <li id="np-59">死因常為腎衰竭或腸繫膜、腦、心臟梗塞；<mark class="ex-key">未治療 5 年存活率 <span class="num">13%</span>，治療後 <span class="num">80%</span></mark>⁠<sup class="ex-qref"><span>Q1030</span></sup>。<span class="ref">p.204</span></li>
@@ -487,13 +501,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-73"><strong>Antineutrophil cytoplasmic antibodies（ANCA，抗嗜中性球細胞質抗體）</strong>是 GPA、MPA、eosinophilic GPA（EGPA，即 Churg-Strauss syndrome）、renal-limited vasculitis、pauci-immune glomerulonephritis 的特異標記；作用於 neutrophils 與 monocytes 的 cytoplasmic azurophilic granules⁠<sup class="ex-qref"><span>Q8</span> <span>Q1017</span></sup>。<span class="ref">p.206</span></li>
 <li id="np-74">EGPA（Churg-Strauss）以慢性鼻竇炎、<strong>asthma（氣喘）</strong>與嗜酸性球增多為特徵（本章外）⁠<sup class="ex-qref"><span>Q8</span></sup>。<span class="ref">p.206；BCSC 1 p.182</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>ANCA pattern</th><th>相關疾病</th><th>主要抗原</th></tr></thead>
 <tbody>
 <tr><td id="np-75"><strong>c-ANCA</strong>（cytoplasmic）</td><td id="np-76">對 GPA 兼具敏感與特異，最多 <span class="num">95%</span> GPA 病人陽性</td><td id="np-77"><strong>PR3</strong></td></tr>
 <tr><td id="np-78"><strong>p-ANCA</strong>（perinuclear）</td><td id="np-79">MPA、renal-limited vasculitis、pauci-immune GN</td><td id="np-80"><strong>MPO</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-81">出處 <span class="ref">p.206</span></p>
 <ul>
 <li id="np-82">兩種檢驗理想上都做：indirect immunofluorescence（c-／p-ANCA，<strong>較敏感</strong>）與 ELISA（PR3-ANCA、MPO-ANCA，<strong>較特異</strong>）。<span class="ref">p.206</span></li>
@@ -672,13 +686,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-192">VKH 是<strong>臨床診斷</strong>，沒有確診檢查。<strong>2001 International Committee Revised Diagnostic Criteria</strong> 分 complete、incomplete、probable；SUN Working Group 為減少錯誤分類，改分 <strong>early-stage（Table 10-1）</strong>與 <strong>late-stage（Table 10-2）</strong>，兩者可重疊⁠<sup class="ex-qref"><span>Q1112</span></sup>。<span class="ref">p.221</span></li>
 <li id="np-193">SUN early-stage 兩項條件都要求<mark class="ex-key"><strong>發病前無 penetrating trauma（穿透性外傷）或 vitreoretinal surgery（玻璃體視網膜手術）史</strong></mark>；條件 #2 含神經／聽覺表現（headache、tinnitus、dysacusis、meningismus、CSF pleocytosis）；late-stage 條件 #2 含皮膚毛髮變化（vitiligo、poliosis、alopecia）。Early stage 為雙側，罕見病例可為單側⁠<sup class="ex-qref"><span>Q1112</span> <span>Q994</span></sup>。<span class="ref">p.218, p.222</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>SUN classification</th><th>Criteria（條件）</th><th>Exclusions（排除）</th></tr></thead>
 <tbody>
 <tr><td id="np-194"><strong>Early-stage VKH</strong>（#1 或 #2）</td><td id="np-195">#1：serous（exudative）RD <strong>且</strong> FA multiloculated 或 OCT septa，且無穿透傷／玻璃體視網膜手術史<br>#2：panuveitis（需有脈絡膜侵犯證據）合併 <span class="num">4 週</span>內 <span class="num">≥ 2</span> 項：headache、tinnitus、dysacusis、meningismus、CSF pleocytosis；且無穿透傷／手術史</td><td id="np-196" rowspan="2">Treponemal test 梅毒血清陽性；sarcoidosis 證據（胸部影像雙側肺門淋巴腺病，或切片 noncaseating granulomas）</td></tr>
 <tr><td id="np-197"><strong>Late-stage VKH</strong>（早期 VKH 病史 + #1 或 #2）</td><td id="np-198">#1：sunset-glow fundus<br>#2：uveitis（chronic anterior uveitis、anterior + intermediate uveitis，或 panuveitis 合併 multifocal choroiditis／Dalen-Fuchs–like nodules）<strong>且</strong> <span class="num">≥ 1</span> 項：vitiligo、poliosis、alopecia</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-199">出處 <span class="ref">p.222</span></p>
 <ul>
 <li id="np-200">鑑別診斷：SO、uveal effusion syndrome、posterior scleritis、vitreoretinal lymphoma、choroidal lymphoma、acute posterior multifocal placoid pigment epitheliopathy（APMPPE）、bilateral diffuse uveal melanocytic proliferation（BDUMP）、TB-associated uveitis、sarcoidosis。本章外：BCSC 9 Table 11-2 <strong>neuroretinitis（視神經視網膜炎）鑑別診斷</strong>：感染性（bartonellosis、diffuse unilateral subacute neuroretinitis、ehrlichiosis、herpes simplex、leptospirosis、Lyme disease、mumps、Rocky Mountain spotted fever、Salmonella、syphilis、toxocariasis、toxoplasmosis、tuberculosis、varicella）；非感染性（acute systemic hypertension、anterior ischemic optic neuropathy、diabetes、idiopathic intracranial hypertension、leukemic infiltration of the optic nerve、sarcoidosis）；特發性（recurrent idiopathic neuroretinitis）⁠<sup class="ex-qref"><span>Q1727</span></sup>。<span class="ref">p.221–222；BCSC 9 p.250</span></li>
@@ -770,7 +784,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch10-s10" data-w="2308">十、綜合比較</h2>
 <h3 id="ch10-s10-1">四種 panuveitis 比較</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>發炎型態</th><th>典型眼底／特徵</th><th>病理</th><th>HLA／遺傳</th><th>確診方式</th></tr></thead>
 <tbody>
 <tr><td id="np-255">Sarcoidosis</td><td id="np-256">Granulomatous；anterior 最多（71%）</td><td id="np-257">Snowballs、string of pearls、choroidal granulomas、periphlebitis、candlewax drippings</td><td id="np-258">Noncaseating granuloma；可有 Dalen-Fuchs nodules</td><td id="np-259">無確定的單一基因位點（BCSC 9 Table 4-1：HLA-B8／B13）</td><td id="np-260">切片（definitive）</td></tr>
@@ -778,10 +792,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-267">VKH</td><td id="np-268">雙側 granulomatous posterior／panuveitis，無外傷史</td><td id="np-269">早期多發 serous RD、視神經水腫、脈絡膜增厚；晚期 sunset glow</td><td id="np-270">早期與 SO 幾乎相同（peripapillary choroid 為主）；晚期 choroidal melanocytes 減少</td><td id="np-271">HLA-DR4（日本）、DR1／DR4（南加州 Hispanic）</td><td id="np-272">臨床（SUN early／late）</td></tr>
 <tr><td id="np-273">Behcet disease</td><td id="np-274">多為雙側 nongranulomatous；posterior／panuveitis 50%–80%</td><td id="np-275">閉塞性視網膜血管炎、retinitis + 出血、會移動的 hypopyon（不常見）</td><td id="np-276">Necrotizing neutrophilic obliterative perivasculitis</td><td id="np-277">HLA-B51（非診斷標準）</td><td id="np-278">臨床（International Study Group）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-279">出處 <span class="ref">p.209–211, p.214–218, p.221, p.225–227；BCSC 9 p.65</span></p>
 <h3 id="ch10-s10-2">本章血管炎比較</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>血管</th><th>抗體</th><th>眼部重點</th><th>未治療預後</th></tr></thead>
 <tbody>
 <tr><td id="np-280">SLE</td><td id="np-281">Lupus retinopathy：自體抗體高凝狀態血栓的 vasculopathy（而非發炎性視網膜血管炎）</td><td id="np-282">ANA、dsDNA、Sm、Ro、La、aPL</td><td id="np-283">50% 眼部；lupus retinopathy（CWS、無灌流）為活性指標；uveitis 罕見</td><td id="np-284">—</td></tr>
@@ -790,7 +804,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-295">MPA</td><td id="np-296">小血管（BCSC 1），切片無肉芽腫</td><td id="np-297">p-ANCA／MPO</td><td id="np-298">眼部侵犯比 GPA 少見</td><td id="np-299">—</td></tr>
 <tr><td id="np-300">Susac</td><td id="np-301">Immune-mediated 閉塞性微血管內皮病變</td><td id="np-302">—</td><td id="np-303">BRAO、Gass plaques（通常遠離分叉）</td><td id="np-304">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-305">出處 <span class="ref">p.200–207；BCSC 1 p.182</span></p>
 <div class="ex-trap"><h3 id="ch10-s10-3">易錯陷阱</h3><ul>
 <li id="np-306">病理：早期 VKH 為 diffuse、nonnecrotizing、granulomatous inflammation，與 <strong>SO</strong> 的型態幾乎相同（virtually identical）⁠<sup class="ex-qref"><span>Q302</span></sup>。<span class="ref">p.220</span></li>

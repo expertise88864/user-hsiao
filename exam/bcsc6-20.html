@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -436,7 +450,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-35">部分先天角膜混濁是胚胎過程受干擾：特別是<mark class="ex-key">水晶體（surface ectoderm，表面外胚層）與角膜的分離</mark>，以及 neural crest cells（神經嵴細胞）的遷移（形成角膜基質與內皮、虹膜基質、小樑網）⁠<sup class="ex-qref"><span>Q1712</span></sup>。<span class="ref">p.273</span></li>
 </ul>
 <h3 id="ch20-s3-2">Differential Diagnosis of Infantile Corneal Opacities（嬰兒角膜混濁鑑別，Table 20-1）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Diagnosis（診斷）</th><th>Location and Description of Opacity（混濁位置與描述）</th><th>Other Signs（其他徵象）</th><th>Method of Diagnosis（診斷方法）</th></tr></thead>
 <tbody>
 <tr><td id="np-36">「Sclerocornea」（表註：是描述而非診斷，較好的用詞是 severe congenital corneal opacification）</td><td id="np-37">Total corneal opacification（全角膜混濁）；周邊可能更緻密；單側或雙側；常有血管化</td><td id="np-38">Flat cornea（扁平角膜）</td><td id="np-39">Inspection（檢視）；ultrasound biomicroscopy（UBM，超音波生物顯微鏡）、anterior segment OCT（AS-OCT，前段光學同調斷層掃描）</td></tr>
@@ -450,7 +464,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-68">Primary congenital glaucoma（原發性先天性青光眼）</td><td id="np-69">瀰漫角膜水腫；單側或雙側</td><td id="np-70"><mark>Enlarged cornea（角膜變大）</mark>；Descemet membrane 斷裂；optic nerve cupping（視神經凹陷）；眼軸增長</td><td id="np-71">Tonometry（眼壓測量）、A-scan 眼軸測量</td></tr>
 <tr><td id="np-72">Dermoid（皮樣瘤）</td><td id="np-73">顳下方混濁；單側；隆起；表面有毛；角化；通常在角膜緣</td><td id="np-74">與 Goldenhar syndrome 相關</td><td id="np-75">檢視</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-76">出處 Table 20-1 ⁠<sup class="ex-qref"><span>Q611</span> <span>Q690</span></sup><span class="ref">p.274</span></p>
 <h3 id="ch20-s3-3">Congenital hereditary endothelial dystrophy（CHED，先天遺傳性內皮失養症）</h3>
 <ul>
@@ -505,14 +519,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-101">考慮：底層病理、後段狀況；年齡、混濁位置與密度、角膜直徑、眼壓、屈光與水晶體狀態、虹膜。<mark>緻密混濁</mark>需 UBM、AS-OCT、A／B-scan 超音波評估水晶體狀態、可能的青光眼與後段病變。<span class="ref">p.278–279</span></li>
 <li id="np-102"><mark>密度與位置對決定處置選項至關重要</mark>：小的中央或旁軸混濁可能可用<strong>擴瞳</strong>（藥物或 optical iridectomy，光學虹膜切除）經清澈角膜建立新視軸，這些病人通常效果很好且避開移植風險；同理可繞過合併的小核性白內障，或在緻密白內障病人合併 lensectomy（水晶體切除）。<span class="ref">p.279</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>大而緻密混濁的病理（依病因可考慮早期角膜移植）</th><th>例子</th><th>角膜移植術式</th></tr></thead>
 <tbody>
 <tr><td id="np-103">基質混濁＋內皮功能異常</td><td id="np-104">嚴重 Peters anomaly</td><td id="np-105">需 <mark>PKP</mark></td></tr>
 <tr><td id="np-106">只有內皮疾病</td><td id="np-107">CHED、PPCD</td><td id="np-108">需選擇性換內皮：年幼兒 <strong>DSAEK</strong>（Descemet stripping automated endothelial keratoplasty）、較大兒童 <strong>DMEK</strong>（Descemet membrane endothelial keratoplasty）已有成功經驗</td></tr>
 <tr><td id="np-109">基質疾病、內皮健康</td><td id="np-110">Mucopolysaccharidosis</td><td id="np-111">需 <mark>DALK</mark>（deep anterior lamellar keratoplasty，深層前板層角膜移植）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-112">出處 <span class="ref">p.279</span></p>
 <ul>
 <li id="np-113">單側大片緻密混濁、視力預後差或眼部／全身共病多的兒童：需與家長討論手術、可能併發症與多次麻醉暴露。<span class="ref">p.279</span></li>

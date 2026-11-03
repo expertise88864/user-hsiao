@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -377,7 +391,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-6">傳統手術（trabeculectomy（小樑切除術）、tube shunt（引流管））降壓效果好但風險較高，是建立通往<strong>結膜下腔</strong>的新路徑；<strong>microinvasive glaucoma surgery（MIGS，微創青光眼手術）</strong>則利用生理外流路徑，目標是較安全且效果合理。各術式適應症重疊大、比較性研究很少。<span class="ref">p.246</span></li>
 </ul>
 <h3 id="ch13-s1-2">Figure 13-1 術式分類（依機轉、路徑與是否有植入物）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>路徑</th><th>類別</th><th>代表術式／裝置</th></tr></thead>
 <tbody>
 <tr><td id="np-7">Inflow（流入：減少房水生成）</td><td id="np-8">—</td><td id="np-9">TCP（transscleral cyclophotocoagulation）、ECP（endoscopic cyclophotocoagulation）</td></tr>
@@ -391,7 +405,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-26">Equatorial bleb, valved implant（赤道部濾泡，有閥植入物）</td><td id="np-27">Ahmed Glaucoma Valve</td></tr>
 <tr><td id="np-28">Equatorial bleb, nonvalved implant（赤道部濾泡，無閥植入物）</td><td id="np-29">Baerveldt、Ahmed ClearPath、Molteno</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-30">圖右側底色：No bleb 的術式位於 Ab interno 區，Bleb 的術式位於 Ab externo 區。* 未獲 US FDA 核准；** 可 ab interno 或 ab externo 植入；# 已下市。出處 <span class="ref">p.247</span></p>
 <div class="ex-trap"><h3 id="ch13-s1-3">易錯陷阱</h3><ul>
 <li id="np-31">CIGTS：初始手術 IOP 控制較好，但通常未帶來較佳的視野穩定；9 年追蹤資料提示基線晚期視野缺損者初始手術的視野惡化較少。<span class="ref">p.246</span></li>
@@ -417,7 +431,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-40">以雷射用 goniolens（隅角鏡）加耦合劑辨識解剖標記；須小心辨認 Schwalbe line，部分病人的 Schwalbe line 會被誤認為色素性 TM（即 <strong>Sampaolesi line</strong>）。<span class="ref">p.248</span></li>
 <li id="np-41"><mark class="ex-key">TM 色素重者術後急性 IOP 上升（spike）風險較高 → 降低能量和／或縮小治療範圍</mark>⁠<sup class="ex-qref"><span>Q1273</span></sup>。<span class="ref">p.248–249</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>項目</th><th>ALT（argon laser trabeculoplasty）</th><th>SLT（selective laser trabeculoplasty）</th><th>MLT（micropulse laser trabeculoplasty）</th></tr></thead>
 <tbody>
 <tr><td id="np-42">作用</td><td id="np-43">熱傷害使膠原纖維收縮（理論之一）</td><td id="np-44">作用目標為細胞內 melanin（黑色素）</td><td id="np-45">與 SLT 同波長；熱施打時間長得多，但能量只在 <span class="num">15%</span> 時間輸出，組織可冷卻，可能減少熱傷害</td></tr>
@@ -425,7 +439,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-50">瞄準位置／終點</td><td id="np-51">前方無色素與後方有色素 TM 交界；TM 變白（blanching）或小氣泡（大氣泡 → 降能量）</td><td id="np-52">出現 cavitation bubble（空化氣泡）或其下一級能量</td><td id="np-53">—</td></tr>
 <tr><td id="np-54">點數與範圍</td><td id="np-55">約 <span class="num">40–50</span> 點／<span class="num">180°</span>；通常只打一半（降低術後 spike 風險、保留日後再治療）</td><td id="np-56">多數醫師一次治療 <span class="num">360°</span>，通常 <span class="num">80–120</span> 點</td><td id="np-57">約 <span class="num">120–140</span> 個連續點／<span class="num">360°</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-58">出處 <span class="ref">p.248–249</span></p>
 <h3 id="ch13-s2-4">Postoperative care（術後照護）與併發症</h3>
 <ul>
@@ -524,7 +538,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-113">療效：不適合做 iridotomy 的 APAC，iridoplasty 短期降壓<strong>與藥物相近</strong>；預防 PAC／PACG 的效果不明。LPI vs LPI + iridoplasty 隨機前瞻試驗：<span class="num">1 年</span> IOP 下降無差異，但合併組 PAS 形成較少。Iridoplasty vs prostaglandin analogue 隨機前瞻研究：<span class="num">1 年</span>時 prostaglandin analogue 控壓顯著較好。Plateau iris 回溯研究：<span class="num">6 年</span>時 angle recess 較寬，可能有助減緩 PAC 發展。<span class="ref">p.258</span></li>
 </ul>
 <h3 id="ch13-s5-1">Table 13-1 Iris Laser Procedures: Key Points（虹膜雷射重點）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Laser peripheral iridotomy</th><th>Laser iridoplasty</th></tr></thead>
 <tbody>
 <tr><td id="np-114">APAC、PAC、PACG 病人可能受益於 LPI</td><td id="np-115">雷射參數與 LPI 不同：能量較低、光斑較大、時間較長</td></tr>
@@ -533,7 +547,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-120">開孔位置是否影響 dysphotopsia：證據不一</td><td id="np-121">—</td></tr>
 <tr><td id="np-122">PAC 經 LPI 轉 PACG 比率低；APAC 即使 LPI 轉 PACG 比率高</td><td id="np-123">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-124">出處 <span class="ref">p.257</span></p>
 <div class="ex-trap"><h3 id="ch13-s5-2">易錯陷阱</h3><ul>
 <li id="np-125">Iridoplasty 參數與 LPI 不同：能量較低、光斑較大、時間較長（long and slow burns）。<span class="ref">p.258</span></li>
@@ -599,15 +613,15 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-162">細心的手術技巧固然重要，但切開性青光眼手術的成功很大程度取決於<strong>細心的術後處置</strong>；早期與晚期併發症都可能危及手術成功、視力與眼睛健康，及時辨識很重要。<span class="ref">p.265</span></li>
 </ul>
 <h3 id="ch13-s7-1">Table 13-2 Complications of Trabeculectomy（小樑切除術併發症）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Early complications（早期）</th><th>Late complications（晚期）</th></tr></thead>
 <tbody>
 <tr><td id="np-163">Cataract progression（白內障惡化）、Choroidal effusion（脈絡膜滲漏）、Cystoid macular edema（CME，囊樣黃斑部水腫）、Dellen（角膜小凹）、Endophthalmitis（眼內炎）、Fibrosis／scarring（纖維化／結疤）、Hyphema（前房出血）、Hypotony leading to decreased vision（低眼壓致視力下降）、Loss of vision（視力喪失）、Malignant glaucoma（惡性青光眼）、Persistent uveitis（持續葡萄膜炎）、Sclerostomy obstruction（造口阻塞）、Shallow or flat anterior chamber（淺或平前房）、Suprachoroidal hemorrhage（脈絡膜上腔出血）、Transient IOP elevation（暫時性眼壓上升）、Wound or bleb leak（傷口或濾泡滲漏）</td><td id="np-164">Bleb migration onto cornea（濾泡移行到角膜上）、Blebitis（濾泡炎）、Cataract（白內障）、Endophthalmitis（眼內炎）、EX-PRESS extrusion／erosion（EX-PRESS 擠出／侵蝕）、Eyelid retraction（眼瞼退縮）、Fibrosis／scarring（纖維化／結疤）、Filtering bleb leakage or failure（濾泡滲漏或失敗）、Hypotony leading to decreased vision（低眼壓致視力下降）、Ptosis（眼瞼下垂）、Symptomatic bleb（dysesthetic bleb，有症狀濾泡）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-165">出處 <span class="ref">p.267</span></p>
 <h3 id="ch13-s7-2">Figure 13-12 術後評估流程（IOP → bleb → 前房深度）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>IOP／濾泡／前房</th><th>可能原因</th></tr></thead>
 <tbody>
 <tr><td id="np-166">IOP 低 + bleb elevation 低或無</td><td id="np-167"><strong>Aqueous hyposecretion（房水分泌不足）</strong>、<strong>Bleb leak（濾泡滲漏）</strong>、<strong>Choroidal effusion（脈絡膜滲漏）</strong></td></tr>
@@ -617,7 +631,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-174">IOP 高 + bleb 存在 + 前房深 + Localized bleb（局限性濾泡）</td><td id="np-175"><strong>Tenon cyst（Tenon 囊腫）</strong></td></tr>
 <tr><td id="np-176">IOP 高 + bleb 存在 + 前房深 + Diffuse bleb（瀰漫性濾泡）</td><td id="np-177">Flap resistance（鞏膜瓣阻力）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-178">出處 ⁠<sup class="ex-qref"><span>Q1238</span> <span>Q1264</span></sup><span class="ref">p.266</span></p>
 <h3 id="ch13-s7-3">低眼壓相關：overfiltration、bleb leaks、choroidal effusions</h3>
 <ul>
@@ -665,13 +679,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch13-s8" data-w="886">八、Trabeculectomy vs tube shunt：TVT 與 Primary TVT</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>試驗</th><th>族群與設計</th><th>5 年結果</th></tr></thead>
 <tbody>
 <tr><td id="np-206"><strong>Tube Versus Trabeculectomy（TVT）Study</strong></td><td id="np-207"><span class="num">212</span> 眼、<strong>曾做過 trabeculectomy 或白內障手術</strong>的未控制青光眼，隨機分組；trabeculectomy + MMC（<span class="num">0.4 mg/mL</span>、<span class="num">4 分鐘</span>）vs Baerveldt（<span class="num">350 mm2</span>）</td><td id="np-208">平均 IOP 與用藥數相近；<mark>failure（IOP <span class="num">&gt;21 mm Hg</span>、IOP 下降 <span class="num">&lt;20%</span>、持續 IOP <span class="num">&lt;5 mm Hg</span> 或無光感）trabeculectomy 組顯著較高</mark>、再手術較多、術後門診處置較多；complete success（不用藥達成 IOP 控制）與生活品質相近；因併發症再手術率相近</td></tr>
 <tr><td id="np-209"><strong>Primary Tube Versus Trabeculectomy Study</strong></td><td id="np-210">設計與 TVT 相似，但<strong>無先前眼內手術</strong></td><td id="np-211">平均 IOP 相近；<mark>trabeculectomy 組用藥顯著較少、complete success（不需青光眼用藥）顯著較高</mark>；手術失敗率無差異（兩組最常見失敗原因皆為降壓不足）；併發症與視力喪失無顯著差異</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-212">出處 <span class="ref">p.273–274</span></p>
 <ul>
 <li id="np-213">TVT 最常見術後併發症：trabeculectomy 組為淺／平前房、<strong>wound leak</strong>、choroidal effusion；tube 組為淺／平前房、<strong>persistent corneal edema（持續角膜水腫）</strong>、choroidal effusion。<span class="ref">p.273</span></li>
@@ -696,7 +710,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-222">一般而言，valved 提供<strong>較立即</strong>的 IOP 控制；nonvalved 大板<strong>長期需要的用藥較少</strong>。<mark class="ex-key">NVG 眼需謹慎，valved tube 在視力喪失方面較安全；uveitis 眼較小的板有助預防 hypotony</mark>⁠<sup class="ex-qref"><span>Q1175</span></sup>。<span class="ref">p.275</span></li>
 </ul>
 <h3 id="ch13-s9-3">ABC 與 AVB 研究（Ahmed FP7 vs Baerveldt 350，5 年合併分析）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>指標</th><th>Ahmed</th><th>Baerveldt</th></tr></thead>
 <tbody>
 <tr><td id="np-223">平均 IOP</td><td id="np-224"><span class="num">15.8 ± 5.2 mm Hg</span></td><td id="np-225"><span class="num">13.2 ± 4.8 mm Hg</span>（較低）</td></tr>
@@ -705,7 +719,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-232">Failure rate（失敗率）</td><td id="np-233"><span class="num">49%</span>（較高）</td><td id="np-234"><span class="num">37%</span></td></tr>
 <tr><td id="np-235">Serious complications（嚴重併發症：需再手術或視力掉 ≥2 行）人數</td><td id="np-236">較少</td><td id="np-237">較多</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-238">Failure 定義：IOP <span class="num">&lt;6</span> 或 <span class="num">&gt;18 mm Hg</span>、<span class="num">3 個月</span>後連續 <span class="num">2</span> 次 IOP 較基線下降 <span class="num">&lt;20%</span>、需額外青光眼手術或無光感；兩組最常見失敗原因皆為 IOP 升高；Baerveldt 組 hypotony 相關失敗 <span class="num">4%</span>。出處 <span class="ref">p.275</span></p>
 <h3 id="ch13-s9-4">手術技術</h3>
 <ul>
@@ -726,7 +740,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-250"><strong>Diplopia（複視）</strong>約 <span class="num">5%</span>：常因大濾泡限制眼動、外傷或壓迫眼外肌；以 prism（稜鏡）處理通常成功，偏斜過大無法用 prism 時可能需斜視手術或移除 tube。<span class="ref">p.279</span></li>
 </ul>
 <h3 id="ch13-s9-6">Table 13-4 Complications of Tube Shunt Surgery and Options for Prevention or Management（引流管手術併發症的預防與處置，精簡）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Complication（併發症）</th><th>Prevention or management（預防／處置）</th></tr></thead>
 <tbody>
 <tr><td id="np-251">Tube–cornea touch（引流管碰觸角膜）</td><td id="np-252">Tube 平行虹膜面插入前房；nonvalved 用 tube occlusion 技術避免平前房；改由 pars plana 或 ciliary sulcus 插入可減少</td></tr>
@@ -742,7 +756,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-271">Corneal decompensation（角膜失償）</td><td id="np-272">避免 tube 從 Schwalbe line 前方（角膜內）進入；角膜失償時把 tube 後移；部分眼可能無法避免，依需要轉介角膜移植</td></tr>
 <tr><td id="np-273">Diplopia（複視）</td><td id="np-274">Prism 可能解決；頑固複視可能需斜視手術；部分病例需移除 tube</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-275">出處 <span class="ref">p.277–278</span></p>
 <div class="ex-trap"><h3 id="ch13-s9-7">易錯陷阱</h3><ul>
 <li id="np-276">Plate-based tube 可能隨時間造成角膜內皮細胞流失與角膜失償，tube 後置可能減少內皮流失（p.275）；預防／處置：避免 tube 從 Schwalbe line 前方（角膜內）進入、失償時把 tube 後移、必要時轉介角膜移植（p.278）；有明顯白內障（尤其窄隅角）者植 tube 時考慮同時摘除白內障，可讓 tube 放較後或放 ciliary sulcus，降低角膜失償風險（p.282）⁠<sup class="ex-qref"><span>Q1181</span></sup>。<span class="ref">p.275, p.278, p.282</span></li>
@@ -803,7 +817,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-307"><mark class="ex-key"><strong>XEN Gel Stent</strong>：將房水分流到 <strong>subconjunctival space（結膜下腔）</strong>；Figure 13-1 歸於 perilimbal bleb, implant</mark>；不同於 plate-based tube，結膜下端沒有板。原設計 ab interno（經透明角膜切口用 injector），許多醫師改 ab externo（有或無結膜剪開，類似 trabeculectomy）。<mark class="ex-key">主要失敗原因為術後纖維化，以 MMC 減少</mark>⁠<sup class="ex-qref"><span>Q1283</span> <span>Q1265</span> <span>Q1735</span></sup>。<span class="ref">p.247, p.286</span></li>
 <li id="np-308">XEN 一般使平均 IOP 在 mid to high teens；pivotal trial（無對照組）：<span class="num">12 個月</span>時 <span class="num">75%</span> IOP 下降 <span class="num">≥20%</span>、<span class="num">32%</span> 需術後 needling、<span class="num">25%</span> 暫時低眼壓；與 trabeculectomy／tube 相似，併發症含 choroidal effusion、tube erosion、持續低眼壓、<strong>感染</strong>。數項回溯研究：最終 IOP 高於 trabeculectomy，但視力恢復較快。類似裝置 PRESERFLO 在多國核准，美國未核准⁠<sup class="ex-qref"><span>Q1735</span></sup>。<span class="ref">p.287</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Device／procedure（裝置／術式）</th><th>房水去向</th><th>Figure 13-1 是否 bleb</th><th>重點</th></tr></thead>
 <tbody>
 <tr><td id="np-309">iStent／iStent Inject</td><td id="np-310">前房 → Schlemm canal</td><td id="np-311">No bleb</td><td id="np-312">Trabecular bypass；iStent 撐開 <span class="num">1 mm</span>，iStent Inject 無明顯撐開、可放多個</td></tr>
@@ -815,7 +829,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-333">PRESERFLO</td><td id="np-334">（與 XEN 類似的裝置）</td><td id="np-335">Bleb</td><td id="np-336">多國核准，美國未核准</td></tr>
 <tr><td id="np-337">EX-PRESS</td><td id="np-338">前房 → 鞏膜瓣下 → 結膜下</td><td id="np-339">Bleb</td><td id="np-340">Trabeculectomy 變化術式</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-341">出處 <span class="ref">p.247, p.259, p.283–287</span></p>
 <div class="ex-trap"><h3 id="ch13-s11-5">易錯陷阱</h3><ul>
 <li id="np-342">iStent 屬 trabecular bypass device，在前房與 <strong>Schlemm canal</strong> 之間建立低阻力通道（p.283）；CyPass 建立前房到 suprachoroidal space 的通道，<span class="num">2018</span> 年被召回（p.286）⁠<sup class="ex-qref"><span>Q1265</span></sup>。<span class="ref">p.283, p.286</span></li>

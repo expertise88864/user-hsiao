@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -389,7 +403,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch4-s2" data-w="2347">二、胚胎組織衍生物（Table 4-1 Derivatives of Embryonic Tissues）</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Neuroectoderm（神經外胚層）</th><th>Neural crest cells（神經脊細胞）</th><th>Surface ectoderm（表皮外胚層）</th><th>Mesoderm（中胚層）</th></tr></thead>
 <tbody>
 <tr><td id="np-14">Ciliary body epithelium（睫狀體上皮，nonpigmented 與 pigmented）</td><td id="np-15">Bones（骨）：midline 與 inferior orbital bones、部分 orbital roof 與 lateral rim</td><td id="np-16">Epithelium, glands, cilia of skin of eyelids, and caruncle（眼瞼皮膚與淚阜的上皮、腺體、睫毛）</td><td id="np-17">Extraocular muscle fibers（眼外肌纖維）</td></tr>
@@ -400,7 +414,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-34">Retinal pigment epithelium（RPE，視網膜色素上皮）</td><td id="np-35">Lacrimal gland</td><td id="np-36">Lens（水晶體）</td><td id="np-37">Temporal sclera（顳側鞏膜）</td></tr>
 <tr><td id="np-38">Optic nerve, axons, and glia（視神經、軸突與神經膠細胞）</td><td id="np-39">Extraocular muscle sheaths and tendons（眼外肌鞘與肌腱）；Vasculature: muscle and connective tissue sheaths of ocular and orbital vessels（眼與眼眶血管的肌層與結締組織鞘）；<strong>Corneal stroma and endothelium（角膜基質與內皮）</strong>；Melanocytes（uveal and epithelial，黑色素細胞）；Schwann cells of ciliary nerves（睫狀神經的 Schwann 細胞）；Sclera, except temporal sclera（顳側以外的鞏膜）；<strong>Trabecular meshwork（小樑網）</strong>；Iris stroma；Vitreous；Choroid（脈絡膜）；Meningeal sheaths of the optic nerve（視神經腦膜鞘）</td><td id="np-40">Vitreous</td><td id="np-41">Vitreous；Choroid</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-42">出處（表頭：Neuroectoderm、Neural crest cells、Surface ectoderm 三欄同屬「Ectoderm」）⁠<sup class="ex-qref"><span>Q110</span> <span>Q125</span> <span>Q138</span> <span>Q153</span> <span>Q165</span> <span>Q195</span> <span>Q311</span></sup><span class="ref">p.155</span></p>
 <ul>
 <li id="np-43">Fig 4-5 圖說：sclera 中 <mark>部分顳側鞏膜（portions of the temporal sclera）來自 mesoderm</mark>；Table 4-1 將顳側以外的鞏膜（sclera, except temporal sclera）列於 neural crest cells 欄。<span class="ref">p.154–155</span></li>
@@ -425,7 +439,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-55">視杯形成時同時發生 2 件事：(1) surface ectoderm 開始內陷形成 lens；（2）視杯與表皮外胚層之間被中胚層與神經脊來源細胞填滿，合稱 <strong>ectomesenchyme（外胚間質）</strong>，將形成大部分 anterior segment（前段）；視杯後方周圍的同一群細胞形成 hyaloid vessels（玻璃體血管）、choroid 與 sclera。<span class="ref">p.155</span></li>
 </ul>
 <h3 id="ch4-s3-2">Table 4-2 Chronology of Embryonic and Fetal Development of the Eye（胚胎與胎兒眼睛發育時序）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>時間</th><th>事件</th></tr></thead>
 <tbody>
 <tr><td id="np-56"><span class="num">22 days</span></td><td id="np-57">Optic primordium 出現於 neural folds（<span class="num">1.5–3.0 mm</span>）</td></tr>
@@ -441,7 +455,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-76">Eighth month</td><td id="np-77">Anterior chamber angle 完成形成；hyaloid system 消失</td></tr>
 <tr><td id="np-78">Ninth month</td><td id="np-79"><mark>Retinal vessels reach the periphery（視網膜血管到達周邊）</mark>；視神經纖維髓鞘化至 lamina cribrosa 完成；<mark>pupillary membrane（瞳孔膜）消失</mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-80">出處 ⁠<sup class="ex-qref"><span>Q94</span> <span>Q177</span> <span>Q190</span> <span>Q1321</span></sup><span class="ref">p.158</span></p>
 <ul>
 <li id="np-81">BCSC 11：約妊娠第 <span class="num">25 天</span>，由前腦（diencephalon）向兩側外突形成 optic vesicles；約第 <span class="num">27 天</span>，覆蓋視泡的外胚層細胞變成柱狀，形成 lens placode⁠<sup class="ex-qref"><span>Q1321</span> <span>Q1336</span></sup>。<span class="ref ref-ext">BCSC 11 p.37</span></li>
@@ -594,14 +608,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-168">Surface ectoderm 封閉於 lens pit 上方 → <mark class="ex-key">corneal epithelium</mark>；之後有<mark class="ex-key">神經脊來源細胞的 <span class="num">3</span> 波連續遷移</mark>⁠<sup class="ex-qref"><span>Q165</span></sup>。<span class="ref">p.168</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Wave（波次）</th><th>Cell type</th><th>Tissue</th><th>路徑（內文）</th></tr></thead>
 <tbody>
 <tr><td id="np-169"><span class="num">1</span></td><td id="np-170">Ectomesenchymal</td><td id="np-171"><mark>Endothelium（角膜內皮）</mark></td><td id="np-172">通過 surface ectoderm 與水晶體泡前方之間</td></tr>
 <tr><td id="np-173"><span class="num">2</span></td><td id="np-174">Ectomesenchymal</td><td id="np-175"><mark>Keratocytes of corneal stroma（角膜基質細胞）</mark></td><td id="np-176">通過內皮與上皮之間</td></tr>
 <tr><td id="np-177"><span class="num">3</span></td><td id="np-178">Neural crest；Mesodermal</td><td id="np-179">Iris（melanocytes/stroma）；Pupillary membrane/iris vessels</td><td id="np-180">由神經脊與中胚層來源細胞組成，參與虹膜發育</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-181">出處（Table 4-3）⁠<sup class="ex-qref"><span>Q110</span> <span>Q125</span> <span>Q138</span></sup><span class="ref">p.168, p.170</span></p>
 <ul>
 <li id="np-182">Fig 4-17（角膜中央）：第 <span class="num">39 天</span> 2 層上皮位於 basal lamina 上，與內皮（第一波）間隔窄的無細胞空間；第 <span class="num">7 週</span>周邊神經脊來源細胞遷入上皮與內皮之間（第二波）；<span class="num">7.5 週</span>未來 keratocytes 排成 <span class="num">4–5</span> 層不完整層；<span class="num">3 個月</span>時上皮 <span class="num">2–3</span> 層、基質約 <span class="num">25–30</span> 層 keratocytes（後半排列較規則），最後方 keratocytes 與單層內皮之間有薄而不均的 Descemet membrane。<span class="ref">p.169</span></li>

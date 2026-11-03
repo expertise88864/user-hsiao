@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -424,7 +438,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-27"><strong>Mechanical ectropion（機械性外翻）</strong>：通常為眼瞼大腫塊的重力作用；其他如液體堆積、herniated orbital fat（眼眶脂肪脫出）、眼鏡不合；治療針對病因。<span class="ref">p.253</span></li>
 <li id="np-28"><strong>Paralytic ectropion（麻痺性外翻）</strong>：見「九、Facial paralysis」。<span class="ref">p.253</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（外翻類型）</th><th>Mechanism（機轉）</th><th>Key clue（線索）</th><th>Repair（修復重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-29">Involutional</td><td id="np-30">內/外眥韌帶水平鬆弛</td><td id="np-31">Snapback／distraction test 偵測水平鬆弛；一般眼科門診所見多數為此型</td><td id="np-32">水平緊縮（如 lateral tarsal strip）；輕度內側外翻合併淚點外翻 → medial spindle</td></tr>
@@ -433,7 +447,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-41">Paralytic</td><td id="np-42">CN VII 麻痺 → 眼輪匝肌失能</td><td id="np-43">通常合併上眼瞼兔眼；常主訴流淚</td><td id="np-44">潤滑等保守治療；長期/永久麻痺選擇性病人：tarsorrhaphy、canthoplasty、懸吊、水平緊縮</td></tr>
 <tr><td id="np-45">Mechanical</td><td id="np-46">通常為眼瞼大腫塊的重力；液體堆積、脂肪脫出、眼鏡不合</td><td id="np-47">眼瞼腫塊</td><td id="np-48">處理病因</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-49">出處 <span class="ref">p.250–253, p.276–277</span></p>
 <div class="ex-trap"><h3 id="ch12-s2-8">易錯陷阱</h3><ul>
 <li id="np-50">下眼瞼縮肌鬆弛、脫離或裂開可伴隨外翻（整個眼瞼外翻者稱 tarsal ectropion），也可與水平鬆弛一起出現在退化性外翻；疤痕性外翻則源於皮膚不足⁠<sup class="ex-qref"><span>Q745</span></sup>。<span class="ref">p.253</span></li>
@@ -481,14 +495,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-75"><strong>Tarsotomy（tarsal fracture，瞼板切開）</strong>：用於上或下眼瞼<strong>輕至中度</strong>疤痕性內翻（marginal entropion）——睫毛刮角膜，仔細檢查可見瞼緣失去方正邊緣並向後旋轉；於瞼緣遠端 <span class="num">2 mm</span> 做後方水平全層瞼板切開，將瞼緣向外旋轉，以 everting sutures（外翻縫線）固定。<span class="ref">p.258</span></li>
 <li id="np-76">瞼緣旋轉要有效，瞼板須完整且品質尚可；<strong>嚴重</strong>病例受累瞼板通常已疤痕變形需替換：上眼瞼可用 tarsoconjunctival 或其他黏膜移植；下眼瞼曾用自體 ear cartilage（耳軟骨）、preserved scleral grafts（保存鞏膜）、hard-palate mucosa（硬顎黏膜）、acellular dermal matrix（無細胞真皮基質，人或豬）。<span class="ref">p.258–259</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（內翻類型）</th><th>Mechanism（機轉）</th><th>Digital eversion（手指復位）</th><th>Treatment（處理）</th></tr></thead>
 <tbody>
 <tr><td id="np-77">Involutional</td><td id="np-78">水平鬆弛＋縮肌變薄/脫離＋隔前眼輪匝肌上移</td><td id="np-79">可拉回正常位置；復位後用力閉眼加重內轉</td><td id="np-80">縮肌重接＋有限度 myectomy＋lateral tarsal strip/wedge resection</td></tr>
 <tr><td id="np-81">Acute spastic</td><td id="np-82">眼部刺激/發炎 → 眼輪匝肌持續收縮</td><td id="np-83">—（書中未述）</td><td id="np-84">治療根本原因；膠帶、燒灼、旋轉縫線、botulinum toxin</td></tr>
 <tr><td id="np-85">Cicatricial</td><td id="np-86">瞼板結膜垂直收縮（MMP、SJS、砂眼、HZ、手術、灼傷；長期青光眼藥）</td><td id="np-87"><mark>無法拉回</mark>；後層可能見到瞼板結膜疤痕</td><td id="np-88">Tarsotomy（輕中度）；瞼板替換移植（嚴重）；自體免疫急性期禁手術</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-89">出處 <span class="ref">p.254–259</span></p>
 <div class="ex-trap"><h3 id="ch12-s3-6">易錯陷阱</h3><ul>
 <li id="np-90">Trachoma 屬疤痕性內翻的感染性病因；疤痕性內翻機轉是<strong>瞼板結膜（後層）垂直收縮</strong>＋瞼緣內轉。水平鬆弛是退化性內翻的因素之一，眼輪匝肌持續收縮則造成急性痙攣性內翻⁠<sup class="ex-qref"><span>Q757</span></sup>。<span class="ref">p.255–257</span></li>
@@ -518,7 +532,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-103">治療效期較長的方法：electrolysis（電解）或 radiofrequency ablation（射頻燒灼）、cryotherapy（冷凍治療）、argon laser（氬雷射）；成功率不一，常需多次治療。<span class="ref">p.260</span></li>
 <li id="np-104">其他：ophthalmic microtrephine（眼科微環鑽）取出個別錯向睫毛；倒睫侷限於一小段時，可考慮 <strong>full-thickness pentagonal resection（全層五角形切除）</strong>並直接縫合。<span class="ref">p.260</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Treatment（治療）</th><th>Method（做法）</th><th>Drawbacks（缺點）／適用</th></tr></thead>
 <tbody>
 <tr><td id="np-105">Mechanical epilation</td><td id="np-106">直接拔除</td><td id="np-107">預期 <span class="num">3–8 週</span>復發；斷毛常更刺激</td></tr>
@@ -527,7 +541,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-114">Argon laser</td><td id="np-115">雷射能量打毛囊</td><td id="np-116">睫毛根部需有些色素吸收能量 → 對毛色敏感</td></tr>
 <tr><td id="np-117">Pentagonal resection</td><td id="np-118">全層五角形切除＋直接縫合</td><td id="np-119">適用：倒睫侷限於一小段眼瞼時可考慮</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-120">出處 <span class="ref">p.259–260</span></p>
 <div class="ex-trap"><h3 id="ch12-s4-4">易錯陷阱</h3><ul>
 <li id="np-121">範圍較大的瞼球沾黏需 full-thickness conjunctival graft/flap、partial-thickness mucous membrane graft 或 amniotic membrane graft；SJS 是疤痕性內翻的發炎性病因⁠<sup class="ex-qref"><span>Q889</span></sup>。<span class="ref">p.257, p.259</span></li>
@@ -605,7 +619,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-163">提肌本身健康，<mark class="ex-key">levator function 通常正常（<span class="num">15 mm</span>）</mark>⁠<sup class="ex-qref"><span>Q720</span> <span>Q733</span> <span>Q742</span> <span>Q758</span></sup>。<span class="ref">p.265</span></li>
 <li id="np-164">往下看可能更下垂 → <strong>影響閱讀</strong>並限制上方視野；Fig 12-15 例：白內障術後左眼腱膜性下垂合併左眉 recruitment（抬眉代償）⁠<sup class="ex-qref"><span>Q733</span> <span>Q742</span> <span>Q758</span></sup>。<span class="ref">p.265–266</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 12-1 Blepharoptosis Comparison</th><th>Congenital Myogenic Ptosis（先天肌源性）</th><th>Acquired Aponeurotic Ptosis（後天腱膜性）</th></tr></thead>
 <tbody>
 <tr><td id="np-165">Upper eyelid crease（上眼瞼皺摺）</td><td id="np-166">Poorly formed（發育不良）</td><td id="np-167">Higher than normal or absent（高於正常或消失）</td></tr>
@@ -613,7 +627,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-171">Downgaze（往下看）</td><td id="np-172"><mark>Lid lag</mark>（increased palpebral fissure height，瞼裂高度增加）</td><td id="np-173"><mark>Eyelid drop</mark>（decreased palpebral fissure height，瞼裂高度減少）</td></tr>
 <tr><td id="np-174">Lagophthalmos（兔眼）（本文補充，非 Table 12-1）</td><td id="np-175">Sometimes（有時）</td><td id="np-176">—（書中未述）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-177">出處（前三列為 Table 12-1；兔眼列為本文 p.264）<span class="ref">p.264, p.266</span></p>
 <h3 id="ch12-s6-3">Neurogenic ptosis（神經性下垂）：先天性</h3>
 <ul>
@@ -704,7 +718,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-231"><strong><span class="num">0.1%</span> oxymetazoline hydrochloride</strong> 眼藥水（US FDA 核准用於此目的）：可暫時改善下垂約 <span class="num">1–2 mm</span>，研究顯示效果可持續 <span class="num">8–14</span> 小時；重複使用後可能出現 tachyphylaxis（快速耐受）。<span class="ref">p.273</span></li>
 <li id="np-232"><strong>Ptosis eyelid crutches（下垂撐架）</strong>：裝在眼鏡上緣，壓住上眶緣附近眼瞼機械性上抬，用於無法手術的嚴重下垂病人。<span class="ref">p.273–274</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Procedure（術式）</th><th>Best indication（適用）</th><th>Key point（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-233">External levator advancement</td><td id="np-234">最常用於提肌功能正常、皺摺偏高（腱膜拉長或脫離）</td><td id="np-235">腱膜前移至上瞼板緣；也可經 <span class="num">≤ 1 cm</span> 小切口</td></tr>
@@ -713,7 +727,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-242">Frontalis suspension</td><td id="np-243">提肌功能差或無（如後天肌源性、CN III palsy；MG 可考慮）</td><td id="np-244">自體闊筋膜一般用於 <span class="num">≥ 3</span> 歲或 <span class="num">≥ 35</span> 磅；合成材料較易調整或移除</td></tr>
 <tr><td id="np-245">Frontalis muscle advancement flap</td><td id="np-246">也可用於肌源性下垂</td><td id="np-247">不需 sling</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-248">出處 <span class="ref">p.264, p.268, p.270–273</span></p>
 <div class="ex-trap"><h3 id="ch12-s7-7">易錯陷阱</h3><ul>
 <li id="np-249">術式選擇看提肌功能：好 → 一般針對提肌腱膜；差或無 → 較偏好 frontalis suspension。<span class="ref">p.270</span></li>
@@ -744,14 +758,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-266"><mark>突眼病人做下眼瞼水平緊縮可能加重退縮，須謹慎</mark>；許多醫師認為合併突眼的明顯上下眼瞼退縮，最好<strong>先做 orbital decompression（眼眶減壓）</strong>再做退縮手術，因突眼減少可能改善退縮程度。<span class="ref">p.276</span></li>
 <li id="np-267">不適合手術或需暫時措施直到穩定者：於上眼瞼縮肌注射 neurotoxin 或 steroid，可經皮膚前方或經結膜後方注射。<span class="ref">p.276</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Lower eyelid deficiency（下眼瞼缺損層次）</th><th>Example（例）</th><th>Repair（修復）</th></tr></thead>
 <tbody>
 <tr><td id="np-268">Anterior lamella（前層）</td><td id="np-269">眼瞼整形切皮過多</td><td id="np-270">以 midface-lift 招募垂直皮膚和/或 FTSG 補皮</td></tr>
 <tr><td id="np-271">Middle lamella（中層）</td><td id="np-272">外傷後眶隔疤痕</td><td id="np-273">疤痕鬆解，可能加放 spacer graft</td></tr>
 <tr><td id="np-274">Posterior lamella（後層）</td><td id="np-275">先天疤痕或結膜不足（如 mucous membrane pemphigoid）</td><td id="np-276">可能需 full-thickness mucous membrane graft</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-277">出處 <span class="ref">p.275</span></p>
 <div class="ex-trap"><h3 id="ch12-s8-3">易錯陷阱</h3><ul>
 <li id="np-278">（本章外）BCSC 5 Table 15-2 所列擬交感藥例子是 phenylephrine、apraclonidine（長期使用）；dorsal midbrain syndrome、PSP、Marcus Gunn jaw-winking syndrome 列為 neurogenic 原因。本章另列 Parinaud syndrome（背側中腦病灶）⁠<sup class="ex-qref"><span>Q511</span></sup>。<span class="ref">p.275；BCSC 5 p.339</span></li>
@@ -822,7 +836,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-319">顏面神經麻痺後的 aberrant regeneration（異常再生）也可表現為半臉攣縮與 synkinetic facial movements（聯帶性臉部動作）；病史（如曾有 Bell palsy、外傷）與檢查具特徵；需神經影像排除腫塊；造成功能困擾的聯帶運動常對 botulinum toxin 反應良好⁠<sup class="ex-qref"><span>Q503</span></sup>。<span class="ref">p.280</span></li>
 <li id="np-320">（本章外）<strong>Facial myokymia（顏面肌纖維顫搐）</strong>：持續單側纖維狀或波動樣收縮，通常代表 pons（橋腦）內 CN VII nucleus 或 fascicle 病變——兒童通常為 pontine glioma（橋腦膠質瘤）、成人通常為 multiple sclerosis（MS，多發性硬化）；<strong>benign eyelid myokymia（良性眼瞼肌纖維顫搐）</strong>相對常見、單側、通常持續數天至數週，<mark class="ex-key">咖啡因、壓力、睡眠不足</mark>為常見誘因⁠<sup class="ex-qref"><span>Q476</span> <span>Q503</span></sup>。<span class="ref ref-ext">BCSC 5 p.346, p.349</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Laterality（側別）</th><th>Site / cause（病灶/原因）</th><th>Sleep（睡眠）</th><th>Treatment（治療）</th></tr></thead>
 <tbody>
 <tr><td id="np-321">BEB</td><td id="np-322">雙側</td><td id="np-323">可能為 basal ganglia（中樞起源）；原因不明</td><td id="np-324">典型緩解</td><td id="np-325">Botulinum toxin A 首選；嚴重且反應不足 → myectomy</td></tr>
@@ -831,7 +845,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-336">Facial myokymia（本章外）</td><td id="np-337">單側</td><td id="np-338">Pons CN VII nucleus/fascicle（兒童 glioma、成人 MS）</td><td id="np-339">—</td><td id="np-340">治療病因；botulinum toxin；carbamazepine、phenytoin</td></tr>
 <tr><td id="np-341">Benign eyelid myokymia（本章外）</td><td id="np-342">單側</td><td id="np-343">不明；咖啡因、壓力、睡眠不足為常見誘因</td><td id="np-344">—</td><td id="np-345">Reassurance（安撫）；botulinum toxin（罕見持續數月者可能受益）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-346">出處 <span class="ref">p.278–280；BCSC 5 p.346, p.349</span></p>
 <div class="ex-trap"><h3 id="ch12-s10-5">易錯陷阱</h3><ul>
 <li id="np-347">多數 HFS 由「顏面神經根出口區在腦幹處受血管壓迫」造成；BEB 病因不明，可能源自 basal ganglia⁠<sup class="ex-qref"><span>Q734</span> <span>Q476</span></sup>。<span class="ref">p.278, p.280</span></li>
@@ -855,13 +869,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-357"><mark>最常見於 <span class="num">40</span> 歲以下女性</mark>；特徵為特發性眼瞼發炎性水腫反覆發作 → 皮膚變薄起皺，外觀類似 dermatochalasis。<span class="ref">p.281</span></li>
 <li id="np-358">可能合併真正的 ptosis、lacrimal gland（淚腺）orbital lobe 脫出、<strong>orbital fat pads（眼眶脂肪墊）萎縮</strong>、眼瞼血管明顯；皮膚變化與下垂的手術修復可能因反覆發炎水腫而複雜化。<span class="ref">p.281</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Population（族群）</th><th>Mechanism（機轉）</th><th>Fat（脂肪）</th></tr></thead>
 <tbody>
 <tr><td id="np-359">Dermatochalasis</td><td id="np-360">—（書中未列年齡；屬眼周退化性變化）</td><td id="np-361">眼瞼皮膚冗餘；常因 brow ptosis 加重</td><td id="np-362">常伴眼眶脂肪脫垂</td></tr>
 <tr><td id="np-363">Blepharochalasis</td><td id="np-364"><span class="num">&lt; 40</span> 歲女性最常見</td><td id="np-365">罕見家族性 angioneurotic edema 變異，反覆發炎性水腫</td><td id="np-366">可能合併眼眶脂肪墊萎縮；淚腺 orbital lobe 脫出</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-367">出處 <span class="ref">p.280–281</span></p>
 <div class="ex-trap"><h3 id="ch12-s11-3">易錯陷阱</h3><ul>
 <li id="np-368">Blepharochalasis 不是退化性變化：最常見於 <span class="num">40</span> 歲以下女性，反覆發炎性水腫使眼瞼皮膚變薄起皺，外觀類似 dermatochalasis。<span class="ref">p.281</span></li>

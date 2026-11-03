@@ -13,6 +13,7 @@ Sources (hand-maintained):
 Outputs (generated, never hand-edit):
   exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/review.html,
   exam/progress.html, exam/search.html, exam/login.html, exam/notes-data.json (public),
+  exam/nav-search.json (public chapter headings for the site header search),
   api/_exam_bank.js (question bank; served only to signed-in readers by api/_exam_data.js (via api/exam/[op].js))
 
 Access: chapter notes are public. Question text, answers and explanations never appear
@@ -661,6 +662,12 @@ def expand_hits(fragment: str, key: str, on_page: set[int]) -> str:
     return out.replace('<span class="ref">BCSC ', '<span class="ref ref-ext">BCSC ')
 
 
+def wrap_tables(fragment: str) -> str:
+    """Each note table scrolls inside its own box (ported from the dermatology exam section,
+    2026-11-03), so a wide table never makes the whole note scroll sideways."""
+    return re.sub(r"(<table\b[^>]*>.*?</table>)", r'<div class="ex-table-wrap">\1</div>', fragment, flags=re.S)
+
+
 # ---------------------------------------------------------------- pages
 
 def chapter_page(data: dict, key: str, version: str) -> str:
@@ -696,7 +703,7 @@ def chapter_page(data: dict, key: str, version: str) -> str:
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'
                       f'<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p>'
                       f"{NOTES_LEGEND}{READING_STATUS}"
-                      f'<div class="ex-note">{note_weights(taxa_html(expand_hits(note, key, {q["n"] for q in qs})))}</div></section>'
+                      f'<div class="ex-note">{wrap_tables(note_weights(taxa_html(expand_hits(note, key, {q["n"] for q in qs}))))}</div></section>'
                       f"{concepts_html}")
     else:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
@@ -755,7 +762,8 @@ def hub_page(data: dict, version: str) -> str:
             count += n
             label = f"Ch.{ch['ch']} {esc(ch['title'])}"
             extra = f' <span class="ex-count">{n} 題</span>' + (" " + badge if key in data["notes"] else "")
-            items.append(f'<li data-ch="{key}"><a href="/exam/{slug(key)}">{label}</a>{extra}</li>' if n or key in data["notes"]
+            # id: /exam#ch-12-11 opens the closed BCSC 12 list (exam.js revealTarget).
+            items.append(f'<li id="ch-{key}" data-ch="{key}"><a href="/exam/{slug(key)}">{label}</a>{extra}</li>' if n or key in data["notes"]
                          else f'<li class="ex-none">{label}{extra}</li>')
         books_html.append(
             f'<details class="ex-part"><summary>BCSC {book["book"]} {esc(book["title"])} '
@@ -996,7 +1004,301 @@ def notes_data(data: dict) -> dict:
     notes = {k: note_text(v) for k, v in data["notes"].items()}
     books = {str(b["book"]): b["title"] for b in data["books"]}
     qs = [[q["n"], data["tags"][str(q["n"])]["ch"]] for q in data["questions"] if str(q["n"]) in data["explanations"]]
-    return {"chapters": chapters, "notes": notes, "books": books, "qs": qs, "taxa": TAXON_RE.pattern}
+    return {"chapters": chapters, "notes": notes, "books": books, "qs": qs, "taxa": TAXON_RE.pattern,
+            "find": search_index(data)}
+
+
+# ---------------------------------------------------------------- hub search ranking
+# Ported from the dermatology exam section (owner request 2026-11-03). Each chapter page
+# and each note section (h2) gets the names a reader would type: the h2 itself (primary),
+# h3 headings, the first cell of each table row, and English <strong>/<em> terms.
+# "Full name（ABBR）", "ABBR（full name）" and "English（中文）" anywhere in the notes build
+# a glossary, so an abbreviation also finds sections that only spell the name out (and
+# the reverse), and an English name also finds its Chinese name. exam.js ranks:
+# exact abbreviation > exact name > prefix > word start > substring.
+TAG = re.compile(r"<[^>]+>")
+BLOCK_TAG = re.compile(r"</?(?:p|li|ul|ol|td|th|tr|thead|tbody|table|h[1-6]|div|br)\b[^>]*>")
+CJK = re.compile(r"[㐀-鿿]")
+LATIN = re.compile(r"[A-Za-z]")
+PAREN = re.compile(r"[（(]([^（）()]*)[）)]")
+H2_SECTION = re.compile(r'<h2\b[^>]*\sid="([^"]+)"[^>]*>(.*?)</h2>(.*?)(?=<h2\b|\Z)', re.S)
+NAME_SOURCES = (
+    ("h3", re.compile(r"<h[34]\b[^>]*>(.*?)</h[34]>", re.S)),
+    ("cell", re.compile(r"<tr\b[^>]*>\s*<td\b[^>]*>(.*?)</td>", re.S)),
+    ("term", re.compile(r"<(?:strong|em)\b[^>]*>(.*?)</(?:strong|em)>", re.S)),
+)
+HEAD_NUMBER = re.compile(r"^\s*(?:\d+|[一二三四五六七八九十百]+)[.)、．]\s*")
+# Separators between several names in one heading: 「AZOOR、AMN、AIM」,
+# 「Vogt-Koyanagi-Harada disease 與 Sympathetic ophthalmia」, 「Uveitis masquerade：…」.
+NAME_SPLIT = re.compile(r"[，,、：:；;。]|\s*(?:與|以及|及|和|包括|合併|對比|vs\.?)\s*")
+
+
+def plain(fragment: str) -> str:
+    text = re.sub(r"\{\{q:[^}]*\}\}", "", fragment)
+    text = BLOCK_TAG.sub(" ", text)   # 「…gland</td><td>Lens」 must not read 「glandLens」
+    return re.sub(r"\s+", " ", html.unescape(TAG.sub("", text))).strip()
+
+
+def is_abbr(text: str) -> bool:
+    """PVRL, VKH, MEWDS, IgG4, HLA-B27 — short tokens that are mostly capitals."""
+    if not re.fullmatch(r"[A-Za-z][A-Za-z0-9\-]{1,9}", text):
+        return False
+    letters = [c for c in text if c.isalpha()]
+    caps = sum(c.isupper() for c in letters)
+    return caps >= 2 and caps * 2 >= len(letters)
+
+
+def long_form(abbr: str, before: str) -> str | None:
+    """Schwartz-Hearst: the shortest run of words ending at `before` whose letters spell ABBR."""
+    words = re.findall(r"[A-Za-z0-9][A-Za-z0-9'\-]*", re.split(r"[^A-Za-z0-9'\- ]", before)[-1])
+    letters = [c.lower() for c in abbr if c.isalnum()]
+    if not words or not letters:
+        return None
+    words = words[-min(len(letters) + 5, len(letters) * 2):]
+    text = " ".join(words)
+    si, li = len(text) - 1, len(letters) - 1
+    while li >= 0:
+        ch = letters[li]
+        while si >= 0 and (text[si].lower() != ch or (li == 0 and si > 0 and text[si - 1].isalnum())):
+            si -= 1
+        if si < 0:
+            return None
+        si -= 1
+        li -= 1
+    found = text[text.rfind(" ", 0, si + 1) + 1:]
+    if found.lower() == abbr.lower() or len(found) <= len(abbr):
+        return None
+    return found
+
+
+def usable(part: str) -> bool:
+    return (2 <= len(part) <= 80 and not re.fullmatch(r"(?:p\.|Table|Fig|Box).*|[\d\s.,\-–+%≥≤<>=/×]+", part)
+            and bool(LATIN.search(part) or CJK.search(part)))
+
+
+def split_name(raw: str) -> tuple[list[str], list[str], list[tuple[str, str]]]:
+    """'六、Multifocal choroiditis（MFC，多灶性脈絡膜炎），包括 PIC' -> names
+    [Multifocal choroiditis, 多灶性脈絡膜炎], abbrs [MFC, PIC], pairs
+    [(Multifocal choroiditis, MFC), (Multifocal choroiditis, 多灶性脈絡膜炎)]: a name with
+    the abbreviation or the other-language name given in brackets right after it."""
+    text = HEAD_NUMBER.sub("", plain(raw)).strip(" ：:;；，,。")
+    names, abbrs, pairs = [], [], []
+
+    def add(part: str) -> None:
+        part = part.strip(" ：:;；，,。.")
+        if not usable(part):
+            return
+        if is_abbr(part):
+            abbrs.append(part)
+        elif not (CJK.search(part) and (re.search(r"[，。；！？]", part) or
+                                        (not LATIN.search(part) and re.search(r"\d", part)))):
+            names.append(part)
+        if CJK.search(part) and LATIN.search(part):
+            # 「PVRL 的診斷」, 「其他 anticytokine agents」: the English inside is a name too.
+            for run in re.findall(r"[A-Za-z][A-Za-z0-9'\-]*(?: [A-Za-z0-9][A-Za-z0-9'\-]*)*", part):
+                if is_abbr(run):
+                    abbrs.append(run)
+                elif len(run) >= 4 and usable(run):
+                    names.append(run)
+
+    at = 0
+    for m in PAREN.finditer(text):
+        head = NAME_SPLIT.split(text[at:m.start()])[-1].strip()
+        for seg in NAME_SPLIT.split(text[at:m.start()]):
+            add(seg)
+        inner = [p.strip() for p in re.split(r"[，,、；;/]", m.group(1)) if p.strip()]
+        for part in inner:
+            add(part)
+        head_abbr = is_abbr(head)
+        for part in inner:
+            if not usable(part):
+                continue
+            if is_abbr(part) and not head_abbr and LATIN.search(head) and long_form(part, head):
+                pairs.append((long_form(part, head) or head, part))
+            elif head_abbr and LATIN.search(part) and not CJK.search(part) and long_form(head, part):
+                pairs.append((part, head))
+            elif CJK.search(part) and not LATIN.search(part) and LATIN.search(head) and not CJK.search(head):
+                pairs.append((head, part))
+        at = m.end()
+    for seg in NAME_SPLIT.split(text[at:]):
+        add(seg)
+    return names, abbrs, pairs
+
+
+def prose_pairs(text: str) -> list[tuple[str, str]]:
+    """'…primary vitreoretinal lymphoma（PVRL，原發性…）' anywhere in a section -> (full name, PVRL).
+    English–Chinese pairs come only from names (headings, table first cells, bold terms):
+    in running text the words before 「（中文）」 are often not the whole name."""
+    pairs = []
+    for m in PAREN.finditer(text):
+        before = text[max(0, m.start() - 160):m.start()]
+        for part in re.split(r"[，,、；;]", m.group(1)):
+            part = part.strip()
+            if is_abbr(part):
+                full = long_form(part, before)
+                if full:
+                    pairs.append((full, part))
+    return pairs
+
+
+def name_key(text: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"[\-‐–—_/]", " ", text.lower())).strip()
+
+
+def gloss_key(text: str) -> str:
+    """name_key without plural -s, so 'White dot syndromes' and '… syndrome' meet."""
+    return re.sub(r"(?<=[a-z]{3})s\b", "", name_key(text))
+
+
+class Terms:
+    """Names and abbreviations of one index entry, de-duplicated in first-seen order."""
+
+    def __init__(self) -> None:
+        self.names: list[str] = []
+        self.abbrs: list[str] = []
+        self.seen: set[str] = set()
+
+    def add(self, names=(), abbrs=()) -> None:
+        for target, items in ((self.names, names), (self.abbrs, abbrs)):
+            for item in items:
+                key = name_key(item)
+                if key and key not in self.seen:
+                    self.seen.add(key)
+                    target.append(item)
+
+
+def search_index(data: dict) -> dict:
+    """Hub search entries: [chapter, section id ("" = chapter page), section title, names,
+    abbreviations, n primary names, n primary abbreviations]. Primary terms come from the
+    section's own h2 (or the chapter title) and rank above terms found inside the section."""
+    chapters = data["chapters"]
+    pages = [k for k in chapters if data["by_chapter"].get(k) or k in data["notes"]]
+    abbr_of: dict[str, set[str]] = defaultdict(set)     # gloss_key(full name) -> abbreviations
+    full_of: dict[str, list[str]] = defaultdict(list)   # abbreviation -> full names
+    zh_of: dict[str, list[str]] = defaultdict(list)     # gloss_key(English or abbr) -> Chinese names
+    en_of: dict[str, list[str]] = defaultdict(list)     # Chinese name -> English names
+    raw_sections = []
+    h3_chapters: dict[str, set[str]] = defaultdict(set)
+    for key in pages:
+        for sid, heading, body in H2_SECTION.findall(data["notes"].get(key) or ""):
+            found = []
+            for kind, pattern in NAME_SOURCES:
+                for m in pattern.finditer(body):
+                    names, abbrs, pairs = split_name(m.group(1))
+                    if kind == "term":   # bold prose: only English terms and their brackets
+                        names = [n for n in names if LATIN.search(n) or pairs]
+                    if kind != "h3":     # mixed 「常見於 posterior uveitis」 is a phrase, not a name
+                        names = [n for n in names if not (CJK.search(n) and LATIN.search(n))]
+                    if kind in ("h3", "cell"):
+                        for n in names:
+                            h3_chapters[name_key(n)].add(key)
+                    found.append((kind, names, abbrs, pairs))
+            raw_sections.append((key, sid, heading, body, found))
+
+    def learn(full: str, other: str) -> None:
+        if CJK.search(other):
+            if other not in zh_of[gloss_key(full)]:
+                zh_of[gloss_key(full)].append(other)
+            if full not in en_of[other]:
+                en_of[other].append(full)
+        else:
+            abbr_of[gloss_key(full)].add(other)
+            if full not in full_of[other]:
+                full_of[other].append(full)
+
+    sections = []
+    for key, sid, heading, body, found in raw_sections:
+        terms = Terms()
+        names, abbrs, pairs = split_name(heading)
+        terms.add(names, abbrs)
+        primary = (len(terms.names), len(terms.abbrs))
+        for kind, got_names, got_abbrs, got_pairs in found:
+            # Subheadings and row labels such as 「治療」「易錯陷阱」「Treatment」 recur in
+            # many chapters: not a name (a several-word English name always counts).
+            if kind in ("h3", "cell"):
+                got_names = [n for n in got_names if len(h3_chapters[name_key(n)]) < 4
+                             or (not CJK.search(n) and " " in n.strip() and kind == "cell")]
+            terms.add(got_names, got_abbrs)
+            pairs += got_pairs
+        for full, other in pairs + prose_pairs(plain(body)):
+            learn(full, other)
+            if not CJK.search(other):
+                terms.add([full], [other])
+        sections.append((key, sid, HEAD_NUMBER.sub("", plain(heading)), terms, primary))
+
+    # Multi-word names only: a one-word long form (「magnification」 for MT) is too loose.
+    fulls = sorted((f for f in abbr_of if len(f) >= 6 and " " in f), key=lambda f: (-len(f), f))
+    known = (re.compile(r"(?<![a-z0-9])(?:" + "|".join(map(re.escape, fulls)) + r")(?![a-z0-9])")
+             if fulls else None)
+
+    def glossary_abbrs(texts) -> list[str]:
+        """An abbreviation defined anywhere also finds names that only spell it out."""
+        out = []
+        for text in texts:
+            for m in (known.finditer(gloss_key(text)) if known else ()):
+                out.extend(sorted(abbr_of[m.group(0)]))
+        return out
+
+    def glossary_fulls(abbrs) -> list[str]:
+        """…and a full name finds sections that only use the abbreviation."""
+        return [f for a in abbrs for f in full_of.get(a, [])[:2]]
+
+    def other_language(texts) -> list[str]:
+        """Chinese names the notes give for exactly this English name (or abbreviation), and the
+        English names of a Chinese one when the notes use it for at most two of them."""
+        out = []
+        for text in texts:
+            if CJK.search(text) and not LATIN.search(text):
+                if len(en_of.get(text, [])) <= 2:
+                    out.extend(en_of.get(text, []))
+            else:
+                out.extend(zh_of.get(gloss_key(text), [])[:3])
+        return out
+
+    entries = []
+    for key in pages:
+        title = chapters[key]["title"]
+        terms = Terms()
+        # Titles such as 「…of the Conjunctiva, Cornea, and Sclera」 are one name; only an
+        # abbreviation in brackets is split off.
+        terms.add([title], split_name(title)[1])
+        terms.add(other_language(terms.names + terms.abbrs), glossary_abbrs(terms.names))
+        primary = (len(terms.names), len(terms.abbrs))
+        entries.append([key, "", "", terms.names, terms.abbrs, *primary])
+    for key, sid, heading, terms, primary in sections:
+        own_names, own_abbrs = terms.names[:primary[0]], terms.abbrs[:primary[1]]
+        extra_names = other_language(own_names + own_abbrs) + glossary_fulls(own_abbrs)
+        extra_abbrs = glossary_abbrs(own_names)
+        # Glossary names of the heading itself rank as the heading, even when the
+        # section also mentions them further down.
+        rest = Terms()
+        rest.seen = {name_key(t) for t in own_names + own_abbrs}
+        rest.add(extra_names, extra_abbrs)
+        moved = {name_key(t) for t in rest.names + rest.abbrs}
+        terms.names = own_names + rest.names + [t for t in terms.names[primary[0]:] if name_key(t) not in moved]
+        terms.abbrs = own_abbrs + rest.abbrs + [t for t in terms.abbrs[primary[1]:] if name_key(t) not in moved]
+        terms.seen |= moved
+        primary = (primary[0] + len(rest.names), primary[1] + len(rest.abbrs))
+        inner_names, inner_abbrs = terms.names[primary[0]:], terms.abbrs[primary[1]:]
+        terms.add(glossary_fulls(inner_abbrs), glossary_abbrs(inner_names))
+        entries.append([key, sid, heading, terms.names, terms.abbrs, *primary])
+    return {"entries": entries}
+
+
+def nav_search(data: dict, index: dict) -> list:
+    """Exam chapters for the site header search (Cmd+K, blog-shared.js), ported from the
+    dermatology exam section: [[chapter key, "BCSC 12 Ch.11", title, [[h2 id, heading], ...],
+    [other names of the chapter, e.g. Chinese names from the glossary]], ...]. Public note
+    headings of chapters with notes only, never questions."""
+    names = {e[0]: [t for t in e[3][:e[5]] + e[4][:e[6]] if t != data["chapters"][e[0]]["title"]]
+             for e in index["entries"] if e[1] == ""}
+    out = []
+    for key, ch in data["chapters"].items():
+        if key not in data["notes"]:
+            continue
+        heads = [[sid, HEAD_NUMBER.sub("", plain(text))] for sid, text, _ in H2_SECTION.findall(data["notes"][key])]
+        out.append([key, f"BCSC {ch['book']} Ch.{ch['ch']}", ch["title"], heads, names.get(key, [])])
+    return out
 
 
 def bank_data(data: dict) -> dict:
@@ -1051,7 +1353,9 @@ def build() -> dict[str, str]:
     files["progress.html"] = progress_page(version)
     files["search.html"] = search_page(version)
     files["login.html"] = login_page(version)
-    files["notes-data.json"] = json.dumps(notes_data(data), ensure_ascii=False, separators=(",", ":")) + "\n"
+    public = notes_data(data)
+    files["notes-data.json"] = json.dumps(public, ensure_ascii=False, separators=(",", ":")) + "\n"
+    files["nav-search.json"] = json.dumps(nav_search(data, public["find"]), ensure_ascii=False, separators=(",", ":")) + "\n"
     files["../api/_exam_routes.js"] = routes_module(data)
     files["../api/_exam_bank.js"] = bank_module(data)
     # Fail closed: no public file may carry question cards or question text.
@@ -1145,7 +1449,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -1261,6 +1570,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -1371,7 +1689,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}

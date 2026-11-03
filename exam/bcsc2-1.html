@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -374,14 +388,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-3">眶深（眶口量到 orbital apex（眶尖））<span class="num">40–45 mm</span>，差別在於沿外側壁或內側壁量。<span class="ref">p.6</span></li>
 <li id="np-4">種族與性別都會影響上述尺寸，所以 <strong>exophthalmometry（眼球突出度測量）</strong>也隨種族與性別而不同（Table 1-1）。<span class="ref">p.6</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Race（族群）</th><th>Women mean（女性平均）</th><th>Women upper limit（女性正常上限）</th><th>Men mean（男性平均）</th><th>Men upper limit（男性正常上限）</th></tr></thead>
 <tbody>
 <tr><td id="np-5">African American</td><td id="np-6"><span class="num">18 mm</span></td><td id="np-7"><span class="num">23 mm</span></td><td id="np-8"><span class="num">19 mm</span></td><td id="np-9"><span class="num">25 mm</span></td></tr>
 <tr><td id="np-10">Asian（資料來自台灣族群）</td><td id="np-11"><span class="num">14 mm</span></td><td id="np-12"><span class="num">19 mm</span></td><td id="np-13"><span class="num">14 mm</span></td><td id="np-14"><span class="num">19 mm</span></td></tr>
 <tr><td id="np-15">Caucasian</td><td id="np-16"><span class="num">15 mm</span></td><td id="np-17"><span class="num">20 mm</span></td><td id="np-18"><span class="num">17 mm</span></td><td id="np-19"><span class="num">22 mm</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-20">出處（Table 1-1 Exophthalmometry Based on Race and Gender）<span class="ref">p.6</span></p>
 <h3 id="ch1-s1-2">Bony orbit（骨性眼眶）：7 塊骨</h3>
 <ul>
@@ -434,7 +448,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-48">Whitnall tubercle 是 4 種構造的附著點：lateral rectus 的 check ligament（節制韌帶）、<strong>Lockwood suspensory ligament（眼球懸韌帶）</strong>、<mark class="ex-key"><strong>lateral canthal tendon（外眥韌帶）</strong></mark>、levator aponeurosis 的 lateral horn（外角）⁠<sup class="ex-qref"><span>Q736</span></sup>。<span class="ref">p.10–11</span></li>
 <li id="np-49">外側壁與眶頂交界為 frontosphenoid suture（額蝶縫）；後方以 inferior／superior orbital fissure 為界；sphenoid wing 構成外側壁後部，把眼眶與 middle cranial fossa（中顱窩）隔開。<span class="ref">p.11</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Wall（眶壁）</th><th>Bones（組成骨）</th><th>Exam point（考點）</th></tr></thead>
 <tbody>
 <tr><td id="np-50">Roof（眶頂）</td><td id="np-51">Frontal（眶板）、sphenoid lesser wing（<span class="num">2</span> 塊）</td><td id="np-52">淚腺窩、trochlea（眶緣後 <span class="num">4–5 mm</span>）、額竇</td></tr>
@@ -442,7 +456,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-56">Floor（眶底）</td><td id="np-57">Maxillary（眶板）、palatine、zygomatic（眶板）（<span class="num">3</span> 塊）</td><td id="np-58">眶下溝／管（V2）；下斜肌起點；不達眶尖、最短（BCSC 7）</td></tr>
 <tr><td id="np-59">Lateral（外側壁）</td><td id="np-60">Zygomatic、sphenoid greater wing（<span class="num">2</span> 塊）</td><td id="np-61">最厚最堅固；Whitnall tubercle（frontozygomatic suture 下 <span class="num">11 mm</span>）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-62">出處（「不達眶尖、最短」依 BCSC 7）<span class="ref">p.7–11; BCSC 7 p.9</span></p>
 <div class="ex-trap"><h3 id="ch1-s2-5">易錯陷阱</h3><ul>
 <li id="np-63">Sphenoid lesser wing 參與眶頂與內側壁，optic canal 穿過 lesser wing；外側壁由 zygomatic bone 與 greater wing 構成⁠<sup class="ex-qref"><span>Q750</span></sup>。<span class="ref">p.7–8, p.10–11</span></li>
@@ -477,7 +491,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-81">SOF 環上方傳送 V1 的 lacrimal、frontal nerve，環內傳送 V1 的 nasociliary nerve；（本章外，BCSC 7）SOF 傳送 CN III、IV、VI、CN V 的第一分支 <strong>V1（ophthalmic division）</strong>與副交感纖維；V2（maxillary division）經 foramen rotundum（圓孔）出顱、通過 pterygopalatine fossa（翼顎窩）後由 inferior orbital fissure 入眶⁠<sup class="ex-qref"><span>Q96</span></sup>。<span class="ref">p.12; BCSC 7 p.11</span></li>
 <li id="np-82">Fig 1-7：axial CT 上 SOF 常被誤認為 optic canal；optic canal 與 anterior clinoid process（前床突）位於同一平面，斜切時整段管道未必出現在同一層。<span class="ref">p.12</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Aperture（開口）</th><th>Contents（內容物）</th><th>Muscle cone（肌錐）</th></tr></thead>
 <tbody>
 <tr><td id="np-83">SOF，總腱環上方</td><td id="np-84">Lacrimal n.（V1）、frontal n.（V1）、CN IV、superior ophthalmic vein</td><td id="np-85">肌錐外</td></tr>
@@ -486,7 +500,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-92">Optic canal（sphenoid lesser wing）</td><td id="np-93">Optic nerve、ophthalmic artery、交感纖維</td><td id="np-94">位於總腱環內</td></tr>
 <tr><td id="np-95">Inferior orbital fissure</td><td id="np-96">Infraorbital n. 與 zygomatic n.（V2）、翼顎神經節的 orbital nerve，有時含 inferior ophthalmic vein</td><td id="np-97">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-98">出處（肌錐欄與 optic canal 的總腱環關係依 BCSC 7）<span class="ref">p.11–13; BCSC 7 p.10, p.14</span></p>
 <h3 id="ch1-s3-4">Inferior orbital fissure（IOF，下眼眶裂）</h3>
 <ul>
@@ -549,7 +563,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-129"><strong>Superior oblique</strong> 起自 optic foramen 上內方的 sphenoid body 骨膜（Table 1-2：在 optic foramen 內側、總腱環與 periorbita（眶骨膜）之間）⁠<sup class="ex-qref"><span>Q411</span></sup>。<span class="ref">p.19–20</span></li>
 <li id="np-130"><strong>Inferior oblique</strong> 起自前方：眶底前內角、上頷骨眶板的淺凹，靠近淚囊窩。<mark class="ex-key">除 inferior oblique 外，所有眼外肌都起自眶尖</mark>⁠<sup class="ex-qref"><span>Q129</span> <span>Q411</span> <span>Q186</span></sup>。<span class="ref">p.10, p.19, p.21</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Muscle（肌肉）</th><th>Origin（起點）</th><th>Insertion（附著）</th><th>Size（長度／肌腱）</th><th>Blood supply（血供）</th><th>Nerve（神經）</th></tr></thead>
 <tbody>
 <tr><td id="np-131">Medial rectus</td><td id="np-132">Annulus of Zinn</td><td id="np-133">水平經線內側，距角膜緣 <span class="num">5.5 mm</span></td><td id="np-134"><span class="num">40.8 mm</span>（腱長 <span class="num">3.7 mm</span>、寬 <span class="num">10.3 mm</span>）</td><td id="np-135">OA medial（inferior）muscular branch</td><td id="np-136">CN III 下支</td></tr>
@@ -560,7 +574,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-161">Inferior oblique</td><td id="np-162">眶緣附近眶底的淺凹（maxilla）</td><td id="np-163">後下顳側象限、黃斑高度；旋轉中心後方</td><td id="np-164"><span class="num">37 mm</span>（腱長 <span class="num">1 mm</span>、附著處寬 <span class="num">9.6 mm</span>）</td><td id="np-165">OA medial（inferior）muscular branch ＋ infraorbital artery</td><td id="np-166">CN III 下支</td></tr>
 <tr><td id="np-167">Levator palpebrae superioris</td><td id="np-168">Sphenoid lesser wing</td><td id="np-169">Trochlea、supraorbital notch、上瞼板、lateral orbital tubercle、posterior lacrimal crest</td><td id="np-170"><span class="num">60 mm</span>（肌 <span class="num">40 mm</span>、腱 <span class="num">14–20 mm</span>）</td><td id="np-171">Ophthalmic artery 分支</td><td id="np-172">CN III 上支</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-173">出處（Table 1-2 Comparison of the Extraocular Muscles；OA = ophthalmic artery）<span class="ref">p.20</span></p>
 <ul>
 <li id="np-174"><strong>Clinical pearl</strong>：在總腱環處 superior rectus 與 medial rectus 緊貼視神經鞘 → <mark>retrobulbar optic neuritis（球後視神經炎）病人眼球轉動時可能疼痛</mark>；thyroid eye disease（甲狀腺眼疾）病人這些肌肉肥大可造成 compressive optic neuropathy（壓迫性視神經病變）。<span class="ref">p.5, p.21</span></li>
@@ -652,7 +666,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-219">睫毛沿瞼緣前緣排成 <span class="num">2</span> 或 <span class="num">3</span> 列不規則，通常上瞼較長、較多。<span class="ref">p.30</span></li>
 <li id="np-220">瞼緣腺體：<mark class="ex-key"><strong>glands of Zeis（蔡氏腺）</strong>是附於睫毛的變異 sebaceous glands（皮脂腺），分泌油脂</mark>；<strong>glands of Moll（摩爾腺）</strong>是皮膚的 apocrine sweat glands（頂漿汗腺），分泌汗液⁠<sup class="ex-qref"><span>Q179</span></sup>。<span class="ref">p.30, p.32</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Gland（腺體）</th><th>Location（位置）</th><th>Secretion（分泌方式）</th><th>Content（分泌物）</th></tr></thead>
 <tbody>
 <tr><td id="np-221">Lacrimal（淚腺）</td><td id="np-222">Orbital gland；palpebral gland</td><td id="np-223">Exocrine</td><td id="np-224">Aqueous</td></tr>
@@ -664,7 +678,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-245">Moll</td><td id="np-246">Eyelid</td><td id="np-247">Apocrine</td><td id="np-248">Sweat</td></tr>
 <tr><td id="np-249">Goblet cell（杯狀細胞）</td><td id="np-250">Conjunctiva；plica、caruncle</td><td id="np-251">Holocrine</td><td id="np-252">Mucus</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-253">出處（Table 1-3 Glands of the Eye and Adnexa）<span class="ref">p.32</span></p>
 <h3 id="ch1-s8-4">Orbicularis oculi muscle（眼輪匝肌，閉瞼肌）</h3>
 <ul>

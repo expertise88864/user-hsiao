@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -622,7 +636,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-138"><strong>Ischemic ocular conditions（眼部缺血狀態）</strong>可致 PSC，且可迅速進展為全混濁，例如 pulseless disease（Takayasu arteritis，高安氏動脈炎）、thromboangiitis obliterans（Buerger disease，伯格氏病）、anterior segment necrosis（前段壞死）、carotid occlusive disease（頸動脈阻塞性疾病）⁠<sup class="ex-qref"><span>Q1376</span> <span>Q1408</span></sup>。<span class="ref">p.79</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Lens finding（水晶體表現）</th><th>Key clue（關鍵）</th></tr></thead>
 <tbody>
 <tr><td id="np-139">Acute diabetic cataract（急性糖尿病白內障）</td><td id="np-140">Bilateral snowflake subcapsular opacities（雙側灰白雪花狀前、後淺層皮質囊下混濁）→ vacuoles and clefts（空泡與裂隙）→ 很快膨脹成熟</td><td id="np-141">Uncontrolled diabetes in young individuals（典型見於血糖未控制的年輕人）⁠<sup class="ex-qref"><span>Q1408</span> <span>Q1308</span></sup><span class="ref">p.75–76</span></td></tr>
@@ -634,7 +648,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-157">Atopic dermatitis（異位性皮膚炎）</td><td id="np-158">Anterior or posterior subcapsular shieldlike plaques（瞳孔區前或後囊下盾牌狀斑塊）</td><td id="np-159">報告發生率 <span class="num">5%–38%</span>；多在第 2–3 個十年發病 ⁠<sup class="ex-qref"><span>Q1296</span></sup><span class="ref">p.79</span></td></tr>
 <tr><td id="np-160">Ischemic ocular conditions（眼部缺血狀態）</td><td id="np-161">PSC，可快速進展為全混濁</td><td id="np-162">如 Takayasu arteritis、Buerger disease、anterior segment necrosis、carotid occlusive disease ⁠<sup class="ex-qref"><span>Q1376</span></sup><span class="ref">p.79</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="ex-trap"><h3 id="ch5-s7-8">易錯陷阱</h3><ul>
 <li id="np-163">本章：急性<strong>近視化</strong>可能提示未診斷或控制不良的糖尿病；insulin 治療時可出現遠視化。第 3 章：高血糖時 sorbitol 與 fructose 使水晶體內滲透壓上升 → myopic shift；但 acute hyperglycemia（急性高血糖）時也可能出現 hyperopic shift⁠<sup class="ex-qref"><span>Q1308</span></sup>。<span class="ref">p.75；BCSC 11 p.28</span></li>
 <li id="np-164">Snowflake cataract 是<strong>急性糖尿病白內障</strong>，典型見於血糖未控制的年輕人⁠<sup class="ex-qref"><span>Q1408</span></sup>。<span class="ref">p.75–76</span></li>
@@ -708,7 +722,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-202">組織學：圍繞囊破口的 <strong>zonal granulomatous inflammation（帶狀肉芽腫性發炎）</strong>；確定治療為<strong>摘除水晶體</strong>。<span class="ref">p.83</span></li>
 </ul>
 <h3 id="ch5-s10-2">Lens-induced glaucoma（水晶體誘發性青光眼）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Mechanism（機轉）</th><th>Findings（表現）</th><th>Treatment（治療）</th></tr></thead>
 <tbody>
 <tr><td id="np-203">Phacolytic glaucoma（水晶體溶解性青光眼）</td><td id="np-204">Mature or hypermature cataract（成熟或過熟白內障）的併發症；denatured, liquefied high-molecular-weight lens proteins（變性液化的高分子量水晶體蛋白）經 intact but permeable capsule（完整但具通透性的囊）漏出；macrophages（巨噬細胞）吞噬後，小樑網被蛋白與腫脹巨噬細胞阻塞</td><td id="np-205">通常表現為多年視力差的白內障眼突發紅痛；角膜可能水腫、明顯 flare；<mark>lack of KP（無 KP）有助於與 phacoantigenic 區別</mark>；前房白色絮狀物、常附著於囊；眼壓明顯升高、<strong>angle open（隅角開放）</strong>，小樑網可見相同物質</td><td id="np-206">IOP-lowering medications（降眼壓藥）＋topical corticosteroids（局部類固醇）；確定治療為手術摘除水晶體<span class="ref">p.83–84</span></td></tr>
@@ -716,7 +730,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-211">Phacomorphic glaucoma（水晶體膨脹性青光眼）</td><td id="np-212">水晶體前後徑增厚 → pupillary block（瞳孔阻滯）續發隅角閉鎖，或直接推虹膜向前使前房變淺</td><td id="np-213">常為紅痛眼，且急性發作前有白內障造成的視力變化病史；角膜可能水腫；gonioscopy：<strong>closed angle（隅角關閉）</strong>；Fig 5-24：白色 intumescent lens（膨脹水晶體）、前房窄、water clefts（水裂）</td><td id="np-214">先藥物降眼壓；可能對 laser iridotomy（雷射虹膜切開）有反應；確定治療為白內障摘除<span class="ref">p.84</span></td></tr>
 <tr><td id="np-215">Phacoantigenic uveitis（水晶體抗原性葡萄膜炎，對照）</td><td id="np-216">Ruptured lens capsule（囊破裂）後釋出的水晶體蛋白引發免疫媒介肉芽腫性發炎</td><td id="np-217">有 keratic precipitates（KP）；受傷或手術後數天至數週發作</td><td id="np-218">Lens extraction（摘除水晶體）<span class="ref">p.83</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="ex-trap"><h3 id="ch5-s10-3">易錯陷阱</h3><ul>
 <li id="np-219">Phacolytic：囊<strong>完整但具通透性</strong>、無 KP、隅角開放；phacoantigenic：囊<strong>破裂</strong>、有 KP、肉芽腫性。<span class="ref">p.83–84</span></li>
 <li id="np-220">本章三種 lens-induced glaucoma：phacomorphic 為<strong>隅角關閉</strong>；phacolytic 與 lens particle 為隅角開放。<span class="ref">p.83–84</span></li>
@@ -724,7 +738,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch5-s11" data-w="2257">十一、總整理：型態對照與口訣</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（型態）</th><th>Location / appearance（位置與外觀）</th><th>Cause（成因）</th></tr></thead>
 <tbody>
 <tr><td id="np-222">Sunflower cataract（向日葵狀白內障）</td><td id="np-223">Petal-shaped deposition（花瓣狀色素）：chalcosis 為水晶體囊內黃或褐色、由前軸極向赤道放射；Wilson disease 為前囊與囊下皮質紅褐色星狀</td><td id="np-224">Chalcosis（銅質沉著症）、Wilson disease（威爾森氏症）⁠<sup class="ex-qref"><span>Q1357</span> <span>Q1323</span></sup><span class="ref">p.74, p.77</span></td></tr>
@@ -741,7 +755,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-255">Punctate posterior + feathery anterior subcapsular opacities（點狀＋羽毛狀混濁）</td><td id="np-256">後囊內點狀、前囊下羽毛狀向赤道放射</td><td id="np-257">Ionizing radiation（游離輻射）⁠<sup class="ex-qref"><span>Q16</span> <span>Q45</span></sup><span class="ref">p.70</span></td></tr>
 <tr><td id="np-258">Punctate iridescent opacities（點狀虹光混濁）</td><td id="np-259">前、後皮質點狀，通常與前囊隔透明帶</td><td id="np-260">Hypocalcemia（低血鈣）⁠<sup class="ex-qref"><span>Q1369</span></sup><span class="ref">p.77</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="hs-tip-box">
 <h3 id="ch5-s11-1">易混淆比較與口訣</h3>
 <ul>

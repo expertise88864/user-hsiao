@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -375,7 +389,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-5">本章重點在角膜屈光手術：角膜光學、影像、wavefront（波前）、biomechanics（生物力學）、laser–tissue interaction（雷射組織作用）與 wound healing（傷口癒合）。<span class="ref">p.7</span></li>
 </ul>
 <h3 id="ch1-s1-1">Table 1-1 Overview of Keratorefractive Procedures（角膜屈光手術總覽，location 皆為 cornea）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Type of procedure（類型）</th><th>Specific procedures（術式）</th><th>Refractive error treated（治療的屈光問題）</th></tr></thead>
 <tbody>
 <tr><td id="np-6">Incisional（切開）</td><td id="np-7">Radial keratotomy（RK，放射狀角膜切開術）</td><td id="np-8">Myopia（historical，已屬歷史）</td></tr>
@@ -391,10 +405,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-36">Collagen shrinkage</td><td id="np-37">Conductive keratoplasty（CK，傳導性角膜成形術）</td><td id="np-38">Hyperopia、astigmatism</td></tr>
 <tr><td id="np-39">Corneal crosslinking（角膜交聯）</td><td id="np-40">CXL</td><td id="np-41"><mark>Keratoconus、myopia（investigational）</mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-42">出處（Table 1-1）<span class="ref">p.8</span></p>
 <h3 id="ch1-s1-2">Table 1-2 Overview of Scleral and Intraocular Refractive Procedures（鞏膜與眼內屈光手術）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Location／type（位置／類型）</th><th>Specific procedures（術式）</th><th>Refractive error treated</th></tr></thead>
 <tbody>
 <tr><td id="np-43">Sclera</td><td id="np-44">Scleral laser anterior ciliary excision</td><td id="np-45">Presbyopia（investigational）</td></tr>
@@ -404,7 +418,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-55">Intraocular：phakic</td><td id="np-56">Posterior chamber（後房）phakic IOL implantation</td><td id="np-57">Myopia、astigmatism、presbyopia（investigational）</td></tr>
 <tr><td id="np-58">Intraocular：pseudophakic（人工水晶體）</td><td id="np-59">Refractive lens exchange（multifocal／accommodating／extended depth of focus／light-adjustable／small aperture IOLs）</td><td id="np-60">Myopia、hyperopia、presbyopia、astigmatism</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-61">出處（Table 1-2）<span class="ref">p.9</span></p>
 <ul>
 <li id="np-62">老花的角膜術式：Table 1-1 中列為 presbyopia 的是 <strong>corneal inlays／onlays</strong>；以 small-aperture（小孔徑）效果改變光學功能的 inlay 於 <span class="num">2015</span> 年獲准治療老花。Table 1-1 中 CXL 列為 keratoconus 與 myopia（investigational）。另外，CK 於 <span class="num">2004</span> 年獲 FDA 核准治療老花，用於非主視眼，終點為 <span class="num">−1.00 D 至 −2.00 D</span>（BCSC 13 第 10 章）⁠<sup class="ex-qref"><span>Q1612</span></sup>。<span class="ref">p.8, p.32；BCSC 13 p.183</span></li>
@@ -444,7 +458,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-80">Absolute scale：固定色碼，<span class="num">35.00 D</span> 至 <span class="num">50.00 D</span> 間每色代表 <span class="num">1.50-D</span> 間隔，同色永遠代表同屈光力 → 方便不同圖比較。Normalized scale：涵蓋該眼的屈光力範圍，提供較詳細的地形資訊；須注意色間的屈光度差——差太大可能掩蓋重要異常，差太小則可能「抹平」重要異常。<span class="ref">p.10–11</span></li>
 </ul>
 <h3 id="ch1-s3-3">Axial vs instantaneous（tangential）map</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Feature（特點）</th><th>Axial power／curvature（軸向；舊稱 sagittal）</th><th>Instantaneous（meridional／tangential，切線）</th></tr></thead>
 <tbody>
 <tr><td id="np-81">假設／算法</td><td id="np-82">假設角膜為球面、儀器入射角垂直角膜；依「axial distance」概念計算</td><td id="np-83">由通過該點與視軸的平面，取經該點的垂直路徑求曲率半徑；屈光度估計 =（角膜折射率 − 1.000）÷ 此切線半徑</td></tr>
@@ -453,7 +467,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-90">限制</td><td id="np-91">中央 <span class="num">1–2 mm</span> 是外推值、可能不準；不能描述周邊真實形狀與屈光力</td><td id="np-92">其屈光度是曲率的相對單位，<strong>不等於角膜屈光力的屈光度</strong></td></tr>
 <tr><td id="np-93">臨床使用</td><td id="np-94"><strong>例行屈光篩檢時多數醫師使用 axial 模式</strong></td><td id="np-95">例行屈光篩檢時多數醫師選 axial 而非 instantaneous</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-96">出處（Fig 1-3、1-4）<span class="ref">p.12–13</span></p>
 <ul>
 <li id="np-97">Placido 技術通常對角膜中央 <span class="num">1–2 mm</span> 的曲率與屈光力成像不佳，可由 axial 指數近似，但<mark class="ex-key">中央值是外推的</mark>、可能不準⁠<sup class="ex-qref"><span>Q1576</span></sup>。<span class="ref">p.12</span></li>
@@ -528,7 +542,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-137">Myopia、hyperopia、regular astigmatism 都是 <strong>lower-order（second-order，二階）</strong>像差：myopia 產生 <strong>positive defocus</strong>、hyperopia 產生 <strong>negative defocus</strong>；regular（cylindrical）astigmatism 的波前像差有 orthogonal（正交）與 oblique（斜向）成分。<span class="ref">p.26</span></li>
 <li id="np-138">其他無視覺意義的低階像差：<strong>first-order</strong>（如 vertical／horizontal prism，稜鏡）與 <strong>zero-order</strong>（如 piston，對波前形狀無影響）。<span class="ref">p.26</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Zernike order（階數）</th><th>Aberration（像差）</th><th>臨床重點</th></tr></thead>
 <tbody>
 <tr><td id="np-139">Zero-order</td><td id="np-140">Piston</td><td id="np-141">對波前形狀無影響</td></tr>
@@ -537,7 +551,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-148">Third-order</td><td id="np-149">Coma、trefoil</td><td id="np-150">Coma 常見於偏心角膜移植片、KC、偏心雷射切削；trefoil 可見於屈光手術後（尤其 RK）</td></tr>
 <tr><td id="np-151">Fourth-order</td><td id="np-152">Spherical aberration（radially symmetric，徑向對稱）</td><td id="np-153">Night myopia、halo；最重要的高階像差</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-154">出處 <span class="ref">p.14, p.26–27</span></p>
 <h3 id="ch1-s5-3">Higher-order aberrations（高階像差）</h3>
 <ul>
@@ -589,7 +603,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-181">兩壓力的平均 = <strong>Goldmann-correlated IOP（IOPg）</strong>；<strong>corneal-compensated IOP（IOPcc）</strong>考慮角膜生物力學性質、與 central corneal thickness（CCT）無關；<strong>corneal resistance factor（CRF）</strong>代表對氣流的整體阻力，較偏重 instantaneous（elastic，彈性）性質。<span class="ref">p.28–29</span></li>
 <li id="np-182">Corneal deformation 法：<strong>ultra-high-speed Scheimpflug camera</strong> 監測 noncontact tonometer 氣流造成的角膜變形，計算各壓平階段的速度、長度與時間。<span class="ref">p.29</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Parameter（參數）</th><th>Definition（定義）</th><th>Meaning（意義）</th></tr></thead>
 <tbody>
 <tr><td id="np-183">CH</td><td id="np-184">第一次壓平壓力與第二次（較低）壓平壓力的差</td><td id="np-185">Viscous 能量耗散；低 CH 與 KC 相關，並為青光眼進行性視野喪失的獨立危險因子</td></tr>
@@ -597,7 +611,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-189">IOPg</td><td id="np-190">兩次壓平壓力的平均</td><td id="np-191">Goldmann-correlated 眼壓</td></tr>
 <tr><td id="np-192">IOPcc</td><td id="np-193">考慮角膜生物力學性質的眼壓</td><td id="np-194">與 CCT 無關</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-195">出處 <span class="ref">p.28–29</span></p>
 <h3 id="ch1-s6-3">Changes in corneal biomechanics after refractive procedures（術後生物力學變化）</h3>
 <ul>
@@ -660,14 +674,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-229">角膜屈光手術使用 <span class="num">3</span> 種雷射組織作用：<strong>photoablative（光切削）</strong>、<strong>photodisruptive（光破裂）</strong>、<strong>photothermal（光熱）</strong>。<mark>Photoablation 是屈光手術中最重要的一種</mark>，以 excimer（「excited dimer」）或其他適當波長雷射打斷化學鍵；每光子 <span class="num">4</span> electron volts（eV）以上即足以打斷組織的 carbon–nitrogen 或 carbon–carbon 鍵。<span class="ref">p.32</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Laser（雷射）</th><th>Wavelength（波長）</th><th>Interaction（作用）</th><th>Use（用途）</th></tr></thead>
 <tbody>
 <tr><td id="np-230">Argon-fluoride（ArF，氟化氬）excimer</td><td id="np-231"><span class="num">193 nm</span>，<span class="num">6.4 eV</span>／photon，<mark>UVC（high ultraviolet）</mark></td><td id="np-232">Photoablation：打斷化學鍵</td><td id="np-233">適合在組織表面操作（角膜切削）</td></tr>
 <tr><td id="np-234">Femtosecond laser（飛秒雷射）</td><td id="np-235"><span class="num">1053 nm</span> infrared（紅外光）</td><td id="np-236">Photodisruption：組織變 plasma（電漿）→ 高壓高溫使組織快速膨脹 → 基質內微小 cavitation bubbles（空化氣泡）</td><td id="np-237">FDA 核准：LASIK flap、SMILE；也可用於 ICRS 通道、lamellar／penetrating keratoplasty</td></tr>
 <tr><td id="np-238">Holmium:YAG</td><td id="np-239"><span class="num">2.13 μm</span></td><td id="np-240">Photothermal：被角膜水分吸收產熱 → 局部膠原收縮 → 角膜變陡</td><td id="np-241">FDA 核准用於 low hyperopia，但因效果回退而不常用</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-242">出處 <span class="ref">p.32–33</span></p>
 <h3 id="ch1-s8-1">Photoablative effects（光切削）</h3>
 <ul>
@@ -717,14 +731,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch1-s10" data-w="2492">十、Types of Photoablative Lasers 與 customized ablation（客製化切削）</h2>
 <h3 id="ch1-s10-1">Types of photoablative lasers（光切削雷射種類）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Type（種類）</th><th>Beam（光束）</th><th>Features（特點）</th></tr></thead>
 <tbody>
 <tr><td id="np-269">Broad-beam（寬光束）</td><td id="np-270">光束直徑較大、重複率較慢；以光學元件或反射鏡（mirrors）形成平滑均勻的 multimode beam，直徑可達約 <span class="num">7 mm</span></td><td id="np-271">每脈衝能量很高，只需少數脈衝；需 mechanical iris diaphragm 或 ablatable mask 塑形</td></tr>
 <tr><td id="np-272">Scanning-slit（掃描裂隙）</td><td id="np-273">窄縫光束在組織表面掃描以改變切削輪廓</td><td id="np-274">切削面較平滑、可做較大直徑切削區；部分需 iris diaphragm 或 mask，其餘以投射圖樣導引</td></tr>
 <tr><td id="np-275">Flying spot（飛點）</td><td id="np-276">較小光束（約 <span class="num">0.5–2.0 mm</span>），以較高重複率掃描</td><td id="np-277"><mark>需要 tracking mechanism（追蹤系統）</mark>以精確放置切削圖樣；以投射圖樣導引、不需 mask</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-278">出處 <span class="ref">p.34–35</span></p>
 <ul>
 <li id="np-279">目前臨床多數 excimer laser 採用某種 variable 或 flying spot 切削模式。<span class="ref">p.35</span></li>
@@ -743,7 +757,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-286">概念類似 WFG，但用<mark><strong>驗光與 corneal topography</strong> 資料，而非全眼 wavefront 資料</mark>；已成功規則化角膜，改善 decentered ablation、small optical zone 與不規則角膜表面者的視力。<span class="ref">p.36</span></li>
 <li id="np-287">現已有一款 TG 雷射也核准用於正常角膜；向 FDA 報告的 <span class="num">249</span> 眼近視（合併或不合併散光）以單一系統接受 TG 切削，安全性、有效性、準確性與穩定性結果極佳。<span class="ref">p.36</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Ablation（切削）</th><th>Input（程式化資料）</th><th>Aberrometer</th><th>Effect on HOA（對高階像差）</th></tr></thead>
 <tbody>
 <tr><td id="np-288">Conventional</td><td id="np-289">Refraction</td><td id="np-290">不用</td><td id="np-291">通常增加（尤其 SA、coma）</td></tr>
@@ -752,7 +766,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-300">Topography-guided</td><td id="np-301">Refraction + corneal topography</td><td id="np-302">用地形圖資料，而非全眼 wavefront</td><td id="np-303">規則化角膜（偏心切削、小 OZ、不規則表面）</td></tr>
 <tr><td id="np-304">Ray tracing</td><td id="np-305">全眼 wavefront + 前後表面 tomography + interferometry 生物測量</td><td id="np-306">使用 Hartmann-Shack 波前資料</td><td id="np-307">虛擬 3D 眼模型的客製化切削</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-308">出處 <span class="ref">p.27, p.35–36</span></p>
 <div class="ex-trap"><h3 id="ch1-s10-4">易錯陷阱</h3><ul>
 <li id="np-309">Wavefront-guided 以 aberrometer 的像差資料程式化；wavefront-optimized 與傳統切削只用病人驗光度數程式化⁠<sup class="ex-qref"><span>Q1641</span></sup>。<span class="ref">p.35</span></li>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -389,7 +403,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-12">定義：開立藥物於未經 FDA 程序核准的適應症，或使用未經核准的劑量或劑型。Off-label 用藥常見，某仿單外用途甚至可能是某臨床狀況的主要治療選擇；但即使如此，藥商可能因財務理由決定不為新適應症申請 FDA 核准。<span class="ref">p.389</span></li>
 <li id="np-13">Off-label 用藥在眼科是常見做法，例見 Table 16-1。<span class="ref">p.389</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Drug（Table 16-1）</th><th>Indications（仿單外用途）</th></tr></thead>
 <tbody>
 <tr><td id="np-14">Bevacizumab（抗血管新生藥）</td><td id="np-15">玻璃體內注射治療多種新生血管性眼病</td></tr>
@@ -403,7 +417,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-30">Fibrin sealant（纖維蛋白膠）</td><td id="np-31">翼狀贅肉切除時將結膜移植片黏合於鞏膜床</td></tr>
 <tr><td id="np-32">Triamcinolone acetonide（註）</td><td id="np-33">Kenalog 製劑用於玻璃體內與 sub-Tenon 注射，治療多種情況，包括黃斑水腫、前／中間葡萄膜炎與視網膜靜脈阻塞</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-34">註：無防腐劑的 triamcinolone acetonide 製劑（Triesence）已獲 FDA 核准眼內使用。出處 <span class="ref">p.389</span></p>
 <ul>
 <li id="np-35">最常用的眼藥之一 topical prednisolone acetate <mark>未獲 FDA 核准用於術後照護</mark>，因此白內障術後使用屬仿單外用途，雖然在此用途上廣泛使用。<span class="ref">p.390</span></li>
@@ -442,7 +456,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-55">膽鹼藥物可再分為（Fig 16-2）：direct-acting agonists（作用於受體，引發興奮性突觸後電位）；indirect-acting agonists（抑制 acetylcholinesterase，提高突觸間隙的內生性 ACh 濃度）；<mark class="ex-key">antagonists（阻斷 ACh 在受體上的作用）</mark>⁠<sup class="ex-qref"><span>Q135</span></sup>。<span class="ref">p.393</span></li>
 <li id="np-56">Fig 16-3（ACh 的合成與釋放）：choline 的運輸被 <strong>hemicholinium</strong> 抑制；ACh 在 synaptic vesicle 內免於分解；神經傳遞物的釋放被 <strong>botulinum toxin</strong> 阻斷，spider venom 則引起 ACh 釋放；突觸後受體因結合神經傳遞物而活化；ACh 在突觸間隙被 cholinesterase 快速水解；choline 被神經元回收。<span class="ref">p.396</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Receptors（Table 16-3）</th><th>Agonists（致效劑）</th><th>Blocking agents（阻斷劑）</th></tr></thead>
 <tbody>
 <tr><td id="np-57"><strong>Cholinergic</strong>（sphincter）</td><td id="np-58">Acetylcholine</td><td></td></tr>
@@ -456,7 +470,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-79">β1</td><td id="np-80">Tazolol</td><td id="np-81">Betaxolol</td></tr>
 <tr><td id="np-82">β2</td><td id="np-83">Albuterol</td><td id="np-84">Butoxamine</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-85">註 a：表中所列的膽鹼致效劑與腎上腺素阻斷劑造成 <strong>miosis（縮瞳）</strong>；腎上腺素致效劑與膽鹼阻斷劑造成散瞳。註 b：α1 與 α2 前綴曾被提議分別指突觸後與突觸前 α 受體；依目前觀點，α1、α2 亞型的分類完全依據致效劑與拮抗劑的相對效力與親和力，與其功能及位置無關。出處 <span class="ref">p.394</span></p>
 <h3 id="ch16-s2-2">Direct-acting muscarinic agonists（直接作用蕈毒鹼致效劑）</h3>
 <ul>
@@ -474,7 +488,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-97">Muscarinic 致效劑的全身副作用包括流涎、腹瀉、尿急、嘔吐、支氣管痙攣、心搏過緩與出汗；但直接作用致效劑局部點用後全身副作用罕見。例如睡前點用緩慢溶解的 pilocarpine gel 可使副作用減至最少，適用於年輕病人、有變動性近視或強烈縮瞳症狀者、有水晶體混濁的老年病人，以及難以遵從較頻繁給藥的病人。<span class="ref">p.397</span></li>
 <li id="np-98">刺激睫狀肌可協助處理 accommodative esotropia（調節性內斜視）：近反應是調節、縮瞳與內聚的 synkinesis；muscarinic 致效劑收縮睫狀體並誘發調節，病人看近時不需自行調節，因而同時減少連動的內聚反應與調節性內斜視的程度。<span class="ref">p.398</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-4）</th><th>Trade name</th><th>Strengths（濃度）</th></tr></thead>
 <tbody>
 <tr><td id="np-99" colspan="3"><strong>Cholinergic drugs</strong></td></tr>
@@ -486,7 +500,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-113">Physostigmine</td><td id="np-114">Available generically</td><td id="np-115"><span class="num">1 mg/mL</span> ampule</td></tr>
 <tr><td id="np-116">Echothiophate iodide（美國無眼用）</td><td id="np-117">Phospholine Iodide</td><td id="np-118"><span class="num">0.125%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-119">出處 <span class="ref">p.397</span></p>
 <h3 id="ch16-s2-3">Indirect-acting agonists（cholinesterase inhibitors，膽鹼酯酶抑制劑）</h3>
 <ul>
@@ -514,7 +528,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-138">全身給予 atropine 可阻斷 <strong>oculocardiac reflex（眼心反射）</strong>，即眼科手術操作結膜、眼球或眼外肌時有時引發的反射性心搏過緩；retrobulbar anesthesia 也可在傳入端預防此反射，但在打 retrobulbar block 的過程中仍可能發生。<span class="ref">p.400</span></li>
 <li id="np-139">劑量換算（BCSC 2 第 15 章）：經鼻黏膜吸收的局部藥物可避開肝臟 first-pass metabolism 而達到顯著血中濃度，<span class="num">1–2</span> 滴局部藥物可能提供顯著全身劑量。<span class="num">1%</span> atropine 溶液 = <span class="num">1 g/100 mL</span> = <span class="num">10 mg/mL</span>（藥物百分比數字後加一個 0 即為 mg/mL）；每 mL 有 <span class="num">20</span> 滴（部分新式小口徑滴瓶最多 <span class="num">40</span> 滴），因此每滴含 <mark class="ex-key"><span class="num">1/4–1/2 mg</span></mark> 的 <span class="num">1%</span> atropine；雙眼各點一滴，最多 <span class="num">1 mg</span> 有效成分可供全身吸收，但實際吸收量受淚液稀釋與沖刷作用限制⁠<sup class="ex-qref"><span>Q105</span></sup>。<span class="ref ref-ext">BCSC 2 p.372–373</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-5）</th><th>Trade name：Strengths</th><th>Onset（起效）</th><th>Duration（作用時間）</th></tr></thead>
 <tbody>
 <tr><td id="np-140">Phenylephrine HCl</td><td id="np-141">AK-Dilate、Altafrin：solution <span class="num">2.5%, 10%</span>；Mydfrin、Neofrin、Neo-Synephrine：solution <span class="num">2.5%</span>；generic：solution <span class="num">2.5%, 10%</span></td><td id="np-142"><span class="num">30–60 min</span></td><td id="np-143"><span class="num">3–5 h</span></td></tr>
@@ -527,7 +541,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-168">Cyclopentolate HCl/phenylephrine HCl（註 a）</td><td id="np-169">Cyclomydril：solution <span class="num">0.2%/1%</span></td><td id="np-170"><span class="num">30–60 min</span></td><td id="np-171"><span class="num">1–2 d</span></td></tr>
 <tr><td id="np-172">Hydroxyamphetamine hydrobromide/tropicamide（註 b）</td><td id="np-173">Paremyd：solution <span class="num">1%/0.25%</span></td><td id="np-174"><span class="num">20–40 min</span></td><td id="np-175"><span class="num">4–6 h</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-176">註 a：嬰兒檢查用的稀釋複方。註 b：用於散瞳；<strong>不能</strong>用來檢測 Horner syndrome。出處 <span class="ref">p.399</span></p>
 <ul>
 <li id="np-177">Table 16-5 作用時間：atropine <span class="num">7–14 d</span>、scopolamine <span class="num">4–7 d</span>、homatropine <span class="num">3 d</span>、<mark class="ex-key">cyclopentolate 與 Cyclomydril <span class="num">1–2 d</span></mark>；tropicamide 與 Paremyd <span class="num">4–6 h</span>；phenylephrine 與 hydroxyamphetamine <span class="num">3–5 h</span>⁠<sup class="ex-qref"><span>Q193</span> <span>Q630</span></sup>。<span class="ref">p.399</span></li>
@@ -541,7 +555,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-182">單一支配（en plaque）肌纖維在去極化與收縮之後，接著是長時間無反應與鬆弛；但 depolarizing agents 使 multiply innervated fibers（占眼外肌纖維的 <span class="num">1/5</span>）持續收縮，這種眼外肌收縮（nicotinic 致效作用）對眼球施力。<span class="ref">p.401–402</span></li>
 <li id="np-183">Clinical pearl：Depolarizing agents <mark>不應用於 open globe（開放性眼球）手術的全身麻醉誘導</mark>，因用藥時眼外肌收縮對眼球的力量可能擠出眼內容物；此外，這些藥可經類似機轉升高 IOP，因此在 examinations under anesthesia（EUA，麻醉下檢查）時應謹慎使用。<span class="ref">p.402</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Category（Table 16-6）</th><th>Generic names</th><th>Trade names</th></tr></thead>
 <tbody>
 <tr><td id="np-184">Muscarinic receptor–blocking drugs</td><td id="np-185">Atropine sulfate</td><td id="np-186">Isopto Atropine、Atropine-Care</td></tr>
@@ -553,7 +567,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td></td><td id="np-199">Succinylcholine chloride</td><td id="np-200">Anectine、Quelicin</td></tr>
 <tr><td></td><td id="np-201">Vecuronium bromide</td><td id="np-202">Norcuron</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-203">出處 <span class="ref">p.401</span></p>
 <div class="ex-trap"><h3 id="ch16-s2-6">易錯陷阱</h3><ul>
 <li id="np-204">膽鹼藥物分類中 antagonists 阻斷 ACh 在受體上的作用；局部 muscarinic antagonists（如 atropine）與突觸後 muscarinic receptors 作用而阻斷 ACh。Fig 16-3：choline 運輸被 hemicholinium 抑制，ACh 釋放被 botulinum toxin 阻斷⁠<sup class="ex-qref"><span>Q105</span> <span>Q135</span></sup>。<span class="ref">p.393, p.396, p.399</span></li>
@@ -600,7 +614,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-234">BCSC 13：RK（放射狀角膜切開術）後許多病人有夜間燈光周圍 starburst、glare（眩光）或 halo（光暈）；以促進縮瞳的藥物（如 pilocarpine）或減少瞳孔放大的藥物（如 brimonidine）治療，可能經由使瞳孔直徑維持在中央光學清晰區內而減輕症狀。多焦點 IOL 與 diffractive EDOF IOL 的夜間 glare 與 halo，症狀可能經使用夜間駕駛眼鏡，或點用 brimonidine 或 pilocarpine 眼藥以降低 mesopic 瞳孔大小而改善⁠<sup class="ex-qref"><span>Q1610</span></sup>。<span class="ref ref-ext">BCSC 13 p.63, p.187</span></li>
 <li id="np-235">BCSC 10：上鞏膜靜脈壓升高的原因包括 carotid-cavernous sinus fistula（頸動脈海綿竇瘻管）等動靜脈瘻管；局部降眼壓藥，特別是減少房水生成者，可能對部分病人有效⁠<sup class="ex-qref"><span>Q1206</span></sup>。<span class="ref ref-ext">BCSC 10 p.140–141</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-7）</th><th>Trade name</th><th>Strengths（濃度）</th></tr></thead>
 <tbody>
 <tr><td id="np-236" colspan="3"><strong>β2-Adrenergic agonists</strong></td></tr>
@@ -611,9 +625,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-247">Brimonidine tartrate</td><td id="np-248">Alphagan P／Available generically</td><td id="np-249"><span class="num">0.1%, 0.15%</span>／<span class="num">0.2%</span></td></tr>
 <tr><td id="np-250">Brimonidine tartrate/timolol maleate</td><td id="np-251">Combigan</td><td id="np-252">brimonidine tartrate <span class="num">0.2%</span>/timolol maleate <span class="num">0.5%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-253">出處 <span class="ref">p.404</span></p>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Primary mechanism（Table 16-8）</th><th>Drug class：examples</th></tr></thead>
 <tbody>
 <tr><td id="np-254">Decrease aqueous humor production（減少房水生成）</td><td id="np-255">① β-Adrenergic antagonists：timolol、betaxolol、carteolol、levobunolol；② α2-Adrenergic agonists：apraclonidine、brimonidine；③ Rho kinase inhibitors：netarsudil</td></tr>
@@ -621,7 +635,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-258">Increase uveoscleral outflow（增加葡萄膜鞏膜外流）</td><td id="np-259">① Prostaglandins：latanoprost、bimatoprost、travoprost、tafluprost、latanoprostene bunod；② α2-Adrenergic agonists：apraclonidine、brimonidine</td></tr>
 <tr><td id="np-260">Decrease episcleral venous pressure（降低上鞏膜靜脈壓）</td><td id="np-261">① Rho kinase inhibitors：ripasudil、netarsudil</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-262">出處 <span class="ref">p.405</span></p>
 <h3 id="ch16-s3-4">Indirect-acting adrenergic agonists 與 α-antagonists</h3>
 <ul>
@@ -652,7 +666,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-281">BCSC 2 第 15 章：點藥後以 nasolacrimal occlusion（於內眥處指壓壓迫鼻淚管）或閉眼 <span class="num">5 分鐘</span>，可防止淚湖排空，增加藥物滯留時間並減少經鼻黏膜的吸收；<mark class="ex-key">兩種方法都會增加角膜吸收，並減少全身吸收與潛在毒性</mark>。使用 <span class="num">1</span> 種以上局部眼藥的病人，兩藥之間應間隔 <span class="num">5 分鐘</span>，否則第二滴可能把第一滴沖掉⁠<sup class="ex-qref"><span>Q58</span></sup>。<span class="ref ref-ext">BCSC 2 p.372</span></li>
 <li id="np-282">BCSC 10：局部 β-blockers 經抑制睫狀上皮 cAMP 生成使房水分泌減少 <span class="num">20%–50%</span>，IOP 相應下降 <span class="num">20%–30%</span>；對房水生成的作用在點藥後 <span class="num">1 小時</span>內出現，停藥後可持續長達 <span class="num">4 週</span>。局部用藥因經鼻淚引流系統吸收且無肝臟 first-pass metabolism，血漿藥物濃度可接近全身給藥；nasolacrimal occlusion 也可減少全身吸收。β 拮抗劑的全身副作用包括 bronchospasm、bradycardia、heart block、全身低血壓、運動耐受度下降與 CNS 抑制⁠<sup class="ex-qref"><span>Q58</span></sup>。<span class="ref ref-ext">BCSC 10 p.229–230</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-9）</th><th>Trade name</th><th>Strengths（濃度）</th></tr></thead>
 <tbody>
 <tr><td id="np-283">Betaxolol HCl</td><td id="np-284">Betoptic S／Available generically</td><td id="np-285"><span class="num">0.25%</span>／<span class="num">0.5%</span></td></tr>
@@ -668,7 +682,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-313">Dorzolamide HCl/timolol maleate</td><td id="np-314">Cosopt Ocumeter Plus／Available generically</td><td id="np-315">dorzolamide <span class="num">2%</span>/timolol <span class="num">0.5%</span>（兩者同）</td></tr>
 <tr><td id="np-316">Dorzolamide HCl/timolol maleate（preservative-free）</td><td id="np-317">Cosopt in OcuDose／Available generically</td><td id="np-318">dorzolamide <span class="num">2%</span>/timolol <span class="num">0.5%</span>（兩者同）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-319">出處 <span class="ref">p.409</span></p>
 <div class="ex-trap"><h3 id="ch16-s3-7">易錯陷阱</h3><ul>
 <li id="np-320">嬰兒局部點用 brimonidine 和／或 apraclonidine 曾有嚴重全身毒性報告（低血壓、低體溫、心搏過緩），因此這些藥禁用於嬰兒，幼童應謹慎使用⁠<sup class="ex-qref"><span>Q169</span></sup>。<span class="ref">p.406</span></li>
@@ -700,7 +714,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-338">局部 CAIs（<strong>dorzolamide</strong> 與 <strong>brinzolamide</strong>）也可用於青光眼的長期治療：易穿透角膜且具水溶性；以溶液每日三次給予時，可有效抑制 carbonic anhydrase II，同時避免口服給藥的全身副作用。兩藥療效相同，<mark class="ex-key">降低 IOP <span class="num">14%–17%</span></mark>⁠<sup class="ex-qref"><span>Q147</span></sup>。<span class="ref">p.413</span></li>
 <li id="np-339">局部 CAIs 的副作用：點藥灼熱、punctate keratitis、局部過敏與<strong>苦味</strong>。兩者皆足量使用時，局部與口服 CAIs 的降壓作用很可能<strong>不相加</strong>。兩種局部 CAIs 也有複方眼藥（Table 16-10）。<span class="ref">p.413</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-10）</th><th>Trade name</th><th>Strengths</th><th>Onset</th><th>Duration</th></tr></thead>
 <tbody>
 <tr><td id="np-340" colspan="5"><strong>Systemic</strong></td></tr>
@@ -717,7 +731,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-381">Dorzolamide HCl/timolol maleate（preservative-free）</td><td id="np-382">Cosopt in OcuDose／Available generically</td><td id="np-383">dorzolamide HCl <span class="num">2%</span>/timolol <span class="num">0.5%</span></td><td id="np-384"><span class="num">2 h</span></td><td id="np-385"><span class="num">1 h</span>（兩者皆如此印；<strong>與 Cosopt Ocumeter Plus <span class="num">8–12 h</span> 矛盾，見表下註</strong>）</td></tr>
 <tr><td id="np-386">Brinzolamide/brimonidine tartrate</td><td id="np-387">Simbrinza</td><td id="np-388">brinzolamide <span class="num">1%</span>/brimonidine <span class="num">0.2%</span></td><td id="np-389"><span class="num">2–3 h</span></td><td id="np-390"><span class="num">8–12 h</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-391"><strong>表內不一致（原表照錄）</strong>：同為 dorzolamide <span class="num">2%</span>/timolol <span class="num">0.5%</span> 的複方，原表 Cosopt Ocumeter Plus 作用時間印為 <span class="num">8–12 h</span>，generic 與無防腐劑（Cosopt in OcuDose 及其 generic）三列卻印為 <span class="num">1 h</span>；單方 dorzolamide 本表為 <span class="num">8 h</span>，Table 16-12（p.417）與 BCSC 10 Table 12-2（p.225）的 dorzolamide/timolol 皆為每日 <span class="num">2</span> 次（BCSC 10：peak <span class="num">2–3 小時</span>、washout <span class="num">1 個月</span>）。<strong>「1 h」與每日 2 次給藥不符，疑為原表誤植；勿據此縮短給藥間隔。</strong>出處 <span class="ref">p.411；p.417；BCSC 10 p.225</span></p>
 <div class="ex-trap"><h3 id="ch16-s4-3">易錯陷阱</h3><ul>
 <li id="np-392">局部 CAIs（dorzolamide、brinzolamide）降低 IOP <span class="num">14%–17%</span>；PG analogues 可能降低 <span class="num">6–9 mm Hg</span>（<span class="num">25%–33%</span>）⁠<sup class="ex-qref"><span>Q147</span></sup>。<span class="ref">p.413</span></li>
@@ -740,7 +754,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-404">植入物的降壓效果持續 <span class="num">3–4 個月</span>，通常每 <span class="num">16 週</span>給藥一次；phase 3 試驗中，以 <span class="num">16 週</span>間隔接受連續 <span class="num">3</span> 次植入後，約 <span class="num">80%</span> 受試者不需額外降壓治療；藥物自房水清除後效果仍持續，被認為源於睫狀體與 TM 的 matrix metalloproteinase（MMP）表現和／或活性上調。<span class="ref">p.414</span></li>
 <li id="np-405">植入物禁忌：眼內發炎、角膜內皮細胞失養、角膜移植，和／或後囊缺損或破裂；副作用：植入物移位、角膜內皮細胞流失、黃斑水腫、眼內發炎、虹膜色素沉著與眼內炎。<span class="ref">p.414</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-11）</th><th>Trade name</th><th>Strengths</th></tr></thead>
 <tbody>
 <tr><td id="np-406">Bimatoprost</td><td id="np-407">Lumigan</td><td id="np-408"><span class="num">0.01%, 0.03%</span></td></tr>
@@ -753,7 +767,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-427">Travoprost/timolol maleate</td><td id="np-428">DuoTrav（美國無）</td><td id="np-429">travoprost <span class="num">0.004%</span>/timolol <span class="num">0.5%</span></td></tr>
 <tr><td id="np-430">Latanoprostene bunod</td><td id="np-431">Vyzulta</td><td id="np-432"><span class="num">0.024%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-433">出處 <span class="ref">p.413</span></p>
 <h3 id="ch16-s5-2">Nitric oxide（NO，一氧化氮）donors</h3>
 <ul>
@@ -781,7 +795,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-449">同一瓶中合併的藥物可能有改善療效、方便、提高病人遵從性與降低成本等好處；FDA 指引要求固定複方必須<strong>比任一單藥單獨使用更有效</strong>。<span class="ref">p.417</span></li>
 <li id="np-450">Table 16-12 列出目前可得的青光眼固定複方（部分美國無）；病人使用複方前，應先確認各成分對該病人 IOP 的效果。<span class="ref">p.417</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-12）</th><th>Trade name</th><th>Strengths</th><th>Dosing schedule</th></tr></thead>
 <tbody>
 <tr><td id="np-451">Dorzolamide HCl/timolol maleate solution</td><td id="np-452">Cosopt</td><td id="np-453">dorzolamide <span class="num">2%</span>/timolol <span class="num">0.5%</span></td><td id="np-454">每日 <span class="num">2</span> 次</td></tr>
@@ -792,7 +806,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-471">Bimatoprost/timolol maleate solution</td><td id="np-472">Ganfort（美國無）</td><td id="np-473">bimatoprost <span class="num">0.03%</span>/timolol <span class="num">0.5%</span></td><td id="np-474">每日 <span class="num">1</span> 次</td></tr>
 <tr><td id="np-475">Netarsudil/latanoprost solution</td><td id="np-476">Rocklatan</td><td id="np-477">netarsudil <span class="num">0.02%</span>/latanoprost <span class="num">0.005%</span></td><td id="np-478">每日 <span class="num">1</span> 次</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-479">出處 <span class="ref">p.417</span></p>
 <div class="ex-trap"><h3 id="ch16-s5-5">易錯陷阱</h3><ul>
 <li id="np-480">Latanoprost、travoprost、tafluprost 是作用於 FP receptor 的 prodrugs；bimatoprost 不是 prodrug，作用於 prostamide receptor。<span class="ref">p.413</span></li>
@@ -813,7 +827,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-491">這些靜脈滲透劑由腎臟清除，產生明顯 osmotic diuresis（滲透性利尿），在手術中可能造成困擾：清醒病人應在術前不久排尿，並備妥尿壺或便盆；若採全身麻醉，可能需留置導尿管以防膀胱脹大。<span class="ref">p.418</span></li>
 <li id="np-492"><strong>Glycerin <span class="num">50%</span></strong> 於 <span class="num">2004</span> 年在美國停產，但可由 <span class="num">100%</span> 溶液稀釋調劑；這種常用的口服滲透劑加碎冰服用，以減少其令人作嘔的甜味。Glycerin 在肝臟主要轉為葡萄糖、肝醣與其他碳水化合物；口服給藥可導致 <mark>hyperglycemia（高血糖）與 glycosuria（糖尿）</mark>。不被代謝的糖 isosorbide 過去為糖尿病病人的首選，但已在美國停產。<span class="ref">p.418–419</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-13）</th><th>Trade name</th><th>Strengths</th><th>Dose</th><th>Route</th><th>Onset</th><th>Duration</th></tr></thead>
 <tbody>
 <tr><td id="np-493">Glycerin（註 a）</td><td id="np-494">Available generically</td><td id="np-495"><span class="num">50%</span></td><td id="np-496"><span class="num">1–1.5 g/kg</span></td><td id="np-497">Oral</td><td id="np-498"><span class="num">10–30 min</span></td><td id="np-499"><span class="num">5 h</span></td></tr>
@@ -821,7 +835,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td></td><td id="np-507">Available generically</td><td id="np-508"><span class="num">5%–25%</span></td><td id="np-509"><span class="num">0.25–2 g/kg</span></td><td id="np-510">Intravenous</td><td id="np-511"><span class="num">30–60 min</span></td><td id="np-512"><span class="num">4–8 h</span></td></tr>
 <tr><td id="np-513">Urea</td><td id="np-514">Available generically</td><td id="np-515">Powder</td><td id="np-516"><span class="num">0.5–2 g/kg</span></td><td id="np-517">Intravenous</td><td id="np-518"><span class="num">30–45 min</span></td><td id="np-519"><span class="num">5–6 h</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-520">註 a：無市售，但可由調劑藥局取得。註 b：單次 mannitol <span class="num">0.25–0.5 g/kg</span> 常足以降低 IOP。出處 <span class="ref">p.418</span></p>
 <div class="ex-trap"><h3 id="ch16-s6-1">易錯陷阱</h3><ul>
 <li id="np-521">滲透活性取決於溶液中的粒子數與滲透梯度的維持，與分子量無關；urea 會穿透血眼屏障，初期下降後 IOP 小幅上升。<span class="ref">p.417</span></li>
@@ -859,7 +873,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-542">BCSC 10：一般而言，IOP 上升風險與藥物的 glucocorticoid 效價及穿透眼表的能力相關；例如部分類固醇製劑（如 fluorometholone、rimexolone、medrysone 或 loteprednol）比 prednisolone、dexamethasone 或 difluprednate 較不易升高 IOP；但較弱的類固醇或較低濃度的強效藥，在易感者仍可升高 IOP⁠<sup class="ex-qref"><span>Q1235</span></sup>。<span class="ref ref-ext">BCSC 10 p.149</span></li>
 <li id="np-543">懷疑類固醇誘發 IOP 上升、但仍需繼續類固醇治療時，醫師的選擇：維持相同治療並密切追蹤視神經狀態；以其他藥物或治療抵銷 IOP 上升；降低類固醇的效價、濃度或頻率，同時監測 IOP 與發炎；考慮 steroid-sparing 替代方案。<span class="ref">p.424</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Glucocorticoid（Table 16-16）</th><th>Relative potency（抗發炎效價，註 a）</th><th>Rise in IOP（mm Hg，註 b）</th></tr></thead>
 <tbody>
 <tr><td id="np-544">Dexamethasone <span class="num">0.1%</span>（相當於 betamethasone <span class="num">0.1%</span>；小於或等於 difluprednate <span class="num">0.05%</span>）</td><td id="np-545"><span class="num">24.0</span></td><td id="np-546"><span class="num">22</span></td></tr>
@@ -869,13 +883,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-556">Tetrahydrotriamcinolone <span class="num">0.25%</span></td><td id="np-557"><span class="num">1.4</span></td><td id="np-558"><span class="num">2</span></td></tr>
 <tr><td id="np-559">Hydrocortisone <span class="num">0.5%</span></td><td id="np-560"><span class="num">1.0</span></td><td id="np-561"><span class="num">3</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-562">註 a：抗發炎效價以 in vitro 淋巴球轉化抑制試驗測定；difluprednate <span class="num">0.05%</span> 的抗發炎效價等於或強於 betamethasone <span class="num">0.1%</span>，後者的抗發炎效價為 prednisolone 的 <span class="num">6 倍</span>，或相當於 dexamethasone；葡萄膜炎臨床試驗中，difluprednate <span class="num">0.05%</span> emulsion 治療者 <span class="num">6%</span> 出現顯著 IOP 上升，prednisolone acetate <span class="num">1%</span> 治療者為 <span class="num">5%</span>。註 b：IOP 作用於局部 dexamethasone 反應者測定。註 c：fluorometholone 在眼內代謝比 dexamethasone 快。註 d：眼內穿透相對較差。出處 <span class="ref">p.423</span></p>
 <h3 id="ch16-s7-4">Immunomodulatory therapy（IMT，免疫調節治療）</h3>
 <ul>
 <li id="np-563">IMT 是眼部發炎處置的重要部分，可避免長期類固醇治療相關的毒性；IMT 藥物分為 antimetabolites、inhibitors of T-cell signaling、alkylating agents 與 biologic response modifiers；biologic response modifiers 抑制發炎中活躍的各種細胞激素與路徑（Table 16-17）。<span class="ref">p.424</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Medication（Table 16-17）</th><th>Mechanism of action</th><th>Dosage</th><th>Potential complications</th></tr></thead>
 <tbody>
 <tr><td id="np-564" colspan="4"><strong>Conventional immunosuppressive drugs：Antimetabolites</strong></td></tr>
@@ -911,7 +925,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-658">Tofacitinib</td><td id="np-659">JAK inhibitor</td><td id="np-660"><span class="num">5 mg</span> 每日兩次或 <span class="num">11 mg</span> 每日一次（XR）口服</td><td id="np-661">Serious infections、gastrointestinal perforation、hematopoietic abnormalities、malignancy 與 lymphoproliferative disorders 風險</td></tr>
 <tr><td id="np-662">Baricitinib</td><td id="np-663">JAK1 and JAK2 inhibitor</td><td id="np-664"><span class="num">2 mg</span> 每日一次口服</td><td id="np-665">Serious infections、gastrointestinal perforation、hematopoietic abnormalities、thrombosis、malignancy 與 lymphoproliferative disorders 風險</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-666">註 a：葡萄膜炎中 biologic agents 的資料多與針對 TNF-α 的藥物有關，主要為 infliximab 與 adalimumab。註 b：adalimumab 已獲 FDA 核准治療 uveitis。註 c：golimumab 與 certolizumab 用於葡萄膜炎的資料有限；兩者在 refractory uveitis 中顯示療效，包括正在使用其他 TNF-α 抑制劑的病人。註 d：此藥不通過胎盤。註 e：這兩藥在葡萄膜炎研究中合併使用。註 f：仍在研究、尚未獲 FDA 核准；劑量依研究計畫而異，所列為 phase 3 試驗使用的劑量。註 g：劑量依 inflammatory bowel disease 方案；此方案也見於以此藥治療已在使用其他 IMT 之葡萄膜炎病人的病例報告。出處 <span class="ref">p.425–428</span></p>
 <h3 id="ch16-s7-5">Specific drugs and regimens（個別藥物與給藥方式）</h3>
 <ul>
@@ -923,7 +937,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-672"><strong>Ozurdex</strong>（<span class="num">0.7 mg</span> dexamethasone 可生物分解 polymer matrix，注入玻璃體腔）：核准治療 RVO 續發黃斑水腫、noninfectious posterior uveitis 與 DME；polymer 溶解後 dexamethasone <mark class="ex-key">緩慢釋放最長 <span class="num">6 個月</span>，臨床療效至少持續 <span class="num">3 個月</span></mark>（Table 16-15：clinical efficacy 約 <span class="num">3 m</span>）。BCSC 9：多項較長期、多中心回溯性研究報告，葡萄膜炎合併頑固性黃斑水腫病人重複植入 dexamethasone pellet 的安全性與療效相對正面，平均再注射時間為 <span class="num">6 個月</span>⁠<sup class="ex-qref"><span>Q998</span> <span>Q1059</span></sup>。<span class="ref">p.421, p.429；BCSC 9 p.103</span></li>
 <li id="np-673"><strong>Triesence</strong>（無防腐劑 triamcinolone acetonide <span class="num">40 mg/mL</span> 注射懸浮液）：FDA 核准眼內使用，適應症包括玻璃體切除術中的可視化，以及治療 sympathetic ophthalmia、temporal arteritis、uveitis 與局部類固醇無效的眼部發炎。<span class="ref">p.421, p.429</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-14）</th><th>Trade name</th><th>Strengths</th></tr></thead>
 <tbody>
 <tr><td id="np-674" colspan="3"><strong>Corticosteroids</strong></td></tr>
@@ -942,9 +956,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-709">Ketorolac tromethamine</td><td id="np-710">Acular、Acular PF／Acular LS／Acuvail／Available generically</td><td id="np-711">solution <span class="num">0.5%</span>／<span class="num">0.4%</span>／<span class="num">0.45%</span>／<span class="num">0.5%</span></td></tr>
 <tr><td id="np-712">Nepafenac</td><td id="np-713">Nevanac／Ilevro</td><td id="np-714">suspension <span class="num">0.1%</span>／<span class="num">0.3%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-715">出處 <span class="ref">p.420</span></p>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-15）</th><th>Brand name</th><th>Dose</th><th>Formulation</th><th>Ophthalmic indications</th></tr></thead>
 <tbody>
 <tr><td id="np-716">Triamcinolone acetonide</td><td id="np-717">Kenalog-40</td><td id="np-718"><span class="num">4 mg/100 μL</span></td><td id="np-719"><span class="num">40 mg/mL</span> suspension</td><td id="np-720">Off-label：CME、CNV、DME、RVO 續發黃斑水腫、uveitis、局部類固醇無效的眼部發炎、眼內手術中玻璃體可視化</td></tr>
@@ -955,9 +969,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td></td><td id="np-741">Illuvien（原表拼法）</td><td id="np-742"><span class="num">0.19 mg</span>：<span class="num">0.25 μg/d</span> 共 <span class="num">36</span> 個月</td><td id="np-743">Nonbiodegradable implant</td><td id="np-744">DME</td></tr>
 <tr><td></td><td id="np-745">Yutiq</td><td id="np-746"><span class="num">0.18 mg</span>：<span class="num">0.25 μg/d</span> 共 <span class="num">36</span> 個月</td><td id="np-747">Nonbiodegradable implant</td><td id="np-748">Chronic noninfectious posterior uveitis</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-749">出處 <span class="ref">p.421</span></p>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Condition（Table 16-18）</th><th>Route（常用給藥途徑）</th></tr></thead>
 <tbody>
 <tr><td id="np-750">Blepharitis</td><td id="np-751">Topical</td></tr>
@@ -974,7 +988,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-772">Uveitis, anterior</td><td id="np-773">Topical、periocular、systemic</td></tr>
 <tr><td id="np-774">Uveitis, posterior</td><td id="np-775">Periocular、systemic、intravitreal injection or implant</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-776">出處 <span class="ref">p.429</span></p>
 <div class="ex-trap"><h3 id="ch16-s7-6">易錯陷阱</h3><ul>
 <li id="np-777">Table 16-16 的 IOP 作用於已知對局部 dexamethasone 高度反應者測得：dexamethasone <span class="num">0.1%</span> 升壓 <span class="num">22 mm Hg</span>，fluorometholone <span class="num">0.1%</span> 為 <span class="num">6 mm Hg</span>；fluorometholone 在眼內代謝比 dexamethasone 快⁠<sup class="ex-qref"><span>Q120</span> <span>Q1235</span></sup>。<span class="ref">p.423</span></li>
@@ -1006,7 +1020,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-795">COX 受抑制使 arachidonic acid 轉向 lipoxygenase 路徑，可能解釋 aspirin 為何在易感者與氣喘發作及過敏反應（由 leukotrienes C4、D4、E4 介導）相關。併用 CAIs 所伴隨的全身酸中毒，可能使較高比例的 aspirin 分子轉為較脂溶的非離子態，較易穿透血腦屏障而增強 aspirin 的 CNS 毒性。<span class="ref">p.433</span></li>
 <li id="np-796">Aspirin 與其他 COX inhibitors 治療 scleritis 與 uveitis 的效果<strong>不如類固醇</strong>。<span class="ref">p.433</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Drug（Table 16-19）</th><th>Trade name</th><th>Starting oral dosage（adult）</th></tr></thead>
 <tbody>
 <tr><td id="np-797">Aspirin</td><td id="np-798">Ascriptin、Ecotrin</td><td id="np-799"><span class="num">650 mg</span>，每日 <span class="num">4</span> 次</td></tr>
@@ -1028,9 +1042,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-845">Sulindac</td><td id="np-846">Clinoril、Sulin</td><td id="np-847"><span class="num">150 mg</span>，每日 <span class="num">2</span> 次</td></tr>
 <tr><td id="np-848">Tolmetin</td><td id="np-849">Tolectin</td><td id="np-850"><span class="num">400 mg</span>，每日 <span class="num">3</span> 次</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-851">本表數值依原頁逐格照錄。<strong>Flurbiprofen、meloxicam、nabumetone、oxaprozin、piroxicam 五列的頻率或總量明顯不合理，疑為原表誤植，勿依此表計算或開立劑量。</strong>出處 <span class="ref">p.432</span></p>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Drug（Table 16-20）</th><th>Numbers needed to treat（註）</th></tr></thead>
 <tbody>
 <tr><td id="np-852">Aspirin <span class="num">650 mg</span></td><td id="np-853"><span class="num">4.4</span></td></tr>
@@ -1041,7 +1055,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-862">Ketorolac <span class="num">10 mg</span></td><td id="np-863"><span class="num">2.6</span></td></tr>
 <tr><td id="np-864">Diclofenac <span class="num">25 mg</span></td><td id="np-865"><span class="num">2.6</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-866">註：NNT 以中至重度疼痛病人的隨機、雙盲、單劑研究中，<span class="num">4–6 小時</span>內疼痛緩解至少 <span class="num">50%</span> 的病人比例相對安慰劑計算。出處 <span class="ref">p.432</span></p>
 <h3 id="ch16-s8-3">眼科使用的 NSAIDs</h3>
 <ul>
@@ -1068,7 +1082,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-880">釋出的 histamine 造成微血管擴張與通透性增加，因而出現結膜充血與腫脹；histamine 也刺激神經末梢，造成疼痛與癢。<span class="ref">p.434</span></li>
 <li id="np-881">藥物在此路徑的不同點介入治療眼部過敏：corticosteroids 很有效，但相關副作用限制其在此慢性疾病的使用；mast-cell stabilizers 與 antihistamines（阻斷 histamine receptor-1〔H1〕）的副作用較少且較不危險，可單用或合併使用（Table 16-21）。<span class="ref">p.434</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-21）</th><th>Trade name</th><th>Class</th></tr></thead>
 <tbody>
 <tr><td id="np-882">Alcaftadine</td><td id="np-883">Lastacaft</td><td id="np-884">H1-antagonist/mast-cell stabilizer</td></tr>
@@ -1089,7 +1103,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-927">Olopatadine HCl</td><td id="np-928">Pataday <span class="num">0.1%</span>、<span class="num">0.2%</span>、<span class="num">0.7%</span>（OTC）</td><td id="np-929">H1-antagonist/mast-cell stabilizer</td></tr>
 <tr><td id="np-930">Pemirolast potassium</td><td id="np-931">Alamast</td><td id="np-932">Mast-cell stabilizer</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-933">OTC＝over-the-counter（非處方）。出處 <span class="ref">p.434</span></p>
 <h3 id="ch16-s9-2">Corticosteroids</h3>
 <ul>
@@ -1185,7 +1199,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-988">Penicillins 與 cephalosporins 穿透血眼與血腦屏障差，並被睫狀體的 organic-acid transport system 主動送出眼外；但發炎時及併用 <strong>probenecid</strong> 時，眼內穿透增加。<span class="ref">p.440</span></li>
 <li id="np-989">Penicillin 與 cephalosporin 治療可能發生嚴重、偶爾致命的過敏（anaphylactoid）反應；對任一 penicillin 有立即型過敏史（anaphylaxis 或迅速出現蕁麻疹），是使用任何其他 penicillin 的強烈禁忌；對 penicillin 過敏者約 <span class="num">10%</span> 對 cephalosporins 有交叉反應。<span class="ref">p.440</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Drug（Table 16-22）</th><th>Topical</th><th>Subconjunctival</th><th>Intravitreal</th><th>Intravenous（adult）</th></tr></thead>
 <tbody>
 <tr><td id="np-990">Amikacin sulfate</td><td id="np-991"><span class="num">10 mg/mL</span></td><td id="np-992"><span class="num">25 mg</span></td><td id="np-993"><span class="num">400 μg</span></td><td id="np-994"><span class="num">15 mg/kg</span> daily in 2 or 3 doses</td></tr>
@@ -1209,7 +1223,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-1080">Tobramycin sulfate</td><td id="np-1081"><span class="num">8–15 mg/mL</span></td><td id="np-1082"><span class="num">10–20 mg</span></td><td id="np-1083"><span class="num">100–200 μg</span></td><td id="np-1084"><span class="num">3–5 mg/kg</span> daily in 2 or 3 doses</td></tr>
 <tr><td id="np-1085">Vancomycin HCl</td><td id="np-1086"><span class="num">10–50 mg/mL</span></td><td id="np-1087"><span class="num">25 mg</span></td><td id="np-1088"><span class="num">1000 μg</span></td><td id="np-1089"><span class="num">500 mg</span> every 6 h 或 <span class="num">1 g</span> every 12 h</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1090">NA＝not applicable。註 a：多數 penicillins 與 cephalosporins 與 aminoglycosides 混於同一瓶或同一針筒時會物理性不相容。出處 <span class="ref">p.440</span></p>
 <h3 id="ch16-s12-2">Penicillins（5 類，依抗菌譜與對 penicillinase 的抗性區分）</h3>
 <ul>
@@ -1242,7 +1256,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1111">全身使用 fluoroquinolones 曾有肌腱炎與肌腱斷裂的個案報告；可能損傷生長板軟骨，是兒童使用 fluoroquinolones 的安全顧慮；但較大型世代與比較研究未顯示接受全身 fluoroquinolones 治療的兒童肌肉骨骼疾病風險增加。<span class="ref">p.444–445</span></li>
 <li id="np-1112">Clinical pearl：沒有證據顯示眼用 fluoroquinolones 對兒童族群的承重關節有任何影響。<span class="ref">p.445</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-23）</th><th>Trade name</th><th>Strength</th></tr></thead>
 <tbody>
 <tr><td id="np-1113" colspan="3"><strong>Individual drugs</strong></td></tr>
@@ -1271,9 +1285,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-1174">Polymyxin B sulfate/oxytetracycline</td><td id="np-1175">Terak</td><td id="np-1176">Ointment（<span class="num">10,000 units/g</span>，equivalent to <span class="num">5 mg base/g</span>）</td></tr>
 <tr><td id="np-1177">Polymyxin B sulfate/trimethoprim sulfate</td><td id="np-1178">Polytrim，also available generically</td><td id="np-1179">Solution（<span class="num">10,000 units/mL</span>，equivalent to <span class="num">1 mg base/mL</span>）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1180">出處 <span class="ref">p.444</span></p>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-24）</th><th>Trade name</th><th>Preparation and concentration</th></tr></thead>
 <tbody>
 <tr><td id="np-1181" rowspan="2">Dexamethasone/neomycin sulfate/polymyxin B sulfate</td><td id="np-1182">AK-Trol、Poly-Dex、Dexacidin、Dexasporin、Maxitrol，also available generically</td><td id="np-1183">Suspension，<span class="num">0.1%</span>；equivalent to <span class="num">3.5 mg base/mL</span>；<span class="num">10,000 units/mL</span></td></tr>
@@ -1293,7 +1307,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-1218" rowspan="2">Prednisolone sodium phosphate/sulfacetamide sodium</td><td id="np-1219">Vasocidin，also available generically</td><td id="np-1220">Solution，<span class="num">0.25%</span>，<span class="num">10%</span></td></tr>
 <tr><td id="np-1221">AK-Cide</td><td id="np-1222">Ointment，<span class="num">0.5%</span>，<span class="num">10%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1223">出處 <span class="ref">p.445</span></p>
 <h3 id="ch16-s12-5">Sulfonamides（磺胺類）</h3>
 <ul>
@@ -1379,7 +1393,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1275"><strong>Flucytosine</strong>（5-fluorocytosine）：與 5-FU 同為 fluorinated pyrimidine；部分黴菌以 cytosine deaminase 將其轉為 5-FU，再轉為 5-fluorodeoxyuridylate，後者抑制 DNA 合成的重要酵素 thymidylate synthase；宿主細胞缺乏 cytosine deaminase 活性，受影響較小；只有同時具備 permease（促進 flucytosine 穿透）與 cytosine deaminase 的黴菌才對其敏感。<span class="ref">p.453–454</span></li>
 <li id="np-1276">Flucytosine 口服 <span class="num">50–150 mg/kg</span> daily，分每 <span class="num">6</span> 小時給予；吸收良好且穿透血眼屏障佳，但多數 <i>Aspergillus</i> 與半數 <i>Candida</i> 分離株對其抗藥；flucytosine 主要作為全身 amphotericin B 治療的輔助。<span class="ref">p.454</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic（trade）name（Table 16-25）</th><th>Route</th><th>Dosage</th><th>Indication（括號內為 additional reports of use）</th></tr></thead>
 <tbody>
 <tr><td id="np-1277" colspan="4"><strong>Polyenes</strong></td></tr>
@@ -1399,7 +1413,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-1318">Micafungin</td><td id="np-1319">Intravenous</td><td id="np-1320"><span class="num">100–150 mg</span></td><td id="np-1321"><i>Candida</i>、<i>Aspergillus</i></td></tr>
 <tr><td id="np-1322">Anidulafungin</td><td id="np-1323">Intravenous</td><td id="np-1324">Loading dose <span class="num">100–200 mg</span>；maintenance dose <span class="num">50–100 mg</span></td><td id="np-1325"><i>Candida</i>、<i>Aspergillus</i></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1326">出處 <span class="ref">p.452–453</span></p>
 <div class="ex-trap"><h3 id="ch16-s13-4">易錯陷阱</h3><ul>
 <li id="np-1327">Natamycin 與 amphotericin B 穿透角膜都差。BCSC 8：黴菌浸潤深層角膜基質時，因上皮完整使藥物穿透降低，抗黴菌治療可能無效；清除角膜上皮可增加 natamycin 或 amphotericin B 的穿透⁠<sup class="ex-qref"><span>Q836</span></sup>。<span class="ref">p.451；BCSC 8 p.334</span></li>
@@ -1439,7 +1453,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1353"><strong>Zidovudine</strong>：thymidine 核苷類似物，對 HIV 有活性；在感染與未感染細胞中由細胞 kinases 磷酸化為單、雙、三磷酸型；<span class="num">2</span> 個主要機轉：triphosphate 競爭抑制病毒 reverse transcriptase；azido 基團阻止鏈延長，作為 DNA chain terminator。抑制 HIV reverse transcriptase 所需濃度遠低於抑制細胞 DNA polymerases 所需。<span class="ref">p.458</span></li>
 <li id="np-1354"><span class="num">1980</span> 年代引入 zidovudine 後，已有許多抗反轉錄病毒藥核准治療 HIV 感染，分為 <span class="num">6</span> 類：nucleoside reverse transcriptase inhibitors、non-nucleoside reverse transcriptase inhibitors、protease inhibitors、fusion inhibitors、entry inhibitors、integrase strand transfer inhibitors；目前標準 antiretroviral therapy（ART）為抗反轉錄病毒藥的合併治療。<span class="ref">p.458</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-26）</th><th>Trade name</th><th>Topical concentration/ophthalmic solution</th><th>Systemic dosage/intravitreal dosage</th></tr></thead>
 <tbody>
 <tr><td id="np-1355">Trifluridine</td><td id="np-1356">Viroptic，also available generically</td><td id="np-1357"><span class="num">1%</span></td><td id="np-1358">NA</td></tr>
@@ -1457,7 +1471,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-1401">Valacyclovir HCl（註 b、d）</td><td id="np-1402">Valtrex</td><td id="np-1403">NA</td><td id="np-1404">Oral：<span class="num">1 g</span> 每日 <span class="num">3</span> 次，<span class="num">7–14 d</span></td></tr>
 <tr><td id="np-1405">Valganciclovir</td><td id="np-1406">Valcyte</td><td id="np-1407">NA</td><td id="np-1408">Oral：誘導 <span class="num">900 mg</span> 每 <span class="num">12</span> h，<span class="num">21 d</span>；維持 <span class="num">900 mg</span> 每日一次</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1409">HSV＝herpes simplex virus；HZO＝herpes zoster ophthalmicus；NA＝not applicable。註 a：美國無。註 b：老年人、腎病或併用腎毒性藥物者需調整劑量。註 c：因全身給藥有潛在不良與毒性作用，應確實遵循可能的劑量調整與警示。註 d：高劑量時 valacyclovir 在免疫低下病人與 thrombotic thrombocytopenic purpura/hemolytic uremic syndrome 相關。出處 <span class="ref">p.455–456</span></p>
 <h3 id="ch16-s14-3"><i>Acanthamoeba</i> 用藥</h3>
 <ul>
@@ -1472,12 +1486,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1415">多種抗病毒藥可有效治療眼內病毒感染：口服 valacyclovir、valganciclovir、famciclovir 可有相當的玻璃體穿透；IV ganciclovir、foscarnet、cidofovir 可有效治療病毒性視網膜炎。<span class="ref">p.460</span></li>
 <li id="np-1416">Clinical pearl：全身抗微生物藥有助於處理潛在的眼內炎，尤其 open globe 外傷病人。<span class="ref">p.460</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Antibacterial agents（Table 16-27）</th><th>Antifungal agents</th><th>Antiviral agents</th></tr></thead>
 <tbody>
 <tr><td id="np-1417">Meropenem、Linezolid、Moxifloxacin、Vancomycin、Cefazoline、Ceftriaxone、Ceftazidime、Imipenem、Trimethoprim-sulfamethoxazole</td><td id="np-1418">Fluconazole、Voriconazole</td><td id="np-1419">Valacyclovir、Valganciclovir、Famciclovir、Ganciclovir、Foscarnet、Cidofovir</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1420">出處 <span class="ref">p.460</span></p>
 <div class="ex-trap"><h3 id="ch16-s14-5">易錯陷阱</h3><ul>
 <li id="np-1421">BCSC 8：沒有證據顯示局部抗病毒治療會影響之後 stromal keratitis 或上皮病變復發的發生。本章：每日兩次口服 acyclovir <span class="num">400 mg</span> 已證實可預防 HSV 上皮與基質角膜炎復發⁠<sup class="ex-qref"><span>Q1718</span></sup>。<span class="ref">p.456；BCSC 8 p.281</span></li>
@@ -1499,7 +1513,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1432">因局部麻醉劑阻斷交感血管張力並擴張血管，短效藥物常加入 <span class="num">1:200,000</span> epinephrine 以延緩血管吸收；此用法升高循環 catecholamine 濃度，可能造成全身高血壓與心律不整。<span class="ref">p.462</span></li>
 <li id="np-1433">局部點用的麻醉劑破壞細胞間 tight junctions，增加角膜上皮對之後給予藥物（如散瞳劑）的通透性；它們也干擾角膜上皮代謝與修復，因此<mark>不可用於長期止痛</mark>；因表面麻醉劑可能成為濫用藥物，最終導致慢性疼痛症候群與視力喪失，<mark>不應發給病人</mark>。<span class="ref">p.462</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（trade name）（Table 16-28）</th><th>Concentration（maximum dose，註 a）</th><th>Onset of action</th><th>Duration of action</th><th>Major advantages/disadvantages</th></tr></thead>
 <tbody>
 <tr><td id="np-1434">Bupivacaine（註 b）（Marcaine、Sensorcaine）</td><td id="np-1435"><span class="num">0.25%–0.75%</span>（<span class="num">175 mg</span>）</td><td id="np-1436"><span class="num">5–11 min</span></td><td id="np-1437"><span class="num">480–720 min</span>（with epinephrine）<br><span class="num">480 min</span>（without epinephrine）</td><td id="np-1438">Long duration of action/increased toxicity to the extraocular muscles</td></tr>
@@ -1507,12 +1521,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-1444">Mepivacaine（註 b）（Carbocaine）</td><td id="np-1445"><span class="num">1%–2%</span>（<span class="num">400 mg</span>）</td><td id="np-1446"><span class="num">3–5 min</span></td><td id="np-1447"><span class="num">120 min</span></td><td id="np-1448">Duration of action greater without epinephrine</td></tr>
 <tr><td id="np-1449">Procaine（註 c）（Novocain）</td><td id="np-1450"><span class="num">1%–2%</span>（<span class="num">1000 mg</span>）</td><td id="np-1451"><span class="num">7–8 min</span></td><td id="np-1452"><span class="num">30–45 min</span>；<span class="num">60 min</span>（with epinephrine）</td><td id="np-1453">Short duration of action；poor absorption from mucous membranes</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1454">註 a：最大劑量為不含 epinephrine 的單次劑量；最大劑量視是否同時使用血管收縮劑（epinephrine）而定，請查閱仿單。註 b：amide 類。註 c：ester 類。出處 <span class="ref">p.461</span></p>
 <ul>
 <li id="np-1455">Table 16-28 四藥的起效時間：<mark class="ex-key"><strong>mepivacaine <span class="num">3–5 min</span></strong>、lidocaine <span class="num">4–6 min</span>、bupivacaine <span class="num">5–11 min</span>、procaine <span class="num">7–8 min</span></mark>；表列四藥中 mepivacaine 起效時間範圍的上下限皆最低（與 lidocaine 範圍部分重疊）。本文另寫 mepivacaine 起效快，bupivacaine 起效比 lidocaine 慢⁠<sup class="ex-qref"><span>Q194</span></sup>。<span class="ref">p.461, p.463</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Generic name（Table 16-29）</th><th>Trade name</th><th>Strength</th></tr></thead>
 <tbody>
 <tr><td id="np-1456">Cocaine</td><td id="np-1457">—</td><td id="np-1458"><span class="num">1%–4%</span></td></tr>
@@ -1529,7 +1543,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-1483">TetraVisc</td><td id="np-1484"><span class="num">0.5%</span></td></tr>
 <tr><td id="np-1485">Available generically</td><td id="np-1486"><span class="num">0.5%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1487">出處 <span class="ref">p.462</span></p>
 <h3 id="ch16-s15-2">Specific drugs（個別藥物）</h3>
 <ul>
@@ -1633,7 +1647,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1550"><strong>Brolucizumab</strong>：另一經核准治療 neovascular AMD 的 anti-VEGF 藥物；為 humanized single-chain variable antibody fragment，每月負荷劑量後以 <span class="num">12 週</span>間隔給藥，已證實治療 neovascular AMD 有效；作用時間較長，但<strong>非感染性眼內發炎</strong>率高於其他 anti-VEGF 藥物；其他適應症的核准尚待 FDA 審查。<span class="ref">p.474</span></li>
 <li id="np-1551"><strong>Faricimab</strong>：FDA 於 <span class="num">2022</span> 年 <span class="num">1</span> 月核准治療 neovascular AMD 與 diabetic macular edema；為 humanized immunoglobulin G 分子，Fc 部分經修飾以限制受體交互作用；除結合 VEGF-A 外，也阻斷 <strong>angiopoietin-2（Ang-2）</strong>，中斷 Ang-2 路徑提供支持血管穩定的額外機轉。Brolucizumab 與 faricimab 皆經與 aflibercept 比較的 phase 3 試驗取得 FDA 核准，兩者在初始負荷期後都可能延長治療間隔；臨床試驗中 faricimab 的眼內發炎率與 aflibercept 相當。<span class="ref">p.474–475</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Inhibitor（target）（Table 16-30）</th><th>Brand name</th><th>Dose/interval</th><th>Indications</th></tr></thead>
 <tbody>
 <tr><td id="np-1552">Pegaptanib sodium（VEGF-A165）</td><td id="np-1553">Macugen</td><td id="np-1554"><span class="num">0.3 mg/90 μL</span>：每 <span class="num">6</span> 週</td><td id="np-1555">Neovascular AMD</td></tr>
@@ -1644,7 +1658,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-1570">Brolucizumab（VEGF-A）</td><td id="np-1571">Beovu</td><td id="np-1572"><span class="num">6 mg/50 μL</span>：每 <span class="num">4</span> 週 ×<span class="num">3</span> 劑，之後每 <span class="num">8–12</span> 週</td><td id="np-1573">Neovascular AMD</td></tr>
 <tr><td id="np-1574">Faricimab（VEGF-A and Ang-2）</td><td id="np-1575">Vabysmo</td><td id="np-1576"><span class="num">6 mg/50 μL</span>：每 <span class="num">4</span> 週 ×<span class="num">4</span> 劑，之後每 <span class="num">8–16</span> 週</td><td id="np-1577">Neovascular AMD、DME</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1578">AMD＝age related macular degeneration；Ang-2＝angiopoietin-2；CME＝cystoid macular edema；CNV＝choroidal neovascularization；DME＝diabetic macular edema；PlGF＝placental growth factor；ROP＝retinopathy of prematurity；RVO＝retinal vein occlusion。出處 <span class="ref">p.474</span></p>
 <h3 id="ch16-s17-4">Insulin-like growth factor 1 receptor inhibitors</h3>
 <ul>
@@ -1656,7 +1670,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1581">Biosimilars 不是 generic 藥（Table 16-31）：generic 是化學結構簡單之藥物的複製品，biosimilar 則需重新工程化複雜分子，法規標準更嚴格。Biosimilar 的主要優勢是成本：臨床醫師可用 <span class="num">3/4</span> 的成本使用臨床等效的產品；眼科目前使用抗體之處，biosimilars 有許多潛在應用。<span class="ref">p.475</span></li>
 <li id="np-1582">FDA 已核准的眼科 biosimilars：Alymsys（bevacizumab-maly）、Byooviz（ranibizumab-nuna）、Cimerli（ranibizumab-eqrn）、Vegzelma（bevacizumab-abcd）。<span class="ref">p.475</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 16-31</th><th>Generic drugs（學名藥）</th><th>Biosimilar drugs（生物相似藥）</th></tr></thead>
 <tbody>
 <tr><td id="np-1583">Structure</td><td id="np-1584">簡單，且與原分子完全相同</td><td id="np-1585">胺基酸序列相同，但轉譯後修飾與非活性成分不同</td></tr>
@@ -1665,7 +1679,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-1592">Approval</td><td id="np-1593">證明化學相似性與純度即可取得上市核准</td><td id="np-1594">需 pharmacokinetic、pharmacodynamic 研究與 pharmacovigilance</td></tr>
 <tr><td id="np-1595">Interchangeability and substitution</td><td id="np-1596">可輕易替換或互換</td><td id="np-1597">法律仍不確定；依個案情況而定</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-1598">出處 <span class="ref">p.476</span></p>
 <div class="ex-trap"><h3 id="ch16-s17-6">易錯陷阱</h3><ul>
 <li id="np-1599">Ranibizumab 是 monoclonal antibody fragment（Fab）；bevacizumab 是全長抗體（眼科使用屬 off-label）；brolucizumab 是 humanized single-chain variable antibody fragment⁠<sup class="ex-qref"><span>Q148</span></sup>。<span class="ref">p.473–474</span></li>

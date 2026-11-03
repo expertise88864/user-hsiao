@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -418,7 +432,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-31"><mark class="ex-key">AR 患者的所有子女都是帶原者</mark>，除非另一方臨床正常的父母也帶原，否則不太可能發病⁠<sup class="ex-qref"><span>Q102</span> <span>Q142</span></sup>。<span class="ref">p.218</span></li>
 </ul>
 <h3 id="ch6-s2-3">Carrier heterozygotes（帶原者）的偵測方法</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Method（方法）</th><th>Example（例子）</th></tr></thead>
 <tbody>
 <tr><td id="np-32">Electrophoresis（電泳）找異常代謝物</td><td id="np-33">Galactokinase deficiency</td></tr>
@@ -427,7 +441,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-38">Skin fibroblast culture（皮膚纖維母細胞培養）</td><td id="np-39">Ornithine aminotransferase（gyrate atrophy）</td></tr>
 <tr><td id="np-40">Serum and tears assay（血清與淚液）</td><td id="np-41">Hexosaminidase A（Tay-Sachs disease）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-42">出處 <span class="ref">p.218</span></p>
 <h3 id="ch6-s2-4">Consanguinity（近親婚配）與 Pseudodominance（假顯性）</h3>
 <ul>
@@ -436,7 +450,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-45"><strong>Pseudodominance</strong>：同型合子患者 × 帶原者 → 子女 <span class="num">50%</span> 帶原、<span class="num">50%</span> 發病，類似顯性；這類婚配罕見，不太可能影響超過 <span class="num">2</span> 代垂直傳遞。<span class="ref">p.219</span></li>
 </ul>
 <h3 id="ch6-s2-5">Table 6-1 Known enzyme disorders（已知酵素疾病與眼部徵象）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Disorder（疾病）</th><th>Defective enzyme（缺陷酵素）</th><th>Ocular sign（眼部徵象）</th></tr></thead>
 <tbody>
 <tr><td id="np-46" colspan="3"><strong>Storage diseases（儲積症）</strong></td></tr>
@@ -468,7 +482,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-120">Sulfite oxidase deficiency</td><td id="np-121">Sulfite oxidase</td><td id="np-122">Ectopia lentis</td></tr>
 <tr><td id="np-123">Tyrosinemia type II</td><td id="np-124">Tyrosine aminotransferase</td><td id="np-125">Pseudodendritic keratitis（假樹枝狀角膜炎）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-126">出處（Table 6-1）<span class="ref">p.216–217</span></p>
 <ul>
 <li id="np-127">Table 6-1 的 Ocular sign 列有 <strong>macular cherry-red spot</strong> 的四個：<mark class="ex-key">GM1 gangliosidosis type I、Tay-Sachs（GM2 type I）、Sandhoff（GM2 type II）、Niemann-Pick disease</mark>；<strong>Ehlers-Danlos syndrome type VI</strong>（lysyl hydroxylase）列的眼部徵象為 microcornea、corneal ectasia、blue sclera、ectopia lentis、angioid streaks、retinal detachment⁠<sup class="ex-qref"><span>Q201</span></sup>。<span class="ref">p.216–217</span></li>
@@ -476,7 +490,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-129">Fabry disease：Table 6-1 列於 <strong>storage diseases</strong>，缺陷酵素為 ceramide trihexosidase（α-galactosidase A）；Fabry disease 也列於帶原女性有眼部表現的 X-linked 疾病，帶原者角膜上皮有 whorl-like（verticillata）變化（Table 6-8）⁠<sup class="ex-qref"><span>Q200</span></sup>。<span class="ref">p.216, p.238, p.240</span></li>
 <li id="np-130">Table 6-1 將 albinism 的缺陷酵素列為 <strong>tyrosinase</strong>。BCSC 6：oculocutaneous albinism（OCA，眼皮膚白化症）為 AR，<strong>TYR</strong> 變異造成 OCA1；ocular albinism（OA）為 X-linked recessive，由 <strong>GPR143</strong> 半合子變異造成（本章外，BCSC 6 第 27 章）⁠<sup class="ex-qref"><span>Q149</span></sup>。<span class="ref">p.216；BCSC 6 p.428</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 6-2 Characteristics of Autosomal Recessive Inheritance（AR 特徵）</th></tr></thead>
 <tbody>
 <tr><td id="np-131">致病變異在 heterozygote 通常不造成臨床疾病（recessive）</td></tr>
@@ -487,7 +501,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-136">父母可能有血緣關係（尤其性狀罕見時）</td></tr>
 <tr><td id="np-137">患者的子女為帶原者（heterozygotes），典型臨床不受影響</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-138">出處（Table 6-2）<span class="ref">p.219</span></p>
 <div class="ex-trap"><h3 id="ch6-s2-6">易錯陷阱</h3><ul>
 <li id="np-139">AR 患者的所有子女都是帶原者；除非另一方臨床正常的父母也帶原，否則子女不太可能發病⁠<sup class="ex-qref"><span>Q102</span> <span>Q142</span></sup>。<span class="ref">p.218</span></li>
@@ -509,7 +523,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-151">同一臨床疾病若有 1 種以上孟德爾遺傳型態，<mark>dominant（顯性）型的臨床表現通常比 recessive（隱性）型<strong>更嚴重</strong></mark>。<span class="ref">p.221</span></li>
 <li id="np-152">諮詢時要檢查父母：父母之一即使只有輕微表現，其他手足的風險就升到 <span class="num">50%</span>；某些眼疾中，帶顯性基因但無明顯臨床表現的家人可用電生理或基因檢測找出，例如以相對便宜的基因檢測找出臨床正常家人的 <strong>Best vitelliform macular dystrophy（Best 卵黃樣黃斑部失養症）</strong>致病變異⁠<sup class="ex-qref"><span>Q203</span></sup>。<span class="ref">p.221</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 6-3 Characteristics of Autosomal Dominant Inheritance With Complete Penetrance（完全外顯 AD 的特徵）</th></tr></thead>
 <tbody>
 <tr><td id="np-153">連續 <span class="num">3</span> 代以上（vertical transmission，垂直傳遞）</td></tr>
@@ -523,7 +537,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-161">預期代與代之間、同代個體之間的性狀表現有變異</td></tr>
 <tr><td id="np-162">患者平均傳給 <span class="num">50%</span> 子女</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-163">出處（Table 6-3）<span class="ref">p.220</span></p>
 <div class="ex-trap"><h3 id="ch6-s3-1">易錯陷阱</h3><ul>
 <li id="np-164">完全外顯 AD 的確證需要：至少 3 代連續發病、兩性典型表現、<strong>男傳男</strong>；X-linked（顯性與隱性）的特徵是沒有父傳子。<span class="ref">p.220–221</span></li>
@@ -547,7 +561,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-174">女性發病的情況：① 同型合子（患病父親 + 帶原（或同型合子）母親）；② 母親帶原 + 父親提供新變異；③ <strong>Turner syndrome</strong>（缺部分或整條 X，等同半合子）；④ 極度偏斜的 X inactivation（Lyon hypothesis）；⑤ 其疾病其實是該 X-linked 疾病的 autosomal genocopy（由體染色體基因造成的相同表型）。<span class="ref">p.222</span></li>
 <li id="np-175">家族中患者皆為男性時應考慮 XLR，尤其是透過未發病女性相連（舅舅與外甥、不同父親的同母異父兄弟）；許多 X-linked RP 家系因帶原女性有表現而被誤標為 AD。<span class="ref">p.222</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 6-4 Characteristics of X-Linked Recessive Inheritance（XLR 特徵）</th></tr></thead>
 <tbody>
 <tr><td id="np-176">通常只有男性發病</td></tr>
@@ -559,7 +573,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-182">帶原女性：平均 <span class="num">50%</span> 兒子發病、<span class="num">50%</span> 女兒帶原</td></tr>
 <tr><td id="np-183">沒有男傳男</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-184">出處（Table 6-4）<span class="ref">p.222</span></p>
 <h3 id="ch6-s4-3">X-linked dominant（XLD，性聯顯性）</h3>
 <ul>
@@ -567,7 +581,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-186"><mark class="ex-key">患病父親的女兒全部發病、兒子全部正常</mark>（除非母親也患病）；只有患病男性的子女能區分 XLD 與 AD⁠<sup class="ex-qref"><span>Q102</span> <span>Q142</span></sup>。<span class="ref">p.223</span></li>
 <li id="np-187">部分 XLD 可能對 hemizygous 男性致死，如 <strong>incontinentia pigmenti（色素失禁症，Bloch-Sulzberger syndrome）</strong>。<span class="ref">p.223</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 6-5 Characteristics of X-Linked Dominant Inheritance（XLD 特徵）</th></tr></thead>
 <tbody>
 <tr><td id="np-188">男女皆發病，女性發生率約為男性 <span class="num">2</span> 倍（若對男性致死則只見於女性）</td></tr>
@@ -575,7 +589,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-190">Heterozygous 患病女性傳給兒女機率相同</td></tr>
 <tr><td id="np-191">Heterozygous 女性傾向比 hemizygous 男性輕微</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-192">出處（Table 6-5）<span class="ref">p.223</span></p>
 <h3 id="ch6-s4-4">X-linked disorders（性聯疾病舉例）</h3>
 <ul>
@@ -636,24 +650,24 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-228"><strong>Trisomy 21（Down syndrome，唐氏症）</strong>：人類最常見染色體症候群，活產 <span class="num">1/800</span>。<span class="ref">p.228</span></li>
 <li id="np-229">最重要危險因子：<mark>母親年齡</mark>。<span class="ref">p.229</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Maternal age（母親年齡）</th><th>&lt;20</th><th>20–24</th><th>25–29</th><th>30–34</th><th>35–39</th><th>≥40</th></tr></thead>
 <tbody>
 <tr><td id="np-230">Down syndrome / 10,000 活產</td><td id="np-231"><span class="num">6.2</span></td><td id="np-232"><span class="num">6.3</span></td><td id="np-233"><span class="num">6.2</span></td><td id="np-234"><span class="num">10.3</span></td><td id="np-235"><span class="num">25.6</span></td><td id="np-236"><span class="num">81.6</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-237">出處 <span class="ref">p.229</span></p>
 <ul>
 <li id="np-238">Down syndrome：<span class="num">&gt;80%</span> 錯誤發生在 meiosis I；<span class="num">&gt;95%</span> 來自母親的減數分裂；約 <span class="num">5%</span> 為 translocation（轉位）：21 號長臂接到另一個 acrocentric（近端著絲點）染色體，通常是 <span class="num">14</span> 或 <span class="num">22</span> 號。<span class="ref">p.229</span></li>
 <li id="np-239">只要 21q 遠端 <span class="num">1/3</span> 三體即足以致病；<strong>21q22</strong> band 內的基因似乎是致病主因。<span class="ref">p.229</span></li>
 <li id="np-240">可能有的全身表現：認知障礙、特殊面容（斜眼裂、epicanthus（內眥贅皮）、扁鼻樑、吐舌）、短寬手與第一二趾間距寬、hypotonia（肌張力低下）、先天性心臟病、免疫與血液異常、腸胃異常、atlantoaxial instability（寰樞椎不穩）、癲癇、Alzheimer disease、身材矮小、不孕、牙齒發育不全。<span class="ref">p.229</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 6-6 Ocular Findings in Down Syndrome（Trisomy 21）：More common（較常見）</th><th>Less common（較少見）</th></tr></thead>
 <tbody>
 <tr><td id="np-241">Almond-shaped、upward-slanting palpebral fissures（杏仁形、上斜眼裂）；明顯 epicanthal folds；blepharitis（瞼緣炎，通常為慢性）；nasolacrimal duct obstruction（鼻淚管阻塞）；strabismus（通常為 esotropia（內斜視））；nystagmus（典型為水平）；視神經盤邊緣異常視網膜血管；iris stromal hypoplasia（虹膜基質發育不全）；<strong>Brushfield spots</strong>；白內障（先天或後天）；myopia</td><td id="np-242">Infantile glaucoma（嬰兒型青光眼）；keratoconus（圓錐角膜）；optic nerve head abnormalities（視神經盤異常）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-243">出處（Table 6-6）<span class="ref">p.230</span></p>
 <h3 id="ch6-s6-3">Mosaicism（嵌合）</h3>
 <ul>
@@ -730,7 +744,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-292"><strong>Sturge-Weber syndrome（SWS，斯特奇－韋伯症候群，encephalofacial angiomatosis（腦顏面血管瘤病））</strong>：<mark>不遺傳</mark>（推測 germline 變異無法存活），為 <strong>GNAQ</strong> 的 somatic 變異；眼瞼周圍皮膚血管病灶時可合併脈絡膜 hemangioma（血管瘤），許多病例有青光眼，青光眼機轉為 trabeculodysgenesis（小樑網發育不良）或 episcleral venous pressure（上鞏膜靜脈壓）升高。<span class="ref">p.237</span></li>
 </ul>
 <h3 id="ch6-s8-1">Table 6-7 Neurocutaneous syndromes 總覽</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Disease（疾病）</th><th>Gene（locus）</th><th>Inheritance（遺傳）</th><th>Ocular（眼部）</th><th>Skin／CNS／systemic（皮膚／全身）</th><th>Incidence／comments（發生率／備註）</th></tr></thead>
 <tbody>
 <tr><td id="np-293">NF1（von Recklinghausen disease）</td><td id="np-294"><strong>NF1（17q11.2）</strong>；tumor suppressor</td><td id="np-295"><strong>AD</strong></td><td id="np-296">眼眶或眼瞼 neurofibroma、青光眼、角膜神經明顯、Lisch nodules、iris ectropion（虹膜外翻）、視網膜與脈絡膜 hamartoma、optic pathway glioma（視路膠質瘤）、屈光不正</td><td id="np-297">Cafe-au-lait spots、neurofibromas、腋下或腹股溝雀斑；sphenoid dysplasia（蝶骨發育不良）、optic pathway glioma</td><td id="np-298"><span class="num">1/3500</span>；新生變異常見；表現度變異常見；genetic mosaicism 者依 germline 篩檢指引追蹤</td></tr>
@@ -743,7 +757,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-335">Racemose angioma（Wyburn-Mason syndrome）</td><td id="np-336">Nonhereditary</td><td id="np-337"><strong>Sporadic</strong></td><td id="np-338">Retinal racemose angioma（視網膜蔓狀血管瘤）</td><td id="np-339">臉部病灶（若有）；顱內 arteriovenous malformation（AVM，動靜脈畸形）出血</td><td id="np-340">單獨發現比症候群常見</td></tr>
 <tr><td id="np-341">Klippel-Trenaunay-Weber syndrome（PIK3CA-related overgrowth spectrum，PROS）</td><td id="np-342"><strong>PIK3CA</strong></td><td id="np-343"><strong>Mosaic</strong></td><td id="np-344">青光眼</td><td id="np-345">類似 SWS 的 nevus flammeus、色素痣與條紋；肢體異常（不對稱肥大、多／併／少指）、癲癇、Kasabach-Merritt syndrome</td><td id="np-346">微血管與靜脈畸形合併肢體過度生長 ± 淋巴管畸形</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-347">出處（Table 6-7）<span class="ref">p.235–236</span></p>
 <ul>
 <li id="np-348">Table 6-7 中 NF1 的遺傳方式為 <mark class="ex-key"><strong>autosomal dominant</strong></mark>（NF1 位於 17q11.2，tumor suppressor），新生變異常見；表中 AR 的是 ataxia-telangiectasia，X-linked dominant 的是 incontinentia pigmenti⁠<sup class="ex-qref"><span>Q550</span></sup>。<span class="ref">p.235–236</span></li>
@@ -780,7 +794,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-369">帶原表型可能與年齡相關：Lowe syndrome 的 obligate carrier 女性在 <span class="num">20 歲</span>以前（before the third decade）不一定出現水晶體皮質混濁。<span class="ref">p.240</span></li>
 </ul>
 <h3 id="ch6-s9-3">Table 6-8 Ocular findings in carriers of X-linked disorders（X-linked 疾病帶原者眼部表現）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Disorder（疾病）</th><th>Carrier findings（帶原者表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-370">S-cone（blue-cone）monochromatism（藍錐細胞單色視）</td><td id="np-371">ERG 錐細胞功能、心理物理閾值、色覺檢查異常</td></tr>
@@ -792,7 +806,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-382">Red–green color deficiency（protan、deutan）</td><td id="np-383">Nagel anomaloscope 配色範圍過寬或偏移；protan 帶原者對紅光敏感度下降（<strong>Schmidt sign</strong>）</td></tr>
 <tr><td id="np-384">X-linked RP</td><td id="np-385">區域性眼底色素變化、<strong>"gold-dust" tapetal-like reflex（金粉樣反光）</strong>；ERG 振幅與 implicit time 異常</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-386">出處（Table 6-8）<span class="ref">p.240</span></p>
 <ul>
 <li id="np-387"><mark class="ex-key">Choroideremia 為 X-linked</mark>，由 <strong>CHM</strong> 基因變異造成（本章外，BCSC 12 第 12 章）；女性帶原者呈 "moth-eaten"（蟲蛀樣）眼底色素變化⁠<sup class="ex-qref"><span>Q137</span> <span>Q149</span> <span>Q151</span> <span>Q162</span></sup>。<span class="ref">p.238, p.240；BCSC 12 p.299</span></li>
@@ -814,7 +828,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-396">每次細胞分裂分配到的變異 mtDNA 數量是隨機的 → 漸趨 <strong>homoplasmy（同質性）</strong>，稱 <strong>replicative segregation（複製分離）</strong>；deleted 分子較小、優先複製而增加。趨向 homoplasmy 有助於解釋病情隨年齡惡化、原本未受累的器官晚年才受累。<span class="ref">p.240–241</span></li>
 </ul>
 <h3 id="ch6-s10-2">粒線體疾病的病因分類</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Category（類別）</th><th>Examples（例子）</th></tr></thead>
 <tbody>
 <tr><td id="np-397">mtDNA large rearrangements（大片段缺失或插入）</td><td id="np-398"><strong>CPEO、Kearns-Sayre syndrome（KSS）、Pearson syndrome</strong></td></tr>
@@ -822,7 +836,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-401">mtDNA 編碼的 <strong>transfer RNA（tRNA）</strong>變異</td><td id="np-402"><strong>MELAS</strong>、MERRF、MIDD，以及約 <span class="num">30%</span> CPEO</td></tr>
 <tr><td id="np-403">Missense／nonsense variants（錯義／無義變異）</td><td id="np-404"><strong>LHON、NARP</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-405">出處 <span class="ref">p.241</span></p>
 <ul>
 <li id="np-406">MELAS 的變異在 <mark class="ex-key">mtDNA 編碼的 <strong>tRNA</strong></mark>（tRNA Leu）；mtDNA 編碼的 ribosomal RNA 變異見於母系遺傳感音性耳聾與 aminoglycoside 誘發耳聾⁠<sup class="ex-qref"><span>Q163</span></sup>。<span class="ref">p.241</span></li>
@@ -852,7 +866,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-418">NARP：<strong>ATPase-6</strong> 基因 nucleotide <span class="num">8993</span> 單一鹼基變異；變異 mtDNA <span class="num">&lt;80%</span> 為 NARP，更高比例（<span class="num">&gt;95%</span>）可造成 <strong>Leigh syndrome</strong>（嬰幼兒嚴重神經退化）；8993 變異可在 fibroblasts 與 lymphoblasts 檢出⁠<sup class="ex-qref"><span>Q112</span> <span>Q200</span></sup>。<span class="ref">p.243</span></li>
 </ul>
 <h3 id="ch6-s10-7">Table 6-9 Causes and key features of mitochondrial diseases</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Disease（疾病）</th><th>Primary clinical features（主要臨床表現）</th><th>Key genetic features（遺傳重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-419">CPEO</td><td id="np-420">雙側 ptosis、緩慢進行性眼外肌麻痺</td><td id="np-421">tRNA Leu(UUR) 點變異、大片段缺失</td></tr>
@@ -865,7 +879,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-440">NARP（neurogenic muscle weakness, ataxia, and RP）</td><td id="np-441">失調、四肢周邊神經病變、色素性視網膜病變、肌無力</td><td id="np-442">Mitochondrial <strong>ATPase subunit 6</strong> 點變異；被認為與 Leigh 為同一光譜（Leigh 較嚴重、變異 mtDNA 比例較高）</td></tr>
 <tr><td id="np-443">Pearson syndrome</td><td id="np-444">Pancytopenia（全血球減少）、胰臟外分泌衰竭、兒童 sideroblastic anemia、疲倦、體重難增加、腹痛、腹瀉</td><td id="np-445">mtDNA 大片段缺失</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-446">出處（Table 6-9）<span class="ref">p.242</span></p>
 <div class="ex-trap"><h3 id="ch6-s10-8">易錯陷阱</h3><ul>
 <li id="np-447">母系遺傳：患病女性的兒子與女兒都可遺傳到，但只有<strong>女兒</strong>能往下傳；所有男性子代（不論是否發病）傳遞即終止⁠<sup class="ex-qref"><span>Q97</span></sup>。<span class="ref">p.225, p.240</span></li>
@@ -909,7 +923,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-470">告知疾病負擔的適當時機通常是病人或家屬第一次詢問後果時，並需同理心。<span class="ref">p.246</span></li>
 </ul>
 <h3 id="ch6-s12-2">Treatment of the disease process（治療）：代謝缺陷的 5 大處置方式</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Approach（方式）</th><th>Examples（例子）</th></tr></thead>
 <tbody>
 <tr><td id="np-471">1. Dietary control（飲食控制）</td><td id="np-472">Homocystinuria、Refsum disease、gyrate atrophy、galactokinase deficiency、galactosemia；無半乳糖飲食可逆轉 galactosemia 部分主要徵象（肝脾腫大、黃疸、體重減輕）；<mark>部分病人可停止皮質白內障進展，甚至可能使較輕的混濁消退</mark></td></tr>
@@ -918,7 +932,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-477">4. Vitamin／cofactor therapy（維生素與輔因子）</td><td id="np-478">Homocystinuria：<strong>vitamin B6（pyridoxine）</strong>（部分病人）；abetalipoproteinemia（無β脂蛋白血症）：<strong>vitamin A + vitamin E</strong> 對部分有神經損傷的病人有益，也可能延緩視網膜退化（兩者皆 AR）</td></tr>
 <tr><td id="np-479">5. Drug therapy（藥物減少有害產物）</td><td id="np-480">Primary gout：allopurinol（抑制 xanthine oxidase）或 probenecid；familial hypercholesterolemia：降膽固醇藥或膽酸結合劑</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-481">出處 <span class="ref">p.246–248</span></p>
 <ul>
 <li id="np-482"><strong>Management of sequelae and complications（後遺症與併發症處理）</strong>：Axenfeld-Rieger syndrome 的青光眼、RP 的白內障可治療以保存視力。<span class="ref">p.248</span></li>
@@ -947,14 +961,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-496"><strong>Artificial insemination by donor（捐精人工授精）</strong>適用：父親有顯性疾病，或父母都是可生化檢出的隱性疾病帶原者；<mark>母親為 AD 患者或帶 X-linked／mitochondrial 疾病時明顯不適用</mark>；捐卵、捐胚胎、代理孕母（可取得時）可能是部分家庭的替代選擇。<span class="ref">p.250</span></li>
 <li id="np-497">Prenatal diagnosis（PND，產前診斷）：amniocentesis 或 CVS，可診斷 Tay-Sachs、許多 MPS 及 <span class="num">100</span> 種以上生化疾病；其他適應症：高齡產婦或篩檢陽性、母血 α-fetoprotein 升高（神經管缺陷）、soft markers 或胎兒異常、可用 DNA 偵測的家族疾病。<span class="ref">p.250</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Method（方法）</th><th>Timing（時機）</th><th>Risk（風險）</th></tr></thead>
 <tbody>
 <tr><td id="np-498">Amniocentesis（羊膜穿刺）</td><td id="np-499">通常於懷孕 <span class="num">15–16 週</span></td><td id="np-500">流產或胎兒併發症約 <span class="num">0.5%</span></td></tr>
 <tr><td id="np-501">CVS（絨毛取樣）</td><td id="np-502">約 <span class="num">10 週</span>（第一孕期，可較早、較安全終止）</td><td id="np-503">流產率估計 <span class="num">1%–2%</span></td></tr>
 <tr><td id="np-504">Cell-free fetal DNA（cffDNA，游離胎兒 DNA）</td><td id="np-505">母血中胎兒 DNA，發展中</td><td id="np-506">發展目標為免除 CVS／羊穿相關風險</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-507">出處 <span class="ref">p.250–251</span></p>
 <ul>
 <li id="np-508"><strong>PGD</strong>：以 intracytoplasmic sperm injection（ICSI，單一精蟲顯微注射）受精；受精後第 <span class="num">3</span> 天胚胎 <span class="num">6–8</span> 細胞時取 <span class="num">1</span> 個 blastomere（卵裂球），以螢光 PCR 擴增定序；第 <span class="num">4</span> 或 <span class="num">5</span> 天植入未受影響胚胎，通常不超過 <span class="num">1–2</span> 個以避免多胞胎。<span class="ref">p.251</span></li>

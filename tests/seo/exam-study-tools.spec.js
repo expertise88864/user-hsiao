@@ -48,7 +48,8 @@ test('signed out: chapter pages show the notes but no questions', async ({ page,
 test('signed out: the public notes data carries no question text', async ({ request }) => {
   expect((await request.get('/exam/exam-data.json')).status()).toBe(404);
   const notes = await (await request.get('/exam/notes-data.json')).json();
-  expect(Object.keys(notes).sort()).toEqual(['books', 'chapters', 'notes', 'qs', 'taxa']);
+  // "find" (2026-11-03): ranked hub-search names built from the public notes only.
+  expect(Object.keys(notes).sort()).toEqual(['books', 'chapters', 'find', 'notes', 'qs', 'taxa']);
   expect(notes.qs[0]).toEqual([expect.any(Number), expect.any(Array)]);
 });
 

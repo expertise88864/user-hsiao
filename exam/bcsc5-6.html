@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -375,7 +389,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-4"><strong>Papilledema（視乳頭水腫）</strong>的視力喪失型態類似 glaucoma（青光眼）：<mark>輕度或早期保留視力與色覺</mark>。<span class="ref">p.125</span></li>
 </ul>
 <h3 id="ch6-s1-2">視野術語</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Term（術語）</th><th>Definition（定義）</th></tr></thead>
 <tbody>
 <tr><td id="np-5">Scotoma（暗點）</td><td id="np-6">周圍視功能正常、中間一區視功能下降；<strong>absolute</strong>＝完全看不到刺激，<strong>relative</strong>＝較大較亮的刺激可能看得到、小而暗的看不到</td></tr>
@@ -385,7 +399,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-13">Arcuate（弧形）</td><td id="np-14">對應 nerve fiber bundle（神經纖維束）喪失</td></tr>
 <tr><td id="np-15">Altitudinal（水平半側）</td><td id="np-16">較廣的弧形缺損，侵犯上方 <span class="num">2</span> 個或下方 <span class="num">2</span> 個象限</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-17">出處 <span class="ref">p.126</span></p>
 <h3 id="ch6-s1-3">神經纖維分組與對應缺損</h3>
 <ul>
@@ -457,7 +471,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-53"><mark class="ex-key">幾乎所有 IIH 都有 papilledema</mark>；除 CN VI、CN VII 外的神經學異常通常與 IIH 無關。長期、未治療或嚴重「fulminant（猛爆型）」者視神經功能可能惡化⁠<sup class="ex-qref"><span>Q481</span></sup>。<span class="ref">p.133</span></li>
 <li id="np-54">發生率高峰在 third decade of life（20 多歲）；<mark class="ex-key"><span class="num">90%</span> 為女性、<span class="num">90%</span> 肥胖</mark>；在青春期前兒童（體重不是主要危險因子）、男性與瘦的成人罕見⁠<sup class="ex-qref"><span>Q481</span> <span>Q705</span></sup>。<span class="ref">p.133</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>典型族群</th><th>視力／色覺</th><th>ONH 與視野</th><th>其他線索</th></tr></thead>
 <tbody>
 <tr><td id="np-55">IIH</td><td id="np-56">年輕肥胖女性</td><td id="np-57">早期正常</td><td id="np-58">幾乎都有 papilledema，傾向雙側；早期視野只有盲點擴大</td><td id="np-59">頭痛、TVO、CN VI palsy 造成的複視</td></tr>
@@ -465,7 +479,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-65">Toxic／nutritional optic neuropathy</td><td id="np-66">暴露或營養不良史</td><td id="np-67">雙側對稱下降</td><td id="np-68">惡化後出現 central scotoma；未矯正病因終致視神經萎縮；OCT 典型為顳側 pRNFL 變薄</td><td id="np-69">無痛、漸進</td></tr>
 <tr><td id="np-70">AION</td><td id="np-71"><span class="num">&gt; 50</span> 歲最常見的急性視神經病變</td><td id="np-72">急性單眼；視野幾乎必損</td><td id="np-73">依定義發病時必有水腫；典型 altitudinal</td><td id="np-74">無痛</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-75">出處 ⁠<sup class="ex-qref"><span>Q481</span></sup><span class="ref">p.127, p.130, p.133, p.137–138, p.146, p.165–166</span></p>
 <h3 id="ch6-s3-2">Secondary pseudotumor cerebri syndrome（次發性偽腦瘤症候群）</h3>
 <ul>
@@ -482,7 +496,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-83"><strong>Lumbar puncture（LP，腰椎穿刺）</strong>：確認 ICP 升高並排除感染或發炎——側臥位開放壓成人 <span class="num">≥ 25 cm H2O</span>、兒童 <span class="num">≥ 28 cm H2O</span>⁠<sup class="ex-qref"><span>Q401</span> <span>Q413</span> <span>Q428</span></sup>。<span class="ref">p.134</span></li>
 <li id="np-84"><strong>無 papilledema 的 IIH</strong>：罕見但可發生；其他條件皆符合且有單側或雙側 <strong>CN VI palsy</strong> → 可確診；否則若具備非特異 MRI/MRV 表現至少 <span class="num">3/4</span>，診斷可為「suggested（提示）」⁠<sup class="ex-qref"><span>Q428</span></sup>。<span class="ref">p.134</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>IIH 確定診斷標準（兒童與成人皆需符合）</th></tr></thead>
 <tbody>
 <tr><td id="np-85">有 <strong>papilledema 或 CN VI palsy</strong> ⁠<sup class="ex-qref"><span>Q413</span></sup></td></tr>
@@ -491,7 +505,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-88"><strong>Cerebrospinal fluid（CSF，腦脊髓液）成分正常</strong>（尤其 cell count 與 protein）⁠<sup class="ex-qref"><span>Q401</span> <span>Q413</span> <span>Q428</span></sup></td></tr>
 <tr><td id="np-89">側臥位開放壓升高：兒童 <span class="num">≥ 28</span>、成人 <span class="num">≥ 25 cm H2O</span> ⁠<sup class="ex-qref"><span>Q401</span> <span>Q413</span> <span>Q428</span></sup></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-90">出處 <span class="ref">p.135</span></p>
 <ul>
 <li id="np-91">Clinical pearl：MRI/MRV 表現非特異，可見於其他 ICP 升高原因甚至 ICP 正常者；因 MRI 發現（如 partially empty sella）轉介時，眼科的角色是找 papilledema 與/或 CN VI palsy。<span class="ref">p.135</span></li>
@@ -511,14 +525,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-99">Corticosteroid：因體重增加應<strong>避免長期使用</strong>；短期高劑量 intravenous（IV，靜脈）類固醇可用於 fulminant IIH 等待手術期間。<strong>Lumbar drain（腰椎引流）</strong>也是 fulminant 的暫時選項。<mark class="ex-key"><strong>Serial lumbar punctures（反覆腰椎穿刺）不建議</strong></mark>⁠<sup class="ex-qref"><span>Q520</span></sup>。<span class="ref">p.136</span></li>
 <li id="np-100">手術：最大耐受藥物下視力仍惡化 → 建議手術；部分初診即嚴重視力喪失合併 papilledema 者可考慮不等明確進展證據即手術。選項：<strong>optic nerve sheath fenestration（ONSF，視神經鞘開窗術）</strong>、CSF diversion（lumboperitoneal 或 ventriculoperitoneal shunt（腰椎/腦室腹腔分流））、<strong>venous sinus stenting（靜脈竇支架）</strong>；三者沒有前瞻性隨機頭對頭比較，優劣不明⁠<sup class="ex-qref"><span>Q520</span></sup>。<span class="ref">p.136</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Procedure（術式）</th><th>優點</th><th>缺點</th></tr></thead>
 <tbody>
 <tr><td id="np-101">ONSF</td><td id="np-102">常優先用於<mark>視力喪失明顯、頭痛不明顯</mark>者；直接保護視神經；併發症率低於 shunt</td><td id="np-103">整體併發症約 <span class="num">10%–15%</span>，含 <span class="num">1%–2%</span> 視力喪失（視神經損傷、central retinal artery occlusion（CRAO，視網膜中央動脈阻塞）、CRVO）；<strong>不顯著降 ICP</strong>，因此常無法可靠治療頭痛；可能需雙側；重複手術因結痂較困難；長期成功率不明</td></tr>
 <tr><td id="np-104">LP／VP shunt</td><td id="np-105">有效降 ICP → 頭痛、CN VI 麻痺、papilledema 改善；對視神經無直接風險</td><td id="np-106">阻塞、感染、移位，常需再手術</td></tr>
 <tr><td id="np-107">Venous sinus stenting</td><td id="np-108">狹窄且有顯著壓力梯度的 transverse sinus 置放支架可降 CSF 壓力，可能緩解頭痛、搏動性耳鳴、papilledema</td><td id="np-109">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-110">出處 ⁠<sup class="ex-qref"><span>Q520</span></sup><span class="ref">p.136</span></p>
 <ul>
 <li id="np-111">即使 ICP 控制、papilledema 改善，許多人仍有慢性頭痛：IIHTT 中頭痛嚴重度與 papilledema 分級或 CSF 開放壓<strong>無相關</strong>；acetazolamide 對頭痛與 placebo 相比<strong>無顯著改善</strong>（視功能與 papilledema 則顯著改善）→ 頭痛請神經科處理。<span class="ref">p.136–137</span></li>
@@ -621,7 +635,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-170">應考慮驗 MOG-IgG 的情況（視神經炎合併）：ONH 明顯或嚴重腫脹、雙側、復發、MRI 視神經顯影長或 perineural、ADEM 或 cortical encephalitis 病史、腦部 MRI 正常或不像 MS⁠<sup class="ex-qref"><span>Q491</span></sup>。<span class="ref">p.143</span></li>
 </ul>
 <h3 id="ch6-s5-5">MS vs NMOSD vs MOGAD 視神經炎（Table 6-3）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Characteristic（特徵）</th><th>MS</th><th>NMOSD</th><th>MOGAD</th></tr></thead>
 <tbody>
 <tr><td id="np-171">Age（年齡）</td><td id="np-172">20 多歲</td><td id="np-173">40 多歲</td><td id="np-174">30 多歲（及兒童）</td></tr>
@@ -640,14 +654,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-223">Brain MRI（腦部 MRI）</td><td id="np-224"><mark>periventricular white matter lesions</mark></td><td id="np-225">hemispheric cerebral white matter、periependymal diencephalon、dorsal medulla</td><td id="np-226">deep gray matter、diffuse brainstem、multifocal white matter</td></tr>
 <tr><td id="np-227">CSF oligoclonal bands（寡株帶）</td><td id="np-228"><mark>very frequent</mark></td><td id="np-229">rare</td><td id="np-230">rare ⁠<sup class="ex-qref"><span>Q1683</span> <span>Q474</span></sup></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-231">出處 ⁠<sup class="ex-qref"><span>Q429</span> <span>Q403</span> <span>Q416</span></sup><span class="ref">p.144</span></p>
 <h3 id="ch6-s5-6">其他自體免疫／副腫瘤視神經病變</h3>
 <ul>
 <li id="np-232"><strong>Glial fibrillary acidic protein（GFAP，膠質纖維酸性蛋白）astrocytopathy</strong>：罕見，表現為 <strong>meningoencephalitis（腦膜腦炎）</strong>——意識改變、不自主運動、癲癇、ataxia（運動失調）、視力喪失。視神經病變多為雙側 ONH 腫脹 ± ICP 升高；視力可能保留而像 papilledema，但腦部 MRI 常見 <mark class="ex-key"><strong>radial perivascular enhancement（放射狀血管周圍顯影）</strong></mark>，CSF 明顯 pleocytosis（細胞增多）與蛋白升高，通常<strong>沒有</strong>球後視神經顯影；未見無腦膜腦炎的單獨視神經病變。治療：類固醇、PLEX、IVIG；<strong>CSF 檢測比血清敏感</strong>⁠<sup class="ex-qref"><span>Q491</span></sup>。<span class="ref">p.143</span></li>
 <li id="np-233"><strong>Collapsin response mediator protein 5（CRMP-5，又稱 CV2）paraneoplastic optic neuropathy（副腫瘤視神經病變）</strong>：罕見，雙側視神經病變合併視盤水腫可見於 <mark class="ex-key">small cell lung cancer（小細胞肺癌）</mark>或其他惡性腫瘤；常伴 vitritis（玻璃體炎）、electroretinography（視網膜電圖）上 retinitis 證據、cerebellar ataxia、peripheral neuropathy；MRI 顯影報告不一，診斷靠血清或 CSF CRMP-5 抗體⁠<sup class="ex-qref"><span>Q474</span></sup>。<span class="ref">p.143</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Marker（標記）</th><th>Disease（疾病）</th><th>Page</th></tr></thead>
 <tbody>
 <tr><td id="np-234">CSF oligoclonal bands</td><td id="np-235"><mark class="ex-key">MS</mark>（NMOSD、MOGAD 罕見）⁠<sup class="ex-qref"><span>Q474</span> <span>Q1683</span></sup></td><td id="np-236"><span class="ref">p.144</span></td></tr>
@@ -658,7 +672,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-249">Anti-GQ1b IgG</td><td id="np-250">Miller Fisher syndrome（米勒費雪症候群：ophthalmoplegia、ataxia、areflexia）（本章外）⁠<sup class="ex-qref"><span>Q423</span></sup></td><td id="np-251"><span class="ref ref-ext">BCSC 5 p.406</span></td></tr>
 <tr><td id="np-252">Anti-acetylcholine receptor antibody</td><td id="np-253">Myasthenia gravis（重症肌無力）（本章外）⁠<sup class="ex-qref"><span>Q423</span></sup></td><td id="np-254"><span class="ref ref-ext">BCSC 5 p.404</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="ex-trap"><h3 id="ch6-s5-7">易錯陷阱</h3><ul>
 <li id="np-255">Table 6-3：CSF oligoclonal bands 在 <strong>MS</strong> very frequent，在 NMOSD 與 MOGAD rare⁠<sup class="ex-qref"><span>Q1683</span> <span>Q474</span></sup>。<span class="ref">p.144</span></li>
 <li id="np-256">Table 6-3 腦部 MRI：MS 為 <strong>periventricular</strong> white matter lesions；NMOSD 為 hemispheric cerebral white matter、periependymal diencephalon、dorsal medulla lesions⁠<sup class="ex-qref"><span>Q429</span> <span>Q403</span> <span>Q416</span></sup>。<span class="ref">p.144</span></li>
@@ -725,7 +739,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-296">（BCSC 5 p.394）急性視力喪失首選 IV methylprednisolone <span class="num">1 g/day × 3–5 天</span>；GCA 為全身性疾病，<strong>嚴重雙眼視力喪失者也必須治療</strong>。（BCSC 5 p.402）azathioprine 為 NMOSD 的免疫抑制治療藥；fingolimod 為 MS 常用的疾病修飾藥，可能增加 NMOSD 復發⁠<sup class="ex-qref"><span>Q1684</span> <span>Q473</span></sup>。<span class="ref">p.148–149</span></li>
 </ul>
 <h3 id="ch6-s7-4">AAION vs NAION（Table 6-4）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Characteristic（特徵）</th><th>AAION</th><th>NAION</th></tr></thead>
 <tbody>
 <tr><td id="np-297">Mean age（平均年齡）</td><td id="np-298"><span class="num">70</span> 歲</td><td id="np-299"><mark><span class="num">60</span> 歲（較年輕）</mark></td></tr>
@@ -739,7 +753,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-321">Natural history（自然病程）</td><td id="np-322"><mark>視力只在罕見情況改善</mark>；未治療對側眼 <span class="num">1–2 週</span>內受累 <span class="num">54%–95%</span></td><td id="np-323"><mark>視力改善 <span class="num">31%</span></mark>；對側眼 <span class="num">5 年</span>受累 <span class="num">15%</span></td></tr>
 <tr><td id="np-324">Treatment（治療）</td><td id="np-325"><mark>全身類固醇</mark></td><td id="np-326"><mark>尚無證實有效者</mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-327">出處 ⁠<sup class="ex-qref"><span>Q415</span></sup><span class="ref">p.147</span></p>
 <h3 id="ch6-s7-5">NAION</h3>
 <ul>
@@ -752,7 +766,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-334">發病後 <span class="num">6–8 週</span>內 ONH 通常萎縮；水腫持續超過此時間可能提示其他診斷。<span class="ref">p.149</span></li>
 </ul>
 <h3 id="ch6-s7-6">NAION 危險因子</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>危險因子（p.149）</th><th>p.150 討論的其他因子</th></tr></thead>
 <tbody>
 <tr><td id="np-335">
@@ -775,10 +789,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul>
 </td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-337">出處 <span class="ref">p.149–150</span></p>
 <h3 id="ch6-s7-7">NAION vs optic neuritis（Table 6-5）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Characteristic（特徵）</th><th>NAION</th><th>Optic neuritis</th></tr></thead>
 <tbody>
 <tr><td id="np-338">Typical age at onset（典型發病年齡）</td><td id="np-339"><span class="num">&gt; 50</span> 歲</td><td id="np-340"><span class="num">&lt; 40</span> 歲</td></tr>
@@ -790,7 +804,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-356">FA</td><td id="np-357"><mark>ONH 充盈延遲</mark></td><td id="np-358">無 ONH 充盈延遲</td></tr>
 <tr><td id="np-359">MRI</td><td id="np-360">視神經無顯影；可能眼內 ONH 顯影</td><td id="np-361">視神經顯影</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-362">出處 ⁠<sup class="ex-qref"><span>Q517</span></sup><span class="ref">p.150</span></p>
 <ul>
 <li id="np-363">MRI 鑑別：NAION 的視神經通常正常（<span class="num">95%</span>），可能僅眼內 ONH 局部顯影；optic neuritis 多數（<span class="num">&gt; 90%</span>）在眼窩、視神經管和/或視交叉前段顯影。<span class="ref">p.150</span></li>
@@ -884,13 +898,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-419">治療無共識：多數多年穩定或極慢進展，偶自發退化 → 視力相對良好且影像穩定者<strong>觀察</strong>；嚴重視力喪失或有進展證據 → <mark><strong>chemotherapy（化療）為初始治療</strong></mark>；放療有爭議（兒童或 NF1 尤其：panhypopituitarism（全垂體功能低下）、續發腫瘤、認知障礙）；嚴重視力喪失合併毀容性 proptosis 可手術切除（也曾被建議用於防止侵入視交叉，但這種延伸罕見）；MEK 與 BRAF inhibitors 已核准用於兒童 low-grade glioma。<span class="ref">p.157</span></li>
 </ul>
 <h3 id="ch6-s9-4">ONSM vs optic nerve glioma 影像（Table 6-6）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（腫瘤）</th><th>CT</th><th>形態</th><th>MRI 訊號</th><th>顯影</th></tr></thead>
 <tbody>
 <tr><td id="np-420">Optic nerve sheath meningioma</td><td id="np-421">鄰近骨質 <strong>hyperostosis（骨質增生）</strong>；神經鞘<strong>鈣化</strong></td><td id="np-422"><mark>Apical expansion of the tumor（腫瘤在眶尖處擴大）</mark>；視神經瀰漫<strong>管狀</strong>增大；<strong>extradural（硬膜外）延伸</strong></td><td id="np-423"><mark>T1、T2 相對腦組織 <strong>isointense 或 mildly hyperintense</strong></mark></td><td id="np-424"><strong>明顯</strong>顯影；鞘增厚顯影、神經本身相對保留（<strong>tram track</strong>）</td></tr>
 <tr><td id="np-425">Optic nerve glioma</td><td id="np-426">無鈣化、無 hyperostosis</td><td id="np-427">視神經 <strong>kinking／buckling（扭折）</strong>；視神經 fusiform 或 globular（梭形/球形）增大；鞘緣平滑（無硬膜外延伸）；神經內低訊號區（<mark><strong>cystic spaces</strong></mark>）</td><td id="np-428">T1 isointense 或 <mark>mildly <strong>hypointense</strong></mark>；T2 hyperintense</td><td id="np-429"><mark>顯影程度 <strong>variable</strong></mark>；腫瘤附近神經與鞘都增厚</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-430">出處 ⁠<sup class="ex-qref"><span>Q490</span></sup><span class="ref">p.156</span></p>
 <h3 id="ch6-s9-5">Malignant optic glioma of adulthood（MOGA，成人惡性視神經膠質瘤）</h3>
 <ul>
@@ -961,14 +975,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-473">多數伴其他神經或全身表現（polysymptomatic）。<strong>Wolfram syndrome（DIDMOAD：diabetes insipidus、diabetes mellitus、optic atrophy、deafness）</strong>可在童年視力喪失，部分只有視神經萎縮；hereditary ataxias（遺傳性運動失調）也含視神經病變但以神經表現為主 → 與神經科或臨床遺傳科共同處理。<span class="ref">p.165</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Inheritance（遺傳）</th><th>Classic age（典型年齡）</th><th>ONH appearance（視盤外觀）</th><th>Sex（性別）</th><th>Gene（基因）</th></tr></thead>
 <tbody>
 <tr><td id="np-474">LHON</td><td id="np-475">Mitochondrial（母系）</td><td id="np-476">通常 <span class="num">15–35</span> 歲</td><td id="np-477">急性充血＋peripapillary telangiectasia</td><td id="np-478">男 &gt; 女</td><td id="np-479">mtDNA 點突變 <span class="num">11778、3460、14484</span></td></tr>
 <tr><td id="np-480">ADOA</td><td id="np-481">Autosomal dominant</td><td id="np-482">第一個 10 年</td><td id="np-483">楔形凹陷＋ONH 蒼白</td><td id="np-484">無</td><td id="np-485"><strong>OPA1</strong>（多數，<span class="num">&gt; 70%</span>）</td></tr>
 <tr><td id="np-486">Wolfram（DIDMOAD）</td><td id="np-487">Autosomal recessive</td><td id="np-488">第一個 10 年</td><td id="np-489">顳側 ONH 蒼白</td><td id="np-490">無</td><td id="np-491"><strong>WFS1</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-492">出處 <span class="ref">p.165</span></p>
 <div class="ex-trap"><h3 id="ch6-s11-4">易錯陷阱</h3><ul>
 <li id="np-493">晚期自發改善中心視功能的機會：<strong>14484 較高（最多 65%）</strong>、11778 較低（約 <span class="num">4%</span>）⁠<sup class="ex-qref"><span>Q402</span> <span>Q414</span> <span>Q431</span></sup>。<span class="ref">p.163</span></li>
@@ -1018,13 +1032,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-520">ONH 凹陷也見於非青光眼病變：壓迫性、遺傳性（LHON、ADOA）、嚴重缺血性（AAION）——但這些 rim <strong>會蒼白</strong>。<span class="ref">p.168</span></li>
 <li id="np-521"><mark class="ex-key">視交叉壓迫典型造成顳側（hemianopic，偏盲）而非鼻側視野缺損</mark>；類似青光眼的非青光眼性視神經病變會影響視力與色覺（青光眼晚期才有），ONH 可能較早且更明顯蒼白、凹陷與 notching 較不嚴重⁠<sup class="ex-qref"><span>Q398</span></sup>。<span class="ref">p.168</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（類型）</th><th>ONH cupping（凹陷）</th><th>Visual field（視野）</th><th>RAPD</th><th>Papillomacular bundle（視力、色覺）</th></tr></thead>
 <tbody>
 <tr><td id="np-522">Glaucomatous optic neuropathy</td><td id="np-523">廣泛，rim 顏色保留</td><td id="np-524">Nasal arcuate defects</td><td id="np-525">不對稱時</td><td id="np-526">除非視野喪失廣泛，否則不受累</td></tr>
 <tr><td id="np-527">Nonglaucomatous optic neuropathy</td><td id="np-528">變異大，但<mark>蒼白程度超出凹陷比例（pallor out of proportion to cupping）</mark></td><td id="np-529">變異大，較常 central；可尊重垂直經線</td><td id="np-530">非常常見</td><td id="np-531">常見</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-532">出處 <span class="ref">p.168</span></p>
 <div class="ex-trap"><h3 id="ch6-s13-1">易錯陷阱</h3><ul>
 <li id="np-533">ONH 凹陷也見於壓迫性、遺傳性（LHON、ADOA）、嚴重缺血性（AAION）病變，但這些病變的 neuroretinal rim 會蒼白；類似青光眼的非青光眼性視神經病變會影響視力與色覺；Table 6-8 非青光眼性視神經病變的視野可尊重垂直經線。<span class="ref">p.168</span></li>
@@ -1058,7 +1072,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-547">兒童 ODD 初為 buried（埋藏），隨年齡漸露出；露出後為圓形白黃折光體，常在<strong>鼻側盤緣</strong>，表面 drusen 可呈扇貝狀或結節狀。<span class="ref">p.170</span></li>
 </ul>
 <h3 id="ch6-s15-3">與 ONH 水腫的輔助鑑別</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Test（檢查）</th><th>ODD</th><th>True ONH edema（真性水腫）</th></tr></thead>
 <tbody>
 <tr><td id="np-548">B-scan ultrasonography</td><td id="np-549">鈣化 drusen 高反射，<mark>降低 gain 仍維持高回音</mark>（非鈣化 buried ODD 可能偵測不到）；眼窩內視神經不變寬</td><td id="np-550">Papilledema 眼窩內視神經通常變寬，延長側視時寬度減少（<strong>30° test</strong>）</td></tr>
@@ -1067,7 +1081,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-557">CT vs MRI</td><td id="np-558">罕見情況可能需神經影像排除顱內或視神經腫瘤並嘗試直接確認鈣化 drusen；<mark>CT 優於 MRI</mark>（MRI 對鈣顯影差）；鈣化 drusen 在眼球-視神經交界呈亮訊號</td><td id="np-559">—</td></tr>
 <tr><td id="np-560">OCT</td><td id="np-561">Line scan 可見分散高反射 drusen（enhanced depth imaging（EDI）可增強）；數月內 RNFL 相對穩定</td><td id="np-562">（假設 OCT 分層可靠）數月內平均 RNFL 厚度波動 <span class="num">&gt; 10 μm</span> → 動態過程（如真性水腫）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-563">出處 <span class="ref">p.170–172</span></p>
 <ul>
 <li id="np-564">OCT 策略的限制：長期（數年）ODD 常有進行性 RNFL 變薄；兒童 ODD 一年內 RNFL 波動可較大（平均 <span class="num">10 μm</span>，範圍 <span class="num">0–29 μm</span>）。<span class="ref">p.172</span></li>

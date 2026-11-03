@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -404,7 +418,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch11-s3" data-w="2580">三、雙眼複視的眼位評估</h2>
 <h3 id="ch11-s3-1">測量眼位的常用方法（Table 11-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Technique（方法）</th><th>Type of assessment（類型）</th><th>Advantages（優點）</th><th>Indications（適用）</th><th>Contraindications（不適用）</th></tr></thead>
 <tbody>
 <tr><td id="np-20">Corneal light tests（角膜光反射：Hirschberg、Krimsky）</td><td id="np-21">Objective（客觀）</td><td id="np-22">通常快速；檢查選項有限時可提供有用的近似值</td><td id="np-23">不合作的病人、兒童、固視差或視力差</td><td id="np-24">—</td></tr>
@@ -412,7 +426,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-30">Maddox rod test（馬竇氏桿）</td><td id="np-31">Subjective（主觀）</td><td id="np-32">對小角度偏斜敏感；垂直、水平偏斜<strong>分開</strong>量；可量 phoria</td><td id="np-33">雙眼視力好、合作的病人、小偏斜</td><td id="np-34">固視差或視力差、病人回答不可靠</td></tr>
 <tr><td id="np-35">Red glass test（紅玻片）</td><td id="np-36">Subjective（主觀）</td><td id="np-37">垂直、水平偏斜<strong>同時</strong>量；可量 phoria</td><td id="np-38">雙眼視力好、合作的病人、小偏斜</td><td id="np-39">固視差或視力差、病人回答不可靠</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-40">出處（Table 11-1）<span class="ref">p.228</span></p>
 <ul>
 <li id="np-41">一般而言 comitant 偏斜較常見於先天性斜視；<mark>incomitant 偏斜提示後天疾病</mark>；需正式測量偏斜程度才能區分。<span class="ref">p.227</span></li>
@@ -464,7 +478,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-69">定位可能失敗或得到錯誤結果：瀰漫性疾病（如 sarcoidosis（類肉瘤病）的腦膜發炎、腦膜腫瘤浸潤）；此法在某些臨床症候群也較不實用，如 <strong>Wernicke encephalopathy</strong> 影像可能顯示 mammillary bodies（乳頭體）變化，而非預期造成眼動異常區域的結構性改變。<span class="ref">p.232</span></li>
 </ul>
 <h3 id="ch11-s4-1">臨床表現與病因對照（Table 11-2）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Clinical finding（表現）</th><th>Etiologies（病因）</th></tr></thead>
 <tbody>
 <tr><td id="np-70">Abduction deficit（外展受限）</td><td id="np-71">CN VI palsy、TED、Duane syndrome</td></tr>
@@ -478,7 +492,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-86">Diplopia with pupil involvement（合併瞳孔異常的複視）</td><td id="np-87">CN III palsy、dorsal midbrain syndrome、Miller Fisher syndrome、botulism（肉毒桿菌中毒）</td></tr>
 <tr><td id="np-88">Intermittent diplopia without abnormal eye movements（眼動正常的間歇性複視）</td><td id="np-89">Decompensating phoria、myasthenia gravis、ocular neuromyotonia、recurrent painful ophthalmoplegic neuropathy（RPON）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-90">出處（Table 11-2）<span class="ref">p.232</span></p>
 <ul>
 <li id="np-91">註：<mark>MG 與 TED 列入所有複視原因的鑑別，唯「合併瞳孔異常」者除外</mark>。<span class="ref">p.232</span></li>
@@ -486,7 +500,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-93">Dorsal midbrain syndrome 表現：<mark class="ex-key">conjugate limitation of vertical gaze（通常為上視；共軛上視受限是最常見的表現）、convergence-retraction nystagmus（輻輳-回縮眼震）、mid-dilated pupils with light–near dissociation（光-近反射分離）、Collier sign（第一眼位眼瞼後縮）</mark>，另可有 skew deviation、輻輳異常、square-wave jerks 增加；病人常只呈現部分徵象。One-and-a-half syndrome 由橋腦病灶造成（同側 MLF 加 PPRF 或 CN VI 核）⁠<sup class="ex-qref"><span>Q525</span> <span>Q500</span></sup>。<span class="ref">p.235; BCSC 5 p.280–281</span></li>
 </ul>
 <h3 id="ch11-s4-2">產生斜視與複視的核上性病變（Table 11-3）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Condition（疾病）</th><th>Pattern（型態）</th></tr></thead>
 <tbody>
 <tr><td id="np-94">Convergence insufficiency（輻輳不足）</td><td id="np-95">Exotropia at near（看近外斜）</td></tr>
@@ -495,7 +509,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-100">Skew / alternating skew deviation / ocular tilt reaction</td><td id="np-101">Hypertropia with or without head tilt（上斜視 ± 頭傾）</td></tr>
 <tr><td id="np-102">Thalamic esodeviation（視丘性內斜）</td><td id="np-103">Esotropia and contralateral pseudoabducens palsy（內斜 + 對側假性外展麻痺）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-104">出處（Table 11-3）<span class="ref">p.233</span></p>
 <ul>
 <li id="np-105">大多數核上性病變雙眼受影響相同、不造成複視；但部分核上性病變可造成不對稱 → 眼位偏斜與複視（Table 11-3；詳見 Ch 12）。<span class="ref">p.232</span></li>
@@ -597,7 +611,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch11-s8" data-w="4526">八、第三對腦神經麻痺（CN III palsy）</h2>
 <h3 id="ch11-s8-1">中腦內（fascicular）症候群（皆含同側 CN III palsy）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Syndrome（症候群）</th><th>Lesion（病灶）</th><th>Contralateral / other findings（對側與其他表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-158"><strong>Weber</strong>（alternating oculomotor hemiplegia）</td><td id="np-159">Ventral midbrain + cerebral peduncle（大腦腳）</td><td id="np-160">對側 hemiparesis（偏癱）</td></tr>
@@ -605,7 +619,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-164"><strong>Claude</strong>（rubrospinal cerebellar peduncle syndrome）</td><td id="np-165">Dorsal midbrain，可侵犯 superior cerebellar peduncle</td><td id="np-166">對側 ataxia</td></tr>
 <tr><td id="np-167"><strong>Nothnagel</strong></td><td id="np-168">Dorsal lesion（配置略不同）</td><td id="np-169">類似 Claude 的 ataxia + CN III 核性病變 + 核上性眼動異常</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-170">出處 <span class="ref">p.237</span></p>
 <ul>
 <li id="np-171">Weber、Benedikt、Claude、Nothnagel 都含同側 CN III palsy；<mark class="ex-key"><strong>Millard-Gubler syndrome</strong> 為腹側橋腦病灶，損傷 CN VI、VII 與 corticospinal tract</mark>⁠<sup class="ex-qref"><span>Q529</span></sup>。<span class="ref">p.237, p.244</span></li>
@@ -730,14 +744,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch11-s10" data-w="2305">十、第六對腦神經麻痺（CN VI palsy）</h2>
 <h3 id="ch11-s10-1">橋腦內症候群</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Syndrome（症候群）</th><th>Structures（受損結構）</th><th>Findings（表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-237"><strong>Foville</strong></td><td id="np-238">CN VI 束（可波及 CN VII）+ tractus solitarius + CN V descending tract</td><td id="np-239">同側外展麻痺、顏面無力、舌前 <span class="num">2/3</span> 味覺喪失、顏面感覺低下</td></tr>
 <tr><td id="np-240"><strong>Millard-Gubler</strong></td><td id="np-241">Ventral pons：CN VI、CN VII + corticospinal tract</td><td id="np-242">對側 hemiplegia、同側顏面無力、外展受限</td></tr>
 <tr><td id="np-243"><strong>Raymond</strong></td><td id="np-244">Ventral pons：CN VI + corticospinal tract（不含 CN VII）</td><td id="np-245">對側 hemiplegia、同側外展受限</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-246">出處 <span class="ref">p.244</span></p>
 <ul>
 <li id="np-247">CN VII 纖維在 facial genu 繞過 CN VI 核，故橋腦內 CN VI 束病灶也可能波及 CN VII。<span class="ref">p.244</span></li>
@@ -796,7 +810,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-282"><strong>Idiopathic multiple cranial neuropathy syndrome</strong>：只有在神經影像、腦脊髓液分析、其他檢查及長期觀察排除腫瘤、發炎、感染後才可考慮。<span class="ref">p.247</span></li>
 </ul>
 <h3 id="ch11-s12-1">沿眼動路徑的病灶、病因與檢查（Table 11-4）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Structure（結構）</th><th>Etiologies（病因）</th><th>Workup（檢查）</th></tr></thead>
 <tbody>
 <tr><td id="np-283">Nuclear and fascicular lesions（核與束）</td><td id="np-284">Stroke、demyelination、tumor</td><td id="np-285">Brain MRI</td></tr>
@@ -809,7 +823,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-304">Neuromuscular junction</td><td id="np-305">Myasthenia gravis</td><td id="np-306">Myasthenia antibody testing（MG 抗體）、<strong>ice pack test</strong>（有 ptosis 時）、single-fiber EMG</td></tr>
 <tr><td id="np-307">Extraocular muscles</td><td id="np-308">TED、myositis</td><td id="np-309">Orbital CT or MRI、measurement of thyroid levels（甲狀腺數值）、antibody testing（抗體）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-310">出處（Table 11-4；MRI 除禁忌外應打 gadolinium，懷疑腦神經麻痺時加做腦幹細切）<span class="ref">p.246</span></p>
 <div class="ex-trap"><h3 id="ch11-s12-2">易錯陷阱</h3><ul>
 <li id="np-311">MFS 可有雙側顏面神經麻痺與瞳孔受累；高比例 MFS 病人血清有 anti-GQ1b IgG 抗體⁠<sup class="ex-qref"><span>Q436</span> <span>Q423</span></sup>。<span class="ref">p.247; BCSC 5 p.406</span></li>
@@ -909,13 +923,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-366"><mark class="ex-key">後天 Brown syndrome 典型見於 <strong>rheumatoid arthritis（類風濕性關節炎）</strong></mark>、NSOI、外傷或醫源性（如 tube shunt）病人；罕見為 superior oblique 的局部轉移⁠<sup class="ex-qref"><span>Q408</span></sup>。<span class="ref">p.252</span></li>
 </ul>
 <h3 id="ch11-s14-9">Heavy eye vs sagging eye syndrome</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Population（族群）</th><th>Pattern（眼位）</th><th>Mechanism（機轉）</th></tr></thead>
 <tbody>
 <tr><td id="np-367"><strong>Heavy eye syndrome</strong>（strabismus fixus）</td><td id="np-368"><strong>High myopia（高度近視）</strong></td><td id="np-369">可有進行性 esotropia + hypotropia；外展與上轉受限</td><td id="np-370">後葡萄腫眼球後部往 superotemporal 移位；superior rectus 內移、lateral rectus 下移；兩者間結締組織帶退化</td></tr>
 <tr><td id="np-371"><strong>Sagging eye syndrome</strong></td><td id="np-372">年長者，<strong>不需近視</strong></td><td id="np-373">輕中度 esotropia，<mark>看遠 &gt; 看近（divergence insufficiency）</mark>；外展完整、輕微 hypotropia 伴上轉受限</td><td id="np-374">LR–SR band 退化、lateral rectus pulley 下移、結締組織 superotemporal 脫垂；<strong>無 globe prolapse（眼球脫出）</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-375">出處 <span class="ref">p.253</span></p>
 <ul>
 <li id="np-376">Heavy eye：做神經影像排除其他病因並確認肌肉滑脫。<span class="ref">p.253</span></li>

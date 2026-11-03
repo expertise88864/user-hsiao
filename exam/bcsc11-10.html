@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -381,7 +395,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-7">減少術中併發症從術前規劃開始：讓病人舒適以免過度移動造成併發症；術前一定要確認器械功能——鬆脫的 cannula 可在前房內變成 projectile（射出物）、irrigation sleeve（灌注套）回縮可滑到切口外、phaco handpiece 的灌注管脫落可使前房突然塌陷。<span class="ref">p.165–166</span></li>
 </ul>
 <h3 id="ch10-s1-3">Table 10-1 術中挑戰與併發症的高風險特徵</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Preoperative condition（術前狀況）</th><th>Surgical challenge（手術挑戰）</th><th>Complication（併發症）</th></tr></thead>
 <tbody>
 <tr><td id="np-8" rowspan="5">Dense brunescent nuclear cataract（深棕色硬核白內障）</td><td id="np-9">保護囊的皮質與 epinucleus（上核）很少</td><td id="np-10">PCR、VL</td></tr>
@@ -416,7 +430,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-80" rowspan="2">Zonular laxity or dehiscence（懸韌帶鬆弛或斷裂）</td><td id="np-81">Phacodonesis（水晶體震顫）</td><td id="np-82">玻璃體從水晶體赤道部周圍脫出、dropped nucleus（晶核掉落）</td></tr>
 <tr><td id="np-83">撕囊困難</td><td id="np-84">IOL dislocation 或 decentration（偏位）、capsule contraction／phimosis（囊收縮）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-85">RLF = retained lens fragments（殘留水晶體碎片）；IOP = intraocular pressure（眼壓）。表中每一列為「挑戰 → 對應併發症」。出處 <span class="ref">p.167–168</span></p>
 <ul>
 <li id="np-86">PXF 在 Table 10-1 的對應是 <mark class="ex-key">zonular laxity → zonular dehiscence、IOL dislocation</mark>，另有縮瞳 → PCR、VL、RLF，以及 trabecular outflow 下降 → IOP 上升⁠<sup class="ex-qref"><span>Q1382</span></sup>。<span class="ref">p.167</span></li>
@@ -481,12 +495,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-119">沒有明顯 α 拮抗劑暴露的病人也可能發生；<mark>有報告指出在高血壓病人較常見，糖尿病則無此現象</mark>。<span class="ref">p.170</span></li>
 <li id="np-120"><mark class="ex-key">與腎上腺素拮抗劑的劑量或療程無相關</mark>，術前停藥也不影響 IFIS 程度⁠<sup class="ex-qref"><span>Q1314</span></sup>。<span class="ref">p.170</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Selective α1a-adrenergic antagonists（選擇性 α1a 拮抗劑）</th><th>Nonselective α1-adrenergic antagonists（非選擇性 α1 拮抗劑）</th><th>Other drugs with α-adrenergic antagonist activity（其他具 α 拮抗活性的藥物）</th></tr></thead>
 <tbody>
 <tr><td id="np-121">Tamsulosin（Flomax）<br>Silodosin（Rapaflo）<br>Tamsulosin + dutasteride（Jalyn）</td><td id="np-122">Alfuzosin（Uroxatral）<br>Doxazosin（Cardura）<br>Prazosin（Minipress）<br>Terazosin（Hytrin）</td><td id="np-123">Chlorpromazine（Thorazine）<br>Donepezil（Aricept）<br>Finasteride<br>Labetalol（Normodyne、Trandate）<br>Mianserin<br>Naftopidil<br>Risperidone（Risperdal；原書拼作 Rispiridone）<br>Zuclopenthixol<br>Saw palmetto（鋸棕櫚）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-124">Table 10-2 與 IFIS 常相關的藥物，出處 <span class="ref">p.170</span></p>
 <ul>
 <li id="np-125">silodosin、chlorpromazine、labetalol、prazosin、risperidone、tamsulosin 都列在 Table 10-2（與 IFIS 常相關的藥物）⁠<sup class="ex-qref"><span>Q1328</span> <span>Q1346</span> <span>Q1750</span></sup>。<span class="ref">p.170</span></li>
@@ -569,7 +583,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-170">處理順序：① 輕壓晶體向後，或以 OVD 重新撐開囊袋；② 無法緩解 → <strong>靜脈 mannitol 並等待至少 <span class="num">20</span> 分鐘</strong>，可能讓前房加深；③ 已排除 suprachoroidal effusion/hemorrhage 時，可在直視下以 <span class="num">20-</span> 至 <span class="num">23-gauge</span> 針經 pars plana 進入玻璃體、輕抽液態玻璃體，再以灌注液或 OVD 加深前房；或經<strong>角膜緣後 <span class="num">3.5 mm</span></strong> 的 sclerotomy 以 cutting/aspirating vitrectomy tip 抽吸，合併 BSS 灌注或前房補打 OVD⁠<sup class="ex-qref"><span>Q1419</span></sup>。<span class="ref">p.175</span></li>
 <li id="np-171">術後前房變淺見第 11 章。<span class="ref">p.175</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（狀況）</th><th>前房</th><th>機轉/線索</th><th>處置</th></tr></thead>
 <tbody>
 <tr><td id="np-172">LIDRS</td><td id="np-173">過深、瞳孔放大</td><td id="np-174">灌注壓過高 + reverse pupillary block；較常見於高度近視、曾玻璃體切除</td><td id="np-175">把虹膜從前囊提起</td></tr>
@@ -578,7 +592,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-184">Suprachoroidal effusion/hemorrhage</td><td id="np-185">變淺、眼球通常很硬</td><td id="np-186">檢查 red reflex；病人躁動、訴疼痛</td><td id="np-187">立即關閉切口、檢查眼底確認；明顯時延後手術；expulsive hemorrhage 切口閉合後可考慮在角膜緣後 <span class="num">5–7 mm</span> 做 posterior sclerotomies 引流（第十節）</td></tr>
 <tr><td id="np-188">Oversized incision／外壓</td><td id="np-189">變淺</td><td id="np-190">切口滲漏；鋪單或開瞼器壓迫</td><td id="np-191">部分縫合切口；調整鋪單/開瞼器</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-192">出處 <span class="ref">p.172, p.174–175, p.183</span></p>
 <div class="ex-trap"><h3 id="ch10-s5-3">易錯陷阱</h3><ul>
 <li id="np-193">Posterior fluid misdirection 的灌注液可經完整的 zonular fibers，也可經 zonular 或 capsular tear 誤流入玻璃體腔⁠<sup class="ex-qref"><span>Q1419</span></sup>。<span class="ref">p.175</span></li>
@@ -677,7 +691,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-250">（本章外）<strong>Foldable single-piece IOL 永遠不應放在 ciliary sulcus 或前房</strong>（iris chafing、UGH syndrome 風險）；foldable single-piece 與 3-piece 是最常用的 IOL 款式；foldable 3-piece 可放囊袋或 sulcus；ACIOL 長度通常以卡尺外量水平 limbus 直徑（white-to-white）加 <span class="num">1 mm</span> 決定⁠<sup class="ex-qref"><span>Q1424</span></sup>。<span class="ref ref-ext">BCSC 11 p.150, p.152</span></li>
 <li id="np-251">（本章外）IOL 由囊袋 → sulcus → 前房越往前，所需度數越低；一般而言 ACIOL 約比預定囊內 PCIOL 低 <span class="num">3.00 D</span>（極端眼軸長度，即高度近視或高度遠視眼，此差值不同）。囊內 IOL 改放 sulcus 時，可依眼軸長度與預計囊內度數調整（Table 7-6）；<mark class="ex-key">放 sulcus 且做 optic capture 時不需調整度數</mark>（optic 實際位於囊袋內）；放 sulcus 的 IOL 應限於在 sulcus 穩定且角度正確者（即 3-piece IOL），1-piece IOL 放 sulcus 易致 UGH syndrome⁠<sup class="ex-qref"><span>Q1379</span> <span>Q1410</span> <span>Q1424</span></sup>。<span class="ref ref-ext">BCSC 11 p.120</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>IOL power calculated for in-the-bag placement（囊內植入計算度數）</th><th>IOL power adjustment for sulcus placement（改放 sulcus 的度數調整）</th></tr></thead>
 <tbody>
 <tr><td id="np-252"><span class="num">+28.50 D</span> to <span class="num">+30.00 D</span></td><td id="np-253">減 <span class="num">1.50 D</span></td></tr>
@@ -685,7 +699,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-256"><span class="num">+9.50 D</span> to <span class="num">+17.00 D</span></td><td id="np-257">減 <span class="num">0.50 D</span></td></tr>
 <tr><td id="np-258"><span class="num">+5.00 D</span> to <span class="num">+9.00 D</span></td><td id="np-259">不變</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-260">（本章外）BCSC 11 Table 7-6 IOL Power Adjustments for Sulcus Placement；放 sulcus 並做 optic capture 時不需調整。出處 <span class="ref ref-ext">BCSC 11 p.120</span></p>
 <div class="ex-trap"><h3 id="ch10-s8-1">易錯陷阱</h3><ul>
 <li id="np-261">囊內 IOL 改放 sulcus（未做 optic capture）時，依囊內計算度數查 Table 7-6：<span class="num">+17.50</span> 至 <span class="num">+28.00 D</span> 減 <span class="num">1.00 D</span>；<span class="num">+9.50</span> 至 <span class="num">+17.00 D</span> 減 <span class="num">0.50 D</span>；<span class="num">+28.50</span> 至 <span class="num">+30.00 D</span> 減 <span class="num">1.50 D</span>⁠<sup class="ex-qref"><span>Q1410</span></sup>。<span class="ref ref-ext">BCSC 11 p.120</span></li>

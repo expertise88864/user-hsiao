@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -371,7 +385,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1"><strong>Gell and Coombs classification（Gell-Coombs 分類）</strong>將 hypersensitivity（過敏反應）分 <span class="num">4</span> 型：type I immediate（立即型，anaphylaxis 過敏性休克）；type II antibody-mediated cytotoxic（抗體媒介細胞毒性）；type III immune complex–mediated（免疫複合體媒介）；type IV cell-mediated（細胞媒介，delayed hypersensitivity 遲發型）。<span class="ref">p.343</span></li>
 <li id="np-2">現代分類把後天免疫的效應反應分 <span class="num">3</span> 類：<strong>antibody-mediated</strong>、<strong>lymphocyte-mediated</strong>（遲發型過敏、細胞毒性淋巴球）、<strong>combined antibody and cellular</strong>；但文獻與本章仍沿用 Gell-Coombs 名稱。<span class="ref">p.343</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Disease（疾病）</th><th>Immune mechanism in this chapter（本章所述機轉）</th><th>Page</th></tr></thead>
 <tbody>
 <tr><td id="np-3">Contact dermatoblepharitis</td><td id="np-4">Type I（IgE，通常在數分鐘內）或 type IV（通常在 <span class="num">24–72</span> 小時後開始，也可能連續使用數週或數月後才出現）</td><td id="np-5"><span class="ref">p.343–344</span></td></tr>
@@ -383,7 +397,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-21">Ocular GVHD</td><td id="np-22">移植的免疫細胞（特別是 T cells）攻擊受者組織相容抗原</td><td id="np-23"><span class="ref">p.364</span></td></tr>
 <tr><td id="np-24">Scleritis</td><td id="np-25">Immune-mediated（典型為 immune-complex）vasculitis（免疫媒介血管炎）</td><td id="np-26"><span class="ref">p.378</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="ex-trap"><h3 id="ch13-s1-1">易錯陷阱</h3><ul>
 <li id="np-27">VKC：IgE-mediated 與 lymphocyte-mediated 過敏反應同時參與；AKC 的免疫病理同樣合併 IgE-mediated 與 lymphocyte-mediated 反應⁠<sup class="ex-qref"><span>Q680</span> <span>Q877</span></sup>。<span class="ref">p.350, p.353</span></li>
 <li id="np-28">Scleritis：免疫媒介（典型為 immune-complex）血管炎常導致鞏膜破壞與隨後的視力受損⁠<sup class="ex-qref"><span>Q1127</span></sup>。<span class="ref">p.378</span></li>
@@ -425,14 +439,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-50">人工淚液作為物理屏障保護眼表，並帶走過敏原與發炎介質；局部血管收縮劑（單用或併用抗組織胺）可能短期緩解發紅，但連用超過 <span class="num">5–7</span> 天可能使眼睛易出現 <mark>rebound（反彈性）血管擴張與持續發紅</mark>；局部 mast cell stabilizers 對 SAC 有用（Table 13-1）；口服 antihistamines 可短期緩解症狀，但可能伴隨乾眼增加。<span class="ref">p.347</span></li>
 <li id="np-51">皮膚測試已找出過敏原者，減敏注射（allergen-specific immunotherapy）可能有益。部分局部 NSAIDs 獲 FDA 核准用於眼部異位性疾病，但療效差異大，且有使用局部 NSAIDs（尤其學名藥）發生<strong>角膜穿孔</strong>的報告，需仔細監測。局部類固醇處理眼部過敏非常有效，但通常保留給其他治療無效者，須謹慎使用，並清楚告知風險、密切追蹤副作用。<span class="ref">p.348</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Drug class（藥物分類，Table 13-1）</th><th>Drug（藥物）</th></tr></thead>
 <tbody>
 <tr><td id="np-52">Mast cell stabilizers（肥大細胞穩定劑）</td><td id="np-53">Cromolyn sodium、lodoxamide tromethamine、nedocromil sodium</td></tr>
 <tr><td id="np-54">Antihistamines（抗組織胺）</td><td id="np-55">Alcaftadine、antazoline、pheniramine maleate</td></tr>
 <tr><td id="np-56">Antihistamine–mast cell stabilizer（抗組織胺兼肥大細胞穩定劑）</td><td id="np-57">Azelastine HCL、bepotastine besilate、epinastine HCL、ketotifen fumarate、olopatadine HCL（HCL = hydrochloride）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-58">出處（Table 13-1）<span class="ref">p.348</span></p>
 <div class="ex-trap"><h3 id="ch13-s3-1">易錯陷阱</h3><ul>
 <li id="np-59">Table 13-1：alcaftadine、antazoline、pheniramine maleate 列在 antihistamines；azelastine、bepotastine、epinastine、ketotifen、olopatadine 列在 antihistamine–mast cell stabilizer。<span class="ref">p.348</span></li>
@@ -483,7 +497,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-86">角膜：慢性上皮病變導致新生血管與混濁（可能源於眼瞼變化造成的某種程度直接創傷及／或 limbal stem cell dysfunction）；persistent epithelial defects（持續性上皮缺損）；<mark class="ex-key">keratoconus、pellucid marginal degeneration（透明邊緣退化）等擴張性角膜病發生率增加</mark>（可能與長期揉眼有關）；staphylococcal 與 herpes simplex virus（HSV，單純疱疹病毒）感染發生率增加⁠<sup class="ex-qref"><span>Q894</span></sup>。<span class="ref">p.351–352</span></li>
 <li id="np-87">水晶體：<mark class="ex-key">posterior subcapsular cataract（後囊下白內障）及／或多面或盾形 anterior subcapsular（前囊下）混濁</mark>⁠<sup class="ex-qref"><span>Q894</span></sup>。<span class="ref">p.352</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Feature（特徵）</th><th>VKC</th><th>AKC</th></tr></thead>
 <tbody>
 <tr><td id="np-88">Season（季節）</td><td id="np-89">春夏；嚴重者可全年</td><td id="np-90">全年，伴急性惡化</td></tr>
@@ -495,7 +509,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-106">Corneal involvement（角膜侵犯）</td><td id="np-107">嚴重時 shield ulcer；與 keratoconus 相關</td><td id="np-108">可有新生血管與混濁；與 keratoconus、HSV、staphylococcal 感染相關</td></tr>
 <tr><td id="np-109">Cataract（白內障）</td><td id="np-110">通常無（除非類固醇引起）</td><td id="np-111">後囊下或前囊下白內障</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-112">出處（Table 13-2）⁠<sup class="ex-qref"><span>Q832</span> <span>Q894</span></sup><span class="ref">p.352</span></p>
 <h3 id="ch13-s5-2">機轉與治療</h3>
 <ul>
@@ -551,7 +565,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-140">急性期眼部治療重點：潤滑、預防感染、控制眼表發炎；初期需每天檢查，監測眼部感染或上皮缺損的早期表現。處置：<strong>preservative-free artificial tears（無防腐劑人工淚液）與潤滑藥膏、topical steroids、topical antibiotics、amniotic membrane transplantation（AMT，羊膜移植）</strong>⁠<sup class="ex-qref"><span>Q889</span></sup>。<span class="ref">p.357</span></li>
 <li id="np-141">Clinical Pearl：<mark class="ex-key">在發病最初 <span class="num">3–7</span> 天內做羊膜移植，已證實有顯著長期效益（含視力結果）</mark>；角膜、結膜或瞼緣<strong>有任何上皮缺損</strong>時即應覆蓋羊膜；侵犯瞼結膜及／或瞼緣時，應覆蓋包含瞼緣的整個眼表；可在手術室進行，無法立即送手術室者可在床邊進行⁠<sup class="ex-qref"><span>Q893</span> <span>Q889</span></sup>。<span class="ref">p.357</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Grade（Fig 13-12）</th><th>Findings（床邊或攜帶式裂隙燈）</th><th>Management（處置）</th></tr></thead>
 <tbody>
 <tr><td id="np-142">0</td><td id="np-143">無眼部侵犯</td><td id="np-144">預防性人工淚液與潤滑藥膏，必要時升級</td></tr>
@@ -559,7 +573,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-148">2</td><td id="np-149">角膜、結膜或瞼緣缺損，<strong>無膜</strong></td><td id="np-150">AMT 覆蓋整個眼表含瞼緣（若僅角膜及／或球結膜侵犯或無法做 AMT，可用 self-retained amniotic membrane bandage device）＋ 局部抗生素、局部類固醇、眼瞼塗抗生素或抗生素＋類固醇藥膏、人工淚液與潤滑藥膏</td></tr>
 <tr><td id="np-151">3</td><td id="np-152">角膜、結膜或瞼緣缺損<strong>合併膜</strong></td><td id="np-153">AMT 覆蓋整個眼表含瞼緣 ＋ 局部抗生素、局部類固醇、眼瞼塗抗生素或抗生素＋類固醇藥膏、人工淚液與潤滑藥膏</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-154">出處（Fig 13-12）<span class="ref">p.358</span></p>
 <h3 id="ch13-s7-5">慢性期處置</h3>
 <ul>
@@ -585,7 +599,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-167">早期診斷很重要；許多病例初期只有非特異症狀、明顯徵象極少（如慢性紅眼）。瞼結膜細白線狀混濁提示上皮下纖維化；下穹窿異常變淺值得進一步評估；病人上看時拉下下眼瞼可發現細微下方 symblepharon；口腔黏膜病灶可能是早期診斷的線索。<span class="ref">p.359–361</span></li>
 <li id="np-168">病程：反覆結膜發炎可破壞 goblet cells（杯狀細胞），最終阻塞淚腺開口 → 水液與黏液缺乏 → 結膜角質化；隨結疤進展可發生 entropion、trichiasis → 角膜擦傷、新生血管、更多瘢痕、潰瘍、眼表表皮化。<mark>這類病人的角膜擦傷是急症</mark>，須立即治療以減少進展為潰瘍、穿孔、瘢痕與 ankyloblepharon。病程雖不一，未治療者通常持續惡化；緩解與惡化交替常見；手術可能引發更多結疤，但對 entropion、trichiasis 的處理可能是必要的。<span class="ref">p.361</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Foster stage（分期）</th><th>Finding（表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-169">I</td><td id="np-170">慢性結膜炎 + subepithelial fibrosis（上皮下纖維化）</td></tr>
@@ -593,15 +607,15 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-173">III</td><td id="np-174">Symblepharon formation（瞼球沾黏形成）</td></tr>
 <tr><td id="np-175">IV</td><td id="np-176">Ankyloblepharon（瞼緣黏連）、frozen globe（眼球凍結）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-177">出處 ⁠<sup class="ex-qref"><span>Q908</span></sup><span class="ref">p.359</span></p>
 <h3 id="ch13-s8-2">Cicatrizing conjunctivitis 鑑別診斷（Table 13-3）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Infections（感染）</th><th>Allergic reaction to drug, trauma, or environment（藥物／外傷／環境過敏反應）</th><th>Autoimmune diseases（自體免疫疾病）</th><th>Miscellaneous conditions（其他）</th></tr></thead>
 <tbody>
 <tr><td id="np-178">Adenovirus（腺病毒）；<i>Chlamydia trachomatis</i>（砂眼披衣菌）；<i>Corynebacterium diphtheriae</i>（白喉棒狀桿菌）引起的皮膚感染</td><td id="np-179">Atopic keratoconjunctivitis（異位性角結膜炎）；Stevens-Johnson syndrome</td><td id="np-180">Lichen planus（扁平苔蘚）、linear IgA disease（線狀 IgA 病）、lupus（狼瘡）、mucous membrane pemphigoid、ocular graft-vs-host disease、sarcoidosis（類肉瘤病）、scleroderma（硬皮症）</td><td id="np-181">Chemical or thermal injury（化學或熱灼傷）、medicamentosa（藥物毒性）、neoplasia（paraneoplastic，腫瘤／副腫瘤）、ocular rosacea（眼部酒糟）、radiation exposure（放射線暴露）、trauma（外傷）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-182">出處 <span class="ref">p.361</span></p>
 <ul>
 <li id="np-183">Cicatrizing conjunctivitis 的鑑別診斷分 <span class="num">4</span> 大類（Table 13-3）；單側 MMP 的診斷要謹慎，因為其他疾病（包括 Table 13-3 中許多疾病）可偽裝成 MMP。<span class="ref">p.361</span></li>
@@ -718,12 +732,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-251">PUK 最常與 RA 相關；已知局部（如 rosacea）或全身（如 RA）疾病引起的 PUK <mark class="ex-key">不算 Mooren ulcer</mark>⁠<sup class="ex-qref"><span>Q932</span></sup>。<span class="ref">p.371, p.374</span></li>
 <li id="np-252">鑑別（本章外，BCSC 8 第 3、12 章）：staphylococcal <strong>marginal keratitis（邊緣性角膜炎）</strong>的浸潤是對葡萄球菌瞼緣炎的發炎反應，典型為乳白橢圓混濁、與角膜緣間隔相對透明帶，最常在 10、2、4、8 點鐘位置（也可出現在其他位置、無透明帶）；<strong>bacterial keratitis（細菌性角膜炎）</strong>典型為旁中央或中周邊單一浸潤伴上皮缺損，部分病例發炎較強，呈濃密化膿、邊界不清、周圍水腫⁠<sup class="ex-qref"><span>Q932</span></sup>。<span class="ref ref-ext">BCSC 8 p.77, BCSC 8 p.325</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Ocular conditions and diseases（眼部，Table 13-4）</th><th>Systemic conditions and diseases（全身）</th></tr></thead>
 <tbody>
 <tr><td id="np-253">Microbial（微生物）：viral（HSV、herpes zoster）、bacterial、<i>Acanthamoeba</i>（棘阿米巴）、fungal；exposure keratopathy（暴露性角膜病變）；Mooren ulcer；rosacea（酒糟）；Terrien marginal degeneration（inflammatory type，發炎型）；traumatic or postsurgical（外傷或術後）</td><td id="np-254">Microbial：viral（herpes zoster、AIDS、hepatitis C）、bacterial（tuberculosis、syphilis、gonorrhea、borreliosis、bacillary dysentery）、helminthiasis（蠕蟲感染）；α1-antitrypsin deficiency；Behcet disease；collagen vascular disease（膠原血管病：polyarteritis nodosa、progressive systemic sclerosis and scleroderma、relapsing polychondritis、<strong>rheumatoid arthritis</strong>、Sjogren syndrome、systemic lupus erythematosus）；<strong>granulomatosis with polyangiitis（GPA，舊稱 Wegener granulomatosis）</strong>；inflammatory bowel disease（發炎性腸病）；malignancy（惡性腫瘤）；sarcoidosis（類肉瘤病）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-255">出處 ⁠<sup class="ex-qref"><span>Q973</span></sup><span class="ref">p.371</span></p>
 <ul>
 <li id="np-256">GPA 眼部表現（本章外）：<mark class="ex-key">orbital involvement（眼眶侵犯）見於 <span class="num">45%–60%</span> GPA 病人，是最常見的眼部表現</mark>（BCSC 7）；最多 <span class="num">40%</span> 有任何類型 scleritis（尤其 diffuse anterior 或 necrotizing），可伴或不伴 PUK；眼部受侵犯的 GPA 病人約 <span class="num">10%</span> 有非特異的 anterior、intermediate 或 posterior uveitis（BCSC 9）⁠<sup class="ex-qref"><span>Q973</span></sup>。<span class="ref ref-ext">BCSC 7 p.67, BCSC 9 p.205</span></li>
@@ -761,14 +775,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-276">原因不明；誘發因子：意外外傷、眼部手術、hepatitis C、寄生蟲感染暴露。有人提出先前傷害或感染相關的發炎可能改變角膜基質抗原表現，這些改變的抗原刺激體液與細胞免疫，啟動並延續角膜破壞。<span class="ref">p.375</span></li>
 <li id="np-277">治療（療法眾多凸顯缺乏有效治療）：局部類固醇、contact lenses、acetylcysteine <span class="num">10%</span>、局部 cyclosporine <span class="num">2%</span>、<mark class="ex-key">limbal conjunctival excision（角膜緣結膜切除）</mark>、lamellar keratoplasty 都有使用報告，成效不一；全身免疫抑制（口服類固醇、cyclophosphamide、methotrexate、cyclosporine、TNF-α inhibitors）亦有描述；hepatitis C 相關的 Mooren ulcer 型 PUK 曾對 interferon 治療有反應⁠<sup class="ex-qref"><span>Q897</span></sup>。<span class="ref">p.375</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Location of thinning（變薄位置）</th><th>Epithelial defects／symptoms（上皮缺損／症狀）</th><th>Vessels／lipid（血管／脂質）</th><th>Sex（性別）</th></tr></thead>
 <tbody>
 <tr><td id="np-278">Mooren ulcer</td><td id="np-279">典型起於鼻側或顳側，先環狀再向中央進展、中央緣下挖</td><td id="np-280">上皮缺損典型；疼痛、發紅，早期發炎致視力模糊，晚期瘢痕</td><td id="np-281">血管止於缺損周邊緣；<strong>無脂質</strong></td><td id="np-282">雙側型男性為主</td></tr>
 <tr><td id="np-283">Terrien marginal degeneration（TMD）</td><td id="np-284">典型起於上方，可環狀擴展；通常不向中央角膜進展，但可侵犯下方角膜緣</td><td id="np-285">通常無上皮缺損；散光致視力模糊，可伴發炎</td><td id="np-286"><strong>血管跨越變薄區；pannus 中央緣有脂質沉積</strong></td><td id="np-287">男性為主</td></tr>
 <tr><td id="np-288">Pellucid marginal degeneration（PMD）</td><td id="np-289">通常下方</td><td id="np-290">無上皮缺損；散光致視力模糊，非發炎性</td><td id="np-291">無血管、無脂質</td><td id="np-292">無性別差異</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-293">出處（本章外，BCSC 8 第 9 章 Table 9-3）⁠<sup class="ex-qref"><span>Q927</span></sup><span class="ref ref-ext">BCSC 8 p.232</span></p>
 <ul>
 <li id="np-294">Rosacea（酒糟，本章外 BCSC 8 第 3 章）：女性多於男性，典型於中年發病；臉部：臉中央紅斑、陣發潮紅、反覆膿皰與丘疹、微血管擴張、rhinophyma；眼瞼：皮脂過度分泌、慢性瞼緣炎與 MGD、瞼緣微血管擴張、反覆 chalazia；眼部：慢性結膜炎、stromal keratitis、marginal keratitis、sterile ulceration、episcleritis、iridocyclitis，反覆眼表發炎可造成角膜新生血管與瘢痕。<mark class="ex-key">口服 tetracyclines 是眼部與皮膚 rosacea 治療的主軸</mark>；確定潰瘍為非感染性時，審慎使用局部類固醇可在減輕發炎與促進角膜上皮再生上扮演重要角色⁠<sup class="ex-qref"><span>Q1715</span></sup>。<span class="ref ref-ext">BCSC 8 p.71–72</span></li>
@@ -799,7 +813,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-306">多數病人有<mark>劇烈、鑽痛</mark>，可能夜間加重、偶會痛醒；疼痛可轉移至同側頭臉其他區域，眼球常有壓痛。<span class="ref">p.377</span></li>
 <li id="np-307">發炎鞏膜呈 <strong>violaceous hue（紫羅蘭色調）</strong>，自然光下最易看出；發炎鞏膜血管呈交叉網狀、黏附鞏膜，<strong>棉棒推不動</strong>；裂隙燈可見鞏膜水腫（常伴其上的上鞏膜水腫）⁠<sup class="ex-qref"><span>Q835</span></sup>。<span class="ref">p.377</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Location（位置，Table 13-5）</th><th>Subtype（亞型）</th><th>Prevalence（%）</th></tr></thead>
 <tbody>
 <tr><td id="np-308" rowspan="3">Anterior sclera（前鞏膜）</td><td id="np-309">Diffuse scleritis（瀰漫性）</td><td id="np-310"><span class="num">75</span></td></tr>
@@ -807,7 +821,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-313">Necrotizing scleritis（壞死性）：with inflammation（<span class="num">4</span>）＋ without overt inflammation／scleromalacia perforans（<span class="num">1</span>）</td><td id="np-314"><span class="num">5</span></td></tr>
 <tr><td id="np-315">Posterior sclera（後鞏膜）</td><td id="np-316">Posterior scleritis</td><td id="np-317"><span class="num">6</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-318">出處 ⁠<sup class="ex-qref"><span>Q1127</span></sup><span class="ref">p.377</span></p>
 <ul>
 <li id="np-319"><mark class="ex-key">約 <span class="num">1/3</span> diffuse 或 nodular scleritis、約 <span class="num">2/3</span> necrotizing scleritis 病人有可檢出的自體免疫結締組織疾病</mark>⁠<sup class="ex-qref"><span>Q835</span></sup>。<span class="ref">p.378</span></li>

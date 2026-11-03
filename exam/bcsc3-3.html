@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -372,7 +386,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-2">本章重點：要注意的軸線包括 line of sight（視線）、pupillary axis（瞳孔軸）、optical axis（光學軸）；要記住的角包括 <strong>angle alpha（α 角）</strong>、<strong>angle kappa（κ 角）</strong>、<strong>angle lambda（λ 角）</strong>。<span class="ref">p.143</span></li>
 <li id="np-3"><strong>Presbyopia（老花眼）</strong>：水晶體隨老化失去彈性 → 調節反應減弱，即使<mark>睫狀肌收縮量（accommodative effort，調節努力）幾乎不變</mark>。<span class="ref">p.143, p.161</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Term（術語）</th><th>Definition（定義重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-4">Accommodation（調節）</td><td id="np-5">眼增加水晶體屈光力的能力；可用來對焦近物，或自行矯正遠視性屈光不正</td></tr>
@@ -397,7 +411,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-42">Snellen visual acuity（Snellen 視力）</td><td id="np-43">辨認（以高對比呈現的）小字母或其他視標的能力</td></tr>
 <tr><td id="np-44">Pinhole visual acuity（針孔視力）</td><td id="np-45">透過有針孔的遮眼板測視力，以降低屈光不正的影響</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-46">出處 <span class="ref">p.143–145</span></p>
 <div class="ex-trap"><h3 id="ch3-s1-1">易錯陷阱</h3><ul>
 <li id="np-47">順規散光：屈光力最強的是「垂直」經線（角膜垂直經線最陡，矯正正柱鏡軸約 90°）；逆規散光：屈光力最強的是「水平」經線（水平經線最陡，正柱鏡軸約 180°）。<span class="ref">p.143, p.145, p.158–159</span></li>
@@ -412,7 +426,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-51">Example 3-1：角膜頂點到水晶體前表面 <span class="num">3.6 mm</span>，角膜厚度 <span class="num">0.5 mm</span> → Gullstrand 眼前房深度 <span class="num">3.1 mm</span>。<span class="ref">p.145</span></li>
 </ul>
 <h3 id="ch3-s2-2">Table 3-1 The Schematic Eye（Gullstrand 模型眼重點數值，單位 mm 除另註）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Item（項目）</th><th>Accommodation relaxed（調節放鬆）</th><th>Maximum accommodation（最大調節）</th></tr></thead>
 <tbody>
 <tr><td id="np-52">Refractive index：cornea（角膜）</td><td id="np-53"><span class="num">1.376</span></td><td id="np-54"><span class="num">1.376</span></td></tr>
@@ -434,7 +448,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-100">Position of fovea centralis（中心小凹位置）</td><td id="np-101"><span class="num">24.0</span></td><td id="np-102"><span class="num">24.0</span></td></tr>
 <tr><td id="np-103">Axial refraction（軸向屈光，D）</td><td id="np-104"><span class="num">−1.0</span></td><td id="np-105"><span class="num">−9.6</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-106">出處（Table 3-1、Fig 3-1）<span class="ref">p.146–147</span></p>
 <ul>
 <li id="np-107">Schematic eye 折射率：<mark class="ex-key">角膜 <span class="num">1.376</span>、房水與玻璃體皆 <span class="num">1.336</span>、水晶體 <span class="num">1.386</span>（等效核心 <span class="num">1.406</span>；Fig 3-1 標為 cortex 1.386、nucleus 1.406）</mark>⁠<sup class="ex-qref"><span>Q211</span></sup>。<span class="ref">p.146–147</span></li>
@@ -464,14 +478,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-122">精確而言 visual axis 是通過 nodal points 的假想折線，此概念需光學元件構成對心系統（不對位的複合光學沒有節點）；<mark>optical axis 與 visual axis 臨床上都無法辨識</mark>。<span class="ref">p.148–149</span></li>
 <li id="np-123">Pupillary axis 可輕易決定：由角膜曲率中心向前、穿過入射瞳孔中心、垂直角膜的線，即角膜光反射看起來位於入射瞳孔正中時的方向。<span class="ref">p.149</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Angle（角）</th><th>Between（兩軸）</th><th>Positive when（正值條件）</th><th>Clinical note（臨床重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-124">Angle kappa（κ）</td><td id="np-125">Pupillary axis 與 visual axis（假想角）</td><td id="np-126">Line of sight 位於瞳孔軸<strong>鼻側</strong>（常見）；Fig 3-3：<strong>fovea 位於顳側</strong>（通常如此）</td><td id="np-127">造成視網膜顳側拖曳的疾病（如 ROP）可導致大的正 κ → 臨床表現為 pseudoexotropia（假性外斜視）；大的正 κ 也可能掩蓋小角度內斜視</td></tr>
 <tr><td id="np-128">Angle lambda（λ）</td><td id="np-129">Pupillary axis 與 line of sight</td><td id="np-130">—</td><td id="np-131">用於屈光手術與 IOL 的置中</td></tr>
 <tr><td id="np-132">Angle alpha（α）</td><td id="np-133">Optical axis 與 visual axis（假想角）</td><td id="np-134">Visual axis 位於光學軸<strong>鼻側</strong>（正常即如此）</td><td id="np-135">臨床上無法觀察</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-136">出處（Fig 3-3）<span class="ref">p.149</span></p>
 <ul>
 <li id="np-137"><mark class="ex-key">造成視網膜顳側拖曳的疾病（如 retinopathy of prematurity（ROP，早產兒視網膜病變））可導致大的正 angle kappa</mark>，臨床表現為 pseudoexotropia⁠<sup class="ex-qref"><span>Q276</span> <span>Q540</span> <span>Q1697</span></sup>。<span class="ref">p.149</span></li>
@@ -528,7 +542,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-169">Table 3-2 列出各種記法：Snellen fraction（Snellen 分數，呎／公尺）、4-meter standard（4 公尺標準）、decimal notation（小數記錄法，Visus）、visual angle（minute of arc，弧分）、<strong>logMAR</strong>（最小解析角的 10 為底對數）；<mark class="ex-key">logMAR 適合把多次 Snellen 測量結果取平均</mark>⁠<sup class="ex-qref"><span>Q1668</span></sup>。<span class="ref">p.152–153</span></li>
 </ul>
 <h3 id="ch3-s5-3">Table 3-2 Visual Acuity Conversion Chart（視力換算表）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Snellen（feet）</th><th>Snellen（meters）</th><th>4-m standard</th><th>Decimal（小數）</th><th>Visual angle（MAR，弧分）</th><th>LogMAR</th></tr></thead>
 <tbody>
 <tr><td id="np-170">20/10</td><td id="np-171">6/3</td><td id="np-172">4/2</td><td id="np-173"><span class="num">2.00</span></td><td id="np-174"><span class="num">0.50</span></td><td id="np-175"><span class="num">–0.30</span></td></tr>
@@ -546,7 +560,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-242">20/200</td><td id="np-243">6/60</td><td id="np-244">4/40</td><td id="np-245"><span class="num">0.10</span></td><td id="np-246"><span class="num">10.00</span></td><td id="np-247"><span class="num">1.00</span></td></tr>
 <tr><td id="np-248">20/400</td><td id="np-249">6/120</td><td id="np-250">4/80</td><td id="np-251"><span class="num">0.05</span></td><td id="np-252"><span class="num">20.00</span></td><td id="np-253"><span class="num">1.30</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-254">出處（Table 3-2）<span class="ref">p.153</span></p>
 <ul>
 <li id="np-255">表中各列：視角（MAR，弧分）為小數視力的倒數，<strong>logMAR ＝ log10(MAR)</strong>；視角欄是視標最小特徵（筆畫／缺口）的大小，整個字母是它的 5 倍（20/20 字母 5 弧分、關鍵特徵 1 弧分）。<span class="ref">p.151–153, p.164</span></li>
@@ -584,7 +598,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-278">也可用不同對比的視標測（如 <strong>Pelli-Robson</strong>、<strong>Regan</strong> chart），病人可能較容易使用。<span class="ref">p.155</span></li>
 <li id="np-279">測對比敏感度要戴<strong>最佳光學矯正</strong>，測 CSF 時<strong>亮度須固定</strong>（平均亮度會影響正常 CSF 形狀）：低亮度時低頻端的下降消失、峰值移向較低頻；較亮時，在一段亮度範圍內高頻端的正常 CSF 形狀變化不大。一般在正常室內照度約 <span class="num">30–70 lux</span> 測。<span class="ref">p.155</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Condition（狀況）</th><th>Effect on contrast sensitivity（對比敏感度變化）</th></tr></thead>
 <tbody>
 <tr><td id="np-280">造成扭曲或水腫的角膜病變</td><td id="np-281">可影響對比敏感度</td></tr>
@@ -596,7 +610,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-292">Amblyopia（弱視）</td><td id="np-293">伴隨整條曲線<strong>普遍性</strong>衰減</td></tr>
 <tr><td id="np-294">Miotic pupil（縮瞳）／large pupil（大瞳孔）</td><td id="np-295">縮瞳 → diffraction 降低對比敏感度；大瞳孔 → 光學像差可能干擾表現</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-296">出處 <span class="ref">p.156</span></p>
 <ul>
 <li id="np-297">對比知覺受損在某些職業情境（如駕駛重型車輛）可能不合格；認識這些困難常有助於理解 Snellen 視力良好卻在特定視覺工作有困難的病人。<span class="ref">p.156</span></li>
@@ -639,7 +653,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-318">焦線方向反映前段折射面（角膜與水晶體）淨屈光力最強與最弱的經線，稱 <strong>principal axes（主軸）</strong>。<span class="ref">p.158</span></li>
 <li id="np-319">Fig 3-12：圖中各型散光的主要差別在 <strong>spherical equivalent（SE，等效球面度）</strong>；圖中皆為順規散光（以垂直軸正柱鏡矯正），若為逆規則垂直與水平焦線位置對調。<span class="ref">p.159</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Type（散光類型）</th><th>Focal lines（焦線位置，不調節眼）</th></tr></thead>
 <tbody>
 <tr><td id="np-320">Simple myopic astigmatism（單純近視散光）</td><td id="np-321">一條在視網膜<strong>前</strong>、一條在視網膜<strong>上</strong></td></tr>
@@ -648,7 +662,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-326">Compound hyperopic astigmatism（複性遠視散光）</td><td id="np-327">兩條都在視網膜<strong>後</strong></td></tr>
 <tr><td id="np-328">Mixed astigmatism（混合散光）</td><td id="np-329">一條在<strong>前</strong>、一條在<strong>後</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-330">出處 <span class="ref">p.158</span></p>
 <ul>
 <li id="np-331"><strong>計算（散光分類）</strong>：−3.00 DS／−2.00 DC ×090 → 90° 經線 −3.00 D、180° 經線 −5.00 D（正柱鏡寫法 −5.00 +2.00 ×180），<mark class="ex-key">兩經線皆近視 → 兩焦線都在視網膜前 → compound myopic astigmatism</mark>；單純近視散光則一條經線為 0 D（焦線在視網膜上）⁠<sup class="ex-qref"><span>Q227</span></sup>。<span class="ref">p.158；BCSC 3 p.95</span></li>

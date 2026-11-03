@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -428,7 +442,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-34">暗處差距較大的原因列於 Table 14-1（如 Horner syndrome、縮瞳藥）；亮處差距較大是使虹膜無法收縮的過程所致（Table 14-3）。Adie pupil 列於 Table 14-3；慢性 Adie pupil（little old Adie）數月至數年後瞳孔變小，反常地變成暗處差距較大，列於 Table 14-1。<span class="ref">p.314, p.320, p.323</span></li>
 </ul>
 <h3 id="ch14-s5-1">Fig 14-1：孤立性 anisocoria 的評估流程</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>起點</th><th>檢查</th><th>結果 → 判讀</th></tr></thead>
 <tbody>
 <tr><td id="np-35">Both pupils react normally to light（雙瞳光反射正常）<strong>或</strong> anisocoria greater (or equal) in dark（暗處較大或相等）：Yes（是）</td><td id="np-36">Cocaine <span class="num">4% 或 10%</span></td><td id="np-37"><span class="num">≥ 1 mm</span> anisocoria → Horner pupil；<span class="num">&lt; 1 mm</span> anisocoria → physiologic anisocoria（生理性）</td></tr>
@@ -437,7 +451,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-44">Sectoral iris palsy 或 no visible iris damage</td><td id="np-45">Dilute pilocarpine <span class="num">0.1%</span></td><td id="np-46">Larger pupil constricts, suggesting supersensitivity（較大瞳孔收縮，提示超敏感）→ Adie pupil；no pupillary constriction（不收縮）→ pilocarpine 1%</td></tr>
 <tr><td id="np-47">Dilute pilocarpine 0.1% 不收縮</td><td id="np-48">Pilocarpine <span class="num">1%</span></td><td id="np-49">Pupillary constriction（收縮）→ CN III palsy；no pupillary constriction（不收縮）→ pharmacologic anisocoria（藥物性）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-50">註：藥物散瞳效果消退中的瞳孔對 1% pilocarpine 可能輕微收縮；部分 CN III palsy 病人的瞳孔會產生超敏感而對 0.1% 收縮；幾乎所有 CN III palsy 都有某種程度 ptosis 或 duction deficit。<span class="ref">p.313</span></p>
 <h3 id="ch14-s5-2">Anisocoria Equal in Dim and Bright Light：Physiologic anisocoria（生理性瞳孔不等）</h3>
 <ul>
@@ -452,7 +466,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch14-s6" data-w="7855">六、Anisocoria Greater in Dim Light（暗處較明顯）與 Horner syndrome</h2>
 <h3 id="ch14-s6-1">Table 14-1：Causes of Anisocoria Greater in Dim Light（暗處較明顯的 anisocoria）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Classification of anisocoria（分類）</th><th>Examples of causes（病因舉例）</th></tr></thead>
 <tbody>
 <tr><td id="np-56"><strong>With normal pupil reaction（光反應正常）</strong></td><td id="np-57">Horner syndrome；physiologic anisocoria（生理性；通常亮暗相等，偶爾暗處較大）</td></tr>
@@ -461,7 +475,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-62">With sluggish pupil reaction：Inflammatory anisocoria（發炎性）</td><td id="np-63">Anterior uveitis（前葡萄膜炎）</td></tr>
 <tr><td id="np-64">With sluggish pupil reaction：Denervation anisocoria（去神經）</td><td id="np-65"><mark class="ex-key">Long-standing Adie pupil（長期 Adie 瞳孔）、Argyll Robertson pupil、aberrant regeneration of CN III（CN III 異常再生）</mark>⁠<sup class="ex-qref"><span>Q510</span></sup></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-66">出處 <span class="ref">p.315</span></p>
 <ul>
 <li id="np-67">一般而言，機械性或發炎性原因傾向造成<strong>光反應遲緩</strong>，不同於 Horner syndrome 與生理性 anisocoria；慢性 Adie pupil 的 anisocoria 反常地在暗處較大⁠<sup class="ex-qref"><span>Q510</span></sup>。<span class="ref">p.314</span></li>
@@ -473,14 +487,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-70">Ptosis 來自上（<strong>Muller muscle</strong>）下眼瞼 tarsal muscle（瞼板肌）去神經 → 瞼裂明顯變窄、假性 enophthalmos（眼球內陷）印象；急性期也可有結膜充血、顏面潮紅、鼻塞⁠<sup class="ex-qref"><span>Q448</span></sup>。<span class="ref">p.314</span></li>
 </ul>
 <h3 id="ch14-s6-3">Anhidrosis 分布與虹膜異色（依病灶位置）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Lesion（病灶）</th><th>Anhidrosis（無汗）範圍</th><th>其他</th></tr></thead>
 <tbody>
 <tr><td id="np-71">Central（first-order，第一神經元）或 preganglionic（second-order，節前）</td><td id="np-72">同側頭、臉、頸</td><td id="np-73">可能出現 <strong>harlequin syndrome（丑角症候群）</strong>：半臉蒼白、半臉正常或泛紅，正中分界；<mark>蒼白側是交感缺損側</mark>（去神經的血管與汗腺對循環中 adrenaline 超敏感）</td></tr>
 <tr><td id="np-74">Postganglionic（third-order，節後；superior cervical ganglion（上頸交感神經節）或其遠端）</td><td id="np-75"><mark class="ex-key">只限同側前額</mark>⁠<sup class="ex-qref"><span>Q477</span></sup></td><td id="np-76">—</td></tr>
 <tr><td id="np-77">Congenital or acquired early in life（先天或幼年早期病灶）</td><td id="np-78">—</td><td id="np-79"><strong>Iris heterochromia（虹膜異色）</strong>：<mark class="ex-key">患側虹膜較淡</mark>；可能到 <span class="num">9–12 個月</span>大才看得出⁠<sup class="ex-qref"><span>Q435</span> <span>Q748</span></sup></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-80">出處 <span class="ref">p.314–315</span></p>
 <h3 id="ch14-s6-4">與生理性 anisocoria 的區分：Dilation lag（散大遲滯）</h3>
 <ul>
@@ -488,14 +502,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-82">暗處擴瞳 = sphincter 放鬆 + dilator 收縮；Horner 眼只靠 sphincter 放鬆 → 擴大較慢 → <mark>anisocoria 在 <span class="num">5 秒</span>時最大、<span class="num">15 秒</span>重測時變小</mark>；有 dilation lag 即足以區分 Horner 與生理性。<span class="ref">p.316</span></li>
 </ul>
 <h3 id="ch14-s6-5">藥物測試</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Drug（藥物）</th><th>Concentration and method（濃度與方法）</th><th>Mechanism（機轉）</th><th>Horner 的陽性結果</th><th>Limitations（限制）</th></tr></thead>
 <tbody>
 <tr><td id="np-83"><strong>Apraclonidine</strong>（較 cocaine 易取得，臨床例行使用）</td><td id="np-84"><span class="num">0.5% 或 1%</span>，每眼 <span class="num">1</span> 滴，<span class="num">60 分鐘</span>後評估（陽性結果常可更早看到）</td><td id="np-85">α2-adrenergic agonist + weak α1-adrenergic agonist（α2 致效劑兼弱 α1 致效劑）；Horner 眼突觸間隙 norepinephrine 少 → α1 受體超敏感</td><td id="np-86"><mark>Horner 瞳孔散大 → anisocoria <strong>反轉</strong></mark>；上眼瞼下垂亦改善（甚至退縮），但眼瞼反應不具 Horner 特異性</td><td id="np-87">交感去神經超敏感通常在傷後 <span class="num">2–5 天</span>出現，發病 <span class="num">2 週</span>仍有偽陰性報告 → 在<strong>急性 Horner</strong> 診斷的角色存疑；<mark>幼童一般避免</mark>（可能造成 CNS depression（中樞抑制）或急性呼吸停止）</td></tr>
 <tr><td id="np-88"><strong>Cocaine</strong></td><td id="np-89"><span class="num">4% 或 10%</span>，每眼 <span class="num">2</span> 滴、間隔 <span class="num">5 分鐘</span>，<span class="num">45 分鐘至 1 小時</span>後測</td><td id="np-90">阻斷交感神經末梢 norepinephrine 回收 → 正常眼散瞳、眼瞼退縮、結膜變白</td><td id="np-91">Horner 眼幾乎沒有 norepinephrine 釋放 → cocaine 無效、縮小的瞳孔仍較小；<mark>點藥後差距 <span class="num">≥ 1 mm</span> → 較小瞳孔側為 Horner</mark></td><td id="np-92">虹膜 synechiae 使瞳孔機械性固定時可能偽陽性（裂隙燈易辨）；不良反應風險較低，<strong>幼童</strong>較佳選擇</td></tr>
 <tr><td id="np-93">Phenylephrine</td><td id="np-94"><span class="num">10%</span></td><td id="np-95">Strong, direct-acting sympathomimetic（強效直接作用擬交感藥）</td><td id="np-96">Horner pupil 容易散大</td><td id="np-97">Mechanically restricted pupil（機械性受限的瞳孔）仍保持小</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-98">出處 <span class="ref">p.316–317</span></p>
 <ul>
 <li id="np-99"><strong>Brimonidine 不能在 Horner 測試中取代 apraclonidine</strong>：它是高度選擇性 α2 致效劑，對虹膜 dilator 的 α1 受體無顯著作用。<span class="ref">p.317</span></li>
@@ -503,7 +517,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-101"><strong>Hydroxyamphetamine</strong> <span class="num">1%</span>（目前只能由調劑藥局配製）與 cocaine <span class="num">4% 或 10%</span> 同屬 indirect-acting adrenergic agonists（間接作用腎上腺素致效劑），用於檢測與定位虹膜 dilator 交感神經支配缺損（本章外）。<span class="ref ref-ext">BCSC 2 p.406</span></li>
 </ul>
 <h3 id="ch14-s6-6">Table 14-2：Features Associated With Horner Syndrome, Based on Lesion Location（依病灶位置的伴隨表現）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Location in the sympathetic pathway and etiology of lesion（位置與病因）</th><th>Common symptoms or specific features（常見症狀或特徵）</th></tr></thead>
 <tbody>
 <tr><td id="np-102"><strong>Central（first order）</strong>：lateral medullary syndrome（<strong>Wallenberg syndrome</strong>，延腦外側症候群）</td><td id="np-103"><mark class="ex-key">Anhidrosis of ipsilateral face（同側臉無汗）；同側臉部痛溫覺障礙、對側軀幹與四肢痛溫覺障礙</mark>；limb ataxia（肢體運動失調）；bulbar disturbance（延髓症狀，eg, dysarthria、dysphagia、nystagmus）⁠<sup class="ex-qref"><span>Q465</span> <span>Q493</span> <span>Q508</span> <span>Q527</span></sup></td></tr>
@@ -521,7 +535,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-126">Postganglionic：trigeminal autonomic cephalalgias（三叉自律神經頭痛，eg, cluster headache 叢發性頭痛）</td><td id="np-127">Headache（頭痛）、periocular pain（眼周痛）、rhinorrhea（流鼻水）、conjunctival injection（結膜充血）、lacrimation（流淚）</td></tr>
 <tr><td id="np-128">Postganglionic：intra-aural trauma or tumor（耳內外傷或腫瘤）</td><td id="np-129">Ear pain（耳痛）、hearing loss（聽力喪失）、vertigo（眩暈）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-130">出處 <span class="ref">p.318</span></p>
 <h3 id="ch14-s6-7">定位與影像</h3>
 <ul>
@@ -563,14 +577,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-154">由使虹膜無法收縮的過程造成：副交感輸入喪失（如 CN III palsy）或機械性（如虹膜外傷）。<span class="ref">p.320</span></li>
 </ul>
 <h3 id="ch14-s7-1">Table 14-3：Causes of Anisocoria Greater in Bright Light（亮處較明顯的 anisocoria）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Classification of anisocoria（分類）</th><th>Examples of causes（病因舉例）</th></tr></thead>
 <tbody>
 <tr><td id="np-155">Pharmacologic anisocoria（藥物性）</td><td id="np-156">Topical mydriatic/parasympatholytic（局部散瞳／抗副交感）：phenylephrine、tropicamide、atropine；systemic mydriatic/parasympatholytic（全身性散瞳／抗副交感）：scopolamine、<strong>glycopyrrolate sweat wipes（止汗濕巾）</strong>、ipratropium；environmental toxins（環境毒物）：jimsonweed（曼陀羅）</td></tr>
 <tr><td id="np-157">Mechanical anisocoria（機械性）</td><td id="np-158">Trauma or prior surgery（外傷或曾手術）、angle-closure glaucoma（隅角閉鎖性青光眼）、iris ischemia（虹膜缺血）、posterior synechiae（後黏連）</td></tr>
 <tr><td id="np-159">Denervation anisocoria（去神經）</td><td id="np-160">Adie pupil、CN III palsy</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-161">出處 <span class="ref">p.320</span></p>
 <h3 id="ch14-s7-2">Mechanical anisocoria（機械性）</h3>
 <ul>
@@ -607,7 +621,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-183">懷疑急性 CN III palsy → 必須排除 aneurysm（動脈瘤）⁠<sup class="ex-qref"><span>Q1678</span></sup>。<span class="ref">p.323</span></li>
 <li id="np-184"><mark class="ex-key">CN III palsy 中只有瞳孔受累、沒有眼瞼或眼球運動異常者極為罕見 → 孤立性散瞳不是神經影像的適應症</mark>⁠<sup class="ex-qref"><span>Q502</span></sup>。<span class="ref">p.323</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（散大瞳孔）</th><th>Dilute pilocarpine 0.1%</th><th>Pilocarpine 1%</th><th>鑑別重點</th></tr></thead>
 <tbody>
 <tr><td id="np-185">Adie pupil</td><td id="np-186"><mark>收縮（約 <span class="num">80%</span> 有膽鹼性超敏感）</mark></td><td id="np-187">可被 full-strength pilocarpine 逆轉</td><td id="np-188">扇形麻痺、近反射收縮緩慢（tonic）、約 <span class="num">70%</span> 女性、<span class="num">80%</span> 單側</td></tr>
@@ -616,7 +630,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-197">Traumatic（direct sphincter damage）mydriasis</td><td id="np-198">—</td><td id="np-199">無反應（<span class="num">1% 或 2%</span>）</td><td id="np-200">瞳孔緣缺口、sphincter 附近穿透照明缺損</td></tr>
 <tr><td id="np-201">Adrenergic mydriasis</td><td id="np-202">—</td><td id="np-203">有些收縮</td><td id="np-204">瞼裂變寬、結膜可能變白、調節不受影響</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-205">出處 <span class="ref">p.313, p.320–323</span></p>
 <div class="ex-trap"><h3 id="ch14-s7-6">易錯陷阱</h3><ul>
 <li id="np-206">依 Fig 14-1：對 dilute pilocarpine 0.1% 與 pilocarpine 1% 都不收縮 → pharmacologic anisocoria；較大瞳孔對 0.1% 收縮（提示超敏感）→ Adie pupil（約 80% 有膽鹼性超敏感）；對 0.1% 不收縮、對 1% 收縮 → CN III palsy（幾乎都有某種程度 ptosis 或 duction deficits）。Physiologic anisocoria 光反射正常、差距通常 &lt; 1.0 mm⁠<sup class="ex-qref"><span>Q422</span></sup>。<span class="ref">p.313–314, p.321–323</span></li>
@@ -633,7 +647,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-213">Near reflex（near synkinesis、near triad，近反射三聯）是注意力由遠轉近時出現的 synkinesis（聯動），包括 <strong>accommodation、pupil constriction（瞳孔縮小）、convergence</strong>；瞳孔光反射纖維自視索後方離開，在 superior colliculus（上丘）層級到達 pretectal nuclei（本章外，BCSC 2 第 3 章）⁠<sup class="ex-qref"><span>Q128</span></sup>。<span class="ref ref-ext">BCSC 2 p.130</span></li>
 </ul>
 <h3 id="ch14-s8-1">Table 14-4：Causes of Light–Near Pupil Dissociation（光-近反射分離的原因）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Cause（原因）</th><th>Location（位置）</th><th>Mechanism（機轉）</th></tr></thead>
 <tbody>
 <tr><td id="np-214"><mark class="ex-key">Severe loss of afferent light input to both eyes（雙眼嚴重傳入光訊號喪失）</mark>⁠<sup class="ex-qref"><span>Q523</span></sup></td><td id="np-215">Anterior visual pathway（前視路：retina、optic nerves、chiasm）</td><td id="np-216">Damage to or degeneration of the retina or optic nerve pathways（視網膜或視神經路徑受損或退化）</td></tr>
@@ -643,7 +657,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-226"><mark class="ex-key">Aberrant regeneration of CN III（CN III 異常再生）</mark>⁠<sup class="ex-qref"><span>Q523</span> <span>Q534</span></sup></td><td id="np-227">CN III</td><td id="np-228">Aberrant regeneration of axons to the iris sphincter by accommodative or extraocular muscle neurons（調節或眼外肌神經元的軸突異常再生到括約肌）</td></tr>
 <tr><td id="np-229">Loss of pretectal light input to Edinger-Westphal nucleus（頂蓋前區至艾-魏核的光輸入喪失）</td><td id="np-230">Midbrain tectum（中腦頂蓋）</td><td id="np-231">Infection（感染，eg, 梅毒造成的 <strong>Argyll Robertson pupils</strong>）、compression（壓迫，eg, <mark class="ex-key"><strong>pinealoma</strong>，松果體瘤</mark>）、ischemia（缺血，eg, stroke）；後兩者常屬 dorsal midbrain syndrome⁠<sup class="ex-qref"><span>Q449</span></sup></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-232">出處 <span class="ref">p.324</span></p>
 <h3 id="ch14-s8-2">Afferent visual pathway（傳入視路）</h3>
 <ul>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -386,7 +400,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-10">Vitreous（玻璃體）n = <span class="num">1.336</span>，可用 <span class="num">4/3</span> 近似，誤差可忽略。<span class="ref">p.58</span></li>
 <li id="np-11">IOL 計算的生物測量：過去光學生物測量儀以廠商決定的假設折射率量眼軸；有人提出（it has been suggested）依各眼內構造各自折射率分段量測的 <strong>"sum of segments"</strong> 眼軸，可能使所需 IOL 度數的測量更準確。<span class="ref">p.58</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Medium（介質，Table 1-1）</th><th>Refractive index（折射率）</th><th>Approximate（近似值）</th></tr></thead>
 <tbody>
 <tr><td id="np-12">Vacuum（真空）</td><td id="np-13"><span class="num">1.00000</span>（exactly）</td><td id="np-14">—</td></tr>
@@ -397,7 +411,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-27">PMMA（polymethyl methacrylate）</td><td id="np-28"><span class="num">1.49</span></td><td id="np-29"><span class="num">1.50</span>，或 3/2</td></tr>
 <tr><td id="np-30">HEMA（hydroxyethyl methacrylate，monomer）</td><td id="np-31"><span class="num">1.4505</span></td><td id="np-32"><span class="num">1.45</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-33">出處 <span class="ref">p.58</span>（表中近似值為本書計算所用；數值可能隨條件而異：水的 n 隨溫度而變，HEMA polymer 的 n 隨含水量而異、與 monomer 略有不同）</p>
 <ul>
 <li id="np-34">依 Table 1-1：<mark class="ex-key">空氣（<span class="num">1.000</span>）與角膜（<span class="num">1.376</span>）的折射率差，大於角膜與房水（1.376 vs 1.336）之差</mark>；角膜–房水介面使空氣–角膜介面的屈光力減少約 <span class="num">10%</span>⁠<sup class="ex-qref"><span>Q255</span></sup>。<span class="ref">p.58, p.67–68</span></li>
@@ -472,7 +486,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-71"><strong>Vergence（聚散度）</strong>= 物或像到透鏡距離的倒數；空氣中 U = 1/u、V = 1/v。介質 n &gt; 1 時 n/u、n/v 稱 <strong>reduced vergence（約化聚散度）</strong>。單位：reciprocal meters = <strong>diopter（D，屈光度）</strong>；計算前一律換成公尺⁠<sup class="ex-qref"><span>Q238</span></sup>。<span class="ref">p.55–56, p.67</span></li>
 <li id="np-72">遠物 U = 0 → 像位於焦點，距離 = 1/P。<span class="ref">p.66</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Diopters</th><th>Distance（Table 1-2）</th><th>Diopters</th><th>Distance</th></tr></thead>
 <tbody>
 <tr><td id="np-73"><span class="num">0.25</span></td><td id="np-74"><span class="num">4 m</span></td><td id="np-75"><span class="num">3.00</span></td><td id="np-76">1/3 m（<span class="num">33–34 cm</span>）</td></tr>
@@ -484,7 +498,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-97"><span class="num">2.50</span></td><td id="np-98"><span class="num">40 cm</span></td><td id="np-99"><span class="num">9.00</span></td><td id="np-100">1/9 m（<span class="num">11.0–11.5 cm</span>）</td></tr>
 <tr><td></td><td></td><td id="np-101"><span class="num">10.00</span></td><td id="np-102"><span class="num">10 cm</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-103">出處 <span class="ref">p.67</span></p>
 <h3 id="ch1-s5-2">空氣中薄透鏡練習（Exercises 1-2 至 1-6，P = +2.00 D 除首題外）</h3>
 <ul>
@@ -534,7 +548,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-126">空氣中薄凸透鏡三條光線：① 平行光軸 → 經 F2；② 經 F1 → 出射平行光軸；③ 經透鏡中心（主點）→ 看似不偏折（實際進出透鏡時有輕微 zigzag），用來確認作圖。<span class="ref">p.73</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Object position（凸透鏡，物的位置）</th><th>Image（像）</th></tr></thead>
 <tbody>
 <tr><td id="np-127">遠在 F1 左方</td><td id="np-128">對側<strong>實像</strong>，倒立、縮小</td></tr>
@@ -543,7 +557,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-133">F1 與透鏡之間</td><td id="np-134"><strong>虛像</strong>（物的左側），正立、放大</td></tr>
 <tr><td id="np-135">凹透鏡：物在 F2 左方或 F2 與透鏡之間</td><td id="np-136">焦點與透鏡間的虛像，正立、縮小（物越近縮小越少）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-137">出處（Fig 1-14、1-15）<span class="ref">p.73–75</span></p>
 <h3 id="ch1-s6-4">Depth of focus 與 depth of field</h3>
 <ul>
@@ -578,13 +592,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-153">例 2（遠視鏡移遠）：+9.0 D、頂點 <span class="num">12 → 22 mm</span>：焦點在鏡後 111.1 mm = 角膜後 <span class="num">99.1 mm</span>（遠點）；新位置焦距 99.1 + 22 = 121.1 mm → P = 1/0.1211 ≈ +8.26 D，約 <mark class="ex-key"><span class="num">+8.25 D</span></mark>（公式：鏡片往左移 t = −0.010，9/(1 + 0.010 × 9) = 8.26）。正鏡移離眼睛 focusing power 增加 → 所需正度數降低⁠<sup class="ex-qref"><span>Q222</span></sup>。<span class="ref">p.78；BCSC 3 p.186–187</span></li>
 <li id="np-154">例 3（近視鏡移遠）：−8.0 D、頂點 <span class="num">10 → 14 mm</span>：遠點在鏡前 125 mm = 角膜前 <span class="num">135 mm</span>；新焦距 135 − 14 = 121 mm → P = −1/0.121 ≈ −8.26 D，約 <mark class="ex-key"><span class="num">−8.25 D</span></mark>（變化約 0.26 D；公式 −8/(1 − 0.004 × 8) = −8.26）。負鏡移離眼睛 focusing power 增加（像往前移）→ 需增加負度數⁠<sup class="ex-qref"><span>Q235</span></sup>。<span class="ref">p.78；BCSC 3 p.186–187</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>鏡片移動方向</th><th>Plus lens（遠視）</th><th>Minus lens（近視）</th></tr></thead>
 <tbody>
 <tr><td id="np-155">移近眼睛（如眼鏡 → 隱形眼鏡）</td><td id="np-156">需<strong>更多</strong>正度數</td><td id="np-157">需<strong>較少</strong>負度數</td></tr>
 <tr><td id="np-158">移離眼睛（頂點距離加大）</td><td id="np-159">需<strong>較少</strong>正度數</td><td id="np-160">需<strong>更多</strong>負度數</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-161">出處 <span class="ref">p.78；BCSC 3 p.187</span></p>
 <div class="ex-trap"><h3 id="ch1-s7-4">易錯陷阱</h3><ul>
 <li id="np-162">鏡片（不論正負）移近眼睛 effective focusing power 降低、移離眼睛則增加；因此移近眼睛時度數往正調整（正鏡加、負鏡減），移離眼睛時往負調整⁠<sup class="ex-qref"><span>Q212</span> <span>Q222</span> <span>Q235</span></sup>。<span class="ref">p.78；BCSC 3 p.187</span></li>
@@ -793,7 +807,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-279">Appendix 1-2：由 Fermat's principle 對總時間 T 微分 dT/dx = 0，可推得 n1 sin θ1 = n2 sin θ2；光在玻璃中較慢，最短直線不一定是最短時間路徑。<span class="ref">p.105–107</span></li>
 <li id="np-280">Appendix 1-3：由反射定律與小角近似得 1/u − 2/r = −1/v，令 P = −2/r，右側負號表示反轉像空間中的 vergence。<span class="ref">p.107–108</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Formula（公式）</th><th>用途 / 重點</th><th>Page</th></tr></thead>
 <tbody>
 <tr><td id="np-281">n = c真空 / c介質</td><td id="np-282">n 越大光越慢；必 &gt; 1</td><td id="np-283"><span class="ref">p.57</span></td></tr>
@@ -811,7 +825,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-317">P = −2/r = −1/f；U + P = V</td><td id="np-318">面鏡；凹面鏡 P 正、凸面鏡 P 負</td><td id="np-319"><span class="ref">p.99</span></td></tr>
 <tr><td id="np-320">Ma = −P目鏡/P物鏡</td><td id="np-321">望遠鏡角放大率；afocal</td><td id="np-322"><span class="ref">p.103</span></td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="hs-tip-box">
 <h3 id="ch1-s14-1">易混淆比較與口訣</h3>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -380,7 +394,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-6">抗病毒疫苗以套膜上的醣蛋白等結構蛋白為目標；抗病毒藥物通常以病毒複製為目標。RNA 病毒複製多一個步驟，常造成變異，使其在宿主細胞中適應力增加，預防與治療較困難。<span class="ref">p.274</span></li>
 <li id="np-7">病毒感染主要依臨床評估來診斷與治療；非典型、改善緩慢的病例，或公共衛生監測需要客觀資料時，可能需要診斷檢驗。<span class="ref">p.275</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Technique（檢驗）</th><th>Benefits（優點）</th><th>Limitations（限制）</th></tr></thead>
 <tbody>
 <tr><td id="np-8">Cell culture（細胞培養）</td><td id="np-9">確認 adenovirus、HSV 等感染的 gold standard（黃金標準）</td><td id="np-10">採檢後病毒存活有限；結果延遲；費用</td></tr>
@@ -388,7 +402,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-14">PCR</td><td id="np-15">診斷準確度提高</td><td id="np-16">費用高；對多數病例（包括 HSV、VZV）效率不佳</td></tr>
 <tr><td id="np-17">Immunostaining（免疫染色）</td><td id="np-18">抗原偵測（immunofluorescence、immunochromatography）不需活病毒、可快速出結果；point-of-care adenovirus test 敏感度與特異度高</td><td id="np-19">費用不一</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-20">出處（Table 11-1）<span class="ref">p.275</span></p>
 <h3 id="ch11-s1-3">Herpesviruses（疱疹病毒）總論</h3>
 <ul>
@@ -480,7 +494,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-71">因其他適應症正在使用全身性類固醇的上皮角膜炎病人，應以全身性抗病毒藥治療。<span class="ref">p.282</span></li>
 </ul>
 <h3 id="ch11-s4-5">HSV 外眼／角膜感染的抗病毒藥（Table 11-2）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Agent（藥物）</th><th>Mechanism（機轉）</th><th>Form（劑型）</th><th>Acute dosage（急性期劑量）</th></tr></thead>
 <tbody>
 <tr><td id="np-72">Ganciclovir</td><td id="np-73">嵌入病毒 DNA，阻止 DNA 合成</td><td id="np-74"><span class="num">0.15%</span> ophthalmic gel</td><td id="np-75">局部每天 <span class="num">5</span> 次至癒合，之後每天 <span class="num">3</span> 次 × <span class="num">1</span> 週</td></tr>
@@ -492,7 +506,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-96">Valacyclovir</td><td id="np-97">Acyclovir 的 L-valyl ester</td><td id="np-98"><span class="num">500、1000 mg</span> 錠</td><td id="np-99">口服 <span class="num">500 mg</span> 每天 <span class="num">3</span> 次 × <span class="num">7–10</span> 天（眼部疾病最佳劑量未確定）</td></tr>
 <tr><td id="np-100">Valganciclovir</td><td id="np-101">Ganciclovir 的 L-valyl ester</td><td id="np-102"><span class="num">450 mg</span> 錠</td><td id="np-103">誘導：<span class="num">900 mg</span>（2 錠）每天 <span class="num">2</span> 次 × <span class="num">21</span> 天；維持：<span class="num">900 mg</span> 每天 <span class="num">1</span> 次</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-104">出處（Table 11-2）⁠<sup class="ex-qref"><span>Q1718</span></sup><span class="ref">p.278</span></p>
 <div class="ex-trap"><h3 id="ch11-s4-6">易錯陷阱</h3><ul>
 <li id="np-105">HSV dendrite：中央上皮潰瘍、分枝末端有 terminal bulbs；使用類固醇時呈 geographic⁠<sup class="ex-qref"><span>Q865</span> <span>Q895</span></sup>。<span class="ref">p.279–280, p.289</span></li>
@@ -518,7 +532,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-120">壞死性疱疹角膜炎的鑑別：微生物角膜炎（細菌、黴菌、<i>Acanthamoeba</i>）、殘留異物、局部麻醉劑濫用。<span class="ref">p.284</span></li>
 </ul>
 <h3 id="ch11-s5-2">HEDS（Table 11-5）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Question（問題）</th><th>Design（設計）</th><th>Findings（結果）</th><th>Comment（評論）</th></tr></thead>
 <tbody>
 <tr><td id="np-121">Acyclovir 預防能否減少 HSV 復發？</td><td id="np-122"><span class="num">703</span> 位不活動、未用藥者，口服 acyclovir <span class="num">400 mg</span> 每天 <span class="num">2</span> 次 vs placebo × <span class="num">12</span> 個月，追蹤 <span class="num">18</span> 個月</td><td id="np-123">預防組眼部復發較少（約 <span class="num">50%</span>），尤其是復發性基質角膜炎病人</td><td id="np-124">建議復發性 HSV 基質角膜炎長期預防；腎臟問題者須謹慎</td></tr>
@@ -528,7 +542,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-137">口服 acyclovir 能否預防上皮角膜炎病人發生基質角膜炎與前葡萄膜炎？</td><td id="np-138"><span class="num">287</span> 位上皮角膜炎，口服 acyclovir <span class="num">400 mg</span> 每天 <span class="num">5</span> 次 × <span class="num">3</span> 週 vs placebo，追蹤 <span class="num">12</span> 個月</td><td id="np-139">否：基質角膜炎或前葡萄膜炎發生率無差異</td><td id="np-140">基質角膜炎最佳預測因子是先前基質角膜炎病史</td></tr>
 <tr><td id="np-141">什麼誘發 HSV 復發？</td><td id="np-142"><span class="num">308</span> 位每週記錄壓力、全身感染、日曬、月經、隱形眼鏡、眼外傷</td><td id="np-143">沒有因子被證實為復發誘因</td><td id="np-144">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-145">出處（Table 11-5）⁠<sup class="ex-qref"><span>Q884</span></sup><span class="ref">p.285</span></p>
 <ul>
 <li id="np-146">HEDS 最重要的發現：<mark class="ex-key">局部類固醇合併 prophylactic antiviral（預防性抗病毒藥）可減少基質發炎的持續或進展，並縮短 HSV 基質角膜炎病程</mark>⁠<sup class="ex-qref"><span>Q884</span> <span>Q928</span> <span>Q965</span></sup>。<span class="ref">p.284, p.286</span></li>
@@ -599,7 +613,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-189">與 HSV 上皮角膜炎不同，<mark class="ex-key">明顯的 VZV 角膜炎可以使用局部類固醇治療</mark>⁠<sup class="ex-qref"><span>Q965</span></sup>。<span class="ref">p.290</span></li>
 </ul>
 <h3 id="ch11-s7-1">HSV vs VZV 再活化的眼疾鑑別（Table 11-6）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Feature（特徵）</th><th>HSV</th><th>VZV</th></tr></thead>
 <tbody>
 <tr><td id="np-190">Postherpetic neuralgia（疱疹後神經痛）</td><td id="np-191">無</td><td id="np-192">常見</td></tr>
@@ -612,7 +626,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-211">Dendrite morphology（樹枝狀病灶形態）</td><td id="np-212">中央上皮潰瘍、有 terminal bulbs；用類固醇時呈 geographic</td><td id="np-213">較小、無中央潰瘍或 terminal bulbs；較晚出現類樹枝狀黏液斑</td></tr>
 <tr><td id="np-214">Iris atrophy（虹膜萎縮）</td><td id="np-215">斑塊狀（patchy）</td><td id="np-216">扇形（sectoral）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-217">出處（Table 11-6）⁠<sup class="ex-qref"><span>Q865</span></sup><span class="ref">p.289</span></p>
 <div class="ex-trap"><h3 id="ch11-s7-2">易錯陷阱</h3><ul>
 <li id="np-218">Table 11-6：復發性上皮角膜炎在 HSV 常見、在 VZV 罕見；皮節分布 HSV 不完整、VZV 完整⁠<sup class="ex-qref"><span>Q865</span></sup>。<span class="ref">p.289</span></li>
@@ -791,7 +805,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-334">RNA 病毒造成的眼部感染比 DNA 病毒少見，通常表現為<mark>合併上呼吸道感染的濾泡性結膜炎</mark>；部分 RNA 病毒幾乎可侵犯任何眼組織，例如 influenza virus（流感病毒）可侵犯淚腺、角膜、虹膜、視網膜、視神經與其他腦神經。<span class="ref">p.303</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Family（科）</th><th>Virus（病毒）</th><th>Clinical syndrome（臨床症候群）</th></tr></thead>
 <tbody>
 <tr><td id="np-335">Coronaviridae</td><td id="np-336">SARS-CoV-2</td><td id="np-337">COVID-19</td></tr>
@@ -802,7 +816,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-350">Retroviridae</td><td id="np-351">HIV</td><td id="np-352">Seroconversion conjunctivitis（血清轉換期結膜炎）</td></tr>
 <tr><td id="np-353">Rhabdoviridae</td><td id="np-354">Rabies（狂犬病）</td><td id="np-355">經角膜移植傳播</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-356">出處（Table 11-8）⁠<sup class="ex-qref"><span>Q46</span></sup><span class="ref">p.303</span></p>
 <h3 id="ch11-s13-1">Influenza 與 COVID-19</h3>
 <ul>

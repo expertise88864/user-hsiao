@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -395,7 +409,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-14">孩子頭型異常時要懷疑 craniosynostosis，因有 <strong>hydrocephalus（水腦）</strong>與眼部併發症風險。<span class="ref">p.218</span></li>
 </ul>
 <h3 id="ch17-s2-2">Abnormal head shapes（頭型）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Head shape（頭型）</th><th>Suture / cause（顱縫或原因）</th><th>Features（特徵）</th></tr></thead>
 <tbody>
 <tr><td id="np-15">Plagiocephaly（斜頭）</td><td id="np-16">Often deformational due to external compressive forces, prenatally or during infancy（常為外力壓迫造成的變形，產前或嬰兒期）；may also be caused by unilateral coronal suture synostosis（也可由<strong>單側冠狀縫</strong>早閉造成）</td><td id="np-17">Deformational plagiocephaly due to intrauterine constraint, eg, oligohydramnios（子宮內受限，如羊水過少）：ipsilateral occipital flattening with contralateral forehead flattening（同側枕部扁平合併對側前額扁平）。Unilateral coronal synostosis（單側冠狀縫早閉）：ipsilateral occipitoparietal bone flattening, frontal bossing, and anterior ear displacement（同側枕頂骨扁平、額部隆起、耳朵前移）；affected side: wider interpalpebral fissure, orbit often higher（患側瞼裂較寬、眼窩常較高）</td></tr>
@@ -404,7 +418,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-24">Trigonocephaly（三角頭）</td><td id="np-25">Metopic synostosis（<strong>額縫</strong>早閉）</td><td id="np-26">Triangle-shaped head with <mark>hypotelorism（眼窩距過窄）and pseudoesotropia（假性內斜視）</mark>（三角形頭）</td></tr>
 <tr><td id="np-27">Acrocephaly／kleeblattschadel（尖頭／苜蓿葉狀頭）</td><td id="np-28">Kleeblattschadel ("cloverleaf skull") is typically the result of synostosis of the coronal, lambdoidal, and sagittal sutures（苜蓿葉狀頭典型為冠狀縫、人字縫與矢狀縫早閉所致）</td><td id="np-29">Trilobar skull shape（三葉狀顱骨）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-30">出處 <span class="ref">p.218</span></p>
 <h3 id="ch17-s2-3">Etiology（病因）</h3>
 <ul>
@@ -423,7 +437,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-37"><strong>Syndactyly（併指，指頭部分融合）</strong>與 <strong>brachydactyly（短指）</strong>是這群症候群的標誌，嚴重度不一，<mark class="ex-key">例外是 Crouzon syndrome</mark>⁠<sup class="ex-qref"><span>Q698</span></sup>。<span class="ref">p.221</span></li>
 <li id="np-38">Table 17-1 列出眼科醫師可能遇到的常見顱縫早閉症候群，<mark class="ex-key">所列症候群全部為 autosomal dominant</mark>（另有許多未列出）⁠<sup class="ex-qref"><span>Q698</span></sup>。<span class="ref">p.221</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Syndrome（症候群）</th><th>Potential complications（可能的問題）</th><th>Pathophysiology（病理生理）</th><th>Head shape（頭型）</th><th>Nonocular cranial findings（非眼部顱部表現）</th><th>Extracranial manifestations（顱外表現）</th><th>External ophthalmic examination（外眼檢查）</th><th>Additional signs and symptoms（其他徵象與症狀）</th></tr></thead>
 <tbody>
 <tr><td id="np-39"><strong>Crouzon syndrome（克魯松症候群）</strong></td><td id="np-40"><mark>Most common craniosynostosis syndrome（最常見的顱縫早閉症候群）</mark>；Varying degree of deformity（畸形程度不一）；Mild cases can be missed（輕症可能漏診）</td><td id="np-41">Calvarial bone synostosis often includes both coronal sutures（顱蓋骨縫早閉常包含<strong>兩側冠狀縫</strong>）；Skull base sutures are also involved（顱底縫也受累）</td><td id="np-42">Broad, retruded forehead（寬而後縮的前額）；Brachycephaly or scaphocephaly（短頭或舟狀頭）；Tower-shaped skull（塔狀頭）；Midfacial retrusion（中臉後縮）</td><td id="np-43">Hydrocephalus (common)（水腦，<strong>常見</strong>）；<mark>Normal intelligence（智力正常）</mark></td><td id="np-44"><mark>Usually none（通常沒有）</mark></td><td id="np-45">Hypertelorism（眼窩距過寬）；Proptosis（眼球突出）；<strong>Inferior scleral show（下方鞏膜外露）</strong>；Shallow orbits（淺眼窩）</td><td id="np-46">Proptosis（眼球突出）；Corneal exposure（角膜暴露）；Strabismus（斜視）；Papilledema（視乳頭水腫）；Optic atrophy（視神經萎縮）</td></tr>
@@ -431,7 +445,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-55"><strong>Pfeiffer syndrome（Pfeiffer 症候群）</strong></td><td id="np-56">Very severe craniofacial abnormalities（顱顏異常非常嚴重）</td><td id="np-57"><mark>Fusion of both coronal sutures（兩側冠狀縫融合）</mark>；Possible fusion of the sagittal suture（可能合併矢狀縫融合）</td><td id="np-58">Cloverleaf skull, more severe than in those with Apert syndrome（苜蓿葉狀頭，比 Apert 病人更嚴重）；Brachycephaly and acrocephaly（短頭合併尖頭）；Midface hypoplasia（中臉發育不全）；Tracheal abnormalities（氣管異常）</td><td id="np-59">Normal intelligence（智力正常）；<strong>High risk of hydrocephalus（水腦風險高）</strong>；Conductive hearing loss（傳導性聽力喪失）；Hypoplastic maxilla, prominent upper jaw（上頷骨發育不全、上頷突出）；Dental abnormalities（牙齒異常）；Beak-shaped nose（鳥嘴狀鼻）</td><td id="np-60">Syndactyly（併指）；<strong>Short, broad thumbs and toes（短而寬的拇指與腳趾）</strong>；Visceral abnormalities（內臟異常）；Ankylosis of elbow（肘關節僵直）</td><td id="np-61">Hypertelorism（眼窩距過寬）；Proptosis（眼球突出）；Inferior scleral show（下方鞏膜外露）；Shallow orbits（淺眼窩）</td><td id="np-62">Proptosis（眼球突出）；Corneal exposure（角膜暴露）；Strabismus（斜視）；Papilledema（視乳頭水腫）；Optic atrophy（視神經萎縮）</td></tr>
 <tr><td id="np-63"><strong>Saethre-Chotzen syndrome（Saethre-Chotzen 症候群）</strong></td><td id="np-64">Features can easily be missed（特徵容易被忽略）</td><td id="np-65">Typically 1 coronal suture（典型為 <strong>1 條冠狀縫</strong>）</td><td id="np-66"><mark>Plagiocephaly（斜頭）</mark></td><td id="np-67">Normal intelligence（智力正常）；<strong>Low hairline（低髮際）</strong>；Ear abnormalities（耳朵異常）</td><td id="np-68">Brachydactyly（短指）；Mild syndactyly（輕度併指）；Short stature（身材矮小）；Cardiac defects（心臟缺陷）</td><td id="np-69"><mark><strong>Ptosis（眼瞼下垂）</strong>；Shallow orbits（淺眼窩）</mark></td><td id="np-70">Proptosis（眼球突出）；Corneal exposure（角膜暴露）；Strabismus（斜視）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-71">出處（Table 17-1）<span class="ref">p.220</span></p>
 <ul>
 <li id="np-72"><strong>Crouzon syndrome</strong> 綜合重點：最常見的 craniosynostosis syndrome、AD；顱蓋骨縫早閉常包含兩側冠狀縫，顱底縫也受累；外眼檢查為 <mark class="ex-key">hypertelorism、proptosis、inferior scleral show、shallow orbits</mark>；hydrocephalus 常見、<mark class="ex-key">智力正常</mark>；顱外表現通常沒有，且是 syndactyly 與 brachydactyly 這項標誌的例外。BCSC 2 p.220：部分顯性疾病由影響結構蛋白（如 cell receptor growth factors）的 pathogenic variants 造成，例如 Crouzon syndrome（craniofacial dysostosis）的 <strong>FGFR2</strong>⁠<sup class="ex-qref"><span>Q698</span> <span>Q627</span> <span>Q658</span></sup>。<span class="ref">p.219–221；BCSC 2 p.220</span></li>
@@ -552,14 +566,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-134"><mark>Proptosis 不是 preseptal cellulitis 的特徵、眼球不受侵犯</mark>；<strong>眼球運動完整、轉動不痛</strong>有助與 orbital cellulitis 區分。<span class="ref">p.227</span></li>
 </ul>
 <h3 id="ch17-s6-1">三種典型形成途徑</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Route（途徑）</th><th>Causative organisms（致病菌）</th></tr></thead>
 <tbody>
 <tr><td id="np-135">Following puncture, insect bite, or laceration of the eyelid skin (posttraumatic cellulitis)（眼瞼皮膚穿刺、蟲咬或撕裂傷後，即外傷後蜂窩性組織炎）</td><td id="np-136">Organisms found on the skin, such as <i>Staphylococcus</i> or <i>Streptococcus</i> species, are most commonly responsible（最常見為皮膚上的菌，如 <i>Staphylococcus</i> 或 <i>Streptococcus</i> 屬）</td></tr>
 <tr><td id="np-137">In conjunction with severe conjunctivitis, such as epidemic keratoconjunctivitis or methicillin-resistant <i>Staphylococcus aureus</i> (MRSA) conjunctivitis, or with skin infection, such as impetigo or herpes zoster（合併嚴重結膜炎，如流行性角結膜炎或 MRSA 結膜炎；或合併皮膚感染，如 impetigo（膿痂疹）或 herpes zoster（帶狀疱疹））</td><td id="np-138">—（原文未列）</td></tr>
 <tr><td id="np-139">Secondary to upper respiratory tract or sinus infection（續發於上呼吸道或鼻竇感染）</td><td id="np-140">Most common: S aureus, <i>Streptococcus pneumoniae</i>, and other streptococcal species（最常見為 S aureus、<i>Streptococcus pneumoniae</i> 及其他鏈球菌屬）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-141">出處 <span class="ref">p.227</span></p>
 <ul>
 <li id="np-142">BCSC 7 p.48：成人 preseptal cellulitis 通常源自穿刺性皮膚外傷或 dacryocystitis（淚囊炎）；兒童則常源自潛在的 sinusitis（鼻竇炎）⁠<sup class="ex-qref"><span>Q380</span></sup>。<span class="ref">p.227；BCSC 7 p.48</span></li>
@@ -591,14 +605,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-155">懷疑時應做眼窩影像：確認眼窩受侵、記錄鼻竇炎與 subperiosteal abscess 的有無與範圍、有外傷史者排除異物。<span class="ref">p.228</span></li>
 </ul>
 <h3 id="ch17-s7-3">CT findings（Table 17-2）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>CT findings（CT 表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-156">Preseptal cellulitis（隔前蜂窩性組織炎）</td><td id="np-157">Periorbital soft tissue swelling and stranding anterior to the orbital septum（眼窩隔膜前方的眼周軟組織腫脹與條紋狀浸潤）；Obliteration of the adjacent fat planes（鄰近脂肪層消失）；Pertinent negatives（相關陰性發現）：No exophthalmos（無眼球突出）、No retrobulbar inflammation（無球後發炎）、No evidence of ethmoid sinusitis（無篩竇炎證據）、No displacement or enlargement of extraocular muscles（眼外肌無移位或腫大）</td></tr>
 <tr><td id="np-158">Orbital cellulitis（眼窩蜂窩性組織炎）</td><td id="np-159">Diffuse soft tissue stranding posterior to the orbital septum (exophthalmos)（眼窩隔膜後方瀰漫性軟組織條紋狀浸潤，眼球突出）；Proptosis（眼球突出）</td></tr>
 <tr><td id="np-160">Subperiosteal abscess（骨膜下膿瘍）</td><td id="np-161"><strong>Lenticular rim–enhancing fluid collection along the orbital wall with adjacent sinusitis</strong>（沿眼窩壁、邊緣增強的透鏡狀液體聚積，合併鄰近鼻竇炎）；Air-fluid level in the extraconal space（肌錐外空間氣液面）；Acute ethmoid sinusitis (common in children)（急性篩竇炎，兒童常見）；If proptosis is severe, globe deformity (<strong>"guitar pick" sign</strong>) may be present（突眼嚴重時可能出現眼球變形，即吉他撥片徵）；Displacement of adjacent rectus muscle（鄰近直肌移位）；Osteomyelitis of the orbital wall (very severe cases)（眼窩壁骨髓炎，見於極嚴重病例）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-162">出處（Table 17-2）<span class="ref">p.229</span></p>
 <h3 id="ch17-s7-4">治療與引流適應症</h3>
 <ul>
@@ -711,7 +725,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-221">小而有包膜或界線清楚的腫瘤，可行時應完全切除；通常 <mark class="ex-key"><strong>chemotherapy（化療）與 radiation（放療）合併手術</strong></mark>；<mark class="ex-key"><strong>exenteration（眼窩內容物剜除術）很少有適應症</strong></mark>。BCSC 7 p.95：1965 年以前標準治療為 orbital exenteration、存活率差；1965 年後以放療與全身化療為主要治療，exenteration 保留給復發病例⁠<sup class="ex-qref"><span>Q678</span> <span>Q723</span></sup>。<span class="ref">p.233；BCSC 7 p.95</span></li>
 <li id="np-222">原發性眼窩 rhabdomyosarcoma 預後相對良好：5 年存活率 <mark class="ex-key"><strong>alveolar <span class="num">74%</span></strong>、<strong>embryonal <span class="num">94%</span></strong></mark>。BCSC 7 p.95：alveolar 5 年存活率 <span class="num">65%</span>、embryonal <span class="num">94%</span>⁠<sup class="ex-qref"><span>Q710</span> <span>Q660</span></sup>。<span class="ref">p.233；BCSC 7 p.95</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Type（組織型）</th><th>Frequency（頻率）</th><th>Prognosis（預後）</th><th>Notes（備註）</th></tr></thead>
 <tbody>
 <tr><td id="np-223">Embryonal（胚胎型）</td><td id="np-224">Most common histologic type（最常見組織型）；BCSC 7：&gt; 80% of cases</td><td id="np-225">5-year survival 94%（5 年存活率 <span class="num">94%</span>；BCSC 7 同為 94%，good 良好）</td><td id="np-226">Few cells containing characteristic cross-striations（少數細胞含特徵性橫紋）；BCSC 7：typically superonasal quadrant of the orbit（典型位於眼窩上鼻側象限）</td></tr>
@@ -719,7 +733,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-231">Botryoid（葡萄狀）</td><td id="np-232">Rarely found in the orbit（眼窩罕見）</td><td id="np-233">—</td><td id="np-234">May originate in the conjunctiva（可原發於結膜）；BCSC 7：rare variant of embryonal, not found in the orbit as a primary tumor, occurs only through secondary extension from the paranasal sinuses or the conjunctiva（embryonal 的罕見變異型，不以原發腫瘤見於眼窩，只經鼻竇或結膜續發延伸）</td></tr>
 <tr><td id="np-235">Pleomorphic（多形型）</td><td id="np-236">Well-differentiated, rarely found in the orbit（分化良好，眼窩罕見）；BCSC 7：least common overall（整體最少見）</td><td id="np-237">BCSC 7：best prognosis, 5-year survival 97%（預後最佳，5 年存活率 <span class="num">97%</span>）</td><td id="np-238">May originate in the conjunctiva（可原發於結膜）；BCSC 7：best-differentiated, most frequently affects young adults, cross-striations easily visualized with trichrome stain（分化最好，最常見於年輕成人，trichrome 染色易見橫紋）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-239">出處 <span class="ref">p.233；BCSC 7 p.95</span></p>
 <h3 id="ch17-s10-5">Other sarcomas（其他肉瘤）</h3>
 <ul>
@@ -755,14 +769,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-254">舊稱 histiocytosis X；一群通常在兒童期發生的疾病的總稱，組織球異常增生、常在骨內；分 3 型。<span class="ref">p.234</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（分型）</th><th>Age（年齡）</th><th>Features（特徵）</th><th>Treatment / prognosis（治療與預後）</th></tr></thead>
 <tbody>
 <tr><td id="np-255"><strong>Unifocal eosinophilic granuloma of the bone（單灶性骨嗜酸性肉芽腫）</strong>：the most localized and benign form（最局限、最良性）</td><td id="np-256">Childhood or adolescence（兒童期或青春期）</td><td id="np-257">Bone lesion involving the orbit, skull, ribs, or long bones（侵犯眼窩、顱骨、肋骨或長骨的骨病灶）；signs and symptoms may include proptosis, ptosis, periorbital swelling（可有突眼、ptosis、眼周腫）；<strong>localized pain and tenderness are relatively common（局部疼痛與壓痛相對常見）</strong>；CT characteristically shows <mark>sharply demarcated osteolytic lesions without surrounding sclerosis（界線銳利的溶骨性病灶、周圍無硬化）</mark>（Fig 17-14：15 歲男孩，右後外側眶壁部分破壞）</td><td id="np-258">Observation of isolated asymptomatic lesions, excision or curettage, systemic or intralesional corticosteroid, or low-dose radiation（無症狀單一病灶觀察、切除或刮除、全身或病灶內類固醇、低劑量放療）；<mark>all modalities have a high rate of success（各方式成功率都高）</mark></td></tr>
 <tr><td id="np-259"><strong>Multifocal eosinophilic granuloma of the bone（多灶性骨嗜酸性肉芽腫）</strong>：disseminated and aggressive（擴散、侵襲性）</td><td id="np-260">Usually 2–5 years（通常 <span class="num">2–5 歲</span>）</td><td id="np-261">May produce proptosis from involvement of the bony orbit（可因侵犯骨性眼窩造成突眼）；<strong>pituitary dysfunction is common（腦下垂體功能異常常見）</strong></td><td id="np-262">Chemotherapy is often required, but the prognosis is generally good（常需化療，但預後通常良好）</td></tr>
 <tr><td id="np-263"><strong>Diffuse soft-tissue histiocytosis（瀰漫性軟組織組織球增生症）</strong>：the most severe form（最嚴重型）</td><td id="np-264">Usually infants &lt; 2 years（通常 <span class="num">&lt; 2 歲</span>嬰兒）</td><td id="np-265">Soft-tissue lesions of multiple viscera, liver and spleen（多個內臟如肝、脾的軟組織病灶）；rarely involves the eye（很少侵犯眼睛）</td><td id="np-266">—（原文未列）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-267">出處 <span class="ref">p.234</span></p>
 <div class="ex-trap"><h3 id="ch17-s11-5">易錯陷阱</h3><ul>
 <li id="np-268">眼部轉移最常見部位：兒童為眼窩、成人為葡萄膜。兒童眼窩轉移最常見來源為 neuroblastoma；實體腫瘤中第二常見來源為 Ewing sarcoma⁠<sup class="ex-qref"><span>Q754</span></sup>。<span class="ref">p.233</span></li>

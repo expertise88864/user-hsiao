@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -389,7 +403,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-12"><strong>Hereditary cataract（遺傳性白內障）</strong>：<mark class="ex-key">多數為 autosomal dominant（AD，體染色體顯性），且幾乎都是雙側</mark>；也可能為 X-linked（性聯）或 autosomal recessive（AR，體染色體隱性），AR 在近親婚配族群較常見。OMIM（Online Mendelian Inheritance in Man）有最新基因資訊⁠<sup class="ex-qref"><span>Q562</span> <span>Q1388</span></sup>。<span class="ref">p.310</span></li>
 </ul>
 <h3 id="ch22-s2-2">Etiology of Pediatric Cataracts（小兒白內障病因，Table 22-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Laterality / category（側別/類別）</th><th>Examples（例子）</th></tr></thead>
 <tbody>
 <tr><td id="np-13">Bilateral（雙側）：Familial (hereditary)（家族性／遺傳性）</td><td id="np-14">常為 AD，也有 X-linked、AR</td></tr>
@@ -407,7 +421,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-37">Unilateral（單側）：Radiation exposure（放射線暴露）</td><td id="np-38">—</td></tr>
 <tr><td id="np-39">Unilateral（單側）：Idiopathic origin（特發性）</td><td id="np-40">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-41">出處（Table 22-1）<span class="ref">p.310</span></p>
 <ul>
 <li id="np-42">Table 22-1 中，<mark class="ex-key">單側白內障的病因列為眼部異常（含 PFV）、外傷、放射線暴露、特發性；familial（hereditary）列在雙側欄</mark>。Myotonic dystrophy（肌肉骨骼）、CMV 等子宮內感染、aniridia（眼部異常）都列在雙側欄⁠<sup class="ex-qref"><span>Q562</span> <span>Q683</span></sup>。<span class="ref">p.310</span></li>
@@ -424,7 +438,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-48">白內障可侵犯整個水晶體（<strong>total / complete cataract（全白內障）</strong>）或只侵犯部分；在某些情況下，混濁的位置與型態可提供病因（Table 22-2）與預後的資訊，但年幼不合作的病人初診時可能無法精確分類。<span class="ref">p.310–311</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Cataract morphology（白內障型態）</th><th>Etiology（病因）</th><th>Other possible findings（其他可能表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-49">Spokelike（輪輻狀）</td><td id="np-50">Fabry disease（法布瑞氏症）</td><td id="np-51">Corneal whorls（角膜渦狀混濁）</td></tr>
@@ -436,7 +450,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-67">Green「sunflower」（綠色向日葵）</td><td id="np-68">Wilson disease（威爾森氏症）</td><td id="np-69">Kayser-Fleischer ring；銅代謝異常致 liver failure（肝衰竭）</td></tr>
 <tr><td id="np-70">Thin disciform（薄盤狀）</td><td id="np-71">Lowe syndrome（眼腦腎症候群）</td><td id="np-72">Hypotonia（張力低下）、glaucoma、kidney disease（proximal tubular acidosis（近端腎小管酸中毒）、aminoaciduria（胺基酸尿））</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-73">出處（Table 22-2）<span class="ref">p.311</span></p>
 <ul>
 <li id="np-74">Table 22-2 中 myotonic dystrophy 的白內障型態為 multicolored flecks（多彩小點）；BCSC 11 描述此病病人典型會在水晶體皮質出現 polychromatic iridescent crystals（多彩虹彩結晶），之後出現 posterior subcapsular cataract（PSC，後囊下白內障）並進展為皮質全混濁（本章外）⁠<sup class="ex-qref"><span>Q702</span> <span>Q1291</span></sup>。<span class="ref">p.311；BCSC 11 p.78</span></li>
@@ -480,7 +494,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-96">視力差與紅反射暗淡時，<mark>一定要排除未矯正的高度屈光不正這個原因</mark>。<span class="ref">p.313</span></li>
 </ul>
 <h3 id="ch22-s4-4">Table 22-3 Evaluation of Pediatric Cataracts（評估項目）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Domain（面向）</th><th>Items（項目）</th></tr></thead>
 <tbody>
 <tr><td id="np-97">History（病史）</td><td id="np-98">家族史（AD、X-linked、AR、reduced penetrance（外顯率降低）、variable expressivity（表現度不一）；合併異常可能提示父母為平衡型、孩子為不平衡型的染色體轉位）；生長發育與全身疾病詳細病史；兒科理學檢查，包括評估周產期感染證據（toxoplasmosis、rubella、CMV、herpes simplex virus [TORCH]；varicella；syphilis）；genetic evaluation（遺傳評估）</td></tr>
@@ -488,7 +502,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-101">Ocular imaging（眼部影像）</td><td id="np-102">看不到後段 → B-scan；懷疑周邊病灶（腫瘤）或 PFV 侵犯視網膜 → <strong>ultrasound biomicroscopy（UBM，超音波生物顯微鏡）</strong></td></tr>
 <tr><td id="np-103">Potential laboratory studies（可考慮的檢驗；原因不明的雙側白內障）</td><td id="np-104">半乳糖代謝異常：尿液 reducing substances（還原物質）、galactose-1-phosphate uridyltransferase、galactokinase；代謝疾病：尿液胺基酸（Lowe syndrome）、血清鈣（hypoparathyroidism 低）、磷（hypoparathyroidism 高）、血糖（diabetes 高）、ferritin（hyperferritinemia 高）；基因檢測：next-generation sequencing（次世代定序）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-105">出處（Table 22-3）<span class="ref">p.312</span></p>
 <h3 id="ch22-s4-5">Workup（檢查策略）</h3>
 <ul>
@@ -645,7 +659,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-186">可為家族性或散發；可能與眼部專一基因突變、多系統疾病、先天性代謝異常相關（Table 22-4）。外傷可能造成脫位，通常需重大眼傷，但並不常見。<span class="ref">p.319</span></li>
 <li id="np-187">曾報告<strong>自發性</strong>脫位：homocystinuria、aniridia、先天性青光眼的 buphthalmos（牛眼）、合併懸韌帶無力的 congenital megalocornea（先天性巨角膜，<strong>LTBP2</strong> [latent transforming growth factor beta binding protein 2] 突變）⁠<sup class="ex-qref"><span>Q1278</span></sup>。<span class="ref">p.319</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Systemic conditions（全身性）</th><th>Ocular conditions（眼部）</th></tr></thead>
 <tbody>
 <tr><td id="np-188">Marfan syndrome</td><td id="np-189">Aniridia（無虹膜症）</td></tr>
@@ -655,7 +669,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-196">—</td><td id="np-197">Congenital megalocornea with zonular weakness（合併懸韌帶無力的先天性巨角膜）</td></tr>
 <tr><td id="np-198">—</td><td id="np-199">Glaucomatous buphthalmos with zonular weakness（合併懸韌帶無力的青光眼性牛眼）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-200">出處（Table 22-4）<span class="ref">p.319</span></p>
 <ul>
 <li id="np-201">Myotonic dystrophy 在本章列於 Table 22-1（雙側白內障病因，肌肉骨骼疾病）與 Table 22-2（白內障型態為 multicolored flecks）⁠<sup class="ex-qref"><span>Q702</span> <span>Q1291</span></sup>。<span class="ref">p.310–311</span></li>
@@ -720,7 +734,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-235">Aniridia 的青光眼過去認為是殘存虹膜根部前旋、逐漸覆蓋小樑網造成沾黏性隅角閉鎖；但一項研究顯示未曾眼內手術的 aniridia 病人即使有青光眼也無隅角閉鎖，提示眼內手術（尤其隅角手術）可能誘發隅角閉鎖；偶爾合併先天性青光眼，隅角原發發育不良可能在較小年齡造成眼壓升高⁠<sup class="ex-qref"><span>Q548</span></sup>。<span class="ref ref-ext">BCSC 10 p.199</span></li>
 <li id="np-236">兒童造成隅角閉鎖青光眼最常見的水晶體相關疾病，可能發生在 Marfan、homocystinuria、WMS、microspherophakia 病人⁠<sup class="ex-qref"><span>Q548</span> <span>Q671</span></sup>。<span class="ref ref-ext">BCSC 10 p.202</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Inheritance / gene（遺傳/基因）</th><th>Habitus & systemic（體型與全身）</th><th>Lens（水晶體）</th><th>Key point（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-237">Simple ectopia lentis</td><td id="np-238">最常為 AD</td><td id="np-239">—</td><td id="np-240">上、顳側；通常雙側對稱</td><td id="np-241">晚發型常有青光眼；部分 FBN1 突變者兒童期有 ectopia lentis 但無全身表現，應終生視為 Marfan 疑似</td></tr>
@@ -730,7 +744,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-257">Weill-Marchesani syndrome</td><td id="np-258">AD 或 AR；ADAMTS10</td><td id="np-259">矮、短指、四肢短</td><td id="np-260">Spherophakia，隨時間可能脫入前房</td><td id="np-261">Pupillary block glaucoma → 可能需 lensectomy</td></tr>
 <tr><td id="np-262">Sulfite oxidase deficiency</td><td id="np-263">極罕見遺傳性硫代謝疾病（本章括號並列名稱：molybdenum cofactor deficiency）</td><td id="np-264">嚴重神經異常</td><td id="np-265">Ectopia lentis</td><td id="np-266">尿 sulfite ↑；通常 <span class="num">5 歲</span>前不可逆腦傷與死亡</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-267">出處 <span class="ref">p.320–323</span></p>
 <div class="ex-trap"><h3 id="ch22-s12-6">易錯陷阱</h3><ul>
 <li id="np-268">Marfan：約 75% 往上方、懸韌帶完整（拉長但完整）；homocystinuria：最常往下方、懸韌帶常斷裂、可能脫入前房；本章指出 homocystinuria 的半脫位方向不具診斷性⁠<sup class="ex-qref"><span>Q671</span></sup>。<span class="ref">p.321–322</span></li>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -390,7 +404,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-10">全球糖尿病人口預估 2045 年達 <span class="num">7 億</span>；全球約 <span class="num">1/3</span> 糖尿病患有 DR，其中 <span class="num">1/3</span> 屬 vision-threatening DR（威脅視力的 DR）。<span class="ref">p.101</span></li>
 <li id="np-11">Wisconsin Epidemiologic Study of Diabetic Retinopathy（WESDR）：<mark>Type 1 與 Type 2 糖尿病病程越長，DR 盛行率越高</mark>。<span class="ref">p.101</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>WESDR indicator（指標）</th><th>Type 1（前兩列）／younger-onset（&lt;30 歲診斷；後兩列）</th><th>Type 2（前兩列）／older-onset（≥30 歲診斷；後兩列）</th></tr></thead>
 <tbody>
 <tr><td id="np-12">Any DR at 20 years（病程 20 年任何程度 DR）</td><td id="np-13"><span class="num">近 99%</span></td><td id="np-14"><span class="num">60%</span></td></tr>
@@ -398,7 +412,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-18">VA ≤ 20/200</td><td id="np-19"><span class="num">3.6%</span></td><td id="np-20"><span class="num">1.6%</span></td></tr>
 <tr><td id="np-21">此視力喪失（VA ≤ 20/200）歸因於 DR</td><td id="np-22"><span class="num">86%</span></td><td id="np-23"><span class="num">33%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-24">出處 <span class="ref">p.101</span></p>
 <ul>
 <li id="np-25">WESDR 資料主要來自北歐裔白人，因此不完全適用於其他種族；social determinants of health（健康的社會決定因素）日益被認為促成美國糖尿病發生率上升，以及此病對少數族裔與低收入成人族群的不成比例影響。<span class="ref">p.101</span></li>
@@ -426,14 +440,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch5-s4" data-w="1023">篩檢與追蹤時程</h2>
 <h3 id="ch5-s4-1">首次檢查與常規追蹤（Table 5-1 精簡）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Group（族群）</th><th>First eye exam（首次眼科檢查）</th><th>Minimum follow-up（常規最少追蹤間隔）</th></tr></thead>
 <tbody>
 <tr><td id="np-38">Type 1</td><td id="np-39">診斷後 <span class="num">5 年</span></td><td id="np-40">每年</td></tr>
 <tr><td id="np-41">Type 2</td><td id="np-42">診斷時</td><td id="np-43">每年</td></tr>
 <tr><td id="np-44">Pregnancy（懷孕，Type 1 或 2）</td><td id="np-45">受孕後不久、第一孕期早期</td><td id="np-46">無 DR～mild/moderate NPDR：每 <span class="num">3–12 個月</span>；severe NPDR 以上：每 <span class="num">1–3 個月</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-47">出處 <span class="ref">p.103–104</span></p>
 <ul>
 <li id="np-48">理由：Type 1 診斷後前 <span class="num">5 年</span>，advanced retinopathy（進展期視網膜病變）罕見；Type 2 確診時高血糖可能已存在多年，<mark class="ex-key">診斷時已有 DR 的比例較高</mark>⁠<sup class="ex-qref"><span>Q1465</span> <span>Q1468</span></sup>。<span class="ref">p.103</span></li>
@@ -441,7 +455,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-50">遠距篩檢 + artificial intelligence（AI，人工智慧）：<strong>IDx-DR</strong>、<strong>EyeArt</strong> 目前已獲美國 FDA cleared 用於 DR 篩檢。<span class="ref">p.104</span></li>
 </ul>
 <h3 id="ch5-s4-2">依嚴重度的建議追蹤（Table 5-2 精簡，單位：月）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>DR severity（嚴重度）</th><th>No DME</th><th>Non-CI DME</th><th>CI-DME</th></tr></thead>
 <tbody>
 <tr><td id="np-51">Normal / minimal NPDR</td><td id="np-52"><span class="num">12</span></td><td id="np-53">—</td><td id="np-54">—</td></tr>
@@ -452,7 +466,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-71">High-risk PDR</td><td id="np-72"><span class="num">2–4</span></td><td id="np-73"><span class="num">2–4</span></td><td id="np-74"><span class="num">1</span></td></tr>
 <tr><td id="np-75">Inactive/involuted PDR</td><td id="np-76"><span class="num">6–12</span></td><td id="np-77"><span class="num">3–4</span></td><td id="np-78"><span class="num">1</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-79">出處 <span class="ref">p.105</span></p>
 <ul>
 <li id="np-80">表中各級 CI-DME 的建議追蹤間隔皆為 <span class="num">1 個月</span>，並考慮 anti-VEGF 注射；severe NPDR 考慮 panretinal scatter laser（PRP，全視網膜雷射），尤其 Type 2；non-high-risk 與 high-risk PDR 考慮 PRP 或 anti-VEGF。<span class="ref">p.105</span></li>
@@ -474,7 +488,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-90"><strong>Fenofibrate</strong>（ACCORD、FIELD）：Type 2 病人經 fenofibrate 治療後 DR 進展減緩，很可能與其降血脂作用無關⁠<sup class="ex-qref"><span>Q75</span></sup>。<span class="ref">p.111</span></li>
 <li id="np-91">嚴重頸動脈阻塞性疾病可能導致 advanced PDR，作為 ocular ischemic syndrome（眼缺血症候群）的一部分；晚期 diabetic nephropathy（糖尿病腎病變）與 <strong>anemia（貧血）</strong>可能加重 DR。<span class="ref">p.108</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Trial（試驗）</th><th>Population（族群）</th><th>Design（設計）</th><th>Key result（重點結果）</th></tr></thead>
 <tbody>
 <tr><td id="np-92">DCCT</td><td id="np-93">Type 1；primary prevention <span class="num">726</span> 人（病程 1–5 年、無 DR）；secondary intervention <span class="num">715</span> 人（1–15 年、mild–moderate DR）</td><td id="np-94">強化（每日多次注射/胰島素幫浦）vs 傳統</td><td id="np-95">Primary prevention：DR 發生風險 <span class="num">↓76%</span>；secondary：DR 進展 <span class="num">↓54%</span>；兩 cohort 合計：clinical neuropathy <span class="num">↓60%</span>、albuminuria（nephropathy）<span class="num">↓54%</span></td></tr>
@@ -482,7 +496,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-100">UKPDS（blood pressure）</td><td id="np-101">高血壓合併新診斷 Type 2，<span class="num">1148</span> 人</td><td id="np-102">嚴格（ACE inhibitor 或 β-blocker）vs 較寬鬆</td><td id="np-103">減緩 DR 進展、降低其他微/大血管併發症；ACEi 與 β-blocker 的 DR 結果無臨床或統計上顯著差異</td></tr>
 <tr><td id="np-104">ACCORD/ACCORDION</td><td id="np-105">Type 2</td><td id="np-106">HbA1c 進一步降到 <span class="num">&lt; 6.0%</span></td><td id="np-107">DR 進展較慢，但與較高死亡率相關</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-108">出處（DCCT、UKPDS 見 Table 5-3；ACCORD 見內文）<span class="ref">p.105–106</span></p>
 <div class="hs-warn-box">
 <p id="np-109"><strong>DR 病人的視力喪失常與以下異常相關</strong>：(1) capillary leakage（微血管滲漏）→ DME；(2) capillary occlusion（微血管阻塞）→ macular ischemia（黃斑部缺血）；(3) retinal ischemia 後遺症 → retinal neovascularization、VH、TRD、neovascular glaucoma（NVG，新生血管性青光眼）⁠<sup class="ex-qref"><span>Q1469</span> <span>Q1204</span></sup>。<span class="ref">p.108</span></p>
@@ -503,7 +517,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-117"><strong><span class="num">4-2-1 rule</span></strong>（主要根據 ETDRS Report 9）：<span class="num">4</span> 象限皆有嚴重視網膜內出血（通常估計 <span class="num">&gt; 20</span> 處）及 MA／<span class="num">≥ 2</span> 象限明確 venous beading／<mark class="ex-key"><span class="num">≥ 1</span> 象限 moderate IRMA</mark>，任一即 severe NPDR⁠<sup class="ex-qref"><span>Q1464</span> <span>Q1467</span></sup>。<span class="ref">p.108–109</span></li>
 <li id="np-118">ETDRS 中 severe NPDR → high-risk PDR：1 年 <span class="num">15%</span>、3 年 <span class="num">60%</span>；very severe（上述 ≥2 項）1 年 <span class="num">45%</span>。<span class="ref">p.109</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（分級）</th><th>Defining features（判斷重點）</th><th>Risk / next step（風險與處置）</th></tr></thead>
 <tbody>
 <tr><td id="np-119">Mild–moderate NPDR</td><td id="np-120">MA、出血、cotton-wool spot 等，依 ETDRS 標準照分級，未達 4-2-1</td><td id="np-121">系統控制；無 DME 時 mild 每 <span class="num">12</span> 個月、moderate 每 <span class="num">6–12</span> 個月追蹤</td></tr>
@@ -512,7 +526,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-128">Early PDR</td><td id="np-129">有 NVD/NVE，但未達 high-risk 條件</td><td id="np-130">PDR 任何階段皆可治療；未達 high-risk 者可暫緩治療</td></tr>
 <tr><td id="np-131">High-risk PDR</td><td id="np-132">任何大小 NVD + 玻璃體或視網膜前出血；NVD <span class="num">≥ 1/4 DA</span>（不論有無出血）；NVE <span class="num">≥ 1/2 DA</span> + 玻璃體或視網膜前出血</td><td id="np-133">治療通常視為必要（考慮 PRP 或 anti-VEGF）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-134">出處 <span class="ref">p.101, p.105, p.109, p.111, p.114</span></p>
 <h3 id="ch5-s6-2">影像</h3>
 <ul>
@@ -633,14 +647,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-198">CSME 為 OCT 以前的臨床診斷；anti-VEGF 取代 macular laser 成為第一線後，其重要性下降。<span class="ref">p.122</span></li>
 <li id="np-199">Focal（MA 等局部滲漏）vs diffuse（廣泛滲漏、常呈 cystoid macular edema（CME，囊樣黃斑部水腫））：研究顯示治療反應<strong>無差異</strong>。<span class="ref">p.123</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（分類）</th><th>Definition（定義）</th><th>Tool（工具）</th><th>Clinical use（臨床意義）</th></tr></thead>
 <tbody>
 <tr><td id="np-200">CI-DME</td><td id="np-201">中央 <span class="num">1-mm</span> subfield 增厚</td><td id="np-202">OCT</td><td id="np-203">大多數 CI-DME 合併 VA <span class="num">≤ 20/32</span> → anti-VEGF 第一線</td></tr>
 <tr><td id="np-204">Non-CI DME</td><td id="np-205">增厚只在中央 subfield 以外</td><td id="np-206">OCT</td><td id="np-207">除非進展至中央，否則不太可能影響視力；術前存在為白內障術後 CI-DME 危險因子</td></tr>
 <tr><td id="np-208">CSME</td><td id="np-209">ETDRS 所列特徵：<span class="num">500 μm</span> 內增厚；500 μm 內 hard exudate 合併鄰近增厚；<span class="num">&gt; 1 DA</span> 增厚區位於 <span class="num">1 DD</span> 內</td><td id="np-210">臨床檢查（ETDRS）</td><td id="np-211">ETDRS 的 focal laser 適應症；現重要性下降</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-212">出處 <span class="ref">p.101, p.121–122, p.124, p.126, p.128</span></p>
 <h3 id="ch5-s9-3">治療決策</h3>
 <ul>
@@ -708,7 +722,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch5-s11" data-w="2523">重要試驗總整理</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Trial（試驗）</th><th>Question（問題）</th><th>Bottom line（一句話結論）</th><th>Page</th></tr></thead>
 <tbody>
 <tr><td id="np-254">DRS</td><td id="np-255">PDR / 雙眼 severe NPDR（每眼 VA ≥ 20/100），<span class="num">1742</span> 人</td><td id="np-256">光凝固（argon 或 xenon arc）使 5 年 SVL <span class="num">↓ ≥ 50%</span>，high-risk PDR 獲益最大</td><td id="np-257"><span class="ref">p.107</span></td></tr>
@@ -728,7 +742,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-310">Protocol AB</td><td id="np-311">Vitrectomy vs aflibercept（VH）</td><td id="np-312">視力相近，vitrectomy 早期恢復較快</td><td id="np-313"><span class="ref">p.113</span></td></tr>
 <tr><td id="np-314">Protocol AC</td><td id="np-315">Aflibercept vs bevacizumab-first</td><td id="np-316">2 年視力無顯著差異</td><td id="np-317"><span class="ref">p.113</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="ex-trap"><h3 id="ch5-s11-1">易錯陷阱</h3><ul>
 <li id="np-318">解剖改善但未見相應視力獲益的試驗：Protocol W 與 PANORAMA（2 年無視力獲益）、Protocol U（6 個月視力無額外進步）、Protocol D（6 個月 median VA 不變）。<span class="ref">p.111, p.126, p.128</span></li>
 <li id="np-319">DRS 族群：PDR 或雙眼 severe NPDR（每眼 VA ≥ 20/100）；ETDRS 族群：mild NPDR～early PDR（每眼 VA ≥ 20/200），並將病人隨機分派 aspirin 650 mg/d 或 placebo。<span class="ref">p.107</span></li>

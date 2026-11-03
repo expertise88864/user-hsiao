@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -400,7 +414,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-19"><span class="num">2021</span> 年 SUN 另建立 <span class="num">25</span> 種特定葡萄膜炎的分類標準（於 Section 9 其他章討論）。<span class="ref">p.69</span></li>
 </ul>
 <h3 id="ch5-s2-2">Table 5-1 解剖分類</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Type（類型）</th><th>Primary site of inflammation（主要發炎部位）</th><th>Includes（包含）</th></tr></thead>
 <tbody>
 <tr><td id="np-20">Anterior uveitis</td><td id="np-21">Anterior chamber（前房）</td><td id="np-22">Iritis、iridocyclitis、anterior cyclitis</td></tr>
@@ -408,10 +422,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-26">Posterior uveitis</td><td id="np-27">Retina or choroid（視網膜或脈絡膜）</td><td id="np-28">Focal、multifocal 或 diffuse choroiditis；chorioretinitis；retinochoroiditis；retinitis；neuroretinitis</td></tr>
 <tr><td id="np-29">Panuveitis</td><td id="np-30">Anterior chamber、vitreous 及 retina 或 choroid</td><td id="np-31">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-32">出處（Table 5-1）<span class="ref">p.69</span></p>
 <h3 id="ch5-s2-3">Table 5-2 描述詞（onset、duration、course）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Category（類別）</th><th>Descriptor（描述詞）</th><th>Comment（說明）</th></tr></thead>
 <tbody>
 <tr><td id="np-33">Onset</td><td id="np-34">Sudden（突發）/ Insidious（隱伏）</td><td id="np-35">—</td></tr>
@@ -421,10 +435,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-45">Course</td><td id="np-46"><strong>Recurrent（復發性）</strong></td><td id="np-47">反覆發作，發作之間有<strong>未治療</strong>下的不活動期 <span class="num">≥3 個月</span></td></tr>
 <tr><td id="np-48">Course</td><td id="np-49"><strong>Chronic（慢性）</strong></td><td id="np-50">Persistent uveitis，<strong>停止治療後 <span class="num">&lt;3 個月</span>即復發</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-51">出處（Table 5-2）<span class="ref">p.70</span></p>
 <h3 id="ch5-s2-4">Table 5-3 活性用語</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Term（用語）</th><th>Definition（定義）</th></tr></thead>
 <tbody>
 <tr><td id="np-52">Inactive</td><td id="np-53">前房細胞 grade <span class="num">0</span></td></tr>
@@ -432,7 +446,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-56">Improved activity</td><td id="np-57">發炎程度<strong>下降兩級</strong>，或降到 grade <span class="num">0</span></td></tr>
 <tr><td id="np-58">Remission</td><td id="np-59"><strong>停止所有眼部治療後</strong>仍不活動 <span class="num">≥3 個月</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-60">出處（Table 5-3）<span class="ref">p.70</span></p>
 <ul>
 <li id="np-61"><mark class="ex-key">Remission＝停止所有眼部治療後不活動 <span class="num">≥3 個月</span></mark>；Inactive＝前房細胞 grade 0⁠<sup class="ex-qref"><span>Q997</span> <span>Q1008</span></sup>。<span class="ref">p.70</span></li>
@@ -471,7 +485,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-78"><mark class="ex-key">Peripheral vascular sheathing（周邊血管鞘化）可見於 intermediate uveitis，但<strong>不足以</strong>歸為 posterior uveitis/panuveitis</mark>；retinal vasculitis 也不被視為任何一型葡萄膜炎解剖分類的定義條件⁠<sup class="ex-qref"><span>Q1035</span> <span>Q1043</span></sup>。<span class="ref">p.71–72</span></li>
 </ul>
 <h3 id="ch5-s3-5">Table 5-4 Diseases with retinal vasculitis（伴視網膜血管炎的疾病）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Primarily arteritis（以動脈炎為主）</th><th>Primarily phlebitis（以靜脈炎為主）</th><th>Arteritis and phlebitis（動靜脈皆有）</th></tr></thead>
 <tbody>
 <tr><td id="np-79">Systemic lupus erythematosus（SLE，全身性紅斑性狼瘡）</td><td id="np-80">Sarcoidosis（類肉瘤病）</td><td id="np-81">Ocular toxoplasmosis（眼弓蟲症）</td></tr>
@@ -483,7 +497,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-97">Churg-Strauss syndrome</td><td id="np-98">—</td><td id="np-99">—</td></tr>
 <tr><td id="np-100"><strong>Susac syndrome（蘇薩克症候群）</strong></td><td id="np-101">—</td><td id="np-102">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-103">出處（Table 5-4，已對照原頁圖片確認欄位；原表三欄各自列舉，橫列之間無對應關係）<span class="ref">p.72</span></p>
 <ul>
 <li id="np-104">Table 5-4 將 <mark class="ex-key">Susac syndrome 列於 primarily arteritis</mark>。本章外：Susac syndrome 為免疫介導的 occlusive microvascular endotheliopathy（阻塞性微血管內皮病變），臨床三聯徵為 encephalopathy、低至中頻感音性聽損及/或耳鳴、<strong>branch retinal artery occlusions（視網膜分支動脈阻塞）</strong>；多數病人發病時並未呈現完整三聯徵⁠<sup class="ex-qref"><span>Q1087</span></sup>。<span class="ref">p.72；BCSC 9 p.206–207</span></li>
@@ -501,14 +515,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-110">SUN 系統可描述 onset、duration、course（Table 5-2）；發炎嚴重度也可能影響分類與預後；發炎可發生於單眼或雙眼，或在兩眼間交替；病灶（特別是 chorioretinal lesions 與 keratic precipitates）的臨床外觀、大小、分布也用於描述葡萄膜炎。<span class="ref">p.72</span></li>
 <li id="np-111">臨床上可描述為 <strong>granulomatous（肉芽腫性）</strong>或 <strong>nongranulomatous（非肉芽腫性）</strong>，但<mark>臨床描述不一定與組織學表現相符</mark>，且可能受疾病分期、就診時抗原量、治療階段（如開始類固醇後）影響；葡萄膜炎也可能以肉芽腫性表現開始，隨慢性化或治療最終看似非肉芽腫性。<span class="ref">p.72</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（類型）</th><th>Histology（組織學）</th><th>Clinical signs（臨床表現）</th><th>Examples（代表疾病）</th></tr></thead>
 <tbody>
 <tr><td id="np-112">Granulomatous</td><td id="np-113">Epithelioid cells（上皮樣細胞）與 giant cells（巨細胞）</td><td id="np-114">可包括大型、偏下方、成團的 KPs，或虹膜、玻璃體、視神經及/或脈絡膜的結節或乳脂狀沉積</td><td id="np-115">Discrete histologic granulomas：sarcoidosis、tuberculosis 的特徵；diffuse clinical granulomatous inflammation：VKH、sympathetic ophthalmia（交感性眼炎）；zonal histologic granulomatous disease：可見於 lens-induced uveitis</td></tr>
 <tr><td id="np-116">Nongranulomatous</td><td id="np-117">通常為 lymphocyte 與 plasma cell 浸潤</td><td id="np-118">較小、瀰漫分布的 KPs；無葡萄膜沉積物</td><td id="np-119">本章外：seronegative spondyloarthritis 與急性非肉芽腫性前葡萄膜炎及 HLA-B27 強烈相關</td></tr>
 <tr><td id="np-120">Viral anterior uveitis</td><td id="np-121">—</td><td id="np-122">可呈肉芽腫性或非肉芽腫性表現</td><td id="np-123">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-124">出處<span class="ref">p.72；BCSC 9 p.140</span></p>
 <ul>
 <li id="np-125">大型、偏黃的 mutton-fat KPs 通常與肉芽腫性發炎相關（p.78）。本章外（KPs 與眼壓）：herpetic anterior uveitis—HSV、VZV 造成的 KPs 可為肉芽腫性或非肉芽腫性，trabeculitis 可造成很高的 IOP（<span class="num">50–60</span> mm Hg）；acquired ocular toxoplasmosis—常見輕至中度肉芽腫性前葡萄膜炎，最多 <span class="num">20%</span> 就診時 IOP 急性升高；ARN—panuveitis 以明顯前段發炎、KPs、後粘連與 IOP 升高開始；急性前葡萄膜炎—非肉芽腫性者臨床上可見細小 KPs 灑布於角膜內皮，IOP 常因睫狀體發炎而偏低，HLA-B27 相關者的特徵為就診時高度發炎、hypopyon、fibrin、後粘連⁠<sup class="ex-qref"><span>Q972</span></sup>。<span class="ref">p.78；BCSC 9 p.138, p.257, p.259, p.286</span></li>
@@ -526,12 +540,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-131"><strong>單純中間葡萄膜炎</strong>：白而安靜的眼睛，飛蚊（玻璃體細胞與碎屑投影於視網膜）與視力模糊（macular edema 或視軸上的玻璃體混濁）。<span class="ref">p.73</span></li>
 <li id="np-132"><strong>後葡萄膜炎</strong>：就診症狀包括<mark>無痛</mark>視力模糊、飛蚊、photopsia（閃光感）、scotoma（暗點）、metamorphopsia（視物變形）、nyctalopia（夜盲）或其組合；視力模糊主要因 retinitis 及/或 choroiditis 直接影響黃斑功能，或續發於 macular edema 等發炎併發症。<span class="ref">p.73</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Acute anterior segment inflammation（急性前段發炎）</th><th>Posterior segment inflammation（後段發炎）</th></tr></thead>
 <tbody>
 <tr><td id="np-133">Redness、pain、photophobia、epiphora（流淚）、blurred vision</td><td id="np-134">Floaters、photopsias、scotomas（中央或周邊）、metamorphopsia、nyctalopia、blurred vision</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-135">出處（Table 5-5；視力模糊可能來自屈光改變、發炎細胞遮擋、白內障、鈣化帶狀角膜病變、黃斑水腫、retinochoroiditis，或角膜、黃斑、視盤水腫；部分類型的葡萄膜炎可能無症狀）<span class="ref">p.73</span></p>
 
 <h2 id="ch5-s6" data-w="3799">六、Signs of uveitis（徵候）：前段</h2>
@@ -553,7 +567,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-143">Grade <span class="num">0.5+</span> 要求前房 <span class="num">4</span> 個象限每個高倍視野至少 <span class="num">1</span> 顆細胞。<span class="ref">p.77</span></li>
 <li id="np-144">Flare 依前房內裂隙光束的可見程度定義；SUN 採用 Hogan 等人的 flare 分級法。健康眼無 flare 時前房光學上是空的、光束呈中斷狀；嚴重發炎時房水蛋白質散射光線、光束連續（4+ flare）。<span class="ref">p.75, p.77</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Grade（分級）</th><th>Cells（1 × 1-mm 高強度光束細胞數）</th><th>Flare（閃輝）</th></tr></thead>
 <tbody>
 <tr><td id="np-145">0</td><td id="np-146"><span class="num">&lt;1</span></td><td id="np-147">None</td></tr>
@@ -563,7 +577,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-157">3+</td><td id="np-158"><span class="num">26–50</span></td><td id="np-159">Marked（虹膜細節模糊）</td></tr>
 <tr><td id="np-160">4+</td><td id="np-161"><span class="num">&gt;50</span></td><td id="np-162">Intense（fibrin 或 plasmoid aqueous）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-163">出處（Table 5-7）<span class="ref">p.77</span></p>
 <ul>
 <li id="np-164"><mark class="ex-key">SUN 前房細胞</mark>：0.5+＝<span class="num">1–5</span>、<strong>1+＝<span class="num">6–15</span></strong>、2+＝<span class="num">16–25</span>（Table 5-7）；MUST 試驗使用的玻璃體細胞 1+＝<span class="num">6–10</span>（Table 5-8）⁠<sup class="ex-qref"><span>Q1088</span></sup>。<span class="ref">p.77, p.79</span></li>
@@ -610,7 +624,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-186"><mark class="ex-key"><strong>Vitreous haze 可能比單純細胞計數更能反映疾病活性</strong></mark>；以 indirect ophthalmoscope 加 <span class="num">20 D</span> 鏡看後段的清晰度分級；SUN 採用 National Institutes of Health（NIH）以標準眼底照片定義的分級，<span class="num">0–4</span> 級⁠<sup class="ex-qref"><span>Q1035</span></sup>。<span class="ref">p.78</span></li>
 <li id="np-187">Vitreous haze 曾被用作葡萄膜炎臨床試驗的收案條件，haze <strong>改善 <span class="num">2</span> 級</strong>曾被用作主要療效指標。<span class="ref">p.80</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Grade（分級）</th><th>Vitreous cells（1 × 0.5-mm 高強度光束，retrolental space 細胞數）</th><th>Vitreous haze（玻璃體混濁）</th></tr></thead>
 <tbody>
 <tr><td id="np-188">0</td><td id="np-189"><span class="num">0</span></td><td id="np-190">Clear view of fundus（眼底清楚）</td></tr>
@@ -620,7 +634,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-200">3+</td><td id="np-201"><span class="num">21–50</span></td><td id="np-202">Marked（視神經細節模糊）</td></tr>
 <tr><td id="np-203">4+</td><td id="np-204"><span class="num">&gt;50</span></td><td id="np-205">Intense（視神經細節極少或看不到）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-206">出處（Table 5-8，MUST 試驗用）<span class="ref">p.78–79</span></p>
 <ul>
 <li id="np-207">NIH vitreous haze 標準照（Fig 5-7）：Grade 0 清楚；trace（0.5+）；Grade 1 少量混濁、視神經與視網膜血管輕度模糊；Grade 2 視神經與視網膜血管明顯模糊但仍可見；Grade 3 視神經可見但邊界模糊、看不到視網膜血管；Grade 4 濃密混濁遮蔽視神經盤。<span class="ref">p.79</span></li>
@@ -654,7 +668,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-222">許多病人沒有典型徵候與症狀，或臨床表現隨時間與治療改變 → 仍應依解剖位置及相關因素（急性 vs 慢性、單眼 vs 雙眼、成人 vs 兒童）分類以縮小範圍（Table 5-10）。<span class="ref">p.81</span></li>
 </ul>
 <h3 id="ch5-s8-3">Table 5-10 Simplified scheme for patient evaluation（簡化評估流程）：前葡萄膜炎</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Type of inflammation（發炎型態）</th><th>Possible associated factors（可能相關因素）</th><th>Suspected disease（疑似疾病）</th><th>Ancillary tests and consultations（輔助檢查與會診）</th></tr></thead>
 <tbody>
 <tr><td id="np-223" rowspan="5">Acute/sudden onset, severe, with or without fibrin membrane or hypopyon（急性/突發、嚴重，有或無 fibrin 膜或 hypopyon）</td><td id="np-224">關節炎、背痛、腸胃/泌尿生殖症狀</td><td id="np-225">Seronegative spondyloarthritis（血清陰性脊椎關節病變：僵直性脊椎炎、反應性關節炎、發炎性腸病、乾癬性關節炎）</td><td id="np-226"><strong>HLA-B27</strong>、薦髂關節 X 光；風濕科、腸胃科轉介</td></tr>
@@ -672,10 +686,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-262">術後</td><td id="np-263">Low-grade endophthalmitis（如 C acnes）、IOL 相關</td><td id="np-264">考慮 vitrectomy、capsulectomy 並培養</td></tr>
 <tr><td id="np-265">無</td><td id="np-266">Undifferentiated</td><td id="np-267">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-268">出處（Table 5-10，前葡萄膜炎部分，已對照原頁圖片）<span class="ref">p.82–83</span></p>
 <h3 id="ch5-s8-4">Table 5-10（中間、後、全葡萄膜炎）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Type of inflammation（發炎型態）</th><th>Possible associated factors（可能相關因素）</th><th>Suspected disease（疑似疾病）</th><th>Ancillary tests and consultations（輔助檢查與會診）</th></tr></thead>
 <tbody>
 <tr><td id="np-269" rowspan="5">Intermediate uveitis：mild to moderate（輕至中度）</td><td id="np-270">呼吸短促、皮膚表現、肉芽腫性發炎</td><td id="np-271">Sarcoidosis</td><td id="np-272">ACE、lysozyme；<strong>CXR/chest CT</strong>；biopsy</td></tr>
@@ -711,7 +725,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-368">慢性鼻竇炎伴血性鼻涕、呼吸困難、腎功能不全、紫斑</td><td id="np-369">GPA</td><td id="np-370"><strong>c-ANCA（anti–proteinase 3）</strong>；風濕科轉介</td></tr>
 <tr><td id="np-371">Panuveitis</td><td id="np-372" colspan="3">見表中前述疾病：sarcoidosis、VKH、sympathetic ophthalmia、Behcet disease、syphilis、toxoplasmosis、endophthalmitis、toxocariasis、cysticercosis</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-373">出處（Table 5-10，中間、後、全葡萄膜炎部分，已對照原頁圖片）<span class="ref">p.83–85</span></p>
 <ul>
 <li id="np-374"><mark class="ex-key">表註：<strong>syphilis 可表現為任何型態的葡萄膜炎，應在所有病人考慮</strong></mark>⁠<sup class="ex-qref"><span>Q1034</span></sup>。<span class="ref">p.85</span></li>
@@ -747,7 +761,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-394"><strong>ANA</strong>：Table 5-11 的適應症為 connective tissue disease 與 JIA。本章外：近期分析顯示在眼內發炎情境下 ANA 的 positive predictive value（陽性預測值）低（<span class="num">4.4%</span>），因此 ANA 檢測應限於有提示 SLE 之徵候或症狀者，或 JIA 病人（可協助判斷發生葡萄膜炎的風險）；葡萄膜炎只在少數情況下與 SLE 相關⁠<sup class="ex-qref"><span>Q1048</span> <span>Q1030</span></sup>。<span class="ref">p.87；BCSC 9 p.200</span></li>
 </ul>
 <h3 id="ch5-s9-3">Table 5-11 實驗室與影像檢查（精簡）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Test（檢查）</th><th>Indications and/or potential diagnoses（適應症／可能診斷）</th></tr></thead>
 <tbody>
 <tr><td id="np-395">CBC with differential</td><td id="np-396">IMT 及部分抗生素/抗病毒藥的基線與監測；leukemia、lymphoma、免疫狀態（如 neutropenia）</td></tr>
@@ -780,7 +794,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-449">Skin、conjunctival、lacrimal biopsy</td><td id="np-450">Sarcoidosis、感染、lymphoma、amyloidosis</td></tr>
 <tr><td id="np-451">Stool（糞便病原檢查）</td><td id="np-452">寄生蟲病；病毒、細菌、真菌</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-453">出處（Table 5-11，已對照原頁圖片）<span class="ref">p.87–88</span></p>
 <ul>
 <li id="np-454"><mark class="ex-key"><strong>HLA-B51</strong> 與 Behcet disease 強烈相關，但<strong>不是診斷標準之一</strong></mark>；Table 5-11 註明 HLA-B51 很少檢驗、價值有限，Behcet disease 診斷不需要。本章外：此關聯並非在所有族群都能重現，檢測缺乏常規診斷所需的敏感度與特異度；International Study Group 標準為<strong>反覆口腔 aphthous 潰瘍（每年至少 <span class="num">3</span> 次）</strong>加上以下其中 <span class="num">2</span> 項：反覆生殖器潰瘍、眼部發炎、皮膚病灶、cutaneous pathergy test（皮膚針刺反應）陽性⁠<sup class="ex-qref"><span>Q1726</span></sup>。<span class="ref">p.87；BCSC 9 p.227</span></li>

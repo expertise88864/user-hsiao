@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -380,7 +394,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-6">Acute zonal occult outer retinopathy（AZOOR）、acute macular neuroretinopathy（AMN）、acute idiopathic maculopathy（AIM）因推測為發炎性、且常有共同的視力下降、scotomata（暗點）、photopsias（閃光感）症狀，本章一併歸在白點症候群討論。<span class="ref">p.250</span></li>
 </ul>
 <h3 id="ch11-s1-3">Table 11-1 白點症候群比較</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Disease（疾病）</th><th>Laterality（側別）</th><th>Age（年齡）</th><th>Sex（性別）</th><th>Notable findings（重點表現）</th><th>Course / Treatment（病程／治療）</th></tr></thead>
 <tbody>
 <tr><td id="np-7">APMPPE</td><td id="np-8">Bilateral（雙側）</td><td id="np-9">Early adulthood to middle age（成年早期至中年）</td><td id="np-10">M = F</td><td id="np-11">FA early blockage（早期低螢光）、late staining（晚期高螢光）；cerebral vasculitis in rare cases（罕見腦血管炎）；no vitritis（無玻璃體炎）</td><td id="np-12">Spontaneous resolution（自行緩解）、視力預後佳、recurrences rare（復發罕見）／No proven treatment（無證實療法）；必要時評估 cerebral vasculitis，有則需全身類固醇</td></tr>
@@ -390,7 +404,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-31">MFC</td><td id="np-32">Bilateral（雙側）</td><td id="np-33">Young（年輕）</td><td id="np-34">F &gt; M</td><td id="np-35">病灶演變成 burnt-out 或 punched-out（打孔狀）疤痕；vitritis 通常極少或無，但部分病例可有中度 vitritis</td><td id="np-36">中央黃斑直接受侵或 CNV 致中心視力喪失；chronic, progressive／standard autoimmune disease treatment</td></tr>
 <tr><td id="np-37">PIC</td><td id="np-38">Bilateral（雙側）</td><td id="np-39">Young（年輕）</td><td id="np-40">F &gt; M</td><td id="np-41">MFC 亞型，以<mark>無 vitritis</mark>及較小（<span class="num">100–300 μm</span>）、圓形、黃色、通常侷限於 posterior pole（後極部）的病灶區分</td><td id="np-42">CNV 致中心視力喪失；self-limited（自限）或 chronic, progressive／standard autoimmune disease treatment</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-43">出處（Table 11-1）<span class="ref">p.251</span></p>
 <ul>
 <li id="np-44">依 Table 11-1，<mark class="ex-key">Laterality 欄只有 MEWDS 為 Unilateral，其餘（APMPPE、serpiginous、birdshot、MFC、PIC）皆為 Bilateral</mark>；Age 欄 birdshot 為 late middle age，APMPPE 為 early adulthood to middle age，serpiginous 與 MEWDS 為 young to middle age，MFC 與 PIC 為 young⁠<sup class="ex-qref"><span>Q1563</span></sup>。<span class="ref">p.251</span></li>
@@ -545,7 +559,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-136">FA 典型為 RPE 層漸進不規則高螢光，晚期積聚於剝離腔；high-resolution OCT 顯示剝離範圍與外層高反射帶流失。<span class="ref">p.260</span></li>
 <li id="np-137">病灶自行消退但留下 <strong>bull's-eye（牛眼狀）</strong>RPE 變化；典型在數週至數月內視力幾乎完全恢復。<span class="ref">p.260</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>族群</th><th>關鍵症狀</th><th>關鍵影像</th></tr></thead>
 <tbody>
 <tr><td id="np-138">AZOOR</td><td id="np-139">典型為年輕近視女性；急性單側起病，<span class="num">3/4</span> 進展為雙側</td><td id="np-140">Photopsia、nasal visual field loss（鼻側視野缺損）、有時盲點擴大；視力罕見受影響</td><td id="np-141">初診眼底可正常；multifocal ERG 在視野缺損區下降；Fig 11-7 病例 FAF 呈 trizonal pattern</td></tr>
@@ -554,7 +568,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-150">AIM</td><td id="np-151">典型為較年輕者類流感後；M = F</td><td id="np-152">突然、嚴重的中心或旁中心視力喪失</td><td id="np-153">Exudative neurosensory macular detachment；消退後留 bull's-eye RPE 變化</td></tr>
 <tr><td id="np-154">MEWDS</td><td id="np-155">典型為年輕至中年，F &gt; M；症狀傾向單側</td><td id="np-156">視力下降、scotomata、有時 photopsias；enlarged blind spot 常見</td><td id="np-157">外層網膜多發白點，部分病人 foveal granularity；FA 點狀高螢光、典型 wreathlike</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-158">出處 <span class="ref">p.254–260</span></p>
 <div class="ex-trap"><h3 id="ch11-s7-4">易錯陷阱</h3><ul>
 <li id="np-159">AZOOR：典型為年輕近視女性、急性單側起病，初診眼底可正常，multifocal ERG 在視野缺損區反應下降，Fig 11-7 OCT 為受侵區外層網膜萎縮；MEWDS 有外層網膜多發白點，部分病人有 foveal granularity；AMN 為旁中心暗點。BCSC 5 補充（本章外）：急性 enlarged blind-spot 疾病常見於年輕女性，常被誤診為 optic neuritis；多數 optic neuritis 有疼痛，big blind-spot spectrum disorders 則一律無痛；明顯 photopsias 合併視野檢查 enlarged blind spot 時應懷疑 big blind-spot spectrum disorder，並考慮 macular OCT、FA、mfERG 以證實診斷⁠<sup class="ex-qref"><span>Q1434</span></sup>。<span class="ref">p.254, p.257–258；BCSC 5 p.115–116</span></li>
@@ -574,13 +588,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-168">治療：前瞻性試驗顯示 <strong>azathioprine</strong> 與 <strong>cyclosporine</strong> 可減少眼部表現；tumor necrosis factor α（TNF-α）inhibitors 等 biologics 及 interferon 也相當有效⁠<sup class="ex-qref"><span>Q1058</span></sup>。<span class="ref">p.261</span></li>
 <li id="np-169">BCSC 9 補充（本章外）：Behcet 的 uveitis 多為雙側、nongranulomatous（非肉芽腫性）；眼部 Behcet <mark class="ex-key">最常見為 posterior uveitis 與 panuveitis（<span class="num">50%–80%</span>）</mark>，少數病例前葡萄膜炎為唯一眼部表現；特徵為同時侵犯動脈與靜脈的 occlusive retinal vasculitis，視網膜缺血可誘發視網膜與虹膜新生血管；與 hypopyon（前房積膿）相關但不常見，典型描述為突發、可隨頭位移動，眼睛可相對安靜；反覆前葡萄膜炎可導致 posterior synechiae、iris bombe 與隅角閉鎖性青光眼；威脅視力時應避免類固醇單一療法（減量時嚴重反彈風險），後段侵犯是立即開始全身 IMT 的絕對適應症⁠<sup class="ex-qref"><span>Q1725</span> <span>Q1058</span></sup>。<span class="ref ref-ext">BCSC 9 p.225–227</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 11-2 International Clinical Criteria for Diagnosis of Behcet Disease（Behcet 診斷臨床標準）</th></tr></thead>
 <tbody>
 <tr><td id="np-170">Recurrent oral ulceration（反覆口腔潰瘍，aphthous 或 herpetiform）<span class="num">1 年內至少 3 次</span>，另加下列 <span class="num">2</span> 項：</td></tr>
 <tr><td id="np-171">① recurring genital ulcerations（反覆生殖器潰瘍）② ocular inflammation（眼部發炎）③ skin lesions（erythema nodosum、pseudofolliculitis、papulopustular lesions、acneiform nodules）④ positive pathergy test（針刺反應陽性）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-172">出處（Table 11-2，改編自 International Study Group for Behcet's Disease 1990）<span class="ref">p.261</span></p>
 <h3 id="ch11-s8-2">Lupus vasculitis（狼瘡血管炎）</h3>
 <ul>
@@ -607,14 +621,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-186"><mark class="ex-key">只應在雙眼都沒有穿透性眼外傷或眼內手術史的病人診斷 VKH</mark>（以助與 sympathetic ophthalmia 區分）⁠<sup class="ex-qref"><span>Q1112</span></sup>。<span class="ref">p.263</span></li>
 <li id="np-187">分類：<strong>probable</strong>＝有特徵性眼部發炎、無皮膚或神經表現；<strong>incomplete</strong>＝有皮膚或神經表現其一（非兩者）；<strong>complete</strong>＝皮膚與神經表現兩者皆出現⁠<sup class="ex-qref"><span>Q1112</span></sup>。<span class="ref">p.263</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Phase（分期）</th><th>表現</th></tr></thead>
 <tbody>
 <tr><td id="np-188">1. Prodromal phase（前驅期）</td><td id="np-189">類流感，症狀可包括 headache（頭痛）、meningismus（腦膜刺激）、tinnitus（耳鳴）、dysacusis（聽覺異常）</td></tr>
 <tr><td id="np-190">2. Acute uveitic phase（急性葡萄膜炎期）</td><td id="np-191">緊接前驅期；疼痛、畏光、視力喪失，伴隨<mark>雙側 panuveitis 合併 serous retinal detachments</mark> 發生</td></tr>
 <tr><td id="np-192">3. Chronic（convalescent）phase（慢性／恢復期）</td><td id="np-193">葡萄膜炎消退，但可出現去色素：皮膚 vitiligo（白斑）、睫毛 poliosis（變白）、葡萄膜；眼部去色素可見於 limbus（「<strong>Sugiura</strong>」sign）、trabecular meshwork（「<strong>Ohno</strong>」sign）或脈絡膜（「<strong>sunset glow</strong>」fundus）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-194">出處 <span class="ref">p.263</span></p>
 <ul>
 <li id="np-195">BCSC 9 補充（本章外）：前驅期 &gt; <span class="num">80%</span> 病人腦脊液為 <mark class="ex-key"><strong>lymphocytic pleocytosis（淋巴球性白血球增多）</strong></mark>、葡萄糖正常，局部神經學徵候罕見；過去描述 4 期，多模影像則顯示 VKH 為早期到晚期的連續體：早期為雙側 granulomatous anterior uveitis、不同程度 vitritis、脈絡膜增厚、視神經水腫與多發漿液性視網膜剝離（罕見單側）；晚期可反覆 granulomatous anterior uveitis，漿液性剝離復發不常見；sunset-glow fundus 由脈絡膜去色素形成，最多 <span class="num">30%</span> 出現 vitiligo、alopecia（落髮）、poliosis⁠<sup class="ex-qref"><span>Q1093</span> <span>Q1729</span></sup>。<span class="ref ref-ext">BCSC 9 p.218</span></li>
@@ -703,7 +717,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-246">Retinal detachment 是壞死性視網膜炎的常見併發症，最多 <span class="num">70%–75%</span>；復位手術常較複雜，需 silicone oil（矽油）。<span class="ref">p.269–270</span></li>
 <li id="np-247">BCSC 9 補充（本章外）：American Uveitis Society ARN 診斷標準——周邊視網膜一處以上界線清楚的壞死、未經抗病毒治療時快速進展、circumferential spread（環周擴散）、侵犯 arteriole（小動脈）的 occlusive vasculopathy、明顯 vitritis 與前房發炎；病灶融合成 360° 周邊視網膜炎並向後極方向進展⁠<sup class="ex-qref"><span>Q1115</span></sup>。<span class="ref ref-ext">BCSC 9 p.259–261</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Causative virus（病毒）</th><th>Drug（藥物）</th><th>Dose／Induction（劑量／誘導）</th><th>Maintenance / suppression（維持／抑制）</th></tr></thead>
 <tbody>
 <tr><td id="np-248" colspan="4"><strong>Intraocular treatment（眼內治療）</strong></td></tr>
@@ -718,7 +732,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-278">VZV／HSV</td><td id="np-279">Valacyclovir</td><td id="np-280"><span class="num">2 g</span> 口服每日 <span class="num">3</span> 次</td><td id="np-281"><span class="num">1 g</span> 口服每日 <span class="num">3</span> 次</td></tr>
 <tr><td id="np-282">VZV／HSV</td><td id="np-283">Prednisone（optional，選用）</td><td id="np-284"><span class="num">0.5 mg/kg/day</span> × <span class="num">3–6 週</span>（抗病毒開始後）</td><td id="np-285">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-286">出處（Table 11-3）<span class="ref">p.270</span></p>
 <ul>
 <li id="np-287">Table 11-3 註：全身 ganciclovir、foscarnet、acyclovir、valacyclovir 為成人標準劑量，可能有腎毒性需監測腎功能；有 ganciclovir-resistant CMV 株，開始 ganciclovir 後需密切追蹤反應；foscarnet 另需監測骨髓功能（可能抑制）。<span class="ref">p.270</span></li>

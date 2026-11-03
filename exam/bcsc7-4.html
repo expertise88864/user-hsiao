@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -380,7 +394,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-6"><strong>遠處病灶經血行散播</strong>：如 otitis media（中耳炎）、pneumonia（肺炎）、endocarditis（心內膜炎）。<span class="ref">p.47</span></li>
 </ul>
 <h3 id="ch4-s1-3">Table 4-1 主要眼窩發炎的鑑別診斷</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Category（類別）</th><th>Entities（疾病）</th></tr></thead>
 <tbody>
 <tr><td id="np-7">Infectious（感染；需判定為 preseptal 或 orbital cellulitis）</td><td id="np-8">Bacterial（細菌，需找出來源）：Direct inoculation（直接接種：trauma、surgery）；Spread from adjacent tissue（鄰近組織擴散：sinusitis、dacryocystitis、dacryoadenitis）；Spread from distant focus（遠處病灶散播：bacteremia、pneumonia）；Opportunistic infection（伺機性感染：necrotizing fasciitis、tuberculosis）。Fungal（黴菌）：Mucormycosis、Aspergillosis。Parasitic（寄生蟲）：Echinococcosis、Cysticercosis</td></tr>
@@ -389,7 +403,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-13">Granulomatous（肉芽腫性）</td><td id="np-14">Sarcoidosis（類肉瘤病）、Foreign body（異物）</td></tr>
 <tr><td id="np-15">Nonspecific orbital inflammation（NSOI，非特異性眼窩發炎）</td><td id="np-16">Diagnosis of exclusion（排除性診斷）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-17">出處 <span class="ref">p.48</span></p>
 <div class="ex-trap"><h3 id="ch4-s1-4">易錯陷阱</h3><ul>
 <li id="np-18">TED 與 IgG4-RD 在 Table 4-1 歸為「autoimmune」，sarcoidosis 與 foreign body 同列「granulomatous」之下，NSOI 單獨列為排除性診斷。<span class="ref">p.48</span></li>
@@ -466,14 +480,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-59">Blowout fracture（爆裂性骨折）後的 orbital cellulitis 通常發生於有潛在鼻竇病變或 medial wall fracture（內壁骨折）者，可考慮預防性抗生素。<span class="ref">p.52</span></li>
 <li id="np-60"><strong>Odontogenic（齒源性）</strong>感染可能經鼻竇擴散造成 orbital cellulitis，佔所有 orbital cellulitis 的 <span class="num">2%–5%</span>；任何牙齒都可能，但<strong>多數來自 maxillary premolar（上顎小臼齒）</strong>；<mark class="ex-key">典型為多菌種，常含 gram-positive aerobes（需氧菌）與 anaerobes</mark>⁠<sup class="ex-qref"><span>Q1707</span></sup>。<span class="ref">p.52</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Location（位置）</th><th>Key findings（重點表現）</th><th>Source / management（來源／處置）</th></tr></thead>
 <tbody>
 <tr><td id="np-61">Preseptal cellulitis（隔前蜂窩組織炎）</td><td id="np-62">Anterior to the orbital septum（眼窩隔前方）</td><td id="np-63">Pupillary reaction、vision、ocular motility、globe position 不受影響；pain on eye movement 與 chemosis 通常沒有</td><td id="np-64">Adults usually（成人通常）：penetrating cutaneous trauma（穿刺性皮膚外傷）、dacryocystitis；children commonly（兒童常）：underlying sinusitis</td></tr>
 <tr><td id="np-65">Orbital cellulitis（眼窩蜂窩組織炎）</td><td id="np-66">Posterior to the orbital septum（眼窩隔後方）</td><td id="np-67">Fever、leukocytosis（<span class="num">75%</span>）、erythema、proptosis、chemosis、ptosis、眼球運動受限且轉動痛；視力、色覺、視野、瞳孔異常提示 optic neuropathy</td><td id="np-68">Majority（多數）：acute or chronic bacterial sinusitis 的續發延伸</td></tr>
 <tr><td id="np-69">Subperiosteal abscess（骨膜下膿瘍）</td><td id="np-70">Usually subperiosteal space adjacent to the infected sinus（通常在鄰近感染鼻竇的骨膜下腔），可能穿過骨膜進入眼窩軟組織</td><td id="np-71">Progressive proptosis、globe displacement（眼球移位）或對適當抗生素無反應提示膿瘍形成</td><td id="np-72">&lt;<span class="num">9 歲</span>、isolated medial 或 inferior SPA、isolated ethmoid sinusitis、視力正常、僅中度突眼 → 通常對藥物治療有反應</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-73">出處 <span class="ref">p.47–50</span></p>
 <div class="ex-trap"><h3 id="ch4-s3-5">易錯陷阱</h3><ul>
 <li id="np-74">小於 <span class="num">9 歲</span>兒童的 isolated medial 或 inferior SPA，合併 isolated ethmoid sinusitis、視力正常、僅中度眼球突出 → 通常對藥物治療有反應，除非出現 p.50 所列任一條件，否則可審慎觀察⁠<sup class="ex-qref"><span>Q1707</span> <span>Q779</span></sup>。<span class="ref">p.50</span></li>
@@ -541,14 +555,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-115">Allergic 型影像：未顯影 CT 見斑駁高密度區（對應鼻竇內濃稠 allergic mucin）；骨侵蝕與重塑雖常見但<strong>不代表組織侵犯</strong>；MRI 在 T2 上顯示 signal void，可能更具特異性。<span class="ref">p.56</span></li>
 <li id="np-116">Allergic 型切片：花生醬樣或綠色濃稠黏液；組織見大量 eosinophils（嗜酸性球）、其降解產物及黏膜外菌絲；治療為內視鏡鼻竇清創 + 全身與局部類固醇；allergic fungal sinusitis 病人最多 <span class="num">17%</span> 以眼窩表現初發。<span class="ref">p.56</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Hyphae（菌絲）</th><th>Stain（染色）</th><th>Key features（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-117">Mucormycosis（白黴菌症）</td><td id="np-118">Nonseptate, large branching hyphae（無隔、寬大分枝菌絲）</td><td id="np-119">Hematoxylin-eosin（H&amp;E）可染（unlike most fungi，不同於多數黴菌）</td><td id="np-120">Thrombosing vasculitis（血栓性血管炎）→ 可能無明顯眼窩發炎，white and quiet eye（白而安靜的眼）應警覺眼窩缺血；orbital apex syndrome（眼窩尖症候群）；DKA 使 free serum iron（游離血清鐵）增加</td></tr>
 <tr><td id="np-121">Acute invasive aspergillosis（急性侵襲性麴菌症）</td><td id="np-122">Septate branching hyphae of uniform width（有隔、寬度一致的分枝菌絲）</td><td id="np-123">Grocott-Gomori methenamine–silver nitrate（GMS）</td><td id="np-124">Fulminant sinus infection with secondary orbital invasion（猛爆性鼻竇感染續發眼窩侵犯）；severe periorbital pain（嚴重眼周疼痛）、視力下降、眼球突出</td></tr>
 <tr><td id="np-125">Allergic aspergillosis sinusitis（過敏性麴菌鼻竇炎）</td><td id="np-126">Extramucosal fungal hyphae（黏膜外菌絲）</td><td id="np-127">—</td><td id="np-128">Immunocompetent（免疫正常）、nasal polyposis（鼻息肉）與 chronic sinusitis；可能有 peripheral eosinophilia 與 total IgE 等升高；bone erosion（骨侵蝕）不代表 tissue invasion（組織侵犯）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-129">出處 <span class="ref">p.54–56</span></p>
 <h3 id="ch4-s5-3">Parasitic diseases（寄生蟲疾病）</h3>
 <ul>
@@ -634,14 +648,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-180">評分系統：<strong>NO SPECS</strong>（No physical signs or symptoms、Only signs、Soft-tissue involvement、Proptosis、Extraocular muscle signs、Corneal involvement、Sight loss）、<strong>CAS（Clinical Activity Score，臨床活動度分數）</strong>、<strong>VISA（Vision、Inflammation、Strabismus、Appearance）</strong>，沒有一套勝出；CAS 複診加額外參數，VISA 初診與複診用同一量表。<span class="ref">p.62</span></li>
 <li id="np-181">治療依症狀、臨床檢查與輔助檢查採<strong>階梯式、分級</strong>處理（Table 4-3、4-4）。<span class="ref">p.62</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>System（系統）</th><th>Items（項目）</th><th>Threshold（判定）</th></tr></thead>
 <tbody>
 <tr><td id="np-182">VISA（每項依表給 1–2 分，滿分 <span class="num">10</span>）</td><td id="np-183">Swelling of caruncle（淚阜腫脹）1、Conjunctival chemosis（結膜水腫）2、Conjunctival erythema（結膜紅斑）1、Eyelid erythema（眼瞼紅斑）1、Eyelid swelling（眼瞼腫脹）2、Retrobulbar ache（球後痛）2、Diurnal variation（晝夜變化）1</td><td id="np-184"><span class="num">&lt;4/10</span>：managed conservatively（保守處置）；<span class="num">&gt;5/10</span> 或有 inflammatory progression（發炎進展）證據：managed more aggressively（較積極處置）</td></tr>
 <tr><td id="np-185">CAS initial examination（初診，每項 1 分，滿分 <span class="num">7</span>）</td><td id="np-186">Ocular or retrobulbar pain（眼或球後痛）、Pain with eye movement（眼球轉動痛）、Eyelid erythema（眼瞼紅斑）、Eyelid swelling（眼瞼腫脹）、Conjunctival chemosis（結膜水腫）、Conjunctival erythema（結膜紅斑）、Swelling/erythema of caruncle（淚阜腫脹/紅斑）</td><td id="np-187"><span class="num">&gt;3/7</span> defines active ophthalmopathy（定義為活動性眼病變）⁠<sup class="ex-qref"><span>Q803</span></sup></td></tr>
 <tr><td id="np-188">CAS subsequent examination（複診，滿分 <span class="num">10</span>，初診 7 項加下列參數）</td><td id="np-189">&gt;2-mm increase in proptosis（眼突增加 <span class="num">&gt;2 mm</span>）、Impaired duction &gt;8° in any 1 direction（任一方向 duction 受限 <span class="num">&gt;8°</span>）、&gt;1-line decrease in Snellen visual acuity chart（Snellen 視力下降 <span class="num">&gt;1 行</span>）</td><td id="np-190"><span class="num">&gt;4/10</span> defines active ophthalmopathy（定義為活動性眼病變）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-191">出處（Table 4-3）<span class="ref">p.63</span></p>
 <h3 id="ch4-s7-2">支持療法與輕中度處置</h3>
 <ul>
@@ -670,7 +684,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-208">Teprotumumab 耐受性似乎良好，但可能出現 hyperglycemia（高血糖）、hearing loss（聽力喪失）、inflammatory bowel disease（發炎性腸道疾病）惡化；因可能致畸胎，使用期間必須可靠避孕；停藥後發炎復發、突眼改善的持久性、費用極高可能是限制因素。<span class="ref">p.65</span></li>
 </ul>
 <h3 id="ch4-s7-5">Table 4-4 TED 一般處置</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Severity（嚴重度）</th><th>Management（處置）</th></tr></thead>
 <tbody>
 <tr><td id="np-209">Mild disease（輕度）</td><td id="np-210">Observation（觀察）；Patient education and lifestyle changes（衛教與生活調整：smoking cessation 戒菸、salt restriction 限鹽、elevation of head of bed 床頭抬高、use of sunglasses 戴太陽眼鏡）；Ocular surface lubrication（眼表潤滑）；Establishment of a euthyroid state（建立甲狀腺功能正常狀態）；Oral selenium（口服硒）</td></tr>
@@ -678,7 +692,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-213">Severe disease（重度）</td><td id="np-214">High-dose intravenous corticosteroid therapy or steroid-sparing immunomodulators（高劑量靜脈類固醇或類固醇節省性免疫調節劑）；Surgical orbital decompression (followed by strabismus surgery and/or eyelid surgery)（眼窩減壓手術，之後斜視和/或眼瞼手術）；Periocular radiotherapy（眼周放射治療）</td></tr>
 <tr><td id="np-215">Refractory disease（頑固）</td><td id="np-216">Steroid-sparing immunomodulators（類固醇節省性免疫調節劑）；Surgical orbital decompression (followed by strabismus surgery and/or eyelid surgery)（眼窩減壓手術，之後斜視和/或眼瞼手術）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-217">出處 <span class="ref">p.64</span></p>
 <h3 id="ch4-s7-6">手術復健</h3>
 <ul>
@@ -833,13 +847,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-302">有研究者認為，口服 prednisone 無法控制時，pulse-dosed IV dexamethasone 後接口服 prednisone 可能改善。<span class="ref">p.74</span></li>
 <li id="np-303"><strong>Sclerosing NSOI</strong> 對類固醇與低劑量分次放療反應差，通常需較積極免疫抑制：cyclosporine、methotrexate、cyclophosphamide⁠<sup class="ex-qref"><span>Q1700</span></sup>。<span class="ref">p.74</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>EOM imaging（眼外肌影像）</th><th>Muscles（受累肌肉）</th><th>Eyelid（眼瞼）</th><th>Pain（疼痛）</th><th>Steroid response（類固醇反應）</th></tr></thead>
 <tbody>
 <tr><td id="np-304">TED</td><td id="np-305">Fusiform enlargement, sparing the tendon（梭形腫大、<strong>不侵犯肌腱</strong>）</td><td id="np-306">Inferior rectus &gt; medial rectus &gt; superior rectus &gt; lateral rectus（依嚴重度與頻率遞減，BCSC 6 p.151）</td><td id="np-307">Eyelid retraction（最常見臨床表現）；eyelid lag with downgaze（下視時眼瞼遲滯，<span class="num">50%</span>）</td><td id="np-308">Dull, deep orbital pain or discomfort（鈍性深部眼窩痛或不適，<span class="num">30%</span>）</td><td id="np-309">Active TED 可能受益於每週 IV methylprednisolone <span class="num">6–12 週</span></td></tr>
 <tr><td id="np-310">NSOI</td><td id="np-311">Thickening of tendon insertions（肌腱附著處增厚，最多 <span class="num">50%</span>）</td><td id="np-312">Fig 4-19：lateral rectus（含肌腱）；Fig 4-20：medial rectus（含肌腱）</td><td id="np-313">Dacryoadenitis：eyelid edema、erythema、lateral ptosis（Fig 4-18）</td><td id="np-314">Deep, boring pain（許多病例深部鑽痛）；pain with ocular movement suggests myositis（轉動痛提示肌炎）</td><td id="np-315">Prompt initial response to high-dose systemic corticosteroids（迅速初始反應）支持診斷：多數肌炎型、約 <span class="num">80%</span> 非肌炎型</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-316">出處 <span class="ref">p.57, p.59, p.61, p.64, p.72–73；BCSC 6 p.151</span></p>
 <div class="ex-trap"><h3 id="ch4-s11-8">易錯陷阱</h3><ul>
 <li id="np-317">TED 女性為男性 <span class="num">6–7 倍</span>；TED 最常見臨床表現為 eyelid retraction，NSOI 淚腺發炎可見 lateral ptosis；NSOI 可侵犯 lateral rectus 連同肌腱（Fig 4-19）；對高劑量全身類固醇的迅速初始反應支持 NSOI 診斷⁠<sup class="ex-qref"><span>Q725</span></sup>。<span class="ref">p.57, p.72–73</span></li>
@@ -853,7 +867,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch4-s12" data-w="2108">十二、自體免疫眼窩疾病的血清檢查（Table 4-5）與總整理</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Autoimmune disease（自體免疫疾病）</th><th>Serologic test（建議血清檢查）</th></tr></thead>
 <tbody>
 <tr><td id="np-325">Giant cell arteritis（巨細胞動脈炎）</td><td id="np-326">Erythrocyte sedimentation rate（ESR，紅血球沉降率）、C-reactive protein（CRP，C 反應蛋白）</td></tr>
@@ -864,7 +878,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-335">Sjogren（修格蘭氏症候群）</td><td id="np-336">Antinuclear antibodies（ANA，抗核抗體）、SS-A（Ro）、SS-B（La）</td></tr>
 <tr><td id="np-337">Nonspecific orbital inflammation（NSOI，非特異性眼窩發炎）</td><td id="np-338">Diagnosis of exclusion（排除性診斷）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-339">出處 <span class="ref">p.75</span></p>
 <div class="keypoint">
 <p id="np-340">眼窩發炎分為有可辨識病因（specific）與無可辨識病因（nonspecific）；所有 specific 病因排除後才能診斷 NSOI。許多專家建議所有非肌炎、未附著於視神經的病灶做診斷性切片，眼窩發炎病灶切片應常規檢查 IgG4-RD 特徵；myositis、附著視神經與 orbital apex 病灶可能有特徵性表現而強力支持推定診斷⁠<sup class="ex-qref"><span>Q770</span> <span>Q767</span></sup>。<span class="ref">p.47, p.71, p.74</span></p>

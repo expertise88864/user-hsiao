@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -376,7 +390,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-5">由正面看角膜呈橢圓：鞏膜與結膜在上下方覆蓋角膜略多於內外側；<strong>limbus（角膜緣）</strong>呈藍灰色、半透明。<span class="ref">p.48</span></li>
 </ul>
 <h3 id="ch2-s1-2">Table 2-1 Dimensions and Contents of the Adult Eye（成人眼的尺寸與內容物）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Compartment（腔室）</th><th>Average depth, emmetropic eye（平均深度，正視眼）</th><th>Volume（容積）</th><th>Contents（內容物）</th></tr></thead>
 <tbody>
 <tr><td id="np-6">Anterior chamber（前房）</td><td id="np-7"><span class="num">3.11 mm</span></td><td id="np-8"><span class="num">220 μL</span></td><td id="np-9">Aqueous（房水）</td></tr>
@@ -384,7 +398,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-14">Vitreous cavity（玻璃體腔）</td><td id="np-15"><span class="num">16.5 mm</span></td><td id="np-16"><span class="num">5 to 6 mL</span></td><td id="np-17">Vitreous（玻璃體）</td></tr>
 <tr><td id="np-18">Eye as a whole（全眼）</td><td id="np-19"><span class="num">23–25 mm</span></td><td id="np-20"><span class="num">6.5 to 7 mL</span></td><td id="np-21">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-22">出處（Table 2-1）<span class="ref">p.49</span></p>
 <div class="ex-trap"><h3 id="ch2-s1-3">易錯陷阱</h3><ul>
 <li id="np-23">角膜曲率半徑（<span class="num">8 mm</span>）小於鞏膜（<span class="num">12 mm</span>）；眼球不是真正的球體，而是赤道半徑大於極半徑的 oblate spheroid（扁球體）。<span class="ref">p.47</span></li>
@@ -414,7 +428,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-36">成人角膜水平徑約 <span class="num">11–12 mm</span>、垂直徑約 <span class="num">10–11 mm</span>；後表面比前表面更彎 → <mark>中央較薄（<span class="num">500–600 μm</span>），周邊較厚（<span class="num">1000 μm</span>）</mark>。<span class="ref">p.51</span></li>
 <li id="np-37">典型成人角膜維持 <strong>prolate（長橢圓）</strong>形：中央陡、周邊平，且鼻側與上方變平的程度大於顳側與下方；<strong>oblate</strong>（中央平、周邊陡，例如近視雷射切削後）、<strong>hyperprolate</strong>（例如遠視雷射切削後）；了解此地形對隱形眼鏡驗配與屈光手術很重要。<span class="ref">p.51</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Layer（層）</th><th>Thickness（厚度）</th><th>Key features（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-38">Epithelium（上皮）</td><td id="np-39"><span class="num">40–50 μm</span></td><td id="np-40">非角化複層鱗狀、<span class="num">4–6</span> 層細胞；基底細胞以 hemidesmosomes（半橋粒）附著</td></tr>
@@ -423,7 +437,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-47">Descemet membrane（德士密膜）</td><td id="np-48"><span class="num">10–12 μm</span>（成人）</td><td id="np-49">內皮的 basal lamina，PAS 陽性，隨年齡增厚；富含 type IV collagen（第四型膠原）</td></tr>
 <tr><td id="np-50">Endothelium（內皮）</td><td id="np-51"><span class="num">4–6 μm</span></td><td id="np-52">單層六角形細胞，源自 neural crest（神經嵴）；人類內皮分裂能力有限</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-53">出處（Fig 2-3 與各層內文）<span class="ref">p.50, p.52–54</span></p>
 <h3 id="ch2-s3-2">Epithelium and Basal Lamina（上皮與基底層）</h3>
 <ul>
@@ -495,7 +509,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-91">鞏膜覆蓋眼球表面後方的六分之五，前方開口給角膜、後方開口給視神經；直肌肌腱附著於淺層鞏膜膠原；<strong>Tenon capsule（Tenon 囊）</strong>在前方覆蓋鞏膜與直肌，外面再由 bulbar conjunctiva（球結膜）覆蓋，兩者在角膜緣附近融合。<span class="ref">p.57</span></li>
 <li id="np-92"><mark class="ex-key">最薄處在直肌附著點正後方（<span class="num">0.3 mm</span>）</mark>；最厚處在後極視神經頭周圍（<span class="num">1.0 mm</span>）；赤道部 <span class="num">0.4–0.5 mm</span>；直肌附著點前方 <span class="num">0.6 mm</span>。因厚度變化，斜視與視網膜剝離手術縫合須避免穿孔⁠<sup class="ex-qref"><span>Q178</span></sup>。<span class="ref">p.58</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Location（位置）</th><th>Scleral thickness（鞏膜厚度）</th></tr></thead>
 <tbody>
 <tr><td id="np-93">Just behind rectus insertions（直肌附著點正後方）</td><td id="np-94"><span class="num">0.3 mm</span>（最薄）</td></tr>
@@ -503,7 +517,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-97">Anterior to muscle insertions（直肌附著點前方）</td><td id="np-98"><span class="num">0.6 mm</span></td></tr>
 <tr><td id="np-99">Posterior pole around optic nerve head（後極視神經頭周圍）</td><td id="np-100"><span class="num">1.0 mm</span>（最厚）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-101">出處 <span class="ref">p.58</span></p>
 <ul>
 <li id="np-102">鈍傷後鞏膜破裂最常見部位：<strong>superonasal quadrant（鼻上象限）靠近角膜緣</strong>；與角膜緣平行、位於撞擊點對側的環狀弧；<strong>直肌附著點後方</strong>。<span class="ref">p.58</span></li>
@@ -701,14 +715,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-211">看遠時懸韌帶處於張力下、水晶體較扁；調節時睫狀肌收縮使懸韌帶近端附著前移、內移，水晶體更球狀。<span class="ref">p.86</span></li>
 <li id="np-212">調節力隨年齡穩定下降（表）；原因：水晶體變大、力學關係改變、晶體蛋白變化造成 nucleus 變硬；懸韌帶附著幾何與囊彈性改變也可能參與。<span class="ref">p.82</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Age（年齡）</th><th>Accommodative power（調節力）</th></tr></thead>
 <tbody>
 <tr><td id="np-213"><span class="num">8</span> 歲</td><td id="np-214"><span class="num">14.00 D</span></td></tr>
 <tr><td id="np-215"><span class="num">28</span> 歲</td><td id="np-216">約 <span class="num">9.00 D</span></td></tr>
 <tr><td id="np-217"><span class="num">64</span> 歲</td><td id="np-218"><span class="num">1.00 D</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-219">出處 <span class="ref">p.82</span></p>
 <ul>
 <li id="np-220">水晶體<strong>無神經、無血管</strong>；胚胎期 hyaloid vasculature 退化後，完全依賴房水與玻璃體提供養分；自胚胎期起即被 basal lamina（lens capsule）完整包覆。<span class="ref">p.82–83</span></li>
@@ -836,7 +850,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-292">Fovea 外圍為寬 <span class="num">0.5 mm</span> 的 <strong>parafovea</strong>（GCL、INL、OPL 最厚處），再外為寬 <span class="num">1.5 mm</span> 的 <strong>perifovea</strong>（黃斑最周邊）。<span class="ref">p.100</span></li>
 <li id="np-293">Fig 2-49 IN•OCT 共識命名（SD-OCT 正常視網膜分段）圖中編號：1 posterior cortical vitreous、2 preretinal space、3 NFL、4 GCL、5 IPL、6 INL、7 OPL、8.1 ONL、8.2 Henle fiber layer、9 ELM、10 myoid zone、11 ellipsoid zone、12 outer segments of photoreceptors、13 interdigitation zone、14 RPE/Bruch complex、15 choriocapillaris、16 Sattler layer、17 Haller layer、18 choroid sclera junction。<span class="ref">p.99</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Region（區域）</th><th>Size / thickness（大小、厚度）</th><th>Key point（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-294">Macula（黃斑）</td><td id="np-295">直徑 <span class="num">5–6 mm</span></td><td id="np-296">臨床：顳側血管弓之間；組織學：ganglion cell nuclei 超過 1 層</td></tr>
@@ -846,7 +860,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-306">Parafovea（中心凹旁區）</td><td id="np-307">寬 <span class="num">0.5 mm</span></td><td id="np-308">GCL、INL、OPL 最厚</td></tr>
 <tr><td id="np-309">Perifovea（中心凹周圍區）</td><td id="np-310">寬 <span class="num">1.5 mm</span></td><td id="np-311">黃斑最周邊的區域</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-312">出處 <span class="ref">p.97, p.99–100</span></p>
 <div class="ex-trap"><h3 id="ch2-s12-3">易錯陷阱</h3><ul>
 <li id="np-313">視網膜最薄是 foveola（<span class="num">0.10 mm</span>）與 ora serrata（<span class="num">0.11 mm</span>）；最厚在 papillomacular bundle（<span class="num">0.23 mm</span>）。<span class="ref">p.97</span></li>

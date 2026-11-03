@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -372,14 +386,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-2">包括 <strong>keratoconus（KC，圓錐角膜）</strong>、<strong>pellucid marginal degeneration（PMD，透明邊緣角膜變性）</strong>、<strong>keratoglobus（球形角膜）</strong>，以及角膜屈光手術後 ectasia（如 laser in situ keratomileusis（LASIK）、photorefractive keratectomy（PRK）後）。<span class="ref">p.213</span></li>
 <li id="np-3">可造成裸眼與矯正之遠、近視力下降，常合併 <strong>irregular astigmatism（不規則散光）</strong>：主經線彼此<strong>不互相垂直</strong>的散光。<span class="ref">p.213</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Entity（疾病）</th><th>變薄位置與輪廓</th><th>發病時機</th></tr></thead>
 <tbody>
 <tr><td id="np-4">Keratoconus（圓錐角膜）</td><td id="np-5">中央、下方旁中央或下方中周邊通常進行性變薄，呈錐狀；突出點在最薄處（通常在中心稍下方）</td><td id="np-6">青春期發病</td></tr>
 <tr><td id="np-7">Pellucid marginal degeneration（透明邊緣角膜變性）</td><td id="np-8">下方周邊帶狀變薄；突出在變薄帶的中央側邊緣（變薄帶上方），呈「beer-belly（啤酒肚）」輪廓</td><td id="np-9">20–40 歲診斷</td></tr>
 <tr><td id="np-10">Keratoglobus（球形角膜）</td><td id="np-11">瀰漫性變陡與變薄，周邊較嚴重</td><td id="np-12">通常出生即有</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-13">出處（Fig 9-2）<span class="ref">p.213–215, p.230, p.233</span></p>
 
 <h2 id="ch9-s2" data-w="2517">二、Keratoconus：流行病學、危險因子與相關疾病</h2>
@@ -395,7 +409,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-18">KC 被發現與 immune-mediated diseases（免疫媒介疾病）相關，如 atopic dermatitis（異位性皮膚炎）、Hashimoto thyroiditis（橋本甲狀腺炎）、發炎性皮膚病、asthma（氣喘）、allergic rhinitis（過敏性鼻炎）。<span class="ref">p.215</span></li>
 <li id="np-19">KC 常見於 <strong>Down syndrome（唐氏症）</strong>及其他發展遲緩疾病、皮膚過度彈性疾病（如 <strong>Ehlers-Danlos syndrome（EDS，埃勒斯-當洛斯症候群）</strong>）、低視力病人——<mark class="ex-key">可能因習慣性揉眼</mark>⁠<sup class="ex-qref"><span>Q926</span> <span>Q1717</span></sup>。<span class="ref">p.215</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Associated systemic conditions（相關全身疾病）</th><th>Associated ocular diseases（相關眼部疾病）</th></tr></thead>
 <tbody>
 <tr><td id="np-20">Atopic disease（異位性疾病）</td><td id="np-21">Vernal keratoconjunctivitis（VKC，春季角結膜炎）</td></tr>
@@ -404,7 +418,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-26">Osteogenesis imperfecta（成骨不全症）</td><td id="np-27">Retinitis pigmentosa（RP，視網膜色素病變）</td></tr>
 <tr><td id="np-28">Sleep apnea（睡眠呼吸中止）</td><td id="np-29">Retinopathy of prematurity（ROP，早產兒視網膜病變）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-30">出處（Table 9-1，Conditions commonly associated with keratoconus）⁠<sup class="ex-qref"><span>Q27</span> <span>Q1717</span></sup><span class="ref">p.215</span></p>
 <ul>
 <li id="np-31">Table 9-1 將 sleep apnea 列為 KC 的相關全身疾病。（本章外）BCSC 1 第 8 章：與 obstructive sleep apnea（OSA，阻塞性睡眠呼吸中止症）相關的眼部疾病包括 dry eye、floppy eyelid syndrome（FES，鬆弛眼瞼症候群）、glaucoma、papilledema、central serous chorioretinopathy、nonarteritic anterior ischemic optic neuropathy（NAION）。BCSC 8 第 4 章：FES 最常見於肥胖病人，這些病人常合併 OSA；FES 病人也曾有 KC 的報告⁠<sup class="ex-qref"><span>Q27</span></sup>。<span class="ref">p.215；BCSC 1 p.137；BCSC 8 p.82</span></li>
@@ -432,7 +446,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-43">一般看不到 keratitis（角膜炎）與角膜新生血管，但可能因配戴隱形眼鏡而發生⁠<sup class="ex-qref"><span>Q926</span></sup>。<span class="ref">p.216</span></li>
 </ul>
 <h3 id="ch9-s3-2">常見徵象</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Sign（徵象）</th><th>描述</th><th>早期／晚期、特異性</th></tr></thead>
 <tbody>
 <tr><td id="np-44">Scissoring reflex（剪刀狀反光）</td><td id="np-45">Retinoscopy（視網膜鏡）光反射呈剪刀狀，常合併不規則散光</td><td id="np-46">早期、非特異</td></tr>
@@ -442,7 +456,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-56">Vogt striae（Vogt 紋）</td><td id="np-57">錐頂<strong>後基質</strong>的細平行線，<mark>外加壓力時可能消失</mark></td><td id="np-58">—</td></tr>
 <tr><td id="np-59">Apical scarring（錐頂瘢痕）</td><td id="np-60">常見類型：reticular scar（網狀瘢痕，與 <strong>Bowman layer 斷裂</strong>有關）；錐頂 nummular scar（錢幣狀瘢痕，與隱形眼鏡配戴有關）；deep stromal scar（深基質瘢痕，與先前 hydrops 有關）</td><td id="np-61">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-62">出處 ⁠<sup class="ex-qref"><span>Q846</span> <span>Q910</span> <span>Q926</span></sup><span class="ref">p.216</span></p>
 <ul>
 <li id="np-63">Vogt striae 是錐頂後基質的細平行線，外加壓力時可能消失；<mark class="ex-key">reticular apical scarring 與 Bowman layer 斷裂有關</mark>⁠<sup class="ex-qref"><span>Q1716</span></sup>。<span class="ref">p.216</span></li>
@@ -600,7 +614,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-152">可能的併發症：photophobia（畏光）、上皮癒合延遲（epi-off）、stromal haze（基質霧化，可能影響視力）、角膜知覺下降、infectious keratitis（感染性角膜炎）、sterile infiltrates（無菌性浸潤）、corneal melting（角膜融解）、<mark class="ex-key">內皮細胞受損導致持續性角膜水腫</mark>⁠<sup class="ex-qref"><span>Q1565</span></sup>。<span class="ref">p.227</span></li>
 <li id="np-153">併發症似乎較常發生於 <span class="num">&gt; 35 歲</span>及術前最大 K 值 <span class="num">&gt; 58.00 D</span> 者。<span class="ref">p.227</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Complication（項目）</th><th>117 Eyes（117 眼）</th><th>1-Year Follow-Up（追蹤 1 年）</th></tr></thead>
 <tbody>
 <tr><td id="np-154">Loss ≥2 lines（視力掉 ≥ 2 行）</td><td id="np-155"><span class="num">2.9%</span></td><td id="np-156">—</td></tr>
@@ -609,7 +623,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-163">Central stromal scar（中央基質瘢痕）</td><td id="np-164"><span class="num">2.8%</span></td><td id="np-165">—</td></tr>
 <tr><td id="np-166">Overall complication rate（整體併發症率）</td><td id="np-167">病人 <span class="num">&lt; 35 歲</span>時 <span class="num">1%</span></td><td id="np-168">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-169">出處（Table 9-2，Complications associated with epi-off CXL；資料來自 Koller 等）<span class="ref">p.228</span></p>
 <div class="ex-trap"><h3 id="ch9-s7-8">易錯陷阱</h3><ul>
 <li id="np-170">Riboflavin 是 vitamin <strong>B2</strong>；光源是 <strong>UVA 365 nm</strong>⁠<sup class="ex-qref"><span>Q1565</span> <span>Q1594</span></sup>。<span class="ref">p.224</span></li>
@@ -679,7 +693,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-207">最終可能需要 PK 或 DALK；因變薄位置的關係，移植片往往大且接近輪部 → 手術較難、<mark>移植片較易排斥</mark>。Wedge resection（楔形切除）與 lamellar graft（板層移植）被提倡作為替代或輔助；部分病人也可考慮 CXL。<span class="ref">p.231</span></li>
 </ul>
 <h3 id="ch9-s9-4">周邊角膜變薄疾病比較（Table 9-3）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Symptoms（症狀）</th><th>Associated systemic disease（相關全身疾病）</th><th>Age（年齡）</th><th>Sex（性別）</th><th>Laterality（側性）</th><th>Epithelial defects（上皮缺損）</th><th>Location of thinning（變薄位置）</th><th>Vessels（血管）</th><th>Lipid（脂質）</th><th>Arcus（角膜弓）</th></tr></thead>
 <tbody>
 <tr><td id="np-208">Pellucid marginal degeneration（透明邊緣角膜變性）</td><td id="np-209">散光致視力模糊；非發炎</td><td id="np-210">通常無</td><td id="np-211"><span class="num">20–40 歲</span></td><td id="np-212">無性別傾向</td><td id="np-213">雙側，可能不對稱</td><td id="np-214">無</td><td id="np-215">通常<strong>下方</strong></td><td id="np-216">無</td><td id="np-217">無</td><td id="np-218">無</td></tr>
@@ -687,7 +701,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-230">Mooren ulcer（Mooren 潰瘍）</td><td id="np-231">早期因發炎致疼痛、紅與視力模糊；晚期瘢痕</td><td id="np-232">可能與 hepatitis C 或 helminthic disease（蠕蟲疾病）相關；不同於常與全身疾病相關的典型 PUK</td><td id="np-233">年輕者：較嚴重型；年長者：較輕微型</td><td id="np-234"><strong>雙側型男性為主</strong></td><td id="np-235">年輕者雙側；年長者單側</td><td id="np-236"><strong>典型</strong></td><td id="np-237">典型起於<strong>鼻側或顳側</strong>，先環狀再往中央進展，中央緣下掘（undermining）</td><td id="np-238"><mark>止於缺損的周邊緣</mark></td><td id="np-239">無</td><td id="np-240">無</td></tr>
 <tr><td id="np-241">Furrow degeneration（溝狀變性）</td><td id="np-242">無</td><td id="np-243">無</td><td id="np-244">年長者</td><td id="np-245">無性別傾向</td><td id="np-246">雙側</td><td id="np-247">無</td><td id="np-248">Arcus 內的環輪部變薄</td><td id="np-249">不典型</td><td id="np-250">除 arcus 外無</td><td id="np-251">一定有</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-252">出處（Table 9-3；PUK＝peripheral ulcerative keratitis，周邊潰瘍性角膜炎）⁠<sup class="ex-qref"><span>Q927</span> <span>Q851</span> <span>Q872</span> <span>Q955</span> <span>Q1710</span></sup><span class="ref">p.232</span></p>
 <ul>
 <li id="np-253">Terrien marginal degeneration（TMD，Terrien 邊緣變性）（本章外，BCSC 8 第 6 章）：<mark class="ex-key">緩慢進行</mark>的周邊角膜基質變薄、<strong>通常雙側（可能不對稱）</strong>、典型無痛但可能伴發炎、主要見於 <span class="num">40 歲</span>以上、男性較常見；上皮保持完整，細 pannus 典型橫越變薄區，脂質典型沉積於 pannus 中央緣（Fig 6-17：脂質沉積前緣）；病人常無症狀，直到誘發散光造成視力模糊⁠<sup class="ex-qref"><span>Q851</span> <span>Q872</span> <span>Q955</span></sup>。<span class="ref">p.232；BCSC 8 p.149</span></li>
@@ -721,14 +735,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-268"><mark>Keratoglobus 的 PK 預後遠比其他角膜擴張差</mark>；需介入維持功能視力時，可考慮先 lamellar keratoplasty 再 PK。<span class="ref">p.235</span></li>
 <li id="np-269">可能自發性角膜破裂 → 須衛教配戴<strong>防護眼鏡</strong>的重要性；兒童高度近視以眼鏡矯正以預防 amblyopia（弱視）。<span class="ref">p.235</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Corneal thinning（角膜變薄）</th><th>Corneal steepening（角膜變陡）</th><th>Corneal edema（角膜水腫）</th><th>Haab striae（Haab 紋）</th><th>Corneal diameter（角膜直徑）</th><th>Increased axial length（眼軸增長）</th><th>Increased IOP（眼壓上升）</th><th>Optic nerve head cupping（視神經盤凹陷）</th></tr></thead>
 <tbody>
 <tr><td id="np-270">Keratoglobus（球形角膜）</td><td id="np-271">明顯；瀰漫但周邊最嚴重</td><td id="np-272">明顯；瀰漫</td><td id="np-273">無（除非 hydrops）</td><td id="np-274">無</td><td id="np-275">正常</td><td id="np-276">可能有</td><td id="np-277">無</td><td id="np-278">無</td></tr>
 <tr><td id="np-279">Megalocornea（大角膜症）</td><td id="np-280">厚度正常</td><td id="np-281">輪廓正常或較陡</td><td id="np-282">無</td><td id="np-283">無</td><td id="np-284">增加</td><td id="np-285">通常無</td><td id="np-286">無</td><td id="np-287">無</td></tr>
 <tr><td id="np-288">Congenital glaucoma（先天性青光眼）</td><td id="np-289">厚度正常至增加</td><td id="np-290">輪廓正常</td><td id="np-291">可能</td><td id="np-292"><mark>常見</mark></td><td id="np-293">增加</td><td id="np-294">常見</td><td id="np-295">可能</td><td id="np-296">常見</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-297">出處（Table 9-4，Comparison of keratoglobus to other conditions in the differential diagnosis）⁠<sup class="ex-qref"><span>Q834</span></sup><span class="ref">p.235</span></p>
 <div class="ex-trap"><h3 id="ch9-s10-4">易錯陷阱</h3><ul>
 <li id="np-298">Table 9-4：keratoglobus 為明顯瀰漫變薄（周邊最嚴重）、角膜直徑正常；megalocornea 厚度正常、直徑增加；congenital glaucoma 直徑增加，Haab striae、眼軸增長與視神經盤凹陷常見，眼壓上升可能。Keratoglobus 另有球形角膜與深前房⁠<sup class="ex-qref"><span>Q575</span> <span>Q834</span></sup>。<span class="ref">p.233, p.235</span></li>
@@ -738,7 +752,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch9-s11" data-w="1164">十一、總整理</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>發病</th><th>變薄／突出</th><th>特徵表現</th><th>主要處置</th></tr></thead>
 <tbody>
 <tr><td id="np-302">Keratoconus（圓錐角膜）</td><td id="np-303">青春期；十幾、二十幾歲進展最快；第四個十年通常減緩</td><td id="np-304">中央、下方旁中央或下方中周邊；最薄處突出</td><td id="np-305">Fleischer ring、Vogt striae、Munson、Rizzuti、scissoring、apical scar、hydrops；K <span class="num">&gt; 47.20 D</span>、I-S <span class="num">&gt; 1.2</span>、SRAX <span class="num">&gt; 21°</span></td><td id="np-306">進展 → CXL；眼鏡／RGP／scleral lens；ICRS；PK／DALK</td></tr>
@@ -746,7 +760,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-312">Keratoglobus（球形角膜）</td><td id="np-313">通常出生即有</td><td id="np-314">瀰漫，周邊較嚴重；球形、前房深、直徑正常</td><td id="np-315">Blue sclera、EDS type VI；與 atopy 無關；可能自發破裂</td><td id="np-316">Scleral lens；防護眼鏡；PK 預後差，可考慮先 lamellar keratoplasty 再 PK</td></tr>
 <tr><td id="np-317">Post-refractive ectasia（屈光手術後擴張）</td><td id="np-318">切削式屈光手術後</td><td id="np-319">—</td><td id="np-320">危險因子：年輕、術前高度近視、RSB 薄、術前角膜薄、術前輪廓異常</td><td id="np-321">CXL（post-LASIK ectasia 效果可能不如 KC）；RGP 或 hybrid lens</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-322">出處 <span class="ref">p.213–235；BCSC 13 p.117</span></p>
 <div class="hs-tip-box">
 <h3 id="ch9-s11-1">易混淆比較與口訣</h3>

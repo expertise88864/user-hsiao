@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -433,7 +447,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-37">球結膜附著不良造成冗餘（redundancy）；詳見第 4、5 章。<span class="ref">p.137</span></li>
 </ul>
 <h3 id="ch6-s2-4">結膜血管迂曲與充血（Table 6-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Category（類別）</th><th>Causes（原因）</th></tr></thead>
 <tbody>
 <tr><td id="np-38">Diffuse vascular tortuosity（瀰漫性血管迂曲）</td><td id="np-39">Blood hyperviscosity disorders（血液高黏滯疾病）、carcinoid tumor（類癌）、carotid-cavernous fistula（trauma）and dural shunts（頸動脈海綿竇瘻管〔外傷〕與硬腦膜分流）、diabetes（糖尿病）、Fabry disease、hypertension（高血壓）、mucolipidosis I、polycythemia vera（真性紅血球增多症）、sickle cell anemia（鐮狀細胞貧血）</td></tr>
@@ -441,7 +455,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-42">Subconjunctival hemorrhage（結膜下出血）</td><td id="np-43">Ocular associations（眼部相關）：allergy（過敏）、conjunctival amyloidosis（結膜類澱粉沉積）、conjunctivitis（viral）（病毒性結膜炎）、conjunctivochalasis、orbital lymphangioma（眼眶淋巴管瘤）、related to ocular surgery（與眼部手術相關）；Systemic associations（全身相關）：anticoagulant use（使用抗凝血劑）、bleeding disorders（出血性疾病）、head-down positioning（頭低姿勢）、hypertension、strangulation（勒頸）、trauma／Valsalva maneuver（外傷／Valsalva 動作）</td></tr>
 <tr><td id="np-44">Telangiectasia（微血管擴張）</td><td id="np-45">Ataxia-telangiectasia（Louis-Barr syndrome）、galactosialidosis（Goldberg syndrome）、hereditary hemorrhagic telangiectasia（Rendu-Osler-Weber syndrome）、local conditions that dilate the conjunctiva（使結膜血管擴張的局部狀況）、telangiectasia of the conjunctiva and skin（結膜與皮膚微血管擴張）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-46">出處 <span class="ref">p.138</span></p>
 <div class="ex-trap"><h3 id="ch6-s2-5">易錯陷阱</h3><ul>
 <li id="np-47">Concretions 在「瞼結膜」（常在翻開眼瞼時最易看到）；inclusion cyst 在「球結膜或穹窿」。<span class="ref">p.137</span></li>
@@ -449,7 +463,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch6-s3" data-w="945">三、角膜變性 vs 角膜失養症；角膜老化</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Feature（特徵）</th><th>Degeneration（變性）</th><th>Dystrophy（失養症）</th></tr></thead>
 <tbody>
 <tr><td id="np-49">Location（位置）</td><td id="np-50"><mark>Opacity often involves the periphery（混濁常侵犯周邊）</mark></td><td id="np-51">Opacity often centrally located with limbal sparing（混濁常位於中央、輪部保留）</td></tr>
@@ -459,7 +473,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-61">Systemic disease（全身疾病）</td><td id="np-62">May be associated（可相關，如 hyperparathyroidism、sarcoidosis）</td><td id="np-63">Usually not associated（通常無關）</td></tr>
 <tr><td id="np-64">Progression（進展）</td><td id="np-65">Varying from slow to rapid（慢至快不等）</td><td id="np-66">Usually slow（通常緩慢）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-67">出處（Table 6-2）<span class="ref">p.139</span></p>
 <ul>
 <li id="np-68">依 Table 6-2，<mark class="ex-key">變性的混濁常侵犯周邊；混濁常位於中央並保留輪部是失養症的特徵</mark>；變性可雙側但不對稱、較晚年出現、進展慢至快不等⁠<sup class="ex-qref"><span>Q854</span></sup>。<span class="ref">p.139</span></li>
@@ -507,7 +521,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-93">鐵線一般<strong>不需治療</strong>，但可提醒臨床醫師注意可能需要處理的潛在病變。<span class="ref">p.141</span></li>
 </ul>
 <h3 id="ch6-s5-2">Corneal deposits 總表（Table 6-3）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Clinical finding（名稱）</th><th>Pigment（物質）</th><th>Location in cornea（層次）</th><th>Characteristics（特徵）</th></tr></thead>
 <tbody>
 <tr><td id="np-94">Ferry line</td><td id="np-95">Iron（鐵）</td><td id="np-96">Epithelium（上皮）</td><td id="np-97">Anterior to filtering bleb（過濾泡前方）</td></tr>
@@ -526,7 +540,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-146">Chalcosis（銅質沉著）</td><td id="np-147">Copper</td><td id="np-148">Descemet membrane</td><td id="np-149">Usually occurs with copper-containing foreign body（通常為含銅異物）</td></tr>
 <tr><td id="np-150">Krukenberg spindle</td><td id="np-151">Melanin（黑色素）</td><td id="np-152">Endothelium（內皮）</td><td id="np-153">In a vertical ellipse（垂直橢圓）；sometimes associated with pigmentary glaucoma（有時合併色素性青光眼）；most often bilateral（多為雙側）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-154">出處（Table 6-3）<span class="ref">p.142</span></p>
 <ul>
 <li id="np-155">Chrysiasis = <strong>gold</strong>，位於 stroma、較常在周邊；argyriasis = <strong>silver</strong>，位於深基質與 Descemet membrane⁠<sup class="ex-qref"><span>Q892</span></sup>。<span class="ref">p.142</span></li>
@@ -553,7 +567,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-166">起始為 Bowman layer 細小、塵狀、嗜鹼性沉積；可為特發性、眼部疾病所致或全身疾病表現。<span class="ref">p.141</span></li>
 <li id="np-167">也可由 <strong>urate（尿酸鹽）</strong>沉積造成：<mark class="ex-key">urate 呈<strong>棕色</strong>（band keratopathy 的鈣沉積為灰白色），可能與 gout（痛風）或高尿酸血症相關</mark>⁠<sup class="ex-qref"><span>Q839</span> <span>Q883</span></sup>。<span class="ref">p.141, p.143</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Systemic condition（全身疾病）</th><th>Investigation / serum marker（檢查／血清指標）</th></tr></thead>
 <tbody>
 <tr><td id="np-168">Hypercalcemia（高血鈣）</td><td id="np-169">Serum calcium and phosphorus（血清鈣與磷）</td></tr>
@@ -566,7 +580,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-182">Gout（痛風）</td><td id="np-183">Uric acid／urinalysis（尿酸／尿液分析）</td></tr>
 <tr><td id="np-184">Juvenile idiopathic arthritis（JIA，幼年型特發性關節炎）</td><td id="np-185">Rheumatoid factor、antinuclear antibody</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-186">Ocular conditions（眼部原因）：<strong>uveitis（especially in children，尤其兒童）</strong>、interstitial keratitis（間質性角膜炎）、severe superficial keratitis（嚴重表層角膜炎）、phthisis bulbi（眼球癆）、topical preservatives（局部防腐劑：phenylmercuric nitrate 或 acetate）、<strong>silicone oil（矽油）</strong>⁠<sup class="ex-qref"><span>Q883</span></sup>。<span class="ref">p.144</span></p>
 <ul>
 <li id="np-187">腎衰竭：BCSC 將 chronic renal failure 列於 Table 6-4 的 hypercalcemia 項下，同列檢查為 BUN／creatinine，其上層 hypercalcemia 的檢查為<strong>血清鈣與磷</strong>⁠<sup class="ex-qref"><span>Q871</span></sup>。<span class="ref">p.144</span></li>
@@ -584,13 +598,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-196">（本章外，BCSC 8 第 5 章）PTK 本身：excimer laser 可移除表層基質組織；人工技術不可行時，PTK 是淺層（<span class="num">&lt; 100 μm</span> 深）基質結疤或失養症的極佳選擇；excimer laser（PTK 或 PRK）也可用於 recurrent corneal erosion（反覆性角膜糜爛）；多數病人 PTK 後因角膜變平出現 <strong>hyperopic shift（遠視化）</strong>；PTK 後短暫局部 MMC（通常 <span class="num">0.2 mg/mL</span>，20–30 秒）可減少術後疤痕形成，口服 vitamin C 曾預防性用於減少 haze（霧狀混濁）⁠<sup class="ex-qref"><span>Q941</span></sup>。<span class="ref ref-ext">BCSC 8 p.123–124</span></li>
 </ul>
 <h3 id="ch6-s6-4">White limbal girdle of Vogt（Vogt 輪部白環）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（類型）</th><th>Appearance（外觀）</th><th>Clear zone to limbus（與輪部間透明區）</th><th>Histology（組織學）</th></tr></thead>
 <tbody>
 <tr><td id="np-197">Type I</td><td id="np-198">瞼裂區內與輪部同心的窄白色表層帶；chalklike opacities（白堊狀混濁）夾小透明區，如同 band keratopathy</td><td id="np-199"><strong>有</strong></td><td id="np-200">Bowman layer 層次的退化性變化；一般認為代表<mark>早期 calcific band keratopathy</mark></td></tr>
 <tr><td id="np-201">Type II</td><td id="np-202">小而白的 needlelike flecks（針狀小點），常見於老年人鼻側與顳側輪部</td><td id="np-203"><strong>無</strong></td><td id="np-204">膠原 elastotic degeneration，<mark>類似 pinguecula 的變化</mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-205">兩型皆不威脅視力、不需治療。<span class="ref">p.145</span></p>
 <div class="ex-trap"><h3 id="ch6-s6-5">易錯陷阱</h3><ul>
 <li id="np-206">Band keratopathy：可用機械性移除合併 EDTA 螯合移除鈣；PTK 不建議作為首要治療（鈣與基質切削速率不同，可能造成嚴重不規則表面），初次 EDTA 後若仍有殘餘混濁可考慮 PTK⁠<sup class="ex-qref"><span>Q839</span> <span>Q941</span></sup>。<span class="ref">p.143–145</span></li>
@@ -662,7 +676,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-245">手術適應症：進行性變薄造成明顯散光而顯著影響視力，或<strong>威脅穿孔</strong>；可用新月形 lamellar 或全層 corneoscleral patch graft；嚴重 <span class="num">360°</span> 邊緣變性可考慮環狀 lamellar tectonic keratoplasty。<span class="ref">p.150</span></li>
 </ul>
 <div class="keypoint"><p id="np-246"><mark>Clinical pearl</mark>：TMD 可能與 <strong>peripheral ulcerative keratitis（PUK，周邊潰瘍性角膜炎）</strong>混淆；PUK 上皮典型<strong>不完整</strong>、<strong>無脂質沉積</strong>；區分重要，因 PUK 常合併潛在全身疾病，TMD 則無。<span class="ref">p.150</span></p></div>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Location of thinning（變薄位置）</th><th>Epithelium / symptoms（上皮／症狀）</th><th>Lipid / vessels（脂質／血管）</th><th>Sex / associated systemic disease（性別／相關全身疾病）</th></tr></thead>
 <tbody>
 <tr><td id="np-247">Terrien marginal degeneration</td><td id="np-248">Typically presents superiorly（典型始於<strong>上方</strong>），可環狀擴展；通常不往中央進展，但可累及下方輪部</td><td id="np-249">Epithelial defects usually none（通常無上皮缺損）；散光致視力模糊，可能合併發炎</td><td id="np-250">Lipid deposits at central edge of pannus（脂質在 pannus 中央側邊緣）；vessels cross the area of thinning（血管跨越變薄區）</td><td id="np-251">Male predominance（男性較多）；全身疾病：none</td></tr>
@@ -670,7 +684,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-257">Mooren ulcer（MU，蠶蝕性角膜潰瘍）（本章外）</td><td id="np-258">Typical onset nasal or temporal（典型始於<strong>鼻側或顳側</strong>），環狀再往中央進展，中央緣潛行</td><td id="np-259">Epithelial defects typical（典型有上皮缺損）；早期發炎致疼痛、紅與視力模糊，晚期結疤；疼痛可能劇烈</td><td id="np-260">Lipid none；vessels stop at the peripheral edge of defect（血管止於缺損周邊緣）</td><td id="np-261">Male predominance with the bilateral form（雙側型男性較多）；單側型男女相當；可能與 hepatitis C 或 helminthic disease（寄生蟲病）相關</td></tr>
 <tr><td id="np-262">PUK</td><td id="np-263">Peripheral（周邊）</td><td id="np-264">上皮典型不完整</td><td id="np-265">無脂質沉積</td><td id="np-266">常合併潛在全身疾病</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-267">出處 <span class="ref">p.149–150, BCSC 8 p.232, p.374–375</span></p>
 <ul>
 <li id="np-268">Lipid deposits 與跨越變薄區的血管是 <strong>TMD</strong> 的表現；Mooren ulcer 無脂質、血管止於缺損周邊緣、典型有上皮缺損。變薄位置：PMD 通常下方、TMD 典型始於上方、MU 典型始於鼻側或顳側；TMD 男性較多（本章外，BCSC 8 p.232）⁠<sup class="ex-qref"><span>Q927</span> <span>Q955</span></sup>。<span class="ref">p.149, BCSC 8 p.232</span></li>
@@ -703,14 +717,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-283">ICE syndrome（虹膜角膜內皮症候群）是一系列疾病：不同程度的虹膜變化、瞳孔異常、角膜內皮結構與增生異常，以及 peripheral anterior synechiae（PAS，周邊前粘連）；成因是<strong>異常內皮細胞增生</strong>並延伸到角膜、隅角與虹膜。<span class="ref">p.151</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（變型）</th><th>Mechanism（機轉）</th><th>Hallmark（特徵）</th></tr></thead>
 <tbody>
 <tr><td id="np-284"><strong>I</strong>ris nevus syndrome（Cogan-Reese syndrome，虹膜痣症候群）</td><td id="np-285">Abnormal endothelium spreads to and contracts iris（異常內皮延伸到虹膜並收縮）</td><td id="np-286"><mark>Multiple pedunculated or diffusely pigmented iris nodules（多發有蒂或瀰漫色素性虹膜結節）</mark>（虹膜萎縮傾向較輕，BCSC 10）</td></tr>
 <tr><td id="np-287"><strong>C</strong>handler syndrome</td><td id="np-288">Abnormal endothelium <strong>confined to the posterior corneal surface</strong>（局限於角膜後表面）→ subnormal endothelial pump function（內皮幫浦功能不足）</td><td id="np-289">可發生<mark>角膜水腫</mark>；虹膜萎縮與 corectopia 輕微，角膜與隅角表現為主（BCSC 10）</td></tr>
 <tr><td id="np-290"><strong>E</strong>ssential (progressive) iris atrophy（原發性進行性虹膜萎縮）</td><td id="np-291">Abnormal endothelium spreads to the iris surface（異常內皮延伸到虹膜表面，收縮膜造成變化）</td><td id="np-292"><mark>Iris atrophy、corectopia（瞳孔異位）、polycoria（多瞳）</mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-293">出處 <span class="ref">p.151–152</span>；各型虹膜萎縮輕重的比較為本章外（<span class="ref ref-ext">BCSC 10 p.177</span>）</p>
 <ul>
 <li id="np-294">Essential iris atrophy 變型的特徵是嚴重、進行性虹膜萎縮，造成 heterochromia（虹膜異色）、corectopia、ectropion uveae（葡萄膜外翻）、虹膜基質與色素上皮萎縮以及破洞形成（本章外，BCSC 10 p.176–177）；本章列 iris atrophy、corectopia、polycoria 為其 hallmarks⁠<sup class="ex-qref"><span>Q1287</span></sup>。<span class="ref">p.152, BCSC 10 p.176–177</span></li>
@@ -737,14 +751,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-306">長期植片透明取決於眼壓控制，而眼壓控制可能困難；青光眼藥物治療可能不易；若做 <strong>filtering surgery（濾過手術）</strong>，異常內皮膜的進行性生長可阻塞濾過口 → <mark><strong>tube shunt（引流管）手術可能較成功</strong></mark>。<span class="ref">p.153</span></li>
 </ul>
 <h3 id="ch6-s10-5">ICE vs PPCD vs Axenfeld-Rieger（本章外比較）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Inheritance（遺傳）</th><th>Laterality（側別）</th><th>Angle / iris（隅角／虹膜）</th><th>Glaucoma（青光眼）</th></tr></thead>
 <tbody>
 <tr><td id="np-307">ICE syndrome</td><td id="np-308">Sporadic（偶發）；may be related to herpesvirus（可能與 herpesvirus 相關）</td><td id="np-309">Unilateral（單側；本章：幾乎都單側）</td><td id="np-310">Broad PAS（寬廣 PAS）、corectopia、iris atrophy、虹膜結節、polycoria；BCSC 10：high PAS 常延伸到 Schwalbe line 前方</td><td id="np-311">約 <span class="num">50%</span></td></tr>
 <tr><td id="np-312">Posterior polymorphous corneal dystrophy（PPCD，後部多形性角膜失養症）</td><td id="np-313">Autosomal dominant（另有表型相似、無遺傳的孤立單側病例報告）</td><td id="np-314">Usually bilateral（通常雙側）</td><td id="np-315">May be associated with broad PAS, corectopia, iridocorneal adhesions（可有寬廣 PAS、瞳孔異位、虹膜角膜粘連）</td><td id="np-316">Chronic angle-closure 與 open-angle glaucoma 皆可發生；<span class="num">14%</span> 病人眼壓升高</td></tr>
 <tr><td id="np-317">Axenfeld-Rieger syndrome</td><td id="np-318">Autosomal dominant in 75% of cases（75% 為體染色體顯性），也可偶發</td><td id="np-319">Bilateral（雙側）</td><td id="np-320">Fine iris strands to posterior embryotoxon（細虹膜條索連到 posterior embryotoxon）；iris hypoplasia、corectopia</td><td id="np-321"><span class="num">50%</span>（晚期兒童期或成年發生）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-322">PPCD 的 specular microscopy 可見典型 vesicles（小泡）與 bands（帶狀病灶）。出處 <span class="ref">p.152–153, BCSC 8 p.168, p.208–210, BCSC 10 p.176–177</span></p>
 <ul>
 <li id="np-323">PPCD 可發生 chronic angle-closure 與 open-angle glaucoma，<span class="num">14%</span> 的 PPCD 病人眼壓升高（BCSC 8 p.208）；ICE 約 50% 發生青光眼（BCSC 10 p.177）；ARS 50% 合併青光眼（BCSC 8 p.168）⁠<sup class="ex-qref"><span>Q925</span></sup>。<span class="ref ref-ext">BCSC 8 p.168, p.208, BCSC 10 p.177</span></li>
@@ -752,13 +766,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-325">（本章外，BCSC 10）Secondary angle closure 的原因包括：lens subluxation（ectopia lentis，前移造成 pupillary block 與續發性隅角閉鎖）、anterior segment neovascularization（neovascular glaucoma）、ICE syndrome（續發性慢性隅角閉鎖）⁠<sup class="ex-qref"><span>Q1271</span></sup>。<span class="ref ref-ext">BCSC 10 p.170, p.172, p.176</span></li>
 </ul>
 <h3 id="ch6-s10-6">單側角膜水腫的鑑別診斷（Table 6-5）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Category（類別）</th><th>Conditions（疾病）</th></tr></thead>
 <tbody>
 <tr><td id="np-326">Congenital conditions（先天）</td><td id="np-327">Glaucoma（青光眼）、CHED（congenital hereditary endothelial dystrophy，先天遺傳性內皮失養症）、<strong>PPMD（posterior polymorphous corneal dystrophy）</strong>、<strong>birth trauma（forceps）（產傷〔產鉗〕）</strong></td></tr>
 <tr><td id="np-328">Acquired conditions（後天）</td><td id="np-329">Endothelial dysfunction（內皮功能不全：aphakic／postoperative／pseudophakic）、contact lens overwear（隱形眼鏡過度配戴：tight lens syndrome）、acute angle-closure glaucoma、Posner-Schlossman syndrome（glaucomatocyclitic crisis）、acute corneal hydrops、<strong>HSV／HZO trabeculitis or endotheliitis</strong>、ICE syndrome（Chandler syndrome）、corneal transplant（acute rejection、graft failure）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-330">出處（Table 6-5）<span class="ref">p.153</span></p>
 <ul>
 <li id="np-331">診斷 Chandler syndrome 前應先考慮 Table 6-5 其他會造成單側角膜水腫的狀況。<span class="ref">p.152</span></li>
@@ -822,7 +836,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-360">鑑別：cornea verticillata 的鑑別診斷包括 <strong>Fabry disease</strong>（sphingolipid（鞘脂）代謝異常）。<span class="ref">p.157</span></li>
 </ul>
 <h3 id="ch6-s13-3">其他藥物性角膜沉積與毒性</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Drug（藥物）</th><th>Corneal finding（角膜表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-361">Amantadine（用於治療 dyskinesia）</td><td id="np-362">可造成雙側角膜水腫與內皮細胞數下降</td></tr>
@@ -833,7 +847,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-371">Gold salts（可用於治療類風濕性關節炎）</td><td id="np-372">長期使用且累積劑量 <span class="num">&gt; 1 g</span> → 高比例病人出現<strong>後基質</strong>沉積，<strong>不侵及 Descemet membrane 與內皮</strong></td></tr>
 <tr><td id="np-373">Rifabutin（治療結核、預防與治療 <i>Mycobacterium</i> avium complex）</td><td id="np-374">曾有描述造成星狀、折光的<strong>內皮</strong>沉積，先在周邊，之後可延伸至中央</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-375">出處 <span class="ref">p.158</span></p>
 <ul>
 <li id="np-376">Topical ciprofloxacin：上皮缺損內的白堊狀白色沉澱（ciprofloxacin 結晶）（p.158）；cornea verticillata：下方瞼裂區角膜上皮層的漩渦狀金棕色或灰色沉積（p.156）⁠<sup class="ex-qref"><span>Q855</span></sup>。<span class="ref">p.156, p.158</span></li>

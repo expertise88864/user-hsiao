@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -486,7 +500,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-67">水晶體彈性下降 → 調節反應逐漸喪失；剩餘調節不足以舒適閱讀與近距工作時才成為臨床問題，可用適當凸透鏡補償。<span class="ref">p.193</span></li>
 <li id="np-68">症狀通常在 <span class="num">40 歲</span>以後出現；發病年齡受原有屈光不正、depth of focus（焦深，瞳孔大小）、視覺工作內容等影響。<span class="ref">p.193</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Age（歲）</th><th>Average accommodative amplitude（平均調節幅度）</th><th>Age（歲）</th><th>Average accommodative amplitude</th></tr></thead>
 <tbody>
 <tr><td id="np-69"><span class="num">8</span></td><td id="np-70"><span class="num">14.0 (±2.00 D)</span></td><td id="np-71"><span class="num">40</span></td><td id="np-72"><span class="num">6.0 (±2.00 D)</span></td></tr>
@@ -498,7 +512,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-93"><span class="num">32</span></td><td id="np-94"><span class="num">8.0 (±2.00 D)</span></td><td id="np-95"><span class="num">64</span></td><td id="np-96"><span class="num">1.0 (±0.50 D)</span></td></tr>
 <tr><td id="np-97"><span class="num">36</span></td><td id="np-98"><span class="num">7.0 (±2.00 D)</span></td><td id="np-99"><span class="num">68</span></td><td id="np-100"><span class="num">0.5 (±0.50 D)</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-101">出處（Table 5-1 Average Accommodative Amplitudes for Different Ages，各年齡平均調節幅度）<span class="ref">p.193</span></p>
 <ul>
 <li id="np-102">Table 5-1 記憶法：<span class="num">40 歲</span>前每 <span class="num">4 年</span>減 <span class="num">1.00 D</span>；40 歲後下降加快；<span class="num">48 歲</span>起每 4 年減 <span class="num">0.50 D</span>。只要記住 40 歲（6.0 D）與 48 歲（3.0 D）就能推回整張表。<span class="ref">p.193</span></li>
@@ -614,14 +628,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-163">缺點：所有 PAL 的設計都有某程度周邊扭曲，由非球面曲率變化造成的散光與 higher-order aberrations（高階像差）引起；<strong>這些曲率變化以鏡片下方內、外象限最明顯</strong>；這些扭曲可能使頭動時有「swimming（游動）」感。<span class="ref">p.200</span></li>
 <li id="np-164">連接遠、近光學中心的垂直子午線<strong>沒有表面散光</strong>、視力最好；兩側有誘發散光與視力下降。<span class="ref">p.200</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Design（設計）</th><th>Distortion distribution（扭曲分布）</th><th>Clear zones（無扭曲區）</th><th>Trade-off（取捨）</th></tr></thead>
 <tbody>
 <tr><td id="np-165">Soft design（軟式）</td><td id="np-166">扭曲攤在較寬區域、程度較輕</td><td id="np-167">主要清晰區較小</td><td id="np-168">扭曲少、但可用的無像差遠近視野較小</td></tr>
 <tr><td id="np-169">Hard design（硬式）</td><td id="np-170">側邊扭曲範圍小但較強烈</td><td id="np-171">遠、近清晰區較寬</td><td id="np-172">可用視力面積大、側邊變形明顯</td></tr>
 <tr><td id="np-173">Long corridor（長通道）</td><td id="np-174">扭曲較不明顯</td><td id="np-175">—</td><td id="np-176">遠用光學中心與閱讀區垂直距離加大</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-177">出處（p.200 內文；Fig 5-8 圖示 hard design 為 short progression、hard periphery，soft design 為 long progression、soft periphery）<span class="ref">p.200</span></p>
 <ul>
 <li id="np-178">可能的好人選：新老花、未戴過傳統有線雙焦／三焦者；只偶爾需要中距離者；強烈排斥有線鏡片者。<span class="ref">p.200</span></li>
@@ -667,7 +681,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-205">章末 5.7：減少 image jump 的方法是<strong>讓子片光學中心盡量靠近子片上緣</strong>；依 Prentice 法則，跳動量取決於子片度數與子片上緣到子片光學中心的距離。<span class="ref">p.219, p.221</span></li>
 <li id="np-206">章末 5.9：近視者的雙焦宜選 <strong>flat-top</strong>：病人普遍覺得 image jump 比 image displacement 更困擾；flat-top 光學中心靠上緣可減少 jump，且遠用負鏡片的 BD 效應會被子片的 BU 效應減少，減少稜鏡位移。<span class="ref">p.219, p.221–222</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Segment（子片）</th><th>Segment optical center（子片光學中心）</th><th>Image jump</th><th>適用</th></tr></thead>
 <tbody>
 <tr><td id="np-207">Executive（Franklin）／split</td><td id="np-208">在子片上緣</td><td id="np-209">無（no image jump）</td><td id="np-210">monocentric（單光心）構造；優點在單光心而非寬度</td></tr>
@@ -675,7 +689,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-215">Round-top（如 22 mm 子片）</td><td id="np-216">遠低於上緣</td><td id="np-217">最大（maximum）</td><td id="np-218">正鏡片：影像位移最小；但近視者 jump 更困擾</td></tr>
 <tr><td id="np-219">PAL</td><td id="np-220">無子片分界（度數漸變）</td><td id="np-221">避免 image jump</td><td id="np-222">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-223">出處 <span class="ref">p.199, p.203–204, p.207–208</span></p>
 <div class="ex-trap"><h3 id="ch5-s10-4">易錯陷阱</h3><ul>
 <li id="np-224">垂直稜鏡：同號相減、異號相加；水平稜鏡：同號相加、異號相減。Antimetropia ±2.00 D → 垂直 3.2Δ、水平 0⁠<sup class="ex-qref"><span>Q219</span></sup>。<span class="ref">p.202–203</span></li>
@@ -789,7 +803,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-288">章末 5.4：Abbe number 衡量的是 <strong>chromatic aberration（色像差）</strong>；Abbe 數越低色像差越大，低 Abbe 鏡片常需 antireflective coating（抗反射鍍膜）以減少室內強光反射造成的色像差⁠<sup class="ex-qref"><span>Q269</span> <span>Q290</span></sup>。<span class="ref">p.218, p.220</span></li>
 <li id="np-289">耐衝擊：美國所有配發鏡片都須符合 FDA <strong>21CFR801.410</strong>（除非醫師或驗光師書面說明此類鏡片不符該病人視覺需求）；職業與教育用個人護目鏡另須符合 ANSI 高速衝擊標準 <strong>Z87.1</strong>；<mark>兒童與活動量大的成人</mark>也應符合 Z87.1，除非已告知病人其鏡片不是最耐衝擊的。<span class="ref">p.213</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Material（材料）</th><th>Refractive index（折射率）</th><th>Specific gravity（比重）</th><th>Abbe number（阿貝數）</th><th>Impact resistance（耐衝擊）：FDA 21CFR801.410</th><th>Impact resistance（耐衝擊）：ANSI Z87.1</th><th>Remarks（備註）</th></tr></thead>
 <tbody>
 <tr><td id="np-290">Standard glass（標準玻璃）</td><td id="np-291"><span class="num">1.52</span></td><td id="np-292"><span class="num">2.54</span></td><td id="np-293"><span class="num">59</span></td><td id="np-294">✓</td><td id="np-295">—</td><td id="np-296">High-index versions available（有高折射率版本）</td></tr>
@@ -797,7 +811,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-304">Polycarbonate（聚碳酸酯）</td><td id="np-305"><span class="num">1.58</span></td><td id="np-306"><span class="num">1.2</span></td><td id="np-307"><span class="num">30</span></td><td id="np-308">✓</td><td id="np-309">✓</td><td id="np-310">Scratches easily（易刮傷）</td></tr>
 <tr><td id="np-311">Trivex</td><td id="np-312"><span class="num">1.53</span></td><td id="np-313"><span class="num">1.11</span></td><td id="np-314"><span class="num">45</span></td><td id="np-315">✓</td><td id="np-316">✓</td><td id="np-317">Scratches easily（易刮傷）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-318">出處（Table 5-2）<span class="ref">p.212</span></p>
 <ul>
 <li id="np-319"><strong>Standard glass</strong>：光學最好、耐刮；但耐衝擊差、厚、重；現今較少使用，許多病人選塑膠；未經特殊處理可能易碎，化學或熱 tempering（強化）可增加抗碎性，但強化後一經刮傷或工具加工就失去；農夫喜歡 photoreactive glass（感光玻璃）耐刮好保養；<strong>電焊與研磨工人宜用塑膠</strong>（熱顆粒會嵌入玻璃）；想要薄鏡的近視者可選高折射率玻璃，但最高折射率版本不能強化、需簽切結書；玻璃未鍍膜不擋 UV。<span class="ref">p.213</span></li>
@@ -884,7 +898,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch5-s20" data-w="1214">二十、章末習題重點（Chapter Exercises：Questions／Answers）</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>題號</th><th>考點</th><th>原書解答重點</th><th>Page</th></tr></thead>
 <tbody>
 <tr><td id="np-364">5.1</td><td id="np-365">Fig 5-20 扭曲類型</td><td id="np-366">高度負鏡片縮小 → barrel distortion</td><td id="np-367"><span class="ref">p.217, p.220</span></td></tr>
@@ -900,7 +914,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-404">5.11</td><td id="np-405">PAL 抬下巴看遠</td><td id="np-406">遠視矯正不足或近視過矯</td><td id="np-407"><span class="ref">p.220, p.222</span></td></tr>
 <tr><td id="np-408">5.12</td><td id="np-409">OD −3.50、OS −0.50，看子片上緣下 4 mm（上緣在光學中心下 3 mm）</td><td id="np-410">0.7 × 3.00 = <span class="num">2.1Δ</span> BD 右眼</td><td id="np-411"><span class="ref">p.220, p.222</span></td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="hs-tip-box">
 <h3 id="ch5-s20-1">易混淆比較與口訣</h3>

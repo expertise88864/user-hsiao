@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -467,7 +481,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-64">治療：建議開始局部類固醇 + 房水抑制劑；發炎控制後殘留晶體物質很可能需要移除⁠<sup class="ex-qref"><span>Q1146</span></sup>。<span class="ref">p.136</span></li>
 <li id="np-65">組織學（本章外）：phacoantigenic 為水晶體損傷處的 zonal granulomatous inflammation（帶狀肉芽腫性發炎）；phacolytic 的房水可見 refractile bodies（lipid-laden macrophages），巨噬細胞充滿晶體蛋白阻塞 TM⁠<sup class="ex-qref"><span>Q1028</span></sup>。<span class="ref ref-ext">BCSC 9 p.145–146</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Angle（隅角）</th><th>誘因／囊膜</th><th>KPs</th><th>Treatment（治療）</th></tr></thead>
 <tbody>
 <tr><td id="np-66">Phacolytic</td><td id="np-67">開放</td><td id="np-68">成熟／過熟白內障，蛋白經囊膜微小開口滲出</td><td id="np-69"><strong>無</strong></td><td id="np-70">白內障摘除為根本治療</td></tr>
@@ -476,7 +490,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-81">Phacomorphic</td><td id="np-82">閉鎖（常有瞳孔阻滯成分）</td><td id="np-83">白內障水晶體的質量效應；部分病例因水晶體明顯膨大（intumescence）而急性發作</td><td id="np-84">—</td><td id="np-85">見 Chapter 10</td></tr>
 <tr><td id="np-86">Ectopia lentis</td><td id="np-87">閉鎖（前移時可能瞳孔阻滯）</td><td id="np-88">懸韌帶斷裂或缺失（如 PXF、外傷、Marfan）</td><td id="np-89">—</td><td id="np-90">兩個相隔 180° 的 laser iridotomy（本章外）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-91">出處 <span class="ref">p.134–136；BCSC 10 p.168–170</span></p>
 <div class="ex-trap"><h3 id="ch8-s3-5">易錯陷阱</h3><ul>
 <li id="np-92">KP 有無：phacolytic「無」；phacoantigenic 多數「有」（內皮＋晶體前表面）⁠<sup class="ex-qref"><span>Q1152</span> <span>Q1163</span> <span>Q1197</span> <span>Q1255</span></sup>。<span class="ref">p.135–136</span></li>
@@ -569,14 +583,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-153"><mark class="ex-key">因其病因，<strong>laser trabeculoplasty 無效</strong></mark>⁠<sup class="ex-qref"><span>Q1226</span></sup>。<span class="ref">p.141–142</span></li>
 <li id="np-154">可能需要 filtering surgery，但因有 <strong>ciliochoroidal effusion（睫狀體脈絡膜滲漏）</strong>或 <strong>suprachoroidal hemorrhage（脈絡膜上腔出血）</strong>風險 → 應考慮預防性 sclerotomies 或 scleral windows（鞏膜開窗）。<span class="ref">p.142</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Vascular malformations（血管畸形）</th><th>Venous obstruction（靜脈阻塞）</th></tr></thead>
 <tbody>
 <tr><td id="np-155">Arteriovenous fistula（動靜脈瘻管）：carotid-cavernous sinus fistula、dural fistula</td><td id="np-156">Retrobulbar tumor（球後腫瘤）</td></tr>
 <tr><td id="np-157">Orbital varix（眼眶靜脈曲張）</td><td id="np-158">Superior vena cava syndrome（上腔靜脈症候群）</td></tr>
 <tr><td id="np-159">Sturge-Weber syndrome</td><td id="np-160">Thyroid eye disease（甲狀腺眼疾）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-161">出處（Table 8-1）⁠<sup class="ex-qref"><span>Q1165</span> <span>Q1193</span></sup><span class="ref">p.140</span></p>
 <ul>
 <li id="np-162">CCF、thyroid eye disease、Sturge-Weber 都列於 EVP 升高病因表（Table 8-1）；<mark class="ex-key"><strong>corticosteroid-induced glaucoma 的升壓來自 TM 房水外流阻力增加</strong></mark>⁠<sup class="ex-qref"><span>Q1165</span></sup>。<span class="ref">p.140, p.148</span></li>
@@ -743,7 +757,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch8-s11" data-w="1775">十一、總整理：機轉與鑑別</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>阻塞物／機轉</th><th>關鍵徵象</th><th>Page</th></tr></thead>
 <tbody>
 <tr><td id="np-264">Pseudoexfoliation</td><td id="np-265">可能為纖維物質沉積於 TM 與 uveoscleral 途徑</td><td id="np-266">前囊靶心狀、TM 重色素、Sampaolesi line、phacodonesis、常單眼且不對稱、最常見於 &gt;70 歲</td><td id="np-267"><span class="ref">p.129–131</span></td></tr>
@@ -759,7 +773,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-304">Schwartz-Matsuo</td><td id="np-305">推測為感光細胞外節</td><td id="np-306">RRD 合併高眼壓，復位後 IOP 傾向恢復</td><td id="np-307"><span class="ref">p.148</span></td></tr>
 <tr><td id="np-308">Corticosteroid-induced</td><td id="np-309">TM 外流阻力增加</td><td id="np-310">類似 POAG；POAG／一等親／&lt;6 歲或年長</td><td id="np-311"><span class="ref">p.148–149</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="hs-tip-box">
 <h3 id="ch8-s11-1">易混淆比較與口訣</h3>
 <ul>

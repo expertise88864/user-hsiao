@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -384,7 +398,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-9">遺傳性先天色覺缺陷最常為 XR 紅綠異常，影響男性 <span class="num">5%–8%</span>、女性 <span class="num">0.5%</span>；<strong>後天</strong>缺陷較常為 <mark>blue-yellow（藍黃）／tritan</mark> 型，男女相等。<span class="ref">p.284</span></li>
 <li id="np-10"><strong>Dichromatism（dichromacy，二色視）</strong>：只需 2 原色即可配色，推定缺少 1 種 cone photopigment；約 <span class="num">2%</span> 男性。<span class="ref">p.284</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Color vision（色覺分類）</th><th>Inheritance（遺傳）</th><th>Incidence in male population（男性族群發生率，%）</th></tr></thead>
 <tbody>
 <tr><td id="np-11">Hereditary trichromatism：Normal（正常）</td><td id="np-12">–</td><td id="np-13"><span class="num">92.0</span></td></tr>
@@ -399,7 +413,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-38">Acquired：Protanomalous-deuteranomalous（red-green，紅綠）</td><td id="np-39">Unknown（未知）</td><td id="np-40">Unknown（未知）</td></tr>
 <tr><td id="np-41">Acquired：Tritanomalous（blue-yellow，藍黃）</td><td id="np-42">Unknown（未知）</td><td id="np-43">Unknown（未知）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-44">出處（Table 12-1；AD = 體染色體顯性、AR = 體染色體隱性、XR = X 性聯隱性）<span class="ref">p.284</span></p>
 <h3 id="ch12-s2-2">Achromatopsia（全色盲）</h3>
 <ul>
@@ -436,7 +450,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-63">鑑別 <strong>retinitis punctata albescens（白點狀視網膜炎）</strong>：<strong>RLBP1</strong>（cellular retinaldehyde-binding protein）變異；屬<mark>進行性 rod–cone dystrophy</mark>；白點可能較細、視網膜血管可能變細；ERG 通常非常低下，延長暗適應後稍恢復但<strong>不會正常化</strong>。<span class="ref">p.287</span></li>
 <li id="np-64"><strong>Oguchi disease（小口病）</strong>：自出生夜盲；<mark class="ex-key">SAG（2q37，編碼 arrestin）或 GRK1（13q34，編碼 rhodopsin kinase）</mark>變異；極罕見，日本病人最常見。眼底在暗適應後正常，即使短暫照光後也呈特殊黃色虹彩光澤——<strong>Mizuo-Nakamura phenomenon（水尾-中村現象）</strong>；Fig 12-5 示範此現象的病人為 X-linked cone dystrophy⁠<sup class="ex-qref"><span>Q203</span> <span>Q1498</span></sup>。<span class="ref">p.287–288</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Gene（基因）</th><th>Fundus（眼底）</th><th>ERG／course（ERG 與病程）</th></tr></thead>
 <tbody>
 <tr><td id="np-65">Complete X-linked CSNB</td><td id="np-66">NYX</td><td id="np-67" rowspan="2">CSNB 整體：通常正常（部分有近視性變化）</td><td id="np-68">DA 0.01 測不到；on-response 為 negative waveform、off-response 正常</td></tr>
@@ -445,7 +459,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-76">Retinitis punctata albescens</td><td id="np-77">RLBP1</td><td id="np-78">白點可能較細、血管可能變細</td><td id="np-79">ERG 通常非常低下，延長暗適應後稍恢復但不會正常化；進行性 rod–cone dystrophy</td></tr>
 <tr><td id="np-80">Oguchi disease</td><td id="np-81">SAG（arrestin）／GRK1（rhodopsin kinase）</td><td id="np-82">暗適應後正常；照光後黃色虹彩光澤（Mizuo-Nakamura）</td><td id="np-83">自出生夜盲；日本病人最常見</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-84">出處 <span class="ref">p.285–287</span></p>
 <div class="ex-trap"><h3 id="ch12-s3-3">易錯陷阱</h3><ul>
 <li id="np-85">CSNB 3 種遺傳型中 <strong>X-linked</strong> 最常見，AD 型罕見⁠<sup class="ex-qref"><span>Q1500</span></sup>。<span class="ref">p.285</span></li>
@@ -599,14 +613,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-170">後極視網膜可見<mark>視網膜內黃白色結晶</mark>，也見於<mark>近角膜緣的周邊角膜</mark>；進展後廣泛視網膜脈絡膜萎縮、周邊視力惡化。<span class="ref">p.300</span></li>
 <li id="np-171"><mark class="ex-key">非常罕見的 AR 疾病，<strong>CYP4V2</strong> 突變</mark>；目前無已知治療。BCSC 12 第 13、15 章：Wagner hereditary vitreoretinal degeneration 列於 <strong>AD</strong>；Bietti crystalline dystrophy 與 Hurler syndrome（mucopolysaccharidosis I severe）列於 AR；Usher syndrome 各型皆 AR⁠<sup class="ex-qref"><span>Q1443</span> <span>Q1485</span></sup>。<span class="ref">p.300；BCSC 12 p.316, p.319, p.361</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Inheritance／gene（遺傳／基因）</th><th>Key features（重點）</th><th>Treatment／lab（治療／檢驗）</th></tr></thead>
 <tbody>
 <tr><td id="np-172">Choroideremia</td><td id="np-173">X-linked；CHM（REP1）</td><td id="np-174">夜盲；扇貝狀 RPE／choriocapillaris 缺失、較大脈絡膜血管保留；視網膜血管外觀正常、無視神經萎縮；ERG 通常中年消失</td><td id="np-175">基因治療試驗進行中</td></tr>
 <tr><td id="np-176">Gyrate atrophy</td><td id="np-177">AR；OAT</td><td id="np-178">通常 10 歲前夜盲；周邊鋪路石樣萎縮、扇貝狀邊緣；macular edema 常見</td><td id="np-179">血漿 ornithine ↑；若年輕時開始，限制 arginine，部分加 vitamin B6</td></tr>
 <tr><td id="np-180">Bietti crystalline dystrophy</td><td id="np-181">AR；CYP4V2</td><td id="np-182">後極視網膜內與周邊角膜（近 limbus）黃白色結晶</td><td id="np-183">無已知治療</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-184">出處 <span class="ref">p.297–300</span></p>
 <div class="ex-trap"><h3 id="ch12-s9-4">易錯陷阱</h3><ul>
 <li id="np-185">Choroideremia 為 <strong>X-linked</strong>（CHM）；帶因者通常無症狀、ERG 正常，但常見視網膜下黑色斑駁色素⁠<sup class="ex-qref"><span>Q137</span> <span>Q149</span> <span>Q151</span> <span>Q162</span></sup>。<span class="ref">p.299</span></li>
@@ -731,7 +745,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch12-s16" data-w="2037">十六、總整理：ERG／EOG 與基因速查</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Electrophysiology（電生理）</th><th>Gene／inheritance（基因／遺傳）</th><th>Page（頁碼）</th></tr></thead>
 <tbody>
 <tr><td id="np-260">Rod monochromatism</td><td id="np-261">Cone 反應缺失、rod 反應正常</td><td id="np-262">AR</td><td id="np-263"><span class="ref">p.285</span></td></tr>
@@ -749,7 +763,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-308">Occult macular dystrophy</td><td id="np-309">Focal macular ERG 明顯低下（gold standard）</td><td id="np-310">AD；有報告 RP1L1、MFSD8</td><td id="np-311"><span class="ref">p.309–310</span></td></tr>
 <tr><td id="np-312">XLRS</td><td id="np-313">Negative waveform（a 正常或近正常、b 降）</td><td id="np-314">X-linked；絕大多數為 RS1（retinoschisin）</td><td id="np-315"><span class="ref">p.311–313</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="hs-tip-box">
 <h3 id="ch12-s16-1">易混淆比較與口訣</h3>
 <ul>

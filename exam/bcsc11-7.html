@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -373,7 +387,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-2">約 <span class="num">40%</span> 白內障病人術前角膜弧度散光 <span class="num">≥ 1.00 D</span>；<span class="num">&gt; 85%</span> 成人的 posterior corneal astigmatism（後角膜散光）帶來 against-the-rule（ATR，逆規）角膜散光。<span class="ref">p.101, p.108–109</span></li>
 </ul>
 <h3 id="ch7-s1-2">Table 7-1 Modern IOL Characteristics（現代 IOL 特性）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Characteristic（特性）</th><th>Benefit（好處）</th></tr></thead>
 <tbody>
 <tr><td id="np-3">Foldable（可折疊）</td><td id="np-4">Allows for a smaller incision（可用較小切口）</td></tr>
@@ -383,7 +397,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-11">Biconvex optic（雙凸光學部）</td><td id="np-12">Allows for a thinner optic (and a smaller incision)（光學部較薄，切口也較小）</td></tr>
 <tr><td id="np-13">Acrylic or silicone material（壓克力或矽膠材質）</td><td id="np-14">Higher index of refraction allows for thinner optic（屈光指數較高，光學部可較薄）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-15">出處 <span class="ref">p.102</span></p>
 <h3 id="ch7-s1-3">材質</h3>
 <ul>
@@ -443,12 +457,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-47">Clinical Pearl：部分醫師讓 EDOF 搭配 mini-monovision，非主視眼留輕度近視（如 <span class="num">−0.50 D</span>）、主視眼正視，可使非主視眼近視力較好。<span class="ref">p.106</span></li>
 <li id="np-48">優缺點與 MFIOL 相似，<mark class="ex-key">包括部分 contrast sensitivity 下降</mark>；病人篩選與衛教非常重要⁠<sup class="ex-qref"><span>Q1373</span> <span>Q1398</span></sup>。<span class="ref">p.107</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Multifocal (Bifocal or Trifocal)（多焦：雙焦或三焦）</th><th>Extended Depth of Focus（延伸焦深）</th><th>Accommodating（調節型）</th></tr></thead>
 <tbody>
 <tr><td id="np-49">PanOptix Trifocal、ReSTOR、Synergy、TECNIS Multifocal</td><td id="np-50">Eyehance*、RayOne EMV*、Symfony、Vivity</td><td id="np-51">Crystalens AO</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-52">Table 7-2 Examples of Presbyopia-Correcting Intraocular Lenses Available in the United States（美國可用的老花矯正 IOL 舉例）；* Has EDOF properties but does not meet FDA criteria for EDOF（有 EDOF 特性但不符 FDA 的 EDOF 標準）。<span class="ref">p.106</span></p>
 <h3 id="ch7-s2-5">Accommodating IOL（調節型人工水晶體）</h3>
 <ul>
@@ -497,13 +511,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-79"><strong>Limbal relaxing incision（LRI，角膜緣鬆弛切開）</strong>：單一或成對，位於近角膜緣的周邊角膜；<mark class="ex-key"><strong>比 AK 更周邊 → glare 與不規則散光風險較低</strong>；但因位置周邊，<strong>同樣散光效果需比 AK 更長</strong></mark>⁠<sup class="ex-qref"><span>Q1426</span> <span>Q1303</span></sup>。<span class="ref">p.111</span></li>
 <li id="np-80">LRI 常用 diamond blade；<mark class="ex-key">有些醫師把白內障切口放在成對 LRI 其中一個之內，也有人偏好另選位置</mark>；也可術後在門診做。Nomogram：Donnenfeld、Nichamin⁠<sup class="ex-qref"><span>Q1426</span></sup>。<span class="ref">p.111</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th></th><th>Corneal Relaxing Incisions（角膜鬆弛切開）</th><th>Toric IOL Implantation（植入散光人工水晶體）</th></tr></thead>
 <tbody>
 <tr><td id="np-81">Advantages（優點）</td><td id="np-82">can be performed before, during, or after cataract surgery（白內障手術前、中、後皆可做）；manual or femtosecond laser techniques available（可手動或用飛秒雷射）；may be modifiable (opened later) to titrate undercorrection（可能可日後打開以調整矯正不足）；can be used in cases where toric placement may be difficult（toric 可能不易放置時可用）</td><td id="np-83">easily corrects higher levels of astigmatism, <mark>typically preferred for magnitudes &gt;~1.00 D</mark>（易矯正較高散光，散光 &gt; 約 1.00 D 時通常優先選用）；minimal additional surgical technique required beyond standard IOL placement（除標準 IOL 植入外只需極少額外技術）</td></tr>
 <tr><td id="np-84">Disadvantages（缺點）</td><td id="np-85">reduced reproducibility/accuracy of results due to varying corneal response, especially for high amounts of astigmatism（角膜反應不一 → 結果再現性/準確度較差，尤其高散光）；risk of corneal neuropathy, especially with larger treatments（角膜神經病變風險，尤其治療範圍較大時）；risk of creating irregular corneal astigmatism（造成不規則角膜散光的風險）；risk of wound gape, ectasia, long-term instability（傷口裂開、角膜擴張、長期不穩定的風險）；learning curve required to generate reproducible results（需學習曲線才能得到可再現的結果）</td><td id="np-86">cost（費用）；risk of IOL rotation necessitating additional surgery to correct（IOL 旋轉需再手術矯正的風險）；over- or undercorrection possible based on IOL power prediction formulas（依 IOL 度數預測公式可能過度或不足矯正）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-87">Table 7-3 Corneal Relaxing Incisions Versus Toric IOL Implantation for Astigmatism Correction（散光矯正：角膜鬆弛切開 vs 植入 toric IOL）<span class="ref">p.110</span></p>
 <h3 id="ch7-s3-4">Toric IOL（散光人工水晶體）</h3>
 <ul>
@@ -514,12 +528,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-92">BCSC 13：RK 切口常導致不規則散光與變平，在 topography 上可見（BCSC 13 p.150）；不規則散光者可能不適合 toric IOL（p.112）⁠<sup class="ex-qref"><span>Q1638</span></sup>。<span class="ref">p.112; BCSC 13 p.150</span></li>
 </ul>
 <h3 id="ch7-s3-5">Table 7-4 Possible Risk Factors for Postoperative Toric IOL Rotation（術後 toric IOL 旋轉的可能危險因子）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Anatomical（解剖）</th><th>Intraoperative（術中）</th><th>Postoperative（術後）</th></tr></thead>
 <tbody>
 <tr><td id="np-93">Long axial length（長眼軸）；High myopia（高度近視）；Large capsular bag（大囊袋）；<mark>With-the-rule corneal astigmatism（順規角膜散光）</mark></td><td id="np-94">OVD retained behind the IOL（OVD 殘留於 IOL 後方）；Incomplete overlap of anterior capsular rim and IOL optic（前囊緣與光學部未完全重疊）；Polishing the anterior capsule（拋光前囊）；<mark>Low spherical IOL power (ie, thin IOL optic)（低球面度數 IOL，即光學部薄）</mark></td><td id="np-95">Incision leakage（切口滲漏）；Ocular trauma（眼外傷）；Vigorous physical activity（劇烈活動）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-96">出處 <span class="ref">p.113</span></p>
 <ul>
 <li id="np-97">病例報告中與術後旋轉有關的因素：長眼軸/大囊袋可能增加旋轉風險；這類近視眼需要的<strong>低度數 IOL 光學部較薄，可能在囊袋中佔較少空間</strong>；<mark class="ex-key">對準矯正 <strong>WTR</strong> 角膜散光也可能增加旋轉風險</mark>⁠<sup class="ex-qref"><span>Q1375</span></sup>。<span class="ref">p.112</span></li>
@@ -561,14 +575,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-118">量測前先優化角膜：治療 ocular surface disease（眼表疾病）、減少隱形眼鏡造成的 warpage（角膜變形）；偏好不一，多數醫師要求停 rigid gas permeable（RGP，硬式透氣）鏡<strong>數週</strong>，軟式較短。<span class="ref">p.116</span></li>
 <li id="np-119">納入後角膜曲率越來越被視為避免 refractive surprise（屈光意外）的重要因素，尤其 toric IOL。<span class="ref">p.116</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Method（方法）</th><th>量測內容</th><th>特點</th></tr></thead>
 <tbody>
 <tr><td id="np-120">Manual keratometry（手動角膜弧度計）</td><td id="np-121">中央小區域（<span class="num">3.2 mm</span>）前表面</td><td id="np-122">依反射影像大小算曲率半徑；需熟練操作者；可直接看到淚膜不規則、可揭示角膜不規則；<strong>只量前表面</strong>，以假設固定的前後關係推估角膜屈光力</td></tr>
 <tr><td id="np-123">Corneal topography（Placido disk）</td><td id="np-124">前表面地形圖</td><td id="np-125">特別有助於分析不規則散光、偵測早期 keratoconus（圓錐角膜）</td></tr>
 <tr><td id="np-126">Corneal tomography（Scheimpflug 或 OCT）</td><td id="np-127">前、後表面曲率與厚度</td><td id="np-128">Scheimpflug 已整合於協助 IOL 選擇的平台；OCT 軸向解析度較高，角膜混濁時可能有用；對屈光手術後、想矯正散光或數值超出常態者可能特別有用</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-129">出處 <span class="ref">p.116</span></p>
 <h3 id="ch7-s4-4">ACD 與 effective lens position（ELP，有效鏡片位置）</h3>
 <ul>
@@ -596,12 +610,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-141">現代公式結合 artificial intelligence（AI，人工智慧）、ray tracing（光線追跡）、theoretical optics（理論光學）、regression（迴歸）的某些組合，常需年齡、ACD、LT 等額外變數；特定族群（如短或長 AL）的準確度可能不同，但<mark class="ex-key">整體而言大型研究中以 <strong>Barrett Universal II</strong> 與 <strong>Kane</strong> 表現最準確</mark>⁠<sup class="ex-qref"><span>Q1400</span></sup>。<span class="ref">p.117–118</span></li>
 <li id="np-142">許多醫師同時用多個公式；European Society of Cataract and Refractive Surgery（ESCRS）網路計算器可同時跑 Barrett Universal II、Emmetropia Verifying Optical（EVO）、Hill-RBF 3.0、Kane。<span class="ref">p.118</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Regression（迴歸）</th><th>Vergence（聚散度）</th><th>Artificial Intelligence（人工智慧）</th><th>Ray Tracing（光線追跡）</th></tr></thead>
 <tbody>
 <tr><td id="np-143">SRK、SRK II</td><td id="np-144">Holladay 1、SRK/T、Hoffer Q、Haigis、Holladay 2、Barrett Universal II</td><td id="np-145"><mark>Hill-RBF (version 3.0)</mark>、Kane</td><td id="np-146"><mark>Olsen</mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-147">Table 7-5 Partial List of IOL Formulas（IOL 公式部分列表）：<mark class="ex-key"><strong>Hill-RBF</strong>（version 3.0）與 Kane 屬 Artificial Intelligence；Olsen 屬 Ray Tracing；Haigis、Barrett Universal II、Holladay 1 屬 Vergence</mark>⁠<sup class="ex-qref"><span>Q1362</span> <span>Q1411</span> <span>Q1400</span></sup>。<span class="ref">p.118</span></p>
 <h3 id="ch7-s5-3">Calculations following refractive surgery（屈光手術後的計算）</h3>
 <ul>
@@ -623,7 +637,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-160"><mark class="ex-key">放 sulcus 且做 <strong>optic capture（光學部嵌入）</strong> → <strong>不需調整</strong>，因光學部實際上位於囊袋內</mark>⁠<sup class="ex-qref"><span>Q1379</span> <span>Q1367</span> <span>Q291</span></sup>。<span class="ref">p.120</span></li>
 <li id="np-161"><mark class="ex-key">放 sulcus 的 IOL 應限於在 sulcus 穩定且角度正確者（即 <strong>3-piece IOL</strong>）；<strong>1-piece IOL 放 sulcus 易造成 uveitis-glaucoma-hyphema（UGH，葡萄膜炎-青光眼-前房出血）syndrome</strong></mark>。BCSC 11 第 11 章：UGH 最早描述於 rigid 或 closed-loop ACIOL；如今 PCIOL 也可能因 haptic 與後房葡萄膜組織接觸而發生；single-piece acrylic IOL 的 haptic 因 UGH 高風險不應放 sulcus（BCSC 11 p.202）⁠<sup class="ex-qref"><span>Q1424</span> <span>Q1347</span></sup>。<span class="ref">p.120; BCSC 11 p.202</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>IOL Power Calculated for In-the-Bag Placement（囊袋內計算度數）</th><th>IOL Power Adjustment for Sulcus Placement（放 sulcus 的度數調整）</th></tr></thead>
 <tbody>
 <tr><td id="np-162"><span class="num">+28.50 D to +30.00 D</span></td><td id="np-163">Subtract <span class="num">1.50 D</span>（減 1.50 D）</td></tr>
@@ -631,7 +645,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-166"><span class="num">+9.50 D to +17.00 D</span></td><td id="np-167">Subtract <span class="num">0.50 D</span>（減 0.50 D）</td></tr>
 <tr><td id="np-168"><span class="num">+5.00 D to +9.00 D</span></td><td id="np-169">No change（不變）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-170">Table 7-6 IOL Power Adjustments for Sulcus Placement（放 sulcus 的 IOL 度數調整）；若放 sulcus 並做 optic capture，則不需調整⁠<sup class="ex-qref"><span>Q1379</span> <span>Q1410</span> <span>Q291</span></sup>。<span class="ref">p.120</span></p>
 <h3 id="ch7-s5-5">Tracking refractive outcomes（追蹤屈光結果）</h3>
 <ul>
@@ -687,14 +701,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-202">近年手術結束時 <strong>intracameral（前房內）抗生素</strong>使用快速增加；部分醫師加在灌注液中或打 intravitreal（玻璃體內）⁠<sup class="ex-qref"><span>Q1358</span></sup>。<span class="ref">p.124</span></li>
 </ul>
 <h3 id="ch7-s7-3">前房內抗生素比較</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Agent（藥物）</th><th>重點</th><th>相關不良反應</th></tr></thead>
 <tbody>
 <tr><td id="np-203">Moxifloxacin（莫西沙星）</td><td id="np-204"><mark>美國最主要的前房內抗生素</mark>（preservative-free）；房水最終濃度目標 <span class="num">0.1%–0.15%</span>，通常相當於 <span class="num">0.5 mL</span> 的 1-mg/mL（0.1%）或 <span class="num">0.1 mL</span> 的 5-mg/mL（0.5%），依前房容積而異；目前為止安全有效</td><td id="np-205"><mark>含可致 TASS 添加物（xanthan gum、tyloxapol、sorbitol）的劑型，或劑量過高 → <strong>toxic anterior segment syndrome（TASS，毒性前段症候群）</strong></mark>；前房內及全身使用後曾有 pigmentary dispersion（色素散布）與 diffuse iris depigmentation（瀰漫性虹膜脫色）病例報告</td></tr>
 <tr><td id="np-206">Vancomycin（萬古黴素）</td><td id="np-207">過去常用</td><td id="np-208"><mark>罕見致盲性 hypersensitivity（過敏）反應 → <strong>hemorrhagic occlusive retinal vasculitis（HORV，出血性阻塞性視網膜血管炎）</strong></mark></td></tr>
 <tr><td id="np-209">Cefuroxime（頭孢呋辛）</td><td id="np-210"><mark>Endophthalmitis Study Group 報告前房內 cefuroxime <strong>顯著降低眼內炎</strong></mark>；美國因無市售前房用劑型而未普遍採用</td><td id="np-211">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-212">出處 <span class="ref">p.124–125</span></p>
 <ul>
 <li id="np-213"><mark class="ex-key">前房內 <strong>vancomycin</strong> 與罕見致盲性 HORV 相關</mark>（p.125）；BCSC 11 第 11 章：HORV 為罕見嚴重併發症，2015 年首次報告與術中眼內使用 vancomycin 相關，機轉推測為術後 1–21 天發生的延遲型過敏免疫反應，儘管積極類固醇等治療預後仍差（BCSC 11 p.223）⁠<sup class="ex-qref"><span>Q160</span> <span>Q1378</span></sup>。<span class="ref">p.125; BCSC 11 p.223</span></li>
@@ -733,7 +747,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-233"><strong>Surface tension（表面張力）</strong>：<mark class="ex-key">coatability（覆蓋能力）與表面張力<strong>成反比</strong> → 低表面張力 OVD 較會 coating，但較難移除</mark>⁠<sup class="ex-qref"><span>Q1360</span> <span>Q1327</span></sup>。<span class="ref">p.127</span></li>
 </ul>
 <h3 id="ch7-s8-3">Cohesive vs dispersive</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（類型）</th><th>分子特性</th><th>行為</th><th>移除</th><th>代表產品</th></tr></thead>
 <tbody>
 <tr><td id="np-234">Cohesive OVD（凝聚型）</td><td id="np-235"><mark>長鏈、高分子量、高黏度</mark></td><td id="np-236">零/低剪力時維持空間佳，高剪力時易被推開；<mark>coating 能力極少</mark> → 術中組織保護較少</td><td id="np-237"><mark>較易移除</mark>（黏在一起、以長段吸出，像 spaghetti）</td><td id="np-238">Amvisc、Amvisc Plus、Healon GV、Healon Pro、ProVisc</td></tr>
@@ -741,7 +755,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-244">Combination（合併）</td><td id="np-245">兼具兩者特質</td><td id="np-246">—</td><td id="np-247">—</td><td id="np-248">DisCoVisc</td></tr>
 <tr><td id="np-249">Viscoadaptive（黏彈適應型，可能需另外分類）</td><td id="np-250">Healon5：長而脆弱的鏈、高分子量</td><td id="np-251">流速越低越黏稠 cohesive，流速越高鏈越斷裂 → pseudodispersive（假分散）</td><td id="np-252"><mark>手術結束須仔細移除，殘留可致<strong>極高眼壓</strong></mark></td><td id="np-253">Healon5</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-254">Cohesive vs dispersive 對照（Fig 7-14 光譜：越 dispersive 越會 coating 與分隔，越 cohesive 越能維持空間與壓力）⁠<sup class="ex-qref"><span>Q1327</span> <span>Q1360</span> <span>Q1371</span></sup>。<span class="ref">p.127–128</span></p>
 <h3 id="ch7-s8-4">Uses of OVDs（用途）</h3>
 <ul>

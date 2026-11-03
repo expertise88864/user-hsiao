@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -388,7 +402,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-11"><span class="num">520</span> 眼 uveal metastases（葡萄膜轉移）調查：最常見原發為 <mark class="ex-key">breast（乳房）<span class="num">47%</span>、lung（肺）<span class="num">21%</span></mark>、gastrointestinal tract（胃腸道）<span class="num">4%</span>⁠<sup class="ex-qref"><span>Q338</span> <span>Q24</span> <span>Q52</span></sup>。<span class="ref">p.382</span></li>
 <li id="np-12"><mark class="ex-key">女性最常見原發部位是 breast，男性是 lung</mark>⁠<sup class="ex-qref"><span>Q319</span> <span>Q24</span> <span>Q52</span> <span>Q794</span></sup>。<span class="ref">p.382</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>頻率排序（Table 19-1，由高到低）</th><th>Men（男性）</th><th>Women（女性）</th></tr></thead>
 <tbody>
 <tr><td id="np-13">第一</td><td id="np-14"><strong>Lung（肺）</strong></td><td id="np-15"><strong>Breast（乳房）</strong></td></tr>
@@ -400,7 +414,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-31">第七</td><td id="np-32">Other（其他）</td><td id="np-33">Kidney（腎）</td></tr>
 <tr><td id="np-34">第八</td><td id="np-35">Breast（乳房）</td><td id="np-36">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-37">出處（Table 19-1，Primary Solid Tumors That Metastasize to the Uveal Tract；修改自 520 眼 uveal metastases 調查）<span class="ref">p.383</span></p>
 <div class="ex-trap"><h3 id="ch19-s1-4">易錯陷阱</h3><ul>
 <li id="np-38">成人眼內最常見的腫瘤是 secondary metastatic tumor；成人最常見的原發性眼內惡性腫瘤是 posterior uveal melanoma（本章外）；primary uveal lymphoma 在本章被稱為 rare disorder⁠<sup class="ex-qref"><span>Q305</span></sup>。<span class="ref">p.381, p.394；BCSC 4 p.316</span></li>
@@ -437,7 +451,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-55"><strong>Optic nerve 轉移</strong>：可造成視神經盤水腫、視力下降、visual field defects（視野缺損）；可侵犯 parenchyma（實質）或 optic nerve sheath（視神經鞘）→ magnetic resonance imaging（MRI）與超音波可能有助於偵測其他病灶並定位。<span class="ref">p.387</span></li>
 <li id="np-56"><strong>Retina 轉移</strong>（相當罕見）：白色、noncohesive（不聚合）病灶，似 cotton-wool spots（棉絮斑），常分布於血管周圍；因續發 vitreous seeding（玻璃體播種），有時看起來像 retinitis（視網膜炎）而非腫瘤；<strong>vitreous aspirate cytology（玻璃體抽吸細胞學）</strong>可能確診（Fig 19-9 肺癌視網膜轉移）。<span class="ref">p.387–388</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th colspan="2">Differential Diagnosis of Choroidal Metastasis（脈絡膜轉移的鑑別診斷，Table 19-2）</th></tr></thead>
 <tbody>
 <tr><td id="np-57">Amelanotic nevus（無色素痣）</td><td id="np-58"><mark>Extensive neovascular membranes（廣泛新生血管膜）</mark></td></tr>
@@ -447,7 +461,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-65">Choroidal hemangioma（脈絡膜血管瘤）</td><td id="np-66">Rhegmatogenous retinal detachment（裂孔性視網膜剝離）</td></tr>
 <tr><td id="np-67">Choroidal osteoma（脈絡膜骨瘤）</td><td id="np-68">Vogt-Koyanagi-Harada syndrome（Vogt-Koyanagi-Harada 症候群）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-69">出處（Table 19-2）⁠<sup class="ex-qref"><span>Q319</span></sup><span class="ref">p.387</span></p>
 <div class="ex-trap"><h3 id="ch19-s2-5">易錯陷阱</h3><ul>
 <li id="np-70">後段轉移瘤通常輕微隆起、邊界不清，間接眼底鏡可見 exudative retinal detachment 合併 placoid 或 lumpy bumpy 腫塊；mushroom configuration 見於原發 choroidal melanoma（穿破 Bruch membrane），在 uveal metastasis 中罕見⁠<sup class="ex-qref"><span>Q319</span></sup>。<span class="ref">p.385</span></li>
@@ -616,14 +630,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-166">治療依淋巴瘤類型與範圍決定；出現新侵犯部位時可能需要 <strong>restaging（重新分期）</strong>；方式可包括 systemic chemotherapy、orbital radiation、bone marrow transplantation（骨髓移植），與 medical oncologist 共同照護。<span class="ref">p.396</span></li>
 <li id="np-167">（本章外）BCSC 1：malignant lymphomas 通常不侵犯 uveal tract，但 <strong>histiocytic lymphoma（組織球性淋巴瘤）常侵犯 vitreous 並以 uveitis 表現</strong>，視網膜與脈絡膜也可能受侵⁠<sup class="ex-qref"><span>Q24</span> <span>Q52</span></sup>。<span class="ref ref-ext">BCSC 1 p.248</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（類型）</th><th>病理型態</th><th>主要位置與表現</th><th>重點檢查</th><th>治療與預後</th></tr></thead>
 <tbody>
 <tr><td id="np-168">PVRL</td><td id="np-169">DLBCL（最具侵襲性）；PCNSL 變異型</td><td id="np-170">Vitritis + sub-RPE／subretinal 黃白色浸潤；&gt;<span class="num">50 歲</span>新發雙眼 posterior uveitis 應列入鑑別</td><td id="np-171">Diagnostic vitrectomy：細胞學、flow cytometry、IgH PCR、IL-10/IL-6、MYD88；CNS 影像 + 腰椎穿刺</td><td id="np-172">只有眼部：intravitreal MTX／rituximab 或 EBRT；PCNSL 用高劑量靜脈 MTX；預後差</td></tr>
 <tr><td id="np-173">Primary uveal lymphoma</td><td id="np-174">許多為低惡性度 EMZL（舊稱 reactive lymphoid hyperplasia）</td><td id="np-175">多灶乳黃色脈絡膜病灶、瀰漫葡萄膜增厚；Fig 19-12 合併結膜 salmon patch</td><td id="np-176">B-scan 首選：新月形聲學中空鞏膜外延伸（pathognomonic）；ICG 優於 FA</td><td id="np-177">早期低劑量分次 EBRT 可能根治；存活預後 excellent</td></tr>
 <tr><td id="np-178">Secondary（全身淋巴瘤）</td><td id="np-179">可能代表全身疾病的轉移</td><td id="np-180">Uveitis、葡萄膜浸潤，或結膜／眼瞼／眼窩腫塊</td><td id="np-181">取最易取得、能取到大量組織處切片；理想上與他處切片比對</td><td id="np-182">依類型與範圍；可能需 restaging；化療、眼窩放射、骨髓移植</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-183">出處 <span class="ref">p.390–396</span></p>
 
 <h2 id="ch19-s8" data-w="2734">八、白血病的眼部表現（Ocular Manifestations of Leukemia）</h2>
@@ -674,7 +688,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch19-s9" data-w="971">九、總整理比較</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（腫瘤）</th><th>外形與表現</th><th>FA／超音波</th><th>其他重點</th></tr></thead>
 <tbody>
 <tr><td id="np-209">Choroidal metastasis（脈絡膜轉移）</td><td id="np-210">通常輕微隆起、邊界不清，placoid／lumpy bumpy，常為無色素；leopard spots；滲出性 RD；mushroom 罕見</td><td id="np-211">Double circulation 罕見；B-scan 回音性腫塊；A-scan 中至高反射</td><td id="np-212">雙眼約 <span class="num">25%</span>、常見多灶；生長快</td></tr>
@@ -682,7 +696,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-217">Primary uveal lymphoma（原發性葡萄膜淋巴瘤）</td><td id="np-218">多灶乳黃色脈絡膜病灶、瀰漫葡萄膜增厚</td><td id="np-219">B-scan 均質增厚 + 新月形聲學中空鞏膜外延伸；ICG hypocyanescent</td><td id="np-220">許多為低惡性度 EMZL，存活預後 excellent</td></tr>
 <tr><td id="np-221">PVRL</td><td id="np-222">Vitritis + subretinal／sub-RPE 黃白浸潤、RPE clumping</td><td id="np-223">FA 持續 hypofluorescent spots；US 結節／板狀浸潤</td><td id="np-224">DLBCL；至少 <span class="num">60%</span> 發生 CNS 病變</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-225">出處 <span class="ref">p.382, p.385–387, p.391–396</span></p>
 <div class="hs-tip-box">
 <h3 id="ch19-s9-1">數字口訣</h3>

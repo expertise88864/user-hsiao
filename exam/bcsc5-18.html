@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -471,7 +485,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-63"><mark class="ex-key">有 MS 風險者或新診斷者<strong>常規矯正維生素 D 缺乏</strong></mark>，因低維生素 D 者新病灶風險較高⁠<sup class="ex-qref"><span>Q438</span></sup>。<span class="ref">p.399</span></li>
 <li id="np-64">有發展 MS 風險的 clinically isolated syndrome（CIS）病人早期開始 DMT 有益；FDA 核准用於 relapsing MS 的 DMT 例如：interferons、glatiramer acetate、fumarates、fingolimod、natalizumab、alemtuzumab、teriflunomide、cladribine、ocrelizumab、ofatumumab、ublituximab-xiiy；應由有經驗的醫師開立。<span class="ref">p.399</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>DMT</th><th>機轉</th><th>眼部／神經眼科副作用</th></tr></thead>
 <tbody>
 <tr><td id="np-65">Interferon</td><td id="np-66">調節細胞激素</td><td id="np-67">Retinopathy（視網膜病變）與 macular edema（黃斑水腫）⁠<sup class="ex-qref"><span>Q459</span></sup></td></tr>
@@ -480,7 +494,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-74">Alemtuzumab</td><td id="np-75">人化單株抗體，清除循環 B 與 T 細胞</td><td id="np-76">Secondary autoimmunity（次發自體免疫）：Graves disease 與 TED</td></tr>
 <tr><td id="np-77">Teriflunomide</td><td id="np-78">抑制活化 T 細胞</td><td id="np-79">Optic neuritis、macular edema、ischemic optic neuropathy</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-80">出處 <span class="ref">p.398–400</span></p>
 <ul>
 <li id="np-81"><strong>Fingolimod-associated macular edema（FAME）</strong>：<mark class="ex-key">糖尿病、uveitis、白內障術後</mark>較常見；較可能在開始用藥 <span class="num">3 個月</span>內發生；OCT 是最有效偵測工具⁠<sup class="ex-qref"><span>Q459</span></sup>。<span class="ref">p.399</span></li>
@@ -532,14 +546,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-111"><mark class="ex-key">MS 常用的 <strong>interferon-β、natalizumab、fingolimod 可能增加 NMOSD 復發率</strong></mark>，反映不同的免疫機轉，故鑑別診斷很重要⁠<sup class="ex-qref"><span>Q450</span></sup>。<span class="ref">p.402</span></li>
 </ul>
 <h3 id="ch18-s3-5">MS vs NMOSD vs MOGAD 視神經炎（Table 6-3，本章外）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity</th><th>年齡／性別</th><th>雙眼同時、最差視力</th><th>類固醇依賴／視力預後</th><th>ADEM／area postrema／LETM</th><th>視神經 MRI 顯影</th><th>腦 MRI／CSF OCB</th></tr></thead>
 <tbody>
 <tr><td id="np-112">MS</td><td id="np-113">20 多歲；女 &gt; 男</td><td id="np-114">有時；較不嚴重</td><td id="np-115">罕見；Good</td><td id="np-116">罕見／罕見／罕見</td><td id="np-117">通常短</td><td id="np-118">腦室旁白質；OCB 非常常見</td></tr>
 <tr><td id="np-119">NMOSD</td><td id="np-120">40 多歲；女 &gt;&gt; 男</td><td id="np-121">常見；Severe</td><td id="np-122">罕見；<mark>Poor</mark></td><td id="np-123">罕見／常見／非常常見</td><td id="np-124">長，可侵犯視交叉</td><td id="np-125">半球白質、periependymal 間腦、背側延髓；OCB 罕見</td></tr>
 <tr><td id="np-126">MOGAD</td><td id="np-127">30 多歲（及兒童）；<mark>女 ≈ 男</mark></td><td id="np-128">常見；Severe</td><td id="np-129"><mark>常見；Good</mark></td><td id="np-130"><mark>常見</mark>／罕見／常見</td><td id="np-131">長，<mark>常有 perineural enhancement</mark></td><td id="np-132">深部灰質、廣泛腦幹、多灶白質；OCB 罕見</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-133">出處（本章外）⁠<sup class="ex-qref"><span>Q472</span> <span>Q484</span> <span>Q491</span> <span>Q1683</span></sup><span class="ref ref-ext">BCSC 5 p.144</span></p>
 <ul>
 <li id="np-134">MOGAD（本章外）：血清 MOG-IgG 陽性者的 CNS 去髓鞘事件，與視神經炎、脊髓炎、encephalitis（含 cortical encephalitis 與 <strong>acute disseminated encephalomyelitis（ADEM，急性瀰漫性腦脊髓炎）</strong>）相關；視神經炎較 MS 型更常雙側、復發、伴視盤水腫；MRI 常見 <mark class="ex-key">perineural enhancement（顯影延伸至神經鞘與周圍脂肪）</mark>；腦室旁去髓鞘病灶罕見⁠<sup class="ex-qref"><span>Q491</span> <span>Q472</span></sup>。<span class="ref ref-ext">BCSC 5 p.142</span></li>
@@ -617,7 +631,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-184"><mark class="ex-key">高比例 MFS 病人血清有 <strong>anti-GQ1b IgG</strong> 抗體</mark>；CSF 同 GBS 通常為蛋白上升、細胞數正常⁠<sup class="ex-qref"><span>Q423</span> <span>Q436</span></sup>。<span class="ref">p.406</span></li>
 <li id="np-185">MFS 通常單相、自限 → 以支持療法為主；恢復通常完全，血清標記隨臨床改善而下降。<span class="ref">p.406</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Antibody（抗體）</th><th>疾病</th><th>重點</th></tr></thead>
 <tbody>
 <tr><td id="np-186"><strong>Anti-GQ1b IgG</strong></td><td id="np-187">Miller Fisher syndrome</td><td id="np-188">眼肌麻痺 + ataxia + areflexia，瞳孔可散大 ⁠<sup class="ex-qref"><span>Q423</span> <span>Q436</span></sup></td></tr>
@@ -628,7 +642,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-201">CSF oligoclonal IgG bands</td><td id="np-202">MS</td><td id="np-203">非特異 ⁠<sup class="ex-qref"><span>Q474</span></sup></td></tr>
 <tr><td id="np-204">CRMP-5（本章外）</td><td id="np-205">副腫瘤性視神經病變</td><td id="np-206">Small cell lung cancer 或其他惡性腫瘤 ⁠<sup class="ex-qref"><span>Q474</span></sup></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-207">出處 <span class="ref">p.399–406, BCSC 5 p.142–143</span></p>
 <div class="ex-trap"><h3 id="ch18-s5-1">易錯陷阱</h3><ul>
 <li id="np-208">後天雙側顏面無力可見於 GBS，尤其 Miller Fisher 變異型（同時有眼肌麻痺與 ataxia）（本章外）；GBS 常發生於腸胃道或呼吸道感染後；高比例 MFS 病人血清有 anti-GQ1b IgG。AQP4-IgG 與 NMOSD 相關，AChR／MuSK 抗體用於 MG 診斷⁠<sup class="ex-qref"><span>Q436</span></sup>。<span class="ref">p.400, p.404–406, BCSC 5 p.344</span></li>
@@ -689,7 +703,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-240">全身：智能偏低、insulin resistance（胰島素阻抗）、聽力喪失、cardiomyopathy、心臟傳導異常、testicular atrophy（睪丸萎縮）、uterine atony（子宮收縮無力）⁠<sup class="ex-qref"><span>Q1393</span></sup>。<span class="ref">p.409</span></li>
 <li id="np-241">EMG 見特徵性 myotonic discharges，基因檢測確診：<strong>DMPK</strong> 或 <strong>CNBP（ZNF9）</strong>。<span class="ref">p.409</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity</th><th>遺傳／發病</th><th>眼部重點</th><th>全身／診斷</th></tr></thead>
 <tbody>
 <tr><td id="np-242">CPEO</td><td id="np-243">粒線體（sporadic 最常見）；<span class="num">18–40 歲</span></td><td id="np-244">對稱眼肌麻痺 + ptosis，複視罕見</td><td id="np-245">Ragged red fibers；心臟傳導評估</td></tr>
@@ -698,7 +712,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-254">Myotonic dystrophy</td><td id="np-255">顯性；晚兒童期～成年早期</td><td id="np-256">類 CPEO、ptosis、色素性視網膜病變、Christmas tree cataract、<strong>縮瞳且反應遲鈍</strong></td><td id="np-257">先侵犯遠端肢體肌肉、hatchet face、額禿、insulin resistance；DMPK／CNBP</td></tr>
 <tr><td id="np-258">Ocular MG</td><td id="np-259">自體免疫</td><td id="np-260">變動性 ptosis／複視，瞳孔正常</td><td id="np-261">AChR／MuSK、ice-pack、SFEMG</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-262">出處 <span class="ref">p.403–409</span></p>
 <div class="ex-trap"><h3 id="ch18-s7-4">易錯陷阱</h3><ul>
 <li id="np-263">Myotonic dystrophy 的瞳孔<strong>縮小（miotic）且光反應遲鈍</strong>⁠<sup class="ex-qref"><span>Q469</span></sup>。<span class="ref">p.409</span></li>

@@ -74,6 +74,10 @@ EXPECTED = {
         "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",
     },
+    "/exam/nav-search.json": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "public, max-age=300, stale-while-revalidate=86400",
+    },
     "/exam": {
         "Cache-Control": "public, max-age=60, s-maxage=600, stale-while-revalidate=86400",
     },

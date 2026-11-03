@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -373,7 +387,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-3"><strong>Tuberculosis（TB，結核）相關 uveitis</strong> 可在<mark>偵測不到活動性全身疾病</mark>時發生，多數病例的診斷屬 presumptive（推定）。<span class="ref">p.229</span></li>
 <li id="np-4"><strong>Cat-scratch disease（CSD，貓抓病，bartonellosis）</strong>病人眼部侵犯 <span class="num">5%–10%</span>，可表現為 neuroretinitis（視神經視網膜炎）、focal／multifocal retinitis，較少見為 Parinaud oculoglandular syndrome（帕里諾眼腺症候群）。<span class="ref">p.229</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>疾病</th><th>病原</th><th>本章頁碼</th></tr></thead>
 <tbody>
 <tr><td id="np-5">Syphilis</td><td id="np-6"><i>Treponema pallidum</i>（spirochete，螺旋體）</td><td id="np-7">p.229–237</td></tr>
@@ -384,7 +398,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-20">Bartonellosis（CSD）</td><td id="np-21"><i>Bartonella henselae</i>（及 B quintana 等）</td><td id="np-22">p.249–251</td></tr>
 <tr><td id="np-23">Whipple disease</td><td id="np-24">Tropheryma whipplei</td><td id="np-25">p.252–253</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-26">出處 <span class="ref">p.229, p.237, p.243, p.246, p.248–249, p.252</span></p>
 
 <h2 id="ch11-s2" data-w="2507">二、Syphilis：流行病學與先天性梅毒</h2>
@@ -425,7 +439,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch11-s3" data-w="3018">三、Acquired syphilis：分期與眼部表現</h2>
 <h3 id="ch11-s3-1">分期</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>分期</th><th>時間</th><th>特徵</th></tr></thead>
 <tbody>
 <tr><td id="np-50">Primary</td><td id="np-51">潛伏期約 <span class="num">3 週</span></td><td id="np-52"><strong>Chancre（硬下疳）</strong>：無痛、單一，位於接種處；會自行癒合，數週至數月靜止期後出現散播徵象；此期 CNS 可能已有 treponemes 播種，常無神經學發現</td></tr>
@@ -433,7 +447,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-56">Latent</td><td id="np-57">感染 <span class="num">1 年</span>內（early latency）至數十年後（late latency）</td><td id="np-58">接續 secondary 之後的潛伏期</td></tr>
 <tr><td id="np-59">Tertiary</td><td id="np-60">未治療者約 <span class="num">1/3</span></td><td id="np-61">Benign tertiary（典型病灶為 <strong>gumma</strong>，最常見於皮膚與黏膜，也見於 choroid 與 iris）、cardiovascular syphilis、neurosyphilis；uveitis 最多 <span class="num">5%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-62">出處 <span class="ref">p.230–231</span></p>
 <ul>
 <li id="np-63">Uveitis 雖可能發生於最多 <span class="num">5%</span> 進展到 tertiary syphilis 的病人，但<mark>可發生在任何分期，包括 primary</mark>。<span class="ref">p.231–232</span></li>
@@ -451,7 +465,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-69"><mark class="ex-key">最常見表現是 focal 或 multifocal chorioretinitis，通常伴不同程度的 vitritis</mark>；典型病灶小、灰黃色，位於 postequatorial fundus（赤道後眼底），可融合；可伴隨 retinal vasculitis、optic disc edema、serous retinal detachment，滲出物出現在視盤與視網膜小動脈周圍⁠<sup class="ex-qref"><span>Q1007</span></sup>。<span class="ref">p.232</span></li>
 <li id="np-70"><strong>Syphilitic posterior placoid chorioretinitis（梅毒性後極板狀脈絡膜視網膜炎）</strong>：臨床外觀與血管攝影特徵<mark class="ex-key">幾乎是 secondary syphilis 的 pathognomonic（特徵性）表現</mark>；板狀、黃灰色病灶<mark class="ex-key">位於 RPE 層級</mark>，常伴 vitritis；可單一或多發、位於黃斑或視盤（macular or papillary）⁠<sup class="ex-qref"><span>Q1094</span></sup>。<span class="ref">p.232</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Posterior placoid chorioretinitis 影像</th><th>表現</th></tr></thead>
 <tbody>
 <tr><td id="np-71">Fundus autofluorescence（FAF）</td><td id="np-72">病灶 hyperautofluorescent</td></tr>
@@ -459,7 +473,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-75">Indocyanine green angiography（ICGA）</td><td id="np-76">病灶 hypofluorescent</td></tr>
 <tr><td id="np-77">Optical coherence tomography（OCT）</td><td id="np-78">RPE 層不規則、<mark>外層視網膜紊亂與流失</mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-79">出處 ⁠<sup class="ex-qref"><span>Q1094</span></sup><span class="ref">p.232</span></p>
 <ul>
 <li id="np-80">較少見後段表現：focal retinitis、periphlebitis，以及較不常見的 exudative retinal detachment。<span class="ref">p.232</span></li>
@@ -488,7 +502,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-93">依 CDC，新診斷梅毒應依地方法規通報公衛單位（可協助找出有風險的性伴侶）；<mark class="ex-key">所有梅毒病人都應做 HIV 檢測</mark>，因合併感染頻率高⁠<sup class="ex-qref"><span>Q1114</span></sup>。<span class="ref">p.235</span></li>
 </ul>
 <h3 id="ch11-s4-2">Nontreponemal vs treponemal tests</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th></th><th>Nontreponemal（非螺旋體）</th><th>Treponemal（螺旋體）</th></tr></thead>
 <tbody>
 <tr><td id="np-94">Table 11-1 檢驗</td><td id="np-95"><strong>VDRL</strong>（Venereal Disease Research Laboratory）、<strong>RPR</strong>（rapid plasma reagin）</td><td id="np-96">T pallidum 抗體 EIA（enzyme immunoassays）或 CIA（chemiluminescence immunoassays）、<strong>MHA-TP</strong>、<strong>FTA-ABS</strong></td></tr>
@@ -497,7 +511,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-103">監測療效</td><td id="np-104"><mark>可作為監測全身與眼部疾病治療的指標（barometers）</mark></td><td id="np-105"><mark>無助於評估治療反應</mark></td></tr>
 <tr><td id="np-106">偽陽性</td><td id="np-107">多種情況（見下）</td><td id="np-108">罕見（<span class="num">1%–2%</span>），可能與類似情況相關</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-109">出處 ⁠<sup class="ex-qref"><span>Q992</span> <span>Q1114</span> <span>Q1723</span> <span>Q1135</span> <span>Q1094</span></sup><span class="ref">p.235–236</span></p>
 <ul>
 <li id="np-110">傳統順序：先 nontreponemal，再以 treponemal 確認；近年 <mark>treponemal immunoassays 成為較佳的初始檢查</mark>（速度快、自動化、可偵測早期或潛伏期疾病），稱 <strong>reverse sequence syphilis screening algorithm</strong>。<span class="ref">p.235</span></li>
@@ -634,14 +648,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-193">預防：避開蜱出沒處、使用驅蜱劑、穿保護性外衣、及早移除蜱、減少蜱數量。<span class="ref">p.244</span></li>
 </ul>
 <h3 id="ch11-s7-2">臨床分期</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>分期</th><th>時間</th><th>全身表現</th><th>眼部表現</th></tr></thead>
 <tbody>
 <tr><td id="np-194">Stage 1（localized）</td><td id="np-195">叮咬後 <span class="num">2–28 天</span>出現皮疹</td><td id="np-196">最特徵：叮咬處 macular rash <strong>erythema chronicum migrans</strong>，見於至少 <span class="num">70%</span> 病人，常為中央消退的 “bull’s-eye”；發燒、倦怠、疲勞、肌痛、關節痛</td><td id="np-197"><mark>最常見 follicular conjunctivitis（約 <span class="num">11%</span>）</mark>；episcleritis 較少見</td></tr>
 <tr><td id="np-198">Stage 2（early disseminated）</td><td id="np-199">暴露後數天至數週</td><td id="np-200">血行散播至皮膚、CNS、關節、心臟、眼；遠處可有續發 erythema chronicum migrans；未治療時，有 erythema chronicum migrans 的病人最多 <span class="num">80%</span> 出現關節表現（最常為大關節 mono／oligoarthritis，典型為膝）</td><td id="np-201">Intraocular inflammation 有報告；多發 cranial neuropathies</td></tr>
 <tr><td id="np-202">Stage 3（late disseminated）</td><td id="np-203">初次感染 <span class="num">&gt;5 個月</span></td><td id="np-204">最常見：可轉為慢性的 episodic arthritis（北美與 HLA-DR4、-DR2 相關）；acrodermatitis chronica atrophicans、神經精神疾病、radiculopathy、慢性疲勞、周邊神經病變、記憶喪失</td><td id="np-205"><mark>最常見：presumed immune-mediated keratitis</mark>；罕見 episcleritis</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-206">出處 <span class="ref">p.244–245</span></p>
 <ul>
 <li id="np-207">LD 三期有多變的全身表現；<mark>intraocular inflammation 非常罕見</mark>。<span class="ref">p.244</span></li>
@@ -739,14 +753,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-263">Immunosuppressed 者可有視網膜血管增生反應，形成單一或多發 <strong>angiomatoid lesions</strong>（侵犯視網膜及／或脈絡膜）。<span class="ref">p.251</span></li>
 </ul>
 <h3 id="ch11-s10-4">Neuroretinitis 鑑別診斷（Table 11-2）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>類別</th><th>疾病</th></tr></thead>
 <tbody>
 <tr><td id="np-264">Infectious conditions</td><td id="np-265"><strong>Bartonellosis（B henselae）</strong>、diffuse unilateral subacute neuroretinitis（Ancylostoma caninum、Baylisascaris procyonis）、ehrlichiosis、herpes simplex、leptospirosis、Lyme disease、mumps、Rocky Mountain spotted fever、Salmonella、syphilis、toxocariasis、<strong>toxoplasmosis</strong>、tuberculosis、varicella</td></tr>
 <tr><td id="np-266">Noninfectious conditions</td><td id="np-267"><strong>Acute systemic hypertension</strong>、anterior ischemic optic neuropathy、diabetes、idiopathic intracranial hypertension、leukemic infiltration of the optic nerve、sarcoidosis</td></tr>
 <tr><td id="np-268">Idiopathic condition</td><td id="np-269">Recurrent idiopathic neuroretinitis</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-270">出處（Table 11-2 完整列表）⁠<sup class="ex-qref"><span>Q1727</span></sup><span class="ref">p.250</span></p>
 <h3 id="ch11-s10-5">診斷</h3>
 <ul>

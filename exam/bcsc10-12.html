@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -379,7 +393,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-8">Ocular hypertension（OHT，高眼壓症）與多數青光眼的初始治療通常是<strong>藥物或 laser trabeculoplasty（雷射小樑成形術）</strong>。有些醫師用 unilateral treatment trial（單眼試驗）評估藥效，但有證據顯示因兩眼 IOP 波動不對稱，其<mark>價值可能有限</mark>。<span class="ref">p.220</span></li>
 </ul>
 <h3 id="ch12-s1-2">Table 12-1 Estimating target pressure（目標眼壓估計）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Stage（分期）</th><th>Definition（定義）</th><th>Initial target pressure（初始目標）</th></tr></thead>
 <tbody>
 <tr><td id="np-9">Ocular hypertension</td><td id="np-10">視野、optic nerve head（視神經頭）、retinal nerve fiber layer（RNFL，視網膜神經纖維層）皆正常</td><td id="np-11"><span class="num">&lt;25 mm Hg</span> 且比基線低 <span class="num">20%</span>（若決定治療）</td></tr>
@@ -387,7 +401,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-15">Moderate（中度）</td><td id="np-16">視野缺損在 <span class="num">1</span> 個 hemifield（半側視野）、位於中央 <span class="num">10°</span> 以外</td><td id="np-17"><span class="num">&lt;18 mm Hg</span> 且比基線低 <span class="num">30%</span></td></tr>
 <tr><td id="np-18">Severe（重度）</td><td id="np-19">兩個 hemifield 皆有缺損，和／或侵犯中央 <span class="num">10°</span></td><td id="np-20"><span class="num">&lt;15 mm Hg</span> 且比基線低 <span class="num">30%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-21">出處 <span class="ref">p.221</span></p>
 <ul>
 <li id="np-22"><strong>可能需要調低目標</strong>的危險因子：新的 optic disc hemorrhage、較薄 central cornea（中央角膜）、對側眼快速進展或嚴重視力喪失史、青光眼致盲家族史、青光眼損傷<strong>發病年齡早</strong>。<span class="ref">p.221</span></li>
@@ -418,7 +432,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-34"><strong>Latanoprostene bunod</strong>：mean diurnal IOP 降 <span class="num">32%</span>；在這些 PG 中獨特之處是除 latanoprost 外另含 <strong>NO 供體</strong>，NO 被認為增加 conventional（TM）outflow facility，在 <span class="num">1</span> 個臨床試驗比 latanoprost 多降 <span class="num">1 mm Hg</span>（p.229 所附參考文獻為 VOYAGER study：LBN 與 latanoprost 0.005% 的隨機對照比較）。<span class="ref">p.227, p.229</span></li>
 <li id="np-35"><mark>一天一次使用；一天兩次效果較差</mark>。部分病人對同類中某一藥反應較好，試用 <span class="num">4–6</span> 週後換藥有時有幫助。<span class="ref">p.227</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Agent（藥物）</th><th>Concentration（濃度）</th><th>Dosing（用法）</th><th>Comment（備註）</th></tr></thead>
 <tbody>
 <tr><td id="np-36">Bimatoprost</td><td id="np-37"><span class="num">0.03%</span>、<span class="num">0.01%</span></td><td id="np-38">Once daily</td><td id="np-39">增加 uveoscleral（主）＋ conventional outflow；降約 <span class="num">30%</span></td></tr>
@@ -428,7 +442,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-52">Latanoprostene bunod</td><td id="np-53"><span class="num">0.024%</span></td><td id="np-54">Once daily</td><td id="np-55">增加 uveoscleral outflow；NO 可能也增加 conventional outflow；降幅同上並多降約 <span class="num">1 mm Hg</span></td></tr>
 <tr><td id="np-56">Bimatoprost sustained-release implant</td><td id="np-57"><span class="num">10-μg</span> 緩釋植入物</td><td id="np-58">FDA 核准單次使用</td><td id="np-59">機轉同 bimatoprost；Intracameral（前房內），poly(D,L-lactide-co-glycolide) 聚合物基質</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-60">前 5 種點藥共同：<mark>Peak <span class="num">10–14</span> 小時、washout <span class="num">4–6</span> 週、最大降壓效果可能需長達 <span class="num">6</span> 週才出現</mark>。出處 <span class="ref">p.222</span></p>
 <h3 id="ch12-s2-3">Adverse effects（副作用）</h3>
 <ul>
@@ -470,7 +484,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-83">多數 β-blocker 核准一天兩次，nonselective 藥物很多情況可一天一次；<strong>一般而言早上第一件事點藥最理想</strong>（有效壓住清晨眼壓上升、減少睡眠時全身低血壓風險）。臨床經驗顯示許多病人 timolol <span class="num">0.25%</span> 與 <span class="num">0.5%</span> 降壓效果相同。<span class="ref">p.230</span></li>
 <li id="np-84">約 <span class="num">10%–20%</span> 病人 IOP 無明顯下降；已服用中高劑量<strong>全身性 β-blocker</strong> 者，加局部 β-blocker 可能額外降壓很少。長期使用可能因 receptor upregulation（受體上調）產生 <strong>tachyphylaxis（快速耐藥）</strong>；Table 12-2 timolol 備註另列 short-term escape、long-term drift。TM 可能對 IOP 與房水流量下降產生生理變化 → outflow facility 下降；原本疾病也可能在治療期間惡化。<span class="ref">p.222, p.230</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Agent（藥物）</th><th>Concentration（濃度）</th><th>Dosing（用法）</th><th>IOP reduction</th><th>Peak / washout</th><th>Comment（備註）</th></tr></thead>
 <tbody>
 <tr><td id="np-85">Timolol maleate</td><td id="np-86">Solution <span class="num">0.25%</span>、<span class="num">0.5%</span>；gel <span class="num">0.1%</span>、<span class="num">0.25%</span>、<span class="num">0.5%</span></td><td id="np-87">Solution 每日 <span class="num">1–2</span> 次；gel 每日一次</td><td id="np-88"><span class="num">20%–30%</span></td><td id="np-89"><span class="num">2–3</span> 小時／<span class="num">1</span> month</td><td id="np-90">Nonselective；已服全身 β-blocker 者效果可能較差</td></tr>
@@ -479,7 +493,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-103">Carteolol</td><td id="np-104"><span class="num">1%</span></td><td id="np-105">每日 <span class="num">1–2</span> 次</td><td id="np-106">同上</td><td id="np-107"><span class="num">4</span> 小時／<span class="num">1</span> month</td><td id="np-108"><strong>Intrinsic sympathomimetic（內在擬交感活性）</strong>；對夜間脈搏、血壓影響可能較小</td></tr>
 <tr><td id="np-109">Betaxolol</td><td id="np-110"><span class="num">0.25%</span></td><td id="np-111">每日 <span class="num">2</span> 次</td><td id="np-112"><span class="num">15%–20%</span></td><td id="np-113"><span class="num">2–3</span> 小時／<span class="num">1</span> month</td><td id="np-114">β1-selective；肺部併發症風險低於 nonselective β-blocker</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-115">出處 <span class="ref">p.222–223</span></p>
 <h3 id="ch12-s3-3">Adverse effects（副作用）</h3>
 <ul>
@@ -511,14 +525,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-131"><strong>Brimonidine tartrate</strong> 是最常用的 α2 agonist。<strong>Apraclonidine</strong>（para-aminoclonidine，clonidine 衍生物）因常見 tachyphylaxis 與可致 blepharoconjunctivitis（瞼結膜炎）的過敏反應，<mark>僅極少數情況用於長期治療</mark>；多半限於<strong>圍手術期</strong>壓制 laser peripheral iridotomy（LPI，雷射周邊虹膜切開術）、laser trabeculoplasty、laser capsulotomy（雷射後囊切開）、cataract extraction 後可能出現的急性 IOP spike。Brimonidine 圍手術期效果相近。<span class="ref">p.231</span></li>
 <li id="np-132">Brimonidine tachyphylaxis 較 apraclonidine 輕。<mark class="ex-key">Peak IOP 降幅約 <span class="num">26%</span>（點藥後 <span class="num">2</span> 小時）</mark>，與 nonselective β-blocker 相當、優於 betaxolol；trough（<span class="num">12</span> 小時）僅 <span class="num">14%–15%</span>，低於 nonselective β-blocker。研究顯示<strong>不降夜間 IOP</strong>。美國核准一天 <span class="num">3</span> 次，常用一天兩次（尤其與至少 1 種其他藥合用）⁠<sup class="ex-qref"><span>Q1275</span></sup>。<span class="ref">p.231</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Agent（藥物）</th><th>Concentration</th><th>Dosing</th><th>Mechanism / IOP reduction</th><th>Key adverse effects（主要副作用）</th><th>Peak / washout</th></tr></thead>
 <tbody>
 <tr><td id="np-133">Brimonidine（benzalkonium chloride 防腐）</td><td id="np-134"><span class="num">0.15%</span>、<span class="num">0.2%</span></td><td id="np-135">每日 <span class="num">2–3</span> 次</td><td id="np-136">↓房水＋↑uveoscleral；<span class="num">20%–30%</span></td><td id="np-137">眼：視力模糊、異物感、眼瞼水腫、<strong>dryness（乾燥）</strong>、過敏比 apraclonidine 少、<strong>miosis（縮瞳）</strong>；全身：頭痛、lethargy、低血壓、失眠、憂鬱、暈厥、頭暈、焦慮、<strong>dry mouth（口乾）</strong>；對 α2 受體高度選擇；<mark>不應用於嬰兒與幼兒</mark></td><td id="np-138"><span class="num">2</span> 小時／<span class="num">7–14</span> 天</td></tr>
 <tr><td id="np-139">Brimonidine（sodium chlorite，Purite 防腐）</td><td id="np-140"><span class="num">0.1%</span>、<span class="num">0.15%</span></td><td id="np-141">每日 <span class="num">2–3</span> 次</td><td id="np-142">同上</td><td id="np-143">同上，但過敏比 brimonidine <span class="num">0.2%</span> 少、lethargy 與憂鬱較少</td><td id="np-144">同上</td></tr>
 <tr><td id="np-145">Apraclonidine</td><td id="np-146"><span class="num">0.5%</span>、<span class="num">1%</span></td><td id="np-147">每日 <span class="num">2–3</span> 次</td><td id="np-148">↓房水；降幅同上</td><td id="np-149">眼：刺激、ischemia、過敏、<strong>eyelid retraction（眼瞼退縮）</strong>、<strong>conjunctival blanching（結膜變白）</strong>、follicular conjunctivitis、搔癢、皮膚炎、眼痛、photopsia、<strong>mydriasis（散瞳）</strong>；全身：低血壓、vasovagal attack、口鼻乾、lethargy；雷射或白內障手術前後有用；tachyphylaxis 可能限制長期使用</td><td id="np-150"><span class="num">&lt;1–2</span> 小時／<span class="num">7–14</span> 天</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-151">出處 <span class="ref">p.223</span></p>
 <h3 id="ch12-s4-3">Adverse effects（副作用）</h3>
 <ul>
@@ -555,7 +569,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-169">口服最常用 <strong>acetazolamide</strong> 與 <strong>methazolamide</strong>：methazolamide 作用時間較長、與血清蛋白結合較少，但<strong>效果較差</strong>；methazolamide 與 sustained-release acetazolamide 是全身 CAI 中耐受性最好者。<mark>Methazolamide 經肝代謝；acetazolamide 不經代謝、由腎排泄 → 腎功能不全須謹慎並減量</mark>。<span class="ref">p.233</span></li>
 <li id="np-170">用能把 IOP 降到可接受範圍的最低劑量：methazolamide 常在低至 <span class="num">25–50 mg</span>、每日 <span class="num">2</span> 或 <span class="num">3</span> 次即有效；acetazolamide SR 劑型副作用可能比標準劑型少；成人 acetazolamide 一般劑量：標準劑型 <span class="num">250 mg</span> 每日 <span class="num">4</span> 次，或 sustained-release <span class="num">500 mg</span> 每日兩次。<span class="ref">p.233</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Agent（藥物）</th><th>Concentration / dose</th><th>Dosing</th><th>IOP reduction</th><th>Peak / washout、備註</th></tr></thead>
 <tbody>
 <tr><td id="np-171">Dorzolamide（局部）</td><td id="np-172"><span class="num">2%</span></td><td id="np-173">每日 <span class="num">2–3</span> 次</td><td id="np-174"><span class="num">15%–20%</span></td><td id="np-175"><span class="num">2–3</span> 小時／<span class="num">48</span> 小時；眼：induced myopia、視力模糊、刺痛、keratitis、punctate keratopathy、結膜炎、皮膚炎；全身：較不易引起 CAI 全身作用但仍可能、味覺異常</td></tr>
@@ -564,7 +578,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-186">Acetazolamide（靜脈）</td><td id="np-187"><span class="num">500 mg</span>；<span class="num">5–10 mg/kg</span></td><td id="np-188">每日 <span class="num">3–4</span> 次</td><td id="np-189">同上</td><td id="np-190">同上</td></tr>
 <tr><td id="np-191">Methazolamide</td><td id="np-192"><span class="num">25 mg</span>、<span class="num">50 mg</span></td><td id="np-193">每日 <span class="num">2–3</span> 次</td><td id="np-194">效果較低且較不穩定</td><td id="np-195">副作用同上但較少、較輕</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-196">出處 <span class="ref">p.224</span></p>
 <h3 id="ch12-s5-3">Adverse effects and contraindications（副作用與禁忌）</h3>
 <ul>
@@ -599,13 +613,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-215">使插入 scleral spur（鞏膜突）、TM 與 Schlemm canal 內壁的<strong>縱行睫狀肌纖維收縮</strong> → 拉開 TM、擴大 Schlemm canal → <mark>改善 outflow facility</mark>。Direct-acting 藥物對運動終板的作用如 acetylcholine；pilocarpine 可降 IOP <span class="num">15%–25%</span>。Indirect-acting 抑制 acetylcholinesterase，延長並增強內生 acetylcholine 作用。<span class="ref">p.235</span></li>
 <li id="np-216">本章外：miotics <strong>減少</strong> uveoscleral outflow（cycloplegia、adrenergic agents、PGF2α analogues 則增加）⁠<sup class="ex-qref"><span>Q1154</span></sup>。<span class="ref ref-ext">BCSC 10 p.29</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Agent（藥物）</th><th>Concentration</th><th>Dosing</th><th>IOP reduction</th><th>Adverse effects / comments</th><th>Peak / washout</th></tr></thead>
 <tbody>
 <tr><td id="np-217">Pilocarpine（direct）</td><td id="np-218"><span class="num">0.5%</span>、<span class="num">1%</span>、<span class="num">2%</span>、<span class="num">3%</span>、<span class="num">4%</span>、<span class="num">6%</span></td><td id="np-219">每日 <span class="num">2–4</span> 次（注意：此為 Table 12-2 印出的數值，與 p.234 內文所述「每日 <span class="num">3</span> 或 <span class="num">4</span> 次的點藥時程」不一致；p.234 另述 patent PI 後仍有 iridotrabecular contact 者，較低濃度與頻率可能可接受）</td><td id="np-220"><span class="num">15%–25%</span></td><td id="np-221">眼：posterior synechiae（後粘連）、keratitis、miosis、brow ache（眉弓痛）、白內障進展、angle-closure 可能、<strong>myopia</strong>、retinal tear／detachment、皮膚炎、視網膜敏感度改變、色覺改變、epiphora；全身：唾液增加、胃液分泌增加、腹絞痛；加重白內障影響；淺色虹膜較有效</td><td id="np-222"><span class="num">1½–2</span> 小時／<span class="num">48</span> 小時</td></tr>
 <tr><td id="np-223">Echothiophate iodide（indirect）</td><td id="np-224"><span class="num">0.125%</span></td><td id="np-225">每日 <span class="num">1–2</span> 次</td><td id="np-226"><span class="num">15%–25%</span></td><td id="np-227">眼：intense miosis、iris pigment epithelial cyst、myopia、白內障、RD、angle closure、punctal stenosis（淚點狹窄）、pseudopemphigoid、epiphora；全身同 pilocarpine 但腸胃問題更多；眼科手術時發炎增加、麻醉風險（恢復延長）；可能對無水晶體眼有幫助；可用於 eyelid-lash lice（睫毛蝨）、白內障手術後</td><td id="np-228">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-229">出處 <span class="ref">p.224–225</span></p>
 <h3 id="ch12-s6-3">Adverse effects（副作用）</h3>
 <ul>
@@ -660,7 +674,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-259">效果一般與各成分分開點相近。含 timolol、一天兩次的複方，β-blocker 總量可能超過需要（一天一次已幾乎可達全效）。眼部副作用與兩藥分別使用相同。<span class="ref">p.237</span></li>
 <li id="np-260"><mark>一般而言，除非急性升高或危險的高 IOP，應<strong>逐一加入</strong>各成分，確認每一成分都有額外降壓效果</mark>。<span class="ref">p.237</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Fixed combination（固定複方）</th><th>Concentration</th><th>Dosing</th><th>IOP reduction</th><th>Comment</th></tr></thead>
 <tbody>
 <tr><td id="np-261">Dorzolamide/timolol</td><td id="np-262"><span class="num">2%/0.5%</span></td><td id="np-263">每日 <span class="num">2</span> 次</td><td id="np-264"><span class="num">25%–30%</span></td><td id="np-265">Peak <span class="num">2–3</span> 小時；washout <span class="num">1</span> month</td></tr>
@@ -672,7 +686,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-291">Latanoprost/timolol</td><td id="np-292"><span class="num">0.005%/0.5%</span></td><td id="np-293">每日一次（夜間）</td><td id="np-294">大於各自單藥</td><td id="np-295">美國目前無</td></tr>
 <tr><td id="np-296">Travoprost/timolol</td><td id="np-297"><span class="num">0.004%/0.5%</span></td><td id="np-298">每日一次（夜間）</td><td id="np-299"><span class="num">25%–30%</span></td><td id="np-300">美國目前無</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-301">出處 <span class="ref">p.225–226</span></p>
 <p id="np-302">注意：表中 bimatoprost／latanoprost／travoprost＋timolol 複方印為每日一次（夜間）；p.230 內文述 β-blocker 一般而言早上第一件事點藥最理想（有效壓住清晨眼壓上升、減少睡眠時全身低血壓風險），p.229 述 β-blocker 睡眠時降壓無效。<span class="ref">p.226, p.229–230</span></p>
 <div class="ex-trap"><h3 id="ch12-s8-1">易錯陷阱</h3><ul>
@@ -688,13 +702,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-308">副作用：頭痛、意識混亂、背痛、<strong>acute congestive heart failure（急性鬱血性心衰竭）</strong>、myocardial infarction（心肌梗塞）；細胞外液與心臟前負荷快速增加可能誘發或加重鬱血性心衰竭（<strong>靜脈比口服更易</strong>）；曾有 subdural（硬腦膜下）與 subarachnoid（蜘蛛膜下）出血報告。<mark><strong>Glycerol</strong> 代謝為葡萄糖與酮體 → 糖尿病人可誘發高血糖甚至 ketoacidosis（酮酸中毒）</mark>。<span class="ref">p.238</span></li>
 <li id="np-309"><mark>禁用於 <strong>renal failure（腎衰竭）</strong></mark>；給藥時要密切監測容積狀態。<span class="ref">p.239</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Agent（藥物）</th><th>Concentration</th><th>Dose（劑量）</th><th>Adverse effects / comments</th></tr></thead>
 <tbody>
 <tr><td id="np-310">Mannitol（parenteral，靜脈）</td><td id="np-311"><span class="num">20%</span></td><td id="np-312"><span class="num">0.5–2.0 g/kg</span> 體重</td><td id="np-313">眼：IOP rebound、aqueous flare 增加；全身：尿滯留、頭痛、急性鬱血性心衰竭、糖尿病併發症、噁心嘔吐、腹瀉、電解質異常、混亂、背痛、心肌梗塞；腎衰竭或透析者禁用、心衰竭小心；急性高眼壓有用</td></tr>
 <tr><td id="np-314">Glycerol（oral，口服）</td><td id="np-315"><span class="num">50%</span></td><td id="np-316"><span class="num">1–1.5 g/kg</span> 體重</td><td id="np-317">與上類似；可在糖尿病人造成問題，可能誘發 diabetic ketoacidosis</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-318">出處 <span class="ref">p.226</span></p>
 <div class="ex-trap"><h3 id="ch12-s9-1">易錯陷阱</h3><ul>
 <li id="np-319">高滲透壓劑：在血液與<strong>玻璃體</strong>間形成滲透壓梯度，把水從玻璃體腔抽出（Table 12-2：dehydrates vitreous）。<span class="ref">p.226, p.238</span></li>
@@ -723,7 +737,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-332">本章外：較嚴重的 toxic keratitis（毒性角膜炎）可呈 diffuse punctate epitheliopathy，偶呈漩渦狀，稱 <strong>vortex（hurricane）keratopathy</strong>（BCSC 8 p.97）；局部眼藥造成的上皮角膜病變為劑量相關的細胞毒性，防腐劑 BAK 是這類製劑最常見的毒性成分之一，最常被牽涉的局部藥包括青光眼藥（α-adrenergic agonists、β-blockers、CAIs）與含 BAK 等防腐劑的眼藥（BCSC 8 p.98）；治療眼部毒性須停用致病的局部藥物，明顯刺激者可用無防腐劑潤滑點液或藥膏緩解（BCSC 8 p.99）⁠<sup class="ex-qref"><span>Q860</span></sup>。<span class="ref ref-ext">BCSC 8 p.97–99</span></li>
 </ul>
 <h3 id="ch12-s11-1">Table 12-3 Preservative-free and alternatively preserved ocular hypotensive agents（無防腐劑與替代防腐劑降眼壓藥）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Medication（藥物）</th><th>Preservative（防腐劑）</th></tr></thead>
 <tbody>
 <tr><td id="np-333">Brimonidine <span class="num">0.1%</span>、<span class="num">0.15%</span>（Alphagan P）</td><td id="np-334">Sodium chlorite（Purite）</td></tr>
@@ -735,7 +749,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-345">Timolol gel-forming solution <span class="num">0.1%</span>、<span class="num">0.25%</span>、<span class="num">0.5%</span>（Timoptic XE）</td><td id="np-346"><strong>Benzododecinium bromide</strong>（與 BAK 密切相關的清潔劑）</td></tr>
 <tr><td id="np-347">Travoprost <span class="num">0.004%</span>（Travatan Z）</td><td id="np-348">Borate、sorbitol、propylene glycol、zinc（SofZia）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-349">出處 <span class="ref">p.240</span></p>
 <div class="ex-trap"><h3 id="ch12-s11-2">易錯陷阱</h3><ul>
 <li id="np-350">Timoptic XE 的防腐劑是 benzododecinium bromide（與 BAK 密切相關的清潔劑）。<span class="ref">p.240</span></li>
@@ -772,7 +786,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-365"><strong>CAIs（過去 Category C）</strong>：齧齒類致畸；有母親孕期用全身 CAI、嬰兒 <strong>forelimb deformities（前肢畸形）</strong>的病例報告 → <mark class="ex-key">孕期治療青光眼應避免全身 CAI，可能時局部 CAI 也最好避免，尤其第一孕期</mark>⁠<sup class="ex-qref"><span>Q1262</span> <span>Q1180</span></sup>。<span class="ref">p.242</span></li>
 <li id="np-366"><strong>Rho kinase inhibitors</strong>：動物研究未見明確致畸，但因抑制下游標的可能造成胎兒不良事件，孕期與哺乳期使用仍應謹慎。<span class="ref">p.242</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Class（類別）</th><th>Former category（舊分級）</th><th>Pregnancy（懷孕）</th><th>Breastfeeding（哺乳）</th></tr></thead>
 <tbody>
 <tr><td id="np-367">PG analogues</td><td id="np-368"><strong>C</strong></td><td id="np-369">動物高劑量殺胚胎；PGF2α 高劑量增加子宮收縮；局部點用不太可能有顯著胎兒風險</td><td id="np-370">—</td></tr>
@@ -781,7 +795,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-379">CAIs</td><td id="np-380">C</td><td id="np-381">避免全身用（前肢畸形病例）；可能時最好也避免局部，尤其第一孕期</td><td id="np-382">—</td></tr>
 <tr><td id="np-383">Rho kinase inhibitors</td><td id="np-384">—</td><td id="np-385">動物無明確致畸，仍謹慎</td><td id="np-386">謹慎</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-387">出處 <span class="ref">p.241–242</span>（表中「—」表示本章該段未述及）</p>
 <div class="ex-trap"><h3 id="ch12-s14-3">易錯陷阱</h3><ul>
 <li id="np-388">舊懷孕分級：<mark class="ex-key">PG analogues（PGF2α analogues）、β-blockers、CAIs 過去屬 <strong>Category C</strong>；α2 agonists（brimonidine）過去屬 <strong>Category B</strong></mark>⁠<sup class="ex-qref"><span>Q1262</span></sup>。<span class="ref">p.241–242</span></li>
@@ -812,7 +826,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch12-s16" data-w="1379">十六、Table 12-2 總整理與口訣</h2>
 <h3 id="ch12-s16-1">Table 12-2 Glaucoma medications：各類藥物機轉、降幅、peak 與 washout</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Class / agent</th><th>Mechanism（機轉）</th><th>IOP reduction</th><th>Peak</th><th>Washout</th></tr></thead>
 <tbody>
 <tr><td id="np-402">PG analogues</td><td id="np-403">↑uveoscleral（主）＋ conventional outflow</td><td id="np-404">約 <span class="num">30%</span></td><td id="np-405"><span class="num">10–14</span> 小時</td><td id="np-406"><span class="num">4–6</span> 週</td></tr>
@@ -826,7 +840,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-442">Netarsudil</td><td id="np-443">↑conventional；↓EVP</td><td id="np-444">約 <span class="num">20%–25%</span></td><td id="np-445">—</td><td id="np-446">—</td></tr>
 <tr><td id="np-447">Mannitol／glycerol</td><td id="np-448">滲透梯度，使玻璃體脫水</td><td id="np-449">—</td><td id="np-450">—</td><td id="np-451">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-452">出處 <span class="ref">p.222–226</span></p>
 <div class="hs-tip-box">
 <h3 id="ch12-s16-2">易混淆比較與口訣</h3>

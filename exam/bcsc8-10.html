@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -373,7 +387,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-2">本章範圍：胺基酸、蛋白質、礦物質代謝疾病；lysosomal storage diseases（溶小體儲積症）；脂質代謝疾病；以及 skeletal（骨骼）、nutritional（營養）、hematologic（血液）、endocrine（內分泌）、dermatologic（皮膚）疾病對角膜與其他前段構造的影響。<span class="ref">p.237</span></li>
 </ul>
 <h3 id="ch10-s1-2">Table 10-1：胺基酸代謝疾病（表中全部為 autosomal recessive）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>疾病</th><th>Enzyme defect（酵素缺陷）</th><th>堆積物</th><th>眼部表現</th><th>眼外表現</th></tr></thead>
 <tbody>
 <tr><td id="np-3"><strong>Cystinosis（胱胺酸症）</strong></td><td id="np-4">Cystinosin 缺陷</td><td id="np-5">Cystine（胱胺酸）</td><td id="np-6">多彩 cystine 結晶見於結膜、trabecular meshwork（小樑網）、角膜基質、虹膜；photophobia（畏光，usually）；retinal depigmentation（視網膜脫色素）</td><td id="np-7">Dwarfism（侏儒）、renal dysfunction（腎功能異常）</td></tr>
@@ -381,7 +395,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-13">Tyrosinemia type II</td><td id="np-14">Tyrosine aminotransferase</td><td id="np-15">Tyrosine</td><td id="np-16">畏光、流淚、結膜充血、雙側 pseudodendrites（假樹枝狀病灶）、瞼板乳突增生、上皮破損繼發角膜新生血管與瘢痕</td><td id="np-17">同 type I</td></tr>
 <tr><td id="np-18"><strong>Alkaptonuria（黑尿症）</strong></td><td id="np-19">Homogentisic acid oxidase</td><td id="np-20">Homogentisic acid</td><td id="np-21">Alkapton 的 ochronotic（褐色）沉積於角膜上皮或近輪部的 Bowman layer；直肌肌腱與鄰近鞏膜出現結膜與鞏膜的藍黑色變色</td><td id="np-22">關節病變、腎結石、軟骨構造（耳垂、氣管、鼻、肌腱）色素沉著</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-23">出處（表註：表中全部疾病為 autosomal recessive）<span class="ref">p.238</span></p>
 <h3 id="ch10-s1-3">Cystinosis（胱胺酸症）</h3>
 <ul>
@@ -395,7 +409,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-31">口服 cysteamine 也用於後段表現（pigmentary retinopathy、視神經受侵犯），也可能預防或穩定腎功能。<span class="ref">p.240</span></li>
 </ul>
 <h3 id="ch10-s1-4">Table 10-2：與 corneal crystals（角膜結晶）相關的全身疾病</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>類別</th><th>疾病</th></tr></thead>
 <tbody>
 <tr><td id="np-32">Lipid keratopathies（脂質角膜病變）</td><td id="np-33">Familial lipoprotein disorders、LCAT deficiency、Schnyder corneal dystrophy、Tangier disease</td></tr>
@@ -403,7 +417,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-36">Immunoglobulin disorders（免疫球蛋白疾病）</td><td id="np-37">Benign monoclonal gammopathy、Cryoglobulinemia、Multiple myeloma、Rheumatoid arthritis、Waldenstrom macroglobulinemia</td></tr>
 <tr><td id="np-38">其他</td><td id="np-39">Hypercalcemia（鈣沉積）、Oxalosis、Porphyria</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-40">出處 <span class="ref">p.240</span></p>
 <h3 id="ch10-s1-5">Tyrosinemia（酪胺酸血症）</h3>
 <ul>
@@ -443,7 +457,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-64">Primary systemic amyloidosis <mark>最常見的型態</mark>為 autosomal dominant（AD）疾病群，與 <strong>transthyretin（TTR，prealbumin）</strong>基因（第 18 對染色體，18q11.2–q12.1）變異相關；已描述超過 <span class="num">40</span> 種變異。<span class="ref">p.242, p.244</span></li>
 </ul>
 <h3 id="ch10-s2-2">Table 10-3：眼部 amyloid 分類</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>類型</th><th>遺傳</th><th>眼部分布與表現</th><th>相關眼部／全身疾病</th></tr></thead>
 <tbody>
 <tr><td id="np-65" rowspan="2">Primary localized</td><td id="np-66">Nonfamilial</td><td id="np-67">結膜 plaque；polymorphic amyloid degeneration</td><td id="np-68" rowspan="2">所有 primary localized 皆無</td></tr>
@@ -457,7 +471,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-92">Nonfamilial</td><td id="np-93">結膜、眼瞼皮膚（rare）</td><td id="np-94">感染（tuberculosis、leprosy、syphilis）；發炎（rheumatoid arthritis 等結締組織病）；Hodgkin disease</td></tr>
 <tr><td id="np-95">Familial</td><td id="np-96">Corneal nerve enlargement（角膜神經增粗），<strong>並非 amyloid 所致</strong></td><td id="np-97">Multiple endocrine neoplasia type 2A</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-98">出處（依原頁圖片核對）⁠<sup class="ex-qref"><span>Q838</span></sup><span class="ref">p.243</span></p>
 <h3 id="ch10-s2-3">Meretoja syndrome（familial amyloidosis）</h3>
 <ul>
@@ -532,7 +546,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-141">遺傳：<mark class="ex-key">MPS 為 autosomal recessive，唯 Hunter syndrome（MPS II）為 X-linked recessive</mark>⁠<sup class="ex-qref"><span>Q873</span> <span>Q162</span></sup>。<span class="ref">p.249</span></li>
 </ul>
 <h3 id="ch10-s4-3">Table 10-4：與角膜混濁相關的 MPS</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>MPS</th><th>Enzyme defect</th><th>堆積物</th><th>角膜混濁發生</th><th>其他眼部變化</th></tr></thead>
 <tbody>
 <tr><td id="np-142">MPS IH（Hurler）</td><td id="np-143">α-L-Iduronidase</td><td id="np-144">Dermatan、heparan sulfate</td><td id="np-145">生命最初幾年內；typically severe</td><td id="np-146">Pigmentary retinopathy、青光眼、視神經腫脹與萎縮、hypertelorism（眼距過寬）</td></tr>
@@ -543,7 +557,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-167">MPS VI（Maroteaux-Lamy）</td><td id="np-168">N-Acetylgalactosamine-4-sulfatase</td><td id="np-169">Dermatan sulfate</td><td id="np-170">生命最初數年內</td><td id="np-171">Narrow-angle glaucoma、optic neuropathy</td></tr>
 <tr><td id="np-172">MPS VII（Sly）</td><td id="np-173">β-Glucuronidase</td><td id="np-174">Dermatan、keratan、chondroitin sulfate</td><td id="np-175">生命最初數年內</td><td id="np-176">None</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-177">出處（依原頁圖片核對）<span class="ref">p.248</span></p>
 <h3 id="ch10-s4-4">臨床表現</h3>
 <ul>
@@ -579,7 +593,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-197">Sphingolipidoses 臨床表現段落列出：periorbital edema <span class="num">25%</span>、posterior spokelike cataracts（後部輪輻狀白內障）<span class="num">50%</span>、conjunctival aneurysms（結膜血管瘤樣擴張）<span class="num">60%</span>；其他：papilledema、視網膜或黃斑水腫、視神經萎縮、視網膜血管擴張。<span class="ref">p.250</span></li>
 </ul>
 <h3 id="ch10-s5-2">Table 10-5：Sphingolipidoses 摘要</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>疾病</th><th>Enzyme defect</th><th>堆積物</th><th>篩檢</th><th>診斷</th></tr></thead>
 <tbody>
 <tr><td id="np-198">Fabry disease</td><td id="np-199">α-Galactosidase A</td><td id="np-200">Globotriaosylceramide（ceramide trihexoside 與 blood group B substances）</td><td id="np-201">None</td><td id="np-202">WBC enzyme assay</td></tr>
@@ -587,7 +601,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-208">GM1 gangliosidosis type I（generalized gangliosidosis）</td><td id="np-209">β-Glucosidase（原表所列）</td><td id="np-210">GM1 ganglioside</td><td id="np-211">Urine oligosaccharide</td><td id="np-212">WBC enzyme assay</td></tr>
 <tr><td id="np-213">GM2 gangliosidosis type I（Tay-Sachs）</td><td id="np-214">β-Hexosaminidase A</td><td id="np-215">GM2 ganglioside 及相關 glycolipids</td><td id="np-216">None</td><td id="np-217">WBC enzyme assay</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-218">出處（依原頁圖片核對）<span class="ref">p.251</span></p>
 <h3 id="ch10-s5-3">Fabry disease（法布瑞氏症）與其他</h3>
 <ul>
@@ -607,7 +621,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-229">檢驗：漿細胞空泡化、血漿溶小體 hydrolases 升高；<strong>ML IV</strong> 角膜混濁<mark>出生即有</mark>，結膜切片見溶小體內包涵體（單層膜包覆、含纖維顆粒與膜狀板層物的空泡；lamellar 與 concentric bodies）；無 mucopolysacchariduria 或細胞 metachromasia。<span class="ref">p.253</span></li>
 <li id="np-230">治療：PK 與 LK 結果通常不佳，因異常上皮細胞使上皮重建受損；allograft limbal stem cell transplantation 可能是選項。<span class="ref">p.253</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>ML（Table 10-6）</th><th>Enzyme defect</th><th>堆積物</th><th>篩檢</th><th>診斷</th></tr></thead>
 <tbody>
 <tr><td id="np-231">ML I（dysmorphic sialidosis）</td><td id="np-232">Neuraminidase（sialidase）</td><td id="np-233">Sialic acid</td><td id="np-234">Urine sialic acid</td><td id="np-235">Cultured cells</td></tr>
@@ -615,7 +629,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-241">ML III（pseudo-Hurler polydystrophy）</td><td id="np-242">Transferase</td><td id="np-243">Many</td><td id="np-244">Urine oligosaccharides</td><td id="np-245">Plasma enzyme assay</td></tr>
 <tr><td id="np-246">ML IV</td><td id="np-247">Mucolipin-1</td><td id="np-248">Lipids 與 mucopolysaccharides</td><td id="np-249">Urine oligosaccharides</td><td id="np-250">Histologic examination</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-251">出處 <span class="ref">p.254</span></p>
 <h3 id="ch10-s5-5">Oligosaccharidoses 與 Galactosialidosis</h3>
 <ul>
@@ -646,14 +660,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-270">檢驗：<span class="num">5</span> 種 hypolipoproteinemias 皆 HDL 低，Tangier 幾乎為<span class="num">零</span>；這些疾病共同的一項 <mark>pathognomonic（特徵性）發現是 hypocholesterolemia（低膽固醇血症）</mark>。<span class="ref">p.256</span></li>
 <li id="np-271">處置：辨識後適當轉介，包括心臟與遺傳諮詢。<span class="ref">p.256</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>疾病（Table 10-7）</th><th>角膜表現</th><th>Gene locus</th><th>LCAT</th><th>HDL</th></tr></thead>
 <tbody>
 <tr><td id="np-272">LCAT deficiency</td><td id="np-273">Arcus + 不影響視力的局部沉積</td><td id="np-274">16q22.1</td><td id="np-275">None</td><td id="np-276">Low</td></tr>
 <tr><td id="np-277">Fish eye disease</td><td id="np-278">混濁由周邊 → 中央</td><td id="np-279">16q22.1</td><td id="np-280">Normal</td><td id="np-281">Low</td></tr>
 <tr><td id="np-282">Tangier disease</td><td id="np-283">瀰漫混濁與後基質混濁（no arcus）</td><td id="np-284">9q22-q31</td><td id="np-285">Normal</td><td id="np-286">Zero</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-287">出處 <span class="ref">p.256</span></p>
 <div class="ex-trap"><h3 id="ch10-s6-1">易錯陷阱</h3><ul>
 <li id="np-288">Familial hypobetalipoproteinemia 與 abetalipoproteinemia 主要影響視網膜，不造成角膜疾病。<span class="ref">p.255</span></li>
@@ -692,12 +706,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-310">致病：type I collagen 的 α1 或 α2 鏈異常 → 膠原纖維無法成熟至正常直徑；治療：口服 bisphosphonates 減少骨吸收、積極骨科處理骨折，低衝擊運動可能有助維持骨骼與肌肉。<span class="ref">p.261</span></li>
 </ul>
 <h3 id="ch10-s7-4">Table 10-9：與 blue sclera 相關的情況與藥物</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>局部（鞏膜變薄或沉積）</th><th>全身疾病</th><th>藥物</th></tr></thead>
 <tbody>
 <tr><td id="np-311">High myopia、oculodermal melanocytosis（nevus of Ota）、曾接受眼部手術、曾患 necrotizing scleritis、新生兒的薄鞏膜</td><td id="np-312">Alkaptonuria、brittle cornea syndrome、<strong>EDS type VI</strong>、hypophosphatasia、<strong>Marfan syndrome</strong>、<strong>osteogenesis imperfecta</strong>、primary adrenal insufficiency（Addison disease）</td><td id="np-313">Amiodarone、antimalarials、minocycline、phenothiazines</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-314">出處（依原頁圖片核對）⁠<sup class="ex-qref"><span>Q19</span> <span>Q28</span></sup><span class="ref">p.260</span></p>
 <h3 id="ch10-s7-5">Goldenhar-Gorlin syndrome（oculoauriculovertebral spectrum）</h3>
 <ul>
@@ -718,7 +732,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-326">Microcornea：nail–patella syndrome、oculodentodigital dysplasia、Treacher Collins syndrome；Pierre Robin sequence：megalocornea（rare）；Parry-Romberg syndrome：neuroparalytic keratitis；Rothmund-Thomson syndrome：角膜退化病灶。<span class="ref">p.258</span></li>
 <li id="np-327">Werner syndrome：白內障手術後內皮失代償致角膜水腫、傷口癒合差；posterior subcapsular cataracts（<span class="num">20–30 歲</span>）、proptosis、blue sclera。<span class="ref">p.258</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>疾病</th><th>遺傳</th><th>本章所列的眼部重點</th><th>本章所列的全身重點</th></tr></thead>
 <tbody>
 <tr><td id="np-328">EDS type VI</td><td id="np-329">AR</td><td id="np-330">Keratoconus、keratoglobus、brittle cornea、blue sclera、ectopia lentis、視網膜剝離、angioid streaks</td><td id="np-331">EDS：易瘀青、cigarette paper 疤痕；type VI：中度關節與皮膚伸展性、嚴重 scoliosis</td></tr>
@@ -727,7 +741,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-340">Goldenhar-Gorlin</td><td id="np-341">不確定（可能有遺傳成分）</td><td id="np-342">Limbal dermoid、上眼瞼 coloboma、斜視</td><td id="np-343">耳前附屬物、hemifacial microsomia、scoliosis</td></tr>
 <tr><td id="np-344">Wilson disease</td><td id="np-345">AR</td><td id="np-346">K-F ring（Descemet 銅）、sunflower cataract</td><td id="np-347">類 parkinsonism 的神經症狀；肝臟、精神症狀</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-348">出處 ⁠<sup class="ex-qref"><span>Q930</span></sup><span class="ref">p.246, p.256–261</span></p>
 <div class="ex-trap"><h3 id="ch10-s7-7">易錯陷阱</h3><ul>
 <li id="np-349">EDS 整體有容易瘀青；EDS type VI（ocular–scoliotic type）為 AR、嚴重 scoliosis，角膜有 keratoconus、keratoglobus、brittle cornea，其他眼部有 blue sclera、ectopia lentis⁠<sup class="ex-qref"><span>Q930</span></sup>。<span class="ref">p.256</span></li>
@@ -812,12 +826,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-398">致病：MEN2 為 <strong>RET</strong> 基因自發變異或 AD 遺傳。<span class="ref">p.269</span></li>
 <li id="np-399">處置：由內分泌科追蹤；MEN1 有視野缺損需神經放射檢查並與神經外科團隊合作；MEN2 有高血壓應檢查 pheochromocytoma，前頸部腫塊應評估 medullary thyroid carcinoma（未早期治療死亡率高）。<span class="ref">p.269</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 10-10：Prominent corneal nerves（角膜神經明顯）— 全身疾病</th><th>眼部疾病</th></tr></thead>
 <tbody>
 <tr><td id="np-400">MEN type 2B；phytanic acid storage disease（Refsum disease）；Hansen disease（leprosy，神經呈串珠狀）；familial dysautonomia（Riley-Day syndrome）；neurofibromatosis</td><td id="np-401">Keratoconus；ichthyosis；Fuchs endothelial corneal dystrophy；corneal edema；congenital glaucoma；<i>Acanthamoeba</i> perineuritis</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-402">出處（依原頁圖片核對；含真正增粗或可見度增加）<span class="ref">p.267–268</span></p>
 <h3 id="ch10-s10-3">Parathyroid disease（副甲狀腺疾病）</h3>
 <ul>

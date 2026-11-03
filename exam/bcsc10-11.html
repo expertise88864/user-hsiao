@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -376,7 +390,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-5">Secondary：合併其他眼部或全身疾病；再依該狀況是出生後才獲得（acquired）或出生即有（nonacquired）分類；nonacquired 再分「以眼部為主」或「以全身為主」；<strong>先天白內障術後青光眼自成一類</strong>。<span class="ref">p.188</span></li>
 </ul>
 <h3 id="ch11-s1-2">Table 11-1：小兒青光眼與 glaucoma suspect（青光眼疑似）定義</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>項目</th><th>Pediatric glaucoma（有 IOP 相關損傷，需 <span class="num">≥ 2</span> 項）</th><th>Glaucoma suspect（無 IOP 相關損傷，需 <span class="num">≥ 1</span> 項）</th></tr></thead>
 <tbody>
 <tr><td id="np-6">IOP（眼壓）</td><td id="np-7"><span class="num">&gt; 21 mm Hg</span></td><td id="np-8"><span class="num">&gt; 21 mm Hg</span>，於 <span class="num">2</span> 個不同時間</td></tr>
@@ -385,7 +399,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-15">Visual field（視野）</td><td id="np-16">可重複、符合青光眼視神經病變且無其他原因的缺損</td><td id="np-17">視野提示青光眼</td></tr>
 <tr><td id="np-18">Myopia（近視）</td><td id="np-19">進行性近視、近視偏移，或眼球尺寸增加超出正常成長</td><td id="np-20">（無）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-21">出處 <span class="ref">p.188</span></p>
 <ul>
 <li id="np-22">Figure 11-3 演算法：未長期追蹤時的單次項目 = IOP <span class="num">&gt; 21 mm Hg</span>（僅 EUA 數據時由醫師判斷）、CDR 不對稱 <span class="num">≥ 0.2</span>、盤緣局部變薄、<mark class="ex-key">「Haab striae、角膜水腫或角膜直徑增大」合為同一項</mark>、軸性近視或眼軸增加、視野缺損；有長期追蹤時再加 CDR 隨時間增加、超出年齡的近視進展、超出年齡的眼軸增加。<span class="num">≥ 2</span> 項 = glaucoma；只有 <span class="num">1</span> 項（眼壓升高須可重複）= glaucoma suspect⁠<sup class="ex-qref"><span>Q675</span> <span>Q691</span></sup>。<span class="ref">p.195</span></li>
@@ -393,7 +407,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-24">Table 11-1 的近視項目（進行性近視、近視偏移，或超出正常成長的眼球尺寸增加）是 pediatric glaucoma 的診斷項目之一；Fig 11-3 有長期追蹤時列「超出年齡相關變化」的近視進展與眼軸增加⁠<sup class="ex-qref"><span>Q675</span> <span>Q1183</span></sup>。<span class="ref">p.188, p.195</span></li>
 </ul>
 <h3 id="ch11-s1-3">Table 11-2：分類與年齡</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>類別</th><th>年齡 / 定義</th><th>重點</th></tr></thead>
 <tbody>
 <tr><td id="np-25">PCG — neonatal onset（新生兒型）</td><td id="np-26"><span class="num">0–1 個月</span></td><td id="np-27" rowspan="3">孤立隅角異常 ± 輕度先天虹膜異常；符合青光眼定義，通常眼球變大；spontaneously arrested（自發停止）者眼壓正常但有 PCG 典型徵象</td></tr>
@@ -405,7 +419,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-41">Acquired conditions（後天狀況相關）</td><td id="np-42">非遺傳、非出生即有</td><td id="np-43">依隅角鏡：open-angle = 隅角 <span class="num">≥ 50%</span> 開放（ITC <span class="num">&lt; 180°</span>）；angle-closure = <span class="num">&lt; 50%</span> 開放（ITC <span class="num">≥ 180°</span>）或急性閉鎖</td></tr>
 <tr><td id="np-44">Glaucoma following cataract surgery（白內障術後）</td><td id="np-45">僅在白內障手術後才符合定義</td><td id="np-46">依白內障類型分：先天特發性／合併眼部異常或全身病（先前無青光眼）／後天性（先前無青光眼）；隅角同上分 open 或 closure</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-47">出處（ITC = iridotrabecular contact，虹膜小樑接觸）<span class="ref">p.189, p.195</span></p>
 <h3 id="ch11-s1-4">Table 11-3：續發性 — 先天（nonacquired）狀況</h3>
 <ul>
@@ -444,7 +458,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-64"><mark class="ex-key">PITX2 + FOXC1 致病變異合計占前段發育不全相關青光眼的 <span class="num">50%</span></mark>⁠<sup class="ex-qref"><span>Q669</span> <span>Q1184</span></sup>。<span class="ref">p.192</span></li>
 <li id="np-65">Pseudoexfoliation syndrome（假性脫落症候群）：幾乎所有病例都有單一基因 <strong>LOXL1</strong> 的致病變異，但這些變異在無此症的族群也常見（本章外）⁠<sup class="ex-qref"><span>Q1184</span></sup>。<span class="ref ref-ext">BCSC 10 p.129</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Gene（基因）</th><th>Locus</th><th>遺傳</th><th>疾病 / 重點</th></tr></thead>
 <tbody>
 <tr><td id="np-66">CYP1B1</td><td id="np-67">GLC3A</td><td id="np-68">AR</td><td id="np-69">PCG 最常見；retinol → retinoic acid</td></tr>
@@ -455,7 +469,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-86">PAX6</td><td id="np-87">11p13</td><td id="np-88">AD 或偶發</td><td id="np-89">Aniridia；大片缺失連同 WT1 → Wilms tumor</td></tr>
 <tr><td id="np-90">LMX1B</td><td id="np-91">—</td><td id="np-92">AD</td><td id="np-93">Nail-patella syndrome</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-94">出處（FOXC1、PITX2 對應 Axenfeld-Rieger 見 BCSC 10 Table 1-2）<span class="ref">p.191–192, p.197, p.200, p.202；BCSC 10 p.17</span></p>
 <div class="ex-trap"><h3 id="ch11-s2-4">易錯陷阱</h3><ul>
 <li id="np-95">PCG 最常見病因為 <strong>CYP1B1（GLC3A）的 AR</strong> 致病變異；MYOC（GLC1A）見於 AD 遺傳、無前段發育不全的早發青光眼家族（如 JOAG）⁠<sup class="ex-qref"><span>Q1692</span> <span>Q1220</span></sup>。<span class="ref">p.191–192</span></li>
@@ -488,7 +502,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-111">BCSC 6：未治療的兒童青光眼幾乎都進展至失明；新生兒與嬰兒眼球未成熟、可擴張，角膜變大、混濁並可能血管化，整個眼球變大（buphthalmos）、鞏膜變薄並出現 myopic chorioretinal changes（近視性脈絡膜視網膜變化）（本章外）⁠<sup class="ex-qref"><span>Q1692</span></sup>。<span class="ref ref-ext">BCSC 6 p.296</span></li>
 </ul>
 <h3 id="ch11-s3-4">鑑別診斷（Table 11-5）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（表現類別）</th><th>鑑別疾病</th></tr></thead>
 <tbody>
 <tr><td id="np-112">Epiphora（溢淚）</td><td id="np-113"><strong>Nasolacrimal duct obstruction（鼻淚管阻塞）</strong>、角膜上皮缺損/擦傷、結膜炎、角膜炎、眼內發炎（葡萄膜炎、外傷）、epiblepharon（眼瞼贅皮）睫毛觸角膜</td></tr>
@@ -496,7 +510,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-116">角膜混濁</td><td id="np-117"><strong>Birth trauma（產傷）造成的 DM 斷裂</strong>；角膜炎（母體 rubella、herpes、phlyctenules）；角膜失養（congenital hereditary endothelial dystrophy（CHED）、PPCD）；角膜畸形（dermoid、sclerocornea、choristoma、Peters anomaly）；先天角膜混濁；keratomalacia；溶小體儲積症（mucopolysaccharidosis、sphingolipidosis、cystinosis）；皮膚病（congenital ichthyosis、congenital dyskeratosis）</td></tr>
 <tr><td id="np-118">非青光眼性視神經異常</td><td id="np-119">Pit、coloboma、hypoplasia、malformation、atrophy、physiologic cupping（尤其大視盤）、periventricular leukomalacia（腦室周圍白質軟化）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-120">出處 <span class="ref">p.194</span></p>
 <ul>
 <li id="np-121">兒童溢淚要想到 PCG；輕症可能被誤診為<mark class="ex-key">鼻淚管阻塞</mark>而延誤，造成不可逆傷害。有三聯徵的嬰兒應立即轉介；<strong>未治療幾乎全部走向失明</strong>⁠<sup class="ex-qref"><span>Q1247</span></sup>。<span class="ref">p.193–194</span></li>
@@ -540,7 +554,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-143"><mark>青光眼發生與<strong>虹膜在隅角插入的高度</strong>相關，與 iris processes（虹膜突）數目或虹膜異常程度無關</mark>。<span class="ref">p.197</span></li>
 <li id="np-144">治療原則大致同 OAG；iris processes 很多時可能無法做隅角手術。可用藥物、goniotomy、trabeculotomy、trabeculectomy、tube shunt、cyclodestruction⁠<sup class="ex-qref"><span>Q862</span></sup>。<span class="ref">p.197</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（Table 11-6）</th><th>與 ARS 的區別點</th></tr></thead>
 <tbody>
 <tr><td id="np-145">Iridocorneal endothelial（ICE）syndrome（虹膜角膜內皮症候群）</td><td id="np-146"><strong>單側</strong>、<strong>中年發病</strong>、角膜內皮異常、進行性變化</td></tr>
@@ -551,7 +565,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-155">Ectopia lentis et pupillae</td><td id="np-156">水晶體半脫位、瞳孔移位、軸性近視、視網膜剝離、角膜直徑變大、白內障、隅角明顯 iris processes</td></tr>
 <tr><td id="np-157">Oculodentodigital dysplasia（眼齒指發育不良）</td><td id="np-158">小眼球、小角膜、虹膜異常、白內障</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-159">出處 <span class="ref">p.198</span></p>
 <ul>
 <li id="np-160">Table 11-6 以 <strong>corneal leukoma（角膜白斑）</strong>區別 Peters anomaly 與 ARS；BCSC 8 Table 8-5：ARS 角膜內皮正常（本章外）⁠<sup class="ex-qref"><span>Q862</span></sup>。<span class="ref">p.198；BCSC 8 p.210</span></li>
@@ -665,14 +679,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-231">提示青光眼：<mark class="ex-key">新生兒 <span class="num">≥ 11 mm</span>、未滿 1 歲 <span class="num">&gt; 12 mm</span>、任何年齡 <span class="num">&gt; 13 mm</span>；兩眼差 <span class="num">≥ 0.5 mm</span></mark>⁠<sup class="ex-qref"><span>Q1239</span> <span>Q940</span></sup>。<span class="ref">p.205</span></li>
 <li id="np-232">角膜水腫可因高眼壓或 Haab striae，從輕微霧狀到基質濃密混濁；散瞳後 retroillumination（後照法）有助看到 Haab striae。另應找 aniridia、虹膜角膜沾黏、corectopia 等線索。<span class="ref">p.205–206</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Age（年齡）</th><th>Axial length（眼軸，mm）</th><th>Horizontal corneal diameter（水平角膜直徑，mm）</th></tr></thead>
 <tbody>
 <tr><td id="np-233">Newborn（新生兒）</td><td id="np-234"><span class="num">17.5–19.5</span></td><td id="np-235"><span class="num">9.5–10.5</span></td></tr>
 <tr><td id="np-236">2-year-old</td><td id="np-237"><span class="num">19.5–20.5</span></td><td id="np-238"><span class="num">11.0–12.0</span></td></tr>
 <tr><td id="np-239">Adult（成人）</td><td id="np-240"><span class="num">23.0–24.0</span></td><td id="np-241"><span class="num">11.0–12.0</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-242">出處（Table 11-8）<span class="ref">p.205</span></p>
 <h3 id="ch11-s8-4">Tonometry（眼壓測量）</h3>
 <ul>
@@ -681,14 +695,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-245"><strong>Rebound tonometer（回彈式眼壓計）</strong>：對門診相對合作、但年紀太小無法做 Goldmann 的兒童很有用；不需表面麻醉、新款可坐或躺測、已證實可減少 EUA 次數；但初步報告指出先天性青光眼患者測值<strong>高於 Perkins</strong>，尤其眼壓越高時。<span class="ref">p.206</span></li>
 <li id="np-246"><span class="num">≥ 6 個月</span>嬰兒與幼兒通常需全身麻醉才能準確測量。<strong>插管與拔管通常升高眼壓</strong>（可能因喉痙攣、交感刺激）；一般而言 laryngeal mask airway（喉罩）對眼壓的影響小於氣管內插管。<span class="ref">p.206</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>對眼壓的影響</th><th>麻醉藥</th></tr></thead>
 <tbody>
 <tr><td id="np-247">降低</td><td id="np-248">Halothane、propofol、sevoflurane、isoflurane、enflurane</td></tr>
 <tr><td id="np-249">通常升高</td><td id="np-250"><strong>Ketamine、suxamethonium（succinylcholine）</strong></td></tr>
 <tr><td id="np-251">似乎無影響</td><td id="np-252">Midazolam、chloral hydrate</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-253">出處 ⁠<sup class="ex-qref"><span>Q1170</span></sup><span class="ref">p.206</span></p>
 <ul>
 <li id="np-254">術前與麻醉科協調，<mark>誘導後立即（最好在插管前）測眼壓</mark>；連續檢查最好使用相同麻醉藥。<span class="ref">p.206</span></li>
@@ -751,14 +765,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-289">兩者成功率相近；併發症：hyphema、感染、虹膜或水晶體損傷、uveitis；<strong>trabeculotomy 可能造成 Descemet membrane 剝離</strong>。<span class="ref">p.213</span></li>
 <li id="np-290"><mark class="ex-key"><span class="num">3–12 個月</span>診斷之 PCG，隅角手術成功率 <span class="num">70%–80%</span>（含常見的<strong>重複隅角手術</strong>）</mark>；全周隅角都處理過或輔助藥物不足 → 考慮 trabeculectomy 或 tube⁠<sup class="ex-qref"><span>Q1285</span></sup>。<span class="ref">p.213</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Goniotomy（隅角切開術）</th><th>Trabeculotomy（小樑切開術）</th></tr></thead>
 <tbody>
 <tr><td id="np-291">術後<strong>無結膜瘢痕</strong></td><td id="np-292">Ab externo 對習慣成人手術的青光眼醫師可能較熟悉</td></tr>
 <tr><td id="np-293">手術較快</td><td id="np-294"><strong>可在混濁角膜施作</strong></td></tr>
 <tr><td id="np-295">前段組織創傷較小</td><td id="np-296">找不到 Schlemm canal 時<strong>可轉為 trabeculectomy</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-297">出處（Table 11-9）⁠<sup class="ex-qref"><span>Q1694</span></sup><span class="ref">p.213</span></p>
 <h3 id="ch11-s9-3">Trabeculectomy、combined trabeculotomy-trabeculectomy、tube shunt</h3>
 <ul>
@@ -790,7 +804,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-313">多數 FDA 核准青光眼藥物未在兒童做對照試驗。<mark class="ex-key">合理的兒童第一線：<strong>topical β-blockers、topical CAIs、prostaglandin analogues（PGA）</strong></mark>⁠<sup class="ex-qref"><span>Q1168</span></sup>。<span class="ref">p.214</span></li>
 <li id="np-314">青春期前/青春期女孩，開始可能影響胎兒的治療前須詢問是否懷孕⁠<sup class="ex-qref"><span>Q1149</span></sup>。<span class="ref">p.214</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Drug class（藥物）</th><th>兒童重點</th><th>主要風險 / 注意</th></tr></thead>
 <tbody>
 <tr><td id="np-315">β-blockers（timolol、levobunolol、betaxolol）</td><td id="np-316">第一線之一，但須小心</td><td id="np-317">全身吸收可觀 → 易感兒童可致 bronchospasm、bradycardia、hypotension；氣喘或明顯心臟病避免；betaxolol 為 cardioselective；用 <span class="num">0.25%</span> 取代 <span class="num">0.5%</span>；鼻淚管壓迫 <span class="num">2–5 分鐘</span></td></tr>
@@ -803,7 +817,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-336">Echothiophate iodide</td><td id="np-337">許多 aphakic glaucoma 患者很有效，每日 <span class="num">1</span> 次</td><td id="np-338">虹膜色素上皮囊腫（停藥消退）；破壞血液房水屏障 → 手術前須提早停藥</td></tr>
 <tr><td id="np-339">Rho kinase inhibitors</td><td id="np-340">只有個案報告</td><td id="np-341">尚無系統性研究結果</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-342">出處（pilocarpine 屬 direct-acting cholinergic agonist 見 BCSC 10 p.234；隅角手術時備用見 p.204）⁠<sup class="ex-qref"><span>Q1168</span> <span>Q1243</span> <span>Q1281</span> <span>Q1149</span></sup><span class="ref">p.204, p.215–216；BCSC 10 p.234</span></p>
 <ul>
 <li id="np-343">β-blocker：減少全身吸收用鼻淚管壓迫 <span class="num">2–5 分鐘</span>與最低有效劑量（如 timolol <span class="num">0.25%</span> 或 levobunolol <span class="num">0.25%</span>），尤其幼童；教照顧者在家壓迫鼻淚管⁠<sup class="ex-qref"><span>Q1168</span> <span>Q1243</span></sup>。<span class="ref">p.215</span></li>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -399,7 +413,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-19">與 choristoma 同為良性增生，但 hamartoma 是<mark>該位置本來就有的成熟組織異常過度生長</mark>。<span class="ref">p.59</span></li>
 <li id="np-20"><mark class="ex-key">結膜最常見的 hamartoma 是 <strong>infantile（capillary）hemangioma（嬰兒型／微血管瘤）</strong></mark>，但此病灶最常侵犯的是眼瞼⁠<sup class="ex-qref"><span>Q375</span></sup>。<span class="ref">p.59</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病灶）</th><th>Category（分類）</th><th>Key features（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-21">Epibulbar dermoid</td><td id="np-22">Simple choristoma</td><td id="np-23">實心白黃結節、典型位於或跨越 limbus、最常 inferotemporal；可能與 Goldenhar、linear nevus sebaceous syndrome 相關</td></tr>
@@ -407,7 +421,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-27">Complex choristoma（含 osseous choristoma）</td><td id="np-28">Complex choristoma</td><td id="np-29">另含淚腺、軟骨、骨、神經組織等；可能侵及較深的角膜與鞏膜</td></tr>
 <tr><td id="np-30">Infantile (capillary) hemangioma</td><td id="np-31">Hamartoma</td><td id="np-32">結膜最常見 hamartoma；最常侵犯眼瞼</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-33">出處 <span class="ref">p.59</span></p>
 <div class="ex-trap"><h3 id="ch4-s2-3">易錯陷阱</h3><ul>
 <li id="np-34">Choristoma =「正常組織、<strong>異常</strong>位置」；hamartoma =「該位置本來就有的成熟組織異常過度生長」⁠<sup class="ex-qref"><span>Q388</span></sup>。<span class="ref">p.59</span></li>
@@ -470,7 +484,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-67">典型發生部位：伴隨 chalazion（霰粒腫，瞼結膜）、punctum（淚點），或先前意外/手術外傷處（如斜視手術部位）；臨床為肉質、紅、有蒂的結節狀隆起。<span class="ref">p.65–67</span></li>
 <li id="np-68">肉芽組織形成是發炎或受傷後傷口癒合必要的修復過程。<span class="ref">p.67</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病灶）</th><th>Clinical clue（臨床線索）</th><th>Histology（組織學）</th></tr></thead>
 <tbody>
 <tr><td id="np-69">Infectious（如 <i>Bartonella henselae</i> → Parinaud oculoglandular syndrome）</td><td id="np-70">肉芽腫性結膜炎 + 同側區域淋巴結腫大</td><td id="np-71">典型為 necrotizing／caseating granuloma；可用特殊染色、培養、PCR、血清學</td></tr>
@@ -478,7 +492,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-75">Foreign body</td><td id="np-76">灰塵、毛髮等嵌入</td><td id="np-77">上皮樣組織球與多核巨細胞包圍異物；偏光可能有助看到異物</td></tr>
 <tr><td id="np-78">Pyogenic granuloma（名稱為 misnomer，並非肉芽腫）</td><td id="np-79">典型伴隨霰粒腫、淚點或先前外傷處；紅色有蒂結節</td><td id="np-80">肉芽組織 + 急慢性發炎細胞 + 放射狀增生微血管</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-81">出處 <span class="ref">p.64–67</span></p>
 <div class="ex-trap"><h3 id="ch4-s4-4">易錯陷阱</h3><ul>
 <li id="np-82">本章列出的 granulomatous conjunctivitis 病因：Parinaud oculoglandular syndrome（常為非典型菌如 <i>Bartonella henselae</i>）、sarcoidosis、foreign body；Section 8 鑑別表把 bacterial conjunctivitis 列在 papillary conjunctivitis⁠<sup class="ex-qref"><span>Q370</span></sup>。<span class="ref">p.64–65；BCSC 8 p.46</span></li>
@@ -613,7 +627,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-169">（本章外）Section 8：PAM with moderate to severe atypia 進展為 melanoma 風險 <span class="num">30%</span>；PAM 最常見於膚色較淺成人，通常單側或明顯不對稱；CAM 較常見於膚色較深者，雙側、相當對稱、良性、進展為 melanoma 風險很小⁠<sup class="ex-qref"><span>Q850</span> <span>Q891</span> <span>Q969</span> <span>Q315</span></sup>。<span class="ref ref-ext">BCSC 8 p.400, p.402–404</span></li>
 </ul>
 <h3 id="ch4-s7-5">Table 4-1 Clinical Comparison of Nonmalignant Intraepithelial Melanocytic Lesions of the Conjunctiva（結膜非惡性上皮內黑色素細胞病灶臨床比較）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Lesion (Alternative Terminology)（病灶〔其他名稱〕）</th><th>Onset（發生）</th><th>Characteristics（特徵）</th><th>Location（位置）</th><th>Malignant potential（惡性潛能）</th></tr></thead>
 <tbody>
 <tr><td id="np-170">Nevus</td><td id="np-171">Childhood or adolescence（兒童或青少年）</td><td id="np-172">界線清楚的棕色或粉紅斑，有小囊泡（small cysts）；通常單側</td><td id="np-173">Bulbar conjunctiva（球結膜）、caruncle</td><td id="np-174">Yes（結膜 melanoma），但 low（低）</td></tr>
@@ -621,10 +635,10 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-180">Complexion-associated melanosis（benign epithelial melanosis、racial melanosis、primary conjunctival melanosis）</td><td id="np-181">Young adulthood（年輕成人），often increases with age（常隨年齡增加）</td><td id="np-182">扁平棕斑、邊緣不規則；<strong>通常雙側但不對稱</strong></td><td id="np-183">Conjunctiva，typically bulbar（典型為球結膜）</td><td id="np-184"><strong>None（無）</strong></td></tr>
 <tr><td id="np-185">Primary acquired melanosis（PAM；C-MIN、C-MIL）</td><td id="np-186"><strong>Middle age（中年）</strong></td><td id="np-187">扁平、棕色、有時呈顆粒狀的斑，邊緣不規則；通常單側</td><td id="np-188">Anywhere on the conjunctiva（結膜任何部位）</td><td id="np-189">Yes（結膜 melanoma），<strong>when atypia is present（有 atypia 時）</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-190">出處（Table 4-1）<span class="ref">p.76</span></p>
 <h3 id="ch4-s7-6">Table 4-2 Non-nevoid Intraepithelial Pigmented Conjunctival Lesions（結膜非痣性上皮內色素病灶）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Nomenclature（名稱）</th><th>Alternative terminologies（其他名稱）</th><th>Histology（組織學）</th><th>Risk of association with or progression to invasive melanoma（合併或進展為侵襲性黑色素瘤的風險）</th></tr></thead>
 <tbody>
 <tr><td id="np-191">Secondary melanosis of the conjunctiva（non-neoplastic）</td><td id="np-192">Benign acquired melanosis</td><td id="np-193">依特定病因而定（全身疾病相關或反應性）</td><td id="np-194">None（無）</td></tr>
@@ -635,7 +649,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-211">Conjunctival melanoma in situ</td><td id="np-212">High-grade C-MIL／MIS</td><td id="np-213">全層或接近全層的上皮內 melanocytes 增生，伴重度細胞異型</td><td id="np-214">Highest（最高）</td></tr>
 <tr><td id="np-215">Invasive conjunctival melanoma</td><td id="np-216">—</td><td id="np-217">非典型 melanocytes 破壞上皮基底膜並侵入基質</td><td id="np-218">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-219">出處（Table 4-2；表中 Secondary melanosis 與 CAM 屬 non-neoplastic lesions，PAM 以下屬 neoplastic lesions）。圖說的 C-MIN 數字與表不同：圖 4-19 寫 PAM without／mild atypia 為 C-MIN <span class="num">1, 2</span>，圖 4-20 寫 without atypia <span class="num">0–1</span>、mild atypia <span class="num">1–2</span>，兩圖都寫 melanoma in situ 為 C-MIN <span class="num">&gt;5</span>。<span class="ref">p.79, p.81, p.83</span></p>
 <div class="ex-trap"><h3 id="ch4-s7-7">易錯陷阱</h3><ul>
 <li id="np-220">Secondary 與 complexion-associated melanosis 一般沒有 atypical melanocytic proliferation；Table 4-1 中 CAM 的惡性潛能為 None⁠<sup class="ex-qref"><span>Q315</span></sup>。<span class="ref">p.76, p.78</span></li>

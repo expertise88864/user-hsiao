@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -375,7 +389,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-4">Sickling test 與 solubility test（sickle cell preparations）是 hemoglobin S 存在的可靠指標，因此非常適合 sickle cell anemia 篩檢，但<mark>無法區分 heterozygous（異合子）與 homozygous（同合子）</mark>；sickle cell preparation 陽性者還應做 <strong>hemoglobin electrophoresis（血紅素電泳）</strong>。<span class="ref">p.168</span></li>
 </ul>
 <h3 id="ch7-s1-2">Table 7-1：北美鐮刀型血紅素病變發生率</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Hemoglobinopathy（血紅素病變）</th><th>Incidence in population（族群發生率）</th><th>Proliferative retinopathy（增殖性視網膜病變發生率）</th></tr></thead>
 <tbody>
 <tr><td id="np-5">Any sickle hemoglobin（任何鐮刀型血紅素）</td><td id="np-6"><span class="num">10%</span></td><td id="np-7">—</td></tr>
@@ -386,7 +400,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-20">Sickle cell–thalassemia（SThal）</td><td id="np-21"><span class="num">0.03%</span></td><td id="np-22">約 <span class="num">14%</span></td></tr>
 <tr><td id="np-23">Homozygous C（HbCC）</td><td id="np-24"><span class="num">0.016%</span></td><td id="np-25">Unknown（不明）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-26">出處（Table 7-1，已對照原頁）<span class="ref">p.167</span></p>
 <h3 id="ch7-s1-3">Sickle cell retinopathy 五期（依致病順序）</h3>
 <ol>
@@ -430,14 +444,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-52"><span class="num">360°</span> scleral buckling（鞏膜扣壓）曾報告與 anterior segment ischemia or necrosis（前段缺血或壞死）相關，尤其合併大範圍 diathermy 或 cryopexy 時。<span class="ref">p.175</span></li>
 </ul>
 <h3 id="ch7-s1-8">Table 7-2：周邊視網膜新生血管的鑑別診斷</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Category（類別）</th><th>Conditions（疾病）</th></tr></thead>
 <tbody>
 <tr><td id="np-53">Vascular diseases with ischemia（缺血性血管疾病）</td><td id="np-54">Aortic arch syndromes/ocular ischemic syndromes；BRAO；BRVO；carotid-cavernous fistula；CRAO；CRVO；Coats disease；Eales disease；familial exudative vitreoretinopathy（FEVR）；hyperviscosity syndromes（如 chronic myelogenous leukemia）；IRVAN；PDR；retinal embolization（如 talc emboli）；retinopathy of prematurity（ROP）；sickling hemoglobinopathies（如 SC、SS）與其他血紅素病變（如 HbAC、HbAS）</td></tr>
 <tr><td id="np-55">Inflammatory diseases with possible ischemia（可能缺血的發炎性疾病）</td><td id="np-56">Birdshot chorioretinopathy；multiple sclerosis；retinal vasculitis（如 systemic lupus erythematosus）；sarcoidosis；Susac syndrome；toxoplasmosis；uveitis（含 pars planitis）</td></tr>
 <tr><td id="np-57">Miscellaneous（其他）</td><td id="np-58">Choroidal melanoma；chronic retinal detachment；incontinentia pigmenti；radiation retinopathy；retinitis pigmentosa；retinoschisis</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-59">出處（Table 7-2，已對照原頁）<span class="ref">p.174</span></p>
 <div class="ex-trap"><h3 id="ch7-s1-9">易錯陷阱</h3><ul>
 <li id="np-60">PSR 發生率：HbSC 約 <span class="num">33%</span>、SThal 約 <span class="num">14%</span>、HbSS 約 <span class="num">3%</span>；HbSS 的全身併發症較多，但 PSR 發生率很低。<span class="ref">p.167–169</span></li>
@@ -562,14 +576,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch7-s5" data-w="1851">五、Macular telangiectasia（MacTel，黃斑部微血管擴張症）</h2>
 <h3 id="ch7-s5-1">三型總覽</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（分型）</th><th>Laterality / population（側別與族群）</th><th>Key features（重點特徵）</th><th>Treatment（治療）</th></tr></thead>
 <tbody>
 <tr><td id="np-127">Type 1（aneurysmal telangiectasia，動脈瘤性血管擴張）</td><td id="np-128">典型單側；以年輕男性為主；先天或後天</td><td id="np-129">顳側黃斑血管的動脈瘤樣擴張，周圍 CME 與黃色滲出物；視為 Coats disease 的黃斑變異型；也可有周邊血管變化</td><td id="np-130">Anti-VEGF 一般無效</td></tr>
 <tr><td id="np-131">Type 2（juxtafoveal telangiectasis，中心凹旁血管擴張）</td><td id="np-132">雙側；特徵表現於第五至第七個十年（40–69 歲）開始出現</td><td id="np-133">最常見型；罕見、進行性、特發性的黃斑中心凹旁神經退化疾病；推測 Muller cell 缺陷扮演關鍵角色</td><td id="np-134">無 FDA 核准的有效治療（2025 年 FDA 已核准 revakinagene taroretcel-lwey（ENCELTO）用於成人 idiopathic MacTel type 2）；anti-VEGF 用於活動性視網膜下新生血管</td></tr>
 <tr><td id="np-135">Type 3</td><td id="np-136">雙側</td><td id="np-137">中心凹旁血管擴張合併視網膜微血管閉塞；極罕見的血管阻塞過程，與 type 1、2 不同</td><td id="np-138">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-139">出處 <span class="ref">p.180–181</span></p>
 <h3 id="ch7-s5-2">MacTel type 1</h3>
 <ul>
@@ -635,7 +649,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-178">通常無症狀，罕見情況下可出血進入玻璃體；一般不需治療，除非 VH 反覆發生，此時 photocoagulation 或 cryotherapy 可能有效。<span class="ref">p.187</span></li>
 <li id="np-179">顱內 hemangioma 可能導致癲癇、顱內出血甚至死亡；<mark class="ex-key">應一律做神經影像檢查</mark>以排除顱內侵犯⁠<sup class="ex-qref"><span>Q1527</span></sup>。<span class="ref">p.187</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病灶）</th><th>Appearance（外觀）</th><th>FA</th><th>Systemic association（全身關聯）</th><th>Treatment（治療）</th></tr></thead>
 <tbody>
 <tr><td id="np-180">Retinal hemangioblastoma（VHL）</td><td id="np-181">球形橘紅色腫瘤，擴張迂曲的供血動脈與充血引流靜脈；盤周者常扁平</td><td id="np-182">Fig 7-16 可見滲漏</td><td id="np-183">CNS hemangioblastoma、RCC、pheochromocytoma 等；散發者稱 von Hippel lesion</td><td id="np-184">Laser、cryotherapy、PDT；anti-VEGF 通常無有意義的長期效果</td></tr>
@@ -643,7 +657,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-190">Cavernous hemangioma</td><td id="np-191">內層視網膜或視神經盤上葡萄串狀薄壁囊狀病灶</td><td id="np-192">緩慢充盈、plasma-erythrocyte layering；無滲漏</td><td id="np-193">可合併顱內與皮膚血管瘤；多數散發</td><td id="np-194">通常不需治療；反覆 VH 時 photocoagulation 或 cryotherapy</td></tr>
 <tr><td id="np-195">Vasoproliferative tumor（VPT）</td><td id="np-196">周邊大型血管性腫塊，周圍滲出／Coats-like reaction；無擴張供血與引流血管</td><td id="np-197">—</td><td id="np-198">通常特發且孤立；罕為 ROP、RP、uveitis 等的晚期併發症</td><td id="np-199">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-200">出處 <span class="ref">p.179, p.183–187</span></p>
 <div class="ex-trap"><h3 id="ch7-s6-4">易錯陷阱</h3><ul>
 <li id="np-201">VHL：第 3 號染色體短臂（3p26–p25）、autosomal dominant；視網膜 hemangioblastoma 雙側 50%；CNS hemangioblastoma 20%；主要死因為 cerebellar hemangioblastoma 與 renal cell carcinoma。<span class="ref">p.182–184</span></li>
@@ -716,7 +730,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-238"><strong>Acute pancreatitis（急性胰臟炎）</strong>相關視網膜病變看起來與外傷性 Purtscher retinopathy 相同，可能也是補體媒介的白血球栓塞造成。<span class="ref">p.192</span></li>
 <li id="np-239">其他可能造成此變化的情況：collagen vascular diseases（如 <strong>systemic lupus erythematosus（SLE，紅斑性狼瘡）</strong>）、early postpartum state（產後早期）、amniotic fluid embolism（羊水栓塞）；壓碎傷或長骨骨折後的 fat embolism（脂肪栓塞）可能造成相似視網膜表現⁠<sup class="ex-qref"><span>Q1519</span> <span>Q1537</span></sup>。<span class="ref">p.192</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th colspan="2">Table 7-3：與 Purtscher 或 Purtscher-like retinopathy 相關的情況</th></tr></thead>
 <tbody>
 <tr><td id="np-240">Acute pancreatitis（急性胰臟炎）</td><td id="np-241">Head injury（頭部外傷）</td></tr>
@@ -728,7 +742,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-252">Early postpartum state（產後早期）</td><td id="np-253">Systemic lupus erythematosus（SLE）</td></tr>
 <tr><td id="np-254">Thrombotic thrombocytopenic purpura（血栓性血小板低下紫斑症）</td><td id="np-255">Trauma（外傷）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-256">出處（Table 7-3，共 16 項）⁠<sup class="ex-qref"><span>Q1518</span> <span>Q1519</span> <span>Q1520</span> <span>Q1537</span></sup><span class="ref">p.190</span></p>
 <div class="ex-trap"><h3 id="ch7-s9-4">易錯陷阱</h3><ul>
 <li id="np-257">Purtscher(-like) retinopathy 的 cotton-wool spots 與 Purtscher flecken 最常分布在<strong>視神經盤周圍</strong>，此分布可與其他缺血性疾病區分⁠<sup class="ex-qref"><span>Q1518</span> <span>Q1519</span> <span>Q1520</span></sup>。<span class="ref">p.190–191</span></li>
@@ -746,14 +760,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-265">多數病例出血清除後視功能不受影響；通常會自發改善，偶爾需 vitrectomy 清除介質混濁。<span class="ref">p.192</span></li>
 <li id="np-266">Fig 7-22：外傷性腦損傷的 18 歲男性，初始為黃斑前（subhyaloid）出血，之後 3 週內擴散進入玻璃體腔。<span class="ref">p.192</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Trigger（誘因）</th><th>Proposed mechanism（推測機轉）</th><th>Typical findings（典型表現）</th><th>Course（病程）</th></tr></thead>
 <tbody>
 <tr><td id="np-267">Valsalva retinopathy</td><td id="np-268">胸內或腹內壓突然上升</td><td id="np-269">眼內靜脈壓上升 → 黃斑淺層小微血管破裂</td><td id="np-270">出血典型位於 ILM 下（可造成 ILM 出血性剝離），但可在任一層；可能有 VH、視網膜下出血</td><td id="np-271">視力通常輕度下降，預後極佳，通常數月內自行消退</td></tr>
 <tr><td id="np-272">Purtscher retinopathy</td><td id="np-273">胸部或頭部急性壓迫傷害</td><td id="np-274">被認為是傷害誘發補體活化 → 顆粒球聚集與白血球栓塞 → 可能阻塞小的小動脈</td><td id="np-275">Cotton-wool spots、Purtscher flecken、出血、水腫，最常位於視神經盤周圍；FA 小動脈阻塞與滲漏</td><td id="np-276">可能因梗塞永久喪失視力，可發生 optic atrophy</td></tr>
 <tr><td id="np-277">Terson syndrome</td><td id="np-278">突發顱內出血</td><td id="np-279">推測眼內靜脈壓急遽上升 → 盤周與視網膜血管破裂</td><td id="np-280">玻璃體及 sub-ILM／subhyaloid 出血，可含視網膜內與視網膜下出血</td><td id="np-281">多數出血清除後視功能不受影響；偶需 vitrectomy</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-282">出處 <span class="ref">p.189–192</span></p>
 <div class="ex-trap"><h3 id="ch7-s10-1">易錯陷阱</h3><ul>
 <li id="np-283">Terson syndrome 由突發顱內出血造成；約 1/3 的蜘蛛膜下腔或硬腦膜下出血病人合併眼內出血⁠<sup class="ex-qref"><span>Q493</span></sup>。<span class="ref">p.192</span></li>

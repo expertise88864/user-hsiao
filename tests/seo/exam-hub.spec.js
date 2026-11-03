@@ -142,12 +142,20 @@ test('hub disease search groups note paragraphs by chapter and lands on the para
   // f901590 gave BCSC 4 Ch.19 more PVRL paragraphs, so find 12-11 by name.
   const group = page.locator('.ex-find-group').filter({ has: page.locator('.ex-find-h a', { hasText: 'BCSC 12 Ch.11' }) });
   await expect(group.locator('.ex-find-h .ex-count')).toHaveText(/^\d+ 段$/);
-  const counts = (await page.locator('.ex-find-group .ex-find-h .ex-count').allTextContents()).map(s => parseInt(s, 10));
+  // 2026-11-03 (ranked names, ported from the dermatology exam section): chapters whose
+  // section names match come first; the rest are still ordered by matching paragraphs.
+  const order = await page.locator('.ex-find-group').evaluateAll(gs => gs.map(g => [
+    !!g.querySelector('.ex-find-names') || !/段$/.test(g.querySelector('.ex-count').textContent),
+    parseInt(g.querySelector('.ex-count').textContent, 10) || 0]));
+  const named = order.filter(o => o[0]).length;
+  expect(order.slice(0, named).every(o => o[0])).toBe(true);
+  const counts = order.slice(named).map(o => o[1]);
   expect(counts).toEqual([...counts].sort((a, b) => b - a));
   await expect(group.locator('.ex-find-list mark').first()).toHaveText(/^pvrl$/i);
   // Long result lists start with five paragraphs per chapter.
   await expect(group.locator('.ex-find-list li:visible')).toHaveCount(5);
-  await group.getByRole('button', { name: /^再顯示 \d+ 段$/ }).click();
+  // The combobox's listbox may only hold options, so 「再顯示」 is an option (2026-11-03).
+  await group.getByRole('option', { name: /^再顯示 \d+ 段$/ }).click();
   await expect(group.locator('.ex-find-list li:visible')).not.toHaveCount(5);
   expect(page.url()).toMatch(/\/exam\?q=pvrl$/);
 
@@ -182,9 +190,10 @@ test('hub search: abbreviations stand alone, full names ignore hyphens, Chinese 
   expect(snippets.every(s => /(^|[^A-Za-z0-9])RPs?([^A-Za-z0-9]|$)/i.test(s))).toBe(true);
   // RP must not match inside a gene name such as RP1L1 (bcsc12-12 occult macular dystrophy).
   expect(snippets.some(s => /RP1L1/i.test(s) && !/(^|[^A-Za-z0-9])RPs?([^A-Za-z0-9]|$)/i.test(s))).toBe(false);
+  // The top hit opens the best-named section (2026-11-03): a heading or its first matching paragraph.
   await page.getByLabel('搜尋疾病（全名或縮寫）').fill('圓錐角膜');
   await expect(page.locator('.ex-find-status')).toContainText('「圓錐角膜」出現在');
-  await expect(page.locator('.ex-find-group').first().locator('a').first()).toHaveAttribute('href', /\?hl=%E5%9C%93%E9%8C%90%E8%A7%92%E8%86%9C#np-\d+$/);
+  await expect(page.locator('.ex-find-group').first().locator('a').first()).toHaveAttribute('href', /\?hl=%E5%9C%93%E9%8C%90%E8%A7%92%E8%86%9C#(np-\d+|ch\d+-s\d+)$/);
   await page.getByLabel('搜尋疾病（全名或縮寫）').fill('zzqq nothing here');
   await expect(page.locator('.ex-find-status')).toContainText('找不到');
   await expect(page.locator('.ex-find-results a[href^="/exam/search?q="]')).toBeVisible();

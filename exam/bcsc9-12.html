@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -392,14 +406,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-18"><strong>Iris atrophy（虹膜萎縮）</strong>是疱疹性發炎<mark class="ex-key"><strong>較晚</strong>出現的特徵，初次發作頭幾天到幾週通常看不到</mark>；可呈斑塊或扇形，裂隙燈 retroillumination 下呈 transillumination defects（透照缺損）⁠<sup class="ex-qref"><span>Q980</span></sup>。<span class="ref">p.257, p.259</span></li>
 <li id="np-19">區分 HSV／VZV 與 CMV 對前葡萄膜炎的治療與預後有影響；診斷不確定且可能改變治療時，可行前房穿刺（anterior chamber paracentesis）區分；所有疑似病毒性前葡萄膜炎都應仔細散瞳檢查雙眼後段，漏診或延遲診斷可能致盲⁠<sup class="ex-qref"><span>Q1079</span></sup>。<span class="ref">p.257</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病原）</th><th>KP</th><th>角膜</th><th>其他前段</th><th>治療重點</th></tr></thead>
 <tbody>
 <tr><td id="np-20">HSV</td><td id="np-21">肉芽腫或非肉芽腫，有時帶色素（尤其慢性）；可為 diffuse stellate</td><td id="np-22">內皮炎與水腫；樹枝狀上皮病變、知覺下降、神經營養性角膜炎（僅 HSV／VZV）；基質炎較典型</td><td id="np-23">可伴 dermatitis、rash、結膜炎、鞏膜炎；可見 hyphema、hypopyon、後粘連；虹膜萎縮（較晚）</td><td id="np-24">口服抗病毒藥（acyclovir／famciclovir／valacyclovir）+ 局部類固醇 + 睫狀肌麻痺劑</td></tr>
 <tr><td id="np-25">VZV</td><td id="np-26">同 HSV</td><td id="np-27">同 HSV</td><td id="np-28">同 HSV；可為 sine herpete</td><td id="np-29">同 HSV，通常需<strong>較高劑量</strong></td></tr>
 <tr><td id="np-30">CMV</td><td id="np-31"><strong>ring-shaped clusters</strong>或稀少、小、白色圓頂狀 KP（pathognomonic）；也可為 diffuse stellate</td><td id="np-32">內皮炎與水腫；corneal stromal immune ring 較可能</td><td id="np-33">皮膚炎、結膜炎、鞏膜炎通常不伴隨；hyphema、hypopyon、後粘連不常規出現；與 glaucomatocyclitic crisis、Fuchs uveitis syndrome 相關</td><td id="np-34">對 HSV／VZV 用的抗病毒藥<strong>無反應</strong>（缺 thymidine kinase）；無標準化療法，選項含 topical ganciclovir gel、intravitreal foscarnet 或 ganciclovir、高劑量口服 valganciclovir</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-35">出處 <span class="ref">p.256–259</span></p>
 <h3 id="ch12-s1-3">治療</h3>
 <ul>
@@ -487,14 +501,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-87">一研究以前房水 PCR 與局部抗體分析檢測「idiopathic posterior uveitis」病人，<span class="num">13%</span> 確認為病毒病因；病人可免疫正常或低下；發炎<strong>通常雙側</strong>，可表現 uveitic macular edema、birdshot-like chorioretinopathy 或阻塞性雙側視網膜炎。<span class="ref">p.263</span></li>
 <li id="np-88">初期對全身類固醇及／或 IMT（免疫調節治療）有抗性，<mark>改用全身抗病毒藥後反應良好</mark>。<span class="ref">p.263</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>宿主</th><th>起始位置</th><th>Vitritis</th><th>血管</th><th>其他</th></tr></thead>
 <tbody>
 <tr><td id="np-89">ARN</td><td id="np-90">健康成人或兒童，也見於免疫低下者</td><td id="np-91">周邊 → 環周 → 向後極</td><td id="np-92"><strong>明顯</strong></td><td id="np-93">阻塞性小動脈炎</td><td id="np-94">RD <span class="num">75%</span>；對側眼約 <span class="num">36%</span></td></tr>
 <tr><td id="np-95">PORN</td><td id="np-96">極度免疫抑制，最常為晚期 AIDS（CD4+ <span class="num">≤50</span>）</td><td id="np-97">外層視網膜，<strong>後極可早期侵犯</strong></td><td id="np-98">明顯玻璃體細胞與混濁<strong>通常沒有</strong></td><td id="np-99">至少初期侵犯輕微</td><td id="np-100">RD <span class="num">70%</span>；雙側 <span class="num">71%</span>；NLP <span class="num">67%</span></td></tr>
 <tr><td id="np-101">CMV retinitis</td><td id="np-102">免疫低下</td><td id="np-103">Fulminant：典型在後極、血管弓附近；granular：多在周邊</td><td id="np-104">Fulminant 型可無 vitritis；非 AIDS 者較可能有明顯前房與玻璃體發炎</td><td id="np-105">沿血管分布；perivascular（frosted-branch）型</td><td id="np-106">Granular 型活動性病灶可能由邊緣進展</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-107">出處 <span class="ref">p.259–265</span></p>
 <div class="ex-trap"><h3 id="ch12-s3-3">易錯陷阱</h3><ul>
 <li id="np-108">PORN 與 ARN 不同：後極可早期受侵犯、明顯玻璃體細胞與混濁通常沒有、視網膜血管至少初期侵犯輕微（p.262）；BCSC 12：PORN 的前房或玻璃體發炎少或無（little or no），ARN 與 PORN 的評估都包括眼內液 PCR（VZV、HSV、CMV、T gondii）（BCSC 12 p.268–269）⁠<sup class="ex-qref"><span>Q1036</span></sup>。<span class="ref">p.262；BCSC 12 p.268–269</span></li>
@@ -724,7 +738,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-238">反覆發作者：長期間歇 TMP-SMX（<span class="num">160 mg/800 mg 每週 3 次</span>）在 <span class="num">20 個月</span>內降低再活化風險⁠<sup class="ex-qref"><span>Q1762</span></sup>。<span class="ref">p.291</span></li>
 <li id="np-239">有不活動舊疤（尤其靠近視盤或 fovea 的疤）的病人於內眼手術前後短期預防性抗微生物治療的效用，因一份報告描述白內障手術與原本不活動的 toxoplasmic retinochoroiditis 再活化風險增加相關而被提出；但此作法與此情境的最佳抗生素方案<strong>無共識</strong>。<span class="ref">p.291–292</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Medication（藥物）</th><th>Dosing（劑量）</th><th>Indication（用途）</th><th>Adverse effects（副作用）</th></tr></thead>
 <tbody>
 <tr><td id="np-240">Pyrimethamine + sulfadiazine + folinic acid</td><td id="np-241">Pyrimethamine loading <span class="num">50–100 mg</span>，治療 <span class="num">25–50 mg/day</span> × <span class="num">4–8 週</span>；sulfadiazine <span class="num">1 g 4 次/天</span>；folinic acid <span class="num">5–10 mg/day</span></td><td id="np-242"><strong>Classic triple therapy</strong></td><td id="np-243">Pyrimethamine：<strong>myelosuppression（骨髓抑制）</strong>、leukopenia、thrombocytopenia；sulfa compounds：rash、腸胃不耐、crystalluria、腎結石、Stevens-Johnson syndrome；<strong>每 2 週驗 CBC</strong>⁠<sup class="ex-qref"><span>Q1131</span> <span>Q1047</span> <span>Q1762</span></sup></td></tr>
@@ -735,7 +749,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-260">Pyrimethamine + sulfadiazine + folinic acid</td><td id="np-261">Pyrimethamine <span class="num">2 mg/kg</span> × 1 天後 <span class="num">1 mg/kg/day</span>；sulfadiazine <span class="num">50 mg/kg 2 次/天</span>；folinic acid <span class="num">7.5 mg/day</span></td><td id="np-262">Congenital toxoplasmosis</td><td id="np-263">見 classic triple therapy</td></tr>
 <tr><td id="np-264">Spiramycin</td><td id="np-265"><span class="num">400 mg 3 次/天</span></td><td id="np-266">孕期使用</td><td id="np-267">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-268">出處（Table 12-2 Systemic Treatment of Toxoplasmosis）<span class="ref">p.291</span></p>
 <div class="ex-trap"><h3 id="ch12-s10-5">易錯陷阱</h3><ul>
 <li id="np-269">T gondii 的最終宿主是 <strong>felines（貓科）</strong>、人類為中間宿主（p.284）；<i>Toxocara canis</i>／cati 的最終宿主是狗與貓（p.292）⁠<sup class="ex-qref"><span>Q1020</span></sup>。<span class="ref">p.284, p.292</span></li>
@@ -765,14 +779,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-289">鑑別：retinoblastoma、infectious endophthalmitis、Coats disease、FEVR、persistent fetal vasculature、toxoplasmosis、undifferentiated intermediate uveitis/pars planitis、ROP、combined hamartoma、DUSN；Baylisascaris procyonis 等其他蠕蟲移行幼蟲也可模仿 OT。<mark>相較 OT 病童，retinoblastoma 病童通常<strong>較年幼</strong>、缺乏明顯發炎、病灶會長大</mark>。<span class="ref">p.293–294</span></li>
 <li id="np-290">VT 通常口服 <strong>albendazole</strong>；OT 抗蠕蟲藥角色未確立，幼蟲看似活動時可考慮；典型以局部與全身類固醇減少發炎與結構併發症，之後可能適合玻璃體視網膜手術。<span class="ref">p.294</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Syndrome（型態）</th><th>Age at onset（發病年齡，歲）</th><th>Characteristic lesion（特徵病灶）</th></tr></thead>
 <tbody>
 <tr><td id="np-291">Chronic endophthalmitis（慢性眼內炎）</td><td id="np-292"><span class="num">2–9</span></td><td id="np-293">慢性單側葡萄膜炎、玻璃體混濁、cyclitic membrane</td></tr>
 <tr><td id="np-294">Localized granuloma（局部肉芽腫）</td><td id="np-295"><span class="num">6–14</span></td><td id="np-296">位於黃斑與視盤周圍；單一白色視網膜隆起、反應輕微、<span class="num">1–2 disc diameter</span></td></tr>
 <tr><td id="np-297">Peripheral granuloma（周邊肉芽腫）</td><td id="np-298"><span class="num">6–40</span></td><td id="np-299">周邊半球狀腫塊，玻璃體腔內緻密結締組織索可連至視盤；很少雙側</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-300">出處（Table 12-3 Patterns of Manifestation of Ocular Toxocariasis）<span class="ref">p.294</span></p>
 <div class="ex-trap"><h3 id="ch12-s11-1">易錯陷阱</h3><ul>
 <li id="np-301">OT 病人血清抗體可為陰性，血清陰性時眼內液抗體仍可能陽性⁠<sup class="ex-qref"><span>Q1033</span></sup>。<span class="ref">p.293</span></li>
@@ -811,7 +825,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch12-s13" data-w="1403">十三、綜合比較</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>關鍵病原/宿主</th><th>經典眼底</th><th>Vitritis</th><th>治療重點</th></tr></thead>
 <tbody>
 <tr><td id="np-321">ARN</td><td id="np-322">PCR 研究提示：VZV &gt; HSV-1 &gt; HSV-2 &gt; 罕見 CMV</td><td id="np-323">周邊黃白色壞死、環周擴散、阻塞性小動脈炎</td><td id="np-324">明顯</td><td id="np-325">IV acyclovir <span class="num">10 mg/kg q8h × 10–14 天</span>（不等 PCR）⁠<sup class="ex-qref"><span>Q1107</span></sup></td></tr>
@@ -823,7 +837,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-351">OHS</td><td id="np-352">H capsulatum</td><td id="np-353">Histo spots、視盤周圍色素變化、黃斑 CNV</td><td id="np-354"><strong>無</strong>玻璃體細胞</td><td id="np-355">CNV 主要用 anti-VEGF</td></tr>
 <tr><td id="np-356">DUSN</td><td id="np-357">線蟲（Baylisascaris 等）</td><td id="np-358">單側赤道後灰白病灶 → 晚期萎縮</td><td id="np-359">早期中重度</td><td id="np-360">雷射蟲體；albendazole</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-361">出處 <span class="ref">p.259–297</span></p>
 <div class="hs-tip-box">
 <h3 id="ch12-s13-1">易混淆比較與口訣</h3>

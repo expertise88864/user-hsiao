@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -374,7 +388,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-4"><i>Demodex folliculorum</i> 與 <i>Demodex brevis</i> 在瞼緣的非致病性寄居<strong>隨年齡增加</strong>。<span class="ref">p.307</span></li>
 <li id="np-5">任何眼表擾動（如隱形眼鏡配戴、淚液不足、局部抗生素或類固醇）都可改變瞼緣與結膜菌叢。<span class="ref">p.307</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Microorganism（菌種）</th><th>Normal conjunctiva（正常結膜）</th><th>Normal eyelid margin（正常瞼緣）</th></tr></thead>
 <tbody>
 <tr><td id="np-6"><i>Staphylococcus epidermidis</i></td><td id="np-7">+++</td><td id="np-8">+++</td></tr>
@@ -392,7 +406,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-42">Filamentous fungi（絲狀真菌）</td><td id="np-43">±</td><td id="np-44">−</td></tr>
 <tr><td id="np-45"><i>Demodex</i> spp</td><td id="np-46">−</td><td id="np-47">++</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-48">出處（Table 12-1 Relative Prevalence of the Normal Flora of the External Eye）<span class="ref">p.308</span></p>
 <div class="ex-trap"><h3 id="ch12-s1-1">易錯陷阱</h3><ul>
 <li id="np-49">Table 12-1 中相對盛行度最高（結膜、瞼緣皆 +++）的是 <strong>S epidermidis</strong>，S aureus 為 ++；staphylococcal blepharitis 典型由 S aureus 引起、偶由其他菌種引起（本章外）⁠<sup class="ex-qref"><span>Q920</span></sup>。<span class="ref">p.307–308；BCSC 8 p.75</span></li>
@@ -408,7 +422,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-55">Exotoxins（外毒素，streptococci、staphylococci、<i>Pseudomonas aeruginosa</i>）可致角膜細胞壞死；<i>Acanthamoeba</i> 與部分真菌分泌 <strong>collagenases（膠原酶）</strong>；P aeruginosa 酵素破壞角膜 collagen 與 proteoglycan，並降解 immunoglobulin、complement、interleukin 等發炎介質。<span class="ref">p.308</span></li>
 <li id="np-56">部分細菌黏附後形成 <strong>biofilm（生物膜）</strong>以逃避吞噬；多數急性感染的病原終被清除，但部分情況下病原可無限期存留，例如 chlamydia 存留於細胞內 phagosome（吞噬體），造成慢性局部疾病。<span class="ref">p.308, p.310</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Condition（疾病）</th><th>Viruses（病毒）</th><th>Bacteria（細菌）</th><th>Fungi（真菌）</th><th>Parasites（寄生蟲）</th></tr></thead>
 <tbody>
 <tr><td id="np-57">Dermatoblepharitis（皮膚瞼緣炎）</td><td id="np-58">HSV、VZV</td><td id="np-59">S aureus、<i>Streptococcus</i> spp</td><td id="np-60">—</td><td id="np-61">—</td></tr>
@@ -419,7 +433,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-82">Canaliculitis（淚小管炎）</td><td id="np-83">HSV</td><td id="np-84"><strong>Actinomycetes（放線菌）</strong>、<i>Streptococcus</i> spp、<i>Staphylococcus</i> spp</td><td id="np-85"><i>Candida</i>、<i>Aspergillus</i></td><td id="np-86">—</td></tr>
 <tr><td id="np-87">Dacryocystitis（淚囊炎）</td><td id="np-88">—</td><td id="np-89"><i>Staphylococcus</i> spp、<i>Streptococcus</i> spp</td><td id="np-90"><i>Candida</i>（rare）</td><td id="np-91">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-92">出處（Table 12-2 Principal Causes of Infectious Diseases of the Cornea and External Eye）<span class="ref">p.309</span></p>
 <div class="ex-trap"><h3 id="ch12-s2-1">易錯陷阱</h3><ul>
 <li id="np-93">Table 12-3（可侵入<strong>完整</strong>上皮的病原）列出：<i>Corynebacterium diphtheriae</i>、<strong><i>Fusarium</i></strong> spp（表中唯一的真菌）、<i>Haemophilus influenzae</i>、<i>Listeria monocytogenes</i>、<strong><i>Neisseria gonorrhoeae</i></strong>、<i>Neisseria meningitidis</i>、Shigella spp；多數病原須依賴上皮屏障破損⁠<sup class="ex-qref"><span>Q553</span></sup>。<span class="ref">p.308–309</span></li>
@@ -435,16 +449,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-99">培養陰性：可考慮換培養基再培養（尤其治療無反應的潰瘍），可能宜安排停藥 washout 期，以提高檢出病原的機會；明顯微生物感染而反覆刮片培養仍陰性時，可做 <strong>corneal biopsy（角膜切片）</strong>。<span class="ref">p.312</span></li>
 <li id="np-100"><strong>Molecular diagnostics（分子診斷，如 PCR）</strong>對難以體外培養或需長時間培養的病原（如 <i>Acanthamoeba</i>）可增加診斷價值。<span class="ref">p.312</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Infection type（感染類型）</th><th>Collection materials（採檢材料，Table 12-4）</th></tr></thead>
 <tbody>
 <tr><td id="np-101">Viral（病毒）</td><td id="np-102">Topical anesthetic（局部麻醉）、Dacron swabs、spatula（刮刀）、glass slides（玻片）、<strong>viral transport medium</strong></td></tr>
 <tr><td id="np-103">Chlamydial（披衣菌）</td><td id="np-104">Topical anesthetic（局部麻醉）、Dacron swabs、spatula（刮刀）、glass slides（玻片）、<strong>chlamydial transport medium</strong></td></tr>
 <tr><td id="np-105">Bacterial／fungal／acanthamoebal（細菌／真菌／阿米巴）</td><td id="np-106">Topical anesthetic（局部麻醉）、calcium alginate／Dacron／flocked swabs、spatula（刮刀）、glass slides（玻片）、bacterial transport medium、blood agar plate、chocolate agar plate、Sabouraud dextrose agar plate 或 brain–heart infusion agar（真菌）、nonnutrient agar plate with E coli 或 Enterobacter aerogenes overlay（<i>Acanthamoeba</i>）、thioglycolate 或 meat broth</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-107">出處（Table 12-4）<span class="ref">p.311</span></p>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Suspected organism（疑似病原）</th><th>Stain（染色）</th><th>Media（培養基）</th></tr></thead>
 <tbody>
 <tr><td id="np-108"><i>Acanthamoeba</i></td><td id="np-109">Acridine orange、calcofluor white、Gram、Giemsa、indirect immunofluorescence antibody、periodic acid–Schiff（PAS）</td><td id="np-110"><mark>Nonnutrient agar with bacterial overlay（E aerogenes、E coli）</mark>、blood agar、buffered charcoal–yeast extract agar、Page's saline transport</td></tr>
@@ -453,7 +467,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-117">Fungi（真菌）</td><td id="np-118">Gram、acridine orange、calcofluor white、potassium hydroxide（KOH）</td><td id="np-119">Blood agar、Sabouraud dextrose agar、brain–heart infusion agar（皆 <span class="num">25°C</span>）</td></tr>
 <tr><td id="np-120">Mycobacteria（分枝桿菌）</td><td id="np-121">Gram、<strong>acid-fast</strong>、lectin</td><td id="np-122">Blood agar、<strong>Lowenstein-Jensen agar</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-123">出處（Table 12-5 Stains and Culture Media Commonly Used for Infectious Keratitis）<span class="ref">p.311</span></p>
 <ul>
 <li id="np-124"><mark class="ex-key"><i>Acanthamoeba</i></mark> 以 nonnutrient agar 加 E coli 或 Enterobacter aerogenes 覆蓋層培養，培養中運動的滋養體在平板表面留下特徵性軌跡；C trachomatis 為 obligate intracellular（絕對細胞內）病原，標準眼科培養不易分離，需 Giemsa／direct fluorescent antibody 染色直接觀察或 cell culture，PCR 逐漸取代其他方法；Table 12-5 需氧細菌用 blood agar、chocolate agar、thioglycolate broth，厭氧細菌用 anaerobic blood agar、phenylethyl alcohol agar in anaerobic chamber、thioglycolate 或 chopped meat broth（本章所舉生長緩慢的 fastidious organisms 例子為 mycobacteria 與 anaerobes）；mycobacteria 以 acid-fast 染色或 Lowenstein-Jensen 培養確認⁠<sup class="ex-qref"><span>Q929</span></sup>。<span class="ref">p.311, p.321, p.325, p.331, p.336</span></li>
@@ -495,14 +509,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-143">機轉：細菌過度生長、浸潤結膜上皮，有時延伸至 substantia propria（固有層）；經直接接觸分泌物（通常眼–手）或病人自身鼻腔與鼻竇黏膜傳到眼睛。<span class="ref">p.314</span></li>
 <li id="np-144"><strong>成人單側細菌性結膜炎</strong> → 應檢查鼻淚系統：nasolacrimal duct obstruction（鼻淚管阻塞）、dacryocystitis（淚囊炎）或 canaliculitis（淚小管炎）可能是根本原因。<span class="ref">p.314</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Course of onset（起病）</th><th>Severity（嚴重度）</th><th>Common organisms（常見菌）</th><th>Ophthalmia neonatorum onset and associated findings（新生兒眼炎起病與相關表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-145">Slow（days to weeks，數天至數週）</td><td id="np-146">Mild to moderate（輕至中度）</td><td id="np-147">S aureus；<strong><i>Moraxella lacunata</i></strong>；Proteus spp；Enterobacteriaceae；P aeruginosa；C trachomatis；HSV</td><td id="np-148">S aureus：variable onset（起病不定）；P aeruginosa：rare（罕見），keratitis、corneal perforation；<strong>C trachomatis：onset day <span class="num">5–14</span>，absence of conjunctival follicles（無結膜濾泡），pneumonitis、otitis media（<span class="num">50%</span> of cases）</strong>；HSV：onset in the first <span class="num">2</span> weeks of life（出生後 <span class="num">2 週</span>內），nonspecific conjunctivitis（非特異結膜炎）</td></tr>
 <tr><td id="np-149">Acute or subacute（hours to days，數小時至數天）</td><td id="np-150">Moderate to severe（中至重度）</td><td id="np-151">H influenzae biotype III（舊稱 <i>Haemophilus</i> aegyptius）；H influenzae；S pneumoniae；S viridans；S aureus</td><td id="np-152">Variable onset（起病不定）</td></tr>
 <tr><td id="np-153">Hyperacute（<span class="num">&lt; 24 hours</span>，超急性）</td><td id="np-154">Severe（重度）</td><td id="np-155"><strong>N gonorrhoeae</strong>；N meningitidis</td><td id="np-156">N gonorrhoeae：onset day <span class="num">1–13</span>（commonly day <span class="num">3–4</span>），keratitis、endophthalmitis、systemic infection；N meningitidis：same as above（同上）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-157">出處（Table 12-6 Clinical Classification of Herpes Simplex Virus and Bacterial Conjunctivitis；ophthalmia neonatorum 指出生第 1 個月內的結膜炎，可由細菌、病毒或化學物質引起）<span class="ref">p.315</span></p>
 <ul>
 <li id="np-158"><mark class="ex-key"><strong><i>Moraxella lacunata</i></strong> 列於 Table 12-6 slow（數天至數週）組；本章外（BCSC 8 p.77）：可造成慢性 <strong>angular blepharoconjunctivitis（眥角瞼結膜炎）</strong>，外眥角皮膚結痂、潰瘍，瞼結膜乳突或濾泡反應</mark>；H influenzae 列於 acute／subacute 組，幼兒可合併 otitis media；Table 12-8 中 P aeruginosa 為軟式 CL 配戴者最常見的角膜炎病原；C trachomatis 為 obligate intracellular 病原，成人包涵體結膜炎表現為濾泡性結膜炎⁠<sup class="ex-qref"><span>Q949</span></sup>。<span class="ref">p.315, p.321–322, p.327；BCSC 8 p.77</span></li>
@@ -532,7 +546,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch12-s6" data-w="2527">六、超急性淋菌性結膜炎（Hyperacute Gonococcal Conjunctivitis）</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Organism（性傳染病原）</th><th>Onset（起病）</th><th>Presentation（表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-174"><i>Neisseria gonorrhoeae</i></td><td id="np-175"><span class="num">&lt; 24 hours</span></td><td id="np-176">Hyperacute（超急性），copious discharge（大量分泌物）、chemosis（結膜水腫）</td></tr>
@@ -541,7 +555,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-183">Herpes simplex virus</td><td id="np-184"><span class="num">2 weeks</span></td><td id="np-185">Follicular conjunctivitis（濾泡性結膜炎）</td></tr>
 <tr><td id="np-186"><i>Treponema pallidum</i>（梅毒）</td><td id="np-187">Weeks to months（數週至數月）</td><td id="np-188"><strong>Granulomatous conjunctivitis（肉芽腫性結膜炎）</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-189">出處（Table 12-7 Sexually Transmitted Pathogens Associated With Conjunctivitis）<span class="ref">p.317</span></p>
 <ul>
 <li id="np-190"><mark>超急性結膜炎最常見病原為 <strong>N gonorrhoeae（淋病雙球菌）</strong></mark>；其他可致結膜炎的性傳染病原：T pallidum、HIV、C trachomatis、HSV。<span class="ref">p.317</span></li>
@@ -577,7 +591,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-211"><mark>母親有活動性淋病 → 新生兒即使沒有結膜炎也建議全身治療</mark>。<span class="ref">p.319</span></li>
 <li id="np-212">本章外（BCSC 6）：<strong>chemical conjunctivitis（化學性結膜炎）</strong>指點 silver nitrate（硝酸銀）後最初 <span class="num">24 小時</span>內出現的輕微、自限性結膜刺激與充血，<mark class="ex-key">出生第 <span class="num">2</span> 天即自行改善</mark>；<span class="num">2%</span> silver nitrate 原用於預防<strong>淋菌</strong>新生兒眼炎，<strong>對 C trachomatis 無效</strong>，已多被同時對淋菌與披衣菌有效的 erythromycin、tetracycline 藥膏與 <span class="num">2.5%</span> povidone-iodine（優碘）溶液取代（本章外）⁠<sup class="ex-qref"><span>Q553</span> <span>Q612</span></sup>。<span class="ref ref-ext">BCSC 6 p.256</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（新生兒眼炎病因）</th><th>Onset（起病）</th><th>Key features（重點）</th><th>Treatment（治療）</th></tr></thead>
 <tbody>
 <tr><td id="np-213">Silver nitrate chemical conjunctivitis（硝酸銀化學性結膜炎，本章外）</td><td id="np-214">點藥後 <span class="num">24 小時</span>內</td><td id="np-215">輕微刺激、充血，自限</td><td id="np-216">Self-limiting（自限），出生第 <span class="num">2</span> 天自行改善</td></tr>
@@ -585,7 +599,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-221">C trachomatis</td><td id="np-222">Day <span class="num">5–14</span></td><td id="np-223"><strong>無濾泡</strong>、黏膿分泌較多、可有 pseudomembranes；可合併 pneumonitis、otitis media（<span class="num">50%</span> of cases）</td><td id="np-224">全身 erythromycin（口服或 IV）<span class="num">14 天</span>；局部 erythromycin 藥膏可附加使用，但不能取代口服</td></tr>
 <tr><td id="np-225">HSV</td><td id="np-226">出生 <span class="num">2 週</span>內</td><td id="np-227">非特異結膜炎</td><td id="np-228">Systemic acyclovir（全身 acyclovir，本章外）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-229">出處 <span class="ref">p.315, p.319, p.323；BCSC 6 p.254–256</span></p>
 <div class="ex-trap"><h3 id="ch12-s7-1">易錯陷阱</h3><ul>
 <li id="np-230">新生兒淋菌性結膜炎典型在出生後 <span class="num">3–4 天</span>出現雙側分泌物（Table 12-6：day <span class="num">1–13</span>）；新生兒披衣菌結膜炎起病 day <span class="num">5–14</span>⁠<sup class="ex-qref"><span>Q612</span></sup>。<span class="ref">p.315, p.319</span></li>
@@ -612,7 +626,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-244">手術用於處理倒睫或內翻病人的內轉睫毛。抗生素可擇一：<mark>口服 <strong>azithromycin <span class="num">1000 mg</span> 單次</strong>（首選）</mark>；口服 tetracycline 每日 <span class="num">1.5–2.0 g</span> 分次 × <span class="num">3 週</span>；doxycycline <span class="num">100 mg</span> 每日 <span class="num">2</span> 次 × <span class="num">2 週</span>；口服 erythromycin（罕見 tetracycline 抗藥時）；局部 erythromycin 或 tetracycline <span class="num">1%</span>。<span class="ref">p.322</span></li>
 <li id="np-245">缺乏臉部清潔與傳播強烈相關（臉部衛生差的兒童較易感染或傳播）；環境衛生、汙水處理、水質是根除計畫成功關鍵。<span class="ref">p.322</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（診斷）</th><th>Conjunctiva（結膜）</th><th>Cornea / limbus（角膜／角膜緣）</th><th>Clue（線索）</th></tr></thead>
 <tbody>
 <tr><td id="np-246"><strong>Trachoma（C trachomatis A–C）</strong></td><td id="np-247">上瞼濾泡為主，急性期可被瀰漫乳突增生遮蔽；大型濾泡可壞死；Arlt line</td><td id="np-248">Herbert pits、pannus（上方 1/3 最明顯）、epithelial keratitis、基質浸潤</td><td id="np-249">慢性病程 → 倒睫、內翻、淚液引流阻塞</td></tr>
@@ -621,7 +635,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-258">Gonococcal conjunctivitis</td><td id="np-259">爆發性起病、大量滲出、嚴重 chemosis</td><td id="np-260">未治療可角膜浸潤、融解、穿孔</td><td id="np-261">Table 12-7 起病 <span class="num">&lt; 24 hours</span></td></tr>
 <tr><td id="np-262">Vernal keratoconjunctivitis（VKC，本章外）</td><td id="np-263">Palpebral VKC 上瞼瀰漫乳突增生，較重者上瞼板 giant papillae（巨大乳突）</td><td id="np-264">Limbal VKC 的 <strong>Horner-Trantas dots</strong>（嗜酸性球與上皮細胞聚集）；shield ulcer（盾狀潰瘍）</td><td id="np-265">季節性復發；症狀含癢</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-266">出處 <span class="ref">p.317, p.320–322；BCSC 8 p.297–298, p.348–349</span></p>
 <ul>
 <li id="np-267"><mark class="ex-key">砂眼（C trachomatis A–C）</mark>的組合：上瞼濾泡反應，急性期可被瀰漫乳突增生遮蔽，大型瞼板濾泡可壞死；角膜 epithelial keratitis、周邊與中央基質浸潤、pannus（上方 1/3 最明顯）；濾泡退化壞死可留下角膜緣凹陷（Herbert pits）⁠<sup class="ex-qref"><span>Q931</span></sup>。<span class="ref">p.320–321</span></li>
@@ -699,7 +713,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-314"><strong>AAO 取抹片／培養指引</strong>（任一）：① 前房細胞 <span class="num">≥ 1+</span>、浸潤 <span class="num">≥ 2 mm</span> 或距中心 <span class="num">≤ 3 mm</span>；② 中央、大型或明顯基質侵犯／融解；③ 慢性或對廣效抗生素無反應；④ 有角膜手術史；⑤ 非典型、疑似真菌／阿米巴／分枝桿菌；⑥ 多處浸潤；⑦ 穿孔增加眼內炎可能（但有感染性角膜潰瘍時一般不做前房抽液培養或前房內抗生素注射）。<span class="ref">p.327</span></li>
 <li id="np-315">可培養 CL、鏡盒、藥水與發炎眼瞼；<mark>開始抗生素<strong>前</strong>採檢陽性率顯著較高</mark>，但治療失敗時仍應培養；有人建議停抗生素 <span class="num">12–24 小時</span>以提高檢出；抹片陽性不能免除廣效覆蓋，但在培養未陽性時可引導覆蓋另一類病原；培養結果應依臨床狀況解讀，<strong>培養陰性不一定代表沒有感染</strong>；病史或外觀提示、或病程非典型時應懷疑 <i>Acanthamoeba</i> 與真菌。<span class="ref">p.328</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Common microorganisms（常見）</th><th>Uncommon microorganisms（不常見）</th></tr></thead>
 <tbody>
 <tr><td id="np-316">Enterobacteriaceae（Proteus、Enterobacter、<i>Serratia</i> spp）</td><td id="np-317"><i>Corynebacterium</i> spp</td></tr>
@@ -708,7 +722,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-322"><i>Staphylococcus epidermidis</i></td><td id="np-323"><i>Neisseria</i> spp、<i>Nocardia</i> spp</td></tr>
 <tr><td id="np-324"><i>Streptococcus pneumoniae</i> 與其他 <i>Streptococcus</i> spp</td><td id="np-325">Non–spore-forming anaerobes（如 <i>Actinomyces</i>、Propionibacteria spp）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-326">出處（Table 12-8 Causes of Bacterial Keratitis）<span class="ref">p.327</span></p>
 <h3 id="ch12-s10-4">藥物治療</h3>
 <ul>
@@ -721,7 +735,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-333">監測改善指標：疼痛與症狀減輕；基質浸潤 consolidation（收斂）；浸潤密度降低（注意：基質流失也會使角膜變清）；基質流失停止；基質水腫與內皮發炎斑塊減少；前房發炎減少；reepithelialization（上皮再生）。<span class="ref">p.329</span></li>
 <li id="np-334">嚴重感染或擔心配合度 → 可考慮 subconjunctival injection（結膜下注射）；疑鞏膜或眼內擴散 → 全身抗生素（尤其 fluoroquinolones）＋密集局部，<strong>一般例行細菌性角膜炎不用全身抗生素</strong>。<span class="ref">p.329</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Organism（病原）</th><th>Antibiotic（抗生素）</th><th>Topical dose（局部濃度）</th></tr></thead>
 <tbody>
 <tr><td id="np-335" rowspan="3">Gram-positive cocci（革蘭氏陽性球菌）</td><td id="np-336">Cefazolin</td><td id="np-337"><span class="num">50 mg/mL</span></td></tr>
@@ -740,7 +754,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-366">Newer-generation fluoroquinolones</td><td id="np-367"><span class="num">5–6 mg/mL</span></td></tr>
 <tr><td id="np-368">Amikacin</td><td id="np-369"><span class="num">20–40 mg/mL</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-370">出處（Table 12-9 Therapy for Bacterial Keratitis）<span class="ref">p.328</span></p>
 <h3 id="ch12-s10-5">Corticosteroids（類固醇）</h3>
 <ul>
@@ -834,7 +848,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-424"><strong>Corneal graft rejection（角膜移植排斥）</strong>的表現（本章外）：epithelial rejection 的隆起 epithelial rejection line（由淋巴球造成、向中央推進）；subepithelial infiltrates（侷限於移植片）；stromal rejection（基質浸潤或水腫等）；endothelial rejection 的內皮面 inflammatory precipitates（細小、成團，或線狀的 Khodadoust line）。<mark class="ex-key">Radial perineuritis 出現時幾乎可確診 <i>Acanthamoeba</i> keratitis</mark>⁠<sup class="ex-qref"><span>Q853</span></sup>。<span class="ref">p.334；BCSC 8 p.469–470</span></li>
 </ul>
 <h3 id="ch12-s13-2">與 HSV keratitis 的鑑別（Clinical Pearl）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Feature（特徵）</th><th><i>Acanthamoeba</i> keratitis</th><th>HSV keratitis</th></tr></thead>
 <tbody>
 <tr><td id="np-425">Epidemiology（流行病學）</td><td id="np-426">Contact lens（隱形眼鏡）、hot tub（熱水浴缸）或可能汙染的 freshwater（淡水）暴露</td><td id="np-427">—</td></tr>
@@ -843,7 +857,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-434">Stroma（基質）</td><td id="np-435">Ring infiltrate（環狀浸潤），出現在感染<strong>晚期</strong></td><td id="np-436">Focal stromal disciform pattern（局部盤狀基質病變）＋其下 keratic precipitates</td></tr>
 <tr><td id="np-437">Treatment response（治療反應）</td><td id="np-438">抗病毒治療無法根除感染</td><td id="np-439">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-440">出處（Clinical Pearl）<span class="ref">p.335</span></p>
 <h3 id="ch12-s13-3">致病機轉與檢驗</h3>
 <ul>

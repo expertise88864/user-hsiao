@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -541,7 +555,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-99">造成 CDVA 下降或視覺扭曲者，早期辨識與介入極為重要；無症狀且 CDVA、UDVA 不受影響者通常不處理。<span class="ref">p.106</span></li>
 <li id="np-100">環狀皺褶可能與高度近視相關，通常隨時間消退；<mark>平行、由 hinge 發出、同一方向成群的皺褶表示<strong>角膜瓣滑脫</strong> → 需迅速處理</mark>；皺褶常分為 macrostriae 與 microstriae，但臨床上重疊很大。<span class="ref">p.107</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Characteristic（特徵）</th><th>Macrostriae（大皺褶）</th><th>Microstriae（微皺褶）</th></tr></thead>
 <tbody>
 <tr><td id="np-101">Pathology（病理）</td><td id="np-102">涉及角膜瓣全層厚度的大皺褶</td><td id="np-103">細皺褶，主要在 Bowman layer</td></tr>
@@ -552,7 +566,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-116">Vision（視力）</td><td id="np-117">位於中央者 CDVA 下降和／或多重影像</td><td id="np-118">有臨床意義者 CDVA 輕微下降或多重影像；被上皮遮蔽的微皺褶普遍存在且無症狀</td></tr>
 <tr><td id="np-119">Treatment options（處置）</td><td id="np-120">早期發現立即 refloat／reposition；已固定者去除皺褶上方上皮、hydrate and stroke、牽拉，或縫合 vs PTK</td><td id="np-121">通常觀察；積極潤滑支持表面；有視覺意義者同 macrostriae</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-122">出處（Table 5-1）<span class="ref">p.107</span></p>
 <h4>Macrostriae 處理重點</h4>
 <ul>
@@ -589,7 +603,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-140">發炎一般僅局部類固醇即可無後遺症消退；嚴重者可留疤或 <strong>flap melting（角膜瓣溶解）</strong>⁠<sup class="ex-qref"><span>Q1571</span></sup>。<span class="ref">p.109</span></li>
 <li id="np-141">DLK 與 PISK 的關鍵區別：DLK <mark class="ex-key">發病較早、眼壓正常</mark>；PISK 有報告由眼壓升高引起⁠<sup class="ex-qref"><span>Q1770</span> <span>Q1624</span></sup>。<span class="ref">p.112</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Stage（分期）</th><th>Findings（表現）</th><th>Treatment（處置，內文）</th></tr></thead>
 <tbody>
 <tr><td id="np-142">1</td><td id="np-143">周邊淡薄白血球，顆粒狀外觀</td><td id="np-144" rowspan="2">通常對頻繁局部類固醇有反應 ⁠<sup class="ex-qref"><span>Q1770</span></sup></td></tr>
@@ -597,7 +611,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-147">3</td><td id="np-148">視軸中央緻密白血球</td><td id="np-149" rowspan="2"><mark class="ex-key">通常需<strong>掀瓣沖洗</strong>，之後密集局部類固醇</mark>；嚴重者可輔以口服類固醇 ⁠<sup class="ex-qref"><span>Q1624</span> <span>Q1644</span> <span>Q1770</span> <span>Q1581</span></sup></td></tr>
 <tr><td id="np-150">4</td><td id="np-151">永久性疤痕或基質溶解</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-152">出處（Table 5-2 與內文）<span class="ref">p.109–110</span></p>
 <ul>
 <li id="np-153">及早發現並治療時視力恢復通常極佳；疑似嚴重 DLK 應<mark>低門檻掀瓣或瓣下沖洗</mark>：移除介面發炎介質，並可直接放置類固醇與 NSAIDs 抑制發炎與壞死。<span class="ref">p.109</span></li>
@@ -615,7 +629,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-162">臨床無進展時可能需重複培養，並可能需 <mark class="ex-key"><strong>flap amputation（角膜瓣切除）</strong>以改善抗微生物藥穿透</mark>⁠<sup class="ex-qref"><span>Q1572</span></sup>。<span class="ref">p.112</span></li>
 <li id="np-163">症狀出現時間是病因線索：<mark>術後 <span class="num">10 天</span>內的感染通常為細菌性</mark>；第四代 fluoroquinolone（gatifloxacin、moxifloxacin）對引起 LASIK 術後感染最常見的細菌（含部分 atypical mycobacteria）效果極佳，但單一藥物治療可能不足；遲發性角膜瓣感染可發生於 recurrent erosion（復發性糜爛）之後。<span class="ref">p.112</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Onset（發病）</th><th>Location／pattern（位置）</th><th>AC reaction／IOP（前房與眼壓）</th><th>Treatment（處置）</th></tr></thead>
 <tbody>
 <tr><td id="np-164">DLK</td><td id="np-165">通常 <span class="num">24 小時</span>內可見</td><td id="np-166">典型始於瓣周邊、向中央遞減；主要侷限於介面、瀰漫性</td><td id="np-167">極少或無前房反應；眼壓正常</td><td id="np-168">類固醇；第 3–4 期通常需掀瓣沖洗 ⁠<sup class="ex-qref"><span>Q1571</span> <span>Q1603</span> <span>Q1644</span></sup></td></tr>
@@ -624,7 +638,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-179">Central toxic keratopathy</td><td id="np-180">順利 LVC 後數天內，急性</td><td id="np-181">中央混濁，不隨時間惡化</td><td id="np-182">非發炎性（共軛焦無發炎細胞）</td><td id="np-183">enhancement 延後至屈光穩定且臨床表現消退；有個案報告提出局部高張溶液治療 ⁠<sup class="ex-qref"><span>Q1640</span></sup></td></tr>
 <tr><td id="np-184">Transient light sensitivity</td><td id="np-185">飛秒 LASIK 後急性發作</td><td id="np-186">角膜與介面外觀正常</td><td id="np-187">眼睛白而安靜（原文未描述前房與眼壓）</td><td id="np-188">頻繁局部抗發炎藥 ⁠<sup class="ex-qref"><span>Q1647</span></sup></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-189">DLK 與感染性角膜炎<mark class="ex-key">兩者皆可發生 flap melt</mark>。出處（DLK 與感染性角膜炎取自 Table 5-3；PISK、CTK、TLS 取自內文）⁠<sup class="ex-qref"><span>Q1571</span></sup><span class="ref">p.100, p.111–112, p.116</span></p>
 <h3 id="ch5-s8-3">Pressure-induced stromal keratopathy（PISK，壓力誘發基質角膜病變）</h3>
 <ul>
@@ -670,7 +684,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-213"><mark class="ex-key">治療：<strong>頻繁局部抗發炎藥</strong></mark>；幾乎所有病例都有反應，數週至數月內緩解⁠<sup class="ex-qref"><span>Q1647</span></sup>。<span class="ref">p.116</span></li>
 </ul>
 <h3 id="ch5-s9-3">Femtosecond laser 造瓣的優缺點（Table 4-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Advantages（優點）</th><th>Disadvantages（缺點）</th></tr></thead>
 <tbody>
 <tr><td id="np-214">角膜瓣參數較可客製化；<mark class="ex-key">角膜瓣大小與厚度較不受 keratometry（角膜曲率）影響</mark>；置中較易控制 ⁠<sup class="ex-qref"><span>Q1574</span></sup></td><td id="np-215">需要較多 flap manipulation（角膜瓣處理） ⁠<sup class="ex-qref"><span>Q1639</span></sup></td></tr>
@@ -679,7 +693,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-220">Planar flap（平面瓣）；角膜緣血管出血較少</td><td id="np-221"><mark class="ex-key">術後 6 個月後較難掀起角膜瓣</mark> ⁠<sup class="ex-qref"><span>Q1589</span> <span>Q1574</span></sup></td></tr>
 <tr><td id="np-222"><mark class="ex-key">飛秒雷射切割不完全時可立即再治療</mark> ⁠<sup class="ex-qref"><span>Q1589</span> <span>Q1639</span></sup></td><td id="np-223"><mark class="ex-key">Transient light sensitivity 風險增加</mark>；費用較高；延遲性光敏感（或視力佳卻光敏感） ⁠<sup class="ex-qref"><span>Q1639</span></sup></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-224">出處（Table 4-1）<span class="ref ref-ext">BCSC 13 p.80</span></p>
 <div class="ex-trap"><h3 id="ch5-s9-4">易錯陷阱</h3><ul>
 <li id="np-225">前房氣泡可能干擾 tracking 與 registration（Table 4-1）；本章寫氣體進入前房可能干擾雷射追蹤系統⁠<sup class="ex-qref"><span>Q1574</span></sup>。<span class="ref">p.116；BCSC 13 p.80</span></li>

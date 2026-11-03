@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -397,7 +411,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-17">每眼分類（Clinical Pearl）：（1）zone、（2）有無 plus disease、（3）stage、（4）extent，若有 A-ROP 一併註明。<span class="ref">p.344</span></li>
 </ul>
 <h3 id="ch24-s3-1">Zone（分區）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Zone（分區）</th><th>Definition（定義）</th></tr></thead>
 <tbody>
 <tr><td id="np-18">Zone I（posterior pole，後極部）</td><td id="np-19">以 optic disc（視神經盤）為圓心、半徑 = <mark>視神經盤中心到 macula（黃斑）中心距離的 <span class="num">2 倍</span></mark>之圓</td></tr>
@@ -406,13 +420,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-24">Notch terminology（缺口）</td><td id="np-25">ROP 病灶沿 horizontal meridian（水平經線）<span class="num">1–2 clock-hours</span> 的內侵，比其餘病灶更靠後</td></tr>
 <tr><td id="np-26">Zone III</td><td id="np-27">Residual crescent anterior to zone II（zone II 前方剩餘的新月形區域）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-28">出處（Table 24-1、Fig 24-1）；zone II、III 依慣例而非嚴格解剖劃分。<span class="ref">p.341–342</span></p>
 <ul>
 <li id="np-29">臨床（Clinical Pearl）：用 <span class="num">25.00 D</span> 或 <span class="num">28.00 D</span> 鏡片時，視野一側邊緣放在鼻側視神經盤邊緣，可見到 zone I 的顳側邊界。<span class="ref">p.343</span></li>
 </ul>
 <h3 id="ch24-s3-2">Stage（分期）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Stage（分期）</th><th>Findings（表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-30">Stage 0</td><td id="np-31">Immature vascularization（血管化未成熟），no ROP</td></tr>
@@ -422,7 +436,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-38">Stage 4</td><td id="np-39">Subtotal retinal detachment（次全視網膜剝離）：<strong>4A</strong> extrafoveal（未含中心凹）；<strong>4B</strong> 含 fovea（中心凹）</td></tr>
 <tr><td id="np-40">Stage 5</td><td id="np-41">Total retinal detachment（全視網膜剝離；open 或 closed funnel）：<strong>5A</strong> 眼底鏡可見 optic disc，提示 open-funnel；<strong>5B</strong> 因 retrolental fibrovascular tissue（晶體後纖維血管組織）或 closed-funnel 而看不到 optic disc；<strong>5C</strong> = 5B 加前段變化（如前房明顯變淺、iridocorneolenticular adhesions（虹膜角膜晶體粘連）、角膜混濁），提示 closed-funnel</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-42">出處（Table 24-1、Fig 24-2）<span class="ref">p.341–342</span></p>
 <h3 id="ch24-s3-3">Plus disease、A-ROP、退化與再活化</h3>
 <ul>
@@ -451,7 +465,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-58">BCSC 12：首次檢查一般在出生後 <span class="num">4–6 週</span>，或 gestational/postmenstrual age <span class="num">31–33 週</span>，<mark class="ex-key">取較晚者（whichever is later）</mark>⁠<sup class="ex-qref"><span>Q565</span> <span>Q1548</span></sup>。<span class="ref ref-ext">BCSC 12 p.202</span></li>
 </ul>
 <h3 id="ch24-s4-2">無 plus disease 時的追蹤間隔（Table 24-2）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Follow-up interval（追蹤間隔）</th><th>Disease condition（狀況）</th></tr></thead>
 <tbody>
 <tr><td id="np-59"><span class="num">1 week or less（≤ 1 週）</span></td><td id="np-60">Zone I：immature vascularization（未成熟血管化）、no ROP；zone I：stage 1 或 2 ROP；posterior zone II：zone I/II 交界處的 immature retina；suspected A-ROP（懷疑 A-ROP）；stage 3 ROP、zone I 需治療而非觀察</td></tr>
@@ -459,7 +473,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-63"><span class="num">2 weeks</span></td><td id="np-64">Zone II：stage 1 ROP；zone II：no ROP、immature vascularization；zone II：unequivocally regressing ROP</td></tr>
 <tr><td id="np-65"><span class="num">2 to 3 weeks</span></td><td id="np-66">Zone III：stage 1 或 2 ROP；zone III：regressing ROP（退化中）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-67">出處（Table 24-2）<span class="ref">p.345</span></p>
 <h3 id="ch24-s4-3">停止篩檢的條件（Table 24-3）</h3>
 <ul>
@@ -483,7 +497,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-78"><strong>ETROP（Early Treatment for ROP）</strong>：治療 <strong>prethreshold disease</strong> 的結構與功能結果優於 threshold 治療方式；prethreshold = 所有未達 threshold 治療標準的 zone I、zone II ROP 變化，再分為 type 1 與 type 2，以區分哪些嬰兒會從治療受益。<span class="ref">p.346</span></li>
 <li id="np-79"><mark class="ex-key">Type 1 ROP 一旦出現，建議 <span class="num">72 小時</span>內治療</mark>；<strong>type 2 ROP 密切追蹤是否進展</strong>⁠<sup class="ex-qref"><span>Q1548</span> <span>Q685</span></sup>。<span class="ref">p.347</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（分類）</th><th>Zone</th><th>Stage / Plus disease</th><th>Management（處置；出處見下）</th></tr></thead>
 <tbody>
 <tr><td id="np-80">Threshold（clinical examination，CRYO-ROP）</td><td id="np-81">I 或 II</td><td id="np-82">Stage 3（<span class="num">5</span> contiguous 或 <span class="num">8</span> total clock-hours）；plus：Yes</td><td id="np-83">CRYO-ROP 建議冷凍治療的閾值</td></tr>
@@ -493,7 +507,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-96">Type 2 ROP（BCSC 12 Table 8-2）</td><td id="np-97">I / II</td><td id="np-98">Zone I stage 1 或 2 無 plus；zone II stage 3 無 plus</td><td id="np-99">密切追蹤進展；BCSC 12：進展為 type 1 或 threshold 時可考慮雷射 ⁠<sup class="ex-qref"><span>Q685</span> <span>Q1549</span> <span>Q1546</span></sup></td></tr>
 <tr><td id="np-100">Photographic imaging：referral-warranted ROP（in either eye，任一眼；contact imaging）</td><td id="np-101">I；I 或 II；I 或 II</td><td id="np-102">Zone I any stage；zone I 或 II stage 3 ROP；zone I 或 II plus：Yes</td><td id="np-103">需轉介（referral-warranted）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-104">出處（Table 24-4；處置欄依 p.346–347 正文）<span class="ref">p.346–347; type 2 定義與處置 BCSC 12 p.199, p.204</span></p>
 <h3 id="ch24-s5-2">Panretinal photocoagulation（PRP，全視網膜雷射）</h3>
 <ul>
@@ -567,7 +581,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-148">Clinical pearl：IRD 兒童常合併高度屈光不正、amblyopia（弱視）、strabismus；未治療的弱視會進一步限制最佳矯正視力；<mark>低視力兒童有 hypoaccommodation（調節不足），高度遠視應<strong>全矯正</strong></mark>。<span class="ref">p.352</span></li>
 </ul>
 <h3 id="ch24-s8-1">疑似視網膜失養症的評估（Table 24-5）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Domain（項目）</th><th>Content（內容）</th></tr></thead>
 <tbody>
 <tr><td id="np-149">History（病史）</td><td id="np-150">Birth history（出生史）、past medical history（過去病史）、ocular history（眼科史）、family history with pedigree（家族史與家系圖）</td></tr>
@@ -580,7 +594,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-163">Genetic testing（基因檢測）</td><td id="np-164">Provide pre- and post-test counseling（檢測前後諮詢）</td></tr>
 <tr><td id="np-165">Comprehensive evaluation with medical geneticist（醫學遺傳科完整評估）</td><td id="np-166">有全身問題、發展遲緩、dysmorphic features（外觀異常）時考慮</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-167">出處（Table 24-5；檢查選擇可依年齡、配合度與可用設備而定）<span class="ref">p.351</span></p>
 <div class="ex-trap"><h3 id="ch24-s8-2">易錯陷阱</h3><ul>
 <li id="np-168">眼震與視反應差的兒童若眼底看似正常 → 仔細找 retinal vasculature attenuation（視網膜血管變細），這可能是視網膜失養症的徵象。<span class="ref">p.352</span></li>
@@ -624,7 +638,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-189"><mark>ERG 對 CSNB 具診斷性：dark-adapted ERG 3（rod–cone 混合標準閃光反應）呈 <strong>electronegative waveform</strong>（a-wave 大、b-wave 振幅下降）</mark>，因感光細胞與雙極細胞間突觸功能障礙使內層視網膜訊號減少；暗適應與 full-field threshold stimulus testing 結果異常。<span class="ref">p.355–356</span></li>
 <li id="np-190">治療：應矯正屈光不正；做事時用明亮照明，隨身帶手電筒或有手電筒的手機可能有幫助。<span class="ref">p.356</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Inheritance（遺傳）</th><th>VA（視力）</th><th>ERG</th><th>Clue（線索）</th></tr></thead>
 <tbody>
 <tr><td id="np-191">LCA</td><td id="np-192">Usually AR（通常 AR）</td><td id="np-193">Typically <span class="num">20/200</span> to bare light perception（通常 20/200 至僅剩光覺；部分較好）</td><td id="np-194">Extinguished（rod 與 cone 都受侵犯）</td><td id="np-195">Poorly reactive pupils（瞳孔反應差）、oculodigital reflex、高度屈光不正（常為高度遠視）、keratoconus</td></tr>
@@ -632,7 +646,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-201">Blue-cone monochromatism</td><td id="np-202">X-linked</td><td id="np-203">通常優於 complete achromatopsia</td><td id="np-204">Blue（short-wavelength）cones 在特殊 ERG 正常；photopic response 通常消失</td><td id="np-205">早發視力障礙與眼震</td></tr>
 <tr><td id="np-206">CSNB（complete）</td><td id="np-207">CSNB 整體：X-linked、AR 或 AD</td><td id="np-208"><span class="num">20/20–20/200</span></td><td id="np-209">DA ERG 3 electronegative（a-wave 大、b-wave 降低）</td><td id="np-210">Nonprogressive（非進行性）、學齡前近視、視網膜通常看似正常</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-211">出處 <span class="ref">p.352, p.355–356</span></p>
 <div class="ex-trap"><h3 id="ch24-s10-3">易錯陷阱</h3><ul>
 <li id="np-212">CSNB：DA ERG 3 呈 electronegative waveform（a-wave 大、b-wave 降低）（p.355–356）；BCSC 12：XLRS 的 ERG 也是 negative waveform（a-wave 正常或近正常、b-wave 降低），並列入 CSNB 的 negative ERG 鑑別。<span class="ref">p.355–356; BCSC 12 p.285, p.313</span></li>
@@ -689,13 +703,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-241">對使用 HCQ 的<strong>風濕疾病兒童</strong>已有監測建議：因檢查表現（testing performance）有變異，<mark>依年齡選擇適當檢查，在基準期（baseline）與之後<strong>每年</strong>執行</mark>。<span class="ref">p.360–361</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Age（年齡）</th><th>Baseline and annual ophthalmic examination（基準與每年眼科檢查）</th><th>Additional ophthalmic studies（附加檢查）</th></tr></thead>
 <tbody>
 <tr><td id="np-242"><span class="num">&lt; 7 years</span></td><td id="np-243">BCVA；complete ophthalmic examination（完整眼科檢查，評估任何視網膜異常）；<strong>SD-OCT macula</strong></td><td id="np-244">Fundus autofluorescence（FAF）</td></tr>
 <tr><td id="np-245"><span class="num">≥ 7 years</span></td><td id="np-246">BCVA；complete ophthalmic examination（評估任何視網膜異常）；<strong>SD-OCT macula</strong>；<strong>visual field testing</strong>（Humphrey 10-2 或類似檢查）</td><td id="np-247">FAF；<strong>mfERG</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-248">註腳：SD-OCT 至少取一條通過中心凹的 line raster scan，垂直與水平掃描都可增加資訊；FAF 也可能有助於監測 nonparafoveal（非旁中心凹）病變（如亞洲裔病人所見）；亞洲裔兒童可考慮較廣的視野檢查。SD-OCT macula 在兩個年齡層都屬基準與每年檢查，visual field 屬 ≥ 7 歲的基準與每年檢查；附加檢查為 FAF（≥ 7 歲另加 mfERG）。出處（Table 24-6，依 PDF 版面核對）<span class="ref">p.361</span></p>
 <ul>
 <li id="np-249">BCSC 12：2016 AAO Clinical Statement 指出無併發狀況且 HCQ &lt; <span class="num">6.5 mg/kg/d</span> 者毒性風險低；最新資料提示依實際體重 <span class="num">≤ 5 mg/kg/d</span> 可能較安全。現行指引建議用藥第 1 年內做基準眼底檢查，低毒性風險者用藥滿 <span class="num">5 年</span>後每年篩檢。<span class="ref ref-ext">BCSC 12 p.334, p.336</span></li>
@@ -748,7 +762,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-274">BCSC 12：macular telangiectasia type 1 為單側、type 2 為<strong>雙側</strong>；MacTel 2 的 OCT 在 inner foveal layers 內可見長軸與視網膜表面平行的長橢圓形空腔；von Hippel–Lindau 的 retinal hemangioblastoma 通常隨時間增大⁠<sup class="ex-qref"><span>Q1540</span> <span>Q1541</span></sup>。<span class="ref ref-ext">BCSC 12 p.180, p.184</span></li>
 </ul>
 <h3 id="ch24-s15-4">Leukocoria 鑑別診斷（Table 24-7）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Clue（本章與他冊重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-275">Retinoblastoma</td><td id="np-276">男 = 女、雙側 <span class="num">30%–40%</span>、散發病例 <span class="num">90%</span> 在 <span class="num">3 歲</span>前確診；超音波可見腫瘤內鈣化（BCSC 4 p.358）</td></tr>
@@ -758,7 +772,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-283">Familial exudative vitreoretinopathy / Norrie disease</td><td id="np-284">無早產史、周邊無血管視網膜、Norrie 為嚴重 retinal dysplasia</td></tr>
 <tr><td id="np-285">其他</td><td id="np-286">Coloboma of choroid or optic nerve head、congenital retinal fold、corneal opacity、cataract、high myopia or anisometropia、myelinated nerve fibers、organizing vitreous hemorrhage、photographic artifact（以角度拍攝時兩眼紅反射不同，或拍到 Bruckner test 現象）、retinal detachment、astrocytic hamartoma、retinal dysplasia、toxocariasis、uveitis</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-287">出處（Table 24-7、Key Points 24-3/24-4）<span class="ref">p.340, p.348–349, p.364–365; BCSC 4 p.152, p.358</span></p>
 <div class="ex-trap"><h3 id="ch24-s15-5">易錯陷阱</h3><ul>
 <li id="np-288">RB：男 = 女（瀰漫浸潤型男性為主）；Coats：主要侵犯男性⁠<sup class="ex-qref"><span>Q1540</span></sup>。<span class="ref">p.364–365</span></li>
@@ -782,14 +796,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-298">建議父母與所有手足都接受檢查；約 <span class="num">1%</span> 病例的父母有未察覺的眼底病灶，代表自發退化的 RB（<strong>retinocytoma</strong>）。<span class="ref">p.366</span></li>
 <li id="np-299">RB 基因檢測可估計病童後續癌症（RB 與其他原發腫瘤）風險與其他家人罹患 RB 的風險；可行 preimplantation genetic testing（著床前基因檢測），IVF 已成功用於選擇無 germline RB1 致病變異的胚胎。<span class="ref">p.366</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>If parent（父母狀態）</th><th>Chance of offspring having RB（子女罹病）</th><th>Laterality（罹病子女側別）</th><th>Chance of next sibling having RB（下一胎手足）</th></tr></thead>
 <tbody>
 <tr><td id="np-300">Has bilateral RB（雙側）</td><td id="np-301"><span class="num">45%</span> affected／<span class="num">55%</span> unaffected</td><td id="np-302">Bilateral <span class="num">85%</span>／unilateral <span class="num">15%</span></td><td id="np-303"><span class="num">45%</span></td></tr>
 <tr><td id="np-304">Has unilateral RB（單側）</td><td id="np-305"><span class="num">7%–15%</span> affected／<span class="num">85%–93%</span> unaffected</td><td id="np-306">Bilateral <span class="num">85%</span>／unilateral <span class="num">15%</span></td><td id="np-307">先證者罹病 → <span class="num">45%</span>；子女未罹病 → <span class="num">7%–15%</span></td></tr>
 <tr><td id="np-308">Is unaffected（未罹病）</td><td id="np-309"><mark class="ex-key"><span class="num">&lt; 1%</span></mark> affected／<span class="num">99%</span> unaffected ⁠<sup class="ex-qref"><span>Q666</span></sup></td><td id="np-310">Bilateral <span class="num">33%</span>／unilateral <span class="num">67%</span></td><td id="np-311">先證者雙側 → <span class="num">5%</span>；單側 → <span class="num">&lt; 1%</span>（以上兩格註：父母若為 carrier → <span class="num">45%</span>）；子女未罹病 → <span class="num">&lt; 1%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-312">出處（Table 24-8，依 PDF 版面核對；focality 列未收錄）<span class="ref">p.367</span></p>
 <ul>
 <li id="np-313">Table 24-8 依父母本人狀態分欄：父母本身未罹病 → 子女罹病 <mark class="ex-key"><span class="num">&lt; 1%</span></mark>；父母單側 RB → <span class="num">7%–15%</span>；父母雙側 RB → <span class="num">45%</span>；未罹病父母已有一名雙側 RB 子女時，下一胎 <span class="num">5%</span>（父母若為 carrier → <span class="num">45%</span>）⁠<sup class="ex-qref"><span>Q666</span></sup>。<span class="ref">p.367</span></li>
@@ -808,7 +822,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-319"><mark class="ex-key"><strong>External beam radiotherapy（EBRT，外照射）很少用於治療 RB</strong></mark>：與 craniofacial deformity（顱顏變形）及照射區的續發腫瘤相關⁠<sup class="ex-qref"><span>Q564</span></sup>。<span class="ref">p.368</span></li>
 </ul>
 <h3 id="ch24-s17-2">治療後退化型態</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Type（型）</th><th>Appearance（外觀）</th></tr></thead>
 <tbody>
 <tr><td id="np-320">Type 1</td><td id="np-321">Calcified mass（鈣化腫塊；<strong>cottage cheese pattern（白乾酪樣）</strong>）</td></tr>
@@ -816,7 +830,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-324">Type 3</td><td id="np-325">Elements of types 1 and 2（兼具 1、2 型）</td></tr>
 <tr><td id="np-326">Type 4</td><td id="np-327">Flat, atrophic scar（扁平萎縮疤）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-328">出處 <span class="ref">p.368</span></p>
 <h3 id="ch24-s17-3">眼外與三側性 RB</h3>
 <ul>

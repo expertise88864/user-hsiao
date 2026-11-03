@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -379,7 +393,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-5">眼窩為梨形骨腔，向後朝眶尖與 optic canal 漸細；內含眼球、眼外肌、神經、脂肪與血管。<span class="ref">p.5</span></li>
 <li id="np-6">成人兩側 <strong>medial orbital wall（內側壁）</strong>約略平行，平均相距 <span class="num">2.5 cm</span>；眼窩最寬處約在前眶緣後方 <span class="num">1 cm</span>。<span class="ref">p.5</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 1-1 項目（成人眼窩平均尺寸）</th><th>數值</th></tr></thead>
 <tbody>
 <tr><td id="np-7">Volume（容積）</td><td id="np-8"><span class="num">30 cm³</span></td></tr>
@@ -392,7 +406,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-21">Optic nerve 管內段（intracanalicular）長</td><td id="np-22"><span class="num">0.4–1.0 cm</span></td></tr>
 <tr><td id="np-23">Optic nerve 顱內段（intracranial）長</td><td id="np-24"><span class="num">0.3–1 cm</span>；通常約 <span class="num">1 cm</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-25">出處 <span class="ref">p.6</span></p>
 <ul>
 <li id="np-26">成人眼窩平均容積 <mark class="ex-key"><span class="num">30 cm³</span></mark>（Table 1-1、Fig 1-1）；Fig 1-1 標示眼球容積 <span class="num">6.5–7 cm³</span>⁠<sup class="ex-qref"><span>Q736</span> <span>Q750</span></sup>。<span class="ref">p.6</span></li>
@@ -436,7 +450,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-45">眶底<mark class="ex-key">沒有延伸到 orbital apex，而止於 inferior orbital fissure，因此是最短的眼窩壁</mark>⁠<sup class="ex-qref"><span>Q750</span></sup>。<span class="ref">p.9</span></li>
 <li id="np-46">重要界標：<strong>infraorbital groove（眶下溝）與 infraorbital canal（眶下管）</strong>，傳送 infraorbital artery、vein 與 CN V 的 maxillary division。<span class="ref">p.9</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>壁</th><th>組成骨</th><th>鄰接構造</th><th>重點</th></tr></thead>
 <tbody>
 <tr><td id="np-47">Roof（眶頂）</td><td id="np-48">Frontal（orbital plate）、sphenoid lesser wing</td><td id="np-49">Anterior cranial fossa、frontal sinus</td><td id="np-50">淚腺窩、trochlea 窩、supraorbital／supratrochlear notch</td></tr>
@@ -444,7 +458,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-55">Medial（內側壁）</td><td id="np-56">Ethmoid（orbital plate）、lacrimal、maxillary frontal process、sphenoid lesser wing</td><td id="np-57">Ethmoid／sphenoid sinuses、nasal cavity</td><td id="np-58">Lacrimal bone 完全在眶內；frontoethmoidal suture；lamina papyracea 最薄之一</td></tr>
 <tr><td id="np-59">Floor（眶底）</td><td id="np-60">Maxillary、palatine、zygomatic（orbital plates）</td><td id="np-61">Maxillary sinus</td><td id="np-62">止於 IOF，最短；infraorbital groove／canal</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-63">出處 <span class="ref">p.6–9</span></p>
 <div class="ex-trap"><h3 id="ch1-s2-6">易錯陷阱</h3><ul>
 <li id="np-64">Sphenoid 的 lesser wing 參與眶頂（與內側壁）；外側壁是 greater wing 加 zygomatic bone，兩翼之間是 superior orbital fissure⁠<sup class="ex-qref"><span>Q750</span></sup>。<span class="ref">p.6–8</span></li>
@@ -477,7 +491,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-77">分別傳送血管與 zygomatic nerve 的分支，穿過外側壁到臉頰（zygomaticofacial）與 temporal fossa（zygomaticotemporal）。<span class="ref">p.11</span></li>
 </ul>
 <h3 id="ch1-s3-5">Table 1-2 Orbital apex apertures（眶尖開口）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>開口</th><th>傳送構造</th></tr></thead>
 <tbody>
 <tr><td id="np-78">SOF：annulus of Zinn 外</td><td id="np-79">Lacrimal nerve（CN V1）、frontal nerve（CN V1）、trochlear nerve（CN IV）、superior ophthalmic vein</td></tr>
@@ -485,7 +499,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-82">Inferior orbital fissure</td><td id="np-83">Infraorbital nerve（CN V2）、infraorbital artery、infraorbital vein</td></tr>
 <tr><td id="np-84">Optic canal</td><td id="np-85">Optic nerve（CN II）、ophthalmic artery、sympathetic nerves（交感神經）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-86">出處 <span class="ref">p.11</span></p>
 <ul>
 <li id="np-87">Table 1-2：SOF 在 annulus of Zinn 外傳送 lacrimal、frontal nerve（CN V1）、<mark class="ex-key">trochlear nerve（CN IV）與 superior ophthalmic vein</mark>；環內傳送 CN III 上、下支、CN VI 與 nasociliary nerve⁠<sup class="ex-qref"><span>Q96</span> <span>Q152</span> <span>Q199</span> <span>Q792</span> <span>Q824</span> <span>Q1698</span></sup>。<span class="ref">p.11</span></li>
@@ -654,7 +668,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-175">鼻腔襯以 pseudostratified ciliated columnar epithelium（偽複層纖毛柱狀上皮）與 goblet cells；lateral alar cartilage 上的黏膜有毛，因此做眼瞼重建的 composite graft（複合移植片）較不如 nasal septum 的 mucoperichondrium（黏膜軟骨膜）合適。<span class="ref">p.19</span></li>
 </ul>
 <h3 id="ch1-s9-3">四個副鼻竇</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Sinus（鼻竇）</th><th>發育</th><th>引流</th><th>與眼窩相關重點</th></tr></thead>
 <tbody>
 <tr><td id="np-176">Frontal（額竇）</td><td id="np-177">由 frontal recess 外突形成；<span class="num">第 6 年</span>前放射影像看不到；氣化到成年早期完成；兩側可不對稱發育，大小與形狀差異很大</td><td id="np-178">各經獨立 frontonasal duct → middle meatus 前部</td><td id="np-179">—</td></tr>
@@ -662,7 +676,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-184">Sphenoid（蝶竇）</td><td id="np-185">由後鼻頂外突氣化 sphenoid bone；出生時為雛形，青春期後達成人大小</td><td id="np-186">Sphenoethmoidal recess</td><td id="np-187">Optic canal 緊鄰竇壁外上方；病變壓迫視神經 → 視野異常與視力喪失</td></tr>
 <tr><td id="np-188">Maxillary（上頜竇）</td><td id="np-189">最大的副鼻竇</td><td id="np-190">經 maxillary ostium → middle meatus</td><td id="np-191">竇頂＝眶底，向後延伸到 IOF；鼻淚骨管在其內側壁</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-192">出處 <span class="ref">p.20–21</span></p>
 <ul>
 <li id="np-193"><mark class="ex-key">Ethmoid 的細菌性鼻竇炎是 orbital cellulitis 與 medial subperiosteal abscess（內側骨膜下膿瘍）的常見原因</mark>（感染擴散入眼窩時）⁠<sup class="ex-qref"><span>Q813</span> <span>Q1658</span></sup>。<span class="ref">p.20</span></li>

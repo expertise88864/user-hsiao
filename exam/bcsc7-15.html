@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -399,14 +413,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-16">先天溢淚病人的評估通常單純：家長描述出生後不久開始溢淚、黏膿性分泌物或兩者皆有；罕見情況下可見淚囊膨脹，提示 <strong>congenital dacryocystocele（先天性淚囊膨出）</strong>。<span class="ref">p.311</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>臨床表現</th><th>提示</th></tr></thead>
 <tbody>
 <tr><td id="np-17">持續溢淚、極少黏膿</td><td id="np-18">上段系統（淚點、淚小管、總淚小管）阻塞，因淚點或淚小管 dysgenesis（發育異常）</td></tr>
 <tr><td id="np-19">持續溢淚、常有黏膿、睫毛結痂（mattering）</td><td id="np-20">鼻淚管完全阻塞</td></tr>
 <tr><td id="np-21">間歇溢淚合併黏膿</td><td id="np-22">鼻淚管間歇性阻塞</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-23">出處 <span class="ref">p.311</span></p>
 <ul>
 <li id="np-24">門診檢查：瞼緣是否貼合、淚點是否通暢，並評估反射性分泌過多的外在原因：ocular surface irritation（眼表刺激）、infectious conjunctivitis（感染性結膜炎）、entropion（眼瞼內翻）、epiblepharon（瞼贅皮）、trichiasis（倒睫）、<mark class="ex-key">congenital glaucoma（先天性青光眼）</mark>⁠<sup class="ex-qref"><span>Q574</span></sup>。<span class="ref">p.311–312</span></li>
@@ -521,7 +535,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-85">淚道沖洗最常在 DDT 之後進行以判定阻塞層級：局部麻醉後，必要時擴張下淚點，將沖洗套管放入淚小管；維持下眼瞼外側牽引，以免淚小管扭折而推進困難；淚小管狹窄或閉塞應記錄，並以之後的診斷性探通確認。<span class="ref">p.320–321</span></li>
 </ul>
 <h3 id="ch15-s5-5">淚道沖洗結果判讀（Fig 15-14 與內文）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Diagnosis（診斷）</th><th>套管推進</th><th>沖洗液去向與其他發現</th></tr></thead>
 <tbody>
 <tr><td id="np-86">Complete canalicular obstruction（完全淚小管阻塞）</td><td id="np-87">推進困難</td><td id="np-88">沖洗液由<strong>同一條</strong>淚小管逆流；內文：推進困難且無法沖入液體提示 total canalicular obstruction</td></tr>
@@ -530,7 +544,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-95">Partial NLDO（部分鼻淚管阻塞）</td><td id="np-96">容易放入</td><td id="np-97">沖洗液部分進入鼻腔，同時經對側淚點逆流</td></tr>
 <tr><td id="np-98">Patent（通暢）</td><td id="np-99">容易放入</td><td id="np-100">大部分沖洗液進入鼻腔</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-101">出處 ⁠<sup class="ex-qref"><span>Q827</span></sup><span class="ref">p.321–322, p.325</span></p>
 <ul>
 <li id="np-102">沖洗套管推進困難且無法沖入液體，提示 total canalicular obstruction；可沖入但液體由上淚小管逆流、觸診淚囊無膨脹，則可能為總淚小管完全阻塞，之後以探通判定總淚小管狹窄是完全阻塞或可擴張⁠<sup class="ex-qref"><span>Q827</span></sup>。<span class="ref">p.321</span></li>

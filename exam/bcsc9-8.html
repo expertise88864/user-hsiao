@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -450,7 +464,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-48">治療：cycloplegic／mydriatic 加類固醇（通常局部）；嚴重者可能需眼周或全身類固醇；慢性者可能需全身 IMT。<span class="ref">p.142</span></li>
 <li id="np-49">只有 psoriasis 無關節炎者：平均發病年齡較 idiopathic 或 HLA-B27 相關葡萄膜炎大、可雙眼、病程較長，可有後段侵犯。<span class="ref">p.142–143</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>HLA-B27</th><th>葡萄膜炎特徵</th><th>重點數字</th></tr></thead>
 <tbody>
 <tr><td id="np-50">Ankylosing spondylitis</td><td id="np-51">最多 <span class="num">90%</span> 陽性</td><td id="np-52">SpA 與急性非肉芽腫性 AU 強烈相關（p.140）；單眼急性、兩眼交替復發為 HLA-B27 AU 的典型（p.138）</td><td id="np-53">年輕男性 <span class="num">20–40 歲</span>；B27 陽性者發生 SpA 或眼疾 <span class="num">1/4</span></td></tr>
@@ -458,7 +472,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-58">IBD–related arthritis</td><td id="np-59">sacroiliitis 者 <span class="num">60%</span></td><td id="np-60">AU：UC 最多 <span class="num">12%</span>、Crohn <span class="num">2.4%</span>；sclerouveitis 者通常 B27 陰性；B27 陰性者較易發生 intermediate uveitis</td><td id="np-61">IBD <span class="num">20%</span> 有 sacroiliitis</td></tr>
 <tr><td id="np-62">Psoriatic arthritis</td><td id="np-63">B27 陽性者葡萄膜炎可能較嚴重</td><td id="np-64">傾向隱伏、雙眼；較其他 SpA 易慢性</td><td id="np-65">AU 最多 <span class="num">25%</span>；sacroiliitis <span class="num">20%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-66">出處 <span class="ref">p.138, p.140–142</span></p>
 <div class="ex-trap"><h3 id="ch8-s2-7">易錯陷阱</h3><ul>
 <li id="np-67">大多數 HLA-B27 陽性者不會發生 AS；陽性者發生 spondyloarthritis 或眼疾的機會為 <span class="num">1/4</span>⁠<sup class="ex-qref"><span>Q1015</span> <span>Q1090</span></sup>。<span class="ref">p.140</span></li>
@@ -500,7 +514,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-87">治療：傳統以 <strong>topical corticosteroids ＋ 降眼壓藥</strong>（必要時含全身 carbonic anhydrase inhibitor）；除嚴密監測眼壓外可能需長期追蹤（BCSC 10 p.139：可考慮局部類固醇及局部和／或口服 NSAIDs；最常侵犯中年人；發作次數增加後可能發展為慢性續發性青光眼）⁠<sup class="ex-qref"><span>Q976</span> <span>Q1079</span> <span>Q1256</span> <span>Q1736</span></sup>。<span class="ref">p.145</span></li>
 <li id="np-88">本病為輕度發炎、瞳孔輕度放大（p.144）；BCSC 10 p.138：miotic agents（縮瞳劑）不建議用於前葡萄膜炎病人，因可能加重發炎並造成中央後粘連；<strong>pilocarpine</strong> 列於與葡萄膜炎相關的局部降眼壓藥（p.149）⁠<sup class="ex-qref"><span>Q976</span> <span>Q1079</span></sup>。<span class="ref">p.144, p.149</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>KPs</th><th>其他線索</th></tr></thead>
 <tbody>
 <tr><td id="np-89">Posner-Schlossman syndrome</td><td id="np-90">small KPs，復發時常增加（BCSC 10 p.139：少、小、分散、圓形）</td><td id="np-91">單眼反覆、明顯高眼壓、低度前房發炎、瞳孔輕度放大、症狀模糊 <span class="ref">p.144</span></td></tr>
@@ -508,7 +522,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-95">Herpetic anterior uveitis（HSV/VZV）</td><td id="np-96">可為肉芽腫性或非肉芽腫性；瀰漫 stellate KPs 可見於三種 herpetic AU</td><td id="np-97">HSV、VZV 有樹枝狀上皮侵犯、角膜知覺下降；虹膜萎縮為較晚期表現；trabeculitis 可致 IOP 50–60 mm Hg（BCSC 9 p.257）</td></tr>
 <tr><td id="np-98">ICE syndrome</td><td id="np-99">異常角膜內皮細胞增生、遷移</td><td id="np-100">beaten-bronze 內皮、高位 PAS 常越過 Schwalbe 線、女性較多、臨床單眼（BCSC 10 p.176）</td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="ex-trap"><h3 id="ch8-s4-1">易錯陷阱</h3><ul>
 <li id="np-101">CMV anterior uveitis：ring-shaped clusters 或少量小白圓頂狀 KPs 為 CMV 的 pathognomonic 表現（BCSC 9 p.257）；KPs、內皮細胞流失、局部或瀰漫角膜水腫提示 CMV endotheliitis，前葡萄膜炎有中至重度 IOP 上升，這些表現常被誤診為 PSS（BCSC 8 p.295–296）；CMV 相關 GCC 較常見 corneal endotheliitis、linear KPs、男性為主，前房水 PCR 可確認 CMV DNA⁠<sup class="ex-qref"><span>Q875</span></sup>。<span class="ref">p.144</span></li>
 <li id="np-102">Glaucomatocyclitic crisis 急性發炎的治療傳統為局部類固醇與降眼壓藥（必要時全身 carbonic anhydrase inhibitor）；本病為輕度發炎、瞳孔輕度放大⁠<sup class="ex-qref"><span>Q976</span></sup>。<span class="ref">p.144–145</span></li>
@@ -533,13 +547,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-111">房水可見 <mark class="ex-key"><strong>refractile bodies（折光小體＝lipid-laden macrophages，含脂巨噬細胞）</strong></mark>；KPs 與粘連常缺如（BCSC 9 p.16：phacolytic uveitis 為 scavenging macrophage 浸潤的一種變型）⁠<sup class="ex-qref"><span>Q1028</span> <span>Q1062</span> <span>Q1041</span></sup>。<span class="ref">p.146</span></li>
 <li id="np-112">治療：降眼壓（常用 osmotic agents 與局部藥），隨即<strong>儘快白內障摘除</strong>。<span class="ref">p.146</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（分型）</th><th>Capsule</th><th>臨床</th><th>組織／細胞</th><th>治療</th></tr></thead>
 <tbody>
 <tr><td id="np-113">Phacoantigenic</td><td id="np-114">破裂（手術、外傷）</td><td id="np-115">紅眼、cell/flare、KPs、後粘連、IOP 上升</td><td id="np-116">zonal granulomatous inflammation</td><td id="np-117">局部或全身類固醇；移除水晶體物質</td></tr>
 <tr><td id="np-118">Phacolytic</td><td id="np-119">完整（水晶體蛋白經完整囊滲漏）</td><td id="np-120">IOP 上升、cell/flare、refractile bodies、mature/hypermature cataract；KPs 與粘連常缺</td><td id="np-121">lipid-laden macrophages</td><td id="np-122">降眼壓；白內障手術</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-123">出處 <span class="ref">p.145–146</span></p>
 <div class="ex-trap"><h3 id="ch8-s5-3">易錯陷阱</h3><ul>
 <li id="np-124">Zonal granulomatous inflammation 見於 phacoantigenic（p.145）；lipid-laden macrophages（refractile bodies）見於 phacolytic（p.146）⁠<sup class="ex-qref"><span>Q1028</span></sup>。<span class="ref">p.145–146</span></li>
@@ -613,7 +627,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-154">舊稱 juvenile chronic arthritis、juvenile rheumatoid arthritis；<mark>兒童前葡萄膜炎最常見的相關全身疾病</mark>。定義：<span class="num">16 歲</span>前發病、持續 <span class="num">≥ 6 週</span>的關節炎。<span class="ref">p.151</span></li>
 <li id="np-155">International League of Associations for Rheumatology（ILAR）依關節數、關節外表現、ANA 與 HLA-B27 分 <span class="num">7</span> 亞型⁠<sup class="ex-qref"><span>Q71</span></sup>。<span class="ref">p.151</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Subtype（亞型）</th><th>佔 JIA</th><th>佔 JIA 葡萄膜炎</th><th>重點</th></tr></thead>
 <tbody>
 <tr><td id="np-156">Oligoarticular（舊稱 pauciarticular）</td><td id="np-157"><span class="num">50%–60%</span></td><td id="np-158"><span class="num">60%</span></td><td id="np-159">前 6 個月 <span class="num">≤ 4</span> 關節，可無關節症狀；<span class="num">25%–35%</span> 發生葡萄膜炎，多在 JIA 診斷後頭 <span class="num">4 年</span>；<mark><span class="num">&lt; 5 歲</span>、ANA 陽性女孩</mark>發生慢性 AU 風險增加</td></tr>
@@ -624,7 +638,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-176">Systemic（Still disease）</td><td id="np-177">約 <span class="num">10%–20%</span></td><td id="np-178">—</td><td id="np-179">通常 <span class="num">&lt; 5 歲</span>；發燒、一過性皮疹、淋巴結腫、肝脾腫大；關節初期可輕微或無；<mark>葡萄膜炎罕見</mark></td></tr>
 <tr><td id="np-180">Undifferentiated</td><td id="np-181">—</td><td id="np-182">—</td><td id="np-183">不符任一類或同時符合多類</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-184">出處 ⁠<sup class="ex-qref"><span>Q71</span> <span>Q1080</span></sup><span class="ref">p.151–152</span></p>
 <ul>
 <li id="np-185">Systemic JIA：葡萄膜炎罕見（p.152）；BCSC 1 p.167–168：眼部侵犯在寡關節型最常見、systemic 型最少見（Table 10-1：systemic &lt;1%，寡關節型約 30%）；本章寡關節型 25%–35% 發生葡萄膜炎（p.151）⁠<sup class="ex-qref"><span>Q71</span></sup>。<span class="ref">p.151–152</span></li>
@@ -638,13 +652,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-190"><mark class="ex-key"><strong>HLA-DRB1*11 與 *13</strong> 可能與 JIA 病人葡萄膜炎風險增加相關</mark>⁠<sup class="ex-qref"><span>Q1029</span></sup>。<span class="ref">p.152</span></li>
 <li id="np-191">JIA 病童（尤其 ANA 陽性或寡關節型）應定期 slit-lamp 檢查，時程見 Table 8-2；BCSC 9 p.200：ANA 在眼內發炎情境的陽性預測值低（4.4%），ANA 檢驗宜限於有 SLE 徵象或 JIA 病人，在 JIA 有助判斷葡萄膜炎風險⁠<sup class="ex-qref"><span>Q1048</span> <span>Q695</span> <span>Q672</span></sup>。<span class="ref">p.152</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 8-2（2019 ACR／Arthritis Foundation）</th><th>Eye exam frequency（檢查頻率）</th></tr></thead>
 <tbody>
 <tr><td id="np-192">具下列特徵者：oligoarthritis 或 undifferentiated、ANA 陽性、JIA <span class="num">7 歲</span>前發病、JIA 診斷 <span class="num">≤ 4 年</span>（2019 ACR／Arthritis Foundation 指引原文：高風險亞型另含 RF 陰性 polyarthritis 與 psoriatic arthritis，且須同時 ANA 陽性、7 歲前發病、病程 ≤ 4 年）</td><td id="np-193"><mark>每 <span class="num">3 個月</span></mark></td></tr>
 <tr><td id="np-194">不具上述特徵者</td><td id="np-195">每 <span class="num">6–12 個月</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-196">出處 ⁠<sup class="ex-qref"><span>Q703</span> <span>Q695</span> <span>Q1128</span></sup><span class="ref">p.152</span></p>
 <ul>
 <li id="np-197">BCSC 6 p.379（Fig 25-4）依 JIA 亞型、ANA、發病年齡、病程分層：oligoarticular／RF(−) polyarticular／psoriatic／undifferentiated 中，ANA 陽性＋<span class="num">≤ 6 歲</span>發病＋病程 <span class="num">≤ 4 年</span> → 高風險，每 3 個月；ANA 陽性的其他組合（≤ 6 歲發病但病程 &gt; 4 年、&gt; 6 歲發病）與 ANA 陰性＋≤ 6 歲＋病程 ≤ 4 年 → 中度風險，每 6 個月；<mark class="ex-key">中度風險者病程 &gt; 7 年 → 低風險，每 12 個月（終身）</mark>；ERA、RF(+) polyarticular、systemic onset 及其餘 ANA 陰性組合 → 低風險，每 12 個月⁠<sup class="ex-qref"><span>Q703</span></sup>。<span class="ref">p.152</span></li>
@@ -696,7 +710,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-224">青光眼可能難控制；其餘多數預後良好，即使發炎持續數十年。<span class="ref">p.156</span></li>
 <li id="np-225">前房反應可能無法完全消退 → <mark>即使未安靜 <span class="num">≥ 3 個月</span>，仍可做白內障手術與 IOL 植入</mark>；隅角異常血管術中可出血 → 術後 hyphema；結果通常良好，因瀰漫 KPs 或廣泛玻璃體混濁仍有明顯視覺障礙者可審慎考慮 PPV。<span class="ref">p.156–157</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>KP 型態與分布</th></tr></thead>
 <tbody>
 <tr><td id="np-226">Fuchs uveitis syndrome</td><td id="np-227"><mark>小、白、stellate，瀰漫分布於整個內皮</mark> <span class="ref">p.155</span></td></tr>
@@ -706,7 +720,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-234">Herpetic anterior uveitis（HSV、VZV、CMV）</td><td id="np-235">瀰漫 stellate KPs 可見於三種 herpetic AU；HSV、VZV 的 KPs 可為肉芽腫性或非肉芽腫性（BCSC 9 p.257）</td></tr>
 <tr><td id="np-236">Pigment dispersion syndrome</td><td id="np-237">Krukenberg spindle：色素以垂直紡錘狀沉積於角膜內皮（BCSC 10 p.132）</td></tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="ch8-s9-3">Undifferentiated anterior uveitis（未分化前葡萄膜炎）</h3>
 <ul>
 <li id="np-238">許多慢性 AU 可能找不到病因；感染病因已適當評估後，以局部類固醇及／或 cycloplegics，必要時全身類固醇或 IMT 治療；病情演變或出現新全身症狀可能需加做檢查；<mark>初次 HLA-B27 陰性者不需重驗</mark>。<span class="ref">p.157</span></li>

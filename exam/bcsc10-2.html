@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -378,14 +392,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-7">Fig 2-1A：basement membrane（BM，基底膜）襯於雙層上皮，並在內面構成 internal limiting membrane（ILM，內界膜）。Fig 2-1C（老年人眼的 pars plicata）：nonpigmented 細胞約 <span class="num">20 μm</span> 高 × <span class="num">12 μm</span> 寬；cuboidal（立方形）pigmented 細胞約 <span class="num">10 μm</span> 高；pigmented epithelium 的 melanin granules（黑色素顆粒）直徑約 <span class="num">1 μm</span>、主要位於頂部；增厚的 ILM 呈分層（laminated）且含囊泡（vesicular），此種增厚膜是老年眼的特徵。<span class="ref">p.23</span></li>
 </ul>
 <h3 id="ch2-s1-2">三種生成機轉</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Mechanism（機轉）</th><th>定義</th><th>補充</th></tr></thead>
 <tbody>
 <tr><td id="np-8"><strong>Active secretion（主動分泌）</strong></td><td id="np-9">需耗能、逆電化學梯度運送 sodium、chloride、bicarbonate 及其他（目前未明的）離子；<strong>independent of pressure（與壓力無關）</strong></td><td id="np-10"><mark>佔房水生成的大部分（majority）</mark>；在雙層睫狀上皮進行，至少部分涉及 <strong>carbonic anhydrase II（碳酸酐酶 II）</strong>的活性</td></tr>
 <tr><td id="np-11"><strong>Ultrafiltration（超過濾）</strong></td><td id="np-12"><strong>Pressure-dependent（依賴壓力）</strong>，順壓力梯度移動</td><td id="np-13">在 ciliary processes 中，微血管壓與 IOP 的 hydrostatic（靜水壓）差有利於液體入眼，兩者間的 oncotic（膠體滲透壓）梯度則抵抗；secretion 與 ultrafiltration 的關係不明</td></tr>
 <tr><td id="np-14"><strong>Simple diffusion（單純擴散）</strong></td><td id="np-15">離子依電荷與濃度被動移動，順濃度或離子梯度通過膜</td><td id="np-16">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-17">出處（三機轉皆列出）⁠<sup class="ex-qref"><span>Q1248</span></sup><span class="ref">p.23–24</span></p>
 <h3 id="ch2-s1-3">房水組成</h3>
 <ul>
@@ -422,14 +436,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-33">路線：TM → <strong>Schlemm canal（許氏管）</strong>→ 外壁 <strong>collector channels（集液管）</strong>→ 直接接 <strong>aqueous veins（房水靜脈）</strong>，或先經 <strong>intrascleral plexus（鞏膜內靜脈叢）</strong>再到 aqueous veins → episcleral venous system（上鞏膜靜脈系統）→ superior ophthalmic veins（上眼靜脈）→ 最終入 cavernous sinus（海綿竇）⁠<sup class="ex-qref"><span>Q189</span> <span>Q1248</span></sup>。<span class="ref">p.24–26</span></li>
 </ul>
 <h3 id="ch2-s3-2">TM 三層構造</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Layer（層）</th><th>位置與構造</th></tr></thead>
 <tbody>
 <tr><td id="np-34"><strong>Uveal meshwork</strong></td><td id="np-35">緊鄰前房；排列成帶狀（bands），自 iris root（虹膜根部）與睫狀體延伸到周邊角膜</td></tr>
 <tr><td id="np-36"><strong>Corneoscleral meshwork</strong></td><td id="np-37">由有孔片狀結構（perforated sheets）組成，自 scleral spur（鞏膜突）延伸到 scleral sulcus（鞏膜溝）外側壁</td></tr>
 <tr><td id="np-38"><strong>Juxtacanalicular meshwork（近管組織）</strong></td><td id="np-39">緊鄰並構成 Schlemm canal <strong>內壁</strong>；<mark>被認為是 outflow resistance（排出阻力）的主要部位</mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-40">Juxtacanalicular meshwork 被認為是排出阻力的主要部位（緊鄰並構成 Schlemm canal 內壁）⁠<sup class="ex-qref"><span>Q189</span> <span>Q1221</span></sup>。<span class="ref">p.25</span></p>
 <ul>
 <li id="np-41">BCSC 2：排出阻力最高處在 juxtacanalicular layer；其中的 endothelial meshwork 是房水排出阻力的最高點，此區對排出阻力貢獻最大，部分因路徑狹窄曲折，部分因其細胞外 proteoglycans 與 glycoproteins 的阻力⁠<sup class="ex-qref"><span>Q189</span></sup>。<span class="ref ref-ext">BCSC 2 p.63, p.65</span></li>
@@ -471,7 +485,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-63">青光眼患者<mark class="ex-key">房水生成通常正常</mark>，因此排出量也不受影響；但<strong>排出阻力常增加</strong> → 需更高眼壓才能維持該排出量⁠<sup class="ex-qref"><span>Q1193</span></sup>。<span class="ref">p.27</span></li>
 <li id="np-64">臨床常見的眼壓下，outflow facility 可能介於 <span class="num">0.2–0.3 μL/min/mm Hg</span>，位於 Fig 2-3 曲線平坦段：facility 大幅變化只造成 IOP 小幅變化。Fig 2-3 假設生成率恆定 <span class="num">2.5 μL/min</span>、uveoscleral outflow <span class="num">35%</span>、EVP <span class="num">7 mm Hg</span>。<span class="ref">p.27</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Parameter（參數）</th><th>測量方法</th><th>正常值</th><th>影響因素</th></tr></thead>
 <tbody>
 <tr><td id="np-65">F：aqueous humor production（房水生成）</td><td id="np-66">無法非侵入測量；穩態下假設等於排出率；最常用 <strong>fluorophotometry（螢光光度測定）</strong></td><td id="np-67">清醒時約 <span class="num">2–3 μL/min</span>；房水體積約每分鐘更新 <span class="num">1%</span></td><td id="np-68">睡眠時約減半、隨年齡下降；外傷、眼內發炎、某些全身藥物（general anesthetics、部分 systemic hypotensive agents）、青光眼用房水抑制劑、<strong>carotid occlusive disease</strong> → 可能減少</td></tr>
@@ -479,7 +493,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-73">Pv：EVP（上鞏膜靜脈壓）</td><td id="np-74"><strong>Venomanometry（靜脈壓測定）</strong></td><td id="np-75">通常 <span class="num">6–9 mm Hg</span></td><td id="np-76">隨體位與全身血壓變化；常升高於 Sturge-Weber 等顏面血管瘤症候群、CCF、cavernous sinus thrombosis；可能受 topical Rho kinase inhibitors 等藥物影響；TED 的高眼壓可能部分由 EVP 造成</td></tr>
 <tr><td id="np-77">U：uveoscleral outflow（葡萄膜鞏膜排出）</td><td id="np-78">無法非侵入測量，通常由公式推算</td><td id="np-79">有證據顯示約佔總排出 <span class="num">50%</span>（侵入性 tracer 研究往往報告較低值）</td><td id="np-80">增加：cycloplegia、adrenergic agents、PGF2α analogues、suprachoroidal stents、cyclodialysis clefts；減少：miotics；部分研究顯示隨年齡下降、青光眼患者減少</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-81">出處 <span class="ref">p.27–29</span></p>
 <h3 id="ch2-s4-2">房水生成的測量與影響因素</h3>
 <ul>
@@ -534,7 +548,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch2-s6" data-w="2572">六、眼壓的變異因素</h2>
 <h3 id="ch2-s6-1">Table 2-1：Factors That Affect Intraocular Pressure（影響眼壓的因素）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>方向</th><th>類別</th><th>項目</th></tr></thead>
 <tbody>
 <tr><td id="np-112" rowspan="5"><strong>Factors that may increase IOP（可能升高 IOP）</strong></td><td id="np-113">Elevated episcleral venous pressure（EVP 升高）</td><td id="np-114">Bending over（彎腰）或 <strong>supine position（平躺）</strong>、<strong>breath holding（憋氣）</strong>、elevated central venous pressure（中心靜脈壓升高）、<strong>intubation（插管）</strong>、orbital venous outflow obstruction（眼眶靜脈回流阻塞）、playing a wind instrument（吹奏管樂器）、<strong>Valsalva maneuver</strong>、wearing a tight collar or tight necktie（太緊的衣領或領帶）</td></tr>
@@ -548,7 +562,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-130">Hormonal influences（荷爾蒙）</td><td id="np-131"><strong>Pregnancy（懷孕）</strong></td></tr>
 <tr><td id="np-132">Drugs unrelated to glaucoma therapy（非青光眼治療藥物）</td><td id="np-133"><strong>Alcohol（酒精）</strong>、heroin（海洛因）、marijuana（cannabis，大麻）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-134">出處（Table 2-1）⁠<sup class="ex-qref"><span>Q1170</span> <span>Q1187</span> <span>Q1190</span> <span>Q1198</span> <span>Q1208</span> <span>Q1218</span> <span>Q1249</span></sup><span class="ref">p.31</span></p>
 <ul>
 <li id="np-135"><mark class="ex-key">Table 2-1 列為可能降低 IOP：有氧運動、懷孕、代謝性或呼吸性酸中毒、酒精；列為可能升高 IOP：LSD、憋氣、插管、Valsalva、平躺、甲狀腺功能低下、擠眼與哭鬧（尤其幼兒）</mark>⁠<sup class="ex-qref"><span>Q1170</span> <span>Q1187</span> <span>Q1190</span> <span>Q1198</span> <span>Q1208</span> <span>Q1218</span> <span>Q1249</span></sup>。<span class="ref">p.31</span></li>
@@ -601,12 +615,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-163"><mark class="ex-key"><strong>Corneal edema（角膜水腫）易造成讀值偏低</strong>；<strong>在 corneal scar（角膜瘢痕）上測量 → 假性偏高</strong>；<strong>隔 soft contact lens（軟式隱形眼鏡）測量 → 假性偏低</strong></mark>⁠<sup class="ex-qref"><span>Q1171</span> <span>Q1189</span> <span>Q1199</span> <span>Q1217</span> <span>Q1250</span></sup>。<span class="ref">p.35</span></li>
 </ul>
 <h3 id="ch2-s7-3">Table 2-2：Possible Sources of Nonrepresentative IOP in Tonometry（眼壓測量中可能造成不具代表性 IOP 的來源；可能依測量方法而異）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Factors that may cause artifactually low IOP（可能造成假性偏低）</th><th>Factors that may cause artifactually high IOP（可能造成假性偏高）</th><th>Factors that may increase IOP during measurement（測量時可能升高 IOP）</th></tr></thead>
 <tbody>
 <tr><td id="np-164">Corneal biomechanical properties（角膜生物力學特性，如 rigidity）<br>Corneal irregularity（角膜不規則，如 ectasia）<br>Inaccurately calibrated tonometer（眼壓計校正不準）<br>High corneal astigmatism（高度角膜散光）<br><strong>Inadequate amount of fluorescein in tear film（淚膜 fluorescein 不足）</strong><br>Technician errors（技術人員誤差）<br><strong>Thin central cornea（中央角膜薄）</strong><br><strong>Measurement done over a soft contact lens（隔軟式隱形眼鏡測量）</strong><br><strong>Corneal edema（角膜水腫）</strong></td><td id="np-165">Corneal biomechanical properties（角膜生物力學特性，如 rigidity）<br>Corneal irregularity（角膜不規則，如 ectasia）<br>Inaccurately calibrated tonometer（眼壓計校正不準）<br>High corneal astigmatism（高度角膜散光）<br><strong>Excessive amount of fluorescein in tear film or extremely thick tear film（fluorescein 過多或淚膜極厚）</strong><br>Technician errors（技術人員誤差）<br><strong>Thick central cornea（中央角膜厚）</strong><br><strong>Corneal scarring or band keratopathy（角膜瘢痕或帶狀角膜病變）</strong></td><td id="np-166"><strong>Breath holding or Valsalva maneuver（憋氣或 Valsalva）</strong><br>Extraocular muscle force applied to a restricted globe（眼外肌力作用於活動受限的眼球；可能依測量方法而異）<br>Straining to reach the slit lamp（勉強靠上 slit lamp）<br>Pressure on the globe（壓迫眼球）<br><strong>Squeezing of the eyelids（擠眼）</strong><br>Tight collar or tight necktie（太緊的衣領或領帶；若常戴，IOP 上升可能具意義）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-167">出處（Table 2-2）⁠<sup class="ex-qref"><span>Q1171</span> <span>Q1189</span> <span>Q1199</span> <span>Q1217</span></sup><span class="ref">p.35</span></p>
 <ul>
 <li id="np-168">Table 2-2 僅列於「假性偏低」欄：inadequate fluorescein、thin central cornea、soft contact lens 上測量、<mark class="ex-key">corneal edema</mark>；僅列於「假性偏高」欄：excessive fluorescein 或淚膜極厚、thick central cornea、<mark class="ex-key">corneal scarring 或 band keratopathy</mark>；兩欄皆列：corneal biomechanical properties、<strong>corneal irregularity</strong>、校正不準、<strong>high corneal astigmatism</strong>、technician errors⁠<sup class="ex-qref"><span>Q1171</span> <span>Q1189</span> <span>Q1217</span></sup>。<span class="ref">p.35</span></li>
@@ -663,7 +677,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-197">可攜、<strong>不需局部麻醉</strong> → 特別適合<strong>兒童族群</strong>，以及部分病人的居家眼壓測量（<strong>iCare HOME</strong>，可用於評估門診時間外的眼壓）。<span class="ref">p.39</span></li>
 <li id="np-198"><mark class="ex-key">受 CCT 影響很強，即使與 applanation 相比亦然</mark> → 角膜厚或薄的眼睛須小心解讀⁠<sup class="ex-qref"><span>Q1231</span></sup>。<span class="ref">p.39</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Tonometer（眼壓計）</th><th>原理</th><th>優點/適用</th><th>限制</th></tr></thead>
 <tbody>
 <tr><td id="np-199">Goldmann</td><td id="np-200">Applanation（Imbert-Fick），壓平直徑 <span class="num">3.06 mm</span></td><td id="np-201">臨床與研究最廣泛使用；相較 indentation 相對不受 ocular rigidity 影響</td><td id="np-202">受 CCT（<span class="num">520 μm</span> 時最準）、淚膜厚度、散光、水腫/瘢痕影響</td></tr>
@@ -675,7 +689,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-223">Noncontact / ORA</td><td id="np-224">Air puff；ORA 加校正演算法</td><td id="np-225">大規模公衛計畫；ORA 提供 IOPcc 與 corneal hysteresis</td><td id="np-226">Noncontact 讀值變異大、常高估</td></tr>
 <tr><td id="np-227">Rebound（iCare）</td><td id="np-228">探針撞擊後減速與回彈速度</td><td id="np-229">不需局部麻醉、兒童、部分病人居家（iCare HOME）</td><td id="np-230"><strong>受 CCT 影響很強</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-231">出處 <span class="ref">p.28, p.33–39</span></p>
 <h3 id="ch2-s8-6">Infection control（感染控制）</h3>
 <ul>

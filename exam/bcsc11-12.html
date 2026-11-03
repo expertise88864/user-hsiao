@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -420,7 +434,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-28">通常建議<mark class="ex-key">病人於術後第一天內恢復抗凝血或抗血小板藥物</mark>⁠<sup class="ex-qref"><span>Q1339</span></sup>。<span class="ref">p.230</span></li>
 <li id="np-29">要詢問所有用藥，包括可能含 aspirin、vitamin E、vitamin K 的非處方產品；術前檢視 coagulation profile（凝血功能）。<span class="ref">p.230</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Anticoagulants（抗凝血劑）</th><th>Antiplatelet agents（抗血小板藥）</th></tr></thead>
 <tbody>
 <tr><td id="np-30">Apixaban (Eliquis)</td><td id="np-31">Anagrelide (Agrylin)</td></tr>
@@ -433,7 +447,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-44">Betrixaban (Bevyxxa)</td><td id="np-45">Ticlopidine (Ticlid)</td></tr>
 <tr><td id="np-46">—</td><td id="np-47">Vorapaxar (Zontivity)</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-48">出處（Table 12-1 Anticoagulant and Antiplatelet Medications Approved by the US FDA，核准至 2023 年；註：betrixaban（Bevyxxa）自 2020 年 6 月 1 日起因商業考量在美國撤市，非品質或安全問題）<span class="ref">p.230</span></p>
 <div class="ex-trap"><h3 id="ch12-s2-3">易錯陷阱</h3><ul>
 <li id="np-49">通常建議術後第一天內恢復抗凝血或抗血小板藥物⁠<sup class="ex-qref"><span>Q1339</span></sup>。<span class="ref">p.230</span></li>
@@ -496,7 +510,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-79">單獨做角膜移植的好處：術後發炎較少、日後 IOL 計算的 K 值較可靠。主要為角膜內皮疾病時，EK 相對 penetrating keratoplasty（PKP，穿透性角膜移植）的優點：恢復快、K 值較可靠；但可能有<strong>輕度 hyperopic shift（遠視偏移）</strong>。角膜醫師常覺得在 pseudophakic（人工水晶體）眼做 EK 比 phakic 眼容易。<span class="ref">p.234</span></li>
 <li id="np-80"><strong>Triple procedure（三合一手術：角膜移植 + 白內障摘除 + IOL）</strong>：優點是只進一次手術室（減少相關圍術期手術風險）、恢復相對快；PKP 合併白內障的缺點是 IOL 計算可預測性下降，以及 <strong>"open sky"</strong>（取下角膜片後眼內暴露）期間；PKP 後的 IOL 計算可能比 EK 後較不可靠。<span class="ref">p.234</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Advantages（優點）</th><th>Disadvantages（缺點）</th></tr></thead>
 <tbody>
 <tr><td id="np-81">Faster corneal and vision rehabilitation（角膜與視力恢復較快）</td><td id="np-82">Potential for damage to grafted corneal endothelium resulting from the additional entry into the anterior chamber（再次進入前房可能傷害移植片角膜內皮）</td></tr>
@@ -505,7 +519,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-87">Lower rates of corneal rejection（角膜排斥率較低）</td><td id="np-88">Risk of graft detachment requiring postoperative rebubbling（graft detachment（移植片脫離）需術後 rebubbling（再注氣）的風險）</td></tr>
 <tr><td id="np-89">Lower likelihood of anisometropia and asthenopia（anisometropia（不等視）與 asthenopia（視疲勞）機率較低）</td><td id="np-90">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-91">出處（Table 12-2 Advantages and Disadvantages of EK (vs PKP) in Conjunction With Cataract Surgery）<span class="ref">p.235</span></p>
 <h3 id="ch12-s4-3">Cataract following keratoplasty（角膜移植後白內障）</h3>
 <ul>
@@ -636,7 +650,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-165">短眼軸合併脈絡膜增厚常伴慢性 hypotony 與後鞏膜變平；hypotony 使 biometry（生物測量）技術上困難並使 IOL 計算複雜；應嘗試於白內障手術前找出原因並治療。<span class="ref">p.245–246</span></li>
 <li id="np-166">白內障擋住後段檢查時 <strong>B-scan ultrasonography（超音波）</strong>有幫助；cyclodialysis cleft（睫狀體分離裂隙）或 RD 合併白內障時需較大範圍的手術；<mark>嚴重 hypotony 或 pre-phthisis（前癆眼）是白內障摘除後視力改善的不良預後指標</mark>。<span class="ref">p.246</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（情況）</th><th>Fluidics / OVD 設定</th><th>理由</th></tr></thead>
 <tbody>
 <tr><td id="np-167">High myopia</td><td id="np-168">進眼前 ↓ IOP setting（舊機型 ↓ 瓶高）、<strong>↑ flow rate</strong>；開灌注前虹膜與前囊間先放器械</td><td id="np-169">避免前房過度加深</td></tr>
@@ -647,7 +661,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-182">Zonular incompetence</td><td id="np-183">↓ flow rate</td><td id="np-184">減少擾流與前房深度波動，降低玻璃體脫出風險</td></tr>
 <tr><td id="np-185">Aniridia</td><td id="np-186">Low infusion</td><td id="np-187">減少擾流與囊袋晃動</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-188">出處 <span class="ref">p.241–242, p.244–245, p.250–251</span></p>
 <div class="ex-trap"><h3 id="ch12-s7-4">易錯陷阱</h3><ul>
 <li id="np-189">高度近視：進眼前降低 IOP setting 並<strong>提高</strong> flow rate（p.244）；PPV 後眼及先前視網膜手術或既有眼病使懸韌帶受損時，則降低 IOP setting 並降低 flow rate（p.250）⁠<sup class="ex-qref"><span>Q1417</span></sup>。<span class="ref">p.244, p.250</span></li>

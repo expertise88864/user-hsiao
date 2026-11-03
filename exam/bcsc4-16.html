@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -406,7 +420,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-22"><mark>轉移死亡的主要危險因子：侵犯 anterior chamber angle（前房角）</mark>，可表現為控制不良的青光眼，類似 pigmentary glaucoma（色素性青光眼）。<span class="ref">p.311</span></li>
 </ul>
 <h3 id="ch16-s3-1">Iris melanoma 鑑別診斷（Table 16-1）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>重點</th></tr></thead>
 <tbody>
 <tr><td id="np-23">Iris freckle／iris nevus</td><td id="np-24">見上節</td></tr>
@@ -421,7 +435,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-41">Retained lens material（殘留水晶體物質）</td><td id="np-42">似虹膜結節，amelanotic</td></tr>
 <tr><td id="np-43">Metastatic carcinoma to the iris（虹膜轉移癌）</td><td id="np-44">amelanotic；Fig 16-3C 為肺癌轉移，使瞳孔變形</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-45">出處（Table 16-1、Fig 16-3）<span class="ref">p.313</span></p>
 <div class="ex-trap"><h3 id="ch16-s3-2">易錯陷阱</h3><ul>
 <li id="np-46">Iris melanoma 占 uveal melanoma 的 <span class="num">3%–5%</span>，死亡率 <span class="num">1%–4%</span>；轉移死亡主要危險因子是前房角侵犯。<span class="ref">p.311</span></li>
@@ -549,7 +563,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-120"><mark>基底直徑 &gt;<span class="num">6 mm</span> 時惡性風險大幅增加</mark>。<span class="ref">p.324</span></li>
 </ul>
 <h3 id="ch16-s8-1">TFSOM-DIM（小型 choroidal melanocytic lesion／choroidal nevi 長大的影像危險因子）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>字母</th><th>Risk factor（危險因子）</th><th>影像工具</th></tr></thead>
 <tbody>
 <tr><td id="np-121">T</td><td id="np-122"><strong>Thickness</strong> &gt;<span class="num">2 mm</span></td><td id="np-123">ultrasound</td></tr>
@@ -559,7 +573,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-133">M</td><td id="np-134"><strong>Melanoma hollow</strong>（acoustic hollowness）</td><td id="np-135">ultrasound</td></tr>
 <tr><td id="np-136">DIM</td><td id="np-137"><strong>Diameter</strong> &gt;<span class="num">5 mm</span></td><td id="np-138">photography</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-139">口訣「to find small ocular melanomas doing imaging」⁠<sup class="ex-qref"><span>Q357</span></sup><span class="ref">p.324–325</span></p>
 <ul>
 <li id="np-140">小型 choroidal melanocytic lesions 長大的危險因子：<mark class="ex-key">thickness &gt;<span class="num">2 mm</span>、subretinal fluid、symptoms、orange pigment（lipofuscin）、acoustic hollowness、diameter &gt;<span class="num">5 mm</span></mark>⁠<sup class="ex-qref"><span>Q357</span></sup>。<span class="ref">p.324–325</span></li>
@@ -614,7 +628,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-167">Amelanotic melanoma、chorioretinal granuloma、choroidal detachment、choroidal hemangioma、choroidal metastasis、choroidal osteoma、posterior scleritis、sclerochoroidal calcification。<span class="ref">p.329</span></li>
 </ul>
 <h3 id="ch16-s9-5">超音波內部反射比較</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>超音波特徵</th></tr></thead>
 <tbody>
 <tr><td id="np-168">Choroidal melanoma</td><td id="np-169">A-scan low 至 medium internal reflectivity、angle kappa；B-scan acoustic hollowness、choroidal excavation</td></tr>
@@ -624,7 +638,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-176">Choroidal hemangioma</td><td id="np-177">hyperechogenic</td></tr>
 <tr><td id="np-178">Intraocular metastasis</td><td id="np-179">多數 medium 至 high 或 heterogeneous reflectivity</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-180">出處 <span class="ref">p.323, p.327, p.329</span></p>
 <div class="ex-trap"><h3 id="ch16-s9-6">易錯陷阱</h3><ul>
 <li id="np-181">Choroidal osteoma 典型源自年輕成人的 juxtapapillary choroid（女性較多），<span class="num">20%–25%</span> 雙側⁠<sup class="ex-qref"><span>Q367</span></sup>。<span class="ref">p.327</span></li>
@@ -639,14 +653,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-185">依腫瘤體積分類雖合理，但尚無簡單可靠的方法；使用數種依大小分類的系統。<span class="ref">p.329</span></li>
 <li id="np-186"><strong>AJCC TNM</strong>：依厚度與基底直徑分為 small（T1）、medium（T2）、large（T3）、very large（T4）；再加上有無 <mark>ciliary body involvement、extrascleral extension、systemic involvement</mark>，分成 <span class="num">7</span> 個預後不同的 stage，<mark>stage IV 預後最差</mark>。<span class="ref">p.329</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>COMS tumor size</th><th>Thickness（mm）</th><th>Basal dimensions（mm）</th></tr></thead>
 <tbody>
 <tr><td id="np-187">Small</td><td id="np-188">&lt;<span class="num">2.5</span></td><td id="np-189">≤<span class="num">16</span></td></tr>
 <tr><td id="np-190">Medium</td><td id="np-191"><span class="num">2.5</span> 至 ≤<span class="num">10.0</span></td><td id="np-192">≤<span class="num">16</span></td></tr>
 <tr><td id="np-193">Large</td><td id="np-194">&gt;<span class="num">10.0</span></td><td id="np-195">&gt;<span class="num">16</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-196">出處（Table 16-3；註：&gt;<span class="num">50%</span> 位於 ciliary body 的病灶與部分 juxtapapillary 病灶未納入 COMS）<span class="ref">p.330</span></p>
 <h3 id="ch16-s10-2">Metastatic evaluation（轉移評估）</h3>
 <ul>
@@ -661,14 +675,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-205"><strong>PET</strong> 通常不用於 uveal melanoma 的 staging 或監測：腫瘤可能非 fluorodeoxyglucose-avid，敏感度低。<span class="ref">p.331</span></li>
 <li id="np-206">追蹤監測：有的中心只照肝，有的照肝與肺；應盡量減少游離輻射（CT）暴露；<mark>liver function tests 可考慮，但因敏感度與特異度低，現代已不廣泛使用</mark>。<span class="ref">p.331</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 16-4</th><th>影像選項</th></tr></thead>
 <tbody>
 <tr><td id="np-207">Initial staging</td><td id="np-208">CT chest/abdomen/pelvis（IV contrast）；noncontrast chest CT + abdomen MRI（gadolinium）；chest x-ray + abdomen MRI（gadolinium）</td></tr>
 <tr><td id="np-209">Posttreatment surveillance：liver imaging</td><td id="np-210">abdomen MRI（gadolinium）→ CT（IV contrast）→ abdominal ultrasonography</td></tr>
 <tr><td id="np-211">Posttreatment surveillance：lung imaging</td><td id="np-212">chest CT → 2-view chest x-ray</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-213">出處（Table 16-4；肺與肝影像選項依敏感度由高到低排列）<span class="ref">p.330</span></p>
 <h3 id="ch16-s10-3">NCCN 監測建議（2018 首版 uveal melanoma 指引）</h3>
 <ul>
@@ -771,14 +785,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-270">Aqueous biopsy 在 uveal melanoma 預後的角色研究中。<span class="ref">p.337</span></li>
 </ul>
 <h3 id="ch16-s12-3">Collaborative Ocular Melanoma Study（COMS）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Arm</th><th>納入條件</th><th>比較</th><th>主要結果</th></tr></thead>
 <tbody>
 <tr><td id="np-271">Large（<span class="num">1003</span> 人）</td><td id="np-272">basal diameter &gt;<span class="num">16 mm</span> 和／或 apical height &gt;<span class="num">10 mm</span>（peripapillary 為 &gt;<span class="num">8 mm</span>）</td><td id="np-273">單獨 enucleation vs enucleation 前加 external beam radiotherapy</td><td id="np-274">5 年與 10 年全死因死亡率無顯著差異（約 <span class="num">40%</span> 與 <span class="num">60%</span>）；輔助放射未改善整體存活，但降低眼窩復發；確立 primary enucleation 單獨處理不適合保眼的大型腫瘤的適當性</td></tr>
 <tr><td id="np-275">Medium（<span class="num">1317</span> 人）</td><td id="np-276">basal diameter <span class="num">6–16 mm</span> 和／或 apical height <span class="num">2.5–10 mm</span>（peripapillary 最多 <span class="num">8 mm</span>）</td><td id="np-277">enucleation vs <strong>iodine 125 brachytherapy</strong></td><td id="np-278">5 年與 10 年全死因死亡率無顯著差異（約 <span class="num">20%</span> 與 <span class="num">35%</span>）；5 年與 10 年組織學證實轉移頻率無顯著差異（約 <span class="num">10%</span> 與 <span class="num">18%</span>）</td></tr>
 <tr><td id="np-279">Small（<span class="num">204</span> 人）</td><td id="np-280">basal diameter <span class="num">4–8 mm</span> 和／或 apical height <span class="num">1.0–2.4 mm</span></td><td id="np-281">觀察</td><td id="np-282">許多腫瘤沒有長大</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-283">出處（COMS sidebar）⁠<sup class="ex-qref"><span>Q385</span></sup><span class="ref">p.337–338</span></p>
 <ul>
 <li id="np-284"><mark class="ex-key">COMS medium arm：iodine 125 brachytherapy 與 enucleation 的存活（全死因死亡率）無顯著差異</mark>⁠<sup class="ex-qref"><span>Q385</span></sup>。<span class="ref">p.337</span></li>

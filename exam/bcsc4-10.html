@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -479,7 +493,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-62">依浸潤細胞分：acute（neutrophil）、chronic（lymphocyte 與 plasma cell）、granulomatous（epithelioid histiocyte 及/或 multinucleated giant cell）。<span class="ref">p.179</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Host（宿主）</th><th>Inflammation（發炎）</th><th>Key histology / diagnosis（組織學與診斷重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-63">ARN</td><td id="np-64">健康或免疫低下</td><td id="np-65">玻璃體、前房中重度發炎</td><td id="np-66">Obliterative vasculitis、視網膜壞死；房水/玻璃體 PCR 最敏感最快</td></tr>
@@ -487,7 +501,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-71">Fungal（<i>Candida</i> &gt; <i>Aspergillus</i>）</td><td id="np-72">內因性眼內炎、免疫抑制、黴菌血症</td><td id="np-73">常為壞死性肉芽腫</td><td id="np-74">GMS 染菌絲；定種需培養/分子檢測</td></tr>
 <tr><td id="np-75">Toxoplasmosis</td><td id="np-76">先天再活化或後天感染</td><td id="np-77">再活化：明顯 vitritis</td><td id="np-78">舊色素疤旁新病灶；tissue cysts 與 tachyzoites</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-79">出處 <span class="ref">p.176–179</span></p>
 <div class="ex-trap"><h3 id="ch10-s3-4">易錯陷阱</h3><ul>
 <li id="np-80">發炎程度：ARN 玻璃體與前房中度至重度發炎；再活化 toxoplasmic retinochoroiditis 有明顯 vitritis；CMV retinitis 因宿主免疫低下，通常沒有明顯發炎浸潤。CMV 急性病灶有 intranuclear 及/或 intracytoplasmic 包涵體⁠<sup class="ex-qref"><span>Q362</span></sup>。<span class="ref">p.176, p.179</span></li>
@@ -526,7 +540,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-99">臨床：邊界清楚、扁平、蒼白病灶（近鋸齒緣）；組織學：外層視網膜與 RPE 萎縮、choriocapillaris 消失，<mark class="ex-key">內層視網膜直接黏在 Bruch membrane 上</mark>，正常與萎縮交界清楚；與 AMD 的 geographic atrophy 及熱雷射疤痕相似⁠<sup class="ex-qref"><span>Q1528</span> <span>Q1531</span></sup>。<span class="ref">p.181–182</span></li>
 <li id="np-100">（本章外）BCSC 12：見於 <span class="num">22%</span> 的 20 歲以上者，最常見於下方象限、赤道前；列於「<mark class="ex-key">Lesions That Do Not Predispose Eyes to Retinal Detachment</mark>」（同列者：retinal pigment epithelial hyperplasia、retinal pigment epithelial hypertrophy、peripheral cystoid degeneration）⁠<sup class="ex-qref"><span>Q1528</span> <span>Q1530</span> <span>Q1531</span></sup>。<span class="ref ref-ext">BCSC 12 p.374–375</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病灶）</th><th>Level（層次/位置）</th><th>Key histology（組織學）</th><th>RD risk（剝離風險）</th></tr></thead>
 <tbody>
 <tr><td id="np-101">TPCD</td><td id="np-102">OPL；鋸齒緣</td><td id="np-103">囊腔，融合成 typical degenerative retinoschisis（通常顳下）</td><td id="np-104">區內孔洞很少造成 RD（本章外 BCSC 12）</td></tr>
@@ -534,7 +548,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-109">Lattice degeneration</td><td id="np-110">Radial perivascular 型沿視網膜血管、位置較後</td><td id="np-111">ILM 中斷、液化玻璃體、血管硬化但通暢、邊緣黏連、內層萎縮</td><td id="np-112">邊緣牽引裂孔 → RD；RRD 中最多 <span class="num">20%–30%</span> 有 lattice</td></tr>
 <tr><td id="np-113">Paving-stone</td><td id="np-114">周邊；最常見於下方象限、赤道前（本章外 BCSC 12）</td><td id="np-115">Choriocapillaris 局部阻塞 → 外層與 RPE 萎縮，內層黏 Bruch</td><td id="np-116">列於 do not predispose to RD（本章外 BCSC 12）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-117">出處 <span class="ref">p.179–182；BCSC 12 p.374–375, p.390–391</span></p>
 <div class="ex-trap"><h3 id="ch10-s4-5">易錯陷阱</h3><ul>
 <li id="np-118">Lattice 的視網膜血管為 focal sclerosis，但<strong>仍維持生理性通暢（physiologically patent）</strong>；其他重要組織學特徵為 ILM 不連續、上方液化玻璃體口袋、病灶邊緣玻璃體凝聚與黏連、內層不同程度萎縮⁠<sup class="ex-qref"><span>Q298</span></sup>。<span class="ref">p.180</span></li>
@@ -567,7 +581,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-134">沉積物順著周圍組織排列，型態反映所在層次：perifoveal OPL（Henle）→ <strong>petaloid CME、macular star</strong>；NFL → <strong>flame-shaped（火焰狀）出血</strong>；nuclear 或 inner plexiform layer → <strong>dot-and-blot（點狀/斑狀）出血</strong>；subhyaloid（玻璃體膜下）→ <strong>boat-shaped（船形）</strong>⁠<sup class="ex-qref"><span>Q304</span></sup>。<span class="ref">p.184</span></li>
 <li id="np-135">切片上 dot-and-blot 出血對應中層（INL 與 OPL）血液，flame-shaped 對應 NFL；preretinal hemorrhage 可在 ILM 內側（玻璃體）或 ILM 外側（形成最內層的大泡狀出血）。<span class="ref">p.186</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Location（位置）</th><th>Clinical pattern（臨床型態）</th></tr></thead>
 <tbody>
 <tr><td id="np-136">Perifoveal OPL（Henle fiber layer）</td><td id="np-137">Petaloid CME（FA 花瓣狀）、macular star（星狀硬性滲出）</td></tr>
@@ -575,7 +589,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-140">Nuclear layers / IPL（切片：INL、OPL）</td><td id="np-141">Dot-and-blot hemorrhage（圓形點狀/斑狀）</td></tr>
 <tr><td id="np-142">Subhyaloid（玻璃體膜下，preretinal）</td><td id="np-143">Boat-shaped（船形）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-144">出處 <span class="ref">p.171, p.184, p.186</span></p>
 <h3 id="ch10-s5-4">慢性缺血的血管結構變化與新生血管</h3>
 <ul>
@@ -664,7 +678,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-195">Drusen 主要成分：albumin、apolipoproteins、complement factors 及相關蛋白、immunoglobulins、lipids、<strong>β-amyloid</strong>。<span class="ref">p.196</span></li>
 </ul>
 <h3 id="ch10-s8-2">Drusen 分類（Table 10-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Type（種類）</th><th>Clinical appearance（臨床外觀）</th><th>Histologic appearance（組織學）</th></tr></thead>
 <tbody>
 <tr><td id="np-196">Hard（nodular）</td><td id="np-197">分離、黃色、邊界清楚的深層視網膜病灶，有時閃亮</td><td id="np-198">RPE 與 Bruch membrane 之間或 Bruch 上的 PAS 陽性 hyaline（玻璃樣）物質沉積（Fig 10-29：圓頂狀結節，其上 RPE 變薄）</td></tr>
@@ -673,7 +687,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-205">Calcific</td><td id="np-206">邊界銳利、閃亮、白至黃色 refractile（折光）病灶</td><td id="np-207">Bruch 內表面的結節狀突起，因鈣化在 H&amp;E 呈深紫色</td></tr>
 <tr><td id="np-208">Reticular pseudodrusen</td><td id="np-209">深層視網膜界線不清的白黃色網狀病灶，通常見於上方與顳側黃斑；藍光、near-infrared、fundus autofluorescence（FAF）下更明顯</td><td id="np-210">視網膜下腔（感光細胞內/外節與 RPE 之間）富含脂質物質堆積</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-211">出處（Table 10-1）<span class="ref">p.195–196</span></p>
 <ul>
 <li id="np-212"><strong>Reticular pseudodrusen（RPD，網狀假性隱結）＝subretinal drusenoid deposits</strong>：細胞外物質位於感光細胞內/外節與 RPE 之間（<mark>視網膜下腔，在 RPE 之上</mark>）；含 membranous debris、unesterified cholesterol（未酯化膽固醇）、complement factors 及相關蛋白與 apolipoproteins，但<strong>不含 opsins</strong>；可能與進展到晚期 AMD（geographic atrophy、CNV）相關；Fig 10-31 SD-OCT 見 EZ 局部中斷。<span class="ref">p.196–197</span></li>
@@ -748,7 +762,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-252">Iris neovascularization（有時造成隅角閉鎖）可見於 retinoblastoma 病人，並與 high-risk 組織學特徵相關；Fig 10-40 病例前房有游離腫瘤細胞。<span class="ref">p.205</span></li>
 <li id="np-253">Clinical pearl：三種結構也可見於其他 neuroepithelial 與 neuroendocrine 腫瘤，<mark>不是 retinoblastoma 的確診性特徵</mark>。<span class="ref">p.206</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（結構）</th><th>Differentiation（分化）</th><th>Center（中央）</th><th>ELM</th></tr></thead>
 <tbody>
 <tr><td id="np-254">Pseudorosette</td><td id="np-255">—（活腫瘤細胞包圍血管）</td><td id="np-256">血管（距中央血管 <span class="num">90–120 μm</span> 起缺血壞死）</td><td id="np-257">原文未述及</td></tr>
@@ -756,7 +770,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-262">Flexner-Wintersteiner rosette</td><td id="np-263">朝視網膜</td><td id="np-264">Lumen</td><td id="np-265">有（ELM-type junctions）</td></tr>
 <tr><td id="np-266">Fleurette</td><td id="np-267">朝視網膜（最高）；retinocytoma 有大量 fleurettes</td><td id="np-268">花束狀，含感光細胞內節</td><td id="np-269">有</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-270">出處 <span class="ref">p.204–205, p.209</span></p>
 <h3 id="ch10-s10-3">Vitreous seeds（玻璃體種子）</h3>
 <ul>

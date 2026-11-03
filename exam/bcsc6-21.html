@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -380,14 +394,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-6">Primary 分為 <strong>primary congenital glaucoma（PCG，原發性先天性青光眼）</strong>與 <strong>juvenile open-angle glaucoma（JOAG，青少年隅角開放性青光眼）</strong>；BCSC 10 的分類表將 JOAG 定為 <span class="num">4–40 歲</span>（本章外）⁠<sup class="ex-qref"><span>Q1228</span> <span>Q1150</span></sup>。<span class="ref">p.296；BCSC 10 p.189, p.196</span></li>
 <li id="np-7">Secondary 分為：合併 nonacquired ocular anomalies（非後天眼部異常）、合併 nonacquired systemic disease or syndrome（非後天全身疾病或症候群）、合併 acquired condition（後天狀況）、<strong>glaucoma following cataract surgery（白內障術後青光眼）</strong>⁠<sup class="ex-qref"><span>Q1179</span> <span>Q1195</span></sup>。<span class="ref">p.296</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>PCG 次分類（依發病年齡）</th><th>Table 21-1</th><th>Fig 21-1 演算法寫法</th></tr></thead>
 <tbody>
 <tr><td id="np-8">Neonatal onset（新生兒發病）</td><td id="np-9"><span class="num">0–1 個月</span></td><td id="np-10"><span class="num">≤ 1 個月</span></td></tr>
 <tr><td id="np-11">Infantile onset（嬰兒發病）</td><td id="np-12"><span class="num">&gt; 1–24 個月</span></td><td id="np-13"><span class="num">&gt; 1–24 個月</span></td></tr>
 <tr><td id="np-14">Late onset or late recognized（晚發或晚被發現）</td><td id="np-15"><span class="num">&gt; 24 個月</span></td><td id="np-16">Late onset：<span class="num">&gt; 2 歲</span>；另有「Age of onset unknown（發病年齡不明）」</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-17">出處 <span class="ref">p.296–297</span></p>
 <h3 id="ch21-s1-3">分類演算法（Fig 21-1 重點）</h3>
 <ul>
@@ -446,7 +460,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-52">未治療時，眼球未成熟、可擴張的新生兒與嬰兒角膜會變大、混濁；本章以「新生兒雙側角膜水腫為唯一發現」作為未達診斷標準時診斷性用藥的例子⁠<sup class="ex-qref"><span>Q682</span> <span>Q599</span></sup>。<span class="ref">p.296, p.300</span></li>
 </ul>
 <h3 id="ch21-s2-3">鑑別診斷（Table 21-2）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Shared sign（共同徵象）</th><th>需鑑別的狀況</th></tr></thead>
 <tbody>
 <tr><td id="np-53">Epiphora、red eye（溢淚、紅眼）</td><td id="np-54">Conjunctivitis（結膜炎）、congenital nasolacrimal duct obstruction（先天性鼻淚管阻塞）、corneal epithelial defect／abrasion（角膜上皮缺損／擦傷）、keratitis（角膜炎）、ocular inflammation（眼部發炎，如 uveitis、外傷、異物所致）、epiblepharon with eyelash touch（眼瞼贅皮合併睫毛觸及）</td></tr>
@@ -454,14 +468,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-57">Corneal enlargement（角膜增大）</td><td id="np-58"><strong>Axial myopia（軸性近視）</strong>、<strong>megalocornea（大角膜）</strong></td></tr>
 <tr><td id="np-59">Optic nerve head cupping or rim thinning, real or apparent（視神經盤凹陷或邊緣變薄，真性或假性）</td><td id="np-60">Physiologic optic nerve head cupping（生理性凹陷）、cupping associated with prematurity, periventricular leukomalacia（早產、腦室周圍白質軟化相關凹陷）、optic nerve coloboma or pit、optic atrophy、optic nerve hypoplasia、optic nerve malformation</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-61">出處 <span class="ref">p.298</span></p>
 <ul>
 <li id="np-62">Megalocornea 須與先天性青光眼造成的 buphthalmos 區分：無眼壓升高與視盤凹陷可排除先天性青光眼；較典型於 megalocornea 的表現有角膜清澈、pigment dispersion、iris translucency、Krukenberg spindle、無 Haab striae、眼軸正常而前房相對較深、玻璃體長度較短（本章外）⁠<sup class="ex-qref"><span>Q940</span></sup>。<span class="ref">p.298；BCSC 8 p.164</span></li>
 <li id="np-63">Keratoconus（圓錐角膜）的 acute hydrops 由 Descemet 膜破裂造成，通常見於病程晚期；角膜水腫通常 <span class="num">3 個月</span>內消退，但可留下後基質瘢痕；hydrops 以局部高張劑和／或軟式隱形眼鏡保守治療數月，不是緊急角膜移植的適應症（本章外）⁠<sup class="ex-qref"><span>Q834</span></sup>。<span class="ref ref-ext">BCSC 8 p.217, p.223</span></li>
 </ul>
 <h3 id="ch21-s2-4">與續發性青光眼相關的非後天狀況（Table 21-3）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>類別</th><th>狀況</th></tr></thead>
 <tbody>
 <tr><td id="np-64">Ocular：anterior segment（前段異常）</td><td id="np-65"><strong>Aniridia</strong>、<strong>Axenfeld-Rieger syndrome</strong>、congenital corneal opacification、congenital iris ectropion、<strong>microcornea（小角膜）</strong>、microspherophakia（小球形水晶體）、primary congenital aphakia、<strong>Peters anomaly</strong>、tumors of the iris（虹膜腫瘤）</td></tr>
@@ -470,7 +484,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-70">Systemic disease or syndrome（全身疾病或症候群）</td><td id="np-71"><strong>Sturge-Weber syndrome（斯特奇-韋伯症候群，encephalofacial angiomatosis）</strong>、neurofibromatosis type 1（NF1）、Lowe（oculocerebrorenal）syndrome</td></tr>
 <tr><td id="np-72">Systemic：lens-associated disorders（水晶體相關）</td><td id="np-73">Homocystinuria、<strong>Marfan syndrome</strong>、<strong>Weill-Marchesani syndrome</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-74">出處 <span class="ref">p.298</span></p>
 <ul>
 <li id="np-75">Microcornea 列於 Table 21-3 與續發性青光眼相關的先天眼部異常；兒童青光眼 9 項診斷特徵之一是<mark class="ex-key">角膜直徑增大</mark>⁠<sup class="ex-qref"><span>Q592</span></sup>。<span class="ref">p.298–299</span></li>
@@ -550,7 +564,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch21-s5" data-w="2527">五、兒童青光眼藥物副作用（Table 21-4）</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Drug（藥物）</th><th>Adverse effects（副作用）</th><th>Precautions（注意事項）</th></tr></thead>
 <tbody>
 <tr><td id="np-116"><strong>β-adrenergic antagonists（乙型阻斷劑）</strong>：betaxolol、carteolol、levobunolol、metipranolol、timolol hemihydrate、timolol maleate</td><td id="np-117">Hypotension（低血壓）、bradycardia（心搏過緩）、bronchospasm（支氣管痙攣）、apnea（呼吸暫停）；hallucinations（幻覺）；糖尿病童掩蓋低血糖</td><td id="np-118"><mark>避免用於早產或體型小的新生兒或嬰兒</mark>；嬰兒、氣喘或心臟病童小心使用；選低濃度；punctal occlusion（壓迫淚點）；可考慮 cardioselective β-blocker 降低支氣管痙攣風險</td></tr>
@@ -560,7 +574,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-128"><strong>Oral CAIs（口服碳酸酐酶抑制劑）</strong>：acetazolamide、methazolamide</td><td id="np-129">代謝性酸中毒、Stevens-Johnson syndrome；頭痛、噁心、頭暈、paresthesia（感覺異常）；growth suppression（生長抑制）、failure to thrive（生長遲滯）、體重下降；bed-wetting（尿床）</td><td id="np-130">腎功能不全、hypokalemia（低血鉀）、hyponatremia（低血鈉）禁用；sulfonamide 過敏禁用；監測代謝性酸中毒；監測嬰兒進食與體重增加</td></tr>
 <tr><td id="np-131"><strong>Parasympathomimetic agents（擬副交感神經藥，miotics）</strong>：echothiophate、pilocarpine</td><td id="np-132">Pupillary block（瞳孔阻滯）風險、paradoxical rise in IOP（眼壓反常上升）；echothiophate：腹瀉、尿失禁、心律不整、虛弱、頭痛、疲倦、iris pigment cysts（虹膜色素囊腫）；pilocarpine：支氣管痙攣、高血壓、嘔吐、腹瀉、頭暈、虛弱、頭痛</td><td id="np-133">葡萄膜炎病人避免；心臟病、氣喘、尿路阻塞小心；限制劑量、用低濃度；echothiophate 避免 succinylcholine；（另列一項）考慮於全身麻醉前停藥</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-134">出處 <span class="ref">p.304</span></p>
 <ul>
 <li id="np-135"><strong>Brimonidine</strong> 可通過血腦障壁，可能造成 CNS depression、apnea、低血壓、心搏過緩、hypotonia（張力低下）、低體溫、嗜睡，嬰幼兒特別易受影響 → α2 agonist 禁用於 <span class="num">&lt; 2 歲</span>（BCSC 10）；本表：<mark class="ex-key">brimonidine 禁用於 <span class="num">&lt; 2 歲</span></mark>（通過血腦障壁、呼吸暫停、hypotonia、嗜睡為本章外）⁠<sup class="ex-qref"><span>Q169</span> <span>Q1168</span> <span>Q1243</span></sup>。<span class="ref">p.304；BCSC 10 p.215</span></li>
@@ -599,7 +613,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-155">隅角狀態不明 → 可用 <strong>ultrasound biomicroscopy（UBM，超音波生物顯微鏡）</strong>評估前段。<span class="ref">p.305</span></li>
 <li id="np-156">Ab interno 隅角手術成功的關鍵：清澈角膜與足夠的隅角鏡視野；角膜水腫時，術前給 aqueous suppressant（房水抑制劑）、術中局部 glycerin（甘油）和／或刮除上皮可能改善視野。<span class="ref">p.305</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Scenario（情境）</th><th>術式</th><th>補充</th></tr></thead>
 <tbody>
 <tr><td id="np-157">Angle open, cornea clear（隅角開、角膜清）</td><td id="np-158">首選 <strong>ab interno angle surgery</strong>：goniotomy（隅角切開術）或 gonioscopy-assisted transluminal trabeculotomy（GATT）</td><td id="np-159">部分證據顯示處理範圍越大降壓越多 → 環狀 GATT 或多處 goniotomy 可能優於單處 goniotomy</td></tr>
@@ -607,7 +621,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-163">Angle closed, cornea clear（隅角閉、角膜清）</td><td id="np-164"><strong>Lensectomy + goniosynechialysis（水晶體切除 + 隅角粘連分離）</strong>可在部分病例達到足夠控制</td><td id="np-165">Laser iridotomy 效果不確定，部分配合的大童風險可接受</td></tr>
 <tr><td id="np-166">Angle closed, cornea opaque（隅角閉、角膜混濁）</td><td id="np-167">角膜可經藥物變清 → lensectomy + goniosynechialysis；否則依解剖（含結膜活動度）、長期視力預後與術者經驗選擇</td><td id="np-168">屬兒童手術最具挑戰的情境之一；藥物無效的角膜混濁如 Peters anomaly、嚴重眼表疾病（Stevens-Johnson syndrome、化學灼傷）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-169">出處 <span class="ref">p.305–307</span></p>
 <h3 id="ch21-s7-2">Angle open, cornea clear</h3>
 <ul>

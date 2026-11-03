@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -436,7 +450,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-46">治療：影響視功能、造成明顯突眼或明顯生長時<strong>完整手術切除</strong>；生長潛力在診斷時或不完全切除後無法預測；罕見自行消退。<span class="ref">p.82</span></li>
 <li id="np-47">有包膜且與周圍組織相對隔離 → 常比許多其他眼窩腫瘤<strong>容易取出</strong>；coronal imaging 判斷與視神經相對位置，術式依病灶位置而定；較深病灶可能附著眶尖重要構造，完整切除未必值得冒險 → 眶尖深部病灶可考慮 <strong>radiotherapy</strong>。<span class="ref">p.82</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病灶）</th><th>Flow／Valsalva</th><th>好發族群／位置</th><th>影像重點</th><th>處置重點</th></tr></thead>
 <tbody>
 <tr><td id="np-48">Infantile hemangioma</td><td id="np-49">MRI 見 high blood flow（高血流）</td><td id="np-50">兒童（出生時或出生後頭幾週出現）；眼窩上鼻側象限、上眼瞼內側</td><td id="np-51">MRI 細小血管通道；Doppler 常見血流豐富</td><td id="np-52">多數自行消退 → 觀察；需治療時 β-blocker 第一線</td></tr>
@@ -445,7 +459,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-63">CVM</td><td id="np-64">Low-flow；不可擴張</td><td id="np-65">成人最常見原發眼窩病灶；第四、五個十年（30–49 歲）；女性 <span class="num">60%</span></td><td id="np-66">早期點狀 → 晚期均勻；界線清楚</td><td id="np-67">影響視功能、明顯突眼或明顯生長時完整切除；眶尖深部可考慮放療</td></tr>
 <tr><td id="np-68">AVM</td><td id="np-69">High-flow 發育異常</td><td id="np-70">—</td><td id="np-71">CT 瀰漫顯影；MRI flow voids</td><td id="np-72">常需治療：術前選擇性血管攝影栓塞 + 切除 nidus</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-73">出處 <span class="ref">p.77–83</span></p>
 <div class="ex-trap"><h3 id="ch5-s2-4">易錯陷阱</h3><ul>
 <li id="np-74">Distensible VM（varix）會隨 Valsalva 擴大，低頭或 Valsalva 後突眼加劇；LM 不會因 Valsalva 膨大，但可在上呼吸道感染時變大，或因病灶內出血突然突眼⁠<sup class="ex-qref"><span>Q780</span> <span>Q1699</span></sup>。<span class="ref">p.79–80</span></li>
@@ -486,7 +500,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-92">是否治療：權衡症狀嚴重度與介入風險。<strong>Direct CCF（高流量）通常需介入</strong>；<strong>小的 indirect CCF 常自行關閉</strong>，可先觀察；但因仍可能顱內出血，部分研究者主張較積極處理。<span class="ref">p.84</span></li>
 <li id="np-93">介入：通常以 <strong>endovascular（血管內）coils 或 glue</strong> 堵住瘻管；<mark>dural fistula 走 <strong>transvenous（經靜脈）</strong>，direct CCF 一般走 <strong>transarterial（經動脈）</strong></mark>；偶爾經皮穿刺 SOV 經靜脈栓塞，可能需 orbitotomy 直接暴露靜脈。<span class="ref">p.84</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Feature（Table 5-1 欄位）</th><th>Direct carotid-cavernous fistulas（直接型）</th><th>Indirect (dural) carotid-cavernous fistulas（間接型／硬腦膜型）</th></tr></thead>
 <tbody>
 <tr><td id="np-94">Abnormal vascular connection（異常血管連接）</td><td id="np-95">Between internal carotid artery and cavernous sinus（內頸動脈與海綿竇之間）</td><td id="np-96">Between meningeal branches of internal and/or external carotid artery and cavernous sinus（內頸和／或外頸動脈腦膜分支與海綿竇之間）</td></tr>
@@ -497,7 +511,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-109">Key clinical findings（主要臨床表現）</td><td id="np-110">Pulsatile proptosis（搏動性突眼）；Audible bruit（可聽到的血管雜音）；Elevated intraocular pressure（眼壓上升）；Choroidal effusions（脈絡膜積液）；Blood in Schlemm canal（Schlemm 管內有血）；Ocular dysmotility (cranial nerve VI palsy &gt; cranial nerves III, IV)（眼球運動障礙，CN VI 麻痺 &gt; CN III、IV）</td><td id="np-111">Mild orbital congestion（輕度眼窩充血）；Mild proptosis（輕度突眼）；Minimal pain（輕微疼痛）；Increased episcleral venous pressure and asymmetric intraocular pressure elevation（鞏膜上靜脈壓上升與不對稱眼壓上升）</td></tr>
 <tr><td id="np-112">Imaging（影像，兩型相同）</td><td id="np-113" colspan="2">Diffuse enlargement of extraocular muscles due to venous engorgement（靜脈充血致眼外肌瀰漫腫大）；Characteristic enlarged superior ophthalmic vein（特徵性上眼靜脈擴大）⁠<sup class="ex-qref"><span>Q711</span></sup></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-114">出處 <span class="ref">p.85</span></p>
 <h3 id="ch5-s3-6">Orbital hemorrhage（眼窩出血）</h3>
 <ul>
@@ -567,7 +581,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-156"><mark class="ex-key">通常包膜完整、可相對容易切除</mark>；hypercellular schwannoma 有時在自認完整切除後仍復發，但很少惡性轉化。BCSC 4 Table 13-1 補充：schwannoma 部分病人可有疼痛（伴或不伴感覺異常）（本章外）⁠<sup class="ex-qref"><span>Q785</span></sup>。<span class="ref">p.93; BCSC 4 p.275</span></li>
 <li id="np-157">BCSC 4 補充（本章外）：schwannoma 源自周邊神經的 Schwann cells，典型呈<mark class="ex-key">瀰漫強烈 <strong>S-100</strong> 陽性</mark>；Table 2-3 列 schwannoma 的染色為 S-100、GFAP；Melan A 與 HMB-45 用於診斷黑色素細胞腫瘤；neuron-specific enolase 列於 neuroblastoma 與 retinoblastoma⁠<sup class="ex-qref"><span>Q353</span></sup>。<span class="ref ref-ext">BCSC 4 p.38–39, p.286</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病灶）</th><th>族群</th><th>臨床</th><th>影像</th><th>治療</th></tr></thead>
 <tbody>
 <tr><td id="np-158">Optic nerve glioma</td><td id="np-159">兒童第一個十年（0–9 歲）；最多一半與 neurofibromatosis 相關（Fig 5-9 為 NF1）</td><td id="np-160">緩慢、無痛、單側軸向突眼 + 視力下降 + afferent pupillary defect</td><td id="np-161">梭形腫大、kinking；MRI 可見囊性變性</td><td id="np-162">觀察；化療；經顱手術；放療對尚未發育完成的兒童一般為最後手段</td></tr>
@@ -575,7 +589,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-168">Sphenoid wing meningioma</td><td id="np-169">—</td><td id="np-170">近 pterion 者常有顳窩腫塊，可合併突眼；眼瞼（尤其下眼瞼）水腫</td><td id="np-171">Hyperostosis、dural tail</td><td id="np-172">通常觀察至功能缺損；手術目標為解除體積壓迫 ± 術後放療</td></tr>
 <tr><td id="np-173">Schwannoma</td><td id="np-174">—</td><td id="np-175">—</td><td id="np-176">—</td><td id="np-177">通常包膜完整，可相對容易切除</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-178">出處 <span class="ref">p.86–93</span></p>
 <div class="ex-trap"><h3 id="ch5-s4-7">易錯陷阱</h3><ul>
 <li id="np-179"><strong>Dural tail</strong> 有助於區分 meningioma 與 fibrous dysplasia；<strong>tram-tracking</strong> 為部分 ONSM 的 CT 鈣化表現；BCSC 5 Fig 14-4：internal carotid artery dissection（疼痛性節後 Horner syndrome 最重要的原因）的 axial MRI 見動脈壁內血液，稱 <strong>crescent moon sign（新月徵）</strong>（本章外）⁠<sup class="ex-qref"><span>Q410</span></sup>。<span class="ref">p.91; BCSC 5 p.319</span></li>
@@ -603,7 +617,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-193">起源：眼窩軟組織中<mark class="ex-key"><strong>未分化的多潛能 mesenchymal elements（間質成分）</strong>，不是來自 extraocular muscles（眼外肌）</mark>⁠<sup class="ex-qref"><span>Q740</span> <span>Q753</span> <span>Q678</span></sup>。<span class="ref">p.95</span></li>
 </ul>
 <h3 id="ch5-s5-3">四種組織型</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Subtype（亞型）</th><th>頻率／位置</th><th>組織學</th><th>預後（5 年存活率）</th></tr></thead>
 <tbody>
 <tr><td id="np-194"><strong>Embryonal（胚胎型）</strong></td><td id="np-195"><mark class="ex-key">遠為最常見，<span class="num">&gt; 80%</span></mark>；典型在眼窩 <strong>superonasal quadrant</strong>⁠<sup class="ex-qref"><span>Q660</span> <span>Q740</span> <span>Q753</span> <span>Q710</span></sup></td><td id="np-196">鬆散束狀<strong>未分化 spindle cells（梭形細胞）</strong>，未成熟者只有少數細胞在 trichrome 染色見橫紋⁠<sup class="ex-qref"><span>Q723</span></sup></td><td id="np-197">好，<span class="num">94%</span></td></tr>
@@ -611,7 +625,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-202"><strong>Pleomorphic（多形型）</strong></td><td id="np-203">整體<strong>最少見</strong>、分化最好；最常侵犯年輕成人</td><td id="np-204">許多帶狀或圓形細胞，trichrome 易見橫紋</td><td id="np-205"><mark class="ex-key">最好</mark>，<span class="num">97%</span>⁠<sup class="ex-qref"><span>Q710</span> <span>Q753</span></sup></td></tr>
 <tr><td id="np-206"><strong>Botryoid（葡萄狀型）</strong></td><td id="np-207">Embryonal 的罕見變異，外觀如葡萄；<mark class="ex-key">不以眼窩為原發</mark>，只由鼻竇或結膜續發延伸⁠<sup class="ex-qref"><span>Q710</span> <span>Q660</span></sup></td><td id="np-208">—</td><td id="np-209">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-210">出處 <span class="ref">p.95</span></p>
 <ul>
 <li id="np-211">眼窩以外的頭頸部（含鼻竇）rhabdomyosarcoma 5 年存活率較低（<span class="num">50%–71%</span>），可能因頭頸部腫瘤徵象較少。<span class="ref">p.95</span></li>
@@ -661,7 +675,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-239">眼窩淋巴瘤 <mark class="ex-key"><span class="num">98%</span> 來自 <strong>B cells</strong>；<strong>T-cell lymphoma 罕見且較致命</strong></mark>；Hodgkin 很少轉移到眼窩⁠<sup class="ex-qref"><span>Q754</span> <span>Q773</span> <span>Q814</span></sup>。<span class="ref">p.99</span></li>
 </ul>
 <h3 id="ch5-s7-2">四種最常見眼窩淋巴瘤（依頻率）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Type（型別）</th><th>比例</th><th>分子／特點</th><th>10-year survival（10 年存活率）</th></tr></thead>
 <tbody>
 <tr><td id="np-240"><strong>EMZL（extranodal marginal zone B-cell lymphoma，結外邊緣區 B 細胞淋巴瘤；即 MALT lymphoma）</strong></td><td id="np-241"><mark class="ex-key"><span class="num">約 57%</span>，最常見</mark>⁠<sup class="ex-qref"><span>Q754</span> <span>Q773</span></sup></td><td id="np-242">NF-κB 上調；NF-κB 抑制基因 A20 失活變異；胃腸道 EMZL 與 Helicobacter pylori 相關（抗菌治療有效）；與 chlamydial infection 弱相關，<strong>一般不建議抗生素治療</strong>；低惡性度</td><td id="np-243"><span class="num">92%</span>⁠<sup class="ex-qref"><span>Q814</span></sup></td></tr>
@@ -669,7 +683,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-248"><strong>FL（follicular lymphoma，濾泡性淋巴瘤）</strong></td><td id="np-249"><span class="num">11%</span>（第三常見）</td><td id="np-250">低惡性度、有濾泡中心；最常見轉位 t(14;18)(q32;q21) → 抗凋亡 BCL2 高表現</td><td id="np-251"><span class="num">71%</span></td></tr>
 <tr><td id="np-252"><strong>MCL（mantle cell lymphoma，被套細胞淋巴瘤）</strong></td><td id="np-253"><span class="num">8%</span></td><td id="np-254">典型見 t(11;14)(q13;q32) → CCND1（Cyclin D-1）過度表現</td><td id="np-255"><span class="num">32%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-256">出處 <span class="ref">p.99–100, p.102</span></p>
 <ul>
 <li id="np-257">EMZL：<span class="num">5%–15%</span> 自行緩解；但 <span class="num">10 年</span>內<mark>至少 <span class="num">50%</span> 發生全身疾病</mark>；<span class="num">15%–20%</span> 組織學轉化為較高惡性度（通常為大細胞型），通常在數年後，與治療無關。<span class="ref">p.100</span></li>
@@ -724,7 +738,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-287">局限眼窩病灶：切片確診 + 減積，之後可 intralesional steroid（病灶內類固醇）或低劑量放療；也有自行緩解的報告；骨破壞即使廣泛，通常<strong>完全再骨化</strong>；全身性疾病兒童用積極化療。<span class="ref">p.104</span></li>
 </ul>
 <h3 id="ch5-s8-2">Adult xanthogranuloma（成人黃色肉芽腫）四症候群（依頻率）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（症候群）</th><th>特徵</th><th>全身關聯</th></tr></thead>
 <tbody>
 <tr><td id="np-288"><strong>NBX（necrobiotic xanthogranuloma，壞死性黃色肉芽腫）</strong>：最常見</td><td id="np-289">眼瞼與前眼窩皮下病灶（全身也可）；皮膚病灶易<strong>潰瘍與纖維化</strong></td><td id="np-290">常見 <strong>paraproteinemia（副蛋白血症）、multiple myeloma</strong></td></tr>
@@ -732,7 +746,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-294"><strong>ECD（Erdheim-Chester disease）</strong>：最嚴重</td><td id="np-295">眼窩常<strong>瀰漫</strong>（其他三型傾向位於前方）→ 視力喪失；骨侵犯常見</td><td id="np-296">眼窩與內臟（縱膈、心包膜、肋膜、腎周、後腹腔）緻密進行性纖維硬化；即使積極治療也常致命</td></tr>
 <tr><td id="np-297"><strong>AOX（adult-onset xanthogranuloma）</strong></td><td id="np-298">孤立黃色肉芽腫病灶</td><td id="np-299">無全身侵犯</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-300">出處 <span class="ref">p.104–106</span></p>
 <ul>
 <li id="np-301"><strong>Juvenile xanthogranuloma（幼年黃色肉芽腫）</strong>是另一種 non-Langerhans 組織球疾病：兒童自限性、對類固醇敏感、通常局限的皮下病灶。<span class="ref">p.106</span></li>
@@ -788,7 +802,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-329">切片：從散在淋巴細胞到淋巴細胞取代淚腺實質，保留內層導管細胞並被增生 myoepithelial cells 包圍（<strong>epimyoepithelial islands</strong>）→ 有人稱 <strong>lymphoepithelial lesion</strong>；部分病人同時有全身性類風濕性關節炎，即典型 <strong>Sjogren syndrome</strong>。<span class="ref">p.109</span></li>
 <li id="np-330">這些病灶可演變為<mark>低惡性度 B 細胞淋巴瘤</mark>；相關乾眼症狀可用 topical cyclosporine 改善。<span class="ref">p.109</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（淚腺病灶）</th><th>病程／疼痛</th><th>影像</th><th>骨變化</th><th>處置</th></tr></thead>
 <tbody>
 <tr><td id="np-331">Pleomorphic adenoma</td><td id="np-332">&gt; 1 年、<strong>無痛</strong>；眼球下內移</td><td id="np-333">孤立球狀、界線清楚</td><td id="np-334">淚腺窩<strong>重塑</strong>擴大</td><td id="np-335">不先切片，連假包膜完整切除⁠<sup class="ex-qref"><span>Q726</span></sup></td></tr>
@@ -796,7 +810,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-341">Lymphoproliferative lesion</td><td id="np-342">緩慢、無痛；約 17% 雙側</td><td id="np-343">瀰漫拉長、puttylike molding 包繞眼球</td><td id="np-344">典型<strong>無</strong>（高惡性度除外）</td><td id="np-345">Open biopsy；EMZL、FL 放療通常效果好⁠<sup class="ex-qref"><span>Q724</span> <span>Q811</span></sup></td></tr>
 <tr><td id="np-346">Dacryoadenitis</td><td id="np-347">急性發炎</td><td id="np-348">瀰漫擴大</td><td id="np-349">—</td><td id="np-350">抗發炎藥通常有效</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-351">出處 <span class="ref">p.100, p.102, p.106–109</span></p>
 <div class="ex-trap"><h3 id="ch5-s9-7">易錯陷阱</h3><ul>
 <li id="np-352">淚腺最常見的惡性上皮腫瘤是 <strong>ACC</strong>；上皮腫瘤約一半是 PA⁠<sup class="ex-qref"><span>Q754</span> <span>Q741</span></sup>。<span class="ref">p.107</span></li>
@@ -879,7 +893,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch5-s12" data-w="2707">十二、跨章整合：外觀線索、骨變化與 exenteration</h2>
 <h3 id="ch5-s12-1">眼周外觀線索（periorbital clues）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Sign（徵象）</th><th>想到的病因</th><th>出處</th></tr></thead>
 <tbody>
 <tr><td id="np-399">S-shaped eyelid（S 形眼瞼）</td><td id="np-400">Plexiform neurofibroma（NF1 上眼瞼外側）、lacrimal gland mass（淚腺腫塊）⁠<sup class="ex-qref"><span>Q1703</span> <span>Q747</span></sup></td><td id="np-401"><span class="ref">p.90; BCSC 7 p.24</span></td></tr>
@@ -891,9 +905,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-417">Enophthalmos（眼球內陷）</td><td id="np-418">Fracture、silent sinus syndrome、orbital varix（靜止時）、sclerosing orbital tumors 如 metastatic breast carcinoma（可合併運動受限）⁠<sup class="ex-qref"><span>Q1700</span></sup></td><td id="np-419"><span class="ref">p.80, p.110, p.114; BCSC 7 p.25</span></td></tr>
 <tr><td id="np-420">Inferolateral displacement（眼球下外側移位）+ proptosis</td><td id="np-421">Frontoethmoidal mucocele（BCSC 7 p.25 另列 abscess、osteoma、ethmoid sinus carcinoma）⁠<sup class="ex-qref"><span>Q708</span></sup></td><td id="np-422"><span class="ref">p.110; BCSC 7 p.25</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="ch5-s12-2">眼窩骨變化</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病灶）</th><th>骨變化</th><th>出處</th></tr></thead>
 <tbody>
 <tr><td id="np-423">B-cell lymphoma／lymphoproliferative lesion</td><td id="np-424"><mark class="ex-key">典型無骨變化</mark>（除高惡性度外通常不見骨侵蝕）⁠<sup class="ex-qref"><span>Q795</span> <span>Q811</span></sup></td><td id="np-425"><span class="ref">p.100, p.107</span></td></tr>
@@ -906,9 +920,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-444">Neuroblastoma／成人轉移</td><td id="np-445">Neuroblastoma 常見骨破壞（尤其外側眶壁或蝶骨骨髓）；成人蝶骨骨髓腔溶骨性破壞高度提示轉移</td><td id="np-446"><span class="ref">p.112–113</span></td></tr>
 <tr><td id="np-447">Sphenoid wing meningioma／fibrous dysplasia／osteoma</td><td id="np-448">Hyperostosis（分別有 dural tail、MRI 無硬腦膜顯影、邊界清楚的緻密骨質增生）</td><td id="np-449"><span class="ref">p.91, p.97</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="ch5-s12-3">Exenteration（眼窩內容物剜除）與本章病灶</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病灶）</th><th>與 exenteration 相關的處置敘述</th><th>出處</th></tr></thead>
 <tbody>
 <tr><td id="np-450">Rhabdomyosarcoma</td><td id="np-451">1965 年後以放療 + 全身化療為初次治療主軸；<mark class="ex-key">exenteration 保留給復發病例</mark>⁠<sup class="ex-qref"><span>Q709</span> <span>Q772</span></sup></td><td id="np-452"><span class="ref">p.95</span></td></tr>
@@ -917,7 +931,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-459">由眼瞼、結膜、鼻竇、臉或顱內延伸入眼窩的破壞性腫瘤；穿過 orbital septum 的大型或復發 sebaceous carcinoma；延伸至眼球外且排除遠處轉移的 intraocular melanoma／retinoblastoma</td><td id="np-460">應考慮 exenteration（第 8、10 章適應症；並非所有此類腫瘤都適用，本章外）⁠<sup class="ex-qref"><span>Q709</span> <span>Q772</span></sup></td><td id="np-461"><span class="ref">p.109; BCSC 7 p.159, p.224</span></td></tr>
 <tr><td id="np-462">眼窩淋巴瘤</td><td id="np-463">因浸潤性通常無法手術根治；EMZL、FL 放療通常效果好，非 EMZL 更常加化療與免疫調節；CD20 陽性可用 rituximab⁠<sup class="ex-qref"><span>Q772</span></sup></td><td id="np-464"><span class="ref">p.102</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="hs-tip-box">
 <h4>易混淆比較與口訣</h4>
 <ul>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -371,7 +385,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-1">全身性疾病可能最先由眼科醫師依眼部徵象發現；<mark>及早診斷有助於降低罹病率與死亡率</mark>；有全身性疾病眼部表現的兒童常需多專科團隊才能得到最佳照護。<span class="ref">p.403</span></li>
 <li id="np-2">染色體異常（數目：aneuploidy（非整倍體），如 trisomy／monosomy；結構：duplication、deletion、translocation、inversion、ring；種類：體染色體或性染色體）約佔活產 <span class="num">1/150</span>。<span class="ref">p.403</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Abnormality（異常）</th><th>Incidence（新生兒發生率）</th><th>Common ocular findings（常見眼部表現）</th><th>Uncommon（較少見）</th></tr></thead>
 <tbody>
 <tr><td id="np-3">Trisomy 13（Patau syndrome）</td><td id="np-4"><span class="num">1/16,000</span></td><td id="np-5"><mark>Microphthalmia、coloboma、retinal dysplasia 常合併眼內軟骨島（islands of intraocular cartilage）</mark></td><td id="np-6">白內障、角膜混濁、cyclopia（獨眼畸形）、persistent fetal vasculature（PFV，持續性胎兒血管）、眶上脊淺、上斜瞼裂、無眉、眼距過近、眼距過遠、anophthalmia、青光眼</td></tr>
@@ -383,7 +397,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-27">Deletion 18q</td><td id="np-28"><span class="num">1/55,000</span></td><td id="np-29">Epicanthus、眼距過遠、下斜瞼裂、斜視、視神經發育不良或萎縮、nystagmus</td><td id="np-30">角膜異常、白內障、blue sclera（藍鞏膜）、近視、colobomatous microphthalmia</td></tr>
 <tr><td id="np-31">Monosomy X（Turner syndrome）</td><td id="np-32">女性 <span class="num">1/2000–2500</span></td><td id="np-33">斜視、ptosis</td><td id="np-34">白內障、屈光不正、角膜瘢痕、blue sclera；<mark>色盲比例與男性相近</mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-35">出處 <span class="ref">p.404</span></p>
 <div class="ex-trap"><h3 id="ch27-s1-1">易錯陷阱</h3><ul>
 <li id="np-36">Brushfield spots 列為 Trisomy 21（Down syndrome）的常見眼部表現⁠<sup class="ex-qref"><span>Q597</span></sup>。<span class="ref">p.404</span></li>
@@ -404,7 +418,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-46">眼科醫師常是第一個依眼部徵象懷疑代謝疾病者（galactosemia、classic homocystinuria、cystinosis、部分 MPS、CTX）→ <strong>儘速轉介遺傳科</strong>至關重要；及早辨識與控制可大幅降低眼部與全身後遺症的風險。<span class="ref">p.411</span></li>
 </ul>
 <h3 id="ch27-s2-2">Table 27-2 精簡</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Disorder（疾病）/ enzyme</th><th>Anterior segment（前段）</th><th>Posterior segment / motility（後段／眼動）</th></tr></thead>
 <tbody>
 <tr><td id="np-47">Classic galactosemia（GALT 缺乏）</td><td id="np-48">白內障（嬰兒期發生）</td><td id="np-49">—</td></tr>
@@ -429,7 +443,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-104">NCL：CLN3（少年型 <span class="num">4–8 歲</span>）</td><td id="np-105">—</td><td id="np-106">早發快速視網膜失養、bull's-eye maculopathy；ERG 早期 <strong>electronegative</strong>、後期無法記錄</td></tr>
 <tr><td id="np-107">Abetalipoproteinemia（Bassen-Kornzweig syndrome，MTP）</td><td id="np-108">—</td><td id="np-109">視網膜退化：夜盲 → 伴視力喪失的非典型視網膜病變 → 色素性視網膜病變、血管周圍沉積</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-110">出處（+ 號表示該眼部表現出現的相對可能性；除特別註明外遺傳為 AR） <span class="ref">p.405–407</span></p>
 <ul>
 <li id="np-111">MPS 曾有 optic atrophy 與 papilledema 的報告；craniosynostosis（顱縫早閉）可致顱內壓上升，<strong>MPS IV 除外</strong>。許多 sphingolipidoses 有神經退化（如發展里程碑倒退、進行性神經徵象）。<span class="ref">p.407</span></li>
@@ -459,7 +473,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-123">感光細胞內外節交界是<strong>改良的 nonmotile cilium（非運動纖毛）</strong> → ciliopathy 常侵犯視網膜；<mark>視網膜病變續發於全身性 ciliopathy 的孩子，有同時或日後腎功能異常的風險</mark>。任何早發性視網膜失養的孩子，都建議考慮全身性 ciliopathy，並轉介遺傳諮詢師與醫學遺傳專科。<span class="ref">p.411</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>原文列出的表現（皆有 retinopathy 與 renal dysfunction）</th></tr></thead>
 <tbody>
 <tr><td id="np-124">Senior-Loken syndrome</td><td id="np-125">視網膜病變、腎功能異常</td></tr>
@@ -467,7 +481,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-128">Alstrom syndrome</td><td id="np-129"><mark>Cardiomyopathy（心肌病變）</mark>、肥胖</td></tr>
 <tr><td id="np-130">Joubert syndrome</td><td id="np-131">Ocular motor apraxia（眼動失用）、發展遲緩、特徵性 MRI <strong>molar tooth sign（臼齒徵）</strong>：深 interpeduncular fossa、粗長 superior cerebellar peduncles、cerebellar vermis 發育不全</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-132">出處 <span class="ref">p.411–412</span></p>
 <h3 id="ch27-s3-3">Lowe（oculocerebrorenal）syndrome</h3>
 <ul>
@@ -484,7 +498,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-138">又稱 <strong>phakomatoses（斑痣性錯構瘤病）</strong>：一群異質性的先天症候群，特徵為眼、CNS 與皮膚的全身性 <strong>hamartoma（錯構瘤）</strong>。診斷靠臨床，但多數病例的分子病因涉及 tumor suppressor gene（腫瘤抑制基因）喪失、AR 遺傳或 somatic mosaicism（體細胞鑲嵌）。Table 27-3 列出 NF1、NF2、TSC、VHL、Sturge-Weber、AT、IP、Wyburn-Mason、KTWS。Marfan syndrome 由 FBN1 突變造成，表現為心血管、肌肉骨骼與眼部異常（BCSC 6 p.320）⁠<sup class="ex-qref"><span>Q445</span></sup>。<span class="ref">p.412, p.414–415；BCSC 6 p.320</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Disease（疾病）</th><th>Gene / 遺傳</th><th>Ocular（眼）</th><th>Skin / CNS &amp; systemic（皮膚／全身）</th><th>Incidence / comments</th></tr></thead>
 <tbody>
 <tr><td id="np-139">NF1（von Recklinghausen）</td><td id="np-140">NF1（17q11.2，tumor suppressor），<strong>AD</strong></td><td id="np-141">眼眶或眼瞼 neurofibroma、青光眼、角膜神經明顯、Lisch nodules、iris ectropion、視網膜與脈絡膜 hamartoma、optic pathway glioma、屈光不正</td><td id="np-142">皮膚：cafe-au-lait、neurofibroma、腋下或鼠蹊雀斑；全身：sphenoid dysplasia、optic pathway glioma</td><td id="np-143"><span class="num">1/3500</span>；新突變常見、表現度不一常見；genetic mosaicism 病人依循與 germline 突變者相同的篩檢準則</td></tr>
@@ -497,7 +511,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-174">Racemose angioma（Wyburn-Mason）</td><td id="np-175">Nonhereditary、sporadic</td><td id="np-176">Retinal racemose angioma</td><td id="np-177">皮膚：顏面病灶（若有）；全身：顱內 AVM，可出血</td><td id="np-178">單獨病灶比症候群常見</td></tr>
 <tr><td id="np-179">Klippel-Trenaunay-Weber（PROS）</td><td id="np-180">PIK3CA，mosaic</td><td id="np-181">青光眼</td><td id="np-182">皮膚：類似 Sturge-Weber 的 nevus flammeus、色素沉著痣與條紋；全身：肢體異常（不對稱肢體肥大、多指/併指/少指）、癲癇、Kasabach-Merritt syndrome</td><td id="np-183">微血管與靜脈畸形合併肢體過度生長，可有或無淋巴管畸形</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-184">出處 <span class="ref">p.414–415</span></p>
 <div class="ex-trap"><h3 id="ch27-s4-1">易錯陷阱</h3><ul>
 <li id="np-185">遺傳方式：NF1、NF2、TSC、VHL 皆 <strong>AD</strong>；<strong>AT 是 AR</strong>；<strong>IP 是 X-linked dominant</strong>；Sturge-Weber 為 somatic mosaicism、KTWS 為 mosaic；Wyburn-Mason 非遺傳（sporadic）。<span class="ref">p.414–415</span></li>
@@ -557,7 +571,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-210">多器官良性腫瘤，主要為皮膚、腦、心、腎、眼。經典 <mark class="ex-key"><strong>Vogt triad</strong>：cognitive impairment（認知障礙）、<strong>seizures（癲癇）</strong>、facial angiofibromas（臉部血管纖維瘤）</mark>。幼兒通常還沒有 angiofibroma，但已有 <strong>hypomelanotic macules（ash-leaf spots）</strong>⁠<sup class="ex-qref"><span>Q537</span></sup>。<span class="ref">p.418</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Feature（表現）</th><th>Characteristic（特點）</th></tr></thead>
 <tbody>
 <tr><td id="np-211">Ash-leaf spot</td><td id="np-212">界線清楚的色素減少皮膚病灶；紫外光下更明顯；<strong>嬰兒期</strong>出現</td></tr>
@@ -567,7 +581,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-219">Seizures</td><td id="np-220">腦室周圍或基底核鈣化（代表良性 astrocytoma）；皮質 tuberous malformations；<span class="num">50%</span> 病人有認知障礙</td></tr>
 <tr><td id="np-221">Other tumors</td><td id="np-222">Cardiac rhabdomyoma；骨與腎病灶</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-223">出處 <span class="ref">p.419</span></p>
 <h3 id="ch27-s7-2">Retinal astrocytic hamartoma（視網膜星狀細胞錯構瘤，retinal phakoma）</h3>
 <ul>
@@ -630,7 +644,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-255">眼：約 <span class="num">35–77%</span> 有眼部侵犯；<mark>增殖性視網膜血管病變，與 ROP 極為相似，通常<strong>單側或極不對稱</strong></mark>。出生時可能只見周邊視網膜血管化不全，之後在血管/無血管交界附近出現異常 AV 連接、微血管異常、新生血管膜；有時快速進展，在生後數月內出現全視網膜剝離與 retrolental membrane；小眼球、白內障、青光眼、視神經萎縮、斜視、眼振可能出現，通常續發於末期視網膜病變。<span class="ref">p.425–426</span></li>
 <li id="np-256">出生後 <span class="num">1–2 年</span>需連續追蹤視網膜以找出需治療者；IP 視網膜病變對 photocoagulation 或 cryotherapy 的反應成效不一，治療主要針對<strong>周邊無血管視網膜</strong>（同 ROP 或其他早發性 FEVR）。<span class="ref">p.426–427</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>遺傳 / 族群</th><th>關鍵鑑別</th></tr></thead>
 <tbody>
 <tr><td id="np-257">Incontinentia pigmenti</td><td id="np-258">X-linked dominant，半合子男性推定胎死</td><td id="np-259">皮膚水皰 → splashed paint 色素斑；眼部通常單側或極不對稱</td></tr>
@@ -638,7 +652,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-263">Retinopathy of prematurity（ROP，早產兒視網膜病變）</td><td id="np-264">早產；出生體重常低；無家族史</td><td id="np-265">病程可預測；晚期以瘢痕化常見</td></tr>
 <tr><td id="np-266">Coats disease</td><td id="np-267">6–8 歲發病，通常單眼，男性為主（85%）；未發現相關基因或遺傳模式</td><td id="np-268">視網膜血管擴張，常合併滲出性視網膜剝離</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-269">出處 <span class="ref">p.425–427；BCSC 12 p.178, p.362</span></p>
 <h3 id="ch27-s10-3">Racemose angioma（Wyburn-Mason syndrome）</h3>
 <ul>
@@ -741,7 +755,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-319">Flavivirus，Aedes aegypti 傳播；近期發現與先天<strong>小頭症</strong>、脈絡膜視網膜病灶、cerebral visual impairment 相關。<span class="ref">p.434</span></li>
 <li id="np-320">巴西 29 名推定子宮內 Zika 感染嬰兒：<span class="num">10</span> 名（<span class="num">35%</span>）眼部異常，其中 <span class="num">7</span> 名雙側；後極部<strong>色素團塊</strong>與局限性脈絡膜視網膜萎縮；1 名有虹膜缺損（iris coloboma）與水晶體半脫位。<span class="ref">p.434</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（病原）</th><th>Signature ocular finding（代表性眼部表現）</th><th>Diagnosis / treatment（診斷／治療）</th></tr></thead>
 <tbody>
 <tr><td id="np-321">Rubella</td><td id="np-322">Nuclear cataract、salt-and-pepper retinopathy（原文註「most common finding」，最常見表現）、青光眼、小眼球</td><td id="np-323">臨床 + 血清學；咽喉拭子或水晶體內容物分離病毒；白內障通常需 lensectomy，術後高劑量局部類固醇 + 散瞳劑</td></tr>
@@ -751,7 +765,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-333">LCMV</td><td id="np-334">脈絡膜視網膜疤痕（可侵犯整個黃斑）</td><td id="np-335">較常見病因檢查陰性時考慮；抗體效價升高確診；無特定治療</td></tr>
 <tr><td id="np-336">Zika</td><td id="np-337">後極部色素團塊、局限性脈絡膜視網膜萎縮；伴先天小頭症</td><td id="np-338">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-339">出處 <span class="ref">p.431–434</span></p>
 <div class="ex-trap"><h3 id="ch27-s13-8">易錯陷阱</h3><ul>
 <li id="np-340">威脅視力的弓形蟲病灶以抗微生物藥物全身治療，可合併口服類固醇（BCSC 6 p.382）；IgM 不通過胎盤，新生兒驗出 IgM 可確認先天感染（BCSC 9 p.289）。<span class="ref">p.431；BCSC 6 p.382；BCSC 9 p.289</span></li>
@@ -777,13 +791,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-352"><strong>Opsoclonus（眼陣攣）</strong>：快速、多方向 saccade 的 paraneoplastic 症候群；與 neuroblastoma 相關，但與眼眶侵犯<strong>無關</strong>；<mark>與良好的存活預後相關</mark>，但神經缺損可能持續。<span class="ref">p.437</span></li>
 <li id="np-353">原發於頸部或肺尖胸腔、侵犯交感神經鏈的 neuroblastoma 可致 <strong>Horner syndrome</strong>（圖 27-30：一名 6 個月男嬰局部胸內 neuroblastoma 的首發徵象）。治療：手術、化療、自體幹細胞移植、免疫治療、放療。<span class="ref">p.437</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Periorbital sign（眼周徵象）</th><th>Etiology（病因，BCSC 7 Table 2-1）</th></tr></thead>
 <tbody>
 <tr><td id="np-354">Ecchymosis of eyelid skin（眼瞼皮膚瘀青）</td><td id="np-355">Metastatic neuroblastoma、leukemia、amyloidosis</td></tr>
 <tr><td id="np-356">Prominent temple（太陽穴隆起）</td><td id="np-357">Sphenoid wing meningioma、metastatic neuroblastoma</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-358">出處 <span class="ref ref-ext">BCSC 7 p.24</span></p>
 <div class="ex-trap"><h3 id="ch27-s14-3">易錯陷阱</h3><ul>
 <li id="np-359">白血病最常見眼部表現為視網膜出血，尤其神經纖維層火焰狀出血。<span class="ref">p.435</span></li>

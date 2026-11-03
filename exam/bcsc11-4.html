@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -376,7 +390,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-5"><strong>Subluxated lens（半脫位水晶體）</strong>：部分移位但仍在瞳孔區內；<strong>luxated / dislocated lens（全脫位水晶體）</strong>：完全離開瞳孔區。<span class="ref">p.37</span></li>
 </ul>
 <h3 id="ch4-s1-2">胚胎時間軸（Fig 4-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Stage（階段）</th><th>Timing（妊娠時間）</th><th>Key event（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-6">Optic vesicle（視泡）</td><td id="np-7">約 <span class="num">25 天</span></td><td id="np-8">前腦（diencephalon，間腦）向兩側外突，貼附於表面外胚層</td></tr>
@@ -391,7 +405,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-33">Fetal nucleus（胎兒核）</td><td id="np-34">圖示 <span class="num">12–14 週</span>；由妊娠 <span class="num">2–8 個月</span>形成的次級纖維構成</td><td id="np-35">Sutural cataract 是 fetal nucleus Y 字縫的混濁</td></tr>
 <tr><td id="np-36">Zonular fibers（懸韌帶纖維）</td><td id="np-37">妊娠<span class="num">第 3 個月</span>末開始</td><td id="np-38">實驗證據提示由 ciliary epithelium（睫狀上皮）分泌</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-39">出處 <span class="ref">p.37–41, p.51</span></p>
 <h3 id="ch4-s1-3">Optic vesicle、lens placode、lens pit 與 lens vesicle</h3>
 <ul>
@@ -432,7 +446,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-61">大多數重大眼與眼眶先天異常在出生前 ultrasonography（超音波）即可看到；<mark>通常（as a rule）異常愈嚴重，發生的發育時期愈早</mark>。<span class="ref">p.42</span></li>
 <li id="np-62">水晶體異常包括形狀、大小、位置、發育的異常及白內障（Table 4-1）。<span class="ref">p.42</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Abnormality（異常類別）</th><th>Disorder（疾病）</th><th>Associated with（相關疾病）</th></tr></thead>
 <tbody>
 <tr><td id="np-63" rowspan="3">Shape（形狀）</td><td id="np-64">Microspherophakia（小球狀水晶體）</td><td id="np-65">Weill-Marchesani syndrome（AR）、Peters anomaly type 2、Marfan syndrome、Alport syndrome、Lowe syndrome、congenital rubella</td></tr>
@@ -445,7 +459,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-81">Capsular（capsulolenticular 之下）</td><td id="np-82">Persistent fetal vasculature</td></tr>
 <tr><td id="np-83">Sutural、coronary、cerulean、nuclear、complete、membranous、rubella</td><td id="np-84">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-85">出處（Table 4-1；AD = autosomal dominant，AR = autosomal recessive）<span class="ref">p.43</span></p>
 <h3 id="ch4-s2-2">Congenital aphakia（先天性無晶體）</h3>
 <ul>
@@ -486,7 +500,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-108"><strong>Epicapsular star（囊上星狀色素）</strong>：<mark class="ex-key">tunica vasculosa lentis 另一種<strong>非常常見</strong>的殘留</mark>；在<strong>前囊中央</strong>呈星狀分布的細小棕色或金色斑點；可單側或雙側⁠<sup class="ex-qref"><span>Q1321</span> <span>Q1336</span> <span>Q1388</span></sup>。<span class="ref">p.45</span></li>
 <li id="np-109">Mittendorf dot、epicapsular star 與 PFV 在 Table 4-1 列為 <strong>extralenticular opacities（水晶體外混濁）</strong>。<span class="ref">p.43</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（殘留）</th><th>Origin（來源）</th><th>Location / appearance（位置與外觀）</th><th>Clinical note（臨床意義）</th></tr></thead>
 <tbody>
 <tr><td id="np-110">Mittendorf dot</td><td id="np-111">Tunica vasculosa lentis 的 posterior pupillary membrane；標記 hyaloid artery 接觸點</td><td id="np-112">小而緻密的白點，通常位於後極下鼻側；有時連著纖維尾</td><td id="np-113">常見，許多健康眼可見</td></tr>
@@ -495,7 +509,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-122">Bergmeister papilla</td><td id="np-123">Hyaloid artery 後段一小部分</td><td id="np-124">通常呈視神經頭表面向前伸的薄紗狀／指狀突起</td><td id="np-125">BCSC 4 p.153</td></tr>
 <tr><td id="np-126">Persistent fetal vasculature</td><td id="np-127">源自 hyaloid artery 的 tunica vasculosa lentis 未退化可導致（BCSC 2 p.160）</td><td id="np-128">白色纖維性 retrolental tissue（晶體後組織）</td><td id="np-129"><span class="num">90%</span> 病人為單側；不見於健康眼</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-130">出處 <span class="ref">p.41, p.44–45, p.47, p.51；BCSC 2 p.160；BCSC 4 p.153</span></p>
 <div class="ex-trap"><h3 id="ch4-s3-1">易錯陷阱</h3><ul>
 <li id="np-131">Mittendorf dot 位於水晶體<strong>後方</strong>，通常在後極下鼻側；epicapsular star 是前囊中央的星狀細點，也是非常常見的 tunica vasculosa lentis 殘留；pupillary membrane 殘留常可見為 pupillary strands⁠<sup class="ex-qref"><span>Q1388</span></sup>。<span class="ref">p.41, p.44–45</span></li>
@@ -569,13 +583,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-175">型態：lamellar、polar、sutural、coronary、cerulean、nuclear、capsular、complete、membranous、rubella。<span class="ref">p.49</span></li>
 </ul>
 <h3 id="ch4-s6-1">Table 4-2 Etiology of pediatric cataracts（小兒白內障病因）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Type（側別）</th><th>Causes（病因）</th></tr></thead>
 <tbody>
 <tr><td id="np-176">Unilateral（單側）</td><td id="np-177"><strong>Idiopathic（特發性）</strong>；ocular anomalies（眼部異常）：<strong>persistent fetal vasculature</strong>、anterior segment dysgenesis、posterior lenticonus、posterior lentiglobus、posterior pole tumors（後極腫瘤）、retinal detachment（任何原因）、coloboma；trauma（含 child abuse，兒童虐待）；masked bilateral cataract（被掩蓋的雙側白內障）；radiation（可單側或雙側）</td></tr>
 <tr><td id="np-178">Bilateral（雙側）</td><td id="np-179">Idiopathic；<strong>heredity（遺傳）</strong>（AD 最常見，也可 AR 或 X-linked）；genetic and metabolic diseases（遺傳與代謝疾病）：trisomy 21（Down syndrome）、Hallermann-Streiff syndrome、Lowe syndrome、galactosemia、trisomy 13／15／18、hypoglycemia／hyperglycemia、Alport syndrome、<strong>myotonic dystrophy</strong>、Fabry disease、hypoparathyroidism（副甲狀腺低能症）；<strong>intrauterine infections（子宮內感染）</strong>：cytomegalovirus（CMV）、rubella、syphilis（梅毒）、toxoplasmosis（弓漿蟲症）、varicella（水痘）；ocular anomalies：<strong>aniridia</strong>、anterior segment dysgenesis syndrome；toxicity（毒性）：corticosteroids（皮質類固醇）、radiation（可單側或雙側）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-180">出處（Table 4-2）<span class="ref">p.49</span></p>
 <ul>
 <li id="np-181"><mark class="ex-key">Table 4-2 列出的 intrauterine infections（子宮內感染）為 <strong>CMV、rubella、syphilis、toxoplasmosis、varicella</strong>，列於<strong>雙側</strong>欄</mark>⁠<sup class="ex-qref"><span>Q1298</span> <span>Q562</span> <span>Q683</span></sup>。<span class="ref">p.49</span></li>
@@ -624,7 +638,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-205">其他眼部表現：diffuse pigmentary retinopathy（瀰漫性色素性視網膜病變）、microphthalmos、glaucoma、暫時或永久角膜混濁。<mark class="ex-key">雖可造成白內障或青光眼，但<strong>兩者通常不會同時出現在同一眼</strong></mark>⁠<sup class="ex-qref"><span>Q1320</span></sup>。<span class="ref">p.53</span></li>
 <li id="np-206">Congenital rubella 也列於 microspherophakia 的相關疾病（Table 4-1）。<span class="ref">p.43, p.46</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（型態）</th><th>Location / look（位置與外觀）</th><th>Laterality / inheritance（側別與遺傳）</th><th>Vision（視力影響）</th></tr></thead>
 <tbody>
 <tr><td id="np-207">Lamellar（最常見）</td><td id="np-208">特定層混濁包住清中心；riders</td><td id="np-209">典型雙側對稱；可 AD 或短暫毒性</td><td id="np-210">視大小與密度而定</td></tr>
@@ -639,7 +653,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-243">Membranous</td><td id="np-244">蛋白吸收、前後囊融合成白膜</td><td id="np-245">—</td><td id="np-246">通常明顯障礙</td></tr>
 <tr><td id="np-247">Rubella</td><td id="np-248">珍珠白核混濁，有時全白、皮質可液化；纖維核滯留</td><td id="np-249">母體感染，尤其第一孕期</td><td id="np-250">摘除時可能併發術後過度發炎</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-251">出處 <span class="ref">p.49–53</span></p>
 <div class="ex-trap"><h3 id="ch4-s7-6">易錯陷阱</h3><ul>
 <li id="np-252">先天性白內障中最常見的型態是 <strong>lamellar（zonular）</strong>⁠<sup class="ex-qref"><span>Q1320</span> <span>Q1406</span></sup>。<span class="ref">p.49</span></li>
@@ -699,7 +713,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-286"><mark class="ex-key">通常<strong>雙側但不對稱</strong></mark>；典型虹膜<strong>散瞳差</strong>⁠<sup class="ex-qref"><span>Q1368</span></sup>。<span class="ref">p.57</span></li>
 <li id="np-287">相關眼部異常：嚴重 axial myopia、retinal detachment、角膜直徑增大、cataract、虹膜 transillumination（透照）異常。<span class="ref">p.57</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Inheritance / gene（遺傳）</th><th>Lens displacement（脫位方向）</th><th>Systemic clue（全身線索）</th><th>Pitfall（重點）</th></tr></thead>
 <tbody>
 <tr><td id="np-288">Marfan syndrome</td><td id="np-289">通常 AD（約 <span class="num">15%</span> 無家族史）；FBN1，chr <span class="num">15</span></td><td id="np-290"><span class="num">50%–80%</span>；傾向雙側對稱，通常上顳側；懸韌帶常完整但拉長</td><td id="np-291">高、蜘蛛指、主動脈根擴張、二尖瓣脫垂</td><td id="np-292">眼鏡／隱形眼鏡在多數病例可達滿意視力，常需近用加入度；水晶體摘除併發症比例高</td></tr>
@@ -709,7 +723,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-308">Ectopia lentis et pupillae</td><td id="np-309">AR</td><td id="np-310">水晶體與瞳孔反向移位</td><td id="np-311">—</td><td id="np-312">通常雙側但不對稱；瞳孔通常呈裂縫狀、典型散瞳差</td></tr>
 <tr><td id="np-313">Simple ectopia lentis</td><td id="np-314">通常 AD</td><td id="np-315">單獨異常（isolated anomaly）</td><td id="np-316">—</td><td id="np-317">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-318">出處 <span class="ref">p.43, p.46, p.55–57</span></p>
 <div class="ex-trap"><h3 id="ch4-s9-5">易錯陷阱</h3><ul>
 <li id="np-319">Marfan 半脫位：眼鏡或隱形眼鏡在多數病例可達滿意視力；可分別驗 phakic 與 aphakic 部分以找最佳視力；調節力不足常需 reading add；散瞳有時有幫助；光學矯正無法達足夠視力時可能需摘除水晶體，但併發症比例高⁠<sup class="ex-qref"><span>Q1307</span> <span>Q1356</span></sup>。<span class="ref">p.55–56</span></li>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -375,7 +389,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-4">病程：通常視力在數天到數週內穩定、疼痛與畏光減輕；之後仍可能有屈光變化，但無併發症白內障手術後，多數病人（若需要）於術後 <span class="num">2–6 週</span>配發術後眼鏡。<span class="ref">p.186</span></li>
 </ul>
 <h3 id="ch11-s1-2">術後併發症（由最常見到最少見）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Complication（併發症）</th><th>Incidence（發生率）</th></tr></thead>
 <tbody>
 <tr><td id="np-5">Posterior capsule opacification（PCO，後囊混濁）</td><td id="np-6">常見；隨術後時間增加</td></tr>
@@ -388,7 +402,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-19">Endophthalmitis（眼內炎）</td><td id="np-20"><span class="num">0.04%–0.20%</span></td></tr>
 <tr><td id="np-21">Toric IOL rotation（散光人工水晶體旋轉）</td><td id="np-22">罕見；發生於術後早期</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-23">出處 <span class="ref">p.186</span></p>
 <div class="ex-trap"><h3 id="ch11-s1-3">易錯陷阱</h3><ul>
 <li id="np-24">本章術後併發症由最常見排到最少見：PCO 居首、toric IOL rotation 居末；眼內炎發生率 <span class="num">0.04%–0.20%</span>（大型回溯研究）。BCSC 9 p.315：急性術後與外傷後眼內炎發生率 <span class="num">0.04%–0.2%</span>；慢性術後眼內炎常長期未被診斷，發生率尚未確立⁠<sup class="ex-qref"><span>Q981</span></sup>。<span class="ref">p.186, p.217；BCSC 9 p.315</span></li>
@@ -440,13 +454,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch11-s3" data-w="5345">三、其他前段併發症</h2>
 <h3 id="ch11-s3-1">Epithelial or fibrous ingrowth（上皮或纖維內生）</h3>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Features（特徵）</th><th>Course（病程）</th></tr></thead>
 <tbody>
 <tr><td id="np-53">Epithelial ingrowth（上皮內生，downgrowth）</td><td id="np-54">罕見；上皮（非纖維血管組織）在角膜內皮、小樑網、虹膜表面增生；眼壓高、前房細胞團、灰色 retrocorneal membrane（角膜後膜，常伴水腫）、虹膜表面異常、瞳孔變形；<mark>green laser 打在虹膜表面的膜上，若有上皮細胞會變白，有助確認診斷</mark></td><td id="np-55">進展較快</td></tr>
 <tr><td id="np-56">Fibrous ingrowth（纖維內生）</td><td id="np-57"><mark>比上皮內生更常見</mark>；纖維血管組織由穿透性傷口長入；為角膜移植失敗的常見原因，可能造成 PAS 與 secondary angle-closure glaucoma</td><td id="np-58">較慢，可能自限</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-59">出處 <span class="ref">p.190</span></p>
 <ul>
 <li id="np-60">共同危險因子：外傷、長期發炎、wound dehiscence、延遲閉合切口、vitreous incarceration（玻璃體嵌頓）、先前濾過手術、Descemet membrane tear。<span class="ref">p.190</span></li>
@@ -456,14 +470,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-62">術後平前房可能永久傷害眼內結構：虹膜長期貼附隅角 → 可導致 PAS 與慢性隅角閉鎖性青光眼；玻璃體或 IOL 接觸角膜 → 可導致內皮流失與慢性水腫。依病因與<strong>眼壓高低</strong>分類（Table 11-2）。<span class="ref">p.191</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>IOP level（眼壓）</th><th>Causes（原因，Table 11-2）</th></tr></thead>
 <tbody>
 <tr><td id="np-63">低眼壓，術後早期</td><td id="np-64">Incision leak、<strong>choroidal detachment（脈絡膜剝離）</strong>、ciliary body detachment（睫狀體剝離）</td></tr>
 <tr><td id="np-65">低眼壓，術後晚期</td><td id="np-66">Cyclodialysis（睫狀體分離）、retinal detachment、filtering bleb formation、uveitis</td></tr>
 <tr><td id="np-67">正常或高眼壓</td><td id="np-68">ACIOL 未做通暢 peripheral iridectomy、<strong>pupillary block</strong>、<strong>aqueous misdirection</strong>、capsular block syndrome、suprachoroidal hemorrhage</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-69">出處 ⁠<sup class="ex-qref"><span>Q1429</span></sup><span class="ref">p.192</span></p>
 <ul>
 <li id="np-70">UGH syndrome：IOL 接觸隅角、虹膜或 ciliary sulcus 結構造成反覆眼內出血（p.193）；最早描述於 rigid 或 closed-loop ACIOL，如今也可能發生於 PCIOL（p.202）；Table 11-1 將其列為早期或晚期術後角膜水腫的 IOL 相關原因（p.187）⁠<sup class="ex-qref"><span>Q1429</span></sup>。<span class="ref">p.187, p.193, p.202</span></li>
@@ -576,13 +590,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-137"><strong>Z syndrome</strong>：accommodating IOL（可調節式 IOL）可能因 haptic 位置不當或不對稱囊袋收縮而<strong>向前拱起</strong>；常可用 posterior capsulotomy 處理，但鏡片可能需手術復位或取出⁠<sup class="ex-qref"><span>Q1347</span></sup>。<span class="ref">p.205</span></li>
 <li id="np-138">Dysphotopsia 是光線與 IOL optic 交互作用造成的異常視覺症狀；目前研究指出病人對 dysphotopsia 的感受可能也有中樞 neuroadaptation 成分參與，negative 比 positive 更明顯。<span class="ref">p.205</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（類型）</th><th>Symptoms（症狀）</th><th>Associated with（相關因素）</th><th>Management（處置）</th></tr></thead>
 <tbody>
 <tr><td id="np-139">Positive dysphotopsia（正性光學異象）</td><td id="np-140">中周邊 glare、streaks、flashes、arcs、halos</td><td id="np-141"><mark>較常見於 truncated square-edge、higher-index 材質、multifocal IOL</mark>；BCSC 3 p.274：光線打到 IOL 邊緣可能反射到視網膜他處，較平滑邊緣的 IOL 較少發生；IOL 屈光指數越高，可能越容易發生內部再反射</td><td id="np-142">—</td></tr>
 <tr><td id="np-143">Negative dysphotopsia（負性光學異象）</td><td id="np-144">弧形暗影／暗新月，通常在顳側視野</td><td id="np-145"><mark>可能發生於 PCIOL 置中於囊袋、前囊邊緣蓋住 optic 的常規情境</mark>；任何囊袋內 IOL 皆可能；<strong>未見於 ACIOL 與 sulcus- 或 scleral-fixated 鏡片</strong>；左眼、女性較多；可能較常見於 acrylic、square-edge、高屈光指數</td><td id="np-146">先觀察；持續者 <strong>reverse optic capture</strong> 或 sulcus fixation</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-147">出處 ⁠<sup class="ex-qref"><span>Q1361</span> <span>Q1364</span></sup><span class="ref">p.205–206；BCSC 3 p.274</span></p>
 <ul>
 <li id="np-148">Negative dysphotopsia 機轉：易感眼中，顳側光線可能打到鼻側 lens edge 與覆蓋其上的前囊，在鼻側視網膜形成 penumbra（半影）；縮瞳或瞳孔偏鼻側時較常見，散瞳或遮擋顳側光可能緩解。<span class="ref">p.206</span></li>
@@ -660,13 +674,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-198"><mark class="ex-key"><strong>Corneal topography（角膜地形圖）</strong>可能有助找出複視的角膜原因；<strong>OCT</strong> 可能有助排除黃斑原因的單眼複視</mark>⁠<sup class="ex-qref"><span>Q1421</span></sup>。<span class="ref">p.214</span></li>
 <li id="np-199">單眼複視與持續雙眼複視的治療都針對病因；fusion 中斷與 anisometropia 可用適當光學矯正（prism，必要時 slab-off bifocal），可能需對側眼白內障手術或隱形眼鏡；muscle paresis／restriction 時 prism 矯正常已足夠，可能需轉介斜視專科。<span class="ref">p.214</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Type（類型）</th><th>Common causes（常見原因，Table 11-3）</th></tr></thead>
 <tbody>
 <tr><td id="np-200">Monocular（單眼）</td><td id="np-201">Keratitis（如 keratitis sicca）、<mark>uncorrected refractive error（未矯正屈光不正，如散光）</mark>、corneal edema、不規則角膜上皮（擦傷、EBMD）、keratoconus、<mark><strong>posterior capsule wrinkle or opacification</strong></mark>、IOL decentration or opacification、<mark><strong>macular pathology</strong>（ERM、黃斑水腫、maculopathy）</mark></td></tr>
 <tr><td id="np-202">Binocular（雙眼）</td><td id="np-203">外眼肌損傷（局部麻醉 myotoxicity、bridle suture）、<mark><strong>decompensated phoria</strong></mark>、nerve palsy（可能與手術無關）、binocular fusion 中斷（anisometropia、aniseikonia）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-204">出處 ⁠<sup class="ex-qref"><span>Q1374</span> <span>Q1421</span></sup><span class="ref">p.214</span></p>
 <div class="ex-trap"><h3 id="ch11-s6-1">易錯陷阱</h3><ul>
 <li id="np-205">Table 11-3：decompensated phoria 列於「雙眼」複視（只有雙眼睜開才複視）原因；單眼複視一般來自術眼的光學像差⁠<sup class="ex-qref"><span>Q1374</span> <span>Q1421</span></sup>。<span class="ref">p.213–214</span></li>
@@ -700,13 +714,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-221"><mark class="ex-key">治療：<strong>密集局部類固醇</strong>直到發炎消退，另外<strong>短期全身性類固醇</strong>可能有益</mark>；頻繁追蹤眼壓並再評估是否有細菌感染⁠<sup class="ex-qref"><span>Q1313</span></sup>。<span class="ref">p.217</span></li>
 <li id="np-222">治療後可恢復良好視力，但可能有後遺症：最常見為虹膜異常（focal iris atrophy、瞳孔變形、瞳孔散大）；前囊 phimosis 與 PCO 等囊袋變化在 <span class="num">6 個月</span>追蹤時常可見（Nd:YAG 可處理）；少見角膜失代償與續發性青光眼。<span class="ref">p.217</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Timing（時間）</th><th>Pain（疼痛）</th><th>IOP（眼壓）</th><th>Corneal edema（角膜水腫）</th><th>Hypopyon／Fibrin／Vitreous cell</th><th>Diagnosis / Treatment（診斷／治療）</th></tr></thead>
 <tbody>
 <tr><td id="np-223">TASS</td><td id="np-224"><span class="num">12–24 小時</span>（內文 <span class="num">12–48 小時</span>）</td><td id="np-225">無／輕</td><td id="np-226">正常至上升</td><td id="np-227">嚴重（limbus-to-limbus）</td><td id="np-228">輕微或無（hypopyon 偶有）</td><td id="np-229">臨床懷疑、只用類固醇不用抗生素即緩解；steroids、cycloplegia</td></tr>
 <tr><td id="np-230">Endophthalmitis（眼內炎）</td><td id="np-231"><span class="num">3–7 天</span>（可 <span class="num">&lt; 12 小時</span>）</td><td id="np-232">中至重</td><td id="np-233">正常</td><td id="np-234">不一</td><td id="np-235">通常存在</td><td id="np-236">臨床懷疑、vitreous tap；玻璃體內抗生素及／或 PPV</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-237">出處 <span class="ref">p.215, p.219</span></p>
 <ul>
 <li id="np-238">Table 11-4 另列：視力 TASS 中度下降 vs 眼內炎中至重度下降；症狀 TASS 畏光 vs 眼內炎畏光 + 新出現 floaters（飛蚊）；Fibrin 與 vitreous cell 在 TASS 輕微或無、在眼內炎通常存在。<span class="ref">p.219</span></li>
@@ -731,7 +745,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-251">BCSC 9 p.315–317：慢性術後眼內炎常長期未被診斷，發生率尚未確立；初次發炎可在術後任何時間出現，但常延遲數月；發炎可能對類固醇有反應，但減量後常復發；慢性術後細菌性眼內炎最常由 C acnes 引起，C acnes 為共生、厭氧、多形性的 <strong>gram-positive rod</strong>，可藏於 IOL 與後囊之間形成白色斑塊；黴菌包括 <i>Candida</i> parapsilosis、<i>Aspergillus flavus</i> 等，玻璃體 <strong>snowballs with string-of-pearls</strong> 也可能提示黴菌感染；需送需氧、厭氧與黴菌培養，培養需保留 <span class="num">2 週</span>以上⁠<sup class="ex-qref"><span>Q351</span> <span>Q981</span> <span>Q1098</span> <span>Q1109</span></sup>。<span class="ref ref-ext">BCSC 9 p.315–317</span></li>
 <li id="np-252"><strong>Endophthalmitis Vitrectomy Study（EVS）</strong>：多數於白內障術後 <span class="num">3–10 天</span>出現，<mark class="ex-key">中位數 <span class="num">6 天</span></mark>；<span class="num">25%</span> 無痛；<span class="num">22%</span> 於術後 <span class="num">2–6 週</span>出現⁠<sup class="ex-qref"><span>Q1317</span></sup>。<span class="ref">p.220</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>EVS 致病菌</th><th>比例</th></tr></thead>
 <tbody>
 <tr><td id="np-253">Gram-positive coagulase-negative S epidermidis（凝固酶陰性表皮葡萄球菌）</td><td id="np-254"><span class="num">70%</span></td></tr>
@@ -741,7 +755,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-261"><i>Enterococcus</i> species</td><td id="np-262"><span class="num">2.2%</span></td></tr>
 <tr><td id="np-263">Gram-negative</td><td id="np-264"><span class="num">5.9%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-265">出處 <span class="ref">p.220</span></p>
 <ul>
 <li id="np-266">多數感染由與病人眼周細菌菌叢相似的菌種引起，抗藥菌株越來越常見。<span class="ref">p.220</span></li>
@@ -778,7 +792,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-287">罕見情況下 CME 可能於術後多年才發生，尤其遲發性前玻璃體面破裂時；aphakic glaucoma 使用局部 epinephrine、dipivefrin 也與 CME 相關。<span class="ref">p.222</span></li>
 <li id="np-288"><strong>Prostaglandin analogues（前列腺素類似物）</strong>與近期眼內手術眼的可逆性 CME 相關（因果未確立），後囊不完整時風險被認為較高⁠<sup class="ex-qref"><span>Q1418</span></sup>。<span class="ref">p.222</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Preoperative risk factors（術前危險因子）</th><th>Surgical and postoperative（手術與術後）</th></tr></thead>
 <tbody>
 <tr><td id="np-289"><strong>Uveitis</strong></td><td id="np-290"><strong>Posterior capsule rupture</strong></td></tr>
@@ -790,7 +804,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-301"><strong>Retinitis pigmentosa（RP，視網膜色素病變）</strong></td><td id="np-302">Poorly controlled postoperative inflammation</td></tr>
 <tr><td id="np-303">Previous occurrence of CME</td><td id="np-304"><mark><strong>Transient or prolonged hypotony（低眼壓）</strong></mark></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-305">出處 ⁠<sup class="ex-qref"><span>Q1301</span> <span>Q1318</span> <span>Q1366</span> <span>Q1744</span> <span>Q1420</span></sup><span class="ref">p.222</span></p>
 <ul>
 <li id="np-306"><mark class="ex-key">Table 11-5 術前危險因子：uveitis、ERM、vitreomacular traction、diabetes mellitus、diabetic retinopathy、retinal vein occlusion、retinitis pigmentosa、既往 CME；手術與術後：後囊破裂、玻璃體流失、虹膜操作、手術時間長、IOL 位置不當、殘留碎片、術後發炎控制不佳、<strong>transient or prolonged hypotony（低眼壓）</strong></mark>⁠<sup class="ex-qref"><span>Q1366</span> <span>Q1744</span> <span>Q1420</span></sup>。<span class="ref">p.222</span></li>
@@ -835,7 +849,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch11-s9" data-w="1231">九、總整理</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Item（項目）</th><th>Key number（關鍵數字）</th><th>Page</th></tr></thead>
 <tbody>
 <tr><td id="np-331">手術創傷角膜水腫消退</td><td id="np-332"><span class="num">4–6 週</span></td><td id="np-333"><span class="ref">p.187</span></td></tr>
@@ -853,7 +867,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-367">Negative dysphotopsia</td><td id="np-368">早期約 <span class="num">15%</span>；1 年仍持續約 <span class="num">3%</span></td><td id="np-369"><span class="ref">p.206</span></td></tr>
 <tr><td id="np-370">RD 修補成功率</td><td id="np-371">單次約 <span class="num">85%</span>；多次手術最終 <span class="num">98%</span></td><td id="np-372"><span class="ref">p.225</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <div class="hs-tip-box">
 <h3 id="ch11-s9-1">易混淆比較與口訣</h3>
 <ul>

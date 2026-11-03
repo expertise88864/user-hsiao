@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -376,14 +390,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-5">須辨識隅角的解剖變化與背後的病生理才能選對治療；多數型態的隅角閉鎖或狹窄若早期診斷與治療，有時可治癒。<span class="ref">p.152</span></li>
 </ul>
 <h3 id="ch9-s1-2">分期（Table 9-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Stage（分期）</th><th>Definition（定義）</th></tr></thead>
 <tbody>
 <tr><td id="np-6"><strong>Primary angle-closure suspect（PACS，原發性隅角閉鎖疑似）</strong></td><td id="np-7">Iridotrabecular contact <strong>≥180°</strong>，但沒有 TM 或青光眼性視神經損傷的證據</td></tr>
 <tr><td id="np-8"><strong>Primary angle closure（PAC，原發性隅角閉鎖）</strong></td><td id="np-9">Iridotrabecular contact <strong>≥180°</strong>，合併統計上升高的 IOP 或 PAS，但沒有青光眼性視神經損傷</td></tr>
 <tr><td id="np-10"><strong>Primary angle-closure glaucoma（PACG，原發性隅角閉鎖青光眼）</strong></td><td id="np-11">PAC 再加上 glaucomatous optic neuropathy（青光眼性視神經病變）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-12">出處（Table 9-1）⁠<sup class="ex-qref"><span>Q1177</span></sup><span class="ref">p.152</span></p>
 <ul>
 <li id="np-13"><mark class="ex-key"><strong>PACS</strong>：眼睛的解剖型態增加發生隅角閉鎖疾病的風險；定義為狹窄隅角且 iridotrabecular contact <span class="num">≥180°</span>（常稱 <strong>occludable angle</strong>，可閉鎖隅角），沒有明顯 PAC 徵象（IOP 升高或 PAS）也沒有青光眼性視神經損傷</mark>⁠<sup class="ex-qref"><span>Q1177</span></sup>。<span class="ref">p.152, p.157</span></li>
@@ -464,7 +478,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 
 <h2 id="ch9-s4" data-w="2021">四、危險因子</h2>
 <h3 id="ch9-s4-1">Race and ethnicity（種族）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>族群（40 歲以上）</th><th>PACG 盛行率</th></tr></thead>
 <tbody>
 <tr><td id="np-60">African ancestry（非洲裔）</td><td id="np-61">0.1%–0.6%</td></tr>
@@ -473,7 +487,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-66">Chinese（華人）</td><td id="np-67">0.4%–1.7%</td></tr>
 <tr><td id="np-68">Inuit（因紐特人）</td><td id="np-69"><strong>2.1%–4.8%</strong></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-70">出處 ⁠<sup class="ex-qref"><span>Q1182</span></sup><span class="ref">p.155</span></p>
 <ul>
 <li id="np-71"><mark class="ex-key">40 歲以上 PACG 盛行率依種族差異很大</mark>；部分差異（如白人與 Inuit 之間）可由生物測量參數（anterior chamber depth（ACD，前房深度）、axial length（眼軸長））差異解釋⁠<sup class="ex-qref"><span>Q1182</span></sup>。<span class="ref">p.155</span></li>
@@ -655,14 +669,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-181">Plateau iris syndrome 可用長期縮瞳劑治療；但<mark><strong>laser iridoplasty</strong> 可能更有用，可使周邊虹膜變平、變薄</mark>。<span class="ref">p.166</span></li>
 <li id="np-182">即使採取加深 angle recess 的措施，慢性隅角閉鎖風險仍在 → 須定期重複 gonioscopy；plateau iris syndrome 的處置仍在演進，最佳處置需更多研究。<span class="ref">p.166</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（型態）</th><th>主要機轉</th><th>中央前房</th><th>Dynamic gonioscopy</th><th>PAS 方向</th></tr></thead>
 <tbody>
 <tr><td id="np-183">Pupillary block</td><td id="np-184">Lens–iris interface 阻塞房水 → 後房壓高，周邊虹膜前凸</td><td id="np-185">—</td><td id="np-186">單一峰</td><td id="np-187">由後往前</td></tr>
 <tr><td id="np-188">Plateau iris configuration</td><td id="np-189">睫狀體前位使隅角狹窄</td><td id="np-190">深</td><td id="np-191">"double-hump" sign</td><td id="np-192">報告為由 Schwalbe line 開始向後</td></tr>
 <tr><td id="np-193">Plateau iris syndrome</td><td id="np-194">睫狀體前位；LPI 通暢後仍持續虹膜小樑網接觸</td><td id="np-195">深</td><td id="np-196">"double-hump" sign</td><td id="np-197">報告為由 Schwalbe line 開始向後</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-198">出處 <span class="ref">p.153, p.156, p.165–166</span></p>
 <div class="ex-trap"><h3 id="ch9-s8-4">易錯陷阱</h3><ul>
 <li id="np-199">隅角閉鎖眼中央前房深度看似正常、虹膜平面看似平坦時懷疑 plateau iris；plateau iris configuration 指睫狀體前位造成隅角狹窄、中央前房深；UBM 上睫狀溝消失⁠<sup class="ex-qref"><span>Q1286</span></sup>。<span class="ref">p.164–165</span></li>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -373,7 +387,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-3">核上系統是涵蓋額葉與頂葉皮質的 premotor／motor 區、cerebellum（小腦）、superior colliculi（上丘）、thalamus（視丘）、basal ganglia（基底核）與 brainstem（腦幹）的神經網路，<mark>各自有不同解剖路徑、在腦幹層級匯集到眼動腦神經核</mark> → 起源不同，疾病可選擇性破壞某一系統；針對性臨床檢查可辨識受影響的系統並判斷潛在病程。<span class="ref">p.257</span></li>
 </ul>
 <h3 id="ch12-s1-1">Supranuclear Ocular Motor Systems（六大核上眼動系統，Table 12-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>System（系統）</th><th>Speed（速度）</th><th>頭動時啟動</th><th>物體移動時啟動</th><th>Input（輸入）</th><th>Important structures（重要結構）</th><th>Main function / 日常例子</th></tr></thead>
 <tbody>
 <tr><td id="np-4">Ocular fixation（固視）</td><td id="np-5">Fast</td><td id="np-6">No</td><td id="np-7">No</td><td id="np-8">Dorsolateral prefrontal cortex：supplementary eye field、parietal eye field、regions V5 與 V5a</td><td id="np-9">Basal ganglia、superior colliculi</td><td id="np-10">頭不動時藉修正 ocular drift（眼球漂移）把靜止物體影像穩定在中心凹；「refresh」網膜影像以避免感光細胞疲乏；盯著螢幕上投影的字母</td></tr>
@@ -383,7 +397,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-32">Vestibular–ocular（前庭眼）</td><td id="np-33">Slow</td><td id="np-34">Yes</td><td id="np-35">No</td><td id="np-36">Semicircular canals（半規管）與 otoliths（耳石）</td><td id="np-37">Vestibular nuclei、ocular motor nuclei</td><td id="np-38">短暫頭部旋轉或平移時穩定網膜影像；轉頭看同事時仍讀著電腦螢幕</td></tr>
 <tr><td id="np-39">Optokinetic（視動）</td><td id="np-40">Slow</td><td id="np-41">Yes</td><td id="np-42">No</td><td id="np-43">Retina</td><td id="np-44">Vestibular nuclei、ocular motor nuclei</td><td id="np-45">持續頭部運動時維持網膜影像穩定；從行進中火車窗外或遊樂園設施上往外看</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-46">出處（Table 12-1；INC = interstitial nucleus of Cajal，PPRF = paramedian pontine reticular formation，riMLF = rostral interstitial nucleus of the medial longitudinal fasciculus）<span class="ref">p.258</span></p>
 <div class="ex-trap"><h3 id="ch12-s1-2">易錯陷阱</h3><ul>
 <li id="np-47">Table 12-1 六大系統中速度為「fast」的是 <strong>fixation 與 saccadic</strong>；pursuit、vergence、vestibular、optokinetic 都是「slow」。<span class="ref">p.258</span></li>
@@ -423,13 +437,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-64">垂直掃視的 neural integration 在鄰近的 <strong>interstitial nucleus of Cajal（INC，Cajal 間質核）</strong>。<span class="ref">p.260–261</span></li>
 <li id="np-65">Cerebellum 接受橋腦輸入並支配 PPRF 與 riMLF，影響掃視速度與準確度，並協助 pulse–step matching。<span class="ref">p.261</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Table 12-2</th><th>Horizontal saccades（水平）</th><th>Vertical saccades（垂直）</th></tr></thead>
 <tbody>
 <tr><td id="np-66">Burst center（爆發中樞）</td><td id="np-67">Paramedian pontine reticular formation（PPRF）</td><td id="np-68">Rostral interstitial nucleus of the MLF（riMLF）</td></tr>
 <tr><td id="np-69">Neural integrator（神經積分器）</td><td id="np-70">Accessory nucleus of CN XII（nucleus prepositus hypoglossi）</td><td id="np-71">Interstitial nucleus of Cajal（INC）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-72">出處（Table 12-2）<span class="ref">p.260</span></p>
 <h3 id="ch12-s3-4">Assessment of saccades（掃視檢查）</h3>
 <ul>
@@ -444,7 +458,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-78">相關事實：PSP（progressive supranuclear palsy，進行性核上性麻痺）的表現含 vertical gaze palsy，尤其 downgaze palsy（p.278）；light–near dissociation（光-近反射分離）與 mid-dilated pupils 為 dorsal midbrain syndrome 的表現（p.280）；Table 13-3（most common lesion locations）列 downbeat nystagmus（下跳性眼震）的 probable location（可能病灶位置）為 cervicomedullary junction（頸延髓交界）或 vestibulocerebellum（前庭小腦）（BCSC 5 p.297）；CN VI palsy 伴 slow abducting saccades 與 abduction deficits（外展缺損）（p.269）⁠<sup class="ex-qref"><span>Q1682</span></sup>。<span class="ref">p.269, p.278, p.280, BCSC 5 p.297</span></li>
 <li id="np-79"><strong>Conjugate limitation of upgaze（共軛上視受限）</strong>：範圍減少但<strong>速度正常</strong>，是<mark>最常見的掃視異常，可發生於正常老化</mark>。掃視異常對病因與病灶位置相對不具特異性（少數例外見 Table 12-3）。<span class="ref">p.264</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Saccade deficit（掃視缺陷）</th><th>Testing（檢查）</th><th>Underlying dysfunction（機轉）</th><th>Examples（疾病）</th><th>Comments（備註）</th></tr></thead>
 <tbody>
 <tr><td id="np-80">Inability to initiate saccade／increased saccade latency（無法啟動掃視／latency 增加）</td><td id="np-81">Saccade latency、doll's head maneuver</td><td id="np-82">Supranuclear 或 nuclear/infranuclear</td><td id="np-83">Ocular motor apraxia</td><td id="np-84">正常老化預期會有些 latency 增加</td></tr>
@@ -453,7 +467,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-95">Hypermetric saccades</td><td id="np-96">Saccadic accuracy</td><td id="np-97">Burst-cell neurons 放電持續時間（pulse component）增加</td><td id="np-98">Lateral medullary syndrome、myasthenia gravis、cerebellar lesions</td><td id="np-99">典型與小腦病灶及其連結相關</td></tr>
 <tr><td id="np-100">Inability to maintain eccentric gaze after saccade（掃視後無法維持偏心注視）</td><td id="np-101">Saccadic accuracy</td><td id="np-102">Step innervation 減少：核下性病灶、小腦疾病或 neural integrator 失能（leaky integrator）</td><td id="np-103">Gaze-evoked nystagmus（凝視誘發眼震）</td><td id="np-104">—</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-105">出處（Table 12-3；CPEO = chronic progressive external ophthalmoplegia）<span class="ref">p.263</span></p>
 <div class="ex-trap"><h3 id="ch12-s3-6">易錯陷阱</h3><ul>
 <li id="np-106">核上性病灶造成水平掃視缺損：doll's head 可誘發水平注視；CN VI 核/核下性病灶：doll's head 與自主掃視都受損⁠<sup class="ex-qref"><span>Q500</span> <span>Q1682</span></sup>。<span class="ref">p.262, p.264</span></li>
@@ -497,7 +511,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-128">輻輳評估（NPC、fusional vergence、vergence amplitudes、accommodative convergence、AC/A ratio）詳見 BCSC Section 6。<span class="ref">p.267</span></li>
 <li id="np-129">Vergence 疾病常見但難診斷（輻輳強烈受病人用力程度影響）；常被分為 convergence insufficiency、accommodative esotropia、spasm of the near reflex、divergence insufficiency。<mark>與其他核上性疾病不同，vergence 疾病通常會造成複視症狀</mark>。<span class="ref">p.267</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Vergence stimulus（Table 12-4）</th><th>Mechanism（機轉）</th></tr></thead>
 <tbody>
 <tr><td id="np-130">Tonic（張力性）</td><td id="np-131">清醒時對齊雙眼、抵消眼眶力量造成的靜止外散所需的基礎眼動</td></tr>
@@ -505,7 +519,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-134">Accommodative（調節性）</td><td id="np-135">物體靠近造成網膜模糊 → 刺激 near triad（調節、輻輳、瞳孔收縮）</td></tr>
 <tr><td id="np-136">Voluntary（自主性）</td><td id="np-137">人可自主刺激 near triad</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-138">出處（Table 12-4）<span class="ref">p.268</span></p>
 <h3 id="ch12-s5-1">Convergence insufficiency（CI，輻輳不足）</h3>
 <ul>
@@ -586,13 +600,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-181"><mark class="ex-key">急性診斷 skew 需緊急檢查，含 neuroimaging（排除中風或其他嚴重病因）</mark>；反之 <span class="num">&gt; 50 歲</span>且有微血管危險因子的 CN IV palsy 可臨床診斷為 microvascular palsy 並觀察自行恢復⁠<sup class="ex-qref"><span>Q398</span> <span>Q595</span></sup>。<span class="ref">p.274</span></li>
 <li id="np-182">本書第 6、7 章的影像相關敘述（本章外）：NAION（非動脈炎性前缺血性視神經病變）一般不需神經影像，非典型個案（較年輕、進行性視力喪失、伴眼痛）可考慮腦與眼眶 MRI（BCSC 5 p.150）；未確診 MS 時，每例 optic neuritis 都應做腦與眼眶 MRI（含與不含顯影劑）（BCSC 5 p.139）；chiasmal disease（視交叉疾病，特徵為 bitemporal 視野缺損）多數可在腦與眼眶 MRI 上看到（BCSC 5 p.173）；本章：skew deviation 的急性診斷需緊急 neuroimaging（p.274）⁠<sup class="ex-qref"><span>Q398</span></sup>。<span class="ref">p.274, BCSC 5 p.150, BCSC 5 p.139, BCSC 5 p.173</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Vertical deviation（Table 12-5）</th><th>Cause（原因）</th><th>3-step test result</th><th>Torsion of hypertropic eye（高位眼扭轉）</th><th>Improves with lying down（躺下改善）</th></tr></thead>
 <tbody>
 <tr><td id="np-183">Skew deviation</td><td id="np-184">Asymmetric otolithic input to ocular motor nuclei（耳石對眼動核的不對稱輸入）</td><td id="np-185">May be positive（mimics CN IV palsy）</td><td id="np-186">Incyclotorsion（內旋）</td><td id="np-187">May improve</td></tr>
 <tr><td id="np-188">CN IV palsy</td><td id="np-189">Abnormal CN IV function（CN IV 功能異常）</td><td id="np-190">Positive</td><td id="np-191">Excyclotorsion（外旋）</td><td id="np-192">Does not improve</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-193">出處（Table 12-5）<span class="ref">p.274</span></p>
 <h3 id="ch12-s7-2">Ocular tilt reaction（OTR）</h3>
 <ul>
@@ -736,7 +750,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch12-s14" data-w="3641">十四、Gaze preference, gaze palsy, and tonic deviations（凝視偏好、凝視麻痺與張力性偏斜）</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Deviation（Table 12-6）</th><th>Pathophysiology（機轉）</th><th>Cause（原因）</th><th>Notes（備註）</th></tr></thead>
 <tbody>
 <tr><td id="np-268">Gaze preference（凝視偏好）</td><td id="np-269">FEF 病灶 → 無法自主看向病灶<strong>對側</strong></td><td id="np-270">最常為中風相關大腦損傷</td><td id="np-271">通常暫時；doll's head maneuver 可產生完整眼動</td></tr>
@@ -745,7 +759,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-280">Tonic horizontal gaze deviation（張力性水平偏斜）</td><td id="np-281">FEF 過度刺激</td><td id="np-282">Seizure（癲癇）</td><td id="np-283">眼睛被驅向癲癇<strong>對側</strong></td></tr>
 <tr><td id="np-284">Oculogyric crisis（眼動危機）：張力性<strong>向上</strong>偏斜（有時偏右或左）</td><td id="np-285">眼動核的核上輸入改變</td><td id="np-286">對 neuroleptic antipsychotic（抗精神病藥）或 antiemetic（止吐藥）等 <strong>dopamine-blocking</strong> 藥物的 idiosyncratic reaction（如 <strong>haloperidol</strong>、fluphenazine、metoclopramide）</td><td id="np-287">可持續數小時；給 anticholinergic（抗膽鹼）藥物（表中舉例 prochlorperazine）可迅速中止</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-288">出處（Table 12-6）<span class="ref">p.282</span></p>
 <ul>
 <li id="np-289">Fig 12-10：橋腦缺血累及雙側 PPRF → 雙側水平凝視麻痺，病人只訴「眼睛很難動」而無其他神經缺損。<span class="ref">p.283</span></li>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -378,7 +392,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-4">每個失養症再依已定位與鑑定的基因變異分入 <span class="num">4</span> 個 category 之一：<strong>Category 1</strong> = 定義明確、基因已定位並鑑定且特定變異已知；<strong>Category 4</strong> = 疑似、新的或先前已記載、但缺乏可信且可重複基因定位的失養症。<span class="ref">p.180</span></li>
 <li id="np-5">本章主要討論 Category 1；另收錄 <strong>epithelial basement membrane dystrophy（EBMD，Category 3）</strong>與 <strong>pre-Descemet corneal dystrophy（Category 4）</strong>——兩者因缺乏基因定位，最可能其實是角膜 degeneration（退化），但文獻（含 IC3D）已確立為失養症。基因檢測在常規診斷上不易取得、經濟上也不可行，因此臨床核心知識最實用。<span class="ref">p.180</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>IC3D group（分組）</th><th>Major dystrophies（Table 8-1 主要失養症）</th></tr></thead>
 <tbody>
 <tr><td id="np-6">Epithelial and subepithelial（上皮與上皮下）</td><td id="np-7">EBMD、Meesmann（MECD）、Lisch epithelial（LECD）、Gelatinous droplike（GDLD）</td></tr>
@@ -386,7 +400,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-10">Stromal（基質）</td><td id="np-11">Macular（MCD）、Schnyder（SCD）、Congenital stromal（CSCD）、Fleck（FCD）、Posterior amorphous（PACD）、Pre-Descemet（PDCD、PPPCD）</td></tr>
 <tr><td id="np-12">Endothelial（內皮）</td><td id="np-13">Fuchs endothelial（FECD）、Posterior polymorphous（PPCD）、Congenital hereditary endothelial（CHED）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-14">出處（Table 8-1）<span class="ref">p.181</span></p>
 <h3 id="ch8-s1-3">診斷與鑑別的關鍵問題（Key Questions）</h3>
 <ul>
@@ -453,7 +467,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <ul>
 <li id="np-54">本組皆由<mark class="ex-key">同一基因 <strong>TGFBI</strong>（定位 <span class="num">5q31</span>）</mark>的致病變異造成，但各有特定 point mutation（點突變）區分（Table 8-2）⁠<sup class="ex-qref"><span>Q372</span> <span>Q322</span></sup>。<span class="ref">p.188</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Dystrophy（失養症）</th><th>Pathogenic variant（致病變異）</th></tr></thead>
 <tbody>
 <tr><td id="np-55">Reis-Bucklers（RBCD）</td><td id="np-56"><span class="num">R124L</span></td></tr>
@@ -462,7 +476,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-61">Granular type 1（GCD1）</td><td id="np-62"><span class="num">R555W</span></td></tr>
 <tr><td id="np-63">Granular type 2（GCD2）</td><td id="np-64"><span class="num">R124H</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-65">出處（Table 8-2）<span class="ref">p.189</span></p>
 <ul>
 <li id="np-66"><mark class="ex-key">TGFBI 失養症 = RBCD、TBCD、classic LCD、GCD1、GCD2</mark>；Table 8-1 把 <strong>macular corneal dystrophy</strong> 與 <strong>Schnyder corneal dystrophy</strong> 列在 stromal dystrophies 組⁠<sup class="ex-qref"><span>Q372</span> <span>Q906</span> <span>Q322</span></sup>。<span class="ref">p.181, p.188–189</span></li>
@@ -483,7 +497,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-75">病理：AS-OCT 在 Bowman layer 見 <mark><strong>sawtooth（鋸齒狀）</strong>高反射物質</mark>；光顯 Bowman layer 被纖維細胞物質以同樣 pathognomonic 波浪/鋸齒狀取代；EM 為 <strong>curly fibers（<span class="num">9–15 nm</span>，捲曲纖維）</strong>而非 rod-shaped bodies，TGFBI 蛋白陽性；confocal 基底上皮沉積物中等反射、圓邊、<strong>有暗陰影</strong>。<span class="ref">p.190</span></li>
 <li id="np-76">處置：<mark class="ex-key">與 RBCD 的處置方式相似</mark>（RBCD：先處理 recurrent erosion；superficial keratectomy、PTK、LK，罕見情況 PK）⁠<sup class="ex-qref"><span>Q885</span></sup>。<span class="ref">p.190</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Point of differentiation（鑑別點）</th><th>RBCD（CDB1）</th><th>TBCD（CDB2）</th></tr></thead>
 <tbody>
 <tr><td id="np-77">Corneal erosions（糜爛）</td><td id="np-78">較 TBCD 頻繁且嚴重</td><td id="np-79">較 RBCD 少且輕</td></tr>
@@ -492,7 +506,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-86">Confocal microscopy</td><td id="np-87">高反射物質、無陰影</td><td id="np-88">中等反射物質、有陰影</td></tr>
 <tr><td id="np-89">Transmission electron microscopy</td><td id="np-90">Rod-shaped bodies（TGFBI 蛋白 keratoepithelin 免疫陽性）</td><td id="np-91">Curly fibers（TGFBI 蛋白 keratoepithelin 免疫陽性）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-92">出處（Table 8-3）<span class="ref">p.191</span></p>
 <div class="ex-trap"><h3 id="ch8-s3-3">易錯陷阱</h3><ul>
 <li id="np-93">Macular corneal dystrophy 與 CHST6 相關；Table 8-1 把 macular 與 Schnyder 列在 stromal dystrophies，TGFBI 組為 RBCD、TBCD、classic LCD、GCD1、GCD2⁠<sup class="ex-qref"><span>Q372</span> <span>Q906</span></sup>。<span class="ref">p.181, p.189, p.197–198；BCSC 4 p.116</span></li>
@@ -549,7 +563,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch8-s6" data-w="1772">六、組織染色鑑別（Table 8-4）與 Congo red 考點</h2>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Dystrophy（失養症）</th><th>Deposited material（沉積物）</th><th>Masson trichrome</th><th>Alcian blue and colloidal iron</th><th>PAS</th><th>Oil red O and Sudan black B</th><th>Congo red</th></tr></thead>
 <tbody>
 <tr><td id="np-128">Granular type 1</td><td id="np-129">Hyaline（玻璃樣物質）</td><td id="np-130">+</td><td id="np-131">−</td><td id="np-132">−</td><td id="np-133">−</td><td id="np-134">−</td></tr>
@@ -558,7 +572,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-149">Schnyder</td><td id="np-150">Phospholipid、cholesterol（磷脂、膽固醇）</td><td id="np-151">−</td><td id="np-152">−</td><td id="np-153">−</td><td id="np-154">+</td><td id="np-155">−</td></tr>
 <tr><td id="np-156">Macular</td><td id="np-157">Glycosaminoglycans（GAGs，醣胺聚醣；acid mucopolysaccharide）</td><td id="np-158">−</td><td id="np-159">+</td><td id="np-160">−</td><td id="np-161">−</td><td id="np-162">−</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-163">出處（Table 8-4；註：amyloid 另可被 thioflavin T 染色、crystal violet 異染，並具 birefringence，表現為 dichroism 與 polarization of light）<span class="ref">p.194</span></p>
 <ul>
 <li id="np-164"><mark class="ex-key">Table 8-4 各沉積物的特徵染色：hyaline（GCD1、GCD2）— Masson trichrome；amyloid（classic LCD、GCD2）— Congo red；GAGs（macular）— Alcian blue / colloidal iron；脂質（Schnyder）— Oil red O / Sudan black B</mark>⁠<sup class="ex-qref"><span>Q954</span></sup>。<span class="ref">p.193–194, p.199, p.201</span></li>
@@ -653,7 +667,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-220">內皮功能下降時水腫 → microbullae 或 microcystic edema → 異物感，可能被誤為 dry eye（乾眼）；出現 subepithelial fibrosis 後疼痛可減輕。<span class="ref">p.206</span></li>
 </ul>
 <h3 id="ch8-s9-2">分期</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Stage（分期）</th><th>Findings（表現）</th></tr></thead>
 <tbody>
 <tr><td id="np-221">Stage 1</td><td id="np-222">Cornea guttae 先在中央、再往周邊擴散；部分病人永遠停在此期；guttae 可融合呈 <strong>"beaten metal"（錘打金屬）</strong>外觀；late-onset 的 guttae 比 early-onset 大</td></tr>
@@ -661,7 +675,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-225">Stage 3</td><td id="np-226">基質水腫可惡化 → bullous keratopathy（大皰性角膜病變）；Descemet membrane 可增厚；中央角膜厚度可接近 <span class="num">1 mm</span>（通常視 <span class="num">0.5–0.6 mm</span> 為正常）→ 可伴光散射、眩光</td></tr>
 <tr><td id="np-227">Stage 4（end-stage）</td><td id="np-228">慢性水腫造成 subepithelial fibrosis、瘢痕、周邊淺層血管化</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-229">出處 <span class="ref">p.206</span></p>
 <ul>
 <li id="np-230">Clinical pearl：<strong>specular microscopy（鏡面顯微鏡）</strong>可能有助於初評與追蹤內皮流失，但<mark class="ex-key">已有瀰漫融合 guttae 時不需要</mark>；以 Scheimpflug tomography、OCT、ultrasound biomicroscopy 或 ultrasonic pachymetry 量厚度<mark class="ex-key">更能反映內皮功能</mark>；早晨或隨時間明顯增厚、或 posterior elevation 隨時間增加 → 可能表示內皮功能不良⁠<sup class="ex-qref"><span>Q1714</span></sup>。<span class="ref">p.206</span></li>
@@ -708,14 +722,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-255">Specular microscopy：PPCD 可見典型 vesicles 與 bands；<mark class="ex-key">ICE 受累內皮呈正常「light–dark」型態的<strong>反轉</strong>——暗區帶中央亮點、亮的周邊邊界</mark>；單靠 specular 診斷的價值意見分歧；confocal 見小泡病灶與 railroad track 狀、帶狀、邊緣不規則的暗區⁠<sup class="ex-qref"><span>Q939</span></sup>。<span class="ref">p.209–210</span></li>
 <li id="np-256">處置：多數無症狀；輕度水腫可比照早期 Fuchs 處理；局部腫脹可做 anterior stromal puncture 誘發局部上皮下纖維化；較嚴重者可能需角膜移植，若有青光眼須處理；<mark>術前已有 PAS 及/或青光眼 → 移植成功預後較差</mark>；植片可復發；<strong>基質混濁有限時首選 EK</strong>。<span class="ref">p.210</span></li>
 </ul>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity（疾病）</th><th>Inheritance（遺傳）</th><th>Laterality（側別）</th><th>Course（病程）</th><th>Iris/angle（虹膜與隅角）</th><th>Endothelium（內皮）</th></tr></thead>
 <tbody>
 <tr><td id="np-257">PPCD</td><td id="np-258">Autosomal dominant（體染色體顯性）</td><td id="np-259">Usually bilateral（通常雙側）</td><td id="np-260">May be stationary or slowly progressive（可靜止或緩慢進展）</td><td id="np-261">可合併 broad PAS、corectopia、iridocorneal adhesions</td><td id="np-262">裂隙燈與 confocal 見 vesicles、bands；角膜水腫不常見</td></tr>
 <tr><td id="np-263">ICE syndrome</td><td id="np-264">Sporadic（偶發）；可能與 herpesvirus 有關</td><td id="np-265">Unilateral（單側）</td><td id="np-266">Progressive（進行性）</td><td id="np-267">Broad PAS、corectopia、iris atrophy、多發有蒂或瀰漫色素的虹膜結節、polycoria</td><td id="np-268">Specular microscopy 呈正常型態的反轉（dark central highlights、light peripheral borders）；可有角膜水腫</td></tr>
 <tr><td id="np-269">Axenfeld-Rieger syndrome</td><td id="np-270"><span class="num">75%</span> 為 autosomal dominant</td><td id="np-271">Bilateral（雙側）</td><td id="np-272">Stationary（靜止）</td><td id="np-273">細虹膜條索連到 posterior embryotoxon（前移的 Schwalbe line）；iris hypoplasia；corectopia</td><td id="np-274">Normal corneal endothelium（正常角膜內皮）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-275">出處（Table 8-5）<span class="ref">p.210</span></p>
 <ul>
 <li id="np-276">本章外：ICE 含 iris nevus（Cogan-Reese）syndrome、<strong>Chandler syndrome</strong>（病變侷限於角膜後表面，可有角膜水腫）、essential（progressive）iris atrophy 三型；最常見於<strong>中年女性</strong>、幾乎都單眼；各型共同特徵為<mark class="ex-key"><strong>corneal endothelium 的 epithelial-like metaplasia 與異常增生</strong></mark>，異常內皮越過隅角並鋪新基底膜（Descemet membrane）→ PAS，約半數續發 angle-closure glaucoma；異常內皮擴展到虹膜的收縮膜可造成 iris atrophy、corectopia、polycoria；角膜部分除非有明顯瘢痕，首選 EK。Axenfeld-Rieger syndrome 有青光眼者佔 <span class="num">50%</span>⁠<sup class="ex-qref"><span>Q925</span> <span>Q939</span> <span>Q952</span> <span>Q343</span> <span>Q1271</span></sup>。<span class="ref ref-ext">BCSC 8 p.152–153, p.168；BCSC 4 p.123</span></li>
@@ -739,7 +753,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </ul></div>
 
 <h2 id="ch8-s11" data-w="1870">十一、總整理</h2>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Dystrophy（失養症）</th><th>Inheritance / gene（遺傳/基因）</th><th>Deposit / stain（沉積/染色）</th><th>Key clue（關鍵線索）</th></tr></thead>
 <tbody>
 <tr><td id="np-289">EBMD</td><td id="np-290">無遺傳紀錄（Category 3）</td><td id="np-291">基底膜物質</td><td id="np-292">Map-dot-fingerprint；女性較多；recurrent erosion</td></tr>
@@ -757,7 +771,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-337">PPCD</td><td id="np-338">AD</td><td id="np-339">上皮樣內皮（keratin +）</td><td id="np-340">Vesicles、snail tracks；14% 眼壓升高</td></tr>
 <tr><td id="np-341">CHED</td><td id="np-342">AR</td><td id="np-343">Descemet 瀰漫增厚分層</td><td id="np-344">先天、厚 2–3 倍、明顯水腫</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-345">出處 <span class="ref">p.182–211</span></p>
 <div class="hs-tip-box">
 <h3 id="ch8-s11-1">易混淆比較與口訣</h3>

@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -368,7 +382,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 </header>
 <main id="main-content" class="ex-main ex-has-side max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16"><nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary><ol><li><a href="#ch17-s1" lang="en">1. Trauma Classification and Initial Evaluation</a></li><li><a href="#ch17-s2" lang="en">2. Blunt Trauma Without Globe Break</a></li><li><a href="#ch17-s3" lang="en">3. Open-Globe Injuries and Surgical Repair</a></li><li><a href="#ch17-s4" lang="en">4. Intraocular Foreign Bodies</a></li><li><a href="#ch17-s5" lang="en">5. Posttraumatic Endophthalmitis</a></li><li><a href="#ch17-s6" lang="en">6. Prognosis: Ocular Trauma Score</a></li><li><a href="#ch17-s7" lang="en">7. Sympathetic Ophthalmia and Optic Nerve Avulsion</a></li><li><a href="#ch17-s8" lang="en">8. Abusive Head Trauma</a></li><li><a href="#ch17-s9" lang="en">9. Photic Damage</a></li><li><a href="#ch17-s10" lang="en">10. Rapid Review</a></li><li class="ex-toc-cpts"><a href="#cpts-h">本章考點（6 個）</a></li><li class="ex-toc-qs"><a href="#qs-h">考題（21 題）</a></li></ol></details></nav><div class="ex-content"><nav class="ex-crumbs" aria-label="麵包屑"><a href="/">首頁</a><span class="ex-sep" aria-hidden="true">/</span><a href="/exam">專科考試</a><span class="ex-sep" aria-hidden="true">/</span><span>BCSC 12 Ch.17</span></nav><div class="ex-auth" aria-live="polite" hidden></div><p class="ex-kicker">BCSC 12 · Retina and Vitreous</p><h1 class="ex-h1">Ch.17 Posterior Segment Manifestations of Trauma</h1><p class="ex-meta">原書 p.395–418 · 考題 21 題</p><div class="ex-strip" data-progress-chapter="12-17" hidden><label class="ex-check"><input type="checkbox" class="ex-read-box" value="12-17"> 課本已讀完</label><span class="ex-strip-text" aria-live="polite"></span><a class="ex-strip-link" href="/exam/progress">讀書進度</a></div><section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2><nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol><li><a href="#ch17-s1">一、眼球外傷分類與初步評估</a></li><li><a href="#ch17-s2">二、鈍挫傷（眼壁無破口）的後段表現</a></li><li><a href="#ch17-s3">三、開放性眼球傷</a></li><li><a href="#ch17-s4">四、眼內異物（IOFB）</a></li><li><a href="#ch17-s5">五、外傷後眼內炎</a></li><li><a href="#ch17-s6">六、眼球外傷預後：Ocular Trauma Score</a></li><li><a href="#ch17-s7">七、交感性眼炎與視神經頭撕脫</a></li><li><a href="#ch17-s8">八、Abusive head trauma（虐待性頭部外傷）</a></li><li><a href="#ch17-s9">九、光傷害（Photic damage）</a></li><li><a href="#ch17-s10">十、考前速記</a></li><li><a href="#cpts-h">本章考點</a></li><li><a href="#qs-h">考題</a></li></ol></nav><p class="ex-meta">依 BCSC 12 第 17 章自行摘要整理，非原文；<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p><p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span><span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span><span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p><p class="ex-reading" id="ex-reading" hidden></p><div class="ex-note"><h2 id="ch17-s1" data-w="1728">一、眼球外傷分類與初步評估</h2>
 <h3 id="ch17-s1-1">Birmingham Eye Trauma Terminology System（BETTS，伯明罕眼外傷術語系統）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>分類</th><th>次分類</th><th>定義</th></tr></thead>
 <tbody>
 <tr><td id="np-1" rowspan="3"><strong>Closed-globe injury（閉鎖性眼球傷）</strong></td><td id="np-2">Contusion（挫傷）</td><td id="np-3">鈍傷，眼壁<mark>無破口</mark></td></tr>
@@ -380,7 +394,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-15">Perforating injury（穿通傷）</td><td id="np-16">入口與出口<mark>皆有</mark></td></tr>
 <tr><td id="np-17">Intraocular foreign bodies（眼內異物）</td><td id="np-18">穿入性或穿通性</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-19">出處 <span class="ref">p.395</span></p>
 <h3 id="ch17-s1-2">病史與檢查</h3>
 <ul>
@@ -547,22 +561,22 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-117"><strong>ERG（electroretinography，視網膜電圖）變化隨病程進展</strong>：早期 <mark class="ex-key">a 波增加、b 波正常</mark> → b 波振幅隨時間逐漸下降 → 視網膜鐵毒性最終階段訊號偵測不到⁠<sup class="ex-qref"><span>Q1554</span></sup>。<span class="ref">p.407</span></li>
 <li id="np-118">Fig 17-9：鐵 IOFB 數年後才取出的病人，ERG 的錐桿混合反應呈中度外層視網膜功能不良（a 波下降）與嚴重內層視網膜功能不良（b 波喪失），形成 electronegative（負波型）波形，錐細胞反應幾乎偵測不到。<span class="ref">p.408</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th colspan="2">Table 17-2 Siderosis bulbi 的症狀與徵象</th></tr></thead>
 <tbody>
 <tr><td id="np-119"><strong>Symptoms（症狀）</strong></td><td id="np-120"><mark>Nyctalopia（夜盲）</mark>、<mark>concentrically constricted visual field（向心性視野縮窄）</mark>、視力下降</td></tr>
 <tr><td id="np-121"><strong>Signs（徵象）</strong></td><td id="np-122">鐵鏽色角膜基質染色；heterochromia iridis（虹膜異色）；瞳孔散大且反應差；<mark>水晶體前囊棕色沉積</mark>；白內障；玻璃體混濁；周邊視網膜色素化（早期）、瀰漫性視網膜色素化（晚期）；視網膜血管變窄；視神經盤變色與萎縮；小樑網鐵堆積造成的續發性隅角開放性青光眼</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-123">出處（已對照原頁）⁠<sup class="ex-qref"><span>Q1499</span> <span>Q1554</span></sup> <span class="ref">p.407</span></p>
-<table class="ted-table ex-ddx">
+<div class="ex-table-wrap"><table class="ted-table ex-ddx">
 <thead><tr><th>Entity</th><th>來源</th><th>水晶體</th><th>其他重點</th></tr></thead>
 <tbody>
 <tr><td id="np-124"><strong>Acute chalcosis</strong></td><td id="np-125">純銅（如銅線）</td><td id="np-126">—</td><td id="np-127">特別具毒性；需及時取出以防可能導致失去眼球的嚴重發炎</td></tr>
 <tr><td id="np-128"><strong>Chronic chalcosis</strong></td><td id="np-129">含銅 &lt;85% 異物（如黃銅、青銅）</td><td id="np-130">水晶體囊黃／棕色花瓣狀沉積（sunflower cataract）</td><td id="np-131">Descemet membrane 沉積（類 Kayser-Fleischer ring）、綠色房水顆粒、虹膜變綠、棕紅色玻璃體混濁與條索、視網膜血管及內界膜金屬亮點</td></tr>
 <tr><td id="np-132"><strong>Siderosis bulbi</strong></td><td id="np-133">含鐵 IOFB</td><td id="np-134">水晶體前囊棕色沉積、白內障</td><td id="np-135">夜盲、向心性視野縮窄；鐵鏽色角膜基質、虹膜異色、瞳孔散大；ERG 早期 a 波增加 → b 波漸降 → 偵測不到；續發性隅角開放性青光眼</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-136">出處 ⁠<sup class="ex-qref"><span>Q1554</span> <span>Q1357</span></sup> <span class="ref">p.407</span></p>
 <div class="ex-trap"><h3 id="ch17-s4-4">易錯陷阱</h3><ul>
 <li id="np-137">四種在眼內常具反應性的金屬中，鋅與鋁傾向只造成輕微發炎；純銅特別具毒性、造成急性 chalcosis，需及時取出⁠<sup class="ex-qref"><span>Q1487</span> <span>Q1488</span> <span>Q1760</span></sup>。<span class="ref">p.406–407</span></li>
@@ -601,7 +615,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-157"><mark>受傷 zone 越高 → 視網膜剝離風險越高、視力預後越差</mark>。<span class="ref">p.409</span></li>
 <li id="np-158"><strong>Ocular Trauma Score（OTS，眼外傷評分）</strong>：<mark>視力是傷害嚴重度最重要的預測因子</mark>；其他特徵給負分，自視力分數扣除得 raw score；<mark>raw score 越高，最終視力預後越好</mark>；可粗估外傷後視力結果，但諮詢病人時應謹慎使用。<span class="ref">p.409</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Step 1 變項</th><th>Raw points</th></tr></thead>
 <tbody>
 <tr><td id="np-159">A. 初診視力：NLP</td><td id="np-160"><span class="num">60</span></td></tr>
@@ -615,9 +629,9 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-175">E. Retinal detachment（視網膜剝離）</td><td id="np-176"><span class="num">−11</span></td></tr>
 <tr><td id="np-177">F. Afferent pupillary defect</td><td id="np-178"><span class="num">−10</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-179">Step 2：加總適用變項（A–F）得 raw score；Step 3：以 raw score 查最終視力機率（Table 17-3，已對照原頁）。<span class="ref">p.409</span></p>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Raw score</th><th>NLP</th><th>LP/HM</th><th>1/200–19/200</th><th>20/200–20/50</th><th>≥20/40</th></tr></thead>
 <tbody>
 <tr><td id="np-180">0–44</td><td id="np-181"><span class="num">74%</span></td><td id="np-182">15%</td><td id="np-183">7%</td><td id="np-184">3%</td><td id="np-185">1%</td></tr>
@@ -626,7 +640,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-198">81–91</td><td id="np-199">1%</td><td id="np-200">2%</td><td id="np-201">3%</td><td id="np-202">22%</td><td id="np-203">73%</td></tr>
 <tr><td id="np-204">92–100</td><td id="np-205">0%</td><td id="np-206">1%</td><td id="np-207">1%</td><td id="np-208">5%</td><td id="np-209"><span class="num">94%</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-210">HM＝hand motions；LP＝light perception；NLP＝no light perception。<span class="ref">p.409</span></p>
 <div class="ex-trap"><h3 id="ch17-s6-1">易錯陷阱</h3><ul>
 <li id="np-211">OTS 扣分最多的是 rupture（−23），其次 endophthalmitis（−17）、perforating injury（−14）、retinal detachment（−11）、afferent pupillary defect（−10）。<span class="ref">p.409</span></li>
@@ -687,14 +701,14 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-243">眼睛防護光傷害的多種機制包括：瞳孔收縮、RPE 中 melanin（黑色素）吸收光、黃斑中的抗氧化物 <strong>lutein（葉黃素）與 zeaxanthin（玉米黃素）</strong>。<span class="ref">p.412</span></li>
 <li id="np-244">光傷害視網膜的 <span class="num">3</span> 種基本機轉：<strong>mechanical（機械性）、thermal（熱）、photochemical（光化學）</strong>。<span class="ref">p.412</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>機轉</th><th>原理</th><th>例子</th></tr></thead>
 <tbody>
 <tr><td id="np-245"><strong>Mechanical</strong></td><td id="np-246">吸收光功率高到形成氣體或水蒸氣、或產生聲震波而機械性破壞組織；吸收的能量可能足以剝除標的組織分子的電子，形成 <strong>plasma（電漿）</strong></td><td id="np-247"><mark>Q-switched Nd:YAG laser</mark>（打開人工水晶體後混濁的後囊）</td></tr>
 <tr><td id="np-248"><strong>Thermal</strong></td><td id="np-249">RPE 及周圍結構過度吸收光 → 局部組織溫度上升 → RPE 與周圍神經感覺視網膜及脈絡膜凝固、發炎、結疤</td><td id="np-250"><mark>雷射光凝固</mark>造成的視網膜燒灼</td></tr>
 <tr><td id="np-251"><strong>Photochemical</strong></td><td id="np-252">生化反應造成組織破壞而<mark>不升溫</mark>；反應包括氧化、光異構化、光化學裂解、電環化反應；主要發生在<mark>感光細胞外節</mark>（比內節敏感）</td><td id="np-253"><mark>Solar retinopathy</mark>，以及<mark>手術顯微鏡</mark>照明過度暴露後的 photic retinopathy</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-254">出處 ⁠<sup class="ex-qref"><span>Q1509</span></sup> <span class="ref">p.412</span></p>
 <h3 id="ch17-s9-1">Solar retinopathy（日光性視網膜病變）</h3>
 <ul>

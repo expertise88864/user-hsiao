@@ -97,7 +97,12 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note .ted-table,.ex-rank{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;background:var(--ex-card)}
 .ex-note .ted-table th,.ex-note .ted-table td,.ex-rank th,.ex-rank td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
 .ex-note .ted-table th,.ex-rank th{background:var(--ex-soft)}
-.ex-note{overflow-x:auto}
+.ex-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0;-webkit-overflow-scrolling:touch}
+.ex-table-wrap>.ted-table{margin:0}
+.ex-table-wrap:focus-visible{outline:2px solid var(--ex-accent);outline-offset:2px}
+.ex-note{overflow-wrap:break-word}
+/* Long page-reference and number chips wrap instead of widening the note (2026-11-03). */
+.ex-note .ref,.ex-note .num{white-space:normal;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .ref,.ex-ref{font-size:11.5px;color:#57534e;background:#ecebe8;border-radius:6px;padding:1px 6px;margin-left:4px;white-space:nowrap}
 .ref-ext{background:#f3e8ff;color:#5b21b6}
 .ex-num{text-align:right;width:3.5em}
@@ -213,6 +218,15 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-list a{display:block;color:var(--ink);text-decoration:none}
 .ex-find-list a:hover .ex-find-snip,.ex-find-list a:focus-visible .ex-find-snip{text-decoration:underline}
 .ex-find-sec{display:block;font-size:12px;font-weight:600;color:var(--ex-accent)}
+.ex-find-results[hidden]{display:none}
+.ex-find-h a[aria-selected="true"],.ex-find-names a[aria-selected="true"],.ex-find-list a[aria-selected="true"],.ex-find-more[aria-selected="true"]{background:var(--ex-soft);box-shadow:inset 3px 0 0 var(--ex-accent);border-radius:6px}
+.ex-find-h a[aria-selected="true"]{padding:0 4px}
+.ex-find-names{list-style:none;padding:0;margin:6px 0 0;font-size:13.5px;line-height:1.7}
+.ex-find-names li{border-top:1px solid var(--line);padding:5px 0}
+.ex-find-names a{display:block;color:var(--ink);text-decoration:none;padding:0 6px}
+.ex-find-names a:hover .ex-find-sec{text-decoration:underline}
+.ex-find-why{display:block;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.ex-find-list a[role=option]{padding:0 6px}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
@@ -323,7 +337,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}
 :root[data-theme="dark"] .ex-toc-side a:hover,:root[data-theme="dark"] .ex-toc-side a[aria-current]{color:var(--ex-accent)}
 :root[data-theme="dark"] .ex-find,:root[data-theme="dark"] .ex-find-group{border-color:#36404b}
-:root[data-theme="dark"] .ex-find-list li{border-color:#36404b}
+:root[data-theme="dark"] .ex-find-list li,:root[data-theme="dark"] .ex-find-names li{border-color:#36404b}
 :root[data-theme="dark"] .ex-find-results mark,:root[data-theme="dark"] .ex-note mark.ex-find-hl{background:#1e3a8a;color:#fff}
 :root[data-theme="dark"] .ex-resume{border-color:#36404b;border-left-color:var(--ex-accent);box-shadow:0 -8px 0 var(--bg),0 6px 16px -10px rgba(0,0,0,.7)}
 :root[data-theme="dark"] .ex-reading{background:rgba(164,196,221,.1)}
@@ -380,7 +394,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-9">小口徑可能的優點：術中醫源性視網膜裂孔較少、手術時間較短、術後較舒適、視力恢復較快、結膜疤痕較少。<span class="ref">p.430–431</span></li>
 </ul>
 <h3 id="ch19-s1-2">眼內填充物（Table 19-1）</h3>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Tamponade（填充物）</th><th>Expected expansion（預期膨脹）</th><th>Time to expansion（膨脹時間）</th><th>Nonexpansile concentration（不膨脹濃度）</th><th>Approximate duration（約略停留時間）</th><th>Surface tension（表面張力，mN/m）</th></tr></thead>
 <tbody>
 <tr><td id="np-10">Air（空氣）</td><td id="np-11">–</td><td id="np-12">–</td><td id="np-13">–</td><td id="np-14"><span class="num">5–7 天</span></td><td id="np-15"><span class="num">70</span></td></tr>
@@ -389,7 +403,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-28">Silicone oil（矽油，1000 cSt）</td><td id="np-29">NA</td><td id="np-30">NA</td><td id="np-31">NA</td><td id="np-32">直到在手術室移除</td><td id="np-33"><span class="num">21</span></td></tr>
 <tr><td id="np-34">Silicone oil（5000 cSt）</td><td id="np-35">NA</td><td id="np-36">NA</td><td id="np-37">NA</td><td id="np-38">直到在手術室移除</td><td id="np-39"><span class="num">21</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-40">出處 <span class="ref">p.430</span></p>
 <ul>
 <li id="np-41">內文：SF6 與 C3F8 在不膨脹、等容濃度下約分別停留 <span class="num">2 週</span>與 <span class="num">8 週</span>。<span class="ref">p.430</span></li>
@@ -476,7 +490,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-86">玻璃體內抗生素<strong>一律在取完培養檢體後</strong>才注射；常用 <mark class="ex-key"><strong>ceftazidime</strong> 與 <strong>vancomycin</strong></mark>。因顧慮 aminoglycoside 毒性，ceftazidime 在臨床上已大致取代 amikacin 或 gentamicin⁠<sup class="ex-qref"><span>Q1477</span></sup>。<span class="ref">p.438</span></li>
 <li id="np-87">玻璃體內 dexamethasone 可能減少治療後發炎，但在眼內炎處置中的角色仍有爭議。<span class="ref">p.438</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>Intravitreal antimicrobial（玻璃體內抗微生物藥）</th><th>Dose（劑量）</th></tr></thead>
 <tbody>
 <tr><td id="np-88">Vancomycin</td><td id="np-89"><span class="num">1.0 mg/0.1 mL</span></td></tr>
@@ -485,7 +499,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-94">Amikacin</td><td id="np-95"><span class="num">400 μg/0.1 mL</span></td></tr>
 <tr><td id="np-96">Voriconazole</td><td id="np-97"><span class="num">100 μg/0.1 mL</span></td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-98">出處（Table 19-2）<span class="ref">p.438</span></p>
 <h3 id="ch19-s4-3">Endophthalmitis Vitrectomy Study（EVS，眼內炎玻璃體切除研究）</h3>
 <ul>
@@ -526,13 +540,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-120">移除較硬的核碎片首選 PPV ± fragmatome；移除後應檢查周邊視網膜有無裂孔或剝離。<span class="ref">p.441</span></li>
 <li id="np-121">長期追蹤：殘留晶體碎片眼約 <span class="num">15%</span> 發生視網膜剝離。由角膜緣途徑積極撈取後方碎片，有時併發 <strong>giant retinal tear（巨大視網膜裂孔）</strong>造成的剝離；巨大裂孔較常位於與白內障切口相距 <span class="num">180°</span> 處。<span class="ref">p.442</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>對象</th><th>一般建議（Table 19-3）</th></tr></thead>
 <tbody>
 <tr><td id="np-122">Anterior segment surgeon（前段醫師）</td><td id="np-123"><mark>只有在碎片容易取得時才嘗試撈取</mark>；必要時做 anterior vitrectomy（前玻璃體切除）避免玻璃體脫出到切口；可能的話植入 IOL；以 interrupted sutures（間斷縫線）關閉白內障切口；視需要開局部藥物；轉介玻璃體視網膜專科</td></tr>
 <tr><td id="np-124">Vitreoretinal surgeon（玻璃體視網膜醫師）</td><td id="np-125">發炎輕微和／或碎片小者觀察；視需要持續局部藥物；發炎或眼壓控制不住、或有核碎片或不吸收的皮質碎片 → 安排 vitrectomy；<mark>必要時延後 vitrectomy 讓角膜水腫消退</mark>；先做最大範圍 core vitrectomy 再 phacofragmentation；由低碎核能量（<span class="num">5%–10%</span>）開始以更有效率移除核；必要時準備二次植入 IOL；檢查周邊視網膜有無裂孔或剝離</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-126">出處（Table 19-3）⁠<sup class="ex-qref"><span>Q1412</span> <span>Q1522</span> <span>Q1756</span></sup><span class="ref">p.441</span></p>
 <ul>
 <li id="np-127">BCSC 11：碎片掉入玻璃體腔時，轉介做 PPV 移除；必要時玻璃體視網膜醫師可在白內障術後延後<span class="num">一週以上</span>再介入，不會影響成功結果；<mark class="ex-key">dispersive OVD（分散型黏彈劑）可能比 cohesive OVD 困住並殘留更多碎片</mark>；前段殘留碎片被認為 phacoemulsification 比 ECCE 多；corneal edema 列為可能需手術移除殘留碎片的情況之一⁠<sup class="ex-qref"><span>Q1412</span></sup>。<span class="ref ref-ext">BCSC 11 p.194</span></li>
@@ -647,13 +661,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-192">BCSC 11：PPV（尤其合併氣體填充）與核性白內障形成強烈相關，具視覺意義的核性白內障在 <span class="num">2 年</span>內發生於 <span class="num">80%–100%</span> 有晶體眼，<span class="num">50 歲</span>以下較少見；<mark class="ex-key">未做 vitrectomy 的視網膜手術與核硬化增加無關</mark>，但玻璃體手術中任何對水晶體囊的擾動可能誘發 posterior subcapsular cataract（PSC，後囊下白內障）；玻璃體內注射可能因直接傷及水晶體或藥物副作用而與白內障相關⁠<sup class="ex-qref"><span>Q1558</span> <span>Q1745</span></sup>。<span class="ref ref-ext">BCSC 11 p.69</span></li>
 <li id="np-193">其他併發症：術中視網膜裂孔（約 <span class="num">1%–5%</span>）、術後剝離（約 <span class="num">1%–2%</span>）、視網膜下 PFCL 殘留（有使用時）、視網膜與玻璃體嵌頓、endophthalmitis（約 <span class="num">0.05%</span>）、suprachoroidal hemorrhage、VH（約 <span class="num">&lt; 1%</span>；糖尿病患可達 <span class="num">5%</span> 以上）⁠<sup class="ex-qref"><span>Q1478</span></sup>。<span class="ref">p.451</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>類別</th><th>Complications（Table 19-4）</th></tr></thead>
 <tbody>
 <tr><td id="np-194">與 PPV 相關</td><td id="np-195">術後 nuclear sclerotic cataract；長期 open-angle glaucoma 風險；術中或術後視網膜裂孔；術中或術後視網膜剝離；術中白內障；術後 VH；術後大量 fibrin 滲出；術後前段新生血管；endophthalmitis；retinal phototoxicity（視網膜光毒性）</td></tr>
 <tr><td id="np-196">與矽油相關</td><td id="np-197">Glaucoma；band keratopathy（帶狀角膜病變）；corneal decompensation（角膜失代償）</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-198">出處（Table 19-4）⁠<sup class="ex-qref"><span>Q1509</span></sup><span class="ref">p.451</span></p>
 <ul>
 <li id="np-199">BCSC 12 第 17 章：已有手術顯微鏡與 vitrectomy 用光纖眼內照明造成傷害的報告；手術時間越長發生率越高，但手術短至 <span class="num">30 分鐘</span>仍可能發生；視網膜手術中，長時間、局部照射時較可能造成光傷害，尤其光源靠近視網膜時（黃斑裂孔與 ERM 手術中可能如此）；photochemical injury 主要發生在感光細胞外節⁠<sup class="ex-qref"><span>Q1509</span></sup>。<span class="ref ref-ext">BCSC 12 p.412–413</span></li>
@@ -678,7 +692,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <li id="np-212">其他併發症：anti-VEGF 注射後眼壓上升，類固醇注射常見眼壓上升；<mark>dexamethasone sustained-release implant 移入前房 → 嚴重角膜內皮毒性</mark>（此植入物特有）。<span class="ref">p.453</span></li>
 <li id="np-213">常見病人主訴：眼表刺激、結膜下出血、看到注入的藥物或針筒帶入的氣泡；某些以矽油潤滑的針筒可留下玻璃體內矽油微滴。<span class="ref">p.454</span></li>
 </ul>
-<table class="ted-table">
+<div class="ex-table-wrap"><table class="ted-table">
 <thead><tr><th>步驟</th><th>Steps for performing intravitreal injections（Table 19-5）</th></tr></thead>
 <tbody>
 <tr><td id="np-214">1</td><td id="np-215">注射前取得 informed consent（知情同意）</td></tr>
@@ -689,7 +703,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 <tr><td id="np-224">6</td><td id="np-225">以無菌生理食鹽水沖洗眼表；避免局部抗生素（可能促進細菌抗藥性）</td></tr>
 <tr><td id="np-226">7</td><td id="np-227">病人離開前確認 optic nerve perfusion（視神經灌流）；眼壓仍危險地高時做前房穿刺</td></tr>
 </tbody>
-</table>
+</table></div>
 <p id="np-228">出處（Table 19-5）<span class="ref">p.453</span></p>
 <div class="ex-trap"><h3 id="ch19-s9-1">易錯陷阱</h3><ul>
 <li id="np-229">Povidone-iodine 濃度 <span class="num">5%</span>、至少 <span class="num">90 秒</span>；常規注射前後不建議抗生素眼藥水。<span class="ref">p.453</span></li>
