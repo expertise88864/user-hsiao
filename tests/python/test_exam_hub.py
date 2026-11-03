@@ -5,7 +5,7 @@
 - The /exam hub has a disease search whose results land on the exact note
   paragraph: every searchable paragraph of a chapter carries id "np-<n>", in
   the same order as exam/notes-data.json lists it.
-- Hub order: tools, access note, 考古卷, 「繼續閱讀」 card (2026-11-03), search,
+- Hub order: tools, access note, 考古卷, search, 「繼續閱讀」 card (2026-11-03),
   chapters, frequency table (all ranked chapters; exam.js shows 25 at a time).
 """
 import re
@@ -68,9 +68,11 @@ class ExamHubTests(unittest.TestCase):
     def test_hub_order(self):
         main = str(self.doc.select_one("main"))
         # Owner order 2026-10-18: tools, access note, 考古卷, then the search box.
-        # 2026-11-03: the 「繼續閱讀」 card (filled by exam.js) sits right before the search box.
+        # 2026-11-03: the 「繼續閱讀」 card (filled by exam.js) sits after the search block
+        # (box, status, results) and before the chapters, as on the dermatology site.
         marks = ['class="ex-tools"', "課本重點整理公開；考題、答案與詳解需要登入才能看。",
-                 'href="/exam/practice"', 'class="ex-continue"', 'data-hub-search', ">依 BCSC 章節瀏覽</h2>", ">出題頻率：最常考</h2>",
+                 'href="/exam/practice"', 'data-hub-search', 'class="ex-find-status"', 'id="ex-find-results"',
+                 'class="ex-continue"', ">依 BCSC 章節瀏覽</h2>", ">出題頻率：最常考</h2>",
                  'class="ex-rank"', 'class="ex-more"']
         at = [main.index(m) for m in marks]
         self.assertEqual(at, sorted(at), list(zip(marks, at)))

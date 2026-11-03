@@ -62,11 +62,11 @@ test('the card shows the last chapter, section, time and coverage, and continues
     expect(text === full || (text.endsWith('…') && full.startsWith(text.slice(0, -1).trim()))).toBe(true);
   }
   await expect(card.locator('.ex-continue-more')).toContainText('最近也讀過：');
-  // Placed right before the hub search box.
+  // Placed as on the dermatology site: after the search block, before the chapters.
   expect(await page.evaluate(() => {
-    const s = document.querySelector('[data-hub-search]');
-    return document.querySelector('.ex-continue').nextElementSibling === s;
-  })).toBe(true);
+    const card = document.querySelector('.ex-continue');
+    return [card.previousElementSibling.id, card.nextElementSibling.textContent];
+  })).toEqual(['ex-find-results', '依 BCSC 章節瀏覽']);
 
   // The link has no #: the chapter page reopens at the saved section itself.
   await go.click();

@@ -770,10 +770,11 @@ def hub_page(data: dict, version: str) -> str:
         '<li><a class="ex-cta ex-cta-alt" href="/exam/login">登入／登出題庫</a></li></ul>'
         '<p class="ex-meta">課本重點整理公開；考題、答案與詳解需要登入才能看。</p>'
         '<p class="ex-practice"><a class="ex-cta" href="/exam/practice">考古卷：自選範圍／隨機出題</a></p>'
-        # 「繼續閱讀」 (as on the dermatology exam section, 2026-11-03): filled by exam.js from
-        # this device's saved reading positions; stays hidden without JS, storage or positions.
-        '<section class="ex-continue" aria-labelledby="ex-continue-h" hidden></section>'
         f"{HUB_SEARCH}"
+        # 「繼續閱讀」 (as on the dermatology exam section, 2026-11-03): after the search block,
+        # before the chapters. Filled by exam.js from this device's saved reading positions;
+        # stays hidden without JS, storage or positions.
+        '<section class="ex-continue" aria-labelledby="ex-continue-h" hidden></section>'
         '<h2 class="ex-h2">依 BCSC 章節瀏覽</h2>' + "".join(books_html)
         + '<h2 class="ex-h2" id="rank-h">出題頻率：最常考</h2>'
         f'<p class="ex-meta">依題數排序，共 {len(ranked)} 章有考題，先顯示前 {TOP_N} 章；'
