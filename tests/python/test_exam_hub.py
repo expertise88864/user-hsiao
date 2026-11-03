@@ -5,8 +5,8 @@
 - The /exam hub has a disease search whose results land on the exact note
   paragraph: every searchable paragraph of a chapter carries id "np-<n>", in
   the same order as exam/notes-data.json lists it.
-- Hub order: search, tools, access note, 考古卷, chapters, frequency table
-  (all ranked chapters; exam.js shows 25 at a time).
+- Hub order: tools, access note, 考古卷, 「繼續閱讀」 card (2026-11-03), search,
+  chapters, frequency table (all ranked chapters; exam.js shows 25 at a time).
 """
 import re
 import unittest
@@ -68,12 +68,31 @@ class ExamHubTests(unittest.TestCase):
     def test_hub_order(self):
         main = str(self.doc.select_one("main"))
         # Owner order 2026-10-18: tools, access note, 考古卷, then the search box.
+        # 2026-11-03: the 「繼續閱讀」 card (filled by exam.js) sits right before the search box.
         marks = ['class="ex-tools"', "課本重點整理公開；考題、答案與詳解需要登入才能看。",
-                 'href="/exam/practice"', 'data-hub-search', ">依 BCSC 章節瀏覽</h2>", ">出題頻率：最常考</h2>",
+                 'href="/exam/practice"', 'class="ex-continue"', 'data-hub-search', ">依 BCSC 章節瀏覽</h2>", ">出題頻率：最常考</h2>",
                  'class="ex-rank"', 'class="ex-more"']
         at = [main.index(m) for m in marks]
         self.assertEqual(at, sorted(at), list(zip(marks, at)))
         self.assertLess(main.index('class="ex-lead"'), at[0])
+
+    def test_continue_card_is_an_empty_hidden_placeholder(self):
+        # exam.js fills it from this device's saved reading positions (hs:exam:pos);
+        # without JavaScript, storage or a position it stays hidden.
+        cards = self.doc.select("section.ex-continue")
+        self.assertEqual(len(cards), 1)
+        card = cards[0]
+        self.assertTrue(card.has_attr("hidden"))
+        self.assertEqual(card["aria-labelledby"], "ex-continue-h")
+        self.assertFalse(card.contents)
+        self.assertIsNone(self.doc.find(id="ex-continue-h"), "the heading is created by exam.js")
+        # The card takes chapter names and the 有重點 flag from the chapter list.
+        noted = self.doc.select('.ex-chapter-list li[data-ch] .ex-badge')
+        self.assertEqual(len(noted), len(self.data["notes"]))
+        css = gen.EXAM_STYLE
+        for rule in (".ex-continue{", ".ex-continue[hidden]{display:none}", ".ex-continue-main{",
+                     ".ex-continue-more a{", ':root[data-theme="dark"] .ex-continue{'):
+            self.assertIn(rule, css)
 
     def test_tools_drop_the_duplicate_search_button(self):
         tools = [a["href"] for a in self.doc.select(".ex-tools a")]

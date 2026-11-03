@@ -770,6 +770,9 @@ def hub_page(data: dict, version: str) -> str:
         '<li><a class="ex-cta ex-cta-alt" href="/exam/login">登入／登出題庫</a></li></ul>'
         '<p class="ex-meta">課本重點整理公開；考題、答案與詳解需要登入才能看。</p>'
         '<p class="ex-practice"><a class="ex-cta" href="/exam/practice">考古卷：自選範圍／隨機出題</a></p>'
+        # 「繼續閱讀」 (as on the dermatology exam section, 2026-11-03): filled by exam.js from
+        # this device's saved reading positions; stays hidden without JS, storage or positions.
+        '<section class="ex-continue" aria-labelledby="ex-continue-h" hidden></section>'
         f"{HUB_SEARCH}"
         '<h2 class="ex-h2">依 BCSC 章節瀏覽</h2>' + "".join(books_html)
         + '<h2 class="ex-h2" id="rank-h">出題頻率：最常考</h2>'
@@ -900,6 +903,13 @@ def progress_page(version: str) -> str:
         '<p class="ex-meta">「重點閱讀」欄記錄各章重點整理讀了幾次：每一段在畫面上停留夠久才算讀過，'
         '讀過約 75% 算讀完一次（✓ 後面是次數），之後從 0% 開始下一輪；同樣只存在這台裝置。'
         '讀完過的章節在考試區首頁也會打勾。</p>'
+        # Sort order for the chapters in each book table (as on the dermatology exam
+        # section, 2026-11-03); exam.js shows the bar, enables it and remembers the choice.
+        '<p class="ex-warn ex-prog-store" role="status" hidden></p>'
+        '<div class="ex-toolbar ex-prog-bar" hidden>'
+        '<label class="ex-check">排序 <select class="ex-select ex-progress-sort" aria-label="章節排序" aria-controls="ex-progress" disabled>'
+        '<option value="order">章節順序</option><option value="todo">尚未作答優先</option>'
+        '<option value="low">正確率低優先</option><option value="reading">閱讀進度低優先</option></select></label></div>'
         '<div id="ex-progress" class="ex-list"><p class="ex-pending">進度載入中；這個功能需要啟用 JavaScript。</p></div>'
         '<div class="ex-toolbar"><button type="button" class="ex-clear-progress">清除作答紀錄</button></div>'
     )
@@ -1247,6 +1257,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-find-results mark,.ex-note mark.ex-find-hl{background:#bfdbfe;color:#0f172a;font-weight:inherit;border-radius:3px;padding:0 1px}
 .ex-find-more,.ex-more-btn{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 14px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer;margin-top:4px}
 .ex-practice{margin:12px 0 4px}
+.ex-continue{border:1px solid var(--border);border-radius:14px;padding:2px 18px 14px;margin:16px 0 0;background:var(--ex-soft)}
+.ex-continue[hidden]{display:none}
+.ex-continue .ex-h2{font-size:18px;margin:12px 0 8px}
+.ex-continue-main{margin:0;font-size:15.5px;line-height:1.6;font-weight:700;overflow-wrap:anywhere}
+.ex-continue-sub{margin:2px 0 0;font-size:13px;line-height:1.7;color:var(--muted)}
+.ex-continue-go{margin:10px 0 0}
+.ex-continue-more{margin:10px 0 0;font-size:13px;line-height:1.8;color:var(--ink-2)}
+.ex-continue-more a{color:var(--ex-accent);text-underline-offset:2px;overflow-wrap:anywhere}
+.ex-continue-sep{margin:0 6px;opacity:.5}
+.ex-prog-bar{margin:8px 0 0}
+.ex-prog-bar[hidden]{display:none}
+.ex-prog-bar .ex-select{font-size:14px;padding:4px 8px}
 .ex-more{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 12px;margin:2px 0 12px;font-size:13px;color:var(--ink-2)}
 .ex-more[hidden],.ex-rank tr[hidden]{display:none}
 .ex-note [id^="np-"]{scroll-margin-top:96px}
@@ -1333,6 +1355,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-doubt-tag-dispute{background:#7f1d1d;color:#fee2e2}
 :root[data-theme="dark"] .ex-doubt-tag-now{background:#1e3a5f;color:#dbeafe}
 :root[data-theme="dark"] .ex-strip,:root[data-theme="dark"] .ex-summary-box{border-color:#36404b}
+:root[data-theme="dark"] .ex-continue{border-color:#36404b}
 :root[data-theme="dark"] .ex-weak a,:root[data-theme="dark"] .ex-prog .ex-low{color:#fca5a5}
 :root[data-theme="dark"] .ex-toc a,:root[data-theme="dark"] .ex-toc-side a{color:#d6d3d1}
 :root[data-theme="dark"] .ex-toc-side{border-color:#36404b}

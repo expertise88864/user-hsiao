@@ -46,8 +46,10 @@ test('reading position is saved, restored with a notice, and 從頭開始 clears
   await page.goto(CHAPTER);
   await page.waitForLoadState('load');
   await readTo(page, 'ch4-s3');
-  await expect.poll(() => stored(page, 'hs:exam:pos')).toEqual({ '12-4': { id: 'ch4-s3', t: expect.any(Number) } });
   const title = (await page.locator('#ch4-s3').textContent()).replace(/\s+/g, ' ').trim();
+  // 2026-11-03: the section title (h2 › h3, at most 120 characters) is stored too, for
+  // the hub's 「繼續閱讀」 card (tests/seo/exam-hub-continue.spec.js).
+  await expect.poll(() => stored(page, 'hs:exam:pos')).toEqual({ '12-4': { id: 'ch4-s3', t: expect.any(Number), h: title } });
 
   await page.goto('/exam');
   await page.goto(CHAPTER);
@@ -82,6 +84,19 @@ test('closing the notice keeps the position; scrolling back above the notes forg
   await page.waitForLoadState('load');
   await readTo(page, 'np-40');
   await expect.poll(() => stored(page, 'hs:exam:pos').then(p => p && p['12-4'] && p['12-4'].id)).toBe('np-40');
+  // A paragraph stores the heading(s) of its section: 'h2' or 'h2 › h3'.
+  const section = await page.evaluate(() => {
+    const text = n => n.textContent.replace(/\s+/g, ' ').trim();
+    let h2 = null;
+    let h3 = null;
+    for (const a of document.querySelectorAll('.ex-note h2[id], .ex-note h3[id], .ex-note [id^="np-"]')) {
+      if (a.tagName === 'H2') { h2 = a; h3 = null; } else if (a.tagName === 'H3') h3 = a;
+      if (a.id === 'np-40') break;
+    }
+    return [h2, h3].filter(Boolean).map(text).join(' › ').slice(0, 120);
+  });
+  expect(section).toBeTruthy();
+  expect((await stored(page, 'hs:exam:pos'))['12-4'].h).toBe(section);
   await page.goto('/exam');
   await page.goto(CHAPTER);
   await expect(page.locator('.ex-resume-text')).toContainText('已跳到上次讀到的位置：');

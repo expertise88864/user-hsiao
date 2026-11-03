@@ -75,6 +75,37 @@ class PageMarkupTests(unittest.TestCase):
         self.assertIn("同樣只存在這台裝置", text)
 
 
+class ProgressSortMarkupTests(unittest.TestCase):
+    """2026-11-03, as on the dermatology exam section: /exam/progress can order the
+    chapters of each book table; exam.js shows the bar, enables the select (only when
+    storage works) and remembers the choice. Behaviour: tests/seo/exam-progress-sort.spec.js."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.doc = BeautifulSoup(gen.progress_page(gen.site_version()), "html.parser")
+
+    def test_sort_select_offers_the_four_orders_and_starts_hidden_and_disabled(self):
+        bar = self.doc.select_one(".ex-prog-bar")
+        self.assertTrue(bar.has_attr("hidden"), "without JavaScript there is nothing to sort")
+        select = bar.select_one("select.ex-progress-sort")
+        self.assertTrue(select.has_attr("disabled"))
+        self.assertEqual(select["aria-label"], "章節排序")
+        self.assertEqual(select["aria-controls"], "ex-progress")
+        self.assertEqual([(o["value"], o.get_text()) for o in select.select("option")],
+                         [("order", "章節順序"), ("todo", "尚未作答優先"),
+                          ("low", "正確率低優先"), ("reading", "閱讀進度低優先")])
+        self.assertIn(".ex-prog-bar[hidden]{display:none}", gen.EXAM_STYLE, ".ex-toolbar is display:flex")
+
+    def test_storage_notice_and_bar_come_before_the_tables(self):
+        note = self.doc.select_one(".ex-prog-store")
+        self.assertTrue(note.has_attr("hidden"))
+        self.assertEqual(note["role"], "status")
+        self.assertEqual(note.get_text(), "", "exam.js writes the message only when storage fails")
+        html = str(self.doc.select_one("main"))
+        self.assertLess(html.index("ex-prog-store"), html.index("ex-prog-bar"))
+        self.assertLess(html.index("ex-prog-bar"), html.index('id="ex-progress"'))
+
+
 class StyleTests(unittest.TestCase):
     def test_reading_styles_exist_in_both_themes(self):
         css = gen.EXAM_STYLE

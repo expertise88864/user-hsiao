@@ -13,7 +13,9 @@
   var READ_KEY = 'hs:exam:read';     // [chapter keys whose textbook chapter is read]
   var VISIT_KEY = 'hs:exam:visit';   // { chapter key: last visit ms }
   var ANS_KEY = 'hs:exam:ans';       // { n: { c: chosen option key, t: answered ms } }
-  var POS_KEY = 'hs:exam:pos';       // { chapter key: { id: note anchor id, t: saved ms } }
+  // { chapter key: { id: note anchor id, t: saved ms, h: 'h2 › h3' section title (optional, ≤120) } }
+  var POS_KEY = 'hs:exam:pos';
+  var PSORT_KEY = 'hs:exam:psort';   // /exam/progress chapter order: 'order' | 'todo' | 'low' | 'reading'
   // { chapter key: { g: generation id, r: finished rounds, seen: { h2 id: 1 }, pct: 0-100,
   //   t: saved ms, done: [finish ms, newest 20] } } (see "reading rounds")
   var READING_KEY = 'hs:exam:reading';
@@ -483,6 +485,73 @@
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 
   // ---------------------------------------------------------- progress page
+  // Chapter order inside each book table (as on the dermatology exam section): the
+  // reader's choice is remembered on this device; 'order' is the BCSC order.
+  var SORTS = ['order', 'todo', 'low', 'reading'];
+  var progressSort = null;
+  function sortMode() {
+    if (progressSort === null) {
+      var saved = load(PSORT_KEY, 'order');
+      progressSort = SORTS.indexOf(saved) !== -1 ? saved : 'order';
+    }
+    return progressSort;
+  }
+  // keys: one book's chapters in BCSC order; rows: answer counts; reading: rounds.
+  function sortChapters(keys, mode, rows, reading, notes) {
+    var at = {};
+    keys.forEach(function (k, i) { at[k] = i; });
+    return keys.slice().sort(function (a, b) {
+      var ra = rows[a];
+      var rb = rows[b];
+      if (mode === 'todo') {
+        // Chapters with questions none of which are answered yet, then the rest;
+        // chapters without questions last.
+        var ga = !ra.total ? 2 : ra.done ? 1 : 0;
+        var gb = !rb.total ? 2 : rb.done ? 1 : 0;
+        return ga - gb || at[a] - at[b];
+      }
+      if (mode === 'low') {
+        // Lowest accuracy first; chapters without answers keep BCSC order at the end.
+        if (!ra.done || !rb.done) return (ra.done ? 0 : 1) - (rb.done ? 0 : 1) || at[a] - at[b];
+        return ra.right / ra.done - rb.right / rb.done || at[a] - at[b];
+      }
+      if (mode === 'reading') {
+        // Chapters with notes first: fewest finished rounds, then lowest coverage.
+        var na = !!notes[a];
+        var nb = !!notes[b];
+        if (na !== nb) return na ? -1 : 1;
+        if (!na) return at[a] - at[b];
+        var pa = reading[a] || { r: 0, pct: 0 };
+        var pb = reading[b] || { r: 0, pct: 0 };
+        return pa.r - pb.r || pa.pct - pb.pct || at[a] - at[b];
+      }
+      return at[a] - at[b];
+    });
+  }
+  // Sort bar and the storage notice above the tables (set up once).
+  function initProgressBar(out) {
+    var bar = document.querySelector('.ex-prog-bar');
+    var select = bar ? bar.querySelector('.ex-progress-sort') : null;
+    var works = storageWorks();
+    if (!works) {
+      var note = document.querySelector('.ex-prog-store');
+      if (note) {
+        note.textContent = '這個瀏覽器無法儲存資料（例如無痕模式或停用網站資料），讀書進度無法記錄。';
+        note.hidden = false;
+      }
+      var clearBtn = document.querySelector('.ex-clear-progress');
+      if (clearBtn) clearBtn.disabled = true;
+    }
+    if (!select) return;
+    select.value = sortMode();
+    select.disabled = !works;
+    bar.hidden = false;
+    select.addEventListener('change', function () {
+      progressSort = SORTS.indexOf(select.value) !== -1 ? select.value : 'order';
+      store(PSORT_KEY, progressSort);
+      renderProgress(out);
+    });
+  }
   function renderProgress(out, focusKey) {
     notesData().then(function (data) {
       // Re-rendering keeps the reader's expanded books and the focused checkbox.
@@ -495,7 +564,8 @@
       var all = stats();
       var seen = visits();
       var read = readList();
-      var reading = storageWorks() ? readingMap() : {};
+      var canStore = storageWorks();
+      var reading = canStore ? readingMap() : {};
       var rows = {};
       var order = [];
       var done = 0;
@@ -558,6 +628,7 @@
       out.appendChild(summary);
       var byBook = {};
       order.forEach(function (k) { (byBook[k.split('-')[0]] = byBook[k.split('-')[0]] || []).push(k); });
+      var mode = sortMode();
       Object.keys(byBook).sort(function (a, b) { return a - b; }).forEach(function (book) {
         var keys = byBook[book];
         var t = books[book] || { total: 0, done: 0, right: 0 };
@@ -579,7 +650,7 @@
         thead.appendChild(head);
         table.appendChild(thead);
         var tbody = el('tbody');
-        keys.forEach(function (k) {
+        sortChapters(keys, mode, rows, reading, data.notes).forEach(function (k) {
           var r = rows[k];
           var tr = el('tr');
           var name = el('td');
@@ -593,6 +664,7 @@
           box.checked = read.indexOf(k) !== -1;
           box.setAttribute('aria-label', data.chapters[k].label + ' 課本已讀完');
           box.setAttribute('data-chapter', k);
+          box.disabled = !canStore;   // nothing could be kept
           box.addEventListener('change', function () { setRead(k, box.checked); renderProgress(out, k); });
           cell.appendChild(box);
           tr.appendChild(cell);
@@ -1105,6 +1177,19 @@
     if (!anchors.length) return null;
     var notice = null;
     var armed = false;   // only the reader's own scrolling is saved, not the page settling
+
+    function text(node) { return (node.textContent || '').replace(/\s+/g, ' ').trim(); }
+    // 'h2 › h3' of the section an anchor belongs to ('' before the first heading).
+    function sectionTitle(target) {
+      var h2 = null;
+      var h3 = null;
+      for (var i = 0; i < anchors.length; i++) {
+        var a = anchors[i];
+        if (a.tagName === 'H2') { h2 = a; h3 = null; } else if (a.tagName === 'H3') { h3 = a; }
+        if (a === target) return [h2, h3].filter(Boolean).map(text).join(' › ');
+      }
+      return '';
+    }
     var timer = null;
     var lastId;
 
@@ -1134,8 +1219,12 @@
       if (id === null || id === lastId) return;
       lastId = id;
       var all = positions();
-      if (id) all[key] = { id: id, t: Date.now() };
-      else delete all[key];
+      if (id) {
+        all[key] = { id: id, t: Date.now() };
+        // Section title for the hub's 「繼續閱讀」 card (as on the dermatology site).
+        var h = sectionTitle(document.getElementById(id)).slice(0, 120);
+        if (h) all[key].h = h;
+      } else delete all[key];
       store(POS_KEY, all);
     }
     function arm() { armed = true; }
@@ -1164,15 +1253,7 @@
     if (target.getBoundingClientRect().top + window.pageYOffset < window.innerHeight * 0.5) return null;
     lastId = saved.id;
 
-    var h2 = null;
-    var h3 = null;
-    for (var i = 0; i < anchors.length; i++) {
-      var a = anchors[i];
-      if (a.tagName === 'H2') { h2 = a; h3 = null; } else if (a.tagName === 'H3') { h3 = a; }
-      if (a === target) break;
-    }
-    function text(node) { return (node.textContent || '').replace(/\s+/g, ' ').trim(); }
-    var title = [h2, h3].filter(Boolean).map(text).join(' › ');
+    var title = sectionTitle(target);
     if (!title) { title = text(target); if (title.length > 30) title = title.slice(0, 30) + '…'; }
 
     notice = el('div', 'ex-resume');
@@ -1512,6 +1593,85 @@
     });
   }
 
+  // ---------------------------------------------------------- hub: continue reading
+  function relativeTime(t) {
+    var diff = Date.now() - t;
+    if (diff < 60000) return '剛剛';
+    if (diff < 3600000) return Math.floor(diff / 60000) + ' 分鐘前';
+    if (diff < 86400000) return Math.floor(diff / 3600000) + ' 小時前';
+    if (diff < 30 * 86400000) return Math.floor(diff / 86400000) + ' 天前';
+    return dateText(t);
+  }
+  function shortTitle(title) {
+    if (title.length <= 24) return title;
+    var cut = title.slice(0, 24);
+    var space = cut.lastIndexOf(' ');
+    return (space > 12 ? cut.slice(0, space) : cut).replace(/[\s,:;]+$/, '') + '…';
+  }
+  // 「繼續閱讀」 card (as on the dermatology exam section): the chapter whose reading
+  // position was saved last, with its section, when, and this round's 重點 coverage,
+  // plus up to 3 other recent chapters. Chapter names come from the hub's own chapter
+  // list; the card stays hidden (as generated) without JS, storage or a saved position.
+  function fillContinue() {
+    var box = document.querySelector('.ex-continue');
+    if (!box) return;
+    clear(box);
+    box.hidden = true;
+    if (!storageWorks()) return;
+    var rows = {};
+    document.querySelectorAll('.ex-chapter-list li[data-ch]').forEach(function (li) {
+      var link = li.querySelector('a');
+      var key = li.getAttribute('data-ch') || '';
+      if (!link || !/^\d{1,2}-\d{1,2}$/.test(key)) return;
+      var m = /^(Ch\.\d+)\s*(.*)$/.exec(link.textContent.replace(/\s+/g, ' ').trim()) || ['', 'Ch.' + key.split('-')[1], ''];
+      rows[key] = {
+        ch: 'BCSC ' + key.split('-')[0] + ' ' + m[1],
+        title: m[2],
+        href: link.getAttribute('href'),
+        notes: !!li.querySelector('.ex-badge')
+      };
+    });
+    var map = positions();
+    var list = [];
+    Object.keys(map).forEach(function (key) {
+      var rec = map[key];
+      if (!own(rows, key) || !isMap(rec) || typeof rec.t !== 'number' || !isFinite(rec.t) || rec.t <= 0) return;
+      var h = typeof rec.h === 'string' ? rec.h.replace(/\s+/g, ' ').trim().slice(0, 120) : '';
+      list.push({ key: key, t: rec.t, h: h });
+    });
+    if (!list.length) return;
+    list.sort(function (a, b) { return b.t - a.t; });
+    var top = list[0];
+    var info = rows[top.key];
+    var heading = el('h2', 'ex-h2', '繼續閱讀');
+    heading.id = 'ex-continue-h';
+    box.appendChild(heading);
+    box.appendChild(el('p', 'ex-continue-main', info.ch + ' ' + info.title + (top.h ? ' 〈' + top.h + '〉' : '')));
+    var sub = relativeTime(top.t);
+    if (info.notes) {
+      var reading = readingMap();
+      sub += ' · 本章重點已讀 ' + (own(reading, top.key) ? reading[top.key].pct : 0) + '%';
+    }
+    box.appendChild(el('p', 'ex-continue-sub', sub));
+    var go = el('p', 'ex-continue-go');
+    var cta = el('a', 'ex-cta', '繼續 →');
+    cta.href = info.href;   // no #: the chapter page itself reopens at the saved place
+    go.appendChild(cta);
+    box.appendChild(go);
+    var more = list.slice(1, 4);
+    if (more.length) {
+      var line = el('p', 'ex-continue-more', '最近也讀過：');
+      more.forEach(function (item, i) {
+        if (i) line.appendChild(el('span', 'ex-continue-sep', '·'));
+        var a = el('a', null, rows[item.key].ch + ' ' + shortTitle(rows[item.key].title));
+        a.href = rows[item.key].href;
+        line.appendChild(a);
+      });
+      box.appendChild(line);
+    }
+    box.hidden = false;
+  }
+
   // ---------------------------------------------------------- sticky chapter outline
   // Wide screens show 「本章目錄」 as a sticky left column (CSS). Mark the section the
   // reader is in (aria-current) and keep that entry inside the column's own scroll.
@@ -1818,6 +1978,7 @@
     // Back from a chapter: show the reading rounds recorded meanwhile.
     else if (ev.persisted) {
       fillHubBadges();
+      fillContinue();
       var pg = document.getElementById('ex-progress');
       if (pg) renderProgress(pg);
     }
@@ -1849,6 +2010,7 @@
     var resume = initReadingPosition(strip ? strip.getAttribute('data-progress-chapter') : '');
     if (strip) initReading(strip.getAttribute('data-progress-chapter'));
     fillHubBadges();
+    fillContinue();
     var settle = landing || resume;
     var tocSide = document.querySelector('.ex-toc-side');
     if (tocSide) initTocSpy(tocSide);
@@ -1863,7 +2025,7 @@
     var loginForm = document.querySelector('form.ex-login');
     if (loginForm) initLogin(loginForm);
     var progress = document.getElementById('ex-progress');
-    if (progress) renderProgress(progress);
+    if (progress) { initProgressBar(progress); renderProgress(progress); }
     var clearProgress = document.querySelector('.ex-clear-progress');
     if (clearProgress) {
       clearProgress.addEventListener('click', function () {
