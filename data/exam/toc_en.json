@@ -1110,5 +1110,67 @@
   "ch18-s8": "Spontaneous Regression and Genetic Counseling",
   "ch18-s9": "Retinocytoma and PNET",
   "ch18-s10": "Prognosis and Second Nonocular Tumors"
+ },
+ "6-6": {
+  "ch6-s1": "Highlights and History",
+  "ch6-s2": "Diagnostic Positions of Gaze",
+  "ch6-s3": "Cover Tests",
+  "ch6-s4": "Corneal Light Reflex Tests and Angle Kappa",
+  "ch6-s5": "Subjective Tests of Ocular Alignment",
+  "ch6-s6": "Eye Movements, AC/A Ratio and Fusional Vergence",
+  "ch6-s7": "The 3-Step Test",
+  "ch6-s8": "Sensory Adaptation and Binocular Function Tests",
+  "ch6-s9": "Stereoacuity, Binocular Field and Prism Adaptation",
+  "ch6-s10": "Torticollis: Differential Diagnosis and Evaluation"
+ },
+ "5-4": {
+  "ch4-s1": "History: Laterality, Time Course, Symptoms",
+  "ch4-s2": "Visual Acuity and Color Vision Testing",
+  "ch4-s3": "Pupillary Testing and RAPD",
+  "ch4-s4": "Fundus Exam: Disc Pallor and Edema",
+  "ch4-s5": "Visual Field Evaluation and Perimetry",
+  "ch4-s6": "Contrast, Photostress and PAM Testing",
+  "ch4-s7": "FA, ICGA, FAF and Ancillary Tests",
+  "ch4-s8": "OCT and OCTA",
+  "ch4-s9": "Ultrasonography and Electrophysiology"
+ },
+ "4-11": {
+  "ch11-s1": "Uveal Tract Topography",
+  "ch11-s2": "Developmental Anomalies",
+  "ch11-s3": "Inflammation (Uveitis)",
+  "ch11-s4": "Degenerations: Iris Neovascularization",
+  "ch11-s5": "Iris Nevus and Melanoma",
+  "ch11-s6": "Choroidal Nevus and Melanocytoma",
+  "ch11-s7": "Posterior Uveal Melanoma",
+  "ch11-s8": "Metastatic Tumors",
+  "ch11-s9": "Other Uveal Tumors"
+ },
+ "12-13": {
+  "ch13-s1": "Highlights and Pigmentary Retinopathy Overview",
+  "ch13-s2": "Table 13-1: Systemic Diseases by Inheritance",
+  "ch13-s3": "Leber Congenital Amaurosis and Bardet-Biedl",
+  "ch13-s4": "Usher Syndrome and Hearing Loss",
+  "ch13-s5": "Neuromuscular Disorders and Duchenne ERG",
+  "ch13-s6": "Renal, Liver, GI, Skin and Dental Diseases",
+  "ch13-s7": "Paraneoplastic and Autoimmune Retinopathies",
+  "ch13-s8": "Metabolic Diseases and Albinism",
+  "ch13-s9": "Metabolic Diseases With CNS Abnormalities",
+  "ch13-s10": "Lysosomal Disorders and Cherry-Red Spot",
+  "ch13-s11": "Cystinosis and Bietti Crystalline Dystrophy",
+  "ch13-s12": "Mitochondrial Disorders",
+  "ch13-s13": "Summary: Macular Signs, ERG and Lab Clues"
+ },
+ "12-14": {
+  "ch14-s1": "Highlights and Classification of Toxicity",
+  "ch14-s2": "Chloroquine Derivatives",
+  "ch14-s3": "Phenothiazines",
+  "ch14-s4": "Other RPE/Photoreceptor Toxic Drugs",
+  "ch14-s5": "Occlusive Retinopathy and Microvasculopathy",
+  "ch14-s6": "Ganglion Cell Damage and Optic Neuropathy",
+  "ch14-s7": "Drugs Causing Macular Edema",
+  "ch14-s8": "Crystalline Retinopathy",
+  "ch14-s9": "Color Vision and ERG Abnormalities",
+  "ch14-s10": "Other Ocular Toxicities",
+  "ch14-s11": "Differential Diagnosis and Cross-References"
  }
 }
