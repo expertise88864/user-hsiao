@@ -572,7 +572,12 @@ def ref_label(ref) -> str:
     return f"BCSC {book} p.{pages}"
 
 
-DOUBT_CATS = {"outdated", "bcsc_silent", "bcsc_conflict", "ambiguous", "typo"}
+# doubts.json "cat" values; exam.js DOUBT_CATS shows them with these labels (derm wording).
+DOUBT_CAT_LABELS = {
+    "outdated": "舊版觀念", "bcsc_silent": "課本未提及", "bcsc_conflict": "說法矛盾",
+    "ambiguous": "選項模稜兩可", "typo": "題目誤植",
+}
+DOUBT_CATS = set(DOUBT_CAT_LABELS)
 
 
 def cite_meta(ref: dict) -> str:
@@ -1019,7 +1024,7 @@ def bank_data(data: dict) -> dict:
                 if doubt.get("dispute"):
                     row["dispute"] = {"text": doubt["dispute"], "refs": [
                         {"t": r["t"], "u": r.get("u", ""), "s": cite_meta(r)} for r in doubt["drefs"]]}
-                row["doubt"] = {"exam": doubt["exam"], "now": doubt.get("now", ""), "refs": [
+                row["doubt"] = {"cat": doubt["cat"], "exam": doubt["exam"], "now": doubt.get("now", ""), "refs": [
                     {"t": r["t"], "u": r["u"], "s": cite_meta(r)} for r in doubt.get("refs", [])]}
         questions.append(row)
     concepts = [{"id": c["id"], "t": c["title"], "qs": c["qs"]} for c in data["concepts"]]
@@ -1222,6 +1227,7 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-auth a{color:var(--ex-accent);font-weight:600}
 .ex-doubt{margin:10px 0 0;border:1px solid #f3d38a;background:#fffbeb;border-radius:10px;padding:8px 12px;font-size:13.5px;line-height:1.8}
 .ex-doubt p{margin:4px 0}
+.ex-doubt-h{font-weight:700;color:#92400e}
 .ex-doubt-tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:6px;background:#fde68a;color:#713f12}
 .ex-doubt-tag-dispute{background:#fecaca;color:#7f1d1d}
 .ex-doubt-tag-now{background:#dbeafe;color:#1e3a8a}
@@ -1293,7 +1299,9 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 @media (max-width:600px){.ex-prog td.ex-rd{white-space:normal}.ex-rd-bar{display:none}.ex-prog .ex-rd-badge{display:table;margin:0 0 2px}.ex-prog th,.ex-prog td{padding:6px 4px}}
 .ex-ans-bar{position:sticky;top:64px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:var(--bg);padding:8px 0;margin:0 0 4px;border-bottom:1px solid var(--line);font-size:13px}
 .ex-ans-text{color:var(--ink-2);font-weight:600}
-.ex-ans-next,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-next,.ex-ans-only,.ex-ans-clear{border:1px solid var(--ex-accent);border-radius:9999px;padding:5px 13px;font-size:13px;font-weight:600;background:var(--ex-card);color:var(--ex-accent);cursor:pointer}
+.ex-ans-only[aria-pressed="true"]{background:var(--ex-accent);color:#fff}
+body.ex-quiz .ex-q.ex-hide,body.ex-quiz .ex-concept.ex-hide{display:none}
 .ex-ans-next:disabled{opacity:.5;cursor:default}
 .ex-ans-clear{margin:0 0 6px}
 .ex-ans-bar[hidden],.ex-ans-clear[hidden],body:not(.ex-quiz) .ex-ans-bar,body:not(.ex-quiz) .ex-ans-clear{display:none}
@@ -1353,6 +1361,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-login-msg{background:#3a1a1a;border-color:#7f1d1d;color:#fecaca}
 :root[data-theme="dark"] .ex-doubt{background:#2a2414;border-color:#5c4a1a}
 :root[data-theme="dark"] .ex-doubt-tag{background:#5c4a1a;color:#fde68a}
+:root[data-theme="dark"] .ex-doubt-h{color:#fcd34d}
 :root[data-theme="dark"] .ex-doubt-tag-dispute{background:#7f1d1d;color:#fee2e2}
 :root[data-theme="dark"] .ex-doubt-tag-now{background:#1e3a5f;color:#dbeafe}
 :root[data-theme="dark"] .ex-strip,:root[data-theme="dark"] .ex-summary-box{border-color:#36404b}
@@ -1370,6 +1379,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-rd-bar{background:#36404b}
 :root[data-theme="dark"] .ex-rd-fill{background:#a4c4dd}
 :root[data-theme="dark"] .ex-ans-bar{border-color:#36404b}
+:root[data-theme="dark"] .ex-ans-only[aria-pressed="true"]{color:#14181d}
 :root[data-theme="dark"] body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered){box-shadow:inset 4px 0 0 #4a6178}
 :root[data-theme="dark"] .ex-cpt,:root[data-theme="dark"] .ex-cpt-form,:root[data-theme="dark"] .ex-cpt-other{border-color:#36404b}
 :root[data-theme="dark"] .ex-cpt-body{border-color:#36404b}

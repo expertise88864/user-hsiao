@@ -94,6 +94,11 @@
     var d = new Date(ms);
     return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
   }
+  // 2026/11/3, as the derm section shows a restored answer's date.
+  function day(ms) {
+    var d = new Date(ms);
+    return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+  }
   function percent(right, done) { return done ? Math.round(100 * right / done) + '%' : '—'; }
 
   // Chapter page strip: "textbook read" box plus this chapter's answered count and accuracy.
@@ -141,6 +146,7 @@
   function resetQuestion(card, forgetChoice) {
     if (card.classList.contains('ex-unanswered')) return;
     card.classList.remove('ex-done');
+    card.classList.remove('ex-hide');
     card.removeAttribute('data-outcome');
     card.querySelectorAll('.ex-opt').forEach(function (opt) { opt.classList.remove('ex-picked'); });
     card.querySelectorAll('input[type=radio]').forEach(function (input) { input.checked = false; input.disabled = false; });
@@ -151,7 +157,8 @@
   }
 
   // Graded look of a card: picked option, right/wrong feedback, explanation shown.
-  function showGraded(card, picked) {
+  // note: extra text after the verdict (a restored answer's date).
+  function showGraded(card, picked, note) {
     var answer = card.getAttribute('data-answer') || '';
     var ok = picked.value === answer;
     card.classList.add('ex-done');
@@ -159,7 +166,7 @@
     picked.closest('.ex-opt').classList.add('ex-picked');
     card.querySelectorAll('input[type=radio]').forEach(function (input) { input.disabled = true; });
     var result = card.querySelector('.ex-result');
-    if (result) result.textContent = ok ? '答對了' : '答錯了，答案是 ' + answer;
+    if (result) result.textContent = (ok ? '答對了' : '答錯了，答案是 ' + answer) + (note || '');
     return ok;
   }
 
@@ -192,7 +199,7 @@
     for (var i = 0; i < inputs.length; i++) {
       if (inputs[i].value === saved.c) {
         inputs[i].checked = true;
-        showGraded(card, inputs[i]);
+        showGraded(card, inputs[i], Number(saved.t) > 0 ? '（' + day(Number(saved.t)) + ' 作答）' : '');
         return;
       }
     }
@@ -286,10 +293,12 @@
     return node;
   }
 
-  function chapterChip(key, n, chapters) {
+  // The chapter page being read gets a highlighted chip that is not a link.
+  function chapterChip(key, n, chapters, current) {
     var parts = key.split('-');
-    var chip = el('a', 'ex-chip', 'BCSC ' + parts[0] + ' · Ch.' + parts[1]);
-    chip.href = '/exam/bcsc' + key + '#q-' + n;
+    var label = 'BCSC ' + parts[0] + ' · Ch.' + parts[1];
+    var chip = key === current ? el('span', 'ex-chip ex-chip-on', label) : el('a', 'ex-chip', label);
+    if (key !== current) chip.href = '/exam/bcsc' + key + '#q-' + n;
     if (chapters && chapters[key]) chip.title = chapters[key].title;
     return chip;
   }
@@ -314,8 +323,14 @@
     return list;
   }
 
+  // doubts.json "cat" (labels as on the derm section; _gen_exam.DOUBT_CAT_LABELS).
+  var DOUBT_CATS = {
+    outdated: '舊版觀念', bcsc_silent: '課本未提及', bcsc_conflict: '說法矛盾',
+    ambiguous: '選項模稜兩可', typo: '題目誤植'
+  };
   function doubtBox(q) {
     var box = el('div', 'ex-doubt');
+    box.appendChild(el('p', 'ex-doubt-h', '⚠ 疑義題 · ' + (own(DOUBT_CATS, q.doubt.cat) ? DOUBT_CATS[q.doubt.cat] : '疑義')));
     if (q.dispute) {
       var dis = rich('p', 'ex-doubt-dispute', q.dispute.text);
       dis.insertBefore(el('span', 'ex-doubt-tag ex-doubt-tag-dispute', '答案存疑'), dis.firstChild);
@@ -344,7 +359,7 @@
     var head = el('div', 'ex-q-head');
     head.appendChild(el('span', 'ex-q-no', (opts.prefix || '') + '第 ' + q.n + ' 題'));
     var chips = el('span', 'ex-chips');
-    q.ch.forEach(function (key) { chips.appendChild(chapterChip(key, q.n, data.chapters)); });
+    q.ch.forEach(function (key) { chips.appendChild(chapterChip(key, q.n, data.chapters, opts.current)); });
     head.appendChild(chips);
     card.appendChild(head);
     card.appendChild(rich('p', 'ex-stem', q.stem));
@@ -383,6 +398,7 @@
         remove.addEventListener('click', function () {
           markWrong(q.n, false);
           card.remove();
+          if (typeof opts.removable === 'function') opts.removable();
         });
         actions.appendChild(remove);
       }
@@ -459,8 +475,35 @@
     }
     return bankPromise;
   }
+  // Answer-key corrections (e.g. Q703): every graded answer stores its chosen option in
+  // hs:exam:ans next to the [1|0, …] result in hs:exam:stats (grade() writes both; nothing
+  // writes a result alone), so a result graded against an older key is re-derived from
+  // that option and the bank's current answer, and the wrong-answer notebook follows it.
+  // A result without a stored option (「重新作答」 forgot it) is left as it is.
+  var corrected = null;
+  function correctRecords(questions) {
+    var all = stats();
+    var picks = choices();
+    var changed = false;
+    questions.forEach(function (q) {
+      var s = all[q.n];
+      var a = picks[q.n];
+      if (!q.answer || !validStat(s) || !a || typeof a !== 'object' || typeof a.c !== 'string') return;
+      if (!own(q.options, a.c)) return;
+      var ok = a.c === q.answer ? 1 : 0;
+      if (s[0] === ok) return;
+      s[0] = ok;
+      markWrong(q.n, !ok);
+      changed = true;
+    });
+    if (changed) store(STATS_KEY, all);
+  }
   function examData() {
     return Promise.all([notesData(), bankData()]).then(function (both) {
+      if (corrected !== both[1]) {
+        corrected = both[1];
+        correctRecords(both[1].questions);
+      }
       return { questions: both[1].questions, concepts: both[1].concepts, chapters: both[0].chapters,
         notes: both[0].notes, books: both[0].books };
     });
@@ -725,8 +768,16 @@
         list.appendChild(el('p', 'ex-pending', '目前沒有錯題。到章節頁或考古卷切換「作答模式」作答，答錯的題目會出現在這裡。'));
         return;
       }
-      list.appendChild(el('p', 'ex-meta', '共 ' + rows.length + ' 題錯題'));
-      rows.forEach(function (q) { list.appendChild(renderCard(q, data, { removable: true })); });
+      var meta = el('p', 'ex-meta', '共 ' + rows.length + ' 題錯題');
+      list.appendChild(meta);
+      // 移出錯題本 keeps the count in step (and says so when the last one goes).
+      function removed() {
+        var left = list.querySelectorAll('.ex-q').length;
+        if (left) { meta.textContent = '共 ' + left + ' 題錯題'; return; }
+        clear(list);
+        list.appendChild(el('p', 'ex-pending', '目前沒有錯題。到章節頁或考古卷切換「作答模式」作答，答錯的題目會出現在這裡。'));
+      }
+      rows.forEach(function (q) { list.appendChild(renderCard(q, data, { removable: removed })); });
     }).catch(function (err) { lockedNote(list, err, '錯題本'); });
   }
 
@@ -1731,11 +1782,15 @@
     }
     var bar = el('div', 'ex-ans-bar');
     var status = el('span', 'ex-ans-text');
+    var only = el('button', 'ex-ans-only', '只看未作答');
+    only.type = 'button';
+    only.setAttribute('aria-pressed', 'false');
     var next = el('button', 'ex-ans-next', '跳到下一題未作答');
     next.type = 'button';
     var live = el('span', 'ex-sr');
     live.setAttribute('aria-live', 'polite');
     bar.appendChild(status);
+    bar.appendChild(only);
     bar.appendChild(next);
     bar.appendChild(live);
     box.parentNode.insertBefore(bar, box);
@@ -1752,6 +1807,30 @@
       status.textContent = '已作答 ' + done + '／' + list.length + ' 題・未作答 ' + (list.length - done) + ' 題';
       next.disabled = done >= list.length;
     }
+    // 只看未作答 (quiz mode only, as the CSS rule is): answered cards (and cards with no
+    // answer key yet) hide when it is switched on; a card answered meanwhile stays until
+    // it is toggled again, so a result and its explanation never vanish on submit. A 考點
+    // heading whose questions are all hidden hides with them.
+    function setOnlyTodo(on) {
+      only.setAttribute('aria-pressed', on ? 'true' : 'false');
+      var heading = null;
+      var shown = false;
+      function closeGroup() { if (heading) heading.classList.toggle('ex-hide', on && !shown); }
+      Array.prototype.forEach.call(box.children, function (node) {
+        if (node.classList.contains('ex-concept')) {
+          closeGroup();
+          heading = node;
+          shown = false;
+        } else if (node.classList.contains('ex-q')) {
+          // Cards without an answer key cannot be answered and are not counted either.
+          var hide = on && (node.classList.contains('ex-done') || node.classList.contains('ex-unanswered'));
+          node.classList.toggle('ex-hide', hide);
+          if (!hide) shown = true;
+        }
+      });
+      closeGroup();
+    }
+    only.addEventListener('click', function () { setOnlyTodo(only.getAttribute('aria-pressed') !== 'true'); });
     next.addEventListener('click', function () {
       var list = cards();
       // Search onward from the question at the top of the screen (or the one just
@@ -1782,6 +1861,7 @@
       forget(ANS_KEY, ns);
       forget(STATS_KEY, ns);
       all.forEach(function (card) { resetQuestion(card, false); });
+      setOnlyTodo(false);
       refreshStrip();
       refresh();
       live.textContent = '已清除本章作答紀錄';

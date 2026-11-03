@@ -151,11 +151,12 @@ test('signed in: quiz answers come back after a reload; browse mode stays unchan
   await page.reload();
   await expect(first).toHaveAttribute('data-outcome', 'right');
   await expect(first.locator(`.ex-opt[data-key="${right}"] input`)).toBeChecked();
-  await expect(first.locator('.ex-result')).toHaveText('答對了');
+  // Restored answers carry their date, as on the derm section (owner request 2026-11-03).
+  await expect(first.locator('.ex-result')).toHaveText(/^答對了（\d{4}\/\d{1,2}\/\d{1,2} 作答）$/);
   await expect(first.locator('.ex-reveal')).toBeVisible();
   await expect(second).toHaveAttribute('data-outcome', 'wrong');
   await expect(second.locator(`.ex-opt[data-key="${wrongKey}"]`)).toHaveClass(/ex-picked/);
-  await expect(second.locator('.ex-result')).toHaveText('答錯了，答案是 ' + answer2);
+  await expect(second.locator('.ex-result')).toHaveText(new RegExp('^答錯了，答案是 ' + answer2 + '（\\d{4}/\\d{1,2}/\\d{1,2} 作答）$'));
   await expect(second.locator('input[type=radio]').first()).toBeDisabled();
   // Restoring does not count the answers again.
   const stats = await stored(page, 'hs:exam:stats');
@@ -227,15 +228,19 @@ test('signed in: unanswered counter and 跳到下一題未作答 (wrapping)', as
 
 test('signed in: 清除本章作答紀錄 resets only this chapter', async ({ page }) => {
   await signIn(page);
-  const other = JSON.parse(await bank()).questions.find(q => q.answer && !q.ch.includes('12-4')).n;
-  await page.addInitScript(n => {
+  const otherQ = JSON.parse(await bank()).questions.find(q => q.answer && !q.ch.includes('12-4'));
+  const other = otherQ.n;
+  // The seeded wrong answer picks a wrong option: since 2026-11-03 a stored result that
+  // disagrees with its stored option under the current key is re-graded on load.
+  const otherWrong = Object.keys(otherQ.options).find(k => k !== otherQ.answer);
+  await page.addInitScript(([n, c]) => {
     if (localStorage.getItem('seeded')) return;
     localStorage.setItem('seeded', '1');
     localStorage.setItem('hs:exam:mode', JSON.stringify('quiz'));
     localStorage.setItem('hs:exam:stats', JSON.stringify({ [n]: [0, 2, 1] }));
-    localStorage.setItem('hs:exam:ans', JSON.stringify({ [n]: { c: 'B', t: 1 } }));
+    localStorage.setItem('hs:exam:ans', JSON.stringify({ [n]: { c, t: 1 } }));
     localStorage.setItem('hs:exam:wrong', JSON.stringify([n]));
-  }, other);
+  }, [other, otherWrong]);
   await page.goto(CHAPTER);
   const cards = page.locator('#ex-chapter-qs .ex-q:not(.ex-unanswered)');
   const first = cards.nth(0);
