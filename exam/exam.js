@@ -2348,7 +2348,7 @@
         ch: 'BCSC ' + key.split('-')[0] + ' ' + m[1],
         title: m[2],
         href: link.getAttribute('href'),
-        notes: !!li.querySelector('.ex-badge')
+        notes: li.hasAttribute('data-notes')
       };
     });
     var map = positions();

@@ -745,10 +745,11 @@ def hub_page(data: dict, version: str) -> str:
     # ("載入更多"), and without JavaScript the whole table stays visible.
     ranked = sorted(by_chapter.items(), key=lambda kv: (-len(kv[1]), kv[0]))
     peak = len(ranked[0][1]) if ranked else 1
-    badge = '<span class="ex-badge">有重點</span>'
+    # Every chapter has notes since 2026-11-04, so the 有重點 badge is gone (owner
+    # 2026-11-04); data-notes on the chapter list still tells exam.js which ones do.
     rows = "".join(
         f'<tr data-ch="{k}"><td><a href="/exam/{slug(k)}">BCSC {chapters[k]["book"]} Ch.{chapters[k]["ch"]} {esc(chapters[k]["title"])}</a>'
-        f'{" " + badge if k in data["notes"] else ""}</td><td class="ex-num">{len(qs)}</td>'
+        f'</td><td class="ex-num">{len(qs)}</td>'
         f'<td class="ex-bar-cell"><span class="ex-bar" style="width:{round(100 * len(qs) / peak)}%"></span></td></tr>'
         for k, qs in ranked
     )
@@ -761,9 +762,10 @@ def hub_page(data: dict, version: str) -> str:
             n = len(by_chapter.get(key, []))
             count += n
             label = f"Ch.{ch['ch']} {esc(ch['title'])}"
-            extra = f' <span class="ex-count">{n} 題</span>' + (" " + badge if key in data["notes"] else "")
+            extra = f' <span class="ex-count">{n} 題</span>'
+            noted = ' data-notes=""' if key in data["notes"] else ""
             # id: /exam#ch-12-11 opens the closed BCSC 12 list (exam.js revealTarget).
-            items.append(f'<li id="ch-{key}" data-ch="{key}"><a href="/exam/{slug(key)}">{label}</a>{extra}</li>' if n or key in data["notes"]
+            items.append(f'<li id="ch-{key}" data-ch="{key}"{noted}><a href="/exam/{slug(key)}">{label}</a>{extra}</li>' if n or key in data["notes"]
                          else f'<li class="ex-none">{label}{extra}</li>')
         books_html.append(
             f'<details class="ex-part"><summary>BCSC {book["book"]} {esc(book["title"])} '
@@ -1461,7 +1463,6 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-num{text-align:right;width:3.5em}
 .ex-bar-cell{width:30%}
 .ex-bar{display:block;height:9px;border-radius:9px;background:#6b8caf}
-.ex-badge{font-size:10.5px;font-weight:700;color:#14532d;background:#dcfce7;border-radius:9999px;padding:1px 7px}
 .ex-count{font-size:12px;color:var(--muted)}
 .ex-part{border:1px solid var(--border);border-radius:12px;background:var(--ex-card);margin:8px 0;padding:8px 14px}
 .ex-part summary{cursor:pointer;font-weight:700;font-size:14px}
@@ -1659,7 +1660,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
 :root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
-:root[data-theme="dark"] .ex-badge,:root[data-theme="dark"] .ex-ok .ex-item-label{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-ok .ex-item-label{background:#14532d;color:#dcfce7}
 :root[data-theme="dark"] .ex-no .ex-item-label{background:#36404b;color:#e7e5e4}
 :root[data-theme="dark"] .ref,:root[data-theme="dark"] .ex-ref{background:#2c2925;color:#d6d3d1}
 :root[data-theme="dark"] .ref-ext{background:#2e1065;color:#ddd6fe}

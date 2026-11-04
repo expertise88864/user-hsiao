@@ -88,9 +88,12 @@ class ExamHubTests(unittest.TestCase):
         self.assertEqual(card["aria-labelledby"], "ex-continue-h")
         self.assertFalse(card.contents)
         self.assertIsNone(self.doc.find(id="ex-continue-h"), "the heading is created by exam.js")
-        # The card takes chapter names and the 有重點 flag from the chapter list.
-        noted = self.doc.select('.ex-chapter-list li[data-ch] .ex-badge')
+        # The card takes chapter names and the notes flag (data-notes) from the chapter list.
+        noted = self.doc.select('.ex-chapter-list li[data-ch][data-notes]')
         self.assertEqual(len(noted), len(self.data["notes"]))
+        # Owner 2026-11-04: every chapter has notes, so no visible 有重點 badge anywhere.
+        self.assertFalse(self.doc.select(".ex-badge"))
+        self.assertNotIn("有重點", self.hub)
         css = gen.EXAM_STYLE
         for rule in (".ex-continue{", ".ex-continue[hidden]{display:none}", ".ex-continue-main{",
                      ".ex-continue-more a{", ':root[data-theme="dark"] .ex-continue{'):
@@ -122,7 +125,6 @@ class ExamHubTests(unittest.TestCase):
         self.assertTrue(more.has_attr("hidden"), "without JavaScript every row stays visible and no button shows")
         self.assertEqual(more.button.get_text(), "載入更多")
         self.assertFalse(any(r.has_attr("hidden") for r in rows))
-        self.assertTrue(self.doc.select("table.ex-rank .ex-badge"))
         self.assertTrue(self.doc.select("table.ex-rank .ex-bar"))
 
     def test_hub_search_falls_back_to_the_search_page(self):
