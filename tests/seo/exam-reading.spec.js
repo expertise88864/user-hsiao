@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const { test, expect } = require('@playwright/test');
 test.use({ serviceWorkers: 'block' });
 
@@ -178,9 +180,22 @@ test('the progress page shows rounds and coverage per chapter', async ({ page })
   await expect(cell.locator('.ex-rd-bar')).toHaveAttribute('aria-hidden', 'true');
   const unread = part.locator('tr', { has: page.locator('a[href="/exam/bcsc12-5"]') }).locator('td.ex-rd');
   await expect(unread).toHaveText('0%');
-  const noNotes = part.locator('tr', { has: page.locator('a[href="/exam/bcsc12-1"]') }).locator('td.ex-rd');
-  await expect(noNotes).toHaveText('—');
-  await expect(noNotes).toHaveAttribute('title', '本章尚無重點整理');
+  // Chapters gain notes batch by batch (12-1 got them 2026-11-04), so check every BCSC 12
+  // row against data/exam/notes instead of naming one: rows without notes show the dash.
+  const noted = new Set(fs.readdirSync(path.join(__dirname, '..', '..', 'data', 'exam', 'notes'))
+    .map(f => (f.match(/^bcsc(\d+-\d+)\.htm$/) || [])[1]).filter(Boolean));
+  const hrefs = await part.locator('tbody tr a[href^="/exam/bcsc12-"]')
+    .evaluateAll(as => as.map(a => a.getAttribute('href')));
+  expect(hrefs.length).toBeGreaterThan(10);
+  for (const href of hrefs) {
+    const rd = part.locator('tr', { has: page.locator(`a[href="${href}"]`) }).locator('td.ex-rd');
+    if (noted.has(href.slice('/exam/bcsc'.length))) {
+      await expect(rd).not.toHaveText('—');
+    } else {
+      await expect(rd).toHaveText('—');
+      await expect(rd).toHaveAttribute('title', '本章尚無重點整理');
+    }
+  }
   await expect(page.locator('.ex-summary-box p').first()).toContainText(/重點已讀完 2 \/ \d+ 章（其中 1 章 2 次以上）/);
 });
 

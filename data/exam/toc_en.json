@@ -2068,5 +2068,122 @@
   "ch6-s10": "Traumatic Optic Neuropathy (Clear Media)",
   "ch6-s11": "Mass Casualty Incidents",
   "ch6-s12": "Enophthalmos: Cross-Chapter Causes"
+ },
+ "5-16": {
+  "ch16-s1": "Evaluation Goals and Sensory Anatomy",
+  "ch16-s2": "Ophthalmic Secondary Causes of Pain",
+  "ch16-s3": "Nonophthalmic Secondary Causes of Pain",
+  "ch16-s4": "Trigeminal Nerve Diseases and Neuralgias",
+  "ch16-s5": "Primary Headache Overview and Tension-Type",
+  "ch16-s6": "Migraine",
+  "ch16-s7": "Inherited Encephalopathies Resembling Migraine",
+  "ch16-s8": "Trigeminal Autonomic Cephalalgias, Stabbing Headache"
+ },
+ "10-4": {
+  "ch4-s1": "Refractive Error",
+  "ch4-s2": "Ocular Adnexa",
+  "ch4-s3": "Pupillary Function",
+  "ch4-s4": "Slit Lamp: Conjunctiva, Sclera, Cornea",
+  "ch4-s5": "Slit Lamp: Anterior Chamber, Iris, Lens",
+  "ch4-s6": "Gonioscopy Principles and Lenses",
+  "ch4-s7": "Gonioscopic Assessment, Grading and Findings",
+  "ch4-s8": "Anterior Segment Imaging: UBM and AS-OCT",
+  "ch4-s9": "Specular Microscopy"
+ },
+ "1-17": {
+  "ch17-s1": "Highlights and Introduction",
+  "ch17-s2": "Cardiopulmonary Arrest and CPR",
+  "ch17-s3": "Syncope",
+  "ch17-s4": "Hypoglycemia",
+  "ch17-s5": "Shock",
+  "ch17-s6": "Anaphylaxis",
+  "ch17-s7": "Seizures and Status Epilepticus",
+  "ch17-s8": "Toxic Reactions to Local Anesthetics and Other Drugs",
+  "ch17-s9": "Opioid Overdose",
+  "ch17-s10": "Drug Interactions and Ocular Drug Side Effects",
+  "ch17-s11": "Ocular Adverse Effects of Systemic Drugs"
+ },
+ "9-7": {
+  "ch7-s1": "Overview and Highlights",
+  "ch7-s2": "Classification of Scleritis",
+  "ch7-s3": "Pathophysiology",
+  "ch7-s4": "Epidemiology",
+  "ch7-s5": "Clinical Presentation vs Episcleritis",
+  "ch7-s6": "Diffuse and Nodular Anterior Scleritis",
+  "ch7-s7": "Necrotizing Scleritis",
+  "ch7-s8": "Posterior Scleritis",
+  "ch7-s9": "Infectious Scleritis",
+  "ch7-s10": "Diagnosis and Laboratory Workup",
+  "ch7-s11": "Treatment",
+  "ch7-s12": "Prognosis"
+ },
+ "6-18": {
+  "ch18-s1": "Highlights and Lacrimal Drainage Anatomy",
+  "ch18-s2": "Atresia of Lacrimal Puncta or Canaliculi",
+  "ch18-s3": "Congenital Lacrimal Fistula",
+  "ch18-s4": "Dacryocystocele: Mechanism and Features",
+  "ch18-s5": "Dacryocystocele Management",
+  "ch18-s6": "CNLDO: Classification and Clinical Features",
+  "ch18-s7": "CNLDO Nonsurgical Management",
+  "ch18-s8": "Nasolacrimal Duct Probing",
+  "ch18-s9": "Complex CNLDO and Failed Probing",
+  "ch18-s10": "Older Children and Dacryocystorhinostomy"
+ },
+ "4-2": {
+  "ch2-s1": "Highlights and Pathology Glossary",
+  "ch2-s2": "Communication and Specimen Submission",
+  "ch2-s3": "Fixatives and Fresh Tissue",
+  "ch2-s4": "Enucleated Globes: Laterality and Dissection",
+  "ch2-s5": "Eyelid, Conjunctival and Temporal Artery Biopsies",
+  "ch2-s6": "Tissue Processing and Slide Preparation",
+  "ch2-s7": "Histochemical Stains",
+  "ch2-s8": "Fine-Needle Aspiration Biopsy",
+  "ch2-s9": "Frozen Section and Flow Cytometry Submission",
+  "ch2-s10": "Immunohistochemistry",
+  "ch2-s11": "Molecular Pathology",
+  "ch2-s12": "Diagnostic Electron Microscopy"
+ },
+ "5-3": {
+  "ch3-s1": "Introduction and Neuroimaging Errors",
+  "ch3-s2": "Computed Tomography",
+  "ch3-s3": "MRI Principles and Sequences",
+  "ch3-s4": "Gadolinium Contrast and NSF",
+  "ch3-s5": "CT vs MRI Comparison",
+  "ch3-s6": "When and What to Order",
+  "ch3-s7": "How to Order and Interpret",
+  "ch3-s8": "Vascular Imaging: DSA, MRA/MRV, CTA/CTV",
+  "ch3-s9": "Metabolic and Functional Imaging",
+  "ch3-s10": "Ultrasonography",
+  "ch3-s11": "OCT Interpretation and Artifacts"
+ },
+ "6-9": {
+  "ch9-s1": "Highlights and Definitions",
+  "ch9-s2": "Etiology of Pattern Strabismus",
+  "ch9-s3": "Clinical Identification and Thresholds",
+  "ch9-s4": "V, A, Y, X and Lambda Patterns",
+  "ch9-s5": "Surgical Principles",
+  "ch9-s6": "Surgical Treatment of Specific Patterns"
+ },
+ "7-13": {
+  "ch13-s1": "Pathogenesis of the Aging Face",
+  "ch13-s2": "Physical Examination of the Aging Face",
+  "ch13-s3": "Nonsurgical Overview and Chemical Peels",
+  "ch13-s4": "Laser Skin Resurfacing",
+  "ch13-s5": "Cosmetic Uses of Botulinum Toxin",
+  "ch13-s6": "Dermal Fillers and Autologous Fat Grafting",
+  "ch13-s7": "Surgical Overview and Lower Blepharoplasty",
+  "ch13-s8": "Forehead Rejuvenation",
+  "ch13-s9": "Midface Rejuvenation",
+  "ch13-s10": "Lower Face and Neck Rejuvenation"
+ },
+ "12-1": {
+  "ch1-s1": "Vitreous",
+  "ch1-s2": "Retinal Topography",
+  "ch1-s3": "Retinal Layers and Neurosensory Elements",
+  "ch1-s4": "Retinal Vasculature and Oxygen Supply",
+  "ch1-s5": "Retinal Pigment Epithelium",
+  "ch1-s6": "Bruch Membrane",
+  "ch1-s7": "Choroid",
+  "ch1-s8": "Sclera"
  }
 }
