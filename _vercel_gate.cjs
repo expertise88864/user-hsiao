@@ -6,7 +6,9 @@ const fs = require('node:fs');
 const assert = require('node:assert/strict');
 
 async function allowed(env = process.env, request = fetch) {
-  if (env.VERCEL_ENV === 'preview') return true;
+  // The admin exam editor's draft branch (cms-exam/drafts) holds unregenerated source
+  // edits, so a Preview of it would show stale pages: skip it.
+  if (env.VERCEL_ENV === 'preview') return !String(env.VERCEL_GIT_COMMIT_REF || '').startsWith('cms-exam/');
   if (env.VERCEL_ENV !== 'production' || !/^[a-f0-9]{40}$/.test(env.VERCEL_GIT_COMMIT_SHA || '')) return false;
   const cfg = JSON.parse(fs.readFileSync(__dirname + '/_delivery_policy.json', 'utf8'));
   assert.match(cfg.repository, /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/);

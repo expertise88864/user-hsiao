@@ -277,6 +277,62 @@
   .img-card img{ width:100%; height:100px; object-fit:cover; display:block; }
   .img-card .name{ padding:6px 8px; font-size:11px; color:var(--ink-2); font-family:'JetBrains Mono',monospace; word-break:break-all; }
 
+  /* Exam content editor (admin/exam-editor.js) */
+  .exam-explrow{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:0 0 12px; font-size:13px; }
+  .exam-explrow label{ font-weight:600; color:var(--ink-2); }
+  .exam-explrow input{ padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:13px; background:#fff; color:var(--ink); }
+  .exam-explrow input[type="search"]{ flex:1; min-width:14em; }
+  .exam-explrow .btn{ display:inline-flex; padding:8px 14px; border-radius:9999px; font-size:13px; font-weight:600; cursor:pointer; border:1px solid var(--border); background:#fff; color:var(--ink); }
+  .exam-explrow .btn.primary{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
+  .exam-draft-summary{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin:0 0 12px; font-size:12.5px; color:var(--ink-2); }
+  .exam-draft-summary:empty{ display:none; }
+  .exam-book{ background:#fff; border:1px solid var(--border); border-radius:12px; padding:10px 12px; margin-bottom:10px; }
+  .exam-group-title{ font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--blue-deep); margin:2px 4px 6px; }
+  .exam-rows{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:2px 8px; }
+  button.exam-item{ display:flex; align-items:center; gap:6px; width:100%; text-align:left; font:inherit; font-size:12.5px; line-height:1.35; padding:6px 10px; border:0; border-radius:6px; background:none; cursor:pointer; color:var(--ink-2); }
+  button.exam-item:hover{ background:var(--blue-soft); color:var(--blue-deep); }
+  button.exam-chip{ width:auto; border:1px solid var(--border); background:#fff; }
+  .exam-item-name{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .exam-draft-mark{ flex-shrink:0; font-size:10.5px; font-weight:700; color:#92400e; background:#fef3c7; border-radius:4px; padding:1px 5px; }
+  .exam-note{ font-size:12.5px; color:#7f1d1d; margin:4px; }
+  .exam-overlay{ position:fixed; inset:0; z-index:200; background:rgba(15,23,42,.55); display:flex; align-items:center; justify-content:center; padding:2vh 2vw; }
+  .exam-dialog{ background:#fff; border-radius:14px; width:min(1400px,96vw); height:94vh; display:grid; grid-template-rows:auto minmax(0,1fr) auto; overflow:hidden; box-shadow:0 30px 80px -20px rgba(0,0,0,.4); }
+  .exam-dialog:focus{ outline:none; }
+  .exam-dialog-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 16px; border-bottom:1px solid var(--border); }
+  .exam-dialog-head h2{ margin:0; font-family:'Noto Serif TC',Georgia,serif; font-size:17px; color:var(--blue-deep); }
+  .exam-dialog-body{ min-height:0; display:flex; }
+  .exam-panel{ flex:1; min-width:0; min-height:0; display:flex; }
+  .exam-note-panel{ gap:10px; padding:10px; }
+  .exam-pane{ flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
+  .exam-source{ flex:1; min-height:0; width:100%; padding:10px 12px; font-family:'JetBrains Mono',Menlo,monospace; font-size:12.5px; line-height:1.6; border:1px solid var(--border); border-radius:8px; resize:none; background:#fff; color:var(--ink); }
+  .exam-preview{ flex:1; min-height:0; width:100%; border:1px solid var(--border); border-radius:8px; background:#fff; }
+  .exam-expl-panel{ flex-direction:column; padding:12px 16px; overflow-y:auto; gap:8px; }
+  .exam-idrow{ display:flex; gap:8px; align-items:center; }
+  .exam-idrow .exam-input{ width:8em; }
+  .exam-form{ display:flex; flex-direction:column; gap:10px; }
+  .exam-question{ background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 12px; }
+  .exam-question p{ margin:0; }
+  .exam-stem{ font-size:13.5px; line-height:1.7; color:var(--ink); }
+  .exam-field{ display:flex; flex-direction:column; gap:3px; }
+  .exam-check{ flex-direction:row; align-items:center; gap:6px; font-size:13px; }
+  .exam-item-set{ border:1px solid var(--border); border-radius:8px; padding:8px 12px 10px; display:flex; flex-direction:column; gap:8px; margin:0; }
+  .exam-item-set legend{ font-weight:700; font-size:12.5px; color:var(--blue-deep); padding:0 6px; }
+  .exam-label{ font-size:12px; font-weight:600; color:var(--ink-2); }
+  .exam-hint{ font-size:11.5px; color:var(--muted); line-height:1.6; margin:0; }
+  .exam-input{ width:100%; padding:6px 8px; font-size:13px; font-family:inherit; border:1px solid var(--border); border-radius:6px; background:#fff; color:var(--ink); }
+  .exam-area{ resize:vertical; line-height:1.6; }
+  .exam-dialog-foot{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:8px 16px; border-top:1px solid var(--border); }
+  .exam-status{ margin:0; flex:1; min-width:12em; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  .exam-status.exam-ok{ color:#065f46; }
+  .exam-status.exam-err{ color:#7f1d1d; }
+  .exam-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+  button.exam-btn{ padding:6px 12px; font-size:12.5px; font-weight:600; border:1px solid var(--border); border-radius:6px; background:#fff; color:var(--ink-2); cursor:pointer; }
+  button.exam-btn:hover:not(:disabled){ border-color:var(--blue-deep); color:var(--blue-deep); }
+  button.exam-btn:disabled{ opacity:.5; cursor:default; }
+  button.exam-primary{ background:var(--blue-deep); color:#fff; border-color:var(--blue-deep); }
+  button.exam-primary:hover:not(:disabled){ color:#fff; opacity:.92; }
+  @media (max-width:900px){ .exam-note-panel{ flex-direction:column; } .exam-dialog{ height:96vh; width:98vw; } }
+
   @media (max-width:640px){
     .article-row{ grid-template-columns:auto 1fr; }
     .article-row .drag, .article-row .num{ grid-column:1; }
@@ -319,6 +375,7 @@
       <button type="button" data-tab="ab">📈 A/B 結果</button>
       <button type="button" data-tab="abbuilder">🧪 A/B Builder</button>
       <button type="button" data-tab="md">📝 Markdown</button>
+      <button type="button" data-tab="exam">🎓 考試內容</button>
       <button type="button" data-tab="cwv">📉 CWV 儀表板</button>
       <button type="button" data-tab="ops">⚙️ 維運</button>
     </div>
@@ -474,6 +531,29 @@
         <textarea id="md-editor" spellcheck="false" placeholder="先選文章再點「📥 載入」⋯" style="font-family:'JetBrains Mono','Noto Sans TC',monospace; font-size:13.5px; line-height:1.7; padding:14px 16px; border:1px solid var(--border); border-radius:10px; resize:none; background:#fff;"></textarea>
         <div id="md-preview" class="prose" style="padding:14px 18px; border:1px solid var(--border); border-radius:10px; background:#fff; overflow-y:auto; font-size:14.5px; line-height:1.85;">點「📥 載入」開始⋯</div>
       </div>
+    </div>
+
+    <!-- ─────────── EXAM CONTENT TAB (admin/exam-editor.js) ─────────── -->
+    <div class="tab-panel" id="tab-exam">
+      <div class="toolbar">
+        <h2>考試內容</h2>
+        <button type="button" class="btn" id="examRefresh">↻ 重新載入</button>
+      </div>
+      <div class="info-card" style="margin:0 0 12px">
+        <h3>✏️ 雲端草稿流程</h3>
+        修改眼科專科考試的「課本重點」與「題目詳解」。存檔只寫入 GitHub 的草稿分支 <code>cms-exam/drafts</code>，<strong>不會直接上線</strong>；維護者把草稿整合到候選分支、重新產生考試頁面、通過 CI 與 PR 審查後才會發佈。編輯中的文字會備份在這個瀏覽器；編輯視窗內可按 <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>S</kbd> 存檔。
+      </div>
+      <div class="exam-explrow">
+        <label for="examExplOpenId">題目詳解：題號</label>
+        <input id="examExplOpenId" type="text" inputmode="numeric" maxlength="5" placeholder="例：128" autocomplete="off" />
+        <button type="button" class="btn primary" id="examExplOpen">編輯詳解</button>
+      </div>
+      <div id="examDraftSummary" class="exam-draft-summary"></div>
+      <div class="exam-explrow">
+        <label for="examFilter">課本重點：篩選章節</label>
+        <input id="examFilter" type="search" placeholder="例：12-4、glaucoma、青光眼" autocomplete="off" />
+      </div>
+      <div id="examList" class="exam-list"><div class="loading">點「🎓 考試內容」分頁後載入⋯</div></div>
     </div>
 
     <!-- ─────────── CWV TAB ─────────── -->
@@ -693,6 +773,7 @@
 </div>
 
 <script src="/assets/admin-cwv.js?v=20260738"></script>
+<script src="/admin/exam-editor.js" defer></script>
 <script>
 // ───────────────── State ─────────────────
 const API = '/api/admin';

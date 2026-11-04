@@ -52,6 +52,7 @@ const HANDLERS = {
   'schema-helper':    () => import('./_schema-helper.js'),
   'sri':              () => import('./_sri.js'),
   'suggest-tags':     () => import('./_suggest-tags.js'),
+  'exam-draft':       () => import('./_exam-draft.js'),
 };
 
 // v37.22 — in-memory rate-limit cache (per warm container). Since serverless

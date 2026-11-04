@@ -135,6 +135,44 @@ automatically when env vars change, but you may want to trigger manually).
    adds entry to `DN.ARTICLES` in `blog-shared.js`
 4. You're auto-redirected to `/blog/<slug>?admin=1` — start editing
 
+### Edit exam content (考試內容草稿)
+
+The **🎓 考試內容** tab edits the board-exam section's sources: a chapter's study
+notes (`data/exam/notes/bcsc<b>-<c>.htm`) and one question's explanation in
+`data/exam/explanations.json`. Unlike articles, these saves **never touch `main`**:
+
+1. **Owner edits.** Pick a chapter (or type a question number), edit the source
+   with the live preview (a script-less `<iframe sandbox>` styled by the
+   generated `admin/exam-preview.css`), and press **存成雲端草稿** (or Ctrl/⌘+S
+   inside the dialog). Unsaved text is backed up in the browser's localStorage.
+2. **Draft branch.** `/api/admin/exam-draft` (`_exam-draft.js`) validates the
+   content against what `_gen_exam.py` accepts (`_exam-content.js`: the note
+   tag/class/attribute allowlist, `{{q:N}}` only for questions tagged to that
+   chapter, unchanged `<h2>` ids so `toc_en.json` still matches, no answer
+   disclosure (`ANSWER_LEAK`), no simplified characters, size caps; explanation
+   entries against the real schema with exactly one answer and the file's exact
+   `json.dumps(indent=1)` bytes) and commits the file plus the record
+   `.cms-exam/drafts.json` to the fixed branch **`cms-exam/drafts`** (created
+   from `main` when absent) with a non-forced ref update. A stale revision or a
+   concurrent save returns 409 `conflict`; nothing is published.
+3. **Maintainer pulls.** On a fresh `codex/*` branch run
+   `python _pull_exam_drafts.py` (`--dry-run` to preview). It copies only the
+   drafted notes/entries, refuses an item that `main` (or HEAD) changed since the
+   draft's base, never commits, pushes or deletes, and prints the next steps and
+   a `--force-with-lease` cleanup command for the draft branch.
+4. **CI + PR review → main.** Run the build chain (`python preflight.py`), the
+   local checks, commit, push the candidate, wait for full CI and
+   `python tools/pr_review.py`, then promote to `main` as usual
+   (`REMOTE_CI_DELIVERY.md`). Medical content still needs the owner's approval.
+
+The endpoint uses the same admin session cookie and the server-side
+`GITHUB_TOKEN` (needs **Contents: Read & write**, which also covers creating the
+draft branch); no extra env var is required. POST requires same-origin
+(`Origin` + `Sec-Fetch-Site`), JSON, and at most 1 MB. The repository is public,
+so drafts on `cms-exam/drafts` are publicly visible on GitHub like the rest of
+the repo; CI workflows do not run on that branch, and any Vercel Preview built for it
+is unregenerated and never a release.
+
 ### Logout
 
 Click **登出** in the dashboard header. Clears the session cookie.

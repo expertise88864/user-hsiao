@@ -31,6 +31,11 @@ function fake(bad = '') {
 test('preview does not need production approval', async () => {
   assert.equal(await allowed({ VERCEL_ENV: 'preview' }, () => { throw Error('no request'); }), true);
 });
+test('the admin exam draft branch gets no Preview', async () => {
+  const noRequest = () => { throw Error('no request'); };
+  assert.equal(await allowed({ VERCEL_ENV: 'preview', VERCEL_GIT_COMMIT_REF: 'cms-exam/drafts' }, noRequest), false);
+  assert.equal(await allowed({ VERCEL_ENV: 'preview', VERCEL_GIT_COMMIT_REF: 'codex/exam-x' }, noRequest), true);
+});
 test('unknown environment and missing SHA deny deployment', async () => {
   assert.equal(await allowed({}), false);
   assert.equal(await allowed({ VERCEL_ENV: 'production' }), false);
