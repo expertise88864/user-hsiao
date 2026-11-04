@@ -1,0 +1,10 @@
+{
+ "_note": "Test-only examples of the doubts.json time machine fields (changed, impact). The tests merge them onto the real Q4 / Q5 doubts; never real content.",
+ "4": {
+  "changed": "測試範例：2017 年 ACC/AHA 指引把高血壓診斷門檻改為 130/80 mm Hg。",
+  "impact": {"level": "依現行觀念答案會不同", "note": "測試範例：依現行指引，這題的敘述判斷會不同。"}
+ },
+ "5": {
+  "impact": {"level": "不影響", "note": "測試範例：新指引沒有改變這題考的觀念。"}
+ }
+}

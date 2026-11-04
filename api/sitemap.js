@@ -227,7 +227,8 @@ export default async function handler(req, res) {
       lines.push(emit(
         p.url,
         en,
-        siteUpdated,
+        // Exam routes carry their own dateModified (data/exam/page_dates.json via _exam_routes.js).
+        p.lastmod || siteUpdated,
         p.changefreq,
         p.priority,
         staticOgImage(p.url),

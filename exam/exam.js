@@ -410,9 +410,32 @@
       var now = rich('p', 'ex-doubt-now', q.doubt.now);
       now.insertBefore(el('span', 'ex-doubt-tag ex-doubt-tag-now', '現行觀念'), now.firstChild);
       box.appendChild(now);
+      var tm = timeMachine(q.doubt);
+      if (tm) box.appendChild(tm);
       box.appendChild(citeList(q.doubt.refs));
     }
     return box;
+  }
+
+  // 「考試當年 vs 現行觀念」 rows (doubts.json changed / impact, as on the derm section):
+  // when the concept changed, and whether the exam answer still holds. Part of the doubt
+  // box, so quiz mode keeps them hidden until the question is graded.
+  var TM_DIFF = '依現行觀念答案會不同';
+  function timeMachine(doubt) {
+    if (!doubt.changed && !doubt.impact) return null;
+    var rows = el('dl', 'ex-tm-rows');
+    if (doubt.changed) {
+      rows.appendChild(el('dt', null, '何時改變'));
+      rows.appendChild(rich('dd', null, doubt.changed));
+    }
+    if (doubt.impact) {
+      rows.appendChild(el('dt', null, '對答案的影響'));
+      var dd = rich('dd', null, doubt.impact.note);
+      var diff = doubt.impact.level === TM_DIFF;
+      dd.insertBefore(el('span', 'ex-tm-level ' + (diff ? 'ex-tm-diff' : 'ex-tm-same'), doubt.impact.level), dd.firstChild);
+      rows.appendChild(dd);
+    }
+    return rows;
   }
 
   function renderCard(q, data, opts) {
@@ -872,6 +895,8 @@
         back += '<br>' + htmlText('⚠ 考試答案 ' + q.answer + '：' + q.doubt.exam);
         if (q.doubt.now) {
           back += '<br>' + htmlText('現行觀念：' + q.doubt.now);
+          if (q.doubt.changed) back += '<br>' + htmlText('何時改變：' + q.doubt.changed);
+          if (q.doubt.impact) back += '<br>' + htmlText('對答案的影響：' + q.doubt.impact.level + '。' + q.doubt.impact.note);
           q.doubt.refs.forEach(function (r) { back += '<br>' + htmlText('・' + r.t + '（' + r.s + '）' + r.u); });
         }
       }
@@ -1356,7 +1381,7 @@
     Object.keys(q.options).forEach(function (k) { parts.push(q.options[k]); });
     if (q.expl) {
       parts.push(q.expl.summary);
-      if (q.doubt) parts.push(q.doubt.exam, q.doubt.now);
+      if (q.doubt) parts.push(q.doubt.exam, q.doubt.now, q.doubt.changed || '', q.doubt.impact ? q.doubt.impact.note : '');
       if (q.dispute) parts.push(q.dispute.text);
       q.expl.items.forEach(function (it) { parts.push(it.text); });
     }
@@ -1648,6 +1673,8 @@
         var h = el('div', 'ex-find-h');
         var top = g.names[0];
         var a = option(el('a', 'ex-find-ch', g.ch.label + ' ' + g.ch.title), ids);
+        // The chapter's Chinese name (chapter_zh.json), muted after the English title.
+        if (g.ch.zh) a.appendChild(el('span', 'ex-ch-zh', g.ch.zh));
         // The chapter link opens the best hit: the best-named section (its first matching
         // paragraph when there is one), else the first matching paragraph, else the page.
         var first = g.hits[0];
@@ -1656,7 +1683,9 @@
           a.href = inSec ? landingHref(g.key, f, inSec.i)
             : '/exam/bcsc' + g.key + '?hl=' + encodeURIComponent(f.q) + '#' + top.entry.sid;
         } else {
-          a.href = first && !top ? landingHref(g.key, f, first.i) : '/exam/bcsc' + g.key;
+          // A chapter-level name (eg, its Chinese name or alias) still lands on the first
+          // matching paragraph with the highlight, like a plain text hit.
+          a.href = first ? landingHref(g.key, f, first.i) : '/exam/bcsc' + g.key;
         }
         group.setAttribute('aria-labelledby', a.id);
         h.appendChild(a);

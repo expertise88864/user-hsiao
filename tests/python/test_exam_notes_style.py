@@ -128,7 +128,7 @@ class ChapterPageTests(unittest.TestCase):
             doc = self.page(key)
             with self.subTest(key=key):
                 sections = [a for a in doc.select("nav.ex-toc-side a")
-                            if a["href"] not in ("#cpts-h", "#qs-h")]
+                            if a["href"] not in ("#links-h", "#cpts-h", "#qs-h")]
                 self.assertTrue(sections)
                 for i, a in enumerate(sections, 1):
                     text = a.get_text()

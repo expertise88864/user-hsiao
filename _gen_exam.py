@@ -7,6 +7,10 @@ Sources (hand-maintained):
   data/exam/chapters.json       BCSC 2025-2026 sections, chapter titles, printed pages
   data/exam/concepts.json       groups of questions that test the same concept ("考點")
   data/exam/doubts.json         flagged questions: exam-answer rationale + current concept with refs
+                                (and, optionally, when it changed and how that affects the answer)
+  data/exam/chapter_zh.json     chapter key -> Taiwan official Chinese names (first = display name)
+  data/exam/links.json          chapter key -> EyeWiki / EyeRounds / Moran CORE links, checked by hand
+  data/exam/concept_kaofa.json  concept id -> question number -> one-line 考法 (public, no answers)
   data/exam/notes/bcsc<b>-<c>.htm   chapter study notes (trusted HTML fragments; .htm keeps
                                     the site-wide *.html page audits off them)
 
@@ -14,7 +18,9 @@ Outputs (generated, never hand-edit):
   exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/review.html,
   exam/progress.html, exam/search.html, exam/login.html, exam/notes-data.json (public),
   exam/nav-search.json (public chapter headings for the site header search),
-  api/_exam_bank.js (question bank; served only to signed-in readers by api/_exam_data.js (via api/exam/[op].js))
+  api/_exam_bank.js (question bank; served only to signed-in readers by api/_exam_data.js (via api/exam/[op].js)),
+  data/exam/page_dates.json (per-page dates ledger, see page_dates()) and
+  data/exam/og_cards.json (share card text; _gen_exam_og.py renders assets/og/exam/ from it)
 
 Access: chapter notes are public. Question text, answers and explanations never appear
 in public files (build() fails closed if they do); readers sign in with the shared
@@ -32,13 +38,16 @@ output, so every chain run regenerates byte-identical pages.
 """
 from __future__ import annotations
 
+import argparse
 import base64
+import hashlib
 import html
 import json
 import re
 import sys
 from collections import defaultdict
-from urllib.parse import quote
+from datetime import date
+from urllib.parse import quote, urlsplit
 from pathlib import Path
 
 from halfwidth_to_fullwidth import convert as fullwidth
@@ -51,7 +60,6 @@ DOMAIN = "https://hsiao.chendermatologist.com"
 HUB_TITLE = "眼科專科醫師考試重點及考題"
 SITE_SUFFIX = " | HsiaoEye · 蕭閔謙醫師"
 REFERENCE = "AAO Basic and Clinical Science Course (BCSC) 2025–2026"
-OG_IMAGE = f"{DOMAIN}/assets/og/notes.png"
 TOP_N = 25
 
 
@@ -238,6 +246,7 @@ def load() -> dict:
             for r in refs:
                 if r.get("u") and not re.fullmatch(r"https?://[^\s\"'<>]+", r["u"]):
                     raise SystemExit(f"doubts.json: Q{n} dispute source URL must be http(s)")
+        check_time_machine(n, d)
         check_traditional(f"doubt Q{n}", d["exam"] + d.get("now", "") + d.get("dispute", ""))
     concepts = json.loads((DATA / "concepts.json").read_text(encoding="utf-8"))
     concept_of: dict[int, dict] = {}
@@ -255,9 +264,162 @@ def load() -> dict:
             by_chapter[key].append(q)
     data = {"questions": questions, "tags": tags, "explanations": explanations, "books": books,
             "chapters": chapters, "notes": notes, "by_chapter": by_chapter,
-            "concepts": concepts, "doubts": doubts, "toc_en": toc_en}
+            "concepts": concepts, "doubts": doubts, "toc_en": toc_en,
+            "zh": load_chapter_zh(read_json("chapter_zh.json", {}), chapters),
+            "links": load_links(read_json("links.json", {"_verified": "2026-11-04"}), chapters),
+            "kaofa": load_kaofa(read_json("concept_kaofa.json", {}), concepts)}
     data["concept_rows"] = concept_rows(data)
     return data
+
+
+def read_json(name: str, default):
+    path = DATA / name
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else default
+
+
+# ---------------------------------------------------------------- Chinese chapter names
+# Owner decision 2026-11-04 (as on the dermatology exam section): each chapter may carry
+# its Taiwan official Chinese name(s); the first is shown with the English title (h1,
+# <title>, description, breadcrumb, share card, hub list), every name is a search name.
+# Chapters without an entry keep the English-only form.
+
+def load_chapter_zh(raw, chapters: dict) -> dict[str, list[str]]:
+    if not isinstance(raw, dict):
+        raise SystemExit("chapter_zh.json: expected an object of chapter key -> names")
+    for key, names in raw.items():
+        if key not in chapters:
+            raise SystemExit(f"chapter_zh.json: no such chapter {key}")
+        if not isinstance(names, list) or not names or len(set(map(str, names))) != len(names):
+            raise SystemExit(f"chapter_zh.json: {key} needs a list of distinct names")
+        for name in names:
+            if not isinstance(name, str) or not name or name != name.strip() or not CJK.search(name):
+                raise SystemExit(f"chapter_zh.json: {key} name {name!r} must be stripped Chinese text")
+        check_traditional(f"chapter_zh {key}", "".join(names))
+    return raw
+
+
+def chapter_zh(data: dict, key: str) -> str:
+    """The chapter's Chinese display name, or ""."""
+    return (data["zh"].get(key) or [""])[0]
+
+
+# ---------------------------------------------------------------- further reading
+# Owner decision 2026-11-04: textbook figures are copyrighted, so chapter pages link out
+# to clinical and pathology pictures instead, on these three sites only. Every link is
+# checked by hand ("_verified" records when); the build only checks the shape.
+LINK_SITES = {
+    "eyewiki": ("eyewiki.org", "EyeWiki（美國眼科醫學會）"),
+    "eyerounds": ("eyerounds.org", "EyeRounds（愛荷華大學）"),
+    "moran": ("morancore.utah.edu", "Moran CORE（猶他大學）"),
+}
+# English labels: ASCII plus Latin-1 letters and typographic dashes/quotes (Behçet, Fuchs’).
+LINK_LABEL = re.compile(r"[\x20-\x7eÀ-ÿ–—‘’“”]+")
+
+
+def load_links(raw, chapters: dict) -> dict[str, list[dict]]:
+    if not isinstance(raw, dict) or not isinstance(raw.get("_verified"), str):
+        raise SystemExit('links.json: expected {"_verified": "YYYY-MM-DD", "<chapter>": [...]}')
+    try:
+        date.fromisoformat(raw["_verified"])
+    except ValueError:
+        raise SystemExit(f"links.json: _verified must be a YYYY-MM-DD date, got {raw['_verified']!r}")
+    out = {}
+    for key, items in raw.items():
+        if key == "_verified":
+            continue
+        if key not in chapters or not isinstance(items, list):
+            raise SystemExit(f"links.json: {key} must be a chapter key with a list of links")
+        urls = set()
+        for it in items:
+            if not isinstance(it, dict) or set(it) != {"site", "label", "url"} or it["site"] not in LINK_SITES:
+                raise SystemExit(f"links.json: {key} link needs exactly site (one of {sorted(LINK_SITES)}), label, url")
+            url, label, host = it["url"], it["label"], LINK_SITES[it["site"]][0]
+            try:
+                parts = urlsplit(url) if isinstance(url, str) else None
+                port = parts.port if parts else None
+            except ValueError:
+                parts = None
+            if (not parts or parts.scheme != "https" or parts.hostname not in (host, "www." + host)
+                    or parts.netloc.lower() not in (host, "www." + host) or port
+                    or re.search(r"[\s\"'<>\\]", url)):
+                raise SystemExit(f"links.json: {key} {url!r} must be an https URL on {host}")
+            if url in urls:
+                raise SystemExit(f"links.json: {key} lists {url} twice")
+            urls.add(url)
+            if (not isinstance(label, str) or label != label.strip() or not LINK_LABEL.fullmatch(label)
+                    or not re.search(r"[A-Za-z]", label) or len(label) > 100):
+                raise SystemExit(f"links.json: {key} label {label!r} must be a short English label")
+        out[key] = items
+    return out
+
+
+def links_html(items: list[dict]) -> str:
+    """「圖片與延伸閱讀」: the chapter's links grouped by site; nothing when there are none."""
+    groups = []
+    for site, (_host, name) in LINK_SITES.items():
+        lis = "".join(f'<li><a href="{esc(i["url"])}" target="_blank" rel="noopener noreferrer" lang="en">'
+                      f'{esc(i["label"])}</a></li>' for i in items if i["site"] == site)
+        if lis:
+            groups.append(f'<div class="ex-links-group" data-site="{site}"><p class="ex-links-name">{esc(name)}</p>'
+                          f"<ul>{lis}</ul></div>")
+    if not groups:
+        return ""
+    return ('<section class="ex-links" aria-labelledby="links-h"><h2 id="links-h" class="ex-h2">圖片與延伸閱讀</h2>'
+            '<p class="ex-meta">課本圖片有版權，請到以下網站看臨床與病理照片（外部網站，另開新分頁）。</p>'
+            f'{"".join(groups)}</section>')
+
+
+# ---------------------------------------------------------------- time machine
+# 「考試當年 vs 現行觀念」 (as on the dermatology exam section): a doubt with a current
+# concept ("now") may also say when the concept changed ("changed") and whether the exam
+# answer still holds under it ("impact"). Signed-in only; exam.js shows them in the doubt
+# box, which quiz mode keeps hidden until the question is graded.
+TM_LEVELS = ("不影響", "依現行觀念答案會不同")
+
+
+def check_time_machine(n: str, d: dict) -> None:
+    if ("changed" in d or "impact" in d) and not d.get("now"):
+        raise SystemExit(f"doubts.json: Q{n} changed/impact need a current-concept text (now)")
+    if "changed" in d:
+        if not isinstance(d["changed"], str) or not d["changed"].strip() or d["changed"] != d["changed"].strip():
+            raise SystemExit(f"doubts.json: Q{n} changed must be non-empty stripped text")
+    if "impact" in d:
+        impact = d["impact"]
+        if (not isinstance(impact, dict) or set(impact) != {"level", "note"} or impact["level"] not in TM_LEVELS
+                or not isinstance(impact["note"], str) or not impact["note"].strip()):
+            raise SystemExit(f"doubts.json: Q{n} impact needs level (one of {list(TM_LEVELS)}) and a note")
+    check_traditional(f"doubt Q{n}", d.get("changed", "") + (d.get("impact") or {}).get("note", ""))
+
+
+# ---------------------------------------------------------------- concept 考法
+# Owner decision 2026-11-04: each concept may say, per question, what the question asks
+# about in one public line. No traps, misconceptions, answers or option letters.
+KAOFA_MAX = 60
+# 選 alone is fine (首選藥物, 術式選擇); 選項 or 選 + a letter would name an option.
+KAOFA_LEAK = re.compile(r"答案|正解|選項|選\s*[A-Ea-e](?![A-Za-z])|[（(]\s*[A-Ea-e]\s*[）)]|(?<![A-Za-z0-9])[A-E]\s*[、,/／與和及]\s*[A-E](?![A-Za-z0-9])"
+                        r"|(?<![A-Za-z0-9.\-])[A-E](?=\s*(?:項|正確|錯誤|為真|為非))")
+
+
+def load_kaofa(raw, concepts: list[dict]) -> dict[str, dict[int, str]]:
+    if not isinstance(raw, dict):
+        raise SystemExit("concept_kaofa.json: expected an object of concept id -> {question: line}")
+    groups = {c["id"]: set(c["qs"]) for c in concepts}
+    out: dict[str, dict[int, str]] = {}
+    for cid, lines in raw.items():
+        if cid not in groups or not isinstance(lines, dict) or not lines:
+            raise SystemExit(f"concept_kaofa.json: {cid} must be a concept id with question lines")
+        for n, text in lines.items():
+            if not re.fullmatch(r"[1-9]\d*", n) or int(n) not in groups[cid]:
+                raise SystemExit(f"concept_kaofa.json: Q{n} is not a question of {cid}")
+            if (not isinstance(text, str) or text != text.strip() or "\n" in text or not CJK.search(text)
+                    or len(text) > KAOFA_MAX):
+                raise SystemExit(f"concept_kaofa.json: {cid} Q{n} needs one stripped Chinese line of at most {KAOFA_MAX} characters")
+            leak = ANSWER_LEAK.search(text) or KAOFA_LEAK.search(text)
+            if leak:
+                raise SystemExit(f"concept_kaofa.json: {cid} Q{n} must not hint at the answer: {leak.group(0)!r}")
+            check_traditional(f"concept_kaofa {cid} Q{n}", text)
+        out[cid] = {int(n): text for n, text in lines.items()}
+    return out
 
 
 # Searchable note paragraphs: the elements note_text() indexes (li/p/td; h2/h3 only
@@ -361,11 +523,18 @@ def concept_html(row: dict, data: dict, *, current: str = "", prefix: str = "cpt
             chips.append(f'<span class="ex-chip ex-chip-on" title="{esc(ch["title"])}">{label}</span>')
         else:
             chips.append(f'<a class="ex-chip" href="/exam/{slug(key)}" title="{esc(ch["title"])}">{label}</a>')
+    # 考法 (concept_kaofa.json): one line per question that has one, labelled with the
+    # plain-text question number, in question order.
+    how = data["kaofa"].get(row["id"], {})
+    kaofa = "".join(f'<li><span class="ex-kaofa-q">Q{n}</span>{rich(how[n])}</li>' for n in row["qs"] if n in how)
+    kaofa_html = (f'<div class="ex-cpt-how"><span class="ex-cpt-k">考法</span><ul class="ex-kaofa">{kaofa}</ul></div>'
+                  if kaofa else "")
     return (f'<details class="ex-cpt" id="{prefix}{row["id"]}" data-n="{len(row["qs"])}" '
             f'data-home="{row["home"]}" data-ch="{" ".join(row["chapters"])}">'
             f'<summary><span class="ex-cpt-t">{rich(row["title"])}</span>'
             f'<span class="ex-count">{len(row["qs"])} 題</span></summary>'
             f'<div class="ex-cpt-body"><p class="ex-cpt-line"><span class="ex-cpt-k">題號</span>{nums}</p>'
+            f"{kaofa_html}"
             f'<p class="ex-cpt-line"><span class="ex-cpt-k">章節</span><span class="ex-chips">{"".join(chips)}</span></p>'
             "</div></details>")
 
@@ -410,7 +579,8 @@ def font_bootstrap() -> str:
     return match.group(0)
 
 
-def head(*, title: str, description: str, path: str, robots: str, jsonld: list[dict], version: str) -> str:
+def head(*, title: str, description: str, path: str, robots: str, jsonld: list[dict], version: str,
+         image: str) -> str:
     url = DOMAIN + path
     full_title = title + SITE_SUFFIX
     hreflang = ""
@@ -443,14 +613,14 @@ def head(*, title: str, description: str, path: str, robots: str, jsonld: list[d
         f'<meta property="og:url" content="{url}" />\n'
         f'<meta property="og:title" content="{esc(full_title)}" />\n'
         f'<meta property="og:description" content="{esc(description)}" />\n'
-        f'<meta property="og:image" content="{OG_IMAGE}" />\n'
+        f'<meta property="og:image" content="{image}" />\n'
         '<meta property="og:image:width" content="1200" />\n'
         '<meta property="og:image:height" content="630" />\n'
         '<meta property="og:locale" content="zh_TW" />\n'
         '<meta property="og:site_name" content="HsiaoEye" />\n'
         '<meta name="twitter:card" content="summary_large_image" />\n'
         f'<meta name="twitter:title" content="{esc(full_title)}" />\n'
-        f'<meta name="twitter:image" content="{OG_IMAGE}" />\n'
+        f'<meta name="twitter:image" content="{image}" />\n'
         f"{blocks}"
         '<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n'
         f"{font_bootstrap()}\n"
@@ -503,13 +673,108 @@ def fit(text: str, limit: int) -> str:
     return text.rstrip(" ,:–-") + "…"
 
 
-def page(*, path, title, description, crumbs, schema_type, body, kind, robots, version, side="") -> str:
+# ---------------------------------------------------------------- page dates
+# Ported from the dermatology exam section (2026-11-04). data/exam/page_dates.json is the
+# committed date ledger: page path -> {hash of the page's visible text, published,
+# modified}. A page keeps its dates while the hash matches; new or changed text takes the
+# build's content date (today, or --content-date YYYY-MM-DD). CI's drift check rebuilds
+# the pages on whatever day it runs, so an unchanged tree reproduces every date, and an
+# edit committed without regenerating fails that check instead of silently restamping.
+# The dates feed JSON-LD datePublished/dateModified, the visible 「最後更新」 line and the
+# sitemap <lastmod> of the exam routes (_gen_feeds.py, api/sitemap.js via _exam_routes.js).
+# The first ledger (2026-11-04) was seeded from git history: published = the commit that
+# first added the generated page, modified = the last commit that changed the page's
+# notes file (chapter pages) or the generated page itself (the others), before the
+# 2026-11-04 Chinese-name / link / 考法 data; pages that data changes carry that day.
+PAGE_DATES = DATA / "page_dates.json"
+LEDGER: dict[str, dict] = {}       # committed ledger, loaded on first use or by build()
+NEW_LEDGER: dict[str, dict] = {}   # this build's ledger, filled by page()
+CONTENT_DATE = [""]                # set by build(); "" = today
+LEDGER_LOADED = [False]
+# Navigation that repeats other text (the inline outline) is not content.
+NOT_CONTENT = re.compile(r"<nav\b.*?</nav>", re.S)
+# Pages that show 「最後更新」 under the h1 (the tools pages only carry it in JSON-LD).
+STAMPED = {"hub", "chapter", "concepts"}
+
+
+def content_hash(body: str) -> str:
+    """Hash of the text a reader sees in a page body. Markup, link targets and
+    whitespace do not count, so a template or styling change keeps every date."""
+    text = re.sub(r"\s+", "", html.unescape(re.sub(r"<[^>]+>", "", NOT_CONTENT.sub("", body))))
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+
+
+def load_ledger() -> dict[str, dict]:
+    if not PAGE_DATES.exists():
+        return {}
+    ledger = json.loads(PAGE_DATES.read_text(encoding="utf-8"))
+    day = re.compile(r"\d{4}-\d{2}-\d{2}")
+    bad = [p for p, e in ledger.items()
+           if not isinstance(e, dict) or set(e) != {"hash", "published", "modified"}
+           or not all(isinstance(e[k], str) for k in e)
+           or not day.fullmatch(e["published"]) or not day.fullmatch(e["modified"])
+           or e["modified"] < e["published"]]
+    if bad:
+        raise SystemExit(f"page_dates.json has invalid entries {bad[:5]}")
+    return ledger
+
+
+def ledger_text(ledger: dict[str, dict]) -> str:
+    return json.dumps(ledger, ensure_ascii=False, indent=1, sort_keys=True) + "\n"
+
+
+def page_dates(path: str, body: str) -> tuple[str, str]:
+    if not LEDGER_LOADED[0]:
+        LEDGER.update(load_ledger())
+        LEDGER_LOADED[0] = True
+    digest = content_hash(body)
+    old = LEDGER.get(path)
+    if old and old["hash"] == digest:
+        entry = {"hash": digest, "published": old["published"], "modified": old["modified"]}
+    else:
+        today = CONTENT_DATE[0] or date.today().isoformat()
+        published = old["published"] if old else today
+        entry = {"hash": digest, "published": published, "modified": max(today, published)}
+    NEW_LEDGER[path] = entry
+    return entry["published"], entry["modified"]
+
+
+def with_updated(body: str, modified: str) -> str:
+    """「最後更新」 at the end of the meta line under the h1 (its own line if there is none)."""
+    stamp = f'<span class="ex-updated">最後更新：<time datetime="{modified}">{modified}</time></span>'
+    end = body.index("</h1>") + len("</h1>")
+    if body.startswith('<p class="ex-meta">', end):
+        close = body.index("</p>", end)
+        return body[:close] + " · " + stamp + body[close:]
+    return body[:end] + f'<p class="ex-meta">{stamp}</p>' + body[end:]
+
+
+# ---------------------------------------------------------------- share cards
+# Every chapter page names its own 1200x630 card under assets/og/exam/ (bcsc<b>-<c>.png);
+# the hub and the tool pages share hub.png. The card text is written to
+# data/exam/og_cards.json with the pages; _gen_exam_og.py renders the PNGs from it, and
+# its --check (run by _check_exam_og_cards.py in CI) fails while a card is missing or
+# older than its text.
+OG_SPECS = DATA / "og_cards.json"
+OG_URL = DOMAIN + "/assets/og/exam/"
+OG_CARDS: dict[str, dict] = {}   # card name -> text fields, filled by the page builders
+HUB_CARD = "hub"
+
+
+def page(*, path, title, description, crumbs, schema_type, body, kind, robots, version, side="",
+         card: str = HUB_CARD) -> str:
     if len(esc(title + SITE_SUFFIX)) > TITLE_MAX or not 50 <= len(esc(description)) <= DESC_MAX:
         raise SystemExit(f"{path}: title/description outside validate.py limits")
     items = [("首頁", "/"), ("專科考試", "/exam")] + crumbs
+    image = f"{OG_URL}{card}.png"
+    published, modified = page_dates(path, body)
+    if kind in STAMPED:
+        body = with_updated(body, modified)
     jsonld = [
         {"@context": "https://schema.org", "@type": schema_type, "@id": f"{DOMAIN}{path}#webpage",
          "name": title, "description": description, "url": DOMAIN + path, "inLanguage": "zh-Hant-TW",
+         "datePublished": published, "dateModified": modified,
+         "image": {"@type": "ImageObject", "url": image, "width": 1200, "height": 630},
          "isPartOf": {"@id": f"{DOMAIN}/#website"}, "publisher": {"@id": f"{DOMAIN}/about#person"},
          "audience": {"@type": "MedicalAudience", "audienceType": ["MedicalResident", "Resident"]},
          "breadcrumb": {"@id": f"{DOMAIN}{path}#breadcrumb"}},
@@ -519,7 +784,8 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
     if side:
         content = f'{side}<div class="ex-content">{content}</div>'
     out = (
-        head(title=title, description=description, path=path, robots=robots, jsonld=jsonld, version=version)
+        head(title=title, description=description, path=path, robots=robots, jsonld=jsonld, version=version,
+             image=image)
         + f'<body class="hs-exam" data-exam-page="{kind}">\n'
         + header()
         + f'<main id="main-content" class="ex-main{" ex-has-side" if side else ""} max-w-3xl mx-auto px-5 sm:px-8 pt-10 pb-16">{content}</main>\n'
@@ -674,6 +940,11 @@ def chapter_page(data: dict, key: str, version: str) -> str:
     ch = data["chapters"][key]
     qs = data["by_chapter"].get(key, [])
     note = data["notes"].get(key)
+    zh = chapter_zh(data, key)
+    zh_h1 = f' <span class="ex-h1-zh">{esc(zh)}</span>' if zh else ""
+    # 圖片與延伸閱讀 sits right after the notes it illustrates and before 本章考點, so the
+    # 考點 block still leads straight into the 考題 it points to.
+    links = links_html(data["links"].get(key, []))
     side = ""
     if note:
         heads = H2_RE.findall(note)
@@ -689,25 +960,27 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         )
         concepts_html = chapter_concepts_html(data, key)
         n_concepts = sum(map(len, chapter_concepts(data, key)))
+        toc_links = '<li><a href="#links-h">圖片與延伸閱讀</a></li>' if links else ""
+        side_links = '<li class="ex-toc-links"><a href="#links-h">圖片與延伸閱讀</a></li>' if links else ""
         toc_cpts = '<li><a href="#cpts-h">本章考點</a></li>' if concepts_html else ""
         side_cpts = (f'<li class="ex-toc-cpts"><a href="#cpts-h">本章考點（{n_concepts} 個）</a></li>'
                      if concepts_html else "")
         toc_html = (f'<nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol>{toc}'
-                    f'{toc_cpts}<li><a href="#qs-h">考題</a></li></ol></nav>') if toc else ""
+                    f'{toc_links}{toc_cpts}<li><a href="#qs-h">考題</a></li></ol></nav>') if toc else ""
         # Wide screens: the same list as a sticky left column that follows the reader
         # (like the dermatology exam section); the inline list above serves phones.
         side = (f'<nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary>'
-                f'<ol>{side_toc}{side_cpts}<li class="ex-toc-qs"><a href="#qs-h">考題（{len(qs)} 題）</a></li></ol></details></nav>'
+                f'<ol>{side_toc}{side_links}{side_cpts}<li class="ex-toc-qs"><a href="#qs-h">考題（{len(qs)} 題）</a></li></ol></details></nav>'
                 ) if toc else ""
         notes_html = (f'<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>{toc_html}'
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'
                       f'<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p>'
                       f"{NOTES_LEGEND}{READING_STATUS}"
                       f'<div class="ex-note">{wrap_tables(note_weights(taxa_html(expand_hits(note, key, {q["n"] for q in qs}))))}</div></section>'
-                      f"{concepts_html}")
+                      f"{links}{concepts_html}")
     else:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
-                      '<p class="ex-pending">這一章的重點尚未整理。</p></section>')
+                      '<p class="ex-pending">這一章的重點尚未整理。</p></section>' + links)
     if qs:
         # Questions, answers and explanations are served only to signed-in readers by
         # /api/exam/data; exam.js renders them here (grouped by concept) after login.
@@ -719,7 +992,7 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         q_html = '<p class="ex-pending">題庫中沒有標到這一章的題目。</p>'
     body = (
         f'<p class="ex-kicker">BCSC {ch["book"]} · {esc(ch["bookTitle"])}</p>'
-        f'<h1 class="ex-h1">Ch.{ch["ch"]} {esc(ch["title"])}</h1>'
+        f'<h1 class="ex-h1">Ch.{ch["ch"]} {esc(ch["title"])}{zh_h1}</h1>'
         f'<p class="ex-meta">原書 p.{esc(ch["pages"])} · 考題 {len(qs)} 題</p>'
         f'<div class="ex-strip" data-progress-chapter="{key}" hidden>'
         f'<label class="ex-check"><input type="checkbox" class="ex-read-box" value="{key}"> 課本已讀完</label>'
@@ -729,14 +1002,32 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         f'<section aria-labelledby="qs-h"><h2 id="qs-h" class="ex-h2">考題</h2>{q_html}</section>'
     )
     head_label = f"BCSC {ch['book']} Ch.{ch['ch']} "
-    title = head_label + fit(ch["title"], TITLE_MAX - len(SITE_SUFFIX) - len(head_label) - len("：重點與考題")) + "：重點與考題"
+    room = TITLE_MAX - len(SITE_SUFFIX) - len(head_label) - len("：重點與考題")
+    title = head_label + titled_name(zh, ch["title"], room) + "：重點與考題"
     tail = ("的課本重點整理，" if note else "，") + f"以及標到本章的考題 {len(qs)} 題。"
     lead = f"眼科專科醫師考試讀書筆記：BCSC 2025–2026 第 {ch['book']} 冊第 {ch['ch']} 章 "
-    desc = lead + fit(ch["title"], DESC_MAX - len(lead) - len(tail)) + tail
+    room = DESC_MAX - len(lead) - len(tail)
+    if zh and len(esc(zh)) + 2 + 8 <= room:
+        named = f"{zh}（{fit(ch['title'], room - len(esc(zh)) - 2)}）"
+    else:
+        named = fit(zh or ch["title"], room)
+    desc = lead + named + tail
+    OG_CARDS[slug(key)] = {
+        "kicker": chapter_label(ch), "title": zh or ch["title"], "subtitle": ch["title"] if zh else "",
+        "foot": " · ".join(([f"考題 {len(qs)} 題"] if qs else []) + (["重點整理"] if note else []))}
     return page(path=f"/exam/{slug(key)}", title=title, description=desc,
-                crumbs=[(f"BCSC {ch['book']} Ch.{ch['ch']}", f"/exam/{slug(key)}")], schema_type="WebPage",
-                body=body, kind="chapter", version=version, side=side,
+                crumbs=[(f"BCSC {ch['book']} Ch.{ch['ch']}" + (f" {zh}" if zh else ""), f"/exam/{slug(key)}")],
+                schema_type="WebPage", body=body, kind="chapter", version=version, side=side, card=slug(key),
                 robots="index,follow,max-image-preview:large" if indexable(key, data) else "noindex,follow")
+
+
+def titled_name(zh: str, english: str, room: int) -> str:
+    """「中文 English」 within room escaped characters: the Chinese name stays whole and the
+    English title is shortened, or left out when fewer than 8 characters of it would fit."""
+    if not zh:
+        return fit(english, room)
+    rest = room - len(esc(zh)) - 1
+    return f"{zh} {fit(english, rest)}" if rest >= 8 else fit(zh, room)
 
 
 def hub_page(data: dict, version: str) -> str:
@@ -761,7 +1052,8 @@ def hub_page(data: dict, version: str) -> str:
             key = f"{book['book']}-{ch['ch']}"
             n = len(by_chapter.get(key, []))
             count += n
-            label = f"Ch.{ch['ch']} {esc(ch['title'])}"
+            zh = chapter_zh(data, key)
+            label = f"Ch.{ch['ch']} {esc(ch['title'])}" + (f' <span class="ex-ch-zh">{esc(zh)}</span>' if zh else "")
             extra = f' <span class="ex-count">{n} 題</span>'
             noted = ' data-notes=""' if key in data["notes"] else ""
             # id: /exam#ch-12-11 opens the closed BCSC 12 list (exam.js revealTarget).
@@ -802,6 +1094,8 @@ def hub_page(data: dict, version: str) -> str:
         '<div class="ex-more" hidden><span class="ex-more-status" aria-live="polite"></span>'
         '<button type="button" class="ex-more-btn">載入更多</button></div>'
     )
+    OG_CARDS[HUB_CARD] = {"kicker": "眼科專科考試", "title": HUB_TITLE, "subtitle": "BCSC 2025–2026",
+                          "foot": f"考題 {len(data['questions'])} 題 · {len(data['notes'])} 章重點整理"}
     desc = ("眼科專科醫師考試讀書筆記：依 BCSC 2025–2026 章節整理課本重點，收錄考題並標註所屬章節，"
             "附疾病搜尋、出題頻率、作答與瀏覽模式、考古卷、錯題本、讀書進度與 Anki 匯出。")
     return page(path="/exam", title=HUB_TITLE, description=desc, crumbs=[], schema_type="CollectionPage",
@@ -997,13 +1291,16 @@ def note_sections(fragment: str) -> dict[str, str]:
 def notes_data(data: dict) -> dict:
     """Public: chapter labels, note text for search, and question→chapter numbers for progress.
     Each chapter carries its question count ("q", so the hub search can tell which chapters
-    have a page) and, when it has notes, its section titles ("secs")."""
+    have a page), when it has notes, its section titles ("secs") and, when it has one, its
+    Chinese name ("zh", shown after the English title in hub search results)."""
     chapters = {}
     for k, c in data["chapters"].items():
         chapters[k] = {"label": f"BCSC {c['book']} Ch.{c['ch']}", "title": c["title"],
                        "q": len(data["by_chapter"].get(k, []))}
         if k in data["notes"]:
             chapters[k]["secs"] = note_sections(data["notes"][k])
+        if chapter_zh(data, k):
+            chapters[k]["zh"] = chapter_zh(data, k)
     notes = {k: note_text(v) for k, v in data["notes"].items()}
     books = {str(b["book"]): b["title"] for b in data["books"]}
     qs = [[q["n"], data["tags"][str(q["n"])]["ch"]] for q in data["questions"] if str(q["n"]) in data["explanations"]]
@@ -1265,6 +1562,8 @@ def search_index(data: dict) -> dict:
         # Titles such as 「…of the Conjunctiva, Cornea, and Sclera」 are one name; only an
         # abbreviation in brackets is split off.
         terms.add([title], split_name(title)[1])
+        # Chinese chapter names (chapter_zh.json) are names of the chapter page too.
+        terms.add(data.get("zh", {}).get(key, []))
         terms.add(other_language(terms.names + terms.abbrs), glossary_abbrs(terms.names))
         primary = (len(terms.names), len(terms.abbrs))
         entries.append([key, "", "", terms.names, terms.abbrs, *primary])
@@ -1331,6 +1630,9 @@ def bank_data(data: dict) -> dict:
                         {"t": r["t"], "u": r.get("u", ""), "s": cite_meta(r)} for r in doubt["drefs"]]}
                 row["doubt"] = {"cat": doubt["cat"], "exam": doubt["exam"], "now": doubt.get("now", ""), "refs": [
                     {"t": r["t"], "u": r["u"], "s": cite_meta(r)} for r in doubt.get("refs", [])]}
+                for field in ("changed", "impact"):   # time machine (check_time_machine)
+                    if field in doubt:
+                        row["doubt"][field] = doubt[field]
         questions.append(row)
     concepts = [{"id": c["id"], "t": c["title"], "qs": c["qs"]} for c in data["concepts"]]
     return {"questions": questions, "concepts": concepts}
@@ -1343,9 +1645,17 @@ def bank_module(data: dict) -> str:
             f"export const EXAM_BANK_JSON = {json.dumps(payload, ensure_ascii=False)};\n")
 
 
-def build() -> dict[str, str]:
+def build(content_date: str | None = None) -> dict[str, str]:
+    """Every output by path relative to exam/. Fills NEW_LEDGER (page dates) and OG_CARDS
+    (share card text) on the way; their files are part of the result."""
     data = load()
     version = site_version()
+    LEDGER.clear()
+    LEDGER.update(load_ledger())
+    LEDGER_LOADED[0] = True
+    NEW_LEDGER.clear()
+    OG_CARDS.clear()
+    CONTENT_DATE[0] = content_date or date.today().isoformat()
     files: dict[str, str] = {"index.html": hub_page(data, version)}
     for key in data["chapters"]:
         if data["by_chapter"].get(key) or key in data["notes"]:
@@ -1361,6 +1671,8 @@ def build() -> dict[str, str]:
     files["nav-search.json"] = json.dumps(nav_search(data, public["find"]), ensure_ascii=False, separators=(",", ":")) + "\n"
     files["../api/_exam_routes.js"] = routes_module(data)
     files["../api/_exam_bank.js"] = bank_module(data)
+    files["../data/exam/page_dates.json"] = ledger_text(NEW_LEDGER)
+    files["../data/exam/og_cards.json"] = json.dumps(OG_CARDS, ensure_ascii=False, indent=1, sort_keys=True) + "\n"
     # Fail closed: no public file may carry question cards or question text.
     stems = [q["stem"].strip()[:60] for q in data["questions"] if len(q["stem"].strip()) >= 30]
     for name, content in files.items():
@@ -1381,7 +1693,8 @@ def routes_module(data: dict) -> str:
     rows = []
     for route in indexed_routes(data):
         priority = "0.8" if route == "/exam" else "0.6"
-        rows.append(f"  {{ url: '{route}', priority: '{priority}', changefreq: 'monthly', has_en: false }},")
+        lastmod = NEW_LEDGER[route]["modified"]
+        rows.append(f"  {{ url: '{route}', priority: '{priority}', changefreq: 'monthly', lastmod: '{lastmod}', has_en: false }},")
     lines = ["// Generated by _gen_exam.py — do not edit. Indexable /exam routes for api/sitemap.js.",
              "export const EXAM_ROUTES = [", *rows, "];"]
     return "\n".join(lines) + "\n"
@@ -1656,6 +1969,33 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 .ex-cpt-field .ex-select{max-width:100%}
 #cpt-ch{max-width:min(22em,100%)}
 .ex-cpt-status{font-size:13.5px;color:var(--ink-2);margin:6px 0}
+.ex-h1-zh{display:block;font-size:19px;font-weight:600;color:var(--ink-2);margin-top:4px}
+.ex-ch-zh{margin-left:6px;color:var(--muted);font-size:13px}
+.ex-updated{white-space:nowrap}
+.ex-links{border:1px solid var(--border);border-radius:12px;padding:2px 16px 10px;margin:18px 0;background:var(--ex-card)}
+.ex-links .ex-h2{font-size:18px;margin:12px 0 4px}
+.ex-links-name{font-weight:700;font-size:13.5px;margin:10px 0 0}
+.ex-links ul{margin:2px 0 6px;padding-left:20px;font-size:14px;line-height:1.8;list-style:disc}
+.ex-links a{color:var(--ex-accent);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+.ex-toc-links{border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
+.ex-toc-links+.ex-toc-cpts,.ex-toc-links+.ex-toc-qs{border-top:0;margin-top:0;padding-top:0}
+.ex-cpt-how{margin:4px 0;font-size:13px;line-height:1.7}
+.ex-kaofa{list-style:none;margin:2px 0 0;padding:0}
+.ex-kaofa li{display:flex;gap:8px;align-items:baseline;padding:1px 0}
+.ex-kaofa-q{font-family:Inter,ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--ink-2);white-space:nowrap;min-width:3.4em}
+.ex-tm-rows{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:6px 0 4px}
+.ex-tm-rows dt{font-weight:700;color:#92400e;white-space:nowrap}
+.ex-tm-rows dd{margin:0}
+.ex-tm-level{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:6px}
+.ex-tm-same{background:#dcfce7;color:#14532d}
+.ex-tm-diff{background:#fee2e2;color:#7f1d1d}
+:root[data-theme="dark"] .ex-h1-zh{color:#c9c3b8}
+:root[data-theme="dark"] .ex-ch-zh{color:#a8a29e}
+:root[data-theme="dark"] .ex-links{border-color:#36404b}
+:root[data-theme="dark"] .ex-kaofa-q{color:#e7e5e4}
+:root[data-theme="dark"] .ex-tm-rows dt{color:#fcd34d}
+:root[data-theme="dark"] .ex-tm-same{background:#14532d;color:#dcfce7}
+:root[data-theme="dark"] .ex-tm-diff{background:#7f1d1d;color:#fee2e2}
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
@@ -1712,21 +2052,40 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 """
 
 
-def main() -> int:
-    check = "--check" in sys.argv
-    files = build()
+def content_date_argument(value: str) -> str:
+    try:
+        return date.fromisoformat(value).isoformat()
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"expected YYYY-MM-DD, got {value!r}")
+
+
+# Outputs no later build step rewrites: --check compares them byte for byte (the pages
+# themselves are post-processed by the rest of the chain, so only their presence is checked).
+EXACT = ("../data/exam/page_dates.json", "../data/exam/og_cards.json")
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Generate the /exam/** pages from data/exam/.")
+    parser.add_argument("--check", action="store_true", help="report missing or stale outputs; write nothing")
+    parser.add_argument("--content-date", type=content_date_argument,
+                        help="date for new or changed pages (YYYY-MM-DD; default today)")
+    args = parser.parse_args(sys.argv[1:] if argv is None else argv)
+    if args.check and args.content_date:
+        parser.error("--content-date has no effect with --check")
+    check = args.check
+    files = build(args.content_date)
     stale = []
     for name, content in files.items():
-        path = OUT / name
+        path = {EXACT[0]: PAGE_DATES, EXACT[1]: OG_SPECS}.get(name, OUT / name)
         if check:
-            if not path.exists():
+            if not path.exists() or (name in EXACT and path.read_text(encoding="utf-8") != content):
                 stale.append(name)
             continue
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8", newline="\n")
     if check:
         if stale:
-            print(f"exam pages missing: {stale[:5]} (run python _gen_exam.py)")
+            print(f"exam outputs missing or stale: {stale[:5]} (run python _gen_exam.py)")
             return 1
         return 0
     expected = {name for name in files if "/" not in name} | {"exam.js"}

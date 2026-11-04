@@ -170,11 +170,17 @@ STATIC_HTML_FILES = {
     '/privacy': 'privacy.html',
 }
 
-# Board-exam hub and chapters with written notes; zh-only (no /en mirror).
+# Board-exam hub and chapters with written notes; zh-only (no /en mirror). Their
+# <lastmod> is each page's dateModified from the ledger _gen_exam.py keeps
+# (data/exam/page_dates.json), which it writes earlier in the chain.
 import _gen_exam  # noqa: E402
+_EXAM_DATES = _gen_exam.load_ledger()
 for _route in _gen_exam.indexed_routes():
+    if _route not in _EXAM_DATES:
+        raise SystemExit(f'{_route} has no entry in data/exam/page_dates.json; run python _gen_exam.py')
     STATIC_PAGES.append({'url': _route, 'priority': '0.8' if _route == '/exam' else '0.6',
-                         'changefreq': 'monthly', 'has_en': False})
+                         'changefreq': 'monthly', 'has_en': False,
+                         'lastmod': _EXAM_DATES[_route]['modified']})
     STATIC_HTML_FILES[_route] = 'exam/index.html' if _route == '/exam' else _route.lstrip('/') + '.html'
 
 # Unpublished landing pages are deliberately excluded from sitemap/feed.
@@ -230,7 +236,7 @@ def build_sitemap():
         emit(
             zh,
             en,
-            SITE_UPDATED_YMD,
+            p.get('lastmod', SITE_UPDATED_YMD),
             p['changefreq'],
             p['priority'],
             image=static_og_image(zh),

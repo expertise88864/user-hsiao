@@ -53,8 +53,11 @@ def main() -> int:
         errors.append("api/sitemap.js should handle multi-value If-None-Match headers")
     if "xmlEscape(e.message || e)" not in api:
         errors.append("api/sitemap.js should XML-escape error responses")
-    if not re.search(r"emit\(\s*p\.url,\s*en,\s*siteUpdated,\s*p\.changefreq,\s*p\.priority,", api):
-        errors.append("api/sitemap.js static zh URLs should use stable siteUpdated lastmod")
+    # Exam routes carry their own ledger date (lastmod in api/_exam_routes.js); every other
+    # static zh URL falls back to the stable siteUpdated.
+    if not re.search(r"emit\(\s*p\.url,\s*en,\s*(?://[^\n]*\n\s*)?p\.lastmod \|\| siteUpdated,"
+                     r"\s*p\.changefreq,\s*p\.priority,", api):
+        errors.append("api/sitemap.js static zh URLs should use p.lastmod (exam ledger) or stable siteUpdated lastmod")
     if "<lastmod>${siteUpdated}</lastmod>" not in api:
         errors.append("api/sitemap.js static EN URLs should use stable siteUpdated lastmod")
     for token in ("const STATIC_OG_SLUGS", "function staticOgImage", "function staticImageTitle"):

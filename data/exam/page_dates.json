@@ -1,0 +1,1097 @@
+{
+ "/exam": {
+  "hash": "3dbc39f270a5aad8",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-1": {
+  "hash": "3721d6ad68841740",
+  "modified": "2026-11-04",
+  "published": "2026-11-04"
+ },
+ "/exam/bcsc1-10": {
+  "hash": "e9e8e5f5b1c0be43",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-11": {
+  "hash": "194c49175f171020",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-12": {
+  "hash": "cbe7e37274354673",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-13": {
+  "hash": "7f93326998884b41",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-14": {
+  "hash": "6874bd3f90f02e5a",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-15": {
+  "hash": "d78ee8be0366d997",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-16": {
+  "hash": "348e62d9924dd357",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-17": {
+  "hash": "af6f9389f97ee2bc",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-2": {
+  "hash": "d00f397d9d257bcf",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-3": {
+  "hash": "6b2d2321264b60e7",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-4": {
+  "hash": "8453562c244d6eb2",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-5": {
+  "hash": "b52ec1b9afbe1fe6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-6": {
+  "hash": "f6f0a3c7ec6cf7a4",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-7": {
+  "hash": "ef4ae358ccc2cad6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-8": {
+  "hash": "da69d160797a6cdf",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc1-9": {
+  "hash": "3c692b0f7a9e24d0",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-1": {
+  "hash": "5d15e55a409c10f5",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-10": {
+  "hash": "bb49b33c095cb2a5",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-11": {
+  "hash": "c68e73e2f6a82d2b",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-12": {
+  "hash": "b245e8e001213034",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-13": {
+  "hash": "12a1c13cb3090427",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-2": {
+  "hash": "a3bdc0106a8b756f",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-3": {
+  "hash": "974d510c31a26759",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-4": {
+  "hash": "08d0892d48570daf",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-5": {
+  "hash": "d67da8f987334d82",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-6": {
+  "hash": "56db2fec8183c7fa",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-7": {
+  "hash": "68fd4d17cea24813",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-8": {
+  "hash": "06a1b49ee8cc054f",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc10-9": {
+  "hash": "da06dcdbec578957",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-1": {
+  "hash": "1e9bdd396fb60c30",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-10": {
+  "hash": "22133d28bfb4e728",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-11": {
+  "hash": "8d53b9676c58d57a",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-12": {
+  "hash": "c0401fcf2c6c1716",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-2": {
+  "hash": "302a2789cf7da8e3",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-3": {
+  "hash": "031c9623ef6ad173",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-4": {
+  "hash": "074fc850bf43b97b",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-5": {
+  "hash": "a76da4a0d728680d",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-6": {
+  "hash": "fc29fa6a2fffbfad",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-7": {
+  "hash": "6a50d2e1e743b80d",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-8": {
+  "hash": "28e1e4c50bf45f8a",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc11-9": {
+  "hash": "01ca07c33457c24d",
+  "modified": "2026-11-04",
+  "published": "2026-11-04"
+ },
+ "/exam/bcsc12-1": {
+  "hash": "ff4547eddbdc43a6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-10": {
+  "hash": "670390c74dd1a4a1",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-11": {
+  "hash": "b9b1b7528f6d4ec7",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-12": {
+  "hash": "617c8c3382b54d0b",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-13": {
+  "hash": "9a40df5c4c88c4d3",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-14": {
+  "hash": "b6124ab48bd01725",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-15": {
+  "hash": "40ae865394928ed1",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-16": {
+  "hash": "f4410ed8b67681d2",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-17": {
+  "hash": "c09a1a06d46c1e7e",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-18": {
+  "hash": "29cf0dd0cf07ce90",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-19": {
+  "hash": "9688e567e1f878dd",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-2": {
+  "hash": "9216a6d1e091b3db",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-20": {
+  "hash": "1649dcaa0e163897",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-3": {
+  "hash": "ef8838cb365bd0bc",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-4": {
+  "hash": "ac686a56219af53c",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-5": {
+  "hash": "fa5118d0caf3e71e",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-6": {
+  "hash": "8a72223b31bb3660",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-7": {
+  "hash": "01812a8e8581a341",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-8": {
+  "hash": "2b9c3ed8785eabd9",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc12-9": {
+  "hash": "1439f4fc0b05e28b",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-1": {
+  "hash": "cbff704b403e42d1",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-10": {
+  "hash": "6d0ba1c5826e6ac7",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-2": {
+  "hash": "1788311c3d7a6ef0",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-3": {
+  "hash": "f3544542b9c05bd6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-4": {
+  "hash": "07cbe195f25a92c5",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-5": {
+  "hash": "e54c1906221dc6a5",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-6": {
+  "hash": "78c1d09ad6033583",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-7": {
+  "hash": "83dfc4194c79c8ae",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-8": {
+  "hash": "536d372538a1ae57",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc13-9": {
+  "hash": "fa0abba23ad8bfc2",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-1": {
+  "hash": "5eefe1952f12c465",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-10": {
+  "hash": "3e744dd38a8f4926",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-11": {
+  "hash": "a5d8acdf7dadcad5",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-12": {
+  "hash": "c9df71606f5e6bf8",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-13": {
+  "hash": "79b0a777c41f4465",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-14": {
+  "hash": "1fd0121f885b5b50",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-15": {
+  "hash": "a4112a25e89f997c",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-16": {
+  "hash": "928a42e29d0e1735",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-17": {
+  "hash": "a35193a8f65afe59",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-18": {
+  "hash": "9d22eda81b75ab7d",
+  "modified": "2026-11-04",
+  "published": "2026-11-04"
+ },
+ "/exam/bcsc2-2": {
+  "hash": "a13341f56cd99ea4",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-3": {
+  "hash": "7f165745fea6d3b6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-4": {
+  "hash": "a86d7d0ee867ed88",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-5": {
+  "hash": "cc11eae0afc53812",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-6": {
+  "hash": "c7da4bd8719a63b8",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-7": {
+  "hash": "7fadc82ffdda8058",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-8": {
+  "hash": "f98f64476a26ad38",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc2-9": {
+  "hash": "60a87d2456e2450d",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-1": {
+  "hash": "0d99c0e84f6bc1d3",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-10": {
+  "hash": "50dd85cc42b18c92",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-2": {
+  "hash": "8a976df59df55d14",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-3": {
+  "hash": "843903d15e0d55a2",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-4": {
+  "hash": "702968e27437651f",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-5": {
+  "hash": "fed3cfc88cf1efe3",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-6": {
+  "hash": "83cf013319dcdc42",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-7": {
+  "hash": "784d3828f2462c05",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-8": {
+  "hash": "a746cfc60a2f7d3b",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc3-9": {
+  "hash": "157c6500003638cd",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-1": {
+  "hash": "a91b4a9dd6b7d906",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-10": {
+  "hash": "9fdb4cd3cf44108f",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-11": {
+  "hash": "193859fd2a03b4b4",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-12": {
+  "hash": "a1021272a5fdda72",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-13": {
+  "hash": "4e725170f1fff5e1",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-14": {
+  "hash": "c8d4df7442609c6c",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-15": {
+  "hash": "975e2838e3db9538",
+  "modified": "2026-11-04",
+  "published": "2026-11-04"
+ },
+ "/exam/bcsc4-16": {
+  "hash": "eccf8747115dba76",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-17": {
+  "hash": "a59d0dbfdc1c3fe2",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-18": {
+  "hash": "4a61f9a501aebfa5",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-19": {
+  "hash": "ccbad8693a28aebd",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-2": {
+  "hash": "e326faf91c776978",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-3": {
+  "hash": "81e99a1986d0d30f",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-4": {
+  "hash": "fb3542318d1918ce",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-5": {
+  "hash": "d6d9c0f03555de2d",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-6": {
+  "hash": "ad1b765f30f68409",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-7": {
+  "hash": "612809324d468c96",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-8": {
+  "hash": "6be8f046cc2c6cbc",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc4-9": {
+  "hash": "7a2c94371630016d",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-1": {
+  "hash": "66acf047d3fb8610",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-10": {
+  "hash": "038af81949bae4e1",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-11": {
+  "hash": "32df7f6891936618",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-12": {
+  "hash": "cd302ea51b2d7b08",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-13": {
+  "hash": "e242317d4344e3c6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-14": {
+  "hash": "9a205a24451b92c6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-15": {
+  "hash": "2be6e8197fd0ebb0",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-16": {
+  "hash": "be34cac9041242f4",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-17": {
+  "hash": "dc593b7f6ca1dc03",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-18": {
+  "hash": "056fbe4740896665",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-2": {
+  "hash": "fe0d8865c7ddf0ba",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-3": {
+  "hash": "d949e21dee33f223",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-4": {
+  "hash": "d04997bb0af5c7b9",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-5": {
+  "hash": "ee6a74084c1ec8ca",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-6": {
+  "hash": "ec508eabddebeef1",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-7": {
+  "hash": "f4c4a8bd378b8abe",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-8": {
+  "hash": "4f4cd2949cd9d757",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc5-9": {
+  "hash": "7bb12a87318dd692",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-1": {
+  "hash": "59409aa32291ec33",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-10": {
+  "hash": "d19a2beee424c7e5",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-11": {
+  "hash": "dd190c591d02d126",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-12": {
+  "hash": "ca4cc29e25b9048f",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-13": {
+  "hash": "8ee5a2058dce8344",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-14": {
+  "hash": "8834d1b69ff056e9",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-15": {
+  "hash": "b9a409fa92fe6f34",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-16": {
+  "hash": "a9390361767c1eb7",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-17": {
+  "hash": "9c840fa578a74d9b",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-18": {
+  "hash": "d9f444e01d623aa6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-19": {
+  "hash": "2f39d7167959cbd6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-2": {
+  "hash": "33adddd263cd03c9",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-20": {
+  "hash": "9487bd80befea371",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-21": {
+  "hash": "042df6f07604f523",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-22": {
+  "hash": "321ecfbb2781f022",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-23": {
+  "hash": "d1d495be97c3d29c",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-24": {
+  "hash": "1586dc06f62eb181",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-25": {
+  "hash": "016126874bae872d",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-26": {
+  "hash": "af7f92acc4c6df40",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-27": {
+  "hash": "ec175ec040f6a433",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-28": {
+  "hash": "4b1ec5bb288a2cec",
+  "modified": "2026-11-04",
+  "published": "2026-11-04"
+ },
+ "/exam/bcsc6-3": {
+  "hash": "4fd6cde64b9247d3",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-4": {
+  "hash": "a85701c2a1806abe",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-5": {
+  "hash": "d12383c4b25251a0",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-6": {
+  "hash": "9563ef9611d16db6",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-7": {
+  "hash": "4c41116424884a5e",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-8": {
+  "hash": "82ecdc044a8c04be",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc6-9": {
+  "hash": "90a238086eefc662",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-1": {
+  "hash": "b3a202908ebaf497",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-10": {
+  "hash": "35935fecd88f82a5",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-11": {
+  "hash": "c46c02da3f871a25",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-12": {
+  "hash": "9e0593fafdf6f059",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-13": {
+  "hash": "6b145e5ab4e7a629",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-14": {
+  "hash": "68327c42b1169e26",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-15": {
+  "hash": "597e9a476bda917e",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-2": {
+  "hash": "494e653e35added1",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-3": {
+  "hash": "3bbd4071af3afdaf",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-4": {
+  "hash": "8be9cdb7ffa5ab0a",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-5": {
+  "hash": "5fde8ce213900ff4",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-6": {
+  "hash": "f0b550898018d0d9",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-7": {
+  "hash": "e057d8ee72083529",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-8": {
+  "hash": "d0857eebfba65d10",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc7-9": {
+  "hash": "6a6598236e7622f1",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-1": {
+  "hash": "bd85248211a88ab4",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-10": {
+  "hash": "0d3d667cc7ae86cb",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-11": {
+  "hash": "411e178a3302983c",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-12": {
+  "hash": "461dc5a9c6be591c",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-13": {
+  "hash": "35b63e86b82fe11a",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-14": {
+  "hash": "6fc460e071d9614f",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-15": {
+  "hash": "1e4cb6f42aed6bf8",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-16": {
+  "hash": "d1fbce4a083c9e66",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-2": {
+  "hash": "7ecbbaacfbe6c5fc",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-3": {
+  "hash": "e7f034ccefa308d3",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-4": {
+  "hash": "05cdd347199f2d22",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-5": {
+  "hash": "bce4e338b838f44a",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-6": {
+  "hash": "10ee107f46935d17",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-7": {
+  "hash": "e177c030a658ddde",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-8": {
+  "hash": "60ff0bb219e5437e",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc8-9": {
+  "hash": "fc4ae1723a9a735d",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-1": {
+  "hash": "4699ad1f8065fdd9",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-10": {
+  "hash": "4f97019f36656e6e",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-11": {
+  "hash": "a682e2c02725fe2b",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-12": {
+  "hash": "4d4b68de290233ee",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-13": {
+  "hash": "ebc8c64defe2d564",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-14": {
+  "hash": "8683077955e073bd",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-15": {
+  "hash": "ad47427f21cf475a",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-16": {
+  "hash": "6356a6d10a59b1f8",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-2": {
+  "hash": "8ad346d98729393c",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-3": {
+  "hash": "470c245dc737e601",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-4": {
+  "hash": "497c10e4165ad5f9",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-5": {
+  "hash": "6e0733b5f101905c",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-6": {
+  "hash": "7050035456822521",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-7": {
+  "hash": "19625d8b1587e1ef",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-8": {
+  "hash": "257d68a158f2252f",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/bcsc9-9": {
+  "hash": "ae3b701c91b690e3",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/concepts": {
+  "hash": "4e6e1f7538fdab2b",
+  "modified": "2026-11-04",
+  "published": "2026-10-28"
+ },
+ "/exam/login": {
+  "hash": "d0ca6ec4a878b0cd",
+  "modified": "2026-11-04",
+  "published": "2026-10-15"
+ },
+ "/exam/practice": {
+  "hash": "ad5b90000b4f68c5",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/progress": {
+  "hash": "207f68d6f0050e60",
+  "modified": "2026-11-04",
+  "published": "2026-10-15"
+ },
+ "/exam/review": {
+  "hash": "f0710a07c011e9ac",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ },
+ "/exam/search": {
+  "hash": "8c69a335cf529cf8",
+  "modified": "2026-11-04",
+  "published": "2026-10-14"
+ }
+}

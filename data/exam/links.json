@@ -1,0 +1,1066 @@
+{
+ "_verified": "2026-11-04",
+ "1-1": [
+  {"site": "eyewiki", "label": "Social Determinants of Health: Ophthalmic Implications", "url": "https://eyewiki.org/Social_Determinants_of_Health:_Ophthalmic_Implications"}
+ ],
+ "1-2": [
+  {"site": "moran", "label": "Statistical Methods in Ophthalmology: Unlocking the Black Box", "url": "https://morancore.utah.edu/section-16-ethics/statistical-methods-in-ophthalmology-unlocking-the-black-box/"},
+  {"site": "moran", "label": "Statistical Planning and Analysis", "url": "https://morancore.utah.edu/section-16-ethics/statistical-planning-and-analysis/"}
+ ],
+ "1-3": [
+  {"site": "eyewiki", "label": "Thyroid Eye Disease", "url": "https://eyewiki.org/Thyroid_Eye_Disease"},
+  {"site": "eyerounds", "label": "Thyroid Eye Disease (tutorial)", "url": "https://eyerounds.org/tutorials/thyroid-eye-disease/index.htm"},
+  {"site": "moran", "label": "Diabetes Mellitus/Diabetic Retinopathy", "url": "https://morancore.utah.edu/basic-ophthalmology-review/diabetes-mellitusdiabetic-retinopathy/"}
+ ],
+ "1-4": [
+  {"site": "eyewiki", "label": "Hypertensive Retinopathy", "url": "https://eyewiki.org/Hypertensive_Retinopathy"},
+  {"site": "moran", "label": "Hypertensive Retinopathy", "url": "https://morancore.utah.edu/basic-ophthalmology-review/hypertensive-retinopathy/"}
+ ],
+ "1-5": [
+  {"site": "eyewiki", "label": "Lipemia Retinalis", "url": "https://eyewiki.org/Lipemia_Retinalis"},
+  {"site": "eyewiki", "label": "Xanthelasma", "url": "https://eyewiki.org/Xanthelasma"},
+  {"site": "eyewiki", "label": "Arcus Senilis", "url": "https://eyewiki.org/Arcus_Senilis"}
+ ],
+ "1-6": [
+  {"site": "eyewiki", "label": "Roth Spots", "url": "https://eyewiki.org/Roth_Spots"},
+  {"site": "eyewiki", "label": "Cornea Verticillata", "url": "https://eyewiki.org/Cornea_Verticillata"},
+  {"site": "moran", "label": "Ocular Adverse Effects of Systemic Medications: Amiodarone", "url": "https://morancore.utah.edu/basic-ophthalmology-review/ocular-adverse-effects-of-systemic-medications-amiodarone/"}
+ ],
+ "1-7": [
+  {"site": "eyewiki", "label": "Amaurosis Fugax (Transient Vision Loss)", "url": "https://eyewiki.org/Amaurosis_Fugax_(Transient_Vision_Loss)"},
+  {"site": "eyerounds", "label": "Ocular Ischemic Syndrome", "url": "https://eyerounds.org/cases/327-ocular-ischemic-syndrome.htm"},
+  {"site": "moran", "label": "Hollenhorst Plaques", "url": "https://morancore.utah.edu/basic-ophthalmology-review/hollenhorst-plaques/"}
+ ],
+ "1-8": [
+  {"site": "eyewiki", "label": "Floppy Eyelid Syndrome", "url": "https://eyewiki.org/Floppy_Eyelid_Syndrome"},
+  {"site": "eyewiki", "label": "Ophthalmologic Manifestations of Obstructive Sleep Apnea", "url": "https://eyewiki.org/Ophthalmologic_Manifestations_of_Obstructive_Sleep_Apnea"},
+  {"site": "eyerounds", "label": "Floppy Eyelid Syndrome", "url": "https://eyerounds.org/cases/240-Floppy-Eyelid-Syndrome.htm"}
+ ],
+ "1-9": [
+  {"site": "eyewiki", "label": "Sickle Cell Retinopathy", "url": "https://eyewiki.org/Sickle_Cell_Retinopathy"},
+  {"site": "eyerounds", "label": "Multilayered Hemorrhage in Acute Myeloid Leukemia (AML)", "url": "https://eyerounds.org/cases/317-leukemic-retinopathy.htm"},
+  {"site": "moran", "label": "Sickle Cell Retinopathy", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/sickle-cell-retinopathy/"}
+ ],
+ "1-10": [
+  {"site": "eyewiki", "label": "Scleritis", "url": "https://eyewiki.org/Scleritis"},
+  {"site": "eyerounds", "label": "Hydroxychloroquine (Plaquenil) Toxicity and Screening", "url": "https://eyerounds.org/cases/139-plaquenil-toxicity.htm"},
+  {"site": "moran", "label": "Scleritis", "url": "https://morancore.utah.edu/basic-ophthalmology-review/scleritis/"}
+ ],
+ "1-11": [
+  {"site": "eyewiki", "label": "Ocular Manifestations of Elder Abuse", "url": "https://eyewiki.org/Ocular_Manifestations_of_Elder_Abuse"},
+  {"site": "moran", "label": "Visual Impairment in an Aging Population", "url": "https://morancore.utah.edu/basic-ophthalmology-review/visual-impairment-in-an-aging-population/"}
+ ],
+ "1-12": [
+  {"site": "eyewiki", "label": "Ophthalmo-Psychiatric Disorders (OPD)", "url": "https://eyewiki.org/Ophthalmo-Psychiatric_Disorders_(OPD)"},
+  {"site": "eyerounds", "label": "\"I Can't Read\": Ophthalmological Features of Parkinson's Disease", "url": "https://eyerounds.org/cases/206-I-cannot-read.htm"},
+  {"site": "moran", "label": "Recognizing Psychopathology in Your Patient", "url": "https://morancore.utah.edu/section-16-ethics/patient-support-lecture-recognizing-psychopathology-in-your-patient/"}
+ ],
+ "1-14": [
+  {"site": "eyewiki", "label": "Choroidal Metastases", "url": "https://eyewiki.org/Choroidal_Metastases"},
+  {"site": "eyewiki", "label": "Systemic Chemotherapy and Ocular Toxicities", "url": "https://eyewiki.org/Systemic_Chemotherapy_and_Ocular_Toxicities"},
+  {"site": "eyerounds", "label": "Metastatic Choroidal Lesion from Adenocarcinoma of the Lung", "url": "https://eyerounds.org/cases/35-MetastaticLungCA.htm"}
+ ],
+ "1-15": [
+  {"site": "eyewiki", "label": "Ocular Involvement in HIV/AIDS", "url": "https://eyewiki.org/Ocular_Involvement_in_HIV/AIDS"},
+  {"site": "eyerounds", "label": "Cytomegalovirus (CMV) Retinitis in HIV", "url": "https://eyerounds.org/cases/61-CMV-Cytomegalovirus-Retinitis-HIV.htm"},
+  {"site": "moran", "label": "Ocular Syphilis", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/ocular-syphilis/"}
+ ],
+ "1-16": [
+  {"site": "eyewiki", "label": "Ocular Anesthesia", "url": "https://eyewiki.org/Ocular_Anesthesia"},
+  {"site": "eyewiki", "label": "Antithrombotic Therapy in Ophthalmic Procedures", "url": "https://eyewiki.org/Antithrombotic_Therapy_in_Ophthalmic_Procedures"},
+  {"site": "eyerounds", "label": "Retrobulbar, Peribulbar and Common Nerve Blocks in Ophthalmology", "url": "https://eyerounds.org/tutorials/retrobulbar-nerve-blocks.htm"}
+ ],
+ "1-17": [
+  {"site": "eyewiki", "label": "Drug-induced Acute Angle Closure Glaucoma", "url": "https://eyewiki.org/Drug-induced_Acute_Angle_Closure_Glaucoma"},
+  {"site": "moran", "label": "Drugs That Can Cause an Acute Angle Closure Crisis", "url": "https://morancore.utah.edu/basic-ophthalmology-review/drugs-that-can-cause-an-acute-angle-closure-crisis/"}
+ ],
+ "2-1": [
+  {"site": "eyewiki", "label": "Bony Anatomy of the Orbit", "url": "https://eyewiki.org/Bony_Anatomy_of_the_Orbit"},
+  {"site": "eyewiki", "label": "Extraocular Muscles", "url": "https://eyewiki.org/Extraocular_Muscles"},
+  {"site": "moran", "label": "Ocular and Orbital Anatomy", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/ocular-and-orbital-anatomy/"}
+ ],
+ "2-2": [
+  {"site": "moran", "label": "Normal Eye Anatomy and Classification of Disorders", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/normal-eye-anatomy-and-classification-of-disorders/"},
+  {"site": "eyewiki", "label": "Eye in Numbers", "url": "https://eyewiki.org/Eye_in_Numbers"}
+ ],
+ "2-3": [
+  {"site": "eyewiki", "label": "Acquired Oculomotor Nerve Palsy", "url": "https://eyewiki.org/Acquired_Oculomotor_Nerve_Palsy"},
+  {"site": "eyerounds", "label": "Cranial Nerve IV (Trochlear Nerve) Palsy", "url": "https://eyerounds.org/cases/225-CN-IV-palsy.htm"},
+  {"site": "moran", "label": "Cranial Nerve VII Anatomy", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/cranial-nerve-vii-anatomy/"}
+ ],
+ "2-4": [
+  {"site": "eyewiki", "label": "Embryology of the Eye and Ocular Adnexa", "url": "https://eyewiki.org/Embryology_of_the_Eye_and_Ocular_Adnexa"},
+  {"site": "eyewiki", "label": "Coloboma", "url": "https://eyewiki.org/Coloboma"},
+  {"site": "eyerounds", "label": "Retinochoroidal Coloboma", "url": "https://eyerounds.org/cases/53-Retina-Choroidal-Coloboma-Visual-Field.htm"}
+ ],
+ "2-5": [
+  {"site": "eyewiki", "label": "Viral Vectors for Gene Therapy", "url": "https://eyewiki.org/Viral_Vectors_for_Gene_Therapy"},
+  {"site": "eyerounds", "label": "Leber Hereditary Optic Neuropathy", "url": "https://eyerounds.org/cases/172-LHON.htm"}
+ ],
+ "2-6": [
+  {"site": "eyewiki", "label": "Genetic Eye Disease Related Terms and Resources", "url": "https://eyewiki.org/Genetic_Eye_Disease_Related_Terms_and_Resources"},
+  {"site": "moran", "label": "Genetic Counseling in Ophthalmology", "url": "https://morancore.utah.edu/section-16-ethics/genetic-counseling-in-ophthalmology/"}
+ ],
+ "2-7": [
+  {"site": "eyewiki", "label": "Dry Eye Disease", "url": "https://eyewiki.org/Dry_Eye_Disease"},
+  {"site": "eyerounds", "label": "Artificial Tears: A Primer", "url": "https://eyerounds.org/tutorials/Artificial-Tears.htm"},
+  {"site": "moran", "label": "Dry Eye Disease", "url": "https://morancore.utah.edu/basic-ophthalmology-review/dry-eye-disease/"}
+ ],
+ "2-8": [
+  {"site": "eyewiki", "label": "Limbal Stem Cell Deficiency", "url": "https://eyewiki.org/Limbal_Stem_Cell_Deficiency"},
+  {"site": "eyewiki", "label": "Corneal Edema", "url": "https://eyewiki.org/Corneal_Edema"},
+  {"site": "moran", "label": "Introduction to Cornea 2019", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/introduction-to-cornea-2/"}
+ ],
+ "2-9": [
+  {"site": "moran", "label": "Aqueous Humor Production and Dynamics", "url": "https://morancore.utah.edu/section-10-glaucoma/aqueous-humor-production-and-dynamics/"},
+  {"site": "eyewiki", "label": "Unconventional Aqueous Outflow", "url": "https://eyewiki.org/Unconventional_Aqueous_Outflow"},
+  {"site": "moran", "label": "Iris Anatomy", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/iris-anatomy/"}
+ ],
+ "2-10": [
+  {"site": "moran", "label": "Lens & Cataract: Anatomy, Biochemistry, Physiology, Embryology", "url": "https://morancore.utah.edu/section-11-lens-and-cataract/lens-cataract-anatomy-biochemistry-physiology-embryology-and-pathology/"},
+  {"site": "eyewiki", "label": "Cataract", "url": "https://eyewiki.org/Cataract"}
+ ],
+ "2-11": [
+  {"site": "eyewiki", "label": "Posterior Vitreous Detachment", "url": "https://eyewiki.org/Posterior_Vitreous_Detachment"},
+  {"site": "eyerounds", "label": "Vitreous Syneresis: An Impending Posterior Vitreous Detachment", "url": "https://eyerounds.org/cases/196-PVD.htm"},
+  {"site": "moran", "label": "Posterior Vitreous Detachment", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/posterior-vitreous-detachment/"}
+ ],
+ "2-12": [
+  {"site": "moran", "label": "The Visual Cycle & Cone Photoreceptor Function & Survival", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/the-visual-cycle-cone-photoreceptor-function-and-survival/"},
+  {"site": "eyewiki", "label": "Electroretinogram", "url": "https://eyewiki.org/Electroretinogram"},
+  {"site": "moran", "label": "Retina & RPE Histopathology", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/retina/"}
+ ],
+ "2-13": [
+  {"site": "eyewiki", "label": "Fundus Autofluorescence", "url": "https://eyewiki.org/Fundus_Autofluorescence"},
+  {"site": "eyewiki", "label": "Best Disease and Bestrophinopathies", "url": "https://eyewiki.org/Best_Disease_and_Bestrophinopathies"},
+  {"site": "moran", "label": "Nutrient Supply and Energy Metabolism in the Retina and RPE", "url": "https://morancore.utah.edu/section-16-ethics/the-importance-of-nutrient-supply-and-energy-metabolism-in-the-retina-and-rpe/"}
+ ],
+ "2-14": [
+  {"site": "eyewiki", "label": "Oxidative Stress in Ophthalmology", "url": "https://eyewiki.org/Oxidative_Stress_in_Ophthalmology"},
+  {"site": "eyewiki", "label": "Nutrients for Eye Health and Disease Management", "url": "https://eyewiki.org/Nutrients_for_Eye_Health_and_Disease_Management"},
+  {"site": "moran", "label": "Proposed Mechanisms of Action of the AREDS 2 Supplements", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/proposed-mechanisms-of-action-of-the-areds-2-supplements/"}
+ ],
+ "2-15": [
+  {"site": "eyewiki", "label": "Preservatives in Topical Ophthalmic Medications", "url": "https://eyewiki.org/Preservatives_in_Topical_Ophthalmic_Medications"},
+  {"site": "eyewiki", "label": "Sustained Release Glaucoma Delivery Systems", "url": "https://eyewiki.org/Sustained_Release_Glaucoma_Delivery_Systems"},
+  {"site": "eyerounds", "label": "Intravitreal Injection Technique: A Primer", "url": "https://eyerounds.org/tutorials/intravitreal-injection/index.htm"}
+ ],
+ "2-16": [
+  {"site": "eyewiki", "label": "Review of Topical Glaucoma Medications", "url": "https://eyewiki.org/Review_of_Topical_Glaucoma_Medications"},
+  {"site": "eyerounds", "label": "Medical Management of Glaucoma: A Primer", "url": "https://eyerounds.org/tutorials/Glaucoma-Medical-treatment/index.htm"},
+  {"site": "moran", "label": "Ocular Side-Effects of Corticosteroids", "url": "https://morancore.utah.edu/basic-ophthalmology-review/ocular-side-effects-of-corticosteroids/"}
+ ],
+ "2-17": [
+  {"site": "eyewiki", "label": "Imaging in Orbit and Oculoplasty", "url": "https://eyewiki.org/Imaging_in_Orbit_and_Oculoplasty"},
+  {"site": "eyerounds", "label": "Ocular Ultrasound: A Quick Reference Guide", "url": "https://eyerounds.org/tutorials/ultrasound/index.htm"},
+  {"site": "moran", "label": "Neuro-Imaging: Modalities, Sequences, Anatomy, High Yield Pathology", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/orbital-and-neuro-ophthalmological-imaging/"}
+ ],
+ "2-18": [
+  {"site": "eyewiki", "label": "Artificial Intelligence in Ophthalmology", "url": "https://eyewiki.org/Artificial_Intelligence_in_Ophthalmology"},
+  {"site": "eyewiki", "label": "Teleophthalmology", "url": "https://eyewiki.org/Teleophthalmology"},
+  {"site": "moran", "label": "Utah Teleophthalmology Program (UTOP) Update", "url": "https://morancore.utah.edu/quality-improvement/utah-teleophthalmology-program-utop-update/"}
+ ],
+ "3-1": [
+  {"site": "moran", "label": "Approach to Optics – 2022", "url": "https://morancore.utah.edu/section-03-clinical-optics/approach-to-optics-2022/"},
+  {"site": "moran", "label": "Optics Lecture: Lenses & Prisms", "url": "https://morancore.utah.edu/section-03-clinical-optics/optics-lecture-lenses-prisms/"}
+ ],
+ "3-2": [
+  {"site": "moran", "label": "Optics: Properties of Light", "url": "https://morancore.utah.edu/section-03-clinical-optics/optics-properties-of-light/"},
+  {"site": "eyewiki", "label": "Lasers (surgery)", "url": "https://eyewiki.org/Lasers_(surgery)"},
+  {"site": "eyewiki", "label": "Optical Coherence Tomography", "url": "https://eyewiki.org/Optical_Coherence_Tomography"}
+ ],
+ "3-3": [
+  {"site": "eyewiki", "label": "Optical Axes and Angle Kappa", "url": "https://eyewiki.org/Optical_Axes_and_Angle_Kappa"},
+  {"site": "moran", "label": "Refractive Error", "url": "https://morancore.utah.edu/section-03-clinical-optics/refractive-error/"},
+  {"site": "eyewiki", "label": "Presbyopia", "url": "https://eyewiki.org/Presbyopia"}
+ ],
+ "3-4": [
+  {"site": "eyewiki", "label": "Retinoscopy", "url": "https://eyewiki.org/Retinoscopy"},
+  {"site": "eyewiki", "label": "Cross-Cylinder Technique for Subjective Refraction", "url": "https://eyewiki.org/Cross-Cylinder_Technique_for_Subjective_Refraction"},
+  {"site": "eyerounds", "label": "Optics and Refraction Videos", "url": "https://eyerounds.org/video/Refraction/index.htm"},
+  {"site": "moran", "label": "Cycloplegic and Non-cycloplegic Refractions", "url": "https://morancore.utah.edu/section-03-clinical-optics/cycloplegic-and-non-cycloplegic-refractions/"}
+ ],
+ "3-5": [
+  {"site": "eyewiki", "label": "Lens Material Properties", "url": "https://eyewiki.org/Lens_Material_Properties"},
+  {"site": "eyewiki", "label": "Lensometry", "url": "https://eyewiki.org/Lensometry"},
+  {"site": "eyerounds", "label": "Pediatric Spectacle Prescription and Retinoscopy Made Simple", "url": "https://eyerounds.org/tutorials/Pediatric-spectacle-prescription-and-Retinoscopy/index.htm"},
+  {"site": "moran", "label": "Prism", "url": "https://morancore.utah.edu/section-03-clinical-optics/prism/"}
+ ],
+ "3-6": [
+  {"site": "eyewiki", "label": "Contact Lens Complications", "url": "https://eyewiki.org/Contact_Lens_Complications"},
+  {"site": "eyerounds", "label": "Acanthamoeba Keratitis in a Contact Lens Wearer", "url": "https://eyerounds.org/cases/58-Acanthamoeba-Keratitis-Contact-Lens-Wear-Pain-Ring-Infiltrate.htm"},
+  {"site": "moran", "label": "Contact Lens Fitting Tutorial", "url": "https://morancore.utah.edu/section-03-clinical-optics/contact-lens-fitting-tutorial/"}
+ ],
+ "3-7": [
+  {"site": "eyewiki", "label": "Biometry for Intra-Ocular Lens (IOL) Power Calculation", "url": "https://eyewiki.org/Biometry_for_Intra-Ocular_Lens_(IOL)_Power_Calculation"},
+  {"site": "eyerounds", "label": "Cataract Surgery with ReSTOR Intraocular Lens for Presbyopia", "url": "https://eyerounds.org/tutorials/restor.htm"},
+  {"site": "moran", "label": "Essentials of Biometry (Part 1): What Ocular Parameters Are Important?", "url": "https://morancore.utah.edu/section-11-lens-and-cataract/essentials-of-biometry-part-1-what-ocular-parameters-are-important/"}
+ ],
+ "3-8": [
+  {"site": "eyewiki", "label": "Intraocular Lens Power Calculation after Corneal Refractive Surgery", "url": "https://eyewiki.org/Intraocular_Lens_Power_Calculation_after_Corneal_Refractive_Surgery"},
+  {"site": "eyerounds", "label": "Laser Refractive Surgery: From One Medical Student to Another", "url": "https://eyerounds.org/tutorials/laser-vision-correction-tutorial/index.htm"},
+  {"site": "moran", "label": "Angle Kappa and its Importance in Refractive Surgery", "url": "https://morancore.utah.edu/section-03-clinical-optics/angle-kappa-and-its-importance-in-refractive-surgery/"}
+ ],
+ "3-9": [
+  {"site": "eyewiki", "label": "Slit Lamp Examination", "url": "https://eyewiki.org/Slit_Lamp_Examination"},
+  {"site": "eyerounds", "label": "Corneal Imaging: An Introduction", "url": "https://eyerounds.org/tutorials/Corneal-Imaging/Index.htm"},
+  {"site": "moran", "label": "How to Use the Direct Ophthalmoscope", "url": "https://morancore.utah.edu/basic-ophthalmology-review/how-to-use-the-direct-ophthalmoscope/"}
+ ],
+ "3-10": [
+  {"site": "eyerounds", "label": "Vision Rehabilitation: Overview", "url": "https://eyerounds.org/tutorials/vision-rehabilitation-overview.htm"},
+  {"site": "moran", "label": "Low Vision Rehabilitation", "url": "https://morancore.utah.edu/section-03-clinical-optics/low-vision-rehabilitation/"},
+  {"site": "eyewiki", "label": "Charles Bonnet Syndrome", "url": "https://eyewiki.org/Charles_Bonnet_Syndrome"}
+ ],
+ "4-1": [
+  {"site": "eyewiki", "label": "Basic Histology of the Eye and Accessory Structures", "url": "https://eyewiki.org/Basic_Histology_of_the_Eye_and_Accessory_Structures"},
+  {"site": "moran", "label": "Normal Eye Anatomy and Classification of Disorders", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/normal-eye-anatomy-and-classification-of-disorders/"},
+  {"site": "eyewiki", "label": "Phthisis Bulbi", "url": "https://eyewiki.org/Phthisis_Bulbi"}
+ ],
+ "4-2": [
+  {"site": "eyewiki", "label": "Stains, Culture Media, Markers and Subspecialty Techniques", "url": "https://eyewiki.org/Stains,_Culture_Media,_Markers_and_Subspecialty_Techniques"},
+  {"site": "moran", "label": "Stains and Processing", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/stains-and-processing/"},
+  {"site": "eyerounds", "label": "Temporal Artery Biopsy", "url": "https://eyerounds.org/tutorials/temporal-artery-biopsy.htm"}
+ ],
+ "4-3": [
+  {"site": "eyewiki", "label": "Epithelial Downgrowth and Glaucoma", "url": "https://eyewiki.org/Epithelial_Downgrowth_and_Glaucoma"},
+  {"site": "eyerounds", "label": "Angle recession and cyclodialysis after blunt trauma", "url": "https://eyerounds.org/atlas/pages/angle-recession-cyclodialysis-cleft.htm"},
+  {"site": "eyerounds", "label": "Adherent leukoma and epithelial inclusion cyst after trauma", "url": "https://eyerounds.org/atlas/pages/Adherent-Leukoma/index.htm"}
+ ],
+ "4-4": [
+  {"site": "moran", "label": "Conjunctiva", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/conjunctiva/"},
+  {"site": "eyewiki", "label": "Conjunctival Melanocytic Tumors", "url": "https://eyewiki.org/Conjunctival_Melanocytic_Tumors"},
+  {"site": "eyerounds", "label": "A Very Unusual Case of Ocular Surface Squamous Neoplasia", "url": "https://eyerounds.org/cases/163-OSSN.htm"}
+ ],
+ "4-5": [
+  {"site": "moran", "label": "Cornea", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/cornea/"},
+  {"site": "eyerounds", "label": "Epithelial-Stromal and Stromal Corneal Dystrophies", "url": "https://eyerounds.org/cases/43-Corneal-Stromal-Dystrophies.htm"},
+  {"site": "eyewiki", "label": "Fuchs’ Endothelial Dystrophy", "url": "https://eyewiki.org/Fuchs%E2%80%99_Endothelial_Dystrophy"}
+ ],
+ "4-6": [
+  {"site": "moran", "label": "Glaucoma / Anterior Chamber", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/glaucoma-anterior-chamber/"},
+  {"site": "eyerounds", "label": "Phacolytic Glaucoma", "url": "https://eyerounds.org/cases/258-phacolytic-glaucoma.htm"},
+  {"site": "eyewiki", "label": "Angle Recession Glaucoma", "url": "https://eyewiki.org/Angle_Recession_Glaucoma"}
+ ],
+ "4-7": [
+  {"site": "moran", "label": "Sclera", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/sclera/"},
+  {"site": "eyewiki", "label": "Scleritis", "url": "https://eyewiki.org/Scleritis"},
+  {"site": "eyerounds", "label": "Idiopathic sclerochoroidal calcification", "url": "https://eyerounds.org/atlas/pages/sclerochoroidal-calcification/index.htm"}
+ ],
+ "4-8": [
+  {"site": "moran", "label": "Lens Histopathology", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/lens-histopathology/"},
+  {"site": "eyewiki", "label": "Lens Induced Glaucomas", "url": "https://eyewiki.org/Lens_Induced_Glaucomas"},
+  {"site": "eyerounds", "label": "Morgagnian Cataract", "url": "https://eyerounds.org/cases/146-Morgagnian-Cataract.htm"}
+ ],
+ "4-9": [
+  {"site": "moran", "label": "Vitreous", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/vitreous/"},
+  {"site": "eyewiki", "label": "Asteroid Hyalosis (AH)", "url": "https://eyewiki.org/Asteroid_Hyalosis_(AH)"},
+  {"site": "eyerounds", "label": "Vitreous Syneresis: An Impending Posterior Vitreous Detachment (PVD)", "url": "https://eyerounds.org/cases/196-PVD.htm"}
+ ],
+ "4-10": [
+  {"site": "moran", "label": "Retina & RPE Histopathology", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/retina/"},
+  {"site": "eyerounds", "label": "Age-Related Macular Degeneration: A Histopathologic Analysis", "url": "https://eyerounds.org/tutorials/Drusen/index.htm"},
+  {"site": "eyewiki", "label": "Retinitis Pigmentosa", "url": "https://eyewiki.org/Retinitis_Pigmentosa"}
+ ],
+ "4-11": [
+  {"site": "moran", "label": "Uvea", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/uvea/"},
+  {"site": "eyerounds", "label": "Changing Trends in Sympathetic Ophthalmia", "url": "https://eyerounds.org/cases/81-Sympathetic-Ophthalmia-Intraocular-Surgery.htm"},
+  {"site": "eyewiki", "label": "Vogt-Koyanagi-Harada Disease", "url": "https://eyewiki.org/Vogt-Koyanagi-Harada_Disease"}
+ ],
+ "4-12": [
+  {"site": "moran", "label": "Eyelids", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/eyelid/"},
+  {"site": "eyerounds", "label": "Malignant Lesions of the External Periocular Tissues", "url": "https://eyerounds.org/tutorials/malignant-lesions-of-ext-periocular-tissues/index.htm"},
+  {"site": "eyewiki", "label": "Sebaceous Carcinoma", "url": "https://eyewiki.org/Sebaceous_Carcinoma"}
+ ],
+ "4-13": [
+  {"site": "moran", "label": "Orbit Histopathology", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/orbit-histopathology/"},
+  {"site": "eyerounds", "label": "Adenoid cystic carcinoma of the lacrimal gland", "url": "https://eyerounds.org/cases/235-Adenoid-cystic-carcinoma-lacrimal-gland.htm"},
+  {"site": "eyewiki", "label": "Lacrimal Gland Tumors", "url": "https://eyewiki.org/Lacrimal_Gland_Tumors"}
+ ],
+ "4-14": [
+  {"site": "moran", "label": "Optic Nerve", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/optic-nerve/"},
+  {"site": "eyerounds", "label": "Neurofibromatosis Type 1 Optic Nerve Glioma", "url": "https://eyerounds.org/cases/38-NeurofibromatosisOpticNerveGlioma.htm"},
+  {"site": "eyewiki", "label": "Optic Nerve Sheath Meningioma", "url": "https://eyewiki.org/Optic_Nerve_Sheath_Meningioma"}
+ ],
+ "4-15": [
+  {"site": "moran", "label": "Intraocular Tumors – Melanocytic", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/tumors/"},
+  {"site": "moran", "label": "Intraocular Tumors", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/intraocular-tumors/"}
+ ],
+ "4-16": [
+  {"site": "eyewiki", "label": "Choroidal and Ciliary Body Melanoma", "url": "https://eyewiki.org/Choroidal_and_Ciliary_Body_Melanoma"},
+  {"site": "eyerounds", "label": "Choroidal Malignant Melanoma", "url": "https://eyerounds.org/cases/190-choroidal-malignant-melanoma.htm"},
+  {"site": "moran", "label": "Posterior Uveal Melanoma", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/posterior-uveal-melanoma/"}
+ ],
+ "4-17": [
+  {"site": "eyerounds", "label": "Choroidal Hemangioma: Central scotoma in the right eye", "url": "https://eyerounds.org/cases/65-Choroidal-Hemangioma-Photodynamic-Therapy.htm"},
+  {"site": "eyewiki", "label": "Retinal Capillary Hemangioblastoma and von Hippel-Lindau Disease", "url": "https://eyewiki.org/Retinal_Capillary_Hemangioblastoma_and_von_Hippel-Lindau_Disease"},
+  {"site": "eyerounds", "label": "Sturge-Weber Syndrome", "url": "https://eyerounds.org/cases/case13.htm"}
+ ],
+ "4-18": [
+  {"site": "eyewiki", "label": "Retinoblastoma", "url": "https://eyewiki.org/Retinoblastoma"},
+  {"site": "eyerounds", "label": "Retinoblastoma", "url": "https://eyerounds.org/cases/case27.htm"},
+  {"site": "moran", "label": "Retinoblastoma", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/retinoblastoma/"}
+ ],
+ "4-19": [
+  {"site": "eyewiki", "label": "Choroidal Metastases", "url": "https://eyewiki.org/Choroidal_Metastases"},
+  {"site": "eyerounds", "label": "Primary Vitreoretinal Lymphoma (PVRL)", "url": "https://eyerounds.org/cases/303-Primary_Vitreoretinal_Lymphoma_(PVRL).htm"},
+  {"site": "moran", "label": "Diagnosis and Management of Choroidal Metastases", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/diagnosis-and-management-of-choroidal-metastases/"}
+ ],
+ "5-1": [
+  {"site": "eyewiki", "label": "Bony Anatomy of the Orbit", "url": "https://eyewiki.org/Bony_Anatomy_of_the_Orbit"},
+  {"site": "eyewiki", "label": "Vasculature of Orbit", "url": "https://eyewiki.org/Vasculature_of_Orbit"},
+  {"site": "moran", "label": "Ocular and Orbital Anatomy", "url": "https://morancore.utah.edu/section-04-ophthalmic-pathology/ocular-and-orbital-anatomy/"}
+ ],
+ "5-2": [
+  {"site": "moran", "label": "The Light Pathway", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/the-light-pathway/"},
+  {"site": "eyewiki", "label": "Anisocoria", "url": "https://eyewiki.org/Anisocoria"},
+  {"site": "eyewiki", "label": "Saccade", "url": "https://eyewiki.org/Saccade"}
+ ],
+ "5-3": [
+  {"site": "moran", "label": "Neuro-ophthalmology Imaging Primer", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/neuro-ophthalmology-imaging-primer/"},
+  {"site": "moran", "label": "Neuro-orbital radiology findings", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/neuro-orbital-radiology-findings/"},
+  {"site": "eyewiki", "label": "Ultrasound in Neuro-Ophthalmology", "url": "https://eyewiki.org/Ultrasound_in_Neuro-Ophthalmology"}
+ ],
+ "5-4": [
+  {"site": "eyewiki", "label": "Relative Afferent Pupillary Defect", "url": "https://eyewiki.org/Relative_Afferent_Pupillary_Defect"},
+  {"site": "moran", "label": "How to Measure the RAPD", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/how-to-measure-the-rapd/"},
+  {"site": "eyerounds", "label": "Visual Field Testing: From One Medical Student to Another", "url": "https://eyerounds.org/tutorials/VF-testing/index.htm"}
+ ],
+ "5-5": [
+  {"site": "moran", "label": "Differentiating Retinopathy from Optic Neuropathy", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/differentiating-retinopathy-from-optic-neuropathy-in-acute-persistent-vision-loss/"},
+  {"site": "eyerounds", "label": "Acute Zonal Occult Outer Retinopathy (AZOOR) and AIBSE", "url": "https://eyerounds.org/cases/case18.htm"},
+  {"site": "eyewiki", "label": "Multiple Evanescent White Dot Syndrome", "url": "https://eyewiki.org/Multiple_Evanescent_White_Dot_Syndrome"}
+ ],
+ "5-6": [
+  {"site": "eyerounds", "label": "Optic Neuritis", "url": "https://eyerounds.org/cases/159-optic-neuritis.htm"},
+  {"site": "eyewiki", "label": "Non-Arteritic Anterior Ischemic Optic Neuropathy (NAION)", "url": "https://eyewiki.org/Non-Arteritic_Anterior_Ischemic_Optic_Neuropathy_(NAION)"},
+  {"site": "moran", "label": "Approach to Optic Nerve Pallor", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/approach-to-optic-nerve-pallor-2023/"}
+ ],
+ "5-7": [
+  {"site": "eyerounds", "label": "Pituitary Adenoma Causing Compression of the Optic Chiasm", "url": "https://eyerounds.org/cases/177-pituitary-adenoma.htm"},
+  {"site": "eyewiki", "label": "Pituitary Adenoma", "url": "https://eyewiki.org/Pituitary_Adenoma"},
+  {"site": "moran", "label": "Short but Curious Case of Bitemporal Hemianopsia", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/a-short-but-curious-case-of-bitemporal-hemianopsia/"}
+ ],
+ "5-8": [
+  {"site": "moran", "label": "Homonymous Hemianopia", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/homonymous-hemianopia/"},
+  {"site": "eyerounds", "label": "Left homonymous hemianopsia, occipital stroke", "url": "https://eyerounds.org/atlas/pages/left-homonymous-hemianopsia-occipital-stroke.html"},
+  {"site": "eyewiki", "label": "Monocular Occipital Temporal Crescent Syndrome", "url": "https://eyewiki.org/Monocular_Occipital_Temporal_Crescent_Syndrome"}
+ ],
+ "5-9": [
+  {"site": "eyewiki", "label": "Amaurosis Fugax (Transient Vision Loss)", "url": "https://eyewiki.org/Amaurosis_Fugax_(Transient_Vision_Loss)"},
+  {"site": "moran", "label": "Differential Diagnosis of Transient Monocular Vision Loss", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/the-patient-with-transient-vision-loss/"}
+ ],
+ "5-10": [
+  {"site": "moran", "label": "Higher Order Cortical Vision Loss: JCAHPO Webinar", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/higher-order-cortical-vision-loss-jcahpo-webinar/"},
+  {"site": "eyewiki", "label": "Balint Syndrome", "url": "https://eyewiki.org/Balint_Syndrome"},
+  {"site": "eyerounds", "label": "Charles Bonnet Syndrome", "url": "https://eyerounds.org/cases/302-Charles_Bonnet.htm"}
+ ],
+ "5-11": [
+  {"site": "moran", "label": "Infranuclear CN 3, 4, and 6 Palsies", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/infranuclear-causes-of-diplopia/"},
+  {"site": "eyewiki", "label": "Acquired Oculomotor Nerve Palsy", "url": "https://eyewiki.org/Acquired_Oculomotor_Nerve_Palsy"},
+  {"site": "eyerounds", "label": "Cranial Nerve IV (Trochlear Nerve) Palsy", "url": "https://eyerounds.org/cases/225-CN-IV-palsy.htm"}
+ ],
+ "5-12": [
+  {"site": "eyerounds", "label": "Internuclear Ophthalmoplegia", "url": "https://eyerounds.org/cases/252-internuclear-ophthalmoplegia.htm"},
+  {"site": "eyewiki", "label": "Parinaud Syndrome", "url": "https://eyewiki.org/Parinaud_Syndrome"},
+  {"site": "moran", "label": "Supranuclear, Nuclear and Internuclear Causes of Diplopia", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/supranuclear-nuclear-and-internuclear-causes-of-diplopia/"}
+ ],
+ "5-13": [
+  {"site": "eyerounds", "label": "Treatment of Nystagmus and Saccadic Oscillations", "url": "https://eyerounds.org/tutorials/Nystagmus/index.htm"},
+  {"site": "eyewiki", "label": "Nystagmus", "url": "https://eyewiki.org/Nystagmus"},
+  {"site": "moran", "label": "Downbeat Nystagmus", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/downbeat-nystagmus/"}
+ ],
+ "5-14": [
+  {"site": "eyewiki", "label": "Horner Syndrome", "url": "https://eyewiki.org/Horner_Syndrome"},
+  {"site": "moran", "label": "Approach to Anisocoria", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/approach-to-anisocoria/"},
+  {"site": "eyerounds", "label": "Apraclonidine Drop Testing for Horner Syndrome", "url": "https://eyerounds.org/atlas/pages/Apraclonidine-test-for-Horners/index.htm"}
+ ],
+ "5-15": [
+  {"site": "eyerounds", "label": "A Case of Blepharospasm and Apraxia of Eyelid Opening", "url": "https://eyerounds.org/cases/207-blepharospasm.htm"},
+  {"site": "eyewiki", "label": "Hemifacial Spasm", "url": "https://eyewiki.org/Hemifacial_Spasm"},
+  {"site": "moran", "label": "Aberrant Regeneration of the Seventh Nerve", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/aberrant-regeneration-of-the-seventh-nerve/"}
+ ],
+ "5-16": [
+  {"site": "moran", "label": "Approach to Headache and Eye Pain", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/headache-and-eye-pain/"},
+  {"site": "eyewiki", "label": "Ophthalmologic Manifestations of Migraines", "url": "https://eyewiki.org/Ophthalmologic_Manifestations_of_Migraines"},
+  {"site": "eyerounds", "label": "Horner's Syndrome with Cluster Headache", "url": "https://eyerounds.org/cases/case22.htm"}
+ ],
+ "5-17": [
+  {"site": "eyerounds", "label": "Functional Visual Loss", "url": "https://eyerounds.org/cases/165-functional-visual-loss.htm"},
+  {"site": "eyewiki", "label": "Functional Visual Loss", "url": "https://eyewiki.org/Functional_Visual_Loss"},
+  {"site": "moran", "label": "Functional Vision Loss", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/functional-vision-loss-1/"}
+ ],
+ "5-18": [
+  {"site": "eyewiki", "label": "Giant Cell Arteritis", "url": "https://eyewiki.org/Giant_Cell_Arteritis"},
+  {"site": "eyerounds", "label": "Myasthenia Gravis", "url": "https://eyerounds.org/cases/case2.htm"},
+  {"site": "moran", "label": "Neuromyelitis Optica Spectrum Disorders", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/neuromyelitis-optica-spectrum-disorders/"}
+ ],
+ "6-1": [
+  {"site": "moran", "label": "Vision Assessment in the Pediatric Patient", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/vision-assessment-in-the-pediatric-patient/"},
+  {"site": "eyerounds", "label": "Pediatric Spectacle Prescription and Retinoscopy Made Simple", "url": "https://eyerounds.org/tutorials/Pediatric-spectacle-prescription-and-Retinoscopy/index.htm"},
+  {"site": "eyewiki", "label": "Pediatric Vision Screening", "url": "https://eyewiki.org/Pediatric_Vision_Screening"}
+ ],
+ "6-2": [
+  {"site": "eyewiki", "label": "Extraocular Muscles", "url": "https://eyewiki.org/Extraocular_Muscles"},
+  {"site": "moran", "label": "Superior Oblique Muscle Compartments", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/superior-oblique-muscle-compartments/"}
+ ],
+ "6-3": [
+  {"site": "moran", "label": "Normal Eye Movements", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/normal-eye-movements/"}
+ ],
+ "6-4": [
+  {"site": "eyerounds", "label": "Binocular Vision", "url": "https://eyerounds.org/tutorials/Bhola-BinocularVision.htm"},
+  {"site": "eyewiki", "label": "Anomalous Retinal Correspondence", "url": "https://eyewiki.org/Anomalous_Retinal_Correspondence"},
+  {"site": "moran", "label": "Sensory and Motor Physiology", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/sensory-and-motor-physiology-2/"}
+ ],
+ "6-5": [
+  {"site": "eyewiki", "label": "Amblyopia", "url": "https://eyewiki.org/Amblyopia"},
+  {"site": "eyerounds", "label": "Amblyopia: From One Medical Student to Another", "url": "https://eyerounds.org/tutorials/amblyopia-medical-students/index.htm"},
+  {"site": "moran", "label": "Amblyopia", "url": "https://morancore.utah.edu/basic-ophthalmology-review/amblyopia/"}
+ ],
+ "6-6": [
+  {"site": "eyerounds", "label": "How to Perform a Basic Cover Test in Ocular Misalignment or Strabismus", "url": "https://eyerounds.org/video/basic-cover-test.htm"},
+  {"site": "eyewiki", "label": "Ocular Torticollis", "url": "https://eyewiki.org/Ocular_Torticollis"},
+  {"site": "moran", "label": "Examination of Strabismus and Amblyopia", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/examination-of-strabismus-and-amblyopia/"}
+ ],
+ "6-7": [
+  {"site": "eyerounds", "label": "Infantile (Congenital) Esotropia", "url": "https://eyerounds.org/cases/124-infantile-esotropia.htm"},
+  {"site": "moran", "label": "Accommodative Esotropia", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/accommodative-esotropia/"},
+  {"site": "eyewiki", "label": "Esotropia", "url": "https://eyewiki.org/Esotropia"}
+ ],
+ "6-8": [
+  {"site": "eyerounds", "label": "Intermittent Exotropia: A Major Review", "url": "https://eyerounds.org/tutorials/intermittent-exotropia.htm"},
+  {"site": "eyewiki", "label": "Convergence Insufficiency", "url": "https://eyewiki.org/Convergence_Insufficiency"},
+  {"site": "moran", "label": "ESO / EXO", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/eso-exo/"}
+ ],
+ "6-9": [
+  {"site": "moran", "label": "Pattern Strabismus", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/pattern-strabismus/"},
+  {"site": "eyewiki", "label": "Pattern Strabismus", "url": "https://eyewiki.org/Pattern_Strabismus"}
+ ],
+ "6-10": [
+  {"site": "eyerounds", "label": "Cranial Nerve IV (Trochlear Nerve) Palsy", "url": "https://eyerounds.org/atlas/pages/CN-IV-Palsy/index.htm"},
+  {"site": "moran", "label": "Dissociated Vertical Divergence", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/dissociated-vertical-divergence/"},
+  {"site": "eyewiki", "label": "Three Step Test for Cyclovertical Muscle Palsy", "url": "https://eyewiki.org/Three_Step_Test_for_Cyclovertical_Muscle_Palsy"}
+ ],
+ "6-11": [
+  {"site": "eyerounds", "label": "Duane Retraction Syndrome", "url": "https://eyerounds.org/cases/56-Duanes-Retraction-Syndrome.htm"},
+  {"site": "eyewiki", "label": "Brown Syndrome", "url": "https://eyewiki.org/Brown_Syndrome"},
+  {"site": "moran", "label": "Exam Finding: Eye Movements and Ptosis in CPEO", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/chronic-progressive-external-ophthalmoplegia-2/"}
+ ],
+ "6-12": [
+  {"site": "eyewiki", "label": "Spasmus Nutans", "url": "https://eyewiki.org/Spasmus_Nutans"},
+  {"site": "moran", "label": "Congenital Nystagmus", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/congenital-nystagmus/"},
+  {"site": "moran", "label": "Latent Nystagmus", "url": "https://morancore.utah.edu/section-05-neuro-ophthalmology/latent-nystagmus/"}
+ ],
+ "6-13": [
+  {"site": "eyewiki", "label": "Strabismus Surgery, Horizontal", "url": "https://eyewiki.org/Strabismus_Surgery,_Horizontal"},
+  {"site": "eyerounds", "label": "Strabismus Tray Instrumentation", "url": "https://eyerounds.org/tutorials/instruments/Strabismus/index.htm"},
+  {"site": "moran", "label": "Eye Muscle Surgery", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/eye-muscle-surgery/"}
+ ],
+ "6-14": [
+  {"site": "eyewiki", "label": "Microphthalmos", "url": "https://eyewiki.org/Microphthalmos"},
+  {"site": "eyerounds", "label": "Normal fundus (child)", "url": "https://eyerounds.org/atlas/pages/normal-fundus-child/index.htm"}
+ ],
+ "6-15": [
+  {"site": "moran", "label": "Cerebral Vision Impairment (CVI): Update", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/cerebral-vision-impairment-cvi-update/"},
+  {"site": "eyewiki", "label": "Cerebral Visual Impairment", "url": "https://eyewiki.org/Cerebral_Visual_Impairment"},
+  {"site": "eyerounds", "label": "Oculocutaneous albinism", "url": "https://eyerounds.org/atlas/pages/oculocutaneous-albinism.htm"}
+ ],
+ "6-16": [
+  {"site": "eyerounds", "label": "Congenital Ptosis", "url": "https://eyerounds.org/cases/114-congenital-ptosis.htm"},
+  {"site": "moran", "label": "Congenital Eyelid Conditions: Ptosis, Epiblepharon, and Coloboma", "url": "https://morancore.utah.edu/section-07-orbit-eyelids-and-lacrimal-system/congenital-eyelid-conditions-ptosis-epiblepharon-and-coloboma-by-lena-juratli-md/"},
+  {"site": "eyewiki", "label": "Blepharophimosis Syndrome", "url": "https://eyewiki.org/Blepharophimosis_Syndrome"}
+ ],
+ "6-17": [
+  {"site": "eyerounds", "label": "Rhabdomyosarcoma", "url": "https://eyerounds.org/cases/127-Rhabdomyosarcoma.htm"},
+  {"site": "eyewiki", "label": "Capillary Hemangioma", "url": "https://eyewiki.org/Capillary_Hemangioma"},
+  {"site": "moran", "label": "Pediatric Oculoplastics: Orbital Vascular Abnormalities", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/pediatric-oculoplastics-orbital-vascular-abnormalities-orbital-cellulitis-orbital-deformities/"},
+  {"site": "eyerounds", "label": "Orbital Cellulitis in a Child", "url": "https://eyerounds.org/cases/103-Pediatric-Orbital-Cellulitis.htm"}
+ ],
+ "6-18": [
+  {"site": "eyerounds", "label": "Congenital dacryocystocele with spontaneous resolution", "url": "https://eyerounds.org/cases/166-dacryocystocele.htm"},
+  {"site": "eyewiki", "label": "Nasolacrimal Duct Obstruction, Congenital", "url": "https://eyewiki.org/Nasolacrimal_Duct_Obstruction,_Congenital"}
+ ],
+ "6-19": [
+  {"site": "eyewiki", "label": "Neonatal Conjunctivitis", "url": "https://eyewiki.org/Neonatal_Conjunctivitis"},
+  {"site": "eyerounds", "label": "Blepharokeratoconjunctivitis of childhood", "url": "https://eyerounds.org/atlas/pages/blepharokeratoconjunctivitis/index.htm"},
+  {"site": "eyerounds", "label": "Vernal Keratoconjunctivitis", "url": "https://eyerounds.org/cases/70-Vernal-Keratoconjunctivitis-Atopic-Asthma.htm"}
+ ],
+ "6-20": [
+  {"site": "eyerounds", "label": "Peters Anomaly", "url": "https://eyerounds.org/cases/187-Peters-Anomaly.htm"},
+  {"site": "eyewiki", "label": "Anterior Segment Developmental Anomalies (ASDA)", "url": "https://eyewiki.org/Anterior_Segment_Developmental_Anomalies_(ASDA)"},
+  {"site": "moran", "label": "Pediatric Anterior Segment Disorders", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/pediatric-anterior-segment-disorders/"}
+ ],
+ "6-21": [
+  {"site": "eyerounds", "label": "Infantile Glaucoma, Congenital Glaucoma", "url": "https://eyerounds.org/cases/42-Primary-Congenital-Glaucoma-Infantile-Glaucoma.htm"},
+  {"site": "eyewiki", "label": "Primary Congenital Glaucoma", "url": "https://eyewiki.org/Primary_Congenital_Glaucoma"},
+  {"site": "moran", "label": "Pediatric/Congenital Glaucoma", "url": "https://morancore.utah.edu/section-10-glaucoma/pediatric-congenital-glaucoma/"}
+ ],
+ "6-22": [
+  {"site": "eyewiki", "label": "Cataracts in Children, Congenital and Acquired", "url": "https://eyewiki.org/Cataracts_in_Children,_Congenital_and_Acquired"},
+  {"site": "eyerounds", "label": "Congenital lamellar / zonular cataract in a child", "url": "https://eyerounds.org/atlas/pages/congenital-lamellar-zonular-cataract-.html"},
+  {"site": "moran", "label": "Contact Lenses for the Treatment of Pediatric Aphakia", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/contact-lenses-for-the-treatment-of-pediatric-aphakia/"}
+ ],
+ "6-23": [
+  {"site": "eyerounds", "label": "Optic Nerve Hypoplasia", "url": "https://eyerounds.org/cases/case10.htm"},
+  {"site": "eyewiki", "label": "Morning Glory Anomaly", "url": "https://eyewiki.org/Morning_Glory_Anomaly"},
+  {"site": "moran", "label": "Optic Nerve Drusen: More Than Meets the Eye", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/optic-nerve-drusen-more-than-meets-the-eye/"}
+ ],
+ "6-24": [
+  {"site": "eyewiki", "label": "Retinopathy of Prematurity", "url": "https://eyewiki.org/Retinopathy_of_Prematurity"},
+  {"site": "moran", "label": "Retinopathy of Prematurity", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/retinopathy-of-prematurity/"},
+  {"site": "eyerounds", "label": "Familial exudative vitreoretinopathy", "url": "https://eyerounds.org/atlas/pages/FEVR/index.htm"}
+ ],
+ "6-25": [
+  {"site": "eyerounds", "label": "Juvenile idiopathic arthritis with bilateral anterior uveitis", "url": "https://eyerounds.org/cases/154-JIA-associated-uveitis-macular-edema.htm"},
+  {"site": "eyewiki", "label": "Juvenile Idiopathic Arthritis Associated Uveitis", "url": "https://eyewiki.org/Juvenile_Idiopathic_Arthritis_Associated_Uveitis"},
+  {"site": "moran", "label": "Uveitis", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/uveitis/"}
+ ],
+ "6-26": [
+  {"site": "eyerounds", "label": "Non-accidental Trauma", "url": "https://eyerounds.org/cases/92-nonaccidental-trauma.htm"},
+  {"site": "moran", "label": "Non-accidental Head Trauma / Abusive Head Trauma", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/non-accidental-head-trauma-abusive-head-trauma/"},
+  {"site": "eyewiki", "label": "Hyphema", "url": "https://eyewiki.org/Hyphema"}
+ ],
+ "6-27": [
+  {"site": "moran", "label": "Phakomatoses", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/phakomatoses/"},
+  {"site": "eyewiki", "label": "Neurofibromatosis", "url": "https://eyewiki.org/Neurofibromatosis"},
+  {"site": "eyerounds", "label": "Down Syndrome", "url": "https://eyerounds.org/cases/199-Down-Syndrome.htm"}
+ ],
+ "6-28": [
+  {"site": "eyewiki", "label": "Pediatric Low Vision", "url": "https://eyewiki.org/Pediatric_Low_Vision"},
+  {"site": "moran", "label": "Low Vision Rehabilitation", "url": "https://morancore.utah.edu/section-03-clinical-optics/low-vision-rehabilitation/"}
+ ],
+ "7-1": [
+  {"site": "eyewiki", "label": "Bony Anatomy of the Orbit", "url": "https://eyewiki.org/Bony_Anatomy_of_the_Orbit"},
+  {"site": "eyewiki", "label": "Vasculature of Orbit", "url": "https://eyewiki.org/Vasculature_of_Orbit"},
+  {"site": "moran", "label": "Orbital Dissection Course", "url": "https://morancore.utah.edu/section-07-orbit-eyelids-and-lacrimal-system/orbital-dissection-course/"}
+ ],
+ "7-2": [
+  {"site": "eyewiki", "label": "Exophthalmometry", "url": "https://eyewiki.org/Exophthalmometry"},
+  {"site": "eyewiki", "label": "Imaging in Orbit and Oculoplasty", "url": "https://eyewiki.org/Imaging_in_Orbit_and_Oculoplasty"},
+  {"site": "moran", "label": "The Orbital Exam", "url": "https://morancore.utah.edu/section-07-orbit-eyelids-and-lacrimal-system/the-orbital-exam/"}
+ ],
+ "7-3": [
+  {"site": "eyewiki", "label": "Microphthalmos", "url": "https://eyewiki.org/Microphthalmos"},
+  {"site": "eyewiki", "label": "Craniosynostosis Syndromes", "url": "https://eyewiki.org/Craniosynostosis_Syndromes"},
+  {"site": "eyerounds", "label": "Dermoid Cyst", "url": "https://eyerounds.org/cases/115-Dermoid-Cyst.htm"}
+ ],
+ "7-4": [
+  {"site": "eyerounds", "label": "Thyroid Eye Disease", "url": "https://eyerounds.org/tutorials/thyroid-eye-disease/index.htm"},
+  {"site": "eyewiki", "label": "Orbital Cellulitis", "url": "https://eyewiki.org/Orbital_Cellulitis"},
+  {"site": "eyewiki", "label": "Nonspecific Orbital Inflammation (Orbital Pseudotumor)", "url": "https://eyewiki.org/Nonspecific_Orbital_Inflammation_(Idiopathic_Orbital_Inflammation,_Orbital_Inflammatory_Syndrome,_Orbital_Pseudotumor)"},
+  {"site": "moran", "label": "Orbital Cellulitis: A Stagnant Diagnosis or an Evolving Disease?", "url": "https://morancore.utah.edu/section-07-orbit-eyelids-and-lacrimal-system/orbital-cellulitis-a-stagnant-diagnosis-or-an-evolving-disease/"}
+ ],
+ "7-5": [
+  {"site": "eyerounds", "label": "Orbital Lymphatic Malformation (Lymphangioma)", "url": "https://eyerounds.org/cases/201-lymphatic-malformations.htm"},
+  {"site": "eyerounds", "label": "Cavernous Hemangioma: Painless Proptosis in a 62-year-old Female", "url": "https://eyerounds.org/cases/112-painless-proptosis.htm"},
+  {"site": "eyewiki", "label": "Orbital Lymphoma", "url": "https://eyewiki.org/Orbital_Lymphoma"},
+  {"site": "moran", "label": "Orbit Pathology", "url": "https://morancore.utah.edu/section-07-orbit-eyelids-and-lacrimal-system/orbit-pathology/"}
+ ],
+ "7-6": [
+  {"site": "eyewiki", "label": "Orbital Floor Fractures", "url": "https://eyewiki.org/Orbital_Floor_Fractures"},
+  {"site": "eyerounds", "label": "White-eyed Blowout Fracture", "url": "https://eyerounds.org/cases/145-white-eyed-blowout-fracture.htm"},
+  {"site": "moran", "label": "Case of a 12-Year-Old Boy with a Right Orbital Floor Fracture", "url": "https://morancore.utah.edu/section-07-orbit-eyelids-and-lacrimal-system/case-of-a-12-year-old-boy-with-a-right-orbital-floor-fracture/"}
+ ],
+ "7-7": [
+  {"site": "eyewiki", "label": "Surgical Approaches to the Orbit", "url": "https://eyewiki.org/Surgical_Approaches_to_the_Orbit"},
+  {"site": "eyewiki", "label": "Orbital Decompression", "url": "https://eyewiki.org/Orbital_Decompression"}
+ ],
+ "7-8": [
+  {"site": "eyewiki", "label": "Enucleation", "url": "https://eyewiki.org/Enucleation"},
+  {"site": "eyewiki", "label": "Evisceration", "url": "https://eyewiki.org/Evisceration"},
+  {"site": "eyewiki", "label": "Ocular Prostheses, Scleral Shells, and Conformers", "url": "https://eyewiki.org/Ocular_Prostheses,_Scleral_Shells,_and_Conformers"},
+  {"site": "moran", "label": "To Wait, Eviscerate, or Enucleate?", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/to-wait-eviscerate-or-enucleate/"}
+ ],
+ "7-9": [
+  {"site": "eyewiki", "label": "Facial Anatomy - Muscles", "url": "https://eyewiki.org/Facial_Anatomy_-_Muscles"},
+  {"site": "eyewiki", "label": "Nerve Supply of the Eyelids", "url": "https://eyewiki.org/Nerve_Supply_of_the_Eyelids"},
+  {"site": "eyewiki", "label": "Superior Transverse Ligament (Whitnall’s Ligament)", "url": "https://eyewiki.org/Superior_Transverse_Ligament_(Whitnall%E2%80%99s_Ligament)"}
+ ],
+ "7-10": [
+  {"site": "eyerounds", "label": "Benign Lesions of the External Periocular Tissues", "url": "https://eyerounds.org/tutorials/benign-lid-lesions/index.htm"},
+  {"site": "eyerounds", "label": "Malignant Lesions of the External Periocular Tissues", "url": "https://eyerounds.org/tutorials/malignant-lesions-of-ext-periocular-tissues/index.htm"},
+  {"site": "eyewiki", "label": "Sebaceous Carcinoma", "url": "https://eyewiki.org/Sebaceous_Carcinoma"},
+  {"site": "moran", "label": "Eyelid and Periocular Lesions", "url": "https://morancore.utah.edu/section-07-orbit-eyelids-and-lacrimal-system/eyelid-and-periocular-lesions/"}
+ ],
+ "7-11": [
+  {"site": "eyerounds", "label": "Emergent Evaluation of Eyelid Lacerations", "url": "https://eyerounds.org/tutorials/Eyelid-lacerations/index.htm"},
+  {"site": "eyewiki", "label": "Eyelid Reconstruction", "url": "https://eyewiki.org/Eyelid_Reconstruction"},
+  {"site": "eyerounds", "label": "Canalicular Laceration - Dog Bite", "url": "https://eyerounds.org/cases/case26.htm"}
+ ],
+ "7-12": [
+  {"site": "eyerounds", "label": "Lower Eyelid Malpositions", "url": "https://eyerounds.org/tutorials/lower-eyelid-malpositions/index.htm"},
+  {"site": "eyerounds", "label": "A Primer on Ptosis", "url": "https://eyerounds.org/tutorials/Ptosis/index.htm"},
+  {"site": "eyewiki", "label": "Blepharospasm", "url": "https://eyewiki.org/Blepharospasm"},
+  {"site": "moran", "label": "Ptosis", "url": "https://morancore.utah.edu/section-07-orbit-eyelids-and-lacrimal-system/ptosis/"}
+ ],
+ "7-13": [
+  {"site": "eyewiki", "label": "Upper Eyelid Blepharoplasty", "url": "https://eyewiki.org/Upper_Eyelid_Blepharoplasty"},
+  {"site": "eyewiki", "label": "Lower Eyelid Blepharoplasty", "url": "https://eyewiki.org/Lower_Eyelid_Blepharoplasty"},
+  {"site": "eyewiki", "label": "Cosmetic Applications of Botulinum Toxin in Oculoplastics", "url": "https://eyewiki.org/Cosmetic_Applications_of_Botulinum_Toxin_in_Oculoplastics"},
+  {"site": "eyewiki", "label": "Brow Ptosis and Repair", "url": "https://eyewiki.org/Brow_Ptosis_and_Repair"}
+ ],
+ "7-14": [
+  {"site": "eyewiki", "label": "Embryology of the Eye and Ocular Adnexa", "url": "https://eyewiki.org/Embryology_of_the_Eye_and_Ocular_Adnexa"}
+ ],
+ "7-15": [
+  {"site": "eyewiki", "label": "Nasolacrimal Duct Obstruction, Congenital", "url": "https://eyewiki.org/Nasolacrimal_Duct_Obstruction,_Congenital"},
+  {"site": "eyewiki", "label": "Dacryocystorhinostomy", "url": "https://eyewiki.org/Dacryocystorhinostomy"},
+  {"site": "eyerounds", "label": "Congenital Dacryocystocele with Spontaneous Resolution", "url": "https://eyerounds.org/cases/166-dacryocystocele.htm"},
+  {"site": "moran", "label": "Tearing", "url": "https://morancore.utah.edu/section-07-orbit-eyelids-and-lacrimal-system/tearing/"}
+ ],
+ "8-1": [
+  {"site": "moran", "label": "Introduction to Cornea 2025", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/introduction-to-cornea-2025/"}
+ ],
+ "8-2": [
+  {"site": "eyewiki", "label": "Slit Lamp Examination", "url": "https://eyewiki.org/Slit_Lamp_Examination"},
+  {"site": "eyewiki", "label": "Corneal Topography", "url": "https://eyewiki.org/Corneal_Topography"},
+  {"site": "moran", "label": "Back to Basics: Illumination Techniques", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/back-to-basics-illumination-techniques/"},
+  {"site": "eyewiki", "label": "Diagnostic Testing for Dry Eye", "url": "https://eyewiki.org/Diagnostic_Testing_for_Dry_Eye"}
+ ],
+ "8-3": [
+  {"site": "eyewiki", "label": "Dry Eye Disease", "url": "https://eyewiki.org/Dry_Eye_Disease"},
+  {"site": "eyewiki", "label": "Meibomian Gland Dysfunction (MGD)", "url": "https://eyewiki.org/Meibomian_Gland_Dysfunction_(MGD)"},
+  {"site": "eyerounds", "label": "Ocular Rosacea", "url": "https://eyerounds.org/cases/77-Ocular-Rosacea-Blurry-Red-Itchy.htm"},
+  {"site": "moran", "label": "Ocular Surface Disease", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/ocular-surface-disease/"}
+ ],
+ "8-4": [
+  {"site": "eyerounds", "label": "Superior Limbic Keratitis", "url": "https://eyerounds.org/cases/245-superior-limbic-keratitis.htm"},
+  {"site": "eyerounds", "label": "Exposure Keratopathy in the Critically Ill", "url": "https://eyerounds.org/cases/189-exposure-keratopathy.htm"},
+  {"site": "eyewiki", "label": "Neurotrophic Keratitis", "url": "https://eyewiki.org/Neurotrophic_Keratitis"},
+  {"site": "moran", "label": "Limbal Stem Cell Deficiency", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/limbal-stem-cell-deficiency-3/"}
+ ],
+ "8-5": [
+  {"site": "moran", "label": "Surgical Pterygium Removal with Conjunctival Autograft", "url": "https://morancore.utah.edu/section-14-ophthalmic-surgery/surgical-pterygium-removal-with-conjunctival-autograft/"},
+  {"site": "eyewiki", "label": "Amniotic Membrane Transplant", "url": "https://eyewiki.org/Amniotic_Membrane_Transplant"},
+  {"site": "eyewiki", "label": "Simple Limbal Epithelial Transplantation (SLET)", "url": "https://eyewiki.org/Simple_Limbal_Epithelial_Transplantation_(SLET)"}
+ ],
+ "8-6": [
+  {"site": "eyerounds", "label": "Calcific Band Keratopathy", "url": "https://eyerounds.org/cases/214-band-keratopathy.htm"},
+  {"site": "eyerounds", "label": "Salzmann's Nodular Corneal Degeneration", "url": "https://eyerounds.org/cases/180-Salzmann-Nodular-Corneal-Degeneration.htm"},
+  {"site": "eyewiki", "label": "Pinguecula", "url": "https://eyewiki.org/Pinguecula"},
+  {"site": "eyewiki", "label": "Spheroidal Degeneration", "url": "https://eyewiki.org/Spheroidal_Degeneration"}
+ ],
+ "8-7": [
+  {"site": "eyerounds", "label": "Megalocornea", "url": "https://eyerounds.org/cases/121-megalocornea.htm"},
+  {"site": "eyerounds", "label": "Peters Anomaly", "url": "https://eyerounds.org/cases/187-Peters-Anomaly.htm"},
+  {"site": "eyewiki", "label": "Sclerocornea", "url": "https://eyewiki.org/Sclerocornea"},
+  {"site": "moran", "label": "Keratoglobus (A Photo Essay)", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/keratoglobus-a-photo-essay/"}
+ ],
+ "8-8": [
+  {"site": "eyerounds", "label": "Epithelial-Stromal and Stromal Corneal Dystrophies", "url": "https://eyerounds.org/cases/43-Corneal-Stromal-Dystrophies.htm"},
+  {"site": "eyerounds", "label": "Posterior Polymorphous Corneal Dystrophy (PPMD)", "url": "https://eyerounds.org/cases/208-PPMD.htm"},
+  {"site": "eyewiki", "label": "Fuchs’ Endothelial Dystrophy", "url": "https://eyewiki.org/Fuchs%E2%80%99_Endothelial_Dystrophy"},
+  {"site": "moran", "label": "Corneal Dystrophies", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/corneal-dystrophies/"}
+ ],
+ "8-9": [
+  {"site": "eyewiki", "label": "Keratoconus", "url": "https://eyewiki.org/Keratoconus"},
+  {"site": "eyewiki", "label": "Pellucid Marginal Corneal Degeneration", "url": "https://eyewiki.org/Pellucid_Marginal_Corneal_Degeneration"},
+  {"site": "eyerounds", "label": "Acute Corneal Hydrops", "url": "https://eyerounds.org/cases/241-Acute-Corneal-Hydrops.htm"},
+  {"site": "moran", "label": "A Brief Overview of Keratoconus and its Topographical Findings", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/a-brief-overview-of-keratoconus-and-its-topographical-findings/"}
+ ],
+ "8-10": [
+  {"site": "eyerounds", "label": "Cystinosis: A 12-year-old Boy with Light Sensitivity", "url": "https://eyerounds.org/cases/209-cystinosis.htm"},
+  {"site": "eyerounds", "label": "Kayser-Fleischer Ring (Wilson's Disease)", "url": "https://eyerounds.org/cases/97-kayser-fleischer-ring-Wilsons-Disease.htm"},
+  {"site": "eyewiki", "label": "Ocular Features of Mucopolysaccharidosis", "url": "https://eyewiki.org/Ocular_Features_of_Mucopolysaccharidosis"},
+  {"site": "moran", "label": "Systemic Disorders with Corneal Changes", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/systemic-disorders-with-corneal-changes/"}
+ ],
+ "8-11": [
+  {"site": "eyerounds", "label": "Herpes Simplex Keratitis", "url": "https://eyerounds.org/cases/160-HSV.htm"},
+  {"site": "eyerounds", "label": "Adenoviral Conjunctivitis", "url": "https://eyerounds.org/cases/case28.htm"},
+  {"site": "eyewiki", "label": "Herpes Zoster Ophthalmicus", "url": "https://eyewiki.org/Herpes_Zoster_Ophthalmicus"},
+  {"site": "moran", "label": "Slit Lamp Photo: Herpes Zoster Ophthalmicus", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/slit-lamp-photo-herpes-zoster-ophthalmicus/"}
+ ],
+ "8-12": [
+  {"site": "eyerounds", "label": "Vision Loss After Contact Lens-Related Pseudomonas Keratitis", "url": "https://eyerounds.org/cases/171-Pseudomonas-keratitis.htm"},
+  {"site": "eyerounds", "label": "Acanthamoeba Keratitis", "url": "https://eyerounds.org/cases/58-Acanthamoeba-Keratitis-Contact-Lens-Wear-Pain-Ring-Infiltrate.htm"},
+  {"site": "eyewiki", "label": "Fungal Keratitis", "url": "https://eyewiki.org/Fungal_Keratitis"},
+  {"site": "moran", "label": "Corneal Infectious Diseases Part I", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/corneal-infectious-diseases-part-i/"}
+ ],
+ "8-13": [
+  {"site": "eyerounds", "label": "Vernal Keratoconjunctivitis", "url": "https://eyerounds.org/cases/70-Vernal-Keratoconjunctivitis-Atopic-Asthma.htm"},
+  {"site": "eyerounds", "label": "Ocular Manifestations of Stevens-Johnson Syndrome", "url": "https://eyerounds.org/cases/192-Stevens-Johnson.htm"},
+  {"site": "eyewiki", "label": "Peripheral Ulcerative Keratitis", "url": "https://eyewiki.org/Peripheral_Ulcerative_Keratitis"},
+  {"site": "moran", "label": "Ocular Cicatricial Pemphigoid: Pathogenesis, Diagnosis, Treatment", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/ocular-cicatricial-pemphigoid-summary-of-pathogenesis-diagnosis-treatment/"}
+ ],
+ "8-14": [
+  {"site": "eyerounds", "label": "A Very Unusual Case of Ocular Surface Squamous Neoplasia", "url": "https://eyerounds.org/cases/163-OSSN.htm"},
+  {"site": "eyerounds", "label": "Conjunctival Melanoma Arising from Primary Acquired Melanosis", "url": "https://eyerounds.org/cases/case15.htm"},
+  {"site": "eyewiki", "label": "Conjunctival Melanocytic Tumors", "url": "https://eyewiki.org/Conjunctival_Melanocytic_Tumors"},
+  {"site": "moran", "label": "Primary Acquired Melanosis (PAM) with Atypia", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/primary-acquired-melanosis-pam-with-atypia-pathology-and-clinical-correlations/"}
+ ],
+ "8-15": [
+  {"site": "eyerounds", "label": "Chemical Eye Injury: A Case Report and Tutorial", "url": "https://eyerounds.org/cases/307-chemical-eye-injury.htm"},
+  {"site": "eyewiki", "label": "Hyphema", "url": "https://eyewiki.org/Hyphema"},
+  {"site": "moran", "label": "Toxic and Traumatic Injuries of the Anterior Segment", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/clinical-aspects-of-toxic-and-traumatic-injuries-of-the-anterior-segment/"}
+ ],
+ "8-16": [
+  {"site": "eyerounds", "label": "An Introduction to Corneal Transplantation", "url": "https://eyerounds.org/tutorials/Cornea-Transplant-Intro/index.htm"},
+  {"site": "eyerounds", "label": "Descemet Membrane Endothelial Keratoplasty (DMEK) for Fuchs", "url": "https://eyerounds.org/cases/182-DMEK.htm"},
+  {"site": "eyewiki", "label": "Corneal Allograft Rejection and Failure", "url": "https://eyewiki.org/Corneal_Allograft_Rejection_and_Failure"},
+  {"site": "moran", "label": "Introduction to Keratoplasty", "url": "https://morancore.utah.edu/section-08-external-disease-and-cornea/introduction-to-keratoplasty/"}
+ ],
+ "9-3": [
+  {"site": "eyewiki", "label": "Anterior Chamber-Associated Immune Deviation (ACAID)", "url": "https://eyewiki.org/Anterior_Chamber-Associated_Immune_Deviation_(ACAID)"},
+  {"site": "eyewiki", "label": "Corneal Allograft Rejection and Failure", "url": "https://eyewiki.org/Corneal_Allograft_Rejection_and_Failure"}
+ ],
+ "9-5": [
+  {"site": "eyewiki", "label": "SUN II Classification of Uveitides", "url": "https://eyewiki.org/SUN_II_Classification_of_Uveitides"},
+  {"site": "moran", "label": "General Principles, Classification and Diagnosis of Uveitis", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/general-principles-epidemiology-classifiication-diagnosis-and-therapeutic-approach-to-uveitis/"},
+  {"site": "eyewiki", "label": "Anterior Chamber Paracentesis in Uveitis", "url": "https://eyewiki.org/Anterior_Chamber_Paracentesis_in_Uveitis"}
+ ],
+ "9-6": [
+  {"site": "eyewiki", "label": "Treatment of Uveitis", "url": "https://eyewiki.org/Treatment_of_Uveitis"},
+  {"site": "eyewiki", "label": "Immunomodulatory Therapy (IMT) for Ocular Inflammation", "url": "https://eyewiki.org/Immunomodulatory_Therapy_(IMT)_for_Ocular_Inflammation"},
+  {"site": "moran", "label": "Treatment of Uveitis", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/treatment-of-uveitis/"}
+ ],
+ "9-7": [
+  {"site": "eyewiki", "label": "Scleritis", "url": "https://eyewiki.org/Scleritis"},
+  {"site": "moran", "label": "Necrotizing Scleritis", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/necrotizing-scleritis/"},
+  {"site": "moran", "label": "Infectious Scleritis", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/infectious-scleritis/"},
+  {"site": "eyewiki", "label": "Episcleritis", "url": "https://eyewiki.org/Episcleritis"}
+ ],
+ "9-8": [
+  {"site": "eyerounds", "label": "HLA-B27-associated Acute Anterior Uveitis", "url": "https://eyerounds.org/cases/334-HLA-B27-associated-Acute-Anterior-Uveitis.htm"},
+  {"site": "eyerounds", "label": "Posner-Schlossman Syndrome (Glaucomatocyclitic Crisis)", "url": "https://eyerounds.org/cases/242-Posner-schlossman-syndrome.htm"},
+  {"site": "eyewiki", "label": "Intermediate Uveitis", "url": "https://eyewiki.org/Intermediate_Uveitis"},
+  {"site": "moran", "label": "Fuchs’ Uveitis Syndrome", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/fuchs-uveitis-syndrome/"}
+ ],
+ "9-9": [
+  {"site": "eyerounds", "label": "Birdshot Choroiditis", "url": "https://eyerounds.org/cases/96-birdshot-choroiditis.htm"},
+  {"site": "eyerounds", "label": "Multiple Evanescent White Dot Syndrome (MEWDS)", "url": "https://eyerounds.org/cases/37-MultipleEvanescentWhiteDotSyndromeMEWDS.htm"},
+  {"site": "eyewiki", "label": "Acute Posterior Multifocal Placoid Pigment Epitheliopathy", "url": "https://eyewiki.org/Acute_Posterior_Multifocal_Placoid_Pigment_Epitheliopathy"},
+  {"site": "moran", "label": "Punctate Inner Choroidopathy (PIC)", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/puncture-inner-choroidopathy-pic/"}
+ ],
+ "9-10": [
+  {"site": "eyerounds", "label": "Ocular Sarcoidosis: A Systems-Based Approach", "url": "https://eyerounds.org/cases/76-Ocular-Sarcoidosis-Systems-Based.htm"},
+  {"site": "eyerounds", "label": "Behcet's Disease", "url": "https://eyerounds.org/cases/195-Behcets.htm"},
+  {"site": "eyewiki", "label": "Vogt-Koyanagi-Harada Disease", "url": "https://eyewiki.org/Vogt-Koyanagi-Harada_Disease"},
+  {"site": "moran", "label": "Non-infectious Posterior and Panuveitis", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/non-infectious-posterior-and-panuveitis/"}
+ ],
+ "9-11": [
+  {"site": "eyerounds", "label": "TB Uveitis", "url": "https://eyerounds.org/cases/case6.htm"},
+  {"site": "eyerounds", "label": "Cat-Scratch Neuroretinitis (Ocular Bartonellosis)", "url": "https://eyerounds.org/cases/36-CatScratchBartonella.htm"},
+  {"site": "eyewiki", "label": "Ophthalmologic Manifestations of Syphilis", "url": "https://eyewiki.org/Ophthalmologic_Manifestations_of_Syphilis"},
+  {"site": "moran", "label": "Lyme Disease-Associated Uveitis: A Case Report and Review", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/lyme-disease-associated-uveitis/"}
+ ],
+ "9-12": [
+  {"site": "eyerounds", "label": "Bilateral Acute Retinal Necrosis", "url": "https://eyerounds.org/cases/315-Acute-Retinal-Necrosis.htm"},
+  {"site": "eyerounds", "label": "Acquired Ocular Toxoplasmosis", "url": "https://eyerounds.org/cases/74-Acquired-Toxoplasmosis-Retina.htm"},
+  {"site": "eyewiki", "label": "Toxocariasis", "url": "https://eyewiki.org/Toxocariasis"},
+  {"site": "moran", "label": "Infectious Posterior Uveitis", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/infectious-posterior-uveitis/"}
+ ],
+ "9-13": [
+  {"site": "eyerounds", "label": "Cytomegalovirus (CMV) Retinitis in HIV", "url": "https://eyerounds.org/cases/61-CMV-Cytomegalovirus-Retinitis-HIV.htm"},
+  {"site": "eyewiki", "label": "Ocular Involvement in HIV/AIDS", "url": "https://eyewiki.org/Ocular_Involvement_in_HIV/AIDS"},
+  {"site": "moran", "label": "CMV Retinitis", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/cmv-retinitis/"}
+ ],
+ "9-14": [
+  {"site": "eyerounds", "label": "Endogenous Endophthalmitis", "url": "https://eyerounds.org/cases/331-endogenous-endophthalmitis.htm"},
+  {"site": "eyerounds", "label": "Fungal Endophthalmitis", "url": "https://eyerounds.org/cases/264-fungal-endophthalmitis.htm"},
+  {"site": "moran", "label": "Chronic Postoperative Endophthalmitis", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/chronic-postoperative-endophthalmitis/"},
+  {"site": "eyewiki", "label": "Endophthalmitis", "url": "https://eyewiki.org/Endophthalmitis"}
+ ],
+ "9-15": [
+  {"site": "eyerounds", "label": "Primary Vitreoretinal Lymphoma (PVRL)", "url": "https://eyerounds.org/cases/303-Primary_Vitreoretinal_Lymphoma_(PVRL).htm"},
+  {"site": "eyewiki", "label": "Uveitis Masquerade Syndromes", "url": "https://eyewiki.org/Uveitis_Masquerade_Syndromes"},
+  {"site": "moran", "label": "Vitreitis Secondary to CNS Lymphoma", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/vitreitis-secondary-to-cns-lymphoma/"},
+  {"site": "eyerounds", "label": "Uveal Lymphoma", "url": "https://eyerounds.org/cases/335-uveal-lymphoma.htm"}
+ ],
+ "9-16": [
+  {"site": "eyewiki", "label": "Uveitic Glaucoma", "url": "https://eyewiki.org/Uveitic_Glaucoma"},
+  {"site": "eyewiki", "label": "Uveitis Cataract", "url": "https://eyewiki.org/Uveitis_Cataract"},
+  {"site": "moran", "label": "Uveitis Complicated by Cystoid Macular Edema", "url": "https://morancore.utah.edu/section-09-intraocular-inflammation-and-uveitis/uveitis-complicated-by-cystoid-macular-edema/"}
+ ],
+ "10-1": [
+  {"site": "eyewiki", "label": "The Genetics of Glaucoma", "url": "https://eyewiki.org/The_Genetics_of_Glaucoma"},
+  {"site": "moran", "label": "High Yield Glaucoma for Step 1 and 2", "url": "https://morancore.utah.edu/basic-ophthalmology-review/high-yield-glaucoma-for-step-1-and-2/"},
+  {"site": "moran", "label": "Introduction to Glaucoma 2018", "url": "https://morancore.utah.edu/section-10-glaucoma/introduction-to-glaucoma/"}
+ ],
+ "10-2": [
+  {"site": "eyewiki", "label": "IOP and Tonometry", "url": "https://eyewiki.org/IOP_and_Tonometry"},
+  {"site": "moran", "label": "Aqueous Humor Production and Dynamics", "url": "https://morancore.utah.edu/section-10-glaucoma/aqueous-humor-production-and-dynamics/"},
+  {"site": "eyewiki", "label": "Unconventional Aqueous Outflow", "url": "https://eyewiki.org/Unconventional_Aqueous_Outflow"}
+ ],
+ "10-3": [
+  {"site": "eyewiki", "label": "Systemic Medications and Glaucoma", "url": "https://eyewiki.org/Systemic_Medications_and_Glaucoma"},
+  {"site": "moran", "label": "The Glaucoma Evaluation", "url": "https://morancore.utah.edu/section-10-glaucoma/the-glaucoma-evaluation/"},
+  {"site": "eyewiki", "label": "Drug-induced Acute Angle Closure Glaucoma", "url": "https://eyewiki.org/Drug-induced_Acute_Angle_Closure_Glaucoma"}
+ ],
+ "10-4": [
+  {"site": "eyewiki", "label": "Gonioscopy", "url": "https://eyewiki.org/Gonioscopy"},
+  {"site": "eyewiki", "label": "Anterior Segment Optical Coherence Tomography", "url": "https://eyewiki.org/Anterior_Segment_Optical_Coherence_Tomography"},
+  {"site": "eyewiki", "label": "Ultrasound Biomicroscopy", "url": "https://eyewiki.org/Ultrasound_Biomicroscopy"},
+  {"site": "eyerounds", "label": "Angle Recession and Cyclodialysis After Blunt Trauma", "url": "https://eyerounds.org/atlas/pages/angle-recession-cyclodialysis-cleft.htm"}
+ ],
+ "10-5": [
+  {"site": "moran", "label": "Glaucomatous Cupping", "url": "https://morancore.utah.edu/basic-ophthalmology-review/glaucomatous-cupping/"},
+  {"site": "eyewiki", "label": "Spectral Domain Optical Coherence Tomography in Glaucoma", "url": "https://eyewiki.org/Spectral_Domain_Optical_Coherence_Tomography_in_Glaucoma"},
+  {"site": "eyerounds", "label": "Optic Disc Hemorrhage in Normal Tension Glaucoma", "url": "https://eyerounds.org/atlas/pages/Optic-Disc-Hemorrhage-in-NTG.htm"},
+  {"site": "eyerounds", "label": "Optic Disc Notch and RNFL Defect in POAG", "url": "https://eyerounds.org/atlas/pages/inf-notch-NFL-defect-HVF.htm"}
+ ],
+ "10-6": [
+  {"site": "eyewiki", "label": "Standard Automated Perimetry", "url": "https://eyewiki.org/Standard_Automated_Perimetry"},
+  {"site": "eyerounds", "label": "Visual Field Testing: From One Medical Student to Another", "url": "https://eyerounds.org/tutorials/VF-testing/"},
+  {"site": "moran", "label": "Visual Fields", "url": "https://morancore.utah.edu/section-10-glaucoma/visual-fields/"}
+ ],
+ "10-7": [
+  {"site": "eyewiki", "label": "Primary Open-Angle Glaucoma", "url": "https://eyewiki.org/Primary_Open-Angle_Glaucoma"},
+  {"site": "eyerounds", "label": "Primary Open Angle Glaucoma: From One Medical Student to Another", "url": "https://eyerounds.org/tutorials/POAG/"},
+  {"site": "eyerounds", "label": "Normal Tension Glaucoma", "url": "https://eyerounds.org/cases/86-Normal-Low-Tension-Glaucoma.htm"}
+ ],
+ "10-8": [
+  {"site": "eyewiki", "label": "Pseudoexfoliative Glaucoma", "url": "https://eyewiki.org/Pseudoexfoliative_Glaucoma"},
+  {"site": "eyerounds", "label": "Pigmentary Glaucoma", "url": "https://eyerounds.org/cases/184-pigmentary-glaucoma.htm"},
+  {"site": "moran", "label": "Secondary Open Angle Glaucoma", "url": "https://morancore.utah.edu/section-10-glaucoma/secondary-open-angle-glaucoma/"}
+ ],
+ "10-9": [
+  {"site": "eyewiki", "label": "Primary vs. Secondary Angle Closure Glaucoma", "url": "https://eyewiki.org/Primary_vs._Secondary_Angle_Closure_Glaucoma"},
+  {"site": "eyerounds", "label": "Plateau Iris", "url": "https://eyerounds.org/cases/143-plateau-iris.htm"},
+  {"site": "moran", "label": "Acute Angle Closure Glaucoma", "url": "https://morancore.utah.edu/basic-ophthalmology-review/acute-angle-closure-glaucoma/"},
+  {"site": "eyewiki", "label": "Laser Peripheral Iridotomy", "url": "https://eyewiki.org/Laser_Peripheral_Iridotomy"}
+ ],
+ "10-10": [
+  {"site": "eyerounds", "label": "Neovascular Glaucoma", "url": "https://eyerounds.org/cases/268-neovascular-glaucoma.htm"},
+  {"site": "eyewiki", "label": "Iridocorneal Endothelial Syndrome and Secondary Glaucoma", "url": "https://eyewiki.org/Iridocorneal_Endothelial_Syndrome_and_Secondary_Glaucoma"},
+  {"site": "eyerounds", "label": "Aqueous Misdirection", "url": "https://eyerounds.org/cases/244-aqueous-misdirection.htm"}
+ ],
+ "10-11": [
+  {"site": "eyerounds", "label": "Primary Congenital Glaucoma (Infantile Glaucoma)", "url": "https://eyerounds.org/cases/42-Primary-Congenital-Glaucoma-Infantile-Glaucoma.htm"},
+  {"site": "eyewiki", "label": "Primary Congenital Glaucoma", "url": "https://eyewiki.org/Primary_Congenital_Glaucoma"},
+  {"site": "eyewiki", "label": "Axenfeld Rieger Syndrome", "url": "https://eyewiki.org/Axenfeld_Rieger_Syndrome"}
+ ],
+ "10-12": [
+  {"site": "eyewiki", "label": "Review of Topical Glaucoma Medications", "url": "https://eyewiki.org/Review_of_Topical_Glaucoma_Medications"},
+  {"site": "eyerounds", "label": "Medical Management of Glaucoma: A Primer", "url": "https://eyerounds.org/tutorials/Glaucoma-Medical-treatment/"},
+  {"site": "moran", "label": "Medical Management of Glaucoma", "url": "https://morancore.utah.edu/section-10-glaucoma/medical-management-of-glaucoma/"}
+ ],
+ "10-13": [
+  {"site": "eyewiki", "label": "Trabeculectomy", "url": "https://eyewiki.org/Trabeculectomy"},
+  {"site": "eyerounds", "label": "MIGS: Minimally Invasive Glaucoma Surgery", "url": "https://eyerounds.org/tutorials/MIGS/"},
+  {"site": "eyewiki", "label": "Laser Trabeculoplasty", "url": "https://eyewiki.org/Laser_Trabeculoplasty"},
+  {"site": "moran", "label": "Ahmed Valve (Glaucoma Tube) Technique", "url": "https://morancore.utah.edu/section-10-glaucoma/ahmed-valve-glaucoma-tube-technique/"}
+ ],
+ "11-1": [
+  {"site": "eyewiki", "label": "Cataract", "url": "https://eyewiki.org/Cataract"},
+  {"site": "moran", "label": "Global Perspective of Cataract Blindness", "url": "https://morancore.utah.edu/section-11-lens-and-cataract/global-perspective-of-cataract-blindness-our-community-experience-of-quality-cataract-surgery-in-community/"}
+ ],
+ "11-2": [
+  {"site": "moran", "label": "Lens & Cataract: Anatomy, Biochemistry, Physiology, Embryology", "url": "https://morancore.utah.edu/section-11-lens-and-cataract/lens-cataract-anatomy-biochemistry-physiology-embryology-and-pathology/"},
+  {"site": "eyewiki", "label": "Basic Histology of the Eye and Accessory Structures", "url": "https://eyewiki.org/Basic_Histology_of_the_Eye_and_Accessory_Structures"}
+ ],
+ "11-3": [
+  {"site": "moran", "label": "Lens & Cataract: Anatomy, Biochemistry, Physiology, Embryology", "url": "https://morancore.utah.edu/section-11-lens-and-cataract/lens-cataract-anatomy-biochemistry-physiology-embryology-and-pathology/"},
+  {"site": "eyewiki", "label": "Presbyopia", "url": "https://eyewiki.org/Presbyopia"}
+ ],
+ "11-4": [
+  {"site": "eyewiki", "label": "Ectopia Lentis", "url": "https://eyewiki.org/Ectopia_Lentis"},
+  {"site": "eyewiki", "label": "Cataracts in Children, Congenital and Acquired", "url": "https://eyewiki.org/Cataracts_in_Children,_Congenital_and_Acquired"},
+  {"site": "eyerounds", "label": "Anterior Polar Cataract", "url": "https://eyerounds.org/atlas/pages/Anterior-Polar-Cataract/index.htm"},
+  {"site": "eyerounds", "label": "Epicapsular Stars and Persistent Pupillary Membrane", "url": "https://eyerounds.org/atlas/pages/epicapsular-stars.htm"}
+ ],
+ "11-5": [
+  {"site": "eyerounds", "label": "Morgagnian Cataract", "url": "https://eyerounds.org/cases/146-Morgagnian-Cataract.htm"},
+  {"site": "eyerounds", "label": "Brunescent Cataract", "url": "https://eyerounds.org/atlas/pages/Brunescent-cataract.htm"},
+  {"site": "eyerounds", "label": "Christmas Tree Cataract", "url": "https://eyerounds.org/atlas/pages/christmas-tree-cataract.htm"},
+  {"site": "eyewiki", "label": "Lens Induced Glaucomas", "url": "https://eyewiki.org/Lens_Induced_Glaucomas"}
+ ],
+ "11-6": [
+  {"site": "eyewiki", "label": "Cataract", "url": "https://eyewiki.org/Cataract"},
+  {"site": "eyerounds", "label": "Cataracts: From One Medical Student to Another", "url": "https://eyerounds.org/tutorials/cataract-for-Med-Students/"},
+  {"site": "moran", "label": "Cataracts", "url": "https://morancore.utah.edu/basic-ophthalmology-review/cataracts/"}
+ ],
+ "11-7": [
+  {"site": "eyewiki", "label": "Biometry for Intra-Ocular Lens (IOL) Power Calculation", "url": "https://eyewiki.org/Biometry_for_Intra-Ocular_Lens_(IOL)_Power_Calculation"},
+  {"site": "eyerounds", "label": "Phacoemulsification: Considerations for Astigmatism Management", "url": "https://eyerounds.org/tutorials/phaco-astigmatism-management.htm"},
+  {"site": "eyewiki", "label": "Astigmatism Correction at the Time of Cataract Surgery", "url": "https://eyewiki.org/Astigmatism_Correction_at_the_Time_of_Cataract_Surgery"}
+ ],
+ "11-8": [
+  {"site": "eyerounds", "label": "Cataract Surgery for Greenhorns", "url": "https://eyerounds.org/tutorials/cataract-oetting.htm"},
+  {"site": "eyewiki", "label": "Phacodynamics", "url": "https://eyewiki.org/Phacodynamics"},
+  {"site": "moran", "label": "Cataract Surgery: Phacoemulsification – A Complete Case", "url": "https://morancore.utah.edu/section-11-lens-and-cataract/cataract-surgery-phacoemulsification-a-complete-case/"}
+ ],
+ "11-9": [
+  {"site": "eyewiki", "label": "Manual Small Incision Cataract Surgery", "url": "https://eyewiki.org/Manual_Small_Incision_Cataract_Surgery"},
+  {"site": "eyerounds", "label": "Conversion to Extracapsular Cataract Extraction (ECCE)", "url": "https://eyerounds.org/tutorials/Cataract-ECCE/"},
+  {"site": "moran", "label": "Small Incision Manual Cataract Surgery", "url": "https://morancore.utah.edu/section-11-lens-and-cataract/small-incision-manual-cataract-surgery/"}
+ ],
+ "11-10": [
+  {"site": "eyewiki", "label": "Intraoperative Floppy Iris Syndrome and Management of Small Pupils", "url": "https://eyewiki.org/Intraoperative_Floppy_Iris_Syndrome_and_Management_of_Small_Pupils"},
+  {"site": "eyewiki", "label": "Posterior Capsular Rent", "url": "https://eyewiki.org/Posterior_Capsular_Rent"},
+  {"site": "eyerounds", "label": "Ten Tips to Prevent and Treat Iris Prolapse", "url": "https://eyerounds.org/tutorials/Ten-Tips-Iris-Prolapse.htm"}
+ ],
+ "11-11": [
+  {"site": "eyerounds", "label": "Endophthalmitis After Phacoemulsification", "url": "https://eyerounds.org/cases/45-Endophthalmitis-After-Cataract-Surgery.htm"},
+  {"site": "eyewiki", "label": "Pseudophakic Cystoid Macular Edema (Irvine-Gass Syndrome)", "url": "https://eyewiki.org/Pseudophakic_Cystoid_Macular_Edema_(Irvine-Gass_Syndrome)"},
+  {"site": "eyewiki", "label": "Posterior Capsule Opacification", "url": "https://eyewiki.org/Posterior_Capsule_Opacification"},
+  {"site": "eyerounds", "label": "Toxic Anterior Segment Syndrome (TASS)", "url": "https://eyerounds.org/cases/85-Toxic-Anterior-Segment-Syndrome-TASS-Systems-Based.htm"}
+ ],
+ "11-12": [
+  {"site": "eyewiki", "label": "Cataract Surgery in Pseudoexfoliation Syndrome", "url": "https://eyewiki.org/Cataract_Surgery_in_Pseudoexfoliation_Syndrome"},
+  {"site": "eyerounds", "label": "Cataract Formation after Pars Plana Vitrectomy", "url": "https://eyerounds.org/cases/239-post-vit-cataract-surgery.htm"},
+  {"site": "eyewiki", "label": "Uveitis Cataract", "url": "https://eyewiki.org/Uveitis_Cataract"}
+ ],
+ "12-1": [
+  {"site": "eyewiki", "label": "Basic Histology of the Eye and Accessory Structures", "url": "https://eyewiki.org/Basic_Histology_of_the_Eye_and_Accessory_Structures"},
+  {"site": "moran", "label": "Structure & Function of the Choroid-RPE-Retina-Vitreous Complex (Pt 2)", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/structure-function-pathology-of-the-choroid-rpe-retina-vitreous-complex-part-2/"}
+ ],
+ "12-2": [
+  {"site": "eyewiki", "label": "Fluorescein Angiography", "url": "https://eyewiki.org/Fluorescein_Angiography"},
+  {"site": "eyewiki", "label": "Optical Coherence Tomography", "url": "https://eyewiki.org/Optical_Coherence_Tomography"},
+  {"site": "eyewiki", "label": "Fundus Autofluorescence", "url": "https://eyewiki.org/Fundus_Autofluorescence"},
+  {"site": "eyerounds", "label": "Ocular Ultrasound: A Quick Reference Guide", "url": "https://eyerounds.org/tutorials/ultrasound/"}
+ ],
+ "12-3": [
+  {"site": "eyewiki", "label": "Electroretinogram", "url": "https://eyewiki.org/Electroretinogram"},
+  {"site": "eyewiki", "label": "Electrooculogram", "url": "https://eyewiki.org/Electrooculogram"},
+  {"site": "eyewiki", "label": "Color Vision", "url": "https://eyewiki.org/Color_Vision"},
+  {"site": "moran", "label": "Multifocal Electroretinograms", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/multifocal-electroretinograms/"}
+ ],
+ "12-4": [
+  {"site": "eyewiki", "label": "Age-Related Macular Degeneration", "url": "https://eyewiki.org/Age-Related_Macular_Degeneration"},
+  {"site": "eyerounds", "label": "Age-Related Macular Degeneration: From One Medical Student to Another", "url": "https://eyerounds.org/tutorials/AMD-medical-student/"},
+  {"site": "moran", "label": "Wet versus Dry Macular Degenerative Changes", "url": "https://morancore.utah.edu/basic-ophthalmology-review/wet-versus-dry-macular-degenerative-changes/"},
+  {"site": "eyerounds", "label": "Polypoidal Choroidal Vasculopathy (PCV)", "url": "https://eyerounds.org/atlas/pages/Polypoidal-choroidal-vasculopathy.htm"}
+ ],
+ "12-5": [
+  {"site": "eyewiki", "label": "Diabetic Retinopathy", "url": "https://eyewiki.org/Diabetic_Retinopathy"},
+  {"site": "eyerounds", "label": "Diabetic Retinopathy for Medical Students", "url": "https://eyerounds.org/tutorials/Diabetic-Retinopathy-Med-Students/"},
+  {"site": "moran", "label": "Diabetes Mellitus/Diabetic Retinopathy", "url": "https://morancore.utah.edu/basic-ophthalmology-review/diabetes-mellitusdiabetic-retinopathy/"}
+ ],
+ "12-6": [
+  {"site": "eyewiki", "label": "Retinal Vein Occlusion", "url": "https://eyewiki.org/Retinal_Vein_Occlusion"},
+  {"site": "eyerounds", "label": "Branch Retinal Vein Occlusion", "url": "https://eyerounds.org/cases/274-branch-retinal-vein-occlusion.htm"},
+  {"site": "moran", "label": "Central Retinal Artery Occlusion", "url": "https://morancore.utah.edu/basic-ophthalmology-review/central-retinal-artery-occlusion/"},
+  {"site": "eyerounds", "label": "Ocular Ischemic Syndrome", "url": "https://eyerounds.org/cases/356-Ocular-Ischemic-Syndrome.htm"}
+ ],
+ "12-7": [
+  {"site": "eyerounds", "label": "Sickle Cell Retinopathy", "url": "https://eyerounds.org/cases/233-Sickle-Cell-Retinopathy.htm"},
+  {"site": "eyerounds", "label": "Coats Disease", "url": "https://eyerounds.org/cases/100-Coats-Disease.htm"},
+  {"site": "eyewiki", "label": "Macular Telangiectasia", "url": "https://eyewiki.org/Macular_Telangiectasia"},
+  {"site": "eyerounds", "label": "Radiation Retinopathy", "url": "https://eyerounds.org/atlas/pages/radiation-retinopathy.htm"}
+ ],
+ "12-8": [
+  {"site": "eyewiki", "label": "Retinopathy of Prematurity", "url": "https://eyewiki.org/Retinopathy_of_Prematurity"},
+  {"site": "eyerounds", "label": "Retinopathy of Prematurity", "url": "https://eyerounds.org/cases/286-retinopathy-of-prematurity.htm"},
+  {"site": "moran", "label": "Retinopathy of Prematurity: Update", "url": "https://morancore.utah.edu/section-06-pediatric-ophthalmology-and-strabismus/retinopathy-of-prematurity-update/"}
+ ],
+ "12-9": [
+  {"site": "eyewiki", "label": "Central Serous Chorioretinopathy", "url": "https://eyewiki.org/Central_Serous_Chorioretinopathy"},
+  {"site": "eyerounds", "label": "Central Serous Chorioretinopathy", "url": "https://eyerounds.org/cases/291-central-serous-chorioretinopathy.htm"},
+  {"site": "eyerounds", "label": "Choroidal Hemangioma", "url": "https://eyerounds.org/cases/65-Choroidal-Hemangioma-Photodynamic-Therapy.htm"},
+  {"site": "eyewiki", "label": "Uveal Effusion Syndrome", "url": "https://eyewiki.org/Uveal_Effusion_Syndrome"}
+ ],
+ "12-10": [
+  {"site": "eyewiki", "label": "Pathologic Myopia (Myopic Degeneration)", "url": "https://eyewiki.org/Pathologic_Myopia_(Myopic_Degeneration)"},
+  {"site": "eyerounds", "label": "Pathologic Myopia", "url": "https://eyerounds.org/cases/310-pathologic-myopia.htm"},
+  {"site": "eyewiki", "label": "Myopic CNVM", "url": "https://eyewiki.org/Myopic_CNVM"}
+ ],
+ "12-11": [
+  {"site": "eyewiki", "label": "Acute Posterior Multifocal Placoid Pigment Epitheliopathy", "url": "https://eyewiki.org/Acute_Posterior_Multifocal_Placoid_Pigment_Epitheliopathy"},
+  {"site": "eyerounds", "label": "Multiple Evanescent White Dot Syndrome (MEWDS)", "url": "https://eyerounds.org/cases/37-MultipleEvanescentWhiteDotSyndromeMEWDS.htm"},
+  {"site": "eyerounds", "label": "Birdshot Choroiditis", "url": "https://eyerounds.org/cases/96-birdshot-choroiditis.htm"},
+  {"site": "eyerounds", "label": "Acquired Ocular Toxoplasmosis", "url": "https://eyerounds.org/cases/74-Acquired-Toxoplasmosis-Retina.htm"}
+ ],
+ "12-12": [
+  {"site": "eyewiki", "label": "Retinitis Pigmentosa", "url": "https://eyewiki.org/Retinitis_Pigmentosa"},
+  {"site": "eyewiki", "label": "Best Disease and Bestrophinopathies", "url": "https://eyewiki.org/Best_Disease_and_Bestrophinopathies"},
+  {"site": "eyerounds", "label": "Stargardt Disease", "url": "https://eyerounds.org/atlas/pages/Stargardt-disease-13.htm"},
+  {"site": "moran", "label": "Choroideremia", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/choroideremia/"}
+ ],
+ "12-13": [
+  {"site": "eyewiki", "label": "Bardet-Biedl Syndrome", "url": "https://eyewiki.org/Bardet-Biedl_Syndrome"},
+  {"site": "eyewiki", "label": "Usher Syndrome", "url": "https://eyewiki.org/Usher_Syndrome"},
+  {"site": "eyerounds", "label": "Batten Disease", "url": "https://eyerounds.org/atlas/pages/batten-disease.htm"},
+  {"site": "eyerounds", "label": "Cystinosis: A 12-year-old Boy with Light Sensitivity", "url": "https://eyerounds.org/cases/209-cystinosis.htm"}
+ ],
+ "12-14": [
+  {"site": "eyerounds", "label": "Hydroxychloroquine (Plaquenil) Toxicity and Screening", "url": "https://eyerounds.org/cases/139-plaquenil-toxicity.htm"},
+  {"site": "eyewiki", "label": "Drug Induced Maculopathy", "url": "https://eyewiki.org/Drug_Induced_Maculopathy"},
+  {"site": "moran", "label": "Pentosan Maculopathy", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/pentosan-maculopathy/"}
+ ],
+ "12-15": [
+  {"site": "eyerounds", "label": "Vitreous Syneresis: An Impending Posterior Vitreous Detachment", "url": "https://eyerounds.org/cases/196-PVD.htm"},
+  {"site": "eyewiki", "label": "Macular Hole", "url": "https://eyewiki.org/Macular_Hole"},
+  {"site": "eyewiki", "label": "Vitreomacular Traction Syndrome", "url": "https://eyewiki.org/Vitreomacular_Traction_Syndrome"},
+  {"site": "eyewiki", "label": "Epiretinal Membrane", "url": "https://eyewiki.org/Epiretinal_Membrane"}
+ ],
+ "12-16": [
+  {"site": "eyewiki", "label": "Retinal Detachment", "url": "https://eyewiki.org/Retinal_Detachment"},
+  {"site": "eyerounds", "label": "Retinal Detachment: From One Medical Student to Another", "url": "https://eyerounds.org/tutorials/retinal-detachment-med-students/"},
+  {"site": "eyewiki", "label": "Peripheral Retinal Degenerations", "url": "https://eyewiki.org/Peripheral_Retinal_Degenerations"},
+  {"site": "eyerounds", "label": "Acquired Peripheral Retinoschisis", "url": "https://eyerounds.org/cases/246-acquired-peripheral-retinoschisis.htm"}
+ ],
+ "12-17": [
+  {"site": "eyerounds", "label": "Commotio Retinae", "url": "https://eyerounds.org/cases/309-commotio-retinae.htm"},
+  {"site": "eyerounds", "label": "Intraocular Foreign Body", "url": "https://eyerounds.org/cases/132-Intraocular-Foreign-Body.htm"},
+  {"site": "eyerounds", "label": "Choroidal Rupture with Choroidal Neovascularization", "url": "https://eyerounds.org/cases/298-choroidal-rupture.htm"},
+  {"site": "eyewiki", "label": "Chorioretinitis Sclopetaria", "url": "https://eyewiki.org/Chorioretinitis_Sclopetaria"}
+ ],
+ "12-18": [
+  {"site": "eyewiki", "label": "Panretinal Photocoagulation", "url": "https://eyewiki.org/Panretinal_Photocoagulation"},
+  {"site": "eyerounds", "label": "Learning to Use the PASCAL Laser System", "url": "https://eyerounds.org/tutorials/PASCAL-laser-tutorial.htm"},
+  {"site": "eyewiki", "label": "Photodynamic Therapy (PDT)", "url": "https://eyewiki.org/Photodynamic_Therapy_(PDT)"}
+ ],
+ "12-19": [
+  {"site": "eyewiki", "label": "Pars Plana Vitrectomy", "url": "https://eyewiki.org/Pars_Plana_Vitrectomy"},
+  {"site": "eyerounds", "label": "Intravitreal Injection Technique: A Primer", "url": "https://eyerounds.org/tutorials/intravitreal-injection/"},
+  {"site": "eyewiki", "label": "Scleral Buckling for Rhegmatogenous Retinal Detachment", "url": "https://eyewiki.org/Scleral_Buckling_for_Rhegmatogenous_Retinal_Detachment"},
+  {"site": "eyewiki", "label": "Pneumatic Retinopexy", "url": "https://eyewiki.org/Pneumatic_Retinopexy"}
+ ],
+ "12-20": [
+  {"site": "eyewiki", "label": "Voretigene neparvovec-rzyl (Luxturna)", "url": "https://eyewiki.org/Voretigene_neparvovec-rzyl_(Luxturna%E2%84%A2)"},
+  {"site": "eyewiki", "label": "Viral Vectors for Gene Therapy", "url": "https://eyewiki.org/Viral_Vectors_for_Gene_Therapy"},
+  {"site": "moran", "label": "Advancements in Gene Therapy: Exploring the What, Why and How", "url": "https://morancore.utah.edu/section-12-retina-and-vitreous/advancements-in-gene-therapy-exploring-the-what-why-and-how/"}
+ ],
+ "13-1": [
+  {"site": "eyewiki", "label": "Corneal Topography", "url": "https://eyewiki.org/Corneal_Topography"},
+  {"site": "eyewiki", "label": "Wavefront Testing", "url": "https://eyewiki.org/Wavefront_Testing"},
+  {"site": "eyewiki", "label": "Corneal Biomechanics", "url": "https://eyewiki.org/Corneal_Biomechanics"}
+ ],
+ "13-2": [
+  {"site": "eyewiki", "label": "Preoperative Evaluation for LASIK Surgery", "url": "https://eyewiki.org/Preoperative_Evaluation_for_LASIK_Surgery"},
+  {"site": "eyewiki", "label": "Ectasia Risk in Topography", "url": "https://eyewiki.org/Ectasia_Risk_in_Topography"},
+  {"site": "moran", "label": "Angle Kappa and its Importance in Refractive Surgery", "url": "https://morancore.utah.edu/section-03-clinical-optics/angle-kappa-and-its-importance-in-refractive-surgery/"}
+ ],
+ "13-3": [
+  {"site": "eyewiki", "label": "Radial Keratotomy: Complications Management", "url": "https://eyewiki.org/Radial_Keratotomy:_Complications_Management"},
+  {"site": "eyewiki", "label": "Cataract Surgery Following Radial Keratotomy", "url": "https://eyewiki.org/Cataract_Surgery_Following_Radial_Keratotomy"},
+  {"site": "moran", "label": "Phacoemulsification: Limbal Relaxing Incision", "url": "https://morancore.utah.edu/section-11-lens-and-cataract/phacoemulsification-limbal-relaxing-incision/"}
+ ],
+ "13-4": [
+  {"site": "eyewiki", "label": "Photorefractive Keratectomy", "url": "https://eyewiki.org/Photorefractive_Keratectomy"},
+  {"site": "eyerounds", "label": "Laser Refractive Surgery", "url": "https://eyerounds.org/tutorials/laser-vision-correction-tutorial/"},
+  {"site": "moran", "label": "Laser-Assisted In-Situ Keratomileusis (LASIK)", "url": "https://morancore.utah.edu/section-13-refractive-surgery/laser-assisted-in-situ-keratomileusis-lasik/"},
+  {"site": "eyewiki", "label": "LASIK for Myopia and Astigmatism: Safety and Efficacy", "url": "https://eyewiki.org/LASIK_for_Myopia_and_Astigmatism:_Safety_and_Efficacy"}
+ ],
+ "13-5": [
+  {"site": "eyewiki", "label": "LASIK Complications", "url": "https://eyewiki.org/LASIK_Complications"},
+  {"site": "eyerounds", "label": "Post LASIK Ectasia", "url": "https://eyerounds.org/cases/158-post-LASIK-ectasia.htm"},
+  {"site": "eyewiki", "label": "Diffuse Lamellar Keratitis", "url": "https://eyewiki.org/Diffuse_Lamellar_Keratitis"},
+  {"site": "moran", "label": "Epithelial Ingrowth", "url": "https://morancore.utah.edu/section-13-refractive-surgery/epithelial-ingrowth/"}
+ ],
+ "13-6": [
+  {"site": "eyewiki", "label": "Keratorefractive Lenticule Extraction (KLEx) Surgeries", "url": "https://eyewiki.org/Keratorefractive_Lenticule_Extraction_(KLEx)_Surgeries"},
+  {"site": "moran", "label": "Don't Just See – SMILE: A Review of Vision Correction Surgery", "url": "https://morancore.utah.edu/uncategorized/dont-just-see-smile-a-review-of-the-future-of-vision-correction-surgery/"}
+ ],
+ "13-7": [
+  {"site": "eyerounds", "label": "Post-LASIK Granular Corneal Dystrophy", "url": "https://eyerounds.org/cases/140-post-LASIK-Granular-Corneal-Dystrophy.htm"},
+  {"site": "eyewiki", "label": "LASIK in Patients with Collagen Vascular Disease", "url": "https://eyewiki.org/LASIK_in_Patients_with_Collagen_Vascular_Disease"},
+  {"site": "eyewiki", "label": "LASIK in Patients With Diabetes Mellitus", "url": "https://eyewiki.org/LASIK_in_Patients_With_Diabetes_Mellitus"}
+ ],
+ "13-8": [
+  {"site": "eyewiki", "label": "Intraocular Lens Power Calculation after Corneal Refractive Surgery", "url": "https://eyewiki.org/Intraocular_Lens_Power_Calculation_after_Corneal_Refractive_Surgery"},
+  {"site": "moran", "label": "Intraocular Lens Calculations After RK", "url": "https://morancore.utah.edu/section-13-refractive-surgery/intraovular-lens-calculations-after-rk/"},
+  {"site": "eyewiki", "label": "Tonometry after Refractive Surgery", "url": "https://eyewiki.org/Tonometry_after_Refractive_Surgery"}
+ ],
+ "13-9": [
+  {"site": "eyewiki", "label": "Phakic Intraocular Lenses", "url": "https://eyewiki.org/Phakic_Intraocular_Lenses"},
+  {"site": "eyerounds", "label": "Phakic Intraocular Lenses for High Myopia", "url": "https://eyerounds.org/cases/210-PhakicIOL.htm"},
+  {"site": "eyewiki", "label": "Clear Lens Extraction", "url": "https://eyewiki.org/Clear_Lens_Extraction"},
+  {"site": "moran", "label": "Update on the Toric Implantable Collamer Lens", "url": "https://morancore.utah.edu/section-13-refractive-surgery/update-on-the-toric-implantable-collamer-lens/"}
+ ],
+ "13-10": [
+  {"site": "eyewiki", "label": "Presbyopia Treatment", "url": "https://eyewiki.org/Presbyopia_Treatment"},
+  {"site": "eyewiki", "label": "Corneal Inlays", "url": "https://eyewiki.org/Corneal_Inlays"},
+  {"site": "moran", "label": "Presbyopia-Correcting IOLs", "url": "https://morancore.utah.edu/section-11-lens-and-cataract/presbyopia-correcting-iols/"}
+ ]
+}

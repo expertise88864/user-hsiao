@@ -12,7 +12,8 @@ test.use({ serviceWorkers: 'block' });
 const data = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../exam/notes-data.json'), 'utf8'));
 const NOW = new Date('2026-11-03T12:00:00+08:00').getTime();
 const MIN = 60000;
-const name = key => data.chapters[key].label + ' ' + data.chapters[key].title;
+// The chapter list adds the Chinese name (chapter_zh.json) after the English title.
+const name = key => [data.chapters[key].label, data.chapters[key].title, data.chapters[key].zh].filter(Boolean).join(' ');
 
 function seed(page, values) {
   return page.addInitScript(v => {

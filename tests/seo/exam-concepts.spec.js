@@ -34,9 +34,12 @@ test('overview: keyword, chapter filter and sort are mirrored in the URL', async
   await page.goto('/exam/concepts');
   await page.fill('#cpt-kw', 'HIV');
   await expect(page).toHaveURL(/\?kw=HIV$/);
-  const hits = await visible(page).locator('.ex-cpt-t').allTextContents();
+  // A concept matches by its title or its 考法 lines (concept_kaofa.json).
+  const hits = await visible(page).evaluateAll(ds => ds.map(d => d.textContent));
   expect(hits.length).toBeGreaterThan(0);
   for (const t of hits) expect(t.toLowerCase()).toContain('hiv');
+  const titles = await visible(page).locator('.ex-cpt-t').allTextContents();
+  expect(titles.some(t => t.toLowerCase().includes('hiv'))).toBe(true);
   await expect(page.locator('.ex-cpt-status')).toContainText('符合');
 
   await page.fill('#cpt-kw', '');
