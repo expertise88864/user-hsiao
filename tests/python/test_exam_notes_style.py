@@ -96,7 +96,8 @@ class ChapterPageTests(unittest.TestCase):
             with self.subTest(key=key):
                 self.assertFalse(doc.select(".ex-hit"))
                 sups = doc.select(".ex-note sup.ex-qref")
-                self.assertTrue(sups)
+                # Chapters with no tagged questions (eg, 1-1) have notes but no citations.
+                self.assertEqual(bool(sups), bool(self.data["by_chapter"].get(key)))
                 self.assertFalse(doc.select(".ex-note sup.ex-qref a"))
                 for label in doc.select(".ex-note sup.ex-qref span"):
                     self.assertRegex(label.get_text(), r"^Q\d+$")
@@ -147,8 +148,10 @@ class ChapterPageTests(unittest.TestCase):
                 gen.load_toc_en({"6-2": note})
 
     def test_chapters_without_notes_keep_the_plain_layout(self):
-        key = next(k for k in self.data["by_chapter"] if k not in self.data["notes"])
-        doc = self.page(key)
+        # Every chapter has notes since 2026-11-04, so drop one chapter's notes.
+        key = "8-6"
+        data = {**self.data, "notes": {k: v for k, v in self.data["notes"].items() if k != key}}
+        doc = BeautifulSoup(gen.chapter_page(data, key, self.version), "html.parser")
         self.assertFalse(doc.select(".ex-toc-side, .ex-content"))
         self.assertNotIn("ex-has-side", doc.select_one("main")["class"])
 

@@ -49,8 +49,10 @@ class PageMarkupTests(unittest.TestCase):
                 self.assertIn("ex-note", status.find_next_sibling()["class"])
 
     def test_chapters_without_notes_have_no_status_line(self):
-        key = next(k for k in self.data["by_chapter"] if k not in self.data["notes"])
-        doc = BeautifulSoup(gen.chapter_page(self.data, key, self.version), "html.parser")
+        # Every chapter has notes since 2026-11-04, so drop one chapter's notes.
+        key = "8-6"
+        data = {**self.data, "notes": {k: v for k, v in self.data["notes"].items() if k != key}}
+        doc = BeautifulSoup(gen.chapter_page(data, key, self.version), "html.parser")
         self.assertIsNone(doc.select_one("#ex-reading"))
 
     def test_hub_rows_name_their_chapter(self):

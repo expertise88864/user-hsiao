@@ -128,15 +128,23 @@ class ChapterBlockTests(unittest.TestCase):
         return BeautifulSoup(chapter_html(key), "html.parser")
 
     def test_every_notes_chapter_has_the_block_between_notes_and_questions(self):
+        # Since 2026-11-04 every chapter has notes, including some with no tagged
+        # questions or no concepts; those pages simply have no 本章考點 block.
         for key in self.data["notes"]:
             with self.subTest(key=key):
                 main = str(self.page(key).select_one("main"))
-                at = [main.index(m) for m in ('id="notes-h"', 'class="ex-note"', 'id="cpts-h"', 'id="qs-h"')]
+                markers = ['id="notes-h"', 'class="ex-note"', 'id="cpts-h"', 'id="qs-h"']
+                if not any(gen.chapter_concepts(self.data, key)):
+                    self.assertNotIn('id="cpts-h"', main)
+                    markers.remove('id="cpts-h"')
+                at = [main.index(m) for m in markers]
                 self.assertEqual(at, sorted(at))
 
     def test_chapters_without_notes_have_no_block(self):
-        key = next(k for k in self.data["by_chapter"] if k not in self.data["notes"])
-        self.assertFalse(self.page(key).select("#cpts-h, .ex-cpts"))
+        # Every chapter has notes now, so drop one chapter's notes to render the plain page.
+        data = {**self.data, "notes": {k: v for k, v in self.data["notes"].items() if k != self.key}}
+        doc = BeautifulSoup(gen.chapter_page(data, self.key, shared()[1]), "html.parser")
+        self.assertFalse(doc.select("#cpts-h, .ex-cpts"))
 
     def test_home_concepts_first_then_collapsed_others(self):
         for key in self.data["notes"]:
@@ -144,6 +152,9 @@ class ChapterBlockTests(unittest.TestCase):
                 doc = self.page(key)
                 section = doc.select_one("section.ex-cpts")
                 home, other = gen.chapter_concepts(self.data, key)
+                if not home and not other:
+                    self.assertIsNone(section)
+                    continue
                 shown = [d["id"] for d in section.select(":scope > .ex-cpt-list > details.ex-cpt")]
                 self.assertEqual(shown, ["cpt-" + r["id"] for r in home])
                 more = section.select_one(":scope > details.ex-cpt-other")

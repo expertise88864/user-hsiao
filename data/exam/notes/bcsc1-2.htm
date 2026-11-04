@@ -1,0 +1,458 @@
+<h2 id="ch2-s1">一、研究問題與資訊來源</h2>
+<ul>
+<li>擬定 <strong>research question（研究問題）</strong>是解決診斷或處置問題的<mark>第一步</mark>；問題可來自臨床觀察，也可能是查過文獻後仍未獲解答的問題。<span class="ref">p.13</span></li>
+<li>資訊來源包括：一般眼科教科書；專門主題的 review journals（如 Survey of Ophthalmology）；AAO 的 Ophthalmic News and Education（ONE）Network（Preferred Practice Pattern 指引、各次專科教育資料、多媒體資源）。<span class="ref">p.13–14</span></li>
+<li><strong>Cochrane Library</strong>：針對特定處置療效的高品質 meta-analysis（統合分析）；<strong>PubMed</strong>：廣泛涵蓋生醫文獻的 primary sources（原始文獻），並有工具與 filter 可將搜尋縮小到特定研究問題。<span class="ref">p.14</span></li>
+</ul>
+
+<h2 id="ch2-s2">二、資料基本概念</h2>
+<h3>Variables（變項）</h3>
+<ul>
+<li><strong>Data（資料）</strong>：為了以統計方法回答研究問題而記錄的個別資訊集合；這些個別資訊稱 data items，更常稱 <strong>variables（變項）</strong>。<span class="ref">p.14</span></li>
+<li><strong>Independent variable（自變項）</strong>：有時稱 predictor 或 experimental variable，獨立存在、不會被實驗中受操作與測量的其他變項改變，用來觀察其對依變項的影響。<strong>Dependent variable（依變項）</strong>：研究者測量或檢測、「依賴」其他變項的變項，又稱 <mark>outcome（結果）</mark>。<span class="ref">p.14</span></li>
+<li>測量的變項主要分兩型：<strong>categorical（類別）</strong>與 <strong>continuous（連續）</strong>。<span class="ref">p.14</span></li>
+<li>Categorical variables 有離散的類別或層級，可再分：<strong>nominal（名目）</strong>＝類別無特定排序（如 ethnicity、gender）；<strong>dichotomous（二分）</strong>＝有 <span class="num">2</span> 個層級的類別變項（如 yes/no、high/low、male/female）；<strong>ordinal（序位）</strong>＝<span class="num">2 個或以上</span>可排序或分等的類別（如從 strongly agree 到 strongly disagree）。Categorical variables 以 frequencies（次數）與 percentages（百分比）描述。<span class="ref">p.14</span></li>
+<li>Continuous variables 以數值測量、可能值無限多，可由小到大排列呈現分布。分布對稱（中心點兩側相似，bell-shaped curve）→ 稱 <strong>parametric</strong>（常態分布），應報告 <mark>mean（平均值）與 standard deviation（標準差）</mark>；資料 skewed（偏態，nonparametric）或有明顯 outliers（離群值）→ 適合報告 <mark>median（中位數）與第 25、75 百分位（interquartile range，四分位距）</mark>。<span class="ref">p.14</span></li>
+</ul>
+<h3>Independent vs dependent data（獨立與相依資料）</h3>
+<ul>
+<li>一個樣本的值不透露另一樣本的任何資訊 → 資料為 independent；一個樣本的值會影響另一樣本的值 → 樣本為 dependent。<span class="ref">p.14</span></li>
+<li>某些情況下眼睛的資料可視為 dependent，因為<mark>左眼與右眼的資料可能相關</mark>；閱讀文章時應注意資料是獨立或相依。<span class="ref">p.14–15</span></li>
+</ul>
+<h3>按變項類型選擇統計檢定（Table 2-1）</h3>
+<table class="ted-table">
+<thead><tr><th>Independent variable（predictor）</th><th>Dependent variable（outcome）</th><th>Statistical test（統計檢定）</th></tr></thead>
+<tbody>
+<tr><td>Dichotomous</td><td>Continuous, parametric</td><td>Two-sample t test</td></tr>
+<tr><td>Dichotomous</td><td>Continuous, nonparametric</td><td>Mann-Whitney U test、Wilcoxon signed rank test</td></tr>
+<tr><td>Nominal or ordinal</td><td>Continuous</td><td>Analysis of variance（ANOVA）</td></tr>
+<tr><td>Continuous</td><td>Continuous</td><td>Linear regression、Pearson correlation</td></tr>
+<tr><td>Continuous or categorical</td><td>Dichotomous</td><td>Logistic regression（binary）</td></tr>
+<tr><td>Continuous or categorical</td><td>Ordinal</td><td>Ordinal logistic regression</td></tr>
+<tr><td>Categorical</td><td>Categorical</td><td>Chi-square test、Fisher exact test</td></tr>
+</tbody>
+</table>
+<p>出處 <span class="ref">p.18</span></p>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>Dichotomous 是有 2 個層級的類別變項；ordinal 是 2 個或以上可排序的類別；nominal 的類別無特定排序。<span class="ref">p.14</span></li>
+<li>常態（parametric）資料報告 mean 與 SD；偏態或有明顯離群值時報告 median 與 interquartile range。<span class="ref">p.14</span></li>
+<li>Table 2-1：dichotomous 預測、continuous parametric 結果 → two-sample t test；nonparametric 結果 → Mann-Whitney U 或 Wilcoxon signed rank；類別對類別 → chi-square 或 Fisher exact test。<span class="ref">p.18</span></li>
+</ul></div>
+
+<h2 id="ch2-s3">三、批判性閱讀研究</h2>
+<h3>研究族群與招募策略</h3>
+<ul>
+<li>投入時間閱讀前，先看 abstract 確認是否回答所關心的問題；若相關，再批判性閱讀全文以判斷其 validity（效度）與對臨床問題的適用性。應考慮：study population、recruitment strategy、sample size、intervention、outcomes of interest、statistical methods。<span class="ref">p.15</span></li>
+<li>了解研究族群與招募策略是了解研究場域（clinic based、multicenter 或 community based）的關鍵；治療試驗中，inclusion／exclusion criteria 描述接受或未接受介入者的特徵。<span class="ref">p.15</span></li>
+<li>特定病人群可能因被視為 vulnerable population（弱勢族群）而被排除：多數 ocular hypotensive drugs（降眼壓藥）試驗排除<mark>兒童與孕婦</mark> → 若要在孕婦或兒童使用某降眼壓藥前查資料，多數資料只能在個別 case reports 或 retrospective case series 中找到。<span class="ref">p.15</span></li>
+</ul>
+<h3>分派過程與對照組</h3>
+<ul>
+<li>評估研究時，下一步是檢視分派受試者到介入的過程是否造成 <strong>selection bias（選擇偏差）</strong>：介入是否隨機分派？治療組與對照組是否可比較？<strong>Randomization（隨機分配）</strong>的目的是<mark>減少研究者與受試者方面的偏差</mark>；例：研究者可能無意間把較不複雜的病人分到新手術，可能使其結果偏向較好。{{q:59}}<span class="ref">p.15</span></li>
+<li>分派過程若適當隨機化，各組在可影響結果的特徵上應相似；例：比較雷射與 anti–vascular endothelial growth factor（anti-VEGF，抗血管內皮生長因子）治療 diabetic retinopathy（糖尿病視網膜病變）時，應注意各組的 hemoglobin A1c、血壓與疾病嚴重度是否相近，因這些因子可改變視網膜病變的進展。<span class="ref">p.15</span></li>
+<li>使用 <strong>control group（對照組）</strong>也很重要：可顯示介入結果是否超出「參加試驗」本身的益處（試驗參與者通常是經挑選、有動機的病人）。<span class="ref">p.15</span></li>
+<li>臨床試驗可能只研究疾病的狹窄子集，結果只適用、只可推論到相似病人；常見錯誤是將資料外推到所有病人或不同疾病嚴重度。例：某治療只在接受 trabeculectomy 的 mild glaucomatous damage 病人成功、advanced damage 則否 → 結果應只應用於相似病人，即 mild 損害病人。<span class="ref">p.15</span></li>
+</ul>
+<h3>樣本數、效果量與檢定力</h3>
+<ul>
+<li>Sample size、effect size 與 power 互相關聯，共同用來檢驗能否拒絕 null hypothesis 而接受 alternative hypothesis。<span class="ref">p.16</span></li>
+<li><strong>Null hypothesis（虛無假說）</strong>：接受介入組與未接受介入組在關心的結果上沒有差異；<strong>alternative hypothesis（對立假說）</strong>：兩組間存在真正差異。<span class="ref">p.16</span></li>
+<li><strong>Sample size（樣本數）</strong>：在預定的 effect size 與 power 下，為拒絕虛無假說所需的受試者數。<span class="ref">p.16</span></li>
+<li><strong>Power（檢定力）</strong>：<mark>當虛無假說為假時，做出正確決定（拒絕虛無假說）的機率</mark>；取決於樣本數、介入組相對對照組在結果上的預期差異（如視力改善、黃斑水腫消退）、結果的變異度（如 standard deviation）。決定樣本數時，power 應<span class="num">至少 80%</span>。<span class="ref">p.16</span></li>
+<li><strong>Effect size（效果量）</strong>：衡量 2 個變項間關係強度，或 2 個不同組間差異大小的數字。<span class="ref">p.16</span></li>
+<li>一般而言，治療效果較大、變異度較小的介入，可用較小樣本檢定；若樣本數計算結果很大，可藉<mark>提高 effect size 或將結果變項由 categorical 改為 continuous</mark> 來減少樣本數。計算樣本數所用的資訊（power、effect size、檢定類型、alpha〔即顯著性閾值〕）應在 Methods 中報告。<span class="ref">p.16</span></li>
+</ul>
+<h3>臨床相關性與可重複性</h3>
+<ul>
+<li>判斷結果能否用於自己病人時可問：介入在目前執業環境是否可得且適用？結果是否具臨床重要性？是否評估所有臨床重要結果？治療差異是否具臨床顯著性？<span class="ref">p.16</span></li>
+<li>介入可能太昂貴、太難執行或已不普遍使用；若如此，研究發現相對於現行臨床照護可能優勢很小。<span class="ref">p.16</span></li>
+<li>研究應把介入描述得足以重複實驗（如手術研究說明所有步驟，使不同術者能以相同方式執行）；可在研究開始前舉辦訓練、監測手術特定面向、標準化術後照護；一般而言，除了所關心的介入之外，研究程序應避免差異。<span class="ref">p.16</span></li>
+<li>為降低 <strong>investigator bias（研究者偏差）</strong>，研究應盡量讓觀察者對介入 masked（遮蔽）；investigator bias 可能在研究者預期介入組結果不同、並調整其對結果的測量以符合預期時發生。<span class="ref">p.16–17</span></li>
+</ul>
+<h3>結果的定義與測量誤差</h3>
+<ul>
+<li>研究應清楚列出 primary 與 secondary outcomes 及其預期變化；例：以視力改善為主要結果時，應指明代表改善的 logMAR 值、範圍、結果分布（如 normal、向右或向左偏）與變異度，讓讀者判斷研究能否證明或否定虛無假說。<span class="ref">p.17</span></li>
+<li>許多結果（如 visual acuity、intraocular pressure〔IOP，眼壓〕、optical coherence tomography〔OCT，光學同調斷層掃描〕測得的黃斑厚度）有 measurement error（測量誤差），會增加結果的變異度，或在沒有真正差異時造成結果差異 → 研究應為所有研究者標準化結果的測量。<span class="ref">p.17</span></li>
+<li>例：<strong>Ocular Hypertension Treatment Study（OHTS）</strong>建立標準化 IOP 測量方法以減少變異與誤差，研究計畫包括使用 masked recorder and observer，並重複測量。<span class="ref">p.17</span></li>
+</ul>
+<h3>追蹤完整性與 intention-to-treat</h3>
+<ul>
+<li>研究的效度建立在所有受試者的追蹤與足夠的追蹤時間上；評估時應看有多少受試者完成追蹤。<span class="ref">p.17</span></li>
+<li>為減少偏差，應報告所有受試者的結果，不論其分組或是否完成研究，此法稱 <strong>intention-to-treat analysis（意向治療分析）</strong>。研究應說明失去追蹤的原因及組間在未完成原因上的差異；例：藥物試驗中，介入組可能因燒灼感或刺痛等眼部副作用而比安慰劑組更易退出。<span class="ref">p.17</span></li>
+<li>追蹤長度應依疾病進展速率或治療反應決定：atropine 眼藥 vs patching（遮眼）治療 amblyopia（弱視）的研究，追蹤 <span class="num">3–6 個月</span>可能足夠；白內障摘除後監測視力改善可能也適用類似期間；青光眼進展期間長，評估青光眼視野喪失的試驗需較長追蹤，如 <span class="num">5 年</span>。<span class="ref">p.17</span></li>
+</ul>
+<h3>統計分析與 P value</h3>
+<ul>
+<li>統計檢定的選擇取決於用來判定 2 個治療組差異的資料類型（見 Table 2-1）；這些檢定都會產生 <strong>P value</strong>，表示 2 組間差異僅由機遇（chance alone）造成的可能性。<span class="ref">p.17</span></li>
+<li>P 值 <span class="num">&lt;.05</span> 提示 2 組差異僅由機遇造成的可能性<mark>小於 5%</mark>；P 值越低，差異越不可能由機遇造成、越可能是真正差異。<span class="ref">p.17</span></li>
+</ul>
+<h3>臨床顯著性與信賴區間</h3>
+<ul>
+<li>即使統計檢定提示兩組有統計顯著差異，臨床醫師仍應考慮差異的大小與性質是否具臨床意義；例：Snellen 視力表上 <span class="num">2</span> 個字母的差異可能有統計顯著性，但病人可能察覺不到，且可能在視力測量誤差範圍內。<span class="ref">p.18</span></li>
+<li>除主要結果變項外，研究應評估與介入安全性相關的次要臨床重要變項，包括 dropout rates（退出率）、疼痛與過敏反應。<span class="ref">p.18</span></li>
+<li>某些情況下，未達顯著但 <span class="num">&lt;.10</span> 的 P 值仍可能有意義：差異可能因樣本數不夠大而未達統計顯著。<span class="ref">p.18</span></li>
+<li>資料的 <strong>confidence interval（信賴區間）</strong>可能比假說檢定得到的 P 值提供更多資訊；區間很寬表示描述效果的結果<mark>缺乏 precision（精確度）</mark>，需要更多資訊。<span class="ref">p.18</span></li>
+</ul>
+<h3>Bias（偏差）與 confounding（混淆）</h3>
+<ul>
+<li>流行病學研究結果可能反映暴露對結果的真實效果，但也可能有替代解釋：chance（random error，隨機誤差）、bias 或 confounding 可產生假性結果，導致對統計關聯存在與否的錯誤結論。<span class="ref">p.18</span></li>
+<li><strong>Bias（偏差）</strong>：流行病學研究中，導致對暴露之於結果的真實效果估計錯誤的任何 <mark>systematic error（系統性誤差）</mark>；已辨識出超過 <span class="num">50</span> 種，為簡化可大致分為 <strong>information bias</strong> 與 <strong>selection bias</strong> 兩類。<span class="ref">p.18</span></li>
+<li><strong>Information bias（資訊偏差）</strong>：各研究組在取得暴露或結果資料的方式上有系統性差異。<span class="ref">p.18–19</span></li>
+<li><strong>Selection bias（選擇偏差）</strong>：以下兩者之間存在系統性差異 → (1) 參加研究者與未參加者（影響 generalizability，可推論性）；（2）研究的治療組與對照組（影響組間 comparability，可比較性）。亦即研究組間特徵有差異，且這些特徵與所研究的暴露或結果相關；selection bias 可因多種原因發生。{{q:73}}<span class="ref">p.19</span></li>
+<li><strong>Confounding（混淆）</strong>：暴露（X）與結果間關聯的另一種替代解釋；當暴露同時與另一危險因子（Y）相關、使觀察到的關聯其實被扭曲時發生。Y 也與結果相關，但書中描述其與所研究的暴露 X 互相獨立；結果是估計出的關聯不等於暴露 X 對結果的真實效果。{{q:73}}<span class="ref">p.19</span></li>
+<li>Confounding factors 若未加控制，會使所研究暴露的影響估計產生偏差；研究者應在<mark>研究設計階段</mark>就考慮可能的 bias 與 confounding variables，否則需在分析階段另做調整，或成為潛在限制。<span class="ref">p.19</span></li>
+</ul>
+<h3>Conflict of interest（COI，利益衝突）</h3>
+<ul>
+<li>COI：個人或組織在某實體（如器材公司）擁有財務或其他利益，可能有意或無意地驅使其做出有利該實體的決定；例：某公司的付費講者撰寫並發表描述該公司新器材及其益處的論文。<span class="ref">p.19</span></li>
+<li>作者與實體間存在關係不必然代表不當，但因有不當的可能，醫學期刊要求作者與其他決策者揭露 COI；更重要的是，期刊也要求有 COI 者對藥物或新器材的益處與所有風險提出準確且平衡的評估。<span class="ref">p.19</span></li>
+<li>直接財務利益不是唯一的 COI：所有作者都有在期刊發表的動機（如學術升等、未來研究經費、全國聲譽）；且<mark>陽性結果的研究比陰性結果的研究更可能被發表</mark>。任何研究不論作者有無 COI，都應準確平衡地評估結果，讀者應自行判斷是否呈現平衡。{{q:73}}<span class="ref">p.19</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>Power 是「虛無假說為假時，正確拒絕虛無假說」的機率；決定樣本數時 power 應至少 80%。<span class="ref">p.16</span></li>
+<li>樣本數可藉提高 effect size，或將結果變項由 categorical 改為 continuous 來減少。<span class="ref">p.16</span></li>
+<li>P &lt;.05 提示差異僅由機遇造成的可能性小於 5%；未達顯著但 &lt;.10 的 P 值仍可能有意義（可能因樣本數不足）。<span class="ref">p.17–18</span></li>
+<li>Selection bias 有兩種情形：參加者 vs 未參加者（影響 generalizability），以及治療組 vs 對照組（影響 comparability）；information bias 則是取得暴露或結果資料的方式有系統性差異。{{q:73}}<span class="ref">p.18–19</span></li>
+<li>Intention-to-treat analysis 報告所有受試者的結果，不論其分組或是否完成研究。<span class="ref">p.17</span></li>
+</ul></div>
+
+<h2 id="ch2-s4">四、研究設計</h2>
+<h3>Observational 與 experimental studies</h3>
+<ul>
+<li><strong>Observational studies（觀察性研究）</strong>又稱 nonexperimental studies：研究者評估有特定疾病、狀況或併發症者的特徵、行為與暴露；觀察性研究只報告研究族群的特徵，<mark>不直接操控行為（如吸菸）或暴露（如用藥或雷射治療）</mark>。{{q:14}}<span class="ref">p.20</span></li>
+<li><strong>Experimental studies（實驗性研究）</strong>，通常為 clinical trials：受試者被<mark>分派</mark>到特定處置，例如規定的行為（如高抗氧化食物飲食）或治療／預防性介入（如青光眼病人使用口服神經保護劑、早期 age-related macular degeneration〔AMD，年齡相關性黃斑部病變〕病人補充抗氧化維生素）。{{q:14}}<span class="ref">p.20</span></li>
+<li>此外，real-world data（真實世界資料）有助了解日常臨床實務中的治療有效性。<span class="ref">p.20</span></li>
+<li>各種研究設計在適當執行與詮釋時都能提供有價值的資訊。研究者用觀察性研究來描述疾病表現與進展、產生假說供進一步研究，以及<mark>有效率地評估可能已存在的資料</mark>以檢驗關於某介入的假說；觀察性研究例如 case reports、case series、case-control studies、cross-sectional studies 與 cohort studies。{{q:14}}<span class="ref">p.20</span></li>
+<li>相對地，<strong>prospective randomized controlled trials</strong> 提供介入效果的最佳證據；meta-analyses 提供彙整處理類似研究問題之多個臨床試驗結果的方法；<mark>meta-analyses 與 controlled trials 提供最高等級的證據</mark>。{{q:59}}<span class="ref">p.20</span></li>
+</ul>
+<h3>臨床研究分類演算法（Fig 2-1）</h3>
+<ul>
+<li>研究者是否分派暴露？<strong>是</strong> → experimental study → 是否 random allocation：是＝<strong>randomized controlled trial</strong>，否＝<strong>nonrandomized controlled trial</strong>。<span class="ref">p.21</span></li>
+<li><strong>否</strong> → observational study → 是否有 comparison group（比較組）：無＝<strong>descriptive study（描述性研究）</strong>；有＝<strong>analytical study（分析性研究）</strong>，再看方向：<mark>Exposure → Outcome＝cohort study；Exposure ← Outcome＝case-control study；Exposure 與 outcome 同時＝cross-sectional study</mark>。{{q:14}}<span class="ref">p.21</span></li>
+</ul>
+<h3>Case reports（病例報告）</h3>
+<ul>
+<li>描述<strong>單一病人</strong>的發現，以提醒讀者注意罕見疾病或不尋常的治療結果。<span class="ref">p.20</span></li>
+<li>Case reports <mark>無法提供 treatment efficacy（治療療效）的資訊，也無法判定疾病是否由某暴露造成</mark>；最多只能提示先前未察覺的發現或疾病機轉，並作為假說來源，供更大型前瞻性研究檢驗。{{q:59}}<span class="ref">p.20</span></li>
+</ul>
+<h3>Case series（病例系列）</h3>
+<ul>
+<li>研究一群病人的表現、病史和／或追蹤，提供疾病 natural history（自然病程）或 prognosis（預後）的有價值資訊；case series 為之後有 comparison group 的較大研究提供初步資訊。{{q:14}}<span class="ref">p.20</span></li>
+<li>Case series 與臨床試驗在病人選擇、病人特徵、追蹤長度與完整性上可能不同；這些特徵可能決定 case series 的品質與適用性。<span class="ref">p.20</span></li>
+<li>Case series 若只納入三級轉診中心（如大學附設門診）的嚴重病人，或只納入輕症病人，可能產生偏差；病人資料、測量、檢查等評估的收集也可能未標準化。<span class="ref">p.20</span></li>
+<li>同一 case series 內追蹤間隔可能不同；追蹤期間有差異時，應報告特定追蹤期（如治療開始後 1、2、3 年）。結果為事件（如 corneal graft failure，角膜移植片衰竭）時，<strong>survival analysis（存活分析）</strong>可處理不同的追蹤長度。<span class="ref">p.21, p.24</span></li>
+<li>未追蹤所有受試者到完整可能追蹤期 → 失去追蹤可使報告結果產生偏差；若大比例病人未回診完成追蹤，研究結果可能無效，因留下來的受試者病程可能比失去追蹤者異常地好或壞。<span class="ref">p.24</span></li>
+</ul>
+<h3>Case-control studies（病例對照研究）</h3>
+<ul>
+<li>檢驗暴露或潛在危險因子（如吸菸、醫療狀況、治療）與結果（如視力喪失、青光眼發生、角膜移植片衰竭、白內障手術併發症）間關聯的假說。<span class="ref">p.24</span></li>
+<li>研究者選取<mark>有該疾病的一組受試者（cases，病例）與一組可比較、無該疾病的人（controls，對照）</mark>，比較兩組<strong>過去</strong>的暴露與特徵；若有差異，結論為不同的暴露或特徵與疾病相關（Fig 2-2：分別找出 cases 與 controls → 取得病史 → 判定有無危險因子／暴露 → 比較有暴露的比例）。{{q:59,14}}<span class="ref">p.24–25</span></li>
+<li>Case-control studies 的暴露資料可能比 cohort studies 不準確；<mark>若沒有適當的對照組，case-control studies 可能受 selection bias 影響</mark>。{{q:73}}<span class="ref">p.24</span></li>
+</ul>
+<h3>Cross-sectional studies（橫斷性研究）</h3>
+<ul>
+<li>將暴露與危險因子和疾病的存在相關聯，但<mark>不知道暴露與疾病發生的時序</mark>；例：研究者同時收集病人血液樣本並記錄其水晶體狀態（phakic、pseudophakic 或 aphakic）。<span class="ref">p.24</span></li>
+<li>此設計也要考慮 confounding：上例中 age 可能是 confounder，因為 cholesterol 隨年齡上升，接受白內障手術的可能性也隨年齡上升。<span class="ref">p.24</span></li>
+</ul>
+<h3>Cohort studies（世代研究）</h3>
+<ul>
+<li>Cohort studies 又稱 <strong>follow-up studies（追蹤研究）</strong>，用來探討暴露或潛在危險因子與病人結果的關聯。<span class="ref">p.24</span></li>
+<li>找出基線時<mark>沒有所研究疾病</mark>的受試者，依潛在危險因子的有無分類，再追蹤後續是否發生疾病（Fig 2-2：all disease-free → 分出有／無暴露或危險因子者 → follow-up → 判定疾病狀態 → 比較發病比例）。{{q:14,59}}<span class="ref">p.24–25</span></li>
+<li>例：<strong>Los Angeles Latino Eye Study</strong> 前瞻性評估危險因子（血壓與年齡）對結果（AMD 發生率）的影響。<span class="ref">p.24</span></li>
+<li><strong>主要弱點</strong>：有該危險因子者可能在許多方面與無危險因子者不同，而這些其他特徵也可影響疾病發生率。Stratified analysis 與 regression analysis 可調整已知 confounders 的影響，但許多情況下研究者並不了解所有影響發生率的因子 → cohort studies 雖可找出關聯與疾病發生率，<mark>這些關聯不被視為因果</mark>。<span class="ref">p.24–25</span></li>
+<li><strong>STROBE</strong>（STrengthening the Reporting of OBservational studies in Epidemiology）：國際合作計畫，旨在改善 cohort、case-control 與 cross-sectional studies 的設計與報告。<span class="ref">p.25</span></li>
+</ul>
+<h3>Clinical trials（臨床試驗）</h3>
+<ul>
+<li>與前述研究不同，<strong>randomized clinical trials（RCTs，隨機臨床試驗）</strong>以機遇將受試者分派到不同治療組（暴露組）；隨機分派使各組在可能改變結果或治療併發症風險的變項上特徵相似 → <mark>這種對 confounding factors 的控制是 RCT 相較其他設計的一項主要優勢</mark>。{{q:59,14}}<span class="ref">p.26</span></li>
+<li>除隨機化外，RCT 也應具備高品質觀察性研究的所有特點：明確的研究問題與目標、明確的 inclusion／exclusion criteria、多元的研究族群、足夠的樣本數、標準化程序、預先定義且客觀的 primary 與 secondary outcomes、對受試者、治療醫師與評估者遮蔽分派治療（masking）、所有受試者完整追蹤。<span class="ref">p.26</span></li>
+<li><strong>CONSORT</strong>（Consolidated Standards of Reporting Trials）Statement：以證據為基礎的建議，含臨床試驗設計與報告應包括之特點的 checklist。<span class="ref">p.26</span></li>
+<li>評估臨床試驗另需考慮兩點。第一：是否因受試者不符所有收案條件、發生副作用而停止治療，或未遵從治療而將其排除於分析之外；排除這些資料是偏差來源，因其結果可能與被分析者不同 → 臨床試驗應包括 <strong>intention-to-treat analysis</strong>（納入所有收案受試者的資料），並分別分析完成與未完成試驗者。<span class="ref">p.26</span></li>
+<li>第二：<strong>subgroup（次族群）</strong>結果（如年輕 vs 年長、高血壓 vs 非高血壓）應抱持懷疑，因單憑統計機遇，研究就可能找到治療效益統計顯著的次族群。若次族群在研究設計時已預先指定、治療結果在各次族群間有類似變化（如成功率在各年齡層逐步下降），且可對此發現提出生物學上合理的解釋，次族群評估可能被視為有效。<span class="ref">p.26</span></li>
+</ul>
+<h3>Real-world studies（真實世界研究）</h3>
+<ul>
+<li><strong>Real-world data（RWD，真實世界資料）</strong>是 RCT 之外重要的互補資訊來源，於傳統 RCT 的受控環境之外收集，有助了解日常臨床實務中的治療有效性與安全性、疾病與治療模式及病人行為；RWD 構成 real-world evidence（RWE）的基礎。<span class="ref">p.26–27</span></li>
+<li>RWD 來源包括 patient registries（如 IRIS〔Intelligent Research in Sight〕Registry）、health care databases、claims databases、patient networks、social media，以及行動或穿戴裝置產生的病人資料。<span class="ref">p.27</span></li>
+<li>真實世界中接受治療的病人可能與同一治療臨床試驗的收案者有重要差異；RWD 必須考量資料收集與分析方式審慎詮釋。Real-world studies 與 RCT 合併使用，有助更全面了解治療或疾病。<span class="ref">p.27</span></li>
+</ul>
+<h3>Systematic reviews 與 meta-analyses</h3>
+<ul>
+<li>結合 <span class="num">2 個或以上</span>臨床試驗的證據，systematic reviews（系統性回顧）與 meta-analyses 為評估特定疾病的介入<mark>提供最強的證據</mark>。<span class="ref">p.27</span></li>
+<li><strong>Systematic review</strong>：試圖以明確定義的系統性方法收集所有可得的實證研究，以回答特定問題；<strong>meta-analysis</strong>：分析並合併數個相似研究結果的統計過程；兩者可合併使用。<span class="ref">p.27</span></li>
+<li>例：Bowen 等比較白內障手術結束時 intracameral（前房內）cefuroxime、moxifloxacin、vancomycin 的安全性與療效，回顧 <span class="num">17</span> 個研究、超過 <span class="num">900,000</span> 眼，發現使用前房內抗生素使 endophthalmitis（眼內炎）風險<span class="num">下降 80%</span>（P &lt; .001）。<span class="ref">p.27</span></li>
+</ul>
+<h3>各研究設計比較（Table 2-2 精簡）</h3>
+<table class="ted-table ex-ddx">
+<thead><tr><th>Study design（設計）</th><th>Description（描述）</th><th>Advantages（優點）</th><th>Disadvantages（缺點）</th></tr></thead>
+<tbody>
+<tr><td>Case report or series</td><td>觀察發生在單一病人（或一小群病人）的事件</td><td>告知病人與醫師自然病程與預後因子；在醫療場域容易執行、便宜；有助形成未來前瞻性研究的假說</td><td>病例可能不具代表性；結果可能是偶然發現、非疾病特徵；不易探討病因；暴露反映的是 underlying population 而非結果；引出「Compared to what?」的問題</td></tr>
+<tr><td>Case-control studies</td><td>選取有某結果或疾病的病人，及一組適當、無此結果或疾病的對照，再取得受試者是否曾暴露於所研究因子的資訊</td><td>快速且便宜；對非常罕見疾病或暴露與結果間延遲很長者是唯一可行的方法；所需受試者比 cross-sectional studies 少</td><td>依賴回憶或紀錄判定暴露狀態；confounders：對照組的選取困難；可能有 recall bias 與 selection bias</td></tr>
+<tr><td>Cross-sectional studies</td><td>在某一特定時間、於明確族群中檢視疾病（或其他健康相關特徵）與其他變項的關係；最適合量化疾病或危險因子的 prevalence 及量化診斷檢查的準確度</td><td>便宜且簡單</td><td>最多只能建立關聯、無法建立因果；易受 recall bias 影響；confounders 可能分布不均；Neyman bias（病得很重或很健康者，或兩者，被錯誤排除於研究外）；各組人數可能不等</td></tr>
+<tr><td>Cohort study</td><td>從曾暴露或未暴露於所關心技術或因子的群體取得資料；最適合研究預測性危險因子對結果的影響</td><td>受試者可配對；可建立事件的時序與方向性；收案條件與結果評估可標準化；行政上較 randomized control trial 容易且便宜</td><td>對照可能難以確認；暴露可能與隱藏的 confounder 相關；masking 困難；沒有隨機化；罕見疾病需大樣本或長期追蹤</td></tr>
+<tr><td>Clinical trial</td><td>實驗性比較研究，以隨機機制將受試者分派到治療／介入組或對照／安慰劑組；最適合研究介入的效果</td><td>Confounders 分布無偏；較可能 masking；隨機化有利統計分析</td><td>耗費時間與金錢；可能有 volunteer（即 selection）bias；有時有倫理問題</td></tr>
+<tr><td>Systematic reviews and meta-analyses of clinical trials</td><td>綜合特定問題（如某藥物多有效）所有可得證據的分析形式；meta-analysis 是檢視眾多研究以找出解答的一種 systematic review</td><td>選取研究的系統性方法可減少偏差；比任何單一研究更可靠有用；提供實證實務與決策資訊；全面</td><td>常比其他類型回顧更耗時；可能很快過時；文獻中可能沒有足夠研究可分析；品質取決於已發表的文獻</td></tr>
+</tbody>
+</table>
+<p>出處 <span class="ref">p.22–23</span></p>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>Case report 無法提供治療療效資訊，也無法判定疾病是否由暴露造成；最多提示新發現或機轉、產生假說。{{q:59}}<span class="ref">p.20</span></li>
+<li>Fig 2-1：研究者未分派暴露 → observational；有 comparison group → analytical；方向 exposure → outcome 為 cohort、outcome → exposure 為 case-control、同時為 cross-sectional；無 comparison group 為 descriptive study。{{q:14}}<span class="ref">p.21</span></li>
+<li>Case series 提供自然病程與預後資訊，為之後有 comparison group 的較大研究提供初步資訊；Table 2-2 列其缺點之一為「Compared to what?」。{{q:14}}<span class="ref">p.20, p.22</span></li>
+<li>Case-control：依疾病有無選取 cases 與 controls，再比較過去暴露；若沒有適當對照組，可能受 selection bias 影響；Table 2-2 另列 recall bias 與 selection bias 的可能。{{q:73}}<span class="ref">p.22, p.24</span></li>
+<li>Cohort：基線無病者依危險因子有無分類，再追蹤發病；可找出關聯與發生率，但這些關聯不被視為因果。{{q:59}}<span class="ref">p.24–25</span></li>
+<li>RCT 以機遇分派，使各組在可影響結果的變項上相似；對 confounding 的控制是其一項主要優勢。{{q:59}}<span class="ref">p.26</span></li>
+</ul></div>
+
+<h2 id="ch2-s5">五、診斷與篩檢檢查：基本指標</h2>
+<h3>Table 2-3 診斷統計公式</h3>
+<p>2×2 表定義：檢查陽性且有病＝(a) true positive；陽性且無病＝(b) false positive；陰性且有病＝(c) false negative；陰性且無病＝(d) true negative。<span class="ref">p.28</span></p>
+<table class="ted-table">
+<thead><tr><th>Diagnostic statistic（指標）</th><th>Formula（公式，照 Table 2-3）</th><th>分母意義（原表說明）</th></tr></thead>
+<tbody>
+<tr><td>Sensitivity（敏感度）</td><td>a/(a + c)</td><td>(a + c)＝所有有病的受試者</td></tr>
+<tr><td>Specificity（特異度）</td><td>d/(b + d)</td><td>(b + d)＝所有沒有病的受試者</td></tr>
+<tr><td>Positive predictive value（PPV，陽性預測值）</td><td>a/(a + b)</td><td>(a + b)＝所有檢查陽性的受試者</td></tr>
+<tr><td>Negative predictive value（NPV，陰性預測值）</td><td>d/(d + c)</td><td>(d + c)＝所有檢查陰性的受試者</td></tr>
+<tr><td>Accuracy（準確度）</td><td>(a + d)/(a + b + c + d)</td><td>—</td></tr>
+<tr><td>Prevalence（盛行率）</td><td>(a + c)/(a + b + c + d)</td><td>—</td></tr>
+<tr><td>Likelihood ratio positive（LR+，陽性概似比）</td><td>Sensitivity/(1 − specificity)</td><td>—</td></tr>
+<tr><td>Likelihood ratio negative（LR−，陰性概似比）</td><td>(1 − sensitivity)/specificity</td><td>—</td></tr>
+<tr><td>Relative risk（RR，相對風險）</td><td>[a/(a + b)]/[c/(c + d)]</td><td>—</td></tr>
+<tr><td>Risk difference（風險差）</td><td>原表此列印為 [a/(a + b)] + [c/(c + d)]（加號），<strong>課本所印數字前後不一致</strong>：與內文定義不符</td><td>內文定義為 2 組間風險的 absolute difference（絕對差）<span class="ref">p.34</span>；p.35 把 OHTS 例的 risk difference 稱為 absolute risk reduction（ARR，本表 ARR＝c/(c + d) − a/(a + b)）<span class="ref">p.35</span>；OHTS 例 9.5% vs 4.5% → 5 percentage points<span class="ref">p.34</span></td></tr>
+<tr><td>Relative risk reduction（RRR，相對風險降低）</td><td>1 − RR</td><td>—</td></tr>
+<tr><td>Absolute risk reduction（ARR，絕對風險降低）</td><td>c/(c + d) − a/(a + b)</td><td>—</td></tr>
+<tr><td>Number needed to treat（NNT，需治療人數）</td><td>1/ARR</td><td>—</td></tr>
+<tr><td>Odds ratio（OR，勝算比）</td><td>(a × d)/(c × b)</td><td>—</td></tr>
+</tbody>
+</table>
+<p>出處 <span class="ref">p.28</span></p>
+<ul>
+<li><strong>Sensitivity</strong>＝<mark>a/(a + c)</mark>，分母是所有有病者；<strong>specificity</strong>＝<mark>d/(b + d)</mark>，分母是所有無病者。{{q:1654}}<span class="ref">p.28</span></li>
+<li><strong>Prevalence</strong>＝<mark>(a + c)/(a + b + c + d)</mark>；<strong>accuracy</strong>＝<mark>(a + d)/(a + b + c + d)</mark>。{{q:1654}}<span class="ref">p.28</span></li>
+<li><strong>LR+</strong>＝<mark>sensitivity/(1 − specificity)</mark>；LR−＝(1 − sensitivity)/specificity（sensitivity 與 specificity 分別為 a/(a + c) 與 d/(b + d)）。{{q:1654}}<span class="ref">p.28</span></li>
+<li>內文描述：sensitivity 是有所研究疾病且檢查結果異常之受試者的百分比；specificity 是無病者中檢查結果正常的百分比；<mark>sensitivity 與 specificity 都不考慮研究族群的疾病 prevalence</mark>。<span class="ref">p.29</span></li>
+</ul>
+<h3>單純情況：門診斜視篩檢（虛構研究）</h3>
+<ul>
+<li>以簡單快速的 strabismus（斜視）篩檢在門診 <span class="num">100</span> 名兒童中評估，對照較長、較貴、由小兒眼科醫師執行的完整檢查作為 <strong>gold standard（黃金標準）</strong>：<span class="num">30</span> 名有斜視、<span class="num">70</span> 名無；篩檢 <span class="num">60</span> 名異常、<span class="num">40</span> 名正常。<span class="ref">p.28</span></li>
+</ul>
+<table class="ted-table">
+<thead><tr><th>Screening result（Table 2-4，門診）</th><th>Strabismus</th><th>No strabismus</th><th>Totals</th></tr></thead>
+<tbody>
+<tr><td>Abnormal</td><td>Truly abnormal <span class="num">20</span></td><td>Falsely abnormal <span class="num">40</span></td><td><span class="num">60</span></td></tr>
+<tr><td>Normal</td><td>Falsely normal <span class="num">10</span></td><td>Truly normal <span class="num">30</span></td><td><span class="num">40</span></td></tr>
+<tr><td>Totals</td><td><span class="num">30</span></td><td><span class="num">70</span></td><td><span class="num">100</span></td></tr>
+</tbody>
+</table>
+<p>出處 <span class="ref">p.29</span></p>
+<ul>
+<li>門診結果：sensitivity <span class="num">20/30（67%）</span>；specificity <span class="num">30/70（43%）</span>；PPV <span class="num">20/60（33%）</span>：檢查異常者只有 1/3 機會真的有斜視；NPV <span class="num">30/40（75%）</span>：檢查正常者有 3/4 機會真的無病；accuracy：<span class="num">100</span> 例中正確 <span class="num">50</span> 例（<span class="num">50%</span>）。<span class="ref">p.28–29</span></li>
+</ul>
+<h3>低盛行率情境：購物中心篩檢（Table 2-5）</h3>
+<ul>
+<li>同一檢查在購物中心進行，斜視 prevalence 只有 <span class="num">3%</span>（遠低於門診），結果同樣是 60 名異常、40 名正常：truly abnormal <span class="num">2</span>、falsely abnormal <span class="num">58</span>、falsely normal <span class="num">1</span>、truly normal <span class="num">39</span>（有病 3、無病 97）。<span class="ref">p.29</span></li>
+<li>Sensitivity 仍為 <span class="num">2/3（67%）</span>，specificity 約相同為 <span class="num">39/97（40%）</span>；但<mark>PPV 只有 <span class="num">3%</span>（2/60）</mark>，NPV <span class="num">98%</span>（39/40）。因假陽性多，會轉介 58 名無病與僅 2 名真正有斜視的兒童做完整檢查。<span class="ref">p.29</span></li>
+<li>因斜視在此情境盛行率低，<mark>大多數檢查異常的兒童其實沒有病</mark> → 增加不必要追蹤檢查的成本與家長焦慮；用檢查篩檢族群前，應考慮目標族群的疾病盛行率及該篩檢的 PPV 與 NPV。<span class="ref">p.29</span></li>
+</ul>
+<h3>Gold standard（黃金標準）的選擇</h3>
+<ul>
+<li>選擇 gold standard 是診斷檢查研究的關鍵；應確認執行 gold standard 檢查的小兒眼科醫師是否對篩檢結果 masked，若否，可能造成 <strong>confirmation bias（確認偏差）</strong>，可能錯誤地賦予檢查比實際更高的診斷精確度。<span class="ref">p.29</span></li>
+<li>Gold standard 也應已發表並為當代專家接受，且在相同條件下可重複（如同一醫師再檢查一次是否得到相同診斷）；總之，應審視 gold standard 對臨床情境的適用性。<span class="ref">p.29</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>Sensitivity＝a/(a + c)（分母為所有有病者）；specificity＝d/(b + d)（分母為所有無病者）；PPV＝a/(a + b)（分母為所有陽性）；NPV＝d/(d + c)（分母為所有陰性）。{{q:1654}}<span class="ref">p.28</span></li>
+<li>Prevalence＝(a + c)/(a + b + c + d)；accuracy＝(a + d)/(a + b + c + d)。{{q:1654}}<span class="ref">p.28</span></li>
+<li>LR+＝sensitivity/(1 − specificity)；LR−＝(1 − sensitivity)/specificity。{{q:1654}}<span class="ref">p.28</span></li>
+<li>門診與購物中心的斜視篩檢 sensitivity 都是 67%，但 PPV 由 33% 降到 3%（盛行率 3%）；sensitivity 與 specificity 不考慮盛行率。<span class="ref">p.28–29</span></li>
+</ul></div>
+
+<h2 id="ch2-s6">六、ROC 曲線、前測機率與概似比</h2>
+<h3>連續變項的篩檢閾值（Fig 2-3）</h3>
+<ul>
+<li>篩檢測量連續值（如 IOP）時評估較複雜；Fig 2-3 以 <strong>Baltimore Eye Survey</strong> 資料畫出每個 IOP 值的 sensitivity 與 specificity。<span class="ref">p.30</span></li>
+<li>常用的正常 IOP 上限 <span class="num">21 mm Hg</span>：sensitivity <span class="num">49%</span>、specificity <span class="num">90%</span>。<span class="ref">p.30</span></li>
+<li>Sensitivity 與 specificity 曲線的交點是篩檢檢查兼顧最大 sensitivity 與 specificity 的最佳閾值，出現在 <span class="num">18 mm Hg</span>：sensitivity <span class="num">65%</span>、specificity <span class="num">66%</span>。<span class="ref">p.30</span></li>
+<li>連續變項有 sensitivity 與 specificity 的 trade-off：<mark>sensitivity 較高 → specificity 較低，反之亦然</mark>；以較高 IOP 作為篩檢閾值（如 IOP &gt;30 mm Hg）時，sensitivity 下降、specificity 上升。<span class="ref">p.30</span></li>
+</ul>
+<h3>Receiver operating characteristic（ROC）curve（Fig 2-4）</h3>
+<ul>
+<li>依慣例，ROC curve 以 <mark>sensitivity 為 y 軸、(1 − specificity) 為 x 軸</mark>。<span class="ref">p.30</span></li>
+<li><mark>Area under the curve（曲線下面積）越大，篩檢檢查的診斷精確度越高</mark>；圖中差的篩檢檢查 ROC area 只有 <span class="num">50%</span>（useless 線）。<span class="ref">p.30–31</span></li>
+<li>ROC curve 可協助選擇篩檢最佳 cutoff：找出<mark>最靠近 ROC 圖左上角</mark>的 sensitivity–specificity 組合。<span class="ref">p.30</span></li>
+<li>這些圖顯示 IOP 測量不是很好的青光眼篩檢工具，因為沒有任何 cutoff 達到 sensitivity 與 specificity 的理想關係（optimal 線的左上方）。<span class="ref">p.31</span></li>
+<li>選擇 cutoff 的其他重要因素：要篩檢的族群，以及 sensitivity 與 specificity 的相對重要性；若漏診後果非常嚴重（如失明），研究者可能選擇 <mark>sensitivity 高但 specificity 差</mark>的檢查；例：近期視力喪失、懷疑 giant cell arteritis（巨細胞動脈炎）者，可能選用較低的 erythrocyte sedimentation rate（紅血球沉降速率）cutoff。<span class="ref">p.31</span></li>
+</ul>
+<h3>以 ROC 比較不同篩檢儀器（Fig 2-5）</h3>
+<ul>
+<li>ROC curves 可比較使用<strong>不同單位或不同尺度</strong>的檢查，適用於比較新診斷方法或儀器的研究。<span class="ref">p.31</span></li>
+<li>Fig 2-5：3 種青光眼影像儀器透過視神經盤與神經纖維層影像區分健康眼與青光眼視野喪失眼；每條 ROC 曲線下面積代表篩檢相對效能的總結量度。圖形提示 scanning laser polarimetry 與 OCT 的診斷精確度高於 confocal scanning laser ophthalmoscopy，但這 3 個參數的 ROC 曲線下面積<mark>無統計顯著差異</mark>。<span class="ref">p.31–32</span></li>
+</ul>
+<h3>Pretest probability（前測機率）與 likelihood ratio（概似比）</h3>
+<ul>
+<li><strong>Pretest probability of disease</strong>：運用在任何篩檢或診斷檢查之前已知的病人資訊；例：一等親有青光眼、加上中央角膜厚度比平均薄（皆為青光眼危險因子）→ 此資訊提示前測青光眼機率約為隨機選出一般人的 <span class="num">3 倍</span>。<span class="ref">p.32</span></li>
+<li><strong>Bayes theorem（貝氏定理）</strong>將前測機率與篩檢的診斷精確度結合，得到 <strong>posttest probability（後測機率）</strong>；使用此定理須計算 likelihood ratio（公式見 Table 2-3）。書中範例：LR−＝(1 − 0.8)/0.9，即 <span class="num">0.22</span>。<span class="ref">p.32</span></li>
+<li><mark>LR+ 從 1 到無限大，越大越好；LR− 介於 0 到 1，越小越好</mark>。目的是診斷疾病時，LR+ 較大的檢查較佳；目的是排除疾病時，LR− 較小的檢查較佳。<span class="ref">p.32–33</span></li>
+<li>書中說明：LR+ 乘以疾病的前測機率即為後測機率；例：上述家族史陽性、角膜薄、前測機率為 3（倍）的病人，若 LR+ 為 <span class="num">8</span> 的檢查呈陽性，其後測青光眼機率為隨機一般人的 <span class="num">24 倍</span>（<strong>課本外補充，非 p.33 內容</strong>：Deeks 與 Altman〔BMJ 2004〕的說法是後測 odds＝前測 odds × likelihood ratio）。<span class="ref">p.33</span></li>
+</ul>
+<table class="ted-table">
+<thead><tr><th>Pretest probability, %（Table 2-6；檢查 sensitivity 80%、specificity 90%）</th><th>PPV, %</th><th>NPV, %</th></tr></thead>
+<tbody>
+<tr><td><span class="num">1</span></td><td><span class="num">7.5</span></td><td><span class="num">99.8</span></td></tr>
+<tr><td><span class="num">10</span></td><td><span class="num">47.1</span></td><td><span class="num">97.6</span></td></tr>
+<tr><td><span class="num">50</span></td><td><span class="num">88.9</span></td><td><span class="num">81.8</span></td></tr>
+<tr><td><span class="num">90</span></td><td><span class="num">98.6</span></td><td><span class="num">33.3</span></td></tr>
+</tbody>
+</table>
+<p>出處 <span class="ref">p.33</span></p>
+<ul>
+<li>65 歲、無青光眼危險因子的女性，前測機率 <span class="num">1.0%</span>：檢查陽性會把疾病機率提高到 <span class="num">7.5%</span>，<mark>大多數檢查陽性者實際不會發病</mark>。<span class="ref">p.33</span></li>
+<li>85 歲、家族史強烈陽性、中央角膜薄且 IOP <span class="num">30 mm Hg</span> 的男性，前測機率可能為 <span class="num">50.0%</span>：即使檢查陰性，後測機率仍有 <span class="num">18.2%</span>，高於上述 65 歲女性。說明決定是否做診斷檢查時要考慮前測機率；<mark>一般而言，疾病 prevalence 低時篩檢檢查表現不佳</mark>。<span class="ref">p.33</span></li>
+<li>中間診斷類別（如 <strong>glaucoma suspect</strong>，青光眼疑似）在臨床常見；sensitivity–specificity 與 ROC curves 無法處理這類類別，因為兩者要求邊緣個案被歸為有病或無病；但可為邊緣類別計算 likelihood ratio，反映有該特徵病人的風險。<span class="ref">p.33</span></li>
+</ul>
+<h3>檢查的臨床接受度與倫理</h3>
+<ul>
+<li>臨床醫師應避免只能讓偵測疾病的 likelihood ratio 小幅增加、或昂貴、或疼痛的檢查；所有檢查都有負擔：可能的副作用（如 gonioscopy 造成角膜擦傷）、對疾病的心理恐懼（如青光眼篩檢）、異常或不尋常結果的額外檢查與追蹤。<span class="ref">p.33</span></li>
+<li>若檢查不會改變病人處置，應避免執行；眼疾篩檢應包括對結果異常者的追蹤流程，不論其保險狀態；被告知可能有病卻無法取得後續評估或治療者，篩檢對其價值很小。<span class="ref">p.33</span></li>
+</ul>
+<h3>Generalizability（可推論性）與總結</h3>
+<ul>
+<li>多數研究主要因族群研究成本高，先在臨床場域評估新篩檢或診斷檢查，再於 population-based 樣本評估；即使門診研究的病人也可能與另一個診所的病人不同。例：某研究可能只納入沒有其他眼疾（如黃斑部退化）的年輕青光眼病人 → sensitivity 與 specificity 極佳，但在有邊緣性青光眼的年長病人樣本中結果可能不同。<span class="ref">p.34</span></li>
+<li>總結：sensitivity 與 specificity 最簡單易懂，但缺點是不考慮目標族群的疾病盛行率，PPV 與 NPV 在這方面較有用；ROC curves 全面呈現連續檢查結果（如 IOP）的 sensitivity 與 specificity 關係，並可用來比較診斷檢查；可用 likelihood ratios 與前測機率評估自己臨床場域的篩檢與診斷檢查。<span class="ref">p.34</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>ROC：y 軸為 sensitivity，x 軸為 (1 − specificity)；曲線下面積越大，診斷精確度越高；最佳 cutoff 為最靠近左上角的點。<span class="ref">p.30</span></li>
+<li>IOP 21 mm Hg：sensitivity 49%、specificity 90%；兩曲線交點在 18 mm Hg（sensitivity 65%、specificity 66%）。<span class="ref">p.30</span></li>
+<li>LR+ 範圍 1 到無限大（越大越好，用於診斷）；LR− 範圍 0 到 1（越小越好，用於排除）。<span class="ref">p.32–33</span></li>
+<li>Table 2-6（sensitivity 80%、specificity 90%）：前測機率上升時 PPV 上升（前測 1% 時 PPV 7.5%；前測 90% 時 98.6%），NPV 下降（前測 1% 時 NPV 99.8%；前測 90% 時 33.3%）。<span class="ref">p.33</span></li>
+</ul></div>
+
+<h2 id="ch2-s7">七、向病人說明風險：risk difference、RR、NNT 與 OR</h2>
+<h3>Risk difference（風險差）與 relative risk（相對風險）</h3>
+<ul>
+<li>臨床研究將 <strong>risk（風險）</strong>定義為某事件（通常為不良事件）的 conditional probability（條件機率）。<span class="ref">p.34</span></li>
+<li><strong>Risk difference</strong>：<mark>2 組人之間風險的 absolute difference（絕對差）</mark>；<strong>relative risk</strong>：2 個風險量度的比值（ratio）。<mark>Risk difference 取決於量度單位，而 relative risk 因為是 2 個風險相除，沒有單位（dimensionless）</mark>。公式列於 Table 2-3（該表 risk difference 一列印為 [a/(a + b)] + [c/(c + d)]，<strong>課本所印數字前後不一致</strong>：與此處 absolute difference 的定義不符；p.35 把下述 OHTS 例的 risk difference 稱為 ARR，Table 2-3 的 ARR＝c/(c + d) − a/(a + b)）。{{q:9}}<span class="ref">p.28, p.34–35</span></li>
+<li>例：OHTS 中，未治療者與治療者相比，<span class="num">5 年</span>間發生青光眼的 risk difference 為 <span class="num">5 percentage points</span>（分別為 <span class="num">9.5%</span> vs <span class="num">4.5%</span>）；未治療相對於接受治療的 relative risk 為 <span class="num">2.1</span>（9.5/4.5）。{{q:9}}<span class="ref">p.34</span></li>
+<li>兩種量度都與資料一致，但臨床醫師或病人可能有非常不同的解讀：數值上增加 5 個百分點的青光眼風險，對病人可能顯得很小；而「略多於兩倍」的風險增加則可能顯得很大。<span class="ref">p.34</span></li>
+<li>有助詮釋這類結果的關鍵資訊是結果的 <strong>baseline probability（基線機率）</strong>；例：未治療 ocular hypertension（高眼壓症）發生青光眼的基線機率為 <span class="num">9.5%</span>。多數情況下，基線機率或預期結果可幫助病人了解風險，並對處置（procedure）做出知情決定。<span class="ref">p.34–35</span></li>
+</ul>
+<h3>Number needed to treat（NNT，需治療人數）</h3>
+<ul>
+<li>NNT 有助描述某治療或藥物改善個別病人結果的可能性。上例：使用降眼壓藥時，無青光眼病人比例的 risk difference（即 <strong>absolute risk reduction，ARR</strong>）為 5 percentage points；ARR 為 5 percentage points 時，NNT 為 <span class="num">20</span>（1/5%）→ 為了在 <span class="num">5 年</span>內預防 <span class="num">1</span> 位病人發生青光眼，需用降眼壓藥治療 <span class="num">20</span> 位病人。<span class="ref">p.28, p.35</span></li>
+<li>論人計酬（capitated payments）的醫療提供者可用 NNT 計算新處置或治療的社會成本；例：學名青光眼藥每位病人每月 <span class="num">$70</span>，即 5 年 <span class="num">$4200</span>，用 NNT 計算的額外成本為 <span class="num">$84,000</span>（$4200 × 20），才能讓 1 位病人得到益處。<span class="ref">p.35</span></li>
+<li>NNT 的優點：<mark>只以 ARR 為基礎，較不易誇大新處置或藥物的影響</mark>，直接描述病人受益的可能性；缺點：不考慮其他重要因素，如點眼藥對生活品質的負面影響、眼藥造成的全身副作用。<span class="ref">p.35</span></li>
+</ul>
+<h3>Odds ratio（OR，勝算比）</h3>
+<ul>
+<li>觀察性研究中，研究者也可能以 odds ratio 呈現結果：比較<mark>有病者（case）有某暴露（如吸菸）的 odds 與無病者（control）有該暴露的 odds</mark>。<span class="ref">p.35</span></li>
+<li><mark>疾病罕見時，odds ratio 近似該暴露的 relative risk</mark>，因為兩個被比較的 odds 其分母都接近 1。<span class="ref">p.35</span></li>
+<li>例：late AMD 相對不常見，其潛在危險因子的 meta-analyses 中，吸菸的 odds ratio 為 <span class="num">2.35</span>，書中解讀為吸菸者發生 late AMD 的風險為不吸菸者的 235%。<span class="ref">p.35</span></li>
+<li>基線風險是關鍵：若基線風險低（即 <span class="num">&lt;1%</span>），odds ratio <span class="num">2.0</span> 對個別病人而言風險仍低。<span class="ref">p.35</span></li>
+<li>暴露於特定因子不一定具臨床顯著性，也可能不是因果（不是疾病的根本原因之一）；因觀察性研究難以區分因果與非因果危險因子，研究者常用 <strong>causal criteria（因果判準）</strong>來辨識。<span class="ref">p.35</span></li>
+</ul>
+<h3>Risk calculators（風險計算器）</h3>
+<ul>
+<li>醫療上用來預測個別病人的心血管疾病風險、生下 Down syndrome（唐氏症）孩子的風險、加護病房存活可能性等；眼科用來簡化複雜研究結果並應用到個別病人。<span class="ref">p.35–36</span></li>
+<li>OHTS 迴歸方程式使用 <span class="num">5</span> 個變項：<mark>cup–disc ratio、central corneal thickness、untreated IOP、視野的 pattern standard deviation、age</mark>，預測 ocular hypertension 病人發生青光眼的風險；其他還有黃斑部退化、keratoconus（圓錐角膜）、青光眼進展的風險計算器。<span class="ref">p.36</span></li>
+<li>優點：把複雜結果簡化，估計個別病人發病或手術併發症的平均基線機率；也可找出發病高風險者，選擇他們以達到較低 NNT 與較低社會成本。<span class="ref">p.36</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>Risk difference 是 2 組風險的絕對差，取決於量度單位；relative risk 是 2 個風險的比值，沒有單位。OHTS 例：9.5% vs 4.5% → risk difference 5 percentage points（5 年），RR 2.1。{{q:9}}<span class="ref">p.34</span></li>
+<li>Table 2-3：ARR＝c/(c + d) − a/(a + b)；RRR＝1 − RR；NNT＝1/ARR。OHTS 例 ARR 5 percentage points → NNT 20。<span class="ref">p.28, p.35</span></li>
+<li>OR 在疾病罕見時近似 RR；基線風險低（&lt;1%）時，OR 2.0 對個別病人仍是低風險。<span class="ref">p.35</span></li>
+</ul></div>
+
+<h2 id="ch2-s8">八、衡量臨床表現：big data、IRIS Registry 與信度</h2>
+<h3>Big data（大數據）</h3>
+<ul>
+<li>改善臨床表現需決定要評估的流程、程序與表現，選擇適當的品質標準與量度，並建立監測系統。<span class="ref">p.36</span></li>
+<li>使用 claims data（申報資料）的大型研究顯示美國與全球的執業模式與眼科照護品質有相當大的區域差異；例：Stein 等發現 Oklahoma 州眼科醫師與 optometrists（驗光師）在初次 laser trabeculoplasty 後追加雷射的比率差異很大，optometrists 再治療率較高。<span class="ref">p.36</span></li>
+<li>Big data 也可比較個別眼科醫師與同儕在某結果上的表現，如白內障手術後需回手術室的病人比例；併發症率高於同儕可能促使該醫師以教育與進一步訓練展開品質改善計畫。<span class="ref">p.36</span></li>
+</ul>
+<h3>IRIS（Intelligent Research in Sight）Registry</h3>
+<ul>
+<li>AAO 於 <span class="num">2014</span> 年推出，集中收集眼科診所電子眼科照護資料的系統，<mark>自動從電子病歷系統擷取資料</mark>。<span class="ref">p.37</span></li>
+<li>相對於收集電子申報資料的大型 claims-based registries，IRIS Registry 含有眼疾與治療的特定資訊（如視力、IOP），且<mark>與保險狀態無關（agnostic to insurance status）</mark>；AAO 的其他目標包括建立照護品質的 benchmark reports。<span class="ref">p.37</span></li>
+<li>研究者可用來建立大型資料集，研究 AMD、白內障、青光眼等疾病的處置與結果；<mark>特別適合收集罕見疾病（如 retinitis pigmentosa，視網膜色素病變）的研究資料</mark>。<span class="ref">p.37</span></li>
+</ul>
+<h3>設計測量系統：效度驗證</h3>
+<ul>
+<li>測量系統可包括 quality indicators（品質指標）；例：糖尿病病人是否<span class="num">至少每 2 年</span>散瞳檢查一次。驗證方法：檢查錄影、散瞳藥已點入的書面紀錄、病歷中註明做過周邊散瞳檢查（如記錄結果正常或異常）、視網膜周邊圖或繪圖。<span class="ref">p.37</span></li>
+</ul>
+<h3>Tests of reliability（信度檢驗）</h3>
+<ul>
+<li>選好有效度的量度後須確定其 reliability（信度）。第一，同一臨床醫師在不同時間點做分析應得一致結果（如用同一儀器第二、三次測量是否相同）；<strong>test–retest reliability（再測信度）</strong>通常用來測量生物變異、受試者造成的儀器誤差與評分者誤差；它不考量評分者本身，而是檢視同一組評分者所做測量間的整體一致性；重複時能減少誤差的量度具有良好的 test–retest reliability，即 reproducibility（再現性）。<span class="ref">p.37</span></li>
+<li>第二，同一受試者多次分析應得相同結果；判定每位評分者評分一致性的適當統計量為 <strong>intrarater reliability（評分者內信度）</strong>：測量者對同一受試者多次嘗試得到相同結果 → intrarater reliability 良好。<span class="ref">p.38</span></li>
+<li>第三，不同臨床醫師執行應得相同結果；<strong>interrater reliability（評分者間信度）</strong>評估不同評分者對同一現象給出一致測量的程度；組織應設計量度（及人員訓練與資料收集分析的支援系統），使不同檢查者用同一量度得到相似結果。<span class="ref">p.38</span></li>
+<li>研究中常用 2 種方法判定 2 種不同檢查偵測疾病的一致程度：(1) <strong>percent agreement（百分比一致性）</strong>：計算 2 種檢查結果一致（都有病或都無病）的次數，除以評估項目總數；(2) <strong>κ（kappa）statistic</strong>：測量 2 個或以上個體或單位間的一致性，<mark>同時考慮僅由機遇造成一致的可能</mark>。<span class="ref">p.38</span></li>
+<li>Kappa <span class="num">&gt;0.75</span>＝excellent agreement；<span class="num">0.40–0.75</span>＝fair to good；<span class="num">&lt;0.40</span>＝poor；但並非所有專家都同意這些 cutoff，也可能建議其他 cutoff。<span class="ref">p.38</span></li>
+</ul>
+<h3>族群、事件頻率與實務考量</h3>
+<ul>
+<li>建立有效且可靠的量度後，先考慮目標族群與納入／排除條件；例：白內障手術品質研究可能排除視網膜專科醫師（exclusion criterion），只納入至少 <span class="num">50%</span> 時間看病人的一般眼科醫師（inclusion criterion）。<span class="ref">p.38</span></li>
+<li>其次判斷事件頻率能否找出有意義差異：事件太罕見（<strong>floor effect，地板效應</strong>）或太常見（<strong>ceiling effect，天花板效應</strong>）時，使用該測量系統的價值很小；實施前應考慮做 pilot study（先導研究）。<span class="ref">p.38</span></li>
+<li>第三，盡可能使用容易取得但有效且可靠的量度；不太需要額外工作的系統較實際。例：billing files（帳務檔）可能足以判定特定流程品質步驟（如青光眼病人定期視野檢查）與結果（如眼內手術後 suprachoroidal hemorrhage〔脈絡膜上腔出血〕發生率）。<span class="ref">p.38</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>Kappa 考慮機遇造成的一致；&gt;0.75 excellent、0.40–0.75 fair to good、&lt;0.40 poor（專家對 cutoff 意見不一）。<span class="ref">p.38</span></li>
+<li>Intrarater reliability：同一評分者對同一受試者多次測量的一致性；interrater reliability：不同評分者對同一現象測量的一致性。<span class="ref">p.38</span></li>
+<li>事件太罕見為 floor effect；太常見為 ceiling effect。<span class="ref">p.38</span></li>
+</ul></div>
+
+<h2 id="ch2-s9">九、監測系統、結果分析與資料呈現</h2>
+<h3>Outcome quality 與 process quality</h3>
+<ul>
+<li>理想的監測系統會收集某醫師所有目標病人的資料，以取得最多病例、為少見或罕見事件提供最大統計檢定力；<span class="num">100%</span> 分析也能將病人遺漏造成的偏差降到最低。<span class="ref">p.38–39</span></li>
+<li>例：電子帳務資料可用 Current Procedural Terminology（CPT）碼找出某期間所有做過眼內手術的病人，及其後 <span class="num">30 或 90 天</span>內的後續手術，再以 International Classification of Diseases 碼判定特定併發症（如 retinal detachment、endophthalmitis）→ 反映 <strong>outcome quality（結果品質）</strong>。<span class="ref">p.39</span></li>
+<li><strong>Process quality（流程品質）</strong>問題（如是否為每位青光眼病人設定 target pressure range）<mark>不適合做 100% 分析</mark>，因這些資料可能未輸入現有行政資料庫，可能需由受過訓練的審查者從病歷擷取；帳務資料庫可能可評估其他流程品質量度，如 gonioscopy。<span class="ref">p.39</span></li>
+</ul>
+<h3>Record reviews（病歷審查）</h3>
+<ul>
+<li><strong>Explicit criteria（明確標準）</strong>：有 yes/no 結果或有限類別（如視神經紀錄包括其狀態描述、垂直杯盤比、繪圖或照片）；<mark>其信度高於 implicit criteria（審查者判斷整體品質好或不好），尤其是 interrater reliability</mark>。AAO 的 Preferred Practice Pattern 指引與 summary benchmarks 可用來取得 explicit criteria；American Board of Ophthalmology 的 Improvement in Medical Practice 亦含 explicit criteria。<span class="ref">p.39</span></li>
+<li>病歷遺失時應盡力取得；仍無法取得時，應記錄缺失數，並審查 randomization 中的替代病歷；<mark>缺失病歷比例高可能提示偏差</mark>。<span class="ref">p.39</span></li>
+<li>缺失某次回診時，可能從其他回診取得重要資料；若審查標準要求檢查每次回診，可採的做法為：（1）排除該病人；（2）只在需要該缺失資料的分析中排除；（3）以可得資料的統計模型 impute（插補）缺失值；（4）把缺失回診視為符合或不符合標準（一般為後者）。關鍵是決定做法、長期一致應用，並與資料及結果一起報告。<span class="ref">p.39</span></li>
+</ul>
+<h3>Power calculations 與量度的外部效度</h3>
+<ul>
+<li>建立照護品質監測系統的重要元素是做 power calculations 以決定樣本數；可讓人確信不顯著的差異確實不顯著，而非樣本數不足的結果。<span class="ref">p.39</span></li>
+<li>McGlynn 等：以病歷審查，糖尿病病人每年散瞳眼睛檢查率只有 <span class="num">19%</span>；改用帳務碼則為 <span class="num">50%</span>。差異可能來自紀錄不良或帳務不準確，也可能是觀察者或擷取資料者記錄錯誤、編碼、資料輸入或診斷錯誤；每一項差異都需進一步檢視，整個監測系統可能需重新設計。以少數受試者做 pilot study 可協助設計、提高效度並節省時間。<span class="ref">p.40</span></li>
+</ul>
+<h3>結果分析</h3>
+<ul>
+<li>旨在偵測明顯偏離預期表現的計畫，應使用判定統計顯著性的檢定；許多量度比較平均表現即可（如醫師達成 AAO 白內障 benchmark 流程指標的百分比），但有些量度最好的比較方式可能是分析照護達到某閾值的病人數（如照護達到至少 <span class="num">90%</span> 品質分數的病人百分比），再比較醫師間差異。<span class="ref">p.40</span></li>
+<li>評估品質結果時應考慮臨床顯著性與差異，以及醫師無法控制的因素：青光眼等慢性病的照護品質可能受病人能否規律回診與遵從治療、社經地位影響 → 測量醫師是否執行特定檢查步驟（如檢查視神經，process）是適當的，而看 <span class="num">20 年</span>的失明率（outcomes）可能不適當。<span class="ref">p.40</span></li>
+<li>統計分析可控制病人社經地位、人口學特徵及其他與結果相關的因素；可能顯示問題在於醫師無法「治療」的因素（如社經地位）。品質改善的目的<mark>不是懲罰</mark>，而是鼓勵個別醫師及所有醫師逐年改善。<span class="ref">p.40</span></li>
+</ul>
+<h3>以圖表呈現資料</h3>
+<ul>
+<li>資料可用 frequency distribution（如 <strong>histogram，直方圖</strong>，Fig 2-6）或 <strong>scatter diagram（散布圖）</strong>（Fig 2-7）呈現：資料是常態分布（bell-shaped）或偏態，會影響統計工具與分析的選擇；資料中也可能有 2 個不同次族群需界定（如單人診所與大型單一專科團體的照護可能不同）。<span class="ref">p.40–41</span></li>
+<li>Fig 2-6 直方圖類型：bell shaped＝常態分布；double peaked＝提示 2 種分布；skewed＝檢視尾端的其他過程；ragged plateau＝沒有單一明確的過程或型態；truncated＝找出分布突然截斷的原因。<span class="ref">p.41</span></li>
+<li>Fig 2-7：<strong>R²（coefficient of determination，決定係數）</strong>表示依變項的變異有多少可由自變項解釋；R² <span class="num">0.80</span> 表示 <span class="num">80%</span> 的變異可由 x 與 y 的關係解釋；R² <span class="num">&gt;0.50</span> 屬可觀，接近 0 表示變項間無關。圖中類型：strong correlation（提示強關係）、weak correlation（找關係較強的其他因子）、no correlation（找其他關係）、J-shaped association（提示複雜關係）。<span class="ref">p.42</span></li>
+<li><strong>Pareto chart（柏拉圖）</strong>（Fig 2-8）：結合 histogram 與 cumulative frequency line（累積頻率線），可看出關鍵因子的累積分布，評估變項整個數值範圍內的表現。<span class="ref">p.41–42</span></li>
+<li><strong>Run charts 或 control charts（管制圖）</strong>（Fig 2-9）：了解隨時間發生的變化；將事件率隨時間作圖，並標出上、下 control limits 與平均值 → 可判斷（1）異常資料點是有意義的發現或隨機誤差，（2）若有同儕資料，組織表現與同儕組織相比如何。<span class="ref">p.41</span></li>
+</ul>
+<h3>辨識變異：common cause vs special cause</h3>
+<ul>
+<li><strong>Common cause factors（共同原因）</strong>：源於系統建立方式、為目前運作狀態所固有的因素；要改善須<mark>重新設計與重建系統</mark>；例：即使技術員訓練與病人篩選都最好，青光眼「不可靠」視野仍可能有已知的一定比率。<span class="ref">p.41–42</span></li>
+<li><strong>Special causes of variation（特殊原因變異）</strong>：由特定、可辨識的因子造成，常是特定醫師或人員；快速辨識可迅速修正超出正常比率的變異。<span class="ref">p.42</span></li>
+<li>然而，<mark>改善整體系統、減少 common cause variation 的效果，大於只找出離群醫師並協助其改正</mark>；藉由「shifting the curve（移動曲線）」，組織可改善每位病人的照護。<span class="ref">p.42–43</span></li>
+</ul>
+<h3>Continuous quality improvement（持續品質改善）的其他特點</h3>
+<ul>
+<li>研究提示，測量與報告結果這個行為本身可使表現指標改善<span class="num">最多 6%</span>；但持續納入品質改善活動的組織，表現進步顯著大於未納入者。<span class="ref">p.43</span></li>
+<li>重要步驟（初步分析之前或之後）：建立涉及步驟與相關人員的 checklist，再畫出照護系統的 <strong>flowchart（流程圖）</strong>（如 Fig 2-10 病人掛號流程）；檢視特定結果的整體流程（如確保糖尿病病人每年接受眼科檢查），可找出改善機會。<span class="ref">p.43</span></li>
+</ul>
+<div class="ex-trap"><h3>易錯陷阱</h3><ul>
+<li>Explicit criteria 的信度（尤其 interrater reliability）高於 implicit criteria。<span class="ref">p.39</span></li>
+<li>Common cause variation 為系統固有，需重新設計系統；special cause 由可辨識的特定因子造成；減少 common cause variation 的效果大於只處理離群醫師。<span class="ref">p.41–43</span></li>
+<li>McGlynn：糖尿病年度散瞳檢查率，病歷審查 19% vs 帳務碼 50%。<span class="ref">p.40</span></li>
+<li>R² 0.80 表示 80% 變異可由 x 與 y 的關係解釋；&gt;0.50 屬可觀，接近 0 表示無關。<span class="ref">p.42</span></li>
+</ul></div>
+
+<h2 id="ch2-s10">十、Evidence-based medicine 與總結</h2>
+<ul>
+<li><strong>Evidence-based medicine（EBM，實證醫學）</strong>：在個別病人照護決策中，審慎、明確、明智且合理地使用當代最佳證據；EBM 將<mark>臨床經驗與病人價值觀</mark>和最佳研究資訊整合。<span class="ref">p.43–44</span></li>
+<li>應用 EBM 需要醫師具備（或習得）搜尋醫學文獻的能力，以及詮釋流行病學與統計結果的基本技能。<span class="ref">p.44</span></li>
+<li>因 Medicare Access and CHIP Reauthorization Act（MACRA），眼科醫師的給付越來越與品質及改善（如 Merit-based Incentive Payment System〔MIPS〕）及合格的 alternative payment models（APMs）連結；保險公司已在選擇有紀錄顯示較高品質與較低成本的醫師加入其醫師網路。<span class="ref">p.44</span></li>
+<li>臨床研究與統計不只有助了解科學文獻與改善病人照護，也影響包括眼科醫師在內之醫療提供者的執業與生計。<span class="ref">p.44</span></li>
+</ul>
