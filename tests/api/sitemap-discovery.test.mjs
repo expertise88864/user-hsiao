@@ -31,3 +31,33 @@ test('dynamic sitemap discovers the indexable Chinese anatomy tool without inven
     }
   }
 });
+
+test('Last-Modified follows the newest <lastmod>, so an exam-only update is not answered with 304', async () => {
+  const originalFetch = globalThis.fetch;
+  const previous = Object.fromEntries(['GH_TOKEN', 'GITHUB_TOKEN'].map(key => [key, process.env[key]]));
+  process.env.GH_TOKEN = 'fixture-token'; process.env.GITHUB_TOKEN = 'fixture-token';
+  globalThis.fetch = async () => { throw new Error('isolated sitemap fallback fixture'); };
+  const call = async headers => {
+    const res = { headers: {}, setHeader(key, value) { this.headers[key] = value; },
+      status(code) { this.code = code; return this; }, send(body) { this.body = body; return this; },
+      end() { return this; } };
+    await sitemap({ method: 'GET', headers }, res);
+    return res;
+  };
+  try {
+    const first = await call({});
+    assert.equal(first.code, 200);
+    const dates = [...first.body.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map(m => m[1].slice(0, 10));
+    const newest = dates.reduce((a, b) => (b > a ? b : a));
+    assert.equal(first.headers['Last-Modified'], new Date(`${newest}T00:00:00Z`).toUTCString());
+    // A client holding a copy from the day before the newest page date must get the new XML.
+    const dayBefore = new Date(Date.parse(`${newest}T00:00:00Z`) - 86400000).toUTCString();
+    assert.equal((await call({ 'if-modified-since': dayBefore })).code, 200);
+    assert.equal((await call({ 'if-modified-since': first.headers['Last-Modified'] })).code, 304);
+  } finally {
+    globalThis.fetch = originalFetch;
+    for (const [key, value] of Object.entries(previous)) {
+      if (value === undefined) delete process.env[key]; else process.env[key] = value;
+    }
+  }
+});

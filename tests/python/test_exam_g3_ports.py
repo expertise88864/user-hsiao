@@ -255,7 +255,8 @@ class KaofaTests(unittest.TestCase):
         self.assertEqual(gen.load_kaofa({"c1-001": {"82": "考 HIV 的病毒學分期"}}, concepts),
                          {"c1-001": {82: "考 HIV 的病毒學分期"}})
         for line in ("考 HIV 感染哪種細胞（答案是 CD4）", "正解是 helper T", "選 B", "(B) 為錯", "（C）", "A、C 正確",
-                     "B 正確", "考 A/B 何者", "本題答案為 A", "官方答案", "Only English", " 考前後空白", "考" * 61,
+                     "B 正確", "考 A/B 何者", "本題答案為 A", "官方答案", "問梅毒的表現（題目邏輯有歧義）",
+                     "答案有爭議", "Only English", " 考前後空白", "考" * 61,
                      "兩行\n文字", "考视网膜", 3):
             with self.subTest(line=line), self.assertRaises(SystemExit):
                 gen.load_kaofa({"c1-001": {"1": line}}, concepts)

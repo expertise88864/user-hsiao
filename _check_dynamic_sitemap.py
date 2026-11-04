@@ -43,8 +43,11 @@ def main() -> int:
         errors.append("api/sitemap.js should not stamp static sitemap URLs with request-time dates")
     if "const siteUpdated = articles[0]?.updated || articles[0]?.date" not in api:
         errors.append("api/sitemap.js should derive static lastmod from the newest article update")
-    if "const lastModified = rfc822Date(siteUpdated)" not in api:
-        errors.append("api/sitemap.js should derive Last-Modified from the stable site update date")
+    # Exam pages carry their own ledger dates, so Last-Modified is the newest <lastmod>
+    # (never earlier than siteUpdated); otherwise If-Modified-Since could 304 an update.
+    if ".reduce((newest, date) => (date > newest ? date : newest), siteUpdated)" not in api \
+            or "const lastModified = rfc822Date(newestUpdate)" not in api:
+        errors.append("api/sitemap.js should derive Last-Modified from the newest <lastmod>, at least siteUpdated")
     if "res.setHeader('Last-Modified', lastModified)" not in api:
         errors.append("api/sitemap.js should send a Last-Modified header for crawlers and conditional requests")
     if "req.headers['if-modified-since']" not in api or "isFreshSince(ifModifiedSince, lastModified)" not in api:

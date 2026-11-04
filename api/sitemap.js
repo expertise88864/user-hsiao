@@ -290,7 +290,12 @@ export default async function handler(req, res) {
     const etag = etagOf(xml);
     const ifNoneMatch = req.headers['if-none-match'];
     const ifModifiedSince = req.headers['if-modified-since'];
-    const lastModified = rfc822Date(siteUpdated);
+    // The newest <lastmod> in the XML: exam pages carry their own ledger dates, so an
+    // exam-only update must move Last-Modified too, or If-Modified-Since would get a 304.
+    const newestUpdate = (xml.match(/<lastmod>[^<]+<\/lastmod>/g) || [])
+      .map(tag => tag.slice(9, -10).slice(0, 10))
+      .reduce((newest, date) => (date > newest ? date : newest), siteUpdated);
+    const lastModified = rfc822Date(newestUpdate);
     const tTotal = Date.now() - t0;
     const serverTiming = `articles;dur=${tArt}, lastmod;dur=${tLm}, total;dur=${tTotal}`;
 

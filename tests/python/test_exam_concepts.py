@@ -11,6 +11,7 @@
 """
 import functools
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -219,6 +220,14 @@ class NoQuestionTextLeakTests(unittest.TestCase):
                 texts.add(gen.fullwidth(e["summary"])[0][:40])
             texts.update(gen.fullwidth(it["text"])[0][:40] for it in e["items"] if len(it["text"]) >= 25)
         self.check(texts, "explanation")
+        # The private flags (eg, 「邏輯上有歧義」) stay behind the login too: no clause of them
+        # and no flag-style verdict may reach a public concept view (PR #94 review).
+        clauses = {gen.fullwidth(c.strip())[0] for e in self.data["explanations"].values()
+                   for f in e.get("flags", []) for c in re.split(r"[，。；：、（）()]", f)
+                   if len(c.strip()) >= 10 and re.search(r"[一-鿿]", c)}
+        self.check(clauses, "explanation flag")
+        for name, content in self.pages.items():
+            self.assertIsNone(re.search(r"歧義|爭議|疑義|誤植", content), name)
         for content in self.pages.values():
             self.assertNotIn("ex-q-no", content)
             self.assertNotIn("正確答案", content)

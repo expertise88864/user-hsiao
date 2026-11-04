@@ -396,7 +396,8 @@ def check_time_machine(n: str, d: dict) -> None:
 # about in one public line. No traps, misconceptions, answers or option letters.
 KAOFA_MAX = 60
 # 選 alone is fine (首選藥物, 術式選擇); 選項 or 選 + a letter would name an option.
-KAOFA_LEAK = re.compile(r"答案|正解|選項|選\s*[A-Ea-e](?![A-Za-z])|[（(]\s*[A-Ea-e]\s*[）)]|(?<![A-Za-z0-9])[A-E]\s*[、,/／與和及]\s*[A-E](?![A-Za-z0-9])"
+# Verdicts on the question itself (歧義, 爭議…) come from the private explanation flags.
+KAOFA_LEAK = re.compile(r"答案|正解|選項|歧義|爭議|疑義|誤植|選\s*[A-Ea-e](?![A-Za-z])|[（(]\s*[A-Ea-e]\s*[）)]|(?<![A-Za-z0-9])[A-E]\s*[、,/／與和及]\s*[A-E](?![A-Za-z0-9])"
                         r"|(?<![A-Za-z0-9.\-])[A-E](?=\s*(?:項|正確|錯誤|為真|為非))")
 
 
