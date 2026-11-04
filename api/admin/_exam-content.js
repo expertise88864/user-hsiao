@@ -107,6 +107,8 @@ function generatorMarkup(source) {
  */
 export function validateNote(content, rules) {
   if (typeof content !== 'string') reject('invalid_note', '內容必須是文字');
+  // UTF-8 encoding would silently replace it, so the post-write check could not match.
+  if (LONE_SURROGATE.test(content)) reject('invalid_note', '含有無效的 Unicode 字元');
   const source = content.replace(/\r\n?/g, '\n');
   if (!source.trim()) reject('invalid_note', '內容是空的');
   if (encoder.encode(source).length > MAX_NOTE_BYTES) reject('too_large', '重點內容超過 600 KB');
@@ -251,6 +253,9 @@ export function validateNote(content, rules) {
 // JSON.stringify(data, null, 1) reproduces for this data (all keys are question
 // numbers in ascending order). Writers verify that identity before changing anything.
 const CONTROL = /[\x00-\x1f\x7f\u2028\u2029]/;
+// An unpaired UTF-16 surrogate: JSON.stringify escapes it but Python writes it raw,
+// so _pull_exam_drafts.py could not reproduce the file (PR #95 review).
+export const LONE_SURROGATE = /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/;
 const PAGES = /^\d{1,4}(?:–\d{1,4})?$/;
 const OPTION_KEYS = ['A', 'B', 'C', 'D'];
 function isPlainObject(value) { return !!value && typeof value === 'object' && !Array.isArray(value); }
@@ -265,6 +270,7 @@ function text(value, path, max) {
   if (value !== value.trim()) reject('invalid_entry', `${path} 前後不可有空白`);
   if (value.length > max) reject('invalid_entry', `${path} 超過 ${max} 字`);
   if (CONTROL.test(value)) reject('invalid_entry', `${path} 含有換行或控制字元`);
+  if (LONE_SURROGATE.test(value)) reject('invalid_entry', `${path} 含有無效的 Unicode 字元`);
   return value;
 }
 

@@ -565,3 +565,22 @@ test('upstream failures and tampered repository data fail closed without leaking
   denied.fetch = async () => Response.json({ message: 'Bad credentials ' + TOKEN }, { status: 401 });
   assert.equal((await denied.get({ mode: 'list' })).body.error, 'github_token_invalid');
 });
+
+test('unpaired UTF-16 surrogates are rejected in explanations and notes (PR #95 review)', () => {
+  const rules = { books: BOOKS, simplified: SIMPLIFIED };
+  for (const bad of ['\ud800', 'a\udc00b', '尾\udbff']) {
+    const entry = plain(EXPL_DATA[ID_A]);
+    entry.summary = bad;
+    assert.throws(() => content.validateEntry(entry, EXPL_DATA[ID_A], rules),
+      e => e.code === 'invalid_entry', JSON.stringify(bad));
+    const flagged = plain(EXPL_DATA[ID_A]);
+    flagged.flags = [bad];
+    assert.throws(() => content.validateEntry(flagged, EXPL_DATA[ID_A], rules), e => e.code === 'invalid_entry');
+  }
+  // A proper pair (an emoji) is two code units and still fine as far as this check goes.
+  assert.equal(content.LONE_SURROGATE.test('\ud83d\ude00'), false);
+  const key = Object.keys(TOC)[0];
+  const note = fs.readFileSync(new URL(`../../data/exam/notes/bcsc${key}.htm`, import.meta.url), 'utf8');
+  assert.throws(() => content.validateNote(note.replace('</li>', '\ud800</li>'),
+    { onPage: onPage(key), headings: TOC[key], simplified: SIMPLIFIED }), e => e.code === 'invalid_note');
+});
