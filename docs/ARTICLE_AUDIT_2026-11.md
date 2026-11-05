@@ -8,24 +8,30 @@
 |---|---|---|
 | 第一輪 | 逐篇逐句對原始出處 | 844 項主張：正確 618、不精確 27、錯誤 2、無法確認 197 |
 | 第二輪 | 獨立複查並查證，依站主決定修改 | 改動 173 筆、確認無誤 154 筆、駁回 4 筆 |
-| 第三輪 | 對照 2026-10-16 站主提供全文時留下的核對紀錄 | 還原 75 筆、改為紀錄值 2 筆、維持第二輪 89 筆、兩邊依據不同 13 筆 |
+| 第三輪 | 對照 2026-10-16 站主提供全文時留下的核對紀錄 | 還原 75 筆、改為紀錄值 2 筆、維持第二輪 89 筆、兩邊依據不同 13 筆（裁決見下方） |
 
 第三輪的原因：第二輪的指引漏了 10-16 的全文紀錄（`讀書筆記/_work/proof/`）。代理打不開付費全文，於是把部分已對全文確認的內容（例如 769,930 總人數、翼狀贅片 FG vs 自體血 0.74）改弱或刪除。這些都已還原，不列在下方改動清單。
 
 下方清單由最終版本與改動前的差異自動產生，是實際留在文章裡的改動。
 `dateModified` 與頁面更新日期改為 2026-11-05。`lastReviewed` 沒有改，因為它代表醫師審閱日；站主看完後可決定是否更新。
 
-## 請站主親自確認
+## 站主決定後已直接保守處理
+
+站主再次確認：「不確定的地方就用保守性寫法或刪除」。以下原本列為待確認的項目，已直接改掉，不需要再決定。
+
+1. **散瞳藥物（pediatric-myopia-control）**：食藥署資料集內 cyclopentolate 眼用許可證全部已註銷，台灣現況不確定。改為「點睫狀肌麻痺眼藥水，等睫狀肌充分放鬆後再驗光；藥物種類與等待時間由眼科醫師決定」，不列藥名、次數與分鐘數。
+2. **LiGHT 勘誤（glaucoma-treatment-selection）**：勘誤內文打不開，33 vs 16 眼也無法重新核對。改為「需要切開式青光眼手術與白內障手術的眼睛也較多（2025 年有勘誤，細項眼數這裡不列）」。
+3. **MIGS 給付（glaucoma-treatment-selection）**：10-16 查的是三項裝置，另有 iStent infinite 未涵蓋。改為「包括 iStent 系列、XEN、PreserFlo；通常需要自費，是否有健保給付或差額負擔與價格，請以手術醫院說明為準」，表格同步。
+4. **SEER 年份（lacrimal-gland-tumor）**：Liu 摘要與 Ma 引用的年份不同，拿掉年份，只留來源與 118 例。
+5. **效價分級（hzo-stromal-keratitis-zeds-lessons）**：改成「Jacobs 2026 論文寫依試驗計畫書定義」，只寫論文的說法。
+
+## 僅供知悉（不必動作）
 
 1. **LAMP 副作用表（pediatric-myopia-control）**：原文 Table 3 與文中不符，畏光由 40%／20% 改為 0.05% 第 2 週 31%、1 年 8%，0.025% 第 2 週 19%、1 年 7%；刪除查無出處的近距離模糊 20%。這是本次最大的實質修正。
-2. **Cyclopentolate（pediatric-myopia-control）**：文中依 IMI 寫 tropicamide 或 cyclopentolate，但食藥署資料集內 cyclopentolate 眼用許可證全部已註銷，請確認台灣現況是否要調整。
-3. **Jiang 2026（pediatric-high-myopia-maculopathy-progression）**：從未取得全文，OR 6.26、C3 100%、−13.7 D 等已改保守或刪除。提供 PDF 就能核對補回。
-4. **LiGHT 勘誤（glaucoma-treatment-selection）**：文中依 10-16 紀錄寫小樑切除術 33 vs 16 眼（2025 年勘誤）。這次勘誤內文打不開，沒有重新核對；原始摘要是 32 vs 13。
-5. **MIGS 裝置（glaucoma-treatment-selection）**：依 10-16 紀錄寫 iStent inject W、XEN、PreserFlo 不在健保品項。第二輪另在食藥署資料查到 iStent infinite 有許可證，紀錄未涵蓋，文中沒有列，是否補列請決定。
-6. **RUBI（refractory-noninfectious-uveitis-biologics-rubi-trial）**：表格數字依 10-16 全文紀錄保留。摘要與這些數字不一致，且摘要本身前後矛盾；本輪全文打不開，沒有重新核對。
-7. **SEER 年份（lacrimal-gland-tumor）**：Liu 摘要寫 1975–2016，Ma 全文寫 1999–2016，文中兩者並陳。
-8. **DREAM 年齡（dry-eye-symptom-sign-discordance-dream）**：Matar 2026 寫 42.1 ± 15.5，NEJM 2018 表 1 是 44.6／44.1。文章未改，僅供參考。
-9. **PACG 2-3 倍（glaucoma-comprehensive-guide）**：有核對紀錄但未註明讀過全文，維持第二輪處理。
+2. **Jiang 2026（pediatric-high-myopia-maculopathy-progression）**：從未取得全文，OR 6.26、C3 100%、−13.7 D 等已改保守或刪除。日後若提供 PDF 可核對補回。
+3. **RUBI（refractory-noninfectious-uveitis-biologics-rubi-trial）**：表格數字來自站主 10-16 提供的全文，維持不動；摘要本身前後矛盾，所以與表格不同。
+4. **NT$ 30,500**：維持站主 10-15 核可的金額。11-05 查詢顯示它是中位數，最常見的收費是 30,856 與 30,000。
+5. **DREAM 年齡（dry-eye-symptom-sign-discordance-dream）**：Matar 2026 寫 42.1 ± 15.5，NEJM 2018 表 1 是 44.6／44.1。文章照本文主要來源，未改。
 
 ## 兩邊依據不同時的裁決
 
@@ -34,7 +40,7 @@
 | cataract-comprehensive-guide、cataract-surgery-selection、cataract-surgery-faq | 單焦非球面自付差額 NT$ 30,500 或 30,000-30,856 | 還原 30,500 | 站主 10-15 核可「金額不動」；收費表其他類別也用同一計法。11-05 查詢：30,500 是中位數，最常見為 30,856 與 30,000 |
 | red-eye-conjunctivitis | 黃綠色膿性分泌物要不要加「大量、嚴重」 | 還原原文 | PPP 寫 Severe, purulent；「大量」無出處。衛教提醒就醫，門檻寬一點較安全 |
 | contact-lens-safety | 每天配戴超過 8 小時 | 還原原文 | 重新打開食藥署 2017-10-23 專文，標題即為不建議長期戴超過 8 小時 |
-| hzo-stromal-keratitis-zeds-lessons | 效價分級「依試驗計畫書定義」 | 還原原文 | Jacobs 全文寫 According to the ZEDS protocol；公開的方案 v3.0 找不到這份清單，可能是未公開版本 |
+| hzo-stromal-keratitis-zeds-lessons | 效價分級「依試驗計畫書定義」 | 改寫為「Jacobs 2026 論文寫依試驗計畫書定義」 | Jacobs 全文寫 According to the ZEDS protocol；公開的方案 v3.0 找不到這份清單 |
 | glaucoma-comprehensive-guide | 咖啡因對一般人的影響 | 改寫為「對一般人的影響較小」 | Li 2011 無明顯變化，Simanjuntak 2026 健康者約 0.61–1.60 mmHg，改成兩者都成立的寫法 |
 | diabetic-retinopathy-dementia-trinetx-cohort | 非增殖性糖網追蹤間隔 | 維持第二輪（輕度 12 個月、中度 6-12 個月） | 與 PPP 2024 Table 5 相同，也較精確 |
 | diabetic-retinopathy-dementia-trinetx-cohort | Pedersen 是否依 DR 分級 | 維持第二輪（比較有無 DR） | 兩份紀錄對同一全文讀法不同；此寫法兩邊都成立 |
@@ -67,7 +73,7 @@
   出處：AAO BCSC Section 11, Lens and Cataract, 2025-2026（站主本機 PDF） 2025（C:/Users/User/Desktop/翊嘉/程式/個人網頁謙/讀書筆記/2026 AAO/2025-2026 BCSC 11 Lens and Cataract.pdf）
 - 改前：多在術後 4-6 週出現，視力霧霧的、看東西彎曲
   改後：多在術後數週內出現，視力霧霧的、看東西彎曲
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：、不需住院、術後立刻可以回家、不會再次發生。
   改後：、不需住院、術後立刻可以回家；多數人開口能維持清澈，少數人可能因細胞再長回來而需要再打一次雷射。
   理由：第一輪 finding 複查 CONFIRMED：原文記錄 22 眼開口再閉合，部分需第二、三次雷射；「不會再次發生」過於絕對。
@@ -151,7 +157,7 @@
 
 - 改前：來，眼底可能早已開始病變）；第 1 型糖尿病則在發病 5
   改後：來，眼底可能早已開始病變）；成人第 1 型糖尿病則在發病 5
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：病 5 年後做第一次眼底檢查。後續追蹤：一次以上的年度檢
   改後：病 5 年後做第一次眼底檢查（兒童與青少年的時機另有建議，請依醫師安排）。後續追蹤：一次以上的年度檢
   理由：ADA 建議 12.3 的對象是成人，兒童青少年另見第 14 節（Q7）。
@@ -170,7 +176,7 @@
   出處：The Association Between Diabetic Retinopathy Severity and Dementia Risk: A TriNetX Longitudinal Cohort Study (Khangura et al., Am J Ophthalmol; abstract only, full text paywalled) 2026（https://pubmed.ncbi.nlm.nih.gov/41692179/）
 - 改前：糖尿病常已存在多年才被診斷；第 1 型糖尿病則在發病五年
   改後：糖尿病常已存在多年才被診斷；成人第 1 型糖尿病則在發病五年
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：病則在發病五年後做第一次檢查。之後若一次以上的年度檢查都
   改後：病則在發病五年後做第一次檢查（兒童與青少年請依醫師安排）。之後若一次以上的年度檢查都
   理由：同上，文末常見問題同一句。
@@ -213,7 +219,7 @@
   出處：TFOS DEWS III: Management and Therapy (Jones et al., Am J Ophthalmol) 2025（https://publications.aston.ac.uk/id/eprint/47669/）
 - 改前：OS DEWS III 報告都指出：BAK 等防腐劑對眼表
   改後：OS DEWS III 報告指出：BAK 等防腐劑對眼表
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：眼表有毒性並會引發發炎，可能破壞淚膜穩定、傷害角膜神經，反而讓乾眼的徵象與症狀惡化。
   改後：眼表有毒性並會引發發炎，可能讓乾眼的徵象與症狀惡化。文獻
   理由：DEWS III 只寫毒性、促發炎、惡化徵象症狀；淚膜與角膜神經的敘述改歸文內既有的 Walsh 2019（PMC6682755）。
@@ -240,22 +246,22 @@
   出處：全民健康保險藥品給付規定（115.9.22 更新版，本機條文） 2026（https://www.nhi.gov.tw/）
 - 改前： TFOS DEWS II and 2025 TFOS DEW
   改後： TFOS DEWS II lists topical preservatives among iatrogenic causes of dry eye; the 2025 TFOS DEW
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：EWS III reports both note that preserva
   改後：EWS III report notes that preserva
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：cular surface — they can destabilize the tear film and impair corneal nerves, worsening dry eye signs
   改後：cular surface and can worsen dry eye signs
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前： and symptoms.
   改後： and symptoms. A literature review also reports that BAK may reduce tear film stability and corneal nerves (Walsh 2019).
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：III shows that, defined by sy
   改後：III shows that dry eye is common in both young and older people; defined by sy
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：ns, rates are higher in both younger and older adults, with some e
   改後：ns, rates are fairly consistent across adult age groups, with some e
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 
 ### floaters-retinal-detachment
 
@@ -275,7 +281,7 @@
   出處：ICHD-3, 1.2 Migraine with aura 2018（https://ichd-3.org/1-migraine/1-2-migraine-with-aura/）
 - 改前：所以即使度數不深，有上述任一危險因子（尤其白內障術後）都
   改後：所以即使度數不深，有上述危險因子（尤其白內障術後）的
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：一危險因子（尤其白內障術後）都應該每年接受眼底檢查，並注意警訊。
   改後：述危險因子（尤其白內障術後）的人都要認識警訊，並依眼科醫師建議的間隔回診；例如無症狀的晶格狀變性，AAO 2024 PPP 建議每年追蹤。
   理由：CONFIRMED：PPP Table 3 的每年追蹤只列晶格狀變性等病灶，無症狀 PVD 僅需例行追蹤；FAQ 同句一併修改。
@@ -290,25 +296,25 @@
   出處：Retina Today, Pearls: silicone oil removal 2018（https://assets.bmctoday.net/retinatoday/pdfs/0718RT_Pearls.pdf）
 - 改前：ages 45 and 65; most eyes are affected by their 70s
   改後：ages 45 and 65, becoming more common with age (some studies find it in over half of eyes by the 70s)
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：Quick test: Cover one eye — flashes still there in the other = ocular issue. Persists with either eye covered = bilateral or central origin.
   改後：Quick test: cover each eye in turn. If flashes disappear only when one eye is covered, the covered eye is the likely source (ocular); if they persist whichever eye is covered, both eyes or the brain (such as migraine aura) may be involved. This test alone cannot rule out an eye emergency.
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前： mild myopia, any of the above risk factors
   改後： mild myopia, people with these risk factors
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：ost-cataract) warrants annual fundus exam plus warning-sign awareness.
   改後：ost-cataract) should know the warning signs and follow up at the interval their ophthalmologist advises; for asymptomatic lattice degeneration, for example, the AAO 2024 PPP recommends annual review.
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前： cryotherapy; specific positioning fo
   改後： cryotherapy; positioning ma
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：c positioning for about 5–8 days~81% single-pr
   改後：; positioning may be needed for several days (NHS: up to 7 days)~81% single-pr
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：; oil usually removed within 3–6 mo
   改後：; oil usually needs later surgical removal; timing varies (many surgeons suggest at least 3–6 months first)
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：央視野的鋸齒狀光。簡單判斷：蓋住一隻眼還有閃光，就是那隻眼睛的問題，即使只出現一次也建議當天看眼科散瞳檢查。
   改後：央視野的鋸齒狀光。簡單判斷：輪流遮住左右眼，只有遮住某一眼時閃光才消失，較可能是被遮住的那隻眼睛的問題；遮哪一眼都還看得到，則可能是雙眼或腦部（如偏頭痛先兆）的問題。單用這個方法不能排除眼科急症，新出現的閃光即使只有一次，也建議當天看眼科散瞳檢查。
   理由：CONFIRMED：同上（FAQ），保留當天就醫提醒。
@@ -373,19 +379,23 @@
 
 第三輪依 10-16 全文紀錄還原 3 筆（不列）。
 
+- 改前：6%），需要切開式青光眼手術（33 vs 16 眼，依 2025 年勘誤）與白內障手術（95 vs 57 眼）也較多
+  改後：6%），需要切開式青光眼手術與白內障手術的眼睛也較多（2025 年有勘誤，細項眼數這裡不列）
+  理由：勘誤確實存在（PMID 41110942），但內文擋下打不開，33 vs 16 無法確認；站主若有勘誤原文請核對，同段其他數字也可能受影響。
+  出處：Corrigendum. Ophthalmology 2025;132(11):1323-1325（勘誤 Gazzard 2023 LiGHT） 2025（https://pubmed.ncbi.nlm.nih.gov/41110942/）
 - 改前：25-31%
   改後：28-31%
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：28-32%
   改後：29-31%
   理由：三支依統合分析修正；另兩支查無個別原文，改用類別範圍。
   出處：van der Valk R, et al. Intraocular pressure-lowering effects of all commonly used glaucoma drugs. Ophthalmology 2005（https://pubmed.ncbi.nlm.nih.gov/15921747/）
 - 改前：30-33%
   改後：28-33%
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：25-28%
   改後：25-33%
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：30-33%
   改後：25-33%
   理由：勘誤確實存在（PMID 41110942），但內文擋下打不開，33 vs 16 無法確認；站主若有勘誤原文請核對，同段其他數字也可能受影響。
@@ -396,7 +406,7 @@
   出處：van der Valk R, et al. Intraocular pressure-lowering effects of all commonly used glaucoma drugs. Ophthalmology 2005（https://pubmed.ncbi.nlm.nih.gov/15921747/）
 - 改前：（AAO PPP 2025 整理的前列腺素類整體降幅為 25-33%），個體差異很大
   改後： AAO PPP 2025 的前列腺素類整體範圍（25-33%），個體差異很大
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：🚨 絕對禁忌：開立 β 阻斷劑前必問三題
   改後：🚨 開立 β 阻斷劑前必問三題（
   理由：CONFIRMED：仿單禁忌未列糖尿病，Warnings 為 administered with caution、may mask signs。
@@ -413,6 +423,22 @@
   改後：膜發炎、加重乾眼、過敏反應。另一個需要留意的是：術前使用含 BAK 的藥水，可能是日後小樑切除術失敗的風險因子（AAO PPP）。
   理由：CONFIRMED：PPP 原文 may be a risk factor for surgical failure，且未提 MIGS。
   出處：AAO Primary Open-Angle Glaucoma PPP 2025（https://www.aao.org/preferred-practice-pattern/primary-open-angle-glaucoma-ppp）
+- 改前：有許可證；健保不給付（自費）
+  改後：有許可證；通常需自費（請洽手術醫院）
+  理由：許可證經 TFDA 確認（另有 iStent infinite），但健保特材清單查詢不到，給付面改保守。
+  出處：食藥署醫療器材許可證開放資料（InfoId 68） 2026（https://data.fda.gov.tw/opendata/exportDataList.do?method=ExportData&InfoId=68&logType=2）
+- 改前：有許可證（2023 年）；健保不給付（自費）
+  改後：有許可證（2023 年）；通常需自費（請洽手術醫院）
+  理由：許可證經 TFDA 確認（另有 iStent infinite），但健保特材清單查詢不到，給付面改保守。
+  出處：食藥署醫療器材許可證開放資料（InfoId 68） 2026（https://data.fda.gov.tw/opendata/exportDataList.do?method=ExportData&InfoId=68&logType=2）
+- 改前：灣有許可證的 MIGS 裝置（iStent inject W、XEN、PreserFlo
+  改後：灣有許可證的 MIGS 裝置包括 iStent 系列、XEN、PreserFlo
+  理由：許可證經 TFDA 確認（另有 iStent infinite），但健保特材清單查詢不到，給付面改保守。
+  出處：食藥署醫療器材許可證開放資料（InfoId 68） 2026（https://data.fda.gov.tw/opendata/exportDataList.do?method=ExportData&InfoId=68&logType=2）
+- 改前：、XEN、PreserFlo）都不在健保特材給付或自付差額品項中，需全額自費；價格依裝置及醫院而異（具體請洽手術醫院）
+  改後：、XEN、PreserFlo；通常需要自費，是否有健保給付或差額負擔與價格，請以手術醫院說明為準
+  理由：許可證經 TFDA 確認（另有 iStent infinite），但健保特材清單查詢不到，給付面改保守。
+  出處：食藥署醫療器材許可證開放資料（InfoId 68） 2026（https://data.fda.gov.tw/opendata/exportDataList.do?method=ExportData&InfoId=68&logType=2）
 - 改前：術後需密切追蹤（前 2 個月每 1-2 週、之後逐漸延長）
   改後：術後早期需密切回診追蹤，之後再逐漸拉長間隔；實際頻率由手術醫師依恢復情況決定
   理由：查無統一時程，院所單張多為每週回診，做法不一。
@@ -432,21 +458,25 @@
 
 - 改前：減少眼壓、白內障副作用
   改後：可能減少眼壓、白內障副作用
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：。低效價類固醇相對於高效價，最大的好處是長期使用造成眼壓上升、白內障
   改後：。低效價類固醇相對於高效價，一般認為長期使用造成眼壓上升、白內障
   理由：EyeWiki 與 CRST 支持風險大致隨效價上升，但也寫比例未明確、未給效價別白內障率，故降為「一般認為、可能」；追蹤提醒保留。
   出處：EyeWiki: Steroid-Induced Glaucoma 2025（https://eyewiki.aao.org/Steroid-Induced_Glaucoma）
 - 改前：成眼壓上升、白內障進展的風險較低。但這不代表「換成低效價
   改後：成眼壓上升、白內障進展的風險可能較低。但這不代表「換成低效價
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：長期低效價維持，降低眼壓上升與白內障進展風險
   改後：長期低效價維持，可能降低眼壓上升與白內障進展風險
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：明長期用高效價更能預防復發，高效價的副作用風險卻較高；作者建議治療與長期抑制
   改後：明長期用高效價更能預防復發，而高效價的副作用風險一般認為可能較高；作者建議治療與長期抑制
   理由：EyeWiki 與 CRST 支持風險大致隨效價上升，但也寫比例未明確、未給效價別白內障率，故降為「一般認為、可能」；追蹤提醒保留。
   出處：EyeWiki: Steroid-Induced Glaucoma 2025（https://eyewiki.aao.org/Steroid-Induced_Glaucoma）
+- 改前：固醇分為高效價與低效價兩組（依試驗計畫書定義；臨床上 d
+  改後：固醇分為高效價與低效價兩組（Jacobs 2026 論文寫依試驗計畫書定義；臨床上 d
+  理由：句子依賴無法確認的品項表，改為能確認的敘述。
+  出處：Jacobs DS, et al. Stromal Keratitis in the Zoster Eye Disease Study: Lessons Learned. Am J Ophthalmol (abstract; full text paywalled, PMC embargoed) 2026（https://doi.org/10.1016/j.ajo.2026.01.034）
 - 改前：用 acyclovir 軟膏不能同時開立口服抗病毒藥）
   改後：用 acyclovir 軟膏原則上不與口服抗病毒藥併用）
   理由：第一輪 finding CONFIRMED：§14.2 條文用「不宜」，括號不應加強成「不能」；英文同步改，且原英文把「製劑」誤窄化為 antivirals。
@@ -457,7 +487,7 @@
   出處：EyeWiki: Steroid-Induced Glaucoma 2025（https://eyewiki.aao.org/Steroid-Induced_Glaucoma）
 - 改前：用造成眼壓上升與白內障的風險較低。但任何長期使用類固醇者
   改後：用造成眼壓上升與白內障的風險可能較低。但任何長期使用類固醇者
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 
 ### lacrimal-gland-tumor
 
@@ -467,17 +497,14 @@
   改後： Results）資料庫 118 例 LGACC 的分析
   理由：第一輪 finding CONFIRMED：Liu 摘要寫 1975–2016，Ma 全文確實寫 1999–2016，兩者並陳；英文段（SEER data 1999-2016, n=118）同步改。
   出處：Liu R, et al. Tumori (SEER 18); Ma M, et al. Heliyon 2024 PMC11301145 2023（https://doi.org/10.1177/03008916211070328）
-- 改前：iu 2023 Tumori；由 Ma 2024 Heliyo
-  改後：iu 2023 Tumori 摘要寫資料收集期間為 1975–2016 年；Ma 2024 Heliyo
-  理由：第一輪 finding CONFIRMED：Liu 摘要寫 1975–2016，Ma 全文確實寫 1999–2016，兩者並陳；英文段（SEER data 1999-2016, n=118）同步改。
-  出處：Liu R, et al. Tumori (SEER 18); Ma M, et al. Heliyon 2024 PMC11301145 2023（https://doi.org/10.1177/03008916211070328）
-- 改前：024 Heliyon 引用），LGACC 可發生於所有
-  改後：024 Heliyon 引用時寫診斷年份為 1999–2016 年），LGACC 可發生於所有
+- 改前：iu 2023 Tumori；由 Ma 2024 Heliyon 引用），LGACC 可發生於所有
+  改後：iu 2023 Tumori），LGACC 可發生於所有
   理由：第一輪 finding CONFIRMED：Liu 摘要寫 1975–2016，Ma 全文確實寫 1999–2016，兩者並陳；英文段（SEER data 1999-2016, n=118）同步改。
   出處：Liu R, et al. Tumori (SEER 18); Ma M, et al. Heliyon 2024 PMC11301145 2023（https://doi.org/10.1177/03008916211070328）
 - 改前： According to SEER data (1999-2016, n=118): median age 
-  改後： According to a SEER analysis of 118 LGACC cases (the Liu 2023 abstract gives a 1975-2016 data period; Ma 2024 cites diagnosis years as 1999-2016): median age 
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  改後： According to a SEER analysis of 118 LGACC cases (Liu 2023): median age 
+  理由：第一輪 finding CONFIRMED：Liu 摘要寫 1975–2016，Ma 全文確實寫 1999–2016，兩者並陳；英文段（SEER data 1999-2016, n=118）同步改。
+  出處：Liu R, et al. Tumori (SEER 18); Ma M, et al. Heliyon 2024 PMC11301145 2023（https://doi.org/10.1177/03008916211070328）
 
 ### monitoring-myopia-ser-vs-axial-length
 
@@ -491,14 +518,14 @@
   出處：Clark RA, Wong RK. SER Versus Axial Length for Monitoring Childhood Myopia and Estimating Disease Risk. Am J Ophthalmol (open-access full text) 2026（https://www.ajo.com/article/S0002-9394(26)00125-X/fulltext）
 - 改前：、性別、族裔影響的監測指標 10% 進入長眼尾巴（AL 
   改後：、性別、族裔影響的監測指標 約 10% 進入長眼尾巴（AL 
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：巴（AL ≥ 26 mm）的孩子：眼軸成為重點追蹤工具——這
   改後：巴（AL ≥ 26 mm）的近視眼：眼軸成為重點追蹤工具——這
   理由：原文「≈90% of myopic eyes」且為 heuristic，分母是近視眼不是兒童；「約 90% 的近視眼軸不會超過 26 mm」本句相符不改。
   出處：Clark RA, Wong RK. SER Versus Axial Length for Monitoring Childhood Myopia and Estimating Disease Risk. Am J Ophthalmol (open-access full text) 2026（https://www.ajo.com/article/S0002-9394(26)00125-X/fulltext）
 - 改前：式策略」而非「捨棄眼軸」。對 10% 進入長眼尾巴（AL
   改後：式策略」而非「捨棄眼軸」。對約 10% 進入長眼尾巴（AL
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：巴（AL ≥ 26 mm）的孩子，眼軸的視網膜風險預測力非常
   改後：巴（AL ≥ 26 mm）的近視眼，眼軸的視網膜風險預測力非常
   理由：原文「≈90% of myopic eyes」且為 heuristic，分母是近視眼不是兒童；「約 90% 的近視眼軸不會超過 26 mm」本句相符不改。
@@ -540,7 +567,7 @@
   出處：Yaldo et al. Obstructive sleep apnea and risk of AMD: systematic review and meta-analysis. Am J Ophthalmol 285:276-287（摘要） 2026（https://pubmed.ncbi.nlm.nih.gov/41692178/）
 - 改前：A：兩種都增加，且濕性與乾性風險增加幅度相近。新生血管型 A
   改後：中，兩種都增加，且濕性與乾性增加幅度相近。新生血管型 A
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：：（1）糖尿病視網膜病變——間歇缺氧惡化視網膜微血管病；（2）非動脈炎性前部缺血性
   改後：：（1）糖尿病視網膜病變——未調整的分析有相關，但調整混雜因子後不明顯，關聯仍待釐清；（2）非動脈炎性前部缺血性
   理由：2026 整合分析：未調整 OR 2.41，調整後 1.03（0.64-1.66）。Bulloch 2024 也未涵蓋 DR。已加入參考文獻。
@@ -563,16 +590,16 @@
   出處：Yaldo et al. Obstructive sleep apnea and risk of AMD: systematic review and meta-analysis. Am J Ophthalmol 285:276-287（摘要） 2026（https://pubmed.ncbi.nlm.nih.gov/41692178/）
 - 改前：SA 是「多系統疾病」：眼科亦與糖尿病視網膜病變、NAION、中漿、青光眼、圓錐角膜、眼瞼鬆弛症候群相關
   改後：SA 是「多系統疾病」：眼科研究也報告與 NAION、眼瞼鬆弛症候群、圓錐角膜、青光眼等相關；與糖尿病視網膜病變、中漿的關聯較不確定
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：這條機轉鏈也解釋了為什麼 OSA 不只與 AMD 有關，更與糖尿病視網膜病變、非動脈炎性前部缺血性視神經病
   改後：這條機轉鏈也可能有助於理解，為什麼研究會報告 OSA 與 AMD 以外的眼疾有關（如非動脈炎性前部缺血性視神經病
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：動脈炎性前部缺血性視神經病變（NAION）、中心性漿液性脈絡膜視網膜病變（central serous chorioretinopathy）、青光眼等共享相同的致病基礎。OSA 是一種「全身性的退化加速器」，不專門針對某一隻眼睛或某一條神經。
   改後：動脈炎性前部缺血性視神經病變 NAION、青光眼）；但這些關聯多來自觀察性研究，是否真有共同致病基礎仍待確認。
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：（無）
   改後：Abdelaal A, Mahmoud YA, Alsouri W, et al. Bidirectional association between obstructive sleep apnea and diabetic retinopathy: a severity-stratified systematic review and meta-analysis with GRADE assessment. Acta Diabetol. 2026. doi:10.1007/s00592-026-02732-2
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 
 ### pediatric-high-myopia-maculopathy-progression
 
@@ -594,7 +621,7 @@
   出處：Jiang et al. 2026 全文前段（方法、Results 首段、Table 1；轉載頁，後段付費看不到） 2026（https://entokey.com/short-term-axial-length-changes-predict-progression-of-myopic-maculopathy-in-pediatric-high-myopia/）
 - 改前：3% 眼睛往更嚴重階段移動，已有萎縮者（C2、C3）幾乎都會惡化。② 預測模型：只用基線眼軸
   改後：3% 眼睛往更嚴重階段移動，基線已有瀰漫性萎縮（C2）的眼睛約 77% 惡化（47 眼中 36 眼）。② 預測模型：只用基線眼軸
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：增加 ≥ 0.325 mm；病理性近視本身惡化的勝算比約 6.3（OR 6.26）。③ 三個重點：（綠）高度近
   改後：增加 ≥ 0.325 mm；模型已校正年齡與病理性近視。③ 三個重點：（綠）高度近
   理由：OR 6.26 在摘要與可讀全文都看不到（Table 位於付費段）。站主有全文可補回。
@@ -621,7 +648,7 @@
   出處：Jiang et al. 2026 全文前段（方法、Results 首段、Table 1；轉載頁，後段付費看不到） 2026（https://entokey.com/short-term-axial-length-changes-predict-progression-of-myopic-maculopathy-in-pediatric-high-myopia/）
 - 改前：排除使用阿托品／角膜塑型片／紅光者；沒有說哪種控制法最好
   改後：排除使用阿托品／角膜塑型片／離焦鏡片／紅光者；沒有說哪種控制法最好
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：自然病程，使用過角膜塑型片、低濃度阿托品、重複低能量紅光治療、
   改後：自然病程，使用過角膜塑型片、離焦設計鏡片、阿托品、重複低能量紅光治療、
   理由：第一輪 IMPRECISE 複查 CONFIRMED：方法段寫 worn defocus or orthokeratology lenses……received atropine treatment or RLRL；原文未限定低濃度，一併改為阿托品。
@@ -632,7 +659,7 @@
   出處：Jiang et al. Short-Term Axial Length Changes Predict Progression of Myopic Maculopathy. Am J Ophthalmol 287:188-197（摘要） 2026（https://pubmed.ncbi.nlm.nih.gov/41871728/）
 - 改前：軸（勝算比 OR 1.62）、2 年眼軸變化率（OR 1.
   改後：軸（勝算比 OR 1.62）與 2 年眼軸變化率（OR 1.
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：年眼軸變化率（OR 1.62，每 0.1 mm/年）、病理性近視（OR 6.26）都是顯著預測因子。
   改後：年眼軸變化率（OR 1.62）都是顯著預測因子。
   理由：摘要有 OR 1.62 但未寫單位；與 OR 6.26 同句一併處理。
@@ -658,12 +685,8 @@
 
 第三輪依 10-16 全文紀錄還原 2 筆（不列）。
 
-- 改前：ction），通常用 1% Cyclopentolate 
-  改後：ction），通常用 1% tropicamide 或 cyclopentolate 
-  理由：IMI 全文被 Cloudflare 擋；WCO 文件寫 tropicamide or cyclopentolate。另提醒站主：TFDA 資料集內 cyclopentolate 眼用許可證全部已註銷，請確認台灣現況是否要再調整這句。已加參考文獻。
-  出處：World Council of Optometry. Myopia Moment: What to Measure 2021（https://myopia.worldcouncilofoptometry.info/wp-content/uploads/2021/09/Myopia-Moment_What-To-Measure.pdf）
-- 改前：光（IMI 2019 建議；藥品仿單記載最大睫狀肌麻痺出
-  改後：光（IMI 2019 建議；cyclopentolate 藥品仿單記載最大睫狀肌麻痺出
+- 改前：c refraction），通常用 1% Cyclopentolate 點兩次（間隔 5 分鐘），第一滴後 30–45 分鐘、睫狀肌充分放鬆後再驗光（IMI 2019 建議；藥品仿單記載最大睫狀肌麻痺出現在點藥後 25–75 分鐘）。如果散瞳前後度數差很多 →
+  改後：c refraction），也就是點睫狀肌麻痺眼藥水，等睫狀肌充分放鬆後再驗光；藥物種類與等待時間由眼科醫師決定。如果散瞳前後度數差很多 →
   理由：IMI 全文被 Cloudflare 擋；WCO 文件寫 tropicamide or cyclopentolate。另提醒站主：TFDA 資料集內 cyclopentolate 眼用許可證全部已註銷，請確認台灣現況是否要再調整這句。已加參考文獻。
   出處：World Council of Optometry. Myopia Moment: What to Measure 2021（https://myopia.worldcouncilofoptometry.info/wp-content/uploads/2021/09/Myopia-Moment_What-To-Measure.pdf）
 - 改前：0.05%~67%畏光（40%）、近距離模糊（20%） 0.025%~43%畏光（
@@ -678,20 +701,18 @@
   改後： 7%） 0.01%~27%畏光（第 2 週 6%、1 年時 2%）
   理由：最重要改動：原始全文 Table 3 與文中 40%／20% 不符（31.2→7.8、18.5→6.6、5.5→2.1、安慰劑 12.6→4.3）；near vision 未受明顯影響（P=0.25），找不到近距離模糊 20%。
   出處：Yam et al. LAMP Study. Ophthalmology 126:113-124（全文 Table 3、摘要） 2019（https://static1.squarespace.com/static/5d9741a56b45d153f8f5f753/t/5da35a00ae38d1604198d75d/1570986498529/PIIS0161642018302859.pdf）
-- 改前：o drops of 1% cyclopentolate
-  改後：o drops of 1% tropicamide or cyclopentolate
-  理由：IMI 全文被 Cloudflare 擋；WCO 文件寫 tropicamide or cyclopentolate。另提醒站主：TFDA 資料集內 cyclopentolate 眼用許可證全部已註銷，請確認台灣現況是否要再調整這句。已加參考文獻。
-  出處：World Council of Optometry. Myopia Moment: What to Measure 2021（https://myopia.worldcouncilofoptometry.info/wp-content/uploads/2021/09/Myopia-Moment_What-To-Measure.pdf）
-- 改前：IMI 2019; the drug label states 
-  改後：IMI 2019; the cyclopentolate label states 
-  理由：IMI 全文被 Cloudflare 擋；WCO 文件寫 tropicamide or cyclopentolate。另提醒站主：TFDA 資料集內 cyclopentolate 眼用許可證全部已註銷，請確認台灣現況是否要再調整這句。已加參考文獻。
-  出處：World Council of Optometry. Myopia Moment: What to Measure 2021（https://myopia.worldcouncilofoptometry.info/wp-content/uploads/2021/09/Myopia-Moment_What-To-Measure.pdf）
+- 改前：c refraction, typically two drops of 1% cyclopentolate 5 minutes apart, refracting 30–45 minutes after the first drop once the cili
+  改後：c refraction, meaning cycloplegic drops are used and refraction is done once the cili
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
+- 改前：le has relaxed (IMI 2019; the drug label states maximal cycloplegia within 25–75 minutes). If pre/post-
+  改後：le has relaxed; your eye doctor decides the drug and the waiting time. If pre/post-
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：%Photophobia (40%), near blur (20%) 0.025%~43%Pho
   改後：%Photophobia (31% at 2 weeks, 8% at 1 year; placebo 13%, 4%); accommodation down about 2 D, near vision not significantly affected 0.025%~43%Pho
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：%Photophobia (20%) 0.01%~27%Negligible
   改後：%Photophobia (19% at 2 weeks, 7% at 1 year) 0.01%~27%Photophobia (6% at 2 weeks, 2% at 1 year)
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 
 ### pterygium-surgery-fixation-methods-2026-nma
 
@@ -703,7 +724,7 @@
   出處：Terres et al. Conjunctival Autograft Fixation in Primary Pterygium Surgery: NMA. Am J Ophthalmol 285:240-253（摘要；全文付費打不開） 2026（https://pubmed.ncbi.nlm.nih.gov/41679367/）
 - 改前：開風險顯著高於 Vicryl）。③ 三個臨床選擇方向：（綠
   改後：開風險顯著高於 Vicryl。③ 三個臨床選擇方向：（綠
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：發風險顯著較低。復發時機：多在術後 6-12 個月內發生；超過 1 年仍未復發者，長
   改後：發風險顯著較低。復發時機：多數發生在術後第一年內；超過 1 年仍未復發者，長
   理由：EyeWiki：97% of all recurrences occur in the first year；6-12 個月的窗口未確認（清單外，同句處理）。
@@ -718,7 +739,7 @@
   出處：EyeWiki. Pterygium（Surgical follow up：97% 復發在第一年內） 2026（https://eyewiki.org/Pterygium）
 - 改前：（無）
   改後：Ghiasian L, Samavat B, Hadi Y, Arbab M, Abolfathzadeh N. Recurrent pterygium: a review. J Curr Ophthalmol. 2021;33(4):367–378. doi:10.4103/joco.joco_153_20 Khan N, Ahmad M, Baseer A, Kundi NK. To compare the recurrence rate of pterygium excision with bare-sclera, free conjunctival auto graft and amniotic membrane grafts. Pak J Ophthalmol. 2010;26(3).
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：指示逐步減量、不要自行停藥；常見追蹤點為術後一週、一個月、三個月、六個月與十二個月。若出現術眼突然劇痛或視力下
   改後：指示逐步減量、不要自行停藥；回診時間依醫師安排，第一年內應定期追蹤。若出現術眼突然劇痛或視力下
   理由：具體時點找不到出處；保留回診提醒、調整語氣。
@@ -760,16 +781,16 @@
 
 - 改前：③ 殘餘散光 ≤ 0.5 D 達成率
   改後：③ 殘餘散光 < 0.5 D 達成率
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前： 約 70% 達成殘餘散光 ≤ 0.5 D，LRI 約 5
   改後： 約 70% 達成殘餘散光 < 0.5 D，LRI 約 5
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：A：以「術後殘餘散光 ≤ 0.5 D 的達成率」來說
   改後：A：以「術後殘餘散光 < 0.5 D 的達成率」來說
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：ric 組約 70% 達成 ≤ 0.5 D 殘餘散光，LR
   改後：ric 組約 70% 達成 < 0.5 D 殘餘散光，LR
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：晚處理，囊袋纖維化後較困難。多數重置手術安全性良好，並無嚴重併發症報告。減少轉位的方法：選對 IO
   改後：晚處理，囊袋纖維化後較困難。重置手術仍可能有併發症，細節請與醫師討論。減少轉位的方法：選對 IO
   理由：同上，安全性宣稱無法確認
@@ -788,17 +809,17 @@
   出處：Verstraaten JWH, et al. Am J Ophthalmol 2026（https://www.ajo.com/article/S0002-9394(26)00107-8/fulltext）
 - 改前：的散光大小與軸位一致（差異 ≤ 0.5 D / ≤ 10°
   改後：的散光大小與軸位一致（差異 < 0.5 D / ≤ 10°
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：忽略 PCA 是術後殘餘散光最大來源
   改後：忽略 PCA 是術後殘餘散光誤差的重要來源之一
   理由：「最大來源」查無出處
   出處：Verstraaten JWH, et al. Am J Ophthalmol 2026（https://www.ajo.com/article/S0002-9394(26)00107-8/fulltext）
 - 改前：餘散光不會是零，70% 達 ≤ 0.5 D 不代表 100
   改後：餘散光不會是零，70% 達 < 0.5 D 不代表 100
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：殘餘屈光散光 ≤ 0.5 D 比例：tori
   改後：殘餘屈光散光 < 0.5 D 比例：tori
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：ric IOL 的光暈／眩光率顯著較高（約 50%，Visser 等 2011）
   改後：ric IOL 的光暈／眩光較常見：Visser 等 2011 
   理由：摘要寫 moderate，單組無對照，「顯著較高」「多為輕度」都不成立。finding CONFIRMED
@@ -821,10 +842,10 @@
   出處：Verstraaten JWH, et al. Am J Ophthalmol 2026（https://www.ajo.com/article/S0002-9394(26)00107-8/fulltext）
 - 改前：殘餘散光 ≤ 0.5 D 比例
   改後：殘餘散光 < 0.5 D 比例
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：23 兩篇統合分析都沒有報 ≤ 0.5 D 的比例。Yen
   改後：23 兩篇統合分析都沒有報 < 0.5 D 的比例。Yen
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：平均誤差 ~3–5°；最便宜，但精度受墨水擴散、病
   改後：最便宜，但精度受墨水擴散、病
   理由：查無 3–5° 出處；Yao 2024 確認手動誤差較大
@@ -839,7 +860,7 @@
   出處：Yao L, et al. Semin Ophthalmol 2024（https://doi.org/10.1080/08820538.2023.2231575）
 - 改前：u 等 2019 系統性回顧顯示比手動精準。設備昂貴是主
   改後：u 等 2019 系統性回顧也顯示比手動精準。設備昂貴是主
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：Singh et al. 2022 綜述 95% toric IOL 在 6 個月內維持在預期軸位 ±5° 內；多數轉位發生在術後第一個月
   改後：（刪除）
   理由：Singh 原文（PMC 全文）查無此數字，只有 Verstraaten 表 3 轉述且把綜述標成 30 眼研究；非必要，刪除該表列
@@ -850,7 +871,7 @@
   出處：Oshika T, et al. Ophthalmology 2018（https://doi.org/10.1016/j.ophtha.2017.07.004）
 - 改前： IOL 病人達到殘餘散光 ≤ 0.5 D，這代表約 30
   改後： IOL 病人達到殘餘散光 < 0.5 D，這代表約 30
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
 - 改前：D，這代表約 30% 仍有 > 0.5 D 殘餘散光、可能
   改後：D，這代表約 30% 仍有 ≥ 0.5 D 殘餘散光、可能
-  理由：同段其他改動的同步調整，或第三輪裁決（見上方）。
+  理由：同段其他改動的同步調整，或上方的裁決與保守處理。
