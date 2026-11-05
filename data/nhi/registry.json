@@ -1,0 +1,2451 @@
+{
+ "schema": 1,
+ "generated": "2026-11-05",
+ "note": "每一條皆來自實際開啟的官方來源。rule_zh 照原文節錄，… 表示省略；查詢型資料以官方欄位值列出。effective 為該段文字標註的最近修訂日（民國換算西元），原文未標日期者為 null。baseline 為正規化後的來源文字，fingerprint 為其 sha256。affects.questions 列陳述此規則的題目；related_questions 只是題目或詳解提到相關藥物或器材，不代表題目陳述健保規則。",
+ "rules": [
+  {
+   "id": "glaucoma-14-1",
+   "topic": "高眼壓及青光眼眼用製劑：療程劑量與處方資格",
+   "status": "current",
+   "rule_zh": "14.1.高眼壓及青光眼眼用製劑(101/12/1、102/8/1、104/4/1、106/2/1、110/5/1、111/7/1、114/6/1)1.本類藥物療程劑量如下：(106/2/1、111/7/1)(1)多次使用包裝(規格量≧2.5mL):Ⅰ. 規格量≦3mL：一天點一次者(如 Mikelan、Xalatan、Travatan、Lumigan，Taflotan、Eybelis 等)，單眼每4週處方為1瓶；雙眼得每3週處方1瓶，3個月處方4瓶。(101/12/1、102/8/1、104/4/1、111/7/1)Ⅱ.規格量≧5mL：i.一天點一次者(如 Vyzulta)，單眼每8週處方為1瓶；雙眼得每6週處方為1瓶，3個月處方2瓶。(110/5/1、111/7/1)ⅱ.一天點兩次者(如 Timolol、Cosopt、Combigan 等)，單眼每4週處方為1瓶。雙眼得每3週處方1瓶，3個月處方4瓶。(111/7/1)ⅲ.一天點三次者(如 Alphagan P)，單眼每4週處方為1瓶，雙眼得每2週或3週處方1瓶，3個月內總用量最高6瓶。(114/6/1)(2)單次使用包裝(不含防腐劑)，單眼或雙眼每4週限處方支數如下(106/2/1)：Ⅰ. 每日使用1次者，限30支(含)以下。Ⅱ. 每日使用2次者，限60支(含)以下。Ⅲ.每日使用3次者，限90(含)支以下。Ⅳ.每日使用4次者，限120(含)支以下。(3)治療時，不得併用其他同類藥品。另 Omidenepag(如 Eybelis)不得併用前列腺素衍生物類。(111/7/1)2.限眼科醫師開立本類藥品慢性病連續處方箋，且應檢附當次眼壓數據。(114/6/1)3.非眼科醫師限開立1個月本類藥品，並指導病人應量眼壓，且至少3個月內須會診眼科量眼壓(眼壓限眼科專科醫師申報)，及定期追蹤視神經及視野。(114/6/1)4.全民健保公告之醫療資源缺乏地區及山地離島地區之就醫病人，倘符合「全民健康保險遠距醫療給付計畫」 ，由當地醫師與眼科醫師透過視訊方式共同診察，經評估診斷符合規定開立處方，並檢附相關眼壓數據資料，亦得由當地醫師開立本類藥品慢性病連續處方箋。(114/6/1)",
+   "effective": "2025-06-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.1 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.1.高眼壓及青光眼眼用製劑",
+    "end": "14.1.1.單方製劑",
+    "document_version": "115.10.22",
+    "section": "14.1",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-comprehensive-guide.html",
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "287afdfd3df8d82ef472d7a4d3361c959068edf10e1f477a9ea01236ad1ed9ac",
+   "baseline": "14.1.高眼壓及青光眼眼用製劑(101/12/1、102/8/1、104/4/1、106/2/1、110/5/1、111/7/1、114/6/1)1.本類藥物療程劑量如下:(106/2/1、111/7/1)(1)多次使用包裝(規格量≧2.5mL):I.規格量≦3mL:一天點一次者(如Mikelan、Xalatan、Travatan、Lumigan,Taflotan、Eybelis等),單眼每4週處方為1瓶;雙眼得每3週處方1瓶,3個月處方4瓶。(101/12/1、102/8/1、104/4/1、111/7/1)II.規格量≧5mL:i.一天點一次者(如Vyzulta),單眼每8週處方為1瓶;雙眼得每6週處方為1瓶,3個月處方2瓶。(110/5/1、111/7/1)ii.一天點兩次者(如Timolol、Cosopt、Combigan等),單眼每4週處方為1瓶。雙眼得每3週處方1瓶,3個月處方4瓶。(111/7/1)iii.一天點三次者(如AlphaganP),單眼每4週處方為1瓶,雙眼得每2週或3週處方1瓶,3個月內總用量最高6瓶。(114/6/1)(2)單次使用包裝(不含防腐劑),單眼或雙眼每4週限處方支數如下(106/2/1):I.每日使用1次者,限30支(含)以下。II.每日使用2次者,限60支(含)以下。III.每日使用3次者,限90(含)支以下。IV.每日使用4次者,限120(含)支以下。(3)治療時,不得併用其他同類藥品。另Omidenepag(如Eybelis)不得併用前列腺素衍生物類。(111/7/1)2.限眼科醫師開立本類藥品慢性病連續處方箋,且應檢附當次眼壓數據。(114/6/1)3.非眼科醫師限開立1個月本類藥品,並指導病人應量眼壓,且至少3個月內須會診眼科量眼壓(眼壓限眼科專科醫師申報),及定期追蹤視神經及視野。(114/6/1)4.全民健保公告之醫療資源缺乏地區及山地離島地區之就醫病人,倘符合「全民健康保險遠距醫療給付計畫」,由當地醫師與眼科醫師透過視訊方式共同診察,經評估診斷符合規定開立處方,並檢附相關眼壓數據資料,亦得由當地醫師開立本類藥品慢性病連續處方箋。(114/6/1)"
+  },
+  {
+   "id": "glaucoma-14-1-1",
+   "topic": "青光眼單方製劑的使用順序",
+   "status": "current",
+   "rule_zh": "14.1.1.單方製劑(90/10/1、101/12/1、104/4/1、106/2/1、111/7/1):1.β-交感神經阻斷劑(β-blockers )2.碳酸酐酶抑制劑(Carbonic anhydrase inhibitor) :限對β-blockers 有禁忌、不適或使用效果不佳之病患使用。3.前列腺素衍生物類：(Prostaglandin analogues)：(93/2/1、101/12/1)(1)限對β-blockers 使用效果不佳或不適用之病患使用。宜先以單獨使用為原則。(2)療效仍不足時，得併用其他降眼壓用藥(含複方製劑)。4.腎上腺激性作用劑(α-2 adrenergic agonist)：限對 β-blockers 有禁忌、不適或使用效果不佳之病患使用。(111/7/1)5.Omidenepag(如 Eybelis)：(111/7/1)(1)限對β-blockers 有禁忌、不適或使用效果不佳之病患使用。宜先以單獨使用為原則。(2)療效仍不足時，得併用其他降眼壓用藥(含複方製劑)，但不得併用前列腺素衍生物類。",
+   "effective": "2022-07-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.1.1 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.1.1.單方製劑",
+    "end": "14.1.2.複方製劑",
+    "document_version": "115.10.22",
+    "section": "14.1.1",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-comprehensive-guide.html",
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     147,
+     169,
+     418,
+     510,
+     511,
+     559,
+     747,
+     760,
+     860,
+     1050,
+     1148,
+     1149,
+     1160,
+     1168,
+     1180,
+     1206,
+     1237,
+     1243,
+     1262,
+     1272,
+     1275,
+     1281,
+     1610,
+     1652,
+     1750
+    ]
+   },
+   "fingerprint": "600f4c83c2394c1d49cfcc6a42679b17123884b490f3883f2107996f6e3b7351",
+   "baseline": "14.1.1.單方製劑(90/10/1、101/12/1、104/4/1、106/2/1、111/7/1):1.β-交感神經阻斷劑(β-blockers)2.碳酸酐酶抑制劑(Carbonicanhydraseinhibitor):限對β-blockers有禁忌、不適或使用效果不佳之病患使用。3.前列腺素衍生物類:(Prostaglandinanalogues):(93/2/1、101/12/1)(1)限對β-blockers使用效果不佳或不適用之病患使用。宜先以單獨使用為原則。(2)療效仍不足時,得併用其他降眼壓用藥(含複方製劑)。4.腎上腺激性作用劑(α-2adrenergicagonist):限對β-blockers有禁忌、不適或使用效果不佳之病患使用。(111/7/1)5.Omidenepag(如Eybelis):(111/7/1)(1)限對β-blockers有禁忌、不適或使用效果不佳之病患使用。宜先以單獨使用為原則。(2)療效仍不足時,得併用其他降眼壓用藥(含複方製劑),但不得併用前列腺素衍生物類。"
+  },
+  {
+   "id": "glaucoma-14-1-2",
+   "topic": "青光眼複方製劑限第二線以上",
+   "status": "current",
+   "rule_zh": "14.1.2.複方製劑：(92/2/1、101/12/1、104/4/1、106/2/1)限經單一降眼壓藥物治療後，眼壓仍控制不良之患者第二線(含)以上用藥。(91/12/1、97/8/1、97/9/1、101/12/1)",
+   "effective": "2017-02-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.1.2 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.1.2.複方製劑",
+    "end": "14.2.Acyclovir",
+    "document_version": "115.10.22",
+    "section": "14.1.2",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-comprehensive-guide.html",
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "4965b134c8a47732e62cacc336512d74a7b702fc788bfbbc03866021bdf1791a",
+   "baseline": "14.1.2.複方製劑:(92/2/1、101/12/1、104/4/1、106/2/1)限經單一降眼壓藥物治療後,眼壓仍控制不良之患者第二線(含)以上用藥。(91/12/1、97/8/1、97/9/1、101/12/1)"
+  },
+  {
+   "id": "acyclovir-eye-14-2",
+   "topic": "Acyclovir 眼用製劑適用病例",
+   "status": "current",
+   "rule_zh": "14.2.Acyclovir眼用製劑：限下列病例使用1.帶狀疱疹或單純性疱疹侵犯三叉神經第一分枝 V1皮節，可能危及眼角膜者。2.帶狀疱疹或單純性疱疹所引起之角膜炎或角膜潰瘍者。3.急性視網膜壞死症 (acute retina necrosis)。4.本品不宜與口服、外用或注射製劑合併使用。",
+   "effective": null,
+   "version": "藥品給付規定（115.10.22 更新）第 14.2 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.2.Acyclovir",
+    "end": "14.3.Maxitrol",
+    "document_version": "115.10.22",
+    "section": "14.2",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/hzo-stromal-keratitis-zeds-lessons.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "b03b6d9d8fa79a7513dd5c351e3818ff4793974cc772fcf566a734b782f0b9d2",
+   "baseline": "14.2.Acyclovir眼用製劑:限下列病例使用1.帶狀疱疹或單純性疱疹侵犯三叉神經第一分枝V1皮節,可能危及眼角膜者。2.帶狀疱疹或單純性疱疹所引起之角膜炎或角膜潰瘍者。3.急性視網膜壞死症(acuteretinanecrosis)。4.本品不宜與口服、外用或注射製劑合併使用。"
+  },
+  {
+   "id": "maxitrol-pimafucin-14-3",
+   "topic": "Maxitrol、pimafucin 眼膏處方量",
+   "status": "current",
+   "rule_zh": "14.3.Maxitrol oph oint；pimafucin oint：門診處方限一支。",
+   "effective": null,
+   "version": "藥品給付規定（115.10.22 更新）第 14.3 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.3.Maxitrol",
+    "end": "14.4.Quinolone",
+    "document_version": "115.10.22",
+    "section": "14.3",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-surgery-selection.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "2cdc9af94153adf3f3e355886553440a8b4a9f0fdb810d79924720d35cb2b287",
+   "baseline": "14.3.Maxitrolophoint;pimafucinoint:門診處方限一支。"
+  },
+  {
+   "id": "quinolone-14-4-1",
+   "topic": "Quinolone 類眼用製劑",
+   "status": "current",
+   "rule_zh": "14.4.1.Ofloxacin, norfloxacin, ciprofloxacin, moxifloxacin, levofloxacin 眼用製劑： （87/4/1、93/2/1、94/7/1、96/5/1）1.限用於角膜潰瘍或嚴重角膜炎病例。2.其餘眼科疾患，則列為第二線用藥，申報費用時需檢附細菌敏感試驗報告。",
+   "effective": "2007-05-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.4.1 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.4.1.Ofloxacin",
+    "end": "14.4.2.Lomefloxacin",
+    "document_version": "115.10.22",
+    "section": "14.4.1",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-comprehensive-guide.html",
+     "blog/cataract-surgery-selection.html",
+     "blog/toric-iol-astigmatism-cataract-review.html",
+     "blog/pterygium-surgery-fixation-methods-2026-nma.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     30,
+     121,
+     160,
+     174,
+     847,
+     855,
+     886,
+     959,
+     966,
+     1329,
+     1378,
+     1461
+    ]
+   },
+   "fingerprint": "9d272c7fde0862389ec73d6508ad26e548908508b3f0322ba5be0c312a0a1d52",
+   "baseline": "14.4.1.Ofloxacin,norfloxacin,ciprofloxacin,moxifloxacin,levofloxacin眼用製劑:(87/4/1、93/2/1、94/7/1、96/5/1)1.限用於角膜潰瘍或嚴重角膜炎病例。2.其餘眼科疾患,則列為第二線用藥,申報費用時需檢附細菌敏感試驗報告。"
+  },
+  {
+   "id": "artificial-tears-14-5",
+   "topic": "人工淚液",
+   "status": "current",
+   "rule_zh": "14.5.人工淚液： （87/7/1、93/2/1、113/7/1）1. 初次使用限經眼科醫師診斷且符合下列條件之一者使用，病歷上應附相關紀錄、照片或影片備查：(113/7/1）(1)乾眼症病患經淚液分泌機能檢查(basal Schirmer test)至少單眼淚液分泌＜5mm 者或淚膜檢查淚膜破裂時間(TBUT)＜5秒。 （87/7/1、93/2/1、113/7/1）(2)因乾眼症導致角膜病變、暴露性角膜病變或其它相關之角膜病變必須時之使用。(93/2/1)2. 規格量15mL 者，每個月限處方1瓶；規格量≦10mL 者，3個月限處方4瓶。(113/7/1）",
+   "effective": "2024-07-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.5 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.5.人工淚液",
+    "end": "14.6.(刪除)",
+    "document_version": "115.10.22",
+    "section": "14.5",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/dry-eye-myths.html",
+     "blog/dry-eye-symptom-sign-discordance-dream.html",
+     "blog/thyroid-eye-disease.html",
+     "blog/lacrimal-gland-tumor.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     829,
+     860,
+     861,
+     878,
+     889,
+     921,
+     923
+    ]
+   },
+   "fingerprint": "167ac07411e3cf59592e629b843b53080a63ae621cb12758b97be7590f4fe59c",
+   "baseline": "14.5.人工淚液:(87/7/1、93/2/1、113/7/1)1.初次使用限經眼科醫師診斷且符合下列條件之一者使用,病歷上應附相關紀錄、照片或影片備查:(113/7/1)(1)乾眼症病患經淚液分泌機能檢查(basalSchirmertest)至少單眼淚液分泌<5mm者或淚膜檢查淚膜破裂時間(TBUT)<5秒。(87/7/1、93/2/1、113/7/1)(2)因乾眼症導致角膜病變、暴露性角膜病變或其它相關之角膜病變必須時之使用。(93/2/1)2.規格量15mL者,每個月限處方1瓶;規格量≦10mL者,3個月限處方4瓶。(113/7/1)"
+  },
+  {
+   "id": "ketorolac-14-8",
+   "topic": "Ketorolac 眼用製劑",
+   "status": "current",
+   "rule_zh": "14.8.Ketorolac tromethamine（如 Acular Ophthalmic Solution）：(89/11/1)限白內障手術後之眼部發炎使用。",
+   "effective": "2000-11-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.8 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.8.Ketorolac",
+    "end": "14.9.其他",
+    "document_version": "115.10.22",
+    "section": "14.8",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-comprehensive-guide.html",
+     "blog/cataract-surgery-selection.html",
+     "blog/toric-iol-astigmatism-cataract-review.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "00ec0666881166f8f8876564f08848310046f33d219d75ae12690091247d3313",
+   "baseline": "14.8.Ketorolactromethamine(如AcularOphthalmicSolution):(89/11/1)限白內障手術後之眼部發炎使用。"
+  },
+  {
+   "id": "anti-vegf-14-9-2-common",
+   "topic": "新生血管抑制劑：共同條件",
+   "status": "current",
+   "rule_zh": "14.9.2.新生血管抑制劑 (Anti-angiogenic agents) : ranibizumab (如 Lucentis)、aflibercept (如 Eylea)、faricimab (如 Vabysmo) (100/1/1、 101/5/1、102/2/1、103/8/1、104/5/1、105/2/1、105/7/1、105/11/1、105/12/1、106/4/1、106/12/1、108/4/1、109/2/1、109/3/1、109/6/1、109/12/1、112/2/1、112/3/1、113/1/1、114/5/1、115/5/1)本類藥品使用須符合下列條件:1.未曾申請給付本類藥品者。2.須經事前審查核准後使用。(1)第一次申請時需檢附一個月內之病眼最佳矯正視力(介於0.05~0.5(含)之間)、眼底彩色照片、FAG (fluorescein angiography)、OCT (optical coherencetomography)、及相關病歷紀錄資料。(2)經評估需續用者，再次申請時需檢附第一次申請資料及再次申請前一個月內有改善證明之相關資料。3.限眼科專科醫師施行。4.已產生中央窩下(subfoveal)結痂者不得申請使用。5.限ranibizumab、aflibercept 及 faricimab 擇一申請，且未曾申請給付dexamethasone 眼後段植入劑者(DME 及 CRVO 除外)、或 verteporfin(PCV)。另faricimab僅限用於 wAMD、DME、PCV、CRVO 及 BRVO 疾病；aflibercept 8mg 僅限用於wAMD、DME 及 PCV 疾病。(109/2/1、109/3/1、113/1/1、114/5/1、115/5/1)6.須於第一次申請核准後5年內使用完畢。(109/2/1)7.依疾病別另規定如下:",
+   "effective": "2026-05-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.2 第 1 至 7 點共同條件 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.9.2.新生血管抑制劑",
+    "end": "(1)50歲以上血管新生型",
+    "document_version": "115.10.22",
+    "section": "14.9.2 第 1 至 7 點共同條件",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/diabetic-retinopathy-dementia-trinetx-cohort.html",
+     "blog/lacrimal-gland-tumor.html",
+     "blog/osa-amd-systematic-review-2026.html",
+     "blog/pediatric-high-myopia-maculopathy-progression.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     148,
+     1046,
+     1463
+    ]
+   },
+   "fingerprint": "bb2c694ef9771f39cc6e6b3fac1934f73b9b32c9c64052251a599fa305cccf7f",
+   "baseline": "14.9.2.新生血管抑制劑(Anti-angiogenicagents):ranibizumab(如Lucentis)、aflibercept(如Eylea)、faricimab(如Vabysmo)(100/1/1、101/5/1、102/2/1、103/8/1、104/5/1、105/2/1、105/7/1、105/11/1、105/12/1、106/4/1、106/12/1、108/4/1、109/2/1、109/3/1、109/6/1、109/12/1、112/2/1、112/3/1、113/1/1、114/5/1、115/5/1)本類藥品使用須符合下列條件:1.未曾申請給付本類藥品者。2.須經事前審查核准後使用。(1)第一次申請時需檢附一個月內之病眼最佳矯正視力(介於0.05~0.5(含)之間)、眼底彩色照片、FAG(fluoresceinangiography)、OCT(opticalcoherencetomography)、及相關病歷紀錄資料。(2)經評估需續用者,再次申請時需檢附第一次申請資料及再次申請前一個月內有改善證明之相關資料。3.限眼科專科醫師施行。4.已產生中央窩下(subfoveal)結痂者不得申請使用。5.限ranibizumab、aflibercept及faricimab擇一申請,且未曾申請給付dexamethasone眼後段植入劑者(DME及CRVO除外)、或verteporfin(PCV)。另faricimab僅限用於wAMD、DME、PCV、CRVO及BRVO疾病;aflibercept8mg僅限用於wAMD、DME及PCV疾病。(109/2/1、109/3/1、113/1/1、114/5/1、115/5/1)6.須於第一次申請核准後5年內使用完畢。(109/2/1)7.依疾病別另規定如下:"
+  },
+  {
+   "id": "anti-vegf-nAMD",
+   "topic": "新生血管抑制劑：濕性 AMD",
+   "status": "current",
+   "rule_zh": "(1) 50歲以上血管新生型(濕性)年齡相關性黃斑部退化病變(wAMD)：…Ⅰ.第一次申請時以8支為限，第二次申請為3支，第三次申請3支，每眼給付以14支為限。…Ⅱ.必須排除下列情況：…i.血管新生型wAMD 進展至視網膜下纖維化或advanced geographic atrophy 者反應不佳。…Ⅲ.第二次及第三次申請時，需檢附與第一次申請項目相同之各項最近檢查紀錄外，並檢附有改善證明及須持續治療需求之相關資料。",
+   "effective": "2023-02-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.2 第 7 點 (1) 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "(1)50歲以上血管新生型",
+    "end": "(2)糖尿病引起黃斑部水腫",
+    "document_version": "115.10.22",
+    "section": "14.9.2 第 7 點 (1)",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/osa-amd-systematic-review-2026.html",
+     "blog/lacrimal-gland-tumor.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "76279a70fd7f7a58c2ca3ddd7c32bd7607173929c48a34d22c6da592b3d4a47e",
+   "baseline": "(1)50歲以上血管新生型(濕性)年齡相關性黃斑部退化病變(wAMD):(101/5/1、105/12/1、109/2/1、109/6/1、109/12/1)I.第一次申請時以8支為限,第二次申請為3支,第三次申請3支,每眼給付以14支為限。(105/12/1、109/2/1、109/6/1)II.必須排除下列情況:(109/2/1)i.血管新生型wAMD進展至視網膜下纖維化或advancedgeographicatrophy者反應不佳。ii.高度近視,類血管狀破裂症(angioidstreaks),或其他非wAMD所造成視網膜中央窩(fovea)下之脈絡膜新生血管(Choroidalneovascularization;CNV)(101/5/1)。III.第二次及第三次申請時,需檢附與第一次申請項目相同之各項最近檢查紀錄外,並檢附有改善證明及須持續治療需求之相關資料。且符合下列情況者方得以繼續治療:(109/12/1、112/2/1)i.患眼最佳矯正視力與前次申請之治療期間比較有進步至少一行。(109/12/1、112/2/1)ii.彩色眼底照片及OCT(或OCTA)檢查呈現視網膜內積液、視網膜下積液、視網膜色素上皮層下積液,黃斑部出血或黃班新生血管等病灶與第一次申請之治療期間比較有改善。(112/2/1)iii.解剖學上仍有疾病活性者(如視網膜內積液、視網膜下積液、視網膜色素上皮層下積液、黃斑部出血,或黃班新生血管等病灶)。(109/12/1、112/2/1)iv.FAG事前審查時要求補附才需檢附。(109/12/1)"
+  },
+  {
+   "id": "anti-vegf-DME",
+   "topic": "新生血管抑制劑：糖尿病黃斑部水腫",
+   "status": "current",
+   "rule_zh": "(2)糖尿病引起黃斑部水腫 (diabetic macular edema, DME)之病變：…Ⅰ.第一次申請以5支為限，第二次申請5支，第三次申請4支，每眼給付以14支為限。…Ⅱ.中央視網膜厚度(central retinal thickness,CRT)≧ 300μm。…Ⅲ.第一次申請時，需檢附近三個月內之糖化血色素(HbA1c)數值低於10%。…i.最佳矯正視力低於0.8(不含)。…iii.近三個月內之糖化血色素(HbA1c)數值應≦8.0%。…Ⅵ.每人每眼申請更換給付不同作用機轉藥物以一次為限。",
+   "effective": "2024-01-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.2 第 7 點 (2) 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "(2)糖尿病引起黃斑部水腫",
+    "end": "(3)多足型脈絡膜血管病變型",
+    "document_version": "115.10.22",
+    "section": "14.9.2 第 7 點 (2)",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/diabetic-retinopathy-dementia-trinetx-cohort.html",
+     "blog/lacrimal-gland-tumor.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "29950b5c7e2ca2bde5d2d1d2a184ab50791aeb306b77224344bde5effdffc322",
+   "baseline": "(2)糖尿病引起黃斑部水腫(diabeticmacularedema,DME)之病變:(102/2/1、103/8/1、105/2/1、105/11/1、105/12/1、106/4/1、108/4/1、109/2/1、109/3/1、112/2/1、112/3/1)I.第一次申請以5支為限,第二次申請5支,第三次申請4支,每眼給付以14支為限。(105/2/1、105/12/1、109/2/1、112/2/1)II.中央視網膜厚度(centralretinalthickness,CRT)≧300μm。III.第一次申請時,需檢附近三個月內之糖化血色素(HbA1c)數值低於10%。IV.第二次及第三次申請時,需檢附與第一次申請項目相同之各項最近檢查紀錄外,並檢附有改善證明或須持續治療需求之相關資料。符合下列情況者方得以繼續治療:(112/2/1)i.最佳矯正視力低於0.8(不含)。(112/2/1)ii.OCT檢查仍有黃斑部水腫(centralretinalthickness,CRT)≧300μm),且OCT所測得黃斑中心厚度在治療期間,曾比前一次申請所測厚度至少減少10%。(112/2/1)iii.近三個月內之糖化血色素(HbA1c)數值應≦8.0%。(112/2/1)V.第一次申請治療後,患者治療成果不彰或對原申請藥物產生不良反應者,得申請更換給付不同作用機轉藥物(faricimab、ranibizumab、aflibercept僅能擇一使用,不得申請互為轉換),申請時需檢送第一次申請資料及再次申請前一個月內有黃斑水腫仍具臨床活性且中央視網膜厚度(centralretinalthickness,CRT)≧300μm之相關資料。(109/3/1、113/1/1)VI.每人每眼申請更換給付不同作用機轉藥物以一次為限。(109/3/1)VII.申請更換給付dexamethasone眼後段植入劑者,以2支為限。(109/3/1)VIII.因其他因素(如玻璃體牽引)所造成之黃斑部水腫不得申請使用。(108/4/1)IX.若患者腎功能不全(eGFR<45mL/min/1.73m2或serumcreatinine≧1.5mg/dL)或腎臟移植患者(但排除已洗腎個案),或具有藥物過敏史者,需檢附近三個月內有關腎功能檢查(如BUN,creatinine)報告及彩色眼底照片可看出典型糖尿病視網膜病變及OCT呈現網膜水腫等相關資料,並檢附足以證明其罹患疾病之光學共軛斷層血管掃描儀(opticalcoherencetomographyangiography,OCTA)檢查結果[例如OCTA檢查結果須顯示血管灌流不全區域、中央微血管灌流缺損(Dropout)、中央無血管區域(Avascularzone)變大等變化],則得以OCTA檢查結果代替FAG資料。(112/3/1)"
+  },
+  {
+   "id": "anti-vegf-PCV",
+   "topic": "新生血管抑制劑：PCV",
+   "status": "current",
+   "rule_zh": "(3)多足型脈絡膜血管病變型黃斑部病變(polypoidal choroidal vasculopathy,PCV)之用藥：(104/5/1、105/11/1、105/12/1、106/12/1、109/2/1、109/6/1、109/12/1、112/2/1)I.第一次申請時以8支為限，第二次申請為3支，第三次申請3支，每眼給付以14支為限。 (106/12/1、109/2/1、109/6/1)Ⅱ.必須排除 PCV 進展至視網膜下纖維化或者反應不佳。(109/12/1)Ⅲ.第二次及第三次申請時，需檢附與第一次申請項目相同之各項最近檢查紀錄外，並檢附有改善證明及須持續治療需求之相關資料。且符合下列情況者方得以繼續治療：(109/12/1、112/2/1)i.患眼最佳矯正視力與前次申請之治療期間比較有進步至少一行。(109/12/1、112/2/1)ii.彩色眼底照片及 OCT(或 OCTA)檢查呈現視網膜內積液、視網膜下積液、視網膜色素上皮層下積液，黃斑部出血或黃班新生血管等病灶與第一次申請之治療期間比較有改善。(112/2/1)iii.解剖學上仍有疾病活性者(如視網膜內積液、視網膜下積液、視網膜色素上皮層下積液、黃斑部出血，或黃班新生血管等病灶)。(109/12/1、112/2/1)iv.ICGA、FAG 事前審查時要求補附才需檢附。",
+   "effective": "2023-02-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.2 第 7 點 (3) 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "(3)多足型脈絡膜血管病變型",
+    "end": "(4)中央視網膜靜脈阻塞(CRVO)",
+    "document_version": "115.10.22",
+    "section": "14.9.2 第 7 點 (3)",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/lacrimal-gland-tumor.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "78c7f2d681ffb82604d21be264b0e9969549f451e51e3c39a782a97360323bda",
+   "baseline": "(3)多足型脈絡膜血管病變型黃斑部病變(polypoidalchoroidalvasculopathy,PCV)之用藥:(104/5/1、105/11/1、105/12/1、106/12/1、109/2/1、109/6/1、109/12/1、112/2/1)I.第一次申請時以8支為限,第二次申請為3支,第三次申請3支,每眼給付以14支為限。(106/12/1、109/2/1、109/6/1)II.必須排除PCV進展至視網膜下纖維化或者反應不佳。(109/12/1)III.第二次及第三次申請時,需檢附與第一次申請項目相同之各項最近檢查紀錄外,並檢附有改善證明及須持續治療需求之相關資料。且符合下列情況者方得以繼續治療:(109/12/1、112/2/1)i.患眼最佳矯正視力與前次申請之治療期間比較有進步至少一行。(109/12/1、112/2/1)ii.彩色眼底照片及OCT(或OCTA)檢查呈現視網膜內積液、視網膜下積液、視網膜色素上皮層下積液,黃斑部出血或黃班新生血管等病灶與第一次申請之治療期間比較有改善。(112/2/1)iii.解剖學上仍有疾病活性者(如視網膜內積液、視網膜下積液、視網膜色素上皮層下積液、黃斑部出血,或黃班新生血管等病灶)。(109/12/1、112/2/1)iv.ICGA、FAG事前審查時要求補附才需檢附。"
+  },
+  {
+   "id": "anti-vegf-CRVO",
+   "topic": "新生血管抑制劑：CRVO",
+   "status": "current",
+   "rule_zh": "(4)中央視網膜靜脈阻塞(CRVO)續發黃斑部水腫所導致的視力損害：…I.限18歲以上患者。…Ⅱ.中央視網膜厚度(central retinal thickness,CRT)≧ 300μm。…Ⅲ.第一次申請以5支為限，第二次申請5支，第三次申請4支，每眼給付以14支為限。",
+   "effective": "2023-02-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.2 第 7 點 (4) 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "(4)中央視網膜靜脈阻塞(CRVO)",
+    "end": "(5)病理性近視續發",
+    "document_version": "115.10.22",
+    "section": "14.9.2 第 7 點 (4)",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/lacrimal-gland-tumor.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "d81664da100558aa77a965a58b8565441aed7807307d4da6db33708d8ea93006",
+   "baseline": "(4)中央視網膜靜脈阻塞(CRVO)續發黃斑部水腫所導致的視力損害:(105/7/1、105/11/1、105/12/1、108/4/1、109/2/1、109/3/1、112/2/1)I.限18歲以上患者。II.中央視網膜厚度(centralretinalthickness,CRT)≧300μm。III.第一次申請以5支為限,第二次申請5支,第三次申請4支,每眼給付以14支為限。(105/12/1、112/2/1)IV.第一次申請治療後,患者治療成果不彰或對原申請藥物產生不良反應者,得申請更換給付不同作用機轉藥物,申請時需檢送第一次申請資料及再次申請前一個月內有黃斑水腫仍具臨床活性且中央視網膜厚度(centralretinalthickness,CRT)≧300μm之相關資料。(109/3/1)V.若患者腎功能不全(eGFR<45mL/min/1.73m2或serumcreatinine≧1.5mg/dL),或具有藥物過敏史者需檢附相關資料,得檢附足以證明其罹患疾病之光學共軛斷層血管掃描儀(opticalcoherencetomographyangiography,OCTA)檢查結果代替FAG資料。(108/4/1)VI.每人每眼申請更換給付不同作用機轉藥物以一次為限。(109/3/1)VII.申請更換給付dexamethasone眼後段植入劑者,以2支為限。(109/3/1)VIII.第二次及第三次申請時,需檢附與第一次申請項目相同之各項最近檢查紀錄外,並檢附有改善證明或須持續治療需求之相關資料。符合下列情況者方得以繼續治療:(112/2/1)i.最佳矯正視力低於0.8(不含)。(112/2/1)ii.OCT檢查仍有黃斑部水腫(centralretinalthickness,CRT)≧300μm),且OCT所測得黃斑中心厚度在治療期間,曾比前一次申請所測厚度至少減少10%。(112/2/1)"
+  },
+  {
+   "id": "anti-vegf-myopic-CNV",
+   "topic": "新生血管抑制劑：病理性近視 CNV",
+   "status": "current",
+   "rule_zh": "(5)病理性近視續發的脈絡膜血管新生所導致的視力損害：(105/7/1、105/12/1、106/12/1、109/2/1)Ⅰ.限超過600度近視。Ⅱ.眼軸長大於26mm。Ⅲ.因CNV 病變而導致動態滲漏或中央視網膜內或視網膜下液。IV.申請以一次為限，每眼最多給付3支。(109/2/1)V.有下列情況者不得申請使用：i.有中風病史。ii.三個月內曾使用過類固醇眼內治療者。",
+   "effective": "2020-02-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.2 第 7 點 (5) 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "(5)病理性近視續發",
+    "end": "(6)分支視網膜靜脈阻塞",
+    "document_version": "115.10.22",
+    "section": "14.9.2 第 7 點 (5)",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/pediatric-high-myopia-maculopathy-progression.html",
+     "blog/lacrimal-gland-tumor.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "b0cd9de1693d888358629d3b3ba94d7924dbdfe8b717cc9b02902c6f9eeff041",
+   "baseline": "(5)病理性近視續發的脈絡膜血管新生所導致的視力損害:(105/7/1、105/12/1、106/12/1、109/2/1)I.限超過600度近視。II.眼軸長大於26mm。III.因CNV病變而導致動態滲漏或中央視網膜內或視網膜下液。IV.申請以一次為限,每眼最多給付3支。(109/2/1)V.有下列情況者不得申請使用:i.有中風病史。ii.三個月內曾使用過類固醇眼內治療者。"
+  },
+  {
+   "id": "anti-vegf-BRVO",
+   "topic": "新生血管抑制劑：BRVO",
+   "status": "current",
+   "rule_zh": "(6)分支視網膜靜脈阻塞(BRVO)續發黃斑部水腫所導致的視力損害：…Ⅰ.限18歲以上患者。…Ⅱ.第一次申請以3支為限，第二次申請4支，第三次申請2支，每眼給付以9支為限。…Ⅲ.中央視網膜厚度(central retinal thickness,CRT)≧ 300μm。",
+   "effective": "2026-05-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.2 第 7 點 (6) 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "(6)分支視網膜靜脈阻塞",
+    "end": "14.9.3.Cyclosporine",
+    "document_version": "115.10.22",
+    "section": "14.9.2 第 7 點 (6)",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/lacrimal-gland-tumor.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "d4886889795e658900a6ca1c5d4f6c811b921f0fcb2ec1df7070661a99a66338",
+   "baseline": "(6)分支視網膜靜脈阻塞(BRVO)續發黃斑部水腫所導致的視力損害:(106/12/1、108/4/1、109/2/1、112/2/1)I.限18歲以上患者。II.第一次申請以3支為限,第二次申請4支,第三次申請2支,每眼給付以9支為限。(109/2/1、112/2/1)III.中央視網膜厚度(centralretinalthickness,CRT)≧300μm。IV.若患者腎功能不全(eGFR<45mL/min/1.73m2或serumcreatinine≧1.5mg/dL),或具有藥物過敏史者需檢附相關資料,得檢附足以證明其罹患疾病之光學共軛斷層血管掃描儀(opticalcoherencetomographyangiography,OCTA)檢查結果代替FAG資料。(108/4/1)V.第二次及第三次申請時,需檢附與第一次申請項目相同之各項最近檢查紀錄外,並檢送使用後有改善證明之相關資料。符合下列情況者方得以繼續治療:(112/2/1)i.最佳矯正視力低於0.8(不含)。(112/2/1)ii.OCT檢查仍有黃斑部水腫(centralretinalthickness,CRT)≧300μm),且OCT所測得黃斑中心厚度在治療期間,曾比前一次申請所測厚度至少減少10%。(112/2/1)備註1:DME、CRVO、CNV及BRVO事前審查申請表以附表二十九之一。(109/12/1、115/5/1)備註2:wAMD及PCV事前審查申請表以附表二十九之二。(109/12/1、115/5/1)"
+  },
+  {
+   "id": "cyclosporine-eye-14-9-3",
+   "topic": "Cyclosporine 眼用製劑",
+   "status": "current",
+   "rule_zh": "14.9.3.Cyclosporine 眼用製劑 (如 Restasis) (100/08/1、103/4/1、105/5/1) (附表二十七)限乾眼症嚴重程度為 Level 3以上且符合下列各項條件之病患使用：(103/4/1、105/5/1)1.淚液分泌測試（Schirmer’s test without anesthesia）少於5mm/5min，需附檢查試紙。(103/4/1、105/5/1)2.淚膜崩裂時間（Tear Film Break-Up Time）小於或等於5秒。(103/4/1、105/5/1)3.送審時需檢附彩色外眼照片及螢光染色之照片(顯示有嚴重角膜點狀上皮缺損，結膜充血染色且有絲狀角膜炎，角膜潰瘍，或眼瞼結膜粘連，角膜結膜角質化之情形)。4.曾使用局部抗發炎藥物或淚點塞或人工淚液未見改善。(105/5/1)5.須經事前審查核准後使用，六個月審查一次。病人必須符合下列條件，方能續用：(105/5/1)(1)主述症狀改善：乾澀、畏光或產生眼睛分泌物。(2)合併以下任一條件改善：Ⅰ淚液分泌測試。Ⅱ淚膜崩裂時間。Ⅲ角膜病變-螢光染色照片。Ⅳ結膜充血或結膜染色-症狀改善。",
+   "effective": "2016-05-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.3 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.9.3.Cyclosporine",
+    "end": "14.9.4.Dexamethasone",
+    "document_version": "115.10.22",
+    "section": "14.9.3",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/dry-eye-myths.html",
+     "blog/dry-eye-symptom-sign-discordance-dream.html",
+     "blog/thyroid-eye-disease.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     829,
+     877,
+     944
+    ]
+   },
+   "fingerprint": "8f8cf52b4e7035d6455ad7bddc68feae8c096373fd5b678d1cc943589f162032",
+   "baseline": "14.9.3.Cyclosporine眼用製劑(如Restasis)(100/08/1、103/4/1、105/5/1)(附表二十七)限乾眼症嚴重程度為Level3以上且符合下列各項條件之病患使用:(103/4/1、105/5/1)1.淚液分泌測試(Schirmer’stestwithoutanesthesia)少於5mm/5min,需附檢查試紙。(103/4/1、105/5/1)2.淚膜崩裂時間(TearFilmBreak-UpTime)小於或等於5秒。(103/4/1、105/5/1)3.送審時需檢附彩色外眼照片及螢光染色之照片(顯示有嚴重角膜點狀上皮缺損,結膜充血染色且有絲狀角膜炎,角膜潰瘍,或眼瞼結膜粘連,角膜結膜角質化之情形)。4.曾使用局部抗發炎藥物或淚點塞或人工淚液未見改善。(105/5/1)5.須經事前審查核准後使用,六個月審查一次。病人必須符合下列條件,方能續用:(105/5/1)(1)主述症狀改善:乾澀、畏光或產生眼睛分泌物。(2)合併以下任一條件改善:I淚液分泌測試。II淚膜崩裂時間。III角膜病變-螢光染色照片。IV結膜充血或結膜染色-症狀改善。"
+  },
+  {
+   "id": "ozurdex-14-9-4",
+   "topic": "Dexamethasone 眼後段植入劑",
+   "status": "current",
+   "rule_zh": "14.9.4.Dexamethasone intravitreal implant (如Ozurdex)…1.限眼科專科醫師施行。…5.用於糖尿病引起黃斑部水腫 (diabetic macular edema, DME)之病變，需符合下列條件：…(1)中央視網膜厚度(central retinal thickness, CRT)≧300μm。…(4)須經事前審查核准後使用。…Ⅰ.未曾申請給付新生血管抑制劑(anti-angiogenic agents)者，第一次申請以3支為限…每眼給付以5支為限。…(5)有下列情況不得申請使用：…Ⅱ.青光眼。",
+   "effective": "2026-06-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.4 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.9.4.Dexamethasone",
+    "end": "14.9.5.Verteporfin",
+    "document_version": "115.10.22",
+    "section": "14.9.4",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/diabetic-retinopathy-dementia-trinetx-cohort.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     998,
+     1046,
+     1059,
+     1118
+    ]
+   },
+   "fingerprint": "c541fb13dc09491dcf9312aa15b01c11c18059162d81b21cba07a35b67887dad",
+   "baseline": "14.9.4.Dexamethasoneintravitrealimplant(如Ozurdex)(104/05/1、105/8/1、106/4/1、108/4/1、109/2/1、109/3/1、115/6/1)1.限眼科專科醫師施行。(109/2/1)2.須於第一次申請核准後5年內使用完畢。(109/2/1)3.用於非感染性眼後房葡萄膜炎病人,需符合下列條件:(1)限地區醫院以上層級(含)施行。(109/2/1)(2)必須排除下列情況:I.因感染性引起之眼後房葡萄膜炎如肺結核、梅毒、弓漿蟲等之感染。II.使用類固醇時或第一次申請dexamethasoneintravitrealimplant使用後,致不可控制的高眼壓青光眼。(115/6/1)(3)矯正後視力介於0.05和0.5(含)之間。(104/5/1、115/6/1)(4)需符合下列治療方式之一:I.葡萄膜炎之患者以口服類固醇控制病情,反應不良或仍有發炎與黃斑部水腫者,需輔以cyclosporin或其他全身性免疫抑制劑,經前述治療眼睛發炎仍無法控制者。II.無法口服全身性藥物(例如:類固醇)控制者:(104/5/1、115/6/1)i.懷孕或正在授乳的婦女。ii.罹患活動性的感染症的病患。iii.身上帶有人工關節者,罹患或先前曾罹患過嚴重的敗血症(sepsis)者。iv.惡性腫瘤或具有癌症前兆(pre-malignancy)的病患。v.免疫功能不全者(Immunodeficiency)。vi.曾因其他疾病服用上述口服全身性藥物,有嚴重併發症或後遺症者。(5)第一次申請時以1支為限,第二次申請2支,第三次申請3支,每眼給付以6支為限。(104/5/1、115/6/1)(6)給付後六個月內不得使用cyclosporin藥品。(7)需事前審查,並檢附病歷摘要及符合下列條件之一之診斷依據。I.一個月內有效之OCT顯示中央視網膜厚度(centralretinalthickness,CRT)≧300μm。II.一個月內有效之FAG(fluoresceinangiography)看到血管明顯滲漏現象或黃斑部囊狀水腫。III.Vitreoushazescore值大於等於1。(115/6/1)(8)第二次及第三次申請時,需檢附與第一次申請項目相同之各項最近檢查紀錄外,並檢附有改善證明及須持續治療需求之相關資料。符合下列情況者方得以繼續治療:(115/6/1)I.治療期間的中央視網膜厚度(centralretinalthickness,CRT)與治療前相比,減少10%或降幅>50μm。II.一個月內有效之OCT顯示中央視網膜厚度≧300μm。III.一個月內有效之FAG看到血管明顯滲漏現象或黃斑部囊狀水腫。IV.Vitreoushazescore值大於等於1。V.矯正後視力介於0.05和0.5(含)之間。4.用於中央視網膜靜脈阻塞(CRVO)導致黃斑部水腫,需符合下列條件:(105/8/1、106/4/1、108/4/1、109/2/1、109/3/1)(1)限18歲以上患者。(2)中央視網膜厚度(centralretinalthickness,CRT)≧300μm。(3)已產生中央窩下(subfoveal)結痂者不得申請使用。(4)須經事前審查核准後使用。I.第一次申請以2支為限,第一次申請時需檢附一個月內之病眼最佳矯正視力(介於0.05~0.5(含)之間)、眼底彩色照片、FAG(fluoresceinangiography)、OCT(opticalcoherencetomography)及相關病歷紀錄資料。若患者腎功能不全(eGFR<45mL/min/1.73m2或serumcreatinine≧1.5mg/dL),或具有藥物過敏史者需檢附相關資料,得檢附足以證明其罹患疾病之光學共軛斷層血管掃描儀(opticalcoherencetomographyangiography,OCTA)檢查結果代替FAG資料。(108/4/1、109/2/1)II.經評估需續用者,再次申請時需檢附第一次申請資料及再次申請前一個月內有改善證明之相關資料,每眼給付以4支為限。(109/2/1)III.第一次申請治療後,患者治療成果不彰或對原申請藥物產生不良反應者,得申請更換給付新生血管抑制劑(限ranibizumab及aflibercept擇一申請),申請時需檢送第一次申請資料及再次申請前一個月內有黃斑水腫仍具臨床活性且中央視網膜厚度(centralretinalthickness,CRT)≧300μm之相關資料。(109/3/1)IV.每人每眼申請更換給付不同作用機轉藥物以一次為限,申請更換給付新生血管抑制劑(如aflibercept或ranibizumab)者,以4支為限。(109/3/1)5.用於糖尿病引起黃斑部水腫(diabeticmacularedema,DME)之病變,需符合下列條件:(106/4/1、108/4/1、109/2/1、109/3/1)(1)中央視網膜厚度(centralretinalthickness,CRT)≧300μm。(2)已產生中央窩下(subfoveal)結痂者不得申請使用。(3)近三個月內之糖化血色素(HbA1c)數值低於10%,並於每次申請時檢附近三個月內之檢查結果。(4)須經事前審查核准後使用。I.未曾申請給付新生血管抑制劑(anti-angiogenicagents)者,第一次申請以3支為限,第一次申請時需檢附一個月內之病眼最佳矯正視力(介於0.05~0.5(含)之間)、眼底彩色照片、FAG(fluoresceinangiography)、OCT(opticalcoherencetomography)、及相關病歷紀錄資料。(109/2/1)II.經評估需續用者,再次申請時需檢附與第一次申請項目相同之各項最近檢查紀錄外,並檢送使用後有改善證明之相關資料,每眼給付以5支為限。(109/2/1)III.第一次申請治療後,患者治療成果不彰或對原申請藥物產生不良反應者,得申請更換給付新生血管抑制劑(限ranibizumab及aflibercept擇一申請),申請時需檢送第一次申請資料及再次申請前一個月內有黃斑水腫仍具臨床活性且中央視網膜厚度(centralretinalthickness,CRT)≧300μm之相關資料。(109/3/1)IV.每人每眼申請更換給付不同作用機轉藥物以一次為限,申請更換給付新生血管抑制劑者,以3支為限。(109/3/1)(5)有下列情況不得申請使用:I.因其他因素(如玻璃體牽引)所造成之黃斑部水腫。(108/4/1)II.青光眼。"
+  },
+  {
+   "id": "atropine-14-9-6",
+   "topic": "低濃度 Atropine 眼用製劑",
+   "status": "current",
+   "rule_zh": "14.9.6.Atropine sulfate 0.1 mg/mL- 0.5 mg/mL 眼用製劑：(112/5/1、113/10/1、115/8/1)限用於18歲以下兒童及青少年，規格量≧ 3.5 mL 項目，每4週處方為1瓶。",
+   "effective": "2026-08-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.6 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.9.6.Atropine",
+    "end": "14.9.7.新生血管抑制劑",
+    "document_version": "115.10.22",
+    "section": "14.9.6",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/dims-pediatric-myopia-control.html",
+     "blog/pediatric-myopia-control.html",
+     "blog/pediatric-high-myopia-maculopathy-progression.html",
+     "blog/monitoring-myopia-ser-vs-axial-length.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "d7202683cc0cc28da00cabcbeff6dfee962977266ea69e16f8765246ef224a88",
+   "baseline": "14.9.6.Atropinesulfate0.1mg/mL-0.5mg/mL眼用製劑:(112/5/1、113/10/1、115/8/1)限用於18歲以下兒童及青少年,規格量≧3.5mL項目,每4週處方為1瓶。"
+  },
+  {
+   "id": "anti-vegf-ROP-14-9-7",
+   "topic": "新生血管抑制劑：早產兒視網膜病變",
+   "status": "current",
+   "rule_zh": "14.9.7.新生血管抑制劑 (Anti-angiogenic agents) : ranibizumab (如Lucentis)、aflibercept (如Eylea)、bevacizumab (如Avastin) (114/3/1)：…本類藥品使用早產兒視網膜病變(Retinopathy of prematurity, ROP)須符合下列條件：…1.限曾接受過訓練之眼科專科醫師施行。…4.每人以3小瓶(支)為限，第一小瓶(支)得由眼科專科醫師專業判斷後先行注射治療及事後報備。",
+   "effective": "2025-03-01",
+   "version": "藥品給付規定（115.10.22 更新）第 14.9.7 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "14.9.7.新生血管抑制劑",
+    "end": "14.9.8.Idebenone",
+    "document_version": "115.10.22",
+    "section": "14.9.7",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/lacrimal-gland-tumor.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "7f3873e44d4bbaaa8572c5ba66826e61f43500f77ccfae3a1778e13972b2185e",
+   "baseline": "14.9.7.新生血管抑制劑(Anti-angiogenicagents):ranibizumab(如Lucentis)、aflibercept(如Eylea)、bevacizumab(如Avastin)(114/3/1):本類藥品使用早產兒視網膜病變(Retinopathyofprematurity,ROP)須符合下列條件:1.限曾接受過訓練之眼科專科醫師施行。2.早產兒視網膜病變,病人應在小兒科新生兒病房(含新生兒加護病房)照護。且病人早產兒視網膜病變之嚴重程度需符合以下條件之一:(1)第一區,疾病為第一期+、第二期+、第三期、第三期+(zoneIstage1+,2+,3,or3+)。(2)第二區,疾病為第二期+、第三期+(ZoneIIstage2+,zoneIIstage3+)。(3)急進型早產兒視網膜病變(aggressiveposteriorROP,AP-ROP)。3.可選用藥物及給藥劑量:(1)給藥劑量:I.Bevacizumab(如Avastin,但Mvasi除外):0.625mgin0.025mL。II.Ranibizumab(如Lucentis):0.25mgin0.025mL。III.Aflibercept(如Eylea):1mgin0.025mL。(2)每1小瓶(支)只限單一病人,若同時施打兩眼,僅限申報1小瓶(支)。4.每人以3小瓶(支)為限,第一小瓶(支)得由眼科專科醫師專業判斷後先行注射治療及事後報備。申請第二小瓶(支)或第三瓶(支)時,須檢附詳細病歷資料與事前審查申請表(或專用申請表),經事前審查核准後使用。5.給藥方式全程採無菌操作,並於無菌空間的地方執行且在注射操作期間須執行生命徵象監測。6.具下列情況之一者,不應使用:(1)早產兒患有活動性嚴重眼內發炎,或者是打針時受孕後週數(postmenstrualage,PMA)太大。(2)早產兒患活動性或疑似眼部或眼周感染者。(3)早產兒對任何賦形劑過敏。7.使用本藥品需填具病人藥物使用同意書,以示瞭解藥品之潛在益處及風險。8.早產兒視網膜病變眼內注射anti-VEGF治療,須依臺灣兒科醫學會最新版治療指引內容。"
+  },
+  {
+   "id": "adalimumab-uveitis-8-2-4-10",
+   "topic": "Adalimumab 用於小兒葡萄膜炎（現行）",
+   "status": "current",
+   "rule_zh": "8.2.4.10.Adalimumab（如 Humira）(109/9/1) 用於小兒葡萄膜炎治療部分…1.限使用於2-17歲小兒非感染性葡萄膜炎患者。…2.限具有眼科專科、風濕病專科醫師證書之內科、或具有小兒過敏免疫專科醫師證書之醫師處方。…3.需事前審查核准後使用。…(2)每24週需再申請一次…4.需同時符合下述(1)(2)兩項條件者方可使用。…(1)最近3個月葡萄膜炎處於活動期 (定義為前房發炎細胞大於等於+1價)。…(2)標準療法失敗，定義為 methotrexate 10毫克/身體表面積平方米/週的口服或注射治療達3個月以上",
+   "effective": "2020-09-01",
+   "version": "藥品給付規定（115.10.22 更新）第 8.2.4.10 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "8.2.4.10.Adalimumab",
+    "end": "8.2.4.11.Guselkumab",
+    "document_version": "115.10.22",
+    "section": "8.2.4.10",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/refractory-noninfectious-uveitis-biologics-rubi-trial.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     987,
+     999,
+     1026,
+     1051,
+     1073,
+     1089,
+     1126,
+     1724
+    ]
+   },
+   "fingerprint": "8c02df307c8328e154cf94f7af38a8ef2a870f232a9c6d0f5b5916161111b080",
+   "baseline": "8.2.4.10.Adalimumab(如Humira)(109/9/1)用於小兒葡萄膜炎治療部分1.限使用於2-17歲小兒非感染性葡萄膜炎患者。2.限具有眼科專科、風濕病專科醫師證書之內科、或具有小兒過敏免疫專科醫師證書之醫師處方。3.需事前審查核准後使用。(1)申報時需檢附methotrexate使用的劑量、治療時間、副作用、及前房發炎細胞的病情描述。(2)每24週需再申請一次;需描述使用adalimumab後的療效、副作用或併發症。4.需同時符合下述(1)(2)兩項條件者方可使用。(1)最近3個月葡萄膜炎處於活動期(定義為前房發炎細胞大於等於+1價)。(2)標準療法失敗,定義為methotrexate10毫克/身體表面積平方米/週的口服或注射治療達3個月以上,前房發炎細胞仍大於等於+1價。若因藥物毒性無法忍受,以致於無法達到上項要求時,劑量可以酌情降低。5.療效評估與繼續使用:(1)初次申請adalimumab以24週為限。起始劑量(loadingdose)和維持劑量如下:I.<30公斤:起始劑量為40mg,隔週給予維持劑量,維持劑量為每隔一週給予20mg。II.≥30公斤:起始劑量為80mg,隔週給予維持劑量,維持劑量為每隔一週給予40mg。(2)繼續使用adalimumab者,每24週評估療效一次。6.須停止使用adalimumab的情形:(1)療效不彰:定義為24週adalimumab治療後,出現以下任一情形:I.前房發炎細胞比基礎值未改善或惡化。II.有眼球共病惡化(如視神經水腫、黃斑囊樣水腫或視力衰退)或治療期間發展出新的眼球共病。(2)不良事件,包括:I.惡性腫瘤。II.該藥物引起的嚴重毒性。III.嚴重的間發性感染症(intercurrentinfection)(暫時停藥即可)。7.需排除使用的情形應參照藥物仿單,重要之排除使用狀況包括(以下未列者參照仿單所載):(1)罹患活動性的感染症的病患。(2)未經完整治療之結核病的病患(包括潛伏結核感染治療未達四週者,申請時應檢附潛伏結核感染篩檢紀錄及治療紀錄供審查)(3)身上帶有人工關節者,罹患或先前曾罹患過嚴重的敗血症(Sepsis)者。(4)惡性腫瘤或具有癌症前兆(pre-malignancy)的患者。"
+  },
+  {
+   "id": "biologics-ra-8-2-4-2",
+   "topic": "Adalimumab、tocilizumab 等用於類風濕性關節炎",
+   "status": "current",
+   "rule_zh": "8.2.4.2. Etanercept(如 Enbrel)； adalimumab（如 Humira）；golimumab（如Simponi）； abatacept（如 Orencia）；tocilizumab（如 Actemra）",
+   "effective": "2025-09-01",
+   "version": "藥品給付規定（115.10.22 更新）第 8.2.4.2 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "8.2.4.2.Etanercept",
+    "end": "8.2.4.3.Adalimumab",
+    "document_version": "115.10.22",
+    "section": "8.2.4.2",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/refractory-noninfectious-uveitis-biologics-rubi-trial.html",
+     "blog/thyroid-eye-disease.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     473,
+     1684,
+     1708,
+     1724
+    ]
+   },
+   "fingerprint": "f94132b7c091dd610ece4d301997dd756bfa1b8cb0d00624851aeeeb0041a5ae",
+   "baseline": "8.2.4.2.Etanercept(如Enbrel);adalimumab(如Humira);golimumab(如Simponi);abatacept(如Orencia);tocilizumab(如Actemra);tofacitinib(如Xeljanz);certolizumab(Cimzia);baricitinib(如Olumiant);opinercept(如Tunex);infliximab(如Remicade);peficitinib(如Smyraf);upadacitinib(如Rinvoq);filgotinib(如Jyseleca)(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、102/1/1、102/4/1、102/10/1、103/12/1、106/4/1、106/11/1、107/9/1、108/3/1、108/5/1、109/8/1、109/9/1、109/12/1、110/3/1、110/5/1、110/6/1、112/5/1、114/9/1):成人治療部分1.限內科專科醫師且具有風濕病專科醫師證書者使用於類風濕關節炎病患。2.經事前審查核准後使用。3.申報時須檢附使用DMARD藥物六個月以上後之DAS28積分,各種DMARD藥物使用之種類、劑量、治療時間、副作用、關節腫脹之相關照片(須註明日期)及關節X光檢查報告等資料。(99/2/1、108/5/1)4.使用劑量:(1)初次使用tocilizumab時:I.靜脈注射劑:劑量應從4mg/kg開始,治療第12週,評估DAS28積分,未達療效者(療效之定義:DAS28總積分下降程度≧1.2,或DAS28總積分<3.2者),得調高劑量至8mg/kg,繼續治療12週後,再評估DAS28總積分,必須下降程度≧1.2,或DAS28總積分<3.2,方可續用。(102/10/1、106/4/1)II.皮下注射劑:體重小於100公斤者,劑量應從162mg每兩週一次開始,治療第12週,評估DAS28積分,未達療效者,得調高劑量至162mg每週一次,繼續治療12週後,再評估DAS28積分,達療效者方可續用。體重大於100公斤者,劑量162mg每週一次,治療第24週,評估DAS28積分,達療效者方可續用。(106/4/1)(2)baricitinib、upadacitinib或filgotinib時,劑量用法之調整應參照藥物仿單,且每日限用1錠。使用peficitinib時,劑量用法之調整應參照藥物仿單,每日100mg~150mg(且限每日最大劑量150mg)。(107/9/1、110/3/1、110/5/1、112/5/1)(3)使用infliximab時:I.靜脈注射:應參照藥物仿單之用法,與methotrexate併用,infliximab在第0、2及6週時投予靜脈注射3mg/kg,之後每8週給藥1次。(109/9/1、109/12/1、114/9/1)II.靜脈注射搭配皮下注射:0、2週時投予靜脈注射3mg/kg;之後每隔2週給予皮下注射120mg。(114/9/1)5.使用半年後,每三個月需再申報一次;內含DAS28積分,使用藥物後之療效、副作用或併發症。惟infliximab初次申請時核予22週用量,續用時,每16週需再申請續用。(93/8/1、93/9/1、110/6/1)6.病患需同時符合下述(1)(2)(3)項條件,方可使用;若有第(4)項情形,不得使用;若有第(5)項情形,需停止使用。(1)符合美國風濕病學院(AmericanCollegeofRheumatology)類風濕關節炎分類標準的診斷條件。(102/10/1)(2)連續活動性的類風濕關節炎I.28處關節疾病活動度積分(DiseaseActivityScore,DAS28)必須大於5.1。II.此項評分需連續二次,其時間相隔至少4週(含)以上,並附當時關節腫脹之相關照片(須註明日期)及關節X光檢查報告為輔証。(108/5/1、109/8/1)註1:28處關節部位記分如(附表十三)所示,其疾病活動度積分計算方式如下:DAS28=0.56×√TJC+0.28×√SJC+0.7×lnESR+0.014×GH註2:TJC:觸痛關節數,SJC:腫脹關節數,ESR:紅血球沉降速率(單位為mm/h),GH:在100mm圖像模擬量表中所呈現的整體健康狀態(generalhealthstatus)(3)標準疾病修飾抗風濕病藥物(Disease-ModifyingAnti-RheumaticDrugs,DMARD)療法失敗:病患曾經接受至少兩種DMARDs(methotrexate為基本藥物,另一藥物必須包括肌肉注射之金劑、hydroxychloroquine、sulfasalazine、d-penicillamine、azathioprine、leflunomide、cyclosporine中之任何一種)之充分治療,而仍無明顯療效。(93/8/1)I.充分治療的定義:(100/12/1)i.DMARDs藥物治療時間須符合下列條件之一:(i)必須至少6個月以上,而其中至少2個月必須達到(附表十四)所示標準目標劑量(standardtargetdose)。(ii)DMARDs藥物合併使用prednisolone15mg/day治療,須至少3個月以上,而其中至少2個月DMARDs藥物必須達到(附表十四)所示標準目標劑量(standardtargetdose)。(100/12/1)ii.若病患因DMARDs藥物毒性無法忍受,以致無法達到上項要求時,DMARDs劑量仍需達(附表十四)所示治療劑量(therapeuticdoses)連續2個月以上。II.療效的定義:(93/8/1、98/3/1)DAS28總積分下降程度大於等於(≧)1.2,或DAS28總積分小於3.2者。(4)需排除使用的情形(93/9/1、106/11/1)應參照藥物仿單,重要之排除使用狀況包括(以下未列者參照仿單所載):I.懷孕或正在授乳的婦女(certolizumab除外)(106/11/1)II.活動性感染症之病患III.具高度感染機會的病患,包括:i.慢性腿部潰瘍之病患ii.未經完整治療之結核病的病患(包括潛伏結核感染治療未達四週者,申請時應檢附潛伏結核感染篩檢紀錄及治療紀錄供審查)。(102/1/1)iii.過去12個月內曾有感染性關節炎者iv.有人工關節感染,若該人工關節未除去前,不可使用v.頑固性或復發性的胸腔感染症vi.具有留置導尿管者IV.惡性腫瘤或癌前狀態之病患(但不包括已經接受過充分治療達10年以上的惡性腫瘤)V.多發性硬化症(multiplesclerosis)(5)需停止治療的情形(93/8/1、93/9/1)如果發生下列現象應停止治療:I療效不彰II不良事件,包括:i.惡性腫瘤ii.該藥物引起的嚴重毒性iii.懷孕(暫時停藥即可)iv.嚴重的間發性感染症(暫時停藥即可)7.轉用其他成分生物製劑之條件:(1)使用生物製劑治療後有療效,但因方便性欲改用給藥頻率較少者或無法忍受副作用者,可轉用相同藥理機轉之生物製劑。(2)使用生物製劑治療後療效不彰,不可轉用相同藥理機轉之其他成分生物製劑。8.減量及暫緩續用之相關規定:(102/4/1)(1)減量時機:使用2年且已達疾病緩解(DAS28<2.6)超過6個月。(108/5/1)(2)減量方式:病患使用生物製劑2年後,申請續用之事前審查時,應依據患者個別狀況提出符合醫理之治療計畫,並敘明開始減量至1年後暫緩續用之減量方式。減量方式可為減少每次使用劑量或延長給藥間隔。(3)減量期間若符合以下所有條件,得申請回復減量前之使用量,下次再評估減量之時機為1年後:I.與減量前比較,DAS28總積分上升程度>1.2。II.ESR>25mm/h。III.與減量前比較,ESR上升程度>25%。(4)因使用一種生物製劑治療後療效不彰,而轉用另一種不同藥理機轉之生物製劑,以轉用後者之起始日重新計算2年後開始減量之時機。但因方便性考量或無法忍受副作用而轉用相同藥理機轉之生物製劑,轉用前後所使用生物製劑之期間均應計入。(5)暫緩續用時機:開始減量1年後暫緩續用。(6)至101年12月31日止,已申請使用逾2年者,於下次申報時即須依規定評估是否需減量。9.暫緩續用後若疾病再復發,重新申請使用必須符合以下條件:(102/1/1)(1)生物製劑暫緩續用後,必須持續接受至少2種DMARDs藥物之治療(methotrexate為基本藥物,另一藥物必須包括肌肉注射之金劑、hydroxychloroquine、sulfasalazine、d-penicillamine、azathioprine、leflunomide、cyclosporine中之任何一種),其中methotrexate至少2個月以上必須達到當初申請生物製劑時所使用之劑量。(2)DAS28總積分上升程度>1.2。(102/4/1)◎附表十三:全民健康保險類風濕關節炎病患28處關節疾病活動度(DiseaseActivityScore,DAS28)評估表◎附表十四:全民健康保險疾病修飾抗風濕病藥物(DMARDs)之標準目標劑量暨治療劑量表◎附表十五:全民健康保險類風濕關節炎使用生物製劑申請表(106/11/1)"
+  },
+  {
+   "id": "cyclosporin-oral-8-2-1",
+   "topic": "Cyclosporin 全身製劑適應症",
+   "status": "current",
+   "rule_zh": "8.2.1.Cyclosporin（如 Sandimmun）：（86/1/1、86/9/1、89/7/1、101/10/1、111/5/1）限1.器官移植抗排斥藥物。2. 嚴重乾癬或異位性皮膚炎引起之全身性紅皮症(需檢附照片)。(111/5/1）。3.自體免疫性葡萄膜炎及貝西氏病病例使用，請檢附病歷摘要及診斷證明。4.替代性療法無效或不適用之嚴重乾癬或異位性皮膚炎(需檢附三個月以上之病歷與用藥紀錄)。(111/5/1）。5.標準療法無效或不適用之嚴重類風濕性關節炎(需檢附三個月以上之病歷與用藥紀錄)。6.以類固醇治療無效或對類固醇有依賴性的原發性腎病症候群【經活體檢視（biopsy）主要為微小病變疾病或局部環節腎絲球硬化症】 ，經細胞穩定劑（cytostatics）治療無效且腎功能指數在正常值50%以上之病人。7.若經病人使用cyclosporin 後四個月內，其每日尿蛋白量無法降低至少40%時，即認定為cyclosporin 治療無效，應予以停用 cyclosporin。8.使用於後天型嚴重再生不良性貧血。惟限使用「Sandimmun Neoral Soft GelatinCapsules 25mg」及「Sandimmun Neoral Oral Solution 100mg/mL」。（101/10/1）",
+   "effective": "2022-05-01",
+   "version": "藥品給付規定（115.10.22 更新）第 8.2.1 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "8.2.1.Cyclosporin",
+    "end": "8.2.2.Tacrolimus",
+    "document_version": "115.10.22",
+    "section": "8.2.1",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/thyroid-eye-disease.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "172b3cf15002247fc1e53b7e81f137f09cde26ea38bcb1a6e7546775fd76e85b",
+   "baseline": "8.2.1.Cyclosporin(如Sandimmun):(86/1/1、86/9/1、89/7/1、101/10/1、111/5/1)限1.器官移植抗排斥藥物。2.嚴重乾癬或異位性皮膚炎引起之全身性紅皮症(需檢附照片)。(111/5/1)。3.自體免疫性葡萄膜炎及貝西氏病病例使用,請檢附病歷摘要及診斷證明。4.替代性療法無效或不適用之嚴重乾癬或異位性皮膚炎(需檢附三個月以上之病歷與用藥紀錄)。(111/5/1)。5.標準療法無效或不適用之嚴重類風濕性關節炎(需檢附三個月以上之病歷與用藥紀錄)。6.以類固醇治療無效或對類固醇有依賴性的原發性腎病症候群【經活體檢視(biopsy)主要為微小病變疾病或局部環節腎絲球硬化症】,經細胞穩定劑(cytostatics)治療無效且腎功能指數在正常值50%以上之病人。7.若經病人使用cyclosporin後四個月內,其每日尿蛋白量無法降低至少40%時,即認定為cyclosporin治療無效,應予以停用cyclosporin。8.使用於後天型嚴重再生不良性貧血。惟限使用「SandimmunNeoralSoftGelatinCapsules25mg」及「SandimmunNeoralOralSolution100mg/mL」。(101/10/1)"
+  },
+  {
+   "id": "rituximab-ra-8-2-7",
+   "topic": "Rituximab 用於類風濕性關節炎",
+   "status": "current",
+   "rule_zh": "8.2.7.Rituximab注射劑（如 Mabthera，不同劑型之適用範圍需符合藥品許可證登載之適應症)：用於類風濕性關節炎之成人治療部分",
+   "effective": "2020-11-01",
+   "version": "藥品給付規定（115.10.22 更新）第 8.2.7 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "8.2.7.Rituximab",
+    "end": "8.2.8.Palivizumab",
+    "document_version": "115.10.22",
+    "section": "8.2.7",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/thyroid-eye-disease.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     63,
+     805,
+     913,
+     1010,
+     1072,
+     1089,
+     1099,
+     1104,
+     1117,
+     1683,
+     1708,
+     1724
+    ]
+   },
+   "fingerprint": "825fe29f05e09995e0b0c963160bc472a8935fa0a46f3e458754816eb679c5fc",
+   "baseline": "8.2.7.Rituximab注射劑(如Mabthera,不同劑型之適用範圍需符合藥品許可證登載之適應症):用於類風濕性關節炎之成人治療部分(97/11/1、99/2/1、101/7/1、102/1/1、102/4/1、106/9/1、109/11/1)1.用於類風濕性關節炎之成人治療部分:(109/11/1)(1)給付條件:I.限用於曾經接受抗腫瘤壞死因子(如etanercept、adalimumab或golimumab等)治療,但未達療效,或無法耐受的成人活動性類風濕性關節炎患者。(101/7/1)i.Etanercept、adalimumab或golimumab的療效:經治療後評估DAS28總積分下降程度大於等於(≧)1.2,或DAS28總積分小於3.2者。(101/7/1)ii.無法耐受的定義:無法忍受etanercept、adalimumab或golimumab治療的副作用。(101/7/1)II.需與methotrexate併用(但對methotrexate過敏,或methotrexate引起嚴重血球低下、肝毒性及其它嚴重副作用者除外)。III.給予重複療程之時機:i.與前次治療相隔24週或以上,且ii.符合下列給藥時機規定:DAS28總積分≧3.2,或與前次接受rituximab治療後第21週比較,DAS28總積分上升≧0.6。IV.每次療程為靜脈注射500毫克~1,000毫克,兩週後相同劑量再注射一次,共注射兩次。(2)限內科專科醫師且具有風濕或免疫專科醫師證書者處方。(3)需經事前審查核准後使用:I.申請初次治療:應檢附曾經使用抗腫瘤壞死因子之用藥結果,包括種類、劑量、治療前後DAS28積分及副作用報告等資料。並宜記錄患者HBsAg及Anti-HCV資料(若HBsAg檢驗為陽性,宜加作HBVDNA)。II.申請給予重複療程:符合下列條件者,得再提出申請。i.接受rituximab初次治療後第21週評估DAS28總積分,必須下降程度≧1.2,或DAS28總積分<3.2者,方可給予重複療程。ii.重複療程之申請可於治療後第21週提出。申請第1次重複療程者,應先填寫初次療效;申請第2次以上重複療程者,必須填寫前兩次療效。並宜記錄患者發生之重大感染等副作用。III.每次申請時應檢附治療前後之相關照片。(99/2/1)(4)需排除或停止使用rituximab治療之情形如下:-對rituximab過敏-重度活動性感染症-未經完整治療之結核病的病患(包括潛伏結核感染治療未達四週者,申請時應檢附潛伏結核感染篩檢紀錄及治療紀錄供審查)。(102/1/1)-心衰竭病患(NewYorkHeartAssociationclassIV)-懷孕或授乳婦女-未達療效-藥物引起嚴重毒性◎附表二十三:全民健康保險使用rituximab用於類風濕性關節炎申請表2.Rituximab注射劑與葡萄糖皮質素(glucocorticoids)併用,用於治療中度至重度尋常性天疱瘡(PV)的成人病人部分(限符合藥品許可證登載適應症之藥品):(109/11/1)(1)限皮膚科、或內科專科醫師且具有風濕或免疫專科醫師證書者處方。(2)限成人申請,且需經事前審查核准後使用。又申報時應檢附相關病例資料。(3)給付條件:併用葡萄糖皮質素(glucocorticoids)給付於中度至重度尋常性天疱瘡成人患者,且符合下列條件:I.中度至重度尋常性天疱瘡:PDAI評估指数為15分以上病人,且以1.0mg/kg/day(含)以上劑量的口服prednisolone(或等劑量之類固醇)連續治療達6週仍未能控制疾病者,並檢具病理切片報告,及直接免疫螢光染色(DIF)報告,得給予起始劑量。II.類固醇依賴型尋常性天疱瘡:指非新診斷尋常性天疱瘡病人,且以10mg/day口服prednisolone(或等劑量之類固醇)治療仍未能控制疾病者。此類病人須提供照相證明、病理切片報告,及直接免疫螢光染色(DIF)報告,證實曾符合上述「I中度至重度尋常性天疱瘡」所述之條件,得給予起始劑量。III.經rituximab自費治療後非類固醇依賴型天疱瘡,此類病人須提供照相證明、病理切片報告及直接免疫螢光染色(DIF)報告,證實曾符合上述I及II中度至重度尋常性天疱瘡」所述之條件,得給予維持性治療。IV.前開I及II所稱「未能控制疾病」者,指使用I或II所列藥物治療後,1個月內仍有新的水疱≥3個產生且大於一週仍無法癒合或是舊有水疱病灶仍持續擴大。(需附照片佐證)。V.若無前開I、II及III所稱之直接免疫螢光染色(DIF)報告,得改以出具採用本國核准之DSG1/DSG3體外診斷用試劑檢測陽性,醫院或符合CAP或ISO15189認證實驗室之正式報告。在目前尚無本國核准試劑前,可以採用歐盟、日本、美國核准之試劑。(4)起始治療:1000mgrituximab以靜脈輸注投予,兩週後投予第二劑1000mgrituximab靜脈輸注,同時依據病人嚴重度併用逐漸減量之葡萄糖皮質素(glucocorticoids)療程。(5)維持治療應於第12個月時靜脈輸注投予500mg的維持治療,之後每6個月根據臨床評估投予。(6)若於rituximab療療程中復發,病人可接受一劑1000mgrituximab靜脈輸注。醫療專業人員也應根據臨床評估,考慮重新開始或增加病人的葡萄糖皮質素(glucocorticoids)劑量。"
+  },
+  {
+   "id": "antiviral-systemic-10-7-1-1",
+   "topic": "全身性抗疱疹病毒劑",
+   "status": "current",
+   "rule_zh": "Ⅱ.帶狀疱疹或單純性疱疹侵犯三叉神經第一分枝 VI 皮節，可能危及眼角膜者。…Ⅶ.帶狀疱疹或單純性疱疹所引起之角膜炎或角膜潰瘍者。…Ⅷ.急性視網膜壞死症(acute retina necrosis)。…Ⅸ.帶狀疱疹發疹三日內且感染部位在頭頸部、生殖器周圍之病人，可給予五日內之口服或外用藥品。…(3)使用 acyclovir 200mg(限 Deherp)、400mg 及800mg(限 Virless)規格量口服錠劑除用於前述(1)外，療程以7天為限。…3.Acyclovir、famciclovir 及 valaciclovir 除上述特別規定外，使用療程原則以10天為限，口服、注射劑及外用藥膏擇一使用，不得合併使用。",
+   "effective": "2019-06-01",
+   "version": "藥品給付規定（115.10.22 更新）第 10.7.1.1 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "10.7.1.1.全身性抗疱疹病毒劑",
+    "end": "10.7.1.2.局部抗疱疹病毒劑",
+    "document_version": "115.10.22",
+    "section": "10.7.1.1",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/hzo-stromal-keratitis-zeds-lessons.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     830,
+     866,
+     884,
+     911,
+     928,
+     964,
+     1107,
+     1713,
+     1718
+    ]
+   },
+   "fingerprint": "9b8f334673a72dfd2ea7fe46543b325a2fbde2f018cda7f3fbc55311be710b29",
+   "baseline": "10.7.1.1.全身性抗疱疹病毒劑1.Acyclovir:(98/11/1、100/7/1、107/12/1、108/3/1、108/6/1)(1)使用本類製劑,除200mg(限Deherp)、400mg及800mg(限Virless)規格量口服錠劑外,應以下列條件為限:(107/12/1、108/3/1、108/6/1)I.疱疹性腦炎。II.帶狀疱疹或單純性疱疹侵犯三叉神經第一分枝VI皮節,可能危及眼角膜者。III.帶狀疱疹或單純性疱疹侵犯薦椎S2皮節,將影響排泄功能者。IV.免疫機能不全、癌症、器官移植等病患之感染帶狀疱疹或單純性疱疹者。V.新生兒或免疫機能不全患者的水痘感染。VI.罹患水痘,合併高燒(口溫38°C以上)及肺炎(需X光顯示)或腦膜炎,並需住院者。(85/1/1)VII.帶狀疱疹或單純性疱疹所引起之角膜炎或角膜潰瘍者。VIII.急性視網膜壞死症(acuteretinanecrosis)。IX.帶狀疱疹發疹三日內且感染部位在頭頸部、生殖器周圍之病人,可給予五日內之口服或外用藥品。(86/1/1、87/4/1)X.骨髓移植術後病患得依下列規定預防性使用acyclovir:(87/11/1)A.限接受異體骨髓移植病患。B.接受高劑量化療或全身放射治療(TBI)前一天至移植術後第三十天為止。(2)其中I與VI應優先考慮注射劑型的acyclovir。疱疹性腦炎得使用14至21天。(95/6/1、100/7/1)(3)使用acyclovir200mg(限Deherp)、400mg及800mg(限Virless)規格量口服錠劑除用於前述(1)外,療程以7天為限。(107/12/1、108/3/1、108/6/1)2.Famciclovir;valaciclovir:(100/7/1、101/5/1)使用本類製劑應以下列條件為限:(1)帶狀疱疹或單純性疱疹侵犯三叉神經第一分枝VI皮節,可能危及眼角膜者。(2)帶狀疱疹或單純性疱疹侵犯薦椎S2皮節,將影響排泄功能者。(3)免疫機能不全、癌症、器官移植等病患之感染帶狀疱疹或單純性疱疹者。(4)帶狀疱疹或單純性疱疹所引起之角膜炎或角膜潰瘍者。(5)急性視網膜壞死症(acuteretinanecrosis)。(6)帶狀疱疹發疹3日內且感染部位在頭頸部、生殖器周圍之病人,可給予5日內之口服或外用藥品。(7)骨髓移植術後病患得依下列規定用於預防復發性生殖器疱疹:(101/5/1)A.限接受異體骨髓移植病患。B.接受高劑量化療或全身放射治療(TBI)前一天至移植術後第30天為止。3.Acyclovir、famciclovir及valaciclovir除上述特別規定外,使用療程原則以10天為限,口服、注射劑及外用藥膏擇一使用,不得合併使用。(95/6/1、100/7/1、101/5/1)"
+  },
+  {
+   "id": "pilocarpine-oral-1-5-1",
+   "topic": "Pilocarpine 口服劑型",
+   "status": "current",
+   "rule_zh": "(2)使用時機：原發性或續發性修格蘭氏症候群病人具有口乾燥症狀者。…(3)治療期程及評量：使用後每半年需檢附 pilocarpine hydrochloride 口服劑型治療後症狀改善評量表 (如附表十九) 於病歷上，證明 pilocarpine hydrochloride口服劑型治療有效方可繼續使用。…(4)使用劑量：每日三至四次，每次一錠 (5mg/tab)…(1)使用對象：頭頸部癌放射線治療超過26GY 之患者，造成唾腺功能減低而引起的口乾燥症狀。…(3)治療期程及評量：每使用兩個月後，需以 pilocarpine hydrochloride 口服劑型治療後症狀改善評量表 (如附表十九) 評估…【修格蘭氏症候群 (Sjogren's syndrome)之診斷標準依據2002年修立之歐洲分類標準】",
+   "effective": "2013-02-01",
+   "version": "藥品給付規定（115.10.22 更新）第 1.5.1 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "1.5.1.Pilocarpine",
+    "end": "1.5.2.Cevimeline",
+    "document_version": "115.10.22",
+    "section": "1.5.1",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/dry-eye-myths.html",
+     "blog/dry-eye-symptom-sign-discordance-dream.html",
+     "blog/thyroid-eye-disease.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "c94fb7fce3177c5d45fb71f0f4591c0fc07f19bf779a199b2dfe419bf809c799",
+   "baseline": "1.5.1.Pilocarpinehydrochloride口服劑型1.使用於修格蘭氏症候群(Sjogren'ssyndrome)病人:(1)使用對象:需符合修格蘭氏症候群之診斷標準。(2)使用時機:原發性或續發性修格蘭氏症候群病人具有口乾燥症狀者。(3)治療期程及評量:使用後每半年需檢附pilocarpinehydrochloride口服劑型治療後症狀改善評量表(如附表十九)於病歷上,證明pilocarpinehydrochloride口服劑型治療有效方可繼續使用。(102/2/1)(4)使用劑量:每日三至四次,每次一錠(5mg/tab)依病人反映,可做劑量調整參考。2.使用於頭頸部癌放射線治療病人(1)使用對象:頭頸部癌放射線治療超過26GY之患者,造成唾腺功能減低而引起的口乾燥症狀。(2)使用時機:適用於放射線治療期間及治療後所引起的口乾燥症狀需藥物控制時。(3)治療期程及評量:每使用兩個月後,需以pilocarpinehydrochloride口服劑型治療後症狀改善評量表(如附表十九)評估,認定確有改善者達10分(含)以上者方可繼續使用。(96/7/1)(4)使用劑量:每日三至四次,每次一錠(5mg/tab)依病人反應,可做劑量調整參考。備註:修格蘭氏症候群之診斷標準如下:【修格蘭氏症候群(Sjogren'ssyndrome)之診斷標準依據2002年修立之歐洲分類標準】1.眼睛主觀症狀:至少符合下列問題之一:(1)是否有每天,持續性,令人困擾的乾眼症狀持續三個月以上?(2)眼睛是否有反覆性的異物感?(3)是否使用人工淚液一天大於三次?2.口腔主觀症狀:至少符合下列問題之一:(1)是否每天都覺得口乾症狀持續三個月以上?(2)是否於成年後曾經有反覆性或持續性唾液腺體腫大的現象?(3)是否經常使用流質來幫助吞食較乾的食物?3.眼睛客觀表現:兩項檢查之中至少有一項呈陽性反應:(1)Shirmer's試驗:在無麻醉下測試,5分鐘後小於或等於5公厘。(2)RoseBengalscore或其他眼睛染色之評分,大於或等於4分(依據vanBijsterveld's評分系統)。4.組織病理學:在4mm2的唾液腺組織切片中顯示腺體發炎而且≧1focus的淋巴球浸潤(1Focus:≧50個淋巴球聚集)。5.唾液腺之侵犯:下列檢查之中至少有一項呈陽性反應:(1)無刺激下唾液的分泌總量減少(15分鐘少於1.5cc)(2)腮腺唾液管X光照像呈現瀰漫性唾液腺管擴大(呈像為斑點狀,空洞狀或不規則狀)且無唾液管阻塞現象。(3)唾液腺閃爍造影檢查呈現放射性同位元素之延遲顯影,低濃度以及/或排出延遲。6.自體免疫抗體:出現以下自體抗體:(1)SSA或SSB或兩者皆有合乎修格蘭氏症候群診斷標準之判定:1.原發性修格蘭氏症:無任何相關疾病且需合乎下述(1)或(2)項條件:(1)6項條件中4項符合,其中需有第4項(組織病理)或第6項(血清檢查)條件符合。(2)4項客觀條件(即第3、4、5、6項)中,任3項條件符合。2.次發性修格蘭氏症:患者有潛在相關疾病(例如:任何明確結締組織疾病)而且存在有上述診斷標準中第1項條件,或第2條件,再加上第3、4、5項條件中任何2項,即考慮次發性修格蘭氏症候群。"
+  },
+  {
+   "id": "bupropion-1-2-1-1",
+   "topic": "Bupropion 戒菸用途",
+   "status": "current",
+   "rule_zh": "1.2.1.1.Bupropion HCL：(92/1/1、99/10/1)作為戒菸治療者不予給付。",
+   "effective": "2010-10-01",
+   "version": "藥品給付規定（115.10.22 更新）第 1.2.1.1 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "1.2.1.1.Bupropion",
+    "end": "1.2.2.抗精神病劑",
+    "document_version": "115.10.22",
+    "section": "1.2.1.1",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/thyroid-eye-disease.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "c664ed180755ca5e22b79c76b0d6c9b3a807a799bac321c1d8bab1e239bf5420",
+   "baseline": "1.2.1.1.BupropionHCL:(92/1/1、99/10/1)作為戒菸治療者不予給付。"
+  },
+  {
+   "id": "dementia-1-3-3",
+   "topic": "失智症治療藥品",
+   "status": "current",
+   "rule_zh": "(1)阿滋海默氏症之失智症由神經科或精神科醫師處方使用。…i.智能測驗結果為 MMSE 10~26分或 CDR 1級及2級之患者。…iii. 使用後每一年需重新評估，追蹤 MMSE 或 CDR 智能測驗，並於病歷記錄，如MMSE 較前一次治療時減少2分(不含)以上或 CDR 退步1級，則應停用此類藥品。",
+   "effective": "2025-10-01",
+   "version": "藥品給付規定（115.10.22 更新）第 1.3.3 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "1.3.3.失智症治療藥品",
+    "end": "1.3.4.帕金森氏症治療藥品",
+    "document_version": "115.10.22",
+    "section": "1.3.3",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/diabetic-retinopathy-dementia-trinetx-cohort.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "bc1d25901657f5eaaf0f0fdd724542bc1a21e743f3ce15ec344b9237c8cc1857",
+   "baseline": "1.3.3.失智症治療藥品1.限用於依NINCDS-ADRDA或DSM或ICD標準診斷為阿滋海默氏症或帕金森氏症之失智症病患。2.臨床診斷為「血管性失智症」,或有嚴重心臟傳導阻斷(heartblock)之病患,不建議使用。(108/12/1)3.初次使用者,需於病歷上記載以下資料:(106/10/1)(1)CT、MRI或哈金斯氏量表(HachinskilschemicScore)三項其中之任一結果報告。(2)CBC,VDRL,BUN,Creatinine,GOT,GPT,T4,TSH檢驗。(3)MMSE或CDR智能測驗報告。4.依疾病別及嚴重度,另規定如下:(1)阿滋海默氏症之失智症由神經科或精神科醫師處方使用。I.輕度至中度失智症:限使用donepezil、rivastigmine及galantamine口服製劑(90/10/1、92/1/1、95/6/1、100/3/1、102/8/1、106/10/1、108/5/1):i.智能測驗結果為MMSE10~26分或CDR1級及2級之患者。ii.使用前述三種藥品任一種後,三個月內,因副作用得換用本類另一種藥物,並於病歷上記載換藥理由。(93/4/1、102/8/1、106/10/1)iii.使用後每一年需重新評估,追蹤MMSE或CDR智能測驗,並於病歷記錄,如MMSE較前一次治療時減少2分(不含)以上或CDR退步1級,則應停用此類藥品。(98/1/1、99/5/1、102/8/1、106/10/1、108/5/1)iv.使用rivastigmine貼片劑(如ExelonPatch),每日限用一片,且不得併用同成分之口服藥品(100/3/1)。II.中重度失智症:限使用memantine口服製劑(95/6/1、99/10/1、102/8/1、106/10/1、111/3/1、114/10/1)i.智能測驗結果為10≦MMSE≦14分或CDR2級之患者。ii.曾使用過donepezil、rivastigmine、galantamine其中任一種藥品之患者,使用後每一年需重新評估,追蹤MMSE或CDR智能測驗,MMSE較起步治療時減少2分(不含)以上或CDR退步1級,且MMSE或CDR智能測驗達標準(10≦MMSE≦14分或CDR2級),得換用或併用memantine。(106/10/1、111/3/1、114/10/1)iii.換用或併用memantine後每一年需重新評估,追蹤MMSE或CDR智能測驗,並於病歷記錄,如MMSE較前一次治療時減少2分(不含)以上或CDR退步1級,則應停用此類藥品。惟EbixaTablets及EvyTablets等2種藥品,使用後每一年需重新評估,追蹤MMSE或CDR智能測驗,並於病歷記錄,如MMSE較起步治療時減少2分(不含)以上或CDR退步1級,則應停用此類藥品。(98/1/1、99/5/1、102/8/1、106/10/1、111/3/1)III.重度失智症:(99/10/1、102/8/1、108/5/1、111/3/1、114/10/1)限使用donepezil及memantine口服製劑或是兩者併用(102/8/1、108/5/1、111/3/1、114/10/1)i.智能測驗結果為MMSE5-9分且CDR3級之患者。ii.臥床或無行動能力者不得使用。iii.曾單獨或是併用過memantine、donepezil、rivastigmine、galantamine而不再適用者,不得使用。(111/3/1)iv.使用後每一年需重新評估,追蹤MMSE智能測驗,如MMSE較前一次治療時減少2分(不含)以上,則應停用此類藥品。惟EbixaTablets及EvyTablets等2種藥品,使用後每一年需重新評估,追蹤MMSE智能測驗,如MMSE較起步治療時減少2分(不含)以上,則應停用此類藥品。(99/10/1、102/8/1、108/5/1、111/3/1)(2)帕金森氏症之失智症(99/5/1、100/3/1、102/8/1)限神經科醫師診斷及處方使用於輕度至中度之失智症。限使用rivastigmine口服製劑(102/8/1)I.智能測驗結果為MMSE10~26分或CDR1級及2級之患者。II.失智症發生於帕金森氏症診斷至少一年以後。III.使用後每一年需重新評估,追蹤MMSE或CDR智能測驗,如MMSE較前一次治療時減少2分(不含)以上或CDR退步1級,則應停用此類藥品。(99/5/1、102/8/1)備註:起步治療定義:係指同組藥品第一次申請同意治療之評分"
+  },
+  {
+   "id": "neuropathic-pain-1-1-6-8",
+   "topic": "Gabapentin、pregabalin、duloxetine 止痛適應症",
+   "status": "current",
+   "rule_zh": "1.1.6.Gabapentin、lidocaine 貼片劑…限使用於帶狀疱疹皮膚病灶後神經痛…1.1.7.Pregabalin…1.使用於帶狀疱疹皮膚病灶後神經痛…2.使用於纖維肌痛(fibromyalgia)…3.使用於糖尿病併發周邊神經病變並具有臨床神經疼痛 (neuropathic pain)…4.使用於脊髓損傷所引起的神經性疼痛…1.1.8.Duloxetine（如 Cymbalta）…1.使用於糖尿病併發周邊神經病變並具有臨床神經疼痛 (neuropathic pain)…2.使用於纖維肌痛(fibromyalgia)",
+   "effective": "2024-12-01",
+   "version": "藥品給付規定（115.10.22 更新）第 1.1.6 至 1.1.8 節",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_section",
+    "start": "1.1.6.Gabapentin",
+    "end": "1.1.9.Fentanyl",
+    "document_version": "115.10.22",
+    "section": "1.1.6 至 1.1.8",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/dry-eye-symptom-sign-discordance-dream.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "e8852ab0a17ae46cdaab459347e7b7f5eccc47a2b8921a88e06226fde3843c93",
+   "baseline": "1.1.6.Gabapentin、lidocaine貼片劑(97/12/1、98/4/1、98/9/1、101/2/1、101/5/1、102/2/1、110/5/1)限使用於帶狀疱疹皮膚病灶後神經痛,並符合下列條件:1.使用其他止痛劑或非類固醇抗發炎劑(NSAIDs)藥品治療後仍無法控制疼痛或有嚴重副作用者。(97/12/1、98/4/1)2.Gabapentin成分口服製劑,限每日最大劑量為3,600mg,且日劑量超過2,400mg時,需於病歷記載理由。臨床症狀改善,應逐步調低劑量。(97/12/1、98/4/1、98/9/1、101/5/1)3.Lidocaine貼片劑:(98/9/1、110/5/1)(1)限每日最大劑量為3片,且日劑量超過2片時,需於病歷記載理由。臨床症狀改善,應逐步調低劑量。(98/9/1、110/5/1)(2)Lidocaine貼片劑不得與gabapentin或pregabalin成分口服製劑併用。(101/2/1、110/5/1)1.1.7.Pregabalin(101/2/1、102/2/1、105/1/1、106/3/1、109/5/1、113/12/1)1.使用於帶狀疱疹皮膚病灶後神經痛,並符合下列條件:(1)經使用其他止痛劑或非類固醇抗發炎劑(NSAIDs)藥品治療後仍無法控制疼痛或有嚴重副作用者。(97/12/1、98/4/1)(2)每日最大劑量為600mg。2.使用於纖維肌痛(fibromyalgia)(1)需符合AmericanCollegeofRheumatology(ACR)及臨床試驗實證纖維肌痛診斷標準:I.WPI(widespreadpainindex)≧7、Symptomseverity(SS)≧5且painratingscale≧6分或WPI3-6、SSscale≧9且painratingscale≧6分。II.症狀持續超過三個月。III.應排除其他疾病因素,並於病歷詳載。(2)處方醫師資格:(106/3/1、113/12/1)I.限風濕免疫科、神經內科、復健科、疼痛專科及精神科醫師使用,不得併用同適應症之他類藥品。(106/3/1)II.全民健保公告之醫療資源缺乏地區及山地離島地區之就醫病人,倘其前經風濕免疫科、神經內科、復健科、疼痛專科及精神科醫師評估診斷符合規定開立過處方並檢附相關診斷證明資料,得由當地醫師處方,並於病歷詳細記載,但不得併用同適應症之他類藥品。(113/12/1)III.全民健保公告之醫療資源缺乏地區及山地離島地區之就醫病人初次診斷,倘符合「全民健康保險遠距醫療給付計畫」,由當地醫師以視訊方式與風濕免疫科、神經內科、復健科、疼痛專科及精神科醫師共同診察,經評估診斷符合規定開立處方,並檢附相關診斷證明資料,得由當地醫師開立處方,並於病歷詳細記載,但不得併用同適應症之他類藥品。(113/12/1)(3)如使用3個月後painratingscale未減少2分以上應予停藥。(4)病歷每3個月應記載一次評估結果,每日最大劑量為450mg。3.使用於糖尿病併發周邊神經病變並具有臨床神經疼痛(neuropathicpain),且符合以下條件(105/1/1):(1)經神經科專科醫師診斷或經神經傳導(NCV)檢查證實之多發性神經病變(polyneuropathy)。(2)Painratingscale≧4分。(3)不得併用同類適應症之藥品。(4)使用後應每3個月評估一次,並於病歷中記載評估結果,倘Painratingscale較前一次評估之數值未改善或未持續改善,應予停止使用。(5)每日最大劑量為300mg。4.使用於脊髓損傷所引起的神經性疼痛(不包括Lyrica、Tirica、Phudialin、Suculin、Bergalin、Pregabalin\"C.C.P.C.\"、PMS-Pregabalin、Probalin等藥品),且符合以下條件(109/5/1):(1)經使用其他止痛劑或非類固醇抗發炎劑治療後無法控制疼痛(painratingscale≧4)或有嚴重副作用。(2)每日最大劑量為600mg。(3)不得併用同類適應症之藥品。(4)每3個月評估一次並於病例中記載評估結果,倘painratingscale較前次評估數值未改善或未持續改善,應予停止使用。1.1.8.Duloxetine(如Cymbalta):(102/8/1、105/2/1、113/12/1)1.使用於糖尿病併發周邊神經病變並具有臨床神經疼痛(neuropathicpain),且符合以下條件:(1)經神經科專科醫師診斷或經神經傳導(NCV)檢查證實之多發性神經病變(polyneuropathy)。(2)Painratingscale≧4分。(3)不得併用同類適應症之藥品。(4)使用後應每3個月評估一次,並於病歷中記載評估結果,倘Painratingscale較前一次評估之數值未改善或未持續改善,應予停止使用。(5)每日最大劑量為60mg。2.使用於纖維肌痛(fibromyalgia)(105/2/1)(1)需符合AmericanCollegeofRheumatology(ACR)及臨床試驗實證纖維肌痛診斷標準:I.WPI(widespreadpainindex)≧7、Symptomseverity(SS)≧5且painratingscale≧6分或WPI3-6、SSscale≧9且painratingscale≧6分。II.症狀持續超過三個月。III.應排除其他疾病因素,並於病歷詳載。(2)處方醫師資格:(105/2/1、113/12/1)I.限風濕免疫科、神經內科、復健科、疼痛專科及精神科醫師使用,不得併用同適應症之他類藥品。II.全民健保公告之醫療資源缺乏地區及山地離島地區之就醫病人,倘其前經風濕免疫科、神經內科、復健科、疼痛專科及精神科醫師評估診斷符合規定開立過處方並檢附相關診斷證明資料,得由當地醫師處方,並於病歷詳細記載,但不得併用同適應症之他類藥品。(113/12/1)III.全民健保公告之醫療資源缺乏地區及山地離島地區之就醫病人初次診斷,倘符合「全民健康保險遠距醫療給付計畫」,由當地醫師以視訊方式與風濕免疫科、神經內科、復健科、疼痛專科及精神科醫師共同診察,經評估診斷符合規定開立處方,並檢附相關診斷證明資料,得由當地醫師開立處方,並於病歷詳細記載,但不得併用同適應症之他類藥品。(113/12/1)(3)如使用3個月後painratingscale未減少2分以上應予停藥。(4)病歷每3個月應記載一次評估結果,每日最大劑量為60mg。"
+  },
+  {
+   "id": "teprotumumab-not-listed",
+   "topic": "Teprotumumab 未列於藥品給付規定",
+   "status": "current",
+   "rule_zh": "藥品給付規定全文未出現下列字樣：teprotumumab、tepezza。",
+   "effective": null,
+   "version": "藥品給付規定（115.10.22 更新）全文檢索",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_absent",
+    "terms": [
+     "teprotumumab",
+     "tepezza"
+    ],
+    "document_version": "115.10.22",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/thyroid-eye-disease.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     483,
+     765,
+     784,
+     803,
+     1708
+    ]
+   },
+   "fingerprint": "1416b8bd143cdf2a38c359f2121f96babd561209b22ac0c1df535d233e8bd92a",
+   "baseline": "teprotumumab=absent;tepezza=absent"
+  },
+  {
+   "id": "lifitegrast-not-listed",
+   "topic": "Lifitegrast 未列於藥品給付規定",
+   "status": "current",
+   "rule_zh": "藥品給付規定全文未出現下列字樣：lifitegrast、xiidra。",
+   "effective": null,
+   "version": "藥品給付規定（115.10.22 更新）全文檢索",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_absent",
+    "terms": [
+     "lifitegrast",
+     "xiidra"
+    ],
+    "document_version": "115.10.22",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/dry-eye-myths.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "3c9c6baee9735cbf0d5c555d8efd66cdc0c536b4f81e422f854734ac9ee62e6f",
+   "baseline": "lifitegrast=absent;xiidra=absent"
+  },
+  {
+   "id": "rho-kinase-not-listed",
+   "topic": "Rho 激酶抑制劑未列於藥品給付規定",
+   "status": "current",
+   "rule_zh": "藥品給付規定全文未出現下列字樣：netarsudil、rhopressa、rocklatan、ripasudil。",
+   "effective": null,
+   "version": "藥品給付規定（115.10.22 更新）全文檢索",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_absent",
+    "terms": [
+     "netarsudil",
+     "rhopressa",
+     "rocklatan",
+     "ripasudil"
+    ],
+    "document_version": "115.10.22",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     198,
+     946,
+     1282,
+     1714
+    ]
+   },
+   "fingerprint": "7fa29a03a3b83b1bc317afdc9853fec6049d59c4413a5cb1bfd8f111a388c610",
+   "baseline": "netarsudil=absent;rhopressa=absent;rocklatan=absent;ripasudil=absent"
+  },
+  {
+   "id": "anakinra-not-listed",
+   "topic": "Anakinra 未列於藥品給付規定",
+   "status": "current",
+   "rule_zh": "藥品給付規定全文未出現下列字樣：anakinra。",
+   "effective": null,
+   "version": "藥品給付規定（115.10.22 更新）全文檢索",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_absent",
+    "terms": [
+     "anakinra"
+    ],
+    "document_version": "115.10.22",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/refractory-noninfectious-uveitis-biologics-rubi-trial.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "cd1ae7150993946cfcaf5bcee7f57044690bae26611cfaca8f763ea281900430",
+   "baseline": "anakinra=absent"
+  },
+  {
+   "id": "shingrix-not-listed",
+   "topic": "Shingrix 未列於藥品給付規定",
+   "status": "current",
+   "rule_zh": "藥品給付規定全文未出現下列字樣：shingrix。",
+   "effective": null,
+   "version": "藥品給付規定（115.10.22 更新）全文檢索",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_absent",
+    "terms": [
+     "shingrix"
+    ],
+    "document_version": "115.10.22",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/hzo-stromal-keratitis-zeds-lessons.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "9582604ebcf5cb4330fd2ce14d677a947cb54c0bd14ae614771dc83a95c309a1",
+   "baseline": "shingrix=absent"
+  },
+  {
+   "id": "smoking-cessation-not-listed",
+   "topic": "Varenicline、尼古丁替代品未列於藥品給付規定",
+   "status": "current",
+   "rule_zh": "藥品給付規定全文未出現下列字樣：varenicline、champix、nicotine、尼古丁。",
+   "effective": null,
+   "version": "藥品給付規定（115.10.22 更新）全文檢索",
+   "source": {
+    "title": "全民健康保險藥品給付規定（最新版整份，115.10.22 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-100717-e456d68a6e9d4085b4ab7a2c7e37296a-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/np-2508-1.html",
+    "kind": "pdf_absent",
+    "terms": [
+     "varenicline",
+     "champix",
+     "nicotine",
+     "尼古丁"
+    ],
+    "document_version": "115.10.22",
+    "retrieved": "2026-11-05",
+    "matches_owner_pdf_115_9_22": true
+   },
+   "affects": {
+    "articles": [
+     "blog/thyroid-eye-disease.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "3b08909ebae781ab804e6a445dc56f62716974d042dc27c96d2fa0ba3fbf73e1",
+   "baseline": "varenicline=absent;champix=absent;nicotine=absent;尼古丁=absent"
+  },
+  {
+   "id": "adalimumab-uveitis-8-2-4-10-2026-12",
+   "topic": "Adalimumab 用於葡萄膜炎（已公告，115/12/1 生效）",
+   "status": "announced",
+   "rule_zh": "8.2.4.10.Adalimumab（如 Humira）(109/9/1、115/12/1)…用於葡萄膜炎治療部分…1. 限使用於2-17歲小兒非感染性葡萄膜炎病人，惟 Yuflyma 得使用於 18 歲以上。…(2) 18歲以上：(115/12/1)…(2)18歲以上需同時符合下述兩項條件。(115/12/1)…(2)18歲以上：起始劑量為 80 mg，之後每隔一週給予 40 mg。(115/12/1)",
+   "effective": "2026-12-01",
+   "version": "健保審字第1150058095號公告（115-10-30），修訂對照表第 8.2.4.10 節（自 115 年 12 月 1 日生效）",
+   "source": {
+    "title": "公告修訂僵直性脊椎炎、類風濕性關節炎、克隆氏症、潰瘍性結腸炎、乾癬、化膿性汗腺炎及葡萄膜炎之藥品給付規定：附件2 藥品給付規定修訂對照表",
+    "url": "https://www.nhi.gov.tw/ch/dl-103774-99dafa4629554baa97d117a8bf7dbb5d-1.pdf",
+    "listing_url": "https://www.nhi.gov.tw/ch/cp-20687-74a57-3258-1.html",
+    "kind": "pdf_section",
+    "start": "8.2.4.10.Adalimumab",
+    "end": "備註︰劃線部份為新修訂規定",
+    "section": "8.2.4.10",
+    "announcement_no": "健保審字第1150058095號",
+    "announcement_date": "2026-10-30",
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/refractory-noninfectious-uveitis-biologics-rubi-trial.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     987,
+     999,
+     1026,
+     1051,
+     1073,
+     1089,
+     1126,
+     1724
+    ]
+   },
+   "fingerprint": "e055e1234ea026a51e6057c624668c60a07b694d2e4122b4df923a10ec3ee35e",
+   "baseline": "8.2.4.10.Adalimumab(如Humira)(109/9/1、115/12/1)用於葡萄膜炎治療部分1.限使用於2-17歲小兒非感染性葡萄膜炎病人,惟Yuflyma得使用於18歲以上。(109/9/1、115/12/1)2.限具有眼科專科、風濕病專科醫師證書之內科、或具有小兒過敏免疫專科醫師證書之醫師處方。3.需事前審查核准後使用。(109/9/1、115/12/1)(1)2-17歲:申報時需檢附methotrexate使用的劑量、治療時間、副作用、及前房發炎細胞的病情描述。(109/9/1)(2)18歲以上:(115/12/1)I.申報時需檢附目前發炎的診斷及病情描述,以及傳統免疫調節劑(如methotrexate、mycophenolate、azathioprine、cyclosporine、tacrolimus)使用的劑量、治療時間及副作用。II.申請時需檢附眼部相關檢查資料,包括彩色眼底攝影(colorfundusphoto)、螢光血管攝影(fluorescein8.2.4.10.Adalimumab(如Humira)(109/9/1)用於小兒葡萄膜炎治療部分1.限使用於2-17歲小兒非感染性葡萄膜炎患者。2.限具有眼科專科、風濕病專科醫師證書之內科、或具有小兒過敏免疫專科醫師證書之醫師處方。3.需事前審查核准後使用。(1)申報時需檢附methotrexate使用的劑量、治療時間、副作用、及前房發炎細胞的病情描述。50修訂後給付規定原給付規定angiography)。必要時得檢附OCT或其他可佐證黃斑部水腫、視網膜血管炎或後段發炎之影像資料。(3)每24週需再申請一次;需描述使用adalimumab後的療效、副作用或併發症。4.須符合下列條件之一:(109/9/1、115/12/1)(1)2-17歲需同時符合下述兩項條件。(109/9/1)I.最近3個月葡萄膜炎處於活動期(定義為前房發炎細胞大於等於+1價)。II.標準療法失敗,定義為methotrexate10毫克/身體表面積平方米/週的口服或注射治療達3個月以上,前房發炎細胞仍大於等於+1價。若因藥物毒性無法忍受,以致於無法達到上項要求時,劑量可以酌情降低。(2)18歲以上需同時符合下述兩項條件。(115/12/1)I.最近3個月葡萄膜炎處於活動期(定義為前房發炎細胞大於等於+1價,或玻璃體腔發炎細胞或發炎性玻璃體混濁vitreoushaze大於等於+1價,或視網膜脈絡膜發炎性病灶(含視網膜血管炎))。II.標準療法失敗,定義為符合下列任一項:i.經口服皮質類固醇治療(2)每24週需再申請一次;需描述使用adalimumab後的療效、副作用或併發症。4.需同時符合下述(1)(2)兩項條件者方可使用。(1)最近3個月葡萄膜炎處於活動期(定義為前房發炎細胞大於等於+1價)。(2)標準療法失敗,定義為methotrexate10毫克/身體表面積平方米/週的口服或注射治療達3個月以上,前房發炎細胞仍大於等於+1價。若因藥物毒性無法忍受,以致於無法達到上項要求時,劑量可以酌情降低。51修訂後給付規定原給付規定(prednisoloneequivalent≧0.5-1mg/kg/day),並且合併任一傳統免疫調節劑(如methotrexate、mycophenolate、azathioprine、cyclosporine、tacrolimus)治療達3個月後,仍需口服皮質類固醇持續>7.5mg/日以控制病情,或無法漸減,或一旦減量即復發。ii.因無法忍受藥物副作用或是藥物毒性而停止療程,需說明藥物之何種毒性或副作用。5.療效評估與繼續使用:(1)初次申請adalimumab以24週為限。(2)繼續使用adalimumab者,每24週評估療效一次。6.使用劑量如下:(109/9/1、115/12/1)(1)2-17歲:(109/9/1)I.<30公斤:起始劑量為40mg,隔週給予維持劑量,維持劑量為每隔一週給予20mg。II.≥30公斤:起始劑量為80mg,隔週給予維持劑量,維持劑量為每隔一週給予40mg。5.療效評估與繼續使用:(1)初次申請adalimumab以24週為限。起始劑量(loadingdose)和維持劑量如下:I.<30公斤:起始劑量為40mg,隔週給予維持劑量,維持劑量為每隔一週給予20mg。II.≥30公斤:起始劑量為80mg,隔週給予維持劑量,維持劑量為每隔一週給予40mg。(2)繼續使用adalimumab者,每24週評估療效一次。52修訂後給付規定原給付規定(2)18歲以上:起始劑量為80mg,之後每隔一週給予40mg。(115/12/1)7.須停止使用adalimumab的情形:(109/9/1、115/12/1)(1)療效不彰:定義為24週adalimumab治療後,出現以下任一情形:I.2-17歲:(109/9/1)i.前房發炎細胞比基礎值未改善或惡化。ii.有眼球共病惡化(如視神經水腫、黃斑囊樣水腫或視力衰退)或治療期間發展出新的眼球共病。II.18歲以上:(115/12/1)i.前房發炎細胞比基礎值未改善或惡化。ii.玻璃體腔發炎細胞或發炎性玻璃體混濁vitreoushaze比基礎值惡化。iii.視網膜脈絡膜發炎性病灶比基礎值惡化。(2)不良事件,包括:I.惡性腫瘤。II.該藥物引起的嚴重毒性。III.嚴重的間發性感染症(intercurrentinfection)(暫時停藥即可)。8.需排除使用的情形(109/9/1、115/12/1)6.須停止使用adalimumab的情形:(1)療效不彰:定義為24週adalimumab治療後,出現以下任一情形:I.前房發炎細胞比基礎值未改善或惡化。II.有眼球共病惡化(如視神經水腫、黃斑囊樣水腫或視力衰退)或治療期間發展出新的眼球共病。(2)不良事件,包括:I.惡性腫瘤。II.該藥物引起的嚴重毒性。III.嚴重的間發性感染症(intercurrentinfection)(暫時停藥即可)。7.需排除使用的情形53修訂後給付規定原給付規定應參照藥物仿單,重要之排除使用狀況包括(以下未列者參照仿單所載):(1)罹患活動性的感染症的病人。(2)未經完整治療之結核病的病人(包括潛伏結核感染治療未達四週者,申請時應檢附潛伏結核感染篩檢紀錄及治療紀錄供審查)(3)身上帶有人工關節者且罹患或先前曾罹患過嚴重的敗血症(Sepsis)者。(4)惡性腫瘤或具有癌症病變(pre-malignancy)的病人。應參照藥物仿單,重要之排除使用狀況包括(以下未列者參照仿單所載):(1)罹患活動性的感染症的病患。(2)未經完整治療之結核病的病患(包括潛伏結核感染治療未達四週者,申請時應檢附潛伏結核感染篩檢紀錄及治療紀錄供審查)(3)身上帶有人工關節者,罹患或先前曾罹患過嚴重的敗血症(Sepsis)者。(4)惡性腫瘤或具有癌症前兆(pre-malignancy)的患者。",
+   "note": "對照表頁首標示「(草案)」，但為正式公告之附件；附件 1 明列生效日 115/12/1。尚未併入 115.10.22 版整份規定。雙欄對照表的文字為抽取順序，baseline 僅供指紋比對。"
+  },
+  {
+   "id": "iol-classification",
+   "topic": "人工水晶體：健保全額給付與自付差額的功能分類",
+   "status": "current",
+   "rule_zh": "人工水晶體(單焦點、球面)…1-特殊人工水晶體(單焦點、非球面(含黃片))…10-特殊人工水晶體(多焦點-三焦點、非球面、散光(含黃片))",
+   "effective": "2026-10-30",
+   "version": "12 類自付差額特材及健保全額給付功能/材質分類表（修訂日期 115/10/30）",
+   "source": {
+    "title": "12 類自付差額特材及健保全額給付功能/材質分類表",
+    "url": "https://info.nhi.gov.tw/api/inae2000/inae2010s01/getPdf?Model=attachment_1141201.pdf",
+    "listing_url": "https://info.nhi.gov.tw/INAE2000/INAE2010S01",
+    "kind": "pdf_section",
+    "start": "人工水晶體(單焦點、球面)",
+    "end": "2腦脊髓液分流系統",
+    "section": "編號 1",
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-comprehensive-guide.html",
+     "blog/cataract-surgery-selection.html",
+     "blog/toric-iol-astigmatism-cataract-review.html",
+     "blog/cataract-surgery-faq.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     63,
+     210,
+     251,
+     498,
+     992,
+     1007,
+     1036,
+     1107,
+     1120,
+     1303,
+     1364,
+     1373,
+     1375,
+     1398,
+     1415,
+     1425,
+     1432,
+     1433,
+     1434,
+     1452,
+     1474,
+     1560,
+     1562,
+     1576,
+     1580,
+     1593,
+     1618,
+     1638,
+     1649,
+     1719,
+     1768
+    ]
+   },
+   "fingerprint": "f0f823afa4e4c4667d4e2246ded8d9948686cb7e37cc58c4e43cd0f2885c2e40",
+   "baseline": "人工水晶體(單焦點、球面)1-特殊人工水晶體(單焦點、非球面(含黃片))2-特殊人工水晶體(單焦點、非球面、散光(含黃片))3-特殊人工水晶體(多焦點-二焦點、非球面(含黃片))4-特殊人工水晶體(多焦點-二焦點、非球面、散光(含黃片))5-特殊人工水晶體(短焦延伸焦距、非球面(含黃片))6-特殊人工水晶體(長焦延伸焦距、非球面(含黃片))7-特殊人工水晶體(短焦延伸焦距、非球面、散光(含黃片))8-特殊人工水晶體(長焦延伸焦距、非球面、散光(含黃片))9-特殊人工水晶體(多焦點-三焦點、非球面(含黃片))10-特殊人工水晶體(多焦點-三焦點、非球面、散光(含黃片))"
+  },
+  {
+   "id": "iol-self-pay-categories",
+   "topic": "特殊功能人工水晶體的 10 個次功能類別",
+   "status": "current",
+   "rule_zh": "自付差額醫材比價查詢列出的特殊功能人工水晶體類別，內容為：特殊人工水晶體(單焦點、非球面(含黃片))特殊人工水晶體(單焦點、非球面、散光(含黃片))特殊人工水晶體(多焦點-三焦點、非球面(含黃片))特殊人工水晶體(多焦點-三焦點、非球面、散光(含黃片))特殊人工水晶體(多焦點-二焦點、非球面(含黃片))特殊人工水晶體(多焦點-二焦點、非球面、散光(含黃片))特殊人工水晶體(短焦延伸焦距、非球面(含黃片))特殊人工水晶體(短焦延伸焦距、非球面、散光(含黃片))特殊人工水晶體(長焦延伸焦距、非球面(含黃片))特殊人工水晶體(長焦延伸焦距、非球面、散光(含黃片))。",
+   "effective": null,
+   "version": "健保署自付差額醫材比價查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保署自付差額醫材比價查詢：特殊功能人工水晶體類別",
+    "url": "https://info.nhi.gov.tw/api/inae2000/inae2011s01/SQL0005",
+    "listing_url": "https://info.nhi.gov.tw/INAE2000/INAE2011S01",
+    "kind": "json_query",
+    "parser": "iol_categories",
+    "queries": [
+     {
+      "body": {
+       "DIFF_NAME": "特殊功能人工水晶體"
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-comprehensive-guide.html",
+     "blog/cataract-surgery-selection.html",
+     "blog/toric-iol-astigmatism-cataract-review.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "23630e971d9e121f4735acfd2fc25d5724aae2ee78d1d77d67645392169adb5c",
+   "baseline": "特殊人工水晶體(單焦點、非球面(含黃片))特殊人工水晶體(單焦點、非球面、散光(含黃片))特殊人工水晶體(多焦點-三焦點、非球面(含黃片))特殊人工水晶體(多焦點-三焦點、非球面、散光(含黃片))特殊人工水晶體(多焦點-二焦點、非球面(含黃片))特殊人工水晶體(多焦點-二焦點、非球面、散光(含黃片))特殊人工水晶體(短焦延伸焦距、非球面(含黃片))特殊人工水晶體(短焦延伸焦距、非球面、散光(含黃片))特殊人工水晶體(長焦延伸焦距、非球面(含黃片))特殊人工水晶體(長焦延伸焦距、非球面、散光(含黃片))"
+  },
+  {
+   "id": "iol-self-pay-medians",
+   "topic": "特殊功能人工水晶體各類別差額中位數",
+   "status": "current",
+   "rule_zh": "各類別收費紀錄的中位數（官方查詢的 ouT_AMT 欄，由本工具計算），內容為：特殊人工水晶體(單焦點、非球面(含黃片))=30500特殊人工水晶體(單焦點、非球面、散光(含黃片))=45000特殊人工水晶體(多焦點-三焦點、非球面(含黃片))=85000特殊人工水晶體(多焦點-三焦點、非球面、散光(含黃片))=110000特殊人工水晶體(多焦點-二焦點、非球面(含黃片))=60000特殊人工水晶體(多焦點-二焦點、非球面、散光(含黃片))=90000特殊人工水晶體(短焦延伸焦距、非球面(含黃片))=40000特殊人工水晶體(短焦延伸焦距、非球面、散光(含黃片))=55000特殊人工水晶體(長焦延伸焦距、非球面(含黃片))=75000特殊人工水晶體(長焦延伸焦距、非球面、散光(含黃片))=98000。",
+   "effective": null,
+   "version": "健保署自付差額醫材比價查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保署自付差額醫材比價查詢：最新收費情況",
+    "url": "https://info.nhi.gov.tw/api/inae2000/inae2011s01/SQL0004",
+    "listing_url": "https://info.nhi.gov.tw/INAE2000/INAE2011S01",
+    "kind": "json_query",
+    "parser": "iol_medians",
+    "queries": [
+     {
+      "body": {
+       "DIFF_NAME": "特殊功能人工水晶體",
+       "DIFF_TYPE": "A005",
+       "APV_TYPE": "",
+       "MET_NAME": "",
+       "LICENSE_NO": "",
+       "MET_CODE": "",
+       "AREA_NAME": "",
+       "HOSP_TYPE": "",
+       "HOSP_NAME": "",
+       "nowTab": "tab01"
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-comprehensive-guide.html",
+     "blog/cataract-surgery-selection.html",
+     "blog/toric-iol-astigmatism-cataract-review.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "fb7dde6291758288aed2903310a20ecf7639bba1d1ec3312f32e9adc9ad19872",
+   "baseline": "特殊人工水晶體(單焦點、非球面(含黃片))=30500特殊人工水晶體(單焦點、非球面、散光(含黃片))=45000特殊人工水晶體(多焦點-三焦點、非球面(含黃片))=85000特殊人工水晶體(多焦點-三焦點、非球面、散光(含黃片))=110000特殊人工水晶體(多焦點-二焦點、非球面(含黃片))=60000特殊人工水晶體(多焦點-二焦點、非球面、散光(含黃片))=90000特殊人工水晶體(短焦延伸焦距、非球面(含黃片))=40000特殊人工水晶體(短焦延伸焦距、非球面、散光(含黃片))=55000特殊人工水晶體(長焦延伸焦距、非球面(含黃片))=75000特殊人工水晶體(長焦延伸焦距、非球面、散光(含黃片))=98000",
+   "note": "中位數為本工具計算，官方查詢不直接提供。指紋含金額，任一類別中位數變動就會回報 changed。"
+  },
+  {
+   "id": "iol-nhi-pay-price",
+   "topic": "特殊功能人工水晶體的健保支付點數",
+   "status": "current",
+   "rule_zh": "官方查詢收費紀錄的健保支付點數（paY_PRICE 欄），內容為：健保支付點數=2744。",
+   "effective": null,
+   "version": "健保署自付差額醫材比價查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保署自付差額醫材比價查詢：健保支付點數",
+    "url": "https://info.nhi.gov.tw/api/inae2000/inae2011s01/SQL0004",
+    "listing_url": "https://info.nhi.gov.tw/INAE2000/INAE2011S01",
+    "kind": "json_query",
+    "parser": "iol_pay_price",
+    "queries": [
+     {
+      "body": {
+       "DIFF_NAME": "特殊功能人工水晶體",
+       "DIFF_TYPE": "A005",
+       "APV_TYPE": "",
+       "MET_NAME": "",
+       "LICENSE_NO": "",
+       "MET_CODE": "",
+       "AREA_NAME": "",
+       "HOSP_TYPE": "",
+       "HOSP_NAME": "",
+       "nowTab": "tab01"
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-comprehensive-guide.html",
+     "blog/cataract-surgery-selection.html",
+     "blog/toric-iol-astigmatism-cataract-review.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "4e1f32863008fde17dc7d3769635cf0fc0bca617b6006aab40f3a3311039488e",
+   "baseline": "健保支付點數=2744"
+  },
+  {
+   "id": "iol-self-pay-leaflet",
+   "topic": "特殊功能人工水晶體自付差額規定（宣導單張）",
+   "status": "current",
+   "rule_zh": "1.健保署依「一般功能人工水晶體」價格支付，超過部分，則由病患自行負擔。…2.醫療院所施行手術時，需要使用的植入器及滅菌卡匣等材料，均已含括在健保給付的項目中，因此，除了「特殊功能人工水晶體」的差額外，其他均不得另行向病患收費。…3.另外，不論使用一般功能或特殊功能人工水晶體，健保均已給付「水晶體囊內（外）摘除術及人工水晶體置入術」的費用（包含技術費及材料費等所有費用）。",
+   "effective": "2007-10-01",
+   "version": "健保署宣導單張（頁面更新日期 112-11-29；自 96 年 10 月 1 日開放）",
+   "source": {
+    "title": "健保提供「特殊功能人工水晶體」自付差額宣導單張",
+    "url": "https://www.nhi.gov.tw/ch/cp-7375-9bd76-2530-1.html",
+    "kind": "html_section",
+    "start": "民眾只要符合健保規定的白內障手術使用規範",
+    "end": "◎醫療院所應告知病患哪些事項",
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-surgery-selection.html",
+     "blog/cataract-comprehensive-guide.html",
+     "blog/toric-iol-astigmatism-cataract-review.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "5cd1ab0513d86ebffef12570e97964c3b8f69a76d9c2686d11b1a6a72a73cd25",
+   "baseline": "民眾只要符合健保規定的白內障手術使用規範,其所使用的「一般功能人工水晶體」,係屬於健保的給付範圍,它由合成塑脂(PMMA)、矽質(Silicone)或壓克力(Acrylic)等製成,以手術成功植入後,具有良好的長期穩定性,且經國內眼科醫師長達20年的使用經驗,已足敷絕大多數白內障病患使用。◎「特殊功能人工水晶體」注意事項及分類。「特殊功能人工水晶體」有其適應症及禁忌症,所以不是每位白內障病患均適用。大體上分為非球面、多焦點、矯正散光及過濾藍光等功能類別。◎「特殊功能人工水晶體」的自付差額,有哪些相關規定?以往部分白內障患者,因為個人生活或工作上的需要,希望使用「特殊功能人工水晶體」時,基於健保財源有限,難以給付「特殊功能人工水晶體」的費用,故病患(或其家屬)必須全數自費。健保署為減輕病患的負擔以及考量給付的公平性,特別自96年10月1日起,開放給予自付差額。當病患符合白內障手術的使用規範,經醫師詳細說明並充分瞭解後,如自願選用「特殊功能人工水晶體」時,下列相關費用的規定要特別留意:1.健保署依「一般功能人工水晶體」價格支付,超過部分,則由病患自行負擔。2.醫療院所施行手術時,需要使用的植入器及滅菌卡匣等材料,均已含括在健保給付的項目中,因此,除了「特殊功能人工水晶體」的差額外,其他均不得另行向病患收費。3.另外,不論使用一般功能或特殊功能人工水晶體,健保均已給付「水晶體囊內(外)摘除術及人工水晶體置入術」的費用(包含技術費及材料費等所有費用)。",
+   "note": "此頁對腳本回傳 Cloudflare 挑戰頁（403），檢查器固定回報 unknown，需人工開啟瀏覽器比對。基準文字由一般瀏覽器開啟頁面時取得（2026-11-05）。"
+  },
+  {
+   "id": "iol-self-pay-category-page",
+   "topic": "健保自付差額特材類別：特殊功能人工水晶體",
+   "status": "current",
+   "rule_zh": "項次 5 特殊功能人工水晶體，實施起日 96年10月1日，健保部分給付點數 2,744點。",
+   "effective": "2007-10-01",
+   "version": "健保自付差額特材類別頁（頁面更新日期 114-11-17）",
+   "source": {
+    "title": "健保自付差額特材類別",
+    "url": "https://www.nhi.gov.tw/ch/cp-7391-3ecf6-2530-1.html",
+    "kind": "html_section",
+    "start": "特殊功能人工水晶體特殊功能人工水晶體96年10月1日",
+    "end": "6特殊材質生物組織心臟瓣膜",
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-comprehensive-guide.html",
+     "blog/cataract-surgery-selection.html",
+     "blog/toric-iol-astigmatism-cataract-review.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "016fb08a1f2bdc0c987635e39ba3eaa2bbdf38a57406e157094411ec81a2fb7d",
+   "baseline": "特殊功能人工水晶體特殊功能人工水晶體96年10月1日2,744點",
+   "note": "此頁對腳本回傳 Cloudflare 挑戰頁（403），檢查器固定回報 unknown，需人工開啟瀏覽器比對。基準文字由一般瀏覽器開啟頁面時取得（2026-11-05）。"
+  },
+  {
+   "id": "migs-not-in-device-list",
+   "topic": "MIGS 裝置未列於特材收載品項表",
+   "status": "current",
+   "rule_zh": "特材收載品項表（115.11.05 更新）未出現下列字樣：iStent、XEN、PreserFlo、Hydrus、Kahook。",
+   "effective": null,
+   "version": "特材收載品項表（115.11.05 更新）",
+   "source": {
+    "title": "特材收載品項表（115.11.05 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-91109-eb357306490340f6a2c8b8b019144e86-1.csv",
+    "listing_url": "https://www.nhi.gov.tw/ch/cp-2629-3c936-2528-1.html",
+    "kind": "csv_absent",
+    "encoding": "big5hkscs",
+    "terms": [
+     "\\bistent\\b",
+     "\\bxen\\b",
+     "preserflo",
+     "\\bhydrus\\b",
+     "kahook"
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     313,
+     374,
+     544,
+     562,
+     572,
+     668,
+     683,
+     902,
+     1008,
+     1230,
+     1240,
+     1265,
+     1283,
+     1478,
+     1551,
+     1561,
+     1609,
+     1643,
+     1693,
+     1694,
+     1735
+    ]
+   },
+   "fingerprint": "133533ac9cf97f303e4d9107626bc6cc9ddeb382536fec5d1d0907939b0622fa",
+   "baseline": "\\bistent\\b=absent;\\bxen\\b=absent;preserflo=absent;\\bhydrus\\b=absent;kahook=absent"
+  },
+  {
+   "id": "glaucoma-drainage-devices",
+   "topic": "健保收載的青光眼引流裝置",
+   "status": "current",
+   "rule_zh": "特材收載品項表（115.11.05 更新）「青光眼引流裝置」列出的品項與事前審查註記，內容為：FAD013422652|保羅青光眼房水引流植入物|青光眼房水引流裝置(含引流管及水庫體-矽膠)|Y|H204-1|衛部醫器輸字第034226號FAD0150201UX|伊倍視青光眼房水調整裝置|青光眼房水引流裝置(不含水庫體)|Y|H204-3|衛署醫器輸字第022755號FAD01K120951|愛滅青光眼用舒壓導流瓣膜|青光眼房水引流裝置(含引流管及水庫體-矽膠)|Y|H204-1|衛署醫器輸字第019068號。",
+   "effective": null,
+   "version": "特材收載品項表（115.11.05 更新）",
+   "source": {
+    "title": "特材收載品項表（115.11.05 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-91109-eb357306490340f6a2c8b8b019144e86-1.csv",
+    "listing_url": "https://www.nhi.gov.tw/ch/cp-2629-3c936-2528-1.html",
+    "kind": "csv_rows",
+    "encoding": "big5hkscs",
+    "contains": "青光眼引流裝置",
+    "search_fields": [
+     5
+    ],
+    "fields": [
+     7,
+     9,
+     6,
+     17,
+     18,
+     21
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     150,
+     1083,
+     1735
+    ]
+   },
+   "fingerprint": "ee0c109c27c7f133df32c2a79675b633afedc7ac1b8e60f628eb7734a5b7cc69",
+   "baseline": "FAD013422652|保羅青光眼房水引流植入物|青光眼房水引流裝置(含引流管及水庫體-矽膠)|Y|H204-1|衛部醫器輸字第034226號FAD0150201UX|伊倍視青光眼房水調整裝置|青光眼房水引流裝置(不含水庫體)|Y|H204-3|衛署醫器輸字第022755號FAD01K120951|愛滅青光眼用舒壓導流瓣膜|青光眼房水引流裝置(含引流管及水庫體-矽膠)|Y|H204-1|衛署醫器輸字第019068號"
+  },
+  {
+   "id": "migs-review-progress",
+   "topic": "MIGS 裝置的健保納入審議紀錄",
+   "status": "current",
+   "rule_zh": "新功能醫材申請納入健保給付審議進度查詢結果，內容為：iStent:愛視坦小樑微導流支架系統|衛部醫器輸字第026303號|完成審議(不納入健保給付)|112/04/01|本案特材尚無足夠證據證實比單獨執行白內障手術之降眼壓效果佳,且目前有很多研究證實本案特材是無效的,爰不納入健保給付。XEN:PRESERFLO:Hydrus:Kahook:。iStent 紀錄：完成審議(不納入健保給付)。",
+   "effective": null,
+   "version": "新功能醫材審議進度查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "新功能醫材申請納入健保給付審議進度",
+    "url": "https://info.nhi.gov.tw/api/inae2000/inae2020s01/SQL0001",
+    "listing_url": "https://info.nhi.gov.tw/INAE2000/INAE2020S01",
+    "kind": "json_query",
+    "parser": "device_review",
+    "queries": [
+     {
+      "label": "iStent",
+      "body": {
+       "MET_CODE": "",
+       "LICENSE_NO": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 50,
+       "NAME": "iStent"
+      }
+     },
+     {
+      "label": "XEN",
+      "body": {
+       "MET_CODE": "",
+       "LICENSE_NO": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 50,
+       "NAME": "XEN"
+      }
+     },
+     {
+      "label": "PRESERFLO",
+      "body": {
+       "MET_CODE": "",
+       "LICENSE_NO": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 50,
+       "NAME": "PRESERFLO"
+      }
+     },
+     {
+      "label": "Hydrus",
+      "body": {
+       "MET_CODE": "",
+       "LICENSE_NO": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 50,
+       "NAME": "Hydrus"
+      }
+     },
+     {
+      "label": "Kahook",
+      "body": {
+       "MET_CODE": "",
+       "LICENSE_NO": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 50,
+       "NAME": "Kahook"
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "ae43be5f12979c69b23fe0b0ae4e99bb1cdf37ce474b4f3010a2a08e12276d6b",
+   "baseline": "iStent:愛視坦小樑微導流支架系統|衛部醫器輸字第026303號|完成審議(不納入健保給付)|112/04/01|本案特材尚無足夠證據證實比單獨執行白內障手術之降眼壓效果佳,且目前有很多研究證實本案特材是無效的,爰不納入健保給付。XEN:PRESERFLO:Hydrus:Kahook:"
+  },
+  {
+   "id": "migs-tfda-licences",
+   "topic": "MIGS 裝置的 TFDA 醫療器材許可證",
+   "status": "current",
+   "rule_zh": "TFDA 醫療器材許可證開放資料中，符合 iStent、XEN Glaucoma、PreserFlo、Hydrus、Kahook 的許可證字號、註銷狀態、註銷日期、有效日期與品名，內容為：衛部醫器輸字第026303號|已註銷|2026/07/28|2024/07/04|愛視坦小樑微導流支架系統|iStentTrabecularMicro-BypassStentSystem衛部醫器輸字第030096號|||2028/01/09|捷恩青光眼治療系統|XENGLAUCOMATREATMENTSYSTEM衛部醫器輸字第034049號|||2031/08/27|愛視坦發射式小樑微導流支架系統|iStentinjectWTrabecularMicro-BypassSystem衛部醫器輸字第036000號|||2028/08/28|配視福青光眼微引流器|PRESERFLOMicroshunt衛部醫器輸字第036630號|||2028/10/14|愛視坦多發式小樑微導流支架系統|iStentinfiniteTrabecularMicro-BypassSystem衛部醫器輸字第039078號|||2031/08/18|愛視坦多發式小樑微導流支架系統|iStentinjectWTrabecularMicro-BypassSystemwithInfiniteInjectorTechnology。",
+   "effective": null,
+   "version": "TFDA 醫療器材許可證開放資料（InfoId=68，2026-11-05 下載）",
+   "source": {
+    "title": "TFDA 醫療器材許可證開放資料",
+    "url": "https://data.fda.gov.tw/opendata/exportDataList.do?method=ExportData&InfoId=68&logType=2",
+    "kind": "zip_csv_rows",
+    "member": "68_2.csv",
+    "encoding": "utf-8-sig",
+    "contains": "\\bistent\\b|\\bxen glaucoma\\b|preserflo|\\bhydrus\\b|kahook",
+    "search_fields": [
+     10,
+     11
+    ],
+    "fields": [
+     0,
+     1,
+     2,
+     4,
+     10,
+     11
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "39793cffe88e8b938eea074b58c5f7f77225bbf98d9230f6a5bc1ccadafe72e2",
+   "baseline": "衛部醫器輸字第026303號|已註銷|2026/07/28|2024/07/04|愛視坦小樑微導流支架系統|iStentTrabecularMicro-BypassStentSystem衛部醫器輸字第030096號|||2028/01/09|捷恩青光眼治療系統|XENGLAUCOMATREATMENTSYSTEM衛部醫器輸字第034049號|||2031/08/27|愛視坦發射式小樑微導流支架系統|iStentinjectWTrabecularMicro-BypassSystem衛部醫器輸字第036000號|||2028/08/28|配視福青光眼微引流器|PRESERFLOMicroshunt衛部醫器輸字第036630號|||2028/10/14|愛視坦多發式小樑微導流支架系統|iStentinfiniteTrabecularMicro-BypassSystem衛部醫器輸字第039078號|||2031/08/18|愛視坦多發式小樑微導流支架系統|iStentinjectWTrabecularMicro-BypassSystemwithInfiniteInjectorTechnology"
+  },
+  {
+   "id": "myopia-optical-not-in-device-list",
+   "topic": "近視控制鏡片與角膜塑型片未列於特材收載品項表",
+   "status": "current",
+   "rule_zh": "特材收載品項表（115.11.05 更新）未出現下列字樣：DIMS、MiYOSMART、Stellest、塑型。",
+   "effective": null,
+   "version": "特材收載品項表（115.11.05 更新）",
+   "source": {
+    "title": "特材收載品項表（115.11.05 更新）",
+    "url": "https://www.nhi.gov.tw/ch/dl-91109-eb357306490340f6a2c8b8b019144e86-1.csv",
+    "listing_url": "https://www.nhi.gov.tw/ch/cp-2629-3c936-2528-1.html",
+    "kind": "csv_absent",
+    "encoding": "big5hkscs",
+    "terms": [
+     "\\bdims\\b",
+     "miyosmart",
+     "stellest",
+     "塑型"
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/dims-pediatric-myopia-control.html",
+     "blog/pediatric-myopia-control.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     582
+    ]
+   },
+   "fingerprint": "8ab9da97c6438446d158208366901062c4fc86497b7bcbe955000660046069e3",
+   "baseline": "\\bdims\\b=absent;miyosmart=absent;stellest=absent;塑型=absent"
+  },
+  {
+   "id": "service-trabecular-laser",
+   "topic": "小樑雷射術支付項目",
+   "status": "current",
+   "rule_zh": "60007C 小樑雷射術（青光眼）－初診、60008C 小樑雷射術（青光眼）－複診。",
+   "effective": null,
+   "version": "健保署支付標準查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保署支付標準查詢（目前給付中的項目）",
+    "url": "https://info.nhi.gov.tw/api/inae5000/inae5001s01/SQL0001",
+    "listing_url": "https://info.nhi.gov.tw/INAE5000/INAE5001S01",
+    "kind": "json_query",
+    "parser": "service_items",
+    "queries": [
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "60007C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "60008C"
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     1273
+    ]
+   },
+   "fingerprint": "84cc195766d5190a558b1d6c9ff964552ed65c3ce52267f4c3771f7ea1baac44",
+   "baseline": "60007C=小樑雷射術(青光眼)-初診60008C=小樑雷射術(青光眼)-複診"
+  },
+  {
+   "id": "service-iris-laser",
+   "topic": "虹膜雷射術支付項目",
+   "status": "current",
+   "rule_zh": "60011C 虹膜雷射術（青光眼）－初診、60012C 虹膜雷射術（青光眼）－複診。",
+   "effective": null,
+   "version": "健保署支付標準查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保署支付標準查詢（目前給付中的項目）",
+    "url": "https://info.nhi.gov.tw/api/inae5000/inae5001s01/SQL0001",
+    "listing_url": "https://info.nhi.gov.tw/INAE5000/INAE5001S01",
+    "kind": "json_query",
+    "parser": "service_items",
+    "queries": [
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "60011C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "60012C"
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     1146,
+     1151,
+     1152,
+     1166,
+     1167,
+     1177,
+     1178,
+     1197,
+     1257,
+     1263,
+     1286,
+     1321,
+     1342,
+     1739,
+     1740
+    ]
+   },
+   "fingerprint": "133f301d6ab08a46ce52a06164b324656c9495257a6a588f4e31c876e42ed074",
+   "baseline": "60011C=虹膜雷射術(青光眼)-初診60012C=虹膜雷射術(青光眼)-複診"
+  },
+  {
+   "id": "service-glaucoma-surgery",
+   "topic": "青光眼手術與睫狀體雷射支付項目",
+   "status": "current",
+   "rule_zh": "85806C 小樑切除術、85823B 青光眼導管置入術、60009C 睫狀體雷射破壞術－初診、60010C 睫狀體雷射破壞術－複診。",
+   "effective": null,
+   "version": "健保署支付標準查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保署支付標準查詢（目前給付中的項目）",
+    "url": "https://info.nhi.gov.tw/api/inae5000/inae5001s01/SQL0001",
+    "listing_url": "https://info.nhi.gov.tw/INAE5000/INAE5001S01",
+    "kind": "json_query",
+    "parser": "service_items",
+    "queries": [
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "85806C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "85823B"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "60009C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "60010C"
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     593,
+     662,
+     1009,
+     1025,
+     1157,
+     1175,
+     1181,
+     1194,
+     1238,
+     1241,
+     1264,
+     1270,
+     1274,
+     1284,
+     1339,
+     1342,
+     1586,
+     1631,
+     1693,
+     1694,
+     1735,
+     1745
+    ]
+   },
+   "fingerprint": "1ece19f3455a0fda7a2d1bae0d08665754be7044823c09f16c9d4db72fe23b29",
+   "baseline": "85806C=小樑切除術85823B=青光眼導管置入術60009C=睫狀體雷射破壞術-初診60010C=睫狀體雷射破壞術-複診"
+  },
+  {
+   "id": "service-cataract-surgery",
+   "topic": "白內障手術支付項目",
+   "status": "current",
+   "rule_zh": "86008C 水晶體囊內（外）摘除術及人工水晶體置入術、86007C 水晶體囊外（內）摘除術、86009C 囊外水晶體超音波乳化術、86011C 人工水晶體植入術－第一次植入。",
+   "effective": null,
+   "version": "健保署支付標準查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保署支付標準查詢（目前給付中的項目）",
+    "url": "https://info.nhi.gov.tw/api/inae5000/inae5001s01/SQL0001",
+    "listing_url": "https://info.nhi.gov.tw/INAE5000/INAE5001S01",
+    "kind": "json_query",
+    "parser": "service_items",
+    "queries": [
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "86008C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "86007C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "86009C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "86011C"
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/cataract-comprehensive-guide.html",
+     "blog/cataract-surgery-selection.html",
+     "blog/toric-iol-astigmatism-cataract-review.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "54da27122035cf6771b2d4b16e7cce74479b26eac4d0e542022f5c82babd2bba",
+   "baseline": "86008C=水晶體囊內(外)摘除術及人工水晶體置入術86007C=水晶體囊外(內)摘除術86009C=囊外水晶體超音波乳化術86011C=人工水晶體植入術-第一次植入"
+  },
+  {
+   "id": "service-pterygium-surgery",
+   "topic": "翼狀贅肉手術支付項目",
+   "status": "current",
+   "rule_zh": "87212C 翼狀贅肉切除術－初發、87213C 翼狀贅肉切除術－復發、85203C 翼狀贅肉簡單切除合併角膜切除、85204C 翼狀贅肉複雜切除合併角膜切除。",
+   "effective": null,
+   "version": "健保署支付標準查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保署支付標準查詢（目前給付中的項目）",
+    "url": "https://info.nhi.gov.tw/api/inae5000/inae5001s01/SQL0001",
+    "listing_url": "https://info.nhi.gov.tw/INAE5000/INAE5001S01",
+    "kind": "json_query",
+    "parser": "service_items",
+    "queries": [
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "87212C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "87213C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "85203C"
+      }
+     },
+     {
+      "body": {
+       "KEYWORD": "",
+       "CNAME": "",
+       "ENAME": "",
+       "MEMO": "",
+       "TREAT_CHAP_CODE": "",
+       "PAY_S_DATE": "",
+       "RDO_TYPE": "2",
+       "showPage": 1,
+       "showCounts": 100,
+       "CODE": "85204C"
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/pterygium-surgery-fixation-methods-2026-nma.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     359,
+     870,
+     882,
+     899,
+     907,
+     922,
+     951,
+     957,
+     960,
+     1709
+    ]
+   },
+   "fingerprint": "f0acdc4c31fac1181ad18e758c258fae844d1eb4f4b30d30f334024dbcc4396b",
+   "baseline": "87212C=翼狀贅肉切除術-初發87213C=翼狀贅肉切除術-復發85203C=翼狀贅肉簡單切除合併角膜切除85204C=翼狀贅肉複雜切除合併角膜切除"
+  },
+  {
+   "id": "glaucoma-combination-items",
+   "topic": "青光眼複方與新藥的健保用藥品項收載狀態",
+   "status": "current",
+   "rule_zh": "健保用藥品項查詢中，各品項目前是否有給付中的項目（listed／not-listed），內容為：Xalacom:listedDuoTrav:listedTapcom:not-listedCosopt:listedAzarga:listedCombigan:listedSimbrinza:listedRocklatan:not-listedVyzulta:listedEybelis:listedNETARSUDIL:not-listedRIPASUDIL:not-listed。",
+   "effective": null,
+   "version": "健保用藥品項查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保用藥品項查詢",
+    "url": "https://info.nhi.gov.tw/api/INAE3000/INAE3000S01/SQL0001",
+    "listing_url": "https://info.nhi.gov.tw/INAE3000/INAE3000S01",
+    "kind": "json_query",
+    "parser": "drug_listing",
+    "queries": [
+     {
+      "label": "Xalacom",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Xalacom",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "DuoTrav",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "DuoTrav",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "Tapcom",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Tapcom",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "Cosopt",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Cosopt",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "Azarga",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Azarga",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "Combigan",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Combigan",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "Simbrinza",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Simbrinza",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "Rocklatan",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Rocklatan",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "Vyzulta",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Vyzulta",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "Eybelis",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Eybelis",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "NETARSUDIL",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "NETARSUDIL",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "RIPASUDIL",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "RIPASUDIL",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/glaucoma-treatment-selection.html"
+    ],
+    "questions": [],
+    "related_questions": []
+   },
+   "fingerprint": "bed79ff58b2d9dafd9f9e579d2a324f01ac12f52f16137bfd8040d54033c5e98",
+   "baseline": "Xalacom:listedDuoTrav:listedTapcom:not-listedCosopt:listedAzarga:listedCombigan:listedSimbrinza:listedRocklatan:not-listedVyzulta:listedEybelis:listedNETARSUDIL:not-listedRIPASUDIL:not-listed"
+  },
+  {
+   "id": "teprotumumab-item",
+   "topic": "Teprotumumab 的健保用藥品項收載狀態",
+   "status": "current",
+   "rule_zh": "健保用藥品項查詢中，teprotumumab 與 Tepezza 是否有給付中的項目，內容為：Tepezza:not-listedTEPROTUMUMAB:not-listed。",
+   "effective": null,
+   "version": "健保用藥品項查詢（2026-11-05 查詢）",
+   "source": {
+    "title": "健保用藥品項查詢",
+    "url": "https://info.nhi.gov.tw/api/INAE3000/INAE3000S01/SQL0001",
+    "listing_url": "https://info.nhi.gov.tw/INAE3000/INAE3000S01",
+    "kind": "json_query",
+    "parser": "drug_listing",
+    "queries": [
+     {
+      "label": "Tepezza",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "Tepezza",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     },
+     {
+      "label": "TEPROTUMUMAB",
+      "body": {
+       "DRUG_CODE": "",
+       "DRUG_NAME": "",
+       "DRUG_DOSE": "",
+       "DRUG_CLASSIFY_NAME": "",
+       "DRUG_ING": "TEPROTUMUMAB",
+       "DRUG_ING_QTY": "",
+       "DRUG_ING_UNIT": "",
+       "DRUG_STD_QTY": "",
+       "DRUG_STD_UNIT": "",
+       "DRUGGIST_NAME": "",
+       "MIXTURE": "",
+       "PAY_START_DATE_YEAR": "",
+       "PAY_START_DATE_MON": "",
+       "ORAL_TYPE": "",
+       "ATC_CODE": "",
+       "SHOWTYPE": "",
+       "CURPAGE": 1,
+       "PAGESIZE": 200
+      }
+     }
+    ],
+    "retrieved": "2026-11-05"
+   },
+   "affects": {
+    "articles": [
+     "blog/thyroid-eye-disease.html"
+    ],
+    "questions": [],
+    "related_questions": [
+     483,
+     765,
+     784,
+     803,
+     1708
+    ]
+   },
+   "fingerprint": "4e01fe0fe7f8465d1994ff3199d0c8181c1f4acc90c06472a88c2b5acca23420",
+   "baseline": "Tepezza:not-listedTEPROTUMUMAB:not-listed"
+  }
+ ]
+}
