@@ -5,7 +5,7 @@
 
 - {{q:N}} citations render as small superscript links (「Q1170」, accessible name
   「考題 Q1170」) right after the tested phrase; the <mark> they cite gets the soft
-  highlighter (class ex-key), other <mark>s stay a plain key-point underline.
+  highlighter (class ex-key), other <mark>s have no marking since 2026-11-05 (owner: the underline read like the highlight).
 - Page refs are grey chips; refs to other BCSC sections get a second chip colour.
 - Wide screens get a sticky 「本章目錄」 left column; phones keep the inline list.
 - 易錯陷阱 / 易混淆比較與口訣 boxes are soft tints with a thin left border and a small pill label.
@@ -157,7 +157,9 @@ class ChapterPageTests(unittest.TestCase):
 
     def test_legend_explains_the_markers(self):
         legend = self.page("8-6").select_one(".ex-notes .ex-legend")
-        self.assertIn("考過的考點", legend.get_text())
+        self.assertIn("考過（後附題號）", legend.get_text())
+        self.assertIn("門檻值", legend.get_text())
+        self.assertNotIn("底線", legend.get_text())
         self.assertIn("易錯陷阱", legend.get_text())
 
 

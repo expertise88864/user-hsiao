@@ -801,10 +801,11 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
 
 # Chapter notes key, as on the dermatology exam section (owner request 2026-10-18).
 NOTES_LEGEND = (
-    '<p class="ex-legend"><span><mark class="ex-key">螢光</mark><sup class="ex-qref"><span>Q</span></sup>'
-    '＝考過的考點，上標 Q 後面是題號</span><span><mark>底線</mark>＝課本重點</span>'
-    '<span><span class="ex-legend-trap">紅線</span>＝易錯陷阱</span>'
-    '<span><span class="ex-legend-tip">綠線</span>＝比較與口訣</span></p>'
+    # Owner 2026-11-05, as on the dermatology site: the underline is gone because it read
+    # too much like the highlight, so only three markers remain.
+    '<p class="ex-legend"><span><mark class="ex-key">螢光</mark>＝考過（後附題號）</span>'
+    '<span><span class="ex-legend-trap">紅框</span>＝易錯陷阱</span>'
+    '<span><span class="ex-num-hl">粗體數字</span>＝門檻值</span></p>'
 )
 
 # Filled by exam.js: "已登入題庫 · 登出" when signed in, a login link otherwise.
@@ -967,22 +968,22 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         toc_cpts = '<li><a href="#cpts-h">本章考點</a></li>' if concepts_html else ""
         side_cpts = (f'<li class="ex-toc-cpts"><a href="#cpts-h">本章考點（{n_concepts} 個）</a></li>'
                      if concepts_html else "")
-        toc_html = (f'<nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol>{toc}'
-                    f'{toc_links}{toc_cpts}<li><a href="#qs-h">考題</a></li></ol></nav>') if toc else ""
+        toc_html = (f'<nav class="ex-toc" aria-label="章節目錄"><p class="ex-toc-h">章節目錄</p><ol>{toc_links}{toc}'
+                    f'{toc_cpts}<li><a href="#qs-h">考題</a></li></ol></nav>') if toc else ""
         # Wide screens: the same list as a sticky left column that follows the reader
         # (like the dermatology exam section); the inline list above serves phones.
         side = (f'<nav class="ex-toc-side" aria-label="本章目錄"><details open><summary>本章目錄</summary>'
-                f'<ol>{side_toc}{side_links}{side_cpts}<li class="ex-toc-qs"><a href="#qs-h">考題（{len(qs)} 題）</a></li></ol></details></nav>'
+                f'<ol>{side_links}{side_toc}{side_cpts}<li class="ex-toc-qs"><a href="#qs-h">考題（{len(qs)} 題）</a></li></ol></details></nav>'
                 ) if toc else ""
         notes_html = (f'<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>{toc_html}'
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'
                       f'<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p>'
                       f"{NOTES_LEGEND}{READING_STATUS}"
                       f'<div class="ex-note">{wrap_tables(note_weights(taxa_html(expand_hits(note, key, {q["n"] for q in qs}))))}</div></section>'
-                      f"{links}{concepts_html}")
+                      f"{concepts_html}")
     else:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
-                      '<p class="ex-pending">這一章的重點尚未整理。</p></section>' + links)
+                      '<p class="ex-pending">這一章的重點尚未整理。</p></section>')
     if qs:
         # Questions, answers and explanations are served only to signed-in readers by
         # /api/exam/data; exam.js renders them here (grouped by concept) after login.
@@ -996,6 +997,8 @@ def chapter_page(data: dict, key: str, version: str) -> str:
         f'<p class="ex-kicker">BCSC {ch["book"]} · {esc(ch["bookTitle"])}</p>'
         f'<h1 class="ex-h1">Ch.{ch["ch"]} {esc(ch["title"])}{zh_h1}</h1>'
         f'<p class="ex-meta">原書 p.{esc(ch["pages"])} · 考題 {len(qs)} 題</p>'
+        # Owner 2026-11-05: images and further reading right under the title.
+        f"{links}"
         f'<div class="ex-strip" data-progress-chapter="{key}" hidden>'
         f'<label class="ex-check"><input type="checkbox" class="ex-read-box" value="{key}"> 課本已讀完</label>'
         '<span class="ex-strip-text" aria-live="polite"></span>'
@@ -1726,14 +1729,13 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note ul>li::before{content:"";position:absolute;left:5px;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--ex-accent)}
 .ex-note ul ul>li::before{background:transparent;border:1.5px solid var(--ex-accent);width:6px;height:6px}
 .ex-note ol{list-style:decimal;padding-left:24px;margin:6px 0}
-.ex-note mark,.ex-legend mark{background:linear-gradient(transparent 80%,#f7d77a 80%);color:inherit;padding:0 1px}
+.ex-note mark,.ex-legend mark{background:none;color:inherit;padding:0 1px}
 .ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
 .ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
 .ex-qref span{color:#a0460a;white-space:nowrap;padding:0 1px;border-radius:3px}
 .ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
-.ex-legend-trap,.ex-legend-tip{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
-.ex-legend-tip{border-left-color:#6fbf8a;background:#f3f9f5}
-.ex-note .num,.ex-num-hl{font-family:Inter,ui-monospace,monospace;font-weight:700;color:#9a3412;background:#fff1e6;border-radius:5px;padding:0 4px;white-space:nowrap}
+.ex-legend-trap{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
+.ex-note .num,.ex-num-hl{font-family:Inter,ui-monospace,monospace;font-weight:700;color:#0c5159;white-space:nowrap}
 .ex-note .ex-trap{background:#fef5f5;border-left:3px solid #f87171;border-radius:8px;padding:8px 14px;margin:12px 0}
 .ex-note .ex-trap>h3:first-child,.ex-note .hs-tip-box>:is(h3,h4):first-child{display:inline-block;margin:2px 0 4px;padding:0 8px;border-radius:6px;background:#c62828;color:#fff;font-size:11.5px;font-weight:700;line-height:1.7;letter-spacing:.04em}
 .ex-note .hs-tip-box>:is(h3,h4):first-child{background:#2f7a4d}
@@ -2008,16 +2010,16 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ref-ext{background:#2e1065;color:#ddd6fe}
 :root[data-theme="dark"] .ex-mode[aria-pressed="true"],:root[data-theme="dark"] .ex-chip-on,:root[data-theme="dark"] .ex-cta,:root[data-theme="dark"] .ex-cta-btn{color:#14181d}
 :root[data-theme="dark"] .ex-cta.ex-cta-alt{color:var(--ex-accent)}
-:root[data-theme="dark"] .ex-note .hs-tip-box,:root[data-theme="dark"] .ex-legend-tip{background:rgba(20,83,45,.3);border-left-color:#3f8a5c}
+:root[data-theme="dark"] .ex-note .hs-tip-box{background:rgba(20,83,45,.3);border-left-color:#3f8a5c}
 :root[data-theme="dark"] .ex-note .hs-warn-box{background:rgba(120,83,14,.3);border-left-color:#b9852c}
 :root[data-theme="dark"] .ex-note .keypoint{background:rgba(58,90,124,.3);border-left-color:#5f86ab}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt[data-correct],:root[data-theme="dark"] body:not(.ex-quiz) .ex-opt[data-correct]{background:#12301d;border-color:#16a34a}
 :root[data-theme="dark"] .ex-q.ex-done .ex-opt.ex-picked:not([data-correct]){background:#3a1a1a;border-color:#dc2626}
 :root[data-theme="dark"] .ex-hitbox mark{background:#854d0e;color:#fff}
-:root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:linear-gradient(transparent 80%,rgba(234,179,8,.5) 80%)}
+:root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:none}
 :root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
 :root[data-theme="dark"] .ex-qref span{color:#f2c14e}
-:root[data-theme="dark"] .ex-note .num{background:#3b2414;color:#fdba74}
+:root[data-theme="dark"] .ex-note .num,:root[data-theme="dark"] .ex-num-hl{color:#a4b5a8}
 :root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
 :root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
 :root[data-theme="dark"] .ex-note .ex-ddx tbody td:first-child{background:var(--ex-soft)}

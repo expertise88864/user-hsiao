@@ -155,16 +155,16 @@ class LinkTests(unittest.TestCase):
             with self.subTest(raw=raw), self.assertRaises(SystemExit):
                 gen.load_links(raw, chapters)
 
-    def test_section_between_notes_and_concepts(self):
+    def test_section_sits_right_under_the_title(self):
         doc = chapter_doc(self.key)
         section = doc.select_one("section.ex-links")
         self.assertEqual(section.h2.get_text(), "圖片與延伸閱讀")
         self.assertEqual(section.select_one(".ex-meta").get_text(),
                          "課本圖片有版權，請到以下網站看臨床與病理照片（外部網站，另開新分頁）。")
         main = str(doc.select_one("main"))
-        markers = ['class="ex-note"', 'id="links-h"', 'id="qs-h"']
+        markers = ['class="ex-h1"', 'id="links-h"', 'class="ex-note"', 'id="qs-h"']
         if 'id="cpts-h"' in main:
-            markers.insert(2, 'id="cpts-h"')
+            markers.insert(3, 'id="cpts-h"')
         at = [main.index(m) for m in markers]
         self.assertEqual(at, sorted(at))
         self.assertEqual(doc.select_one('.ex-toc a[href="#links-h"]').get_text(), "圖片與延伸閱讀")
