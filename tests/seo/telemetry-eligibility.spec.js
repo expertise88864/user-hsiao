@@ -5,6 +5,10 @@ const ROOT = path.resolve(__dirname, '../..');
 const HOST = 'hsiao.chendermatologist.com';
 const ARTICLE = '/blog/glaucoma-comprehensive-guide';
 
+// page.route cannot see a service worker's own fetches. Once /sw.js took control, a
+// retried /assets/vitals.min.js came from the real origin, so the fixture never ran.
+test.use({ serviceWorkers: 'block' });
+
 // Serve repository files at a simulated canonical origin. All requests are
 // intercepted: this suite never sends real analytics or visits production.
 async function fixture(page, { human = true, prerender = false, optOut = false, privacy = false, ab = false,
