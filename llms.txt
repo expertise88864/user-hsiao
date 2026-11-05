@@ -39,6 +39,16 @@ Secondary language: en
 - English mirror: https://hsiao.chendermatologist.com/en/blog/pediatric-high-myopia-maculopathy-progression
 - Summary: 2026 AJO 中山眼科 8 年前瞻世代：155 名高度近視兒童、310 隻眼。8 年內 31.3% 出現近視性黃斑部病變惡化；2 年眼軸變化率把預測準確度從 AUC 0.772 提升到 0.829，最佳切點 0.325 mm/年。機轉、高風險族群與台灣處境整理。
 
+### 難治型非感染性葡萄膜炎生物製劑怎麼選？2026 RUBI 三藥隨機試驗
+
+- English title: Refractory Noninfectious Uveitis — RUBI Biologics Trial
+- Topic: 葡萄膜炎
+- Published: 2026-06-02
+- Updated: 2026-11-05
+- Canonical: https://hsiao.chendermatologist.com/blog/refractory-noninfectious-uveitis-biologics-rubi-trial
+- English mirror: https://hsiao.chendermatologist.com/en/blog/refractory-noninfectious-uveitis-biologics-rubi-trial
+- Summary: 2026 AJO RUBI 隨機試驗比較難治型非感染性葡萄膜炎三種生物製劑：adalimumab 16% vs tocilizumab 14%（主要終點相當）、anakinra 因療效不足提早停止。112 人、27 中心、貝氏設計。機轉、安全性、研究限制、台灣處境完整整理。蕭閔謙醫師整理。
+
 ### 睡眠呼吸中止症會增加黃斑部病變風險嗎？2026 系統性回顧整合分析
 
 - English title: Sleep Apnea and AMD Risk — 2026 Meta-Analysis
@@ -98,6 +108,16 @@ Secondary language: en
 - Canonical: https://hsiao.chendermatologist.com/blog/toric-iol-astigmatism-cataract-review
 - English mirror: https://hsiao.chendermatologist.com/en/blog/toric-iol-astigmatism-cataract-review
 - Summary: 2026 年 Verstraaten 等歐洲白內障專家整合性回顧：散光人工水晶體 Toric IOL 適應症（≥1.0 D 規則散光）、術前評估、計算公式、旋轉風險（90–97% 在 5° 內）、特殊族群（雷射術後／圓錐角膜／PEX／角膜移植後）注意事項、台灣健保自付差額參考。蕭閔謙醫師整理。
+
+### 為什麼我覺得眼睛超乾，醫師卻說沒事？2026 DREAM 研究 535 人分析「症狀-徵象不一致」現象
+
+- English title: Why Do My Dry-Eye Symptoms Not Match the Exam?
+- Topic: 乾眼症
+- Published: 2026-05-16
+- Updated: 2026-11-05
+- Canonical: https://hsiao.chendermatologist.com/blog/dry-eye-symptom-sign-discordance-dream
+- English mirror: https://hsiao.chendermatologist.com/en/blog/dry-eye-symptom-sign-discordance-dream
+- Summary: 乾眼症為什麼主觀很乾、檢查卻還好？DREAM 試驗 535 位中重度乾眼分析顯示 77% 症狀與徵象不一致，整理 4 型分佈、治療選擇與台灣健保給付。
 
 ### 兒童近視追蹤：度數與眼軸長度怎麼看？
 
@@ -208,26 +228,6 @@ Secondary language: en
 - Canonical: https://hsiao.chendermatologist.com/blog/dry-eye-myths
 - English mirror: translation in progress
 - Summary: 點人工淚液會依賴？流淚就不是乾眼？葉黃素能治乾眼？整理 8 個常見乾眼迷思，說明 BAK 防腐劑、Omega-3 證據、瞼板腺熱敷、何時該就醫檢查。
-
-### 難治型非感染性葡萄膜炎生物製劑怎麼選？2026 RUBI 三藥隨機試驗
-
-- English title: Refractory Noninfectious Uveitis — RUBI Biologics Trial
-- Topic: 葡萄膜炎
-- Published: 2026-06-02
-- Updated: 2026-10-16
-- Canonical: https://hsiao.chendermatologist.com/blog/refractory-noninfectious-uveitis-biologics-rubi-trial
-- English mirror: https://hsiao.chendermatologist.com/en/blog/refractory-noninfectious-uveitis-biologics-rubi-trial
-- Summary: 2026 AJO RUBI 隨機試驗比較難治型非感染性葡萄膜炎三種生物製劑：adalimumab 16% vs tocilizumab 14%（主要終點相當）、anakinra 因療效不足提早停止。112 人、27 中心、貝氏設計。機轉、安全性、研究限制、台灣處境完整整理。蕭閔謙醫師整理。
-
-### 為什麼我覺得眼睛超乾，醫師卻說沒事？2026 DREAM 研究 535 人分析「症狀-徵象不一致」現象
-
-- English title: Why Do My Dry-Eye Symptoms Not Match the Exam?
-- Topic: 乾眼症
-- Published: 2026-05-16
-- Updated: 2026-10-16
-- Canonical: https://hsiao.chendermatologist.com/blog/dry-eye-symptom-sign-discordance-dream
-- English mirror: https://hsiao.chendermatologist.com/en/blog/dry-eye-symptom-sign-discordance-dream
-- Summary: 乾眼症為什麼主觀很乾、檢查卻還好？DREAM 試驗 535 位中重度乾眼分析顯示 77% 症狀與徵象不一致，整理 4 型分佈、治療選擇與台灣健保給付。
 
 ## Citation Guidance
 
