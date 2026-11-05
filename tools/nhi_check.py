@@ -42,6 +42,7 @@ REGISTRY = ROOT / "data" / "nhi" / "registry.json"
 USER_AGENT = "HsiaoEye-NHI-Checker/1.0 (+https://hsiao.chendermatologist.com)"
 TIMEOUT_SECONDS = 180
 MIN_DOCUMENT_CHARS = 200
+MIN_TABLE_ROWS = 5
 
 CHANGED = "changed"
 UNCHANGED = "unchanged"
@@ -157,6 +158,16 @@ def require_document(text: str) -> str:
     return text
 
 
+def require_table(rows: list[list[str]], source: dict) -> list[list[str]]:
+    """An error page can parse as CSV and contain none of the searched terms, so the
+    expected header and a table shape must be present before absence means anything."""
+    head = " ".join(cell for row in rows[:5] for cell in row)
+    marker = source.get("header_contains")
+    if not marker or marker not in head or sum(len(row) >= 2 for row in rows) < MIN_TABLE_ROWS:
+        raise SourceUnavailable("CSV 內容不是預期的官方表格，可能是錯誤頁")
+    return rows
+
+
 def _tls_context() -> ssl.SSLContext:
     """Verified TLS. Python 3.13 adds a strict X.509 check that the certificate of
     info.nhi.gov.tw fails (no Subject Key Identifier); chain and hostname checks stay on."""
@@ -258,11 +269,11 @@ def parse_drug_listing(payload, today) -> str:
     if not isinstance(payload, dict) or "data" not in payload:
         raise SourceUnavailable("健保用藥品項查詢回傳格式不符")
     rows = payload["data"] or []
-    listed = [
-        row
-        for row in rows
-        if str(row.get("paY_E_DATE") or "")[:10] >= today and float(row.get("paY_PRICE") or 0) > 0
-    ]
+    listed = False
+    for row in rows:
+        end = datetime.date.fromisoformat(str(row["paY_E_DATE"])[:10]).isoformat()
+        price = float(row["paY_PRICE"])
+        listed = listed or (end >= today and price > 0)
     return "listed" if listed else "not-listed"
 
 
@@ -310,12 +321,12 @@ def extract(source: dict, fetcher, today: str) -> tuple[str, str | None]:
         return extract_section(document, source["start"], source["end"]), None
     if kind == "csv_absent":
         content, _headers = fetcher(source["url"])
-        rows = decode_csv(content, source["encoding"])
+        rows = require_table(decode_csv(content, source["encoding"]), source)
         document = require_document("\n".join(" ".join(row) for row in rows))
         return absence_summary(document, source["terms"]), None
     if kind == "csv_rows":
         content, _headers = fetcher(source["url"])
-        rows = decode_csv(content, source["encoding"])
+        rows = require_table(decode_csv(content, source["encoding"]), source)
         require_document("\n".join(" ".join(row) for row in rows))
         return normalize(_extract_rows(rows, source)), None
     if kind == "zip_csv_rows":
@@ -325,7 +336,7 @@ def extract(source: dict, fetcher, today: str) -> tuple[str, str | None]:
                 member = archive.read(source["member"])
         except (zipfile.BadZipFile, KeyError) as exc:
             raise SourceUnavailable(f"壓縮檔讀取失敗：{exc}") from exc
-        rows = decode_csv(member, source["encoding"])
+        rows = require_table(decode_csv(member, source["encoding"]), source)
         require_document("\n".join(" ".join(row) for row in rows))
         return normalize(_extract_rows(rows, source)), None
     if kind == "json_query":

@@ -186,6 +186,13 @@ class OtherSourceKinds(unittest.TestCase):
         self.assertEqual(self.run_parser("drug_listing", {"data": [ended, unpriced]}), "not-listed")
         self.assertEqual(self.run_parser("drug_listing", {"data": None}), "not-listed")
 
+    def test_drug_listing_with_missing_or_bad_fields_is_unavailable(self):
+        current = {"paY_E_DATE": "2910-12-31T00:00:00", "paY_PRICE": "270.00"}
+        bad_rows = ({}, {"paY_PRICE": "270.00"}, {"paY_E_DATE": current["paY_E_DATE"]}, dict(current, paY_E_DATE="soon"), dict(current, paY_PRICE=""))
+        for row in bad_rows:
+            with self.assertRaises(nc.SourceUnavailable):
+                self.run_parser("drug_listing", {"data": [current, row]})
+
     def test_service_item_fingerprint_ignores_price(self):
         row = {"treaT_CODE": "60007C", "curE_CNAME": "小樑雷射術", "paY_PRICE": 3900}
         repriced = dict(row, paY_PRICE=4100)
@@ -197,12 +204,23 @@ class OtherSourceKinds(unittest.TestCase):
         return buffer.getvalue().encode("big5hkscs")
 
     def test_csv_absent_flags_a_new_listing(self):
-        filler = [["x" * 40, "品項"] for _ in range(10)]
-        source = {"kind": "csv_absent", "url": "u", "encoding": "big5hkscs", "terms": [r"\bistent\b"]}
+        filler = [["特材收錄品項表", "品項"]] + [["x" * 40, "品項"] for _ in range(10)]
+        source = {"kind": "csv_absent", "url": "u", "encoding": "big5hkscs", "header_contains": "特材收錄品項表", "terms": [r"\bistent\b"]}
         before = nc.extract(source, lambda u, m="GET", b=None: (self.csv_bytes(filler), {}), TODAY)[0]
         after = nc.extract(source, lambda u, m="GET", b=None: (self.csv_bytes(filler + [["iStent inject W", "品項"]]), {}), TODAY)[0]
         self.assertEqual(before, r"\bistent\b=absent")
         self.assertEqual(after, r"\bistent\b=present")
+
+    def test_csv_error_page_is_not_read_as_absence(self):
+        source = {"kind": "csv_absent", "url": "u", "encoding": "big5hkscs", "header_contains": "特材收錄品項表", "terms": [r"\bistent\b"]}
+        pages = (
+            ("系統維護中，請稍後再試。" * 40).encode("big5hkscs"),
+            ("<html><body>" + "maintenance, please retry\n" * 40 + "</body></html>").encode("big5hkscs"),
+            self.csv_bytes([["特材收錄品項表" + "x" * 300]]),
+        )
+        for page in pages:
+            with self.assertRaises(nc.SourceUnavailable):
+                nc.extract(source, lambda u, m="GET", b=None, page=page: (page, {}), TODAY)
 
     def test_zip_csv_rows_filters_and_deduplicates(self):
         rows = [["證號", "品名"]] + [[f"A{i}", "other device" * 4] for i in range(10)]
@@ -217,6 +235,7 @@ class OtherSourceKinds(unittest.TestCase):
             "url": "u",
             "member": "d.csv",
             "encoding": "utf-8-sig",
+            "header_contains": "證號",
             "contains": r"\bistent\b",
             "search_fields": [1],
             "fields": [0, 1],
