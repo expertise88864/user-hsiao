@@ -8,7 +8,8 @@ test.use({ serviceWorkers: 'block' });
 // 1. Time machine: a doubt's 「何時改變」 and 「對答案的影響」 rows (doubts.json changed /
 //    impact) render in the doubt box with a level badge (green 不影響 / red 依現行觀念答案會不同),
 //    and quiz mode keeps them hidden until the question is graded, like the rest of the box.
-//    The real data has no entries yet: the bank is patched with tests/fixtures examples.
+//    The bank is patched with tests/fixtures examples, which replace the real Q4 / Q5
+//    fields (real entries arrived 2026-11-05) so the assertions stay fixed.
 // 2. Chinese chapter names: the hub search finds a chapter by its Chinese name and shows
 //    the name after the English title; the chapter page shows it under the h1.
 
@@ -19,7 +20,10 @@ async function bank() {
     const mod = await import(pathToFileURL(path.resolve(__dirname, '../../api/_exam_bank.js')).href);
     const data = JSON.parse(mod.EXAM_BANK_JSON);
     data.questions.forEach(q => {
-      if (q.doubt && FIXTURE[String(q.n)]) Object.assign(q.doubt, FIXTURE[String(q.n)]);
+      if (q.doubt && FIXTURE[String(q.n)]) {
+        delete q.doubt.changed; delete q.doubt.impact;
+        Object.assign(q.doubt, FIXTURE[String(q.n)]);
+      }
     });
     bankJson = JSON.stringify(data);
   }
@@ -58,8 +62,11 @@ test('signed in: the doubt box shows when the concept changed and its effect on 
   await expect(only.locator('dt')).toHaveText(['對答案的影響']);
   await expect(only.locator('.ex-tm-level')).toHaveClass(/ex-tm-same/);
   await expect(only.locator('.ex-tm-level')).toHaveText('不影響');
-  // A doubt without the fields has no rows.
-  await expect(page.locator('.ex-q:not(#q-5) .ex-tm-rows')).toHaveCount(0);
+  // Only questions whose doubt has the fields get rows.
+  const withFields = new Set(JSON.parse(await bank()).questions
+    .filter(q => q.doubt && (q.doubt.changed || q.doubt.impact)).map(q => 'q-' + q.n));
+  const shown = await page.locator('.ex-q').evaluateAll(qs => qs.map(q => [q.id, !!q.querySelector('.ex-tm-rows')]));
+  for (const [id, has] of shown) expect(has, id).toBe(withFields.has(id));
 });
 
 test('signed in, quiz mode: the time machine rows stay hidden until the question is graded', async ({ page }) => {

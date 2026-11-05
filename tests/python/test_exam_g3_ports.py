@@ -208,13 +208,21 @@ class TimeMachineTests(unittest.TestCase):
         cls.fixture = {k: v for k, v in raw.items() if k != "_note"}
         cls.data = shared()[0]
 
-    def test_real_data_carries_no_examples_yet(self):
-        # Real entries must be sourced; the examples live only in tests/fixtures.
-        self.assertFalse(any("changed" in d or "impact" in d for d in self.data["doubts"].values()))
+    def test_real_entries_are_sourced_and_not_examples(self):
+        # Real entries (2026-11-05) sit only on doubts with a sourced 現行觀念; the test
+        # examples stay in tests/fixtures.
+        real = {n: d for n, d in self.data["doubts"].items() if "changed" in d or "impact" in d}
+        self.assertGreater(len(real), 100)
+        for n, d in real.items():
+            with self.subTest(q=n):
+                self.assertTrue(d.get("now") and d.get("refs"))
+                self.assertNotIn("測試範例", json.dumps(d, ensure_ascii=False))
 
     def test_fixture_entries_are_valid_and_reach_the_bank(self):
         data = copy.deepcopy(self.data)
         for n, extra in self.fixture.items():
+            data["doubts"][n].pop("changed", None)
+            data["doubts"][n].pop("impact", None)
             data["doubts"][n].update(extra)
             gen.check_time_machine(n, data["doubts"][n])
         bank = {q["n"]: q for q in gen.bank_data(data)["questions"]}

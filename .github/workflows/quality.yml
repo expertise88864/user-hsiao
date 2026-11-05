@@ -258,6 +258,18 @@ jobs:
       - name: Run SEO browser smoke tests
         run: npm run test:seo
 
+      # Flake diagnosis (2026-11-05): telemetry-eligibility.spec.js:137 fails only in some
+      # push runs and passes on rerun. Keep the traces Playwright records on retry
+      # (trace: 'on-first-retry') and the failure output so the next one can be read.
+      - name: Upload SEO test traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-test-results-attempt-${{ github.run_attempt }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 14
+
   indexnow:
     name: IndexNow ping (Bing / Yandex / Naver)
     runs-on: ubuntu-24.04
