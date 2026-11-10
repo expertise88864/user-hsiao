@@ -2780,8 +2780,11 @@
   // explanations are in the markup and the stylesheet keeps them closed until the paper
   // is handed in (.ex-done). Nothing here reads the API or touches the bank's stores
   // (stats, wrong list, stored answers, practice paper); an attempt has its own key:
-  // hs:exam:mock:<paper id> = { sel: { question id: option picked }, el: ms the timer
-  //   counted, done: handed in, t: saved ms }
+  // hs:exam:mock:<paper id> = { a: attempt id, sel: { question id: option picked },
+  //   el: ms the timer counted, done: handed in, t: saved ms }
+  // The paper may be open in several tabs. Storage holds the attempt, and a save reads it,
+  // adds this tab's changes and writes it back (under the cross-tab lock where there is
+  // one), so a tab that has not heard of another tab's change yet cannot write over it.
   var MOCK_PREFIX = 'hs:exam:mock:';
   var MOCK_MAX_MS = 24 * 3600 * 1000;
   function initMock(root) {
@@ -2801,6 +2804,9 @@
     cards.forEach(function (card) { known[card.getAttribute('data-mq')] = true; });
     var sel = {};          // question id -> option picked
     var done = false;      // handed in
+    var attempt = '';      // id of the attempt shown ('' until its first save)
+    var dirty = {};        // options picked here that storage does not hold yet
+    var kept = storageWorks(); // false: storage is off or full, the attempt lives on this page
     var counted = 0;       // ms counted up to `last`
     var last = null;       // when the running stretch was last counted (null: paused)
     var savedAt = 0;       // `counted` at the last save
@@ -2811,7 +2817,7 @@
     function read() {
       var saved = plainObject(load(key, null));
       var picked = plainObject(saved.sel);
-      var state = { sel: {}, el: 0, done: saved.done === true };
+      var state = { a: typeof saved.a === 'string' ? saved.a : '', sel: {}, el: 0, done: saved.done === true };
       Object.keys(picked).forEach(function (id) {
         if (known[id] && typeof picked[id] === 'string' && /^[A-D]$/.test(picked[id])) state.sel[id] = picked[id];
       });
@@ -2832,14 +2838,58 @@
       var m = Math.floor(s / 60);
       return (m < 10 ? '0' : '') + m + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
     }
-    function save() {
-      accrue();
-      savedAt = counted;
-      if (!done && !answered()) {
-        try { localStorage.removeItem(key); } catch (e) { /* storage disabled */ }
-        return;
+    // Bring the stored state `s` and this page together; `picks` are the options picked
+    // here since the last save. Another attempt id (or none) means another tab started
+    // over or started the attempt, and its state replaces ours. Within one attempt the
+    // hand-in is final, so a stored copy from before the hand-in does not undo it.
+    function merge(s, picks) {
+      if (s.a !== attempt) {
+        attempt = s.a;
+        sel = s.sel;
+        done = s.done;
+        counted = s.el;
+      } else if (!(attempt && done && !s.done)) {
+        sel = s.sel;
+        done = s.done;
+        counted = s.done ? s.el : Math.max(counted, s.el);
       }
-      store(key, { sel: sel, el: Math.round(counted), done: done, t: Date.now() });
+      if (!done) Object.keys(picks).forEach(function (id) { sel[id] = picks[id]; });
+    }
+    // Save: read, merge, apply `act` ('finish', 'reset' or ''), write. Without storage the
+    // page's own state stands in for the stored one.
+    function sync(act) {
+      accrue();
+      var picks = dirty;
+      dirty = {};
+      if (act === 'reset') {
+        attempt = '';
+        sel = {};
+        done = false;
+      } else {
+        var before = attempt;
+        merge(kept ? read() : { a: attempt, sel: sel, el: counted, done: done }, picks);
+        // not when another tab started over while the confirmation was open
+        if (act === 'finish' && attempt === before && answered()) done = true;
+      }
+      if (!done && !answered()) {
+        attempt = '';
+        counted = 0;
+        if (kept) { try { localStorage.removeItem(key); } catch (e) { kept = false; } }
+      } else {
+        if (!attempt) attempt = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+        if (kept) kept = storeOk(key, { a: attempt, sel: sel, el: Math.round(counted), done: done, t: Date.now() });
+      }
+      savedAt = counted;
+    }
+    // The saves of all tabs take turns. Leaving the page cannot wait for its turn; those
+    // saves call sync() directly.
+    function commit(act, after) {
+      crossTabLock(key, function () {
+        sync(act);
+        paint();
+        run();
+        if (after) after();
+      });
     }
     // The timer runs from the first answer until the paper is handed in, and only while
     // the page is shown; a stalled interval (a sleeping computer) adds at most TIMER_GAP.
@@ -2850,7 +2900,7 @@
         ticker = setInterval(function () {
           accrue();
           timerEl.textContent = clock();
-          if (counted - savedAt >= 10000) save();
+          if (counted - savedAt >= 10000) { savedAt = counted; commit(''); }
         }, 1000);
       } else if (!on && last !== null) {
         accrue();
@@ -2920,63 +2970,60 @@
       });
     }
 
-    // Take over what storage holds (page load, return from the back/forward cache, or a
-    // change made by another tab showing this paper).
-    function adopt(keepTime) {
-      var state = read();
-      if (last !== null) { accrue(); last = null; clearInterval(ticker); ticker = null; }
-      sel = state.sel;
-      done = state.done;
-      counted = keepTime ? Math.max(counted, state.el) : state.el;
-      savedAt = counted;
+    // Show what storage holds (page load, return from the back/forward cache, or a change
+    // made by another tab showing this paper). This does not write, or two tabs would
+    // answer each other's saves forever; the one exception is a stored copy from before
+    // this attempt's hand-in, which is put right.
+    function adopt() {
+      accrue();
+      var s = read();
+      var stale = !!attempt && s.a === attempt && done && !s.done;
+      merge(s, dirty);
+      savedAt = Math.min(counted, s.el);
       paint();
       run();
+      if (stale) commit('');
     }
 
     root.addEventListener('change', function (ev) {
       var input = ev.target;
       var card = input && input.closest ? input.closest('.ex-mq') : null;
       if (!card || done || !input.checked || !/^[A-D]$/.test(input.value)) return;
-      sel[card.getAttribute('data-mq')] = input.value;
+      var id = card.getAttribute('data-mq');
+      sel[id] = input.value;
+      dirty[id] = input.value;
       run();
-      save();
       paint();
+      commit('');
     });
     finishBtn.addEventListener('click', function () {
       var blank = total - answered();
       if (done || blank === total) return;
       if (!window.confirm((blank ? '還有 ' + blank + ' 題沒有作答。' : '') + '確定要交卷嗎？交卷後不能再修改答案。')) return;
-      accrue();
-      done = true;
-      run();
-      save();
-      paint();
-      result.scrollIntoView();
-      try { heading.focus({ preventScroll: true }); } catch (e) { heading.focus(); }
+      commit('finish', function () {
+        if (!done) return;
+        result.scrollIntoView();
+        try { heading.focus({ preventScroll: true }); } catch (e) { heading.focus(); }
+      });
     });
     resetBtn.addEventListener('click', function () {
       if (!window.confirm('確定要清除這次的作答與成績，重新開始嗎？')) return;
-      sel = {};
-      done = false;
-      run();
-      counted = 0;
-      save();
-      paint();
-      var first = root.querySelector('input');
-      cards[0].scrollIntoView();
-      if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
+      commit('reset', function () {
+        var first = root.querySelector('input');
+        cards[0].scrollIntoView();
+        if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
+      });
     });
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden' && last !== null) save();
+      if (document.visibilityState === 'hidden' && last !== null) { sync(''); paint(); }
       run();
     });
-    window.addEventListener('pagehide', function () { if (last !== null) save(); });
-    window.addEventListener('pageshow', function (ev) { if (ev.persisted) adopt(true); });
+    window.addEventListener('pagehide', function () { if (last !== null) sync(''); });
+    window.addEventListener('pageshow', function (ev) { if (ev.persisted && kept) adopt(); });
     window.addEventListener('storage', function (ev) {
-      if (ev.key === null) adopt(false);
-      else if (ev.key === key) adopt(ev.newValue !== null);
+      if (kept && (ev.key === null || ev.key === key)) adopt();
     });
-    adopt(false);
+    adopt();
   }
 
   // ---------------------------------------------------------- init

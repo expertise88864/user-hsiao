@@ -79,7 +79,9 @@ test('signed out: answer, time, hand in, read the explanations, resume and start
   await expect(card(page, 1).locator('.ex-mq-exp')).toBeHidden();
   await expect(card(page, 1).locator('.ex-mq-result')).toHaveText('');
   await expect(card(page, 1).locator('.ex-right, .ex-wrong')).toHaveCount(0);
-  expect(await stored(page)).toMatchObject({ sel: { 'p1-01': a1, 'p1-02': wrongKey(a2) }, el: 65000, done: false });
+  // a save waits for the cross-tab lock, so storage follows the page a moment later
+  await expect.poll(() => stored(page)).toMatchObject({ sel: { 'p1-01': a1, 'p1-02': wrongKey(a2) }, el: 65000, done: false });
+  expect((await stored(page)).a).toMatch(/^[a-z0-9]{8,}$/);
 
   // a later visit continues the attempt; time off the screen is not counted
   await page.reload();
@@ -185,6 +187,7 @@ test('the bank\'s stores are left alone and unusable stored state is dropped', a
     localStorage.setItem(key, JSON.stringify({ sel: { 'p1-01': 'E', 'zz-99': 'A', 'p1-02': 'C', 'p1-03': 5 }, el: 'x', done: 'yes' }));
     sessionStorage.setItem('seeded', '1');
   }, [bank, KEY]);
+  await freeze(page);
   await signedOut(page);
   await page.goto('/exam/mock');
   await expect(count(page)).toHaveText(`已作答 1 / ${TOTAL}`);
@@ -207,6 +210,103 @@ test('the bank\'s stores are left alone and unusable stored state is dropped', a
   await page.reload();
   await expect(count(page)).toHaveText(`已作答 0 / ${TOTAL}`);
   await expect(finish(page)).toBeDisabled();
+});
+
+// Review finding on PR #100: with the paper open in two windows, a save from the window that
+// had not heard of the other's hand-in yet wrote its whole old snapshot back (done: false).
+test('two windows on one paper: answers merge, a hand-in is final, starting over reaches both', async ({ context }) => {
+  // A window can be made deaf to storage events: the state of a tab that has not been
+  // told about another tab's change yet.
+  await context.addInitScript(() => {
+    window.addEventListener('storage', ev => { if (window.__deaf) ev.stopImmediatePropagation(); }, true);
+  });
+  const a = await context.newPage();
+  const b = await context.newPage();
+  const deaf = (page, on) => page.evaluate(v => { window.__deaf = v; }, on);
+  await freeze(a);
+  for (const page of [a, b]) {
+    await signedOut(page);
+    await page.goto('/exam/mock');
+    await expect(count(page)).toHaveText(`已作答 0 / ${TOTAL}`);
+  }
+  const a1 = await answerOf(a, 1);
+  const a2 = await answerOf(a, 2);
+  const a3 = await answerOf(a, 3);
+
+  // answers picked in either window reach the other one
+  await pick(a, 1, a1);
+  await expect(count(b)).toHaveText(`已作答 1 / ${TOTAL}`);
+  await pick(b, 2, wrongKey(a2));
+  await expect(count(a)).toHaveText(`已作答 2 / ${TOTAL}`);
+  await expect(card(a, 2).locator(`input[value="${wrongKey(a2)}"]`)).toBeChecked();
+  const picks = { 'p1-01': a1, 'p1-02': wrongKey(a2) };
+
+  // A hands in; B has not heard of it when it saves on leaving the screen
+  await deaf(b, true);
+  await handIn(a);
+  await expect(result(a)).toBeVisible();
+  await expect(finish(b)).toBeVisible();
+  await setHidden(b, true);
+  expect(await stored(a)).toMatchObject({ sel: picks, done: true });
+  await setHidden(b, false);
+  await expect(result(b)).toBeVisible();
+  await expect(bar(b).locator('.ex-score')).toHaveText(`得分 1 / ${TOTAL}（未作答 ${TOTAL - 2} 題）`);
+  await deaf(b, false);
+
+  // a snapshot from before the hand-in that lands in storage afterwards does not undo it
+  const graded = await stored(a);
+  await b.evaluate(([k, v]) => localStorage.setItem(k, JSON.stringify(v)), [KEY, { ...graded, sel: { 'p1-01': a1 }, done: false }]);
+  await expect.poll(() => stored(a)).toMatchObject({ a: graded.a, sel: picks, done: true });
+  await expect(result(a)).toBeVisible();
+  await expect(card(a, 2)).toHaveAttribute('data-outcome', 'wrong');
+
+  // starting over in A clears B too
+  const asked = nextDialog(a, true);
+  await reset(a).click();
+  await asked;
+  await expect(count(a)).toHaveText(`已作答 0 / ${TOTAL}`);
+  await expect(count(b)).toHaveText(`已作答 0 / ${TOTAL}`);
+  await expect(result(b)).toBeHidden();
+  await expect(b.locator('[data-mock-paper] input:disabled')).toHaveCount(0);
+  expect(await stored(a)).toBeNull();
+
+  // second attempt: A hands in, and B, not told yet, picks one more answer
+  await pick(a, 1, a1);
+  await expect(count(b)).toHaveText(`已作答 1 / ${TOTAL}`);
+  await deaf(b, true);
+  await handIn(a);
+  await expect(result(a)).toBeVisible();
+  await expect(finish(b)).toBeVisible();
+  await pick(b, 3, a3);
+  await expect(result(b)).toBeVisible();
+  await expect(card(b, 3)).toHaveAttribute('data-outcome', 'blank');
+  await expect(bar(b).locator('.ex-score')).toHaveText(`得分 1 / ${TOTAL}（未作答 ${TOTAL - 1} 題）`);
+  const second = await stored(a);
+  expect(second).toMatchObject({ sel: { 'p1-01': a1 }, done: true });
+  expect(Object.keys(second.sel)).toHaveLength(1);
+  expect(second.a).not.toBe(graded.a);
+  await expect(result(a)).toBeVisible();
+});
+
+test('with storage unavailable the paper still works on the page', async ({ page }) => {
+  await page.addInitScript(() => {
+    Storage.prototype.setItem = () => { throw new DOMException('denied', 'QuotaExceededError'); };
+  });
+  await signedOut(page);
+  await page.goto('/exam/mock');
+  const a1 = await answerOf(page, 1);
+  await pick(page, 1, a1);
+  await pick(page, 2, wrongKey(await answerOf(page, 2)));
+  await expect(count(page)).toHaveText(`已作答 2 / ${TOTAL}`);
+  await handIn(page);
+  await expect(bar(page).locator('.ex-score')).toHaveText(`得分 1 / ${TOTAL}（未作答 ${TOTAL - 2} 題）`);
+  await expect(card(page, 1)).toHaveAttribute('data-outcome', 'right');
+  expect(await stored(page)).toBeNull();
+  const asked = nextDialog(page, true);
+  await reset(page).click();
+  await asked;
+  await expect(count(page)).toHaveText(`已作答 0 / ${TOTAL}`);
+  await expect(result(page)).toBeHidden();
 });
 
 test('no sideways scroll on a phone, before and after the hand-in', async ({ page }) => {
