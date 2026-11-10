@@ -2856,20 +2856,26 @@
       if (!done) Object.keys(picks).forEach(function (id) { sel[id] = picks[id]; });
     }
     // Save: read, merge, apply `act` ('finish', 'reset' or ''), write. Without storage the
-    // page's own state stands in for the stored one.
-    function sync(act) {
+    // page's own state stands in for the stored one. The reader confirmed a hand-in or a
+    // start-over for the attempt `asked`, the one the page showed then; if another tab has
+    // started over since, the attempt is another one and is left as it is. Returns whether
+    // `act` was carried out.
+    function sync(act, asked) {
       accrue();
       var picks = dirty;
       dirty = {};
-      if (act === 'reset') {
+      merge(kept ? read() : { a: attempt, sel: sel, el: counted, done: done }, picks);
+      var applied = false;
+      if (asked && attempt !== asked) {
+        act = '';
+      } else if (act === 'reset') {
         attempt = '';
         sel = {};
         done = false;
-      } else {
-        var before = attempt;
-        merge(kept ? read() : { a: attempt, sel: sel, el: counted, done: done }, picks);
-        // not when another tab started over while the confirmation was open
-        if (act === 'finish' && attempt === before && answered()) done = true;
+        applied = true;
+      } else if (act === 'finish' && answered()) {
+        done = true;
+        applied = true;
       }
       if (!done && !answered()) {
         attempt = '';
@@ -2880,15 +2886,16 @@
         if (kept) kept = storeOk(key, { a: attempt, sel: sel, el: Math.round(counted), done: done, t: Date.now() });
       }
       savedAt = counted;
+      return applied;
     }
     // The saves of all tabs take turns. Leaving the page cannot wait for its turn; those
-    // saves call sync() directly.
-    function commit(act, after) {
+    // saves call sync() directly. `after` runs when `act` was carried out.
+    function commit(act, after, asked) {
       crossTabLock(key, function () {
-        sync(act);
+        var applied = sync(act, asked);
         paint();
         run();
-        if (after) after();
+        if (applied && after) after();
       });
     }
     // The timer runs from the first answer until the paper is handed in, and only while
@@ -2999,20 +3006,21 @@
     finishBtn.addEventListener('click', function () {
       var blank = total - answered();
       if (done || blank === total) return;
+      var asked = attempt;   // other tabs go on while the confirmation is open
       if (!window.confirm((blank ? '還有 ' + blank + ' 題沒有作答。' : '') + '確定要交卷嗎？交卷後不能再修改答案。')) return;
       commit('finish', function () {
-        if (!done) return;
         result.scrollIntoView();
         try { heading.focus({ preventScroll: true }); } catch (e) { heading.focus(); }
-      });
+      }, asked);
     });
     resetBtn.addEventListener('click', function () {
+      var asked = attempt;
       if (!window.confirm('確定要清除這次的作答與成績，重新開始嗎？')) return;
       commit('reset', function () {
         var first = root.querySelector('input');
         cards[0].scrollIntoView();
         if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
-      });
+      }, asked);
     });
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'hidden' && last !== null) { sync(''); paint(); }

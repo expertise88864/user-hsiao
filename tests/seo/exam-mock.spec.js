@@ -288,6 +288,75 @@ test('two windows on one paper: answers merge, a hand-in is final, starting over
   await expect(result(a)).toBeVisible();
 });
 
+test('a hand-in or start-over confirmed for one attempt leaves the next attempt alone', async ({ context }) => {
+  const a = await context.newPage();
+  const b = await context.newPage();
+  for (const page of [a, b]) {
+    await signedOut(page);
+    await page.goto('/exam/mock');
+    await expect(count(page)).toHaveText(`已作答 0 / ${TOTAL}`);
+  }
+  const a1 = await answerOf(a, 1);
+  const a2 = await answerOf(a, 2);
+  const a3 = await answerOf(a, 3);
+  // Press `button` in A and, while A waits at its confirmation, start over in B and
+  // answer question `no` there; then accept A's confirmation. B holds the save lock
+  // until A has shown B's answer, so A hears of the new attempt before its own save runs
+  // (the order a browser may choose by itself).
+  async function whileAsking(button, no, key) {
+    const opened = a.waitForEvent('dialog');
+    const clicked = button.click();
+    const dialog = await opened;
+    const asked = nextDialog(b, true);
+    await reset(b).click();
+    await asked;
+    await pick(b, no, key);
+    await expect.poll(async () => Object.keys(((await stored(b)) || { sel: {} }).sel)).toEqual([`p1-0${no}`]);
+    const begun = await stored(b);
+    await b.evaluate(k => new Promise(granted => {
+      navigator.locks.request(k, () => { granted(); return new Promise(free => { window.__free = free; }); });
+    }), KEY);
+    await dialog.accept();
+    await clicked;
+    await expect(card(a, no).locator(`input[value="${key}"]`)).toBeChecked();
+    await b.evaluate(() => window.__free());
+    return begun;
+  }
+
+  await pick(a, 1, a1);
+  await expect(count(b)).toHaveText(`已作答 1 / ${TOTAL}`);
+  const first = await stored(a);
+
+  // the hand-in was confirmed for the first attempt: the second one stays open
+  const second = await whileAsking(finish(a), 2, a2);
+  expect(second.a).not.toBe(first.a);
+  await expect(card(a, 2).locator(`input[value="${a2}"]`)).toBeChecked();
+  await expect(count(a)).toHaveText(`已作答 1 / ${TOTAL}`);
+  await expect(result(a)).toBeHidden();
+  await expect(result(b)).toBeHidden();
+  await expect(a.locator('[data-mock-paper] input:disabled')).toHaveCount(0);
+  expect(await stored(a)).toMatchObject({ a: second.a, sel: { 'p1-02': a2 }, done: false });
+
+  // the start-over was confirmed for the second attempt: the third one keeps its answer
+  const third = await whileAsking(reset(a), 3, a3);
+  expect(third.a).not.toBe(second.a);
+  await expect(card(a, 3).locator(`input[value="${a3}"]`)).toBeChecked();
+  await expect(count(a)).toHaveText(`已作答 1 / ${TOTAL}`);
+  await expect(count(b)).toHaveText(`已作答 1 / ${TOTAL}`);
+  expect(await stored(a)).toMatchObject({ a: third.a, sel: { 'p1-03': a3 }, done: false });
+
+  // with no other window in the way, both still do what they say
+  await handIn(a);
+  await expect(result(a)).toBeVisible();
+  await expect(result(b)).toBeVisible();
+  expect(await stored(a)).toMatchObject({ a: third.a, done: true });
+  const asked = nextDialog(a, true);
+  await reset(a).click();
+  await asked;
+  await expect(count(b)).toHaveText(`已作答 0 / ${TOTAL}`);
+  expect(await stored(a)).toBeNull();
+});
+
 test('with storage unavailable the paper still works on the page', async ({ page }) => {
   await page.addInitScript(() => {
     Storage.prototype.setItem = () => { throw new DOMException('denied', 'QuotaExceededError'); };
