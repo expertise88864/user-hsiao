@@ -6,7 +6,7 @@
   bank stem or option.
 - The page is complete as served (answers and explanations are in the markup); the
   stylesheet keeps them closed until the paper is handed in.
-- Pilot: the page is public but not indexed, and stays out of the sitemap routes.
+- The page is indexed and in the sitemap routes (owner, 2026-11-10, after reading the pilot).
 """
 import copy
 import json
@@ -146,9 +146,10 @@ class MockPageTests(unittest.TestCase):
         cls.html = gen.mock_page(cls.data, cls.version)
         cls.doc = BeautifulSoup(cls.html, "html.parser")
 
-    def test_public_page_without_login_or_index(self):
-        self.assertEqual(self.doc.select_one('meta[name="robots"]')["content"], "noindex,follow")
-        self.assertNotIn("/exam/mock", gen.indexed_routes(self.data))
+    def test_public_indexed_page_without_login(self):
+        self.assertEqual(self.doc.select_one('meta[name="robots"]')["content"], "index,follow,max-image-preview:large")
+        self.assertIn("/exam/mock", gen.indexed_routes(self.data))
+        self.assertEqual(self.doc.select_one('link[rel="canonical"]')["href"], gen.DOMAIN + "/exam/mock")
         self.assertEqual(self.doc.body["data-exam-page"], "mock")
         # nothing on the page waits for the session or the bank
         self.assertFalse(self.doc.select(".ex-auth"))

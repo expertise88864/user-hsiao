@@ -1373,8 +1373,8 @@ def mock_page(data: dict, version: str) -> str:
                 description=f"眼科專科醫師考試模擬考（試行版）：依考題在各冊的比例、題型與深度自編 {total} 題單選題，"
                             "不用登入即可計時作答、交卷計分，並對照逐選項詳解與 BCSC 2025–2026 課本頁碼。",
                 crumbs=[("模擬考", "/exam/mock")], schema_type="WebPage", body=body, kind="mock",
-                # Pilot: public but not indexed until the owner has read the questions.
-                robots="noindex,follow", version=version)
+                # Indexed and in the sitemap since the owner read the pilot (2026-11-10).
+                robots="index,follow,max-image-preview:large", version=version)
 
 
 def review_page(version: str) -> str:
@@ -1875,7 +1875,7 @@ def build(content_date: str | None = None) -> dict[str, str]:
 def indexed_routes(data: dict | None = None) -> list[str]:
     """Indexable exam routes, for the sitemap generators (_gen_feeds.py, api/sitemap.js)."""
     data = data or load()
-    return ["/exam"] + [f"/exam/{slug(k)}" for k in data["chapters"] if indexable(k, data)]
+    return ["/exam", "/exam/mock"] + [f"/exam/{slug(k)}" for k in data["chapters"] if indexable(k, data)]
 
 
 def routes_module(data: dict) -> str:

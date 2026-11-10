@@ -99,6 +99,14 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam" />
   </url>
   <url>
+    <loc>https://hsiao.chendermatologist.com/exam/mock</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/mock" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/mock" />
+  </url>
+  <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc1-1</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
