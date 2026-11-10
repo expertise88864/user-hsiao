@@ -113,6 +113,31 @@ test('simulated human loads standard vitals once; later admin login blocks manua
   expect(result.unchanged).toBe(true);
 });
 
+// Vercel's analytics script sends a page view to `${data-endpoint}/view` and a custom event to
+// `${data-endpoint}/event`; without the attribute the endpoint is /_vercel/insights, where both
+// exist. This stand-in follows that rule, so the test sees where a page view would go.
+test('Vercel analytics page views go to /_vercel/insights/view', async ({ page }) => {
+  const requests = await fixture(page);
+  const posts = [];
+  await page.route('**/_vercel/insights/**', async route => {
+    const request = route.request();
+    const url = new URL(request.url());
+    if (request.method() === 'POST') {
+      posts.push(url.pathname);
+      return route.fulfill({ status: 200, contentType: 'text/plain', body: 'OK' });
+    }
+    return route.fulfill({ status: 200, contentType: 'application/javascript', body:
+      "(function(){var d=document.currentScript,s=d.dataset;" +
+      "var u='endpoint' in s?s.endpoint+'/view':'/_vercel/insights/view';" +
+      "fetch(u,{method:'POST',body:'{}',keepalive:true});})();" });
+  });
+  await page.goto('https://' + HOST + ARTICLE);
+  await expect.poll(() => posts).toEqual(['/_vercel/insights/view']);
+  await expect(page.locator('#hs-vercel-insights')).toHaveAttribute('src', '/_vercel/insights/script.js');
+  expect(await page.locator('#hs-vercel-insights').getAttribute('data-endpoint')).toBeNull();
+  expect(requests.filter(url => url.includes('/_vercel/speed-insights/'))).toHaveLength(1);
+});
+
 test('CWV uses the executing asset and first eligible width, with unchanged GA4 values and one observer', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const requests = await fixture(page, { vitals: true });

@@ -83,13 +83,12 @@
     win.gtag = function () {
       if (allowed(win) && activated) win.dataLayer.push(arguments);
     };
-    function load(src, id, endpoint) {
+    function load(src, id) {
       if (doc.getElementById(id)) return;
       const script = doc.createElement('script');
       script.id = id;
       script.src = src;
       script.async = true;
-      if (endpoint) script.dataset.endpoint = endpoint;
       doc.head.appendChild(script);
     }
     function activate() {
@@ -115,7 +114,10 @@
       });
       load('https://www.googletagmanager.com/gtag/js?id=G-0ZKDQP9DNH', 'hs-ga4');
       load('/_vercel/speed-insights/script.js', 'hs-speed-insights');
-      load('/_vercel/insights/script.js', 'hs-vercel-insights', '/_vercel/insights/event');
+      // No data-endpoint: Vercel's script posts to `${endpoint}/view` and `${endpoint}/event`,
+      // and its default endpoint, /_vercel/insights, is the one that exists. With
+      // '/_vercel/insights/event' every page view went to /_vercel/insights/event/view (404).
+      load('/_vercel/insights/script.js', 'hs-vercel-insights');
     }
     if (doc.prerendering) doc.addEventListener('prerenderingchange', activate, { once: true });
     else activate();
