@@ -1,7 +1,7 @@
 {
  "/exam": {
-  "hash": "3dbc39f270a5aad8",
-  "modified": "2026-11-04",
+  "hash": "5716b29bac887983",
+  "modified": "2026-11-10",
   "published": "2026-10-14"
  },
  "/exam/bcsc1-1": {
@@ -1073,6 +1073,11 @@
   "hash": "d0ca6ec4a878b0cd",
   "modified": "2026-11-04",
   "published": "2026-10-15"
+ },
+ "/exam/mock": {
+  "hash": "2e6b51ae729dbb13",
+  "modified": "2026-11-10",
+  "published": "2026-11-10"
  },
  "/exam/practice": {
   "hash": "ad5b90000b4f68c5",

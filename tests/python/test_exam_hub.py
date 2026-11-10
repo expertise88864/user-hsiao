@@ -108,8 +108,13 @@ class ExamHubTests(unittest.TestCase):
         cta = self.doc.select_one('a[href="/exam/practice"]')
         self.assertEqual(cta.get_text(), "考古卷：自選範圍／隨機出題")
         practice = gen.practice_page(self.data, self.version)
-        for page in (self.hub, practice):
-            self.assertNotIn("模擬考", page)
+        # 「模擬考」 names only the self-written paper (2026-11-10, tests/python/test_exam_mock.py):
+        # the past-paper page never uses the word, and on the hub it appears only for /exam/mock.
+        self.assertNotIn("模擬考", practice)
+        main = self.doc.select_one("main")
+        for link in main.select('a[href="/exam/mock"]'):
+            link.decompose()
+        self.assertNotIn("模擬考", main.get_text())
         self.assertIn('<p class="ex-kicker">考古卷</p>', practice)
         self.assertIn("考古卷", self.doc.select_one('meta[name="description"]')["content"])
 

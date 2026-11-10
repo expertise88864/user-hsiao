@@ -15,7 +15,7 @@ Sources (hand-maintained):
                                     the site-wide *.html page audits off them)
 
 Outputs (generated, never hand-edit):
-  exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/review.html,
+  exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/mock.html, exam/review.html,
   exam/progress.html, exam/search.html, exam/login.html, exam/notes-data.json (public),
   exam/nav-search.json (public chapter headings for the site header search),
   api/_exam_bank.js (question bank; served only to signed-in readers by api/_exam_data.js (via api/exam/[op].js)),
@@ -268,9 +268,104 @@ def load() -> dict:
             "concepts": concepts, "doubts": doubts, "toc_en": toc_en,
             "zh": load_chapter_zh(read_json("chapter_zh.json", {}), chapters),
             "links": load_links(read_json("links.json", {"_verified": "2026-11-04"}), chapters),
-            "kaofa": load_kaofa(read_json("concept_kaofa.json", {}), concepts)}
+            "kaofa": load_kaofa(read_json("concept_kaofa.json", {}), concepts),
+            "mock": load_mock(chapters, questions)}
     data["concept_rows"] = concept_rows(data)
     return data
+
+
+# ---------------------------------------------------------------- mock exam data
+# Owner order 2026-11-10: a public, login-free mock exam of self-written questions that
+# follow the bank's chapter mix, question forms and depth (pilot: one paper). The paper is
+# data/exam/mock/pilot1.json. Unlike the bank it is rendered into a public page, so every
+# field is checked here, and no stem or option may repeat a bank stem or option.
+MOCK_PAPER = DATA / "mock" / "pilot1.json"
+MOCK_KEYS = ["A", "B", "C", "D"]
+MOCK_PAGES = re.compile(r"\d+(?:–\d+)?(?:, \d+(?:–\d+)?)*")
+MOCK_WATCH = "污腭杰"   # the Taiwan forms are 汙, 顎, 傑
+MOCK_MIN = 12           # shorter strings (a drug or disease name) may coincide with the bank
+
+
+def mock_norm(text: str) -> str:
+    """Letters and digits only, lower case: how a mock sentence is compared with the bank."""
+    return re.sub(r"[\W_]+", "", text.lower())
+
+
+def check_mock_text(label: str, text) -> None:
+    if not isinstance(text, str) or not text or text != text.strip() or "  " in text or "\n" in text:
+        raise SystemExit(f"{label}: expected non-empty text without stray whitespace")
+    check_traditional(label, text)
+    for ch in text:
+        if ch in MOCK_WATCH:
+            raise SystemExit(f"{label}: use the Taiwan form instead of {ch}")
+        # English is written with ASCII letters (Behcet, Sjogren); Greek letters are fine.
+        if ch.isalpha() and ord(ch) > 127 and not "\u4e00" <= ch <= "\u9fff" and not "\u0370" <= ch <= "\u03ff":
+            raise SystemExit(f"{label}: unexpected letter {ch!r}")
+
+
+def load_mock(chapters: dict, questions: list) -> dict:
+    paper = json.loads(MOCK_PAPER.read_text(encoding="utf-8"))
+    if not isinstance(paper, dict) or set(paper) != {"id", "title", "questions"}:
+        raise SystemExit("mock paper: expected an object with id, title and questions")
+    if not isinstance(paper["id"], str) or not re.fullmatch(r"[a-z0-9]{1,16}", paper["id"]):
+        raise SystemExit("mock paper: bad id")
+    check_mock_text("mock paper title", paper["title"])
+    rows = paper["questions"]
+    if not isinstance(rows, list) or not rows:
+        raise SystemExit("mock paper: no questions")
+    bank = {mock_norm(text) for q in questions for text in (q["stem"], *q["options"].values())}
+    bank = {text for text in bank if len(text) >= MOCK_MIN}
+    books = {c["book"] for c in chapters.values()}
+    ids, stems = set(), set()
+    for q in rows:
+        if not isinstance(q, dict) or not isinstance(q.get("id"), str):
+            raise SystemExit("mock paper: every question needs an id")
+        label = f"mock {q['id']}"
+        # Exactly the public fields: writer notes (seed, evidence, topic, form) stay out.
+        if set(q) != {"id", "ch", "stem", "options", "answer", "summary", "items"}:
+            raise SystemExit(f"{label}: unexpected or missing fields")
+        if not re.fullmatch(r"[a-z0-9]+-\d{2}", q["id"]) or q["id"] in ids:
+            raise SystemExit(f"{label}: bad or repeated id")
+        ids.add(q["id"])
+        if q["ch"] not in chapters:
+            raise SystemExit(f"{label}: no such chapter {q['ch']}")
+        check_mock_text(f"{label} stem", q["stem"])
+        check_mock_text(f"{label} summary", q["summary"])
+        options = q["options"]
+        if not isinstance(options, dict) or list(options) != MOCK_KEYS:
+            raise SystemExit(f"{label}: options must be A-D in order")
+        for key, text in options.items():
+            check_mock_text(f"{label} option {key}", text)
+        if len(set(options.values())) != 4 or q["stem"] in stems:
+            raise SystemExit(f"{label}: repeated option or stem")
+        stems.add(q["stem"])
+        for name, text in (("stem", q["stem"]), *options.items()):
+            if mock_norm(text) in bank:
+                raise SystemExit(f"{label}: {name} repeats a bank stem or option")
+        items = q["items"]
+        if (not isinstance(items, list) or len(items) != 4
+                or any(not isinstance(it, dict) or set(it) != {"key", "answer", "label", "text", "refs"}
+                       for it in items)
+                or [it["key"] for it in items] != MOCK_KEYS):
+            raise SystemExit(f"{label}: explanation needs items A-D")
+        if any(not isinstance(it["answer"], bool) for it in items) or \
+                [it["key"] for it in items if it["answer"]] != [q["answer"]]:
+            raise SystemExit(f"{label}: exactly one item is the answer, and it must be the answer field")
+        # 何者正確: the answer is the one true statement; 何者錯誤: the one false statement.
+        labels = {it["key"]: it["label"] for it in items}
+        other = {"正確": "錯誤", "錯誤": "正確"}.get(labels[q["answer"]])
+        if other is None or any(labels[k] != other for k in MOCK_KEYS if k != q["answer"]):
+            raise SystemExit(f"{label}: the answer's label must differ from the other three (正確/錯誤)")
+        for it in items:
+            check_mock_text(f"{label} explanation {it['key']}", it["text"])
+            refs = it["refs"]
+            if not isinstance(refs, list) or not refs:
+                raise SystemExit(f"{label}: explanation {it['key']} needs a textbook reference")
+            for ref in refs:
+                if (not isinstance(ref, list) or len(ref) != 2 or type(ref[0]) is not int or ref[0] not in books
+                        or not isinstance(ref[1], str) or not MOCK_PAGES.fullmatch(ref[1])):
+                    raise SystemExit(f"{label}: bad reference {ref!r} in explanation {it['key']}")
+    return paper
 
 
 def read_json(name: str, default):
@@ -782,7 +877,7 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
          "breadcrumb": {"@id": f"{DOMAIN}{path}#breadcrumb"}},
         breadcrumb(items, path),
     ]
-    content = f'{crumbs_html(items)}{"" if kind == "login" else AUTH_BAR}{body}'
+    content = f'{crumbs_html(items)}{"" if kind in ("login", "mock") else AUTH_BAR}{body}'
     if side:
         content = f'{side}<div class="ex-content">{content}</div>'
     out = (
@@ -1081,7 +1176,9 @@ def hub_page(data: dict, version: str) -> str:
         '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/login">登入／登出題庫</a></li></ul>'
         '<p class="ex-meta">課本重點整理公開；考題、答案與詳解需要登入才能看。</p>'
-        '<p class="ex-practice"><a class="ex-cta" href="/exam/practice">考古卷：自選範圍／隨機出題</a></p>'
+        '<p class="ex-practice"><a class="ex-cta" href="/exam/practice">考古卷：自選範圍／隨機出題</a> '
+        # Owner order 2026-11-10: the public mock exam (self-written questions, no login).
+        f'<a class="ex-cta ex-cta-alt" href="/exam/mock">模擬考：自編 {len(data["mock"]["questions"])} 題（免登入）</a></p>'
         f"{HUB_SEARCH}"
         # 「繼續閱讀」 (as on the dermatology exam section, 2026-11-03): after the search block,
         # before the chapters. Filled by exam.js from this device's saved reading positions;
@@ -1102,7 +1199,7 @@ def hub_page(data: dict, version: str) -> str:
     OG_CARDS[HUB_CARD] = {"kicker": "眼科專科考試", "title": HUB_TITLE, "subtitle": "BCSC 2025–2026",
                           "foot": f"考題 {len(data['questions'])} 題 · {len(data['notes'])} 章重點整理"}
     desc = ("眼科專科醫師考試讀書筆記：依 BCSC 2025–2026 章節整理課本重點，收錄考題並標註所屬章節，"
-            "附疾病搜尋、出題頻率、作答與瀏覽模式、考古卷、錯題本、讀書進度與 Anki 匯出。")
+            "附疾病搜尋、出題頻率、作答與瀏覽模式、考古卷、自編模擬考、錯題本、讀書進度與 Anki 匯出。")
     return page(path="/exam", title=HUB_TITLE, description=desc, crumbs=[], schema_type="CollectionPage",
                 body=body, kind="hub", robots="index,follow,max-image-preview:large", version=version)
 
@@ -1191,6 +1288,92 @@ def practice_page(data: dict, version: str) -> str:
     return page(path="/exam/practice", title="眼科專科考試考古卷：自選範圍與隨機出題",
                 description="眼科專科醫師考試考古卷：從考題中自選 BCSC 冊別與題數，隨機或依題號出題，計時作答、交卷計分，並對照答案與 BCSC 詳解。",
                 crumbs=[("考古卷", "/exam/practice")], schema_type="WebPage", body=body, kind="practice",
+                robots="noindex,follow", version=version)
+
+
+# ---------------------------------------------------------------- mock exam page
+# /exam/mock is public and complete without the API: every question, its answer and its
+# explanation are in the page. The stylesheet keeps the explanations closed until the
+# paper is handed in (exam.js initMock: timer, grading, saved attempt); a browser without
+# scripting shows them at once (@media (scripting:none)). The cards use their own classes
+# (ex-mq, ex-mopt) so nothing written for the signed-in bank cards (quiz/browse mode,
+# answer storage, the public-output guard in build()) applies to them.
+
+def mock_card(data: dict, q: dict, no: int) -> str:
+    chapter = data["chapters"][q["ch"]]
+    options = "".join(
+        f'<label class="ex-mopt" data-key="{key}"><input type="radio" name="mq-{no}" value="{key}">'
+        f'<span class="ex-opt-key">{key}</span><span class="ex-opt-text">{rich(text)}</span></label>'
+        for key, text in q["options"].items()
+    )
+    items = "".join(
+        f'<li class="{"ex-ok" if it["answer"] else "ex-no"}"><span class="ex-item-key">{it["key"]}</span>'
+        f'<span class="ex-item-label">{esc(it["label"])}</span><span class="ex-item-text">{rich(it["text"])}</span>'
+        '<span class="ex-item-refs">'
+        + "".join(f'<span class="ex-ref">{esc(ref_label(ref))}</span>' for ref in it["refs"])
+        + "</span></li>"
+        for it in q["items"]
+    )
+    # The chapter is named only inside the explanation, so it is no hint while answering.
+    name = f'{chapter_label(chapter)} {esc(chapter["title"])}'
+    key = q["ch"]
+    if data["by_chapter"].get(key) or key in data["notes"]:
+        name = f'<a href="/exam/{slug(key)}">{name}</a>'
+    return (
+        f'<div class="ex-mq" id="mq-{no}" data-mq="{esc(q["id"])}" data-book="{chapter["book"]}" data-answer="{q["answer"]}">'
+        f'<div class="ex-q-head"><span class="ex-q-no">第 {no} 題</span></div>'
+        f'<p class="ex-stem">{rich(q["stem"])}</p>'
+        f'<fieldset class="ex-opts"><legend class="ex-sr">第 {no} 題的選項</legend>{options}</fieldset>'
+        '<p class="ex-mq-result"></p>'
+        '<details class="ex-mq-exp"><summary>答案與詳解</summary>'
+        f'<p class="ex-answer">答案：<strong>{q["answer"]}</strong></p>'
+        f'<p class="ex-summary">{rich(q["summary"])}</p>'
+        f'<ul class="ex-items">{items}</ul>'
+        f'<p class="ex-meta">出題章節：{name}</p></details></div>'
+    )
+
+
+def mock_page(data: dict, version: str) -> str:
+    paper = data["mock"]
+    rows = paper["questions"]
+    total = len(rows)
+    per_book: dict[int, int] = defaultdict(int)
+    for q in rows:
+        per_book[data["chapters"][q["ch"]]["book"]] += 1
+    cards = "".join(mock_card(data, q, no) for no, q in enumerate(rows, 1))
+    table = "".join(
+        f'<tr data-book="{b["book"]}"><th scope="row">BCSC {b["book"]} {esc(b["title"])}</th>'
+        f'<td class="ex-num">{per_book[b["book"]]}</td><td class="ex-num" data-right></td></tr>'
+        for b in data["books"] if per_book.get(b["book"])
+    )
+    body = (
+        f'<p class="ex-kicker">模擬考</p><h1 class="ex-h1">{esc(paper["title"])}</h1>'
+        f'<p class="ex-lead">共 {total} 題單選題，由本站依考題在各冊的比例、題型與深度自編；'
+        f"每一題都依 {esc(REFERENCE)} 的課本內容出題，並附逐選項詳解與課本頁碼。不用登入就能作答。</p>"
+        '<p class="ex-meta">這些是自編的練習題，不是歷屆考題；歷屆考題在<a href="/exam/practice">考古卷</a>（需要登入）。'
+        "試行版的題目與詳解仍會修訂。</p>"
+        '<p class="ex-meta ex-mock-how">選下第一個答案時開始計時，只計算這一頁顯示在畫面上的時間；'
+        "交卷後顯示得分、各題的答案與詳解。作答內容只存在這台裝置的瀏覽器裡，中途離開再回來可以接著作答。</p>"
+        '<p class="ex-meta ex-mock-nojs">瀏覽器沒有啟用 JavaScript 時不能計時與計分；各題的答案與詳解可以直接展開來看。</p>'
+        '<div class="ex-exam-bar ex-mock-bar" data-mock-bar>'
+        '<span class="ex-timer" aria-live="off">00:00</span>'
+        f'<span class="ex-mock-count">已作答 0 / {total}</span>'
+        '<button type="button" class="ex-mock-finish" disabled>交卷並計分</button>'
+        '<button type="button" class="ex-mock-reset" hidden>重新作答</button>'
+        '<span class="ex-score" aria-live="polite"></span></div>'
+        '<section class="ex-mock-result" data-mock-result aria-labelledby="ex-mock-result-h" hidden>'
+        '<h2 class="ex-h2" id="ex-mock-result-h" tabindex="-1">成績</h2>'
+        '<p class="ex-mock-total"></p>'
+        '<table class="ex-rank ex-mock-table"><thead><tr><th scope="col">冊別</th><th scope="col">題數</th>'
+        f'<th scope="col">答對</th></tr></thead><tbody>{table}</tbody></table>'
+        '<p class="ex-meta ex-mock-missed"></p></section>'
+        f'<div class="ex-list" data-mock-paper="{esc(paper["id"])}">{cards}</div>'
+    )
+    return page(path="/exam/mock", title=f"眼科專科考試模擬考：自編 {total} 題（免登入）",
+                description=f"眼科專科醫師考試模擬考（試行版）：依考題在各冊的比例、題型與深度自編 {total} 題單選題，"
+                            "不用登入即可計時作答、交卷計分，並對照逐選項詳解與 BCSC 2025–2026 課本頁碼。",
+                crumbs=[("模擬考", "/exam/mock")], schema_type="WebPage", body=body, kind="mock",
+                # Pilot: public but not indexed until the owner has read the questions.
                 robots="noindex,follow", version=version)
 
 
@@ -1667,6 +1850,7 @@ def build(content_date: str | None = None) -> dict[str, str]:
             files[f"{slug(key)}.html"] = chapter_page(data, key, version)
     files["concepts.html"] = concepts_page(data, version)
     files["practice.html"] = practice_page(data, version)
+    files["mock.html"] = mock_page(data, version)
     files["review.html"] = review_page(version)
     files["progress.html"] = progress_page(version)
     files["search.html"] = search_page(version)
@@ -1824,8 +2008,32 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-ok .ex-item-label{background:#dcfce7;color:#14532d}
 .ex-no .ex-item-label{background:#f1f0ee;color:#57534e}
 .ex-item-text{grid-column:3}
-.ex-item-refs{grid-column:3}
+.ex-item-refs{grid-column:3;display:flex;flex-wrap:wrap;row-gap:3px}
 .ex-warn{font-size:12.5px;color:#854d0e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin:8px 0 0}
+.ex-mq{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:14px 0;scroll-margin-top:130px}
+.ex-mopt{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:7px 10px;margin:5px 0;font-size:14px;line-height:1.7;cursor:pointer}
+.ex-mopt input{margin-top:6px}
+.ex-mopt.ex-picked{border-color:var(--ex-accent);background:var(--ex-soft)}
+.ex-mq.ex-done .ex-mopt{cursor:default}
+.ex-mq.ex-done .ex-mopt.ex-right{border-color:#16a34a;background:#f0fdf4}
+.ex-mq.ex-done .ex-mopt.ex-wrong{border-color:#dc2626;background:#fef2f2}
+.ex-mq-result{font-size:13.5px;font-weight:700;margin:8px 0 0}
+.ex-mq-result:empty{display:none}
+.ex-mq[data-outcome="right"] .ex-mq-result{color:#166534}
+.ex-mq[data-outcome="wrong"] .ex-mq-result,.ex-mq[data-outcome="blank"] .ex-mq-result{color:#b91c1c}
+.ex-mq-exp{display:none;margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+.ex-mq.ex-done .ex-mq-exp{display:block}
+.ex-mq-exp summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ex-accent);margin-bottom:6px}
+.ex-mock-count{font-size:13px;color:var(--ink-2)}
+.ex-mock-nojs{display:none}
+.ex-mock-result{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:2px 18px 14px;margin:14px 0;scroll-margin-top:130px}
+.ex-mock-result[hidden]{display:none}
+.ex-mock-result .ex-h2{font-size:18px;margin:14px 0 8px}
+.ex-mock-result .ex-h2:focus{outline:none}
+.ex-mock-total{font-size:15px;font-weight:700;margin:0 0 6px}
+.ex-mock-missed a{margin-right:6px;white-space:nowrap}
+.ex-mock-missed:empty{display:none}
+@media (scripting:none){.ex-mq-exp,.ex-mock-nojs{display:block}.ex-mock-bar,.ex-mock-how{display:none}}
 .ex-pending{font-size:13px;color:var(--muted)}
 .ex-unanswered .ex-opt{cursor:default}
 body.ex-quiz .ex-actions{display:flex}
@@ -2003,6 +2211,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
+:root[data-theme="dark"] .ex-mq,:root[data-theme="dark"] .ex-mopt,:root[data-theme="dark"] .ex-mock-result{border-color:#36404b}
+:root[data-theme="dark"] .ex-mopt.ex-picked{border-color:var(--ex-accent)}
+:root[data-theme="dark"] .ex-mq.ex-done .ex-mopt.ex-right{background:#12301d;border-color:#16a34a}
+:root[data-theme="dark"] .ex-mq.ex-done .ex-mopt.ex-wrong{background:#3a1a1a;border-color:#dc2626}
+:root[data-theme="dark"] .ex-mq[data-outcome="right"] .ex-mq-result{color:#86efac}
+:root[data-theme="dark"] .ex-mq[data-outcome="wrong"] .ex-mq-result,:root[data-theme="dark"] .ex-mq[data-outcome="blank"] .ex-mq-result{color:#fca5a5}
 :root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
 :root[data-theme="dark"] .ex-ok .ex-item-label{background:#14532d;color:#dcfce7}
 :root[data-theme="dark"] .ex-no .ex-item-label{background:#36404b;color:#e7e5e4}

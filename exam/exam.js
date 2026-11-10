@@ -2,7 +2,8 @@
  * notebook, search and Anki export. Chapter notes are static and public; the question
  * bank (questions, answers, explanations) is fetched from /api/exam/data, which only
  * answers signed-in readers, and rendered here. Progress lives in localStorage on this
- * device only.
+ * device only. The mock exam (/exam/mock) is the exception: a public page of
+ * self-written questions that is complete without the API (see "mock exam").
  * All dynamic text is inserted with textContent / DOM nodes (no innerHTML), and the
  * pages carry no inline script, so this file also starts the shared site chrome. */
 (function () {
@@ -2774,6 +2775,210 @@
     }
   });
 
+  // ---------------------------------------------------------- mock exam (/exam/mock)
+  // A public paper of self-written questions. The page is complete as served: answers and
+  // explanations are in the markup and the stylesheet keeps them closed until the paper
+  // is handed in (.ex-done). Nothing here reads the API or touches the bank's stores
+  // (stats, wrong list, stored answers, practice paper); an attempt has its own key:
+  // hs:exam:mock:<paper id> = { sel: { question id: option picked }, el: ms the timer
+  //   counted, done: handed in, t: saved ms }
+  var MOCK_PREFIX = 'hs:exam:mock:';
+  var MOCK_MAX_MS = 24 * 3600 * 1000;
+  function initMock(root) {
+    var key = MOCK_PREFIX + root.getAttribute('data-mock-paper');
+    var cards = Array.prototype.slice.call(root.querySelectorAll('.ex-mq'));
+    var bar = document.querySelector('[data-mock-bar]');
+    var result = document.querySelector('[data-mock-result]');
+    if (!bar || !result || !cards.length) return;
+    var timerEl = bar.querySelector('.ex-timer');
+    var countEl = bar.querySelector('.ex-mock-count');
+    var finishBtn = bar.querySelector('.ex-mock-finish');
+    var resetBtn = bar.querySelector('.ex-mock-reset');
+    var scoreEl = bar.querySelector('.ex-score');
+    var heading = result.querySelector('h2');
+    var total = cards.length;
+    var known = Object.create(null);
+    cards.forEach(function (card) { known[card.getAttribute('data-mq')] = true; });
+    var sel = {};          // question id -> option picked
+    var done = false;      // handed in
+    var counted = 0;       // ms counted up to `last`
+    var last = null;       // when the running stretch was last counted (null: paused)
+    var savedAt = 0;       // `counted` at the last save
+    var ticker = null;
+    var shown = null;      // the `done` the explanations were last opened/closed for
+
+    // Stored state, reduced to what this paper can use (hand-edited or older storage).
+    function read() {
+      var saved = plainObject(load(key, null));
+      var picked = plainObject(saved.sel);
+      var state = { sel: {}, el: 0, done: saved.done === true };
+      Object.keys(picked).forEach(function (id) {
+        if (known[id] && typeof picked[id] === 'string' && /^[A-D]$/.test(picked[id])) state.sel[id] = picked[id];
+      });
+      if (typeof saved.el === 'number' && isFinite(saved.el) && saved.el > 0) {
+        state.el = Math.min(saved.el, MOCK_MAX_MS);
+      }
+      return state;
+    }
+    function answered() { return Object.keys(sel).length; }
+    function accrue() {
+      if (last === null) return;
+      var now = Date.now();
+      counted = Math.min(counted + Math.min(Math.max(now - last, 0), TIMER_GAP), MOCK_MAX_MS);
+      last = now;
+    }
+    function clock() {
+      var s = Math.floor(counted / 1000);
+      var m = Math.floor(s / 60);
+      return (m < 10 ? '0' : '') + m + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+    }
+    function save() {
+      accrue();
+      savedAt = counted;
+      if (!done && !answered()) {
+        try { localStorage.removeItem(key); } catch (e) { /* storage disabled */ }
+        return;
+      }
+      store(key, { sel: sel, el: Math.round(counted), done: done, t: Date.now() });
+    }
+    // The timer runs from the first answer until the paper is handed in, and only while
+    // the page is shown; a stalled interval (a sleeping computer) adds at most TIMER_GAP.
+    function run() {
+      var on = !done && answered() > 0 && document.visibilityState !== 'hidden';
+      if (on && last === null) {
+        last = Date.now();
+        ticker = setInterval(function () {
+          accrue();
+          timerEl.textContent = clock();
+          if (counted - savedAt >= 10000) save();
+        }, 1000);
+      } else if (!on && last !== null) {
+        accrue();
+        last = null;
+        clearInterval(ticker);
+        ticker = null;
+      }
+    }
+
+    function paint() {
+      var right = 0;
+      var blank = 0;
+      var missed = [];
+      var rightByBook = {};
+      cards.forEach(function (card, i) {
+        var pick = sel[card.getAttribute('data-mq')] || '';
+        var answer = card.getAttribute('data-answer');
+        var outcome = !done ? '' : !pick ? 'blank' : pick === answer ? 'right' : 'wrong';
+        card.classList.toggle('ex-done', done);
+        if (outcome) card.setAttribute('data-outcome', outcome);
+        else card.removeAttribute('data-outcome');
+        card.querySelectorAll('.ex-mopt').forEach(function (label) {
+          var k = label.getAttribute('data-key');
+          var input = label.querySelector('input');
+          input.checked = k === pick;
+          input.disabled = done;
+          label.classList.toggle('ex-picked', k === pick);
+          label.classList.toggle('ex-right', done && k === answer);
+          label.classList.toggle('ex-wrong', done && k === pick && k !== answer);
+        });
+        card.querySelector('.ex-mq-result').textContent = outcome === 'right' ? '答對'
+          : outcome === 'wrong' ? '答錯：你選 ' + pick + '，正確答案是 ' + answer
+            : outcome === 'blank' ? '未作答：正確答案是 ' + answer : '';
+        // Handing in opens the explanations of the questions missed; starting over closes
+        // them all. Later repaints leave whatever the reader opened or closed.
+        if (shown !== done) card.querySelector('.ex-mq-exp').open = outcome === 'wrong' || outcome === 'blank';
+        if (outcome === 'right') {
+          right += 1;
+          var book = card.getAttribute('data-book');
+          rightByBook[book] = (rightByBook[book] || 0) + 1;
+        } else if (outcome) {
+          if (outcome === 'blank') blank += 1;
+          missed.push(i + 1);
+        }
+      });
+      shown = done;
+      var n = answered();
+      timerEl.textContent = clock();
+      countEl.textContent = '已作答 ' + n + ' / ' + total;
+      finishBtn.disabled = done || n === 0;
+      finishBtn.hidden = done;
+      resetBtn.hidden = !done && n === 0;
+      scoreEl.textContent = done ? '得分 ' + right + ' / ' + total + (blank ? '（未作答 ' + blank + ' 題）' : '') : '';
+      result.hidden = !done;
+      if (!done) return;
+      result.querySelector('.ex-mock-total').textContent = '答對 ' + right + ' / ' + total + ' 題（'
+        + percent(right, total) + '）' + (blank ? '，未作答 ' + blank + ' 題' : '') + '；作答時間 ' + clock();
+      result.querySelectorAll('tr[data-book]').forEach(function (row) {
+        row.querySelector('[data-right]').textContent = String(rightByBook[row.getAttribute('data-book')] || 0);
+      });
+      var list = result.querySelector('.ex-mock-missed');
+      list.textContent = missed.length ? '答錯或未作答：' : '全部答對。';
+      missed.forEach(function (no) {
+        var a = el('a', null, '第 ' + no + ' 題');
+        a.href = '#mq-' + no;
+        list.appendChild(a);
+      });
+    }
+
+    // Take over what storage holds (page load, return from the back/forward cache, or a
+    // change made by another tab showing this paper).
+    function adopt(keepTime) {
+      var state = read();
+      if (last !== null) { accrue(); last = null; clearInterval(ticker); ticker = null; }
+      sel = state.sel;
+      done = state.done;
+      counted = keepTime ? Math.max(counted, state.el) : state.el;
+      savedAt = counted;
+      paint();
+      run();
+    }
+
+    root.addEventListener('change', function (ev) {
+      var input = ev.target;
+      var card = input && input.closest ? input.closest('.ex-mq') : null;
+      if (!card || done || !input.checked || !/^[A-D]$/.test(input.value)) return;
+      sel[card.getAttribute('data-mq')] = input.value;
+      run();
+      save();
+      paint();
+    });
+    finishBtn.addEventListener('click', function () {
+      var blank = total - answered();
+      if (done || blank === total) return;
+      if (!window.confirm((blank ? '還有 ' + blank + ' 題沒有作答。' : '') + '確定要交卷嗎？交卷後不能再修改答案。')) return;
+      accrue();
+      done = true;
+      run();
+      save();
+      paint();
+      result.scrollIntoView();
+      try { heading.focus({ preventScroll: true }); } catch (e) { heading.focus(); }
+    });
+    resetBtn.addEventListener('click', function () {
+      if (!window.confirm('確定要清除這次的作答與成績，重新開始嗎？')) return;
+      sel = {};
+      done = false;
+      run();
+      counted = 0;
+      save();
+      paint();
+      var first = root.querySelector('input');
+      cards[0].scrollIntoView();
+      if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden' && last !== null) save();
+      run();
+    });
+    window.addEventListener('pagehide', function () { if (last !== null) save(); });
+    window.addEventListener('pageshow', function (ev) { if (ev.persisted) adopt(true); });
+    window.addEventListener('storage', function (ev) {
+      if (ev.key === null) adopt(false);
+      else if (ev.key === key) adopt(ev.newValue !== null);
+    });
+    adopt(false);
+  }
+
   // ---------------------------------------------------------- init
   function init() {
     if (window.DN && typeof window.DN.initBlog === 'function') window.DN.initBlog({});
@@ -2816,6 +3021,8 @@
     if (authBar) initAuthBar(authBar, settle);
     var loginForm = document.querySelector('form.ex-login');
     if (loginForm) initLogin(loginForm);
+    var mock = document.querySelector('[data-mock-paper]');
+    if (mock) initMock(mock);
     var progress = document.getElementById('ex-progress');
     if (progress) { initProgressBar(progress); renderProgress(progress); }
     var clearProgress = document.querySelector('.ex-clear-progress');

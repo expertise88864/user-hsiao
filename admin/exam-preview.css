@@ -121,8 +121,32 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-ok .ex-item-label{background:#dcfce7;color:#14532d}
 .ex-no .ex-item-label{background:#f1f0ee;color:#57534e}
 .ex-item-text{grid-column:3}
-.ex-item-refs{grid-column:3}
+.ex-item-refs{grid-column:3;display:flex;flex-wrap:wrap;row-gap:3px}
 .ex-warn{font-size:12.5px;color:#854d0e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin:8px 0 0}
+.ex-mq{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:14px 0;scroll-margin-top:130px}
+.ex-mopt{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:7px 10px;margin:5px 0;font-size:14px;line-height:1.7;cursor:pointer}
+.ex-mopt input{margin-top:6px}
+.ex-mopt.ex-picked{border-color:var(--ex-accent);background:var(--ex-soft)}
+.ex-mq.ex-done .ex-mopt{cursor:default}
+.ex-mq.ex-done .ex-mopt.ex-right{border-color:#16a34a;background:#f0fdf4}
+.ex-mq.ex-done .ex-mopt.ex-wrong{border-color:#dc2626;background:#fef2f2}
+.ex-mq-result{font-size:13.5px;font-weight:700;margin:8px 0 0}
+.ex-mq-result:empty{display:none}
+.ex-mq[data-outcome="right"] .ex-mq-result{color:#166534}
+.ex-mq[data-outcome="wrong"] .ex-mq-result,.ex-mq[data-outcome="blank"] .ex-mq-result{color:#b91c1c}
+.ex-mq-exp{display:none;margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+.ex-mq.ex-done .ex-mq-exp{display:block}
+.ex-mq-exp summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ex-accent);margin-bottom:6px}
+.ex-mock-count{font-size:13px;color:var(--ink-2)}
+.ex-mock-nojs{display:none}
+.ex-mock-result{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:2px 18px 14px;margin:14px 0;scroll-margin-top:130px}
+.ex-mock-result[hidden]{display:none}
+.ex-mock-result .ex-h2{font-size:18px;margin:14px 0 8px}
+.ex-mock-result .ex-h2:focus{outline:none}
+.ex-mock-total{font-size:15px;font-weight:700;margin:0 0 6px}
+.ex-mock-missed a{margin-right:6px;white-space:nowrap}
+.ex-mock-missed:empty{display:none}
+@media (scripting:none){.ex-mq-exp,.ex-mock-nojs{display:block}.ex-mock-bar,.ex-mock-how{display:none}}
 .ex-pending{font-size:13px;color:var(--muted)}
 .ex-unanswered .ex-opt{cursor:default}
 body.ex-quiz .ex-actions{display:flex}
@@ -300,6 +324,12 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"ãƒ
 :root[data-theme="dark"]{--ex-accent:#a4c4dd;--ex-card:#1f242b;--ex-soft:#28313b}
 :root[data-theme="dark"] .ex-q,:root[data-theme="dark"] .ex-part,:root[data-theme="dark"] .ex-hitbox{border-color:#36404b}
 :root[data-theme="dark"] .ex-opt,:root[data-theme="dark"] .ex-items li{border-color:#36404b}
+:root[data-theme="dark"] .ex-mq,:root[data-theme="dark"] .ex-mopt,:root[data-theme="dark"] .ex-mock-result{border-color:#36404b}
+:root[data-theme="dark"] .ex-mopt.ex-picked{border-color:var(--ex-accent)}
+:root[data-theme="dark"] .ex-mq.ex-done .ex-mopt.ex-right{background:#12301d;border-color:#16a34a}
+:root[data-theme="dark"] .ex-mq.ex-done .ex-mopt.ex-wrong{background:#3a1a1a;border-color:#dc2626}
+:root[data-theme="dark"] .ex-mq[data-outcome="right"] .ex-mq-result{color:#86efac}
+:root[data-theme="dark"] .ex-mq[data-outcome="wrong"] .ex-mq-result,:root[data-theme="dark"] .ex-mq[data-outcome="blank"] .ex-mq-result{color:#fca5a5}
 :root[data-theme="dark"] .ex-warn{background:#332a14;color:#fde68a}
 :root[data-theme="dark"] .ex-ok .ex-item-label{background:#14532d;color:#dcfce7}
 :root[data-theme="dark"] .ex-no .ex-item-label{background:#36404b;color:#e7e5e4}
