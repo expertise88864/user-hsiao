@@ -107,6 +107,21 @@
       "source": "/privacy-policy",
       "destination": "/privacy",
       "permanent": true
+    },
+    {
+      "source": "/exam/mock-2",
+      "destination": "/exam/mock",
+      "permanent": true
+    },
+    {
+      "source": "/exam/mock-3",
+      "destination": "/exam/mock",
+      "permanent": true
+    },
+    {
+      "source": "/exam/mock-4",
+      "destination": "/exam/mock",
+      "permanent": true
     }
   ],
   "rewrites": [

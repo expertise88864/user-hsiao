@@ -1075,24 +1075,9 @@
   "published": "2026-10-15"
  },
  "/exam/mock": {
-  "hash": "1db6ec78c6007d00",
+  "hash": "0fd985d812336dc8",
   "modified": "2026-11-11",
   "published": "2026-11-10"
- },
- "/exam/mock-2": {
-  "hash": "82b3032132c8ea00",
-  "modified": "2026-11-11",
-  "published": "2026-11-11"
- },
- "/exam/mock-3": {
-  "hash": "978850d0d966020f",
-  "modified": "2026-11-11",
-  "published": "2026-11-11"
- },
- "/exam/mock-4": {
-  "hash": "76ebee5cffb3686e",
-  "modified": "2026-11-11",
-  "published": "2026-11-11"
  },
  "/exam/practice": {
   "hash": "ad5b90000b4f68c5",

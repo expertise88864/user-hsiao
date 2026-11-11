@@ -2,9 +2,6 @@
 export const EXAM_ROUTES = [
   { url: '/exam', priority: '0.8', changefreq: 'monthly', lastmod: '2026-11-11', has_en: false },
   { url: '/exam/mock', priority: '0.6', changefreq: 'monthly', lastmod: '2026-11-11', has_en: false },
-  { url: '/exam/mock-2', priority: '0.6', changefreq: 'monthly', lastmod: '2026-11-11', has_en: false },
-  { url: '/exam/mock-3', priority: '0.6', changefreq: 'monthly', lastmod: '2026-11-11', has_en: false },
-  { url: '/exam/mock-4', priority: '0.6', changefreq: 'monthly', lastmod: '2026-11-11', has_en: false },
   { url: '/exam/bcsc1-1', priority: '0.6', changefreq: 'monthly', lastmod: '2026-11-05', has_en: false },
   { url: '/exam/bcsc1-2', priority: '0.6', changefreq: 'monthly', lastmod: '2026-11-05', has_en: false },
   { url: '/exam/bcsc1-3', priority: '0.6', changefreq: 'monthly', lastmod: '2026-11-05', has_en: false },

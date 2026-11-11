@@ -153,7 +153,7 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-item-text{grid-column:3}
 .ex-item-refs{grid-column:3;display:flex;flex-wrap:wrap;row-gap:3px}
 .ex-warn{font-size:12.5px;color:#854d0e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin:8px 0 0}
-.ex-mq{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:14px 0;scroll-margin-top:130px}
+.ex-mq{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:14px 0;scroll-margin-top:var(--ex-mock-top,130px)}
 .ex-mopt{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:7px 10px;margin:5px 0;font-size:14px;line-height:1.7;cursor:pointer}
 .ex-mopt input{margin-top:6px}
 .ex-mopt.ex-picked{border-color:var(--ex-accent);background:var(--ex-soft)}
@@ -168,16 +168,16 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-mq.ex-done .ex-mq-exp{display:block}
 .ex-mq-exp summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ex-accent);margin-bottom:6px}
 .ex-mock-count{font-size:13px;color:var(--ink-2)}
-.ex-mock-papers{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
-.ex-mock-nojs{display:none}
-.ex-mock-result{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:2px 18px 14px;margin:14px 0;scroll-margin-top:130px}
+.ex-mock-form{scroll-margin-top:var(--ex-mock-top,130px)}
+.ex-mock-nojs,.ex-mock-pool{display:none}
+.ex-mock-result{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:2px 18px 14px;margin:14px 0;scroll-margin-top:var(--ex-mock-top,130px)}
 .ex-mock-result[hidden]{display:none}
 .ex-mock-result .ex-h2{font-size:18px;margin:14px 0 8px}
 .ex-mock-result .ex-h2:focus{outline:none}
 .ex-mock-total{font-size:15px;font-weight:700;margin:0 0 6px}
 .ex-mock-missed a{margin-right:6px;white-space:nowrap}
 .ex-mock-missed:empty{display:none}
-@media (scripting:none){.ex-mq-exp,.ex-mock-nojs{display:block}.ex-mock-bar,.ex-mock-how{display:none}}
+@media (scripting:none){.ex-mq-exp,.ex-mock-nojs,.ex-mock-pool{display:block}.ex-mock-bar,.ex-mock-how,.ex-mock-form,.ex-mock-list{display:none}}
 .ex-pending{font-size:13px;color:var(--muted)}
 .ex-unanswered .ex-opt{cursor:default}
 body.ex-quiz .ex-actions{display:flex}

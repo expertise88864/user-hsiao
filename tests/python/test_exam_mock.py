@@ -1,16 +1,21 @@
 """Owner orders 2026-11-10 and 2026-11-11: a public, login-free mock exam of self-written
-questions; 200 questions as four papers of 50.
+questions; 200 questions, kept as four files of 50.
 
-- The papers (data/exam/mock/pilot1.json, paper2.json to paper4.json) are rendered into
-  public pages, /exam/mock and /exam/mock-2 to /exam/mock-4, so the loader checks every
-  field and refuses anything but the public fields.
-- Paper 1 keeps the id and the address it was published with; ids and stems are unique
-  across the papers, and together the papers follow the bank's share of each BCSC section.
+- The questions (data/exam/mock/pilot1.json, paper2.json to paper4.json) are rendered into
+  a public page, /exam/mock, so the loader checks every field and refuses anything but the
+  public fields.
+- Ids and stems are unique across the files, and together the files follow the bank's
+  share of each BCSC section.
 - The bank stays behind the login: no mock stem or option may repeat or closely follow a
   bank stem or option.
+- Owner order 2026-11-11 (second): one page where the reader picks the number of questions
+  and the order, as on the past-paper page. All the cards are in a pool the stylesheet
+  hides; exam.js moves the cards drawn into the paper. The addresses of the fixed papers
+  this replaced (/exam/mock-2 to /exam/mock-4) redirect to /exam/mock.
 - The page is complete as served (answers and explanations are in the markup); the
-  stylesheet keeps them closed until the paper is handed in.
-- The pages are indexed and in the sitemap routes (owner, 2026-11-10, after reading the pilot).
+  stylesheet keeps them closed until the paper is handed in, and shows the whole pool
+  where there is no scripting.
+- The page is indexed and in the sitemap routes (owner, 2026-11-10, after reading the pilot).
 """
 import copy
 import json
@@ -184,7 +189,8 @@ class MockPageTests(unittest.TestCase):
         cls.data = gen.load()
         cls.version = gen.site_version()
         cls.papers = cls.data["mock"]
-        cls.rows = cls.papers[0]["questions"]
+        # the bank: every question with the id of the fixed paper it was published in
+        cls.rows = [(paper["id"], q) for paper in cls.papers for q in paper["questions"]]
         cls.html = gen.mock_page(cls.data, cls.version)
         cls.doc = BeautifulSoup(cls.html, "html.parser")
 
@@ -193,28 +199,37 @@ class MockPageTests(unittest.TestCase):
         self.assertIn("/exam/mock", gen.indexed_routes(self.data))
         self.assertEqual(self.doc.select_one('link[rel="canonical"]')["href"], gen.DOMAIN + "/exam/mock")
         self.assertEqual(self.doc.body["data-exam-page"], "mock")
+        self.assertEqual(self.doc.select_one("h1").get_text(), "自選題數／隨機出題")
+        self.assertIn(f"自編 {len(self.rows)} 題", self.doc.title.get_text())
+        self.assertNotIn("試行版", self.html)
         # nothing on the page waits for the session or the bank
         self.assertFalse(self.doc.select(".ex-auth"))
         self.assertFalse(self.doc.select("article.ex-q"))
         self.assertFalse(self.doc.select("[data-practice-form]"))
         self.assertIn("自編", self.doc.select_one(".ex-lead").get_text())
+        self.assertIn(f"題庫共 {len(self.rows)} 題", self.doc.select_one(".ex-lead").get_text())
         self.assertIn("不是歷屆考題", self.doc.select_one("main").get_text())
 
-    def test_every_question_is_a_complete_card(self):
-        cards = self.doc.select("[data-mock-paper] > .ex-mq")
-        self.assertEqual(self.doc.select_one("[data-mock-paper]")["data-mock-paper"], "pilot1")
+    def test_every_question_is_a_complete_card_in_the_pool(self):
+        cards = self.doc.select("[data-mock-pool] > .ex-mq")
         self.assertEqual(len(cards), len(self.rows))
-        for no, (card, q) in enumerate(zip(cards, self.rows), 1):
+        self.assertEqual(len(self.doc.select(".ex-mq")), len(cards), "no card outside the pool")
+        self.assertEqual(len({card["id"] for card in cards}), len(cards))
+        self.assertIn(f"（{len(cards)} 題）", self.doc.select_one(".ex-mock-pool > h2").get_text())
+        for no, (card, (paper, q)) in enumerate(zip(cards, self.rows), 1):
             with self.subTest(q=q["id"]):
-                self.assertEqual(card["id"], f"mq-{no}")
+                # the question id, not a place: a paper shows the cards in its own order
+                self.assertEqual(card["id"], f'mq-{q["id"]}')
                 self.assertEqual(card["data-mq"], q["id"])
+                self.assertEqual(card["data-paper"], paper)
                 self.assertEqual(card["data-answer"], q["answer"])
                 self.assertEqual(card["data-book"], str(self.data["chapters"][q["ch"]]["book"]))
+                self.assertEqual(card.select_one(".ex-q-no").get_text(), f"第 {no} 題")
                 radios = card.select('fieldset.ex-opts input[type="radio"]')
                 self.assertEqual([r["value"] for r in radios], gen.MOCK_KEYS)
-                self.assertEqual({r["name"] for r in radios}, {f"mq-{no}"})
+                self.assertEqual({r["name"] for r in radios}, {f'mq-{q["id"]}'})
                 self.assertFalse(any(r.has_attr("checked") or r.has_attr("disabled") for r in radios))
-                self.assertTrue(card.select_one("fieldset.ex-opts > legend.ex-sr"))
+                self.assertEqual(card.select_one("fieldset.ex-opts > legend.ex-sr").get_text(), f"第 {no} 題的選項")
                 self.assertEqual(card.select_one(".ex-mq-result").get_text(), "")
                 exp = card.select_one("details.ex-mq-exp")
                 self.assertFalse(exp.has_attr("open"))
@@ -227,69 +242,95 @@ class MockPageTests(unittest.TestCase):
                 # the chapter is named only inside the explanation
                 self.assertEqual(len(card.select('a[href^="/exam/bcsc"]')), len(exp.select('a[href^="/exam/bcsc"]')))
 
+    def test_the_reader_picks_the_number_of_questions_and_the_order(self):
+        form = self.doc.select_one("form[data-mock-form]")
+        options = form.select('select[name="ex-count"] > option')
+        self.assertEqual([o["value"] for o in options], ["10", "25", "50", "100", "0"])
+        self.assertEqual([o.get_text() for o in options], ["10 題", "25 題", "50 題", "100 題", f"全部（{len(self.rows)} 題）"])
+        self.assertEqual([o["value"] for o in options if o.has_attr("selected")], ["50"])
+        self.assertTrue(form.select_one('select[name="ex-count"]')["aria-label"])
+        radios = form.select('input[type="radio"][name="ex-order"]')
+        self.assertEqual([r["value"] for r in radios], ["random", "number"])
+        self.assertEqual([r["value"] for r in radios if r.has_attr("checked")], ["random"])
+        self.assertEqual([lab.get_text().strip() for lab in form.select("label.ex-check")], ["隨機", "依序（從題庫第 1 題起）"])
+        # a plain button: without the script the form does nothing and goes nowhere
+        button = form.select_one("button.ex-build")
+        self.assertEqual(button["type"], "button")
+        self.assertEqual(button.get_text(), "產生試卷並開始計時")
+        self.assertFalse(form.has_attr("action"))
+        self.assertEqual(form.select_one(".ex-build-note")["aria-live"], "polite")
+        # the paper is empty until one is drawn
+        paper = self.doc.select_one("[data-mock-list]")
+        self.assertFalse(paper.select(".ex-mq"))
+        self.assertIn("產生試卷並開始計時", paper.select_one("p.ex-pending").get_text())
+
+    def test_sizes_larger_than_the_bank_are_not_offered(self):
+        data = dict(self.data)
+        first = self.papers[0]
+        data["mock"] = [{**first, "questions": first["questions"][:30]}]
+        doc = BeautifulSoup(gen.mock_page(data, self.version), "html.parser")
+        options = doc.select('select[name="ex-count"] > option')
+        self.assertEqual([o["value"] for o in options], ["10", "25", "0"])
+        self.assertEqual(options[-1].get_text(), "全部（30 題）")
+        self.assertEqual(len(doc.select("[data-mock-pool] > .ex-mq")), 30)
+
     def test_explanations_stay_closed_until_the_paper_is_handed_in(self):
         css = gen.EXAM_STYLE
         self.assertIn(".ex-mq-exp{display:none", css)
         self.assertIn(".ex-mq.ex-done .ex-mq-exp{display:block}", css)
-        # without scripting there is no hand-in: explanations open, the bar is hidden
+        # the pool is shown only where no paper can be drawn from it
+        self.assertIn(".ex-mock-nojs,.ex-mock-pool{display:none}", css)
+        self.assertNotIn(".ex-mock-papers", css)
+        # without scripting: the whole pool with its explanations; nothing that needs the script
         rule = re.search(r"@media \(scripting:none\)\{(.*?\})\}", css)
         self.assertIsNotNone(rule)
-        self.assertIn(".ex-mq-exp,.ex-mock-nojs{display:block}", rule.group(1))
-        self.assertIn(".ex-mock-bar,.ex-mock-how{display:none}", rule.group(1))
+        self.assertIn(".ex-mq-exp,.ex-mock-nojs,.ex-mock-pool{display:block}", rule.group(1))
+        self.assertIn(".ex-mock-bar,.ex-mock-how,.ex-mock-form,.ex-mock-list{display:none}", rule.group(1))
 
-    def test_bar_and_result_start_empty(self):
+    def test_bar_and_result_start_hidden_and_empty(self):
         bar = self.doc.select_one("[data-mock-bar]")
-        self.assertEqual(bar.select_one(".ex-mock-count").get_text(), f"已作答 0 / {len(self.rows)}")
+        self.assertTrue(bar.has_attr("hidden"))
+        self.assertEqual(bar.select_one(".ex-timer").get_text(), "00:00")
+        self.assertEqual(bar.select_one(".ex-mock-count").get_text(), "")
         self.assertTrue(bar.select_one("button.ex-mock-finish").has_attr("disabled"))
-        self.assertTrue(bar.select_one("button.ex-mock-reset").has_attr("hidden"))
+        self.assertEqual(bar.select_one("button.ex-mock-reset").get_text(), "放棄這份試卷")
         result = self.doc.select_one("section[data-mock-result]")
         self.assertTrue(result.has_attr("hidden"))
         self.assertEqual(result["aria-labelledby"], result.h2["id"])
-        per_book = Counter(self.data["chapters"][q["ch"]]["book"] for q in self.rows)
+        # one row for every book of the bank; the script fills in the paper's counts
         rows = result.select("tbody tr[data-book]")
-        self.assertEqual({int(r["data-book"]): int(r.select_one(".ex-num").get_text()) for r in rows}, dict(per_book))
+        books = {self.data["chapters"][q["ch"]]["book"] for _, q in self.rows}
+        self.assertEqual([int(r["data-book"]) for r in rows], sorted(books))
+        self.assertTrue(all(r.select_one("td[data-total]").get_text() == "" for r in rows))
         self.assertTrue(all(r.select_one("td[data-right]").get_text() == "" for r in rows))
 
-    def test_every_paper_has_its_own_indexed_page(self):
-        paths = ["/exam/mock", "/exam/mock-2", "/exam/mock-3", "/exam/mock-4"]
-        self.assertEqual([gen.mock_path(no) for no in range(1, len(self.papers) + 1)], paths)
-        routes = gen.indexed_routes(self.data)
-        titles = set()
-        for no, (paper, path) in enumerate(zip(self.papers, paths), 1):
-            with self.subTest(paper=no):
-                html = gen.mock_page(self.data, self.version, no)
-                doc = BeautifulSoup(html, "html.parser")
-                self.assertIn(path, routes)
-                self.assertEqual(doc.select_one('link[rel="canonical"]')["href"], gen.DOMAIN + path)
-                self.assertEqual(doc.select_one('meta[name="robots"]')["content"], "index,follow,max-image-preview:large")
-                self.assertEqual(doc.select_one("h1").get_text(), f"模擬考第 {no} 回")
-                self.assertIn(f"第 {no} 回", doc.title.get_text())
-                titles.add(doc.title.get_text())
-                self.assertIn("共 4 回、200 題", doc.select_one("main").get_text())
-                self.assertNotIn("試行版", html)
-                self.assertEqual(doc.select_one("[data-mock-paper]")["data-mock-paper"], paper["id"])
-                cards = doc.select("[data-mock-paper] > .ex-mq")
-                self.assertEqual([card["data-mq"] for card in cards], [q["id"] for q in paper["questions"]])
-                # the same row of links above and below the questions; this paper is marked
-                navs = doc.select("nav.ex-mock-papers")
-                self.assertEqual([nav["aria-label"] for nav in navs], ["模擬考各回", "換一回作答"])
-                for nav in navs:
-                    self.assertEqual([a["href"] for a in nav.select("a")], paths)
-                    self.assertEqual([a.get_text() for a in nav.select("a")], [f"第 {n} 回" for n in range(1, 5)])
-                    self.assertEqual([a["href"] for a in nav.select('a[aria-current="page"]')], [path])
-                name = "mock.html" if no == 1 else f"mock-{no}.html"
-                built = (ROOT / "exam" / name).read_text(encoding="utf-8")
-                self.assertEqual(built.count('class="ex-mq"'), len(paper["questions"]))
-                self.assertIn(f'data-mock-paper="{paper["id"]}"', built)
-        self.assertEqual(len(titles), len(self.papers), "every paper has its own page title")
-
-    def test_page_is_built_and_linked_from_the_hub(self):
+    def test_one_page_replaces_the_fixed_papers(self):
         built = (ROOT / "exam" / "mock.html").read_text(encoding="utf-8")
         self.assertEqual(built.count('class="ex-mq"'), len(self.rows))
-        self.assertIn('data-mock-paper="pilot1"', built)
+        self.assertIn("data-mock-list", built)
+        self.assertNotIn("data-mock-paper", built)
+        routes = gen.indexed_routes(self.data)
+        self.assertEqual([r for r in routes if r.startswith("/exam/mock")], ["/exam/mock"])
+        self.assertFalse(hasattr(gen, "mock_path"))
+        # the fixed papers' addresses (published 2026-11-11) lead to the page that replaced them
+        redirects = {r["source"]: r for r in json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))["redirects"]}
+        for no in (2, 3, 4):
+            with self.subTest(paper=no):
+                self.assertFalse((ROOT / "exam" / f"mock-{no}.html").exists())
+                moved = redirects[f"/exam/mock-{no}"]
+                self.assertEqual(moved["destination"], "/exam/mock")
+                self.assertIs(moved["permanent"], True)
+        for name in ("sitemap.xml", "api/_exam_routes.js"):
+            with self.subTest(file=name):
+                listed = (ROOT / name).read_text(encoding="utf-8")
+                self.assertIn("/exam/mock", listed)
+                self.assertNotIn("/exam/mock-", listed)
+
+    def test_page_is_linked_from_the_hub(self):
         hub = BeautifulSoup(gen.hub_page(self.data, self.version), "html.parser")
         link = hub.select_one('p.ex-practice a[href="/exam/mock"]')
-        self.assertEqual(link.get_text(), "模擬考：自編 200 題（免登入）")
+        self.assertEqual(link.get_text(), f"模擬考：自編 {len(self.rows)} 題（免登入）")
+        self.assertEqual(len(self.rows), 200)
         # the past papers keep their own name and the login note is unchanged
         self.assertEqual(hub.select_one('a[href="/exam/practice"]').get_text(), "考古卷：自選範圍／隨機出題")
         self.assertIn("考題、答案與詳解需要登入才能看", hub.get_text())

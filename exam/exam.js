@@ -2776,56 +2776,104 @@
   });
 
   // ---------------------------------------------------------- mock exam (/exam/mock)
-  // A public paper of self-written questions. The page is complete as served: answers and
-  // explanations are in the markup and the stylesheet keeps them closed until the paper
-  // is handed in (.ex-done). Nothing here reads the API or touches the bank's stores
-  // (stats, wrong list, stored answers, practice paper); an attempt has its own key:
-  // hs:exam:mock:<paper id> = { a: attempt id, sel: { question id: option picked },
-  //   el: ms the timer counted, done: handed in, t: saved ms }
-  // The paper may be open in several tabs. Storage holds the attempt, and a save reads it,
-  // adds this tab's changes and writes it back (under the cross-tab lock where there is
-  // one), so a tab that has not heard of another tab's change yet cannot write over it.
-  var MOCK_PREFIX = 'hs:exam:mock:';
+  // A public bank of self-written questions. The page is complete as served: every card,
+  // with its answer and explanation, is in a pool the stylesheet hides. The reader picks
+  // how many questions and the order; the cards drawn move from the pool into the paper,
+  // and the stylesheet keeps their explanations closed until the paper is handed in
+  // (.ex-done). Nothing here reads the API or touches the bank's stores (stats, wrong
+  // list, stored answers, practice paper); the paper has its own key:
+  // hs:exam:mock-paper = { a: attempt id, ids: [question id, in paper order],
+  //   set: { c: questions asked for (0: all), o: 'random' | 'number' } or null,
+  //   sel: { question id: option picked }, el: ms the timer counted, done: handed in,
+  //   t: saved ms }
+  // No key: no paper. The page may be open in several tabs. Storage holds the paper, and a
+  // save reads it, adds this tab's changes and writes it back (under the cross-tab lock
+  // where there is one), so a tab that has not heard of another tab's change yet cannot
+  // write over it.
+  // Until 2026-11-11 the questions were fixed papers, each a page with its attempt under
+  // hs:exam:mock:<paper id> = { a, sel, el, done, t }. The newest of those attempts is
+  // carried over as a paper of that fixed paper's questions; then the old keys are removed.
+  var MOCK_KEY = 'hs:exam:mock-paper';
+  var MOCK_OLD_PREFIX = 'hs:exam:mock:';
   var MOCK_MAX_MS = 24 * 3600 * 1000;
   function initMock(root) {
-    var key = MOCK_PREFIX + root.getAttribute('data-mock-paper');
-    var cards = Array.prototype.slice.call(root.querySelectorAll('.ex-mq'));
+    var key = MOCK_KEY;
+    var pool = document.querySelector('[data-mock-pool]');
+    var form = document.querySelector('[data-mock-form]');
     var bar = document.querySelector('[data-mock-bar]');
     var result = document.querySelector('[data-mock-result]');
-    if (!bar || !result || !cards.length) return;
+    var all = Array.prototype.slice.call(document.querySelectorAll('.ex-mq'));
+    if (!pool || !form || !bar || !result || !all.length) return;
+    var sizeEl = form.querySelector('select[name="ex-count"]');
+    var buildBtn = form.querySelector('.ex-build');
+    var noteEl = form.querySelector('.ex-build-note');
+    var pending = root.querySelector('.ex-pending');
     var timerEl = bar.querySelector('.ex-timer');
     var countEl = bar.querySelector('.ex-mock-count');
     var finishBtn = bar.querySelector('.ex-mock-finish');
     var resetBtn = bar.querySelector('.ex-mock-reset');
     var scoreEl = bar.querySelector('.ex-score');
     var heading = result.querySelector('h2');
-    var total = cards.length;
-    var known = Object.create(null);
-    cards.forEach(function (card) { known[card.getAttribute('data-mq')] = true; });
+    var byId = Object.create(null);
+    var bank = [];         // every question id, in bank order
+    all.forEach(function (card) {
+      var id = card.getAttribute('data-mq');
+      byId[id] = card;
+      bank.push(id);
+    });
+    var attempt = '';      // id of the paper shown ('': no paper)
+    var ids = [];          // its question ids, in paper order
+    var set = null;        // what it was drawn with
     var sel = {};          // question id -> option picked
     var done = false;      // handed in
-    var attempt = '';      // id of the attempt shown ('' until its first save)
+    var cards = [];        // the cards laid out as the paper, in paper order
+    var laid = '';         // the attempt the cards are laid out for
+    var moved = false;     // the last save left an action undone: the paper had changed
     var dirty = {};        // options picked here that storage does not hold yet
-    var kept = storageWorks(); // false: storage is off or full, the attempt lives on this page
+    var kept = storageWorks(); // false: storage is off or full, the paper lives on this page
     var counted = 0;       // ms counted up to `last`
     var last = null;       // when the running stretch was last counted (null: paused)
     var savedAt = 0;       // `counted` at the last save
     var ticker = null;
     var shown = null;      // the `done` the explanations were last opened/closed for
 
-    // Stored state, reduced to what this paper can use (hand-edited or older storage).
+    function newId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+    function picks(stored, among) {
+      var picked = plainObject(stored);
+      var out = {};
+      among.forEach(function (id) {
+        if (typeof picked[id] === 'string' && /^[A-D]$/.test(picked[id])) out[id] = picked[id];
+      });
+      return out;
+    }
+    function time(stored) {
+      return typeof stored === 'number' && isFinite(stored) && stored > 0 ? Math.min(stored, MOCK_MAX_MS) : 0;
+    }
+    // Stored state, reduced to what this page can use (hand-edited storage, or a question
+    // that has left the bank since). Without an attempt id or a question there is no paper.
     function read() {
       var saved = plainObject(load(key, null));
-      var picked = plainObject(saved.sel);
-      var state = { a: typeof saved.a === 'string' ? saved.a : '', sel: {}, el: 0, done: saved.done === true };
-      Object.keys(picked).forEach(function (id) {
-        if (known[id] && typeof picked[id] === 'string' && /^[A-D]$/.test(picked[id])) state.sel[id] = picked[id];
+      var state = { a: '', ids: [], set: null, sel: {}, el: 0, done: false };
+      var seen = Object.create(null);
+      if (typeof saved.a !== 'string' || !saved.a || !Array.isArray(saved.ids)) return state;
+      saved.ids.forEach(function (id) {
+        if (typeof id === 'string' && byId[id] && !seen[id]) {
+          seen[id] = true;
+          state.ids.push(id);
+        }
       });
-      if (typeof saved.el === 'number' && isFinite(saved.el) && saved.el > 0) {
-        state.el = Math.min(saved.el, MOCK_MAX_MS);
+      if (!state.ids.length) return state;
+      var drawn = plainObject(saved.set);
+      if (typeof drawn.c === 'number' && (drawn.o === 'random' || drawn.o === 'number')) {
+        state.set = { c: drawn.c, o: drawn.o };
       }
+      state.a = saved.a;
+      state.sel = picks(saved.sel, state.ids);
+      state.el = time(saved.el);
+      state.done = saved.done === true;
       return state;
     }
+    function own() { return { a: attempt, ids: ids, set: set, sel: sel, el: counted, done: done }; }
     function answered() { return Object.keys(sel).length; }
     function accrue() {
       if (last === null) return;
@@ -2838,70 +2886,87 @@
       var m = Math.floor(s / 60);
       return (m < 10 ? '0' : '') + m + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
     }
-    // Bring the stored state `s` and this page together; `picks` are the options picked
-    // here since the last save. Another attempt id (or none) means another tab started
-    // over or started the attempt, and its state replaces ours. Within one attempt the
-    // hand-in is final, so a stored copy from before the hand-in does not undo it.
-    function merge(s, picks) {
+    // Bring the stored state `s` and this page together; `picked` are the options picked
+    // here since the last save. Another attempt id (or none) means another tab drew a new
+    // paper or cleared this one: its state replaces ours, and what was picked here belonged
+    // to the paper that is gone. Within one attempt the hand-in is final, so a stored copy
+    // from before the hand-in does not undo it.
+    function merge(s, picked) {
       if (s.a !== attempt) {
         attempt = s.a;
+        ids = s.ids;
+        set = s.set;
         sel = s.sel;
         done = s.done;
         counted = s.el;
-      } else if (!(attempt && done && !s.done)) {
+        dirty = {};
+        return;
+      }
+      if (!attempt) return;
+      if (!(done && !s.done)) {
         sel = s.sel;
         done = s.done;
         counted = s.done ? s.el : Math.max(counted, s.el);
       }
-      if (!done) Object.keys(picks).forEach(function (id) { sel[id] = picks[id]; });
+      if (!done) Object.keys(picked).forEach(function (id) { sel[id] = picked[id]; });
     }
-    // Save: read, merge, apply `act` ('finish', 'reset' or ''), write. Without storage the
-    // page's own state stands in for the stored one. The reader confirmed a hand-in or a
-    // start-over for the attempt `asked`, the one the page showed then; if another tab has
-    // started over since, the attempt is another one and is left as it is. Returns whether
-    // `act` was carried out.
-    function sync(act, asked) {
+    // Save: read, merge, apply `act` ('build' with the paper `drawn`, 'finish', 'reset' or
+    // ''), write. Without storage the page's own state stands in for the stored one. The
+    // reader asked for `act` while the page showed the attempt `asked` ('' for no paper);
+    // if another tab has drawn or cleared a paper since, the action is left undone and
+    // `moved` says so. Returns whether `act` was carried out.
+    function sync(act, asked, drawn) {
       accrue();
-      var picks = dirty;
+      var picked = dirty;
       dirty = {};
-      merge(kept ? read() : { a: attempt, sel: sel, el: counted, done: done }, picks);
+      merge(kept ? read() : own(), picked);
       var applied = false;
-      if (asked && attempt !== asked) {
+      moved = !!act && attempt !== asked;
+      if (moved) {
         act = '';
-      } else if (act === 'reset') {
-        attempt = '';
+      } else if (act === 'build') {
+        attempt = newId();
+        ids = drawn.ids;
+        set = drawn.set;
         sel = {};
         done = false;
+        counted = 0;
         applied = true;
-      } else if (act === 'finish' && answered()) {
+      } else if (act === 'reset') {
+        attempt = '';
+        ids = [];
+        set = null;
+        sel = {};
+        done = false;
+        counted = 0;
+        applied = true;
+      } else if (act === 'finish' && !done && answered()) {
         done = true;
         applied = true;
       }
-      if (!done && !answered()) {
-        attempt = '';
-        counted = 0;
+      if (!attempt) {
         if (kept) { try { localStorage.removeItem(key); } catch (e) { kept = false; } }
-      } else {
-        if (!attempt) attempt = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-        if (kept) kept = storeOk(key, { a: attempt, sel: sel, el: Math.round(counted), done: done, t: Date.now() });
+      } else if (kept) {
+        kept = storeOk(key, { a: attempt, ids: ids, set: set, sel: sel, el: Math.round(counted), done: done, t: Date.now() });
       }
       savedAt = counted;
       return applied;
     }
     // The saves of all tabs take turns. Leaving the page cannot wait for its turn; those
     // saves call sync() directly. `after` runs when `act` was carried out.
-    function commit(act, after, asked) {
+    function commit(act, after, asked, drawn) {
       crossTabLock(key, function () {
-        var applied = sync(act, asked);
-        paint();
-        run();
+        var applied = sync(act, asked, drawn);
+        show();
+        if (moved) noteEl.textContent = '這份試卷已經在另一個分頁更換或清除，這個動作沒有執行。';
         if (applied && after) after();
       });
     }
-    // The timer runs from the first answer until the paper is handed in, and only while
-    // the page is shown; a stalled interval (a sleeping computer) adds at most TIMER_GAP.
+    // The timer runs from the moment the paper is drawn until it is handed in, and only
+    // while the page is shown; a stalled interval (a sleeping computer) adds at most
+    // TIMER_GAP.
     function run() {
-      var on = !done && answered() > 0 && document.visibilityState !== 'hidden';
+      var on = !!attempt && !done && document.visibilityState !== 'hidden';
       if (on && last === null) {
         last = Date.now();
         ticker = setInterval(function () {
@@ -2917,15 +2982,42 @@
       }
     }
 
+    // Lay the paper out when the attempt shown changes: every card back to the pool (in
+    // bank order), then the paper's cards into the list, numbered by their place in it.
+    // The form shows what the paper was drawn with.
+    function lay() {
+      if (laid === attempt) return;
+      laid = attempt;
+      all.forEach(function (card) { pool.appendChild(card); });
+      cards = ids.map(function (id) { return byId[id]; });
+      cards.forEach(function (card, i) {
+        root.appendChild(card);
+        card.querySelector('.ex-q-no').textContent = '第 ' + (i + 1) + ' 題';
+        card.querySelector('legend').textContent = '第 ' + (i + 1) + ' 題的選項';
+      });
+      shown = null;
+      noteEl.textContent = '';
+      if (!set) return;
+      Array.prototype.forEach.call(sizeEl.options, function (option) {
+        if (option.value === String(set.c)) sizeEl.value = option.value;
+      });
+      form.querySelectorAll('input[name="ex-order"]').forEach(function (radio) {
+        radio.checked = radio.value === set.o;
+      });
+    }
     function paint() {
+      var total = cards.length;
       var right = 0;
       var blank = 0;
       var missed = [];
+      var totalByBook = {};
       var rightByBook = {};
       cards.forEach(function (card, i) {
         var pick = sel[card.getAttribute('data-mq')] || '';
         var answer = card.getAttribute('data-answer');
+        var book = card.getAttribute('data-book');
         var outcome = !done ? '' : !pick ? 'blank' : pick === answer ? 'right' : 'wrong';
+        totalByBook[book] = (totalByBook[book] || 0) + 1;
         card.classList.toggle('ex-done', done);
         if (outcome) card.setAttribute('data-outcome', outcome);
         else card.removeAttribute('data-outcome');
@@ -2941,57 +3033,123 @@
         card.querySelector('.ex-mq-result').textContent = outcome === 'right' ? '答對'
           : outcome === 'wrong' ? '答錯：你選 ' + pick + '，正確答案是 ' + answer
             : outcome === 'blank' ? '未作答：正確答案是 ' + answer : '';
-        // Handing in opens the explanations of the questions missed; starting over closes
-        // them all. Later repaints leave whatever the reader opened or closed.
+        // Handing in opens the explanations of the questions missed; a new paper starts
+        // with them all closed. Later repaints leave whatever the reader opened or closed.
         if (shown !== done) card.querySelector('.ex-mq-exp').open = outcome === 'wrong' || outcome === 'blank';
         if (outcome === 'right') {
           right += 1;
-          var book = card.getAttribute('data-book');
           rightByBook[book] = (rightByBook[book] || 0) + 1;
         } else if (outcome) {
           if (outcome === 'blank') blank += 1;
-          missed.push(i + 1);
+          missed.push({ no: i + 1, id: card.id });
         }
       });
       shown = done;
       var n = answered();
+      bar.hidden = !attempt;
+      pending.hidden = !!attempt;
       timerEl.textContent = clock();
       countEl.textContent = '已作答 ' + n + ' / ' + total;
       finishBtn.disabled = done || n === 0;
       finishBtn.hidden = done;
-      resetBtn.hidden = !done && n === 0;
+      resetBtn.textContent = done ? '再出一份試卷' : '放棄這份試卷';
       scoreEl.textContent = done ? '得分 ' + right + ' / ' + total + (blank ? '（未作答 ' + blank + ' 題）' : '') : '';
       result.hidden = !done;
+      fit();
       if (!done) return;
       result.querySelector('.ex-mock-total').textContent = '答對 ' + right + ' / ' + total + ' 題（'
         + percent(right, total) + '）' + (blank ? '，未作答 ' + blank + ' 題' : '') + '；作答時間 ' + clock();
       result.querySelectorAll('tr[data-book]').forEach(function (row) {
-        row.querySelector('[data-right]').textContent = String(rightByBook[row.getAttribute('data-book')] || 0);
+        var book = row.getAttribute('data-book');
+        row.hidden = !totalByBook[book];
+        row.querySelector('[data-total]').textContent = String(totalByBook[book] || 0);
+        row.querySelector('[data-right]').textContent = String(rightByBook[book] || 0);
       });
       var list = result.querySelector('.ex-mock-missed');
       list.textContent = missed.length ? '答錯或未作答：' : '全部答對。';
-      missed.forEach(function (no) {
-        var a = el('a', null, '第 ' + no + ' 題');
-        a.href = '#mq-' + no;
+      missed.forEach(function (m) {
+        var a = el('a', null, '第 ' + m.no + ' 題');
+        a.href = '#' + m.id;
         list.appendChild(a);
       });
     }
+    function show() {
+      lay();
+      paint();
+      run();
+    }
 
     // Show what storage holds (page load, return from the back/forward cache, or a change
-    // made by another tab showing this paper). This does not write, or two tabs would
-    // answer each other's saves forever; the one exception is a stored copy from before
-    // this attempt's hand-in, which is put right.
+    // made by another tab). This does not write, or two tabs would answer each other's
+    // saves forever; the one exception is a stored copy from before this attempt's
+    // hand-in, which is put right.
     function adopt() {
       accrue();
       var s = read();
       var stale = !!attempt && s.a === attempt && done && !s.done;
       merge(s, dirty);
       savedAt = Math.min(counted, s.el);
-      paint();
-      run();
+      show();
       if (stale) commit('');
     }
+    // An attempt saved under a fixed paper's key (see above) becomes the paper, unless a
+    // paper is stored already; then the old keys are removed. If the paper cannot be
+    // written the old keys stay for a later visit. Returns whether a paper was carried over.
+    function carryOver() {
+      var papers = Object.create(null);   // fixed paper id -> its question ids, in order
+      all.forEach(function (card) {
+        var paper = card.getAttribute('data-paper');
+        if (!papers[paper]) papers[paper] = [];
+        papers[paper].push(card.getAttribute('data-mq'));
+      });
+      var best = null;
+      Object.keys(papers).forEach(function (paper) {
+        var saved = plainObject(load(MOCK_OLD_PREFIX + paper, null));
+        var old = { ids: papers[paper], sel: picks(saved.sel, papers[paper]), el: time(saved.el),
+          done: saved.done === true, t: typeof saved.t === 'number' && isFinite(saved.t) ? saved.t : 0 };
+        if (Object.keys(old.sel).length && (!best || old.t > best.t)) best = old;
+      });
+      var carried = false;
+      if (best && !read().a) {
+        carried = storeOk(key, { a: newId(), ids: best.ids, set: null, sel: best.sel,
+          el: Math.round(best.el), done: best.done, t: Date.now() });
+        if (!carried) return false;
+      }
+      Object.keys(papers).forEach(function (paper) {
+        try { localStorage.removeItem(MOCK_OLD_PREFIX + paper); } catch (e) { /* storage is off */ }
+      });
+      return carried;
+    }
+    function focus(node) {
+      try { node.focus({ preventScroll: true }); } catch (e) { node.focus(); }
+    }
+    // The bar sticks below the site header (top: 64px in the stylesheet) and wraps onto
+    // two or three lines on a phone, more once it carries the score. What the page scrolls
+    // to (the first question, the result, a question missed, the form) stops below it:
+    // the stylesheet reads this as the scroll margin.
+    function fit() {
+      var top = 64 + (bar.hidden ? 0 : bar.offsetHeight) + 12;
+      document.documentElement.style.setProperty('--ex-mock-top', top + 'px');
+    }
 
+    form.addEventListener('submit', function (ev) { ev.preventDefault(); });
+    buildBtn.addEventListener('click', function () {
+      var asked = attempt;   // other tabs go on while the confirmation is open
+      if (attempt && (done ? !window.confirm('確定要清除這份試卷的作答與成績，另出一份嗎？')
+        : answered() > 0 && !window.confirm('確定要放棄這份未交卷的試卷，另出一份嗎？已作答的內容會清除。'))) return;
+      var count = parseInt(sizeEl.value, 10);
+      if (!(count > 0)) count = 0;
+      var chosen = form.querySelector('input[name="ex-order"]:checked');
+      var order = chosen && chosen.value === 'number' ? 'number' : 'random';
+      var drawn = bank.slice();
+      if (order === 'random') shuffle(drawn);
+      if (count > 0) drawn = drawn.slice(0, count);
+      commit('build', function () {
+        noteEl.textContent = '共 ' + drawn.length + ' 題，計時開始。';
+        cards[0].scrollIntoView();
+        focus(cards[0].querySelector('input'));
+      }, asked, { ids: drawn, set: { c: count, o: order } });
+    });
     root.addEventListener('change', function (ev) {
       var input = ev.target;
       var card = input && input.closest ? input.closest('.ex-mq') : null;
@@ -2999,39 +3157,43 @@
       var id = card.getAttribute('data-mq');
       sel[id] = input.value;
       dirty[id] = input.value;
-      run();
       paint();
       commit('');
     });
     finishBtn.addEventListener('click', function () {
-      var blank = total - answered();
-      if (done || blank === total) return;
-      var asked = attempt;   // other tabs go on while the confirmation is open
+      var blank = cards.length - answered();
+      if (!attempt || done || blank === cards.length) return;
+      var asked = attempt;
       if (!window.confirm((blank ? '還有 ' + blank + ' 題沒有作答。' : '') + '確定要交卷嗎？交卷後不能再修改答案。')) return;
       commit('finish', function () {
         result.scrollIntoView();
-        try { heading.focus({ preventScroll: true }); } catch (e) { heading.focus(); }
+        focus(heading);
       }, asked);
     });
     resetBtn.addEventListener('click', function () {
+      if (!attempt) return;
       var asked = attempt;
-      if (!window.confirm('確定要清除這次的作答與成績，重新開始嗎？')) return;
+      var graded = done;
+      if (graded ? !window.confirm('確定要清除這份試卷的作答與成績，再出一份嗎？')
+        : answered() > 0 && !window.confirm('確定要放棄這份未交卷的試卷嗎？已作答的內容會清除。')) return;
       commit('reset', function () {
-        var first = root.querySelector('input');
-        cards[0].scrollIntoView();
-        if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
+        noteEl.textContent = graded ? '已清除上一份試卷，選好題數與順序後可以再出一份。' : '已放棄這份試卷。';
+        form.scrollIntoView();
+        focus(buildBtn);
       }, asked);
     });
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden' && last !== null) { sync(''); paint(); }
+      if (document.visibilityState === 'hidden' && last !== null) { sync(''); lay(); paint(); }
       run();
     });
     window.addEventListener('pagehide', function () { if (last !== null) sync(''); });
+    window.addEventListener('resize', fit);
     window.addEventListener('pageshow', function (ev) { if (ev.persisted && kept) adopt(); });
     window.addEventListener('storage', function (ev) {
       if (kept && (ev.key === null || ev.key === key)) adopt();
     });
     adopt();
+    if (kept) crossTabLock(key, function () { if (carryOver()) adopt(); });
   }
 
   // ---------------------------------------------------------- init
@@ -3076,7 +3238,7 @@
     if (authBar) initAuthBar(authBar, settle);
     var loginForm = document.querySelector('form.ex-login');
     if (loginForm) initLogin(loginForm);
-    var mock = document.querySelector('[data-mock-paper]');
+    var mock = document.querySelector('[data-mock-list]');
     if (mock) initMock(mock);
     var progress = document.getElementById('ex-progress');
     if (progress) { initProgressBar(progress); renderProgress(progress); }

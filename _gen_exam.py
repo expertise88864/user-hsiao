@@ -15,8 +15,7 @@ Sources (hand-maintained):
                                     the site-wide *.html page audits off them)
 
 Outputs (generated, never hand-edit):
-  exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/mock.html, exam/mock-<n>.html,
-  exam/review.html,
+  exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/mock.html, exam/review.html,
   exam/progress.html, exam/search.html, exam/login.html, exam/notes-data.json (public),
   exam/nav-search.json (public chapter headings for the site header search),
   api/_exam_bank.js (question bank; served only to signed-in readers by api/_exam_data.js (via api/exam/[op].js)),
@@ -277,13 +276,16 @@ def load() -> dict:
 
 # ---------------------------------------------------------------- mock exam data
 # Owner order 2026-11-10: a public, login-free mock exam of self-written questions that
-# follow the bank's chapter mix, question forms and depth. Unlike the bank the papers are
-# rendered into public pages, so every field is checked here, and no stem or option may
-# repeat a bank stem or option.
+# follow the bank's chapter mix, question forms and depth. Unlike the bank the questions
+# are rendered into a public page, so every field is checked here, and no stem or option
+# may repeat a bank stem or option.
 # Owner order 2026-11-11: 150 more questions, 200 in all, as four papers of 50; together
 # the papers follow the bank's share of each BCSC section and chapter.
-# The papers in page order. Paper 1 keeps the id and the address it was published with (a
-# reader's saved attempt is stored under the paper id); paper n is at /exam/mock-n.
+# The papers were pages of their own (/exam/mock, /exam/mock-2 to -4) until the owner's
+# second order of 2026-11-11 made them one bank (see "mock exam page"). They remain the
+# files the questions are kept in, and their order is the order of the bank. A paper id
+# must not change: readers' attempts at the fixed papers were stored under it, and
+# exam.js carries those over.
 MOCK_FILES = [DATA / "mock" / f"{name}.json" for name in ("pilot1", "paper2", "paper3", "paper4")]
 MOCK_KEYS = ["A", "B", "C", "D"]
 MOCK_PAGES = re.compile(r"\d+(?:–\d+)?(?:, \d+(?:–\d+)?)*")
@@ -308,17 +310,12 @@ def check_mock_text(label: str, text) -> None:
             raise SystemExit(f"{label}: unexpected letter {ch!r}")
 
 
-def mock_path(no: int) -> str:
-    """The address of paper `no` (from 1)."""
-    return "/exam/mock" if no == 1 else f"/exam/mock-{no}"
-
-
 def mock_total(data: dict) -> int:
     return sum(len(paper["questions"]) for paper in data["mock"])
 
 
 def load_mock(chapters: dict, questions: list) -> list:
-    """The papers in page order. Question ids and stems are unique across all of them."""
+    """The papers in bank order. Question ids and stems are unique across all of them."""
     bank = {mock_norm(text) for q in questions for text in (q["stem"], *q["options"].values())}
     bank = {text for text in bank if len(text) >= MOCK_MIN}
     books = {c["book"] for c in chapters.values()}
@@ -338,7 +335,7 @@ def load_mock_paper(path: Path, no: int, chapters: dict, bank: set, books: set, 
         raise SystemExit("mock paper: expected an object with id, title and questions")
     if not isinstance(paper["id"], str) or not re.fullmatch(r"[a-z0-9]{1,16}", paper["id"]):
         raise SystemExit("mock paper: bad id")
-    # A paper is named by its place: the links between the papers say 第 n 回.
+    # A paper is named by its place.
     if paper["title"] != f"模擬考第 {no} 回":
         raise SystemExit(f"mock paper {no}: the title must be 模擬考第 {no} 回")
     rows = paper["questions"]
@@ -1319,18 +1316,28 @@ def practice_page(data: dict, version: str) -> str:
 
 
 # ---------------------------------------------------------------- mock exam page
-# A paper's page (/exam/mock, /exam/mock-n) is public and complete without the API: every
-# question, its answer and its explanation are in the page. The stylesheet keeps the
-# explanations closed until the paper is handed in (exam.js initMock: timer, grading,
-# saved attempt, kept per paper); a browser without
-# scripting shows them at once (@media (scripting:none)). The cards use their own classes
-# (ex-mq, ex-mopt) so nothing written for the signed-in bank cards (quiz/browse mode,
-# answer storage, the public-output guard in build()) applies to them.
+# /exam/mock is public and complete without the API: every question of the mock bank, its
+# answer and its explanation are in the page, in a pool the stylesheet hides.
+# Owner order 2026-11-11: the reader picks how many questions and the order, as on the
+# past-paper page (自選／隨機出題), instead of reading four fixed papers. exam.js initMock
+# moves the cards drawn from the pool into the paper and keeps the timer, the grading and
+# the saved paper; the stylesheet keeps the explanations closed until the paper is handed
+# in. A browser without scripting cannot draw a paper, so it shows the whole pool with the
+# explanations (@media (scripting:none)). The cards use their own classes (ex-mq, ex-mopt)
+# so nothing written for the signed-in bank cards (quiz/browse mode, answer storage, the
+# public-output guard in build()) applies to them.
+MOCK_SIZES = (10, 25, 50, 100)   # the paper sizes offered, besides the whole bank
+MOCK_SIZE = 50                   # the size selected when the page opens
 
-def mock_card(data: dict, q: dict, no: int) -> str:
+
+def mock_card(data: dict, q: dict, no: int, paper: str) -> str:
+    """One question. `no` is its place in the bank: the number a reader without scripting
+    sees (exam.js renumbers the cards of a paper). `paper` is the id of the fixed paper the
+    question was published in; exam.js needs it to carry over an attempt saved under it."""
     chapter = data["chapters"][q["ch"]]
+    qid = esc(q["id"])
     options = "".join(
-        f'<label class="ex-mopt" data-key="{key}"><input type="radio" name="mq-{no}" value="{key}">'
+        f'<label class="ex-mopt" data-key="{key}"><input type="radio" name="mq-{qid}" value="{key}">'
         f'<span class="ex-opt-key">{key}</span><span class="ex-opt-text">{rich(text)}</span></label>'
         for key, text in q["options"].items()
     )
@@ -1348,7 +1355,8 @@ def mock_card(data: dict, q: dict, no: int) -> str:
     if data["by_chapter"].get(key) or key in data["notes"]:
         name = f'<a href="/exam/{slug(key)}">{name}</a>'
     return (
-        f'<div class="ex-mq" id="mq-{no}" data-mq="{esc(q["id"])}" data-book="{chapter["book"]}" data-answer="{q["answer"]}">'
+        f'<div class="ex-mq" id="mq-{qid}" data-mq="{qid}" data-paper="{esc(paper)}" '
+        f'data-book="{chapter["book"]}" data-answer="{q["answer"]}">'
         f'<div class="ex-q-head"><span class="ex-q-no">第 {no} 題</span></div>'
         f'<p class="ex-stem">{rich(q["stem"])}</p>'
         f'<fieldset class="ex-opts"><legend class="ex-sr">第 {no} 題的選項</legend>{options}</fieldset>'
@@ -1361,47 +1369,46 @@ def mock_card(data: dict, q: dict, no: int) -> str:
     )
 
 
-def mock_papers_nav(data: dict, no: int, label: str) -> str:
-    """Links to every paper. The paper being read is marked, not left out, so the row of
-    links is the same on every paper."""
-    links = "".join(
-        f'<a class="ex-cta" href="{mock_path(n)}" aria-current="page">第 {n} 回</a>' if n == no
-        else f'<a class="ex-cta ex-cta-alt" href="{mock_path(n)}">第 {n} 回</a>'
-        for n in range(1, len(data["mock"]) + 1)
-    )
-    return f'<nav class="ex-mock-papers" aria-label="{label}">{links}</nav>'
-
-
-def mock_page(data: dict, version: str, no: int = 1) -> str:
-    paper = data["mock"][no - 1]
-    papers = len(data["mock"])
-    path = mock_path(no)
-    rows = paper["questions"]
+def mock_page(data: dict, version: str) -> str:
+    rows = [(paper["id"], q) for paper in data["mock"] for q in paper["questions"]]
     total = len(rows)
-    per_book: dict[int, int] = defaultdict(int)
-    for q in rows:
-        per_book[data["chapters"][q["ch"]]["book"]] += 1
-    cards = "".join(mock_card(data, q, n) for n, q in enumerate(rows, 1))
+    books = {data["chapters"][q["ch"]]["book"] for _, q in rows}
+    cards = "".join(mock_card(data, q, n, paper) for n, (paper, q) in enumerate(rows, 1))
+    sizes = "".join(
+        f'<option value="{n}"{" selected" if n == MOCK_SIZE else ""}>{n} 題</option>'
+        for n in MOCK_SIZES if n < total
+    ) + f'<option value="0">全部（{total} 題）</option>'
+    # One row for every book in the bank; exam.js fills in the counts of the paper drawn
+    # and hides the books it has no question from.
     table = "".join(
         f'<tr data-book="{b["book"]}"><th scope="row">BCSC {b["book"]} {esc(b["title"])}</th>'
-        f'<td class="ex-num">{per_book[b["book"]]}</td><td class="ex-num" data-right></td></tr>'
-        for b in data["books"] if per_book.get(b["book"])
+        '<td class="ex-num" data-total></td><td class="ex-num" data-right></td></tr>'
+        for b in data["books"] if b["book"] in books
     )
     body = (
-        f'<p class="ex-kicker">模擬考</p><h1 class="ex-h1">{esc(paper["title"])}</h1>'
-        f'<p class="ex-lead">共 {total} 題單選題，由本站依考題在各冊的比例、題型與深度自編；'
+        '<p class="ex-kicker">模擬考</p><h1 class="ex-h1">自選題數／隨機出題</h1>'
+        f'<p class="ex-lead">題庫共 {total} 題單選題，由本站依考題在各冊的比例、題型與深度自編；'
         f"每一題都依 {esc(REFERENCE)} 的課本內容出題，並附逐選項詳解與課本頁碼。不用登入就能作答。</p>"
         '<p class="ex-meta">這些是自編的練習題，不是歷屆考題；歷屆考題在<a href="/exam/practice">考古卷</a>（需要登入）。'
-        f"模擬考共 {papers} 回、{mock_total(data)} 題，各回的題目不重複；題目與詳解仍會修訂。</p>"
-        f'{mock_papers_nav(data, no, "模擬考各回")}'
-        '<p class="ex-meta ex-mock-how">選下第一個答案時開始計時，只計算這一頁顯示在畫面上的時間；'
-        "交卷後顯示得分、各題的答案與詳解。作答內容只存在這台裝置的瀏覽器裡，中途離開再回來可以接著作答。</p>"
-        '<p class="ex-meta ex-mock-nojs">瀏覽器沒有啟用 JavaScript 時不能計時與計分；各題的答案與詳解可以直接展開來看。</p>'
-        '<div class="ex-exam-bar ex-mock-bar" data-mock-bar>'
+        "題目與詳解仍會修訂。</p>"
+        '<p class="ex-meta ex-mock-how">選好題數與順序後按「產生試卷並開始計時」，就從題庫抽題並開始計時，'
+        "只計算這一頁顯示在畫面上的時間；交卷後顯示得分、各題的答案與詳解。"
+        "試卷與作答內容只存在這台裝置的瀏覽器裡，中途離開再回來可以接著作答。</p>"
+        '<p class="ex-meta ex-mock-nojs">瀏覽器沒有啟用 JavaScript 時不能出題、計時與計分；'
+        "下面列出題庫的全部題目，各題的答案與詳解可以直接展開來看。</p>"
+        '<form class="ex-practice-form ex-mock-form" data-mock-form>'
+        '<fieldset class="ex-fieldset"><legend>題數</legend>'
+        f'<select name="ex-count" class="ex-select" aria-label="題數">{sizes}</select></fieldset>'
+        '<fieldset class="ex-fieldset"><legend>出題順序</legend>'
+        '<label class="ex-check"><input type="radio" name="ex-order" value="random" checked> 隨機</label>'
+        '<label class="ex-check"><input type="radio" name="ex-order" value="number"> 依序（從題庫第 1 題起）</label></fieldset>'
+        '<div class="ex-toolbar"><button type="button" class="ex-build">產生試卷並開始計時</button>'
+        '<span class="ex-build-note" aria-live="polite"></span></div></form>'
+        '<div class="ex-exam-bar ex-mock-bar" data-mock-bar hidden>'
         '<span class="ex-timer" aria-live="off">00:00</span>'
-        f'<span class="ex-mock-count">已作答 0 / {total}</span>'
+        '<span class="ex-mock-count"></span>'
         '<button type="button" class="ex-mock-finish" disabled>交卷並計分</button>'
-        '<button type="button" class="ex-mock-reset" hidden>重新作答</button>'
+        '<button type="button" class="ex-mock-reset">放棄這份試卷</button>'
         '<span class="ex-score" aria-live="polite"></span></div>'
         '<section class="ex-mock-result" data-mock-result aria-labelledby="ex-mock-result-h" hidden>'
         '<h2 class="ex-h2" id="ex-mock-result-h" tabindex="-1">成績</h2>'
@@ -1409,16 +1416,18 @@ def mock_page(data: dict, version: str, no: int = 1) -> str:
         '<table class="ex-rank ex-mock-table"><thead><tr><th scope="col">冊別</th><th scope="col">題數</th>'
         f'<th scope="col">答對</th></tr></thead><tbody>{table}</tbody></table>'
         '<p class="ex-meta ex-mock-missed"></p></section>'
-        f'<div class="ex-list" data-mock-paper="{esc(paper["id"])}">{cards}</div>'
-        f'{mock_papers_nav(data, no, "換一回作答")}'
+        '<div class="ex-list ex-mock-list" data-mock-list>'
+        '<p class="ex-pending">選好題數與順序後按「產生試卷並開始計時」。這個功能需要啟用 JavaScript。</p></div>'
+        '<section class="ex-mock-pool" aria-labelledby="ex-mock-pool-h">'
+        f'<h2 class="ex-h2" id="ex-mock-pool-h">題庫的全部題目（{total} 題）</h2>'
+        f'<div class="ex-list" data-mock-pool>{cards}</div></section>'
     )
-    crumbs = [("模擬考", mock_path(1))] + ([(f"第 {no} 回", path)] if no > 1 else [])
-    return page(path=path, title=f"眼科專科考試模擬考第 {no} 回：自編 {total} 題（免登入）",
-                description=f"眼科專科醫師考試模擬考第 {no} 回（共 {papers} 回）：依考題在各冊的比例、題型與深度自編 {total} 題單選題，"
-                            "不用登入即可計時作答、交卷計分，並對照逐選項詳解與 BCSC 2025–2026 課本頁碼。",
-                crumbs=crumbs, schema_type="WebPage", body=body, kind="mock",
+    return page(path="/exam/mock", title=f"眼科專科考試模擬考：自編 {total} 題，自選題數與順序（免登入）",
+                description=f"眼科專科醫師考試模擬考：依考題在各冊的比例、題型與深度自編 {total} 題單選題，"
+                            "可自選題數、隨機或依序出題，不用登入即可計時作答、交卷計分，並對照逐選項詳解與 BCSC 2025–2026 課本頁碼。",
+                crumbs=[("模擬考", "/exam/mock")], schema_type="WebPage", body=body, kind="mock",
                 # Indexed and in the sitemap: the owner read the pilot (2026-11-10) and said
-                # the papers that follow may be indexed too.
+                # the questions that follow may be indexed too.
                 robots="index,follow,max-image-preview:large", version=version)
 
 
@@ -1895,8 +1904,7 @@ def build(content_date: str | None = None) -> dict[str, str]:
             files[f"{slug(key)}.html"] = chapter_page(data, key, version)
     files["concepts.html"] = concepts_page(data, version)
     files["practice.html"] = practice_page(data, version)
-    for no in range(1, len(data["mock"]) + 1):
-        files["mock.html" if no == 1 else f"mock-{no}.html"] = mock_page(data, version, no)
+    files["mock.html"] = mock_page(data, version)
     files["review.html"] = review_page(version)
     files["progress.html"] = progress_page(version)
     files["search.html"] = search_page(version)
@@ -1921,8 +1929,7 @@ def build(content_date: str | None = None) -> dict[str, str]:
 def indexed_routes(data: dict | None = None) -> list[str]:
     """Indexable exam routes, for the sitemap generators (_gen_feeds.py, api/sitemap.js)."""
     data = data or load()
-    mock = [mock_path(no) for no in range(1, len(data["mock"]) + 1)]
-    return ["/exam"] + mock + [f"/exam/{slug(k)}" for k in data["chapters"] if indexable(k, data)]
+    return ["/exam", "/exam/mock"] + [f"/exam/{slug(k)}" for k in data["chapters"] if indexable(k, data)]
 
 
 def routes_module(data: dict) -> str:
@@ -2057,7 +2064,7 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-item-text{grid-column:3}
 .ex-item-refs{grid-column:3;display:flex;flex-wrap:wrap;row-gap:3px}
 .ex-warn{font-size:12.5px;color:#854d0e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin:8px 0 0}
-.ex-mq{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:14px 0;scroll-margin-top:130px}
+.ex-mq{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:14px 0;scroll-margin-top:var(--ex-mock-top,130px)}
 .ex-mopt{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:7px 10px;margin:5px 0;font-size:14px;line-height:1.7;cursor:pointer}
 .ex-mopt input{margin-top:6px}
 .ex-mopt.ex-picked{border-color:var(--ex-accent);background:var(--ex-soft)}
@@ -2072,16 +2079,16 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-mq.ex-done .ex-mq-exp{display:block}
 .ex-mq-exp summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ex-accent);margin-bottom:6px}
 .ex-mock-count{font-size:13px;color:var(--ink-2)}
-.ex-mock-papers{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
-.ex-mock-nojs{display:none}
-.ex-mock-result{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:2px 18px 14px;margin:14px 0;scroll-margin-top:130px}
+.ex-mock-form{scroll-margin-top:var(--ex-mock-top,130px)}
+.ex-mock-nojs,.ex-mock-pool{display:none}
+.ex-mock-result{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:2px 18px 14px;margin:14px 0;scroll-margin-top:var(--ex-mock-top,130px)}
 .ex-mock-result[hidden]{display:none}
 .ex-mock-result .ex-h2{font-size:18px;margin:14px 0 8px}
 .ex-mock-result .ex-h2:focus{outline:none}
 .ex-mock-total{font-size:15px;font-weight:700;margin:0 0 6px}
 .ex-mock-missed a{margin-right:6px;white-space:nowrap}
 .ex-mock-missed:empty{display:none}
-@media (scripting:none){.ex-mq-exp,.ex-mock-nojs{display:block}.ex-mock-bar,.ex-mock-how{display:none}}
+@media (scripting:none){.ex-mq-exp,.ex-mock-nojs,.ex-mock-pool{display:block}.ex-mock-bar,.ex-mock-how,.ex-mock-form,.ex-mock-list{display:none}}
 .ex-pending{font-size:13px;color:var(--muted)}
 .ex-unanswered .ex-opt{cursor:default}
 body.ex-quiz .ex-actions{display:flex}
