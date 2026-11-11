@@ -179,7 +179,7 @@ test('failed vitals script retry retains original width with only one successful
 
 test('prerender captures context only after activation and ignores duplicate version parameters', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  const requests = await fixture(page, { vitals: true, prerender: true, sharedQuery: '?v=20260742&v=20999999' });
+  const requests = await fixture(page, { vitals: true, prerender: true, sharedQuery: '?v=20260743&v=20999999' });
   await page.goto('https://' + HOST + ARTICLE);
   await expect.poll(() => page.evaluate(() => !!DN._engagementBound)).toBe(true);
   expect(requests.cwvEvents).toHaveLength(0);
