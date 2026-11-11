@@ -15,7 +15,8 @@ Sources (hand-maintained):
                                     the site-wide *.html page audits off them)
 
 Outputs (generated, never hand-edit):
-  exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/mock.html, exam/review.html,
+  exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/mock.html, exam/mock-<n>.html,
+  exam/review.html,
   exam/progress.html, exam/search.html, exam/login.html, exam/notes-data.json (public),
   exam/nav-search.json (public chapter headings for the site header search),
   api/_exam_bank.js (question bank; served only to signed-in readers by api/_exam_data.js (via api/exam/[op].js)),
@@ -276,10 +277,14 @@ def load() -> dict:
 
 # ---------------------------------------------------------------- mock exam data
 # Owner order 2026-11-10: a public, login-free mock exam of self-written questions that
-# follow the bank's chapter mix, question forms and depth (pilot: one paper). The paper is
-# data/exam/mock/pilot1.json. Unlike the bank it is rendered into a public page, so every
-# field is checked here, and no stem or option may repeat a bank stem or option.
-MOCK_PAPER = DATA / "mock" / "pilot1.json"
+# follow the bank's chapter mix, question forms and depth. Unlike the bank the papers are
+# rendered into public pages, so every field is checked here, and no stem or option may
+# repeat a bank stem or option.
+# Owner order 2026-11-11: 150 more questions, 200 in all, as four papers of 50; together
+# the papers follow the bank's share of each BCSC section and chapter.
+# The papers in page order. Paper 1 keeps the id and the address it was published with (a
+# reader's saved attempt is stored under the paper id); paper n is at /exam/mock-n.
+MOCK_FILES = [DATA / "mock" / f"{name}.json" for name in ("pilot1", "paper2", "paper3", "paper4")]
 MOCK_KEYS = ["A", "B", "C", "D"]
 MOCK_PAGES = re.compile(r"\d+(?:–\d+)?(?:, \d+(?:–\d+)?)*")
 MOCK_WATCH = "污腭杰"   # the Taiwan forms are 汙, 顎, 傑
@@ -303,20 +308,42 @@ def check_mock_text(label: str, text) -> None:
             raise SystemExit(f"{label}: unexpected letter {ch!r}")
 
 
-def load_mock(chapters: dict, questions: list) -> dict:
-    paper = json.loads(MOCK_PAPER.read_text(encoding="utf-8"))
+def mock_path(no: int) -> str:
+    """The address of paper `no` (from 1)."""
+    return "/exam/mock" if no == 1 else f"/exam/mock-{no}"
+
+
+def mock_total(data: dict) -> int:
+    return sum(len(paper["questions"]) for paper in data["mock"])
+
+
+def load_mock(chapters: dict, questions: list) -> list:
+    """The papers in page order. Question ids and stems are unique across all of them."""
+    bank = {mock_norm(text) for q in questions for text in (q["stem"], *q["options"].values())}
+    bank = {text for text in bank if len(text) >= MOCK_MIN}
+    books = {c["book"] for c in chapters.values()}
+    ids, stems, papers = set(), set(), []
+    for no, path in enumerate(MOCK_FILES, 1):
+        paper = load_mock_paper(path, no, chapters, bank, books, ids, stems)
+        if any(paper["id"] == other["id"] for other in papers):
+            raise SystemExit(f"mock paper {no}: repeated paper id")
+        papers.append(paper)
+    return papers
+
+
+def load_mock_paper(path: Path, no: int, chapters: dict, bank: set, books: set, ids: set, stems: set) -> dict:
+    """One paper; `ids` and `stems` collect those of the papers read so far."""
+    paper = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(paper, dict) or set(paper) != {"id", "title", "questions"}:
         raise SystemExit("mock paper: expected an object with id, title and questions")
     if not isinstance(paper["id"], str) or not re.fullmatch(r"[a-z0-9]{1,16}", paper["id"]):
         raise SystemExit("mock paper: bad id")
-    check_mock_text("mock paper title", paper["title"])
+    # A paper is named by its place: the links between the papers say 第 n 回.
+    if paper["title"] != f"模擬考第 {no} 回":
+        raise SystemExit(f"mock paper {no}: the title must be 模擬考第 {no} 回")
     rows = paper["questions"]
     if not isinstance(rows, list) or not rows:
         raise SystemExit("mock paper: no questions")
-    bank = {mock_norm(text) for q in questions for text in (q["stem"], *q["options"].values())}
-    bank = {text for text in bank if len(text) >= MOCK_MIN}
-    books = {c["book"] for c in chapters.values()}
-    ids, stems = set(), set()
     for q in rows:
         if not isinstance(q, dict) or not isinstance(q.get("id"), str):
             raise SystemExit("mock paper: every question needs an id")
@@ -1178,7 +1205,7 @@ def hub_page(data: dict, version: str) -> str:
         '<p class="ex-meta">課本重點整理公開；考題、答案與詳解需要登入才能看。</p>'
         '<p class="ex-practice"><a class="ex-cta" href="/exam/practice">考古卷：自選範圍／隨機出題</a> '
         # Owner order 2026-11-10: the public mock exam (self-written questions, no login).
-        f'<a class="ex-cta ex-cta-alt" href="/exam/mock">模擬考：自編 {len(data["mock"]["questions"])} 題（免登入）</a></p>'
+        f'<a class="ex-cta ex-cta-alt" href="/exam/mock">模擬考：自編 {mock_total(data)} 題（免登入）</a></p>'
         f"{HUB_SEARCH}"
         # 「繼續閱讀」 (as on the dermatology exam section, 2026-11-03): after the search block,
         # before the chapters. Filled by exam.js from this device's saved reading positions;
@@ -1292,9 +1319,10 @@ def practice_page(data: dict, version: str) -> str:
 
 
 # ---------------------------------------------------------------- mock exam page
-# /exam/mock is public and complete without the API: every question, its answer and its
-# explanation are in the page. The stylesheet keeps the explanations closed until the
-# paper is handed in (exam.js initMock: timer, grading, saved attempt); a browser without
+# A paper's page (/exam/mock, /exam/mock-n) is public and complete without the API: every
+# question, its answer and its explanation are in the page. The stylesheet keeps the
+# explanations closed until the paper is handed in (exam.js initMock: timer, grading,
+# saved attempt, kept per paper); a browser without
 # scripting shows them at once (@media (scripting:none)). The cards use their own classes
 # (ex-mq, ex-mopt) so nothing written for the signed-in bank cards (quiz/browse mode,
 # answer storage, the public-output guard in build()) applies to them.
@@ -1333,14 +1361,27 @@ def mock_card(data: dict, q: dict, no: int) -> str:
     )
 
 
-def mock_page(data: dict, version: str) -> str:
-    paper = data["mock"]
+def mock_papers_nav(data: dict, no: int, label: str) -> str:
+    """Links to every paper. The paper being read is marked, not left out, so the row of
+    links is the same on every paper."""
+    links = "".join(
+        f'<a class="ex-cta" href="{mock_path(n)}" aria-current="page">第 {n} 回</a>' if n == no
+        else f'<a class="ex-cta ex-cta-alt" href="{mock_path(n)}">第 {n} 回</a>'
+        for n in range(1, len(data["mock"]) + 1)
+    )
+    return f'<nav class="ex-mock-papers" aria-label="{label}">{links}</nav>'
+
+
+def mock_page(data: dict, version: str, no: int = 1) -> str:
+    paper = data["mock"][no - 1]
+    papers = len(data["mock"])
+    path = mock_path(no)
     rows = paper["questions"]
     total = len(rows)
     per_book: dict[int, int] = defaultdict(int)
     for q in rows:
         per_book[data["chapters"][q["ch"]]["book"]] += 1
-    cards = "".join(mock_card(data, q, no) for no, q in enumerate(rows, 1))
+    cards = "".join(mock_card(data, q, n) for n, q in enumerate(rows, 1))
     table = "".join(
         f'<tr data-book="{b["book"]}"><th scope="row">BCSC {b["book"]} {esc(b["title"])}</th>'
         f'<td class="ex-num">{per_book[b["book"]]}</td><td class="ex-num" data-right></td></tr>'
@@ -1351,7 +1392,8 @@ def mock_page(data: dict, version: str) -> str:
         f'<p class="ex-lead">共 {total} 題單選題，由本站依考題在各冊的比例、題型與深度自編；'
         f"每一題都依 {esc(REFERENCE)} 的課本內容出題，並附逐選項詳解與課本頁碼。不用登入就能作答。</p>"
         '<p class="ex-meta">這些是自編的練習題，不是歷屆考題；歷屆考題在<a href="/exam/practice">考古卷</a>（需要登入）。'
-        "試行版的題目與詳解仍會修訂。</p>"
+        f"模擬考共 {papers} 回、{mock_total(data)} 題，各回的題目不重複；題目與詳解仍會修訂。</p>"
+        f'{mock_papers_nav(data, no, "模擬考各回")}'
         '<p class="ex-meta ex-mock-how">選下第一個答案時開始計時，只計算這一頁顯示在畫面上的時間；'
         "交卷後顯示得分、各題的答案與詳解。作答內容只存在這台裝置的瀏覽器裡，中途離開再回來可以接著作答。</p>"
         '<p class="ex-meta ex-mock-nojs">瀏覽器沒有啟用 JavaScript 時不能計時與計分；各題的答案與詳解可以直接展開來看。</p>'
@@ -1368,12 +1410,15 @@ def mock_page(data: dict, version: str) -> str:
         f'<th scope="col">答對</th></tr></thead><tbody>{table}</tbody></table>'
         '<p class="ex-meta ex-mock-missed"></p></section>'
         f'<div class="ex-list" data-mock-paper="{esc(paper["id"])}">{cards}</div>'
+        f'{mock_papers_nav(data, no, "換一回作答")}'
     )
-    return page(path="/exam/mock", title=f"眼科專科考試模擬考：自編 {total} 題（免登入）",
-                description=f"眼科專科醫師考試模擬考（試行版）：依考題在各冊的比例、題型與深度自編 {total} 題單選題，"
+    crumbs = [("模擬考", mock_path(1))] + ([(f"第 {no} 回", path)] if no > 1 else [])
+    return page(path=path, title=f"眼科專科考試模擬考第 {no} 回：自編 {total} 題（免登入）",
+                description=f"眼科專科醫師考試模擬考第 {no} 回（共 {papers} 回）：依考題在各冊的比例、題型與深度自編 {total} 題單選題，"
                             "不用登入即可計時作答、交卷計分，並對照逐選項詳解與 BCSC 2025–2026 課本頁碼。",
-                crumbs=[("模擬考", "/exam/mock")], schema_type="WebPage", body=body, kind="mock",
-                # Indexed and in the sitemap since the owner read the pilot (2026-11-10).
+                crumbs=crumbs, schema_type="WebPage", body=body, kind="mock",
+                # Indexed and in the sitemap: the owner read the pilot (2026-11-10) and said
+                # the papers that follow may be indexed too.
                 robots="index,follow,max-image-preview:large", version=version)
 
 
@@ -1850,7 +1895,8 @@ def build(content_date: str | None = None) -> dict[str, str]:
             files[f"{slug(key)}.html"] = chapter_page(data, key, version)
     files["concepts.html"] = concepts_page(data, version)
     files["practice.html"] = practice_page(data, version)
-    files["mock.html"] = mock_page(data, version)
+    for no in range(1, len(data["mock"]) + 1):
+        files["mock.html" if no == 1 else f"mock-{no}.html"] = mock_page(data, version, no)
     files["review.html"] = review_page(version)
     files["progress.html"] = progress_page(version)
     files["search.html"] = search_page(version)
@@ -1875,7 +1921,8 @@ def build(content_date: str | None = None) -> dict[str, str]:
 def indexed_routes(data: dict | None = None) -> list[str]:
     """Indexable exam routes, for the sitemap generators (_gen_feeds.py, api/sitemap.js)."""
     data = data or load()
-    return ["/exam", "/exam/mock"] + [f"/exam/{slug(k)}" for k in data["chapters"] if indexable(k, data)]
+    mock = [mock_path(no) for no in range(1, len(data["mock"]) + 1)]
+    return ["/exam"] + mock + [f"/exam/{slug(k)}" for k in data["chapters"] if indexable(k, data)]
 
 
 def routes_module(data: dict) -> str:
@@ -2025,6 +2072,7 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-mq.ex-done .ex-mq-exp{display:block}
 .ex-mq-exp summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ex-accent);margin-bottom:6px}
 .ex-mock-count{font-size:13px;color:var(--ink-2)}
+.ex-mock-papers{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
 .ex-mock-nojs{display:none}
 .ex-mock-result{background:var(--ex-card);border:1px solid var(--border);border-radius:14px;padding:2px 18px 14px;margin:14px 0;scroll-margin-top:130px}
 .ex-mock-result[hidden]{display:none}

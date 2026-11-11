@@ -1,0 +1,3208 @@
+{
+ "id": "paper3",
+ "title": "模擬考第 3 回",
+ "questions": [
+  {
+   "id": "p3-01",
+   "ch": "1-3",
+   "stem": "關於糖尿病（diabetes mellitus）的分類與診斷，下列何者正確？",
+   "options": {
+    "A": "Type 1 DM 約占所有糖尿病病例的 90%",
+    "B": "LADA 帶有 β-cell 特異性自體抗體，比典型 type 2 DM 更早需要 insulin",
+    "C": "以 ketoacidosis 作為初始表現者，在年長病人比年輕病人更為常見",
+    "D": "Prediabetes 的診斷標準為 HbA1c 介於 6.5%–7.4%"
+   },
+   "answer": "B",
+   "summary": "LADA 屬於 type 1 DM 的亞型，帶有 β-cell 特異性自體抗體，比典型 type 2 DM 更早需要 insulin。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Type 1 DM 占所有病例不到 10%；約 90% 的糖尿病是 type 2 DM。",
+     "refs": [
+      [
+       1,
+       "45–46"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "正確",
+     "text": "Latent autoimmune diabetes in adults (LADA) 是 type 1 DM 的亞型，初期常不需 insulin，但帶有一種以上 β-cell 特異性自體抗體，需要 insulin 的時間比典型 type 2 DM 早。",
+     "refs": [
+      [
+       1,
+       "46"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "β 細胞在嬰幼兒破壞較快、成人較慢，因此以 ketoacidosis 為初始表現在年輕病人較常見，而非年長者。",
+     "refs": [
+      [
+       1,
+       "46"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Prediabetes 的 HbA1c 為 5.7%–6.4%；HbA1c ≥6.5% 已屬糖尿病的診斷條件之一。",
+     "refs": [
+      [
+       1,
+       "46"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-02",
+   "ch": "1-6",
+   "stem": "關於長期使用 amiodarone 病人的眼部副作用，下列何者正確？",
+   "options": {
+    "A": "Amiodarone optic neuropathy 典型為雙側、緩慢進展的視力喪失",
+    "B": "Corneal verticillata 只見於少數長期使用者，且常造成明顯視力下降",
+    "C": "其角膜沉積型態可與 chloroquine 造成者明確區分",
+    "D": "光敏反應造成的眼周皮膚變色通常呈黃色"
+   },
+   "answer": "A",
+   "summary": "Amiodarone 幾乎在所有長期使用者造成 corneal verticillata 但少有症狀；少見的 amiodarone optic neuropathy 典型為雙側、緩慢進展的視力喪失。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "正確",
+     "text": "Amiodarone optic neuropathy 少見，典型為雙側、緩慢進展的視力喪失，並有持續較久的視神經盤腫脹，停藥後數月內趨於穩定或消退。",
+     "refs": [
+      [
+       1,
+       "117"
+      ],
+      [
+       5,
+       "167"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "長期（數年）使用者幾乎全部都會出現 whorl-like 的 corneal verticillata，但視覺變化並不常見，有症狀時多為視物朦朧或燈光周圍色暈。",
+     "refs": [
+      [
+       1,
+       "117"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Amiodarone 造成的角膜沉積與 chloroquine 造成者無法區分。",
+     "refs": [
+      [
+       1,
+       "117"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Amiodarone 的光敏反應可使眼周皮膚變色，通常為石板灰色或藍色，而非黃色。",
+     "refs": [
+      [
+       1,
+       "117"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-03",
+   "ch": "1-12",
+   "stem": "有關抗精神病藥物（antipsychotic drugs）的副作用，下列何者正確？",
+   "options": {
+    "A": "Second-generation 藥物通常較 first-generation 更易造成 extrapyramidal 副作用",
+    "B": "Second-generation 藥物使用者發生或惡化糖尿病，部分與藥物造成的體重減輕有關",
+    "C": "其抗膽鹼作用可造成 secondary dry eye，並可能誘發 angle-closure glaucoma",
+    "D": "藥廠建議服用者 40 歲以前每 5 年、40 歲以後每 2 年接受一次眼科檢查"
+   },
+   "answer": "C",
+   "summary": "抗精神病藥物的抗膽鹼作用可導致 secondary dry eye、調節改變，並可能誘發 angle-closure glaucoma。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "較容易造成 extrapyramidal 類帕金森副作用與 tardive dyskinesia 的是 first-generation antipsychotics，而非 second-generation。",
+     "refs": [
+      [
+       1,
+       "211"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "體重增加是抗精神病藥物的副作用之一；second-generation 藥物使用者糖尿病的發生或惡化，可能部分與體重增加有關，而非體重減輕。",
+     "refs": [
+      [
+       1,
+       "211"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "正確",
+     "text": "抗精神病藥物的抗膽鹼作用可引起 secondary dry eye 與調節改變，也可能誘發 angle-closure glaucoma。",
+     "refs": [
+      [
+       1,
+       "211"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "藥廠建議服用者在 40 歲以前每 2 年做一次眼科檢查，40 歲以後則每年檢查。",
+     "refs": [
+      [
+       1,
+       "211"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-04",
+   "ch": "2-3",
+   "stem": "關於視交叉（optic chiasm）之後的視覺路徑纖維排列，下列敘述何者正確？",
+   "options": {
+    "A": "Inferonasal 的 extramacular fibers 在視交叉後部交叉，形成 Wilbrand knee",
+    "B": "每側 optic tract 由同側 temporal retina 與對側 nasal retina 的纖維組成",
+    "C": "LGN 的第 1、4、6 層接受同側（ipsilateral）視神經的軸突",
+    "D": "Meyer loop 由 LGN 的 superior fibers 組成，負責下方視野"
+   },
+   "answer": "B",
+   "summary": "每側 optic tract 含同側顳側視網膜（不交叉）與對側鼻側視網膜（交叉）的纖維。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Inferonasal extramacular 纖維是在視交叉前部交叉（Wilbrand knee）；在視交叉後部交叉的是 nasal macular 纖維。",
+     "refs": [
+      [
+       2,
+       "120"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "正確",
+     "text": "課本指出 optic tract 由同側 temporal retina 與對側 nasal retina 的纖維構成。",
+     "refs": [
+      [
+       2,
+       "120"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "LGN 第 1、4、6 層接受對側視神經的軸突；第 2、3、5 層才來自同側。",
+     "refs": [
+      [
+       2,
+       "120"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Meyer loop 由 LGN 的 inferior fibers 繞過側腦室顳角形成，負責上方視野；superior fibers 經頂葉、負責下方視野。",
+     "refs": [
+      [
+       2,
+       "120"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-05",
+   "ch": "2-9",
+   "stem": "有關房水（aqueous humor）的成分，下列敘述何者錯誤？",
+   "options": {
+    "A": "正常房水的蛋白質含量約 0.02 g/100 mL，遠低於血漿",
+    "B": "房水中 inositol 的濃度約為血漿的 10 倍",
+    "C": "房水中的氧氣主要來自經角膜擴散進入的大氣氧氣",
+    "D": "Glutathione 可將氧化後的 ascorbate 還原為具功能的形式"
+   },
+   "answer": "C",
+   "summary": "房水的氧氣來自睫狀體與虹膜的血液供應，經角膜進入的大氣氧氣通量可忽略。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "正常房水每 100 mL 約含 0.02 g 蛋白質，而血漿典型值約為 7 g/100 mL。",
+     "refs": [
+      [
+       2,
+       "288"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "對前段磷脂合成重要的 inositol，在房水中的濃度約是血漿的 10 倍。",
+     "refs": [
+      [
+       2,
+       "288"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "錯誤",
+     "text": "房水中的氧氣來自睫狀體與虹膜的血液供應；大氣氧氣經角膜進入的量微不足道，且房水氧分壓低於動脈血。",
+     "refs": [
+      [
+       2,
+       "291"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "Glutathione 能把氧化後的 ascorbate 轉回功能形式並清除過多的過氧化氫，以穩定房水的氧化還原狀態。",
+     "refs": [
+      [
+       2,
+       "288"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-06",
+   "ch": "2-12",
+   "stem": "有關感光細胞相關基因變異與遺傳性視網膜疾病的對應，下列何者錯誤？",
+   "options": {
+    "A": "GNAT1（rod transducin）顯性變異使 rods 持續退化，造成 autosomal dominant RP",
+    "B": "Rhodopsin 基因最常見的變異 P23H 使蛋白質無法正確摺疊，造成 autosomal dominant RP",
+    "C": "Guanylate cyclase 基因的 null variants 造成 Leber congenital amaurosis",
+    "D": "Cone cGMP-gated channel alpha-subunit 的同型合子變異造成 achromatopsia"
+   },
+   "answer": "A",
+   "summary": "GNAT1 顯性變異使 rod transducin 持續活化，造成不會退化的 Nougaret 型先天性靜止性夜盲，而非進行性 RP。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "錯誤",
+     "text": "教科書指出 GNAT1 顯性變異造成 Nougaret 型 congenital stationary night blindness；transducin 持續活化，但 rods 並不退化，屬靜止性夜盲而非進行性 RP。",
+     "refs": [
+      [
+       2,
+       "323"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "RHO 變異可造成 ADRP，其中最常見的是 P23H，使 rhodopsin 摺疊異常而堆積在 rough endoplasmic reticulum。",
+     "refs": [
+      [
+       2,
+       "323"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "Guanylate cyclase 基因的 null variants 會造成 LCA，一種兒童期體染色體隱性的 RP。",
+     "refs": [
+      [
+       2,
+       "323"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "Cone cGMP-gated channel alpha-subunit 的同型合子變異導致 achromatopsia，所有 cone 功能喪失。",
+     "refs": [
+      [
+       2,
+       "324"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-07",
+   "ch": "3-1",
+   "stem": "關於放大率（magnification）、共軛點（conjugate points）與節點（nodal points），下列敘述何者錯誤？",
+   "options": {
+    "A": "Transverse magnification 為負值，代表影像倒立，而非影像縮小",
+    "B": "間接眼底鏡改用 15D 集光鏡時，所見視網膜構造的相對深度約為使用 30D 集光鏡時的 4 倍",
+    "C": "透鏡的前焦點（F1）與後焦點（F2）彼此互為共軛點",
+    "D": "物側與像側介質折射率相同時，節點與主點（principal points）位置重合"
+   },
+   "answer": "C",
+   "summary": "前焦點與無限遠右方的點共軛、後焦點與無限遠左方的點共軛，前後焦點彼此並不共軛。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "課本說明 MT 為負代表影像上下顛倒，影像縮小則是由 MT 的絕對值小於 1 表示。",
+     "refs": [
+      [
+       3,
+       "81"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "眼球約 60D，15D、20D、30D 集光鏡的橫向放大率分別為 4、3、2 倍，軸向放大率比為 16:9:4，故 15D 所見深度約為 30D 的 4 倍。",
+     "refs": [
+      [
+       3,
+       "82–83"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "錯誤",
+     "text": "無限遠左方的點與後焦點 F2 共軛，前焦點 F1 則與無限遠右方的點共軛；課本明言前後焦點彼此不共軛。",
+     "refs": [
+      [
+       3,
+       "83"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "課本指出兩側介質折射率 n1 與 n2 相等時，節點與主點位置重合；節點特別適合用來計算影像大小。",
+     "refs": [
+      [
+       3,
+       "84"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-08",
+   "ch": "3-2",
+   "stem": "關於光的散射（scattering），下列敘述何者正確？",
+   "options": {
+    "A": "Rayleigh scattering 的程度與波長的平方成反比",
+    "B": "Mie scattering 由遠小於光波長的粒子造成，且強烈依賴波長",
+    "C": "Tyndall effect 是 Rayleigh、Mie 與 geometric scattering 之外的另一種獨立散射型態",
+    "D": "白內障造成對比下降與眩光，主要來自水晶體增加的前向 Mie scattering"
+   },
+   "answer": "D",
+   "summary": "隨年齡增加的眼內散射主要是白內障造成的前向 Mie scattering，使視網膜影像對比下降、眩光增加。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Rayleigh scattering 發生於遠小於波長的粒子，其程度與波長的四次方成反比，因此短波長的藍光遠較易散射。",
+     "refs": [
+      [
+       3,
+       "115"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Mie scattering 由大小與波長同一數量級的粒子造成，平均而言與波長關係不大，且偏向前向散射。",
+     "refs": [
+      [
+       3,
+       "115"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Tyndall effect 指光束因膠體懸浮粒子而變得可見（如前房發炎時），並不是另一種獨立的散射型態。",
+     "refs": [
+      [
+       3,
+       "115"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "正確",
+     "text": "健康年輕眼以 Rayleigh scattering 為主；隨年齡增加的散射主要是白內障所致 Mie scattering，其前向散射降低影像對比、增加眩光敏感度。",
+     "refs": [
+      [
+       3,
+       "116"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-09",
+   "ch": "3-5",
+   "stem": "兩眼不等視（anisometropia）的病患配戴雙焦眼鏡，看近時出現誘發性垂直偏斜（induced anisophoria）。關於其矯正，下列何者正確？",
+   "options": {
+    "A": "Slab-off（bicentric grinding）應施作於度數較正（more plus）的鏡片",
+    "B": "Reverse slab-off 是在度數較正鏡片的下半部加上 base-down 稜鏡",
+    "C": "使用 dissimilar segments 時，光學中心較低的子片應置於較近視的眼前",
+    "D": "所需稜鏡量應以 Prentice's rule 計算後開立，不必在閱讀位置實測"
+   },
+   "answer": "B",
+   "summary": "Slab-off 在較負鏡片的閱讀區去除 base-down 稜鏡，reverse slab-off 則在較正鏡片下半部加上 base-down 稜鏡。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Bicentric grinding 是在較負（或較不正）的鏡片做出兩個光學中心，以抵消其在閱讀位置的 base-down 效應。",
+     "refs": [
+      [
+       3,
+       "206"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "正確",
+     "text": "Reverse slab-off 是在較正鏡片的下半部加上 base-down 稜鏡；因塑膠鏡片多為模製，這是目前最常用的方法。",
+     "refs": [
+      [
+       3,
+       "206"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "光學中心較低的子片應放在較遠視（或較不近視）的眼前，以提供 base-down 稜鏡。",
+     "refs": [
+      [
+       3,
+       "206"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "病患可能已部分適應 anisophoria，故處方稜鏡量應在閱讀位置實際測量，而非僅靠計算。",
+     "refs": [
+      [
+       3,
+       "206"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-10",
+   "ch": "4-4",
+   "stem": "有關結膜 squamous papilloma，下列敘述何者正確？",
+   "options": {
+    "A": "Pedunculated papilloma 好發於老年人的角膜緣（limbus）",
+    "B": "Sessile papilloma 主要與 HPV 6、11 型相關",
+    "C": "Sessile papilloma 組織學上具有明顯的指狀突起（fingerlike projections）",
+    "D": "Sessile papilloma 出現 leukoplakia 時應警覺惡性轉變"
+   },
+   "answer": "D",
+   "summary": "Pedunculated papilloma 多見於兒童與年輕人、與 HPV 6/11 相關；sessile papilloma 多見於成人角膜緣、與 HPV 16/18 相關，並有惡性轉變的警訊。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Pedunculated papilloma 最常見於兒童與年輕成人，好發於 caruncle、plica semilunaris 或穹窿結膜；位於角膜緣、多見於成人的是 sessile 型。",
+     "refs": [
+      [
+       4,
+       "71"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Sessile papilloma 與 HPV 16、18 型相關，與鱗狀上皮惡性腫瘤的亞型相同；HPV 6、11 型則是 pedunculated papilloma 的相關亞型。",
+     "refs": [
+      [
+       4,
+       "71"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Sessile papilloma 基底寬廣，缺乏 pedunculated 型那種明顯的指狀突起。",
+     "refs": [
+      [
+       4,
+       "71"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "正確",
+     "text": "課本列出 leukoplakia（角化白斑）、發炎、異常血管與角膜侵犯為 sessile papilloma 惡性轉變的臨床警訊。",
+     "refs": [
+      [
+       4,
+       "71"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-11",
+   "ch": "4-13",
+   "stem": "有關 nonspecific orbital inflammation（NSOI，orbital pseudotumor），下列敘述何者錯誤？",
+   "options": {
+    "A": "約佔眼窩病灶的 5%，兒童與成人皆可發生",
+    "B": "臨床上通常起病緩慢，且病人多無疼痛",
+    "C": "早期以混合性發炎細胞浸潤為主，晚期則以纖維化為主",
+    "D": "可藉免疫表現型或分子基因分析，依淋巴球為多株或單株與淋巴瘤區分"
+   },
+   "answer": "B",
+   "summary": "NSOI 是無明確病因、類似腫瘤的眼窩發炎，典型為急性發作且伴疼痛，病理由早期混合性發炎演進為晚期纖維化。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "NSOI 約佔眼窩病灶的 5%，可侵犯兒童與成人。",
+     "refs": [
+      [
+       4,
+       "270"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "錯誤",
+     "text": "NSOI 起病常為突然，病人通常會訴說疼痛，並非緩慢無痛。",
+     "refs": [
+      [
+       4,
+       "270"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "早期以嗜酸性球、嗜中性球、漿細胞、淋巴球與組織球的混合發炎為主，晚期則以纖維化為主並可包覆眼外肌與視神經。",
+     "refs": [
+      [
+       4,
+       "270"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "免疫表現型與分子基因分析可依浸潤淋巴球為多株（NSOI）或單株（淋巴瘤）加以區分。",
+     "refs": [
+      [
+       4,
+       "270"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-12",
+   "ch": "4-19",
+   "stem": "有關 primary uveal lymphoma 的敘述，下列何者正確？",
+   "options": {
+    "A": "多屬高惡性度的 diffuse large B-cell lymphoma，存活預後差",
+    "B": "B-scan 上新月形、acoustically hollow 的鞏膜外延伸為其特徵性表現",
+    "C": "黃白色浸潤病灶位於 RPE 與 Bruch membrane 之間，而非脈絡膜內",
+    "D": "目前治療以眼球摘除術為首選"
+   },
+   "answer": "B",
+   "summary": "Primary uveal lymphoma 多為低惡性度 extranodal marginal zone B-cell lymphoma，B-scan 可見新月形 acoustically hollow 鞏膜外延伸，預後極佳，現今治療強調保留眼球，早期低劑量分次 EBRT 即可能達到根治。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Uveal lymphoma 多為低惡性度的 extranodal marginal zone B-cell lymphoma，存活預後極佳；高惡性度 DLBCL 是 PVRL 的特點。",
+     "refs": [
+      [
+       4,
+       "391"
+      ],
+      [
+       4,
+       "393–394"
+      ],
+      [
+       4,
+       "396"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "正確",
+     "text": "B-scan 是評估 choroidal lymphoma 的首選檢查，新月形、聲學中空的鞏膜外延伸被視為 uveal lymphoma 的 pathognomonic 表現。",
+     "refs": [
+      [
+       4,
+       "394–395"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "位於 RPE 與 Bruch membrane 之間的是 PVRL 的病灶；uveal lymphoma 的多發乳黃色病灶位於脈絡膜。",
+     "refs": [
+      [
+       4,
+       "394"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "過去多以眼球摘除處理，現今強調保留眼球與視力，早期低劑量分次 EBRT 即可能達到根治。",
+     "refs": [
+      [
+       4,
+       "396"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-13",
+   "ch": "5-6",
+   "stem": "有關視神經鞘腦膜瘤（optic nerve sheath meningioma, ONSM），下列敘述何者正確？",
+   "options": {
+    "A": "大多數為雙側發生，單側者僅約 5%",
+    "B": "好發於兒童，且兒童的病程較成人緩和、治療後較少復發",
+    "C": "侵犯眼窩的 meningioma 大多數為原發於視神經鞘的 ONSM，少數才由顱內經 optic canal 延伸而來",
+    "D": "Stereotactic fractionated radiation therapy 為 ONSM 的首選治療"
+   },
+   "answer": "D",
+   "summary": "ONSM 約 95% 為單側、多見於中年女性，stereotactic fractionated radiation therapy 是首選治療，最多約 95% 病人視力可穩定或改善。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "課本指出約 95% 的 ONSM 為單側，雙側者才是少數。",
+     "refs": [
+      [
+       5,
+       "154"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "ONSM 多見於中年女性，兒童少見；兒童的 ONSM 反而可能較具侵襲性，視力惡化較快、治療後較常復發，需更密集追蹤。",
+     "refs": [
+      [
+       5,
+       "154"
+      ],
+      [
+       5,
+       "156"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "侵犯眼窩的 meningioma 多數是由顱內經視神經管向前延伸而來，真正原發的 ONSM 只佔所有 meningioma 的 1%–2%。",
+     "refs": [
+      [
+       5,
+       "154"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "正確",
+     "text": "Stereotactic fractionated radiation therapy 可使最多約 95% 病人視力穩定或改善，是 ONSM 的首選治療；但應在診斷時立即放療或待確認惡化後再做仍未定論，手術則因易傷及視神經血供而通常不建議。",
+     "refs": [
+      [
+       5,
+       "155"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-14",
+   "ch": "5-11",
+   "stem": "有關第四對腦神經麻痺（CN IV palsy），下列敘述何者錯誤？",
+   "options": {
+    "A": "CN IV 的 nuclear 或 fascicular lesion 會造成對側 superior oblique 無力",
+    "B": "Skew deviation 可模擬 CN IV palsy 的 3-step test 結果，但其上斜視眼常呈內旋（incyclotorsion）",
+    "C": "長期存在的 CN IV palsy 患者，垂直融像幅度（vertical fusional amplitude）相對較大",
+    "D": "由坐姿改為仰臥時，CN IV palsy 的上斜視角度會明顯減小，可藉此與 skew deviation 區別"
+   },
+   "answer": "D",
+   "summary": "坐姿改仰臥可使 skew deviation 的上斜視減小，但對 CN IV palsy 幾乎沒有影響。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "CN IV 神經束在中腦內走行很短，核或神經束病灶臨床上無法區分，兩者都造成對側 superior oblique 無力。",
+     "refs": [
+      [
+       5,
+       "241"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "Skew deviation 偶可在 3-step test 上類似 CN IV palsy，但其上斜視眼多為內旋，不同於 CN IV palsy 的外旋。",
+     "refs": [
+      [
+       5,
+       "242"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "長期的 CN IV palsy 患者垂直融像幅度相對較大（>3Δ），可作為慢性病程的線索。",
+     "refs": [
+      [
+       5,
+       "243"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "錯誤",
+     "text": "仰臥可能使 skew deviation 的上斜視減小，CN IV palsy 則幾乎不受體位影響；敘述把兩者對調了。",
+     "refs": [
+      [
+       5,
+       "242"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-15",
+   "ch": "5-13",
+   "stem": "2 歲幼兒出現持續、不自主、多方向的快速眼球掃視運動（opsoclonus），合併肌躍（myoclonus）與步態不穩，最需優先排除下列何種腫瘤？",
+   "options": {
+    "A": "Optic pathway glioma",
+    "B": "Vestibular schwannoma (acoustic neuroma)",
+    "C": "Craniopharyngioma",
+    "D": "Neuroblastoma"
+   },
+   "answer": "D",
+   "summary": "兒童的 ocular flutter／opsoclonus 首先要考慮 paraneoplastic 的 neuroblastoma。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Optic pathway glioma 的線索是嬰兒單眼垂直眼震合併 RAPD 與視神經萎縮，或類似 spasmus nutans 的眼震，而非 opsoclonus。",
+     "refs": [
+      [
+       5,
+       "291"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Vestibular schwannoma 等大型 cerebellopontine angle 腫瘤造成的是 Bruns nystagmus。",
+     "refs": [
+      [
+       5,
+       "296"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Craniopharyngioma 等 parasellar-diencephalic 腫瘤是 see-saw nystagmus 的原因之一。",
+     "refs": [
+      [
+       5,
+       "302–303"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "正確",
+     "text": "兒童 opsoclonus／ocular flutter 的檢查重點是 neuroblastoma（或其他神經嵴來源腫瘤）及其 paraneoplastic 症候群。",
+     "refs": [
+      [
+       5,
+       "305"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-16",
+   "ch": "5-16",
+   "stem": "關於三叉自主神經頭痛（trigeminal autonomic cephalalgias, TACs），下列敘述何者錯誤？",
+   "options": {
+    "A": "Paroxysmal hemicrania 的疼痛通常無法以 indomethacin 緩解",
+    "B": "Hemicrania continua 為持續性單側頭痛，強度起伏但不完全消失，至少持續 3 個月",
+    "C": "SUNCT 為單側眼窩或顳部劇痛，持續數秒至數分鐘，伴同側結膜充血與流淚",
+    "D": "Cluster headache 與 paroxysmal hemicrania 病人在發作間期檢查可能有永久性 Horner syndrome"
+   },
+   "answer": "A",
+   "summary": "Paroxysmal hemicrania 與 hemicrania continua 的特點是對 indomethacin 反應良好。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "錯誤",
+     "text": "課本指出給予 indomethacin 後 paroxysmal hemicrania 的頭痛會戲劇性緩解，表 16-2 亦列 indomethacin 可終止疼痛。",
+     "refs": [
+      [
+       5,
+       "365"
+      ],
+      [
+       5,
+       "371"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "Hemicrania continua 為單側持續頭痛，強度起伏而不會完全消失，病程至少 3 個月，且同樣對 indomethacin 有反應。",
+     "refs": [
+      [
+       5,
+       "371"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "SUN 頭痛為單側眼窩或顳部劇烈疼痛，持續數秒至數分鐘；伴同側結膜充血與流淚者稱 SUNCT，無此二者但有其他自主神經徵象者稱 SUNA。",
+     "refs": [
+      [
+       5,
+       "371"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "表 16-2 列出 cluster headache 與 paroxysmal hemicrania 的發作間期檢查為正常，或可有永久性 Horner syndrome。",
+     "refs": [
+      [
+       5,
+       "365"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-17",
+   "ch": "6-4",
+   "stem": "關於單眼固視症候群（monofixation syndrome）的敘述，下列何者正確？",
+   "options": {
+    "A": "其定義特徵為具有雙中心窩融像（bifoveal fusion），但缺乏周邊融像（peripheral fusion）",
+    "B": "只要測得任何程度的粗略立體視（gross stereopsis），即可確認有周邊融像存在",
+    "C": "所合併的小角度斜視以外斜視（exotropia）最常見",
+    "D": "患者仍可具有精細立體視（fine stereopsis）"
+   },
+   "answer": "B",
+   "summary": "單眼固視症候群是有周邊融像、但因中央暗點而缺乏雙中心窩融像；任何粗略立體視都代表周邊融像存在。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "正好相反：此症候群的特徵是有周邊融像，但因中央暗點而沒有雙中心窩融像。",
+     "refs": [
+      [
+       6,
+       "54"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "正確",
+     "text": "評估此症候群時，任何程度的粗略立體視都足以證明周邊融像存在。",
+     "refs": [
+      [
+       6,
+       "54"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "患者常有小於或等於 8Δ 的斜視，其中最常見的是內斜視，外斜視或上斜視較少。",
+     "refs": [
+      [
+       6,
+       "54"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "精細立體視只出現在雙中心窩固視的人；單眼固視症候群患者立體視存在但下降。",
+     "refs": [
+      [
+       6,
+       "54"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-18",
+   "ch": "6-7",
+   "stem": "關於正常 AC/A 比的屈光性調節型內斜視（refractive accommodative esotropia），下列敘述何者正確？",
+   "options": {
+    "A": "屬先天性內斜視，多在出生時即已出現",
+    "B": "患者的平均遠視度數約為 +1.00 D",
+    "C": "成因包括未矯正遠視與融像性開散不足",
+    "D": "近距離的內斜角度通常比遠距離大 10Δ 以上"
+   },
+   "answer": "C",
+   "summary": "屈光性調節型內斜視由未矯正遠視、調節性輻輳與融像性開散不足三者造成，遠近斜視角度大致相同。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "所有調節型內斜視都是後天的，發病年齡約 4 個月至 7 歲，典型為 2–3 歲。",
+     "refs": [
+      [
+       6,
+       "92"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "屈光性調節型內斜視患者平均約有 +4.00 D 遠視；高 AC/A 比型的平均度數才較低（約 +2.25 D）。",
+     "refs": [
+      [
+       6,
+       "93"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "正確",
+     "text": "未矯正遠視迫使病人調節，伴隨調節性輻輳，若融像性開散（fusional divergence）不足以代償便出現內斜視。",
+     "refs": [
+      [
+       6,
+       "93"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "此型遠近斜視角度大致相同（一般 20–30Δ）；近距離大 10Δ 以上是高 AC/A 比調節型內斜視的特徵。",
+     "refs": [
+      [
+       6,
+       "93"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-19",
+   "ch": "6-13",
+   "stem": "關於斜視手術的併發症，下列何者錯誤？",
+   "options": {
+    "A": "前段缺血（anterior segment ischemia）最早的徵象是前房細胞與閃光（cells and flare）",
+    "B": "下直肌徙後（recession）可能將下眼瞼往下拉，露出角膜緣下方的鞏膜",
+    "C": "下斜肌前移術（inferior oblique anteriorization）可能造成外展位上抬受限（anti-elevation syndrome）",
+    "D": "角膜小凹（delle）較常發生於穹窿部切口（fornix approach）的手術"
+   },
+   "answer": "D",
+   "summary": "Dellen 因角膜緣旁結膜隆起妨礙潤濕而生，較常見於角膜緣切口（limbal approach）手術。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "前段缺血最早出現前房細胞與閃光，嚴重時才有角膜水腫與瞳孔不規則。",
+     "refs": [
+      [
+       6,
+       "183"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "下直肌徙後會牽動下眼瞼下移而露出下方鞏膜；切除（前拉）則使下眼瞼上移。",
+     "refs": [
+      [
+       6,
+       "186"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "下斜肌前移可能使外展位上抬受限，即 anti-elevation syndrome；外側角接在 spiral of Tillaux 前方時風險較高。",
+     "refs": [
+      [
+       6,
+       "186"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "錯誤",
+     "text": "應為角膜緣切口（limbal approach）較易發生 dellen，並非穹窿部切口；通常會隨時間癒合。",
+     "refs": [
+      [
+       6,
+       "184"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-20",
+   "ch": "6-19",
+   "stem": "有關兒童過敏性眼疾（ocular allergy）的治療與追蹤，下列何者錯誤？",
+   "options": {
+    "A": "Mast-cell stabilizer 應在整個過敏季節持續使用，以發揮最大效果",
+    "B": "Palpebral VKC 的嚴重 giant papillae 通常需手術切除",
+    "C": "用於嚴重 atopic dermatitis 的 dupilumab 可引起嚴重眼表疾病，易被誤認為過敏惡化",
+    "D": "過敏控制不佳的兒童常揉眼，罹患 keratoconus 的風險增加"
+   },
+   "answer": "B",
+   "summary": "兒童過敏性眼疾以藥物治療為主，嚴重 giant papillae 對藥物反應良好，手術僅用於 shield ulcer 後的 corneal plaque 等少數情況。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "教科書指出 mast-cell stabilizer 需在過敏季節中持續使用，才能累積並發揮最大效果。",
+     "refs": [
+      [
+       6,
+       "264"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "錯誤",
+     "text": "教科書指出即使是嚴重的 giant papillae 對藥物治療反應很好，通常不需切除；需手術移除的例外是 shield ulcer 後形成的 corneal plaque。",
+     "refs": [
+      [
+       6,
+       "265"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "Dupilumab（interleukin 4 與 13 抑制劑）用於嚴重 atopic dermatitis，可能造成嚴重眼表疾病，並可能被誤認為眼部過敏惡化。",
+     "refs": [
+      [
+       6,
+       "265"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "過敏未控制的兒童常慢性揉眼，因而有發生 keratoconus 的風險，應考慮以角膜地形圖或斷層攝影追蹤。",
+     "refs": [
+      [
+       6,
+       "265"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-21",
+   "ch": "6-26",
+   "stem": "有關兒童外傷性前房出血（traumatic hyphema）的處置，下列何者錯誤？",
+   "options": {
+    "A": "再出血（rebleeding）通常發生在受傷後 24 小時內",
+    "B": "應避免使用含 aspirin 的藥物及 NSAID，以免增加再出血風險",
+    "C": "有 sickle cell trait 或 sickle cell disease 的兒童，可能需在較低眼壓閾值下提早清除血塊",
+    "D": "鑑別診斷需考慮 retinoblastoma 及 iris juvenile xanthogranuloma 等自發性原因"
+   },
+   "answer": "A",
+   "summary": "外傷性前房出血的再出血多發生於受傷後 3–7 天，源於血塊溶解與收縮。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "錯誤",
+     "text": "教科書指出再出血通常發生在受傷後 3–7 天，因血塊溶解與收縮所致，而非 24 小時內。",
+     "refs": [
+      [
+       6,
+       "394"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "含 aspirin 的藥物與 NSAID 會增加再出血風險，應避免使用。",
+     "refs": [
+      [
+       6,
+       "394"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "Sickle cell 兒童前房內可能發生鐮狀化，使眼壓上升並延緩血液吸收；因有視神經梗塞風險，可能需更早且在較低眼壓閾值下清除血塊。",
+     "refs": [
+      [
+       6,
+       "394"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "前房出血除外傷外，需考慮 retinoblastoma、虹膜 juvenile xanthogranuloma 及血液疾病等少見自發性原因。",
+     "refs": [
+      [
+       6,
+       "393"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-22",
+   "ch": "7-3",
+   "stem": "有關 dermolipoma（lipodermoid）的敘述，下列何者錯誤？",
+   "options": {
+    "A": "主要由成熟脂肪組織構成，通常位於眼球外側表面的結膜內及結膜下",
+    "B": "病灶表面可能長有細毛而刺激病人",
+    "C": "若需手術，應將病灶連同其深部延伸部分一併完整切除",
+    "D": "手術時須避免傷及淚腺導管、extraocular muscles 及 levator aponeurosis"
+   },
+   "answer": "C",
+   "summary": "Dermolipoma 通常不需治療；過大或影響外觀時只切除前方可見部分，並保留結膜、避免傷及周邊構造。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "Dermolipoma 是以成熟脂肪組織為主的實質腫瘤，常位於眼球外側表面的結膜內與結膜下。",
+     "refs": [
+      [
+       7,
+       "45"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "其表面可有細毛，可能刺激病人。",
+     "refs": [
+      [
+       7,
+       "45"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "錯誤",
+     "text": "病灶通常不需治療；若過大或影響外觀，只切除前方可見的部分並盡量保留表面結膜，而非連深部延伸一併完整切除。",
+     "refs": [
+      [
+       7,
+       "45"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "其深部可延伸至提上眼瞼肌腱膜或外眼肌附近，手術時須小心避免傷及淚腺導管、外眼肌與 levator aponeurosis。",
+     "refs": [
+      [
+       7,
+       "45"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-23",
+   "ch": "7-6",
+   "stem": "有關眼眶底（orbital floor）以外的其他眼眶與顏面骨折，下列敘述何者錯誤？",
+   "options": {
+    "A": "Orbital roof fracture 較常見於成人，因其 frontal sinus 已完全氣化",
+    "B": "Le Fort fracture 依定義皆向後延伸穿過 pterygoid plates",
+    "C": "ZMC fracture 又稱 quadripod fracture，zygoma 通常在與鄰近骨頭的 4 個連接處斷裂",
+    "D": "Naso-orbital-ethmoidal (NOE) fracture 典型表現為鼻樑塌陷與 traumatic telecanthus"
+   },
+   "answer": "A",
+   "summary": "眼眶頂骨折好發於額竇尚未氣化的幼童，成人的額竇反而能吸收額部撞擊力。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "錯誤",
+     "text": "課本指出眼眶頂骨折較常見於額竇尚未氣化的幼童；年長者的額竇可分散撞擊力、阻止骨折沿眼眶頂延伸。",
+     "refs": [
+      [
+       7,
+       "124"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "Le Fort 骨折涉及上顎骨，依定義三型都向後延伸穿過 pterygoid plates。",
+     "refs": [
+      [
+       7,
+       "126"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "ZMC 骨折又稱 quadripod fracture，因 zygoma 通常在與鄰近骨頭的 4 個連接處斷裂。",
+     "refs": [
+      [
+       7,
+       "122"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "NOE 骨折多因臉部撞擊堅硬表面造成，病人典型有鼻樑塌陷與外傷性內眥間距增寬。",
+     "refs": [
+      [
+       7,
+       "124"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-24",
+   "ch": "7-10",
+   "stem": "有關眼瞼皮膚黑色素瘤（cutaneous melanoma），下列敘述何者正確？",
+   "options": {
+    "A": "侵犯眼瞼最常見的型態為 superficial spreading melanoma 與 acrolentiginous melanoma",
+    "B": "Lentigo maligna melanoma 侵犯眼瞼，通常是由顴部（malar）區病灶延伸而來",
+    "C": "Nodular melanoma 初期為水平生長期，故診斷時多仍侷限於表淺",
+    "D": "第一個獲准用於 melanoma 的 checkpoint inhibitor 是 nivolumab"
+   },
+   "answer": "B",
+   "summary": "Lentigo maligna melanoma 是眼瞼最常見的黑色素瘤型態之一，通常由顴部病灶延伸侵犯眼瞼。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "眼瞼最常受侵犯的型態是 lentigo maligna melanoma 或 nodular melanoma，而非 superficial spreading 或 acrolentiginous 型。",
+     "refs": [
+      [
+       7,
+       "225"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "正確",
+     "text": "課本指出 lentigo maligna melanoma 侵犯眼瞼，通常是由顴部病灶延伸而來，色素也可越過瞼緣延伸到結膜表面。",
+     "refs": [
+      [
+       7,
+       "225"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Nodular melanoma 一開始就以垂直侵犯生長期表現，因此診斷時往往已侵犯較深。",
+     "refs": [
+      [
+       7,
+       "226"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "第一個獲准的 checkpoint inhibitor 是 ipilimumab；之後才有針對 PD-1 的 pembrolizumab 與 nivolumab。",
+     "refs": [
+      [
+       7,
+       "227"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-25",
+   "ch": "8-3",
+   "stem": "關於瞼板腺功能障礙（MGD）的藥物治療，下列何者錯誤？",
+   "options": {
+    "A": "Topical azithromycin 為親脂性抗生素，可減少細菌 lipase 產生並改善 meibomian lipid 組成",
+    "B": "Oral tetracycline 類藥物的副作用包括光敏感（photosensitization）及降低口服避孕藥效果",
+    "C": "Tetracycline 可與食物同服且每日一次即可，故臨床上比 doxycycline 更常使用",
+    "D": "Minocycline 長期使用可沉積於皮膚與軟骨，造成類似瘀青的紫色變色"
+   },
+   "answer": "C",
+   "summary": "Tetracycline 需空腹服用且給藥次數較多，因此治療 MGD 時臨床上多改用 doxycycline 或 minocycline。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "課本指出 topical azithromycin 屬親脂性抗生素，能降低細菌 lipase 的產生並改善瞼板腺脂質組成，黏稠度高也延長接觸時間。",
+     "refs": [
+      [
+       8,
+       "68–69"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "口服 tetracycline 類的副作用列有光敏感（可致嚴重曬傷）、腸胃不適，以及降低口服避孕藥效果等。",
+     "refs": [
+      [
+       8,
+       "69"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "錯誤",
+     "text": "課本說明 tetracycline 須空腹服用且需較頻繁給藥，正因如此臨床上通常使用 doxycycline 與 minocycline。",
+     "refs": [
+      [
+       8,
+       "69"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "Minocycline 沉積在組織中可使皮膚與軟骨呈紫色變色，外觀像瘀青，是課本列出的副作用之一。",
+     "refs": [
+      [
+       8,
+       "70"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-26",
+   "ch": "8-6",
+   "stem": "關於角膜弓（corneal arcus），下列敘述何者正確？",
+   "options": {
+    "A": "脂質主要沉積於角膜上皮基底層，且與角膜緣之間沒有透明區",
+    "B": "通常最先出現在角膜鼻側與顳側，且以鼻顳側最為濃密",
+    "C": "單側 arcus 罕見，可與對側 carotid artery disease 有關",
+    "D": "40 歲以下出現 arcus 多屬正常老化，不需進一步檢查或轉介"
+   },
+   "answer": "C",
+   "summary": "單側角膜弓少見，與對側頸動脈疾病或眼球低眼壓相關。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Arcus 是周邊角膜基質的脂質沉積，集中在靠近 Bowman layer 與靠近 Descemet membrane 兩個層次，而非上皮；arcus 與角膜緣之間有一圈相對透明的區域。",
+     "refs": [
+      [
+       8,
+       "147"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Arcus 由角膜下方與上方開始，最後才擴及整圈，因此以上下方較濃密，而非鼻顳側。",
+     "refs": [
+      [
+       8,
+       "147"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "正確",
+     "text": "課本指出單側 corneal arcus 是罕見情況，與對側 carotid artery disease 或 ocular hypotony 有關。",
+     "refs": [
+      [
+       8,
+       "148"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "40 歲以下出現 arcus 可能代表 hyperlipoproteinemia 合併血中膽固醇升高，建議適當檢查或轉介。",
+     "refs": [
+      [
+       8,
+       "147"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-27",
+   "ch": "8-9",
+   "stem": "關於圓錐角膜（keratoconus）的臨床徵象，下列敘述何者正確？",
+   "options": {
+    "A": "Fleischer ring 是鐵質沉積於 cone 基部的 basal epithelium",
+    "B": "Munson sign 是向上注視（upgaze）時上眼瞼輪廓的變形",
+    "C": "Vogt striae 位於前基質（anterior stroma），外加壓力時更明顯",
+    "D": "Retinoscopy 的 scissoring reflex 通常到疾病晚期才出現"
+   },
+   "answer": "A",
+   "summary": "圓錐角膜的 Fleischer ring 是 cone 基部 basal epithelium 的鐵沉積；各徵象的位置與出現時機需分清楚。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "正確",
+     "text": "Fleischer ring 為 cone 基部 basal epithelium 內的鐵沉積，呈棕色環，隨病程進展變窄且更清楚；病理上也見到相同位置的鐵沉積。",
+     "refs": [
+      [
+       8,
+       "216"
+      ],
+      [
+       8,
+       "222"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Munson sign 是向下注視（downgaze）時下眼瞼輪廓向下偏折，屬於晚期且非特異的徵象。",
+     "refs": [
+      [
+       8,
+       "216"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Vogt striae 是 cone 頂端 posterior stroma 的細平行線，外加壓力時可能消失，而非更明顯。",
+     "refs": [
+      [
+       8,
+       "216"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Scissoring reflex 是早期但非特異的徵象，常與不規則散光相關。",
+     "refs": [
+      [
+       8,
+       "216"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-28",
+   "ch": "8-12",
+   "stem": "有關黴菌性角膜炎（fungal keratitis），下列敘述何者錯誤？",
+   "options": {
+    "A": "角膜受植物性物質造成的外傷是最主要的危險因子",
+    "B": "相較於細菌性角膜炎，早期發炎表現較少，就診時可能幾乎沒有結膜充血",
+    "C": "Confocal microscopy 可偵測角膜內的分枝狀菌絲與隔膜（septa）",
+    "D": "Corneal crosslinking 對深層基質（deep stromal）黴菌感染是有效的輔助治療"
+   },
+   "answer": "D",
+   "summary": "黴菌性角膜炎以植物性外傷為首要危險因子、早期發炎表現少，confocal microscopy 可見菌絲；corneal crosslinking 對深層基質感染看來無效。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "教科書列出的危險因子中，涉及植物或蔬菜性物質的角膜外傷居首位。",
+     "refs": [
+      [
+       8,
+       "332"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "黴菌性角膜炎早期的發炎徵象與症狀通常比細菌性角膜炎少，初診時結膜可能幾乎不充血，但疼痛可能與發炎程度不成比例。",
+     "refs": [
+      [
+       8,
+       "332"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "Confocal microscopy 能有效偵測黴菌在角膜中的分枝狀菌絲與個別隔膜，是常見的黴菌病原表現。",
+     "refs": [
+      [
+       8,
+       "333"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "錯誤",
+     "text": "Corneal crosslinking 曾被研究作為輔助治療，但對深層基質病灶看來沒有效果，對表淺感染結果也不一致。",
+     "refs": [
+      [
+       8,
+       "333"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-29",
+   "ch": "8-15",
+   "stem": "關於化學性眼灼傷（chemical injury）的處置，下列敘述何者正確？",
+   "options": {
+    "A": "手邊沒有 pH 試紙時，沖洗數分鐘後即可假定 pH 已恢復正常而停止沖洗",
+    "B": "無血管的鞏膜（avascular sclera）通常在重新血管化之前即可完成上皮化",
+    "C": "Limbal stem cell transplantation 宜於急性發炎期盡早施行，預後較佳",
+    "D": "口服 tetracycline 可螯合細胞外鈣離子，抑制 PMN degranulation"
+   },
+   "answer": "D",
+   "summary": "化學灼傷的處置包括充分沖洗至 pH 正常、以 tetracycline 等藥物抑制 PMN 造成的膠原分解，並待發炎平息後再做輪部幹細胞移植。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "沒有 pH 試紙時，寧可延長沖洗時間過度治療，也不應自行假定 pH 已正常而過早停止沖洗。",
+     "refs": [
+      [
+       8,
+       "418"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "無血管的鞏膜通常要等重新血管化後才會上皮化；若發生鞏膜融解，可取鄰近眼瞼的 tarsoconjunctival 組織做旋轉移植以促進血管化。",
+     "refs": [
+      [
+       8,
+       "420"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "眼睛無發炎時輪部移植片預後較好，因此宜等急性發炎消退後再施行 limbal stem cell transplantation。",
+     "refs": [
+      [
+       8,
+       "420"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "正確",
+     "text": "口服 tetracycline 與局部 10% sodium citrate 可螯合細胞外鈣，抑制 PMN 去顆粒，理論上可減少 PMN 引起的膠原分解。",
+     "refs": [
+      [
+       8,
+       "419"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-30",
+   "ch": "9-3",
+   "stem": "關於角膜（cornea）的免疫微環境與角膜移植，下列何者正確？",
+   "options": {
+    "A": "正常角膜的中央與旁中央區富含 Langerhans cells 等 antigen-presenting cells",
+    "B": "Marginal keratitis 等免疫相關的角膜病變常發生在靠近有血管的角膜緣（limbus）處",
+    "C": "Splenectomy 等阻斷 ACAID 誘導的處置可降低角膜移植排斥的風險",
+    "D": "未使用全身免疫調節治療時，penetrating keratoplasty 的成功率通常低於 50%"
+   },
+   "answer": "B",
+   "summary": "正常角膜僅 limbus 有血管且富含 Langerhans cells，中央區幾乎沒有 APC，因此免疫相關角膜病變多發生在 limbus 附近。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "正常角膜只有 limbus 有血管並富含 Langerhans cells，無血管的中央與旁中央區大多沒有 APC。",
+     "refs": [
+      [
+       9,
+       "52"
+      ],
+      [
+       9,
+       "54"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "正確",
+     "text": "Marginal keratitis 等免疫介導的角膜變化常出現在有血管的 limbus 旁。",
+     "refs": [
+      [
+       9,
+       "54"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "以 splenectomy 等方式阻止 ACAID 誘導會使免疫特權喪失，是促成角膜移植排斥的因素之一，而非保護因素。",
+     "refs": [
+      [
+       9,
+       "55"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Penetrating keratoplasty 即使未併用全身免疫調節，成功率仍極高（超過 90%），優於其他器官移植。",
+     "refs": [
+      [
+       9,
+       "55"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-31",
+   "ch": "9-8",
+   "stem": "關於 Fuchs uveitis syndrome（Fuchs heterochromic iridocyclitis），下列何者錯誤？",
+   "options": {
+    "A": "藍色虹膜的患者，患眼可能因基質萎縮、色素上皮透出而變得較深色",
+    "B": "螢光眼底血管攝影（FA）可見視神經晚期染色（late staining）",
+    "C": "白內障手術時，跨越隅角的異常血管可能出血，造成術後前房出血（hyphema）",
+    "D": "Retinal periphlebitis 與 chorioretinal scars 是常見的表現"
+   },
+   "answer": "D",
+   "summary": "Fuchs uveitis syndrome 以瀰漫星狀 KP、虹膜異色與基質萎縮為特徵，後粘連、脈絡膜視網膜疤痕與視網膜靜脈周圍炎則罕見或不存在。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "課本指出藍眼病人隨虹膜基質萎縮，較深的虹膜色素上皮透出，患眼反而可能變深色；一般情況則多為較淺色的一側為患眼。",
+     "refs": [
+      [
+       9,
+       "156"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "課本列出的徵象之一即為 FA 上視神經的晚期染色。",
+     "refs": [
+      [
+       9,
+       "155"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "課本提到隅角的異常橋接血管在白內障手術中可能出血，導致術後前房出血，但整體手術結果通常良好。",
+     "refs": [
+      [
+       9,
+       "157"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "錯誤",
+     "text": "課本說明此症的脈絡膜視網膜疤痕與視網膜靜脈周圍炎罕見或不存在，黃斑部水腫亦少見；常見的是青光眼與白內障。",
+     "refs": [
+      [
+       9,
+       "155"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-32",
+   "ch": "9-10",
+   "stem": "關於 Vogt-Koyanagi-Harada (VKH) syndrome，下列何者錯誤？",
+   "options": {
+    "A": "全身性類固醇控制發炎後，應於 1 個月內迅速減量停藥",
+    "B": "腦脊髓液檢查在大多數病人可見 lymphocytic pleocytosis",
+    "C": "Perilimbal vitiligo (Sugiura sign) 常見於日本病人，白人病人則少見",
+    "D": "多發 serous detachment 時，OCT 可見 fibrinous septa 將視網膜下液分隔成多腔"
+   },
+   "answer": "A",
+   "summary": "VKH 的類固醇須在 3 個月內減到每天 10 mg 以下，之後再以極慢速度（常為每月 1 mg）於 6–12 個月間遞減，以預防進入晚期。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "錯誤",
+     "text": "VKH 的口服類固醇是在 3 個月內減到每天 10 mg 以下，之後於 6–12 個月內非常緩慢地遞減，目的在預防 late-stage VKH，並非 1 個月內停藥。",
+     "refs": [
+      [
+       9,
+       "223"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "前驅期的腦脊髓液分析在超過 80% 病人可見 lymphocytic pleocytosis，葡萄糖濃度正常。",
+     "refs": [
+      [
+       9,
+       "218"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "Sugiura sign 在日本 VKH 病人中可高達 85%，但在白人病人很少見。",
+     "refs": [
+      [
+       9,
+       "218"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "多處 serous detachment 時，OCT 可見視網膜下液被由視網膜延伸至 RPE 的 fibrinous septa 分隔成多個腔室。",
+     "refs": [
+      [
+       9,
+       "220"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-33",
+   "ch": "9-11",
+   "stem": "關於眼結核（ocular tuberculosis）的診斷與治療，下列何者錯誤？",
+   "options": {
+    "A": "曾接種 BCG 疫苗者，PPD skin test 陽性比 IGRA 陽性更能代表結核感染",
+    "B": "以 PCR 檢測眼內液中 M tuberculosis 的陽性率可能偏低",
+    "C": "開始 quadruple drug therapy 後，葡萄膜炎可能反而惡化而需合併使用 corticosteroid",
+    "D": "結核性脈絡膜病灶在 ICGA 上的低螢光區常比臨床檢查或 FA 所見更多"
+   },
+   "answer": "A",
+   "summary": "BCG 接種者對 PPD 常有免疫反應，PPD 陽性不一定代表結核感染；此時 IGRA 較有用。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "錯誤",
+     "text": "方向相反：BCG 接種者通常會對 PPD 產生反應，故 PPD 陽性不一定代表感染；IGRA 血液檢查在 BCG 接種者較有用。",
+     "refs": [
+      [
+       9,
+       "241–242"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "M tuberculosis 細胞壁厚，且較少存在於前房水或玻璃體中，因此眼內液檢測的陽性率可能偏低。",
+     "refs": [
+      [
+       9,
+       "242"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "開始四合一抗結核藥物後，結核性葡萄膜炎可能出現矛盾性惡化，需同時以局部和/或全身類固醇處理發炎成分。",
+     "refs": [
+      [
+       9,
+       "243"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "ICGA 在早期與晚期都顯示對應脈絡膜病灶的低螢光，且數量常多於臨床檢查或 FA 所見。",
+     "refs": [
+      [
+       9,
+       "239"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-34",
+   "ch": "9-14",
+   "stem": "關於 chronic postoperative bacterial endophthalmitis（如 Cutibacterium (Propionibacterium) acnes 感染）的診斷與處置，下列何者正確？",
+   "options": {
+    "A": "因致病菌生長緩慢且培養條件挑剔，眼內液培養需由實驗室保留 2 週以上",
+    "B": "Nd:YAG capsulotomy 可清除後囊與 IOL 之間的菌落，術後玻璃體發炎通常減輕",
+    "C": "初次眼內液培養陰性即可排除感染，不需重複採檢",
+    "D": "單獨 intravitreal antibiotic 即可根除隔離於 equatorial lens capsule 的菌體，不需考慮取出 IOL"
+   },
+   "answer": "A",
+   "summary": "慢性術後細菌性眼內炎的致病菌生長慢且挑剔，培養需保留 2 週以上；初次陰性但仍高度懷疑時可能需重複培養。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "正確",
+     "text": "由於造成慢性眼內炎的菌種生長緩慢且挑剔，微生物實驗室需將培養保留 2 週或更久。",
+     "refs": [
+      [
+       9,
+       "317"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Nd:YAG capsulotomy 反而可能把菌體釋放到玻璃體腔，引發更嚴重的玻璃體發炎並使感染惡化。",
+     "refs": [
+      [
+       9,
+       "316"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "若初次培養陰性但臨床仍高度懷疑，可能需要重複培養。",
+     "refs": [
+      [
+       9,
+       "317"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "課本指出單獨玻璃體內抗生素等處置可能無法根除感染，尤其菌體隔離於赤道部囊袋時；此時 IOL 取出、完整囊袋切除加玻璃體內 vancomycin 可能達到治癒，是否取出 IOL 依個案決定。",
+     "refs": [
+      [
+       9,
+       "318"
+      ],
+      [
+       12,
+       "438"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-35",
+   "ch": "10-1",
+   "stem": "有關青光眼相關基因，下列敘述何者錯誤？",
+   "options": {
+    "A": "Juvenile open-angle glaucoma 相關的 MYOC 變異為 autosomal dominant 遺傳",
+    "B": "Familial normal-tension glaucoma 與 OPTN 及 TBK1 的變異有關",
+    "C": "CYP1B1 變異所致的 primary congenital glaucoma 為 autosomal dominant 遺傳",
+    "D": "常見的成人型 POAG 很少與 mendelian 遺傳基因有關，其遺傳性被認為來自許多影響微小的等位基因"
+   },
+   "answer": "C",
+   "summary": "CYP1B1 是 primary congenital glaucoma 最常見的致病基因，其致病變異為隱性（autosomal recessive）遺傳，而非顯性。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "MYOC 是第一個被發現的青光眼基因，其顯性致病變異可解釋相當比例的 JOAG。",
+     "refs": [
+      [
+       10,
+       "16–17"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "家族性 NTG 與 OPTN 變異及 TBK1 拷貝數變異有關，屬早發的顯性遺傳。",
+     "refs": [
+      [
+       10,
+       "17"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "錯誤",
+     "text": "CYP1B1 的致病變異是隱性遺傳，為 PCG 最常見的原因；在部分 PCG 病人呈顯性遺傳的是 TEK 與 ANGPT1 的變異。",
+     "refs": [
+      [
+       10,
+       "17–18"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "成人型 POAG 很少與孟德爾遺傳的高外顯基因有關；其遺傳率估計為 0.3–0.8，被認為由許多各自貢獻微小的等位基因共同造成（polygenic）。",
+     "refs": [
+      [
+       10,
+       "16"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-36",
+   "ch": "10-4",
+   "stem": "關於隅角鏡檢查（gonioscopy）的技巧，下列敘述何者正確？",
+   "options": {
+    "A": "Goldmann 3-mirror lens 只需病人淚液即可與角膜達成 optical coupling",
+    "B": "Indirect goniolens 所見為正立且未縮短的隅角影像",
+    "C": "以 Zeiss 4-mirror lens 做 dynamic gonioscopy，可區分 appositional closure 與 PAS",
+    "D": "檢查時宜使用明亮寬大的光束，以免將隅角誤判為狹窄"
+   },
+   "answer": "C",
+   "summary": "Posner、Sussman、Zeiss 4-mirror lens 可做 dynamic(indentation)gonioscopy，是區分虹膜小樑貼合與沾黏性隅角閉鎖的關鍵方法。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Goldmann 1-mirror 或 3-mirror lens 需要 methylcellulose 等黏稠液體作耦合；靠淚液耦合的是 4-mirror lens。",
+     "refs": [
+      [
+       10,
+       "53–54"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Indirect goniolens 的影像是對側隅角的倒影，且略為縮短，使隅角看起來較淺。",
+     "refs": [
+      [
+       10,
+       "53"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "正確",
+     "text": "4-mirror lens 後徑小於角膜，加壓可將房水推入隅角；dynamic gonioscopy 是分辨貼合與 PAS 所必需。",
+     "refs": [
+      [
+       10,
+       "54"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "應在昏暗環境下用細短光束；過多光線使瞳孔縮小，反而會讓隅角看似較開而漏掉狹窄隅角。",
+     "refs": [
+      [
+       10,
+       "54"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-37",
+   "ch": "10-8",
+   "stem": "有關水晶體引起的隅角開放性青光眼（lens-induced open-angle glaucoma），下列敘述何者正確？",
+   "options": {
+    "A": "Phacolytic glaucoma 以局部類固醇及降眼壓藥物即可根治，通常不需摘除白內障",
+    "B": "Lens particle glaucoma 眼壓升高的程度，與釋出的水晶體物質量、發炎程度及小樑網清除能力有關",
+    "C": "Phacoantigenic glaucoma 的患眼多會出現 glaucomatous optic neuropathy",
+    "D": "Lens particle glaucoma 的藥物治療宜使用縮瞳劑，以預防虹膜後黏連（posterior synechiae）"
+   },
+   "answer": "B",
+   "summary": "Lens particle glaucoma 眼壓升高的嚴重度，取決於釋出的水晶體物質量、發炎程度、小樑網清除這些物質的能力及睫狀體的功能狀態。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "降眼壓藥物可先控制眼壓，但 phacolytic glaucoma 的確定治療（definitive therapy）是摘除白內障。",
+     "refs": [
+      [
+       10,
+       "135"
+      ],
+      [
+       11,
+       "84"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "正確",
+     "text": "教科書指出 lens particle glaucoma 眼壓升高的嚴重度，與釋出的水晶體物質量、發炎程度、小樑網清除水晶體物質的能力及睫狀體功能狀態有關。",
+     "refs": [
+      [
+       10,
+       "136"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Phacoantigenic glaucoma 雖可能發生青光眼性視神經病變，但並不常見。",
+     "refs": [
+      [
+       10,
+       "136"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "治療應使用散瞳劑（mydriatics）來抑制虹膜後黏連，並合併減少房水生成的藥物及局部類固醇；不是使用縮瞳劑。",
+     "refs": [
+      [
+       10,
+       "136"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-38",
+   "ch": "10-10",
+   "stem": "有關 microspherophakia 引起的續發性隅角閉鎖，下列敘述何者正確？",
+   "options": {
+    "A": "屬後天性變化，水晶體呈扁平狀且直徑大於正常水晶體",
+    "B": "睫狀肌麻痺劑可拉緊小帶纖維，使水晶體後移而解除 pupillary block",
+    "C": "球形水晶體使屈光力降低，因此患眼常呈現高度遠視",
+    "D": "其隅角閉鎖屬於不經 pupillary block 的機轉所造成"
+   },
+   "answer": "B",
+   "summary": "Microspherophakia 是先天性的小而球形水晶體，可造成 pupillary block 性隅角閉鎖，治療以 cycloplegia 拉緊小帶纖維為主，縮瞳劑反而使其惡化。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Microspherophakia 是先天性發育異常，水晶體直徑小且呈球形，並非後天扁平的大水晶體。",
+     "refs": [
+      [
+       10,
+       "171"
+      ],
+      [
+       11,
+       "46"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "正確",
+     "text": "Cycloplegia 可拉緊小帶纖維、使水晶體變平並向後拉，進而解除 pupillary block；縮瞳劑則會加重 pupillary block，使病情惡化。",
+     "refs": [
+      [
+       10,
+       "171"
+      ],
+      [
+       11,
+       "46"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "球形水晶體使屈光力增加，因此患眼常為高度近視，而非遠視。",
+     "refs": [
+      [
+       11,
+       "46"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "Microspherophakia 可造成晶體異位及 pupillary block 而導致隅角閉鎖，屬於伴有 pupillary block 的續發性隅角閉鎖。",
+     "refs": [
+      [
+       10,
+       "171"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-39",
+   "ch": "10-12",
+   "stem": "有關 α2-adrenergic agonists (brimonidine、apraclonidine) 的敘述，下列何者錯誤？",
+   "options": {
+    "A": "Brimonidine 除減少房水生成外，也會增加 uveoscleral outflow；apraclonidine 則否",
+    "B": "Apraclonidine 對 α1 受體的親和力較 brimonidine 高，較易造成瞳孔放大與眼瞼退縮",
+    "C": "Brimonidine 在給藥後 12 小時（trough）的降眼壓幅度大於 nonselective β-blockers",
+    "D": "Apraclonidine 因常見 tachyphylaxis 及過敏反應，很少用於長期治療"
+   },
+   "answer": "C",
+   "summary": "Brimonidine 在 trough 時降眼壓幅度僅約 14%–15%，低於 nonselective β-blockers；其峰值效果才與之相當。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "兩者主要皆藉減少房水生成降眼壓，但只有 brimonidine 另外會增加 uveoscleral outflow。",
+     "refs": [
+      [
+       10,
+       "231"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "Apraclonidine 對 α1 受體親和力遠高於 brimonidine，較易出現結膜血管收縮、瞳孔放大與眼瞼退縮等 α1 效應。",
+     "refs": [
+      [
+       10,
+       "232"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "錯誤",
+     "text": "Brimonidine 在給藥後約 2 小時達峰值，降幅約 26%，與 nonselective β-blocker 相當；但在 12 小時 trough 時僅約 14%–15%，低於 nonselective β-blocker。",
+     "refs": [
+      [
+       10,
+       "231"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "Apraclonidine 常發生 tachyphylaxis 及會引起 blepharoconjunctivitis 的過敏反應，因此僅少數情況用於長期治療，多用於雷射或手術前後防止眼壓急升。",
+     "refs": [
+      [
+       10,
+       "231"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-40",
+   "ch": "11-3",
+   "stem": "有關水晶體的能量代謝，下列敘述何者錯誤？",
+   "options": {
+    "A": "只有約 3% 的水晶體葡萄糖進入 citric acid cycle，卻產生約 25% 的水晶體 ATP",
+    "B": "離體水晶體在缺氧（nitrogen）環境下，即使葡萄糖充足，也會在數小時內變得混濁",
+    "C": "與 hexokinase 相比，aldose reductase 對 glucose 的親和力很低",
+    "D": "Glycolysis 本身的速率限制步驟在 phosphofructokinase，受 glycolysis 代謝產物的回饋調控"
+   },
+   "answer": "B",
+   "summary": "水晶體主要靠無氧糖解取得能量，只要葡萄糖充足，即使缺氧仍能保持透明；缺乏葡萄糖時即使有氧也會混濁。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "因水晶體內氧分壓低，僅約 3% 葡萄糖經 citric acid cycle 代謝，但這少量有氧代謝仍產生約四分之一的 ATP。",
+     "refs": [
+      [
+       11,
+       "28"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "錯誤",
+     "text": "教科書指出葡萄糖充足時，缺氧的離體水晶體仍完全透明、ATP 與離子幫浦正常；是缺乏葡萄糖時才會在數小時內混濁，即使有氧亦然。",
+     "refs": [
+      [
+       11,
+       "31"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "Sorbitol pathway 的關鍵酵素 aldose reductase 對 glucose 的親和力遠低於 hexokinase，正常情況下只有不到 4% 葡萄糖轉為 sorbitol。",
+     "refs": [
+      [
+       11,
+       "29"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "糖解途徑本身的速率限制在 phosphofructokinase，並受該途徑代謝產物的回饋控制。",
+     "refs": [
+      [
+       11,
+       "28"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-41",
+   "ch": "11-5",
+   "stem": "有關化學、電擊及輻射等物理因素造成的白內障，下列敘述何者錯誤？",
+   "options": {
+    "A": "酸性物質比鹼性物質更容易穿透眼球，因此酸性化學傷較常造成白內障",
+    "B": "電擊傷的電流經過頭部時較易造成白內障，初期可見水晶體前方中周邊部空泡",
+    "C": "游離輻射引起的白內障可在暴露後長達 20 年才出現，年輕患者較容易受影響",
+    "D": "長期暴露於紅外線與高熱可使前囊外層剝離（true exfoliation），稱為 glassblower's cataract"
+   },
+   "answer": "A",
+   "summary": "鹼性物質容易穿透眼球，常造成白內障；酸性物質穿透力較差，較少造成白內障。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "錯誤",
+     "text": "方向相反：鹼性物質容易穿透眼球並造成白內障，酸性物質穿透力較差，因此較不易造成白內障。",
+     "refs": [
+      [
+       11,
+       "75"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "電流經過頭部時較易出現水晶體變化，最初為前方中周邊部的空泡，之後出現前囊下皮質線狀混濁。",
+     "refs": [
+      [
+       11,
+       "75"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "水晶體對游離輻射極敏感，但潛伏期可長達 20 年；年輕患者因生長中的水晶體細胞較多而較易受影響。",
+     "refs": [
+      [
+       11,
+       "69"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "長期紅外線與高熱暴露可使前囊外層整片剝離並自行捲起，即少見的 glassblower's cataract。",
+     "refs": [
+      [
+       11,
+       "70"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-42",
+   "ch": "11-8",
+   "stem": "有關超音波乳化術（phacoemulsification）中超音波能量的相關概念，下列敘述何者錯誤？",
+   "options": {
+    "A": "間歇性超音波產生的 transient cavitation，效率高於連續超音波產生的 continuous cavitation",
+    "B": "Energy 與 power 意義相同，只能藉由降低 phaco power 來減少釋放到眼內的能量",
+    "C": "Phaco handpiece 的振動頻率約在 27,000–60,000 Hz 之間",
+    "D": "調高 phaco power 時，phaco tip 的 stroke length 會隨之增加"
+   },
+   "answer": "B",
+   "summary": "能量等於功率乘以時間，因此降低 phaco power 或縮短出力時間都能減少眼內能量；cavitation、頻率與 stroke length 則依課本詞彙表定義。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "連續超音波產生的 continuous cavitation 效率較差，間歇性超音波產生的 transient cavitation 效率較高。",
+     "refs": [
+      [
+       11,
+       "158"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": true,
+     "label": "錯誤",
+     "text": "Energy 是 power 乘以時間，兩者並不相同；降低 phaco power 或縮短 power 開啟的時間都可減少眼內能量。",
+     "refs": [
+      [
+       11,
+       "158"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "超音波指高於人耳可聽範圍（大於 20,000 Hz）的頻率，phaco handpiece 的頻率介於 27,000 與 60,000 Hz 之間。",
+     "refs": [
+      [
+       11,
+       "158"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "Phaco tip 往復運動的振幅即 stroke length，為可變的，並隨 power 調高而增加。",
+     "refs": [
+      [
+       11,
+       "132"
+      ],
+      [
+       11,
+       "158"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-43",
+   "ch": "11-11",
+   "stem": "有關白內障術後慢性 cystoid macular edema（CME）的處置，下列何者正確？",
+   "options": {
+    "A": "合併使用 ketorolac 與 prednisolone acetate 的療效不如單獨使用其中一種藥物",
+    "B": "對傳統治療無反應的慢性 CME，玻璃體內注射 anti-VEGF 並無療效",
+    "C": "全身性 carbonic anhydrase inhibitor 為慢性 CME 的第一線治療",
+    "D": "玻璃體黏附於白內障切口且藥物治療無效時，可考慮 Nd:YAG laser vitreolysis 或 vitrectomy"
+   },
+   "answer": "D",
+   "summary": "慢性術後 CME 通常先以局部類固醇及/或 NSAID 治療（兩者合併較單用有效），頑固者可考慮全身 CAI 或玻璃體內 anti-VEGF；誘發來源明確且藥物無效時可考慮手術處理。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "隨機臨床試驗顯示 ketorolac 合併 prednisolone acetate 改善視力的效果優於任一單獨用藥。",
+     "refs": [
+      [
+       11,
+       "222"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "對傳統治療無反應的慢性 CME，玻璃體內 anti-VEGF 已有成功治療的經驗。",
+     "refs": [
+      [
+       11,
+       "222"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "藥物治療通常先從局部類固醇及/或 NSAID 開始；全身性 CAI 是用於頑固病例。",
+     "refs": [
+      [
+       11,
+       "222"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "正確",
+     "text": "誘發來源明確且藥物無效時可考慮手術；Nd:YAG vitreolysis 或玻璃體切除可解除黏附切口的玻璃體及其牽引。",
+     "refs": [
+      [
+       11,
+       "223"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-44",
+   "ch": "11-12",
+   "stem": "有關 zonular weakness（如 pseudoexfoliation syndrome）病人的白內障手術，下列何者正確？",
+   "options": {
+    "A": "皮質應以放射狀（radial）而非切線方向由囊袋吸除，以減少 zonular stress",
+    "B": "應提高 flow rate，以減少前房深度波動及玻璃體由 zonule 缺損處脫出",
+    "C": "Pseudoexfoliation 眼常見 capsular phimosis，可用 Nd:YAG laser 作前囊放射狀切開",
+    "D": "囊袋偏位或有明顯偏位可能的眼睛，宜優先植入 multifocal 或 toric 等 premium IOL"
+   },
+   "answer": "C",
+   "summary": "Zonule 脆弱時應降低 flow rate、以切線方向清除皮質、避免 premium IOL；pseudoexfoliation 術後常見 capsular phimosis，可用 Nd:YAG 放射狀切開前囊。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "以切線方向而非放射狀方向清除囊袋內皮質，才能減少對 zonule 的拉扯。",
+     "refs": [
+      [
+       11,
+       "242"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "應降低 flow rate 以減少前房擾流與深度波動，降低玻璃體由 zonule 缺損處脫出的風險。",
+     "refs": [
+      [
+       11,
+       "242"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "正確",
+     "text": "Pseudoexfoliation 眼常發生進行性囊袋收縮（capsular phimosis）；發生時可用 Nd:YAG laser 在前囊作放射狀切口，釋放對 zonule 的張力並保持水晶體置中。",
+     "refs": [
+      [
+       11,
+       "243–244"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "囊袋偏位或有明顯偏位可能的眼睛，最好避免使用 multifocal、toric 等 premium IOL。",
+     "refs": [
+      [
+       11,
+       "243"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-45",
+   "ch": "12-6",
+   "stem": "有關 ocular ischemic syndrome（OIS），下列敘述何者正確？",
+   "options": {
+    "A": "最常見的病因為 giant cell arteritis",
+    "B": "以 ophthalmodynamometer 測量時，OIS 眼的視網膜動脈壓正常，CRVO 眼則偏低",
+    "C": "典型眼底表現為動脈變細，靜脈擴張且明顯迂曲（tortuous）",
+    "D": "出現 rubeosis iridis 者，絕大多數會在診斷後 1 年內視力降至 20/200 或更差"
+   },
+   "answer": "D",
+   "summary": "OIS 合併虹膜新生血管時預後很差，超過九成在一年內視力降到 20/200 或更差。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "OIS 最常見的病因是 atherosclerosis；giant cell arteritis 只是其他較少見的病因之一。",
+     "refs": [
+      [
+       12,
+       "153"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "兩者剛好相反：CRVO 的視網膜動脈壓正常，頸動脈阻塞的 OIS 動脈壓低、動脈容易塌陷。",
+     "refs": [
+      [
+       12,
+       "153"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "錯誤",
+     "text": "OIS 的靜脈是擴張但不迂曲，這是與 CRVO 外觀相似但可區分的特點之一。",
+     "refs": [
+      [
+       12,
+       "153"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "正確",
+     "text": "OIS 出現 rubeosis iridis 時，超過 90% 的病人在診斷後一年內視力降至 20/200 或更差。",
+     "refs": [
+      [
+       12,
+       "154"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-46",
+   "ch": "12-11",
+   "stem": "關於 Birdshot chorioretinopathy，下列敘述何者錯誤？",
+   "options": {
+    "A": "多為單眼發病，且男性病人多於女性",
+    "B": "超過 90% 的病人 HLA-A29 檢測為陽性",
+    "C": "脈絡膜病灶以 indocyanine green angiography（ICGA）顯示最佳",
+    "D": "常見的 ERG 異常為 light-adapted implicit time 延長及 b-wave amplitude 下降"
+   },
+   "answer": "A",
+   "summary": "Birdshot chorioretinopathy 為雙眼疾病，女性多於男性、好發於中年後期，與 HLA-A29 強烈相關，病程慢性進行。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "錯誤",
+     "text": "課本指出 Birdshot chorioretinopathy 為雙眼疾病，且女性多於男性，好發於中年後期；單眼、男性為主的敘述不正確。",
+     "refs": [
+      [
+       12,
+       "255"
+      ],
+      [
+       12,
+       "251"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "課本指出超過九成病人 HLA-A29 陽性，是目前疾病與 HLA class I 之間最強的已知關聯。",
+     "refs": [
+      [
+       12,
+       "255"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "課本說明其脈絡膜病灶最適合用 ICGA 觀察，FA 則多見視網膜血管與視神經盤滲漏。",
+     "refs": [
+      [
+       12,
+       "255"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "課本列出常見 ERG 異常為光適應下 implicit time 延長與 b-wave 振幅下降，可用於追蹤疾病活性。",
+     "refs": [
+      [
+       12,
+       "256"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-47",
+   "ch": "12-14",
+   "stem": "關於 phenothiazine 類藥物造成的眼部毒性，下列敘述何者正確？",
+   "options": {
+    "A": "Chlorpromazine 常造成嚴重的色素性視網膜病變",
+    "B": "Thioridazine 的視網膜毒性通常需連續服用多年後才出現",
+    "C": "Thioridazine 每日劑量在 800 mg 以下時，視網膜毒性少見",
+    "D": "服用標準劑量 thioridazine 者，一般建議每年例行眼底篩檢"
+   },
+   "answer": "C",
+   "summary": "高劑量 thioridazine 可在數週至數月內造成嚴重色素性視網膜病變，但每日 800 mg 以下少見；chlorpromazine 則罕見造成視網膜病變。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "錯誤",
+     "text": "高劑量 chlorpromazine 常見的是眼瞼、結膜、角膜及前囊色素沉著與白內障，其色素性視網膜病變並不常見。",
+     "refs": [
+      [
+       12,
+       "337"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "錯誤",
+     "text": "高劑量 thioridazine 可在開始用藥後數週至數月內就出現嚴重的色素性視網膜病變。",
+     "refs": [
+      [
+       12,
+       "337"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "正確",
+     "text": "課本指出 thioridazine 每日 800 mg 以下時毒性罕見。",
+     "refs": [
+      [
+       12,
+       "337"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "錯誤",
+     "text": "因標準劑量下毒性罕見，一般不需例行眼底監測，僅有症狀或疑似中毒（特別是高劑量）者需完整視網膜檢查。",
+     "refs": [
+      [
+       12,
+       "337"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-48",
+   "ch": "12-19",
+   "stem": "有關白內障手術後殘留於玻璃體腔的水晶體碎片（retained lens fragments），下列敘述何者錯誤？",
+   "options": {
+    "A": "Nuclear fragments 通常持續引起慢性眼內發炎，cortical remnants 則常可自行吸收",
+    "B": "Vitrectomy 的適應症包括 secondary glaucoma、lens-induced uveitis 及大型 nuclear fragments",
+    "C": "長期追蹤顯示約 15% 的眼睛會發生 retinal detachment",
+    "D": "前段手術醫師應積極經角膜緣切口取出掉入玻璃體的水晶體碎片，以免延誤處理"
+   },
+   "answer": "D",
+   "summary": "殘留水晶體碎片中，核碎片會持續發炎而皮質多可吸收；前段醫師只在碎片容易取得時才嘗試取出，並轉介玻璃體視網膜醫師，積極經角膜緣取出可能導致 giant retinal tear。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "核碎片通常會造成持續的慢性眼內發炎，而皮質殘留一般會自行吸收。",
+     "refs": [
+      [
+       12,
+       "441"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "續發性青光眼、水晶體引起的葡萄膜炎及存在大型核碎片都是施行 vitrectomy 的適應症。",
+     "refs": [
+      [
+       12,
+       "441"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "長期追蹤的研究顯示，有殘留水晶體碎片的眼睛約 15% 發生視網膜剝離。",
+     "refs": [
+      [
+       12,
+       "442"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": true,
+     "label": "錯誤",
+     "text": "前段醫師只應在碎片容易取得時才嘗試取出，並轉介玻璃體視網膜醫師；經角膜緣積極取出後段碎片可能併發 giant retinal tear。",
+     "refs": [
+      [
+       12,
+       "441–442"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-49",
+   "ch": "13-3",
+   "stem": "關於 arcuate keratotomy (AK) 與 limbal relaxing incisions (LRIs) 矯正散光的敘述，下列何者錯誤？",
+   "options": {
+    "A": "白內障手術同時以 AK 或 LRI 矯正散光時，應依 manifest refraction 的散光度數與軸度設計切口",
+    "B": "病人由坐姿躺平時可產生高達 15° 的 cyclotorsion，人工標記軸度應在坐姿下進行",
+    "C": "Irregular astigmatism 較常發生於 AK 而非 LRI，因為 LRI 距角膜中心較遠",
+    "D": "以傳統 manual nomogram 改做 femtosecond laser 切口時，with-the-rule 散光應將治療量減少約 30%"
+   },
+   "answer": "A",
+   "summary": "白內障手術時水晶體散光會隨水晶體移除而消失，因此 AK/LRI 應依角膜地形圖或角膜弧度計的陡軸與度數規劃。",
+   "items": [
+    {
+     "key": "A",
+     "answer": true,
+     "label": "錯誤",
+     "text": "合併白內障手術時，水晶體造成的散光會在摘除後消失，故應以 corneal topography 或 keratometry 測得的陡軸與度數為依據，而非 manifest refraction。",
+     "refs": [
+      [
+       13,
+       "67"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "研究顯示由直立改為仰躺時眼球可旋轉達 15°，因此手動標記應讓病人坐直、直視前方時進行。",
+     "refs": [
+      [
+       13,
+       "68"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": false,
+     "label": "正確",
+     "text": "兩者都可能造成不規則散光，但 AK 較常見，因 LRI 位置較遠離角膜中心，可減輕切口不規則的影響。",
+     "refs": [
+      [
+       13,
+       "70"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "Femtosecond 切口光學區較小、深度較深，效果較強；套用傳統 nomogram 時，60°–120° 的 with-the-rule 散光建議減量約 30%。",
+     "refs": [
+      [
+       13,
+       "69"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3-50",
+   "ch": "13-6",
+   "stem": "關於 SMILE (small-incision lenticule extraction) 的手術技術與後續處理，下列何者錯誤？",
+   "options": {
+    "A": "一般於門診以局部點藥麻醉（topical anesthesia）進行",
+    "B": "以 cap-to-flap 方式加強矯正時，LASIK flap 的 hinge 應避開原本 SMILE incision 的位置，以免形成 free cap",
+    "C": "飛秒雷射完成 lenticule 界面與 side cut 所需的時間，會隨矯正度數增加而明顯延長",
+    "D": "撕裂的 lenticule 若僅殘留小片且位於周邊，較不易造成視覺症狀"
+   },
+   "answer": "C",
+   "summary": "SMILE 的雷射切割時間固定約 20–35 秒，與屈光度數大小無關。",
+   "items": [
+    {
+     "key": "A",
+     "answer": false,
+     "label": "正確",
+     "text": "課本指出 KLEx 通常是在門診、局部點藥麻醉下完成的手術。",
+     "refs": [
+      [
+       13,
+       "122"
+      ]
+     ]
+    },
+    {
+     "key": "B",
+     "answer": false,
+     "label": "正確",
+     "text": "cap-to-flap 時若把 hinge 放在原 incision 處會形成 free cap，因此應改放其他經線（常為相隔 90°）或做更大直徑的 flap。",
+     "refs": [
+      [
+       13,
+       "127"
+      ]
+     ]
+    },
+    {
+     "key": "C",
+     "answer": true,
+     "label": "錯誤",
+     "text": "雷射完成上下界面與 side cut 的總時間約 20–35 秒，不論屈光不正的大小都一樣，並不會隨度數增加而延長。",
+     "refs": [
+      [
+       13,
+       "122"
+      ]
+     ]
+    },
+    {
+     "key": "D",
+     "answer": false,
+     "label": "正確",
+     "text": "大片殘留且靠近視軸的 lenticule 才可能影響視力；小而周邊的殘留物較少引起症狀。",
+     "refs": [
+      [
+       13,
+       "125–126"
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}

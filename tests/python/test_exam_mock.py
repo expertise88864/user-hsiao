@@ -1,12 +1,16 @@
-"""Owner order 2026-11-10: a public, login-free mock exam of self-written questions.
+"""Owner orders 2026-11-10 and 2026-11-11: a public, login-free mock exam of self-written
+questions; 200 questions as four papers of 50.
 
-- The paper (data/exam/mock/pilot1.json) is rendered into a public page, /exam/mock, so
-  the loader checks every field and refuses anything but the public fields.
+- The papers (data/exam/mock/pilot1.json, paper2.json to paper4.json) are rendered into
+  public pages, /exam/mock and /exam/mock-2 to /exam/mock-4, so the loader checks every
+  field and refuses anything but the public fields.
+- Paper 1 keeps the id and the address it was published with; ids and stems are unique
+  across the papers, and together the papers follow the bank's share of each BCSC section.
 - The bank stays behind the login: no mock stem or option may repeat or closely follow a
   bank stem or option.
 - The page is complete as served (answers and explanations are in the markup); the
   stylesheet keeps them closed until the paper is handed in.
-- The page is indexed and in the sitemap routes (owner, 2026-11-10, after reading the pilot).
+- The pages are indexed and in the sitemap routes (owner, 2026-11-10, after reading the pilot).
 """
 import copy
 import json
@@ -33,29 +37,65 @@ class MockPaperTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data = gen.load()
-        cls.paper = cls.data["mock"]
+        cls.papers = cls.data["mock"]
+        cls.paper = cls.papers[0]
         cls.rows = cls.paper["questions"]
+        cls.all_rows = [q for paper in cls.papers for q in paper["questions"]]
 
-    def test_pilot_paper_shape(self):
-        self.assertEqual(self.paper["id"], "pilot1")
-        self.assertEqual([q["id"] for q in self.rows], [f"p1-{n:02d}" for n in range(1, 51)])
-        books = Counter(self.data["chapters"][q["ch"]]["book"] for q in self.rows)
-        self.assertEqual(sorted(books), list(range(1, 14)), "every BCSC section is represented")
-        answers = Counter(q["answer"] for q in self.rows)
-        for key in gen.MOCK_KEYS:
-            self.assertTrue(0.15 * len(self.rows) <= answers[key] <= 0.35 * len(self.rows), answers)
+    def test_four_papers_of_fifty(self):
+        # paper 1 keeps the id it was published with: a saved attempt is stored under it
+        self.assertEqual([paper["id"] for paper in self.papers], ["pilot1", "paper2", "paper3", "paper4"])
+        self.assertEqual([paper["title"] for paper in self.papers], [f"模擬考第 {no} 回" for no in range(1, 5)])
+        for no, paper in enumerate(self.papers, 1):
+            rows = paper["questions"]
+            with self.subTest(paper=no):
+                self.assertEqual([q["id"] for q in rows], [f"p{no}-{n:02d}" for n in range(1, 51)])
+                books = Counter(self.data["chapters"][q["ch"]]["book"] for q in rows)
+                self.assertEqual(sorted(books), list(range(1, 14)), "every BCSC section is represented")
+                answers = Counter(q["answer"] for q in rows)
+                for key in gen.MOCK_KEYS:
+                    self.assertTrue(0.15 * len(rows) <= answers[key] <= 0.35 * len(rows), answers)
+        self.assertEqual(gen.mock_total(self.data), 200)
+        stems = [gen.mock_norm(q["stem"]) for q in self.all_rows]
+        self.assertEqual(len(set(stems)), len(stems), "no stem is used twice")
 
-    def load_edited(self, edit):
-        paper = copy.deepcopy(self.paper)
+    def test_the_papers_together_follow_the_bank_by_section(self):
+        """Each BCSC section has, within two questions, the share of the 200 questions that
+        it has of the bank (a bank question counted under its first chapter)."""
+        tags = json.loads((ROOT / "data" / "exam" / "tags.json").read_text(encoding="utf-8"))
+        chapters = self.data["chapters"]
+        bank = Counter(chapters[tag["ch"][0]]["book"] for tag in tags.values())
+        mock = Counter(chapters[q["ch"]]["book"] for q in self.all_rows)
+        for book, n in sorted(bank.items()):
+            want = len(self.all_rows) * n / sum(bank.values())
+            self.assertLess(abs(mock[book] - want), 2, f"BCSC {book}: {mock[book]} questions, bank share {want:.1f}")
+
+    def load_edited(self, edit, no=1):
+        """The papers as loaded with paper `no` edited."""
+        paper = copy.deepcopy(self.papers[no - 1])
         edit(paper)
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "paper.json"
             path.write_text(json.dumps(paper, ensure_ascii=False), encoding="utf-8")
-            with patch.object(gen, "MOCK_PAPER", path):
+            files = list(gen.MOCK_FILES)
+            files[no - 1] = path
+            with patch.object(gen, "MOCK_FILES", files):
                 return gen.load_mock(self.data["chapters"], self.data["questions"])
 
+    def test_papers_do_not_share_ids_stems_or_names(self):
+        first = self.rows[0]
+        cases = {
+            "paper id of another paper": lambda p: p.update(id="pilot1"),
+            "title of another paper": lambda p: p.update(title="模擬考第 1 回"),
+            "question id of another paper": lambda p: p["questions"][0].update(id=first["id"]),
+            "stem of another paper": lambda p: p["questions"][0].update(stem=first["stem"]),
+        }
+        for name, edit in cases.items():
+            with self.subTest(case=name), self.assertRaises(SystemExit):
+                self.load_edited(edit, no=2)
+
     def test_loader_accepts_the_paper_and_rejects_bad_fields(self):
-        self.assertEqual(self.load_edited(lambda paper: None), self.paper)
+        self.assertEqual(self.load_edited(lambda paper: None), self.papers)
         bank = next(q for q in self.data["questions"]
                     if all(len(gen.mock_norm(v)) >= gen.MOCK_MIN for v in (q["stem"], q["options"]["A"])))
 
@@ -73,6 +113,7 @@ class MockPaperTests(unittest.TestCase):
         cases = {
             "top-level field": lambda p: p.update(note="x"),
             "paper id": lambda p: p.update(id="Pilot 1"),
+            "title": lambda p: p.update(title="模擬考第 1 回（試行版）"),
             "no questions": lambda p: p.update(questions=[]),
             "writer field": lambda p: q0(p).update(evidence={"A": "quote"}),
             "missing summary": lambda p: q0(p).pop("summary"),
@@ -123,7 +164,7 @@ class MockPaperTests(unittest.TestCase):
         for i, text in enumerate(bank):
             for gram in bigrams(text):
                 index[gram].add(i)
-        for q in self.rows:
+        for q in self.all_rows:
             for name, raw in q["options"].items():
                 mine = gen.mock_norm(raw)
                 if len(mine) < gen.MOCK_MIN:
@@ -142,7 +183,8 @@ class MockPageTests(unittest.TestCase):
     def setUpClass(cls):
         cls.data = gen.load()
         cls.version = gen.site_version()
-        cls.rows = cls.data["mock"]["questions"]
+        cls.papers = cls.data["mock"]
+        cls.rows = cls.papers[0]["questions"]
         cls.html = gen.mock_page(cls.data, cls.version)
         cls.doc = BeautifulSoup(cls.html, "html.parser")
 
@@ -208,13 +250,46 @@ class MockPageTests(unittest.TestCase):
         self.assertEqual({int(r["data-book"]): int(r.select_one(".ex-num").get_text()) for r in rows}, dict(per_book))
         self.assertTrue(all(r.select_one("td[data-right]").get_text() == "" for r in rows))
 
+    def test_every_paper_has_its_own_indexed_page(self):
+        paths = ["/exam/mock", "/exam/mock-2", "/exam/mock-3", "/exam/mock-4"]
+        self.assertEqual([gen.mock_path(no) for no in range(1, len(self.papers) + 1)], paths)
+        routes = gen.indexed_routes(self.data)
+        titles = set()
+        for no, (paper, path) in enumerate(zip(self.papers, paths), 1):
+            with self.subTest(paper=no):
+                html = gen.mock_page(self.data, self.version, no)
+                doc = BeautifulSoup(html, "html.parser")
+                self.assertIn(path, routes)
+                self.assertEqual(doc.select_one('link[rel="canonical"]')["href"], gen.DOMAIN + path)
+                self.assertEqual(doc.select_one('meta[name="robots"]')["content"], "index,follow,max-image-preview:large")
+                self.assertEqual(doc.select_one("h1").get_text(), f"模擬考第 {no} 回")
+                self.assertIn(f"第 {no} 回", doc.title.get_text())
+                titles.add(doc.title.get_text())
+                self.assertIn("共 4 回、200 題", doc.select_one("main").get_text())
+                self.assertNotIn("試行版", html)
+                self.assertEqual(doc.select_one("[data-mock-paper]")["data-mock-paper"], paper["id"])
+                cards = doc.select("[data-mock-paper] > .ex-mq")
+                self.assertEqual([card["data-mq"] for card in cards], [q["id"] for q in paper["questions"]])
+                # the same row of links above and below the questions; this paper is marked
+                navs = doc.select("nav.ex-mock-papers")
+                self.assertEqual([nav["aria-label"] for nav in navs], ["模擬考各回", "換一回作答"])
+                for nav in navs:
+                    self.assertEqual([a["href"] for a in nav.select("a")], paths)
+                    self.assertEqual([a.get_text() for a in nav.select("a")], [f"第 {n} 回" for n in range(1, 5)])
+                    self.assertEqual([a["href"] for a in nav.select('a[aria-current="page"]')], [path])
+                name = "mock.html" if no == 1 else f"mock-{no}.html"
+                built = (ROOT / "exam" / name).read_text(encoding="utf-8")
+                self.assertEqual(built.count('class="ex-mq"'), len(paper["questions"]))
+                self.assertIn(f'data-mock-paper="{paper["id"]}"', built)
+        self.assertEqual(len(titles), len(self.papers), "every paper has its own page title")
+
     def test_page_is_built_and_linked_from_the_hub(self):
         built = (ROOT / "exam" / "mock.html").read_text(encoding="utf-8")
         self.assertEqual(built.count('class="ex-mq"'), len(self.rows))
         self.assertIn('data-mock-paper="pilot1"', built)
         hub = BeautifulSoup(gen.hub_page(self.data, self.version), "html.parser")
         link = hub.select_one('p.ex-practice a[href="/exam/mock"]')
-        self.assertEqual(link.get_text(), f"模擬考：自編 {len(self.rows)} 題（免登入）")
+        self.assertEqual(link.get_text(), "模擬考：自編 200 題（免登入）")
         # the past papers keep their own name and the login note is unchanged
         self.assertEqual(hub.select_one('a[href="/exam/practice"]').get_text(), "考古卷：自選範圍／隨機出題")
         self.assertIn("考題、答案與詳解需要登入才能看", hub.get_text())

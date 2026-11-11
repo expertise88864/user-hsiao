@@ -5,6 +5,8 @@ test.use({ serviceWorkers: 'block' });
 // logging in. /exam/mock is complete as served; exam.js adds the timer, the hand-in and
 // the score, and keeps an attempt under its own storage key. Nothing here may read the
 // question bank or write the bank's stores (stats, wrong list, stored answers, paper).
+// Owner order 2026-11-11: four papers of 50 (/exam/mock, /exam/mock-2 to /exam/mock-4);
+// each paper keeps its own attempt.
 const KEY = 'hs:exam:mock:pilot1';
 const TOTAL = 50;
 const stored = (page, key = KEY) => page.evaluate(k => JSON.parse(localStorage.getItem(k) || 'null'), key);
@@ -407,6 +409,47 @@ test('the graded paper is readable in dark mode', async ({ page }) => {
   const AxeBuilder = require('@axe-core/playwright').default;
   const scan = await new AxeBuilder({ page }).include('main').withRules(['color-contrast']).analyze();
   expect(scan.violations.map(v => v.nodes.map(n => n.target.join(' ')).join(', '))).toEqual([]);
+});
+
+test('each paper keeps its own attempt and links to the other papers', async ({ page }) => {
+  const papers = ['第 1 回', '第 2 回', '第 3 回', '第 4 回'];
+  await signedOut(page);
+  await page.goto('/exam/mock');
+  const a1 = await answerOf(page, 1);
+  await pick(page, 1, a1);
+  await expect.poll(() => stored(page)).toMatchObject({ sel: { 'p1-01': a1 }, done: false });
+  const top = page.locator('nav.ex-mock-papers').first();
+  await expect(top.locator('a')).toHaveText(papers);
+  await expect(top.locator('a[aria-current="page"]')).toHaveText('第 1 回');
+  await top.getByRole('link', { name: '第 2 回' }).click();
+  await expect(page).toHaveURL(/\/exam\/mock-2$/);
+  await expect(page.locator('h1')).toHaveText('模擬考第 2 回');
+  await expect(page.locator('[data-mock-paper]')).toHaveAttribute('data-mock-paper', 'paper2');
+  await expect(page.locator('[data-mock-paper] > .ex-mq')).toHaveCount(TOTAL);
+  await expect(card(page, 1)).toHaveAttribute('data-mq', 'p2-01');
+  // nothing of paper 1 shows here, and answering here leaves paper 1 as it was
+  await expect(count(page)).toHaveText(`已作答 0 / ${TOTAL}`);
+  const a2 = await answerOf(page, 2);
+  await pick(page, 2, wrongKey(a2));
+  await expect.poll(() => stored(page, 'hs:exam:mock:paper2')).toMatchObject({ sel: { 'p2-02': wrongKey(a2) }, done: false });
+  expect((await stored(page)).sel).toEqual({ 'p1-01': a1 });
+  const asked = await handIn(page);
+  expect(asked).toBe(`還有 ${TOTAL - 1} 題沒有作答。確定要交卷嗎？交卷後不能再修改答案。`);
+  await expect(bar(page).locator('.ex-score')).toHaveText(`得分 0 / ${TOTAL}（未作答 ${TOTAL - 1} 題）`);
+  expect(await stored(page)).toMatchObject({ sel: { 'p1-01': a1 }, done: false });
+  // the links below the questions lead back; paper 1 resumes, not handed in
+  const bottom = page.locator('nav.ex-mock-papers').last();
+  await expect(bottom.locator('a[aria-current="page"]')).toHaveText('第 2 回');
+  await bottom.getByRole('link', { name: '第 1 回' }).click();
+  await expect(page).toHaveURL(/\/exam\/mock$/);
+  await expect(count(page)).toHaveText(`已作答 1 / ${TOTAL}`);
+  await expect(result(page)).toBeHidden();
+  for (const [path, id] of [['/exam/mock-3', 'paper3'], ['/exam/mock-4', 'paper4']]) {
+    await page.goto(path);
+    await expect(page.locator('[data-mock-paper]')).toHaveAttribute('data-mock-paper', id);
+    await expect(page.locator('[data-mock-paper] > .ex-mq')).toHaveCount(TOTAL);
+    await expect(count(page)).toHaveText(`已作答 0 / ${TOTAL}`);
+  }
 });
 
 test('without scripts the questions and their explanations can still be read', async ({ browser, baseURL }) => {

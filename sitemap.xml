@@ -92,7 +92,7 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/exam</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam" />
@@ -100,11 +100,35 @@
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/exam/mock</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/mock" />
     <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/mock" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/exam/mock-2</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/mock-2" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/mock-2" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/exam/mock-3</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/mock-3" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/mock-3" />
+  </url>
+  <url>
+    <loc>https://hsiao.chendermatologist.com/exam/mock-4</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="x-default"  href="https://hsiao.chendermatologist.com/exam/mock-4" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://hsiao.chendermatologist.com/exam/mock-4" />
   </url>
   <url>
     <loc>https://hsiao.chendermatologist.com/exam/bcsc1-1</loc>
