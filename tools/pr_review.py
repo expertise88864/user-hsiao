@@ -405,6 +405,16 @@ def finish(api: API, pr: dict, entry: dict, binding: Path, unrecorded: Path) -> 
     return {"APPROVE": 0, "REQUEST_CHANGES": 2, "QUOTA_PENDING": 3}.get(verdict, 1)
 
 
+def unrecorded_retry_required(unrecorded: Path, head: str) -> bool:
+    """A current-model verdict for this head must be re-posted, not reviewed again.
+    One from another model/effort can never be posted (retry_record refuses it), so it
+    must not block the fresh review that replaces it either; that review overwrites it."""
+    if not unrecorded.is_file():
+        return False
+    entry = json.loads(unrecorded.read_text(encoding="utf-8"))
+    return entry.get("head") == head and entry.get("model") == MODEL and entry.get("effort") == EFFORT
+
+
 def retry_record(api: API, pr: dict, head: str, binding: Path, unrecorded: Path) -> int:
     if not unrecorded.is_file():
         raise Blocked("No unrecorded verdict in this checkout")
@@ -466,7 +476,7 @@ def main() -> int:
         unrecorded = ROOT / ".codex-review" / "pr_review_unrecorded.json"
         if args.retry_record:
             return retry_record(api, pr, head, binding, unrecorded)
-        if unrecorded.is_file() and json.loads(unrecorded.read_text(encoding="utf-8")).get("head") == head:
+        if unrecorded_retry_required(unrecorded, head):
             raise Blocked("A verdict for this head was not recorded on GitHub; run --retry-record")
         resume_session = None
         previous_head = None

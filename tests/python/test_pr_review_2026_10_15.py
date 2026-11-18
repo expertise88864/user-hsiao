@@ -405,6 +405,25 @@ class ReviewModelSwitchTests(unittest.TestCase):
                     pr.retry_record(FakeAPI(lambda path: None), {"number": 7}, SHA, Path(tmp) / "b.json", unrecorded)
                 record.assert_not_called()
 
+    def test_legacy_unrecorded_verdict_neither_retries_nor_blocks_a_fresh_review(self):
+        """PR #104 round 2 (P2): retry refused it and the fresh review sent the operator back."""
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as tmp:
+            unrecorded = Path(tmp) / "u.json"
+            base = {"repo": "owner/repo", "pr": 7, "verdict": "APPROVE", "base": "c" * 40, "head": SHA,
+                    "session": "s", "bound_session": "s", "message": "APPROVE", "resume": False}
+            for legacy in (base, {**base, "model": "gpt-6.1-sol", "effort": "xhigh"}):
+                unrecorded.write_text(json.dumps(legacy), encoding="utf-8")
+                with self.subTest(entry=legacy):
+                    with patch.object(pr, "record"), self.assertRaises(pr.Blocked):
+                        pr.retry_record(FakeAPI(lambda path: None), {"number": 7}, SHA, Path(tmp) / "b.json", unrecorded)
+                    self.assertFalse(pr.unrecorded_retry_required(unrecorded, SHA))
+            # A current-model verdict for this head still has to be re-posted first.
+            unrecorded.write_text(json.dumps({**base, **IDENTITY}), encoding="utf-8")
+            self.assertTrue(pr.unrecorded_retry_required(unrecorded, SHA))
+            self.assertFalse(pr.unrecorded_retry_required(unrecorded, "b" * 40))
+            self.assertFalse(pr.unrecorded_retry_required(Path(tmp) / "missing.json", SHA))
+
     def test_backfill_recovers_the_base_from_a_legacy_status(self):
         legacy = {"id": 5, "context": pr.LEGACY_CONTEXTS[0], "creator": {"login": "owner"},
                   "description": f"quota-pending base={'e' * 40}"}
