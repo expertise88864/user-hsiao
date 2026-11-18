@@ -329,6 +329,20 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(args, [])
         self.assertFalse((stranger / ".codex-review").exists())
 
+    def test_an_independent_clone_whose_origin_differs_only_by_dot_git_is_the_same_repository(self):
+        # pr_review.py --checkout accepts this pair (origin_url() normalises); so must the wrapper.
+        subprocess.run(["git", "-C", str(self.repo), "remote", "add", "origin", "https://github.com/Owner/Repo.git"],
+                       check=True, capture_output=True)
+        clone = Path(self.temp.name + "-clone")
+        self.addCleanup(shutil.rmtree, clone, True)
+        subprocess.run(["git", "clone", "-q", "--no-local", str(self.repo), str(clone)], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(clone), "remote", "set-url", "origin", "https://github.com/owner/repo/"],
+                       check=True, capture_output=True)
+        result, args = self.run_entry("deep", "HEAD", extra_env={"CODEX_REVIEW_REPO": str(clone)})
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(Path(args[args.index("--cd") + 1]).resolve(), clone.resolve())
+        self.assertTrue((clone / ".codex-review" / "usage.tsv").is_file())
+
     def test_codex_review_repo_that_is_not_a_git_work_tree_fails_closed(self):
         for bad in (str(self.repo / "missing"), str(self.bin)):
             with self.subTest(bad=bad):

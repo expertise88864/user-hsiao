@@ -64,8 +64,10 @@ if [ -n "${CODEX_REVIEW_REPO:-}" ]; then
     || die "無法解析 CODEX_REVIEW_REPO: $CODEX_REVIEW_REPO"
   tool_common="$(cd "$TOOL_ROOT" && cd "$(git rev-parse --git-common-dir)" && pwd -P)" || tool_common=""
   repo_common="$(cd "$REPO_ROOT" && cd "$(git rev-parse --git-common-dir)" && pwd -P)" || repo_common=""
-  tool_origin="$(git -C "$TOOL_ROOT" remote get-url origin 2>/dev/null || true)"
-  repo_origin="$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || true)"
+  # 與 tools/pr_review.py 的 origin_url() 同樣正規化:去掉結尾的 .git 與斜線、不分大小寫。
+  norm_origin() { printf '%s' "$1" | sed -E 's#(\.git)?/*$##' | tr '[:upper:]' '[:lower:]'; }
+  tool_origin="$(norm_origin "$(git -C "$TOOL_ROOT" remote get-url origin 2>/dev/null || true)")"
+  repo_origin="$(norm_origin "$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || true)")"
   if [ -n "$tool_common" ] && [ "$tool_common" = "$repo_common" ]; then :
   elif [ -n "$tool_origin" ] && [ "$tool_origin" = "$repo_origin" ]; then :
   else die "CODEX_REVIEW_REPO 與本工具 checkout 不是同一個 repository: $CODEX_REVIEW_REPO"; fi
