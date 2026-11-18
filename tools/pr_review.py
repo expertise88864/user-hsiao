@@ -319,14 +319,12 @@ def reviewed_base(api: API, sha: str) -> str:
 def latest_status(api: API, sha: str) -> dict | None:
     """The owner status that decides whether this head still needs a review.
 
-    A success under the current or a pre-switch context means reviewed (an APPROVE by the
-    model in force at the time). Otherwise the newest owner status under the current
-    context, else under a pre-switch one (so an old quota-pending still shows as pending)."""
-    per_context = [owner_statuses(api, sha, context) for context in (CONTEXT, *PAST_CONTEXTS)]
-    successes = [s for rows in per_context for s in rows if s.get("state") == "success"]
-    if successes:
-        return max(successes, key=lambda s: s["id"])
-    for rows in per_context:
+    The newest owner status under the current context decides (a success only if that
+    newest one is a success, so a newer quota-pending or failure is not hidden by an older
+    APPROVE). Only with no current-context status at all does the newest owner status under a
+    pre-switch context decide; its success is an APPROVE by the model in force at the time."""
+    for context in (CONTEXT, *PAST_CONTEXTS):
+        rows = owner_statuses(api, sha, context)
         if rows:
             return max(rows, key=lambda s: s["id"])
     return None
@@ -445,12 +443,38 @@ def finish(api: API, pr: dict, entry: dict, binding: Path, unrecorded: Path) -> 
     return {"APPROVE": 0, "REQUEST_CHANGES": 2, "QUOTA_PENDING": 3}.get(verdict, 1)
 
 
+def provenance_matches(entry: dict) -> bool:
+    """True when an unrecorded verdict was produced under the review rule now in force."""
+    return (entry.get("model") == MODEL and entry.get("effort") == EFFORT
+            and entry.get("context") == CONTEXT)
+
+
+def verified_provenance(verdict: str) -> dict:
+    """Model/effort/context a verdict was produced under, from the wrapper's verified identity.
+
+    APPROVE / REQUEST_CHANGES only come back after the wrapper proved the actual session, and
+    it leaves that proof in .codex-review/last_identity.json. A quota or error round never ran
+    a verified session; those carry the identity this tool requested (never posted as a review)."""
+    if verdict not in ("APPROVE", "REQUEST_CHANGES"):
+        return {"model": MODEL, "effort": EFFORT, "context": CONTEXT}
+    proof = repo_dir() / ".codex-review" / "last_identity.json"
+    try:
+        identity = json.loads(proof.read_text(encoding="utf-8"))
+        model, effort = identity["actualModel"], identity["actualEffort"]
+    except (OSError, ValueError, KeyError) as exc:
+        raise Blocked("The wrapper left no verified review identity; this round does not count") from exc
+    return {"model": model, "effort": effort, "context": CONTEXT}
+
+
 def retry_record(api: API, pr: dict, head: str, binding: Path, unrecorded: Path) -> int:
     if not unrecorded.is_file():
         raise Blocked("No unrecorded verdict in this checkout")
     entry = json.loads(unrecorded.read_text(encoding="utf-8"))
     if entry.get("repo") != api.repo or entry.get("pr") != pr["number"] or entry.get("head") != head:
         raise Blocked("The unrecorded verdict is for another PR or head")
+    if not provenance_matches(entry):
+        raise Blocked(f"The unrecorded verdict was not produced by {MODEL}/{EFFORT} under {CONTEXT} "
+                      "(or has no recorded provenance); it cannot be posted: run a fresh review")
     return finish(api, pr, entry, binding, unrecorded)
 
 
@@ -470,6 +494,13 @@ def main() -> int:
                         help="re-post a verdict whose GitHub recording failed (no new review)")
     args = parser.parse_args()
     try:
+        if args.ctx:
+            # The wrapper runs with the reviewed checkout as cwd: a relative path would point
+            # somewhere else. Resolve against the caller's cwd, as for the rebuttal file.
+            ctx_path = Path(args.ctx).resolve()
+            if not ctx_path.is_file():
+                raise Blocked(f"--ctx file not found: {ctx_path}")
+            args.ctx = str(ctx_path)
         if args.checkout and not args.pr:
             raise Blocked("--checkout is only for a backfill: pass it together with --pr N")
         if args.checkout and args.pending:
@@ -519,8 +550,15 @@ def main() -> int:
         unrecorded = repo_dir() / ".codex-review" / "pr_review_unrecorded.json"
         if args.retry_record:
             return retry_record(api, pr, head, binding, unrecorded)
-        if unrecorded.is_file() and json.loads(unrecorded.read_text(encoding="utf-8")).get("head") == head:
-            raise Blocked("A verdict for this head was not recorded on GitHub; run --retry-record")
+        if unrecorded.is_file():
+            leftover = json.loads(unrecorded.read_text(encoding="utf-8"))
+            if leftover.get("head") == head:
+                if provenance_matches(leftover):
+                    raise Blocked("A verdict for this head was not recorded on GitHub; run --retry-record")
+                # Produced under another rule (for example before the 2026-11-18 switch): it can never
+                # be posted, so it must not block a fresh review of the same head.
+                print("[pr-review] discarding an unrecorded verdict from another review rule")
+                unrecorded.unlink()
         resume_session = None
         previous_head = None
         rebuttal = None
@@ -547,7 +585,7 @@ def main() -> int:
         # Keep the verdict until GitHub has it: a failed POST is retried with
         # --retry-record instead of being lost (or blocking the next --resume).
         entry = {"repo": api.repo, "pr": pr["number"], "verdict": verdict, "base": base, "head": head,
-                 "session": session, "bound_session": resume_session or session,
+                 **verified_provenance(verdict), "session": session, "bound_session": resume_session or session,
                  "message": message, "resume": args.resume, "rebuttal": bool(rebuttal),
                  "same_head_rebuttal": bool(rebuttal) and previous_head is None}
         unrecorded.write_text(json.dumps(entry), encoding="utf-8")

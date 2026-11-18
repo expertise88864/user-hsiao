@@ -50,19 +50,32 @@ TOOL_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null)" \
   || die "必須在 git repository 內執行。"
 # 被審查的 checkout。預設就是本 wrapper 所在的 checkout;補審舊 PR 時,
 # tools/pr_review.py --pr N --checkout DIR 以「目前的」wrapper/驗證器審另一個 checkout
-# (歷史 head 的 worktree),並用 CODEX_REVIEW_REPO 指過去。設了卻不是 git work tree 的根目錄 → fail closed。
+# (歷史 head 的 worktree),並用 CODEX_REVIEW_REPO 指過去。該 checkout 不可信:
+#   * 必須是 git work tree 的根目錄,且與本工具 checkout 是同一個 repository
+#     (共用 git common dir,例如 `git worktree add` 出來的 linked worktree;或兩邊都有 origin 且相同),
+#     任一條件不成立 → fail closed(exit 64),且在建立任何審查狀態之前。
+#   * 絕不從它選 Python 或 CLI:Python 只取自本工具 checkout 或系統安裝。
 if [ -n "${CODEX_REVIEW_REPO:-}" ]; then
   [ -d "$CODEX_REVIEW_REPO" ] \
-    && [ "$(git -C "$CODEX_REVIEW_REPO" rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]     && [ -z "$(git -C "$CODEX_REVIEW_REPO" rev-parse --show-prefix 2>/dev/null)" ] \
-    || die "CODEX_REVIEW_REPO 不是既有的 git work tree: $CODEX_REVIEW_REPO"
+    && [ "$(git -C "$CODEX_REVIEW_REPO" rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ] \
+    && [ -z "$(git -C "$CODEX_REVIEW_REPO" rev-parse --show-prefix 2>/dev/null)" ] \
+    || die "CODEX_REVIEW_REPO 不是既有的 git work tree 根目錄: $CODEX_REVIEW_REPO"
   REPO_ROOT="$(git -C "$CODEX_REVIEW_REPO" rev-parse --show-toplevel)" \
     || die "無法解析 CODEX_REVIEW_REPO: $CODEX_REVIEW_REPO"
+  tool_common="$(cd "$TOOL_ROOT" && cd "$(git rev-parse --git-common-dir)" && pwd -P)" || tool_common=""
+  repo_common="$(cd "$REPO_ROOT" && cd "$(git rev-parse --git-common-dir)" && pwd -P)" || repo_common=""
+  tool_origin="$(git -C "$TOOL_ROOT" remote get-url origin 2>/dev/null || true)"
+  repo_origin="$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || true)"
+  if [ -n "$tool_common" ] && [ "$tool_common" = "$repo_common" ]; then :
+  elif [ -n "$tool_origin" ] && [ "$tool_origin" = "$repo_origin" ]; then :
+  else die "CODEX_REVIEW_REPO 與本工具 checkout 不是同一個 repository: $CODEX_REVIEW_REPO"; fi
 else
   REPO_ROOT="$TOOL_ROOT"
 fi
 REPO_NAME="$(basename "$REPO_ROOT")"
-if [ -x "$REPO_ROOT/.venv/Scripts/python.exe" ]; then PYTHON="$REPO_ROOT/.venv/Scripts/python.exe"
-elif [ -x "$TOOL_ROOT/.venv/Scripts/python.exe" ]; then PYTHON="$TOOL_ROOT/.venv/Scripts/python.exe"
+# Python(CLI 探索與身分驗證用)只來自本工具 checkout 或系統安裝,不來自被審查的 checkout。
+if [ -x "$TOOL_ROOT/.venv/Scripts/python.exe" ]; then PYTHON="$TOOL_ROOT/.venv/Scripts/python.exe"
+elif [ -x "$TOOL_ROOT/.venv/bin/python" ]; then PYTHON="$TOOL_ROOT/.venv/bin/python"
 elif command -v python >/dev/null 2>&1; then PYTHON="python"
 elif command -v python3 >/dev/null 2>&1; then PYTHON="python3"
 else die "找不到 Python,無法驗證審查身分。"; fi

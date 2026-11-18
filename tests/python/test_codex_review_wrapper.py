@@ -293,18 +293,41 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertIn("model_reasoning_effort=medium", args)
 
-    def test_codex_review_repo_points_the_review_at_another_work_tree(self):
+    def linked_worktree(self):
         other = Path(self.temp.name + "-reviewed")
         self.addCleanup(shutil.rmtree, other, True)
-        subprocess.run(["git", "init", "-q", str(other)], check=True, capture_output=True)
-        subprocess.run(["git", "-C", str(other), "-c", "user.name=Fixture",
-                        "-c", "user.email=fixture@example.invalid", "commit",
-                        "--allow-empty", "-qm", "historical-head"], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(self.repo), "worktree", "add", "-q", "--detach", str(other), "HEAD"],
+                       check=True, capture_output=True)
+        return other
+
+    def test_codex_review_repo_points_the_review_at_a_linked_worktree(self):
+        other = self.linked_worktree()
         result, args = self.run_entry("deep", "HEAD", extra_env={"CODEX_REVIEW_REPO": str(other)})
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertEqual(Path(args[args.index("--cd") + 1]).resolve(), other.resolve())
         self.assertTrue((other / ".codex-review" / "usage.tsv").is_file())
         self.assertFalse((self.repo / ".codex-review" / "usage.tsv").exists())
+
+    def test_python_is_never_taken_from_the_checkout_under_review(self):
+        other = self.linked_worktree()
+        marker = self.repo / "untrusted-python-ran"
+        for rel in (".venv/Scripts/python.exe", ".venv/bin/python"):
+            fake = other / rel
+            fake.parent.mkdir(parents=True)
+            fake.write_text(f"#!/usr/bin/env bash\necho ran >> '{marker.as_posix()}'\nexit 1\n", encoding="utf-8")
+            fake.chmod(0o755)
+        result, _ = self.run_entry("deep", "HEAD", extra_env={"CODEX_REVIEW_REPO": str(other)})
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertFalse(marker.exists(), "the wrapper ran Python from the checkout under review")
+
+    def test_codex_review_repo_must_be_the_same_repository(self):
+        stranger = Path(self.temp.name + "-stranger")
+        self.addCleanup(shutil.rmtree, stranger, True)
+        subprocess.run(["git", "init", "-q", str(stranger)], check=True, capture_output=True)
+        result, args = self.run_entry("deep", "HEAD", extra_env={"CODEX_REVIEW_REPO": str(stranger)})
+        self.assertEqual(result.returncode, 64, result.stderr)
+        self.assertEqual(args, [])
+        self.assertFalse((stranger / ".codex-review").exists())
 
     def test_codex_review_repo_that_is_not_a_git_work_tree_fails_closed(self):
         for bad in (str(self.repo / "missing"), str(self.bin)):

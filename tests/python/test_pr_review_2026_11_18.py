@@ -67,14 +67,38 @@ class PastContextTests(unittest.TestCase):
         self.assertIn("#4 [open]", text)
         self.assertIn("3 PR(s) without an APPROVE status", text)
 
-    def test_latest_status_prefers_success_then_current_then_past(self):
+    def test_latest_status_newest_current_wins_else_newest_past(self):
+        def latest(rows):
+            return pr.latest_status(FakeAPI({HEAD_A: rows}), HEAD_A)
+        # An old-context success alone counts; a newer current-context verdict replaces it.
+        self.assertEqual(latest([status(1, OLD, "success", "APPROVE")])["id"], 1)
         rows = [status(1, OLD, "success", "APPROVE"), status(5, pr.CONTEXT, "failure", "REQUEST_CHANGES")]
-        self.assertEqual(pr.latest_status(FakeAPI({HEAD_A: rows}), HEAD_A)["id"], 1)
-        rows = [status(1, OLD, "pending", "quota-pending"), status(5, pr.CONTEXT, "failure", "REQUEST_CHANGES")]
-        self.assertEqual(pr.latest_status(FakeAPI({HEAD_A: rows}), HEAD_A)["id"], 5)
-        rows = [status(1, OLD, "pending", "quota-pending")]
-        self.assertEqual(pr.latest_status(FakeAPI({HEAD_A: rows}), HEAD_A)["id"], 1)
-        self.assertIsNone(pr.latest_status(FakeAPI({HEAD_A: []}), HEAD_A))
+        self.assertEqual(latest(rows)["id"], 5)
+        rows = [status(1, OLD, "success", "APPROVE"), status(5, pr.CONTEXT, "pending", "quota-pending")]
+        self.assertEqual(latest(rows)["state"], "pending")
+        # A current APPROVE followed by a newer current quota-pending is not hidden by the older success.
+        rows = [status(2, pr.CONTEXT, "success", "APPROVE"), status(6, pr.CONTEXT, "pending", "quota-pending")]
+        self.assertEqual(latest(rows)["id"], 6)
+        self.assertEqual(latest([status(1, OLD, "pending", "quota-pending")])["id"], 1)
+        self.assertIsNone(latest([]))
+
+    def test_pending_lists_a_head_whose_newest_current_status_is_not_success(self):
+        statuses = {
+            HEAD_A: [status(1, pr.CONTEXT, "success", "APPROVE"), status(2, pr.CONTEXT, "pending", "quota-pending")],
+            HEAD_B: [status(3, OLD, "success", "APPROVE")],
+            "d" * 40: [status(4, OLD, "success", "APPROVE"), status(5, pr.CONTEXT, "pending", "quota-pending")],
+        }
+        prs = [{"number": n, "state": "open", "merged_at": None, "title": f"t{n}", "head": {"sha": sha}}
+               for n, sha in ((1, HEAD_A), (2, HEAD_B), (3, "d" * 40))]
+        out = io.StringIO()
+        with mock.patch.object(pr, "all_prs", return_value=prs), \
+             mock.patch.object(pr.subprocess, "run"), mock.patch.object(pr, "git", return_value=""), \
+             contextlib.redirect_stdout(out):
+            pr.list_pending(FakeAPI(statuses))
+        text = out.getvalue()
+        self.assertIn("#1 [open]", text)
+        self.assertNotIn("#2 ", text)
+        self.assertIn("#3 [open]", text)
 
     def test_reviewed_base_recovers_the_base_from_an_old_context_status(self):
         old_only = FakeAPI({HEAD_A: [status(1, OLD, "pending", f"quota-pending base={BASE}"),
@@ -198,6 +222,10 @@ class CheckoutTests(unittest.TestCase):
 
         def fake_review(*args):
             seen["repo"] = pr.repo_dir()
+            seen["ctx"] = args[3]
+            (self.review / ".codex-review").mkdir(exist_ok=True)
+            (self.review / ".codex-review" / "last_identity.json").write_text(
+                json.dumps({"actualModel": pr.MODEL, "actualEffort": pr.EFFORT}), encoding="utf-8")
             return "APPROVE", "sid", "ok"
         with contextlib.ExitStack() as stack:
             for patcher in common:
@@ -207,8 +235,100 @@ class CheckoutTests(unittest.TestCase):
             stack.enter_context(contextlib.redirect_stdout(io.StringIO()))
             self.assertEqual(pr.main(), 0)
         self.assertEqual(seen["repo"], self.review)
+        self.assertIsNone(seen["ctx"])
         self.assertTrue((self.review / ".codex-review").is_dir())
         self.assertEqual(finish.call_args.args[3], self.review / ".codex-review" / "pr_review.json")
+
+
+    def test_relative_ctx_is_resolved_against_the_callers_cwd_before_the_wrapper_runs(self):
+        caller = self.base / "caller"
+        caller.mkdir()
+        (caller / "ctx.txt").write_text("summary\n", encoding="utf-8")
+        seen = {}
+
+        def fake_review(*args):
+            seen["ctx"] = args[3]
+            (self.review / ".codex-review").mkdir(exist_ok=True)
+            (self.review / ".codex-review" / "last_identity.json").write_text(
+                json.dumps({"actualModel": pr.MODEL, "actualEffort": pr.EFFORT}), encoding="utf-8")
+            return "APPROVE", "sid", "ok"
+
+        def fake_git(*args):
+            return {"rev-parse HEAD": HEAD_A, "rev-parse FETCH_HEAD": "9" * 40}.get(
+                " ".join(args), "" if args[0] == "status" else BASE)
+        fake_pr = {"number": 7, "head": {"sha": HEAD_A}, "base": {"sha": "f" * 40}, "html_url": "u"}
+        previous = Path.cwd()
+        try:
+            import os
+            os.chdir(caller)
+            for ctx, expected in (("ctx.txt", 0), ("missing.txt", 1)):
+                argv = ["pr_review.py", "--pr", "7", "--checkout", str(self.review), "--ctx", ctx]
+                with mock.patch.object(pr.sys, "argv", argv), mock.patch.object(pr, "API", return_value=FakeAPI()), \
+                     mock.patch.object(pr, "repository", return_value="owner/repo"), \
+                     mock.patch.object(pr, "use_checkout", side_effect=lambda d: setattr(pr, "CHECKOUT", Path(d))), \
+                     mock.patch.object(pr, "git", fake_git), mock.patch.object(pr.subprocess, "run"), \
+                     mock.patch.object(pr, "find_pr", return_value=fake_pr), \
+                     mock.patch.object(pr, "run_review", fake_review), mock.patch.object(pr, "finish", return_value=0), \
+                     contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                    self.assertEqual(pr.main(), expected, ctx)
+        finally:
+            os.chdir(previous)
+        self.assertEqual(Path(seen["ctx"]), (caller / "ctx.txt").resolve())
+
+
+class ProvenanceTests(unittest.TestCase):
+    """An unrecorded verdict is only ever posted under the rule that produced it."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix="pr-review-provenance-")
+        self.addCleanup(self.temp.cleanup)
+        self.dir = Path(self.temp.name)
+        self.binding = self.dir / "pr_review.json"
+        self.unrecorded = self.dir / "pr_review_unrecorded.json"
+        self.pull = {"number": 7, "html_url": "u"}
+
+    def entry(self, **extra):
+        base = {"repo": "owner/repo", "pr": 7, "verdict": "APPROVE", "base": BASE, "head": HEAD_A,
+                "session": "s", "bound_session": "s", "message": "APPROVE", "resume": False}
+        base.update(extra)
+        self.unrecorded.write_text(json.dumps(base), encoding="utf-8")
+
+    def retry(self):
+        return pr.retry_record(FakeAPI(), self.pull, HEAD_A, self.binding, self.unrecorded)
+
+    def test_retry_refuses_a_record_without_provenance_or_from_the_old_rule(self):
+        for extra in ({},
+                      {"model": "gpt-6.1-sol", "effort": "xhigh", "context": OLD},
+                      {"model": "gpt-6.1-sol", "effort": "xhigh", "context": pr.CONTEXT},
+                      {"model": pr.MODEL, "effort": "xhigh", "context": pr.CONTEXT},
+                      {"model": pr.MODEL, "effort": pr.EFFORT, "context": OLD}):
+            with self.subTest(extra=extra):
+                self.entry(**extra)
+                with mock.patch.object(pr, "record") as record, self.assertRaises(pr.Blocked) as caught:
+                    self.retry()
+                record.assert_not_called()
+                self.assertIn("fresh review", str(caught.exception))
+                self.assertTrue(self.unrecorded.is_file())
+
+    def test_retry_posts_a_record_that_matches_the_current_rule(self):
+        self.entry(model=pr.MODEL, effort=pr.EFFORT, context=pr.CONTEXT)
+        with mock.patch.object(pr, "record") as record:
+            self.assertEqual(self.retry(), 0)
+        record.assert_called_once()
+        self.assertFalse(self.unrecorded.exists())
+
+    def test_provenance_comes_from_the_verified_identity_not_from_this_tool(self):
+        state = self.dir / ".codex-review"
+        state.mkdir()
+        with mock.patch.object(pr, "CHECKOUT", self.dir):
+            with self.assertRaises(pr.Blocked):  # no identity proof for a counted verdict
+                pr.verified_provenance("APPROVE")
+            (state / "last_identity.json").write_text(
+                json.dumps({"actualModel": "gpt-6.1-sol", "actualEffort": "xhigh"}), encoding="utf-8")
+            self.assertEqual(pr.verified_provenance("REQUEST_CHANGES"),
+                             {"model": "gpt-6.1-sol", "effort": "xhigh", "context": pr.CONTEXT})
+            # Quota / error rounds never had a verified session; they carry the requested identity.
+            self.assertEqual(pr.verified_provenance("QUOTA_PENDING")["model"], pr.MODEL)
 
 
 class WrapperRepoVariableTests(unittest.TestCase):
