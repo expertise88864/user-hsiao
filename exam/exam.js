@@ -451,6 +451,8 @@
     head.appendChild(el('span', 'ex-q-no', (opts.prefix || '') + '第 ' + q.n + ' 題'));
     // The year and number of the paper it appeared in, where known (owner 2026-11-18).
     if (q.yr) head.appendChild(el('span', 'ex-q-yr', q.yr));
+    // A self-written question on the concept of a paper question the bank lacks (owner 2026-11-18).
+    if (q.src) head.appendChild(el('span', 'ex-q-yr ex-q-rw', q.src));
     var chips = el('span', 'ex-chips');
     q.ch.forEach(function (key) { chips.appendChild(chapterChip(key, q.n, data.chapters, opts.current)); });
     head.appendChild(chips);

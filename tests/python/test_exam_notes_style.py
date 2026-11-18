@@ -100,9 +100,11 @@ class ChapterPageTests(unittest.TestCase):
                 # Chapters with no tagged questions (eg, 1-1) have notes but no citations.
                 self.assertEqual(bool(sups), bool(self.data["by_chapter"].get(key)))
                 self.assertFalse(doc.select(".ex-note sup.ex-qref a"))
-                # Q123, or Q123（114 年第 8 題） where the exam year is known (owner 2026-11-18)
+                # Q123, Q123（114 年第 8 題） where the exam year is known, or
+                # Q1800（114 年第 31 題考點・本站改寫） for a rewrite (owner 2026-11-18)
                 for label in doc.select(".ex-note sup.ex-qref span"):
-                    self.assertRegex(label.get_text(), r"^Q\d+(?:（\d{3} 年第 \d+ 題(?:、\d{3} 年第 \d+ 題)*）)?$")
+                    self.assertRegex(label.get_text(), r"^Q\d+(?:（\d{3} 年第 \d+ 題(?:、\d{3} 年第 \d+ 題)*）"
+                                                       r"|（\d{3} 年第 \d+ 題考點・本站改寫）)?$")
 
     def test_sticky_outline_mirrors_the_inline_outline(self):
         key = "8-6"
