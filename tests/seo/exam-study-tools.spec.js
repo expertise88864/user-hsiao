@@ -174,6 +174,21 @@ test('a page restored from the back/forward cache keeps its questions', async ({
   await expect(page.locator('.ex-q')).toHaveCount(count);
 });
 
+test('the wrong-answer notebook restored from the back/forward cache shows answers given meanwhile', async ({ page }) => {
+  await signIn(page);
+  const q = JSON.parse(await bank()).questions.filter(x => x.answer).slice(0, 2);
+  await page.goto('/exam/review');
+  await page.evaluate(n => localStorage.setItem('hs:exam:wrong', JSON.stringify([n])), q[0].n);
+  await page.reload();
+  await expect(page.locator(`#ex-review-list #q-${q[0].n}`)).toBeVisible();
+  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })));
+  // meanwhile, on another page: q[0] answered right, q[1] answered wrong
+  await page.evaluate(n => localStorage.setItem('hs:exam:wrong', JSON.stringify([n])), q[1].n);
+  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+  await expect(page.locator(`#ex-review-list #q-${q[1].n}`)).toBeVisible();
+  await expect(page.locator(`#ex-review-list #q-${q[0].n}`)).toHaveCount(0);
+});
+
 test('a question that appeared in a paper of a known year shows the year and its number', async ({ page }) => {
   await signIn(page);
   const q = JSON.parse(await bank()).questions.find(x => x.yr && x.ch.length);

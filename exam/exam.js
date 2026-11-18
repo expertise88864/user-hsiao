@@ -2704,12 +2704,15 @@
   }
 
   window.addEventListener('pageshow', function (ev) {
-    // Back from a chapter: show the reading rounds recorded meanwhile.
+    // Back from a chapter: show the reading rounds and the answers recorded meanwhile.
+    // (Until 2026-11-18 a restored page that had the bank reloaded instead.)
     if (ev.persisted) {
       fillHubBadges();
       fillContinue();
       var pg = document.getElementById('ex-progress');
       if (pg) renderProgress(pg);
+      var rl = document.getElementById('ex-review-list');
+      if (rl) renderReview(rl);
     }
   });
 
