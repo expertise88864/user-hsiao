@@ -57,12 +57,16 @@ def native_for_shim(shim: str) -> list[str]:
     @openai/codex or hoisted next to it. A global install keeps the shim beside
     node_modules (npm/codex.cmd); a project install keeps it in node_modules/.bin."""
     shim_dir = os.path.dirname(shim)
-    modules = (os.path.dirname(shim_dir) if os.path.basename(shim_dir).lower() == ".bin"
-               else os.path.join(shim_dir, "node_modules"))
+    roots = [os.path.join(shim_dir, "node_modules")]  # global prefix (whatever its name)
+    parent = os.path.dirname(shim_dir)
+    if (os.path.basename(shim_dir).lower() == ".bin"
+            and os.path.basename(parent).lower() == "node_modules"):
+        roots.append(parent)  # project install: <project>/node_modules/.bin
     found = []
-    for scope in (os.path.join(modules, "@openai", "codex", "node_modules"), modules):
-        found.extend(glob.glob(os.path.join(scope, "@openai", "codex-win32-*",
-                                            "vendor", "*", "bin", "codex.exe")))
+    for modules in roots:
+        for scope in (os.path.join(modules, "@openai", "codex", "node_modules"), modules):
+            found.extend(glob.glob(os.path.join(scope, "@openai", "codex-win32-*",
+                                                "vendor", "*", "bin", "codex.exe")))
     return sorted(set(found))
 
 

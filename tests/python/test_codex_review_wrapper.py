@@ -599,6 +599,17 @@ class CliSelectionTests(unittest.TestCase):
                 shim.write_text("@echo off\n", encoding="utf-8")
                 self.assertEqual([Path(p) for p in self.candidates(shim)], [native])
 
+    def test_global_prefix_named_bin_keeps_the_global_layout(self):
+        """PR #108 round 2 (P3): only node_modules/.bin is a project shim directory."""
+        prefix = self.root / "home" / ".bin"
+        native = (prefix / "node_modules/@openai/codex/node_modules/@openai/codex-win32-x64"
+                  / "vendor/x86_64-pc-windows-msvc/bin/codex.exe")
+        native.parent.mkdir(parents=True)
+        native.write_bytes(b"")
+        shim = prefix / "codex.cmd"
+        shim.write_text("@echo off\n", encoding="utf-8")
+        self.assertEqual([Path(p) for p in self.candidates(shim)], [native])
+
     def test_shim_without_a_native_executable_is_dropped(self):
         npm = self.root / "npm"
         npm.mkdir()
