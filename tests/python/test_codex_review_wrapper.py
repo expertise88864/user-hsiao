@@ -28,7 +28,8 @@ pathlib.Path(value("-o")).write_text("Fixture CLI only; no model called.\nREQUES
 sid = os.environ.get("CODEX_FIXTURE_FORCE_SID") or (args[2] if args[:2] == ["exec", "resume"] else os.environ["CODEX_FIXTURE_SESSION"])
 model = os.environ.get("CODEX_FIXTURE_ACTUAL_MODEL") or value("--model")
 sandbox = value("--sandbox") or config.get("sandbox_mode", "")
-top = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True, check=True).stdout.strip()
+top = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True, check=True,
+                     cwd=value("--cd") or None).stdout.strip()
 context = {"cwd": top, "model": model, "effort": config.get("model_reasoning_effort", ""),
            "sandbox_policy": {"type": sandbox}, "turn_id": "fixture"}
 rows = [{"type": "session_meta", "payload": {"id": sid, "cwd": top}},
@@ -291,6 +292,26 @@ class ReviewEntryTests(unittest.TestCase):
         result, args = self.run_entry("resume", SESSION)
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertIn("model_reasoning_effort=medium", args)
+
+    def test_codex_review_repo_points_the_review_at_another_work_tree(self):
+        other = Path(self.temp.name + "-reviewed")
+        self.addCleanup(shutil.rmtree, other, True)
+        subprocess.run(["git", "init", "-q", str(other)], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(other), "-c", "user.name=Fixture",
+                        "-c", "user.email=fixture@example.invalid", "commit",
+                        "--allow-empty", "-qm", "historical-head"], check=True, capture_output=True)
+        result, args = self.run_entry("deep", "HEAD", extra_env={"CODEX_REVIEW_REPO": str(other)})
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(Path(args[args.index("--cd") + 1]).resolve(), other.resolve())
+        self.assertTrue((other / ".codex-review" / "usage.tsv").is_file())
+        self.assertFalse((self.repo / ".codex-review" / "usage.tsv").exists())
+
+    def test_codex_review_repo_that_is_not_a_git_work_tree_fails_closed(self):
+        for bad in (str(self.repo / "missing"), str(self.bin)):
+            with self.subTest(bad=bad):
+                result, args = self.run_entry("deep", "HEAD", extra_env={"CODEX_REVIEW_REPO": bad})
+                self.assertEqual(result.returncode, 64, result.stderr)
+                self.assertEqual(args, [])
 
     def test_wrong_actual_model_never_counts(self):
         state = self.seed_session()

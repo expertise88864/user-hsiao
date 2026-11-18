@@ -14,9 +14,17 @@ Usage (clean checkout of the exact, already pushed codex/* head):
     python tools/pr_review.py --resume              # after fixing CONFIRMED findings
     python tools/pr_review.py --mode deep --ctx task.txt
     python tools/pr_review.py --pr 12               # backfill a PR (HEAD must equal its head)
+    python tools/pr_review.py --pr 12 --checkout DIR  # backfill with THIS checkout's tooling, reviewing DIR
     python tools/pr_review.py --pending             # list PRs whose head is not approved
     python tools/pr_review.py --retry-record        # re-post a verdict GitHub did not accept
     python tools/pr_review.py --resume --rebuttal r.txt  # once per head: evidence for REJECTED findings
+
+Backfilling a PR published under an older review rule must not run that PR's own
+(old) wrapper and verifier: check its head out in a separate worktree
+(``git worktree add --detach DIR <head>``) and run the CURRENT tool against it with
+``--checkout DIR``. The tooling (this file, the wrapper, _delivery_policy.json) comes from
+the checkout the command runs in; every git call, the clean-tree check and the
+``.codex-review`` state use DIR.
 
 Exit codes: 0 APPROVE, 2 REQUEST_CHANGES, 3 quota pending, 1 blocked/error.
 Quota pending is not approval; rerun when quota returns (same PR, same head).
@@ -36,9 +44,15 @@ import urllib.request
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTEXT = "codex-review/gpt-6.2-astra"
+# Statuses recorded before the 2026-11-18 switch (gpt-6.1-sol / xhigh). A success under one
+# of these is an APPROVE by the model in force at the time and still counts as reviewed;
+# new verdicts are only ever recorded under CONTEXT.
+PAST_CONTEXTS = ("codex-review/gpt-6.1-sol",)
 MODEL = "gpt-6.2-astra"
 EFFORT = "medium"
 MARKER = "<!-- codex-pr-review -->"
+# Set by --checkout: the separate work tree being reviewed. None = the tooling checkout (ROOT).
+CHECKOUT: Path | None = None
 SHA = re.compile(r"^[0-9a-f]{40}$")
 QUOTA = re.compile(r"usage limit|rate limit|try again at|quota", re.I)
 BASE_IN_STATUS = re.compile(r"base=([0-9a-f]{40})")
@@ -56,8 +70,38 @@ class Blocked(RuntimeError):
     pass
 
 
+def repo_dir() -> Path:
+    """The work tree under review: --checkout when given, otherwise this tooling checkout."""
+    return CHECKOUT or ROOT
+
+
 def git(*args: str) -> str:
-    return subprocess.check_output(["git", *args], cwd=ROOT, text=True, encoding="utf-8").strip()
+    return subprocess.check_output(["git", *args], cwd=repo_dir(), text=True, encoding="utf-8").strip()
+
+
+def origin_url(directory: Path) -> str:
+    result = subprocess.run(["git", "-C", str(directory), "remote", "get-url", "origin"],
+                            capture_output=True, text=True, encoding="utf-8")
+    url = result.stdout.strip() if result.returncode == 0 else ""
+    return re.sub(r"(\.git)?/*$", "", url).lower()
+
+
+def use_checkout(directory: str) -> None:
+    """Validate --checkout DIR (a work tree of this same repository) and select it."""
+    global CHECKOUT
+    path = Path(directory).resolve()
+    inside = subprocess.run(["git", "-C", str(path), "rev-parse", "--is-inside-work-tree"],
+                            capture_output=True, text=True, encoding="utf-8")
+    if not path.is_dir() or inside.returncode != 0 or inside.stdout.strip() != "true":
+        raise Blocked(f"--checkout is not a git work tree: {path}")
+    top = subprocess.run(["git", "-C", str(path), "rev-parse", "--show-toplevel"],
+                         capture_output=True, text=True, encoding="utf-8").stdout.strip()
+    if not top or Path(top).resolve() != path:
+        raise Blocked(f"--checkout must be the root of its work tree: {top or path}")
+    mine, theirs = origin_url(ROOT), origin_url(path)
+    if not mine or mine != theirs:
+        raise Blocked("--checkout belongs to a different repository (origin remote differs)")
+    CHECKOUT = path
 
 
 def repository() -> str:
@@ -198,15 +242,19 @@ def run_review(mode: str, base: str, head: str, ctx: str | None,
     if resume_session and rebuttal:
         # Evidence for findings Claude Code REJECTED; the reviewer re-checks it itself.
         env["CODEX_REVIEW_REBUTTAL_FILE"] = rebuttal
-    args = [bash(), wrapper()]
+    # The wrapper and identity verifier always come from the tooling checkout (ROOT), so a
+    # backfill of an old head is judged by the current rule; CODEX_REVIEW_REPO says which
+    # work tree is reviewed.
+    env["CODEX_REVIEW_REPO"] = str(repo_dir())
+    args = [bash(), (ROOT / wrapper()).as_posix()]
     args += ["resume", resume_session] if resume_session else [mode, base]
     args += [ctx] if ctx else []  # updated context reaches the reviewer on resume too
-    state = ROOT / ".codex-review"
+    state = repo_dir() / ".codex-review"
     # A wrapper that refuses before calling the CLI leaves the previous round's
     # files behind; they must never be read as this head's verdict or quota error.
     for stale in ("last_message.txt", "last_raw.log"):
         (state / stale).unlink(missing_ok=True)
-    rc = subprocess.run(args, cwd=ROOT, env=env, stdin=subprocess.DEVNULL).returncode
+    rc = subprocess.run(args, cwd=repo_dir(), env=env, stdin=subprocess.DEVNULL).returncode
     message = (state / "last_message.txt").read_text(encoding="utf-8", errors="replace") \
         if (state / "last_message.txt").is_file() else ""
     raw = (state / "last_raw.log").read_text(encoding="utf-8", errors="replace") \
@@ -248,25 +296,40 @@ def record(api: API, pr: dict, verdict: str, base: str, head: str, session: str,
     api.call("POST", f"/issues/{pr['number']}/comments", {"body": body})
 
 
-def reviewed_base(api: API, sha: str) -> str:
-    """Base of the newest owner review status on this head (any verdict), or ''."""
+def owner_statuses(api: API, sha: str, context: str) -> list:
     owner = api.repo.split("/")[0].lower()
-    rows = [s for s in api.call("GET", f"/commits/{sha}/statuses?per_page=100") or []
-            if s.get("context") == CONTEXT
+    rows = api.call("GET", f"/commits/{sha}/statuses?per_page=100") or []
+    return [s for s in rows if s.get("context") == context
             and str(s.get("creator", {}).get("login", "")).lower() == owner]
-    for status in sorted(rows, key=lambda s: s["id"], reverse=True):
-        match = BASE_IN_STATUS.search(str(status.get("description", "")))
-        if match:
-            return match.group(1)
+
+
+def reviewed_base(api: API, sha: str) -> str:
+    """Base of the newest owner review status on this head (any verdict), or ''.
+
+    The current context is consulted first, then the pre-switch contexts, so a backfill
+    recovers the original base from an old quota-pending (or other) status."""
+    for context in (CONTEXT, *PAST_CONTEXTS):
+        for status in sorted(owner_statuses(api, sha, context), key=lambda s: s["id"], reverse=True):
+            match = BASE_IN_STATUS.search(str(status.get("description", "")))
+            if match:
+                return match.group(1)
     return ""
 
 
 def latest_status(api: API, sha: str) -> dict | None:
-    owner = api.repo.split("/")[0].lower()
-    rows = api.call("GET", f"/commits/{sha}/statuses?per_page=100") or []
-    mine = [s for s in rows if s.get("context") == CONTEXT
-            and str(s.get("creator", {}).get("login", "")).lower() == owner]
-    return max(mine, key=lambda s: s["id"]) if mine else None
+    """The owner status that decides whether this head still needs a review.
+
+    A success under the current or a pre-switch context means reviewed (an APPROVE by the
+    model in force at the time). Otherwise the newest owner status under the current
+    context, else under a pre-switch one (so an old quota-pending still shows as pending)."""
+    per_context = [owner_statuses(api, sha, context) for context in (CONTEXT, *PAST_CONTEXTS)]
+    successes = [s for rows in per_context for s in rows if s.get("state") == "success"]
+    if successes:
+        return max(successes, key=lambda s: s["id"])
+    for rows in per_context:
+        if rows:
+            return max(rows, key=lambda s: s["id"])
+    return None
 
 
 def all_prs(api: API) -> list:
@@ -311,7 +374,7 @@ def pr_commits(api: API, number: int, expected: int) -> list | None:
 
 def list_pending(api: API) -> int:
     rows = all_prs(api)
-    subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", "main"], cwd=ROOT, check=True)
+    subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", "main"], cwd=repo_dir(), check=True)
     audited = set(LEGACY_AUDIT.findall(git("log", "FETCH_HEAD", "--format=%B")))
     count = legacy = unshipped = 0
     for pr in rows:
@@ -360,7 +423,7 @@ def resume_base(saved: dict, head: str, rebuttal: bool = False) -> str | None:
         if saved.get("rebutted_head") == head:
             raise Blocked("This head was already rebutted once; change the code or accept the findings")
         return None
-    if subprocess.run(["git", "merge-base", "--is-ancestor", previous, head], cwd=ROOT).returncode != 0:
+    if subprocess.run(["git", "merge-base", "--is-ancestor", previous, head], cwd=repo_dir()).returncode != 0:
         raise Blocked("The last reviewed head is not an ancestor of this head; run a first round")
     return previous
 
@@ -399,27 +462,41 @@ def main() -> int:
     parser.add_argument("--rebuttal", help="with --resume: evidence for REJECTED findings (never a diff); "
                                            "allows one re-examination of an unchanged head")
     parser.add_argument("--pr", type=int, help="PR number (default: open PR of the current branch)")
+    parser.add_argument("--checkout", metavar="DIR",
+                        help="with --pr: review the PR head checked out in DIR (a separate work tree of "
+                             "this repository) using THIS checkout's current wrapper and tooling")
     parser.add_argument("--pending", action="store_true", help="list PRs whose head lacks APPROVE")
     parser.add_argument("--retry-record", action="store_true",
                         help="re-post a verdict whose GitHub recording failed (no new review)")
     args = parser.parse_args()
     try:
+        if args.checkout and not args.pr:
+            raise Blocked("--checkout is only for a backfill: pass it together with --pr N")
+        if args.checkout and args.pending:
+            raise Blocked("--checkout cannot be combined with --pending")
         api = API(repository())
         if args.pending:
             return list_pending(api)
+        if args.checkout:
+            use_checkout(args.checkout)
         head = git("rev-parse", "HEAD")
         if git("status", "--porcelain", "--untracked-files=all"):
             raise Blocked("Working tree must be clean: the review covers committed history only")
-        subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", "main"], cwd=ROOT, check=True)
+        subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", "main"], cwd=repo_dir(), check=True)
         if args.pr:
             pr = find_pr(api, "", args.pr)
             if pr["head"]["sha"] != head:
-                raise Blocked(f"Check out the PR head first: git switch --detach {pr['head']['sha']}")
+                # Never switch this tooling checkout to the old head: that would also swap in the
+                # old wrapper and verifier. Review it in a separate work tree instead.
+                raise Blocked(
+                    f"The reviewed checkout is not PR #{args.pr}'s head {pr['head']['sha']}. Make a separate "
+                    f"work tree with `git worktree add --detach DIR {pr['head']['sha']}` and run "
+                    f"`python {(ROOT / 'tools' / 'pr_review.py').as_posix()} --pr {args.pr} --checkout DIR`")
         else:
             branch = git("branch", "--show-current")
             if not branch.startswith("codex/"):
                 raise Blocked("Run on a codex/* branch (or pass --pr for a backfill)")
-            remote = subprocess.run(["git", "ls-remote", "origin", f"refs/heads/{branch}"], cwd=ROOT,
+            remote = subprocess.run(["git", "ls-remote", "origin", f"refs/heads/{branch}"], cwd=repo_dir(),
                                     capture_output=True, text=True, check=True).stdout.split()
             if not remote or remote[0] != head:
                 raise Blocked("Push this exact head to origin first; the PR must show what was reviewed")
@@ -437,8 +514,9 @@ def main() -> int:
         print(f"[pr-review] PR #{pr['number']} range {base[:12]}..{head[:12]} model={MODEL}/{EFFORT}")
         # The wrapper resumes the session recorded in this checkout; make sure that
         # session belongs to this PR, never to another PR reviewed here earlier.
-        binding = ROOT / ".codex-review" / "pr_review.json"
-        unrecorded = ROOT / ".codex-review" / "pr_review_unrecorded.json"
+        (repo_dir() / ".codex-review").mkdir(exist_ok=True)
+        binding = repo_dir() / ".codex-review" / "pr_review.json"
+        unrecorded = repo_dir() / ".codex-review" / "pr_review_unrecorded.json"
         if args.retry_record:
             return retry_record(api, pr, head, binding, unrecorded)
         if unrecorded.is_file() and json.loads(unrecorded.read_text(encoding="utf-8")).get("head") == head:
@@ -455,7 +533,7 @@ def main() -> int:
                 raise Blocked("The rebuttal must be non-empty evidence text (<= 20000 chars), never a diff")
         if args.resume:
             saved = json.loads(binding.read_text(encoding="utf-8")) if binding.is_file() else {}
-            recorded = ROOT / ".codex-review" / "last_session_id"
+            recorded = repo_dir() / ".codex-review" / "last_session_id"
             current = recorded.read_text(encoding="utf-8").strip().lower() if recorded.is_file() else ""
             resume_session = str(saved.get("session", "")).lower()
             if saved.get("pr") != pr["number"] or saved.get("repo") != api.repo \

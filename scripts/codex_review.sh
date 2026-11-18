@@ -29,6 +29,8 @@
 #   CODEX_REVIEW_HARDEN=0      關閉 web_search/apps 的額外 -c 硬化(若該 CLI 版本不認這些鍵)。
 #   CODEX_REVIEW_STRICT=0      關閉 --strict-config。
 #   CODEX_REVIEW_WINDOWS_SANDBOX  Windows 原生沙箱實作:unelevated(預設)或 elevated。
+#   CODEX_REVIEW_REPO          被審查的 checkout(預設為本 wrapper 所在的 checkout)。補審舊 PR 時指向歷史
+#                              head 的獨立 worktree,wrapper/驗證器仍用目前這份;不是 git work tree 即拒跑。
 #   CODEX_REVIEW_CLI           明示要用的 Codex CLI;未設時由 codex_review_identity.py which
 #                              挑本機版本最高者(npm 版較舊、可能不支援 gpt-6.2-astra;桌面版內附的 0.167.0-alpha.3.2 可以)。
 #   CODEX_REVIEW_BASE / CODEX_REVIEW_TIP
@@ -44,10 +46,23 @@ STRICT="${CODEX_REVIEW_STRICT:-1}"
 die() { echo "[codex-review] ERROR: $*" >&2; exit 64; }
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null)" \
+TOOL_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null)" \
   || die "必須在 git repository 內執行。"
+# 被審查的 checkout。預設就是本 wrapper 所在的 checkout;補審舊 PR 時,
+# tools/pr_review.py --pr N --checkout DIR 以「目前的」wrapper/驗證器審另一個 checkout
+# (歷史 head 的 worktree),並用 CODEX_REVIEW_REPO 指過去。設了卻不是 git work tree 的根目錄 → fail closed。
+if [ -n "${CODEX_REVIEW_REPO:-}" ]; then
+  [ -d "$CODEX_REVIEW_REPO" ] \
+    && [ "$(git -C "$CODEX_REVIEW_REPO" rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]     && [ -z "$(git -C "$CODEX_REVIEW_REPO" rev-parse --show-prefix 2>/dev/null)" ] \
+    || die "CODEX_REVIEW_REPO 不是既有的 git work tree: $CODEX_REVIEW_REPO"
+  REPO_ROOT="$(git -C "$CODEX_REVIEW_REPO" rev-parse --show-toplevel)" \
+    || die "無法解析 CODEX_REVIEW_REPO: $CODEX_REVIEW_REPO"
+else
+  REPO_ROOT="$TOOL_ROOT"
+fi
 REPO_NAME="$(basename "$REPO_ROOT")"
 if [ -x "$REPO_ROOT/.venv/Scripts/python.exe" ]; then PYTHON="$REPO_ROOT/.venv/Scripts/python.exe"
+elif [ -x "$TOOL_ROOT/.venv/Scripts/python.exe" ]; then PYTHON="$TOOL_ROOT/.venv/Scripts/python.exe"
 elif command -v python >/dev/null 2>&1; then PYTHON="python"
 elif command -v python3 >/dev/null 2>&1; then PYTHON="python3"
 else die "找不到 Python,無法驗證審查身分。"; fi

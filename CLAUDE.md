@@ -6,6 +6,7 @@
 - 所有 PR（首審與續審）一律 `gpt-6.2-astra`、reasoning effort `medium`；不得 fallback 到其他模型或 effort，證明不了實際模型就 fail closed。
 - commit status 名稱改為 `codex-review/gpt-6.2-astra`（`tools/pr_review.py`、`_delivery.py`、`scripts/codex_review.sh`、`scripts/codex_review_identity.py` 同步）。
 - Codex 桌面版內附 CLI 0.167.0-alpha.3.2 可跑 gpt-6.2-astra／medium；wrapper 仍自動挑本機版本最高的 CLI。
+- 補審切換前發佈的舊 PR：不可在舊 head 的 checkout 內跑（會連舊 wrapper 一起用）；另開 `git worktree add --detach DIR <head>`，以目前的工具執行 `python tools/pr_review.py --pr N --checkout DIR`。`--pending` 與補審的 base 復原同時認得舊的 `codex-review/gpt-6.1-sol` status（舊 APPROVE 視為已審）；新結論一律只記在 `codex-review/gpt-6.2-astra`。
 
 ## 最新使用者定案：每個 PR review 一次（2026-10-15）
 
