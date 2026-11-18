@@ -32,7 +32,8 @@
 #   CODEX_REVIEW_REPO          被審查的 checkout(預設為本 wrapper 所在的 checkout)。補審舊 PR 時指向歷史
 #                              head 的獨立 worktree,wrapper/驗證器仍用目前這份;不是 git work tree 即拒跑。
 #   CODEX_REVIEW_CLI           明示要用的 Codex CLI;未設時由 codex_review_identity.py which
-#                              挑本機版本最高者(npm 版較舊、可能不支援 gpt-6.2-astra;桌面版內附的 0.167.0-alpha.3.2 可以)。
+#                              挑本機版本最高者。不可是 .cmd/.bat 批次檔:npm 的 codex.cmd 會把多行
+#                              prompt 截在第一個換行(2026-11-18 實測),選擇時改用它背後的原生 codex.exe。
 #   CODEX_REVIEW_BASE / CODEX_REVIEW_TIP
 #                              每個 PR review 一次(2026-10-15):tools/pr_review.py 傳入
 #                              merge-base(main, head) 與 PR head 的完整 SHA。本 wrapper 審的是
@@ -165,6 +166,9 @@ resolve_cli() {
       CODEX_CLI=""
   fi
   [ -n "$CODEX_CLI" ] || die "找不到可用的 Codex CLI;不降級到其他模型。"
+  case "$(printf '%s' "$CODEX_CLI" | tr 'A-Z' 'a-z')" in
+    *.cmd|*.bat) die "Codex CLI 不可是批次檔($CODEX_CLI):多行 prompt 會被截斷。請改指定原生 codex.exe。" ;;
+  esac
   echo "[codex-review] cli=$CODEX_CLI"
   local quoted
   quoted="$(printf '%s' "$REPO_ROOT" | sed "s/'/'\\\\''/g")"
@@ -173,12 +177,13 @@ resolve_cli() {
 
 VERIFIED_SID=""
 VERIFIED_TOKENS=""
-# 實際 session 必須是本輪、本 repo、gpt-6.2-astra/medium/read-only;$1 = 續審時預期的 session。
+# 實際 session 必須是本輪、本 repo、gpt-6.2-astra/medium/read-only,且審查者收到的 prompt
+# 與送出的($PROMPT_SENT)完全相同;$1 = 續審時預期的 session。
 verify_actual_session() {
   local identity
   local a=("$SCRIPT_DIR/codex_review_identity.py" --raw-log "$RAW_LOG"
            --repo "$REPO_ROOT" --started-at "$REVIEW_STARTED_AT"
-           --proof "$STATE_DIR/last_identity.json")
+           --proof "$STATE_DIR/last_identity.json" --prompt-file "$PROMPT_SENT")
   rm -f "$STATE_DIR/last_identity.json"
   [ -z "${1:-}" ] || a+=(--expected-session "$1")
   identity="$("$PYTHON" "${a[@]}")" || return 1
@@ -338,6 +343,8 @@ RP
     RESUME_PROMPT+=$'\n\n'"Implementer rebuttal: the implementer validated your previous findings against the code and REJECTED the ones below with evidence; no code was changed for them. Re-examine each rejected finding in the repository yourself (read-only). Withdraw it only if the evidence holds; otherwise keep it and state the concrete reason. Never withdraw a finding on assertion alone. Rebuttal text:"$'\n'"$(cat "$REBUTTAL_FILE")"
   fi
 
+  PROMPT_SENT="$STATE_DIR/last_prompt.txt"
+  printf '%s' "$RESUME_PROMPT" > "$PROMPT_SENT"
   echo "[codex-review] resume session=$SID effort=$RESUME_EFFORT (pass $THIS_PASS)"
   : > "$LAST_MSG"
   # resume 無 --cd:改在 subshell 內 cd 進 repo,讓 Codex 在正確目錄跑 git。
@@ -535,6 +542,8 @@ echo 0 > "$PASS_FILE"
 # "Reading additional input from stdin..." 並一直等下去。2026-10-14 在背景
 # 執行時實際卡了 4.5 小時,直到手動結束才以「啟動失敗」收場。
 resolve_cli
+PROMPT_SENT="$STATE_DIR/last_prompt.txt"
+cp "$TMP/prompt.txt" "$PROMPT_SENT"
 REVIEW_STARTED_AT="$("$PYTHON" -c 'import time; print(time.time())')" || die "Python unavailable"
 "$CODEX_CLI" exec "${FLAGS[@]}" "$(cat "$TMP/prompt.txt")" < /dev/null 2>&1 | tee "$RAW_LOG"
 CODEX_RC=${PIPESTATUS[0]}

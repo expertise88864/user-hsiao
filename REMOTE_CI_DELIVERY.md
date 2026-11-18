@@ -20,7 +20,8 @@ change medical content, visual baselines, credentials, recipients or scoring.
    python tools/pr_review.py (step 8) opens that PR when it does not exist yet.
 7. Run: python _delivery.py verify FULL_SHA --phase candidate --wait 1800
 8. Review the whole PR once: python tools/pr_review.py (opens the PR if needed).
-   gpt-6.2-astra/medium read-only via scripts/codex_review.sh (actual model verified) reviews
+   gpt-6.2-astra/medium read-only via scripts/codex_review.sh (actual model and the complete
+   prompt verified from the session log; never through the npm codex.cmd batch shim) reviews
    merge-base(main, head)..head; the verdict goes to a PR comment and to the owner's
    `codex-review/gpt-6.2-astra` status on the exact head.
    Validate findings, fix only CONFIRMED ones, push, then python tools/pr_review.py --resume

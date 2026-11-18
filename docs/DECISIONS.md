@@ -1,6 +1,7 @@
 # DECISIONS.md — 已定案決策帳本（Decision Ledger）
 
 > 2026-11-18 使用者定案：所有 PR 審查（首審與續審）改為 `gpt-6.2-astra`／medium／read-only，commit status 為 `codex-review/gpt-6.2-astra`；以下較早條目中的 gpt-6.1-sol／xhigh 為當時紀錄，現行規則以此為準。
+> 同日補充：npm 的 `codex.cmd` 批次檔會把多行 prompt 截成第一行，wrapper 一律改用原生 `codex.exe` 並拒用 `.cmd`／`.bat`；每一輪都比對審查者實際收到的 prompt，計入的裁決、續審與補登都必須附完整 prompt 證明。
 
 ### D-31 CI 對 Vercel 的請求預算（2026-10-18）
 

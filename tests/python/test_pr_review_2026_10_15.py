@@ -247,7 +247,8 @@ class RecordRetryTests(unittest.TestCase):
             binding.write_text(json.dumps({"head": "b" * 40}), encoding="utf-8")
             entry = {"repo": "owner/repo", "pr": 7, "verdict": "APPROVE", "base": "c" * 40, "head": SHA,
                      "session": "s", "bound_session": "s", "message": "APPROVE", "resume": True,
-                     "model": pr.MODEL, "effort": pr.EFFORT, "context": pr.CONTEXT}
+                     "model": pr.MODEL, "effort": pr.EFFORT, "context": pr.CONTEXT,
+                     "prompt_verified": True}
             unrecorded.write_text(json.dumps(entry), encoding="utf-8")
             api, pull = FakeAPI(lambda path: None), {"number": 7}
             with patch.object(pr, "record", side_effect=pr.Blocked("HTTP 502")), \

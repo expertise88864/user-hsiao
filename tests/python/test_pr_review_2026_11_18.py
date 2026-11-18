@@ -225,7 +225,8 @@ class CheckoutTests(unittest.TestCase):
             seen["ctx"] = args[3]
             (self.review / ".codex-review").mkdir(exist_ok=True)
             (self.review / ".codex-review" / "last_identity.json").write_text(
-                json.dumps({"actualModel": pr.MODEL, "actualEffort": pr.EFFORT}), encoding="utf-8")
+                json.dumps({"actualModel": pr.MODEL, "actualEffort": pr.EFFORT, "sessionId": "sid",
+                            "promptVerified": True}), encoding="utf-8")
             return "APPROVE", "sid", "ok"
         with contextlib.ExitStack() as stack:
             for patcher in common:
@@ -250,7 +251,8 @@ class CheckoutTests(unittest.TestCase):
             seen["ctx"] = args[3]
             (self.review / ".codex-review").mkdir(exist_ok=True)
             (self.review / ".codex-review" / "last_identity.json").write_text(
-                json.dumps({"actualModel": pr.MODEL, "actualEffort": pr.EFFORT}), encoding="utf-8")
+                json.dumps({"actualModel": pr.MODEL, "actualEffort": pr.EFFORT, "sessionId": "sid",
+                            "promptVerified": True}), encoding="utf-8")
             return "APPROVE", "sid", "ok"
 
         def fake_git(*args):
@@ -311,7 +313,7 @@ class ProvenanceTests(unittest.TestCase):
                 self.assertTrue(self.unrecorded.is_file())
 
     def test_retry_posts_a_record_that_matches_the_current_rule(self):
-        self.entry(model=pr.MODEL, effort=pr.EFFORT, context=pr.CONTEXT)
+        self.entry(model=pr.MODEL, effort=pr.EFFORT, context=pr.CONTEXT, prompt_verified=True)
         with mock.patch.object(pr, "record") as record:
             self.assertEqual(self.retry(), 0)
         record.assert_called_once()
@@ -324,9 +326,11 @@ class ProvenanceTests(unittest.TestCase):
             with self.assertRaises(pr.Blocked):  # no identity proof for a counted verdict
                 pr.verified_provenance("APPROVE")
             (state / "last_identity.json").write_text(
-                json.dumps({"actualModel": "gpt-6.1-sol", "actualEffort": "xhigh"}), encoding="utf-8")
+                json.dumps({"actualModel": "gpt-6.1-sol", "actualEffort": "xhigh",
+                            "promptVerified": True}), encoding="utf-8")
             self.assertEqual(pr.verified_provenance("REQUEST_CHANGES"),
-                             {"model": "gpt-6.1-sol", "effort": "xhigh", "context": pr.CONTEXT})
+                             {"model": "gpt-6.1-sol", "effort": "xhigh", "context": pr.CONTEXT,
+                              "prompt_verified": True})
             # Quota / error rounds never had a verified session; they carry the requested identity.
             self.assertEqual(pr.verified_provenance("QUOTA_PENDING")["model"], pr.MODEL)
 
@@ -341,3 +345,62 @@ class WrapperRepoVariableTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PromptProofTests(unittest.TestCase):
+    """2026-11-18: npm's codex.cmd cut every review prompt to its first line. A review
+    verdict counts, resumes and is re-posted only with proof the prompt arrived whole."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix="pr-review-prompt-proof-")
+        self.addCleanup(self.temp.cleanup)
+        self.dir = Path(self.temp.name)
+        (self.dir / ".codex-review").mkdir()
+        patcher = mock.patch.object(pr, "CHECKOUT", self.dir)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def proof(self, **changes):
+        data = {"actualModel": pr.MODEL, "actualEffort": pr.EFFORT, "sessionId": "sid-1",
+                "promptVerified": True, **changes}
+        (self.dir / ".codex-review" / "last_identity.json").write_text(json.dumps(data), encoding="utf-8")
+
+    def test_counted_verdict_needs_a_prompt_proof_for_the_same_session(self):
+        self.proof()
+        self.assertTrue(pr.verified_provenance("APPROVE", "SID-1")["prompt_verified"])
+        ok = {"actualModel": pr.MODEL, "actualEffort": pr.EFFORT, "sessionId": "sid-1", "promptVerified": True}
+        missing = {k: v for k, v in ok.items() if k != "promptVerified"}
+        for data in ({**ok, "promptVerified": False}, missing, {**ok, "sessionId": "other"}):
+            with self.subTest(data=data):
+                (self.dir / ".codex-review" / "last_identity.json").write_text(json.dumps(data), encoding="utf-8")
+                with self.assertRaises(pr.Blocked):
+                    pr.verified_provenance("REQUEST_CHANGES", "sid-1")
+
+    def test_quota_and_error_rounds_are_never_prompt_verified(self):
+        for verdict in ("QUOTA_PENDING", "ERROR"):
+            self.assertIs(pr.verified_provenance(verdict, "sid-1")["prompt_verified"], False)
+
+    def test_retry_needs_prompt_proof_only_for_review_verdicts(self):
+        rule = {"model": pr.MODEL, "effort": pr.EFFORT, "context": pr.CONTEXT}
+        self.assertFalse(pr.provenance_matches({"verdict": "APPROVE", **rule}))
+        self.assertFalse(pr.provenance_matches({"verdict": "REQUEST_CHANGES", **rule, "prompt_verified": False}))
+        self.assertTrue(pr.provenance_matches({"verdict": "APPROVE", **rule, "prompt_verified": True}))
+        # A quota-pending result made no verdict; it is re-posted without calling the model.
+        self.assertTrue(pr.provenance_matches({"verdict": "QUOTA_PENDING", **rule, "prompt_verified": False}))
+
+    def test_resume_requires_a_prompt_verified_binding(self):
+        good = {"model": pr.MODEL, "effort": pr.EFFORT, "context": pr.CONTEXT, "prompt_verified": True}
+        pr.require_current_binding(good)
+        for bad in ({}, {**good, "prompt_verified": False}, {**good, "model": "gpt-6.1-sol"},
+                    {**good, "effort": "xhigh"}, {**good, "context": "codex-review/gpt-6.1-sol"}):
+            with self.subTest(bad=bad), self.assertRaises(pr.Blocked):
+                pr.require_current_binding(bad)
+
+    def test_finish_binds_the_verdicts_provenance(self):
+        binding, unrecorded = self.dir / "b.json", self.dir / "u.json"
+        entry = {"repo": "owner/repo", "pr": 7, "verdict": "REQUEST_CHANGES", "base": BASE, "head": HEAD_A,
+                 "session": "s", "bound_session": "s", "message": "", "resume": False,
+                 "model": pr.MODEL, "effort": pr.EFFORT, "context": pr.CONTEXT, "prompt_verified": True}
+        with mock.patch.object(pr, "record"):
+            pr.finish(FakeAPI(), {"number": 7, "html_url": "u"}, entry, binding, unrecorded)
+        pr.require_current_binding(json.loads(binding.read_text(encoding="utf-8")))

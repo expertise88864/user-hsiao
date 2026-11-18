@@ -44,30 +44,48 @@ def cli_version(path: str) -> str:
     return lines[0] if proc.returncode == 0 and lines else ""
 
 
+BATCH_SHIM = (".cmd", ".bat")
+
+
+def native_for_shim(shim: str) -> list[str]:
+    """Native executables behind an npm `codex.cmd` shim.
+
+    Never run the shim itself: a Windows batch file cuts a multi-line argument at
+    the first newline, so the reviewer receives only the prompt's first line
+    (2026-11-18, observed in the session logs). The npm package ships the real CLI
+    under node_modules/@openai/codex-win32-<arch>/vendor/<triple>/bin."""
+    root = os.path.join(os.path.dirname(shim), "node_modules", "@openai", "codex")
+    return sorted(glob.glob(os.path.join(root, "node_modules", "@openai", "codex-win32-*",
+                                         "vendor", "*", "bin", "codex.exe")))
+
+
 def codex_candidates() -> list[str]:
-    """Codex CLIs on this machine: the desktop app's bundled builds, then PATH."""
+    """Codex CLIs on this machine: the desktop app's bundled builds, then PATH.
+    A batch shim is replaced by the native executable it launches, or dropped."""
     found = []
     local = os.environ.get("LOCALAPPDATA", "")
     if local:
         found.extend(sorted(glob.glob(os.path.join(local, "OpenAI", "Codex", "bin", "*", "codex.exe"))))
     for name in (("codex.cmd", "codex.exe", "codex") if os.name == "nt" else ("codex",)):
         hit = shutil.which(name)
-        if hit:
+        if hit and hit.lower().endswith(BATCH_SHIM):
+            found.extend(native_for_shim(hit))
+        elif hit:
             found.append(hit)
     seen, unique = set(), []
     for path in found:
         key = os.path.normcase(os.path.abspath(path))
-        if key not in seen and os.path.isfile(path):
+        if key not in seen and os.path.isfile(path) and not path.lower().endswith(BATCH_SHIM):
             seen.add(key)
             unique.append(path)
     return unique
 
 
 def find_codex() -> tuple[str, str]:
-    """Highest-version runnable CLI. Older npm builds (0.155.1) reject newer
-    review models for ChatGPT accounts while the desktop app's bundled alpha
-    (0.167.0-alpha.3.2 runs gpt-6.2-astra) accepts them, so a
-    PATH-only lookup would pick a CLI that cannot run the required model. The
+    """Highest-version runnable CLI. Builds differ in which review models they accept
+    for ChatGPT accounts (older npm builds such as 0.155.1 reject newer ones), so a
+    PATH-only lookup could pick a CLI that cannot run the required model. npm's
+    codex.cmd shim is never a candidate itself (see native_for_shim). The
     chosen CLI is not trusted for the model either: verify() still checks the
     actual session record."""
     ranked = []
@@ -102,8 +120,23 @@ def objects(path: Path, *, allow_diagnostics: bool = False) -> list[dict]:
     return result
 
 
+def normalize_prompt(text: str) -> str:
+    return text.replace("\r\n", "\n").strip()
+
+
+def delivered_prompt(records: list[dict], context_index: int) -> str:
+    """The prompt the reviewer actually received: the first user message of the
+    turn that starts at records[context_index] (its turn_context)."""
+    for record in records[context_index + 1:]:
+        payload = record.get("payload", {})
+        if record.get("type") == "response_item" and payload.get("role") == "user":
+            return "\n".join(c.get("text", "") for c in payload.get("content", [])
+                             if isinstance(c, dict) and c.get("type") == "input_text")
+    return ""
+
+
 def verify(raw: Path, repo: Path, sessions: Path, started_at: float,
-           expected_session: str | None = None) -> dict:
+           expected_session: str | None = None, prompt: str | None = None) -> dict:
     from datetime import datetime
 
     if not math.isfinite(started_at) or started_at < 0:
@@ -137,6 +170,7 @@ def verify(raw: Path, repo: Path, sessions: Path, started_at: float,
     if not contexts:
         raise ValueError("actual session has no review context")
     latest = contexts[-1]
+    latest_index = max(i for i, x in enumerate(records) if x.get("type") == "turn_context")
     stamp = datetime.fromisoformat(latest.get("timestamp", "").replace("Z", "+00:00"))
     if stamp.tzinfo is None or stamp.timestamp() < started_at - 1:
         raise ValueError("actual context is stale for this invocation")
@@ -147,8 +181,12 @@ def verify(raw: Path, repo: Path, sessions: Path, started_at: float,
         raise ValueError(f"actual model/effort differs from {MODEL}/{EFFORT}")
     if context.get("sandbox_policy", {}).get("type") != "read-only":
         raise ValueError("actual review sandbox is not read-only")
+    if prompt is not None and normalize_prompt(delivered_prompt(records, latest_index)) != normalize_prompt(prompt):
+        # e.g. a batch shim cut the prompt at its first newline: the reviewer never saw
+        # the scope, the task context or the verdict contract, so the round cannot count.
+        raise ValueError("the reviewer did not receive the complete prompt")
     return {"sessionId": sid, "tokensUsed": sum(numbers), "actualModel": MODEL,
-            "actualEffort": EFFORT, "readOnly": True,
+            "actualEffort": EFFORT, "readOnly": True, "promptVerified": prompt is not None,
             "turnId": context.get("turn_id"), "contextTimestamp": latest["timestamp"],
             "sessionLogSHA256": hashlib.sha256(log.read_bytes()).hexdigest(),
             "eventsSHA256": hashlib.sha256(raw.read_bytes()).hexdigest()}
@@ -169,13 +207,16 @@ def main() -> int:
     parser.add_argument("--repo", type=Path, required=True)
     parser.add_argument("--started-at", type=float, required=True)
     parser.add_argument("--expected-session")
+    parser.add_argument("--prompt-file", type=Path,
+                        help="the exact prompt sent; the session log must show it arrived intact")
     parser.add_argument("--proof", type=Path, required=True)
     parser.add_argument("--session-directory", type=Path,
                         default=Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")) / "sessions")
     args = parser.parse_args()
     try:
+        prompt = args.prompt_file.read_text(encoding="utf-8") if args.prompt_file else None
         proof = verify(args.raw_log, args.repo, args.session_directory,
-                       args.started_at, args.expected_session)
+                       args.started_at, args.expected_session, prompt)
         args.proof.write_text(json.dumps(proof, indent=2) + "\n", encoding="utf-8")
     except (OSError, ValueError, TypeError, KeyError) as exc:
         print(f"[codex-review] actual session verification failed: {exc}", file=sys.stderr)

@@ -435,7 +435,9 @@ def finish(api: API, pr: dict, entry: dict, binding: Path, unrecorded: Path) -> 
         # the next --resume reviews every commit after it (fixes and anything else).
         binding.write_text(json.dumps({"repo": api.repo, "pr": pr["number"],
                                        "session": entry["bound_session"], "head": head,
-                                       "verdict": verdict,
+                                       "verdict": verdict, "model": entry.get("model"),
+                                       "effort": entry.get("effort"), "context": entry.get("context"),
+                                       "prompt_verified": entry.get("prompt_verified") is True,
                                        "rebutted_head": head if entry.get("same_head_rebuttal") else ""}),
                            encoding="utf-8")
     unrecorded.unlink(missing_ok=True)
@@ -444,26 +446,46 @@ def finish(api: API, pr: dict, entry: dict, binding: Path, unrecorded: Path) -> 
 
 
 def provenance_matches(entry: dict) -> bool:
-    """True when an unrecorded verdict was produced under the review rule now in force."""
-    return (entry.get("model") == MODEL and entry.get("effort") == EFFORT
-            and entry.get("context") == CONTEXT)
+    """True when an unrecorded verdict was produced under the review rule now in force.
+    A review verdict also needs proof that the reviewer received the complete prompt
+    (2026-11-18: a batch shim once delivered only its first line); a quota or error
+    round made no verdict and is re-posted as is."""
+    if not (entry.get("model") == MODEL and entry.get("effort") == EFFORT
+            and entry.get("context") == CONTEXT):
+        return False
+    return entry.get("verdict") not in ("APPROVE", "REQUEST_CHANGES") or entry.get("prompt_verified") is True
 
 
-def verified_provenance(verdict: str) -> dict:
+def require_current_binding(saved: dict) -> None:
+    """A resume continues only a session whose last verdict was a prompt-verified review
+    under the current rule; otherwise the new round would approve the whole PR after
+    seeing only the newest commits."""
+    if not (saved.get("model") == MODEL and saved.get("effort") == EFFORT
+            and saved.get("context") == CONTEXT and saved.get("prompt_verified") is True):
+        raise Blocked(f"The recorded session is not a prompt-verified {MODEL}/{EFFORT} review; "
+                      "run a first round")
+
+
+def verified_provenance(verdict: str, session: str = "") -> dict:
     """Model/effort/context a verdict was produced under, from the wrapper's verified identity.
 
     APPROVE / REQUEST_CHANGES only come back after the wrapper proved the actual session, and
     it leaves that proof in .codex-review/last_identity.json. A quota or error round never ran
     a verified session; those carry the identity this tool requested (never posted as a review)."""
     if verdict not in ("APPROVE", "REQUEST_CHANGES"):
-        return {"model": MODEL, "effort": EFFORT, "context": CONTEXT}
+        return {"model": MODEL, "effort": EFFORT, "context": CONTEXT, "prompt_verified": False}
     proof = repo_dir() / ".codex-review" / "last_identity.json"
     try:
         identity = json.loads(proof.read_text(encoding="utf-8"))
         model, effort = identity["actualModel"], identity["actualEffort"]
     except (OSError, ValueError, KeyError) as exc:
         raise Blocked("The wrapper left no verified review identity; this round does not count") from exc
-    return {"model": model, "effort": effort, "context": CONTEXT}
+    if identity.get("promptVerified") is not True:
+        raise Blocked("The wrapper did not prove the reviewer received the complete prompt; "
+                      "this round does not count")
+    if session and str(identity.get("sessionId", "")).lower() != session.lower():
+        raise Blocked("The identity proof belongs to another session; this round does not count")
+    return {"model": model, "effort": effort, "context": CONTEXT, "prompt_verified": True}
 
 
 def retry_record(api: API, pr: dict, head: str, binding: Path, unrecorded: Path) -> int:
@@ -577,6 +599,7 @@ def main() -> int:
             if saved.get("pr") != pr["number"] or saved.get("repo") != api.repo \
                     or not resume_session or resume_session != current:
                 raise Blocked("The recorded review session is not this PR's; run a first round")
+            require_current_binding(saved)
             previous_head = resume_base(saved, head, bool(rebuttal))
         else:
             binding.unlink(missing_ok=True)
@@ -585,7 +608,7 @@ def main() -> int:
         # Keep the verdict until GitHub has it: a failed POST is retried with
         # --retry-record instead of being lost (or blocking the next --resume).
         entry = {"repo": api.repo, "pr": pr["number"], "verdict": verdict, "base": base, "head": head,
-                 **verified_provenance(verdict), "session": session, "bound_session": resume_session or session,
+                 **verified_provenance(verdict, session), "session": session, "bound_session": resume_session or session,
                  "message": message, "resume": args.resume, "rebuttal": bool(rebuttal),
                  "same_head_rebuttal": bool(rebuttal) and previous_head is None}
         unrecorded.write_text(json.dumps(entry), encoding="utf-8")

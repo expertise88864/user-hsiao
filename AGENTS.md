@@ -5,7 +5,7 @@
 本節優先於下方及舊文件中所有「gpt-6.1-sol」「xhigh」的審查模型與 effort 敘述；其餘流程（每個 PR 審一次、read-only、`--ignore-user-config`、逐條驗證 finding、`--resume` 直到 APPROVE、一次 `--rebuttal`、quota-pending、CI 與資料保護）不變。
 - 所有 PR（首審與續審）一律 `gpt-6.2-astra`、reasoning effort `medium`；不得 fallback 到其他模型或 effort，證明不了實際模型就 fail closed。
 - commit status 名稱改為 `codex-review/gpt-6.2-astra`（`tools/pr_review.py`、`_delivery.py`、`scripts/codex_review.sh`、`scripts/codex_review_identity.py` 同步）。
-- Codex 桌面版內附 CLI 0.167.0-alpha.3.2 可跑 gpt-6.2-astra／medium；wrapper 仍自動挑本機版本最高的 CLI。
+- wrapper 自動挑本機版本最高的 Codex CLI，但**不可經 npm 的 `codex.cmd` 批次檔執行**：Windows 批次檔會把多行 prompt 截成第一行（2026-11-18 實測，審查者只收到第一行）。選擇時改用它背後的原生 `codex.exe`，指定 `.cmd`／`.bat` 會被拒絕；identity 檢查比對 session 紀錄中審查者實際收到的 prompt，不一致就不算一輪。APPROVE／REQUEST_CHANGES 必須附這個 prompt 證明（`last_identity.json` 的 `promptVerified`，且為同一 session），續審綁定與 `--retry-record` 補登也都要求它。
 - 補審切換前發佈的舊 PR：不可在舊 head 的 checkout 內跑（會連舊 wrapper 一起用）；另開 `git worktree add --detach DIR <head>`，以目前的工具執行 `python tools/pr_review.py --pr N --checkout DIR`。`--pending` 與補審的 base 復原同時認得舊的 `codex-review/gpt-6.1-sol` status（舊 APPROVE 視為已審）；新結論一律只記在 `codex-review/gpt-6.2-astra`。
 
 ## 最新使用者定案：每個 PR review 一次（2026-10-15）
