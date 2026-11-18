@@ -46,7 +46,7 @@ class CitationMarkupTests(unittest.TestCase):
         self.assertIn("<li><mark>X</mark></li>", out)
 
     def test_superscript_labels_are_plain_text_not_links(self):
-        # Owner 2026-10-28: the Q labels never jump to the question, signed in or not.
+        # Owner 2026-10-28: the Q labels never jump to the question.
         out = gen.expand_hits("<li><mark>A</mark>{{q:922,359}}</li>", "8-6", {922, 359})
         doc = BeautifulSoup(out, "html.parser")
         sup = doc.select_one("sup.ex-qref")
@@ -64,7 +64,8 @@ class CitationMarkupTests(unittest.TestCase):
 
 
 class NoAnswerInPublicNotesTests(unittest.TestCase):
-    """Notes are public; question answers are login-only (PR #73 review, 2026-10-28)."""
+    """Notes never name a question's answer (PR #73 review, 2026-10-28; kept after the bank
+    was opened on 2026-11-18, so the notes do not hand the reader the answers)."""
 
     def test_answer_disclosures_are_rejected(self):
         for text in ("<li>課本寫 X。本題官方答案為 A。</li>", "<li>答案為 B。</li>", "<li>故選 C。</li>",
@@ -99,8 +100,9 @@ class ChapterPageTests(unittest.TestCase):
                 # Chapters with no tagged questions (eg, 1-1) have notes but no citations.
                 self.assertEqual(bool(sups), bool(self.data["by_chapter"].get(key)))
                 self.assertFalse(doc.select(".ex-note sup.ex-qref a"))
+                # Q123, or Q123（114 年第 8 題） where the exam year is known (owner 2026-11-18)
                 for label in doc.select(".ex-note sup.ex-qref span"):
-                    self.assertRegex(label.get_text(), r"^Q\d+$")
+                    self.assertRegex(label.get_text(), r"^Q\d+(?:（\d{3} 年第 \d+ 題(?:、\d{3} 年第 \d+ 題)*）)?$")
 
     def test_sticky_outline_mirrors_the_inline_outline(self):
         key = "8-6"

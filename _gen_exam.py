@@ -11,21 +11,24 @@ Sources (hand-maintained):
   data/exam/chapter_zh.json     chapter key -> Taiwan official Chinese names (first = display name)
   data/exam/links.json          chapter key -> EyeWiki / EyeRounds / Moran CORE links, checked by hand
   data/exam/concept_kaofa.json  concept id -> question number -> one-line 考法 (public, no answers)
+  data/exam/years.json          question number -> [[ROC year, question number in that year's paper], ...]
+                                for the questions whose year is known (load_years())
   data/exam/notes/bcsc<b>-<c>.htm   chapter study notes (trusted HTML fragments; .htm keeps
                                     the site-wide *.html page audits off them)
 
 Outputs (generated, never hand-edit):
   exam/index.html, exam/bcsc<b>-<c>.html, exam/concepts.html, exam/practice.html, exam/mock.html, exam/review.html,
-  exam/progress.html, exam/search.html, exam/login.html, exam/notes-data.json (public),
-  exam/nav-search.json (public chapter headings for the site header search),
-  api/_exam_bank.js (question bank; served only to signed-in readers by api/_exam_data.js (via api/exam/[op].js)),
+  exam/progress.html, exam/search.html, exam/notes-data.json,
+  exam/nav-search.json (chapter headings for the site header search),
+  api/_exam_bank.js (question bank, served by api/_exam_data.js (via api/exam/[op].js)),
   data/exam/page_dates.json (per-page dates ledger, see page_dates()) and
   data/exam/og_cards.json (share card text; _gen_exam_og.py renders assets/og/exam/ from it),
   admin/exam-preview.css (EXAM_STYLE for the /admin exam editor's sandboxed note preview)
 
-Access: chapter notes are public. Question text, answers and explanations never appear
-in public files (build() fails closed if they do); readers sign in with the shared
-EXAM_PASSWORD (api/_exam_login.js) and exam.js fetches the bank from /api/exam/data.
+Access: everything is public. The question bank (text, answers, explanations) was behind
+a shared-password login until the owner opened it on 2026-11-18 (「題庫公開」); it is still
+served as one JSON from /api/exam/data that exam.js renders, so the pages stay light and
+the page files carry no question text (build() checks it).
 
 The question bank carries no official answer key, so an answer exists only once
 explanations.json has determined it from BCSC; unanswered questions render in
@@ -48,7 +51,7 @@ import re
 import sys
 from collections import defaultdict
 from datetime import date
-from urllib.parse import quote, urlsplit
+from urllib.parse import urlsplit
 from pathlib import Path
 
 from halfwidth_to_fullwidth import convert as fullwidth
@@ -138,8 +141,9 @@ def check_note_markup(key: str, fragment: str) -> None:
                 raise SystemExit(f"notes {key}: class {value!r} is not allowed")
             if name not in ("class", "id", "scope", "colspan", "rowspan"):
                 raise SystemExit(f"notes {key}: attribute {name} is not allowed")
-    # Notes are public; answers are login-only (PR #73 review, 2026-10-28). A note states
-    # the textbook fact and cites {{q:N}}; it never names a question's answer or key.
+    # A note states the textbook fact and cites {{q:N}}; it never names a question's answer
+    # or key (PR #73 review, 2026-10-28; kept after the bank was opened on 2026-11-18, so a
+    # reader working through the questions is not handed the answers in the notes).
     leak = ANSWER_LEAK.search(fragment)
     if leak:
         raise SystemExit(f"notes {key}: public notes must not disclose an answer: {leak.group(0)!r}")
@@ -269,6 +273,7 @@ def load() -> dict:
             "zh": load_chapter_zh(read_json("chapter_zh.json", {}), chapters),
             "links": load_links(read_json("links.json", {"_verified": "2026-11-04"}), chapters),
             "kaofa": load_kaofa(read_json("concept_kaofa.json", {}), concepts),
+            "years": load_years(read_json("years.json", {}), numbers),
             "mock": load_mock(chapters, questions)}
     data["concept_rows"] = concept_rows(data)
     return data
@@ -390,6 +395,36 @@ def load_mock_paper(path: Path, no: int, chapters: dict, bank: set, books: set, 
                         or not isinstance(ref[1], str) or not MOCK_PAGES.fullmatch(ref[1])):
                     raise SystemExit(f"{label}: bad reference {ref!r} in explanation {it['key']}")
     return paper
+
+
+# Owner 2026-11-18: a bank question that appeared in a paper whose year is known shows
+# that year and its number there, on the question card and where the notes cite it. The
+# bank's own source (至 113 年公佈版本) is ordered by BCSC and carries no years; the years
+# come from comparing it, question by question, with the papers by year listed on
+# cougarbot.cc (113 年 123 題, 114 年 200 題; only the year and the number are taken).
+def load_years(raw, numbers: set) -> dict[str, list[list[int]]]:
+    years: dict[str, list[list[int]]] = {}
+    for n, rows in raw.items():
+        if n not in numbers or not isinstance(rows, list) or not rows:
+            raise SystemExit(f"years.json: unknown question {n} or no rows")
+        for row in rows:
+            if (not isinstance(row, list) or len(row) != 2 or not all(type(x) is int for x in row)
+                    or not 100 <= row[0] <= 200 or not 1 <= row[1] <= 300):
+                raise SystemExit(f"years.json: Q{n} row must be [ROC year, question number]: {row!r}")
+        if rows != sorted(rows) or len({tuple(r) for r in rows}) != len(rows):
+            raise SystemExit(f"years.json: Q{n} rows must be sorted and distinct")
+        years[n] = rows
+    seen: dict[tuple, str] = {}
+    for n, rows in years.items():
+        for row in rows:
+            if tuple(row) in seen:
+                raise SystemExit(f"years.json: {row[0]} 年第 {row[1]} 題 is given to Q{seen[tuple(row)]} and Q{n}")
+            seen[tuple(row)] = n
+    return years
+
+
+def year_label(rows: list[list[int]]) -> str:
+    return "、".join(f"{y} 年第 {no} 題" for y, no in rows)
 
 
 def read_json(name: str, default):
@@ -672,7 +707,7 @@ def chapter_concepts_html(data: dict, key: str) -> str:
         return ""
     parts = [f'<section class="ex-cpts" aria-labelledby="cpts-h"><h2 id="cpts-h" class="ex-h2">本章考點</h2>'
              '<p class="ex-meta">考同一個觀念的考題歸成一個考點，依題數排序；點開看題號與涉及的章節。'
-             '考題內容在下方「考題」，需要登入。<a href="/exam/concepts">看全部考點總覽</a></p>']
+             '考題內容在下方「考題」。<a href="/exam/concepts">看全部考點總覽</a></p>']
     if home:
         parts.append(f'<div class="ex-cpt-list">{"".join(concept_html(r, data, current=key) for r in home)}</div>')
     else:
@@ -901,7 +936,7 @@ def page(*, path, title, description, crumbs, schema_type, body, kind, robots, v
          "breadcrumb": {"@id": f"{DOMAIN}{path}#breadcrumb"}},
         breadcrumb(items, path),
     ]
-    content = f'{crumbs_html(items)}{"" if kind in ("login", "mock") else AUTH_BAR}{body}'
+    content = f'{crumbs_html(items)}{body}'
     if side:
         content = f'{side}<div class="ex-content">{content}</div>'
     out = (
@@ -926,9 +961,6 @@ NOTES_LEGEND = (
     '<span><span class="ex-legend-trap">紅框</span>＝易錯陷阱</span>'
     '<span><span class="ex-num-hl">粗體數字</span>＝門檻值</span></p>'
 )
-
-# Filled by exam.js: "已登入題庫 · 登出" when signed in, a login link otherwise.
-AUTH_BAR = '<div class="ex-auth" aria-live="polite" hidden></div>'
 
 # Hub disease search (owner request 2026-10-17). exam.js searches the public notes
 # (notes-data.json) as the reader types and lists the chapters and paragraphs that
@@ -973,10 +1005,6 @@ def cite_meta(ref: dict) -> str:
     parts = [str(ref.get("s") or "").strip(), str(ref.get("y") or "").strip()]
     meta = " ".join(p for p in parts if p)
     return meta + (f" · PMID {ref['pmid']}" if ref.get("pmid") else "")
-
-
-def login_href(target: str) -> str:
-    return "/exam/login?next=" + quote(target, safe="/")
 
 
 # Owner request 2026-10-18: question citations look like the dermatology exam section
@@ -1032,15 +1060,17 @@ def note_weights(fragment: str) -> str:
     return "".join(parts)
 
 
-def expand_hits(fragment: str, key: str, on_page: set[int]) -> str:
+def expand_hits(fragment: str, key: str, on_page: set[int], years: dict | None = None) -> str:
     def repl(m: re.Match) -> str:
         nums = [int(i) for i in re.split(r"\s*,\s*", m.group(1).strip()) if i]
         bad = [i for i in nums if i not in on_page]
         if bad:
             raise SystemExit(f"notes {key}: {{{{q:...}}}} cites questions not on this chapter page: {bad}")
         # Plain labels, not links (owner 2026-10-28): clicking never jumps to the
-        # question, signed in or not.
-        labels = " ".join(f"<span>Q{i}</span>" for i in nums)
+        # question.
+        # A question whose exam year is known also shows the year and its number there.
+        labels = " ".join(f"<span>Q{i}" + (f'<small class="ex-qyr">（{year_label(years[str(i)])}）</small>'
+                                          if years and str(i) in years else "") + "</span>" for i in nums)
         # U+2060 WORD JOINER: the superscript never wraps onto a line of its own.
         return f'⁠<sup class="ex-qref">{labels}</sup>'
     out = re.sub(r"\{\{q:([0-9,\s]+)\}\}", repl, key_marks(fragment))
@@ -1098,18 +1128,17 @@ def chapter_page(data: dict, key: str, version: str) -> str:
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'
                       f'<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p>'
                       f"{NOTES_LEGEND}{READING_STATUS}"
-                      f'<div class="ex-note">{wrap_tables(note_weights(taxa_html(expand_hits(note, key, {q["n"] for q in qs}))))}</div></section>'
+                      f'<div class="ex-note">{wrap_tables(note_weights(taxa_html(expand_hits(note, key, {q["n"] for q in qs}, data["years"]))))}</div></section>'
                       f"{concepts_html}")
     else:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
                       '<p class="ex-pending">這一章的重點尚未整理。</p></section>')
     if qs:
-        # Questions, answers and explanations are served only to signed-in readers by
-        # /api/exam/data; exam.js renders them here (grouped by concept) after login.
+        # Questions, answers and explanations come from /api/exam/data; exam.js renders
+        # them here (grouped by concept) in place of this note.
         q_html = (f'<div class="ex-qs-tools" hidden>{MODE_BAR}</div>'
                   f'<div id="ex-chapter-qs" class="ex-list" data-chapter="{key}">'
-                  f'<p class="ex-locked">本章考題 {len(qs)} 題。<a href="{login_href(f"/exam/{slug(key)}")}">登入</a>'
-                  '後可以作答、看答案與詳解。</p></div>')
+                  f'<p class="ex-loading">本章考題 {len(qs)} 題載入中⋯（需要開啟 JavaScript）</p></div>')
     else:
         q_html = '<p class="ex-pending">題庫中沒有標到這一章的題目。</p>'
     body = (
@@ -1197,9 +1226,8 @@ def hub_page(data: dict, version: str) -> str:
         '<ul class="ex-tools">'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/concepts">考點總覽</a></li>'
         '<li><a class="ex-cta ex-cta-alt" href="/exam/progress">讀書進度</a></li>'
-        '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li>'
-        '<li><a class="ex-cta ex-cta-alt" href="/exam/login">登入／登出題庫</a></li></ul>'
-        '<p class="ex-meta">課本重點整理公開；考題、答案與詳解需要登入才能看。</p>'
+        '<li><a class="ex-cta ex-cta-alt" href="/exam/review">錯題本與 Anki 匯出</a></li></ul>'
+        '<p class="ex-meta">課本重點整理、考題、答案與詳解都公開，不用登入。</p>'
         '<p class="ex-practice"><a class="ex-cta" href="/exam/practice">考古卷：自選範圍／隨機出題</a> '
         # Owner order 2026-11-10: the public mock exam (self-written questions, no login).
         f'<a class="ex-cta ex-cta-alt" href="/exam/mock">模擬考：自編 {mock_total(data)} 題（免登入）</a></p>'
@@ -1251,7 +1279,7 @@ def concepts_page(data: dict, version: str) -> str:
         '<p class="ex-kicker">考點</p><h1 class="ex-h1">考點總覽</h1>'
         f'<p class="ex-lead">把考同一個觀念的考題歸成一個考點，共 {len(rows)} 個考點、涵蓋 {total_q} 題，'
         "依題數由多到少排列。點開考點可以看題號與涉及的章節，點章節進入該章的課本重點與考題。</p>"
-        '<p class="ex-meta">題號只是編號；考題、答案與詳解需要登入，在各章頁面的「考題」裡。</p>'
+        '<p class="ex-meta">題號只是編號；考題、答案與詳解在各章頁面的「考題」裡。</p>'
         '<form class="ex-cpt-form" role="search" data-concept-filter hidden>'
         '<div class="ex-cpt-field ex-cpt-kw"><label class="ex-label" for="cpt-kw">關鍵字</label>'
         '<input id="cpt-kw" name="kw" type="search" class="ex-input" placeholder="例如 HIV、青光眼、Q120" autocomplete="off"></div>'
@@ -1324,7 +1352,7 @@ def practice_page(data: dict, version: str) -> str:
 # the saved paper; the stylesheet keeps the explanations closed until the paper is handed
 # in. A browser without scripting cannot draw a paper, so it shows the whole pool with the
 # explanations (@media (scripting:none)). The cards use their own classes (ex-mq, ex-mopt)
-# so nothing written for the signed-in bank cards (quiz/browse mode, answer storage, the
+# so nothing written for the bank's question cards (quiz/browse mode, answer storage, the
 # public-output guard in build()) applies to them.
 MOCK_SIZES = (10, 25, 50, 100)   # the paper sizes offered, besides the whole bank
 MOCK_SIZE = 50                   # the size selected when the page opens
@@ -1389,7 +1417,7 @@ def mock_page(data: dict, version: str) -> str:
         '<p class="ex-kicker">模擬考</p><h1 class="ex-h1">自選題數／隨機出題</h1>'
         f'<p class="ex-lead">題庫共 {total} 題單選題，由本站依考題在各冊的比例、題型與深度自編；'
         f"每一題都依 {esc(REFERENCE)} 的課本內容出題，並附逐選項詳解與課本頁碼。不用登入就能作答。</p>"
-        '<p class="ex-meta">這些是自編的練習題，不是歷屆考題；歷屆考題在<a href="/exam/practice">考古卷</a>（需要登入）。'
+        '<p class="ex-meta">這些是自編的練習題，不是歷屆考題；歷屆考題在<a href="/exam/practice">考古卷</a>。'
         "題目與詳解仍會修訂。</p>"
         '<p class="ex-meta ex-mock-how">選好題數與順序後按「產生試卷並開始計時」，就從題庫抽題並開始計時，'
         "只計算這一頁顯示在畫面上的時間；交卷後顯示得分、各題的答案與詳解。"
@@ -1472,25 +1500,6 @@ def progress_page(version: str) -> str:
                 robots="noindex,follow", version=version)
 
 
-def login_page(version: str) -> str:
-    body = (
-        '<p class="ex-kicker">題庫登入</p><h1 class="ex-h1">登入題庫</h1>'
-        '<p class="ex-meta">考題、答案與詳解需要登入才能看；課本重點整理不用登入。登入後 30 天內不需要再輸入密碼。</p>'
-        '<p class="ex-login-msg" role="alert" hidden></p>'
-        '<form class="ex-login" method="post" action="/api/exam/login">'
-        '<input type="hidden" name="next" value="/exam">'
-        '<label class="ex-label" for="ex-password">密碼</label>'
-        '<input id="ex-password" name="password" type="password" class="ex-input" autocomplete="current-password" required>'
-        '<button type="submit" class="ex-cta-btn">登入</button></form>'
-        '<form class="ex-logout" method="post" action="/api/exam/logout">'
-        '<button type="submit" class="ex-link-btn">登出這台裝置</button></form>'
-    )
-    return page(path="/exam/login", title="眼科專科考試題庫登入",
-                description="眼科專科醫師考試讀書筆記的題庫登入頁：登入後可以看考題、答案與詳解；各章課本重點整理不需要登入即可閱讀。",
-                crumbs=[("登入", "/exam/login")], schema_type="WebPage", body=body, kind="login",
-                robots="noindex,nofollow", version=version)
-
-
 def search_page(version: str) -> str:
     body = (
         '<p class="ex-kicker">搜尋</p><h1 class="ex-h1">搜尋課本重點與考題</h1>'
@@ -1498,7 +1507,7 @@ def search_page(version: str) -> str:
         '<label class="ex-sr" for="ex-q">關鍵字</label>'
         '<input id="ex-q" name="q" type="search" class="ex-input" placeholder="例如 HLA-B*1502、AREDS2、Protocol T" autocomplete="off">'
         '<button type="submit" class="ex-cta-btn">搜尋</button></form>'
-        '<p class="ex-meta">搜尋各章重點整理；登入後也會搜尋題幹、選項與詳解。英文不分大小寫，多個關鍵字以空白分隔（需全部符合）。</p>'
+        '<p class="ex-meta">搜尋各章重點整理，也會搜尋題幹、選項與詳解。英文不分大小寫，多個關鍵字以空白分隔（需全部符合）。</p>'
         '<div id="ex-search-results" class="ex-list" aria-live="polite"></div>'
     )
     return page(path="/exam/search", title="搜尋眼科專科考試重點與考題",
@@ -1846,13 +1855,15 @@ def nav_search(data: dict, index: dict) -> list:
 
 
 def bank_data(data: dict) -> dict:
-    """Signed-in only (served by /api/exam/data): question text, answers, explanations, concept groups."""
+    """The bank served by /api/exam/data: question text, answers, explanations, concept groups."""
     questions = []
     for q in data["questions"]:
         row = {"n": q["n"], "stem": q["stem"], "options": q["options"], "ch": data["tags"][str(q["n"])]["ch"]}
+        if str(q["n"]) in data["years"]:
+            row["yr"] = year_label(data["years"][str(q["n"])])
         if q.get("image"):
-            # Exam figures are question content: embed them in the signed-in bank
-            # (data/exam/figures is never deployed) instead of serving a public file.
+            # Exam figures are question content: embed them in the bank
+            # (data/exam/figures is never deployed) instead of serving a separate file.
             img = q["image"]
             fig = (DATA / img["src"]).resolve()
             if fig.parent != (DATA / "figures").resolve() or fig.suffix != ".webp":
@@ -1882,7 +1893,7 @@ def bank_data(data: dict) -> dict:
 
 def bank_module(data: dict) -> str:
     payload = json.dumps(bank_data(data), ensure_ascii=False, separators=(",", ":"))
-    return ("// Generated by _gen_exam.py — do not edit. Signed-in exam bank, read only by api/_exam_data.js (via api/exam/[op].js).\n"
+    return ("// Generated by _gen_exam.py — do not edit. Exam bank, read only by api/_exam_data.js (via api/exam/[op].js).\n"
             "// Underscore-prefixed api/ modules are not routes, so this is never served directly.\n"
             f"export const EXAM_BANK_JSON = {json.dumps(payload, ensure_ascii=False)};\n")
 
@@ -1908,7 +1919,6 @@ def build(content_date: str | None = None) -> dict[str, str]:
     files["review.html"] = review_page(version)
     files["progress.html"] = progress_page(version)
     files["search.html"] = search_page(version)
-    files["login.html"] = login_page(version)
     public = notes_data(data)
     files["notes-data.json"] = json.dumps(public, ensure_ascii=False, separators=(",", ":")) + "\n"
     files["nav-search.json"] = json.dumps(nav_search(data, public["find"]), ensure_ascii=False, separators=(",", ":")) + "\n"
@@ -1916,7 +1926,7 @@ def build(content_date: str | None = None) -> dict[str, str]:
     files["../api/_exam_bank.js"] = bank_module(data)
     files["../data/exam/page_dates.json"] = ledger_text(NEW_LEDGER)
     files["../data/exam/og_cards.json"] = json.dumps(OG_CARDS, ensure_ascii=False, indent=1, sort_keys=True) + "\n"
-    # Fail closed: no public file may carry question cards or question text.
+    # The pages stay light: question cards and question text live only in the bank.
     stems = [q["stem"].strip()[:60] for q in data["questions"] if len(q["stem"].strip()) >= 30]
     for name, content in files.items():
         if name == "../api/_exam_bank.js":
@@ -1971,6 +1981,8 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-note mark.ex-key,.ex-legend mark.ex-key{background:linear-gradient(transparent 42%,#fde9a8 42%)}
 .ex-qref{font-size:10.5px;line-height:0;margin-left:1px;font-weight:600}
 .ex-qref span{color:#a0460a;white-space:nowrap;padding:0 1px;border-radius:3px}
+.ex-qyr{font-size:inherit;font-weight:500}
+.ex-q-yr{display:inline-block;font-size:12.5px;font-weight:700;color:#0f5c4d;background:#e6f4f0;border-radius:999px;padding:1px 9px;margin-left:6px}
 .ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
 .ex-legend-trap{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
 .ex-note .num,.ex-num-hl{font-family:Inter,ui-monospace,monospace;font-weight:700;color:#0c5159;white-space:nowrap}
@@ -2107,18 +2119,9 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-hitbox{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:14px;line-height:1.8}
 .ex-hitbox a{color:var(--ex-accent);font-weight:700}
 .ex-hitbox mark{background:#fef08a;color:inherit;border-radius:3px}
-.ex-locked{background:var(--ex-soft);border:1px dashed var(--border);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.8}
-.ex-locked a{font-weight:700}
-.ex-login{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
+.ex-loading{background:var(--ex-soft);border:1px dashed var(--border);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.8}
 .ex-label{font-weight:700;font-size:14px}
-.ex-login .ex-input{flex:1;min-width:12em}
-.ex-login-msg{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px 12px;font-size:14px;color:#991b1b}
-.ex-link-btn{background:none;border:0;padding:0;color:var(--ex-accent);text-decoration:underline;cursor:pointer;font-size:13px}
 .ex-qs-tools[hidden]{display:none}
-.ex-auth{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:6px 10px;font-size:13px;color:var(--ink-2);margin:-8px 0 12px}
-.ex-auth[hidden]{display:none}
-.ex-auth form{display:inline;margin:0}
-.ex-auth a{color:var(--ex-accent);font-weight:600}
 .ex-doubt{margin:10px 0 0;border:1px solid #f3d38a;background:#fffbeb;border-radius:10px;padding:8px 12px;font-size:13.5px;line-height:1.8}
 .ex-doubt p{margin:4px 0}
 .ex-doubt-h{font-weight:700;color:#92400e}
@@ -2288,13 +2291,13 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-note mark,:root[data-theme="dark"] .ex-legend mark{background:none}
 :root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
 :root[data-theme="dark"] .ex-qref span{color:#f2c14e}
+:root[data-theme="dark"] .ex-q-yr{color:#9fe3d2;background:#173a33}
 :root[data-theme="dark"] .ex-note .num,:root[data-theme="dark"] .ex-num-hl{color:#a4b5a8}
 :root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
 :root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
 :root[data-theme="dark"] .ex-note .ex-ddx tbody td:first-child{background:var(--ex-soft)}
 :root[data-theme="dark"] .ex-toc{border-color:#36404b}
-:root[data-theme="dark"] .ex-locked{border-color:#36404b}
-:root[data-theme="dark"] .ex-login-msg{background:#3a1a1a;border-color:#7f1d1d;color:#fecaca}
+:root[data-theme="dark"] .ex-loading{border-color:#36404b}
 :root[data-theme="dark"] .ex-doubt{background:#2a2414;border-color:#5c4a1a}
 :root[data-theme="dark"] .ex-doubt-tag{background:#5c4a1a;color:#fde68a}
 :root[data-theme="dark"] .ex-doubt-h{color:#fcd34d}

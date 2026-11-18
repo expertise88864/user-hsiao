@@ -70,7 +70,7 @@ test('hub order: tools, access note, 考古卷, search, chapters, frequency', as
     const pick = [
       ['h1', document.querySelector('main h1')],
       ['tools', document.querySelector('.ex-tools')],
-      ['note', [...document.querySelectorAll('main .ex-meta')].find(p => p.textContent.startsWith('課本重點整理公開'))],
+      ['note', [...document.querySelectorAll('main .ex-meta')].find(p => p.textContent.startsWith('課本重點整理、考題'))],
       ['practice', document.querySelector('a[href="/exam/practice"]')],
       ['search', document.querySelector('form[data-hub-search]')],
       ['chapters', [...document.querySelectorAll('main h2')].find(h => h.textContent === '依 BCSC 章節瀏覽')],
@@ -84,7 +84,7 @@ test('hub order: tools, access note, 考古卷, search, chapters, frequency', as
   expect(tops.every(t => t !== null)).toBe(true);
   expect(tops).toEqual([...tops].sort((a, b) => a - b));
   await expect(page.locator('a[href="/exam/practice"]')).toHaveText('考古卷：自選範圍／隨機出題');
-  await expect(page.locator('.ex-tools a')).toHaveText(['考點總覽', '讀書進度', '錯題本與 Anki 匯出', '登入／登出題庫']);
+  await expect(page.locator('.ex-tools a')).toHaveText(['考點總覽', '讀書進度', '錯題本與 Anki 匯出']);
   await page.goto('/exam/practice');
   await expect(page.locator('.ex-kicker')).toHaveText('考古卷');
   await expect(page).toHaveTitle(/考古卷/);
@@ -173,7 +173,7 @@ test('hub disease search groups note paragraphs by chapter and lands on the para
   // Existing chapter features still work.
   // Desktop: the outline is the sticky left column (the inline list is for phones).
   await expect(page.locator('.ex-toc-side')).toBeVisible();
-  await expect(page.locator('#ex-chapter-qs .ex-locked')).toContainText('登入');
+  await expect(page.locator('#ex-chapter-qs .ex-pending')).toHaveText('題庫載入失敗，請重新整理頁面。');
 });
 
 test('hub search: abbreviations stand alone, full names ignore hyphens, Chinese names work', async ({ page }) => {
