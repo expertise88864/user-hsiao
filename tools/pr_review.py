@@ -253,15 +253,24 @@ def current_identity(record_: dict) -> bool:
 
 def target_worktree(number: int, head: str) -> Path:
     """A detached worktree of this repository at a backfill head, reused across rounds
-    so a resume runs in the same directory as its session. Never overwritten."""
+    so a resume runs in the same directory as its session. When the PR moved on (a fix
+    pushed after the last verdict), a clean worktree at an ancestor is advanced to the
+    new head; anything else (dirty, unrelated or newer commit) is refused, never reset."""
     target = ROOT / ".codex-review" / f"target-pr-{number}"
     if subprocess.run(["git", "cat-file", "-e", f"{head}^{{commit}}"], cwd=ROOT).returncode != 0:
         subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", f"pull/{number}/head"], cwd=ROOT, check=True)
     if target.exists():
         current = subprocess.run(["git", "-C", str(target), "rev-parse", "HEAD"],
                                  capture_output=True, text=True).stdout.strip()
-        if current != head:
-            raise Blocked(f"{target} exists at another commit; remove it with git worktree remove first")
+        if current == head:
+            return target
+        dirty = subprocess.run(["git", "-C", str(target), "status", "--porcelain", "--untracked-files=all"],
+                               capture_output=True, text=True).stdout.strip()
+        if not SHA.fullmatch(current) or dirty or subprocess.run(
+                ["git", "merge-base", "--is-ancestor", current, head], cwd=ROOT).returncode != 0:
+            raise Blocked(f"{target} is dirty or not at an ancestor of {head[:12]}; "
+                          "remove it with git worktree remove first")
+        subprocess.run(["git", "-C", str(target), "checkout", "-q", "--detach", head], check=True)
         return target
     subprocess.run(["git", "worktree", "add", "-q", "--detach", str(target), head], cwd=ROOT, check=True)
     return target
@@ -447,14 +456,25 @@ def finish(api: API, pr: dict, entry: dict, binding: Path, unrecorded: Path) -> 
     return {"APPROVE": 0, "REQUEST_CHANGES": 2, "QUOTA_PENDING": 3}.get(verdict, 1)
 
 
+def retryable(entry: dict) -> bool:
+    """Whether an unrecorded result may be re-posted as is. A review verdict needs the
+    current model/effort and proof of the complete prompt; a current-model quota-pending
+    or error result made no verdict, so it only needs the current model/effort (quota
+    evidence is the provider's own error, and re-posting it must not call the model)."""
+    if entry.get("verdict") in ("APPROVE", "REQUEST_CHANGES"):
+        return current_identity(entry)
+    return (entry.get("verdict") in ("QUOTA_PENDING", "ERROR")
+            and entry.get("model") == MODEL and entry.get("effort") == EFFORT)
+
+
 def unrecorded_retry_required(unrecorded: Path, head: str) -> bool:
-    """A current-model verdict for this head must be re-posted, not reviewed again.
-    One from another model/effort can never be posted (retry_record refuses it), so it
-    must not block the fresh review that replaces it either; that review overwrites it."""
+    """A current-model result for this head must be re-posted, not reviewed again.
+    One that can never be posted (retry_record refuses it) must not block the fresh
+    review that replaces it either; that review overwrites it."""
     if not unrecorded.is_file():
         return False
     entry = json.loads(unrecorded.read_text(encoding="utf-8"))
-    return entry.get("head") == head and current_identity(entry)
+    return entry.get("head") == head and retryable(entry)
 
 
 def retry_record(api: API, pr: dict, head: str, binding: Path, unrecorded: Path) -> int:
@@ -463,7 +483,7 @@ def retry_record(api: API, pr: dict, head: str, binding: Path, unrecorded: Path)
     entry = json.loads(unrecorded.read_text(encoding="utf-8"))
     if entry.get("repo") != api.repo or entry.get("pr") != pr["number"] or entry.get("head") != head:
         raise Blocked("The unrecorded verdict is for another PR or head")
-    if not current_identity(entry):
+    if not retryable(entry):
         raise Blocked(f"The unrecorded verdict was not a prompt-verified {MODEL}/{EFFORT} review; "
                       "run a fresh review")
     return finish(api, pr, entry, binding, unrecorded)

@@ -536,3 +536,70 @@ class PromptVerifiedIdentityTests(unittest.TestCase):
         target = self.root / ".codex-review" / "target-pr-7"
         _, env = self.run_with(2, self.proof(), target=target)
         self.assertEqual(env["CODEX_REVIEW_TARGET"], str(target))
+
+
+class BackfillAndQuotaRetryTests(unittest.TestCase):
+    """PR #104 prompt-verified round 2: backfill resume after a fix; quota-pending retry."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix="pr-review-backfill-")
+        self.addCleanup(self.temp.cleanup)
+        self.repo = Path(self.temp.name) / "repo"
+        subprocess.run(["git", "init", "-q", str(self.repo)], check=True, capture_output=True)
+        self.shas = [self.commit(f"c{i}") for i in range(2)]
+        patcher = mock.patch.object(pr, "ROOT", self.repo)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def commit(self, message):
+        subprocess.run(["git", "-C", str(self.repo), "-c", "user.name=F", "-c", "user.email=f@example.invalid",
+                        "commit", "--allow-empty", "-qm", message], check=True, capture_output=True)
+        return subprocess.run(["git", "-C", str(self.repo), "rev-parse", "HEAD"], check=True,
+                              capture_output=True, text=True).stdout.strip()
+
+    def head_of(self, path):
+        return subprocess.run(["git", "-C", str(path), "rev-parse", "HEAD"], check=True,
+                              capture_output=True, text=True).stdout.strip()
+
+    def test_existing_target_advances_to_a_descendant_head(self):
+        old, new = self.shas
+        target = pr.target_worktree(7, old)
+        self.assertEqual(self.head_of(target), old)
+        self.assertEqual(pr.target_worktree(7, new), target)
+        self.assertEqual(self.head_of(target), new)
+        self.assertEqual(pr.target_worktree(7, new), target)  # unchanged head: reused
+
+    def test_target_is_never_moved_backwards_or_when_dirty(self):
+        old, new = self.shas
+        target = pr.target_worktree(7, new)
+        with self.assertRaises(pr.Blocked):
+            pr.target_worktree(7, old)  # not a descendant
+        self.assertEqual(self.head_of(target), new)
+        side = self.commit("c2")
+        (target / "stray.txt").write_text("x", encoding="utf-8")
+        with self.assertRaises(pr.Blocked):
+            pr.target_worktree(7, side)
+        self.assertEqual(self.head_of(target), new)
+
+    def test_current_model_quota_pending_can_be_reposted(self):
+        unrecorded = Path(self.temp.name) / "u.json"
+        entry = {"repo": "owner/repo", "pr": 7, "verdict": "QUOTA_PENDING", "base": "c" * 40, "head": SHA,
+                 "session": "unavailable", "bound_session": "unavailable", "message": "usage limit",
+                 "resume": False, "model": pr.MODEL, "effort": pr.EFFORT, "prompt_verified": False}
+        unrecorded.write_text(json.dumps(entry), encoding="utf-8")
+        self.assertTrue(pr.unrecorded_retry_required(unrecorded, SHA))
+        with mock.patch.object(pr, "record") as record:
+            self.assertEqual(pr.retry_record(FakeAPI(lambda path: None), {"number": 7}, SHA,
+                                             Path(self.temp.name) / "b.json", unrecorded), 3)
+        record.assert_called_once()
+        self.assertFalse((Path(self.temp.name) / "b.json").exists())  # no resume binding from quota
+
+    def test_quota_pending_from_another_model_or_unproven_verdicts_are_not_reposted(self):
+        base = {"repo": "owner/repo", "pr": 7, "base": "c" * 40, "head": SHA, "session": "s",
+                "bound_session": "s", "message": "", "resume": False}
+        for entry in ({**base, "verdict": "QUOTA_PENDING", "model": "gpt-6.1-sol", "effort": "xhigh"},
+                      {**base, "verdict": "APPROVE", "model": pr.MODEL, "effort": pr.EFFORT,
+                       "prompt_verified": False},
+                      {**base, "verdict": "BOGUS", **IDENTITY}):
+            with self.subTest(entry=entry):
+                self.assertFalse(pr.retryable(entry))
