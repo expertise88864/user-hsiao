@@ -110464,7 +110464,7 @@
  },
  "1776": {
   "answer": "B",
-  "summary": "TMVL 多為栓塞所致，心因性栓子來源包括 atrial fibrillation、rheumatic mitral stenosis、left ventricular aneurysm 與 endocarditis 等，可由 TTE 偵測。",
+  "summary": "TMVL 多為栓塞所致，應排除心因性栓子來源；rheumatic mitral stenosis、left ventricular aneurysm 與 endocarditis 等結構性來源可由 TTE 找出，atrial fibrillation 則以心電圖或心律監測確認。",
   "flags": [],
   "items": [
    {
@@ -110483,7 +110483,7 @@
     "key": "B",
     "answer": true,
     "label": "正確",
-    "text": "TTE 可找出多種心因性栓塞原因，例如 atrial fibrillation、rheumatic mitral stenosis、瀰漫性動脈硬化、left ventricular aneurysm 與 endocarditis。",
+    "text": "TTE 可找出 rheumatic mitral stenosis、瀰漫性動脈硬化、left ventricular aneurysm 與 endocarditis 等結構性的心因性栓塞原因；atrial fibrillation 這類心律問題則以心電圖或心律監測確認。",
     "refs": [
      [
       1,
@@ -110691,7 +110691,7 @@
     "key": "A",
     "answer": false,
     "label": "正確",
-    "text": "抗原轉移主要見於 A 型（而非 B 型）流感病毒，所以疫苗每年需依可能流行的病毒株重新調配。",
+    "text": "課本指出抗原變化主要發生於 A 型（而非 B 型）流感病毒，所以疫苗每年需依最可能流行的病毒株重新調配；課本此處用 antigenic shift 一詞，季節性的株別更新一般歸因於 antigenic drift。",
     "refs": [
      [
       1,
