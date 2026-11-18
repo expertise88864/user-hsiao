@@ -91,7 +91,7 @@
    "A": "A 型流感病毒的抗原變異較 B 型常見，因此疫苗需每年依可能流行的病毒株重新調配",
    "B": "對蛋有過敏性休克病史者，可改用重組疫苗 Flublok 或細胞培養疫苗 Flucelvax",
    "C": "Rotavirus 疫苗不建議用於曾有腸套疊（intussusception）病史的兒童",
-   "D": "HIV 感染者若 CD4+ T 細胞數偏低，接種流感疫苗的效果明顯不如 HIV 陰性者"
+   "D": "CD4+ T 細胞數偏低的 HIV 感染者不宜接種不活化流感疫苗（IIV）"
   },
   "origin": {
    "kind": "rewrite",
