@@ -27,9 +27,10 @@ config = dict(a.split("=", 1) for a in args if "=" in a and not a.startswith("-"
 pathlib.Path(value("-o")).write_text("Fixture CLI only; no model called.\nREQUEST_CHANGES\n", encoding="utf-8")
 sid = os.environ.get("CODEX_FIXTURE_FORCE_SID") or (args[2] if args[:2] == ["exec", "resume"] else os.environ["CODEX_FIXTURE_SESSION"])
 model = os.environ.get("CODEX_FIXTURE_ACTUAL_MODEL") or value("--model")
+effort = os.environ.get("CODEX_FIXTURE_ACTUAL_EFFORT") or config.get("model_reasoning_effort", "")
 sandbox = value("--sandbox") or config.get("sandbox_mode", "")
 top = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True, check=True).stdout.strip()
-context = {"cwd": top, "model": model, "effort": config.get("model_reasoning_effort", ""),
+context = {"cwd": top, "model": model, "effort": effort,
            "sandbox_policy": {"type": sandbox}, "turn_id": "fixture"}
 rows = [{"type": "session_meta", "payload": {"id": sid, "cwd": top}},
         {"type": "turn_context", "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(), "payload": context}]
@@ -86,6 +87,7 @@ class ReviewEntryTests(unittest.TestCase):
         env.pop("CODEX_FIXTURE_READ_STDIN", None)
         env.pop("CODEX_FIXTURE_NO_SESSION", None)
         env.pop("CODEX_FIXTURE_ACTUAL_MODEL", None)
+        env.pop("CODEX_FIXTURE_ACTUAL_EFFORT", None)
         env.pop("CODEX_FIXTURE_FORCE_SID", None)
         env.pop("GIT_CONFIG_PARAMETERS", None)
         env["CODEX_FIXTURE_SESSION"] = SESSION
@@ -145,10 +147,10 @@ class ReviewEntryTests(unittest.TestCase):
     def test_windows_entry_keeps_readonly_and_isolation_with_explicit_backend(self):
         result, args = self.run_entry("deep", "HEAD")
         self.assertEqual(result.returncode, 2, result.stderr)
-        self.assertEqual(args[args.index("--model") + 1], "gpt-6.1-sol")
+        self.assertEqual(args[args.index("--model") + 1], "gpt-6.2-astra")
         self.assertIn("--json", args)
         self.assertEqual(args[args.index("--sandbox") + 1], "read-only")
-        self.assertIn("model_reasoning_effort=xhigh", args)
+        self.assertIn("model_reasoning_effort=medium", args)
         self.assertIn("approval_policy=never", args)
         self.assertIn("windows.sandbox=unelevated", args)
         self.assertIn("--ignore-user-config", args)
@@ -163,7 +165,7 @@ class ReviewEntryTests(unittest.TestCase):
         result, args = self.run_entry("resume", SESSION, context)
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertEqual(args[:3], ["exec", "resume", SESSION])
-        self.assertIn("model_reasoning_effort=xhigh", args)
+        self.assertIn("model_reasoning_effort=medium", args)
         self.assertIn("approval_policy=never", args)
         self.assertIn("sandbox_mode=read-only", args)
         self.assertIn("windows.sandbox=unelevated", args)
@@ -276,21 +278,21 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertEqual(args[:3], ["exec", "resume", SESSION])
 
-    def test_every_mode_requests_gpt61_sol_xhigh(self):
+    def test_every_mode_requests_gpt62_astra_medium(self):
         for mode in ("diff", "targeted", "deep"):
             with self.subTest(mode=mode):
                 result, args = self.run_entry(mode, "HEAD")
                 self.assertEqual(result.returncode, 2, result.stderr)
-                self.assertEqual(args[args.index("--model") + 1], "gpt-6.1-sol")
-                self.assertIn("model_reasoning_effort=xhigh", args)
+                self.assertEqual(args[args.index("--model") + 1], "gpt-6.2-astra")
+                self.assertIn("model_reasoning_effort=medium", args)
 
-    def test_resume_requests_xhigh_even_after_a_medium_record(self):
+    def test_resume_requests_medium_even_after_an_xhigh_record(self):
         state = self.seed_session()
-        usage = (state / "usage.tsv").read_text(encoding="utf-8").replace("\thigh\t", "\tmedium\t")
+        usage = (state / "usage.tsv").read_text(encoding="utf-8").replace("\thigh\t", "\txhigh\t")
         (state / "usage.tsv").write_text(usage, encoding="utf-8")
         result, args = self.run_entry("resume", SESSION)
         self.assertEqual(result.returncode, 2, result.stderr)
-        self.assertIn("model_reasoning_effort=xhigh", args)
+        self.assertIn("model_reasoning_effort=medium", args)
 
     def test_wrong_actual_model_never_counts(self):
         state = self.seed_session()
@@ -298,6 +300,20 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(result.returncode, 4, result.stderr)
         self.assertFalse((state / "last_session_id").exists())
         self.assertEqual((state / "last_pass").read_text(encoding="utf-8").strip(), "0")
+
+    def test_old_sol_xhigh_session_never_counts(self):
+        state = self.seed_session()
+        result, _ = self.run_entry("targeted", "HEAD", extra_env={
+            "CODEX_FIXTURE_ACTUAL_MODEL": "gpt-6.1-sol", "CODEX_FIXTURE_ACTUAL_EFFORT": "xhigh"})
+        self.assertEqual(result.returncode, 4, result.stderr)
+        self.assertFalse((state / "last_session_id").exists())
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8").strip(), "0")
+
+    def test_wrong_actual_effort_never_counts(self):
+        state = self.seed_session()
+        result, _ = self.run_entry("resume", SESSION, extra_env={"CODEX_FIXTURE_ACTUAL_EFFORT": "xhigh"})
+        self.assertEqual(result.returncode, 4, result.stderr)
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
 
     def test_resume_with_wrong_actual_model_never_counts(self):
         state = self.seed_session()
