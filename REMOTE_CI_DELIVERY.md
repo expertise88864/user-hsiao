@@ -1,3 +1,5 @@
+> 2026-11-18 使用者定案：所有 PR 審查改為 gpt-6.2-astra／medium（取代 gpt-6.1-sol／xhigh）；commit status 為 `codex-review/gpt-6.2-astra`，其餘流程不變。以下步驟中的審查模型以此為準。
+
 # Remote-first delivery — 2026-09-06
 
 The user explicitly replaced mandatory full local CI before candidate pushes.
@@ -18,9 +20,9 @@ change medical content, visual baselines, credentials, recipients or scoring.
    python tools/pr_review.py (step 8) opens that PR when it does not exist yet.
 7. Run: python _delivery.py verify FULL_SHA --phase candidate --wait 1800
 8. Review the whole PR once: python tools/pr_review.py (opens the PR if needed).
-   gpt-6.1-sol/xhigh read-only via scripts/codex_review.sh (actual model verified) reviews
+   gpt-6.2-astra/medium read-only via scripts/codex_review.sh (actual model verified) reviews
    merge-base(main, head)..head; the verdict goes to a PR comment and to the owner's
-   `codex-review/gpt-6.1-sol` status on the exact head.
+   `codex-review/gpt-6.2-astra` status on the exact head.
    Validate findings, fix only CONFIRMED ones, push, then python tools/pr_review.py --resume
    until APPROVE. A new head needs a new verdict. A finding REJECTED with evidence may be
    rebutted once per head: python tools/pr_review.py --resume --rebuttal FILE (evidence,

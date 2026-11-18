@@ -214,7 +214,7 @@ def verify(sha: str, phase: str, cfg: dict, api: API) -> list:
     return evidence
 
 
-REVIEW_CONTEXT = "codex-review/gpt-6.1-sol"
+REVIEW_CONTEXT = "codex-review/gpt-6.2-astra"
 REVIEW_DESCRIPTION = re.compile(r"(APPROVE|quota-pending) base=([0-9a-f]{40})")
 
 
