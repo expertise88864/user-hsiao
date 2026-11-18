@@ -2,6 +2,10 @@
 
 Sources (hand-maintained):
   data/exam/questions.json      1774 past board-exam MCQs, built by _exam_import.py
+  data/exam/rewrites.json       (owner order 2026-11-18) 118 questions with "origin": {"kind": "rewrite",
+                                "src": [114, N]}: self-written questions on the concepts of 114 paper
+                                questions the bank does not have (see load_origins()); kept apart so a
+                                re-import of the PDF cannot drop them, merged after the bank in load()
   data/exam/tags.json           question number -> BCSC chapters ("12-4") it tests
   data/exam/explanations.json   answers + per-option explanations with BCSC page refs
   data/exam/chapters.json       BCSC 2025-2026 sections, chapter titles, printed pages
@@ -192,6 +196,20 @@ def site_version() -> str:
 
 def load() -> dict:
     questions = json.loads((DATA / "questions.json").read_text(encoding="utf-8"))
+    # The rewrites live in their own file: _exam_import.py rewrites questions.json from the PDF and
+    # must not drop them (PR #107 review). They are merged here, after the imported bank.
+    bank_numbers = {q["n"] for q in questions}
+    if any("origin" in q for q in questions):
+        raise SystemExit("questions.json: rows with an origin belong in rewrites.json")
+    rewrites = read_json("rewrites.json", [])
+    for q in rewrites:
+        if "origin" not in q:
+            raise SystemExit(f"rewrites.json: Q{q.get('n')} has no origin")
+        if q["n"] in bank_numbers:
+            raise SystemExit(f"rewrites.json: Q{q['n']} collides with an imported bank question")
+    if len({q["n"] for q in rewrites}) != len(rewrites):
+        raise SystemExit("rewrites.json: duplicate question numbers")
+    questions = questions + rewrites
     tags = json.loads((DATA / "tags.json").read_text(encoding="utf-8"))
     explanations = json.loads((DATA / "explanations.json").read_text(encoding="utf-8"))
     books = json.loads((DATA / "chapters.json").read_text(encoding="utf-8"))
@@ -273,7 +291,8 @@ def load() -> dict:
             "zh": load_chapter_zh(read_json("chapter_zh.json", {}), chapters),
             "links": load_links(read_json("links.json", {"_verified": "2026-11-04"}), chapters),
             "kaofa": load_kaofa(read_json("concept_kaofa.json", {}), concepts),
-            "years": load_years(read_json("years.json", {}), numbers),
+            "years": (years := load_years(read_json("years.json", {}), numbers)),
+            "origins": load_origins(questions, years, explanations),
             "mock": load_mock(chapters, questions)}
     data["concept_rows"] = concept_rows(data)
     return data
@@ -425,6 +444,43 @@ def load_years(raw, numbers: set) -> dict[str, list[list[int]]]:
 
 def year_label(rows: list[list[int]]) -> str:
     return "、".join(f"{y} 年第 {no} 題" for y, no in rows)
+
+
+# Owner order 2026-11-18: 「考古豹有的題目本站沒有的 也寫進本站題目」. The 114 paper questions the bank
+# lacks are not copied: each is a self-written question testing the same concept, marked
+# "origin": {"kind": "rewrite", "src": [ROC year, number]}, and labelled as such wherever the
+# bank shows a year, so a reader never takes it for the original question.
+def load_origins(questions: list, years: dict, explanations: dict) -> dict[str, str]:
+    taken = {tuple(r) for rows in years.values() for r in rows}
+    seen: set[tuple] = set()
+    labels: dict[str, str] = {}
+    for q in questions:
+        if "origin" not in q:
+            continue
+        origin = q["origin"]
+        src = origin.get("src") if isinstance(origin, dict) else None
+        if (not isinstance(origin, dict) or set(origin) != {"kind", "src"} or origin["kind"] != "rewrite" or not isinstance(src, list)
+                or len(src) != 2 or not all(type(x) is int for x in src)
+                or not 100 <= src[0] <= 200 or not 1 <= src[1] <= 300):
+            raise SystemExit(f"Q{q['n']}: origin must be {{'kind': 'rewrite', 'src': [ROC year, number]}}")
+        if tuple(src) in taken:
+            raise SystemExit(f"Q{q['n']}: {src[0]} 年第 {src[1]} 題 is already a bank question (years.json)")
+        if tuple(src) in seen:
+            raise SystemExit(f"Q{q['n']}: two rewrites of {src[0]} 年第 {src[1]} 題")
+        if str(q["n"]) in years:
+            raise SystemExit(f"Q{q['n']}: a rewrite has no exam year of its own")
+        if str(q["n"]) not in explanations:
+            raise SystemExit(f"Q{q['n']}: a rewrite needs its explanation")
+        seen.add(tuple(src))
+        labels[str(q["n"])] = f"{src[0]} 年第 {src[1]} 題考點・本站改寫"
+    return labels
+
+
+def question_labels(data: dict) -> dict[str, str]:
+    """Question number -> the text shown after it: its exam year(s), or what it rewrites."""
+    out = {n: year_label(rows) for n, rows in data["years"].items()}
+    out.update(data["origins"])
+    return out
 
 
 def read_json(name: str, default):
@@ -1060,7 +1116,7 @@ def note_weights(fragment: str) -> str:
     return "".join(parts)
 
 
-def expand_hits(fragment: str, key: str, on_page: set[int], years: dict | None = None) -> str:
+def expand_hits(fragment: str, key: str, on_page: set[int], labels: dict | None = None) -> str:
     def repl(m: re.Match) -> str:
         nums = [int(i) for i in re.split(r"\s*,\s*", m.group(1).strip()) if i]
         bad = [i for i in nums if i not in on_page]
@@ -1068,11 +1124,12 @@ def expand_hits(fragment: str, key: str, on_page: set[int], years: dict | None =
             raise SystemExit(f"notes {key}: {{{{q:...}}}} cites questions not on this chapter page: {bad}")
         # Plain labels, not links (owner 2026-10-28): clicking never jumps to the
         # question.
-        # A question whose exam year is known also shows the year and its number there.
-        labels = " ".join(f"<span>Q{i}" + (f'<small class="ex-qyr">（{year_label(years[str(i)])}）</small>'
-                                          if years and str(i) in years else "") + "</span>" for i in nums)
+        # A question whose exam year is known also shows the year and its number there; a
+        # rewrite shows which paper question's concept it tests.
+        tags = " ".join(f"<span>Q{i}" + (f'<small class="ex-qyr">（{labels[str(i)]}）</small>'
+                                        if labels and str(i) in labels else "") + "</span>" for i in nums)
         # U+2060 WORD JOINER: the superscript never wraps onto a line of its own.
-        return f'⁠<sup class="ex-qref">{labels}</sup>'
+        return f'⁠<sup class="ex-qref">{tags}</sup>'
     out = re.sub(r"\{\{q:([0-9,\s]+)\}\}", repl, key_marks(fragment))
     if "{{" in out:
         raise SystemExit(f"notes {key}: unexpanded placeholder")
@@ -1128,7 +1185,7 @@ def chapter_page(data: dict, key: str, version: str) -> str:
                       f'<p class="ex-meta">依 BCSC {ch["book"]} 第 {ch["ch"]} 章自行摘要整理，非原文；'
                       f'<span class="ex-ref">p.</span> 標示為原書印刷頁碼。</p>'
                       f"{NOTES_LEGEND}{READING_STATUS}"
-                      f'<div class="ex-note">{wrap_tables(note_weights(taxa_html(expand_hits(note, key, {q["n"] for q in qs}, data["years"]))))}</div></section>'
+                      f'<div class="ex-note">{wrap_tables(note_weights(taxa_html(expand_hits(note, key, {q["n"] for q in qs}, question_labels(data)))))}</div></section>'
                       f"{concepts_html}")
     else:
         notes_html = ('<section class="ex-notes" aria-labelledby="notes-h"><h2 id="notes-h" class="ex-h2">課本重點整理</h2>'
@@ -1861,6 +1918,8 @@ def bank_data(data: dict) -> dict:
         row = {"n": q["n"], "stem": q["stem"], "options": q["options"], "ch": data["tags"][str(q["n"])]["ch"]}
         if str(q["n"]) in data["years"]:
             row["yr"] = year_label(data["years"][str(q["n"])])
+        if str(q["n"]) in data["origins"]:
+            row["src"] = data["origins"][str(q["n"])]
         if q.get("image"):
             # Exam figures are question content: embed them in the bank
             # (data/exam/figures is never deployed) instead of serving a separate file.
@@ -1983,6 +2042,7 @@ header a[aria-current="page"]{background:var(--blue-soft)}
 .ex-qref span{color:#a0460a;white-space:nowrap;padding:0 1px;border-radius:3px}
 .ex-qyr{font-size:inherit;font-weight:500}
 .ex-q-yr{display:inline-block;font-size:12.5px;font-weight:700;color:#0f5c4d;background:#e6f4f0;border-radius:999px;padding:1px 9px;margin-left:6px}
+.ex-q-yr.ex-q-rw{color:#8a4b08;background:#fdf1dc}
 .ex-legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12px;color:var(--ink-2);line-height:1.9;margin:4px 0 12px}
 .ex-legend-trap{border-left:3px solid #f87171;background:#fef5f5;padding:0 6px;border-radius:4px}
 .ex-note .num,.ex-num-hl{font-family:Inter,ui-monospace,monospace;font-weight:700;color:#0c5159;white-space:nowrap}
@@ -2292,6 +2352,7 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"�
 :root[data-theme="dark"] .ex-note mark.ex-key,:root[data-theme="dark"] .ex-legend mark.ex-key{background:linear-gradient(transparent 42%,rgba(234,179,8,.32) 42%)}
 :root[data-theme="dark"] .ex-qref span{color:#f2c14e}
 :root[data-theme="dark"] .ex-q-yr{color:#9fe3d2;background:#173a33}
+:root[data-theme="dark"] .ex-q-yr.ex-q-rw{color:#f6cf8f;background:#3d2c12}
 :root[data-theme="dark"] .ex-note .num,:root[data-theme="dark"] .ex-num-hl{color:#a4b5a8}
 :root[data-theme="dark"] .ex-note .ex-trap,:root[data-theme="dark"] .ex-legend-trap{background:rgba(127,29,29,.3);border-left-color:#b45454}
 :root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
