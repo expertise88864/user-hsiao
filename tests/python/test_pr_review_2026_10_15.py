@@ -13,6 +13,8 @@ pr = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(pr)
 
 SHA = "a" * 40
+# The review identity every saved binding / unrecorded verdict must carry (2026-11-18).
+IDENTITY = {"model": pr.MODEL, "effort": pr.EFFORT}
 
 
 class FakeAPI:
@@ -192,9 +194,9 @@ class ResumeScopeTests(unittest.TestCase):
                 pr.resume_base(saved, head)
         with patch.object(pr.subprocess, "run", return_value=subprocess.CompletedProcess([], 1)), \
              self.assertRaises(pr.Blocked):
-            pr.resume_base({"head": prev}, head)
+            pr.resume_base({"head": prev, **IDENTITY}, head)
         with patch.object(pr.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)) as run:
-            self.assertEqual(pr.resume_base({"head": prev}, head), prev)
+            self.assertEqual(pr.resume_base({"head": prev, **IDENTITY}, head), prev)
         self.assertEqual(run.call_args.args[0][-2:], [prev, head])
 
     def test_previous_head_reaches_the_wrapper_only_on_resume(self):
@@ -246,7 +248,7 @@ class RecordRetryTests(unittest.TestCase):
             unrecorded = Path(tmp) / "pr_review_unrecorded.json"
             binding.write_text(json.dumps({"head": "b" * 40}), encoding="utf-8")
             entry = {"repo": "owner/repo", "pr": 7, "verdict": "APPROVE", "base": "c" * 40, "head": SHA,
-                     "session": "s", "bound_session": "s", "message": "APPROVE", "resume": True}
+                     "session": "s", "bound_session": "s", "message": "APPROVE", "resume": True, **IDENTITY}
             unrecorded.write_text(json.dumps(entry), encoding="utf-8")
             api, pull = FakeAPI(lambda path: None), {"number": 7}
             with patch.object(pr, "record", side_effect=pr.Blocked("HTTP 502")), \
@@ -274,7 +276,7 @@ class RebuttalTests(unittest.TestCase):
     """User decision 2026-10-15: one evidence-based rebuttal per unchanged head."""
 
     def test_same_head_needs_rebuttal_of_request_changes_once(self):
-        saved = {"head": SHA, "verdict": "REQUEST_CHANGES"}
+        saved = {"head": SHA, "verdict": "REQUEST_CHANGES", **IDENTITY}
         with self.assertRaises(pr.Blocked):
             pr.resume_base(saved, SHA)
         self.assertIsNone(pr.resume_base(saved, SHA, rebuttal=True))
@@ -284,8 +286,8 @@ class RebuttalTests(unittest.TestCase):
 
     def test_changed_head_cannot_be_rebutted_before_its_own_verdict(self):
         """PR #2 round 1 (P2): a rebuttal on a new head would skip eligibility and the once-only limit."""
-        for saved in ({"head": "b" * 40, "verdict": "APPROVE"},
-                      {"head": "b" * 40, "verdict": "REQUEST_CHANGES"}):
+        for saved in ({"head": "b" * 40, "verdict": "APPROVE", **IDENTITY},
+                      {"head": "b" * 40, "verdict": "REQUEST_CHANGES", **IDENTITY}):
             with self.subTest(saved=saved), self.assertRaises(pr.Blocked):
                 pr.resume_base(saved, SHA, rebuttal=True)
 
@@ -366,3 +368,75 @@ class RebuttalDiffMarkerTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ReviewModelSwitchTests(unittest.TestCase):
+    """PR #104 round 1: evidence from gpt-6.1-sol/xhigh never becomes a gpt-6.2-astra/medium verdict."""
+
+    def test_resume_refuses_a_session_without_the_current_identity(self):
+        from unittest.mock import patch
+        ok = subprocess.CompletedProcess([], 0)
+        for saved in ({"head": "b" * 40, "verdict": "REQUEST_CHANGES"},
+                      {"head": "b" * 40, "verdict": "REQUEST_CHANGES", "model": "gpt-6.1-sol", "effort": "xhigh"},
+                      {"head": "b" * 40, "verdict": "REQUEST_CHANGES", "model": pr.MODEL, "effort": "xhigh"}):
+            with self.subTest(saved=saved), patch.object(pr.subprocess, "run", return_value=ok),                  self.assertRaises(pr.Blocked):
+                pr.resume_base(saved, SHA)
+
+    def test_finish_binds_the_current_identity(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as tmp:
+            binding, unrecorded = Path(tmp) / "b.json", Path(tmp) / "u.json"
+            entry = {"repo": "owner/repo", "pr": 7, "verdict": "REQUEST_CHANGES", "base": "c" * 40, "head": SHA,
+                     "session": "s", "bound_session": "s", "message": "", "resume": False, **IDENTITY}
+            with patch.object(pr, "record"):
+                pr.finish(FakeAPI(lambda path: None), {"number": 7}, entry, binding, unrecorded)
+            saved = json.loads(binding.read_text(encoding="utf-8"))
+            self.assertEqual((saved["model"], saved["effort"]), (pr.MODEL, pr.EFFORT))
+
+    def test_retry_refuses_a_verdict_from_another_model(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as tmp:
+            unrecorded = Path(tmp) / "u.json"
+            base = {"repo": "owner/repo", "pr": 7, "verdict": "APPROVE", "base": "c" * 40, "head": SHA,
+                    "session": "s", "bound_session": "s", "message": "APPROVE", "resume": False}
+            for entry in (base, {**base, "model": "gpt-6.1-sol", "effort": "xhigh"}):
+                unrecorded.write_text(json.dumps(entry), encoding="utf-8")
+                with self.subTest(entry=entry), patch.object(pr, "record") as record,                      self.assertRaises(pr.Blocked):
+                    pr.retry_record(FakeAPI(lambda path: None), {"number": 7}, SHA, Path(tmp) / "b.json", unrecorded)
+                record.assert_not_called()
+
+    def test_backfill_recovers_the_base_from_a_legacy_status(self):
+        legacy = {"id": 5, "context": pr.LEGACY_CONTEXTS[0], "creator": {"login": "owner"},
+                  "description": f"quota-pending base={'e' * 40}"}
+        current = {"id": 4, "context": pr.CONTEXT, "creator": {"login": "owner"},
+                   "description": f"REQUEST_CHANGES base={'f' * 40}"}
+        self.assertEqual(pr.reviewed_base(FakeAPI(lambda path: [legacy]), SHA), "e" * 40)
+        # The current context wins even when the legacy status is newer.
+        self.assertEqual(pr.reviewed_base(FakeAPI(lambda path: [legacy, current]), SHA), "f" * 40)
+
+    def test_pending_skips_merged_legacy_approvals_but_not_unmerged_or_pending_ones(self):
+        from unittest.mock import patch
+        def pull(n, merged, state="closed"):
+            return {"number": n, "title": f"t{n}", "state": state, "merged_at": "x" if merged else None,
+                    "head": {"sha": f"{n:040x}"}}
+        def legacy(desc, state):
+            return [{"id": 1, "context": pr.LEGACY_CONTEXTS[0], "creator": {"login": "owner"},
+                     "description": desc, "state": state}]
+        approved = legacy(f"APPROVE base={'b' * 40}", "success")
+        pending = legacy(f"quota-pending base={'b' * 40}", "pending")
+        rows = {f"{1:040x}": approved, f"{2:040x}": approved, f"{3:040x}": pending}
+        prs = [pull(1, True), pull(2, False, "open"), pull(3, True)]
+
+        def routes(path):
+            if path.startswith("/commits/"):
+                return rows[path.split("/")[2]]
+            if path.startswith("/pulls/") and "/commits" in path:
+                return []
+            return {"commits": 1}
+        printed = []
+        with patch.object(pr, "all_prs", return_value=prs),              patch.object(pr.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)),              patch.object(pr, "git", return_value=""),              patch("builtins.print", side_effect=lambda *a, **k: printed.append(" ".join(map(str, a)))):
+            pr.list_pending(FakeAPI(routes))
+        listed = [line for line in printed if line.startswith("#")]
+        self.assertEqual([line.split()[0] for line in listed], ["#2", "#3"])
+        self.assertIn("quota-pending", listed[1])
+        self.assertIn("1 merged after an APPROVE by an earlier review model", printed[-1])

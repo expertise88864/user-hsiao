@@ -39,6 +39,10 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTEXT = "codex-review/gpt-6.2-astra"
 MODEL = "gpt-6.2-astra"
 EFFORT = "medium"
+# Contexts written before the 2026-11-18 switch. They never approve a new promotion,
+# but a merged PR they approved is reviewed history, and their base= still tells a
+# backfill which range the original review covered.
+LEGACY_CONTEXTS = ("codex-review/gpt-6.1-sol",)
 MARKER = "<!-- codex-pr-review -->"
 SHA = re.compile(r"^[0-9a-f]{40}$")
 QUOTA = re.compile(r"usage limit|rate limit|try again at|quota", re.I)
@@ -249,24 +253,27 @@ def record(api: API, pr: dict, verdict: str, base: str, head: str, session: str,
     api.call("POST", f"/issues/{pr['number']}/comments", {"body": body})
 
 
-def reviewed_base(api: API, sha: str) -> str:
-    """Base of the newest owner review status on this head (any verdict), or ''."""
+def owner_statuses(api: API, sha: str, contexts: tuple) -> list:
     owner = api.repo.split("/")[0].lower()
-    rows = [s for s in api.call("GET", f"/commits/{sha}/statuses?per_page=100") or []
-            if s.get("context") == CONTEXT
+    return [s for s in api.call("GET", f"/commits/{sha}/statuses?per_page=100") or []
+            if s.get("context") in contexts
             and str(s.get("creator", {}).get("login", "")).lower() == owner]
-    for status in sorted(rows, key=lambda s: s["id"], reverse=True):
-        match = BASE_IN_STATUS.search(str(status.get("description", "")))
-        if match:
-            return match.group(1)
+
+
+def reviewed_base(api: API, sha: str) -> str:
+    """Base of the newest owner review status on this head (any verdict), or ''.
+    The current context wins; a legacy one (e.g. a gpt-6.1-sol quota-pending) still
+    tells a backfill which range was meant to be reviewed."""
+    for contexts in ((CONTEXT,), LEGACY_CONTEXTS):
+        for status in sorted(owner_statuses(api, sha, contexts), key=lambda s: s["id"], reverse=True):
+            match = BASE_IN_STATUS.search(str(status.get("description", "")))
+            if match:
+                return match.group(1)
     return ""
 
 
-def latest_status(api: API, sha: str) -> dict | None:
-    owner = api.repo.split("/")[0].lower()
-    rows = api.call("GET", f"/commits/{sha}/statuses?per_page=100") or []
-    mine = [s for s in rows if s.get("context") == CONTEXT
-            and str(s.get("creator", {}).get("login", "")).lower() == owner]
+def latest_status(api: API, sha: str, contexts: tuple = (CONTEXT,)) -> dict | None:
+    mine = owner_statuses(api, sha, contexts)
     return max(mine, key=lambda s: s["id"]) if mine else None
 
 
@@ -314,7 +321,7 @@ def list_pending(api: API) -> int:
     rows = all_prs(api)
     subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", "main"], cwd=ROOT, check=True)
     audited = set(LEGACY_AUDIT.findall(git("log", "FETCH_HEAD", "--format=%B")))
-    count = legacy = unshipped = 0
+    count = legacy = unshipped = earlier_model = 0
     for pr in rows:
         head = pr["head"]["sha"]
         status = latest_status(api, head)
@@ -323,6 +330,15 @@ def list_pending(api: API) -> int:
         if not pr.get("merged_at") and pr["state"] == "closed":
             unshipped += 1  # closed without merging: nothing of it reached main
             continue
+        if pr.get("merged_at") and not status:
+            # Published after an APPROVE by the model required at that time. Only a
+            # merged PR qualifies: an unpublished one needs the current model.
+            old = latest_status(api, head, LEGACY_CONTEXTS)
+            if old and old["state"] == "success":
+                earlier_model += 1
+                continue
+            if old:
+                status = old  # e.g. a gpt-6.1-sol quota-pending: still owed a review
         if pr.get("merged_at") and legacy_reviewed(
                 pr_commits(api, pr["number"], int(api.call("GET", f"/pulls/{pr['number']}")["commits"])) or [],
                 audited):
@@ -334,6 +350,7 @@ def list_pending(api: API) -> int:
         count += 1
     print(f"{count} PR(s) without an APPROVE status on their head "
           f"(not listed: {legacy} reviewed per commit before 2026-10-15, "
+          f"{earlier_model} merged after an APPROVE by an earlier review model, "
           f"{unshipped} closed without merging)")
     return 0
 
@@ -344,6 +361,11 @@ def resume_base(saved: dict, head: str, rebuttal: bool = False) -> str | None:
     An unchanged head may resume only with a rebuttal of a REQUEST_CHANGES verdict
     (user decision 2026-10-15), once per head; it then returns None (nothing new
     to review, only the rejected findings to re-examine)."""
+    if saved.get("model") != MODEL or saved.get("effort") != EFFORT:
+        # A session started by another model/effort (e.g. gpt-6.1-sol/xhigh) never
+        # reviewed this PR with the required one; resuming would approve the whole
+        # range after reviewing only the newest commits.
+        raise Blocked(f"The recorded session was not a {MODEL}/{EFFORT} review; run a first round")
     previous = str(saved.get("head", ""))
     if not SHA.fullmatch(previous):
         raise Blocked("The recorded review has no reviewed head; run a first round")
@@ -375,7 +397,7 @@ def finish(api: API, pr: dict, entry: dict, binding: Path, unrecorded: Path) -> 
         # the next --resume reviews every commit after it (fixes and anything else).
         binding.write_text(json.dumps({"repo": api.repo, "pr": pr["number"],
                                        "session": entry["bound_session"], "head": head,
-                                       "verdict": verdict,
+                                       "verdict": verdict, "model": MODEL, "effort": EFFORT,
                                        "rebutted_head": head if entry.get("same_head_rebuttal") else ""}),
                            encoding="utf-8")
     unrecorded.unlink(missing_ok=True)
@@ -389,6 +411,8 @@ def retry_record(api: API, pr: dict, head: str, binding: Path, unrecorded: Path)
     entry = json.loads(unrecorded.read_text(encoding="utf-8"))
     if entry.get("repo") != api.repo or entry.get("pr") != pr["number"] or entry.get("head") != head:
         raise Blocked("The unrecorded verdict is for another PR or head")
+    if entry.get("model") != MODEL or entry.get("effort") != EFFORT:
+        raise Blocked(f"The unrecorded verdict was not produced by {MODEL}/{EFFORT}; run a fresh review")
     return finish(api, pr, entry, binding, unrecorded)
 
 
@@ -470,6 +494,7 @@ def main() -> int:
         # Keep the verdict until GitHub has it: a failed POST is retried with
         # --retry-record instead of being lost (or blocking the next --resume).
         entry = {"repo": api.repo, "pr": pr["number"], "verdict": verdict, "base": base, "head": head,
+                 "model": MODEL, "effort": EFFORT,
                  "session": session, "bound_session": resume_session or session,
                  "message": message, "resume": args.resume, "rebuttal": bool(rebuttal),
                  "same_head_rebuttal": bool(rebuttal) and previous_head is None}

@@ -269,7 +269,8 @@ that the corrections introduced no concrete regression. Do not repeat the
 original full repository exploration. Remain strictly read-only: do not modify
 files, run tests, builds, linters, package managers, application code, or ad hoc
 probes, and do not use web search, browser, apps, connectors, or external MCP
-tools. End with exactly APPROVE or REQUEST_CHANGES.
+tools. End with exactly APPROVE or REQUEST_CHANGES: the last line of your
+message must be that single word alone, with nothing after it.
 RP
   # 基礎設施中斷可能完全沒讀到來源;新增範圍也不能沿用舊摘要。
   # 續用同一 session 時可補充摘要,與第一輪一樣拒絕完整 diff 輸入。
@@ -471,7 +472,8 @@ If no qualifying defect is found, output:
 
 NO_ACTIONABLE_FINDINGS
 
-End with exactly one of:
+End with exactly one of the following, alone on the last line of your
+message with nothing after it (a verdict stated anywhere else does not count):
 
 APPROVE
 REQUEST_CHANGES
