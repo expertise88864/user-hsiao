@@ -252,7 +252,10 @@ def current_identity(record_: dict) -> bool:
 
 
 def _git_out(path: Path, *args: str) -> str | None:
-    result = subprocess.run(["git", "-C", str(path), *args], capture_output=True, text=True)
+    # Git for Windows prints paths as UTF-8 whatever the locale code page (e.g. this
+    # repository lives under a Chinese directory name), so never decode with the locale.
+    result = subprocess.run(["git", "-C", str(path), *args], capture_output=True,
+                            text=True, encoding="utf-8")
     return result.stdout.strip() if result.returncode == 0 else None
 
 

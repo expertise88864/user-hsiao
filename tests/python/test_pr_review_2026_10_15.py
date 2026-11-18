@@ -630,3 +630,26 @@ class BackfillAndQuotaRetryTests(unittest.TestCase):
                       {**base, "verdict": "BOGUS", **IDENTITY}):
             with self.subTest(entry=entry):
                 self.assertFalse(pr.retryable(entry))
+
+
+class GitOutputEncodingTests(unittest.TestCase):
+    """PR #104 resume round 3 (P2): Git paths are UTF-8, not the Windows locale code page."""
+
+    def test_git_output_is_decoded_as_utf8(self):
+        calls = []
+
+        def fake_run(args, **kwargs):
+            calls.append(kwargs)
+            return subprocess.CompletedProcess(args, 0, "", "")
+        with mock.patch.object(pr.subprocess, "run", fake_run):
+            pr._git_out(Path("."), "rev-parse", "--show-prefix")
+        self.assertEqual(calls[0].get("encoding"), "utf-8")
+
+    def test_non_ascii_worktree_path_round_trips(self):
+        with tempfile.TemporaryDirectory(prefix="pr-review-enc-") as tmp:
+            repo = Path(tmp) / "\u7a0b\u5f0f" / "repo"
+            repo.mkdir(parents=True)
+            subprocess.run(["git", "init", "-q", str(repo)], check=True, capture_output=True)
+            top = pr._git_out(repo, "rev-parse", "--show-toplevel")
+            self.assertIsNotNone(top)
+            self.assertEqual(Path(top).resolve(), repo.resolve())
