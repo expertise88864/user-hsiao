@@ -32,8 +32,13 @@ sandbox = value("--sandbox") or config.get("sandbox_mode", "")
 top = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True, check=True).stdout.strip()
 context = {"cwd": top, "model": model, "effort": effort,
            "sandbox_policy": {"type": sandbox}, "turn_id": "fixture"}
+prompt = args[-1]
+if os.environ.get("CODEX_FIXTURE_TRUNCATE_PROMPT") == "1":
+    prompt = prompt.splitlines()[0]  # what a Windows batch shim delivers
 rows = [{"type": "session_meta", "payload": {"id": sid, "cwd": top}},
-        {"type": "turn_context", "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(), "payload": context}]
+        {"type": "turn_context", "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(), "payload": context},
+        {"type": "response_item", "payload": {"type": "message", "role": "user",
+                                              "content": [{"type": "input_text", "text": prompt}]}}]
 sessions = pathlib.Path(os.environ["CODEX_HOME"]) / "sessions"
 sessions.mkdir(parents=True, exist_ok=True)
 (sessions / ("rollout-" + sid + ".jsonl")).write_text("\n".join(map(json.dumps, rows)), encoding="utf-8")
@@ -88,6 +93,7 @@ class ReviewEntryTests(unittest.TestCase):
         env.pop("CODEX_FIXTURE_NO_SESSION", None)
         env.pop("CODEX_FIXTURE_ACTUAL_MODEL", None)
         env.pop("CODEX_FIXTURE_ACTUAL_EFFORT", None)
+        env.pop("CODEX_FIXTURE_TRUNCATE_PROMPT", None)
         env.pop("CODEX_FIXTURE_FORCE_SID", None)
         env.pop("GIT_CONFIG_PARAMETERS", None)
         env["CODEX_FIXTURE_SESSION"] = SESSION
@@ -315,6 +321,38 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(result.returncode, 4, result.stderr)
         self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
 
+    def test_truncated_prompt_never_counts(self):
+        """2026-11-18: npm's codex.cmd delivered only the prompt's first line."""
+        state = self.seed_session()
+        result, args = self.run_entry("targeted", "HEAD", extra_env={"CODEX_FIXTURE_TRUNCATE_PROMPT": "1"})
+        self.assertEqual(result.returncode, 4, result.stderr)
+        self.assertIn("complete prompt", result.stderr)
+        self.assertGreater(args[-1].count("\n"), 10)  # the wrapper did send it whole
+        self.assertFalse((state / "last_session_id").exists())
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8").strip(), "0")
+
+    def test_truncated_resume_prompt_never_counts(self):
+        state = self.seed_session()
+        result, _ = self.run_entry("resume", SESSION, extra_env={"CODEX_FIXTURE_TRUNCATE_PROMPT": "1"})
+        self.assertEqual(result.returncode, 4, result.stderr)
+        self.assertEqual((state / "last_pass").read_text(encoding="utf-8"), "1\n")
+
+    def test_complete_prompt_is_recorded_as_verified(self):
+        self.seed_session()
+        result, _ = self.run_entry("targeted", "HEAD")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        proof = (self.repo / ".codex-review" / "last_identity.json").read_text(encoding="utf-8")
+        self.assertIn('"promptVerified": true', proof)
+
+    def test_batch_shim_cli_is_refused_before_any_call(self):
+        for cli in ("codex.cmd", "C:/npm/CODEX.CMD", "codex.bat"):
+            with self.subTest(cli=cli):
+                state = self.seed_session()
+                result, args = self.run_entry("targeted", "HEAD", extra_env={"CODEX_REVIEW_CLI": cli})
+                self.assertEqual(result.returncode, 64, result.stderr)
+                self.assertEqual(args, [])
+                shutil.rmtree(state)
+
     def test_resume_with_wrong_actual_model_never_counts(self):
         state = self.seed_session()
         result, _ = self.run_entry("resume", SESSION, extra_env={"CODEX_FIXTURE_ACTUAL_MODEL": "gpt-5.5"})
@@ -470,3 +508,40 @@ class ResolveCliUnicodePathTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CliSelectionTests(unittest.TestCase):
+    """2026-11-18: never select a batch shim; use the native CLI it would launch."""
+
+    def setUp(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("identity", ROOT / "scripts/codex_review_identity.py")
+        self.identity = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.identity)
+        self.temp = tempfile.TemporaryDirectory(prefix="cli-select-")
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+
+    def candidates(self, shim):
+        from unittest import mock
+        def which(name):
+            return str(shim) if name == "codex.cmd" else None
+        with mock.patch.object(self.identity.shutil, "which", which),              mock.patch.object(self.identity.os, "name", "nt"),              mock.patch.dict(os.environ, {"LOCALAPPDATA": str(self.root / "no-desktop")}):
+            return self.identity.codex_candidates()
+
+    def test_npm_shim_is_replaced_by_its_native_executable(self):
+        npm = self.root / "npm"
+        native = (npm / "node_modules/@openai/codex/node_modules/@openai/codex-win32-x64"
+                  / "vendor/x86_64-pc-windows-msvc/bin/codex.exe")
+        native.parent.mkdir(parents=True)
+        native.write_bytes(b"")
+        shim = npm / "codex.cmd"
+        shim.write_text("@echo off\n", encoding="utf-8")
+        self.assertEqual([Path(p) for p in self.candidates(shim)], [native])
+
+    def test_shim_without_a_native_executable_is_dropped(self):
+        npm = self.root / "npm"
+        npm.mkdir()
+        shim = npm / "codex.cmd"
+        shim.write_text("@echo off\n", encoding="utf-8")
+        self.assertEqual(self.candidates(shim), [])

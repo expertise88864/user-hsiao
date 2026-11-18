@@ -137,6 +137,11 @@ resolve_cli() {
       CODEX_CLI=""
   fi
   [ -n "$CODEX_CLI" ] || die "找不到可用的 Codex CLI;不降級到其他模型。"
+  # Windows 批次檔(npm 的 codex.cmd)會把多行參數截在第一個換行:審查者只收到
+  # prompt 第一行(2026-11-18 實測)。一律用原生 codex.exe。
+  case "$(printf '%s' "$CODEX_CLI" | tr 'A-Z' 'a-z')" in
+    *.cmd|*.bat) die "Codex CLI 不可是批次檔($CODEX_CLI):多行 prompt 會被截斷。請改指定原生 codex.exe。" ;;
+  esac
   echo "[codex-review] cli=$CODEX_CLI"
   local quoted
   quoted="$(printf '%s' "$REPO_ROOT" | sed "s/'/'\\\\''/g")"
@@ -145,12 +150,12 @@ resolve_cli() {
 
 VERIFIED_SID=""
 VERIFIED_TOKENS=""
-# 實際 session 必須是本輪、本 repo、gpt-6.2-astra/medium/read-only;$1 = 續審時預期的 session。
+# 實際 session 必須是本輪、本 repo、gpt-6.2-astra/medium/read-only,且完整收到 prompt;$1 = 續審時預期的 session。
 verify_actual_session() {
   local identity
   local a=("$SCRIPT_DIR/codex_review_identity.py" --raw-log "$RAW_LOG"
            --repo "$REPO_ROOT" --started-at "$REVIEW_STARTED_AT"
-           --proof "$STATE_DIR/last_identity.json")
+           --proof "$STATE_DIR/last_identity.json" --prompt-file "$PROMPT_SENT")
   rm -f "$STATE_DIR/last_identity.json"
   [ -z "${1:-}" ] || a+=(--expected-session "$1")
   identity="$("$PYTHON" "${a[@]}")" || return 1
@@ -311,6 +316,8 @@ RP
     RESUME_PROMPT+=$'\n\n'"Implementer rebuttal: the implementer validated your previous findings against the code and REJECTED the ones below with evidence; no code was changed for them. Re-examine each rejected finding in the repository yourself (read-only). Withdraw it only if the evidence holds; otherwise keep it and state the concrete reason. Never withdraw a finding on assertion alone. Rebuttal text:"$'\n'"$(cat "$REBUTTAL_FILE")"
   fi
 
+  PROMPT_SENT="$STATE_DIR/last_prompt.txt"
+  printf '%s' "$RESUME_PROMPT" > "$PROMPT_SENT"
   echo "[codex-review] resume session=$SID effort=$RESUME_EFFORT (pass $THIS_PASS)"
   : > "$LAST_MSG"
   # resume 無 --cd:改在 subshell 內 cd 進 repo,讓 Codex 在正確目錄跑 git。
@@ -496,6 +503,8 @@ sed -i -e "/{{BASE}}/r $TMP/base.txt" -e "/{{BASE}}/d" "$TMP/prompt.txt"
 sed -i -e "/{{TASK_CONTEXT}}/r $TMP/ctx.txt" -e "/{{TASK_CONTEXT}}/d" "$TMP/prompt.txt"
 sed -i -e "/{{VERIFICATION_RESULTS}}/r $TMP/ver.txt" -e "/{{VERIFICATION_RESULTS}}/d" "$TMP/prompt.txt"
 
+PROMPT_SENT="$STATE_DIR/last_prompt.txt"
+cp "$TMP/prompt.txt" "$PROMPT_SENT"
 build_flags "$EFFORT"
 echo "[codex-review] mode=$MODE effort=$EFFORT base=$BASE model=$MODEL (pass 1, read-only, user-config ignored)"
 # 新的第一輪開始,上一個任務的 session 紀錄就不再代表「本次的第一輪」。

@@ -5,7 +5,7 @@
 本節優先於下方所有關於審查模型與 effort 的敘述；每個 PR 一次、CI、資料保護、醫療內容核可與視覺基準人工確認要求不變。
 - 所有 code review（PR review、`--resume` 續審、`--pending` 補審）一律 `gpt-6.2-astra`、reasoning effort `medium`，取代 2026-10-14 的 `gpt-6.1-sol`／`xhigh`；不 fallback 到其他模型或 effort，wrapper 以 session 紀錄證明不了實際模型／effort 就不算一輪。
 - PR status context 改為 `codex-review/gpt-6.2-astra`；舊 `codex-review/gpt-6.1-sol` status（含 quota-pending）不再被 `_delivery.py` 採計，尚未發佈的 PR 須以新模型重審。
-- `gpt-6.2-astra` 需要 Codex CLI 0.169.1 以上（npm 全域版可用；桌面版內附的 0.163.0-alpha 會拒絕）。`scripts/codex_review_identity.py which` 顯示實際選用的 CLI；不可用時先問使用者。
+- `gpt-6.2-astra` 需要 Codex CLI 0.169.1 以上（npm 全域版背後的原生 `codex.exe` 可用；桌面版內附的 0.163.0-alpha 會拒絕）。不可經 `codex.cmd` 批次檔執行：多行 prompt 會被截成第一行；wrapper 會改用原生 exe，並驗證審查者收到完整 prompt。`scripts/codex_review_identity.py which` 顯示實際選用的 CLI；不可用時先問使用者。
 
 ## 最新使用者定案：每個 PR review 一次（2026-10-15）
 

@@ -4,7 +4,7 @@
 
 - 決策：使用者定案所有 code review（PR review、續審、pending 補審）一律 `gpt-6.2-astra`、effort `medium`，取代 2026-10-14 的 `gpt-6.1-sol`／`xhigh`。不 fallback；`scripts/codex_review_identity.py` 仍以 session 紀錄驗證實際模型、effort 與唯讀沙箱，證明不了不算一輪。
 - PR status context 改為 `codex-review/gpt-6.2-astra`（`tools/pr_review.py` 寫入、`_delivery.py` 檢查）；舊 context 的 APPROVE 或 quota-pending 不再採計，未發佈的 PR 以新模型重審。
-- CLI：`gpt-6.2-astra` 需 Codex CLI 0.169.1 以上；wrapper 依版本挑本機最高者（npm 全域 0.169.1，桌面版內附 0.163.0-alpha 會拒絕）。
+- CLI：`gpt-6.2-astra` 需 Codex CLI 0.169.1 以上；wrapper 依版本挑本機最高者（npm 全域 0.169.1，桌面版內附 0.163.0-alpha 會拒絕）。npm 的 `codex.cmd` 是 Windows 批次檔，會把多行 prompt 截在第一行（2026-11-18 實測：審查者只收到第一行），所以一律改用它背後的原生 `codex.exe`，wrapper 拒用 `.cmd`／`.bat`；identity 檢查另比對 session 紀錄中審查者實際收到的 prompt，與送出的不一致就不算一輪。
 - SUPERSEDED：D-28／D-20 中的 `gpt-6.1-sol`／xhigh 敘述。每個 PR 一次、CI 與發佈閘門不變。
 - 重開條件：使用者另行定案。
 
