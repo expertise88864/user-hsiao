@@ -14,7 +14,7 @@ _spec.loader.exec_module(pr)
 
 SHA = "a" * 40
 # The review identity every saved binding / unrecorded verdict must carry (2026-11-18).
-IDENTITY = {"model": pr.MODEL, "effort": pr.EFFORT}
+IDENTITY = {"model": pr.MODEL, "effort": pr.EFFORT, "prompt_verified": True}
 
 
 class FakeAPI:
@@ -459,3 +459,80 @@ class ReviewModelSwitchTests(unittest.TestCase):
         self.assertEqual([line.split()[0] for line in listed], ["#2", "#3"])
         self.assertIn("quota-pending", listed[1])
         self.assertIn("1 merged after an APPROVE by an earlier review model", printed[-1])
+
+
+class PromptVerifiedIdentityTests(unittest.TestCase):
+    """PR #104 full-prompt round 1: a verdict counts only with proof the reviewer got the
+    whole prompt, and backfills run the current tooling against the historical head."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix="pr-review-proof-")
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.state = self.root / ".codex-review"
+        self.state.mkdir()
+        for name, value in (("ROOT", self.root), ("bash", lambda: "bash"),
+                            ("wrapper", lambda: "scripts/codex_review.sh")):
+            patcher = mock.patch.object(pr, name, value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+
+    def run_with(self, rc, proof, session="sid-1", target=None):
+        envs = []
+
+        def fake_run(args, **kwargs):
+            envs.append(kwargs["env"])
+            (self.state / "last_message.txt").write_text("REQUEST_CHANGES\n", encoding="utf-8")
+            (self.state / "last_session_id").write_text(session, encoding="utf-8")
+            if proof is not None:
+                (self.state / "last_identity.json").write_text(json.dumps(proof), encoding="utf-8")
+            return subprocess.CompletedProcess(args, rc)
+        with mock.patch.object(pr.subprocess, "run", fake_run):
+            verdict = pr.run_review("targeted", "b" * 40, SHA, None, None, target=target)[0]
+        return verdict, envs[0]
+
+    def proof(self, **changes):
+        return {"sessionId": "sid-1", "actualModel": pr.MODEL, "actualEffort": pr.EFFORT,
+                "promptVerified": True, **changes}
+
+    def test_verdict_needs_a_matching_prompt_verified_proof(self):
+        self.assertEqual(self.run_with(2, self.proof())[0], "REQUEST_CHANGES")
+        self.assertEqual(self.run_with(0, self.proof())[0], "APPROVE")
+        for bad in (None, self.proof(promptVerified=False), self.proof(sessionId="other"),
+                    self.proof(actualModel="gpt-6.1-sol"), self.proof(actualEffort="xhigh")):
+            with self.subTest(proof=bad):
+                (self.state / "last_identity.json").unlink(missing_ok=True)
+                self.assertEqual(self.run_with(0, bad)[0], "ERROR")
+
+    def test_a_stale_proof_from_an_earlier_round_is_discarded(self):
+        (self.state / "last_identity.json").write_text(json.dumps(self.proof()), encoding="utf-8")
+        self.assertEqual(self.run_with(0, None)[0], "ERROR")
+
+    def test_records_without_prompt_verification_never_resume_or_retry(self):
+        void = {"model": pr.MODEL, "effort": pr.EFFORT}  # e.g. written before the prompt check
+        ok = subprocess.CompletedProcess([], 0)
+        with mock.patch.object(pr.subprocess, "run", return_value=ok), self.assertRaises(pr.Blocked):
+            pr.resume_base({"head": "b" * 40, "verdict": "REQUEST_CHANGES", **void}, SHA)
+        unrecorded = self.root / "u.json"
+        entry = {"repo": "owner/repo", "pr": 7, "verdict": "APPROVE", "base": "c" * 40, "head": SHA,
+                 "session": "s", "bound_session": "s", "message": "APPROVE", "resume": False, **void}
+        unrecorded.write_text(json.dumps(entry), encoding="utf-8")
+        self.assertFalse(pr.unrecorded_retry_required(unrecorded, SHA))
+        with mock.patch.object(pr, "record") as record, self.assertRaises(pr.Blocked):
+            pr.retry_record(FakeAPI(lambda path: None), {"number": 7}, SHA, self.root / "b.json", unrecorded)
+        record.assert_not_called()
+
+    def test_finish_keeps_the_prompt_verification_in_the_binding(self):
+        binding, unrecorded = self.root / "b.json", self.root / "u.json"
+        entry = {"repo": "owner/repo", "pr": 7, "verdict": "REQUEST_CHANGES", "base": "c" * 40, "head": SHA,
+                 "session": "s", "bound_session": "s", "message": "", "resume": False, **IDENTITY}
+        with mock.patch.object(pr, "record"):
+            pr.finish(FakeAPI(lambda path: None), {"number": 7}, entry, binding, unrecorded)
+        self.assertTrue(pr.current_identity(json.loads(binding.read_text(encoding="utf-8"))))
+
+    def test_target_worktree_reaches_the_wrapper_only_for_a_backfill(self):
+        _, env = self.run_with(2, self.proof())
+        self.assertNotIn("CODEX_REVIEW_TARGET", env)
+        target = self.root / ".codex-review" / "target-pr-7"
+        _, env = self.run_with(2, self.proof(), target=target)
+        self.assertEqual(env["CODEX_REVIEW_TARGET"], str(target))

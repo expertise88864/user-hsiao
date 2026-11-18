@@ -55,6 +55,21 @@ elif command -v python3 >/dev/null 2>&1; then PYTHON="python3"
 else die "找不到 Python,無法驗證審查身分。"; fi
 STATE_DIR="$REPO_ROOT/.codex-review"
 mkdir -p "$STATE_DIR"
+# Backfill of another head (2026-11-18): the review tooling, Python and state stay in
+# this checkout, while Codex inspects a separate worktree of the SAME repository at the
+# PR head (tools/pr_review.py --pr). Otherwise a backfill would run the historical
+# head's tooling, i.e. the model and status context that applied back then.
+if [ -n "${CODEX_REVIEW_TARGET:-}" ]; then
+  [ -n "${CODEX_REVIEW_TIP:-}" ] || die "CODEX_REVIEW_TARGET 只用於 PR review(需同時有 CODEX_REVIEW_BASE 與 CODEX_REVIEW_TIP)。"
+  TARGET_TOP="$(git -C "$CODEX_REVIEW_TARGET" rev-parse --show-toplevel 2>/dev/null)" \
+    || die "CODEX_REVIEW_TARGET 不是 git worktree:$CODEX_REVIEW_TARGET"
+  [ "$(git -C "$TARGET_TOP" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)" = \
+    "$(git -C "$REPO_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)" ] \
+    || die "CODEX_REVIEW_TARGET 不是本 repository 的 worktree。"
+  [ -z "$(git -C "$TARGET_TOP" status --porcelain --untracked-files=all)" ] \
+    || die "CODEX_REVIEW_TARGET 有未提交的變更;審查只涵蓋已提交的內容。"
+  REPO_ROOT="$TARGET_TOP"
+fi
 USAGE_TSV="$STATE_DIR/usage.tsv"
 SESSION_FILE="$STATE_DIR/last_session_id"
 PASS_FILE="$STATE_DIR/last_pass"

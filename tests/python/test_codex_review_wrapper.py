@@ -29,7 +29,8 @@ sid = os.environ.get("CODEX_FIXTURE_FORCE_SID") or (args[2] if args[:2] == ["exe
 model = os.environ.get("CODEX_FIXTURE_ACTUAL_MODEL") or value("--model")
 effort = os.environ.get("CODEX_FIXTURE_ACTUAL_EFFORT") or config.get("model_reasoning_effort", "")
 sandbox = value("--sandbox") or config.get("sandbox_mode", "")
-top = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True, check=True).stdout.strip()
+top = subprocess.run(["git", "-C", value("--cd") or ".", "rev-parse", "--show-toplevel"],
+                     capture_output=True, text=True, check=True).stdout.strip()
 context = {"cwd": top, "model": model, "effort": effort,
            "sandbox_policy": {"type": sandbox}, "turn_id": "fixture"}
 prompt = args[-1]
@@ -396,6 +397,43 @@ class ReviewEntryTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertEqual(args[:3], ["exec", "resume", SESSION])
         self.assertIn(f"The pull request range is now {base}..{tip};", args[-1])
+
+    def _target(self, tip):
+        target = self.repo / ".codex-review" / "target-pr-1"
+        subprocess.run(["git", "-C", str(self.repo), "worktree", "add", "-q", "--detach", str(target), tip],
+                       check=True, capture_output=True)
+        return target
+
+    def test_backfill_target_is_reviewed_with_this_checkouts_tooling(self):
+        """The tooling checkout stays at another commit; Codex is pointed at the target."""
+        base, tip = self._pr_range()
+        target = self._target(tip)
+        subprocess.run(["git", "-C", str(self.repo), "checkout", "-q", "--detach", base],
+                       check=True, capture_output=True)
+        env = {"CODEX_REVIEW_BASE": base, "CODEX_REVIEW_TIP": tip, "CODEX_REVIEW_TARGET": str(target)}
+        result, args = self.run_entry("targeted", base, extra_env=env)
+        self.assertEqual(result.returncode, 2, result.stderr)
+        top = subprocess.run(["git", "-C", str(target), "rev-parse", "--show-toplevel"],
+                             capture_output=True, text=True, check=True).stdout.strip()
+        self.assertEqual(Path(args[args.index("--cd") + 1]).resolve(), Path(top).resolve())
+        self.assertEqual(args[args.index("--model") + 1], "gpt-6.2-astra")
+        # State stays in the tooling checkout, never inside the target worktree.
+        self.assertTrue((self.repo / ".codex-review" / "last_identity.json").is_file())
+        self.assertFalse((target / ".codex-review").exists())
+
+    def test_backfill_target_must_be_a_clean_worktree_of_this_repository(self):
+        base, tip = self._pr_range()
+        other = self.repo / "other-repo"
+        subprocess.run(["git", "init", "-q", str(other)], check=True, capture_output=True)
+        dirty = self._target(tip)
+        (dirty / "stray.txt").write_text("x", encoding="utf-8")
+        for target, extra in ((self.repo / "missing", {}), (other, {}), (dirty, {}),
+                              (dirty, {"CODEX_REVIEW_TIP": ""})):
+            env = {"CODEX_REVIEW_BASE": base, "CODEX_REVIEW_TIP": tip, "CODEX_REVIEW_TARGET": str(target), **extra}
+            with self.subTest(target=target.name, extra=extra):
+                result, args = self.run_entry("targeted", base, extra_env=env)
+                self.assertEqual(result.returncode, 64, result.stderr)
+                self.assertEqual(args, [])
 
     def test_pr_range_must_be_the_exact_checkout_before_cli(self):
         base, tip = self._pr_range()

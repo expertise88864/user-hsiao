@@ -14,7 +14,8 @@ Usage (clean checkout of the exact, already pushed codex/* head):
     python tools/pr_review.py                       # first round; opens the PR if missing
     python tools/pr_review.py --resume              # after fixing CONFIRMED findings
     python tools/pr_review.py --mode deep --ctx task.txt
-    python tools/pr_review.py --pr 12               # backfill a PR (HEAD must equal its head)
+    python tools/pr_review.py --pr 12               # backfill a PR; another head is reviewed with this
+                                                    # checkout's tooling in .codex-review/target-pr-12
     python tools/pr_review.py --pending             # list PRs whose head is not approved
     python tools/pr_review.py --retry-record        # re-post a verdict GitHub did not accept
     python tools/pr_review.py --resume --rebuttal r.txt  # once per head: evidence for REJECTED findings
@@ -192,11 +193,15 @@ def provider_quota_error(raw: str) -> bool:
 
 def run_review(mode: str, base: str, head: str, ctx: str | None,
                resume_session: str | None, previous_head: str | None = None,
-               rebuttal: str | None = None) -> tuple[str, str, str]:
+               rebuttal: str | None = None, target: Path | None = None) -> tuple[str, str, str]:
     """Return (verdict, session_id, last_message)."""
     env = {**os.environ, "CODEX_REVIEW_TIP": head, "CODEX_REVIEW_BASE": base}
     env.pop("CODEX_REVIEW_PREV_TIP", None)
     env.pop("CODEX_REVIEW_REBUTTAL_FILE", None)
+    env.pop("CODEX_REVIEW_TARGET", None)
+    if target is not None:
+        # Backfill of another head: this checkout's (current) tooling reviews that worktree.
+        env["CODEX_REVIEW_TARGET"] = str(target)
     if resume_session and previous_head:
         # The wrapper must review every change since the last verdict, not only fixes.
         env["CODEX_REVIEW_PREV_TIP"] = previous_head
@@ -209,7 +214,7 @@ def run_review(mode: str, base: str, head: str, ctx: str | None,
     state = ROOT / ".codex-review"
     # A wrapper that refuses before calling the CLI leaves the previous round's
     # files behind; they must never be read as this head's verdict or quota error.
-    for stale in ("last_message.txt", "last_raw.log"):
+    for stale in ("last_message.txt", "last_raw.log", "last_identity.json"):
         (state / stale).unlink(missing_ok=True)
     rc = subprocess.run(args, cwd=ROOT, env=env, stdin=subprocess.DEVNULL).returncode
     message = (state / "last_message.txt").read_text(encoding="utf-8", errors="replace") \
@@ -218,13 +223,48 @@ def run_review(mode: str, base: str, head: str, ctx: str | None,
         if (state / "last_raw.log").is_file() else ""
     session = (state / "last_session_id").read_text(encoding="utf-8").strip() \
         if (state / "last_session_id").is_file() else "unavailable"
-    if rc == 0:
-        return "APPROVE", session, message
-    if rc == 2:
-        return "REQUEST_CHANGES", session, message
+    if rc in (0, 2):
+        if not prompt_verified(state / "last_identity.json", session):
+            # A verdict counts only with the wrapper's proof that this very session
+            # received the complete prompt (a batch shim once delivered one line).
+            return "ERROR", session, "[pr-review] no prompt-verified identity proof for this session\n" + message
+        return ("APPROVE" if rc == 0 else "REQUEST_CHANGES"), session, message
     if not message.strip() and provider_quota_error(raw):
         return "QUOTA_PENDING", session, raw[-2000:]
     return "ERROR", session, message or raw[-2000:]
+
+
+def prompt_verified(proof: Path, session: str) -> bool:
+    try:
+        data = json.loads(proof.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return False
+    return (data.get("promptVerified") is True and data.get("actualModel") == MODEL
+            and data.get("actualEffort") == EFFORT
+            and str(data.get("sessionId", "")).lower() == session.lower())
+
+
+def current_identity(record_: dict) -> bool:
+    """Model, effort and a verified complete prompt (2026-11-18). Records written before
+    the prompt check (e.g. the void truncated-prompt rounds) never qualify."""
+    return (record_.get("model") == MODEL and record_.get("effort") == EFFORT
+            and record_.get("prompt_verified") is True)
+
+
+def target_worktree(number: int, head: str) -> Path:
+    """A detached worktree of this repository at a backfill head, reused across rounds
+    so a resume runs in the same directory as its session. Never overwritten."""
+    target = ROOT / ".codex-review" / f"target-pr-{number}"
+    if subprocess.run(["git", "cat-file", "-e", f"{head}^{{commit}}"], cwd=ROOT).returncode != 0:
+        subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", f"pull/{number}/head"], cwd=ROOT, check=True)
+    if target.exists():
+        current = subprocess.run(["git", "-C", str(target), "rev-parse", "HEAD"],
+                                 capture_output=True, text=True).stdout.strip()
+        if current != head:
+            raise Blocked(f"{target} exists at another commit; remove it with git worktree remove first")
+        return target
+    subprocess.run(["git", "worktree", "add", "-q", "--detach", str(target), head], cwd=ROOT, check=True)
+    return target
 
 
 def record(api: API, pr: dict, verdict: str, base: str, head: str, session: str,
@@ -361,11 +401,12 @@ def resume_base(saved: dict, head: str, rebuttal: bool = False) -> str | None:
     An unchanged head may resume only with a rebuttal of a REQUEST_CHANGES verdict
     (user decision 2026-10-15), once per head; it then returns None (nothing new
     to review, only the rejected findings to re-examine)."""
-    if saved.get("model") != MODEL or saved.get("effort") != EFFORT:
+    if not current_identity(saved):
         # A session started by another model/effort (e.g. gpt-6.1-sol/xhigh) never
         # reviewed this PR with the required one; resuming would approve the whole
         # range after reviewing only the newest commits.
-        raise Blocked(f"The recorded session was not a {MODEL}/{EFFORT} review; run a first round")
+        raise Blocked(f"The recorded session was not a prompt-verified {MODEL}/{EFFORT} review; "
+                      "run a first round")
     previous = str(saved.get("head", ""))
     if not SHA.fullmatch(previous):
         raise Blocked("The recorded review has no reviewed head; run a first round")
@@ -398,6 +439,7 @@ def finish(api: API, pr: dict, entry: dict, binding: Path, unrecorded: Path) -> 
         binding.write_text(json.dumps({"repo": api.repo, "pr": pr["number"],
                                        "session": entry["bound_session"], "head": head,
                                        "verdict": verdict, "model": MODEL, "effort": EFFORT,
+                                       "prompt_verified": entry.get("prompt_verified") is True,
                                        "rebutted_head": head if entry.get("same_head_rebuttal") else ""}),
                            encoding="utf-8")
     unrecorded.unlink(missing_ok=True)
@@ -412,7 +454,7 @@ def unrecorded_retry_required(unrecorded: Path, head: str) -> bool:
     if not unrecorded.is_file():
         return False
     entry = json.loads(unrecorded.read_text(encoding="utf-8"))
-    return entry.get("head") == head and entry.get("model") == MODEL and entry.get("effort") == EFFORT
+    return entry.get("head") == head and current_identity(entry)
 
 
 def retry_record(api: API, pr: dict, head: str, binding: Path, unrecorded: Path) -> int:
@@ -421,8 +463,9 @@ def retry_record(api: API, pr: dict, head: str, binding: Path, unrecorded: Path)
     entry = json.loads(unrecorded.read_text(encoding="utf-8"))
     if entry.get("repo") != api.repo or entry.get("pr") != pr["number"] or entry.get("head") != head:
         raise Blocked("The unrecorded verdict is for another PR or head")
-    if entry.get("model") != MODEL or entry.get("effort") != EFFORT:
-        raise Blocked(f"The unrecorded verdict was not produced by {MODEL}/{EFFORT}; run a fresh review")
+    if not current_identity(entry):
+        raise Blocked(f"The unrecorded verdict was not a prompt-verified {MODEL}/{EFFORT} review; "
+                      "run a fresh review")
     return finish(api, pr, entry, binding, unrecorded)
 
 
@@ -446,10 +489,16 @@ def main() -> int:
         if git("status", "--porcelain", "--untracked-files=all"):
             raise Blocked("Working tree must be clean: the review covers committed history only")
         subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", "main"], cwd=ROOT, check=True)
+        target = None
         if args.pr:
             pr = find_pr(api, "", args.pr)
             if pr["head"]["sha"] != head:
-                raise Blocked(f"Check out the PR head first: git switch --detach {pr['head']['sha']}")
+                # Review that head with THIS checkout's tooling (current model and status
+                # context) in a separate worktree, never with the head's historical tooling.
+                head = pr["head"]["sha"]
+                if not SHA.fullmatch(head):
+                    raise Blocked("The PR head is not a full SHA")
+                target = target_worktree(pr["number"], head)
         else:
             branch = git("branch", "--show-current")
             if not branch.startswith("codex/"):
@@ -500,11 +549,12 @@ def main() -> int:
         else:
             binding.unlink(missing_ok=True)
         verdict, session, message = run_review(args.mode, base, head, args.ctx, resume_session,
-                                               previous_head, rebuttal)
+                                               previous_head, rebuttal, target)
         # Keep the verdict until GitHub has it: a failed POST is retried with
         # --retry-record instead of being lost (or blocking the next --resume).
         entry = {"repo": api.repo, "pr": pr["number"], "verdict": verdict, "base": base, "head": head,
                  "model": MODEL, "effort": EFFORT,
+                 "prompt_verified": verdict in ("APPROVE", "REQUEST_CHANGES"),
                  "session": session, "bound_session": resume_session or session,
                  "message": message, "resume": args.resume, "rebuttal": bool(rebuttal),
                  "same_head_rebuttal": bool(rebuttal) and previous_head is None}
