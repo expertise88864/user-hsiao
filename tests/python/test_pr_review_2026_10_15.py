@@ -581,6 +581,33 @@ class BackfillAndQuotaRetryTests(unittest.TestCase):
             pr.target_worktree(7, side)
         self.assertEqual(self.head_of(target), new)
 
+    def test_plain_directory_target_never_moves_the_tooling_checkout(self):
+        """PR #104 resume round (P1): git resolves a plain directory to the tooling checkout."""
+        old, new = self.shas
+        subprocess.run(["git", "-C", str(self.repo), "checkout", "-q", "--detach", old],
+                       check=True, capture_output=True)
+        plain = self.repo / ".codex-review" / "target-pr-7"
+        plain.mkdir(parents=True)
+        (self.repo / ".gitignore").write_text(".codex-review/\n", encoding="utf-8")
+        subprocess.run(["git", "-C", str(self.repo), "add", ".gitignore"], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(self.repo), "-c", "user.name=F", "-c", "user.email=f@example.invalid",
+                        "commit", "-qm", "ignore"], check=True, capture_output=True)
+        tooling = self.head_of(self.repo)
+        for head in (new, tooling):
+            with self.subTest(head=head), self.assertRaises(pr.Blocked):
+                pr.target_worktree(7, head)
+        self.assertEqual(self.head_of(self.repo), tooling)
+
+    def test_target_on_a_branch_or_the_tooling_checkout_is_refused(self):
+        old, new = self.shas
+        target = self.repo / ".codex-review" / "target-pr-7"
+        subprocess.run(["git", "-C", str(self.repo), "worktree", "add", "-q", "-b", "side", str(target), old],
+                       check=True, capture_output=True)
+        with self.assertRaises(pr.Blocked):
+            pr.target_worktree(7, new)
+        self.assertEqual(self.head_of(target), old)
+        self.assertFalse(pr.own_detached_worktree(self.repo))
+
     def test_current_model_quota_pending_can_be_reposted(self):
         unrecorded = Path(self.temp.name) / "u.json"
         entry = {"repo": "owner/repo", "pr": 7, "verdict": "QUOTA_PENDING", "base": "c" * 40, "head": SHA,

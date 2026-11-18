@@ -251,6 +251,29 @@ def current_identity(record_: dict) -> bool:
             and record_.get("prompt_verified") is True)
 
 
+def _git_out(path: Path, *args: str) -> str | None:
+    result = subprocess.run(["git", "-C", str(path), *args], capture_output=True, text=True)
+    return result.stdout.strip() if result.returncode == 0 else None
+
+
+def own_detached_worktree(target: Path) -> bool:
+    """True only for a separate, detached, clean linked worktree of this repository whose
+    top level is the target itself. A plain directory under the (ignored) .codex-review/
+    would otherwise resolve to the tooling checkout, and advancing it would detach that."""
+    if _git_out(target, "rev-parse", "--show-prefix") != "":
+        return False  # not a worktree top level (e.g. a subdirectory of this checkout)
+    common = _git_out(target, "rev-parse", "--path-format=absolute", "--git-common-dir")
+    if not common or common != _git_out(ROOT, "rev-parse", "--path-format=absolute", "--git-common-dir"):
+        return False  # another repository
+    own = _git_out(target, "rev-parse", "--absolute-git-dir")
+    if not own or own == _git_out(ROOT, "rev-parse", "--absolute-git-dir"):
+        return False  # the tooling checkout itself
+    if subprocess.run(["git", "-C", str(target), "symbolic-ref", "-q", "HEAD"],
+                      capture_output=True).returncode == 0:
+        return False  # on a branch, not detached
+    return _git_out(target, "status", "--porcelain", "--untracked-files=all") == ""
+
+
 def target_worktree(number: int, head: str) -> Path:
     """A detached worktree of this repository at a backfill head, reused across rounds
     so a resume runs in the same directory as its session. When the PR moved on (a fix
@@ -260,15 +283,15 @@ def target_worktree(number: int, head: str) -> Path:
     if subprocess.run(["git", "cat-file", "-e", f"{head}^{{commit}}"], cwd=ROOT).returncode != 0:
         subprocess.run(["git", "fetch", "--no-tags", "-q", "origin", f"pull/{number}/head"], cwd=ROOT, check=True)
     if target.exists():
-        current = subprocess.run(["git", "-C", str(target), "rev-parse", "HEAD"],
-                                 capture_output=True, text=True).stdout.strip()
+        if not own_detached_worktree(target):
+            raise Blocked(f"{target} is not a clean, detached worktree of this repository; "
+                          "remove it (git worktree remove, or delete the directory) first")
+        current = _git_out(target, "rev-parse", "HEAD") or ""
         if current == head:
             return target
-        dirty = subprocess.run(["git", "-C", str(target), "status", "--porcelain", "--untracked-files=all"],
-                               capture_output=True, text=True).stdout.strip()
-        if not SHA.fullmatch(current) or dirty or subprocess.run(
+        if not SHA.fullmatch(current) or subprocess.run(
                 ["git", "merge-base", "--is-ancestor", current, head], cwd=ROOT).returncode != 0:
-            raise Blocked(f"{target} is dirty or not at an ancestor of {head[:12]}; "
+            raise Blocked(f"{target} is not at an ancestor of {head[:12]}; "
                           "remove it with git worktree remove first")
         subprocess.run(["git", "-C", str(target), "checkout", "-q", "--detach", head], check=True)
         return target

@@ -427,8 +427,10 @@ class ReviewEntryTests(unittest.TestCase):
         subprocess.run(["git", "init", "-q", str(other)], check=True, capture_output=True)
         dirty = self._target(tip)
         (dirty / "stray.txt").write_text("x", encoding="utf-8")
+        plain = self.repo / ".codex-review" / "plain-dir"
+        plain.mkdir(parents=True)
         for target, extra in ((self.repo / "missing", {}), (other, {}), (dirty, {}),
-                              (dirty, {"CODEX_REVIEW_TIP": ""})):
+                              (dirty, {"CODEX_REVIEW_TIP": ""}), (plain, {}), (self.repo, {})):
             env = {"CODEX_REVIEW_BASE": base, "CODEX_REVIEW_TIP": tip, "CODEX_REVIEW_TARGET": str(target), **extra}
             with self.subTest(target=target.name, extra=extra):
                 result, args = self.run_entry("targeted", base, extra_env=env)

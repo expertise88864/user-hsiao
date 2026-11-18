@@ -63,10 +63,20 @@ if [ -n "${CODEX_REVIEW_TARGET:-}" ]; then
   [ -n "${CODEX_REVIEW_TIP:-}" ] || die "CODEX_REVIEW_TARGET 只用於 PR review(需同時有 CODEX_REVIEW_BASE 與 CODEX_REVIEW_TIP)。"
   TARGET_TOP="$(git -C "$CODEX_REVIEW_TARGET" rev-parse --show-toplevel 2>/dev/null)" \
     || die "CODEX_REVIEW_TARGET 不是 git worktree:$CODEX_REVIEW_TARGET"
+  # 必須是 worktree 的最上層(不是本 checkout 底下的普通目錄,否則 git 會往上找到本 checkout)。
+  TARGET_PREFIX="$(git -C "$CODEX_REVIEW_TARGET" rev-parse --show-prefix 2>/dev/null)" \
+    || die "CODEX_REVIEW_TARGET 不是 git worktree:$CODEX_REVIEW_TARGET"
+  [ -z "$TARGET_PREFIX" ] \
+    || die "CODEX_REVIEW_TARGET 不是獨立 worktree 的最上層:$CODEX_REVIEW_TARGET"
   [ "$(git -C "$TARGET_TOP" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)" = \
     "$(git -C "$REPO_ROOT" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)" ] \
     || die "CODEX_REVIEW_TARGET 不是本 repository 的 worktree。"
-  [ -z "$(git -C "$TARGET_TOP" status --porcelain --untracked-files=all)" ] \
+  [ "$(git -C "$TARGET_TOP" rev-parse --absolute-git-dir 2>/dev/null)" != \
+    "$(git -C "$REPO_ROOT" rev-parse --absolute-git-dir 2>/dev/null)" ] \
+    || die "CODEX_REVIEW_TARGET 不可是本 checkout 自己。"
+  TARGET_STATUS="$(git -C "$TARGET_TOP" status --porcelain --untracked-files=all 2>/dev/null)" \
+    || die "無法讀取 CODEX_REVIEW_TARGET 的 git status。"
+  [ -z "$TARGET_STATUS" ] \
     || die "CODEX_REVIEW_TARGET 有未提交的變更;審查只涵蓋已提交的內容。"
   REPO_ROOT="$TARGET_TOP"
 fi
