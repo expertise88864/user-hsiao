@@ -33,6 +33,8 @@ const EXPLANATIONS = 'data/exam/explanations.json';
 const DATA = {
   chapters: 'data/exam/chapters.json', chapterZh: 'data/exam/chapter_zh.json', tags: 'data/exam/tags.json',
   toc: 'data/exam/toc_en.json', simplified: 'data/exam/simplified_chars.txt', questions: 'data/exam/questions.json',
+  // Self-written questions on the 114 paper concepts (2026-11-18), kept apart from the imported bank.
+  rewrites: 'data/exam/rewrites.json',
 };
 const SHA = /^(?!0{40}$)[a-f0-9]{40}$/;
 const NAME = /^[A-Za-z0-9_.-]{1,100}$/;
@@ -243,12 +245,17 @@ async function list(api) {
 }
 
 async function questionOf(api, loaded, id) {
-  try {
-    const questions = await json(api, DATA.questions, loaded.main, true);
-    const q = Array.isArray(questions) && questions.find(row => row && String(row.n) === id);
-    if (!q || typeof q.stem !== 'string' || !q.options || typeof q.options !== 'object') return null;
+  for (const file of [DATA.questions, DATA.rewrites]) {
+    let q;
+    try {
+      const rows = await json(api, file, loaded.main, true);
+      q = Array.isArray(rows) && rows.find(row => row && String(row.n) === id);
+    } catch (_) { q = null; } // context for the editor only
+    if (!q) continue;
+    if (typeof q.stem !== 'string' || !q.options || typeof q.options !== 'object') return null;
     return { stem: q.stem, options: Object.fromEntries(Object.entries(q.options).filter(([, v]) => typeof v === 'string')) };
-  } catch (_) { return null; } // context for the editor only
+  }
+  return null;
 }
 
 // ------------------------------------------------------------------ writes

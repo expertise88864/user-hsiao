@@ -1,0 +1,2008 @@
+[
+ {
+  "n": 1775,
+  "stem": "眼科門診為避免病毒經器械傳播，有關接觸眼表器械（如眼壓計探頭）的處理，下列何者錯誤？",
+  "options": {
+   "A": "器械浸泡消毒後，應先以自來水充分沖洗並乾燥，再用於下一位病人",
+   "B": "稀釋漂白水可有效消毒眼壓計探頭，預防 HSV、adenovirus 及 SARS-CoV-2 傳播",
+   "C": "欲配製含 5000 ppm 游離氯的消毒液，需將家用漂白水稀釋約 100 倍",
+   "D": "試戴用隱形眼鏡可於 78°C–80°C 加熱 10 分鐘進行消毒"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    1
+   ]
+  }
+ },
+ {
+  "n": 1776,
+  "stem": "一位 66 歲女性發生右眼短暫視力喪失（TMVL），有關其栓塞來源評估與預後，下列何者正確？",
+  "options": {
+   "A": "單純 TMVL 患者每年的中風率約 8%，高於 TCI 患者",
+   "B": "經胸心臟超音波（TTE）可發現 rheumatic mitral stenosis 等心因性栓子來源",
+   "C": "若頸動脈超音波未見狹窄，即不必再評估心臟栓子來源",
+   "D": "要排除 patent foramen ovale，最佳的影像檢查是 TTE"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    2
+   ]
+  }
+ },
+ {
+  "n": 1777,
+  "stem": "有關第一代（typical）與第二代（atypical）抗精神病藥物及其眼部考量，下列何者錯誤？",
+  "options": {
+   "A": "其抗膽鹼作用可造成續發性乾眼與調節改變，甚至誘發隅角閉鎖性青光眼",
+   "B": "眼周與結膜色素沉著較常見於第一代藥物，而較少見於第二代藥物",
+   "C": "因有白內障的報告，40 歲以上的服用者藥廠建議每年做眼科檢查，較年輕者每 2 年一次",
+   "D": "Olanzapine、quetiapine 等第二代藥物只阻斷 dopamine 受體，並不抑制 serotonin"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    3
+   ]
+  }
+ },
+ {
+  "n": 1778,
+  "stem": "一位病人同時服用多種內科藥物，下列藥物與其可能造成之眼部不良反應的配對，何者錯誤？",
+  "options": {
+   "A": "Bisphosphonates – 前葡萄膜炎、鞏膜炎",
+   "B": "Interferon – 虹膜透照缺損（iris transillumination）與瞳孔括約肌麻痺",
+   "C": "Sildenafil – 色覺感知下降",
+   "D": "Warfarin – 前房出血（hyphema）"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    4
+   ]
+  }
+ },
+ {
+  "n": 1779,
+  "stem": "有關帶狀皰疹（herpes zoster）的預防接種與流行病學，下列何者錯誤？",
+  "options": {
+   "A": "Shingrix 可使帶狀皰疹風險降低約 90%，且可能可安全用於免疫低下者",
+   "B": "Zostavax 為活性減毒疫苗，目前在美國已不再供應",
+   "C": "63 歲病人數年前打過 Zostavax，眼科醫師應視為已有保護，不必再建議接種 Shingrix",
+   "D": "帶狀皰疹發生率在年長族群趨於持平，但在較年輕族群正逐漸上升"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    5
+   ]
+  }
+ },
+ {
+  "n": 1780,
+  "stem": "有關流感及其他病毒疫苗的接種，下列敘述何者錯誤？",
+  "options": {
+   "A": "抗原轉移（antigenic shift）主要發生於 A 型流感病毒，因此疫苗需每年重新調配",
+   "B": "對蛋有過敏性休克病史者，可改用重組疫苗 Flublok 或細胞培養疫苗 Flucelvax",
+   "C": "Rotavirus 疫苗不建議用於曾有腸套疊（intussusception）病史的兒童",
+   "D": "HIV 感染者若 CD4+ T 細胞數偏低，接種流感疫苗的效果明顯不如 HIV 陰性者"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    6
+   ]
+  }
+ },
+ {
+  "n": 1781,
+  "stem": "8 歲男童雙眼畏光，反覆出現曾被當成 HSV 治療的假樹枝狀角膜病灶，並有手掌與腳掌角化病變。最可能缺乏何種酵素？",
+  "options": {
+   "A": "Homogentisic acid oxidase",
+   "B": "α-Galactosidase A（ceramide trihexosidase）",
+   "C": "Ornithine aminotransferase",
+   "D": "Tyrosine aminotransferase"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    10
+   ]
+  }
+ },
+ {
+  "n": 1782,
+  "stem": "比較 bupivacaine、lidocaine、mepivacaine、procaine 在不加 epinephrine 時的作用持續時間，下列何者正確？",
+  "options": {
+   "A": "Mepivacaine 作用可達約 8 小時，是四者中最長效者",
+   "B": "Lidocaine 的作用時間約為 bupivacaine 的兩倍",
+   "C": "Bupivacaine 最長效、procaine 最短效，mepivacaine 則長於 lidocaine",
+   "D": "Procaine 的作用時間超過 mepivacaine 的兩倍"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    12
+   ]
+  }
+ },
+ {
+  "n": 1783,
+  "stem": "關於 Knudson 2-hit hypothesis 與 neurofibromatosis type 1（NF1），下列敘述何者錯誤？",
+  "options": {
+   "A": "帶 NF1 生殖細胞變異者，第二次 hit 的典型產物是 schwannoma 與 acoustic neuroma",
+   "B": "NF1 基因的產物為 neurofibromin，第二次 hit 可在神經上形成 neurofibroma",
+   "C": "針對單獨發生的 glioma 所做的基因研究，發現其也可源自 NF1 基因的兩次 hit",
+   "D": "NF1 基因位於 17q11.2，屬 tumor suppressor gene，以體染色體顯性遺傳"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    13
+   ]
+  }
+ },
+ {
+  "n": 1784,
+  "stem": "胚胎時期 embryonic fissure 閉合不全會造成 coloboma；關於此及相關發育過程，下列何者錯誤？",
+  "options": {
+   "A": "Embryonic fissure 由中段先閉合，再向前、後兩端如拉鍊般延伸",
+   "B": "三型 coloboma 中，以造成視神經盤、視網膜與脈絡膜缺損的 posterior 型最常見",
+   "C": "臨床上 coloboma 多位於 inferonasal 象限，與胚裂閉合的位置相對應",
+   "D": "上、下眼瞼皺褶約於妊娠第 8–10 週由近內眥處開始彼此融合"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    14
+   ]
+  }
+ },
+ {
+  "n": 1785,
+  "stem": "以 plus cylinder 寫成的處方 -1.00 +3.00 × 040，若改以 power cross 標示兩主子午線屈光力，下列何者正確？",
+  "options": {
+   "A": "-1.00 @ 40°, +2.00 @ 130°",
+   "B": "-1.00 @ 40°, +3.00 @ 130°",
+   "C": "+3.00 @ 40°, -1.00 @ 130°",
+   "D": "+2.00 @ 40°, -1.00 @ 130°"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    18
+   ]
+  }
+ },
+ {
+  "n": 1786,
+  "stem": "一位 82 歲濕性黃斑部病變婦人常看見不存在的花朵圖案。關於 Charles Bonnet syndrome，下列何者錯誤？",
+  "options": {
+   "A": "在視覺障礙族群中相當常見，可影響多達約三分之一的病人",
+   "B": "多數病人除非醫師主動詢問，否則因擔心被視為精神異常而不會提及幻覺",
+   "C": "經醫師解釋後仍堅信影像真實存在的病人，依然符合此症候群的診斷條件",
+   "D": "眨眼、轉動眼球或增加照明，可使部分病人的幻覺減少"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    19
+   ]
+  }
+ },
+ {
+  "n": 1787,
+  "stem": "診所購入新型自動驗光儀(autorefractor)，下列有關其量測原理與設計的說明，何者錯誤？",
+  "options": {
+   "A": "以 Hartmann screen 或多透鏡陣列把眼內出射光分成多束，由偏折量推算屈光",
+   "B": "投射入眼的量測光主要是波長 400–500 nm 的藍光",
+   "C": "以 ray-deflection 原理分析瞳孔多個區域時，也能測得高階像差",
+   "D": "為對抗調節波動，儀器常設計霧視(fogging)與自動追蹤功能"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    20
+   ]
+  }
+ },
+ {
+  "n": 1788,
+  "stem": "用簡化眼的 nodal point 估算 Snellen 字母在視網膜上的成像高度時，成像高度與下列何者成正比？",
+  "options": {
+   "A": "角膜前表面到 nodal point 的距離",
+   "B": "水晶體厚度",
+   "C": "瞳孔直徑",
+   "D": "簡化眼中 nodal point 與視網膜的間距(約 17 mm)"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    21
+   ]
+  }
+ },
+ {
+  "n": 1789,
+  "stem": "關於裂隙燈生物顯微鏡(slit-lamp biomicroscope)的光學設計與檢查技巧，下列何者錯誤？",
+  "options": {
+   "A": "Galilean 倍率轉換器的旋轉鼓僅由兩片凸透鏡組合而成",
+   "B": "Sclerotic scatter 將光束打在角鞏膜交界，藉全內反射使角膜淡薄混濁在暗瞳孔前顯現",
+   "C": "照明臂與觀察臂通常繞同一垂直軸旋轉，並對焦於共同的樞軸點(parfocal)",
+   "D": "旋轉鼓反向、使凸透鏡朝向檢查者時，構成 reverse Galilean telescope，倍率降低"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    22
+   ]
+  }
+ },
+ {
+  "n": 1790,
+  "stem": "一位青光眼合併黃斑部病變的 68 歲病人接受低視能評估(low vision evaluation)，下列哪一項檢查對擬定復健計畫幫助最小？",
+  "options": {
+   "A": "以 Pelli-Robson chart 測量對比敏感度",
+   "B": "以波前像差儀(aberrometer)測量高階像差",
+   "C": "以 macular microperimetry 記錄固視位置與暗點的關係",
+   "D": "以 Goldmann 或自動視野計評估周邊視野"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    23
+   ]
+  }
+ },
+ {
+  "n": 1791,
+  "stem": "近視 -2.75 D（無散光）的病人，角膜 K 值 44.00 D，選用基弧 42.75 D 的 RGP 鏡片，鏡片度數約為何？",
+  "options": {
+   "A": "-4.00 D",
+   "B": "-2.75 D",
+   "C": "-1.50 D",
+   "D": "-0.25 D"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    24
+   ]
+  }
+ },
+ {
+  "n": 1792,
+  "stem": "住院醫師練習檢影驗光(retinoscopy)，下列操作原則或判讀何者正確？",
+  "options": {
+   "A": "高度近視眼通常呈明亮清楚的逆動反光，容易直接中和",
+   "B": "瞳孔散得越大，中央與周邊反光越一致，判讀越容易",
+   "C": "檢影時使用負柱鏡(minus cylinder)設備比正柱鏡設備更合適",
+   "D": "7 歲兒童宜在睫狀肌麻痺(cycloplegia)下檢影，因 10 歲以下孩童難以穩定注視遠方"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    25
+   ]
+  }
+ },
+ {
+  "n": 1793,
+  "stem": "遠用處方 OD +1.00 D、OS +4.50 D，雙眼配相同 +2.00 D 平頂雙焦；閱讀時視線在遠用光學中心下 10 mm，雙眼垂直稜鏡差為何？",
+  "options": {
+   "A": "3.5△，左眼 base up",
+   "B": "無垂直稜鏡差",
+   "C": "2.0△，左眼 base up",
+   "D": "5.5△，左眼 base up"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    26
+   ]
+  }
+ },
+ {
+  "n": 1794,
+  "stem": "某無晶體眼僅由角膜屈光，角膜屈光力 +40.00 D，眼內折射率 1.336。遠方物體的成像約在角膜後方多遠？",
+  "options": {
+   "A": "約 8.4 mm",
+   "B": "約 18.7 mm",
+   "C": "約 25.0 mm",
+   "D": "約 33.4 mm"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    27
+   ]
+  }
+ },
+ {
+  "n": 1795,
+  "stem": "清潔的全層透明角膜切口在無併發症下癒合，下列關於其過程的敘述何者錯誤？",
+  "options": {
+   "A": "因角膜基質沒有血管，基質的修復以纖維化進行，而非纖維血管增生",
+   "B": "切口邊緣早期水腫，keratan sulfate 與 chondroitin sulfate 在邊緣分解",
+   "C": "術後滿一週時切口前後兩面皆已完全封閉，角膜細胞亦已完成膠原填補",
+   "D": "新沉積的膠原纖維與周圍板層不平行，故癒合處臨床上呈現混濁"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    35
+   ]
+  }
+ },
+ {
+  "n": 1796,
+  "stem": "一位已知患有 Carney complex 的 30 多歲女性，其眼瞼最可能出現下列何種病灶？",
+  "options": {
+   "A": "Xanthelasma",
+   "B": "Plexiform neurofibroma",
+   "C": "Lower eyelid pseudocoloboma",
+   "D": "Myxoma"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    36
+   ]
+  }
+ },
+ {
+  "n": 1797,
+  "stem": "因 Coats disease 併發全視網膜剝離而摘除的眼球，病理切片上最具特徵的發現為何？",
+  "options": {
+   "A": "後極或周邊視網膜的肉芽腫，並伴隨葡萄膜炎",
+   "B": "視網膜下滲出液中可見吞噬脂質的組織球與膽固醇裂隙",
+   "C": "晶體後纖維血管團塊向內牽拉睫狀突",
+   "D": "位於神經纖維層、日後可鈣化成桑椹狀的白色小腫瘤"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    37
+   ]
+  }
+ },
+ {
+  "n": 1798,
+  "stem": "一顆曾行小樑切除術、之後因眼內腫瘤而摘除的右眼送至病理室，關於其處理何者正確？",
+  "options": {
+   "A": "理想的 PO 切片應同時呈現與切面垂直的舊手術傷口，並讓腫瘤最大範圍落在切片中央",
+   "B": "鞏膜上長後睫狀血管與神經形成的藍灰色線，標示眼球的垂直子午線",
+   "C": "下斜肌的肌腱附著最長，附著於上顳側赤道後方的鞏膜",
+   "D": "透光檢查時腫瘤通常比周圍更透亮，不會在鞏膜上留下陰影"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    38
+   ]
+  }
+ },
+ {
+  "n": 1799,
+  "stem": "評估一顆摘除眼球中的 posterior uveal melanoma 時，下列哪一項發現不屬於不利的預後因子？",
+  "options": {
+   "A": "Gene expression profiling 屬 class 2",
+   "B": "腫瘤位於赤道部脈絡膜，距視盤數個視盤直徑，且未侵及睫狀體",
+   "C": "PAS 染色見 closed loops 等複雜的血管外基質型態",
+   "D": "腫瘤內有大量浸潤的淋巴球與組織球"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    39
+   ]
+  }
+ },
+ {
+  "n": 1800,
+  "stem": "比較腦部與眼窩磁振造影（MRI）各序列中組織的相對亮度，下列敘述何者錯誤？",
+  "options": {
+   "A": "STIR 序列會抑制脂肪訊號，眼窩脂肪的亮度低於腦白質。",
+   "B": "T2 加權影像上，玻璃體與腦脊液比眼窩脂肪更亮。",
+   "C": "T1 加權影像上，腦脊液與玻璃體是全片最亮的結構。",
+   "D": "腦缺血後數分鐘內 DWI 即可出現異常，且異常約持續 3 週。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    44
+   ]
+  }
+ },
+ {
+  "n": 1801,
+  "stem": "58 歲女性突發眩暈、吞嚥困難與持續打嗝，MRI 顯示右側延髓外側梗塞（Wallenberg syndrome）。下列表現何者最不符合？",
+  "options": {
+   "A": "移除注視數秒後雙眼偏向右側，向右的掃視容易過衝。",
+   "B": "四肢肌力保持正常，沒有偏癱。",
+   "C": "右側上下肢出現小腦性運動失調。",
+   "D": "眼偏斜反應中的頭部傾斜朝向左側。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    45
+   ]
+  }
+ },
+ {
+  "n": 1802,
+  "stem": "10 歲女童數年來雙側上眼瞼漸垂、眼球各方向轉動明顯受限，聽力變差，眼底呈色素性視網膜病變。下列何者對確立診斷幫助最小？",
+  "options": {
+   "A": "粒線體 DNA 缺失的基因檢測",
+   "B": "以縱膈腔影像檢查尋找胸腺瘤",
+   "C": "肌肉切片以電子顯微鏡觀察粒線體內的包涵體",
+   "D": "腰椎穿刺測定腦脊髓液蛋白質濃度"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    46
+   ]
+  }
+ },
+ {
+  "n": 1803,
+  "stem": "35 歲男性雙眼對稱性眼瞼下垂及眼球運動逐年受限，臨床懷疑慢性進行性眼外肌麻痺（CPEO）。下列敘述何者錯誤？",
+  "options": {
+   "A": "安排基因檢測時，應以 DMPK 或 CNBP 基因變異為主要目標。",
+   "B": "遺傳方式可為母系、體染色體或散發，其中以散發型最常見。",
+   "C": "雖然眼外肌無力明顯，複視卻很少成為主訴。",
+   "D": "眼窩 MRI 顯示眼外肌體積僅輕微減少，與長期神經性斜視的萎縮不同。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    47
+   ]
+  }
+ },
+ {
+  "n": 1804,
+  "stem": "3 歲女童自出生數月起即有雙眼共軛眼震，診斷為嬰兒眼球震顫症候群（INS）。下列關於此病的敘述何者錯誤？",
+  "options": {
+   "A": "眼震在入睡後消失。",
+   "B": "約三成患者合併斜視。",
+   "C": "患童通常會抱怨周遭景物來回晃動（oscillopsia）。",
+   "D": "眼震平面在各注視方向維持一致（uniplanar），且多為水平。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    48
+   ]
+  }
+ },
+ {
+  "n": 1805,
+  "stem": "要區分動脈炎性前部缺血性視神經病變（AAION）與非動脈炎性（NAION），下列敘述何者錯誤？",
+  "options": {
+   "A": "AAION 好發於女性，NAION 則男女比例相近。",
+   "B": "AAION 患者平均年齡約 60 歲，較 NAION 年輕約 10 歲。",
+   "C": "對側眼杯盤比正常或偏大，較支持 AAION 的診斷。",
+   "D": "對 GCA 而言，血小板增多可能比其他急性期反應物上升更具特異性。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    49
+   ]
+  }
+ },
+ {
+  "n": 1806,
+  "stem": "依病灶定位，下列「異常眼動—最可能病灶部位」的對應，何者錯誤？",
+  "options": {
+   "A": "Ocular flutter 與 opsoclonus—橋腦 omnipause 細胞或其小腦連結",
+   "B": "純扭轉性眼震—延髓病灶，如 syringobulbia",
+   "C": "垂直 gaze-evoked nystagmus—中腦 interstitial nucleus of Cajal",
+   "D": "See-saw nystagmus—小腦小結（nodulus）"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    50
+   ]
+  }
+ },
+ {
+  "n": 1807,
+  "stem": "高階視覺處理障礙可分為識別、視覺空間與覺察三類，下列何者不屬於識別障礙（disorders of recognition）？",
+  "options": {
+   "A": "物體失認（object agnosia）：看得見卻無法單憑視覺說出物品名稱",
+   "B": "Anton syndrome：皮質性失明卻否認失明，並虛構所見",
+   "C": "大腦性色盲（cerebral achromatopsia）：難以分辨紅綠燈等顏色",
+   "D": "Akinetopsia：難以察覺與追蹤物體的移動"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    51
+   ]
+  }
+ },
+ {
+  "n": 1808,
+  "stem": "65 歲男性因單側視交叉後視覺路徑病灶而出現視野缺損，下列敘述何者錯誤？",
+  "options": {
+   "A": "兩眼的同側性缺損常越過垂直中線，延伸到另一側半視野。",
+   "B": "僅此單側病灶不會使視力（visual acuity）下降。",
+   "C": "若病灶位於外側膝狀體，不會出現 RAPD。",
+   "D": "枕葉梗塞若保留黃斑部視野，是因枕極另有中大腦動脈供血。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    52
+   ]
+  }
+ },
+ {
+  "n": 1809,
+  "stem": "關於視交叉後各段視覺路徑病灶的定位，下列敘述何者錯誤？",
+  "options": {
+   "A": "位於 Meyer loop 前方的顳葉前端受損，不會造成視野缺損。",
+   "B": "後外側脈絡膜動脈供血區受損時，可在外側膝狀體造成一致的水平楔形缺損（sectoranopia）。",
+   "C": "右側枕葉梗塞會造成兩眼右側的同側偏盲。",
+   "D": "頂葉病灶造成的同側偏盲，在視標往病灶側移動時 OKN 反應減弱。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    53
+   ]
+  }
+ },
+ {
+  "n": 1810,
+  "stem": "一名 3 歲男童右側臉部發育不全，合併右側小耳症與耳前皮贅，臨床診斷為 Goldenhar syndrome。此症候群較不會出現下列哪一種眼部異常？",
+  "options": {
+   "A": "由結膜覆蓋的 dermolipoma（lipodermoid）",
+   "B": "Retinitis pigmentosa",
+   "C": "小眼球（microphthalmia）",
+   "D": "白內障（cataract）"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    61
+   ]
+  }
+ },
+ {
+  "n": 1811,
+  "stem": "一名 6 週大女嬰左眼持續溢淚並有眼周結痂，角膜清澈，臨床懷疑先天性鼻淚管阻塞（CNLDO）。下列敘述何者正確？",
+  "options": {
+   "A": "此類患兒常合併明顯畏光與眼瞼痙攣",
+   "B": "選用局部抗生素前，應先做細菌培養以決定藥物",
+   "C": "症狀多在新生兒期即出現，且常於鼻塞時加重",
+   "D": "Down syndrome 嬰兒的發生率低於一般嬰兒"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    62
+   ]
+  }
+ },
+ {
+  "n": 1812,
+  "stem": "一名女嬰於 7 週大時接受單眼先天性白內障摘除。關於她術後的長期併發症與追蹤，下列敘述何者正確？",
+  "options": {
+   "A": "即使術後頭一兩年眼壓正常也不能停止追蹤，因青光眼常延至術後數年才發生",
+   "B": "角膜內皮失代償是兒童白內障術後常見的晚期併發症",
+   "C": "不論單側或雙側白內障，術後發生斜視都相當少見",
+   "D": "若為開放隅角的術後青光眼，幼兒應避免手術而只以藥物控制"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    63
+   ]
+  }
+ },
+ {
+  "n": 1813,
+  "stem": "一名 9 歲女孩左眼遭球擊傷後發生外傷性前房積血，無鐮狀細胞疾病。下列哪一種情況最應考慮手術清除前房血塊？",
+  "options": {
+   "A": "受傷當天下方有少量分層積血，眼壓正常",
+   "B": "受傷翌日即呈全前房積血，但眼壓正常且可測量",
+   "C": "受傷第 4 天積血已吸收至前房四分之一以下，眼壓正常",
+   "D": "全前房積血到受傷第 6 天仍未消退，眼壓持續偏高"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    64
+   ]
+  }
+ },
+ {
+  "n": 1814,
+  "stem": "一名兒童剛確診 JIA，眼科依風險因子決定葡萄膜炎篩檢間隔（高風險者每 3 個月）。下列哪一項不屬於這些主要風險因子？",
+  "options": {
+   "A": "關節炎在 5 歲時發病",
+   "B": "屬乾癬性（psoriatic）JIA 亞型",
+   "C": "病童為男孩",
+   "D": "自 JIA 確診至今未滿 4 年"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    65
+   ]
+  }
+ },
+ {
+  "n": 1815,
+  "stem": "關於兒童期各類眼球震顫的波形與臨床特徵，下列何者錯誤？",
+  "options": {
+   "A": "FMNS（fusion maldevelopment nystagmus）遮蓋一眼時，快相朝向未遮蓋的眼。",
+   "B": "感覺性缺陷相關的 INS 若呈 jerk 型，視力常介於 20/60 與 20/100。",
+   "C": "週期交替性眼震（PAN）換向之前，會先有約 10–20 秒眼震停止的空檔。",
+   "D": "眼震紀錄呈慢相速度指數遞增者，是 FMNS 的典型波形。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    66
+   ]
+  }
+ },
+ {
+  "n": 1816,
+  "stem": "一名 40 歲男性於頭部外傷後出現右側上斜肌麻痺，接受手術評估。關於上斜肌肌腱 tuck，下列敘述何者錯誤？",
+  "options": {
+   "A": "會同時加強上斜肌的垂直與旋轉作用",
+   "B": "若主訴以外旋複視為主而垂直偏斜甚小，tuck 比 Harada-Ito 手術更適合",
+   "C": "依肌腱鬆弛度規劃術式時，若術中牽拉測試顯示上斜肌肌腱鬆弛，會選擇上斜肌加強術",
+   "D": "術後若出現醫源性 Brown syndrome 可先觀察，因 tuck 常隨時間鬆弛"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    67
+   ]
+  }
+ },
+ {
+  "n": 1817,
+  "stem": "一名女嬰出生即有左側上下眼瞼的 port-wine birthmark，MRI 顯示同側軟腦膜血管畸形。此病最常見且最嚴重的眼部併發症為何？",
+  "options": {
+   "A": "青光眼",
+   "B": "視網膜 astrocytic hamartoma",
+   "C": "視網膜 capillary hemangioblastoma",
+   "D": "虹膜 Lisch nodules"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    68
+   ]
+  }
+ },
+ {
+  "n": 1818,
+  "stem": "一名 6 歲女童左眼內轉時無法上抬，外轉時上抬改善但不完全，診斷為先天性 Brown syndrome。下列敘述何者錯誤？",
+  "options": {
+   "A": "約 10% 的病例為雙側",
+   "B": "輕度者通常不需治療，部分會隨年齡自行改善",
+   "C": "嚴重者第一眼位即有下斜視，可能以下巴上抬的頭位代償",
+   "D": "同側上斜肌過度作用是常見的伴隨表現"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    69
+   ]
+  }
+ },
+ {
+  "n": 1819,
+  "stem": "關於兒童的眼球震顫與類眼震運動，下列敘述何者錯誤？",
+  "options": {
+   "A": "誘發 convergence-retraction 時，應讓病童追視向上轉動的視動鼓，以引出向下掃視。",
+   "B": "兒童的 convergence-retraction 常繼發於先天性導水管狹窄或松果體瘤。",
+   "C": "兒童出現 opsoclonus 時，首要考慮 neuroblastoma 相關的副腫瘤症候群。",
+   "D": "後天性垂直眼震可能與 lithium 或抗癲癇藥等藥物有關。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    70
+   ]
+  }
+ },
+ {
+  "n": 1820,
+  "stem": "4 歲女童患寡關節型 JIA 合併雙眼慢性前葡萄膜炎，prednisolone acetate 1% 點眼 3 個月後仍需每日 3 次。下一步何者最適當？",
+  "options": {
+   "A": "改用 difluprednate 點眼作為長期維持治療",
+   "B": "加上 methotrexate 作為第一線全身免疫調節治療，反應不足再加 TNF inhibitor",
+   "C": "維持目前點眼頻率，只有出現新的眼部併發症時才需升階治療",
+   "D": "直接以 tocilizumab 作為第一線全身治療"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    119
+   ]
+  }
+ },
+ {
+  "n": 1821,
+  "stem": "關於全層眼瞼缺損的重建術式選擇，下列敘述何者正確？",
+  "options": {
+   "A": "上眼瞼缺損超過眼瞼緣一半時，通常仍以 primary closure 為首選。",
+   "B": "Cutler-Beard flap 將下眼瞼全層瓣經殘留下眼瞼緣後方推入上眼瞼，用於大範圍上眼瞼缺損，需二次手術分開。",
+   "C": "Modified Hughes flap 為一期完成的手術，術後不會遮蔽視軸。",
+   "D": "Hard palate composite graft 適合重建上眼瞼的後層，因其上皮不會刺激角膜。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    78
+   ]
+  }
+ },
+ {
+  "n": 1822,
+  "stem": "關於眼窩腔室症候群（orbital compartment syndrome, OCS），下列敘述何者最不恰當？",
+  "options": {
+   "A": "眼窩由堅硬骨壁與緻密隔膜附著圍成，容積固定，急性出血易使眼窩壓力迅速上升。",
+   "B": "除外傷與手術外，retrobulbar 或 peribulbar 注射也可能引發 OCS。",
+   "C": "懷疑 OCS 時，應先完成眼窩 CT 確認出血位置與範圍，再決定是否施行減壓。",
+   "D": "OCS 造成視力喪失的機轉包括 central retinal artery occlusion 與視神經受壓迫。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    79
+   ]
+  }
+ },
+ {
+  "n": 1823,
+  "stem": "關於鼻內（endonasal）淚囊鼻腔造口術的骨切除與相關解剖，下列敘述何者錯誤？",
+  "options": {
+   "A": "淚囊窩內側壁的前部（上頷骨 frontal process）與後部（lacrimal bone）都在骨切除範圍內。",
+   "B": "淚囊窩內側壁主要由 palatine bone 構成，因此骨切除以移除 palatine bone 為主。",
+   "C": "為充分暴露淚囊，有時需一併移除 uncinate process 或位置偏前的 ethmoid air cell。",
+   "D": "由鼻腔內觀察，淚囊約位於 middle turbinate 前方的鼻腔外側壁。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    80
+   ]
+  }
+ },
+ {
+  "n": 1824,
+  "stem": "下列神經與其進入眼眶途徑的配對，何者錯誤？",
+  "options": {
+   "A": "Trochlear nerve：經 superior orbital fissure，位於 annulus of Zinn 外。",
+   "B": "Abducens nerve：經 superior orbital fissure，穿過 annulus of Zinn 內。",
+   "C": "Infraorbital nerve（CN V2）：經 superior orbital fissure 進入眼眶。",
+   "D": "CN III 上、下分支：經 oculomotor foramen 直接進入 muscle cone。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    81
+   ]
+  }
+ },
+ {
+  "n": 1825,
+  "stem": "下列有關病童眼眶蜂窩性組織炎的臨床觀念，何者正確？",
+  "options": {
+   "A": "病童年齡 9 歲以上，是 subperiosteal abscess 可優先採保守觀察的有利條件。",
+   "B": "Orbital cellulitis 治療後仍常向後擴散，造成 cavernous sinus thrombosis。",
+   "C": "MRSA 引起的 orbital cellulitis，需要手術介入的比例低於一般 orbital cellulitis。",
+   "D": "兒童 orbital cellulitis 較成人常由單一 gram-positive 菌造成，也較少需鼻竇手術引流。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    82
+   ]
+  }
+ },
+ {
+  "n": 1826,
+  "stem": "關於臉部老化的病理變化，下列敘述何者正確？",
+  "options": {
+   "A": "老化時顏面骨骼質量增加，使覆蓋其上的軟組織顯得更緊繃。",
+   "B": "頰部 malar fat 下移會使 nasolabial fold 變得較不明顯。",
+   "C": "下頜區的 jowling 主要由 frontalis 肌鬆垂所造成。",
+   "D": "Temporal hooding 主要源於眉毛外側段下垂的幅度大於內側段。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    83
+   ]
+  }
+ },
+ {
+  "n": 1827,
+  "stem": "關於眼瞼惡性腫瘤的治療與相關疾病，下列敘述何者正確？",
+  "options": {
+   "A": "以 PD-1 為標的之 checkpoint inhibitor 是晚期、復發或無法切除頭頸部 SCC 具前景的選擇。",
+   "B": "Morpheaform BCC 的侵襲性低於 nodular BCC，很少侵犯眼眶。",
+   "C": "眼瞼 sebaceous carcinoma 多為單一病灶，少有 skip lesion 或 pagetoid spread，一般不需做結膜 map biopsy。",
+   "D": "Muir-Torre syndrome 僅表現為皮膚的 sebaceous 腫瘤，不合併任何內臟惡性腫瘤。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    84
+   ]
+  }
+ },
+ {
+  "n": 1828,
+  "stem": "58 歲女性跌倒撞到桌角，左上眼瞼有一道約 2 公分斜向撕裂傷，可見黃色脂肪外露。關於處置，下列何者正確？",
+  "options": {
+   "A": "傷口可見脂肪表示僅傷及 orbicularis oculi，orbital septum 應仍完整。",
+   "B": "撕裂的 orbital septum 應以縫線確實關閉，以防脂肪再度脫出。",
+   "C": "縫合前應先記錄雙眼最佳視力，並徹底評估眼球與眼眶有無合併傷害。",
+   "D": "上眼瞼傷口可見眼窩脂肪時，不需探查 levator 肌與腱膜。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    85
+   ]
+  }
+ },
+ {
+  "n": 1829,
+  "stem": "下列有關兒童眼眶橫紋肌肉瘤（rhabdomyosarcoma）的敘述，何者最正確？",
+  "options": {
+   "A": "典型病程為兒童在短時間內突然出現並快速惡化的單側眼球突出，常伴眼瞼水腫與變色。",
+   "B": "評估遠處轉移時，骨髓抽吸與腰椎穿刺通常不需要。",
+   "C": "多數病例在一般光學顯微鏡下即可清楚看到 cross-striations，電子顯微鏡幫助有限。",
+   "D": "原發於眼眶以外頭頸部（如鼻竇）者，5 年存活率高於眼眶原發者。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    86
+   ]
+  }
+ },
+ {
+  "n": 1830,
+  "stem": "關於眼眶外壁的 lateral orbital tubercle（Whitnall tubercle），下列敘述何者錯誤？",
+  "options": {
+   "A": "Lateral rectus 的 check ligament 附著於此 tubercle。",
+   "B": "Frontozygomatic suture 約位於此 tubercle 上方 1 公分處。",
+   "C": "此 tubercle 所在的眼眶外壁，是四個眼眶壁中最厚且最堅固者。",
+   "D": "Whitnall ligament 的外側端主要直接止於此 tubercle 上。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    87
+   ]
+  }
+ },
+ {
+  "n": 1831,
+  "stem": "關於良性原發性眼瞼痙攣（BEB）與半側顏面痙攣（HFS）的比較，下列何者正確？",
+  "options": {
+   "A": "入睡後抽搐即消退者較符合 BEB，入睡後仍持續者則較符合 HFS。",
+   "B": "HFS 多為雙側同時發作，且很少合併同側顏面神經無力。",
+   "C": "BEB 以男性較常見，女性少見。",
+   "D": "BEB 的第一線治療為 surgical myectomy，botulinum toxin 僅用於手術失敗者。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    88
+   ]
+  }
+ },
+ {
+  "n": 1832,
+  "stem": "關於 Xeroderma pigmentosum 的遺傳方式與臨床表現，下列何者正確？",
+  "options": {
+   "A": "屬於體染色體顯性遺傳的皮膚疾病",
+   "B": "眼部腫瘤好發於角膜緣，組織型以 squamous cell carcinoma 最常見",
+   "C": "日曬部位的色素沉著與光化性角化，通常到中年以後才出現",
+   "D": "超過半數患者會發生眼部腫瘤"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    11
+   ]
+  }
+ },
+ {
+  "n": 1833,
+  "stem": "一名工人眼睛遭鹼性清潔劑噴濺後立即就醫，下列處置何者最正確？",
+  "options": {
+   "A": "應先以 pH 試紙確認酸鹼值並查明化學物質名稱後，再開始沖洗",
+   "B": "早期眼壓上升時，應優先使用局部降眼壓藥，避免口服 carbonic anhydrase inhibitor",
+   "C": "腎功能不全者應給予高劑量口服 vitamin C 以促進膠原合成",
+   "D": "若手邊沒有平衡鹽水，應立即改用清水或其他潔淨無毒液體大量沖洗，不宜等待"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    96
+   ]
+  }
+ },
+ {
+  "n": 1834,
+  "stem": "關於角膜大小與曲率的先天異常，下列敘述何者錯誤？",
+  "options": {
+   "A": "Megalocornea 是先天性青光眼撐大眼球的結果，常伴隨 Haab striae 與眼壓升高",
+   "B": "Megalocornea 的角膜較陡，常造成近視與 with-the-rule 散光",
+   "C": "Microcornea 因角膜較平而多為遠視，隅角閉鎖性青光眼的發生率也較高",
+   "D": "Cornea plana 的角膜曲率與鄰近鞏膜相同，為此病的特徵性表現"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    97
+   ]
+  }
+ },
+ {
+  "n": 1835,
+  "stem": "一位捐贈者生前曾接受雙眼 LASIK，內皮細胞數正常，關於其角膜的運用，下列何者正確？",
+  "options": {
+   "A": "此角膜仍可能提供給 DMEK 使用",
+   "B": "此角膜最適合作為 PK 的供體",
+   "C": "因前層基質未受影響，此角膜適合用於 DALK",
+   "D": "若遺體未冷藏，死亡後 36 小時內取材仍屬理想時限"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    98
+   ]
+  }
+ },
+ {
+  "n": 1836,
+  "stem": "Calcific band keratopathy 的臨床表現與治療，下列何者錯誤？",
+  "options": {
+   "A": "病灶與角膜緣之間常保留一段透明區",
+   "B": "PTK 不建議作為首選治療，因鈣質與基質的雷射切削速率不同",
+   "C": "晚期鈣化帶可出現細小裂紋，源於鈣沉積物斷裂",
+   "D": "鈣沉積通常最早出現在上方與下方角膜緣附近（12 點與 6 點鐘方向）"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    99
+   ]
+  }
+ },
+ {
+  "n": 1837,
+  "stem": "春季角結膜炎（VKC）好發於兒童，下列相關敘述何者錯誤？",
+  "options": {
+   "A": "結膜發炎浸潤中可見嗜酸性球、淋巴球、漿細胞與單核球",
+   "B": "需用局部類固醇時，fluorometholone 因較少穿透前房，眼壓上升風險較 prednisolone 低",
+   "C": "本病以女性患者居多，女男比約為 2:1",
+   "D": "局部 cyclosporine 0.1% 已核准用於治療 VKC"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    100
+   ]
+  }
+ },
+ {
+  "n": 1838,
+  "stem": "依 DEWS（2007）乾眼嚴重度分級，下列敘述何者正確？",
+  "options": {
+   "A": "第 1 級即常見 trichiasis、角化與 symblepharon 等眼瞼變化",
+   "B": "Filamentary keratitis 與 mucus clumping 最早出現在第 3 級",
+   "C": "第 3 級的角膜染色以周邊輕微染色為主",
+   "D": "第 4 級的 Schirmer 試驗仍可達 10 mm 以上"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    101
+   ]
+  }
+ },
+ {
+  "n": 1839,
+  "stem": "一名患者反覆畏光、異物感，診斷為 Thygeson SPK；有關此病下列何者正確？",
+  "options": {
+   "A": "成年長者比兒童更常罹患",
+   "B": "上皮病灶密度通常以角膜周邊最高",
+   "C": "局部類固醇停藥後，病灶通常不再復發",
+   "D": "典型為雙眼，但可先由單眼開始，或兩眼明顯不對稱"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    102
+   ]
+  }
+ },
+ {
+  "n": 1840,
+  "stem": "多數微生物須在角膜上皮破損時才能入侵，下列何者不屬於可侵入完整上皮的病原體？",
+  "options": {
+   "A": "Listeria monocytogenes",
+   "B": "Corynebacterium diphtheriae",
+   "C": "Pseudomonas aeruginosa",
+   "D": "Shigella spp"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    103
+   ]
+  }
+ },
+ {
+  "n": 1841,
+  "stem": "有關角膜影像檢查的原理與判讀，下列何者錯誤？",
+  "options": {
+   "A": "Axial map 對周邊角膜曲率變化的呈現比 tangential map 更準確",
+   "B": "Placido 環式角膜地形圖只能評估角膜前表面與淚膜",
+   "C": "Tomography 的 elevation map 以 best-fit sphere 為參考，標示高於或低於它的區域",
+   "D": "UBM 的解析度高於傳統 B-scan，但穿透深度較淺"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    104
+   ]
+  }
+ },
+ {
+  "n": 1842,
+  "stem": "關於上方輪部角結膜炎（SLK）的臨床特徵，下列何者錯誤？",
+  "options": {
+   "A": "上方球結膜 impression cytology 可見 snake nuclei 與 goblet cell 減少",
+   "B": "好發於男性，女性少見",
+   "C": "一般認為與眨眼時上眼瞼反覆摩擦鬆弛的上方球結膜有關",
+   "D": "與 contact lens-induced keratoconjunctivitis 不同，SLK 通常不影響視力"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    105
+   ]
+  }
+ },
+ {
+  "n": 1843,
+  "stem": "68 歲婦人因無菌性角膜融解發生約 1.5 mm 穿孔且前房消失，下列處置何者最適當？",
+  "options": {
+   "A": "僅需抑制房水生成並以膠帶貼合眼瞼，等待前房自行恢復",
+   "B": "黏著劑宜大量塗佈，完整覆蓋周圍組織以確保封閉",
+   "C": "於手術室用 BSS 或 viscoelastic 重建前房，再以 cyanoacrylate glue 封閉並戴 BCL",
+   "D": "即使穿孔大於 2 mm，仍以 cyanoacrylate glue 為首選而不需 patch graft"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    106
+   ]
+  }
+ },
+ {
+  "n": 1844,
+  "stem": "關於先天免疫 (innate immunity) 的作用機轉，下列何者錯誤？",
+  "options": {
+   "A": "偵測病毒核酸的 Toll-like receptor（TLR3、TLR7、TLR9）位於細胞內的 endosome",
+   "B": "活化的 PRR 亞型不同，可傳達感染種類（細菌、黴菌、病毒）與位置（細胞內或外）的訊息",
+   "C": "先天免疫與後天免疫各自獨立運作，先天反應不會促使後天免疫細胞加強或修正攻擊",
+   "D": "急性發炎開始時，嗜中性球是最早經趨化作用 (chemotaxis) 移行到發炎部位的細胞之一"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    114
+   ]
+  }
+ },
+ {
+  "n": 1845,
+  "stem": "關於葡萄膜炎病人眼內液檢體的分析，下列何者錯誤？",
+  "options": {
+   "A": "病毒性前葡萄膜炎的前房液 PCR 敏感度極高，即使採檢時發炎輕微，陰性結果也足以排除病毒感染",
+   "B": "在 acute retinal necrosis，前房液與玻璃體液 PCR 提供的診斷資訊相近",
+   "C": "利用細菌 16S 與黴菌 18S/28S 等保守基因次單位的廣譜 PCR，診斷率等於或優於眼內液培養",
+   "D": "前房穿刺時通常可安全抽取約 0.1–0.2 mL 的房水"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    115
+   ]
+  }
+ },
+ {
+  "n": 1846,
+  "stem": "白點症候群之一的 PIC（點狀內層脈絡膜炎），下列敘述何者正確？",
+  "options": {
+   "A": "與 MFCPU 相比，PIC 病人較少以脈絡膜新生血管 (CNV) 表現",
+   "B": "ICGA 上，活動與非活動病灶都呈現 hypercyanescent 亮點",
+   "C": "黃白色病灶通常比 MFCPU 的病灶大，直徑多超過 500 μm",
+   "D": "病人以患有近視的女性為主，發病中位年齡約 30 歲"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    117
+   ]
+  }
+ },
+ {
+  "n": 1847,
+  "stem": "關於類肉瘤病 (sarcoidosis) 的流行病學與眼部表現，下列何者錯誤？",
+  "options": {
+   "A": "Heerfordt 症候群 (uveoparotid fever) 包括葡萄膜炎、腮腺炎、發燒及顏面神經麻痺",
+   "B": "與年輕病人相比，晚發型類肉瘤病人較不易發生葡萄膜炎，且較常出現無症狀的胸部 X 光異常",
+   "C": "病人的兄弟姊妹罹患類肉瘤病的風險約增加為五倍",
+   "D": "類肉瘤葡萄膜炎併發青光眼屬於預後不良的徵象，與嚴重視力喪失相關"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    118
+   ]
+  }
+ },
+ {
+  "n": 1848,
+  "stem": "26 歲男性於 Shigella 腸炎腹瀉後出現膝關節腫痛、circinate balanitis 及雙眼紅。關於其疾病，下列何者錯誤？",
+  "options": {
+   "A": "多數病人的關節炎在誘發感染後超過 3 個月才開始",
+   "B": "關節侵犯多為不對稱、4 個以下的寡關節型，好發於膝、踝、足與腕",
+   "C": "眼部最常見的表現是結膜炎，通常呈黏液膿性、乳突狀反應",
+   "D": "可合併薦腸關節炎 (sacroiliitis)，比例最高可達約七成"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    120
+   ]
+  }
+ },
+ {
+  "n": 1849,
+  "stem": "24 歲男性有反覆口腔潰瘍與陰囊潰瘍，近日視力驟降，疑為 Behcet disease 眼部侵犯。下列哪一項發現最不符合此診斷？",
+  "options": {
+   "A": "多處白堊色視網膜炎病灶，周圍伴隨視網膜出血",
+   "B": "後睫狀血管的血管炎造成視神經乳突炎 (papillitis)",
+   "C": "大型羊脂狀角膜後沉著物 (mutton-fat KPs) 合併 Koeppe 與 Busacca 虹膜結節",
+   "D": "FA 在後極與中周邊部顯示對應微血管炎的島狀高螢光"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    121
+   ]
+  }
+ },
+ {
+  "n": 1850,
+  "stem": "關於 HIV 感染者的 CMV 視網膜炎及其後續變化，下列何者錯誤？",
+  "options": {
+   "A": "CD4+ T 細胞數低於 50 cells/μL 者，即使沒有症狀也應約每 3 個月檢查眼底",
+   "B": "早期病灶可像 HIV 視網膜病變的棉絮斑，但未治療時會持續進展",
+   "C": "併發的視網膜剝離因廣泛壞死與多個後部裂孔，多需玻璃體切除合併長期矽油填塞",
+   "D": "Immune recovery uveitis 是 CMV 活躍複製直接造成的感染性發炎，與 ART 帶來的免疫改善無關"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    122
+   ]
+  }
+ },
+ {
+  "n": 1851,
+  "stem": "關於 AIDS 病人發生的 Toxoplasma retinochoroiditis，下列何者錯誤？",
+  "options": {
+   "A": "最可能源自新近感染或眼外病灶的播散，但舊病灶再活化仍可能發生",
+   "B": "與免疫功能正常者相比，病灶周圍的玻璃體發炎反應通常更為劇烈",
+   "C": "視網膜炎區域內可找到較多的蟲體與囊體，偶見病原侵入脈絡膜",
+   "D": "若免疫狀態持續未改善，可能需要長期維持性抗弓漿蟲治療"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    123
+   ]
+  }
+ },
+ {
+  "n": 1852,
+  "stem": "62 歲男性眼球穿刺傷併水晶體囊破裂數週後，角膜內皮與水晶體前表面出現 KP，診斷為 phacoantigenic glaucoma。下列何者正確？",
+  "options": {
+   "A": "本病的眼內發炎屬於非肉芽腫性(nongranulomatous)反應",
+   "B": "此類眼睛雖可能出現青光眼性視神經病變，但發生的情形並不常見",
+   "C": "應先手術移除殘餘水晶體物質，術後再開始使用局部類固醇",
+   "D": "本病典型見於未曾手術或外傷、僅有過熟白內障的眼睛"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    131
+   ]
+  }
+ },
+ {
+  "n": 1853,
+  "stem": "關於藥物或內生性類固醇相關的眼壓上升，下列何者錯誤？",
+  "options": {
+   "A": "玻璃體內注射類固醇後，超過半數病人會出現短暫的眼壓上升",
+   "B": "Cushing syndrome 病人也可能眼壓升高，切除分泌類固醇的組織後眼壓多可恢復正常",
+   "C": "SCORE2 中治療前未用青光眼藥者，anti-VEGF 治療 60 個月內約半數眼壓較基準升高逾 10 mm Hg",
+   "D": "停用類固醇後，眼壓回降所需的時間通常與當初上升的時程相近或略長"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    132
+   ]
+  }
+ },
+ {
+  "n": 1854,
+  "stem": "54 歲男性曾接受 PRK，門診眼壓多在 13–16 mm Hg，視神經與視野呈典型青光眼損傷。下列敘述何者錯誤？",
+  "options": {
+   "A": "歷次門診眼壓皆在正常範圍，已足以排除其真實眼壓偏高的可能",
+   "B": "CNTGS 次分析中，眼壓降低至少 30% 可使 5 年視野惡化風險由 35% 降至 12%",
+   "C": "與高眼壓 POAG 相比，NTG 的視野缺損傾向較局部、較深且較接近注視點",
+   "D": "視神經盤出血在 NTG 病人可能比高眼壓 POAG 病人更常見"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    133
+   ]
+  }
+ },
+ {
+  "n": 1855,
+  "stem": "80 歲男性仍每天開車，平時服用多種慢性病藥物，需開始青光眼點藥。下列考量何者正確？",
+  "options": {
+   "A": "Topical β-blocker 的全身副作用潛力比 PG analogue 低，較適合共病多的老人",
+   "B": "病人常會主動把全身不適歸因於點眼藥，因此醫師不必特別詢問",
+   "C": "同時點兩種眼藥時，兩藥間隔約 30 秒即足以避免前一種被沖掉",
+   "D": "Brimonidine 可經類似 clonidine 的中樞作用造成倦怠，處方時應提醒"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    134
+   ]
+  }
+ },
+ {
+  "n": 1856,
+  "stem": "關於 laser trabeculoplasty 的作用機轉，下列敘述何者錯誤？",
+  "options": {
+   "A": "ALT 的熱傷害使膠原纖維收縮，進而牽拉並撐開鄰近的 uveoscleral TM",
+   "B": "早年認為雷射在 TM 燒出孔洞以繞過阻力，但電子顯微鏡研究否定了此說",
+   "C": "對膠原纖維幾乎不造成傷害的其他雷射，降眼壓效果與 ALT 相當",
+   "D": "Schlemm canal 內皮的生物力學改變，被認為源於雷射使 TM 細胞停止分泌 cytokine"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    135
+   ]
+  }
+ },
+ {
+  "n": 1857,
+  "stem": "關於青光眼的流行病學與危險因子，下列何者正確？",
+  "options": {
+   "A": "原發性隅角閉鎖疾病最常見於遠視眼，且女性約為男性的 2–4 倍",
+   "B": "原發性隅角閉鎖多見於 40 歲以下族群，盛行率隨年齡增加而下降",
+   "C": "40 歲以上族群中，PACG 盛行率在歐洲血統族群高於 Inuit 族群",
+   "D": "有一位一等親罹患青光眼時，終生罹病風險與一般人相近，約為 3%"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    136
+   ]
+  }
+ },
+ {
+  "n": 1858,
+  "stem": "評估疑似新生血管性青光眼的病人時，下列敘述何者錯誤？",
+  "options": {
+   "A": "前段新生血管通常始於瞳孔緣的細小血管叢，之後放射狀延伸至虹膜表面",
+   "B": "隅角鏡下其 PAS 常越過 Schwalbe line 延伸至角膜內皮，可據此與 ICE syndrome 區分",
+   "C": "CRVO 病人約 4% 出現隅角新生血管卻無虹膜新生血管，故隅角鏡檢查有助早期診斷",
+   "D": "Anti-VEGF 可較快使新生血管消退，但減少後續降眼壓手術需求最重要的因素仍是 PRP"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    137
+   ]
+  }
+ },
+ {
+  "n": 1859,
+  "stem": "29 歲 JOAG 女性計畫懷孕並預計產後哺乳，下列用藥建議何者錯誤？",
+  "options": {
+   "A": "懷孕或哺乳期間點眼藥時，都應教導她壓迫鼻淚管",
+   "B": "β-blocker 會在乳汁中濃縮，哺乳期間屬相對禁忌",
+   "C": "Brimonidine 宜持續使用至分娩，產後哺乳期間也適合繼續使用",
+   "D": "若益處大於風險，懷孕期間可考慮雷射小樑整形術，但應避免抗纖維化藥物"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    138
+   ]
+  }
+ },
+ {
+  "n": 1860,
+  "stem": "86 歲男性有中度 POAG 並合併心衰竭等多重疾病，關於其 target IOP 的設定，下列何者正確？",
+  "options": {
+   "A": "預期壽命縮短或合併症多，屬於可容許把目標眼壓訂高一些的因素",
+   "B": "中央角膜較厚，是需要把目標眼壓再壓低的危險因子",
+   "C": "目標眼壓一經訂定，就必須不計追加治療的風險設法達成",
+   "D": "視野兩半側皆受損的重度青光眼，初始目標訂在 <21 mm Hg 且降 10% 即可"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    139
+   ]
+  }
+ },
+ {
+  "n": 1861,
+  "stem": "62 歲女性接受散瞳眼底檢查，下列哪一項視神經盤發現對青光眼損傷最具特異性？",
+  "options": {
+   "A": "β-zone peripapillary atrophy",
+   "B": "神經視網膜緣不符合 ISNT rule",
+   "C": "視杯垂直拉長(vertical elongation of the optic cup)",
+   "D": "視神經盤周圍視網膜血管變細"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    140
+   ]
+  }
+ },
+ {
+  "n": 1862,
+  "stem": "40 歲女性中央前房深度正常、虹膜平面平坦，但隅角狹窄，疑為 plateau iris。下列何者正確？",
+  "options": {
+   "A": "壓陷式隅角鏡下只見單一隆起且隅角加深，即為 plateau iris 的典型表現",
+   "B": "此類眼睛的 PAS 通常由隅角深處開始，再往前延伸至 Schwalbe line",
+   "C": "若為 plateau iris syndrome，雷射周邊虹膜切開口通暢後即不再有急性發作風險",
+   "D": "動態隅角鏡檢查見到 double-hump sign，可證實此一懷疑"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    141
+   ]
+  }
+ },
+ {
+  "n": 1863,
+  "stem": "有關水晶體蛋白質與水分組成的敘述，下列何者錯誤？",
+  "options": {
+   "A": "α-crystallin 屬 small heat-shock protein 家族，可結合部分變性蛋白以防止聚集",
+   "B": "Major intrinsic protein（aquaporin 0）約佔水晶體纖維細胞膜蛋白的一半",
+   "C": "隨年齡增長，水晶體蛋白中 water-insoluble 部分所佔的比例會逐漸下降",
+   "D": "水晶體皮質的含水量比水晶體核高"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    149
+   ]
+  }
+ },
+ {
+  "n": 1864,
+  "stem": "白內障手術病人中，下列何者並非 suprachoroidal effusion 或 suprachoroidal hemorrhage 的已知相關因素？",
+  "options": {
+   "A": "Arteriosclerotic cardiovascular disease",
+   "B": "Sturge-Weber syndrome 合併 choroidal hemangioma",
+   "C": "Chronic ocular inflammation",
+   "D": "術中 bradycardia"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    150
+   ]
+  }
+ },
+ {
+  "n": 1865,
+  "stem": "處理困難白內障個案時，下列手術策略何者錯誤？",
+  "options": {
+   "A": "Posterior polar cataract 注液時應讓液波完整越過後極混濁處，使皮質與後囊全面分離",
+   "B": "Dense brunescent 硬核的第一道槽應一次刻得深且均勻，以免裂核後碎塊仍互相咬合",
+   "C": "改行囊外摘除時，另做 corneoscleral incision 常比擴大角膜切口穩定且術後散光較少",
+   "D": "Posterior polar cataract 宜輕柔 hydrodelineation，保留足夠 epinuclear 層保護後囊"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    151
+   ]
+  }
+ },
+ {
+  "n": 1866,
+  "stem": "下列致白內障因素與其相關水晶體變化的配對，何者錯誤？",
+  "options": {
+   "A": "Ionizing radiation：初期為後囊點狀混濁及向赤道放射的羽毛狀前囊下混濁",
+   "B": "長期日光（UV）暴露：流行病學上主要與後囊下型（PSC）白內障風險上升相關",
+   "C": "Phenothiazines：前水晶體上皮呈軸向星狀的色素沉積",
+   "D": "Pars plana vitrectomy：術後常發生 nuclear sclerotic cataract"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    152
+   ]
+  }
+ },
+ {
+  "n": 1867,
+  "stem": "有關白內障手術的術前評估與準備，下列何者錯誤？",
+  "options": {
+   "A": "服用抗凝血劑者接受透明角膜切口、點藥麻醉的白內障手術，威脅視力的出血併發症並未增加",
+   "B": "若須暫停 warfarin，凝血功能通常約需 3–5 天恢復正常",
+   "C": "葡萄膜炎患者理想上應在不用局部類固醇的情況下維持眼睛安靜至少 3 個月再手術",
+   "D": "長期服用 tamsulosin 者，術前先停藥一段時間即可明顯減輕術中 IFIS 的程度"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    153
+   ]
+  }
+ },
+ {
+  "n": 1868,
+  "stem": "一位 66 歲女性植入 toric IOL，術後發現其軸度偏離理想子午線約 15°，原預期的散光矯正效果約損失多少？",
+  "options": {
+   "A": "約 5%",
+   "B": "約 15%",
+   "C": "約 50%",
+   "D": "約 100%（完全失去矯正效果）"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    154
+   ]
+  }
+ },
+ {
+  "n": 1869,
+  "stem": "有關超音波乳化術中 nucleus 的分解技巧，下列何者錯誤？",
+  "options": {
+   "A": "Divide and conquer 所刻的中央槽，寬度約為 phaco tip 的 1–1.5 倍",
+   "B": "因後囊呈舟狀，divide and conquer 的槽應往周邊逐漸加深，以免中央穿破後囊",
+   "C": "刻槽（sculpt）時通常使用低 vacuum 與低 aspiration flow rate，並讓 phaco tip 保持不完全阻塞",
+   "D": "Horizontal phaco chop 不需先刻中央槽，而是沿晶核天然的裂隙造成斷裂面"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    155
+   ]
+  }
+ },
+ {
+  "n": 1870,
+  "stem": "有關水晶體的能量代謝與抗氧化機制，下列何者錯誤？",
+  "options": {
+   "A": "長期接受高壓氧治療可造成近視化及水晶體核混濁",
+   "B": "Polyol dehydrogenase 對 sorbitol 親和力低，且 sorbitol 不易穿出水晶體，故高血糖時易滯留",
+   "C": "HMP shunt 產生的 NADPH 供 glutathione reductase 將 GSSG 還原為 GSH",
+   "D": "水晶體所需的 ATP 大部分來自 citric acid cycle 的有氧代謝"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    156
+   ]
+  }
+ },
+ {
+  "n": 1871,
+  "stem": "有關人工水晶體度數的計算與選擇，下列何者錯誤？",
+  "options": {
+   "A": "SRK/T 與 Haigis 傳統上用於短眼軸，長眼軸（axial myopia）則以 Hoffer Q 較適合",
+   "B": "原計畫植入囊袋的 PCIOL 若改用 anterior chamber IOL，度數一般約需減少 3.00 D",
+   "C": "屈光手術後的眼睛以 RK 術後最易發生 refractive surprise，hyperopic LVC 次之，myopic LVC 再次之",
+   "D": "角膜屈光力計算若有 1.00 D 誤差，術後屈光大致產生相近程度的誤差"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    157
+   ]
+  }
+ },
+ {
+  "n": 1872,
+  "stem": "有關 intumescent cataract 的特性與術中處置，下列何者錯誤？",
+  "options": {
+   "A": "腫脹皮質使囊袋內壓力低於前房，前囊切開後裂口傾向往中央收縮而不易向周邊延伸",
+   "B": "腫脹的皮質常包圍一顆浮動於囊袋內的硬核",
+   "C": "可先以 trypan blue 染色前囊，並以高黏度 OVD 填充前房後再做 CCC",
+   "D": "晶核可自由移動且缺乏 epinuclear 屏障，使 phaco 時的分核較具挑戰性"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    158
+   ]
+  }
+ },
+ {
+  "n": 1873,
+  "stem": "觀察一位 78 歲 AMD 患者眼球切片中 RPE 下方的 Bruch membrane，下列敘述何者錯誤？",
+  "options": {
+   "A": "正常情況下，貼近 RPE 一側的膠原層比貼近 choriocapillaris 一側的膠原層厚。",
+   "B": "中央為彈性纖維層，其內、外兩側各夾有一層 collagenous zone。",
+   "C": "僅由 RPE 與 choriocapillaris 兩者的 basement membrane 直接相貼而成，共兩層。",
+   "D": "AMD 眼中的 Bruch membrane 可見鈣化區域合併顯微破裂。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    166
+   ]
+  }
+ },
+ {
+  "n": 1874,
+  "stem": "一位 67 歲病人經 OCT 確診為 idiopathic macular hole，下列有關此病流行病學與自然病程的敘述，何者正確？",
+  "options": {
+   "A": "好發年齡集中於 30 至 49 歲之間。",
+   "B": "女性的發生率約為男性的兩倍。",
+   "C": "約半數病人在診斷時即為雙眼罹患。",
+   "D": "對側眼若已有完全的玻璃體後剝離，日後形成裂孔的風險反而偏高。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    168
+   ]
+  }
+ },
+ {
+  "n": 1875,
+  "stem": "一位 71 歲男性右眼突發無痛性視力喪失，診斷為急性 CRAO。下列處置相關敘述，何者錯誤？",
+  "options": {
+   "A": "若於視覺症狀出現 4.5 小時內就診且無全身禁忌，AHA 建議可考慮靜脈注射 tPA。",
+   "B": "腦部 diffusion-weighted MRI 可在高達約三成的急性 RAO 病人發現小梗塞。",
+   "C": "Carbogen 吸入與高壓氧治療已由隨機對照試驗證實能改善視力，屬標準療法。",
+   "D": "發病後第一週內，病人發生心肌梗塞的風險上升。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    169
+   ]
+  }
+ },
+ {
+  "n": 1876,
+  "stem": "一位 42 歲男性工程師因單眼視物變小、變形就醫，OCT 見黃斑部漿液性視網膜剝離，診斷為 CSC。下列敘述何者錯誤？",
+  "options": {
+   "A": "相較於吸入或外用類固醇，眼內注射類固醇是與 CSC 關聯最強的給藥途徑。",
+   "B": "病人的視力下降常可藉少量遠視度數矯正而改善。",
+   "C": "經硬脊膜外或關節腔內途徑給予的類固醇，也與 CSC 有關聯。",
+   "D": "需長期高劑量類固醇的器官移植病人，較易出現嚴重且慢性化的 CSC。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    170
+   ]
+  }
+ },
+ {
+  "n": 1877,
+  "stem": "下列有關以 AAV 載體進行視網膜 gene augmentation therapy 的敘述，何者正確？",
+  "options": {
+   "A": "Suprachoroidal 給藥必須在手術室先完成 vitrectomy 才能施行。",
+   "B": "Subretinal 給藥需合併 vitrectomy 與 retinotomy，且治療範圍只限於局部視網膜。",
+   "C": "此療法最適合用於感光細胞已大多喪失的晚期病人。",
+   "D": "Voretigene neparvovec-rzyl 適用於僅單一 allele 帶有 RPE65 致病變異者。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    171
+   ]
+  }
+ },
+ {
+  "n": 1878,
+  "stem": "一位 58 歲糖尿病患者因玻璃體出血久未吸收，安排 pars plana vitrectomy，下列處置何者最恰當？",
+  "options": {
+   "A": "術前注射 anti-VEGF 後，宜等待 4 週以上再手術，讓新生血管完全退化。",
+   "B": "若病人僅存單眼視力，應延長觀察期，等出血自行吸收後再決定是否手術。",
+   "C": "全視網膜雷射應延到術後數週，待玻璃體腔清澈後再於門診補做。",
+   "D": "術畢可在眼內留置空氣或短效氣體，壓住可能的出血點以減少再出血。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    172
+   ]
+  }
+ },
+ {
+  "n": 1879,
+  "stem": "一位 70 歲女性擔心罹患 AMD，下列有關其危險因子與遺傳學的敘述，何者正確？",
+  "options": {
+   "A": "AMD 最常見的可改變危險因子為高膽固醇血症。",
+   "B": "MESA 研究中，非裔美國人的 AMD 盛行率最高。",
+   "C": "AAO 建議 AMD 病人常規接受基因檢測，以預測 anti-VEGF 治療反應。",
+   "D": "家族與族群研究估計，遺傳因素可解釋過半（55% 以上）的 AMD 風險變異。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    173
+   ]
+  }
+ },
+ {
+  "n": 1880,
+  "stem": "醫師以 OCT angiography 分層判讀黃斑部影像，下列有關視網膜循環的敘述，何者錯誤？",
+  "options": {
+   "A": "約三分之一人眼具有源自睫狀循環的 cilioretinal artery，供應部分內層視網膜。",
+   "B": "Deep capillary complex 只有單一層微血管床，且位於外核層（ONL）之內。",
+   "C": "視網膜微血管內皮細胞之間具有 tight junctions，維持血腦屏障特性。",
+   "D": "據估計，視網膜所消耗的氧約九成由脈絡膜循環供應，主要供給感光細胞。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    174
+   ]
+  }
+ },
+ {
+  "n": 1881,
+  "stem": "下列全身性藥物與其視網膜毒性表現的配對，何者錯誤？",
+  "options": {
+   "A": "Trametinib 等 MEK inhibitor：不可逆的萎縮性 bull's-eye maculopathy",
+   "B": "治療病毒性肝炎的 interferon alfa-2a：可併發棉絮斑及視網膜內出血",
+   "C": "Quinine 過量：神經節細胞毒性，表現類似 CRAO",
+   "D": "大量服用 canthaxanthine：黃斑周圍呈甜甜圈狀分布的內層視網膜結晶"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    175
+   ]
+  }
+ },
+ {
+  "n": 1882,
+  "stem": "一位 56 歲男性曾因鼻咽癌接受外照射放射治療，有關其 radiation retinopathy，下列何者正確？",
+  "options": {
+   "A": "與糖尿病相比，此病的棉絮斑相對於出血的比例較低。",
+   "B": "接受 plaque brachytherapy 者，此病出現的時間通常比外照射更晚。",
+   "C": "雷射光凝不會造成疤痕擴大，是治療此病黃斑水腫的首選。",
+   "D": "屬於延遲發生且緩慢惡化的微血管病變，眼底所見與 diabetic retinopathy 相仿。"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    176
+   ]
+  }
+ },
+ {
+  "n": 1883,
+  "stem": "關於準分子雷射切削時的對位、追蹤與 registration，下列敘述何者錯誤？",
+  "options": {
+   "A": "治療較大散光時，部分醫師會在病人坐著時先做角膜軸向標記，以抵消躺下後常見的 cyclotorsion",
+   "B": "iris registration 以虹膜上的固定標記作參考，而不是依賴瞳孔來定位雷射",
+   "C": "多數病人在瞳孔收縮時，瞳孔中心會往顳側及下方偏移",
+   "D": "雷射切削進行時應遮蓋對側眼，以免發生 cross-fixation"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    184
+   ]
+  }
+ },
+ {
+  "n": 1884,
+  "stem": "關於 LASIK 術後角膜瓣介面併發症的診斷與處置，下列敘述何者錯誤？",
+  "options": {
+   "A": "DLK 通常要到術後第 3 天以後才在裂隙燈下變得明顯，出現時間比感染性角膜炎晚",
+   "B": "懷疑 PISK 時，介面液體裂隙可能使中央的 Goldmann 眼壓偏低，應加測周邊或改用 Tono-Pen 等儀器",
+   "C": "懷疑非典型分枝桿菌感染時，以 acid-fast 與 fluorochrome 染色可比等待培養更快得到診斷",
+   "D": "術後 10 天內出現的角膜感染，致病原多半是細菌"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    185
+   ]
+  }
+ },
+ {
+  "n": 1885,
+  "stem": "關於 radial keratotomy（RK）術後的角膜變化與後續處理，下列敘述何者錯誤？",
+  "options": {
+   "A": "以相同的手術方式施作時，年紀較大的病人得到的矯正效果較大",
+   "B": "RK 眼日後做白內障手術時，多數專家建議以 -0.50 至 -1.00 D 的輕度近視為目標",
+   "C": "RK 後角膜成為較複雜的多焦點光學系統，角膜弧度計測得的散光可能與驗光結果不同",
+   "D": "RK 後角膜呈 prolate 形態，也就是中央變陡、周邊變平"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    186
+   ]
+  }
+ },
+ {
+  "n": 1886,
+  "stem": "一位 29 歲女性術前檢查發現角膜有 map-dot-fingerprint 變化，評估角膜雷射手術時，下列敘述何者錯誤？",
+  "options": {
+   "A": "EBMD 的存在會提高 LASIK 術中發生角膜瓣併發症的風險",
+   "B": "若選擇 surface ablation，去除異常上皮反而會使其復發性上皮糜爛的傾向加重",
+   "C": "若上皮不規則位於角膜中央，一般應視為具有視覺意義",
+   "D": "若同時合併角膜水腫，一般視為屈光手術的禁忌"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    187
+   ]
+  }
+ },
+ {
+  "n": 1887,
+  "stem": "有關 femtosecond lenticule extraction（FLEx）的發展與術式，下列何者正確？",
+  "options": {
+   "A": "1996 年最早的透鏡取出術 ReLEx 即以 femtosecond 雷射製作基質內透鏡",
+   "B": "FLEx 是目前唯一獲美國 FDA 核准的 KLEx 術式",
+   "C": "FLEx 術後的視力恢復速度明顯快於 LASIK",
+   "D": "FLEx 的基質內透鏡切割與角膜瓣製作都由飛秒雷射完成，不需準分子雷射切削"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    188
+   ]
+  }
+ },
+ {
+  "n": 1888,
+  "stem": "關於 conductive keratoplasty（CK）治療老花的敘述，下列何者正確？",
+  "options": {
+   "A": "以 holmium:YAG 雷射的熱能使基質膠原收縮",
+   "B": "以探針把 radiofrequency 能量送入周邊基質，加熱使局部膠原收縮，結果令中央角膜變陡",
+   "C": "FDA 核准用於病人的主眼（dominant eye）",
+   "D": "長期追蹤顯示療效穩定，幾乎不會回退"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    189
+   ]
+  }
+ },
+ {
+  "n": 1889,
+  "stem": "關於 phakic IOL（PIOL）的種類與現況，下列何者正確？",
+  "options": {
+   "A": "美國已有核准用於矯正遠視的 PIOL",
+   "B": "posterior chamber collamer PIOL 植入前須先使瞳孔縮小",
+   "C": "目前美國沒有核准的 angle-supported PIOL，國外曾上市的可彎曲 acrylic 款式也因併發症過高而下市",
+   "D": "PMMA iris-fixated PIOL 可經約 3 mm 小切口植入，通常不需縫合"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    190
+   ]
+  }
+ },
+ {
+  "n": 1890,
+  "stem": "相較於機械式 microkeratome，以飛秒雷射製作 LASIK 角膜瓣的特性，下列何者錯誤？",
+  "options": {
+   "A": "可調整側切（side cut）的幾何形狀，可能降低 epithelial ingrowth 與角膜瓣滑脫",
+   "B": "機械式 microkeratome 比飛秒雷射較不易造成 buttonhole 或 free cap",
+   "C": "多數機型會先在角膜深處做一個 pocket，讓氣體散開以避免 opaque bubble layer",
+   "D": "一項研究中術中吸引脫失的眼睛，重新 applanation 後都能成功完成角膜瓣"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    191
+   ]
+  }
+ },
+ {
+  "n": 1891,
+  "stem": "一位 34 歲女性想接受 LASIK，下列哪一項病史會增加術後感染風險，而使醫師傾向勸阻手術？",
+  "options": {
+   "A": "蟹足腫（keloid）體質",
+   "B": "目前使用 sumatriptan 治療偏頭痛",
+   "C": "曾服用 amiodarone",
+   "D": "人類免疫缺乏病毒（HIV）感染"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    192
+   ]
+  }
+ },
+ {
+  "n": 1892,
+  "stem": "關於角膜瓣介面發炎 diffuse lamellar keratitis（DLK）的發生時機、分期與處置，下列何者正確？",
+  "options": {
+   "A": "角膜上皮缺損即使發生在 LASIK 多年之後，仍可能在角膜瓣介面誘發 DLK",
+   "B": "推定為 DLK 者若類固醇治療 7–10 天仍無改善，應持續加強類固醇而不必重新考慮診斷",
+   "C": "DLK 分期中，第 4 期是指角膜瓣周邊出現淡薄顆粒狀的白血球浸潤",
+   "D": "DLK 只見於 LASIK，SMILE 等不製作角膜瓣的術式不會發生"
+  },
+  "origin": {
+   "kind": "rewrite",
+   "src": [
+    114,
+    193
+   ]
+  }
+ }
+]

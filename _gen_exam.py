@@ -1,10 +1,11 @@
 """Generate the ophthalmology board-exam review section (/exam/**) from data/exam/.
 
 Sources (hand-maintained):
-  data/exam/questions.json      1774 past board-exam MCQs, built by _exam_import.py, then (owner
-                                order 2026-11-18) 118 questions with "origin": {"kind": "rewrite",
+  data/exam/questions.json      1774 past board-exam MCQs, built by _exam_import.py
+  data/exam/rewrites.json       (owner order 2026-11-18) 118 questions with "origin": {"kind": "rewrite",
                                 "src": [114, N]}: self-written questions on the concepts of 114 paper
-                                questions the bank does not have (see load_origins())
+                                questions the bank does not have (see load_origins()); kept apart so a
+                                re-import of the PDF cannot drop them, merged after the bank in load()
   data/exam/tags.json           question number -> BCSC chapters ("12-4") it tests
   data/exam/explanations.json   answers + per-option explanations with BCSC page refs
   data/exam/chapters.json       BCSC 2025-2026 sections, chapter titles, printed pages
@@ -195,6 +196,20 @@ def site_version() -> str:
 
 def load() -> dict:
     questions = json.loads((DATA / "questions.json").read_text(encoding="utf-8"))
+    # The rewrites live in their own file: _exam_import.py rewrites questions.json from the PDF and
+    # must not drop them (PR #107 review). They are merged here, after the imported bank.
+    bank_numbers = {q["n"] for q in questions}
+    if any("origin" in q for q in questions):
+        raise SystemExit("questions.json: rows with an origin belong in rewrites.json")
+    rewrites = read_json("rewrites.json", [])
+    for q in rewrites:
+        if "origin" not in q:
+            raise SystemExit(f"rewrites.json: Q{q.get('n')} has no origin")
+        if q["n"] in bank_numbers:
+            raise SystemExit(f"rewrites.json: Q{q['n']} collides with an imported bank question")
+    if len({q["n"] for q in rewrites}) != len(rewrites):
+        raise SystemExit("rewrites.json: duplicate question numbers")
+    questions = questions + rewrites
     tags = json.loads((DATA / "tags.json").read_text(encoding="utf-8"))
     explanations = json.loads((DATA / "explanations.json").read_text(encoding="utf-8"))
     books = json.loads((DATA / "chapters.json").read_text(encoding="utf-8"))
@@ -440,11 +455,11 @@ def load_origins(questions: list, years: dict, explanations: dict) -> dict[str, 
     seen: set[tuple] = set()
     labels: dict[str, str] = {}
     for q in questions:
-        origin = q.get("origin")
-        if origin is None:
+        if "origin" not in q:
             continue
+        origin = q["origin"]
         src = origin.get("src") if isinstance(origin, dict) else None
-        if (set(origin) != {"kind", "src"} or origin["kind"] != "rewrite" or not isinstance(src, list)
+        if (not isinstance(origin, dict) or set(origin) != {"kind", "src"} or origin["kind"] != "rewrite" or not isinstance(src, list)
                 or len(src) != 2 or not all(type(x) is int for x in src)
                 or not 100 <= src[0] <= 200 or not 1 <= src[1] <= 300):
             raise SystemExit(f"Q{q['n']}: origin must be {{'kind': 'rewrite', 'src': [ROC year, number]}}")

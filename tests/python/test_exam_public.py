@@ -162,10 +162,23 @@ class RewriteTests(unittest.TestCase):
             ([{"n": 1, "origin": {"kind": "rewrite", "src": [114, 5]}},
               {"n": 2, "origin": {"kind": "rewrite", "src": [114, 5]}}], {}),
             ([{"n": 3, "origin": {"kind": "rewrite", "src": [114, 6]}}], {}),
+            ([{"n": 1, "origin": None}], {}),
+            ([{"n": 1, "origin": [114, 5]}], {}),
         ]
         for qs, years in bad:
             with self.subTest(qs=qs, years=years), self.assertRaises(SystemExit):
                 gen.load_origins(qs, years, expl)
+
+    def test_rewrites_are_kept_apart_from_the_imported_bank(self):
+        # _exam_import.py rewrites questions.json from the PDF; it must not drop the rewrites.
+        import _exam_import
+        self.assertEqual(_exam_import.OUT, ROOT / "data" / "exam" / "questions.json")
+        imported = json.loads(_exam_import.OUT.read_text(encoding="utf-8"))
+        self.assertFalse([q for q in imported if "origin" in q])
+        self.assertEqual(len(imported), 1774)
+        stored = json.loads((ROOT / "data" / "exam" / "rewrites.json").read_text(encoding="utf-8"))
+        self.assertEqual([q["n"] for q in stored], [q["n"] for q in self.rewrites])
+        self.assertTrue(min(q["n"] for q in stored) > max(q["n"] for q in imported))
 
     def test_bank_rows_and_cards_say_rewrite(self):
         bank = {q["n"]: q for q in gen.bank_data(self.data)["questions"]}

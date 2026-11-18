@@ -23,7 +23,7 @@ const plain = value => JSON.parse(JSON.stringify(value));
 
 const NOTES = Object.fromEntries(fs.readdirSync('data/exam/notes').filter(name => /^bcsc\d+-\d+\.htm$/.test(name))
   .map(name => [name.slice(4, -4), read('data/exam/notes/' + name)]));
-const DATA_FILES = ['chapters.json', 'chapter_zh.json', 'tags.json', 'toc_en.json', 'simplified_chars.txt', 'questions.json']
+const DATA_FILES = ['chapters.json', 'chapter_zh.json', 'tags.json', 'toc_en.json', 'simplified_chars.txt', 'questions.json', 'rewrites.json']
   .map(name => 'data/exam/' + name);
 const EXPL_TEXT = read(EXPL), EXPL_DATA = JSON.parse(EXPL_TEXT);
 const TAGS = JSON.parse(read('data/exam/tags.json')), TOC = JSON.parse(read('data/exam/toc_en.json'));
@@ -222,6 +222,10 @@ test('reads: chapter list, a note and an explanation from main', async () => {
   assert.deepEqual(expl.body.entry, EXPL_DATA[ID_A]); assert.equal(expl.body.source, 'main'); assert.equal(expl.body.blobSha, EXPL_TOKEN);
   assert.equal(typeof expl.body.question.stem, 'string'); assert.deepEqual(Object.keys(expl.body.question.options), ['A', 'B', 'C', 'D']);
   assert.ok(h.calls.some(call => call.path.startsWith('git/blobs/')), 'the 2.7 MB explanations file is read through its Git blob');
+  // a self-written 114 rewrite (data/exam/rewrites.json, 2026-11-18) also comes with its question
+  const rewrite = await h.get({ kind: 'expl', id: '1775' });
+  assert.equal(rewrite.status, 200, JSON.stringify(rewrite.body));
+  assert.equal(rewrite.body.question.stem, JSON.parse(read('data/exam/rewrites.json'))[0].stem);
   const missing = await h.get({ kind: 'note', key: '1-99' });
   assert.equal(missing.status, 404); assert.equal(missing.body.error, 'unknown_note');
   for (const key of ['0-1', '1', '1-4x', '../1-4', '', undefined]) {
