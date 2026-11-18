@@ -585,6 +585,20 @@ class CliSelectionTests(unittest.TestCase):
         shim.write_text("@echo off\n", encoding="utf-8")
         self.assertEqual([Path(p) for p in self.candidates(shim)], [native])
 
+    def test_project_bin_shim_finds_nested_or_hoisted_native_executable(self):
+        """PR #108 round 1 (P2): a project install keeps the shim in node_modules/.bin."""
+        for layout in ("node_modules/@openai/codex/node_modules/@openai/codex-win32-x64",
+                       "node_modules/@openai/codex-win32-arm64"):
+            with self.subTest(layout=layout):
+                project = self.root / layout.replace("/", "_")
+                native = project / layout / "vendor/x86_64-pc-windows-msvc/bin/codex.exe"
+                native.parent.mkdir(parents=True)
+                native.write_bytes(b"")
+                shim = project / "node_modules/.bin/codex.cmd"
+                shim.parent.mkdir(parents=True)
+                shim.write_text("@echo off\n", encoding="utf-8")
+                self.assertEqual([Path(p) for p in self.candidates(shim)], [native])
+
     def test_shim_without_a_native_executable_is_dropped(self):
         npm = self.root / "npm"
         npm.mkdir()

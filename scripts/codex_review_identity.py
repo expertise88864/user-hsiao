@@ -53,10 +53,17 @@ def native_for_shim(shim: str) -> list[str]:
     Never run the shim itself: a Windows batch file cuts a multi-line argument at
     the first newline, so the reviewer receives only the prompt's first line
     (2026-11-18, observed in the session logs). The npm package ships the real CLI
-    under node_modules/@openai/codex-win32-<arch>/vendor/<triple>/bin."""
-    root = os.path.join(os.path.dirname(shim), "node_modules", "@openai", "codex")
-    return sorted(glob.glob(os.path.join(root, "node_modules", "@openai", "codex-win32-*",
-                                         "vendor", "*", "bin", "codex.exe")))
+    under node_modules/@openai/codex-win32-<arch>/vendor/<triple>/bin: nested in
+    @openai/codex or hoisted next to it. A global install keeps the shim beside
+    node_modules (npm/codex.cmd); a project install keeps it in node_modules/.bin."""
+    shim_dir = os.path.dirname(shim)
+    modules = (os.path.dirname(shim_dir) if os.path.basename(shim_dir).lower() == ".bin"
+               else os.path.join(shim_dir, "node_modules"))
+    found = []
+    for scope in (os.path.join(modules, "@openai", "codex", "node_modules"), modules):
+        found.extend(glob.glob(os.path.join(scope, "@openai", "codex-win32-*",
+                                            "vendor", "*", "bin", "codex.exe")))
+    return sorted(set(found))
 
 
 def codex_candidates() -> list[str]:
