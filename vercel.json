@@ -122,11 +122,6 @@
       "source": "/exam/mock-4",
       "destination": "/exam/mock",
       "permanent": true
-    },
-    {
-      "source": "/exam/login",
-      "destination": "/exam",
-      "permanent": true
     }
   ],
   "rewrites": [

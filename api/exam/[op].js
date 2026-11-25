@@ -1,16 +1,18 @@
 /**
- * Dispatcher for the exam question-bank endpoint.
+ * Single-function dispatcher for the exam question-bank endpoints.
  *
- * Vercel Hobby caps Serverless Functions at 12 per deployment, so the exam endpoints
- * share this one function (same pattern as api/admin/[op].js):
+ * Vercel Hobby caps Serverless Functions at 12 per deployment, so login,
+ * logout and data share this one function (same pattern as api/admin/[op].js):
  *
- *   GET /api/exam/data → api/_exam_data.js (public since 2026-11-18)
+ *   POST /api/exam/login   → api/_exam_login.js
+ *   POST /api/exam/logout  → api/_exam_logout.js
+ *   GET  /api/exam/data    → api/_exam_data.js   (signed-in readers only)
  *
- * The shared-password login and logout (/api/exam/login, /api/exam/logout) were removed
- * when the owner opened the bank; those addresses now answer 404.
- * The handler is imported lazily so an unknown op never parses the question bank.
+ * Handlers are imported lazily so login/logout never parse the question bank.
  */
 const HANDLERS = {
+  login: () => import('../_exam_login.js'),
+  logout: () => import('../_exam_logout.js'),
   data: () => import('../_exam_data.js'),
 };
 

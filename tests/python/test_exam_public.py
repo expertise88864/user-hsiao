@@ -1,13 +1,11 @@
-"""Owner order 2026-11-18: 「題庫公開」 and the exam year of each question.
+"""Owner orders 2026-11-18 and 2026-11-25 for the exam bank.
 
-- The question bank (questions, answers, explanations) is public: no login page, no login
-  entry, no "需要登入" anywhere in the exam pages, and /exam/login redirects to /exam.
-  The bank is still one JSON (api/_exam_bank.js via /api/exam/data) rendered by exam.js,
-  so the page files stay light and carry no question text.
-- 「若考古豹上面有該題目的年份 則把本站同樣題目表示年份及題號（包括考題區以及考試重點）」:
-  data/exam/years.json maps a bank question to the papers by year it appeared in
-  (113 年 123 題, 114 年 82 題 matched to the bank by comparing the text). The question
-  card shows it (the bank row's "yr") and so does every {{q:N}} label in the notes.
+- 2026-11-18 「題庫公開」 opened the bank; on 2026-11-25 the owner locked it again as before:
+  questions, answers and explanations (the 118 rewrites too) need the shared-password login;
+  the chapter notes stay public and page files carry no question text.
+- 「若考古豹上面有該題目的年份 則把本站同樣題目表示年份及題號（包括考題區以及考試重點）」 (2026-11-18) stays:
+  data/exam/years.json maps a bank question to the papers by year it appeared in. The question
+  card shows it (the bank row's "yr") and so does every {{q:N}} label in the public notes.
 """
 import json
 import re
@@ -21,44 +19,48 @@ import _gen_exam as gen
 ROOT = Path(__file__).resolve().parents[2]
 
 
-class PublicBankTests(unittest.TestCase):
+class LockedBankTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data = gen.load()
         cls.version = gen.site_version()
 
-    def test_no_login_page_or_entry(self):
-        self.assertFalse((ROOT / "exam" / "login.html").exists())
-        self.assertFalse(hasattr(gen, "login_page"))
-        self.assertFalse(hasattr(gen, "AUTH_BAR"))
-        redirects = {r["source"]: r for r in json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))["redirects"]}
-        self.assertEqual(redirects["/exam/login"]["destination"], "/exam")
-        self.assertIs(redirects["/exam/login"]["permanent"], True)
-        for path in sorted((ROOT / "exam").glob("*.html")):
-            with self.subTest(page=path.name):
-                text = path.read_text(encoding="utf-8")
-                self.assertNotIn("/exam/login", text)
-                self.assertNotIn("需要登入", text)
-                self.assertNotIn('class="ex-auth"', text)
-        for name in ("_exam_login.js", "_exam_logout.js", "_exam_session.js"):
-            self.assertFalse((ROOT / "api" / name).exists(), name)
-
-    def test_chapter_page_loads_the_questions_without_login(self):
+    def test_login_page_and_entries_are_back(self):
+        login = BeautifulSoup((ROOT / "exam" / "login.html").read_text(encoding="utf-8"), "html.parser")
+        form = login.select_one("form.ex-login")
+        self.assertEqual((form["method"], form["action"]), ("post", "/api/exam/login"))
+        self.assertIn("noindex", login.select_one('meta[name="robots"]')["content"])
+        self.assertFalse(login.select_one('input[name="password"]').has_attr("value"))
+        # the redirect of the open period would hide the login page
+        redirects = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))["redirects"]
+        self.assertNotIn("/exam/login", {r["source"] for r in redirects})
         key = next(k for k in self.data["chapters"] if self.data["by_chapter"].get(k))
-        doc = BeautifulSoup(gen.chapter_page(self.data, key, self.version), "html.parser")
-        box = doc.select_one("#ex-chapter-qs")
-        self.assertIsNotNone(box)
-        self.assertEqual(box.select_one("p.ex-loading").get_text(),
-                         f'本章考題 {len(self.data["by_chapter"][key])} 題載入中⋯（需要開啟 JavaScript）')
-        self.assertFalse(box.select("a"))
-        hub = BeautifulSoup(gen.hub_page(self.data, self.version), "html.parser")
-        self.assertIn("考題、答案與詳解都公開，不用登入", hub.get_text())
+        box = BeautifulSoup(gen.chapter_page(self.data, key, self.version), "html.parser").select_one("#ex-chapter-qs")
+        self.assertTrue(box.select_one("p.ex-locked a")["href"].startswith("/exam/login?next="))
+        hub = BeautifulSoup(gen.hub_page(self.data, self.version), "html.parser").get_text()
+        self.assertIn("考題、答案與詳解需要登入才能看", hub)
+        self.assertNotIn("都公開，不用登入", hub)
 
-    def test_exam_js_no_longer_signs_in(self):
-        js = (ROOT / "exam" / "exam.js").read_text(encoding="utf-8")
-        for gone in ("/exam/login", "/api/exam/logout", "err.login", "initAuthBar", "data-exam-bank", "no-store"):
-            self.assertNotIn(gone, js)
-        self.assertIn("fetch('/api/exam/data' + (v ? '?v=' + v : ''), { credentials: 'omit' })", js)
+    def test_the_bank_endpoint_fails_closed_and_is_never_shared(self):
+        api = (ROOT / "api" / "_exam_data.js").read_text(encoding="utf-8")
+        self.assertIn("if (!isExamSignedIn(req)) return res.status(401)", api)
+        self.assertIn("'private, no-store'", api)
+        self.assertNotIn("s-maxage", api)
+
+    def test_no_password_in_the_repository(self):
+        # The password lives only in the Vercel env var: this repository is public.
+        for rel in ("api/_exam_session.js", "api/_exam_login.js"):
+            code = (ROOT / rel).read_text(encoding="utf-8")
+            self.assertNotRegex(code, r"EXAM_PASSWORD\s*(?:\|\||\?\?|=(?!=))")
+        self.assertIn("process.env.EXAM_PASSWORD", (ROOT / "api" / "_exam_session.js").read_text(encoding="utf-8"))
+
+    def test_public_files_carry_no_rewrite_text(self):
+        stems = [q["stem"] for q in self.data["questions"] if q.get("origin")]
+        self.assertEqual(len(stems), 118)
+        for path in sorted([*(ROOT / "exam").glob("*.html"), *(ROOT / "exam").glob("*.json")]):
+            text = path.read_text(encoding="utf-8")
+            with self.subTest(page=path.name):
+                self.assertFalse([s for s in stems if s in text])
 
 
 class ExamYearTests(unittest.TestCase):

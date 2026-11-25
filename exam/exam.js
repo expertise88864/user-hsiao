@@ -1,8 +1,7 @@
 /* Board-exam review pages (/exam/**): quiz/browse mode, practice exams, wrong-answer
- * notebook, search and Anki export. Chapter notes are static; the question bank
- * (questions, answers, explanations) is fetched from /api/exam/data and rendered here.
- * Both are public: the bank was behind a shared-password login until the owner opened it
- * on 2026-11-18. Progress lives in localStorage on this
+ * notebook, search and Anki export. Chapter notes are static and public; the question
+ * bank (questions, answers, explanations) is fetched from /api/exam/data, which only
+ * answers signed-in readers, and rendered here. Progress lives in localStorage on this
  * device only. The mock exam (/exam/mock) is the exception: a public page of
  * self-written questions that is complete without the API (see "mock exam").
  * All dynamic text is inserted with textContent / DOM nodes (no innerHTML), and the
@@ -553,17 +552,20 @@
     return notesPromise;
   }
   var bankPromise = null;
-  // Public; asked for with the asset version so a cached copy is replaced on deploy.
-  // A failed load is not kept: the next call asks again.
+  // Signed-in only: the server answers 401 without a valid session cookie.
   function bankData() {
     if (!bankPromise) {
-      var v = assetVersion();
-      bankPromise = fetch('/api/exam/data' + (v ? '?v=' + v : ''), { credentials: 'omit' })
+      bankPromise = fetch('/api/exam/data', { credentials: 'same-origin', cache: 'no-store' })
         .then(function (r) {
+          if (r.status === 401 || r.status === 503) {
+            var err = new Error('login required');
+            err.login = true;
+            throw err;
+          }
           if (!r.ok) throw new Error('HTTP ' + r.status);
+          document.body.setAttribute('data-exam-bank', '1');
           return r.json();
         });
-      bankPromise.catch(function () { bankPromise = null; });
     }
     return bankPromise;
   }
@@ -600,10 +602,22 @@
         notes: both[0].notes, books: both[0].books };
     });
   }
-  // Replace a container's content with a load error.
-  function failNote(node) {
+  function loginHref() {
+    return '/exam/login?next=' + encodeURIComponent(location.pathname);
+  }
+  // Replace a container's content with a login prompt (or a load error).
+  function lockedNote(node, err, what) {
     clear(node);
-    node.appendChild(el('p', 'ex-pending', '題庫載入失敗，請重新整理頁面。'));
+    if (err && err.login) {
+      var p = el('p', 'ex-locked', what + '需要先');
+      var a = el('a', null, '登入題庫');
+      a.href = loginHref();
+      p.appendChild(a);
+      p.appendChild(document.createTextNode('。'));
+      node.appendChild(p);
+    } else {
+      node.appendChild(el('p', 'ex-pending', '題庫載入失敗，請重新整理頁面。'));
+    }
   }
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 
@@ -858,7 +872,7 @@
         list.appendChild(el('p', 'ex-pending', '目前沒有錯題。到章節頁或考古卷切換「作答模式」作答，答錯的題目會出現在這裡。'));
       }
       rows.forEach(function (q) { list.appendChild(renderCard(q, data, { removable: removed })); });
-    }).catch(function () { failNote(list); });
+    }).catch(function (err) { lockedNote(list, err, '錯題本'); });
   }
 
   // ---------------------------------------------------------- Anki export
@@ -1268,15 +1282,15 @@
         refreshAnswerBar();
         flush();
         list.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }).catch(function () {
+      }).catch(function (err) {
         if (seq !== buildSeq) return;
         note.textContent = '';
-        failNote(list);
+        lockedNote(list, err, '考古卷');
       });
     });
 
-    // A paper generated earlier and not handed in continues where it was left. If the
-    // bank fails to load, it stays stored and continues once the bank loads.
+    // A paper generated earlier and not handed in continues where it was left. Signed
+    // out, it stays stored and continues once the bank loads (after signing in).
     function resume() {
       var saved = canStore && !paper ? storedPaper() : null;
       if (!saved) return;
@@ -1302,9 +1316,14 @@
         answerBar.reset();
         paint();
         note.textContent = '已接續上次未交卷的試卷（共 ' + pool.length + ' 題）。按「產生試卷並開始計時」會改出一份新的試卷。';
-      }).catch(function () {
+      }).catch(function (err) {
         if (seq !== buildSeq || paper) return;
-        note.textContent = '有一份未交卷的試卷（共 ' + saved.ids.length + ' 題），題庫載入失敗，請重新整理頁面後接續作答。';
+        if (err && err.login) {
+          note.textContent = '有一份未交卷的試卷（共 ' + saved.ids.length + ' 題），登入題庫後會接續作答。';
+          lockedNote(list, err, '考古卷');
+        } else {
+          note.textContent = '題庫載入失敗，請重新整理頁面。';
+        }
       });
     }
 
@@ -1323,7 +1342,7 @@
     });
     window.addEventListener('pagehide', function () { if (paper) leave(); });
     // Back-forward cache: a page that had the bank reloads (see the pageshow handler
-    // below) and resumes from storage; a page without the bank tries to resume again.
+    // below) and resumes from storage; a signed-out page tries to resume again.
     window.addEventListener('pageshow', function (ev) {
       if (!ev.persisted) return;
       if (!paper) { resume(); return; }
@@ -1409,7 +1428,7 @@
         qBox.appendChild(el('h2', 'ex-h2', '考題（' + qHits.length + ' 題）'));
         if (qHits.length > 80) qBox.appendChild(el('p', 'ex-meta', '只顯示前 80 題，請加關鍵字縮小範圍。'));
         qHits.slice(0, 80).forEach(function (q) { qBox.appendChild(renderCard(q, bank, { suffix: '-s' })); });
-      }).catch(function () { failNote(qBox); });
+      }).catch(function (err) { lockedNote(qBox, err, '搜尋考題'); });
     }).catch(function () {
       clear(out);
       out.appendChild(el('p', 'ex-pending', '資料載入失敗，請重新整理頁面。'));
@@ -2603,7 +2622,9 @@
       refreshStrip();
       var target = /^#q-\d+$/.test(location.hash) ? document.getElementById(location.hash.slice(1)) : null;
       if (target) target.scrollIntoView();
-    }).catch(function () { failNote(box); });
+    }).catch(function (err) {
+      if (!err || !err.login) lockedNote(box, err, '本章考題');
+    });
   }
 
   // ---------------------------------------------------------- concept overview (/exam/concepts)
@@ -2705,16 +2726,56 @@
     }
   }
 
+  // Every exam page except the login page shows the sign-in state with a one-click logout.
+  function initAuthBar(bar, settle) {
+    fetch('/api/exam/data?check=1', { credentials: 'same-origin', cache: 'no-store' })
+      .then(function (r) { return r.status === 204; }, function () { return false; })
+      .then(function (signedIn) {
+        clear(bar);
+        if (signedIn) {
+          bar.appendChild(el('span', null, '已登入題庫'));
+          var form = el('form');
+          form.method = 'post';
+          form.action = '/api/exam/logout';
+          var btn = el('button', 'ex-link-btn', '登出');
+          btn.type = 'submit';
+          form.appendChild(btn);
+          bar.appendChild(form);
+        } else {
+          var a = el('a', null, '登入題庫');
+          a.href = loginHref();
+          bar.appendChild(a);
+        }
+        bar.hidden = false;
+        if (settle) settle();
+      });
+  }
+
+  function initLogin(form) {
+    var params = new URLSearchParams(location.search);
+    var next = params.get('next') || '';
+    if (/^\/exam(?:\/[a-z0-9-]+)?(?:#q-\d{1,5})?$/.test(next)) form.querySelector('input[name=next]').value = next;
+    var msg = document.querySelector('.ex-login-msg');
+    var text = { wrong: '密碼不正確，請再試一次。', rate: '嘗試次數過多，請 10 分鐘後再試。',
+      config: '題庫登入尚未設定，請聯絡網站管理者。' }[params.get('error') || ''] || (params.get('out') ? '已登出這台裝置。' : '');
+    if (msg && text) { msg.textContent = text; msg.hidden = false; }
+  }
+
+  // Back/forward cache: a page restored after logout must not keep the signed-in
+  // bank. Drop it (and rendered question cards) when the page is hidden, and
+  // reload a restored page that had it so access is checked again.
+  window.addEventListener('pagehide', function () {
+    bankPromise = null;
+    document.querySelectorAll('.ex-q, .ex-search-qs').forEach(function (node) { node.remove(); });
+  });
   window.addEventListener('pageshow', function (ev) {
-    // Back from a chapter: show the reading rounds and the answers recorded meanwhile.
-    // (Until 2026-11-18 a restored page that had the bank reloaded instead.)
-    if (ev.persisted) {
+    if (ev.persisted && document.body.getAttribute('data-exam-bank') === '1') location.reload();
+    // Back from a chapter: show the reading rounds recorded meanwhile.
+    else if (ev.persisted) {
       fillHubBadges();
       fillContinue();
       var pg = document.getElementById('ex-progress');
       if (pg) renderProgress(pg);
-      var rl = document.getElementById('ex-review-list');
-      if (rl) renderReview(rl);
     }
   });
 
@@ -3177,7 +3238,10 @@
     if (concepts) initConcepts(concepts);
     var rank = document.querySelector('table.ex-rank[data-rank-step]');
     if (rank) initRank(rank);
-    if (settle) settle();
+    var authBar = document.querySelector('.ex-auth');
+    if (authBar) initAuthBar(authBar, settle);
+    var loginForm = document.querySelector('form.ex-login');
+    if (loginForm) initLogin(loginForm);
     var mock = document.querySelector('[data-mock-list]');
     if (mock) initMock(mock);
     var progress = document.getElementById('ex-progress');
@@ -3201,8 +3265,8 @@
             return q.answer && (scope !== 'wrong' || wrong.indexOf(q.n) !== -1);
           });
           download(scope === 'wrong' ? 'ophtho-board-wrong.csv' : 'ophtho-board-answered.csv', ankiRows(rows));
-        }).catch(function () {
-          window.alert('題庫載入失敗，請重新整理頁面。');
+        }).catch(function (err) {
+          if (err && err.login) location.href = loginHref();
         });
       });
     });

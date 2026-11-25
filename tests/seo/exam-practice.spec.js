@@ -140,19 +140,20 @@ test('time away is not counted: hidden tab, back-forward cache, a sleeping compu
   await page.clock.runFor(1000);
   await expect(timer(page)).toHaveText('00:41');
   const before = '00:41';
-  // Back-forward cache: leaving pauses and saves; the restored page continues from the
-  // saved time (since the bank is public, 2026-11-18, the page keeps it and is not reloaded).
+  // Back-forward cache: leaving pauses and saves; the restored page (it had the bank,
+  // so it reloads) continues from the saved time.
   await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })));
   await expect.poll(async () => (await stored(page)).el).toBe(41000);
   await page.clock.fastForward(5 * 60000);
-  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+  await Promise.all([
+    page.waitForEvent('load'),
+    page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true }))),
+  ]);
+  await expect(note(page)).toHaveText(RESUMED(10));
   await expect(timer(page)).toHaveText(before);
-  await expect(card(page, 0)).toBeVisible();
-  await page.clock.runFor(2000);
-  await expect(timer(page)).toHaveText('00:43');
 });
 
-test('without the bank, the stored paper is kept and continues once the bank loads', async ({ page }) => {
+test('signed out, the stored paper is kept and continues once the bank loads', async ({ page }) => {
   const qs = JSON.parse(await bank()).questions.slice(0, 3);
   const paper = { id: 'abc123', rev: 4, ids: qs.map(q => q.n), sel: { [qs[1].n]: 'B' }, done: { [qs[0].n]: qs[0].answer },
     el: 125000, t: 1, set: { b: ['1'], c: 25, o: 'random' } };
@@ -160,7 +161,8 @@ test('without the bank, the stored paper is kept and continues once the bank loa
   await seedOnce(page, [[PAPER, paper]]);
   await signOut(page);
   await page.goto('/exam/practice');
-  await expect(note(page)).toHaveText('有一份未交卷的試卷（共 3 題），題庫載入失敗，請重新整理頁面後接續作答。');
+  await expect(note(page)).toHaveText('有一份未交卷的試卷（共 3 題），登入題庫後會接續作答。');
+  await expect(page.locator('#ex-practice-list .ex-locked a')).toHaveAttribute('href', '/exam/login?next=%2Fexam%2Fpractice');
   await expect(page.locator('select[name=ex-count]')).toHaveValue('25');
   await expect(page.locator('input[name=ex-book]:checked')).toHaveCount(1);
   expect(await stored(page)).toEqual(paper);
@@ -456,7 +458,7 @@ test('leave-time checkpoints from two tabs never lower the time (PR #83 review)'
     };
   });
   const holder = await context.newPage();
-  await holder.goto('/exam/search');
+  await holder.goto('/exam/login');
   await holder.evaluate(k => { navigator.locks.request(k, () => new Promise(() => {})); }, PAPER);
   await setHidden(a, true);    // a leaves at 49 s
   await setHidden(b, false);

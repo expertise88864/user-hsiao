@@ -67,11 +67,10 @@ class ExamHubTests(unittest.TestCase):
 
     def test_hub_order(self):
         main = str(self.doc.select_one("main"))
-        # Owner order 2026-10-18: tools, access note, 考古卷, then the search box. The access
-        # note says everything is public since 2026-11-18 (no login entry among the tools).
+        # Owner order 2026-10-18: tools, access note, 考古卷, then the search box.
         # 2026-11-03: the 「繼續閱讀」 card (filled by exam.js) sits after the search block
         # (box, status, results) and before the chapters, as on the dermatology site.
-        marks = ['class="ex-tools"', "課本重點整理、考題、答案與詳解都公開，不用登入。",
+        marks = ['class="ex-tools"', "課本重點整理公開；考題、答案與詳解需要登入才能看。",
                  'href="/exam/practice"', 'data-hub-search', 'class="ex-find-status"', 'id="ex-find-results"',
                  'class="ex-continue"', ">依 BCSC 章節瀏覽</h2>", ">出題頻率：最常考</h2>",
                  'class="ex-rank"', 'class="ex-more"']
@@ -102,7 +101,7 @@ class ExamHubTests(unittest.TestCase):
 
     def test_tools_drop_the_duplicate_search_button(self):
         tools = [a["href"] for a in self.doc.select(".ex-tools a")]
-        self.assertEqual(tools, ["/exam/concepts", "/exam/progress", "/exam/review"])
+        self.assertEqual(tools, ["/exam/concepts", "/exam/progress", "/exam/review", "/exam/login"])
         self.assertNotIn("搜尋重點與考題", str(self.doc.select_one("main")))
 
     def test_practice_is_called_kaoguzhuan(self):

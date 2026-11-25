@@ -31,8 +31,8 @@ const CHAPTER = '/exam/bcsc12-4';
 
 // Scroll a note element to just under the sticky header, the way a reader would.
 async function readTo(page, id) {
-  // Let the questions (or the load error) and web fonts settle first, so nothing shifts afterwards.
-  await expect(page.locator('#ex-chapter-qs .ex-q, #ex-chapter-qs .ex-pending').first()).toBeVisible();
+  // Let the late sign-in bar and web fonts settle first, so nothing shifts afterwards.
+  await expect(page.locator('.ex-auth')).toBeVisible();
   await page.evaluate(() => document.fonts.ready.then(() => true));
   await page.mouse.move(400, 400);
   await page.mouse.wheel(0, 200);
@@ -296,10 +296,10 @@ test('signed in: 清除作答紀錄 on /exam/progress also forgets the stored an
   await expect(page.locator('.ex-ans-bar .ex-ans-text')).toHaveText(/^已作答 0／\d+ 題/);
 });
 
-test('without the bank: no answer bar; storage disabled: pages still work', async ({ page, browser }) => {
+test('signed out: no answer bar; storage disabled: pages still work', async ({ page, browser }) => {
   await signOut(page);
   await page.goto(CHAPTER);
-  await expect(page.locator('#ex-chapter-qs .ex-pending')).toBeVisible();
+  await expect(page.locator('#ex-chapter-qs .ex-locked')).toBeVisible();
   await expect(page.locator('.ex-ans-bar, .ex-ans-clear')).toHaveCount(0);
 
   const context = await browser.newContext({ serviceWorkers: 'block' });

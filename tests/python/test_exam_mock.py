@@ -6,8 +6,8 @@ questions; 200 questions, kept as four files of 50.
   public fields.
 - Ids and stems are unique across the files, and together the files follow the bank's
   share of each BCSC section.
-- The mock questions are self-written: no mock stem or option may repeat or closely follow
-  a bank stem or option (the bank itself is public since 2026-11-18).
+- The bank stays behind the login: no mock stem or option may repeat or closely follow a
+  bank stem or option.
 - Owner order 2026-11-11 (second): one page where the reader picks the number of questions
   and the order, as on the past-paper page. All the cards are in a pool the stylesheet
   hides; exam.js moves the cards drawn into the paper. The addresses of the fixed papers
@@ -331,9 +331,9 @@ class MockPageTests(unittest.TestCase):
         link = hub.select_one('p.ex-practice a[href="/exam/mock"]')
         self.assertEqual(link.get_text(), f"模擬考：自編 {len(self.rows)} 題（免登入）")
         self.assertEqual(len(self.rows), 200)
-        # the past papers keep their own name; since 2026-11-18 they are public too
+        # the past papers keep their own name and the login note is unchanged
         self.assertEqual(hub.select_one('a[href="/exam/practice"]').get_text(), "考古卷：自選範圍／隨機出題")
-        self.assertIn("考題、答案與詳解都公開，不用登入", hub.get_text())
+        self.assertIn("考題、答案與詳解需要登入才能看", hub.get_text())
 
 
 if __name__ == "__main__":

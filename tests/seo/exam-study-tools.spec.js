@@ -4,14 +4,13 @@ const { pathToFileURL } = require('url');
 test.use({ serviceWorkers: 'block' });
 
 // Owner requests 2026-10-15:
-// - chapter notes stay public; questions, answers and explanations needed a login
-//   (until 2026-11-18, when the owner opened the bank);
+// - chapter notes stay public; questions, answers and explanations need a login;
 // - same-concept questions sit together under 「考點」 headings;
 // - explanations carry no "回去看重點" / "同考點" lines;
 // - flagged questions show 考試答案 / 現行觀念;
 // - a per-chapter progress overview.
-// The static test server has no API, so signIn() answers /api/exam/data with the
-// generated bank and signOut() makes it fail (the bank did not load).
+// The static test server has no API, so "signed in" means /api/exam/data is
+// answered with the generated bank; "signed out" means it answers 401.
 
 let bankJson;
 async function bank() {
@@ -31,7 +30,7 @@ async function signOut(page) {
   await page.route('**/api/exam/data**', route => route.fulfill({ status: 401, contentType: 'application/json', body: '{"error":"login required"}' }));
 }
 
-test('without the bank: chapter pages show the notes; the page files carry no questions', async ({ page, request }) => {
+test('signed out: chapter pages show the notes but no questions', async ({ page, request }) => {
   const html = await (await request.get('/exam/bcsc12-4')).text();
   expect(html).not.toContain('<article class="ex-q');
   const sample = JSON.parse(await bank()).questions.find(q => q.ch.includes('12-4')).stem.slice(0, 40);
@@ -39,14 +38,14 @@ test('without the bank: chapter pages show the notes; the page files carry no qu
   await signOut(page);
   await page.goto('/exam/bcsc12-4');
   await expect(page.locator('.ex-note')).toBeVisible();
-  await expect(page.locator('#ex-chapter-qs .ex-pending')).toHaveText('題庫載入失敗，請重新整理頁面。');
+  await expect(page.locator('#ex-chapter-qs .ex-locked')).toContainText('登入');
   await expect(page.locator('.ex-q')).toHaveCount(0);
   await expect(page.locator('.ex-qs-tools')).toBeHidden();
   await expect(page.locator('.ex-note .ex-qref span').first()).toHaveText(/^Q\d+(?:（.+）)?$/);
   await expect(page.locator('.ex-qref a')).toHaveCount(0);
 });
 
-test('the notes data carries no question text', async ({ request }) => {
+test('signed out: the public notes data carries no question text', async ({ request }) => {
   expect((await request.get('/exam/exam-data.json')).status()).toBe(404);
   const notes = await (await request.get('/exam/notes-data.json')).json();
   // "find" (2026-11-03): ranked hub-search names built from the public notes only.
@@ -54,37 +53,26 @@ test('the notes data carries no question text', async ({ request }) => {
   expect(notes.qs[0]).toEqual([expect.any(Number), expect.any(Array)]);
 });
 
-test('without the bank: practice, review and question search say so; note search still works', async ({ page }) => {
+test('signed out: practice, review and question search ask for a login; note search still works', async ({ page }) => {
   await signOut(page);
   await page.goto('/exam/practice');
   await page.getByRole('button', { name: '產生試卷並開始計時' }).click();
-  await expect(page.locator('#ex-practice-list .ex-pending')).toHaveText('題庫載入失敗，請重新整理頁面。');
+  await expect(page.locator('#ex-practice-list .ex-locked a')).toHaveAttribute('href', '/exam/login?next=%2Fexam%2Fpractice');
   await page.goto('/exam/review');
-  await expect(page.locator('#ex-review-list .ex-pending')).toHaveText('題庫載入失敗，請重新整理頁面。');
+  await expect(page.locator('#ex-review-list .ex-locked')).toBeVisible();
   await page.goto('/exam/search?q=AREDS2');
   await expect(page.locator('#ex-search-results .ex-hitbox').first()).toBeVisible();
-  await expect(page.locator('#ex-search-results .ex-search-qs .ex-pending')).toBeVisible();
+  await expect(page.locator('#ex-search-results .ex-search-qs .ex-locked')).toBeVisible();
   await expect(page.locator('#ex-search-results .ex-q')).toHaveCount(0);
-  await expect(page.locator('a[href^="/exam/login"]')).toHaveCount(0);
 });
 
-test('the bank is fetched once per page, with the asset version and no cookies', async ({ page }) => {
-  const body = await bank();
-  const asked = [];
-  await page.route('**/api/exam/data**', route => {
-    asked.push({ url: route.request().url(), cookie: route.request().headers().cookie || '' });
-    return route.fulfill({ status: 200, contentType: 'application/json', body });
-  });
-  // A reader who signed in before the bank was opened still has the old session cookie.
-  await page.goto('/exam/search');
-  await page.context().addCookies([{ name: 'hs_exam_session', value: 'old', url: new URL(page.url()).origin }]);
-  asked.length = 0;
-  await page.goto('/exam/bcsc12-4');
-  await expect(page.locator('#ex-chapter-qs .ex-q').first()).toBeVisible();
-  const v = await page.evaluate(() => (document.querySelector('script[src*="/exam/exam.js"]').src.match(/[?&]v=([^&]+)/) || [])[1]);
-  expect(asked.map(a => new URL(a.url).search)).toEqual([`?v=${v}`]);
-  expect(asked[0].cookie).not.toContain('hs_exam_session');
-  await expect(page.locator('.ex-auth')).toHaveCount(0);
+test('login page keeps a safe return path and explains errors', async ({ page }) => {
+  await page.goto('/exam/login?error=wrong&next=' + encodeURIComponent('/exam/bcsc6-27#q-873'));
+  await expect(page.locator('.ex-login-msg')).toHaveText('密碼不正確，請再試一次。');
+  await expect(page.locator('form.ex-login input[name=next]')).toHaveValue('/exam/bcsc6-27#q-873');
+  await expect(page.locator('form.ex-login')).toHaveAttribute('action', '/api/exam/login');
+  await page.goto('/exam/login?next=' + encodeURIComponent('https://evil.example/'));
+  await expect(page.locator('form.ex-login input[name=next]')).toHaveValue('/exam');
 });
 
 test('signed in: chapter questions render grouped by concept, without link lines', async ({ page }) => {
@@ -164,38 +152,46 @@ test('signed in: question search renders cards without link lines', async ({ pag
   await expect(page.locator('#ex-search-results .ex-goto, #ex-search-results .ex-sibs')).toHaveCount(0);
 });
 
-test('a page restored from the back/forward cache keeps its questions', async ({ page }) => {
+test('the sign-in bar offers logout when signed in and login when signed out', async ({ page }) => {
+  await signIn(page);
+  await page.goto('/exam');
+  const bar = page.locator('.ex-auth');
+  await expect(bar).toContainText('已登入題庫');
+  await expect(bar.locator('form')).toHaveAttribute('action', '/api/exam/logout');
+  await expect(bar.locator('form')).toHaveAttribute('method', 'post');
+  await expect(bar.getByRole('button', { name: '登出' })).toBeVisible();
+  await page.unrouteAll();
+  await signOut(page);
+  await page.goto('/exam/bcsc12-4');
+  await expect(page.locator('.ex-auth a')).toHaveAttribute('href', '/exam/login?next=%2Fexam%2Fbcsc12-4');
+  await page.goto('/exam/login');
+  await expect(page.locator('.ex-auth')).toHaveCount(0);
+});
+
+test('a page restored from the back/forward cache after logout drops the bank', async ({ page }) => {
   await signIn(page);
   await page.goto('/exam/bcsc12-4');
   await expect(page.locator('#ex-chapter-qs .ex-q').first()).toBeVisible();
-  const count = await page.locator('.ex-q').count();
   await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })));
-  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
-  await expect(page.locator('.ex-q')).toHaveCount(count);
+  await expect(page.locator('.ex-q')).toHaveCount(0);
+  await page.unrouteAll();
+  await signOut(page);
+  await Promise.all([
+    page.waitForEvent('load'),
+    page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true }))),
+  ]);
+  await expect(page.locator('#ex-chapter-qs .ex-locked')).toBeVisible();
+  await expect(page.locator('.ex-q')).toHaveCount(0);
 });
 
-test('the wrong-answer notebook restored from the back/forward cache shows answers given meanwhile', async ({ page }) => {
+test('signed in: a card shows the exam year of its question, or what a rewrite is based on', async ({ page }) => {
   await signIn(page);
-  const q = JSON.parse(await bank()).questions.filter(x => x.answer).slice(0, 2);
-  await page.goto('/exam/review');
-  await page.evaluate(n => localStorage.setItem('hs:exam:wrong', JSON.stringify([n])), q[0].n);
-  await page.reload();
-  await expect(page.locator(`#ex-review-list #q-${q[0].n}`)).toBeVisible();
-  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })));
-  // meanwhile, on another page: q[0] answered right, q[1] answered wrong
-  await page.evaluate(n => localStorage.setItem('hs:exam:wrong', JSON.stringify([n])), q[1].n);
-  await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
-  await expect(page.locator(`#ex-review-list #q-${q[1].n}`)).toBeVisible();
-  await expect(page.locator(`#ex-review-list #q-${q[0].n}`)).toHaveCount(0);
-});
-
-test('a question that appeared in a paper of a known year shows the year and its number', async ({ page }) => {
-  await signIn(page);
-  const q = JSON.parse(await bank()).questions.find(x => x.yr && x.ch.length);
-  await page.goto('/exam/' + 'bcsc' + q.ch[0] + '#q-' + q.n);
-  await expect(page.locator(`#q-${q.n} .ex-q-head .ex-q-yr`)).toHaveText(q.yr);
-  const plain = JSON.parse(await bank()).questions.find(x => !x.yr && x.ch.includes(q.ch[0]));
-  if (plain) await expect(page.locator(`#q-${plain.n} .ex-q-yr`)).toHaveCount(0);
+  const qs = JSON.parse(await bank()).questions;
+  for (const [field, cls] of [['yr', '.ex-q-yr:not(.ex-q-rw)'], ['src', '.ex-q-rw']]) {
+    const q = qs.find(x => x[field]);
+    await page.goto('/exam/bcsc' + q.ch[0]);
+    await expect(page.locator(`#q-${q.n} .ex-q-head ${cls}`)).toHaveText(q[field]);
+  }
 });
 
 test('exam figures are not public files; signed-in cards embed them', async ({ page, request }) => {

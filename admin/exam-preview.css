@@ -169,9 +169,18 @@ body:not(.ex-quiz) .ex-opt input{display:none}
 .ex-hitbox{background:var(--ex-card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:14px;line-height:1.8}
 .ex-hitbox a{color:var(--ex-accent);font-weight:700}
 .ex-hitbox mark{background:#fef08a;color:inherit;border-radius:3px}
-.ex-loading{background:var(--ex-soft);border:1px dashed var(--border);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.8}
+.ex-locked{background:var(--ex-soft);border:1px dashed var(--border);border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.8}
+.ex-locked a{font-weight:700}
+.ex-login{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
 .ex-label{font-weight:700;font-size:14px}
+.ex-login .ex-input{flex:1;min-width:12em}
+.ex-login-msg{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px 12px;font-size:14px;color:#991b1b}
+.ex-link-btn{background:none;border:0;padding:0;color:var(--ex-accent);text-decoration:underline;cursor:pointer;font-size:13px}
 .ex-qs-tools[hidden]{display:none}
+.ex-auth{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:6px 10px;font-size:13px;color:var(--ink-2);margin:-8px 0 12px}
+.ex-auth[hidden]{display:none}
+.ex-auth form{display:inline;margin:0}
+.ex-auth a{color:var(--ex-accent);font-weight:600}
 .ex-doubt{margin:10px 0 0;border:1px solid #f3d38a;background:#fffbeb;border-radius:10px;padding:8px 12px;font-size:13.5px;line-height:1.8}
 .ex-doubt p{margin:4px 0}
 .ex-doubt-h{font-weight:700;color:#92400e}
@@ -348,7 +357,8 @@ body.ex-quiz .ex-q:not(.ex-done):not(.ex-unanswered) .ex-q-no::after{content:"ãƒ
 :root[data-theme="dark"] .ex-note .ex-trap>h3:first-child{background:#c24141}
 :root[data-theme="dark"] .ex-note .ex-ddx tbody td:first-child{background:var(--ex-soft)}
 :root[data-theme="dark"] .ex-toc{border-color:#36404b}
-:root[data-theme="dark"] .ex-loading{border-color:#36404b}
+:root[data-theme="dark"] .ex-locked{border-color:#36404b}
+:root[data-theme="dark"] .ex-login-msg{background:#3a1a1a;border-color:#7f1d1d;color:#fecaca}
 :root[data-theme="dark"] .ex-doubt{background:#2a2414;border-color:#5c4a1a}
 :root[data-theme="dark"] .ex-doubt-tag{background:#5c4a1a;color:#fde68a}
 :root[data-theme="dark"] .ex-doubt-h{color:#fcd34d}

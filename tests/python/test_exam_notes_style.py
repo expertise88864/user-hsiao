@@ -64,8 +64,7 @@ class CitationMarkupTests(unittest.TestCase):
 
 
 class NoAnswerInPublicNotesTests(unittest.TestCase):
-    """Notes never name a question's answer (PR #73 review, 2026-10-28; kept after the bank
-    was opened on 2026-11-18, so the notes do not hand the reader the answers)."""
+    """Notes are public; question answers are login-only (PR #73 review, 2026-10-28)."""
 
     def test_answer_disclosures_are_rejected(self):
         for text in ("<li>課本寫 X。本題官方答案為 A。</li>", "<li>答案為 B。</li>", "<li>故選 C。</li>",
