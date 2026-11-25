@@ -215,6 +215,36 @@ test('signed in: doubtful answer keys show 答案存疑 with sources', async ({ 
   await expect(box.locator('.ex-doubt-exam')).toContainText('考試答案 C');
 });
 
+test('signing in from a search keeps the search term', async ({ page }) => {
+  await signOut(page);
+  const term = 'HLA-B*1502 青光眼';
+  await page.goto('/exam/search?q=' + encodeURIComponent(term));
+  const next = '/exam/search?q=' + encodeURIComponent(term);
+  const link = page.locator('#ex-search-results .ex-search-qs .ex-locked a');
+  await expect(link).toHaveAttribute('href', '/exam/login?next=' + encodeURIComponent(next));
+  await link.click();
+  await expect(page.locator('form.ex-login input[name=next]')).toHaveValue(next);
+});
+
+test('a failed bank load is retried by the next action, and a failed Anki export says so', async ({ page }) => {
+  let fail = true;
+  const body = await bank();
+  await page.route('**/api/exam/data**', route => (fail
+    ? route.fulfill({ status: 500, contentType: 'application/json', body: '{}' })
+    : route.fulfill({ status: 200, contentType: 'application/json', body })));
+  await page.goto('/exam/review');
+  const alerts = [];
+  page.on('dialog', d => { alerts.push(d.message()); d.accept(); });
+  await page.locator('.ex-anki').first().click();
+  await expect.poll(() => alerts).toEqual(['題庫載入或匯出失敗，請重新整理頁面再試一次。']);
+  await page.goto('/exam/practice');
+  await page.getByRole('button', { name: '產生試卷並開始計時' }).click();
+  await expect(page.locator('#ex-practice-list .ex-pending')).toHaveText('題庫載入失敗，請重新整理頁面。');
+  fail = false;
+  await page.getByRole('button', { name: '產生試卷並開始計時' }).click();
+  await expect(page.locator('#ex-practice-list .ex-q').first()).toBeVisible();
+});
+
 test('signed in: Anki export keeps the 答案存疑 sources', async ({ page }) => {
   await signIn(page);
   await page.goto('/exam/review');

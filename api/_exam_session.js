@@ -56,11 +56,12 @@ export function clearedExamCookie() {
   return `${EXAM_COOKIE}=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0`;
 }
 
-// Only same-site /exam pages (optionally a question anchor) are valid redirect
-// targets, so the login form cannot be used as an open redirect.
+// Only same-site /exam pages (optionally a question anchor, or the search page with its
+// percent-encoded term) are valid redirect targets, so the login form cannot be used as
+// an open redirect. exam.js LOGIN_NEXT is the same pattern.
 export function safeNext(value) {
   const next = typeof value === 'string' ? value : '';
-  return /^\/exam(?:\/[a-z0-9-]+)?(?:#q-\d{1,5})?$/.test(next) ? next : '/exam';
+  return /^\/exam(?:(?:\/[a-z0-9-]+)?(?:#q-\d{1,5})?|\/search\?q=(?:[\w.!~*'()-]|%[0-9A-F]{2}){1,600})$/.test(next) ? next : '/exam';
 }
 
 // Login and logout are plain form POSTs from /exam/login. Refuse cross-site

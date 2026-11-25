@@ -62,11 +62,20 @@ test('a wrong or missing password sets no cookie and returns to the login page',
 
 test('next can only point back into /exam (no open redirect)', async () => {
   const { session } = await load();
-  for (const bad of ['https://evil.example/', '//evil.example', '/exam/../admin', '/blog/x', '/exam?x=1', '/exam/bcsc12-4#x', 42, undefined]) {
+  for (const bad of ['https://evil.example/', '//evil.example', '/exam/../admin', '/blog/x', '/exam?x=1', '/exam/bcsc12-4#x', 42, undefined,
+    '/exam/search?q=', '/exam/search?q=a&x=1', '/exam/search?q=a\r\nSet-Cookie:x', '/exam/search?q=%zz', '/exam/search?q=a#x',
+    '/exam/practice?q=a', '/exam/search?q=' + 'a'.repeat(601)]) {
     assert.equal(session.safeNext(bad), '/exam');
   }
   assert.equal(session.safeNext('/exam/practice'), '/exam/practice');
   assert.equal(session.safeNext('/exam/bcsc6-27#q-873'), '/exam/bcsc6-27#q-873');
+  const search = '/exam/search?q=' + encodeURIComponent("HLA-B*1502 青光眼 (50%)");
+  assert.equal(session.safeNext(search), search);
+  const { readFileSync } = await import('node:fs');
+  const js = readFileSync(new URL('../../exam/exam.js', import.meta.url), 'utf8');
+  const mod = readFileSync(new URL('../../api/_exam_session.js', import.meta.url), 'utf8');
+  const pattern = js.match(/var LOGIN_NEXT = (\/.+\/);/)[1];
+  assert.ok(mod.includes(pattern + '.test(next)'), 'exam.js and safeNext accept the same targets');
 });
 
 test('login is rate limited per client', async () => {

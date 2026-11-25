@@ -552,7 +552,8 @@
     return notesPromise;
   }
   var bankPromise = null;
-  // Signed-in only: the server answers 401 without a valid session cookie.
+  // Signed-in only: the server answers 401 without a valid session cookie. A failed load
+  // is not kept: the next call asks again.
   function bankData() {
     if (!bankPromise) {
       bankPromise = fetch('/api/exam/data', { credentials: 'same-origin', cache: 'no-store' })
@@ -566,6 +567,8 @@
           document.body.setAttribute('data-exam-bank', '1');
           return r.json();
         });
+      var asked = bankPromise;
+      asked.catch(function () { if (bankPromise === asked) bankPromise = null; });
     }
     return bankPromise;
   }
@@ -602,8 +605,13 @@
         notes: both[0].notes, books: both[0].books };
     });
   }
+  // Where the login may return to (api/_exam_session.js safeNext): an /exam page, or the
+  // search page with its term.
+  var LOGIN_NEXT = /^\/exam(?:(?:\/[a-z0-9-]+)?(?:#q-\d{1,5})?|\/search\?q=(?:[\w.!~*'()-]|%[0-9A-F]{2}){1,600})$/;
   function loginHref() {
-    return '/exam/login?next=' + encodeURIComponent(location.pathname);
+    var q = location.pathname === '/exam/search' && new URLSearchParams(location.search).get('q');
+    var next = location.pathname + (q ? '?q=' + encodeURIComponent(q) : '');
+    return '/exam/login?next=' + encodeURIComponent(LOGIN_NEXT.test(next) ? next : location.pathname);
   }
   // Replace a container's content with a login prompt (or a load error).
   function lockedNote(node, err, what) {
@@ -2754,7 +2762,7 @@
   function initLogin(form) {
     var params = new URLSearchParams(location.search);
     var next = params.get('next') || '';
-    if (/^\/exam(?:\/[a-z0-9-]+)?(?:#q-\d{1,5})?$/.test(next)) form.querySelector('input[name=next]').value = next;
+    if (LOGIN_NEXT.test(next)) form.querySelector('input[name=next]').value = next;
     var msg = document.querySelector('.ex-login-msg');
     var text = { wrong: '密碼不正確，請再試一次。', rate: '嘗試次數過多，請 10 分鐘後再試。',
       config: '題庫登入尚未設定，請聯絡網站管理者。' }[params.get('error') || ''] || (params.get('out') ? '已登出這台裝置。' : '');
@@ -3267,6 +3275,7 @@
           download(scope === 'wrong' ? 'ophtho-board-wrong.csv' : 'ophtho-board-answered.csv', ankiRows(rows));
         }).catch(function (err) {
           if (err && err.login) location.href = loginHref();
+          else window.alert('題庫載入或匯出失敗，請重新整理頁面再試一次。');
         });
       });
     });
