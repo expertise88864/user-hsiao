@@ -224,6 +224,15 @@ test('signing in from a search keeps the search term', async ({ page }) => {
   await expect(link).toHaveAttribute('href', '/exam/login?next=' + encodeURIComponent(next));
   await link.click();
   await expect(page.locator('form.ex-login input[name=next]')).toHaveValue(next);
+  // The sign-in bar follows every search submitted on the page.
+  await page.goto('/exam/search');
+  const bar = page.locator('.ex-auth a');
+  await expect(bar).toHaveAttribute('href', '/exam/login?next=%2Fexam%2Fsearch');
+  for (const word of ['AREDS2', 'glaucoma']) {
+    await page.locator('#ex-q').fill(word);
+    await page.locator('[data-search-form] button[type=submit]').click();
+    await expect(bar).toHaveAttribute('href', '/exam/login?next=' + encodeURIComponent('/exam/search?q=' + word));
+  }
 });
 
 test('a failed bank load is retried by the next action, and a failed Anki export says so', async ({ page }) => {

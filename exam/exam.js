@@ -1452,6 +1452,9 @@
       ev.preventDefault();
       var q = input.value.trim();
       try { history.replaceState(null, '', q ? '?q=' + encodeURIComponent(q) : location.pathname); } catch (e) { /* ignore */ }
+      // The sign-in bar returns to the search as it is now.
+      var barLink = document.querySelector('.ex-auth a');
+      if (barLink) barLink.href = loginHref();
       runSearch(q, out);
     });
   }
